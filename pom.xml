@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2013, 2019 Oracle and/or its affiliates. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.eclipse.ee4j</groupId>
+        <artifactId>project</artifactId>
+        <version>1.0.5</version>
+    </parent>
+
+    <groupId>org.eclipse.ee4j.faces</groupId>
+    <artifactId>faces-parent</artifactId>
+    <packaging>pom</packaging>
+    <version>2.3.2-SNAPSHOT</version>
+    
+    <name>Jakarta Server Faces Parent</name>
+    <description>
+        Jakarta Server Faces defines an MVC framework for building user interfaces for web applications, 
+        including UI components, state management, event handing, input validation, page navigation, and 
+        support for internationalization and accessibility.
+    </description>
+    <url>https://github.com/eclipse-ee4j/faces-api</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/faces-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/faces-api.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/faces-api</url>
+    </scm>
+
+    <properties>
+        <non.final>false</non.final>
+        <extension.name>javax.faces</extension.name>
+        <spec.version>2.3</spec.version>
+        <findbugs.version>2.4.0</findbugs.version>
+        <findbugs.skip>false</findbugs.skip>
+        <findbugs.exclude>exclude-common.xml</findbugs.exclude>
+        <findbugs.threshold>Low</findbugs.threshold>
+    </properties>
+
+    <modules>
+        <module>api</module>
+        <module>spec</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>EPL 2.0</name>
+            <url>http://www.eclipse.org/legal/epl-2.0</url>
+            <distribution>repo</distribution>
+        </license>
+        <license>
+            <name>GPL2 w/ CPE</name>
+            <url>https://www.gnu.org/software/classpath/license.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+</project>

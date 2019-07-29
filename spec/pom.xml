@@ -26,6 +26,7 @@
     </parent>
     
     <artifactId>faces-spec</artifactId>
+    <version>2.3.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     
     <name>Jakarta Server Faces Specification</name>
