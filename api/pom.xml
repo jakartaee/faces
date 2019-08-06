@@ -48,7 +48,7 @@
     <url>https://github.com/eclipse-ee4j/faces-api</url>
     
     <properties>
-        <mojarra.version>2.3.11</mojarra.version>
+        <mojarra.version>2.3.13</mojarra.version>
     </properties>
     
     <licenses>
@@ -340,23 +340,24 @@
                         <configuration>
                             <source>1.8</source>
                             <additionalJOption>-Xdoclint:none</additionalJOption>
+                            <description>Jakarta Server Fages API documentation</description>
+                            <doctitle>Jakarta Server Fages API documentation</doctitle>
+                            <windowtitle>Jakarta Server Fages API documentation</windowtitle>
+                            <header><![CDATA[<br>Jakarta Server Fages API v${project.version}]]></header>
+                            <bottom><![CDATA[
+Comments to: <a href="mailto:faces-dev@eclipse.org">faces-dev@eclipse.org</a>.<br>
+Copyright &#169; 2019 Eclipse Foundation. All rights reserved.<br>
+Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.]]>
+                            </bottom>
+                            <docfilessubdirs>true</docfilessubdirs>
                             <groups>
                                 <group>
-                                    <title>Jakarta Authorization API Documentation</title>
+                                    <title>Jakarta Server Faces API Documentation</title>
                                     <packages>
                                         javax.faces.*
                                     </packages>
                                 </group>
                             </groups>
-                            <bottom>
-<![CDATA[Copyright &#169; 1997-2018,
-    <a href="http://www.oracle.com">Oracle</a>
-    and/or its affiliates. All Rights Reserved.
-    Use is subject to
-    <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.
-    <br>Comments to : faces-dev@eclipse.org
-]]>
-                    </bottom>
                         </configuration>
                     </execution>
                 </executions>
@@ -420,11 +421,10 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Needs to be updated still -->
         <dependency>    
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
-            <version>1.1.1</version>
+            <version>1.1.2</version>
             <scope>provided</scope>
         </dependency>
 
