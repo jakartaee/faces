@@ -340,10 +340,10 @@
                         <configuration>
                             <source>1.8</source>
                             <additionalJOption>-Xdoclint:none</additionalJOption>
-                            <description>Jakarta Server Fages API documentation</description>
-                            <doctitle>Jakarta Server Fages API documentation</doctitle>
-                            <windowtitle>Jakarta Server Fages API documentation</windowtitle>
-                            <header><![CDATA[<br>Jakarta Server Fages API v${project.version}]]></header>
+                            <description>Jakarta Server Pages API documentation</description>
+                            <doctitle>Jakarta Server Pages API documentation</doctitle>
+                            <windowtitle>Jakarta Server Pages API documentation</windowtitle>
+                            <header><![CDATA[<br>Jakarta Server Pages API v${project.version}]]></header>
                             <bottom><![CDATA[
 Comments to: <a href="mailto:faces-dev@eclipse.org">faces-dev@eclipse.org</a>.<br>
 Copyright &#169; 2019 Eclipse Foundation. All rights reserved.<br>
