@@ -2,7 +2,7 @@
 // Copyright (c) 2017, 2019 Contributors to the Eclipse Foundation
 //
 
-= Jakarta Server Faces 2.3
+= Jakarta Server Faces
 :authors: Jakarta Server Faces Team, https://projects.eclipse.org/projects/ee4j.faces
 :email: https://dev.eclipse.org/mailman/listinfo/faces-dev
 :version-label!:
