@@ -205,7 +205,6 @@
                             <classifier>sources</classifier>
                             <outputDirectory>src/main/java</outputDirectory>
                             <includes>**/*.java</includes>
-                            <excludes>**/JsfRIRuntimePopulator_.java</excludes>
                         </artifactItem>
                         
                         <artifactItem>
