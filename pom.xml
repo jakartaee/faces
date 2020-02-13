@@ -44,16 +44,6 @@
         <url>https://github.com/eclipse-ee4j/faces-api</url>
     </scm>
 
-    <properties>
-        <non.final>false</non.final>
-        <extension.name>javax.faces</extension.name>
-        <spec.version>2.3</spec.version>
-        <findbugs.version>2.4.0</findbugs.version>
-        <findbugs.skip>false</findbugs.skip>
-        <findbugs.exclude>exclude-common.xml</findbugs.exclude>
-        <findbugs.threshold>Low</findbugs.threshold>
-    </properties>
-
     <modules>
         <module>api</module>
         <module>spec</module>
