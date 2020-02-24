@@ -1,0 +1,1640 @@
+[[a1823]]
+== Standard User Interface Components
+
+In addition to the abstract base class
+_UIComponent_ and the abstract base class _UIComponentBase_ , described
+in the previous chapter, JSF provides a number of concrete user
+interface component implementation classes that cover the most common
+requirements. In addition, component writers will typically create new
+components by subclassing one of the standard component classes (or the
+_UIComponentBase_ class). It is anticipated that the number of standard
+component classes will grow in future versions of the JavaServer Faces
+specification.
+
+Each of these classes defines the
+render-independent characteristics of the corresponding component as
+JavaBeans component properties. Some of these properties may be _value
+expressions_ that indirectly point to values related to the current
+request, or to the properties of model data objects that are accessible
+through request-scope, session-scope, or application-scope attributes.
+In addition, the _rendererType_ property of each concrete implementation
+class is set to a defined value, indicating that decoding and encoding
+for this component will (by default) be delegated to the corresponding
+_Renderer_ .
+
+=== Standard User Interface Components
+
+This section documents the features and
+functionality of the standard _UIComponent_ classes and implementations
+that are included in JavaServer Faces.
+
+[P1-start-componentConstant]The
+implementation for each standard _UIComponent_ class must specify two
+public static final String constant values:
+
+ _COMPONENT_TYPE_ -- The standard component
+type identifier under which the corresponding component class is
+registered with the _Application_ object for this application. This
+value may be used as a parameter to the _createComponent()_ method.
+
+{empty} _COMPONENT_FAMILY_ -- The standard
+component family identifier used to select an appropriate Renderer for
+this component.[P1-end]
+
+For all render-independent properties in the
+following sections (except for _id_ , _scope_ , and _var_ ) the value
+may either be a literal, or it may come from a value expression. Please
+see link:JSF.html#a2349[See Value Expressions] for more
+information.
+
+The following UML class diagram shows the
+classes and interfaces in the package _javax.faces.component._
+
+=== [[a1834]]The _javax.faces.component_ package
+
+image:SF-22.png[image]
+
+=== UIColumn
+
+ _UIColumn_ (extends _UIComponentBase_ ) is a
+component that represents a single column of data with a parent _UIData_
+component. The child components of a _UIColumn_ will be processed once
+for each row in the data managed by the parent _UIData_ .
+
+=== Component Type
+
+The standard component type for _UIColumn_
+components is “javax.faces.Column”.
+
+=== Properties
+
+ _UIColumn_ adds the following
+render-independent properties:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _footer_ |RW
+| _UIComponent_
+|Convenience methods to get and set the
+“footer” facet for this component.
+
+| _header_ |RW
+|UIComponent
+|Convenience methods to get and set the
+“header” facet for this component.
+|===
+
+ _[P1-start-uicolumn]UIColumn_ specializes
+the behavior of render-independent properties inherited from the parent
+class as follows:
+
+The default value of the _family_ property
+must be set to “javax.faces.Column”.
+
+{empty}The default value of the
+_rendererType_ property must be set to _null_ .[P1-end]
+
+=== [[a1852]]Methods
+
+ _UIColumn_ adds no new processing methods.
+
+=== Events
+
+ _UIColumn_ adds no new event handling
+methods.
+
+=== UICommand
+
+ _UICommand_ (extends _UIComponentBase;_
+implements _ActionSource_ ) is a control which, when activated by the
+user, triggers an application-specific “command” or “action.” Such a
+component is typically rendered as a push button, a menu item, or a
+hyperlink.
+
+=== Component Type
+
+The standard component type for _UICommand_
+components is “javax.faces. _Command_ ”.
+
+=== Properties
+
+ _UICommand_ adds the following
+render-independent properties.
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _value_ |RW
+| _Object_ |The
+value of this component, normally used as a label.
+|===
+
+See link:JSF.html#a1090[See
+ActionSource] for information about properties introduced by the
+implemented classes.
+
+ _[P1-start-uicommand]UICommand_ components
+specialize the behavior of render-independent properties inherited from
+the parent class as follows:
+
+The default value of the _family_ property
+must be set to “javax.faces.Command”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “javax.faces.Button”.[P1-end]
+
+=== Methods
+
+ _UICommand_ adds no new processing methods.
+See link:JSF.html#a1090[See ActionSource] for information about
+methods introduced by the implemented classes.
+
+=== Events
+
+ _UICommand_ adds no new event processing
+methods. See link:JSF.html#a1090[See ActionSource] for
+information about event handling introduced by the implemented classes.
+
+=== UIData
+
+ _UIData_ (extends _UIComponentBase;_
+implements _NamingContainer_ ) is a component that represents a data
+binding to a collection of data objects represented by a DataModel
+instance (see link:JSF.html#a2281[See DataModel]). Only children
+of type _UIColumn_ should be processed by renderers associated with this
+component.
+
+=== Component Type
+
+The standard component type for _UIData_
+components is “javax.faces.Data”
+
+=== [[a1878]]Properties
+
+ _UIData_ adds the following
+render-independent properties.
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _dataModel_
+|protected RW |
+_DataModel_ |The internal value
+representation of the _UIData_ instance. Subclasses might write to this
+property if they want to restore the internal model during the _Restore
+View Phase_ or if they want to explicitly refresh the model for the
+_Render Response_ phase. __
+
+| _first_ |RW
+| _int_
+|Zero-relative row number of the first row in
+the underlying data model to be displayed, or zero to start at the
+beginning of the data model.
+
+| _footer_ |RW
+| _UIComponent_
+|Convenience methods to get and set the
+“footer” facet for this component.
+
+| _header_ |RW
+|UIComponent
+|Convenience methods to get and set the
+“header” facet for this component.
+
+|rowCount |RO
+|int |The number
+of rows in the underlying _DataModel_ , which can be -1 if the number of
+rows is unknown.
+
+|rowAvailable |RO
+|boolean |Return
+_true_ if there is row data available for the currently specified
+_rowIndex_ ; else return _false_ .
+
+|rowData |RO
+|Object |The data
+object representing the data for the currently selected _rowIndex_
+value.
+
+|rowIndex |RW
+|int
+|Zero-relative index of the row currently
+being accessed in the underlying _DataModel_ , or -1 for no current row.
+See below for further information.
+
+|rows |RW
+|int |The number
+of rows (starting with the one identified by the _first_ property) to be
+displayed, or zero to display the entire set of available rows.
+
+|value |RW
+|Object |The
+_DataModel_ instance representing the data to which this component is
+bound, or a collection of data for which a _DataModel_ instance is
+synthesized. See below for more information.
+
+|var |RW
+|String |The
+request-scope attribute (if any) under which the data object for the
+current row will be exposed when iterating.
+|===
+
+See link:JSF.html#a1134[See
+NamingContainer] for information about properties introduced by the
+implemented classes.
+
+ _[P1-start-uidata]UIData_ specializes the
+behavior of render-independent properties inherited from the parent
+component as follows:
+
+The default value of the _family_ property
+must be set to “javax.faces.Data”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “ _javax.faces.Table_ ”.[P1-end]
+
+The current value identified by the _value_
+property is normally of type _DataModel_ .
+[P1-start-uidataModel]However, a _DataModel_ wrapper instance must
+automatically be provided by the JSF implementation if the current value
+is of one of the following types:
+
+ _java.util.List_
+
+Array of _java.util.Object_
+
+ _java.sql.ResultSet_ (which therefore also
+supports _javax.sql.RowSet_ )
+
+ _javax.servlet.jsp.jstl.sql.Result_
+
+java.util.Map (uses the wrapper for
+java.lang.Iterable by providing access to java.util.Map#entrySet())
+
+{empty}Any other Java object is wrapped by a
+_DataModel_ instance with a single row.[P1-end]
+
+Convenience implementations of _DataModel_
+are provided in the _javax.faces.model_ package for each of the above
+(see link:JSF.html#a2302[See Concrete Implementations]), and
+must be used by the _UIData_ component to create the required
+_DataModel_ wrapper.
+
+=== [[a1921]]Methods
+
+ _UIData_ adds no new processing methods.
+However, the getDataModel() method is now protected, so implementations
+have access to the underlying data model. See
+link:JSF.html#a1134[See NamingContainer] for information about
+methods introduced by the implemented classes.
+
+UIData specializes the behavior of the
+_getClientId()_ method inherited from its parent, in order to create a
+client identifier that includes the current rowIndex value (if it is not
+-1). Because _UIData_ is a _NamingContainer_ , this makes it possible
+for rendered client identifiers of child components to be row-specific.
+
+ _UIData_ specializes the behavior of the
+_queueEvent()_ method inherited from its parent, to wrap the specified
+event (bubbled up from a child component) in a private wrapper
+containing the current rowIndex value, so that this rowIndex can be
+reset when the event is later broadcast.
+
+ _UIData_ specializes the behavior of the
+_broadcast()_ method to unwrap the private wrapper (if this event was
+wrapped), and call _setRowIndex()_ to re-establish the context in which
+the event was queued, followed by delivery of the event.
+
+ _[P1-start-uidataDecode]UIData_ specializes
+the behavior of the _processDecodes()_ , _processValidators()_ , and
+_processUpdates()_ methods inherited from its parent as follows:
+
+For each of these methods, the _UIData_
+implementation must iterate over each row in the underlying data model,
+starting with the row identified by the _first_ property, for the number
+of rows indicated by the _rows_ property, by calling the _setRowIndex()_
+method.
+
+{empty}When iteration is complete, set the
+_rowIndex_ property of this component, and of the underlying _DataModel_
+, to zero, and remove any request attribute exposed via the _var_
+property.[P1-end]
+
+ _UIData_ specializes the behavior of
+_invokeOnComponent()_ inherited from _UIComponentBase_ to examine the
+argument _clientId_ and extract the _rowIndex_ , if any, and position
+the data properly before proceeding to locate the component and invoke
+the callback. Upon normal or exception return from the callback the data
+must be repositioned to match how it was before invoking the callback.
+Please see the javadocs for _UIData.invokeOnComponent()_ for more
+details.
+
+=== Events
+
+ _UIData_ adds no new event handling methods.
+Seelink:JSF.html#a1134[See NamingContainer] for information
+about event handling introduced by the implemented classes.
+
+=== [[a1932]]UIForm
+
+ _UIForm_ (extends _UIComponentBase;_
+implements _NamingContainer_ ) is a component that represents an input
+form to be presented to the user, and whose child components (among
+other things) represent the input fields to be included when the form is
+submitted.
+
+[P1-start-uiformEncodeEnd]The _encodeEnd()_
+method of the renderer for _UIForm_ must call _ViewHandler.writeState()_
+_before_ writing out the markup for the closing tag of the
+form.[P1-end]This allows the state for multiple forms to be saved.
+
+=== Component Type
+
+The standard component type for _UIForm_
+components is “javax.faces. _Form_ ”.
+
+=== Properties
+
+ _UIForm_ adds the following
+render-independent properties.
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _prependId_ |RW
+| _boolean_ |If
+true, this _UIForm_ instance does allow its id to be pre-pendend to its
+descendent’s id during the generation of clientIds for the descendents.
+The default value of this property is _true_ . __
+|===
+
+ _[P1-start-uiform]UIForm_ specializes the
+behavior of render-independent properties inherited from the parent
+component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.Form_ ”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “ _javax.faces.Form_ ”.[P1-end]
+
+=== Methods.
+
+[width="100%",cols="100%",]
+|===
+a|
+public boolean isSubmitted();
+
+public void setSubmitted(boolean submitted)
+
+|===
+
+[P1-start-uiform-setSubmitted]The
+_setSubmitted()_ method of each _UIForm_ instance in the view must be
+called during the _Apply Request Values_ phase of the request processing
+lifecycle, during the processing performed by the _UIComponent.decode()_
+method. If this _UIForm_ instance represents the form actually being
+submitted on this request, the parameter must be set to _true_ ;
+otherwise, it must be set to _false_ .[P1-end] The standard
+implementation of _UIForm_ delegates the responsibility for calling this
+method to the _Renderer_ associated with this instance..
+
+{empty}[P1-start-uiform-submitted]The value
+of a _UIForm'_ s _submitted_ property must not be saved as part of its
+state.[P1-end]
+
+[width="100%",cols="100%",]
+|===
+|public void processDecodes(FacesContext
+context);
+|===
+
+Override _UIComponent.processDecodes()_ to
+ensure that the _submitted_ property is set for this component. If the
+_submitted_ property decodes to false, do not process the children and
+return immediately.
+
+[width="100%",cols="100%",]
+|===
+a|
+public void processValidators(FacesContext
+context);
+
+public void processUpdates(FacesContext
+context);
+
+|===
+
+Override _processValidators()_ and
+_processUpdates()_ to ensure that the children of this _UIForm_ instance
+are only processed if _isSubmitted()_ returns true.
+
+[width="100%",cols="100%",]
+|===
+|public void saveState(FacesContext context);
+|===
+
+[P1-start-uiformSaveState]The _saveState()_
+method of UIForm must call _setSubmitted(false)_ before calling
+_super.saveState()_ as an extra precaution to ensure the submitted state
+is not persisted across requests.[P1-end].
+
+[width="100%",cols="100%",]
+|===
+|protected String
+getContainerClientId(FacesContext context);
+|===
+
+{empty}[P1-start-uiformPrependId]Override the
+parent method to ensure that children of this _UIForm_ instance in the
+view have the form’s _clientId_ prepended to their _clientId_ s if and
+only if the form’s _prependId_ property is _true_ .[P1-end]
+
+=== Events
+
+ _UIForm_ adds no new event handling methods.
+
+=== UIGraphic
+
+ _UIGraphic_ (extends _UIComponentBase_ ) is
+a component that displays a graphical image to the user. The user cannot
+manipulate this component; it is for display purposes only.
+
+=== Component Type
+
+The standard component type for _UIGraphic_
+components is “javax.faces. _Graphic_ ”.
+
+=== Properties
+
+The following render-independent properties
+are added by the UIGraphic component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _url_ |RW
+| _String_ |The
+URL of the image to be displayed. If this URL begins with a _/_
+character, it is assumed to be relative to the context path of the
+current web application. This property is a typesafe alias for the
+_value_ property, so that the actual URL to be used can be acquired via
+a value expression.
+
+| _value_ |RW
+| _Object_ |The
+value of this component, normally used as a URL.
+|===
+
+ _[P1-start-uigraphic]UIGraphic_ specializes
+the behavior of render-independent properties inherited from the parent
+component as follows:
+
+The default value of the _family_ property
+must be set to “javax.faces.Graphic”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “ _javax.faces.Image_ ”.[P1-end]
+
+=== Methods
+
+ _UIGraphic_ adds no new processing methods.
+
+=== Events
+
+ _UIGraphic_ does not originate any standard
+events.
+
+=== [[a1981]]UIInput
+
+ _UIInput_ (extends _UIOutput_ , implements
+_EditableValueHolder_ ) is a component that both displays the current
+value of the component to the user (as _UIOutput_ components do), and
+processes request parameters on the subsequent request that need to be
+decoded.
+
+=== Component Type
+
+The standard component type for _UIInput_
+components is “ _javax.faces.Input_ ”.
+
+=== Properties
+
+ _UIInput_ adds the following renderer
+independent properties.:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _requiredMessage_
+|RW | _String_
+|ValueExpression enabled property. If
+non-null, this property is used as the _summary_ and _detail_ strings of
+the _FacesMessage_ that is queued on the _FacesContext_ instead of the
+default message for the required validaiton failure. Note that the
+message is fully internationalizable via either the _f:loadBundle_ tag
+or via _ResourceBundle_ access from the EL.
+
+| _converterMessage_
+|RW | _String_
+|ValueExpression enabled property. If
+non-null, this property is used as the _summary_ and _detail_ strings of
+the _FacesMessage_ that is queued on the _FacesContext_ instead of the
+default message for conversion failure. Note that the message is fully
+internationalizable via either the _f:loadBundle_ tag or via
+_ResourceBundle_ access from the EL.
+
+| _validatorMessage_
+|RW | _String_
+|ValueExpression enabled property. If
+non-null, this property is used as the _summary_ and _detail_ strings of
+the _FacesMessage_ that is queued on the _FacesContext_ instead of the
+default message for validation failure. Note that the message is fully
+internationalizable via either the _f:loadBundle_ tag or via
+_ResourceBundle_ access from the EL.
+|===
+
+
+
+See link:JSF.html#a1192[See
+EditableValueHolder] for information about properties introduced by the
+implemented interfaces.
+
+[P1-start-uiinput]UIInput specializes the
+behavior of render-independent properties inherited from the parent
+component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.Input_ ”.
+
+The default value of the _rendererType_
+property must be set to “ _javax.faces.Text_ ”.
+
+{empty}The _Converter_ specified by the
+_converter_ property (if any) must also be used to perform
+String->Object conversions during decoding.[P1-end]
+
+If the _value_ property has an associated
+_ValueExpression_ , the _setValue()_ method of that _ValueExpression_
+will be called during the _Update Model Values_ phase of the request
+processing lifecycle to push the local value of the component back to
+the corresponding model bean property.
+
+=== [[a2005]]Methods
+
+The following method is used during the
+_Update Model Values_ phase of the request processing lifecycle, to push
+the converted (if necessary) and validated (if necessary) local value of
+this component back to the corresponding model bean property.
+
+[width="100%",cols="100%",]
+|===
+|public void updateModel(FacesContext
+context);
+|===
+
+The following method is over-ridden from
+_UIComponent:_
+
+[width="100%",cols="100%",]
+|===
+|public void broadcast(FacesEvent event);
+|===
+
+In addition to the default
+_UIComponent.broadcast(javax.faces.event.FacesEvent)_ processing, pass
+the _ValueChangeEvent_ being broadcast to the method referenced by the
+_valueChangeListener_ property (if any).
+
+[width="100%",cols="100%",]
+|===
+|public void validate(FacesContext context);
+|===
+
+Perform the algorithm described in the
+javadoc to validate the local value of this _UIInput_ ..
+
+[width="100%",cols="100%",]
+|===
+|public void resetValue();
+|===
+
+Perform the algorithm described in the
+javadoc to reset this _UIInput_ to the state where it has no local
+value. This method does not touch the value expresson associated with
+the “ _value_ ” property.
+
+=== Events
+
+All events are described in
+link:JSF.html#a1192[See EditableValueHolder].
+
+=== UIMessage
+
+ _UIMessage_ (extends _UIComponentBase_ )
+encapsulates the rendering of error message(s) related to a specified
+input component.
+
+=== Component Type
+
+The standard component type for _UIMessage_
+components is “ _javax.faces.Message_ ”.
+
+=== Properties
+
+The following render-independent properties
+are added by the UIMessage component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _for_ |RW
+| _String_
+|Identifier of the component for which to
+render error messages. If this component is within the same
+NamingContainer as the target component, this must be the component
+identifier. Otherwise, it must be an absolute component identifier
+(starting with “:”). See the UIComponent.findComponent() Javadocs for
+more information.
+
+|showDetail |RW
+|boolean |Flag
+indicating whether the “detail” property of messages for the specified
+component should be rendered. Default value is “true”.
+
+|showSummary |RW
+|boolean |Flag
+indicating whether the “summary” property of messages for the specified
+component should be rendered. Default value is “false”.
+|===
+
+ _[P1-start-uimessage]UIMessage_ specializes
+the behavior of render-independent properties inherited from the parent
+component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.Message_ ”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “ _javax.faces.Message_
+”.[P1-end]
+
+=== Methods.
+
+ _UIMessage_ adds no new processing methods.
+
+=== Events
+
+ _UIMessage_ adds no new event handling
+methods.
+
+=== UIMessages
+
+ _UIMessage_ (extends _UIComponentBase_ )
+encapsulates the rendering of error message(s) not related to a
+specified input component, or all enqueued messages.
+
+=== Component Type
+
+The standard component type for _UIMessage_
+components is “ _javax.faces.Message_ s”.
+
+=== Properties
+
+The following render-independent properties
+are added by the UIMessages component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _globalOnly_ |RW
+| _boolean_ |Flag
+indicating whether only messages not associated with any specific
+component should be rendered. If not set, all messages will be rendered.
+Default value is “false”.
+
+|showDetail |RW
+|boolean |Flag
+indicating whether the “detail” property of messages for the specified
+component should be rendered. Default value is “false”.
+
+|showSummary |RW
+|boolean |Flag
+indicating whether the “summary” property of messages for the specified
+component should be rendered. Default value is “true”.
+|===
+
+ _[P1-stat-uimessages]UIMessages_ specializes
+the behavior of render-independent properties inherited from the parent
+component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.Messages_ ”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “ _javax.faces.Messages_
+”.[P1-end]
+
+=== Methods.
+
+ _UIMessages_ adds no new processing methods.
+
+=== Events
+
+ _UIMessages_ adds no new event handling
+methods.
+
+=== [[a2060]]UIOutcomeTarget
+
+UIOutcomeTarget ( _UIOutput_ ) is a component
+that has a value and an outcome, either which may optionally be
+retrieved from a model tier bean via a value expression (see
+link:JSF.html#a2349[See Value Expressions]), and is displayed to
+the user as a hyperlink, appearing in the form of a link or a button.
+The user cannot modify the value of the hyperlink, as it's for display
+purposes only. The target URL of the hyperlink is derived by passing the
+outcome to the _ConfigurationNavigationHandler_ to retrieve the matching
+_NavigationCase_ and then using the _ViewHandler_ to translate the
+_NavigationCase_ into an action URL. When the client activates the
+hyperlink, typically by clicking it, the target URL is retrieved using a
+non-faces request and the response is rendered.
+
+This component introduces a scenario known as
+"preemptive navigation". The navigation case is resolved during the
+Render Response phase, before the client activates the link (and may
+never activate the link). The predetermined navigation is pursued after
+the client activates the link. In contrast, the UICommand components
+resolve and execute the navigation at once, after the Invoke Application
+phase.
+
+The _UIOutcomeTarget_ component allows the
+developer to leverage the navigation model while at the same time being
+able to generate bookmarkable, non-faces requests to be included in the
+response.
+
+=== Component Type
+
+The standard component type for
+UIOutcomeTarget is "javax.faces.OutcomeTarget".
+
+=== Properties
+
+The following render-independent properties
+are added by thec component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |
+|Outcome |RW
+|String |The
+logical outcome that is used to resolve a NavigationCase which in turn
+is used to build the target URL of this component. Default value is the
+current view ID.
+
+|includePageParams
+|RW |boolean
+|Flag indicating whether the page parameters
+should be appended to the query string of the target URL. Default value
+is "false".
+|===
+
+ _[P1-start-uioutcometarget]_ UIOutcomeTarget
+specializes the behavior of render-independent properties inherited from
+the parent component as follows:
+
+The default value of the family property must
+be set to "javax.faces.UIOutcomeTarget"
+
+The default value of the rendererType
+property must be set to "javax.faces.Link" _[P1-end]_
+
+=== Methods
+
+The UIOutcomeTarget adds no event handling
+methods.
+
+=== Events
+
+The UIOutcomeTarget adds no event handling
+methods.
+
+=== UIOutput
+
+ _UIOutput_ (extends _UIComponentBase;_
+implements _ValueHolder_ ) is a component that has a value, optionally
+retrieved from a model tier bean via a value expression (see
+link:JSF.html#a2349[See Value Expressions]), that is displayed
+to the user. The user cannot directly modify the rendered value; it is
+for display purposes only:
+
+=== Component Type
+
+The standard component type for _UIOutput_
+components is “javax.faces. _Output_ ”.
+
+=== Properties
+
+ _UIOutput_ adds no new render-independent
+properties. See link:JSF.html#a1173[See ValueHolder] for
+information about properties introduced by the implemented classes.
+
+ _[P1-start-uioutput]UIOutput_ specializes
+the behavior of render-independent properties inherited from the parent
+component as follows:
+
+The default value of the _family_ property
+must be set to “javax.faces.Output”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “javax.faces.Text”.[P1-end]
+
+=== Methods
+
+ _UIOutput_ adds no new processing methods.
+See link:JSF.html#a1173[See ValueHolder] for information about
+methods introduced by the implemented interfaces.
+
+=== Events
+
+UIOutput does not originate any standard
+events. See link:JSF.html#a1173[See ValueHolder] for information
+about events introduced by the implemented interfaces.
+
+=== UIPanel
+
+ _UIPanel_ (extends _UIComponentBase_ ) is a
+component that manages the layout of its child components.
+
+=== Component Type
+
+The standard component type for _UIPanel_
+components is “ _javax.faces.Panel_ ”.
+
+=== Properties
+
+ _UIPanel_ adds no new render-independent
+properties.
+
+ _[P1-start-uipanel]UIPanel_ specializes the
+behavior of render-independent properties inherited from the parent
+component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.Panel_ ”.
+
+{empty}The default value of the
+_rendererType_ property must be set to _null_ .[P1-end]
+
+=== Methods
+
+ _UIPanel_ adds no new processing methods.
+
+=== Events
+
+ _UIPanel_ does not originate any standard
+events
+
+=== UIParameter
+
+ _UIParameter_ (extends _UIComponentBase_ is
+a component that represents an optionally named configuration parameter
+that affects the rendering of its parent component. _UIParameter_
+components do not generally have rendering behavior of their own.
+
+=== Component Type
+
+The standard component type for _UIParameter_
+components is “ _javax.faces.Parameter_ ”.
+
+=== Properties
+
+The following render-independent properties
+are added by the _UIParameter_ component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+|name |RW
+|String |The
+optional name for this parameter.
+
+|value |RW
+|Object |The value
+for this parameter.
+|===
+
+ _[P1-start-uiparameter]UIParameter_
+specializes the behavior of render-independent properties inherited from
+the parent component as follows:
+
+The default value of the _family_ property
+must be set to “javax.faces.Parameter”.
+
+{empty}The default value of the
+_rendererType_ property must be set to _null_ .[P1-end]
+
+=== Methods
+
+ _UIParameter_ adds no new processing
+methods.
+
+=== Events
+
+ _UIParameter_ does not originate any
+standard events
+
+=== UISelectBoolean
+
+ _UISelectBoolean_ (extends _UIInput_ ) is a
+component that represents a single boolean ( _true_ or _false_ ) value.
+It is most commonly rendered as a checkbox.
+
+=== Component Type
+
+The standard component type for
+_UISelectBoolean_ components is “javax.faces. _SelectBoolean_ ”.
+
+=== Properties
+
+The following render-independent properties
+are added by the _UISelectBoolean_ component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _selected_ |RW
+| _boolean_ |The
+selected state of this component. This property is a typesafe alias for
+the _value_ property, so that the actual state to be used can be
+acquired via a value expression.
+|===
+
+ _[P1-start-uiselectboolean]UISelectBoolean_
+specializes the behavior of render-independent properties inherited from
+the parent component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.SelectBoolean_ ”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “ _javax.faces.Checkbox_
+”.[P1-end]
+
+=== Methods
+
+ _UISelectBoolean_ adds no new processing
+methods.
+
+=== Events
+
+ _UISelectBoolean_ inherits the ability to
+send _ValueChangeEvent_ events from its parent _UIInput_ component.
+
+=== UISelectItem
+
+ _UISelectItem_ (extends _UIComponentBase_ )
+is a component that may be nested inside a _UISelectMany_ or
+_UISelectOne_ component, and represents exactly one _SelectItem_
+instance in the list of available options for that parent component.
+
+=== Component Type
+
+The standard component type for
+_UISelectItem_ components is “ _javax.faces.SelectItem_ ”.
+
+=== Properties
+
+The following render-independent properties
+are added by the _UISelectItem_ component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _itemDescription_
+|RW | _String_
+|The optional description of this available
+selection item. This may be useful for tools.
+
+|itemDisabled |RW
+|boolean |Flag
+indicating that any synthesized _SelectItem_ object should have its
+_disabled_ property set to _true_ .
+
+|itemLabel |RW
+|String |The
+localized label that will be presented to the user for this selection
+item.
+
+|itemValue |RW
+|Object |The
+server-side value of this item, of the same basic data type as the
+parent component’s value. If the parent component type’s value is a
+value expression that points at a primitive, this value must be of the
+corresponding wrapper type.
+
+|value |RW
+|javax.faces.model.SelectItem
+|The _SelectItem_ instance associated with
+this component.
+|===
+
+ _[P1-start-uiselectitem]UISelectItem_
+specializes the behavior of render-independent properties inherited
+
+The default value of the _family_ property
+must be set to “javax.faces.SelectItem”.
+
+The default value of the _rendererType_
+property must be set to _null_ .
+
+If the _value_ property is non- _null_ , it
+must contain a _SelectItem_ instance used to configure the selection
+item specified by this component.
+
+If the _value_ property is a value
+expression, it must point at a _SelectItem_ instance used to configure
+the selection item specified by this component.
+
+{empty}If the _value_ property is _null_ ,
+and there is no corresponding value expression, the _itemDescription_ ,
+_itemDisabled_ , _itemLabel_ and _itemValue_ properties must be used to
+construct a new _SelectItem_ representing the selection item specified
+by this component.[P1-end]
+
+=== Methods
+
+ _UISelectItem_ adds no new processing
+methods.
+
+=== Events
+
+ _UISelectItem_ does not originate any
+standard events.
+
+=== UISelectItems
+
+ _UISelectItems_ (extends _UIComponentBase_ )
+is a component that may be nested inside a _UISelectMany_ or
+_UISelectOne_ component, and represents zero or more _SelectItem_
+instances for adding selection items to the list of available options
+for that parent component.
+
+=== Component Type
+
+The standard component type for
+_UISelectItems_ components is “javax.faces. _SelectItems_ ”.
+
+=== Properties
+
+The following render-independent properties
+are added by the _UISelectItems_ component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+|value |RW
+|See below |The
+_SelectItem_ instances associated with this component.
+|===
+
+ _[P1-start-uiselectitems]UISelectItems_
+specializes the behavior of render-independent properties inherited
+
+The default value of the _family_ property
+must be set to “ _javax.faces.SelectItems_ ”.
+
+The default value of the _rendererType_
+property must be set to _null_ .
+
+{empty}If the _value_ property (or the value
+returned by a value expression associated with the _value_ property) is
+non-null, it must contain a _SelectItem_ bean, an array of _SelectItem_
+beans, a _Collection_ of _SelectItem_ beans, or a _Map_ , where each map
+entry is used to construct a _SelectItem_ bean with the key as the
+_label_ property of the bean, and the value as the _value_ property of
+the bean (which must be of the same basic type as the value of the
+parent component’s value).[P1-end]
+
+=== Methods
+
+ _UISelectItems_ adds no new processing
+methods.
+
+=== Events
+
+ _UISelectItems_ does not originate any
+standard events.
+
+=== UISelectMany
+
+ _UISelectMany_ (extends _UIInput_ ) is a
+component that represents one or more selections from a list of
+available options. It is most commonly rendered as a combobox or a
+series of checkboxes.
+
+=== Component Type
+
+The standard component type for
+_UISelectMany_ components is “ _javax.faces.SelectMany_ ”.
+
+=== Properties
+
+The following render-independent properties
+are added by the _UISelectMany_ component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _selectedValues_
+|RW | _Object[] or
+array of primitives_ |The selected item
+values of this component. This property is a typesafe alias for the
+_value_ property, so that the actual state to be used can be acquired
+via a value expression.
+|===
+
+ _[P1-start-uiselectmany]UISelectMany_
+specializes the behavior of render-independent properties inherited from
+the parent component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.SelectMany_ ”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “ _javax.faces.Listbox_
+”.[P1-end]
+
+See the class Javadocs for _UISelectMany_ for
+additional requirements related to implicit conversions for the _value_
+property.
+
+=== Methods
+
+{empty}
+_[P1-start-uselectmany-validate]UISelectMany_ must provide a specialized
+_validate()_ method which ensures that any decoded values are valid
+options (from the nested _UISelectItem_ and _UISelectItems_
+children).[P1-end]
+
+=== Events
+
+ _UISelectMany_ inherits the ability to send
+_ValueChangeEvent_ events from its parent _UIInput_ component.
+
+=== UISelectOne
+
+ _UISelectOne_ (extends _UIInput_ ) is a
+component that represents zero or one selection from a list of available
+options. It is most commonly rendered as a combobox or a series of radio
+buttons.
+
+=== Component Type
+
+The standard component type for _UISelectOne_
+components is “ _javax.faces.SelectOne_ ”.
+
+=== Properties
+
+ _UISelectOne_ adds no new render-independent
+properties.
+
+ _[P1-start-uiselectone]UISelectOne_
+specializes the behavior of render-independent properties inherited from
+the parent component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.SelectOne_ ”.
+
+{empty}The default value of the
+_rendererType_ property must be set to “ _javax.faces.Menu_ ”.[P1-end]
+
+=== Methods
+
+{empty}
+_[P1-start-uiselectone-validate]UISelectOne_ must provide a specialized
+_validate()_ method which ensures that any decoded value is a valid
+option (from the nested _UISelectItem_ and _UISelectItems_
+children).[P1-end]
+
+=== Events
+
+ _UISelectOne_ inherits the ability to send
+_ValueChangeEvent_ events from its parent _UIInput_ component.
+
+=== UIViewParameter
+
+ _UIViewParameter_ (extends _UIInput_ ) is a
+component that allows the query parameters included in the request by
+_UIOutcomTarget_ renderers to participate in the lifecycle. Please see
+the javadocs for the normative speficication of this component.Events.
+
+=== [[a2226]]UIViewRoot
+
+ _UIViewRoot_ (extends _UIComponentBase;_ )
+represents the root of the component tree.
+
+=== Component Type
+
+The standard component type for _UIViewRoot_
+components is “ _javax.faces.ViewRoot_ ”
+
+=== [[a2230]]Properties
+
+The following render-independent properties
+are added by the _UIViewRoot_ component:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+|locale |RW
+|java.util.Locale
+|The Locale to be used in localizing the
+response for this view.
+
+|renderKitId |RW
+|String |The id of
+the _RenderKit_ used to render this page.
+
+| _viewId_ |RW
+| _String_ |The
+view identifier for this view.
+
+| _beforePhaseListener_
+|RW
+|MethodExpression
+| _MethodExpression_ that will be invoked
+before all lifecycle phases except for _Restore View._
+
+| _afterPhaseListener_
+|RW
+|MethodExpression
+|MethodExpression that will be invoked after
+all lifecycle phases except for _Restore View_ .
+
+|viewMap |RW
+|java.util.Map
+|The _Map_ that acts as the interface to the
+data store that is the "view scope".
+|===
+
+For an existing view, the _locale_ property
+may be modified only from the event handling portion of _Process
+Validations_ phase through _Invoke Application_ phase, unless it is
+modified by an _Apply Request Values_ event handler for an
+_ActionSource_ or _EditableValueHolder_ component that has its
+_immediate_ property set to true (which therefore causes _Process
+Validations_ , _Update Model Values_ , and _Invoke Application_ phases
+to be skipped).
+
+{empty} _[P1-start-viewmap]_ The viewMap
+property is lazily created the first time it is accessed, and it is
+destroyed when a different _UIViewRoot_ instance is installed from a
+call to _FacesContext.setViewRoot()_ . After the Map is created a
+_PostConstructViewMapEvent_ must be published using _UIViewRoot_ as the
+event source. Immediately before the Map is destroyed, a
+_PreDestroyViewMapEvent_ must be published using _UIViewRoot_ as the
+event source. [P1-end]
+
+ _[P1-start-uiviewroot]UIViewRoot_
+specializes the behavior of render-independent properties inherited from
+the parent component as follows:
+
+The default value of the _family_ property
+must be set to “ _javax.faces.ViewRoot_ ”.
+
+{empty}The default value of the
+_rendererType_ property must be set to _null_ .[P1-end]
+
+=== [[a2257]]Methods
+
+The following methods are used for adding
+UIComponent resources to a target area in the view, and they are also
+used for retrieving UIComponent resources from a target area in the
+view.
+
+[width="100%",cols="100%",]
+|===
+a|
+public void addComponentResource(FacesContext
+context,
+
+UIComponent componentResource);
+
+|===
+
+Add c _omponentResource,_ that is assumed to
+represent a resource instance, to the current view. A resource instance
+is rendered by a resource Renderer (such as ScriptRenderer,
+StylesheetRenderer) as described in the Standard HTML RenderKit. This
+method will cause the resource to be rendered in the “head” element of
+the view. __
+
+[width="100%",cols="100%",]
+|===
+a|
+public void addComponentResource(FacesContext
+context,
+
+UIComponent componentResource, String
+target);
+
+|===
+
+{empty}Add c _omponentResource,_ that is
+assumed to represent a resource instance, to the current view at the
+specified target location. [P1-start-addComponentResource] The resource
+must be added using the algorithm outlined in this method’s
+Javadocs.[P1-end]
+
+[width="100%",cols="100%",]
+|===
+|public List<UIComponent>
+getComponentResources(String target);
+|===
+
+{empty}Return a List of _UIComponent_
+instances residing under the facet identified by target. Each
+_UIComponent_ instance in the List represents a resource.
+[P1-start-getCompRes] The List must be formulated in accordance with
+this method’s Javadocs. [P1-end]
+
+ _UIViewRoot_ specializes the behavior of the
+_UIComponent.queueEvent()_ method to maintain a list of queued events
+that can be transmitted later. It also specializes the behavior of the
+_processDecodes()_ , _processValidators()_ , _processUpdates()_ , and
+_processApplication()_ methods to broadcast queued events to registered
+listeners. _UIViewRoot_ clears any remaining events from the event queue
+in these methods if _responseComplete()_ or _renderResponse()_ has been
+set on the _FacesContext._ Please see link:JSF.html#a427[See
+Apply Request Values], link:JSF.html#a438[See Process
+Validations], link:JSF.html#a446[See Update Model Values] and
+link:JSF.html#a454[See Invoke Application] for more details.
+
+=== [[a2268]]Events
+
+ _UIViewRoot_ is a source of _PhaseEvent_
+events, which are emitted when the instance moves through all phases of
+the request processing lifecycle except _Restore View_ . This phase
+cannot emit events from _UIViewRoot_ because the _UIViewRoot_ instance
+isn’t created when this phase starts. See
+link:JSF.html#a6626[See PhaseEvent] and
+link:JSF.html#a6635[See PhaseListener]for more details on the
+event and listener class.
+
+[width="100%",cols="100%",]
+|===
+a|
+public void addPhaseListener(PhaseListener
+listener);
+
+
+
+public void
+removePhaseListener(VPhaseListener listener);
+
+
+
+public List<PhaseListener>
+getPhaseListeners();
+
+|===
+
+{empty}[P1-start-events] _UIViewRoot_ must
+listen for the top level _PostAddToViewEvent_ event sent by the _Restore
+View_ phase. Refer to _link:JSF.html#a404[See Restore View]_
+for more details about the publishing of this event. Upon receiving this
+event, _UIViewRoot_ must cause any “after” _Restore View_ phase
+listeners to be called.[P1-end]
+
+ _UIViewRoot_ is also the source for several
+kinds of system events. The system must publish a _PostAddToViewEvent_ ,
+with the _UIViewRoot_ as the source, during the _Restore View_ phase,
+immediately after the new _UIViewRoot_ is set into the _FacesContext_
+for the request. The system must publish a _PreRenderView_ event, with
+_UIViewRoot_ as the source, during the _Render Response_ phase,
+immediately before _ViewHandler.renderView()_ is called.
+
+=== [[a2277]]Partial Processing
+
+{empty} _UIViewRoot_ adds special behavior to
+_processDecodes, processValidators, processUpdates, getRendersChildren
+and encodeChildren_ to facilitate partial processing - namely the
+ability to have one or more components processed through the _execute_
+and/or _render_ phases of the request processing lifecycle. Refer to
+link:JSF.html#a6825[See Partial View
+Traversal], link:JSF.html#a6831[See Partial
+View Processing], link:JSF.html#a6833[See
+Partial View Rendering] for an overview of partial processing.
+[P1-start-viewroot-partial] _UIViewRoot_ must perform partial processing
+as outlined in the Javadocs for the “processXXX” and “encodeXXX” methods
+if the current request is a partial request.[P1-end]
+
+===
+
+image:SF-21.png[image]
+
+Standard UIComponent Model Beans
+
+Several of the standard _UIComponent_
+subclasses described in the previous section reference JavaBean
+components to represent the underlying model data that is rendered by
+those components. The following subsections define the standard
+_UIComponent_ model bean classes.
+
+=== [[a2281]]DataModel
+
+ _DataModel_ is an abstract base class for
+creating wrappers around arbitrary data binding technologies. It can be
+used to adapt a wide variety of data sources for use by JavaServer Faces
+components that want to support access to an underlying data set that
+can be modelled as multiple rows. The data underlying a DataModel
+instance is modelled as a collection of row objects that can be accessed
+randomly via a zero-relative index
+
+=== Properties
+
+An instance of _DataModel_ supports the
+following properties:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+|rowAvailable |RO
+|boolean |Flag
+indicating whether the current _rowIndex_ value points at an actual row
+in the underlying data.
+
+| _rowCount_ |RO
+|int |The number
+of rows of data objects represented by this DataModel instance, or -1 if
+the number of rows is unknown.
+
+| _rowData_ |RO
+| _Object_ |An
+object representing the data for the currently selected row. _DataModel_
+implementations must return an object that be successfully processed as
+the “base” parameter for the _PropertyResolver_ in use by this
+application. If the current rowIndex value is -1, _null_ is returned.
+
+| _rowIndex_ |RW
+| _int_
+|Zero-relative index of the currently
+selected row, or -1 if no row is currently selected. When first created,
+a _DataModel_ instance must return -1 for this property.
+
+|wrappedData |RW
+|Object |Opaque
+property representing the data object wrapped by this DataModel. Each
+individual implementation will restrict the types of Object(s) that it
+supports.
+|===
+
+=== [[a2298]]Methods
+
+ _DataModel_ must provide an _iterator()_ to
+iterate over the row data for this model. __
+
+=== Events
+
+No events are generated for this component.
+
+=== [[a2302]]Concrete Implementations
+
+[P1-start-datamodel]The JSF implementation
+must provide concrete implementations of DataModel (in the
+javax.faces.model package) for the following data wrapping scenarios:
+
+ _ArrayDataModel_ -- Wrap an array of Java
+objects.
+
+ _ListDataModel_ -- Wrap a _java.util.List_
+of Java objects.
+
+ _ResultDataModel_ -- Wrap an object of type
+_javax.servlet.jsp.jstl.sql.Result_ (the query results from JSTL’s SQL
+tag library)
+
+ _ResultSetDataModel_ -- Wrap an object of
+type _java.sql.ResultSet_ (which therefore means that _javax.sql.RowSet_
+instances are also supported).
+
+ _ScalarDataModel_ -- Wrap a single Java
+object in what appears to be a one-row data set.
+
+Each concrete _DataModel_ implementation must
+extend the _DataModel_ abstract base class, and must provide a
+constructor that accepts a single parameter of the object type being
+wrapped by that implementation (in addition to a zero-args
+constructor).[P1-end] See the JavaDocs for specific implementation
+requirements on _DataModel_ defined methods, for each of the concrete
+implementation classes.
+
+=== SelectItem
+
+ _SelectItem_ is a utility class representing
+a single choice, from among those made available to the user, for a
+_UISelectMany_ or _UISelectOne_ component. It is not itself a
+_UIComponent_ subclass.
+
+=== Properties
+
+An instance of _SelectItem_ supports the
+following properties:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+|description |RW
+|String |A
+description of this selection item, for use in development tools.
+
+| _disabled_ |RW
+|boolean |Flag
+indicating that this option should be rendered in a fashion that
+disables selection by the user. Default value is _false_ .
+
+| _label_ |RW
+| _String_ |Label
+of this selection item that should be rendered to the user.
+
+| _value_ |RW
+| _Object_ |The
+server-side value of this item, of the same basic data type as the
+parent component’s value. If the parent component type’s value is a
+value expression that points at a primitive, this value must be of the
+corresponding wrapper type.
+|===
+
+=== Methods
+
+An instance of _SelectItem_ supports no
+additional public processing methods.
+
+=== Events
+
+An instance of SelectItem supports no events.
+
+=== SelectItemGroup
+
+ _SelectItemGroup_ is a utility class
+extending _SelectItem_ , that represents a group of subordinate
+_SelectItem_ instances that can be rendered as a “sub-menu” or “option
+group”. _Renderer_ s will typically ignore the _value_ property of this
+instance, but will use the _label_ property to render a heading for the
+sub-menu.
+
+=== Properties
+
+An instance of _SelectItemGroup_ supports the
+following additional properties:
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Access
+|Type |Description
+|selectItems |RW
+|SelectItem[]
+|Array of SelectItem instances representing
+the subordinate selection items that are members of the group
+represented by this SelectItemGroup instance.
+|===
+
+Note that, since _SelectItemGroup_ is a
+subclass of _SelectItem_ , _SelectItemGroup_ instances can be included
+in the _selectItems_ property in order to create hierarchies of
+subordinate menus. However, some rendering environments may limit the
+depth to which such nesting is supported; for example, HTML/4.01 does
+not allow an _<optgroup>_ to be nested inside another _<optgroup>_
+within a _<select>_ control.
+
+=== Methods
+
+An instance of _SelectItemGroup_ supports no
+additional public processing methods.
+
+=== Events
+
+An instance of _SelectItemGroup_ supports no
+events.
+
+-
+
+===

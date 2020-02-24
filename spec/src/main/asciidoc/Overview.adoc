@@ -1,0 +1,419 @@
+== Overview
+
+JavaServer Faces (JSF) is a _user interface_
+(UI) framework for Java web applications. It is designed to
+significantly ease the burden of writing and maintaining applications
+that run on a Java application server and render their UIs back to a
+target client. JSF provides ease-of-use in the following ways:
+
+Makes it easy to construct a UI from a set of
+reusable UI components
+
+Simplifies migration of application data to
+and from the UI
+
+Helps manage UI state across server requests
+
+Provides a simple model for wiring
+client-generated events to server-side application code
+
+Allows custom UI components to be easily
+built and re-used
+
+Most importantly, JSF establishes standards
+which are designed to be leveraged by tools to provide a developer
+experience which is accessible to a wide variety of developer types,
+ranging from corporate developers to systems programmers. A “corporate
+developer” is characterized as an individual who is proficient in
+writing procedural code and business logic, but is not necessarily
+skilled in object-oriented programming. A “systems programmer”
+understands object-oriented fundamentals, including abstraction and
+designing for re-use. A corporate developer typically relies on tools
+for development, while a system programmer may define his or her tool as
+a text editor for writing code.
+
+Therefore, JSF is designed to be tooled, but
+also exposes the framework and programming model as APIs so that it can
+be used outside of tools, as is sometimes required by systems
+programmers.
+
+=== Solving Practical Problems of the Web
+
+JSF’s core architecture is designed to be
+independent of specific protocols and markup. However it is also aimed
+directly at solving many of the common problems encountered when writing
+applications for HTML clients that communicate via HTTP to a Java
+application server that supports servlets and JavaServer Pages (JSP)
+based applications. These applications are typically form-based, and are
+comprised of one or more HTML pages with which the user interacts to
+complete a task or set of tasks. JSF tackles the following challenges
+associated with these applications:
+
+Managing UI component state across requests
+
+Supporting encapsulation of the differences
+in markup across different browsers and clients
+
+Supporting form processing (multi-page, more
+than one per page, and so on)
+
+Providing a strongly typed event model that
+allows the application to write server-side handlers (independent of
+HTTP) for client generated events
+
+Validating request data and providing
+appropriate error reporting
+
+Enabling type conversion when migrating
+markup values (Strings) to and from application data objects (which are
+often not Strings)
+
+Handling error and exceptions, and reporting
+errors in human-readable form back to the application user
+
+Handling page-to-page navigation in response
+to UI events and model interactions.
+
+=== Specification Audience
+
+The _JavaServer Faces Specification_ , and
+the technology that it defines, is addressed to several audiences that
+will use this information in different ways. The following sections
+describe these audiences, the roles that they play with respect to JSF,
+and how they will use the information contained in this document. As is
+the case with many technologies, the same person may play more than one
+of these roles in a particular development scenario; however, it is
+still useful to understand the individual viewpoints separately.
+
+=== Page Authors
+
+A _page author_ is primarily responsible for
+creating the user interface of a web application. He or she must be
+familiar with the markup and scripting languages (such as HTML and
+JavaScript) that are understood by the target client devices, as well as
+the rendering technology (such as JavaServer Pages) used to create
+dynamic content. Page authors are often focused on graphical design and
+human factors engineering, and are generally not familiar with
+programming languages such as Java or Visual Basic (although many page
+authors will have a basic understanding of client side scripting
+languages such as JavaScript).
+
+Page authors will generally assemble the
+content of the pages being created from libraries of prebuilt user
+interface components that are provided by component writers, tool
+providers, and JSF implementors. The components themselves will be
+represented as configurable objects that utilize the dynamic markup
+capabilities of the underlying rendering technology. When JavaServer
+Pages are in use, for example, components will be represented as JSP
+custom actions, which will support configuring the attributes of those
+components as custom action attributes in the JSP page. In addition, the
+pages produced by a page author will be used by the JSF framework to
+create component tree hierarchies, called “views”, that represent the
+components on those pages.
+
+Page authors will generally utilize
+development tools, such as HTML editors, that allow them to deal
+directly with the visual representation of the page being created.
+However, it is still feasible for a page author that is familiar with
+the underlying rendering technology to construct pages “by hand” using a
+text editor.
+
+=== Component Writers
+
+ _Component writers_ are responsible for
+creating libraries of reusable user interface objects. Such components
+support the following functionality:
+
+Convert the internal representation of the
+component’s properties and attributes into the appropriate markup
+language for pages being rendered (encoding).
+
+Convert the properties of an incoming
+request—parameters, headers, and cookies—into the corresponding
+properties and attributes of the component (decoding)
+
+Utilize request-time events to initiate
+visual changes in one or more components, followed by redisplay of the
+current page.
+
+Support validation checks on the syntax and
+semantics of the representation of this component on an incoming
+request, as well as conversion into the internal form that is
+appropriate for this component.
+
+Saving and restoring component state across
+requests
+
+As will be discussed in
+link:JSF.html#a4219[See Rendering Model],” the encoding and
+decoding functionality may optionally be delegated to one or more
+_Render Kits_ , which are responsible for customizing these operations
+to the precise requirements of the client that is initiating a
+particular request (for example, adapting to the differences between
+JavaScript handling in different browsers, or variations in the WML
+markup supported by different wireless clients).
+
+The component writer role is sometimes
+separate from other JSF roles, but is often combined. For example,
+reusable components, component libraries, and render kits might be
+created by:
+
+A page author creating a custom “widget” for
+use on a particular page
+
+An application developer providing components
+that correspond to specific data objects in the application’s business
+domain
+
+A specialized team within a larger
+development group responsible for creating standardized components for
+reuse across applications
+
+Third party library and framework providers
+creating component libraries that are portable across JSF
+implementations
+
+Tool providers whose tools can leverage the
+specific capabilities of those libraries in development of JSF-based
+applications
+
+JSF implementors who provide
+implementation-specific component libraries as part of their JSF product
+suite
+
+Within JSF, user interface components are
+represented as Java classes that follow the design patterns outlined in
+the JavaBeans Specification. Therefore, new and existing tools that
+facilitate JavaBean development can be leveraged to create new JSF
+components. In addition, the fundamental component APIs are simple
+enough for developers with basic Java programming skills to program by
+hand.
+
+=== Application Developers
+
+ _Application Developers_ are responsible for
+providing the server-side functionality of a web application that is not
+directly related to the user interface. This encompasses the following
+general areas of responsibility:
+
+Define mechanisms for persistent storage of
+the information required by JSF-based web applications (such as creating
+schemas in a relational database management system)
+
+Create a Java object representation of the
+persistent information, such as Entity Enterprise JavaBeans (Entity
+EJBs), and call the corresponding beans as necessary to perform
+persistence of the application’s data.
+
+Encapsulate the application’s functionality,
+or business logic, in Java objects that are reusable in web and non-web
+applications, such as Session EJBs.
+
+Expose the data representation and functional
+logic objects for use via JSF, as would be done for any servlet- or
+JSP-based application.
+
+Only the latter responsibility is directly
+related to JavaServer Faces APIs. In particular, the following steps are
+required to fulfill this responsibility:
+
+Expose the underlying data required by the
+user interface layer as objects that are accessible from the web tier
+(such as via request or session attributes in the Servlet API), via
+_value reference expressions_ , as described in
+link:JSF.html#a1823[See Standard User Interface Components].”
+
+Provide application-level event handlers for
+the events that are enqueued by JSF components during the request
+processing lifecycle, as described in link:JSF.html#a454[See
+Invoke Application].
+
+Application modules interact with JSF through
+standard APIs, and can therefore be created using new and existing tools
+that facilitate general Java development. In addition, application
+modules can be written (either by hand, or by being generated) in
+conformance to an application framework created by a tool provider.
+
+=== Tool Providers
+
+ _Tool providers_ , as their name implies,
+are responsible for creating tools that assist in the development of
+JSF-based applications, rather than creating such applications directly.
+JSF APIs support the creation of a rich variety of development tools,
+which can create applications that are portable across multiple JSF
+implementations. Examples of possible tools include:
+
+GUI-oriented page development tools that
+assist page authors in creating the user interface for a web application
+
+IDEs that facilitate the creation of
+components (either for a particular page, or for a reusable component
+library)
+
+Page generators that work from a high level
+description of the desired user interface to create the corresponding
+page and component objects
+
+IDEs that support the development of general
+web applications, adapted to provide specialized support (such as
+configuration management) for JSF
+
+Web application frameworks (such as MVC-based
+and workflow management systems) that facilitate the use of JSF
+components for user interface design, in conjunction with higher level
+navigation management and other services
+
+Application generators that convert high
+level descriptions of an entire application into the set of pages, UI
+components, and application modules needed to provide the required
+application functionality
+
+Tool providers will generally leverage the
+JSF APIs for introspection of the features of component libraries and
+render kit frameworks, as well as the application portability implied by
+the use of standard APIs in the code generated for an application.
+
+=== JSF Implementors
+
+Finally, _JSF implementors_ will provide
+runtime environments that implement all of the requirements described in
+this specification. Typically, a JSF implementor will be the provider of
+a Java 2 Platform, Enterprise Edition (J2EE) application server,
+although it is also possible to provide a JSF implementation that is
+portable across J2EE servers.
+
+Advanced features of the JSF APIs allow JSF
+implementors, as well as application developers, to customize and extend
+the basic functionality of JSF in a portable way. These features provide
+a rich environment for server vendors to compete on features and quality
+of service aspects of their implementations, while maximizing the
+portability of JSF-based applications across different JSF
+implementations.
+
+===
+
+image:SF-8.png[image]
+
+Introduction to JSF APIs
+
+This section briefly describes major
+functional subdivisions of the APIs defined by JavaServer Faces. Each
+subdivision is described in its own chapter, later in this
+specification.
+
+=== package _javax.faces_
+
+This package contains top level classes for
+the JavaServer(tm) Faces API. The most important class in the package is
+_FactoryFinder_ , which is the mechanism by which users can override
+many of the key pieces of the implementation with their own.
+
+Please see
+link:JSF.html#a6147[See FactoryFinder].
+
+=== package _javax.faces.application_
+
+This package contains APIs that are used to
+link an application’s business logic objects to JavaServer Faces, as
+well as convenient pluggable mechanisms to manage the execution of an
+application that is based on JavaServer Faces. The main class in this
+package is _Application_ .
+
+Please see link:JSF.html#a3400[See
+Application].
+
+=== package _javax.faces.component_
+
+This package contains fundamental APIs for
+user interface components.
+
+Please see link:JSF.html#a883[See
+User Interface Component Model].
+
+=== package _javax.faces.component.html_
+
+This package contains concrete base classes
+for each valid combination of component + renderer.
+
+=== package _javax.faces.context_
+
+This package contains classes and interfaces
+defining per-request state information. The main class in this package
+is _FacesContext_ , which is the access point for all per-request
+information, as well as the gateway to several other helper classes.
+
+Please see link:JSF.html#a3091[See
+FacesContext].
+
+=== package _javax.faces.convert_
+
+This package contains classes and interfaces
+defining converters. The main class in this package is _Converter_ .
+
+Please see link:JSF.html#a1251[See
+Conversion Model].
+
+=== package _javax.faces.el_
+
+As of version 1.2 of this specification, all
+classes and interfaces in this package have been deprecated in favor of
+the Unified Expression Language (EL) from JSP 2.1.
+
+Please see link:JSF.html#a2344[See
+Expression Language and Managed Bean Facility].
+
+=== package _javax.faces.flow_ and _javax.faces.flow.builder_
+
+The runtime API for Faces Flows.
+
+Please see _link:JSF.html#a3840[See
+FlowHandler]._
+
+=== package _javax.faces.lifecycle_
+
+This package contains classes and interfaces
+defining lifecycle management for the JavaServer Faces implementation.
+The main class in this package is _Lifecycle_ . _Lifecycle_ is the
+gateway to executing the request processing lifecycle.
+
+Please see link:JSF.html#a369[See
+Request Processing Lifecycle].
+
+=== package _javax.faces.event_
+
+This package contains interfaces describing
+events and event listeners, and concrete event implementation classes.
+All component-level events extend from _FacesEvent_ and all
+component-level listeners extend from _FacesListener_ .
+
+Please see link:JSF.html#a1300[See
+Event and Listener Model].
+
+=== package _javax.faces.render_
+
+This package contains classes and interfaces
+defining the rendering model. The main class in this package is
+_RenderKit_ . _RenderKit_ maintains references to a collection of
+_Renderer_ instances which provide rendering capability for a specific
+client device type.
+
+Please see link:JSF.html#a4219[See
+Rendering Model].
+
+=== package _javax.faces.validator_
+
+Interface defining the validator model, and
+concrete validator implementation classes.
+
+{empty}Please see
+link:JSF.html#a1410[See Validation Model]
+
+=== package _javax.faces.webapp_
+
+Classes required for integration of
+JavaServer Faces into web applications, including a standard servlet,
+base classes for JSP custom component tags, and concrete tag
+implementations for core tags.
+
+Please see link:JSF.html#a6060[See
+Using JSF in Web Applications].
