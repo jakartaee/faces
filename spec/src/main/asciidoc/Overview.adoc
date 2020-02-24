@@ -290,11 +290,8 @@ of service aspects of their implementations, while maximizing the
 portability of JSF-based applications across different JSF
 implementations.
 
-===
 
-image:SF-8.png[image]
-
-Introduction to JSF APIs
+=== Introduction to JSF APIs
 
 This section briefly describes major
 functional subdivisions of the APIs defined by JavaServer Faces. Each

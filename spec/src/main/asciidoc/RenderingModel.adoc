@@ -159,11 +159,9 @@ second one can be used to get an _Iterator_ over the _renderer-type_
 entries for each of the _component-family_ entries returned from the
 first method.
 
-===
 
-image:SF-37.png[image]
-
-[[a4245]]Renderer
+[[a4245]]
+=== Renderer
 
 A _Renderer_ instance implements the decoding
 and encoding functionality of components, during the _Apply Request
@@ -251,11 +249,9 @@ A _Renderer_ may listen for events using the
 _ListenerFor_ annotation. Refer to the Javadocs for the _ListenerFor_
 class for more details.
 
-===
 
-image:SF-37.png[image]
-
-[[a4264]]ClientBehaviorRenderer
+[[a4264]]
+=== ClientBehaviorRenderer
 
 A _ClientBehaviorRenderer_ instance produces
 client side behavior for components in the form of script content. It
@@ -332,11 +328,9 @@ ClientBehaviorRenderer \{
 
 |===
 
-===
 
-image:SF-37.png[image]
-
-[[a4288]]ResponseStateManager
+[[a4288]]
+=== ResponseStateManager
 
  _ResponseStateManager_ is the helper class
 to _javax.faces.application.StateManager_ that knows the specific
@@ -388,11 +382,9 @@ Return the view state as a String without any
 markup related to the rendering technology supported by this
 ResponseStateManager.
 
-===
 
-image:SF-37.png[image]
-
-[[a4300]]RenderKitFactory
+[[a4300]]
+=== RenderKitFactory
 
 [P1-start-renderkitFactory]A single instance
 of _javax.faces.render.RenderKitFactory_ must be made available to each
@@ -458,11 +450,9 @@ Register a _RenderKit_ instance for the
 specified render kit identifier, replacing any previous RenderKit
 registered for that identifier.
 
-===
 
-image:SF-37.png[image]
-
-[[a4314]]Standard HTML RenderKit Implementation
+[[a4314]]
+=== Standard HTML RenderKit Implementation
 
 To ensure application portability, all JSF
 implementations are required to include support for a _RenderKit_ , and
@@ -480,11 +470,8 @@ this specification, entitled “The Standard HTML RenderKit”. The behavior
 described in these pages is normative, and are required to be fulfilled
 by all implementations of JSF.
 
-===
 
-image:SF-37.png[image]
-
-The Concrete HTML Component Classes
+=== The Concrete HTML Component Classes
 
 For each valid combination of _UIComponent_
 subclass and standard renderer given in the previous section, there is a

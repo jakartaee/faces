@@ -175,11 +175,8 @@ target=”body”/>
 
 |===
 
-===
-
-image:SF-53.png[image]
-
-[[a6754]]JavaScript Namespacing
+[[a6754]]
+=== JavaScript Namespacing
 
 JavaScript objects that are not enclosed
 within a namespace are global, which means they run the risk of
@@ -216,11 +213,8 @@ if (jsf.ajax == null || typeof jsf.ajax ==
 
 {empty}[P1-end]
 
-===
-
-image:SF-53.png[image]
-
-[[a6766]]Ajax Interaction
+[[a6766]]
+=== Ajax Interaction
 
 This section of the specification outlines
 the Ajax JavaScript APIs that are used to initiate client side
@@ -481,12 +475,8 @@ javax.faces.context.ExceptionHandlerWrapper, and have the
 javax.faces.context.ExceptionHandlerFactory implementation install it if
 the environment requires it.
 
-===
-
-image:SF-53.png[image]
-
-[[a6825]]Partial
-View Traversal
+[[a6825]]
+=== Partial View Traversal
 
 The JavaServer Faces lifecycle, can be viewed
 as consisting of an execute phase and a render phase.

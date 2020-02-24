@@ -97,11 +97,9 @@ declare a _PhaseListener_ to be added using the _phase-listener_ element
 of the application configuration resources file. Please see
 _link:JSF.html#a6635[See PhaseListener]_ .
 
-===
 
-image:SF-50.png[image]
-
-[[a6626]]PhaseEvent
+[[a6626]]
+=== PhaseEvent
 
 This class represents the beginning or ending
 of processing for a particular phase of the request processing
@@ -137,11 +135,9 @@ Return the properties of this event instance.
 The specified _FacesContext_ instance will also be returned if
 _getSource()_ (inherited from the base _EventObject_ class) is called.
 
-===
 
-image:SF-50.png[image]
-
-[[a6635]]PhaseListener
+[[a6635]]
+=== PhaseListener
 
 This interface must be implemented by objects
 that wish to be notified before and after the processing for a
@@ -320,11 +316,8 @@ FacesContext instance for the current request, which causes processing
 of the request processing lifecycle to terminate once the current phase
 is complete.
 
-===
 
-image:SF-50.png[image]
-
-LifecycleFactory
+=== LifecycleFactory
 
 A single instance of
 _javax.faces.lifecycle.LifecycleFactory_ must be made available to each

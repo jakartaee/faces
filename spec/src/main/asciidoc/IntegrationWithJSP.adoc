@@ -141,11 +141,8 @@ _RenderKit_ and _Renderer_ APIs. JSF implementations must provide such a
 tag library for the standard HTML RenderKit (see
 link:JSF.html#a5363[See Standard HTML RenderKit Tag Library]).
 
-===
 
-image:SF-40.png[image]
-
-Using UIComponent Custom Actions in JSP Pages
+=== Using UIComponent Custom Actions in JSP Pages
 
 The following subsections define how a page
 author utilizes the custom actions provided by the _RenderKit_
@@ -525,11 +522,9 @@ available. Therefore, any use of JSF components in the generation of
 such a response are not combined with the component tree for the current
 page.
 
-===
 
-image:SF-40.png[image]
-
-[[a4549]]UIComponent Custom Action Implementation Requirements
+[[a4549]]
+=== UIComponent Custom Action Implementation Requirements
 
 The custom action implementation classes for
 _UIComponent_ custom actions must conform to all of the requirements
@@ -841,11 +836,9 @@ takes a _javax.el.ValueExpression_ or _javax.el.MethodExpression_ . If
 the _jsp-version_ is 2.1 or greater, the taglib is deemed to be a Faces
 1.2 or later taglib and the JSP container is aware of #\{} expressions.
 
-===
 
-image:SF-40.png[image]
-
-[[a4636]]JSF Core Tag Library
+[[a4636]]
+=== JSF Core Tag Library
 
 [P1-start jsf_core taglib requirements] All
 JSF implementations must provide a tag library containing core actions
@@ -2993,11 +2986,9 @@ Please refer to the javadocs for
 _javax.faces.application.StateManager_ for details on what the tag
 handler for this tag must do to implement state saving.
 
-===
 
-image:SF-40.png[image]
-
-[[a5363]]Standard HTML RenderKit Tag Library
+[[a5363]]
+=== Standard HTML RenderKit Tag Library
 
 All JSF implementations must provide a tag
 library containing actions that correspond to each valid combination of

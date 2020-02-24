@@ -412,11 +412,8 @@ additional configuration parameters, as well as additional mechanisms to
 customize the JSF implementation; however, applications that rely on
 these facilities will not be portable to other JSF implementations.
 
-===
 
-image:SF-47.png[image]
-
-Included Classes and Resources
+=== Included Classes and Resources
 
 A JSF-based application will rely on a
 combination of APIs, and corresponding implementation classes and
@@ -676,11 +673,9 @@ link:JSF.html#a5198[See <f:validateRegex>],
 link:JSF.html#a5223[See <f:validateLongRange>], and
 link:JSF.html#a5256[See <f:validator>].
 
-===
 
-image:SF-47.png[image]
-
-[[a6182]]Deprecated APIs in the webapp package
+[[a6182]]
+=== Deprecated APIs in the webapp package
 
 Faces depends on version JSP 2.1 or later,
 and the JSP tags in Faces expose properties that leverage concepts
@@ -716,11 +711,9 @@ _UIComponentELTag_ .
 This component has been replaced by
 _ValidatorELTag_ .
 
-===
 
-image:SF-47.png[image]
-
-[[a6195]]Application Configuration Resources
+[[a6195]]
+=== Application Configuration Resources
 
 This section describes the JSF support for
 portable application configuration resources used to configure
@@ -2170,12 +2163,9 @@ link:JSF.html#a2477[See Managed Bean Configuration Example] and
 link:JSF.html#a3646[See Example NavigationHandler
 Configuration].
 
-===
 
-image:SF-47.png[image]
-
-[[a6596]]Annotations that correspond to and may take the place
-of entries in the Application Configuration Resources
+[[a6596]]
+=== Annotations that correspond to and may take the place of entries in the Application Configuration Resources
 
 An implementation must support several
 annotation types that take may take the place of entries in the

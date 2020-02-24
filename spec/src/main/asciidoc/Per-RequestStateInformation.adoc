@@ -526,11 +526,9 @@ Please see link:JSF.html#a6635[See
 PhaseListener] for the circumstances under which _ExceptionHandler_ is
 used.
 
-===
 
-image:SF-30.png[image]
-
-[[a3253]]ExceptionHandler
+[[a3253]]
+=== ExceptionHandler
 
  _ExceptionHandler_ is the central point for
 handling _unexpected_ _Exceptions_ that are thrown during the Faces
@@ -727,11 +725,9 @@ debug information is available to be included in any Facelet based error
 page using the _<ui:include />_ with a _src_ attribute equal to the
 string “ _javax.faces.error.xhtml_ ”.
 
-===
 
-image:SF-30.png[image]
-
-[[a3300]]FacesMessage
+[[a3300]]
+=== FacesMessage
 
 Each message queued within a _FacesContext_
 is an instance of the _javax.faces.application.FacesMessage_ class. The
@@ -802,21 +798,16 @@ _FacesMessage_ . This is normally a relatively short message that
 concisely describes the nature of the problem being reported by this
 _FacesMessage_ .
 
-===
 
-image:SF-30.png[image]
-
-ResponseStream
+=== ResponseStream
 
  _ResponseStream_ is an abstract class
 representing a binary output stream for the current response. It has
 exactly the same method signatures as the _java.io.OutputStream_ class.
 
-===
 
-image:SF-30.png[image]
-
-[[a3324]]ResponseWriter
+[[a3324]]
+=== ResponseWriter
 
  _ResponseWriter_ is an abstract class
 representing a character output stream for the current response. A
@@ -998,11 +989,9 @@ cloneWithWriter(Writer writer);
 Creates a new instance of this
 _ResponseWriter_ , using a different _Writer_ .
 
-===
 
-image:SF-30.png[image]
-
-[[a3366]]FacesContextFactory
+[[a3366]]
+=== FacesContextFactory
 
 [P1-start-facesContextFactory]A single
 instance of _javax.faces.context.FacesContextFactory_ must be made
@@ -1039,11 +1028,9 @@ parameters. In a servlet environment, the first argument is a
 _ServletContext_ , the second a _ServletRequest_ and the third a
 _ServletResponse_ .
 
-===
 
-image:SF-30.png[image]
-
-[[a3375]]ExceptionHandlerFactory
+[[a3375]]
+=== ExceptionHandlerFactory
 
 [P1-start-exceptionHandlerFactory]A single
 instance of _javax.faces.context.ExceptionHandlerFactory_ must be made
@@ -1075,11 +1062,9 @@ getExceptionHandler(FacesContext currentContext);
 Create and return a _ExceptionHandler_
 instance that has been configured based on the specified parameters.
 
-===
 
-image:SF-30.png[image]
-
-[[a3384]]ExternalContextFactory
+[[a3384]]
+=== ExternalContextFactory
 
 [P1-start-externalContextFactory]A single
 instance of _javax.faces.context.ExternalContextFactory_ must be made

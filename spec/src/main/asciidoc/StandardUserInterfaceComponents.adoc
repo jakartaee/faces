@@ -1445,11 +1445,8 @@ Partial View Rendering] for an overview of partial processing.
 as outlined in the Javadocs for the “processXXX” and “encodeXXX” methods
 if the current request is a partial request.[P1-end]
 
-===
 
-image:SF-21.png[image]
-
-Standard UIComponent Model Beans
+=== Standard UIComponent Model Beans
 
 Several of the standard _UIComponent_
 subclasses described in the previous section reference JavaBean

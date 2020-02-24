@@ -580,12 +580,8 @@ specified in the VDLdoc for that tag. The behavior of the
 javax.faces.passthrough.Element renderer is normatively specified in the
 RenderKitDoc for that renderer._
 
-===
 
-image:SF-43.png[image]
-
-Java Programming Language Specification for Facelets
-in JSF 2.0
+=== Java Programming Language Specification for Facelets in JSF 2.0
 
 The subsections within this section specify
 the Java API requirements of a Facelets implementation. Adherence to
@@ -736,11 +732,8 @@ for those namespaces.
 Such elements correspond to an instance of
 _javax.faces.view.facelets.TagHandler_ .
 
-===
 
-image:SF-43.png[image]
-
-XHTML Specification for Facelets for JSF 2.0
+=== XHTML Specification for Facelets for JSF 2.0
 
 === [[a5632]]General Requirements
 
@@ -1056,11 +1049,9 @@ the special _MethodExpression_ handling behavior described previously.
 runtime must support the inclusion of composite components within the
 _composite component definition_ . [P1_end_nested_composite_components].
 
-===
 
-image:SF-43.png[image]
-
-[[a5691]]Standard Facelet Tag Libraries
+[[a5691]]
+=== Standard Facelet Tag Libraries
 
 This section specifies the tag libraries that
 must be provided by an implementation.
@@ -1757,13 +1748,8 @@ messages can be sent from server side via _javax.faces.push.PushContext_
 interface which is injected into a using class with the
 _@javax.faces.push.Push_ CDI qualifier.
 
-===
-
-image:SF-44.png[image]
-
-<f:websocket> is desgined for push from server to client
-
-image:SF-44.png[image]
+<TODO - Tip>
+<f:websocket> is designed for push from server to client
 
 Although W3C WebSocket supports two-way
 communication, the <f:websocket> push is designed for one-way
@@ -2414,9 +2400,7 @@ tag library and the entirety of the JSTL Function tag library. Please
 see the VDLDocs for the JSTL Core and JSTL Functions tag libraries for
 the normative specification.
 
-===
-
-image:SF-43.png[image]
+---
 
 Assertions relating to the construction of the view
 hierarchy

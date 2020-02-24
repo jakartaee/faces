@@ -162,11 +162,9 @@ _responseComplete()_ method on the _FacesContext_ instance for the
 current request, prior to returning from event handlers or application
 actions.
 
-===
 
-image:SF-12.png[image]
-
-[[a401]]Standard Request Processing Lifecycle Phases
+[[a401]]
+=== Standard Request Processing Lifecycle Phases
 
 The standard phases of the request processing
 lifecycle are described in the following subsections.
@@ -731,11 +729,9 @@ _ClientWindow_ . Call _endUpdate()_ on the _PartialResponseWriter_ .
 
 {empty}[P1-end]
 
-===
 
-image:SF-12.png[image]
-
-[[a494]]Common Event Processing
+[[a494]]
+=== Common Event Processing
 
 For a complete description of the event
 processing model for JavaServer Faces components, see
@@ -767,11 +763,8 @@ during the current phase of the request processing lifecycle.
 were enqueued, after all originally queued events have been broadcast,
 before the lifecycle management method returns.[P1-end]
 
-===
 
-image:SF-12.png[image]
-
-Common Application Activities
+=== Common Application Activities
 
 The following subsections describe common
 activities that may be undertaken by an application that is using JSF to
@@ -973,11 +966,8 @@ facesContext.getViewRoot().getChildren().add(component);
 has been created and configured, the _FacesContext_ instance for this
 request must be made aware of it by calling _setViewRoot()_ .[P1-end]
 
-===
 
-image:SF-12.png[image]
-
-Concepts that impact several lifecycle phases
+=== Concepts that impact several lifecycle phases
 
 This section is intended to give the reader a
 “big picture” perspective on several complex concepts that impact
@@ -1890,11 +1880,9 @@ lifecycle because there are calls to _Application.publishEvent()_
 sprinkled throughout the code that gets executed when the lifecycle
 runs.
 
-===
 
-image:SF-12.png[image]
-
-[[a746]]Resource Handling
+[[a746]]
+=== Resource Handling
 
 === As shown in the diagram in link:JSF.html#a390[See Faces Request Generates Faces Response], [P1-start isResourceRequest rules] the JSF run-time must determine if the current Faces Request is a _Faces Resource Reques_ t or a _View Request_ . This must be accomplished by calling _Application.getResourceHandler().isResourceRequest()_ . [P1-end] Most of the normative specification for resource handling is contained in the Javadocs for _ResourceHandler_ and its related classes. This section contains the specification for resource handling that fits best in prose, rather than in Javadocs.
 
@@ -2383,11 +2371,9 @@ immediately after the component is added to the List. Refer to
 link:JSF.html#a937[See Component Tree Manipulation]for detailed
 information.
 
-===
 
-image:SF-12.png[image]
-
-[[a872]]Resource Library Contracts
+[[a872]]
+=== Resource Library Contracts
 
 [P1-start_contract_packaging]A resource
 library contract is a resource library, as specified in the preceding

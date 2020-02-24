@@ -94,11 +94,8 @@ Please see Section 1.2 of the Expression
 Language Specification, Version 2.1 for the complete specification of
 ValueExpression syntax and semantics.
 
-===
 
-image:SF-25.png[image]
-
-MethodExpressions
+=== MethodExpressions
 
  _Method expressions_ are a very similar to
 value expressions, but rather than supporting the dynamic retrieval and
@@ -248,11 +245,9 @@ The exact syntax and semantics of
 MethodExpression are now the domain of the Unified EL. Please see
 Section 1.2.1.2 of the Expression Language Specification, Version 2.1.
 
-===
 
-image:SF-25.png[image]
-
-[[a2406]]The Managed Bean Facility
+[[a2406]]
+=== The Managed Bean Facility
 
 As of version 2.3 of this specification, use
 of the managed bean facility as specified in this section is strongly
@@ -745,11 +740,8 @@ This information can be utilized by the tool
 to construct user interfaces based on the properties of the referenced
 beans.
 
-===
 
-image:SF-25.png[image]
-
-Managed Bean Annotations[[a2536]]
+=== Managed Bean Annotations[[a2536]]
 
 JSF 2.0 introduced several annotations, in
 the package _javax.faces.bean_ , that act as analogs to the managed bean
@@ -949,11 +941,8 @@ otherwise alter the execution.
 section 2.5 and the Common Annotations for the JavaTM PlatformTM
 specification section 2.5 for more details.[P1-end]
 
-===
 
-image:SF-25.png[image]
-
-How Faces Leverages the Unified EL
+=== How Faces Leverages the Unified EL
 
 This section is non-normative and covers the
 major players in the Unified EL and how they relate to JavaServer Faces.
@@ -1186,11 +1175,9 @@ Evaluating Expressions] _._
 
  _ExpressionFactory_ precipitates no events.
 
-===
 
-image:SF-25.png[image]
-
-[[a2664]]ELResolver Instances Provided by Faces
+[[a2664]]
+=== ELResolver Instances Provided by Faces
 
 This section provides details on what an
 implementation of the JavaServer Faces specification must do to support
@@ -2283,11 +2270,8 @@ additional implicit objects:
 the current _ExternalContext_ from the
 current _FacesContext_
 
-===
 
-image:SF-25.png[image]
-
-Current Expression Evaluation APIs
+=== Current Expression Evaluation APIs
 
 === ELResolver
 
@@ -2335,11 +2319,8 @@ expression.
 requested property could not be written to when evaluating the
 expression.
 
-===
 
-image:SF-25.png[image]
-
-Deprecated Expression Evaluation APIs
+=== Deprecated Expression Evaluation APIs
 
 Applications written for version 1.0 and 1.1
 of the Faces specification must continue to run in this version of the
@@ -2495,11 +2476,8 @@ not exist in the context of evaluation of a value expression.
 _EvaluationException_ )—used to report a syntax error in a value
 exception.
 
-===
 
-image:SF-25.png[image]
-
-CDI Integration
+=== CDI Integration
 
 As of version 2.3 of this specification, JSF
 must run in a container that supports CDI version 2.0. This requirement

@@ -56,11 +56,9 @@ Collect and Encode Elements Of a Form
 |var viewState = jsf.getViewState(form);
 |===
 
-===
 
-image:SF-57.png[image]
-
-[[a6856]]Initiating an Ajax Request
+[[a6856]]
+=== Initiating an Ajax Request
 
 [width="100%",cols="100%",]
 |===
@@ -263,12 +261,9 @@ false;" />
 This use case assumes there is another
 component in the view with the identifier outtext.
 
-===
 
-image:SF-57.png[image]
-
-[[a7017]]Processing
-The Ajax Response
+[[a7017]]
+=== Processing The Ajax Response
 
 [width="100%",cols="100%",]
 |===
@@ -290,12 +285,9 @@ the request) and onerror (the error handling callback for the request).
 operation must follow the jsf.ajax.response JavaScript
 documentation.[P1-end]
 
-===
 
-image:SF-57.png[image]
-
-[[a6931]]Registering Callback
-Functions
+[[a6931]]
+=== Registering Callback Functions
 
 The JavaScript API allows you to register
 callback functions for Ajax request/response event monitoring and error
@@ -523,12 +515,8 @@ var handleError = function handleError(data)
 
 
 
-===
 
-image:SF-57.png[image]
-
-Determining
-An Application’s Project Stage
+=== Determining An Application’s Project Stage
 
 [width="100%",cols="100%",]
 |===
@@ -565,11 +553,9 @@ else if (projectStage == “Development”) \{
 
 
 
-===
 
-image:SF-57.png[image]
-
-[[a7029]]Script Chaining
+[[a7029]]
+=== Script Chaining
 
 [width="100%",cols="100%",]
 |===

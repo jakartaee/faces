@@ -410,11 +410,8 @@ See the javadocs for that annotation for details.
 
 === Breakages in Backward Compatibility
 
-===
 
-image:SF-5.png[image]
-
-Related Technologies
+=== Related Technologies
 
 === [[a173]]Other Java™ Platform Specifications
 

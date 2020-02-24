@@ -268,11 +268,9 @@ This configuration states that .xhtml,
 declares the processing mode of .jspx files to be jspx and declares the
 processing mode of .view.xml files to be xml.
 
-===
 
-image:SF-60.png[image]
-
-[[a7134]]XML Schema Definition For Facelet Taglib
+[[a7134]]
+=== XML Schema Definition For Facelet Taglib
 
 The XML Schema Definition for Facelet Taglib
 is included in a web browser optimized format along with the Javadoc.
@@ -352,11 +350,9 @@ handler-class?)>
 
 
 
-===
 
-image:SF-60.png[image]
-
-[[a7162]]XML Schema Definition for Composite Components
+[[a7162]]
+=== XML Schema Definition for Composite Components
 
 <xsd:schema
 

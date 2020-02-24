@@ -739,11 +739,8 @@ substantial, it was judged to be worth the cost.
 
 
 
-===
 
-image:SF-63.png[image]
-
-Changes between 2.1 and 2.2
+=== Changes between 2.1 and 2.2
 
 This section gives the reader a survey of the
 changes between this version of the specification and the previous
@@ -1481,11 +1478,8 @@ substantial, it was judged to be worth the cost.
 
 
 
-===
 
-image:SF-63.png[image]
-
-Changes between 2.0 Rev a and 2.1
+=== Changes between 2.0 Rev a and 2.1
 
 === link:JSF.html#a5638[See Facelet Tag Library mechanism]
 
@@ -1514,11 +1508,8 @@ before trying to find the _ViewDeclarationLanguage_ .
 
 Document _deriveLogicalViewId()._
 
-===
 
-image:SF-63.png[image]
-
-Changes between 2.0 Final and 2.0 Rev a
+=== Changes between 2.0 Final and 2.0 Rev a
 
 === Global changes
 
@@ -2932,11 +2923,8 @@ Public:806]_
 
 
 
-===
 
-image:SF-63.png[image]
-
-Changes between 1.2 Final and 2.0 Final
+=== Changes between 1.2 Final and 2.0 Final
 
 This section gives a change-by-change
 accounting of the modifications to the spec since the draft listed in
@@ -3798,11 +3786,8 @@ automatically instantiated first.
 361 - Section 3.1.5, fix missed ValueBinding
 to ValueExpression change. __
 
-===
 
-image:SF-63.png[image]
-
-_Changes Between 1.1 and 1.2_
+=== _Changes Between 1.1 and 1.2_
 
 === Unified Expression Language (EL)
 

@@ -1001,11 +1001,9 @@ component. Please consult the Javadocs for more information.
 
 
 
-===
 
-image:SF-17.png[image]
-
-[[a1088]]Component Behavioral Interfaces
+[[a1088]]
+=== Component Behavioral Interfaces
 
 In addition to extending _UIComponent_ ,
 component classes may also implement one or more of the _behavioral
@@ -1614,11 +1612,9 @@ from getEventNames().[P1-end]
 Return the default event name for this
 component behavior if the component defines a default event.
 
-===
 
-image:SF-17.png[image]
-
-[[a1251]]Conversion Model
+[[a1251]]
+=== Conversion Model
 
 This section describes the facilities
 provided by JavaServer Faces to support type conversion between
@@ -1848,11 +1844,9 @@ A compliant implementation must allow the registration of a converter
 for class _java.lang.String_ and _java.lang.String.TYPE_ that will be
 used to convert values for these types. [P1-end]
 
-===
 
-image:SF-17.png[image]
-
-[[a1300]]Event and Listener Model
+[[a1300]]
+=== Event and Listener Model
 
 This section describes how JavaServer Faces
 provides support for generating and handling user interface events and
@@ -2364,11 +2358,9 @@ calls to _Application.publishEvent()_ Please see
 link:JSF.html#a3526[See System Event Methods] for the normative
 specification of _publishEvent()_ .
 
-===
 
-image:SF-17.png[image]
-
-[[a1410]]Validation Model
+[[a1410]]
+=== Validation Model
 
 This section describes the facilities
 provided by JavaServer Faces for validating user input.
@@ -2841,11 +2833,9 @@ This approach is useful if you are already
 using localized labels for your input components and are displaying the
 messages above the form, rather than adjacent to the input.
 
-===
 
-image:SF-17.png[image]
-
-[[a1515]]Composite User Interface Components
+[[a1515]]
+=== Composite User Interface Components
 
 === Non-normative Background
 
@@ -3532,11 +3522,9 @@ _<composite:attribute>_ elements for which the _default_ attribute was
 specified, or _null_ if none of the attributes have been given a default
 value.
 
-===
 
-image:SF-17.png[image]
-
-[[a1707]]Component Behavior Model
+[[a1707]]
+=== Component Behavior Model
 
 This section describes the facilities for
 adding Behavior attached objects to JavaServer Faces components.

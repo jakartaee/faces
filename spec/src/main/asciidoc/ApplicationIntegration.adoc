@@ -624,11 +624,9 @@ Class sourceClass, SystemEventListener listener);
 See the javadocs for both variants of
 _unsubscribeFromEvent()_ for the complete specification.
 
-===
 
-image:SF-33.png[image]
-
-[[a3542]]ApplicationFactory
+[[a3542]]
+=== ApplicationFactory
 
 A single instance of
 _javax.faces.application.ApplicationFactory_ must be made available to
@@ -672,11 +670,9 @@ more convenient to access the _Application_ instance for this
 application by calling the _getApplication()_ method on the
 _FacesContext_ instance for the current request.
 
-===
 
-image:SF-33.png[image]
-
-[[a3553]]Application Actions
+[[a3553]]
+=== Application Actions
 
 An _application action_ is an
 application-provided method on some Java class that performs some
@@ -708,11 +704,9 @@ more than one such _ActionSource_ component can specify individual
 action methods to be invoked for each activated component, either in the
 same Java class or in different Java classes.
 
-===
 
-image:SF-33.png[image]
-
-[[a3561]]NavigationHandler
+[[a3561]]
+=== NavigationHandler
 
 === [[a3562]]Overview
 
@@ -1681,11 +1675,8 @@ Place order w/o one-click delivery
 
 |===
 
-===
-
-image:SF-33.png[image]
-
-[[a3840]]FlowHandler
+[[a3840]]
+=== FlowHandler
 
 Any JSF application can be modeled as a
 directed graph where the nodes are views and the edges are transitions
@@ -1843,11 +1834,9 @@ implementation must use the _FlowHandler_ during its operation. _This
 behavior is normatively specified in link:JSF.html#a3571[See
 Default NavigationHandler Algorithm]_ .
 
-===
 
-image:SF-33.png[image]
-
-[[a3871]]ViewHandler
+[[a3871]]
+=== ViewHandler
 
  _ViewHandler_ is the pluggability mechanism
 for allowing implementations of or applications using the JavaServer
@@ -2469,11 +2458,8 @@ link:JSF.html#a404[See Restore
 View]link:JSF.html#a404[See Restore View] for the normative
 specification of this feature.
 
-===
-
-image:SF-33.png[image]
-
-[[a4003]]ViewDeclarationLanguage
+[[a4003]]
+=== ViewDeclarationLanguage
 
 To support the introduction of Facelets into
 the core specification, whilst preserving backwards compatibility with
@@ -2907,11 +2893,9 @@ Return the _viewRoot_ .
 
 
 
-===
 
-image:SF-33.png[image]
-
-[[a4117]]StateManager
+[[a4117]]
+=== StateManager
 
  _StateManager_ directs the process of saving
 and restoring the view between requests. The _StateManager_ instance for
@@ -3107,11 +3091,8 @@ Return the current view state as a String.
 ResposeStateManger.getViewState.[P1-end] Refer to
 link:JSF.html#a4288[See ResponseStateManager] for more details.
 
-===
 
-image:SF-33.png[image]
-
-ResourceHandler
+=== ResourceHandler
 
 The normative specification for this class is
 in the javadoc for _javax.faces.application.ResourceHandler_ . See also
@@ -3129,12 +3110,8 @@ setResourceHandler(ResourceHandler impl);
 
 |===
 
-===
 
-image:SF-33.png[image]
-
-Deprecated
-APIs
+=== Deprecated APIs
 
 === [[a4163]]PropertyResolver Property
 
