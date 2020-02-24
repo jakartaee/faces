@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2017, 2019 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,40 +17,40 @@
 
 -->
 
-<!-- 
+<!--
 
     Project to create the Jakarta Server Faces API jar and docs (vdldoc, renderkit docs).
-    
+
     This depends on a Mojarra build being available in the version set by mojarra.version
 
  -->
- 
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
-         
+
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.5</version>
+        <version>1.0.6</version>
         <relativePath/>
     </parent>
-    
+
     <groupId>jakarta.faces</groupId>
     <artifactId>jakarta.faces-api</artifactId>
-    <version>2.3.3-SNAPSHOT</version>
-    
+    <version>3.0.0-SNAPSHOT</version>
+
     <name>Jakarta Server Faces</name>
     <description>
-        Jakarta Server Faces defines an MVC framework for building user interfaces for web applications, 
-        including UI components, state management, event handing, input validation, page navigation, and 
+        Jakarta Server Faces defines an MVC framework for building user interfaces for web applications,
+        including UI components, state management, event handing, input validation, page navigation, and
         support for internationalization and accessibility.
     </description>
     <inceptionYear>1997</inceptionYear>
     <url>https://github.com/eclipse-ee4j/faces-api</url>
-    
+
     <properties>
         <mojarra.version>2.3.13</mojarra.version>
     </properties>
-    
+
     <licenses>
         <license>
             <name>EPL 2.0</name>
@@ -63,7 +63,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    
+
     <developers>
         <developer>
             <id>atijms</id>
@@ -77,7 +77,7 @@
             </roles>
             <timezone>+1</timezone>
         </developer>
-        
+
         <developer>
             <id>ren.zhijun.oracle</id>
             <name>Zhijun Ren</name>
@@ -90,7 +90,7 @@
             <timezone>+8</timezone>
         </developer>
     </developers>
-    
+
     <contributors>
         <contributor>
             <name>Jennifer Ball</name>
@@ -129,14 +129,14 @@
             <name>Mike Youngstrom</name>
         </contributor>
     </contributors>
-    
+
     <mailingLists>
         <mailingList>
             <name>Jakarta Server Faces Specification Mailing List</name>
             <post>https://accounts.eclipse.org/mailing-list/faces-dev</post>
         </mailingList>
     </mailingLists>
-    
+
     <build>
         <resources>
             <resource>
@@ -163,8 +163,8 @@
                 <targetPath>META-INF</targetPath>
             </resource>
         </resources>
-    
-    
+
+
         <plugins>
             <!-- Restricts the Java version to 1.8 -->
             <plugin>
@@ -176,8 +176,8 @@
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
             </plugin>
-        
-            <!-- 
+
+            <!--
                Unpack the sources jar that was build and installed by the Mojarra project. This way
                we can compile that source again in this project, but for the final artifact jar we only include
                the javax.* classes then.
@@ -195,7 +195,7 @@
                         </goals>
                     </execution>
                 </executions>
-                
+
                 <configuration>
                     <artifactItems>
                         <artifactItem>
@@ -206,7 +206,7 @@
                             <outputDirectory>src/main/java</outputDirectory>
                             <includes>**/*.java</includes>
                         </artifactItem>
-                        
+
                         <artifactItem>
                             <groupId>org.glassfish</groupId>
                             <artifactId>jakarta.faces</artifactId>
@@ -218,8 +218,8 @@
                     </artifactItems>
                 </configuration>
             </plugin>
-            
-            <!-- 
+
+            <!--
                 Clean unpacked sources jar
              -->
             <plugin>
@@ -241,9 +241,9 @@
                     </execution>
                 </executions>
             </plugin>
-            
-        
-            <!-- 
+
+
+            <!--
                 Create VDL docs
              -->
             <plugin>
@@ -290,7 +290,7 @@
                     <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
                 </configuration>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.omnifaces</groupId>
                 <artifactId>renderkitdoc-maven-plugin</artifactId>
@@ -309,10 +309,10 @@
                     <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
                 </configuration>
             </plugin>
-            
-            <!-- 
+
+            <!--
                Create API binary jar
-            
+
                For the final artifact jar we only include the javax.* classes and resources that we compiled from
                the unpackaged implementation source attachment jar. See the maven-dependency-plugin for this
                unpackaging. This effectively gives us the API jar.
@@ -329,8 +329,8 @@
                     </includes>
                 </configuration>
             </plugin>
-            
-             <!-- 
+
+             <!--
                Create sources for API jar
              -->
              <plugin>
@@ -351,8 +351,8 @@
                     </execution>
                 </executions>
             </plugin>
-            
-             <!-- 
+
+             <!--
                Create Javadoc for API jar
              -->
             <plugin>
@@ -391,7 +391,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                 </executions>
             </plugin>
         </plugins>
-        
+
         <pluginManagement>
             <plugins>
                 <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
@@ -424,7 +424,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             </plugins>
         </pluginManagement>
     </build>
-    
+
     <dependencies>
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -432,7 +432,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <version>4.0.3</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>jakarta.servlet.jsp</groupId>
             <artifactId>jakarta.servlet.jsp-api</artifactId>
@@ -449,7 +449,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <optional>true</optional>
         </dependency>
 
-        <dependency>    
+        <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
             <version>1.1.2</version>
@@ -462,7 +462,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <version>3.0.3</version>
             <scope>provided</scope>
         </dependency>
-    
+
         <!-- Needs to be updated still -->
         <dependency>
             <groupId>javax.enterprise</groupId>
@@ -477,7 +477,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <version>2.0.2</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>jakarta.json</groupId>
             <artifactId>jakarta.json-api</artifactId>
@@ -501,11 +501,11 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-        
-        <!-- 
+
+        <!--
            Depend on the source jar of the full implementation Mojarra jar. This is used for
            unpacking and re-compiling. This jar is created by executing mvn clean install
-           in the [mojarra home]/impl project.       
+           in the [mojarra home]/impl project.
         -->
         <dependency>
             <groupId>org.glassfish</groupId>
@@ -514,14 +514,14 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <scope>provided</scope>
             <classifier>sources</classifier>
         </dependency>
-   
-        
-         <!-- 
+
+
+         <!--
             For the vendor SPI implementations shipped with Mojarra.
             Although we don't use them and they don't end up in the API jar, they
             still need to be compiled
          -->
-         
+
          <!-- Jetty 6 -->
         <dependency>
             <groupId>org.mortbay.jetty</groupId>
@@ -544,7 +544,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    
+
     <reporting>
         <plugins>
             <plugin>
@@ -562,5 +562,5 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             </plugin>
         </plugins>
     </reporting>
-    
+
 </project>
