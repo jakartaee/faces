@@ -1,0 +1,622 @@
+[[a6699]]
+== Ajax Integration
+
+This chapter of the specification describes
+how Ajax integrates with the JavaServer Faces framework to create
+dynamic web applications. JavaServer Faces 1.2 standardized portions of
+the architecture to facilitate building Web 2.0 applications with Ajax.
+This chapter describes the resources and JavaScript APIs that are used
+to expose the Ajax capabilities of JavaServer Faces to page authors and
+component authors. It also describes the necessary ingredients of a
+JavaServer Faces Ajax framework, namely, a resource delivery mechanism,
+partial tree traversal, partial page update.
+
+[[a6702]]
+=== JavaScript Resource
+
+There must be a single JavaScript resource
+that exists with the resource identifier given by the value of the
+constant
+_javax.faces.application.ResourceHandler.JSF_SCRIPT_RESOURCE_NAME_ and
+it must exist under the resource library given by the value of the
+constant
+_javax.faces.application.ResourceHandler.JSF_SCRIPT_LIBRARY_NAME,_
+following the conventions in _link:JSF.html#a746[See Resource
+Handling]._ This resource contains the JavaScript APIs that facilitate
+Ajax interaction with JavaServer Faces.
+
+=== [[a6704]]JavaScript Resource Loading
+
+The JavaScript resource can become available
+to a JavaServer Faces application using a number of different
+approaches.
+
+=== [[a6706]]The Annotation Approach
+
+Component authors can specify that a custom
+component or renderer requires the Ajax resource with the use of the
+ResourceDependency annotation.
+
+[width="100%",cols="100%",]
+|===
+a|
+@ResourceDependency (name="jsf.js",
+library="javax.faces", target="head")
+
+public class MyComponent extends UIOutput...
+
+|===
+
+For more information on this approach refer
+to link:JSF.html#a847[See Relocatable
+Resources] and
+link:JSF.html#a869[See
+Resource Rendering Using Annotations].
+
+=== [[a6712]]The Resource API Approach
+
+Component authors can also specify that a
+custom component or renderer requires the JavaScript resource by using
+the resource APIs. For example, a component or renderer’s encode method
+may contain:
+
+[width="100%",cols="100%",]
+|===
+a|
+Resource resource =
+context.getApplication().getResourceHandler()
+
+ .createResource(“jsf.js”, “javax.faces”);
+
+...
+
+writer.startElement("script", component);
+
+writer.writeAttribute("type",
+"text/javascript", "type");
+
+writer.writeAttribute("src",((resource !=
+null)? resource.getRequestPath(): "RES_NOT_FOUND"),”src”);
+
+writer.endElement(“script”);
+
+|===
+
+Script resources are relocatable resources
+(see link:JSF.html#a847[See Relocatable
+Resources]) which means you can control the rendering location for these
+resources by setting the “target” attribute on the resource component:
+
+[width="100%",cols="100%",]
+|===
+a|
+public class MyComponent extends UIOutput \{
+
+...
+
+getAttributes().put(“target”, “head”);
+
+...
+
+}
+
+|===
+
+This attribute must be set before the
+component is added to the view. The component or renderer must also
+implement the event processing method:
+
+[width="100%",cols="100%",]
+|===
+a|
+public void processEvent(SystemEvent event)
+throws AbortProcessingException \{
+
+UIComponent component = (UIComponent)
+event.getSource();
+
+FacesContext context =
+FacesContext.getCurrentInstance();
+
+if (component.getAttributes().get("target")
+!= null) \{
+
+context.getViewRoot().addComponentResource(context,
+
+component);
+
+}
+
+}
+
+
+
+|===
+
+When the component is added to the view, an
+event will be published. This event handling method will add the
+component resource to one of the resource location facets under the view
+root so it will be in place before rendering.
+
+=== [[a6738]]The Page D eclaration Language Approach
+
+Page authors can make the Ajax resource
+available to the current view using the outputScript tag. For example:
+
+[width="100%",cols="100%",]
+|===
+a|
+<f:view contentType=”text/html”/>
+
+<h:head>
+
+<meta...
+
+<title...
+
+</h:head>
+
+<h:body>
+
+...
+
+<h:outputScript name=”jsf.js”
+library=”javax.faces”
+
+target=”body”/>
+
+...
+
+</h:body>
+
+...
+
+
+
+|===
+
+[[a6754]]
+=== JavaScript Namespacing
+
+JavaScript objects that are not enclosed
+within a namespace are global, which means they run the risk of
+interfering, overriding and/or clobbering previously defined JavaScript
+objects. This section defines the requirements for implementations
+intending to use the JavaServer Faces 2.0 JavaScript API.
+
+[P1-start javascript namespace]Any
+implementation that intends to use the JavaServer Faces 2.0 JavaScript
+API must define a top level JavaScript object name jsf, whose type is a
+JavaScript associative array. Within that top level JavaScript object,
+there must be a property named ajax..
+
+[width="100%",cols="100%",]
+|===
+a|
+if (jsf == null || typeof jsf == "undefined")
+\{
+
+ var jsf = new Object();
+
+}
+
+if (jsf.ajax == null || typeof jsf.ajax ==
+"undefined") \{
+
+ jsf["ajax"] = new Object();
+
+}
+
+
+
+|===
+
+{empty}[P1-end]
+
+[[a6766]]
+=== Ajax Interaction
+
+This section of the specification outlines
+the Ajax JavaScript APIs that are used to initiate client side
+interactions with the JavaServer Faces framework including partial tree
+traversal and partial page update. All of the functions in this
+JavaScript API will be exposed on a page scoped JavaScript object. Refer
+to link:JSF.html#a6841[See JavaScript API]for details
+about the individual API
+functions.
+
+=== [[a6769]]Sending an Ajax Request
+
+The JavaScript function jsf.ajax.request is
+used to send information to the server to control partial view
+processing (link:JSF.html#a6831[See Partial
+View Processing]) and partial view rendering
+(link:JSF.html#a6833[See Partial View
+Rendering]). All requests using the jsf.ajax.request function will be
+made asynchronously to the server. Refer to
+link:JSF.html#a6856[See Initiating an
+Ajax Request].
+
+=== [[a6771]]Ajax Request Queueing
+
+{empty}[P1-start-ajaxrequest-queue] All Ajax
+requests must be put into a client side request queue before they are
+sent to the server to ensure Ajax requests are processed in the order
+they are sent. The request that has been waiting in the queue the
+longest is the next request to be sent. After a request is sent, the
+Ajax request callback function must remove the request from the queue
+(also known as dequeuing). If the request completed successfully, it
+must be removed from the queue. If there was an error, the client must
+be notified, but the request must still be removed from the queue so the
+next request can be sent. The next request (the oldest request in the
+queue) must be sent. Refer to the jsf.ajax.request JavaScript
+documentation for more specifics about the Ajax request queue.[P1-end]
+
+=== [[a6773]]Request Callback Function
+
+The Ajax request callback function is called
+when the Ajax request/response interaction is complete.
+[P1-start-callback]This function must perform the following actions:
+
+If the return status is >= 200 and < 300,
+send a “complete” event following
+link:JSF.html#a6792[See Sending Events]. Call
+jsf.ajax.response passing the Ajax request object (for example the
+XMLHttpRequest instance) and the request context (containing the source
+DOM element, onevent event function callback and onerror error function
+callback).
+
+If the return status is outside the range
+mentioned above, send a “complete” event following
+link:JSF.html#a6792[See Sending Events]. Send an
+“httpError” error following link:JSF.html#a6806[See
+Signaling Errors].
+
+Regardless of whether the request completed
+successfully or not:
+
+remove the completed requests (Ajax
+readystate 4) from the request queue (dequeue) - specifically the
+requests that have been on the queue the longest.
+
+{empty}find the next oldest unprocessed (Ajax
+readystate 0) request on the queue, and send it. The implementation must
+ensure that the request that is sent does not enter the queue
+again.[P1-end]
+
+Refer to
+link:JSF.html#a6781[See Receiving
+The Ajax Response]. Also refer to the jsf.ajax.request JavaScript
+documentation for more specifics about the request callback function.
+
+=== [[a6781]]Receiving The Ajax Response
+
+{empty}The jsf.ajax.response function is
+responsible for examining the markup that is returned from the server
+and updating the client side DOM. The Ajax request callback function
+should call this function when a request completes successfully.
+[P1-start-ajaxresponse]The implementation of jsf.ajax.response must
+handle the response as outlined in the JavaScript documentation for
+jsf.ajax.response. The elements in the response must be processed in the
+order they appear in the response.[P1-end]
+
+=== [[a6783]]Monitoring Events On The Client
+
+JavaScript functions can be registered to be
+notified during various stages of the Ajax request/response cycle.
+Functions can be set up to monitor individual Ajax requests, and
+functions can also be set up to monitor all Ajax requests.
+
+=== [[a6785]]Monitoring Events For An Ajax Request
+
+There are two ways to monitor events for a
+single Ajax request by registering an event callback function:
+
+By using the <f:ajax> tag with the onevent
+attribute.
+
+By using the JavaScript API function
+jsf.ajax.request with onevent as an option.
+
+{empty}Refer to
+link:JSF.html#UNKNOWN[See <f:ajax>] for details on the use of the
+<f:ajax> tag approach. Refer to
+link:JSF.html#a6856[See Initiating an
+Ajax Request] for details about using the jsf.ajax.request function
+approach. [P1-start-event-request]The implementation must ensure the
+JavaScript function that is registered for an Ajax request must be
+called in accordance with the events outlined in
+link:JSF.html#a6936[See Events].[P1-end]
+
+=== [[a6790]]Monitoring Events For All Ajax Requests
+
+{empty}The JavaScript API provides the
+jsf.ajax.addOnEvent function that can be used to register a JavaScript
+function that will be notified when any Ajax request/response event
+occurs. Refer to
+link:JSF.html#a6931[See Registering
+Callback Functions] for more details. The jsf.ajax.addOnEvent function
+accepts a JavaScript function argument that will be notified when events
+occur during any Ajax request/response event cycle. [P1-start-event] The
+implementation must ensure the JavaScript function that is registered
+must be called in accordance with the events outlined in
+link:JSF.html#a6936[See Events].[P1-end]
+
+=== [[a6792]]Sending Events
+
+[P1-start-event-send]The implementation must
+send events to the runtime as follows:
+
+Construct a data payload for events using the
+properties described in link:JSF.html#a6947[See
+Event Data Payload].
+
+If an event handler function was registered
+with the “onevent” attribute
+(link:JSF.html#a6785[See
+Monitoring Events For An Ajax Request]) call it passing the data
+payload.
+
+{empty}If any event handling functions were
+registered with the “addOnEvent” function
+(link:JSF.html#a6790[See
+Monitoring Events For All Ajax Requests]) call them passing the data
+payload.[P1-end]
+
+=== [[a6797]]Handling Errors On the Client
+
+JavaScript functions can be registered to be
+notified when Ajax requests complete with error status codes from the
+server to give implementations a chance to handle the errors. Functions
+can be set up to handle errors from individual Ajax requests and
+functions can be setup to handle errors for all Ajax requests.
+
+=== [[a6799]]Handling Errors For An Ajax Request
+
+There are two ways to handle errors for a
+single Ajax request by registering an error callback function:
+
+By using the <f:ajax> tag with the onerror
+attribute.
+
+By using the JavaScript API function
+jsf.ajax.request with onerror as an option.
+
+{empty}Refer to
+link:JSF.html#UNKNOWN[See <f:ajax>] for details on the use of the
+<f:ajax> tag approach. Refer to
+link:JSF.html#a6856[See Initiating an
+Ajax Request] for details about using the jsf.ajax.request function
+approach. [P1-start-event-request]The implementation must ensure the
+JavaScript function that is registered for an Ajax request must be
+called in accordance when the request status code from the server is as
+outlined in link:JSF.html#a6976[See Errors].[P1-end]
+
+=== [[a6804]]Handling Errors For All Ajax Requests
+
+{empty}The JavaScript API provides the
+jsf.ajax.addOnError function that can be used to register a JavaScript
+function that will be notified when an error occurs for any Ajax
+request/response. Refer to
+link:JSF.html#a6931[See Registering
+Callback Functions] for more details. The jsf.ajax.addOnError function
+accepts a JavaScript function argument that will be notified when errors
+occur during any Ajax request/response cycle. [P1-start-event] The
+implementation must ensure the JavaScript function that is registered
+must be called in accordance with the errors outlined in
+link:JSF.html#a6976[See Errors].[P1-end]
+
+=== [[a6806]]Signaling Errors
+
+[P1-start-error-signal]The implementation
+must signal errors to the runtime as follows:
+
+Construct a data payload for errors using the
+properties described in link:JSF.html#a6988[See
+Error Data Payload].
+
+If an error handler function was registered
+with the “onerror” attribute
+(link:JSF.html#a6799[See
+Handling Errors For An Ajax Request]) call it passing the data payload.
+
+If any error handling functions were
+registered with the “addOnError” function
+(link:JSF.html#a6804[See
+Handling Errors For All Ajax Requests]) call them passing the data
+payload.
+
+{empty}If the project stage is “development”
+(see
+link:JSF.html#a7017[See
+Determining An Application’s Project Stage]) use JavaScript “alert” to
+signal the error(s).[P1-end]
+
+=== [[a6812]]Handling Errors On The Server
+
+JavaServer Faces handles exceptions on the
+server as outlined in link:JSF.html#a3253[See ExceptionHandler].
+[P1-start-error-server]JavaServer Faces Ajax frameworks must ensure
+exception information is written to the response in the format:
+
+[width="100%",cols="100%",]
+|===
+a|
+<partial-response id="j_id1">
+
+<error>
+
+<error-name>...</error-name>
+
+<error-message>...</error-message>
+
+</error>
+
+</partial-response>
+
+|===
+
+Extract the “class” from the “Throwable”
+object and write that as the contents of error-name in the response.
+
+Extract the “cause” from the “Throwable”
+object if it is available and write that as the contents of
+error-message in the response. If “cause” is not available, write the
+string returned from “Throwable.getMessage()”.
+
+{empty}Implementations must ensure that an
+ExceptionHandler suitable for writing exceptions to the partial response
+is installed if the current request required an Ajax response
+(PartialViewContext.isAjaxRequest() returns true).[P1-end]
+
+Implementations may choose to include a
+specialized ExceptionHandler for Ajax that extends from
+javax.faces.context.ExceptionHandlerWrapper, and have the
+javax.faces.context.ExceptionHandlerFactory implementation install it if
+the environment requires it.
+
+[[a6825]]
+=== Partial View Traversal
+
+The JavaServer Faces lifecycle, can be viewed
+as consisting of an execute phase and a render phase.
+
+
+
+image:lifecycle.png[image]
+
+Partial traversal is the technique that can
+be used to “visit” one or more components in the view, potentially to
+have them pass through the “execute” and/or “render” phases of the
+request processing lifecycle. This is a key feature for JSF and Ajax
+frameworks and it allows selected components in the view to be processed
+and/or rendered. There are a variety of JSF Ajax frameworks available,
+and they all perform some variation of partial traversal.
+
+=== [[a6829]]Partial Traversal Strategy
+
+Frameworks use a partial traversal strategy
+to perform partial view processing and partial view rendering. This
+specification does not dictate the use of a specific partial traversal
+strategy. However, frameworks must implement their desired strategy by
+implementing the PartialViewContext.processPartial method. Refer to the
+JavaDocs for details about this method.
+
+=== [[a6831]]Partial View Processing
+
+{empty}Partial view processing allows
+selected components to be processed through the “execute” portion of the
+lifecycle. Although the diagram in
+link:JSF.html#a6825[See Partial View
+Traversal] depicts the “execute” portion as encompassing everything
+except the “Render Response Phase”, for the purposas of an ajax request,
+the execute portion of the lifecycle is the “Apply Request Values
+Phase”, “Update Model Values Phase” and “Process Validations Phase”.
+Partial view processing on the server is triggered by a request from the
+client. The request does not have to be an Ajax request. The request
+contains special parameters that indicate the request is a partial
+execute request (not triggered by Ajax) or a partial execute request
+that was triggered using Ajax. The client also sends a set of client ids
+of the components that must be processed through the execute phase of
+the request processing lifecycle. Refer to
+link:JSF.html#a6769[See Sending an Ajax
+Request] about the request sending details. The FacesContext has methods
+for retrieving the PartialViewContext instance for the request. The
+PartialViewContext may also be retrieved by using the
+PartialViewContextFactory class. The XML schema allows for the
+definition of a PartialViewContextFactory using the
+“partial-view-context-factory” element. Refer to the partial response
+schema in the Javadoc section of the spec for more information on this
+element. The PartialViewContext has properties and methods that indicate
+the request is a partial request based on the values of these special
+request parameters. Refer to the JavaDocs for
+javax.faces.context.PartialViewContext and
+link:JSF.html#a3229[See Partial View Context]
+for the specifics of the PartialViewContext constants and methods that
+facilitate partial processing. [P1-start-partialExec]The UIViewRoot
+processDecodes, processValidators and processUpdates methods must
+determine if the request is a partial request using the
+FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()
+method. If
+FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()
+returns true, then the implementation of these methods must retrieve a
+PartialViewContext instance and invoke
+PartialViewContext.processPartial. Refer to
+link:JSF.html#a427[See Apply Request Values],
+link:JSF.html#a436[See
+Apply Request Values Partial Processing],
+link:JSF.html#a438[See Process Validations],
+link:JSF.html#a444[See
+Partial Validations Partial Processing], link:JSF.html#a446[See
+Update Model Values],
+link:JSF.html#a452[See
+Update Model Values Partial Processing].[P1-end]
+
+=== [[a6833]]Partial View Rendering
+
+{empty}Partial view rendering on the server
+is triggered by a request from the client. It allows one or more
+components in the view to perform the encoding process. The request
+contains special parameters that indicate the request is a partial
+render request. The client also sends a set of client ids of the
+components that must be processed by the render phase of the request
+processing lifecycle. Refer to
+link:JSF.html#a6769[See Sending an Ajax
+Request] about the request sending details. The PartialViewContext has
+methods that indicate the request is a partial request based on the
+values of these special request parameters. Refer to
+link:JSF.html#a3225[See
+Partial Processing Methods] for the specifics of the FacesContext
+constants and methods that facilitate partial processing.
+[P1-start-partialRender]The UIViewRoot getRendersChildren and
+encodeChildren methods must determine if the request is an Ajax request
+using the
+FacesContext.getCurrentInstance().getPartialViewContext().isAjaxRequest()
+method. If PartialViewContext.isAjaxRequest() returns true, then the
+getRendersChildren method must return true and the encodeChildren method
+must perform partial rendering using the
+PartialViewContext.processPartial implementation. Refer to the JavaDocs
+for UIViewRoot.encodeChildren for specific details.[P1-end]
+
+=== [[a6835]]Sending The Response to The Client
+
+The Ajax response (also known as partial
+response) is formulated and sent to the client during the Render
+Response phase of the request processing lifecycle. The partial response
+consists of markup rendered by one or more components. The response
+should be in a common format so JavaScript clients can interpret the
+markup in a consistent way - an important requirement for component
+compatability. The agreed upon format and content type for the partial
+response is XML. This means there should be a ResponseWriter suitable
+for writing the response in XML. The UIViewRoot.encodeChildren method
+delegates to a partial traversal strategy. The partial traversal
+strategy implementation produces the partial response. The markup that
+is sent to the client must contain elements that the client can
+recognize. In addition to the markup produced by server side components,
+the response must contain “instructions” for the client to interpret, so
+the client will know, for example, that it is to add new markup to the
+client DOM, or update existing areas of the DOM. When the response is
+sent back to the client, it must contain the view state.
+[P1-start-sending-response]Implementations must adhere to the response
+format as specified in the JavaScript docs for
+jsf.ajax.response.[P1-end] Refer to the XML schema definition in the
+link:JSF.html#a7162[See XML Schema Definition for Composite
+Components] section. This XML schema is another important area for
+component library compatability.
+
+=== [[a6837]]Writing The Partial Response
+
+JavaServer Faces provides
+javax.faces.context.PartialResponseWriter to ensure the Ajax response
+that is written follows the standard format as specified in
+link:JSF.html#a7162[See XML Schema Definition for Composite
+Components]. Implementations must take care to properly handle nested
+CDATA sections when writing the response. PartialResponseWriter
+decorates an existing ResponseWriter implementation by extending
+javax.faces.context.ResponseWriterWrapper. Refer to the
+javax.faces.context.PartialResponseWriter JavaDocs, and the JavaScript
+documentation for the jsf.ajax.response function for more specifics.
+
+
+
+===

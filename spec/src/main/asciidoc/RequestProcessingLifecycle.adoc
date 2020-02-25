@@ -1,0 +1,2428 @@
+[[a369]]
+== Request Processing Lifecycle
+
+Web user interfaces generally follow a
+pattern where the user-agent sends one or more requests to the server
+with the end goal of displaying a user-interface. In the case of Web
+browsers, an initial HTTP GET or POST request is made to the server,
+which responds with a document which the browser interprets and
+automatically makes subsequent requests on the user’s behalf. The
+responses to each of these subsequent requests are usually images,
+JavaScript files, CSS Style Sheets, and other artifacts that fit “into”
+the original document. If the JSF lifecycle is involved in rendering the
+initial response, the entire process of initial request, the response to
+that request, and any subsequent requests made automatically by the
+user-agent, and their responses, is called a _Faces View
+Request/Response_ for discussion. The following graphic illustrates a
+Faces View Request/Response.
+
+image:SF-11.png[image]
+
+Each Faces View Request/Response goes through
+a well-defined _request processing lifecycle_ made up of _phases_ .
+There are three different scenarios that must be considered, each with
+its own combination of phases and activities:
+
+Non-Faces Request generates Faces Response
+
+Faces Request generates Faces Response
+
+Faces Request generates Non-Faces Response
+
+Where the terms being used are defined as
+follows:
+
+ _Faces Response_ —A response that was
+created by the execution of the _Render Response_ phase of the request
+processing lifecycle.
+
+ _Non-Faces Response_ —A response that was
+not created by the execution of the _render response_ phase of the
+request processing lifecycle. Examples would be a servlet-generated or
+JSP-rendered response that does not incorporate JSF components, a
+response that sets an HTTP status code other than the usual 200 (such as
+a redirect), or a response whose HTTP body consists entirely of the
+bytes of an in page resource, such as a JavaScript file, a CSS file, an
+image, or an applet. This last scenario is considered a special case of
+a Non-Faces Response and will be referred to as a _Faces Resource
+Response_ for the remainder of this specification.
+
+ _Faces Request_ —A request that was sent
+from a previously generated _Faces response_ . Examples would be a
+hyperlink or form submit from a rendered user interface component, where
+the request URI was crafted (by the component or renderer that created
+it) to identify the view to use for processing the request. Another
+example is a request for a resource that the user-agent was instructed
+to fetch an artifact such as an image, a JavaScript file, a CSS
+stylesheet, or an applet. This last scenario is considered a special
+case of a Faces Request and will be referred to as a _Faces Resource
+Request_ for the remainder of this specification.
+
+ _Non-Faces Request_ —A request that was sent
+to an application component (e.g. a servlet or JSP page), rather than
+directed to a Faces view.
+
+In addition, of course, your web application
+may receive non-Faces requests that generate non-Faces responses.
+Because such requests do not involve JavaServer Faces at all, their
+processing is outside the scope of this specification, and will not be
+considered further.
+
+READER NOTE: The dynamic behavior
+descriptions in this Chapter make forward references to the sections
+that describe the individual classes and interfaces. You will probably
+find it useful to follow the reference and skim the definition of each
+new class or interface as you encounter them, then come back and finish
+the behavior description. Later, you can study the characteristics of
+each JSF API in the subsequent chapters.
+
+[[a383]]
+=== Request Processing Lifecycle Scenarios
+
+Each of the scenarios described above has a
+lifecycle that is composed of a particular set of phases, executed in a
+particular order. The scenarios are described individually in the
+following subsections.
+
+=== Non-Faces Request Generates Faces Response
+
+An application that is processing a non-Faces
+request may use JSF to render a Faces response to that request. In order
+to accomplish this, the application must perform the common activities
+that are described in the following sections:
+
+Acquire Faces object references, as described
+in link:JSF.html#a502[See Acquire Faces Object References],
+below.
+
+Create a new view, as described in
+link:JSF.html#a516[See Create And Configure A New View], below.
+
+Store the view into the _FacesContext_ by
+calling the _setViewRoot()_ method on the _FacesContext._
+
+=== [[a390]]Faces Request Generates Faces Response
+
+The most common lifecycle will be the case
+where a previous Faces response includes user interface controls that
+will submit a subsequent request to this web application, utilizing a
+request URI that is mapped to the JSF implementation’s controller, as
+described in link:JSF.html#a6076[See Servlet Mapping]. Because
+such a request will be initially handled by the JSF implementation, the
+application need not take any special steps—its event listeners,
+validators, and application actions will be invoked at appropriate times
+as the standard request processing lifecycle, described in the following
+diagrams, is invoked.
+
+image:SF-13.png[image]
+
+The “Handle Resource Request” box, and its
+subsequent boxes, are explained in link:JSF.html#a746[See
+Resource Handling]. The following diagram explains the “Execute and
+Render Lifecycle” box.
+
+image:SF-14.png[image]
+
+The behavior of the individual phases of the
+request processing lifecycle are described in individual subsections of
+link:JSF.html#a401[See Standard Request Processing Lifecycle
+Phases]. Note that, at the conclusion of several phases of the request
+processing lifecycle, common event processing logic (as described in
+link:JSF.html#a494[See Common Event Processing]) is performed
+to broadcast any _FacesEvents_ generated by components in the component
+tree to interested event listeners.
+
+=== Faces Request Generates Non-Faces Response
+
+Normally, a JSF-based application will
+utilize the _Render Response_ phase of the request processing lifecycle
+to actually create the response that is sent back to the client. In some
+circumstances, however, this behavior might not be desirable. For
+example:
+
+A Faces Request needs to be redirected to a
+different web application resource (via a call to
+_HttpServletResponse.sendRedirect_ ).
+
+A Faces Request causes the generation of a
+response using some other technology (such as a servlet, or a JSP page
+not containing JSF components).
+
+A Faces Request causes the generation of a
+response simply by serving up the bytes of a resource, such as an image,
+a JavaScript file, a CSS file, or an applet
+
+In any of these scenarios, the application
+will have used the standard mechanisms of the servlet or portlet API to
+create the response headers and content. It is then necessary to tell
+the JSF implementation that the response has already been created, so
+that the _Render Response_ phase of the request processing lifecycle
+should be skipped. This is accomplished by calling the
+_responseComplete()_ method on the _FacesContext_ instance for the
+current request, prior to returning from event handlers or application
+actions.
+
+
+[[a401]]
+=== Standard Request Processing Lifecycle Phases
+
+The standard phases of the request processing
+lifecycle are described in the following subsections.
+
+{empty}[P1-start-currentPhaseId]The default
+request lifecycle processing implementation must ensure that the
+_currentPhaseId_ property of the _FacesContext_ instance for this
+request is set with the proper _PhaseId_ constant for the current phase
+as early as possible at the beginning of each phase.[P1-end]
+
+=== [[a404]]Restore View
+
+[P1-start-restoreView]The JSF implementation
+must perform the following tasks during the _Restore View_ phase of the
+request processing lifecycle:
+
+Call _initView()_ on the _ViewHandler_ . This
+will set the character encoding properly for this request.
+
+Examine the _FacesContext_ instance for the
+current request. If it already contains a _UIViewRoot_ :
+
+ Set the _locale_ on this _UIViewRoot_ to the
+value returned by the _getRequestLocale()_ method on the
+_ExternalContext_ for this request.
+
+Take no further action during this phase, and
+return. The presence of a UIViewRoot already installed in the
+FacesContext before the Restore View Phase implementation indicates that
+the phase should assume the view has already been restored by other
+means.
+
+Derive the _viewId_ according to the
+following algorithm, or one semantically equivalent to it.
+
+ Look in the request map for a value under
+the key _javax.servlet.include.path_info_ . If found, let it be the
+_viewId_ .
+
+Call _getRequestPathInfo()_ on the current
+_ExternalContext_ . If this value is non-null, let this be the _viewId_
+.
+
+Look in the request map for a value under the
+key _javax.servlet.include.servlet_path_ . If found, let it be the
+_viewId_ .
+
+If none of these steps yields a non- _null_
+viewId, throw a _FacesException_ with an appropriate localized message.
+
+Determine if this request is a postback or
+initial request by executing the following algorithm. Find the
+render-kit-id for the current request by calling
+_calculateRenderKitId()_ on the _Application_ ’s _ViewHandler_ . Get
+that _RenderKit_ ’s _ResponseStateManager_ and call its _isPostback()_
+method, passing the current _FacesContext_ . If the current request is
+an attempt by the servlet container to display a servlet error page, do
+not interpret the request as a postback, even if it is indeed a
+postback.
+
+If the request is a postback, call
+_setProcessingEvents(false)_ on the current _FacesContext_ . Then call
+_ViewHandler.restoreView()_ , passing the _FacesContext_ instance for
+the current request and the view identifier, and returning a
+_UIViewRoot_ for the restored view. If the return from
+_ViewHandler.restoreView()_ is null, throw a _ViewExpiredException_ with
+an appropriate error message.
+_javax.faces.application.ViewExpiredException_ is a _FacesException_
+that must be thrown to signal to the application that the expected view
+was not returned for the view identifier. An application may choose to
+perform some action based on this exception.
+
+Store the restored _UIViewRoot_ in the
+_FacesContext_ .
+
+Call _setProcessingEvents(true)_ on the
+current _FacesContext_ . __
+
+If the request is not a postback, try to
+obtain the _ViewDeclarationLanguage_ from the _ViewHandler_ , for the
+current _viewId_ by calling _ViewHandler.deriveLogicalViewId()_ and
+passing the result to _ViewHandler.getViewDeclarationLanguage()_ . If no
+such instance can be obtained, call _facesContext.renderResponse()_ .
+Otherwise, call _getViewMetadata()_ on the _ViewDeclarationLanguage_
+instance. If the result is non- _null_ , call _createMetadataView()_ on
+the _ViewMetadata_ instance. Call _ViewMetadata.hasMetadata()_ , passing
+the newly created _viewRoot_ . If this method returns false, call
+_facesContext.renderResponse()_ . If it turns out that the previous call
+to _createViewMetadata()_ did not create a _UIViewRoot_ instance, call
+_createView()_ on the _ViewHandler_ .
+
+=== View Protection
+
+Call
+ViewHandler.getProtectedViewsUnmodifiable() to determine if the view for
+this viewId is protected. If not, assume the requested view is not
+protected and take no additional view protection steps. Obtain the value
+of the value of the request parameter whose name is given by the value
+of ResponseStateManager.NON_POSTBACK_VIEW_TOKEN_PARAM. If there is no
+value, throw ProtectedViewException. If the value is present, compare it
+to the return from
+ResponseStateManager.getCryptographicallyStrongTokenFromSession(). If
+the values do not match, throw ProtectedViewException. If the values do
+match, look for a Referer [sic] request header. If the header is
+present, use the protected view API to determine if any of the declared
+protected views match the value of the Referer header. If so, conclude
+that the previously visited page is also a protected view and it is
+therefore safe to continue. Otherwise, try to determine if the value of
+the Referer header corresponds to any of the views in the current web
+application. If not, throw a ProtectedViewException. If the Origin
+header is present, additionally perform the same steps as with the
+Referer header.
+
+Call _renderResponse()_ on the _FacesContext_
+.
+
+Obtain a reference to the _FlowHandler_ from
+the _Application_ . Call its _clientWindowTransition()_ method. This
+ensures that navigation that happened as a result of the renderer for
+the _javax.faces.OutcomeTarget_ component-family is correctly handled
+with respect to flows. For example, this enables _<h:button>_ to work
+correctly with flows.
+
+Using _Application.publishEvent()_ , publish
+a _PostAddToViewEvent_ with the created _UIViewRoot_ as the event
+source.
+
+{empty}In all cases, the implementation must
+ensure that the restored tree is traversed and the
+_PostRestoreStateEvent_ is published for every node in the tree.[P1-end]
+
+At the end of this phase, the _viewRoot_
+property of the _FacesContext_ instance for the current request will
+reflect the saved configuration of the view generated by the previous
+Faces Response, or a new view returned by _ViewHandler.createView()_ for
+the view identifier.
+
+=== [[a427]]Apply Request Values
+
+The purpose of the _Apply Request Values_
+phase of the request processing lifecycle is to give each component the
+opportunity to update its current state from the information included in
+the current request (parameters, headers, cookies, and so on). When the
+information from the current request has been examined to update the
+component’s current state, the component is said to have a “local
+value”.
+
+[P1-start-applyRequestDecode]During the
+_Apply Request Values_ phase, the JSF implementation must call the
+_processDecodes()_ method of the _UIViewRoot_ of the component
+tree.[P1-end] This will normally cause the _processDecodes()_ method of
+each component in the tree to be called recursively, as described in the
+Javadocs for the _UIComponent.processDecodes()_ method.
+[P1-start-partialDecode] The _processDecodes()_ method must determine if
+the current request is a “partial request” by calling
+_FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
+. If
+_FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
+returns _true_ , perform the sequence of steps as outlined in
+link:JSF.html#a436[See
+Apply Request Values Partial Processing].[P1-end] Details of the
+decoding process follow.
+
+During the decoding of request values, some
+components perform special processing, including:
+
+Components that implement _ActionSource_
+(such as _UICommand_ ), which recognize that they were activated, will
+queue an _ActionEvent_ . The event will be delivered at the end of
+_Apply Request Values_ phase if the _immediate_ property of the
+component is _true_ , or at the end of _Invoke Application_ phase if it
+is _false_ .
+
+Components that implement
+_EditableValueHolder_ (such as _UIInput_ ), and whose _immediate_
+property is set to _true_ , will cause the conversion and validation
+processing (including the potential to fire _ValueChangeEvent_ events)
+that normally happens during _Process Validations_ phase to occur during
+_Apply Request Values_ phase instead.
+
+As described in
+link:JSF.html#a494[See Common Event Processing], the
+_processDecodes()_ method on the _UIViewRoot_ component at the root of
+the component tree will have caused any queued events to be broadcast to
+interested listeners.
+
+{empty}At the end of this phase, all
+_EditableValueHolder_ components in the component tree will have been
+updated with new submitted values included in this request (or enough
+data to reproduce incorrect input will have been stored, if there were
+conversion errors). [P1-start-applyRequestConversion]In addition,
+conversion and validation will have been performed on
+_EditableValueHolder_ components whose _immediate_ property is set to
+_true_ , as described in the _UIInput_ Javadocs. Conversions and
+validations that failed will have caused messages to be enqueued via
+calls to the _addMessage()_ method of the _FacesContext_ instance for
+the current request, and the _valid_ property on the corresponding
+component(s) will be set to _false_ . [P1-end]
+
+{empty}If any of the _decode()_ methods that
+were invoked, or an event listener that processed a queued event, called
+_responseComplete()_ on the _FacesContext_ instance for the current
+request, clear the remaining events from the event queue and terminate
+lifecycle processing of the current request.
+[P1-start-applyRequestComplete]If any of the _decode()_ methods that
+were invoked, or an event listener that processed a queued event, called
+_renderResponse()_ on the _FacesContext_ instance for the current
+request, clear the remaining events from the event queue and transfer
+control to the _Render Response_ phase of the request processing
+lifecycle. Otherwise, control must proceed to the _Process Validations_
+phase.[P1-end]
+
+=== [[a436]]Apply Request Values Partial Processing
+
+{empty}[P1-start-apply-partial-processing]Call
+FacesContext.getPartialViewContext(). Call
+PartialViewContext.processPartial() passing the FacesContext,
+PhaseID.APPLY_REQUEST_VALUES as arguments. [P1-end]
+
+=== [[a438]]Process Validations
+
+As part of the creation of the view for this
+request, zero or more _Validator_ instances may have been registered for
+each component. In addition, component classes themselves may implement
+validation logic in their _validate()_ methods.
+
+[P1-start-validation]During the _Process
+Validations_ phase of the request processing lifecycle, the JSF
+implementation must call the _processValidators()_ method of the
+_UIViewRoot_ of the tree.[P1-end] This will normally cause the
+_processValidators()_ method of each component in the tree to be called
+recursively, as described in the API reference for the
+_UIComponent.processValidators()_ method. [P1-start-partialValidate] The
+_processValidators()_ method must determine if the current request is a
+“partial request” by calling
+_FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
+. If
+_FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
+returns _true_ , perform the sequence of steps as outlined in
+link:JSF.html#a444[See
+Partial Validations Partial Processing].[P1-end] Note that
+_EditableValueHolder_ components whose _immediate_ property is set to
+_true_ will have had their conversion and validation processing
+performed during _Apply Request Values_ phase.
+
+During the processing of validations, events
+may have been queued by the components and/or _Validator_ s whose
+_validate()_ method was invoked. As described in
+link:JSF.html#a494[See Common Event Processing], the
+_processValidators()_ method on the _UIViewRoot_ component at the root
+of the component tree will have caused any queued events to be broadcast
+to interested listeners.
+
+At the end of this phase, all conversions and
+configured validations will have been completed. Conversions and
+Validations that failed will have caused messages to be enqueued via
+calls to the _addMessage()_ method of the _FacesContext_ instance for
+the current request, and the _valid_ property on the corresponding
+components will have been set to _false_ .
+
+{empty}If any of the _validate()_ methods
+that were invoked, or an event listener that processed a queued event,
+called _responseComplete()_ on the _FacesContext_ instance for the
+current request, clear the remaining events from the event queue and
+terminate lifecycle processing of the current request.
+[P1-start-validationValidate]If any of the _validate()_ methods that
+were invoked, or an event listener that processed a queued event, called
+_renderResponse()_ on the _FacesContext_ instance for the current
+request, clear the remaining events from the event queue and transfer
+control to the _Render Response_ phase of the request processing
+lifecycle. Otherwise, control must proceed to the _Update Model Values_
+phase.[P1-end]
+
+=== [[a444]]Partial Validations Partial Processing
+
+{empty}[P1-start-val-partial-processing]Call
+FacesContext.getPartialViewContext(). Call
+PartialViewContext.processPartial() passing the FacesContext,
+PhaseID.PROCESS_VALIDATIONS as arguments. [P1-end]
+
+=== [[a446]]Update Model Values
+
+If this phase of the request processing
+lifecycle is reached, it is assumed that the incoming request is
+syntactically and semantically valid (according to the validations that
+were performed), that the local value of every component in the
+component tree has been updated, and that it is now appropriate to
+update the application's model data in preparation for performing any
+application events that have been enqueued.
+
+[P1-start-updateModel]During the _Update
+Model Values_ phase, the JSF implementation must call the
+_processUpdates()_ method of the _UIViewRoot_ component of the
+tree.[P1-end] This will normally cause the _processUpdates()_ method of
+each component in the tree to be called recursively, as described in the
+API reference for the _UIComponent.processUpdates()_ method.
+[P1-start-partialUpdate] The _processUpdates()_ method must determine if
+the current request is a “partial request” by calling
+_FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
+. If
+_FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
+returns _true_ , perform the sequence of steps as outlined in
+link:JSF.html#a452[See
+Update Model Values Partial Processing]. [P1-end]The actual model update
+for a particular component is done in the _updateModel()_ method for
+that component.
+
+During the processing of model updates,
+events may have been queued by the components whose _updateModel()_
+method was invoked. As described in link:JSF.html#a494[See
+Common Event Processing], the _processUpdates()_ method on the
+UIViewRoot component at the root of the component tree will have caused
+any queued events to be broadcast to interested listeners.
+
+At the end of this phase, all appropriate
+model data objects will have had their values updated to match the local
+value of the corresponding component, and the component local values
+will have been cleared.
+
+{empty}If any of the _updateModel()_ methods
+that were invoked, or an event listener that processed a queued event,
+called _responseComplete()_ on the _FacesContext_ instance for the
+current request, clear the remaining events from the event queue and
+terminate lifecycle processing of the current request.
+[P1-start-updateModelComplete]If any of the _updateModel()_ methods that
+was invoked, or an event listener that processed a queued event, called
+_renderResponse()_ on the _FacesContext_ instance for the current
+request, clear the remaining events from the event queue and transfer
+control to the _Render Response_ phase of the request processing
+lifecycle. Otherwise, control must proceed to the _Invoke Application_
+phase.[P1-end]
+
+=== [[a452]]Update Model Values Partial Processing
+
+{empty}[P1-start-upd-partial-processing]Call
+FacesContext.getPartialViewContext(). Call
+PartialViewContext.processPartial() passing the FacesContext,
+PhaseID.UPDATE_MODEL_VALUES as arguments. [P1-end]
+
+=== [[a454]]Invoke Application
+
+If this phase of the request processing
+lifecycle is reached, it is assumed that all model updates have been
+completed, and any remaining event broadcast to the application needs to
+be performed. [P1-start-invokeApplication]The implementation must ensure
+that the _processApplication()_ method of the _UIViewRoot_ instance is
+called.[P1-end] The default behavior of this method will be to broadcast
+any queued events that specify a phase identifier of
+_PhaseId.INVOKE_APPLICATION_ . If _responseComplete()_ was called on the
+_FacesContext_ instance for the current request, clear the remaining
+events from the event queue and terminate lifecycle processing of the
+current request. If _renderResponse()_ was called on the _FacesContext_
+instance for the current request, clear the remaining events from the
+event queue.
+
+{empty}Advanced applications (or application
+frameworks) may replace the default _ActionListener_ instance by calling
+the _setActionListener()_ method on the _Application_ instance for this
+application. [P1-start-invokeApplicationListener]However, the JSF
+implementation must provide a default _ActionListener_ instance that
+behaves as described in link:JSF.html#a3402[See ActionListener
+Property].[P1-end]
+
+=== [[a457]]Render Response
+
+This phase accomplishes two things:
+
+Causes the response to be rendered to the
+client
+
+Causes the state of the response to be saved
+for processing on subsequent requests.
+
+JSF supports a range of approaches that JSF
+implementations may utilize in creating the response text that
+corresponds to the contents of the response view, including:
+
+Deriving all of the response content directly
+from the results of the encoding methods (on either the components or
+the corresponding renderers) that are called.
+
+Interleaving the results of component
+encoding with content that is dynamically generated by application
+programming logic.
+
+Interleaving the results of component
+encoding with content that is copied from a static “template” resource.
+
+Interleaving the results of component
+encoding by embedding calls to the encoding methods into a dynamic
+resource (such as representing the components as custom tags in a JSP
+page).
+
+Because of the number of possible options,
+the mechanism for implementing the _Render Response_ phase cannot be
+specified precisely. [P1-start-renderResponse]However, all JSF
+implementations of this phase must conform to the following
+requirements:
+
+If it is possible to obtain a
+_ViewDeclarationLanguage_ instance for the current _viewId_ , from the
+_ViewHandler_ , its _buildView()_ method must be called. __
+
+Publish the
+_javax.faces.event.PreRenderViewEvent_ .
+
+JSF implementations must provide a default
+_ViewHandler_ implementation that is capable of handling views written
+in JSP as well as views written in the Faces View Declaration Language
+(VDL). In the case of JSP, the ViewHandler must perform a
+_RequestDispatcher.forward()_ call to a web application resource whose
+context-relative path is equal to the view identifier of the component
+tree.
+
+If all of the response content is being
+derived from the encoding methods of the component or associated
+_Renderer_ s, the component tree should be walked in the same
+depth-first manner as was used in earlier phases to process the
+component tree, but subject to the additional constraints listed here.
+Generally this is handled by a call to _ViewHandler.renderView()_ . __
+
+If the response content is being interleaved
+from additional sources and the encoding methods, the components may be
+selected for rendering in any desired orderlink:#a9083[1].
+
+During the rendering process, additional
+components may be added to the component tree based on information
+available to the _ViewHandler_ implementationlink:#a9084[2].
+However, before adding a new component, the _ViewHandler_ implementation
+must first check for the existence of the corresponding component in the
+component tree. If the component already exists (perhaps because a
+previous phase has pre-created one or more components), the existing
+component’s properties and attributes must be utilized.
+
+Under no circumstances should a component be
+selected for rendering when its parent component, or any of its
+ancestors in the component tree, has its _rendersChildren_ property set
+to true. In such cases, the parent or ancestor component must render the
+content of this child component when the parent or ancestor was
+selected.
+
+If the _isRendered()_ method of a component
+returns _false_ , the renderer for that component must not generate any
+markup, and none of its facets or children (if any) should be rendered.
+
+It must be possible for the application to
+programmatically modify the component tree at any time during the
+request processing lifecycle (except during the rendering of the view)
+and have the system behave as expected. For example, the following must
+be permitted. Modification of the view during rendering may lead to
+undefined results. It must be possible to allow components added by the
+templating system (such as JSP) to be removed from the tree before
+rendering. It must be possible to programmatically add components to the
+tree and have them render in the proper place in the hierarchy. It must
+be possible to re-order components in the tree before rendering. These
+manipulations do require that any components added to the tree have ids
+that are unique within the scope of the closest parent _NamingContainer_
+component. The value of the _rendersChildren_ property is handled as
+expected, and may be either _true_ or _false_ .
+
+If running on a container that supports
+Servlet 4.0 or later, after any dynamic component manipulations have
+been completed, any resources that have been added to the UIViewRoot,
+such as scripts, images, or stylesheets, and any inline images, must be
+pushed to the client using the Servlet Server Push API. All of the
+pushes must be started before any of the HTML of the response is
+rendered to the client.
+
+For partial requests, where partial view
+rendering is required, there must be no content written outside of the
+view (outside _f:view_ ). Response writing must be disabled. Response
+writing must be enabled again at the start of _encodeBegin._
+
+When each particular component in the
+component tree is selected for rendering, calls to its _encodeXxx()_
+methods must be performed in the manner described in
+link:JSF.html#a1041[See Component Specialization Methods]. For
+components that implement _ValueHolder_ (such as _UIInput_ and
+_UIOutput_ ), data conversion must occur as described in the _UIOutput_
+Javadocs.
+
+{empty}Upon completion of rendering, but
+before state saving the JSF runtime must publish a
+_javax.faces.event.PostRenderViewEvent_ . After doing so the JSF runtime
+must save the completed state using the methods of the class
+_StateManager._ This state information must be made accessible on a
+subsequent request, so that the _Restore View_ can access it.[P1-end]
+For more on _StateManager_ , see link:JSF.html#a4140[See State
+Saving Methods.]
+
+=== [[a480]]Render Response Partial Processing
+
+[P1-start-render-partial-processing]
+According to _UIViewRoot.encodeChildren()_ ,
+_FacesContext.processPartial(PhaseId.RENDER_RESPONSE)_ , will be called
+if and only if the current request is an Ajax request. Take these
+actions in this case.
+
+On the _ExternalContext_ for the request,
+call _setResponseContentType("text/xml")_ and
+_addResponseHeader("Cache-control", "no-cache")_ . Call
+_startDocument()_ on the _PartialResponseWriter_ .
+
+Call _writePreamble(“<?xml version=’1.0’
+encoding=’currentEncoding’?>\n”)_ on the _PartialResponseWriter_ , where
+_encoding_ is the return from the _getCharacterEncoding()_ on the
+_PartialResponseWriter_ , or UTF-8 if that method returns _null_ . __
+
+If _isResetValues()_ returns _true_ , call
+_getRenderIds()_ and pass the result to _UIViewRoot.resetValues()_ . __
+
+If _isRenderAll()_ returns _true_ and the
+view root is not an instance of _NamingContainer_ , call
+_startUpdate(PartialResponseWriter.RENDER_ALL_MARKER)_ on the
+_PartialResponseWriter_ . For each child of the _UIViewRoot_ , call
+_encodeAll()_ . Call _endUpdate()_ on the _PartialResponseWriter_ .
+Render the state using the algorithm described below in
+link:JSF.html#a487[See Partial State Rendering], call
+_endDocument()_ on the _PartialResponseWriter_ and return. If
+_isRenderAll()_ returns _true_ and this _UIViewRoot_ is a
+_NamingContainer_ , treat this as a case where _isRenderAll()_ returned
+_false_ , but use the _UIViewRoot_ itself as the one and only component
+from which the tree visit must start.
+
+If _isRenderAll()_ returns _false_ , if there
+are ids to render, visit the subset of components in the tree to be
+rendered in similar fashion as for other phases, but for each
+_UIComponent_ in the traversal, call _startUpdate(id)_ on the
+_PartialResponseWriter_ , where _id_ is the client id of the component.
+Call _encodeAll()_ on the component, and then _endUpdate()_ on the
+_PartialResponseWriter_ . If there are no ids to render, this step is
+un-necessary. After the subset of components (if any) have been
+rendered, Render the state using the algorithm described below in
+link:JSF.html#a487[See Partial State Rendering], call
+_endDocument()_ on the _PartialResponseWriter_ and return.
+
+=== [[a487]]Partial State Rendering
+
+This section describes the requirements for
+rendering the _<update>_ elements pertaining to view state and window id
+in the case of partial response rendering.
+
+If the view root is marked transient, take no
+action and return.
+
+Obtain a unique id for the view state, as
+described in the JavaDocs for the constant field
+_ResponseStateManager.VIEW_STATE_PARAM_ . Pass this id to a call to
+_startUpdate()_ on the _PartialResponseWriter_ . Obtain the view state
+to render by calling _getViewState()_ on the application’s
+_StateManager_ . Write the state by calling _write()_ on the
+_PartialResponseWriter_ , passing the state as the argument. Call
+_endUpdate()_ on the _PartialResponseWriter_ .
+
+If _getClientWindow()_ on the
+_ExternalContext_ , returns non- _null_ , obtain an id for the
+_<update>_ element for the window id as described in the JavaDocs for
+the constant _ResponseStateManager.WINDOW_ID_PARAM_ . Pass this id to a
+call to _startUpdate()_ on the _PartialResponseWriter_ . Call _write()_
+on that same writer, passing the result of calling _getId()_ on the
+_ClientWindow_ . Call _endUpdate()_ on the _PartialResponseWriter_ .
+
+{empty}[P1-end]
+
+
+[[a494]]
+=== Common Event Processing
+
+For a complete description of the event
+processing model for JavaServer Faces components, see
+link:JSF.html#a1300[See Event and Listener Model].
+
+During several phases of the request
+processing lifecycle, as described in link:JSF.html#a401[See
+Standard Request Processing Lifecycle Phases], the possibility exists
+for events to be queued (via a call to the _queueEvent()_ method on the
+source _UIComponent_ instance, or a call to the _queue()_ method on the
+_FacesEvent_ instance), which must now be broadcast to interested event
+listeners. The broadcast is performed as a side effect of calling the
+appropriate lifecycle management method ( _processDecodes()_ ,
+_processValidators()_ , _processUpdates()_ , or _processApplication()_ )
+on the _UIViewRoot_ instance at the root of the current component tree.
+
+[P1-start-eventBroadcast]For each queued
+event, the _broadcast()_ method of the source _UIComponent_ must be
+called to broadcast the event to all event listeners who have registered
+an interest, on this source component for events of the specified type,
+after which the event is removed from the event queue.[P1-end] See the
+API reference for the _UIComponent.broadcast()_ method for the detailed
+functional requirements.
+
+{empty}It is also possible for event
+listeners to cause additional events to be enqueued for processing
+during the current phase of the request processing lifecycle.
+[P1-start-eventOrder]Such events must be broadcast in the order they
+were enqueued, after all originally queued events have been broadcast,
+before the lifecycle management method returns.[P1-end]
+
+
+=== Common Application Activities
+
+The following subsections describe common
+activities that may be undertaken by an application that is using JSF to
+process an incoming request and/or create an outgoing response. Their
+use is described in link:JSF.html#a383[See Request Processing
+Lifecycle Scenarios], for each request processing lifecycle scenario in
+which the activity is relevant.
+
+=== [[a502]]Acquire Faces Object References
+
+This phase is only required when the request
+being processed was not submitted from a previous response, and
+therefore did not initiate the _Faces Request Generates Faces Response_
+lifecycle. In order to generate a Faces Response, the application must
+first acquire references to several objects provided by the JSF
+implementation, as described below.
+
+=== Acquire and Configure Lifecycle Reference
+
+[P1-start-lifeReference]As described in
+link:JSF.html#a6608[See Lifecycle], the JSF implementation must
+provide an instance of _javax.faces.lifecycle.Lifecycle_ that may be
+utilized to manage the remainder of the request processing
+lifecycle.[P1-end] An application may acquire a reference to this
+instance in a portable manner, as follows:
+
+[width="100%",cols="100%",]
+|===
+a|
+LifecycleFactory lFactory =
+(LifecycleFactory)
+FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+
+Lifecycle lifecycle =
+lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+
+|===
+
+It is also legal to specify a different
+lifecycle identifier as a parameter to the _getLifecycle()_ method, as
+long as this identifier is recognized and supported by the JSF
+implementation you are using. However, using a non-default lifecycle
+identifier will generally not be portable to any other JSF
+implementation.
+
+=== Acquire and Configure FacesContext Reference
+
+[P1-start-contextReference]As described in
+link:JSF.html#a3091[See FacesContext], the JSF implementation
+must provide an instance of _javax.faces.context.FacesContext_ to
+contain all of the per-request state information for a Faces Request or
+a Faces Response. An application that is processing a Non-Faces Request,
+but wants to create a Faces Response, must acquire a reference to a
+_FacesContext_ instance as follows
+
+[width="100%",cols="100%",]
+|===
+a|
+FacesContextFactory fcFactory =
+(FacesContextFactory)
+FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+
+FacesContext facesContext =
+
+ fcFactory.getFacesContext(context, request,
+response, lifecycle);
+
+
+
+|===
+
+where the _context_ , _request_ , and
+_response_ objects represent the corresponding instances for the
+application environment.[P1-end] For example, in a servlet-based
+application, these would be the _ServletContext_ , _HttpServletRequest_
+, and _HttpServletResponse_ instances for the current request.
+
+=== [[a516]]Create And Configure A New View
+
+When a Faces response is being intially
+created, or when the application decides it wants to create and
+configure a new view that will ultimately be rendered, it may follow the
+steps described below in order to set up the view that will be used. You
+must start with a reference to a _FacesContext_ instance for the current
+request.
+
+=== [[a518]]Create A New View
+
+Views are represented by a data structure
+rooted in an instance of _javax.faces.component.UIViewRoot_ , and
+identified by a view identifier whose meaning depends on the
+_ViewHandler_ implementation to be used during the _Render Response_
+phase of the request processing lifecyclelink:#a9085[3]. The
+_ViewHandler_ provides a factory method that may be utilized to
+construct new component trees, as follows:
+
+[width="100%",cols="100%",]
+|===
+a|
+String viewId = ... _identifier of the
+desired Tree_ ...;
+
+ViewHandler viewHandler =
+application.getViewHandler();
+
+UIViewRoot view =
+viewHandler.createView(facesContext, viewId);
+
+|===
+
+[P1-start-createViewRoot]The _UIViewRoot_
+instance returned by the _createView()_ method must minimally contain a
+single _UIViewRoot_ provided by the JSF implementation, which must
+encapsulate any implementation-specific component management that is
+required.[P1-end] Optionally, a JSF implementation’s _ViewHandler_ may
+support the automatic population of the returned _UIViewRoot_ with
+additional components, perhaps based on some external metadata
+description.
+
+[P1-start-createView]The caller of
+_ViewHandler.createView()_ must cause the _FacesContext_ to be populated
+with the new _UIViewRoot._ Applications must make sure that it is safe
+to discard any state saved in the view rooted at the _UIViewRoot_
+currently stored in the _FacesContext_ .[P1-end] If Facelets is the page
+definition language, _FacesContext.setViewRoot()_ must be called before
+returning from _ViewHandler.createView()._ Refer to
+link:JSF.html#a3910[See Default ViewHandler Implementation] for
+more _ViewHandler_ details.
+
+=== Configure the Desired RenderKit
+
+{empty}[P1-start-defaultRenderkit]The
+_UIViewRoot_ instance provided by the _ViewHandler_ , as described in
+the previous subsection, must automatically be configured to utilize the
+default _javax.faces.render.RenderKit_ implementation provided by the
+JSF implementation, as described in link:JSF.html#a4223[See
+RenderKit]. This _RenderKit_ must support the standard components and
+_Renderer_ s described later in this specification, to maximize the
+portability of your application.[P1-end]
+
+However, a different _RenderKit_ instance
+provided by your JSF implementation (or as an add-on library) may be
+utilized instead, if desired. A reference to this _RenderKit_ instance
+can be obtained from the standard _RenderKitFactory_ , and then assigned
+to the _UIViewRoot_ instance created previously, as follows:
+
+[width="100%",cols="100%",]
+|===
+a|
+String renderKitId = ... identifier of
+desired RenderKit ...;
+
+RenderKitFactory rkFactory =
+(RenderKitFactory)
+FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+
+RenderKit renderKit =
+rkFactory.getRenderKit(renderKitId, facesContext);
+
+view.setRenderKitId(renderKitId);
+
+|===
+
+As described in Chapter 8, changing the
+_RenderKit_ being used changes the set of _Renderer_ s that will
+actually perform decoding and encoding activities. Because the
+components themselves store only a _rendererType_ property (a logical
+identifier of a particular _Renderer_ ), it is thus very easy to switch
+between _RenderKit_ s, as long as they support renderers with the same
+renderer types.
+
+[P1-start-calcRenderkitId]The default
+_ViewHandler_ must call _calculateRenderKitId()_ on itself and set the
+result into the _UIViewRoot_ ’s _renderKitId_ property.[P1-end] This
+allows applications that use alternative _RenderKit_ s to dynamically
+switch on a per-view basis.
+
+=== Configure The View’s Components
+
+At any time, the application can add new
+components to the view, remove them, or modify the attributes and
+properties of existing components. For example, a new _FooComponent_ (an
+implementation of _UIComponent_ ) can be added as a child to the root
+_UIViewRoot_ in the component tree as follows:
+
+[width="100%",cols="100%",]
+|===
+a|
+FooComponent component = ... _create a
+FooComponent instance_ ...;
+
+facesContext.getViewRoot().getChildren().add(component);
+
+|===
+
+=== Store the new View in the FacesContext
+
+{empty}[P1-start-setViewRoot]Once the view
+has been created and configured, the _FacesContext_ instance for this
+request must be made aware of it by calling _setViewRoot()_ .[P1-end]
+
+
+=== Concepts that impact several lifecycle phases
+
+This section is intended to give the reader a
+“big picture” perspective on several complex concepts that impact
+several request processing lifecycle phases.
+
+=== Value Handling
+
+At a fundamental level, JavaServer Faces is a
+way to get values from the user, into your model tier for processing.
+The process by which values flow from the user to the model has been
+documented elsewhere in this spec, but a brief holistic survey comes in
+handy. The following description assumes the JSP/HTTP case, and that all
+components have Renderers.
+
+=== Apply Request Values Phase
+
+The user presses a button that causes a form
+submit to occur. This causes the state of the form to be sent as
+_name=value_ pairs in the _POST_ data of the HTTP request. The JSF
+request processing lifecycle is entered, and eventually we come to the
+_Apply Request Values Phase_ . In this phase, the _decode()_ method for
+each _Renderer_ for each _UIComponent_ in the view is called. The
+_Renderer_ takes the value from the request and passes it to the
+_setSubmittedValue()_ method of the component, which is, of course, an
+instance of _EditableValueHolder_ . If the component has the "
+_immediate_ " property set to _true_ , we execute validation immediately
+after decoding. See below for what happens when we execute validation.
+
+=== Process Validators Phase
+
+ _processValidators()_ is called on the root
+of the view. For each _EditableValueHolder_ in the view, If the “
+_immediate_ ” property is not set, we execute validation for each
+_UIInput_ in the view. Otherwise, validation has already occurred and
+this phase is a no-op.
+
+=== Executing Validation
+
+Please see the javadocs for
+_UIInput.validate()_ for more details, but basically, this method gets
+the submitted value from the component (set during _Apply Request
+Values_ ), gets the _Renderer_ for the component and calls its
+_getConvertedValue()_ , passing the submitted value. If a conversion
+error occurs, it is dealt with as described in the javadocs for that
+method. Otherwise, all validators attached to the component are asked to
+validate the converted value. If any validation errors occur, they are
+dealt with as described in the javadocs for _Validator.validate()_ . The
+converted value is pushed into the component's _setValue()_ method, and
+a _ValueChangeEvent_ is fired if the value has changed.
+
+=== Update Model Values Phase
+
+For each _UIInput_ component in the view, its
+_updateModel()_ method is called. This method only takes action if a
+local value was set when validation executed and if the page author
+configured this component to push its value to the model tier. This
+phase simply causes the converted local value of the _UIInput_ component
+to be pushed to the model in the way specified by the page author. Any
+errors that occur as a result of the attempt to push the value to the
+model tier are dealt with as described in the javadocs for
+_UIInput.updateModel()_ .
+
+=== Localization and Internationalization (L10N/I18N)
+
+JavaServer Faces is fully internationalized.
+The I18N capability in JavaServer Faces builds on the I18N concepts
+offered in the Servlet, JSP and JSTL specifications. I18N happens at
+several points in the request processing lifecycle, but it is easiest to
+explain what goes on by breaking the task down by function.
+
+=== [[a554]]Determining the active _Locale_
+
+JSF has the concept of an active _Locale_
+which is used to look up all localized resources. Converters must use
+this _Locale_ when performing their conversion. This _Locale_ is stored
+as the value of the _locale_ JavaBeans property on the _UIViewRoot_ of
+the current _FacesContext_ . The application developer can tell JSF what
+locales the application supports in the applications’
+_WEB-INF/faces-config.xml_ file. For example:
+
+<faces-config>
+
+ <application>
+
+ <locale-config>
+
+ <default-locale>en</default-locale>
+
+ <supported-locale>de</supported-locale>
+
+ <supported-locale>fr</supported-locale>
+
+ <supported-locale>es</supported-locale>
+
+ </locale-config>
+
+ </application>
+
+This application’s default locale is _en_ ,
+but it also supports _de, fr,_ and _es_ locales. These elements cause
+the _Application_ instance to be populated with _Locale_ data. Please
+see the javadocs for details.
+
+The _UIViewRoot_ ’s _Locale_ is determined
+and set by the _ViewHandler_ during the execution of the _ViewHandler_
+’s _createView()_ method. [P1-start-locale]This method must cause the
+active _Locale_ to be determined by looking at the user’s preferences
+combined with the application’s stated supported locales.[P1-end] Please
+see the javadocs for details.
+
+{empty}The application can call
+_UIViewRoot.setLocale()_ directly, but it is also possible for the page
+author to override the _UIViewRoot_ ’s locale by using the _locale_
+attribute on the _<f:view_ > tag. [P1-start-localeValue]The value of
+this attribute must be specified as
+_language[\{-|_}country[\{-|_}variant]]_ without the colons, for example
+" _ja_JP_SJIS_ ". The separators between the segments must be ' _-_ ' or
+' ___ '.[P1-end]
+
+In all cases where JSP is utilized, the
+active _Locale_ is set under “request scope” into the JSTL class
+_javax.servlet.jsp.jstl.core.Config_ , under the key _Config.FMT_LOCALE_
+.
+
+To facilitate BCP 47 support, the Locale
+parsing mentioned above is done only if the JDK Locale.languageForTag
+method does not return a Locale with a language in it. The additional
+format of the Locale string is as specified by that method.
+
+=== Determining the Character Encoding
+
+The request and response character encoding
+are set and interpreted as follows.
+
+On an initial request to a Faces webapp, the
+request character encoding is left unmodified, relying on the underlying
+request object (e.g., the servlet or portlet request) to parse request
+parameter correctly.
+
+[P1-start-setLocale]At the beginning of the
+render-response phase, the ViewHandler must ensure that the response
+Locale is set to be that of the UIViewRoot, for example by calling
+_ServletResponse.setLocale()_ when running in the servlet
+environment.[P1-end] Setting the response Locale may affect the response
+character encoding, see the Servlet and Portlet specifications for
+details.
+
+[P1-start-encoding]At the end of the
+render-response phase, the ViewHandler must store the response character
+encoding used by the underlying response object (e.g., the servlet or
+portlet response) in the session (if and only if a session already
+exists) under a well known, implementation-dependent key.
+
+{empty}On a subsequent postback, before any
+of the ExternalContext methods for accessing request parameters are
+invoked, the ViewHandler must examine the Content-Type header to read
+the charset attribute and use its value to set it as the request
+encoding for the underlying request object. If the Content-Type header
+doesn't contain a charset attribute, the encoding previously stored in
+the session (if and only if a session already exists), must be used to
+set the encoding for the underlying request object. If no character
+encoding is found, the request encoding must be left unmodified.[P1-end]
+
+The above algorithm allows an application to
+use the mechanisms of the underlying technologies to adjust both the
+request and response encoding in an application-specific manner, for
+instance using the page directive with a fixed character encoding
+defined in the contentType attribute in a JSP page, see the Servlet,
+Portlet and JSP specifications for details. Note, though, that the
+character encoding rules prior to Servlet 2.4 and JSP 2.0 are imprecise
+and special care must be taken for portability between containers.
+
+=== Localized Text
+
+There is no direct support for this in the
+API, but the JSP layer provides a convenience tag that converts a
+_ResourceBundle_ into a _java.util.Map_ and stores it in the scoped
+namespace so all may get to it. This section describes how resources
+displayed to the end user may be localized. This includes images,
+labels, button text, tooltips, alt text, etc.
+
+Since most JSF components allow pulling their
+display value from the model tier, it is easy to do the localization at
+the model tier level. As a convenience, JSF provides the
+_<f:loadBundle>_ tag, which takes a _ResourceBundle_ and loads it into a
+_Map_ , which is then stored in the scoped namespace in request scope,
+thus making its messages available using the same mechanism for
+accessing data in the model tier. For example:
+
+<f:loadBundle
+basename=”com.foo.industryMessages.chemical”
+
+ var=”messages” />
+
+<h:outputText value=”#\{messages.benzene}” />
+
+This must cause the _ResourceBundle_ named
+_com.foo.industryMessages.chemical_ to be loaded as a Map into the
+request scope under the key _messages_ . Localized content can then be
+pulled out of it using the normal value expression syntax.
+
+=== [[a584]]Localized Application Messages
+
+This section describes how JSF handles
+localized error and informational messages that occur as a result of
+conversion, validation, or other application actions during the request
+processing lifecycle. The JSF class
+_javax.faces.application.FacesMessage_ is provided to encapsulate
+summary, detail, and severity information for a message.
+[P1-start-bundle]A JSF implementation must provide a
+_javax.faces.Messages ResourceBundle_ containing all of the necessary
+keys for the standard messages. The required keys (and a non-normative
+indication of the intended message text) are as follows:
+
+javax.faces.component.UIInput.CONVERSION --
+\{0}: Conversion error occurred
+
+javax.faces.component.UIInput.REQUIRED --
+\{0}: Validation Error: Value is required
+
+javax.faces.component.UIInput.UPDATE -- \{0}:
+An error occurred when processing your submitted information
+
+javax.faces.component.UISelectOne.INVALID --
+\{0}: Validation Error: Value is not valid
+
+javax.faces.component.UISelectMany.INVALID --
+\{0}: Validation Error: Value is not valid
+
+javax.faces.converter.BigDecimalConverter.DECIMAL=\{2}:
+''\{0}'' must be a signed decimal number.
+
+javax.faces.converter.BigDecimalConverter.DECIMAL_detail=\{2}:
+''\{0}'' must be a signed decimal number consisting of zero or more
+digits, that may be followed by a decimal point and fraction. Example:
+\{1}
+
+javax.faces.converter.BigIntegerConverter.BIGINTEGER=\{2}:
+''\{0}'' must be a number consisting of one or more digits.
+
+javax.faces.converter.BigIntegerConverter.BIGINTEGER_detail=\{2}:
+''\{0}'' must be a number consisting of one or more digits. Example:
+\{1}
+
+javax.faces.converter.BooleanConverter.BOOLEAN=\{1}:
+''\{0}'' must be 'true' or 'false'.
+
+javax.faces.converter.BooleanConverter.BOOLEAN_detail=\{1}:
+''\{0}'' must be 'true' or 'false'. Any value other than 'true' will
+evaluate to 'false'.
+
+javax.faces.converter.ByteConverter.BYTE=\{2}:
+''\{0}'' must be a number between -128 and 127.
+
+javax.faces.converter.ByteConverter.BYTE_detail=\{2}:
+''\{0}'' must be a number between -128 and 127. Example: \{1}
+
+javax.faces.converter.CharacterConverter.CHARACTER=\{1}:
+''\{0}'' must be a valid character.
+
+javax.faces.converter.CharacterConverter.CHARACTER_detail=\{1}:
+''\{0}'' must be a valid ASCII character.
+
+javax.faces.converter.DateTimeConverter.DATE=\{2}:
+''\{0}'' could not be understood as a date.
+
+javax.faces.converter.DateTimeConverter.DATE_detail=\{2}:
+''\{0}'' could not be understood as a date. Example: \{1}
+
+javax.faces.converter.DateTimeConverter.TIME=\{2}:
+''\{0}'' could not be understood as a time.
+
+javax.faces.converter.DateTimeConverter.TIME_detail=\{2}:
+''\{0}'' could not be understood as a time. Example: \{1}
+
+javax.faces.converter.DateTimeConverter.DATETIME=\{2}:
+''\{0}'' could not be understood as a date and time.
+
+javax.faces.converter.DateTimeConverter.DATETIME_detail=\{2}:
+''\{0}'' could not be understood as a date and time. Example: \{1}
+
+javax.faces.converter.DateTimeConverter.PATTERN_TYPE=\{1}:
+A 'pattern' or 'type' attribute must be specified to convert the value
+''\{0}''.
+
+javax.faces.converter.DoubleConverter.DOUBLE=\{2}:
+''\{0}'' must be a number consisting of one or more digits.
+
+javax.faces.converter.DoubleConverter.DOUBLE_detail=\{2}:
+''\{0}'' must be a number between 4.9E-324 and 1.7976931348623157E308
+Example: \{1}
+
+javax.faces.converter.EnumConverter.ENUM=\{2}:
+''\{0}'' must be convertible to an enum.
+
+javax.faces.converter.EnumConverter.ENUM_detail=\{2}:
+''\{0}'' must be convertible to an enum from the enum that contains the
+constant ''\{1}''.
+
+javax.faces.converter.EnumConverter.ENUM_NO_CLASS=\{1}:
+''\{0}'' must be convertible to an enum from the enum, but no enum class
+provided.
+
+javax.faces.converter.EnumConverter.ENUM_NO_CLASS_detail=\{1}:
+''\{0}'' must be convertible to an enum from the enum, but no enum class
+provided.
+
+javax.faces.converter.FloatConverter.FLOAT=\{2}:
+''\{0}'' must be a number consisting of one or more digits.
+
+javax.faces.converter.FloatConverter.FLOAT_detail=\{2}:
+''\{0}'' must be a number between 1.4E-45 and 3.4028235E38 Example: \{1}
+
+javax.faces.converter.IntegerConverter.INTEGER=\{2}:
+''\{0}'' must be a number consisting of one or more digits.
+
+javax.faces.converter.IntegerConverter.INTEGER_detail=\{2}:
+''\{0}'' must be a number between -2147483648 and 2147483647 Example:
+\{1}
+
+javax.faces.converter.LongConverter.LONG=\{2}:
+''\{0}'' must be a number consisting of one or more digits.
+
+javax.faces.converter.LongConverter.LONG_detail=\{2}:
+''\{0}'' must be a number between -9223372036854775808 to
+9223372036854775807 Example: \{1}
+
+javax.faces.converter.NumberConverter.CURRENCY=\{2}:
+''\{0}'' could not be understood as a currency value.
+
+javax.faces.converter.NumberConverter.CURRENCY_detail=\{2}:
+''\{0}'' could not be understood as a currency value. Example: \{1}
+
+javax.faces.converter.NumberConverter.PERCENT=\{2}:
+''\{0}'' could not be understood as a percentage.
+
+javax.faces.converter.NumberConverter.PERCENT_detail=\{2}:
+''\{0}'' could not be understood as a percentage. Example: \{1}
+
+javax.faces.converter.NumberConverter.NUMBER=\{2}:
+''\{0}'' is not a number.
+
+javax.faces.converter.NumberConverter.NUMBER_detail=\{2}:
+''\{0}'' is not a number. Example: \{1}
+
+javax.faces.converter.NumberConverter.PATTERN=\{2}:
+''\{0}'' is not a number pattern.
+
+javax.faces.converter.NumberConverter.PATTERN_detail=\{2}:
+''\{0}'' is not a number pattern. Example: \{1}
+
+javax.faces.converter.ShortConverter.SHORT=\{2}:
+''\{0}'' must be a number consisting of one or more digits.
+
+javax.faces.converter.ShortConverter.SHORT_detail=\{2}:
+''\{0}'' must be a number between -32768 and 32767 Example: \{1}
+
+javax.faces.converter.STRING=\{1}: Could not
+convert ''\{0}'' to a string.
+
+javax.faces.validator.BeanValidator.MESSAGE
+-- \{0}
+
+javax.faces.validator.DoubleRangeValidator.MAXIMUM
+-- \{1}: Validation Error: Value is greater than allowable maximum of
+‘’\{0}’’
+
+javax.faces.validator.DoubleRangeValidator.MINIMUM
+-- \{1}: Validation Error: Value is less than allowable minimum of
+‘’\{0}’’
+
+javax.faces.validator.DoubleRangeValidator.NOT_IN_RANGE
+-- \{2}: Validation Error: Specified attribute is not between the
+expected values of \{0} and \{1}.
+
+javax.faces.validator.DoubleRangeValidator.TYPE
+-- \{0}: Validation Error: Value is not of the correct type
+
+javax.faces.validator.LengthValidator.MAXIMUM
+-- \{1}: Validation Error: Length is greater than allowable maximum of
+‘’\{0}’’
+
+javax.faces.validator.LengthValidator.MINIMUM
+-- \{1}: Validation Error: Length is less than allowable minimum of
+‘’\{0}’’
+
+javax.faces.validator.LongRangeValidator.MAXIMUM
+-- \{1}: Validation Error: Value is greater than allowable maximum of
+‘’\{0}’’
+
+javax.faces.validator.LongRangeValidator.MINIMUM
+-- \{1}: Validation Error Value is less than allowable minimum of
+‘’\{0}’’
+
+javax.faces.validator.LongRangeValidator.NOT_IN_RANGE=\{2}:
+Validation Error: Specified attribute is not between the expected values
+of \{0} and \{1}.
+
+javax.faces.validator.LongRangeValidator.TYPE
+-- \{0}: Validation Error: Value is not of the correct type
+
+The following message keys are deprecated:
+
+{empty}javax.faces.validator.NOT_IN_RANGE --
+Specified attribute is not between the expected values of \{0} and
+\{1}[P1-end]
+
+A JSF application may provide its own
+messages, or overrides to the standard messages by supplying a
+_<message-bundle>_ element to in the application configuration
+resources. Since the _ResourceBundle_ provided in the Java platform has
+no notion of summary or detail, JSF adopts the policy that
+_ResourceBundle_ key for the message looks up the message summary. The
+detail is stored under the same key as the summary, with __detail_
+appended. [P1-start-bundleKey]These _ResourceBundle_ keys must be used
+to look up the necessary values to create a localized _FacesMessage_
+instance. Note that the value of the summary and detail keys in the
+_ResourceBundle_ may contain parameter substitution tokens, which must
+be substituted with the appropriate values using
+_java.text.MessageFormat_ .[P1-end] Replace the last parameter
+substitution token shown in the messages above with the input
+component’s _label_ attribute. For example, _\{1}_ for
+_“DoubleRangeValidator.MAXIMUM”, \{2}_ for _“ShortConverter.SHORT”._ The
+_label_ attribute is a generic attribute. Please see
+_link:JSF.html#a993[See Generic Attributes]_ and
+_link:JSF.html#a4314[See Standard HTML RenderKit
+Implementation]_ for more information on these attributes. If the input
+component’s _label_ attribute is not specified, use the component’s
+client identifier.
+
+These messages can be displayed in the page
+using the _UIMessage_ and _UIMessages_ components and their
+corresponding tags, _<h:message>_ and _<h:messages>._
+
+[P1-start-facesMessage]The following
+algorithm must be used to create a _FacesMessage_ instance given a
+message key.
+
+Call _getMessageBundle()_ on the
+_Application_ instance for this web application, to determine if the
+application has defined a resource bundle name. If so, load that
+ResourceBundle and look for the message there.
+
+If not there, look in the
+_javax.faces.Messages_ resource bundle.
+
+{empty}In either case, if a message is found,
+use the above conventions to create a _FacesMessage_ instance.[P1-end]
+
+=== State Management
+
+JavaServer Faces introduces a powerful and
+flexible system for saving and restoring the state of the view between
+requests to the server. It is useful to describe state management from
+several viewpoints. For the page author, state management happens
+transparently. For the app assembler, state management can be configured
+to save the state in the client or on the server by setting the
+ServletContext InitParameter named _javax.faces.STATE_SAVING_METHOD_ to
+either _client_ or _server_ . The value of this parameter directs the
+state management decisions made by the implementation.
+
+=== State Management Considerations for the Custom Component Author
+
+Since the component developer cannot know
+what the state saving method will be at runtime, they must be aware of
+state management. As shown in link:JSF.html#a1834[See The
+javax.faces.component package], all JSF components implement the
+_StateHolder_ interface. As a consequence the standard components
+provide implementations of _PartialStateHolder_ to suit their needs.
+[P1-start-componentStateHolder]A custom component that extends
+_UIComponent_ directly, and does not extend any of the standard
+components, must implement _PartialStateHolder_ (or its older
+super-interface, _StateHolder_ ), manually. The helper class
+_StateHelper_ exists to simplify this process for the custom component
+author. [P1-end]Please see _link:JSF.html#a1159[See
+PartialStateHolder]_ or link:JSF.html#a1138[See StateHolder] for
+details.
+
+A custom component that does extend from one
+of the standard components and maintains its own state, in addition to
+the state maintained by the superclass must take special care to
+implement _StateHolder_ or _PartialStateHolder_ correctly.
+[P1-start-saveState]Notably, calls to _saveState()_ must not alter the
+state in any way.[P1-end] The subclass is responsible for saving and
+restoring the state of the superclass. Consider this example. My custom
+component represents a “slider” ui widget. As such, it needs to keep
+track of the maximum value, minimum value, and current values as part of
+its state.
+
+public class Slider extends UISelectOne \{
+
+ protected Integer min = null;
+
+ protected Integer max = null;
+
+ protected Integer cur = null;
+
+
+
+// ... details omitted
+
+public Object saveState(FacesContext context)
+\{
+
+ Object values[] = new Object[4];
+
+ values[0] = super.saveState(context);
+
+ values[1] = min;
+
+ values[2] = max;
+
+ values[3] = cur;
+
+}
+
+
+
+public void restoreState(FacesContext
+context, Object state) \{
+
+ Object values[] = (Object \{}) state; //
+guaranteed to succeed
+
+ super.restoreState(context, values[0]);
+
+ min = (Integer) values[1];
+
+ max = (Integer) values[2];
+
+ cur = (Integer) values[3];
+
+}
+
+Note that we call _super.saveState()_ and
+_super.restoreState()_ as appropriate. This is absolutely vital! Failing
+to do this will prevent the component from working.
+
+=== State Management Considerations for the JSF Implementor
+
+The intent of the state management facility
+is to make life easier for the page author, app assembler, and component
+author. However, the complexity has to live somewhere, and the JSF
+implementor is the lucky role. Here is an overview of the key players.
+Please see the javadocs for each individual class for more information.
+
+=== Key Players in State Management
+
+ _StateHelper_ the helper class that defines
+a _Map_ -like contract that makes it easier for components to implement
+_PartialStateHolder_ .
+
+ _ViewHandler_ the entry point to the state
+management system. Uses a helper class, _StateManager_ , to do the
+actual work. In the JSP case, delegates to the tag handler for the
+_<f:view>_ tag for some functionality.
+
+ _StateManager_ abstraction for the hard work
+of state saving. Uses a helper class, _ResponseStateManager_ , for the
+rendering technology specific decisions.
+
+ _ResponseStateManager_ abstraction for
+rendering technology specific state management decisions.
+
+ _UIComponent_ directs process of saving and
+restoring individual component state.
+
+=== [[a685]]Resource Handling
+
+This section only applies to pages written
+using Facelets for JSF 2 and later. link:JSF.html#a746[See
+Resource Handling] is the starting point for the normative specification
+for Resource Handling. This section gives a non-normative overview of
+the feature. The following steps walk through the points in the
+lifecycle where this feature is encountered. Consider a Faces web
+application that contains resources that have been packaged into the
+application as specified in link:JSF.html#a748[See Packaging
+Resources]. Assume each page in the application includes references to
+resources, specifically scripts and stylesheets. The first diagram in
+this chapter is helpful in understanding this example.
+
+Consider an initial request to the
+application.
+
+The _ViewHandler_ calls
+_ViewDeclarationLanguage.buildView()_ . This ultimately causes the
+_processEvent()_ method for the _javax.faces.resource.Script_ and
+_javax.faces.resource.Stylesheet_ renderers (which implement
+_ComponentSystemEventListener)_ to be called after each component that
+declares them as their renderer is added to the view. This method is
+specified to take actions that cause the resource to be rendered at the
+correct part in the page based on user-specified or application
+invariant rules. Here’s how it works.
+
+Every _UIComponent_ instance in a view is
+created with a call to some variant of _Application.createComponent()_ .
+The specification for this method now includes some annotation
+processing requirements. If the component or its renderer has an
+_@ListenerFor_ or _@ListenersFor_ annotation, and the _Script_ and
+_Stylesheet_ renderers must, the component or its renderer are added as
+a component scoped listener for the appropriate event. In the case of
+_Script_ and _Stylesheet_ renderers, they must listen for the
+_PostAddToViewEvent_ .
+
+When the _processEvent()_ method is called on
+a _Script_ or _Stylesheet_ renderer, the renderer takes the specified
+action to move the component to the proper point in the tree based on
+what kind of resource it is, and on what hints the page author has
+declared on the component in the view.
+
+The _ViewHandler_ calls
+_ViewDeclarationLanguage.renderView()_ . The view is traversed as normal
+and because the components with _Script_ and _Stylesheet_ renderers have
+already been reparented to the proper place in the view, the normal
+renderering causes the resource to be encoded as described in
+link:JSF.html#a842[See Rendering Resources].
+
+The browser then parses the completely
+rendered page and proceeds to issue subsequent requests for the
+resources included in the page.
+
+Now consider a request from the browser for
+one of those resources included in the page.
+
+The request comes back to the Faces server.
+The _FacesServlet_ is specified to call
+_ResourceHandler.isResourceRequest()_ as shown in the diagram in
+link:JSF.html#a390[See Faces Request Generates Faces Response].
+In this case, the method returns _true_ . The _FacesServlet_ is
+specified to call _ResourceHandler.handleResourceRequest()_ to serve up
+the bytes of the resource.
+
+=== [[a695]]View Parameters
+
+This section only applies to pages written
+using Facelets for JSF 2 and later. The normative specification for this
+feature is spread out across several places, including the View
+Declaration Language Documentation for the _<f:metadata>_ element, the
+javadocs for the _UIViewParameter_ , _ViewHandler_ , and
+_ViewDeclarationLanguage_ classes, and the spec language requirements
+for the default _NavigationHandler_ and the Request Processing
+Lifecycle. This leads to a very diffuse field of specification
+requirements. To aid in understanding the feature, this section provides
+a non-normative overview of the feature. The following steps walk
+through the points in the lifecycle where this feature is encountered.
+Consider a web application that uses this feature exclusively on every
+page. Therefore every page has the following features in common.
+
+Every page has an _<f:metadata>_ tag, with at
+least one _<f:viewParameter>_ element within it.
+
+Every page has at least one _<h:link>_ or <
+_h:button>_ with the appropriate parameters nested within it.
+
+No other kind of navigation components are
+used in the application.
+
+Consider an initial request to the
+application.
+
+As specified in section
+link:JSF.html#a404[See Restore View], the restore view phase of
+the request processing lifecycle detects that this is an initial request
+and tries to obtain the _ViewDeclarationLanguage_ instance from the
+_ViewHandler_ for this _viewId_ . Because every page in the app is
+written in Facelets for JSF 2.0, there is a _ViewDeclarationLanguage_
+instance. Restore view phase calls
+_ViewDeclarationLanguage.getViewMetadata()_ . Because every view in this
+particular app does have _<f:metadata>_ on every page, this method
+returns a _ViewMetadata_ instance. Restore view phase calls
+_MetaData.createMetadataView()_ . This method creates a _UIViewRoot_
+containing only children declared in the _<f:metadata>_ element. Restore
+view phase calls _ViewMetadata.getViewParameters()_ . Because every
+_<f:metadata>_ in the app has at least one _<f:viewParameter>_ element
+within it, this method returns a non empty _Collection<UIViewParameter>_
+. Restore view phase uses this fact to decide that the lifecycle must
+not skip straight to render response, as is the normal action taken on
+initial requests.
+
+The remaining phases of the request
+processing lifecycle execute: apply request values, process validations,
+update model values, invoke application, and finally render response.
+Because the view only contains _UIViewParameter_ children, only these
+children are traversed during the lifecycle, but because this is an
+initial request, with no query parameters, none of these compnents take
+any action during the lifecycle.
+
+Because the pages exclusively use _<h:link>_
+and _<h:button>_ for their navigation, the renderers for these
+components are called during the rendering of the page. As specified in
+the renderkit docs for the renderers for those components, markup is
+rendered that causes the browser to issue a GET request with query
+parameters.
+
+Consider when the user clicks on a link in
+the application. The browser issues a GET request with query parameters
+
+Restore view phase takes the same action as
+in the previously explained request. Because this is a GET request, no
+state is restored from the previous request.
+
+Because this is a request with query
+parameters, the _UIViewParameter_ children do take action when they are
+traversed during the normal lifecycle, reading values during the apply
+request values phase, doing conversion and processing validators
+attached to the _<f:viewParam>_ elements, if any, and updating models
+during the update model values phase. Because there are only _<h:link>_
+and _<h:button>_ navigation elements in the page, no action action will
+happen during the invoke application phase. The response is re-rendered
+as normal. In such an application, the only navigation to a new page
+happens by virtue of the browser issuing a GET request to a different
+viewId.
+
+=== [[a707]]Bookmarkability
+
+Prior to JSF 2, every client server
+interaction was an HTTP POST. While this works fine in many situations,
+it does not work well when it comes to bookmarking pages in a web
+application. Version 2 of the specification introduces bookmarking
+capability with the use of two new Standard HTML RenderKit additions.
+
+Provided is a new component (UIOutcomeTarget)
+that provides properties that are used to produce a hyperlink at render
+time. The component can appear in the form of a button or a link. This
+feature introduces a concept known as “preemptive navigation”, which
+means the target URL is determined at Render Response time - before the
+user has activated the component. This feature allows the user to
+leverage the navigation model while also providing the ability to
+generate bookmarkable non-faces requests.
+
+=== [[a710]]JSR 303 Bean Validation
+
+{empty}Version 2 of the specification
+introduces support for JSR 303 Bean Validation.
+[p1-beanValidationRequired]A JSF implentation must support JSR 303 Bean
+Validation if the environment in which the JSF runtime is included
+requires JSR 303 Bean Validation. Currently the only such environment is
+when JSF is included in a Java EE 6 runtime.[p1-end]
+
+A detailed description of the usage of Bean
+Validation with JSF is beyond the scope of this section, but this
+section will provide a brief overview of the feature, touching on the
+points of interest to a spec implementor. Consider a simple web
+application that has one page, written in Facelets for JSF 2, that has a
+several text fields inside of a form. This application is running in a
+JSF runtime in an environment that does require JSR 303 Bean Validation,
+and therefore this feature is available. Assume that every text field is
+bound to a managed bean property that has at least one Bean Validation
+constraint annotation attached to it.
+
+During the render response phase that always
+precedes a postback, due to the specification requirements in
+link:JSF.html#a1419[See Validation Registration], every
+_UIInput_ in this application has an instance of _Validator_ with id
+_javax.faces.Bean_ attached to it.
+
+During the process validations phase, due to
+the specification for the _validate()_ method of this _Validator_ , Bean
+Validation is invoked automatically, for the user specified validation
+constraints, whenever such components are normally validated. The
+_javax.faces.Bean_ standard validator also ensures that every
+_ConstraintViolation_ that resulted in attempting to validate the model
+data is wrapped in a _FacesMessage_ and added to the _FacesContext_ as
+normal with every other kind of validator.
+
+See also link:JSF.html#a1461[See Bean
+Validation Integration].
+
+=== [[a716]]Ajax
+
+JSF and Ajax have been working well together
+for a number of years. this has led to the sprouting of many JSF Ajax
+frameworks. Although many of these frameworks may appear different, they
+all contribute to a dynamic request response experience. The variations
+in the way these frameworks provide that experience causes component
+compatibility problems when using components from different libraries
+together in the same web application.
+
+JSF 2 introduces Ajax into the specification,
+and it builds upon important concepts from a variety of existing JSF
+Ajax frameworks. The specification introduces a JavaScript library for
+performing basic Ajax operations. The library helps define a standard
+way of sending an Ajax request, and processing an Ajax response, since
+these are problem areas for component compatability. The specification
+provides two ways of adding Ajax to JSF web applications. Page authors
+may use the JavaScript library directly in their pages by attaching the
+Ajax request call to a JSF component via a JavaScript event (such as
+onclick). They may also take a more declarative aproach and use a core
+Facelets tag (<f:ajax/>) that they can nest within JSF components to
+“Ajaxify” them. It is also possible to “Ajaxify” regions of a page by
+“wrapping” the tag around component groups.
+
+The server side aspects of JSF Ajax
+frameworks work with the standard JSF lifecycle. In addition to
+providing a standard page authoring experience, the specification also
+standardizes the server side processing of Ajax requests. Selected
+components in a JSF view can be priocessed (known as partial processing)
+and selected components can be rendered to the client (known as partial
+rendering).
+
+=== [[a720]]Component Behaviors
+
+The JSF 2 specification introduces a new type
+of attached object known as component behaviors. Component behaviors
+play a similar role to converters and validators in that they are
+attached to a component instance in order to enhance the component with
+additional functionality not defined by the component itself. While
+converters and validators are currently limited to the server-side
+request processing lifecycle, component behaviors have impact that
+extends to the client, within the scope of a particular instance
+component in a view. In particular, the _ClientBehavior_ interface
+defines a contract for behaviors that can enhance a component's rendered
+content with behavior-defined "scripts". These scripts are executed on
+the client in response to end user interaction, but can also trigger
+postbacks back into the JSF request processing lifecycle.
+
+The usage pattern for client behaviors is as
+follows:
+
+The page author attaches a client behavior to
+a component, typically by specifying a behavior tag as a child of a
+component tag.
+
+When attaching a client behavior to a
+component, the page author identifies the name of a client "event" to
+attach to. The set of valid events are defined by the component.
+
+At render time, the component (or renderer)
+retrieves the client behavior and asks it for its script.
+
+The component (or renderer) renders this
+script at the appropriate location in its generated content (eg.
+typically in a DOM event handler).
+
+When the end user interacts with the
+component's content in the browser, the behavior-defined script is
+executed in response to the page author-specified event.
+
+The script provides some client-side
+interaction, for example, hiding or showing content or validating input
+on the client, and possibly posts back to the server.
+
+The first client behavior provided by the JSF
+specification is the _AjaxBehavior_ . This behavior is exposed to a page
+author as a Facelets _<f:ajax>_ tag, which can be embedded within any of
+the standard HTML components as follows:
+
+[width="100%",cols="100%",]
+|===
+a|
+ <h:commandButton>
+
+ <f:ajax event="mouseover"/>
+
+ </h:commandButton>
+
+|===
+
+When activated in response to end user
+activity, the _<f:ajax>_ client behavior generates an Ajax request back
+into the JSF request processing lifecycle.
+
+The component behavior framework is
+extensible and allows developers to define custom behaviors and also
+allows component authors to enhance custom components to work with
+behaviors.
+
+=== System Events
+
+System Events are normatively specified in
+link:JSF.html#a1359[See System Events]. This section provides an
+overview of this feature as it relates to the lifecycle.
+
+System events expand on the idea of lifecycle
+_PhaseEvent_ s. With _PhaseEvent_ s, it is possible to have application
+scoped _PhaseListeners_ that are given the opportunity to act on the
+system before and after each phase in the lifecycle. System events
+provide a much more fine grained insight into the system, allowing
+application or component scoped listeners to be notified of a variety of
+kinds of events. The set of events supported in the core specification
+is given in link:JSF.html#a1361[See Event
+Classes]. To accomodate extensibility, users may define their own kinds
+of events.
+
+The system event feature is a simple
+publish/subscribe event model. There is no event queue, events are
+published immediately, and always with a call to
+_Application.publishEvent()_ . There are several ways to declare
+interest in a particular kind of event.
+
+Call _Application.subscribeToEvent()_ to add
+an application scoped listener.
+
+Call _UIComponent.subscribeToEvent()_ to add
+a component scoped listener.
+
+Use the _<f:event>_ tag to declare a
+component scoped listener.
+
+Use the _@ListenerFor_ or _@ListenersFor_
+annotation. The scope of the listener is determined by the code that
+processes the annotation.
+
+Use the _<system-event-listener>_ element in
+an application configuration resource to add an application scoped
+listener.
+
+This feature is conceptually related to the
+lifecycle because there are calls to _Application.publishEvent()_
+sprinkled throughout the code that gets executed when the lifecycle
+runs.
+
+
+[[a746]]
+=== Resource Handling
+
+=== As shown in the diagram in link:JSF.html#a390[See Faces Request Generates Faces Response], [P1-start isResourceRequest rules] the JSF run-time must determine if the current Faces Request is a _Faces Resource Reques_ t or a _View Request_ . This must be accomplished by calling _Application.getResourceHandler().isResourceRequest()_ . [P1-end] Most of the normative specification for resource handling is contained in the Javadocs for _ResourceHandler_ and its related classes. This section contains the specification for resource handling that fits best in prose, rather than in Javadocs.
+
+=== [[a748]]Packaging Resources
+
+ResourceHandler defines a path based
+packaging convention for resources. The default implementation of
+ResourceHandler must support packaging resources in the web application
+root or in the classpath, according to the following specification.Other
+implementations of ResourceHandler are free to package resources however
+they like.
+
+=== [[a750]]Packaging Resources into the Web Application Root
+
+[P1-start web app packaging ] The default
+implementation must support packaging resources in the web application
+root under the path
+
+ _resources/<resourceIdentifier_ >
+
+relative to the web app root. Resources
+packaged into the web app root must be accessed using the
+_getResource*()_ methods on _ExternalContext._ [P1-end] __
+
+=== [[a754]]Packaging Resources into the Classpath
+
+[P1-start classpath packaging ]For the
+default implementation, resources packaged in the classpath must reside
+under the JAR entry name:
+
+ _META-INF/resources/<resourceIdentifier>_
+
+{empty}Resources packaged into the classpath
+must be accessed using the _getResource*()_ methods of the _ClassLoader_
+obtained by calling the _getContextClassLoader()_ method of the curreth
+_Thread_ .[P1-end]
+
+=== [[a758]]Resource Identifiers
+
+ _<resourceIdentifier>_ consists of several
+segments, specified as follows.
+
+{empty}[P1-start requirements for something
+to be considered a valid resourceIdentifier]
+
+
+_[localePrefix/][libraryName/][libraryVersion/]resourceName[/resourceVersion]_
+
+The run-time must enforce the following rules
+to consider a _<resourceIdentifier>_ valid. A _<resourceIdentifier>_
+that does not follow these rules must not be considered valid and must
+be ignored silently.
+
+The set of characters that are valid for use
+in the _localePrefix_ , _libraryName_ , _libraryVerison_ ,
+_resourceName_ and _resourceVersion_ segments of the resource identifier
+is specififed as XML NameChar excluding the path separator and ‘:’
+characters. The specification for XML NameChar may be seen at
+_http://www.w3.org/TR/REC-xml/#NT-NameChar_ .
+
+A further restriction applies to
+_libraryName_ . A _libraryName_ must not be an underscore separated
+sequence of non-negative integers or a locale string. More rigorously, a
+_libraryName_ must not match either of the following regular
+expressions:
+
+ _[0-9]+(_[0-9]+)*_
+
+ _[A-Za-z]\{2}(_[A-Za-z]\{2}(_[A-Za-z]+)*)?_
+
+Segments in square brackets [] are optional.
+
+The segments must appear in the order shown
+above.
+
+If _libraryVersion_ is present, it must be
+preceded by _libraryName._
+
+If _libraryVersion_ is present, any leaf
+files under _libraryName_ must be ignored. __
+
+If _resourceVersion_ is present, it must be
+preceded by _resourceName._
+
+There must be a ’ _/_ ’ between adjacent
+segments in a _<resourceIdentifier>_
+
+If _libraryVersion_ or _resourceVersion_ are
+present, both must be a ’ ___ ’ separated list of integers, neither
+starting nor ending with ’ ___ ’
+
+If _resourceVersion_ is present, it must be a
+version number in the same format as _libraryVersion_ . An optional
+“file extension” may be used with the _resourceVersion._ If “file
+extension” is used, a “.” character, followed by a “file extension” must
+be appended to the version number. See the following table for an
+example.
+
+{empty}[P1-end]
+
+The following examples illustrate the nine
+valid combinations of the above resource identifier segments.
+
+[width="99%",cols="16%,14%,14%,14%,14%,14%,14%",]
+|===
+a|
+localePrefx
+
+{empty}[optional]
+
+a|
+libraryName
+
+{empty}[optional]
+
+a|
+library
+
+{empty}Version [optional]
+
+a|
+resourceName
+
+{empty}[required]
+
+a|
+resource
+
+{empty}Version [optional]
+
+|Description
+|actual resourceIdentifier
+
+| __  | __  
+| __  |
+_duke.gif_ | __
+|A non-localized, non-versioned image
+resource called " _duke.gif_ ", not in a library
+| _duke.gif_
+
+| __  |
+_corporate_ | __
+| _duke.gif_ | __
+ |A non-localized, non-versioned image
+resource called " _duke.gif_ " in a library called " _corporate_ "
+| _corporate/duke.gif_
+
+| __  |
+_corporate_ | _2_3_
+| _duke.gif_ | __
+ |A non-localized, non-versioned image
+resource called " _duke.gif_ ", in version _2_3_ of the " _corporate_ "
+library | _corporate/2_3/duke.gif_
+
+| __  | _basic_
+| _2_3_ |
+_script.js_ | _1_3_4.js_ a|
+A non-localized, version _1.3.4_ script
+resource called " _script.js_ ", in versioned _2_3_
+
+library called " _basic_ ".
+
+| _basic/2_3/script.js/1_3_4.js_
+
+| _de_ | __
+| __  |
+_header.css_ | __
+|A non-versioned style resource called "
+_header.css"_ localized for locale " _de_ " |
+_de/header.css_
+
+| _de_AT_ | __
+| __  |
+_footer.css_ | _1_4_2.css_
+|Version _1_4_2_ of style resource "
+_footer.css_ ", localized for locale " _de_AT_ "
+| _de_AT/footer.css/1_4_2.css_
+
+| _zh_ |
+_extraFancy_ | __
+| _menu-bar.css_ |
+_2_4.css_ |Version _2_4_ of style resource
+called, " _menu-bar.css_ " in non-versioned library, " _extraFancy_ ",
+localized for locale " _zh_ " |
+_zh/extraFancy/menu-bar.css/2_4.css_
+
+| _ja_ | _mild_
+| _0_1_ |
+_ajaxTransaction.js_ | __
+|Non-versioned script resource called, "
+_ajaxTransaction.js_ ", in version _0_1_ of library called " _mild_ ",
+localized for locale " _ja_ " |
+_ja/mild/0_1/ajaxTransaction.js_
+
+| _de_ch_ |
+_grassy_ | _1_0_ |
+_bg.png_ | _1_0.png_
+|Version _1_0_ of image resource called "
+_bg.png_ ", in version _1_0_ of library called " _grassy_ " localized
+for locale " _de_ch_ " |
+_de_ch/grassy/1_0/bg.png/1_0.png_
+|===
+
+
+
+=== [[a836]]Libraries of Localized and Versioned Resources
+
+An important feature of the resource handler
+is the ability for resources to be localized, versioned, and collected
+into libraries. The localization and versioning scheme is completely
+hidden behind the API of _ResourceHandler_ and _Resource_ and is not
+exposed in any way to the JSF run-time.
+
+[P1-start resource versioning] The default
+implementation of _ResourceHandler.createResource()_ , for all variants
+of that method, must implement the following to discover which actual
+resource will be encapsulated within the returned _Resource_ instance.
+An implementation may perform caching of the resource metadata to
+improve performance if the _ProjectStage_ is _ProjectStage.Production_ .
+
+Using the _resourceName_ and _libraryName_
+arguments to _createResource()_ , and the resource packaging scheme
+specified in link:JSF.html#a750[See Packaging Resources into
+the Web Application Root], link:JSF.html#a754[See Packaging
+Resources into the Classpath], and link:JSF.html#a758[See
+Resource Identifiers], discover the file or entry that contains the
+bytes of the resource. If there are multiple versions of the same
+library, and _libraryVersion_ is not specified, the library with the
+highest version is chosen. If there are multiple versions of the same
+resource, and _resourceVersion_ is not specified, the resource with the
+highest version is chosen. The algorithm is specified in pseudocode.
+
+function createResource(resourceName,
+libraryName) \{ +
+var resource = null; +
+var resourceId = null; +
+for (var contract : getLibraryContracts()) \{ +
+resourceId = deriveResourceIdConsideringResourceLoaders(contract,
+resourceName, libraryName) +
+if (null != resourceId) \{ +
+resource = create the resource using the resourceId; +
+return resource; +
+} +
+} +
+ +
+// try without a contract +
+resourceId = deriveResourceIdConsideringResourceLoaders(null,
+resourceName, libraryName) +
+if (null != resourceId) \{ +
+resource = create the resource using the resourceId; +
+} +
+return resource; +
+} +
+ +
+function deriveResourceIdConsideringResourceLoaders(contract,
+resourceName, libraryName) \{ +
+var prefix = web app root resource prefix; +
+var resourceLoader = web app resource loader; +
+// these are shorthand for the prefix and resource loading +
+// facility specified in Section 2.6.1.1. They are +
+// not actual API per se. +
+var resourceId = deriveResourceIdConsideringLocalePrefix(contract,
+prefix, resourceLoader, resourceName, libraryName); +
+ +
+if (null == resourceId) \{ +
+prefix = classpath resource prefix; +
+resourceLoader = classpath resource loader; +
+// these are shorthand for the prefix and resource +
+// loading facility specified in Section 2.6.1.2. They are +
+// not actual API per se. +
+resourceId = deriveResourceIdConsideringLocalePrefix(contract, prefix,
+resourceLoader, resourceName, libraryName); +
+} +
+return resourceId; +
+} +
+ +
+function deriveResourceIdConsideringLocalePrefix(contract, prefix,
+resourceLoader, resourceName, libraryName) \{ +
+var localePrefix = getLocalePrefix(); +
+var result = deriveResourceId(contract, prefix, resourceLoader,
+resourceName, libraryName, localePrefix); +
+// If the application has been configured to have a localePrefix, and
+the resource +
+// is not found, try to find it again, without the localePrefix. +
+if (null == result && null != localePrefix) \{ +
+result = deriveResourceId(contract, prefix, resourceLoader,
+resourceName, libraryName, null); +
+} +
+return result; +
+} +
+ +
+function deriveResourceId(contract, prefix, resourceLoader, +
+resourceName, libraryName, localePrefix) \{ +
+var resourceVersion = null; +
+var libraryVersion = null; +
+var resourceId; +
+if (null != localePrefix) \{ +
+prefix = localePrefix + '/' + prefix; +
+} +
+if (null != contract) \{ +
+prefix = contract + '/' + prefix; +
+} +
+ +
+if (null != libraryName) \{ +
+// actual argument is
+resourcesInContractInJar/resources/resourcesInContractInJar +
+var libraryPaths = resourceLoader.getResourcePaths( +
+prefix + '/' + libraryName); +
+ +
+if (null != libraryPaths && !libraryPaths.isEmpty()) \{ +
+libraryVersion = // execute the comment +
+// Look in the libraryPaths for versioned libraries. +
+// If one or more versioned libraries are found, take +
+// the one with the highest version number as the value +
+// of libraryVersion. If no versioned libraries +
+// are found, let libraryVersion remain null. +
+} +
+if (null != libraryVersion) \{ +
+libraryName = libraryName + '/' + libraryVersion; +
+} +
+var resourcePaths = resourceLoader.getResourcePaths( +
+prefix + '/' + libraryName + '/' + resourceName); +
+if (null != resourcePaths && !resourcePaths.isEmpty()) \{ +
+resourceVersion = // execute the comment +
+// Look in the resourcePaths for versioned resources. +
+// If one or more versioned resources are found, take +
+// the one with the â€œhighestâ€? version number as the value +
+// of resourceVersion. If no versioned libraries +
+// are found, let resourceVersion remain null. +
+} +
+if (null != resourceVersion) \{ +
+resourceId = prefix + '/' + libraryName + '/' + +
+resourceName + '/' + resourceVersion; +
+} +
+else \{ +
+resourceId = prefix + '/' + libraryName + '/' + resourceName; +
+} +
+} // end of if (null != libraryName) +
+else \{ +
+// libraryName == null +
+var resourcePaths = resourceLoader.getResourcePaths( +
+prefix + '/' + resourceName); +
+if (null != resourcePaths && !resourcePaths.isEmpty()) \{ +
+resourceVersion = // execute the comment +
+// Look in the resourcePaths for versioned resources. +
+// If one or more versioned resources are found, take +
+// the one with the â€œhighestâ€? version number as the value +
+// of resourceVersion. If no versioned libraries +
+// are found, let resourceVersion remain null. +
+} +
+if (null != resourceVersion) \{ +
+resourceId = prefix + '/' + resourceName + '/' + +
+resourceVersion; +
+} else \{ +
+resourceId = prefix + '/' + resourceName; +
+} +
+} // end of else, when libraryName == null +
+return resourceId; +
+} +
+ +
+function getLocalePrefix() \{ +
+var localePrefix; +
+var appBundleName = facesContext.application.messageBundle; +
+if (null != appBundleName) \{ +
+var locale = +
+// If there is a viewRoot on the current facesContext, use its locale. +
+// Otherwise, use the locale of the application's ViewHandler +
+ResourceBundle appBundle = ResourceBundle.getBundle( +
+appBundleName, locale); +
+localePrefix = appBundle.getString(ResourceHandler. LOCALE_PREFIX); +
+} +
+// Any MissingResourceException instances that are encountered +
+// in the above code must be swallowed by this method, and null +
+// returned; +
+return localePrefix; +
+}
+
+{empty}[P1-end]
+
+=== [[a842]]Rendering Resources
+
+Resources such as images, stylesheets and
+scripts use the resource handling mechanism as outlined in
+link:JSF.html#a748[See Packaging Resources]. So, for example:
+
+[width="100%",cols="100%",]
+|===
+a|
+<h:graphicImage name=”Planets.gif”
+library=”images”/>
+
+<h:graphicImage
+value=”#\{resource[‘images:Planets.gif’]}”/>
+
+|===
+
+These entries render exactly the same markup.
+In addition to using the name and library attributes, stylesheet and
+script resources can be “relocated” to other parts of the view. For
+example, we could specify that a script resource be rendered within an
+HTML “head”, “body” or “form” element in the page.
+
+=== [[a847]]Relocatable Resources
+
+Relocatable resources are resources that can
+be told where to render themselves, and this rendered location may be
+different than the resource tag placement in the view. For example, a
+portion of the view may be described in the view declaration language as
+follows:
+
+<f:view contentType="text/html">
+
+<h:head>
+
+<meta http-equiv="Content-Type"
+content="text/html;
+
+charset=iso-8859-1" />
+
+<title>Example View</title>
+
+</h:head>
+
+<h:body>
+
+<h:form>
+
+<h:outputScript name=”ajax.js”
+library=”javax.faces”
+
+target=”head”/>
+
+</h:form>
+
+</h:body>
+
+</f:view>
+
+The <h:outputScript> tag refers to the
+renderer, ScriptRenderer, that listens for PostAddToViewEvent event
+types:
+
+[width="100%",cols="100%",]
+|===
+a|
+@ListenerFor(facesEventClass=PostAddToViewEvent.class,
+
+sourceClass=UIOutput.class)
+
+public class ScriptRenderer extends Renderer
+implements ComponentSystemEventListener \{...
+
+|===
+
+Refer to link:JSF.html#a1300[See
+Event and Listener Model]. When the component for this resource is added
+to the view, the ScriptRenderer processEvent method adds the component
+to a facet (named by the target attribute) under the view root. using
+the UIViewRoot component resource methods as described in
+link:JSF.html#a2257[See Methods].
+
+The <h:head> and <h:body> tags refer to the
+renderers HeadRenderer and BodyRenderer respectively. They are described
+in the Standard HTML Renderkit documentation referred to in
+link:JSF.html#a4314[See Standard HTML RenderKit Implementation].
+During the rendering phase, the encode methods for these renderers
+render the HTML “head” and “body” elements respectively. Then they
+render all component resources under the facet child (named by target)
+under the UIViewRoot using the UIViewRoot component resource methods as
+described in link:JSF.html#a2257[See Methods].
+
+Existing component libraries (with existing
+head and body components), that want to use this resource loading
+feature must follow the rendering requirements described in
+link:JSF.html#a4314[See Standard HTML RenderKit Implementation].
+
+=== [[a869]]Resource Rendering Using Annotations
+
+Components and renderers may be declared as
+requiring a resource using the @ResourceDependency annotation. The
+implementation must scan for the presence of this annotation on the
+component that was added to the List of child components. Check for the
+presence of the annotation on the renderer for this component (if there
+is a renderer for the component). The annotation check must be done
+immediately after the component is added to the List. Refer to
+link:JSF.html#a937[See Component Tree Manipulation]for detailed
+information.
+
+
+[[a872]]
+=== Resource Library Contracts
+
+[P1-start_contract_packaging]A resource
+library contract is a resource library, as specified in the preceding
+section, except that instead of residing in the _resources_ directory of
+the web-app root, or in the _META-INF/resources_ JAR entry name in a JAR
+file, it resides in the _contracts_ directory of the web-app root, or in
+the _META-INF/contracts_ JAR entry name in a JAR file. When packaged in
+a JAR file, there is one additional packaging requirement: each resource
+library contract in the JAR must have a marker file. The name of the
+file is given by the value of the symbolic constant
+_javax.faces.application.ResourceHandler.RESOURCE_CONTRACT_XML_ . This
+may be a zero length file, though future versions of the specification
+may use the file to declare the usage contract. [P1-end] The requirement
+to have a marker file enables implementations to optimize for faster
+deployment while still enabling automatic discovery of the available
+contracts.
+
+Following is a listing of the entries in a
+JAR file containing two resource library contracts.
+
+[width="100%",cols="100%",]
+|===
+a|
+META-INF/contracts/ +
+siteLayout/ +
+javax.faces.contract.xml +
+topNav_template.xhtml +
+leftNav_foo.xhtml +
+styles.css +
+script.js +
+background.png
+
+ subSiteLayout/ +
+javax.faces.contract.xml +
+sub_template.xhtml
+
+
+
+|===
+
+
+
+All of the other packaging, encoding and
+decoding requirements are the same as for resource libraries.
+
+See link:JSF.html#a5526[See Resource
+Library Contracts Background] for a non-normative overview of the
+feature, including a brief usage example.
+
+
+
+===

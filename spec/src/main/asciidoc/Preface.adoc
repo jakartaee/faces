@@ -1,0 +1,655 @@
+== Preface
+
+This is the JavaServer Faces 2.3 (JSF 2.3)
+specification, developed by the JSR-372 expert group under the Java
+Community Process (see <http://www.jcp.org> for more information about
+the JCP).
+
+=== Changes between 2.2 and 2.3
+
+This section gives the reader a survey of the
+changes between this version of the specification and the previous
+version, using the categories from the issue tracker at <
+http://jsf-spec.java.net/issues/ >.
+
+=== Big Ticket Features
+
+WebSocket Integration
+
+Issue ID 1396
+
+See the VDLDocs for _<f:websocket />_ _and_
+link:JSF.html#a5904[See <f:websocket>].
+
+Multi-field Validation
+
+Issue ID 1
+
+See the VDLDocs for _<f:validateWholeBean />_ .
+
+Java Time Support
+
+Issue ID 1370
+
+See the VDLDocs for _<f:convertDateTime />_ .
+
+Use CDI for evaluation of JSF specific EL
+implicit Objects
+
+Issue ID
+1311,1322,1325,1327,1328,1334,1332,1331,1328,1384,1385,1383,1386 - 1394
+
+{empty}See link:JSF.html#a3070[See EL
+Resolution]
+
+Issue ID 1417
+
+Deprecate javax.faces.bean.
+
+Support @Inject on JSF specific artifacts
+
+Issue ID
+1316,527,1309,1323,1283,1353,1335,1333,1323,1349,1351,1350,1345
+
+{empty}See link:JSF.html#a3054[See JSF
+Objects Valid for @Inject Injection]
+
+UIData and <ui:repeat> supports Map and
+Iterable
+
+Issue ID 1102
+
+ui:repeat condition check.
+
+Issue ID 1418
+
+CDI Replacement for @ManagedProperty. See
+javadocs for _javax.faces.annotation.ManagedProperty_ .
+
+Issue ID 1103, 1364
+
+See the Javadoc for
+_javax.faces.component.UIData_ , and
+_javax.faces.model.IterableDataModel_ .
+
+ _DataModel_ implementations can be registered
+
+Issue ID 1078
+
+See the javadoc for annotation
+_javax.faces.model.FacesDataModel_ .
+
+Issue ID 1412
+
+See the javadoc for annotation
+_javax.faces.partialViewContext.getEvalScripts()_ .
+
+Issue ID 613
+
+Ajax Method Invocation. See vdldoc for
+<h:commandScript>.
+
+Issue ID 1238
+
+Enhanced component search facility. See the
+javadoc for package _javax.faces.component.search_ . __
+
+=== Other Features, by Functional Area
+
+Components/Renderers
+
+=== Larger Changes
+
+Issue ID 217
+
+styleClass attribute added to h:column
+
+Issue ID 329
+
+Add “group” attribute to <h:selectOneRadio>.
+
+Issue ID 1423,1404
+
+ResourceHandler.markResourceRendered(), and
+isResourceRendered(), UIViewRoot.getComponentResources() enable the
+discovery of dynamically added resources, even within Ajax requests.
+
+Issue ID 1404
+
+Add API to check if a resource has already been
+rendered. See Javadoc for
+_javax.faces.application.ResourceHandler.markResourceRendered()_ and
+_isResourceRendered()_ .
+
+Issue ID 1436
+
+In link:JSF.html#a457[See Render
+Response], specify how Server Push is utilized.
+
+=== Smaller Changes
+
+Issue ID 1422
+
+UISelectMany detects converter based on first
+item.
+
+Issue ID 1007
+
+Explicit support for dynamic component
+manipulation
+
+Issue ID 819
+
+Add “disabled” attribute for h:button
+
+Issue ID 1300
+
+ _UIViewRoot.getViewMap()_ and _publishEvent()_
+.
+
+Issue ID 1229
+
+Document _UIData.setRowStatePreserved()_ in
+VDLDoc and RenderKit Doc.
+
+Issue ID 1135
+
+Add _PostRenderViewEvent_ .
+
+Issue ID 1258
+
+Clarify text escaping for _<h:outputText>_ or
+equivalent EL expressions.
+
+Issue ID 807
+
+Pass _FacesContext_ to system event listeners.
+
+Issue ID 1113
+
+Remove _onselect_ attribute from _SELECT_
+components.
+
+Issue ID 1433
+
+Add a context-param to enable forcing
+validation to happen even when there is no parameter corresponding to
+the current component.
+
+Lifecycle
+
+=== Larger Changes
+
+Issue ID 790
+
+javax.faces.ViewState and ajax with cross form
+submit.
+
+=== Smaller Changes
+
+Issue ID 473
+
+FacesEvent.getFacesContext().
+
+Issue ID 1241
+
+ _faces-config_ supports
+_client-window-factory_ .
+
+Issue ID 1346
+
+Simplify decoration of _FaceletCacheFactory_ .
+
+Issue ID 1361
+
+Correct oversight regarding re-entrancy of flow
+scoped beans.
+
+Issue ID 821
+
+Implement _ExternalContext.getRealPath()_ on
+startup and shutdown.
+
+Issue ID 1401
+
+Explicitly prohibit using _NavigationHandler_
+from within _ExceptionHandler_ __ invoked during RENDER RESPONSE.
+
+Issue ID 1306
+
+ _@FlowScoped_ should be
+_@NormalScope(passivating=true)._
+
+Issue ID 1382
+
+Generify return from
+_ExternalContext.getInitParameterMap()_ .
+
+Issue ID 1329
+
+ _@NotNull_ and _<f:viewParam>_ .
+
+Issue ID 1403
+
+Allow entry into flow via _<f:viewAction>_ .
+
+Issue ID 1216
+
+Improve consistency in handling _PhaseListener_
+instances registered on _UIViewRoot_ components.
+
+Issue ID 1435
+
+Add ResourceHandler.getViewResources() method.
+
+Platform Integration
+
+Issue ID 1379
+
+
+_ExternalContext.getResponseCharacterEncoding()_ and Portlet 3.0.
+
+Facelets/VDL
+
+=== Larger Changes
+
+Issue ID 1424
+
+Add tag <f:importConstants>, see VDLDoc for
+that tag.
+
+=== Smaller Changes
+
+Issue ID 1362
+
+Revisit some cardinality rules regarding
+_<tag>_ and _<component>_ elements.
+
+Issue ID 936
+
+Set _FACELETS_REFRESH_PERIOD_ to -1 if
+_ProjectStage_ is _Production_ .
+
+Spec Clarifications
+
+Issue ID 1254
+
+Loosen language regarding the contracts
+attribute on <f:view>.
+
+Issue ID 1338
+
+Clarify pseudocode for resource libraries.
+
+Issue ID 1279
+
+Specify UIInput.isEmpty()
+
+Issue ID 1242
+
+Remove mentione of OpenAjax hub.
+
+Issue ID 1215
+
+Additional warning on
+DelegatingMetaTagHandler.getTagHandlerDelegate.
+
+Issue ID 1131
+
+“name” attribute not required.
+
+Issue ID 1270
+
+TagDecorator spec namespace modifications.
+
+Issue ID 1401
+
+Advisory text for ExceptionHandler.
+
+Issue ID 1402
+
+Explicitly declare that flow eagerness not
+supported.
+
+Issue ID 677
+
+Document automatic UIPanel behavior for
+f:facet.
+
+Issue ID 1095
+
+Description for “rendered” attribute for repeat
+and fragment.
+
+Issue ID 1066
+
+Application.getNavigationHandler() and
+application element.
+
+Issue ID 803
+
+VisitHint.EXECUTE_LIFECYCLE clarifications.
+
+Issue ID 1217
+
+EnumConverter.getAsString() clarifications.
+
+Issue ID 1356
+
+UIInput.processValidators() clarifications.
+
+Issue ID 1424
+
+Public constants for source, behavior, and
+partial.event. See the Javadocs for
+_javax.faces.component.behavior.ClientBehaviorContext_ , and
+_javax.faces.conetxt.PartialViewContext_ .
+
+Issue ID 1428
+
+API constants for jsf.js and javax.faces in
+JavaScript.
+
+Issue ID 1260
+
+Support for exact mapping of FacesServlet. See
+link:JSF.html#a3913[See ViewHandler Methods that Derive
+Information From the Incoming Request] and
+link:JSF.html#a3955[See ViewHandler Methods Relating to
+Navigation].
+
+Issue ID 1250
+
+Fix entries in table
+link:JSF.html#a2541[See JSF Artifacts Eligible for Injection].
+
+Resources
+
+=== Larger Changes
+
+=== Smaller Changes
+
+Expression Language.
+
+Configuration and Bootstrapping
+
+Miscellaneous
+
+Issue ID 1225
+
+{empty}Clarify requirements to support BCP-47
+regarding localization. See link:JSF.html#a554[See Determining
+the active Locale]
+
+Issue ID 1429
+
+Add constructor to make wrapping easier.
+
+Issue ID 1430
+
+Leverage Java SE 8 repeatable annotations where
+appropriate.
+
+=== Backward Compatibility with Previous Versions
+
+JSF 2.3 is fully backward compatible with
+previous releases of JSF, unless any of the following context-parameter
+values are specified. See Section 11.1.3 “Application Configuration
+Parameters” for details.
+
+javax.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE
+
+javax.faces.DISABLE_FACESSERVLET_TO_XHTML
+
+javax.faces.VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS.
+
+JSF 2.3 is fully backward compatible with
+previous releases of JSF unless a CDI managed bean is included in the
+application with the annotation _@javax.faces.annotation.FacesConfig_ .
+See the javadocs for that annotation for details.
+
+=== Breakages in Backward Compatibility
+
+
+=== Related Technologies
+
+=== [[a173]]Other Java™ Platform Specifications
+
+JSF is based on the following Java API
+specifications:
+
+JavaServer Pages™ Specification, version 2.2
+(JSP™), including Expression Language 2.2
+<http://jcp.org/aboutJava/communityprocess/mrel/jsr245/>
+
+Expression Language 3.0
+<http://jcp.org/en/jsr/detail?id=341> (optional)
+
+Java™ Servlet Specification, version 4.0
+(Servlet) <http://jcp.org/en/jsr/detail?id=369>
+
+Java™ Platform, Enterprise Edition, version 8.0
+<http://jcp.org/en/jsr/detail?id=366>
+
+Contexts and Dependency Injection for Java 2.0
+<http://jcp.org/en/jsr/detail?id=365>
+
+Java™ Platform, Standard Edition, version 8.0
+<http://jcp.org/en/jsr/detail?id=337>
+
+JavaBeans™ Specification, version 1.0.1
+<http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html>
+
+JavaServer Pages™ Standard Tag Library, version
+1.2 (JSTL) <http://jcp.org/en/jsr/detail?id=52>
+
+Java™ API for WebSocket, version 1.1
+<https://www.jcp.org/en/jsr/detail?id=356>
+
+Java™ API for JSON-Processing, version 1.1
+<https://www.jcp.org/en/jsr/detail?id=353>
+
+Therefore, a JSF container must support all of
+the above specifications. This requirement allows faces applications to
+be portable across a variety of JSF implementations.
+
+In addition, JSF is designed to work
+synergistically with other web-related Java APIs, including:
+
+Portlet Specification, 1.0 JSR-168
+<http://jcp.org/en/jsr/detail?id=168>
+
+Portlet Specification, 2.0 JSR-286
+<http://jcp.org/en/jsr/detail?id=286>
+
+Portlet Specification, 3.0 JSR-286
+<http://jcp.org/en/jsr/detail?id=362>
+
+JSF Portlet Bridge Specification, JSR-301
+<http://jcp.org/en/jsr/detail?id=301>
+
+=== Related Documents and Specifications
+
+The following documents and specifications of
+the World Wide Web Consortium will be of interest to JSF implementors,
+as well as developers of applications and components based on JavaServer
+Faces.
+
+Hypertext Markup Language (HTML), version 4.01
+<http://www.w3.org/TR/html4/>
+
+Extensible HyperText Markup Language (XHTML),
+version 1.0 <http://www.w3.org/TR/xhtml1>
+
+Extensible Markup Language (XML), version 1.0
+(Second Edition) <http://www.w3.org/TR/REC-xml>
+
+The class and method Javadoc documentation for
+the classes and interfaces in _javax.faces_ (and its subpackages) are
+incorporated by reference as requirements of this Specification.
+
+The JSP and Facelet tag library for the
+HTML_BASIC standard RenderKit is specified in the VDLDocs and
+incorporated by reference in this Specification.
+
+=== Terminology
+
+The key words MUST, MUST NOT, REQUIRED, SHALL,
+SHALL NOT, SHOULD, SHOULD NOT, RECOMMENDED, MAY, and OPTIONAL in this
+document are to be interpreted as described in
+
+Key words for use in RFCs to Indicate
+Requirement Levels (RFC 2119)
+<http://www.rfc-editor.org/rfc/rfc2119.txt>
+
+=== Providing Feedback
+
+We welcome any and all feedback about this
+specification. Please email your comments to
+<users@javaserverfaces-spec-public.java.net>.
+
+Please note that, due to the volume of feedback
+that we receive, you will not normally receive a reply from an engineer.
+However, each and every comment is read, evaluated, and archived by the
+specification team.
+
+=== Acknowledgements
+
+The JavaServer Faces Specification (version
+2.3) is the result of the diligent efforts of the JSR-372 Expert Group,
+working under the auspices of the Java Community Process. The Expert
+Group is
+
+Frank Caputo
+
+Cagatay Civici
+
+Ken Fyten
+
+Neil Griffin
+
+Josh Juneau
+
+Brian Leatham
+
+Kito Mann
+
+Michael Müller
+
+Paul Nicolucci
+
+Bauke Scholtz
+
+Arjan Tijms
+
+Leonardo Uribe
+
+The editors would like to recognize the
+following individuals who have contributed to the success of JavaServer
+Faces over the years.
+
+[width="100%",cols="50%,50%",]
+|===
+|Dan Allen |Thomas
+Andraschko
+
+|Thomas Asel |Jennifer
+Ball
+
+|Lincoln Baxter III
+|Hans Bergsten
+
+|Shawn Bayern |Joseph
+Berkovitz
+
+|Dennis Byrne |Pete
+Carapetyan
+
+|Ryan DeLaplante
+|Keith Donald
+
+|Jim Driscoll
+|Hanspeter Duennenberger
+
+|Ken Finnigan |Amy
+Fowler
+
+|Mike Freedman |David
+Geary
+
+|Manfred Geiler |Ted
+Goddard
+
+|Juan Gonzalez |Jeremy
+Grelle
+
+|Rick Hightower |Jacob
+Hookom
+
+|Justyna Horwat
+|Alexander Jesse
+
+|Max Katz |Roger Keays
+
+|Gavin King |Roger
+Kitain
+
+|Eric Lazarus |Jason
+Lee
+
+|Felipe Leme |Cody
+Lerum
+
+|Alberto Lemos |Ryan
+Lubke
+
+|Barbara Louis |Martin
+Marinschek
+
+|Kumar Mettu |Craig
+McClanahan
+
+|Pete Muir |Bernd
+Müller
+
+|Michael Müller |Hans
+Muller
+
+|Brendan Murray
+|Michael Nash
+
+|Imre Osswald |Joe
+Ottinger
+
+|Ken Paulsen |Dhiru
+Pandey
+
+|Raj Premkumar |Werner
+Punz
+
+|Matt Raible |Hazem
+Saleh
+
+|Andy Schwartz |Yara
+Senger
+
+|Stan Silvert |Vernon
+Singleton
+
+|Bernhard Slominski
+|Alexander Smirnov
+
+|Thomas Spiegel |Kyle
+Stiemann
+
+|James Strachan
+|Jayashri Visvanathan
+
+|Ana von Klopp
+|Matthias Wessendorf
+
+|Adam Winer |Mike
+Youngstrom
+
+|John Zukowski |
+|===

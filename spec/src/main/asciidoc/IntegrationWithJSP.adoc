@@ -1,0 +1,3282 @@
+[[a4406]]
+== Integration with JSP
+
+Any JavaServer Faces implementations that
+claims compliance with this specification must include a complete
+JavaServer Pages implementation, and expose this implementation to the
+runtime of any JSF application. JSF applications, however, need not use
+JSP as their View Declaration Language (VDL). In fact, a JSF application
+is free to use whatever technology it likes for its VDL, as long as that
+VDL itself complies with the JSF specification.
+
+This version of the specification requires
+that implementations support two View Declaration Language syntaxes
+
+JSP
+
+Facelets XHTML
+
+This chapter describes the JSP support
+required by JavaServer Faces. This JSP support is enabled by providing
+custom actions so that a JSF user interface can be easy defined in a JSP
+page by adding tags corresponding to JSF UI components. Custom actions
+provided by a JSF implementation may be mixed with standard JSP actions
+and custom actions from other libraries, as well as template text for
+layout, in the same JSP page.
+
+Facelets XHTML is specified in
+link:JSF.html#a5476[See Facelets and its use in Web
+Applications]. This chapters builds on the previous one. Facelets relies
+on concepts specified in JSP.
+
+For JSP version 2.0 and onward, the file
+extension “ _.jsf_ ” is reserved, and may optionally be used (typically
+by authoring tools) to represent VDL pages containing JSF
+contentlink:#a9096[13]. When running in a JSP 1.2 environment,
+JSP authors must give their JSP pages that contain JSF content a
+filename ending in “ _.jsp_ ”.
+
+[[a4415]]
+=== UIComponent Custom Actions
+
+A JSP custom action (aka custom tag or tag)
+for a JSF _UIComponent_ is constructed by combining properties and
+attributes of a Java UI component class with the rendering attributes
+supported by a specific _Renderer_ from a concrete _RenderKit_ . For
+example, assume the existence of a concrete _RenderKit_ ,
+_HTMLRenderKit_ , which supports three _Renderer_ types for the
+_UIInput_ component:
+
+=== Example Renderer Types
+
+RendererType
+
+Render-Dependent Attributes
+
+“Text”
+
+“size”
+
+“Secret”
+
+“size”, “secretChar”
+
+“Textarea”
+
+“size”, “rows”
+
+The tag library descriptor (TLD) file for the
+corresponding tag library, then, would define three custom actions—one
+per _Renderer_ . Below is an example of a portion of the custom action
+definition for the _inputText_ taglink:#a9097[14]:
+
+[width="100%",cols="100%",]
+|===
+a|
+<tag>
+
+ <name>inputText</name>
+
+
+<tag-class>acme.html.tags.InputTag</tag-class>
+
+ <bodycontent>JSP</bodycontent>
+
+ <attribute>
+
+ <name>id</name>
+
+ <required>false</required>
+
+ <rtexprvalue>true</rtexprvalue>
+
+ </attribute>
+
+ <attribute>
+
+ <name>value</name>
+
+ <required>false</required>
+
+ <deferred-value>
+
+ <type>java.lang.Object</type>
+
+ <deferred-value>
+
+ </attribute>
+
+ <attribute>
+
+ <name>size</name>
+
+ <required>false</required>
+
+ <deferred-value>
+
+ <type>java.lang.Integer</type>
+
+ <deferred-value>
+
+ </attribute>
+
+ ...
+
+</tag>
+
+|===
+
+Note that the _size_ attribute is derived
+from the _Renderer_ of type “Text”, while the _id_ and _value_
+attributes are derived from the _UIInput_ component class itself. Also
+note that the _id_ attribute has _rtexprvalue_ set to _true_ . This is
+to allow _$\{}_ expressions in the _id_ attribute so that _<c:forEach>_
+can include faces components that incorporate the index into their id.
+_RenderKit_ implementors will generally provide a JSP tag library which
+includes component custom actions corresponding to each of the component
+classes (or types) supported by each of the _RenderKit_ ’s _Renderers_ .
+See link:JSF.html#a4223[See RenderKit] and
+link:JSF.html#a4245[See Renderer] for details on the
+_RenderKit_ and _Renderer_ APIs. JSF implementations must provide such a
+tag library for the standard HTML RenderKit (see
+link:JSF.html#a5363[See Standard HTML RenderKit Tag Library]).
+
+
+=== Using UIComponent Custom Actions in JSP Pages
+
+The following subsections define how a page
+author utilizes the custom actions provided by the _RenderKit_
+implementor in the JSP pages that create the user interface of a
+JSF-based web application.
+
+=== Declaring the Tag Libraries
+
+This specification hereby reserves the
+following Uniform Resource Identifier (URI) values to refer to the
+standard tag libraries for the custom actions defined by JavaServer
+Faces:
+
+ _http://java.sun.com/jsf/core_ -- URI for
+the _JavaServer Faces Core Tag Library_
+
+ _http://java.sun.com/jsf/html_ -- URI for
+the _JavaServer Faces Standard HTML RenderKit Tag Library_
+
+The page author must use the standard JSP
+_taglib_ directive to declare the URI of each tag library to be
+utilized, as well as the prefix used (within this page) to identify
+custom actions from this library. For example,
+
+[width="100%",cols="100%",]
+|===
+a|
+<%@ taglib uri=”http://java.sun.com/jsf/core”
+prefix=”f” %>
+
+<%@ taglib uri=”http://java.sun.com/jsf/html”
+prefix=”h” %>
+
+|===
+
+declares the unique resource identifiers of
+the tag libraries being used, as well as the prefixes to be used within
+the current page for referencing actions from these
+librarieslink:#a9098[15].
+
+=== Including Components in a Page
+
+A JSF _UIComponent_ custom action can be
+placed at any desired position in a JSP page that contains the _taglib_
+directive for the corresponding tag library, subject to the following
+restrictions:
+
+When using a single JSP page to create the
+entire view, JSF component custom actions must be nested inside the
+_<f:view>_ custom action from the JSF Core Tag Library.
+
+The following example illustrates the general
+use of a UIComponent custom action in a JSP page. In this scenario:
+
+[width="100%",cols="100%",]
+|===
+|<h:inputText id=”username”
+value=”#\{logonBean.username}”/>
+|===
+
+represents a _UIInput_ field, to be rendered
+with the “Text” renderer type, and points to the username property of a
+backing bean for the actual value. The _id_ attribute specifies the
+component id of a _UIComponent_ instance, from within the component
+tree, to which this custom action corresponds. If no _id_ __ is
+specified, one will be automatically generated by the custom action
+implementation.
+
+Custom actions that correspond to JSF
+_UIComponent_ instances must subclass
+_javax.faces.webapp.UIComponentELTag_ (see
+link:JSF.html#a6175[See UIComponentELTag])
+
+During the _Render Response_ phase of the
+request processing lifecycle, the appropriate encoding methods of the
+component (or its associated _Renderer_ ) will be utilized to generate
+the representation of this component in the response page. In addition,
+the first time a particular page is rendered, the component tree may
+also be dynamically constructed.
+
+All markup other than _UIComponent_ custom
+actions is processed by the JSP container, in the usual way. Therefore,
+you can use such markup to perform layout control, or include non-JSF
+content, in conjunction with the actions that represent UI components.
+
+=== Creating Components and Overriding Attributes
+
+As _UIComponent_ custom actions are
+encountered during the processing of a JSP page, the custom action
+implementation must check the component tree for the existence of a
+corresponding _UIComponent_ , and (if not found) create and configure a
+new component instance corresponding to this custom action. The details
+of this process (as implemented in the findComponent() method of
+UIComponentClassicTagBase, for easy reuse) are as follows:
+
+If the component associated with this
+component custom action has been identified already, return it
+unchanged.
+
+Identify the _component identifier_ for the
+component related to this UIComponent custom action, as follows:
+
+If the page author has specified a value for
+the _id_ attribute, use that value.
+
+Otherwise, call the _createUniqueId()_ method
+of the _UIViewRoot_ at the root of the component tree for this view, and
+use that value.
+
+If this _UIComponent_ custom action is
+creating a _facet_ (that is, we are nested inside an _<f:facet>_ custom
+action), determine if there is a facet of the component associated with
+our parent _UIComponent_ custom action, with the specified facet name,
+and proceed as follows:
+
+If such a facet already exists, take no
+additional action.
+
+If no such facet already exists, create a new
+_UIComponent_ (by calling the _createComponent()_ method on the
+_Application_ instance for this web application, passing the value
+returned by _getComponentType()_ , set the component identifier to the
+specified value, call _setProperties()_ passing the new component
+instance, and add the new component as a facet of the component
+associated with our parent _UIComponent_ custom action, under the
+specified facet name.
+
+If this _UIComponent_ custom action is not
+creating a facet (that is, we are not nested inside an _<f:facet>_
+custom action), determine if there is a child component of the component
+associated with our parent _UIComponent_ custom action, with the
+specified component identifier, and proceed as follows:
+
+If such a child already exists, take no
+additional action.
+
+If no such child already exists, create a new
+_UIComponent_ (by calling the _createComponent()_ method on the
+_Application_ instance for this web application, passing the value
+returned by _getComponentType()_ , set the component identifier to the
+specified value, call _setProperties()_ passing the new component
+instance, and add the new component as a child of the component
+associated with our parent _UIComponent_ custom action.
+
+=== Deleting Components on Redisplay
+
+In addition to the support for dynamically
+creating new components, as described above, UIComponent custom actions
+will also _delete_ child components (and facets) that are already
+present in the component tree, but are not rendered on this display of
+the page. For example, consider a UIComponent custom action that is
+nested inside a JSTL _<c:if>_ custom action whose condition is true when
+the page is initially rendered. As described in this section, a new
+UIComponent will have been created and added as a child of the
+_UIComponent_ corresponding to our parent _UIComponent_ custom action.
+If the page is re-rendered, but this time the _<c:if>_ condition is
+_false_ , the previous child component will be removed.
+
+=== Representing Component Hierarchies
+
+Nested structures of _UIComponent_ custom
+actions will generally mirror the hierarchical relationships of the
+corresponding _UIComponent_ instances in the view that is associated
+with each JSP page. For example, assume that a _UIForm_ component (whose
+component id is _logonForm_ ) contains a _UIPanel_ component used to
+manage the layout. You might specify the contents of the form like this:
+
+[width="100%",cols="100%",]
+|===
+a|
+<h:form id=”logonForm”>
+
+ <h:panelGrid columns=”2”>
+
+ <h:outputLabel for=”username”>
+
+ <h:outputText value=”Username:”/>
+
+ </h:outputLabel>
+
+ <h:inputText id=”username”
+
+ value=”#\{logonBean.username}”/>
+
+ <h:outputLabel for=”password”>
+
+ <h:outputText value=”Password:”/>
+
+ </h:outputLabel>
+
+ <h:inputSecret id=”password”
+
+ value=”#\{logonBean.password}”/>
+
+ <h:commandButton id=”submitButton”
+type=”SUBMIT”
+
+ action=”#\{logonBean.logon}”/>
+
+ <h:commandButton id=”resetButton”
+type=”RESET”/>
+
+ </h:panelGrid>
+
+</h:form>
+
+|===
+
+=== Registering Converters, Event Listeners, and Validators
+
+Each JSF implementation is required to
+provide the core tag library (see link:JSF.html#a4636[See JSF
+Core Tag Library]), which includes custom actions that (when executed)
+create instances of a specified _Converter_ , _ValueChangeListener,_
+_ActionListener_ or _Validator_ implementation class, and register the
+created instance with the _UIComponent_ associated with the most
+immediately surrounding _UIComponent_ custom action.
+
+Using these facilities, the page author can
+manage all aspects of creating and configuring values associated with
+the view, without having to resort to Java code. For example:
+
+[width="100%",cols="100%",]
+|===
+a|
+<h:inputText id=”username”
+value=”#\{logonBean.username}”>
+
+ <f:validateLength minimum=”6”/>
+
+</h:inputText>
+
+|===
+
+associates a validation check (that the value
+entered by the user must contain at least six characters) with the
+username _UIInput_ component being described.
+
+Following are usage examples for the
+_valueChangeListener_ and _actionListener_ custom actions.
+
+[width="100%",cols="100%",]
+|===
+a|
+<h:inputText id=”maxUsers”>
+
+ <f:convertNumber integerOnly=”true”/>
+
+ <f:valueChangeListener
+
+ type="custom.MyValueChangeListener"/>
+
+</h:inputText>
+
+<h:commandButton label="Login">
+
+ <f:actionListener
+type="custom.MyActionListener"/>
+
+</h:commandButton>
+
+|===
+
+This example causes a _Converter_ and a
+_ValueChangeListener_ of the user specified type to be instantiated and
+added as to the enclosing _UIInput_ component, and an _ActionListener_
+is instantiated and added to the enclosing _UICommand_ component. If the
+user specified type does not implement the proper listener interface a
+_JSPException_ must be thrown.
+
+=== Using Facets
+
+A _Facet_ is a subordinate UIComponent that
+has a special relationship to its parent _UIComponent_ , as described in
+link:JSF.html#a968[See Facet Management]. Facets can be defined
+in a JSP page using the _<f:facet>_ custom action. Each facet action
+must have one and only one child UIComponent custom
+actionlink:#a9099[16]. For example:
+
+[width="100%",cols="100%",]
+|===
+a|
+<h:dataTable ...>
+
+ <f:facet name=”header”>
+
+ <h:outputText value=”Customer List”/>
+
+ </f:facet>
+
+ <h:column>
+
+ <f:facet name=”header”>
+
+ <h:outputText value=”Account Id”/>
+
+ </f:facet>
+
+ <h:outputText id=”accountId” value=
+”#\{customer.accountId}”/>
+
+ </h:column>
+
+ ...
+
+</h:dataTable>
+
+|===
+
+=== [[a4536]]Interoperability with JSP Template Text and Other Tag Libraries
+
+It is permissible to use other tag libraries,
+such as the JSP Standard Tag Library (JSTL) in the same JSP page with
+_UIComponent_ custom actions that correspond to JSF components, subject
+to certain restrictions. When JSF component actions are nested inside
+custom actions from other libraries, or combined with template text, the
+following behaviors must be supported:
+
+JSF component custom actions nested inside a
+custom action that conditionally renders its body (such as JSTL’s
+_<c:if>_ or _<c:choose>_ ) must contain a manually assigned _id_
+attribute.
+
+Interoperation with the JSTL
+Internationalization-Capable Formatting library (typically used with the
+“ _fmt_ ” prefix) is restricted as follows:
+
+ The _<fmt:parseDate>_ and
+_<fmt:parseNumber>_ custom actions should not be used. The corresponding
+JSF facility is to use an _<h:inputText>_ component custom action with
+an appropriate _DateTimeConverter_ or _NumberConverter_ .
+
+The _<fmt:requestEncoding>_ custom action
+should not be used. By the time it is executed, the request parameters
+will have already been parsed, so any change in the setting here will
+have no impact. JSF handles character set issues automatically in most
+cases. To use a fixed character set in exceptional circumstances, use
+the a “ _<%@ page contentType=”[content-type];[charset]” %>_ ”
+directive.
+
+The _<fmt:setLocale/>_ custom action should
+not be used. Even though it might work in some circumstances, it would
+result in JSF and JSTL assuming different locales. If the two locales
+use different character sets, the results will be undefined.
+Applications should use JSF facilities for setting the _locale_ property
+on the _UIViewRoot_ component to change locales for a particular user.
+
+=== Composing Pages from Multiple Sources
+
+JSP pages can be composed from multiple
+sources using several mechanisms:
+
+The _<%@include%>_ directive performs a
+compile-time inclusion of a specified source file into the page being
+compiledlink:#a9100[17]. From the perspective of JSF, such
+inclusions are transparent—the page is compiled as if the inclusions had
+been performed before compilation was initiated.
+
+Several mechanisms (including the
+_<jsp:include>_ standard action, the JSTL _<c:import>_ custom action
+when referencing a resource in the same webapp, and a call to
+_RequestDispatcher.include()_ for a resource in the same webapp) perform
+a runtime dynamic inclusion of the results of including the response
+content of the requested page resource in place of the include action.
+Any JSF components created by execution of JSF component custom actions
+in the included resource will be grafted onto the component tree, just
+as if the source text of the included page had appeared in the calling
+page at the position of the include action.
+
+For mechanisms that aggregate content by
+other means (such as use of an _HttpURLConnection_ , a
+_RequestDispatcher.include()_ on a resource from a different web
+application, or accessing an external resource with the JSTL
+_<c:import>_ custom action on a resource from a different web
+application, only the response content of the aggregation request is
+available. Therefore, any use of JSF components in the generation of
+such a response are not combined with the component tree for the current
+page.
+
+
+[[a4549]]
+=== UIComponent Custom Action Implementation Requirements
+
+The custom action implementation classes for
+_UIComponent_ custom actions must conform to all of the requirements
+defined in the JavaServer Pages Specification. In addition, they must
+meet the following JSF-specific requirements:
+
+Extend the _UIComponentELTag_ or
+_UIComponentELBodyTag_ base class, so that JSF implementations can
+recognize _UIComponent_ custom actions versus others.
+
+Provide a public _getComponentType()_ method
+that returns a String-valued component type registered with the
+_Application_ instance for this web application. The value returned by
+this method will be passed to _Application.createComponent()_ when a new
+_UIComponent_ instance associated with this custom action is to be
+created.
+
+Provide a public _getRendererType()_ method
+that returns a String-valued renderer type registered with the
+_RenderKit_ instance for the currently selected _RenderKit,_ or _null_
+if there should be no associated _Renderer_ . The value returned by this
+method will be used to set the _rendererType_ property of any
+UIComponent created by this custom action.
+
+Provide setter methods taking a
+_javax.el.ValueExpression_ or _javax.el.MethodExpression_ parameter for
+all set-able (from a custom action) properties of the corresponding
+_UIComponent_ class, and all additional set-able (from a custom action)
+attributes supported by the corresponding _Renderer_ .
+
+On the method that causes a _UIComponent_
+instance to be added to the tree, verify that the component id of that
+_UIComponent_ is unique within the scope of the closest ancestor
+component that is a _NamingContainer_ . If this constraint is not met,
+throw _JspException_ . __
+
+Provide a protected _setProperties()_ method
+of type _void_ that takes a _UIComponent_ instance as parameter. The
+implementation of this method must perform the following tasks:
+
+Call _super.setProperties()_ , passing the
+same _UIComponent_ instance received as a parameter.
+
+For each non-null custom action attribute
+that corresponds to a property based attribute to be set on the
+underlying component, call either _setValueExpression()_ or
+_getAttributes().put()_ , depending on whether or not a value expression
+was specified as the custom action attribute value (performing any
+required type conversion). For example, assume that title is the name of
+a render-dependent attribute for this component:
+
+[width="100%",cols="100%",]
+|===
+a|
+public void setTitle(javax.el.ValueExpression
+title) \{
+
+ this.title = title;
+
+}
+
+
+
+protected void setProperties(UIComponent
+component) throws JspException \{
+
+ super.setProperties(component);
+
+ if (title != null) \{
+
+ try \{
+
+ component.setValueExpression(“title”,
+title);
+
+ }
+
+ catch (ELException e) \{
+
+ throw new JspException(e);
+
+ }
+
+ ...
+
+}
+
+|===
+
+For each non-null custom action attribute
+that corresponds to a method based attribute to be set on the underlying
+component, the value of the attribute must be a method reference
+expression. We have a number of wrapper classes to turn a
+MethodExpression into the appropriate listener. For example, assume that
+_valueChangeListener_ is the name of an attribute for this component:
+
+[width="100%",cols="100%",]
+|===
+a|
+public void
+setValueChangeListener(javax.el.MethodExpression me) \{
+
+ valueChangeListener = me;
+
+}
+
+
+
+protected void setProperties(UIComponent
+component) \{
+
+ super.setProperties(component);
+
+ MethodExpressionValueChangeListener listener
+=
+
+ new
+MethodExpressionValueChangeListener(valueChangeListener);
+
+ input.addValueChangeListener(listener);
+
+ ...
+
+}
+
+|===
+
+Non-null custom action attributes that
+correspond to a writable property to be set on the underlying component
+are handled in a similar fashion. For example, assume a custom action
+for the _UIData_ component is being created that needs to deal with the
+_rows_ property (which is of type _int_ ):
+
+[width="100%",cols="100%",]
+|===
+a|
+public void setRows(javax.el.ValueExpression
+rows) \{
+
+ this.rows = rows;
+
+}
+
+
+
+protected void setProperties(UIComponent
+component) \{
+
+ super.setProperties(component);
+
+ if (rows != null) \{
+
+ try \{
+
+ component.setValueExpression(“rows”, rows);
+
+ } catch (ELException e) \{
+
+ throw new JspException(e);
+
+ }
+
+ }
+
+ ...
+
+}
+
+|===
+
+Optionally, provide a public _release()_
+method of type _void_ , taking no parameters, to be called when the JSP
+page handler releases this custom action instance. If implemented, the
+method must perform the following tasks:
+
+Call _super.release()_ to invoke the
+superclass’s release functionality.
+
+Clear the instance variables representing the
+values for set-able custom action attributes (for example, by setting
+String values to null).
+
+Optionally provide overridden implementations
+for the following method to fine tune the behavior of your _UIComponent_
+custom action implementation class: _encodeComponent()_ .
+
+It is technically possible to override other
+public and protected methods of the _UIComponentELTag_ or
+_UIComponentBodyELTag_ base class; however, it is likely that overriding
+these methods will interfere with the functionality that other portions
+of the JSF implementation are assuming to be present, so overriding
+these methods is strongly discouraged.
+
+The definition of each _UIComponent_ custom
+action in the corresponding tag library descriptor (TLD) must conform to
+the following requirements:
+
+The _<body-content>_ element for the custom
+action itself must specify _JSP_ .
+
+For each attribute that is intended to be
+passed on to the underlying faces component:
+
+The attribute may not be named _id_ . This
+name is reserved for Faces use.
+
+If the attribute represents a method
+expression, it must have a _<deferred-method>_ element containing a
+_<method-signature>_ element that describes the signature of the method
+pointed to by the expression, as described in section JSP.C.1 in the JSP
+2.1 specification.
+
+Otherwise, the attribute must be a value
+based attribute, and must have a _<deferred-value>_ element containing a
+<type> element which describes the expected type to which the expression
+will evaluate. Please see section JSP.C.1 in the JSP 2.1 specification
+for details.
+
+=== Considerations for Custom Actions written for JavaServer Faces 1.1 and 1.0
+
+Versions 1.0 and 1.1 of the JavaServer Faces
+spec included their own EL that happend to have similar semantics to the
+JSP EL, but the implementation was bundled into the Faces
+implementation. This version leverages a new Unified EL facility
+provided by JSP. This change has necessitated deprecating some methods
+and classes, including the classes Custom Actions as their base class
+for tags that expose Faces components to the JSP page. This section
+explains how custom actions built for Faces 1.0 and 1.1 can continue to
+run Faces 1.2.
+
+=== Past and Present Tag constraints
+
+Faces 1.0 and 1.1 were targeted at JSP
+version 1.2 and Servlet version 2.3. This decision brought about several
+constraints for faces tag attributes:
+
+all tag attributes had to declare
+_rtexprvalue_ to be _false._
+
+all tag attributes had to take the type
+_java.lang.String_ .
+
+Faces had to choose a new expression
+delimiter, _#\{}_ , to prevent the JSP container from prematurely
+evaluating the expression. This became known as deferred evaluation.
+
+Because Faces had introduced its own version
+of the EL, the custom tag action layer had to do a lot of extra work to
+“value binding enable” its attributes, calling Faces EL APIs to turn the
+String attribute value into an instance of _ValueBinding_ or
+_MethodBinding_ .
+
+Faces provided the _UIComponentTag_ and
+_UIComponentBodyTag_ base classes that were designed to adhere to the
+above rules.
+
+Tags that use the Unified EL have the
+following constraints:
+
+all tag attributes must not have an
+_rtexprvalue_ attribute
+
+all tag attributes must accept
+_javax.el.ValueExpression_ or _javax.el.MethodExpression_ as their type
+(depending on if the attribute refers to a method or a value).
+
+all tag attributes (except for _id_ ) must
+have a _<deferred-value>_ or _<deferred-method>_ element. See
+_link:JSF.html#a4636[See JSF Core Tag Library]_ in the
+description for the _Attributes_ column.
+
+The JSP Container will hand the tag setter a
+_javax.el.ValueExpression_ or _javax.el.MethodExpression_ directly, so
+there is no need to use the Faces API to create them.
+
+The _UIComponentTag_ and _UIComponentBodyTag_
+classes are deprecated and Faces provides new base class,
+UIComponentELTag to the new rules for taglibs in Faces.
+
+It’s very important to note that we still are
+using #\{} as the delimiters for expressions that appear in a JSP page
+in the value of a tag attribute, but when the Java API is used, either
+$\{} or #\{} may be used for delimiters.
+
+=== [[a4629]]Faces 1.0 and 1.1 Taglib migration story
+
+It is imperitive that applications written
+for Faces 1.0 and 1.1 continue to run on Faces 1.2. From the JSP
+perspective, this means
+
+that JSP pages using the standard h: and f:
+tags must work without change
+
+that JSP pages using custom faces taglibs
+must work without change
+
+The first item is enabled by re-writing the
+h: and f: taglibs which must be provided by the Faces implementor.
+
+The second item is enabled as follows. For
+discussion the term _jsp-version_ is used to denote the _jsp-version_
+element in a JSP 1.2 (and earlier) TLD, as well as the _version_ element
+in a JSP 2.0 (and later) TLD. The JSP container must examine the
+_jsp-version_ element of the TLD for a taglib. If the _jsp-version_ is
+less than 2.1, the taglib is deemed to be a Faces 1.0 or 1.1 taglib and
+the container must ignore all expressions that use #\{} as delimiters,
+except for those appearing in tag attribute with a property setter that
+takes a _javax.el.ValueExpression_ or _javax.el.MethodExpression_ . If
+the _jsp-version_ is 2.1 or greater, the taglib is deemed to be a Faces
+1.2 or later taglib and the JSP container is aware of #\{} expressions.
+
+
+[[a4636]]
+=== JSF Core Tag Library
+
+[P1-start jsf_core taglib requirements] All
+JSF implementations must provide a tag library containing core actions
+(described below) that are independent of a particular _RenderKit_ . The
+corresponding tag library descriptor must meet the following
+requirements:
+
+Must declare a tag library version (
+_<tlib-version>_ ) value of _1.2_ .
+
+Must declare a URI ( _<uri>_ ) value of
+_http://java.sun.com/jsf/core_ .
+
+{empty}Must be included in the _META-INF_
+directory of a JAR file containing the corresponding implementation
+classes, suitable for inclusion with a web application, such that the
+tag library descriptor will be located automatically by the algorithm
+described in Section 7.3 of the _JavaServer Pages Specification_
+(version 2.1). [P1-end]
+
+{empty}[P1-start no javascript in jsf_core
+taglib] The tags in the implementation of this tag library must not
+cause JavaScript to be rendered to the client. Doing so would break the
+requirement that the JSF Core Tag library is independent of any specific
+RenderKit. [P1-end]
+
+Each custom action included in the JSF Core
+Tag Library is documented in a subsection below, with the following
+outline for each action:
+
+Name—The name of this custom action, as used
+in a JSP page.
+
+Short Description—A summary of the behavior
+implemented by this custom action.
+
+Syntax—One or more examples of using this
+custom action, with the required and optional sets of attributes that
+may be used together. If the tag may have an _id_ attribute, its value
+may be a literal string, or an immediate, non-defferd expression, such
+as “ _userName_ ” or “ _user$\{i}_ ” without the quotes.
+
+Body Content—The type of nested content for
+this custom action, using one of the standard values _empty_ , _JSP_ ,
+or _tagdependent_ as described in the JSP specification. This section
+also describes restrictions on the types of content (template text, JSF
+core custom actions, JSF _UIComponent_ custom actions, and/or other
+custom actions) that can be nested in the body of this custom action.
+
+Attributes—A table containing one row for
+each defined attribute for this custom action. The following columns
+provide descriptive information about each attribute:
+
+Name—Name of this attribute, as it must be
+used in the page. If the name of the attribute is in _italics_ , it is
+required.
+
+Expr—The type of dynamic expression (if any)
+that can be used in this attribute value. Legal values are VE (this may
+be a literal or a value expression), ME (this may be a method
+expression), or NONE (this attribute accepts literal values only). If
+the _Expr_ column is VE, the corresponding _<attribute>_ declaration in
+the TLD must contain a _<deferred-value>_ element, optionally containing
+a _<type>_ element that contains the fully qualified java class name of
+the expected type of the expression. If _<type>_ is omitted,
+Object.class is assumed. If the _Expr_ column is ME, the corresponding
+_<attribute>_ declaration in the TLD must contain a _<deferred-method>_
+element, containing a _<method-signature>_ element that describes the
+exact method signature for the method. In this case, the _Description_
+column the description column contains the method signature.
+
+Type—Fully qualified Java class or primitive
+type of this attribute.
+
+Description—The functional meaning of this
+attribute’s value.
+
+Constraints—Additional constraints enforced
+by this action, such as combinations of attributes that may be used
+together.
+
+Description—Details about the functionality
+provided by this custom action.
+
+=== [[a4654]]<f:actionListener>
+
+Register an _ActionListener_ instance on the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+<f:actionListener
+type=”fully-qualified-classname” binding=”value Expression”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _type_ | _VE_
+| _String_ |Fully
+qualified Java class name of an _ActionListener_ to be created and
+registered
+
+|binding | _VE_
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to an object that implements
+_javax.faces.event.ActionListener_
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action.
+
+The corresponding _UIComponent_
+implementation class must implement _ActionSource_ , and therefore
+define a public _addActionListener()_ method that accepts an
+_ActionListener_ parameter.
+
+The specified listener class must implement
+_javax.faces.event.ActionListener_ .
+
+ _type_ and/or binding must be specified.
+
+[P1-start f:actionListener constraints] If
+this tag is not nested inside a _UIComponent_ custom action, or the
+_UIComponent_ implementation class does not correctly implement
+_ActionSource_ , or the specified listener class does not implement
+_javax.faces.event.ActionListener_ , throw a _JspException_ . [P1-end]
+Note that if the binding attribute is used, the scope of the
+_ValueExpression_ must be chosen carefully so as not to introduce
+undesireable results. In general, when using the binding attribute, do
+not point to beans in request or narrower scope.
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true,_ check the
+binding attribute.
+
+If binding is set, create a _ValueExpression_
+by invoking _Application.createValueExpression_ () with binding as the
+expression argument, and _Object.class_ as the expectedType argument.
+Use the _ValueExpression_ to obtain a reference to the _ActionListener_
+instance. If there is no exception thrown, and
+_ValueExpression.getValue()_ returned a non-null object that implements
+_javax.faces.event.ActionListener_ , register it by calling
+_addActionListener()._ If there was an exception thrown, rethrow the
+exception as a _JspException._
+
+If the listener instance could not be
+created, check the _type_ attribute _._ If the _type_ attribute is set,
+instantiate an instance of the specified class, and register it by
+calling _addActionListener()_ . If the binding attribute was also set,
+evaluate the expression into a _ValueExpression_ and store the listener
+instance by calling _setValue()_ on the _ValueExpression_ . If there was
+an exception thrown, rethrow the exception as a _JspException._
+
+As an alternative to using the binding and/or
+type attributes, you may also register a method in a backing bean class
+to receive _ActionEvent_ notifications, by using the _actionListener_
+attribute on the corresponding _UIComponent_ custom action.
+
+=== [[a4679]]<f:attribute>
+
+Add an attribute or _ValueExpression_ on the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+<f:attribute name=”attribute-name”
+value=”attribute-value”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _name_ | _VE_
+| _String_ |Name
+of the component attribute to be set
+
+| _value_ | _VE_
+| _Object_ |Value
+of the component attribute to be set
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action.
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . Call
+the _getValue()_ method on the argument _name_ to obtain the name of the
+attribute. If the associated component already has a component attribute
+with that name, take no action. Otherwise, call the _isLiteralText()_
+method on the argument _value_ . If it returns _true_ , store the value
+in the component’s attribute Map under the name derived above. If it
+returns _false_ , store the _ValueExpression_ in the component’s
+_ValueExpression_ Map under the name derived above.
+
+There is no standard implementation class for
+this action. It must be provided by the implementation.
+
+=== [[a4697]]<f:convertDateTime>
+
+Register a _DateTimeConverter_ instance on
+the _UIComponent_ associated with the closest parent _UIComponent_
+custom action.
+
+=== Syntax
+
+<f:convertDateTime
+
+{empty}
+[dateStyle=”\{default|short|medium|long|full}”]
+
+{empty} [locale=”\{ _locale_ ” | string}]
+
+{empty} [pattern=” _pattern_ ”]
+
+{empty}
+[timeStyle=”\{default|short|medium|long|full}”]
+
+{empty} [timeZone=”\{ _timeZone_ | string}”]
+
+{empty}
+[type=”\{date|time|both|localDate|localDateTime|localTime|offsetTime|offsetDateTime| +
+zonedDateTime}”]
+
+ [binding=”Value Expression”]/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+|date-Style |VE
+|String
+|Predefined formatting style which determines
+how the date component of a date string is to be formatted and parsed.
+Applied only if type is "date", "both", "localDate", "localDateTime", or
+"zonedDateTime". Valid values are "default", "short", "medium", "long",
+and "full". Default value is "default". If a java.time formatter is
+being used, yet the dateStyle is set to "default", the value "medium" is
+assumed.
+
+|locale |VE
+|Locale or String
+|Locale whose predefined styles for dates and
+times are used during formatting or parsing. If not specified, the
+Locale returned by FacesContext.getViewRoot().getLocale() will be used.
+Value must be either a VE expression that evaluates to a
+java.util.Locale instance, or a String that is valid to pass as the
+first argument to the constructor java.util.Locale(String language,
+String country). The empty string is passed as the second argument.
+
+|pattern |VE
+|String |Custom
+formatting pattern which determines how the date/time string should be
+formatted and parsed.
+
+|time-Style |VE
+|String
+|Predefined formatting style which determines
+how the time component of a date string is to be formatted and parsed.
+Applied only if type is "time", "both", "localTime" or "offsetTime".
+Valid values are "default", "short", "medium", "long", and "full".
+Default value is "default". If a java.time formatter is being used, yet
+the timeStyle is set to "default", the value "medium" is assumed.
+
+|time-Zone |VE
+|timezone or String
+|Time zone in which to interpret any time
+information in the date string. Value must be either a VE expression
+that evaluates to a java.util.TimeZone instance, or a String that is a
+timezone ID as described in the javadocs for
+java.util.TimeZone.getTimeZone().
+
+|type |VE
+|String |Specifies
+what contents the string value will be formatted to include, or parsed
+expecting. Valid values are "date", "time", "both", "localDate",
+"localDateTime", "localTime", "offsetTime", "offsetDateTime", and
+"zonedDateTime". The values starting with "local", "offset" and "zoned"
+correspond to Java SE 8 Date Time API classes in package java.time with
+the name derived by upper casing the first letter. For example,
+java.time.LocalDate for the value "localDate". Default value is "date".
+
+|binding |VE
+|ValueExpression
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.convert.Converter_
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action whose component class implements _ValueHolder_ , and whose value
+is a _java.util.Date_ (or appropriate subclass).
+
+If _pattern_ is specified, the pattern syntax
+must use the pattern syntax specified by _java.text.SimpleDateFormat_ or
+_java.time.format.DateTimeFormatter_ depending on the value of type.
+
+If _pattern_ is not specified, formatted
+strings will contain a date value, a time value, or both depending on
+the specified _type_ . When date or time values are included, they will
+be formatted according to the specified _dateStyle_ and _timeStyle_ ,
+respectively.
+
+if _type_ is not specified:
+
+if _dateStyle_ is set and _timeStyle_ is not,
+_type_ defaults to _date_
+
+if _timeStyle_ is set and _dateStyle_ is not,
+_type_ defaults to _time_
+
+if both _dateStyle_ and _timeStyle_ are set,
+_type_ defaults to _both_
+
+{empty}[P1-start f:convertDateTime
+constraints] If this tag is not nested inside a _UIComponent_ custom
+action, or the _UIComponent_ implementation class does not correctly
+implement _ValueHolder_ , throw a _JspException_ [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create, call
+_createConverter()_ and register the returned Converter instance on the
+associated UIComponent.
+
+[P1-start f:convertDateTime implementation
+requirements ]The implementation class for this action must meet the
+following requirements:
+
+Must extend
+_javax.faces.webapp.ConverterELTag_ .
+
+The _createConverter()_ method must:
+
+If _binding_ is non-null, call _getValue()_
+on it to obtain a reference to the _Converter_ instance. If there is no
+exception thrown, and _binding.getValue()_ returned a non-null object
+that implements _javax.faces.convert.Converter_ , it must then cast the
+returned instance to _javax.faces.convert.DateTimeConverter_ and
+configure its properties based on the specified attributes for this
+custom action, and return the configured instance. If there was an
+exception thrown, rethrow the exception as a _JspException._
+
+use the _converterId_ if the converter
+instance could not be created from the _binding_ attribute. Call the
+_createConverter()_ method of the _Application_ instance for this
+application, passing converter id “javax.faces.DateTime”. If the binding
+attribute was also set, store the converter instance by calling
+_binding.setValue()_ . It must then cast the returned instance to
+_javax.faces.convert.DateTimeConverter_ and configure its properties
+based on the specified attributes for this custom action, and return the
+configured instance. If there was an exception thrown, rethrow the
+exception as a _JspException._
+
+If the type attribute is not specified, it
+defaults as follows:
+
+ If dateStyle is specified but timeStyle is
+not specified, default to date.
+
+If dateStyle is not specified but timeStyle
+is specified, default to time.
+
+{empty}If both dateStyle and timeStyle are
+specified, default to both. [P1-end]
+
+=== [[a4752]]<f:convertNumber>
+
+Register a _NumberConverter_ instance on the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+<f:convertNumber
+
+{empty} [currencyCode=” _currencyCode_ ”]
+
+{empty} [currencySymbol=” _currencySymbol_ ”]
+
+{empty} [groupingUsed=”\{true|false}”]
+
+{empty} [integerOnly=”\{true|false}”]
+
+{empty} [locale=” _locale_ ”]
+
+{empty} [maxFractionDigits=”
+_maxFractionDigits_ ”]
+
+{empty} [maxIntegerDigits=”
+_maxIntegerDigits_ ”]
+
+{empty} [minFractionDigits=”
+_minFractionDigits_ ”]
+
+{empty} [minIntegerDigits=”
+_minIntegerDigits_ ”]
+
+{empty} [pattern=” _pattern_ ”]
+
+{empty} [type=”\{number|currency|percent}”]
+
+ [binding=”Value Expression”]/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+|currencyCode |VE
+|String |ISO 4217
+currency code, applied only when formatting currencies.
+
+|currencySymbol
+|VE |String
+|Currency symbol, applied only when
+formatting currencies.
+
+|groupingUsed |VE
+|boolean
+|Specifies whether formatted output will
+contain grouping separators.
+
+|integerOnly |VE
+|boolean
+|Specifies whether only the integer part of
+the value will be parsed.
+
+|locale |VE
+|java.util.Locale
+|Locale whose predefined styles for numbers
+are used during formatting or parsing. If not specified, the Locale
+returned by FacesContext.getViewRoot().getLocale() will be used.
+
+|maxFractionDigits
+|VE |int
+|Maximum number of digits that will be
+formatted in the fractional portion of the output.
+
+|maxIntegerDigits
+|VE |int
+|Maximum number of digits that will be
+formatted in the integer portion of the output
+
+|minFractionDigits
+|VE |int
+|Minimum number of digits that will be
+formatted in the fractional portion of the output.
+
+|minIntegerDigits
+|VE |int
+|Minimum number of digits that will be
+formatted in the integer portion of the output.
+
+|pattern |VE
+|String |Custom
+formatting pattern which determines how the number string should be
+formatted and parsed.
+
+|type |VE
+|String |Specifies
+whether the value will be parsed and formatted as a number, currency, or
+percentage.
+
+|binding |VE
+|ValueExpression
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.convert.Converter_
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action whose component class implements _ValueHolder_ , and whose value
+is a numeric wrapper class or primitive.
+
+If _pattern_ is specified, the pattern syntax
+must use the pattern syntax specified by _java.text.DecimalFormat_ .
+
+If _pattern_ is not specified, formatting and
+parsing will be based on the specified _type_ .
+
+{empty}[P1-start f:convertNumber constraints]
+If this tag is not nested inside a _UIComponent_ custom action, or the
+_UIComponent_ implementation class does not correctly implement
+_ValueHolder_ , throw a _JspException_ . [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create, call
+_createConverter()_ and register the returned Converter instance on the
+associated UIComponent.
+
+[P1-start f:convertNumber implementation] The
+implementation class for this action must meet the following
+requirements:
+
+Must extend
+_javax.faces.webapp.ConverterELTag_ .
+
+The _createConverter()_ method must:
+
+If _binding_ is non-null, call
+_binding.getValue()_ to obtain a reference to the _Converter_ instance.
+If there is no exception thrown, and _binding.getValue()_ returned a
+non-null object that implements _javax.faces.convert.Converter_ , it
+must then cast the returned instance to
+_javax.faces.convert.NumberConverter_ and configure its properties based
+on the specified attributes for this custom action, and return the
+configured instance. If there was an exception thrown, rethrow the
+exception as a _JspException._
+
+{empty}use the _converterId_ if the converter
+instance could not be created from the _binding_ attribute. Call the
+_createConverter()_ method of the _Application_ instance for this
+application, passing converter id “javax.faces.Number”. If the binding
+attribute was also set, store the converter instance by calling
+_binding.setValue()_ . It must then cast the returned instance to
+_javax.faces.convert.NumberConverter_ and configure its properties based
+on the specified attributes for this custom action, and return the
+configured instance. If there was an exception thrown, rethrow the
+exception as a _JspException_ . [P1-end]
+
+=== <f:converter>
+
+Register a named _Converter_ instance on the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+<f:converter converterId=”converterId”
+binding=”Value Expression”/>
+
+=== Body Content
+
+empty
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _converterId_ |
+_VE_ | _String_
+|Converter identifier of the converter to be
+created.
+
+|binding |VE
+|ValueExpression
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.convert.Converter_
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action whose component class implements _ValueHolder_ .
+
+ _converterId_ and/or binding must be
+specified.
+
+{empty}[P1-start f:converter constraints] If
+this tag is not nested inside a _UIComponent_ custom action, or the
+_UIComponent_ implementation class does not correctly implement
+_ValueHolder_ , throw a _JspException_ . [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create, call
+_createConverter()_ and register the returned Converter instance on the
+associated UIComponent.
+
+[P1-start f:converter implementation] The
+implementation class for this action must meet the following
+requirements:
+
+Must extend
+_javax.faces.webapp.ConverterJspTag_ .
+
+The _createConverter()_ method must:
+
+{empty}If _binding_ is non-null, call
+_binding.getValue()_ to obtain a reference to the _Converter_ instance.
+If there is no exception thrown, and _binding.getValue()_ returned a
+non-null object that implements _javax.faces.convert.Converter_ ,
+register it by calling _setConverter()._ If there was an exception
+thrown, rethrow the exception as a _JspException._ Use the _converterId_
+attribute if the converter instance could not be created from the
+_binding_ attribute _._ If the _converterId_ attribute is set, call the
+_createConverter()_ method of the _Application_ instance for this
+application, passing converter id specified by their converterId
+attribute. If the binding attribute was also set, store the converter
+instance by calling _binding.setValue()_ . Register the converter
+instance by calling _setConverter()._ If there was an exception thrown,
+rethrow the exception as a _JspException_ . [P1-end]
+
+=== [[a4843]]<f:facet>
+
+Register a named facet (see
+link:JSF.html#a968[See Facet Management]) on the _UIComponent_
+associated with the closest parent _UIComponent_ custom action.
+
+=== Syntax
+
+<f:facet name=”facet-name”/>
+
+=== Body Content
+
+JSP. However, only a single UIComponent
+custom action (and any related nested JSF custom actions) is allowed; no
+template text or other custom actions may be present.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _name_ | _NONE_
+| _String_ |Name
+of the facet to be created
+|===
+
+=== Constraints
+
+[P1-start f:facet constraints] Must be nested
+inside a _UIComponent_ custom action.
+
+{empty}Exactly one _UIComponent_ custom
+action must be nested inside this custom action (although the nested
+component custom action could itself have nested children). [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the associated component does not already have a facet with a name
+specified by this custom action’s _name_ attribute, create a facet with
+this name from the _UIComponent_ custom action that is nested within
+this custom action.
+
+{empty}[P1-start f:facet implementation] The
+implementation class must be, or extend, _javax.faces.webapp.FacetTag_ .
+[P1-end]
+
+=== [[a4860]]<f:loadBundle>
+
+Load a resource bundle localized for the
+locale of the current view, and expose it (as a Map) in the request
+attributes for the current request.
+
+=== Syntax
+
+<f:loadBundle basename=”resource-bundle-name”
+var=” _attributeKey_ ”/>
+
+=== Body Content
+
+empty
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _basename_ |
+_VE_ | _String_
+|Base name of the resource bundle to be
+loaded.
+
+|var |NONE
+|String |Name of a
+request scope attribute under which the resource bundle will be exposed
+as a Map.
+|===
+
+=== Constraints
+
+{empty}[P1-start f:loadBundle constraints]
+Must be nested inside an _<f:view>_ custom action. [P1-end]
+
+=== Description
+
+Load the resource bundle specified by the
+_basename_ attribute, localized for the Locale of the _UIViewRoot_
+component of the current view, and expose its key-values pairs as a
+_Map_ under the attribute key specified by the _var_ attribute. In this
+way, value binding expressions may be used to conveniently retrieve
+localized values. If the named bundle is not found, throw _JspException_
+.
+
+If the _get()_ method for the _Map_ instance
+exposed by this custom action is passed a key value that is not present
+(that is, there is no underlying resource value for that key), the
+literal string “???foo???” (where “foo” is replaced by the key the
+String representation of the key that was requested) must be returned,
+rather than the standard _Map_ contract return value of _null_ .
+
+=== <f:param>
+
+Add a child _UIParameter_ component to the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+=== Syntax 1: Unnamed value
+
+<f:param
+[id=”componentIdOrImmediateExpression”] value=”parameter-value”
+
+ [binding=” _componentReference”]_ />
+
+=== Syntax 2: Named value
+
+{empty}<f:param
+[id=”componentIdOrImmediateExpression”]
+
+ [binding=” _componentReference”]_
+
+ name=”parameter-name”
+value=”parameter-value”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+|binding |VE
+|ValueExpression
+|ValueExpression expression to a backing bean
+property bound to the component instance for the UIComponent created by
+this custom action
+
+| _id_ | _NONE_
+| _String_
+|Component identifier of a _UIParameter_
+component
+
+| _name_ | _VE_
+| _String_ |Name
+of the parameter to be set
+
+| _value_ | _VE_
+| _String_ |Value
+of the parameter to be set
+|===
+
+=== Constraints
+
+{empty}[P1-start f:param constraints] Must be
+nested inside a _UIComponent_ custom action. [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create a new
+_UIParameter_ component, and attach it as a child of the associated
+_UIComponent_ . It is up to the parent _UIComponent_ to determine how it
+will handle its _UIParameter_ child _ren._
+
+[P1-start f:param implementation] The
+implementation class for this action must meet the following
+requirements:
+
+Must extend _javax.faces.UIComponentELTag_ .
+
+The _getComponentType()_ method must return “
+_Parameter_ ”.
+
+{empty}The _getRendererType()_ method must
+return _null_ . [P1-end]
+
+=== <f:phaseListener>
+
+Register a _PhaseListener_ instance on the
+_UIViewRoot_ associated with the closest parent _UIViewRoot_ custom
+action.
+
+=== Syntax
+
+<f:phaseListener
+type=”fully-qualified-classname”
+
+binding=”Value expression”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _type_ | _VE_
+| _String_ |Fully
+qualified Java class name of an _PhaseListener_ to be created and
+registered
+
+|binding | _VE_
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.event.PhaseListener_
+|===
+
+=== Constraints
+
+[P1-start f:phaseListener constraints] Must
+be nested inside a _UIViewRoot_ custom action.
+
+The specified listener class must implement
+_javax.faces.event.PhaseListener_ .
+
+{empty} _type_ and/or binding must be
+specified. [P1-end]
+
+=== Description
+
+Locate the one and only _UIViewRoot_ custom
+action instance by walking up the tag tree until you find a
+_UIComponentTagBase_ instance that has no parent. If the _getCreated()_
+method of this instance returns _true,_ check the binding attribute.
+
+If binding is set, call _binding.getValue()_
+to obtain a reference to the _PhaseListener_ instance. If there is no
+exception thrown, and _binding.getValue()_ returned a non-null object
+that implements _javax.faces.event.PhaseListener_ , register it by
+calling _addPhaseListener()._ If there was an exception thrown, rethrow
+the exception as a _JspException._
+
+If the listener instance could not be
+created, check the _type_ attribute _._ If the _type_ attribute is set,
+instantiate an instance of the specified class, and register it by
+calling _addPhaseListener()_ . If the binding attribute was also set,
+store the listener instance by calling _binding.setValue()_ . If there
+was an exception thrown, rethrow the exception as a _JspException._
+
+=== <f:selectItem>
+
+Add a child _UISelectItem_ component to the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+=== Syntax 1: Directly Specified Value
+
+{empty}<f:selectItem
+[id=”componentIdOrImmediateExpression”]
+
+ [binding=” _componentReference”]_
+
+{empty} [itemDisabled=”\{true|false}”]
+
+ itemValue=” _itemValue”_
+
+ itemLabel=” _itemLabel”_
+
+ [itemDescription=” _itemDescription”]_ />
+
+=== Syntax 2: Indirectly Specified Value
+
+{empty}<f:selectItem
+[id=”componentIdOrImmediateExpression”]
+
+ [binding=” _componentReference”]_
+
+ value=” _selectItemValue”/>_
+
+===  Body Content
+
+empty
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+|binding |VE
+| _ValueExpression_
+| _ValueExpression_ expression to a backing
+bean property bound to the component instance for the UIComponent
+created by this custom action.
+
+| _id_ | _NONE_
+| _String_
+|Component identifier of a _UISelectItem_
+component.
+
+| _itemDescription_
+| _VE_ | _String_
+|Description of this option (for use in
+development tools).
+
+|itemDisabled |VE
+|boolean |Flag
+indicating whether the option created by this component is disabled.
+
+|itemLabel |VE
+|String |Label to
+be displayed to the user for this option.
+
+|itemValue |VE
+|Object |Value to
+be returned to the server if this option is selected by the user.
+
+|value |VE
+|javax.faces.model.SelectItem
+|Value binding pointing at a SelectItem
+instance containing the information for this option.
+
+|escape |VE
+|boolean
+|ValueExpression pointing to a boolean that
+tells whether or not the label of this selectItem should be escaped per
+HTML rules. Default is true.
+|===
+
+=== Constraints
+
+{empty}[P1-start f:selectItem constraints]
+Must be nested inside a _UIComponent_ custom action that creates a
+_UISelectMany_ or _UISelectOne_ component instance.[P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create a new
+_UISelectItem_ component, and attach it as a child of the associated
+_UIComponent_ .
+
+[P1-start f:selectItem implementation] The
+implementation class for this action must meet the following
+requirements:
+
+Must extend _javax.faces.UIComponentELTag_ .
+
+The _getComponentType()_ method must return “
+_SelectItem_ ”.
+
+{empty}The _getRendererType()_ method must
+return _null_ .[P1-end]
+
+=== <f:selectItems>
+
+Add a child _UISelectItems_ component to the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+{empty}<f:selectItems
+[id=”componentIdOrImmediateExpression”]
+
+ [binding=” _componentReference”]_
+
+ value=” _selectItemsValue”_ />
+
+===  Body Content
+
+empty
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+|binding |VE
+| _ValueExpression_
+| _ValueExpression_ expression to a backing
+bean property bound to the component instance for the UIComponent
+created by this custom action.
+
+| _id_ | _NONE_
+| _String_
+|Component identifier of a _UISelectItem_
+component.
+
+| _value_ |VE
+|javax.faces.model.SelectItem, see
+description for specific details a|
+Value binding expression pointing at one of
+the following instances:
+
+an individual javax.faces.model.SelectItem
+
+a java language array of
+javax.faces.model.SelectItem
+
+a java.util.Collection of
+javax.faces.model.SeleccItem
+
+A java.util.Map where the keys are converted
+to Strings and used as labels, and the corresponding values are
+converted to Strings and used as values for newly created
+javax.faces.model.SelectItem instances. The instances are created in the
+order of the iterator over the keys provided by the Map.
+
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action that creates a _UISelectMany_ or _UISelectOne_ component
+instance.
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create a new
+_UISelectItems_ component, and attach it as a child of the associated
+_UIComponent_ .
+
+[P1-start f:selectItems implementation]The
+implementation class for this action must meet the following
+requirements:
+
+Must extend _javax.faces.UIComponentELTag_ .
+
+The _getComponentType()_ method must return “
+_javax.faces.SelectItems_ ”.
+
+{empty}The _getRendererType()_ method must
+return _null_ . [P1-end]
+
+=== [[a5015]]<f:setPropertyActionListener>
+
+Tag implementation that creates a special
+_ActionListener_ instance and registers it on the _ActionSource_
+associated with our most immediate surrounding instance of a tag whose
+implementation class is a subclass of _UIComponentTag_ . This tag
+creates no output to the page currently being created. This tag is
+useful for pushing a specific value into a managed bean on page submit.
+
+=== Syntax
+
+<f:setPropertyActionListener target=”Value
+Expression” value=”value Expression”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _value_ | _VE_
+| _ValueExpression_
+|The _ValueExpression_ from which the value
+is taken.
+
+|target | _VE_
+| _ValueExpression_
+|The _ValueExpression_ into which the
+evaluated value from the “ _value_ ” attribute is stored when the
+listener executes.
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action.
+
+The corresponding _UIComponent_
+implementation class must implement _ActionSource_ , and therefore
+define a public _addActionListener()_ method that accepts an
+_ActionListener_ parameter.
+
+The tag implementation must only create and
+register the _ActionListener_ instance the first time the component for
+this tag is created
+
+When the listener executes:
+
+Call _getValue()_ on the " _value_ "
+_ValueExpression_ .
+
+If value of the "value" expression is null,
+call _setValue()_ on the "target" _ValueExpression_ with the null value.
+
+If the value of the "value" expression is not
+null, call _getType()_ on the "value" and "target" _ValueExpressions_ to
+determine their property types.
+
+Coerce the value of the "value" expression to
+the "target" expression value type following the Expression Language
+coercion rules. Call _setValue()_ on the "target" _ValueExpression_ with
+the resulting value.
+
+If either conversion or the execution of
+setValue() fails throw an AbortProcessingException.
+
+This tag creates no output to the page
+currently being created. It is used solely for the side effect of
+_ActionListener_ creation and addition.
+
+{empty}[P1-start f:setPropertyActionListener
+constraints]If this tag is not nested inside a _UIComponent_ custom
+action, or the _UIComponent_ implementation class does not correctly
+implement _ActionSource_ , or the specified listener class does not
+implement _javax.faces.event.ActionListener_ , throw a _JspException_ .
+[P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ return
+_SKIP_BODY_ .
+
+Create an instance of _ActionListener_ that
+implements _StateHolder_ and stores the _target_ and _value_
+_ValueExpression_ instances as instance variables included in the state
+saving contract. The _processAction()_ method of the listener must call
+_getValue()_ on the _value_ _ValueExpression_ and convert the value
+before passing the result to a call to _setValue()_ on the _target_
+_ValueExpression_ .
+
+=== <f:subview>
+
+Container action for all JSF core and
+component custom actions used on a nested page included via
+_<jsp:include>_ or any custom action that dynamically includes another
+page from the same web application, such as JSTL’s _<c:import>_ .
+
+=== Syntax
+
+[width="100%",cols="100%",]
+|===
+a|
+<f:subview id=”
+_componentIdOrImmediateExpression_ ”
+
+ [binding=” _componentReference”]_
+
+ [rendered=”\{true|false}”]>
+
+ Nested template text and custom actions
+
+</f:subview>
+
+|===
+
+=== Body Content
+
+JSP. May contain any combination of template
+text, other JSF custom actions, and custom actions from other custom tag
+libraries.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+|binding |VE
+| _ValueExpression_
+| _ValueExpression_ expression to a backing
+bean property bound to the component instance for the UIComponent
+created by this custom action.
+
+| _id_ | _NONE_
+| _String_
+|Component identifier of a
+_UINamingContainer_ component
+
+|rendered |VE
+|Boolean |Whether
+or not this subview should be rendered.
+|===
+
+=== Constraints
+
+[P1-start f:subview constraints] Must be
+nested inside a _<f:view>_ custom action (although this custom action
+might be in a page that is including the page containing the
+_<f:subview>_ custom action.
+
+Must not contain an _<f:view>_ custom action.
+
+Must have an _id_ attribute whose value is
+unique within the scope of the parent naming container. If this
+constraint is not met, the action taken regarding id uniqueness in
+section link:JSF.html#a4549[See UIComponent Custom Action
+Implementation Requirements] must be taken
+
+{empty}May be placed in a parent page (with
+_<jsp:include>_ or _<c:import>_ nested inside), or within the nested
+page. [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create a new
+_UINamingContainer_ component, and attach it as a child of the
+associated _UIComponent_ . Such a component provides a scope within
+which child component identifiers must still be unique, but allows child
+components to have the same simple identifier as child components nested
+in some other naming container. This is useful in several scenarios:
+
+[width="100%",cols="100%",]
+|===
+a|
+“main.jsp”
+
+<f:view>
+
+ <c:import url=”foo.jsp”/>
+
+ <c:import url=”bar.jsp”/>
+
+</f:view>
+
+
+
+“foo.jsp”
+
+<f:subview id=”aaa”>
+
+ ... components and other content ...
+
+</f:subview>
+
+
+
+“bar.jsp”
+
+<f:subview id=”bbb”>
+
+ ... components and other content ...
+
+</f:subview>
+
+|===
+
+In this scenario, _<f:subview>_ custom
+actions in imported pages establish a naming scope for components within
+those pages. Identifiers for _<f:subview>_ custom actions nested in a
+single _<f:view>_ custom action must be unique, but it is difficult for
+the page author (and impossible for the JSP page compiler) to enforce
+this restriction.
+
+[width="100%",cols="100%",]
+|===
+a|
+“main.jsp”
+
+<f:view>
+
+ <f:subview id=”aaa”>
+
+ <c:import url=”foo.jsp”/>
+
+ </f:subview>
+
+ <f:subview id=”bbb”>
+
+ <c:import url=”bar.jsp”/>
+
+ </f:subview>
+
+</f:view>
+
+
+
+“foo.jsp”
+
+... components and other content ...
+
+
+
+“bar.jsp”
+
+... components and other content ...
+
+|===
+
+In this scenario, the _<f:subview>_ custom
+actions are in the including page, rather than the included page. As in
+the previous scenario, the “id” values of the two subviews must be
+unique; but it is much easier to verify using this style.
+
+It is also possible to use this approach to
+include the same page more than once, but maintain unique identifiers:
+
+[width="100%",cols="100%",]
+|===
+a|
+“main.jsp”
+
+<f:view>
+
+ <f:subview id=”aaa”>
+
+ <c:import url=”foo.jsp”/>
+
+ </f:subview>
+
+ <f:subview id=”bbb”>
+
+ <c:import url=”foo.jsp”/>
+
+ </f:subview>
+
+</f:view>
+
+
+
+“foo.jsp”
+
+... components and other content ...
+
+
+
+
+
+|===
+
+In all of the above examples, note that
+_foo.jsp_ and _bar.jsp_ may not contain _<f:view>_ .
+
+The implementation class for this action must
+meet the following requirements:
+
+[P1-start f:subview implementation] Must
+extend _javax.faces.UIComponentELTag_ .
+
+The _getComponentType()_ method must return “
+_NamingContainer”._
+
+{empty}The _getRendererType()_ method must
+return _null_ . [P1-end]
+
+=== [[a5163]]<f:validateDoubleRange>
+
+Register a _DoubleRangeValidator_ instance on
+the _UIComponent_ associated with the closest parent _UIComponent_
+custom action.
+
+=== Syntax
+
+=== Syntax 1: Maximum only specified
+
+<f:validateDoubleRange maximum=”543.21”
+binding=”VB Expression”/>
+
+=== Syntax 2: Minimum only specified
+
+<f:validateDoubleRange minimum=”123.45”
+binding=”VB Expression”/>
+
+=== Syntax 3: Both maximum and minimum are specified
+
+<f:validateDoubleRange maximum=”543.21”
+minimum=”123.45” binding=”VB Expression”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _maximum_ | _VE_
+| _double_
+|Maximum value allowed for this component
+
+| _minimum_ | _VE_
+| _double_
+|Minimum value allowed for this component
+
+| _binding_ | _VE_
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.convert.Validator_
+
+|for |VE
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to String referring to the value of one of the exposed
+attached objects within the composite component inside of which this tag
+is nested.
+|===
+
+=== Constraints
+
+Must be nested inside a _EditableValueHolder_
+custom action whose value is (or is convertible to) a double.
+
+Must specify either the _maximum_ attribute,
+the _minimum_ attribute, or both.
+
+If both limits are specified, the maximum
+limit must be greater than the minimum limit.
+
+{empty}[P1-start f:validateDoubleRange
+constraints] If this tag is not nested inside a _UIComponent_ custom
+action, or the _UIComponent_ implementation class does not correctly
+implement _EditableValueHolder_ throw a _JspException_ . [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create, call
+_createValidator()_ and register the returned _Validator_ instance on
+the associated _UIComponent_ .
+
+[P1-start f:validateDoubleRange
+implementation] The implementation class for this action must meet the
+following requirements:
+
+Must extend
+_javax.faces.webapp.ValidatorELTag_ .
+
+The _createValidator()_ method must:
+
+If _binding_ is non-null _,_ create a
+_ValueBinding_ by invoking _Application.createValueExpression_ () with
+binding as the expression argument, and _Validator.class_ as the
+expectedType argument.use the _ValueBinding_ to obtain a reference to
+the _Validator_ instance. If there is no exception thrown, and
+_ValueExpression.getValue()_ returned a non-null object that implements
+_javax.faces.validator.Validator_ , it must then cast the returned
+instance to _javax.faces.validator.DoubleRangeValidator_ and configure
+its properties based on the specified attributes for this custom action,
+and return the configured instance. If there was an exception thrown,
+rethrow the exception as a _JspException._
+
+{empty}use the _validatorId_ if the validator
+instance could not be created from the _binding_ attribute. Call the
+_createValidator()_ method of the _Application_ instance for this
+application, passing validator id “javax.faces.DoubleRange”. If the
+binding attribute was also set, evaluate the expression into a
+_ValueExpression_ and store the validator instance by calling
+_setValue()_ on the _ValueExpression_ . It must then cast the returned
+instance to _javax.faces.validator.DoubleRangeValidator_ and configure
+its properties based on the specified attributes for this custom action,
+and return the configured instance. If there was an exception thrown,
+rethrow the exception as a _JspException_ . [P1-end]
+
+=== <f:validateLength>
+
+Register a _LengthValidator_ instance on the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+=== Syntax 1: Maximum length only specified
+
+<f:validateLength maximum=”10” binding=”VB
+Expression”/>
+
+=== Syntax 2: Minimum only specified
+
+<f:validateLength minimum=”1” binding=”VB
+Expression”/>
+
+=== Syntax 3: Both maximum and minimum are specified
+
+<f:validateLength maximum=”10” minimum=”1”
+binding=”VB Expression”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _maximum_ | _VE_
+| _double_
+|Maximum value allowed for this component
+
+| _minimum_ | _VE_
+| _double_
+|Minimum value allowed for this component
+
+| _binding_ | _VE_
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.convert.Validator_
+|===
+
+=== Constraints
+
+Must be nested inside a _EditableValueHolder_
+custom action whose value is (or is convertible to) a double.
+
+Must specify either the _maximum_ attribute,
+the _minimum_ attribute, or both.
+
+If both limits are specified, the maximum
+limit must be greater than the minimum limit.
+
+{empty}[P1-start f:validateDoubleRange
+constraints] If this tag is not nested inside a _UIComponent_ custom
+action, or the _UIComponent_ implementation class does not correctly
+implement _EditableValueHolder_ throw a _JspException_ . [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create, call
+_createValidator()_ and register the returned _Validator_ instance on
+the associated _UIComponent_ .
+
+[P1-start f:validateDoubleRange
+implementation] The implementation class for this action must meet the
+following requirements:
+
+Must extend
+_javax.faces.webapp.ValidatorELTag_ .
+
+The _createValidator()_ method must:
+
+If _binding_ is non-null _,_ create a
+_ValueBinding_ by invoking _Application.createValueExpression_ () with
+binding as the expression argument, and _Validator.class_ as the
+expectedType argument.use the _ValueBinding_ to obtain a reference to
+the _Validator_ instance. If there is no exception thrown, and
+_ValueExpression.getValue()_ returned a non-null object that implements
+_javax.faces.validator.Validator_ , it must then cast the returned
+instance to _javax.faces.validator.DoubleRangeValidator_ and configure
+its properties based on the specified attributes for this custom action,
+and return the configured instance. If there was an exception thrown,
+rethrow the exception as a _JspException._
+
+{empty}use the _validatorId_ if the validator
+instance could not be created from the _binding_ attribute. Call the
+_createValidator()_ method of the _Application_ instance for this
+application, passing validator id “javax.faces.DoubleRange”. If the
+binding attribute was also set, evaluate the expression into a
+_ValueExpression_ and store the validator instance by calling
+_setValue()_ on the _ValueExpression_ . It must then cast the returned
+instance to _javax.faces.validator.DoubleRangeValidator_ and configure
+its properties based on the specified attributes for this custom action,
+and return the configured instance. If there was an exception thrown,
+rethrow the exception as a _JspException_ . [P1-end]
+
+=== [[a5198]]<f:validateRegex>
+
+Register a _RegexValidator_ instance on the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+<f:validateRegex pattern=”a*b”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _pattern_ | _VE_
+| _String_ |The
+string to be interpreted as a _java.util.regex.Pattern_
+
+| _binding_ | _VE_
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.convert.Validator_
+|===
+
+=== Constraints
+
+Must be nested inside a _EditableValueHolder_
+custom action whose value is a _String_ .
+
+Must specify either the _pattern_ attribute.
+
+{empty}[P1-start f:validateLength
+constraints] If this tag is not nested inside a _UIComponent_ custom
+action, or the _UIComponent_ implementation class does not correctly
+implement _EditableValueHolder_ , throw a _JspException_ . [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create, call
+_createValidator()_ and register the returned _Validator_ instance on
+the associated _UIComponent_ .
+
+[P1-start f:validateLength implementation]
+The implementation class for this action must meet the following
+requirements:
+
+Must extend
+_javax.faces.webapp.ValidatorELTag_ .
+
+The _createValidator()_ method must:
+
+If _binding_ is non-null, create a
+_ValueExpression_ by invoking _Application.createValueExpression_ ()
+with binding as the expression argument, and _Validator.class_ as the
+expectedType argument.use the _ValueExpression_ to obtain a reference to
+the _Validator_ instance. If there is no exception thrown, and
+_ValueExpression.getValue()_ returned a non-null object that implements
+_javax.faces.validator.Validator_ , it must then cast the returned
+instance to _javax.faces.validator.RegexValidator_ and configure its
+properties based on the specified attributes for this custom action, and
+return the configured instance. If there was an exception thrown,
+rethrow the exception as a _JspException._
+
+{empty}use the _validatorId_ if the validator
+instance could not be created from the _binding_ attribute. Call the
+_createValidator()_ method of the _Application_ instance for this
+application, passing validator id “javax.faces.RegularExpression”. If
+the binding attribute was also set, evaluate the expression into a
+_ValueExpression_ and store the validator instance by calling
+_setValue()_ on the _ValueExpression_ . It must then cast the returned
+instance to _javax.faces.validator.RegexValidator_ and configure its
+properties based on the specified attributes for this custom action, and
+return the configured instance. If there was an exception thrown,
+rethrow the exception as a _JspException_ .[P1-end]
+
+=== [[a5223]]<f:validateLongRange>
+
+Register a _LongRangeValidator_ instance on
+the _UIComponent_ associated with the closest parent _UIComponent_
+custom action.
+
+=== Syntax
+
+=== Syntax 1: Maximum only specified
+
+<f:validateLongRange maximum=”543”
+binding=”VB Expression”/>
+
+=== Syntax 2: Minimum only specified
+
+<f:validateLongRange minimum=”123”
+binding=”VB Expression”/>
+
+=== Syntax 3: Both maximum and minimum are specified
+
+<f:validateLongRange maximum=”543”
+minimum=”123” binding=”VB Expression”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _maximum_ | _VE_
+| _long_ |Maximum
+value allowed for this component
+
+| _minimum_ | _VE_
+| _long_ |Minimum
+value allowed for this component
+
+| _binding_ | _VE_
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.convert.Validator_
+|===
+
+=== Constraints
+
+Must be nested inside a _EditableValueHolder_
+custom action whose value is (or is convertible to) a long.
+
+Must specify either the _maximum_ attribute,
+the _minimum_ attribute, or both.
+
+If both limits are specified, the maximum
+limit must be greater than the minimum limit.
+
+{empty}[P1-start f:validateLongeRange
+constraints] If this tag is not nested inside a _UIComponent_ custom
+action, or the _UIComponent_ implementation class does not correctly
+implement _EditableValueHolder_ , throw a _JspException_ . [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create, call
+_createValidator()_ and register the returned _Validator_ instance on
+the associated _UIComponent_ .
+
+The implementation class for this action must
+meet the following requirements:
+
+Must extend
+_javax.faces.webapp.ValidatorELTag_ .
+
+The _createValidator()_ method must:
+
+If _binding_ is non-null, create a
+_ValueExpression_ by invoking _Application.createValueExpression_ ()
+with binding as the expression argument, and _Validator.class_ as the
+expectedType argument. Use the _ValueExpression_ to obtain a reference
+to the _Validator_ instance. If there is no exception thrown, and
+_ValueExpression.getValue()_ returned a non-null object that implements
+_javax.faces.validator.Validator_ , it must then cast the returned
+instance to _javax.faces.validator.LongRangeValidator_ and configure its
+properties based on the specified attributes for this custom action, and
+return the configured instance. If there was an exception thrown,
+rethrow the exception as a _JspException._
+
+use the _validatorId_ if the validator
+instance could not be created from the _binding_ attribute. Call the
+_createValidator()_ method of the _Application_ instance for this
+application, passing validator id “javax.faces.LongRange”. If the
+binding attribute was also set, evaluate the expression into a
+_ValueExpression_ and store the validator instance by calling
+_setValue()_ on the _ValueExpression_ . It must then cast the returned
+instance to _javax.faces.validator.LongRangeValidator_ and configure its
+properties based on the specified attributes for this custom action, and
+return the configured instance. If there was an exception thrown,
+rethrow the exception as a _JspException._
+
+=== [[a5256]]<f:validator>
+
+Register a named _Validator_ instance on the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action.
+
+=== Syntax
+
+<f:validator validatorId=”validatorId”
+binding=”VB Expression”/>
+
+=== Body Content
+
+empty
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _validatorId_ |
+_VE_ | _String_
+|Validator identifier of the validator to be
+created.
+
+| _binding_ | _VE_
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to an object that implements _javax.faces.convert.Validator_
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action whose component class implements _EditableValueHolder_ .
+
+ _validatorId_ and/or binding must be
+specified.
+
+{empty}[P1-start f:validator constraints 2]
+If this tag is not nested inside a _UIComponent_ custom action, or the
+_UIComponent_ implementation class does not correctly implement
+_EditableValueHolder_ throw a _JspException_ . [P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , create, call
+_createValidator()_ and register the returned _Validator_ instance on
+the associated _UIComponent_ .
+
+The implementation class for this action must
+meet the following requirements:
+
+Must extend
+_javax.faces.webapp.ValidatorJspTag_ .
+
+The _createValidator()_ method must:
+
+If _binding_ is non-null, call
+_binding.getValue()_ to obtain a reference to the _Validator_ instance.
+If there is no exception thrown, and _binding.getValue()_ returned a
+non-null object that implements _javax.faces.validator.Validator_ ,
+register it by calling _addValidator()._ If there was an exception
+thrown, rethrow the exception as a _JspException._
+
+use the _validatorId_ attribute if the
+validator instance could not be created from the _binding_ attribute _._
+If the _validatorId_ attribute is set, call the _createValidator()_
+method of the _Application_ instance for this application, passing
+validator id specified by their validatorId attribute. If the binding
+attribute was also set, store the validator instance by calling
+_binding.setValue()_ . Register the validator instance by calling
+_addValidator()._ If there was an exception thrown, rethrow the
+exception as a _JspException._
+
+=== [[a5282]]<f:valueChangeListener>
+
+Register a _ValueChangeListener_ instance on
+the _UIComponent_ associated with the closest parent _UIComponent_
+custom action.
+
+=== Syntax
+
+<f:valueChangeListener
+type=”fully-qualified-classname” binding=”VB Expression”/>
+
+=== Body Content
+
+empty.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _type_ | _VE_
+| _String_ |Fully
+qualified Java class name of a _ValueChangeListener_ to be created and
+registered
+
+| _binding_ | _VE_
+| _ValueExpression_
+|A _ValueExpression_ expression that
+evaluates to an object that implements
+_javax.faces.event.ValueChangeListener_
+|===
+
+=== Constraints
+
+Must be nested inside a _UIComponent_ custom
+action.
+
+The corresponding _UIComponent_
+implementation class must implement _EditableValueHolder_ , and
+therefore define a public _addValueChangeListener()_ method that accepts
+an _ValueChangeListener_ parameter.
+
+The specified listener class must implement
+_javax.faces.event.ValueChangeListener_ .
+
+ _type_ and/or binding must be specified.
+
+[P1-start f:valueChangeListener constraints]
+If this tag is not nested inside a _UIComponent_ custom action, or the
+_UIComponent_ implementation class does not correctly implement
+_EditableValueHolder_ , or the specified listener class does not
+implement _javax.faces.event.ValueChangeListener_ , throw a
+_JspException_ . [P1-end] Note that if the binding attribute is used,
+the scope of the _ValueExpression_ must be chosen carefully so as not to
+introduce undesireable results. In general, when using the binding
+attribute, do not point to beans in request or narrower scope.
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , check the
+binding attribute.
+
+If binding is non-null, call
+_binding.getValue()_ to obtain a reference to the _ValueChangeListener_
+instance. If there is no exception thrown, and
+_ValueExpression.getValue()_ returned a non-null object that implements
+_javax.faces.event.ValueChangeListener_ , register it by calling
+_addValueChangeListener()._ If there was an exception thrown, rethrow
+the exception as a _JspException._
+
+If the listener instance could not be
+created, check the _type_ attribute _._ If the _type_ attribute is set,
+instantiate an instance of the specified class, and register it by
+calling _addValueChangeListener()_ . If the binding attribute was also
+set, store the listener instance by calling _binding.setValue()_ . If
+there was an exception thrown, rethrow the exception as a
+_JspException._
+
+As an alternative to using the binding and/or
+type attributes, you may also register a method in a backing bean class
+to receive _ValueChangeEvent_ notifications, by using the
+_valueChangeListener_ attribute on the corresponding _UIComponent_
+custom action.instantiate an instance of the specified class, and
+register it by calling _addValueChangeListener()_ .
+
+=== <f:verbatim>
+
+Register a child _UIOutput_ instance on the
+_UIComponent_ associated with the closest parent _UIComponent_ custom
+action which renders nested body content.
+
+=== Syntax
+
+<f:verbatim [escape=”\{true|false}”
+rendered=”\{true|false”]/>
+
+=== Body Content
+
+JSP. However, no UIComponent custom actions,
+or custom actions from the JSF Core Tag Library, may be nested inside
+this custom action.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _escape_ | _VE_
+| _boolean_ |If
+_true_ , generated markup is escaped in a manner appropriate for the
+markup language being rendered. Default value is false.
+
+| _rendered_ |
+_VE_ | _boolean_
+|Flag indicating whether or not this
+component should be rendered (during Render Response Phase), or
+processed on any subsequent form submit. Default value is true.
+|===
+
+=== Constraints
+
+{empty}[P1-start f:verbatim constraints] Must
+be implemented as a _UIComponentBodyTag_ .[P1-end]
+
+=== Description
+
+Locate the closest parent _UIComponent_
+custom action instance by calling
+_UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
+the _getCreated()_ method of this instance returns _true_ , creates a
+new _UIOutput_ component, and add it as a child of the _UIComponent_
+associated with the located instance. The _rendererType_ property of
+this _UIOutput_ component must be set to “javax.faces.Text”, and the
+_transient_ property must be set to _true_ . Also, the value (or value
+binding, if it is an expression) of the _escape_ attribute must be
+passed on to the renderer as the value the _escape_ attribute on the
+_UIOutput_ component.
+
+=== [[a5325]]<f:view>
+
+Container for all JSF core and component
+custom actions used on a page.
+
+=== Syntax
+
+[width="100%",cols="100%",]
+|===
+a|
+{empty}<f:view [locale=” _locale_ ”
+renderKitId=”alternate”]
+
+{empty} [beforePhase=”methodExpression”]
+
+ [afterPhase”methodExpression”]>
+
+ Nested template text and custom actions
+
+</f:view>
+
+|===
+
+=== Body Content
+
+JSP. May contain any combination of template
+text, other JSF custom actions, and custom actions from other custom tag
+libraries.
+
+=== Attributes
+
+[width="100%",cols="25%,25%,25%,25%",options="header",]
+|===
+|Name |Expr
+|Type |Description
+| _renderKitId_ |
+_VE_ | _String_
+|The identifier for the render kit to use for
+rendering this page.
+
+| _locale_ | _VE_
+| _String or Locale_
+|Name of a Locale to use for localizing this
+page (such as en_uk), or value binding expression that returns a
+_Locale_ instance
+
+| _beforePhase_
+|ME |String
+| _MethodExpression_ expression that points
+to a method whose signature is that of javax.faces.event.
+_PhaseListener.beforePhase()_
+
+| _afterPhase_ |ME
+|String |
+_MethodExpression_ expression that points to a method whose signature is
+that of javax.faces.event. _PhaseListener.afterPhase()_
+|===
+
+=== Constraints
+
+[P1-start f:view constraints] Any JSP-created
+response using actions from the JSF Core Tag Library, as well as actions
+extending _javax.faces.webapp.UIComponentELTag_ from other tag
+libraries, must be nested inside an occurrence of the _<f:view>_ action.
+
+JSP page fragments included via the standard
+_<%@ include %>_ directive need not have their JSF actions embedded in a
+_<f:view>_ action, because the included template text and custom actions
+will be processed as part of the outer page as it is compiled, and the
+_<f:view>_ action on the outer page will meet the nesting requirement.
+
+If the _renderKitId_ attribute is present,
+its value is stored in _UIViewRoot._ If the _renderKitId_ attribute is
+not present, then the default render kit identifier as returned by
+_Application.getDefaultRenderKitId()_ is stored in _UIViewRoot_ if it is
+not _null._ Otherwise, the render kit identifier as specified by the
+constant _RenderKitFactory.HTML_BASIC_RENDER_KIT_ is stored in
+_UIViewRoot._ Specifying a _renderKitId_ for the current view also
+affects all subsequent views, unless overridden by another use of the
+_renderKitId_ attribute. Please refer to link:JSF.html#a3871[See
+ViewHandler] for more information.
+
+If the _locale_ attribute is present, its
+value overrides the _Locale_ stored in _UIViewRoot_ , normally set by
+the _ViewHandler, and the doStartTag() method must store it by calling
+UIViewRoot.setLocale()_ .
+
+{empty}The _doStartTag()_ method must call
+_javax.servlet.jsp.jstl.core.Config.set()_ , passing the
+_ServletRequest_ instance for this request, the constant
+_javax.servlet.jsp.jstl.core.Config.FMT_LOCALE_ , and the _Locale_
+returned by calling _UIViewRoot.getLocale()_ . [P1-end]
+
+=== Description
+
+Provides the JSF implementation a convenient
+place to perform state saving during the render response phase of the
+request processing lifecycle, if the implementation elects to save state
+as part of the response.
+
+The implementation class for this action must
+meet the following requirements:
+
+Must extend _javax.faces.UIComponentELTag_ .
+
+The _getComponentType()_ method must return
+“ViewRoot”.
+
+The _getRendererType()_ method must return
+_null_ .
+
+Please refer to the javadocs for
+_javax.faces.application.StateManager_ for details on what the tag
+handler for this tag must do to implement state saving.
+
+
+[[a5363]]
+=== Standard HTML RenderKit Tag Library
+
+All JSF implementations must provide a tag
+library containing actions that correspond to each valid combination of
+a supported component class (see link:JSF.html#a1823[See
+Standard User Interface Components]”) and a _Renderer_ from the Standard
+HTML RenderKit (see link:JSF.html#a4314[See Standard HTML
+RenderKit Implementation]) that supports that component type. [P1-start
+html_basic taglib requirements] The tag library descriptor for this tag
+library must meet the following requirements:
+
+Must declare a tag library version (
+_<tlib-version>_ ) value of _1.2_ .
+
+Must declare a URI ( _<uri>_ ) value of
+_http://java.sun.com/jsf/html_ .
+
+{empty}Must be included in the _META-INF_
+directory of a JAR file containing the corresponding implementation
+classes, suitable for inclusion with a web application, such that the
+tag library descriptor will be located automatically by the algorithm
+described in Section 7.3 of the _JavaServer Pages Specification_
+(version 1.2).[P1-end]
+
+[P1-start html_basic return values]The custom
+actions defined in this tag library must specify the following return
+values for the _getComponentType()_ and _getRendererType()_ methods,
+respectively:.
+
+=== Standard HTML RenderKit Tag Library
+
+getComponentType()
+
+getRendererType()
+
+custom action name
+
+javax.faces.Column
+
+{empty}(null)link:#a9101[18]
+
+column
+
+javax.faces.HtmlCommandButton
+
+javax.faces.Button
+
+commandButton
+
+javax.faces.HtmlCommandLink
+
+javax.faces.Link
+
+commandLink
+
+javax.faces.HtmlDataTable
+
+javax.faces.Table
+
+dataTable
+
+javax.faces.HtmlForm
+
+javax.faces.Form
+
+form
+
+javax.faces.HtmlGraphicImage
+
+javax.faces.Image
+
+graphicImage
+
+javax.faces.HtmlInputHidden
+
+javax.faces.Hidden
+
+inputHidden
+
+javax.faces.HtmlInputSecret
+
+javax.faces.Secret
+
+inputSecret
+
+javax.faces.HtmlInputText
+
+javax.faces.Text
+
+inputText
+
+javax.faces.HtmlInputTextarea
+
+javax.faces.Textarea
+
+inputTextarea
+
+javax.faces.HtmlMessage
+
+javax.faces.Message
+
+message
+
+javax.faces.HtmlMessages
+
+javax.faces.Messages
+
+messages
+
+javax.faces.HtmlOutputFormat
+
+javax.faces.Format
+
+outputFormat
+
+javax.faces.HtmlOutputLabel
+
+javax.faces.Label
+
+outputLabel
+
+javax.faces.HtmlOutputLink
+
+javax.faces.Link
+
+outputLink
+
+javax.faces.Output
+
+javax.faces.Body
+
+body
+
+javax.faces.Output
+
+javax.faces.Head
+
+head
+
+javax.faces.Output
+
+javax.faces.resource.Script
+
+outputScript
+
+javax.faces.Output
+
+javax.faces.resource.Stylesheet
+
+outputStylesheet
+
+javax.faces.HtmlOutputText
+
+javax.faces.Text
+
+outputText
+
+javax.faces.HtmlPanelGrid
+
+javax.faces.Grid
+
+panelGrid
+
+javax.faces.HtmlPanelGroup
+
+javax.faces.Group
+
+panelGroup
+
+javax.faces.HtmlSelectBooleanCheckbox
+
+javax.faces.Checkbox
+
+selectBooleanCheckbox
+
+javax.faces.HtmlSelectManyCheckbox
+
+javax.faces.Checkbox
+
+selectManyCheckbox
+
+javax.faces.HtmlSelectManyListbox
+
+javax.faces.Listbox
+
+selectManyListbox
+
+javax.faces.HtmlSelectManyMenu
+
+javax.faces.Menu
+
+selectManyMenu
+
+javax.faces.HtmlSelectOneListbox
+
+javax.faces.Listbox
+
+selectOneListbox
+
+javax.faces.HtmlSelectOneMenu
+
+javax.faces.Menu
+
+selectOneMenu
+
+javax.faces.HtmlSelectOneRadio
+
+javax.faces.Radio
+
+selectOneRadio
+
+Note, to avoid confusion between JSP and
+Facelets, any Renderers that are only supported in Facelets are
+specified in link:JSF.html#a6029[See Standard HTML RenderKit Tag
+Library].
+
+[P1-end] [P1-start html_basic taglibrary
+requirements 2]The tag library descriptor for this tag library (and the
+corresponding tag handler implementation classes) must meet the
+following requirements:
+
+The attributes for the tags, both in the TLD
+and in the associated tag handlers, must conform exactly to the type,
+name, and description given in the VDLDocs for the html_basic tag
+library.
+
+If the type of the attribute is
+_javax.el.ValueExpression_ , the TLD for the attribute must contain a
+_<deferred-value>_ with a nested _<type>_ element, inside of which is
+nested the expected type, as given in the VDLDocs. The JavaBeans setter
+method in the tag handler for the tag must be of type
+_javax.el.ValueExpression_ .
+
+If the type of the attribute is
+_javax.el.MethodExpression_ , the TLD for the attribute must contain a
+_<deferred-method>_ with a nested _<method-signature>_ , inside of which
+is the method signature for that _MethodExpression_ , as given in the
+VDLDocs. The actual name of the method in the signature declaration is
+immaterial and unspecified. The JavaBeans setter method in the tag
+handler for the tag must be of type _javax.el.MethodExpression_ .
+
+Any attributes listed in the VDLDocs with a
+_request-time_ value of _true_ must specify an _<rtexprvalue>_ of _true_
+in the TLD.
+
+The following action must be taken to handle
+the value of the _converter_ property. If _isLiteralText()_ on the
+_converter_ property returns _true_ , get the value of the property and
+treat it as a _converterId_ by passing it as the argument to the
+_createConverter()_ method of the _Application_ instance for this
+webapp, then pass the created _Converter_ to the _setConverter()_ method
+of the component for this tag. If _isLiteralText()_ on the _converter_
+property returns _false_ , call _setValueExpression()_ on the component,
+passing “converter” as the name of the _ValueExpression_ and the
+_ValueExpression_ instance as the value.
+
+For a non- _null_ _action_ attribute on
+custom actions related to _ActionSource2_ components ( _commandButton_ ,
+_commandLink_ ), the _setProperties()_ method of the tag handler
+implementation class must pass the value of the action attribute, which
+is a _MethodExpression_ , to the component’s _setActionExpression()_
+method.
+
+For other non- _null_ attributes that
+correspond to _MethodExpression_ attributes on the underlying components
+( _actionListener_ , _validator_ , _valueChangeListener_ ), the
+_setProperties()_ method of the tag handler implementation class must
+store that instance as the value of the corresponding component
+property.
+
+For any non- _null_ _id_ , _scope_ , or _var_
+attribute, the _setProperties()_ method of the tag handler
+implementation class must simply set the value of the corresponding
+component attribute.
+
+For all other non- _null_ attributes, the
+_setProperties()_ of the tag handler implementation class method must:
+
+If the _attribute.isLiteralText()_ returns
+_true_ , set the corresponding attribute on the underlying component
+(after performing any necessary type conversion).
+
+{empty}Otherwise, call the
+_setValueExpression()_ method on the underlying component, passing the
+attribute name and the _ValueExpression‘_ instance as
+parameters.[P1-end]
+
+
+
+
+
+===

@@ -1,0 +1,841 @@
+[appendix]
+[[a7037]]
+== JSF Metadata
+
+The XML Schema Definition for Application
+Configuration Resource files is included in a web browser optimized
+format along with the Javadoc. That is the canonical location of the
+schemas in the specification.
+
+[[a7040]]
+=== Required Handling of _*-extension_ elements in the application configuration resources files
+
+As specified in the XML Schema for
+Application Configuration Resources, many of the elements in the file
+have _*-extension_ elements declared in a similar fashion to this one
+for the _faces-config-extension_ :
+
+[width="100%",cols="100%",]
+|===
+a|
+ _<xsd:complexType name =
+"faces-config-extensionType">_
+
+ _<xsd:annotation>_
+
+ _<xsd:documentation>_
+
+ _Extension element for faces-config. It may
+contain_
+
+ _implementation specific content._
+
+ _</xsd:documentation>_
+
+ _</xsd:annotation>_
+
+ _<xsd:sequence>_
+
+ _<xsd:any namespace="##any"_
+
+ _processContents="lax"_
+
+ _minOccurs="0"_
+
+ _maxOccurs="unbounded" />_
+
+ _</xsd:sequence>_
+
+ _<xsd:attribute name="id" type="xsd:ID"/>_
+
+ _</xsd:complexType>_
+
+|===
+
+This section specifies the required handling
+of such elements.
+
+Note that it is normal for an application to
+have several application configuration resources files. If multiple such
+resource files have conflicting _*-extension_ elements, the last element
+processed takes precedence over preceding elements. Processing order can
+be controlled as specified in link:JSF.html#a6435[See Ordering
+of Artifacts].
+
+===  _faces-config-extension_ handling
+
+If an application configuration resource
+contains a _faces-config-extension_ element, the children of the element
+must be inspected for containing well-formed XML conforming to the
+syntax specified in the following subsection(s). DTD syntax is used for
+convenience since the content of a _*-extension_ element may not be
+constrained due to its declaration as containing _<xsd:any>_ .
+
+=== [[a7061]]The _facelets-processing_ element
+
+DTD syntax..
+
+[width="100%",cols="100%",]
+|===
+|<!ELEMENT facelets-processing
+(file-extension, process-as) > +
+<!ELEMENT file-extension ANY> +
+<!ELEMENT process-as ANY> __
+|===
+
+The _<facelets-processing>_ element is used
+to affect the processing of Facelets VDL files. Therefore, this setting
+only applies to those requests that reach the Facelets
+_ViewDeclarationLanguage_ implementation, as specified to the runtime
+via the _javax.faces.FACELETS_VIEW_MAPPINGS_ and
+_javax.faces.DEFAULT_SUFFIX_ _<context-param>_ entries. The
+specification defines three processing modes for Facelets files:
+Facelets XHTML syntax, XML View syntax, and Facelets JSPX syntax. This
+last syntax is intended to ease the migration to Facelets for
+applications already using the JSP document syntax (also known as JSPX
+syntax). The affect on the processing of files in each of these three
+modes is specified in the following table.
+
+=== Valid _<process-as>_ values and their implications on the processing of Facelet VDL files.
+
+
+
+ _<process-as>html5</process-as> +
+HTML 5 (default)_
+
+ _<process-as>xhtml</process-as> +
+Facelets XHTML_
+
+<process-as>xml</process-as> +
+XML View
+
+<process-as>jspx</process-as> +
+Facelets JSPX
+
+XML Doctype
+
+Simplified to _<!DOCTYPE html>_
+
+passed through
+
+consumed
+
+consumed
+
+ _XML declaration_
+
+passed through __
+
+passed through
+
+consumed
+
+consumed
+
+ _Processing instructions_
+
+passed through
+
+passed through
+
+consumed
+
+consumed
+
+ _CDATA section start and end tags_
+
+passed through
+
+passed through
+
+consumed
+
+consumed
+
+ _Escaping of inline text_
+
+escaped
+
+escaped
+
+escaped
+
+not escaped
+
+ _XML Comments_
+
+passed through
+
+passed through
+
+consumed
+
+consumed
+
+In the preceding table, “passed through”
+means that the content is passed through unmodified to the user agent.
+“consumed” means the content is silently consumed on the server. Note
+that for CDATA sections, the content of the CDATA section itself is
+passed through, even if the start and end tags should be consumed.
+“escaped” means that sensivite content in the response is automatically
+escaped: _&_ becomes _&amp;_ , for example. “not escaped” means that
+such content is not escaped.
+
+The content of the _<file-extension>_ element
+is particular to the file extension of the physical resource for the
+Facelets VDL content, as specified in the
+_javax.faces.FACELETS_VIEW_MAPPINGS_ and _javax.faces.DEFAULT_SUFFIX_
+_<context-param>_ elements. Consider the following example
+_faces-config.xml_ .
+
+[width="100%",cols="100%",]
+|===
+a|
+ _<?xml version='1.0' encoding='UTF-8'?>_
+
+ _<faces-config_
+
+ _xmlns="http://java.sun.com/xml/ns/javaee"_
+
+
+_xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"_
+
+
+_xsi:schemaLocation="http://java.sun.com/xml/ns/javaee_
+
+
+_http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"_
+
+ _version="2.1">_
+
+ _<faces-config-extension>_
+
+ _<facelets-processing>_
+
+ _<file-extension>.jspx</file-extension>_
+
+ _<process-as>jspx</process-as>_
+
+ _</facelets-processing>_
+
+ _<facelets-processing>_
+
+ _<file-extension>.view.xml</file-extension>_
+
+ _<process-as>xml</process-as>_
+
+ _</facelets-processing>_
+
+ _</faces-config-extension>_
+
+ _</faces-config>_
+
+|===
+
+And _web.xml_ content
+
+[width="100%",cols="100%",]
+|===
+a|
+ _<context-param>_
+
+
+_<param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>_
+
+
+_<param-value>*.xhtml;*.view.xml;*.jspx</param-value>_
+
+ _</context-param>_
+
+ __
+
+ _<context-param>_
+
+
+_<param-name>javax.faces.DEFAULT_SUFFIX</param-name>_
+
+ _<param-value>.xhtml .view.xml .jsp
+.jspx</param-value>_
+
+ _</context-param>_
+
+ __
+
+|===
+
+This configuration states that .xhtml,
+.view.xml, and .jspx files must be treated as Facelets VDL files
+declares the processing mode of .jspx files to be jspx and declares the
+processing mode of .view.xml files to be xml.
+
+
+[[a7134]]
+=== XML Schema Definition For Facelet Taglib
+
+The XML Schema Definition for Facelet Taglib
+is included in a web browser optimized format along with the Javadoc.
+That is the canonical location of the schemas in the specification.
+
+[P1_start_facelet_taglib_decl]To ease
+migration for Facelet taglibraries declared using pre-JSF 2.0 versions
+of Facelets, implementations must support loading facelet taglibrary
+files that conform to the pre-JSF 2.0 Facelets DTD. Per DTD conventions,
+Facelet taglibrary files declare conformance to this DTD by including
+text similar to the following in at the top of their declaring file.
+
+[width="100%",cols="100%",]
+|===
+| _<!DOCTYPE facelet-taglib PUBLIC +
+"-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+"http://java.sun.com/dtd/facelet-taglib_1_0.dtd">_
+|===
+
+{empty}Use of this DTD is officially
+deprecated. This DTD is included for reference in
+link:JSF.html#a7139[See Deprecated DTD for Facelet Taglibraries
+Used by Versions of Facelets Prior to JSF 2.0]. It is expected that
+proper JSF 2.0 Facelet Taglibraries will declare conformance to the
+following schema, rather than the deprecated
+DTD.[P1_end_facelet_taglib_decl]
+
+=== [[a7139]]Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0
+
+This DTD is deprecated and is included so
+implementors will have a reference.
+
+<!ELEMENT facelet-taglib
+(library-class|(namespace,(tag|function)+))>
+
+<!ATTLIST facelet-taglib xmlns CDATA #FIXED
+"http://java.sun.com/JSF/Facelet">
+
+<!ELEMENT namespace (#PCDATA)>
+
+<!ELEMENT library-class (#PCDATA)>
+
+<!ELEMENT tag
+(tag-name,(handler-class|component|converter|validator|source))>
+
+<!ELEMENT tag-name (#PCDATA)>
+
+<!ELEMENT handler-class (#PCDATA)>
+
+<!ELEMENT component
+(component-type,renderer-type?,handler-class?)>
+
+<!ELEMENT component-type (#PCDATA)>
+
+<!ELEMENT renderer-type (#PCDATA)>
+
+<!ELEMENT converter (converter-id,
+handler-class?)>
+
+<!ELEMENT converter-id (#PCDATA)>
+
+<!ELEMENT validator (validator-id,
+handler-class?)>
+
+<!ELEMENT validator-id (#PCDATA)>
+
+<!ELEMENT source (#PCDATA)>
+
+<!ELEMENT function
+(function-name,function-class,function-signature)>
+
+<!ELEMENT function-name (#PCDATA)>
+
+<!ELEMENT function-class (#PCDATA)>
+
+<!ELEMENT function-signature (#PCDATA)>
+
+
+
+
+[[a7162]]
+=== XML Schema Definition for Composite Components
+
+<xsd:schema
+
+
+targetNamespace="http://java.sun.com/xml/ns/javaee"
+
+
+xmlns:javaee="http://java.sun.com/xml/ns/javaee"
+
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+
+
+xmlns:xml="http://www.w3.org/XML/1998/namespace"
+
+ elementFormDefault="qualified"
+
+ attributeFormDefault="unqualified"
+
+ version="2.0">
+
+
+
+ <xsd:annotation>
+
+ <xsd:documentation>
+
+ $Id: web-facesuicomponent_2_0.xsd,v 1.1.8.2
+2008/03/20 21:12:50 edburns Exp $
+
+ </xsd:documentation>
+
+ </xsd:annotation>
+
+
+
+ <xsd:annotation>
+
+ <xsd:documentation>
+
+
+
+ Copyright 2007 Sun Microsystems, Inc.,
+
+ 901 San Antonio Road,
+
+ Palo Alto, California 94303, U.S.A.
+
+ All rights reserved.
+
+
+
+ Sun Microsystems, Inc. has intellectual
+property
+
+ rights relating to technology described in
+this document. In
+
+ particular, and without limitation, these
+intellectual
+
+ property rights may include one or more of
+the U.S. patents
+
+ listed at http://www.sun.com/patents and one
+or more
+
+ additional patents or pending patent
+applications in the
+
+ U.S. and other countries.
+
+
+
+ This document and the technology which it
+describes are
+
+ distributed under licenses restricting their
+use, copying,
+
+ distribution, and decompilation. No part of
+this document
+
+ may be reproduced in any form by any means
+without prior
+
+ written authorization of Sun and its
+licensors, if any.
+
+
+
+ Third-party software, including font
+technology, is
+
+ copyrighted and licensed from Sun suppliers.
+
+
+
+ Sun, Sun Microsystems, the Sun logo,
+Solaris, Java, Java EE,
+
+ JavaServer Pages, Enterprise JavaBeans and
+the Java Coffee
+
+ Cup logo are trademarks or registered
+trademarks of Sun
+
+ Microsystems, Inc. in the U.S. and other
+countries.
+
+
+
+ Federal Acquisitions: Commercial Software -
+Government Users
+
+ Subject to Standard License Terms and
+Conditions.
+
+
+
+ </xsd:documentation>
+
+ </xsd:annotation>
+
+
+
+ <xsd:annotation>
+
+ <xsd:documentation>
+
+
+
+ <![CDATA[
+
+
+
+ The XML Schema for a JavaServer Faces
+UIComponent (Version 2.0).
+
+
+
+ The elements in this schema may be used in
+an XHTML page for
+
+ a composite component, by pulling in the
+composite namespace:
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+
+
+xmlns:composite="http://java.sun.com/jsf/composite">
+
+
+
+ <composite:interface>
+
+ <composite:attribute name="foo"
+default="bar" />
+
+ </composite:/interface>
+
+ <!-- the rest omitted -->
+
+</html>
+
+
+
+ The elements in this schema may also be used
+in a facelet taglibrary
+
+ file in the same manner:
+
+
+
+<facelet-taglib
+xmlns="http://java.sun.com/xml/ns/javaee"
+
+
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+
+xmlns:composite="http://java.sun.com/jsf/composite"
+
+
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-facelettaglibary_2_0.xsd"
+
+ version="2.0">
+
+
+<namespace>http://domain.com/test_schema</namespace>
+
+ <tag>
+
+ <tag-name>testSchema</tag-name>
+
+ <component>
+
+
+<component-type>javax.faces.Input</component-type>
+
+
+<renderer-type>javax.faces.Text</renderer-type>
+
+
+<handler-class>com.sun.faces.facelets.tag.jsf.ComponentHandler</handler-class>
+
+ <component-extension>
+
+
+
+ <composite:attribute name="foo"
+default="bar" />
+
+
+
+ </component-extension>
+
+ </component>
+
+ </tag>
+
+</facelet-taglib>
+
+
+
+ The instance documents may indicate the
+published
+
+ version of the schema using
+xsi:schemaLocation attribute
+
+ for javaee namespace with the following
+location:
+
+
+
+
+http://java.sun.com/xml/ns/javaee/web-facesuicomponent_2_0.xsd
+
+
+
+ ]]>
+
+
+
+ </xsd:documentation>
+
+ </xsd:annotation>
+
+
+
+ <xsd:include schemaLocation="javaee_5.xsd"/>
+
+
+
+ <!--
+**************************************************** -->
+
+
+
+ <xsd:element name = "attribute"
+type="javaee:uicomponent-attributeType">
+
+ </xsd:element>
+
+
+
+ <!--
+**************************************************** -->
+
+
+
+ <xsd:complexType
+name="uicomponent-attributeType">
+
+ <xsd:annotation>
+
+ <xsd:documentation>
+
+
+
+ The "attribute" element declares an
+attribute of this
+
+ ui component.
+
+
+
+ </xsd:documentation>
+
+ </xsd:annotation>
+
+
+
+ <xsd:choice minOccurs="0"
+maxOccurs="unbounded">
+
+ <xsd:element name="attribute"
+
+ type="javaee:uicomponent-attributeType"/>
+
+ </xsd:choice>
+
+
+
+ <xsd:attribute name="name"
+
+ type="xsd:string"
+
+ use="required"/>
+
+
+
+ <xsd:attribute name="displayName"
+
+ type="xsd:string"
+
+ use="optional"/>
+
+
+
+ <xsd:attribute name="shortDescription"
+
+ type="xsd:string"
+
+ use="optional"/>
+
+
+
+ <xsd:attribute name="default"
+
+ type="xsd:string"
+
+ use="optional"/>
+
+
+
+ <xsd:attribute name="method-signature"
+
+ type="xsd:string"
+
+ use="optional">
+
+
+
+ <xsd:annotation>
+
+ <xsd:documentation>
+
+ <![CDATA[
+
+
+
+ Provides the signature of the Java method.
+The syntax of
+
+ the method-signature element is as follows
+(taken from
+
+ function-signature in
+web-jsptaglibrary_2_1.xsd):
+
+
+
+ MethodSignature ::= ReturnType S MethodName
+S?
+
+ '(' S? Parameters? S? ')'
+
+
+
+ ReturnType ::= Type
+
+
+
+ MethodName ::= Identifier
+
+
+
+ Parameters ::= Parameter
+
+ | ( Parameter S? ',' S? Parameters )
+
+
+
+ Parameter ::= Type
+
+
+
+ Where:
+
+
+
+ * Type is a basic type or a fully qualified
+
+ Java class name (including package name),
+
+ as per the 'Type' production in the Java
+
+ Language Specification, Second Edition,
+
+ Chapter 18.
+
+
+
+ * Identifier is a Java identifier, as per
+
+ the 'Identifier' production in the Java
+
+ Language Specification, Second
+
+ Edition, Chapter 18.
+
+
+
+ Example:
+
+
+
+ java.lang.String nickName( java.lang.String,
+int )
+
+
+
+ ]]>
+
+ </xsd:documentation>
+
+ </xsd:annotation>
+
+
+
+ </xsd:attribute>
+
+
+
+ <xsd:attribute name="applyTo"
+
+ type="xsd:string"
+
+ use="optional"/>
+
+
+
+ <xsd:attribute name="required"
+
+ type="xsd:boolean"
+
+ use="optional"/>
+
+
+
+ <xsd:attribute name="preferred"
+
+ type="xsd:boolean"
+
+ use="optional"/>
+
+
+
+ <xsd:attribute name="expert"
+
+ type="xsd:boolean"
+
+ use="optional"/>
+
+
+
+
+
+ </xsd:complexType>
+
+
+
+ <!--
+**************************************************** -->
+
+
+
+</xsd:schema>
+
+ __
+
+===
