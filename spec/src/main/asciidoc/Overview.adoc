@@ -1,6 +1,6 @@
 == Overview
 
-JavaServer Faces (JSF) is a _user interface_
+Jakarta Server Faces (JSF) is a _user interface_
 (UI) framework for Java web applications. It is designed to
 significantly ease the burden of writing and maintaining applications
 that run on a Java application server and render their UIs back to a
@@ -43,7 +43,7 @@ JSF’s core architecture is designed to be
 independent of specific protocols and markup. However it is also aimed
 directly at solving many of the common problems encountered when writing
 applications for HTML clients that communicate via HTTP to a Java
-application server that supports servlets and JavaServer Pages (JSP)
+application server that supports servlets and Jakarta Server Pages (JSP)
 based applications. These applications are typically form-based, and are
 comprised of one or more HTML pages with which the user interacts to
 complete a task or set of tasks. JSF tackles the following challenges
@@ -76,7 +76,7 @@ to UI events and model interactions.
 
 === Specification Audience
 
-The _JavaServer Faces Specification_ , and
+The _Jakarta Server Faces Specification_ , and
 the technology that it defines, is addressed to several audiences that
 will use this information in different ways. The following sections
 describe these audiences, the roles that they play with respect to JSF,
@@ -91,7 +91,7 @@ A _page author_ is primarily responsible for
 creating the user interface of a web application. He or she must be
 familiar with the markup and scripting languages (such as HTML and
 JavaScript) that are understood by the target client devices, as well as
-the rendering technology (such as JavaServer Pages) used to create
+the rendering technology (such as Jakarta Server Pages) used to create
 dynamic content. Page authors are often focused on graphical design and
 human factors engineering, and are generally not familiar with
 programming languages such as Java or Visual Basic (although many page
@@ -103,7 +103,7 @@ content of the pages being created from libraries of prebuilt user
 interface components that are provided by component writers, tool
 providers, and JSF implementors. The components themselves will be
 represented as configurable objects that utilize the dynamic markup
-capabilities of the underlying rendering technology. When JavaServer
+capabilities of the underlying rendering technology. When Jakarta Server
 Pages are in use, for example, components will be represented as JSP
 custom actions, which will support configuring the attributes of those
 components as custom action attributes in the JSP page. In addition, the
@@ -214,7 +214,7 @@ logic objects for use via JSF, as would be done for any servlet- or
 JSP-based application.
 
 Only the latter responsibility is directly
-related to JavaServer Faces APIs. In particular, the following steps are
+related to Jakarta Server Faces APIs. In particular, the following steps are
 required to fulfill this responsibility:
 
 Expose the underlying data required by the
@@ -294,21 +294,21 @@ implementations.
 === Introduction to JSF APIs
 
 This section briefly describes major
-functional subdivisions of the APIs defined by JavaServer Faces. Each
+functional subdivisions of the APIs defined by Jakarta Server Faces. Each
 subdivision is described in its own chapter, later in this
 specification.
 
-=== package _javax.faces_
+=== package _jakarta.faces_
 
 This package contains top level classes for
-the JavaServer(tm) Faces API. The most important class in the package is
+the Jakarta Server Faces API. The most important class in the package is
 _FactoryFinder_ , which is the mechanism by which users can override
 many of the key pieces of the implementation with their own.
 
 Please see
 link:JSF.html#a6147[See FactoryFinder].
 
-=== package _javax.faces.application_
+=== package _jakarta.faces.application_
 
 This package contains APIs that are used to
 link an application’s business logic objects to JavaServer Faces, as
@@ -319,7 +319,7 @@ package is _Application_ .
 Please see link:JSF.html#a3400[See
 Application].
 
-=== package _javax.faces.component_
+=== package _jakarta.faces.component_
 
 This package contains fundamental APIs for
 user interface components.
@@ -327,12 +327,12 @@ user interface components.
 Please see link:JSF.html#a883[See
 User Interface Component Model].
 
-=== package _javax.faces.component.html_
+=== package _jakarta.faces.component.html_
 
 This package contains concrete base classes
 for each valid combination of component + renderer.
 
-=== package _javax.faces.context_
+=== package _jakarta.faces.context_
 
 This package contains classes and interfaces
 defining per-request state information. The main class in this package
@@ -342,7 +342,7 @@ information, as well as the gateway to several other helper classes.
 Please see link:JSF.html#a3091[See
 FacesContext].
 
-=== package _javax.faces.convert_
+=== package _jakarta.faces.convert_
 
 This package contains classes and interfaces
 defining converters. The main class in this package is _Converter_ .
@@ -350,7 +350,7 @@ defining converters. The main class in this package is _Converter_ .
 Please see link:JSF.html#a1251[See
 Conversion Model].
 
-=== package _javax.faces.el_
+=== package _jakarta.faces.el_
 
 As of version 1.2 of this specification, all
 classes and interfaces in this package have been deprecated in favor of
@@ -359,24 +359,24 @@ the Unified Expression Language (EL) from JSP 2.1.
 Please see link:JSF.html#a2344[See
 Expression Language and Managed Bean Facility].
 
-=== package _javax.faces.flow_ and _javax.faces.flow.builder_
+=== package _jakarta.faces.flow_ and _jakarta.faces.flow.builder_
 
 The runtime API for Faces Flows.
 
 Please see _link:JSF.html#a3840[See
 FlowHandler]._
 
-=== package _javax.faces.lifecycle_
+=== package _jakarta.faces.lifecycle_
 
 This package contains classes and interfaces
-defining lifecycle management for the JavaServer Faces implementation.
+defining lifecycle management for the Jakarta Server Faces implementation.
 The main class in this package is _Lifecycle_ . _Lifecycle_ is the
 gateway to executing the request processing lifecycle.
 
 Please see link:JSF.html#a369[See
 Request Processing Lifecycle].
 
-=== package _javax.faces.event_
+=== package _jakarta.faces.event_
 
 This package contains interfaces describing
 events and event listeners, and concrete event implementation classes.
@@ -386,7 +386,7 @@ component-level listeners extend from _FacesListener_ .
 Please see link:JSF.html#a1300[See
 Event and Listener Model].
 
-=== package _javax.faces.render_
+=== package _jakarta.faces.render_
 
 This package contains classes and interfaces
 defining the rendering model. The main class in this package is
@@ -394,23 +394,23 @@ _RenderKit_ . _RenderKit_ maintains references to a collection of
 _Renderer_ instances which provide rendering capability for a specific
 client device type.
 
-Please see link:JSF.html#a4219[See
-Rendering Model].
+Please see <<RenderingModel.adoc#a4219,See
+Rendering Model>>.
 
-=== package _javax.faces.validator_
+=== package _jakarta.faces.validator_
 
 Interface defining the validator model, and
 concrete validator implementation classes.
 
 {empty}Please see
-link:JSF.html#a1410[See Validation Model]
+<<UserInterfaceComponentModel.adoc#a1410,See Validation Model>>
 
-=== package _javax.faces.webapp_
+=== package _jakarta.faces.webapp_
 
 Classes required for integration of
-JavaServer Faces into web applications, including a standard servlet,
+Jakarta Server Faces into web applications, including a standard servlet,
 base classes for JSP custom component tags, and concrete tag
 implementations for core tags.
 
-Please see link:JSF.html#a6060[See
-Using JSF in Web Applications].
+Please see <<UsingJSFInWebApplications.adoc#a6060,See
+Using JSF in Web Applications>>.
