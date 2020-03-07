@@ -9,20 +9,21 @@ describes the classes which encapsulate this contextual information.
 === FacesContext
 
 JSF defines the
-_javax.faces.context.FacesContext_ abstract base class for representing
+_jakarta.faces.context.FacesContext_ abstract base class for representing
 all of the contextual information associated with processing an incoming
 request, and creating the corresponding response. A _FacesContext_
 instance is created by the JSF implementation, prior to beginning the
 request processing lifecycle, by a call to the _getFacesContext_ method
 of _FacesContextFactory_ , as described in
-link:JSF.html#a3366[See FacesContextFactory]. When the request
+<<Per-RequestStateInformation.adoc#a3366,See FacesContextFactory>>. When the request
 processing lifecycle has been completed, the JSF implementation will
 call the _release_ method, which gives JSF implementations the
 opportunity to release any acquired resources, as well as to pool and
 recycle _FacesContext_ instances rather than creating new ones for each
 request.
 
-=== Application[[a3096]]
+[[a3096]]
+=== Application
 
 [width="100%",cols="100%",]
 |===
@@ -51,7 +52,8 @@ this request completes. Accessing this _Map_ does not cause any events
 to fire, as is the case with the other maps: for request, session, and
 application scope.[P1-end]
 
-=== [[a3099]]ELContext
+[[a3099]]
+=== ELContext
 
 [width="100%",cols="100%",]
 |===
@@ -71,19 +73,19 @@ instance, passing in _FacesContext.class_ and the _this_ reference for
 the _FacesContext_ instance itself.
 
 {empty}If the _Collection_ returned by
-_javax.faces.Application.getELContextListeners()_ is non-empty, create
+_jakarta.faces.Application.getELContextListeners()_ is non-empty, create
 an instance of _ELContextEvent_ and pass it to each _ELContextListener_
 instance in the _Collection_ by calling the
-_ELContextListener.contextCreated(javax.el.ELContextEvent)_
+_ELContextListener.contextCreated(jakarta.el.ELContextEvent)_
 method.[P1-end]
 
 === ExternalContext
 
 {empty}It is sometimes necessary to interact
-with APIs provided by the containing environment in which the JavaServer
+with APIs provided by the containing environment in which the Jakarta Server
 Faces application is running. In most cases this is the servlet API, but
-it is also possible for a JavaServer Faces application to run inside of
-a portlet. JavaServer Faces provides the _ExternalContext_ abstract
+it is also possible for a Jakarta Server Faces application to run inside of
+a portlet. Jakarta Server Faces provides the _ExternalContext_ abstract
 class for this purpose. [P1-start-externalContext]This class must be
 implemented along with the _FacesContext_ class, and must be accessible
 via the _getExternalContext_ method in _FacesContext_ .[P1-end]
@@ -305,7 +307,7 @@ returned in the order in which they were added via calls to
 _addMessage()_ .
 
 For more information about the _Message_
-class, see link:JSF.html#a3300[See FacesMessage].
+class, see <<Per-RequestStateInformation.adoc#a3300,See FacesMessage>>.
 
 === RenderKit
 
@@ -318,8 +320,8 @@ Return the _RenderKit_ associated with the
 render kit identifier in the current _UIViewRoot_ (if any).
 
 
-
-=== [[a3198]]ResponseStream and ResponseWriter
+[[a3198]]
+=== ResponseStream and ResponseWriter
 
 [width="100%",cols="100%",]
 |===
@@ -359,8 +361,8 @@ Due to restrictions of the underlying servlet
 APIs, either binary or character output can be utilized for a particular
 response—they may not be mixed.
 
-Please see link:JSF.html#a3871[See
-ViewHandler] to learn when _setResponseWriter()_ and
+Please see <<ApplicationIntegration.adoc#a3871,See
+ViewHandler>> to learn when _setResponseWriter()_ and
 _setResponseStream()_ are called.
 
 The enableResponseWriting method is useful to
@@ -392,7 +394,7 @@ public boolean getResponseComplete();
 
 Normally, the phases of the request
 processing lifecycle are executed sequentially, as described in
-link:JSF.html#a369[See Request Processing Lifecycle].” However,
+<<RequestProcessingLifecycle.adoc#a369,See Request Processing Lifecycle>>.” However,
 it is possible for components, event listeners, and validators to affect
 this flow by calling one of these methods.
 
@@ -427,7 +429,8 @@ _getResponseComplete()_ methods allow a JSF-based application to
 determine whether the renderResponse() or responseComplete() methods,
 respectively, have been called already for the current request.
 
-=== [[a3225]]Partial Processing Methods
+[[a3225]]
+=== Partial Processing Methods
 
 
 
@@ -442,17 +445,19 @@ getPartialViewContext()method must return an instance of
 PartialViewContext either by creating a new instance, or returning an
 existing instance from the FacesContext.[P1-end-getpartialViewcontext]
 
-=== [[a3229]]Partial View Context
+[[a3229]]
+=== Partial View Context
 
 The PartialViewContext contains the
 constants, properties and methods to facilitate partial view processing
 and partial view rendering. Refer to
-link:JSF.html#a6831[See Partial View
-Processing] and link:JSF.html#a6833[See
-Partial View Rendering]. Refer to the JavaDocs for the
-javax.faces.context.PartialViewContext class for method requirements.
+<<AjaxIntegration.adoc#a6831,See Partial View
+Processing>> and <<AjaxIntegration.adoc#a6833,See
+Partial View Rendering>>. Refer to the JavaDocs for the
+jakarta.faces.context.PartialViewContext class for method requirements.
 
-=== [[a3231]]Access To The Current FacesContext Instance
+[[a3231]]
+=== Access To The Current FacesContext Instance
 
 [width="100%",cols="100%",]
 |===
@@ -485,13 +490,14 @@ called during application startup time, the instance returned must have
 the special properties as specified on the javadocs for
 _FacesContext.getCurrentInstance()_ The . [P1-end]
 
-=== [[a3237]]CurrentPhaseId
+[[a3237]]
+=== CurrentPhaseId
 
 The default lifecycle implementation is
 responsible for setting the _currentPhaseId_ property on the
 _FacesContext_ instance for this request, as specified in
-link:JSF.html#a401[See Standard Request Processing Lifecycle
-Phases]. The following table describes this property.
+<<RequestProcessingLifecycle.adoc#a401,See Standard Request Processing Lifecycle
+Phases>>. The following table describes this property.
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |===
@@ -522,8 +528,8 @@ exception handler for any unexpected Exceptions that happen during the
 Faces lifecycle. See the Javadocs for _ExceptionHandler_ for details.
 |===
 
-Please see link:JSF.html#a6635[See
-PhaseListener] for the circumstances under which _ExceptionHandler_ is
+Please see <<LifecycleManagement.adoc#a6635,See
+PhaseListener>> for the circumstances under which _ExceptionHandler_ is
 used.
 
 
@@ -560,7 +566,7 @@ swallowed, and must be allowed to flow up to the _Lifecycle.execute_ ()
 method where the individual lifecycle phases are implemented.
 [P1-end_expected_exceptions] At that point, all _Exceptions_ are passed
 to the _ExceptionHandler_ as described in
-link:JSF.html#a6635[See PhaseListener].
+<<LifecycleManagement.adoc#a6635,See PhaseListener>>.
 
 Any code that is not a part of the core Faces
 implementation may leverage the _ExceptionHandler_ in one of two ways.
@@ -596,7 +602,7 @@ _handle()_ method.
 
 Unwrap the argument _t_ until the unwrapping
 encounters an _Object_ whose _getClass()_ is not equal to
-_FacesException.class_ or _javax.el.ELException.class_ . If there is no
+_FacesException.class_ or _jakarta.el.ELException.class_ . If there is no
 root cause, _null_ is returned.
 
 [width="100%",cols="100%",]
@@ -673,12 +679,12 @@ processing by the _handle()_ method. __
 [P1-startPreJsf2ExceptionHandler]The runtime
 must provide an _ExceptionHandlerFactory_ implementation with the fully
 qualified java classname of
-_javax.faces.webapp.PreJsf2ExceptionHandlerFactory_ that creates
+_jakarta.faces.webapp.PreJsf2ExceptionHandlerFactory_ that creates
 _ExceptionHandler_ instances that behave exactly like the default
 _ExceptionHandler_ except that the _handle()_ method behaves as follows.
 
 Versions of JSF prior to 2.0 stated in
-link:JSF.html#a6635[See PhaseListener] “Any exceptions thrown
+<<LifecycleManagement.adoc#a6635,See PhaseListener>> “Any exceptions thrown
 during the _beforePhase()_ listeners must be caught, logged, and
 swallowed...Any exceptions thrown during the _afterPhase()_ liseteners
 must be caught, logged, and swallowed.” The _PreJsf2ExceptionHandler_
@@ -686,7 +692,7 @@ restores this behavior for backwards compatibilty.
 
 {empty}The implementation must allow users to
 install this _ExceptionHandlerFactory_ into the application by nesting
-_<exception-handler-factory>javax.faces.webapp.PreJsf2ExceptionHandlerFactory</exception-handler-factory>_
+_<exception-handler-factory>jakarta.faces.webapp.PreJsf2ExceptionHandlerFactory</exception-handler-factory>_
 inside the <factory> element in the application configuration
 resource.[P1-endPreJsf2ExceptionHandler]
 
@@ -723,14 +729,14 @@ If _Application.getProjectStage()_ returns
 _ProjectStage.Development_ , the runtime must guarantee that the above
 debug information is available to be included in any Facelet based error
 page using the _<ui:include />_ with a _src_ attribute equal to the
-string “ _javax.faces.error.xhtml_ ”.
+string “ _jakarta.faces.error.xhtml_ ”.
 
 
 [[a3300]]
 === FacesMessage
 
 Each message queued within a _FacesContext_
-is an instance of the _javax.faces.application.FacesMessage_ class. The
+is an instance of the _jakarta.faces.application.FacesMessage_ class. The
 presence of one or more _FacesMessage_ instances on the _FacesContext_
 indicates a failure of some kind during the lifecycle. In particular, a
 validation or conversion failure is required to cause a _FacesMessage_
@@ -782,18 +788,18 @@ public void setSummary(String summary);
 The message properties are defined as
 follows:
 
- _detail_ —Localized detail text for this
+_detail_ —Localized detail text for this
 _FacesMessage_ (if any). This will generally be additional text that can
 help the user understand the context of the problem being reported by
 this _FacesMessage_ , and offer suggestions for correcting it.
 
- _severity_ —A value defining how serious the
+_severity_ —A value defining how serious the
 problem being reported by this _FacesMessage_ instance should be
 considered. Four standard severity values ( _SEVERITY_INFO_ ,
 _SEVERITY_WARN_ , _SEVERITY_ERROR_ , and _SEVERITY_FATAL_ ) are defined
 as a typesafe enum in the _FacesMessage_ class.
 
- _summary_ —Localized summary text for this
+_summary_ —Localized summary text for this
 _FacesMessage_ . This is normally a relatively short message that
 concisely describes the nature of the problem being reported by this
 _FacesMessage_ .
@@ -801,7 +807,7 @@ _FacesMessage_ .
 
 === ResponseStream
 
- _ResponseStream_ is an abstract class
+_ResponseStream_ is an abstract class
 representing a binary output stream for the current response. It has
 exactly the same method signatures as the _java.io.OutputStream_ class.
 
@@ -809,10 +815,10 @@ exactly the same method signatures as the _java.io.OutputStream_ class.
 [[a3324]]
 === ResponseWriter
 
- _ResponseWriter_ is an abstract class
+_ResponseWriter_ is an abstract class
 representing a character output stream for the current response. A
 _ResponseWriter_ instance is obtained via a factory method on
-_RenderKit._ Please see link:JSF.html#a4223[See RenderKit]”. It
+_RenderKit._ Please see <<RenderingModel.adoc#a4223,See RenderKit>>”. It
 supports both low-level and high level APIs for writing character based
 information
 
@@ -994,7 +1000,7 @@ _ResponseWriter_ , using a different _Writer_ .
 === FacesContextFactory
 
 [P1-start-facesContextFactory]A single
-instance of _javax.faces.context.FacesContextFactory_ must be made
+instance of _jakarta.faces.context.FacesContextFactory_ must be made
 available to each JSF-based web application running in a servlet or
 portlet container.[P1-end] This class is primarily of use by JSF
 implementors—applications will not generally call it directly. The
@@ -1033,7 +1039,7 @@ _ServletResponse_ .
 === ExceptionHandlerFactory
 
 [P1-start-exceptionHandlerFactory]A single
-instance of _javax.faces.context.ExceptionHandlerFactory_ must be made
+instance of _jakarta.faces.context.ExceptionHandlerFactory_ must be made
 available to each JSF-based web application running in a servlet or
 portlet container.[P1-end] The factory instance can be acquired, by JSF
 implementations or by application code, by executing:
@@ -1067,7 +1073,7 @@ instance that has been configured based on the specified parameters.
 === ExternalContextFactory
 
 [P1-start-externalContextFactory]A single
-instance of _javax.faces.context.ExternalContextFactory_ must be made
+instance of _jakarta.faces.context.ExternalContextFactory_ must be made
 available to each JSF-based web application running in a servlet or
 portlet container.[P1-end] This class is primarily of use by JSF
 implementors—applications will not generally call it directly. The
@@ -1106,5 +1112,3 @@ _ServletResponse_ .
 
 
 
-
-===
