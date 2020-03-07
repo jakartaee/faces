@@ -25,18 +25,19 @@
 
  -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
         <version>1.0.6</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>jakarta.faces</groupId>
     <artifactId>jakarta.faces-api</artifactId>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0-RC1</version>
 
     <name>Jakarta Server Faces</name>
     <description>
@@ -44,13 +45,8 @@
         including UI components, state management, event handing, input validation, page navigation, and
         support for internationalization and accessibility.
     </description>
-    <inceptionYear>1997</inceptionYear>
     <url>https://github.com/eclipse-ee4j/faces-api</url>
-
-    <properties>
-        <mojarra.version>2.3.13</mojarra.version>
-    </properties>
-
+    <inceptionYear>1997</inceptionYear>
     <licenses>
         <license>
             <name>EPL 2.0</name>
@@ -69,7 +65,6 @@
             <id>atijms</id>
             <name>Arjan Tijms</name>
             <email>arjan.tijms@gmail.com</email>
-            <organization>Payara</organization>
             <roles>
                 <role>Project-Lead</role>
                 <role>comitter</role>
@@ -90,7 +85,6 @@
             <timezone>+8</timezone>
         </developer>
     </developers>
-
     <contributors>
         <contributor>
             <name>Jennifer Ball</name>
@@ -137,6 +131,130 @@
         </mailingList>
     </mailingLists>
 
+    <properties>
+        <mojarra.version>3.0.0</mojarra.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0-M1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-api</artifactId>
+            <version>2.0.0-M1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.el</groupId>
+            <artifactId>jakarta.el-api</artifactId>
+            <version>4.0.0-RC1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>3.0.0-M1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.0-M1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.transaction</groupId>
+            <artifactId>jakarta.transaction-api</artifactId>
+            <version>1.3.2</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Optional -->
+
+        <dependency>
+            <groupId>jakarta.servlet.jsp</groupId>
+            <artifactId>jakarta.servlet.jsp-api</artifactId>
+            <version>3.0.0-M1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+            <version>2.0.0-RC1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.json</groupId>
+            <artifactId>jakarta.json-api</artifactId>
+            <version>2.0.0-RC2</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.ejb</groupId>
+            <artifactId>jakarta.ejb-api</artifactId>
+            <version>4.0.0-RC1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.persistence</groupId>
+            <artifactId>jakarta.persistence-api</artifactId>
+            <version>3.0.0-RC1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>3.0.0-RC1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>2.0.0-RC1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.0-RC1</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+
+        <!-- Depend on the source jar of the full implementation Mojarra jar. This is used for unpacking and re-compiling. 
+            This jar is created by executing mvn clean install in the [mojarra home]/impl project. -->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
+            <version>${mojarra.version}</version>
+            <classifier>sources</classifier>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
     <build>
         <resources>
             <resource>
@@ -163,13 +281,33 @@
                 <targetPath>META-INF</targetPath>
             </resource>
         </resources>
-
-
         <plugins>
-            <!-- Restricts the Java version to 1.8 -->
+            <!-- Sets minimal Maven version to 3.5.4 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.5.4</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Restricts the Java version to 1.8 - API remains at Java 8 for now. -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>3.8.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -177,15 +315,12 @@
                 </configuration>
             </plugin>
 
-            <!--
-               Unpack the sources jar that was build and installed by the Mojarra project. This way
-               we can compile that source again in this project, but for the final artifact jar we only include
-               the javax.* classes then.
-            -->
+            <!-- Unpack the sources jar that was build and installed by the Mojarra project. This way we can compile that 
+                source again in this project, but for the final artifact jar we only include the jakarta.* classes then. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>unpack</id>
@@ -219,9 +354,7 @@
                 </configuration>
             </plugin>
 
-            <!--
-                Clean unpacked sources jar
-             -->
+            <!-- Clean unpacked sources jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -231,8 +364,8 @@
                         <phase>clean</phase>
                         <configuration>
                             <target>
-                                <delete dir="src/main/java"/>
-                                <delete dir="src/main/resources"/>
+                                <delete dir="src/main/java" />
+                                <delete dir="src/main/resources" />
                             </target>
                         </configuration>
                         <goals>
@@ -243,13 +376,11 @@
             </plugin>
 
 
-            <!--
-                Create VDL docs
-             -->
+            <!-- Create VDL docs -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <id>Copy-vdldoc-css</id>
@@ -310,30 +441,24 @@
                 </configuration>
             </plugin>
 
-            <!--
-               Create API binary jar
-
-               For the final artifact jar we only include the javax.* classes and resources that we compiled from
-               the unpackaged implementation source attachment jar. See the maven-dependency-plugin for this
-               unpackaging. This effectively gives us the API jar.
-            -->
+            <!-- Create API binary jar For the final artifact jar we only include the jakarta.* classes and resources that 
+                we compiled from the unpackaged implementation source attachment jar. See the maven-dependency-plugin for this unpackaging. 
+                This effectively gives us the API jar. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
+                <version>3.1.0</version>
                 <configuration>
                     <includes>
-                        <include>javax/**</include>
+                        <include>jakarta/**</include>
                         <include>META-INF/LICENSE.md</include>
                         <include>META-INF/NOTICE.md</include>
                     </includes>
                 </configuration>
             </plugin>
 
-             <!--
-               Create sources for API jar
-             -->
-             <plugin>
+            <!-- Create sources for API jar -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>3.0.1</version>
@@ -352,9 +477,7 @@
                 </executions>
             </plugin>
 
-             <!--
-               Create Javadoc for API jar
-             -->
+            <!-- Create Javadoc for API jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -371,7 +494,7 @@
                             <description>Jakarta Server Pages API documentation</description>
                             <doctitle>Jakarta Server Pages API documentation</doctitle>
                             <windowtitle>Jakarta Server Pages API documentation</windowtitle>
-                            <header><![CDATA[<br>Jakarta Server Pages API v${project.version}]]></header>
+                            <header><![CDATA[<br>Jakarta Server Faces API v${project.version}]]></header>
                             <bottom><![CDATA[
 Comments to: <a href="mailto:faces-dev@eclipse.org">faces-dev@eclipse.org</a>.<br>
 Copyright &#169; 2019 Eclipse Foundation. All rights reserved.<br>
@@ -382,7 +505,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 <group>
                                     <title>Jakarta Server Faces API Documentation</title>
                                     <packages>
-                                        javax.faces.*
+                                        jakarta.faces.*
                                     </packages>
                                 </group>
                             </groups>
@@ -391,159 +514,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                 </executions>
             </plugin>
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
-                <plugin>
-                    <groupId>org.eclipse.m2e</groupId>
-                    <artifactId>lifecycle-mapping</artifactId>
-                    <version>1.0.0</version>
-                    <configuration>
-                        <lifecycleMappingMetadata>
-                            <pluginExecutions>
-                                <pluginExecution>
-                                    <pluginExecutionFilter>
-                                        <groupId>org.apache.maven.plugins</groupId>
-                                        <artifactId>maven-dependency-plugin</artifactId>
-                                        <versionRange>[3.0.2,)</versionRange>
-                                        <goals>
-                                            <goal>unpack</goal>
-                                        </goals>
-                                    </pluginExecutionFilter>
-                                    <action>
-                                        <execute>
-                                            <runOnIncremental>false</runOnIncremental>
-                                        </execute>
-                                    </action>
-                                </pluginExecution>
-                            </pluginExecutions>
-                        </lifecycleMappingMetadata>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
-
-    <dependencies>
-        <dependency>
-            <groupId>jakarta.servlet</groupId>
-            <artifactId>jakarta.servlet-api</artifactId>
-            <version>4.0.3</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.servlet.jsp</groupId>
-            <artifactId>jakarta.servlet.jsp-api</artifactId>
-            <version>2.3.6</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-            <version>1.2.5</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.websocket</groupId>
-            <artifactId>jakarta.websocket-api</artifactId>
-            <version>1.1.2</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.el</groupId>
-            <artifactId>jakarta.el-api</artifactId>
-            <version>3.0.3</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!-- Needs to be updated still -->
-        <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>2.0.SP1</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>2.0.2</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.json</groupId>
-            <artifactId>jakarta.json-api</artifactId>
-            <version>1.1.6</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.ejb</groupId>
-            <artifactId>jakarta.ejb-api</artifactId>
-            <version>3.2.5</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.xml.bind</groupId>
-            <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>2.3.2</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <!--
-           Depend on the source jar of the full implementation Mojarra jar. This is used for
-           unpacking and re-compiling. This jar is created by executing mvn clean install
-           in the [mojarra home]/impl project.
-        -->
-        <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>jakarta.faces</artifactId>
-            <version>${mojarra.version}</version>
-            <scope>provided</scope>
-            <classifier>sources</classifier>
-        </dependency>
-
-
-         <!--
-            For the vendor SPI implementations shipped with Mojarra.
-            Although we don't use them and they don't end up in the API jar, they
-            still need to be compiled
-         -->
-
-         <!-- Jetty 6 -->
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-plus</artifactId>
-            <version>6.1.26</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty-annotations</artifactId>
-            <version>6.1.26</version>
-            <optional>true</optional>
-        </dependency>
-
-        <!-- Tomcat 6 -->
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>catalina</artifactId>
-            <version>6.0.51</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 
     <reporting>
         <plugins>
@@ -556,11 +527,55 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                     <includePrivate>false</includePrivate>
                     <lenient>true</lenient>
                     <sourceFiles>
-                        <sourceFile>src/main/resources/META-INF/resources/javax.faces/jsf-uncompressed.js</sourceFile>
+                        <sourceFile>src/main/resources/META-INF/resources/jakarta.faces/jsf-uncompressed.js</sourceFile>
                     </sourceFiles>
                 </configuration>
             </plugin>
         </plugins>
     </reporting>
 
+    <profiles>
+        <profile>
+            <id>only-eclipse</id>
+            <activation>
+                <property>
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on 
+                            the Maven build itself. -->
+                        <plugin>
+                            <groupId>org.eclipse.m2e</groupId>
+                            <artifactId>lifecycle-mapping</artifactId>
+                            <version>1.0.0</version>
+                            <configuration>
+                                <lifecycleMappingMetadata>
+                                    <pluginExecutions>
+                                        <pluginExecution>
+                                            <pluginExecutionFilter>
+                                                <groupId>org.apache.maven.plugins</groupId>
+                                                <artifactId>maven-dependency-plugin</artifactId>
+                                                <versionRange>[3.0.2,)</versionRange>
+                                                <goals>
+                                                    <goal>unpack</goal>
+                                                </goals>
+                                            </pluginExecutionFilter>
+                                            <action>
+                                                <execute>
+                                                    <runOnIncremental>false</runOnIncremental>
+                                                </execute>
+                                            </action>
+                                        </pluginExecution>
+                                    </pluginExecutions>
+                                </lifecycleMappingMetadata>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 </project>

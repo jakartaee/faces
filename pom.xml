@@ -17,39 +17,28 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"> <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+   <modelVersion>4.0.0</modelVersion>
 
-    <parent>
+   <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
         <version>1.0.6</version>
     </parent>
 
-    <groupId>org.eclipse.ee4j.faces</groupId>
-    <artifactId>faces-parent</artifactId>
-    <packaging>pom</packaging>
-    <version>3.0.0-SNAPSHOT</version>
+   <groupId>org.eclipse.ee4j.faces</groupId>
+   <artifactId>faces-parent</artifactId>
+   <version>3.0.0-SNAPSHOT</version>
+   <packaging>pom</packaging>
 
-    <name>Jakarta Server Faces Parent</name>
-    <description>
+   <name>Jakarta Server Faces Parent</name>
+   <description>
         Jakarta Server Faces defines an MVC framework for building user interfaces for web applications,
         including UI components, state management, event handing, input validation, page navigation, and
         support for internationalization and accessibility.
     </description>
-    <url>https://github.com/eclipse-ee4j/faces-api</url>
-
-    <scm>
-        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/faces-api.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/faces-api.git</developerConnection>
-        <url>https://github.com/eclipse-ee4j/faces-api</url>
-    </scm>
-
-    <modules>
-        <module>api</module>
-        <module>spec</module>
-    </modules>
-
-    <licenses>
+   <url>https://github.com/eclipse-ee4j/faces-api</url>
+   <licenses>
         <license>
             <name>EPL 2.0</name>
             <url>http://www.eclipse.org/legal/epl-2.0</url>
@@ -62,4 +51,14 @@
         </license>
     </licenses>
 
+   <modules>
+        <module>api</module>
+        <module>spec</module>
+    </modules>
+
+   <scm>
+        <connection>scm:git:ssh://git@github.com/eclipse-ee4j/faces-api.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/eclipse-ee4j/faces-api.git</developerConnection>
+        <url>https://github.com/eclipse-ee4j/faces-api</url>
+    </scm>
 </project>
