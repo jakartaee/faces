@@ -1,9 +1,9 @@
 [[a4406]]
 == Integration with JSP
 
-Any JavaServer Faces implementations that
+Any Jakarta Server Faces implementations that
 claims compliance with this specification must include a complete
-JavaServer Pages implementation, and expose this implementation to the
+Jakarta Server Pages implementation, and expose this implementation to the
 runtime of any JSF application. JSF applications, however, need not use
 JSP as their View Declaration Language (VDL). In fact, a JSF application
 is free to use whatever technology it likes for its VDL, as long as that
@@ -17,7 +17,7 @@ JSP
 Facelets XHTML
 
 This chapter describes the JSP support
-required by JavaServer Faces. This JSP support is enabled by providing
+required by Jakarta Server Faces. This JSP support is enabled by providing
 custom actions so that a JSF user interface can be easy defined in a JSP
 page by adding tags corresponding to JSF UI components. Custom actions
 provided by a JSF implementation may be mixed with standard JSP actions
@@ -25,14 +25,14 @@ and custom actions from other libraries, as well as template text for
 layout, in the same JSP page.
 
 Facelets XHTML is specified in
-link:JSF.html#a5476[See Facelets and its use in Web
-Applications]. This chapters builds on the previous one. Facelets relies
+<<FaceletsAndWebApplications.adoc#a5476,See Facelets and its use in Web
+Applications>>. This chapters builds on the previous one. Facelets relies
 on concepts specified in JSP.
 
 For JSP version 2.0 and onward, the file
 extension “ _.jsf_ ” is reserved, and may optionally be used (typically
 by authoring tools) to represent VDL pages containing JSF
-contentlink:#a9096[13]. When running in a JSP 1.2 environment,
+content <<Footnotes.adoc#a9096,13>>. When running in a JSP 1.2 environment,
 JSP authors must give their JSP pages that contain JSF content a
 filename ending in “ _.jsp_ ”.
 
@@ -68,7 +68,7 @@ Render-Dependent Attributes
 The tag library descriptor (TLD) file for the
 corresponding tag library, then, would define three custom actions—one
 per _Renderer_ . Below is an example of a portion of the custom action
-definition for the _inputText_ taglink:#a9097[14]:
+definition for the _inputText_ tag <<Footnotes.adoc#a9097,14>>:
 
 [width="100%",cols="100%",]
 |===
@@ -135,11 +135,11 @@ can include faces components that incorporate the index into their id.
 _RenderKit_ implementors will generally provide a JSP tag library which
 includes component custom actions corresponding to each of the component
 classes (or types) supported by each of the _RenderKit_ ’s _Renderers_ .
-See link:JSF.html#a4223[See RenderKit] and
-link:JSF.html#a4245[See Renderer] for details on the
+See <<RenderingModel.adoc#a4223,See RenderKit>> and
+<<RenderingModel.adoc#a4245,See Renderer>> for details on the
 _RenderKit_ and _Renderer_ APIs. JSF implementations must provide such a
 tag library for the standard HTML RenderKit (see
-link:JSF.html#a5363[See Standard HTML RenderKit Tag Library]).
+<<IntegrationWithJSP.adoc#a5363,See Standard HTML RenderKit Tag Library>>).
 
 
 === Using UIComponent Custom Actions in JSP Pages
@@ -153,7 +153,7 @@ JSF-based web application.
 
 This specification hereby reserves the
 following Uniform Resource Identifier (URI) values to refer to the
-standard tag libraries for the custom actions defined by JavaServer
+standard tag libraries for the custom actions defined by Jakarta Server
 Faces:
 
  _http://java.sun.com/jsf/core_ -- URI for
@@ -181,7 +181,7 @@ prefix=”h” %>
 declares the unique resource identifiers of
 the tag libraries being used, as well as the prefixes to be used within
 the current page for referencing actions from these
-librarieslink:#a9098[15].
+libraries <<Footnotes.adoc#a9098,15>>.
 
 === Including Components in a Page
 
@@ -213,8 +213,8 @@ implementation.
 
 Custom actions that correspond to JSF
 _UIComponent_ instances must subclass
-_javax.faces.webapp.UIComponentELTag_ (see
-link:JSF.html#a6175[See UIComponentELTag])
+_jakarta.faces.webapp.UIComponentELTag_ (see
+<<UsingJSFInWebApplications.adoc#a6175,See UIComponentELTag>>)
 
 During the _Render Response_ phase of the
 request processing lifecycle, the appropriate encoding methods of the
@@ -354,8 +354,8 @@ type=”RESET”/>
 === Registering Converters, Event Listeners, and Validators
 
 Each JSF implementation is required to
-provide the core tag library (see link:JSF.html#a4636[See JSF
-Core Tag Library]), which includes custom actions that (when executed)
+provide the core tag library (see <<IntegrationWithJSP.adoc#a4636,See JSF
+Core Tag Library>>), which includes custom actions that (when executed)
 create instances of a specified _Converter_ , _ValueChangeListener,_
 _ActionListener_ or _Validator_ implementation class, and register the
 created instance with the _UIComponent_ associated with the most
@@ -417,10 +417,10 @@ _JSPException_ must be thrown.
 
 A _Facet_ is a subordinate UIComponent that
 has a special relationship to its parent _UIComponent_ , as described in
-link:JSF.html#a968[See Facet Management]. Facets can be defined
+<<UserInterfaceComponentModel.adoc#a968,See Facet Management>>. Facets can be defined
 in a JSP page using the _<f:facet>_ custom action. Each facet action
 must have one and only one child UIComponent custom
-actionlink:#a9099[16]. For example:
+action <<Footnotes.adoc#a9099,16>>. For example:
 
 [width="100%",cols="100%",]
 |===
@@ -452,7 +452,8 @@ a|
 
 |===
 
-=== [[a4536]]Interoperability with JSP Template Text and Other Tag Libraries
+[[a4536]]
+=== Interoperability with JSP Template Text and Other Tag Libraries
 
 It is permissible to use other tag libraries,
 such as the JSP Standard Tag Library (JSTL) in the same JSP page with
@@ -470,7 +471,7 @@ Interoperation with the JSTL
 Internationalization-Capable Formatting library (typically used with the
 “ _fmt_ ” prefix) is restricted as follows:
 
- The _<fmt:parseDate>_ and
+The _<fmt:parseDate>_ and
 _<fmt:parseNumber>_ custom actions should not be used. The corresponding
 JSF facility is to use an _<h:inputText>_ component custom action with
 an appropriate _DateTimeConverter_ or _NumberConverter_ .
@@ -497,7 +498,7 @@ sources using several mechanisms:
 
 The _<%@include%>_ directive performs a
 compile-time inclusion of a specified source file into the page being
-compiledlink:#a9100[17]. From the perspective of JSF, such
+compiled <<Footnotes.adoc#a9100,17>>. From the perspective of JSF, such
 inclusions are transparent—the page is compiled as if the inclusions had
 been performed before compilation was initiated.
 
@@ -528,7 +529,7 @@ page.
 
 The custom action implementation classes for
 _UIComponent_ custom actions must conform to all of the requirements
-defined in the JavaServer Pages Specification. In addition, they must
+defined in the Jakarta Server Pages Specification. In addition, they must
 meet the following JSF-specific requirements:
 
 Extend the _UIComponentELTag_ or
@@ -550,7 +551,7 @@ method will be used to set the _rendererType_ property of any
 UIComponent created by this custom action.
 
 Provide setter methods taking a
-_javax.el.ValueExpression_ or _javax.el.MethodExpression_ parameter for
+_jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ parameter for
 all set-able (from a custom action) properties of the corresponding
 _UIComponent_ class, and all additional set-able (from a custom action)
 attributes supported by the corresponding _Renderer_ .
@@ -579,7 +580,7 @@ a render-dependent attribute for this component:
 [width="100%",cols="100%",]
 |===
 a|
-public void setTitle(javax.el.ValueExpression
+public void setTitle(jakarta.el.ValueExpression
 title) \{
 
  this.title = title;
@@ -625,7 +626,7 @@ _valueChangeListener_ is the name of an attribute for this component:
 |===
 a|
 public void
-setValueChangeListener(javax.el.MethodExpression me) \{
+setValueChangeListener(jakarta.el.MethodExpression me) \{
 
  valueChangeListener = me;
 
@@ -661,7 +662,7 @@ _rows_ property (which is of type _int_ ):
 [width="100%",cols="100%",]
 |===
 a|
-public void setRows(javax.el.ValueExpression
+public void setRows(jakarta.el.ValueExpression
 rows) \{
 
  this.rows = rows;
@@ -743,9 +744,9 @@ based attribute, and must have a _<deferred-value>_ element containing a
 will evaluate. Please see section JSP.C.1 in the JSP 2.1 specification
 for details.
 
-=== Considerations for Custom Actions written for JavaServer Faces 1.1 and 1.0
+=== Considerations for Custom Actions written for Jakarta Server Faces 1.1 and 1.0
 
-Versions 1.0 and 1.1 of the JavaServer Faces
+Versions 1.0 and 1.1 of the Jakarta Server Faces
 spec included their own EL that happend to have similar semantics to the
 JSP EL, but the implementation was bundled into the Faces
 implementation. This version leverages a new Unified EL facility
@@ -788,16 +789,16 @@ all tag attributes must not have an
 _rtexprvalue_ attribute
 
 all tag attributes must accept
-_javax.el.ValueExpression_ or _javax.el.MethodExpression_ as their type
+_jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ as their type
 (depending on if the attribute refers to a method or a value).
 
 all tag attributes (except for _id_ ) must
 have a _<deferred-value>_ or _<deferred-method>_ element. See
-_link:JSF.html#a4636[See JSF Core Tag Library]_ in the
+_<<IntegrationWithJSP.adoc#a4636,See JSF Core Tag Library>>_ in the
 description for the _Attributes_ column.
 
 The JSP Container will hand the tag setter a
-_javax.el.ValueExpression_ or _javax.el.MethodExpression_ directly, so
+_jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ directly, so
 there is no need to use the Faces API to create them.
 
 The _UIComponentTag_ and _UIComponentBodyTag_
@@ -809,9 +810,10 @@ using #\{} as the delimiters for expressions that appear in a JSP page
 in the value of a tag attribute, but when the Java API is used, either
 $\{} or #\{} may be used for delimiters.
 
-=== [[a4629]]Faces 1.0 and 1.1 Taglib migration story
+[[a4629]]
+=== Faces 1.0 and 1.1 Taglib migration story
 
-It is imperitive that applications written
+It is imperative that applications written
 for Faces 1.0 and 1.1 continue to run on Faces 1.2. From the JSP
 perspective, this means
 
@@ -832,7 +834,7 @@ _jsp-version_ element of the TLD for a taglib. If the _jsp-version_ is
 less than 2.1, the taglib is deemed to be a Faces 1.0 or 1.1 taglib and
 the container must ignore all expressions that use #\{} as delimiters,
 except for those appearing in tag attribute with a property setter that
-takes a _javax.el.ValueExpression_ or _javax.el.MethodExpression_ . If
+takes a _jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ . If
 the _jsp-version_ is 2.1 or greater, the taglib is deemed to be a Faces
 1.2 or later taglib and the JSP container is aware of #\{} expressions.
 
@@ -856,7 +858,7 @@ _http://java.sun.com/jsf/core_ .
 directory of a JAR file containing the corresponding implementation
 classes, suitable for inclusion with a web application, such that the
 tag library descriptor will be located automatically by the algorithm
-described in Section 7.3 of the _JavaServer Pages Specification_
+described in Section 7.3 of the _Jakarta Server Pages Specification_
 (version 2.1). [P1-end]
 
 {empty}[P1-start no javascript in jsf_core
@@ -923,7 +925,8 @@ together.
 Description—Details about the functionality
 provided by this custom action.
 
-=== [[a4654]]<f:actionListener>
+[[a4654]]
+=== <f:actionListener>
 
 Register an _ActionListener_ instance on the
 _UIComponent_ associated with the closest parent _UIComponent_ custom
@@ -953,7 +956,7 @@ registered
 | _ValueExpression_
 |A _ValueExpression_ expression that
 evaluates to an object that implements
-_javax.faces.event.ActionListener_
+_jakarta.faces.event.ActionListener_
 |===
 
 === Constraints
@@ -967,15 +970,15 @@ define a public _addActionListener()_ method that accepts an
 _ActionListener_ parameter.
 
 The specified listener class must implement
-_javax.faces.event.ActionListener_ .
+_jakarta.faces.event.ActionListener_ .
 
- _type_ and/or binding must be specified.
+_type_ and/or binding must be specified.
 
 [P1-start f:actionListener constraints] If
 this tag is not nested inside a _UIComponent_ custom action, or the
 _UIComponent_ implementation class does not correctly implement
 _ActionSource_ , or the specified listener class does not implement
-_javax.faces.event.ActionListener_ , throw a _JspException_ . [P1-end]
+_jakarta.faces.event.ActionListener_ , throw a _JspException_ . [P1-end]
 Note that if the binding attribute is used, the scope of the
 _ValueExpression_ must be chosen carefully so as not to introduce
 undesireable results. In general, when using the binding attribute, do
@@ -995,7 +998,7 @@ expression argument, and _Object.class_ as the expectedType argument.
 Use the _ValueExpression_ to obtain a reference to the _ActionListener_
 instance. If there is no exception thrown, and
 _ValueExpression.getValue()_ returned a non-null object that implements
-_javax.faces.event.ActionListener_ , register it by calling
+_jakarta.faces.event.ActionListener_ , register it by calling
 _addActionListener()._ If there was an exception thrown, rethrow the
 exception as a _JspException._
 
@@ -1012,7 +1015,8 @@ type attributes, you may also register a method in a backing bean class
 to receive _ActionEvent_ notifications, by using the _actionListener_
 attribute on the corresponding _UIComponent_ custom action.
 
-=== [[a4679]]<f:attribute>
+[[a4679]]
+=== <f:attribute>
 
 Add an attribute or _ValueExpression_ on the
 _UIComponent_ associated with the closest parent _UIComponent_ custom
@@ -1063,7 +1067,8 @@ _ValueExpression_ Map under the name derived above.
 There is no standard implementation class for
 this action. It must be provided by the implementation.
 
-=== [[a4697]]<f:convertDateTime>
+[[a4697]]
+=== <f:convertDateTime>
 
 Register a _DateTimeConverter_ instance on
 the _UIComponent_ associated with the closest parent _UIComponent_
@@ -1089,7 +1094,7 @@ custom action.
 [type=”\{date|time|both|localDate|localDateTime|localTime|offsetTime|offsetDateTime| +
 zonedDateTime}”]
 
- [binding=”Value Expression”]/>
+[binding=”Value Expression”]/>
 
 === Body Content
 
@@ -1156,7 +1161,7 @@ java.time.LocalDate for the value "localDate". Default value is "date".
 |binding |VE
 |ValueExpression
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.convert.Converter_
+evaluates to an object that implements _jakarta.faces.convert.Converter_
 |===
 
 === Constraints
@@ -1205,15 +1210,15 @@ requirements ]The implementation class for this action must meet the
 following requirements:
 
 Must extend
-_javax.faces.webapp.ConverterELTag_ .
+_jakarta.faces.webapp.ConverterELTag_ .
 
 The _createConverter()_ method must:
 
 If _binding_ is non-null, call _getValue()_
 on it to obtain a reference to the _Converter_ instance. If there is no
 exception thrown, and _binding.getValue()_ returned a non-null object
-that implements _javax.faces.convert.Converter_ , it must then cast the
-returned instance to _javax.faces.convert.DateTimeConverter_ and
+that implements _jakarta.faces.convert.Converter_ , it must then cast the
+returned instance to _jakarta.faces.convert.DateTimeConverter_ and
 configure its properties based on the specified attributes for this
 custom action, and return the configured instance. If there was an
 exception thrown, rethrow the exception as a _JspException._
@@ -1221,10 +1226,10 @@ exception thrown, rethrow the exception as a _JspException._
 use the _converterId_ if the converter
 instance could not be created from the _binding_ attribute. Call the
 _createConverter()_ method of the _Application_ instance for this
-application, passing converter id “javax.faces.DateTime”. If the binding
+application, passing converter id “jakarta.faces.DateTime”. If the binding
 attribute was also set, store the converter instance by calling
 _binding.setValue()_ . It must then cast the returned instance to
-_javax.faces.convert.DateTimeConverter_ and configure its properties
+_jakarta.faces.convert.DateTimeConverter_ and configure its properties
 based on the specified attributes for this custom action, and return the
 configured instance. If there was an exception thrown, rethrow the
 exception as a _JspException._
@@ -1232,7 +1237,7 @@ exception as a _JspException._
 If the type attribute is not specified, it
 defaults as follows:
 
- If dateStyle is specified but timeStyle is
+If dateStyle is specified but timeStyle is
 not specified, default to date.
 
 If dateStyle is not specified but timeStyle
@@ -1241,7 +1246,8 @@ is specified, default to time.
 {empty}If both dateStyle and timeStyle are
 specified, default to both. [P1-end]
 
-=== [[a4752]]<f:convertNumber>
+[[a4752]]
+=== <f:convertNumber>
 
 Register a _NumberConverter_ instance on the
 _UIComponent_ associated with the closest parent _UIComponent_ custom
@@ -1277,7 +1283,7 @@ _minIntegerDigits_ ”]
 
 {empty} [type=”\{number|currency|percent}”]
 
- [binding=”Value Expression”]/>
+[binding=”Value Expression”]/>
 
 === Body Content
 
@@ -1347,7 +1353,7 @@ percentage.
 |binding |VE
 |ValueExpression
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.convert.Converter_
+evaluates to an object that implements _jakarta.faces.convert.Converter_
 |===
 
 === Constraints
@@ -1381,16 +1387,16 @@ implementation class for this action must meet the following
 requirements:
 
 Must extend
-_javax.faces.webapp.ConverterELTag_ .
+_jakarta.faces.webapp.ConverterELTag_ .
 
 The _createConverter()_ method must:
 
 If _binding_ is non-null, call
 _binding.getValue()_ to obtain a reference to the _Converter_ instance.
 If there is no exception thrown, and _binding.getValue()_ returned a
-non-null object that implements _javax.faces.convert.Converter_ , it
+non-null object that implements _jakarta.faces.convert.Converter_ , it
 must then cast the returned instance to
-_javax.faces.convert.NumberConverter_ and configure its properties based
+_jakarta.faces.convert.NumberConverter_ and configure its properties based
 on the specified attributes for this custom action, and return the
 configured instance. If there was an exception thrown, rethrow the
 exception as a _JspException._
@@ -1398,10 +1404,10 @@ exception as a _JspException._
 {empty}use the _converterId_ if the converter
 instance could not be created from the _binding_ attribute. Call the
 _createConverter()_ method of the _Application_ instance for this
-application, passing converter id “javax.faces.Number”. If the binding
+application, passing converter id “jakarta.faces.Number”. If the binding
 attribute was also set, store the converter instance by calling
 _binding.setValue()_ . It must then cast the returned instance to
-_javax.faces.convert.NumberConverter_ and configure its properties based
+_jakarta.faces.convert.NumberConverter_ and configure its properties based
 on the specified attributes for this custom action, and return the
 configured instance. If there was an exception thrown, rethrow the
 exception as a _JspException_ . [P1-end]
@@ -1435,7 +1441,7 @@ created.
 |binding |VE
 |ValueExpression
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.convert.Converter_
+evaluates to an object that implements _jakarta.faces.convert.Converter_
 |===
 
 === Constraints
@@ -1443,7 +1449,7 @@ evaluates to an object that implements _javax.faces.convert.Converter_
 Must be nested inside a _UIComponent_ custom
 action whose component class implements _ValueHolder_ .
 
- _converterId_ and/or binding must be
+_converterId_ and/or binding must be
 specified.
 
 {empty}[P1-start f:converter constraints] If
@@ -1465,14 +1471,14 @@ implementation class for this action must meet the following
 requirements:
 
 Must extend
-_javax.faces.webapp.ConverterJspTag_ .
+_jakarta.faces.webapp.ConverterJspTag_ .
 
 The _createConverter()_ method must:
 
 {empty}If _binding_ is non-null, call
 _binding.getValue()_ to obtain a reference to the _Converter_ instance.
 If there is no exception thrown, and _binding.getValue()_ returned a
-non-null object that implements _javax.faces.convert.Converter_ ,
+non-null object that implements _jakarta.faces.convert.Converter_ ,
 register it by calling _setConverter()._ If there was an exception
 thrown, rethrow the exception as a _JspException._ Use the _converterId_
 attribute if the converter instance could not be created from the
@@ -1484,10 +1490,11 @@ instance by calling _binding.setValue()_ . Register the converter
 instance by calling _setConverter()._ If there was an exception thrown,
 rethrow the exception as a _JspException_ . [P1-end]
 
-=== [[a4843]]<f:facet>
+[[a4843]]
+=== <f:facet>
 
 Register a named facet (see
-link:JSF.html#a968[See Facet Management]) on the _UIComponent_
+<<UserInterfaceComponentModel.adoc#a968,See Facet Management>>) on the _UIComponent_
 associated with the closest parent _UIComponent_ custom action.
 
 === Syntax
@@ -1531,10 +1538,11 @@ this name from the _UIComponent_ custom action that is nested within
 this custom action.
 
 {empty}[P1-start f:facet implementation] The
-implementation class must be, or extend, _javax.faces.webapp.FacetTag_ .
+implementation class must be, or extend, _jakarta.faces.webapp.FacetTag_ .
 [P1-end]
 
-=== [[a4860]]<f:loadBundle>
+[[a4860]]
+=== <f:loadBundle>
 
 Load a resource bundle localized for the
 locale of the current view, and expose it (as a Map) in the request
@@ -1601,16 +1609,16 @@ action.
 <f:param
 [id=”componentIdOrImmediateExpression”] value=”parameter-value”
 
- [binding=” _componentReference”]_ />
+[binding=” _componentReference”]_ />
 
 === Syntax 2: Named value
 
 {empty}<f:param
 [id=”componentIdOrImmediateExpression”]
 
- [binding=” _componentReference”]_
+[binding=” _componentReference”]_
 
- name=”parameter-name”
+name=”parameter-name”
 value=”parameter-value”/>
 
 === Body Content
@@ -1662,7 +1670,7 @@ will handle its _UIParameter_ child _ren._
 implementation class for this action must meet the following
 requirements:
 
-Must extend _javax.faces.UIComponentELTag_ .
+Must extend _jakarta.faces.UIComponentELTag_ .
 
 The _getComponentType()_ method must return “
 _Parameter_ ”.
@@ -1701,7 +1709,7 @@ registered
 |binding | _VE_
 | _ValueExpression_
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.event.PhaseListener_
+evaluates to an object that implements _jakarta.faces.event.PhaseListener_
 |===
 
 === Constraints
@@ -1710,7 +1718,7 @@ evaluates to an object that implements _javax.faces.event.PhaseListener_
 be nested inside a _UIViewRoot_ custom action.
 
 The specified listener class must implement
-_javax.faces.event.PhaseListener_ .
+_jakarta.faces.event.PhaseListener_ .
 
 {empty} _type_ and/or binding must be
 specified. [P1-end]
@@ -1725,7 +1733,7 @@ method of this instance returns _true,_ check the binding attribute.
 If binding is set, call _binding.getValue()_
 to obtain a reference to the _PhaseListener_ instance. If there is no
 exception thrown, and _binding.getValue()_ returned a non-null object
-that implements _javax.faces.event.PhaseListener_ , register it by
+that implements _jakarta.faces.event.PhaseListener_ , register it by
 calling _addPhaseListener()._ If there was an exception thrown, rethrow
 the exception as a _JspException._
 
@@ -1749,24 +1757,24 @@ action.
 {empty}<f:selectItem
 [id=”componentIdOrImmediateExpression”]
 
- [binding=” _componentReference”]_
+[binding=” _componentReference_”]
 
 {empty} [itemDisabled=”\{true|false}”]
 
- itemValue=” _itemValue”_
+itemValue=” _itemValue”_
 
- itemLabel=” _itemLabel”_
+itemLabel=” _itemLabel”_
 
- [itemDescription=” _itemDescription”]_ />
+[itemDescription=” _itemDescription”]_ />
 
 === Syntax 2: Indirectly Specified Value
 
 {empty}<f:selectItem
 [id=”componentIdOrImmediateExpression”]
 
- [binding=” _componentReference”]_
+[binding=” _componentReference_”]
 
- value=” _selectItemValue”/>_
+value=”_selectItemValue_”/>
 
 ===  Body Content
 
@@ -1807,7 +1815,7 @@ be displayed to the user for this option.
 be returned to the server if this option is selected by the user.
 
 |value |VE
-|javax.faces.model.SelectItem
+|jakarta.faces.model.SelectItem
 |Value binding pointing at a SelectItem
 instance containing the information for this option.
 
@@ -1837,7 +1845,7 @@ _UIComponent_ .
 implementation class for this action must meet the following
 requirements:
 
-Must extend _javax.faces.UIComponentELTag_ .
+Must extend _jakarta.faces.UIComponentELTag_ .
 
 The _getComponentType()_ method must return “
 _SelectItem_ ”.
@@ -1856,9 +1864,9 @@ action.
 {empty}<f:selectItems
 [id=”componentIdOrImmediateExpression”]
 
- [binding=” _componentReference”]_
+[binding=”_componentReference_”]
 
- value=” _selectItemsValue”_ />
+value=”_selectItemsValue_” />
 
 ===  Body Content
 
@@ -1882,23 +1890,23 @@ created by this custom action.
 component.
 
 | _value_ |VE
-|javax.faces.model.SelectItem, see
+|jakarta.faces.model.SelectItem, see
 description for specific details a|
 Value binding expression pointing at one of
 the following instances:
 
-an individual javax.faces.model.SelectItem
+an individual jakarta.faces.model.SelectItem
 
 a java language array of
-javax.faces.model.SelectItem
+jakarta.faces.model.SelectItem
 
 a java.util.Collection of
-javax.faces.model.SeleccItem
+jakarta.faces.model.SeleccItem
 
 A java.util.Map where the keys are converted
 to Strings and used as labels, and the corresponding values are
 converted to Strings and used as values for newly created
-javax.faces.model.SelectItem instances. The instances are created in the
+jakarta.faces.model.SelectItem instances. The instances are created in the
 order of the iterator over the keys provided by the Map.
 
 |===
@@ -1922,15 +1930,16 @@ _UIComponent_ .
 implementation class for this action must meet the following
 requirements:
 
-Must extend _javax.faces.UIComponentELTag_ .
+Must extend _jakarta.faces.UIComponentELTag_ .
 
 The _getComponentType()_ method must return “
-_javax.faces.SelectItems_ ”.
+_jakarta.faces.SelectItems_ ”.
 
 {empty}The _getRendererType()_ method must
 return _null_ . [P1-end]
 
-=== [[a5015]]<f:setPropertyActionListener>
+[[a5015]]
+=== <f:setPropertyActionListener>
 
 Tag implementation that creates a special
 _ActionListener_ instance and registers it on the _ActionSource_
@@ -2008,7 +2017,7 @@ _ActionListener_ creation and addition.
 constraints]If this tag is not nested inside a _UIComponent_ custom
 action, or the _UIComponent_ implementation class does not correctly
 implement _ActionSource_ , or the specified listener class does not
-implement _javax.faces.event.ActionListener_ , throw a _JspException_ .
+implement _jakarta.faces.event.ActionListener_ , throw a _JspException_ .
 [P1-end]
 
 === Description
@@ -2092,8 +2101,8 @@ Must not contain an _<f:view>_ custom action.
 Must have an _id_ attribute whose value is
 unique within the scope of the parent naming container. If this
 constraint is not met, the action taken regarding id uniqueness in
-section link:JSF.html#a4549[See UIComponent Custom Action
-Implementation Requirements] must be taken
+section <<IntegrationWithJSP.adoc#a4549,See UIComponent Custom Action
+Implementation Requirements>> must be taken
 
 {empty}May be placed in a parent page (with
 _<jsp:include>_ or _<c:import>_ nested inside), or within the nested
@@ -2236,7 +2245,7 @@ The implementation class for this action must
 meet the following requirements:
 
 [P1-start f:subview implementation] Must
-extend _javax.faces.UIComponentELTag_ .
+extend _jakarta.faces.UIComponentELTag_ .
 
 The _getComponentType()_ method must return “
 _NamingContainer”._
@@ -2244,7 +2253,8 @@ _NamingContainer”._
 {empty}The _getRendererType()_ method must
 return _null_ . [P1-end]
 
-=== [[a5163]]<f:validateDoubleRange>
+[[a5163]]
+=== <f:validateDoubleRange>
 
 Register a _DoubleRangeValidator_ instance on
 the _UIComponent_ associated with the closest parent _UIComponent_
@@ -2288,7 +2298,7 @@ empty.
 | _binding_ | _VE_
 | _ValueExpression_
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.convert.Validator_
+evaluates to an object that implements _jakarta.faces.convert.Validator_
 
 |for |VE
 | _ValueExpression_
@@ -2328,7 +2338,7 @@ implementation] The implementation class for this action must meet the
 following requirements:
 
 Must extend
-_javax.faces.webapp.ValidatorELTag_ .
+_jakarta.faces.webapp.ValidatorELTag_ .
 
 The _createValidator()_ method must:
 
@@ -2338,8 +2348,8 @@ binding as the expression argument, and _Validator.class_ as the
 expectedType argument.use the _ValueBinding_ to obtain a reference to
 the _Validator_ instance. If there is no exception thrown, and
 _ValueExpression.getValue()_ returned a non-null object that implements
-_javax.faces.validator.Validator_ , it must then cast the returned
-instance to _javax.faces.validator.DoubleRangeValidator_ and configure
+_jakarta.faces.validator.Validator_ , it must then cast the returned
+instance to _jakarta.faces.validator.DoubleRangeValidator_ and configure
 its properties based on the specified attributes for this custom action,
 and return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
@@ -2347,11 +2357,11 @@ rethrow the exception as a _JspException._
 {empty}use the _validatorId_ if the validator
 instance could not be created from the _binding_ attribute. Call the
 _createValidator()_ method of the _Application_ instance for this
-application, passing validator id “javax.faces.DoubleRange”. If the
+application, passing validator id “jakarta.faces.DoubleRange”. If the
 binding attribute was also set, evaluate the expression into a
 _ValueExpression_ and store the validator instance by calling
 _setValue()_ on the _ValueExpression_ . It must then cast the returned
-instance to _javax.faces.validator.DoubleRangeValidator_ and configure
+instance to _jakarta.faces.validator.DoubleRangeValidator_ and configure
 its properties based on the specified attributes for this custom action,
 and return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException_ . [P1-end]
@@ -2400,7 +2410,7 @@ empty.
 | _binding_ | _VE_
 | _ValueExpression_
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.convert.Validator_
+evaluates to an object that implements _jakarta.faces.convert.Validator_
 |===
 
 === Constraints
@@ -2433,7 +2443,7 @@ implementation] The implementation class for this action must meet the
 following requirements:
 
 Must extend
-_javax.faces.webapp.ValidatorELTag_ .
+_jakarta.faces.webapp.ValidatorELTag_ .
 
 The _createValidator()_ method must:
 
@@ -2443,8 +2453,8 @@ binding as the expression argument, and _Validator.class_ as the
 expectedType argument.use the _ValueBinding_ to obtain a reference to
 the _Validator_ instance. If there is no exception thrown, and
 _ValueExpression.getValue()_ returned a non-null object that implements
-_javax.faces.validator.Validator_ , it must then cast the returned
-instance to _javax.faces.validator.DoubleRangeValidator_ and configure
+_jakarta.faces.validator.Validator_ , it must then cast the returned
+instance to _jakarta.faces.validator.DoubleRangeValidator_ and configure
 its properties based on the specified attributes for this custom action,
 and return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
@@ -2452,16 +2462,17 @@ rethrow the exception as a _JspException._
 {empty}use the _validatorId_ if the validator
 instance could not be created from the _binding_ attribute. Call the
 _createValidator()_ method of the _Application_ instance for this
-application, passing validator id “javax.faces.DoubleRange”. If the
+application, passing validator id “jakarta.faces.DoubleRange”. If the
 binding attribute was also set, evaluate the expression into a
 _ValueExpression_ and store the validator instance by calling
 _setValue()_ on the _ValueExpression_ . It must then cast the returned
-instance to _javax.faces.validator.DoubleRangeValidator_ and configure
+instance to _jakarta.faces.validator.DoubleRangeValidator_ and configure
 its properties based on the specified attributes for this custom action,
 and return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException_ . [P1-end]
 
-=== [[a5198]]<f:validateRegex>
+[[a5198]]
+=== <f:validateRegex>
 
 Register a _RegexValidator_ instance on the
 _UIComponent_ associated with the closest parent _UIComponent_ custom
@@ -2488,7 +2499,7 @@ string to be interpreted as a _java.util.regex.Pattern_
 | _binding_ | _VE_
 | _ValueExpression_
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.convert.Validator_
+evaluates to an object that implements _jakarta.faces.convert.Validator_
 |===
 
 === Constraints
@@ -2517,7 +2528,7 @@ The implementation class for this action must meet the following
 requirements:
 
 Must extend
-_javax.faces.webapp.ValidatorELTag_ .
+_jakarta.faces.webapp.ValidatorELTag_ .
 
 The _createValidator()_ method must:
 
@@ -2527,8 +2538,8 @@ with binding as the expression argument, and _Validator.class_ as the
 expectedType argument.use the _ValueExpression_ to obtain a reference to
 the _Validator_ instance. If there is no exception thrown, and
 _ValueExpression.getValue()_ returned a non-null object that implements
-_javax.faces.validator.Validator_ , it must then cast the returned
-instance to _javax.faces.validator.RegexValidator_ and configure its
+_jakarta.faces.validator.Validator_ , it must then cast the returned
+instance to _jakarta.faces.validator.RegexValidator_ and configure its
 properties based on the specified attributes for this custom action, and
 return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
@@ -2536,16 +2547,17 @@ rethrow the exception as a _JspException._
 {empty}use the _validatorId_ if the validator
 instance could not be created from the _binding_ attribute. Call the
 _createValidator()_ method of the _Application_ instance for this
-application, passing validator id “javax.faces.RegularExpression”. If
+application, passing validator id “jakarta.faces.RegularExpression”. If
 the binding attribute was also set, evaluate the expression into a
 _ValueExpression_ and store the validator instance by calling
 _setValue()_ on the _ValueExpression_ . It must then cast the returned
-instance to _javax.faces.validator.RegexValidator_ and configure its
+instance to _jakarta.faces.validator.RegexValidator_ and configure its
 properties based on the specified attributes for this custom action, and
 return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException_ .[P1-end]
 
-=== [[a5223]]<f:validateLongRange>
+[[a5223]]
+=== <f:validateLongRange>
 
 Register a _LongRangeValidator_ instance on
 the _UIComponent_ associated with the closest parent _UIComponent_
@@ -2589,7 +2601,7 @@ value allowed for this component
 | _binding_ | _VE_
 | _ValueExpression_
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.convert.Validator_
+evaluates to an object that implements _jakarta.faces.convert.Validator_
 |===
 
 === Constraints
@@ -2621,7 +2633,7 @@ The implementation class for this action must
 meet the following requirements:
 
 Must extend
-_javax.faces.webapp.ValidatorELTag_ .
+_jakarta.faces.webapp.ValidatorELTag_ .
 
 The _createValidator()_ method must:
 
@@ -2631,8 +2643,8 @@ with binding as the expression argument, and _Validator.class_ as the
 expectedType argument. Use the _ValueExpression_ to obtain a reference
 to the _Validator_ instance. If there is no exception thrown, and
 _ValueExpression.getValue()_ returned a non-null object that implements
-_javax.faces.validator.Validator_ , it must then cast the returned
-instance to _javax.faces.validator.LongRangeValidator_ and configure its
+_jakarta.faces.validator.Validator_ , it must then cast the returned
+instance to _jakarta.faces.validator.LongRangeValidator_ and configure its
 properties based on the specified attributes for this custom action, and
 return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
@@ -2640,16 +2652,17 @@ rethrow the exception as a _JspException._
 use the _validatorId_ if the validator
 instance could not be created from the _binding_ attribute. Call the
 _createValidator()_ method of the _Application_ instance for this
-application, passing validator id “javax.faces.LongRange”. If the
+application, passing validator id “jakarta.faces.LongRange”. If the
 binding attribute was also set, evaluate the expression into a
 _ValueExpression_ and store the validator instance by calling
 _setValue()_ on the _ValueExpression_ . It must then cast the returned
-instance to _javax.faces.validator.LongRangeValidator_ and configure its
+instance to _jakarta.faces.validator.LongRangeValidator_ and configure its
 properties based on the specified attributes for this custom action, and
 return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
 
-=== [[a5256]]<f:validator>
+[[a5256]]
+=== <f:validator>
 
 Register a named _Validator_ instance on the
 _UIComponent_ associated with the closest parent _UIComponent_ custom
@@ -2678,7 +2691,7 @@ created.
 | _binding_ | _VE_
 | _ValueExpression_
 |A _ValueExpression_ expression that
-evaluates to an object that implements _javax.faces.convert.Validator_
+evaluates to an object that implements _jakarta.faces.convert.Validator_
 |===
 
 === Constraints
@@ -2707,14 +2720,14 @@ The implementation class for this action must
 meet the following requirements:
 
 Must extend
-_javax.faces.webapp.ValidatorJspTag_ .
+_jakarta.faces.webapp.ValidatorJspTag_ .
 
 The _createValidator()_ method must:
 
 If _binding_ is non-null, call
 _binding.getValue()_ to obtain a reference to the _Validator_ instance.
 If there is no exception thrown, and _binding.getValue()_ returned a
-non-null object that implements _javax.faces.validator.Validator_ ,
+non-null object that implements _jakarta.faces.validator.Validator_ ,
 register it by calling _addValidator()._ If there was an exception
 thrown, rethrow the exception as a _JspException._
 
@@ -2728,7 +2741,8 @@ _binding.setValue()_ . Register the validator instance by calling
 _addValidator()._ If there was an exception thrown, rethrow the
 exception as a _JspException._
 
-=== [[a5282]]<f:valueChangeListener>
+[[a5282]]
+=== <f:valueChangeListener>
 
 Register a _ValueChangeListener_ instance on
 the _UIComponent_ associated with the closest parent _UIComponent_
@@ -2758,7 +2772,7 @@ registered
 | _ValueExpression_
 |A _ValueExpression_ expression that
 evaluates to an object that implements
-_javax.faces.event.ValueChangeListener_
+_jakarta.faces.event.ValueChangeListener_
 |===
 
 === Constraints
@@ -2772,15 +2786,15 @@ therefore define a public _addValueChangeListener()_ method that accepts
 an _ValueChangeListener_ parameter.
 
 The specified listener class must implement
-_javax.faces.event.ValueChangeListener_ .
+_jakarta.faces.event.ValueChangeListener_ .
 
- _type_ and/or binding must be specified.
+_type_ and/or binding must be specified.
 
 [P1-start f:valueChangeListener constraints]
 If this tag is not nested inside a _UIComponent_ custom action, or the
 _UIComponent_ implementation class does not correctly implement
 _EditableValueHolder_ , or the specified listener class does not
-implement _javax.faces.event.ValueChangeListener_ , throw a
+implement _jakarta.faces.event.ValueChangeListener_ , throw a
 _JspException_ . [P1-end] Note that if the binding attribute is used,
 the scope of the _ValueExpression_ must be chosen carefully so as not to
 introduce undesireable results. In general, when using the binding
@@ -2798,7 +2812,7 @@ If binding is non-null, call
 _binding.getValue()_ to obtain a reference to the _ValueChangeListener_
 instance. If there is no exception thrown, and
 _ValueExpression.getValue()_ returned a non-null object that implements
-_javax.faces.event.ValueChangeListener_ , register it by calling
+_jakarta.faces.event.ValueChangeListener_ , register it by calling
 _addValueChangeListener()._ If there was an exception thrown, rethrow
 the exception as a _JspException._
 
@@ -2865,13 +2879,14 @@ _UIComponentClassicTagBase.getParentUIComponentClassicTagBase()_ . If
 the _getCreated()_ method of this instance returns _true_ , creates a
 new _UIOutput_ component, and add it as a child of the _UIComponent_
 associated with the located instance. The _rendererType_ property of
-this _UIOutput_ component must be set to “javax.faces.Text”, and the
+this _UIOutput_ component must be set to “jakarta.faces.Text”, and the
 _transient_ property must be set to _true_ . Also, the value (or value
 binding, if it is an expression) of the _escape_ attribute must be
 passed on to the renderer as the value the _escape_ attribute on the
 _UIOutput_ component.
 
-=== [[a5325]]<f:view>
+[[a5325]]
+=== <f:view>
 
 Container for all JSF core and component
 custom actions used on a page.
@@ -2920,20 +2935,20 @@ _Locale_ instance
 | _beforePhase_
 |ME |String
 | _MethodExpression_ expression that points
-to a method whose signature is that of javax.faces.event.
+to a method whose signature is that of jakarta.faces.event.
 _PhaseListener.beforePhase()_
 
 | _afterPhase_ |ME
 |String |
 _MethodExpression_ expression that points to a method whose signature is
-that of javax.faces.event. _PhaseListener.afterPhase()_
+that of jakarta.faces.event. _PhaseListener.afterPhase()_
 |===
 
 === Constraints
 
 [P1-start f:view constraints] Any JSP-created
 response using actions from the JSF Core Tag Library, as well as actions
-extending _javax.faces.webapp.UIComponentELTag_ from other tag
+extending _jakarta.faces.webapp.UIComponentELTag_ from other tag
 libraries, must be nested inside an occurrence of the _<f:view>_ action.
 
 JSP page fragments included via the standard
@@ -2950,8 +2965,8 @@ not _null._ Otherwise, the render kit identifier as specified by the
 constant _RenderKitFactory.HTML_BASIC_RENDER_KIT_ is stored in
 _UIViewRoot._ Specifying a _renderKitId_ for the current view also
 affects all subsequent views, unless overridden by another use of the
-_renderKitId_ attribute. Please refer to link:JSF.html#a3871[See
-ViewHandler] for more information.
+_renderKitId_ attribute. Please refer to <<ApplicationIntegration.adoc#a3871,See
+ViewHandler>> for more information.
 
 If the _locale_ attribute is present, its
 value overrides the _Locale_ stored in _UIViewRoot_ , normally set by
@@ -2959,9 +2974,9 @@ the _ViewHandler, and the doStartTag() method must store it by calling
 UIViewRoot.setLocale()_ .
 
 {empty}The _doStartTag()_ method must call
-_javax.servlet.jsp.jstl.core.Config.set()_ , passing the
+_jakarta.servlet.jsp.jstl.core.Config.set()_ , passing the
 _ServletRequest_ instance for this request, the constant
-_javax.servlet.jsp.jstl.core.Config.FMT_LOCALE_ , and the _Locale_
+_jakarta.servlet.jsp.jstl.core.Config.FMT_LOCALE_ , and the _Locale_
 returned by calling _UIViewRoot.getLocale()_ . [P1-end]
 
 === Description
@@ -2974,7 +2989,7 @@ as part of the response.
 The implementation class for this action must
 meet the following requirements:
 
-Must extend _javax.faces.UIComponentELTag_ .
+Must extend _jakarta.faces.UIComponentELTag_ .
 
 The _getComponentType()_ method must return
 “ViewRoot”.
@@ -2983,7 +2998,7 @@ The _getRendererType()_ method must return
 _null_ .
 
 Please refer to the javadocs for
-_javax.faces.application.StateManager_ for details on what the tag
+_jakarta.faces.application.StateManager_ for details on what the tag
 handler for this tag must do to implement state saving.
 
 
@@ -2992,10 +3007,10 @@ handler for this tag must do to implement state saving.
 
 All JSF implementations must provide a tag
 library containing actions that correspond to each valid combination of
-a supported component class (see link:JSF.html#a1823[See
-Standard User Interface Components]”) and a _Renderer_ from the Standard
-HTML RenderKit (see link:JSF.html#a4314[See Standard HTML
-RenderKit Implementation]) that supports that component type. [P1-start
+a supported component class (see <<StandardUserInterfaceComponents.adoc#a1823,See
+Standard User Interface Components>>”) and a _Renderer_ from the Standard
+HTML RenderKit (see <<RenderingModel.adoc#a4314,See Standard HTML
+RenderKit Implementation>>) that supports that component type. [P1-start
 html_basic taglib requirements] The tag library descriptor for this tag
 library must meet the following requirements:
 
@@ -3009,7 +3024,7 @@ _http://java.sun.com/jsf/html_ .
 directory of a JAR file containing the corresponding implementation
 classes, suitable for inclusion with a web application, such that the
 tag library descriptor will be located automatically by the algorithm
-described in Section 7.3 of the _JavaServer Pages Specification_
+described in Section 7.3 of the _Jakarta Server Pages Specification_
 (version 1.2).[P1-end]
 
 [P1-start html_basic return values]The custom
@@ -3025,184 +3040,184 @@ getRendererType()
 
 custom action name
 
-javax.faces.Column
+jakarta.faces.Column
 
-{empty}(null)link:#a9101[18]
+{empty}(null)<<Footnotes.adoc#a9101,18>>
 
 column
 
-javax.faces.HtmlCommandButton
+jakarta.faces.HtmlCommandButton
 
-javax.faces.Button
+jakarta.faces.Button
 
 commandButton
 
-javax.faces.HtmlCommandLink
+jakarta.faces.HtmlCommandLink
 
-javax.faces.Link
+jakarta.faces.Link
 
 commandLink
 
-javax.faces.HtmlDataTable
+jakarta.faces.HtmlDataTable
 
-javax.faces.Table
+jakarta.faces.Table
 
 dataTable
 
-javax.faces.HtmlForm
+jakarta.faces.HtmlForm
 
-javax.faces.Form
+jakarta.faces.Form
 
 form
 
-javax.faces.HtmlGraphicImage
+jakarta.faces.HtmlGraphicImage
 
-javax.faces.Image
+jakarta.faces.Image
 
 graphicImage
 
-javax.faces.HtmlInputHidden
+jakarta.faces.HtmlInputHidden
 
-javax.faces.Hidden
+jakarta.faces.Hidden
 
 inputHidden
 
-javax.faces.HtmlInputSecret
+jakarta.faces.HtmlInputSecret
 
-javax.faces.Secret
+jakarta.faces.Secret
 
 inputSecret
 
-javax.faces.HtmlInputText
+jakarta.faces.HtmlInputText
 
-javax.faces.Text
+jakarta.faces.Text
 
 inputText
 
-javax.faces.HtmlInputTextarea
+jakarta.faces.HtmlInputTextarea
 
-javax.faces.Textarea
+jakarta.faces.Textarea
 
 inputTextarea
 
-javax.faces.HtmlMessage
+jakarta.faces.HtmlMessage
 
-javax.faces.Message
+jakarta.faces.Message
 
 message
 
-javax.faces.HtmlMessages
+jakarta.faces.HtmlMessages
 
-javax.faces.Messages
+jakarta.faces.Messages
 
 messages
 
-javax.faces.HtmlOutputFormat
+jakarta.faces.HtmlOutputFormat
 
-javax.faces.Format
+jakarta.faces.Format
 
 outputFormat
 
-javax.faces.HtmlOutputLabel
+jakarta.faces.HtmlOutputLabel
 
-javax.faces.Label
+jakarta.faces.Label
 
 outputLabel
 
-javax.faces.HtmlOutputLink
+jakarta.faces.HtmlOutputLink
 
-javax.faces.Link
+jakarta.faces.Link
 
 outputLink
 
-javax.faces.Output
+jakarta.faces.Output
 
-javax.faces.Body
+jakarta.faces.Body
 
 body
 
-javax.faces.Output
+jakarta.faces.Output
 
-javax.faces.Head
+jakarta.faces.Head
 
 head
 
-javax.faces.Output
+jakarta.faces.Output
 
-javax.faces.resource.Script
+jakarta.faces.resource.Script
 
 outputScript
 
-javax.faces.Output
+jakarta.faces.Output
 
-javax.faces.resource.Stylesheet
+jakarta.faces.resource.Stylesheet
 
 outputStylesheet
 
-javax.faces.HtmlOutputText
+jakarta.faces.HtmlOutputText
 
-javax.faces.Text
+jakarta.faces.Text
 
 outputText
 
-javax.faces.HtmlPanelGrid
+jakarta.faces.HtmlPanelGrid
 
-javax.faces.Grid
+jakarta.faces.Grid
 
 panelGrid
 
-javax.faces.HtmlPanelGroup
+jakarta.faces.HtmlPanelGroup
 
-javax.faces.Group
+jakarta.faces.Group
 
 panelGroup
 
-javax.faces.HtmlSelectBooleanCheckbox
+jakarta.faces.HtmlSelectBooleanCheckbox
 
-javax.faces.Checkbox
+jakarta.faces.Checkbox
 
 selectBooleanCheckbox
 
-javax.faces.HtmlSelectManyCheckbox
+jakarta.faces.HtmlSelectManyCheckbox
 
-javax.faces.Checkbox
+jakarta.faces.Checkbox
 
 selectManyCheckbox
 
-javax.faces.HtmlSelectManyListbox
+jakarta.faces.HtmlSelectManyListbox
 
-javax.faces.Listbox
+jakarta.faces.Listbox
 
 selectManyListbox
 
-javax.faces.HtmlSelectManyMenu
+jakarta.faces.HtmlSelectManyMenu
 
-javax.faces.Menu
+jakarta.faces.Menu
 
 selectManyMenu
 
-javax.faces.HtmlSelectOneListbox
+jakarta.faces.HtmlSelectOneListbox
 
-javax.faces.Listbox
+jakarta.faces.Listbox
 
 selectOneListbox
 
-javax.faces.HtmlSelectOneMenu
+jakarta.faces.HtmlSelectOneMenu
 
-javax.faces.Menu
+jakarta.faces.Menu
 
 selectOneMenu
 
-javax.faces.HtmlSelectOneRadio
+jakarta.faces.HtmlSelectOneRadio
 
-javax.faces.Radio
+jakarta.faces.Radio
 
 selectOneRadio
 
 Note, to avoid confusion between JSP and
 Facelets, any Renderers that are only supported in Facelets are
-specified in link:JSF.html#a6029[See Standard HTML RenderKit Tag
-Library].
+specified in <<FaceletsAndWebApplications.adoc#a6029,See Standard HTML RenderKit Tag
+Library>>.
 
 [P1-end] [P1-start html_basic taglibrary
 requirements 2]The tag library descriptor for this tag library (and the
@@ -3215,19 +3230,19 @@ name, and description given in the VDLDocs for the html_basic tag
 library.
 
 If the type of the attribute is
-_javax.el.ValueExpression_ , the TLD for the attribute must contain a
+_jakarta.el.ValueExpression_ , the TLD for the attribute must contain a
 _<deferred-value>_ with a nested _<type>_ element, inside of which is
 nested the expected type, as given in the VDLDocs. The JavaBeans setter
 method in the tag handler for the tag must be of type
-_javax.el.ValueExpression_ .
+_jakarta.el.ValueExpression_ .
 
 If the type of the attribute is
-_javax.el.MethodExpression_ , the TLD for the attribute must contain a
+_jakarta.el.MethodExpression_ , the TLD for the attribute must contain a
 _<deferred-method>_ with a nested _<method-signature>_ , inside of which
 is the method signature for that _MethodExpression_ , as given in the
 VDLDocs. The actual name of the method in the signature declaration is
 immaterial and unspecified. The JavaBeans setter method in the tag
-handler for the tag must be of type _javax.el.MethodExpression_ .
+handler for the tag must be of type _jakarta.el.MethodExpression_ .
 
 Any attributes listed in the VDLDocs with a
 _request-time_ value of _true_ must specify an _<rtexprvalue>_ of _true_
@@ -3276,7 +3291,3 @@ attribute name and the _ValueExpression‘_ instance as
 parameters.[P1-end]
 
 
-
-
-
-===

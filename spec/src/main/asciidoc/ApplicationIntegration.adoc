@@ -2,16 +2,16 @@
 
 Previous chapters of this specification have
 described the component model, request state information, and the next
-chapter describes the rendering model for JavaServer Faces user
+chapter describes the rendering model for Jakarta Server Faces user
 interface components. This chapter describes APIs that are used to link
 an application’s business logic objects, as well as convenient pluggable
 mechanisms to manage the execution of an application that is based on
-JavaServer Faces. These classes are in the _javax.faces.application_
+Jakarta Server Faces. These classes are in the _jakarta.faces.application_
 package.
 
 Access to application related information is
 centralized in an instance of the _Application_ class, of which there is
-a single instance per application based on JavaServer Faces.
+a single instance per application based on Jakarta Server Faces.
 Applications will typically provide one or more implementations of
 _ActionListener_ (or a method that can be referenced by an _action_
 expression) in order to respond to _ActionEvent_ events during the
@@ -24,11 +24,11 @@ provided to manage the selection of the next view to be rendered.
 === Application
 
 There must be a single instance of
-_Application_ per web application that is utilizing JavaServer Faces. It
+_Application_ per web application that is utilizing Jakarta Server Faces. It
 can be acquired by calling the _getApplication()_ method on the
 _FacesContext_ instance for the current request, or the
 _getApplication()_ method of the _ApplicationFactory_ (see
-link:JSF.html#a3542[See ApplicationFactory]), and provides
+<<ApplicationIntegration.adoc#a3542,See ApplicationFactory>>), and provides
 default implementations of features that determine how application logic
 interacts with the JSF implementation. Advanced applications (or
 application frameworks) can install replacements for these default
@@ -36,7 +36,8 @@ implementations, which will be used from that point on. Access to
 several integration objects is available via JavaBeans property getters
 and setters, as described in the following subsections.
 
-=== [[a3402]]ActionListener Property
+[[a3402]]
+=== ActionListener Property
 
 [width="100%",cols="100%",]
 |===
@@ -69,7 +70,7 @@ _action_ property, retrieve the _MethodBinding_ and call _invoke()_ to
 perform the application-specified processing in this action method. If
 the method returns non- _null_ , call _toString()_ on the result and use
 the value returned as the logical outcome. See
-link:JSF.html#a1092[See Properties] for a decription of the
+<<ApplicationIntegration.adoc#a1092,See Properties>> for a decription of the
 _action_ property.
 
 Otherwise, the logical outcome is _null_ .
@@ -134,7 +135,7 @@ handler);
 
 Return or replace the _FlowHandler_ that will
 be used by the _NavigationHandler_ to make decisions about navigating
-application flow. See link:JSF.html#a3840[See FlowHandler] for
+application flow. See <<ApplicationIntegration.adoc#a3840,See FlowHandler>> for
 an overview of the flow feature.
 
 [P1-start flowHandler called after startup]
@@ -159,11 +160,11 @@ setNavigationHandler(NavigationHandler handler);
 |===
 
 Return or replace the _NavigationHandler_
-instance (see link:JSF.html#a3561[See NavigationHandler]) that
+instance (see <<ApplicationIntegration.adoc#a3561,See NavigationHandler>>) that
 will be passed the logical outcome of the application _ActionListener_
 as described in the previous subsection. A default implementation must
 be provided, with functionality described in
-link:JSF.html#a3571[See Default NavigationHandler Algorithm]:
+<<ApplicationIntegration.adoc#a3571,See Default NavigationHandler Algorithm>>:
 
 === StateManager Property
 
@@ -184,9 +185,10 @@ that will be utilized during the _Restore View_ and _Render Response_
 phases of the request processing lifecycle to manage state persistence
 for the components belonging to the current view. A default
 implementation must be provided, which operates as described in
-link:JSF.html#a4117[See StateManager].
+<<ApplicationIntegration.adoc#a4117,See StateManager>>.
 
-=== [[a3435]]ELResolver Property
+[[a3435]]
+=== ELResolver Property
 
 [width="100%",cols="100%",]
 |===
@@ -202,15 +204,15 @@ resolver);
 
 {empty}[N/T-start elresolver test] Return the
 ELResolver instance to be used for all EL resolution. This is actually
-an instance of javax.el.CompositeELResolver that must contain the
-ELResolver instances as specified in _link:JSF.html#a2822[See
-ELResolver for Facelets and Programmatic Access]_ . [N/T-end]
+an instance of jakarta.el.CompositeELResolver that must contain the
+ELResolver instances as specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2822,See
+ELResolver for Facelets and Programmatic Access>>_ . [N/T-end]
 
 {empty}[N/T-start addELResolver ordering]
 addELResolver must cause the argument resolver to be added at the end of
-the list in the javax.el.CompositeELResolver returned from
-getELResolver(). See the diagram in _link:JSF.html#a2822[See
-ELResolver for Facelets and Programmatic Access]_ [N/T-end]
+the list in the jakarta.el.CompositeELResolver returned from
+getELResolver(). See the diagram in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2822,See
+ELResolver for Facelets and Programmatic Access>>_ [N/T-end]
 
 === ELContextListener Property
 
@@ -246,7 +248,8 @@ getELContextListeners() returns an array
 representing the list of listeners added by calls to
 addELContextListener().
 
-=== [[a3450]]ViewHandler Property
+[[a3450]]
+=== ViewHandler Property
 
 [width="100%",cols="100%",]
 |===
@@ -260,8 +263,8 @@ handler);
 
 |===
 
-{empty}See link:JSF.html#a3871[See
-ViewHandler] for the description of the ViewHandler. The JSF
+{empty}See <<ApplicationIntegration.adoc#a3871,See
+ViewHandler>> for the description of the ViewHandler. The JSF
 implementation must provide a default _ViewHandler_ implementation. This
 implementation may be replaced by calling _setViewHandler()_ before the
 first time the _Render Response_ phase has executed. [P1-start
@@ -269,7 +272,8 @@ setViewHandler() called after startup] If a call is made to
 _setViewHandler()_ after the first time the _Render Response_ phase has
 executed, the call must be ignored by the implementation. [P1-end]
 
-=== [[a3455]]ProjectStage Property
+[[a3455]]
+=== ProjectStage Property
 
 [width="100%",cols="100%",]
 |===
@@ -282,12 +286,13 @@ public ProjectStage getProjectStage();
 
 {empty} [P1-start getProjectStage]This method
 must return the enum constant from the class
-_javax.faces.application.ProjectStage_ as specified in the corresponding
+_jakarta.faces.application.ProjectStage_ as specified in the corresponding
 application init parameter, JNDI entry, or default Value. See
-link:JSF.html#a6088[See Application Configuration
-Parameters].[P1-end]
+<<UsingJSFInWebApplications.adoc#a6088,See Application Configuration
+Parameters>>.[P1-end]
 
-=== [[a3459]]Acquiring ExpressionFactory Instance
+[[a3459]]
+=== Acquiring ExpressionFactory Instance
 
 [width="100%",cols="100%",]
 |===
@@ -297,8 +302,8 @@ getExpressionFactory();
 
 Return the ExpressionFactory instance for
 this application. This instance is used by the evaluateExpressionGet (
-_link:JSF.html#a3463[See Programmatically Evaluating
-Expressions]_ ) convenience method.
+_<<ApplicationIntegration.adoc#a3463,See Programmatically Evaluating
+Expressions>>_ ) convenience method.
 
 {empty}[P1-start getExpressionFactory
 requirements] The default implementation simply returns the
@@ -306,7 +311,8 @@ ExpressionFactory from the JSP container by calling
 JspFactory.getDefaultFactory().getJspApplicationContext(servletContext).getExpressionFactory().
 [P1-end]
 
-=== [[a3463]]Programmatically Evaluating Expressions
+[[a3463]]
+=== Programmatically Evaluating Expressions
 
 [width="100%",cols="100%",]
 |===
@@ -328,7 +334,8 @@ directly. This can be accomplished by using the
 _createValueExpression()_ or _createMethodExpression()_ methods on the
 _ExpressionFactory_ returned from _getExpressionFactory()._
 
-=== [[a3468]]Object Factories
+[[a3468]]
+=== Object Factories
 
 The _Application_ instance for a web
 application also acts as an object factory for the creation of new JSF
@@ -341,9 +348,7 @@ public UIComponent createComponent(String
 componentType);
 
 public UIComponent createComponent(String
-componentType,
-
- String rendererType);
+componentType, String rendererType);
 
 
 
@@ -368,12 +373,12 @@ behaviorId);
 |===
 
 Each of these methods creates a new instance
-of an object of the requested typelink:#a9088[6], based on the
+of an object of the requested type <<Footnotes.adoc#a9088,6>>, based on the
 requested identifier. The names of the implementation class used for
 each identifier is normally provided by the JSF implementation
 automatically (for standard classes described in this Specification), or
 in one or more application configuration resources (see
-link:JSF.html#a6195[See Application Configuration Resources])
+<<UsingJSFInWebApplications.adoc#a6195,See Application Configuration Resources>>)
 included with a JSF web application, or embedded in a JAR file
 containing the corresponding implementation classes.
 
@@ -412,7 +417,7 @@ createComponent(FacesContext context, Resource componentResource);
 All variants _createComponent()_ must take
 some action to inspect the component for _@ResourceDependency_ and
 _@ListenerFor_ annotations. Please see the JavaDocs and
-link:JSF.html#a1671[See Composite Component Metadata] for the
+<<UserInterfaceComponentModel.adoc#a1671,See Composite Component Metadata>> for the
 normative specification relating to this method.
 
 [width="100%",cols="100%",]
@@ -478,7 +483,8 @@ JSF-based applications can ask the
 _Application_ instance for a list of the registered identifiers for
 components, converters, and validators that are known to the instance.
 
-=== [[a3510]]Default Validator Ids
+[[a3510]]
+=== Default Validator Ids
 
 From the list of mappings of _validatorId_ to
 fully qualified class name, added to the application via calls to
@@ -489,7 +495,7 @@ access to the default validator ids registered on an application:
 [width="100%",cols="100%",]
 |===
 a|
- _public void addDefaultValidatorId(String
+_public void addDefaultValidatorId(String
 validatorId);_
 
 public Map<String,String>
@@ -498,7 +504,7 @@ getDefaultValidatorInfo();
 |===
 
 The required callsites for these methods are
-specified in link:JSF.html#a1419[See Validation Registration].
+specified in <<UserInterfaceComponentModel.adoc#a1419,See Validation Registration>>.
 
 === Internationalization Support
 
@@ -544,13 +550,14 @@ messageBundle);
 Specify the fully qualified name of the
 ResourceBundle from which the JSF implementation will acquire message
 strings that correspond to standard message keys See
-link:JSF.html#a584[See Localized Application Messages] for a
+<<RequestProcessingLifecycle.adoc#a584,See Localized Application Messages>> for a
 list of the standard message keys recognized by JSF.
 
-=== [[a3526]]System Event Methods
+[[a3526]]
+=== System Event Methods
 
 System events are described in
-link:JSF.html#a1359[See System Events]. This section describes
+<<UserInterfaceComponentModel.adoc#a1359,See System Events>>. This section describes
 the methods defined on _Application_ that support system events
 
 === Subscribing to system events
@@ -599,11 +606,11 @@ _publishEvent()_ .
 See the javadocs for both variants of
 _subscribeForEvent()_ for the complete specification of these methods.
 
- _publishEvent()_ is called by the system at
+_publishEvent()_ is called by the system at
 several points in time during the runtime of a JSF application. The
 specification for when _publishEvent()_ is called is given in the
 javadoc for the event classes that are listed in
-link:JSF.html#a1308[See Event Classes]. See the javadoc for
+<<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>. See the javadoc for
 _publishEvent()_ for the complete specification.
 
 === Unsubscribing from system events
@@ -629,7 +636,7 @@ _unsubscribeFromEvent()_ for the complete specification.
 === ApplicationFactory
 
 A single instance of
-_javax.faces.application.ApplicationFactory_ must be made available to
+_jakarta.faces.application.ApplicationFactory_ must be made available to
 each JSF-based web application running in a servlet or portlet
 container. The factory instance can be acquired by JSF implementations
 or by application code, by executing:
@@ -663,7 +670,7 @@ application);
 Return or replace the _Application_ instance
 for the current web application. The JSF implementation must provide a
 default _Application_ instance whose behavior is described in
-link:JSF.html#a3400[See Application].
+<<ApplicationIntegration.adoc#a3400,See Application>>.
 
 Note that applications will generally find it
 more convenient to access the _Application_ instance for this
@@ -693,7 +700,7 @@ The method must return _Object_ .
 
 The action method will be called by the
 default _ActionListener_ implementation, as described in
-link:JSF.html#a3402[See ActionListener Property] above. Its
+<<ApplicationIntegration.adoc#a3402,See ActionListener Property>> above. Its
 responsibility is to perform the desired application actions, and then
 return a logical “outcome” (represented as a _String_ ) that can be used
 by a _NavigationHandler_ in order to determine which view should be
@@ -708,7 +715,8 @@ same Java class or in different Java classes.
 [[a3561]]
 === NavigationHandler
 
-=== [[a3562]]Overview
+[[a3562]]
+=== Overview
 
 Most JSF applications can be thought of as a
 directed graph of views, each node of which roughly corresponds to the
@@ -746,8 +754,8 @@ and call _responseComplete()_ on the _FacesContext_ instance.
 
 After a return from the _handleNavigation_
 method, control will normally proceed to the _Render Response_ phase of
-the request processing lifecycle (see link:JSF.html#a457[See
-Render Response]), which will cause the newly selected view to be
+the request processing lifecycle (see <<RequestProcessingLifecycle.adoc#a457,See
+Render Response>>), which will cause the newly selected view to be
 rendered. If the _NavigationHandler_ called the _responseComplete()_
 method on the _FacesContext_ instance, however, the _Render Response_
 phase will be bypassed.
@@ -785,7 +793,8 @@ _handleNavigation_ and _getNavigation_ Case methods should use the same
 logic to resolve a _NavigationCase_ , which is outlined in the next
 section.[P1-end]
 
-=== [[a3571]]Default NavigationHandler Algorithm
+[[a3571]]
+=== Default NavigationHandler Algorithm
 
 JSF implementations must provide a default
 _NavigationHandler_ implementation that maps the action reference that
@@ -799,8 +808,8 @@ implementation.
 The behavior of the default
 _NavigationHandler_ implementation is configured, at web application
 startup time, from the contents of zero or more _application
-configuration resources_ (see link:JSF.html#a6195[See
-Application Configuration Resources]). The configuration information is
+configuration resources_ (see <<UsingJSFInWebApplications.adoc#a6195,See
+Application Configuration Resources>>). The configuration information is
 represented as zero or more _<navigation-rule>_ elements, each keyed to
 a matching pattern for the _view identifier_ of the current view
 expressed in a _<from-view-id>_ element. This matching pattern must be
@@ -833,14 +842,14 @@ element are zero or more _<navigation-case>_ elements that contain
 additional matching criteria based on the action reference expression
 value used to select an application action to be invoked (if any), and
 the logical outcome returned by calling the _invoke()_ method of that
-application action _link:#a9089[7]_ . As of JSF 2, navigation
+application action _<<Footnotes.adoc#a9089,7>>_ . As of JSF 2, navigation
 cases support a condition element, <if>, whose content must be a single,
 contiguous value expression expected to resolve to a boolean value (if
 the content does not match this requirement, the condition is
-ignored)link:#a9090[8]. When the <if> element is present, the
+ignored) <<Footnotes.adoc#a9090,8>>. When the <if> element is present, the
 value expression it contains must evaluate to true when the navigation
 case is being consulted in order for the navigation case to
-matchlink:#a9092[9]. Finally, the <navigation-case> element
+match <<Footnotes.adoc#a9092,9>>. Finally, the <navigation-case> element
 contains a <to-view-id> element, whose content is either the view
 identifier or a value expression that resolves to the view identifier.
 If the navigation case is a match, this view identifier is to be
@@ -883,7 +892,7 @@ the prefix of the view id. If the patterns for multiple navigation rules
 match, pick the longest matching prefix first.
 
 If there is a _<navigation-rule>_ with a
-_<from-view-id>_ pattern of only an asterisklink:#a9093[10], it
+_<from-view-id>_ pattern of only an asterisk <<Footnotes.adoc#a9093,10>>, it
 matches any view identifier.
 
 From the _<navigation-case>_ elements nested
@@ -928,13 +937,13 @@ located, proceed as follows.
 {empty}If the _<to-view-id>_ element is the
 id of a flow, discover that flow’s start node and resolve it to a _vdl
 view identifier_ by following the algorithm in
-link:JSF.html#a3622[See Requirements for Explicit Navigation in
-Faces Flow Call Nodes other than ViewNodes]
+<<ApplicationIntegration.adoc#a3622,See Requirements for Explicit Navigation in
+Faces Flow Call Nodes other than ViewNodes>>
 
 If the _<to-view-id>_ element is a non-view
 flow node, resolve it to a _vdl view identifier_ by following the
-algorithm in link:JSF.html#a3622[See Requirements for Explicit
-Navigation in Faces Flow Call Nodes other than ViewNodes].
+algorithm in <<ApplicationIntegration.adoc#a3622,See Requirements for Explicit
+Navigation in Faces Flow Call Nodes other than ViewNodes>>.
 
 If _UIViewAction.isProcessingBroadcast()_
 returns _true_ , call _getFlash().setKeepMessages(true)_ on the current
@@ -971,9 +980,9 @@ If the _<redirect/>_ element _was_ specified
 in this _<navigation-case>_ , or this invocation of _handleNavigation()_
 was due to a _UIViewAction_ broadcast event where the new _viewId_ is
 different from the current _viewId_ , resolve the _<to-view-id>_ to a
-view identifier, using the algorithm in _link:JSF.html#a3622[See
+view identifier, using the algorithm in _<<ApplicationIntegration.adoc#a3622,See
 Requirements for Explicit Navigation in Faces Flow Call Nodes other than
-ViewNodes]_ . Call _getRedirectURL()_ on the _ViewHandler_ , passing the
+ViewNodes>>_ . Call _getRedirectURL()_ on the _ViewHandler_ , passing the
 current _FacesContext_ , the _<to-view-id>_ , any name=value parameter
 pairs specified within _<view-param>_ elements within the _<redirect>_
 element, and the value of the _include-view-params_ attribute of the
@@ -1029,8 +1038,8 @@ _faces-include-view-params=true_ ”. If either are found, let
 _includeViewParams_ be _true_ , otherwise let _includeViewParams_ be
 _false_ . When performing preemptive navigation, redirect is implied,
 even if the navigation case doesn't indicate it, and the query string
-must be preserved. Refer to link:JSF.html#a2060[See
-UIOutcomeTarget] for more information on preemptive navigation.
+must be preserved. Refer to <<StandardUserInterfaceComponents.adoc#a2060,See
+UIOutcomeTarget>> for more information on preemptive navigation.
 
 If _viewIdToTest_ does not have a “file
 extension”, take the file extension from the current _viewId_ and append
@@ -1048,7 +1057,7 @@ _viewIdToTest_ . If _UnsupportedOperationException_ is thrown, which
 will be the case if the _ViewHandler_ is a Pre JSF 2.0 _ViewHandler_ ,
 the implementation must ensure the algorithm described for
 _ViewHandler.deriveViewId()_ specified in
-_link:JSF.html#a3910[See Default ViewHandler Implementation]_ is
+_<<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>>_ is
 performed. Let the result be _implicitViewId_ .
 
 If _implicitViewId_ is non- _null_ , discover
@@ -1086,8 +1095,8 @@ _setRenderAll(true)_ on the _PartialViewContext_ .
 
 If none of the above steps found a matching
 _<navigation-case>_ , perform the steps in
-link:JSF.html#a3622[See Requirements for Explicit Navigation in
-Faces Flow Call Nodes other than ViewNodes] to find a matching
+<<ApplicationIntegration.adoc#a3622,See Requirements for Explicit Navigation in
+Faces Flow Call Nodes other than ViewNodes>> to find a matching
 _<navigation-case>_ .
 
 If none of the above steps found a matching
@@ -1119,7 +1128,8 @@ query string parameter from the previous source(s).
 
 {empty}[P1-end]
 
-=== [[a3622]]Requirements for Explicit Navigation in Faces Flow Call Nodes other than ViewNodes
+[[a3622]]
+=== Requirements for Explicit Navigation in Faces Flow Call Nodes other than ViewNodes
 
 [P1-start ExplicitNavigationNonViewFlowNode
 requirements] These steps must be performed in this order to determine
@@ -1157,7 +1167,7 @@ the navigation to proceed with respect to the calling flow’s navigation
 rules, or the application’s navigation rules if there is no calling
 flow. Start the navigation algorithm over using it as the basis but pass
 the value of the symbolic constant
-_javax.faces.flow.FlowHandler.NULL_FLOW_ as the value of the
+_jakarta.faces.flow.FlowHandler.NULL_FLOW_ as the value of the
 _toFlowDocumentId_ argument. If this does not yield a navigation case,
 call _FlowHandler.getLastDisplayedViewId()_ , which will return the last
 displayed view id of the calling flow, or _null_ if there is no such
@@ -1212,11 +1222,12 @@ correctly passed.
 
 {empty}[P1-end]
 
-=== [[a3646]]Example NavigationHandler Configuration
+[[a3646]]
+=== Example NavigationHandler Configuration
 
 The following _<navigation-rule>_ elements
 might appear in one or more application configuration resources (see
-link:JSF.html#a6195[See Application Configuration Resources]) to
+<<UsingJSFInWebApplications.adoc#a6195,See Application Configuration Resources>>) to
 configure the behavior of the default _NavigationHandler_
 implementation:
 
@@ -1689,8 +1700,8 @@ nodes within each module. This feature is heavily influenced by the
 design of ADF Task Flows in Oracle’s Fusion Middleware and also by
 Spring Web Flow and Apache MyFaces CODI. The normative specification for
 this feature proceeds from the Javadoc for the class
-_javax.faces.flow.FlowHandler_ , and also from related requirements in
-link:JSF.html#a3561[See NavigationHandler]. This section
+_jakarta.faces.flow.FlowHandler_ , and also from related requirements in
+<<ApplicationIntegration.adoc#a3561,See NavigationHandler>>. This section
 provides a non-normative usage example and walkthrough of feature so
 that all the other parts of the specification that intersect with this
 feature can be discovered.
@@ -1742,7 +1753,7 @@ with the other flow
 
 The different kinds of nodes mentioned in the
 preceding discussion are defined in the javadoc for class
-_javax.faces.flow.FlowHandler_ .
+_jakarta.faces.flow.FlowHandler_ .
 
 Consider this simple web app, called
 _basic_faces_flow_call.war_ , containing the above mentioned flows. The
@@ -1777,13 +1788,13 @@ deployed, the runtime discovers the flow definitions and adds them to
 the internal flow data structure. One flow is defined in
 _flow-b-flow.xml_ . This is an XML file conforming to the Application
 Configuration Resources syntax described in
-link:JSF.html#a6195[See Application Configuration Resources].
+<<UsingJSFInWebApplications.adoc#a6195,See Application Configuration Resources>>.
 The other flow is defined in _FlowA.java_ , a class with a method with
 the _@FlowDefinition_ annotation. When the flow discovery is complete,
 an application scoped, thread safe data structure containing the flow
-definitions is available from the _javax.faces.flow.FlowHandler_
+definitions is available from the _jakarta.faces.flow.FlowHandler_
 singleton. This data structure is navigable by the runtime via the
-_javax.faces.flow.Flow_ API.
+_jakarta.faces.flow.Flow_ API.
 
 When the user agent visits
 _http://localhost:8080/basic_faces_flow_call/faces/index.xhtml_ , they
@@ -1820,26 +1831,26 @@ feature.
 
 At startup time, the runtime will discover
 flows available for this application. _This behavior is normatively
-specified in link:JSF.html#a6228[See Faces Flows] and in the XML
+specified in <<UsingJSFInWebApplications.adoc#a6228,See Faces Flows>> and in the XML
 schema for the application configuration resources._
 
- _Invoke Application Time_
+_Invoke Application Time_
 
 The default _ActionListener_ may need to take
 special action when calling into a flow. _This behavior is normatively
-specified in link:JSF.html#a3402[See ActionListener Property]._
+specified in <<ApplicationIntegration.adoc#a3402,See ActionListener Property>>._
 
 The default _NavigationHandler_
 implementation must use the _FlowHandler_ during its operation. _This
-behavior is normatively specified in link:JSF.html#a3571[See
-Default NavigationHandler Algorithm]_ .
+behavior is normatively specified in <<ApplicationIntegration.adoc#a3571,See
+Default NavigationHandler Algorithm>>_ .
 
 
 [[a3871]]
 === ViewHandler
 
- _ViewHandler_ is the pluggability mechanism
-for allowing implementations of or applications using the JavaServer
+_ViewHandler_ is the pluggability mechanism
+for allowing implementations of or applications using the Jakarta Server
 Faces specification to provide their own handling of the activities in
 the _Render Response_ and _Restore View_ phases of the request
 processing lifecycle. This allows for implementations to support
@@ -1848,10 +1859,11 @@ saving/restoring approaches.
 
 A JSF implementation must provide a default
 implementation of the _ViewHandler_ interface. __ See
-link:JSF.html#a3450[See ViewHandler Property] for information on
+<<ApplicationIntegration.adoc#a3450,See ViewHandler Property>> for information on
 replacing this default implementation with another implementation.
 
-=== [[a3874]]Overview
+[[a3874]]
+=== Overview
 
  ViewHandler defines the public APIs
 described in the following paragraphs
@@ -1969,12 +1981,12 @@ This method must be called during the _Render
 Response_ phase of the request processing lifecycle. It must provide a
 valid _ResponseWriter_ or _ResponseStream_ instance, storing it in the
 _FacesContext_ instance for the current request (see
-link:JSF.html#a3198[See ResponseStream and ResponseWriter]), and
+<<Per-RequestStateInformation.adoc#a3198,See ResponseStream and ResponseWriter>>), and
 then perform whatever actions are required to cause the view currently
 stored in the _viewRoot_ of the _FacesContext_ instance for the current
 request to be rendered to the corresponding writer or stream. It must
 also interact with the associated _StateManager_ (see
-link:JSF.html#a4117[See StateManager]), by calling the
+<<ApplicationIntegration.adoc#a4117,See StateManager>>), by calling the
 _getSerializedView()_ and _saveView()_ methods, to ensure that state
 information for current view is saved between requests.
 
@@ -2042,7 +2054,8 @@ urlPattern)
 See the javadocs for these methods for the
 specification.
 
-=== [[a3910]]Default ViewHandler Implementation
+[[a3910]]
+=== Default ViewHandler Implementation
 
 The terms _view identifier_ and _viewId_ are
 used interchangeably below and mean the context relative path to the web
@@ -2061,7 +2074,8 @@ containing JSF components. The default _ViewHandler_ is specified in
 this section and the default _ViewDeclarationLanguage_ implementations
 are specified in the following section.
 
-=== [[a3913]]ViewHandler Methods that Derive Information From the Incoming Request
+[[a3913]]
+=== ViewHandler Methods that Derive Information From the Incoming Request
 
 [P1-start ViewHandler.deriveViewId()
 requirements] The _deriveViewId()_ method must fulfill the following
@@ -2186,7 +2200,7 @@ session by calling _getSession(false)_ on the _ExternalContext_ for this
 _FacesContext_ . If the session is non- _null_ , look in the _Map_
 returned by the _getSessionMap()_ method of the _ExternalContext_ for a
 value under the key given by the value of the symbolic constant
-_javax.faces.application.ViewHandler.CHARACTER_ENCODING_KEY_ . If a
+_jakarta.faces.application.ViewHandler.CHARACTER_ENCODING_KEY_ . If a
 value is found, convert it to a String and return it. [P1-end]
 
 [P1-start calculateLocale() requirements] The
@@ -2256,7 +2270,8 @@ thread-safe manner during the invocation of _renderView()_ and pass it
 to the _writeState()_ method of the _StateManager_ for this application.
 [N/T-end]
 
-=== [[a3955]]ViewHandler Methods Relating to Navigation
+[[a3955]]
+=== ViewHandler Methods Relating to Navigation
 
 [P1-start getActionURL() requirements] The
 _getActionURL()_ method must fulfill the following responsibilities:
@@ -2341,7 +2356,7 @@ _ResponseStateManager.NON_POSTBACK_VIEW_TOKEN_PARAM_ . The value of this
 parameter must be the return value from a call to
 _ResponseStateManager.getCryptographicallyStrongTokenFromSession()_ .
 This parameter is inspected during the restore view phase (see
-link:JSF.html#a404[See Restore View]).
+<<RequestProcessingLifecycle.adoc#a404,See Restore View>>).
 
 {empty}[P1-end]
 
@@ -2438,7 +2453,8 @@ return the result.
 {empty}Otherwise, return the specified _path_
 value unchanged.[P1-end]
 
-=== [[a3997]]ViewHandler Methods that relate to View Protection
+[[a3997]]
+=== ViewHandler Methods that relate to View Protection
 
 {empty}[P1-start addProtectedView()
 requirements] See the javadocs for _addProtectedView()_ for the
@@ -2454,9 +2470,8 @@ _getProtectedViewsUnmodifiable()_ for the normative specification.
 [P1-end]
 
 See the _View Protection_ section within
-link:JSF.html#a404[See Restore
-View]link:JSF.html#a404[See Restore View] for the normative
-specification of this feature.
+<<RequestProcessingLifecycle.adoc#a404,See Restore
+View>> for the normative specification of this feature.
 
 [[a4003]]
 === ViewDeclarationLanguage
@@ -2475,15 +2490,15 @@ _ViewDeclarationLanguage_ class.
 
 === ViewDeclarationLanguageFactory
 
- _ViewDeclarationLanguageFactory_ is a
+_ViewDeclarationLanguageFactory_ is a
 factory object that creates (if needed) and returns a new
 _ViewDeclarationLanguage_ instance based on the VDL found in a specific
 view.
 
 The factory mechanism specified in
-link:JSF.html#a6147[See FactoryFinder] and
-the decoration mechanism specified in link:JSF.html#a6336[See
-Delegating Implementation Support] are used to allow decoration or
+<<UsingJSFInWebApplications.adoc#a6147,See FactoryFinder>> and
+the decoration mechanism specified in <<UsingJSFInWebApplications.adoc#a6336,See
+Delegating Implementation Support>> are used to allow decoration or
 replacement of the _ViewDeclarationLanguageFactory_ .
 
 [width="100%",cols="100%",]
@@ -2501,7 +2516,8 @@ instance for views written in either JSP or Facelets.
 returned is the same for a JSP or a Facelet view is an implementation
 detail.
 
-=== [[a4010]]Default ViewDeclarationLanguage Implementation
+[[a4010]]
+=== Default ViewDeclarationLanguage Implementation
 
 For each of the methods on
 _ViewDeclarationLanguage_ , the required behavior is broken into three
@@ -2519,7 +2535,8 @@ handles JSP views
 Any implementation strategy is valid as long
 as these requirements are met.
 
-=== [[a4016]]ViewDeclarationLanguage.createView()
+[[a4016]]
+=== ViewDeclarationLanguage.createView()
 
 [width="100%",cols="100%",]
 |===
@@ -2570,7 +2587,8 @@ Return the newly created _UIViewRoot_ .
 
 {empty}[P1-end]
 
-=== [[a4030]]ViewDeclarationLanguage.calculateResourceLibraryContracts()
+[[a4030]]
+=== ViewDeclarationLanguage.calculateResourceLibraryContracts()
 
 [width="100%",cols="100%",]
 |===
@@ -2582,8 +2600,8 @@ The JSP implementation must return _null_ .
 
 The Facelet implementation must examine the
 resource library contracts data structure, which was populated as
-specified in link:JSF.html#a6215[See Resource Library
-Contracts], and find the _<contract-mapping>_ element that matches the
+specified in <<UsingJSFInWebApplications.adoc#a6215,See Resource Library
+Contracts>>, and find the _<contract-mapping>_ element that matches the
 argument _viewId_ . When processing the nested _<url-pattern>_ matches
 must be made using the following rules in this order.
 
@@ -2629,7 +2647,8 @@ view (but not rendered at this time), during the traversal. .
 
 {empty}[P1-end]
 
-=== [[a4046]]ViewDeclarationLanguage.getComponentMetadata()
+[[a4046]]
+=== ViewDeclarationLanguage.getComponentMetadata()
 
 [width="100%",cols="100%",]
 |===
@@ -2653,8 +2672,8 @@ The Facelets implementation must
 
 Support argument _componentResource_ being a
 Facelet markup file that is to be interpreted as a composite component
-as specified in link:JSF.html#a1671[See Composite Component
-Metadata].
+as specified in <<UserInterfaceComponentModel.adoc#a1671,See Composite Component
+Metadata>>.
 
 {empty}The JSP implementation is not required
 to support argument _componentResource_ being a JSP markup file. In this
@@ -2768,7 +2787,7 @@ on the argument _UIViewRoot_ returns _false_ .
 The JSP implementation must:
 
 If the current request is a _ServletRequest_
-, call the _set()_ method of the _javax.servlet.jsp.jstl.core.Config_
+, call the _set()_ method of the _jakarta.servlet.jsp.jstl.core.Config_
 class, passing the current _ServletRequest_ , the symbolic constant
 _Config.FMT_LOCALE_ , and the _locale_ property of the specfied
 _UIViewRoot_ . This configures JSTL with the application’s preferred
@@ -2845,7 +2864,8 @@ The Facelets implementation must
 {empty}Close the writer used to write the
 response.[P1-end]
 
-=== [[a4101]]ViewDeclarationLanguage.restoreView()
+[[a4101]]
+=== ViewDeclarationLanguage.restoreView()
 
 [width="100%",cols="100%",]
 |===
@@ -2897,41 +2917,42 @@ Return the _viewRoot_ .
 [[a4117]]
 === StateManager
 
- _StateManager_ directs the process of saving
+_StateManager_ directs the process of saving
 and restoring the view between requests. The _StateManager_ instance for
 an application is retrieved from the _Application_ instance, and
 therefore cannot know any details of the markup language created by the
 _RenderKit_ being used to render a view. Therefore, the _StateManager_
-utilizes a helper object (see link:JSF.html#a4288[See
-ResponseStateManager]), that is provided by the _RenderKit_
+utilizes a helper object (see <<RenderingModel.adoc#a4288,See
+ResponseStateManager>>), that is provided by the _RenderKit_
 implementation, and is therefore aware of the markup language details.
 The JSF implementation must provide a default _StateManager_
 implementation that supports the behavior described below.
 
-=== [[a4119]]Overview
+[[a4119]]
+=== Overview
 
 Conceptually, the state of a view can be
 divided into two pieces:
 
- _Tree Structure_ . This includes component
+_Tree Structure_ . This includes component
 parent-child relationships, including facets.
 
- _Component State_ . This includes:
+_Component State_ . This includes:
 
 Component attributes and properties, and
 
- _Validator_ s, _Converter_ s,
+_Validator_ s, _Converter_ s,
 _FacesListener_ s, and other objects attached to a component. The manner
 in which these _attached objects_ are saved is up to the component
 implementation. For attached objects that may have state, the
-_StateHolder_ interface (see link:JSF.html#a1138[See
-StateHolder]) is provided to allow these objects to preserve their own
+_StateHolder_ interface (see <<UserInterfaceComponentModel.adoc#a1138,See
+StateHolder>>) is provided to allow these objects to preserve their own
 attributes and properties. If an attached object does not implement
 _StateHolder_ , but does implement _Serializable_ , it is saved using
 standard serialization. Attached objects that do not implement either
 _StateHolder_ or _Serializable_ must have a public, zero-arg
 constructor, and will be restored only to their initial, default object
-statelink:#a9094[11].
+state <<Footnotes.adoc#a9094,11>>.
 
 It is beneficial to think of this separation
 between tree structure and tree state to allow the possibility that
@@ -2942,7 +2963,8 @@ example, the system could keep a DOM representation of the trees
 representing the webapp UI in memory, to be used by all requests to the
 application.
 
-=== [[a4126]]Stateless Views
+[[a4126]]
+=== Stateless Views
 
 Version 2.2 of the specification adds support
 for stateless views. In such a view, the _UIComponent_ state for the
@@ -2968,26 +2990,27 @@ _ResponseStateManager.writeState(FacesContext, Object)_
 The javadocs for
 _ResponseStateManager.isStateless(FacesContext)_
 
-{empty}link:JSF.html#a4101[See
-ViewDeclarationLanguage.restoreView()]
+{empty}<<ApplicationIntegration.adoc#a4101,See
+ViewDeclarationLanguage.restoreView()>>
 
 The javadocs for
-_javax.faces.view.ViewScoped_
+_jakarta.faces.view.ViewScoped_
 
 The javadocs for
-_javax.faces.bean.ViewScoped_
+_jakarta.faces.bean.ViewScoped_
 
-=== [[a4135]]State Saving Alternatives and Implications
+[[a4135]]
+=== State Saving Alternatives and Implications
 
 JSF implementations support two primary
 mechanisms for saving state, based on the value of the
-_javax.faces.STATE_SAVING_METHOD_ initialization parameter (see
-link:JSF.html#a6088[See Application Configuration Parameters]).
+_jakarta.faces.STATE_SAVING_METHOD_ initialization parameter (see
+<<UsingJSFInWebApplications.adoc#a6088,See Application Configuration Parameters>>).
 The possible values for this parameter give a general indication of the
 approach to be used, while allowing JSF implementations to innovate on
 the technical details:
 
- _client_ -- Cause the saved state to be
+_client_ -- Cause the saved state to be
 included in the rendered markup that is sent to the client (such as in a
 hidden input field for HTML). The state information must be included in
 the subsequent request, making it possible for JSF to restore the view
@@ -2996,13 +3019,13 @@ that this information be encrypted and tamper evident, since it is being
 sent down to the client, where it may persist for some time.The default
 implementation Serializes the view in _client_ mode.
 
- _server_ -- Cause the saved state to be
+_server_ -- Cause the saved state to be
 stored on the server in between requests. Implementations that wish to
 enable their saved state to fail over to a different container instance
 must keep this in mind when implementing their server side state saving
 strategy. Serializing the view in server mode is optional but must be
 possible by setting the _context-param
-javax.faces.SERIALIZE_SERVER_STATE_ to _true_ . In the _server_ mode,
+jakarta.faces.SERIALIZE_SERVER_STATE_ to _true_ . In the _server_ mode,
 this serialized view is stored in the session and a unique key to
 retrieve the view is sent down to the client. By storing the serialized
 view in the session, failover may happen using the usual mechanisms
@@ -3014,7 +3037,8 @@ state of attached objects) must implement _java.io.Serializable_ such
 that if the aggregate saved state were written to an
 _ObjectOutputStream_ , a _NotSerializableException_ would not be thrown.
 
-=== [[a4140]]State Saving Methods.
+[[a4140]]
+=== State Saving Methods.
 
 [width="100%",cols="100%",]
 |===
@@ -3089,14 +3113,14 @@ context);
 Return the current view state as a String.
 [P1-start-getViewState] This method must call
 ResposeStateManger.getViewState.[P1-end] Refer to
-link:JSF.html#a4288[See ResponseStateManager] for more details.
+<<RenderingModel.adoc#a4288,See ResponseStateManager>> for more details.
 
 
 === ResourceHandler
 
 The normative specification for this class is
-in the javadoc for _javax.faces.application.ResourceHandler_ . See also
-link:JSF.html#a746[See Resource Handling].
+in the javadoc for _jakarta.faces.application.ResourceHandler_ . See also
+<<RequestProcessingLifecycle.adoc#a746,See Resource Handling>>.
 
 [width="100%",cols="100%",]
 |===
@@ -3113,7 +3137,8 @@ setResourceHandler(ResourceHandler impl);
 
 === Deprecated APIs
 
-=== [[a4163]]PropertyResolver Property
+[[a4163]]
+=== PropertyResolver Property
 
 [width="100%",cols="100%",]
 |===
@@ -3138,17 +3163,18 @@ instance that wraps the _ELResolver_ instance that Faces provides to the
 unified EL. [N/T-end] The _PropertyResolver_ instance will be utilized
 to evaluate each . or [] operator when processing value expressions.
 This method has been deprecated for getELResolver() (see
-link:JSF.html#a3435[See ELResolver Property]).
+<<ApplicationIntegration.adoc#a3435,See ELResolver Property>>).
 
 setPropertyResolver() replaces the
 _PropertyResolver_ instance that will be utilized to evaluate each _._
 or _[]_ operator when processing a value binding expression. A default
 implementation must be provided, which operates as described in
-link:JSF.html#a3025[See PropertyResolver and the Default
-PropertyResolver]. This method has been deprecated. See the Javadocs for
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a3025,See PropertyResolver and the Default
+PropertyResolver>>. This method has been deprecated. See the Javadocs for
 setPropertyResolver().
 
-=== [[a4171]]VariableResolver Property
+[[a4171]]
+=== VariableResolver Property
 
 [width="100%",cols="100%",]
 |===
@@ -3179,11 +3205,12 @@ for getELResolver(). [N/T-end]
 setVariableResolver replaces the
 _VariableResolver_ instance that will be utilized to resolve method and
 value bindings. A default implementation must be provided, which
-operates as described in link:JSF.html#a3020[See
-VariableResolver and the Default VariableResolver]. The method has been
+operates as described in <<ExpressionLanguageAndManagedBeanFacility.adoc#a3020,See
+VariableResolver and the Default VariableResolver>>. The method has been
 deprecated. See the Javadocs for setVariableResolver().
 
-=== [[a4179]]Acquiring ValueBinding Instances
+[[a4179]]
+=== Acquiring ValueBinding Instances
 
 [width="100%",cols="100%",]
 |===
@@ -3203,8 +3230,8 @@ nondeterministic behavior, it is recommended that applications (or
 frameworks) wishing to plug in their own resolver implementations do so
 before _createValueBinding()_ is called for the first time. This method
 has been deprecated for _createValueExpression()_
-(link:JSF.html#a3463[See Programmatically Evaluating
-Expressions]
+(<<ApplicationIntegration.adoc#a3463,See Programmatically Evaluating
+Expressions>>
 
 === Acquiring MethodBinding Instances
 
@@ -3224,7 +3251,7 @@ the specified method. The implementation must call through to
 _createMethodExpression,_ passing the given arguments, and wrap the
 result in a MethodBinding implementation, returning it. The method that
 is invoked must have parameter signatures that are compatible with the
-classes in the _params_ parameterlink:#a9095[12] (which may be
+classes in the _params_ parameter <<Footnotes.adoc#a9095,12>> (which may be
 _null_ or a zero-length array if the method to be called takes no
 parameters). The actual parameters to be passed when the method is
 executed are specified on the _invoke()_ call of the returned
@@ -3253,10 +3280,10 @@ Special version of the factory for
 UIComponent instances that is used when evaluating component binding
 expression properties. The implementation of this method must wrap the
 argument componentBinding in an implementation of ValueExpression and
-call through to createComponent(javax.el.ValueExpression,
-javax.faces.FacesContext, java.lang.String). This method has been
+call through to createComponent(jakarta.el.ValueExpression,
+jakarta.faces.FacesContext, java.lang.String). This method has been
 deprecated for createComponent() using ValueExpression (see
-link:JSF.html#a3468[See Object Factories])
+<<ApplicationIntegration.adoc#a3468,See Object Factories>>)
 
 === StateManager
 
@@ -3315,7 +3342,8 @@ attached objects) of the component tree for this view. Attached objects
 that wish to save and restore their own state must implement
 _StateHolder_ .
 
-=== [[a4204]]ResponseStateManager
+[[a4204]]
+=== ResponseStateManager
 
 This method causes the tree structure and
 component state of the view contained in the argument _FacesContext_ to
@@ -3367,8 +3395,3 @@ The implementation must inspect the current
 request and return the component state Object passed to it on a previous
 invocation of _writeState()_ .
 
-
-
-
-
-===
