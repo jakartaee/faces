@@ -1,7 +1,7 @@
 [[a4219]]
 == Rendering Model
 
-JavaServer Faces supports two programming
+Jakarta Server Faces supports two programming
 models for decoding component values from incoming requests, and
 encoding component values into outgoing responses - the _direct
 implementation_ and _delegated implementation_ models. When the _direct
@@ -35,8 +35,8 @@ implementation_ programming model for the decoding and encoding of
 component values. It also supports _Behavior_ instances for the
 rendering of client side behavior and decoding for queuing
 _BehaviorEvents._ Refer to
-link:JSF.html#a1707[See Component
-Behavior Model] for more details about this feature.
+<<UserInterfaceComponentModel.adoc#a1707,See Component
+Behavior Model>> for more details about this feature.
 [P1-start-renderkit]Each JSF implementation must provide a default
 _RenderKit_ instance (named by the render kit identifier associated with
 the String constant _RenderKitFactory.HTML_BASIC_RENDER_KIT_ as
@@ -85,14 +85,14 @@ Applications that wish to go beyond the
 capabilities of the standard _RenderKit_ that is provided by every JSF
 implementation may either choose to create their own _RenderKit_
 instances and register them with the _RenderKitFactory_ instance (see
-link:JSF.html#a4300[See RenderKitFactory]), or integrate
+<<RenderingModel.adoc#a4300,See RenderKitFactory>>), or integrate
 additional (or replacement) supported _Renderer_ instances into an
 existing _RenderKit_ instance. For example, it will be common for an
 application that requires custom component classes and _Renderer_ s to
 register them with the standard _RenderKit_ provided by the JSF
 implementation, at application startup time See
-link:JSF.html#a6554[See Example Application Configuration
-Resource]for an example of a _faces-config.xml_ configuration resource
+<<UsingJSFInWebApplications.adoc#a6554,See Example Application Configuration
+Resource>> for an example of a _faces-config.xml_ configuration resource
 that defines two additional Renderer instances to be registered in the
 default _RenderKit_ .
 
@@ -117,12 +117,12 @@ specification of the _Accept_ header.
 
 {empty}Implementors are advised to consult
 the _getCharacterEncoding()_ method of class
-_javax.faces.servlet.ServletResponse_ to get the required value for the
+_jakarta.faces.servlet.ServletResponse_ to get the required value for the
 characterEncoding parameter for this method. Since the _Writer_ for this
 response will already have been obtained (due to it ultimately being
 passed to this method), we know that the character encoding cannot
 change during the rendering of the response. Please see
-link:JSF.html#a3324[See ResponseWriter]
+<<Per-RequestStateInformation.adoc#a3324,See ResponseWriter>>
 
 [width="100%",cols="100%",]
 |===
@@ -205,8 +205,8 @@ implementation_ programming model, these methods will be called during
 the _Render Response_ phase of the request processing lifecycle. These
 methods have the same responsibilities as the corresponding
 _encodeBegin()_ , _encodeChildren()_ , and _encodeEnd()_ methods of
-_UIComponent_ (described in link:JSF.html#a1041[See Component
-Specialization Methods] and the corresponding Javadocs) when the
+_UIComponent_ (described in <<UserInterfaceComponentModel.adoc#a1041,See Component
+Specialization Methods>> and the corresponding Javadocs) when the
 component implements the _direct implementation_ programming model.
 
 [width="100%",cols="100%",]
@@ -312,7 +312,7 @@ a|
 === Registration By Annotation
 
 JSF provides the
-_javax.faces.render.FacesBehaviorRenderer annotation._
+_jakarta.faces.render.FacesBehaviorRenderer annotation._
 
 [width="100%",cols="100%",]
 |===
@@ -332,8 +332,8 @@ ClientBehaviorRenderer \{
 [[a4288]]
 === ResponseStateManager
 
- _ResponseStateManager_ is the helper class
-to _javax.faces.application.StateManager_ that knows the specific
+_ResponseStateManager_ is the helper class
+to _jakarta.faces.application.StateManager_ that knows the specific
 rendering technology being used to generate the response. It is a
 singleton abstract class. This class knows the mechanics of saving
 state, whether it be in hidden fields, session, or some combination of
@@ -368,8 +368,8 @@ postback. The default implementation returns _true_ if this
 _ResponseStateManager_ instance wrote out state on a previous request to
 which this request is a postback. Return false otherwise.
 
-Please see _link:JSF.html#a4204[See
-ResponseStateManager]_ for deprecated methods in _ResponseStateManager_
+Please see _<<ApplicationIntegration.adoc#a4204,See
+ResponseStateManager>>_ for deprecated methods in _ResponseStateManager_
 .
 
 [width="100%",cols="100%",]
@@ -387,7 +387,7 @@ ResponseStateManager.
 === RenderKitFactory
 
 [P1-start-renderkitFactory]A single instance
-of _javax.faces.render.RenderKitFactory_ must be made available to each
+of _jakarta.faces.render.RenderKitFactory_ must be made available to each
 JSF-based web application running in a servlet or portlet
 container.[P1-end] The factory instance can be acquired by JSF
 implementations, or by application code, by executing
@@ -475,183 +475,183 @@ by all implementations of JSF.
 
 For each valid combination of _UIComponent_
 subclass and standard renderer given in the previous section, there is a
-concrete class in the package _javax.faces.component.html_ package. Each
+concrete class in the package _jakarta.faces.component.html_ package. Each
 class in this package is a subclass of an corresponding class in the
-_javax.faces.component_ package, and adds strongly typed JavaBeans
+_jakarta.faces.component_ package, and adds strongly typed JavaBeans
 properties for all of the renderer-dependent properties. These classes
 also implement the _BehaviorHolder_ interface, enabling them to have
 _Behavior attached to them. Refer to_
-link:JSF.html#a1707[See Component
-Behavior Model] __ for additional details..
+<<UserInterfaceComponentModel.adoc#a1707,See Component
+Behavior Model>> __ for additional details.
 
 === Concrete HTML Component Classes
 
-javax.faces.component class
+jakarta.faces.component class
 
 renderer-type
 
-javax.faces.component.html class
+jakarta.faces.component.html class
 
 UICommand
 
-javax.faces.Button
+jakarta.faces.Button
 
 HtmlCommandButton
 
 UICommand
 
-javax.faces.Link
+jakarta.faces.Link
 
 HtmlCommandLink
 
 UIData
 
-javax.faces.Table
+jakarta.faces.Table
 
 HtmlDataTable
 
 UIForm
 
-javax.faces.Form
+jakarta.faces.Form
 
 HtmlForm
 
 UIGraphic
 
-javax.faces.Image
+jakarta.faces.Image
 
 HtmlGraphicImage
 
 UIInput
 
-javax.faces.Hidden
+jakarta.faces.Hidden
 
 HtmlInputHidden
 
 UIInput
 
-javax.faces.Secret
+jakarta.faces.Secret
 
 HtmlInputSecret
 
 UIInput
 
-javax.faces.Text
+jakarta.faces.Text
 
 HtmlInputText
 
 UIInput
 
-javax.faces.Textarea
+jakarta.faces.Textarea
 
 HtmlInputTextarea
 
 UIMessage
 
-javax.faces.Message
+jakarta.faces.Message
 
 HtmlMessage
 
 UIMessages
 
-javax.faces.Messages
+jakarta.faces.Messages
 
 HtmlMessages
 
 UIOutput
 
-javax.faces.Format
+jakarta.faces.Format
 
 HtmlOutputFormat
 
 UIOutput
 
-javax.faces.Label
+jakarta.faces.Label
 
 HtmlOutputLabel
 
 UIOutput
 
-javax.faces.Link
+jakarta.faces.Link
 
 HtmlOutputLink
 
 UIOutput
 
-javax.faces.Text
+jakarta.faces.Text
 
 HtmlOutputText
 
 UIOutcomeTarget
 
-javax.faces.Link
+jakarta.faces.Link
 
 HtmlOutcomeTargetLink
 
 UIOutcomeTarget
 
-javax.faces.Button
+jakarta.faces.Button
 
 HtmlOutcomeTargetButton
 
 UIPanel
 
-javax.faces.Grid
+jakarta.faces.Grid
 
 HtmlPanelGrid
 
 UIPanel
 
-javax.faces.Group
+jakarta.faces.Group
 
 HtmlPanelGroup
 
 UISelectBoolean
 
-javax.faces.Checkbox
+jakarta.faces.Checkbox
 
 HtmlSelectBooleanCheckbox
 
 UISelectMany
 
-javax.faces.Checkbox
+jakarta.faces.Checkbox
 
 HtmlSelectManyCheckbox
 
 UISelectMany
 
-javax.faces.Listbox
+jakarta.faces.Listbox
 
 HtmlSelectManyListbox
 
 UISelectMany
 
-javax.faces.Menu
+jakarta.faces.Menu
 
 HtmlSelectManyMenu
 
 UISelectOne
 
-javax.faces.Listbox
+jakarta.faces.Listbox
 
 HtmlSelectOneListbox
 
 UISelectOne
 
-javax.faces.Menu
+jakarta.faces.Menu
 
 HtmlSelectOneMenu
 
 UISelectOne
 
-javax.faces.Radio
+jakarta.faces.Radio
 
 HtmlSelectOneRadio
 
 {empty}[P1-start-htmlComponent]As with the
-standard components in the _javax.faces.component_ package, each HTML
+standard components in the _jakarta.faces.component_ package, each HTML
 component implementation class must define a static public final String
-constant named _COMPONENT_TYPE_ , whose value is “ _javax.faces._ ”
+constant named _COMPONENT_TYPE_ , whose value is “ _jakarta.faces._ ”
 concatenated with the class name. HTML components, however, must not
 define a _COMPONENT_FAMILY_ constant, or override the _getFamily()_
 method they inherit from their superclass.[P1-end]
