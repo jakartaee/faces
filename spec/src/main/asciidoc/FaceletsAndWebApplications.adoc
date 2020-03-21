@@ -1,8 +1,8 @@
 [[a5476]]
 == Facelets and its use in Web Applications
 
-As of version 2 of JavaServer Faces,
-Jakarta Server Faces implementations must support (although JSF-based
+As of version 2 of the JavaServer Faces specification,
+ implementations must support (although JSF-based
 applications need not utilize) using Facelets as the view declaration
 language for JSF pages. Facelets technology was created by JSR-252 EG
 Member Jacob Hookom.
@@ -783,7 +783,7 @@ java class is greatly reduced and in most cases is unnecessary. The tag
 library mechanism has two purposes.
 
 Allow page authors to access tags declared in
-the supplied tag libraries declared in <<FaceletsAndWebApplications.adoc#a5691,See
+the supplied tag libraries declared in <<JSFMetadata.adoc#a5691,See
 Standard Facelet Tag Libraries>>, as well as accessing third-party tag
 libraries developed by the application author, or any other third party
 
@@ -958,8 +958,8 @@ during the process of building the view, the facelet runtime encounters
 an element in the page using the prefix for the namespace of a composite
 component library, the runtime must create a _Resource_ instance with a
 library property equal to the library name derived in
-<<FaceletsAndWebApplications.adoc#a5663,See Declaring a composite component library
-for use in a Facelet page>> and call the variant of
+<<FaceletsAndWebApplications.adoc#a5663,See Declaring a composite component library>>
+for use in a Facelet page]and call the variant of
 _application.createComponent()_ that takes a _Resource_ .
 
 {empty}After causing the _top level
@@ -1079,6 +1079,7 @@ composite component inside of which this tag is nested.
 The following additional tags apply to the
 Facelet Core Tag Library only.
 
+[[a1111]]
 === <f:ajax>
 
 This tag serves two roles depending on its
@@ -1509,14 +1510,14 @@ purposes only.
 
 Syntax
 
- _<h:inputText value=”#\{model.property}”> +
+_<h:inputText value=”#\{model.property}”> +
 <f:validateBean validationGroups= +
 "jakarta.validation.groups.Default,app.validation.groups.Order"/> +
 </h:inputText>_
 
 or
 
- _<h:form> +
+_<h:form> +
 <f:validateBean> +
 <h:inputText value=”#\{model.property}” /> +
 <h:selectOneRadio value=”#\{model.radioProperty}” > ...
@@ -1602,7 +1603,7 @@ application, passing validator id "jakarta.faces.Bean". If the binding
 attribute was also set, evaluate the expression into a ValueExpression
 and store the validator instance by calling setValue() on the
 ValueExpression. It must then cast the returned instance to
-jazkarta.faces.validator.BeanValidator, configure its properties based on
+jakarta.faces.validator.BeanValidator, configure its properties based on
 the specified attributes, and return the configured instance. If there
 was an exception thrown, rethrow the exception as a TagException.
 
@@ -1698,7 +1699,7 @@ class-level bean validation on CDI based backing beans.
 
 Syntax
 
- _<!-- one or more components validated by
+_<!-- one or more components validated by
 <f:validateBean /> +
 precede this tag in the tree, with each one using the same +
 validationGroups value and referencing properties on the same +
@@ -1772,7 +1773,7 @@ service methods.
 
 === Syntax
 
- _<f:websocket [binding=_ " _ValueExpression_
+_<f:websocket [binding=_ " _ValueExpression_
 " _] [id=_ " _Literal|ValueExpression_ " _] +
 channel=_ " _Literal_ " _[scope=_ " _Literal_ " _] [user=_ "
 _Literal|ValueExpression_ " _] +
@@ -1957,7 +1958,7 @@ onmessage="function(m)\{console.log(m);}" />
 The onmessage JavaScript listener function
 will be invoked with three arguments:
 
- message: the push message as JSON object.
+message: the push message as JSON object.
 
 channel: the channel name.
 
