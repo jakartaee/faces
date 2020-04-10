@@ -50,7 +50,7 @@ public class MyComponent extends UIOutput...
 |===
 
 For more information on this approach refer
-to link:<<a847, Relocatable Resources>> and
+to <<a847, Relocatable Resources>> and
 <<a869, Resource Rendering Using Annotations>>.
 
 [[a6712]]
