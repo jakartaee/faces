@@ -1,7 +1,7 @@
 == Lifecycle Management
 
-In link:JSF.html#a369[See Request
-Processing Lifecycle],” the required functionality of each phase of the
+In <<a369, Request
+Processing Lifecycle>>,” the required functionality of each phase of the
 request processing lifecycle was described. This chapter describes the
 standard APIs used by JSF implementations to manage and execute the
 lifecycle. Each of these classes and interfaces is part of the
@@ -21,8 +21,8 @@ the _Lifecycle_ instance for this web application, and call its
 _execute()_ and _render()_ methods to perform the request processing
 lifecycle. The _Lifecycle_ instance invokes appropriate processing logic
 to implement the required functionality for each phase of the request
-processing lifecycle, as described in link:JSF.html#a401[See
-Standard Request Processing Lifecycle Phases].
+processing lifecycle, as described in <<a401,
+Standard Request Processing Lifecycle Phases>>.
 
 [width="100%",cols="100%",]
 |===
@@ -95,7 +95,7 @@ Implementations should prevent duplicate _PhaseListener_ registrations
 and log an exception if an attempt is made. The webapp author can
 declare a _PhaseListener_ to be added using the _phase-listener_ element
 of the application configuration resources file. Please see
-_link:JSF.html#a6635[See PhaseListener]_ .
+<<a6635, PhaseListener>>.
 
 
 [[a6626]]
