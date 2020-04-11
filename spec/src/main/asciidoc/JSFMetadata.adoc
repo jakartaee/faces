@@ -71,7 +71,8 @@ syntax specified in the following subsection(s). DTD syntax is used for
 convenience since the content of a _*-extension_ element may not be
 constrained due to its declaration as containing _<xsd:any>_ .
 
-=== [[a7061]]The _facelets-processing_ element
+[[a7061]]
+=== The _facelets-processing_ element
 
 DTD syntax..
 
@@ -298,7 +299,8 @@ proper JSF 2.0 Facelet Taglibraries will declare conformance to the
 following schema, rather than the deprecated
 DTD.[P1_end_facelet_taglib_decl]
 
-=== [[a7139]]Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0
+[[a7139]]
+=== Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0
 
 This DTD is deprecated and is included so
 implementors will have a reference.
