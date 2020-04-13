@@ -15,28 +15,28 @@ HTML5 Friendly Markup
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1090
 
 {empty}Start with
-link:JSF.html#a5581[See HTML5 Friendly Markup]
+<<FaceletsAndWebApplications.adoc#a5581,See HTML5 Friendly Markup>>
 
 Resource Library Contracts
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1142
 
-Start with link:JSF.html#a5526[See
-Resource Library Contracts Background].
+Start with <<FaceletsAndWebApplications.adoc#a5526,See
+Resource Library Contracts Background>>.
 
 Faces Flows
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-730
 
-Start with link:JSF.html#a3840[See
-FlowHandler].
+Start with <<ApplicationIntegration.adoc#a3840,See
+FlowHandler>>.
 
 Stateless Views
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055
 
-Start with link:JSF.html#a4126[See
-Stateless Views].
+Start with <<ApplicationIntegration.adoc#a4126,See
+Stateless Views>>.
 
 === Other Features, by Functional Area
 
@@ -60,7 +60,7 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1068-PartialResponseProc
 
 New section describing what happens with
 respect to partial processing during render response. See
-link:JSF.html#a480[See Render Response Partial Processing].
+<<RequestProcessingLifecycle.adoc#a480,See Render Response Partial Processing>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1067-cc:insertChildren +
 Spec clarifications. See the VDLDoc for _cc:insertChildren_ ,
@@ -147,7 +147,7 @@ public String getName()
 public static PhaseId phaseIdValueOf(String
 phase)
 
-Change link:JSF.html#a3571[See
+Change <<ApplicationIntegration.adoc#a3571,See
 Default NavigationHandler Algorithm] to account for UIViewAction
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1062
@@ -169,15 +169,15 @@ validation succeeds.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071
 
 Add FlashFactory. See
-link:JSF.html#a6336[See Delegating Implementation Support].
+<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1065
 
 {empty}When calculating the locale for the
 resource library prefix, if there is a UIViewRoot, use its locale first,
 otherwise, just use the Applications’s ViewHandler’s calculateLocale()
-method. See link:JSF.html#a836[See Libraries of Localized and
-Versioned Resources]
+method. See <<RequestProcessingLifecycle.adoc#a836,See Libraries of Localized and
+Versioned Resources>>
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1039 +
 In ApplicationWrapper, mark things as deprecated
@@ -223,8 +223,8 @@ Platform Integration
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763
 
-Change link:JSF.html#a2536[See
-Managed Bean Annotations] to account for new injectability requirements.
+Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,See
+Managed Bean Annotations>> to account for new injectability requirements.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-976 +
 In Javadoc for “Faces Managed Bean Annotation Specification For
@@ -294,8 +294,8 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-548
 
 Require additional check to handle the case
 where, in one resource library, there are both localized and
-non-localized resources. See link:JSF.html#a836[See Libraries
-of Localized and Versioned Resources].
+non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
+of Localized and Versioned Resources>>.
 
 === Smaller Changes
 
@@ -303,17 +303,17 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038
 
 Declare an annotation corresponding to the
 _javax.faces.FACELETS_RESOURCE_RESOLVER_ application configuration
-parameter. See link:JSF.html#a6598[See Requirements for scanning
-of classes for annotations] and link:JSF.html#a6088[See
-Application Configuration Parameters].
+parameter. See <<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning
+of classes for annotations>> and <<UsingJSFInWebApplications.adoc#a6088,See
+Application Configuration Parameters>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082
 
 Account for DOCTYPE discrepancy between
 server side representation of Facelet VDL files, which are proper XHTML,
 and processed files which are sent to the client, which now, by default,
-are HTML5 HTML syntax files. See link:JSF.html#a7061[See The
-facelets-processing element].
+are HTML5 HTML syntax files. See <<JSFMetadata.adoc#a7061,See The
+facelets-processing element>>.
 
 Fix incorrect VDLDoc
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-967
@@ -362,8 +362,8 @@ HTML5 id attribute sensitivity
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1064
 
-In link:JSF.html#a7061[See The
-facelets-processing element], clarify that in XML and JSPX modes, only
+In <<JSFMetadata.adoc#a7061,See The
+facelets-processing element>>, clarify that in XML and JSPX modes, only
 the CDATA section start and end tags, not the entire CDATA section and
 contents, should be consumed.
 
@@ -376,14 +376,14 @@ ui:repeat tag size attribute
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1036
 
-In link:JSF.html#a911[See
-ValueExpression properties], clarify which attributes are expression
+In <<UserInterfaceComponentModel.adoc#a911,See
+ValueExpression properties>>, clarify which attributes are expression
 enabled,
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1035
 
 Change section
-link:JSF.html#a3300[See FacesMessage]to clarify the meaning of
+<<Per-RequestStateInformation.adoc#a3300,See FacesMessage>> to clarify the meaning of
 having _FacesMessage_ instances on the _FacesContext._
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1026 +
@@ -419,7 +419,7 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1015
 Non-normative text about http methods and prefix mapping
 
 http://java.net/jira/browse/JAVASERVERFACES-2740 +
-In link:JSF.html#a923[See Component Bindings], clarify a corner
+In <<UserInterfaceComponentModel.adoc#a923,See Component Bindings>>, clarify a corner
 case regarding bean scope and component binding.
 
 Resources
@@ -436,18 +436,18 @@ resources must be loaded using ResourceHandler.createViewResource().
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996
 
 Enable configuring the web app resources
-directory. See link:JSF.html#a6088[See Application Configuration
-Parameters].
+directory. See <<UsingJSFInWebApplications.adoc#a6088,See Application Configuration
+Parameters>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-719 +
 Method to map a viewId to a resourcePath
 
 {empty}http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1130-SerializeServerState +
-Modify link:JSF.html#a4135[See State Saving Alternatives and
-Implications] to clarify there is no requirement to serialize server
+Modify <<ApplicationIntegration.adoc#a4135,See State Saving Alternatives and
+Implications>> to clarify there is no requirement to serialize server
 state by default when state saving method is server. Introduce a context
-parameter to this effect in link:JSF.html#a6088[See Application
-Configuration Parameters]
+parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,See Application
+Configuration Parameters>>
 
 Expression Language
 
@@ -459,8 +459,8 @@ regarding wrapping any exception thrown by the invoked method being
 wrapped in an AbortProcessingException. Such a requirement is incorrect
 and should not have been introduced.
 
-In section link:JSF.html#a3253[See
-ExceptionHandler], add _AbortProcessingException_ , to the list of
+In section <<Per-RequestStateInformation.adoc#a3253,See
+ExceptionHandler>>, add _AbortProcessingException_ , to the list of
 exceptions that do not get to the _ExceptionHandler_ .
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1043 +
@@ -469,15 +469,15 @@ is pushed correctly
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1164 +
 If running in a container that supports EL 3.0, add the necessary
-ELResolvers. See link:JSF.html#a2966[See Stream, StaticField,
-Map, List, Array, and Bean ELResolvers].
+ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
+Map, List, Array, and Bean ELResolvers>>.
 
 Configuration and Bootstrapping
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig
 
-Modify link:JSF.html#a6201[See
-Application Startup Behavior] to account for requirement to call new API
+Modify <<UsingJSFInWebApplications.adoc#a6201,See
+Application Startup Behavior>> to account for requirement to call new API
 when starting up.
 
 Miscellaneous
@@ -638,29 +638,29 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-869
 Specify Cross Site Request Forgery
 protection.
 
-Add text in link:JSF.html#a404[See
-Restore View] to describe how non-postback requests are inspected for
+Add text in <<RequestProcessingLifecycle.adoc#a404,See
+Restore View>> to describe how non-postback requests are inspected for
 protection, if necessary.
 
 Remove text for writeState() in
-link:JSF.html#a4288[See ResponseStateManager], point to the
+<<RenderingModel.adoc#a4288,See ResponseStateManager>>, point to the
 JavaDocs.
 
 Add View Protection methods to
-link:JSF.html#a3874[See Overview] for ViewHandler.
+<<ApplicationIntegration.adoc#a3874,See Overview>> for ViewHandler.
 
 Introduce subsections to
-link:JSF.html#a3910[See Default ViewHandler Implementation] that
+<<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>> that
 group the methods by their purpose. Add a new section
-link:JSF.html#a3997[See ViewHandler Methods that relate to View
-Protection], which points to the javadocs. In
-link:JSF.html#a3955[See ViewHandler Methods Relating to
-Navigation], in the spec for _getActionUrl()_ , specify how view
+<<ApplicationIntegration.adoc#a3997,See ViewHandler Methods that relate to View
+Protection>>, which points to the javadocs. In
+<<ApplicationIntegration.adoc#a3955,See ViewHandler Methods Relating to
+Navigation>>, in the spec for _getActionUrl()_ , specify how view
 protection is affected.
 
 {empty}Remove tables in section
-link:JSF.html#a6598[See Requirements for scanning of classes for
-annotations]
+<<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning of classes for
+annotations>>
 
 The Javadoc tool lists annotations in a
 separate section, making the tables that list JSF related annotations
@@ -671,19 +671,19 @@ redundant.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082-DoctypeElement
 
 Add new section
-link:JSF.html#a5635[See DOCTYPE and XML Declaration].
+<<FaceletsAndWebApplications.adoc#a5635,See DOCTYPE and XML Declaration>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1141-SlashInResourceNames
 
-In link:JSF.html#a758[See Resource
-Identifiers], declare that resourceName and resourceVersion, in addition
+In <<RequestProcessingLifecycle.adoc#a758,See Resource
+Identifiers>>, declare that resourceName and resourceVersion, in addition
 to the already listed other segments, are subject to the same
 constraints.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129-ResetValues
 
-In link:JSF.html#a480[See Render
-Response Partial Processing], require calling _UIViewRoot.resetValues()_
+In <<RequestProcessingLifecycle.adoc#a480,See Render
+Response Partial Processing>>, require calling _UIViewRoot.resetValues()_
 if necessary.
 
 === Backward Compatibility with Previous Versions
@@ -718,8 +718,8 @@ containsKey(): If the attributes map contains
 the key, return true. Otherwise, if a default value has been declared
 for the attribute, return true. Otherwise, return false.
 
-{empty}link:JSF.html#a1671[See
-Composite Component Metadata]
+{empty}<<UserInterfaceComponentModel.adoc#a1671,See
+Composite Component Metadata>>
 
 New text dealing with <cc:attribute>
 
@@ -754,28 +754,28 @@ HTML5 Friendly Markup
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1090
 
 {empty}Start with
-link:JSF.html#a5581[See HTML5 Friendly Markup]
+<<FaceletsAndWebApplications.adoc#a5581,See HTML5 Friendly Markup>>
 
 Resource Library Contracts
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1142
 
-Start with link:JSF.html#a5526[See
-Resource Library Contracts Background].
+Start with <<FaceletsAndWebApplications.adoc#a5526,See
+Resource Library Contracts Background>>.
 
 Faces Flows
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-730
 
-Start with link:JSF.html#a3840[See
-FlowHandler].
+Start with <<ApplicationIntegration.adoc#a3840,See
+FlowHandler>>.
 
 Stateless Views
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055
 
-Start with link:JSF.html#a4126[See
-Stateless Views].
+Start with <<ApplicationIntegration.adoc#a4126,See
+Stateless Views>>.
 
 === Other Features, by Functional Area
 
@@ -799,7 +799,7 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1068-PartialResponseProc
 
 New section describing what happens with
 respect to partial processing during render response. See
-link:JSF.html#a480[See Render Response Partial Processing].
+<<RequestProcessingLifecycle.adoc#a480,See Render Response Partial Processing>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1067-cc:insertChildren +
 Spec clarifications. See the VDLDoc for _cc:insertChildren_ ,
@@ -886,8 +886,8 @@ public String getName()
 public static PhaseId phaseIdValueOf(String
 phase)
 
-Change link:JSF.html#a3571[See
-Default NavigationHandler Algorithm] to account for UIViewAction
+Change <<ApplicationIntegration.adoc#a3571,See
+Default NavigationHandler Algorithm>> to account for UIViewAction
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1062
 and http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-802 +
@@ -908,15 +908,15 @@ validation succeeds.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071
 
 Add FlashFactory. See
-link:JSF.html#a6336[See Delegating Implementation Support].
+<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1065
 
 {empty}When calculating the locale for the
 resource library prefix, if there is a UIViewRoot, use its locale first,
 otherwise, just use the Applications’s ViewHandler’s calculateLocale()
-method. See link:JSF.html#a836[See Libraries of Localized and
-Versioned Resources]
+method. See <<RequestProcessingLifecycle.adoc#a836,See Libraries of Localized and
+Versioned Resources>>
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1039 +
 In ApplicationWrapper, mark things as deprecated
@@ -962,8 +962,8 @@ Platform Integration
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763
 
-Change link:JSF.html#a2536[See
-Managed Bean Annotations] to account for new injectability requirements.
+Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,See
+Managed Bean Annotations>> to account for new injectability requirements.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-976 +
 In Javadoc for “Faces Managed Bean Annotation Specification For
@@ -1033,8 +1033,8 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-548
 
 Require additional check to handle the case
 where, in one resource library, there are both localized and
-non-localized resources. See link:JSF.html#a836[See Libraries
-of Localized and Versioned Resources].
+non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
+of Localized and Versioned Resources>>.
 
 === Smaller Changes
 
@@ -1042,17 +1042,17 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038
 
 Declare an annotation corresponding to the
 _javax.faces.FACELETS_RESOURCE_RESOLVER_ application configuration
-parameter. See link:JSF.html#a6598[See Requirements for scanning
-of classes for annotations] and link:JSF.html#a6088[See
-Application Configuration Parameters].
+parameter. See <<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning
+of classes for annotations>> and <<UsingJSFInWebApplications.adoc#a6088,See
+Application Configuration Parameters>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082
 
 Account for DOCTYPE discrepancy between
 server side representation of Facelet VDL files, which are proper XHTML,
 and processed files which are sent to the client, which now, by default,
-are HTML5 HTML syntax files. See link:JSF.html#a7061[See The
-facelets-processing element].
+are HTML5 HTML syntax files. See <<JSFMetadata.adoc#a7061,See The
+facelets-processing element>>.
 
 Fix incorrect VDLDoc
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-967
@@ -1101,8 +1101,8 @@ HTML5 id attribute sensitivity
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1064
 
-In link:JSF.html#a7061[See The
-facelets-processing element], clarify that in XML and JSPX modes, only
+In <<JSFMetadata.adoc#a7061,See The
+facelets-processing element>>, clarify that in XML and JSPX modes, only
 the CDATA section start and end tags, not the entire CDATA section and
 contents, should be consumed.
 
@@ -1115,14 +1115,14 @@ ui:repeat tag size attribute
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1036
 
-In link:JSF.html#a911[See
-ValueExpression properties], clarify which attributes are expression
+In <<UserInterfaceComponentModel.adoc#a911,See
+ValueExpression properties>>, clarify which attributes are expression
 enabled,
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1035
 
 Change section
-link:JSF.html#a3300[See FacesMessage]to clarify the meaning of
+<<Per-RequestStateInformation.adoc#a3300,See FacesMessage>> to clarify the meaning of
 having _FacesMessage_ instances on the _FacesContext._
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1026 +
@@ -1158,7 +1158,7 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1015
 Non-normative text about http methods and prefix mapping
 
 http://java.net/jira/browse/JAVASERVERFACES-2740 +
-In link:JSF.html#a923[See Component Bindings], clarify a corner
+In <<UserInterfaceComponentModel.adoc#a923,See Component Bindings>>, clarify a corner
 case regarding bean scope and component binding.
 
 Resources
@@ -1175,18 +1175,18 @@ resources must be loaded using ResourceHandler.createViewResource().
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996
 
 Enable configuring the web app resources
-directory. See link:JSF.html#a6088[See Application Configuration
-Parameters].
+directory. See <<UsingJSFInWebApplications.adoc#a6088,See Application Configuration
+Parameters>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-719 +
 Method to map a viewId to a resourcePath
 
 {empty}http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1130-SerializeServerState +
-Modify link:JSF.html#a4135[See State Saving Alternatives and
-Implications] to clarify there is no requirement to serialize server
+Modify <<ApplicationIntegration.adoc#a4135,See State Saving Alternatives and
+Implications>> to clarify there is no requirement to serialize server
 state by default when state saving method is server. Introduce a context
-parameter to this effect in link:JSF.html#a6088[See Application
-Configuration Parameters]
+parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,See Application
+Configuration Parameters>>
 
 Expression Language
 
@@ -1198,8 +1198,8 @@ regarding wrapping any exception thrown by the invoked method being
 wrapped in an AbortProcessingException. Such a requirement is incorrect
 and should not have been introduced.
 
-In section link:JSF.html#a3253[See
-ExceptionHandler], add _AbortProcessingException_ , to the list of
+In section <<Per-RequestStateInformation.adoc#a3253,See
+ExceptionHandler>>, add _AbortProcessingException_ , to the list of
 exceptions that do not get to the _ExceptionHandler_ .
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1043 +
@@ -1208,15 +1208,15 @@ is pushed correctly
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1164 +
 If running in a container that supports EL 3.0, add the necessary
-ELResolvers. See link:JSF.html#a2966[See Stream, StaticField,
-Map, List, Array, and Bean ELResolvers].
+ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
+Map, List, Array, and Bean ELResolvers>>.
 
 Configuration and Bootstrapping
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig
 
-Modify link:JSF.html#a6201[See
-Application Startup Behavior] to account for requirement to call new API
+Modify <<UsingJSFInWebApplications.adoc#a6201,See
+Application Startup Behavior>> to account for requirement to call new API
 when starting up.
 
 Miscellaneous
@@ -1377,29 +1377,29 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-869
 Specify Cross Site Request Forgery
 protection.
 
-Add text in link:JSF.html#a404[See
-Restore View] to describe how non-postback requests are inspected for
+Add text in <<RequestProcessingLifecycle.adoc#a404,See
+Restore View>> to describe how non-postback requests are inspected for
 protection, if necessary.
 
 Remove text for writeState() in
-link:JSF.html#a4288[See ResponseStateManager], point to the
+<<RenderingModel.adoc#a4288,See ResponseStateManager>>, point to the
 JavaDocs.
 
 Add View Protection methods to
-link:JSF.html#a3874[See Overview] for ViewHandler.
+<<ApplicationIntegration.adoc#a3874,See Overview>> for ViewHandler.
 
 Introduce subsections to
-link:JSF.html#a3910[See Default ViewHandler Implementation] that
+<<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>> that
 group the methods by their purpose. Add a new section
-link:JSF.html#a3997[See ViewHandler Methods that relate to View
-Protection], which points to the javadocs. In
-link:JSF.html#a3955[See ViewHandler Methods Relating to
-Navigation], in the spec for _getActionUrl()_ , specify how view
+<<ApplicationIntegration.adoc#a3997,See ViewHandler Methods that relate to View
+Protection>>, which points to the javadocs. In
+<<ApplicationIntegration.adoc#a3955,See ViewHandler Methods Relating to
+Navigation>>, in the spec for _getActionUrl()_ , specify how view
 protection is affected.
 
 {empty}Remove tables in section
-link:JSF.html#a6598[See Requirements for scanning of classes for
-annotations]
+<<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning of classes for
+annotations>>
 
 The Javadoc tool lists annotations in a
 separate section, making the tables that list JSF related annotations
@@ -1410,19 +1410,19 @@ redundant.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082-DoctypeElement
 
 Add new section
-link:JSF.html#a5635[See DOCTYPE and XML Declaration].
+<<FaceletsAndWebApplications.adoc#a5635,See DOCTYPE and XML Declaration>>.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1141-SlashInResourceNames
 
-In link:JSF.html#a758[See Resource
-Identifiers], declare that resourceName and resourceVersion, in addition
+In <<RequestProcessingLifecycle.adoc#a758,See Resource
+Identifiers>>, declare that resourceName and resourceVersion, in addition
 to the already listed other segments, are subject to the same
 constraints.
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129-ResetValues
 
-In link:JSF.html#a480[See Render
-Response Partial Processing], require calling _UIViewRoot.resetValues()_
+In <<RequestProcessingLifecycle.adoc#a480,See Render
+Response Partial Processing>>, require calling _UIViewRoot.resetValues()_
 if necessary.
 
 === Backward Compatibility with Previous Versions
@@ -1457,8 +1457,8 @@ containsKey(): If the attributes map contains
 the key, return true. Otherwise, if a default value has been declared
 for the attribute, return true. Otherwise, return false.
 
-{empty}link:JSF.html#a1671[See
-Composite Component Metadata]
+{empty}<<UserInterfaceComponentModel.adoc#a1671,See
+Composite Component Metadata>>
 
 New text dealing with <cc:attribute>
 
@@ -1481,16 +1481,16 @@ substantial, it was judged to be worth the cost.
 
 === Changes between 2.0 Rev a and 2.1
 
-=== link:JSF.html#a5638[See Facelet Tag Library mechanism]
+=== <<FaceletsAndWebApplications.adoc#a5638,See Facelet Tag Library mechanism>>
 
 Document that the unprefixed namespace must
 pass through.
 
 === New feature: <facelets-processing>
 
-{empty}link:JSF.html#a7040[See
+{empty}<<JSFMetadata.adoc#a7040,See
 Required Handling of *-extension elements in the application
-configuration resources files]
+configuration resources files>>
 
 === Update schema for 2.1
 
@@ -1500,11 +1500,11 @@ the documents.
 
 === Change Restore View Phase
 
-Change link:JSF.html#a404[See
-Restore View] to require a call to _ViewHandler.deriveLogicalViewId()_
+Change <<RequestProcessingLifecycle.adoc#a404,See
+Restore View>> to require a call to _ViewHandler.deriveLogicalViewId()_
 before trying to find the _ViewDeclarationLanguage_ .
 
-=== link:JSF.html#a3910[See Default ViewHandler Implementation]
+=== <<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>>
 
 Document _deriveLogicalViewId()._
 
@@ -1596,37 +1596,37 @@ Update spec license.
 
 === Chapter 2
 
-{empty}link:JSF.html#a404[See
-Restore View]
+{empty}<<RequestProcessingLifecycle.adoc#a404,See
+Restore View>>
 
 Per Andy Schwartz recommendation, loosen the
 spec requirements for the delivery of the PostRestoreStateEvent to be
 "somewhere during RestoreView".
 
-{empty}link:JSF.html#a584[See
-Localized Application Messages]
+{empty}<<RequestProcessingLifecycle.adoc#a584,See
+Localized Application Messages>>
 
 Suggestion: Change to
 
 Validation Error: Length is less than
 allowable minimum of 5.
 
-{empty}link:JSF.html#a710[See JSR
-303 Bean Validation]
+{empty}<<RequestProcessingLifecycle.adoc#a710,See JSR
+303 Bean Validation>>
 
 Change "leas" to "least"
 
-link:JSF.html#a710[See JSR 303 Bean
-Validation]needs to reference "Bean Validation Integration" section
+<<RequestProcessingLifecycle.adoc#a710,See JSR 303 Bean
+Validation>> needs to reference "Bean Validation Integration" section
 
 While reading section 2.5.7, one becomes very
 disappointed with the limited about of information that it provides. But
 section 3.5.6 provides more information, so the recommendation is that
-these sections reference eachother, or perhaps are combined in some way
+these sections reference each other, or perhaps are combined in some way
 if that makes sense.
 
-{empty}link:JSF.html#a758[See
-Resource Identifiers]
+{empty}<<RequestProcessingLifecycle.adoc#a758,See
+Resource Identifiers>>
 
 Tighten spec for the localePrefix,
 libraryName, and resourceVersion segments of the resource identifier.
@@ -1634,7 +1634,7 @@ libraryName, and resourceVersion segments of the resource identifier.
 === Chapter 3
 
 {empty}Clarify meaning of "javax.faces.bean"
-in link:JSF.html#a1464[See Bean Validator Activation]
+in <<UserInterfaceComponentModel.adoc#a1464,See Bean Validator Activation>>
 
 Section 3.5.6.1 says:
 
@@ -1651,7 +1651,7 @@ javax.faces.validator.BeanValidator class as mentioned in Section
 10.4.1.4.
 
 Need to be consistent between
-link:JSF.html#a1393[See Declarative Listener Registration]of the
+<<UserInterfaceComponentModel.adoc#a1393,See Declarative Listener Registration>> of the
 JSF 2.0 Spec and the VDLDoc for f:event
 
 Section 3.4.3.4 of the JSF 2.0 Spec reads:
@@ -1671,8 +1671,8 @@ Both of these are true, and indeed saying the
 same thing. But I think it would be helpful to say BOTH things, in BOTH
 documents.
 
-Typo in link:JSF.html#a1393[See
-Declarative Listener Registration] of the JSF 2.0 Spec regarding
+Typo in <<UserInterfaceComponentModel.adoc#a1393,See
+Declarative Listener Registration>> of the JSF 2.0 Spec regarding
 "beforeRender"
 
 Section 3.4.3.4 of the JSF 2.0 Spec has this
@@ -1688,15 +1688,15 @@ listener="#\{myBean.beforeTextRender}" />
 But "beforeRender" is a typo. The correct
 value is "preRenderComponent" as stated in the f:event VDLDocs.
 
-{empty}link:JSF.html#a1419[See
-Validation Registration], link:JSF.html#a1518[See What does it
-mean to be a JSF User Interface component?]
+{empty}<<UserInterfaceComponentModel.adoc#a1419,See
+Validation Registration>>, <<UserInterfaceComponentModel.adoc#a1518,See What does it
+mean to be a JSF User Interface component?>>
 
 Remove references to UInput.encodeEnd(). Not
 for a very long time has this method been used to instigate validation.
 
-{empty}link:JSF.html#a1671[See
-Composite Component Metadata]
+{empty}<<UserInterfaceComponentModel.adoc#a1671,See
+Composite Component Metadata>>
 
 Section 3.6.2.1 of the Spec indicates that
 the "hidden" property of the javax.bean.FeatureDescriptor is to appear
@@ -1706,35 +1706,35 @@ VDLDocs do not declare that the "hidden" property is available.
 
 === Chapter 4
 
-{empty}link:JSF.html#a2268[See
-Events]
+{empty}<<StandardUserInterfaceComponents.adoc#a2268,See
+Events>>
 
 Remove text pertaining to
 PostRestoreStateEvent, rely instead on text in setion 2.2.1.
 
 Chapter 7
 
-{empty}link:JSF.html#a3562[See
-Overview]
+{empty}<<ApplicationIntegration.adoc#a3562,See
+Overview>>
 
 getNavigationCase should return
 NavigationCase and not void.
 
-{empty}link:JSF.html#a3571[See
-Default NavigationHandler Algorithm]
+{empty}<<ApplicationIntegration.adoc#a3571,See
+Default NavigationHandler Algorithm>>
 
 Add faces-include-view-params
 
-{empty}link:JSF.html#a3910[See
-Default ViewHandler Implementation]
+{empty}<<ApplicationIntegration.adoc#a3910,See
+Default ViewHandler Implementation>>
 
 Fix typo the specified createView() should be
 called in renderView() and restoreView().
 
 === Chapter 9
 
-link:JSF.html#a4654[See
-<f:actionListener>] of Spec PDF -- Missing "for" attribute of
+<<IntegrationWithJSP.adoc#a4654,See
+<f:actionListener> >> of Spec PDF -- Missing "for" attribute of
 f:actionListener in Spec PDF
 
 The example for f:selectItems includes a
@@ -1746,9 +1746,9 @@ looks like it doesn't. It seems as though the itemLabelEscaped attribute
 is documented twice, but really the second occurance is the
 noSelectionValue.
 
-{empty}link:JSF.html#a4654[See
-<f:actionListener>] and link:JSF.html#a5282[See
-<f:valueChangeListener>]
+{empty}<<IntegrationWithJSP.adoc.#a4654,See
+<f:actionListener> >> and <<IntegrationWithJSP.adoc#a5282,See
+<f:valueChangeListener> >>
 
 Add this non-normative text.
 
@@ -1776,16 +1776,16 @@ Somehow there needs to be an explanation of
 the distinction of "page templating" and "template text" here. Right now
 it kind of reads as a contradiction.
 
-{empty}link:JSF.html#a5632[See
-General Requirements]
+{empty}<<FaceletsAndWebApplications.adoc#a5632,See
+General Requirements>>
 
 Add an assertion to section 10.3.1 stating
 that EL expressions that appear in the facelet XHTML page must appear in
 the rendered view as if they were the right hand side of the value
 attribute of an at the same point in the page as the EL expression
 
-{empty}link:JSF.html#a5638[See
-Facelet Tag Library mechanism]
+{empty}<<FaceletsAndWebApplications.adoc#a5638,See
+Facelet Tag Library mechanism>>
 
 Section 10.3.2. Correct xref to point to
 section in appendix that includes the facelet taglib schema.
@@ -1795,11 +1795,11 @@ that includes the facelet taglib schema.
 
 VDLDocs and PDL documentation
 
-link:JSF.html#a6043[See
-Facelet Templating Tag Library],
-link:JSF.html#a6043[See Facelet
-Templating Tag Library], and link:JSF.html#a6047[See JSTL Core
-and Function Tag Libraries] refer the reader to the "VDLDocs" for
+<<FaceletsAndWebApplications.adoc#a6043,See
+Facelet Templating Tag Library>>,
+<<FaceletsAndWebApplications.adoc#a6043,See Facelet
+Templating Tag Library>>, and <<FaceletsAndWebApplications.adoc#a6047,See JSTL Core
+and Function Tag Libraries>> refer the reader to the "VDLDocs" for
 Facelet, CC, and JSTL tag libraries respectively.
 
 However, when one checks out the Mojarra
@@ -1812,7 +1812,7 @@ Language (VDL) terminology hasn't made its way into the tag library docs
 yet.
 
 Possible error in section
-link:JSF.html#UNKNOWN[See <f:ajax>] of the JSF 2.0 Spec regarding
+<<FaceletsAndWebApplications.adoc#a1111,See <f:ajax> >> of the JSF 2.0 Spec regarding
 f:ajax and h:panelGrid
 
 Section 10.4.1.1, shows this example:
@@ -1861,7 +1861,7 @@ So... which is it? Does h:panelGrid get ajax
 behavior or not? Can an HTML table have an "onclick" JavaScript event?
 
 Redundant mentioning of Facelets in
-link:JSF.html#a5828[See <f:validateBean>] of the JSF 2.0 Spec
+<<FaceletsAndWebApplications.adoc#a5828,See <f:validateBean> >> of the JSF 2.0 Spec
 
 Since the parent section (10.4.1) indicates
 that sub-sections are Facelets-only in nature, then it is not necessary
@@ -1871,8 +1871,8 @@ to have (Facelets only) in the "Constraints" paragraph of Section
 Availability of f:validateBean and
 f:validateRequired in JSP
 
-link:JSF.html#a5691[See Standard
-Facelet Tag Libraries] outlines the f: namespaced tags that are only
+<<FaceletsAndWebApplications.adoc#a5691,See Standard
+Facelet Tag Libraries>> outlines the f: namespaced tags that are only
 applicable to Facelets (and not JSP). In that section, f:validateBean,
 and f:validateRequired are listed. However, they are both listed as
 working with JSP as well (kind of like f:validateRegex), as can be seen
@@ -1893,8 +1893,8 @@ functionality described in each section.
 === Chapter 13
 
 Redundancy in
-link:JSF.html#a6831[See Partial View
-Processing] of the JSF 2.0 Spec
+<<AjaxIntegration.adoc#a6831,See Partial View
+Processing<< of the JSF 2.0 Spec
 
 Section 13.4.2 of the JSF 2.0 spec has this
 sentence:
@@ -1925,8 +1925,8 @@ the execute portions?
 
 === Chapter 14
 
-link:JSF.html#a6856[See
-Initiating an Ajax Request] Typo in table 14.2.2 of the JSF 2.0 Spec
+<<JavaScriptAPI.adoc#a6856,See
+Initiating an Ajax Request>> Typo in table 14.2.2 of the JSF 2.0 Spec
 
 Table 14.2.2 reads:
 
@@ -1940,8 +1940,8 @@ of the spec, it should read:
 Also, the same goes for "render" in that the
 word "portion" should be used instead of "phase".
 
-link:JSF.html#a6933[See
-Request/Response Event Handling]Table 14.4.1
+<<JavaScriptAPI.adoc#a6933,See
+Request/Response Event Handling>> Table 14.4.1
 
 Change responseTxt to responseText.
 
@@ -1952,9 +1952,9 @@ Table 14.3: Reorder rows
 Update schema to remove partial-traversal, as
 well as fixing 768.
 
-{empty}link:JSF.html#a7139[See
+{empty}<<JSFMetadata.adoc.html#a7139,See
 Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets
-Prior to JSF 2.0]
+Prior to JSF 2.0>>
 
 To ease migration for Facelet taglibraries
 declared using pre-JSF 2.0 versions of Facelets, implementations must
@@ -2924,1951 +2924,8 @@ Public:806]_
 
 
 
-=== Changes between 1.2 Final and 2.0 Final
+=== Changes in versions below 2.0 Final
 
-This section gives a change-by-change
-accounting of the modifications to the spec since the draft listed in
-the title of this section.
+See the JavaServer Faces specification document for these changes. The change log items are removed from this
+document in Jakarta Server Faces specification version 3.0.
 
-=== link:JSF.html#a383[See Request Processing Lifecycle Scenarios]
-
-Modified to define and explain resource
-requests and responses.
-
-=== link:JSF.html#a401[See Standard Request Processing Lifecycle Phases]
-
-Specify how and when the _currentPhaseId_
-property of the current _FacesContext_ must be updated.
-
-=== link:JSF.html#a404[See Restore View]
-
-Modified to indicate that the
-_PostAddToViewEvent_ event must be sent after the view was created. Also
-specify that if the VDL is Facelets, the tree must be fully constructed
-before exiting Restore View.
-
-Change how the “binding” attribute is
-handled. In the case of a programmatically created view, manually
-traverse the tree and send each node the _AfterRestoreViewEvent_ . In
-the case of a normally restored tree, the “binding” attribute is handled
-by _UIViewRoot.processRestoreState()_ , which is already called from
-_StateManager.restoreView()_ .
-
-Modify the non-faces-request case to include
-view parameter processing.
-
-=== link:JSF.html#a427[See Apply Request Values]
-
-Specified additional behavior to recognize
-partial requests and to perform partial processing.
-
-=== link:JSF.html#a436[See Apply Request Values Partial Processing]
-
-Specified behavior for partial processing.
-
-=== link:JSF.html#a438[See Process Validations]
-
-Specified additional behavior to recognize
-partial requests and to perform partial processing.
-
-=== link:JSF.html#a444[See Partial Validations Partial Processing]
-
-Specified behavior for partial processing.
-
-=== link:JSF.html#a446[See Update Model Values]
-
-Specified additional behavior to recognize
-partial requests and to perform partial processing.
-
-=== link:JSF.html#a452[See Update Model Values Partial Processing]
-
-Specified behavior for partial processing.
-
-=== link:JSF.html#a457[See Render Response]
-
-Generalized to remove JSP specific language.
-
-Added the requirement for (partial requests)
-to prevent writing to the response at the start of this phase (to
-prevent content from being written outside f:view)
-
-=== link:JSF.html#a584[See Localized Application Messages]
-
-Added message key for Bean Validation.
-
-=== link:JSF.html#a685[See Resource Handling]
-
-Add non-normative section traversing this
-feature.
-
-=== link:JSF.html#a695[See View Parameters]
-
-Add non-normative section traversing this
-feature.
-
-=== link:JSF.html#a707[See Bookmarkability]
-
-Add non-normative section traversing this
-feature.
-
-=== link:JSF.html#a710[See JSR 303 Bean Validation]
-
-Add non-normative section traversing this
-feature.
-
-=== link:JSF.html#a716[See Ajax]
-
-Add non-normative section traversing this
-feature.
-
-=== link:JSF.html#a720[See Component Behaviors]
-
-Add non-normative section traversing this
-feature.
-
-=== New link:JSF.html#a746[See Resource Handling]
-
-This section is the starting point for the
-specification of the Resource Handler facility, which is also specified
-in the JavaDocs and the Standard RenderKit Docs.
-
-=== New link:JSF.html#a842[See Rendering Resources]
-
-This section briefly talks about how
-resources (such as images, stylesheets and scripts) use the resource
-handling mechanism.
-
-=== New link:JSF.html#a847[See Relocatable Resources]
-
-This section outlines the mechanism that
-script and stylesheet resources use to render themselves in a different
-location (with respect to tag or component placement in the view).
-
-=== New link:JSF.html#a869[See Resource Rendering Using Annotations]
-
-This section describes the use of an
-annotation to mark that a component requires a resource.
-
-=== link:JSF.html#a946[See Component Tree Navigation]
-
-Added descriptions for
-UIComponent.getCurrentComponent and
-UIComponent.getCurrentCompositeComponent.
-
-Added descriptions for visitTree().
-
-=== link:JSF.html#a983[See Managing Component Behavior]
-
-Described additional method implementations
-of the BehaviorHolder interface.
-
-=== link:JSF.html#a993[See Generic Attributes]
-
-Described additional responsibilities for Map
-get() method if the component instance is a composite component.
-
-=== link:JSF.html#a1006[See Special Attributes]
-
-Describe UIComponent contants that are used
-in attribute Map(s).
-
-=== link:JSF.html#a1041[See Component Specialization Methods]
-
-Mentioned the default behavior of
-UIComponentBasse encodeChildren if no associated renderer. Mentioned
-encodeBegin() must publish PreRenderComponentEvent.
-
-=== link:JSF.html#a1059[See Lifecycle Management Methods]
-
-Added pointers to _pushComponentToEL_ ()
-_popComponentFromEL_ () in support of “component” implicit object.
-
-=== link:JSF.html#a1075[See Utility Methods]
-
-Added UIComponent utility method
-getResourceBundleMap().
-
-=== link:JSF.html#a1175[See Properties]
-
-Mentioned
-ResourceDependency/ResourceDependencies lookup for ValueHolder
-setConverter method.
-
-=== link:JSF.html#a1215[See Methods]
-
-Mentioned
-ResourceDependency/ResourceDependencies lookup for EditableValueHolder
-addValidator method..
-
-=== link:JSF.html#a1229[See SystemEventListenerHolder]
-
-Added section describing this new behavioral
-interface.
-
-=== link:JSF.html#a1258[See Converter]
-
-Added verbage about Resource annotations
-attached to Converters.
-
-=== link:JSF.html#a1302[See Overview]
-
-Updated UML diagram of event package
-
-{empty}Moved existing event content to be in
-new subsection: link:JSF.html#a1306[See Application Events], and
-created a new subsection link:JSF.html#a1359[See System Events]
-
-=== link:JSF.html#a1349[See Event Broadcasting]
-
-Clarification made: throwing an
-AbortProcessingException tells an implementation that no further
-broadcast of the current event occurs. Does not affect future events.
-
-=== link:JSF.html#a1361[See Event Classes]
-
-Added descriptions for
-PostConstructApplicationEvent and PreDestroyApplicationEvent.
-
-=== link:JSF.html#a1393[See Declarative Listener Registration]
-
-New section for declarative events.
-
-=== link:JSF.html#a1403[See Listener Registration By Annotation]
-
-Added verbiage about ListenerFor and
-ListenersFor annotations.
-
-=== link:JSF.html#a1414[See Validator Classes]
-
-Added verbage about Resource annotations
-attached to Validators.
-
-=== link:JSF.html#a1414[See Validator Classes]
-
-Add “javax.faces.RegularExpressionValidator”
-standard validator
-
-=== link:JSF.html#a1414[See Validator Classes]
-
-Added validaor requirements with respect to
-dealing with null or empty values.
-
-=== link:JSF.html#a1419[See Validation Registration]
-
-Added default validator registration
-requirements.
-
-=== link:JSF.html#a1446[See Standard Validator Implementations]
-
-Added requirements for BeanValidator and
-RequiredValidator.
-
-=== link:JSF.html#a1461[See Bean Validation Integration]
-
-Bean Validation integration.
-
-=== link:JSF.html#a1707[See Component Behavior Model]
-
-Section describes adding behavior to the
-component model.
-
-=== link:JSF.html#a2230[See Properties]
-
-=== Specify the _viewMap_ property on UIViewRoot.
-
-=== link:JSF.html#a2257[See Methods]
-
-Specify new methods on UIViewRoot for
-handling resources for the view.
-
-=== link:JSF.html#a2268[See Events]
-
-Added UIViewRoot getPhaseListeners().
-
-=== link:JSF.html#a2277[See Partial Processing]
-
-Specify additional behavior for UIViewRoot
-methods to faciliate partial processing.
-
-=== link:JSF.html#a2298[See Methods]
-
-Specify iterator() method for DataModel.
-
-=== link:JSF.html#a1515[See Composite User Interface Components]
-
-New section specifying composite components.
-
-=== link:JSF.html#a2403[See MethodExpression Syntax and Semantics]
-
-Modify content relating to managed-bean-scope
-to include “view” scope.
-
-=== link:JSF.html#a2601[See Managed Bean Lifecycle Annotations]
-
-Modify _@PostConstruct_ to state that an
-exception thrown during the @PostConstruct must cause a log message to
-be logged.
-
-Modify content to clarify when _@PreDestroy_
-must be called in the case of view scoped managed beans.
-
-=== link:JSF.html#a2830[See Faces Implicit Object ELResolver For JSP] and link:JSF.html#50638862_50118[See Implicit Object ELResolver for Facelets and Programmatic Access]
-
-Specify how the new implicit object ”
-_resource_ “ must be handled by the Implicit Object ELResolver.
-
-Specify how _viewScope_ , _component_ , and
-_cc_ are resolved.
-
-=== link:JSF.html#a2711[See ManagedBean ELResolver]
-
-Modify setValue() to allow for atomic lazy
-creation. This eliminates the need to do a get() before doing a set().
-
-=== link:JSF.html#a2830[See Implicit Object ELResolver for Facelets and Programmatic Access]
-
-Add a new implicit object: “resource”. This
-allows easily encoding resources into markup using EL expressions
-
-Corrected behavior of getType with respect to
-"requestScope", "sessionScope", or “applicationScope” - should return
-null, not Object.class.
-
-=== link:JSF.html#a2940[See Resource ELResolver]
-
-=== This section specifies the behavior of the Resource EL Resolver
-
-=== link:JSF.html#a2908[See Composite Component Attributes ELResolver]
-
-New ELResolver that ensures that #\{cc.attrs}
-resolves to a special Map.
-
-=== link:JSF.html#a2970[See ScopedAttribute ELResolver]
-
-Specify that setPropertyResolved(true) is
-called in all cases.
-
-=== link:JSF.html#a3096[See Attributes]
-
-Add new section after 6.1.1 documenting the
-new _Map_ returned from _FacesContext.getAttributes()_ .
-
-=== link:JSF.html#a3198[See ResponseStream and ResponseWriter]
-
-Add FacesContext enableResponseWriting
-method.
-
-=== link:JSF.html#a3225[See Partial Processing Methods]
-
-Specify the FacesContext contants and methods
-that facilitate partial request processing.
-
-=== link:JSF.html#a3229[See Partial View Context]
-
-Specify this class is used to facilitate
-partial view processing and partial view rendering.
-
-=== link:JSF.html#a3231[See Access To The Current FacesContext Instance]
-
-Specify how this method must behave during
-application startup time.Corrected access keyword for
-FacesContext.setCurrentInstance() to be _protected_ instead of _public_
-.
-
-=== link:JSF.html#a3237[See CurrentPhaseId]
-
-New property to access the current phase.
-
-=== link:JSF.html#a3253[See ExceptionHandler]
-
-New property to access the _ExceptionHandler_
-for this request.
-
-=== link:JSF.html#a3375[See ExceptionHandlerFactory]
-
-New factory for _ExceptionHandler_ instances.
-
-=== link:JSF.html#a3384[See ExternalContextFactory]
-
-New factory for _ExternalContext._
-
-=== link:JSF.html#a3455[See ProjectStage Property]
-
-This section documents the new ProjectStage
-property. This is similar in use to the RAILS_ENV environment variable
-from the Ruby on Rails framework.
-
-=== link:JSF.html#a3526[See System Event Methods]
-
-New section describing system events.
-
-=== link:JSF.html#a3571[See Default NavigationHandler Algorithm]
-
-Specify how to handle implicit navigation.
-
-Specify how to handle conditional navigation
-
-Require that
-_context.getFlash().setRedirect(true)_ is called if the navigation is a
-redirect.
-
-Specify that an informative message must be
-rendered in the page if there is no outcome match and _ProjectStage_ is
-not _Production_ .
-
-Special handling for view parameters and
-redirect.
-
-=== link:JSF.html#a3874[See Overview]
-
-In _createView()_ , if the VDL is Facelets,
-make sure the view is fully populated before returning.
-
-=== link:JSF.html#a3910[See Default ViewHandler Implementation]
-
-Move the viewId derivation algorithm to be
-inside of the new _ViewHandler.deriveViewId()_ method and specify it to
-deal with the new DEFAULT_SUFFIX definition.
-
-Modify getActionURL() to remove the use of
-DEFAULT_SUFFIX and instead take a simpler implementation.
-
-Refactored VDL specific logic into new
-_ViewDeclarationLanguage_ class.
-
-=== link:JSF.html#a4003[See ViewDeclarationLanguage]
-
-New section which coveres how Facelets and
-JSP are handled via the ViewDeclarationLanguage class.
-
-=== link:JSF.html#a4223[See RenderKit]
-
-New methods on _RenderKit_ :
-_getComponentFamilies()_ and _getRendererTypes()_ .
-
-=== link:JSF.html#a4245[See Renderer]
-
-Mentioned the ListenerFor annotation.
-
-=== link:JSF.html#a4264[See ClientBehaviorRenderer]
-
-Renderer for component Behavior.
-
-=== link:JSF.html#a4697[See <f:convertDateTime>]
-
-Extends ConverterELTag, not ConverterTag.
-
-=== link:JSF.html#a4752[See <f:convertNumber>]
-
-Extends ConverterELTag, not ConverterTag
-
-=== link:JSF.html#UNKNOWN[See <f:validateDoubleRange>]
-
-Extends ValidatorELTag, not ValidatorTag
-
-=== link:JSF.html#UNKNOWN[See <f:validateRegex>]
-
-New standard validator
-
-=== link:JSF.html#a5223[See <f:validateLongRange>]
-
-Extends ValidatorELTag, not ValidatorTag
-
-=== link:JSF.html#a5325[See <f:view>]
-
-Extends UIComponentELTag, not
-UIComponentBodyTag
-
-=== link:JSF.html#a5476[See Facelets and its use in Web Applications]
-
-New chapter insterted after
-link:JSF.html#a4404[See] , titled, “Integration with Facelets”.
-This implies increasing the remaining chapter numbers by one.
-
-=== link:JSF.html#UNKNOWN[See <f:ajax>]
-
-Declarative Ajax tag.
-
-=== link:JSF.html#a5815[See Override default Ajax action. “button1” is associated with the Ajax “execute=’cancel’” action:]
-
-Bean Validation tag.
-
-=== link:JSF.html#a5857[See <f:validateRequired>]
-
-Bean Validation tag.
-
-=== link:JSF.html#a6088[See Application Configuration Parameters]
-
-New _javax.faces.PROJECT_STAGE_
-ServletContext init param.
-
-New
-_javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL_
-ServletContext init param.
-
-New
-_javax.faces.DISABLE_FACES_VDL_VIEWHANDLER_ ServletContext init param.
-
-Modify _javax.faces.DEFAULT_SUFFIX_ init
-param, add _javax.faces.FACELETS_DEFAULT_SUFFIX_ ,
-_javax.faces.FACELETS_VIEW_MAPPINGS_ init params.
-
-New _javax.faces.VALIDATE_EMPTY_FIELDS_
-ServletContext init param.
-
-New _javax.faces.PARTIAL_STATE_SAVING_
-ServletContext init param
-
-New _javax.faces.FULL_STATE_SAVING_VIEW_IDS_
-servlet context init param.
-
-Explicitly ignore “
-_/WEB-INF/faces-config.xml_ ” in _javax.faces.CONFIG_FILES_ , if
-present.
-
-=== link:JSF.html#a6201[See Application Startup Behavior]
-
-Change rules to support ordering of
-configuration resources.
-
-=== link:JSF.html#a6297[See Configuration Impact on JSF Runtime]
-
-Specify requirements for handling
-_resource-handler_ elements within the application configuration
-resources.
-
-Specify requirements for handling
-_faces-lifecycle-listener_ elements within the application configuration
-resources.
-
-Declare _exception-handler-factory_ .
-
-Declare _discovery-handler-factory_ .
-
-Declare _view-declaration-language-factory_ .
-
-=== link:JSF.html#a6336[See Delegating Implementation Support]
-
-List decoratable artifacts.
-
-=== link:JSF.html#a6435[See Ordering of Artifacts]
-
-Define the rules for ordering of
-configuratino resources.
-
-=== link:JSF.html#a6596[See Annotations that correspond to and may take the place of entries in the Application Configuration Resources]
-
-New section detailing new annotations.
-
-=== link:JSF.html#a6626[See PhaseEvent]
-
-Statement should read: encapsulated by
-FacesContext...
-
-=== link:JSF.html#a6699[See Ajax Integration]
-
-New chapter describing how Ajax will
-integrate with JavaServer Faces.
-
-=== link:JSF.html#a6702[See JavaScript Resource]
-
-This section describes the standard Ajax
-JavaScript resource that will be used in JavaServer Faces.
-
-=== link:JSF.html#a6704[See JavaScript Resource Loading]
-
-This section describes how the Ajax resource
-will leverage the resource loading feature.
-
-=== link:JSF.html#a6706[See The Annotation Approach]
-
-This section mentions the use of the resource
-annotation to specify that a component or renderer requires the Ajax
-ressource.
-
-=== link:JSF.html#a6712[See The Resource API Approach]
-
-Component authors can also specify that a
-custom component or renderer requires the Ajax resource by using the
-resource APIs.
-
-=== link:JSF.html#a6738[See The Page D eclaration Language Approach]
-
-Page authors can make the Ajax resource
-available through the standard resource tags.
-
-=== link:JSF.html#a6754[See JavaScript Namespacing]
-
-This section discusses the JavaScript
-namespacing requirements for the Ajax resource to avoid collisions with
-other JavaScript libraries.
-
-=== link:JSF.html#a6766[See Ajax Interaction]
-
-This section describes the JavaScript
-functions that will be available to allow clients to perform Ajax
-interactions with JavaServer Faces.
-
-=== link:JSF.html#a6769[See Sending an Ajax Request]
-
-This section describes the process of sending
-an Ajax request to the server.
-
-=== link:JSF.html#a6771[See Ajax Request Queueing]
-
-Higher level requirements about queueing Ajax
-requests before they are sent.
-
-=== link:JSF.html#a6773[See Request Callback Function]
-
-Describes the functionality when a response
-comes back from the server.
-
-=== link:JSF.html#a6781[See Receiving The Ajax Response]
-
-Describes the requirements of
-javax.faces.Ajax.ajaxResponse - the function that gets called from the
-Ajax request callback function.
-
-=== link:JSF.html#a6783[See Monitoring Events On The Client]
-
-Describes the JavaScript functions used to
-register event and error callback functions that will be notified when
-events and errors occur.
-
-=== link:JSF.html#a6785[See Monitoring Events For An Ajax Request]
-
-Details about specifying the “onevent”
-attribute.
-
-=== link:JSF.html#a6790[See Monitoring Events For All Ajax Requests]
-
-Specifics about the jsf.ajax.addOnEvent
-function.
-
-=== link:JSF.html#a6792[See Sending Events]
-
-Details about sending client side events.
-
-=== link:JSF.html#a6797[See Handling Errors On the Client]
-
-Specifics about the JavaScript functions to
-use for handling errors on the client.
-
-=== link:JSF.html#a6799[See Handling Errors For An Ajax Request]
-
-Details about specifying “onerror” attribute.
-
-=== link:JSF.html#a6804[See Handling Errors For All Ajax Requests]
-
-Details about jsf.ajax.addOnError function.
-
-=== link:JSF.html#a6806[See Signaling Errors]
-
-Specifics about signaling client side errors.
-
-=== link:JSF.html#a6812[See Handling Errors On The Server]
-
-Specifics about exception handling on the
-server for Ajax requests.
-
-=== link:JSF.html#a6825[See Partial View Traversal]
-
-This section provides a summary of how Faces
-can process one or more components in a view - know as partial
-processing.
-
-=== link:JSF.html#a6829[See Partial Traversal Strategy]
-
-This section provides a summary of how
-frameworks can plug in strategies for performing partial view processing
-and partial view rendering.
-
-=== link:JSF.html#a6831[See Partial View Processing]
-
-This section describes how one or more
-components can be processed in the “execute” portion of the request
-processing lifecycle.
-
-=== link:JSF.html#a6833[See Partial View Rendering]
-
-This section describes how one or more
-components can be processed in the “render” portion of the request
-processing lifecycle.
-
-=== link:JSF.html#a6835[See Sending The Response to The Client]
-
-Describes the server side responsibilities
-for preparing and sending the response markup back to the client.
-
-=== link:JSF.html#a6837[See Writing The Partial Response]
-
-Describes the PartialResponseWriter
-requirements.
-
-=== link:JSF.html#a6841[See JavaScript API]
-
-New Chapter - JavaScript API for JSF 2.0
-
-=== link:JSF.html#a6844[See Collecting and Encoding View State]
-
-Describes the JavaScript function that can be
-used to return encoded state for a given form.
-
-=== link:JSF.html#a6852[See Use Case]
-
-Simple example of using the jsf.getViewState
-function.
-
-=== link:JSF.html#a6856[See Initiating an Ajax Request]
-
-Describes the JavaScript function used to
-send Ajax requests.
-
-=== link:JSF.html#a6864[See Usage]
-
-jsf.ajax.request function syntax and
-arguments.
-
-=== link:JSF.html#a6897[See Default Values]
-
-Default values for the “execute” and “render”
-arguments.
-
-=== link:JSF.html#a6911[See Request Sending Specifics]
-
-Implementation requirements for the
-jsf.ajax.reqeust function.
-
-=== link:JSF.html#a6921[See Use Case]
-
-Simple example of the request function.
-
-=== link:JSF.html#a7017[See Determining An Application’s Project Stage]
-
-This section summarizes the implementation
-requirements for the jsf.ajax.response function.
-
-=== link:JSF.html#a6931[See Registering Callback Functions]
-
-This section describes the functions that can
-be used to register callback functions that will be notified when events
-and errors occur.
-
-=== link:JSF.html#a6933[See Request/Response Event Handling]
-
-Describes the specifics of using the
-JavaScript API to register event handling callback functions.
-
-=== link:JSF.html#a6962[See Use Case]
-
-Simple example of jsf.ajax.addOnEvent
-function.
-
-=== link:JSF.html#a6973[See Error Handling]
-
-Describes the specifics of using the
-JavaScript API to register error handling callback functions.
-
-=== link:JSF.html#a7009[See Use Case]
-
-Simple example of jsf.ajax.addOnError
-function.
-
-=== link:JSF.html#a7017[See Determining An Application’s Project Stage]
-
-Describes the function used to determine an
-application’s project stage.
-
-=== link:JSF.html#a7020[See Use Case]
-
-Simple example of jsf.getProjectStage
-function.
-
-=== link:JSF.html#a7029[See Script Chaining]
-
-Describes the jsf.util.chain function that
-can be used to chain function calls.
-
-=== Javadoc XML Schema section
-
-Add the _resource-handler_ element.
-
-Add the _faces-lifecycle-listener_ element
-and its children.
-
-=== link:JSF.html#a7162[See XML Schema Definition for Composite Components]
-
-New section - the layout for the Ajax
-response.
-
-=== Standard HTML RenderKit specification
-
-component-family: javax.faces.Graphic
-renderer-type: javax.faces.Image
-
-Spec for what to do if “name”, “library” or
-“target” attributes are present
-
-component-family: javax.faces.Output
-renderer-type: javax.faces.Body
-
-This is a new Renderer in the
-standard-html-renderkit
-
-component-family: javax.faces.Output
-renderer-type: javax.faces.Head
-
-This is a new Renderer in the
-standard-html-renderkit
-
-component-family: javax.faces.Output
-renderer-type: javax.faces.resource.Script
-
-This is a new Renderer in the
-standard-html-renderkit
-
-component-family: javax.faces.Output
-renderer-type: javax.faces.resource.Stylesheet
-
-This is a new Renderer in the
-standard-html-renderkit
-
-=== General Changes
-
-The numbers in the text below refer to issue
-numbers in the issue tracker found at
-<https://javaserverfaces-spec-public.dev.java.net/servlets/ProjectIssues>.
-
-100 - New methods on _RenderKit_ :
-_getComponentFamilies()_ and _getRendererTypes()_ .
-
-170 - Allow commandButton to have f:param
-children.
-
-175 - Non-normatively clarify that the value
-of the "src" attribute will have the context-root prepended to it if the
-value starts with "/".
-
-199 - Spec updates to clarify commandLink.
-
-201 - Clean up convertNumber locale attribute
-to match with convertDateTime locale attribute.
-
-226 - Require that SelectOneListBox and all
-similar renderers set "" if no request parameter can be found for the
-component instance.
-
-228 - add selectedClass and unselectedClass
-to selectManyCheckbox
-
-232 - Make javax.faces.model.DataModel
-implement Iterable.
-
-259 - For selectOneRadio and
-selectManyCheckbox, normatively require the "style" and "border"
-elements to end up on the respective attributes on the rendered "table".
-
-310 - Add context-param for setting the
-default timezone of DateTimeConverter instances
-
-311 - Make the documentation in the spec
-prose document and the javadocs for the “first” property of UIData be
-consistent. In both cases, the value returned is relative to “zero”, not
-“one”.
-
-317 - Make it so you if you try to do
-setValue on a managedBean that is not yet instantiated, it gets
-automatically instantiated first.
-
-331 - add getPhaseListeners() to UIViewRoot.
-
-361 - Section 3.1.5, fix missed ValueBinding
-to ValueExpression change. __
-
-
-=== _Changes Between 1.1 and 1.2_
-
-=== Unified Expression Language (EL)
-
-Previous versions of the JavaServer Faces
-included an innovative, EL tailored to the needs of Faces. The main
-emphasis of this version of the Faces spec, and also the focus of the
-JSP spec corresponding to it, is to take those innovations and expose
-them to JSP page authors by creating a Unified EL that leverages the
-combined power of the Faces and JSP ELs. The Faces EL would then be
-deprecated, and the deprecated implementation would be written in terms
-of the Unified EL to preserve backwards compatability.
-
-=== [[a8777]]Guide to Deprecated Methods Relating to the Unified EL and their Corresponding Replacements
-
-The following classes and methods have been
-deprecated:
-
- _javax.faces.el_ . _EvaluationException_
-
-replaced by: _javax.el.ELException_
-
- _javax.faces.el_ . _MethodBinding_
-
-replaced by: _javax.el.MethodExpression_
-
- _javax.faces.el_ . _MethodNotFoundException_
-
-replaced by:
-_javax.el.MethodNotFoundException_
-
- _javax.faces.el_ .
-_PropertyNotFoundException_
-
-replaced by:
-_javax.el.PropertyNotFoundException_
-
- _javax.faces.el_ . _PropertyResolver_
-
-replaced by: _javax.el.ELResolver_
-
- _javax.faces.el_ .
-_ReferenceSyntaxException_
-
-replaced by: _javax.el.ELException_
-
- _javax.faces.el_ . _ValueBinding_
-
-replaced by: _javax.el.ValueExpression_
-
- _javax.faces.el_ . _VariableResolver_
-
-replaced by: _javax.el.ELResolver_
-
-
-_javax.faces.application.Application.createComponent(ValueBinding
-componentBinding, FacesContext context, String componentType)_
-
-replaced by:
-_javax.faces.application.Application.createComponent(ValueExpression
-componentExpression, FacesContext context, String componentType)_
-
-
-_javax.faces.application.Application.createMethodBinding_
-
-replaced by:
-_javax.faces.application.Application.createMethodExpression_
-
-
-_javax.faces.application.Application.createValueBinding_
-
-replaced by calling:
-_javax.faces.application.Application.getExpressionFactory_ then
-_ExpressionFactory.createValueExpression_
-
-see Javadoc for
-_javax.faces.application.Application.createValueBinding_
-
-
-_javax.faces.application.Application.getPropertyResolver_
-
-replaced by:
-_javax.faces.application.Application.getELResolver_
-
-
-_javax.faces.application.Application.setPropertyResolver_
-
-see Javadoc for
-_javax.faces.application.Application.setPropertyResolver_
-
-
-_javax.faces.application.Application.getVariableResolver_
-
-replaced by:
-_javax.faces.application.Application.getELResolver_
-
-
-_javax.faces.application.Application.setVariableResolver_
-
-see Javadoc for
-_javax.faces.application.Application.setVariableResolver_
-
-
-_javax.faces.component.ActionSource.getAction_
-
-replaced by:
-_javax.faces.component.ActionSource2.getActionExpression_
-
-
-_javax.faces.component.ActionSource.setAction_
-
-replaced by:
-_javax.faces.component.ActionSource2.setActionExpression_
-
-
-_javax.faces.component.ActionSource.getActionListener_
-
-replaced by:
-_javax.faces.component.ActionSource.getActionListeners_
-
-see Javadoc for
-_javax.faces.component.ActionSource.getActionListener_
-
-
-_javax.faces.component.ActionSource.setActionListener_
-
-replaced by:
-_javax.faces.component.ActionSource.addActionListener_
-
-
-_javax.faces.component.EditableValueHolder.getValidator_
-
-replaced by:
-_javax.faces.component.EditableValueHolder.getValidators_
-
-see Javadoc for:
-_javax.faces.component.EditableValueHolder.getValidator_
-
-
-_javax.faces.component.EditableValueHolder.setValidator_
-
-replaced by:
-_javax.faces.component.EditableValueHolder.addValidator_
-
-see Javadoc for:
-_javax.faces.component.EditableValueHolder.setValidator_
-
-
-_javax.faces.component.EditableValueHolder.getValueChangeListener_
-
-replaced by:
-_javax.faces.component.EditableValueHolder.getValueChangeListeners_
-
-see Javadoc for:
-_javax.faces.component.EditableValueHolder.getValueChangeListener_
-
-
-_javax.faces.component.EditableValueHolder.setValueChangeListener_
-
-replaced by:
-_javax.faces.component.EditableValueHolder.addValueChangeListener_
-
-see Javadoc for:
-_javax.faces.component.EditableValueHolder.setValueChangeListener_
-
- _javax.faces.component.UICommand.getAction_
-
-replaced by:
-_javax.faces.component.UICommand.getActionExpression_
-
- _javax.faces.component.UICommand.setAction_
-
-replaced by:
-_javax.faces.component.UICommand.setActionExpression_
-
-
-_javax.faces.component.UICommand.getActionListener_
-
-replaced by:
-_javax.faces.component.UICommand.getActionListeners_
-
-see Javadoc for:
-_javax.faces.component.UICommand.getActionListener_
-
-
-_javax.faces.component.UICommand.setActionListener_
-
-replaced by:
-_javax.faces.component.UICommand.addActionListener_
-
-see Javadoc for:
-_javax.faces.component.UICommand.setActionListener_
-
-
-_javax.faces.component.UIComponentBase.getValueBinding_
-
-replaced by:
-_javax.faces.component.UIComponentBase.getValueExpression_
-
-
-_javax.faces.component.UIComponentBase.setValueBinding_
-
-replaced by:
-_javax.faces.component.UIComponentBase.setValueExpression_
-
-
-_javax.faces.component.UIComponent.getValueBinding_
-
-replaced by:
-_javax.faces.component.UIComponent.getValueExpression_
-
-
-_javax.faces.component.UIComponent.setValueBinding_
-
-replaced by:
-_javax.faces.component.UIComponent.setValueExpression_
-
-
-_javax.faces.component.UIData.setValueBinding_
-
-replaced by:
-_javax.faces.component.UIData.setValueExpression_
-
-
-_javax.faces.component.UIGraphic.getValueBinding_
-
-replaced by:
-_javax.faces.component.UIGraphic.getValueExpression_
-
-
-_javax.faces.component.UIGraphic.setValueBinding_
-
-replaced by:
-_javax.faces.component.UIGraphic.setValueExpression_
-
- _javax.faces.component.UIInput.getValidator_
-
-replaced by:
-_javax.faces.component.UIInput.getValidators_
-
-see Javadoc for:
-_javax.faces.component.UIInput.getValidator_
-
- _javax.faces.component.UIInput.setValidator_
-
-replaced by:
-_javax.faces.component.UIInput.addValidator_
-
-see Javadoc for:
-_javax.faces.component.UIInput.setValidator_
-
-
-_javax.faces.component.UIInput.setValueChangeListener_
-
-replaced by:
-_javax.faces.component.UIInput.addValueChangeListener_
-
-see Javadoc for:
-_javax.faces.component.UIInput.setValueChangeListener_
-
-
-_javax.faces.component.UISelectBoolean.getValueBinding_
-
-replaced by:
-_javax.faces.component.UISelectBoolean.getValueExpression_
-
-
-_javax.faces.component.UISelectBoolean.setValueBinding_
-
-replaced by:
-_javax.faces.component.UISelectBoolean.setValueExpression_
-
-
-_javax.faces.component.UISelectMany.getValueBinding_
-
-replaced by:
-_javax.faces.component.UISelectMany.getValueExpression_
-
-
-_javax.faces.component.UISelectMany.setValueBinding_
-
-replaced by:
-_javax.faces.component.UISelectMany.setValueExpression_
-
-New Methods not replacing a Deprecated
-methods:
-
-
-_javax.faces.component.UIViewRoot.getBeforePhaseListener_
-
-
-_javax.faces.component.UIViewRoot.setBeforePhaseListener_
-
-
-_javax.faces.component.UIViewRoot.getAfterPhaseListener_
-
-
-_javax.faces.component.UIViewRoot.setAfterPhaseListener_
-
-Guide to Deprecated Methods Relating to State
-Management and their Corresponding Replacements
-
-The following classes and methods have been
-deprecated:
-
-
-_javax.faces.application.StateManager.SerializedView_
-
- replaced by _java.lang.Object_ that
-implements _java.io.Serializable_
-
-
-_javax.faces.application.StateManager.saveSerializedView_
-
- replaced by
-_javax.faces.application.StateManager.saveView_
-
-
-_javax.faces.application.StateManager.getTreeStructureToSave_
-
-The separation between tree structure and
-component state is now a recommended implementation detail.
-
-
-_javax.faces.application.StateManager.getComponentStateToSave_
-
-The separation between tree structure and
-component state is now a recommended implementation detail.
-
-
-_javax.faces.application.StateManager.writeState_ that takes a
-_SerializedView_
-
- replaced by
-_javax.faces.application.StateManager.writeState_ that takes a
-_java.lang.Object_ that implements _Serializable_ .
-
-
-_javax.faces.application.StateManager.restoreTreeStructure_
-
-The separation between tree structure and
-component state is now a recommended implementation detail.
-
-
-_javax.faces.application.StateManager.restoreComponentState_
-
-The separation between tree structure and
-component state is now a recommended implementation detail.
-
-
-_javax.faces.render.ResponseStateManager.writeState_ that takes a
-_javax.faces.application.StateManager.SerializedView_
-
-Replaced by
-_javax.faces.render.ResponseStateManager.writeState_ that takes a
-_java.lang.Object_ that implements _java.io.Serializable._
-
-
-_javax.faces.render.ResponseStateManager.getTreeStructureToRestore_
-
-The separation between tree structure and
-component state is now a recommended implementation detail. Semantically
-has been replaced by _javax.faces.render.ResponseStateManager.getState_
-.
-
-
-_javax.faces.render.ResponseStateManager.getComponentStateToRestore_
-
-The separation between tree structure and
-component state is now a recommended implementation detail. Semantically
-has been replaced by _javax.faces.render.ResponseStateManager.getState_
-.
-
-JavaServer Faces 1.2 Backwards Compatibility
-
-Faces 1.2 is backwards compatible with Faces
-1.1. This means that a web-application that was developed to run with
-Faces 1.1 won’t require any modification when run with Faces 1.2 except
-in the cases described in the following section.
-
-Note that Faces is a part of the Java EE
-platform as of Faces 1.2. A web application therefore does not need to
-bundle a Faces implementation anymore when it runs on a web container
-that is Java EE technology compliant. Should a Faces implementation be
-bundled with a web-application, it will simply be ignored as the Faces
-implementation provided by the platform always takes precedence.
-
-The JSP aspects of backwards compatability
-are described in the JSP specification in the Preface, in the section
-titled “Backwards Compatability with JSP 2.0”.
-
-Breakages in Backwards Compatability
-
-{empty}In Faces 1.1 you could override
-implicit objects in your custom resolvers. For example, for the
-following expression: _$\{param[‘x’]}_ you could change the meaning of
-_param_ in your custom _VariableResolver._ In Faces 1. _2,_ implicit
-objects are always recognized - so _param_ will always mean a map of
-parameters. See link:JSF.html#a2406[See The Managed Bean
-Facility]
-
-In Faces 1.1, any custom resolvers that do
-not honor the “decorator” pattern - that is, delegate to their parent
-resolver, will still work in Faces 1.2 with the following clarification:
-those resolvers would operate independently with regards to other
-resolvers in the chain. See link:JSF.html#a2667[See Faces
-ELResolver for JSP Pages].
-
-In Faces 1.1 it was valid to call
-_setVariableResolver()_ or _setPropertyResolver()_ on the _Application_
-at any point in the application’s lifetime. This allowed for the
-application to be in an indeterminate state. In Faces 1.2, neither of
-these methods may be called after the application has served any
-requests.
-
-In Faces 1.1, if a view couldn’t be restored
-due to session expiration, we’d create a new one and go to render
-response. In 1.2, this is not the case. We now throw a
-_ViewExpiredException_ . 1.1-based applications may rely on the old
-behavior to forward to a login page when a session expired. 1.2
-circumvents this.
-
-=== General changes
-
-The numbers in the text below refer to issue
-numbers in the issue tracker found at
-<https://javaserverfaces-spec-public.dev.java.net/servlets/ProjectIssues>.
-
-2 - Clarify that for client side state
-saving, the state should be encrypted for security.
-
-3 - Clarify the specification with respect to
-constraint violations for tags in the Core Tag Library.
-
-4 - Added _headerClass_ and _footerClass_
-attributes at the “h:column” level. Please see
-link:JSF.html#a4314[See Standard HTML RenderKit Implementation]
-for more details.
-
-5 - Clarified the use of a string literal for
-the “action” attribute on ActionSource components.
-
-6 - Introduced a new optional “label”
-attribute for input components that will provide an association between
-a component, and the message that the component (indirectly) produced.
-Please refer to link:JSF.html#a4314[See Standard HTML RenderKit
-Implementation] and link:JSF.html#a584[See Localized
-Application Messages] for more details.
-
-8 - Made UViewRoot a source of PhaseEvent(s)
-for all phases of the request processing lifecycle except RestoreView.
-Provided additional “before” and “after” phase listener attributes for
-the <f:view> tag. Please see link:JSF.html#a2226[See UIViewRoot]
-for more details.
-
-9 - Clarified the behavior of PhaseListener
-implementations in the following way: they must guarantee that if
-“beforePhase()” is called, then “afterPhase()” must also be called,
-regardless of any thrown exceptions. Please see
-link:JSF.html#a6635[See PhaseListener] for more specifics.
-
-11 - Provide a unique window identifier (in
-addition to the “viewid”) to accomodate applications that have mutiple
-instances of the same view, but perhaps in different browser windows or
-frames.
-
-13 - Specified “by type” converter
-registration for BigDecimal and BigInteger.
-
-15 - Enhanced the usage of the “Decorator
-Pattern” for ViewHandler, StateManager and ResponseWriter classes by
-providing abstract wrapper classes to make it easier to override a
-subset of the total methods for those classes. Please see
-link:JSF.html#a6336[See Delegating Implementation Support] for
-more details.
-
-16 - Provided additional I18n attributes “dir
-and “lang” for the tags: <h:outputText>, <h:outputFormat>, <h:messages>,
-<h:message>. Please see link:JSF.html#a4314[See Standard HTML
-RenderKit Implementation] for descriptions of these components.
-
-17 - Introduced a new optional “layout”
-attribute on the “PanelGroup” component that controls the rendering of
-either a “div” or “span” HTML element. Please see
-link:JSF.html#a4314[See Standard HTML RenderKit Implementation]
-for more details.
-
-18 - When a resource lookup is done on the
-java.util.Map (loaded from <f:loadBundle>) using a key, and the key is
-not found in the Map, return the literal string ???KEY??? where KEY is
-the key being looked up in the Map (instead of throwing a
-MissingResourceException). Throw a JspException if the named bundle
-identified by <f:loadBundle> does not exist. Please see
-_link:JSF.html#a4860[See <f:loadBundle>]_ .
-
-20 - Specify that the event queue should be
-cleared after each phase (except RestoreViewPhase and RenderResponse) if
-“responseComplete” or “renderResponse” has been set on the FacesContext.
-
-21 - Provided an additional “binding”
-attribute for the core Converter, Listener and Validator tags that would
-be used as a ValueExpression to alternatively create the Converter,
-Listener or Validator instance. Please see
-link:JSF.html#a4636[See JSF Core Tag Library] for more details.
-
-27 - <h:messages> now renders HTML list
-elements (“<ul>”,”<li>”) if the “layout” attribute is “list” or the
-“layout” attribute is not specified. If the “layout” is “table”, an HTML
-“table” element is rendered instead of an outer “span”. Please see
-link:JSF.html#a4314[See Standard HTML RenderKit Implementation]
-for more details.
-
-29 - Allow the use of user-defined “onclick”
-Javascript on CommandLink.
-
-30 - Make the “commandButton” “image”
-attribute render the same as the “graphicImage” “img” attribute for
-consistency. Please see link:JSF.html#a4314[See Standard HTML
-RenderKit Implementation] for more information.
-
-35 - Provided a new facet for DataTable
-Renderer that allows the rendering of a table “caption” element
-immediately following the “table” element. Also provided style sheet
-attributes for this new element. Please see
-link:JSF.html#a4314[See Standard HTML RenderKit Implementation]
-for a descrption of this component.
-
-43 - Migrated over to using XML Schema (from
-DTD) for configuation file validation. Please see the schema section of
-the Javadocs.
-
-45 - Avoided concurrent read issues by using
-a java.util.HashMap instead of java.util.WeakHashMap for a component’s
-Property Descriptor Map. This also fixes the performance problem as
-identified in the forum. Please refer to the Property Descriptor methods
-and the constructor in _javax.faces.component.UIComponentBase._
-
-47 - Introduced a mechanism to detect if a
-request is a postback.
-
-48 - Specify the algorithm used for client id
-generation as well as provide a way to allow the page author to specify
-exactly what the client Id should be, and preventing Faces from altering
-it.
-
-50 - Allow an application to specify multiple
-render kits by introducing an optional “renderKitId” attribute on
-“<f:view>”. It is no longer required to write a custom ViewHandler to
-incorporate a different render kit. Please refer to
-link:JSF.html#a4288[See ResponseStateManager] and
-link:JSF.html#a5325[See <f:view>] for more details.
-
-51 - Clarify the specification with respect
-to “Application Startup Behavior”. Allow implementations to check for
-the presence of a servlet-class definition in a web application
-deployment descriptor as a means to abort the configuration and save
-startup time.
-
-54 - Added new extension elements to the
-Faces XML schema. Please see the XML schema section of the Javadocs.
-
-55 - For postback requests, in the
-“RestoreViewPhase”, during _ValueExpression_ examination for each
-component in the component tree, specify that calling the _setValue()_
-method on each _ValueExpression_ , should be done in a “parent-first”
-fashion, calling the _setValue()_ method and then traversing the
-children.
-
-58 - Enabed “protected” access to internal
-“DataModel” in UIData.
-
-59 - Avoid EL expression evaluation for
-“value” attribute on “AttributeTag”. “AttributeTag” now passes the
-expression to UIComponent for evaluation.
-
-65 - Added standard converter messages.
-Please see link:JSF.html#a584[See Localized Application
-Messages] for more details.
-
-66 - Specified that “FormRenderer” must
-render the “name” attribute with the same value as the “id” attribute.
-Please see link:JSF.html#a4314[See Standard HTML RenderKit
-Implementation] for more details.
-
-67 - Allow the resetting of an input
-component’s value by introducing a _resetValue()_ method on _UIInput._
-
-68 - Specify that the component tree may be
-manipulated throughout the request processing lifecycle, except during
-render. Please see link:JSF.html#a457[See Render Response] for
-more details.
-
-69 - Permit the passing of _a null_ value to
-_SelectItem.setValue()._
-
-72 - Improve XHTML compliance by rendering
-both “lang” and “xml:lang” attributes.
-
-73 - Added a new FacesException -
-“javax.faces.application.ViewExpiredException”. Specified that
-implementations must throw this exception when an attempt to restore a
-view results in failure on postback. Please see
-link:JSF.html#a404[See Restore View] for more details.
-
-74 - Added “disabled” property to
-“outputLink” and “commandLink”. Please see
-link:JSF.html#a4314[See Standard HTML RenderKit Implementation]
-for more details.
-
-75 - Added “getRequestContentType” and
-“getResponseContentType” to ExternalContext.
-
-78 - Added a more “user-friendly” default
-error message for UIInput “update model”. Please see
-link:JSF.html#a584[See Localized Application Messages] for more
-details.
-
-80 - Specify that the JSF Core Tag Library
-must not contain any tags that cause JavaScript to be rendered to the
-client.
-
-81 - Enable the message displayed for
-“required” validation, conversion, and validation to be overridden by
-the page author (JSP or non-JSP)
-
-82 - Added new feature, the ability to
-resolve ResourceBundles via the EL without the use of the <f:loadBundle>
-tag.
-
-84 - Added _rendered_ attribute to the core
-_f:verbatim_ tag. Please see link:JSF.html#a4636[See JSF Core
-Tag Library] for more details.
-
-85 - Add new tag:
-f:setPropertyActionListener. Useful for pushing values into managed
-beans without allowing modification of the value.
-
-86 - Specified that “OutputLinkRenderer” must
-render the “name” attribute with the same value as the “id” attribute.
-Please see link:JSF.html#a4314[See Standard HTML RenderKit
-Implementation] for more details.
-
-87 - Modified specification for the
-_setVariableResolver()_ and _setPropertyResolver()_ methods on
-_Application_ to state that they may not be called after the application
-has served any requests.
-
-93 - Added “escape” flag indicating the text
-of UISelectItem should be escaped when rendering.
-
-95 - Allow multiple instances of
-_FacesServlet_ in a single webapp, mapped with different URI mappings,
-to use different implementations of _Lifecycle_ by allowing the
-lifecycle-id to be specified as an _init-param_ in addition to the
-existing way of specifying it as a _context-param_ .
-
-98 - Specified that
-“SelectManyCheckboxListRenderer: and “RadioRenderer” must render the
-“label” element after the “input element for each “SelectItem. Specified
-that the “label” element must refer to the “input” element using the
-“for” attribute. Please see link:JSF.html#a4314[See Standard
-HTML RenderKit Implementation] for more details.
-
-99 - Specified Java EE 5 Generics usage where
-applicable.
-
-105 - Specified that for commandButton
-rendering, the “image” attribute value must not be escaped. Specified
-that for graphicImage rendering, the “src” attribute value must not be
-escaped.
-
-108 - Specified that JSF implementations that
-are part of a Java EE technology-compliant implementation are required
-to validate the application resource file against the XML schema for
-structural correctness. Also specified that validation is recommended,
-but not required for JSF implementatons that are not part of a Java EE
-technology compliant implementation. Please refer to
-link:JSF.html#a6201[See Application Startup Behavior] for more
-details.
-
-111 - Specified that a component must allow
-child components to be added to and removed from the child list of the
-current component, even though the child component returns null from
-getParent().
-
-118 - Specified that an implementation of Map
-returned from ExternalContext.getSessionMap implement a “clear” method
-that calls “removeAttribute” on each attribute in the Servlet or Portlet
-session.
-
-119 - Specified that implementations running
-in a JSR-250 compliant container have their managed bean methods
-annotated with @PostConstruct be called after the object is
-instantiated, and after injection is performed, but before the bean is
-placed into scope. Specified that methods annotated with @PreDestroy be
-called when the scope for the bean is ending.
-
-120 - Specified in the renderkit docs that
-commandButton rendering can generate javascript for “onclick” attribute.
-
-122 - Clarified renderkit docs with respect
-to what gets rendered for disabled command link attributes.
-
-123 - Clarified renderkit docs with respect
-to dataTable attribute rendering.
-
-124 - Clarified renderkit docs with repsect
-to graphicImage “alt” attribute.
-
-131 - Specified that a compliant
-implementation must allow the registration of a converter for class
-java.lang.String and java.lang.String.TYPE that will be used to convert
-values for these types.
-
-133 - Removed the incorrect statement: “"It
-is the callers responsibility to ensure that setViewId() is called on
-the returned view, passing the same viewId value." pertaining to
-ViewHandler.createView()
-
-134 - Fixed backwards compatability issues.
-
-135 - Support Java EE 5 enums as valid types/
-
-138 - Change the required return type for
-action methods to be Object instead of String. This allows the usage of
-Enums for the return type of action methods, as long as the toString()
-method of the enum matches the expected value in the application
-configuration resources.
-
-145 - Define new method on UIComponent,
-invokeOnComponent(). This will find a component in the tree by clientId
-and invoke a user specified callback on it. Please see
-link:JSF.html#a946[See Component Tree Navigation] and
-link:JSF.html#a1852[See Methods] [of UIData] for more details.
-
-jsf-ri 127 - Specify that FacesContext
-methods getClientIdsWithMessages( ) and getMessages( ) must be
-implemented using order-preserving structures so the items in the
-iterator are returned in the order they were added with
-addMessage().Spec document changes
-
-147 - Clarified grammer with respect to
-component id.
-
-151 - Specified standard converter for Enums
-
-152 - Specified EL coercion usage in API
-javadocs UISelectOne/UISelectMany (when items are compared in
-validation) and standard html renderkit docs during encoding of select
-components.
-
-154 - Fixed FacesTag “name” attribute
-discrepency - made it a String (was ValueExpression).
-
-155 - Specified “columnClasses”, “rowClasses”
-descriptions for panelGrid in renderkit docs.
-
-160 - Added and specified
-ResponseWriter.writeText method that takes a UIComponent argument.
-
-The VDLDocs for the h: tag library are now a
-normative part of the spec.
-
-Following is a section by section breakdown
-of the main changes since the last release of this document. This work
-was done mainly to support changes in tree creation and content
-interweaving for JSP based faces applications, as well as for fixing the
-following issues from the above list: 2 3 4 5 6 8 9 11 13 15 16 17 18 20
-21 27 29 30 35 43 45 47 48 50 51 53 54 55 58 59 65 66 67 68 69 72 73 74
-75 78 80 81 82 84 85 86 93 95 98 99 105 108 111 118 119 120 122 123 124
-131 133 134 135 138 145 147 151 152 154 155 160.
-
-Preface
-
-Added new section: Guide to Deprecated
-Methods Relating to State Management and their Corresponding
-Replacements.
-
-{empty}link:JSF.html#a404[See
-Restore View]
-
-Do per-component actions in a "parent-first"
-fashion, calling the setValue() method and *then* traversing the
-children.
-
-Describe the new responsibilities of this
-phase with respect to the new StateSaving changes.
-
-Describe when ViewHandler.initView() is to be
-called.
-
-Describe how the
-ViewHandler.calculateRenderKitId() and ResponseStateManager.isPostback()
-method are to be used.
-
-Specify that implementations must throw
-_javax.faces.application.ViewExpiredException_ when an attempt to
-restore a view results in failure on postback.
-
-=== link:JSF.html#a457[See Render Response]
-
-Specify that the component tree may be
-manipulated throughout the request processing lifecycle, except during
-render.
-
-{empty}link:JSF.html#a518[See Create
-A New View]
-
-Document that multiple renderkits are
-supported.
-
-{empty}link:JSF.html#a584[See
-Localized Application Messages]
-
-Added updates to standard messages; Also
-mentioned new parameter substitution token for the generic input
-component attribute "label".
-
-{empty}link:JSF.html#a993[See
-Generic Attributes]
-
-Completely specify how attribute/property
-transparency works.
-
-{empty}link:JSF.html#a1041[See
-Component Specialization Methods]
-
-Add new method, encodeAll(), which is now the
-preferred method for developers to call to render a child or facet().
-
-{empty}link:JSF.html#a1932[See
-UIForm]
-
-Document the new _prependId_ property and
-_getContainerClientId()_ method.
-
-{empty}UIData link:JSF.html#a1878[See
-Properties]
-
-Added _protected_ property for _DataModel_ .
-
-{empty}UIInput
-link:JSF.html#a1981[See UIInput]
-
-Document the behavior of the
-_requiredMessage_ , _converterMessage_ and _validatorMessage_
-properties.
-
-{empty}UIInput
-link:JSF.html#a2005[See Methods]
-
-Add mention of resetValue() to the "Methods"
-section for UIInput.
-
-{empty}link:JSF.html#a2226[See
-UIViewRoot]
-
-Change callsite for saveSerializedView and
-writeState().
-
-Change to clear the event queue after each
-phase if skipping to rendering response.
-
-JSP tag no longer deals with state saving.
-
-Section 5.1.2 and 5.1.3 “ValueExpression
-Syntax” and “ValueExpression Semantics”
-
-Removed and made reference to EL spec.
-
-{empty}link:JSF.html#a2403[See
-MethodExpression Syntax and Semantics]
-
-Make reference to EL spec.
-
-{empty}link:JSF.html#a2536[See
-Managed Bean Annotations]
-
-This new section covers the modifications
-necessary to allow managed beans to be the target of container managed
-dependency injection using the _@Resource_ and _@EJB_ annotations.
-
-Added section 5.4.1 that specifies how the
-_@PostConstruct_ and _@PreDestroy_ annotations must be handled.
-
-{empty}link:JSF.html#a2651[See
-ExpressionFactory]
-
-Update signature of createValueExpresion()
-and createMethodExpression() to include ELContext as the first argument.
-
-{empty}link:JSF.html#a2741[See
-ResourceBundle ELResolver for JSP Pages]
-
-This resolver, when coupled with the
-_javax.el.ResourceBundleELResolver_ , allows the resolution of
-ResourceBundles and entries therein via the EL. See also
-link:JSF.html#a2962[See el.ResourceBundleELResolver] and
-link:JSF.html#a2964[See ResourceBundle ELResolver for
-Programmatic Access].
-
-link:JSF.html#a3874[See Overview]
-ViewHandler
-
-Document new methods initView() and
-calculateCharacterEncoding();
-
-{empty}link:JSF.html#a3910[See
-Default ViewHandler Implementation]
-
-modify createView() to reflect current
-reality:
-
-Do the viewId discovery algorithm formerly in
-restoreView().
-
-Redirect to the context root if no viewId can
-be discerned.
-
-Do the existing processing.
-
-modify restoreView() to reflect current
-reality:
-
-Do the existing processing.
-
-Do the viewId discovery algorithm now in
-createView().
-
-If no viewId can be discovered, return null.
-
-Always call StateManager.restoreView().
-
-no longer set the character encoding, this
-has moved out to the Restore View phase implementation
-
-change callsite for saveSerializedView() to
-be saveView().
-
-added ViewHandler.calculateRenderKitId
-responsibility of returning the request parameter named
-ResponseStateManager.RENDER_KIT_ID_PARAM if not null.
-
-{empty}State Saving
-link:JSF.html#a4119[See Overview]
-
-Soften the wording about the separation
-between tree structure and component state, say it's only a
-recommendation to keep these two separate.
-
-{empty}link:JSF.html#a4135[See State
-Saving Alternatives and Implications]
-
-Modified client state saving text to add "It
-is advisable that this information be encrypted and tamper evident,
-since it is being sent down to the client, where it may persist for some
-time."
-
-Modified server state saving text to add
-"Implementations that wish to enable their saved state to fail over to a
-different container instance must keep this in mind when implementing
-their server side state saving strategy. The default implementation
-Serializes the view in both the client and server modes. In the server
-mode, this serialized view is stored in the session and a unique key to
-retrieve the view is sent down to the client. By storing the serialized
-view in the session, failover may happen using the usual mechanisms
-provided by the container."
-
-The values of all component attributes and
-properties must implement _Serializable_ .
-
-New section 7.7.6 StateManager in the
-"Deprecated APIs" section (7.7)
-
-New section 7.7.7 ResponseStateManager in the
-"Deprecated APIs" section (7.7)
-
-{empty}link:JSF.html#a4288[See
-ResponseStateManager]
-
-Describe the non-deprecated methods.
-
-Added verbiage about ResponseStateManager
-implementation's responsibility of writing out render kit identifier.
-
-Describe the isPostback() method.
-
-{empty}link:JSF.html#a4415[See
-UIComponent Custom Actions]
-
-Specify that _id_ is now _rtexprvalue_ _true_
-.
-
-{empty}link:JSF.html#a4536[See
-Interoperability with JSP Template Text and Other Tag Libraries]
-
-Changes in the current version of the EL
-allow Faces applications to use JSTL _<c:forEach>_ tags with Faces
-components as long as the _items_ attribute points to a deferred EL
-expression (ie, a _#\{}_ expression, as opposed to an immediate _$\{}_
-expression).
-
-Also, remove the requirements that
-_<f:verbatim>_ be used, and that components added to the tree
-programmatically will only be rendered if they are the children of a
-_rendersChildren==true_ component
-
-{empty}link:JSF.html#a4406[See
-Integration with JSP]
-
-Changes to account for moving from
-_UIComponentTag_ / _UIComponentBodyTag_ to _UIComponentELTag._
-
-{empty}link:JSF.html#a4629[See Faces
-1.0 and 1.1 Taglib migration story]
-
-Describe the new _jsp-version_ TLD based
-migration story.
-
-{empty}link:JSF.html#a4636[See JSF
-Core Tag Library]
-
-For listener/converter/validator tags,
-clarified that exceptions would be rethrown as JspException. Also specfy
-JspException should be thrown if certain constraints are not met.
-
-Specify that tags may have non-deferred
-expressions as the value of their _id_ attribute.
-
-Added _binding_ attribute to
-listener/converter/validator tags.
-
-Added _rendered_ attribute to verbatim tag.
-
-Specify that none of the tags in the JSF Core
-Tag Library may cause JavaScript to be rendered to the client.
-
-{empty}link:JSF.html#a4679[See
-<f:attribute>]
-
-Specify that the argument value must be
-interrogated to see if it isLiteralText(). If so, store in the
-attributes set, If not, store in the ValueExpression set.
-
-{empty}link:JSF.html#a5015[See
-<f:setPropertyActionListener>]
-
-New Section, document this new tag.
-
-{empty}link:JSF.html#a5325[See
-<f:view>]
-
-Added renderKitId attribute description to
-f:view;
-
-{empty}link:JSF.html#a5363[See
-Standard HTML RenderKit Tag Library]
-
-Specify how to handle action attributes that
-are string literals.
-
-Call out to VDLDocs for parts of the
-requirements. VDLDocs are now normative.
-
-{empty}link:JSF.html#a6160[See
-FacesServlet]
-
-Describe how the _init-param_ then the
-_context-param_ must be consulted for the lifecycleID for this
-_FacesServlet_ instance.
-
-{empty}link:JSF.html#a6182[See
-Deprecated APIs in the webapp package]
-
-New section describing deprecated APIs.
-Previous section at this address moved to next section number.
-
-{empty}link:JSF.html#a6201[See
-Application Startup Behavior]
-
-Implementations may check for the presence of
-a servlet-class definition of class javax.faces.webapp.FacesServlet in
-the web application deployment descriptor as a means to abort the
-configuration process and reduce startup time for applications that do
-not use JavaServer Faces Technology.

@@ -119,7 +119,8 @@ implementations may support other ways to invoke the JavaServer Faces
 request processing lifecycle, but applications that rely on these
 mechanisms will not be portable.
 
-=== [[a6088]]Application Configuration Parameters
+[[a6088]]
+=== Application Configuration Parameters
 
 Servlet containers support application
 configuration parameters that may be customized by including
