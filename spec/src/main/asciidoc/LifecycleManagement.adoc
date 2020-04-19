@@ -5,7 +5,7 @@ Processing Lifecycle>>,” the required functionality of each phase of the
 request processing lifecycle was described. This chapter describes the
 standard APIs used by JSF implementations to manage and execute the
 lifecycle. Each of these classes and interfaces is part of the
-_javax.faces.lifecycle_ package.
+_jakarta.faces.lifecycle_ package.
 
 Page authors, component writers, and
 application developers, in general, will not need to be aware of the
@@ -40,7 +40,7 @@ throws FacesException;
 The _execute()_ method performs phases up to,
 but not including, the _Render Response_ phase. The _render()_ method
 performs the Render Response phase. This division of responsibility
-makes it easy to support JavaServer Faces processing in a portlet-based
+makes it easy to support Jakarta Server Faces processing in a portlet-based
 environment.
 
 As each phase is processed, registered
@@ -96,6 +96,7 @@ and log an exception if an attempt is made. The webapp author can
 declare a _PhaseListener_ to be added using the _phase-listener_ element
 of the application configuration resources file. Please see
 <<a6635, PhaseListener>>.
+
 
 
 [[a6626]]
@@ -228,7 +229,7 @@ try \{
 
 } catch (Throwable thrownException) \{
 
- javax.faces.event.ExceptionEventContext
+ jakarta.faces.event.ExceptionEventContext
 eventContext =
 
  new ExceptionEventContext(thrownException,
@@ -254,7 +255,7 @@ try \{
 
 } catch (Throwable thrownException) \{
 
- javax.faces.event.ExceptionEventContext
+ jakarta.faces.event.ExceptionEventContext
 eventContext =
 
  new ExceptionEventContext(thrownException,
@@ -273,7 +274,7 @@ eventContext);
 
  } catch (Throwable thrownException) \{
 
- javax.faces.event.ExceptionEventContext
+ jakarta.faces.event.ExceptionEventContext
 eventContext =
 
  new ExceptionEventContext(thrownException,
@@ -302,7 +303,7 @@ body text.
 
 {empty}[P1-end_publishExceptionSpec]
 
- _PhaseListener_ implementations may affect
+_PhaseListener_ implementations may affect
 the remainder of the request processing lifecycle in several ways,
 including:
 
@@ -320,7 +321,7 @@ is complete.
 === LifecycleFactory
 
 A single instance of
-_javax.faces.lifecycle.LifecycleFactory_ must be made available to each
+_jakarta.faces.lifecycle.LifecycleFactory_ must be made available to each
 JSF-based web application running in a servlet or portlet container. The
 factory instance can be acquired by JSF implementations or by
 application code, by executing:
@@ -376,6 +377,3 @@ This method returns an iterator over the set
 of lifecycle identifiers supported by this factory. This set must
 include the value specified by _LifecycleFactory.DEFAULT_LIFECYCLE_ .
 
-
-
-===

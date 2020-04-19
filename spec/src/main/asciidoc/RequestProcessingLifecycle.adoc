@@ -2319,8 +2319,8 @@ script resources can be “relocated” to other parts of the view. For
 example, we could specify that a script resource be rendered within an
 HTML “head”, “body” or “form” element in the page.
 
-[[a8
-=== 47]]Relocatable Resources
+[[a847]]
+=== Relocatable Resources
 
 Relocatable resources are resources that can
 be told where to render themselves, and this rendered location may be

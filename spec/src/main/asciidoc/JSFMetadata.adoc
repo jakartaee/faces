@@ -59,8 +59,8 @@ Note that it is normal for an application to
 have several application configuration resources files. If multiple such
 resource files have conflicting _*-extension_ elements, the last element
 processed takes precedence over preceding elements. Processing order can
-be controlled as specified in link:JSF.html#a6435[See Ordering
-of Artifacts].
+be controlled as specified in <<UsingJSFInWebApplications.adoc#a6435,See Ordering
+of Artifacts>>.
 
 ===  _faces-config-extension_ handling
 
@@ -88,8 +88,8 @@ The _<facelets-processing>_ element is used
 to affect the processing of Facelets VDL files. Therefore, this setting
 only applies to those requests that reach the Facelets
 _ViewDeclarationLanguage_ implementation, as specified to the runtime
-via the _javax.faces.FACELETS_VIEW_MAPPINGS_ and
-_javax.faces.DEFAULT_SUFFIX_ _<context-param>_ entries. The
+via the _jakarta.faces.FACELETS_VIEW_MAPPINGS_ and
+_jakarta.faces.DEFAULT_SUFFIX_ _<context-param>_ entries. The
 specification defines three processing modes for Facelets files:
 Facelets XHTML syntax, XML View syntax, and Facelets JSPX syntax. This
 last syntax is intended to ease the migration to Facelets for
@@ -185,7 +185,7 @@ such content is not escaped.
 The content of the _<file-extension>_ element
 is particular to the file extension of the physical resource for the
 Facelets VDL content, as specified in the
-_javax.faces.FACELETS_VIEW_MAPPINGS_ and _javax.faces.DEFAULT_SUFFIX_
+_jakarta.faces.FACELETS_VIEW_MAPPINGS_ and _jakarta.faces.DEFAULT_SUFFIX_
 _<context-param>_ elements. Consider the following example
 _faces-config.xml_ .
 
@@ -241,7 +241,7 @@ a|
  _<context-param>_
 
 
-_<param-name>javax.faces.FACELETS_VIEW_MAPPINGS</param-name>_
+_<param-name>jakarta.faces.FACELETS_VIEW_MAPPINGS</param-name>_
 
 
 _<param-value>*.xhtml;*.view.xml;*.jspx</param-value>_
@@ -253,7 +253,7 @@ _<param-value>*.xhtml;*.view.xml;*.jspx</param-value>_
  _<context-param>_
 
 
-_<param-name>javax.faces.DEFAULT_SUFFIX</param-name>_
+_<param-name>jakarta.faces.DEFAULT_SUFFIX</param-name>_
 
  _<param-value>.xhtml .view.xml .jsp
 .jspx</param-value>_
@@ -293,8 +293,8 @@ text similar to the following in at the top of their declaring file.
 
 {empty}Use of this DTD is officially
 deprecated. This DTD is included for reference in
-link:JSF.html#a7139[See Deprecated DTD for Facelet Taglibraries
-Used by Versions of Facelets Prior to JSF 2.0]. It is expected that
+<<JSFMetadata.adoc#a7139,See Deprecated DTD for Facelet Taglibraries
+Used by Versions of Facelets Prior to JSF 2.0>>. It is expected that
 proper JSF 2.0 Facelet Taglibraries will declare conformance to the
 following schema, rather than the deprecated
 DTD.[P1_end_facelet_taglib_decl]
@@ -490,7 +490,7 @@ Conditions.
 
 
 
- The XML Schema for a JavaServer Faces
+ The XML Schema for a Jakarta Server Faces
 UIComponent (Version 2.0).
 
 
@@ -555,10 +555,10 @@ http://java.sun.com/xml/ns/javaee/web-facelettaglibary_2_0.xsd"
  <component>
 
 
-<component-type>javax.faces.Input</component-type>
+<component-type>jakarta.faces.Input</component-type>
 
 
-<renderer-type>javax.faces.Text</renderer-type>
+<renderer-type>jakarta.faces.Text</renderer-type>
 
 
 <handler-class>com.sun.faces.facelets.tag.jsf.ComponentHandler</handler-class>
@@ -839,5 +839,3 @@ int )
 </xsd:schema>
 
  __
-
-===

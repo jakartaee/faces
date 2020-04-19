@@ -2,13 +2,13 @@
 == Ajax Integration
 
 This chapter of the specification describes
-how Ajax integrates with the JavaServer Faces framework to create
-dynamic web applications. JavaServer Faces 1.2 standardized portions of
+how Ajax integrates with the Jakarta Server Faces framework to create
+dynamic web applications. Jakarta Server Faces 1.2 standardized portions of
 the architecture to facilitate building Web 2.0 applications with Ajax.
 This chapter describes the resources and JavaScript APIs that are used
-to expose the Ajax capabilities of JavaServer Faces to page authors and
+to expose the Ajax capabilities of Jakarta Server Faces to page authors and
 component authors. It also describes the necessary ingredients of a
-JavaServer Faces Ajax framework, namely, a resource delivery mechanism,
+Jakarta Server Faces Ajax framework, namely, a resource delivery mechanism,
 partial tree traversal, partial page update.
 
 [[a6702]]
@@ -17,7 +17,7 @@ partial tree traversal, partial page update.
 There must be a single JavaScript resource
 that exists with the resource identifier given by the value of the
 constant
-_javax.faces.application.ResourceHandler.JSF_SCRIPT_RESOURCE_NAME_ and
+_jakarta.faces.application.ResourceHandler.JSF_SCRIPT_RESOURCE_NAME_ and
 it must exist under the resource library given by the value of the
 constant
 _javax.faces.application.ResourceHandler.JSF_SCRIPT_LIBRARY_NAME,_
@@ -29,7 +29,7 @@ Ajax interaction with JavaServer Faces.
 === JavaScript Resource Loading
 
 The JavaScript resource can become available
-to a JavaServer Faces application using a number of different
+to a Jakarta Server Faces application using a number of different
 approaches.
 
 [[a6706]]
@@ -43,7 +43,7 @@ ResourceDependency annotation.
 |===
 a|
 @ResourceDependency (name="jsf.js",
-library="javax.faces", target="head")
+library="jakarta.faces", target="head")
 
 public class MyComponent extends UIOutput...
 
@@ -67,7 +67,7 @@ a|
 Resource resource =
 context.getApplication().getResourceHandler()
 
- .createResource(“jsf.js”, “javax.faces”);
+ .createResource(“jsf.js”, “jakarta.faces”);
 
 ...
 
@@ -140,7 +140,7 @@ component resource to one of the resource location facets under the view
 root so it will be in place before rendering.
 
 [[a6738]]
-=== The Page D eclaration Language Approach
+=== The Page Declaration Language Approach
 
 Page authors can make the Ajax resource
 available to the current view using the outputScript tag. For example:
@@ -163,7 +163,7 @@ a|
 ...
 
 <h:outputScript name=”jsf.js”
-library=”javax.faces”
+library=”jakarta.faces”
 
 target=”body”/>
 
@@ -184,10 +184,10 @@ JavaScript objects that are not enclosed
 within a namespace are global, which means they run the risk of
 interfering, overriding and/or clobbering previously defined JavaScript
 objects. This section defines the requirements for implementations
-intending to use the JavaServer Faces 2.0 JavaScript API.
+intending to use the Jakarta Server Faces 2.0 JavaScript API.
 
 [P1-start javascript namespace]Any
-implementation that intends to use the JavaServer Faces 2.0 JavaScript
+implementation that intends to use the Jakarta Server Faces 2.0 JavaScript
 API must define a top level JavaScript object name jsf, whose type is a
 JavaScript associative array. Within that top level JavaScript object,
 there must be a property named ajax..
@@ -220,7 +220,7 @@ if (jsf.ajax == null || typeof jsf.ajax ==
 
 This section of the specification outlines
 the Ajax JavaScript APIs that are used to initiate client side
-interactions with the JavaServer Faces framework including partial tree
+interactions with the Jakarta Server Faces framework including partial tree
 traversal and partial page update. All of the functions in this
 JavaScript API will be exposed on a page scoped JavaScript object. Refer
 to <<a6841, JavaScript API>> for details
@@ -326,7 +326,7 @@ By using the JavaScript API function
 jsf.ajax.request with onevent as an option.
 
 {empty}Refer to
-<<UNKNOWN, <f:ajax>>> for details on the use of the
+<<a1111, <f:ajax>>> for details on the use of the
 <f:ajax> tag approach. Refer to
 <<a6856, Initiating an
 Ajax Request>> for details about using the jsf.ajax.request function
@@ -394,7 +394,7 @@ By using the JavaScript API function
 jsf.ajax.request with onerror as an option.
 
 {empty}Refer to
-<<UNKNOWN, <f:ajax>>> for details on the use of the
+<<a1111, <f:ajax>>> for details on the use of the
 <f:ajax> tag approach. Refer to
 <<a6856, Initiating an
 Ajax Request>> for details about using the jsf.ajax.request function
@@ -485,14 +485,14 @@ is installed if the current request required an Ajax response
 
 Implementations may choose to include a
 specialized ExceptionHandler for Ajax that extends from
-javax.faces.context.ExceptionHandlerWrapper, and have the
-javax.faces.context.ExceptionHandlerFactory implementation install it if
+jakarta.faces.context.ExceptionHandlerWrapper, and have the
+jakarta.faces.context.ExceptionHandlerFactory implementation install it if
 the environment requires it.
 
 [[a6825]]
 === Partial View Traversal
 
-The JavaServer Faces lifecycle, can be viewed
+The Jakarta Server Faces lifecycle, can be viewed
 as consisting of an execute phase and a render phase.
 
 
@@ -523,6 +523,7 @@ JavaDocs for details about this method.
 {empty}Partial view processing allows
 selected components to be processed through the “execute” portion of the
 lifecycle. Although the diagram in
+
 <<a6825, Partial View
 Traversal>> depicts the “execute” portion as encompassing everything
 except the “Render Response Phase”, for the purposas of an ajax request,
@@ -583,6 +584,7 @@ Request>> about the request sending details. The PartialViewContext has
 methods that indicate the request is a partial request based on the
 values of these special request parameters. Refer to
 <<a3225,
+
 Partial Processing Methods>> for the specifics of the FacesContext
 constants and methods that facilitate partial processing.
 [P1-start-partialRender]The UIViewRoot getRendersChildren and
@@ -625,17 +627,15 @@ component library compatability.
 [[a6837]]
 === Writing The Partial Response
 
-JavaServer Faces provides
-javax.faces.context.PartialResponseWriter to ensure the Ajax response
+Jakarta Server Faces provides
+jakarta.faces.context.PartialResponseWriter to ensure the Ajax response
 that is written follows the standard format as specified in
 <<a7162, XML Schema Definition for Composite
 Components>>. Implementations must take care to properly handle nested
 CDATA sections when writing the response. PartialResponseWriter
 decorates an existing ResponseWriter implementation by extending
-javax.faces.context.ResponseWriterWrapper. Refer to the
-javax.faces.context.PartialResponseWriter JavaDocs, and the JavaScript
+jakarta.faces.context.ResponseWriterWrapper. Refer to the
+jakarta.faces.context.PartialResponseWriter JavaDocs, and the JavaScript
 documentation for the jsf.ajax.response function for more specifics.
 
 
-
-===
