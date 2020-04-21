@@ -35,7 +35,8 @@ implementations in the correct order); however, all JSF implementations
 must support the functionality described in this chapter to ensure
 application portability.
 
-=== [[a6066]]Servlet Definition
+[[a6066]]
+=== Servlet Definition
 
 JSF implementations must provide request
 processing lifecycle services through a standard servlet, defined by
@@ -64,14 +65,15 @@ a|
 {empty}The servlet name, denoted as
 _faces-servlet-name_ above, may be any desired value; however, the same
 value must be used in the servlet mapping (see
-<<UsingJSFInWebApplications.adoc#a6076,See Servlet Mapping>>).[P1-end]
+<<a6076, Servlet Mapping>>).[P1-end]
 
 In addition to _FacesServlet_ , JSF
 implementations may support other ways to invoke the Jakarta Server Faces
 request processing lifecycle, but applications that rely on these
 mechanisms will not be portable.
 
-=== [[a6076]]Servlet Mapping
+[[a6076]]
+=== Servlet Mapping
 
 All requests to a web application are mapped
 to a particular servlet based on matching a URL pattern (as defined in
@@ -143,7 +145,7 @@ the specification of this feature.
 _jakarta.faces.CONFIG_FILES_ --
 Comma-delimited list of context-relative resource paths under which the
 JSF implementation will look for application configuration resources
-(see <<UsingJSFInWebApplications.adoc#a6254,See Application Configuration Resource
+(see <<a6254, Application Configuration Resource
 Format>>), before loading a configuration resource named “
 _/WEB-INF/faces-config.xml_ ” (if such a resource exists). If “
 _/WEB-INF/faces-config.xml_ ” is present in the list, it must be
@@ -168,7 +170,7 @@ _jakarta.faces.DISABLE_FACELET_JSF_VIEWHANDLER_ -- If this param is set,
 and calling _toLowerCase().equals("true")_ on a _String_ representation
 of its value returns _true_ , the default _ViewHandler_ must behave as
 specified in the latest 1.2 version of this specification. Any behavior
-specified in <<ApplicationIntegration.adoc#a4010,See Default
+specified in <<a4010, Default
 ViewDeclarationLanguage Implementation>> and implemented in the default
 _ViewHandler_ that pertains to handling requests for pages authored in
 the Jakarta Server Faces View Declaration Language must not be executed by
@@ -187,7 +189,7 @@ list of paths, starting with “/” (without the quotes). The runtime must
 interpret each entry in the list as a path relative to the web
 application root and interpret the file found at that path as a facelet
 tag library, conforming to the facelet taglibrary schema and expose the
-tags therein according to <<FaceletsAndWebApplications.adoc#a5638,See Facelet Tag
+tags therein according to <<a5638, Facelet Tag
 Library mechanism>>. The runtime must also consider the
 _facelets.LIBRARIES_ param name as an alias to this param name for
 backwards compatibility with existing facelets tag libraries.
@@ -244,7 +246,7 @@ informative error message with logging level SEVERE must be logged
 indicating this case. Exactly one of the classes with the annotation
 must be taken to be the _ResourceResolver_ for the application and any
 other classes with the annotation must be ignored. See
-<<UsingJSFInWebApplications.adoc#a6435,See Ordering of Artifacts>> for the means to
+<<a6435, Ordering of Artifacts>> for the means to
 put application configuration resources in order such that the chosen
 class can be defined. The same rules regarding decoration of the
 instance as listed above must apply to the annotated class.
@@ -568,9 +570,9 @@ _FacesServlet_ is an implementation of
 _jakarta.servlet.Servlet_ that accepts incoming requests and passes them
 to the appropriate _Lifecycle_ implementation for processing. This
 servlet must be declared in the web application deployment descriptor,
-as described in <<UsingJSFInWebApplications.adoc#a6066,See Servlet Definition>>, and
+as described in <<a6066, Servlet Definition>>, and
 mapped to a standard URL pattern as described in
-<<UsingJSFInWebApplications.adoc#a6076,See Servlet Mapping>>.
+<<a6076,Servlet Mapping>>.
 
 [width="100%",cols="100%",]
 |===
@@ -655,26 +657,26 @@ _jakarta.faces.LIFECYCLE_ID_ ”.[P1-end]
 _[P1-start-uicomponenteltag]UIComponentELTag_ is an implementation of
 _jakarta.servlet.jsp.tagext.BodyTag_ , and must be the base class for any
 JSP custom action that corresponds to a JSF _UIComponent_ .[P1-end] See
-<<IntegrationWithJSP.adoc#a4406,See Integration with JSP>>, and the Javadocs
+<<a4406, Integration with JSP>>, and the Javadocs
 for _UIComponentELTag_ , for more information about using this class as
 the base class for your own _UIComponent_ custom action classes.
 
 === FacetTag
 
 JSP custom action that adds a named facet
-(see <<UserInterfaceComponentModel.adoc#a968,See Facet Management>>) to the
+(see <<a968, Facet Management>>) to the
 UIComponent associated with the closest parent UIComponent custom
-action. See <<IntegrationWithJSP.adoc#a4843,See <f:facet> >>.
+action. See <<a4843, <f:facet>>>.
 
 === ValidatorTag
 
 JSP custom action (and convenience base
 class) that creates and registers a _Validator_ instance on the
 _UIComponent_ associated with the closest parent _UIComponent_ custom
-action. See <<IntegrationWithJSP.adoc#a5163,See <f:validateLength> >>,
-<<IntegrationWithJSP.adoc#a5198,See <f:validateRegex> >>,
-<<IntegrationWithJSP.adoc#a5223,See <f:validateLongRange> >>, and
-<<IntegrationWithJSP.adoc#a5256,See <f:validator> >>.
+action. See <<a5163, <f:validateLength>>>,
+<<a5198, <f:validateRegex>>>,
+<<a5223, <f:validateLongRange>>>, and
+<<a5256, <f:validator>>>.
 
 
 [[a6182]]
@@ -789,7 +791,7 @@ When parsing the application configuration resources, the implementation
 must ensure that _applicationConfigurationResources_ are parsed before
 _applicationFacesConfig_ .[P1-end]
 
-Please see <<UsingJSFInWebApplications.adoc#a6435,See
+Please see <<a6435,
 Ordering of Artifacts>> for details on the ordering in which the
 decoratable artifacts in the application configuration resources in
 _applicationConfigurationResources_ and _applicationFacesConfig_ must be
@@ -809,10 +811,10 @@ classes that are stored in this library JAR file to be automatically
 registered, with no action required by the application.
 
 Perform the actions specified in
-<<UsingJSFInWebApplications.adoc#a6228,See Faces Flows>>.
+<<a6228, Faces Flows>>.
 
 Perform the actions specified in
-<<UsingJSFInWebApplications.adoc#a6215,See Resource Library Contracts>>.
+<<a6215, Resource Library Contracts>>.
 
 {empty}[P1-start-PostConstructApplicationEvent]The
 runtime must publish the
@@ -836,14 +838,14 @@ implementation.
 the parsing of the application configuration resources completed
 successfully, scan the application for resource library contracts. Any
 resource library contract as described in
-<<RequestProcessingLifecycle.adoc#a872,See Resource Library Contracts>> must be
+<<a872, Resource Library Contracts>> must be
 discovered at application startup time. The complete set of discovered
 contracts has no ordering semantics and effectively is represented as a
 _Set<String>_ where the values are just the names of the resource
 libraries. If multiple sources in the application configuration
 resources contained _<resource-library-contracts>_ , they are all merged
 into one element. Duplicates are resolved in as specified in
-<<UsingJSFInWebApplications.adoc#a6435,See Ordering of Artifacts>>. If the
+<<a6435, Ordering of Artifacts>>. If the
 application configuration resources produced a
 _<resource-library-contracts>_ element, create an implementation private
 data structure (called the “resource library contracts data structure”)
@@ -870,7 +872,7 @@ An exact fully qualified file path, relative
 to the web app root, such as _/directoryName/fileName.xhtml_ , meaning
 exactly that view should have the contracts applied.
 
-See <<ApplicationIntegration.adoc#a4030,See
+See <<a4030,
 ViewDeclarationLanguage.calculateResourceLibraryContracts()>> for the
 specification of how the values of the _<url-pattern>_ are to be
 processed.
@@ -934,10 +936,10 @@ multiple flows with the same _id_ to exist in an application, the
 _<faces-config><name>_ element is taken to be the _definingDocumentId_
 of the flow. If no _<name>_ element is specified, the empty string is
 taken as the value for _definingDocumentId_ . Please see
-<<ApplicationIntegration.adoc#a3840,See FlowHandler>> for an overview of the flow
+<<a3840, FlowHandler>> for an overview of the flow
 feature. Note that a number of conventions exist to make defining flows
 simpler. These conventions are specified in
-<<UsingJSFInWebApplications.adoc#a6236,See Packaging Flows in Directories>>.
+<<a6236, Packaging Flows in Directories>>.
 
 {empty}[P1-end]
 
@@ -1042,7 +1044,7 @@ Call _FactoryFinder.releaseFactories()_ .
 {empty}Application configuration resources
 that are written to run on JSF 2.3 must include the following schema
 declaration and must conform to the schema shown in
-<<JSFMetadata.adoc#a7037,See Appendix A - JSF Metadata>>
+<<a7037, Appendix A - JSF Metadata>>
 
 [width="100%",cols="100%",]
 |===
@@ -1067,7 +1069,7 @@ http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
 [P1-start-schema]Application configuration
 resources that are written to run on JSF 2.2 must include the following
 schema declaration and must conform to the schema shown in
-<<JSFMetadata.adoc#a7037,See Appendix A - JSF Metadata>>:
+<<a7037, Appendix A - JSF Metadata>>:
 
 [width="100%",cols="100%",]
 |===
@@ -1218,7 +1220,7 @@ Faces Config 1.1//EN”
 |===
 
 The following XML
-elements <<Footnotes.adoc#a9102,19>> in application configuration resources
+elements<<a9102, 19>> in application configuration resources
 cause registration of JSF objects into the corresponding factories or
 properties. It is an error if the value of any of these elements cannot
 be correctly parsed, loaded, set, or otherwise used by the
@@ -1266,7 +1268,7 @@ encode behavior.
 The following XML elements cause the
 replacement of the default implementation class for the corresponding
 functionality, provided by the JSF implementation. See
-<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>> for
+<<a6336, Delegating Implementation Support>> for
 more information about the classes referenced by these elements:
 
 /faces-config/application/action-listener --
@@ -1687,7 +1689,7 @@ the question of ordering must be addressed. This section specifies how
 application configuration resource authors may declare the ordering
 requirements of their artifacts.
 
-<<UsingJSFInWebApplications.adoc#a6201,See Application
+<<a6201, Application
 Startup Behavior>> defines two concepts:
 _applicationConfigurationResources_ and _applicationFacesConfig_ . The
 former is an ordered list of all the application configuration resources
@@ -2172,9 +2174,8 @@ default RenderKit -->
 
 Additional examples of configuration elements
 that might be found in application configuration resources are in
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2477,See Managed Bean Configuration Example>> and
-<<ApplicationIntegration.adoc#a3646,See Example NavigationHandler
-Configuration>>.
+<<a2477, Managed Bean Configuration Example>> and
+<<a3646, Example NavigationHandler Configuration>>.
 
 
 [[a6596]]
