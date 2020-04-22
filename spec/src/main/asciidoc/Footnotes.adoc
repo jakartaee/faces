@@ -7,8 +7,8 @@ the component tree.
 
 [.footnoteNumber]# 2.# [[a9084]]For example, this
 technique is used when custom tags in JSP pages are utilized as the
-rendering technology, as described in link:JSF.html#a4406[See
-Integration with JSP].
+rendering technology, as described in <<a4406,
+Integration with JSP>>.
 
 [.footnoteNumber]# 3.# [[a9085]]The default
 _ViewHandler_ implementation performs a _RequestDispatcher.forward_ call
