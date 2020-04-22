@@ -1718,7 +1718,7 @@ For _UIInput_ and _UIOutput_ components that
 wish to explicitly select a _Converter_ to be used, a new _Converter_
 instance of the appropriate type must be created, optionally configured,
 and registered on the component by calling _setConverter()_
-link:#a9086[4]. Otherwise, the JSF implementation will
+<<a9086, 4>>. Otherwise, the JSF implementation will
 automatically create new instances based on the data type being
 converted, if such Converter classes have been registered. In either
 case, Converter implementations need not be threadsafe, because they
