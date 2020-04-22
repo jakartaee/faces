@@ -145,7 +145,7 @@ Saving and restoring component state across
 requests
 
 As will be discussed in
-<<a4219, Rendering Model>>,” the encoding and
+link:JSF.html#a4219[See Rendering Model],” the encoding and
 decoding functionality may optionally be delegated to one or more
 _Render Kits_ , which are responsible for customizing these operations
 to the precise requirements of the client that is initiating a
@@ -221,11 +221,12 @@ Expose the underlying data required by the
 user interface layer as objects that are accessible from the web tier
 (such as via request or session attributes in the Servlet API), via
 _value reference expressions_ , as described in
-<<a1823, Standard User Interface Components>>.”
+link:JSF.html#a1823[See Standard User Interface Components].”
 
 Provide application-level event handlers for
 the events that are enqueued by JSF components during the request
-processing lifecycle, as described in <<a454, Invoke Application>>.
+processing lifecycle, as described in link:JSF.html#a454[See
+Invoke Application].
 
 Application modules interact with JSF through
 standard APIs, and can therefore be created using new and existing tools
@@ -305,7 +306,7 @@ _FactoryFinder_ , which is the mechanism by which users can override
 many of the key pieces of the implementation with their own.
 
 Please see
-<<a6147, FactoryFinder>>.
+link:JSF.html#a6147[See FactoryFinder].
 
 === package _jakarta.faces.application_
 
@@ -315,14 +316,16 @@ well as convenient pluggable mechanisms to manage the execution of an
 application that is based on JavaServer Faces. The main class in this
 package is _Application_ .
 
-Please see <<a3400, Application>>.
+Please see link:JSF.html#a3400[See
+Application].
 
 === package _jakarta.faces.component_
 
 This package contains fundamental APIs for
 user interface components.
 
-Please see <<a883, User Interface Component Model>>.
+Please see link:JSF.html#a883[See
+User Interface Component Model].
 
 === package _jakarta.faces.component.html_
 
@@ -336,14 +339,16 @@ defining per-request state information. The main class in this package
 is _FacesContext_ , which is the access point for all per-request
 information, as well as the gateway to several other helper classes.
 
-Please see <<a3091, FacesContext>>.
+Please see link:JSF.html#a3091[See
+FacesContext].
 
 === package _jakarta.faces.convert_
 
 This package contains classes and interfaces
 defining converters. The main class in this package is _Converter_ .
 
-Please see <<a1251, Conversion Model>>.
+Please see link:JSF.html#a1251[See
+Conversion Model].
 
 === package _jakarta.faces.el_
 
@@ -351,13 +356,15 @@ As of version 1.2 of this specification, all
 classes and interfaces in this package have been deprecated in favor of
 the Unified Expression Language (EL) from JSP 2.1.
 
-Please see <<a2344, Expression Language and Managed Bean Facility>>.
+Please see link:JSF.html#a2344[See
+Expression Language and Managed Bean Facility].
 
 === package _jakarta.faces.flow_ and _jakarta.faces.flow.builder_
 
 The runtime API for Faces Flows.
 
-Please see <<a3840, FlowHandler>>.
+Please see _link:JSF.html#a3840[See
+FlowHandler]._
 
 === package _jakarta.faces.lifecycle_
 
@@ -366,8 +373,8 @@ defining lifecycle management for the Jakarta Server Faces implementation.
 The main class in this package is _Lifecycle_ . _Lifecycle_ is the
 gateway to executing the request processing lifecycle.
 
-Please see <<a369, 
-Request Processing Lifecycle>>.
+Please see link:JSF.html#a369[See
+Request Processing Lifecycle].
 
 === package _jakarta.faces.event_
 
@@ -376,7 +383,8 @@ events and event listeners, and concrete event implementation classes.
 All component-level events extend from _FacesEvent_ and all
 component-level listeners extend from _FacesListener_ .
 
-Please see <<a1300, Event and Listener Model>>.
+Please see link:JSF.html#a1300[See
+Event and Listener Model].
 
 === package _jakarta.faces.render_
 
@@ -386,7 +394,8 @@ _RenderKit_ . _RenderKit_ maintains references to a collection of
 _Renderer_ instances which provide rendering capability for a specific
 client device type.
 
-Please see <<RenderingModel.adoc#a4219, Rendering Model>>.
+Please see <<RenderingModel.adoc#a4219,See
+Rendering Model>>.
 
 === package _jakarta.faces.validator_
 
@@ -394,7 +403,7 @@ Interface defining the validator model, and
 concrete validator implementation classes.
 
 {empty}Please see
-<<UserInterfaceComponentModel.adoc#a1410, Validation Model>>
+<<UserInterfaceComponentModel.adoc#a1410,See Validation Model>>
 
 === package _jakarta.faces.webapp_
 
@@ -403,4 +412,5 @@ Jakarta Server Faces into web applications, including a standard servlet,
 base classes for JSP custom component tags, and concrete tag
 implementations for core tags.
 
-Please see <<UsingJSFInWebApplications.adoc#a6060, Using JSF in Web Applications>>.
+Please see <<UsingJSFInWebApplications.adoc#a6060,See
+Using JSF in Web Applications>>.

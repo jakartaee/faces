@@ -206,7 +206,7 @@ response object for the current request.
 | _sessionMap_ |RW
 | _java.util.Map_
 |The session scope attributes for this
-request<<a9087,5>>.
+requestlink:#a9087[5].
 
 | _userPrincipal_
 |RO |
