@@ -120,14 +120,14 @@ Value
 execute
 
 A space delimited list of client identifiers
-or one of the keywords (<<a6884, Keywords>>).
+or one of the keywords (<<JavaScriptAPI.adoc#a6884,See Keywords>>).
 These reference the components that will be processed during the
 “execute” portion of the request processing lifecycle.
 
 render
 
 A space delimited list of client identifiers
-or one of the keywords (<<a6884, Keywords>>).
+or one of the keywords (<<JavaScriptAPI.adoc#a6884,See Keywords>>).
 These reference the components that will be processed during the
 “render” portion of the request processing lifecycle.
 
@@ -215,8 +215,8 @@ onclick="jsf.ajax.request(this,event,
 
 |===
 
-Refer to <<a1111,
-<f:ajax>>> for the default values for the execute and render attributes
+Refer to <<FaceletsAndWebApplications.adoc#a1111,See
+<f:ajax> >> for the default values for the execute and render attributes
 when they are used with the core “<f:ajax>” tag.
 
 [[a6911]]
@@ -302,8 +302,9 @@ handling. The event callbacks become very useful when monitoring request
 connection status. The error callback provides a convenient way for
 implementations to trap errors. The handling of the errors is left up to
 the implementation. These callback function names can also be set using
-the JavaScript API (<<a6871, request
-OPTIONS>>), and the core <f:ajax> tag (<<a1111, <f:ajax>>>).
+the JavaScript API (<<JavaScriptAPI.adoc#a6871,See request
+OPTIONS>>), and the core <f:ajax> tag (<<FaceletsAndWebApplications.adoc#a1111,See
+<f:ajax>>>).
 
 [[a6933]]
 === Request/Response Event Handling
@@ -360,7 +361,7 @@ type
 status
 
 {empty}One of the events specified in
-<<a6936, Events>>
+<<JavaScriptAPI.adoc#a6936,See Events>>
 
 source
 
@@ -449,7 +450,7 @@ element.
 malformedXML
 
 {empty}The Ajax response does not follow the
-proper format. See <<a7162, XML Schema Definition
+proper format. See <<JSFMetadata.adoc#a7162,See XML Schema Definition
 for Composite Components>>
 
 emptyResponse
@@ -473,7 +474,7 @@ type
 status
 
 {empty}One of error names defined
-<<a6976, Errors>>
+<<JavaScriptAPI.adoc#a6976,See Errors>>
 
 description
 
@@ -542,7 +543,7 @@ return the constant representing the current state of the running
 application in a typical product development lifecycle. The returned
 value must be the value returned from the server side method
 jakarta.faces.application.Application.getProjectStage(); Refer to
-<<a3455, ProjectStage Property>> for more details
+<<ApplicationIntegration.adoc#a3455,See ProjectStage Property>> for more details
 about this property.[P1-end]
 
 [[a7020]]
