@@ -491,13 +491,13 @@
                         <configuration>
                             <source>1.8</source>
                             <additionalJOption>-Xdoclint:none</additionalJOption>
-                            <description>Jakarta Server Pages API documentation</description>
-                            <doctitle>Jakarta Server Pages API documentation</doctitle>
-                            <windowtitle>Jakarta Server Pages API documentation</windowtitle>
+                            <description>Jakarta Server Faces API documentation</description>
+                            <doctitle>Jakarta Server Faces API documentation</doctitle>
+                            <windowtitle>Jakarta Server Faces API documentation</windowtitle>
                             <header><![CDATA[<br>Jakarta Server Faces API v${project.version}]]></header>
                             <bottom><![CDATA[
 Comments to: <a href="mailto:faces-dev@eclipse.org">faces-dev@eclipse.org</a>.<br>
-Copyright &#169; 2019 Eclipse Foundation. All rights reserved.<br>
+Copyright &#169; 2019, 2020 Eclipse Foundation. All rights reserved.<br>
 Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.]]>
                             </bottom>
                             <docfilessubdirs>true</docfilessubdirs>
