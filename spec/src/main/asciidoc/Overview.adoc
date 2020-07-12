@@ -310,9 +310,9 @@ Please see
 === package _jakarta.faces.application_
 
 This package contains APIs that are used to
-link an application’s business logic objects to JavaServer Faces, as
+link an application’s business logic objects to Jakarta Server Faces, as
 well as convenient pluggable mechanisms to manage the execution of an
-application that is based on JavaServer Faces. The main class in this
+application that is based on Jakarta Server Faces. The main class in this
 package is _Application_ .
 
 Please see <<a3400, Application>>.
