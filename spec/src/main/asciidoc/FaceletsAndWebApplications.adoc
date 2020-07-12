@@ -1,7 +1,7 @@
 [[a5476]]
 == Facelets and its use in Web Applications
 
-As of version 2 of the JavaServer Faces specification,
+As of version 2 of the Jakarta Server Faces specification,
  implementations must support (although JSF-based
 applications need not utilize) using Facelets as the view declaration
 language for JSF pages. Facelets technology was created by JSR-252 EG

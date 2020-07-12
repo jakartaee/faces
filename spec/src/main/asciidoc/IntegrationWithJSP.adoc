@@ -157,10 +157,10 @@ standard tag libraries for the custom actions defined by Jakarta Server
 Faces:
 
  _http://java.sun.com/jsf/core_ -- URI for
-the _JavaServer Faces Core Tag Library_
+the _Jakarta Server Faces Core Tag Library_
 
  _http://java.sun.com/jsf/html_ -- URI for
-the _JavaServer Faces Standard HTML RenderKit Tag Library_
+the _Jakarta Server Faces Standard HTML RenderKit Tag Library_
 
 The page author must use the standard JSP
 _taglib_ directive to declare the URI of each tag library to be

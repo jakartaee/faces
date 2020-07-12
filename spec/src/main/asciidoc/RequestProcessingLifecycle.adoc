@@ -1048,7 +1048,7 @@ _UIInput.updateModel()_ .
 === Localization and Internationalization (L10N/I18N)
 
 Jakarta Server Faces is fully internationalized.
-The I18N capability in JavaServer Faces builds on the I18N concepts
+The I18N capability in Jakarta Server Faces builds on the I18N concepts
 offered in the Servlet, JSP and JSTL specifications. I18N happens at
 several points in the request processing lifecycle, but it is easiest to
 explain what goes on by breaking the task down by function.
