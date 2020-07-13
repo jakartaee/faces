@@ -3,15 +3,15 @@
 
 This chapter of the specification describes
 the JavaScript functions that are used to facilitate Ajax operations in
-a JavaServer Faces framework. All of these functions are contained in
+a Jakarta Server Faces framework. All of these functions are contained in
 the canonical _jsf.js_ file.
 
 [[a6844]]
 === Collecting and Encoding View State
 
-In JavaServer Faces 1.2 the
+In Jakarta Server Faces 1.2 the
 javax.faces.ViewState parameter was standardized to facilitate
-“postback” requests to the server in a JavaServer Faces application.
+“postback” requests to the server in a Jakarta Server Faces application.
 Implementations must use this parameter to save the view state between
 requests. Refer to the Javadocs for
 jakarta.faces.render.ResponseStateManager.
