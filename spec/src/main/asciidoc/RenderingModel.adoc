@@ -281,12 +281,12 @@ primary purpose of enqueuing _BehaviorEvents._ All client behavior
 renderer implementations must extend from the _ClientBehaviorRenderer_
 interface _._
 
-=== ClientBehaviorRenderer Registration
+==== ClientBehaviorRenderer Registration
 
 ClientBehaviorRenderer implementations may be
 registered in the JSF faces-config.xml or with an annotation.
 
-=== XML Registration
+==== XML Registration
 
 
 
@@ -309,7 +309,7 @@ a|
 
 |===
 
-=== Registration By Annotation
+==== Registration By Annotation
 
 JSF provides the
 _jakarta.faces.render.FacesBehaviorRenderer annotation._

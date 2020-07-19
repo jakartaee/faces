@@ -37,7 +37,7 @@ several integration objects is available via JavaBeans property getters
 and setters, as described in the following subsections.
 
 [[a3402]]
-=== ActionListener Property
+==== ActionListener Property
 
 [width="100%",cols="100%",]
 |===
@@ -91,7 +91,7 @@ the second _String_ argument is the logical outcome.[P1-end]
 See the Javadocs for getActionListener() for
 important backwards compatability information.
 
-=== DefaultRenderKitId Property
+==== DefaultRenderKitId Property
 
 [width="100%",cols="100%",]
 |===
@@ -119,7 +119,7 @@ before any Faces requests have been processed. [P1-end] This is a
 limitation of the current Specification, and may be lifted in a future
 release.
 
-=== FlowHandler Property
+==== FlowHandler Property
 
 [width="100%",cols="100%",]
 |===
@@ -144,7 +144,7 @@ Faces requests have been processed. [P1-end] This is a limitation of the
 current Specification, and may be lifted in a future release.
 _getFlowHandler()_ may be called at any time after application startup.
 
-=== NavigationHandler Property
+==== NavigationHandler Property
 
 [width="100%",cols="100%",]
 |===
@@ -166,7 +166,7 @@ as described in the previous subsection. A default implementation must
 be provided, with functionality described in
 <<ApplicationIntegration.adoc#a3571,See Default NavigationHandler Algorithm>>:
 
-=== StateManager Property
+==== StateManager Property
 
 [width="100%",cols="100%",]
 |===
@@ -188,7 +188,7 @@ implementation must be provided, which operates as described in
 <<ApplicationIntegration.adoc#a4117,See StateManager>>.
 
 [[a3435]]
-=== ELResolver Property
+==== ELResolver Property
 
 [width="100%",cols="100%",]
 |===
@@ -214,7 +214,7 @@ the list in the jakarta.el.CompositeELResolver returned from
 getELResolver(). See the diagram in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2822,See
 ELResolver for Facelets and Programmatic Access>>_ [N/T-end]
 
-=== ELContextListener Property
+==== ELContextListener Property
 
 [width="100%",cols="100%",]
 |===
@@ -249,7 +249,7 @@ representing the list of listeners added by calls to
 addELContextListener().
 
 [[a3450]]
-=== ViewHandler Property
+==== ViewHandler Property
 
 [width="100%",cols="100%",]
 |===
@@ -273,7 +273,7 @@ _setViewHandler()_ after the first time the _Render Response_ phase has
 executed, the call must be ignored by the implementation. [P1-end]
 
 [[a3455]]
-=== ProjectStage Property
+==== ProjectStage Property
 
 [width="100%",cols="100%",]
 |===
@@ -292,7 +292,7 @@ application init parameter, JNDI entry, or default Value. See
 Parameters>>.[P1-end]
 
 [[a3459]]
-=== Acquiring ExpressionFactory Instance
+==== Acquiring ExpressionFactory Instance
 
 [width="100%",cols="100%",]
 |===
@@ -312,7 +312,7 @@ JspFactory.getDefaultFactory().getJspApplicationContext(servletContext).getExpre
 [P1-end]
 
 [[a3463]]
-=== Programmatically Evaluating Expressions
+==== Programmatically Evaluating Expressions
 
 [width="100%",cols="100%",]
 |===
@@ -335,7 +335,7 @@ _createValueExpression()_ or _createMethodExpression()_ methods on the
 _ExpressionFactory_ returned from _getExpressionFactory()._
 
 [[a3468]]
-=== Object Factories
+==== Object Factories
 
 The _Application_ instance for a web
 application also acts as an object factory for the creation of new JSF
@@ -484,7 +484,7 @@ _Application_ instance for a list of the registered identifiers for
 components, converters, and validators that are known to the instance.
 
 [[a3510]]
-=== Default Validator Ids
+===== Default Validator Ids
 
 From the list of mappings of _validatorId_ to
 fully qualified class name, added to the application via calls to
@@ -506,7 +506,7 @@ getDefaultValidatorInfo();
 The required callsites for these methods are
 specified in <<UserInterfaceComponentModel.adoc#a1419,See Validation Registration>>.
 
-=== Internationalization Support
+==== Internationalization Support
 
 The following methods and properties allow an
 application to describe its supported locales, and to provide
@@ -554,13 +554,13 @@ strings that correspond to standard message keys See
 list of the standard message keys recognized by JSF.
 
 [[a3526]]
-=== System Event Methods
+==== System Event Methods
 
 System events are described in
 <<UserInterfaceComponentModel.adoc#a1359,See System Events>>. This section describes
 the methods defined on _Application_ that support system events
 
-=== Subscribing to system events
+===== Subscribing to system events
 
 [width="100%",cols="100%",]
 |===
@@ -613,7 +613,7 @@ javadoc for the event classes that are listed in
 <<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>. See the javadoc for
 _publishEvent()_ for the complete specification.
 
-=== Unsubscribing from system events
+===== Unsubscribing from system events
 
 [width="100%",cols="100%",]
 |===
@@ -716,7 +716,7 @@ same Java class or in different Java classes.
 === NavigationHandler
 
 [[a3562]]
-=== Overview
+==== Overview
 
 Most JSF applications can be thought of as a
 directed graph of views, each node of which roughly corresponds to the
@@ -794,7 +794,7 @@ logic to resolve a _NavigationCase_ , which is outlined in the next
 section.[P1-end]
 
 [[a3571]]
-=== Default NavigationHandler Algorithm
+==== Default NavigationHandler Algorithm
 
 JSF implementations must provide a default
 _NavigationHandler_ implementation that maps the action reference that
@@ -1129,7 +1129,7 @@ query string parameter from the previous source(s).
 {empty}[P1-end]
 
 [[a3622]]
-=== Requirements for Explicit Navigation in Faces Flow Call Nodes other than ViewNodes
+===== Requirements for Explicit Navigation in Faces Flow Call Nodes other than ViewNodes
 
 [P1-start ExplicitNavigationNonViewFlowNode
 requirements] These steps must be performed in this order to determine
@@ -1174,7 +1174,7 @@ displayed view id of the calling flow, or _null_ if there is no such
 flow. In a _finally_ block, when the re-invocation of the navigation
 algorithms completes, call _FlowHandler.popReturnMode()_ .
 
-=== Requirements for Entering a Flow
+===== Requirements for Entering a Flow
 
 [P1-start FlowEntryRequirements] If any of
 the preceding navigation steps cause a flow to be entered, the
@@ -1196,7 +1196,7 @@ _FacesException_ .
 
 {empty}[P1-end]
 
-=== Requirements for Exiting a Flow
+===== Requirements for Exiting a Flow
 
 [P1-start FlowExitRequirements] If any of the
 preceding navigation steps cause a flow to be exited, the implementation
@@ -1213,7 +1213,7 @@ return parameters are correctly passed back to the caller.
 
 {empty}[P1-end]
 
-=== Requirements for Calling A Flow from the Current Flow
+===== Requirements for Calling A Flow from the Current Flow
 
 [P1-start FlowExitRequirements] If any of the
 preceding navigation steps cause a flow to be called from another flow,
@@ -1223,7 +1223,7 @@ correctly passed.
 {empty}[P1-end]
 
 [[a3646]]
-=== Example NavigationHandler Configuration
+==== Example NavigationHandler Configuration
 
 The following _<navigation-rule>_ elements
 might appear in one or more application configuration resources (see
@@ -1706,7 +1706,7 @@ provides a non-normative usage example and walkthrough of feature so
 that all the other parts of the specification that intersect with this
 feature can be discovered.
 
-=== Non-normative example
+==== Non-normative example
 
 Here is a simple example to introduce the
 feature. It does not touch on all aspects of the feature. The example
@@ -1819,7 +1819,7 @@ that page there is a button whose action is _taskFlowReturn1_ . Clicking
 this button causes _Flow_b_Bean_ to be deactivated and navigation to the
 view named _return1_ to be performed.
 
-=== Non-normative Feature Overview
+==== Non-normative Feature Overview
 
 The normative requirements of the feature are
 stated in the context of the part of the specification impacted. This
@@ -1863,7 +1863,7 @@ implementation of the _ViewHandler_ interface. __ See
 replacing this default implementation with another implementation.
 
 [[a3874]]
-=== Overview
+==== Overview
 
  ViewHandler defines the public APIs
 described in the following paragraphs
@@ -2055,7 +2055,7 @@ See the javadocs for these methods for the
 specification.
 
 [[a3910]]
-=== Default ViewHandler Implementation
+==== Default ViewHandler Implementation
 
 The terms _view identifier_ and _viewId_ are
 used interchangeably below and mean the context relative path to the web
@@ -2075,7 +2075,7 @@ this section and the default _ViewDeclarationLanguage_ implementations
 are specified in the following section.
 
 [[a3913]]
-=== ViewHandler Methods that Derive Information From the Incoming Request
+===== ViewHandler Methods that Derive Information From the Incoming Request
 
 [P1-start ViewHandler.deriveViewId()
 requirements] The _deriveViewId()_ method must fulfill the following
@@ -2234,7 +2234,7 @@ _Application.getDefaultRenderKitId()_ if it is not _null_ .
 Otherwise, return the value specified by the
 symbolic constant _RenderKitFactory.HTML_BASIC_RENDER_KIT._
 
-=== ViewHandler Methods that are Called to Fill a Specific Role in the Lifecycle
+===== ViewHandler Methods that are Called to Fill a Specific Role in the Lifecycle
 
 {empty}[P1-start createView() requirements]
 The _createView()_ method must obtain a reference to the
@@ -2271,7 +2271,7 @@ to the _writeState()_ method of the _StateManager_ for this application.
 [N/T-end]
 
 [[a3955]]
-=== ViewHandler Methods Relating to Navigation
+===== ViewHandler Methods Relating to Navigation
 
 [P1-start getActionURL() requirements] The
 _getActionURL()_ method must fulfill the following responsibilities:
@@ -2454,7 +2454,7 @@ return the result.
 value unchanged.[P1-end]
 
 [[a3997]]
-=== ViewHandler Methods that relate to View Protection
+===== ViewHandler Methods that relate to View Protection
 
 {empty}[P1-start addProtectedView()
 requirements] See the javadocs for _addProtectedView()_ for the
@@ -2488,7 +2488,7 @@ deal with the VDL sub-system are now the domain of the VDL
 implementation. These responsibilities are defined on the
 _ViewDeclarationLanguage_ class.
 
-=== ViewDeclarationLanguageFactory
+==== ViewDeclarationLanguageFactory
 
 _ViewDeclarationLanguageFactory_ is a
 factory object that creates (if needed) and returns a new
@@ -2517,7 +2517,7 @@ returned is the same for a JSP or a Facelet view is an implementation
 detail.
 
 [[a4010]]
-=== Default ViewDeclarationLanguage Implementation
+==== Default ViewDeclarationLanguage Implementation
 
 For each of the methods on
 _ViewDeclarationLanguage_ , the required behavior is broken into three
@@ -2536,7 +2536,7 @@ Any implementation strategy is valid as long
 as these requirements are met.
 
 [[a4016]]
-=== ViewDeclarationLanguage.createView()
+===== ViewDeclarationLanguage.createView()
 
 [width="100%",cols="100%",]
 |===
@@ -2588,7 +2588,7 @@ Return the newly created _UIViewRoot_ .
 {empty}[P1-end]
 
 [[a4030]]
-=== ViewDeclarationLanguage.calculateResourceLibraryContracts()
+===== ViewDeclarationLanguage.calculateResourceLibraryContracts()
 
 [width="100%",cols="100%",]
 |===
@@ -2615,7 +2615,7 @@ The value returned from this method is the
 list whose contents are taken from the _contracts_ attribute of the
 matching _<contract-mapping>_ element.
 
-=== ViewDeclarationLanguage.buildView()
+===== ViewDeclarationLanguage.buildView()
 
 [width="100%",cols="100%",]
 |===
@@ -2648,7 +2648,7 @@ view (but not rendered at this time), during the traversal. .
 {empty}[P1-end]
 
 [[a4046]]
-=== ViewDeclarationLanguage.getComponentMetadata()
+===== ViewDeclarationLanguage.getComponentMetadata()
 
 [width="100%",cols="100%",]
 |===
@@ -2679,7 +2679,7 @@ Metadata>>.
 to support argument _componentResource_ being a JSP markup file. In this
 case, _null_ must be returned from this method.[P1-end]
 
-=== ViewDeclarationLanguage.getViewMetadata() and getViewParameters()
+===== ViewDeclarationLanguage.getViewMetadata() and getViewParameters()
 
 [width="100%",cols="100%",]
 |===
@@ -2706,7 +2706,7 @@ metadata should be extracted.
 to support argument _viewId_ being a JSP markup file. In this case,
 _null_ must be returned from this method.[P1-end]
 
-=== ViewMetadata Contract
+===== ViewMetadata Contract
 
 [width="100%",cols="100%",]
 |===
@@ -2741,7 +2741,7 @@ Convenience method that uses the view
 metadata specification above to obtain the _List<UIViewParameter>_ for
 the argument viewId.
 
-=== ViewDeclarationLanguage.getScriptComponentResource()
+===== ViewDeclarationLanguage.getScriptComponentResource()
 
 [width="100%",cols="100%",]
 |===
@@ -2768,7 +2768,7 @@ method.[P1-end]
 
 
 
-=== ViewDeclarationLanguage.renderView()
+===== ViewDeclarationLanguage.renderView()
 
 [width="100%",cols="100%",]
 |===
@@ -2865,7 +2865,7 @@ The Facelets implementation must
 response.[P1-end]
 
 [[a4101]]
-=== ViewDeclarationLanguage.restoreView()
+===== ViewDeclarationLanguage.restoreView()
 
 [width="100%",cols="100%",]
 |===
@@ -2929,7 +2929,7 @@ The JSF implementation must provide a default _StateManager_
 implementation that supports the behavior described below.
 
 [[a4119]]
-=== Overview
+==== Overview
 
 Conceptually, the state of a view can be
 divided into two pieces:
@@ -2964,7 +2964,7 @@ representing the webapp UI in memory, to be used by all requests to the
 application.
 
 [[a4126]]
-=== Stateless Views
+===== Stateless Views
 
 Version 2.2 of the specification adds support
 for stateless views. In such a view, the _UIComponent_ state for the
@@ -3000,7 +3000,7 @@ The javadocs for
 _jakarta.faces.bean.ViewScoped_
 
 [[a4135]]
-=== State Saving Alternatives and Implications
+==== State Saving Alternatives and Implications
 
 JSF implementations support two primary
 mechanisms for saving state, based on the value of the
@@ -3038,7 +3038,7 @@ that if the aggregate saved state were written to an
 _ObjectOutputStream_ , a _NotSerializableException_ would not be thrown.
 
 [[a4140]]
-=== State Saving Methods.
+==== State Saving Methods.
 
 [width="100%",cols="100%",]
 |===
@@ -3072,7 +3072,7 @@ Object state) throws IOException;
 Save the state represented in the specified
 _Object_ instance, in an implementation dependent manner.
 
-=== State Restoring Methods
+==== State Restoring Methods
 
 [width="100%",cols="100%",]
 |===
@@ -3089,7 +3089,7 @@ The default implementation of this method
 calls through to _restoreTreeStructure()_ and, if necessary
 _restoreComponentState()._
 
-=== Convenience Methods
+==== Convenience Methods
 
 [width="100%",cols="100%",]
 |===
@@ -3138,7 +3138,7 @@ setResourceHandler(ResourceHandler impl);
 === Deprecated APIs
 
 [[a4163]]
-=== PropertyResolver Property
+==== PropertyResolver Property
 
 [width="100%",cols="100%",]
 |===
@@ -3174,7 +3174,7 @@ PropertyResolver>>. This method has been deprecated. See the Javadocs for
 setPropertyResolver().
 
 [[a4171]]
-=== VariableResolver Property
+==== VariableResolver Property
 
 [width="100%",cols="100%",]
 |===
@@ -3210,7 +3210,7 @@ VariableResolver and the Default VariableResolver>>. The method has been
 deprecated. See the Javadocs for setVariableResolver().
 
 [[a4179]]
-=== Acquiring ValueBinding Instances
+==== Acquiring ValueBinding Instances
 
 [width="100%",cols="100%",]
 |===
@@ -3233,7 +3233,7 @@ has been deprecated for _createValueExpression()_
 (<<ApplicationIntegration.adoc#a3463,See Programmatically Evaluating
 Expressions>>
 
-=== Acquiring MethodBinding Instances
+==== Acquiring MethodBinding Instances
 
 [width="100%",cols="100%",]
 |===
@@ -3263,7 +3263,7 @@ own resolver implementations do so before calling
 _createMethodBinding()_ for the first time. This method has been
 deprecated.
 
-=== Object Factories
+==== Object Factories
 
 [width="100%",cols="100%",]
 |===
@@ -3285,7 +3285,7 @@ jakarta.faces.FacesContext, java.lang.String). This method has been
 deprecated for createComponent() using ValueExpression (see
 <<ApplicationIntegration.adoc#a3468,See Object Factories>>)
 
-=== StateManager
+==== StateManager
 
 This method causes the tree structure and
 component state of the view contained in the argument _FacesContext_ to
@@ -3343,7 +3343,7 @@ that wish to save and restore their own state must implement
 _StateHolder_ .
 
 [[a4204]]
-=== ResponseStateManager
+==== ResponseStateManager
 
 This method causes the tree structure and
 component state of the view contained in the argument _FacesContext_ to

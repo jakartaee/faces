@@ -5,14 +5,14 @@ This is the Jakarta Server Faces 3.0 (JSF 3.0) specification.
 === Changes between 3.0 and 2.3
 
 
-=== Backward Compatibility with Previous Versions
+==== Backward Compatibility with Previous Versions
 
 JSF 3.0 has a breaking change due to the namespace change from  `javax.faces` to `jakarta.faces`.
 
 === Related Technologies
 
 [[a173]]
-=== Other Jakarta Platform Specifications
+==== Other Jakarta Platform Specifications
 
 JSF is based on the following Jakarta specifications:
 
@@ -62,7 +62,7 @@ Portlet Specification, 3.0 JSR-286
 JSF Portlet Bridge Specification, JSR-301
 <http://jcp.org/en/jsr/detail?id=301>
 
-=== Related Documents and Specifications
+==== Related Documents and Specifications
 
 The following documents and specifications of
 the World Wide Web Consortium will be of interest to JSF implementors,

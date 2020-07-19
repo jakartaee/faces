@@ -8,7 +8,7 @@ changes between this version of the specification and the previous
 version, using the categories from the issue tracker at <
 http://jsf-spec.java.net/issues/ >.
 
-=== Big Ticket Features
+==== Big Ticket Features
 
 HTML5 Friendly Markup
 
@@ -38,11 +38,11 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055
 Start with <<ApplicationIntegration.adoc#a4126,See
 Stateless Views>>.
 
-=== Other Features, by Functional Area
+==== Other Features, by Functional Area
 
 Components/Renderers
 
-=== Larger Changes
+===== Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
 UIData supports the Collection Interface rather than List.
@@ -50,7 +50,7 @@ UIData supports the Collection Interface rather than List.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
 - Add the "role" pass through attribute.
 
-=== Smaller Changes
+===== Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
 Warn about some important corner cases when
@@ -119,7 +119,7 @@ _javax.faces.application.Application_ event subscription clarifications.
 
 Lifecycle
 
-=== Larger Changes
+===== Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-947-ClientWindow +
@@ -160,7 +160,7 @@ Events from the flash
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
 Add support for delay value in options for Ajax requests
 
-=== Smaller Changes
+===== Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
 In validate(), clarify that setSubmittedValue() null must be called if
@@ -236,7 +236,7 @@ Introduce CDI based @ViewScoped annotation.
 
 Facelets/VDL
 
-=== Larger Changes
+===== Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
 Allow cc and non-cc components in one taglib
@@ -297,7 +297,7 @@ where, in one resource library, there are both localized and
 non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
 of Localized and Versioned Resources>>.
 
-=== Smaller Changes
+===== Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038
 
@@ -424,14 +424,14 @@ case regarding bean scope and component binding.
 
 Resources
 
-=== Larger Changes
+===== Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
 This commit introduces a cleaner contract for allowing views to be
 loaded from the Filesystem (including inside of JAR files). All VDL
 resources must be loaded using ResourceHandler.createViewResource().
 
-=== Smaller Changes
+===== Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996
 
@@ -686,14 +686,14 @@ In <<RequestProcessingLifecycle.adoc#a480,See Render
 Response Partial Processing>>, require calling _UIViewRoot.resetValues()_
 if necessary.
 
-=== Backward Compatibility with Previous Versions
+==== Backward Compatibility with Previous Versions
 
 Faces 2.2 is backwards compatible with Faces
 2.1 and 2.0. This means that a web-application that was developed to run
 with Faces 2.1 or 2.0 won’t require any modification when run with Faces
 2.2 except in the cases described in the following section.
 
-=== Breakages in Backward Compatibility
+==== Breakages in Backward Compatibility
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
 
@@ -747,7 +747,7 @@ changes between this version of the specification and the previous
 version, using the categories from the issue tracker at <
 http://jsf-spec.java.net/issues/ >.
 
-=== Big Ticket Features
+==== Big Ticket Features
 
 HTML5 Friendly Markup
 
@@ -777,11 +777,11 @@ http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055
 Start with <<ApplicationIntegration.adoc#a4126,See
 Stateless Views>>.
 
-=== Other Features, by Functional Area
+==== Other Features, by Functional Area
 
 Components/Renderers
 
-=== Larger Changes
+===== Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
 UIData supports the Collection Interface rather than List.
@@ -789,7 +789,7 @@ UIData supports the Collection Interface rather than List.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
 - Add the "role" pass through attribute.
 
-=== Smaller Changes
+===== Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
 Warn about some important corner cases when
@@ -858,7 +858,7 @@ _javax.faces.application.Application_ event subscription clarifications.
 
 Lifecycle
 
-=== Larger Changes
+===== Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-947-ClientWindow +
@@ -899,7 +899,7 @@ Events from the flash
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
 Add support for delay value in options for Ajax requests
 
-=== Smaller Changes
+===== Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
 In validate(), clarify that setSubmittedValue() null must be called if
@@ -975,7 +975,7 @@ Introduce CDI based @ViewScoped annotation.
 
 Facelets/VDL
 
-=== Larger Changes
+===== Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
 Allow cc and non-cc components in one taglib
@@ -1036,7 +1036,7 @@ where, in one resource library, there are both localized and
 non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
 of Localized and Versioned Resources>>.
 
-=== Smaller Changes
+===== Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038
 
@@ -1163,14 +1163,14 @@ case regarding bean scope and component binding.
 
 Resources
 
-=== Larger Changes
+===== Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
 This commit introduces a cleaner contract for allowing views to be
 loaded from the Filesystem (including inside of JAR files). All VDL
 resources must be loaded using ResourceHandler.createViewResource().
 
-=== Smaller Changes
+===== Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996
 
@@ -1425,14 +1425,14 @@ In <<RequestProcessingLifecycle.adoc#a480,See Render
 Response Partial Processing>>, require calling _UIViewRoot.resetValues()_
 if necessary.
 
-=== Backward Compatibility with Previous Versions
+==== Backward Compatibility with Previous Versions
 
 Faces 2.2 is backwards compatible with Faces
 2.1 and 2.0. This means that a web-application that was developed to run
 with Faces 2.1 or 2.0 won’t require any modification when run with Faces
 2.2 except in the cases described in the following section.
 
-=== Breakages in Backward Compatibility
+==== Breakages in Backward Compatibility
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
 
@@ -1481,37 +1481,37 @@ substantial, it was judged to be worth the cost.
 
 === Changes between 2.0 Rev a and 2.1
 
-=== <<FaceletsAndWebApplications.adoc#a5638,See Facelet Tag Library mechanism>>
+==== <<FaceletsAndWebApplications.adoc#a5638,See Facelet Tag Library mechanism>>
 
 Document that the unprefixed namespace must
 pass through.
 
-=== New feature: <facelets-processing>
+==== New feature: <facelets-processing>
 
 {empty}<<JSFMetadata.adoc#a7040,See
 Required Handling of *-extension elements in the application
 configuration resources files>>
 
-=== Update schema for 2.1
+==== Update schema for 2.1
 
 The only new element is
 <facelet-cache-factory>. See the full schema in the Javadoc section of
 the documents.
 
-=== Change Restore View Phase
+==== Change Restore View Phase
 
 Change <<RequestProcessingLifecycle.adoc#a404,See
 Restore View>> to require a call to _ViewHandler.deriveLogicalViewId()_
 before trying to find the _ViewDeclarationLanguage_ .
 
-=== <<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>>
+==== <<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>>
 
 Document _deriveLogicalViewId()._
 
 
 === Changes between 2.0 Final and 2.0 Rev a
 
-=== Global changes
+==== Global changes
 
 ExceptionQueuedEvent
 
@@ -1586,7 +1586,7 @@ xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
 
 </f:view>
 
-=== Front Matter
+==== Front Matter
 
 Change Sun logo to Oracle Logo. Sun postal
 address to Oracle postal address, and Sun phone number to Oracle phone
@@ -1594,7 +1594,7 @@ number
 
 Update spec license.
 
-=== Chapter 2
+==== Chapter 2
 
 {empty}<<RequestProcessingLifecycle.adoc#a404,See
 Restore View>>
@@ -1631,7 +1631,7 @@ Resource Identifiers>>
 Tighten spec for the localePrefix,
 libraryName, and resourceVersion segments of the resource identifier.
 
-=== Chapter 3
+==== Chapter 3
 
 {empty}Clarify meaning of "javax.faces.bean"
 in <<UserInterfaceComponentModel.adoc#a1464,See Bean Validator Activation>>
@@ -1704,7 +1704,7 @@ as an attribute for tags like composite:actionSource,
 composite:attribute, composite:facet, and composite:interface but the
 VDLDocs do not declare that the "hidden" property is available.
 
-=== Chapter 4
+==== Chapter 4
 
 {empty}<<StandardUserInterfaceComponents.adoc#a2268,See
 Events>>
@@ -1731,7 +1731,7 @@ Default ViewHandler Implementation>>
 Fix typo the specified createView() should be
 called in renderView() and restoreView().
 
-=== Chapter 9
+==== Chapter 9
 
 <<IntegrationWithJSP.adoc#a4654,See
 <f:actionListener> >> of Spec PDF -- Missing "for" attribute of
@@ -1757,7 +1757,7 @@ the scope of the ValueExpression must be chosen carefully so as not to
 introduce undesireable results. In general, when using the binding
 attribute, do not point to beans in request or narrower scope.
 
-=== Chapter 10
+==== Chapter 10
 
 Need to change "confirm with" to "conform
 with".
@@ -1890,7 +1890,7 @@ the JSP section, but also, that f:validateBean and f:validateRequired
 belong in both Section 10.4 and 9.4, with the limits of their
 functionality described in each section.
 
-=== Chapter 13
+==== Chapter 13
 
 Redundancy in
 <<AjaxIntegration.adoc#a6831,See Partial View
@@ -1923,7 +1923,7 @@ Why does the diagram include the
 INVOKE_APPLICATION phase if it's not "really" considered to be part of
 the execute portions?
 
-=== Chapter 14
+==== Chapter 14
 
 <<JavaScriptAPI.adoc#a6856,See
 Initiating an Ajax Request>> Typo in table 14.2.2 of the JSF 2.0 Spec
@@ -1947,7 +1947,7 @@ Change responseTxt to responseText.
 
 Table 14.3: Reorder rows
 
-=== Appendix A Metadata
+==== Appendix A Metadata
 
 Update schema to remove partial-traversal, as
 well as fixing 768.
@@ -1976,7 +1976,7 @@ Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0". It
 is expected that proper JSF 2.0 Facelet Taglibraries will declare
 conformance to the following schema, rather than the deprecated DTD.
 
-=== VDLDoc changes
+==== VDLDoc changes
 
 Typo in f:selectItems VDLDocs
 
@@ -2152,7 +2152,7 @@ Jim Driscoll verified that there is a doc bug
 in the VDLDocs for f:event and that the "name" attribute is actually
 "type"
 
-=== Accepted Changes from JCP Change Log for JSF 2.0 Rev a
+==== Accepted Changes from JCP Change Log for JSF 2.0 Rev a
 
 The referenced spec public issue number can
 be found in the issue tracker at +

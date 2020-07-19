@@ -26,14 +26,14 @@ Handling>>._ This resource contains the JavaScript APIs that facilitate
 Ajax interaction with Jakarta Server Faces.
 
 [[a6704]]
-=== JavaScript Resource Loading
+==== JavaScript Resource Loading
 
 The JavaScript resource can become available
 to a Jakarta Server Faces application using a number of different
 approaches.
 
 [[a6706]]
-=== The Annotation Approach
+===== The Annotation Approach
 
 Component authors can specify that a custom
 component or renderer requires the Ajax resource with the use of the
@@ -54,7 +54,7 @@ to <<a847, Relocatable Resources>> and
 <<a869, Resource Rendering Using Annotations>>.
 
 [[a6712]]
-=== The Resource API Approach
+===== The Resource API Approach
 
 Component authors can also specify that a
 custom component or renderer requires the JavaScript resource by using
@@ -140,7 +140,7 @@ component resource to one of the resource location facets under the view
 root so it will be in place before rendering.
 
 [[a6738]]
-=== The Page Declaration Language Approach
+===== The Page Declaration Language Approach
 
 Page authors can make the Ajax resource
 available to the current view using the outputScript tag. For example:
@@ -228,7 +228,7 @@ about the individual API
 functions.
 
 [[a6769]]
-=== Sending an Ajax Request
+==== Sending an Ajax Request
 
 The JavaScript function jsf.ajax.request is
 used to send information to the server to control partial view
@@ -241,7 +241,7 @@ made asynchronously to the server. Refer to
 Ajax Request>>.
 
 [[a6771]]
-=== Ajax Request Queueing
+==== Ajax Request Queueing
 
 {empty}[P1-start-ajaxrequest-queue] All Ajax
 requests must be put into a client side request queue before they are
@@ -257,7 +257,7 @@ queue) must be sent. Refer to the jsf.ajax.request JavaScript
 documentation for more specifics about the Ajax request queue.[P1-end]
 
 [[a6773]]
-=== Request Callback Function
+==== Request Callback Function
 
 The Ajax request callback function is called
 when the Ajax request/response interaction is complete.
@@ -294,7 +294,7 @@ The Ajax Response>>. Also refer to the jsf.ajax.request JavaScript
 documentation for more specifics about the request callback function.
 
 [[a6781]]
-=== Receiving The Ajax Response
+==== Receiving The Ajax Response
 
 {empty}The jsf.ajax.response function is
 responsible for examining the markup that is returned from the server
@@ -306,7 +306,7 @@ jsf.ajax.response. The elements in the response must be processed in the
 order they appear in the response.[P1-end]
 
 [[a6783]]
-=== Monitoring Events On The Client
+==== Monitoring Events On The Client
 
 JavaScript functions can be registered to be
 notified during various stages of the Ajax request/response cycle.
@@ -314,7 +314,7 @@ Functions can be set up to monitor individual Ajax requests, and
 functions can also be set up to monitor all Ajax requests.
 
 [[a6785]]
-=== Monitoring Events For An Ajax Request
+===== Monitoring Events For An Ajax Request
 
 There are two ways to monitor events for a
 single Ajax request by registering an event callback function:
@@ -336,7 +336,7 @@ called in accordance with the events outlined in
 <<a6936, Events>>.[P1-end]
 
 [[a6790]]
-=== Monitoring Events For All Ajax Requests
+===== Monitoring Events For All Ajax Requests
 
 {empty}The JavaScript API provides the
 jsf.ajax.addOnEvent function that can be used to register a JavaScript
@@ -351,7 +351,7 @@ must be called in accordance with the events outlined in
 <<a6936, Events>>.[P1-end]
 
 [[a6792]]
-=== Sending Events
+===== Sending Events
 
 [P1-start-event-send]The implementation must
 send events to the runtime as follows:
@@ -373,7 +373,7 @@ Monitoring Events For All Ajax Requests>>) call them passing the data
 payload.[P1-end]
 
 [[a6797]]
-=== Handling Errors On the Client
+==== Handling Errors On the Client
 
 JavaScript functions can be registered to be
 notified when Ajax requests complete with error status codes from the
@@ -382,7 +382,7 @@ can be set up to handle errors from individual Ajax requests and
 functions can be setup to handle errors for all Ajax requests.
 
 [[a6799]]
-=== Handling Errors For An Ajax Request
+===== Handling Errors For An Ajax Request
 
 There are two ways to handle errors for a
 single Ajax request by registering an error callback function:
@@ -404,7 +404,7 @@ called in accordance when the request status code from the server is as
 outlined in <<a6976, Errors>>.[P1-end]
 
 [[a6804]]
-=== Handling Errors For All Ajax Requests
+===== Handling Errors For All Ajax Requests
 
 {empty}The JavaScript API provides the
 jsf.ajax.addOnError function that can be used to register a JavaScript
@@ -419,7 +419,7 @@ must be called in accordance with the errors outlined in
 <<a6976, Errors>>.[P1-end]
 
 [[a6806]]
-=== Signaling Errors
+===== Signaling Errors
 
 [P1-start-error-signal]The implementation
 must signal errors to the runtime as follows:
@@ -446,7 +446,7 @@ Determining An Application’s Project Stage>>) use JavaScript “alert” to
 signal the error(s).[P1-end]
 
 [[a6812]]
-=== Handling Errors On The Server
+==== Handling Errors On The Server
 
 Jakarta Server Faces handles exceptions on the
 server as outlined in <<a3253, ExceptionHandler>>.
@@ -508,7 +508,7 @@ and/or rendered. There are a variety of JSF Ajax frameworks available,
 and they all perform some variation of partial traversal.
 
 [[a6829]]
-=== Partial Traversal Strategy
+==== Partial Traversal Strategy
 
 Frameworks use a partial traversal strategy
 to perform partial view processing and partial view rendering. This
@@ -518,7 +518,7 @@ implementing the PartialViewContext.processPartial method. Refer to the
 JavaDocs for details about this method.
 
 [[a6831]]
-=== Partial View Processing
+==== Partial View Processing
 
 {empty}Partial view processing allows
 selected components to be processed through the “execute” portion of the
@@ -569,7 +569,7 @@ Update Model Values>>,
 Update Model Values Partial Processing>>.[P1-end]
 
 [[a6833]]
-=== Partial View Rendering
+==== Partial View Rendering
 
 {empty}Partial view rendering on the server
 is triggered by a request from the client. It allows one or more
@@ -596,7 +596,7 @@ PartialViewContext.processPartial implementation. Refer to the JavaDocs
 for UIViewRoot.encodeChildren for specific details.[P1-end]
 
 [[a6835]]
-=== Sending The Response to The Client
+==== Sending The Response to The Client
 
 The Ajax response (also known as partial
 response) is formulated and sent to the client during the Render
@@ -623,7 +623,7 @@ Components>> section. This XML schema is another important area for
 component library compatability.
 
 [[a6837]]
-=== Writing The Partial Response
+===== Writing The Partial Response
 
 Jakarta Server Faces provides
 jakarta.faces.context.PartialResponseWriter to ensure the Ajax response

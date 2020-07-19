@@ -48,7 +48,7 @@ Return a concatenated String of the encoded
 input elements and jakarta.faces.ViewState element.
 
 [[a6852]]
-=== Use Case
+==== Use Case
 
 Collect and Encode Elements Of a Form
 
@@ -85,7 +85,7 @@ client side request queue to help ensure request ordering
 {empty}[P1-end]
 
 [[a6864]]
-=== Usage
+==== Usage
 
 Typically, this function is attached as a
 JavaScript event handler (such as “onclick”).
@@ -111,7 +111,7 @@ associative object array that may contain the following name/value
 pairs:
 
 [[a6871]]
-=== request OPTIONS
+==== request OPTIONS
 
 Name
 
@@ -147,12 +147,12 @@ An object that may include additional
 parameters to include in the request.
 
 [[a6884]]
-=== Keywords
+==== Keywords
 
 The following keywords can be used for the
 value of the “execute” and “render” attributes:
 
-=== Execute / Render Keywords
+==== Execute / Render Keywords
 
 Keyword
 
@@ -175,7 +175,7 @@ The element that triggered the request
 The enclosing form
 
 [[a6897]]
-=== Default Values
+==== Default Values
 
 Values for the execute and render attributes
 are not required. When using the JavaScript API, the default values for
@@ -220,7 +220,7 @@ Refer to <<a1111,
 when they are used with the core “<f:ajax>” tag.
 
 [[a6911]]
-=== Request Sending Specifics
+==== Request Sending Specifics
 
 The mechanics of sending an Ajax request
 becomes very important to promote component compatability. Even more
@@ -251,7 +251,7 @@ source of this request
 {empty}[P1-end]
 
 [[a6921]]
-=== Use Case
+==== Use Case
 
 [width="100%",cols="100%",]
 |===
@@ -306,7 +306,7 @@ the JavaScript API (<<a6871, request
 OPTIONS>>), and the core <f:ajax> tag (<<a1111, <f:ajax>>>).
 
 [[a6933]]
-=== Request/Response Event Handling
+==== Request/Response Event Handling
 
 [width="100%",cols="100%",]
 |===
@@ -318,7 +318,7 @@ an existing JavaScript function that will handle the events. The events
 that can be handled are:
 
 [[a6936]]
-=== Events
+==== Events
 
 Event Name
 
@@ -347,7 +347,7 @@ The callback function has access to the
 following “data payload”:.
 
 [[a6947]]
-=== Event Data Payload
+==== Event Data Payload
 
 Name
 
@@ -383,7 +383,7 @@ The text response
 (XMLHttpResponse.responseText) Not present for “begin” event;
 
 [[a6962]]
-=== Use Case
+===== Use Case
 
 An event listener can be installed from
 JavaScript in this manner.
@@ -419,7 +419,7 @@ a|
 |===
 
 [[a6973]]
-=== Error Handling
+==== Error Handling
 
 [width="100%",cols="100%",]
 |===
@@ -430,7 +430,7 @@ The callback argument must be a reference to
 an existing JavaScript function that will handle errors from the server.
 
 [[a6976]]
-=== Errors
+==== Errors
 
 Error Name
 
@@ -460,7 +460,7 @@ The callback function has access to the
 following “data payload”:.
 
 [[a6988]]
-=== Error Data Payload
+==== Error Data Payload
 
 Name
 
@@ -509,7 +509,7 @@ The error messages taken from the Ajax
 response “error” element.
 
 [[a7009]]
-=== Use Case
+===== Use Case
 
 [width="100%",cols="100%",]
 |===
@@ -546,7 +546,7 @@ jakarta.faces.application.Application.getProjectStage(); Refer to
 about this property.[P1-end]
 
 [[a7020]]
-=== Use Case
+==== Use Case
 
 [width="100%",cols="100%",]
 |===
