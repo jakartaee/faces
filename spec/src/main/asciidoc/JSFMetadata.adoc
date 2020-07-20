@@ -62,7 +62,7 @@ processed takes precedence over preceding elements. Processing order can
 be controlled as specified in <<UsingJSFInWebApplications.adoc#a6435,See Ordering
 of Artifacts>>.
 
-===  _faces-config-extension_ handling
+====  _faces-config-extension_ handling
 
 If an application configuration resource
 contains a _faces-config-extension_ element, the children of the element
@@ -72,7 +72,7 @@ convenience since the content of a _*-extension_ element may not be
 constrained due to its declaration as containing _<xsd:any>_ .
 
 [[a7061]]
-=== The _facelets-processing_ element
+===== The _facelets-processing_ element
 
 DTD syntax..
 
@@ -97,7 +97,7 @@ applications already using the JSP document syntax (also known as JSPX
 syntax). The affect on the processing of files in each of these three
 modes is specified in the following table.
 
-=== Valid _<process-as>_ values and their implications on the processing of Facelet VDL files.
+===== Valid _<process-as>_ values and their implications on the processing of Facelet VDL files.
 
 
 
@@ -300,7 +300,7 @@ following schema, rather than the deprecated
 DTD.[P1_end_facelet_taglib_decl]
 
 [[a7139]]
-=== Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0
+==== Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0
 
 This DTD is deprecated and is included so
 implementors will have a reference.

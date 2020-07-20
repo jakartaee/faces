@@ -17,7 +17,7 @@ mind. New features introduced in version 2 and later are only exposed to
 page authors using Facelets. JSP is retained for backwards
 compatibility.
 
-=== Differences between JSP and Facelets
+==== Differences between JSP and Facelets
 
 Facelets was the first non-JSP view
 declaration language designed for Jakarta Server Faces. As such, Facelets
@@ -28,7 +28,7 @@ following table lists some of the differences between Facelets and JSP
 
 
 
-=== Comparison of Facelets and JSP
+==== Comparison of Facelets and JSP
 
 Feature Name
 
@@ -84,7 +84,7 @@ implementation for JSP
 No, the specification is defined by and is
 one with the implementation.
 
-=== Differences between Pre JSF 2.0 Facelets and Facelets in JSF 2.0
+==== Differences between Pre JSF 2.0 Facelets and Facelets in JSF 2.0
 
 The work of taking a snapshot of a version of
 Facelets and producing the specification for Facelets in JSF 2.0
@@ -123,7 +123,7 @@ Facelets in JSF 2.0 provides tag libraries
 that are compatible with the following libraries already found in pre
 JSF 2.0 Facelets.
 
-=== Taglibs in pre JSF 2.0 Facelets that are available in Facelets in JSF 2.0
+==== Taglibs in pre JSF 2.0 Facelets that are available in Facelets in JSF 2.0
 
 Common prefix
 
@@ -154,7 +154,7 @@ JSF 2.0 are not available in pre JSF 2.0 Facelets and will only work in
 JSF 2.0 or later.
 
 [[a5526]]
-=== Resource Library Contracts Background
+==== Resource Library Contracts Background
 
 JSF defines a system called “resource library
 contracts” for applying facelet templates to an entire application in a
@@ -167,7 +167,7 @@ Facelet VDL views in the application can also make use of resources
 contained in a resource library contract, but the feature has ample
 value when only used with templates.
 
-=== Non-normative Example
+===== Non-normative Example
 
 Consider this resource library contract,
 called _siteLayout_ .
@@ -360,7 +360,7 @@ views. As long as the contract declaration does not change,
 _useContract_ can take advantage of _newSiteLayout_ simply by replacing
 one JAR in _WEB-INF/lib_ .
 
-=== Non-normative Feature Overview
+===== Non-normative Feature Overview
 
 The normative requirements of the feature are
 stated in the context of the part of the specification impacted. This
@@ -436,7 +436,7 @@ resources in the page that originate from within resource library
 contracts will be correctly fetched.
 
 [[a5581]]
-=== HTML5 Friendly Markup
+==== HTML5 Friendly Markup
 
 Prior to version 2.2 of this specification,
 the view authoring model relied entirely on the concept of a JSF UI
@@ -457,7 +457,7 @@ in HTML5.
 This feature is only available to views
 written in Facelets. It is not available to views written in JSP.
 
-=== Non-normative Feature Overview
+===== Non-normative Feature Overview
 
 The normative requirements of the feature are
 stated in the context of the part of the specification impacted. This
@@ -621,7 +621,7 @@ the Javadocs for that package, and the classes within it, for additional
 normative specification _._
 
 [[a5608]]
-=== Specification of the ViewDeclarationLanguage Implementation for Facelets for JSF 2.0
+==== Specification of the ViewDeclarationLanguage Implementation for Facelets for JSF 2.0
 
 As normatively specified in the javadocs for
 _ViewDeclarationLanguageFactory.getViewDeclarationLanguage()_ , a JSF
@@ -739,7 +739,7 @@ _jakarta.faces.view.facelets.TagHandler_ .
 === XHTML Specification for Facelets for JSF 2.0
 
 [[a5632]]
-=== General Requirements
+==== General Requirements
 
 [P1-start_facelet_xhtml]Facelet pages are
 authored in XHTML. The runtime must support all XHTML pages that conform
@@ -755,7 +755,7 @@ regardless of whether or not the _http://java.sun.com/jsf/html_
 namespace has been declared in the page.
 
 [[a5635]]
-=== DOCTYPE and XML Declaration
+===== DOCTYPE and XML Declaration
 
 When processing Facelet VDL files, the system
 must ensure that at most one XML declaration and at most one DOCTYPE
@@ -774,7 +774,7 @@ facelets-processing element>>.
 {empty}[P1-end_facelet_xhtml]
 
 [[a5638]]
-=== Facelet Tag Library mechanism
+==== Facelet Tag Library mechanism
 
 Facelets leverages the XML namespace
 mechanism to support the concept of a “tag library” analogous to the
@@ -899,7 +899,7 @@ Schema Definition For Facelet Taglib>>.
 
 
 [[a5661]]
-=== Requirements specific to composite components
+==== Requirements specific to composite components
 
 The text in this section makes use of the
 terms defined in <<UserInterfaceComponentModel.adoc#a1619,See Composite Component
@@ -907,7 +907,7 @@ Terms>>. When such a term appears in this section, it will be in
 _emphasis font face_ .
 
 [[a5663]]
-=== Declaring a composite component library for use in a Facelet page
+===== Declaring a composite component library for use in a Facelet page
 
 [P1_start_composite_library_decl]The runtime
 must support the following two ways of declaring a _composite component
@@ -951,7 +951,7 @@ use in an XML namespace declaration in facelet
 pages.[P1_end_composite_library_decl]
 
 [[a5670]]
-=== Creating an instance of a _top level component_
+===== Creating an instance of a _top level component_
 
 [P1_start_top_level_component_creation]If,
 during the process of building the view, the facelet runtime encounters
@@ -969,7 +969,7 @@ _jakarta.faces.Group_ to be installed as a facet of the _top level
 component_ under the facet name _UIComponent.COMPOSITE_FACET_NAME_
 .[P1_end_top_level_component_creation]
 
-=== Populating a _top level component_ instance with children
+===== Populating a _top level component_ instance with children
 
 {empty}[P1_start_top_level_component_population]As
 specified in <<UserInterfaceComponentModel.adoc#a1545,See How does one make a
@@ -1064,7 +1064,7 @@ _composite component definition_ . [P1_end_nested_composite_components].
 This section specifies the tag libraries that
 must be provided by an implementation.
 
-=== JSF Core Tag Library
+==== JSF Core Tag Library
 
 This tag library must be equivalent to the
 one specified in <<IntegrationWithJSP.adoc#a4636,See JSF Core Tag Library>>.
@@ -1080,7 +1080,7 @@ The following additional tags apply to the
 Facelet Core Tag Library only.
 
 [[a1111]]
-=== <f:ajax>
+===== <f:ajax>
 
 This tag serves two roles depending on its
 placement. If this tag is nested within a single component, it will
@@ -1088,7 +1088,7 @@ associate an Ajax action with that component. If this tag is placed
 around a group of components it will associate an Ajax action with all
 components that support the “events” attribute. In there is an outer
 
-=== Syntax
+===== Syntax
 
 <f:ajax [event=”Literal”] [execute=”Literal |
 Value Expression”] [render=”Literal | Value Expression”]
@@ -1096,11 +1096,11 @@ Value Expression”] [render=”Literal | Value Expression”]
 Expression”] | [listener=”Method Expression”] [disabled=”Literal|Value
 Expression”] [immediate=”Literal|ValueExpression]/>
 
-=== Body Content
+===== Body Content
 
 empty.
 
-=== Attributes
+===== Attributes
 
 The following optional attributes are
 available:
@@ -1201,7 +1201,7 @@ If “true” behavior events generated from this
 behavior are broadcast during Apply Request Values phase. Otherwise, the
 events will be broadcast during Invoke Aplications phase.
 
-=== Specifying “execute”/”render” Identifiers
+===== Specifying “execute”/”render” Identifiers
 
 {empty}The String value for identifiers
 specified for execute and render may be specified as a search expression
@@ -1209,7 +1209,7 @@ as outlined in the JavaDocs for UIComponent.findComponent.
 [P1_start_execrenderIds]The implementation must resolve these
 identifiers as specified for UIComponent.findComponent.[P1_end]
 
-=== Constraints
+===== Constraints
 
 This tag may be nested within any of the
 standard HTML components. It may also be nested within any custom
@@ -1354,7 +1354,7 @@ attached to “button1”. the outer <f:ajax> Ajax behavior will also get
 applied to “button1”. But it will be applied *after* the “greet”
 behavior.
 
-=== Description
+===== Description
 
 Enable one or more components in the view to
 perform Ajax operations. This tag handler must create an instance of
@@ -1383,7 +1383,7 @@ instance must be added as a Behavior to the component. Please refer to
 the Javadocs for the core tag handler AjaxHandler for additional
 requirements.
 
-=== Examples
+===== Examples
 
 Apply Ajax to “button1” and “text1”:
 
@@ -1466,7 +1466,7 @@ a|
 
 |===
 
-=== <f:event>
+===== <f:event>
 
 Allow JSF page authors to install
 _ComponentSystemEventListener_ instances on a component in a page.
@@ -1474,7 +1474,7 @@ Because this tag is closely tied to the event system, please see section
 <<UserInterfaceComponentModel.adoc#a1393,See Declarative Listener Registration>> for
 the normative specification.
 
-=== <f:metadata>
+===== <f:metadata>
 
 Register a facet on the parent component,
 which must be the _UIViewRoot_ . This must be a child of the _<f:view>_
@@ -1486,7 +1486,7 @@ to be the value of the _UIViewRoot.METADATA_FACET_NAME_ symbolic
 constant.
 
 [[a5828]]
-=== <f:validateBean>
+===== <f:validateBean>
 
 Register a BeanValidator instance on the
 parent EditableValueHolder UIComponent or the EditableValueHolder
@@ -1526,7 +1526,7 @@ _ <!-- other input components here --> +
 </f:validateBean> +
 </h:form>
 
-=== Body Content
+===== Body Content
 
 Empty in the case when the Bean Validator is
 to be registered on a parent component.
@@ -1608,7 +1608,7 @@ the specified attributes, and return the configured instance. If there
 was an exception thrown, rethrow the exception as a TagException.
 
 [[a5857]]
-=== <f:validateRequired>
+===== <f:validateRequired>
 
 Register a RequiredValidator instance on the
 parent EditableValueHolder UIComponent or the EditableValueHolder
@@ -1619,7 +1619,7 @@ Syntax
 
 <f:validateRequired/>
 
-=== Body Content
+===== Body Content
 
 empty
 
@@ -1692,7 +1692,7 @@ jakarta.faces.validator.RequiredValidator, configure its properties based
 on the specified attributes, and return the configured instance. If
 there was an exception thrown, rethrow the exception as a TagException.
 
-=== <f:validateWholeBean>
+===== <f:validateWholeBean>
 
 Support multi-field validation by enabling
 class-level bean validation on CDI based backing beans.
@@ -1708,7 +1708,7 @@ model object --> +
 <f:validateWholeBean value=_ " _#\{model}_ " _ +
 validationGroups=_ " _fully.qualified.class.Name_ " _/>_
 
-=== Body Content
+===== Body Content
 
 empty
 
@@ -1752,7 +1752,7 @@ See the VDLDoc for _<f:validateWholeBean />_
 for the normative specification and a usage example.
 
 [[a5904]]
-=== <f:websocket>
+===== <f:websocket>
 
 This tag registers a websocket push
 connection at the client side by rendering the necessary scripts. Push
@@ -1771,7 +1771,7 @@ has among others the advantage of maintaining the JSF view state, the
 HTTP session and, critically, all security constraints on business
 service methods.
 
-=== Syntax
+===== Syntax
 
 _<f:websocket [binding=_ " _ValueExpression_
 " _] [id=_ " _Literal|ValueExpression_ " _] +
@@ -1783,12 +1783,12 @@ _Literal|ValueExpression_ " _] +
 _Literal|ValueExpression_ " _] +
 [rendered=_ " _Literal|ValueExpression_ " _] />_
 
-=== Body Content
+===== Body Content
 
 Empty, or one or more _<f:ajax>_ tags with
 the _event_ attribute set to exactly the push message content.
 
-=== Attributes
+===== Attributes
 
 The following required attribute must be set:
 
@@ -1894,7 +1894,7 @@ property bound to the component instance for the UIComponent created by
 this tag.
 |===
 
-=== Configuration
+===== Configuration
 
 First, enable the websocket endpoint using
 the context parameter:
@@ -1920,7 +1920,7 @@ integer context parameter in web.xml to explicitly specify the port.
 </context-param>
 |===
 
-=== Usage (client)
+===== Usage (client)
 
 Declare <f:websocket> tag in the JSF view
 with at least a channel name and an onmessage JavaScript listener
@@ -1972,7 +1972,7 @@ will not auto-reconnect when the very first connection attempt already
 fails. The websocket will be implicitly closed once the document is
 unloaded.
 
-=== Usage (server)
+===== Usage (server)
 
 On the Java programming side, you can inject
 a PushContext via @Push annotation on the given channel name in any
@@ -2010,7 +2010,7 @@ listener function associated with the channel name. It can be a plain
 vanilla String, but it can also be a collection, map and even a Java
 bean.
 
-=== Scopes and Users
+===== Scopes and Users
 
 By default the websocket is application
 scoped, i.e. any view/session throughout the web application having the
@@ -2104,7 +2104,7 @@ someChannel.send(message, recipientUserIds); +
 }
 |===
 
-=== Conditionally Connecting
+===== Conditionally Connecting
 
 You can use the optional connected attribute
 to control whether to auto-connect the websocket or not..
@@ -2149,7 +2149,7 @@ jsf.push.close('foo'); +
 }
 |===
 
-=== Events (client)
+===== Events (client)
 
 The optional onopen JavaScript listener
 function can be used to listen on open of a websocket in client side.
@@ -2218,7 +2218,7 @@ automatically closed with close reason code 1000 by the server (and thus
 not manually by the client via jsf.push.close(clientId)), then it means
 that the session or view has expired.
 
-=== Events (server)
+===== Events (server)
 
 When a session or view scoped socket is
 automatically closed with close reason code 1000 by the server (and thus
@@ -2252,7 +2252,7 @@ CloseCode code = event.getCloseCode(); +
 
 |===
 
-=== Security Considerations
+===== Security Considerations
 
 If the socket is declared in a page which is
 only restricted to logged-in users with a specific role, then you may
@@ -2316,7 +2316,7 @@ CloseCodes.NORMAL_CLOSURE (1000). Only application scoped sockets remain
 open and are still reachable from server end even when the session or
 view associated with the page in client side is expired.
 
-=== Ajax Support
+===== Ajax Support
 
 In case you’d like to perform complex UI
 updates depending on the received push message, then you can nest
@@ -2367,7 +2367,7 @@ available as request parameters in the command script method
 #\{bean.pushed}.
 
 [[a6029]]
-=== Standard HTML RenderKit Tag Library
+==== Standard HTML RenderKit Tag Library
 
 This tag library must be equivalent to the
 one specified in <<IntegrationWithJSP.adoc#a5363,See Standard HTML RenderKit
@@ -2378,7 +2378,7 @@ to the ones defined in the other section.
 
 
 
-=== Renderers Unique to Facelets
+==== Renderers Unique to Facelets
 
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
@@ -2395,21 +2395,21 @@ to the ones defined in the other section.
 |===
 
 [[a6043]]
-=== Facelet Templating Tag Library
+==== Facelet Templating Tag Library
 
 This tag library is the specified version of
 the ui: tag library found in pre JSF 2.0 Facelets. The specification for
 this library can be found in the VDLDocs for the _ui:_ library.
 
 [[a6045]]
-=== Composite Component Tag Library
+==== Composite Component Tag Library
 
 This tag library is used to declare composite
 components. The specification for this tag library can be found in the
 VDLDocs for the _composite:_ library.
 
 [[a6047]]
-=== JSTL Core and Function Tag Libraries
+==== JSTL Core and Function Tag Libraries
 
 Facelets exposes a subset of the JSTL Core
 tag library and the entirety of the JSTL Function tag library. Please

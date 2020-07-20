@@ -36,7 +36,7 @@ must support the functionality described in this chapter to ensure
 application portability.
 
 [[a6066]]
-=== Servlet Definition
+==== Servlet Definition
 
 JSF implementations must provide request
 processing lifecycle services through a standard servlet, defined by
@@ -73,7 +73,7 @@ request processing lifecycle, but applications that rely on these
 mechanisms will not be portable.
 
 [[a6076]]
-=== Servlet Mapping
+==== Servlet Mapping
 
 All requests to a web application are mapped
 to a particular servlet based on matching a URL pattern (as defined in
@@ -122,7 +122,7 @@ request processing lifecycle, but applications that rely on these
 mechanisms will not be portable.
 
 [[a6088]]
-=== Application Configuration Parameters
+==== Application Configuration Parameters
 
 Servlet containers support application
 configuration parameters that may be customized by including
@@ -440,41 +440,41 @@ The following sections describe how various
 subsets of the required classes and resources should be packaged, and
 how they should be made available.
 
-=== Application-Specific Classes and Resources
+==== Application-Specific Classes and Resources
 
 Application-specific classes and resources
 should be included in _/WEB-INF/classes_ or _/WEB-INF/lib_ , so that
 they are automatically made available upon application deployment.
 
-=== Servlet and JSP API Classes (jakarta.servlet.*)
+==== Servlet and JSP API Classes (jakarta.servlet.*)
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
 the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
-=== JSP Standard Tag Library (JSTL) API Classes (jakarta.servlet.jsp.jstl.*)
+==== JSP Standard Tag Library (JSTL) API Classes (jakarta.servlet.jsp.jstl.*)
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
 the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
-=== JSP Standard Tag Library (JSTL) Implementation Classes
+==== JSP Standard Tag Library (JSTL) Implementation Classes
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
 the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
-=== Jakarta Server Faces API Classes (jakarta.faces.*)
+==== Jakarta Server Faces API Classes (jakarta.faces.*)
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
 the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
-=== Jakarta Server Faces Implementation Classes
+==== Jakarta Server Faces Implementation Classes
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
@@ -482,7 +482,7 @@ the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
 [[a6147]]
-=== FactoryFinder
+===== FactoryFinder
 
 _jakarta.faces.FactoryFinder_ implements the
 standard discovery algorithm for all factory objects specified in the
@@ -564,7 +564,7 @@ provide an implementation of the corresponding Factory class using the
 algorithm described earlier in this section.[P1-end]
 
 [[a6160]]
-=== FacesServlet
+===== FacesServlet
 
 _FacesServlet_ is an implementation of
 _jakarta.servlet.Servlet_ that accepts incoming requests and passes them
@@ -652,7 +652,7 @@ required. The value of this constant must be “
 _jakarta.faces.LIFECYCLE_ID_ ”.[P1-end]
 
 [[a6175]]
-=== UIComponentELTag
+===== UIComponentELTag
 
 _[P1-start-uicomponenteltag]UIComponentELTag_ is an implementation of
 _jakarta.servlet.jsp.tagext.BodyTag_ , and must be the base class for any
@@ -661,14 +661,14 @@ JSP custom action that corresponds to a JSF _UIComponent_ .[P1-end] See
 for _UIComponentELTag_ , for more information about using this class as
 the base class for your own _UIComponent_ custom action classes.
 
-=== FacetTag
+===== FacetTag
 
 JSP custom action that adds a named facet
 (see <<a968, Facet Management>>) to the
 UIComponent associated with the closest parent UIComponent custom
 action. See <<a4843, <f:facet>>>.
 
-=== ValidatorTag
+===== ValidatorTag
 
 JSP custom action (and convenience base
 class) that creates and registers a _Validator_ instance on the
@@ -691,27 +691,27 @@ Faces component libraries that expose themselves as JSP tags, the
 existing classes relating to JSP have been deprecated and new ones
 introduced that leverage the EL API.
 
-===  _AttributeTag_
+====  _AttributeTag_
 
 {empty}[P1-start-attributetag]The faces
 implementation must now provide this class.[P1-end]
 
-===  _ConverterTag_
+====  _ConverterTag_
 
 This has been replaced with _ConverterELTag_
 
-===  _UIComponentBodyTag_
+====  _UIComponentBodyTag_
 
 All component tags now implement _BodyTag_ by
 virtue of the new class _UIComponentClassicTagBase_ implementing
 _BodyTag_ . This class has been replaced by _UIComponentELTag_ .
 
-===  _UIComponentTag_
+====  _UIComponentTag_
 
 This component has been replaced by
 _UIComponentELTag_ .
 
-===  _ValidatorTag_
+====  _ValidatorTag_
 
 This component has been replaced by
 _ValidatorELTag_ .
@@ -724,7 +724,7 @@ This section describes the JSF support for
 portable application configuration resources used to configure
 application components.
 
-=== Overview
+==== Overview
 
 JSF defines a portable configuration resource
 format (as an XML document) for standard configuration information.
@@ -743,7 +743,7 @@ Providers. The mechanism by which configuration resources are made
 available to such tools is outside the scope of this specification.
 
 [[a6201]]
-=== Application Startup Behavior
+==== Application Startup Behavior
 
 Implementations may check for the presence of
 a _servlet-class_ definition of class _jakarta.faces.webapp.FacesServlet_
@@ -832,7 +832,7 @@ JSF implementations that are not part of a Jakarta EE technology-compliant
 implementation.
 
 [[a6215]]
-=== Resource Library Contracts
+===== Resource Library Contracts
 
 [P1-start-ResourceLibraryContractScanning]If
 the parsing of the application configuration resources completed
@@ -913,7 +913,7 @@ unexpected behavior in the case of multiple contracts that have the same
 contract declaration.
 
 [[a6228]]
-=== Faces Flows
+==== Faces Flows
 
 [P1-start-FacesFlowScanning]If the parsing of
 the application configuration resources completed successfully, any XML
@@ -926,7 +926,7 @@ _jakarta.faces.CLIENT_WINDOW_MODE_ context-param was not specified, the
 runtime must behave as if the value “url” (without the quotes) was
 specified for this context-param.
 
-=== Defining Flows
+===== Defining Flows
 
 Flows are defined using the
 _<flow-definition>_ element. This element must have an _id_ attribute
@@ -943,7 +943,7 @@ simpler. These conventions are specified in
 
 {empty}[P1-end]
 
-=== Packaging Faces Flows in JAR Files
+===== Packaging Faces Flows in JAR Files
 
 [P1-start-FacesFlowJarPackaging] The runtime
 must support packaging Faces Flows in JAR files as specified in this
@@ -966,7 +966,7 @@ file’s _faces-config.xml_ .
 {empty}[P1-end]
 
 [[a6236]]
-=== Packaging Flows in Directories
+===== Packaging Flows in Directories
 
 The view nodes of a flow need not be
 collected in any specific directory structure, but there is a benefit in
@@ -1020,7 +1020,7 @@ _FlowHandler_ before the _PostConstructApplicationEvent_ is published.
 {empty}[P1-end]
 
 [[a6248]]
-=== Application Shutdown Behavior
+==== Application Shutdown Behavior
 
 {empty}When the JSF runtime is directed to
 shutdown by its container, the following actions must be taken.
@@ -1039,7 +1039,7 @@ Call _FactoryFinder.releaseFactories()_ .
 {empty}[p1-end]
 
 [[a6254]]
-=== Application Configuration Resource Format
+==== Application Configuration Resource Format
 
 {empty}Application configuration resources
 that are written to run on JSF 2.3 must include the following schema
@@ -1204,7 +1204,7 @@ Faces Config 1.0//EN”
 |===
 
 [[a6297]]
-=== Configuration Impact on JSF Runtime
+==== Configuration Impact on JSF Runtime
 
 [width="100%",cols="100%",]
 |===
@@ -1422,7 +1422,7 @@ characteristics of a navigation rule available to the default
 _NavigationHandler_ implementation.
 
 [[a6336]]
-=== Delegating Implementation Support
+==== Delegating Implementation Support
 
 [P1-decoratable_artifacts]The runtime must
 support the decorator design pattern as specified below for the
@@ -1680,7 +1680,7 @@ This allows you to override as many or as few
 methods as you’d like.
 
 [[a6435]]
-=== Ordering of Artifacts
+==== Ordering of Artifacts
 
 Because the specification allows the
 application configuration resources to be composed of multiple files,
@@ -2077,7 +2077,7 @@ order could also be: C, D, B, A.
 {empty}[P1-endDecoratableOrdering]
 
 [[a6554]]
-=== Example Application Configuration Resource
+==== Example Application Configuration Resource
 
 The following example application resource
 file defines a custom _UIComponent_ of type _Date_ , plus a number of
@@ -2187,7 +2187,7 @@ Application Configuration Resources. The implementation requirements are
 specified in this section.
 
 [[a6598]]
-=== Requirements for scanning of classes for annotations
+==== Requirements for scanning of classes for annotations
 
 [P1_start-annotation-discovery]If the
 _<faces-config>_ element in the _WEB-INF/faces-config.xml_ file contains

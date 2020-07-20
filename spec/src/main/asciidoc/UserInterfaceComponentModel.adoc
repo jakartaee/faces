@@ -67,7 +67,7 @@ The following subsections define the key
 functional capabilities of JSF user interface components.
 
 [[a895]]
-=== Component Identifiers
+==== Component Identifiers
 
 [width="100%",cols="100%",]
 |===
@@ -99,7 +99,7 @@ If a component has been given an identifier,
 it must be unique in the namespace of the closest ancestor to that
 component that is a _NamingContainer_ (if any).
 
-=== Component Type
+==== Component Type
 
 While not a property of _UIComponent_ , the
 _component-type_ is an important piece of data related to each
@@ -111,7 +111,7 @@ _component-type_ .
 Component types starting with “jakarta.faces.”
 are reserved for use by the JSF specification.
 
-=== Component Family
+==== Component Family
 
 [width="100%",cols="100%",]
 |===
@@ -129,7 +129,7 @@ Component families starting with
 “jakarta.faces.” are reserved for use by the JSF specification.
 
 [[a911]]
-=== ValueExpression properties
+==== ValueExpression properties
 
 Properties and attributes of standard
 concrete component classes may be _value expression enabled_ . This
@@ -198,7 +198,7 @@ to learn how they are implemented in terms of the new “value expression”
 concept.
 
 [[a923]]
-=== Component Bindings
+==== Component Bindings
 
 A _component binding_ is a special value
 expression that can be used to facilitate “wiring up” a component
@@ -245,7 +245,7 @@ depend on running inside of a single thread. There are also potentially
 negative impacts on memory management when placing a component binding
 in “session” or “view” scopes.
 
-=== Client Identifiers
+==== Client Identifiers
 
 Client identifiers are used by JSF
 implementations, as they decode and encode components, for any occasion
@@ -285,7 +285,7 @@ instance unless _setId()_ is called, in which case it will be
 recalculated by the next call to _getClientId()_ .
 
 [[a937]]
-=== Component Tree Manipulation
+==== Component Tree Manipulation
 
 [width="100%",cols="100%",]
 |===
@@ -338,7 +338,7 @@ component list, so it is preferred over calling _getChildren().size()_
 when there are no children. [P2-end]
 
 [[a946]]
-=== Component Tree Navigation
+==== Component Tree Navigation
 
 [width="100%",cols="100%",]
 |===
@@ -446,7 +446,7 @@ description for the package _jakarta.faces.component.visit_ for the
 normative specification.
 
 [[a968]]
-=== Facet Management
+==== Facet Management
 
 Jakarta Server Faces supports the traditional
 model of composing complex components out of simple components via
@@ -515,7 +515,7 @@ public void setHeader(UIHeader header) \{
 |===
 
 [[a983]]
-=== Managing Component Behavior
+==== Managing Component Behavior
 
 _UIComponentBase_ provides default
 implementations for the methods from the _jakarta.faces.component.behavior.BehaviorHolder_
@@ -565,7 +565,7 @@ Returns the default event name (if any) for
 the component.
 
 [[a993]]
-=== Generic Attributes
+==== Generic Attributes
 
 [width="100%",cols="100%",]
 |===
@@ -640,9 +640,9 @@ _getAttributes()_ must also conform to the entire contract for the _Map_
 interface. [P1-end]
 
 [[a1006]]
-=== Special Attributes
+===== Special Attributes
 
-=== UIComponent Constants
+===== UIComponent Constants
 
 [width="100%",cols="100%",]
 |===
@@ -713,7 +713,7 @@ jakarta.faces.component.UIComponent Javadocs for more detailed
 information.
 
 [[a1021]]
-=== Render-Independent Properties
+==== Render-Independent Properties
 
 The render-independent characteristics of a
 user interface component are represented as JavaBean component
@@ -777,7 +777,7 @@ application’s choice of state saving method on the classes used to
 implement property values.
 
 [[a1041]]
-=== Component Specialization Methods
+==== Component Specialization Methods
 
 The methods described in this section are
 called by the JSF implementation during the various phases of the
@@ -877,7 +877,7 @@ The component author can override any of the
 above methods to customize the behavior of their component.
 
 [[a1059]]
-=== Lifecycle Management Methods
+==== Lifecycle Management Methods
 
 The following methods are called by the
 various phases of the request processing lifecycle, and implement a
@@ -964,7 +964,7 @@ the request processing lifecycle for all facets of this component, all
 children of this component, and this component itself.
 
 [[a1075]]
-=== Utility Methods
+==== Utility Methods
 
 [width="100%",cols="100%",]
 |===
@@ -1025,7 +1025,7 @@ must provide the corresponding method signatures and implement the
 described functionality.
 
 [[a1090]]
-=== ActionSource
+==== ActionSource
 
 The _ActionSource_ interface defines a way
 for a component to indicate that wishes to be a source of _ActionEvent_
@@ -1035,7 +1035,7 @@ _ActionListener_ facility (see <<ApplicationIntegration.adoc#a3402,See
 ActionListener Property>>).
 
 [[a1092]]
-=== Properties
+===== Properties
 
 The following render-independent properties
 are added by the _ActionSource_ interface:
@@ -1078,12 +1078,12 @@ phase). The default value of this property must be _false_ .
 
 
 
-=== Methods
+===== Methods
 
 _ActionSource_ adds no new processing
 methods.
 
-=== Events
+===== Events
 
 A component implementing _ActionSource_ is a
 source of _ActionEvent_ events. There are three important moments in the
@@ -1139,14 +1139,14 @@ RequestProcessingLifecycle.adoc#a454,See Invoke Application>> for more
 information.
 
 [[a1120]]
-=== ActionSource2
+==== ActionSource2
 
 The _ActionSource2_ interface extends
 _ActionSource_ and provides a JavaBeans property analogous to the
 _action_ property on _ActionSource_ . This allows the _ActionSource_
 concept to leverage the new Unified EL API.
 
-=== Properties
+===== Properties
 
 The following render-independent properties
 are added by the _ActionSource_ interface:
@@ -1168,17 +1168,17 @@ Application_ phase of the request processing lifecycle, as described in
 
 
 
-=== Methods
+===== Methods
 
 _ActionSource2_ adds no new processing
 methods.
 
-=== Events
+===== Events
 
 _ActionSource2_ adds no new events.
 
 [[a1134]]
-=== NamingContainer
+==== NamingContainer
 
 _NamingContainer_ is a marker interface.
 Components that implement _NamingContainer_ have the property that, for
@@ -1208,7 +1208,7 @@ _styleClass_ attribute to select CSS styles by class rather than by
 identifier.
 
 [[a1138]]
-=== StateHolder
+==== StateHolder
 
 The _StateHolder_ interface is implemented by
 _UIComponent_ , _Converter_ , _FacesListener_ , and _Validator_ classes
@@ -1216,7 +1216,7 @@ that need to save their state between requests. _UIComponent_ implements
 this interface to denote that components have state that must be saved
 and restored between requests.
 
-=== Properties
+===== Properties
 
 The following render-independent properties
 are added by the _StateHolder_ interface:
@@ -1235,7 +1235,7 @@ _StateHolder_ must be _false_ .
 
 
 
-=== Methods
+===== Methods
 
 Any class implementing _StateHolder_ must
 implement both the _saveState()_ and _restoreState()_ methods, since
@@ -1289,13 +1289,13 @@ the _StateHolder_ interface. In addition, the standard _Converter_ and
 _Validator_ classes that require state to be saved and restored also
 implement _StateHolder._
 
-=== Events
+===== Events
 
 _StateHolder_ does not originate any
 standard events.
 
 [[a1159]]
-=== PartialStateHolder
+==== PartialStateHolder
 
 _PartialStateHolder_ extends _StateHolder_
 and adds a usage contract for components that wish to take part in the
@@ -1306,13 +1306,13 @@ _UIComponent.getStateHelper()_ to store stateful component information
 that otherwise would have been stored as instance variables on the class
 implementing _PartialStateHolder_ .
 
-=== Properties
+===== Properties
 
 _PartialStateHolder_ adds no properties to
 the _StateHolder_ contract
 
 [[a1215]]
-=== Methods
+===== Methods
 
 The following methods support the partial
 state saving feature:
@@ -1337,13 +1337,13 @@ to determine if the component is in its initial state or not, and to set
 the flag indicating this condition of existence. The Javadocs for these
 methods specify the conditions under which these methods are invoked.
 
-=== Events
+===== Events
 
 _PartialStateHolder_ does not originate any
 standard events.
 
 [[a1173]]
-=== ValueHolder
+==== ValueHolder
 
 _ValueHolder_ is an interface that may be
 implemented by any concrete _UIComponent_ that wishes to support a local
@@ -1352,7 +1352,7 @@ value, as well as access data in the model tier via a _value expression_
 native data type.
 
 [[a1175]]
-=== Properties
+===== Properties
 
 The following render-independent properties
 are added by the _ValueHolder_ interface:
@@ -1398,24 +1398,24 @@ The _Converter_ property must be inspected
 for the presence of _ResourceDependency_ and _ResourceDependencies_
 annotations as described in the Javadocs for the _setConverter_ method.
 
-=== Methods
+===== Methods
 
 ValueHolder adds no methods.
 
-=== Events
+===== Events
 
  _ValueHolder_ does not originate any
 standard events.
 
 [[a1192]]
-=== EditableValueHolder
+==== EditableValueHolder
 
 The _EditableValueHolder_ interface (extends
 _ValueHolder_ , see <<UserInterfaceComponentModel.adoc#a1173,See ValueHolder>>)
 describes additional features supported by editable components,
 including _ValueChangeEvents_ and _Validators_ .
 
-=== Properties
+===== Properties
 
 The following render-independent properties
 are added by the _EditableValueHolder_ interface:
@@ -1470,7 +1470,7 @@ any externally registered _ValueChangeListener_ s. See the javadocs for
 the backwards compatibility strategy.
 |===
 
-=== Methods
+===== Methods
 
 The following methods support the validation
 functionality performed during the _Process Validations_ phase of the
@@ -1504,7 +1504,7 @@ ResourceDependencies annotations as described in the Javadocs for the
 addValidator method.
 
 [[a1223]]
-=== Events
+===== Events
 
 _EditableValueHolder_ is a source of
 _ValueChangeEvent_ , _PreValidateEvent_ and _PostValidate_ events. These
@@ -1540,19 +1540,19 @@ method, after the _processValueChange()_ method of all registered
 _ValueChangeListener_ s is called.
 
 [[a1229]]
-=== SystemEventListenerHolder
+==== SystemEventListenerHolder
 
 Classes that implement this interface agree
 to maintain a list of _SystemEventListener_ instances for each kind of
 _SystemEvent_ they can generate. This interface enables arbitrary
 Objects to act as the source for _SystemEvent_ instances.
 
-=== Properties
+===== Properties
 
 This interface contains no JavaBeans
 properties
 
-=== Methods
+===== Methods
 
 The following method gives the JSF runtime
 access to the list of listeners stored by this instance.:
@@ -1570,7 +1570,7 @@ _getListenersForEventClass()_ method is invoked on it, and each listener
 in the list is given an opportunity to process the event, as specified
 in the javadocs for _Application.publishEvent()_ .
 
-=== Events
+===== Events
 
 While the class that implements
 _SystemEventListenerHolder_ is indeed a source of events, it is a call
@@ -1581,7 +1581,7 @@ define how listeners are added, removed, or stored. See
 details on the event and listener model provided by JSF.
 
 [[a1239]]
-=== ClientBehaviorHolder
+==== ClientBehaviorHolder
 
 [P1-start-addBehavior] Components must
 implement the _ClientBehaviorHolder_ interface to add the ability for
@@ -1647,7 +1647,7 @@ provided by Jakarta Server Faces to support type conversion between
 server-side Java objects and their (typically String-based)
 representation in presentation markup.
 
-=== Overview
+==== Overview
 
 A typical web application must constantly
 deal with two fundamentally different viewpoints of the underlying data
@@ -1682,7 +1682,7 @@ the _Application_ instance (see <<ApplicationIntegration.adoc#a3468,See Object
 Factories>>) for your application.
 
 [[a1258]]
-=== Converter
+==== Converter
 
 JSF provides the
 _jakarta.faces.convert.Converter_ interface to define the behavioral
@@ -1757,7 +1757,7 @@ ResourceDependencies annotation, the action described in the Javadocs
 for the Converter interface must be followed when
 ValueHolder.setConverter is called.[P1-end]
 
-=== Standard Converter Implementations
+==== Standard Converter Implementations
 
 JSF provides a set of standard _Converter_
 implementations. A JSF implementation must register the _DateTime_ and
@@ -1880,7 +1880,7 @@ provides support for generating and handling user interface events and
 system events.
 
 [[a1302]]
-=== Overview
+==== Overview
 
 JSF implements a model for event notification
 and listener registration based on the design patterns in the _JavaBeans
@@ -1907,14 +1907,14 @@ _jakarta.faces.event_ package.
 image:SF-18.png[image]
 
 [[a1306]]
-=== Application Events
+==== Application Events
 
 Application events are events that are
 specific to a particular application. Application events are the
 standard events that have been in JSF from the beginning.
 
 [[a1308]]
-=== Event Classes
+===== Event Classes
 
 All events that are broadcast by JSF user
 interface components must extend the _jakarta.faces.event.FacesEvent_
@@ -2010,7 +2010,7 @@ component (or appropriate subclass) when a new local value has been
 created, and has passed all validations.
 
 [[a1329]]
-=== Listener Classes
+===== Listener Classes
 
 For each event type that may be emitted, a
 corresponding listener interface must be created, which extends the
@@ -2042,7 +2042,7 @@ _ValueChangeListener_ —a listener that is
 interested in receiving _ValueChangeEvent_ events.
 
 [[a1335]]
-=== Phase Identifiers
+===== Phase Identifiers
 
 As described in
 <<RequestProcessingLifecycle.adoc#a494,See Common Event Processing>>, event handling
@@ -2056,7 +2056,7 @@ addition, a special value ( _PhaseId.ANY_PHASE_ ) may be returned to
 indicate that this event wants to be delivered at the end of the phase
 in which it was queued.
 
-=== Listener Registration
+===== Listener Registration
 
 A concrete _UIComponent_ subclass that emits
 events of a particular type must include public methods to register and
@@ -2100,7 +2100,7 @@ methods for event listeners associated with the event types that they
 emit. The _UIInput_ methods are also inherited by _UIInput_ subclasses,
 including _UISelectBoolean_ , _UISelectMany_ , and _UISelectOne_ .
 
-=== Event Queueing
+===== Event Queueing
 
 During the processing being performed by any
 phase of the request processing lifecycle, events may be created and
@@ -2118,7 +2118,7 @@ the same consistent state of the entire tree, no matter when the event
 was actually queued.
 
 [[a1349]]
-=== Event Broadcasting
+===== Event Broadcasting
 
 As described in
 <<RequestProcessingLifecycle.adoc#a494,See Common Event Processing>, at the end of
@@ -2164,7 +2164,7 @@ terminated (because the actual response content has been generated by
 some other means).
 
 [[a1359]]
-=== System Events
+==== System Events
 
 System Events are introduced in version 2 of
 the specification and represent specific points in time for a JSF
@@ -2174,7 +2174,7 @@ System Events. For more on _PhaseEvent_ s, please see
 <<LifecycleManagement.adoc#a6626,See PhaseEvent>>.
 
 [[a1361]]
-=== Event Classes
+===== Event Classes
 
 All system events extend from the base class
 _SystemEvent_ . _SystemEvent_ has a similar API to _FacesEvent_ , but
@@ -2277,7 +2277,7 @@ component instance is about to be validated. Please see the
 _EditableValueHolder_ <<UserInterfaceComponentModel.adoc#a1223,See Events>> for the
 normative specification.
 
-=== Listener Classes
+===== Listener Classes
 
 Unlike application events, the creation of
 new event types for system events does not require the creation of new
@@ -2292,7 +2292,7 @@ _UIComponent_ instance. _ComponentSystemEventListener_ lacks the
 _isListenerForSource()_ method because it is implcictly defined by
 virture of the listener being added to a specific component instance.
 
-=== Programmatic Listener Registration
+===== Programmatic Listener Registration
 
 System events may be listened for at the
 Application level, using _Application.subscribeToEvent()_ or at the
@@ -2326,7 +2326,7 @@ register for system events. Please see the javadocs for those
 annotations for the complete specification.
 
 [[a1393]]
-=== Declarative Listener Registration
+===== Declarative Listener Registration
 
 Page authors can subscribe to events using
 the <f:event/> tag. This tag will allow the application developer to
@@ -2370,7 +2370,7 @@ AbortProcessingException.
 
 
 [[a1403]]
-=== Listener Registration By Annotation
+===== Listener Registration By Annotation
 
 The _ListenerFor_ and _ListenersFor_
 annotations can be applied to components and rendererers. Classes tagged
@@ -2380,14 +2380,14 @@ _ListenerFor_ annotations for a single class. Please refer to the
 Javadocs for the _ListenerFor_ and _ListenersFor classes for more
 details._
 
-=== Listener Registration By Application Configuration Resources
+===== Listener Registration By Application Configuration Resources
 
 A _<system-event-listener>_ element, within
 the _<application>_ element of an application configuration resource,
 declares an application scoped listener and causes a call to
 _Application.subscribeToEvent()_ .
 
-=== Event Broadcasting
+===== Event Broadcasting
 
 System events are broadcast immediately by
 calls to _Application.publishEvent()_ Please see
@@ -2401,7 +2401,7 @@ specification of _publishEvent()_ .
 This section describes the facilities
 provided by Jakarta Server Faces for validating user input.
 
-=== Overview
+==== Overview
 
 JSF supports a mechanism for registering zero
 or more _validators_ on each _EditableValueHolder_ component in the
@@ -2412,7 +2412,7 @@ internal checking in a _validate_ method that is part of the component
 class.
 
 [[a1414]]
-=== Validator Classes
+==== Validator Classes
 
 A validator must implement the
 _jakarta.faces.validator.Validator_ interface, which contains a
@@ -2438,7 +2438,7 @@ standard validators, as described in <<UserInterfaceComponentModel.adoc#a1446,Se
 Standard Validator Implementations>>.
 
 [[a1419]]
-=== Validation Registration
+==== Validation Registration
 
 The _EditableValueHolder_ interface
 (implemented by _UIInput_ ) includes an _addValidator_ method to
@@ -2525,7 +2525,7 @@ _Application.getDefaultValidatorInfo()_ (see
 any configuration found in the application configuration resources or
 via the _@FacesValidator_ annotation.[P1-end]
 
-=== Validation Processing
+==== Validation Processing
 
 During the _Process Validations_ phase of the
 request processing lifecycle (as described in
@@ -2569,7 +2569,7 @@ instance. See <<RequestProcessingLifecycle.adoc#a584,See Localized Application
 Messages>> for details on the message.
 
 [[a1446]]
-=== Standard Validator Implementations
+==== Standard Validator Implementations
 
 Jakarta Server Faces defines a standard suite of
 _Validator_ implementations that perform a variety of commonly required
@@ -2648,7 +2648,7 @@ is wrapped in a _ValidatorException_ in similar fashion as the above
 validators. [P1-end]
 
 [[a1461]]
-=== Bean Validation Integration
+==== Bean Validation Integration
 
 If the implementation is running in a
 container environment that requires Bean Validation, it must expose the
@@ -2667,7 +2667,7 @@ that the work of enforcing the constraints can be delegated to the Bean
 Validation provider.
 
 [[a1464]]
-=== Bean Validator Activation
+===== Bean Validator Activation
 
 [P1-BeanValidationIntegration]If Bean
 Validation is present in the runtime environment, the system must ensure
@@ -2687,7 +2687,7 @@ leveraged. The next section describes how the reference to the Bean
 Validation ValidatorFactory is obtained by that validator.
 
 [[a1467]]
-=== Obtaining a ValidatorFactory
+===== Obtaining a ValidatorFactory
 
 The Bean Validation ValidatorFactory is the
 main entry point into Bean Validation and is responsible for creating
@@ -2722,7 +2722,7 @@ activated in JSF. The EE container will be responsible for making the
 ValidatorFactory available as an attribute in the ServletContext as
 mentioned above.[P1-end]
 
-=== Class-Level Validation
+===== Class-Level Validation
 
 JSF conversion and validation as described in
 this chapter operates on the principle that all conversion and
@@ -2743,7 +2743,7 @@ VDLDoc for the _<f:validateWholeBean />_ tag for the normative
 specification of this feature as well as a usage example showing the
 password validation scenario.
 
-=== Localization of Bean Validation Messages
+===== Localization of Bean Validation Messages
 
 To ensure proper localization of the
 messages, JSF should provide a custom BeanValidation MessageInterpolator
@@ -2879,7 +2879,7 @@ messages above the form, rather than adjacent to the input.
 [[a1515]]
 === Composite User Interface Components
 
-=== Non-normative Background
+==== Non-normative Background
 
 To aid implementors in providing a spec
 compliant runtime for composite components, this section provides a
@@ -2889,7 +2889,7 @@ write real, reusable, JSF UI components without any Java code or
 configuration XML.
 
 [[a1518]]
-=== What does it mean to be a JSF User Interface component?
+===== What does it mean to be a JSF User Interface component?
 
 JSF is a component based framework, and JSF
 UI components are the main point of JSF. But what is a JSF UI component,
@@ -2947,7 +2947,7 @@ the developer is writing JavaCode that is either passed the UI component
 as an argument, or obtains a reference to the UI component in some other
 way.
 
-=== How does one make a custom JSF User Interface component (JSF 1.2 and earlier)?
+===== How does one make a custom JSF User Interface component (JSF 1.2 and earlier)?
 
 To satisfy a user’s expectations for a JSF UI
 component, the component author must adhere to one of the following best
@@ -3003,7 +3003,7 @@ to enable developers to write real, reusable, JSF UI components without
 any Java code or configuration XML.
 
 [[a1545]]
-=== How does one make a composite component?
+===== How does one make a composite component?
 
 The composite component feature builds on two
 features introduced in JSF 2.0: resources
@@ -3032,7 +3032,7 @@ _<composite:implementation>_ sections are required when creating a
 composite component.
 
 [[a1548]]
-=== A simple composite component example
+===== A simple composite component example
 
 Create the page that uses the composite
 component, _index.xhtml_ .
@@ -3200,7 +3200,7 @@ more on _ActionSource2_ and other behavioral interfaces). The
 _<composite:implementation>_ section defines the implementation of this
 composite component.
 
-=== Walk through of the run-time for the simple composite component example
+===== Walk through of the run-time for the simple composite component example
 
 This section gives a non-normative traversal
 of the composite component feature using the previous example as a
@@ -3261,7 +3261,7 @@ component was set to _jakarta.faces.Composite_ , the _composite component
 renderer_ is invoked to render the composite component.
 
 [[a1619]]
-=== Composite Component Terms
+===== Composite Component Terms
 
 The following terms are commonly used to
 describe the composite component feature.
@@ -3370,14 +3370,14 @@ Using Page Author
 The individual or role that creates pages
 that use the _composite component_ .
 
-=== Normative Requirements
+==== Normative Requirements
 
 This section contains the normative
 requirements for the composite component runtime, or pointers to other
 parts of the specification that articulate those requirements in the
 appropriate context.
 
-=== References to Composite Component Requirements in Context
+===== References to Composite Component Requirements in Context
 
 Section
 
@@ -3417,7 +3417,7 @@ Tag handlers for the _composite_ tag library
 __
 
 [[a1671]]
-=== Composite Component Metadata
+===== Composite Component Metadata
 
 In the current version of the specification,
 only composite _UIComponent_ s must have component metadata. It is
@@ -3514,7 +3514,7 @@ The list of attached object targets would
 consist of instances of implementations of the following interfaces from
 the package _javax.faces.webapp.vdl_ .
 
-=== EditableValueHolderAttachedObjectTarget
+===== EditableValueHolderAttachedObjectTarget
 
 ActionSource2AttachedObjectTarget
 
@@ -3576,7 +3576,7 @@ value.
 This section describes the facilities for
 adding Behavior attached objects to Jakarta Server Faces components.
 
-=== Overview
+==== Overview
 
 JSF supports a mechanism for enhancing
 components with additional behaviors that are not explicitly defined by
@@ -3604,7 +3604,7 @@ are all client behavior-ready. That is, all of the standard HTML
 components implement the ClientBehaviorHolder interface and allow client
 behaviors to be attached to well defined events. .
 
-=== Behavior Interface
+==== Behavior Interface
 
 The Behavior interface is the root of the
 component behavior model. It defines a single method to enable generic
@@ -3623,7 +3623,7 @@ This method is called by UIComponent
 implementations to re-broadcast behavior events that were queued by by
 calling UIComponent.queueEvent.
 
-=== BehaviorBase
+==== BehaviorBase
 
 The BehaviorBase abstract class implements
 the broadcast method from the Behavior interface. BehaviorBase also
@@ -3658,7 +3658,7 @@ addBehaviorListener(BehaviorListener listener)
 removeBehaviorListener(BehaviorListener listener);
 |===
 
-=== The Client Behavior Contract
+==== The Client Behavior Contract
 
 The _ClientBehavior_ interface extends the
 _Behavior_ interface and lays the foundation on which behavior authors
@@ -3701,14 +3701,14 @@ renderers that interact with the client behavior.
 Refer to the javadocs for these methods for
 more details.
 
-=== ClientBehaviorHolder
+==== ClientBehaviorHolder
 
 Components that support client behaviors must
 implement the ClientBehaviorHolder interface. Refer to
 <<UserInterfaceComponentModel.adoc#a1239,See ClientBehaviorHolder>> for
 more details.
 
-=== ClientBehaviorRenderer
+==== ClientBehaviorRenderer
 
 Client behaviors may implement script
 generation and decoding in a client behavior class or delegate to a
@@ -3716,7 +3716,7 @@ ClientBehaviorRenderer. Refer to
 <<RenderingModel.adoc#a4264,See ClientBehaviorRenderer>>
 for more specifics.
 
-=== ClientBehaviorContext
+==== ClientBehaviorContext
 
 The specification provides a
 ClientBehaviorContext that contains information that may be used at
@@ -3750,7 +3750,7 @@ sourceId,Collection<ClientBehaviorContext.Parameter> parameters)
 This method must throw a NullPointerException
 if context, component or eventName is null.
 
-=== ClientBehaviorHint
+==== ClientBehaviorHint
 
 The ClientBehaviorHint enum is used to convey
 information about the client behavior implementation. Currently, only
@@ -3764,7 +3764,7 @@ one hint is provided.
 This hint indicates that a client behavior
 implementation posts back to the server.
 
-=== ClientBehaviorBase
+==== ClientBehaviorBase
 
 _ClientBehaviorBase_ is an extension of
 _BehaviorBase_ that implements the _ClientBehavior_ interface. It It is
@@ -3824,7 +3824,7 @@ ClientBehavior. It uses the renderer type returned from get
 _RendererType()_ to look up the renderer on the RenderKit using
 _RenderKit.getClientBehaviorRenderer._
 
-=== Behavior Event / Listener Model
+==== Behavior Event / Listener Model
 
 The behavior event / listener model is an
 extension of the JSF event / listener model as described in
@@ -3832,7 +3832,7 @@ extension of the JSF event / listener model as described in
 BehaviorHolder components are responsible for broadcasting
 BehaviorEvents to behaviors.
 
-=== Event Classes
+===== Event Classes
 
 Behaviors can broadcast events in the same
 way that UIComponents can broadcast events. At the root of the behavior
@@ -3860,7 +3860,7 @@ inherited from _jakarta.faces.event.FacesEvent:_
 |public Behavior getBehavior()
 |===
 
-=== Listener Classes
+===== Listener Classes
 
 For each event type that may be emitted, a
 corresponding listener interface must be created, which extends the
@@ -3882,15 +3882,15 @@ recommended that application event listener interfaces follow this
 naming pattern as well.
 
 [[a1776]]
-=== Listener Registration
+===== Listener Registration
 
 _BehaviorListener_ registration follows the
 same conventions as outlined in <<UserInterfaceComponentModel.adoc#a1776,See Listener
 Registration>>.
 
-=== Ajax Behavior
+==== Ajax Behavior
 
-=== AjaxBehavior
+===== AjaxBehavior
 
 {empty}The specification defines a single
 concrete _ClientBehavior_ implementation:
@@ -3906,14 +3906,14 @@ javadocs for more details about _AjaxBehavior._
 “jakarta.faces.behavior.Ajax”. The renderer type must also be
 “jakarta.faces.behavior.Ajax”.[P1-end]
 
-=== Ajax Behavior Event / Listener Model
+===== Ajax Behavior Event / Listener Model
 
 Corresponding to the standard behavior event
 classes described in the previous section the specification supports an
 event listener model for broadcasting and handling _AjaxBehavior_
 events.
 
-=== jakarta.faces.event.AjaxBehaviorEvent
+===== jakarta.faces.event.AjaxBehaviorEvent
 
 This event type extends from
 _jakarta.faces.event.BehaviorEvent_ and it is broadcast from an
@@ -3924,7 +3924,7 @@ responsible for invoking the method implementation of
 _jakarta.faces.event.AjaxBehaviorListener.processAjaxBehavior._ Refer to
 the javadocs for more complete details about this class.
 
-=== jakarta.faces.event.AjaxBehaviorListener
+===== jakarta.faces.event.AjaxBehaviorListener
 
 This listener type extends from
 _jakarta.faces.event.BehaviorListener_ and it is invoked in response to
@@ -3943,7 +3943,7 @@ class.
 
 
 
-=== Adding Behavior To Components
+==== Adding Behavior To Components
 
 Using the ClientBehaviorHolder interface
 (<<UserInterfaceComponentModel.adoc#a1239,See ClientBehaviorHolder>>)
@@ -3992,7 +3992,7 @@ _ClientBehavior_ instances to any of the event names specified by the
 _getEventNames()_ implementation by calling
 _ClientBehaviorHolder.addBehavior(eventName, clientBehavior)_ .
 
-=== Behavior Registration
+==== Behavior Registration
 
 JSF provides methods for registering
 _Behavior_ implementations and these methods are similar to the methods
@@ -4000,7 +4000,7 @@ used to register converters and validators. Refer to
 <<ApplicationIntegration.adoc#a3468,See Object Factories>> for the specifics
 about these methods.
 
-=== XML Registration
+===== XML Registration
 
 JSF provides the usual faces-config.xml
 registration of custom component behavior implementations.
@@ -4020,7 +4020,7 @@ a|
 
 |===
 
-=== Registration By Annotation
+===== Registration By Annotation
 
 JSF provides the @FacesBehavior annotation
 for registering custom behavior implementations.

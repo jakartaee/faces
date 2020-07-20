@@ -30,7 +30,7 @@ EL operates.
 [[a2349]]
 === Value Expressions
 
-=== Overview
+==== Overview
 
 To support binding of attribute and property
 of values to dynamically calculated results, the name of the attribute
@@ -88,7 +88,7 @@ in the text field. When the page is submitted, the expression is
 evaluated as an l-value, and the value entered by the user (subject to
 conversion and validation as usual) is pushed into the expression.
 
-=== Value Expression Syntax and Semantics
+==== Value Expression Syntax and Semantics
 
 Please see Section 1.2 of the Expression
 Language Specification, Version 2.1 for the complete specification of
@@ -240,7 +240,7 @@ of _ActionSource_ is deprecated and has been replaced by the
 _MethodExpression_ typed _actionExpression_ property of _ActionSource2._
 
 [[a2403]]
-=== MethodExpression Syntax and Semantics
+==== MethodExpression Syntax and Semantics
 
 The exact syntax and semantics of
 MethodExpression are now the domain of the Unified EL. Please see
@@ -568,7 +568,7 @@ and set the property by calling the setter method, or log an error if
 there is no setter method.
 
 [[a2477]]
-=== Managed Bean Configuration Example
+==== Managed Bean Configuration Example
 
 The following <managed-bean> elements might
 appear in one or more application configuration resources (see
@@ -757,7 +757,7 @@ will be deprecated in a version of the JSF specification after 2.2.
 Therefore, developers are strongly recommended avoid using those
 annotations and instead use the ones from Java EE 6.
 
-=== JSF Managed Classes and Jakarta EE Annotations
+==== JSF Managed Classes and Jakarta EE Annotations
 
 JSF Implementations that are running as a
 part of Java EE 5 (or later) must allow managed bean implementations to
@@ -772,7 +772,7 @@ In addition to managed beans being injectable
 in this manner, the following JSF artifacts are also injectable.
 
 [[a2541]]
-=== JSF Artifacts Eligible for Injection
+==== JSF Artifacts Eligible for Injection
 
 Artifact Type
 
@@ -907,7 +907,7 @@ back to the user. Generally, this is done by performing the injection
 immediately after the lazy instantiation of the managed bean.
 
 [[a2601]]
-=== Managed Bean Lifecycle Annotations
+==== Managed Bean Lifecycle Annotations
 
 JSF implementations running in a Java EE 5
 compliant container must support attaching the _@PostConstruct_ and
@@ -957,7 +957,7 @@ specification, and then rely on those facilities to get the work done.
 Readers interested in how to implement the Unified EL itself must
 consult the Unified EL Spec document.
 
-=== ELContext
+==== ELContext
 
 The ELContext is a handy little “holder”
 object that gets passed all around the Unified EL API. It has two
@@ -986,7 +986,7 @@ The complete specification for ELResolver may
 be found in Chapter 2 of the Expression Language Specification, Version
 2.1.
 
-=== Lifetime, Ownership and Cardinality
+===== Lifetime, Ownership and Cardinality
 
 An ELContext instance is created the first
 time _getELContext_ () is called on the _FacesContext_ for this request.
@@ -995,7 +995,7 @@ lifetime ends the same time the _FacesContext’s_ lifetime ends. The
 _FacesContext_ maintains the owning reference to the _ELContext_ . There
 is at most one _ELContext_ per _FacesContext_ .
 
-=== Properties
+===== Properties
 
 [width="100%",cols="25%,25%,25%,25%",options="header",]
 |===
@@ -1013,7 +1013,7 @@ successfully resolved a property. See _<<ExpressionLanguageAndManagedBeanFacilit
 ELResolver>>_ for how this property is used.
 |===
 
-=== Methods
+===== Methods
 
 Here is a subset of the methods that are
 relevant to Faces.
@@ -1037,7 +1037,7 @@ the system asks the _FacesContext_ for its _ELContext_ . The
 _getContext()_ method will be called by any _ELResolver_ instances that
 need to access the _FacesContext_ to perform their resolution.
 
-=== Events
+===== Events
 
 The creation of an ELContext instance
 precipitates the emission of an _ELContextEvent_ from the _FacesContext_
@@ -1045,7 +1045,7 @@ that created it. Please see _<<Per-RequestStateInformation.adoc#a3099,See ELCont
 for details.
 
 [[a2634]]
-=== ELResolver
+==== ELResolver
 
 Faces 1.1 used the _VariableResolver_ and
 _PropertyResolver_ classes as the workhorses of expression evaluation.
@@ -1077,7 +1077,7 @@ value of the “ _propertyResolved_ ” property. If the “
 _propertyResolved_ ” property is not set to _true_ the return value from
 the _ELResolver_ method is ignored by the system.
 
-=== Lifetime, Ownership, and Cardinality
+===== Lifetime, Ownership, and Cardinality
 
 ELResolver instances have application
 lifetime and scope. The JSP container maintains one top level ELResolver
@@ -1089,11 +1089,11 @@ to the JSP container) accessible from
 _FacesContext.getELContext().getELResolver() and
 Application.getELResolver()_ .
 
-=== Properties
+===== Properties
 
 ELResolver has no proper JavaBeans properties
 
-=== Methods
+===== Methods
 
 Here is a subset of the methods that are
 relevant to Faces.
@@ -1127,19 +1127,19 @@ There are other methods, such as
 _isReadOnly()_ that are beyond the scope of this document, but described
 completely in the Unified EL Specification.
 
-=== Events
+===== Events
 
 _ELResolver_ precipitates no events.
 
 [[a2651]]
-=== ExpressionFactory
+==== ExpressionFactory
 
 Faces 1.1 used the Application class as a
 factory for _ValueBinding_ and _MethodBinding_ instances. The Unified EL
 has the _ExpressionFactory_ class instead. It is a factory for
 _ValueExpression_ and _MethodExpression_ instances.
 
-=== Lifetime, Ownership, and Cardinality
+===== Lifetime, Ownership, and Cardinality
 
 _ExpressionFactory_ instances are
 application scoped. The _Application_ object maintains the
@@ -1150,11 +1150,11 @@ used by the JSP container (and therefore by the JSF VDL). It is
 permissible for both of these access methods to yield the same java
 object instance.
 
-=== Properties
+===== Properties
 
 _ExpressionFactory_ has no properties.
 
-=== Methods
+===== Methods
 
 [width="100%",cols="100%",]
 |===
@@ -1177,7 +1177,7 @@ class has convenience methods specific to Faces needs for these
 concepts, please see <<ApplicationIntegration.adoc#a3463,See Programmatically
 Evaluating Expressions>> .
 
-=== Events
+===== Events
 
 _ExpressionFactory_ precipitates no events.
 
@@ -1207,7 +1207,7 @@ The remainder of this section lists the implementation requirements for
 these two resolvers.
 
 [[a2667]]
-=== Faces ELResolver for JSP Pages
+==== Faces ELResolver for JSP Pages
 
 As mentioned in
 _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See ELResolver>>_ , during the course of
@@ -1238,7 +1238,7 @@ methods do indeed get called on a user-provided VariableResolver or
 PropertyResolver.] [P1-end]
 
 [[a2670]]
-=== Faces ELResolver for JSP Pages
+==== Faces ELResolver for JSP Pages
 
 
 
@@ -1250,13 +1250,13 @@ each particular method on _ELResolver_ , or in prose when such a table
 is inappropriate.
 
 [[a2673]]
-=== Faces Implicit Object ELResolver For JSP
+===== Faces Implicit Object ELResolver For JSP
 
 This resolver relies on the presence of
 another, JSP specific, implicit object ELResolver in the chain by only
 resolving the “facesContext” and “view” implicit objects.
 
-=== Faces ImplicitObjectELResolver for JSP
+===== Faces ImplicitObjectELResolver for JSP
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1363,13 +1363,13 @@ If base is null and return String.class.
 
 
 [[a2711]]
-=== ManagedBean ELResolver
+===== ManagedBean ELResolver
 
 This is the means by which the managed bean
 creation facility described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The
 Managed Bean Facility>>_ is called into play during EL resolution.
 
-=== ManagedBeanELResolver
+===== ManagedBeanELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1450,19 +1450,19 @@ If base is null, return Object.class.
 
 |===
 
-=== Resource ELResolver
+===== Resource ELResolver
 
 Please see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2940,See
 Resource ELResolver>> for the specification of this ELResolver.
 
 [[a2741]]
-=== ResourceBundle ELResolver for JSP Pages
+===== ResourceBundle ELResolver for JSP Pages
 
 This is the means by which resource bundles
 defined in the application configuration resources are called into play
 during EL resolution.
 
-=== ResourceBundleELResolver
+===== ResourceBundleELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1544,7 +1544,7 @@ If base is null, return string.Class.
 
 
 [[a2771]]
-=== ELResolvers in the application configuration resources
+===== ELResolvers in the application configuration resources
 
 The _<el-resolver>_ element in the
 application configuration resources will contain the fully qualified
@@ -1555,7 +1555,7 @@ the order in which they occur in the application configuration
 resources.
 
 [[a2773]]
-=== VariableResolver Chain Wrapper
+===== VariableResolver Chain Wrapper
 
 This is the means by which _VariableResolver_
 instances that have been specified in _<variable-resolver>_ elements
@@ -1585,7 +1585,7 @@ The semantics of the ELResolver that
 functions as the VariableResolver chain wrapper are described in the
 following table.
 
-=== ELResolver that is the VariableResolver Chain Wrapper
+===== ELResolver that is the VariableResolver Chain Wrapper
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1633,7 +1633,7 @@ base is non-null, return null;
 |===
 
 [[a2798]]
-=== PropertyResolver Chain Wrapper
+===== PropertyResolver Chain Wrapper
 
 This is the means by which _propertyResolver_
 instances that have been specified in _<property-resolver>_ elements
@@ -1663,7 +1663,7 @@ The semantics of the ELResolver that
 functions as the property resolver chain wrapper are described in the
 following table.
 
-=== ELResolver that is the PropertyResolver Chain Wrapper
+===== ELResolver that is the PropertyResolver Chain Wrapper
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1712,14 +1712,14 @@ non-null, return Object.class.
 |===
 
 [[a2820]]
-=== ELResolvers from Application.addELResolver()
+===== ELResolvers from Application.addELResolver()
 
 Any such resolvers are considered at this
 point in the _Faces ELResolver for JSP Pages_ in the order in which they
 were added.
 
 [[a2822]]
-=== ELResolver for Facelets and Programmatic Access
+==== ELResolver for Facelets and Programmatic Access
 
 This section documents the requirements for
 the second _ELResolver_ mentioned in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2664,See
@@ -1743,7 +1743,7 @@ section is covered by the tests in 5.6.1][P1-end]
 
 
 [[a2827]]
-===  _ELResolver_ for Facelets and Programmatic Access
+====  _ELResolver_ for Facelets and Programmatic Access
 
 
 
@@ -1756,7 +1756,7 @@ inappropriate, or as a reference to another section where the semantics
 are exactly the same.
 
 [[a2830]]
-=== Implicit Object ELResolver for Facelets and Programmatic Access
+===== Implicit Object ELResolver for Facelets and Programmatic Access
 
 This resolver differs from the one in the
 <<ExpressionLanguageAndManagedBeanFacility.adoc#a2673,See Faces Implicit Object ELResolver For
@@ -1764,7 +1764,7 @@ JSP>> in that it must resolve all of the implicit objects, not just
 _facesContext_ and _view_
 
 [[a2832]]
-=== ImplicitObjectELResolver for Programmatic Access
+===== ImplicitObjectELResolver for Programmatic Access
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1972,7 +1972,7 @@ If base is null and return String.class
 |===
 
 [[a2908]]
-=== Composite Component Attributes ELResolver
+===== Composite Component Attributes ELResolver
 
 This ELResolver makes it so expressions that
 refer to the attributes of a composite component get correctly
@@ -1984,7 +1984,7 @@ on it and the result is returned as the evaluation of the expression.
 Otherwise, if the value is _not_ a _ValueExpression_ the value itself is
 returned as the evaluation of the expression.”
 
-=== Composite Component Attributes ELResolver
+===== Composite Component Attributes ELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -2056,7 +2056,7 @@ no action.
 
 
 
-=== The CompositeELResolver
+===== The CompositeELResolver
 
 As indicated in
 _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2827,See ELResolver for Facelets and
@@ -2077,13 +2077,13 @@ PropertyResolver Chain Wrapper>>_
 _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2820,See ELResolvers
 from Application.addELResolver()>>_
 
-=== ManagedBean ELResolver
+===== ManagedBean ELResolver
 
 This resolver has the same semantics as the
 one in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2711,See ManagedBean ELResolver>>_ .
 
 [[a2940]]
-=== Resource ELResolver
+===== Resource ELResolver
 
 This resolver is a means by which Resource
 instances are encoded into a faces request such that a subsequent faces
@@ -2091,7 +2091,7 @@ resource request from the browser can be satisfied using the
 ResourceHandler as described in _<<RequestProcessingLifecycle.adoc#a746,See
 Resource Handling>>_ .
 
-=== ResourceELResolver
+===== ResourceELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -2152,7 +2152,7 @@ If base is null, return Object.class.
 
 
 [[a2962]]
-=== el.ResourceBundleELResolver
+===== el.ResourceBundleELResolver
 
 This entry in the chain must have the
 semantics the same as the class _jakarta.el.ResourceBundleELResolver_ .
@@ -2160,14 +2160,14 @@ The default implementation just includes an instance of this resolver in
 the chain.
 
 [[a2964]]
-=== ResourceBundle ELResolver for Programmatic Access
+===== ResourceBundle ELResolver for Programmatic Access
 
 This resolver has the same semantics as the
 one in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2741,See ResourceBundle ELResolver for JSP
 Pages>>.
 
 [[a2966]]
-=== Stream, StaticField, Map, List, Array, and Bean ELResolvers
+===== Stream, StaticField, Map, List, Array, and Bean ELResolvers
 
 These ELResolver instances are provided by
 the Unified EL API and must be added in the following order:
@@ -2184,13 +2184,13 @@ added. It is not compliant to simply add other resolvers that preserve
 these semantics.
 
 [[a2970]]
-=== ScopedAttribute ELResolver
+===== ScopedAttribute ELResolver
 
 This ELResolver is responsible for doing the
 scoped lookup that makes it possible for expressions to pick up anything
 stored in the request, session, or application scopes by name.
 
-=== Scoped Attribute ELResolver
+===== Scoped Attribute ELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -2275,7 +2275,7 @@ If base is null return String.class.
 
 |===
 
-=== CDI for EL Resolution
+==== CDI for EL Resolution
 
 If the any of the managed beans in the
 application have the _@jakarta.faces.annotation.FacesConfig_ annotation,
@@ -2294,7 +2294,7 @@ current _FacesContext_
 
 === Current Expression Evaluation APIs
 
-=== ELResolver
+==== ELResolver
 
 This class is the Unified EL’s answer to
 Faces’s _VariableResolver_ and _PropertyResolver_ . It turns out that
@@ -2302,7 +2302,7 @@ variable resolution can be seen as a special case of property resolution
 with the base object being _null_ . Please see
 _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See ELResolver>>_ for more details _._
 
-=== ValueExpression
+==== ValueExpression
 
 This class is the Unified EL’s answer to
 Faces’s _ValueBinding_ . It is the main object oriented abstraction for
@@ -2310,14 +2310,14 @@ al EL expression that results in a value either being retrieved or set.
 Please see Chapter 2 of the Expression Language Specification, Version
 2.1.
 
-=== MethodExpression
+==== MethodExpression
 
 This class is the Unified EL’s answer to
 Faces’s _MethodBinding_ . It is the main object oriented abstraction for
 al EL expression that results in a method being invoked. Please see
 Chapter 2 of the Expression Language Specification, Version 2.1.
 
-=== Expression Evaluation Exceptions
+==== Expression Evaluation Exceptions
 
 Four exception classes are defined to report
 errors related to the evaluation of value exceptions:
@@ -2350,7 +2350,7 @@ migration story for these APIs that implementations must follow to allow
 1.0 and 1.1 based applications to run.
 
 [[a3020]]
-=== VariableResolver and the Default VariableResolver
+==== VariableResolver and the Default VariableResolver
 
 User-provided VariableResolver instances will
 still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
@@ -2373,7 +2373,7 @@ ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,S
 VariableResolver Chain Wrapper>>_ .
 
 [[a3025]]
-=== PropertyResolver and the Default PropertyResolver
+==== PropertyResolver and the Default PropertyResolver
 
 User-provided propertyResolver instances will
 still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
@@ -2395,7 +2395,7 @@ ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,S
 PropertyResolver Chain Wrapper>>_ .
 
 [[a3029]]
-=== ValueBinding
+==== ValueBinding
 
 The _ValueBinding_ class encapsulates the
 actual evaluation of a value binding. Instances of _ValueBinding_ for
@@ -2446,7 +2446,7 @@ and return the _Class_ that represents the data type of the referenced
 value, if it can be determined. Otherwise, return _null_ .
 
 [[a3039]]
-=== MethodBinding
+==== MethodBinding
 
 The _MethodBinding_ class encapsulates the
 actual evaluation of a method binding. Instances of _MethodBinding_ for
@@ -2479,7 +2479,7 @@ Evaluate the method binding (see
 and return the _Class_ representing the return type of the identified
 method. If this method is of type _void_ , return _null_ instead.
 
-=== Expression Evaluation Exceptions
+==== Expression Evaluation Exceptions
 
 Four exception classes are defined to report
 errors related to the evaluation of value exceptions [Note that these
@@ -2515,18 +2515,18 @@ remainder of this section specifies some details of CDI integration
 pertinent to JSF.
 
 [[a3054]]
-=== JSF Objects Valid for @Inject Injection
+==== JSF Objects Valid for @Inject Injection
 
 It must be possible to inject the following
 JSF objects into other objects using _@Inject_ .
 
-=== Maps Returned by Various JSF Accessors
+==== Maps Returned by Various JSF Accessors
 
 The annotations in package
 _jakarta.faces.annotation_ are used to cause _@Inject_ injection of the
 corresponding _Map_ into a field. Generics may be used.
 
-=== JSF Objects
+==== JSF Objects
 
 It must be possible to _@Inject_ the
 following JSF and Jakarta EE objects into CDI beans.
@@ -2541,7 +2541,7 @@ following JSF and Jakarta EE objects into CDI beans.
 
 - jakarta.servlet.http._HttpSession_
 
-=== Support for Injection into JSF Managed Objects
+==== Support for Injection into JSF Managed Objects
 
 It must be possible to use _@Inject_ when
 specifying the following kinds of JSF managed objects.
@@ -2556,7 +2556,7 @@ FacesBehaviors declared with @
 _jakarta.faces.component.behavior.FacesBehavior(managed=”true”)_
 
 [[a3070]]
-=== EL Resolution
+==== EL Resolution
 
 The following implicit objects must be
 resolved using CDI
