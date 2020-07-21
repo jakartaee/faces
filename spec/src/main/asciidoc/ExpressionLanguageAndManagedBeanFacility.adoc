@@ -162,7 +162,7 @@ Here is the set of component properties that
 currently support _MethodBinding_ , and the method signatures to which
 they must point:
 
-=== component properties whose type is DEPRECATED MethodBinding
+.component properties whose type is DEPRECATED MethodBinding
 
 component property
 
@@ -204,7 +204,7 @@ listener interface, allowing the wrapped expression to be added as a
 strongly typed listener, using the normal _add*()_ pattern Here is the
 list of such wrapper classes:
 
-=== MethodExpression wrappers to take the place of DEPRECATED MethodBinding properties
+.MethodExpression wrappers to take the place of DEPRECATED MethodBinding properties
 
 component listener property
 
@@ -772,7 +772,7 @@ In addition to managed beans being injectable
 in this manner, the following JSF artifacts are also injectable.
 
 [[a2541]]
-==== JSF Artifacts Eligible for Injection
+.JSF Artifacts Eligible for Injection
 
 Artifact Type
 
@@ -1238,7 +1238,7 @@ methods do indeed get called on a user-provided VariableResolver or
 PropertyResolver.] [P1-end]
 
 [[a2670]]
-==== Faces ELResolver for JSP Pages
+.Faces ELResolver for JSP Pages
 
 
 
@@ -1256,7 +1256,7 @@ This resolver relies on the presence of
 another, JSP specific, implicit object ELResolver in the chain by only
 resolving the “facesContext” and “view” implicit objects.
 
-===== Faces ImplicitObjectELResolver for JSP
+.Faces ImplicitObjectELResolver for JSP
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1369,7 +1369,7 @@ This is the means by which the managed bean
 creation facility described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The
 Managed Bean Facility>>_ is called into play during EL resolution.
 
-===== ManagedBeanELResolver
+.ManagedBeanELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1462,7 +1462,7 @@ This is the means by which resource bundles
 defined in the application configuration resources are called into play
 during EL resolution.
 
-===== ResourceBundleELResolver
+.ResourceBundleELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1585,7 +1585,7 @@ The semantics of the ELResolver that
 functions as the VariableResolver chain wrapper are described in the
 following table.
 
-===== ELResolver that is the VariableResolver Chain Wrapper
+.ELResolver that is the VariableResolver Chain Wrapper
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1663,7 +1663,7 @@ The semantics of the ELResolver that
 functions as the property resolver chain wrapper are described in the
 following table.
 
-===== ELResolver that is the PropertyResolver Chain Wrapper
+.ELResolver that is the PropertyResolver Chain Wrapper
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1743,7 +1743,7 @@ section is covered by the tests in 5.6.1][P1-end]
 
 
 [[a2827]]
-====  _ELResolver_ for Facelets and Programmatic Access
+._ELResolver_ for Facelets and Programmatic Access
 
 
 
@@ -1764,7 +1764,7 @@ JSP>> in that it must resolve all of the implicit objects, not just
 _facesContext_ and _view_
 
 [[a2832]]
-===== ImplicitObjectELResolver for Programmatic Access
+.ImplicitObjectELResolver for Programmatic Access
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -1984,7 +1984,7 @@ on it and the result is returned as the evaluation of the expression.
 Otherwise, if the value is _not_ a _ValueExpression_ the value itself is
 returned as the evaluation of the expression.”
 
-===== Composite Component Attributes ELResolver
+.Composite Component Attributes ELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -2091,7 +2091,7 @@ resource request from the browser can be satisfied using the
 ResourceHandler as described in _<<RequestProcessingLifecycle.adoc#a746,See
 Resource Handling>>_ .
 
-===== ResourceELResolver
+.ResourceELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -2190,7 +2190,7 @@ This ELResolver is responsible for doing the
 scoped lookup that makes it possible for expressions to pick up anything
 stored in the request, session, or application scopes by name.
 
-===== Scoped Attribute ELResolver
+.Scoped Attribute ELResolver
 
 [width="100%",cols="50%,50%",options="header",]
 |===
@@ -2520,13 +2520,13 @@ pertinent to JSF.
 It must be possible to inject the following
 JSF objects into other objects using _@Inject_ .
 
-==== Maps Returned by Various JSF Accessors
+.Maps Returned by Various JSF Accessors
 
 The annotations in package
 _jakarta.faces.annotation_ are used to cause _@Inject_ injection of the
 corresponding _Map_ into a field. Generics may be used.
 
-==== JSF Objects
+.JSF Objects
 
 It must be possible to _@Inject_ the
 following JSF and Jakarta EE objects into CDI beans.
@@ -2541,7 +2541,7 @@ following JSF and Jakarta EE objects into CDI beans.
 
 - jakarta.servlet.http._HttpSession_
 
-==== Support for Injection into JSF Managed Objects
+.Support for Injection into JSF Managed Objects
 
 It must be possible to use _@Inject_ when
 specifying the following kinds of JSF managed objects.

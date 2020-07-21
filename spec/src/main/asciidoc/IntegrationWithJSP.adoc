@@ -47,7 +47,7 @@ example, assume the existence of a concrete _RenderKit_ ,
 _HTMLRenderKit_ , which supports three _Renderer_ types for the
 _UIInput_ component:
 
-=== Example Renderer Types
+.Example Renderer Types
 
 RendererType
 
@@ -1604,14 +1604,14 @@ action.
 
 ===== Syntax
 
-===== Syntax 1: Unnamed value
+.Syntax 1: Unnamed value
 
 <f:param
 [id=”componentIdOrImmediateExpression”] value=”parameter-value”
 
 [binding=” _componentReference”]_ />
 
-===== Syntax 2: Named value
+.Syntax 2: Named value
 
 {empty}<f:param
 [id=”componentIdOrImmediateExpression”]
@@ -1752,7 +1752,7 @@ action.
 
 ===== Syntax
 
-===== Syntax 1: Directly Specified Value
+.Syntax 1: Directly Specified Value
 
 {empty}<f:selectItem
 [id=”componentIdOrImmediateExpression”]
@@ -1767,7 +1767,7 @@ itemLabel=” _itemLabel”_
 
 [itemDescription=” _itemDescription”]_ />
 
-===== Syntax 2: Indirectly Specified Value
+.Syntax 2: Indirectly Specified Value
 
 {empty}<f:selectItem
 [id=”componentIdOrImmediateExpression”]
@@ -2262,17 +2262,17 @@ custom action.
 
 ===== Syntax
 
-===== Syntax 1: Maximum only specified
+.Syntax 1: Maximum only specified
 
 <f:validateDoubleRange maximum=”543.21”
 binding=”VB Expression”/>
 
-===== Syntax 2: Minimum only specified
+.Syntax 2: Minimum only specified
 
 <f:validateDoubleRange minimum=”123.45”
 binding=”VB Expression”/>
 
-===== Syntax 3: Both maximum and minimum are specified
+.Syntax 3: Both maximum and minimum are specified
 
 <f:validateDoubleRange maximum=”543.21”
 minimum=”123.45” binding=”VB Expression”/>
@@ -2374,17 +2374,17 @@ action.
 
 ===== Syntax
 
-===== Syntax 1: Maximum length only specified
+.Syntax 1: Maximum length only specified
 
 <f:validateLength maximum=”10” binding=”VB
 Expression”/>
 
-===== Syntax 2: Minimum only specified
+.Syntax 2: Minimum only specified
 
 <f:validateLength minimum=”1” binding=”VB
 Expression”/>
 
-===== Syntax 3: Both maximum and minimum are specified
+.Syntax 3: Both maximum and minimum are specified
 
 <f:validateLength maximum=”10” minimum=”1”
 binding=”VB Expression”/>
@@ -2565,17 +2565,17 @@ custom action.
 
 ===== Syntax
 
-===== Syntax 1: Maximum only specified
+.Syntax 1: Maximum only specified
 
 <f:validateLongRange maximum=”543”
 binding=”VB Expression”/>
 
-===== Syntax 2: Minimum only specified
+.Syntax 2: Minimum only specified
 
 <f:validateLongRange minimum=”123”
 binding=”VB Expression”/>
 
-===== Syntax 3: Both maximum and minimum are specified
+.Syntax 3: Both maximum and minimum are specified
 
 <f:validateLongRange maximum=”543”
 minimum=”123” binding=”VB Expression”/>
@@ -3032,7 +3032,7 @@ actions defined in this tag library must specify the following return
 values for the _getComponentType()_ and _getRendererType()_ methods,
 respectively:.
 
-=== Standard HTML RenderKit Tag Library
+.Standard HTML RenderKit Tag Library
 
 getComponentType()
 

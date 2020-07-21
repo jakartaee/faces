@@ -97,7 +97,7 @@ applications already using the JSP document syntax (also known as JSPX
 syntax). The affect on the processing of files in each of these three
 modes is specified in the following table.
 
-===== Valid _<process-as>_ values and their implications on the processing of Facelet VDL files.
+.Valid _<process-as>_ values and their implications on the processing of Facelet VDL files.
 
 
 

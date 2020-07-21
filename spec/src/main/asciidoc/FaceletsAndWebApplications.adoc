@@ -28,7 +28,7 @@ following table lists some of the differences between Facelets and JSP
 
 
 
-==== Comparison of Facelets and JSP
+.Comparison of Facelets and JSP
 
 Feature Name
 
@@ -123,7 +123,7 @@ Facelets in JSF 2.0 provides tag libraries
 that are compatible with the following libraries already found in pre
 JSF 2.0 Facelets.
 
-==== Taglibs in pre JSF 2.0 Facelets that are available in Facelets in JSF 2.0
+.Taglibs in pre JSF 2.0 Facelets that are available in Facelets in JSF 2.0
 
 Common prefix
 
@@ -1088,7 +1088,7 @@ associate an Ajax action with that component. If this tag is placed
 around a group of components it will associate an Ajax action with all
 components that support the “events” attribute. In there is an outer
 
-===== Syntax
+.Syntax
 
 <f:ajax [event=”Literal”] [execute=”Literal |
 Value Expression”] [render=”Literal | Value Expression”]
@@ -1096,11 +1096,11 @@ Value Expression”] [render=”Literal | Value Expression”]
 Expression”] | [listener=”Method Expression”] [disabled=”Literal|Value
 Expression”] [immediate=”Literal|ValueExpression]/>
 
-===== Body Content
+.Body Content
 
 empty.
 
-===== Attributes
+.Attributes
 
 The following optional attributes are
 available:
@@ -1201,7 +1201,7 @@ If “true” behavior events generated from this
 behavior are broadcast during Apply Request Values phase. Otherwise, the
 events will be broadcast during Invoke Aplications phase.
 
-===== Specifying “execute”/”render” Identifiers
+.Specifying “execute”/”render” Identifiers
 
 {empty}The String value for identifiers
 specified for execute and render may be specified as a search expression
@@ -1209,7 +1209,7 @@ as outlined in the JavaDocs for UIComponent.findComponent.
 [P1_start_execrenderIds]The implementation must resolve these
 identifiers as specified for UIComponent.findComponent.[P1_end]
 
-===== Constraints
+.Constraints
 
 This tag may be nested within any of the
 standard HTML components. It may also be nested within any custom
@@ -1354,7 +1354,7 @@ attached to “button1”. the outer <f:ajax> Ajax behavior will also get
 applied to “button1”. But it will be applied *after* the “greet”
 behavior.
 
-===== Description
+.Description
 
 Enable one or more components in the view to
 perform Ajax operations. This tag handler must create an instance of
@@ -1383,7 +1383,7 @@ instance must be added as a Behavior to the component. Please refer to
 the Javadocs for the core tag handler AjaxHandler for additional
 requirements.
 
-===== Examples
+.Examples
 
 Apply Ajax to “button1” and “text1”:
 
@@ -1526,7 +1526,7 @@ _ <!-- other input components here --> +
 </f:validateBean> +
 </h:form>
 
-===== Body Content
+.Body Content
 
 Empty in the case when the Bean Validator is
 to be registered on a parent component.
@@ -1619,7 +1619,7 @@ Syntax
 
 <f:validateRequired/>
 
-===== Body Content
+.Body Content
 
 empty
 
@@ -1708,7 +1708,7 @@ model object --> +
 <f:validateWholeBean value=_ " _#\{model}_ " _ +
 validationGroups=_ " _fully.qualified.class.Name_ " _/>_
 
-===== Body Content
+.Body Content
 
 empty
 
@@ -1771,7 +1771,7 @@ has among others the advantage of maintaining the JSF view state, the
 HTTP session and, critically, all security constraints on business
 service methods.
 
-===== Syntax
+.Syntax
 
 _<f:websocket [binding=_ " _ValueExpression_
 " _] [id=_ " _Literal|ValueExpression_ " _] +
@@ -1783,12 +1783,12 @@ _Literal|ValueExpression_ " _] +
 _Literal|ValueExpression_ " _] +
 [rendered=_ " _Literal|ValueExpression_ " _] />_
 
-===== Body Content
+.Body Content
 
 Empty, or one or more _<f:ajax>_ tags with
 the _event_ attribute set to exactly the push message content.
 
-===== Attributes
+.Attributes
 
 The following required attribute must be set:
 
@@ -1894,7 +1894,7 @@ property bound to the component instance for the UIComponent created by
 this tag.
 |===
 
-===== Configuration
+.Configuration
 
 First, enable the websocket endpoint using
 the context parameter:
@@ -1920,7 +1920,7 @@ integer context parameter in web.xml to explicitly specify the port.
 </context-param>
 |===
 
-===== Usage (client)
+.Usage (client)
 
 Declare <f:websocket> tag in the JSF view
 with at least a channel name and an onmessage JavaScript listener
@@ -1972,7 +1972,7 @@ will not auto-reconnect when the very first connection attempt already
 fails. The websocket will be implicitly closed once the document is
 unloaded.
 
-===== Usage (server)
+.Usage (server)
 
 On the Java programming side, you can inject
 a PushContext via @Push annotation on the given channel name in any
@@ -2010,7 +2010,7 @@ listener function associated with the channel name. It can be a plain
 vanilla String, but it can also be a collection, map and even a Java
 bean.
 
-===== Scopes and Users
+.Scopes and Users
 
 By default the websocket is application
 scoped, i.e. any view/session throughout the web application having the
@@ -2104,7 +2104,7 @@ someChannel.send(message, recipientUserIds); +
 }
 |===
 
-===== Conditionally Connecting
+.Conditionally Connecting
 
 You can use the optional connected attribute
 to control whether to auto-connect the websocket or not..
@@ -2149,7 +2149,7 @@ jsf.push.close('foo'); +
 }
 |===
 
-===== Events (client)
+.Events (client)
 
 The optional onopen JavaScript listener
 function can be used to listen on open of a websocket in client side.
@@ -2218,7 +2218,7 @@ automatically closed with close reason code 1000 by the server (and thus
 not manually by the client via jsf.push.close(clientId)), then it means
 that the session or view has expired.
 
-===== Events (server)
+.Events (server)
 
 When a session or view scoped socket is
 automatically closed with close reason code 1000 by the server (and thus
@@ -2252,7 +2252,7 @@ CloseCode code = event.getCloseCode(); +
 
 |===
 
-===== Security Considerations
+.Security Considerations
 
 If the socket is declared in a page which is
 only restricted to logged-in users with a specific role, then you may
@@ -2316,7 +2316,7 @@ CloseCodes.NORMAL_CLOSURE (1000). Only application scoped sockets remain
 open and are still reachable from server end even when the session or
 view associated with the page in client side is expired.
 
-===== Ajax Support
+.Ajax Support
 
 In case you’d like to perform complex UI
 updates depending on the received push message, then you can nest
@@ -2378,7 +2378,7 @@ to the ones defined in the other section.
 
 
 
-==== Renderers Unique to Facelets
+.Renderers Unique to Facelets
 
 [width="100%",cols="34%,33%,33%",options="header",]
 |===
@@ -2418,7 +2418,7 @@ the normative specification.
 
 ---
 
-Assertions relating to the construction of the view
+=== Assertions relating to the construction of the view
 hierarchy
 
 [P1-start processListenerForAnnotation] When

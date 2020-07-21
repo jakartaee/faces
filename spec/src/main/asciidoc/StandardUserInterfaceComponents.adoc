@@ -51,7 +51,7 @@ The following UML class diagram shows the
 classes and interfaces in the package _jakarta.faces.component._
 
 [[a1834]]
-=== The _jakarta.faces.component_ package
+.The _jakarta.faces.component_ package
 
 image:SF-22.png[image]
 

@@ -2706,7 +2706,7 @@ metadata should be extracted.
 to support argument _viewId_ being a JSP markup file. In this case,
 _null_ must be returned from this method.[P1-end]
 
-===== ViewMetadata Contract
+.ViewMetadata Contract
 
 [width="100%",cols="100%",]
 |===
