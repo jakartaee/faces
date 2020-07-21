@@ -286,7 +286,7 @@ interface _._
 ClientBehaviorRenderer implementations may be
 registered in the JSF faces-config.xml or with an annotation.
 
-==== XML Registration
+.XML Registration
 
 
 
@@ -309,7 +309,7 @@ a|
 
 |===
 
-==== Registration By Annotation
+.Registration By Annotation
 
 JSF provides the
 _jakarta.faces.render.FacesBehaviorRenderer annotation._
@@ -484,7 +484,7 @@ _Behavior attached to them. Refer to_
 <<UserInterfaceComponentModel.adoc#a1707,See Component
 Behavior Model>> __ for additional details.
 
-=== Concrete HTML Component Classes
+.Concrete HTML Component Classes
 
 jakarta.faces.component class
 

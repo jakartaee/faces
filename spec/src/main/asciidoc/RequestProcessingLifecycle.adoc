@@ -258,7 +258,7 @@ _facesContext.renderResponse()_ . If it turns out that the previous call
 to _createViewMetadata()_ did not create a _UIViewRoot_ instance, call
 _createView()_ on the _ViewHandler_ .
 
-==== View Protection
+.View Protection
 
 Call
 ViewHandler.getProtectedViewsUnmodifiable() to determine if the view for
@@ -713,7 +713,7 @@ rendered, Render the state using the algorithm described below in
 _endDocument()_ on the _PartialResponseWriter_ and return.
 
 [[a487]]
-===== Partial State Rendering
+.Partial State Rendering
 
 This section describes the requirements for
 rendering the _<update>_ elements pertaining to view state and window id
@@ -1531,7 +1531,7 @@ author. However, the complexity has to live somewhere, and the JSF
 implementor is the lucky role. Here is an overview of the key players.
 Please see the javadocs for each individual class for more information.
 
-===== Key Players in State Management
+.Key Players in State Management
 
 _StateHelper_ the helper class that defines
 a _Map_ -like contract that makes it easier for components to implement

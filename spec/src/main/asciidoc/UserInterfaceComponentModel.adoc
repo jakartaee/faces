@@ -642,7 +642,7 @@ interface. [P1-end]
 [[a1006]]
 ===== Special Attributes
 
-===== UIComponent Constants
+.UIComponent Constants
 
 [width="100%",cols="100%",]
 |===
@@ -3377,7 +3377,7 @@ requirements for the composite component runtime, or pointers to other
 parts of the specification that articulate those requirements in the
 appropriate context.
 
-===== References to Composite Component Requirements in Context
+.References to Composite Component Requirements in Context
 
 Section
 
@@ -3514,7 +3514,7 @@ The list of attached object targets would
 consist of instances of implementations of the following interfaces from
 the package _javax.faces.webapp.vdl_ .
 
-===== EditableValueHolderAttachedObjectTarget
+EditableValueHolderAttachedObjectTarget
 
 ActionSource2AttachedObjectTarget
 
@@ -3913,7 +3913,7 @@ classes described in the previous section the specification supports an
 event listener model for broadcasting and handling _AjaxBehavior_
 events.
 
-===== jakarta.faces.event.AjaxBehaviorEvent
+._jakarta.faces.event.AjaxBehaviorEvent_
 
 This event type extends from
 _jakarta.faces.event.BehaviorEvent_ and it is broadcast from an
@@ -3924,7 +3924,7 @@ responsible for invoking the method implementation of
 _jakarta.faces.event.AjaxBehaviorListener.processAjaxBehavior._ Refer to
 the javadocs for more complete details about this class.
 
-===== jakarta.faces.event.AjaxBehaviorListener
+._jakarta.faces.event.AjaxBehaviorListener_
 
 This listener type extends from
 _jakarta.faces.event.BehaviorListener_ and it is invoked in response to

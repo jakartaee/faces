@@ -111,7 +111,7 @@ associative object array that may contain the following name/value
 pairs:
 
 [[a6871]]
-==== request OPTIONS
+.request OPTIONS
 
 Name
 
@@ -152,7 +152,7 @@ parameters to include in the request.
 The following keywords can be used for the
 value of the “execute” and “render” attributes:
 
-==== Execute / Render Keywords
+.Execute / Render Keywords
 
 Keyword
 
@@ -318,7 +318,7 @@ an existing JavaScript function that will handle the events. The events
 that can be handled are:
 
 [[a6936]]
-==== Events
+.Events
 
 Event Name
 
@@ -347,7 +347,7 @@ The callback function has access to the
 following “data payload”:.
 
 [[a6947]]
-==== Event Data Payload
+.Event Data Payload
 
 Name
 
@@ -430,7 +430,7 @@ The callback argument must be a reference to
 an existing JavaScript function that will handle errors from the server.
 
 [[a6976]]
-==== Errors
+.Errors
 
 Error Name
 
@@ -460,7 +460,7 @@ The callback function has access to the
 following “data payload”:.
 
 [[a6988]]
-==== Error Data Payload
+.Error Data Payload
 
 Name
 
