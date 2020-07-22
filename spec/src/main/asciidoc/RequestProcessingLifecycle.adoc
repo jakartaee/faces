@@ -23,20 +23,20 @@ a well-defined _request processing lifecycle_ made up of _phases_ .
 There are three different scenarios that must be considered, each with
 its own combination of phases and activities:
 
-Non-Faces Request generates Faces Response
+* Non-Faces Request generates Faces Response
 
-Faces Request generates Faces Response
+* Faces Request generates Faces Response
 
-Faces Request generates Non-Faces Response
+* Faces Request generates Non-Faces Response
 
 Where the terms being used are defined as
 follows:
 
-_Faces Response_ —A response that was
+* _Faces Response_ —A response that was
 created by the execution of the _Render Response_ phase of the request
 processing lifecycle.
 
-_Non-Faces Response_ —A response that was
+* _Non-Faces Response_ —A response that was
 not created by the execution of the _render response_ phase of the
 request processing lifecycle. Examples would be a servlet-generated or
 JSP-rendered response that does not incorporate JSF components, a
@@ -47,7 +47,7 @@ image, or an applet. This last scenario is considered a special case of
 a Non-Faces Response and will be referred to as a _Faces Resource
 Response_ for the remainder of this specification.
 
-_Faces Request_ —A request that was sent
+* _Faces Request_ —A request that was sent
 from a previously generated _Faces response_ . Examples would be a
 hyperlink or form submit from a rendered user interface component, where
 the request URI was crafted (by the component or renderer that created
@@ -58,7 +58,7 @@ stylesheet, or an applet. This last scenario is considered a special
 case of a Faces Request and will be referred to as a _Faces Resource
 Request_ for the remainder of this specification.
 
-_Non-Faces Request_ —A request that was sent
+* _Non-Faces Request_ —A request that was sent
 to an application component (e.g. a servlet or JSP page), rather than
 directed to a Faces view.
 
@@ -91,14 +91,14 @@ request may use JSF to render a Faces response to that request. In order
 to accomplish this, the application must perform the common activities
 that are described in the following sections:
 
-Acquire Faces object references, as described
+* Acquire Faces object references, as described
 in <<RequestProcessingLifecycle.adoc#a502,See Acquire Faces Object References>>,
 below.
 
-Create a new view, as described in
+* Create a new view, as described in
 <<RequestProcessingLifecycle.adoc#a516,See Create And Configure A New View>>, below.
 
-Store the view into the _FacesContext_ by
+* Store the view into the _FacesContext_ by
 calling the _setViewRoot()_ method on the _FacesContext._
 
 [[a390]]
@@ -141,15 +141,15 @@ to actually create the response that is sent back to the client. In some
 circumstances, however, this behavior might not be desirable. For
 example:
 
-A Faces Request needs to be redirected to a
+* A Faces Request needs to be redirected to a
 different web application resource (via a call to
 _HttpServletResponse.sendRedirect_ ).
 
-A Faces Request causes the generation of a
+* A Faces Request causes the generation of a
 response using some other technology (such as a servlet, or a JSP page
 not containing JSF components).
 
-A Faces Request causes the generation of a
+* A Faces Request causes the generation of a
 response simply by serving up the bytes of a resource, such as an image,
 a JavaScript file, a CSS file, or an applet
 
@@ -183,41 +183,41 @@ as early as possible at the beginning of each phase.[P1-end]
 must perform the following tasks during the _Restore View_ phase of the
 request processing lifecycle:
 
-Call _initView()_ on the _ViewHandler_ . This
+* Call _initView()_ on the _ViewHandler_ . This
 will set the character encoding properly for this request.
 
-Examine the _FacesContext_ instance for the
+* Examine the _FacesContext_ instance for the
 current request. If it already contains a _UIViewRoot_ :
 
-Set the _locale_ on this _UIViewRoot_ to the
+** Set the _locale_ on this _UIViewRoot_ to the
 value returned by the _getRequestLocale()_ method on the
 _ExternalContext_ for this request.
 
-Take no further action during this phase, and
+** Take no further action during this phase, and
 return. The presence of a UIViewRoot already installed in the
 FacesContext before the Restore View Phase implementation indicates that
 the phase should assume the view has already been restored by other
 means.
 
-Derive the _viewId_ according to the
+* Derive the _viewId_ according to the
 following algorithm, or one semantically equivalent to it.
 
-Look in the request map for a value under
+** Look in the request map for a value under
 the key _jakarta.servlet.include.path_info_ . If found, let it be the
 _viewId_ .
 
-Call _getRequestPathInfo()_ on the current
+** Call _getRequestPathInfo()_ on the current
 _ExternalContext_ . If this value is non-null, let this be the _viewId_
 .
 
-Look in the request map for a value under the
+** Look in the request map for a value under the
 key _jakarta.servlet.include.servlet_path_ . If found, let it be the
 _viewId_ .
 
-If none of these steps yields a non- _null_
+** If none of these steps yields a non- _null_
 viewId, throw a _FacesException_ with an appropriate localized message.
 
-Determine if this request is a postback or
+* Determine if this request is a postback or
 initial request by executing the following algorithm. Find the
 render-kit-id for the current request by calling
 _calculateRenderKitId()_ on the _Application_ ’s _ViewHandler_ . Get
@@ -227,7 +227,7 @@ an attempt by the servlet container to display a servlet error page, do
 not interpret the request as a postback, even if it is indeed a
 postback.
 
-If the request is a postback, call
+* If the request is a postback, call
 _setProcessingEvents(false)_ on the current _FacesContext_ . Then call
 _ViewHandler.restoreView()_ , passing the _FacesContext_ instance for
 the current request and the view identifier, and returning a
@@ -239,13 +239,13 @@ that must be thrown to signal to the application that the expected view
 was not returned for the view identifier. An application may choose to
 perform some action based on this exception.
 
-Store the restored _UIViewRoot_ in the
+* Store the restored _UIViewRoot_ in the
 _FacesContext_ .
 
-Call _setProcessingEvents(true)_ on the
+* Call _setProcessingEvents(true)_ on the
 current _FacesContext_ . __
 
-If the request is not a postback, try to
+* If the request is not a postback, try to
 obtain the _ViewDeclarationLanguage_ from the _ViewHandler_ , for the
 current _viewId_ by calling _ViewHandler.deriveLogicalViewId()_ and
 passing the result to _ViewHandler.getViewDeclarationLanguage()_ . If no
@@ -260,7 +260,7 @@ _createView()_ on the _ViewHandler_ .
 
 .View Protection
 
-Call
+* Call
 ViewHandler.getProtectedViewsUnmodifiable() to determine if the view for
 this viewId is protected. If not, assume the requested view is not
 protected and take no additional view protection steps. Obtain the value
@@ -280,7 +280,7 @@ application. If not, throw a ProtectedViewException. If the Origin
 header is present, additionally perform the same steps as with the
 Referer header.
 
-Call _renderResponse()_ on the _FacesContext_
+* Call _renderResponse()_ on the _FacesContext_
 .
 
 Obtain a reference to the _FlowHandler_ from
@@ -334,14 +334,14 @@ decoding process follow.
 During the decoding of request values, some
 components perform special processing, including:
 
-Components that implement _ActionSource_
+* Components that implement _ActionSource_
 (such as _UICommand_ ), which recognize that they were activated, will
 queue an _ActionEvent_ . The event will be delivered at the end of
 _Apply Request Values_ phase if the _immediate_ property of the
 component is _true_ , or at the end of _Invoke Application_ phase if it
 is _false_ .
 
-Components that implement
+* Components that implement
 _EditableValueHolder_ (such as _UIInput_ ), and whose _immediate_
 property is set to _true_ , will cause the conversion and validation
 processing (including the potential to fire _ValueChangeEvent_ events)
@@ -542,28 +542,28 @@ Property>>.[P1-end]
 
 This phase accomplishes two things:
 
-Causes the response to be rendered to the
+. Causes the response to be rendered to the
 client
 
-Causes the state of the response to be saved
+. Causes the state of the response to be saved
 for processing on subsequent requests.
 
 JSF supports a range of approaches that JSF
 implementations may utilize in creating the response text that
 corresponds to the contents of the response view, including:
 
-Deriving all of the response content directly
+* Deriving all of the response content directly
 from the results of the encoding methods (on either the components or
 the corresponding renderers) that are called.
 
-Interleaving the results of component
+* Interleaving the results of component
 encoding with content that is dynamically generated by application
 programming logic.
 
-Interleaving the results of component
+* Interleaving the results of component
 encoding with content that is copied from a static “template” resource.
 
-Interleaving the results of component
+* Interleaving the results of component
 encoding by embedding calls to the encoding methods into a dynamic
 resource (such as representing the components as custom tags in a JSP
 page).
@@ -574,14 +574,14 @@ specified precisely. [P1-start-renderResponse]However, all JSF
 implementations of this phase must conform to the following
 requirements:
 
-If it is possible to obtain a
+* If it is possible to obtain a
 _ViewDeclarationLanguage_ instance for the current _viewId_ , from the
 _ViewHandler_ , its _buildView()_ method must be called. __
 
-Publish the
+* Publish the
 _jakarta.faces.event.PreRenderViewEvent_ .
 
-JSF implementations must provide a default
+* JSF implementations must provide a default
 _ViewHandler_ implementation that is capable of handling views written
 in JSP as well as views written in the Faces View Declaration Language
 (VDL). In the case of JSP, the ViewHandler must perform a
@@ -589,18 +589,18 @@ _RequestDispatcher.forward()_ call to a web application resource whose
 context-relative path is equal to the view identifier of the component
 tree.
 
-If all of the response content is being
+* If all of the response content is being
 derived from the encoding methods of the component or associated
 _Renderer_ s, the component tree should be walked in the same
 depth-first manner as was used in earlier phases to process the
 component tree, but subject to the additional constraints listed here.
 Generally this is handled by a call to _ViewHandler.renderView()_ . __
 
-If the response content is being interleaved
+* If the response content is being interleaved
 from additional sources and the encoding methods, the components may be
 selected for rendering in any desired order <<a9083, 1>>.
 
-During the rendering process, additional
+* During the rendering process, additional
 components may be added to the component tree based on information
 available to the _ViewHandler_ implementation <<a9084, 2>>.
 However, before adding a new component, the _ViewHandler_ implementation
@@ -609,18 +609,18 @@ component tree. If the component already exists (perhaps because a
 previous phase has pre-created one or more components), the existing
 component’s properties and attributes must be utilized.
 
-Under no circumstances should a component be
+* Under no circumstances should a component be
 selected for rendering when its parent component, or any of its
 ancestors in the component tree, has its _rendersChildren_ property set
 to true. In such cases, the parent or ancestor component must render the
 content of this child component when the parent or ancestor was
 selected.
 
-If the _isRendered()_ method of a component
+* If the _isRendered()_ method of a component
 returns _false_ , the renderer for that component must not generate any
 markup, and none of its facets or children (if any) should be rendered.
 
-It must be possible for the application to
+* It must be possible for the application to
 programmatically modify the component tree at any time during the
 request processing lifecycle (except during the rendering of the view)
 and have the system behave as expected. For example, the following must
@@ -635,7 +635,7 @@ that are unique within the scope of the closest parent _NamingContainer_
 component. The value of the _rendersChildren_ property is handled as
 expected, and may be either _true_ or _false_ .
 
-If running on a container that supports
+* If running on a container that supports
 Servlet 4.0 or later, after any dynamic component manipulations have
 been completed, any resources that have been added to the UIViewRoot,
 such as scripts, images, or stylesheets, and any inline images, must be
@@ -643,7 +643,7 @@ pushed to the client using the Servlet Server Push API. All of the
 pushes must be started before any of the HTML of the response is
 rendered to the client.
 
-For partial requests, where partial view
+* For partial requests, where partial view
 rendering is required, there must be no content written outside of the
 view (outside _f:view_ ). Response writing must be disabled. Response
 writing must be enabled again at the start of _encodeBegin._
@@ -682,10 +682,10 @@ _startDocument()_ on the _PartialResponseWriter_ .
 Call _writePreamble(“<?xml version=’1.0’
 encoding=’currentEncoding’?>\n”)_ on the _PartialResponseWriter_ , where
 _encoding_ is the return from the _getCharacterEncoding()_ on the
-_PartialResponseWriter_ , or UTF-8 if that method returns _null_ . __
+_PartialResponseWriter_ , or UTF-8 if that method returns _null_ .
 
 If _isResetValues()_ returns _true_ , call
-_getRenderIds()_ and pass the result to _UIViewRoot.resetValues()_ . __
+_getRenderIds()_ and pass the result to _UIViewRoot.resetValues()_ .
 
 If _isRenderAll()_ returns _true_ and the
 view root is not an instance of _NamingContainer_ , call
@@ -804,17 +804,13 @@ utilized to manage the remainder of the request processing
 lifecycle.[P1-end] An application may acquire a reference to this
 instance in a portable manner, as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
-LifecycleFactory lFactory =
-(LifecycleFactory)
-FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-
-Lifecycle lifecycle =
-lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-
-|===
+[source,java]
+----
+LifecycleFactory lFactory = (LifecycleFactory)
+    FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+Lifescycle lifecycle =
+    lFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+----
 
 It is also legal to specify a different
 lifecycle identifier as a parameter to the _getLifecycle()_ method, as
@@ -833,21 +829,13 @@ a Faces Response. An application that is processing a Non-Faces Request,
 but wants to create a Faces Response, must acquire a reference to a
 _FacesContext_ instance as follows
 
-[width="100%",cols="100%",]
-|===
-a|
-FacesContextFactory fcFactory =
-(FacesContextFactory)
-FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-
+[source,java]
+----
+FacesContextFactory fcFactory = (FacesContextFactory)
+    FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
 FacesContext facesContext =
-
- fcFactory.getFacesContext(context, request,
-response, lifecycle);
-
-
-
-|===
+    fcFactory.getFacesContext(context, request, response, lifecycle);
+----
 
 where the _context_ , _request_ , and
 _response_ objects represent the corresponding instances for the
@@ -869,26 +857,19 @@ request.
 ===== Create A New View
 
 Views are represented by a data structure
-rooted in an instance of _jakarta.faces.component.UIViewRoot_ , and
+rooted in an instance of _jakarta.faces.component.UIViewRoot_, and
 identified by a view identifier whose meaning depends on the
 _ViewHandler_ implementation to be used during the _Render Response_
 phase of the request processing lifecycle <<a9085, 3>>. The
 _ViewHandler_ provides a factory method that may be utilized to
 construct new component trees, as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
-String viewId = ... _identifier of the
-desired Tree_ ...;
-
-ViewHandler viewHandler =
-application.getViewHandler();
-
-UIViewRoot view =
-viewHandler.createView(facesContext, viewId);
-
-|===
+[source,java]
+----
+String viewId = ... identifier of the desired Tree ...;
+ViewHandler viewHandler = application.getViewHandler();
+UIViewRoot view = viewHandler.createView(facesContext, viewId);
+----
 
 [P1-start-createViewRoot]The _UIViewRoot_
 instance returned by the _createView()_ method must minimally contain a
@@ -926,22 +907,14 @@ utilized instead, if desired. A reference to this _RenderKit_ instance
 can be obtained from the standard _RenderKitFactory_ , and then assigned
 to the _UIViewRoot_ instance created previously, as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
-String renderKitId = ... identifier of
-desired RenderKit ...;
-
-RenderKitFactory rkFactory =
-(RenderKitFactory)
-FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-
-RenderKit renderKit =
-rkFactory.getRenderKit(renderKitId, facesContext);
-
+[source,java]
+----
+String renderKitId = ... identifier of desired RenderKit ...;
+RenderKitFactory rkFactory = (RenderKitFactory)
+    FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+RenderKit renderKit = rkFactory.getRenderKit(renderKitId, facesContext);
 view.setRenderKitId(renderKitId);
-
-|===
+----
 
 As described in Chapter 8, changing the
 _RenderKit_ being used changes the set of _Renderer_ s that will
@@ -965,15 +938,11 @@ properties of existing components. For example, a new _FooComponent_ (an
 implementation of _UIComponent_ ) can be added as a child to the root
 _UIViewRoot_ in the component tree as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
-FooComponent component = ... _create a
-FooComponent instance_ ...;
-
+[source,java]
+----
+FooComponent component = ... create a FooComponent instance ...;
 facesContext.getViewRoot().getChildren().add(component);
-
-|===
+----
 
 ===== Store the new View in the FacesContext
 
@@ -1064,23 +1033,18 @@ the current _FacesContext_ . The application developer can tell JSF what
 locales the application supports in the applications’
 _WEB-INF/faces-config.xml_ file. For example:
 
+[source,xml]
+----
 <faces-config>
-
- <application>
-
- <locale-config>
-
- <default-locale>en</default-locale>
-
- <supported-locale>de</supported-locale>
-
- <supported-locale>fr</supported-locale>
-
- <supported-locale>es</supported-locale>
-
- </locale-config>
-
- </application>
+  <application>
+    <locale-config>
+      <default-locale>en</default-locale>
+      <supported-locale>de</supported-locale>
+      <supported-locale>fr</supported-locale>
+      <supported-locale>es</supported-locale>
+    </locale-config>
+  </application>
+----
 
 This application’s default locale is _en_ ,
 but it also supports _de, fr,_ and _es_ locales. These elements cause
@@ -1173,12 +1137,12 @@ _Map_ , which is then stored in the scoped namespace in request scope,
 thus making its messages available using the same mechanism for
 accessing data in the model tier. For example:
 
-<f:loadBundle
-basename=”com.foo.industryMessages.chemical”
-
- var=”messages” />
-
+[source,xml]
+----
+<f:loadBundle basename=”com.foo.industryMessages.chemical”
+              var=”messages” />
 <h:outputText value=”#\{messages.benzene}” />
+----
 
 This must cause the _ResourceBundle_ named
 _com.foo.industryMessages.chemical_ to be loaded as a Map into the
@@ -1199,196 +1163,196 @@ _jakarta.faces.Messages ResourceBundle_ containing all of the necessary
 keys for the standard messages. The required keys (and a non-normative
 indication of the intended message text) are as follows:
 
-jakarta.faces.component.UIInput.CONVERSION --
+* jakarta.faces.component.UIInput.CONVERSION --
 \{0}: Conversion error occurred
 
-jakarta.faces.component.UIInput.REQUIRED --
+* jakarta.faces.component.UIInput.REQUIRED --
 \{0}: Validation Error: Value is required
 
-jakarta.faces.component.UIInput.UPDATE -- \{0}:
+* jakarta.faces.component.UIInput.UPDATE -- \{0}:
 An error occurred when processing your submitted information
 
-jakarta.faces.component.UISelectOne.INVALID --
+* jakarta.faces.component.UISelectOne.INVALID --
 \{0}: Validation Error: Value is not valid
 
-jakarta.faces.component.UISelectMany.INVALID --
+* jakarta.faces.component.UISelectMany.INVALID --
 \{0}: Validation Error: Value is not valid
 
-jakarta.faces.converter.BigDecimalConverter.DECIMAL=\{2}:
+* jakarta.faces.converter.BigDecimalConverter.DECIMAL=\{2}:
 ''\{0}'' must be a signed decimal number.
 
-jakarta.faces.converter.BigDecimalConverter.DECIMAL_detail=\{2}:
+* jakarta.faces.converter.BigDecimalConverter.DECIMAL_detail=\{2}:
 ''\{0}'' must be a signed decimal number consisting of zero or more
 digits, that may be followed by a decimal point and fraction. Example:
 \{1}
 
-jakarta.faces.converter.BigIntegerConverter.BIGINTEGER=\{2}:
+* jakarta.faces.converter.BigIntegerConverter.BIGINTEGER=\{2}:
 ''\{0}'' must be a number consisting of one or more digits.
 
-jakarta.faces.converter.BigIntegerConverter.BIGINTEGER_detail=\{2}:
+* jakarta.faces.converter.BigIntegerConverter.BIGINTEGER_detail=\{2}:
 ''\{0}'' must be a number consisting of one or more digits. Example:
 \{1}
 
-jakarta.faces.converter.BooleanConverter.BOOLEAN=\{1}:
+* jakarta.faces.converter.BooleanConverter.BOOLEAN=\{1}:
 ''\{0}'' must be 'true' or 'false'.
 
-jakarta.faces.converter.BooleanConverter.BOOLEAN_detail=\{1}:
+* jakarta.faces.converter.BooleanConverter.BOOLEAN_detail=\{1}:
 ''\{0}'' must be 'true' or 'false'. Any value other than 'true' will
 evaluate to 'false'.
 
-jakarta.faces.converter.ByteConverter.BYTE=\{2}:
+* jakarta.faces.converter.ByteConverter.BYTE=\{2}:
 ''\{0}'' must be a number between -128 and 127.
 
-jakarta.faces.converter.ByteConverter.BYTE_detail=\{2}:
+* jakarta.faces.converter.ByteConverter.BYTE_detail=\{2}:
 ''\{0}'' must be a number between -128 and 127. Example: \{1}
 
-jakarta.faces.converter.CharacterConverter.CHARACTER=\{1}:
+* jakarta.faces.converter.CharacterConverter.CHARACTER=\{1}:
 ''\{0}'' must be a valid character.
 
-jakarta.faces.converter.CharacterConverter.CHARACTER_detail=\{1}:
+* jakarta.faces.converter.CharacterConverter.CHARACTER_detail=\{1}:
 ''\{0}'' must be a valid ASCII character.
 
-jakarta.faces.converter.DateTimeConverter.DATE=\{2}:
+* jakarta.faces.converter.DateTimeConverter.DATE=\{2}:
 ''\{0}'' could not be understood as a date.
 
-jakarta.faces.converter.DateTimeConverter.DATE_detail=\{2}:
+* jakarta.faces.converter.DateTimeConverter.DATE_detail=\{2}:
 ''\{0}'' could not be understood as a date. Example: \{1}
 
-jakarta.faces.converter.DateTimeConverter.TIME=\{2}:
+* jakarta.faces.converter.DateTimeConverter.TIME=\{2}:
 ''\{0}'' could not be understood as a time.
 
-jakarta.faces.converter.DateTimeConverter.TIME_detail=\{2}:
+* jakarta.faces.converter.DateTimeConverter.TIME_detail=\{2}:
 ''\{0}'' could not be understood as a time. Example: \{1}
 
-jakarta.faces.converter.DateTimeConverter.DATETIME=\{2}:
+* jakarta.faces.converter.DateTimeConverter.DATETIME=\{2}:
 ''\{0}'' could not be understood as a date and time.
 
-jakarta.faces.converter.DateTimeConverter.DATETIME_detail=\{2}:
+* jakarta.faces.converter.DateTimeConverter.DATETIME_detail=\{2}:
 ''\{0}'' could not be understood as a date and time. Example: \{1}
 
-jakarta.faces.converter.DateTimeConverter.PATTERN_TYPE=\{1}:
+* jakarta.faces.converter.DateTimeConverter.PATTERN_TYPE=\{1}:
 A 'pattern' or 'type' attribute must be specified to convert the value
 ''\{0}''.
 
-jakarta.faces.converter.DoubleConverter.DOUBLE=\{2}:
+* jakarta.faces.converter.DoubleConverter.DOUBLE=\{2}:
 ''\{0}'' must be a number consisting of one or more digits.
 
-jakarta.faces.converter.DoubleConverter.DOUBLE_detail=\{2}:
+* jakarta.faces.converter.DoubleConverter.DOUBLE_detail=\{2}:
 ''\{0}'' must be a number between 4.9E-324 and 1.7976931348623157E308
 Example: \{1}
 
-jakarta.faces.converter.EnumConverter.ENUM=\{2}:
+* jakarta.faces.converter.EnumConverter.ENUM=\{2}:
 ''\{0}'' must be convertible to an enum.
 
-jakarta.faces.converter.EnumConverter.ENUM_detail=\{2}:
+* jakarta.faces.converter.EnumConverter.ENUM_detail=\{2}:
 ''\{0}'' must be convertible to an enum from the enum that contains the
 constant ''\{1}''.
 
-jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS=\{1}:
+* jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS=\{1}:
 ''\{0}'' must be convertible to an enum from the enum, but no enum class
 provided.
 
-jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS_detail=\{1}:
+* jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS_detail=\{1}:
 ''\{0}'' must be convertible to an enum from the enum, but no enum class
 provided.
 
-jakarta.faces.converter.FloatConverter.FLOAT=\{2}:
+* jakarta.faces.converter.FloatConverter.FLOAT=\{2}:
 ''\{0}'' must be a number consisting of one or more digits.
 
-jakarta.faces.converter.FloatConverter.FLOAT_detail=\{2}:
+* jakarta.faces.converter.FloatConverter.FLOAT_detail=\{2}:
 ''\{0}'' must be a number between 1.4E-45 and 3.4028235E38 Example: \{1}
 
-jakarta.faces.converter.IntegerConverter.INTEGER=\{2}:
+* jakarta.faces.converter.IntegerConverter.INTEGER=\{2}:
 ''\{0}'' must be a number consisting of one or more digits.
 
-jakarta.faces.converter.IntegerConverter.INTEGER_detail=\{2}:
+* jakarta.faces.converter.IntegerConverter.INTEGER_detail=\{2}:
 ''\{0}'' must be a number between -2147483648 and 2147483647 Example:
 \{1}
 
-jakarta.faces.converter.LongConverter.LONG=\{2}:
+* jakarta.faces.converter.LongConverter.LONG=\{2}:
 ''\{0}'' must be a number consisting of one or more digits.
 
-jakarta.faces.converter.LongConverter.LONG_detail=\{2}:
+* jakarta.faces.converter.LongConverter.LONG_detail=\{2}:
 ''\{0}'' must be a number between -9223372036854775808 to
 9223372036854775807 Example: \{1}
 
-jakarta.faces.converter.NumberConverter.CURRENCY=\{2}:
+* jakarta.faces.converter.NumberConverter.CURRENCY=\{2}:
 ''\{0}'' could not be understood as a currency value.
 
-jakarta.faces.converter.NumberConverter.CURRENCY_detail=\{2}:
+* jakarta.faces.converter.NumberConverter.CURRENCY_detail=\{2}:
 ''\{0}'' could not be understood as a currency value. Example: \{1}
 
-jakarta.faces.converter.NumberConverter.PERCENT=\{2}:
+* jakarta.faces.converter.NumberConverter.PERCENT=\{2}:
 ''\{0}'' could not be understood as a percentage.
 
-jakarta.faces.converter.NumberConverter.PERCENT_detail=\{2}:
+* jakarta.faces.converter.NumberConverter.PERCENT_detail=\{2}:
 ''\{0}'' could not be understood as a percentage. Example: \{1}
 
-jakarta.faces.converter.NumberConverter.NUMBER=\{2}:
+* jakarta.faces.converter.NumberConverter.NUMBER=\{2}:
 ''\{0}'' is not a number.
 
-jakarta.faces.converter.NumberConverter.NUMBER_detail=\{2}:
+* jakarta.faces.converter.NumberConverter.NUMBER_detail=\{2}:
 ''\{0}'' is not a number. Example: \{1}
 
-jakarta.faces.converter.NumberConverter.PATTERN=\{2}:
+* jakarta.faces.converter.NumberConverter.PATTERN=\{2}:
 ''\{0}'' is not a number pattern.
 
-jakarta.faces.converter.NumberConverter.PATTERN_detail=\{2}:
+* jakarta.faces.converter.NumberConverter.PATTERN_detail=\{2}:
 ''\{0}'' is not a number pattern. Example: \{1}
 
-jakarta.faces.converter.ShortConverter.SHORT=\{2}:
+* jakarta.faces.converter.ShortConverter.SHORT=\{2}:
 ''\{0}'' must be a number consisting of one or more digits.
 
-jakarta.faces.converter.ShortConverter.SHORT_detail=\{2}:
+* jakarta.faces.converter.ShortConverter.SHORT_detail=\{2}:
 ''\{0}'' must be a number between -32768 and 32767 Example: \{1}
 
-jakarta.faces.converter.STRING=\{1}: Could not
+* jakarta.faces.converter.STRING=\{1}: Could not
 convert ''\{0}'' to a string.
 
-jakarta.faces.validator.BeanValidator.MESSAGE
+* jakarta.faces.validator.BeanValidator.MESSAGE
 -- \{0}
 
-jakarta.faces.validator.DoubleRangeValidator.MAXIMUM
+* jakarta.faces.validator.DoubleRangeValidator.MAXIMUM
 -- \{1}: Validation Error: Value is greater than allowable maximum of
 ‘’\{0}’’
 
-jakarta.faces.validator.DoubleRangeValidator.MINIMUM
+* jakarta.faces.validator.DoubleRangeValidator.MINIMUM
 -- \{1}: Validation Error: Value is less than allowable minimum of
 ‘’\{0}’’
 
-jakarta.faces.validator.DoubleRangeValidator.NOT_IN_RANGE
+* jakarta.faces.validator.DoubleRangeValidator.NOT_IN_RANGE
 -- \{2}: Validation Error: Specified attribute is not between the
 expected values of \{0} and \{1}.
 
-jakarta.faces.validator.DoubleRangeValidator.TYPE
+* jakarta.faces.validator.DoubleRangeValidator.TYPE
 -- \{0}: Validation Error: Value is not of the correct type
 
-jakarta.faces.validator.LengthValidator.MAXIMUM
+* jakarta.faces.validator.LengthValidator.MAXIMUM
 -- \{1}: Validation Error: Length is greater than allowable maximum of
 ‘’\{0}’’
 
-jakarta.faces.validator.LengthValidator.MINIMUM
+* jakarta.faces.validator.LengthValidator.MINIMUM
 -- \{1}: Validation Error: Length is less than allowable minimum of
 ‘’\{0}’’
 
-jakarta.faces.validator.LongRangeValidator.MAXIMUM
+* jakarta.faces.validator.LongRangeValidator.MAXIMUM
 -- \{1}: Validation Error: Value is greater than allowable maximum of
 ‘’\{0}’’
 
-jakarta.faces.validator.LongRangeValidator.MINIMUM
+* jakarta.faces.validator.LongRangeValidator.MINIMUM
 -- \{1}: Validation Error Value is less than allowable minimum of
 ‘’\{0}’’
 
-jakarta.faces.validator.LongRangeValidator.NOT_IN_RANGE=\{2}:
+* jakarta.faces.validator.LongRangeValidator.NOT_IN_RANGE=\{2}:
 Validation Error: Specified attribute is not between the expected values
 of \{0} and \{1}.
 
-jakarta.faces.validator.LongRangeValidator.TYPE
+* jakarta.faces.validator.LongRangeValidator.TYPE
 -- \{0}: Validation Error: Value is not of the correct type
 
 The following message keys are deprecated:
 
-{empty}jakarta.faces.validator.NOT_IN_RANGE --
+* {empty}jakarta.faces.validator.NOT_IN_RANGE --
 Specified attribute is not between the expected values of \{0} and
 \{1}[P1-end]
 
@@ -1423,15 +1387,15 @@ corresponding tags, _<h:message>_ and _<h:messages>._
 algorithm must be used to create a _FacesMessage_ instance given a
 message key.
 
-Call _getMessageBundle()_ on the
+* Call _getMessageBundle()_ on the
 _Application_ instance for this web application, to determine if the
 application has defined a resource bundle name. If so, load that
 ResourceBundle and look for the message there.
 
-If not there, look in the
+* If not there, look in the
 _jakarta.faces.Messages_ resource bundle.
 
-{empty}In either case, if a message is found,
+* {empty}In either case, if a message is found,
 use the above conventions to create a _FacesMessage_ instance.[P1-end]
 
 ==== State Management
@@ -1474,50 +1438,30 @@ component represents a “slider” ui widget. As such, it needs to keep
 track of the maximum value, minimum value, and current values as part of
 its state.
 
-public class Slider extends UISelectOne \{
+[source,java]
+----
+public class Slider extends UISelectOne {
+  protected Integer min = null;
+  protected Integer max = null;
+  protected Integer cur = null;
 
- protected Integer min = null;
+  // ... details omitted
+  public Object saveState(FacesContext context) {
+    Object values[] = new Object[4];
+    values[0] = super.saveState(context);
+    values[1] = min;
+    values[2] = max;
+    values[3] = cur;
+  }
 
- protected Integer max = null;
-
- protected Integer cur = null;
-
-
-
-// ... details omitted
-
-public Object saveState(FacesContext context)
-\{
-
- Object values[] = new Object[4];
-
- values[0] = super.saveState(context);
-
- values[1] = min;
-
- values[2] = max;
-
- values[3] = cur;
-
-}
-
-
-
-public void restoreState(FacesContext
-context, Object state) \{
-
- Object values[] = (Object \{}) state; //
-guaranteed to succeed
-
- super.restoreState(context, values[0]);
-
- min = (Integer) values[1];
-
- max = (Integer) values[2];
-
- cur = (Integer) values[3];
-
-}
+  public void restoreState(FacesContext context, Object state) {
+    Object values[] = (Object {}) state; // guaranteed to succeed
+    super.restoreState(context, values[0]);
+    min = (Integer) values[1];
+    max = (Integer) values[2];
+    cur = (Integer) values[3];
+  }
+----
 
 Note that we call _super.saveState()_ and
 _super.restoreState()_ as appropriate. This is absolutely vital! Failing
@@ -1533,23 +1477,23 @@ Please see the javadocs for each individual class for more information.
 
 .Key Players in State Management
 
-_StateHelper_ the helper class that defines
+* _StateHelper_ the helper class that defines
 a _Map_ -like contract that makes it easier for components to implement
 _PartialStateHolder_ .
 
-_ViewHandler_ the entry point to the state
+* _ViewHandler_ the entry point to the state
 management system. Uses a helper class, _StateManager_ , to do the
 actual work. In the JSP case, delegates to the tag handler for the
 _<f:view>_ tag for some functionality.
 
-_StateManager_ abstraction for the hard work
+* _StateManager_ abstraction for the hard work
 of state saving. Uses a helper class, _ResponseStateManager_ , for the
 rendering technology specific decisions.
 
-_ResponseStateManager_ abstraction for
+* _ResponseStateManager_ abstraction for
 rendering technology specific state management decisions.
 
-_UIComponent_ directs process of saving and
+* _UIComponent_ directs process of saving and
 restoring individual component state.
 
 [[a685]]
@@ -1570,7 +1514,7 @@ this chapter is helpful in understanding this example.
 Consider an initial request to the
 application.
 
-The _ViewHandler_ calls
+* The _ViewHandler_ calls
 _ViewDeclarationLanguage.buildView()_ . This ultimately causes the
 _processEvent()_ method for the _jakarta.faces.resource.Script_ and
 _jakarta.faces.resource.Stylesheet_ renderers (which implement
@@ -1580,7 +1524,7 @@ specified to take actions that cause the resource to be rendered at the
 correct part in the page based on user-specified or application
 invariant rules. Here’s how it works.
 
-Every _UIComponent_ instance in a view is
+* Every _UIComponent_ instance in a view is
 created with a call to some variant of _Application.createComponent()_ .
 The specification for this method now includes some annotation
 processing requirements. If the component or its renderer has an
@@ -1590,13 +1534,13 @@ a component scoped listener for the appropriate event. In the case of
 _Script_ and _Stylesheet_ renderers, they must listen for the
 _PostAddToViewEvent_ .
 
-When the _processEvent()_ method is called on
+* When the _processEvent()_ method is called on
 a _Script_ or _Stylesheet_ renderer, the renderer takes the specified
 action to move the component to the proper point in the tree based on
 what kind of resource it is, and on what hints the page author has
 declared on the component in the view.
 
-The _ViewHandler_ calls
+* The _ViewHandler_ calls
 _ViewDeclarationLanguage.renderView()_ . The view is traversed as normal
 and because the components with _Script_ and _Stylesheet_ renderers have
 already been reparented to the proper place in the view, the normal
@@ -1610,7 +1554,7 @@ resources included in the page.
 Now consider a request from the browser for
 one of those resources included in the page.
 
-The request comes back to the Faces server.
+* The request comes back to the Faces server.
 The _FacesServlet_ is specified to call
 _ResourceHandler.isResourceRequest()_ as shown in the diagram in
 <<RequestProcessingLifecycle.adoc#a390,See Faces Request Generates Faces Response>>.
@@ -1635,19 +1579,19 @@ through the points in the lifecycle where this feature is encountered.
 Consider a web application that uses this feature exclusively on every
 page. Therefore every page has the following features in common.
 
-Every page has an _<f:metadata>_ tag, with at
+* Every page has an _<f:metadata>_ tag, with at
 least one _<f:viewParameter>_ element within it.
 
-Every page has at least one _<h:link>_ or <
+* Every page has at least one _<h:link>_ or <
 _h:button>_ with the appropriate parameters nested within it.
 
-No other kind of navigation components are
+* No other kind of navigation components are
 used in the application.
 
 Consider an initial request to the
 application.
 
-As specified in section
+* As specified in section
 <<RequestProcessingLifecycle.adoc#a404,See Restore View>>, the restore view phase of
 the request processing lifecycle detects that this is an initial request
 and tries to obtain the _ViewDeclarationLanguage_ instance from the
@@ -1661,12 +1605,12 @@ _MetaData.createMetadataView()_ . This method creates a _UIViewRoot_
 containing only children declared in the _<f:metadata>_ element. Restore
 view phase calls _ViewMetadata.getViewParameters()_ . Because every
 _<f:metadata>_ in the app has at least one _<f:viewParameter>_ element
-within it, this method returns a non empty _Collection<UIViewParameter>_
-. Restore view phase uses this fact to decide that the lifecycle must
+within it, this method returns a non empty _Collection<UIViewParameter>_.
+Restore view phase uses this fact to decide that the lifecycle must
 not skip straight to render response, as is the normal action taken on
 initial requests.
 
-The remaining phases of the request
+* The remaining phases of the request
 processing lifecycle execute: apply request values, process validations,
 update model values, invoke application, and finally render response.
 Because the view only contains _UIViewParameter_ children, only these
@@ -1674,7 +1618,7 @@ children are traversed during the lifecycle, but because this is an
 initial request, with no query parameters, none of these compnents take
 any action during the lifecycle.
 
-Because the pages exclusively use _<h:link>_
+* Because the pages exclusively use _<h:link>_
 and _<h:button>_ for their navigation, the renderers for these
 components are called during the rendering of the page. As specified in
 the renderkit docs for the renderers for those components, markup is
@@ -1684,11 +1628,11 @@ parameters.
 Consider when the user clicks on a link in
 the application. The browser issues a GET request with query parameters
 
-Restore view phase takes the same action as
+* Restore view phase takes the same action as
 in the previously explained request. Because this is a GET request, no
 state is restored from the previous request.
 
-Because this is a request with query
+* Because this is a request with query
 parameters, the _UIViewParameter_ children do take action when they are
 traversed during the normal lifecycle, reading values during the apply
 request values phase, doing conversion and processing validators
@@ -1810,26 +1754,26 @@ postbacks back into the JSF request processing lifecycle.
 The usage pattern for client behaviors is as
 follows:
 
-The page author attaches a client behavior to
+* The page author attaches a client behavior to
 a component, typically by specifying a behavior tag as a child of a
 component tag.
 
-When attaching a client behavior to a
+* When attaching a client behavior to a
 component, the page author identifies the name of a client "event" to
 attach to. The set of valid events are defined by the component.
 
-At render time, the component (or renderer)
+* At render time, the component (or renderer)
 retrieves the client behavior and asks it for its script.
 
-The component (or renderer) renders this
+* The component (or renderer) renders this
 script at the appropriate location in its generated content (eg.
 typically in a DOM event handler).
 
-When the end user interacts with the
+* When the end user interacts with the
 component's content in the browser, the behavior-defined script is
 executed in response to the page author-specified event.
 
-The script provides some client-side
+* The script provides some client-side
 interaction, for example, hiding or showing content or validating input
 on the client, and possibly posts back to the server.
 
@@ -1838,16 +1782,12 @@ specification is the _AjaxBehavior_ . This behavior is exposed to a page
 author as a Facelets _<f:ajax>_ tag, which can be embedded within any of
 the standard HTML components as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
- <h:commandButton>
-
- <f:ajax event="mouseover"/>
-
- </h:commandButton>
-
-|===
+[source,xml]
+----
+<h:commandButton>
+  <f:ajax event="mouseover"/>
+</h:commandButton>
+----
 
 When activated in response to end user
 activity, the _<f:ajax>_ client behavior generates an Ajax request back
@@ -1881,20 +1821,20 @@ published immediately, and always with a call to
 _Application.publishEvent()_ . There are several ways to declare
 interest in a particular kind of event.
 
-Call _Application.subscribeToEvent()_ to add
+* Call _Application.subscribeToEvent()_ to add
 an application scoped listener.
 
-Call _UIComponent.subscribeToEvent()_ to add
+* Call _UIComponent.subscribeToEvent()_ to add
 a component scoped listener.
 
-Use the _<f:event>_ tag to declare a
+* Use the _<f:event>_ tag to declare a
 component scoped listener.
 
-Use the _@ListenerFor_ or _@ListenersFor_
+* Use the _@ListenerFor_ or _@ListenersFor_
 annotation. The scope of the listener is determined by the code that
 processes the annotation.
 
-Use the _<system-event-listener>_ element in
+* Use the _<system-event-listener>_ element in
 an application configuration resource to add an application scoped
 listener.
 
@@ -1932,11 +1872,11 @@ they like.
 implementation must support packaging resources in the web application
 root under the path
 
- _resources/<resourceIdentifier_ >
+_resources/<resourceIdentifier>_
 
 relative to the web app root. Resources
 packaged into the web app root must be accessed using the
-_getResource*()_ methods on _ExternalContext._ [P1-end] __
+_getResource*()_ methods on _ExternalContext._ [P1-end]
 
 [[a754]]
 ===== Packaging Resources into the Classpath
@@ -1945,7 +1885,7 @@ _getResource*()_ methods on _ExternalContext._ [P1-end] __
 default implementation, resources packaged in the classpath must reside
 under the JAR entry name:
 
- _META-INF/resources/<resourceIdentifier>_
+_META-INF/resources/<resourceIdentifier>_
 
 {empty}Resources packaged into the classpath
 must be accessed using the _getResource*()_ methods of the _ClassLoader_
@@ -1955,7 +1895,7 @@ _Thread_ .[P1-end]
 [[a758]]
 ===== Resource Identifiers
 
- _<resourceIdentifier>_ consists of several
+_<resourceIdentifier>_ consists of several
 segments, specified as follows.
 
 {empty}[P1-start requirements for something
@@ -1969,41 +1909,42 @@ to consider a _<resourceIdentifier>_ valid. A _<resourceIdentifier>_
 that does not follow these rules must not be considered valid and must
 be ignored silently.
 
-The set of characters that are valid for use
+* The set of characters that are valid for use
 in the _localePrefix_ , _libraryName_ , _libraryVerison_ ,
 _resourceName_ and _resourceVersion_ segments of the resource identifier
 is specififed as XML NameChar excluding the path separator and ‘:’
 characters. The specification for XML NameChar may be seen at
 _http://www.w3.org/TR/REC-xml/#NT-NameChar_ .
 
-A further restriction applies to
+* A further restriction applies to
 _libraryName_ . A _libraryName_ must not be an underscore separated
 sequence of non-negative integers or a locale string. More rigorously, a
 _libraryName_ must not match either of the following regular
 expressions:
++
+----
+[0-9]+(_[0-9]+)*
+[A-Za-z]{2}(_[A-Za-z]{2}(_[A-Za-z]+)*)?
+----
 
- _[0-9]+(_[0-9]+)*_
+* Segments in square brackets [] are optional.
 
- _[A-Za-z]\{2}(_[A-Za-z]\{2}(_[A-Za-z]+)*)?_
-
-Segments in square brackets [] are optional.
-
-The segments must appear in the order shown
+* The segments must appear in the order shown
 above.
 
-If _libraryVersion_ is present, it must be
+* If _libraryVersion_ is present, it must be
 preceded by _libraryName._
 
-If _libraryVersion_ is present, any leaf
-files under _libraryName_ must be ignored. __
+* If _libraryVersion_ is present, any leaf
+files under _libraryName_ must be ignored.
 
-If _resourceVersion_ is present, it must be
+* If _resourceVersion_ is present, it must be
 preceded by _resourceName._
 
-There must be a ’ _/_ ’ between adjacent
+* There must be a ’ _/_ ’ between adjacent
 segments in a _<resourceIdentifier>_
 
-If _libraryVersion_ or _resourceVersion_ are
+* If _libraryVersion_ or _resourceVersion_ are
 present, both must be a ’ ___ ’ separated list of integers, neither
 starting nor ending with ’ ___ ’
 
@@ -2148,150 +2089,153 @@ highest version is chosen. If there are multiple versions of the same
 resource, and _resourceVersion_ is not specified, the resource with the
 highest version is chosen. The algorithm is specified in pseudocode.
 
-function createResource(resourceName,
-libraryName) \{ +
-var resource = null; +
-var resourceId = null; +
-for (var contract : getLibraryContracts()) \{ +
-resourceId = deriveResourceIdConsideringResourceLoaders(contract,
-resourceName, libraryName) +
-if (null != resourceId) \{ +
-resource = create the resource using the resourceId; +
-return resource; +
-} +
-} +
- +
-// try without a contract +
-resourceId = deriveResourceIdConsideringResourceLoaders(null,
-resourceName, libraryName) +
-if (null != resourceId) \{ +
-resource = create the resource using the resourceId; +
-} +
-return resource; +
-} +
- +
-function deriveResourceIdConsideringResourceLoaders(contract,
-resourceName, libraryName) \{ +
-var prefix = web app root resource prefix; +
-var resourceLoader = web app resource loader; +
-// these are shorthand for the prefix and resource loading +
-// facility specified in Section 2.6.1.1. They are +
-// not actual API per se. +
-var resourceId = deriveResourceIdConsideringLocalePrefix(contract,
-prefix, resourceLoader, resourceName, libraryName); +
- +
-if (null == resourceId) \{ +
-prefix = classpath resource prefix; +
-resourceLoader = classpath resource loader; +
-// these are shorthand for the prefix and resource +
-// loading facility specified in Section 2.6.1.2. They are +
-// not actual API per se. +
-resourceId = deriveResourceIdConsideringLocalePrefix(contract, prefix,
-resourceLoader, resourceName, libraryName); +
-} +
-return resourceId; +
-} +
- +
-function deriveResourceIdConsideringLocalePrefix(contract, prefix,
-resourceLoader, resourceName, libraryName) \{ +
-var localePrefix = getLocalePrefix(); +
-var result = deriveResourceId(contract, prefix, resourceLoader,
-resourceName, libraryName, localePrefix); +
-// If the application has been configured to have a localePrefix, and
-the resource +
-// is not found, try to find it again, without the localePrefix. +
-if (null == result && null != localePrefix) \{ +
-result = deriveResourceId(contract, prefix, resourceLoader,
-resourceName, libraryName, null); +
-} +
-return result; +
-} +
- +
-function deriveResourceId(contract, prefix, resourceLoader, +
-resourceName, libraryName, localePrefix) \{ +
-var resourceVersion = null; +
-var libraryVersion = null; +
-var resourceId; +
-if (null != localePrefix) \{ +
-prefix = localePrefix + '/' + prefix; +
-} +
-if (null != contract) \{ +
-prefix = contract + '/' + prefix; +
-} +
- +
-if (null != libraryName) \{ +
-// actual argument is
-resourcesInContractInJar/resources/resourcesInContractInJar +
-var libraryPaths = resourceLoader.getResourcePaths( +
-prefix + '/' + libraryName); +
- +
-if (null != libraryPaths && !libraryPaths.isEmpty()) \{ +
-libraryVersion = // execute the comment +
-// Look in the libraryPaths for versioned libraries. +
-// If one or more versioned libraries are found, take +
-// the one with the highest version number as the value +
-// of libraryVersion. If no versioned libraries +
-// are found, let libraryVersion remain null. +
-} +
-if (null != libraryVersion) \{ +
-libraryName = libraryName + '/' + libraryVersion; +
-} +
-var resourcePaths = resourceLoader.getResourcePaths( +
-prefix + '/' + libraryName + '/' + resourceName); +
-if (null != resourcePaths && !resourcePaths.isEmpty()) \{ +
-resourceVersion = // execute the comment +
-// Look in the resourcePaths for versioned resources. +
-// If one or more versioned resources are found, take +
-// the one with the â€œhighestâ€? version number as the value +
-// of resourceVersion. If no versioned libraries +
-// are found, let resourceVersion remain null. +
-} +
-if (null != resourceVersion) \{ +
-resourceId = prefix + '/' + libraryName + '/' + +
-resourceName + '/' + resourceVersion; +
-} +
-else \{ +
-resourceId = prefix + '/' + libraryName + '/' + resourceName; +
-} +
-} // end of if (null != libraryName) +
-else \{ +
-// libraryName == null +
-var resourcePaths = resourceLoader.getResourcePaths( +
-prefix + '/' + resourceName); +
-if (null != resourcePaths && !resourcePaths.isEmpty()) \{ +
-resourceVersion = // execute the comment +
-// Look in the resourcePaths for versioned resources. +
-// If one or more versioned resources are found, take +
-// the one with the â€œhighestâ€? version number as the value +
-// of resourceVersion. If no versioned libraries +
-// are found, let resourceVersion remain null. +
-} +
-if (null != resourceVersion) \{ +
-resourceId = prefix + '/' + resourceName + '/' + +
-resourceVersion; +
-} else \{ +
-resourceId = prefix + '/' + resourceName; +
-} +
-} // end of else, when libraryName == null +
-return resourceId; +
-} +
- +
-function getLocalePrefix() \{ +
-var localePrefix; +
-var appBundleName = facesContext.application.messageBundle; +
-if (null != appBundleName) \{ +
-var locale = +
-// If there is a viewRoot on the current facesContext, use its locale. +
-// Otherwise, use the locale of the application's ViewHandler +
-ResourceBundle appBundle = ResourceBundle.getBundle( +
-appBundleName, locale); +
-localePrefix = appBundle.getString(ResourceHandler. LOCALE_PREFIX); +
-} +
-// Any MissingResourceException instances that are encountered +
-// in the above code must be swallowed by this method, and null +
-// returned; +
-return localePrefix; +
+[source,javascript]
+----
+function createResource(resourceName, libraryName) {
+    var resource = null;
+    var resourceId = null;
+    for (var contract : getLibraryContracts()) {
+        resourceId = deriveResourceIdConsideringResourceLoaders(contract,
+                resourceName, libraryName)
+        if (null != resourceId) {
+            resource = create the resource using the resourceId;
+            return resource;
+        }
+    }
+
+    // try without a contract
+    resourceId = deriveResourceIdConsideringResourceLoaders(null,
+            resourceName, libraryName)
+    if (null != resourceId) {
+        resource = create the resource using the resourceId;
+    }
+    return resource;
 }
+
+function deriveResourceIdConsideringResourceLoaders(contract,
+        resourceName, libraryName) {
+    var prefix = web app root resource prefix;
+    var resourceLoader = web app resource loader;
+    // these are shorthand for the prefix and resource loading
+    // facility specified in Section 2.6.1.1. They are
+    // not actual API per se.
+    var resourceId = deriveResourceIdConsideringLocalePrefix(contract,
+            prefix, resourceLoader, resourceName, libraryName);
+
+    if (null == resourceId) {
+        prefix = classpath resource prefix;
+        resourceLoader = classpath resource loader;
+        // these are shorthand for the prefix and resource
+        // loading facility specified in Section 2.6.1.2. They are
+        // not actual API per se.
+        resourceId = deriveResourceIdConsideringLocalePrefix(contract,
+                prefix, resourceLoader, resourceName, libraryName);
+    }
+    return resourceId;
+}
+
+function deriveResourceIdConsideringLocalePrefix(contract, prefix,
+        resourceLoader, resourceName, libraryName) {
+    var localePrefix = getLocalePrefix();
+    var result = deriveResourceId(contract, prefix, resourceLoader,
+            resourceName, libraryName, localePrefix);
+    // If the application has been configured to have a localePrefix, 
+    // and the resource is not found, try to find it again,
+    // without the localePrefix.
+    if (null == result && null != localePrefix) {
+        result = deriveResourceId(contract, prefix, resourceLoader,
+                resourceName, libraryName, null);
+    }
+    return result;
+}
+
+function deriveResourceId(contract, prefix, resourceLoader,
+        resourceName, libraryName, localePrefix) {
+    var resourceVersion = null;
+    var libraryVersion = null;
+    var resourceId;
+    if (null != localePrefix) {
+        prefix = localePrefix + '/' + prefix;
+    }
+    if (null != contract) {
+        prefix = contract + '/' + prefix;
+    }
+
+    if (null != libraryName) {
+        // actual argument is
+        // resourcesInContractInJar/resources/resourcesInContractInJar
+        var libraryPaths = resourceLoader.getResourcePaths(
+                prefix + '/' + libraryName);
+
+        if (null != libraryPaths && !libraryPaths.isEmpty()) {
+            libraryVersion = // execute the comment
+            // Look in the libraryPaths for versioned libraries.
+            // If one or more versioned libraries are found, take
+            // the one with the highest version number as the value
+            // of libraryVersion. If no versioned libraries
+            // are found, let libraryVersion remain null.
+        }
+        if (null != libraryVersion) {
+            libraryName = libraryName + '/' + libraryVersion;
+        }
+        var resourcePaths = resourceLoader.getResourcePaths(
+            prefix + '/' + libraryName + '/' + resourceName);
+        if (null != resourcePaths && !resourcePaths.isEmpty()) {
+            resourceVersion = // execute the comment +
+            // Look in the resourcePaths for versioned resources.
+            // If one or more versioned resources are found, take
+            // the one with the â€œhighestâ€? version number as the value
+            // of resourceVersion. If no versioned libraries
+            // are found, let resourceVersion remain null.
+        }
+        if (null != resourceVersion) {
+            resourceId = prefix + '/' + libraryName + '/' +
+                    resourceName + '/' + resourceVersion;
+        }
+        else {
+            resourceId = prefix + '/' + libraryName + '/' + resourceName;
+        }
+    } // end of if (null != libraryName)
+    else {
+        // libraryName == null
+        var resourcePaths = resourceLoader.getResourcePaths(
+                prefix + '/' + resourceName);
+        if (null != resourcePaths && !resourcePaths.isEmpty()) {
+            resourceVersion = // execute the comment
+            // Look in the resourcePaths for versioned resources.
+            // If one or more versioned resources are found, take
+            // the one with the â€œhighestâ€? version number as the value
+            // of resourceVersion. If no versioned libraries
+            // are found, let resourceVersion remain null.
+        }
+        if (null != resourceVersion) {
+            resourceId = prefix + '/' + resourceName + '/' +
+                    resourceVersion;
+        } else {
+            resourceId = prefix + '/' + resourceName;
+        }
+    } // end of else, when libraryName == null
+    return resourceId;
+}
+
+function getLocalePrefix() {
+    var localePrefix;
+    var appBundleName = facesContext.application.messageBundle;
+    if (null != appBundleName) {
+        var locale =
+            // If there is a viewRoot on the current facesContext,
+            // use its locale.
+            // Otherwise, use the locale of the application's ViewHandler
+        ResourceBundle appBundle = ResourceBundle.getBundle(
+                appBundleName, locale);
+        localePrefix = appBundle.getString(ResourceHandler. LOCALE_PREFIX);
+    }
+    // Any MissingResourceException instances that are encountered
+    // in the above code must be swallowed by this method, and null
+    // returned;
+    return localePrefix;
+}
+----
 
 {empty}[P1-end]
 
@@ -2302,16 +2246,11 @@ Resources such as images, stylesheets and
 scripts use the resource handling mechanism as outlined in
 <<RequestProcessingLifecycle.adoc#a748,See Packaging Resources>>. So, for example:
 
-[width="100%",cols="100%",]
-|===
-a|
-<h:graphicImage name=”Planets.gif”
-library=”images”/>
-
-<h:graphicImage
-value=”#\{resource[‘images:Planets.gif’]}”/>
-
-|===
+[source,xml]
+----
+<h:graphicImage name=”Planets.gif” library=”images”/>
+<h:graphicImage value=”#{resource[‘images:Planets.gif’]}”/>
+----
 
 These entries render exactly the same markup.
 In addition to using the name and library attributes, stylesheet and
@@ -2328,49 +2267,34 @@ different than the resource tag placement in the view. For example, a
 portion of the view may be described in the view declaration language as
 follows:
 
+[source,xml]
+----
 <f:view contentType="text/html">
-
-<h:head>
-
-<meta http-equiv="Content-Type"
-content="text/html;
-
-charset=iso-8859-1" />
-
-<title>Example View</title>
-
-</h:head>
-
-<h:body>
-
-<h:form>
-
-<h:outputScript name=”ajax.js”
-library=”javax.faces”
-
-target=”head”/>
-
-</h:form>
-
-</h:body>
-
+  <h:head>
+    <meta http-equiv="Content-Type"
+        content="text/html;charset=iso-8859-1" />
+    <title>Example View</title>
+  </h:head>
+  <h:body>
+    <h:form>
+      <h:outputScript name=”ajax.js” library=”javax.faces”
+          target=”head”/>
+    </h:form>
+  </h:body>
 </f:view>
+----
 
 The <h:outputScript> tag refers to the
 renderer, ScriptRenderer, that listens for PostAddToViewEvent event
 types:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 @ListenerFor(facesEventClass=PostAddToViewEvent.class,
-
-sourceClass=UIOutput.class)
-
+        sourceClass=UIOutput.class)
 public class ScriptRenderer extends Renderer
-implements ComponentSystemEventListener \{...
-
-|===
+        implements ComponentSystemEventListener {...
+----
 
 Refer to <<UserInterfaceComponentModel.adoc#a1300,See
 Event and Listener Model>>. When the component for this resource is added
@@ -2430,26 +2354,19 @@ contracts.
 Following is a listing of the entries in a
 JAR file containing two resource library contracts.
 
-[width="100%",cols="100%",]
-|===
-a|
-META-INF/contracts/ +
-siteLayout/ +
-jakarta.faces.contract.xml +
-topNav_template.xhtml +
-leftNav_foo.xhtml +
-styles.css +
-script.js +
-background.png
-
- subSiteLayout/ +
-jakarta.faces.contract.xml +
-sub_template.xhtml
-
-
-
-|===
-
+....
+META-INF/contracts/
+                  siteLayout/
+                            jakarta.faces.contract.xml
+                            topNav_template.xhtml
+                            leftNav_foo.xhtml
+                            styles.css
+                            script.js
+                            background.png
+                  subSiteLayout/
+                            jakarta.faces.contract.xml
+                            sub_template.xhtml
+....
 
 
 All of the other packaging, encoding and
