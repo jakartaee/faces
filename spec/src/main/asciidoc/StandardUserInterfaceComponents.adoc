@@ -72,7 +72,7 @@ components is “jakarta.faces.Column”.
 _UIColumn_ adds the following
 render-independent properties:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -125,7 +125,7 @@ components is “jakarta.faces. _Command_ ”.
 _UICommand_ adds the following
 render-independent properties.
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -180,7 +180,7 @@ components is “jakarta.faces.Data”
 _UIData_ adds the following
 render-independent properties.
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -367,7 +367,7 @@ components is “jakarta.faces. _Form_ ”.
 _UIForm_ adds the following
 render-independent properties.
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -470,7 +470,7 @@ components is “jakarta.faces. _Graphic_ ”.
 The following render-independent properties
 are added by the UIGraphic component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -525,7 +525,7 @@ components is “ _jakarta.faces.Input_ ”.
 _UIInput_ adds the following renderer
 independent properties.:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -648,7 +648,7 @@ components is “ _jakarta.faces.Message_ ”.
 The following render-independent properties
 are added by the UIMessage component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -708,7 +708,7 @@ components is “ _jakarta.faces.Message_ s”.
 The following render-independent properties
 are added by the UIMessages component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -788,10 +788,10 @@ UIOutcomeTarget is "jakarta.faces.OutcomeTarget".
 The following render-independent properties
 are added by thec component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
-|Type |
+|Type |Description
 |Outcome |RW
 |String |The
 logical outcome that is used to resolve a NavigationCase which in turn
@@ -918,7 +918,7 @@ components is “ _jakarta.faces.Parameter_ ”.
 The following render-independent properties
 are added by the _UIParameter_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -967,7 +967,7 @@ _UISelectBoolean_ components is “jakarta.faces. _SelectBoolean_ ”.
 The following render-independent properties
 are added by the _UISelectBoolean_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1016,7 +1016,7 @@ _UISelectItem_ components is “ _jakarta.faces.SelectItem_ ”.
 The following render-independent properties
 are added by the _UISelectItem_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1099,7 +1099,7 @@ _UISelectItems_ components is “jakarta.faces. _SelectItems_ ”.
 The following render-independent properties
 are added by the _UISelectItems_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1153,7 +1153,7 @@ _UISelectMany_ components is “ _jakarta.faces.SelectMany_ ”.
 The following render-independent properties
 are added by the _UISelectMany_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1257,7 +1257,7 @@ components is “ _jakarta.faces.ViewRoot_ ”
 The following render-independent properties
 are added by the _UIViewRoot_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1451,7 +1451,7 @@ randomly via a zero-relative index
 An instance of _DataModel_ supports the
 following properties:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1539,7 +1539,7 @@ _UIComponent_ subclass.
 An instance of _SelectItem_ supports the
 following properties:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1587,7 +1587,7 @@ sub-menu.
 An instance of _SelectItemGroup_ supports the
 following additional properties:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
