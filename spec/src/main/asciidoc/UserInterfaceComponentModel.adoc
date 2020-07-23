@@ -12,15 +12,15 @@ an application, via _value expressions_ .
 JSF also supports user interface components
 with several additional helper APIs:
 
-_Converters_ —Pluggable support class to
+* _Converters_ —Pluggable support class to
 convert the markup value of a component to and from the corresponding
 type in the model tier.
 
-_Events and Listeners_ —An event broadcast
+* _Events and Listeners_ —An event broadcast
 and listener registration model based on the design patterns of the
 JavaBeans Specification, version 1.0.1.
 
-_Validators_ —Pluggable support classes that
+* _Validators_ —Pluggable support classes that
 can examine the local value of a component (as received in an incoming
 request) and ensure that it conforms to the business rules enforced by
 each Validator. Error messages for validation failures can be generated
@@ -79,10 +79,10 @@ public void setId(String componentId);
 component may be named by a _component identifier_ that must conform to
 the following rules:
 
-They must start with a letter (as defined by
+* They must start with a letter (as defined by
 the _Character.isLetter()_ method).
 
-Subsequent characters must be letters (as
+* Subsequent characters must be letters (as
 defined by the _Character.isLetter()_ method), digits as defined by the
 _Character.isDigit()_ method, dashes (‘-’), or underscores (‘_’).
 
@@ -194,7 +194,7 @@ a read-write JavaBeans property of type _UIComponent_ (or appropriate
 subclass). Such a component binding is used at two different times
 during the processing of a Faces Request:
 
-{empty}[P3-start how a component binding is
+* {empty}[P3-start how a component binding is
 used from a JSP page] When a component instance is first created
 (typically by virtue of being referenced by a _UIComponentELTag_ in a
 JSP page), the JSF implementation will retrieve the _ValueExpression_
@@ -207,7 +207,7 @@ added to the component tree, and _setValue()_ will be called on the
 _ValueExpression_ (which will cause the property on the JavaBean to be
 set to the newly created component instance). [P3-end]
 
-{empty}[P1-start how a component binding is
+* {empty}[P1-start how a component binding is
 used when restoring the tree]When a component tree is recreated during
 the _Restore View_ phase of the request processing lifecycle, for each
 component that has a _ValueExpression_ associated with the name
@@ -233,13 +233,13 @@ implementations, as they decode and encode components, for any occasion
 when the component must have a client side name. Some examples of such
 an occasion are:
 
-to name request parameters for a subsequent
+* to name request parameters for a subsequent
 request from the JSF-generated page.
 
-to serve as anchors for client side scripting
+* to serve as anchors for client side scripting
 code.
 
-to serve as anchors for client side
+* to serve as anchors for client side
 accessibility labels.
 
 [source,java]
@@ -524,10 +524,10 @@ associated with generic attributes that are defined outside the
 component implementation class. Typical uses of generic attributes
 include:
 
-Specification of render-dependent
+* Specification of render-dependent
 characteristics, for use by specific _Renderer_ s.
 
-General purpose association of
+* General purpose association of
 application-specific objects with components.
 
 The attributes for a component may be of any
@@ -546,7 +546,7 @@ Implementations are not allowed to define names that begin with _jakarta._
 rules] The _Map_ returned by _getAttributes()_ must also support
 attribute-property transparency, which operates as follows:
 
-When the _get()_ method is called, if the
+* When the _get()_ method is called, if the
 specified attribute name matches the name of a readable JavaBeans
 property on the component implementation class, the value returned will
 be acquired by calling the appropriate property getter method, and
@@ -562,18 +562,18 @@ _ValueExpression_ exists, call _getValue()_ on it, returning the result.
 If an _ELException_ is thrown wrap it in a _FacesException_ and re-throw
 it.
 
-When the _put()_ method is called, if the
+* When the _put()_ method is called, if the
 specified attribute name matches the name of a writable JavaBeans
 property on the component implementation class, the appropriate property
 setter method will be called. If the specified attribute name does not
 match the name of a writable JavaBeans property, simply put the value in
 the data-structure for generic attributes.
 
-When the _remove()_ method is called, if the
+* When the _remove()_ method is called, if the
 specified attribute name matches the name of a JavaBeans property on the
 component, an _IllegalArgumentException_ must be thrown.
 
-When the _containsKey()_ method is called, if
+* When the _containsKey()_ method is called, if
 the specified attribute name matches the name of a JavaBeans property,
 return _false_ . Otherwise, return _true_ if and only if the specified
 attribute name exists in the internal data-structure for the generic
@@ -999,12 +999,12 @@ A component implementing _ActionSource_ is a
 source of _ActionEvent_ events. There are three important moments in the
 lifetime of an _ActionEvent_ :
 
-when an the event is _created_
+* when an the event is _created_
 
-when the event is _queued_ for later
+* when the event is _queued_ for later
 processing
 
-when the listeners for the event are
+* when the listeners for the event are
 _notified_
 
  _ActionEvent_ creation occurs when the
@@ -1528,13 +1528,13 @@ A typical web application must constantly
 deal with two fundamentally different viewpoints of the underlying data
 being manipulated through the user interface:
 
-The _model_ view—Data is typically
+* The _model_ view—Data is typically
 represented as Java programming language objects (often JavaBeans
 components), with data represented in some native Java programming
 language datatype. For example, date and time values might be
 represented in the model view as instances of _java.util.Date_ .
 
-The _presentation_ view—Data is typically
+* The _presentation_ view—Data is typically
 represented in some form that can be perceived or modified by the user
 of the application. For example, a date or type value might be
 represented as a text string, as three text strings (one each for
@@ -1647,40 +1647,40 @@ the standard converter id under which this Converter is registered.
 converter id values must be registered to create instances of the
 specified Converter implementation classes:
 
-_jakarta.faces.BigDecimal_ -- An instance of
+* _jakarta.faces.BigDecimal_ -- An instance of
 _jakarta.faces.convert.BigDecimalConverter_ (or a subclass of this class).
 
-_jakarta.faces.BigInteger_ -- An instance of
+* _jakarta.faces.BigInteger_ -- An instance of
 _jakarta.faces.convert.BigIntegerConverter_ (or a subclass of this class).
 
-_jakarta.faces.Boolean_ -- An instance of
+* _jakarta.faces.Boolean_ -- An instance of
 _jakarta.faces.convert.BooleanConverter_ (or a subclass of this class).
 
-_jakarta.faces.Byte_ -- An instance of
+* _jakarta.faces.Byte_ -- An instance of
 _jakarta.faces.convert.ByteConverter_ (or a subclass of this class).
 
-_jakarta.faces.Character_ -- An instance of
+* _jakarta.faces.Character_ -- An instance of
 _jakarta.faces.convert.CharacterConverter_ (or a subclass of this class).
 
-_jakarta.faces.DateTime_ -- An instance of
+* _jakarta.faces.DateTime_ -- An instance of
 _jakarta.faces.convert.DateTimeConverter_ (or a subclass of this class).
 
-_jakarta.faces.Double_ -- An instance of
+* _jakarta.faces.Double_ -- An instance of
 _jakarta.faces.convert.DoubleConverter_ (or a subclass of this class).
 
-_jakarta.faces.Float_ -- An instance of
+* _jakarta.faces.Float_ -- An instance of
 _jakarta.faces.convert.FloatConverter_ (or a subclass of this class).
 
-_jakarta.faces.Integer_ -- An instance of
+* _jakarta.faces.Integer_ -- An instance of
 _jakarta.faces.convert.IntegerConverter_ (or a subclass of this class).
 
-_jakarta.faces.Long_ -- An instance of
+* _jakarta.faces.Long_ -- An instance of
 _jakarta.faces.convert.LongConverter_ (or a subclass of this class).
 
-_jakarta.faces.Number_ -- An instance of
+* _jakarta.faces.Number_ -- An instance of
 _jakarta.faces.convert.NumberConverter_ (or a subclass of this class).
 
-_jakarta.faces.Short_ -- An instance of
+* _jakarta.faces.Short_ -- An instance of
 _jakarta.faces.convert.ShortConverter_ (or a subclass of this class).
 
 [P1-end] See the Javadocs for these classes
@@ -1691,49 +1691,49 @@ and the configuration properties that they support.
 implementation must register converters for all of the following classes
 using the by-type registration mechanism:
 
-_java.math.BigDecimal,_ and
+* _java.math.BigDecimal,_ and
 _java.math.BigDecimal.TYPE_ -- An instance of
 _jakarta.faces.convert.BigDecimalConverter_ (or a subclass of this class)
 _._
 
-_java.math.BigInteger,_ and
+* _java.math.BigInteger,_ and
 _java.math.BigInteger.TYPE_ -- An instance of
 _jakarta.faces.convert.BigIntegerConverter_ (or a subclass of this class)
 _._
 
-_java.lang.Boolean_ , and
+* _java.lang.Boolean_ , and
 _java.lang.Boolean.TYPE_ -- An instance of
 _jakarta.faces.convert.BooleanConverter_ (or a subclass of this class).
 
-_java.lang.Byte_ , and _java.lang.Byte.TYPE_
+* _java.lang.Byte_ , and _java.lang.Byte.TYPE_
 -- An instance of _jakarta.faces.convert.ByteConverter_ (or a subclass of
 this class).
 
-_java.lang.Character_ , and
+* _java.lang.Character_ , and
 _java.lang.Character.TYPE_ -- An instance of
 _jakarta.faces.convert.CharacterConverter_ (or a subclass of this class).
 
-_java.lang.Double_ , and
+* _java.lang.Double_ , and
 _java.lang.Double.TYPE_ -- An instance of
 _jakarta.faces.convert.DoubleConverter_ (or a subclass of this class).
 
-_java.lang.Float_ , and
+* _java.lang.Float_ , and
 _java.lang.Float.TYPE_ -- An instance of
 _jakarta.faces.convert.FloatConverter_ (or a subclass of this class).
 
-_java.lang.Integer_ , and
+* _java.lang.Integer_ , and
 _java.lang.Integer.TYPE_ -- An instance of
 _jakarta.faces.convert.IntegerConverter_ (or a subclass of this class).
 
-_java.lang.Long_ , and _java.lang.Long.TYPE_
+* _java.lang.Long_ , and _java.lang.Long.TYPE_
 -- An instance of _jakarta.faces.convert.LongConverter_ (or a subclass of
 this class).
 
-_java.lang.Short_ , and
+* _java.lang.Short_ , and
 _java.lang.Short.TYPE_ -- An instance of
 _jakarta.faces.convert.ShortConverter_ (or a subclass of this class).
 
-_java.lang.Enum_ , and _java.lang.Enum.TYPE_
+* _java.lang.Enum_ , and _java.lang.Enum.TYPE_
 -- An instance of _jakarta.faces.convert.EnumConverter_ (or a subclass of
 this class).
 
@@ -1864,11 +1864,11 @@ JSF includes two standard _FacesEvent_
 subclasses, which are emitted by the corresponding standard
 _UIComponent_ subclasses described in the following chapter.
 
-_ActionEvent—_ Emitted by a _UICommand_
+* _ActionEvent—_ Emitted by a _UICommand_
 component when the user activates the corresponding user interface
 control (such as a clicking a button or a hyperlink).
 
-_ValueChangeEvent_ —Emitted by a _UIInput_
+* _ValueChangeEvent_ —Emitted by a _UIInput_
 component (or appropriate subclass) when a new local value has been
 created, and has passed all validations.
 
@@ -1898,10 +1898,10 @@ classes described in the previous section, JSF defines two standard
 event listener interfaces that may be implemented by application
 classes:
 
-_ActionListener_ —a listener that is
+* _ActionListener_ —a listener that is
 interested in receiving _ActionEvent_ events.
 
-_ValueChangeListener_ —a listener that is
+* _ValueChangeListener_ —a listener that is
 interested in receiving _ValueChangeEvent_ events.
 
 [[a1335]]
@@ -1985,31 +1985,31 @@ _broadcast()_ method for detailed functional requirements.
 During event broadcasting, a listener
 processing an event may:
 
-Examine or modify the state of any component
+* Examine or modify the state of any component
 in the component tree.
 
-Add or remove components from the component
+* Add or remove components from the component
 tree.
 
-Add messages to be returned to the user, by
+* Add messages to be returned to the user, by
 calling _addMessage_ on the _FacesContext_ instance for the current
 request.
 
-Queue one or more additional events, from the
+* Queue one or more additional events, from the
 same source component or a different one, for processing during the
 current lifecycle phase.
 
-Throw an _AbortProcessingException_ , to tell
+* Throw an _AbortProcessingException_ , to tell
 the JSF implementation that no further broadcast of this event should
 take place.
 
-Call _renderResponse()_ on the _FacesContext_
+* Call _renderResponse()_ on the _FacesContext_
 instance for the current request. This tells the JSF implementation
 that, when the current phase of the request processing lifecycle has
 been completed, control should be transferred to the _Render Response_
 phase.
 
-Call _responseComplete()_ on the
+* Call _responseComplete()_ on the
 _FacesContext_ instance for the current request. This tells the JSF
 implementation that, when the current phase of the request processing
 lifecycle has been completed, processing for this request should be
@@ -2047,85 +2047,85 @@ _<<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>_ .
 The specification defines the following
 _SystemEvent_ subclasses, all in package _jakarta.faces.event_ . __
 
-_ExceptionQueuedEvent_ indicates a
+* _ExceptionQueuedEvent_ indicates a
 non-expected _Exception_ has been thrown. Please see
 <<Per-RequestStateInformation.adoc#a3253,See ExceptionHandler>> for the normative
 specification.
 
-_PostConstructApplicationEvent_ must be
+* _PostConstructApplicationEvent_ must be
 published immediately after application startup. Please see
 <<UsingJSFInWebApplications.adoc#a6201,See Application Startup Behavior>> for the
 normative specification.
 
-_PreDestroyApplicationEvent_ must be
+* _PreDestroyApplicationEvent_ must be
 published as immediately before application shutdown. Please see
 <<UsingJSFInWebApplications.adoc#a6248,See Application Shutdown Behavior>> for the
 normative specification
 
-_PostKeepFlashEvent_ This event must be
+* _PostKeepFlashEvent_ This event must be
 published by a call to _Application.publishEvent()_ when a value is kept
 in the flash.
 
-_PostPutFlashEvent_ This event must be
+* _PostPutFlashEvent_ This event must be
 published by a call to _Application.publishEvent()_ when a value is
 stored in the flash.
 
-_PreClearFlashEvent_ This event must be
+* _PreClearFlashEvent_ This event must be
 published by a call to _Application.publishEvent()_ when a before the
 flash is cleared.
 
-_PreRemoveFlashEvent_ This event must be
+* _PreRemoveFlashEvent_ This event must be
 published by a call to _Application.publishEvent()_ when a value is
 removed from the flash.
 
 The specification defines the following
 _ComponentSystemEvent_ classes, all in package _javax.faces.event_ .
 
-_InitialStateEvent_ must be published with a
+* _InitialStateEvent_ must be published with a
 direct call to _UIComponent.processEvent()_ , during the _apply()_
 method of the class jakarta.faces.webapp.vdl.ComponentHandler_ . Please
 see the javadocs for the normative specification.
 
-_PostAddToViewEvent_ indicates that the
+* _PostAddToViewEvent_ indicates that the
 _source_ component has just been added to the view. Please see
 <<UserInterfaceComponentModel.adoc#a937,See Component Tree Manipulation>> for a
 reference to the normative specification.
 
-_PostConstructViewMapEvent_ indicates that
+* _PostConstructViewMapEvent_ indicates that
 the _Map_ that is the view scope has just been created. Please see, the
 UIViewRoot <<StandardUserInterfaceComponents.adoc#a2268,See Events>> for a
 reference to the normative specification.
 
-PostRenderViewEvent indicates that the
+* PostRenderViewEvent indicates that the
 UIViewRoot source component has just been rendered. Please see Section
 2.2.6 “Render Response” for the normative specification.
 
-PostRestoreStateEvent indicates that an
+* PostRestoreStateEvent indicates that an
 individual component instance has just had its state restored. Please
 see the _UIViewRoot_ <<StandardUserInterfaceComponents.adoc#a2268,See Events>>
 for a reference to the normative specification.
 
-PostValidateEvent indicates that an
+* PostValidateEvent indicates that an
 individual component instance has just been validated. Please see the
 _EditableValueHolder_ <<UserInterfaceComponentModel.adoc#a1223,See Events>> for the
 normative specification.
 
-_PreDestroyViewMapEvent_ indicates that the
+* _PreDestroyViewMapEvent_ indicates that the
 _Map_ that is the view scope is about to be destroyed. Please see, the
 UIViewRoot <<StandardUserInterfaceComponents.adoc#a2230,See Properties>> for the normative
 specification.
 
-_PreRenderComponentEvent_ indicates that the
+* _PreRenderComponentEvent_ indicates that the
 _source_ component is about to be rendered. Please see
 <<UserInterfaceComponentModel.adoc#a937,See Component Tree Manipulation>> for a
 reference to the normative specification.
 
-_PreRenderViewEvent_ indicates that the
+* _PreRenderViewEvent_ indicates that the
 _UIViewRoot_ source component is about to be rendered. Please see
 <<RequestProcessingLifecycle.adoc#a457,See Render Response>> for the normative
 specification.
 
-PreValidateEvent indicates that an individual
+* PreValidateEvent indicates that an individual
 component instance is about to be validated. Please see the
 _EditableValueHolder_ <<UserInterfaceComponentModel.adoc#a1223,See Events>> for the
 normative specification.
@@ -2349,7 +2349,7 @@ the following additional actions must be taken at startup time. If the
 _jakarta.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR_ _<context-param>_
 exists and its value is _true_ , the following step must be skipped:
 
-{empty}The runtime must guarantee that the
+* {empty}The runtime must guarantee that the
 validator id _jakarta.faces.Bean_ is included in the result from a call to
 _Application.getDefaultValidatorInfo()_ (see
 <<ApplicationIntegration.adoc#a3510,See Default Validator Ids>>), regardless of
@@ -2368,10 +2368,10 @@ is called for each _EditableValueHolder_ component in the component
 tree, regardless of the validity state of any of the components in the
 tree. The responsibilities of each _validate()_ method include:
 
-Perform the check for which this validator
+* Perform the check for which this validator
 was registered.
 
-If violation(s) of the correctness rules are
+* If violation(s) of the correctness rules are
 found, create a _FacesMessage_ instance describing the problem, and
 create a _ValidatorException_ around it, and throw the
 _ValidatorException_ . The _EditableValueHolder_ on which this
@@ -2381,13 +2381,13 @@ _FacesContext_ .
 
 In addition, a _validate()_ method may:
 
-Examine or modify the state of any component
+* Examine or modify the state of any component
 in the component tree.
 
-Add or remove components from the component
+* Add or remove components from the component
 tree.
 
-Queue one or more events, from the same
+* Queue one or more events, from the same
 component or a different one, for processing during the current
 lifecycle phase.
 
@@ -2410,12 +2410,12 @@ may be used to support component-type-specific or application-specific
 constraints. These implementations share the following common
 characteristics:
 
-Standard _Validators_ accept configuration
+* Standard _Validators_ accept configuration
 information as either parameters to the constructor that creates a new
 instance of that _Validator_ , or as JavaBeans component properties on
 the _Validator_ implementation class.
 
-To support internationalization,
+* To support internationalization,
 _FacesMessage_ instances should be created. The message identifiers for
 such standard messages are also defined by manifest String constants in
 the implementation classes. It is the user’s responsibility to ensure
@@ -2423,11 +2423,11 @@ the content of a _FacesMessage_ instance is properly localized, and
 appropriate parameter substitution is performed, perhaps using
 _java.text.MessageFormat_ .
 
-See the javadocs for
+* See the javadocs for
 _UIInput.validateValue()_ for further normative specification regarding
 validation.
 
-Concrete Validator implementations must
+* Concrete Validator implementations must
 define a public static final String constant VALIDATOR_ID, whose value
 is the standard identifier under which the JSF implementation must
 register this instance (see below).
@@ -2439,34 +2439,34 @@ Localized Application Messages>> for the list of message identifiers.
 standard _Validator_ implementations (in the _jakarta.faces.validator_
 package) are provided:
 
-_DoubleRangeValidator_ —Checks the local
+* _DoubleRangeValidator_ —Checks the local
 value of a component, which must be of any numeric type, against
 specified maximum and/or minimum values. Standard identifier is
 “jakarta.faces.DoubleRange”.
 
-_LengthValidator_ —Checks the length (i.e.
+* _LengthValidator_ —Checks the length (i.e.
 number of characters) of the local value of a component, which must be
 of type _String_ , against maximum and/or minimum values. Standard
 identifier is “jakarta.faces.Length”.
 
-_LongRangeValidator_ —Checks the local value
+* _LongRangeValidator_ —Checks the local value
 of a component, which must be of any numeric type convertible to _long_
 , against maximum and/or minimum values. Standard identifier is
 “jakarta.faces.LongRange”.
 
-_RegexValidator_ —Accepts a “pattern”
+* _RegexValidator_ —Accepts a “pattern”
 attribute that is interpreted as a regular expression from the
 _java.util.regex_ package. The local value of the component is checked
 fora match against this regular expression. Standard identifier is
 “jakarta.faces.RegularExpression”
 
-_BeanValidator_ - The implementation must
+* _BeanValidator_ - The implementation must
 ensure that this validator is only available when running in an
 environment in which JSR-303 Beans Validation is available. Please see
 the javadocs for _BeanValidator.validate()_ for the
 specification.Standard identifier is “jakarta.faces.Bean”
 
-RequiredValidator - Analogous to setting the
+* RequiredValidator - Analogous to setting the
 required attribute to true on the EditableValueHolder. Enforces that the
 local value is not empty. Reuses the logic and error messages defined on
 UIInput. The standard identifier for this validator is
@@ -2525,14 +2525,14 @@ main entry point into Bean Validation and is responsible for creating
 Validator instances. [P1-start-validatoryfactory]A ValidatorFactory is
 retrieved using the following algorithm:
 
-If the servlet context contains a
+* If the servlet context contains a
 ValidatorFactory instance under the attribute named
 jakarta.faces.validator.beanValidator.ValidatorFactory, this instance is
 used by JSF to acquire Validator instances (specifically in the
 BeanValidator). This key should be defined in the constant named
 VALIDATOR_FACTORY_KEY on BeanValidator.
 
-If the servlet context does not contain such
+* If the servlet context does not contain such
 an entry, JSF looks for a Bean Validation provider in the classpath. If
 present, the standard Bean Validation bootstrap strategy is used. If not
 present, Bean Validation integration is disabled. If the BeanValidator
@@ -2697,39 +2697,39 @@ just this in order to get the most from JSF and to conform to user’s
 expectations of what a JSF UI Component is. For example, users expect a
 JSF UI Component can do some or all of the following:
 
-be exposed to the page-author via a markup
+* be exposed to the page-author via a markup
 tag with sensible attributes
 
-emit events (such a _ValueChangeEvent_ or
+* emit events (such a _ValueChangeEvent_ or
 _ActionEvent_ )
 
-allow attaching listeners
+* allow attaching listeners
 
-allow attaching a _Converter_ and/or
+* allow attaching a _Converter_ and/or
 _Validator_ (s)
 
-render itself to the user-agent, with full
+* render itself to the user-agent, with full
 support for styles, localization and accessibility
 
-support delegated rendering to allow for
+* support delegated rendering to allow for
 client device independence
 
-read values sent from the user-agent and
+* read values sent from the user-agent and
 correctly adapt them to the faces lifecycle
 
-correctly handle saving and restoring its
+* correctly handle saving and restoring its
 state across multiple requests from the user-agent
 
 Another important dimension to consider
 regarding UI components is the context in which the developer interacts
 with the component. There are generally two such contexts.
 
-In the context of a markup view, such as a
+* In the context of a markup view, such as a
 JSP or Facelet view. In this context the developer interacts with the UI
 component using a markup element, setting attributes on that element,
 and nesting child elements within that component markup element.
 
-In the context of code, such as a listener, a
+* In the context of code, such as a listener, a
 managed-bean, or other programming language context. In this context,
 the developer is writing JavaCode that is either passed the UI component
 as an argument, or obtains a reference to the UI component in some other
@@ -2741,12 +2741,12 @@ To satisfy a user’s expectations for a JSF UI
 component, the component author must adhere to one of the following best
 practices.
 
-extend the custom component class from an
+* extend the custom component class from an
 existing subclass of _UIComponent_ that most closely represents the
 meaning and behavior of the piece of the UI you are encapsulating in the
 component.
 
-extend the custom component class directly
+* extend the custom component class directly
 from _UIComponentBase_ and implement the appropriate “behavioral
 interface”(s) that most closely represents the meaning and behavior of
 the piece of the UI you are encapsulating in the component. See
@@ -2762,24 +2762,24 @@ UI component developer must follow several steps to make the component
 available for use in markup pages or in code, including but not
 necessarily limited to
 
-Make entries in a _faces-config.xml_ file,
+* Make entries in a _faces-config.xml_ file,
 linking the component class to its _component-type_ , which enables the
 _Application.createComponent()_ method to create instances of the
 component.
 
-Make entries in a _faces-config.xml_ file to
+* Make entries in a _faces-config.xml_ file to
 declare a _Renderer_ that provides client-device independence.
 
-Provide a JSP or Facelet tag handler that
+* Provide a JSP or Facelet tag handler that
 allows the page author to build UIs that include the component, and to
 customize each instance of the component with listeners, properties and
 model associations. This includes making the association between the
 _Renderer_ and the _UIComponent_ .
 
-Provide a _Renderer_ that provides client
+* Provide a _Renderer_ that provides client
 device independency for the component
 
-Make entries in a _faces-config.xml_ file
+* Make entries in a _faces-config.xml_ file
 that links the _Renderer_ and its Java class.
 
 These steps are complex, yet the components
@@ -2910,21 +2910,21 @@ guide. Please refer to the javadocs for the normative specification for
 each method mentioned below. Any text in _italics_ is a term defined in
 <<UserInterfaceComponentModel.adoc#a1619,See Composite Component Terms>>.
 
-The user-agent requests the _index.html_ from
+. The user-agent requests the _index.html_ from
 <<UserInterfaceComponentModel.adoc#a1548,See A simple composite component example>>.
 This page contains the
 ‘xmlns:ez="http://java.sun.com/jsf/composite/ezcomp"‘ declaration and an
 occurrence of the _<ez:loginPanel>_ tag. Because this page contains a
 usage of a composite component, it is called a _using page_ for
 discussion.
-
++
 The runtime notices the use of an xml
 namespace beginning with “http://java.sun.com/jsf/composite/”. Takes the
 substring of the namespace after the last “/”, exclusive, and looks for
 a resource library with the name “ _ezcomp_ ” by calling
 _ResourceHandler.libraryExists()_ .
 
-The runtime encounters the _<ez:loginPanel>_
+. The runtime encounters the _<ez:loginPanel>_
 component in the _using page_ . This causes
 _Application.createComponent(FacesContext, Resource)_ to be called. This
 method instantiates the _top level component_ but does not populate it
@@ -2941,7 +2941,7 @@ author_ . One thing that _Application.createComponent(FacesContext,
 Resource)_ does to the component before returning it is set the
 component’s renderer type to be _jakarta.faces.Composite_ . This is
 important during rendering.
-
++
 Again,
 _Application.createComponent(FacesContext, Resource)_ does not populate
 the _top level component_ with children. Subsequent processing done as
@@ -2951,14 +2951,14 @@ the _UIComponent_ children in the _defining page_ are placed in a facet
 underneath the _top level component_ . The name of that facet is given
 by the _UIComponent.COMPOSITE_FACET_NAME_ constant.
 
-After the children of the _composite
+. After the children of the _composite
 component tag_ in the _using page_ have been processed by the VDL
 implementation, the VDL implementation must call
 _VDLUtils.retargetAttachedObjects()_ . This method examines the
 _composite component metadata_ and retargets any attached objects from
 the _using page_ to their approriate _inner component_ targets.
 
-Because the renderer type of the composite
+. Because the renderer type of the composite
 component was set to _jakarta.faces.Composite_ , the _composite component
 renderer_ is invoked to render the composite component.
 
@@ -3154,21 +3154,21 @@ element is specified in the Facelets taglibrary docs.
 Composite component metadata currently
 consists of the following information:
 
-The _composite component BeanInfo_ , returned
+* The _composite component BeanInfo_ , returned
 from this method.
 
-The _Resource_ from which the composite
+* The _Resource_ from which the composite
 component was created.
 
-The _composite component BeanDescriptor_ .
-
+* The _composite component BeanDescriptor_ .
++
 This _BeanDescriptor_ must be returned when
 _getBeanDescriptor()_ is called on the composite component _BeanInfo_ .
-
++
 The composite component _BeanDescriptor_
 exposes the following information.
 
-The “name” attributes of the
+** The “name” attributes of the
 _<composite:interface/ >_ element is exposed using the corresponding
 method on the composite component _BeanDescriptor_ . If _ProjectStage_
 is _Development_ , The “displayName”, “shortDescription”, “expert”,
@@ -3180,21 +3180,21 @@ _getValue()_ and _attributeNames()_ methods on _BeanDescriptor_
 (inherited from _FeatureDescriptor_ ). The return type from _getValue()_
 must be a _javax.el.ValueExpression_ for such attributes.
 
-The list of exposed _AttachedObjectTarget_ s
+** The list of exposed _AttachedObjectTarget_ s
 to which the _page author_ can attach things such as listeners,
 converters, or validators.
-
++
 The VDL implementation must populate the
 composite component metadata with a _List<AttachedObjectTarget>_ that
 includes all of the inner components exposed by the composite component
 author for use by the page author.
-
++
 This List must be exposed in the value set of
 the composite component _BeanDescriptor_ under the key
 _AttachedObjectTarget.ATTACHED_OBJECT_TARGETS_KEY_ .
-
++
 For example, if the defining page has
-
++
 [source,xml]
 ----
 <composite:interface>
@@ -3204,42 +3204,42 @@ For example, if the defining page has
       targets=”loginEvent cancelEvent” />
 <composite:interface>
 ----
-
++
 The list of attached object targets would
 consist of instances of implementations of the following interfaces from
 the package _javax.faces.webapp.vdl_ .
++
+. EditableValueHolderAttachedObjectTarget
 
-EditableValueHolderAttachedObjectTarget
+. ActionSource2AttachedObjectTarget
 
-ActionSource2AttachedObjectTarget
+. ActionSource2AttachedObjectTarget
 
-ActionSource2AttachedObjectTarget
+. BehaviorHolderAttachedObjectTarget
 
-BehaviorHolderAttachedObjectTarget
-
-A _ValueExpression_ that evaluates to the
+** A _ValueExpression_ that evaluates to the
 component type of the composite component. By default this is "
 _jakarta.faces.NamingContainer_ " but the composite component page author
 can change this, or provide a Java or script-based _UIComponent_
 implementation that is required to implement _NamingContainer_ .
-
++
 This _ValueExpression_ must be exposed in the
 value set of the composite component _BeanDescriptor_ under the key
 _UIComponent.COMPOSITE_COMPONENT_TYPE_KEY_ .
 
-A _Map<String, PropertyDescriptor>_
+** A _Map<String, PropertyDescriptor>_
 representing the facets declared by the composite component author for
 use by the page author.
-
++
 This _Map_ must be exposed in the value set
 of the composite component BeanDescriptor under the key
 _UIComponent.FACETS_KEY_ .
 
-Any attributes declared by the composite
+** Any attributes declared by the composite
 component author using _<composite:attribute/ >_ elements must be
 exposed in the array of _PropertyDescriptor_ s returned from
 _getPropertyDescriptors()_ on the composite component _BeanInfo_ .
-
++
 For each such attribute, for any _String_ or
 _boolean_ valued _JavaBeans_ properties on the interface
 _PropertyDescriptor_ (and its superinterfaces) that are also given as
@@ -3254,7 +3254,7 @@ _Class_ . If the value specified for the _type_ attribute of
 _<cc:attribute/>_ cannot be converted to an actual _Class_ , a
 _TagAttributeException_ must be thrown, including the _Tag_ and
 _TagAttribute_ instances in the constructor.
-
++
 The _composite component BeanDescriptor_ must
 return a _Collection<String>_ when its _getValue()_ method is called
 with an argument equal to the value of the symbolic constant
@@ -3405,18 +3405,18 @@ The specification provides a
 ClientBehaviorContext that contains information that may be used at
 script rendering time. Specifically it includes:
 
-FacesContext
+* FacesContext
 
-UIComponent that the current behavior is
+* UIComponent that the current behavior is
 attached to
 
-The name of the event that the behavior is
+* The name of the event that the behavior is
 associated with
 
-The identifier of the source - this may
+* The identifier of the source - this may
 correspond to the identifier of the source of the behavior
 
-A collection of parameters that submitting
+* A collection of parameters that submitting
 behaviors should include when posting back to the server
 
 The ClientBehaviorContext is created with the
