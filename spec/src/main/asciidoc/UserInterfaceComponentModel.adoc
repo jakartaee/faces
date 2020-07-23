@@ -969,7 +969,7 @@ compatibility implementation strategy.
 |actionListener
 |RW |MethodBinding
 |DEPRECATED A _MethodBinding_ (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a3039,See MethodBinding>>) that (if non- _null_)
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a3039,MethodBinding>>) that (if non- _null_)
 must point at a method accepting an _ActionEvent_, with a return type
 of _void_. Any _ActionEvent_ that is sent by this _ActionSource_ will
 be passed to this method along with the _processAction()_ method of any
@@ -1972,7 +1972,7 @@ was actually queued.
 ===== Event Broadcasting
 
 As described in
-<<RequestProcessingLifecycle.adoc#a494,Common Event Processing>, at the end of
+<<RequestProcessingLifecycle.adoc#a494,Common Event Processing>>, at the end of
 each request processing lifecycle phase that may cause events to be
 queued, the lifecycle management method of the _UIViewRoot_ component at
 the root of the component tree will iterate over the queued events and
@@ -2095,8 +2095,8 @@ UIViewRoot <<StandardUserInterfaceComponents.adoc#a2268,Events>> for a
 reference to the normative specification.
 
 * PostRenderViewEvent indicates that the
-UIViewRoot source component has just been rendered. Please see Section
-2.2.6 “Render Response” for the normative specification.
+UIViewRoot source component has just been rendered. Please see
+<<RequestProcessingLifecycle.adoc#a457,Render Response>> for the normative specification.
 
 * PostRestoreStateEvent indicates that an
 individual component instance has just had its state restored. Please
@@ -2313,14 +2313,14 @@ to a _UIInput_ if a validator having the same id is already present.
 The typical way of registering a default
 validator id is by declaring it in a configuration resource, as follows:
 
-[source,java]
+[source,xml]
 ----
 <faces-config>
   <application>
     <default-validators>
       <validator-id>jakarta.faces.Bean</validator-id>
     </default-validators>
-  <application/>
+  </application>
 </faces-config>
 ----
 
@@ -2462,12 +2462,12 @@ fora match against this regular expression. Standard identifier is
 ensure that this validator is only available when running in an
 environment in which JSR-303 Beans Validation is available. Please see
 the javadocs for _BeanValidator.validate()_ for the
-specification.Standard identifier is “jakarta.faces.Bean”
+specification. Standard identifier is “jakarta.faces.Bean”
 
 * RequiredValidator - Analogous to setting the
 required attribute to true on the EditableValueHolder. Enforces that the
 local value is not empty. Reuses the logic and error messages defined on
-UIInput. The standard identifier for this validator is
+UIInput. Standard identifier for this validator is
 "jakarta.faces.Required"
 
 {empty} _MethodExpressionValidator_ —Wraps a
@@ -2883,7 +2883,7 @@ directory relative to the _index.xhtml_ file.
     <composite:implementation>
       <p>Username: <h:inputText id="usernameInput" /></p>
       <p>Password: <h:inputSecret id="passwordInput" /></p>
-      <p><h:commandButton id="loginEvent" value="login"/>
+      <p><h:commandButton id="loginEvent" value="login"/></p>
     </composite:implementation>
   </body>
 </html>
@@ -3090,7 +3090,7 @@ Implicit Object ELResolver for Facelets and Programmatic Access>>
 to refer to the _top level component_ from an EL expression, such as
 _#{cc.children[3]}_.
 
-|{empty}<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,
+|{empty}<<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,
 Composite Component Attributes ELResolver>>
 
 |Ability for the _composite component author_
@@ -3328,7 +3328,7 @@ This method delivers the BehaviorEvent to
 listeners that were registered via addBehaviorListener.
 
 The following methods are provided for add
-and removing BehaviorListeners..
+and removing BehaviorListeners.
 
 [source,java]
 ----
@@ -3359,7 +3359,7 @@ getScript implementations.
 
 In addition to client side functionality,
 client behaviors can also post back to the server and participate in the
-request processing lifecycle. ..
+request processing lifecycle.
 
 [source,java]
 ----
@@ -3367,7 +3367,7 @@ public void decode(FacesContext context,UIComponent component)
 ----
 
 This method can perform request decoding and
-queue server side events..].
+queue server side events.
 
 [source,java]
 ----
@@ -3423,7 +3423,7 @@ use of this static method:
 ----
 public static ClientBehaviorContext createClientBehaviorContext(
     FacesContext context,UIComponent component,
-    String eventName, tring sourceId,
+    String eventName, String sourceId,
     Collection<ClientBehaviorContext.Parameter> parameters)
 ----
 
@@ -3449,7 +3449,7 @@ implementation posts back to the server.
 _ClientBehaviorBase_ is an extension of
 _BehaviorBase_ that implements the _ClientBehavior_ interface. It It is
 a convenience class that contains default implementations for the
-methods in _ClientBehavior_ plus additional methods::
+methods in _ClientBehavior_ plus additional methods:
 
 [source,java]
 ----
@@ -3488,7 +3488,7 @@ This method identifies the
 _ClientBehaviorRenderer_ type. By default, no _ClientBehaviorRenderer_
 type is provided. Subclasses should either override this method to
 return a valid type or override the getScript and decode methods if a
-_ClientBehaviorRenderer_ is not available..
+_ClientBehaviorRenderer_ is not available.
 
 [source,java]
 ----
@@ -3530,7 +3530,7 @@ In conformance to the naming patterns defined
 in the _JavaBeans Specification_, event classes typically have a class
 name that ends with _Event_. The following method is available to
 determine the Behavior for the event (in addition to the other methods
-inherited from _jakarta.faces.event.FacesEvent_:
+inherited from _jakarta.faces.event.FacesEvent_):
 
 [source,java]
 ----
