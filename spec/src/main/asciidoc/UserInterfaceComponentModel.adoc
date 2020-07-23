@@ -2970,34 +2970,34 @@ describe the composite component feature.
 
 
 
-Attached Object
+Attached Object::
 
 Any artifact that can be attached to a
 _UIComponent_ (composite or otherwise). Usually, this means a
 _Converter_ , _Validator_ , _ActionListener_ , or _ValueChangeListener_
 .
 
-Attached Object Target
+Attached Object Target::
 
 Part of the _composite component metadata_
 that allows the _composite component author_ to expose the semantics of
 an inner component to the _using page author_ without exposing the
 rendering or implementation details of the inner component.
 
-Composite Component
+Composite Component::
 
 A tree of _UIComponent_ instances, rooted at
 a _top level component_ , that can be thought of and used as a single
 component in a view. The component hierarchy of this subtree is
 described in the _composite component defining page_ .
 
-Composite Component Author
+Composite Component Author::
 
 The individual or role creating the
 _composite component_ . This usually involves authoring the _composite
 component defining page_ .
 
-Composite Component _BeanDescriptor_
+Composite Component _BeanDescriptor_::
 
 A constituent element of the _composite
 component metadata_ . This version of the spec uses the JavaBeans API to
@@ -3005,69 +3005,69 @@ expose the component metadata for the composite component. Future
 versions of the spec may use a different API to expose the component
 metadata.
 
-Composite Component _BeanInfo_
+Composite Component _BeanInfo_::
 
 The main element of the _composite component_
 _metadata_ .
 
-Composite Component Declaration
+Composite Component Declaration::
 
 The section of markup within the _composite
 component defining page_ that includes the _<composite:interface>_
 section and its children.
 
-Composite Component Definition
+Composite Component Definition::
 
 The section of markup within the _composite
 component defining page_ that includes the _<composite:implementation>_
 section and its children.
 
-Composite Component Library
+Composite Component Library::
 
 A resource library that contains a _defining
 page_ for each _composite component_ that the _composite component
 author_ wishes to expose to the _using page author_ .
 
-Composite Component Metadata
+Composite Component Metadata::
 
 Any data about the _composite component_ .
 The normative specification for what must be in the _composite component
 metadata_ is in the javadocs for
 _ViewDeclarationLanguage.getComponentMetadata()_ .
 
-Composite Component Renderer
+Composite Component Renderer::
 
 A new renderer in the _HTML_BASIC_ render kit
 that knows how to render a _composite component_ .
 
-Composite Component Tag
+Composite Component Tag::
 
 The tag in the _using page_ that references a
 _composite component_ declared and defined in a _defining page_ .
 
-Defining page
+Defining page::
 
 The markup page, usually Facelets markup,
 that contains the _composite component declaration_ and _composite
 component definition_ .
 
-Inner Component
+Inner Component::
 
 Any _UIComponent_ inside of the _defining
 page_ or a page that is referenced from the _defining page_ .
 
-Top level component
+Top level component::
 
 The _UIComponent_ instance in the tree that
 is the parent of all _UIComponent_ instances within the _defining page_
 and any pages used by that _defining page_ .
 
-Using Page
+Using Page::
 
 The VDL page in which a _composite component
 tag_ is used.
 
-Using Page Author
+Using Page Author::
 
 The individual or role that creates pages
 that use the _composite component_ .
