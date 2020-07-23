@@ -32,12 +32,12 @@ that are included in Jakarta Server Faces.
 implementation for each standard _UIComponent_ class must specify two
 public static final String constant values:
 
-_COMPONENT_TYPE_ -- The standard component
+* _COMPONENT_TYPE_ -- The standard component
 type identifier under which the corresponding component class is
 registered with the _Application_ object for this application. This
 value may be used as a parameter to the _createComponent()_ method.
 
-{empty} _COMPONENT_FAMILY_ -- The standard
+* {empty} _COMPONENT_FAMILY_ -- The standard
 component family identifier used to select an appropriate Renderer for
 this component.[P1-end]
 
@@ -91,10 +91,10 @@ _[P1-start-uicolumn]UIColumn_ specializes
 the behavior of render-independent properties inherited from the parent
 class as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Column”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to _null_ .[P1-end]
 
 [[a1852]]
@@ -142,10 +142,10 @@ _[P1-start-uicommand]UICommand_ components
 specialize the behavior of render-independent properties inherited from
 the parent class as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Command”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “jakarta.faces.Button”.[P1-end]
 
 ===== Methods
@@ -254,10 +254,10 @@ _[P1-start-uidata]UIData_ specializes the
 behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Data”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “ _jakarta.faces.Table_ ”.[P1-end]
 
 The current value identified by the _value_
@@ -317,13 +317,13 @@ _[P1-start-uidataDecode]UIData_ specializes
 the behavior of the _processDecodes()_ , _processValidators()_ , and
 _processUpdates()_ methods inherited from its parent as follows:
 
-For each of these methods, the _UIData_
+* For each of these methods, the _UIData_
 implementation must iterate over each row in the underlying data model,
 starting with the row identified by the _first_ property, for the number
 of rows indicated by the _rows_ property, by calling the _setRowIndex()_
 method.
 
-{empty}When iteration is complete, set the
+* {empty}When iteration is complete, set the
 _rowIndex_ property of this component, and of the underlying _DataModel_
 , to zero, and remove any request attribute exposed via the _var_
 property.[P1-end]
@@ -382,10 +382,10 @@ _[P1-start-uiform]UIForm_ specializes the
 behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.Form_ ”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “ _jakarta.faces.Form_ ”.[P1-end]
 
 ===== Methods.
@@ -491,10 +491,10 @@ _[P1-start-uigraphic]UIGraphic_ specializes
 the behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Graphic”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “ _jakarta.faces.Image_ ”.[P1-end]
 
 ===== Methods
@@ -567,17 +567,17 @@ implemented interfaces.
 behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.Input_ ”.
 
-The default value of the _rendererType_
+* The default value of the _rendererType_
 property must be set to “ _jakarta.faces.Text_ ”.
 
-{empty}The _Converter_ specified by the
+* {empty}The _Converter_ specified by the
 _converter_ property (if any) must also be used to perform
 String->Object conversions during decoding.[P1-end]
 
-If the _value_ property has an associated
+* If the _value_ property has an associated
 _ValueExpression_ , the _setValue()_ method of that _ValueExpression_
 will be called during the _Update Model Values_ phase of the request
 processing lifecycle to push the local value of the component back to
@@ -676,10 +676,10 @@ _[P1-start-uimessage]UIMessage_ specializes
 the behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.Message_ ”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “ _jakarta.faces.Message_
 ”.[P1-end]
 
@@ -733,10 +733,10 @@ component should be rendered. Default value is “true”.
 the behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.Messages_ ”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “ _jakarta.faces.Messages_
 ”.[P1-end]
 
@@ -809,10 +809,10 @@ is "false".
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the family property must
+* The default value of the family property must
 be set to "jakarta.faces.UIOutcomeTarget"
 
-The default value of the rendererType
+* The default value of the rendererType
 property must be set to "jakarta.faces.Link" _[P1-end]_
 
 ===== Methods
@@ -849,10 +849,10 @@ _[P1-start-uioutput]UIOutput_ specializes
 the behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Output”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “jakarta.faces.Text”.[P1-end]
 
 ===== Methods
@@ -886,10 +886,10 @@ _[P1-start-uipanel]UIPanel_ specializes the
 behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.Panel_ ”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to _null_ .[P1-end]
 
 ===== Methods
@@ -935,10 +935,10 @@ _[P1-start-uiparameter]UIParameter_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Parameter”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to _null_ .[P1-end]
 
 ===== Methods
@@ -982,10 +982,10 @@ _[P1-start-uiselectboolean]UISelectBoolean_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.SelectBoolean_ ”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “ _jakarta.faces.Checkbox_
 ”.[P1-end]
 
@@ -1051,21 +1051,21 @@ this component.
 _[P1-start-uiselectitem]UISelectItem_
 specializes the behavior of render-independent properties inherited
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.SelectItem”.
 
-The default value of the _rendererType_
+* The default value of the _rendererType_
 property must be set to _null_ .
 
-If the _value_ property is non- _null_ , it
+* If the _value_ property is non- _null_ , it
 must contain a _SelectItem_ instance used to configure the selection
 item specified by this component.
 
-If the _value_ property is a value
+* If the _value_ property is a value
 expression, it must point at a _SelectItem_ instance used to configure
 the selection item specified by this component.
 
-{empty}If the _value_ property is _null_ ,
+* {empty}If the _value_ property is _null_ ,
 and there is no corresponding value expression, the _itemDescription_ ,
 _itemDisabled_ , _itemLabel_ and _itemValue_ properties must be used to
 construct a new _SelectItem_ representing the selection item specified
@@ -1111,13 +1111,13 @@ _SelectItem_ instances associated with this component.
 _[P1-start-uiselectitems]UISelectItems_
 specializes the behavior of render-independent properties inherited
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.SelectItems_ ”.
 
-The default value of the _rendererType_
+* The default value of the _rendererType_
 property must be set to _null_ .
 
-{empty}If the _value_ property (or the value
+* {empty}If the _value_ property (or the value
 returned by a value expression associated with the _value_ property) is
 non-null, it must contain a _SelectItem_ bean, an array of _SelectItem_
 beans, a _Collection_ of _SelectItem_ beans, or a _Map_ , where each map
@@ -1169,14 +1169,14 @@ _[P1-start-uiselectmany]UISelectMany_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.SelectMany_ ”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “ _jakarta.faces.Listbox_
 ”.[P1-end]
 
-See the class Javadocs for _UISelectMany_ for
+* See the class Javadocs for _UISelectMany_ for
 additional requirements related to implicit conversions for the _value_
 property.
 
@@ -1214,10 +1214,10 @@ _[P1-start-uiselectone]UISelectOne_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.SelectOne_ ”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “ _jakarta.faces.Menu_ ”.[P1-end]
 
 ===== Methods
@@ -1314,10 +1314,10 @@ _[P1-start-uiviewroot]UIViewRoot_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “ _jakarta.faces.ViewRoot_ ”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to _null_ .[P1-end]
 
 [[a2257]]
