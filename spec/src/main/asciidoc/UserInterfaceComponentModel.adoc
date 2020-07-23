@@ -1553,7 +1553,7 @@ converting the internal data representation between the two views. The
 application developer attaches a particular _Converter_ to a particular
 _ValueHolder_ by calling _setConverter_ , passing an instance of the
 particular converter. A _Converter_ implementation may be acquired from
-the _Application_ instance (see <<ApplicationIntegration.adoc#a3468,See Object
+the _Application_ instance (see <<ApplicationIntegration.adoc#a3468,Object
 Factories>>) for your application.
 
 [[a1258]]
@@ -1566,7 +1566,7 @@ interface are either identified by a _converter identifier_ , or by a
 class for which the _Converter_ class asserts that it can perform
 successful conversions, which can be registered with, and later
 retrieved from, an _Application_ , as described in
-<<ApplicationIntegration.adoc#a3468,See Object Factories>>.
+<<ApplicationIntegration.adoc#a3468,Object Factories>>.
 
 Often, a _Converter_ will be an object that
 requires no extra configuration information to perform its
@@ -1815,7 +1815,7 @@ public UIComponent getComponent();
 ----
 
 _FacesEvent_ has a _phaseId_ property (of
-type _PhaseId_ , see <<UserInterfaceComponentModel.adoc#a1335,See Phase Identifiers>>)
+type _PhaseId_ , see <<UserInterfaceComponentModel.adoc#a1335,Phase Identifiers>>)
 used to identify the request processing lifecycle phase after which the
 event will be delivered to interested listeners.
 
@@ -1908,7 +1908,7 @@ interested in receiving _ValueChangeEvent_ events.
 ===== Phase Identifiers
 
 As described in
-<<RequestProcessingLifecycle.adoc#a494,See Common Event Processing>>, event handling
+<<RequestProcessingLifecycle.adoc#a494,Common Event Processing>>, event handling
 occurs at the end of several phases of the request processing lifecycle.
 In addition, a particular event must indicate, through the value it
 returns from the _getPhaseId()_ method, the phase in which it wishes to
@@ -1943,7 +1943,7 @@ register listener instances at any time, by calling the appropriate add
 method. The set of listeners associated with a component is part of the
 state information that JSF saves and restores. Therefore, listener
 implementation classes must have a public zero-argument constructor, and
-may implement _StateHolder_ (see <<UserInterfaceComponentModel.adoc#a1138,See
+may implement _StateHolder_ (see <<UserInterfaceComponentModel.adoc#a1138,
 StateHolder>>) if they have internal state information that needs to be
 saved and restored.
 
@@ -1959,7 +1959,7 @@ During the processing being performed by any
 phase of the request processing lifecycle, events may be created and
 queued by calling the _queueEvent()_ method on the source _UIComponent_
 instance, or by calling the _queue()_ method on the _FacesEvent_
-instance itself. As described in <<RequestProcessingLifecycle.adoc#a494,See Common
+instance itself. As described in <<RequestProcessingLifecycle.adoc#a494,Common
 Event Processing>>, at the end of certain phases of the request
 processing lifecycle, any queued events will be broadcast to interested
 listeners in the order that the events were originally queued.
@@ -1974,7 +1974,7 @@ was actually queued.
 ===== Event Broadcasting
 
 As described in
-<<RequestProcessingLifecycle.adoc#a494,See Common Event Processing>, at the end of
+<<RequestProcessingLifecycle.adoc#a494,Common Event Processing>, at the end of
 each request processing lifecycle phase that may cause events to be
 queued, the lifecycle management method of the _UIViewRoot_ component at
 the root of the component tree will iterate over the queued events and
@@ -2024,7 +2024,7 @@ the specification and represent specific points in time for a JSF
 application. _PhaseEvent_ s also represent specific points in time in a
 JSF application, but the granularity they offer is not as precise as
 System Events. For more on _PhaseEvent_ s, please see
-<<LifecycleManagement.adoc#a6626,See PhaseEvent>>.
+<<LifecycleManagement.adoc#a6626,PhaseEvent>>.
 
 [[a1361]]
 ===== Event Classes
@@ -2036,30 +2036,30 @@ the _source_ of the event is of type _Object_ (instead of _UIComponent_
 _queue()_ method because _SystemEvent_ s are never queued. _SystemEvent_
 shares _isAppropriateListener()_ _and processListener()_ with
 _FacesEvent_ . __ For the specification of these methods see
-_<<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>_ .
+_<<UserInterfaceComponentModel.adoc#a1308,Event Classes>>_ .
 
 System events that originate from or are
 associated with specific component instances should extend from
 _ComponentSystemEvent_ , which extends _SystemEvent_ and adds a
 _getComponent()_ method, as specififed in
-_<<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>_ .
+_<<UserInterfaceComponentModel.adoc#a1308,Event Classes>>_ .
 
 The specification defines the following
 _SystemEvent_ subclasses, all in package _jakarta.faces.event_ . __
 
 * _ExceptionQueuedEvent_ indicates a
 non-expected _Exception_ has been thrown. Please see
-<<Per-RequestStateInformation.adoc#a3253,See ExceptionHandler>> for the normative
+<<Per-RequestStateInformation.adoc#a3253,ExceptionHandler>> for the normative
 specification.
 
 * _PostConstructApplicationEvent_ must be
 published immediately after application startup. Please see
-<<UsingJSFInWebApplications.adoc#a6201,See Application Startup Behavior>> for the
+<<UsingJSFInWebApplications.adoc#a6201,Application Startup Behavior>> for the
 normative specification.
 
 * _PreDestroyApplicationEvent_ must be
 published as immediately before application shutdown. Please see
-<<UsingJSFInWebApplications.adoc#a6248,See Application Shutdown Behavior>> for the
+<<UsingJSFInWebApplications.adoc#a6248,Application Shutdown Behavior>> for the
 normative specification
 
 * _PostKeepFlashEvent_ This event must be
@@ -2088,12 +2088,12 @@ see the javadocs for the normative specification.
 
 * _PostAddToViewEvent_ indicates that the
 _source_ component has just been added to the view. Please see
-<<UserInterfaceComponentModel.adoc#a937,See Component Tree Manipulation>> for a
+<<UserInterfaceComponentModel.adoc#a937,Component Tree Manipulation>> for a
 reference to the normative specification.
 
 * _PostConstructViewMapEvent_ indicates that
 the _Map_ that is the view scope has just been created. Please see, the
-UIViewRoot <<StandardUserInterfaceComponents.adoc#a2268,See Events>> for a
+UIViewRoot <<StandardUserInterfaceComponents.adoc#a2268,Events>> for a
 reference to the normative specification.
 
 * PostRenderViewEvent indicates that the
@@ -2102,32 +2102,32 @@ UIViewRoot source component has just been rendered. Please see Section
 
 * PostRestoreStateEvent indicates that an
 individual component instance has just had its state restored. Please
-see the _UIViewRoot_ <<StandardUserInterfaceComponents.adoc#a2268,See Events>>
+see the _UIViewRoot_ <<StandardUserInterfaceComponents.adoc#a2268,Events>>
 for a reference to the normative specification.
 
 * PostValidateEvent indicates that an
 individual component instance has just been validated. Please see the
-_EditableValueHolder_ <<UserInterfaceComponentModel.adoc#a1223,See Events>> for the
+_EditableValueHolder_ <<UserInterfaceComponentModel.adoc#a1223,Events>> for the
 normative specification.
 
 * _PreDestroyViewMapEvent_ indicates that the
 _Map_ that is the view scope is about to be destroyed. Please see, the
-UIViewRoot <<StandardUserInterfaceComponents.adoc#a2230,See Properties>> for the normative
+UIViewRoot <<StandardUserInterfaceComponents.adoc#a2230,Properties>> for the normative
 specification.
 
 * _PreRenderComponentEvent_ indicates that the
 _source_ component is about to be rendered. Please see
-<<UserInterfaceComponentModel.adoc#a937,See Component Tree Manipulation>> for a
+<<UserInterfaceComponentModel.adoc#a937,Component Tree Manipulation>> for a
 reference to the normative specification.
 
 * _PreRenderViewEvent_ indicates that the
 _UIViewRoot_ source component is about to be rendered. Please see
-<<RequestProcessingLifecycle.adoc#a457,See Render Response>> for the normative
+<<RequestProcessingLifecycle.adoc#a457,Render Response>> for the normative
 specification.
 
 * PreValidateEvent indicates that an individual
 component instance is about to be validated. Please see the
-_EditableValueHolder_ <<UserInterfaceComponentModel.adoc#a1223,See Events>> for the
+_EditableValueHolder_ <<UserInterfaceComponentModel.adoc#a1223,Events>> for the
 normative specification.
 
 ===== Listener Classes
@@ -2151,7 +2151,7 @@ System events may be listened for at the
 Application level, using _Application.subscribeToEvent()_ or at the
 component level, by calling _subscribeToEvent()_ on a specific component
 instance. The specification for _Application.subscribeToEvent()_ may be
-found in _<<ApplicationIntegration.adoc#a3526,See System Event Methods>>_ .
+found in _<<ApplicationIntegration.adoc#a3526,System Event Methods>>_ .
 
 The following methods are defined on
 _UIComponent_ to support per-component system events.
@@ -2233,7 +2233,7 @@ _Application.subscribeToEvent()_ .
 
 System events are broadcast immediately by
 calls to _Application.publishEvent()_ Please see
-<<ApplicationIntegration.adoc#a3526,See System Event Methods>> for the normative
+<<ApplicationIntegration.adoc#a3526,System Event Methods>> for the normative
 specification of _publishEvent()_ .
 
 
@@ -2276,7 +2276,7 @@ addition, a validator may elect to use generic attributes of the
 component being validated for configuration information.
 
 JSF includes implementations of several
-standard validators, as described in <<UserInterfaceComponentModel.adoc#a1446,See
+standard validators, as described in <<UserInterfaceComponentModel.adoc#a1446,
 Standard Validator Implementations>>.
 
 [[a1419]]
@@ -2300,7 +2300,7 @@ register validator instances at any time, by calling the _addValidator_
 method. The set of validators associated with a component is part of the
 state information that JSF saves and restores. Validators that wish to
 have configuration properties saved and restored must also implement
-_StateHolder_ (see <<UserInterfaceComponentModel.adoc#a1138,See StateHolder>>).
+_StateHolder_ (see <<UserInterfaceComponentModel.adoc#a1138,StateHolder>>).
 
 In addition to validators which are
 registered explicitly on the component, either through the Java API or
@@ -2328,7 +2328,7 @@ validator id is by declaring it in a configuration resource, as follows:
 
 A default validator may also be registered
 using the _isDefault_ attribute on the _@FacesValidator_ annotation on a
-_Validator_ class, as specified in <<UsingJSFInWebApplications.adoc#a6598,See
+_Validator_ class, as specified in <<UsingJSFInWebApplications.adoc#a6598,
 Requirements for scanning of classes for annotations>>.
 
 The during application startup, the runtime
@@ -2336,7 +2336,7 @@ must cause any default validators declared either in the application
 configuration resources, or via a _@FacesValidator_ annotation with
 _isDefault_ set to _true_ to be added with a call to
 _Application.addDefaultValidatorId()_ . This method is declared in
-<<ApplicationIntegration.adoc#a3510,See Default Validator Ids>>.
+<<ApplicationIntegration.adoc#a3510,Default Validator Ids>>.
 
 Any configuration resource that declares a
 list of default validators overrides any list provided in a previously
@@ -2352,7 +2352,7 @@ exists and its value is _true_ , the following step must be skipped:
 * {empty}The runtime must guarantee that the
 validator id _jakarta.faces.Bean_ is included in the result from a call to
 _Application.getDefaultValidatorInfo()_ (see
-<<ApplicationIntegration.adoc#a3510,See Default Validator Ids>>), regardless of
+<<ApplicationIntegration.adoc#a3510,Default Validator Ids>>), regardless of
 any configuration found in the application configuration resources or
 via the _@FacesValidator_ annotation.[P1-end]
 
@@ -2360,7 +2360,7 @@ via the _@FacesValidator_ annotation.[P1-end]
 
 During the _Process Validations_ phase of the
 request processing lifecycle (as described in
-<<RequestProcessingLifecycle.adoc#a438,See Process Validations>>), the JSF
+<<RequestProcessingLifecycle.adoc#a438,Process Validations>>), the JSF
 implementation will ensure that the _validate()_ method of each
 registered _Validator_ , the method referenced by the _validator_
 property (if any), and the _validate_ () method of the component itself,
@@ -2396,7 +2396,7 @@ a shorthand for the function of a “required” validator. If the value of
 this property is true, there is an entry in the request payload
 corresponding to this component, and the component has no value, the
 component is marked invalid and a message is added to the _FacesContext_
-instance. See <<RequestProcessingLifecycle.adoc#a584,See Localized Application
+instance. See <<RequestProcessingLifecycle.adoc#a584,Localized Application
 Messages>> for details on the message.
 
 [[a1446]]
@@ -2504,9 +2504,9 @@ Validation provider.
 Validation is present in the runtime environment, the system must ensure
 that the standard validator with validator-id _jakarta.faces.Bean_ is
 added with a call to _Application.addDefaultValidatorId()_ .[P1-end] See
-<<UserInterfaceComponentModel.adoc#a1446,See Standard Validator Implementations>> for
+<<UserInterfaceComponentModel.adoc#a1446,Standard Validator Implementations>> for
 the description of the standard _BeanValidator_ , and
-<<FaceletsAndWebApplications.adoc#a5828,See <f:validateBean> >> for the Facelet tag
+<<FaceletsAndWebApplications.adoc#a5828,<f:validateBean> >> for the Facelet tag
 that exposes this validator to the page author. This ensures Bean
 Validation will be called for every field in the application.
 
@@ -2561,7 +2561,7 @@ validation is performed before values are pushed into the model. This
 principle allows one to safely assume that if a value is pushed into the
 model, it is of the proper type and has been validated. This validation
 is done on a “field level” basis, as mentioned in
-<<UserInterfaceComponentModel.adoc#a1461,See Bean Validation Integration>>. This
+<<UserInterfaceComponentModel.adoc#a1461,Bean Validation Integration>>. This
 approach poses challenges for higher level validation that needs to take
 the value of several fields together into account to decide if they are
 valid or not. For example, consider the common case of a user account
@@ -2609,7 +2609,7 @@ public class JsfMessageInterpolator implements MessageInterpolator {
 ----
 
 Once a ValidatorFactory is obtained, as
-described in <<UserInterfaceComponentModel.adoc#a1467,See Obtaining a
+described in <<UserInterfaceComponentModel.adoc#a1467,Obtaining a
 ValidatorFactory>>, JSF receives a Validator instance by providing the
 custom message interpolator to the validator state.
 
@@ -2750,7 +2750,7 @@ component.
 from _UIComponentBase_ and implement the appropriate “behavioral
 interface”(s) that most closely represents the meaning and behavior of
 the piece of the UI you are encapsulating in the component. See
-<<UserInterfaceComponentModel.adoc#a1088,,See Component Behavioral Interfaces>> for
+<<UserInterfaceComponentModel.adoc#a1088,Component Behavioral Interfaces>> for
 more.
 
 Note that the first best practice includes
@@ -2795,8 +2795,8 @@ any Java code or configuration XML.
 
 The composite component feature builds on two
 features introduced in JSF 2.0: resources
-(<<RequestProcessingLifecycle.adoc#a746,See Resource Handling>>) and Facelets
-(<<FaceletsAndWebApplications.adoc#a5476,See Facelets and its use in Web
+(<<RequestProcessingLifecycle.adoc#a746,Resource Handling>>) and Facelets
+(<<FaceletsAndWebApplications.adoc#a5476,Facelets and its use in Web
 Applications>>”). Briefly, a composite component is any Facelet markup
 file that resides inside of a resource library. For example, if a
 Facelet markup file named _loginPanel.xhtml_ resides inside of a
@@ -2810,9 +2810,9 @@ their composite components, but doing so is optional.
 Any valid Facelet markup is valid for use
 inside of a composite component, including the templating features
 specified in
-<<FaceletsAndWebApplications.adoc#a6043,See Facelet
+<<FaceletsAndWebApplications.adoc#a6043,Facelet
 Templating Tag Library>>. In addition, the tag library specified in
-<<FaceletsAndWebApplications.adoc##a6045,See Composite Component Tag Library>> must be
+<<FaceletsAndWebApplications.adoc##a6045,Composite Component Tag Library>> must be
 used to declare the metadata for the composite component. Future
 versions of the JSF specification may relax this requirement, but for
 now at least the _<composite:interface>_ and
@@ -2858,7 +2858,7 @@ page, such as _<ez:loginPanel />_ , a Facelet markup file with the
 corresponding name is loaded and taken to be the composite component, in
 this case the file _loginPanel.xhtml_ . The implementation requirements
 for this and other Facelet features related to composite components are
-specified in <<FaceletsAndWebApplications.adoc#a5661,See Requirements specific to
+specified in <<FaceletsAndWebApplications.adoc#a5661,Requirements specific to
 composite components>>.
 
 Create the composite component markup page.
@@ -2894,10 +2894,10 @@ directory relative to the _index.xhtml_ file.
 The _<composite:interface>_ section declares
 the public interface that users of this component need to understand. In
 this case, the component declares that it contains an implementation of
-_ActionSource2_ (see <<UserInterfaceComponentModel.adoc#a1120,See ActionSource2>>),
+_ActionSource2_ (see <<UserInterfaceComponentModel.adoc#a1120,ActionSource2>>),
 and therefore anything one can do with an _ActionSource2_ in a Facelet
 markup page you one do with the composite component. (See
-<<UserInterfaceComponentModel.adoc#1088,See Component Behavioral Interfaces>> for
+<<UserInterfaceComponentModel.adoc#1088,Component Behavioral Interfaces>> for
 more on _ActionSource2_ and other behavioral interfaces). The
 _<composite:implementation>_ section defines the implementation of this
 composite component.
@@ -2908,10 +2908,10 @@ This section gives a non-normative traversal
 of the composite component feature using the previous example as a
 guide. Please refer to the javadocs for the normative specification for
 each method mentioned below. Any text in _italics_ is a term defined in
-<<UserInterfaceComponentModel.adoc#a1619,See Composite Component Terms>>.
+<<UserInterfaceComponentModel.adoc#a1619,Composite Component Terms>>.
 
 . The user-agent requests the _index.html_ from
-<<UserInterfaceComponentModel.adoc#a1548,See A simple composite component example>>.
+<<UserInterfaceComponentModel.adoc#a1548,A simple composite component example>>.
 This page contains the
 ‘xmlns:ez="http://java.sun.com/jsf/composite/ezcomp"‘ declaration and an
 occurrence of the _<ez:loginPanel>_ tag. Because this page contains a
@@ -3086,34 +3086,34 @@ appropriate context.
 
 |Feature
 
-|{empty}<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See
+|{empty}<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,
 Implicit Object ELResolver for Facelets and Programmatic Access>>
 
 |Ability for the _composite component author_
 to refer to the _top level component_ from an EL expression, such as
 _#{cc.children[3]}_ .
 
-|{empty}<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,See
+|{empty}<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,
 Composite Component Attributes ELResolver>>
 
 |Ability for the _composite component author_
 to refer to attributes declared on the _composite component tag_ using
 EL expressions such as _#{cc.attrs.usernameLabel}_
 
-|{empty}<<ApplicationIntegration.adoc#a3468,See Object
+|{empty}<<ApplicationIntegration.adoc#a3468,Object
 Factories>>
 
 |Methods called by the VDL page to create a
 new instance of a _top level component_ for eventual inclusion in the
 view
 
-|{empty}<<FaceletsAndWebApplications.adoc#a5661,See
+|{empty}<<FaceletsAndWebApplications.adoc#a5661,
 Requirements specific to composite components>>
 
 |Requirements of the Facelet implementation
 relating to Facelets.
 
-|{empty}<<FaceletsAndWebApplications.adoc#a6045,See
+|{empty}<<FaceletsAndWebApplications.adoc#a6045,
 Composite Component Tag Library>>
 
 |Tag handlers for the _composite_ tag library
@@ -3130,7 +3130,7 @@ requirement so that all _UIComponent_ s must have metadata.
 This section describes the implementation of
 the _composite component metadata_ that is returned from the method
 _ViewDeclarationLanguage.getComponentMetadata()_ . This method is
-formally declared in <<ApplicationIntegration.adoc#a4046,See
+formally declared in <<ApplicationIntegration.adoc#a4046,
 ViewDeclarationLanguage.getComponentMetadata()>>, but for reference its
 signature is repeated here.
 
@@ -3319,7 +3319,7 @@ calling UIComponent.queueEvent.
 The BehaviorBase abstract class implements
 the broadcast method from the Behavior interface. BehaviorBase also
 implements the PartialStateHolder interface (see
-<<UserInterfaceComponentModel.adoc#a1159,See PartialStateHolder>>). It
+<<UserInterfaceComponentModel.adoc#a1159,PartialStateHolder>>). It
 also provides behavior event listener registration methods.
 
 [source,java]
@@ -3388,7 +3388,7 @@ more details.
 
 Components that support client behaviors must
 implement the ClientBehaviorHolder interface. Refer to
-<<UserInterfaceComponentModel.adoc#a1239,See ClientBehaviorHolder>> for
+<<UserInterfaceComponentModel.adoc#a1239,ClientBehaviorHolder>> for
 more details.
 
 ==== ClientBehaviorRenderer
@@ -3396,7 +3396,7 @@ more details.
 Client behaviors may implement script
 generation and decoding in a client behavior class or delegate to a
 ClientBehaviorRenderer. Refer to
-<<RenderingModel.adoc#a4264,See ClientBehaviorRenderer>>
+<<RenderingModel.adoc#a4264,ClientBehaviorRenderer>>
 for more specifics.
 
 ==== ClientBehaviorContext
@@ -3508,7 +3508,7 @@ _RenderKit.getClientBehaviorRenderer._
 
 The behavior event / listener model is an
 extension of the JSF event / listener model as described in
-<<UserInterfaceComponentModel.adoc#a1300,See Event and Listener Model>>.
+<<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>>.
 BehaviorHolder components are responsible for broadcasting
 BehaviorEvents to behaviors.
 
@@ -3565,7 +3565,7 @@ naming pattern as well.
 ===== Listener Registration
 
 _BehaviorListener_ registration follows the
-same conventions as outlined in <<UserInterfaceComponentModel.adoc#a1776,See Listener
+same conventions as outlined in <<UserInterfaceComponentModel.adoc#a1776,Listener
 Registration>>.
 
 ==== Ajax Behavior
@@ -3599,7 +3599,7 @@ This event type extends from
 _jakarta.faces.event.BehaviorEvent_ and it is broadcast from an
 AjaxBehavior. This class follows the standard JSF event / listener
 model, incorporating the usual methods as outlined in
-<<UserInterfaceComponentModel.adoc#a1300,See Event and Listener Model>>. This class is
+<<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>>. This class is
 responsible for invoking the method implementation of
 _jakarta.faces.event.AjaxBehaviorListener.processAjaxBehavior._ Refer to
 the javadocs for more complete details about this class.
@@ -3665,7 +3665,7 @@ _ClientBehaviorHolder.addBehavior(eventName, clientBehavior)_ .
 JSF provides methods for registering
 _Behavior_ implementations and these methods are similar to the methods
 used to register converters and validators. Refer to
-<<ApplicationIntegration.adoc#a3468,See Object Factories>> for the specifics
+<<ApplicationIntegration.adoc#a3468,Object Factories>> for the specifics
 about these methods.
 
 ===== XML Registration
