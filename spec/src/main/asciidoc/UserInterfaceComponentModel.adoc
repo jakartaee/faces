@@ -69,16 +69,11 @@ functional capabilities of JSF user interface components.
 [[a895]]
 ==== Component Identifiers
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public String getId();
-
-
-
 public void setId(String componentId);
-
-|===
+----
 
 [N/T-start may-component-identifier] Every
 component may be named by a _component identifier_ that must conform to
@@ -113,10 +108,10 @@ are reserved for use by the JSF specification.
 
 ==== Component Family
 
-[width="100%",cols="100%",]
-|===
-|public String getFamily();
-|===
+[source,java]
+----
+public String getFamily();
+----
 
 Each standard user interface component class
 has a standard value for the component family, which is used to look up
@@ -145,18 +140,11 @@ has been set, that value must be returned by the property getter
 Value binding expressions are managed with
 the following method calls:
 
-[width="100%",cols="100%",]
-|===
-a|
-public ValueExpression
-getValueExpression(String name);
-
-
-
-public void setValueExpression(String name,
-ValueExpression expression);
-
-|===
+[source,java]
+----
+public ValueExpression getValueExpression(String name);
+public void setValueExpression(String name, ValueExpression expression);
+----
 
 {empty}where _name_ is the name of the
 attribute or property for which to establish the value expression.
@@ -180,18 +168,11 @@ this concept was called “value binding”. Methods and classes referring
 to this concept are deprecated, but remain implemented to preserve
 backwards compatibility.
 
-[width="100%",cols="100%",]
-|===
-a|
-public ValueBinding getValueBinding(String
-name);
-
-
-
-public void setValueBinding(String name,
-ValueBinding binding);
-
-|===
+[source,java]
+----
+public ValueBinding getValueBinding(String name);
+public void setValueBinding(String name, ValueBinding binding);
+----
 
 Please consult the javadoc for these methods
 to learn how they are implemented in terms of the new “value expression”
@@ -261,16 +242,11 @@ code.
 to serve as anchors for client side
 accessibility labels.
 
-[width="100%",cols="100%",]
-|===
-a|
-public String getClientId(FacesContext
-context);
-
-protected String
-getContainerClientId(FacesContext context);
-
-|===
+[source,java]
+----
+public String getClientId(FacesContext context);
+protected String getContainerClientId(FacesContext context);
+----
 
 The client identifier is derived from the
 component identifier (or the result of calling
@@ -287,16 +263,11 @@ recalculated by the next call to _getClientId()_ .
 [[a937]]
 ==== Component Tree Manipulation
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public UIComponent getParent();
-
-
-
 public void setParent(UIComponent parent);
-
-|===
+----
 
 Components that have been added as children
 of another component can identify the parent by calling the _getParent_
@@ -309,10 +280,10 @@ _List_ instance returned by calling the _getChildren()_ method, or the
 _Map_ instance returned by calling the _getFacets()_ method, when child
 components or facets are being added, removed, or replaced.
 
-[width="100%",cols="100%",]
-|===
-|public List<UIComponent> getChildren();
-|===
+[source,java]
+----
+public List<UIComponent> getChildren();
+----
 
 Return a mutable _List_ that contains all of
 the child _UIComponent_ s for this component instance. [P1-start
@@ -325,10 +296,10 @@ requirement to cause the _PostAddToViewEvent_ method to be fired, as
 well as the processing of the _ResourceDependency_ annotation. See the
 javadocs for _getChildren()_ for details.
 
-[width="100%",cols="100%",]
-|===
-|public int getChildCount();
-|===
+[source,java]
+----
+public int getChildCount();
+----
 
 {empty}A convenience method to return the
 number of child components for this component. [P2-start
@@ -340,33 +311,30 @@ when there are no children. [P2-end]
 [[a946]]
 ==== Component Tree Navigation
 
-[width="100%",cols="100%",]
-|===
-|public UIComponent findComponent(String
-expr);
-|===
+[source,java]
+----
+public UIComponent findComponent(String expr);
+----
 
 Search for and return the UIComponent with an
 _id_ that matches the specified search expression (if any), according to
 the algorithm described in the Javadocs for this method.
 
-[width="100%",cols="100%",]
-|===
-|public Iterator<UIComponent>
-getFacetsAndChildren();
-|===
+[source,java]
+----
+public Iterator<UIComponent> getFacetsAndChildren();
+----
 
 Return an immutable _Iterator_ over all of
 the facets associated with this component (in an undetermined order),
 followed by all the child components associated with this component (in
 the order they would be returned by _getChildren()_ )..
 
-[width="100%",cols="100%",]
-|===
-|public boolean
-invokeOnComponent(FacesContext context, String clientId, ContextCallback
-callback) throws FacesException;
-|===
+[source,java]
+----
+public boolean invokeOnComponent(FacesContext context,
+    String clientId, ContextCallback callback) throws FacesException;
+----
 
 Starting at _this_ component in the view,
 search for the UIComponent whose _getClientId()_ method returns a String
@@ -391,53 +359,39 @@ Please see the Javadocs for _UIData.invokeOnComponent()_ for details.
 The _ContextCallback_ interface is specified
 as follows..
 
-[width="100%",cols="100%",]
-|===
-a|
-public interface ContextCallback \{
-
- public void
-invokeContextCallback(FacesContext context, UIComponent target);
-
-
-
+[source,java]
+----
+public interface ContextCallback {
+  public void invokeContextCallback(
+      FacesContext context, UIComponent target);
 }
-
-|===
+----
 
 Please consult the Javadocs for more details
 on this interface.
 
-[width="100%",cols="100%",]
-|===
-|public static UIComponent
-getCurrentComponent(FacesContext context);
-|===
+[source,java]
+----
+public static UIComponent getCurrentComponent(FacesContext context);
+----
 
 Returns the UIComponent instance that is
 currently being processed.
 
-[width="100%",cols="100%",]
-|===
-|public static UIComponent
-getCurrentCompositeComponent(FacesContext context);
-|===
+[source,java]
+----
+public static UIComponent getCurrentCompositeComponent(
+    FacesContext context);
+----
 
 Returns the closest ancestor component
 relative to getCurrentComponent that is a composite component, or null
 if no such component is exists.
 
-[width="100%",cols="100%",]
-|===
-a|
-public boolean visitTree(VisitContext
-context,
-
- VisitCallback callback);
-
-
-
-|===
+[source,java]
+----
+public boolean visitTree(VisitContext context, VisitCallback callback);
+----
 
 Uses the visit API introduced in version 2 of
 the specification to perform a flexible and customizable visit of the
@@ -470,18 +424,18 @@ of the parent-child tree, they participate in request processing
 lifecycle methods, as described in <<UserInterfaceComponentModel.adoc#a1059,See
 Lifecycle Management Methods>>.
 
-[width="100%",cols="100%",]
-|===
-|public Map<String, UIComponent> getFacets();
-|===
+[source,java]
+----
+public Map<String, UIComponent> getFacets();
+----
 
 Return a mutable Map representing the facets
 of this UIComponent, keyed by the facet name.
 
-[width="100%",cols="100%",]
-|===
-|public UIComponent getFacet(String name);
-|===
+[source,java]
+----
+public UIComponent getFacet(String name);
+----
 
 A convenience method to return a facet value,
 if it exists, or _null_ otherwise. If the requested facet does not
@@ -495,24 +449,16 @@ class. For example, a component that supports a _header_ facet of type
 _UIHeader_ should have methods with signatures and functionality as
 follows:
 
-[width="100%",cols="100%",]
-|===
-a|
-public UIHeader getHeader() \{
-
- return ((UIHeader) getFacet(“header”);
-
+[source,java]
+----
+public UIHeader getHeader() {
+  return ((UIHeader) getFacet(“header”);
 }
 
-
-
-public void setHeader(UIHeader header) \{
-
- getFacets().put(“header”, header);
-
+public void setHeader(UIHeader header) {
+  getFacets().put(“header”, header);
 }
-
-|===
+----
 
 [[a983]]
 ==== Managing Component Behavior
@@ -526,11 +472,10 @@ implemenations. Refer to
 <<UserInterfaceComponentModel#a1707,See Component
 Behavior Model>> for more information.
 
-[width="100%",cols="100%",]
-|===
-|public void addBehavior(String eventName,
-Behavior behavior)
-|===
+[source,java]
+----
+public void addBehavior(String eventName, Behavior behavior)
+----
 
 This method attaches a _Behavior_ to the
 component for the specified _eventName. The eventName_ must be one of
@@ -539,27 +484,26 @@ example, it may be desired to have some behavior defined when a “click”
 event occurs. The behavior could be some client side behavior in the
 form of a script executing, or a server side listener executing.
 
-[width="100%",cols="100%",]
-|===
-|public Collection<String> getEventNames()
-|===
+[source,java]
+----
+public Collection<String> getEventNames()
+----
 
 Returns the logical event names that can be
 associated with behavior for the component.
 
-[width="100%",cols="100%",]
-|===
-|public Map<String, List<Behavior>>
-getBehaviors()
-|===
+[source,java]
+----
+public Map<String, List<Behavior>> getBehaviors()
+----
 
 Returns a _Map_ defining the association of
 events and behaviors. They keys in the _Map_ are event names.
 
-[width="100%",cols="100%",]
-|===
-|public String getDefaultEventName()
-|===
+[source,java]
+----
+public String getDefaultEventName()
+----
 
 Returns the default event name (if any) for
 the component.
@@ -567,10 +511,10 @@ the component.
 [[a993]]
 ==== Generic Attributes
 
-[width="100%",cols="100%",]
-|===
-|public Map<String, Object> getAttributes();
-|===
+[source,java]
+----
+public Map<String, Object> getAttributes();
+----
 
 The render-independent characteristics of
 components are generally represented as Jakarta Bean component properties
@@ -644,62 +588,60 @@ interface. [P1-end]
 
 .UIComponent Constants
 
-[width="100%",cols="100%",]
-|===
-|public static final String CURRENT_COMPONENT
-= "jakarta.faces.component.CURRENT_COMPONENT";
-|===
+[source,java]
+----
+public static final String CURRENT_COMPONENT =
+    "jakarta.faces.component.CURRENT_COMPONENT";
+----
 
 This is used as a key in the _FacesContext_
 attributes Map to indicate the component that is currently being
 processed.
 
-[width="100%",cols="100%",]
-|===
-|public static final String
-CURRENT_COMPOSITE_COMPONENT =
-"jakarta.faces.component.CURRENT_COMPOSITE_COMPONENT";
-|===
+[source,java]
+----
+public static final String CURRENT_COMPOSITE_COMPONENT =
+    "jakarta.faces.component.CURRENT_COMPOSITE_COMPONENT";
+----
 
 This is used as a key in the _FacesContext_
 attributes Map to indicate the composite component that is currently
 being processed.
 
-[width="100%",cols="100%",]
-|===
-|public static final String BEANINFO_KEY =
-"jakarta.faces.component.BEANINFO_KEY";
-|===
+[source,java]
+----
+public static final String BEANINFO_KEY =
+    "jakarta.faces.component.BEANINFO_KEY";
+----
 
 This is a key in the component attributes Map
 whose value is a java.beans.BeanInfo describing the composite component.
 
-[width="100%",cols="100%",]
-|===
-|public static final String FACETS_KEY =
-"jakarta.faces.component.FACETS_KEY";
-|===
+[source,java]
+----
+public static final String FACETS_KEY =
+    "jakarta.faces.component.FACETS_KEY";
+----
 
 This is a key in the composite component
 BeanDescriptor whose value is a Map<PropertyDescriptor> that contains
 meta-information for the declared facets for the composite component.
 
-[width="100%",cols="100%",]
-|===
-|public static final String
-COMPOSITE_COMPONENT_TYPE_KEY =
-"jakarta.faces.component.COMPOSITE_COMPONENT_TYPE";
-|===
+[source,java]
+----
+public static final String COMPOSITE_COMPONENT_TYPE_KEY =
+    "jakarta.faces.component.COMPOSITE_COMPONENT_TYPE";
+----
 
 This is a key in the composite component
 BeanDescriptor whose value is a ValueExpression that evaluates to the
 component-type of the composite component root.
 
-[width="100%",cols="100%",]
-|===
-|public static final String
-COMPOSITE_FACET_NAME = "jakarta.faces.component.COMPOSITE_FACET_NAME";
-|===
+[source,java]
+----
+public static final String COMPOSITE_FACET_NAME =
+    "jakarta.faces.component.COMPOSITE_FACET_NAME";
+----
 
 This is a key in the Map<PropertyDescriptor>
 that is returned by using the key FACETS_KEY. The value of this constant
@@ -784,11 +726,11 @@ called by the JSF implementation during the various phases of the
 request processing lifecycle, and may be overridden in a concrete
 subclass to implement specialized behavior for this component.
 
-[width="100%",cols="100%",]
-|===
-|public boolean broadcast(FacesEvent event)
-throws AbortProcessingException;
-|===
+[source,java]
+----
+public boolean broadcast(FacesEvent event)
+    throws AbortProcessingException;
+----
 
 The _broadcast()_ method is called during the
 common event processing (see <<RequestProcessingLifecycle.adoc#a494,See Common
@@ -798,10 +740,10 @@ phases. For more information about the event and listener model, see
 is not necessary to override this method to support additional event
 types.
 
-[width="100%",cols="100%",]
-|===
-|public void decode(FacesContext context);
-|===
+[source,java]
+----
+public void decode(FacesContext context);
+----
 
 This method is called during the _Apply
 Request Values_ phase of the request processing lifecycle, and has the
@@ -815,26 +757,13 @@ delegate decoding and encoding to a corresponding _Renderer_ by setting
 the _rendererType_ property (which means the default behavior described
 above is adequate).
 
-[width="100%",cols="100%",]
-|===
-a|
-public void encodeAll(FacesContext context)
-throws IOException
-
-public void encodeBegin(FacesContext context)
-throws IOException;
-
-
-
-public void encodeChildren(FacesContext
-context) throws IOException;
-
-
-
-public void encodeEnd(FacesContext context)
-throws IOException;
-
-|===
+[source,java]
+----
+public void encodeAll(FacesContext context) throws IOException
+public void encodeBegin(FacesContext context) throws IOException;
+public void encodeChildren(FacesContext context) throws IOException;
+public void encodeEnd(FacesContext context) throws IOException;
+----
 
 {empty}These methods are called during the
 _Render Response_ phase of the request processing lifecycle.
@@ -862,10 +791,10 @@ delegate encoding to a corresponding _Renderer_ , by setting the
 _rendererType_ property (which means the default behavior described
 above is adequate).
 
-[width="100%",cols="100%",]
-|===
-|public void queueEvent(FacesEvent event);
-|===
+[source,java]
+----
+public void queueEvent(FacesEvent event);
+----
 
 Enqueue the specified event for broadcast at
 the end of the current request processing lifecycle phase. Default
@@ -892,71 +821,61 @@ object (See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit O
 for Facelets and Programmatic Access>>), the following methods have been
 added to _UIComponent_
 
-[width="100%",cols="100%",]
-|===
-a|
-protected void pushComponentToEL(FacesContext
-context);
-
-protected void
-popComponentFromEL(FacesContext context)
-
-|===
+[source,java]
+----
+protected void pushComponentToEL(FacesContext context);
+protected void popComponentFromEL(FacesContext context)
+----
 
 _pushComponentToEL()_ and
 _popComponentFromEL()_ must be called inside each of the lifecycle
 management methods in this section as specified in the javadoc for that
 method.
 
-[width="100%",cols="100%",]
-|===
-|public void processRestoreState(FacesContext
-context, Object state);
-|===
+[source,java]
+----
+public void processRestoreState(FacesContext context, Object state);
+----
 
 Perform the component tree processing
 required by the _Restore View_ phase of the request processing lifecycle
 for all facets of this component, all children of this component, and
 this component itself.
 
-[width="100%",cols="100%",]
-|===
-|public void processDecodes(FacesContext
-context);
-|===
+[source,java]
+----
+public void processDecodes(FacesContext context);
+----
 
 Perform the component tree processing
 required by the _Apply Request Values_ phase of the request processing
 lifecycle for all facets of this component, all children of this
 component, and this component itself
 
-[width="100%",cols="100%",]
-|===
-|public void processValidators(FacesContext
-context);
-|===
+[source,java]
+----
+public void processValidators(FacesContext context);
+----
 
 Perform the component tree processing
 required by the _Process Validations_ phase of the request processing
 lifecycle for all facets of this component, all children of this
 component, and this component itself.
 
-[width="100%",cols="100%",]
-|===
-|public void processUpdates(FacesContext
-context);
-|===
+[source,java]
+----
+public void processUpdates(FacesContext context);
+----
 
 Perform the component tree processing
 required by the Update Model Values phase of the request processing
 lifecycle for all facets of this component, all children of this
 component, and this component itself.
 
-[width="100%",cols="100%",]
-|===
-|public void processSaveState(FacesContext
-context);
-|===
+[source,java]
+----
+public void processSaveState(FacesContext context);
+----
 
 Perform the component tree processing
 required by the state saving portion of the _Render Response_ phase of
@@ -966,48 +885,39 @@ children of this component, and this component itself.
 [[a1075]]
 ==== Utility Methods
 
-[width="100%",cols="100%",]
-|===
-|protected FacesContext getFacesContext();
-|===
+[source,java]
+----
+protected FacesContext getFacesContext();
+----
 
 Return the FacesContext instance for the
 current request.
 
-[width="100%",cols="100%",]
-|===
-|protected Renderer getRenderer(FacesContext
-context);
-|===
+[source,java]
+----
+protected Renderer getRenderer(FacesContext context);
+----
 
 Return the _Renderer_ that is associated this
 _UIComponent_ , if any, based on the values of the _family_ and
 _rendererType_ properties currently stored as instance data on the
 _UIComponent_ .
 
-[width="100%",cols="100%",]
-|===
-a|
-protected void addFacesListener(FacesListener
-listener);
-
-
-
-protected void
-removeFacesListener(FacesListener listener);
-
-|===
+[source,java]
+----
+protected void addFacesListener(FacesListener listener);
+protected void removeFacesListener(FacesListener listener);
+----
 
 These methods are used to register and
 deregister an event listener. They should be called only by a public
 addXxxListener() method on the component implementation class, which
 provides typesafe listener registration.
 
-[width="100%",cols="100%",]
-|===
-|public Map<String, String>
-getResourceBundleMap();
-|===
+[source,java]
+----
+public Map<String, String> getResourceBundleMap();
+----
 
 Return a Map of the ResourceBundle for this
 component. Please consult the Javadocs for more information.
@@ -1118,18 +1028,11 @@ methods to register and deregister _ActionListener_ instances interested
 in these events. See <<UserInterfaceComponentModel.adoc#a1300,See Event and Listener
 Model>> for more details on the event and listener model provided by JSF.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addActionListener(ActionListener
-listener);
-
-
-
-public void
-removeActionListener(ActionListener listener);
-
-|===
+[source,java]
+----
+public void addActionListener(ActionListener listener);
+public void removeActionListener(ActionListener listener);
+----
 
 In addition to manually registered listeners,
 the JSF implementation provides a default _ActionListener_ that will
@@ -1244,16 +1147,12 @@ other words, if there is an inheritance hierarchy, it is not permissible
 to have the _saveState()_ and _restoreState()_ methods reside at
 different levels of the hierarchy.
 
-[width="100%",cols="100%",]
-|===
-a|
-public Object saveState(FacesContext
-context);
-
-public void restoreState(FacesContext
-context, Object state) throws IOException;
-
-|===
+[source,java]
+----
+public Object saveState(FacesContext context);
+public void restoreState(FacesContext context,
+    Object state) throws IOException;
+----
 
 Gets or restores the state of the instance as
 a _Serializable_ _Object_ .
@@ -1317,20 +1216,12 @@ the _StateHolder_ contract
 The following methods support the partial
 state saving feature:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 void clearInitialState();
-
-
-
 boolean initialStateMarked();
-
-
-
 void markInitialState();
-
-|===
+----
 
 These methods allow the state saving feature
 to determine if the component is in its initial state or not, and to set
@@ -1476,18 +1367,11 @@ The following methods support the validation
 functionality performed during the _Process Validations_ phase of the
 request processing lifecycle:
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addValidator(Validator
-validator);
-
-
-
-public void removeValidator(Validator
-validator);
-
-|===
+[source,java]
+----
+public void addValidator(Validator validator);
+public void removeValidator(Validator validator);
+----
 
 The _addValidator()_ and _removeValidator()_
 methods are used to register and deregister additional external
@@ -1520,18 +1404,11 @@ deregister for _ValueChangeEvent_ s. __ See
 <<UserInterfaceComponentModel.adoc#a1300,See Event and Listener Model>> for more
 details on the event and listener model provided by JSF.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void
-addValueChangeListener(ValueChangeListener listener);
-
-
-
-public void
-removeValueChangeListener(ValueChangeListener listener);
-
-|===
+[source,java]
+----
+public void addValueChangeListener(ValueChangeListener listener);
+public void removeValueChangeListener(ValueChangeListener listener);
+----
 
 In addition to the above listener
 registration methods, If the _valueChangeListener_ property is not
@@ -1557,11 +1434,11 @@ properties
 The following method gives the JSF runtime
 access to the list of listeners stored by this instance.:
 
-[width="100%",cols="100%",]
-|===
-|public List<FacesLifecycleListener>
-getListenersForEventClass(Class<? extends SystemEvent> facesEventClass);
-|===
+[source,java]
+----
+public List<FacesLifecycleListener> getListenersForEventClass(
+    Class<? extends SystemEvent> facesEventClass);
+----
 
 During the processing for
 _Application.publishEvent()_ , if the _source_ argument to that method
@@ -1593,11 +1470,10 @@ ClientBehaviorHolder". UIComponentBase provides base implementations for
 all other methods. [P1-end] The concrete HTML component classes that
 come with JSF implement the _ClientBehaviorHolder_ interface.
 
-[width="100%",cols="100%",]
-|===
-|public void addClientBehavior(String
-eventName, ClientBehavior behavior);
-|===
+[source,java]
+----
+public void addClientBehavior(String eventName, ClientBehavior behavior);
+----
 
 Attach a ClientBehavior to a component
 implementing this _ClientBehaviorHolder_ interface for the specified
@@ -1605,21 +1481,20 @@ event. A default implementation of this method is provided in
 UIComponentBase to make it easier for subclass implementations to add
 behaviors.
 
-[width="100%",cols="100%",]
-|===
-|public Collection<String> getEventNames();
-|===
+[source,java]
+----
+public Collection<String> getEventNames();
+----
 
 {empty}Return a Collection of logical event
 names that are supported by the component implementing this
 _ClientBehaviorHolder_ interface. [P1-start-getEventNames]The Collection
 must be non null and unmodifiable.[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public Map<String, List<ClientBehavior>>
-getClientBehaviors();
-|===
+[source,java]
+----
+public Map<String, List<ClientBehavior>> getClientBehaviors();
+----
 
 Return a Map containing the event-client
 behavior association. Each event in the Map may contain one or more
@@ -1630,10 +1505,10 @@ method.
 in this Map must be one of the event names in the Collection returned
 from getEventNames().[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public String getDefaultEventName();
-|===
+[source,java]
+----
+public String getDefaultEventName();
+----
 
 Return the default event name for this
 component behavior if the component defines a default event.
@@ -1727,11 +1602,11 @@ will be used only in the context of a single request processing thread.
 The following two method signatures are
 defined by the _Converter_ interface:
 
-[width="100%",cols="100%",]
-|===
-|public Object getAsObject(FacesContext
-context, UIComponent component, String value) throws ConverterException;
-|===
+[source,java]
+----
+public Object getAsObject(FacesContext context,
+    UIComponent component, String value) throws ConverterException;
+----
 
 This method is used to convert the
 presentation view of a component’s value (typically a String that was
@@ -1739,11 +1614,11 @@ received as a request parameter) into the corresponding model view. It
 is called during the _Apply Request Values_ phase of the request
 processing lifecycle.
 
-[width="100%",cols="100%",]
-|===
-|public String getAsString(FacesContext
-context, UIComponent component, Object value) throws ConverterException;
-|===
+[source,java]
+----
+public String getAsString(FacesContext context,
+    UIComponent component, Object value) throws ConverterException;
+----
 
 This method is used to convert the model view
 of a component’s value (typically some native Java programming language
@@ -1934,26 +1809,21 @@ classes follow this naming pattern as well.
 The component that is the source of a
 FacesEvent can be retrieved via this method:
 
-[width="100%",cols="100%",]
-|===
-|public UIComponent getComponent();
-|===
+[source,java]
+----
+public UIComponent getComponent();
+----
 
 _FacesEvent_ has a _phaseId_ property (of
 type _PhaseId_ , see <<UserInterfaceComponentModel.adoc#a1335,See Phase Identifiers>>)
 used to identify the request processing lifecycle phase after which the
 event will be delivered to interested listeners.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public PhaseId getPhaseId();
-
-
-
 public void setPhaseId(PhaseId phaseId);
-
-|===
+----
 
 If this property is set to PhaseId.ANY_PHASE
 (which is the default), the event will be delivered at the end of the
@@ -1963,18 +1833,11 @@ To facilitate general management of event
 listeners in JSF components, a _FacesEvent_ implementation class must
 support the following methods:
 
-[width="100%",cols="100%",]
-|===
-a|
-public abstract boolean
-isAppropriateListener(FacesListener listener);
-
-
-
-public abstract void
-processListener(FacesListener listener);
-
-|===
+[source,java]
+----
+public abstract boolean isAppropriateListener(FacesListener listener);
+public abstract void processListener(FacesListener listener);
+----
 
 The _isAppropriateListener()_ method returns
 true if the specified _FacesListener_ is a relevant receiver of this
@@ -1988,10 +1851,10 @@ Typically, this will be implemented by casting the listener to the
 corresponding _FacesListener_ subinterface and calling the appropriate
 event processing method, passing this event instance as a parameter.
 
-[width="100%",cols="100%",]
-|===
-|public void queue();
-|===
+[source,java]
+----
+public void queue();
+----
 
 The above convenience method calls the
 _queueEvent()_ method of the source _UIComponent_ for this event,
@@ -2068,22 +1931,12 @@ that emits _FooEvent_ events, to be received by listeners that implement
 the _FooListener_ interface, the method signatures (on the component
 class) must be:
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addFooListener(FooListener
-listener);
-
-
-
+[source,java]
+----
+public void addFooListener(FooListener listener);
 public FooListener[] getFooListeners();
-
-
-
-public void removeFooListener(FooListener
-listener);
-
-|===
+public void removeFooListener(FooListener listener);
+----
 
 The application (or other components) may
 register listener instances at any time, by calling the appropriate add
@@ -2303,18 +2156,13 @@ found in _<<ApplicationIntegration.adoc#a3526,See System Event Methods>>_ .
 The following methods are defined on
 _UIComponent_ to support per-component system events.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void subscribeToEvent(Class<? extends
-SystemEvent> eventClass, ComponentSystemEventListener
-componentListener);
-
-public void unsubscribeFromEvent(Class<?
-extends SystemEvent> eventClass, ComponentSystemEventListener
-componentListener);
-
-|===
+[source,java]
+----
+public void subscribeToEvent(Class<? extends SystemEvent> eventClass,
+    ComponentSystemEventListener componentListener);
+public void unsubscribeFromEvent(Class<? extends SystemEvent> eventClass,
+    ComponentSystemEventListener componentListener);
+----
 
 See the javadoc for _UIComponent_ for the
 normative specification of these methods.
@@ -2333,18 +2181,13 @@ the <f:event/> tag. This tag will allow the application developer to
 specify the method to be called when the specifed event fires for the
 component of which the tag is a child. The tag usage is as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
-<h:inputText value="#\{myBean.text}">
-
- <f:event type="preRenderComponent"
-
- listener="#\{myBean.beforeTextRender}" />
-
+[source,xml]
+----
+<h:inputText value="#{myBean.text}">
+  <f:event type="preRenderComponent"
+      listener="#{myBean.beforeTextRender}" />
 </h:inputText>
-
-|===
+----
 
 The _type_ attribute specifies the type of
 event, and can be any of the specification-defined events or one of any
@@ -2361,12 +2204,11 @@ signature of
 _jakarta.faces.event.ComponentSystemEventListener.processEvent()_ , which
 is:
 
-[width="100%",cols="100%",]
-|===
-|public void
-processEvent(jakarta.faces.event.ComponentSystemEvent event) throws
-AbortProcessingException.
-|===
+[source,java]
+----
+public void processEvent(jakarta.faces.event.ComponentSystemEvent event)
+    throws AbortProcessingException
+----
 
 
 [[a1403]]
@@ -2418,11 +2260,11 @@ A validator must implement the
 _jakarta.faces.validator.Validator_ interface, which contains a
 _validate()_ method signature.
 
-[width="100%",cols="100%",]
-|===
-| _public void validate(FacesContext context,
-UIComponent component, Object value);_
-|===
+[source,java]
+----
+public void validate(FacesContext context,
+    UIComponent component, Object value);
+----
 
 General purpose validators may require
 configuration values in order to define the precise check to be
@@ -2473,27 +2315,16 @@ to a _UIInput_ if a validator having the same id is already present.
 The typical way of registering a default
 validator id is by declaring it in a configuration resource, as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
- _<faces-config>_
-
- < _application>_
-
- < _default-validators>_
-
-
-_<validator-id>jakarta.faces.Bean</validator-id>_
-
-</ _default-validators>_
-
- < _application/>_
-
- _</faces-config>_
-
-
-
-|===
+[source,java]
+----
+<faces-config>
+  <application>
+    <default-validators>
+      <validator-id>jakarta.faces.Bean</validator-id>
+    </default-validators>
+  <application/>
+</faces-config>
+----
 
 A default validator may also be registered
 using the _isDefault_ attribute on the _@FacesValidator_ annotation on a
@@ -2708,11 +2539,11 @@ present, Bean Validation integration is disabled. If the BeanValidator
 is used an no ValidatorFactory can be retrieved, a FacesException is
 raised. The standard Bean Validation bootstrap procedure is shown here:
 
-[width="100%",cols="100%",]
-|===
-|ValidatorFactory validatorFactory =
-Validation.buildDefaultValidatorFactory();
-|===
+[source,java]
+----
+ValidatorFactory validatorFactory =
+    Validation.buildDefaultValidatorFactory();
+----
 
 {empty}Once instantiated, the result can be
 stored in the servlet context attribute mentioned as a means of caching
@@ -2752,91 +2583,49 @@ default MessageInterpolator as defined in
 ValidationFactory.getMessageInterpolator(). A possible implementation is
 shown here:
 
-[width="100%",cols="100%",]
-|===
-a|
-public class JsfMessageInterpolator
-implements MessageInterpolator \{
+[source,java]
+----
+public class JsfMessageInterpolator implements MessageInterpolator {
+  private final MessageInterpolator delegate;
 
+  public JsfMessageInterpolator(MessageInterpolator delegate) {
+    this.delegate = delegate;
+  }
 
+  public String interpolate(String message,
+      ConstraintDescriptor constraintDescriptor,Object value) {
+    Locale locale = FacesContext.getCurrentInstance()
+        .getViewRoot().getLocale();
+    return this.delegate.interpolate(
+        message, constraintDescriptor, value, locale);
+  }
 
-private final MessageInterpolator delegate;
-
-
-
-public
-JsfMessageInterpolator(MessageInterpolator delegate) \{
-
- this.delegate = delegate;
-
- }
-
-
-
- public String interpolate(String message,
-ConstraintDescriptor constraintDescriptor,Object value) \{
-
- Locale locale =
-FacesContext.getCurrentInstance().getViewRoot().
-
-getLocale();
-
-return this.delegate.interpolate(
-
-message, constraintDescriptor, value, locale
-);
-
- }
-
-
-
- public String interpolate(String message,
-ConstraintDescriptor constraintDescriptor, Object value, Locale locale)
-\{
-
- return this.delegate.interpolate(message,
-constraintDescriptor, value, locale);
-
+  public String interpolate(String message, ConstraintDescriptor
+      constraintDescriptor, Object value, Locale locale) {
+    return this.delegate.interpolate(
+        message, constraintDescriptor, value, locale);
+  }
 }
-
-}
-
-
-
-|===
+----
 
 Once a ValidatorFactory is obtained, as
 described in <<UserInterfaceComponentModel.adoc#a1467,See Obtaining a
 ValidatorFactory>>, JSF receives a Validator instance by providing the
 custom message interpolator to the validator state.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 //could be cached
-
-MessageInterpolator jsfMessageInterpolator =
-new JsfMessageInterpolator(
-
-validatorFactory.getMessageInterpolator() );
-
-
+MessageInterpolator jsfMessageInterpolator = new JsfMessageInterpolator(
+    validatorFactory.getMessageInterpolator() );
 
 //...
 
-
-
 Validator validator = validatorFactory
-
- .usingContext()
-
- .messageInterpolator(jsfMessageInterpolator)
-
- .getValidator();
-
-
-
-|===
+    .usingContext()
+    .messageInterpolator(jsfMessageInterpolator)
+    .getValidator();
+----
 
 The local value is then passed to the
 Validator.validateValue() method to check for constraint violations.
@@ -2852,10 +2641,10 @@ use of the Bean Validation message facility, the default message format
 string for the BeanValidator message key must be a single placeholder,
 as shown here:
 
-[width="100%",cols="100%",]
-|===
-|jakarta.faces.validator.BeanValidator.MESSAGE=\{0}
-|===
+[source,java]
+----
+jakarta.faces.validator.BeanValidator.MESSAGE={0}
+----
 
 Putting the Bean Validation message
 resolution in full control of producing the displayed message is the
@@ -2865,11 +2654,10 @@ validators, the developer may choose to override this message key in an
 application resource bundle and reference the component label, which
 replaces the second numbered placeholder (i.e., \{1}).
 
-[width="100%",cols="100%",]
-|===
-|jakarta.faces.validator.BeanValidator.MESSAGE=\{1}:
-\{0}
-|===
+[source,java]
+----
+jakarta.faces.validator.BeanValidator.MESSAGE={1}:{0}
+----
 
 This approach is useful if you are already
 using localized labels for your input components and are displaying the
@@ -3037,63 +2825,28 @@ composite component.
 Create the page that uses the composite
 component, _index.xhtml_ .
 
-[width="100%",cols="100%",]
-|===
-a|
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
-Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+[source,xml]
+----
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-
- xmlns:h="http://java.sun.com/jsf/html"
-
- xmlns:f="http://java.sun.com/jsf/core"
-
-
-xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
-
-<h:head>
-
-<title>A simple example of EZComp</title>
-
-</h:head>
-
-
-
-<h:body>
-
-
-
-<h:form>
-
-
-
- <ez:loginPanel id="loginPanel">
-
-
-
- <f:actionListener for="loginEvent"
-
- binding="#\{bean.loginEventListener}" />
-
-
-
- </ez:loginPanel>
-
-
-
-</h:form>
-
-
-
-</h:body>
-
-
-
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
+  <h:head>
+    <title>A simple example of EZComp</title>
+  </h:head>
+  <h:body>
+    <h:form>
+      <ez:loginPanel id="loginPanel">
+        <f:actionListener for="loginEvent"
+            binding="#{bean.loginEventListener}" />
+      </ez:loginPanel>
+    </h:form>
+  </h:body>
 </html>
-
-|===
+----
 
 The only thing special about this page is the
 _ez_ namespace declaration and the inclusion of the _<ez:loginPanel />_
@@ -3112,82 +2865,31 @@ Create the composite component markup page.
 In this case, _loginPanel.xhtml_ resides in the _./resources/ezcomp_
 directory relative to the _index.xhtml_ file.
 
-[width="100%",cols="100%",]
-|===
-a|
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0
-Transitional//EN"
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+[source,xml]
+----
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-
- xmlns:h="http://java.sun.com/jsf/html"
-
- xmlns:f="http://java.sun.com/jsf/core"
-
- xmlns:ui="http://java.sun.com/jsf/facelets"
-
-
-xmlns:composite="http://java.sun.com/jsf/composite">
-
-<head>
-
-
-
-<title>Not present in rendered output</title>
-
-
-
-</head>
-
-
-
-<body>
-
-
-
-<composite:interface>
-
-
-
- <composite:actionSource name="loginEvent" />
-
-
-
-</composite:interface>
-
-
-
-<composite:implementation>
-
-
-
- <p>Username: <h:inputText id="usernameInput"
-/></p>
-
-
-
- <p>Password: <h:inputSecret
-id="passwordInput" /></p>
-
-
-
- <p><h:commandButton id="loginEvent"
-value="login"/>
-
-
-
-</composite:implementation>
-
-
-
-</body>
-
-
-
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+  <head>
+    <title>Not present in rendered output</title>
+  </head>
+  <body>
+    <composite:interface>
+      <composite:actionSource name="loginEvent" />
+    </composite:interface>
+    <composite:implementation>
+      <p>Username: <h:inputText id="usernameInput" /></p>
+      <p>Password: <h:inputSecret id="passwordInput" /></p>
+      <p><h:commandButton id="loginEvent" value="login"/>
+    </composite:implementation>
+  </body>
 </html>
-
-|===
+----
 
 The _<composite:interface>_ section declares
 the public interface that users of this component need to understand. In
@@ -3431,11 +3133,11 @@ formally declared in <<ApplicationIntegration.adoc#a4046,See
 ViewDeclarationLanguage.getComponentMetadata()>>, but for reference its
 signature is repeated here.
 
-[width="100%",cols="100%",]
-|===
-|public BeanInfo
-getComponentMetadata(FacesContext context, Resource componentResource)
-|===
+[source,java]
+----
+public BeanInfo getComponentMetadata(
+    FacesContext context, Resource componentResource)
+----
 
 The specification requires that this method
 is called from _Application.createComponent(FacesContext context,
@@ -3492,23 +3194,15 @@ _AttachedObjectTarget.ATTACHED_OBJECT_TARGETS_KEY_ .
 
 For example, if the defining page has
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <composite:interface>
-
- <composite:editableValueHolder
-name=”username” />
-
- <composite:actionSource name=”loginEvent” />
-
- <composite:actionSource name=”allEvents”
-
- targets=”loginEvent cancelEvent” />
-
+  <composite:editableValueHolder name=”username” />
+  <composite:actionSource name=”loginEvent” />
+  <composite:actionSource name=”allEvents”
+      targets=”loginEvent cancelEvent” />
 <composite:interface>
-
-|===
+----
 
 The list of attached object targets would
 consist of instances of implementations of the following interfaces from
@@ -3610,14 +3304,10 @@ The Behavior interface is the root of the
 component behavior model. It defines a single method to enable generic
 behavior event delivery.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void broadcast(BehaviorEvent event)
-
- throws AbortProcessingException
-
-|===
+[source,java]
+----
+public void broadcast(BehaviorEvent event) throws AbortProcessingException
+----
 
 This method is called by UIComponent
 implementations to re-broadcast behavior events that were queued by by
@@ -3631,14 +3321,10 @@ implements the PartialStateHolder interface (see
 <<UserInterfaceComponentModel.adoc#a1159,See PartialStateHolder>>). It
 also provides behavior event listener registration methods.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void broadcast(BehaviorEvent event)
-
- throws AbortProcessingException
-
-|===
+[source,java]
+----
+public void broadcast(BehaviorEvent event) throws AbortProcessingException
+----
 
 This method delivers the BehaviorEvent to
 listeners that were registered via addBehaviorListener.
@@ -3646,17 +3332,15 @@ listeners that were registered via addBehaviorListener.
 The following methods are provided for add
 and removing BehaviorListeners..
 
-[width="100%",cols="100%",]
-|===
-|protected void
-addBehaviorListener(BehaviorListener listener)
-|===
+[source,java]
+----
+protected void addBehaviorListener(BehaviorListener listener)
+----
 
-[width="100%",cols="100%",]
-|===
-|protected void
-removeBehaviorListener(BehaviorListener listener);
-|===
+[source,java]
+----
+protected void removeBehaviorListener(BehaviorListener listener);
+----
 
 ==== The Client Behavior Contract
 
@@ -3665,11 +3349,10 @@ _Behavior_ interface and lays the foundation on which behavior authors
 can define custom script producing behaviors. The logic for producing
 these scripts is defined in the _getScript_ () method. __
 
-[width="100%",cols="100%",]
-|===
-|public String getScript(BehaviorContext
-behaviorContext)
-|===
+[source,java]
+----
+public String getScript(BehaviorContext behaviorContext)
+----
 
 This method returns a String that is an
 executable script that can be attached to a client side event handler.
@@ -3680,19 +3363,18 @@ In addition to client side functionality,
 client behaviors can also post back to the server and participate in the
 request processing lifecycle. ..
 
-[width="100%",cols="100%",]
-|===
-|public void decode(FacesContext
-context,UIComponent component)
-|===
+[source,java]
+----
+public void decode(FacesContext context,UIComponent component)
+----
 
 This method can perform request decoding and
 queue server side events..].
 
-[width="100%",cols="100%",]
-|===
-|public Set<ClientBehaviorHint> getHints()
-|===
+[source,java]
+----
+public Set<ClientBehaviorHint> getHints()
+----
 
 This method provides information about the
 client behavior implementation that may be useful to components and
@@ -3739,13 +3421,13 @@ behaviors should include when posting back to the server
 The ClientBehaviorContext is created with the
 use of this static method:
 
-[width="100%",cols="100%",]
-|===
-|public static ClientBehaviorContext
-createClientBehaviorContext(FacesContext context,UIComponent
-component,String eventName,tring
-sourceId,Collection<ClientBehaviorContext.Parameter> parameters)
-|===
+[source,java]
+----
+public static ClientBehaviorContext createClientBehaviorContext(
+    FacesContext context,UIComponent component,
+    String eventName, tring sourceId,
+    Collection<ClientBehaviorContext.Parameter> parameters)
+----
 
 This method must throw a NullPointerException
 if context, component or eventName is null.
@@ -3756,10 +3438,10 @@ The ClientBehaviorHint enum is used to convey
 information about the client behavior implementation. Currently, only
 one hint is provided.
 
-[width="100%",cols="100%",]
-|===
-|SUBMITTING
-|===
+[source,java]
+----
+SUBMITTING
+----
 
 This hint indicates that a client behavior
 implementation posts back to the server.
@@ -3771,40 +3453,38 @@ _BehaviorBase_ that implements the _ClientBehavior_ interface. It It is
 a convenience class that contains default implementations for the
 methods in _ClientBehavior_ plus additional methods::
 
-[width="100%",cols="100%",]
-|===
-|public String getScript(BehaviorContext
-behaviorContext)
-|===
+[source,java]
+----
+public String getScript(BehaviorContext behaviorContext)
+----
 
 The default implementation calls getRenderer
 to retrieve the _ClientBehaviorRenderer_ . If a _ClientBehaviorRenderer_
 is found, it is used to obtain the script. If no
 _ClientBehaviorRenderer_ is found, this method returns null.
 
-[width="100%",cols="100%",]
-|===
-|public void decode(FacesContext
-context,UIComponent component)
-|===
+[source,java]
+----
+public void decode(FacesContext context,UIComponent component)
+----
 
 The default implementation calls getRenderer
 to retrieve the _ClientBehaviorRenderer_ . If a _ClientBehaviorRenderer_
 is found, it is used to perform decoding. If no _ClientBehaviorRenderer_
 is found, no decoding is performed.
 
-[width="100%",cols="100%",]
-|===
-|public Set<ClientBehaviorHint> getHints()
-|===
+[source,java]
+----
+public Set<ClientBehaviorHint> getHints()
+----
 
 The default implementation returns an empty
 set
 
-[width="100%",cols="100%",]
-|===
-|public String getRendererType();
-|===
+[source,java]
+----
+public String getRendererType();
+----
 
 This method identifies the
 _ClientBehaviorRenderer_ type. By default, no _ClientBehaviorRenderer_
@@ -3812,11 +3492,10 @@ type is provided. Subclasses should either override this method to
 return a valid type or override the getScript and decode methods if a
 _ClientBehaviorRenderer_ is not available..
 
-[width="100%",cols="100%",]
-|===
-|protected ClientBehaviorRenderer
-getRenderer(FacesContext context);
-|===
+[source,java]
+----
+protected ClientBehaviorRenderer getRenderer(FacesContext context);
+----
 
 This method returns the
 _ClientBehaviorRenderer_ instance that is associated with this
@@ -3855,10 +3534,10 @@ name that ends with _Event_ . The following method is available to
 determine the Behavior for the event (in addition to the other methods
 inherited from _jakarta.faces.event.FacesEvent:_
 
-[width="100%",cols="100%",]
-|===
-|public Behavior getBehavior()
-|===
+[source,java]
+----
+public Behavior getBehavior()
+----
 
 ===== Listener Classes
 
@@ -3930,11 +3609,10 @@ This listener type extends from
 _jakarta.faces.event.BehaviorListener_ and it is invoked in response to
 _AjaxBehaviorEvents._
 
-[width="100%",cols="100%",]
-|===
-|public void
-processAjaxBehavior(AjaxBehaviorEvent event)
-|===
+[source,java]
+----
+public void processAjaxBehavior(AjaxBehaviorEvent event)
+----
 
 _AjaxBehaviorListener_ implementations
 implement this method to provide server side functionality in response
@@ -3957,35 +3635,24 @@ as well. For example:
 Here’s an example code snippet from one of
 the Html components:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public class HtmlCommandButton extends
-jakarta.faces.component.UICommand implements ClientBehaviorHolder \{
-
+    jakarta.faces.component.UICommand implements ClientBehaviorHolder {
 ...
+  private static final Collection<String> EVENT_NAMES =
+      Collections.unmodifiableCollection(
+          Arrays.asList("blur","change","click","action",...) );
 
-private static final Collection<String>
-EVENT_NAMES =
-Collections.unmodifiableCollection(Arrays.asList("blur","change","click","action",...));
-
-
-
- public Collection<String> getEventNames() \{
-
- return EVENT_NAMES; }
-
-
-
- public String getDefaultEventName() \{
-
- return "action"; }
-
+  public Collection<String> getEventNames() {
+    return EVENT_NAMES;
+  }
+  
+  public String getDefaultEventName() {
+    return "action";
+  }
 ...
-
-
-
-|===
+----
 
 Users of the component will be able to attach
 _ClientBehavior_ instances to any of the event names specified by the
@@ -4005,38 +3672,25 @@ about these methods.
 JSF provides the usual faces-config.xml
 registration of custom component behavior implementations.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <behavior>
-
-<behavior-id>custom.behavior.Greet</behavior-id>
-
-<behavior-class>greet.GreetBehavior</behavior-class>
-
+  <behavior-id>custom.behavior.Greet</behavior-id>
+  <behavior-class>greet.GreetBehavior</behavior-class>
 </behavior>
-
-
-
-|===
+----
 
 ===== Registration By Annotation
 
 JSF provides the @FacesBehavior annotation
 for registering custom behavior implementations.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 @FacesBehavior(value="custom.behavior.Greet")
-
-public class GreetBehavior extends
-BehaviorBase implements Serializable \{
-
+public class GreetBehavior extends BehaviorBase implements Serializable {
 ...
-
 }
-
-|===
+----
 
 
