@@ -390,14 +390,11 @@ _rendererType_ property must be set to “ _jakarta.faces.Form_ ”.[P1-end]
 
 ===== Methods.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public boolean isSubmitted();
-
 public void setSubmitted(boolean submitted)
-
-|===
+----
 
 [P1-start-uiform-setSubmitted]The
 _setSubmitted()_ method of each _UIForm_ instance in the view must be
@@ -413,47 +410,40 @@ method to the _Renderer_ associated with this instance..
 of a _UIForm'_ s _submitted_ property must not be saved as part of its
 state.[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public void processDecodes(FacesContext
-context);
-|===
+[source,java]
+----
+public void processDecodes(FacesContext context);
+----
 
 Override _UIComponent.processDecodes()_ to
 ensure that the _submitted_ property is set for this component. If the
 _submitted_ property decodes to false, do not process the children and
 return immediately.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void processValidators(FacesContext
-context);
-
-public void processUpdates(FacesContext
-context);
-
-|===
+[source,java]
+----
+public void processValidators(FacesContext context);
+public void processUpdates(FacesContext context);
+----
 
 Override _processValidators()_ and
 _processUpdates()_ to ensure that the children of this _UIForm_ instance
 are only processed if _isSubmitted()_ returns true.
 
-[width="100%",cols="100%",]
-|===
-|public void saveState(FacesContext context);
-|===
+[source,java]
+----
+public void saveState(FacesContext context);
+----
 
 [P1-start-uiformSaveState]The _saveState()_
 method of UIForm must call _setSubmitted(false)_ before calling
 _super.saveState()_ as an extra precaution to ensure the submitted state
 is not persisted across requests.[P1-end].
 
-[width="100%",cols="100%",]
-|===
-|protected String
-getContainerClientId(FacesContext context);
-|===
+[source,java]
+----
+protected String getContainerClientId(FacesContext context);
+----
 
 {empty}[P1-start-uiformPrependId]Override the
 parent method to ensure that children of this _UIForm_ instance in the
@@ -601,37 +591,36 @@ _Update Model Values_ phase of the request processing lifecycle, to push
 the converted (if necessary) and validated (if necessary) local value of
 this component back to the corresponding model bean property.
 
-[width="100%",cols="100%",]
-|===
-|public void updateModel(FacesContext
-context);
-|===
+[source,java]
+----
+public void updateModel(FacesContext context);
+----
 
 The following method is over-ridden from
 _UIComponent:_
 
-[width="100%",cols="100%",]
-|===
-|public void broadcast(FacesEvent event);
-|===
+[source,java]
+----
+public void broadcast(FacesEvent event);
+----
 
 In addition to the default
 _UIComponent.broadcast(jakarta.faces.event.FacesEvent)_ processing, pass
 the _ValueChangeEvent_ being broadcast to the method referenced by the
 _valueChangeListener_ property (if any).
 
-[width="100%",cols="100%",]
-|===
-|public void validate(FacesContext context);
-|===
+[source,java]
+----
+public void validate(FacesContext context);
+----
 
 Perform the algorithm described in the
 javadoc to validate the local value of this _UIInput_ ..
 
-[width="100%",cols="100%",]
-|===
-|public void resetValue();
-|===
+[source,java]
+----
+public void resetValue();
+----
 
 Perform the algorithm described in the
 javadoc to reset this _UIInput_ to the state where it has no local
@@ -1339,15 +1328,11 @@ UIComponent resources to a target area in the view, and they are also
 used for retrieving UIComponent resources from a target area in the
 view.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addComponentResource(FacesContext
-context,
-
-UIComponent componentResource);
-
-|===
+[source,java]
+----
+public void addComponentResource(FacesContext context,
+    UIComponent componentResource);
+----
 
 Add c _omponentResource,_ that is assumed to
 represent a resource instance, to the current view. A resource instance
@@ -1356,16 +1341,11 @@ StylesheetRenderer) as described in the Standard HTML RenderKit. This
 method will cause the resource to be rendered in the “head” element of
 the view. __
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addComponentResource(FacesContext
-context,
-
-UIComponent componentResource, String
-target);
-
-|===
+[source,java]
+----
+public void addComponentResource(FacesContext context,
+    UIComponent componentResource, String target);
+----
 
 {empty}Add c _omponentResource,_ that is
 assumed to represent a resource instance, to the current view at the
@@ -1373,11 +1353,10 @@ specified target location. [P1-start-addComponentResource] The resource
 must be added using the algorithm outlined in this method’s
 Javadocs.[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public List<UIComponent>
-getComponentResources(String target);
-|===
+[source,java]
+----
+public List<UIComponent> getComponentResources(String target);
+----
 
 {empty}Return a List of _UIComponent_
 instances residing under the facet identified by target. Each
@@ -1409,23 +1388,12 @@ isn’t created when this phase starts. See
 <<LifecycleManagement.adoc#a6635,See PhaseListener>> for more details on the
 event and listener class.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addPhaseListener(PhaseListener
-listener);
-
-
-
-public void
-removePhaseListener(VPhaseListener listener);
-
-
-
-public List<PhaseListener>
-getPhaseListeners();
-
-|===
+[source,java]
+----
+public void addPhaseListener(PhaseListener listener);
+public void removePhaseListener(VPhaseListener listener);
+public List<PhaseListener> getPhaseListeners();
+----
 
 {empty}[P1-start-events] _UIViewRoot_ must
 listen for the top level _PostAddToViewEvent_ event sent by the _Restore
