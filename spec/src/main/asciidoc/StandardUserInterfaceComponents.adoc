@@ -803,7 +803,7 @@ should be appended to the query string of the target URL. Default value
 is "false".
 |===
 
- _[P1-start-uioutcometarget]_ UIOutcomeTarget
+_[P1-start-uioutcometarget]_ UIOutcomeTarget
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
@@ -901,7 +901,7 @@ events
 
 ==== UIParameter
 
-_UIParameter_ (extends _UIComponentBase_ is
+_UIParameter_ (extends _UIComponentBase_) is
 a component that represents an optionally named configuration parameter
 that affects the rendering of its parent component. _UIParameter_
 components do not generally have rendering behavior of their own.
