@@ -50,7 +50,7 @@ defines the state information and behavioral contracts for all
 components through a Java programming language API, which means that
 components are independent of a rendering technology such as Jakarta Server
 Pages (JSP). A standard set of components (described in
-<<StandardUserInterfaceComponents.adoc#a1823,See Standard User Interface Components>>)
+<<StandardUserInterfaceComponents.adoc#a1823,Standard User Interface Components>>)
 that add specialized properties, attributes, and behavior, is also
 provided as a set of concrete subclasses.
 
@@ -100,7 +100,7 @@ While not a property of _UIComponent_ , the
 _component-type_ is an important piece of data related to each
 _UIComponent_ subclass that allows the _Application_ instance to create
 new instances of _UIComponent_ subclasses with that type. Please see
-<<ApplicationIntegration.adoc#a3468,See Object Factories>> for more on
+<<ApplicationIntegration.adoc#a3468,Object Factories>> for more on
 _component-type_.
 
 Component types starting with “jakarta.faces.”
@@ -130,7 +130,7 @@ Properties and attributes of standard
 concrete component classes may be _value expression enabled_. This
 means that, rather than specifying a literal value as the parameter to a
 property or attribute setter, the caller instead associates a
-_ValueExpression_ (see <<ExpressionLanguageAndManagedBeanFacility.adoc#a3029,See ValueBinding>>)
+_ValueExpression_ (see <<ExpressionLanguageAndManagedBeanFacility.adoc#a3029,ValueBinding>>)
 whose _getValue()_ method must be called (by the property getter) to
 return the actual property value to be returned if no value has been set
 via the corresponding property setter. If a property or attribute value
@@ -186,7 +186,7 @@ expression that can be used to facilitate “wiring up” a component
 instance to a corresponding property of a JavaBean that is associated
 with the page, and wants to manipulate component instances
 programatically. It is established by calling _setValueExpression()_
-(see <<UserInterfaceComponentModel.adoc#a911,See ValueExpression properties>>) with
+(see <<UserInterfaceComponentModel.adoc#a911,ValueExpression properties>>) with
 the special property name _binding_.
 
 The specified _ValueExpression_ must point to
@@ -405,7 +405,7 @@ normative specification.
 Jakarta Server Faces supports the traditional
 model of composing complex components out of simple components via
 parent-child relationships that organize the entire set of components
-into a tree, as described in <<UserInterfaceComponentModel.adoc#a937,See Component
+into a tree, as described in <<UserInterfaceComponentModel.adoc#a937,Component
 Tree Manipulation>>. However, an additional useful facility is the
 ability to define particular subordinate components that have a specific
 _role_ with respect to the owning component, which is typically
@@ -421,7 +421,7 @@ collection of subordinate (but non-child) components that are related to
 the current component by virtue of a unique _facet name_ that represents
 the role that particular component plays. Although facets are not part
 of the parent-child tree, they participate in request processing
-lifecycle methods, as described in <<UserInterfaceComponentModel.adoc#a1059,See
+lifecycle methods, as described in <<UserInterfaceComponentModel.adoc#a1059,
 Lifecycle Management Methods>>.
 
 [source,java]
@@ -469,7 +469,7 @@ interface. _UIComponentBase_ does not
 implement the _jakarta.faces.component.behavior.BehaviorHolder_ interface,
 but it provides the default implementations to simplify subclass
 implemenations. Refer to
-<<UserInterfaceComponentModel#a1707,See Component
+<<UserInterfaceComponentModel#a1707,Component
 Behavior Model>> for more information.
 
 [source,java]
@@ -518,7 +518,7 @@ public Map<String, Object> getAttributes();
 
 The render-independent characteristics of
 components are generally represented as Jakarta Bean component properties
-with getter and setter methods (see <<UserInterfaceComponentModel.adoc#a1021,See
+with getter and setter methods (see <<UserInterfaceComponentModel.adoc#a1021,
 Render-Independent Properties>>). In addition, components may also be
 associated with generic attributes that are defined outside the
 component implementation class. Typical uses of generic attributes
@@ -532,7 +532,7 @@ application-specific objects with components.
 
 The attributes for a component may be of any
 Java programming language object type, and are keyed by attribute name
-(a String). However, see <<ApplicationIntegration.adoc#a4135,See State Saving
+(a String). However, see <<ApplicationIntegration.adoc#a4135,State Saving
 Alternatives and Implications>> for implications of your application’s
 choice of state saving method on the classes used to implement attribute
 values.
@@ -671,7 +671,7 @@ by all __UIComponent__s are described in the following table:
 |Type |Description
 | _id_ |RW
 |String |The
-component identifier, as described in <<UserInterfaceComponentModel.adoc#a895,See
+component identifier, as described in <<UserInterfaceComponentModel.adoc#a895,
 Component Identifiers>>.
 
 | _parent_ |RW
@@ -713,7 +713,7 @@ in _UIComponentBase_ returns _false_ for this property.
 
 The method names for the render-independent
 property getters and setters must conform to the design patterns in the
-JavaBeans specification. See <<ApplicationIntegration.adoc#a4135,See State
+JavaBeans specification. See <<ApplicationIntegration.adoc#a4135,State
 Saving Alternatives and Implications>> for implications of your
 application’s choice of state saving method on the classes used to
 implement property values.
@@ -733,10 +733,10 @@ public boolean broadcast(FacesEvent event)
 ----
 
 The _broadcast()_ method is called during the
-common event processing (see <<RequestProcessingLifecycle.adoc#a494,See Common
+common event processing (see <<RequestProcessingLifecycle.adoc#a494,Common
 Event Processing>>) at the end of several request processing lifecycle
 phases. For more information about the event and listener model, see
-<<UserInterfaceComponentModel.adoc#a1300,See Event and Listener Model>>. Note that it
+<<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>>. Note that it
 is not necessary to override this method to support additional event
 types.
 
@@ -817,7 +817,7 @@ doing so may be useful for some advanced component implementations. See
 the javadocs for detailed information on these methods
 
 In order to support the “component” implicit
-object (See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object ELResolver
+object (See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object ELResolver
 for Facelets and Programmatic Access>>), the following methods have been
 added to _UIComponent_
 
@@ -940,8 +940,8 @@ described functionality.
 The _ActionSource_ interface defines a way
 for a component to indicate that wishes to be a source of _ActionEvent_
 events, including the ability invoke application actions (see
-<<ApplicationIntegration.adoc#a3553,See Application Actions>>) via the default
-_ActionListener_ facility (see <<ApplicationIntegration.adoc#a3402,See
+<<ApplicationIntegration.adoc#a3553,Application Actions>>) via the default
+_ActionListener_ facility (see <<ApplicationIntegration.adoc#a3402,
 ActionListener Property>>).
 
 [[a1092]]
@@ -957,11 +957,11 @@ are added by the _ActionSource_ interface:
 | _action_ |RW
 | _MethodBinding_
 |DEPRECATED A _MethodBinding_ (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a3039,See MethodBinding>>) that must (if non-
-_null_) point at an action method (see <<ApplicationIntegration.adoc#a3553,See
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a3039,MethodBinding>>) that must (if non-
+_null_) point at an action method (see <<ApplicationIntegration.adoc#a3553,
 Application Actions>>). The specified method will be called during the
 _Apply Request Values_ or _Invoke Application_ phase of the request
-processing lifecycle, as described in <<RequestProcessingLifecycle.adoc#a454,See
+processing lifecycle, as described in <<RequestProcessingLifecycle.adoc#a454,
 Invoke Application>>. This method is replaced by the _actionExpression_
 property on _ActionSource2_. See the javadocs for the backwards
 compatibility implementation strategy.
@@ -1025,7 +1025,7 @@ originating _UICommand_ .
 
 _ActionSource_ includes the following
 methods to register and deregister _ActionListener_ instances interested
-in these events. See <<UserInterfaceComponentModel.adoc#a1300,See Event and Listener
+in these events. See <<UserInterfaceComponentModel.adoc#a1300,Event and Listener
 Model>> for more details on the event and listener model provided by JSF.
 
 [source,java]
@@ -1038,7 +1038,7 @@ In addition to manually registered listeners,
 the JSF implementation provides a default _ActionListener_ that will
 process _ActionEvent_ events during the _Apply Request Values_ or
 _Invoke Application_ phases of the request processing lifecycle. See
-RequestProcessingLifecycle.adoc#a454,See Invoke Application>> for more
+RequestProcessingLifecycle.adoc#a454,Invoke Application>> for more
 information.
 
 [[a1120]]
@@ -1061,12 +1061,12 @@ are added by the _ActionSource_ interface:
 | _actionExpression_
 |RW |
 _jakarta.el.MethodExpression_ |A
-_MethodExpression_ (see <<ExpressionLanguageAndManagedBeanFacility.adoc#a3039,See MethodBinding>>)
+_MethodExpression_ (see <<ExpressionLanguageAndManagedBeanFacility.adoc#a3039,MethodBinding>>)
 that must (if non- _null_ ) point at an action method (see
-<<ApplicationIntegration.adoc#a3553,See Application Actions>>). The specified
+<<ApplicationIntegration.adoc#a3553,Application Actions>>). The specified
 method will be called during the _Apply Request Values_ or _Invoke
 Application_ phase of the request processing lifecycle, as described in
-<<RequestProcessingLifecycle.adoc#a454,See Invoke Application>>.
+<<RequestProcessingLifecycle.adoc#a454,Invoke Application>>.
 |===
 
 
@@ -1091,15 +1091,15 @@ _renderView()_ method on _ViewHandler_ . In JSP based applications, it
 is also enforced by the _UIComponentELTag_ . Since this is just a marker
 interface, there are no properties, methods, or events. Among the
 standard components, _UIForm_ and _UIData_ implement _NamingContainer_ .
-See <<StandardUserInterfaceComponents.adoc#a1932,See UIForm>> and _Section_
-<<StandardUserInterfaceComponents.adoc#a1921,See Methods>> “UIData” for details of how the
+See <<StandardUserInterfaceComponents.adoc#a1932,UIForm>> and _Section_
+<<StandardUserInterfaceComponents.adoc#a1921,Methods>> “UIData” for details of how the
 _NamingContainer_ concept is used in these two cases.
 
 _NamingContainer_ defines a public static
 final character constant, _SEPARATOR_CHAR_ , that is used to separate
 components of client identifiers, as well as the components of search
 expressions used by the _findComponent()_ method see
-(<<UserInterfaceComponentModel.adoc#a946,See Component Tree Navigation>>). The value
+(<<UserInterfaceComponentModel.adoc#a946,Component Tree Navigation>>). The value
 of this constant must be a colon character (“:”).
 
 Use of this separator character in client
@@ -1182,7 +1182,7 @@ _MySpecialComponentHelper_ can be restored. The return from
 _saveState()_ must be _Serializable_ .
 
 Since all of the standard user interface
-components listed in <<StandardUserInterfaceComponents.adoc#a1823,See Standard User
+components listed in <<StandardUserInterfaceComponents.adoc#a1823,Standard User
 Interface Components>>” extend from _UIComponent_ , they all implement
 the _StateHolder_ interface. In addition, the standard _Converter_ and
 _Validator_ classes that require state to be saved and restored also
@@ -1272,7 +1272,7 @@ will do
 
 Like nearly all component properties, the
 _value_ property may have a value binding expression (see
-<<UserInterfaceComponentModel.adoc#a911,See ValueExpression properties>>) associated
+<<UserInterfaceComponentModel.adoc#a911,ValueExpression properties>>) associated
 with it. If present (and if there is no _value_ set directly on this
 component), such an expression is utilized to retrieve a value
 dynamically from a model tier object during _Render Response Phase_ of
@@ -1302,7 +1302,7 @@ standard events.
 ==== EditableValueHolder
 
 The _EditableValueHolder_ interface (extends
-_ValueHolder_, see <<UserInterfaceComponentModel.adoc#a1173,See ValueHolder>>)
+_ValueHolder_, see <<UserInterfaceComponentModel.adoc#a1173,ValueHolder>>)
 describes additional features supported by editable components,
 including _ValueChangeEvents_ and _Validators_.
 
@@ -1401,7 +1401,7 @@ for the component did pass successfully, and the previous value of this
 component differs from the current value, the _ValueChangeEvent_ is
 published. The following methods allow listeners to register and
 deregister for __ValueChangeEvent__s. See
-<<UserInterfaceComponentModel.adoc#a1300,See Event and Listener Model>> for more
+<<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>> for more
 details on the event and listener model provided by JSF.
 
 [source,java]
@@ -1454,7 +1454,7 @@ _SystemEventListenerHolder_ is indeed a source of events, it is a call
 to _Application.publishEvent()_ that causes the event to actually be
 emitted. In the interest of maximum flexibility, this interface does not
 define how listeners are added, removed, or stored. See
-<<UserInterfaceComponentModel.adoc#a1300,See Event and Listener Model>> for more
+<<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>> for more
 details on the event and listener model provided by JSF.
 
 [[a1239]]
@@ -1463,7 +1463,7 @@ details on the event and listener model provided by JSF.
 [P1-start-addBehavior] Components must
 implement the _ClientBehaviorHolder_ interface to add the ability for
 attaching ClientBehavior instances (see
-<<UserInterfaceComponentModel.adoc#a1707,See Component
+<<UserInterfaceComponentModel.adoc#a1707,Component
 Behavior Model>>). Components that extend UIComponentBase only need to
 implement the getEventNames() method and specify "implements
 ClientBehaviorHolder". UIComponentBase provides base implementations for
@@ -2430,7 +2430,7 @@ define a public static final String constant VALIDATOR_ID, whose value
 is the standard identifier under which the JSF implementation must
 register this instance (see below).
 
-Please see <<RequestProcessingLifecycle.adoc#a584,See
+Please see <<RequestProcessingLifecycle.adoc#a584,
 Localized Application Messages>> for the list of message identifiers.
 
 [P1-start standard validators] The following
