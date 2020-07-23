@@ -665,7 +665,7 @@ standard JavaBeans component introspection rules, as defined by
 _java.beans.Introspector_ . The render-independent properties supported
 by all _UIComponent_ s are described in the following table:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -950,7 +950,7 @@ ActionListener Property>>).
 The following render-independent properties
 are added by the _ActionSource_ interface:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1054,7 +1054,7 @@ concept to leverage the new Unified EL API.
 The following render-independent properties
 are added by the _ActionSource_ interface:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1124,7 +1124,7 @@ and restored between requests.
 The following render-independent properties
 are added by the _StateHolder_ interface:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1248,7 +1248,7 @@ native data type.
 The following render-independent properties
 are added by the _ValueHolder_ interface:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1311,7 +1311,7 @@ including _ValueChangeEvents_ and _Validators_ .
 The following render-independent properties
 are added by the _EditableValueHolder_ interface:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -3080,43 +3080,44 @@ parts of the specification that articulate those requirements in the
 appropriate context.
 
 .References to Composite Component Requirements in Context
+[width="100%",cols="30%,70%",options="header"]
+|===
+|Section
 
-Section
+|Feature
 
-Feature
-
-{empty}<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See
+|{empty}<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See
 Implicit Object ELResolver for Facelets and Programmatic Access>>
 
-Ability for the _composite component author_
+|Ability for the _composite component author_
 to refer to the _top level component_ from an EL expression, such as
-_#\{cc.children[3]}_ .
+_#{cc.children[3]}_ .
 
-{empty}<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,See
+|{empty}<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,See
 Composite Component Attributes ELResolver>>
 
-Ability for the _composite component author_
+|Ability for the _composite component author_
 to refer to attributes declared on the _composite component tag_ using
-EL expressions such as _#\{cc.attrs.usernameLabel}_
+EL expressions such as _#{cc.attrs.usernameLabel}_
 
-{empty}<<ApplicationIntegration.adoc#a3468,See Object
+|{empty}<<ApplicationIntegration.adoc#a3468,See Object
 Factories>>
 
-Methods called by the VDL page to create a
+|Methods called by the VDL page to create a
 new instance of a _top level component_ for eventual inclusion in the
 view
 
-{empty}<<FaceletsAndWebApplications.adoc#a5661,See
+|{empty}<<FaceletsAndWebApplications.adoc#a5661,See
 Requirements specific to composite components>>
 
-Requirements of the Facelet implementation
+|Requirements of the Facelet implementation
 relating to Facelets.
 
-{empty}<<FaceletsAndWebApplications.adoc#a6045,See
+|{empty}<<FaceletsAndWebApplications.adoc#a6045,See
 Composite Component Tag Library>>
 
-Tag handlers for the _composite_ tag library
-__
+|Tag handlers for the _composite_ tag library
+|===
 
 [[a1671]]
 ===== Composite Component Metadata
