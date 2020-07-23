@@ -44,7 +44,7 @@ this component.[P1-end]
 For all render-independent properties in the
 following sections (except for _id_ , _scope_ , and _var_ ) the value
 may either be a literal, or it may come from a value expression. Please
-see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,See Value Expressions>> for more
+see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,Value Expressions>> for more
 information.
 
 The following UML class diagram shows the
@@ -134,7 +134,7 @@ render-independent properties.
 value of this component, normally used as a label.
 |===
 
-See <<UserInterfaceComponentModel.adoc#a1090,See
+See <<UserInterfaceComponentModel.adoc#a1090,
 ActionSource>> for information about properties introduced by the
 implemented classes.
 
@@ -151,13 +151,13 @@ _rendererType_ property must be set to “jakarta.faces.Button”.[P1-end]
 ===== Methods
 
 _UICommand_ adds no new processing methods.
-See <<UserInterfaceComponentModel.adoc#a1090,See ActionSource>> for information about
+See <<UserInterfaceComponentModel.adoc#a1090,ActionSource>> for information about
 methods introduced by the implemented classes.
 
 ===== Events
 
 _UICommand_ adds no new event processing
-methods. See <<UserInterfaceComponentModel.adoc#a1090,See ActionSource>> for
+methods. See <<UserInterfaceComponentModel.adoc#a1090,ActionSource>> for
 information about event handling introduced by the implemented classes.
 
 ==== UIData
@@ -165,7 +165,7 @@ information about event handling introduced by the implemented classes.
 _UIData_ (extends _UIComponentBase;_
 implements _NamingContainer_ ) is a component that represents a data
 binding to a collection of data objects represented by a DataModel
-instance (see <<StandardUserInterfaceComponents.adoc#a2281,See DataModel>>). Only children
+instance (see <<StandardUserInterfaceComponents.adoc#a2281,DataModel>>). Only children
 of type _UIColumn_ should be processed by renderers associated with this
 component.
 
@@ -246,7 +246,7 @@ request-scope attribute (if any) under which the data object for the
 current row will be exposed when iterating.
 |===
 
-See <<UserInterfaceComponentModel.adoc#a1134,See
+See <<UserInterfaceComponentModel.adoc#a1134,
 NamingContainer>> for information about properties introduced by the
 implemented classes.
 
@@ -283,7 +283,7 @@ _DataModel_ instance with a single row.[P1-end]
 
 Convenience implementations of _DataModel_
 are provided in the _jakarta.faces.model_ package for each of the above
-(see <<StandardUserInterfaceComponents.adoc#a2302,See Concrete Implementations>>), and
+(see <<StandardUserInterfaceComponents.adoc#a2302,Concrete Implementations>>), and
 must be used by the _UIData_ component to create the required
 _DataModel_ wrapper.
 
@@ -293,7 +293,7 @@ _DataModel_ wrapper.
 _UIData_ adds no new processing methods.
 However, the getDataModel() method is now protected, so implementations
 have access to the underlying data model. See
- <<UserInterfaceComponentModel.adoc#a1134,See NamingContainer>> for information about
+ <<UserInterfaceComponentModel.adoc#a1134,NamingContainer>> for information about
 methods introduced by the implemented classes.
 
 UIData specializes the behavior of the
@@ -340,7 +340,7 @@ details.
 ===== Events
 
 _UIData_ adds no new event handling methods.
-See <<UserInterfaceComponentModel.adoc#a1134,See NamingContainer>> for information
+See <<UserInterfaceComponentModel.adoc#a1134,NamingContainer>> for information
 about event handling introduced by the implemented classes.
 
 [[a1932]]
@@ -559,7 +559,7 @@ _ResourceBundle_ access from the EL.
 
 
 
-See <<UserInterfaceComponentModel.adoc#a1192,See
+See <<UserInterfaceComponentModel.adoc#a1192,
 EditableValueHolder>> for information about properties introduced by the
 implemented interfaces.
 
@@ -630,7 +630,7 @@ the “ _value_ ” property.
 ===== Events
 
 All events are described in
-<<UserInterfaceComponentModel.adoc#a1192,See EditableValueHolder>>.
+<<UserInterfaceComponentModel.adoc#a1192,EditableValueHolder>>.
 
 ==== UIMessage
 
@@ -755,7 +755,7 @@ methods.
 UIOutcomeTarget ( _UIOutput_ ) is a component
 that has a value and an outcome, either which may optionally be
 retrieved from a model tier bean via a value expression (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,See Value Expressions>>), and is displayed to
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,Value Expressions>>), and is displayed to
 the user as a hyperlink, appearing in the form of a link or a button.
 The user cannot modify the value of the hyperlink, as it's for display
 purposes only. The target URL of the hyperlink is derived by passing the
@@ -830,7 +830,7 @@ methods.
 _UIOutput_ (extends _UIComponentBase;_
 implements _ValueHolder_ ) is a component that has a value, optionally
 retrieved from a model tier bean via a value expression (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,See Value Expressions>>), that is displayed
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,Value Expressions>>), that is displayed
 to the user. The user cannot directly modify the rendered value; it is
 for display purposes only:
 
@@ -842,7 +842,7 @@ components is “jakarta.faces. _Output_ ”.
 ===== Properties
 
 _UIOutput_ adds no new render-independent
-properties. See <<UserInterfaceComponentModel.adoc#a1173,See ValueHolder>> for
+properties. See <<UserInterfaceComponentModel.adoc#a1173,ValueHolder>> for
 information about properties introduced by the implemented classes.
 
 _[P1-start-uioutput]UIOutput_ specializes
@@ -858,13 +858,13 @@ _rendererType_ property must be set to “jakarta.faces.Text”.[P1-end]
 ===== Methods
 
 _UIOutput_ adds no new processing methods.
-See <<UserInterfaceComponentModel.adoc#a1173,See ValueHolder>> for information about
+See <<UserInterfaceComponentModel.adoc#a1173,ValueHolder>> for information about
 methods introduced by the implemented interfaces.
 
 ===== Events
 
 UIOutput does not originate any standard
-events. See <<UserInterfaceComponentModel.adoc#a1173,See ValueHolder>> for information
+events. See <<UserInterfaceComponentModel.adoc#a1173,ValueHolder>> for information
 about events introduced by the implemented interfaces.
 
 ==== UIPanel
@@ -1371,10 +1371,10 @@ _processDecodes()_ , _processValidators()_ , _processUpdates()_ , and
 _processApplication()_ methods to broadcast queued events to registered
 listeners. _UIViewRoot_ clears any remaining events from the event queue
 in these methods if _responseComplete()_ or _renderResponse()_ has been
-set on the _FacesContext._ Please see <<RequestProcessingLifecycle.adoc#a427,See
-Apply Request Values>>, <<RequestProcessingLifecycle.adoc#a438,See Process
-Validations]>>, <<RequestProcessingLifecycle.adoc#a446,See Update Model Values>> and
-<<RequestProcessingLifecycle.adoc#a454,See Invoke Application>> for more details.
+set on the _FacesContext._ Please see <<RequestProcessingLifecycle.adoc#a427,
+Apply Request Values>>, <<RequestProcessingLifecycle.adoc#a438,Process
+Validations]>>, <<RequestProcessingLifecycle.adoc#a446,Update Model Values>> and
+<<RequestProcessingLifecycle.adoc#a454,Invoke Application>> for more details.
 
 [[a2268]]
 ===== Events
@@ -1384,8 +1384,8 @@ events, which are emitted when the instance moves through all phases of
 the request processing lifecycle except _Restore View_ . This phase
 cannot emit events from _UIViewRoot_ because the _UIViewRoot_ instance
 isn’t created when this phase starts. See
-<<LifecycleManagement.adoc#a6626,See PhaseEvent>> and
-<<LifecycleManagement.adoc#a6635,See PhaseListener>> for more details on the
+<<LifecycleManagement.adoc#a6626,PhaseEvent>> and
+<<LifecycleManagement.adoc#a6635,PhaseListener>> for more details on the
 event and listener class.
 
 [source,java]
@@ -1397,7 +1397,7 @@ public List<PhaseListener> getPhaseListeners();
 
 {empty}[P1-start-events] _UIViewRoot_ must
 listen for the top level _PostAddToViewEvent_ event sent by the _Restore
-View_ phase. Refer to _<<RequestProcessingLifecycle.adoc#a404,See Restore View>>_
+View_ phase. Refer to _<<RequestProcessingLifecycle.adoc#a404,Restore View>>_
 for more details about the publishing of this event. Upon receiving this
 event, _UIViewRoot_ must cause any “after” _Restore View_ phase
 listeners to be called.[P1-end]
@@ -1418,9 +1418,9 @@ _processDecodes, processValidators, processUpdates, getRendersChildren
 and encodeChildren_ to facilitate partial processing - namely the
 ability to have one or more components processed through the _execute_
 and/or _render_ phases of the request processing lifecycle. Refer to
-<<AjaxIntegration.adoc#a6825,See Partial View
-Traversal>>, <<AjaxIntegration.adoc#a6831,See Partial
-View Processing>>, <<AjaxIntegration.adoc#a6833,See
+<<AjaxIntegration.adoc#a6825,Partial View
+Traversal>>, <<AjaxIntegration.adoc#a6831,Partial
+View Processing>>, <<AjaxIntegration.adoc#a6833,
 Partial View Rendering>> for an overview of partial processing.
 [P1-start-viewroot-partial] _UIViewRoot_ must perform partial processing
 as outlined in the Javadocs for the “processXXX” and “encodeXXX” methods
