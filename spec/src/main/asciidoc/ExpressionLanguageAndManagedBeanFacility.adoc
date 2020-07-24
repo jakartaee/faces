@@ -162,38 +162,24 @@ currently support _MethodBinding_ , and the method signatures to which
 they must point:
 
 .component properties whose type is DEPRECATED MethodBinding
+[width="100%",cols="25%,75%",options="header",]
+|===
+|component property
+|method signature
 
-component property
+|*DEPRECATED* _action_
+|_public String <methodName>();_
 
-method signature
+|*DEPRECATED* _actionListener_
+|_public void <methodName>(jakarta.faces.event.ActionEvent);_
 
- _DEPRECATED_
+|*DEPRECATED* _validator_
+|_public void <methodName>(jakarta.faces.context.FacesContext,
+jakarta.faces.component.UIComponent, java.lang.Object)_
 
- _action_
-
- _public String <methodName>();_
-
- _DEPRECATED_
-
- _actionListener_
-
- _public void
-<methodName>(jakarta.faces.event.ActionEvent);_
-
- _DEPRECATED_
-
- _validator_
-
- _public void
-<methodName>(jakarta.faces.context.FacesContext,
-jakarta.faces.component.UIComponent, java.lang.Object);_
-
- _DEPRECATED_
-
- _valueChangeListener_
-
- _public void
-<methodName>(jakarta.faces.event.ValueChangeEvent);_
+|*DEPRECATED* _valueChangeListener_
+|_public void <methodName>(jakarta.faces.event.ValueChangeEvent);_
+|===
 
 Note that for any of the parameters for the
 above methods may also be a subclass of what is listed above. For the
@@ -204,35 +190,25 @@ strongly typed listener, using the normal _add*()_ pattern Here is the
 list of such wrapper classes:
 
 .MethodExpression wrappers to take the place of DEPRECATED MethodBinding properties
+[width="100%",cols="15%,35%,50%",options="header",]
+|===
+|component listener property
+|Wrapper class
+|method signature
 
-component listener property
+|_actionListener_
+|_jakarta.faces.event.MethodExpressionActionListener_
+|_public void <methodName>(jakarta.faces.event.ActionEvent);_
 
-Wrapper class
-
-method signature
-
-_actionListener_
-
-jakarta. _faces_
-.event.MethodExpressionActionListener
-
-_public void
-<methodName>(jakarta.faces.event.ActionEvent);_
-
-_validator_
-
-jakarta.faces.validator.MethodExpressionValidator
-
-_public void
-<methodName>(jakarta.faces.context.FacesContext,
+|_validator_
+|_jakarta.faces.validator.MethodExpressionValidator_
+|_public void <methodName>(jakarta.faces.context.FacesContext,
 jakarta.faces.component.UIComponent, java.lang.Object);_
 
-_valueChangeListener_
-
-jakarta.faces.event.MethodExpressionValueChangeListener
-
-_public void
-<methodName>(jakarta.faces.event.ValueChangeEvent);_
+|_valueChangeListener_
+|_jakarta.faces.event.MethodExpressionValueChangeListener_
+|_public void <methodName>(jakarta.faces.event.ValueChangeEvent);_
+|===
 
 The _MethodBinding_ typed _action_ property
 of _ActionSource_ is deprecated and has been replaced by the
@@ -906,7 +882,7 @@ is at most one _ELContext_ per _FacesContext_ .
 
 ===== Properties
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1152,7 +1128,7 @@ resolving the “facesContext” and “view” implicit objects.
 
 .Faces ImplicitObjectELResolver for JSP
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResolver method
 |implementation requirements
@@ -1165,25 +1141,18 @@ PropertyNotFoundException.
 <<ExpressionLanguageAndManagedBeanFacility.adoc#a2832,See
 ImplicitObjectELResolver for Programmatic Access>> If base is null and
 property is a String equal to
-
 “facesContext”, call
 setPropertyResolved(true) on
-
 the argument ELContext and return the
 FacesContext
-
 for this request.
 
 If base is null and property is a String
 equal to
-
 “view”, call setPropertyResolved(true) on the
-
 argument ELContext and return the UIViewRoot
 for
-
 this request by calling
-
 facesContext.getUIViewRoot().
 
 {empty}This ELResolver must also support the
@@ -1265,7 +1234,7 @@ Managed Bean Facility>>_ is called into play during EL resolution.
 
 .ManagedBeanELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -1358,7 +1327,7 @@ during EL resolution.
 
 .ResourceBundleELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -1393,7 +1362,9 @@ setPropertyResolved(true) and return ResourceBundle.class.
 
 | _setValue_ a|
 If base is null and property is null, throw
-PropertyNotFoundException. If base is null and property is a String
+PropertyNotFoundException.
+
+If base is null and property is a String
 equal to the value of the <var> element of one of the
 <resource-bundle>'s in the application configuration resources throw
 jakarta.el.PropertyNotWriteable, since ResourceBundles are read-only.
@@ -1401,12 +1372,18 @@ jakarta.el.PropertyNotWriteable, since ResourceBundles are read-only.
 
 
 | _isReadOnly_ a|
-If base is non-null, return null. If base is
-false and property is null, throw PropertyNotFoundException. If base is
+If base is non-null, return null.
+
+If base is
+false and property is null, throw PropertyNotFoundException.
+
+If base is
 null and property is a String equal to the value of the <var> element of
 one of the <resource-bundle>'s in the application configuration
 resources, call setPropertyResolved(true) on the argument ELContext and
-return true. Otherwise return false;
+return true.
+
+Otherwise return false;
 
 
 
@@ -1481,7 +1458,7 @@ following table.
 
 .ELResolver that is the VariableResolver Chain Wrapper
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -1522,8 +1499,9 @@ return false;
 |return null;
 
 | _getCommonPropertyType_
-|If base is null, we return String.class. If
-base is non-null, return null;
+|If base is null, we return String.class.
+
+If base is non-null, return null;
 |===
 
 [[a2798]]
@@ -1559,18 +1537,18 @@ following table.
 
 .ELResolver that is the PropertyResolver Chain Wrapper
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
 a|
- _getValue_ ,
+_getValue_,
 
-getType,
+_getType_,
 
-isReadOnly,
+_isReadOnly_,
 
-setValue
+_setValue_
 
 a|
 If base or property are null, return null (or
@@ -1601,8 +1579,9 @@ Exception wrapped (snuggly) in a jakarta.el.ELException.
 |return null;
 
 | _getCommonPropertyType_
-|If base is null, return null. If base is
-non-null, return Object.class.
+|If base is null, return null.
+
+If base is non-null, return Object.class.
 |===
 
 [[a2820]]
@@ -1660,7 +1639,7 @@ _facesContext_ and _view_
 [[a2832]]
 .ImplicitObjectELResolver for Programmatic Access
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%a",options="header",]
 |===
 |ELResolver method
 |implementation requirements
@@ -1675,72 +1654,40 @@ equal to _implicitObject_ , call setPropertyResolved(true) on the
 argument ELContext and return _result_ , where _implicitObject_ and
 _result_ are as follows:
 
+[cols="30%,70%",options="header",]
+!===
+!_implicitObject_ !_result_
+!application !externalContext.getContext()
+!applicationScope !externalContext.getApplicationMap()
+!cookie !externalContext.getRequestCookieMap()
+!facesContext !the FacesContext for this request
 
+!{empty}component
+!the top of the stack of UIComponent instances, as pushed via calls to
+UIComponent.pushComponentToEL().
+See <<UserInterfaceComponentModel.adoc#a1059,Lifecycle Management Methods>>
 
- _implicitObject_ -> _result_
+!flowScope
+!facesContext.getApplication().getFlowHandler().getCurrentFlowScope()
 
-application -> externalContext.getContext()
-
-applicationScope ->
-externalContext.getApplicationMap()
-
-cookie ->
-externalContext.getRequestCookieMap()
-
-facesContext -> the FacesContext for this
-request
-
-{empty}component -> the top of the stack of
-UIComponent instances, as pushed via calls to
-UIComponent.pushComponentToEL(). See <<UserInterfaceComponentModel.adoc#a1059,See
-Lifecycle Management Methods]
-
-flowScope -> +
-facesContext.getApplication().getFlowHandler(). +
-getCurrentFlowScope().
-
-cc -> the current composite component
+!cc !the current composite component
 relative to the declaring page in which the expression appears.
 
-flash -> externalContext.getFlash()
-
-header ->
-externalContext.getRequestHeaderMap()
-
-headerValues ->
-externalContext.getRequestHeaderValuesMap()
-
-initParam ->
-externalContext.getInitParameterMap()
-
-param ->
-externalContext.getRequestParameterMap()
-
-paramValues ->
-externalContext.getRequestParameterValuesMap()
-
-request -> externalContext.getRequest()
-
-requestScope ->
-externalContext.getRequestMap()
-
-resource ->
-facesContext.getApplication().getResourceHandler()
-
-session -> externalContext.getSession()
-
-sessionScope ->
-externalContext.getSessionMap()
-
-view -> facesContext.getViewRoot()
-
-viewScope ->
-facesContext.getViewRoot().getViewMap()
-
-resource ->
-facesContext.getApplication().getResourceHandler()
-
-
+!flash !externalContext.getFlash()
+!header !externalContext.getRequestHeaderMap()
+!headerValues !externalContext.getRequestHeaderValuesMap()
+!initParam !externalContext.getInitParameterMap()
+!param !externalContext.getRequestParameterMap()
+!paramValues !externalContext.getRequestParameterValuesMap()
+!request !externalContext.getRequest()
+!requestScope !externalContext.getRequestMap()
+!resource !facesContext.getApplication().getResourceHandler()
+!session !externalContext.getSession()
+!sessionScope !externalContext.getSessionMap()
+!view !facesContext.getViewRoot()
+!viewScope !facesContext.getViewRoot().getViewMap()
+!resource !facesContext.getApplication().getResourceHandler()
+!===
 
 If base is null, and property doesn’t match
 one of the above _implicitObjects,_ return null.
@@ -1773,7 +1720,6 @@ PropertyNotFoundException.
 
 If base is null and property is a String
 equal to
-
 “applicationScope”, “requestScope”,
 “sessionScope”, “application”, “component”, “cc”, “cookie”,
 “facesContext”, “header”, “headerValues”, “initParam”, “param”,
@@ -1814,45 +1760,27 @@ of FeatureDescriptor, return the implicit object name. The appropriate
 Class must be stored as the value of the ELResolver.TYPE attribute as
 follows:
 
-
-
-implicitObject -> ELResolver.TYPE value
-
-application -> Object.class
-
-applicationScope -> Map.class
-
-component -> UIComponent.class
-
-cc -> UIComponent.class
-
-cookie -> Map.class
-
-facesContext -> FacesContext.class
-
-header -> Map.class
-
-headerValues -> Map.class
-
-initParam -> Map.class
-
-param -> Map.class
-
-paramValues -> Map.class
-
-request -> Object.class
-
-resource -> Object.class
-
-requestScope -> Map.class
-
-session -> Object.class
-
-sessionScope -> Map.class
-
-view -> UIViewRoot.class
-
-
+[cols="30%,70%",options="header",]
+!===
+!implicitObject !ELResolver.TYPE value
+!application !Object.class
+!applicationScope !Map.class
+!component !UIComponent.class
+!cc !UIComponent.class
+!cookie !Map.class
+!facesContext !FacesContext.class
+!header !Map.class
+!headerValues !Map.class
+!initParam !Map.class
+!param !Map.class
+!paramValues !Map.class
+!request !Object.class
+!resource !Object.class
+!requestScope !Map.class
+!session !Object.class
+!sessionScope !Map.class
+!view !UIViewRoot.class
+!===
 
 The shortDescription must be a suitable
 description depending on the implementation. The expert and hidden
@@ -1880,7 +1808,7 @@ returned as the evaluation of the expression.”
 
 .Composite Component Attributes ELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResolver method
 |implementation requirements
@@ -1987,7 +1915,7 @@ Resource Handling>>_ .
 
 .ResourceELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -2086,7 +2014,7 @@ stored in the request, session, or application scopes by name.
 
 .Scoped Attribute ELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
