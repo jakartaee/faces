@@ -105,18 +105,18 @@ method (if any). They may be used in any phase of the request processing
 lifecycle; the standard JSF components and framework employ them
 (encapsulated in a _MethodExpression_ object) at the following times:
 
-During _Apply Request Values_ or _Invoke
+* During _Apply Request Values_ or _Invoke
 Application_ phase (depending upon the state of the _immediate_
 property), components that implement the _ActionSource2_ behavioral
 interface (see <<UserInterfaceComponentModel.adoc#a1120,See ActionSource2>>) utilize
 _MethodExpressions_ as follows:
 
-If the _actionExpression_ property is
+** If the _actionExpression_ property is
 specified, it must be a _MethodExpression_ expression that identifies an
 Application Action method (see <<ApplicationIntegration.adoc#a3553,See
 Application Actions>>) that takes no parameters and returns a String.
 
-It’s possible to have a method expression act
+** It’s possible to have a method expression act
 as an _ActionListener_ by using the classs
 _MethodExpressionActionListener_ to wrap a method expression and calling
 the _addActionListener()_ method on the _ActionSource_ . The method
@@ -128,14 +128,14 @@ responsibilities as the _processAction()_ method of an _ActionListener_
 instance (see <<UserInterfaceComponentModel.adoc#a1329,See Listener Classes>>) that
 was built in to a separate Java class.
 
-During the _Apply Request Values_ or _Process
+* During the _Apply Request Values_ or _Process
 Validations_ phase (depending upon the state of the _immediate_
 property), components that implement _EditableValueHolder_ (such as
 _UIInput_ and its subclasses) components (see
 <<UserInterfaceComponentModel.adoc#a1192,See EditableValueHolder>>) utilize method
 expressions as follows:
 
-The user can use the
+** The user can use the
 _MethodExpressionValidator_ class to wrap a method expression that
 identifies a public method that accepts a _FacesContext_ instance and a
 _UIComponent_ instance, and an _Object_ containing the value to be
@@ -146,7 +146,7 @@ called method has exactly the same responsibilities as the _validate()_
 method of a _Validator_ instance (see <<UserInterfaceComponentModel.adoc#a1414,See
 Validator Classes>>) that was built in to a separate Java class.
 
-The user can use the
+** The user can use the
 _MethodExpressionValueChangeListener_ class to wrap a method expression
 that identifies a public method that accepts a _ValueChangeEvent_ (see
 <<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>) instance, and has a
@@ -250,12 +250,12 @@ Resource Format>> for the normative spec requirement. Such elements
 describe the characteristics of a bean to be created, and properties to
 be initialized, with the following nested elements:
 
-_<managed-bean-name>_ -- The key under which
+* _<managed-bean-name>_ -- The key under which
 the created bean can be retrieved; also the key in the scope under which
 the created bean will be stored, unless the value of
 _<managed-bean-scope>_ is set to _none_ .
 
-_<managed-bean-class>_ -- The fully
+* _<managed-bean-class>_ -- The fully
 qualified class name of the application class used to instantiate a new
 instance. This class must conform to JavaBeans design patterns -- in
 particular, it must have a public zero-args constructor, and must have
@@ -263,7 +263,7 @@ public property setters for any properties referenced with nested
 _<managed-property>_ elements -- or it must be a class that implements
 _java.util.Map_ or _java.util.List_ .
 
-_<managed-bean-scope>_ -- The scope (
+* _<managed-bean-scope>_ -- The scope (
 _request_ , _view_ , _session_ , or _application_ ) under which the
 newly instantiated bean will be stored after creation (under the key
 specified by the _<managed-bean-name>_ element), or _none_ for a bean
@@ -281,12 +281,12 @@ does not evaluate to a _Map_ , a _FacesException_ must be thrown with a
 message that includes the expression string, the _toString()_ of the
 value, and the type of the value.
 
-_<list-entries_ > or _<map-entries>_ -- Used
+* _<list-entries_ > or _<map-entries>_ -- Used
 to configure managed beans that are themselves instances of
 _java.util.List_ or _java.util.Map,_ respectively. See below for details
 on the contents of these elements.
 
-_<managed-property>_ -- Zero or more
+* _<managed-property>_ -- Zero or more
 elements used to initialize the properties of the newly instantiated
 bean (see below).
 
@@ -304,30 +304,30 @@ Each _<managed-property>_ element contains
 the following elements used to configure the execution of the
 corresponding property setter call:
 
-_<property-name>_ -- The property name of
+* _<property-name>_ -- The property name of
 the property to be configured. The actual property setter method to be
 called will be determined as described in the JavaBeans Specification.
 
-Exactly one of the following sub-elements
+* Exactly one of the following sub-elements
 that can be used to initialize the property value in a number of
 different ways:
 
-- _<map-entries>_ -- A set of key/value pairs
+** _<map-entries>_ -- A set of key/value pairs
 used to initialize the contents of a property of type _java.util.Map_
 (see below for more details).
 
-- _<null-value/>_ -- An empty element
+** _<null-value/>_ -- An empty element
 indicating that this property must be explicitly initialized to _null_ .
 This element is not allowed if the underlying property is of a Java
 primitive type.
 
-- _<value>_ -- A String value that will have
+** _<value>_ -- A String value that will have
 any leading and trailing spaces stripped, and then be converted
 (according to the rules described in the JSP Specification for the
 <jsp:setProperty> action) to the corresponding data type of the
 property, prior to setting it to this value.
 
-- _<list-entries>_ -- A set of values used to
+** _<list-entries>_ -- A set of values used to
 initialize the contents of a property of type array or _java.util.List_
 See below for more information.
 
@@ -370,20 +370,20 @@ the entire property value.
 The following general rules apply to the
 operation of the Managed Bean Creation facility:
 
-Properties are assigned in the order that
+* Properties are assigned in the order that
 their _<managed-property>_ elements are listed in the application
 configuration resource.
 
-If a managed bean has writeable properties
+* If a managed bean has writeable properties
 that are not mentioned in _<managed-property>_ elements, the values of
 those properties are not assigned any values.
 
-The bean instantiation and population with
+* The bean instantiation and population with
 properties must be done lazily, when an EL expression causes the bean to
 be referenced. For example, this is the case when a _ValueExpression_ or
 _MethodExpression_ has its _getValue()_ or _setValue()_ method called.
 
-Due to the above mentioned laziness
+* Due to the above mentioned laziness
 constraint, any error conditions that occur below are only required to
 be manifested at runtime. However, it is conceivable that tools may want
 to detect these errors earlier; this is perfectly acceptable. The
@@ -391,21 +391,21 @@ presense of any of the errors described below, until the end of this
 section, must not prevent the application from deploying and being made
 available to service requests.
 
-[P1-start managed bean config error
+* [P1-start managed bean config error
 conditions] It is an error to specify a managed bean class that does not
 exist, or that cannot be instantiated with a public, zero-args
 constructor.
 
-It is an error to specify a _<property-name>_
+* It is an error to specify a _<property-name>_
 for a property that does not exist, or does not have a public setter
 method, on the specified managed bean class.
 
-{empty}It is an error to specify a _<value>_
+* {empty}It is an error to specify a _<value>_
 element that cannot be converted to the type required by a managed
 property, or that, when evaluated, results in a value that cannot be
 converted to the type required by a managed property. [P1-end]
 
-If the type of the property referenced by the
+* If the type of the property referenced by the
 _<managed-property>_ element is a Java enum, the contents of the
 _<value>_ element must be a String that yields a valid return from
 _java.lang.Enum.valueOf(PROPERTY_CLASS, VALUE)_ where _PROPERTY_CLASS_
@@ -413,70 +413,70 @@ is the _java.lang.Class_ for the property and _VALUE_ is the contents of
 the _<value>_ element in the application configuration resource. If any
 exception is thrown from _Enum.valueOf()_ it is an error.
 
-[P1-start managed bean scope errors] It is an
+* [P1-start managed bean scope errors] It is an
 error for a managed bean created through this facility to have a
 property that points at an object stored in a scope with a (potentially)
 shorter life span. Specifically, this means, for an object created with
 the specified _<managed-bean-scope>_ , then _<value>_ evaluations can
 only point at created objects with the specified managed bean scope:
 
-none -- none
+** none -- none
 
-application -- none, application
+** application -- none, application
 
-session -- none, application, session
+** session -- none, application, session
 
-view -- none, application, session, view
+** view -- none, application, session, view
 
-{empty}request -- none, application, session,
+** {empty}request -- none, application, session,
 view, request [P1-end]
 
-If a bean points to a property whose value is
+* If a bean points to a property whose value is
 a mixed expression containing literal strings and expressions, the net
 scope of the mixed expression is considered to be the scope of the
 narrowest sub-expression, excluding expressions in the none scope.
 
-[P1-start implicit objects in request scope]
+* [P1-start implicit objects in request scope]
 Data accessed via an implicit object is also defined to be in a scope.
 The following implicit objects are considered to be in request scope:
 
- _cookie_
+** _cookie_
 
- _facesContext_
+** _facesContext_
 
- _header_
+** _header_
 
- _headerValues_
+** _headerValues_
 
- _param_
+** _param_
 
- _paramValues_
+** _paramValues_
 
-request
+** request
 
- _requestScope_
+** _requestScope_
 
-{empty} _view_ [P1-end]
+** {empty} _view_ [P1-end]
 
-{empty}[P1-start implicit objects in session
+* {empty}[P1-start implicit objects in session
 scope] The only implicit objects in session scope are _session_ and
 _sessionScope_ [P1-end]
 
-[P1-start implicit objects in application
+* [P1-start implicit objects in application
 scope] The following implicit objects are considered to be in
 application scope:
 
-- _application_
+** _application_
 
-- _applicationScope_
+** _applicationScope_
 
-{empty} _initParam_ [P1-end]
+** {empty} _initParam_ [P1-end]
 
-{empty}[P1-start cyclic references error] It
+* {empty}[P1-start cyclic references error] It
 is an error to configure cyclic references between managed beans.
 [P1-end]
 
-{empty}[P1-start managed bean names
+* {empty}[P1-start managed bean names
 correctness] Managed bean names must conform to the syntax of a Java
 language identifier. [P1-end]
 
@@ -486,13 +486,13 @@ following algorithm, though any confirming implementation may be used.
 
 For _<map-entries>_ :
 
-Call the property getter, if it exists.
+. Call the property getter, if it exists.
 
-If the getter returns _null_ or doesn't
+. If the getter returns _null_ or doesn't
 exist, create a _java.util.HashMap_ , otherwise use the returned
 _java.util.Map_ .
 
-Add all entries defined by nested
+. Add all entries defined by nested
 _<map-entry>_ elements in the order they are listed, converting key
 values defined by nested _<key>_ elements to the type defined by
 _<key-class>_ and entry values defined by nested _<value>_ elements to
@@ -502,19 +502,19 @@ _<value-class_ > if necessary. If _<key-class>_ and/or _<value-class>_
 are not defined, use _java.lang.String_ . Add _null_ for each
 _<null-value>_ element.
 
-If a new _java.util.Map_ was created in step
+. If a new _java.util.Map_ was created in step
 2), set the property by calling the setter method, or log an error if
 there is no setter method.
 
 For _<list-entries>_ :
 
-Call the property getter, if it exists.
+. Call the property getter, if it exists.
 
-If the getter returns _null_ or doesn't
+. If the getter returns _null_ or doesn't
 exist, create a _java.util.ArrayList_ , otherwise use the returned
 _Object_ (an array or a _java.util.List_ ).
 
-If a _List_ was returned or created in step
+. If a _List_ was returned or created in step
 2), add all elements defined by nested _<value>_ elements in the order
 they are listed, converting values defined by nested _<value>_ elements
 to the type defined by _<value-class>_ . If a value is given as a value
@@ -523,21 +523,21 @@ _<value-class_ > if necessary. If a _<value-class>_ is not defined, use
 the value as-is (i.e., as a _java.lang.String_ ). Add null for each
 _<null-value>_ element.
 
-If an array was returned in step 2), create a
+. If an array was returned in step 2), create a
 _java.util.ArrayList_ and copy all elements from the returned array to
 the new _List_ , wrapping elements of a primitive type. Add all elements
 defined by nested _<value>_ elements as described in step 3).
 
-If a new _java.util.List_ was created in step
+. If a new _java.util.List_ was created in step
 2) and the property is of type _List_ , set the property by calling the
 setter method, or log an error if there is no setter method.
 
-If a new _java.util.List_ was created in step
+. If a new _java.util.List_ was created in step
 2) and the property is a java array, convert the _List_ into an array of
 the property type, and set it by calling the setter method, or log an
 error if there is no setter method.
 
-If a new _java.util.List_ was created in step
+. If a new _java.util.List_ was created in step
 4), convert the _List_ to an array of the proper type for the property
 and set the property by calling the setter method, or log an error if
 there is no setter method.
@@ -848,7 +848,7 @@ The ELContext is a handy little “holder”
 object that gets passed all around the Unified EL API. It has two
 purposes.
 
-To allow technologies that use the Unified
+* To allow technologies that use the Unified
 EL, such as Jakarta Server Faces, the JSF View Declaration Language (JSF
 VDL), and JSP, to store any context information specific to that
 technology so it can be leveraged during expression evaluation. For
@@ -862,7 +862,7 @@ callstack of EL evaluation. Therefore, the _ELContext_ comes to the
 rescue, having been populated with the _FacesContext_ earlier in the
 request processing lifecycle.
 
-To allow the pluggable resolver to tell the
+* To allow the pluggable resolver to tell the
 Unified EL that it did, in fact, resolve a property and that further
 resolvers must not be consulted. This is done by setting the “
 _propertyResolved_ ” property to _true_ .
@@ -1887,16 +1887,16 @@ semantics obtained by adding a _CompositeELResolver_ must be inserted
 here. This _ELResolver_ contains the following _ELResolvers_ , described
 in the referenced sections.
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,See ELResolvers
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,See ELResolvers
 in the application configuration resources>>_
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
 VariableResolver Chain Wrapper>>_
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,See
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,See
 PropertyResolver Chain Wrapper>>_
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2820,See ELResolvers
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2820,See ELResolvers
 from Application.addELResolver()>>_
 
 ===== ManagedBean ELResolver
@@ -1927,11 +1927,11 @@ expression such as #\{resource[‘ajax.js’]}, perform the following.
 the ResourceHandler, see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object
 ELResolver for Facelets and Programmatic Access>>)
 
-If _property_ does not contain a colon
+* If _property_ does not contain a colon
 character ‘:’, treat _property_ as the _resourceName_ and pass
 _property_ to _ResourceHandler.createResource(_ _resourceName_ _)_ .
 
-If _property_ contains a single colon
+* If _property_ contains a single colon
 character ‘:’, treat the content before the ‘:’ as the _libraryName_ and
 the content after the ‘:’ as the _resourceName_ and pass both to
 _ResourceHandler.createResource(_ _resourceName, libraryName)_ . If the
@@ -1942,9 +1942,8 @@ and replace “this” with that library name (or contract name) before
 calling _ResourceHandler.createResource()_ . In the case of resource
 library contracts, _libraryName_ will actually be the contract name.
 
-If _property_ contains more than one colon
+* If _property_ contains more than one colon
 character ‘:’, throw a localized _ELException_ , including _property_ .
-__
 
 If one of the above steps results in the
 creation of a non-null Resource instance, call
@@ -2110,7 +2109,7 @@ additional implicit objects:
 
 - _externalContext_
 
-the current _ExternalContext_ from the
+- the current _ExternalContext_ from the
 current _FacesContext_
 
 
@@ -2367,13 +2366,13 @@ following JSF and Jakarta EE objects into CDI beans.
 It must be possible to use _@Inject_ when
 specifying the following kinds of JSF managed objects.
 
-Validators declared with @
+- Validators declared with @
 _jakarta.faces.validator.FacesValidator(managed=”true”)_
 
-Converters declared with @
+- Converters declared with @
 _jakarta.faces.convert.FacesConverter(managed=”true”)_
 
-FacesBehaviors declared with @
+- FacesBehaviors declared with @
 _jakarta.faces.component.behavior.FacesBehavior(managed=”true”)_
 
 [[a3070]]
@@ -2382,32 +2381,32 @@ _jakarta.faces.component.behavior.FacesBehavior(managed=”true”)_
 The following implicit objects must be
 resolved using CDI
 
-application
+- application
 
-cc
+- cc
 
-component
+- component
 
-facesContext
+- facesContext
 
-flash
+- flash
 
-flowScope
+- flowScope
 
-header
+- header
 
-headerValues
+- headerValues
 
-initParam
+- initParam
 
-param
+- param
 
-paramValues
+- paramValues
 
-session
+- session
 
-view
+- view
 
-viewScope
+- viewScope
 
 
