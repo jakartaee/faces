@@ -15,7 +15,7 @@ request, and creating the corresponding response. A _FacesContext_
 instance is created by the JSF implementation, prior to beginning the
 request processing lifecycle, by a call to the _getFacesContext_ method
 of _FacesContextFactory_ , as described in
-<<Per-RequestStateInformation.adoc#a3366,See FacesContextFactory>>. When the request
+<<Per-RequestStateInformation.adoc#a3366,FacesContextFactory>>. When the request
 processing lifecycle has been completed, the JSF implementation will
 call the _release_ method, which gives JSF implementations the
 opportunity to release any acquired resources, as well as to pool and
@@ -288,7 +288,7 @@ returned in the order in which they were added via calls to
 _addMessage()_ .
 
 For more information about the _Message_
-class, see <<Per-RequestStateInformation.adoc#a3300,See FacesMessage>>.
+class, see <<Per-RequestStateInformation.adoc#a3300,FacesMessage>>.
 
 ==== RenderKit
 
@@ -325,7 +325,7 @@ Due to restrictions of the underlying servlet
 APIs, either binary or character output can be utilized for a particular
 response—they may not be mixed.
 
-Please see <<ApplicationIntegration.adoc#a3871,See
+Please see <<ApplicationIntegration.adoc#a3871,
 ViewHandler>> to learn when _setResponseWriter()_ and
 _setResponseStream()_ are called.
 
@@ -347,7 +347,7 @@ public boolean getResponseComplete();
 
 Normally, the phases of the request
 processing lifecycle are executed sequentially, as described in
-<<RequestProcessingLifecycle.adoc#a369,See Request Processing Lifecycle>>.” However,
+<<RequestProcessingLifecycle.adoc#a369,Request Processing Lifecycle>>.” However,
 it is possible for components, event listeners, and validators to affect
 this flow by calling one of these methods.
 
@@ -403,8 +403,8 @@ existing instance from the FacesContext.[P1-end-getpartialViewcontext]
 The PartialViewContext contains the
 constants, properties and methods to facilitate partial view processing
 and partial view rendering. Refer to
-<<AjaxIntegration.adoc#a6831,See Partial View
-Processing>> and <<AjaxIntegration.adoc#a6833,See
+<<AjaxIntegration.adoc#a6831,Partial View
+Processing>> and <<AjaxIntegration.adoc#a6833,
 Partial View Rendering>>. Refer to the JavaDocs for the
 jakarta.faces.context.PartialViewContext class for method requirements.
 
@@ -441,7 +441,7 @@ _FacesContext.getCurrentInstance()_ The . [P1-end]
 The default lifecycle implementation is
 responsible for setting the _currentPhaseId_ property on the
 _FacesContext_ instance for this request, as specified in
-<<RequestProcessingLifecycle.adoc#a401,See Standard Request Processing Lifecycle
+<<RequestProcessingLifecycle.adoc#a401,Standard Request Processing Lifecycle
 Phases>>. The following table describes this property.
 
 [width="100%",cols="20%,10%,20%,50%",options="header",]
@@ -473,7 +473,7 @@ exception handler for any unexpected Exceptions that happen during the
 Faces lifecycle. See the Javadocs for _ExceptionHandler_ for details.
 |===
 
-Please see <<LifecycleManagement.adoc#a6635,See
+Please see <<LifecycleManagement.adoc#a6635,
 PhaseListener>> for the circumstances under which _ExceptionHandler_ is
 used.
 
@@ -511,7 +511,7 @@ swallowed, and must be allowed to flow up to the _Lifecycle.execute_ ()
 method where the individual lifecycle phases are implemented.
 [P1-end_expected_exceptions] At that point, all _Exceptions_ are passed
 to the _ExceptionHandler_ as described in
-<<LifecycleManagement.adoc#a6635,See PhaseListener>>.
+<<LifecycleManagement.adoc#a6635,PhaseListener>>.
 
 Any code that is not a part of the core Faces
 implementation may leverage the _ExceptionHandler_ in one of two ways.
@@ -626,7 +626,7 @@ _ExceptionHandler_ except that the _handle()_ method behaves as follows.
 
 [none]
 * Versions of JSF prior to 2.0 stated in
-<<LifecycleManagement.adoc#a6635,See PhaseListener>> “Any exceptions thrown
+<<LifecycleManagement.adoc#a6635,PhaseListener>> “Any exceptions thrown
 during the _beforePhase()_ listeners must be caught, logged, and
 swallowed...Any exceptions thrown during the _afterPhase()_ liseteners
 must be caught, logged, and swallowed.” The _PreJsf2ExceptionHandler_
@@ -741,7 +741,7 @@ exactly the same method signatures as the _java.io.OutputStream_ class.
 _ResponseWriter_ is an abstract class
 representing a character output stream for the current response. A
 _ResponseWriter_ instance is obtained via a factory method on
-_RenderKit._ Please see <<RenderingModel.adoc#a4223,See RenderKit>>”. It
+_RenderKit._ Please see <<RenderingModel.adoc#a4223,RenderKit>>”. It
 supports both low-level and high level APIs for writing character based
 information
 
