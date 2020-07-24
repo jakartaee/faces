@@ -4,7 +4,7 @@
 In the descriptions of the standard user
 interface component model, it was noted that all attributes, and nearly
 all properties can have a _value expression_ associated with them (see
-<<UserInterfaceComponentModel.adoc#a911,See ValueExpression properties>>). In
+<<UserInterfaceComponentModel.adoc#a911,ValueExpression properties>>). In
 addition, many properties, such as _action_ , _actionListener_ ,
 _validator_ , and _valueChangeListener_ can be defined by a _method
 expression_ pointing at a public method in some class to be executed.
@@ -21,7 +21,7 @@ Versions 1.0 and 1.1 of Jakarta Server Faces
 included a built in expression language and required an implementation
 of it. The API for this old JSF EL is still preserved as deprecated
 classes and methods, and implementations must still support that API.
-Please consult the <<ChangeLog.adoc#a8777,See Guide to Deprecated
+Please consult the <<ChangeLog.adoc#a8777,Guide to Deprecated
 Methods Relating to the Unified EL and their Corresponding Replacements>>
 for details. This chapter will focus exclusively on how Faces leverages
 and integrates with the Unified EL. It does not describe how the Unified
@@ -108,12 +108,12 @@ lifecycle; the standard JSF components and framework employ them
 * During _Apply Request Values_ or _Invoke
 Application_ phase (depending upon the state of the _immediate_
 property), components that implement the _ActionSource2_ behavioral
-interface (see <<UserInterfaceComponentModel.adoc#a1120,See ActionSource2>>) utilize
+interface (see <<UserInterfaceComponentModel.adoc#a1120,ActionSource2>>) utilize
 _MethodExpressions_ as follows:
 
 ** If the _actionExpression_ property is
 specified, it must be a _MethodExpression_ expression that identifies an
-Application Action method (see <<ApplicationIntegration.adoc#a3553,See
+Application Action method (see <<ApplicationIntegration.adoc#a3553,
 Application Actions>>) that takes no parameters and returns a String.
 
 ** It’s possible to have a method expression act
@@ -122,17 +122,17 @@ _MethodExpressionActionListener_ to wrap a method expression and calling
 the _addActionListener()_ method on the _ActionSource_ . The method
 expression wrapped inside the _MethodExpressionActionListener must_
 identify a public method that accepts an _ActionEvent_ (see
-<<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>) instance, and has a
+<<UserInterfaceComponentModel.adoc#a1308,Event Classes>>) instance, and has a
 return type of _void_ . The called method has exactly the same
 responsibilities as the _processAction()_ method of an _ActionListener_
-instance (see <<UserInterfaceComponentModel.adoc#a1329,See Listener Classes>>) that
+instance (see <<UserInterfaceComponentModel.adoc#a1329,Listener Classes>>) that
 was built in to a separate Java class.
 
 * During the _Apply Request Values_ or _Process
 Validations_ phase (depending upon the state of the _immediate_
 property), components that implement _EditableValueHolder_ (such as
 _UIInput_ and its subclasses) components (see
-<<UserInterfaceComponentModel.adoc#a1192,See EditableValueHolder>>) utilize method
+<<UserInterfaceComponentModel.adoc#a1192,EditableValueHolder>>) utilize method
 expressions as follows:
 
 ** The user can use the
@@ -143,18 +143,18 @@ validated, and has a return type of _void_ . This
 _MethodExpressionValidator_ instance can then be added as a normal
 _Validator_ using the _EditableValueHolder.addValidator()_ method. The
 called method has exactly the same responsibilities as the _validate()_
-method of a _Validator_ instance (see <<UserInterfaceComponentModel.adoc#a1414,See
+method of a _Validator_ instance (see <<UserInterfaceComponentModel.adoc#a1414,
 Validator Classes>>) that was built in to a separate Java class.
 
 ** The user can use the
 _MethodExpressionValueChangeListener_ class to wrap a method expression
 that identifies a public method that accepts a _ValueChangeEvent_ (see
-<<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>) instance, and has a
+<<UserInterfaceComponentModel.adoc#a1308,Event Classes>>) instance, and has a
 return type of _void_ . This _MethodExpressionValueChangeListener_
 instance can then be added as a normal _ValueChangeListener_ using
 EditableValueHolder.addValueChangeListener(). The called method has
 exactly the same responsibilities as the _processValueChange()_ method
-of a _ValueChangeListener_ instance (see <<UserInterfaceComponentModel.adoc#a1329,See
+of a _ValueChangeListener_ instance (see <<UserInterfaceComponentModel.adoc#a1329,
 Listener Classes>>) that was built in to a separate Java class.
 
 Here is the set of component properties that
@@ -229,7 +229,7 @@ As of version 2.3 of this specification, use
 of the managed bean facility as specified in this section is strongly
 discouraged. A better and more cohesively integrated solution for
 solving the same problem is to use Contexts and Dependency Injection
-(CDI). (See <<Preface.adoc#a173,See
+(CDI). (See <<Preface.adoc#a173,
 Other Jakarta Platform Specifications>>).
 
 Perhaps the biggest value-add of bringing EL
@@ -237,15 +237,15 @@ concepts to Faces happens when the EL is combined with the managed bean
 facility. This feature allows the user to configure an entire complex
 tree of POJO beans, including how they should be scoped and populated
 with initial values, and expose them to EL expressions. Please see
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2477,See Managed Bean Configuration Example>>_ .
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2477,Managed Bean Configuration Example>>_ .
 
 The Managed Bean Creation facility is
 configured by the existence of _<managed-bean>_ elements in one or more
-application configuration resources (see <<UsingJSFInWebApplications.adoc#a6195,See
+application configuration resources (see <<UsingJSFInWebApplications.adoc#a6195,
 Application Configuration Resources>>). Note that a special provision has
 been made for application configuration resource files residing within
 _META-INF/managed-beans.xml_ entries on the application classpath.
-Please see <<UsingJSFInWebApplications.adoc#a6254,See Application Configuration
+Please see <<UsingJSFInWebApplications.adoc#a6254,Application Configuration
 Resource Format>> for the normative spec requirement. Such elements
 describe the characteristics of a bean to be created, and properties to
 be initialized, with the following nested elements:
@@ -547,7 +547,7 @@ there is no setter method.
 
 The following <managed-bean> elements might
 appear in one or more application configuration resources (see
-<<UsingJSFInWebApplications.adoc#a6195,See Application Configuration Resources>>) to
+<<UsingJSFInWebApplications.adoc#a6195,Application Configuration Resources>>) to
 configure the behavior of the Managed Bean Creation facility.
 
 Assume that your application includes
@@ -875,7 +875,7 @@ be found in Chapter 2 of the Expression Language Specification, Version
 
 An ELContext instance is created the first
 time _getELContext_ () is called on the _FacesContext_ for this request.
-Please see _<<Per-RequestStateInformation.adoc#a3099,See ELContext>>_ for details. Its
+Please see _<<Per-RequestStateInformation.adoc#a3099,ELContext>>_ for details. Its
 lifetime ends the same time the _FacesContext’s_ lifetime ends. The
 _FacesContext_ maintains the owning reference to the _ELContext_ . There
 is at most one _ELContext_ per _FacesContext_ .
@@ -889,12 +889,12 @@ is at most one _ELContext_ per _FacesContext_ .
 | _ELResolver_ |RO
 | _jakarta.el.ELResolver_
 |Return the ELResolver instance described in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,See Faces ELResolver for JSP Pages>>_
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,Faces ELResolver for JSP Pages>>_
 
 | _propertyResolved_
 |RW |boolean
 |Set by an ELResolver implementation if it
-successfully resolved a property. See _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See
+successfully resolved a property. See _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,
 ELResolver>>_ for how this property is used.
 |===
 
@@ -911,7 +911,7 @@ void putContext(Class key, Object contextInstance);
 ----
 
 As mentioned in
-_<<Per-RequestStateInformation.adoc#a3099,See ELContext>>_ , the _putContext()_ method
+_<<Per-RequestStateInformation.adoc#a3099,ELContext>>_ , the _putContext()_ method
 is called, passing the current _FacesContext_ instance the first time
 the system asks the _FacesContext_ for its _ELContext_ . The
 _getContext()_ method will be called by any _ELResolver_ instances that
@@ -921,7 +921,7 @@ need to access the _FacesContext_ to perform their resolution.
 
 The creation of an ELContext instance
 precipitates the emission of an _ELContextEvent_ from the _FacesContext_
-that created it. Please see _<<Per-RequestStateInformation.adoc#a3099,See ELContext>>_
+that created it. Please see _<<Per-RequestStateInformation.adoc#a3099,ELContext>>_
 for details.
 
 [[a2634]]
@@ -940,7 +940,7 @@ complete specification for ELResolver may be found in Chapter 2 of the
 Expression Language Specification, Version 2.1.
 
 [N/T-start two ELResolver impls] As described
-in more detail in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,See Faces ELResolver for
+in more detail in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,Faces ELResolver for
 JSP Pages>>_ , Faces must provide two implementations of _ELResolver_ .
 [P1-end]Which of these two implementations is actually used to resolve
 an expression depends on where the expresison is evaluated. If the
@@ -1019,7 +1019,7 @@ _ValueExpression_ and _MethodExpression_ instances.
 _ExpressionFactory_ instances are
 application scoped. The _Application_ object maintains the
 _ExpressionFactory_ instance used by Faces (See
-_<<ApplicationIntegration.adoc#a3459,See Acquiring ExpressionFactory Instance>>)_
+_<<ApplicationIntegration.adoc#a3459,Acquiring ExpressionFactory Instance>>)_
 . The _JspApplicationContext_ object maintains the _ExpressionFactory_
 used by the JSP container (and therefore by the JSF VDL). It is
 permissible for both of these access methods to yield the same java
@@ -1044,7 +1044,7 @@ expression string, such as _”#\{user.address.street}”_ and return an
 object oriented representation of the expression. Which method one calls
 depends on what kind of expression you need. The Faces _Application_
 class has convenience methods specific to Faces needs for these
-concepts, please see <<ApplicationIntegration.adoc#a3463,See Programmatically
+concepts, please see <<ApplicationIntegration.adoc#a3463,Programmatically
 Evaluating Expressions>> .
 
 ===== Events
@@ -1059,7 +1059,7 @@ This section provides details on what an
 implementation of the Jakarta Server Faces specification must do to support
 the Unified EL for usage in a Faces application.
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,
 ELResolver>>_ mentions that a Faces implementation must provide two
 implementations of ELResolver. One ELResolver, let’s call it the _Faces
 ELResolver For Markup Pages_ , is plugged in to the top level resolver
@@ -1080,7 +1080,7 @@ these two resolvers.
 ==== Faces ELResolver for JSP Pages
 
 As mentioned in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See ELResolver>>_ , during the course of
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,ELResolver>>_ , during the course of
 evaluation of an expression, a variety of sources must be considered to
 help resolve each segment of the expression. These sources are linked in
 a chain-like fashion. Each link in the chain has the opportunity to
@@ -1157,7 +1157,7 @@ facesContext.getUIViewRoot().
 
 {empty}This ELResolver must also support the
 implicit object “resource” as specified in
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object ELResolver for Facelets
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object ELResolver for Facelets
 and Programmatic Access>>
 
 | _getType_ a|
@@ -1172,7 +1172,7 @@ return null;
 
 {empty}Otherwise, just return null;This
 ELResolver must also support the implicit object “resuorce” as specified
-in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object ELResolver for
+in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object ELResolver for
 Facelets and Programmatic Access>>
 
 | _setValue_ a|
@@ -1183,7 +1183,7 @@ PropertyNotFoundException.
 String equal to “facesContext” or “view”, _throw
 jakarta.el.PropertyNotWriteable, since “view” and “facesContext” are
 read-only_ .This ELResolver must also support the implicit object
-“resuorce” as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit
+“resuorce” as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit
 Object ELResolver for Facelets and Programmatic Access>>
 
 | _isReadOnly_ a|
@@ -1198,7 +1198,7 @@ the argument ELContext and return true._
 
 {empty}Otherwise return false;This ELResolver
 must also support the implicit object “resuorce” as specified in
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object ELResolver for Facelets
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object ELResolver for Facelets
 and Programmatic Access>>
 
 | _getFeatureDescriptors_ a|
@@ -1229,7 +1229,7 @@ If base is null and return String.class.
 ===== ManagedBean ELResolver
 
 This is the means by which the managed bean
-creation facility described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The
+creation facility described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The
 Managed Bean Facility>>_ is called into play during EL resolution.
 
 .ManagedBeanELResolver
@@ -1250,7 +1250,7 @@ the request, session, or application scopes, in that order, return null.
 If base is null, and property matches one of
 the managed-bean-name declarations in the application configuration
 resources, instantiate the bean, populate it with properties as
-described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The Managed Bean
+described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The Managed Bean
 Facility>>_ , store it in the scope specified by the managed-bean-scope
 declaration for this this managed-bean, call setPropertyResolved(true)
 on the argument ELContext, and return the freshly instantiated
@@ -1273,7 +1273,7 @@ matches one of the managed-bean-name declarations in the application
 configuration resources, and a managed bean with that managed-bean-name
 does not yet exist in the specified scope, instantiate the bean,
 populate it with properties as described in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The Managed Bean Facility>>_ , store it
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The Managed Bean Facility>>_ , store it
 in the scope specified by the managed-bean-scope declaration for this
 this managed-bean and return. If the managed bean does exist, take no
 action and return. In either case (the bean exists or does not exist),
@@ -1315,7 +1315,7 @@ If base is null, return Object.class.
 
 ===== Resource ELResolver
 
-Please see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2940,See
+Please see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2940,
 Resource ELResolver>> for the specification of this ELResolver.
 
 [[a2741]]
@@ -1435,12 +1435,12 @@ EL resolution process. If there are one or more _<variable-resolver>_
 elements in the application configuration resources, an instance of
 ELResolver with the following semantics must be created and added to the
 _Faces ELResolver for JSP Pages_ as indicated in the
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,See Faces ELResolver for JSP Pages>>_ .
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,Faces ELResolver for JSP Pages>>_ .
 
 By virtue of the decorator pattern described
-in _<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>_
+in _<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
 , the default _VariableResolver_ will be at the end of the
-_VariableResolver_ chain (See _<<ExpressionLanguageAndManagedBeanFacility.adoc#a3020,See
+_VariableResolver_ chain (See _<<ExpressionLanguageAndManagedBeanFacility.adoc#a3020,
 VariableResolver and the Default VariableResolver>>_ ), if each custom
 _VariableResolver_ chose to honor the full decorator pattern. If the
 custom _VariableResolver_ chose not to honor the decorator pattern, the
@@ -1448,7 +1448,7 @@ user is stating that they want to take over complete control of the
 variable resolution system. Note that the head of the _VariableResolver_
 chain is no longer accessible by calling
 _Application.getVariableResolver()_ (Please see
-_<<ApplicationIntegration.adoc#a4171,See VariableResolver Property>>_ for what it
+_<<ApplicationIntegration.adoc#a4171,VariableResolver Property>>_ for what it
 returns). The head of the _VariableResolver_ chain is kept in an
 implementation specific manner.
 
@@ -1514,12 +1514,12 @@ EL resolution process. If there are one or more _<property-resolver>_
 elements in the application configuration resources, an instance of
 _ELResolver_ with the following semantics must be created and added to
 the _Faces ELResolver for JSP Pages_ as indicated in the
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,See Faces ELResolver for JSP Pages>>_ .
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,Faces ELResolver for JSP Pages>>_ .
 
 By virtue of the decorator pattern described
-in _<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>_
+in _<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
 , the default _propertyResolver_ will be at the end of the
-_propertyResolver_ chain (See, _<<ExpressionLanguageAndManagedBeanFacility.adoc#a3025,See
+_propertyResolver_ chain (See, _<<ExpressionLanguageAndManagedBeanFacility.adoc#a3025,
 PropertyResolver and the Default PropertyResolver>>_ ), if each custom
 _propertyResolver_ chose to honor the full decorator pattern. If the
 custom _propertyResolver_ chose not to honor the decorator pattern, then
@@ -1527,7 +1527,7 @@ the user is stating that they want to take over complete control of the
 _propertyResolution_ system. Note that the head of the
 _propertyResolver_ chain is no longer accessible by calling
 _Application.getPropertyResolver()_ (Please see
-_<<ApplicationIntegration.adoc#a4163,See PropertyResolver Property>>_ for what it
+_<<ApplicationIntegration.adoc#a4163,PropertyResolver Property>>_ for what it
 returns). The head of the property resolver chain is kept in an
 implementation specific manner.
 
@@ -1595,7 +1595,7 @@ were added.
 ==== ELResolver for Facelets and Programmatic Access
 
 This section documents the requirements for
-the second _ELResolver_ mentioned in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2664,See
+the second _ELResolver_ mentioned in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2664,
 ELResolver Instances Provided by Faces>>_ , the one that is used for
 Facelets and for programmatic expression evaluation from Faces java
 code.
@@ -1632,7 +1632,7 @@ are exactly the same.
 ===== Implicit Object ELResolver for Facelets and Programmatic Access
 
 This resolver differs from the one in the
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2673,See Faces Implicit Object ELResolver For
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2673,Faces Implicit Object ELResolver For
 JSP>> in that it must resolve all of the implicit objects, not just
 _facesContext_ and _view_
 
@@ -1881,28 +1881,28 @@ no action.
 ===== The CompositeELResolver
 
 As indicated in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2827,See ELResolver for Facelets and
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2827,ELResolver for Facelets and
 Programmatic Access>>_ , following the ImplicitObjectELResolver, the
 semantics obtained by adding a _CompositeELResolver_ must be inserted
 here. This _ELResolver_ contains the following _ELResolvers_ , described
 in the referenced sections.
 
-. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,See ELResolvers
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,ELResolvers
 in the application configuration resources>>_
 
-. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
 VariableResolver Chain Wrapper>>_
 
-. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,See
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,
 PropertyResolver Chain Wrapper>>_
 
-. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2820,See ELResolvers
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2820,ELResolvers
 from Application.addELResolver()>>_
 
 ===== ManagedBean ELResolver
 
 This resolver has the same semantics as the
-one in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2711,See ManagedBean ELResolver>>_ .
+one in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2711,ManagedBean ELResolver>>_ .
 
 [[a2940]]
 ===== Resource ELResolver
@@ -1910,7 +1910,7 @@ one in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2711,See ManagedBean EL
 This resolver is a means by which Resource
 instances are encoded into a faces request such that a subsequent faces
 resource request from the browser can be satisfied using the
-ResourceHandler as described in _<<RequestProcessingLifecycle.adoc#a746,See
+ResourceHandler as described in _<<RequestProcessingLifecycle.adoc#a746,
 Resource Handling>>_ .
 
 .ResourceELResolver
@@ -1924,7 +1924,7 @@ If base and property are not null, and base
 is an instance of ResourceHandler (as will be the case with an
 expression such as #\{resource[‘ajax.js’]}, perform the following.
 (Note: This is possible due to the ImplicitObjectELResolver returning
-the ResourceHandler, see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object
+the ResourceHandler, see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object
 ELResolver for Facelets and Programmatic Access>>)
 
 * If _property_ does not contain a colon
@@ -1984,7 +1984,7 @@ the chain.
 ===== ResourceBundle ELResolver for Programmatic Access
 
 This resolver has the same semantics as the
-one in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2741,See ResourceBundle ELResolver for JSP
+one in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2741,ResourceBundle ELResolver for JSP
 Pages>>.
 
 [[a2966]]
@@ -2100,10 +2100,10 @@ If base is null return String.class.
 
 If the any of the managed beans in the
 application have the _@jakarta.faces.annotation.FacesConfig_ annotation,
-the ImplicitObjectELResolver from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See
+the ImplicitObjectELResolver from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,
 Implicit Object ELResolver for Facelets and Programmatic Access>> is not
 present in the chain. Instead, CDI is used to perform EL resolution in
-the same manner is in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2832,See
+the same manner is in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2832,
 ImplicitObjectELResolver for Programmatic Access>> with the following
 additional implicit objects:
 
@@ -2121,7 +2121,7 @@ This class is the Unified EL’s answer to
 Faces’s _VariableResolver_ and _PropertyResolver_ . It turns out that
 variable resolution can be seen as a special case of property resolution
 with the base object being _null_ . Please see
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See ELResolver>>_ for more details _._
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,ELResolver>>_ for more details _._
 
 ==== ValueExpression
 
@@ -2174,12 +2174,12 @@ migration story for these APIs that implementations must follow to allow
 ==== VariableResolver and the Default VariableResolver
 
 User-provided VariableResolver instances will
-still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
+still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
 VariableResolver Chain Wrapper>>_ . The decorator pattern described in
-_<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>_
+_<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
 must be supported. Users wishing to affect EL resolution are advised to
 author a custom ELResolver instead. These will get picked up as
-specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,See ELResolvers in the
+specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,ELResolvers in the
 application configuration resources>>_ .
 
 The JSF implementation must provide a default
@@ -2190,19 +2190,19 @@ on it
 The _VariableResolver_ chain is no longer
 accessible from _Application.getVariableResolver()_ . The chain must be
 kept in an implementation dependent manner, but accessible to the
-ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
+ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
 VariableResolver Chain Wrapper>>_ .
 
 [[a3025]]
 ==== PropertyResolver and the Default PropertyResolver
 
 User-provided propertyResolver instances will
-still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
+still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
 VariableResolver Chain Wrapper>>_ . The decorator pattern described in
-_<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>_
+_<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
 must be supported. Users wishing to affect EL resolution are advised to
 author a custom ELResolver instead. These will get picked up as
-specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,See ELResolvers in the
+specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,ELResolvers in the
 application configuration resources>>_ .
 
 The JSF implementation must provide a default
@@ -2212,7 +2212,7 @@ argument _FacesContext_ and calls _setPropertyResolved(false)_ on it.
 The _PropertyResolver_ chain is no longer
 accessible from _Application.getpropertyResolver()_ . The chain must be
 kept in an implementation dependent manner, but accessible to to the
-ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,See
+ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,
 PropertyResolver Chain Wrapper>>_ .
 
 [[a3029]]
@@ -2222,7 +2222,7 @@ The _ValueBinding_ class encapsulates the
 actual evaluation of a value binding. Instances of _ValueBinding_ for
 specific references are acquired from the _Application_ instance by
 calling the _createValueBinding_ method (see
-<<ApplicationIntegration.adoc#a4179,See Acquiring ValueBinding Instances>>).
+<<ApplicationIntegration.adoc#a4179,Acquiring ValueBinding Instances>>).
 
 [source,java]
 ----
@@ -2284,7 +2284,7 @@ public Object invoke(FacesContext context, Object params[])
 ----
 
 Evaluate the method binding (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,See MethodExpression Syntax and Semantics>>)
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,MethodExpression Syntax and Semantics>>)
 and call the identified method, passing the specified parameters. Return
 any value returned by the invoked method, or return _null_ if the
 invoked method is of type _void_ .
@@ -2295,7 +2295,7 @@ public Class getType(FacesContext context) throws MethodNotFoundException;
 ----
 
 Evaluate the method binding (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,See MethodExpression Syntax and Semantics>>)
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,MethodExpression Syntax and Semantics>>)
 and return the _Class_ representing the return type of the identified
 method. If this method is of type _void_ , return _null_ instead.
 
@@ -2327,8 +2327,8 @@ exception.
 As of version 2.3 of this specification, JSF
 must run in a container that supports CDI version 2.0. This requirement
 allows CDI to provide all the functionality of the managed bean facility
-from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The Managed Bean Facility>> and
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2536nSee Managed Bean Annotations>> but in a
+from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The Managed Bean Facility>> and
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,Managed Bean Annotations>> but in a
 better integrated way with the rest of the Jakarta EE platform. Delegating
 these features to CDI allows them to evolve independently of JSF. The
 remainder of this section specifies some details of CDI integration
