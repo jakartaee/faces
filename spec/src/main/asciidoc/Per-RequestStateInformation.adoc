@@ -25,10 +25,10 @@ request.
 [[a3096]]
 ==== Application
 
-[width="100%",cols="100%",]
-|===
-|public Application getApplication();
-|===
+[source,java]
+----
+public Application getApplication();
+----
 
 {empty}[P1-start-application]The JSF
 implementation must ensure that the _Application_ instance for the
@@ -37,10 +37,10 @@ alternative to lookup via an _ApplicationFactory_ .[P1-end]
 
 ==== Attributes
 
-[width="100%",cols="100%",]
-|===
-|public Map<Object,Object> getAttributes();
-|===
+[source,java]
+----
+public Map<Object,Object> getAttributes();
+----
 
 {empty}[P1-start-attributes]Return a mutable
 _Map_ representing the attributes associated wth this _FacesContext_
@@ -55,10 +55,10 @@ application scope.[P1-end]
 [[a3099]]
 ==== ELContext
 
-[width="100%",cols="100%",]
-|===
-|public ELContext getELContext();
-|===
+[source,java]
+----
+public ELContext getELContext();
+----
 
 Return the _ELContext_ instance for this
 _FacesContext_ instance. This _ELContext_ instance has the same lifetime
@@ -90,10 +90,10 @@ class for this purpose. [P1-start-externalContext]This class must be
 implemented along with the _FacesContext_ class, and must be accessible
 via the _getExternalContext_ method in _FacesContext_ .[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public ExternalContext getExternalContext();
-|===
+[source,java]
+----
+public ExternalContext getExternalContext();
+----
 
 {empty}[P1-start externalContext during Init]
 The default implementation must return a valid value when this method is
@@ -237,16 +237,11 @@ javadocs for the complete specification.
 
 ==== ViewRoot
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public UIViewRoot getViewRoot();
-
-
-
 public void setViewRoot(UIViewRoot root);
-
-|===
+----
 
 During the _Restore View_ phase of the
 request processing lifecycle, the state management subsystem of the JSF
@@ -256,11 +251,10 @@ _setViewRoot()_ to establish it.
 
 ==== Message Queue
 
-[width="100%",cols="100%",]
-|===
-|public void addMessage(String clientId,
-FacesMessage message);
-|===
+[source,java]
+----
+public void addMessage(String clientId, FacesMessage message);
+----
 
 During the _Apply Request Values_ , _Process
 Validations_ , _Update Model Values_ , and _Invoke Application_ phases
@@ -268,26 +262,13 @@ of the request processing lifecycle, messages can be queued to either
 the component tree as a whole (if _clientId_ is _null_ ), or related to
 a specific component based on its client identifier.
 
-[width="100%",cols="100%",]
-|===
-a|
-public Interator<String>
-getClientIdsWithMessages();
-
-
-
+[source,java]
+----
+public Interator<String> getClientIdsWithMessages();
 public Severity getMaximumSeverity();
-
-
-
-public Iterator<FacesMessage>
-getMessages(String clientId);
-
-
-
+public Iterator<FacesMessage> getMessages(String clientId);
 public Iterator<FacesMessage> getMessages();
-
-|===
+----
 
 [P1-start-messageQueue]The
 _getClientIdsWithMessages()_ method must return an _Iterator_ over the
@@ -311,10 +292,10 @@ class, see <<Per-RequestStateInformation.adoc#a3300,See FacesMessage>>.
 
 ==== RenderKit
 
-[width="100%",cols="100%",]
-|===
-|public RenderKit getRenderKit();
-|===
+[source,java]
+----
+public RenderKit getRenderKit();
+----
 
 Return the _RenderKit_ associated with the
 render kit identifier in the current _UIViewRoot_ (if any).
@@ -323,31 +304,14 @@ render kit identifier in the current _UIViewRoot_ (if any).
 [[a3198]]
 ==== ResponseStream and ResponseWriter
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public ResponseStream getResponseStream();
-
-
-
-public void setResponseStream(ResponseStream
-responseStream);
-
-
-
+public void setResponseStream(ResponseStream responseStream);
 public ResponseWriter getResponseWriter();
-
-
-
-public void setResponseWriter(ResponseWriter
-responseWriter);
-
-
-
-public void enableResponseWriting(boolean
-enable);
-
-|===
+public void setResponseWriter(ResponseWriter responseWriter);
+public void enableResponseWriting(boolean enable);
+----
 
 JSF supports output that is generated as
 either a byte stream or a character stream. _UIComponent_ s or
@@ -373,24 +337,13 @@ attempt is made to use the current _ResponseWriter._
 
 ==== Flow Control Methods
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public void renderResponse();
-
-
-
 public void responseComplete();
-
-
-
 public boolean getRenderResponse();
-
-
-
 public boolean getResponseComplete();
-
-|===
+----
 
 Normally, the phases of the request
 processing lifecycle are executed sequentially, as described in
@@ -434,11 +387,10 @@ respectively, have been called already for the current request.
 
 
 
-[width="100%",cols="100%",]
-|===
-|public PartialViewContext
-getPartialViewContext();
-|===
+[source,java]
+----
+public PartialViewContext getPartialViewContext();
+----
 
 {empty}[P1-start-getpartialViewContext]The
 getPartialViewContext()method must return an instance of
@@ -459,18 +411,11 @@ jakarta.faces.context.PartialViewContext class for method requirements.
 [[a3231]]
 ==== Access To The Current FacesContext Instance
 
-[width="100%",cols="100%",]
-|===
-a|
-public static FacesContext
-getCurrentInstance();
-
-
-
-protected static void
-setCurrentInstance(FacesContext context);
-
-|===
+[source,java]
+----
+public static FacesContext getCurrentInstance();
+protected static void setCurrentInstance(FacesContext context);
+----
 
 {empty}Under most circumstances, JSF
 components, and application objects that access them, are passed a
@@ -576,49 +521,46 @@ implementation may leverage the _ExceptionHandler_ in one of two ways.
 The default ExceptionHandler must implement
 the following behavior for each of its methods
 
-[width="100%",cols="100%",]
-|===
-|public ExceptionQueuedEvent
-getHandledExceptionEvent();
-|===
+[source,java]
+----
+public ExceptionQueuedEvent getHandledExceptionEvent();
+----
 
 Return the first “handled”
 _ExceptionQueuedEvent_ , that is, the one that was actually re-thrown.
 
-[width="100%",cols="100%",]
-|===
-|public Iterable<ExceptionQueuedEvent>
-getHandledExceptionEvents();
-|===
+[source,java]
+----
+public Iterable<ExceptionQueuedEvent> getHandledExceptionEvents();
+----
 
 The default implementation must return an
 _Iterable_ over all _ExceptionEvents_ that have been handled by the
 _handle()_ method.
 
-[width="100%",cols="100%",]
-|===
-|public Throwable getRootCause(Throwable t);
-|===
+[source,java]
+----
+public Throwable getRootCause(Throwable t);
+----
 
 Unwrap the argument _t_ until the unwrapping
 encounters an _Object_ whose _getClass()_ is not equal to
 _FacesException.class_ or _jakarta.el.ELException.class_ . If there is no
 root cause, _null_ is returned.
 
-[width="100%",cols="100%",]
-|===
-|public Iterable<ExceptionQueuedEvent>
-getUnhandledExceptionEvents();
-|===
+[source,java]
+----
+public Iterable<ExceptionQueuedEvent> getUnhandledExceptionEvents();
+----
 
 Return an _Iterable_ over all
 _ExceptionEvents_ that have not yet been handled by the _handle()_
 method.
 
-[width="100%",cols="100%",]
-|===
-|public void handle() throws FacesException;
-|===
+[source,java]
+----
+public void handle() throws FacesException;
+----
 
 Inspect all unhandled _ExceptionQueuedEvent_
 instances in the order in which they were queued by calls to
@@ -654,21 +596,20 @@ The _FacesException_ must be thrown if and
 only if a problem occurs while performing the algorithm to handle the
 _Exception_ , not as a means of conveying a handled Exception itself.
 
-[width="100%",cols="100%",]
-|===
-|public boolean isListenerForSource(Object
-source);
-|===
+[source,java]
+----
+public boolean isListenerForSource(Object source);
+----
 
 The default implementation must return _true_
 if and only if the source argument is an instance of
 _ExceptionEventContext_ .
 
-[width="100%",cols="100%",]
-|===
-|public void processEvent(SystemEvent
-ExceptionQueuedEvent) throws AbortProcessingException;
-|===
+[source,java]
+----
+public void processEvent(SystemEvent ExceptionQueuedEvent)
+    throws AbortProcessingException;
+----
 
 The default implementation must store the
 argument _ExceptionQueuedEvent_ in a strongly ordered queue for later
@@ -744,46 +685,27 @@ to be added to the _FacesContext_ . __
 
 It offers the following constructors:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public FacesMessage();
-
-
-
-public FacesMessage(String summary, String
-detail);
-
-
-
-public FacesMessage(Severity severity, String
-summary, String detail);
-
-|===
+public FacesMessage(String summary, String detail);
+public FacesMessage(Severity severity, String summary, String detail);
+----
 
 The following method signatures are supported
 to retrieve and set the properties of the completed message:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public String getDetail();
-
 public void setDetail(String detail);
 
-
-
 public Severity getSeverity();
-
 public void setSeverity(Severity severity);
 
-
-
 public String getSummary();
-
 public void setSummary(String summary);
-
-|===
+----
 
 The message properties are defined as
 follows:
@@ -822,40 +744,16 @@ _RenderKit._ Please see <<RenderingModel.adoc#a4223,See RenderKit>>”. It
 supports both low-level and high level APIs for writing character based
 information
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public void close() throws IOException;
-
-
-
 public void flush() throws IOException;
-
-
-
-public void write(char c[]) throws
-IOException;
-
-
-
-public void write(char c[], int off, int len)
-throws IOException;
-
-
-
+public void write(char c[]) throws IOException;
+public void write(char c[], int off, int len) throws IOException;
 public void write(int c) throws IOException;
-
-
-
-public void write(String s) throws
-IOException;
-
-
-
-public void write(String s, int off, int len)
-throws IOException;
-
-|===
+public void write(String s) throws IOException;
+public void write(String s, int off, int len) throws IOException;
+----
 
 The _ResponseWriter_ class extends
 _java.io.Writer_ , and therefore inherits these method signatures for
@@ -865,48 +763,37 @@ _IOException_ . The _flush_ method flushes any buffered information to
 the underlying output writer, and commits the response. The _write_
 methods write raw characters directly to the output writer.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public abstract String getContentType();
-
-public abstract String
-getCharacterEncoding();
-
-|===
+public abstract String getCharacterEncoding();
+----
 
 Return the content type or character encoding
 used to create this ResponseWriter.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public void startCDATA();
-
 public void endCDATA();
-
-|===
+----
 
 Start and end an XML CDATA Section..
 
-[width="100%",cols="100%",]
-|===
-a|
-public void startDocument() throws
-IOException;
-
+[source,java]
+----
+public void startDocument() throws IOException;
 public void endDocument() throws IOException;
-
-|===
+----
 
 Write appropriate characters at the beginning
 ( _startDocument_ ) or end ( _endDocument_ ) of the current response.
 
-[width="100%",cols="100%",]
-|===
-|public void startElement(String name,
-UIComponent componentForElement) throws IOException;
-|===
+[source,java]
+----
+public void startElement(String name,
+    UIComponent componentForElement) throws IOException;
+----
 
 Write the beginning of a markup element (the
 _<_ character followed by the element name), which causes the
@@ -924,37 +811,31 @@ provide their own implementation of _ResponseWriter_ to allow the design
 time environment to know which component corresponds to which piece of
 markup.
 
-[width="100%",cols="100%",]
-|===
-|public void endElement(String name) throws
-IOException;
-|===
+[source,java]
+----
+public void endElement(String name) throws IOException;
+----
 
 Write a closing for the specified element,
 closing any currently opened element first if necessary.
 
-[width="100%",cols="100%",]
-|===
-|public void writeComment(Object comment)
-throws IOException;
-|===
+[source,java]
+----
+public void writeComment(Object comment) throws IOException;
+----
 
 Write a comment string wrapped in appropriate
 comment delimiters, after converting the comment object to a _String_
 first. Any currently opened element is closed first.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void writeAttribute(String name,
-Object value, String componentPropertyName) throws IOException;
+[source,java]
+----
+public void writeAttribute(String name, Object value,
+    String componentPropertyName) throws IOException;
 
-
-
-public void writeURIAttribute(String name,
-Object value, String componentPropertyName) throws IOException;
-
-|===
+public void writeURIAttribute(String name, Object value,
+    String componentPropertyName) throws IOException;
+----
 
 These methods add an attribute name/value
 pair to an element that was opened with a previous call to
@@ -968,29 +849,21 @@ the associated _UIComponent_ for this element, to which this attribute
 corresponds. The _componentPropertyName_ parameter may be null to
 indicate that this attribute has no corresponding property.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void writeText(Object text, String
-property) throws IOException;
-
-
-
-public void writeText(char text[], int off,
-int len) throws IOException;
-
-|===
+[source,java]
+----
+public void writeText(Object text, String property) throws IOException;
+public void writeText(char text[], int off, int len) throws IOException;
+----
 
 Write text (converting from _Object_ to
 _String_ first, if necessary), performing appropriate character encoding
 and escaping. Any currently open element created by a call to
 _startElement_ is closed first.
 
-[width="100%",cols="100%",]
-|===
-|public abstract ResponseWriter
-cloneWithWriter(Writer writer);
-|===
+[source,java]
+----
+public abstract ResponseWriter cloneWithWriter(Writer writer);
+----
 
 Creates a new instance of this
 _ResponseWriter_ , using a different _Writer_ .
@@ -1007,26 +880,21 @@ implementors—applications will not generally call it directly. The
 factory instance can be acquired, by JSF implementations or by
 application code, by executing:
 
-[width="100%",cols="100%",]
-|===
-a|
-FacesContextFactory factory =
-
-(FacesContextFactory)
-
-FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-
-|===
+[source,java]
+----
+FacesContextFactory factory = (FacesContextFactory)
+    FactoryFinder.getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+----
 
 pThe _FacesContextFactory_ implementation
 class provides the following method signature to create (or recycle from
 a pool) a _FacesContext_ instance:
 
-[width="100%",cols="100%",]
-|===
-|public FacesContext getFacesContext(Object
-context, Object request, Object response, Lifecycle lifecycle);
-|===
+[source,java]
+----
+public FacesContext getFacesContext(Object context,
+    Object request, Object response, Lifecycle lifecycle);
+----
 
 Create (if necessary) and return a
 _FacesContext_ instance that has been configured based on the specified
@@ -1044,26 +912,20 @@ available to each JSF-based web application running in a servlet or
 portlet container.[P1-end] The factory instance can be acquired, by JSF
 implementations or by application code, by executing:
 
-[width="100%",cols="100%",]
-|===
-a|
-ExceptionHandlerFactory factory =
-
-(ExceptionHandlerFactory)
-
-FactoryFinder.getFactory(FactoryFinder.EXCEPTION_HANDLER_FACTORY);
-
-|===
+[source,java]
+----
+ExceptionHandlerFactory factory = (ExceptionHandlerFactory)
+    FactoryFinder.getFactory(FactoryFinder.EXCEPTION_HANDLER_FACTORY);
+----
 
 The _ExceptionHandlerFactory_ implementation
 class provides the following method signature to create an
 _ExceptionHandler_ instance:
 
-[width="100%",cols="100%",]
-|===
-|public ExceptionHandler
-getExceptionHandler(FacesContext currentContext);
-|===
+[source,java]
+----
+public ExceptionHandler getExceptionHandler(FacesContext currentContext);
+----
 
 Create and return a _ExceptionHandler_
 instance that has been configured based on the specified parameters.
@@ -1080,26 +942,21 @@ implementors—applications will not generally call it directly. The
 factory instance can be acquired, by JSF implementations or by
 application code, by executing:
 
-[width="100%",cols="100%",]
-|===
-a|
-ExternalContextFactory factory =
-
-(ExternalContextFactory)
-
-FactoryFinder.getFactory(FactoryFinder.EXTERNAL_CONTEXT_FACTORY);
-
-|===
+[source,java]
+----
+ExternalContextFactory factory = (ExternalContextFactory)
+    FactoryFinder.getFactory(FactoryFinder.EXTERNAL_CONTEXT_FACTORY);
+----
 
 pThe _ExternalContextFactory_ implementation
 class provides the following method signature to create (or recycle from
 a pool) a _FacesContext_ instance:
 
-[width="100%",cols="100%",]
-|===
-|public ExternalContext
-getExternalContext(Object context, Object request, Object response);
-|===
+[source,java]
+----
+public ExternalContext getExternalContext(
+Object context, Object request, Object response);
+----
 
 Create (if necessary) and return an
 _ExternalContext_ instance that has been configured based on the
