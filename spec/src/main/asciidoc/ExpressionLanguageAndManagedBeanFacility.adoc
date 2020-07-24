@@ -41,10 +41,10 @@ of the _ValueExpression_ is called, which returns the evaluated result.
 Such expressions can be used, for example, to dynamically calculate a
 component value to be displayed:
 
-[width="100%",cols="100%",]
-|===
-|<h:outputText value=”#\{customer.name}”/>
-|===
+[source,xml]
+----
+<h:outputText value=”#{customer.name}”/>
+----
 
 which, when this page is rendered, will
 retrieve the bean stored under the “customer” key, then acquire the name
@@ -57,11 +57,10 @@ on the current _user_ bean (presumably representing the logged-in user)
 to determine whether the _salary_ property of an employee should be
 displayed or not:
 
-[width="100%",cols="100%",]
-|===
-|<h:outputText rendered=”#\{user.manager}”
-value=”#\{employee.salary}”/>
-|===
+[source,xml]
+----
+<h:outputText rendered=”#{user.manager}” value=”#{employee.salary}”/>
+----
 
 which sets the _rendered_ property of the
 component to _false_ if the user is not a manager, and therefore causes
@@ -77,10 +76,10 @@ Value expressions can also be used to set a
 value from the user into the item obtained by evaluating the expression.
 For example:
 
-[width="100%",cols="100%",]
-|===
-|<h:inputText value=”#\{employee.number}”/>
-|===
+[source,xml]
+----
+<h:inputText value=”#{employee.number}”/>
+----
 
 When the page is rendered, the expression is
 evaluated as an r-value and the result is displayed as the default value
@@ -581,109 +580,52 @@ type _Address_ (along with additional properties that are not shown),
 and _AddressBean_ implementation classes with String properties of type
 _street_ , _city_ , _state_ , _country_ , and _postalCode_ .
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <managed-bean>
-
- <description>
-
- A customer bean will be created as needed,
-and stored in
-
- request scope. Its “mailingAddress” and
-“streetAddress”
-
- properties will be initialized by virtue of
-the fact that the
-
- “value” expressions will not encounter any
-object under
-
- key “addressBean” in any scope.
-
- </description>
-
-
-<managed-bean-name>customer</managed-bean-name>
-
- <managed-bean-class>
-
- com.mycompany.mybeans.CustomerBean
-
- </managed-bean-class>
-
- <managed-bean-scope> request
-</managed-bean-scope>
-
- <managed-property>
-
-
-<property-name>mailingAddress</property-name>
-
- <value>#\{addressBean}</value>
-
- </managed-property>
-
- <managed-property>
-
-
-<property-name>shippingAddress</property-name>
-
- <value>#\{addressBean}</value>
-
- </managed-property>
-
- <managed-property>
-
- <property-name>customerType</property-name>
-
- <value>New</value> <!-- Set to literal value
--->
-
- </managed-property>
-
+  <description>
+    A customer bean will be created as needed, and stored in request
+    scope. Its “mailingAddress” and “streetAddress” properties will
+    be initialized by virtue of the fact that the “value” expressions
+    will not encounter any object under key “addressBean” in any scope.
+  </description>
+  <managed-bean-name>customer</managed-bean-name>
+  <managed-bean-class>
+    com.mycompany.mybeans.CustomerBean
+  </managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+  <managed-property>
+    <property-name>mailingAddress</property-name>
+    <value>#{addressBean}</value>
+  </managed-property>
+  <managed-property>
+    <property-name>shippingAddress</property-name>
+    <value>#{addressBean}</value>
+  </managed-property>
+  <managed-property>
+    <property-name>customerType</property-name>
+    <value>New</value> <!-- Set to literal value -->
+  </managed-property>
 </managed-bean>
+----
 
 
 
-|===
-
-
-
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <managed-bean>
-
- <description>
-
- A new AddressBean will not be added to any
-scope, because we
-
- only want to create instances when a
-CustomerBean creation asks
-
- for them. Therefore, we set the scope to
-“none”.
-
- </description>
-
-
-<managed-bean-name>addressBean</managed-bean-name>
-
- <managed-bean-class>
-
- com.mycompany.mybeans.AddressBean
-
- </managed-bean-class>
-
- <managed-bean-scope> none
-</managed-bean-scope>
-
+  <description>
+    A new AddressBean will not be added to any scope, because we
+    only want to create instances when a CustomerBean creation asks
+    for them. Therefore, we set the scope to “none”.
+  </description>
+  <managed-bean-name>addressBean</managed-bean-name>
+  <managed-bean-class>
+    com.mycompany.mybeans.AddressBean
+  </managed-bean-class>
+  <managed-bean-scope>none</managed-bean-scope>
 </managed-bean>
-
-|===
+----
 
 If a value expression “
 _#\{customer.mailingAddress.city}_ ” were to be evaluated by the JSF
@@ -704,39 +646,21 @@ following information to declare that a JDBC data source instance will
 have been created, and stored in application scope, as part of the
 application’s own startup processing.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <referenced-bean>
-
- <description>
-
- A JDBC data source will be initialized and
-made available in
-
- some scope (presumably application) for use
-by the JSF based
-
- application when it is actually run. This
-information is not
-
- used by the JSF implementation itself; only
-by tools.
-
- </description>
-
- <referenced-bean-name> dataSource
-</referenced-bean-name>
-
- <referenced-bean-class>
-
- javax.sql.DataSource
-
- </referenced-bean-class>
-
+  <description>
+    A JDBC data source will be initialized and made available in
+    some scope (presumably application) for use by the JSF based
+    application when it is actually run. This information is not
+    used by the JSF implementation itself; only by tools.
+  </description>
+  <referenced-bean-name>dataSource</referenced-bean-name>
+  <referenced-bean-class>
+    javax.sql.DataSource
+  </referenced-bean-class>
 </referenced-bean>
-
-|===
+----
 
 This information can be utilized by the tool
 to construct user interfaces based on the properties of the referenced
@@ -865,39 +789,24 @@ annotations in a managed bean]
 Following is an example of valid usages of
 this feature in a managed bean or other artifact in the preceding table.
 
-public class User extends Object \{
+[source,java]
+----
+public class User extends Object {
+  private @EJB ShoppingCart cart;
+  private @Resource Inventory inventory;
+  private DataSource customerData;
 
- private @EJB ShoppingCart cart;
+  @Resource(name=”customerData”)
+  private void setCustomerData(DataSource data) {
+    customerData = data;
+  }
 
- private @Resource Inventory inventory;
-
- private DataSource customerData;
-
-
-
- @Resource(name=”customerData”)
-
- private void setCustomerData(DataSource
-data) \{
-
- customerData = data;
-
- }
-
-
-
- public String getOrderSummary() \{
-
- // Do something with the injected resources
-
- // And generate a textual summary of the
-order
-
- }
-
-
-
+  public String getOrderSummary() {
+    // Do something with the injected resources
+    // And generate a textual summary of the order
+  }
 }
+----
 
 This example illustrates that the above
 annotations can be attached to instance variables or to JavaBeans
@@ -1018,17 +927,12 @@ ELResolver>>_ for how this property is used.
 Here is a subset of the methods that are
 relevant to Faces.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public Object getContext(Class key);
-
-void putContext(Class key, Object
-contextInstance);
-
+void putContext(Class key, Object contextInstance);
 ...
-
-|===
+----
 
 As mentioned in
 _<<Per-RequestStateInformation.adoc#a3099,See ELContext>>_ , the _putContext()_ method
@@ -1098,18 +1002,13 @@ ELResolver has no proper JavaBeans properties
 Here is a subset of the methods that are
 relevant to Faces.
 
-[width="100%",cols="100%",]
-|===
-a|
-public Object getValue(ELContext context,
-Object base, Object property);
-
-void setValue(ELContext context, Object base,
-Object property, Object value);
-
+[source,java]
+----
+public Object getValue(ELContext context, Object base, Object property);
+void setValue(ELContext context,
+    Object base, Object property, Object value);
 ...
-
-|===
+----
 
  _getValue()_ looks at the argument _base_
 and tries to return the value of the property named by the argument
@@ -1156,18 +1055,13 @@ _ExpressionFactory_ has no properties.
 
 ===== Methods
 
-[width="100%",cols="100%",]
-|===
-a|
-public MethodExpression
-createMethodExpression(ELContext context, String expression,
-FunctionMapper fnMapper, Class[] paramTypes);
-
-public ValueExpression
-createValueExpression(ELContext context, String expression, Class
-expectedType, FunctionMapper fnMapper);
-
-|===
+[source,java]
+----
+public MethodExpression createMethodExpression(ELContext context,
+    String expression, FunctionMapper fnMapper, Class[] paramTypes);
+public ValueExpression createValueExpression(ELContext context,
+    String expression, Class expectedType, FunctionMapper fnMapper);
+----
 
 These methods take the human readable
 expression string, such as _”#\{user.address.street}”_ and return an
@@ -2403,42 +2297,42 @@ specific references are acquired from the _Application_ instance by
 calling the _createValueBinding_ method (see
 <<ApplicationIntegration.adoc#a4179,See Acquiring ValueBinding Instances>>).
 
-[width="100%",cols="100%",]
-|===
-|public Object getValue(FacesContext context)
-throws EvaluationException, PropertyNotFoundException;
-|===
+[source,java]
+----
+public Object getValue(FacesContext context)
+    throws EvaluationException, PropertyNotFoundException;
+----
 
 Evaluate the value binding used to create
 this _ValueBinding_ instance, relative to the specified _FacesContext_ ,
 and return the referenced value.
 
-[width="100%",cols="100%",]
-|===
-|public void setValue(FacesContext context,
-Object value) throws EvaluationException, PropertyNotFoundException;
-|===
+[source,java]
+----
+public void setValue(FacesContext context, Object value)
+    throws EvaluationException, PropertyNotFoundException;
+----
 
 Evaluate the value binding used to create
 this _ValueBinding_ instance, relative to the specified _FacesContext_ ,
 and update the referenced value to the specified new value.
 
-[width="100%",cols="100%",]
-|===
-|public boolean isReadOnly(FacesContext
-context) throws EvaluationException, PropertyNotFoundException;
-|===
+[source,java]
+----
+public boolean isReadOnly(FacesContext context)
+    throws EvaluationException, PropertyNotFoundException;
+----
 
 Evaluate the value binding used to create
 this _ValueBinding_ instance, relative to the specified _FacesContext_ ,
 and return _true_ if the corresponding property is known to be
 immutable. Otherwise, return _false_ .
 
-[width="100%",cols="100%",]
-|===
-|public Class getType(FacesContext context)
-throws EvaluationException, PropertyNotFoundException;
-|===
+[source,java]
+----
+public Class getType(FacesContext context)
+    throws EvaluationException, PropertyNotFoundException;
+----
 
 Evaluate the value binding used to create
 this _ValueBinding_ instance, relative to the specified _FacesContext_ ,
@@ -2456,11 +2350,11 @@ _MethodBinding_ are immutable, and contain no references to a
 _FacesContext_ (which is passed in as a parameter when the reference
 binding is evaluated).
 
-[width="100%",cols="100%",]
-|===
-|public Object invoke(FacesContext context,
-Object params[]) throws EvaluationException, MethodNotFoundException;
-|===
+[source,java]
+----
+public Object invoke(FacesContext context, Object params[])
+    throws EvaluationException, MethodNotFoundException;
+----
 
 Evaluate the method binding (see
 <<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,See MethodExpression Syntax and Semantics>>)
@@ -2468,11 +2362,10 @@ and call the identified method, passing the specified parameters. Return
 any value returned by the invoked method, or return _null_ if the
 invoked method is of type _void_ .
 
-[width="100%",cols="100%",]
-|===
-|public Class getType(FacesContext context)
-throws MethodNotFoundException;
-|===
+[source,java]
+----
+public Class getType(FacesContext context) throws MethodNotFoundException;
+----
 
 Evaluate the method binding (see
 <<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,See MethodExpression Syntax and Semantics>>)
