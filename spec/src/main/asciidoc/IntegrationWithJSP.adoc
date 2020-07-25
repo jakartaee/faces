@@ -48,22 +48,20 @@ _HTMLRenderKit_ , which supports three _Renderer_ types for the
 _UIInput_ component:
 
 .Example Renderer Types
+[%header, width="60%" cols="2,3", frame="topbot", grid="rows", stripes="even"]
+|===
+| RendererType
+| Render-Dependent Attributes
 
-RendererType
+| “Text”
+| “size”
 
-Render-Dependent Attributes
+| “Secret”
+| “size”, “secretChar”
 
-“Text”
-
-“size”
-
-“Secret”
-
-“size”, “secretChar”
-
-“Textarea”
-
-“size”, “rows”
+| “Textarea”
+| “size”, “rows”
+|===
 
 The tag library descriptor (TLD) file for the
 corresponding tag library, then, would define three custom actions—one
@@ -807,7 +805,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -897,7 +895,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -966,7 +964,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1155,7 +1153,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1293,7 +1291,7 @@ empty
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1373,7 +1371,7 @@ template text or other custom actions may be present.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1423,7 +1421,7 @@ empty
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1491,7 +1489,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1561,7 +1559,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1646,7 +1644,7 @@ empty
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1738,7 +1736,7 @@ empty
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1823,7 +1821,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -1933,7 +1931,7 @@ libraries.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2098,7 +2096,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2210,7 +2208,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2303,7 +2301,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2401,7 +2399,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2494,7 +2492,7 @@ empty
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2574,7 +2572,7 @@ empty.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2665,7 +2663,7 @@ this custom action.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2732,7 +2730,7 @@ libraries.
 
 ===== Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="15%,7%,18%,60%",options="header",]
 |===
 |Name |Expr
 |Type |Description
@@ -2848,186 +2846,130 @@ values for the _getComponentType()_ and _getRendererType()_ methods,
 respectively:.
 
 .Standard HTML RenderKit Tag Library
+[%autowidth%header, cols="3*", frame="topbot", grid="rows", stripes="even"]
+|===
+
+| getComponentType()
+| getRendererType()
+| custom action name
+
+| jakarta.faces.Column
+| {empty}(null)<<Footnotes.adoc#a9101,18>>
+| column
+
+| jakarta.faces.HtmlCommandButton
+| jakarta.faces.Button
+| commandButton
+
+| jakarta.faces.HtmlCommandLink
+| jakarta.faces.Link
+| commandLink
+
+| jakarta.faces.HtmlDataTable
+| jakarta.faces.Table
+| dataTable
+
+| jakarta.faces.HtmlForm
+| jakarta.faces.Form
+| form
 
-getComponentType()
+| jakarta.faces.HtmlGraphicImage
+| jakarta.faces.Image
+| graphicImage
 
-getRendererType()
+| jakarta.faces.HtmlInputHidden
+| jakarta.faces.Hidden
+| inputHidden
 
-custom action name
+| jakarta.faces.HtmlInputSecret
+| jakarta.faces.Secret
+| inputSecret
 
-jakarta.faces.Column
+| jakarta.faces.HtmlInputText
+| jakarta.faces.Text
+| inputText
 
-{empty}(null)<<Footnotes.adoc#a9101,18>>
+| jakarta.faces.HtmlInputTextarea
+| jakarta.faces.Textarea
+| inputTextarea
 
-column
+| jakarta.faces.HtmlMessage
+| jakarta.faces.Message
+| message
 
-jakarta.faces.HtmlCommandButton
+| jakarta.faces.HtmlMessages
+| jakarta.faces.Messages
+| messages
 
-jakarta.faces.Button
+| jakarta.faces.HtmlOutputFormat
+| jakarta.faces.Format
+| outputFormat
 
-commandButton
+| jakarta.faces.HtmlOutputLabel
+| jakarta.faces.Label
+| outputLabel
 
-jakarta.faces.HtmlCommandLink
+| jakarta.faces.HtmlOutputLink
+| jakarta.faces.Link
+| outputLink
 
-jakarta.faces.Link
+| jakarta.faces.Output
+| jakarta.faces.Body
+| body
 
-commandLink
+| jakarta.faces.Output
+| jakarta.faces.Head
+| head
 
-jakarta.faces.HtmlDataTable
+| jakarta.faces.Output
+| jakarta.faces.resource.Script
+| outputScript
 
-jakarta.faces.Table
+| jakarta.faces.Output
+| jakarta.faces.resource.Stylesheet
+| outputStylesheet
 
-dataTable
+| jakarta.faces.HtmlOutputText
+| jakarta.faces.Text
+| outputText
 
-jakarta.faces.HtmlForm
+| jakarta.faces.HtmlPanelGrid
+| jakarta.faces.Grid
+| panelGrid
 
-jakarta.faces.Form
+| jakarta.faces.HtmlPanelGroup
+| jakarta.faces.Group
+| panelGroup
 
-form
+| jakarta.faces.HtmlSelectBooleanCheckbox
+| jakarta.faces.Checkbox
+| selectBooleanCheckbox
 
-jakarta.faces.HtmlGraphicImage
+| jakarta.faces.HtmlSelectManyCheckbox
+| jakarta.faces.Checkbox
+| selectManyCheckbox
 
-jakarta.faces.Image
+| jakarta.faces.HtmlSelectManyListbox
+| jakarta.faces.Listbox
+| selectManyListbox
 
-graphicImage
+| jakarta.faces.HtmlSelectManyMenu
+| jakarta.faces.Menu
+| selectManyMenu
 
-jakarta.faces.HtmlInputHidden
+| jakarta.faces.HtmlSelectOneListbox
+| jakarta.faces.Listbox
+| selectOneListbox
 
-jakarta.faces.Hidden
+| jakarta.faces.HtmlSelectOneMenu
+| jakarta.faces.Menu
+| selectOneMenu
 
-inputHidden
+| jakarta.faces.HtmlSelectOneRadio
+| jakarta.faces.Radio
+| selectOneRadio
 
-jakarta.faces.HtmlInputSecret
-
-jakarta.faces.Secret
-
-inputSecret
-
-jakarta.faces.HtmlInputText
-
-jakarta.faces.Text
-
-inputText
-
-jakarta.faces.HtmlInputTextarea
-
-jakarta.faces.Textarea
-
-inputTextarea
-
-jakarta.faces.HtmlMessage
-
-jakarta.faces.Message
-
-message
-
-jakarta.faces.HtmlMessages
-
-jakarta.faces.Messages
-
-messages
-
-jakarta.faces.HtmlOutputFormat
-
-jakarta.faces.Format
-
-outputFormat
-
-jakarta.faces.HtmlOutputLabel
-
-jakarta.faces.Label
-
-outputLabel
-
-jakarta.faces.HtmlOutputLink
-
-jakarta.faces.Link
-
-outputLink
-
-jakarta.faces.Output
-
-jakarta.faces.Body
-
-body
-
-jakarta.faces.Output
-
-jakarta.faces.Head
-
-head
-
-jakarta.faces.Output
-
-jakarta.faces.resource.Script
-
-outputScript
-
-jakarta.faces.Output
-
-jakarta.faces.resource.Stylesheet
-
-outputStylesheet
-
-jakarta.faces.HtmlOutputText
-
-jakarta.faces.Text
-
-outputText
-
-jakarta.faces.HtmlPanelGrid
-
-jakarta.faces.Grid
-
-panelGrid
-
-jakarta.faces.HtmlPanelGroup
-
-jakarta.faces.Group
-
-panelGroup
-
-jakarta.faces.HtmlSelectBooleanCheckbox
-
-jakarta.faces.Checkbox
-
-selectBooleanCheckbox
-
-jakarta.faces.HtmlSelectManyCheckbox
-
-jakarta.faces.Checkbox
-
-selectManyCheckbox
-
-jakarta.faces.HtmlSelectManyListbox
-
-jakarta.faces.Listbox
-
-selectManyListbox
-
-jakarta.faces.HtmlSelectManyMenu
-
-jakarta.faces.Menu
-
-selectManyMenu
-
-jakarta.faces.HtmlSelectOneListbox
-
-jakarta.faces.Listbox
-
-selectOneListbox
-
-jakarta.faces.HtmlSelectOneMenu
-
-jakarta.faces.Menu
-
-selectOneMenu
-
-jakarta.faces.HtmlSelectOneRadio
-
-jakarta.faces.Radio
-
-selectOneRadio
+|===
 
 Note, to avoid confusion between JSP and
 Facelets, any Renderers that are only supported in Facelets are
