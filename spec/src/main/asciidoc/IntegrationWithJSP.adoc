@@ -796,8 +796,8 @@ action.
 
 ===== Syntax
 
-<f:actionListener
-type=”fully-qualified-classname” binding=”value Expression”/>
+``<f:actionListener type=”__fully-qualified-classname__”``
+``binding=”__value Expression__”/>``
 
 ===== Body Content
 
@@ -886,8 +886,8 @@ action.
 
 ===== Syntax
 
-<f:attribute name=”attribute-name”
-value=”attribute-value”/>
+``<f:attribute name=”__attribute-name__”``
+``value=”__attribute-value__”/>``
 
 ===== Body Content
 
@@ -938,25 +938,22 @@ custom action.
 
 ===== Syntax
 
-<f:convertDateTime
+``<f:convertDateTime``
+[none]
+* ``[dateStyle=”{**default**|short|medium|long|full}”]``
 
-{empty}
-[dateStyle=”\{default|short|medium|long|full}”]
+* ``[locale=”{__locale__|__string__}”]``
 
-{empty} [locale=”\{ _locale_ ” | string}]
+* ``[pattern=”__pattern__”]``
 
-{empty} [pattern=”_pattern_”]
+* ``[timeStyle=”{**default**|short|medium|long|full}”]``
 
-{empty}
-[timeStyle=”\{default|short|medium|long|full}”]
+* ``[timeZone=”{__timeZone__|__string__}”]``
 
-{empty} [timeZone=”\{ _timeZone_ | string}”]
+* ``[type=”{date|time|both|localDate|localDateTime|localTime|`` +
+``offsetTime|offsetDateTime|zonedDateTime}”]``
 
-{empty}
-[type=”\{date|time|both|localDate|localDateTime|localTime|offsetTime|offsetDateTime| +
-zonedDateTime}”]
-
-[binding=”Value Expression”]/>
+* ``[binding=”__Value Expression__”]/>``
 
 ===== Body Content
 
@@ -1117,31 +1114,31 @@ action.
 
 ===== Syntax
 
-<f:convertNumber
+``<f:convertNumber``
+[none]
+* ``[currencyCode=”__currencyCode__”]``
 
-{empty} [currencyCode=”_currencyCode_”]
+* ``[currencySymbol=”__currencySymbol__”]``
 
-{empty} [currencySymbol=”_currencySymbol_”]
+* ``[groupingUsed=”{**true**|false}”]``
 
-{empty} [groupingUsed=”\{true|false}”]
+* ``[integerOnly=”{true|**false**}”]``
 
-{empty} [integerOnly=”\{true|false}”]
+* ``[locale=”__locale__”]``
 
-{empty} [locale=”_locale_”]
+* ``[maxFractionDigits=”__maxFractionDigits__”]``
 
-{empty} [maxFractionDigits=”_maxFractionDigits_”]
+* ``[maxIntegerDigits=”__maxIntegerDigits__”]``
 
-{empty} [maxIntegerDigits=”_maxIntegerDigits_”]
+* ``[minFractionDigits=”__minFractionDigits__”]``
 
-{empty} [minFractionDigits=”_minFractionDigits_”]
+* ``[minIntegerDigits=”__minIntegerDigits__”]``
 
-{empty} [minIntegerDigits=”_minIntegerDigits_”]
+* ``[pattern=”__pattern__”]``
 
-{empty} [pattern=”_pattern_”]
+* ``[type=”{**number**|currency|percent}”]``
 
-{empty} [type=”\{number|currency|percent}”]
-
-[binding=”Value Expression”]/>
+* ``[binding=”__Value Expression__”]/>``
 
 ===== Body Content
 
@@ -1278,8 +1275,7 @@ action.
 
 ===== Syntax
 
-<f:converter converterId=”converterId”
-binding=”Value Expression”/>
+``<f:converter converterId=”__converterId__” binding=”__Value Expression__”/>``
 
 ===== Body Content
 
@@ -1357,7 +1353,7 @@ associated with the closest parent _UIComponent_ custom action.
 
 ===== Syntax
 
-<f:facet name=”facet-name”/>
+``<f:facet name=”__facet-name__”/>``
 
 ===== Body Content
 
@@ -1407,8 +1403,7 @@ attributes for the current request.
 
 ===== Syntax
 
-<f:loadBundle basename=”resource-bundle-name”
-var=”_attributeKey_”/>
+``<f:loadBundle basename=”__resource-bundle-name__” var=”__attributeKey__”/>``
 
 ===== Body Content
 
@@ -1462,20 +1457,17 @@ action.
 
 .Syntax 1: Unnamed value
 
-<f:param
-[id=”componentIdOrImmediateExpression”] value=”parameter-value”
-
-[binding=”_componentReference_”] />
+``<f:param [id=”__componentIdOrImmediateExpression__”]``
+[none]
+* ``value=”__parameter-value__”``
+* ``[binding=”__componentReference__”] />``
 
 .Syntax 2: Named value
 
-{empty}<f:param
-[id=”componentIdOrImmediateExpression”]
-
-[binding=”_componentReference_”]
-
-name=”parameter-name”
-value=”parameter-value”/>
+``<f:param [id=”__componentIdOrImmediateExpression__”]``
+[none]
+* ``[binding=”__componentReference__”]``
+* ``name=”__parameter-name__” value=”__parameter-value__”/>``
 
 ===== Body Content
 
@@ -1542,10 +1534,7 @@ action.
 
 ===== Syntax
 
-<f:phaseListener
-type=”fully-qualified-classname”
-
-binding=”Value expression”/>
+``<f:phaseListener type=”__fully-qualified-classname__” binding=”__Value expression__”/>``
 
 ===== Body Content
 
@@ -1610,27 +1599,20 @@ action.
 
 .Syntax 1: Directly Specified Value
 
-{empty}<f:selectItem
-[id=”componentIdOrImmediateExpression”]
-
-[binding=”_componentReference_”]
-
-{empty} [itemDisabled=”\{true|false}”]
-
-itemValue=”_itemValue_”
-
-itemLabel=”_itemLabel_”
-
-[itemDescription=”_itemDescription_”] />
+``<f:selectItem [id=”__componentIdOrImmediateExpression__”]``
+[none]
+* ``[binding=”__componentReference__”]``
+* ``[itemDisabled=”{true|**false**}”]``
+* ``itemValue=”__itemValue__”``
+* ``itemLabel=”__itemLabel__”``
+* ``[itemDescription=”__itemDescription__”] />``
 
 .Syntax 2: Indirectly Specified Value
 
-{empty}<f:selectItem
-[id=”componentIdOrImmediateExpression”]
-
-[binding=”_componentReference_”]
-
-value=”_selectItemValue_”/>
+``<f:selectItem [id=”__componentIdOrImmediateExpression__”]``
+[none]
+* ``[binding=”__componentReference__”]``
+* ``value=”__selectItemValue__”/>``
 
 =====  Body Content
 
@@ -1717,12 +1699,10 @@ action.
 
 ===== Syntax
 
-{empty}<f:selectItems
-[id=”componentIdOrImmediateExpression”]
-
-[binding=”_componentReference_”]
-
-value=”_selectItemsValue_” />
+``<f:selectItems [id=”__componentIdOrImmediateExpression__”]``
+[none]
+* ``[binding=”__componentReference__”]``
+* ``value=”__selectItemsValue__” />``
 
 =====  Body Content
 
@@ -1806,8 +1786,7 @@ useful for pushing a specific value into a managed bean on page submit.
 
 ===== Syntax
 
-<f:setPropertyActionListener target=”Value
-Expression” value=”value Expression”/>
+``<f:setPropertyActionListener target=”__Value Expression__” value=”__value Expression__”/>``
 
 ===== Body Content
 
@@ -1900,20 +1879,14 @@ page from the same web application, such as JSTL’s _<c:import>_.
 
 ===== Syntax
 
-[width="100%",cols="100%",]
-|===
-a|
-<f:subview id=”_componentIdOrImmediateExpression_”
+``<f:subview id=”__componentIdOrImmediateExpression__”``
+[none]
+* ``[binding=”__componentReference__”]``
+* ``[rendered=”{**true**|false}”]>``
+[none]
+** ``Nested template text and custom actions``
 
- [binding=”_componentReference_”]
-
- [rendered=”\{true|false}”]>
-
- Nested template text and custom actions
-
-</f:subview>
-
-|===
+``</f:subview>``
 
 ===== Body Content
 
@@ -2068,18 +2041,15 @@ custom action.
 
 .Syntax 1: Maximum only specified
 
-<f:validateDoubleRange maximum=”543.21”
-binding=”VB Expression”/>
+``<f:validateDoubleRange maximum=”__543.21__” binding=”__VB Expression__”/>``
 
 .Syntax 2: Minimum only specified
 
-<f:validateDoubleRange minimum=”123.45”
-binding=”VB Expression”/>
+``<f:validateDoubleRange minimum=”__123.45__” binding=”__VB Expression__”/>``
 
 .Syntax 3: Both maximum and minimum are specified
 
-<f:validateDoubleRange maximum=”543.21”
-minimum=”123.45” binding=”VB Expression”/>
+``<f:validateDoubleRange maximum=”__543.21__” minimum=”__123.45__” binding=”__VB Expression__”/>``
 
 ===== Body Content
 
@@ -2180,18 +2150,15 @@ action.
 
 .Syntax 1: Maximum length only specified
 
-<f:validateLength maximum=”10” binding=”VB
-Expression”/>
+``<f:validateLength maximum=”__10__” binding=”__VB Expression__”/>``
 
 .Syntax 2: Minimum only specified
 
-<f:validateLength minimum=”1” binding=”VB
-Expression”/>
+``<f:validateLength minimum=”__1__” binding=”__VB Expression__”/>``
 
 .Syntax 3: Both maximum and minimum are specified
 
-<f:validateLength maximum=”10” minimum=”1”
-binding=”VB Expression”/>
+``<f:validateLength maximum=”__10__” minimum=”__1__” binding=”__VB Expression__”/>``
 
 ===== Body Content
 
@@ -2284,7 +2251,7 @@ action.
 
 ===== Syntax
 
-<f:validateRegex pattern=”a*b”/>
+``<f:validateRegex pattern=”__a*b__”/>``
 
 ===== Body Content
 
@@ -2371,18 +2338,15 @@ custom action.
 
 .Syntax 1: Maximum only specified
 
-<f:validateLongRange maximum=”543”
-binding=”VB Expression”/>
+``<f:validateLongRange maximum=”__543__” binding=”__VB Expression__”/>``
 
 .Syntax 2: Minimum only specified
 
-<f:validateLongRange minimum=”123”
-binding=”VB Expression”/>
+``<f:validateLongRange minimum=”__123__” binding=”__VB Expression__”/>``
 
 .Syntax 3: Both maximum and minimum are specified
 
-<f:validateLongRange maximum=”543”
-minimum=”123” binding=”VB Expression”/>
+``<f:validateLongRange maximum=”__543__” minimum=”__123__” binding=”__VB Expression__”/>``
 
 ===== Body Content
 
@@ -2474,8 +2438,7 @@ action.
 
 ===== Syntax
 
-<f:validator validatorId=”validatorId”
-binding=”VB Expression”/>
+``<f:validator validatorId=”__validatorId__” binding=”__VB Expression__”/>``
 
 ===== Body Content
 
@@ -2554,8 +2517,7 @@ custom action.
 
 ===== Syntax
 
-<f:valueChangeListener
-type=”fully-qualified-classname” binding=”VB Expression”/>
+``<f:valueChangeListener type=”__fully-qualified-classname__” binding=”__VB Expression__”/>``
 
 ===== Body Content
 
@@ -2643,8 +2605,7 @@ action which renders nested body content.
 
 ===== Syntax
 
-<f:verbatim [escape=”\{true|false}”
-rendered=”\{true|false”]/>
+``<f:verbatim [escape=”{true|**false**}” rendered=”{**true**|false}”]/>``
 
 ===== Body Content
 
@@ -2697,21 +2658,15 @@ custom actions used on a page.
 
 ===== Syntax
 
-[width="100%",cols="100%",]
-|===
-a|
-{empty}<f:view [locale=”_locale_”
-renderKitId=”alternate”]
+``<f:view``
+[none]
+* ``[locale=”__locale__” renderKitId=”__alternate__”]``
+* ``[beforePhase=”__methodExpression__”]``
+* ``[afterPhase=”__methodExpression__”]>``
+[none]
+** ``Nested template text and custom actions``
 
-{empty} [beforePhase=”methodExpression”]
-
- [afterPhase”methodExpression”]>
-
- Nested template text and custom actions
-
-</f:view>
-
-|===
+``</f:view>``
 
 ===== Body Content
 
