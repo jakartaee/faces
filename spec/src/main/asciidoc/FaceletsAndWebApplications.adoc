@@ -29,60 +29,49 @@ following table lists some of the differences between Facelets and JSP
 
 
 .Comparison of Facelets and JSP
+[%header, cols="2,4,4", frame="topbot", grid="rows", stripes="even"]
+|===
+| Feature Name
+| JSP
+| Facelets
 
-Feature Name
-
-JSP
-
-Facelets
-
-Pages are compiled to...
-
-A Servlet that gets executed each time the
+| Pages are compiled to...
+| A Servlet that gets executed each time the
 page renders. The UIComponent hierarchy is built by the presence of
 custom tags in the page.
-
-An abstract syntax tree that, when executed,
+| An abstract syntax tree that, when executed,
 builds a UIComponent hierarchy.
 
-Handling of tag attributes
-
-All tag attributes must be declared in a TLD
+| Handling of tag attributes
+| All tag attributes must be declared in a TLD
 file. Conformance instances of components in a page with the expected
 attributes can be enforced with a taglibrary validator.
-
-Tag attributes are completely dynamic and
+| Tag attributes are completely dynamic and
 automatically map to properties, attributes and ValueExpressions on
 UIComponent instances
 
-Page templating
+| Page templating
+| Not supported, must go outside of core JSP
+| Page templating is a core feature of Facelets
 
-Not supported, must go outside of core JSP
+| Performance
 
-Page templating is a core feature of Facelets
-
-Performance
-
-Due to the common implementation technique of
+| Due to the common implementation technique of
 compiling a JSP page to a Servlet, performance can be slow
+| Facelets is simpler and faster than JSP
 
-Facelets is simpler and faster than JSP
-
-EL Expressions
-
-Expressions in template text cause unexpected
+| EL Expressions
+| Expressions in template text cause unexpected
 behavior when used in JSP
-
-Expressions in template text operate as
+| Expressions in template text operate as
 expected.
 
-JCP Standard
-
-Yes, the specification is separate from the
+| JCP Standard
+| Yes, the specification is separate from the
 implementation for JSP
-
-No, the specification is defined by and is
+| No, the specification is defined by and is
 one with the implementation.
+|===
 
 ==== Differences between Pre JSF 2.0 Facelets and Facelets in JSF 2.0
 
@@ -124,30 +113,26 @@ that are compatible with the following libraries already found in pre
 JSF 2.0 Facelets.
 
 .Taglibs in pre JSF 2.0 Facelets that are available in Facelets in JSF 2.0
+[%header, cols="1,3", frame="topbot", grid="rows", stripes="even"]
+|===
+| Common prefix
+| Namespace URI
 
-Common prefix
+| h
+| http://java.sun.com/jsf/html
 
-Namespace URI
+| f
+| http://java.sun.com/jsf/core
 
-h
+| c
+| http://java.sun.com/jsp/jstl/core
 
-http://java.sun.com/jsf/html
+| fn
+| http://java.sun.com/jsp/jstl/functions
 
-f
-
-http://java.sun.com/jsf/core
-
-c
-
-http://java.sun.com/jsp/jstl/core
-
-fn
-
-http://java.sun.com/jsp/jstl/functions
-
-ui
-
-http://java.sun.com/jsf/facelets
+| ui
+| http://java.sun.com/jsf/facelets
+|===
 
 Naturally, new features built on Facelets in
 JSF 2.0 are not available in pre JSF 2.0 Facelets and will only work in
@@ -1057,101 +1042,73 @@ empty.
 The following optional attributes are
 available:
 
-===
+[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
+|===
+| Name
+| Expr
+| Type
+| Description
 
-Name
-
-Expr
-
-Type
-
-Description
-
-event
-
-String
-
-String
-
-A String identifying the type of event the
+| event
+| String
+| String
+| A String identifying the type of event the
 Ajax action will apply to. If specified, it must be one of the events
 supported by the component the Ajax behavior is being applied to. If not
 specified, the default event is determined for the component. The
 default event is “action” for ActionSource components and “valueChange”
 for EditableValueHolder components.
 
-execute
-
-VE
-
-Collection<String>
-
-If a literal is specified, it must be a space
+| execute
+| VE
+| Collection<String>
+| If a literal is specified, it must be a space
 delimited String of component identifiers and/or one of the keywords
 outlined in <<JavaScriptAPI.adoc#a6884,See Keywords>>. If not
 specified, then @this is the default. If a ValueExpression is specified,
 it must refer to a property that returns a Collection of Strings. Each
 String in the Collection must not contain spaces.
 
-render
-
-VE
-
-Collection<String>
-
-If a literal is specified, it must be a space
+| render
+| VE
+| Collection<String>
+| If a literal is specified, it must be a space
 delimited String of component identifiers and/or one of the keywords
 outlined in <<JavaScriptAPI.adoc#a6884,See Keywords>>. If not
 specified, then @none is the default . If a ValueExpression is
 specified, it must refer to a property that returns a Collection of
 Strings. Each String in the Collection must not contain spaces.
 
-onevent
+| onevent
+| VE
+| String
+| The name of a JavaScript function that will handle events
 
-VE
+| onerror
+| VE
+| String
+| The name of a JavaScript function that will handle errors.
 
-String
-
-The name of a JavaScript function that will
-handle events
-
-onerror
-
-VE
-
-String
-
-The name of a JavaScript function that will
-handle errors.
-
-disabled
-
-VE
-
-boolean
-
-“false” indicates the Ajax behavior script
+| disabled
+| VE
+| boolean
+| “false” indicates the Ajax behavior script
 should be rendered; “true” indicates the Ajax behavior script should not
 be rendered. “false” is the default.
 
-listener
-
-ME
-
-MethodExpression
-
-The listener method to execute when Ajax
+| listener
+| ME
+| MethodExpression
+| The listener method to execute when Ajax
 requests are processed on he server.
 
-immediate
-
-VE
-
-boolean
-
-If “true” behavior events generated from this
+| immediate
+| VE
+| boolean
+| If “true” behavior events generated from this
 behavior are broadcast during Apply Request Values phase. Otherwise, the
 events will be broadcast during Invoke Aplications phase.
+|===
 
 .Specifying “execute”/”render” Identifiers
 
@@ -1420,7 +1377,7 @@ Validator is to be set on all of the ensclosing input components.
 
 Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
 |===
 |Name |Exp
 |Type |Description
@@ -1511,7 +1468,7 @@ empty
 
 Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
 |===
 |Name |Exp
 |Type |Description
@@ -1600,7 +1557,7 @@ empty
 
 Attributes
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
 |===
 |Name |Exp
 |Type |Description
@@ -1676,33 +1633,28 @@ the _event_ attribute set to exactly the push message content.
 
 The following required attribute must be set:
 
-===
+[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
+|===
 
-Name
+| Name
+| Expr
+| Type
+| Description
 
-Expr
-
-Type
-
-Description
-
-channel
-
-String
-
-String
-
-The name of the websocket channel. It may not
+| channel
+| String
+| String
+| The name of the websocket channel. It may not
 be an EL expression and it may only contain alphanumeric characters,
 hyphens, underscores and periods. All open websockets on the same
 channel name will receive the same push notification from the server.
 
+|===
+
 The following optional attributes are
 available:
 
-===
-
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
 |===
 |Name |Exp
 |Type |Description
