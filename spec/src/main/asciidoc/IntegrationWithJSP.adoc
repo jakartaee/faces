@@ -70,61 +70,37 @@ corresponding tag library, then, would define three custom actions—one
 per _Renderer_ . Below is an example of a portion of the custom action
 definition for the _inputText_ tag <<Footnotes.adoc#a9097,14>>:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <tag>
+  <name>inputText</name>
+  <tag-class>acme.html.tags.InputTag</tag-class>
+  <bodycontent>JSP</bodycontent>
+  
+  <attribute>
+    <name>id</name>
+    <required>false</required>
+    <rtexprvalue>true</rtexprvalue>
+  </attribute>
 
- <name>inputText</name>
+  <attribute>
+    <name>value</name>
+    <required>false</required>
+    <deferred-value>
+      <type>java.lang.Object</type>
+    <deferred-value>
+  </attribute>
 
-
-<tag-class>acme.html.tags.InputTag</tag-class>
-
- <bodycontent>JSP</bodycontent>
-
- <attribute>
-
- <name>id</name>
-
- <required>false</required>
-
- <rtexprvalue>true</rtexprvalue>
-
- </attribute>
-
- <attribute>
-
- <name>value</name>
-
- <required>false</required>
-
- <deferred-value>
-
- <type>java.lang.Object</type>
-
- <deferred-value>
-
- </attribute>
-
- <attribute>
-
- <name>size</name>
-
- <required>false</required>
-
- <deferred-value>
-
- <type>java.lang.Integer</type>
-
- <deferred-value>
-
- </attribute>
-
- ...
-
+  <attribute>
+    <name>size</name>
+    <required>false</required>
+    <deferred-value>
+      <type>java.lang.Integer</type>
+    <deferred-value>
+  </attribute>
+  ...
 </tag>
-
-|===
+----
 
 Note that the _size_ attribute is derived
 from the _Renderer_ of type “Text”, while the _id_ and _value_
@@ -167,16 +143,11 @@ _taglib_ directive to declare the URI of each tag library to be
 utilized, as well as the prefix used (within this page) to identify
 custom actions from this library. For example,
 
-[width="100%",cols="100%",]
-|===
-a|
-<%@ taglib uri=”http://java.sun.com/jsf/core”
-prefix=”f” %>
-
-<%@ taglib uri=”http://java.sun.com/jsf/html”
-prefix=”h” %>
-
-|===
+[source,xml]
+----
+<%@ taglib uri=”http://java.sun.com/jsf/core” prefix=”f” %>
+<%@ taglib uri=”http://java.sun.com/jsf/html” prefix=”h” %>
+----
 
 declares the unique resource identifiers of
 the tag libraries being used, as well as the prefixes to be used within
@@ -197,11 +168,10 @@ _<f:view>_ custom action from the JSF Core Tag Library.
 The following example illustrates the general
 use of a UIComponent custom action in a JSP page. In this scenario:
 
-[width="100%",cols="100%",]
-|===
-|<h:inputText id=”username”
-value=”#\{logonBean.username}”/>
-|===
+[source,xml]
+----
+<h:inputText id=”username” value=”#{logonBean.username}”/>
+----
 
 represents a _UIInput_ field, to be rendered
 with the “Text” renderer type, and points to the username property of a
@@ -310,46 +280,24 @@ with each JSP page. For example, assume that a _UIForm_ component (whose
 component id is _logonForm_ ) contains a _UIPanel_ component used to
 manage the layout. You might specify the contents of the form like this:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <h:form id=”logonForm”>
-
- <h:panelGrid columns=”2”>
-
- <h:outputLabel for=”username”>
-
- <h:outputText value=”Username:”/>
-
- </h:outputLabel>
-
- <h:inputText id=”username”
-
- value=”#\{logonBean.username}”/>
-
- <h:outputLabel for=”password”>
-
- <h:outputText value=”Password:”/>
-
- </h:outputLabel>
-
- <h:inputSecret id=”password”
-
- value=”#\{logonBean.password}”/>
-
- <h:commandButton id=”submitButton”
-type=”SUBMIT”
-
- action=”#\{logonBean.logon}”/>
-
- <h:commandButton id=”resetButton”
-type=”RESET”/>
-
- </h:panelGrid>
-
+  <h:panelGrid columns=”2”>
+    <h:outputLabel for=”username”>
+      <h:outputText value=”Username:”/>
+    </h:outputLabel>
+    <h:inputText id=”username” value=”#{logonBean.username}”/>
+    <h:outputLabel for=”password”>
+      <h:outputText value=”Password:”/>
+    </h:outputLabel>
+    <h:inputSecret id=”password” value=”#{logonBean.password}”/>
+    <h:commandButton id=”submitButton” type=”SUBMIT”
+        action=”#{logonBean.logon}”/>
+    <h:commandButton id=”resetButton” type=”RESET”/>
+  </h:panelGrid>
 </h:form>
-
-|===
+----
 
 ==== Registering Converters, Event Listeners, and Validators
 
@@ -365,17 +313,12 @@ Using these facilities, the page author can
 manage all aspects of creating and configuring values associated with
 the view, without having to resort to Java code. For example:
 
-[width="100%",cols="100%",]
-|===
-a|
-<h:inputText id=”username”
-value=”#\{logonBean.username}”>
-
- <f:validateLength minimum=”6”/>
-
+[source,xml]
+----
+<h:inputText id=”username” value=”#{logonBean.username}”>
+  <f:validateLength minimum=”6”/>
 </h:inputText>
-
-|===
+----
 
 associates a validation check (that the value
 entered by the user must contain at least six characters) with the
@@ -384,27 +327,16 @@ username _UIInput_ component being described.
 Following are usage examples for the
 _valueChangeListener_ and _actionListener_ custom actions.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <h:inputText id=”maxUsers”>
-
- <f:convertNumber integerOnly=”true”/>
-
- <f:valueChangeListener
-
- type="custom.MyValueChangeListener"/>
-
+  <f:convertNumber integerOnly=”true”/>
+  <f:valueChangeListener type="custom.MyValueChangeListener"/>
 </h:inputText>
-
 <h:commandButton label="Login">
-
- <f:actionListener
-type="custom.MyActionListener"/>
-
+  <f:actionListener type="custom.MyActionListener"/>
 </h:commandButton>
-
-|===
+----
 
 This example causes a _Converter_ and a
 _ValueChangeListener_ of the user specified type to be instantiated and
@@ -422,35 +354,21 @@ in a JSP page using the _<f:facet>_ custom action. Each facet action
 must have one and only one child UIComponent custom
 action <<Footnotes.adoc#a9099,16>>. For example:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <h:dataTable ...>
-
- <f:facet name=”header”>
-
- <h:outputText value=”Customer List”/>
-
- </f:facet>
-
- <h:column>
-
- <f:facet name=”header”>
-
- <h:outputText value=”Account Id”/>
-
- </f:facet>
-
- <h:outputText id=”accountId” value=
-”#\{customer.accountId}”/>
-
- </h:column>
-
- ...
-
+  <f:facet name=”header”>
+    <h:outputText value=”Customer List”/>
+  </f:facet>
+  <h:column>
+    <f:facet name=”header”>
+      <h:outputText value=”Account Id”/>
+    </f:facet>
+    <h:outputText id=”accountId” value= ”#{customer.accountId}”/>
+  </h:column>
+  ...
 </h:dataTable>
-
-|===
+----
 
 [[a4536]]
 ==== Interoperability with JSP Template Text and Other Tag Libraries
@@ -577,43 +495,23 @@ was specified as the custom action attribute value (performing any
 required type conversion). For example, assume that title is the name of
 a render-dependent attribute for this component:
 
-[width="100%",cols="100%",]
-|===
-a|
-public void setTitle(jakarta.el.ValueExpression
-title) \{
-
- this.title = title;
-
+[source,java]
+----
+public void setTitle(jakarta.el.ValueExpression title) {
+  this.title = title;
 }
 
-
-
-protected void setProperties(UIComponent
-component) throws JspException \{
-
- super.setProperties(component);
-
- if (title != null) \{
-
- try \{
-
- component.setValueExpression(“title”,
-title);
-
- }
-
- catch (ELException e) \{
-
- throw new JspException(e);
-
- }
-
- ...
-
+protected void setProperties(UIComponent component) throws JspException {
+  super.setProperties(component);
+  if (title != null) {
+    try {
+      component.setValueExpression(“title”, title);
+    } catch (ELException e) {
+      throw new JspException(e);
+    }
+  ...
 }
-
-|===
+----
 
 For each non-null custom action attribute
 that corresponds to a method based attribute to be set on the underlying
@@ -622,36 +520,20 @@ expression. We have a number of wrapper classes to turn a
 MethodExpression into the appropriate listener. For example, assume that
 _valueChangeListener_ is the name of an attribute for this component:
 
-[width="100%",cols="100%",]
-|===
-a|
-public void
-setValueChangeListener(jakarta.el.MethodExpression me) \{
-
- valueChangeListener = me;
-
+[source,java]
+----
+public void setValueChangeListener(jakarta.el.MethodExpression me) {
+  valueChangeListener = me;
 }
 
-
-
-protected void setProperties(UIComponent
-component) \{
-
- super.setProperties(component);
-
- MethodExpressionValueChangeListener listener
-=
-
- new
-MethodExpressionValueChangeListener(valueChangeListener);
-
- input.addValueChangeListener(listener);
-
- ...
-
+protected void setProperties(UIComponent component) {
+  super.setProperties(component);
+  MethodExpressionValueChangeListener listener =
+      new MethodExpressionValueChangeListener(valueChangeListener);
+  input.addValueChangeListener(listener);
+  ...
 }
-
-|===
+----
 
 Non-null custom action attributes that
 correspond to a writable property to be set on the underlying component
@@ -659,42 +541,24 @@ are handled in a similar fashion. For example, assume a custom action
 for the _UIData_ component is being created that needs to deal with the
 _rows_ property (which is of type _int_ ):
 
-[width="100%",cols="100%",]
-|===
-a|
-public void setRows(jakarta.el.ValueExpression
-rows) \{
-
- this.rows = rows;
-
+[source,java]
+----
+public void setRows(jakarta.el.ValueExpression rows) {
+  this.rows = rows;
 }
 
-
-
-protected void setProperties(UIComponent
-component) \{
-
- super.setProperties(component);
-
- if (rows != null) \{
-
- try \{
-
- component.setValueExpression(“rows”, rows);
-
- } catch (ELException e) \{
-
- throw new JspException(e);
-
- }
-
- }
-
- ...
-
+protected void setProperties(UIComponent component) {
+  super.setProperties(component);
+  if (rows != null) {
+    try {
+      component.setValueExpression(“rows”, rows);
+    } catch (ELException e) {
+      throw new JspException(e);
+    }
+  }
+  ...
 }
-
-|===
+----
 
 Optionally, provide a public _release()_
 method of type _void_ , taking no parameters, to be called when the JSP
@@ -2120,40 +1984,24 @@ which child component identifiers must still be unique, but allows child
 components to have the same simple identifier as child components nested
 in some other naming container. This is useful in several scenarios:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 “main.jsp”
-
 <f:view>
-
- <c:import url=”foo.jsp”/>
-
- <c:import url=”bar.jsp”/>
-
+  <c:import url=”foo.jsp”/>
+  <c:import url=”bar.jsp”/>
 </f:view>
 
-
-
 “foo.jsp”
-
 <f:subview id=”aaa”>
-
- ... components and other content ...
-
+  ... components and other content ...
 </f:subview>
-
-
 
 “bar.jsp”
-
 <f:subview id=”bbb”>
-
- ... components and other content ...
-
+  ... components and other content ...
 </f:subview>
-
-|===
+----
 
 In this scenario, _<f:subview>_ custom
 actions in imported pages establish a naming scope for components within
@@ -2162,40 +2010,24 @@ single _<f:view>_ custom action must be unique, but it is difficult for
 the page author (and impossible for the JSP page compiler) to enforce
 this restriction.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 “main.jsp”
-
 <f:view>
-
- <f:subview id=”aaa”>
-
- <c:import url=”foo.jsp”/>
-
- </f:subview>
-
- <f:subview id=”bbb”>
-
- <c:import url=”bar.jsp”/>
-
- </f:subview>
-
+  <f:subview id=”aaa”>
+    <c:import url=”foo.jsp”/>
+  </f:subview>
+  <f:subview id=”bbb”>
+    <c:import url=”bar.jsp”/>
+  </f:subview>
 </f:view>
 
-
-
 “foo.jsp”
-
 ... components and other content ...
-
-
 
 “bar.jsp”
-
 ... components and other content ...
-
-|===
+----
 
 In this scenario, the _<f:subview>_ custom
 actions are in the including page, rather than the included page. As in
@@ -2205,38 +2037,21 @@ unique; but it is much easier to verify using this style.
 It is also possible to use this approach to
 include the same page more than once, but maintain unique identifiers:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 “main.jsp”
-
 <f:view>
-
- <f:subview id=”aaa”>
-
- <c:import url=”foo.jsp”/>
-
- </f:subview>
-
- <f:subview id=”bbb”>
-
- <c:import url=”foo.jsp”/>
-
- </f:subview>
-
+  <f:subview id=”aaa”>
+    <c:import url=”foo.jsp”/>
+  </f:subview>
+  <f:subview id=”bbb”>
+    <c:import url=”foo.jsp”/>
+  </f:subview>
 </f:view>
 
-
-
 “foo.jsp”
-
 ... components and other content ...
-
-
-
-
-
-|===
+----
 
 In all of the above examples, note that
 _foo.jsp_ and _bar.jsp_ may not contain _<f:view>_ .
