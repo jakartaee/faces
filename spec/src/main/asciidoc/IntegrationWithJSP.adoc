@@ -25,7 +25,7 @@ and custom actions from other libraries, as well as template text for
 layout, in the same JSP page.
 
 Facelets XHTML is specified in
-<<FaceletsAndWebApplications.adoc#a5476,See Facelets and its use in Web
+<<FaceletsAndWebApplications.adoc#a5476,Facelets and its use in Web
 Applications>>. This chapters builds on the previous one. Facelets relies
 on concepts specified in JSP.
 
@@ -109,11 +109,11 @@ can include faces components that incorporate the index into their id.
 _RenderKit_ implementors will generally provide a JSP tag library which
 includes component custom actions corresponding to each of the component
 classes (or types) supported by each of the _RenderKit_ ’s _Renderers_ .
-See <<RenderingModel.adoc#a4223,See RenderKit>> and
-<<RenderingModel.adoc#a4245,See Renderer>> for details on the
+See <<RenderingModel.adoc#a4223,RenderKit>> and
+<<RenderingModel.adoc#a4245,Renderer>> for details on the
 _RenderKit_ and _Renderer_ APIs. JSF implementations must provide such a
 tag library for the standard HTML RenderKit (see
-<<IntegrationWithJSP.adoc#a5363,See Standard HTML RenderKit Tag Library>>).
+<<IntegrationWithJSP.adoc#a5363,Standard HTML RenderKit Tag Library>>).
 
 
 === Using UIComponent Custom Actions in JSP Pages
@@ -182,7 +182,7 @@ implementation.
 Custom actions that correspond to JSF
 _UIComponent_ instances must subclass
 _jakarta.faces.webapp.UIComponentELTag_ (see
-<<UsingJSFInWebApplications.adoc#a6175,See UIComponentELTag>>)
+<<UsingJSFInWebApplications.adoc#a6175,UIComponentELTag>>)
 
 During the _Render Response_ phase of the
 request processing lifecycle, the appropriate encoding methods of the
@@ -300,7 +300,7 @@ manage the layout. You might specify the contents of the form like this:
 ==== Registering Converters, Event Listeners, and Validators
 
 Each JSF implementation is required to
-provide the core tag library (see <<IntegrationWithJSP.adoc#a4636,See JSF
+provide the core tag library (see <<IntegrationWithJSP.adoc#a4636,JSF
 Core Tag Library>>), which includes custom actions that (when executed)
 create instances of a specified _Converter_ , _ValueChangeListener,_
 _ActionListener_ or _Validator_ implementation class, and register the
@@ -347,7 +347,7 @@ _JSPException_ must be thrown.
 
 A _Facet_ is a subordinate UIComponent that
 has a special relationship to its parent _UIComponent_ , as described in
-<<UserInterfaceComponentModel.adoc#a968,See Facet Management>>. Facets can be defined
+<<UserInterfaceComponentModel.adoc#a968,Facet Management>>. Facets can be defined
 in a JSP page using the _<f:facet>_ custom action. Each facet action
 must have one and only one child UIComponent custom
 action <<Footnotes.adoc#a9099,16>>. For example:
@@ -656,7 +656,7 @@ _jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ as their type
 
 * all tag attributes (except for _id_ ) must
 have a _<deferred-value>_ or _<deferred-method>_ element. See
-_<<IntegrationWithJSP.adoc#a4636,See JSF Core Tag Library>>_ in the
+_<<IntegrationWithJSP.adoc#a4636,JSF Core Tag Library>>_ in the
 description for the _Attributes_ column.
 
 * The JSP Container will hand the tag setter a
@@ -1356,7 +1356,7 @@ rethrow the exception as a _JspException_ . [P1-end]
 ==== <f:facet>
 
 Register a named facet (see
-<<UserInterfaceComponentModel.adoc#a968,See Facet Management>>) on the _UIComponent_
+<<UserInterfaceComponentModel.adoc#a968,Facet Management>>) on the _UIComponent_
 associated with the closest parent _UIComponent_ custom action.
 
 ===== Syntax
@@ -1961,7 +1961,7 @@ _<f:subview>_ custom action.
 * Must have an _id_ attribute whose value is
 unique within the scope of the parent naming container. If this
 constraint is not met, the action taken regarding id uniqueness in
-section <<IntegrationWithJSP.adoc#a4549,See UIComponent Custom Action
+section <<IntegrationWithJSP.adoc#a4549,UIComponent Custom Action
 Implementation Requirements>> must be taken
 
 * {empty}May be placed in a parent page (with
@@ -2776,7 +2776,7 @@ not _null._ Otherwise, the render kit identifier as specified by the
 constant _RenderKitFactory.HTML_BASIC_RENDER_KIT_ is stored in
 _UIViewRoot._ Specifying a _renderKitId_ for the current view also
 affects all subsequent views, unless overridden by another use of the
-_renderKitId_ attribute. Please refer to <<ApplicationIntegration.adoc#a3871,See
+_renderKitId_ attribute. Please refer to <<ApplicationIntegration.adoc#a3871,
 ViewHandler>> for more information.
 
 * If the _locale_ attribute is present, its
@@ -2818,9 +2818,9 @@ handler for this tag must do to implement state saving.
 
 All JSF implementations must provide a tag
 library containing actions that correspond to each valid combination of
-a supported component class (see <<StandardUserInterfaceComponents.adoc#a1823,See
+a supported component class (see <<StandardUserInterfaceComponents.adoc#a1823,
 Standard User Interface Components>>”) and a _Renderer_ from the Standard
-HTML RenderKit (see <<RenderingModel.adoc#a4314,See Standard HTML
+HTML RenderKit (see <<RenderingModel.adoc#a4314,Standard HTML
 RenderKit Implementation>>) that supports that component type. [P1-start
 html_basic taglib requirements] The tag library descriptor for this tag
 library must meet the following requirements:
@@ -2971,7 +2971,7 @@ respectively:.
 
 Note, to avoid confusion between JSP and
 Facelets, any Renderers that are only supported in Facelets are
-specified in <<FaceletsAndWebApplications.adoc#a6029,See Standard HTML RenderKit Tag
+specified in <<FaceletsAndWebApplications.adoc#a6029,Standard HTML RenderKit Tag
 Library>>.
 
 [P1-end] [P1-start html_basic taglibrary
