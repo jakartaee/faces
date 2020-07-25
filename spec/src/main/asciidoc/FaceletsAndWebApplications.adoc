@@ -92,7 +92,7 @@ such an application _must_ continue to bundle the Facelets jar file
 along with the application, continue to set the Facelets configuration
 parameters, and also set the
 _jakarta.faces.DISABLE_FACELET_JSF_VIEWHANDLER_ _<context-param>_ to
-_true_ . Please see <<UsingJSFInWebApplications.adoc#a6088,See Application
+_true_ . Please see <<UsingJSFInWebApplications.adoc#a6088,Application
 Configuration Parameters>> for details on this option. Any code that
 extends or depends on any class in package _com.sun.facelets_ and/or its
 sub-packages must be modified to depend on the appropriate classes in
@@ -144,7 +144,7 @@ JSF 2.0 or later.
 JSF defines a system called “resource library
 contracts” for applying facelet templates to an entire application in a
 re-usable and interchangeable manner. The feature is built on top of the
-resource library facility described in <<RequestProcessingLifecycle.adoc#a836,See
+resource library facility described in <<RequestProcessingLifecycle.adoc#a836,
 Libraries of Localized and Versioned Resources>>. A configurable set of
 Facelet VDL views in the application will be able to declare themselves
 to be template-clients of any template in a resource library contract.
@@ -334,7 +334,7 @@ feature.
 At design time, the developer has packaged
 any resource library contracts to be used in the application in the
 right place in the web application, or JAR file classpath. _This
-behavior is normatively specified in <<RequestProcessingLifecycle.adoc#a872,See
+behavior is normatively specified in <<RequestProcessingLifecycle.adoc#a872,
 Resource Library Contracts>>._
 
 ._Startup Time_
@@ -345,7 +345,7 @@ there is one or more _<resource-library-contracts>_ element, only those
 contracts explicitly named will be made available for use in the
 application. If there is no such element, all of the discovered
 contracts are made available for use in the application. _This behavior
-is normatively specified in <<UsingJSFInWebApplications.adoc#a6215,See Resource
+is normatively specified in <<UsingJSFInWebApplications.adoc#a6215,Resource
 Library Contracts>> and in the XML schema for the application
 configuration resources._
 
@@ -359,7 +359,7 @@ assembled at startup and return a _List<String>_ representing the
 resource library contracts eligible for use in this view. This value is
 set as the value of the _resourceLibraryContracts_ property on the
 _FacesContext_ . _This behavior is normatively specified in
-<<ApplicationIntegration.adoc#a4016,See ViewDeclarationLanguage.createView()>>._
+<<ApplicationIntegration.adoc#a4016,ViewDeclarationLanguage.createView()>>._
 
 The specification of the tag handler for
 _<f:view>_ is the one other place where the _resourceLibraryContracts_
@@ -524,7 +524,7 @@ process.
 ----
 
 As required in
-<<FaceletsAndWebApplications.adoc#a5608,See Specification of the
+<<FaceletsAndWebApplications.adoc#a5608,Specification of the
 ViewDeclarationLanguage Implementation for Facelets for JSF 2.0>>
 _TagDecorator_ is called during the facelet processing. Because the
 _<input>_ element has an attribute from the _http://java.sun.com/jsf_
@@ -662,7 +662,7 @@ instance in the view.
 ** These elements can come from the Standard
 HTML Renderkit namespace _http://java.sun.com/jsf/html_ , or from the
 namespace of a custom tag library (including composite components) as
-described in <<FaceletsAndWebApplications.adoc#a5638,See Facelet Tag Library
+described in <<FaceletsAndWebApplications.adoc#a5638,Facelet Tag Library
 mechanism>>.
 
 ** These elements correspond to instances of
@@ -736,7 +736,7 @@ present, it must be the very first markup rendered, and it must precede
 any DOCTYPE declaration (if present). The output of the XML and DOCTYPE
 declarations are subject to the configuration options listed in the
 table titled “Valid <process-as> values and their implications on the
-processing of Facelet VDL files” in <<JSFMetadata.adoc#a7061,See The
+processing of Facelet VDL files” in <<JSFMetadata.adoc#a7061,The
 facelets-processing element>>.
 
 {empty}[P1-end_facelet_xhtml]
@@ -751,7 +751,7 @@ java class is greatly reduced and in most cases is unnecessary. The tag
 library mechanism has two purposes.
 
 * Allow page authors to access tags declared in
-the supplied tag libraries declared in <<JSFMetadata.adoc#a5691,See
+the supplied tag libraries declared in <<JSFMetadata.adoc#a5691,
 Standard Facelet Tag Libraries>>, as well as accessing third-party tag
 libraries developed by the application author, or any other third party
 
@@ -776,7 +776,7 @@ string declared in the _<namespace>_ element of the facelet tag library
 descriptor. For example, declaring
 _xmlns:h="http://java.sun.com/jsf/html"_ within the _<html>_ element in
 a Facelet XHTML page would cause the runtime to make all tags declared
-in <<FaceletsAndWebApplications.adoc#a6029,See Standard HTML RenderKit Tag Library>>
+in <<FaceletsAndWebApplications.adoc#a6029,Standard HTML RenderKit Tag Library>>
 to be available for use in the page using syntax like: _<h:inputText />_
 .
 
@@ -832,7 +832,7 @@ time must support two modes of discovery for Facelet tag library
 descriptors
 
 * {empty}Via declaration in the web.xml, as
-specified in <<UsingJSFInWebApplications.adoc#a6088,See Application Configuration
+specified in <<UsingJSFInWebApplications.adoc#a6088,Application Configuration
 Parameters>>
 
 * Via auto discovery by placing the tag library
@@ -849,7 +849,7 @@ message to be logged.[P1_end_facelet_taglib_discovery]
 
 The specification for how to interpret a
 facelet tag library descriptor is included in the documentation elements
-of the schema for such files, see <<JSFMetadata.adoc#a7134,See XML
+of the schema for such files, see <<JSFMetadata.adoc#a7134,XML
 Schema Definition For Facelet Taglib>>.
 
 
@@ -857,7 +857,7 @@ Schema Definition For Facelet Taglib>>.
 ==== Requirements specific to composite components
 
 The text in this section makes use of the
-terms defined in <<UserInterfaceComponentModel.adoc#a1619,See Composite Component
+terms defined in <<UserInterfaceComponentModel.adoc#a1619,Composite Component
 Terms>>. When such a term appears in this section, it will be in
 _emphasis font face_ .
 
@@ -872,7 +872,7 @@ library_ .
 XHTML page with a namespace starting with the string “
 _http://java.sun.com/jsf/composite/_ ” (without the quotes), the
 remainder of the namespace declaration is taken as the name of a
-resource library as described in <<RequestProcessingLifecycle.adoc#a836,See
+resource library as described in <<RequestProcessingLifecycle.adoc#a836,
 Libraries of Localized and Versioned Resources>>, as shown in the
 following example:
 +
@@ -894,7 +894,7 @@ Otherwise the message must be logged only.
 schema, the runtime must also support the _<composite-library-name>_
 element. The runtime must interpret the contents of this element as the
 name of a resource library as described in
-<<RequestProcessingLifecycle.adoc#a836,See Libraries of Localized and Versioned
+<<RequestProcessingLifecycle.adoc#a836,Libraries of Localized and Versioned
 Resources>>. If a facelet tag library descriptor file is encountered that
 contains this element, the runtime must examine the _<namespace>_
 element in that same tag library descriptor and make it available for
@@ -909,7 +909,7 @@ during the process of building the view, the facelet runtime encounters
 an element in the page using the prefix for the namespace of a composite
 component library, the runtime must create a _Resource_ instance with a
 library property equal to the library name derived in
-<<FaceletsAndWebApplications.adoc#a5663,See Declaring a composite component library>>
+<<FaceletsAndWebApplications.adoc#a5663,Declaring a composite component library>>
 for use in a Facelet page]and call the variant of
 _application.createComponent()_ that takes a _Resource_ .
 
@@ -923,10 +923,10 @@ component_ under the facet name _UIComponent.COMPOSITE_FACET_NAME_
 ===== Populating a _top level component_ instance with children
 
 {empty}[P1_start_top_level_component_population]As
-specified in <<UserInterfaceComponentModel.adoc#a1545,See How does one make a
+specified in <<UserInterfaceComponentModel.adoc#a1545,How does one make a
 composite component?>> the runtime must support the use of _composite:_
 tag library in the _defining page_ pointed to by the _Resource_ derived
-as specified in <<FaceletsAndWebApplications.adoc#a5670,See Creating an instance of
+as specified in <<FaceletsAndWebApplications.adoc#a5670,Creating an instance of
 a top level component>>. [P1_start_top_level_component_population]The
 runtime must ensure that all _UIComponent_ children in the _composite
 component definition_ within the _defining page_ are placed as children
@@ -975,7 +975,7 @@ the value of the attribute and creates an actual _MethodExpression_
 instance around it must take the following special action. Inspect the
 value of the attribute. If the EL expression string starts with the _cc_
 implicit object, is followed by the special string “ _attrs_ ” (without
-the quotes), as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,See Composite
+the quotes), as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,Composite
 Component Attributes ELResolver>>, and is followed by a single remaining
 expression segment, let the value of that remaining expression segment
 be _attrName_ . In this case, the runtime must guarantee that the actual
@@ -1018,7 +1018,7 @@ must be provided by an implementation.
 ==== JSF Core Tag Library
 
 This tag library must be equivalent to the
-one specified in <<IntegrationWithJSP.adoc#a4636,See JSF Core Tag Library>>.
+one specified in <<IntegrationWithJSP.adoc#a4636,JSF Core Tag Library>>.
 
 For all of the tags that correspond to
 attached objects, the Facelets implementation supportes an additional
@@ -1078,7 +1078,7 @@ for EditableValueHolder components.
 | Collection<String>
 | If a literal is specified, it must be a space
 delimited String of component identifiers and/or one of the keywords
-outlined in <<JavaScriptAPI.adoc#a6884,See Keywords>>. If not
+outlined in <<JavaScriptAPI.adoc#a6884,Keywords>>. If not
 specified, then @this is the default. If a ValueExpression is specified,
 it must refer to a property that returns a Collection of Strings. Each
 String in the Collection must not contain spaces.
@@ -1088,7 +1088,7 @@ String in the Collection must not contain spaces.
 | Collection<String>
 | If a literal is specified, it must be a space
 delimited String of component identifiers and/or one of the keywords
-outlined in <<JavaScriptAPI.adoc#a6884,See Keywords>>. If not
+outlined in <<JavaScriptAPI.adoc#a6884,Keywords>>. If not
 specified, then @none is the default . If a ValueExpression is
 specified, it must refer to a property that returns a Collection of
 Strings. Each String in the Collection must not contain spaces.
@@ -1137,7 +1137,7 @@ identifiers as specified for UIComponent.findComponent.[P1_end]
 This tag may be nested within any of the
 standard HTML components. It may also be nested within any custom
 component that implements the ClientBehaviorHolder interface. Refer to
-<<UserInterfaceComponentModel.adoc#a1707,See Component
+<<UserInterfaceComponentModel.adoc#a1707,Component
 Behavior Model>> for more information about this interface.
 [P1_start_ajaxtag_events]A TagAttibuteException must be thrown if an
 “event” attribute value is specified that does not match the events
@@ -1326,7 +1326,7 @@ associated with the Ajax “execute=’cancel’” action:[[a5815]]
 Allow JSF page authors to install
 _ComponentSystemEventListener_ instances on a component in a page.
 Because this tag is closely tied to the event system, please see section
-<<UserInterfaceComponentModel.adoc#a1393,See Declarative Listener Registration>> for
+<<UserInterfaceComponentModel.adoc#a1393,Declarative Listener Registration>> for
 the normative specification.
 
 ===== <f:metadata>
@@ -2199,7 +2199,7 @@ available as request parameters in the command script method
 ==== Standard HTML RenderKit Tag Library
 
 This tag library must be equivalent to the
-one specified in <<IntegrationWithJSP.adoc#a5363,See Standard HTML RenderKit
+one specified in <<IntegrationWithJSP.adoc#a5363,Standard HTML RenderKit
 Tag Library>>.
 
 The following additional renderers are added
