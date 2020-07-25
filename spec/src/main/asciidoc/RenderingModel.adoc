@@ -435,168 +435,116 @@ _Behavior attached to them. Refer to_
 Behavior Model>> __ for additional details.
 
 .Concrete HTML Component Classes
-
-jakarta.faces.component class
-
-renderer-type
-
-jakarta.faces.component.html class
-
-UICommand
-
-jakarta.faces.Button
-
-HtmlCommandButton
-
-UICommand
-
-jakarta.faces.Link
-
-HtmlCommandLink
-
-UIData
-
-jakarta.faces.Table
-
-HtmlDataTable
-
-UIForm
-
-jakarta.faces.Form
-
-HtmlForm
-
-UIGraphic
-
-jakarta.faces.Image
-
-HtmlGraphicImage
-
-UIInput
-
-jakarta.faces.Hidden
-
-HtmlInputHidden
-
-UIInput
-
-jakarta.faces.Secret
-
-HtmlInputSecret
-
-UIInput
-
-jakarta.faces.Text
-
-HtmlInputText
-
-UIInput
-
-jakarta.faces.Textarea
-
-HtmlInputTextarea
-
-UIMessage
-
-jakarta.faces.Message
-
-HtmlMessage
-
-UIMessages
-
-jakarta.faces.Messages
-
-HtmlMessages
-
-UIOutput
-
-jakarta.faces.Format
-
-HtmlOutputFormat
-
-UIOutput
-
-jakarta.faces.Label
-
-HtmlOutputLabel
-
-UIOutput
-
-jakarta.faces.Link
-
-HtmlOutputLink
-
-UIOutput
-
-jakarta.faces.Text
-
-HtmlOutputText
-
-UIOutcomeTarget
-
-jakarta.faces.Link
-
-HtmlOutcomeTargetLink
-
-UIOutcomeTarget
-
-jakarta.faces.Button
-
-HtmlOutcomeTargetButton
-
-UIPanel
-
-jakarta.faces.Grid
-
-HtmlPanelGrid
-
-UIPanel
-
-jakarta.faces.Group
-
-HtmlPanelGroup
-
-UISelectBoolean
-
-jakarta.faces.Checkbox
-
-HtmlSelectBooleanCheckbox
-
-UISelectMany
-
-jakarta.faces.Checkbox
-
-HtmlSelectManyCheckbox
-
-UISelectMany
-
-jakarta.faces.Listbox
-
-HtmlSelectManyListbox
-
-UISelectMany
-
-jakarta.faces.Menu
-
-HtmlSelectManyMenu
-
-UISelectOne
-
-jakarta.faces.Listbox
-
-HtmlSelectOneListbox
-
-UISelectOne
-
-jakarta.faces.Menu
-
-HtmlSelectOneMenu
-
-UISelectOne
-
-jakarta.faces.Radio
-
-HtmlSelectOneRadio
+[%autowidth%header, cols="3*", frame="topbot", grid="rows", stripes="even"]
+|===
+| jakarta.faces.component class
+| renderer-type
+| jakarta.faces.component.html class
+
+| UICommand
+| jakarta.faces.Button
+| HtmlCommandButton
+
+| UICommand
+| jakarta.faces.Link
+| HtmlCommandLink
+
+| UIData
+| jakarta.faces.Table
+| HtmlDataTable
+
+| UIForm
+| jakarta.faces.Form
+| HtmlForm
+
+| UIGraphic
+| jakarta.faces.Image
+| HtmlGraphicImage
+
+| UIInput
+| jakarta.faces.Hidden
+| HtmlInputHidden
+
+| UIInput
+| jakarta.faces.Secret
+| HtmlInputSecret
+
+| UIInput
+| jakarta.faces.Text
+| HtmlInputText
+
+| UIInput
+| jakarta.faces.Textarea
+| HtmlInputTextarea
+
+| UIMessage
+| jakarta.faces.Message
+| HtmlMessage
+
+| UIMessages
+| jakarta.faces.Messages
+| HtmlMessages
+
+| UIOutput
+| jakarta.faces.Format
+| HtmlOutputFormat
+
+| UIOutput
+| jakarta.faces.Label
+| HtmlOutputLabel
+
+| UIOutput
+| jakarta.faces.Link
+| HtmlOutputLink
+
+| UIOutput
+| jakarta.faces.Text
+| HtmlOutputText
+
+| UIOutcomeTarget
+| jakarta.faces.Link
+| HtmlOutcomeTargetLink
+
+| UIOutcomeTarget
+| jakarta.faces.Button
+| HtmlOutcomeTargetButton
+
+| UIPanel
+| jakarta.faces.Grid
+| HtmlPanelGrid
+
+| UIPanel
+| jakarta.faces.Group
+| HtmlPanelGroup
+
+| UISelectBoolean
+| jakarta.faces.Checkbox
+| HtmlSelectBooleanCheckbox
+
+| UISelectMany
+| jakarta.faces.Checkbox
+| HtmlSelectManyCheckbox
+
+| UISelectMany
+| jakarta.faces.Listbox
+| HtmlSelectManyListbox
+
+| UISelectMany
+| jakarta.faces.Menu
+| HtmlSelectManyMenu
+
+| UISelectOne
+| jakarta.faces.Listbox
+| HtmlSelectOneListbox
+
+| UISelectOne
+| jakarta.faces.Menu
+| HtmlSelectOneMenu
+
+| UISelectOne
+| jakarta.faces.Radio
+| HtmlSelectOneRadio
+|===
 
 {empty}[P1-start-htmlComponent]As with the
 standard components in the _jakarta.faces.component_ package, each HTML
