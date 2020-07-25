@@ -92,7 +92,7 @@ such an application _must_ continue to bundle the Facelets jar file
 along with the application, continue to set the Facelets configuration
 parameters, and also set the
 _jakarta.faces.DISABLE_FACELET_JSF_VIEWHANDLER_ _<context-param>_ to
-_true_ . Please see <<UsingJSFInWebApplications.adoc#a6088,Application
+_true_. Please see <<UsingJSFInWebApplications.adoc#a6088,Application
 Configuration Parameters>> for details on this option. Any code that
 extends or depends on any class in package _com.sun.facelets_ and/or its
 sub-packages must be modified to depend on the appropriate classes in
@@ -155,7 +155,7 @@ value when only used with templates.
 ===== Non-normative Example
 
 Consider this resource library contract,
-called _siteLayout_ .
+called _siteLayout_.
 
 ....
 siteLayout/
@@ -179,15 +179,15 @@ example is designed with the convention in mind, it does not need a
 _faces-config.xml_ file.
 
 The _siteLayout_ contract offers two
-templates: _topNav_template.xhtml_ and _leftNav_foo.xhtml_ . For
+templates: _topNav_template.xhtml_ and _leftNav_foo.xhtml_. For
 discussion, these are known as “declared templates”. When used by a
 template client, they will lay out the template client’s contents with a
 navigation menu on the top or the left side of the page, respectively.
-In _siteLayout_ , each of the templates has _<ui:insert>_ tags named
+In _siteLayout_, each of the templates has _<ui:insert>_ tags named
 “title”, “content”, and “nav”. For discussion, these are knows as
 “declared insertion points”. Furthermore, each of the templates uses the
-CSS styles declared in _styles.css_ , some scripts defined in
-_script.js_ , and the background image _background.png_ . For
+CSS styles declared in _styles.css_, some scripts defined in
+_script.js_, and the background image _background.png_. For
 discussion, these are known as “declared resources”. In order to use a
 resource library contract, one must know its declared templates, their
 declared insertion points, and, optionally, their declared resources. No
@@ -199,7 +199,7 @@ as follows.
 
 [none]
 * _siteLayout_ provides two declared
-templates, _topNav_template.xhtml_ and _leftNav_foo.xhtml_ . Each
+templates, _topNav_template.xhtml_ and _leftNav_foo.xhtml_. Each
 templates offers declared insertion points “title”, “content”, and
 “nav”.
 
@@ -236,13 +236,13 @@ next.
 
 This example packages the entire _siteLayout_
 directory and its contents into the _META-INF/contracts_ entry of a JAR
-file named _siteLayout.jar_ . The simplest possible way to use
+file named _siteLayout.jar_. The simplest possible way to use
 _siteLayout_ is to drop _siteLayout.jar_ into _WEB-INF/lib_ and apply
 the knowledge of the resource library contract declaration to the
 facelet views in the app.
 
 Consider this simple web app, called
-_useContract_ , the file layout for which is shown next. The example is
+_useContract_, the file layout for which is shown next. The example is
 shown using a simplified maven war packaging.
 
 ....
@@ -307,19 +307,19 @@ runtime will discover that _siteLayout.jar_ is a resource library
 contract and make its contents available for template clients.
 
 When the user agent visits
-_http://localhost:8080/useContract/faces/index.xhtml_ , because the
+_http://localhost:8080/useContract/faces/index.xhtml_, because the
 _siteLayout_ resource library contract provides _/topNav_template.xhtml_
 , that file will be loaded as the template. Likewise, when the _next_
-button is pressed, _/leftNav_foo.xhtml_ , also from _siteLayout_ ,will
+button is pressed, _/leftNav_foo.xhtml_, also from _siteLayout_, will
 be loaded as the template.
 
 Now, consider there is an alternate
 implementation of the _siteLayout_ contract, packaged as
-_newSiteLayout.jar_ . This implementation doesn’t change the contract
+_newSiteLayout.jar_. This implementation doesn’t change the contract
 declaration, but completely changes the arrangement and style of the
 views. As long as the contract declaration does not change,
 _useContract_ can take advantage of _newSiteLayout_ simply by replacing
-one JAR in _WEB-INF/lib_ .
+one JAR in _WEB-INF/lib_.
 
 ===== Non-normative Feature Overview
 
@@ -335,7 +335,7 @@ At design time, the developer has packaged
 any resource library contracts to be used in the application in the
 right place in the web application, or JAR file classpath. _This
 behavior is normatively specified in <<RequestProcessingLifecycle.adoc#a872,
-Resource Library Contracts>>._
+Resource Library Contracts>>_.
 
 ._Startup Time_
 
@@ -347,37 +347,37 @@ application. If there is no such element, all of the discovered
 contracts are made available for use in the application. _This behavior
 is normatively specified in <<UsingJSFInWebApplications.adoc#a6215,Resource
 Library Contracts>> and in the XML schema for the application
-configuration resources._
+configuration resources_.
 
 ._Facelet Processing Time_
 
 The specification for
 _ViewDeclarationLanguage.createView()_ requires a call to
-_ViewDeclarationLanguage.calculateResourceLibraryContracts()_ , passing
-the current _viewId_ . This method will examine the data structure
+_ViewDeclarationLanguage.calculateResourceLibraryContracts()_, passing
+the current _viewId_. This method will examine the data structure
 assembled at startup and return a _List<String>_ representing the
 resource library contracts eligible for use in this view. This value is
 set as the value of the _resourceLibraryContracts_ property on the
-_FacesContext_ . _This behavior is normatively specified in
-<<ApplicationIntegration.adoc#a4016,ViewDeclarationLanguage.createView()>>._
+_FacesContext_. _This behavior is normatively specified in
+<<ApplicationIntegration.adoc#a4016,ViewDeclarationLanguage.createView()>>_.
 
 The specification of the tag handler for
 _<f:view>_ is the one other place where the _resourceLibraryContracts_
 property may be set. _This behavior is normatively specified in the tag
-handler for <f:view>._
+handler for <f:view>_.
 
 In any _<ui:composition>_ or _<ui:decorate>_
 tag reached from that view, it is valid to use any of the templates in
 any of the listed contracts as the value of the _template_ attribute.
 This behavior happens naturally as a side effect of the requirements of
-_ResourceHandler.createViewResource()_ , where the implementation of
+_ResourceHandler.createViewResource()_, where the implementation of
 that method is required to first consult the _resourceLibraryContracts_
-property of the current _FacesContext_ . If the value of the property is
-non- _null_ and non empty, the implementation must first look for the
+property of the current _FacesContext_. If the value of the property is
+non-__null__ and non empty, the implementation must first look for the
 named view resource within each of the contracts in the list, and return
 the first matching one found. Otherwise, the implementation just returns
 the matching resource, if found. _This behavior is normatively specified
-in the javadoc for ResourceHandler.createViewResource()._
+in the javadoc for ResourceHandler.createViewResource()_.
 
 ._View Rendering Time_
 
@@ -386,7 +386,7 @@ resources that reside in a resource library contract will have
 additional metadata so that a subsequent request from the user agent is
 able to quickly find the resource inside the named contract. _This
 behavior is normatively specified in the javadoc for
-Resource.getRequestPath()._
+Resource.getRequestPath()_.
 
 ._User-Agent Rendering Time_
 
@@ -403,7 +403,7 @@ Prior to version 2.2 of this specification,
 the view authoring model relied entirely on the concept of a JSF UI
 component in a view as a means to encapsulate arbitrarily complex web
 user interface code behind a simple UI component tag in a page. For
-example, the act of including _<my:datePicker value=”#\{user.dob}” />_
+example, the act of including _<my:datePicker value=”#{user.dob}” />_
 in a view could cause a large amount of HTML, CSS, JavaScript, and
 images to be delivered to the user agent. This abstraction is very
 appropriate when the view author is content to delegate the work of
@@ -433,16 +433,16 @@ For any given JSF component tag in a view,
 the set of available attributes that component supports is determined by
 a combination of the _UIComponent_ and _Renderer_ for that tag. In some
 cases the value of the attribute is interpreted by the _UIComponent_ or
-_Renderer_ (for example, the _columns_ attribute of _h:panelGrid_ ) and
+_Renderer_ (for example, the _columns_ attribute of _h:panelGrid_) and
 in others the value is passed straight through to the user agent (for
-example, the _lang_ attribute of _h:inputText_ ). In both cases, the
+example, the _lang_ attribute of _h:inputText_). In both cases, the
 _UIComponent/Renderer_ has a priori knowledge of the set of allowable
 attributes. _Pass Through Attributes_ allows the view author to list
 arbitrary name value pairs that are passed straight through to the user
-agent without interpretation by the _UIComponent/Renderer_ . _This
+agent without interpretation by the _UIComponent/Renderer_. _This
 behavior is normatively specified in the “Rendering Pass Through
 Attributes” section of the overview of the standard HTML_BASIC render
-kit._
+kit_.
 
 The view author may specify pass through
 attributes in three ways.
@@ -467,7 +467,7 @@ within a _UIComponent_ tag, For example,
     </h:inputText> 
 ----
 +
-The EL expression must point to a _Map<String, Object>_ . If the value
+The EL expression must point to a _Map<String, Object>_. If the value
 is a _ValueExpresison_ call _getValue()_ the value first. Whether the
 value is a _ValueExpression_ or not, the value must have its
 _toString()_ called on it.
@@ -488,7 +488,7 @@ example
 * _This behavior is normatively specified in
 the VDLdoc for <f:passthroughAttribute>, <f:passThroughAttributes> tags
 in the “Faces Core” tag library, and the “Pass Through Attributes” tag
-library._
+library_.
 
 ._Pass Through Elements_
 
@@ -507,7 +507,7 @@ TagDecorator mechanism allows complete control of the mapping process.
 _This behavior is normatively specified in the javadocs for class
 jakarta.faces.view.facelets.TagDecorator and in the section “Rendering
 Pass Through Attributes” in the “General Notes On Encoding” in the
-Standard HTML_BASIC RenderKit._
+Standard HTML_BASIC RenderKit_.
 
 An example will illustrate the mapping
 process.
@@ -534,7 +534,7 @@ determined that this component should act as an _<h:inputText>_
 component for the purposes of postback processing. However, the
 rendering is entirely taken from the markup in the facelet view. Another
 example illustrates the special _Renderer_ that is used when no mapping
-can be found in the table in the javadocs for _TagDecorator_ .
+can be found in the table in the javadocs for _TagDecorator_.
 
 [source,xml]
 ----
@@ -555,7 +555,7 @@ component should act as a _<jsf:element>_ component for the purposes of
 postback processing. _The behavior of the <jsf:element> is normatively
 specified in the VDLdoc for that tag. The behavior of the
 jakarta.faces.passthrough.Element renderer is normatively specified in the
-RenderKitDoc for that renderer._
+RenderKitDoc for that renderer_.
 
 
 === Java Programming Language Specification for Facelets in JSF 2.0
@@ -591,15 +591,15 @@ project. Therefore, we decided to keep the Java API for Facelets in JSF
 necessary.
 
 The application of these principles produced
-the classes in the package _jakarta.faces.view.facelets_ . Please consult
+the classes in the package _jakarta.faces.view.facelets_. Please consult
 the Javadocs for that package, and the classes within it, for additional
-normative specification _._
+normative specification.
 
 [[a5608]]
 ==== Specification of the ViewDeclarationLanguage Implementation for Facelets for JSF 2.0
 
 As normatively specified in the javadocs for
-_ViewDeclarationLanguageFactory.getViewDeclarationLanguage()_ , a JSF
+_ViewDeclarationLanguageFactory.getViewDeclarationLanguage()_, a JSF
 implementation must guarantee that a valid and functional
 _ViewDeclarationLanguage_ instance is returned from this method when the
 argument is a reference to either a JSP view, a Faces XML View or a
@@ -614,7 +614,7 @@ public void buildView(FacesContext context, UIViewRoot root)
 
 The argument _root_ will have been created
 with a call to either _createView()_ or
-_ViewMetadata.createMetadataView()_ . If the root already has
+_ViewMetadata.createMetadataView()_. If the root already has
 non-metadata children, the view must still be re-built, but care must be
 taken to ensure that the existing components are correctly paired up
 with their VDL counterparts in the VDL page. The implementation must
@@ -624,11 +624,11 @@ for JSF 2.0 views are written in XHTML, an XML parser is well suited to
 the task of processing such an entity. Each element in the XHTML view
 falls into one of the following categories, each of which corresponds to
 an instance of a Java object that implements
-_jakarta.faces.view.facelets.FaceletHandler_ , or a subinterface or
+_jakarta.faces.view.facelets.FaceletHandler_, or a subinterface or
 subclass thereof, and an instance of
-_jakarta.faces.view.facelets.TagConfig_ , or a subinterface or subclass
+_jakarta.faces.view.facelets.TagConfig_, or a subinterface or subclass
 thereof, which is passed to the constructor of the object implementing
-_FaceletHandler_ .
+_FaceletHandler_.
 
 When constructing the _TagConfig_
 implementation to be passed to the _FaceletHandler_ implementation, the
@@ -644,64 +644,64 @@ must be traversed and its _apply()_ method called in the same
 depth-first order as in the other lifecycle phase methods in jsf. Each
 _FaceletHandler_ instance must use the _getNextHandler()_ method of the
 _TagConfig_ instance passed to its constructor to perform the traversal
-starting from the root _FaceletHandler_ .
+starting from the root _FaceletHandler_.
 
 * Standard XHTML markup elements
 
 ** These are declared in the XHTML namespace
-_http://www.w3.org/1999/xhtml_ . Such elements should be passed through
+_http://www.w3.org/1999/xhtml_. Such elements should be passed through
 as is to the rendered output.
 
 ** These elements correspond to instances of
-_jakarta.faces.view.facelets.TextHandler_ . See the javadocs for that
+_jakarta.faces.view.facelets.TextHandler_. See the javadocs for that
 class for the normative specification.
 
 * Markup elements that represent _UIComponent_
 instance in the view.
 
 ** These elements can come from the Standard
-HTML Renderkit namespace _http://java.sun.com/jsf/html_ , or from the
+HTML Renderkit namespace _http://java.sun.com/jsf/html_, or from the
 namespace of a custom tag library (including composite components) as
 described in <<FaceletsAndWebApplications.adoc#a5638,Facelet Tag Library
 mechanism>>.
 
 ** These elements correspond to instances of
-_jakarta.faces.view.facelets.ComponentHandler_ . See the javadocs for that
+_jakarta.faces.view.facelets.ComponentHandler_. See the javadocs for that
 class for the normative specification.
 
 * Markup elements that take action on their
 parent or children markup element(s). Usually these come from the JSF
-Core namespace _http://java.sun.com/jsf/core_ , but they can also be
+Core namespace _http://java.sun.com/jsf/core_, but they can also be
 provided by a custom tag library.
 
 ** Such elements that represent an attached
 object must correspond to an appropriate subclass of
-_jakarta.faces.view.facelets.FaceletsAttachedObjectHandler_ . The
+_jakarta.faces.view.facelets.FaceletsAttachedObjectHandler_. The
 supported subclasses are specified in the javadocs.
 
 ** Such elements that represent a facet
 component must correspond to an instance of
-_jakarta.faces.component.FacetHandler_ .
+_jakarta.faces.component.FacetHandler_.
 
 ** Such elements that represent an attribute
 that must be pushed into the parent _UIComponent_ element must
 correspond to an instance of
-_jakarta.facelets.view.facelets.AttributeHandler_ .
+_jakarta.facelets.view.facelets.AttributeHandler_.
 
 * Markup Elements that indicate facelet
 templating, as specified in the VDL Docs for the namespace
-_http://java.sun.com/jsf/facelets_ .
+_http://java.sun.com/jsf/facelets_.
 
 ** Such elements correspond to an instance of
-_jakarta.faces.view.facelets.TagHandler_ .
+_jakarta.faces.view.facelets.TagHandler_.
 
 * Markup elements from the Facelet version of
 the JSTL namespaces _http://java.sun.com/jsp/jstl/core_ or
-_http://java.sun.com/jsp/jstl/functions_ , as specified in the VDL Docs
+_http://java.sun.com/jsp/jstl/functions_, as specified in the VDL Docs
 for those namespaces.
 
 ** Such elements correspond to an instance of
-_jakarta.faces.view.facelets.TagHandler_ .
+_jakarta.faces.view.facelets.TagHandler_.
 
 
 === XHTML Specification for Facelets for JSF 2.0
@@ -712,7 +712,7 @@ _jakarta.faces.view.facelets.TagHandler_ .
 [P1-start_facelet_xhtml]Facelet pages are
 authored in XHTML. The runtime must support all XHTML pages that conform
 to the XHTML-1.0-Transitional DTD, as described at
-_http://www.w3.org/TR/xhtml1/#a_dtd_XHTML-1.0-Transitional_ .
+_http://www.w3.org/TR/xhtml1/#a_dtd_XHTML-1.0-Transitional_.
 
 The runtime must ensure that EL expressions
 that appear in the page without being the right-hand-side of a tag
@@ -777,8 +777,7 @@ descriptor. For example, declaring
 _xmlns:h="http://java.sun.com/jsf/html"_ within the _<html>_ element in
 a Facelet XHTML page would cause the runtime to make all tags declared
 in <<FaceletsAndWebApplications.adoc#a6029,Standard HTML RenderKit Tag Library>>
-to be available for use in the page using syntax like: _<h:inputText />_
-.
+to be available for use in the page using syntax like: _<h:inputText />_.
 
 The unprefixed namespace, also known as the
 root namespace, must be passed through without modification or check for
@@ -837,7 +836,7 @@ Parameters>>
 
 * Via auto discovery by placing the tag library
 discriptor file within a jar on the web application classpath, naming
-the file so that it ends with “ _.taglib.xml_ ”, without the quotes, and
+the file so that it ends with “_.taglib.xml_”, without the quotes, and
 placing the file in the _META-INF_ directory in the jar file.
 
 {empty}The discovery of tag library files
@@ -859,18 +858,18 @@ Schema Definition For Facelet Taglib>>.
 The text in this section makes use of the
 terms defined in <<UserInterfaceComponentModel.adoc#a1619,Composite Component
 Terms>>. When such a term appears in this section, it will be in
-_emphasis font face_ .
+_emphasis font face_.
 
 [[a5663]]
 ===== Declaring a composite component library for use in a Facelet page
 
 [P1_start_composite_library_decl]The runtime
 must support the following two ways of declaring a _composite component
-library_ .
+library_.
 
 * If a facelet taglibrary is declared in an
-XHTML page with a namespace starting with the string “
-_http://java.sun.com/jsf/composite/_ ” (without the quotes), the
+XHTML page with a namespace starting with the string
+“_http://java.sun.com/jsf/composite/_” (without the quotes), the
 remainder of the namespace declaration is taken as the name of a
 resource library as described in <<RequestProcessingLifecycle.adoc#a836,
 Libraries of Localized and Versioned Resources>>, as shown in the
@@ -883,8 +882,8 @@ following example:
 ----
 +
 The runtime must look for a resource library
-named _ezcomp_ . If the substring following “
-_http://java.sun.com/jsf/composite/_ ” contains a “ _/_ ” character, or
+named _ezcomp_. If the substring following
+“_http://java.sun.com/jsf/composite/_” contains a “_/_” character, or
 any characters not legal for a library name the following action must be
 taken. If _application.getProjectStage()_ is _Development_ an
 informative error message must be placed in the page and also logged.
@@ -911,14 +910,13 @@ component library, the runtime must create a _Resource_ instance with a
 library property equal to the library name derived in
 <<FaceletsAndWebApplications.adoc#a5663,Declaring a composite component library>>
 for use in a Facelet page]and call the variant of
-_application.createComponent()_ that takes a _Resource_ .
+_application.createComponent()_ that takes a _Resource_.
 
 {empty}After causing the _top level
 component_ to be instantiated, the runtime must create a _UIComponent_
 with component-family of _jakarta.faces.Panel_ and renderer-type
 _jakarta.faces.Group_ to be installed as a facet of the _top level
-component_ under the facet name _UIComponent.COMPOSITE_FACET_NAME_
-.[P1_end_top_level_component_creation]
+component_ under the facet name _UIComponent.COMPOSITE_FACET_NAME_.[P1_end_top_level_component_creation]
 
 ===== Populating a _top level component_ instance with children
 
@@ -939,74 +937,73 @@ details on these two tags that are relevant to populating a _top level
 component_ instance with children.
 
 Special handling is required for attributes
-declared on the _composite component tag_ instance in the _using page_ .
+declared on the _composite component tag_ instance in the _using page_.
 [P1_start_composite_component_tag_attributes]The runtime must ensure
 that all such attributes are copied to the attributes map of the _top
 level component_ instance in the following manner.
 
-* Obtain a reference to the _ExpressionFactory_
-, for discussion called _expressionFactory_ .
+* Obtain a reference to the _ExpressionFactory_,
+for discussion called _expressionFactory_.
 
 * Let the value of the attribute in the _using
-page_ be _value_ .
+page_ be _value_.
 
 * If _value_ is “id” or “binding” without the
 quotes, skip to the next attribute.
 
 * If the value of the attribute starts with
-“#\{“ (without the quotes) call
+“#{“ (without the quotes) call
 _expressionFactory.createValueExpression(elContext, value,
 Object.class)_
 
 * If the value of the attribute does not start
-with “ _#\{_ “, call _expressionFactory.createValueExpression(value,
+with “_#{_“, call _expressionFactory.createValueExpression(value,
 Object.class)_
 
 * {empty}If there already is a key in the _map_
-for _value_ , inspect the type of the value at that key. If the type is
-_MethodExpression_ take no action.
-[P1_end_composite_component_tag_attributes]
+for _value_, inspect the type of the value at that key. If the type is
+_MethodExpression_ take no action.[P1_end_composite_component_tag_attributes]
 
 For code that handles tag attributes on
 _UIComponent_ XHTML elements special action must be taken regarding
 composite components. [P1_start_composite_component_method_expression]If
-the type of the attribute is a _MethodExpression_ , the code that takes
+the type of the attribute is a _MethodExpression_, the code that takes
 the value of the attribute and creates an actual _MethodExpression_
 instance around it must take the following special action. Inspect the
 value of the attribute. If the EL expression string starts with the _cc_
-implicit object, is followed by the special string “ _attrs_ ” (without
+implicit object, is followed by the special string “_attrs_” (without
 the quotes), as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,Composite
 Component Attributes ELResolver>>, and is followed by a single remaining
 expression segment, let the value of that remaining expression segment
-be _attrName_ . In this case, the runtime must guarantee that the actual
+be _attrName_. In this case, the runtime must guarantee that the actual
 _MethodExpression_ instance that is created for the tag attribute have
 the following behavior in its _invoke()_ method.
 
 * Obtain a reference to the current composite
-component by calling _UIComponent.getCurrentCompositeComponent()_ .
+component by calling _UIComponent.getCurrentCompositeComponent()_.
 
 * Look in the attribute of the component for a
-key under the value _attrName_ .
+key under the value _attrName_.
 
 * There must be a value and it must be of type
-_MethodExpression_ . If either of these conditions are _false_ allow the
+_MethodExpression_. If either of these conditions are _false_ allow the
 ensuing exception to be thrown.
 
 * {empty}Call _invoke()_ on the discovered
-_MethodExpression_ , passing the arguments passed to our _invoke()_
+_MethodExpression_, passing the arguments passed to our _invoke()_
 method.[P1_end_composite_component_method_expression]
 
 [P1_start_composite_component_retargeting]Once
 the composite component has been populated with children, the runtime
 must ensure that _ViewHandler.retargetAttachedObjects()_ and then
 _ViewHandler.retargetMethodExpressions()_ is called, passing the _top
-level component_ .[P1_end_composite_component_retargeting] The actions
+level component_.[P1_end_composite_component_retargeting] The actions
 taken in these methods set the stage for the tag attribute behavior and
 the special _MethodExpression_ handling behavior described previously.
 
 [P1_start_nested_composite_components]The
 runtime must support the inclusion of composite components within the
-_composite component definition_ . [P1_end_nested_composite_components].
+_composite component definition_. [P1_end_nested_composite_components].
 
 
 [[a5691]]
@@ -1022,7 +1019,7 @@ one specified in <<IntegrationWithJSP.adoc#a4636,JSF Core Tag Library>>.
 
 For all of the tags that correspond to
 attached objects, the Facelets implementation supportes an additional
-attribute, _for_ , which is intended for use when the attached object
+attribute, _for_, which is intended for use when the attached object
 tag exists within a composite component. If present, this attribute
 refers to the value of one of the exposed attached objects within the
 composite component inside of which this tag is nested.
@@ -1332,10 +1329,10 @@ the normative specification.
 ===== <f:metadata>
 
 Register a facet on the parent component,
-which must be the _UIViewRoot_ . This must be a child of the _<f:view>_
+which must be the _UIViewRoot_. This must be a child of the _<f:view>_
 . This tag must reside within the top level XHTML file for the given
 viewId, not in a template. The implementation must ensure that the
-direct child of the facet is a _UIPanel_ , even if there is only one
+direct child of the facet is a _UIPanel_, even if there is only one
 child of the facet. The implementation must set the id of the _UIPanel_
 to be the value of the _UIViewRoot.METADATA_FACET_NAME_ symbolic
 constant.
@@ -1679,21 +1676,21 @@ identifier of the _UIWebSocket_ component to be created.
 |scope |String
 |String |The scope
 of the websocket channel. It may not be an EL expression and allowed
-values are _application_ , _session_ and _view_ , case insensitive. When
-the value is _application_ , then all channels with the same name
+values are _application_, _session_ and _view_, case insensitive. When
+the value is _application_, then all channels with the same name
 throughout the application will receive the same push message. When the
-value is _session_ , then only the channels with the same name in the
+value is _session_, then only the channels with the same name in the
 current user session will receive the same push message. When the value
-is _view_ , then only the channel in the current view will receive the
-push message. The default scope is _application_ . When the _user_
-attribute is specified, then the default scope is _session_ .
+is _view_, then only the channel in the current view will receive the
+push message. The default scope is _application_. When the _user_
+attribute is specified, then the default scope is _session_.
 
 |user |VE
 |Serializable |The
 user identifier of the websocket channel, so that user-targeted push
 messages can be sent. It must implement Serializable and preferably have
-low memory footprint. Suggestion: use #\{request.remoteUser} or
-#\{someLoggedInUser.id}. All open websockets on the same channel and
+low memory footprint. Suggestion: use #{request.remoteUser} or
+#{someLoggedInUser.id}. All open websockets on the same channel and
 user will receive the same push message from the server.
 
 |onopen |VE
@@ -1883,7 +1880,7 @@ by the application..
 ----
 
 The scope attribute may not be an EL
-expression and allowed values are _application_ , _session_ and _view_ ,
+expression and allowed values are _application_, _session_ and _view_,
 case insensitive.
 
 Additionally, the optional user attribute can
@@ -1903,7 +1900,7 @@ authentication or a related framework/library:.
 ----
 
 Or when you have a custom user entity
-accessible via EL, such as as #\{someLoggedInUser} which has an id
+accessible via EL, such as as #{someLoggedInUser} which has an id
 property representing its identifier:.
 
 [source,xml]
@@ -2193,7 +2190,7 @@ exactly the <h:commandScript name>. For example,
 If you pass a Map<String,V> or a JavaBean as
 push message object, then all entries/properties will transparently be
 available as request parameters in the command script method
-#\{bean.pushed}.
+#{bean.pushed}.
 
 [[a6029]]
 ==== Standard HTML RenderKit Tag Library
@@ -2261,8 +2258,8 @@ no _Renderer_ is present, ignore the following steps.
 
 * Call _getClass()_ on the _Renderer_ instance
 and inspect if the _ListenerFor_ annotation is present. If so, inspect
-if the _Renderer_ instance implements _ComponentSystemEventListener_ .
-If neither of these conditions are _true_ , ignore the following steps.
+if the _Renderer_ instance implements _ComponentSystemEventListener_.
+If neither of these conditions are _true_, ignore the following steps.
 
 * Obtain the value of the _systemEventClass()_
 property of the _ListenerFor_ annotation on the _Renderer_ instance.
