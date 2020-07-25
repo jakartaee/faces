@@ -39,17 +39,11 @@ and setters, as described in the following subsections.
 [[a3402]]
 ==== ActionListener Property
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public ActionListener getActionListener();
-
-
-
-public void setActionListener(ActionListener
-listener);
-
-|===
+public void setActionListener(ActionListener listener);
+----
 
 Return or replace an _ActionListener_
 instance that will be utilized to process _ActionEvent_ events during
@@ -93,17 +87,11 @@ important backwards compatability information.
 
 ==== DefaultRenderKitId Property
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public String getDefaultRenderKitId();
-
-
-
-public void setDefaultRenderKitId(String
-defaultRenderKitId);
-
-|===
+public void setDefaultRenderKitId(String defaultRenderKitId);
+----
 
 An application may specify the render kit
 identifier of the _RenderKit_ to be used by the _ViewHandler_ to render
@@ -121,17 +109,11 @@ release.
 
 ==== FlowHandler Property
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public FlowHandler getFlowHandler();
-
-
-
-public void setFlowHandler(FlowHandler
-handler);
-
-|===
+public void setFlowHandler(FlowHandler handler);
+----
 
 Return or replace the _FlowHandler_ that will
 be used by the _NavigationHandler_ to make decisions about navigating
@@ -146,18 +128,11 @@ _getFlowHandler()_ may be called at any time after application startup.
 
 ==== NavigationHandler Property
 
-[width="100%",cols="100%",]
-|===
-a|
-public NavigationHandler
-getNavigationHandler();
-
-
-
-public void
-setNavigationHandler(NavigationHandler handler);
-
-|===
+[source,java]
+----
+public NavigationHandler getNavigationHandler();
+public void setNavigationHandler(NavigationHandler handler);
+----
 
 Return or replace the _NavigationHandler_
 instance (see <<ApplicationIntegration.adoc#a3561,See NavigationHandler>>) that
@@ -168,17 +143,11 @@ be provided, with functionality described in
 
 ==== StateManager Property
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public StateManager getStateManager();
-
-
-
-public void setStateManager(StateManager
-manager);
-
-|===
+public void setStateManager(StateManager manager);
+----
 
 Return or replace the _StateManager_ instance
 that will be utilized during the _Restore View_ and _Render Response_
@@ -190,17 +159,11 @@ implementation must be provided, which operates as described in
 [[a3435]]
 ==== ELResolver Property
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public ELResolver getELResolver();
-
-
-
-public void addELResolver(ELResolver
-resolver);
-
-|===
+public void addELResolver(ELResolver resolver);
+----
 
 {empty}[N/T-start elresolver test] Return the
 ELResolver instance to be used for all EL resolution. This is actually
@@ -216,23 +179,12 @@ ELResolver for Facelets and Programmatic Access>>_ [N/T-end]
 
 ==== ELContextListener Property
 
-[width="100%",cols="100%",]
-|===
-a|
-public addELContextListener(ELContextListener
-listener);
-
-
-
-public void
-removeELContextListener(ELContextListener listener);
-
-
-
-public ELContextListener[]
-getELContextListeners();
-
-|===
+[source,java]
+----
+public addELContextListener(ELContextListener listener);
+public void removeELContextListener(ELContextListener listener);
+public ELContextListener[] getELContextListeners();
+----
 
 addELContextListener() registers an
 ELContextListener for the current Faces application. This listener will
@@ -251,17 +203,11 @@ addELContextListener().
 [[a3450]]
 ==== ViewHandler Property
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public ViewHandler getViewHandler();
-
-
-
-public void setViewHandler(ViewHandler
-handler);
-
-|===
+public void setViewHandler(ViewHandler handler);
+----
 
 {empty}See <<ApplicationIntegration.adoc#a3871,See
 ViewHandler>> for the description of the ViewHandler. The JSF
@@ -275,14 +221,10 @@ executed, the call must be ignored by the implementation. [P1-end]
 [[a3455]]
 ==== ProjectStage Property
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public ProjectStage getProjectStage();
-
-
-
-|===
+----
 
 {empty} [P1-start getProjectStage]This method
 must return the enum constant from the class
@@ -294,11 +236,10 @@ Parameters>>.[P1-end]
 [[a3459]]
 ==== Acquiring ExpressionFactory Instance
 
-[width="100%",cols="100%",]
-|===
-|public ExpressionFactory
-getExpressionFactory();
-|===
+[source,java]
+----
+public ExpressionFactory getExpressionFactory();
+----
 
 Return the ExpressionFactory instance for
 this application. This instance is used by the evaluateExpressionGet (
@@ -314,12 +255,11 @@ JspFactory.getDefaultFactory().getJspApplicationContext(servletContext).getExpre
 [[a3463]]
 ==== Programmatically Evaluating Expressions
 
-[width="100%",cols="100%",]
-|===
-|public Object
-evaluateExpressionGet(FacesContext context, String expression, Class
-expectedType)
-|===
+[source,java]
+----
+public Object evaluateExpressionGet(FacesContext context,
+    String expression, Class expectedType)
+----
 
 Get a value by evaluating an expression.
 
@@ -341,36 +281,17 @@ The _Application_ instance for a web
 application also acts as an object factory for the creation of new JSF
 objects such as components, converters, validators and behaviors..
 
-[width="100%",cols="100%",]
-|===
-a|
-public UIComponent createComponent(String
-componentType);
+[source,java]
+----
+public UIComponent createComponent(String componentType);
+public UIComponent createComponent(
+    String componentType, String rendererType);
 
-public UIComponent createComponent(String
-componentType, String rendererType);
-
-
-
-public Converter createConverter(Class
-targetClass);
-
-
-
-public Converter createConverter(String
-converterId);
-
-
-
-public Validator createValidator(String
-validatorId);
-
-
-
-public Behavior createBehavior(String
-behaviorId);
-
-|===
+public Converter createConverter(Class targetClass);
+public Converter createConverter(String converterId);
+public Validator createValidator(String validatorId);
+public Behavior createBehavior(String behaviorId);
+----
 
 Each of these methods creates a new instance
 of an object of the requested type <<Footnotes.adoc#a9088,6>>, based on the
@@ -388,12 +309,11 @@ _@ListenerFor_ annotations.
 
 
 
-[width="100%",cols="100%",]
-|===
-|public UIComponent
-createComponent(ValueExpression componentExpression, FacesContext
-context, String componentType);
-|===
+[source,java]
+----
+public UIComponent createComponent(ValueExpression componentExpression,
+    FacesContext context, String componentType);
+----
 
 [P1-start createComponent(ValueExpression)
 requirements] This method has the following behavior:
@@ -408,11 +328,11 @@ a component instance, create a new component instance of the specified
 component type, pass the new component to the s _etValue()_ method of
 the specified ValueExpression, and return it.[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public UIComponent
-createComponent(FacesContext context, Resource componentResource);
-|===
+[source,java]
+----
+public UIComponent createComponent(
+    FacesContext context, Resource componentResource);
+----
 
 All variants _createComponent()_ must take
 some action to inspect the component for _@ResourceDependency_ and
@@ -420,33 +340,14 @@ _@ListenerFor_ annotations. Please see the JavaDocs and
 <<UserInterfaceComponentModel.adoc#a1671,See Composite Component Metadata>> for the
 normative specification relating to this method.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addComponent(String
-componentType, String componentClass);
-
-
-
-public void addConverter(Class targetClass,
-String converterClass);
-
-
-
-public void addConverter(String converterId,
-String converterClass);
-
-
-
-public void addValidator(String validatorId,
-String validatorClass);
-
-
-
-public void addBehavior(String behaviorId,
-String behaviorClass);
-
-|===
+[source,java]
+----
+public void addComponent(String componentType, String componentClass);
+public void addConverter(Class targetClass, String converterClass);
+public void addConverter(String converterId, String converterClass);
+public void addValidator(String validatorId, String validatorClass);
+public void addBehavior(String behaviorId, String behaviorClass);
+----
 
 JSF-based applications can register
 additional mappings of identifiers to a corresponding fully qualified
@@ -456,28 +357,14 @@ are also used by the JSF implementation to register mappings based on
 _<component>_ , _<converter>_ , _<behavior>_ and _<validator>_ elements
 discovered in an application configuration resource.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public Iterator<String> getComponentTypes();
-
-
-
 public Iterator<String> getConverterIds();
-
-
-
 public Iterator<Class> getConverterTypes();
-
-
-
 public Iterator<String> getValidatorIds();
-
-
-
 public Iterator<String> getBehaviorIds();
-
-|===
+----
 
 JSF-based applications can ask the
 _Application_ instance for a list of the registered identifiers for
@@ -492,16 +379,11 @@ _addValidator()_ , the application maintains a subset of that list under
 the heading of default validator ids. The following methods provide
 access to the default validator ids registered on an application:
 
-[width="100%",cols="100%",]
-|===
-a|
-_public void addDefaultValidatorId(String
-validatorId);_
-
-public Map<String,String>
-getDefaultValidatorInfo();
-
-|===
+[source,java]
+----
+public void addDefaultValidatorId(String validatorId);
+public Map<String,String> getDefaultValidatorInfo();
+----
 
 The required callsites for these methods are
 specified in <<UserInterfaceComponentModel.adoc#a1419,See Validation Registration>>.
@@ -512,21 +394,13 @@ The following methods and properties allow an
 application to describe its supported locales, and to provide
 replacement text for standard messages created by JSF objects.
 
-[width="100%",cols="100%",]
-|===
-a|
-public Iterator<Locale>
-getSupportedLocales();
-
-public void
-setSupportedLocales(Collection<Locale> newLocales);
-
+[source,java]
+----
+public Iterator<Locale> getSupportedLocales();
+public void setSupportedLocales(Collection<Locale> newLocales);
 public Locale getDefaultLocale();
-
-public void setDefaultLocale(Locale
-newLocale);
-
-|===
+public void setDefaultLocale(Locale newLocale);
+----
 
 JSF applications may state the _Locale_ s
 they support (and the default _Locale_ within the set of supported
@@ -535,17 +409,11 @@ for the following methods must be called when the configuration
 resources are parsed. Each time the setter is called, the previous value
 is overwritten.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public String getMessageBundle();
-
-
-
-public void setMessageBundle(String
-messageBundle);
-
-|===
+public void setMessageBundle(String messageBundle);
+----
 
 Specify the fully qualified name of the
 ResourceBundle from which the JSF implementation will acquire message
@@ -562,24 +430,20 @@ the methods defined on _Application_ that support system events
 
 ===== Subscribing to system events
 
-[width="100%",cols="100%",]
-|===
-a|
-public abstract void subscribeToEvent(Class<?
-extends SystemEvent> systemEventClass, SystemEventListener listener)
+[source,java]
+----
+public abstract void subscribeToEvent(Class<? extends SystemEvent>
+    systemEventClass, SystemEventListener listener)
 
-public abstract void subscribeToEvent(Class<?
-extends SystemEvent> systemEventClass, Class sourceClass,
-SystemEventListener listener);
+public abstract void subscribeToEvent(Class<? extends SystemEvent>
+    systemEventClass, Class sourceClass, SystemEventListener listener);
 
-public abstract void publishEvent(Class<?
-extends SystemEvent> systemEventClass, SystemEventListenerHolder
-source);
+public abstract void publishEvent(Class<? extends SystemEvent>
+    systemEventClass, SystemEventListenerHolder source);
 
-public void publishEvent(Class<? extends
-SystemEvent> systemEventClass, Class<?> sourceBaseType, Object source)
-
-|===
+public void publishEvent(Class<? extends SystemEvent>
+    systemEventClass, Class<?> sourceBaseType, Object source)
+----
 
 The first variant of _subscribeToEvent()_
 subscribes argument _listener_ to have its _isListenerForSource()_
@@ -615,18 +479,14 @@ _publishEvent()_ for the complete specification.
 
 ===== Unsubscribing from system events
 
-[width="100%",cols="100%",]
-|===
-a|
-public abstract void
-unsubscribeFromEvent(Class<? extends SystemEvent> systemEventClass,
-SystemEventListener listener);
+[source,java]
+----
+public abstract void unsubscribeFromEvent(Class<? extends SystemEvent>
+    systemEventClass, SystemEventListener listener);
 
-public abstract void
-unsubscribeFromEvent(Class<? extends SystemEvent> systemEventClass,
-Class sourceClass, SystemEventListener listener);
-
-|===
+public abstract void unsubscribeFromEvent(Class<? extends SystemEvent>
+    systemEventClass, Class sourceClass, SystemEventListener listener);
+----
 
 See the javadocs for both variants of
 _unsubscribeFromEvent()_ for the complete specification.
@@ -641,31 +501,20 @@ each JSF-based web application running in a servlet or portlet
 container. The factory instance can be acquired by JSF implementations
 or by application code, by executing:
 
-[width="100%",cols="100%",]
-|===
-a|
-ApplicationFactory factory =
-(ApplicationFactory)
-
-
-FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-
-|===
+[source,java]
+----
+ApplicationFactory factory = (ApplicationFactory)
+    FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+----
 
 The _ApplicationFactory_ implementation class
 supports the following methods:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public Application getApplication();
-
-
-
-public void setApplication(Application
-application);
-
-|===
+public void setApplication(Application application);
+----
 
 Return or replace the _Application_ instance
 for the current web application. The JSF implementation must provide a
@@ -738,11 +587,11 @@ outcome (no <from-outcome>) and have a condition expression (specified
 with <if>). This is the only case where the same view (and component
 tree) is re-used.
 
-[width="100%",cols="100%",]
-|===
-|public void handleNavigation(FacesContext
-context, String fromAction, String outcome);
-|===
+[source,java]
+----
+public void handleNavigation(FacesContext context,
+    String fromAction, String outcome);
+----
 
 The _handleNavigation_ method may select a
 new view by calling _createView()_ on the _ViewHandler_ instance for
@@ -774,17 +623,13 @@ instances known to this _NavigationHandler_ . Each key in the map is a
 from view ID and the cooresponding value is a java.util.Set of
 NavigationCases for that from view ID.
 
-[width="100%",cols="100%",]
-|===
-a|
-public NavigationCase
-getNavigationCase(FacesContext context, String fromAction, String
-outcome);
+[source,java]
+----
+public NavigationCase getNavigationCase(FacesContext context,
+    String fromAction, String outcome);
 
-public Map<String, Set<NavigationCase>>
-getNavigationCases();
-
-|===
+public Map<String, Set<NavigationCase>> getNavigationCases();
+----
 
 {empty}[P1-start-configurablenavhandler]A JSF
 2 compliant-implemention must ensure that its _NavigationHandler_
@@ -1231,460 +1076,214 @@ might appear in one or more application configuration resources (see
 configure the behavior of the default _NavigationHandler_
 implementation:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <navigation-rule>
+  <description>
+    APPLICATION WIDE NAVIGATION HANDLING
+  </description>
+  <from-view-id> * </from-view-id>
 
+  <navigation-case>
+    <description>
+      Assume there is a “Logout” button on every page that
+      invokes the logout Action.
+    </description>
+    <display-name>Generic Logout Button</display-name>
+    <from-action>#{userBean.logout}</from-action>
+    <to-view-id>/logout.jsp</to-view-id>
+  </navigation-case>
 
+  <navigation-case>
+    <description>
+      Handle a generic error outcome that might be returned
+      by any application Action.
+    </description>
+    <display-name>Generic Error Outcome</display-name>
+    <from-outcome>loginRequired</from-outcome>
+    <to-view-id>/must-login-first.jsp</to-view-id>
+  </navigation-case>
 
- <description>
-
- APPLICATION WIDE NAVIGATION HANDLING
-
- </description>
-
- <from-view-id> * </from-view-id>
-
-
-
- <navigation-case>
-
- <description>
-
- Assume there is a “Logout” button on every
-page that
-
- invokes the logout Action.
-
- </description>
-
- <display-name>Generic Logout
-Button</display-name>
-
-
-<from-action>#\{userBean.logout}</from-action>
-
- <to-view-id>/logout.jsp</to-view-id>
-
- </navigation-case>
-
-
-
- <navigation-case>
-
- <description>
-
- Handle a generic error outcome that might be
-returned
-
- by any application Action.
-
- </description>
-
- <display-name>Generic Error
-Outcome</display-name>
-
- <from-outcome>loginRequired</from-outcome>
-
-
-<to-view-id>/must-login-first.jsp</to-view-id>
-
- </navigation-case>
-
-
-
- <navigation-case>
-
- <description>
-
- Illustrate paramaters
-
- </description>
-
-
-<from-outcome>redirectPasswordStrength</from-outcome>
-
- <redirect>
-
-
-<view-param><name>userId</name><value>someValue</value> +
-</view-param>
-
-
-<include-view-params>true</include-view-params>
-
- </redirect>
-
- </navigation-case>
-
-
-
+  <navigation-case>
+    <description>
+      Illustrate paramaters
+    </description>
+    <from-outcome>redirectPasswordStrength</from-outcome>
+    <redirect>
+      <view-param>
+        <name>userId</name>
+        <value>someValue</value>
+      </view-param>
+      <include-view-params>true</include-view-params>
+    </redirect>
+  </navigation-case>
 </navigation-rule>
+----
 
-|===
-
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <navigation-rule>
+  <description>
+    LOGIN PAGE NAVIGATION HANDLING
+  </description>
+  <from-view-id> /login.jsp </from-view-id>
 
+  <navigation-case>
+    <description>
+      Handle case where login succeeded.
+    </description>
+    <display-name>Successful Login</display-name>
+    <from-action>#{userBean.login}</from-action>
+    <from-outcome>success</from-outcome>
+    <to-view-id>/home.jsp</to-view-id>
+  </navigation-case>
 
+  <navigation-case>
+    <description>
+      User registration for a new user succeeded.
+    </description>
+    <display-name>Successful New User Registration</display-name>
+    <from-action>#{userBean.register}</from-action>
+    <from-outcome>success</from-outcome>
+    <to-view-id>/welcome.jsp</to-view-id>
+  </navigation-case>
 
- <description>
-
- LOGIN PAGE NAVIGATION HANDLING
-
- </description>
-
- <from-view-id> /login.jsp </from-view-id>
-
-
-
- <navigation-case>
-
- <description>
-
- Handle case where login succeeded.
-
- </description>
-
- <display-name>Successful
-Login</display-name>
-
-
-<from-action>#\{userBean.login}</from-action>
-
- <from-outcome>success</from-outcome>
-
- <to-view-id>/home.jsp</to-view-id>
-
- </navigation-case>
-
-
-
- <navigation-case>
-
- <description>
-
- User registration for a new user succeeded.
-
- </description>
-
- <display-name>Successful New User
-Registration</display-name>
-
-
-<from-action>#\{userBean.register}</from-action>
-
- <from-outcome>success</from-outcome>
-
- <to-view-id>/welcome.jsp</to-view-id>
-
- </navigation-case>
-
-
-
- <navigation-case>
-
- <description>
-
- User registration for a new user failed
-because of a
-
- duplicate username.
-
- </description>
-
- <display-name>Failed New User
-Registration</display-name>
-
-
-<from-action>#\{userBean.register}</from-action>
-
-
-<from-outcome>duplicateUserName</from-outcome>
-
-
-<to-view-id>/try-another-name.jsp</to-view-id>
-
- </navigation-case>
-
-
-
+  <navigation-case>
+    <description>
+      User registration for a new user failed because of a
+      duplicate username.
+    </description>
+    <display-name>Failed New User Registration</display-name>
+    <from-action>#{userBean.register}</from-action>
+    <from-outcome>duplicateUserName</from-outcome>
+    <to-view-id>/try-another-name.jsp</to-view-id>
+  </navigation-case>
 </navigation-rule>
+----
 
-|===
-
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <navigation-rule>
+  <description>
+    Assume there is a search form on every page. These navigation
+    cases get merged with the application-wide rules above because
+    they use the same “from-view-id” pattern. The same thing would
+    also happen if “from-view-id” was omitted here, because that is
+    equivalent to a matching pattern of “*”.
+  </description>
+  <from-view-id> * </from-view-id>
 
+  <navigation-case>
+    <display-name>Search Form Success</display-name>
+    <from-action>#{searchForm.go}</from-action>
+    <from-outcome>success</from-outcome>
+    <to-view-id>/search-results.jsp</to-view-id>
+  </navigation-case>
 
-
- <description>
-
- Assume there is a search form on every page.
-These navigation
-
- cases get merged with the application-wide
-rules above because
-
- they use the same “from-view-id” pattern.
-The same thing would
-
- also happen if “from-view-id” was omitted
-here, because that is
-
- equivalent to a matching pattern of “*”.
-
- </description>
-
- <from-view-id> * </from-view-id>
-
-
-
- <navigation-case>
-
- <display-name>Search Form
-Success</display-name>
-
- <from-action>#\{searchForm.go}</from-action>
-
- <from-outcome>success</from-outcome>
-
- <to-view-id>/search-results.jsp</to-view-id>
-
- </navigation-case>
-
-
-
- <navigation-case>
-
- <display-name>Search Form
-Failure</display-name>
-
- <from-action>#\{searchForm.go}</from-action>
-
- <to-view-id>/search-problem.jsp</to-view-id>
-
- </navigation-case>
-
-
-
+  <navigation-case>
+    <display-name>Search Form Failure</display-name>
+    <from-action>#{searchForm.go}</from-action>
+    <to-view-id>/search-problem.jsp</to-view-id>
+  </navigation-case>
 </navigation-rule>
+----
 
-|===
-
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <navigation-rule>
+  <description>
+    Searching works slightly differently in part of the site.
+  </description>
+  <from-view-id> /movies/* </from-view-id>
 
+  <navigation-case>
+    <display-name>Search Form Success</display-name>
+    <from-action>#{searchForm.go}</from-action>
+    <from-outcome>success</from-outcome>
+    <to-view-id>/movie-search-results.jsp</to-view-id>
+  </navigation-case>
 
-
- <description>
-
- Searching works slightly differently in part
-of the site.
-
- </description>
-
- <from-view-id> /movies/* </from-view-id>
-
-
-
- <navigation-case>
-
- <display-name>Search Form
-Success</display-name>
-
- <from-action>#\{searchForm.go}</from-action>
-
- <from-outcome>success</from-outcome>
-
-
-<to-view-id>/movie-search-results.jsp</to-view-id>
-
- </navigation-case>
-
-
-
- <navigation-case>
-
- <display-name>Search Form
-Failure</display-name>
-
- <from-action>#\{searchForm.go}</from-action>
-
- <to-view-id>/search-problem.jsp</to-view-id>
-
- </navigation-case>
-
-
-
+  <navigation-case>
+    <display-name>Search Form Failure</display-name>
+    <from-action>#\{searchForm.go}</from-action>
+    <to-view-id>/search-problem.jsp</to-view-id>
+  </navigation-case>
 </navigation-rule>
+----
 
-|===
-
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 public void savePizza();
 
-
-
 <navigation-rule>
+  <description>
+    Pizza topping selection navigation handling
+  </description>
+  <from-view-id>/selectToppings.xhtml</from-view-id>
 
- <description>
+  <navigation-case>
+    <description>
+      Case where pizza is saved but there is additional cost
+    </description>
+    <display-name>Pizza saved w/ extras</display-name>
+    <from-action>#{pizzaBuilder.savePizza}</from-action>
+    <if>#{pizzaBuilder.additionalCost}</if>
+    <to-view-id>/approveExtras.xhtml</to-view-id>
+  </navigation-case>
 
- Pizza topping selection navigation handling
+  <navigation-case>
+    <description>
+      Case where pizza is saved and additional pizzas are needed
+    </description>
+    <display-name>Pizza saved, additional pizzas needed</display-name>
+    <from-action>#{pizzaBuilder.savePizza}</from-action>
+    <if>#{not order.complete}</if>
+    <to-view-id>/createPizza.xhtml</to-view-id>
+  </navigation-case>
 
- </description>
-
-
-<from-view-id>/selectToppings.xhtml</from-view-id>
-
- <navigation-case>
-
- <description>
-
-Case where pizza is saved but there is
-additional cost
-
- </description>
-
- <display-name>Pizza saved w/
-extras</display-name>
-
-
-<from-action>#\{pizzaBuilder.savePizza}</from-action>
-
- <if>#\{pizzaBuilder.additionalCost}</if>
-
-
-<to-view-id>/approveExtras.xhtml</to-view-id>
-
- </navigation-case>
-
- <navigation-case>
-
- <description>
-
-Case where pizza is saved and additional
-pizzas are needed
-
- </description>
-
- <display-name>
-
-Pizza saved, additional pizzas needed
-
-</display-name>
-
-
-<from-action>#\{pizzaBuilder.savePizza}</from-action>
-
- <if>#\{not order.complete}</if>
-
- <to-view-id>/createPizza.xhtml</to-view-id>
-
- </navigation-case>
-
- <navigation-case>
-
- <description>
-
- Handle case where pizza is saved and order
-is complete
-
- </description>
-
- <display-name>Pizza complete</display-name>
-
-
-<from-action>#\{pizzaBuilder.savePizza}</from-action>
-
- <if>#\{order.complete}</if>
-
- <to-view-id>/cart.xhtml</to-view-id>
-
- </navigation-case>
-
+  <navigation-case>
+    <description>
+      Handle case where pizza is saved and order is complete
+    </description>
+    <display-name>Pizza complete</display-name>
+    <from-action>#{pizzaBuilder.savePizza}</from-action>
+    <if>#{order.complete}</if>
+    <to-view-id>/cart.xhtml</to-view-id>
+  </navigation-case>
 </navigation-rule>
+----
 
-
-
-|===
-
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 public String placeOrder();
 
-
-
 <navigation-rule>
+  <description>
+    Cart navigation handling
+  </description>
+  <from-view-id>/cart.xhtml</from-view-id>
 
- <description>
+  <navigation-case>
+    <description>
+      Handle case where account has one click delivery enabled
+    </description>
+    <display-name>Place order w/ one-click delivery</display-name>
+    <from-action>#{pizzaBuilder.placeOrder}</from-action>
+    <if>#{account.oneClickDelivery}</if>
+    <to-view-id>/confirmation.xhtml</to-view-id>
+  </navigation-case>
 
- Cart navigation handling
-
- </description>
-
- <from-view-id>/cart.xhtml</from-view-id>
-
- <navigation-case>
-
- <description>
-
- Handle case where account has one click
-delivery enabled
-
- </description>
-
- <display-name>Place order w/ one-click
-delivery</display-name>
-
-
-<from-action>#\{pizzaBuilder.placeOrder}</from-action>
-
- <if>#\{account.oneClickDelivery}</if>
-
- <to-view-id>/confirmation.xhtml</to-view-id>
-
- </navigation-case>
-
- <navigation-case>
-
- <description>
-
- Handle case where delivery information is
-required
-
- </description>
-
- <display-name>
-
-Place order w/o one-click delivery
-
-</display-name>
-
-
-<from-action>#\{pizzaBuilder.placeOrder}</from-action>
-
- <if>#\{not account.oneClickDelivery}</if>
-
- <to-view-id>/delivery.xhtml</to-view-id>
-
- </navigation-case>
-
+  <navigation-case>
+    <description>
+      Handle case where delivery information is required
+    </description>
+    <display-name>Place order w/o one-click delivery</display-name>
+    <from-action>#{pizzaBuilder.placeOrder}</from-action>
+    <if>#{not account.oneClickDelivery}</if>
+    <to-view-id>/delivery.xhtml</to-view-id>
+  </navigation-case>
 </navigation-rule>
-
-
-
-|===
+----
 
 [[a3840]]
 === FlowHandler
@@ -1760,27 +1359,26 @@ _basic_faces_flow_call.war_ , containing the above mentioned flows. The
 file layout for of the app is shown next. The example is shown using
 maven war packaging
 
-[width="100%",cols="100%",]
-|===
-|basic_faces_flow_call/ +
-pom.xml +
-src/main/webapp/ +
-index.xhtml +
-return1.xhtml +
-WEB-INF/beans.xml +
-flow-a/ +
-flow-a.xhtml +
-next_a.xhtml +
-next_b.xhtml +
-flow-b/ +
-flow-b-flow.xml +
-next_a.xhtml +
-next_b.xhtml +
-src/main/java/com/sun/faces/basic_faces_flow_call/ +
-FlowA.java +
-Flow_a_Bean.java +
-Flow_b_Bean.java
-|===
+....
+basic_faces_flow_call/
+  pom.xml
+  src/main/webapp/
+             index.xhtml
+             return1.xhtml
+             WEB-INF/beans.xml
+             flow-a/
+               flow-a.xhtml
+               next_a.xhtml
+               next_b.xhtml
+             flow-b/
+               flow-b-flow.xml
+               next_a.xhtml
+               next_b.xhtml
+  src/main/java/com/sun/faces/basic_faces_flow_call/
+                                FlowA.java
+                                Flow_a_Bean.java
+                                Flow_b_Bean.java
+....
 
 To complete the example, the execution of the
 flows is examined. When the application containing these flows is
@@ -1868,32 +1466,22 @@ replacing this default implementation with another implementation.
  ViewHandler defines the public APIs
 described in the following paragraphs
 
-[width="100%",cols="100%",]
-|===
-a|
-public Locale calculateLocale(FacesContext
-context);
-
-public String
-calculateRenderKitId(FacesContext context);
-
-|===
+[source,java]
+----
+public Locale calculateLocale(FacesContext context);
+public String calculateRenderKitId(FacesContext context);
+----
 
 These methods are called from _createView()_
 to allow the new view to determine the _Locale_ to be used for all
 subsequent requests, and to find out which _renderKitId_ should be used
 for rendering the view.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void initView(FacesContext) throws
-FacesException;
-
-public String
-calculateCharacterEncoding(FacesContext context);
-
-|===
+[source,java]
+----
+public void initView(FacesContext) throws FacesException;
+public String calculateCharacterEncoding(FacesContext context);
+----
 
 The _initView()_ method must be called as the
 first method in the implementation of the _Restore View Phase_ of the
@@ -1901,11 +1489,10 @@ request processing lifecycle, immediately after checking for the
 existence of the _FacesContext_ parameter. See the javadocs for this
 method for the specification.. __
 
-[width="100%",cols="100%",]
-|===
-|public String deriveViewId(FacesContext
-context, String input);
-|===
+[source,java]
+----
+public String deriveViewId(FacesContext context, String input);
+----
 
 The _deriveViewId()_ method is an
 encapsulation of the viewId derivation algorithm in previous versions of
@@ -1913,11 +1500,10 @@ the specification. This method looks at the argument _input_ , and the
 current request and derives the _viewId_ upon which the lifecycle will
 be run. __
 
-[width="100%",cols="100%",]
-|===
-|public UIViewRoot createView(FacesContext
-context, String viewId);
-|===
+[source,java]
+----
+public UIViewRoot createView(FacesContext context, String viewId);
+----
 
 Create and return a new _UIViewRoot_
 instance, initialized with information from the specified _FacesContext_
@@ -1928,54 +1514,50 @@ view, the _createView()_ method must ensure that the _UIViewRoot_ is
 fully populated with all the children defined in the VDL page before
 _createView()_ returns.
 
-[width="100%",cols="100%",]
-|===
-|public String getActionURL(FacesContext
-context, String viewId);
-|===
+[source,java]
+----
+public String getActionURL(FacesContext context, String viewId);
+----
 
 Returns a URL, suitable for encoding and
 rendering, that (if activated) will cause the JSF request processing
 lifecycle for the specified _viewId_ to be executed
 
-[width="100%",cols="100%",]
-|===
-|public String
-getBookmarkableURL(FacesContext context, String viewId,
-Map<String,List<String>> parameters, boolean includeViewParams);
-|===
+[source,java]
+----
+public String getBookmarkableURL(FacesContext context, String viewId,
+    Map<String,List<String>> parameters, boolean includeViewParams);
+----
 
 Return a JSF action URL derived from the
 viewId argument that is suitable to be used as the target of a link in a
 JSF response. The URL, if activated, would cause the browser to issue an
 initial request to the specified viewId
 
-[width="100%",cols="100%",]
-|===
-|public String getRedirectURL(FacesContext
-context, String viewId, Map<String, List<String>> parameters, boolean
-includeViewParams);
-|===
+[source,java]
+----
+public String getRedirectURL(FacesContext context, String viewId,
+    Map<String, List<String>> parameters, boolean includeViewParams);
+----
 
 Return a JSF action URL derived from the
 _viewId_ argument that is suitable to be used by the _NavigationHandler_
 to issue a redirect request to the URL using an initial request.
 
-[width="100%",cols="100%",]
-|===
-|public String getResourceURL(FacesContext
-context, String path);
-|===
+[source,java]
+----
+public String getResourceURL(FacesContext context, String path);
+----
 
 Returns a URL, suitable for encoding and
 rendering, that (if activated) will retrieve the specified web
 application resource.
 
-[width="100%",cols="100%",]
-|===
-|public void renderView(FacesContext context,
-UIViewRoot viewToRender) throws IOException, FacesException;
-|===
+[source,java]
+----
+public void renderView(FacesContext context, UIViewRoot viewToRender)
+    throws IOException, FacesException;
+----
 
 This method must be called during the _Render
 Response_ phase of the request processing lifecycle. It must provide a
@@ -1990,11 +1572,11 @@ also interact with the associated _StateManager_ (see
 _getSerializedView()_ and _saveView()_ methods, to ensure that state
 information for current view is saved between requests.
 
-[width="100%",cols="100%",]
-|===
-|public UIViewRoot restoreView(FacesContext
-context, String viewId) throws IOException;
-|===
+[source,java]
+----
+public UIViewRoot restoreView(FacesContext context,
+    String viewId) throws IOException;
+----
 
 This method must be called from the _Restore
 View_ phase of the request processing lifecycle. __ It must perform
@@ -2008,11 +1590,10 @@ _null_ (because there is no saved state for this view identifier), the
 caller must call _createView()_ , and call _renderResponse()_ on the
 _FacesContext_ instance for this request.
 
-[width="100%",cols="100%",]
-|===
-|public void writeState(FacesContext context)
-throws IOException;
-|===
+[source,java]
+----
+public void writeState(FacesContext context) throws IOException;
+----
 
 Take any appropriate action to either
 immediately write out the current view’s state information (by calling
@@ -2022,34 +1603,20 @@ _encodeEnd()_ method of any renderer for a _UIForm_ component, in order
 to provide the _ViewHandler_ an opportunity to cause saved state to be
 included with each submitted form.
 
-[width="100%",cols="100%",]
-|===
-a|
-public ViewDeclarationLanguage
-getViewDeclarationLanguage();
-
-
-
-|===
+[source,java]
+----
+public ViewDeclarationLanguage getViewDeclarationLanguage();
+----
 
 See the javadocs for this method for the
 specification.
 
-[width="100%",cols="100%",]
-|===
-a|
-public Set<String>
-getProtectedViewsUnmodifiable();
-
-public void addProtectedView(String
-urlPattern);
-
-public boolean removeProtectedView(String
-urlPattern)
-
-
-
-|===
+[source,java]
+----
+public Set<String> getProtectedViewsUnmodifiable();
+public void addProtectedView(String urlPattern);
+public boolean removeProtectedView(String urlPattern)
+----
 
 See the javadocs for these methods for the
 specification.
@@ -2501,11 +2068,10 @@ the decoration mechanism specified in <<UsingJSFInWebApplications.adoc#a6336,See
 Delegating Implementation Support>> are used to allow decoration or
 replacement of the _ViewDeclarationLanguageFactory_ .
 
-[width="100%",cols="100%",]
-|===
-|public ViewDeclarationLanguage
-getViewDeclarationLanguage(String viewId)
-|===
+[source,java]
+----
+public ViewDeclarationLanguage getViewDeclarationLanguage(String viewId)
+----
 
 Return the _ViewDeclarationLanguage_ instance
 suitable for handling the VDL contained in the page referenced by the
@@ -2538,11 +2104,10 @@ as these requirements are met.
 [[a4016]]
 ===== ViewDeclarationLanguage.createView()
 
-[width="100%",cols="100%",]
-|===
-|public UIViewRoot createView(FacesContext
-context, String viewId)
-|===
+[source,java]
+----
+public UIViewRoot createView(FacesContext context, String viewId)
+----
 
 [P1-start createView() requirements] The
 _createView()_ method must fulfill the following responsibilities.
@@ -2590,11 +2155,11 @@ Return the newly created _UIViewRoot_ .
 [[a4030]]
 ===== ViewDeclarationLanguage.calculateResourceLibraryContracts()
 
-[width="100%",cols="100%",]
-|===
-|public List<String>
-calculateResourceLibraryContracts(FacesContext context, viewId)
-|===
+[source,java]
+----
+public List<String> calculateResourceLibraryContracts(
+    FacesContext context, String viewId)
+----
 
 The JSP implementation must return _null_ .
 
@@ -2617,11 +2182,10 @@ matching _<contract-mapping>_ element.
 
 ===== ViewDeclarationLanguage.buildView()
 
-[width="100%",cols="100%",]
-|===
-|public void buildView(FacesContext context,
-UIComponent root)
-|===
+[source,java]
+----
+public void buildView(FacesContext context, UIComponent root)
+----
 
 [P1-start buildView() requirements] The
 _buildView()_ method must fulfill the following responsibilities.
@@ -2650,11 +2214,11 @@ view (but not rendered at this time), during the traversal. .
 [[a4046]]
 ===== ViewDeclarationLanguage.getComponentMetadata()
 
-[width="100%",cols="100%",]
-|===
-|public BeanInfo
-getComponentMetadata(FacesContext context, Resource componentResource)
-|===
+[source,java]
+----
+public BeanInfo getComponentMetadata(
+    FacesContext context, Resource componentResource)
+----
 
 [P1-start getComponentMetaData()
 requirements] The _getComponentMetadata()_ method must fulfill the
@@ -2681,11 +2245,10 @@ case, _null_ must be returned from this method.[P1-end]
 
 ===== ViewDeclarationLanguage.getViewMetadata() and getViewParameters()
 
-[width="100%",cols="100%",]
-|===
-|public ViewMetadata
-getViewMetadata(FacesContext context, String viewId)
-|===
+[source,java]
+----
+public ViewMetadata getViewMetadata(FacesContext context, String viewId)
+----
 
 [P1-start getViewtMetaData() requirements]
 The _getViewMetadata()_ method must fulfill the following
@@ -2708,10 +2271,10 @@ _null_ must be returned from this method.[P1-end]
 
 .ViewMetadata Contract
 
-[width="100%",cols="100%",]
-|===
-|public UIViewRoot createMetadataView()
-|===
+[source,java]
+----
+public UIViewRoot createMetadataView()
+----
 
 The content of the metadata is provided by
 the page author as a special _<f:facet/>_ of the _UIViewRoot_ . The name
@@ -2731,11 +2294,10 @@ _ActionSource2_ in the view.
 
 {empty}]
 
-[width="100%",cols="100%",]
-|===
-|public Collection<UIViewParameter>
-getViewParameters(UIViewRoot)
-|===
+[source,java]
+----
+public Collection<UIViewParameter> getViewParameters(UIViewRoot root)
+----
 
 Convenience method that uses the view
 metadata specification above to obtain the _List<UIViewParameter>_ for
@@ -2743,12 +2305,11 @@ the argument viewId.
 
 ===== ViewDeclarationLanguage.getScriptComponentResource()
 
-[width="100%",cols="100%",]
-|===
-|public Resource
-getScriptComponentResource(FacesContext context, Resource
-componentResource)
-|===
+[source,java]
+----
+public Resource getScriptComponentResource(
+    FacesContext context, Resource componentResource)
+----
 
 [P1-start getScriptComponentResource()
 requirements] The _getScriptComponentResource()_ method must fulfill the
@@ -2770,11 +2331,10 @@ method.[P1-end]
 
 ===== ViewDeclarationLanguage.renderView()
 
-[width="100%",cols="100%",]
-|===
-|public void renderView(FacesContext context,
-String viewId)
-|===
+[source,java]
+----
+public void renderView(FacesContext context, String viewId)
+----
 
 [P1-start renderView() requirements] The
 _renderView()_ method must fulfill the following responsibilities:
@@ -2867,11 +2427,10 @@ response.[P1-end]
 [[a4101]]
 ===== ViewDeclarationLanguage.restoreView()
 
-[width="100%",cols="100%",]
-|===
-|public UIViewRoot restoreView(FacesContext
-context, String viewId)
-|===
+[source,java]
+----
+public UIViewRoot restoreView(FacesContext context, String viewId)
+----
 
 [P1-start restoreView() requirements]The
 _restoreView()_ method must fulfill the following responsibilities:
@@ -3040,11 +2599,10 @@ _ObjectOutputStream_ , a _NotSerializableException_ would not be thrown.
 [[a4140]]
 ==== State Saving Methods.
 
-[width="100%",cols="100%",]
-|===
-|public Object saveView(FacesContext
-context);
-|===
+[source,java]
+----
+public Object saveView(FacesContext context);
+----
 
 {empty}[P1-start saveView() requirements]
 This method causes the tree structure and component state of the view
@@ -3063,22 +2621,21 @@ for this reason.
 This method must also enforce the rule that
 component ids within a _NamingContainer_ must be unique
 
-[width="100%",cols="100%",]
-|===
-|public void writeState(FacesContext context,
-Object state) throws IOException;
-|===
+[source,java]
+----
+public void writeState(FacesContext context, Object state)
+    throws IOException;
+----
 
 Save the state represented in the specified
 _Object_ instance, in an implementation dependent manner.
 
 ==== State Restoring Methods
 
-[width="100%",cols="100%",]
-|===
-|public UIViewRoot restoreView(FacesContext
-context, String viewId);
-|===
+[source,java]
+----
+public UIViewRoot restoreView(FacesContext context, String viewId);
+----
 
 Restore the tree structure and the component
 state of the view for this _viewId_ to be restored, in an implementation
@@ -3091,11 +2648,10 @@ _restoreComponentState()._
 
 ==== Convenience Methods
 
-[width="100%",cols="100%",]
-|===
-|public boolean
-isSavingStateInClient(FacesContext context);
-|===
+[source,java]
+----
+public boolean isSavingStateInClient(FacesContext context);
+----
 
 {empty}[P1-start isSavingStateInClient()
 requirements] Return _true_ if and only if the value of the
@@ -3104,11 +2660,10 @@ _StateManager.STATE_SAVING_METHOD_PARAM_NAME_ is equal to the value of
 the constant _STATE_SAVING_METHOD_CLIENT_ . Return _false_ otherwise.
 [P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public String getViewState(FacesContext
-context);
-|===
+[source,java]
+----
+public String getViewState(FacesContext context);
+----
 
 Return the current view state as a String.
 [P1-start-getViewState] This method must call
@@ -3122,17 +2677,11 @@ The normative specification for this class is
 in the javadoc for _jakarta.faces.application.ResourceHandler_ . See also
 <<RequestProcessingLifecycle.adoc#a746,See Resource Handling>>.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public ResourceHandler getResourceHandler();
-
-
-
-public void
-setResourceHandler(ResourceHandler impl);
-
-|===
+public void setResourceHandler(ResourceHandler impl);
+----
 
 
 === Deprecated APIs
@@ -3140,22 +2689,14 @@ setResourceHandler(ResourceHandler impl);
 [[a4163]]
 ==== PropertyResolver Property
 
-[width="100%",cols="100%",]
-|===
-a|
-public PropertyResolver
-getPropertyResolver();
+[source,java]
+----
+/** @deprecated */
+public PropertyResolver getPropertyResolver();
 
-{empty}[deprecated]
-
-
-
-public void
-setPropertyResolver(PropertyResolver resolver);
-
-{empty}[deprecated]
-
-|===
+/** @deprecated */
+public void setPropertyResolver(PropertyResolver resolver);
+----
 
 [N/T-start getPropertyResolver()
 requirements] getPropertyResolver() must return a _PropertyResolver_
@@ -3176,22 +2717,14 @@ setPropertyResolver().
 [[a4171]]
 ==== VariableResolver Property
 
-[width="100%",cols="100%",]
-|===
-a|
-public VariableResolver
-getVariableResolver();
+[source,java]
+----
+/** @deprecated */
+public VariableResolver getVariableResolver();
 
-{empty}[deprecated]
-
-
-
-public void
-setVariableResolver(VariableResolver resolver);
-
-{empty}[deprecated]
-
-|===
+/** @deprecated */
+public void setVariableResolver(VariableResolver resolver);
+----
 
 {empty}[N/T-start getVariableResolver()
 requirements] getVariableResolver() must return the _VariableResolver_
@@ -3212,15 +2745,11 @@ deprecated. See the Javadocs for setVariableResolver().
 [[a4179]]
 ==== Acquiring ValueBinding Instances
 
-[width="100%",cols="100%",]
-|===
-a|
-public ValueBinding createValueBinding(String
-ref);
-
-{empty}[deprecated]
-
-|===
+[source,java]
+----
+/** @deprecated */
+public ValueBinding createValueBinding(String ref);
+----
 
 {empty}Create and return a _ValueBinding_
 that can be used to evaluate the specified value binding expression.
@@ -3235,15 +2764,11 @@ Expressions>>
 
 ==== Acquiring MethodBinding Instances
 
-[width="100%",cols="100%",]
-|===
-a|
-public MethodBinding
-createMethodBinding(String ref, Class params[]);
-
-{empty}[deprecated]
-
-|===
+[source,java]
+----
+/** @deprecated */
+public MethodBinding createMethodBinding(String ref, Class params[]);
+----
 
 Create and return a _MethodBinding_ that can
 be used to evaluate the specified method binding expression, and invoke
@@ -3265,16 +2790,12 @@ deprecated.
 
 ==== Object Factories
 
-[width="100%",cols="100%",]
-|===
-a|
-public UIComponent
-createComponent(ValueBinding componentBinding, FacesContext context,
-String componentType);
-
-{empty}[deprecated]
-
-|===
+[source,java]
+----
+/** @deprecated */
+public UIComponent createComponent(ValueBinding componentBinding,
+    FacesContext context, String componentType);
+----
 
 Special version of the factory for
 UIComponent instances that is used when evaluating component binding
@@ -3296,28 +2817,21 @@ save.
 This method must also enforce the rule that
 component ids within a _NamingContainer_ must be unique
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
+/** @deprecated */
 public void writeState(FacesContext context,
-StateManager.SerializedView state) throws IOException;
-
-{empty}[deprecated]
-
-|===
+    StateManager.SerializedView state) throws IOException;
+----
 
 Save the state represented in the specified
 _SerializedView_ instance, in an implementation dependent manner.
 
-[width="100%",cols="100%",]
-|===
-a|
-protected Object
-getTreeStructureToSave(FacesContext context);
-
-{empty}[deprecated]
-
-|===
+[source,java]
+----
+/** @deprecated */
+protected Object getTreeStructureToSave(FacesContext context);
+----
 
 This method must create a _Serializable_
 object that represents the tree structure of the component tree for this
@@ -3326,15 +2840,11 @@ including facets. The _id_ of each component and facet must also be
 saved to allow the naming containers in the tree to be correctly
 restored when this view is restored.
 
-[width="100%",cols="100%",]
-|===
-a|
-protected Object
-getComponentStateToSave(FacesContext context);
-
-{empty}[deprecated]
-
-|===
+[source,java]
+----
+/** @deprecated */
+protected Object getComponentStateToSave(FacesContext context);
+----
 
 This method must create a _Serializable_
 object representing the component state (attributes, properties, and
@@ -3354,42 +2864,33 @@ save.
 This method must also enforce the rule that
 component ids within a _NamingContainer_ must be unique
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
+/** @deprecated */
 public void writeState(FacesContext context,
-StateManager.SerializedView state) throws IOException;
-
-{empty}[deprecated]
-
-|===
+    StateManager.SerializedView state) throws IOException;
+----
 
 Save the state represented in the specified
 _SerializedView_ instance, in an implementation dependent manner.
 
-[width="100%",cols="100%",]
-|===
-a|
-protected Object
-getTreeStructureToRestore(FacesContext context, String viewId);
-
-{empty}[deprecated]
-
-|===
+[source,java]
+----
+/** @deprecated */
+protected Object getTreeStructureToRestore(
+    FacesContext context, String viewId);
+----
 
 The implementation must inspect the current
 request and return the tree structure Object passed to it on a previous
 invocation of _writeState()_ ..
 
-[width="100%",cols="100%",]
-|===
-a|
-protected Object
-getComponentStateToRestore(FacesContext context, String viewId);
-
-{empty}[deprecated]
-
-|===
+[source,java]
+----
+/** @deprecated */
+protected Object getComponentStateToRestore(
+    FacesContext context, String viewId);
+----
 
 The implementation must inspect the current
 request and return the component state Object passed to it on a previous
