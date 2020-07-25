@@ -172,15 +172,14 @@ value when only used with templates.
 Consider this resource library contract,
 called _siteLayout_ .
 
-[width="100%",cols="100%",]
-|===
-|siteLayout/ +
-topNav_template.xhtml +
-leftNav_foo.xhtml +
-styles.css +
-script.js +
-background.png
-|===
+....
+siteLayout/
+  topNav_template.xhtml
+  leftNav_foo.xhtml
+  styles.css
+  script.js
+  background.png
+....
 
 This simple example takes advantage of
 several conventions built into the feature, most notably the default
@@ -223,52 +222,29 @@ left out of the contract declaration but this distinction is completely
 arbitrary. The important content of _topNav_template.xhtml_ is shown
 next.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <?xml version='1.0' encoding='UTF-8' ?>
-
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml"
-
- xmlns:ui="http://java.sun.com/jsf/facelets"
-
- xmlns:h="http://java.sun.com/jsf/html">
-
-<h:head>
-
- <h:outputStylesheet id="default"
-name="default.css" <h:outputStylesheet name="cssLayout.css" />
-
- <title><ui:insert
-name="title"></ui:insert></title>
-
-</h:head>
-
-<h:body>
-
- <div id="top" class="top">
-
- <p>Top Navigation Menu</p>
-
- <ui:insert name="nav">Nav
-content</ui:insert>
-
- </div>
-
- <div id="content" class="center_content">
-
- <ui:insert
-name="content">Content</ui:insert>
-
- </div>
-
-</h:body>
-
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+  <h:head>
+    <h:outputStylesheet id="default" name="default.css" />
+    <h:outputStylesheet name="cssLayout.css" />
+    <title><ui:insert name="title"></ui:insert></title>
+  </h:head>
+  <h:body>
+    <div id="top" class="top">
+      <p>Top Navigation Menu</p>
+      <ui:insert name="nav">Nav content</ui:insert>
+    </div>
+    <div id="content" class="center_content">
+      <ui:insert name="content">Content</ui:insert>
+    </div>
+  </h:body>
 </html>
-
-|===
+----
 
 
 
@@ -283,60 +259,59 @@ Consider this simple web app, called
 _useContract_ , the file layout for which is shown next. The example is
 shown using a simplified maven war packaging.
 
-[width="100%",cols="100%",]
-|===
-|useContract/ +
-pom.xml +
-src/main/webapp/ +
-/WEB-INF/lib/siteLayout.jar +
-index.xhtml +
-page2.xhtml
-|===
+....
+useContract/
+  pom.xml
+  src/main/webapp/
+             /WEB-INF/lib/siteLayout.jar
+             index.xhtml
+             page2.xhtml
+....
 
 Notice the absence of a _faces-config.xml_
 file. Because this example is content to let all the contracts in
 _siteLayout.jar_ be applied to all views in the app, this file is not
 necessary. The two pages are shown next.
 
-index.xhtml.
+.index.xhtml.
 
-[width="100%",cols="100%",]
-|===
-|<!DOCTYPE HTML> +
-<html xmlns=”http://www.w3.org/1999/xhtml” +
-xmlns:ui=”http://java.sun.com/jsf/facelets” +
-xmlns:h=”http://java.sun.com/jsf/html”> +
-<body> +
-<ui:composition template=”/topNav_template.xhtml”> +
-<ui:define name=”title”>#\{msgs.contactsWindowTitle}</ui:define> +
-<ui:define name=”content”> +
-<h:commandButton value=”next” action=”page2” /> +
-</ui:define> +
-<ui:define name=”nav”>#\{msgs.contactsNavMessage}</ui:define> +
-</ui:composition> +
-</body> +
+[source,xml]
+----
+<!DOCTYPE HTML>
+<html xmlns=”http://www.w3.org/1999/xhtml”
+      xmlns:ui=”http://java.sun.com/jsf/facelets”
+      xmlns:h=”http://java.sun.com/jsf/html”>
+  <body>
+    <ui:composition template=”/topNav_template.xhtml”>
+      <ui:define name=”title”>#{msgs.contactsWindowTitle}</ui:define>
+      <ui:define name=”content”>
+        <h:commandButton value=”next” action=”page2” />
+      </ui:define>
+      <ui:define name=”nav”>#{msgs.contactsNavMessage}</ui:define>
+    </ui:composition>
+  </body>
 </html>
-|===
+----
 
-page2.xhtml
+.page2.xhtml
 
-[width="100%",cols="100%",]
-|===
-|<!DOCTYPE HTML> +
-<html xmlns=”http://www.w3.org/1999/xhtml” +
-xmlns:ui=”http://java.sun.com/jsf/facelets” +
-xmlns:h=”http://java.sun.com/jsf/html”> +
-<body> +
-<ui:composition template=”/leftNav_foo.xhtml”> +
-<ui:define name=”title”>Hard coded title</ui:define> +
-<ui:define name=”content”> +
-<h:commandButton value=”back” action=”index” /> +
-</ui:define> +
-<ui:define name=”nav”>Hard coded nav</ui:define> +
-</ui:composition> +
-</body> +
+[source,xml]
+----
+<!DOCTYPE HTML>
+<html xmlns=”http://www.w3.org/1999/xhtml”
+      xmlns:ui=”http://java.sun.com/jsf/facelets”
+      xmlns:h=”http://java.sun.com/jsf/html”>
+  <body>
+    <ui:composition template=”/leftNav_foo.xhtml”>
+      <ui:define name=”title”>Hard coded title</ui:define>
+      <ui:define name=”content”>
+        <h:commandButton value=”back” action=”index” />
+      </ui:define>
+      <ui:define name=”nav”>Hard coded nav</ui:define>
+    </ui:composition>
+  </body>
 </html>
-|===
+----
 
 To complete the example, the execution of the
 _useContract_ app is illustrated.
@@ -538,16 +513,16 @@ Standard HTML_BASIC RenderKit._
 An example will illustrate the mapping
 process.
 
-[width="100%",cols="100%",]
-|===
-|<!DOCTYPE HTML> +
-<html xmlns=”http://www.w3.org/1999/xhtml” +
-xmlns:jsf=”http://java.sun.com/jsf”> +
-<body> +
-<input type=”number” pattern=”[0-9]*” jsf:value=”#\{my.age}” /> +
-</body> +
+[source,xml]
+----
+<!DOCTYPE HTML>
+<html xmlns=”http://www.w3.org/1999/xhtml”
+      xmlns:jsf=”http://java.sun.com/jsf”>
+  <body>
+    <input type=”number” pattern=”[0-9]*” jsf:value=”#{my.age}” />
+  </body>
 </html>
-|===
+----
 
 As required in
 <<FaceletsAndWebApplications.adoc#a5608,See Specification of the
@@ -562,17 +537,18 @@ rendering is entirely taken from the markup in the facelet view. Another
 example illustrates the special _Renderer_ that is used when no mapping
 can be found in the table in the javadocs for _TagDecorator_ .
 
-[width="100%",cols="100%",]
-|===
-|<!DOCTYPE HTML> +
-<html xmlns=”http://www.w3.org/1999/xhtml” +
-xmlns:jsf=”http://java.sun.com/jsf”> +
-<body> +
-<meter jsf:id="meter2" min="#\{bean.min}" max="#\{bean.max}" +
-value="350">350 degrees</meter> +
-</body> +
+[source,xml]
+----
+<!DOCTYPE HTML>
+<html xmlns=”http://www.w3.org/1999/xhtml”
+      xmlns:jsf=”http://java.sun.com/jsf”>
+  <body>
+    <meter jsf:id="meter2" min="#{bean.min}" max="#{bean.max}" value="350">
+      350 degrees
+    </meter>
+  </body>
 </html>
-|===
+----
 
 As in the preceding example, the
 _TagDecorator_ mechanism is activated but it is determined that this
@@ -631,18 +607,11 @@ argument is a reference to either a JSP view, a Faces XML View or a
 Facelets View. This section describes the specification for the Facelets
 implementation.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void buildView(FacesContext context,
-
- UIViewRoot root)
-
- throws IOException
-
-
-
-|===
+[source,java]
+----
+public void buildView(FacesContext context, UIViewRoot root)
+    throws IOException
+----
 
 The argument _root_ will have been created
 with a call to either _createView()_ or
@@ -795,14 +764,11 @@ expose them to page authors for use in their pages.
 must support the following syntax for making the tags in a tag library
 available for use in a Facelet page.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <html xmlns="http://www.w3.org/1999/xhtml"
-
- xmlns: _prefix_ =" _namespace_uri_ ">
-
-|===
+      xmlns:prefix="namespace_uri">
+----
 
 Where _prefix_ is a page author chosen
 arbitrary string used in the markup inside the _<html>_ tag to refer to
@@ -821,54 +787,44 @@ validity. The passing through of the root namespace must occur on any
 non-prefixed element in a facelet page. For example, the following
 markup declaration:.
 
-[width="100%",cols="100%",]
-|===
-a|
-<html xmlns="http://www.w3.org/1999/xhtml" +
-xmlns: _h_ =" _http://java.sun.com/jsf/html_ "> +
-<math xmlns="http://www.w3.org/1998/Math/MathML"> +
-<msup> +
-<msqrt> +
-<mrow> +
-<mi>a</mi> +
-<mo>+</mo> +
- +
-<mi>b</mi> +
-</mrow> +
-</msqrt> +
-<mn>27</mn> +
-</msup>
+[source,xml]
+----
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+  <math xmlns="http://www.w3.org/1998/Math/MathML"> 
+    <msup>
+      <msqrt>
+        <mrow>
+          <mi>a</mi>
+          <mo>+</mo>
 
+          <mi>b</mi>
+        </mrow>
+      </msqrt>
+    <mn>27</mn>
+  </msup>
 </math>
-
-
-
-|===
+----
 
 would be rendered as
 
-[width="100%",cols="100%",]
-|===
-a|
-<html xmlns="http://www.w3.org/1999/xhtml"> +
-<math xmlns="http://www.w3.org/1998/Math/MathML"> +
-<msup> +
-<msqrt> +
-<mrow> +
-<mi>a</mi> +
-<mo>+</mo> +
- +
-<mi>b</mi> +
-</mrow> +
-</msqrt> +
-<mn>27</mn> +
-</msup>
+[source,xml]
+----
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <math xmlns="http://www.w3.org/1998/Math/MathML">
+    <msup>
+      <msqrt>
+        <mrow>
+          <mi>a</mi>
+          <mo>+</mo>
 
+          <mi>b</mi>
+        </mrow>
+      </msqrt>
+    <mn>27</mn>
+  </msup>
 </math>
-
-
-
-|===
+----
 
 {empty}[P1_end_facelet_taglib_decl]
 
@@ -921,15 +877,11 @@ resource library as described in <<RequestProcessingLifecycle.adoc#a836,See
 Libraries of Localized and Versioned Resources>>, as shown in the
 following example:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <html xmlns="http://www.w3.org/1999/xhtml"
-
- xmlns: _ez_ ="
-_http://java.sun.com/jsf/composite/_ ezcomp">
-
-|===
+      xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
+----
 
 The runtime must look for a resource library
 named _ezcomp_ . If the substring following “
@@ -1220,16 +1172,12 @@ Behavior Model>> for more information about this interface.
 “event” attribute value is specified that does not match the events
 supported by the component type. [P1_end_ajaxtag_events] For example:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <h:commandButton ..>
-
-<f:ajax event=”valueChange”/>
-
+  <f:ajax event=”valueChange”/>
 </h:commandButton id=”button1” ...>
-
-|===
+----
 
 {empty}An attempt is made to apply a
 “valueChange” Ajax event to an “action” component. This is invalid and
@@ -1244,22 +1192,15 @@ still not determined, a TagAttributeException must be thrown.[P1_end]
 This tag may also serve to “ajaxify” regions
 of a page by nesting a group of components within it:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax>
-
-<h:panelGrid>
-
-<h:inputText id=”text1”/>
-
-<h:commandButton id=”button1”/>
-
-</h:panelGrid>
-
+  <h:panelGrid>
+    <h:inputText id=”text1”/>
+    <h:commandButton id=”button1”/>
+  </h:panelGrid>
 </f:ajax>
-
-|===
+----
 
 From this example, “text1” and “button1” will
 have ajax behavior applied to them. The default events for these
@@ -1268,86 +1209,59 @@ components would cause Ajax requests to fire. For “text1” a
 would apply. <h:panelGrid> has no default event so in this case a
 behavior would not be applied.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax event=”click”>
-
-<h:panelGrid id=”grid1”>
-
-<h:inputText id=”text1”/>
-
-<h:commandButton id=”button1”>
-
-<f:ajax event=”mouseover”/>
-
-</h:commandButton>
-
-</h:panelGrid>
-
+  <h:panelGrid id=”grid1”>
+    <h:inputText id=”text1”/>
+    <h:commandButton id=”button1”>
+      <f:ajax event=”mouseover”/>
+    </h:commandButton>
+  </h:panelGrid>
 </f:ajax>
-
-|===
+----
 
 From this example, “grid1” and “text1” would
 have ajax behavior applied for an “onclick” event. “button1” would have
 ajax behavior applied for both “mouseover” and “onclick” events. The
 “oncick” event is a supported event type for PanelGrid components.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax>
-
-<h:commandButton id=”button1”>
-
-<f:ajax/>
-
-</h:commandButton>
-
+  <h:commandButton id=”button1”>
+    <f:ajax/>
+  </h:commandButton>
 </f:ajax>
-
-|===
+----
 
 For this example, the inner <f:ajax/> would
 apply to “button1”. The outer (wrapping) <f:ajax> would not be applied,
 since it is the same type of submitting behavior (AjaxBehavior) and the
 same event type (action).
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax event=”click”>
-
-<h:inputText id=”text1”>
-
-<f:ajax event=”click”/>
-
-</h:inputText>
-
+  <h:inputText id=”text1”>
+    <f:ajax event=”click”/>
+  </h:inputText>
 </f:ajax>
-
-|===
+----
 
 For this example, since the event types are
 the same, the inner <f:ajax> event overrides the outer one.
 
 
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax event=”action”>
-
-<h:commandButton id=”button1”>
-
-<b:greet event=”action”/>
-
-</h:commandButton>
-
+  <h:commandButton id=”button1”>
+    <b:greet event=”action”/>
+  </h:commandButton>
 </f:ajax>
-
-|===
+----
 
 Here, there is a custom behavior “greet”
 attached to “button1”. the outer <f:ajax> Ajax behavior will also get
@@ -1387,84 +1301,54 @@ requirements.
 
 Apply Ajax to “button1” and “text1”:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax>
-
-<h:form>
-
-<h:commandButton id=”button1” ...>
-
-<h:inputText id=”text1” ..>
-
-</h:form>
-
+  <h:form>
+    <h:commandButton id=”button1” ...>
+    <h:inputText id=”text1” ..>
+  </h:form>
 </f:ajax>
-
-|===
+----
 
 Apply Ajax to “text1”:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax event=”valueChange”>
-
-<h:form>
-
-<h:commandButton id=”button1” ...>
-
-<h:inputText id=”text1” ..>
-
-</h:form>
-
+  <h:form>
+    <h:commandButton id=”button1” ...>
+    <h:inputText id=”text1” ..>
+  </h:form>
 </f:ajax>
-
-|===
+----
 
 Apply Ajax to “button1”:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax event=”action”>
-
-<h:form>
-
-<h:commandButton id=”button1” ...>
-
-<h:inputText id=”text1” ..>
-
-</h:form>
-
+  <h:form>
+    <h:commandButton id=”button1” ...>
+    <h:inputText id=”text1” ..>
+  </h:form>
 </f:ajax>
-
-|===
+----
 
 Override default Ajax action. “button1” is
 associated with the Ajax “execute=’cancel’” action:[[a5815]]
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax event=”action” execute=”reset”>
-
-<h:form>
-
-<h:commandButton id=”button1” ...>
-
-<f:ajax execute=”cancel”/>
-
-</h:commandButton>
-
-<h:inputText id=”text1” ..>
-
-</h:form>
-
+  <h:form>
+    <h:commandButton id=”button1” ...>
+      <f:ajax execute=”cancel”/>
+    </h:commandButton>
+    <h:inputText id=”text1” ..>
+  </h:form>
 </f:ajax>
-
-|===
+----
 
 ===== <f:event>
 
@@ -1899,26 +1783,26 @@ this tag.
 First, enable the websocket endpoint using
 the context parameter:
 
-[width="100%",cols="100%",]
-|===
-|<context-param> +
-<param-name>jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name> +
-<param-value>true</param-value> +
+[source,xml]
+----
+<context-param>
+  <param-name>jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
+  <param-value>true</param-value>
 </context-param>
-|===
+----
 
 In case your server is configured to run a
 WebSocket container on a different TCP port than the HTTP container,
 then you can use the optional jakarta.faces.WEBSOCKET_ENDPOINT_PORT
 integer context parameter in web.xml to explicitly specify the port.
 
-[width="100%",cols="100%",]
-|===
-|<context-param> +
-<param-name>jakarta.faces.WEBSOCKET_ENDPOINT_PORT</param-name> +
-<param-value>8000</param-value> +
+[source,xml]
+----
+<context-param>
+  <param-name>jakarta.faces.WEBSOCKET_ENDPOINT_PORT</param-name>
+  <param-value>8000</param-value>
 </context-param>
-|===
+----
 
 .Usage (client)
 
@@ -1930,30 +1814,24 @@ contain alphanumeric characters, hyphens, underscores and periods.
 Here's an example which refers an existing
 JavaScript listener function.
 
-[width="100%",cols="100%",]
-|===
-a|
-<f:websocket channel="someChannel" +
-onmessage="someWebsocketListener" /> +
- +
-function someWebsocketListener(message, channel, event) \{
+[source,javascript]
+----
+<f:websocket channel="someChannel"
+    onmessage="someWebsocketListener" />
 
- console.log(message);
-
+function someWebsocketListener(message, channel, event) {
+    console.log(message);
 }
-
-
-
-|===
+----
 
 Here’s an example which declares an inline
 JavaScript listener function.
 
-[width="100%",cols="100%",]
-|===
-|<f:websocket channel="someChannel" +
-onmessage="function(m)\{console.log(m);}" />
-|===
+[source,xml]
+----
+<f:websocket channel="someChannel"
+    onmessage="function(m){console.log(m);}" />
+----
 
 The onmessage JavaScript listener function
 will be invoked with three arguments:
@@ -1981,15 +1859,15 @@ you'd like to send a push message and then invoke
 PushContext.send(Object) with any Java object representing the push
 message.
 
-[width="100%",cols="100%",]
-|===
-|@Inject @Push +
-private PushContext someChannel; +
- +
-public void sendMessage(Object message) \{ +
-someChannel.send(message); +
+[source,java]
+----
+@Inject @Push
+private PushContext someChannel;
+
+public void sendMessage(Object message) {
+  someChannel.send(message);
 }
-|===
+----
 
 By default the name of the channel is taken
 from the name of the variable into which injection takes place.
@@ -1998,11 +1876,11 @@ The channel name can be optionally specified
 via the channel attribute. The example below injects the push context
 for channel name foo into a variable named bar.
 
-[width="100%",cols="100%",]
-|===
-|@Inject @Push(channel="foo") +
+[source,java]
+----
+@Inject @Push(channel="foo")
 private PushContext bar;
-|===
+----
 
 The message object will be encoded as JSON
 and be delivered as message argument of the onmessage JavaScript
@@ -2022,11 +1900,10 @@ session to restrict the push messages to all views in the current user
 session only. The push message can only be sent by the user itself and
 not by the application.
 
-[width="100%",cols="100%",]
-|===
-|<f:websocket channel="someChannel"
-scope="session" ... />
-|===
+[source,xml]
+----
+<f:websocket channel="someChannel" scope="session" ... />
+----
 
 The scope attribute can also be set to view
 to restrict the push messages to the current view only. The push message
@@ -2034,11 +1911,10 @@ will not show up in other views in the same session even if it's the
 same URL. The push message can only be sent by the user itself and not
 by the application..
 
-[width="100%",cols="100%",]
-|===
-|<f:websocket channel="someChannel"
-scope="view" ... />
-|===
+[source,xml]
+----
+<f:websocket channel="someChannel" scope="view" ... />
+----
 
 The scope attribute may not be an EL
 expression and allowed values are _application_ , _session_ and _view_ ,
@@ -2055,21 +1931,19 @@ is not recommended.
 E.g. when you're using container managed
 authentication or a related framework/library:.
 
-[width="100%",cols="100%",]
-|===
-|<f:websocket channel="someChannel" +
-user="#\{request.remoteUser}" ... />
-|===
+[source,xml]
+----
+<f:websocket channel="someChannel" user="#{request.remoteUser}" ... />
+----
 
 Or when you have a custom user entity
 accessible via EL, such as as #\{someLoggedInUser} which has an id
 property representing its identifier:.
 
-[width="100%",cols="100%",]
-|===
-|<f:websocket channel="someChannel" +
-user="#\{someLoggedInUser.id}" ... />
-|===
+[source,xml]
+----
+<f:websocket channel="someChannel" user="#{someLoggedInUser.id}" ... />
+----
 
 When the user attribute is specified, then
 the scope defaults to session and cannot be set to application.
@@ -2079,41 +1953,38 @@ targeted to the user specified in the user attribute via
 PushContext.send(Object, Serializable). The push message can be sent by
 all users and the application itself..
 
-[width="100%",cols="100%",]
-|===
-|@Inject @Push +
-private PushContext someChannel; +
- +
-public void sendMessage(Object message, User recipientUser) \{ +
-Long recipientUserId = recipientUser.getId(); +
-someChannel.send(message, recipientUserId); +
+[source,java]
+----
+@Inject @Push
+private PushContext someChannel;
+
+public void sendMessage(Object message, User recipientUser) {
+  Long recipientUserId = recipientUser.getId();
+  someChannel.send(message, recipientUserId);
 }
-|===
+----
 
 Multiple users can be targeted by passing a
 Collection holding user identifiers to PushContext.send(Object,
 Collection)..
 
-[width="100%",cols="100%",]
-|===
-|public void sendMessage(Object message,
-Group recipientGroup) \{ +
-Collection<Long> recipientUserIds = +
-recipientGroup.getUserIds(); +
-someChannel.send(message, recipientUserIds); +
+[source,java]
+----
+public void sendMessage(Object message, Group recipientGroup) {
+  Collection<Long> recipientUserIds = recipientGroup.getUserIds();
+  someChannel.send(message, recipientUserIds);
 }
-|===
+----
 
 .Conditionally Connecting
 
 You can use the optional connected attribute
 to control whether to auto-connect the websocket or not..
 
-[width="100%",cols="100%",]
-|===
-|<f:websocket ...
-connected="#\{bean.pushable}" />
-|===
+[source,xml]
+----
+<f:websocket ... connected="#{bean.pushable}" />
+----
 
 The _connected_ attribute defaults to true
 and is interpreted as a JavaScript instruction whether to open or close
@@ -2125,15 +1996,13 @@ You can also explicitly set it to false and
 manually open the push connection in client side by invoking
 jsf.push.open(clientId), passing the component's client ID..
 
-[width="100%",cols="100%",]
-|===
-|<h:commandButton ...
-onclick="jsf.push.open('foo')"> +
-<f:ajax ... /> +
-</h:commandButton> +
-<f:websocket id="foo" channel="bar" scope="view" ... +
-connected="false" />
-|===
+[source,xml]
+----
+<h:commandButton ... onclick="jsf.push.open('foo')">
+  <f:ajax ... />
+</h:commandButton>
+<f:websocket id="foo" channel="bar" scope="view" ... connected="false" />
+----
 
 In case you intend to have an one-time push
 and don’t expect more messages, you can optionally explicitly close the
@@ -2141,13 +2010,13 @@ push connection from client side by invoking jsf.push.close(clientId),
 passing the component’s client ID. For example, in the onmessage
 JavaScript listener function as below:.
 
-[width="100%",cols="100%",]
-|===
-|function someWebsocketListener(message) \{ +
-// ... +
-jsf.push.close('foo'); +
+[source,javascript]
+----
+function someWebsocketListener(message) {
+    // ...
+    jsf.push.close('foo');
 }
-|===
+----
 
 .Events (client)
 
@@ -2158,15 +2027,14 @@ whether it will be successful or not. This will not be invoked when the
 websocket auto-reconnects a broken connection after the first successful
 connection.
 
-[width="100%",cols="100%",]
-|===
-|<f:websocket ...
-onopen="websocketOpenListener" /> +
- +
-function websocketOpenListener(channel) \{ +
-// ... +
+[source,javascript]
+----
+<f:websocket ... onopen="websocketOpenListener" />
+
+function websocketOpenListener(channel) {
+    // ...
 }
-|===
+----
 
 The _onopen_ JavaScript listener function
 will be invoked with one argument:
@@ -2183,21 +2051,20 @@ has been exceeded. This will not be invoked when the websocket can make
 an auto-reconnect attempt on a broken connection after the first
 successful connection
 
-[width="100%",cols="100%",]
-|===
-|<f:websocket ...
-onclose="websocketCloseListener" /> +
- +
-function websocketCloseListener(code, channel, event) \{ +
-if (code == -1) \{ +
-// Websockets not supported by client. +
-} else if (code == 1000) \{ +
-// Normal close (as result of expired session or view). +
-} else \{ +
-// Abnormal close reason (as result of an error). +
-} +
+[source,javascript]
+----
+<f:websocket ... onclose="websocketCloseListener" />
+
+function websocketCloseListener(code, channel, event) {
+    if (code == -1) {
+        // Websockets not supported by client.
+    } else if (code == 1000) {
+        // Normal close (as result of expired session or view).
+    } else {
+        // Abnormal close reason (as result of an error).
+    }
 }
-|===
+----
 
 The _onclose_ JavaScript listener function
 will be invoked with three arguments:
@@ -2225,32 +2092,29 @@ automatically closed with close reason code 1000 by the server (and thus
 not manually by the client via jsf.push.close(clientId)), then it means
 that the session or view has expired.
 
-[width="100%",cols="100%",]
-|===
-a|
-@ApplicationScoped +
-public class WebsocketObserver \{ +
- +
-public void onOpen(@Observes @Opened WebsocketEvent event) \{ +
-String channel = event.getChannel(); +
-// Returns <f:websocket channel>. +
-Long userId = event.getUser(); +
-// Returns <f:websocket user>, if any. +
-// ... +
-} +
- +
-public void onClose(@Observes @Closed WebsocketEvent event) \{ +
-String channel = event.getChannel(); +
-// Returns <f:websocket channel>. +
-Long userId = event.getUser();
+[source,java]
+----
+@ApplicationScoped
+public class WebsocketObserver {
 
- // Returns <f:websocket user>, if any. +
-CloseCode code = event.getCloseCode(); +
-// Returns close reason code. +
-// ... +
+public void onOpen(@Observes @Opened WebsocketEvent event) {
+  String channel = event.getChannel();
+  // Returns <f:websocket channel>.
+  Long userId = event.getUser();
+  // Returns <f:websocket user>, if any.
+  // ...
 }
 
-|===
+public void onClose(@Observes @Closed WebsocketEvent event) {
+  String channel = event.getChannel();
+  // Returns <f:websocket channel>.
+  Long userId = event.getUser();
+  // Returns <f:websocket user>, if any.
+  CloseCode code = event.getCloseCode();
+  // Returns close reason code.
+  // ...
+}
+----
 
 .Security Considerations
 
@@ -2267,39 +2131,41 @@ example of container managed security which has already restricted an
 example page /user/foo.xhtml to logged-in users with the example role
 USER on the example URL pattern /user/* in web.xml like below,
 
-[width="100%",cols="100%",]
-|===
-|<security-constraint> +
-<web-resource-collection> +
-<web-resource-name>Restrict access to role USER. +
-</web-resource-name> +
-<url-pattern>/user/*</url-pattern> +
-</web-resource-collection> +
-<auth-constraint> +
-<role-name>USER</role-name> +
-</auth-constraint> +
+[source,xml]
+----
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>
+      Restrict access to role USER.
+    </web-resource-name>
+    <url-pattern>/user/*</url-pattern>
+  </web-resource-collection>
+  <auth-constraint>
+    <role-name>USER</role-name>
+  </auth-constraint>
 </security-constraint>
-|===
+----
 
 and the page /user/foo.xhtml in turn contains
 a <f:websocket channel="foo">, then you need to add a restriction on
 push handshake request URL pattern of _/jakarta.faces.push/foo_ as shown
 next.
 
-[width="100%",cols="100%",]
-|===
-|<security-constraint> +
-<web-resource-collection> +
-<web-resource-name>Restrict access to role USER. +
-</web-resource-name> +
-<url-pattern>/user/*</url-pattern> +
-<url-pattern>/jakarta.faces.push/foo</url-pattern> +
-</web-resource-collection> +
-<auth-constraint> +
-<role-name>USER</role-name> +
-</auth-constraint> +
+[source,xml]
+----
+<security-constraint>
+  <web-resource-collection>
+    <web-resource-name>
+      Restrict access to role USER.
+    </web-resource-name>
+    <url-pattern>/user/*</url-pattern>
+    <url-pattern>/jakarta.faces.push/foo</url-pattern>
+  </web-resource-collection>
+  <auth-constraint>
+    <role-name>USER</role-name>
+  </auth-constraint>
 </security-constraint>
-|===
+----
 
 As extra security, particularly for those
 public channels which can’t be restricted by security constraints, the
@@ -2322,44 +2188,41 @@ In case you’d like to perform complex UI
 updates depending on the received push message, then you can nest
 <f:ajax> inside <f:websocket>. Here’s an example:
 
-[width="100%",cols="100%",]
-|===
-|<h:panelGroup id="foo"> +
-... (some complex UI here) ... +
-</h:panelGroup> +
- +
-<h:form> +
-<f:websocket channel="someChannel" scope="view"> +
-<f:ajax event="someEvent" +
-listener="#\{bean.pushed}" render=":foo" /> +
-</f:websocket> +
+[source,xml]
+----
+<h:panelGroup id="foo">
+  ... (some complex UI here) ...
+</h:panelGroup>
+
+<h:form>
+  <f:websocket channel="someChannel" scope="view">
+    <f:ajax event="someEvent" listener="#{bean.pushed}" render=":foo" />
+  </f:websocket>
 </h:form>
-|===
+----
 
 Here, the push message simply represents the
 ajax event name. You can use any custom event name.
 
-[width="100%",cols="100%",]
-|===
-|someChannel.send("someEvent");
-|===
+[source,java]
+----
+someChannel.send("someEvent");
+----
 
 An alternative is to combine <f:websocket>
 with <h:commandScript>. The <f:websocket onmessage> can reference
 exactly the <h:commandScript name>. For example,
 
-[width="100%",cols="100%",]
-|===
-|<h:panelGroup id="foo"> +
-... (some complex UI here) ... +
-</h:panelGroup> +
-<f:websocket channel="someChannel" scope="view" +
-onmessage="pushed" /> +
-<h:form> +
-<h:commandScript name="pushed" +
-action="#\{bean.pushed}" render=":foo" /> +
+[source,xml]
+----
+<h:panelGroup id="foo">
+  ... (some complex UI here) ...
+</h:panelGroup>
+<f:websocket channel="someChannel" scope="view" onmessage="pushed" />
+<h:form>
+  <h:commandScript name="pushed" action="#{bean.pushed}" render=":foo" />
 </h:form>
-|===
+----
 
 If you pass a Map<String,V> or a JavaBean as
 push message object, then all entries/properties will transparently be
