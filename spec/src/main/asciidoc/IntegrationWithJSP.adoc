@@ -12,9 +12,9 @@ VDL itself complies with the JSF specification.
 This version of the specification requires
 that implementations support two View Declaration Language syntaxes
 
-JSP
+* JSP
 
-Facelets XHTML
+* Facelets XHTML
 
 This chapter describes the JSP support
 required by Jakarta Server Faces. This JSP support is enabled by providing
@@ -130,10 +130,10 @@ following Uniform Resource Identifier (URI) values to refer to the
 standard tag libraries for the custom actions defined by Jakarta Server
 Faces:
 
- _http://java.sun.com/jsf/core_ -- URI for
+* _http://java.sun.com/jsf/core_ -- URI for
 the _Jakarta Server Faces Core Tag Library_
 
- _http://java.sun.com/jsf/html_ -- URI for
+* _http://java.sun.com/jsf/html_ -- URI for
 the _Jakarta Server Faces Standard HTML RenderKit Tag Library_
 
 The page author must use the standard JSP
@@ -159,7 +159,7 @@ placed at any desired position in a JSP page that contains the _taglib_
 directive for the corresponding tag library, subject to the following
 restrictions:
 
-When using a single JSP page to create the
+* When using a single JSP page to create the
 entire view, JSF component custom actions must be nested inside the
 _<f:view>_ custom action from the JSF Core Tag Library.
 
@@ -206,30 +206,30 @@ new component instance corresponding to this custom action. The details
 of this process (as implemented in the findComponent() method of
 UIComponentClassicTagBase, for easy reuse) are as follows:
 
-If the component associated with this
+* If the component associated with this
 component custom action has been identified already, return it
 unchanged.
 
-Identify the _component identifier_ for the
+* Identify the _component identifier_ for the
 component related to this UIComponent custom action, as follows:
 
-If the page author has specified a value for
+** If the page author has specified a value for
 the _id_ attribute, use that value.
 
-Otherwise, call the _createUniqueId()_ method
+** Otherwise, call the _createUniqueId()_ method
 of the _UIViewRoot_ at the root of the component tree for this view, and
 use that value.
 
-If this _UIComponent_ custom action is
+* If this _UIComponent_ custom action is
 creating a _facet_ (that is, we are nested inside an _<f:facet>_ custom
 action), determine if there is a facet of the component associated with
 our parent _UIComponent_ custom action, with the specified facet name,
 and proceed as follows:
 
-If such a facet already exists, take no
+** If such a facet already exists, take no
 additional action.
 
-If no such facet already exists, create a new
+** If no such facet already exists, create a new
 _UIComponent_ (by calling the _createComponent()_ method on the
 _Application_ instance for this web application, passing the value
 returned by _getComponentType()_ , set the component identifier to the
@@ -238,16 +238,16 @@ instance, and add the new component as a facet of the component
 associated with our parent _UIComponent_ custom action, under the
 specified facet name.
 
-If this _UIComponent_ custom action is not
+* If this _UIComponent_ custom action is not
 creating a facet (that is, we are not nested inside an _<f:facet>_
 custom action), determine if there is a child component of the component
 associated with our parent _UIComponent_ custom action, with the
 specified component identifier, and proceed as follows:
 
-If such a child already exists, take no
+** If such a child already exists, take no
 additional action.
 
-If no such child already exists, create a new
+** If no such child already exists, create a new
 _UIComponent_ (by calling the _createComponent()_ method on the
 _Application_ instance for this web application, passing the value
 returned by _getComponentType()_ , set the component identifier to the
@@ -378,21 +378,21 @@ to certain restrictions. When JSF component actions are nested inside
 custom actions from other libraries, or combined with template text, the
 following behaviors must be supported:
 
-JSF component custom actions nested inside a
+* JSF component custom actions nested inside a
 custom action that conditionally renders its body (such as JSTL’s
 _<c:if>_ or _<c:choose>_ ) must contain a manually assigned _id_
 attribute.
 
-Interoperation with the JSTL
+* Interoperation with the JSTL
 Internationalization-Capable Formatting library (typically used with the
 “ _fmt_ ” prefix) is restricted as follows:
 
-The _<fmt:parseDate>_ and
+** The _<fmt:parseDate>_ and
 _<fmt:parseNumber>_ custom actions should not be used. The corresponding
 JSF facility is to use an _<h:inputText>_ component custom action with
 an appropriate _DateTimeConverter_ or _NumberConverter_ .
 
-The _<fmt:requestEncoding>_ custom action
+** The _<fmt:requestEncoding>_ custom action
 should not be used. By the time it is executed, the request parameters
 will have already been parsed, so any change in the setting here will
 have no impact. JSF handles character set issues automatically in most
@@ -400,7 +400,7 @@ cases. To use a fixed character set in exceptional circumstances, use
 the a “ _<%@ page contentType=”[content-type];[charset]” %>_ ”
 directive.
 
-The _<fmt:setLocale/>_ custom action should
+** The _<fmt:setLocale/>_ custom action should
 not be used. Even though it might work in some circumstances, it would
 result in JSF and JSTL assuming different locales. If the two locales
 use different character sets, the results will be undefined.
@@ -412,13 +412,13 @@ on the _UIViewRoot_ component to change locales for a particular user.
 JSP pages can be composed from multiple
 sources using several mechanisms:
 
-The _<%@include%>_ directive performs a
+* The _<%@include%>_ directive performs a
 compile-time inclusion of a specified source file into the page being
 compiled <<Footnotes.adoc#a9100,17>>. From the perspective of JSF, such
 inclusions are transparent—the page is compiled as if the inclusions had
 been performed before compilation was initiated.
 
-Several mechanisms (including the
+* Several mechanisms (including the
 _<jsp:include>_ standard action, the JSTL _<c:import>_ custom action
 when referencing a resource in the same webapp, and a call to
 _RequestDispatcher.include()_ for a resource in the same webapp) perform
@@ -429,7 +429,7 @@ in the included resource will be grafted onto the component tree, just
 as if the source text of the included page had appeared in the calling
 page at the position of the include action.
 
-For mechanisms that aggregate content by
+* For mechanisms that aggregate content by
 other means (such as use of an _HttpURLConnection_ , a
 _RequestDispatcher.include()_ on a resource from a different web
 application, or accessing an external resource with the JSTL
@@ -448,51 +448,51 @@ _UIComponent_ custom actions must conform to all of the requirements
 defined in the Jakarta Server Pages Specification. In addition, they must
 meet the following JSF-specific requirements:
 
-Extend the _UIComponentELTag_ or
+* Extend the _UIComponentELTag_ or
 _UIComponentELBodyTag_ base class, so that JSF implementations can
 recognize _UIComponent_ custom actions versus others.
 
-Provide a public _getComponentType()_ method
+* Provide a public _getComponentType()_ method
 that returns a String-valued component type registered with the
 _Application_ instance for this web application. The value returned by
 this method will be passed to _Application.createComponent()_ when a new
 _UIComponent_ instance associated with this custom action is to be
 created.
 
-Provide a public _getRendererType()_ method
+* Provide a public _getRendererType()_ method
 that returns a String-valued renderer type registered with the
 _RenderKit_ instance for the currently selected _RenderKit,_ or _null_
 if there should be no associated _Renderer_ . The value returned by this
 method will be used to set the _rendererType_ property of any
 UIComponent created by this custom action.
 
-Provide setter methods taking a
+* Provide setter methods taking a
 _jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ parameter for
 all set-able (from a custom action) properties of the corresponding
 _UIComponent_ class, and all additional set-able (from a custom action)
 attributes supported by the corresponding _Renderer_ .
 
-On the method that causes a _UIComponent_
+* On the method that causes a _UIComponent_
 instance to be added to the tree, verify that the component id of that
 _UIComponent_ is unique within the scope of the closest ancestor
 component that is a _NamingContainer_ . If this constraint is not met,
 throw _JspException_ . __
 
-Provide a protected _setProperties()_ method
+* Provide a protected _setProperties()_ method
 of type _void_ that takes a _UIComponent_ instance as parameter. The
 implementation of this method must perform the following tasks:
 
-Call _super.setProperties()_ , passing the
+** Call _super.setProperties()_ , passing the
 same _UIComponent_ instance received as a parameter.
 
-For each non-null custom action attribute
+** For each non-null custom action attribute
 that corresponds to a property based attribute to be set on the
 underlying component, call either _setValueExpression()_ or
 _getAttributes().put()_ , depending on whether or not a value expression
 was specified as the custom action attribute value (performing any
 required type conversion). For example, assume that title is the name of
 a render-dependent attribute for this component:
-
++
 [source,java]
 ----
 public void setTitle(jakarta.el.ValueExpression title) {
@@ -510,14 +510,14 @@ protected void setProperties(UIComponent component) throws JspException {
   ...
 }
 ----
-
-For each non-null custom action attribute
++
+** For each non-null custom action attribute
 that corresponds to a method based attribute to be set on the underlying
 component, the value of the attribute must be a method reference
 expression. We have a number of wrapper classes to turn a
 MethodExpression into the appropriate listener. For example, assume that
 _valueChangeListener_ is the name of an attribute for this component:
-
++
 [source,java]
 ----
 public void setValueChangeListener(jakarta.el.MethodExpression me) {
@@ -532,13 +532,13 @@ protected void setProperties(UIComponent component) {
   ...
 }
 ----
-
-Non-null custom action attributes that
++
+** Non-null custom action attributes that
 correspond to a writable property to be set on the underlying component
 are handled in a similar fashion. For example, assume a custom action
 for the _UIData_ component is being created that needs to deal with the
 _rows_ property (which is of type _int_ ):
-
++
 [source,java]
 ----
 public void setRows(jakarta.el.ValueExpression rows) {
@@ -558,19 +558,19 @@ protected void setProperties(UIComponent component) {
 }
 ----
 
-Optionally, provide a public _release()_
+* Optionally, provide a public _release()_
 method of type _void_ , taking no parameters, to be called when the JSP
 page handler releases this custom action instance. If implemented, the
 method must perform the following tasks:
 
-Call _super.release()_ to invoke the
+** Call _super.release()_ to invoke the
 superclass’s release functionality.
 
-Clear the instance variables representing the
+** Clear the instance variables representing the
 values for set-able custom action attributes (for example, by setting
 String values to null).
 
-Optionally provide overridden implementations
+* Optionally provide overridden implementations
 for the following method to fine tune the behavior of your _UIComponent_
 custom action implementation class: _encodeComponent()_ .
 
@@ -585,22 +585,22 @@ The definition of each _UIComponent_ custom
 action in the corresponding tag library descriptor (TLD) must conform to
 the following requirements:
 
-The _<body-content>_ element for the custom
+* The _<body-content>_ element for the custom
 action itself must specify _JSP_ .
 
-For each attribute that is intended to be
+* For each attribute that is intended to be
 passed on to the underlying faces component:
 
-The attribute may not be named _id_ . This
+** The attribute may not be named _id_ . This
 name is reserved for Faces use.
 
-If the attribute represents a method
+** If the attribute represents a method
 expression, it must have a _<deferred-method>_ element containing a
 _<method-signature>_ element that describes the signature of the method
 pointed to by the expression, as described in section JSP.C.1 in the JSP
 2.1 specification.
 
-Otherwise, the attribute must be a value
+** Otherwise, the attribute must be a value
 based attribute, and must have a _<deferred-value>_ element containing a
 <type> element which describes the expected type to which the expression
 will evaluate. Please see section JSP.C.1 in the JSP 2.1 specification
@@ -624,46 +624,46 @@ Faces 1.0 and 1.1 were targeted at JSP
 version 1.2 and Servlet version 2.3. This decision brought about several
 constraints for faces tag attributes:
 
-all tag attributes had to declare
+* all tag attributes had to declare
 _rtexprvalue_ to be _false._
 
-all tag attributes had to take the type
+* all tag attributes had to take the type
 _java.lang.String_ .
 
-Faces had to choose a new expression
+* Faces had to choose a new expression
 delimiter, _#\{}_ , to prevent the JSP container from prematurely
 evaluating the expression. This became known as deferred evaluation.
 
-Because Faces had introduced its own version
+* Because Faces had introduced its own version
 of the EL, the custom tag action layer had to do a lot of extra work to
 “value binding enable” its attributes, calling Faces EL APIs to turn the
 String attribute value into an instance of _ValueBinding_ or
 _MethodBinding_ .
 
-Faces provided the _UIComponentTag_ and
+* Faces provided the _UIComponentTag_ and
 _UIComponentBodyTag_ base classes that were designed to adhere to the
 above rules.
 
 Tags that use the Unified EL have the
 following constraints:
 
-all tag attributes must not have an
+* all tag attributes must not have an
 _rtexprvalue_ attribute
 
-all tag attributes must accept
+* all tag attributes must accept
 _jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ as their type
 (depending on if the attribute refers to a method or a value).
 
-all tag attributes (except for _id_ ) must
+* all tag attributes (except for _id_ ) must
 have a _<deferred-value>_ or _<deferred-method>_ element. See
 _<<IntegrationWithJSP.adoc#a4636,See JSF Core Tag Library>>_ in the
 description for the _Attributes_ column.
 
-The JSP Container will hand the tag setter a
+* The JSP Container will hand the tag setter a
 _jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ directly, so
 there is no need to use the Faces API to create them.
 
-The _UIComponentTag_ and _UIComponentBodyTag_
+* The _UIComponentTag_ and _UIComponentBodyTag_
 classes are deprecated and Faces provides new base class,
 UIComponentELTag to the new rules for taglibs in Faces.
 
@@ -679,10 +679,10 @@ It is imperative that applications written
 for Faces 1.0 and 1.1 continue to run on Faces 1.2. From the JSP
 perspective, this means
 
-that JSP pages using the standard h: and f:
+. that JSP pages using the standard h: and f:
 tags must work without change
 
-that JSP pages using custom faces taglibs
+. that JSP pages using custom faces taglibs
 must work without change
 
 The first item is enabled by re-writing the
@@ -710,13 +710,13 @@ JSF implementations must provide a tag library containing core actions
 corresponding tag library descriptor must meet the following
 requirements:
 
-Must declare a tag library version (
+* Must declare a tag library version (
 _<tlib-version>_ ) value of _1.2_ .
 
-Must declare a URI ( _<uri>_ ) value of
+* Must declare a URI ( _<uri>_ ) value of
 _http://java.sun.com/jsf/core_ .
 
-{empty}Must be included in the _META-INF_
+* {empty}Must be included in the _META-INF_
 directory of a JAR file containing the corresponding implementation
 classes, suitable for inclusion with a web application, such that the
 tag library descriptor will be located automatically by the algorithm
@@ -733,34 +733,34 @@ Each custom action included in the JSF Core
 Tag Library is documented in a subsection below, with the following
 outline for each action:
 
-Name—The name of this custom action, as used
+* Name—The name of this custom action, as used
 in a JSP page.
 
-Short Description—A summary of the behavior
+* Short Description—A summary of the behavior
 implemented by this custom action.
 
-Syntax—One or more examples of using this
+* Syntax—One or more examples of using this
 custom action, with the required and optional sets of attributes that
 may be used together. If the tag may have an _id_ attribute, its value
 may be a literal string, or an immediate, non-defferd expression, such
 as “ _userName_ ” or “ _user$\{i}_ ” without the quotes.
 
-Body Content—The type of nested content for
+* Body Content—The type of nested content for
 this custom action, using one of the standard values _empty_ , _JSP_ ,
 or _tagdependent_ as described in the JSP specification. This section
 also describes restrictions on the types of content (template text, JSF
 core custom actions, JSF _UIComponent_ custom actions, and/or other
 custom actions) that can be nested in the body of this custom action.
 
-Attributes—A table containing one row for
+* Attributes—A table containing one row for
 each defined attribute for this custom action. The following columns
 provide descriptive information about each attribute:
 
-Name—Name of this attribute, as it must be
+** Name—Name of this attribute, as it must be
 used in the page. If the name of the attribute is in _italics_ , it is
 required.
 
-Expr—The type of dynamic expression (if any)
+** Expr—The type of dynamic expression (if any)
 that can be used in this attribute value. Legal values are VE (this may
 be a literal or a value expression), ME (this may be a method
 expression), or NONE (this attribute accepts literal values only). If
@@ -774,17 +774,17 @@ element, containing a _<method-signature>_ element that describes the
 exact method signature for the method. In this case, the _Description_
 column the description column contains the method signature.
 
-Type—Fully qualified Java class or primitive
+** Type—Fully qualified Java class or primitive
 type of this attribute.
 
-Description—The functional meaning of this
+** Description—The functional meaning of this
 attribute’s value.
 
-Constraints—Additional constraints enforced
+* Constraints—Additional constraints enforced
 by this action, such as combinations of attributes that may be used
 together.
 
-Description—Details about the functionality
+* Description—Details about the functionality
 provided by this custom action.
 
 [[a4654]]
@@ -823,18 +823,18 @@ _jakarta.faces.event.ActionListener_
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action.
 
-The corresponding _UIComponent_
+* The corresponding _UIComponent_
 implementation class must implement _ActionSource_ , and therefore
 define a public _addActionListener()_ method that accepts an
 _ActionListener_ parameter.
 
-The specified listener class must implement
+* The specified listener class must implement
 _jakarta.faces.event.ActionListener_ .
 
-_type_ and/or binding must be specified.
+* _type_ and/or binding must be specified.
 
 [P1-start f:actionListener constraints] If
 this tag is not nested inside a _UIComponent_ custom action, or the
@@ -910,7 +910,7 @@ of the component attribute to be set
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action.
 
 ===== Description
@@ -1028,29 +1028,29 @@ evaluates to an object that implements _jakarta.faces.convert.Converter_
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action whose component class implements _ValueHolder_ , and whose value
 is a _java.util.Date_ (or appropriate subclass).
 
-If _pattern_ is specified, the pattern syntax
+* If _pattern_ is specified, the pattern syntax
 must use the pattern syntax specified by _java.text.SimpleDateFormat_ or
 _java.time.format.DateTimeFormatter_ depending on the value of type.
 
-If _pattern_ is not specified, formatted
+* If _pattern_ is not specified, formatted
 strings will contain a date value, a time value, or both depending on
 the specified _type_ . When date or time values are included, they will
 be formatted according to the specified _dateStyle_ and _timeStyle_ ,
 respectively.
 
-if _type_ is not specified:
+* if _type_ is not specified:
 
-if _dateStyle_ is set and _timeStyle_ is not,
+** if _dateStyle_ is set and _timeStyle_ is not,
 _type_ defaults to _date_
 
-if _timeStyle_ is set and _dateStyle_ is not,
+** if _timeStyle_ is set and _dateStyle_ is not,
 _type_ defaults to _time_
 
-if both _dateStyle_ and _timeStyle_ are set,
+** if both _dateStyle_ and _timeStyle_ are set,
 _type_ defaults to _both_
 
 {empty}[P1-start f:convertDateTime
@@ -1071,12 +1071,12 @@ associated UIComponent.
 requirements ]The implementation class for this action must meet the
 following requirements:
 
-Must extend
+* Must extend
 _jakarta.faces.webapp.ConverterELTag_ .
 
-The _createConverter()_ method must:
+* The _createConverter()_ method must:
 
-If _binding_ is non-null, call _getValue()_
+** If _binding_ is non-null, call _getValue()_
 on it to obtain a reference to the _Converter_ instance. If there is no
 exception thrown, and _binding.getValue()_ returned a non-null object
 that implements _jakarta.faces.convert.Converter_ , it must then cast the
@@ -1085,7 +1085,7 @@ configure its properties based on the specified attributes for this
 custom action, and return the configured instance. If there was an
 exception thrown, rethrow the exception as a _JspException._
 
-use the _converterId_ if the converter
+** use the _converterId_ if the converter
 instance could not be created from the _binding_ attribute. Call the
 _createConverter()_ method of the _Application_ instance for this
 application, passing converter id “jakarta.faces.DateTime”. If the binding
@@ -1096,16 +1096,16 @@ based on the specified attributes for this custom action, and return the
 configured instance. If there was an exception thrown, rethrow the
 exception as a _JspException._
 
-If the type attribute is not specified, it
+* If the type attribute is not specified, it
 defaults as follows:
 
-If dateStyle is specified but timeStyle is
+** If dateStyle is specified but timeStyle is
 not specified, default to date.
 
-If dateStyle is not specified but timeStyle
+** If dateStyle is not specified but timeStyle
 is specified, default to time.
 
-{empty}If both dateStyle and timeStyle are
+** {empty}If both dateStyle and timeStyle are
 specified, default to both. [P1-end]
 
 [[a4752]]
@@ -1220,14 +1220,14 @@ evaluates to an object that implements _jakarta.faces.convert.Converter_
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action whose component class implements _ValueHolder_ , and whose value
 is a numeric wrapper class or primitive.
 
-If _pattern_ is specified, the pattern syntax
+* If _pattern_ is specified, the pattern syntax
 must use the pattern syntax specified by _java.text.DecimalFormat_ .
 
-If _pattern_ is not specified, formatting and
+* If _pattern_ is not specified, formatting and
 parsing will be based on the specified _type_ .
 
 {empty}[P1-start f:convertNumber constraints]
@@ -1248,12 +1248,12 @@ associated UIComponent.
 implementation class for this action must meet the following
 requirements:
 
-Must extend
+* Must extend
 _jakarta.faces.webapp.ConverterELTag_ .
 
-The _createConverter()_ method must:
+* The _createConverter()_ method must:
 
-If _binding_ is non-null, call
+* If _binding_ is non-null, call
 _binding.getValue()_ to obtain a reference to the _Converter_ instance.
 If there is no exception thrown, and _binding.getValue()_ returned a
 non-null object that implements _jakarta.faces.convert.Converter_ , it
@@ -1263,7 +1263,7 @@ on the specified attributes for this custom action, and return the
 configured instance. If there was an exception thrown, rethrow the
 exception as a _JspException._
 
-{empty}use the _converterId_ if the converter
+* {empty}use the _converterId_ if the converter
 instance could not be created from the _binding_ attribute. Call the
 _createConverter()_ method of the _Application_ instance for this
 application, passing converter id “jakarta.faces.Number”. If the binding
@@ -1308,10 +1308,10 @@ evaluates to an object that implements _jakarta.faces.convert.Converter_
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action whose component class implements _ValueHolder_ .
 
-_converterId_ and/or binding must be
+* _converterId_ and/or binding must be
 specified.
 
 {empty}[P1-start f:converter constraints] If
@@ -1332,12 +1332,12 @@ associated UIComponent.
 implementation class for this action must meet the following
 requirements:
 
-Must extend
+* Must extend
 _jakarta.faces.webapp.ConverterJspTag_ .
 
-The _createConverter()_ method must:
+* The _createConverter()_ method must:
 
-{empty}If _binding_ is non-null, call
+** {empty}If _binding_ is non-null, call
 _binding.getValue()_ to obtain a reference to the _Converter_ instance.
 If there is no exception thrown, and _binding.getValue()_ returned a
 non-null object that implements _jakarta.faces.convert.Converter_ ,
@@ -1382,10 +1382,10 @@ of the facet to be created
 
 ===== Constraints
 
-[P1-start f:facet constraints] Must be nested
+* [P1-start f:facet constraints] Must be nested
 inside a _UIComponent_ custom action.
 
-{empty}Exactly one _UIComponent_ custom
+* {empty}Exactly one _UIComponent_ custom
 action must be nested inside this custom action (although the nested
 component custom action could itself have nested children). [P1-end]
 
@@ -1400,8 +1400,7 @@ this name from the _UIComponent_ custom action that is nested within
 this custom action.
 
 {empty}[P1-start f:facet implementation] The
-implementation class must be, or extend, _jakarta.faces.webapp.FacetTag_ .
-[P1-end]
+implementation class must be, or extend, _jakarta.faces.webapp.FacetTag_. [P1-end]
 
 [[a4860]]
 ==== <f:loadBundle>
@@ -1438,7 +1437,7 @@ as a Map.
 
 ===== Constraints
 
-{empty}[P1-start f:loadBundle constraints]
+* {empty}[P1-start f:loadBundle constraints]
 Must be nested inside an _<f:view>_ custom action. [P1-end]
 
 ===== Description
@@ -1515,7 +1514,7 @@ of the parameter to be set
 
 ===== Constraints
 
-{empty}[P1-start f:param constraints] Must be
+* {empty}[P1-start f:param constraints] Must be
 nested inside a _UIComponent_ custom action. [P1-end]
 
 ===== Description
@@ -1532,12 +1531,12 @@ will handle its _UIParameter_ child _ren._
 implementation class for this action must meet the following
 requirements:
 
-Must extend _jakarta.faces.UIComponentELTag_ .
+* Must extend _jakarta.faces.UIComponentELTag_ .
 
-The _getComponentType()_ method must return “
+* The _getComponentType()_ method must return “
 _Parameter_ ”.
 
-{empty}The _getRendererType()_ method must
+* {empty}The _getRendererType()_ method must
 return _null_ . [P1-end]
 
 ==== <f:phaseListener>
@@ -1576,13 +1575,13 @@ evaluates to an object that implements _jakarta.faces.event.PhaseListener_
 
 ===== Constraints
 
-[P1-start f:phaseListener constraints] Must
+* [P1-start f:phaseListener constraints] Must
 be nested inside a _UIViewRoot_ custom action.
 
-The specified listener class must implement
+* The specified listener class must implement
 _jakarta.faces.event.PhaseListener_ .
 
-{empty} _type_ and/or binding must be
+* {empty} _type_ and/or binding must be
 specified. [P1-end]
 
 ===== Description
@@ -1690,7 +1689,7 @@ HTML rules. Default is true.
 
 ===== Constraints
 
-{empty}[P1-start f:selectItem constraints]
+* {empty}[P1-start f:selectItem constraints]
 Must be nested inside a _UIComponent_ custom action that creates a
 _UISelectMany_ or _UISelectOne_ component instance.[P1-end]
 
@@ -1707,12 +1706,12 @@ _UIComponent_ .
 implementation class for this action must meet the following
 requirements:
 
-Must extend _jakarta.faces.UIComponentELTag_ .
+* Must extend _jakarta.faces.UIComponentELTag_ .
 
-The _getComponentType()_ method must return “
+* The _getComponentType()_ method must return “
 _SelectItem_ ”.
 
-{empty}The _getRendererType()_ method must
+* {empty}The _getRendererType()_ method must
 return _null_ .[P1-end]
 
 ==== <f:selectItems>
@@ -1757,15 +1756,15 @@ description for specific details a|
 Value binding expression pointing at one of
 the following instances:
 
-an individual jakarta.faces.model.SelectItem
+. an individual jakarta.faces.model.SelectItem
 
-a java language array of
+. a java language array of
 jakarta.faces.model.SelectItem
 
-a java.util.Collection of
+. a java.util.Collection of
 jakarta.faces.model.SeleccItem
 
-A java.util.Map where the keys are converted
+. A java.util.Map where the keys are converted
 to Strings and used as labels, and the corresponding values are
 converted to Strings and used as values for newly created
 jakarta.faces.model.SelectItem instances. The instances are created in the
@@ -1775,7 +1774,7 @@ order of the iterator over the keys provided by the Map.
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action that creates a _UISelectMany_ or _UISelectOne_ component
 instance.
 
@@ -1792,12 +1791,12 @@ _UIComponent_ .
 implementation class for this action must meet the following
 requirements:
 
-Must extend _jakarta.faces.UIComponentELTag_ .
+* Must extend _jakarta.faces.UIComponentELTag_ .
 
-The _getComponentType()_ method must return “
+* The _getComponentType()_ method must return “
 _jakarta.faces.SelectItems_ ”.
 
-{empty}The _getRendererType()_ method must
+* {empty}The _getRendererType()_ method must
 return _null_ . [P1-end]
 
 [[a5015]]
@@ -1839,39 +1838,39 @@ listener executes.
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action.
 
-The corresponding _UIComponent_
+* The corresponding _UIComponent_
 implementation class must implement _ActionSource_ , and therefore
 define a public _addActionListener()_ method that accepts an
 _ActionListener_ parameter.
 
-The tag implementation must only create and
+* The tag implementation must only create and
 register the _ActionListener_ instance the first time the component for
 this tag is created
 
-When the listener executes:
+* When the listener executes:
 
-Call _getValue()_ on the " _value_ "
+** Call _getValue()_ on the " _value_ "
 _ValueExpression_ .
 
-If value of the "value" expression is null,
+** If value of the "value" expression is null,
 call _setValue()_ on the "target" _ValueExpression_ with the null value.
 
-If the value of the "value" expression is not
+** If the value of the "value" expression is not
 null, call _getType()_ on the "value" and "target" _ValueExpressions_ to
 determine their property types.
 
-Coerce the value of the "value" expression to
+** Coerce the value of the "value" expression to
 the "target" expression value type following the Expression Language
 coercion rules. Call _setValue()_ on the "target" _ValueExpression_ with
 the resulting value.
 
-If either conversion or the execution of
+** If either conversion or the execution of
 setValue() fails throw an AbortProcessingException.
 
-This tag creates no output to the page
+* This tag creates no output to the page
 currently being created. It is used solely for the side effect of
 _ActionListener_ creation and addition.
 
@@ -1879,8 +1878,7 @@ _ActionListener_ creation and addition.
 constraints]If this tag is not nested inside a _UIComponent_ custom
 action, or the _UIComponent_ implementation class does not correctly
 implement _ActionSource_ , or the specified listener class does not
-implement _jakarta.faces.event.ActionListener_ , throw a _JspException_ .
-[P1-end]
+implement _jakarta.faces.event.ActionListener_ , throw a _JspException_.[P1-end]
 
 ===== Description
 
@@ -1953,20 +1951,20 @@ or not this subview should be rendered.
 
 ===== Constraints
 
-[P1-start f:subview constraints] Must be
+* [P1-start f:subview constraints] Must be
 nested inside a _<f:view>_ custom action (although this custom action
 might be in a page that is including the page containing the
 _<f:subview>_ custom action.
 
-Must not contain an _<f:view>_ custom action.
+* Must not contain an _<f:view>_ custom action.
 
-Must have an _id_ attribute whose value is
+* Must have an _id_ attribute whose value is
 unique within the scope of the parent naming container. If this
 constraint is not met, the action taken regarding id uniqueness in
 section <<IntegrationWithJSP.adoc#a4549,See UIComponent Custom Action
 Implementation Requirements>> must be taken
 
-{empty}May be placed in a parent page (with
+* {empty}May be placed in a parent page (with
 _<jsp:include>_ or _<c:import>_ nested inside), or within the nested
 page. [P1-end]
 
@@ -2057,13 +2055,13 @@ _foo.jsp_ and _bar.jsp_ may not contain _<f:view>_ .
 The implementation class for this action must
 meet the following requirements:
 
-[P1-start f:subview implementation] Must
+* [P1-start f:subview implementation] Must
 extend _jakarta.faces.UIComponentELTag_ .
 
-The _getComponentType()_ method must return “
+* The _getComponentType()_ method must return “
 _NamingContainer”._
 
-{empty}The _getRendererType()_ method must
+* {empty}The _getRendererType()_ method must
 return _null_ . [P1-end]
 
 [[a5163]]
@@ -2123,13 +2121,13 @@ is nested.
 
 ===== Constraints
 
-Must be nested inside a _EditableValueHolder_
+* Must be nested inside a _EditableValueHolder_
 custom action whose value is (or is convertible to) a double.
 
-Must specify either the _maximum_ attribute,
+* Must specify either the _maximum_ attribute,
 the _minimum_ attribute, or both.
 
-If both limits are specified, the maximum
+* If both limits are specified, the maximum
 limit must be greater than the minimum limit.
 
 {empty}[P1-start f:validateDoubleRange
@@ -2150,12 +2148,12 @@ the associated _UIComponent_ .
 implementation] The implementation class for this action must meet the
 following requirements:
 
-Must extend
+* Must extend
 _jakarta.faces.webapp.ValidatorELTag_ .
 
-The _createValidator()_ method must:
+* The _createValidator()_ method must:
 
-If _binding_ is non-null _,_ create a
+** If _binding_ is non-null _,_ create a
 _ValueBinding_ by invoking _Application.createValueExpression_ () with
 binding as the expression argument, and _Validator.class_ as the
 expectedType argument.use the _ValueBinding_ to obtain a reference to
@@ -2167,7 +2165,7 @@ its properties based on the specified attributes for this custom action,
 and return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
 
-{empty}use the _validatorId_ if the validator
+* {empty}use the _validatorId_ if the validator
 instance could not be created from the _binding_ attribute. Call the
 _createValidator()_ method of the _Application_ instance for this
 application, passing validator id “jakarta.faces.DoubleRange”. If the
@@ -2228,13 +2226,13 @@ evaluates to an object that implements _jakarta.faces.convert.Validator_
 
 ===== Constraints
 
-Must be nested inside a _EditableValueHolder_
+* Must be nested inside a _EditableValueHolder_
 custom action whose value is (or is convertible to) a double.
 
-Must specify either the _maximum_ attribute,
+* Must specify either the _maximum_ attribute,
 the _minimum_ attribute, or both.
 
-If both limits are specified, the maximum
+* If both limits are specified, the maximum
 limit must be greater than the minimum limit.
 
 {empty}[P1-start f:validateDoubleRange
@@ -2255,12 +2253,12 @@ the associated _UIComponent_ .
 implementation] The implementation class for this action must meet the
 following requirements:
 
-Must extend
+* Must extend
 _jakarta.faces.webapp.ValidatorELTag_ .
 
-The _createValidator()_ method must:
+* The _createValidator()_ method must:
 
-If _binding_ is non-null _,_ create a
+** If _binding_ is non-null _,_ create a
 _ValueBinding_ by invoking _Application.createValueExpression_ () with
 binding as the expression argument, and _Validator.class_ as the
 expectedType argument.use the _ValueBinding_ to obtain a reference to
@@ -2272,7 +2270,7 @@ its properties based on the specified attributes for this custom action,
 and return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
 
-{empty}use the _validatorId_ if the validator
+** {empty}use the _validatorId_ if the validator
 instance could not be created from the _binding_ attribute. Call the
 _createValidator()_ method of the _Application_ instance for this
 application, passing validator id “jakarta.faces.DoubleRange”. If the
@@ -2317,10 +2315,10 @@ evaluates to an object that implements _jakarta.faces.convert.Validator_
 
 ===== Constraints
 
-Must be nested inside a _EditableValueHolder_
+* Must be nested inside a _EditableValueHolder_
 custom action whose value is a _String_ .
 
-Must specify either the _pattern_ attribute.
+* Must specify either the _pattern_ attribute.
 
 {empty}[P1-start f:validateLength
 constraints] If this tag is not nested inside a _UIComponent_ custom
@@ -2340,12 +2338,12 @@ the associated _UIComponent_ .
 The implementation class for this action must meet the following
 requirements:
 
-Must extend
+* Must extend
 _jakarta.faces.webapp.ValidatorELTag_ .
 
-The _createValidator()_ method must:
+* The _createValidator()_ method must:
 
-If _binding_ is non-null, create a
+** If _binding_ is non-null, create a
 _ValueExpression_ by invoking _Application.createValueExpression_ ()
 with binding as the expression argument, and _Validator.class_ as the
 expectedType argument.use the _ValueExpression_ to obtain a reference to
@@ -2357,7 +2355,7 @@ properties based on the specified attributes for this custom action, and
 return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
 
-{empty}use the _validatorId_ if the validator
+** {empty}use the _validatorId_ if the validator
 instance could not be created from the _binding_ attribute. Call the
 _createValidator()_ method of the _Application_ instance for this
 application, passing validator id “jakarta.faces.RegularExpression”. If
@@ -2419,13 +2417,13 @@ evaluates to an object that implements _jakarta.faces.convert.Validator_
 
 ===== Constraints
 
-Must be nested inside a _EditableValueHolder_
+* Must be nested inside a _EditableValueHolder_
 custom action whose value is (or is convertible to) a long.
 
-Must specify either the _maximum_ attribute,
+* Must specify either the _maximum_ attribute,
 the _minimum_ attribute, or both.
 
-If both limits are specified, the maximum
+* If both limits are specified, the maximum
 limit must be greater than the minimum limit.
 
 {empty}[P1-start f:validateLongeRange
@@ -2445,12 +2443,12 @@ the associated _UIComponent_ .
 The implementation class for this action must
 meet the following requirements:
 
-Must extend
+* Must extend
 _jakarta.faces.webapp.ValidatorELTag_ .
 
-The _createValidator()_ method must:
+* The _createValidator()_ method must:
 
-If _binding_ is non-null, create a
+** If _binding_ is non-null, create a
 _ValueExpression_ by invoking _Application.createValueExpression_ ()
 with binding as the expression argument, and _Validator.class_ as the
 expectedType argument. Use the _ValueExpression_ to obtain a reference
@@ -2462,7 +2460,7 @@ properties based on the specified attributes for this custom action, and
 return the configured instance. If there was an exception thrown,
 rethrow the exception as a _JspException._
 
-use the _validatorId_ if the validator
+** use the _validatorId_ if the validator
 instance could not be created from the _binding_ attribute. Call the
 _createValidator()_ method of the _Application_ instance for this
 application, passing validator id “jakarta.faces.LongRange”. If the
@@ -2509,10 +2507,10 @@ evaluates to an object that implements _jakarta.faces.convert.Validator_
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action whose component class implements _EditableValueHolder_ .
 
- _validatorId_ and/or binding must be
+* _validatorId_ and/or binding must be
 specified.
 
 {empty}[P1-start f:validator constraints 2]
@@ -2532,19 +2530,19 @@ the associated _UIComponent_ .
 The implementation class for this action must
 meet the following requirements:
 
-Must extend
+* Must extend
 _jakarta.faces.webapp.ValidatorJspTag_ .
 
-The _createValidator()_ method must:
+* The _createValidator()_ method must:
 
-If _binding_ is non-null, call
+** If _binding_ is non-null, call
 _binding.getValue()_ to obtain a reference to the _Validator_ instance.
 If there is no exception thrown, and _binding.getValue()_ returned a
 non-null object that implements _jakarta.faces.validator.Validator_ ,
 register it by calling _addValidator()._ If there was an exception
 thrown, rethrow the exception as a _JspException._
 
-use the _validatorId_ attribute if the
+** use the _validatorId_ attribute if the
 validator instance could not be created from the _binding_ attribute _._
 If the _validatorId_ attribute is set, call the _createValidator()_
 method of the _Application_ instance for this application, passing
@@ -2590,18 +2588,18 @@ _jakarta.faces.event.ValueChangeListener_
 
 ===== Constraints
 
-Must be nested inside a _UIComponent_ custom
+* Must be nested inside a _UIComponent_ custom
 action.
 
-The corresponding _UIComponent_
+* The corresponding _UIComponent_
 implementation class must implement _EditableValueHolder_ , and
 therefore define a public _addValueChangeListener()_ method that accepts
 an _ValueChangeListener_ parameter.
 
-The specified listener class must implement
+* The specified listener class must implement
 _jakarta.faces.event.ValueChangeListener_ .
 
-_type_ and/or binding must be specified.
+* _type_ and/or binding must be specified.
 
 [P1-start f:valueChangeListener constraints]
 If this tag is not nested inside a _UIComponent_ custom action, or the
@@ -2681,7 +2679,7 @@ processed on any subsequent form submit. Default value is true.
 
 ===== Constraints
 
-{empty}[P1-start f:verbatim constraints] Must
+* {empty}[P1-start f:verbatim constraints] Must
 be implemented as a _UIComponentBodyTag_ .[P1-end]
 
 ===== Description
@@ -2759,18 +2757,18 @@ that of jakarta.faces.event. _PhaseListener.afterPhase()_
 
 ===== Constraints
 
-[P1-start f:view constraints] Any JSP-created
+* [P1-start f:view constraints] Any JSP-created
 response using actions from the JSF Core Tag Library, as well as actions
 extending _jakarta.faces.webapp.UIComponentELTag_ from other tag
 libraries, must be nested inside an occurrence of the _<f:view>_ action.
 
-JSP page fragments included via the standard
+* JSP page fragments included via the standard
 _<%@ include %>_ directive need not have their JSF actions embedded in a
 _<f:view>_ action, because the included template text and custom actions
 will be processed as part of the outer page as it is compiled, and the
 _<f:view>_ action on the outer page will meet the nesting requirement.
 
-If the _renderKitId_ attribute is present,
+* If the _renderKitId_ attribute is present,
 its value is stored in _UIViewRoot._ If the _renderKitId_ attribute is
 not present, then the default render kit identifier as returned by
 _Application.getDefaultRenderKitId()_ is stored in _UIViewRoot_ if it is
@@ -2781,12 +2779,12 @@ affects all subsequent views, unless overridden by another use of the
 _renderKitId_ attribute. Please refer to <<ApplicationIntegration.adoc#a3871,See
 ViewHandler>> for more information.
 
-If the _locale_ attribute is present, its
+* If the _locale_ attribute is present, its
 value overrides the _Locale_ stored in _UIViewRoot_ , normally set by
 the _ViewHandler, and the doStartTag() method must store it by calling
 UIViewRoot.setLocale()_ .
 
-{empty}The _doStartTag()_ method must call
+* {empty}The _doStartTag()_ method must call
 _jakarta.servlet.jsp.jstl.core.Config.set()_ , passing the
 _ServletRequest_ instance for this request, the constant
 _jakarta.servlet.jsp.jstl.core.Config.FMT_LOCALE_ , and the _Locale_
@@ -2802,12 +2800,12 @@ as part of the response.
 The implementation class for this action must
 meet the following requirements:
 
-Must extend _jakarta.faces.UIComponentELTag_ .
+* Must extend _jakarta.faces.UIComponentELTag_ .
 
-The _getComponentType()_ method must return
+* The _getComponentType()_ method must return
 “ViewRoot”.
 
-The _getRendererType()_ method must return
+* The _getRendererType()_ method must return
 _null_ .
 
 Please refer to the javadocs for
@@ -2827,13 +2825,13 @@ RenderKit Implementation>>) that supports that component type. [P1-start
 html_basic taglib requirements] The tag library descriptor for this tag
 library must meet the following requirements:
 
-Must declare a tag library version (
+* Must declare a tag library version (
 _<tlib-version>_ ) value of _1.2_ .
 
-Must declare a URI ( _<uri>_ ) value of
+* Must declare a URI ( _<uri>_ ) value of
 _http://java.sun.com/jsf/html_ .
 
-{empty}Must be included in the _META-INF_
+* {empty}Must be included in the _META-INF_
 directory of a JAR file containing the corresponding implementation
 classes, suitable for inclusion with a web application, such that the
 tag library descriptor will be located automatically by the algorithm
@@ -2981,19 +2979,19 @@ requirements 2]The tag library descriptor for this tag library (and the
 corresponding tag handler implementation classes) must meet the
 following requirements:
 
-The attributes for the tags, both in the TLD
+* The attributes for the tags, both in the TLD
 and in the associated tag handlers, must conform exactly to the type,
 name, and description given in the VDLDocs for the html_basic tag
 library.
 
-If the type of the attribute is
+* If the type of the attribute is
 _jakarta.el.ValueExpression_ , the TLD for the attribute must contain a
 _<deferred-value>_ with a nested _<type>_ element, inside of which is
 nested the expected type, as given in the VDLDocs. The JavaBeans setter
 method in the tag handler for the tag must be of type
 _jakarta.el.ValueExpression_ .
 
-If the type of the attribute is
+* If the type of the attribute is
 _jakarta.el.MethodExpression_ , the TLD for the attribute must contain a
 _<deferred-method>_ with a nested _<method-signature>_ , inside of which
 is the method signature for that _MethodExpression_ , as given in the
@@ -3001,11 +2999,11 @@ VDLDocs. The actual name of the method in the signature declaration is
 immaterial and unspecified. The JavaBeans setter method in the tag
 handler for the tag must be of type _jakarta.el.MethodExpression_ .
 
-Any attributes listed in the VDLDocs with a
+* Any attributes listed in the VDLDocs with a
 _request-time_ value of _true_ must specify an _<rtexprvalue>_ of _true_
 in the TLD.
 
-The following action must be taken to handle
+* The following action must be taken to handle
 the value of the _converter_ property. If _isLiteralText()_ on the
 _converter_ property returns _true_ , get the value of the property and
 treat it as a _converterId_ by passing it as the argument to the
@@ -3016,33 +3014,33 @@ property returns _false_ , call _setValueExpression()_ on the component,
 passing “converter” as the name of the _ValueExpression_ and the
 _ValueExpression_ instance as the value.
 
-For a non- _null_ _action_ attribute on
+* For a non- _null_ _action_ attribute on
 custom actions related to _ActionSource2_ components ( _commandButton_ ,
 _commandLink_ ), the _setProperties()_ method of the tag handler
 implementation class must pass the value of the action attribute, which
 is a _MethodExpression_ , to the component’s _setActionExpression()_
 method.
 
-For other non- _null_ attributes that
+* For other non- _null_ attributes that
 correspond to _MethodExpression_ attributes on the underlying components
 ( _actionListener_ , _validator_ , _valueChangeListener_ ), the
 _setProperties()_ method of the tag handler implementation class must
 store that instance as the value of the corresponding component
 property.
 
-For any non- _null_ _id_ , _scope_ , or _var_
+* For any non- _null_ _id_ , _scope_ , or _var_
 attribute, the _setProperties()_ method of the tag handler
 implementation class must simply set the value of the corresponding
 component attribute.
 
-For all other non- _null_ attributes, the
+* For all other non- _null_ attributes, the
 _setProperties()_ of the tag handler implementation class method must:
 
-If the _attribute.isLiteralText()_ returns
+** If the _attribute.isLiteralText()_ returns
 _true_ , set the corresponding attribute on the underlying component
 (after performing any necessary type conversion).
 
-{empty}Otherwise, call the
+** {empty}Otherwise, call the
 _setValueExpression()_ method on the underlying component, passing the
 attribute name and the _ValueExpression‘_ instance as
 parameters.[P1-end]
