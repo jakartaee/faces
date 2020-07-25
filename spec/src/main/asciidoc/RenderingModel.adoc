@@ -43,43 +43,40 @@ the String constant _RenderKitFactory.HTML_BASIC_RENDER_KIT_ as
 described below) that is utilized if no other _RenderKit_ is
 selected.[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public Renderer getRenderer(String family,
-String rendererType);
-|===
+[source,java]
+----
+public Renderer getRenderer(String family, String rendererType);
+----
 
 Return the _Renderer_ instance corresponding
 to the specified component _family_ and _rendererType (if any),_ which
 will typically be the value of the _rendererType_ property of a
 _UIComponent_ about to be decoded or encoded
 
-[width="100%",cols="100%",]
-|===
-|public ClientBehaviorRenderer
-getClientBehaviorRenderer(String type);
-|===
+[source,java]
+----
+public ClientBehaviorRenderer getClientBehaviorRenderer(String type);
+----
 
 Return the _ClientBehaviorRenderer_ instance
 corresponding to the specified behavior type.
 
-[width="100%",cols="100%",]
-|===
-|public void addRenderer(String family,
-String rendererType, Renderer renderer);
-|===
+[source,java]
+----
+public void addRenderer(String family, 
+    String rendererType, Renderer renderer);
+----
 
-[width="100%",cols="100%",]
-|===
-|public void addClientBehaviorRenderer(String
-type, ClientBehaviorRenderer renderer);
-|===
+[source,java]
+----
+public void addClientBehaviorRenderer(String type, 
+    ClientBehaviorRenderer renderer);
+----
 
-[width="100%",cols="100%",]
-|===
-|public Iterator<String>
-getClientBehaviorRendererTypes();
-|===
+[source,java]
+----
+public Iterator<String> getClientBehaviorRendererTypes();
+----
 
 Applications that wish to go beyond the
 capabilities of the standard _RenderKit_ that is provided by every JSF
@@ -96,12 +93,11 @@ Resource>> for an example of a _faces-config.xml_ configuration resource
 that defines two additional Renderer instances to be registered in the
 default _RenderKit_ .
 
-[width="100%",cols="100%",]
-|===
-|public ResponseWriter
-createResponseWriter(Writer writer, String contentTypeList, String
-characterEncoding);
-|===
+[source,java]
+----
+public ResponseWriter createResponseWriter(Writer writer,
+    String contentTypeList, String characterEncoding);
+----
 
 Use the provided _Writer_ to create a new
 _ResponseWriter_ instance for the specified character encoding.
@@ -124,34 +120,27 @@ passed to this method), we know that the character encoding cannot
 change during the rendering of the response. Please see
 <<Per-RequestStateInformation.adoc#a3324,See ResponseWriter>>
 
-[width="100%",cols="100%",]
-|===
-|public ResponseStream
-createResponseStream(OuputStream out);
-|===
+[source,java]
+----
+public ResponseStream createResponseStream(OuputStream out);
+----
 
 Use the provided _OutputStream_ to create a
 new _ResponseStream_ instance.
 
-[width="100%",cols="100%",]
-|===
-|public ResponseStateManager
-getResponseStateManager();
-|===
+[source,java]
+----
+public ResponseStateManager getResponseStateManager();
+----
 
 Return an instance of _ResponseStateManager_
 to handle rendering technology specific state management decisions..
 
-[width="100%",cols="100%",]
-|===
-a|
-public Iterator<String>
-getComponentFamilies();
-
-public Iterator<String>
-getRendererTypes(String componentFamily);
-
-|===
+[source,java]
+----
+public Iterator<String> getComponentFamilies();
+public Iterator<String> getRendererTypes(String componentFamily);
+----
 
 The first method returns an _Iterator_ over
 the _component-family_ entries supported by this _RenderKit_ . The
@@ -169,11 +158,10 @@ Values_ and _Render Response_ phases of the request processing
 lifecycle, when the component has a non- _null_ value for the
 _rendererType_ property.
 
-[width="100%",cols="100%",]
-|===
-|public void decode(FacesContext context,
-UIComponent component);
-|===
+[source,java]
+----
+public void decode(FacesContext context, UIComponent component);
+----
 
 For components utilizing the _delegated
 implementation_ programming model, this method will be called during the
@@ -182,23 +170,17 @@ the purpose of converting the incoming request information for this
 component back into a new local value. See the API reference for the
 _Renderer.decode()_ method for details on its responsibilities.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public void encodeBegin(FacesContext context,
-UIComponent component) throws IOException;
+    UIComponent component) throws IOException;
 
-
-
-public void encodeChildren(FacesContext
-context, UIComponent component) throws IOException;
-
-
+public void encodeChildren(FacesContext context,
+    UIComponent component) throws IOException;
 
 public void encodeEnd(FacesContext context,
-UIComponent component) throws IOException;
-
-|===
+    UIComponent component) throws IOException;
+----
 
 For components utilizing the _delegated
 implementation_ programming model, these methods will be called during
@@ -209,34 +191,28 @@ _UIComponent_ (described in <<UserInterfaceComponentModel.adoc#a1041,See Compone
 Specialization Methods>> and the corresponding Javadocs) when the
 component implements the _direct implementation_ programming model.
 
-[width="100%",cols="100%",]
-|===
-|public String convertClientId(FacesContext
-context, String clientId);
-|===
+[source,java]
+----
+public String convertClientId(FacesContext context, String clientId);
+----
 
 Converts a component-generated client
 identifier into one suitable for transmission to the client.
 
-[width="100%",cols="100%",]
-|===
-|public boolean getRendersChildren();
-|===
+[source,java]
+----
+public boolean getRendersChildren();
+----
 
 Return a flag indicating whether this
 Renderer is responsible for rendering the children of the component it
 is asked to render.
 
-[width="100%",cols="100%",]
-|===
-a|
- public Object getConvertedValue(FacesContext
-context,
-
-UIComponent component, Object submittedValue)
-throws ConverterException;
-
-|===
+[source,java]
+----
+public Object getConvertedValue(FacesContext context,
+    UIComponent component, Object submittedValue) throws ConverterException;
+----
 
 Attempt to convert previously stored state
 information into an object of the type required for this component
@@ -258,22 +234,21 @@ client side behavior for components in the form of script content. It
 also participates in decoding and as such has the ability to enqueue
 server side _BehaviorEvents._ ..
 
-[width="100%",cols="100%",]
-|===
-|public String
-getScript(ClientBehaviorContext behaviorContext, ClientBehavior
-behavior);
-|===
+[source,java]
+----
+public String getScript(ClientBehaviorContext behaviorContext,
+    ClientBehavior behavior);
+----
 
 Produce the script content that performs the
 client side behavior. This method is called during the _Render Response_
 phase of the request processing lifecycle.
 
-[width="100%",cols="100%",]
-|===
-|public void decode(FacesContext context,
-UIComponent component, ClientBehavior behavior);
-|===
+[source,java]
+----
+public void decode(FacesContext context,
+    UIComponent component, ClientBehavior behavior);
+----
 
 This method will be called during the _apply
 request values_ phase of the request processing lifecycle, for the
@@ -288,45 +263,33 @@ registered in the JSF faces-config.xml or with an annotation.
 
 .XML Registration
 
-
-
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <render-kit>
-
-<render-kit-id>HTML_BASIC</render-kit-id>
-
-<client-behavior-renderer>
-
-<client-behavior-renderer-type>custom.behavior.Greet</client-behavior-renderer-type>
-
-<client-behavior-renderer-class>greet.GreetRenderer</client-behavior-renderer-class>
-
-</client-behavior-renderer>
-
-...
-
-|===
+  <render-kit-id>HTML_BASIC</render-kit-id>
+  <client-behavior-renderer>
+    <client-behavior-renderer-type>
+      custom.behavior.Greet
+    </client-behavior-renderer-type>
+    <client-behavior-renderer-class>
+      greet.GreetRenderer
+    </client-behavior-renderer-class>
+  </client-behavior-renderer>
+  ...
+----
 
 .Registration By Annotation
 
 JSF provides the
 _jakarta.faces.render.FacesBehaviorRenderer annotation._
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 @FacesClientBehaviorRenderer(value=”Hello”)
-
-public class MyRenderer extends
-ClientBehaviorRenderer \{
-
-...
-
+public class MyRenderer extends ClientBehaviorRenderer {
+  ...
 }
-
-|===
+----
 
 
 [[a4288]]
@@ -339,29 +302,27 @@ singleton abstract class. This class knows the mechanics of saving
 state, whether it be in hidden fields, session, or some combination of
 the two.
 
-[width="100%",cols="100%",]
-|===
-|public Object getState(FacesContext
-context);
-|===
+[source,java]
+----
+public Object getState(FacesContext context);
+----
 
 Please see the javadoc for this method for
 the normative specification.
 
-[width="100%",cols="100%",]
-|===
-|public void writeState(FacesContext context,
-Object state) throws IOException;
-|===
+[source,java]
+----
+public void writeState(FacesContext context, Object state)
+    throws IOException;
+----
 
 Please see the javadoc for this method for
 the normative specification.
 
-[width="100%",cols="100%",]
-|===
-|public boolean isPostback(FacesContext
-context);
-|===
+[source,java]
+----
+public boolean isPostback(FacesContext context);
+----
 
 Return _true_ if the current request is a
 postback. The default implementation returns _true_ if this
@@ -372,11 +333,10 @@ Please see _<<ApplicationIntegration.adoc#a4204,See
 ResponseStateManager>>_ for deprecated methods in _ResponseStateManager_
 .
 
-[width="100%",cols="100%",]
-|===
-|public String getViewState(FacesContext
-context);
-|===
+[source,java]
+----
+public String getViewState(FacesContext context);
+----
 
 Return the view state as a String without any
 markup related to the rendering technology supported by this
@@ -392,28 +352,19 @@ JSF-based web application running in a servlet or portlet
 container.[P1-end] The factory instance can be acquired by JSF
 implementations, or by application code, by executing
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 RenderKitFactory factory = (RenderKitFactory)
-
-
-FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-
-|===
+    FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+----
 
 The _RenderKitFactory_ implementation class
 supports the following methods:
 
-[width="100%",cols="100%",]
-|===
-a|
-public RenderKit getRenderKit(FacesContext
-context, String renderKitId);
-
-
-
-|===
+[source,java]
+----
+public RenderKit getRenderKit(FacesContext context, String renderKitId);
+----
 
 Return a _RenderKit_ instance for the
 specified render kit identifier, possibly customized based on the
@@ -430,21 +381,20 @@ kit identifier that is designated by the _String_ constant
 _RenderKitFactory.HTML_BASIC_RENDER_KIT_ .[P1-end] Additional render kit
 identifiers, and corresponding instances, can also be made available.
 
-[width="100%",cols="100%",]
-|===
-|public Iterator<String> getRenderKitIds();
-|===
+[source,java]
+----
+public Iterator<String> getRenderKitIds();
+----
 
 {empty}This method returns an _Iterator_ over
 the set of render kit identifiers supported by this factory.
 [P1-start-renderkitIds]This set must include the value specified by
 _RenderKitFactory.HTML_BASIC_RENDER_KIT_ .[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public void addRenderKit(String renderKitId,
-RenderKit renderKit);
-|===
+[source,java]
+----
+public void addRenderKit(String renderKitId, RenderKit renderKit);
+----
 
 Register a _RenderKit_ instance for the
 specified render kit identifier, replacing any previous RenderKit
