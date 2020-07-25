@@ -86,7 +86,7 @@ question, “is there any Java code in the application, or in libraries
 used by the application, that extends from or depends on any class in
 package _com.sun.facelets_ and/or its sub-packages?”
 
-If the answer to this question is “yes”,
+* If the answer to this question is “yes”,
 Facelets in JSF 2.0 is _not_ backwards compatibile with Facelets and
 such an application _must_ continue to bundle the Facelets jar file
 along with the application, continue to set the Facelets configuration
@@ -98,7 +98,7 @@ extends or depends on any class in package _com.sun.facelets_ and/or its
 sub-packages must be modified to depend on the appropriate classes in
 package _jakarta.faces.webapp.vdl_ and/or its sub-packages.
 
-If the answer to this question is “no”,
+* If the answer to this question is “no”,
 Facelets in JSF 2.0 _is_ backwards compatible with pre-JSF 2.0 Facelets
 and such an application _must not_ continue to bundle the Facelets jar
 file along with the application, and _must not_ continue to set the
@@ -197,7 +197,8 @@ together can informally be thought of as the declaration of the resource
 library contract. The contract declaration of _siteLayout_ can be stated
 as follows.
 
-_siteLayout_ provides two declared
+[none]
+* _siteLayout_ provides two declared
 templates, _topNav_template.xhtml_ and _leftNav_foo.xhtml_ . Each
 templates offers declared insertion points “title”, “content”, and
 “nav”.
@@ -328,7 +329,7 @@ section gives the reader a non-normative overview of the feature that
 touches on all the parts of the specification that intersect with this
 feature.
 
-_Design Time_
+._Design Time_
 
 At design time, the developer has packaged
 any resource library contracts to be used in the application in the
@@ -336,7 +337,7 @@ right place in the web application, or JAR file classpath. _This
 behavior is normatively specified in <<RequestProcessingLifecycle.adoc#a872,See
 Resource Library Contracts>>._
 
- _Startup Time_
+._Startup Time_
 
 At startup time, the runtime will discover
 the set of resource library contracts available for this application. If
@@ -348,7 +349,7 @@ is normatively specified in <<UsingJSFInWebApplications.adoc#a6215,See Resource
 Library Contracts>> and in the XML schema for the application
 configuration resources._
 
-_Facelet Processing Time_
+._Facelet Processing Time_
 
 The specification for
 _ViewDeclarationLanguage.createView()_ requires a call to
@@ -378,7 +379,7 @@ the first matching one found. Otherwise, the implementation just returns
 the matching resource, if found. _This behavior is normatively specified
 in the javadoc for ResourceHandler.createViewResource()._
 
-_View Rendering Time_
+._View Rendering Time_
 
 When the view is being rendered, any
 resources that reside in a resource library contract will have
@@ -387,7 +388,7 @@ able to quickly find the resource inside the named contract. _This
 behavior is normatively specified in the javadoc for
 Resource.getRequestPath()._
 
-_User-Agent Rendering Time_
+._User-Agent Rendering Time_
 
 By the point in time that the User-Agent is
 rendering the view, all of the work related to resource library
@@ -426,7 +427,7 @@ touches on all the parts of the specification that intersect with this
 feature. There are two main aspects to the feature, pass through
 attributes and pass through elements.
 
-_Pass Through Attributes_
+._Pass Through Attributes_
 
 For any given JSF component tag in a view,
 the set of available attributes that component supports is determined by
@@ -446,37 +447,50 @@ kit._
 The view author may specify pass through
 attributes in three ways.
 
-Nesting the _<f:passThroughAttribute>_ tag
-within a _UIComponent_ tag. For example, +
-_<h:inputText value=”#\{user.name}”> +
-<f:passThroughAttribute name=”data-sermon” value=”#\{pastor.message}”
-/> +
-</h:inputText>_
+* Nesting the _<f:passThroughAttribute>_ tag
+within a _UIComponent_ tag. For example,
++
+[source,xml]
+----
+    <h:inputText value=”#{user.name}”>
+      <f:passThroughAttribute name=”data-sermon” value=”#{pastor.message}” />
+    </h:inputText>
+----
 
-Nesting the _<f:passThroughAttributes>_ tag
-within a _UIComponent_ tag, For example, +
-_<h:inputText value=”#\{user.name”> +
-<f:passThroughAttributes value=”#\{service.nameValuePairs}” /> +
-</h:inputText> +
-_ The EL expression must point to a _Map<String, Object>_ . If the value
+* Nesting the _<f:passThroughAttributes>_ tag
+within a _UIComponent_ tag, For example,
++
+[source,xml]
+----
+    <h:inputText value=”#{user.name}”> 
+      <f:passThroughAttributes value=”#{service.nameValuePairs}” />
+    </h:inputText> 
+----
++
+The EL expression must point to a _Map<String, Object>_ . If the value
 is a _ValueExpresison_ call _getValue()_ the value first. Whether the
 value is a _ValueExpression_ or not, the value must have its
 _toString()_ called on it.
 
-Prefixing the attribute with the shortname
+* Prefixing the attribute with the shortname
 assigned to the _http://java.sun.com/jsf/passthrough_ XML namespace. For
-example +
-_<html xmlns:p=”http://java.sun.com/jsf/passthrough” +
-xmlns:h=”http://java.sun.com/jsf/html”> +
-<h:inputText p:foo=”\{bar.baz}” value=”#\{user.name}” /> +
-</html>_
+example
++
+[source,xml]
+----
+    <html xmlns:p=”http://java.sun.com/jsf/passthrough”
+          xmlns:h=”http://java.sun.com/jsf/html”>
+      <h:inputText p:foo=”{bar.baz}” value=”#{user.name}” />
+    </html>
+----
 
-_This behavior is normatively specified in
+[none]
+* _This behavior is normatively specified in
 the VDLdoc for <f:passthroughAttribute>, <f:passThroughAttributes> tags
 in the “Faces Core” tag library, and the “Pass Through Attributes” tag
 library._
 
-_Pass Through Elements_
+._Pass Through Elements_
 
 This feature circumvents the traditional
 component abstraction model of JSF, allowing the page author nearly
@@ -562,14 +576,14 @@ Java API, and which to keep as an implementation detail.
 There were two guiding principles that
 influenced the task of integrating Facelets into JSF 2.
 
-The original decision in JSF 1.0 to allow the
+* The original decision in JSF 1.0 to allow the
 ViewHandler to be pluggable enabled the concept of a View Declaration
 Language for JSF. The two most popular ones were Facelets and
 JSFTemplating. The new integration should preserve this pluggability,
 since it is still valuable to be able to replace the View Declaration
 Language.
 
-After polling users of Facelets, the expert
+* After polling users of Facelets, the expert
 group decided that most of them were only using the markup based API and
 were not extending from the Java classes provided by the Facelet
 project. Therefore, we decided to keep the Java API for Facelets in JSF
@@ -632,61 +646,61 @@ _FaceletHandler_ instance must use the _getNextHandler()_ method of the
 _TagConfig_ instance passed to its constructor to perform the traversal
 starting from the root _FaceletHandler_ .
 
-Standard XHTML markup elements
+* Standard XHTML markup elements
 
-These are declared in the XHTML namespace
+** These are declared in the XHTML namespace
 _http://www.w3.org/1999/xhtml_ . Such elements should be passed through
 as is to the rendered output.
 
-These elements correspond to instances of
+** These elements correspond to instances of
 _jakarta.faces.view.facelets.TextHandler_ . See the javadocs for that
 class for the normative specification.
 
-Markup elements that represent _UIComponent_
+* Markup elements that represent _UIComponent_
 instance in the view.
 
-These elements can come from the Standard
+** These elements can come from the Standard
 HTML Renderkit namespace _http://java.sun.com/jsf/html_ , or from the
 namespace of a custom tag library (including composite components) as
 described in <<FaceletsAndWebApplications.adoc#a5638,See Facelet Tag Library
 mechanism>>.
 
-These elements correspond to instances of
+** These elements correspond to instances of
 _jakarta.faces.view.facelets.ComponentHandler_ . See the javadocs for that
 class for the normative specification.
 
-Markup elements that take action on their
+* Markup elements that take action on their
 parent or children markup element(s). Usually these come from the JSF
 Core namespace _http://java.sun.com/jsf/core_ , but they can also be
 provided by a custom tag library.
 
-Such elements that represent an attached
+** Such elements that represent an attached
 object must correspond to an appropriate subclass of
 _jakarta.faces.view.facelets.FaceletsAttachedObjectHandler_ . The
 supported subclasses are specified in the javadocs.
 
-Such elements that represent a facet
+** Such elements that represent a facet
 component must correspond to an instance of
 _jakarta.faces.component.FacetHandler_ .
 
-Such elements that represent an attribute
+** Such elements that represent an attribute
 that must be pushed into the parent _UIComponent_ element must
 correspond to an instance of
 _jakarta.facelets.view.facelets.AttributeHandler_ .
 
-Markup Elements that indicate facelet
+* Markup Elements that indicate facelet
 templating, as specified in the VDL Docs for the namespace
 _http://java.sun.com/jsf/facelets_ .
 
-Such elements correspond to an instance of
+** Such elements correspond to an instance of
 _jakarta.faces.view.facelets.TagHandler_ .
 
-Markup elements from the Facelet version of
+* Markup elements from the Facelet version of
 the JSTL namespaces _http://java.sun.com/jsp/jstl/core_ or
 _http://java.sun.com/jsp/jstl/functions_ , as specified in the VDL Docs
 for those namespaces.
 
-Such elements correspond to an instance of
+** Such elements correspond to an instance of
 _jakarta.faces.view.facelets.TagHandler_ .
 
 
@@ -736,12 +750,12 @@ same concept in JSP. However, in Facelets, the role of the tag handler
 java class is greatly reduced and in most cases is unnecessary. The tag
 library mechanism has two purposes.
 
-Allow page authors to access tags declared in
+* Allow page authors to access tags declared in
 the supplied tag libraries declared in <<JSFMetadata.adoc#a5691,See
 Standard Facelet Tag Libraries>>, as well as accessing third-party tag
 libraries developed by the application author, or any other third party
 
-Define a framework for component authors to
+* Define a framework for component authors to
 group a collection of custom _UIComponent_ s into a tag library and
 expose them to page authors for use in their pages.
 
@@ -817,11 +831,11 @@ would be rendered as
 time must support two modes of discovery for Facelet tag library
 descriptors
 
-{empty}Via declaration in the web.xml, as
+* {empty}Via declaration in the web.xml, as
 specified in <<UsingJSFInWebApplications.adoc#a6088,See Application Configuration
 Parameters>>
 
-Via auto discovery by placing the tag library
+* Via auto discovery by placing the tag library
 discriptor file within a jar on the web application classpath, naming
 the file so that it ends with “ _.taglib.xml_ ”, without the quotes, and
 placing the file in the _META-INF_ directory in the jar file.
@@ -854,20 +868,20 @@ _emphasis font face_ .
 must support the following two ways of declaring a _composite component
 library_ .
 
-If a facelet taglibrary is declared in an
+* If a facelet taglibrary is declared in an
 XHTML page with a namespace starting with the string “
 _http://java.sun.com/jsf/composite/_ ” (without the quotes), the
 remainder of the namespace declaration is taken as the name of a
 resource library as described in <<RequestProcessingLifecycle.adoc#a836,See
 Libraries of Localized and Versioned Resources>>, as shown in the
 following example:
-
++
 [source,xml]
 ----
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
 ----
-
++
 The runtime must look for a resource library
 named _ezcomp_ . If the substring following “
 _http://java.sun.com/jsf/composite/_ ” contains a “ _/_ ” character, or
@@ -876,7 +890,7 @@ taken. If _application.getProjectStage()_ is _Development_ an
 informative error message must be placed in the page and also logged.
 Otherwise the message must be logged only.
 
-{empty}As specified in facelet taglibrary
+* {empty}As specified in facelet taglibrary
 schema, the runtime must also support the _<composite-library-name>_
 element. The runtime must interpret the contents of this element as the
 name of a resource library as described in
@@ -930,25 +944,25 @@ declared on the _composite component tag_ instance in the _using page_ .
 that all such attributes are copied to the attributes map of the _top
 level component_ instance in the following manner.
 
-Obtain a reference to the _ExpressionFactory_
+* Obtain a reference to the _ExpressionFactory_
 , for discussion called _expressionFactory_ .
 
-Let the value of the attribute in the _using
+* Let the value of the attribute in the _using
 page_ be _value_ .
 
-If _value_ is “id” or “binding” without the
+* If _value_ is “id” or “binding” without the
 quotes, skip to the next attribute.
 
-If the value of the attribute starts with
+* If the value of the attribute starts with
 “#\{“ (without the quotes) call
 _expressionFactory.createValueExpression(elContext, value,
 Object.class)_
 
-If the value of the attribute does not start
+* If the value of the attribute does not start
 with “ _#\{_ “, call _expressionFactory.createValueExpression(value,
 Object.class)_
 
-{empty}If there already is a key in the _map_
+* {empty}If there already is a key in the _map_
 for _value_ , inspect the type of the value at that key. If the type is
 _MethodExpression_ take no action.
 [P1_end_composite_component_tag_attributes]
@@ -968,17 +982,17 @@ be _attrName_ . In this case, the runtime must guarantee that the actual
 _MethodExpression_ instance that is created for the tag attribute have
 the following behavior in its _invoke()_ method.
 
-Obtain a reference to the current composite
+* Obtain a reference to the current composite
 component by calling _UIComponent.getCurrentCompositeComponent()_ .
 
-Look in the attribute of the component for a
+* Look in the attribute of the component for a
 key under the value _attrName_ .
 
-There must be a value and it must be of type
+* There must be a value and it must be of type
 _MethodExpression_ . If either of these conditions are _false_ allow the
 ensuing exception to be thrown.
 
-{empty}Call _invoke()_ on the discovered
+* {empty}Call _invoke()_ on the discovered
 _MethodExpression_ , passing the arguments passed to our _invoke()_
 method.[P1_end_composite_component_method_expression]
 
@@ -1233,16 +1247,16 @@ jakarta.faces.component.behavior.AjaxBehavior instance using the tag
 attribute values. If this tag is nested within a single
 ClientBehaviorHolder component:
 
-If the event attribute is not specified,
+* If the event attribute is not specified,
 determine the event by calling the component’s getDefaultEventName
 method. If that returns null, throw an exception.
 
-If the event attribute is specified, ensure
+* If the event attribute is specified, ensure
 that it is a valid event - that is one of the events contained in the
 Collection returned from getEventNames method. If it does not exist in
 this Collection, throw an exception.
 
-Add the AjaxBehavior to the component by
+* Add the AjaxBehavior to the component by
 calling the addBehavior method, passing the event and AjaxBehavior
 instance.
 
@@ -1349,7 +1363,7 @@ The tags surrounding and nested within the _<f:validateBean>_ tag, as
 well as the attributes of the tag itself, are show for illustrative
 purposes only.
 
-Syntax
+.Syntax
 
 _<h:inputText value=”#\{model.property}”> +
 <f:validateBean validationGroups= +
@@ -1375,7 +1389,7 @@ to be registered on a parent component.
 Filled with input components when the Bean
 Validator is to be set on all of the ensclosing input components.
 
-Attributes
+.Attributes
 
 [%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
 |===
@@ -1398,7 +1412,7 @@ groups that are passed to the Bean Validation API when validating the
 value
 |===
 
-Constraints
+.Constraints
 
 Must be nested in an EditableValueHolder or
 nested in a composite component and have a for attribute. Otherwise, it
@@ -1408,25 +1422,25 @@ validation group defaults for the branch. No exception is thrown if one
 of the first two conditions are not met, unlike other standard
 validators.
 
-Description
+.Description
 
-Must use or extend the
+* Must use or extend the
 _jakarta.faces.view.facelets.ValidatorHandler_ class
 
-If not within an EditableValueHolder or
+* If not within an EditableValueHolder or
 composite component, store the validation groups as defaults for the
 current branch of the component tree, but only if the value is a
 non-empty string.
 
-If the disabled attribute is true, the
+* If the disabled attribute is true, the
 validator should not be added. In addition, the validatorId, if present,
 should be added to an exclusion list on the parent component to prevent
 a default validator with the same id from being registered on the
 component.
 
-The createValidator() method must:
+* The createValidator() method must:
 
-If binding is non-null, create a
+** If binding is non-null, create a
 ValueExpression by invoking Application.createValueExpression() with
 binding as the expression argument, and Validator.class as the
 expectedType argument. Use the ValueExpression to obtain a reference to
@@ -1437,7 +1451,7 @@ to jakarta.faces.validator.BeanValidator, configure its properties based
 on the specified attributes, and return the configured instance. If
 there was an exception thrown, rethrow the exception as a TagException.
 
-Use the validatorId if the validator instance
+** Use the validatorId if the validator instance
 could not be created from the binding attribute. Call the
 createValidator() method of the Application instance for this
 application, passing validator id "jakarta.faces.Bean". If the binding
@@ -1456,7 +1470,7 @@ parent EditableValueHolder UIComponent or the EditableValueHolder
 UIComponent whose client id matches the value of the "for" attribute
 when used within a composite component.
 
-Syntax
+.Syntax
 
 <f:validateRequired/>
 
@@ -1466,7 +1480,7 @@ empty
 
 
 
-Attributes
+.Attributes
 
 [%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
 |===
@@ -1486,7 +1500,7 @@ component
 
 
 
-Constraints
+.Constraints
 
 Must be nested in an EditableValueHolder or
 nested in a composite component and have a for attribute (Facelets
@@ -1497,20 +1511,20 @@ unlike other standard validators.
 
 
 
-Description
+.Description
 
-Must use or extend the
+* Must use or extend the
 _jakarta.faces.view.facelets.ValidatorHandler_ class
 
-If the disabled attribute is true, the
+* If the disabled attribute is true, the
 validator should not be added. In addition, the validatorId, if present,
 should be added to an exclusion list on the parent component to prevent
 a default validator with the same id from being registered on the
 component
 
-The createValidator() method must:
+* The createValidator() method must:
 
-If binding is non-null, create a
+** If binding is non-null, create a
 ValueExpression by invoking Application.createValueExpression() with
 binding as the expression argument, and Validator.class as the
 expectedType argument. Use the ValueExpression to obtain a reference to
@@ -1522,7 +1536,7 @@ based on the specified attributes, and return the configured instance.
 If there was an exception thrown, rethrow the exception as a
 TagException..
 
-Use the validatorId if the validator instance
+** Use the validatorId if the validator instance
 could not be created from the binding attribute. Call the
 createValidator() method of the Application instance for this
 application, passing validator id "jakarta.faces.Required". If the binding
@@ -1538,7 +1552,7 @@ there was an exception thrown, rethrow the exception as a TagException.
 Support multi-field validation by enabling
 class-level bean validation on CDI based backing beans.
 
-Syntax
+.Syntax
 
 _<!-- one or more components validated by
 <f:validateBean /> +
@@ -1555,7 +1569,7 @@ empty
 
 
 
-Attributes
+.Attributes
 
 [%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
 |===
@@ -1580,16 +1594,16 @@ ValueExpression referencing the bean to be validated.
 
 
 
-Constraints
+.Constraints
 
 This tag must be placed in the component tree
 after all of the fields that are to be included in the multi-field
 validation. If this precondition is not met, the results of applying
 this tag are unspecified.
 
-Description
+.Description
 
-See the VDLDoc for _<f:validateWholeBean />_
+* See the VDLDoc for _<f:validateWholeBean />_
 for the normative specification and a usage example.
 
 [[a5904]]
@@ -1601,7 +1615,7 @@ messages can be sent from server side via _jakarta.faces.push.PushContext_
 interface which is injected into a using class with the
 _@jakarta.faces.push.Push_ CDI qualifier.
 
-<TODO - Tip>
+[TIP]
 <f:websocket> is designed for push from server to client
 
 Although W3C WebSocket supports two-way
@@ -1788,11 +1802,11 @@ JavaScript listener function.
 The onmessage JavaScript listener function
 will be invoked with three arguments:
 
-message: the push message as JSON object.
+. message: the push message as JSON object.
 
-channel: the channel name.
+. channel: the channel name.
 
-event: the raw MessageEvent instance.
+. event: the raw MessageEvent instance.
 
 When successfully connected, the websocket is
 by default open as long as the document is open, and it will
@@ -1991,7 +2005,7 @@ function websocketOpenListener(channel) {
 The _onopen_ JavaScript listener function
 will be invoked with one argument:
 
-channel: the channel name, useful in case you
+. channel: the channel name, useful in case you
 intend to have a global listener.
 
 The optional onclose JavaScript listener
@@ -2021,16 +2035,16 @@ function websocketCloseListener(code, channel, event) {
 The _onclose_ JavaScript listener function
 will be invoked with three arguments:
 
-code: the close reason code as integer. If
+. code: the close reason code as integer. If
 this is -1, then the websocket is simply not supported by the client. If
 this is 1000, then it was normally closed. Otherwise, if this is not
 1000, then there may be an error. See also RFC 6455 section 7.4.1 and
 jakarta.websocket.CloseReason.CloseCodes API for an elaborate list of all
 close codes.
 
-channel: the channel name.
+. channel: the channel name.
 
-event: the raw CloseEvent instance.
+. event: the raw CloseEvent instance.
 
 When a session or view scoped socket is
 automatically closed with close reason code 1000 by the server (and thus
@@ -2242,18 +2256,18 @@ calling _Application.createComponent()_ to instantiate the component
 instance, and after calling _setRendererType()_ on the newly
 instantiated component instance, the following action must be taken.
 
-Obtain the _Renderer_ for this component. If
+* Obtain the _Renderer_ for this component. If
 no _Renderer_ is present, ignore the following steps.
 
-Call _getClass()_ on the _Renderer_ instance
+* Call _getClass()_ on the _Renderer_ instance
 and inspect if the _ListenerFor_ annotation is present. If so, inspect
 if the _Renderer_ instance implements _ComponentSystemEventListener_ .
 If neither of these conditions are _true_ , ignore the following steps.
 
-Obtain the value of the _systemEventClass()_
+* Obtain the value of the _systemEventClass()_
 property of the _ListenerFor_ annotation on the _Renderer_ instance.
 
-Call _subscribeToEvent()_ on the
+* Call _subscribeToEvent()_ on the
 _UIComponent_ instance from which the _Renderer_ instance was obtained,
 using the _systemEventClass_ from the annotation as the second argument,
 and the _Renderer_ instance as the third argument.
