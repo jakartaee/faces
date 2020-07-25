@@ -35,7 +35,7 @@ implementation_ programming model for the decoding and encoding of
 component values. It also supports _Behavior_ instances for the
 rendering of client side behavior and decoding for queuing
 _BehaviorEvents._ Refer to
-<<UserInterfaceComponentModel.adoc#a1707,See Component
+<<UserInterfaceComponentModel.adoc#a1707,Component
 Behavior Model>> for more details about this feature.
 [P1-start-renderkit]Each JSF implementation must provide a default
 _RenderKit_ instance (named by the render kit identifier associated with
@@ -82,13 +82,13 @@ Applications that wish to go beyond the
 capabilities of the standard _RenderKit_ that is provided by every JSF
 implementation may either choose to create their own _RenderKit_
 instances and register them with the _RenderKitFactory_ instance (see
-<<RenderingModel.adoc#a4300,See RenderKitFactory>>), or integrate
+<<RenderingModel.adoc#a4300,RenderKitFactory>>), or integrate
 additional (or replacement) supported _Renderer_ instances into an
 existing _RenderKit_ instance. For example, it will be common for an
 application that requires custom component classes and _Renderer_ s to
 register them with the standard _RenderKit_ provided by the JSF
 implementation, at application startup time See
-<<UsingJSFInWebApplications.adoc#a6554,See Example Application Configuration
+<<UsingJSFInWebApplications.adoc#a6554,Example Application Configuration
 Resource>> for an example of a _faces-config.xml_ configuration resource
 that defines two additional Renderer instances to be registered in the
 default _RenderKit_ .
@@ -118,7 +118,7 @@ characterEncoding parameter for this method. Since the _Writer_ for this
 response will already have been obtained (due to it ultimately being
 passed to this method), we know that the character encoding cannot
 change during the rendering of the response. Please see
-<<Per-RequestStateInformation.adoc#a3324,See ResponseWriter>>
+<<Per-RequestStateInformation.adoc#a3324,ResponseWriter>>
 
 [source,java]
 ----
@@ -187,7 +187,7 @@ implementation_ programming model, these methods will be called during
 the _Render Response_ phase of the request processing lifecycle. These
 methods have the same responsibilities as the corresponding
 _encodeBegin()_ , _encodeChildren()_ , and _encodeEnd()_ methods of
-_UIComponent_ (described in <<UserInterfaceComponentModel.adoc#a1041,See Component
+_UIComponent_ (described in <<UserInterfaceComponentModel.adoc#a1041,Component
 Specialization Methods>> and the corresponding Javadocs) when the
 component implements the _direct implementation_ programming model.
 
@@ -329,7 +329,7 @@ postback. The default implementation returns _true_ if this
 _ResponseStateManager_ instance wrote out state on a previous request to
 which this request is a postback. Return false otherwise.
 
-Please see _<<ApplicationIntegration.adoc#a4204,See
+Please see _<<ApplicationIntegration.adoc#a4204,
 ResponseStateManager>>_ for deprecated methods in _ResponseStateManager_
 .
 
@@ -431,7 +431,7 @@ _jakarta.faces.component_ package, and adds strongly typed JavaBeans
 properties for all of the renderer-dependent properties. These classes
 also implement the _BehaviorHolder_ interface, enabling them to have
 _Behavior attached to them. Refer to_
-<<UserInterfaceComponentModel.adoc#a1707,See Component
+<<UserInterfaceComponentModel.adoc#a1707,Component
 Behavior Model>> __ for additional details.
 
 .Concrete HTML Component Classes
