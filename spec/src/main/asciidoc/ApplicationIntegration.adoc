@@ -52,14 +52,14 @@ processing lifecycle. [P1-start default ActionListener requirements] The
 JSF implementation must provide a default implementation
 _ActionListener_ that performs the following functions:
 
-The _processAction()_ method must first call
+* The _processAction()_ method must first call
 _FacesContext.renderResponse()_ in order to bypass any intervening
 lifecycle phases, once the method returns.
 
-The _processAction()_ method must next
+* The _processAction()_ method must next
 determine the logical outcome of this event, as follows:
 
-If the originating component has a non-null
+** If the originating component has a non-null
 _action_ property, retrieve the _MethodBinding_ and call _invoke()_ to
 perform the application-specified processing in this action method. If
 the method returns non- _null_ , call _toString()_ on the result and use
@@ -67,9 +67,9 @@ the value returned as the logical outcome. See
 <<ApplicationIntegration.adoc#a1092,See Properties>> for a decription of the
 _action_ property.
 
-Otherwise, the logical outcome is _null_ .
+** Otherwise, the logical outcome is _null_ .
 
-{empty}The processAction() method must
+* {empty}The processAction() method must
 finally retrieve the _NavigationHandler_ instance for this application,
 and pass the logical outcome value (determined above) as a parameter to
 the _handleNavigation()_ method of the _NavigationHandler_ instance. If
@@ -249,8 +249,7 @@ Expressions>>_ ) convenience method.
 {empty}[P1-start getExpressionFactory
 requirements] The default implementation simply returns the
 ExpressionFactory from the JSP container by calling
-JspFactory.getDefaultFactory().getJspApplicationContext(servletContext).getExpressionFactory().
-[P1-end]
+JspFactory.getDefaultFactory().getJspApplicationContext(servletContext).getExpressionFactory().[P1-end]
 
 [[a3463]]
 ==== Programmatically Evaluating Expressions
@@ -318,12 +317,12 @@ public UIComponent createComponent(ValueExpression componentExpression,
 [P1-start createComponent(ValueExpression)
 requirements] This method has the following behavior:
 
-Call the _getValue()_ method on the specified
+* Call the _getValue()_ method on the specified
 _ValueExpression_ , in the context of the specified _FacesContext_ . If
 this results in a non-null _UIComponent_ instance, return it as the
 value of this method.
 
-{empty}If the getValue() call did not return
+* {empty}If the getValue() call did not return
 a component instance, create a new component instance of the specified
 component type, pass the new component to the s _etValue()_ method of
 the specified ValueExpression, and return it.[P1-end]
@@ -541,11 +540,11 @@ Application action is not a formal JSF API;
 instead any method that meets the following requirements may be used as
 an Action by virtue of evaluating a method binding expression:
 
-The method must be public.
+* The method must be public.
 
-The method must take no parameters.
+* The method must take no parameters.
 
-The method must return _Object_ .
+* The method must return _Object_ .
 
 The action method will be called by the
 default _ActionListener_ implementation, as described in
@@ -671,10 +670,10 @@ respect to the navigation algorithm, any text that references a _view
 identifier_ , such as _<from-view-id>_ or _<to-view-id>_ , can also
 refer to a flow node, subject to these constraints.
 
-When outside of a flow, _view identifier_ has
+* When outside of a flow, _view identifier_ has
 the additional possibility of being a flow id.
 
-{empty}When inside a flow, a _view
+* {empty}When inside a flow, a _view
 identifier_ has the additional possibility of being the id of any node
 within the current flow.[P1-end]
 
@@ -716,31 +715,31 @@ The default _NavigationHandler_ implementation must behave as if it were
 performing the following algorithm (although optimized implementation
 techniques may be utilized):
 
-If no navigation case is matched by a call to
+* If no navigation case is matched by a call to
 the handleNavigation() method, this is an indication that the current
 view should be redisplayed. As of JSF 2.0, a null outcome does not
 unconditionally cause all navigation rules to be skipped.
 
-Find a _<navigation-rule>_ element for which
+* Find a _<navigation-rule>_ element for which
 the view identifier (of the view in the _FacesContext_ instance for the
 current request) matches the _<from-view-id>_ matching pattern of the
 _<navigation-rule>_ . Rule instances are considered in the following
 order:
 
-An exact match of the view identifier against
+** An exact match of the view identifier against
 a _<from-view-id>_ pattern that does not end with an asterisk (“*”)
 character.
 
-For _<from-view-id>_ patterns that end with
+** For _<from-view-id>_ patterns that end with
 an asterisk, an exact match on characters preceding the asterisk against
 the prefix of the view id. If the patterns for multiple navigation rules
 match, pick the longest matching prefix first.
 
-If there is a _<navigation-rule>_ with a
+** If there is a _<navigation-rule>_ with a
 _<from-view-id>_ pattern of only an asterisk <<Footnotes.adoc#a9093,10>>, it
 matches any view identifier.
 
-From the _<navigation-case>_ elements nested
+* From the _<navigation-case>_ elements nested
 within the matching _<navigation-rule>_ element, locate a matching
 navigation case by matching the _<from-action>_ and _<from-outcome>_
 values against the _fromAction_ and outcome parameter values passed to
@@ -751,46 +750,46 @@ the content of this element as a value expression and only select the
 navigation case if the expression resolves to true. Navigation cases are
 checked in the following order:
 
-Cases specifying both a _<from-action>_ value
+** Cases specifying both a _<from-action>_ value
 and a _<from-outcome>_ value are matched against the _action_ expression
 and _outcome_ parameters passed to the _handleNavigation()_ method (both
 parameters must be not null, and both must be equal to the corresponding
 condition values, in order to match).
 
-Cases that specify only a _<from-outcome>_
+** Cases that specify only a _<from-outcome>_
 value are matched against the _outcome_ parameter passed to the
 _handleNavigation()_ method (which must be not null, and equal to the
 corresponding condition value, to match).
 
-Cases that specify only a _<from-action>_
+** Cases that specify only a _<from-action>_
 value are matched against the _action_ expression parameter passed to
 the _handleNavigation()_ method (which must be non-null, and equal to
 the corresponding condition value, to match; if the <if> element is
 absent, only match a non-null outcome; otherwise, match any outcome).
 
-Any remaining case is assumed to match so
+** Any remaining case is assumed to match so
 long as the outcome parameter is non-null or the <if> element is
 present.
 
-For cases that match up to this point and
+** For cases that match up to this point and
 contain an <if> element, the condition value expression must be
 evaluated and the resolved value true for the case to match.
 
-If a matching _<navigation-case>_ element was
+* If a matching _<navigation-case>_ element was
 located, proceed as follows.
 
-{empty}If the _<to-view-id>_ element is the
+** {empty}If the _<to-view-id>_ element is the
 id of a flow, discover that flow’s start node and resolve it to a _vdl
 view identifier_ by following the algorithm in
 <<ApplicationIntegration.adoc#a3622,See Requirements for Explicit Navigation in
 Faces Flow Call Nodes other than ViewNodes>>
 
-If the _<to-view-id>_ element is a non-view
+** If the _<to-view-id>_ element is a non-view
 flow node, resolve it to a _vdl view identifier_ by following the
 algorithm in <<ApplicationIntegration.adoc#a3622,See Requirements for Explicit
 Navigation in Faces Flow Call Nodes other than ViewNodes>>.
 
-If _UIViewAction.isProcessingBroadcast()_
+** If _UIViewAction.isProcessingBroadcast()_
 returns _true_ , call _getFlash().setKeepMessages(true)_ on the current
 _FacesContext_ . Compare the viewId of the current viewRoot with the
 _<to-view-id>_ of the matching _<navigation-case>_ . If they differ,
@@ -803,10 +802,10 @@ requirement by treating this case as if a _<redirect />_ was specified
 on the matching _<navigation-case>_ . If the viewIds do not differ,
 continue on to the next bullet point.
 
-Clear the view map if the viewId of the new
+** Clear the view map if the viewId of the new
 _UIViewRoot_ differs from the viewId of the current _UIViewRoot_ .
 
-If the _<redirect/>_ element was _not_
+** If the _<redirect/>_ element was _not_
 specified in this _<navigation-case>_ (or the application is running in
 a Portlet environment, where redirects are not possible), use the
 _<to-view-id>_ element of the matching case to request a new
@@ -816,12 +815,12 @@ current _FacesContext_ , the current flow, the new flow and the
 _facesFlowCallNode_ corresponding to this faces flow call, if any. Pass
 the new _UIViewRoot_ to the _setViewRoot()_ method of the _FacesContext_
 instance for the current request.
-
++
 Then, exit the algorithm. If the content of
 <to-view-id> is a value expression, first evaluate it to obtain the
 value of the view id.
 
-If the _<redirect/>_ element _was_ specified
+** If the _<redirect/>_ element _was_ specified
 in this _<navigation-case>_ , or this invocation of _handleNavigation()_
 was due to a _UIViewAction_ broadcast event where the new _viewId_ is
 different from the current _viewId_ , resolve the _<to-view-id>_ to a
@@ -835,25 +834,27 @@ _<redirect />_ element if present, _false_ , if not. If this navigation
 is a flow transition (where current flow is not the same as the new
 flow), include the relevant flow metadata as entries in the _parameters_
 .
-
-If current flow is not null and new flow is
++
+--
+*** If current flow is not null and new flow is
 null, include the following entries:
 _FlowHandler.TO_FLOW_DOCUMENT_ID_REQUEST_PARAM_NAME:
 FlowHandler.NULL_FLOW +
 FlowHandler.FLOW_ID_REQUEST_PARAM_NAME: “”_ (the empty string)
 
-If current flow is null and new flow is not
+*** If current flow is null and new flow is not
 null, include the following entries: +
 _FlowHandler.TO_FLOW_DOCUMENT_ID_REQUEST_PARAM_NAME:_ The to flow
 document id +
 _FlowHandler.FLOW_ID_REQUEST_PARAM_NAME:_ the flow id for the flow that
 is the destination of the transition.
 
-If the _parameters_ map has entries for
+*** If the _parameters_ map has entries for
 either of these keys, both of the entries must be replaced with the new
 values. This allows the call to _FlowHandler.clientWindowTransition()_
 to perform correctly when the GET request after the redirect happens.
-
+--
++
 The return from _getRedirectURL()_ is the
 value to be sent to the client to which the redirect will occur. Call
 _getFlash().setRedirect(true)_ on the current _FacesContext_ . Cause the
@@ -862,7 +863,7 @@ _responseComplete()_ on the _FacesContext_ instance for the current
 request. If the content of <to-view-id> is a value expression, first
 evaluate it to obtain the value of the view id.
 
-If no matching _<navigation-case>_ element
+* If no matching _<navigation-case>_ element
 was located, return to Step 1 and find the next matching
 _<navigation-rule>_ element (if any). If there are no more matching rule
 elements, execute the following algorithm to search for an implicit
@@ -870,9 +871,9 @@ match based on the current _outcome_ . This implicit matching algorithm
 also includes navigating within the current faces flow, and returning
 from the current faces flow.
 
-Let _outcome_ be _viewIdToTest_ .
+** Let _outcome_ be _viewIdToTest_ .
 
-Examine the _viewIdToTest_ for the presence
+** Examine the _viewIdToTest_ for the presence
 of a “?” character, indicating the presence of a URI query string. If
 one is found, remove the query string from _viewIdToTest_ , including
 the leading “ _?_ ” and let it be _queryString_ , look for the string “
@@ -886,17 +887,17 @@ even if the navigation case doesn't indicate it, and the query string
 must be preserved. Refer to <<StandardUserInterfaceComponents.adoc#a2060,See
 UIOutcomeTarget>> for more information on preemptive navigation.
 
-If _viewIdToTest_ does not have a “file
+** If _viewIdToTest_ does not have a “file
 extension”, take the file extension from the current _viewId_ and append
 it properly to _viewIdToTest_ .
 
-If _viewIdToTest_ does not begin with “/”,
+** If _viewIdToTest_ does not begin with “/”,
 take the current _viewId_ and look for the last “ _/_ ”. If not found,
 prepend a “ _/_ ” and continue. Otherwise remove all characters in
 _viewId_ after, but not including, “ _/_ ”, then append _viewIdToTest_
 and let the result be _viewIdToTest_ .
 
-Obtain the current ViewHandler and call its
+** Obtain the current ViewHandler and call its
 _deriveViewId()_ method, passing the current _FacesContext_ and
 _viewIdToTest_ . If _UnsupportedOperationException_ is thrown, which
 will be the case if the _ViewHandler_ is a Pre JSF 2.0 _ViewHandler_ ,
@@ -905,7 +906,7 @@ _ViewHandler.deriveViewId()_ specified in
 _<<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>>_ is
 performed. Let the result be _implicitViewId_ .
 
-If _implicitViewId_ is non- _null_ , discover
+** If _implicitViewId_ is non- _null_ , discover
 if _fromOutcome_ is equal to the flow-id of an existing flow in the
 _FlowHandler_ . If so find the start node of the flow. If the start node
 is a _ViewNode_ , let _viewIdToTest_ be the _vdlDocumentId_ value of the
@@ -916,7 +917,7 @@ in a flow, discover if this is call to a _faces-flow-return_ node. If
 so, obtain the _fromOutcome_ of the _faces-flow-return_ node, re-apply
 this algorithm to derive the value of the _implicitViewId_ and continue.
 
-If the _implicitViewId_ is non- _null_ , take
+** If the _implicitViewId_ is non- _null_ , take
 the following action. If _isRedirect_ is _true_ , append the
 _queryString_ to _implicitViewId_ . Let _implicitNavigationCase_ be a
 conceptual _<navigation-case>_ element whose _fromViewId_ is the current
@@ -928,7 +929,7 @@ _includeViewParams_ . Treat _implicitNavigationCase_ as a matching
 navigation case and return to the first step above that starts with “If
 a matching _<navigation-case>_ element was located...”.
 
-If _UIViewAction.isProcessingBroadcast()_
+* If _UIViewAction.isProcessingBroadcast()_
 returns _true_ , call _getFlash().setKeepMessages(true)_ on the current
 _FacesContext_ . Compare the viewId of the current viewRoot with the
 effective _<to-view-id>_ of the matching _<navigation-case>_ . If they
@@ -938,13 +939,13 @@ Care must be taken to preserve any view parameters or navigation case
 parameters, clear the view map of the _UIViewRoot_ , and call
 _setRenderAll(true)_ on the _PartialViewContext_ .
 
-If none of the above steps found a matching
+* If none of the above steps found a matching
 _<navigation-case>_ , perform the steps in
 <<ApplicationIntegration.adoc#a3622,See Requirements for Explicit Navigation in
 Faces Flow Call Nodes other than ViewNodes>> to find a matching
 _<navigation-case>_ .
 
-If none of the above steps found a matching
+* If none of the above steps found a matching
 _<navigation-case>_ , if _ProjectStage_ is not _Production_ render a
 message in the page that explains that there was no match for this
 outcome.
@@ -961,11 +962,11 @@ redirect URL is built, whether it be by the N _avigationHandler_ on a
 redirect case or a _UIOutcomeTarget_ renderer, the query string
 parameter sources should be consulted in the following order:
 
-the outcome (implicit navigation)
+* the outcome (implicit navigation)
 
-view parameter
+* view parameter
 
-nested _<f:param>_
+* nested _<f:param>_
 
 If a query string parameter is found in two
 or more sources, the latter source must replace all instances of the
@@ -984,20 +985,20 @@ view node.
 Algorithm for resolving a _nodeId_ to a _vdl
 view identifier_ .
 
-If _nodeId_ is a view node, let _vdl view
+* If _nodeId_ is a view node, let _vdl view
 identifier_ be the value of _nodeId_ and exit the algorithm.
 
-If the node is a _SwitchNode_ , iterate over
+* If the node is a _SwitchNode_ , iterate over
 the _NavigationCase_ instances returned from its _getCases()_ method.
 For each, one call _getCondition()_ . If the result is _true_ , let
 _nodeId_ be the value of its _fromOutcome_ property.
 
-If the node is a _MethodCallNode_ , let
+* If the node is a _MethodCallNode_ , let
 _nodeId_ be the value invoking the value of its _methodExpression_
 property. If the result is _null_ , let _nodeId_ be the value of the
 _MethodCallNode_ ’s _outcome_ property.
 
-If the node is a _FlowCallNode_ , save it
+* If the node is a _FlowCallNode_ , save it
 aside as _facesFlowCallNode_ . Let _flowId_ be the value of its
 _calledFlowId_ property and _flowDocumentId_ be the value of its
 _calledFlowDocumentId_ property. If no _flowDocumentId_ exists for the
@@ -1006,7 +1007,7 @@ node, let it be the string resulting from _flowId + “/” + flowId +
 _flowDocumentId_ pair. Obtain a reference to the start node and execute
 this algorithm again, on that start node.
 
-If the node is a _ReturnNode_ obtain its
+* If the node is a _ReturnNode_ obtain its
 navigation case and call _FlowHandler.pushReturnMode()_ . This enables
 the navigation to proceed with respect to the calling flow’s navigation
 rules, or the application’s navigation rules if there is no calling
@@ -1026,13 +1027,13 @@ the preceding navigation steps cause a flow to be entered, the
 implementation must perform the following steps, in this order, before
 continuing with navigation.
 
-Make it so any _@FlowScoped_ beans for this
+* Make it so any _@FlowScoped_ beans for this
 flow are able to be activated when an EL expression that references them
 is evaluated.
 
-Call the initializer for the flow, if any.
+* Call the initializer for the flow, if any.
 
-Proceed to the start node of the flow, which
+* Proceed to the start node of the flow, which
 may be any flow node type.
 
 An attempt to navigate into a flow other than
@@ -1048,12 +1049,12 @@ preceding navigation steps cause a flow to be exited, the implementation
 must perform the following steps, in this order, before continuing with
 navigation.
 
-Call the finalizer for the flow, if any.
+* Call the finalizer for the flow, if any.
 
-De-activate any _@FlowScoped_ beans for the
+* De-activate any _@FlowScoped_ beans for the
 current flow.
 
-If exiting via a return node ensure the
+* If exiting via a return node ensure the
 return parameters are correctly passed back to the caller.
 
 {empty}[P1-end]
@@ -1317,37 +1318,37 @@ image:SF-34.png[image]
 
 This diagram uses the following conventions.
 
-view nodes are boxes
+* view nodes are boxes
 
-faces flow return nodes are circles
+* faces flow return nodes are circles
 
-faces flow call nodes are boxes with the
+* faces flow call nodes are boxes with the
 corners chopped off
 
- _@FlowScoped_ beans are rectangles
+* _@FlowScoped_ beans are rectangles
 semi-circular short sides
 
-the start node is marked “start”
+* the start node is marked “start”
 
-inbound and outbound parameters are listed by
+* inbound and outbound parameters are listed by
 name
 
-arrows show valid traversals among the nodes.
+* arrows show valid traversals among the nodes.
 
 These flows are identical, except for the
 names of their constituents, and each has the following properties.
 
-Three view nodes, one of which is the
+* Three view nodes, one of which is the
 implicit start node
 
-One faces flow return node, each of which
+* One faces flow return node, each of which
 returns the outcome “return1”
 
-One flow call node, which calls the other
+* One flow call node, which calls the other
 flow, with two outbound parameters, named to match up with the other
 flow
 
-Two inbound parameters, named to match up
+* Two inbound parameters, named to match up
 with the other flow
 
 The different kinds of nodes mentioned in the
@@ -1425,14 +1426,14 @@ section gives the reader a non-normative overview of the feature that
 touches on all the parts of the specification that intersect with this
 feature.
 
- _Startup Time_
+._Startup Time_
 
 At startup time, the runtime will discover
 flows available for this application. _This behavior is normatively
 specified in <<UsingJSFInWebApplications.adoc#a6228,See Faces Flows>> and in the XML
 schema for the application configuration resources._
 
-_Invoke Application Time_
+._Invoke Application Time_
 
 The default _ActionListener_ may need to take
 special action when calling into a flow. _This behavior is normatively
@@ -1463,7 +1464,7 @@ replacing this default implementation with another implementation.
 [[a3874]]
 ==== Overview
 
- ViewHandler defines the public APIs
+ViewHandler defines the public APIs
 described in the following paragraphs
 
 [source,java]
@@ -1648,30 +1649,30 @@ are specified in the following section.
 requirements] The _deriveViewId()_ method must fulfill the following
 responsibilities:
 
-If the argument input is _null_ , return
+* If the argument input is _null_ , return
 _null_ .
 
-If prefix mapping (such as “/faces/*”) is
+* If prefix mapping (such as “/faces/*”) is
 used for _FacesServlet_ , normalize the _viewId_ according to the
 following algorithm, or its semantic equivalent, and return it.
 
-Remove any number of occurrences of the
+** Remove any number of occurrences of the
 prefix mapping from the viewId. For example, if the incoming value was
 _/faces/faces/faces/view.xhtml_ the result would be simply _view.xhtml_
 .
 
-If suffix mapping (such as “*.faces”) is used
+* If suffix mapping (such as “*.faces”) is used
 for _FacesServlet_ , the _viewId_ is set using following algorithm.
 
-Let _requestViewId_ be the value of argument
+** Let _requestViewId_ be the value of argument
 _input_ .
 
-Consult the javadocs for
+** Consult the javadocs for
 _ViewHandler.FACELETS_VIEW_MAPPINGS_PARAM_NAME_ and perform the steps
 necessary to obtain a value for that param (or its alias as in the
 javadocs). Let this be _faceletsViewMappings_ .
 
-Obtain the value of the context
+** Obtain the value of the context
 initialization parameter named by the symbolic constant
 _ViewHandler.DEFAULT_SUFFIX_PARAM_NAME_ (if no such context
 initialization parameter is present, use the value of the symbolic
@@ -1682,8 +1683,8 @@ current entry from _jspDefaultSuffixes_ . For discussion, call this
 _candidateViewId_ . For each entry in _faceletsViewMappings_ , If the
 current entry is a prefix mapping entry, skip it and continue to the
 next entry. If _candidateViewId_ is exactly equal to the current entry,
-consider the algorithm complete with the result being _candidateViewId_
-. If the current entry is a wild-card extension mapping, apply it
+consider the algorithm complete with the result being _candidateViewId_.
+If the current entry is a wild-card extension mapping, apply it
 non-destructively to _candidateViewId_ and look for a physical resource
 with that name. If present, consider the algorithm complete with the
 result being the name of the physical resource. Otherwise look for a
@@ -1693,7 +1694,7 @@ _candidateViewId_ . If there are no entries in _faceletsViewMappings_ ,
 look for a physical resource with the name _candidateViewId_ . If such a
 resource exists, _candidateViewId_ is the correct _viewId_ .
 
-Otherwise, obtain the value of the context
+** Otherwise, obtain the value of the context
 initialization parameter named by the symbolic constant
 _ViewHandler.FACELETS_SUFFIX_PARAM_NAME_ . (if no such context
 initialization parameter is present, use the value of the symbolic
@@ -1703,50 +1704,49 @@ _faceletsDefaultSuffix_ . For discussion, call this _candidateViewId_ .
 If a physical resource exists with that name, _candidateViewId_ is the
 correct _viewId_ .
 
-Otherwise, if a physical resource exists with
+** Otherwise, if a physical resource exists with
 the name _requestViewId_ let that value be _viewId_ .
 
-Otherwise return _null_ .
+** Otherwise return _null_ .
 
-If an exact mapping (such as /foo) is used
+* If an exact mapping (such as /foo) is used
 for FacesServlet, the viewId is set using following algorithm.
 
-Let _requestViewId_ be the value of the
+** Let _requestViewId_ be the value of the
 argument input.
 
-Obtain the value of the context
+** Obtain the value of the context
 initialization parameter named by the symbolic constant
 _ViewHandler.FACELETS_SUFFIX_PARAM_NAME_ . (if no such context
 initialization parameter is present, use the value of the symbolic
 constant _ViewHandler.DEFAULT_FACELETS_SUFFIX_ ). Let this be
 _faceletsDefaultSuffix_ .
 
-Obtain the value of the context
+** Obtain the value of the context
 initialization parameter named by the symbolic constant
 _ViewHandler.DEFAULT_SUFFIX_PARAM_NAME_ (if no such context
 initialization parameter is present, use the value of the symbolic
 constant _ViewHandler.DEFAULT_SUFFIX_ ). Let this be _defaultSuffixes_ .
 
-Add _faceletsDefaultSuffix_ to
+** Add _faceletsDefaultSuffix_ to
 _defaultSuffixes_ .
 
-For each entry in the list from
-_defaultSuffixes_ , add that current entry to the end of _requestViewId_
-. For discussion, call this _candidateViewId_ . Look for a physical
+** For each entry in the list from
+_defaultSuffixes_ , add that current entry to the end of _requestViewId_.
+For discussion, call this _candidateViewId_ . Look for a physical
 resource with the name _candidateViewId_ . If such a resource exists,
-consider the algorithm complete with the result being _candidateViewId_
-.
+consider the algorithm complete with the result being _candidateViewId_.
 
-Otherwise, if a physical resource exists with
+** Otherwise, if a physical resource exists with
 the name _requestViewId_ let that value be _viewId_ . Otherwise return
 _null_ .
 
-{empty}[P1-end]
+* {empty}[P1-end]
 
 The getViewDeclarationLanguage() must fulfill
 the following responsibilites.
 
-See the javadocs for the normative
+* See the javadocs for the normative
 specification for this method.
 
 {empty}[P1-start
@@ -1759,10 +1759,10 @@ ViewHandler.calculateCharacterEncoding() requirements] The
 _calculateCharacterEncoding()_ method must fulfill the following
 responsibilities:
 
-Examine the _Content-Type_ request header. If
+* Examine the _Content-Type_ request header. If
 it has a _charset_ parameter extract it and return it.
 
-{empty}If not, test for the existence of a
+* {empty}If not, test for the existence of a
 session by calling _getSession(false)_ on the _ExternalContext_ for this
 _FacesContext_ . If the session is non- _null_ , look in the _Map_
 returned by the _getSessionMap()_ method of the _ExternalContext_ for a
@@ -1773,32 +1773,32 @@ value is found, convert it to a String and return it. [P1-end]
 [P1-start calculateLocale() requirements] The
 _calculateLocale()_ method must fulfill the following responsibilities:
 
-Attempt to match one of the locales returned
+* Attempt to match one of the locales returned
 by the _getLocales()_ method of the _ExternalContext_ instance for this
 request, against the supported locales for this application as defined
 in the application configuration resources. Matching is performed by the
 algorithm described in Section JSTL.8.3.2 of the JSTL Specification. If
 a match is found, return the corresponding _Locale_ object.
 
-Otherwise, if the application has specified a
+* Otherwise, if the application has specified a
 default locale in the application configuration resources, return the
 corresponding _Locale_ object.
 
-{empty}Otherwise, return the value returned
+* {empty}Otherwise, return the value returned
 by calling _Locale.getDefault()_ .[P1-end]
 
 [P1-start calculateRenderKitId()
 requirements] The _calculateRenderKitId()_ method must fulfill the
 following responsibilities:
 
-Return the value of the request parameter
+* Return the value of the request parameter
 named by the symbolic constant
 _ResponseStateManager.RENDER_KIT_ID_PARAM_ if it is not _null_ .
 
-Otherwise, return the value returned by
+* Otherwise, return the value returned by
 _Application.getDefaultRenderKitId()_ if it is not _null_ .
 
-Otherwise, return the value specified by the
+* Otherwise, return the value specified by the
 symbolic constant _RenderKitFactory.HTML_BASIC_RENDER_KIT._
 
 ===== ViewHandler Methods that are Called to Fill a Specific Role in the Lifecycle
@@ -1812,7 +1812,7 @@ not swallowing any exceptions thrown by that method.[P1-end]
 [P1-start initView() requirements] The
 _initView()_ method must fulfill the following responsibilities:
 
-{empty}See the javadocs for this method for
+* {empty}See the javadocs for this method for
 the specification.[P1-end]
 
 {empty}[P1-start renderView() requirements]
@@ -1832,7 +1832,7 @@ that method.[P1-end]
 The _writeState()_ method must fulfill the
 following responsibilities:
 
-{empty}Obtain the saved state stored in a
+* {empty}Obtain the saved state stored in a
 thread-safe manner during the invocation of _renderView()_ and pass it
 to the _writeState()_ method of the _StateManager_ for this application.
 [N/T-end]
@@ -1843,80 +1843,79 @@ to the _writeState()_ method of the _StateManager_ for this application.
 [P1-start getActionURL() requirements] The
 _getActionURL()_ method must fulfill the following responsibilities:
 
-If the specified _viewId_ does not start with
+* If the specified _viewId_ does not start with
 a “/”, throw _IllegalArgumentException_ .
 
-If exact mapping (such as /foo) is used for
+* If exact mapping (such as /foo) is used for
 FacesServlet, the following algorithm must be followed to derive the
 result.
 
-Retrieve the collection of existing mappings
+** Retrieve the collection of existing mappings
 of the FacesServlet, e.g. using _ServletRegistration#getMappings()_ .
 Let this be _facesServletMappings_ . If the argument _viewId_ has an
 extension, then obtain the value of the context initialization parameter
-named by the symbolic constant _ViewHandler.FACELETS_SUFFIX_PARAM_NAME_
-. (if no such context initialization parameter is present, use the value
+named by the symbolic constant _ViewHandler.FACELETS_SUFFIX_PARAM_NAME_.
+(if no such context initialization parameter is present, use the value
 of the symbolic constant _ViewHandler.DEFAULT_FACELETS_SUFFIX_ ). Let
 this be _faceletsDefaultSuffix_ .
 
-Obtain the value of the context
+** Obtain the value of the context
 initialization parameter named by the symbolic constant
 _ViewHandler.DEFAULT_SUFFIX_PARAM_NAME_ (if no such context
 initialization parameter is present, use the value of the symbolic
 constant _ViewHandler.DEFAULT_SUFFIX_ ). Let this be _defaultSuffixes_ .
 
-Add _faceletsDefaultSuffix_ to
+** Add _faceletsDefaultSuffix_ to
 _defaultSuffixes_ .
 
-For each entry in the list from
+** For each entry in the list from
 _defaultSuffixes_ , if the extension of the argument _viewId_ is equal
 to this entry, remove the extension from _viewId_ . For discussion, call
 this _candidateViewId_ .
 
-Look if the _candidateViewId_ is present in
+** Look if the _candidateViewId_ is present in
 _facesServletMappings_ . If so,the result is _contextPath +
 candidateViewId_ .
 
-If the argument _viewId_ has no extension,
+** If the argument _viewId_ has no extension,
 then look if the _viewId_ is present in _facesServletMappings_ . If so,
 the result is _contextPath + viewId_ .
 
-If no result has been obtained, pick any
+** If no result has been obtained, pick any
 prefix mapping or extension mapping from _facesServletMappings_ . If no
 such mapping is found, throw an _IllegalStateException_ .
 
-If such mapping is found remove the "*"
+** If such mapping is found remove the "*"
 character from that mapping, take that as the new mapping and continue
 with evaluating this mapping as specified below for "if prefix mapping
 [...] is used" and for "if suffix mapping [...] is used
 
 
 
-If prefix mapping (such as “/faces/*”) is
+* If prefix mapping (such as “/faces/*”) is
 used for _FacesServlet_ , prepend the context path of the current
 application, and the specified prefix, to the specified viewId and
 return the completed value. For example “
 _/cardemo/faces/chooseLocale.jsp_ ”.
 
-If suffix mapping (such as “*.faces”) is used
+* If suffix mapping (such as “*.faces”) is used
 for _FacesServlet_ , the following algorithm must be followed to derive
 the result.
 
-If the argument _viewId_ has no extension,
+** If the argument _viewId_ has no extension,
 the result is _contextPath + viewId + mapping_ , where _contextPath_ is
 the context path of the current application, _viewId_ is the argument
 _viewId_ and _mapping_ is the value of the mapping (such as “*.faces”).
 
-If the argument _viewId_ has an extension,
+** If the argument _viewId_ has an extension,
 and this extension is not _mapping_ , the result is _contextPath +
 viewId.substring(0, period) + mapping_ .
 
-If the argument _viewId_ has an extension,
+** If the argument _viewId_ has an extension,
 and this extension is _mapping_ , the result is _contextPath + viewId_ .
-
 For example “ _/cardemo/chooseLocale.faces_ ”
 
-If the current view is one of the views to
+* If the current view is one of the views to
 which view protection must be applied, the returned URL must contain the
 parameter with a name equal to the value of the constant defined by
 _ResponseStateManager.NON_POSTBACK_VIEW_TOKEN_PARAM_ . The value of this
@@ -1931,12 +1930,12 @@ This parameter is inspected during the restore view phase (see
 The _getBookmarkableURL()_ method must fulfill the following
 responsibilities:
 
-If argument _includeViewParams_ is _true_ ,
+* If argument _includeViewParams_ is _true_ ,
 obtain the view paramaters corresponding to the argument _viewId_ and
 append them to the _Map_ given in argument _parameters_ . Let the
 resultant _Map_ be called _paramsToEncode_ .
 
-If the _viewId_ of the current _FacesContext_
+** If the _viewId_ of the current _FacesContext_
 is not equal to the argument _viewId_ , get the
 _ViewDeclarationLanguage_ for the argument _viewId_ , obtain its
 _ViewMetadata_ , call _createMetadataView()_ on it, then call
@@ -1944,94 +1943,94 @@ _ViewMetadata.getViewParameters()_ passing the return from
 _createMetadataView()_ . Let the result of this method be _toViewParams_
 .
 
-If the _viewId_ of the current _FacesContext_
+** If the _viewId_ of the current _FacesContext_
 is equal to the argument _viewId_ , call
 _ViewMetadata.getViewParameters()_ passing the current _UIViewRoot_ .
 Let the result of this method be _toViewParams_ .
 
-If _toViewParams_ is empty, take no further
+** If _toViewParams_ is empty, take no further
 action to add view parameters to this URL. Iterate over each
 _UIViewParameter_ element in _toViewParams_ and take the following
 actions on each element.
 
-If the _Map_ given by _parameters_ has a key
+** If the _Map_ given by _parameters_ has a key
 equal to the _name_ property of the current element, take no action on
 the current element and continue iterating.
 
-If the current _UIViewParameter_ has a
+** If the current _UIViewParameter_ has a
 _ValueExpression_ under the key _“value”_ (without the quotes), let
 _value_ be the result of calling _getStringValueFromModel()_ on the
 current _UIViewParameter_ .
 
-Otherwise, if the current _viewId_ is the
+** Otherwise, if the current _viewId_ is the
 same as the argument _viewId_ , let _value_ be the result of calling
 _getStringValue()_ on the current _UIViewParameter_ .
 
-Otherwise, if the current _viewId_ is
+** Otherwise, if the current _viewId_ is
 different from the argument _viewId_ , locate the _UIViewParameter_
 instance in the current view whose name is equivalent to the current
 element and let _value_ be the result of calling _getStringValue()_ on
 the located _UIViewParameter_ .
 
-If the above steps yielded a non- _null_
+** If the above steps yielded a non- _null_
 _value_ , find the _List<String>_ value in the _parameters_ map under
 the key given by the _name_ property of the current _UIViewParameter_
 element. If such a _List_ exists, add _value_ to it. Otherwise create a
 _List<String>_ , add _value_ to it, and add it to the _parameters_ map
 under the appropriate key.
 
-If argument _includeViewParams_ is _false_ ,
+* If argument _includeViewParams_ is _false_ ,
 take no action to add additional entries to _paramaters_ . Let
 _paramsToEncode_ be _parameters_ .
 
-Call _getActionURL()_ on the argument
+* Call _getActionURL()_ on the argument
 _viewId_ . Let the result be _actionEncodedViewId_ .
 
-Call _encodeBookmarkableURL()_ on the current
+* Call _encodeBookmarkableURL()_ on the current
 _ExternalContext_ , passing _actionEncodedViewId_ as the first argument
 and _paramsToEncode_ as the second. Let the result be
 _bookmarkEncodedURL_ .
 
-{empty}Pass _bookmarkEncodedURL_ to
+* {empty}Pass _bookmarkEncodedURL_ to
 _ExternalContext.encodeActionURL()_ and return the result.[P1-end]
 
 [P1-start getRedirectURL() requirements] The
 _getRedirectURL()_ method must fulfill the following responsibilities:
 
-Take exactly the same action as in
-_getBookmarkableURL()_ up to and including the call to _getActionURL()_
-. Thereafter take the following actions.
+* Take exactly the same action as in
+_getBookmarkableURL()_ up to and including the call to _getActionURL()_.
+Thereafter take the following actions.
 
-Call _encodeRedirectURL()_ on the current
+* Call _encodeRedirectURL()_ on the current
 _ExternalContext_ , passing _actionEncodedViewId_ as the first argument
 and _paramsToEncode_ as the second. Let the result be
 _redirectEncodedURL_ .
 
-{empty}Pass _redirectEncodedURL_ to
+* {empty}Pass _redirectEncodedURL_ to
 _ExternalContext.encodeActionURL()_ and return the result.[P1-end]
 
 [P1-start getResourceURL() requirements] The
 _getResourceURL()_ method must fulfill the following responsibilities:
 
-If the specified path starts with a “/”,
+* If the specified path starts with a “/”,
 prefix it with the context path for the current web application, and
 return the result.
 
-{empty}Otherwise, return the specified _path_
+* {empty}Otherwise, return the specified _path_
 value unchanged.[P1-end]
 
 [[a3997]]
 ===== ViewHandler Methods that relate to View Protection
 
-{empty}[P1-start addProtectedView()
+* {empty}[P1-start addProtectedView()
 requirements] See the javadocs for _addProtectedView()_ for the
 normative specification. [P1-end]
 
-{empty}[P1-start removeProtectedView()
+* {empty}[P1-start removeProtectedView()
 requirements] See the javadocs for _removeProtectedView()_ for the
 normative specification. [P1-end]
 
-{empty}[P1-start
+* {empty}[P1-start
 getProtectedViewsUnmodifiable() requirements] See the javadocs for
 _getProtectedViewsUnmodifiable()_ for the normative specification.
 [P1-end]
@@ -2089,13 +2088,13 @@ For each of the methods on
 _ViewDeclarationLanguage_ , the required behavior is broken into three
 segments:
 
-Behavior required of all compliant
+* Behavior required of all compliant
 implementations
 
-Behavior required of the implementation that
+* Behavior required of the implementation that
 handles Facelet views
 
-Behavior required of the implementation that
+* Behavior required of the implementation that
 handles JSP views
 
 Any implementation strategy is valid as long
@@ -2114,24 +2113,24 @@ _createView()_ method must fulfill the following responsibilities.
 
 All implementations must:
 
-If there is an existing _UIViewRoot_
+* If there is an existing _UIViewRoot_
 available on the _FacesContext_ , this method must copy its _locale_ and
 _renderKitId_ to this new view root. If not, this method must call
 _calculateLocale()_ and _calculateRenderKitId()_ , and store the results
 as the values of the _locale_ and _renderKitId_ , properties,
 respectively, of the newly created _UIViewRoot_ .
 
-If no _viewId_ could be identified, or the
+* If no _viewId_ could be identified, or the
 _viewId_ is exactly equal to the servlet mapping, send the response
 error code _SC_NOT_FOUND_ with a suitable message to the client.
 
-Create a new _UIViewRoot_ object instance
+* Create a new _UIViewRoot_ object instance
 using _Application.createComponent(UIViewRoot.COMPONENT_TYPE)_ .
 
-Pass the argument _viewId_ to the
+* Pass the argument _viewId_ to the
 _setViewId()_ method on the new _UIViewRoot_ instance.
 
-The new _UIViewRoot_ instance must be passed
+* The new _UIViewRoot_ instance must be passed
 to _FacesContext.setViewRoot()_ . This enables the broadest possible
 range of implementations for how tree creation is actually implemented.
 
@@ -2148,7 +2147,7 @@ ensures the methods can be correctly decorated.
 
 All implementations must:
 
-Return the newly created _UIViewRoot_ .
+* Return the newly created _UIViewRoot_ .
 
 {empty}[P1-end]
 
@@ -2170,11 +2169,11 @@ Contracts>>, and find the _<contract-mapping>_ element that matches the
 argument _viewId_ . When processing the nested _<url-pattern>_ matches
 must be made using the following rules in this order.
 
-An exact match.
+. An exact match.
 
-The longest match
+. The longest match
 
-The value * matches all incoming viewIds
+. The value * matches all incoming viewIds
 
 The value returned from this method is the
 list whose contents are taken from the _contracts_ attribute of the
@@ -2192,12 +2191,12 @@ _buildView()_ method must fulfill the following responsibilities.
 
 All implementations must:
 
-The implementation must guarantee that the
+* The implementation must guarantee that the
 page is executed in such a way that the _UIComponent_ tree described in
 the VDL page is completely built and populated, rooted at the new
 _UIViewRoot_ instance created previously.
 
-The runtime must guarantee that the view must
+* The runtime must guarantee that the view must
 be fully populated before the _afterPhase()_ method of any
 _PhaseListeners_ attached to the application or to the _UIViewRoot_ (via
 _UIViewRoot.setAfterPhaseListener()_ or _UIViewRoot.addPhaseListener()_
@@ -2226,7 +2225,7 @@ following responsibilities:
 
 All implementations must:
 
-Return a reference to the component metadata
+* Return a reference to the component metadata
 for the composite component represented by the argument
 _componentResource_ , or _null_ if the metadata cannot be found. The
 implementation may share and pool what it ends up returning from this
@@ -2234,7 +2233,7 @@ method to improve performance.
 
 The Facelets implementation must
 
-Support argument _componentResource_ being a
+* Support argument _componentResource_ being a
 Facelet markup file that is to be interpreted as a composite component
 as specified in <<UserInterfaceComponentModel.adoc#a1671,See Composite Component
 Metadata>>.
@@ -2256,7 +2255,7 @@ responsibilities:
 
 All implementations must:
 
-Return a reference to the view metadata for
+* Return a reference to the view metadata for
 the view represented by the argument _viewId_ , or _null_ if the
 metadata cannot be found. The implementation may share and pool what it
 ends up returning from this method to improve performance.
@@ -2317,7 +2316,7 @@ following responsibilities:
 
 The Facelets implementation must:
 
-Take implementation specific action to
+* Take implementation specific action to
 discover a _Resource_ given the argument _componentResource_ . The
 returned _Resource_ if non- _null_ , must point to a script file that
 can be turned into something that extends _UIComponent_ and implements
@@ -2341,32 +2340,32 @@ _renderView()_ method must fulfill the following responsibilities:
 
 All implementations must:
 
-Return immediately if calling _isRendered()_
+* Return immediately if calling _isRendered()_
 on the argument _UIViewRoot_ returns _false_ .
 
 The JSP implementation must:
 
-If the current request is a _ServletRequest_
+* If the current request is a _ServletRequest_
 , call the _set()_ method of the _jakarta.servlet.jsp.jstl.core.Config_
 class, passing the current _ServletRequest_ , the symbolic constant
 _Config.FMT_LOCALE_ , and the _locale_ property of the specfied
 _UIViewRoot_ . This configures JSTL with the application’s preferred
 locale for rendering this response.
 
-Update the JSTL locale attribute in request
+* Update the JSTL locale attribute in request
 scope so that JSTL picks up the new locale from the _UIViewRoot_ . This
 attribute must be updated before the JSTL _setBundle_ tag is called
 because that is when the new _LocalizationContext_ object is created
 based on the locale.
 
-Create a wrapper around the current response
+* Create a wrapper around the current response
 from the _ExternalContext_ and set it as the new response in the
 _ExternalContext_ . Otherwise, omit this step. This wrapper must buffer
 all content written to the response so that it is ready for output at a
 later point. This is necessary to allow any content appearing after the
 _<f:view>_ tag to appear in the proper position in the page.
 
-Execute the JSP page to build the view by
+* Execute the JSP page to build the view by
 treating the _viewId_ as a context-relative path (starting with a slash
 character), by passing it to the _dispatch()_ method of the
 _ExternalContext_ associated with this request. Otherwise, continue to
@@ -2375,53 +2374,53 @@ then to _UIComponentClassicTagBase_ . Please consult the javadocs for
 that class for the specification of how to handle building the view by
 executing the JSP page.
 
-Store the wrapped response in a thread-safe
+* Store the wrapped response in a thread-safe
 manner for use below. Otherwise, omit this step. The default
 implementation uses the request scope for this purpose.
 
-Restore the original response into the
+* Restore the original response into the
 _ExternalContext_ .
 
-If the _FacesContext_ has a non- _null_
+* If the _FacesContext_ has a non- _null_
 _ResponseWriter_ create a new writer using its _cloneWithWriter()_
 method, passing the response’s _Writer_ as the argument. Otherwise, use
 the current _RenderKit_ to create a new _ResponseWriter_ .
 
-Set the new _ResponseWriter_ into the
+* Set the new _ResponseWriter_ into the
 _FacesContext_ , saving the old one aside.
 
 All implementations must:
 
-Call _saveView()_ on the _StateManager_ for
+* Call _saveView()_ on the _StateManager_ for
 this application, saving the result in a thread-safe manner for use in
 the _writeState()_ method of _ViewHandler_ .
 
-Call _startDocument()_ on the
+* Call _startDocument()_ on the
 _ResponseWriter_ .
 
 The Facelets implementation must:
 
-Call _encodeAll()_ on the _UIViewRoot_ .
+* Call _encodeAll()_ on the _UIViewRoot_ .
 
 The JSP implementation must:
 
-Output any content in the wrapped response
+* Output any content in the wrapped response
 from above to the response, removing the wrapped response from the
 thread-safe storage.
 
 All implementations must:
 
-Call _endDocument()_ on the _ResponseWriter_
+* Call _endDocument()_ on the _ResponseWriter_
 .
 
 The JSP implementation must:
 
-If the old _ResponseWriter_ was not _null_ ,
+* If the old _ResponseWriter_ was not _null_ ,
 place the old _ResponseWriter_ back into the _FacesContext_ .
 
 The Facelets implementation must
 
-{empty}Close the writer used to write the
+* {empty}Close the writer used to write the
 response.[P1-end]
 
 [[a4101]]
@@ -2437,36 +2436,36 @@ _restoreView()_ method must fulfill the following responsibilities:
 
 The JSP implementation must:
 
-If no _viewId_ could be identified, return
+* If no _viewId_ could be identified, return
 _null_ .
 
-Call the _restoreView()_ method of the
+* Call the _restoreView()_ method of the
 associated _StateManager_ , passing the _FacesContext_ instance for the
 current request and the calculated _viewId_ , and return the returned
 _UIViewRoot_ , which may be _null_ .
 
 The Facelets implementation must:
 
-Call _ResponseStateManager.isStateless()_ .
+* Call _ResponseStateManager.isStateless()_ .
 If the result is _false_ , proceed as specified in the JSP
 implementation. Otherwise, take the following steps and return.
 
-Obtain a reference to the
+* Obtain a reference to the
 _ViewDeclarationLanguage_ from the _ViewDeclarationLanguageFactory_ .
 This is necessary to allow for proper decoration. It is not acceptable
 to simply use the java language _this_ keyword.
 
-Call _createView()_ on the
+* Call _createView()_ on the
 _ViewDeclarationLanguage_ instance, passing the _context_ and _viewId_
 arguments. Let _viewRoot_ be the result.
 
-Call _FacesContext.setViewRoot(_ _viewRoot_
+* Call _FacesContext.setViewRoot(_ _viewRoot_
 _)_ .
 
-Call _buildView()_ on the
+* Call _buildView()_ on the
 _ViewDeclarationLanguage_ , passing the _context_ and _viewRoot_ .
 
-Return the _viewRoot_ .
+* Return the _viewRoot_ .
 
 {empty}[P1-end]
 
@@ -2493,14 +2492,14 @@ implementation that supports the behavior described below.
 Conceptually, the state of a view can be
 divided into two pieces:
 
-_Tree Structure_ . This includes component
+* _Tree Structure_ . This includes component
 parent-child relationships, including facets.
 
-_Component State_ . This includes:
+* _Component State_ . This includes:
 
-Component attributes and properties, and
+** Component attributes and properties, and
 
-_Validator_ s, _Converter_ s,
+** _Validator_ s, _Converter_ s,
 _FacesListener_ s, and other objects attached to a component. The manner
 in which these _attached objects_ are saved is up to the component
 implementation. For attached objects that may have state, the
@@ -2540,22 +2539,22 @@ means of the _transient_ attribute on the _<f:view>_ tag from the Faces
 Core tag library. The following spec sections contain more normative
 requirements for stateless views.
 
-The vdldocs for the Facelet variant of the
+* The vdldocs for the Facelet variant of the
 _<f:view>_ tag.
 
-The javadocs for
+* The javadocs for
 _ResponseStateManager.writeState(FacesContext, Object)_
 
-The javadocs for
+* The javadocs for
 _ResponseStateManager.isStateless(FacesContext)_
 
-{empty}<<ApplicationIntegration.adoc#a4101,See
+* {empty}<<ApplicationIntegration.adoc#a4101,See
 ViewDeclarationLanguage.restoreView()>>
 
-The javadocs for
+* The javadocs for
 _jakarta.faces.view.ViewScoped_
 
-The javadocs for
+* The javadocs for
 _jakarta.faces.bean.ViewScoped_
 
 [[a4135]]
@@ -2569,7 +2568,7 @@ The possible values for this parameter give a general indication of the
 approach to be used, while allowing JSF implementations to innovate on
 the technical details:
 
-_client_ -- Cause the saved state to be
+* _client_ -- Cause the saved state to be
 included in the rendered markup that is sent to the client (such as in a
 hidden input field for HTML). The state information must be included in
 the subsequent request, making it possible for JSF to restore the view
@@ -2578,7 +2577,7 @@ that this information be encrypted and tamper evident, since it is being
 sent down to the client, where it may persist for some time.The default
 implementation Serializes the view in _client_ mode.
 
-_server_ -- Cause the saved state to be
+* _server_ -- Cause the saved state to be
 stored on the server in between requests. Implementations that wish to
 enable their saved state to fail over to a different container instance
 must keep this in mind when implementing their server side state saving
