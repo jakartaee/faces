@@ -937,7 +937,7 @@ corresponding _faces-config.xml_ file. If there are _@FlowScoped_ beans
 or beans with _@FlowDefinition_ in the JAR, there must be a JAR entry
 named _META-INF/beans.xml_ . This ensures that such beans and
 definitions are discovered by the runtime at startup. None of the flow
-definition conventions specified in <<UsingJSFInWebApplications.adoc#a6236,See
+definition conventions specified in <<UsingJSFInWebApplications.adoc#a6236,
 Packaging Flows in Directories>> apply when a flow is packaged in a JAR
 file. In other words, the flow must be explicitly declared in the JAR
 file’s _faces-config.xml_ .
