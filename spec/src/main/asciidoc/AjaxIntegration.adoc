@@ -39,15 +39,11 @@ Component authors can specify that a custom
 component or renderer requires the Ajax resource with the use of the
 ResourceDependency annotation.
 
-[width="100%",cols="100%",]
-|===
-a|
-@ResourceDependency (name="jsf.js",
-library="jakarta.faces", target="head")
-
+[source,java]
+----
+@ResourceDependency (name="jsf.js", library="jakarta.faces", target="head")
 public class MyComponent extends UIOutput...
-
-|===
+----
 
 For more information on this approach refer
 to <<a847, Relocatable Resources>> and
@@ -61,78 +57,47 @@ custom component or renderer requires the JavaScript resource by using
 the resource APIs. For example, a component or renderer’s encode method
 may contain:
 
-[width="100%",cols="100%",]
-|===
-a|
-Resource resource =
-context.getApplication().getResourceHandler()
-
- .createResource(“jsf.js”, “jakarta.faces”);
-
+[source,java]
+----
+Resource resource = context.getApplication().getResourceHandler()
+    .createResource(“jsf.js”, “jakarta.faces”);
 ...
-
 writer.startElement("script", component);
-
-writer.writeAttribute("type",
-"text/javascript", "type");
-
-writer.writeAttribute("src",((resource !=
-null)? resource.getRequestPath(): "RES_NOT_FOUND"),”src”);
-
+writer.writeAttribute("type", "text/javascript", "type");
+writer.writeAttribute("src",
+    ((resource != null)? resource.getRequestPath(): "RES_NOT_FOUND"), ”src”);
 writer.endElement(“script”);
-
-|===
+----
 
 Script resources are relocatable resources
 (see <<a847, Relocatable
 Resources>>) which means you can control the rendering location for these
 resources by setting the “target” attribute on the resource component:
 
-[width="100%",cols="100%",]
-|===
-a|
-public class MyComponent extends UIOutput \{
-
+[source,java]
+----
+public class MyComponent extends UIOutput {
 ...
-
-getAttributes().put(“target”, “head”);
-
+  getAttributes().put(“target”, “head”);
 ...
-
 }
-
-|===
+----
 
 This attribute must be set before the
 component is added to the view. The component or renderer must also
 implement the event processing method:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public void processEvent(SystemEvent event)
-throws AbortProcessingException \{
-
-UIComponent component = (UIComponent)
-event.getSource();
-
-FacesContext context =
-FacesContext.getCurrentInstance();
-
-if (component.getAttributes().get("target")
-!= null) \{
-
-context.getViewRoot().addComponentResource(context,
-
-component);
-
+    throws AbortProcessingException {
+  UIComponent component = (UIComponent) event.getSource();
+  FacesContext context = FacesContext.getCurrentInstance();
+  if (component.getAttributes().get("target") != null) {
+    context.getViewRoot().addComponentResource(context, component);
+  }
 }
-
-}
-
-
-
-|===
+----
 
 When the component is added to the view, an
 event will be published. This event handling method will add the
@@ -145,37 +110,20 @@ root so it will be in place before rendering.
 Page authors can make the Ajax resource
 available to the current view using the outputScript tag. For example:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:view contentType=”text/html”/>
-
-<h:head>
-
-<meta...
-
-<title...
-
-</h:head>
-
-<h:body>
-
-...
-
-<h:outputScript name=”jsf.js”
-library=”jakarta.faces”
-
-target=”body”/>
-
-...
-
-</h:body>
-
-...
-
-
-
-|===
+  <h:head>
+    <meta...
+    <title...
+  </h:head>
+  <h:body>
+    ...
+    <h:outputScript name=”jsf.js” library=”jakarta.faces” target=”body”/>
+    ...
+  </h:body>
+  ...
+----
 
 [[a6754]]
 === JavaScript Namespacing
@@ -192,26 +140,15 @@ API must define a top level JavaScript object name jsf, whose type is a
 JavaScript associative array. Within that top level JavaScript object,
 there must be a property named ajax..
 
-[width="100%",cols="100%",]
-|===
-a|
-if (jsf == null || typeof jsf == "undefined")
-\{
-
- var jsf = new Object();
-
+[source,javascript]
+----
+if (jsf == null || typeof jsf == "undefined") {
+    var jsf = new Object();
 }
-
-if (jsf.ajax == null || typeof jsf.ajax ==
-"undefined") \{
-
- jsf["ajax"] = new Object();
-
+if (jsf.ajax == null || typeof jsf.ajax == "undefined") {
+    jsf["ajax"] = new Object();
 }
-
-
-
-|===
+----
 
 {empty}[P1-end]
 
@@ -453,22 +390,15 @@ server as outlined in <<a3253, ExceptionHandler>>.
 [P1-start-error-server]Jakarta Server Faces Ajax frameworks must ensure
 exception information is written to the response in the format:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <partial-response id="j_id1">
-
-<error>
-
-<error-name>...</error-name>
-
-<error-message>...</error-message>
-
-</error>
-
+  <error>
+    <error-name>...</error-name>
+    <error-message>...</error-message>
+  </error>
 </partial-response>
-
-|===
+----
 
 Extract the “class” from the “Throwable”
 object and write that as the contents of error-name in the response.
