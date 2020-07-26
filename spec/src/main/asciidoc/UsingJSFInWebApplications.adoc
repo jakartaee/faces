@@ -25,7 +25,7 @@ Portable JSF-based web applications must
 include the following configuration elements, in the appropriate
 portions of the web application deployment descriptor. Element values
 that are rendered in _italics_ represent values that the application
-developer is free to choose. Element values rendered in bold represent
+developer is free to choose. Element values rendered in *bold* represent
 values that must be utilized exactly as shown.
 
 Executing the request processing lifecycle
@@ -44,15 +44,16 @@ this specification. [P1-start-servlet]This servlet must be defined, in
 the deployment descriptor of an application that wishes to employ this
 portable mechanism, as follows:
 
-[source,xml]
-----
+====
 <servlet>
-  <servlet-name> faces-servlet-name </servlet-name>
-  <servlet-class>
-    jakarta.faces.webapp.FacesServlet
-  </servlet-class>
+
+{nbsp}<servlet-name> _faces-servlet-name_ </servlet-name>
+
+{nbsp}<servlet-class> *jakarta.faces.webapp.FacesServlet* </servlet-class>
+
 </servlet>
-----
+====
+
 
 {empty}The servlet name, denoted as
 _faces-servlet-name_ above, may be any desired value; however, the same
@@ -77,24 +78,28 @@ _FacesServlet_. [P1-end]Prefix or extension mapping may be used. When
 using prefix mapping, the following mapping is recommended, but not
 required:
 
-[source,xml]
-----
+====
 <servlet-mapping>
-  <servlet-name> faces-servlet-name </servlet-name>
-  <url-pattern>/faces/*</url-pattern>
+
+{nbsp}<servlet-name> _faces-servlet-name_ </servlet-name>
+
+{nbsp}<url-pattern> _/faces/*_ </url-pattern>
+
 </servlet-mapping>
-----
+====
 
 When using extension mapping the following
 mapping is recommended, but not required:
 
-[source,xml]
-----
+====
 <servlet-mapping>
-  <servlet-name> faces-servlet-name </servlet-name>
-  <url-pattern>*.faces</url-pattern>
+
+{nbsp}<servlet-name> _faces-servlet-name_ </servlet-name>
+
+{nbsp}<url-pattern> _*.faces_ </url-pattern>
+
 </servlet-mapping>
-----
+====
 
 In addition to _FacesServlet_, JSF
 implementations may support other ways to invoke the Jakarta Server Faces
