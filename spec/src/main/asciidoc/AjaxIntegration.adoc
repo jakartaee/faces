@@ -20,9 +20,9 @@ constant
 _jakarta.faces.application.ResourceHandler.JSF_SCRIPT_RESOURCE_NAME_ and
 it must exist under the resource library given by the value of the
 constant
-_jakarta.faces.application.ResourceHandler.JSF_SCRIPT_LIBRARY_NAME,_
+_jakarta.faces.application.ResourceHandler.JSF_SCRIPT_LIBRARY_NAME_,
 following the conventions in _<<a746, Resource
-Handling>>._ This resource contains the JavaScript APIs that facilitate
+Handling>>_. This resource contains the JavaScript APIs that facilitate
 Ajax interaction with Jakarta Server Faces.
 
 [[a6704]]
