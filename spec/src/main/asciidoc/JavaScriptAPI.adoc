@@ -106,39 +106,37 @@ pairs:
 
 [[a6871]]
 .request OPTIONS
+[%header, cols="2,8", frame="topbot", grid="rows", stripes="even"]
+|===
 
-Name
+| Name
+| Value
 
-Value
-
-execute
-
-A space delimited list of client identifiers
+| execute
+| A space delimited list of client identifiers
 or one of the keywords (<<a6884, Keywords>>).
 These reference the components that will be processed during the
 “execute” portion of the request processing lifecycle.
 
-render
-
-A space delimited list of client identifiers
+| render
+| A space delimited list of client identifiers
 or one of the keywords (<<a6884, Keywords>>).
 These reference the components that will be processed during the
 “render” portion of the request processing lifecycle.
 
-onevent
-
-A String that is the name of the JavaScript
+| onevent
+| A String that is the name of the JavaScript
 function to call when an event occurs.
 
-onerror
-
-A String that is the name of the JavaScript
+| onerror
+| A String that is the name of the JavaScript
 function to call when an error occurs.
 
-params
-
-An object that may include additional
+| params
+| An object that may include additional
 parameters to include in the request.
+
+|===
 
 [[a6884]]
 ==== Keywords
@@ -147,26 +145,25 @@ The following keywords can be used for the
 value of the “execute” and “render” attributes:
 
 .Execute / Render Keywords
+[%header, cols="3,7", frame="topbot", grid="rows", stripes="even"]
+|===
 
-Keyword
+| Keyword
+| Description
 
-Description
+| @all
+| All component identifiers
 
-@all
+| @none
+| No identifiers
 
-All component identifiers
+| @this
+| The element that triggered the request
 
-@none
+| @form
+| The enclosing form
 
-No identifiers
-
-@this
-
-The element that triggered the request
-
-@form
-
-The enclosing form
+|===
 
 [[a6897]]
 ==== Default Values
@@ -215,7 +212,7 @@ data and sending the request must be followed as outlined in the
 JavaScript documentation for the jsf.ajax.request function. The post
 data arguments that must be sent are:
 
-[width="100%",cols="50%,50%",]
+[%header, cols="3,7", frame="topbot", grid="rows", stripes="even"]
 |===
 |Name |Value
 
@@ -297,68 +294,61 @@ that can be handled are:
 
 [[a6936]]
 .Events
+[%header, cols="3,7", frame="topbot", grid="rows", stripes="even"]
+|===
 
-Event Name
+| Event Name
+| Description
 
-Description
-
-begin
-
-Occurs immediately before the request is
+| begin
+| Occurs immediately before the request is
 sent.
 
-complete
-
-Occurs immediately after the request has
+| complete
+| Occurs immediately after the request has
 completed. For successful requests, this is immediately before
 jakarta.faces.response is called. For unsuccessful requests, this is
 immediately before the error handling callback is invoked.
 
-success
-
-Occurs immediately after jsf.ajax.response
+| success
+| Occurs immediately after jsf.ajax.response
 has completed.
 
-
+|===
 
 The callback function has access to the
 following “data payload”:.
 
 [[a6947]]
 .Event Data Payload
+[%header, cols="3,7", frame="topbot", grid="rows", stripes="even"]
+|===
 
-Name
+| Name
+| Description/Value
 
-Description/Value
+| type
+| “event”
 
-type
+| status
+| {empty}One of the events specified in <<a6936, Events>>
 
-“event”
+| source
+| The DOM element that triggered the Ajax request.
 
-status
-
-{empty}One of the events specified in
-<<a6936, Events>>
-
-source
-
-The DOM element that triggered the Ajax
-request.
-
-responseCode
-
-Ajax request object ‘status’
+| responseCode
+| Ajax request object ‘status’
 (XMLHttpRequest.status); Not present for “begin” event;
 
-responseXML
-
-The XML response
+| responseXML
+| The XML response
 (XMLHttpRequest.responseXML); Not present for “begin” event;
 
-responseText
-
-The text response
+| responseText
+| The text response
 (XMLHttpResponse.responseText) Not present for “begin” event;
+
+|===
 
 [[a6962]]
 ===== Use Case
@@ -396,82 +386,68 @@ an existing JavaScript function that will handle errors from the server.
 
 [[a6976]]
 .Errors
+[%header, cols="3,7", frame="topbot", grid="rows", stripes="even"]
+|===
 
-Error Name
+| Error Name
+| Description
 
-Description
-
-httpError
-
-request status==null or
+| httpError
+| request status==null or
 request.status==undefined or request.status<200 or request.status >=300
 
-serverError
+| serverError
+| The Ajax response contains an “error” element.
 
-The Ajax response contains an “error”
-element.
-
-malformedXML
-
-{empty}The Ajax response does not follow the
+| malformedXML
+| {empty}The Ajax response does not follow the
 proper format. See <<a7162, XML Schema Definition
 for Composite Components>>
 
-emptyResponse
+| emptyResponse
+| There was no Ajax response from the server.
 
-There was no Ajax response from the server.
+|===
 
 The callback function has access to the
 following “data payload”:.
 
 [[a6988]]
 .Error Data Payload
+[%header, cols="3,7", frame="topbot", grid="rows", stripes="even"]
+|===
 
-Name
+| Name
+| Description/Value
 
-Description/Value
+| type
+| “error”
 
-type
+| status
+| {empty}One of error names defined <<a6976, Errors>>
 
-“error”
+| description
+| Text describing the error
 
-status
+| source
+| The DOM element that triggered the Ajax request.
 
-{empty}One of error names defined
-<<a6976, Errors>>
+| responseCode
+| Ajax request object ‘status’ (XMLHttpRequest.status);
 
-description
+| responseXML
+| The XML response (XMLHttpRequest.responseXML)
 
-Text describing the error
+| responseText
+| The text response (XMLHttpResponse.responseTxt)
 
-source
+| errorName
+| The error name taken from the Ajax response “error” element.
 
-The DOM element that triggered the Ajax
-request.
+| errorMessage
+| The error messages taken from the Ajax response “error” element.
 
-responseCode
-
-Ajax request object ‘status’
-(XMLHttpRequest.status);
-
-responseXML
-
-The XML response (XMLHttpRequest.responseXML)
-
-responseText
-
-The text response
-(XMLHttpResponse.responseTxt)
-
-errorName
-
-The error name taken from the Ajax response
-“error” element.
-
-errorMessage
-
-The error messages taken from the Ajax
-response “error” element.
+|===
 
 [[a7009]]
 ===== Use Case
