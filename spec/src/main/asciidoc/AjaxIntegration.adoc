@@ -347,7 +347,7 @@ outlined in <<a6976, Errors>>.[P1-end]
 jsf.ajax.addOnError function that can be used to register a JavaScript
 function that will be notified when an error occurs for any Ajax
 request/response. Refer to
-<<a6931, See Registering
+<<a6931, Registering
 Callback Functions>> for more details. The jsf.ajax.addOnError function
 accepts a JavaScript function argument that will be notified when errors
 occur during any Ajax request/response cycle. [P1-start-event] The
@@ -548,7 +548,7 @@ sent back to the client, it must contain the view state.
 [P1-start-sending-response]Implementations must adhere to the response
 format as specified in the JavaScript docs for
 jsf.ajax.response.[P1-end] Refer to the XML schema definition in the
-<<a7162,See XML Schema Definition for Composite
+<<a7162,XML Schema Definition for Composite
 Components>> section. This XML schema is another important area for
 component library compatability.
 
