@@ -44,7 +44,7 @@ each phase is as follows:
 instances, select the relevant ones for the current phase, where
 “relevant” means that calling _getPhaseId()_ on the _PhaseListener_
 instance returns the phase identifier of the current phase, or the
-special value _PhaseId.ANY_PHASE_ .
+special value _PhaseId.ANY_PHASE_.
 
 * Call the _beforePhase()_ method of each
 relevant listener, in the order that the listeners were registered.
@@ -150,17 +150,17 @@ _beforePhase()_ has been called on a particular instance, then
 _afterPhase()_ will also be called, regardless of any Exceptions that
 may have been thrown during the actual execution of the lifecycle phase.
 For example, let’s say there are three PhaseListeners attached to the
-lifecycle: _A, B_ , and _C_ , in that order. _A.beforePhase()_ is
+lifecycle: _A, B_, and _C_, in that order. _A.beforePhase()_ is
 called, and executes successfully. _B.beforePhase()_ is called and
 throws an exception. [P1-start_publishExceptionBefore] Any exceptions
 thrown during the _beforePhase()_ listeners must be caught and published
-to the _ExceptionHandler_ , as described
+to the _ExceptionHandler_, as described
 below.[P1-end_publishExceptionBefore] In this example, _C.beforePhase()_
 must not be called. Then the actual lifecycle phase executes. Any
 exceptions thrown during the execution of the actual phase, that reach
 the runtime code that implements the JSF lifecycle phase,
 [P1-start_publishExceptionDuring] must be caught and and published to
-the _ExceptionHandler_ , as described
+the _ExceptionHandler_, as described
 below[P1-end_publishExceptionDuring]. When the lifecycle phase exits,
 due to an exeception or normal termination, the _afterPhase()_ listeners
 must be called in reverse order from the _beforePhase()_ listeners in
@@ -169,14 +169,14 @@ _C.beforePhase()_ was not called. _B.afterPhase()_ must not be called,
 since _B.beforePhase()_ did not execute successfully. _A.afterPhase()_
 must be called. [P1-start_publishExceptionAfter]Any exceptions thrown
 during the _afterPhase()_ liseteners must be caught and published to the
-_ExceptionHandler_ , as described below.[P1-start_publishExceptionAfter]
+_ExceptionHandler_, as described below.[P1-start_publishExceptionAfter]
 
 The previous paragraph detailed several cases
 where exceptions should be published to the _Exception_ handler.
 [P1-start_publishExceptionSpec] The following action must be taken by
 the runtime to implement this requirement as well as an additional
 requirent to cause the _ExceptionHandler_ to take action on the
-published _Exception_ (s). The specification is shown in pseudocode.
+published __Exception__(s). The specification is shown in pseudocode.
 This code does not implement the before/after matching guarantees
 specified above and is only intended to describe the specification for
 publishing and handling _ExceptionQueuedEvent_ instances that arise from
@@ -293,5 +293,5 @@ public Iterator<String> getLifecycleIds();
 
 This method returns an iterator over the set
 of lifecycle identifiers supported by this factory. This set must
-include the value specified by _LifecycleFactory.DEFAULT_LIFECYCLE_ .
+include the value specified by _LifecycleFactory.DEFAULT_LIFECYCLE_.
 
