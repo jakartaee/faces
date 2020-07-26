@@ -200,7 +200,7 @@ The Ajax request callback function is called
 when the Ajax request/response interaction is complete.
 [P1-start-callback]This function must perform the following actions:
 
-If the return status is >= 200 and < 300,
+* If the return status is >= 200 and < 300,
 send a “complete” event following
 <<a6792, Sending Events>>. Call
 jsf.ajax.response passing the Ajax request object (for example the
@@ -208,19 +208,19 @@ XMLHttpRequest instance) and the request context (containing the source
 DOM element, onevent event function callback and onerror error function
 callback).
 
-If the return status is outside the range
+* If the return status is outside the range
 mentioned above, send a “complete” event following
 <<a6792, Sending Events>>. Send an
 “httpError” error following <<a6806, Signaling Errors>>.
 
-Regardless of whether the request completed
+* Regardless of whether the request completed
 successfully or not:
 
-remove the completed requests (Ajax
+** remove the completed requests (Ajax
 readystate 4) from the request queue (dequeue) - specifically the
 requests that have been on the queue the longest.
 
-{empty}find the next oldest unprocessed (Ajax
+** {empty}find the next oldest unprocessed (Ajax
 readystate 0) request on the queue, and send it. The implementation must
 ensure that the request that is sent does not enter the queue
 again.[P1-end]
@@ -256,10 +256,10 @@ functions can also be set up to monitor all Ajax requests.
 There are two ways to monitor events for a
 single Ajax request by registering an event callback function:
 
-By using the <f:ajax> tag with the onevent
+* By using the <f:ajax> tag with the onevent
 attribute.
 
-By using the JavaScript API function
+* By using the JavaScript API function
 jsf.ajax.request with onevent as an option.
 
 {empty}Refer to
@@ -293,17 +293,17 @@ must be called in accordance with the events outlined in
 [P1-start-event-send]The implementation must
 send events to the runtime as follows:
 
-Construct a data payload for events using the
+* Construct a data payload for events using the
 properties described in <<a6947,
 Event Data Payload>>.
 
-If an event handler function was registered
+* If an event handler function was registered
 with the “onevent” attribute
 (<<a6785,
 Monitoring Events For An Ajax Request>>) call it passing the data
 payload.
 
-{empty}If any event handling functions were
+* {empty}If any event handling functions were
 registered with the “addOnEvent” function
 (<<a6790,
 Monitoring Events For All Ajax Requests>>) call them passing the data
@@ -324,10 +324,10 @@ functions can be setup to handle errors for all Ajax requests.
 There are two ways to handle errors for a
 single Ajax request by registering an error callback function:
 
-By using the <f:ajax> tag with the onerror
+* By using the <f:ajax> tag with the onerror
 attribute.
 
-By using the JavaScript API function
+* By using the JavaScript API function
 jsf.ajax.request with onerror as an option.
 
 {empty}Refer to
@@ -361,22 +361,22 @@ must be called in accordance with the errors outlined in
 [P1-start-error-signal]The implementation
 must signal errors to the runtime as follows:
 
-Construct a data payload for errors using the
+* Construct a data payload for errors using the
 properties described in <<a6988, 
 Error Data Payload>>.
 
-If an error handler function was registered
+* If an error handler function was registered
 with the “onerror” attribute
 (<<a6799,
 Handling Errors For An Ajax Request>>) call it passing the data payload.
 
-If any error handling functions were
+* If any error handling functions were
 registered with the “addOnError” function
 (<<a6804,
 Handling Errors For All Ajax Requests>>) call them passing the data
 payload.
 
-{empty}If the project stage is “development”
+* {empty}If the project stage is “development”
 (see
 <<a7017,
 Determining An Application’s Project Stage>>) use JavaScript “alert” to
@@ -400,10 +400,10 @@ exception information is written to the response in the format:
 </partial-response>
 ----
 
-Extract the “class” from the “Throwable”
+* Extract the “class” from the “Throwable”
 object and write that as the contents of error-name in the response.
 
-Extract the “cause” from the “Throwable”
+* Extract the “cause” from the “Throwable”
 object if it is available and write that as the contents of
 error-message in the response. If “cause” is not available, write the
 string returned from “Throwable.getMessage()”.
