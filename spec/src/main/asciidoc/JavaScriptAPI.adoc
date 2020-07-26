@@ -24,10 +24,10 @@ value contains the state for the current view. JSF Ajax clients collect
 additional view state, combine it with the current view state and send
 it’s encoded form to the server.
 
-[width="100%",cols="100%",]
-|===
-|jsf.getViewState(FORM_ELEMENT)
-|===
+[source,javascript]
+----
+jsf.getViewState(FORM_ELEMENT)
+----
 
 Collect and encode element data for the given
 FORM_ELEMENT and return it as the view state that will be sent to the
@@ -52,20 +52,19 @@ input elements and jakarta.faces.ViewState element.
 
 Collect and Encode Elements Of a Form
 
-[width="100%",cols="100%",]
-|===
-|var viewState = jsf.getViewState(form);
-|===
+[source,javascript]
+----
+var viewState = jsf.getViewState(form);
+----
 
 
 [[a6856]]
 === Initiating an Ajax Request
 
-[width="100%",cols="100%",]
-|===
-|jsf.ajax.request(source, |event|, \{
-|OPTIONS| });
-|===
+[source,javascript]
+----
+jsf.ajax.request(source, |event|, { |OPTIONS| });
+----
 
 The jsf.ajax.request function is responsible
 for sending an Ajax request to the server. [P1-start-ajaxrequest]The
@@ -90,16 +89,11 @@ client side request queue to help ensure request ordering
 Typically, this function is attached as a
 JavaScript event handler (such as “onclick”).
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <ANY_HTML_OR_JSF_ELEMENT
-
-on|EVENT|="jsf.ajax.request(source, event,
-
-\{ |OPTIONS| });" />
-
-|===
+    on|EVENT|="jsf.ajax.request(source, event, { |OPTIONS| });" />
+----
 
 The function arguments are as follows:
 
@@ -181,39 +175,28 @@ Values for the execute and render attributes
 are not required. When using the JavaScript API, the default values for
 execute is @this. The default value for render is @none.
 
-[width="100%",cols="100%",]
-|===
-a|
-<h:commandButton id=”button1” value=”submit”>
-
-onclick="jsf.ajax.request(this,event);" />
+[source,xml]
+----
+<h:commandButton id=”button1” value=”submit”
+    onclick="jsf.ajax.request(this,event);" />
 
 is the same as:
 
 <h:commandButton id=”button1” value=”submit”>
+    onclick="jsf.ajax.request(this, event,
+        {execute:’@this’, render:’@this’});" />
+----
 
-onclick="jsf.ajax.request(this,event,
-
-\{execute:’@this’,render:’@this’});" />
-
-|===
-
-[width="100%",cols="100%",]
-|===
-a|
-<h:commandButton id=”button1” value=”submit”>
-
-onclick="jsf.ajax.request(this,event,
-\{execute:’@this’});" />
+[source,xml]
+----
+<h:commandButton id=”button1” value=”submit”
+    onclick="jsf.ajax.request(this,event, {execute:’@this’});" />
 
 is the same as:
 
 <h:commandButton id=”button1” value=”submit”>
-
-onclick="jsf.ajax.request(this,event,
-\{execute:’button1’});" />
-
-|===
+    onclick="jsf.ajax.request(this,event, {execute:’button1’});" />
+----
 
 Refer to <<a1111,
 <f:ajax>>> for the default values for the execute and render attributes
@@ -253,17 +236,12 @@ source of this request
 [[a6921]]
 ==== Use Case
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <h:commandbutton id="submit" value="submit"
-
-onclick="jsf.ajax.request(this, event,
-
-\{execute:'submit',render:'outtext'}); return
-false;" />
-
-|===
+    onclick="jsf.ajax.request(this, event,
+        {execute:'submit',render:'outtext'}); return false;" />
+----
 
 This use case assumes there is another
 component in the view with the identifier outtext.
@@ -272,10 +250,10 @@ component in the view with the identifier outtext.
 [[a7017]]
 === Processing The Ajax Response
 
-[width="100%",cols="100%",]
-|===
-|jsf.ajax.response(request, context);
-|===
+[source,javascript]
+----
+jsf.ajax.response(request, context);
+----
 
 {empty}The jsf.ajax.response function is
 called when a request completes successfully. This typically means that
@@ -308,10 +286,10 @@ OPTIONS>>), and the core <f:ajax> tag (<<a1111, <f:ajax>>>).
 [[a6933]]
 ==== Request/Response Event Handling
 
-[width="100%",cols="100%",]
-|===
-|jsf.ajax.addOnEvent(callback);
-|===
+[source,javascript]
+----
+jsf.ajax.addOnEvent(callback);
+----
 
 The callback argument must be a reference to
 an existing JavaScript function that will handle the events. The events
@@ -388,43 +366,30 @@ The text response
 An event listener can be installed from
 JavaScript in this manner.
 
-[width="100%",cols="100%",]
-|===
-a|
-function statusUpdate(data) \{
-
- // do something with data.status or other
-parts of data payload
-
+[source,javascript]
+----
+function statusUpdate(data) {
+  // do something with data.status or other parts of data payload
 }
-
 ...
-
 jsf.ajax.addOnEvent(statusUpdate);
-
-
-
-|===
+----
 
 An event listener can be installed from
 markup in this manner.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:ajax ... onevent="statusUpdate" />
-
-
-
-|===
+----
 
 [[a6973]]
 ==== Error Handling
 
-[width="100%",cols="100%",]
-|===
-|jsf.ajax.addOnError(callback);
-|===
+[source,javascript]
+----
+jsf.ajax.addOnError(callback);
+----
 
 The callback argument must be a reference to
 an existing JavaScript function that will handle errors from the server.
@@ -511,31 +476,24 @@ response “error” element.
 [[a7009]]
 ===== Use Case
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,javascript]
+----
 jsf.ajax.addOnError(handleError);
-
 ...
-
-var handleError = function handleError(data)
-\{
-
-... do something with “data payload” ...
-
+var handleError = function handleError(data) {
+  ... do something with “data payload” ...
 }
-
-|===
+----
 
 
 
 
 === Determining An Application’s Project Stage
 
-[width="100%",cols="100%",]
-|===
-|jsf.getProjectStage();
-|===
+[source,javascript]
+----
+jsf.getProjectStage();
+----
 
 {empty}[P1-start-projStage]This function must
 return the constant representing the current state of the running
@@ -548,23 +506,15 @@ about this property.[P1-end]
 [[a7020]]
 ==== Use Case
 
-[width="100%",cols="100%",]
-|===
-a|
-var projectStage =
-jakarta.faces.Ajax.getProjectStage();
-
-if (projectStage == “Production”) \{
-
-.... throw exception
-
-else if (projectStage == “Development”) \{
-
-.... send an alert for debugging
-
+[source,javascript]
+----
+var projectStage = jakarta.faces.Ajax.getProjectStage();
+if (projectStage == “Production”) {
+  .... throw exception
+} else if (projectStage == “Development”) {
+  .... send an alert for debugging
 }
-
-|===
+----
 
 
 
@@ -572,11 +522,10 @@ else if (projectStage == “Development”) \{
 [[a7029]]
 === Script Chaining
 
-[width="100%",cols="100%",]
-|===
-|jsf.util.chain(source, event, |<script>,
-<script>,...|)
-|===
+[source,javascript]
+----
+jsf.util.chain(source, event, |<script>, <script>,...| )
+----
 
 This utility function invokes an arbitrary
 number of scripts in sequence. If any of the scripts return false,
