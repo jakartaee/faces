@@ -24,18 +24,11 @@ to implement the required functionality for each phase of the request
 processing lifecycle, as described in <<a401,
 Standard Request Processing Lifecycle Phases>>.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void execute(FacesContext context)
-throws FacesException;
-
-
-
-public void render(FacesContext context)
-throws FacesException;
-
-|===
+[source,java]
+----
+public void execute(FacesContext context) throws FacesException;
+public void render(FacesContext context) throws FacesException;
+----
 
 The _execute()_ method performs phases up to,
 but not including, the _Render Response_ phase. The _render()_ method
@@ -75,18 +68,11 @@ have not yet executed the _Render Response_ phase of the request
 processing lifecycle, ensure that the next executed phase will be
 _Render Response_
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addPhaseListener(PhaseListener
-listener);
-
-
-
-public void removePhaseListener(PhaseListener
-listener);
-
-|===
+[source,java]
+----
+public void addPhaseListener(PhaseListener listener);
+public void removePhaseListener(PhaseListener listener);
+----
 
 These methods register or deregister a
 _PhaseListener_ that wishes to be notified before and after the
@@ -106,11 +92,11 @@ of processing for a particular phase of the request processing
 lifecycle, for the request encapsulated by the _FacesContext_ instance
 passed to our constructor.
 
-[width="100%",cols="100%",]
-|===
-|public PhaseEvent(FacesContext context,
-PhaseId phaseId, Lifecycle lifecycle);
-|===
+[source,java]
+----
+public PhaseEvent(FacesContext context,
+    PhaseId phaseId, Lifecycle lifecycle);
+----
 
 Construct a new _PhaseEvent_ representing the
 execution of the specified phase of the request processing lifecycle, on
@@ -120,16 +106,11 @@ _FacesServlet_ that is processing the request. It will serve as the
 _source_ of the _java.util.EventObject_ from which _PhaseEvent_
 inherits.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public FacesContext getFacesContext();
-
-
-
 public PhaseId getPhaseId();
-
-|===
+----
 
 Return the properties of this event instance.
 The specified _FacesContext_ instance will also be returned if
@@ -145,26 +126,21 @@ particular phase of the request processing lifecycle, on a particular
 request. Implementations of _PhaseListener_ must be programmed in a
 thread-safe manner.
 
-[width="100%",cols="100%",]
-|===
-|public PhaseId getPhaseId();
-|===
+[source,java]
+----
+public PhaseId getPhaseId();
+----
 
 The _PhaseListener_ instance indicates for
 which phase of the request processing lifecycle this listener wishes to
 be notified. If _PhaseId.ANY_PHASE_ is returned, this listener will be
 notified for all standard phases of the request processing lifecycle.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public void beforePhase(PhaseEvent event);
-
-
-
 public void afterPhase(PhaseEvent event);
-
-|===
+----
 
 {empty}The beforePhase() method is called
 before the standard processing for a particular phase is performed,
@@ -208,95 +184,44 @@ exceptions being thrown during the execution of a lifecycle phase.
 Methods shown in _thisTypeface()_ are not a part of the API and are just
 included for discussion.
 
-[width="100%",cols="100%",]
-|===
-a|
-FacesContext facesContext =
-FacesContext.getCurrentInstance();
+[source,java]
+----
+FacesContext facesContext = FacesContext.getCurrentInstance();
+Application app = facesContext.getApplication();
+ExceptionHandler handler = facesContext.getExceptionHandler();
 
-Application app =
-facesContext.getApplication();
-
-ExceptionHandler handler =
-facesContext.getExceptionHandler();
-
-
-
-try \{
-
- _callBeforePhaseListeners_ ();
-
-} catch (Throwable thrownException) \{
-
- jakarta.faces.event.ExceptionEventContext
-eventContext =
-
- new ExceptionEventContext(thrownException,
-null,
-
- facesContext.getPhaseId());
-
-
-eventContext.getAttributes().put(EventContext.IN_BEFORE_PHASE,
-
- Boolean.TRUE);
-
- app.publishEvent(ExceptionQueuedEvent.class,
-eventContext);
-
+try {
+  callBeforePhaseListeners();
+} catch (Throwable thrownException) {
+  jakarta.faces.event.ExceptionEventContext eventContext =
+      new ExceptionEventContext(
+          thrownException, null, facesContext.getPhaseId());
+  eventContext.getAttributes()
+      .put(EventContext.IN_BEFORE_PHASE, Boolean.TRUE);
+  app.publishEvent(ExceptionQueuedEvent.class, eventContext);
 }
 
-
-
-try \{
-
- _doCurrentPhase_ ();
-
-} catch (Throwable thrownException) \{
-
- jakarta.faces.event.ExceptionEventContext
-eventContext =
-
- new ExceptionEventContext(thrownException,
-null,
-
- facesContext.getPhaseId());
-
- app.publishEvent(ExceptionQueuedEvent.class,
-eventContext);
-
-} finally \{
-
- try \{
-
- _callAfterPhaseListeners();_
-
- } catch (Throwable thrownException) \{
-
- jakarta.faces.event.ExceptionEventContext
-eventContext =
-
- new ExceptionEventContext(thrownException,
-null,
-
- facesContext.getPhaseId());
-
-
-eventContext.getAttributes().put(EventContext.IN_AFTER_PHASE,
-
- Boolean.TRUE);
-
- app.publishEvent(ExceptionQueuedEvent.class,
-eventContext);
-
- }
-
- handler.handle();
-
+try {
+  doCurrentPhase();
+} catch (Throwable thrownException) {
+  jakarta.faces.event.ExceptionEventContext eventContext =
+      new ExceptionEventContext(
+          thrownException, null, facesContext.getPhaseId());
+  app.publishEvent(ExceptionQueuedEvent.class, eventContext);
+} finally {
+  try {
+    callAfterPhaseListeners();
+  } catch (Throwable thrownException) {
+    jakarta.faces.event.ExceptionEventContext eventContext =
+        new ExceptionEventContext(
+            thrownException, null, facesContext.getPhaseId());
+    eventContext.getAttributes()
+        .put(EventContext.IN_AFTER_PHASE, Boolean.TRUE);
+    app.publishEvent(ExceptionQueuedEvent.class, eventContext);
+  }
+  handler.handle();
 }
-
-|
-|===
+----
 
 body text.
 
@@ -325,35 +250,29 @@ JSF-based web application running in a servlet or portlet container. The
 factory instance can be acquired by JSF implementations or by
 application code, by executing:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 LifecycleFactory factory = (LifecycleFactory)
-
-
-FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-
-|===
+    FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+----
 
 The _LifecycleFactory_ implementation class
 supports the following methods:
 
-[width="100%",cols="100%",]
-|===
-|public void addLifecycle(String lifecycleId,
-Lifecycle lifecycle);
-|===
+[source,java]
+----
+public void addLifecycle(String lifecycleId, Lifecycle lifecycle);
+----
 
 Register a new _Lifecycle_ instance under the
 specified lifecycle identifier, and make it available via calls to the
 _getLifecycle_ method for the remainder of the current web application’s
 lifetime.
 
-[width="100%",cols="100%",]
-|===
-|public Lifecycle getLifecycle(String
-lifecycleId);
-|===
+[source,java]
+----
+public Lifecycle getLifecycle(String lifecycleId);
+----
 
 The _LifecycleFactory_ implementation class
 provides this method to create (if necessary) and return a _Lifecycle_
@@ -367,10 +286,10 @@ designated by the _String_ constant _LifecycleFactory.DEFAULT_LIFECYCLE_
 . For advanced uses, a JSF implementation may support additional
 lifecycle instances, named with unique lifecycle identifiers.
 
-[width="100%",cols="100%",]
-|===
-|public Iterator<String> getLifecycleIds();
-|===
+[source,java]
+----
+public Iterator<String> getLifecycleIds();
+----
 
 This method returns an iterator over the set
 of lifecycle identifiers supported by this factory. This set must
