@@ -35,16 +35,16 @@ server. FORM_ELEMENT is the identifier for a DOM form element. All input
 elements of type “hidden” should be included in the collection and
 encoding process.
 
-Encode the name and value for each input
+* Encode the name and value for each input
 element of FORM_ELEMENT. Only select elements that have at least one of
 their options selected must be included. only checkbox elements that are
 checked must be included.
 
-Find the element identified as
+* Find the element identified as
 jakarta.faces.ViewState in the specified FORM_ELEMENT and encode the name
 and value.
 
-Return a concatenated String of the encoded
+* Return a concatenated String of the encoded
 input elements and jakarta.faces.ViewState element.
 
 [[a6852]]
@@ -70,15 +70,15 @@ The jsf.ajax.request function is responsible
 for sending an Ajax request to the server. [P1-start-ajaxrequest]The
 requirements for this function are as follows:
 
-The request must be sent asynchronously
+* The request must be sent asynchronously
 
-The request must be sent with method type
+* The request must be sent with method type
 POST
 
-The request URL will be the form action
+* The request URL will be the form action
 attribute
 
-All requests will be queued with the use of a
+* All requests will be queued with the use of a
 client side request queue to help ensure request ordering
 
 {empty}[P1-end]
@@ -507,11 +507,11 @@ This utility function invokes an arbitrary
 number of scripts in sequence. If any of the scripts return false,
 subsequent scripst will not be executed. The arguments are:
 
-source - The DOM element that triggered this
+* source - The DOM element that triggered this
 Ajax request, or an id string of the element to use as the triggering
 element.
 
-event - The DOM event that triggered this
+* event - The DOM event that triggered this
 Ajax request. A value does not have to be specified for this argument.
 
 The variable number of script arguments
