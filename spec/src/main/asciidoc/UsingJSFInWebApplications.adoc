@@ -44,23 +44,15 @@ this specification. [P1-start-servlet]This servlet must be defined, in
 the deployment descriptor of an application that wishes to employ this
 portable mechanism, as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <servlet>
-
- <servlet-name> faces-servlet-name
-</servlet-name>
-
- <servlet-class>
-
- _jakarta.faces.webapp.FacesServlet_
-
- </servlet-class>
-
+  <servlet-name> faces-servlet-name </servlet-name>
+  <servlet-class>
+    jakarta.faces.webapp.FacesServlet
+  </servlet-class>
 </servlet>
-
-|===
+----
 
 {empty}The servlet name, denoted as
 _faces-servlet-name_ above, may be any desired value; however, the same
@@ -85,36 +77,24 @@ _FacesServlet_ . [P1-end]Prefix or extension mapping may be used. When
 using prefix mapping, the following mapping is recommended, but not
 required:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <servlet-mapping>
-
- <servlet-name> faces-servlet-name
-</servlet-name>
-
- <url-pattern>/faces/*</url-pattern>
-
+  <servlet-name> faces-servlet-name </servlet-name>
+  <url-pattern>/faces/*</url-pattern>
 </servlet-mapping>
-
-|===
+----
 
 When using extension mapping the following
 mapping is recommended, but not required:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <servlet-mapping>
-
- <servlet-name> faces-servlet-name
-</servlet-name>
-
- <url-pattern>*.faces</url-pattern>
-
+  <servlet-name> faces-servlet-name </servlet-name>
+  <url-pattern>*.faces</url-pattern>
 </servlet-mapping>
-
-|===
+----
 
 In addition to _FacesServlet_ , JSF
 implementations may support other ways to invoke the Jakarta Server Faces
@@ -542,11 +522,10 @@ class, whether the Jakarta Server Faces implementation is included within
 the web application or is made visible through the container's
 facilities for shared libraries.
 
-[width="100%",cols="100%",]
-|===
-|public static Object getFactory(String
-factoryName);
-|===
+[source,java]
+----
+public static Object getFactory(String factoryName);
+----
 
 Create (if necessary) and return a
 per-web-application instance of the appropriate implementation class for
@@ -574,11 +553,10 @@ as described in <<a6066, Servlet Definition>>, and
 mapped to a standard URL pattern as described in
 <<a6076,Servlet Mapping>>.
 
-[width="100%",cols="100%",]
-|===
-|public void init(ServletConfig config)
-throws ServletException;
-|===
+[source,java]
+----
+public void init(ServletConfig config) throws ServletException;
+----
 
 Acquire and store references to the
 _FacesContextFactory_ and _Lifecycle_ instances to be used in this web
@@ -594,20 +572,20 @@ value _DEFAULT_ . As an implementation note, please take care to ensure
 that all _PhaseListener_ instances defined for the application are
 installed on all lifecycles created during this process.
 
-[width="100%",cols="100%",]
-|===
-|public void destroy();
-|===
+[source,java]
+----
+public void destroy();
+----
 
 Release the _FacesContextFactory_ and
 _Lifecycle_ references that were acquired during execution of the
 _init()_ method.
 
-[width="100%",cols="100%",]
-|===
-|public void service(ServletRequest request,
-ServletResponse response) throws IOException, ServletException;
-|===
+[source,java]
+----
+public void service(ServletRequest request, ServletResponse response)
+    throws IOException, ServletException;
+----
 
 For each incoming request, the following
 processing is performed:
@@ -894,15 +872,15 @@ did not produce a _<resource-library-contracts>_ element, the data
 structure should be populated as if this were the contents of the
 _<resource-library-contracts>_ element:
 
-[width="100%",cols="100%",]
-|===
-|<resource-library-contracts> +
-<contract-mapping> +
-<url-pattern>*</url-pattern> +
-<contracts>”all available contracts”</contracts> +
-</contract-mapping> +
+[source,xml]
+----
+<resource-library-contracts>
+  <contract-mapping>
+    <url-pattern>*</url-pattern>
+    <contracts>”all available contracts”</contracts>
+  </contract-mapping>
 </resource-library-contracts>
-|===
+----
 
 Where “all available contracts” is replaced
 with a comma separated list of all the contracts discovered in the
@@ -1046,50 +1024,30 @@ that are written to run on JSF 2.3 must include the following schema
 declaration and must conform to the schema shown in
 <<a7037, Appendix A - JSF Metadata>>
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config
-
- xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
-
- version="2.3">
-
-
-
-|===
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+    version="2.3">
+----
 
 [P1-start-schema]Application configuration
 resources that are written to run on JSF 2.2 must include the following
 schema declaration and must conform to the schema shown in
 <<a7037, Appendix A - JSF Metadata>>:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config
-
- xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-
- version="2.2">
-
-
-
-|===
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+----
 
 Note that the “hostname” of the _xmlns_ and
 _xsi:schemaLocation_ attributes has changed from “java.sun.com” to
@@ -1102,87 +1060,53 @@ _web-facesconfig_2_2.xsd_ .
 Application configuration resources that are
 written to run on JSF 2.1 must include the following schema declaration:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config
-
- xmlns="http://java.sun.com/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
-
- version="2.1">
-
-
-
-|===
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+    version="2.1">
+----
 
 Application configuration resources that are
 written to run on JSF 2.0 must include the following schema declaration:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config
-
- xmlns="http://java.sun.com/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-
- version="2.0">
-
-
-
-|===
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+----
 
 Application configuration resources that are
 written to run on JSF 1.2 Application configuration resources must
 include the following schema declaration and must conform to the schema
 referenced in the schemalocation URI shown below:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config version="1.2"
-xmlns="http://java.sun.com/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-
-
-http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
-
-|===
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+----
 
 Application configuration resources that are
 written to run on JSF 1.1 implementations must use the DTD declaration
 and include the following DOCTYPE declaration:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <!DOCTYPE faces-config PUBLIC
-
- “-//Sun Microsystems, Inc.//DTD JavaServer
-Faces Config 1.1//EN”
-
-
-“http://java.sun.com/dtd/web-facesconfig_1_1.dtd”>
-
-|===
+    “-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN”
+    “http://java.sun.com/dtd/web-facesconfig_1_1.dtd”>
+----
 
 {empty}Application configuration resources
 that are written to run on JSF 1.0 implementations must use the DTD
@@ -1190,34 +1114,22 @@ declaration for the 1.0 DTD contained in the binary download of the JSF
 reference implementation. They must also use the following DOCTYPE
 declaration:[P1-end]
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <!DOCTYPE faces-config PUBLIC
-
- “-//Sun Microsystems, Inc.//DTD JavaServer
-Faces Config 1.0//EN”
-
-
-“http://java.sun.com/dtd/web-facesconfig_1_0.dtd”>
-
-|===
+    “-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN”
+    “http://java.sun.com/dtd/web-facesconfig_1_0.dtd”>
+----
 
 [[a6297]]
 ==== Configuration Impact on JSF Runtime
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <!DOCTYPE faces-config PUBLIC
-
- “-//Sun Microsystems, Inc.//DTD JavaServer
-Faces Config 1.1//EN”
-
-
-“http://java.sun.com/dtd/web-facesconfig_1_1.dtd”>
-
-|===
+    “-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN”
+    “http://java.sun.com/dtd/web-facesconfig_1_1.dtd”>
+----
 
 The following XML
 elements<<a9102, 19>> in application configuration resources
@@ -1494,66 +1406,35 @@ custom _ViewHandler_ that was the same as the default one, but provided
 a different implementation of the _calculateLocale()_ method. Consider
 this code excerpt from a custom _ViewHandler_ :
 
-[width="100%",cols="100%",]
-|===
-a|
-public class MyViewHandler extends
-ViewHandler \{
+[source,java]
+----
+public class MyViewHandler extends ViewHandler {
 
+  public MyViewHandler() { }
 
+  public MyViewHandler(ViewHandler handler) {
+    super();
+    oldViewHandler = handler;
+  }
 
- public MyViewHandler() \{ }
+  private ViewHandler oldViewHandler = null;
 
+  // Delegate the renderView() method to the old handler
+  public void renderView(FacesContext context, UIViewRoot view)
+      throws IOException, FacesException {
+    oldViewHandler.renderView(context, view);
+  }
 
+  // Delegate other methods in the same manner
 
- public MyViewHandler(ViewHandler handler) \{
-
- super();
-
- oldViewHandler = handler;
-
- }
-
-
-
- private ViewHandler oldViewHandler = null;
-
-
-
- // Delegate the renderView() method to the
-old handler
-
- public void renderView(FacesContext context,
-UIViewRoot view)
-
- throws IOException, FacesException \{
-
- oldViewHandler.renderView(context, view);
-
- }
-
-
-
- // Delegate other methods in the same manner
-
-
-
- // Overridden version of calculateLocale()
-
- public Locale calculateLocale(FacesContext
-context) \{
-
- Locale locale = ... // Custom calculation
-
- return locale;
-
- }
-
-
-
+  // Overridden version of calculateLocale()
+  public Locale calculateLocale(FacesContext context) {
+    Locale locale = ... // Custom calculation
+    return locale;
+  }
 }
 
-|===
+----
 
 
 
@@ -1571,110 +1452,53 @@ _faces-config.xml_ file that contains the following:
 
 
 
-[width="100%",cols="100%",]
-|===
-a|
- <application>
-
-
-<view-handler>com.foo.NewViewHandler</view-handler>
-
-
-<state-manager>com.foo.NewStateManager</state-manager>
-
- </application>
-
-
-
-|===
+[source,xml]
+----
+<application>
+  <view-handler>com.foo.NewViewHandler</view-handler>
+  <state-manager>com.foo.NewStateManager</state-manager>
+</application>
+----
 
 Where your implementations for these classes
 are simply:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 package com.foo;
-
-
 
 import jakarta.faces.application.ViewHandler;
+import jakarta.faces.application.ViewHandlerWrapper;
 
-import
-jakarta.faces.application.ViewHandlerWrapper;
+public class NewViewHandler extends ViewHandlerWrapper {
+  private ViewHandler oldViewHandler = null;
 
+  public NewViewHandler(ViewHandler oldViewHandler) {
+    this.oldViewHandler = oldViewHandler;
+  }
 
-
-public class NewViewHandler extends
-ViewHandlerWrapper \{
-
-
-
- private ViewHandler oldViewHandler = null;
-
-
-
- public NewViewHandler(ViewHandler
-oldViewHandler) \{
-
- this.oldViewHandler = oldViewHandler;
-
- }
-
-
-
- public ViewHandler getWrapped() \{
-
- return oldViewHandler;
-
- }
-
+  public ViewHandler getWrapped() {
+    return oldViewHandler;
+  }
 }
-
-
 
 package com.foo;
 
-
-
 import jakarta.faces.application.StateManager;
+import jakarta.faces.application.StateManagerWrapper;
 
-import
-jakarta.faces.application.StateManagerWrapper;
+public class NewStateManager extends StateManagerWrapper {
+  private StateManager oldStateManager = null;
 
+  public NewStateManager(StateManager oldStateManager) {
+    this.oldStateManager = oldStateManager;
+  }
 
-
-public class NewStateManager extends
-StateManagerWrapper \{
-
-
-
- private StateManager oldStateManager = null;
-
-
-
- public NewStateManager(StateManager
-oldStateManager) \{
-
- this.oldStateManager = oldStateManager;
-
- }
-
-
-
- public StateManager getWrapped() \{
-
- return oldStateManager;
-
- }
-
+  public StateManager getWrapped() {
+    return oldStateManager;
+  }
 }
-
-
-
-
-
-|===
+----
 
 This allows you to override as many or as few
 methods as you’d like.
@@ -1763,136 +1587,77 @@ result follow the example code.
 
 faces-configA:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>A</name>
-
-
-<ordering><after><name>B</name></after></ordering>
-
- <application>
-
-
-<view-handler>com.a.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.a.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>A</name>
+  <ordering><after><name>B</name></after></ordering>
+  <application>
+    <view-handler>com.a.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.a.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 faces-configB:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>B</name>
-
- <application>
-
-
-<view-handler>com.b.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.b.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>B</name>
+  <application>
+    <view-handler>com.b.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.b.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 faces-configC:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>C</name>
-
- <ordering><before><others
-/></before></ordering>
-
- <application>
-
-
-<view-handler>com.c.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.c.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>C</name>
+  <ordering><before><others/></before></ordering>
+  <application>
+    <view-handler>com.c.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.c.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 my-faces-config:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>my</name>
-
- <application>
-
-
-<view-handler>com.my.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.my.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>my</name>
+  <application>
+    <view-handler>com.my.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.my.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 In this example, the processing order for the
 _applicationConfigurationResources_ and _applicationFacesConfig_ will
 be.
 
-[width="100%",cols="100%",]
-|===
-a|
- _Implementation Specific Config_
-
+----
+Implementation Specific Config
 C
-
 B
-
 A
-
 my
-
-|===
+----
 
 {empty}The preceding example illustrates
 some, but not all, of the following
@@ -1961,38 +1726,22 @@ section.
 
 my-faces-config:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>my</name>
-
- <absolute-ordering>
-
- <name>C</name>
-
- <name>A</name>
-
- </absolute-ordering>
-
- <application>
-
-
-<view-handler>com.my.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.my.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>my</name>
+  <absolute-ordering>
+    <name>C</name>
+    <name>A</name>
+  </absolute-ordering>
+  <application>
+    <view-handler>com.my.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.my.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 In this example, the constructor decorator
 ordering for _ViewHandler_ would be C, A, my.
@@ -2002,46 +1751,27 @@ included below. All of these apply to the
 _applicationConfigurationResources_ relative ordering case, not to the
 _applicationFacesConfig_ absolute ordering case.
 
-[width="100%",cols="100%",]
-|===
-a|
-Document A -
-<after><others/><name>C</name></after>
-
+----
+Document A - <after><others/><name>C</name></after>
 Document B - <before><others/></before>
-
 Document C - <after><others/></after>
-
 Document D - no ordering
-
 Document E - no ordering
-
-Document F -
-<before><others/><name>B</name></before>
-
-|===
+Document F - <before><others/><name>B</name></before>
+----
 
 The valid parse order is F, B, D/E, C, A,
 where D/E may appear as D, E or E, D
 
-[width="100%",cols="100%",]
-|===
-a|
+----
 Document <no id> - <after><others/></after>
-
- <before><name>C</name></before>
-
+                   <before><name>C</name></before>
 Document B - <before><others/></before>
-
 Document C - no ordering
-
 Document D - <after><others/></after>
-
 Document E - <before><others/></before>
-
 Document F - no ordering
-
-|===
+----
 
 The complete list of parse order solutions
 for the above example is
@@ -2058,18 +1788,12 @@ B,E,F,D,<no id>,C
 
 E,B,F,D,<no id>,C
 
-[width="100%",cols="100%",]
-|===
-a|
+----
 Document A - <after><name>B</name></after>
-
 Document B - no ordering
-
 Document C - <before><others/></before>
-
 Doucment D - no ordering
-
-|===
+----
 
 Resulting parse order: C, B, D, A. The parse
 order could also be: C, D, B, A.
@@ -2083,94 +1807,51 @@ The following example application resource
 file defines a custom _UIComponent_ of type _Date_ , plus a number of
 _Renderer_ s that know how to decode and encode such a component:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <?xml version=”1.0”?>
 
 <faces-config version="1.2"
-xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
 
+  <!-- Define our custom component -->
+  <component>
+    <description>
+      A custom component for rendering
+      user-selectable dates in various formats.
+    </description>
+    <display-name>My Custom Date</display-name>
+    <component-type>Date</component-type>
+    <component-class>
+      com.example.components.DateComponent
+    </component-class>
+  </component>
 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  <!-- Define two renderers that know how to deal with dates -->
+  <render-kit>
+    <!-- No render-kit-id, so add them to default RenderKit -->
+    <renderer>
+      <display-name>Calendar Widget</display-name>
+      <component-family>MyComponent</component-family>
+      <renderer-type>MyCalendar</renderer-type>
+      <renderer-class>
+        com.example.renderers.MyCalendarRenderer
+      </renderer-class>
+    </renderer>
 
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-
-
-http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
-
-<!-- Define our custom component -->
-
-<component>
-
- <description>
-
- A custom component for rendering
-user-selectable dates in various formats.
-
- </description>
-
- <display-name>My Custom Date</display-name>
-
- <component-type>Date</component-type>
-
- <component-class>
-
- com.example.components.DateComponent
-
- </component-class>
-
-</component>
-
-
-
-<!-- Define two renderers that know how to
-deal with dates -->
-
-<render-kit>
-
- <!-- No render-kit-id, so add them to
-default RenderKit -->
-
- <renderer>
-
- <display-name>Calendar Widget</display-name>
-
-
-<component-family>MyComponent</component-family>
-
- <renderer-type>MyCalendar</renderer-type>
-
- <renderer-class>
-
- com.example.renderers.MyCalendarRenderer
-
- </renderer-class>
-
- </renderer>
-
- <renderer>
-
- <display-name>Month/Day/Year</display-name>
-
- <renderer-type>MonthDayYear</renderer-type>
-
- <renderer-class>
-
- com.example.renderers.MonthDayYearRenderer
-
- </renderer-class>
-
- </renderer>
-
-</render-kit>
-
-
-
+    <renderer>
+      <display-name>Month/Day/Year</display-name>
+      <renderer-type>MonthDayYear</renderer-type>
+      <renderer-class>
+        com.example.renderers.MonthDayYearRenderer
+      </renderer-class>
+    </renderer>
+  </render-kit>
 </faces-config>
-
-|===
+----
 
 Additional examples of configuration elements
 that might be found in application configuration resources are in
