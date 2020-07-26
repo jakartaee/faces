@@ -1038,11 +1038,16 @@ components that support the “events” attribute. In there is an outer
 
 .Syntax
 
-<f:ajax [event=”Literal”] [execute=”Literal |
-Value Expression”] [render=”Literal | Value Expression”]
-[onevent=”Literal | Value Expression”] [onerror=”Literal | Value
-Expression”] | [listener=”Method Expression”] [disabled=”Literal|Value
-Expression”] [immediate=”Literal|ValueExpression]/>
+``<f:ajax [event=”Literal”]``
+
+[none]
+* ``[execute=”Literal | Value Expression”] [render=”Literal | Value Expression”]``
+
+* ``[onevent=”Literal | Value Expression”] [onerror=”Literal | Value Expression”]``
+
+* ``[listener=”Method Expression”]``
+
+* ``[disabled=”Literal | Value Expression”] [immediate=”Literal | ValueExpression]/>``
 
 .Body Content
 
@@ -1362,21 +1367,28 @@ purposes only.
 
 .Syntax
 
-_<h:inputText value=”#\{model.property}”> +
-<f:validateBean validationGroups= +
-"jakarta.validation.groups.Default,app.validation.groups.Order"/> +
-</h:inputText>_
+[source,xml]
+----
+<h:inputText value=”#{model.property}”>
+  <f:validateBean validationGroups=
+      "jakarta.validation.groups.Default,app.validation.groups.Order"/>
+</h:inputText>
+----
 
 or
 
-_<h:form> +
-<f:validateBean> +
-<h:inputText value=”#\{model.property}” /> +
-<h:selectOneRadio value=”#\{model.radioProperty}” > ...
-</h:selectOneRadio> +
-_ <!-- other input components here --> +
-</f:validateBean> +
+[source,xml]
+----
+<h:form>
+  <f:validateBean>
+    <h:inputText value=”#{model.property}” />
+    <h:selectOneRadio value=”#{model.radioProperty}” >
+      ...
+    </h:selectOneRadio>
+    <!-- other input components here -->
+  </f:validateBean>
 </h:form>
+----
 
 .Body Content
 
@@ -1469,7 +1481,10 @@ when used within a composite component.
 
 .Syntax
 
+[source,xml]
+----
 <f:validateRequired/>
+----
 
 .Body Content
 
@@ -1551,14 +1566,15 @@ class-level bean validation on CDI based backing beans.
 
 .Syntax
 
-_<!-- one or more components validated by
-<f:validateBean /> +
-precede this tag in the tree, with each one using the same +
-validationGroups value and referencing properties on the same +
-model object --> +
- +
-<f:validateWholeBean value=_ " _#\{model}_ " _ +
-validationGroups=_ " _fully.qualified.class.Name_ " _/>_
+[source,xml]
+----
+<!-- one or more components validated by <f:validateBean />
+     precede this tag in the tree, with each one using the same
+     validationGroups value and referencing properties on the same
+     model object -->
+<f:validateWholeBean value="#{model}"
+    validationGroups="fully.qualified.class.Name" />
+----
 
 .Body Content
 
@@ -1625,15 +1641,16 @@ service methods.
 
 .Syntax
 
-_<f:websocket [binding=_ " _ValueExpression_
-" _] [id=_ " _Literal|ValueExpression_ " _] +
-channel=_ " _Literal_ " _[scope=_ " _Literal_ " _] [user=_ "
-_Literal|ValueExpression_ " _] +
-[onopen=_ " _Literal|ValueExpression_ " _] [onmessage=_ "
-_Literal|ValueExpression_ " _] +
-[onclose=_ " _Literal|ValueExpression_ " _] [connected=_ "
-_Literal|ValueExpression_ " _] +
-[rendered=_ " _Literal|ValueExpression_ " _] />_
+``<f:websocket [binding="ValueExpression"] [id="Literal | ValueExpression"]``
+
+[none]
+* ``channel="Literal" [scope="Literal"]``
+
+* ``[user="Literal | ValueExpression"] [onopen="Literal | ValueExpression"]``
+
+* ``[onmessage="Literal | ValueExpression"] [onclose="Literal | ValueExpression"]``
+
+* ``[connected="Literal | ValueExpression"] [rendered="Literal | ValueExpression"] />``
 
 .Body Content
 
