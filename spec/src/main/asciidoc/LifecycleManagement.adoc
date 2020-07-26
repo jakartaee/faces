@@ -40,29 +40,29 @@ As each phase is processed, registered
 _PhaseListener_ instances are also notified. The general processing for
 each phase is as follows:
 
-From the set of registered _PhaseListener_
+* From the set of registered _PhaseListener_
 instances, select the relevant ones for the current phase, where
 “relevant” means that calling _getPhaseId()_ on the _PhaseListener_
 instance returns the phase identifier of the current phase, or the
 special value _PhaseId.ANY_PHASE_ .
 
-Call the _beforePhase()_ method of each
+* Call the _beforePhase()_ method of each
 relevant listener, in the order that the listeners were registered.
 
-If no called listener called the
+* If no called listener called the
 _FacesContext.renderResponse()_ or _FacesContext.responseComplete()_
 method, execute the functionality required for the current phase.
 
-Call the _afterPhase()_ method of each
+* Call the _afterPhase()_ method of each
 relevant listener, in the reverse of the order that the listeners were
 registered.
 
-If the _FacesContext.responseComplete()_
+* If the _FacesContext.responseComplete()_
 method has been called during the processing of the current request, or
 we have just completed the _Render Response_ phase, perform no further
 phases of the request processing lifecycle.
 
-If the _FacesContext.renderResponse()_ method
+* If the _FacesContext.renderResponse()_ method
 has been called during the processing of the current request, and we
 have not yet executed the _Render Response_ phase of the request
 processing lifecycle, ensure that the next executed phase will be
@@ -231,12 +231,12 @@ _PhaseListener_ implementations may affect
 the remainder of the request processing lifecycle in several ways,
 including:
 
-Calling _renderResponse()_ on the
+* Calling _renderResponse()_ on the
 _FacesContext_ instance for the current request, which will cause
 control to transfer to the _Render Response_ phase of the request
 processing lifecycle, once processing of the current phase is complete.
 
-Calling responseComplete() on the
+* Calling responseComplete() on the
 FacesContext instance for the current request, which causes processing
 of the request processing lifecycle to terminate once the current phase
 is complete.
