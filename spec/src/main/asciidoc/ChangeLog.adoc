@@ -503,7 +503,7 @@ _http://xmlns.jcp.org/xml/ns/javaee_ .
 Facelet Tag Libraries will now respond to the
 following URIs
 
-[width="100%",cols="34%,33%,33%",options="header",]
+[width="100%",cols="24%,38%,38%",options="header",]
 |===
 |Library |Old URI
 |New URI
@@ -1245,7 +1245,7 @@ _http://xmlns.jcp.org/xml/ns/javaee_ .
 Facelet Tag Libraries will now respond to the
 following URIs
 
-[width="100%",cols="34%,33%,33%",options="header",]
+[width="100%",cols="24%,38%,38%",options="header",]
 |===
 |Library |Old URI
 |New URI
@@ -2111,7 +2111,7 @@ https://javaserverfaces-spec-public.dev.java.net/servlets/ProjectIssues
 
 
 
-[width="100%",cols="20%,20%,20%,20%,20%",]
+[width="100%",cols="7%,10%,56%,15%,12%",]
 |===
 |ID |Category
 |Description
@@ -2348,7 +2348,7 @@ detail (the class exists under com package)
 _https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=836[Spec
 Public:836]_
 
-|C047 |Errata</TD
+|C047 |Errata
 |Add "defaults" for "execute", "render"
 _AjaxBehavior_ in vdldocs. |yes
 |
@@ -2799,8 +2799,8 @@ Public:729]_
 |C122 |Errata
 |Spec Section 2.6.1.3: Specify that a
 libraryName or resourceName contains only XML NameChar, but not a colon;
-a libraryName or resourceName does not match the regex "[0-9]+(_[0-9]+)*
-or [A-Za-z]\{2}(_[A-Za-z]\{2}(_[A-Za-z]+)*)?"
+a libraryName or resourceName does not match the regex
++++"[0-9]+(_[0-9]+)* or [A-Za-z]{2}(_[A-Za-z]{2}(_[A- Za-z]+)*)?"+++
 |yes |
 _https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=740[Spec
 Public:740]_
