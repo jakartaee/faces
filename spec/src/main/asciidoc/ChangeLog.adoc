@@ -40,9 +40,9 @@ Stateless Views>>.
 
 ==== Other Features, by Functional Area
 
-Components/Renderers
+===== Components/Renderers
 
-===== Larger Changes
+.Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
 UIData supports the Collection Interface rather than List.
@@ -50,7 +50,7 @@ UIData supports the Collection Interface rather than List.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
 - Add the "role" pass through attribute.
 
-===== Smaller Changes
+.Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
 Warn about some important corner cases when
@@ -117,9 +117,9 @@ OutputStylesheet "media" attribute
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1125 +
 _javax.faces.application.Application_ event subscription clarifications.
 
-Lifecycle
+===== Lifecycle
 
-===== Larger Changes
+.Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-947-ClientWindow +
@@ -160,7 +160,7 @@ Events from the flash
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
 Add support for delay value in options for Ajax requests
 
-===== Smaller Changes
+.Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
 In validate(), clarify that setSubmittedValue() null must be called if
@@ -219,7 +219,7 @@ return from _UIViewRoot.getContainerClientId()_ .
 
 
 
-Platform Integration
+===== Platform Integration
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763
 
@@ -234,9 +234,9 @@ _javax.faces.bean_ will be deprecated in the next version.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1087 +
 Introduce CDI based @ViewScoped annotation.
 
-Facelets/VDL
+===== Facelets/VDL
 
-===== Larger Changes
+.Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
 Allow cc and non-cc components in one taglib
@@ -297,7 +297,7 @@ where, in one resource library, there are both localized and
 non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
 of Localized and Versioned Resources>>.
 
-===== Smaller Changes
+.Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038
 
@@ -340,7 +340,7 @@ add short-name to schema.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-746 +
 Missing _method-signature_ element in taglib xsd.
 
-Spec Clarifications
+===== Spec Clarifications
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1136 +
 In _ExternalContext.dispatch()_ , clarify what is to be done if
@@ -422,16 +422,16 @@ http://java.net/jira/browse/JAVASERVERFACES-2740 +
 In <<UserInterfaceComponentModel.adoc#a923,See Component Bindings>>, clarify a corner
 case regarding bean scope and component binding.
 
-Resources
+===== Resources
 
-===== Larger Changes
+.Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
 This commit introduces a cleaner contract for allowing views to be
 loaded from the Filesystem (including inside of JAR files). All VDL
 resources must be loaded using ResourceHandler.createViewResource().
 
-===== Smaller Changes
+.Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996
 
@@ -449,7 +449,7 @@ state by default when state saving method is server. Introduce a context
 parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,See Application
 Configuration Parameters>>
 
-Expression Language
+===== Expression Language
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
 
@@ -472,7 +472,7 @@ If running in a container that supports EL 3.0, add the necessary
 ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
 Map, List, Array, and Bean ELResolvers>>.
 
-Configuration and Bootstrapping
+===== Configuration and Bootstrapping
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig
 
@@ -480,7 +480,7 @@ Modify <<UsingJSFInWebApplications.adoc#a6201,See
 Application Startup Behavior>> to account for requirement to call new API
 when starting up.
 
-Miscellaneous
+===== Miscellaneous
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1169
 
@@ -779,9 +779,9 @@ Stateless Views>>.
 
 ==== Other Features, by Functional Area
 
-Components/Renderers
+===== Components/Renderers
 
-===== Larger Changes
+.Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
 UIData supports the Collection Interface rather than List.
@@ -789,7 +789,7 @@ UIData supports the Collection Interface rather than List.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
 - Add the "role" pass through attribute.
 
-===== Smaller Changes
+.Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
 Warn about some important corner cases when
@@ -856,9 +856,9 @@ OutputStylesheet "media" attribute
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1125 +
 _javax.faces.application.Application_ event subscription clarifications.
 
-Lifecycle
+===== Lifecycle
 
-===== Larger Changes
+.Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-947-ClientWindow +
@@ -899,7 +899,7 @@ Events from the flash
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
 Add support for delay value in options for Ajax requests
 
-===== Smaller Changes
+.Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
 In validate(), clarify that setSubmittedValue() null must be called if
@@ -958,7 +958,7 @@ return from _UIViewRoot.getContainerClientId()_ .
 
 
 
-Platform Integration
+===== Platform Integration
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763
 
@@ -973,9 +973,9 @@ _javax.faces.bean_ will be deprecated in the next version.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1087 +
 Introduce CDI based @ViewScoped annotation.
 
-Facelets/VDL
+===== Facelets/VDL
 
-===== Larger Changes
+.Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
 Allow cc and non-cc components in one taglib
@@ -1036,7 +1036,7 @@ where, in one resource library, there are both localized and
 non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
 of Localized and Versioned Resources>>.
 
-===== Smaller Changes
+.Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038
 
@@ -1079,7 +1079,7 @@ add short-name to schema.
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-746 +
 Missing _method-signature_ element in taglib xsd.
 
-Spec Clarifications
+===== Spec Clarifications
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1136 +
 In _ExternalContext.dispatch()_ , clarify what is to be done if
@@ -1161,16 +1161,16 @@ http://java.net/jira/browse/JAVASERVERFACES-2740 +
 In <<UserInterfaceComponentModel.adoc#a923,See Component Bindings>>, clarify a corner
 case regarding bean scope and component binding.
 
-Resources
+===== Resources
 
-===== Larger Changes
+.Larger Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
 This commit introduces a cleaner contract for allowing views to be
 loaded from the Filesystem (including inside of JAR files). All VDL
 resources must be loaded using ResourceHandler.createViewResource().
 
-===== Smaller Changes
+.Smaller Changes
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996
 
@@ -1188,7 +1188,7 @@ state by default when state saving method is server. Introduce a context
 parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,See Application
 Configuration Parameters>>
 
-Expression Language
+===== Expression Language
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
 
@@ -1211,7 +1211,7 @@ If running in a container that supports EL 3.0, add the necessary
 ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
 Map, List, Array, and Bean ELResolvers>>.
 
-Configuration and Bootstrapping
+===== Configuration and Bootstrapping
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig
 
@@ -1219,7 +1219,7 @@ Modify <<UsingJSFInWebApplications.adoc#a6201,See
 Application Startup Behavior>> to account for requirement to call new API
 when starting up.
 
-Miscellaneous
+===== Miscellaneous
 
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1169
 
@@ -1481,7 +1481,7 @@ substantial, it was judged to be worth the cost.
 
 === Changes between 2.0 Rev a and 2.1
 
-==== <<FaceletsAndWebApplications.adoc#a5638,See Facelet Tag Library mechanism>>
+==== <<FaceletsAndWebApplications.adoc#a5638,Facelet Tag Library mechanism>>
 
 Document that the unprefixed namespace must
 pass through.
@@ -1504,7 +1504,7 @@ Change <<RequestProcessingLifecycle.adoc#a404,See
 Restore View>> to require a call to _ViewHandler.deriveLogicalViewId()_
 before trying to find the _ViewDeclarationLanguage_ .
 
-==== <<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>>
+==== <<ApplicationIntegration.adoc#a3910,Default ViewHandler Implementation>>
 
 Document _deriveLogicalViewId()._
 
@@ -1513,13 +1513,13 @@ Document _deriveLogicalViewId()._
 
 ==== Global changes
 
-ExceptionQueuedEvent
+===== ExceptionQueuedEvent
 
 The specification incorrectly refers to the
 ExceptionQueuedEvent as the ExceptionEvent. All instances should be
 replaced, as there is no such class ExceptionEvent in JSF.
 
-Usage of the term "page" in the JSF 2.0 spec
+===== Usage of the term "page" in the JSF 2.0 spec
 
 This might be kind of nit-picky, but there
 are several occurrences of the term "Facelet page" in the JSF 2.0 spec,
@@ -1596,28 +1596,24 @@ Update spec license.
 
 ==== Chapter 2
 
-{empty}<<RequestProcessingLifecycle.adoc#a404,See
-Restore View>>
+===== <<RequestProcessingLifecycle.adoc#a404,Restore View>>
 
 Per Andy Schwartz recommendation, loosen the
 spec requirements for the delivery of the PostRestoreStateEvent to be
 "somewhere during RestoreView".
 
-{empty}<<RequestProcessingLifecycle.adoc#a584,See
-Localized Application Messages>>
+===== <<RequestProcessingLifecycle.adoc#a584,Localized Application Messages>>
 
 Suggestion: Change to
 
 Validation Error: Length is less than
 allowable minimum of 5.
 
-{empty}<<RequestProcessingLifecycle.adoc#a710,See JSR
-303 Bean Validation>>
+===== <<RequestProcessingLifecycle.adoc#a710,JSR 303 Bean Validation>>
 
 Change "leas" to "least"
 
-<<RequestProcessingLifecycle.adoc#a710,See JSR 303 Bean
-Validation>> needs to reference "Bean Validation Integration" section
+===== <<RequestProcessingLifecycle.adoc#a710,JSR 303 Bean Validation>> needs to reference "Bean Validation Integration" section
 
 While reading section 2.5.7, one becomes very
 disappointed with the limited about of information that it provides. But
@@ -1625,16 +1621,14 @@ section 3.5.6 provides more information, so the recommendation is that
 these sections reference each other, or perhaps are combined in some way
 if that makes sense.
 
-{empty}<<RequestProcessingLifecycle.adoc#a758,See
-Resource Identifiers>>
+===== <<RequestProcessingLifecycle.adoc#a758,Resource Identifiers>>
 
 Tighten spec for the localePrefix,
 libraryName, and resourceVersion segments of the resource identifier.
 
 ==== Chapter 3
 
-{empty}Clarify meaning of "javax.faces.bean"
-in <<UserInterfaceComponentModel.adoc#a1464,See Bean Validator Activation>>
+===== Clarify meaning of "javax.faces.bean" in <<UserInterfaceComponentModel.adoc#a1464,Bean Validator Activation>>
 
 Section 3.5.6.1 says:
 
@@ -1650,9 +1644,7 @@ the JSF 2.0 API, which equates to the
 javax.faces.validator.BeanValidator class as mentioned in Section
 10.4.1.4.
 
-Need to be consistent between
-<<UserInterfaceComponentModel.adoc#a1393,See Declarative Listener Registration>> of the
-JSF 2.0 Spec and the VDLDoc for f:event
+===== Need to be consistent between <<UserInterfaceComponentModel.adoc#a1393,Declarative Listener Registration>> of the JSF 2.0 Spec and the VDLDoc for f:event
 
 Section 3.4.3.4 of the JSF 2.0 Spec reads:
 
@@ -1671,9 +1663,7 @@ Both of these are true, and indeed saying the
 same thing. But I think it would be helpful to say BOTH things, in BOTH
 documents.
 
-Typo in <<UserInterfaceComponentModel.adoc#a1393,See
-Declarative Listener Registration>> of the JSF 2.0 Spec regarding
-"beforeRender"
+===== Typo in <<UserInterfaceComponentModel.adoc#a1393,Declarative Listener Registration>> of the JSF 2.0 Spec regarding "beforeRender"
 
 Section 3.4.3.4 of the JSF 2.0 Spec has this
 example:
@@ -1688,15 +1678,12 @@ listener="#\{myBean.beforeTextRender}" />
 But "beforeRender" is a typo. The correct
 value is "preRenderComponent" as stated in the f:event VDLDocs.
 
-{empty}<<UserInterfaceComponentModel.adoc#a1419,See
-Validation Registration>>, <<UserInterfaceComponentModel.adoc#a1518,See What does it
-mean to be a JSF User Interface component?>>
+===== <<UserInterfaceComponentModel.adoc#a1419,Validation Registration>>, <<UserInterfaceComponentModel.adoc#a1518,What does it mean to be a JSF User Interface component?>>
 
 Remove references to UInput.encodeEnd(). Not
 for a very long time has this method been used to instigate validation.
 
-{empty}<<UserInterfaceComponentModel.adoc#a1671,See
-Composite Component Metadata>>
+===== <<UserInterfaceComponentModel.adoc#a1671,Composite Component Metadata>>
 
 Section 3.6.2.1 of the Spec indicates that
 the "hidden" property of the javax.bean.FeatureDescriptor is to appear
@@ -1706,36 +1693,30 @@ VDLDocs do not declare that the "hidden" property is available.
 
 ==== Chapter 4
 
-{empty}<<StandardUserInterfaceComponents.adoc#a2268,See
-Events>>
+===== <<StandardUserInterfaceComponents.adoc#a2268,Events>>
 
 Remove text pertaining to
 PostRestoreStateEvent, rely instead on text in setion 2.2.1.
 
-Chapter 7
+==== Chapter 7
 
-{empty}<<ApplicationIntegration.adoc#a3562,See
-Overview>>
+===== <<ApplicationIntegration.adoc#a3562,Overview>>
 
 getNavigationCase should return
 NavigationCase and not void.
 
-{empty}<<ApplicationIntegration.adoc#a3571,See
-Default NavigationHandler Algorithm>>
+===== <<ApplicationIntegration.adoc#a3571,Default NavigationHandler Algorithm>>
 
 Add faces-include-view-params
 
-{empty}<<ApplicationIntegration.adoc#a3910,See
-Default ViewHandler Implementation>>
+===== <<ApplicationIntegration.adoc#a3910,Default ViewHandler Implementation>>
 
 Fix typo the specified createView() should be
 called in renderView() and restoreView().
 
 ==== Chapter 9
 
-<<IntegrationWithJSP.adoc#a4654,See
-<f:actionListener> >> of Spec PDF -- Missing "for" attribute of
-f:actionListener in Spec PDF
+===== <<IntegrationWithJSP.adoc#a4654,<f:actionListener> >> of Spec PDF -- Missing "for" attribute of f:actionListener in Spec PDF
 
 The example for f:selectItems includes a
 noSelectionValue attribute, but that attribute isn't documented. VDLDocs
@@ -1746,9 +1727,7 @@ looks like it doesn't. It seems as though the itemLabelEscaped attribute
 is documented twice, but really the second occurance is the
 noSelectionValue.
 
-{empty}<<IntegrationWithJSP.adoc.#a4654,See
-<f:actionListener> >> and <<IntegrationWithJSP.adoc#a5282,See
-<f:valueChangeListener> >>
+===== <<IntegrationWithJSP.adoc.#a4654,<f:actionListener> >> and <<IntegrationWithJSP.adoc#a5282,<f:valueChangeListener> >>
 
 Add this non-normative text.
 
@@ -1776,16 +1755,14 @@ Somehow there needs to be an explanation of
 the distinction of "page templating" and "template text" here. Right now
 it kind of reads as a contradiction.
 
-{empty}<<FaceletsAndWebApplications.adoc#a5632,See
-General Requirements>>
+===== <<FaceletsAndWebApplications.adoc#a5632,General Requirements>>
 
 Add an assertion to section 10.3.1 stating
 that EL expressions that appear in the facelet XHTML page must appear in
 the rendered view as if they were the right hand side of the value
 attribute of an at the same point in the page as the EL expression
 
-{empty}<<FaceletsAndWebApplications.adoc#a5638,See
-Facelet Tag Library mechanism>>
+===== <<FaceletsAndWebApplications.adoc#a5638,Facelet Tag Library mechanism>>
 
 Section 10.3.2. Correct xref to point to
 section in appendix that includes the facelet taglib schema.
@@ -1793,7 +1770,7 @@ section in appendix that includes the facelet taglib schema.
 Correct xref to point to section in appendix
 that includes the facelet taglib schema.
 
-VDLDocs and PDL documentation
+===== VDLDocs and PDL documentation
 
 <<FaceletsAndWebApplications.adoc#a6043,See
 Facelet Templating Tag Library>>,
@@ -1811,9 +1788,7 @@ So it looks like the View Declaration
 Language (VDL) terminology hasn't made its way into the tag library docs
 yet.
 
-Possible error in section
-<<FaceletsAndWebApplications.adoc#a1111,See <f:ajax> >> of the JSF 2.0 Spec regarding
-f:ajax and h:panelGrid
+===== Possible error in section <<FaceletsAndWebApplications.adoc#a1111,<f:ajax> >> of the JSF 2.0 Spec regarding f:ajax and h:panelGrid
 
 Section 10.4.1.1, shows this example:
 
@@ -1860,16 +1835,14 @@ have ajax behavior applied for an onclick˝ event
 So... which is it? Does h:panelGrid get ajax
 behavior or not? Can an HTML table have an "onclick" JavaScript event?
 
-Redundant mentioning of Facelets in
-<<FaceletsAndWebApplications.adoc#a5828,See <f:validateBean> >> of the JSF 2.0 Spec
+===== Redundant mentioning of Facelets in <<FaceletsAndWebApplications.adoc#a5828,<f:validateBean> >> of the JSF 2.0 Spec
 
 Since the parent section (10.4.1) indicates
 that sub-sections are Facelets-only in nature, then it is not necessary
 to have (Facelets only) in the "Constraints" paragraph of Section
 10.4.1.4 of the spec.
 
-Availability of f:validateBean and
-f:validateRequired in JSP
+===== Availability of f:validateBean and f:validateRequired in JSP
 
 <<FaceletsAndWebApplications.adoc#a5691,See Standard
 Facelet Tag Libraries>> outlines the f: namespaced tags that are only
@@ -1892,9 +1865,7 @@ functionality described in each section.
 
 ==== Chapter 13
 
-Redundancy in
-<<AjaxIntegration.adoc#a6831,See Partial View
-Processing<< of the JSF 2.0 Spec
+===== Redundancy in <<AjaxIntegration.adoc#a6831,Partial View Processing>> of the JSF 2.0 Spec
 
 Section 13.4.2 of the JSF 2.0 spec has this
 sentence:
@@ -1909,8 +1880,7 @@ say:
 partial execute request (not triggered by
 Ajax) or a partial execute request (that was triggered using Ajax)
 
-"Execute portions" of the JSF request
-processing lifecycle in the JSF 2.0 Spec
+===== "Execute portions" of the JSF request processing lifecycle in the JSF 2.0 Spec
 
 Section 13.4.2 reads:
 
@@ -1925,8 +1895,7 @@ the execute portions?
 
 ==== Chapter 14
 
-<<JavaScriptAPI.adoc#a6856,See
-Initiating an Ajax Request>> Typo in table 14.2.2 of the JSF 2.0 Spec
+===== <<JavaScriptAPI.adoc#a6856,Initiating an Ajax Request>> Typo in table 14.2.2 of the JSF 2.0 Spec
 
 Table 14.2.2 reads:
 
@@ -1940,8 +1909,7 @@ of the spec, it should read:
 Also, the same goes for "render" in that the
 word "portion" should be used instead of "phase".
 
-<<JavaScriptAPI.adoc#a6933,See
-Request/Response Event Handling>> Table 14.4.1
+===== <<JavaScriptAPI.adoc#a6933,Request/Response Event Handling>> Table 14.4.1
 
 Change responseTxt to responseText.
 
@@ -1952,9 +1920,7 @@ Table 14.3: Reorder rows
 Update schema to remove partial-traversal, as
 well as fixing 768.
 
-{empty}<<JSFMetadata.adoc.html#a7139,See
-Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets
-Prior to JSF 2.0>>
+===== <<JSFMetadata.adoc.html#a7139,Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0>>
 
 To ease migration for Facelet taglibraries
 declared using pre-JSF 2.0 versions of Facelets, implementations must
@@ -1978,12 +1944,11 @@ conformance to the following schema, rather than the deprecated DTD.
 
 ==== VDLDoc changes
 
-Typo in f:selectItems VDLDocs
+===== Typo in f:selectItems VDLDocs
 
 Change "mest" to "must"
 
-Need clarification on execute attribute of
-f:ajax
+===== Need clarification on execute attribute of f:ajax
 
 The VDLDocs for f:ajax say "Identifiers of
 components" but, for some reason, it wasn't obvious to me that this term
@@ -1993,7 +1958,7 @@ Also, the value of an id attribute like "mycomponent" or something
 should be added to an example that includes a keyword... something like
 this: "@this componentone componenttwo"
 
-Spelling error in VDLDocs for f:ajax
+===== Spelling error in VDLDocs for f:ajax
 
 This one from Lincoln:
 
@@ -2001,8 +1966,7 @@ See the "onerror" attribute
 
 There is an extra 'e' -> "oneerror"
 
-Need clarification on required attribute in
-VDLDocs for tags that got a new "for" attribute in JSF 2.0
+===== Need clarification on required attribute in VDLDocs for tags that got a new "for" attribute in JSF 2.0
 
 The VDLDocs correctly have green for the new
 "for" attribute, but the "required" column says false, when that's not
@@ -2014,18 +1978,17 @@ as a child of a Composite Component, then the for attribute is indeed
 required. This would be true of all tags like that, such as
 f:convertDateTime, f:convertNumber, etc.
 
-Uppercase typo in VDLDocs for f:event
+===== Uppercase typo in VDLDocs for f:event
 
 Change uppercase "P" to lowercase for:
 PostAddToView for the f:event VDLDocs
 
-Need to change "JSP" to "Facelets" in "Body
-Content" of VDLDocs
+===== Need to change "JSP" to "Facelets" in "Body Content" of VDLDocs
 
 Search for "JSP" on the f:event VDLDocs [1].
 My suspicion is that this is a problem across the board.
 
-Need clarification in VDLDocs for f:metadata
+===== Need clarification in VDLDocs for f:metadata
 
 In the VDLDocs for f:metadata, recommend
 changing:
@@ -2047,15 +2010,13 @@ to this:
 
 "template-client XHTML page, page01.xhtml"
 
-Missing description in VDLDocs for name
-attribute of f:viewParam
+===== Missing description in VDLDocs for name attribute of f:viewParam
 
 The VDLDocs for f:viewParam are missing
 documentation of the "name" attribute, which is pretty important since
 it is required.
 
-VLDDocs on "for" attribute of f:viewParam
-claim it can be used in a CC
+===== VLDDocs on "for" attribute of f:viewParam claim it can be used in a CC
 
 The VDLDocs for f:viewParam claim that the
 "for" attribute is supported. I just checked Mojarra's jsf-api and
@@ -2067,7 +2028,7 @@ disqualifies the f:viewParam tag from being able to be used inside of a
 Composite Component. Therefore I recommend that the documentation of the
 "for" attribute be totally removed.
 
-Miscellaneous VDLDoc items
+===== Miscellaneous VDLDoc items
 
 VDLDocs for "execute" attribute of f:ajax say
 (must evaluate to java.lang.Object) but then say "Evaluates to
@@ -2134,14 +2095,14 @@ java.util.Collection
 VDLDocs for ui:param have two "name"
 attributes specified. The second one should be the "value" attribute
 
-Should TLDDocs now be VDLDocs?
+===== Should TLDDocs now be VDLDocs?
 
 The Spec introduces this term VDLDocs (which
 as I said in the other email, was formerly PDLDocs), but it also refers
 the reader to the TLDDocs. Should we just settle on VDLDocs as the
 standard term throughout the Spec?
 
-Typo in VDLDocs for f:event.
+===== Typo in VDLDocs for f:event.
 
 The VDLDocs for f:event specify a "name"
 attribute, but the Description column of the page talks about a "type"
