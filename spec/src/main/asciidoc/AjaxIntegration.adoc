@@ -20,9 +20,9 @@ constant
 _jakarta.faces.application.ResourceHandler.JSF_SCRIPT_RESOURCE_NAME_ and
 it must exist under the resource library given by the value of the
 constant
-_jakarta.faces.application.ResourceHandler.JSF_SCRIPT_LIBRARY_NAME,_
+_jakarta.faces.application.ResourceHandler.JSF_SCRIPT_LIBRARY_NAME_,
 following the conventions in _<<a746, Resource
-Handling>>._ This resource contains the JavaScript APIs that facilitate
+Handling>>_. This resource contains the JavaScript APIs that facilitate
 Ajax interaction with Jakarta Server Faces.
 
 [[a6704]]
@@ -39,15 +39,11 @@ Component authors can specify that a custom
 component or renderer requires the Ajax resource with the use of the
 ResourceDependency annotation.
 
-[width="100%",cols="100%",]
-|===
-a|
-@ResourceDependency (name="jsf.js",
-library="jakarta.faces", target="head")
-
+[source,java]
+----
+@ResourceDependency (name="jsf.js", library="jakarta.faces", target="head")
 public class MyComponent extends UIOutput...
-
-|===
+----
 
 For more information on this approach refer
 to <<a847, Relocatable Resources>> and
@@ -61,78 +57,47 @@ custom component or renderer requires the JavaScript resource by using
 the resource APIs. For example, a component or renderer’s encode method
 may contain:
 
-[width="100%",cols="100%",]
-|===
-a|
-Resource resource =
-context.getApplication().getResourceHandler()
-
- .createResource(“jsf.js”, “jakarta.faces”);
-
+[source,java]
+----
+Resource resource = context.getApplication().getResourceHandler()
+    .createResource(“jsf.js”, “jakarta.faces”);
 ...
-
 writer.startElement("script", component);
-
-writer.writeAttribute("type",
-"text/javascript", "type");
-
-writer.writeAttribute("src",((resource !=
-null)? resource.getRequestPath(): "RES_NOT_FOUND"),”src”);
-
+writer.writeAttribute("type", "text/javascript", "type");
+writer.writeAttribute("src",
+    ((resource != null)? resource.getRequestPath(): "RES_NOT_FOUND"), ”src”);
 writer.endElement(“script”);
-
-|===
+----
 
 Script resources are relocatable resources
 (see <<a847, Relocatable
 Resources>>) which means you can control the rendering location for these
 resources by setting the “target” attribute on the resource component:
 
-[width="100%",cols="100%",]
-|===
-a|
-public class MyComponent extends UIOutput \{
-
+[source,java]
+----
+public class MyComponent extends UIOutput {
 ...
-
-getAttributes().put(“target”, “head”);
-
+  getAttributes().put(“target”, “head”);
 ...
-
 }
-
-|===
+----
 
 This attribute must be set before the
 component is added to the view. The component or renderer must also
 implement the event processing method:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public void processEvent(SystemEvent event)
-throws AbortProcessingException \{
-
-UIComponent component = (UIComponent)
-event.getSource();
-
-FacesContext context =
-FacesContext.getCurrentInstance();
-
-if (component.getAttributes().get("target")
-!= null) \{
-
-context.getViewRoot().addComponentResource(context,
-
-component);
-
+    throws AbortProcessingException {
+  UIComponent component = (UIComponent) event.getSource();
+  FacesContext context = FacesContext.getCurrentInstance();
+  if (component.getAttributes().get("target") != null) {
+    context.getViewRoot().addComponentResource(context, component);
+  }
 }
-
-}
-
-
-
-|===
+----
 
 When the component is added to the view, an
 event will be published. This event handling method will add the
@@ -145,37 +110,20 @@ root so it will be in place before rendering.
 Page authors can make the Ajax resource
 available to the current view using the outputScript tag. For example:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <f:view contentType=”text/html”/>
-
-<h:head>
-
-<meta...
-
-<title...
-
-</h:head>
-
-<h:body>
-
-...
-
-<h:outputScript name=”jsf.js”
-library=”jakarta.faces”
-
-target=”body”/>
-
-...
-
-</h:body>
-
-...
-
-
-
-|===
+  <h:head>
+    <meta...
+    <title...
+  </h:head>
+  <h:body>
+    ...
+    <h:outputScript name=”jsf.js” library=”jakarta.faces” target=”body”/>
+    ...
+  </h:body>
+  ...
+----
 
 [[a6754]]
 === JavaScript Namespacing
@@ -192,26 +140,15 @@ API must define a top level JavaScript object name jsf, whose type is a
 JavaScript associative array. Within that top level JavaScript object,
 there must be a property named ajax..
 
-[width="100%",cols="100%",]
-|===
-a|
-if (jsf == null || typeof jsf == "undefined")
-\{
-
- var jsf = new Object();
-
+[source,javascript]
+----
+if (jsf == null || typeof jsf == "undefined") {
+    var jsf = new Object();
 }
-
-if (jsf.ajax == null || typeof jsf.ajax ==
-"undefined") \{
-
- jsf["ajax"] = new Object();
-
+if (jsf.ajax == null || typeof jsf.ajax == "undefined") {
+    jsf["ajax"] = new Object();
 }
-
-
-
-|===
+----
 
 {empty}[P1-end]
 
@@ -263,7 +200,7 @@ The Ajax request callback function is called
 when the Ajax request/response interaction is complete.
 [P1-start-callback]This function must perform the following actions:
 
-If the return status is >= 200 and < 300,
+* If the return status is >= 200 and < 300,
 send a “complete” event following
 <<a6792, Sending Events>>. Call
 jsf.ajax.response passing the Ajax request object (for example the
@@ -271,19 +208,19 @@ XMLHttpRequest instance) and the request context (containing the source
 DOM element, onevent event function callback and onerror error function
 callback).
 
-If the return status is outside the range
+* If the return status is outside the range
 mentioned above, send a “complete” event following
 <<a6792, Sending Events>>. Send an
 “httpError” error following <<a6806, Signaling Errors>>.
 
-Regardless of whether the request completed
+* Regardless of whether the request completed
 successfully or not:
 
-remove the completed requests (Ajax
+** remove the completed requests (Ajax
 readystate 4) from the request queue (dequeue) - specifically the
 requests that have been on the queue the longest.
 
-{empty}find the next oldest unprocessed (Ajax
+** {empty}find the next oldest unprocessed (Ajax
 readystate 0) request on the queue, and send it. The implementation must
 ensure that the request that is sent does not enter the queue
 again.[P1-end]
@@ -319,10 +256,10 @@ functions can also be set up to monitor all Ajax requests.
 There are two ways to monitor events for a
 single Ajax request by registering an event callback function:
 
-By using the <f:ajax> tag with the onevent
+* By using the <f:ajax> tag with the onevent
 attribute.
 
-By using the JavaScript API function
+* By using the JavaScript API function
 jsf.ajax.request with onevent as an option.
 
 {empty}Refer to
@@ -356,17 +293,17 @@ must be called in accordance with the events outlined in
 [P1-start-event-send]The implementation must
 send events to the runtime as follows:
 
-Construct a data payload for events using the
+* Construct a data payload for events using the
 properties described in <<a6947,
 Event Data Payload>>.
 
-If an event handler function was registered
+* If an event handler function was registered
 with the “onevent” attribute
 (<<a6785,
 Monitoring Events For An Ajax Request>>) call it passing the data
 payload.
 
-{empty}If any event handling functions were
+* {empty}If any event handling functions were
 registered with the “addOnEvent” function
 (<<a6790,
 Monitoring Events For All Ajax Requests>>) call them passing the data
@@ -387,10 +324,10 @@ functions can be setup to handle errors for all Ajax requests.
 There are two ways to handle errors for a
 single Ajax request by registering an error callback function:
 
-By using the <f:ajax> tag with the onerror
+* By using the <f:ajax> tag with the onerror
 attribute.
 
-By using the JavaScript API function
+* By using the JavaScript API function
 jsf.ajax.request with onerror as an option.
 
 {empty}Refer to
@@ -410,7 +347,7 @@ outlined in <<a6976, Errors>>.[P1-end]
 jsf.ajax.addOnError function that can be used to register a JavaScript
 function that will be notified when an error occurs for any Ajax
 request/response. Refer to
-<<a6931, See Registering
+<<a6931, Registering
 Callback Functions>> for more details. The jsf.ajax.addOnError function
 accepts a JavaScript function argument that will be notified when errors
 occur during any Ajax request/response cycle. [P1-start-event] The
@@ -424,22 +361,22 @@ must be called in accordance with the errors outlined in
 [P1-start-error-signal]The implementation
 must signal errors to the runtime as follows:
 
-Construct a data payload for errors using the
+* Construct a data payload for errors using the
 properties described in <<a6988, 
 Error Data Payload>>.
 
-If an error handler function was registered
+* If an error handler function was registered
 with the “onerror” attribute
 (<<a6799,
 Handling Errors For An Ajax Request>>) call it passing the data payload.
 
-If any error handling functions were
+* If any error handling functions were
 registered with the “addOnError” function
 (<<a6804,
 Handling Errors For All Ajax Requests>>) call them passing the data
 payload.
 
-{empty}If the project stage is “development”
+* {empty}If the project stage is “development”
 (see
 <<a7017,
 Determining An Application’s Project Stage>>) use JavaScript “alert” to
@@ -453,27 +390,20 @@ server as outlined in <<a3253, ExceptionHandler>>.
 [P1-start-error-server]Jakarta Server Faces Ajax frameworks must ensure
 exception information is written to the response in the format:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <partial-response id="j_id1">
-
-<error>
-
-<error-name>...</error-name>
-
-<error-message>...</error-message>
-
-</error>
-
+  <error>
+    <error-name>...</error-name>
+    <error-message>...</error-message>
+  </error>
 </partial-response>
+----
 
-|===
-
-Extract the “class” from the “Throwable”
+* Extract the “class” from the “Throwable”
 object and write that as the contents of error-name in the response.
 
-Extract the “cause” from the “Throwable”
+* Extract the “cause” from the “Throwable”
 object if it is available and write that as the contents of
 error-message in the response. If “cause” is not available, write the
 string returned from “Throwable.getMessage()”.
@@ -618,7 +548,7 @@ sent back to the client, it must contain the view state.
 [P1-start-sending-response]Implementations must adhere to the response
 format as specified in the JavaScript docs for
 jsf.ajax.response.[P1-end] Refer to the XML schema definition in the
-<<a7162,See XML Schema Definition for Composite
+<<a7162,XML Schema Definition for Composite
 Components>> section. This XML schema is another important area for
 component library compatability.
 

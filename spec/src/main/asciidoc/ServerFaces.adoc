@@ -1,6 +1,4 @@
 
-include::Preface.adoc[]
-
 include::Overview.adoc[]
 
 include::RequestProcessingLifecycle.adoc[]

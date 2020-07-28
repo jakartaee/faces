@@ -17,15 +17,15 @@ that conform to the requirements of the _Jakarta Servlet Specification_
 specification. Conforming web applications are packaged in a _web
 application archive_ (WAR), with a well-defined internal directory
 structure. A key element of a WAR is the _web application deployment
-descriptor_ , an XML document that describes the configuration of the
+descriptor_, an XML document that describes the configuration of the
 resources in this web application. This document is included in the WAR
-file itself, at resource path _/WEB-INF/web.xml_ .
+file itself, at resource path _/WEB-INF/web.xml_.
 
 Portable JSF-based web applications must
 include the following configuration elements, in the appropriate
 portions of the web application deployment descriptor. Element values
-that are rendered in italics __ represent values that the application
-developer is free to choose. Element values rendered in bold represent
+that are rendered in _italics_ represent values that the application
+developer is free to choose. Element values rendered in *bold* represent
 values that must be utilized exactly as shown.
 
 Executing the request processing lifecycle
@@ -44,30 +44,23 @@ this specification. [P1-start-servlet]This servlet must be defined, in
 the deployment descriptor of an application that wishes to employ this
 portable mechanism, as follows:
 
-[width="100%",cols="100%",]
-|===
-a|
+====
 <servlet>
 
- <servlet-name> faces-servlet-name
-</servlet-name>
+{nbsp}<servlet-name> _faces-servlet-name_ </servlet-name>
 
- <servlet-class>
-
- _jakarta.faces.webapp.FacesServlet_
-
- </servlet-class>
+{nbsp}<servlet-class> *jakarta.faces.webapp.FacesServlet* </servlet-class>
 
 </servlet>
+====
 
-|===
 
 {empty}The servlet name, denoted as
 _faces-servlet-name_ above, may be any desired value; however, the same
 value must be used in the servlet mapping (see
 <<a6076, Servlet Mapping>>).[P1-end]
 
-In addition to _FacesServlet_ , JSF
+In addition to _FacesServlet_, JSF
 implementations may support other ways to invoke the Jakarta Server Faces
 request processing lifecycle, but applications that rely on these
 mechanisms will not be portable.
@@ -77,46 +70,38 @@ mechanisms will not be portable.
 
 All requests to a web application are mapped
 to a particular servlet based on matching a URL pattern (as defined in
-the _Jakarta Servlet Specification_ ) against the portion of the request
+the _Jakarta Servlet Specification_) against the portion of the request
 URL after the context path that selected this web application.
 [P1-start-mapping]JSF implementations must support web application that
 define a _<servlet-mapping>_ that maps any valid _url-pattern_ to the
-_FacesServlet_ . [P1-end]Prefix or extension mapping may be used. When
+_FacesServlet_. [P1-end]Prefix or extension mapping may be used. When
 using prefix mapping, the following mapping is recommended, but not
 required:
 
-[width="100%",cols="100%",]
-|===
-a|
+====
 <servlet-mapping>
 
- <servlet-name> faces-servlet-name
-</servlet-name>
+{nbsp}<servlet-name> _faces-servlet-name_ </servlet-name>
 
- <url-pattern>/faces/*</url-pattern>
+{nbsp}<url-pattern> _/faces/*_ </url-pattern>
 
 </servlet-mapping>
-
-|===
+====
 
 When using extension mapping the following
 mapping is recommended, but not required:
 
-[width="100%",cols="100%",]
-|===
-a|
+====
 <servlet-mapping>
 
- <servlet-name> faces-servlet-name
-</servlet-name>
+{nbsp}<servlet-name> _faces-servlet-name_ </servlet-name>
 
- <url-pattern>*.faces</url-pattern>
+{nbsp}<url-pattern> _*.faces_ </url-pattern>
 
 </servlet-mapping>
+====
 
-|===
-
-In addition to _FacesServlet_ , JSF
+In addition to _FacesServlet_, JSF
 implementations may support other ways to invoke the Jakarta Server Faces
 request processing lifecycle, but applications that rely on these
 mechanisms will not be portable.
@@ -131,44 +116,43 @@ _<context-param>_ elements in the web application deployment descriptor.
 the following application configuration parameter names:
 
 
-_jakarta.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE_ -- See the
+* _jakarta.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE_ -- See the
 javadocs for the constant
 _jakarta.faces.component.UIInput.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE_
 for the specification of this feature.
 
-_jakarta.faces.CLIENT_WINDOW_MODE_ -- The
+* _jakarta.faces.CLIENT_WINDOW_MODE_ -- The
 context-param that controls the operation of the _ClientWindow_ feature.
 See the javadocs for the constant
 _jakarta.faces.lifecycle.ClientWindow.CLIENT_WINDOW_MODE_PARAM_NAME_ for
 the specification of this feature.
 
-_jakarta.faces.CONFIG_FILES_ --
+* _jakarta.faces.CONFIG_FILES_ --
 Comma-delimited list of context-relative resource paths under which the
 JSF implementation will look for application configuration resources
 (see <<a6254, Application Configuration Resource
-Format>>), before loading a configuration resource named “
-_/WEB-INF/faces-config.xml_ ” (if such a resource exists). If “
-_/WEB-INF/faces-config.xml_ ” is present in the list, it must be
+Format>>), before loading a configuration resource named
+“_/WEB-INF/faces-config.xml_” (if such a resource exists). If
+“_/WEB-INF/faces-config.xml_” is present in the list, it must be
 ignored.
 
 
-_jakarta.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_ --
+* _jakarta.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_ --
 If this param is set, and calling _toLowerCase().equals("true")_ on a
-_String_ representation of its value returns _true_ ,
+_String_ representation of its value returns _true_,
 _Application.createConverter()_ must guarantee that the default for the
 timezone of all _jakarta.faces.convert.DateTimeConverter_ instances must
 be equal to _TimeZone.getDefault()_ instead of “GMT”.
 
-_jakarta.faces.DEFAULT_SUFFIX_ -- Allow the
+* _jakarta.faces.DEFAULT_SUFFIX_ -- Allow the
 web application to define an alternate suffix for JSP pages containing
 JSF content. See the javadocs for the symbolic constant
 _ViewHandler.DEFAULT_SUFFIX_PARAM_NAME_ for the complete specification.
-__
 
 
-_jakarta.faces.DISABLE_FACELET_JSF_VIEWHANDLER_ -- If this param is set,
+* _jakarta.faces.DISABLE_FACELET_JSF_VIEWHANDLER_ -- If this param is set,
 and calling _toLowerCase().equals("true")_ on a _String_ representation
-of its value returns _true_ , the default _ViewHandler_ must behave as
+of its value returns _true_, the default _ViewHandler_ must behave as
 specified in the latest 1.2 version of this specification. Any behavior
 specified in <<a4010, Default
 ViewDeclarationLanguage Implementation>> and implemented in the default
@@ -178,12 +162,12 @@ the runtime. +
 For backward compatibility with previous versions of Facelets, the value
 _DISABLE_FACELET_JSF_VIEWHANDLER_ must be supported.
 
-_jakarta.faces.DISABLE_FACESSERVLET_TO_XHTML
---_ If this param is set, and calling _toLowerCase().equals("true")_ on
-a _String_ representation of its value returns _true_ , the default
+* _jakarta.faces.DISABLE_FACESSERVLET_TO_XHTML_
+-- If this param is set, and calling _toLowerCase().equals("true")_ on
+a _String_ representation of its value returns _true_, the default
 mapping of the _FacesServlet_ to _*.xhtml_ must not take effect.
 
-_jakarta.faces.FACELETS_LIBRARIES_ -- If this
+* _jakarta.faces.FACELETS_LIBRARIES_ -- If this
 param is set, the runtime must interpret it as a semicolon (;) separated
 list of paths, starting with “/” (without the quotes). The runtime must
 interpret each entry in the list as a path relative to the web
@@ -194,7 +178,7 @@ Library mechanism>>. The runtime must also consider the
 _facelets.LIBRARIES_ param name as an alias to this param name for
 backwards compatibility with existing facelets tag libraries.
 
-_jakarta.faces.FACELETS_BUFFER_SIZE_ -- The
+* _jakarta.faces.FACELETS_BUFFER_SIZE_ -- The
 buffer size to set on the response when the _ResponseWriter_ is
 generated. By default the value is 1024. A value of -1 will not assign a
 buffer size on the response. This should be increased if you are using
@@ -203,16 +187,16 @@ rendered when an error is generated. The runtime must also consider the
 _facelets.BUFFER_SIZE_ param name as an alias to this param name for
 backwards compatibility with existing facelets tag libraries.
 
-_jakarta.faces.FACELETS_DECORATORS_ -- A
+* _jakarta.faces.FACELETS_DECORATORS_ -- A
 semicolon (;) delimitted list of class names of type
-_jakarta.faces.view.facelets.TagDecorator_ , with a no-argument
+_jakarta.faces.view.facelets.TagDecorator_, with a no-argument
 constructor. These decorators will be loaded when the first request for
 a Facelets VDL view hits the _ViewHandler_ for page compilation.The
 runtime must also consider the _facelets.DECORATORS_ param name as an
 alias to this param name for backwards compatibility with existing
 facelets tag libraries.
 
-_jakarta.faces.FACELETS_REFRESH_PERIOD_ --
+* _jakarta.faces.FACELETS_REFRESH_PERIOD_ --
 When a page is requested, what interval in seconds should the compiler
 check for changes. If you don't want the compiler to check for changes
 once the page is compiled, then use a value of -1. Setting a low refresh
@@ -221,12 +205,12 @@ application.The runtime must also consider the _facelets.REFRESH_PERIOD_
 param name as an alias to this param name for backwards compatibility
 with existing facelets tag libraries.
 
-_jakarta.faces.FACELETS_RESOURCE_RESOLVER_ --
+* _jakarta.faces.FACELETS_RESOURCE_RESOLVER_ --
 If this param is set, the runtime must interpret its value as a fully
 qualified classname of a java class that extends
 _jakarta.faces.view.facelets.ResourceResolver_ and has a zero argument
 public constructor or a one argument public constructor where the type
-of the argument is _ResourceResolver_ . If this param is set and its
+of the argument is _ResourceResolver_. If this param is set and its
 value does not conform to those requirements, the runtime must log a
 message and continue. If it does conform to these requirements and has a
 one-argument constructor, the default _ResourceResolver_ must be passed
@@ -235,12 +219,12 @@ directly. In either case, the new _ResourceResolver_ replaces the old
 one. The runtime must also consider the _facelets.RESOURCE_RESOLVER_
 param name as an alias to this param name for backwards compatibility
 with existing facelets tag libraries.
-
++
 Related to this param is the corresponding
-annotation, _jakarta.faces.view.facelets.FaceletsResourceResolver_ . The
+annotation, _jakarta.faces.view.facelets.FaceletsResourceResolver_. The
 presence of this annotation must be ignored if the corresponding param
 has been specified. If present, this annotation must be attached to a
-class that extends _jakarta.faces.view.facelets.ResourceResolver_ . If
+class that extends _jakarta.faces.view.facelets.ResourceResolver_. If
 more than one class in the application has this annotation, an
 informative error message with logging level SEVERE must be logged
 indicating this case. Exactly one of the classes with the annotation
@@ -251,20 +235,20 @@ put application configuration resources in order such that the chosen
 class can be defined. The same rules regarding decoration of the
 instance as listed above must apply to the annotated class.
 
-_jakarta.faces.FACELETS_SKIP_COMMENTS_ -- If
+* _jakarta.faces.FACELETS_SKIP_COMMENTS_ -- If
 this param is set, and calling _toLowerCase().equals("true")_ on a
-_String_ representation of its value returns _true_ , the runtime must
+_String_ representation of its value returns _true_, the runtime must
 ensure that any XML comments in the Facelets source page are not
 delivered to the client. The runtime must also consider the
 _facelets.SKIP_COMMENTS_ param name as an alias to this param name for
 backwards compatibility with existing facelets tag libraries.
 
-_jakarta.faces.FACELETS_SUFFIX_ -- Allow the
+* _jakarta.faces.FACELETS_SUFFIX_ -- Allow the
 web application to define an alternate suffix for Facelet based XHTML
 pages containing JSF content. See the javadocs for the symbolic constant
 _ViewHandler.FACELETS_SUFFIX_PARAM_NAME_ for the complete specification.
 
-_jakarta.faces.FACELETS_VIEW_MAPPINGS_ -- If
+* _jakarta.faces.FACELETS_VIEW_MAPPINGS_ -- If
 this param is set, the runtime must interpret it as a semicolon (;)
 separated list of strings that is used to forcibly declare that certain
 pages in the application must be interpreted as using Facelets,
@@ -275,17 +259,17 @@ javadocs for the symbolic constant
 _ViewHandler.FACELETS_VIEW_MAPPINGS_PARAM_NAME_ for the complete
 specification.
 
-_jakarta.faces.FULL_STATE_SAVING_VIEW_IDS_ --
+* _jakarta.faces.FULL_STATE_SAVING_VIEW_IDS_ --
 The runtime must interpret the value of this parameter as a comma
 separated list of view IDs, each of which must have their state saved
 using the state saving mechanism specified in JSF 1.2.
 
 
-_jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL_ -- If this
+* _jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL_ -- If this
 param is set, and calling _toLowerCase().equals("true")_ on a _String_
-representation of its value returns _true_ , any implementation of
+representation of its value returns _true_, any implementation of
 _UIInput.validate()_ must take the following additional action.
-
++
 If the
 _jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL_ context
 parameter value is _true_ (ignoring case), and UIInput.
@@ -293,24 +277,26 @@ _getSubmittedValue()_ returns a zero-length _String_ call
 _UIInput.setSubmittedValue(null)_ and continue processing using null as
 the current submitted value
 
-_jakarta.faces.LIFECYCLE_ID_ -- Lifecycle
+* _jakarta.faces.LIFECYCLE_ID_ -- Lifecycle
 identifier of the _Lifecycle_ instance to be used when processing JSF
 requests for this web application. If not specified, the JSF default
-instance, identified by _LifecycleFactory.DEFAULT_LIFECYCLE_ , must be
+instance, identified by _LifecycleFactory.DEFAULT_LIFECYCLE_, must be
 used.
 
-_jakarta.faces.PARTIAL_STATE_SAVING_ --The
+* _jakarta.faces.PARTIAL_STATE_SAVING_ --The
 ServletContext init parameter consulted by the runtime to determine if
 the partial state saving mechanism should be used. +
 If undefined, the runtime must determine the version level of the
 application.
-
-For applications versioned at 1.2 and under,
++
+--
+** For applications versioned at 1.2 and under,
 the runtime must not use the partial state saving mechanism.
 
-For applications versioned at 2.0 and above,
+** For applications versioned at 2.0 and above,
 the runtime must use the partial state saving mechanism.
-
+--
++
 If this parameter is defined, and the
 application is versioned at 1.2 and under, the runtime must not use the
 partial state saving mechanism. Otherwise, If this param is defined, and
@@ -318,53 +304,53 @@ calling toLowerCase().equals("true") on a _String_ representation of its
 value returns true, the runtime must use partial state mechanism.
 Otherwise the partial state saving mechanism must not be used.
 
-_jakarta.faces.PROJECT_STAGE_ -- A human
+* _jakarta.faces.PROJECT_STAGE_ -- A human
 readable string describing where this particular JSF application is in
-the software development lifecycle. Valid values are “ _Development_ ”,
-“ _UnitTest_ ”, “ _SystemTest_ ”, or “ _Production_ ”, corresponding to
-the enum constants of the class _jakarta.faces.application.ProjectStage_ .
+the software development lifecycle. Valid values are “_Development_”,
+“_UnitTest_”, “_SystemTest_”, or “_Production_”, corresponding to
+the enum constants of the class _jakarta.faces.application.ProjectStage_.
 It is also possible to set this value via JNDI. See the javadocs for
-_Application.getProjectStage()._
+_Application.getProjectStage()_.
 
-_jakarta.faces.SEPARATOR_CHAR_ --The context
+* _jakarta.faces.SEPARATOR_CHAR_ --The context
 param that allows the character used to separate segments in a
 _UIComponent_ clientId to be set on a per-application basis.
 
-_jakarta.faces.SERIALIZE_SERVER_STATE_ --If
+* _jakarta.faces.SERIALIZE_SERVER_STATE_ --If
 this param is set, and calling _toLowerCase().equals("true")_ on a
-_String_ representation of its value returns _true_ , and the
+_String_ representation of its value returns _true_, and the
 _jakarta.faces.STATE_SAVING_METHOD_ is set to “server” (as indicated
 below), the server state must be guaranteed to be Serializable such that
-the aggregate state implements _java.io.Serializable_ . The intent of
+the aggregate state implements _java.io.Serializable_. The intent of
 this parameter is to ensure that the act of writing out the state to an
-_ObjectOutputStream_ would not throw a _NotSerializableException_ , but
+_ObjectOutputStream_ would not throw a _NotSerializableException_, but
 the runtime is not required verify this before saving the state.
 
-_jakarta.faces.STATE_SAVING_METHOD_ -- The
+* _jakarta.faces.STATE_SAVING_METHOD_ -- The
 location where state information is saved. Valid values are “server”
-(typically saved in _HttpSession_ ) and “client (typically saved as a
+(typically saved in _HttpSession_) and “client (typically saved as a
 hidden field in the subsequent form submit). If not specified, the
 default value “server” must be used. When examining the parameter value,
 the runtime must ignore case.
 
-_jakarta.faces.VALIDATE_EMPTY_FIELDS_ -- If
+* _jakarta.faces.VALIDATE_EMPTY_FIELDS_ -- If
 this param is set, and calling _toLowerCase().equals("true")_ on a
-_String_ representation of its value returns _true_ , all submitted
+_String_ representation of its value returns _true_, all submitted
 fields will be validated. This is necessary to allow the model validator
 to decide whether _null_ or empty values are allowable in the current
-application. If the value is _false_ , _null_ or empty values will not
-be passed to the validators. If the value is the string _“auto”_ , the
+application. If the value is _false_, _null_ or empty values will not
+be passed to the validators. If the value is the string _“auto”_, the
 runtime must check if JSR-303 Beans Validation is present in the current
 environment. If so, the runtime must proceed as if the value _“true”_
 had been specified. If JSR-303 Beans Validation is not present in the
 current environment, the runtime most proceed as if the value _“false”_
 had been specified. If the param is not set, the system must behave as
-if the param was set with the value _“auto”_ .
+if the param was set with the value _“auto”_.
 
 
-_jakarta.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR_ -- If this param
+* _jakarta.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR_ -- If this param
 is set, and calling _toLowerCase().equals("true")_ on a _String_
-representation of its value returns _true_ , the runtime must not
+representation of its value returns _true_, the runtime must not
 automatically add the validator with validator-id equal to the value of
 the symbolic constant _jakarta.faces.validator._ VALIDATOR_ID to the list
 of default validators. Setting this parameter to _true_ will have the
@@ -373,25 +359,25 @@ every input component in every view in the application, though manual
 installation is still possible.
 
 
-_jakarta.faces.validator.ENABLE_VALIDATE_WHOLE_BEAN_ -- If this param is
+* _jakarta.faces.validator.ENABLE_VALIDATE_WHOLE_BEAN_ -- If this param is
 set, and calling _toLowerCase().equals("true")_ on a _String_
-representation of its value returns _true_ , the _<f:validateWholeBean
-/>_ __ tag is enabled. If not set or set to false, this tag is a no-op.
+representation of its value returns _true_, the _<f:validateWholeBean
+/>_ tag is enabled. If not set or set to false, this tag is a no-op.
 
 
-_jakarta.faces.VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_ -- If this param
+* _jakarta.faces.VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_ -- If this param
 is set, and calling _toLowerCase().equals("true")_ on a _String_
-representation of its value returns _true_ , exceptions thrown by
+representation of its value returns _true_, exceptions thrown by
 _PhaseListeners_ installed on the _UIViewRoot_ are queued to the
 _ExceptionHandler_ instead of being logged and swallowed. If this param
 is not set or is set to false, the old behavior prevails.
 
-_jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT_ --
+* _jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT_ --
 Enable WebSocket support. See the javadoc for
-_jakarta.faces.component.UIWebsocket_ .
+_jakarta.faces.component.UIWebsocket_.
 
-_jakarta.faces.WEBAPP_RESOURCES_DIRECTORY_
-
+* _jakarta.faces.WEBAPP_RESOURCES_DIRECTORY_
++
 If this param is set, the runtime must
 interpret its value as a path, relative to the web app root, where
 resources are to be located. This param value must not start with a “/”,
@@ -399,8 +385,8 @@ though it may contain “/” characters. If no such param exists, or its
 value is invalid, the value “resources”, without the quotes, must be
 used by the runtime as the value.
 
-_jakarta.faces.WEBAPP_CONTRACTS_DIRECTORY_
-
+* _jakarta.faces.WEBAPP_CONTRACTS_DIRECTORY_
++
 If this param is set, the runtime must
 interpret its value as a path, relative to the web app root, where
 resource library contracts are to be located. This param value must not
@@ -425,10 +411,10 @@ application archive structure identifies two standard locations for
 classes and resources that will be automatically made available when a
 web application is deployed:
 
-_/WEB-INF/classes_ -- A directory containing
+* _/WEB-INF/classes_ -- A directory containing
 unpacked class and resource files.
 
-_/WEB-INF/lib_ -- A directory containing JAR
+* _/WEB-INF/lib_ -- A directory containing JAR
 files that themselves contain class files and resources.
 
 In addition, servlet and portlet containers
@@ -443,7 +429,7 @@ how they should be made available.
 ==== Application-Specific Classes and Resources
 
 Application-specific classes and resources
-should be included in _/WEB-INF/classes_ or _/WEB-INF/lib_ , so that
+should be included in _/WEB-INF/classes_ or _/WEB-INF/lib_, so that
 they are automatically made available upon application deployment.
 
 ==== Servlet and JSP API Classes (jakarta.servlet.*)
@@ -490,37 +476,37 @@ Jakarta Server Faces APIs. For a given factory class name, a corresponding
 implementation class is searched for based on the following algorithm.
 Items are listed in order of decreasing search precedence:
 
-If a default Jakarta Server Faces configuration
+. If a default Jakarta Server Faces configuration
 file (/WEB-INF/faces-config.xml) is bundled into the _web application,
 and it_ contains a factory entry of the given factory class name, that
 factory class is used.
 
-If the Jakarta Server Faces configuration
+. If the Jakarta Server Faces configuration
 resource(s) named by the _jakarta.faces.CONFIG_FILES_ _ServletContext_
 init parameter (if any) contain any factory entries of the given factory
 class name, those factories are used, with the last one taking
 precedence.
 
-If there are any _META-INF/faces-config.xml_
+. If there are any _META-INF/faces-config.xml_
 resources bundled any JAR files in the _web ServletContext’s resource
-paths_ , the factory entries of the given factory class name in those
+paths_, the factory entries of the given factory class name in those
 files are used, with the last one taking precedence.
 
-If a
+. If a
 _META-INF/services/\{factory-class-name}_ resource is visible to the web
 application class loader for the calling application (typically as a
 result of being present in the manifest of a JAR file), its first line
 is read and assumed to be the name of the factory implementation class
 to use.
 
-If none of the above steps yield a match, the
+. If none of the above steps yield a match, the
 Jakarta Server Faces implementation specific class is used.
 
 If any of the factories found on any of the
 steps above happen to have a one-argument constructor, with argument the
 type being the abstract factory class, that constructor is invoked, and
 the previous match is passed to the constructor. For example, say the
-container vendor provided an implementation of _FacesContextFactory_ ,
+container vendor provided an implementation of _FacesContextFactory_,
 and identified it in
 _META-INF/services/jakarta.faces.context.FacesContextFactory_ in a jar on
 the webapp ClassLoader. Also say this implementation provided by the
@@ -542,11 +528,10 @@ class, whether the Jakarta Server Faces implementation is included within
 the web application or is made visible through the container's
 facilities for shared libraries.
 
-[width="100%",cols="100%",]
-|===
-|public static Object getFactory(String
-factoryName);
-|===
+[source,java]
+----
+public static Object getFactory(String factoryName);
+----
 
 Create (if necessary) and return a
 per-web-application instance of the appropriate implementation class for
@@ -559,7 +544,7 @@ dynamically instantiated according to the algorithm defined above, the
 factory implementation class must include a public, no-arguments
 constructor. [P1-start-factoryNames]For each of the _public static final
 String_ fields on the class _FactoryFinder_ whose field names end with
-the string “ __FACTORY_ ” (without the quotes), the implementation must
+the string “__FACTORY_” (without the quotes), the implementation must
 provide an implementation of the corresponding Factory class using the
 algorithm described earlier in this section.[P1-end]
 
@@ -574,62 +559,61 @@ as described in <<a6066, Servlet Definition>>, and
 mapped to a standard URL pattern as described in
 <<a6076,Servlet Mapping>>.
 
-[width="100%",cols="100%",]
-|===
-|public void init(ServletConfig config)
-throws ServletException;
-|===
+[source,java]
+----
+public void init(ServletConfig config) throws ServletException;
+----
 
 Acquire and store references to the
 _FacesContextFactory_ and _Lifecycle_ instances to be used in this web
-application. For the _LifecycleInstance_ , first consult the
+application. For the _LifecycleInstance_, first consult the
 _init-param_ set for this _FacesServlet_ instance for a parameter of the
-name _jakarta.faces.LIFECYCLE_ID_ . If present, use that as the
+name _jakarta.faces.LIFECYCLE_ID_. If present, use that as the
 _lifecycleID_ attribute to the _getLifecycle()_ method of
-_LifecycleFactory_ . If not present, consult the _context-param_ set for
+_LifecycleFactory_. If not present, consult the _context-param_ set for
 this web application. If present, use that as the _lifecycleID_
-attribute to the _getLifecycle()_ method of _LifecycleFactory_ . If
-neither param set has a value for _jakarta.faces.LIFECYCLE_ID_ , use the
-value _DEFAULT_ . As an implementation note, please take care to ensure
+attribute to the _getLifecycle()_ method of _LifecycleFactory_. If
+neither param set has a value for _jakarta.faces.LIFECYCLE_ID_, use the
+value _DEFAULT_. As an implementation note, please take care to ensure
 that all _PhaseListener_ instances defined for the application are
 installed on all lifecycles created during this process.
 
-[width="100%",cols="100%",]
-|===
-|public void destroy();
-|===
+[source,java]
+----
+public void destroy();
+----
 
 Release the _FacesContextFactory_ and
 _Lifecycle_ references that were acquired during execution of the
 _init()_ method.
 
-[width="100%",cols="100%",]
-|===
-|public void service(ServletRequest request,
-ServletResponse response) throws IOException, ServletException;
-|===
+[source,java]
+----
+public void service(ServletRequest request, ServletResponse response)
+    throws IOException, ServletException;
+----
 
 For each incoming request, the following
 processing is performed:
 
-Using the _FacesContextFactory_ instance
+* Using the _FacesContextFactory_ instance
 stored during the _init()_ method, call the _getFacesContext()_ method
 to acquire a _FacesContext_ instance with which to process the current
 request.
 
-Call the _execute()_ method of the saved
+* Call the _execute()_ method of the saved
 _Lifecycle_ instance, passing the _FacesContext_ instance for this
 request as a parameter. If the _execute()_ method throws a
-_FacesException_ , re-throw it as a _ServletException_ with the
+_FacesException_, re-throw it as a _ServletException_ with the
 _FacesException_ as the root cause.
 
-Call the _render()_ method of the saved
+* Call the _render()_ method of the saved
 _Lifecycle_ instance, passing the _FacesContext_ instance for this
 request as a parameter. If the _render()_ method throws a
-_FacesException_ , re-throw it as a _ServletException_ with the
+_FacesException_, re-throw it as a _ServletException_ with the
 _FacesException_ as the root cause.
 
-Call the _release_ () method on the
+* Call the _release_ () method on the
 _FacesContext_ instance, allowing it to be returned to a pool if the JSF
 implementation uses one.
 
@@ -638,27 +622,27 @@ implementation class must also declare two static public final String
 constants whose value is a context initialization parameter that affects
 the behavior of the servlet:
 
-_CONFIG_FILES_ATTR_ -- the context
+* _CONFIG_FILES_ATTR_ -- the context
 initialization attribute that may optionally contain a comma-delimited
 list of context relative resources (in addition to
 _/WEB-INF/faces-config.xml_ which is always processed if it is present)
-to be processed. The value of this constant must be “
-_jakarta.faces.CONFIG_FILES_ ”.
+to be processed. The value of this constant must be
+“_jakarta.faces.CONFIG_FILES_”.
 
-{empty} _LIFECYCLE_ID_ATTR_ -- the lifecycle
+* {empty} _LIFECYCLE_ID_ATTR_ -- the lifecycle
 identifier of the _Lifecycle_ instance to be used for processing
 requests to this application, if an instance other than the default is
-required. The value of this constant must be “
-_jakarta.faces.LIFECYCLE_ID_ ”.[P1-end]
+required. The value of this constant must be
+“_jakarta.faces.LIFECYCLE_ID_”.[P1-end]
 
 [[a6175]]
 ===== UIComponentELTag
 
 _[P1-start-uicomponenteltag]UIComponentELTag_ is an implementation of
-_jakarta.servlet.jsp.tagext.BodyTag_ , and must be the base class for any
-JSP custom action that corresponds to a JSF _UIComponent_ .[P1-end] See
+_jakarta.servlet.jsp.tagext.BodyTag_, and must be the base class for any
+JSP custom action that corresponds to a JSF _UIComponent_.[P1-end] See
 <<a4406, Integration with JSP>>, and the Javadocs
-for _UIComponentELTag_ , for more information about using this class as
+for _UIComponentELTag_, for more information about using this class as
 the base class for your own _UIComponent_ custom action classes.
 
 ===== FacetTag
@@ -686,7 +670,7 @@ Faces depends on version JSP 2.1 or later,
 and the JSP tags in Faces expose properties that leverage concepts
 specific to that release of JSP. Importantly, most Faces JSP tag
 attributes are either of type _jakarta.el.ValueExpression_ or
-_jakarta.el.MethodExpression_ . For backwards compatability with existing
+_jakarta.el.MethodExpression_. For backwards compatability with existing
 Faces component libraries that expose themselves as JSP tags, the
 existing classes relating to JSP have been deprecated and new ones
 introduced that leverage the EL API.
@@ -704,17 +688,17 @@ This has been replaced with _ConverterELTag_
 
 All component tags now implement _BodyTag_ by
 virtue of the new class _UIComponentClassicTagBase_ implementing
-_BodyTag_ . This class has been replaced by _UIComponentELTag_ .
+_BodyTag_. This class has been replaced by _UIComponentELTag_.
 
 ====  _UIComponentTag_
 
 This component has been replaced by
-_UIComponentELTag_ .
+_UIComponentELTag_.
 
 ====  _ValidatorTag_
 
 This component has been replaced by
-_ValidatorELTag_ .
+_ValidatorELTag_.
 
 
 [[a6195]]
@@ -759,20 +743,20 @@ follows
 Make a list of all of the application
 configuration resources found using the following algorithm:
 
-Check for the existence of a context
-initialization parameter named _jakarta.faces.CONFIG_FILES_ . If it
+* Check for the existence of a context
+initialization parameter named _jakarta.faces.CONFIG_FILES_. If it
 exists, treat it as a comma-delimited list of context relative resource
 paths (starting with a “/”), and add each of the specified resources to
 the list. If this parameter exists, skip the searching specified in the
 next bullet item in this list.
 
-Search for all resources that match either “
-_META-INF/faces-config.xml_ ” or end with “ _.faces-config.xml_ ”
-directly in the “ _META-INF_ ” directory. Each resource that matches
+* Search for all resources that match either
+“_META-INF/faces-config.xml_” or end with “_.faces-config.xml_”
+directly in the “_META-INF_” directory. Each resource that matches
 that expression must be considered an application configuration
 resource.
 
-Using the _java.util.ServiceLoader_ , locate
+* Using the _java.util.ServiceLoader_, locate
 all implementations of the
 _jakarta.faces.ApplicationConfigurationResourceDocumentPopulator_ service.
 For each implementation, create a fresh _org.w3c.dom.Document_ instance,
@@ -784,12 +768,12 @@ continue.
 
 {empty}Let this list be known as
 _applicationConfigurationResources_ for discussion. Also, check for the
-existence of a web application configuration resource named “
-_/WEB-INF/faces-config.xml_ ”, and refer to this as
+existence of a web application configuration resource named
+“_/WEB-INF/faces-config.xml_”, and refer to this as
 _applicationFacesConfig_ for discussion, but do not put it in the list.
 When parsing the application configuration resources, the implementation
 must ensure that _applicationConfigurationResources_ are parsed before
-_applicationFacesConfig_ .[P1-end]
+_applicationFacesConfig_.[P1-end]
 
 Please see <<a6435,
 Ordering of Artifacts>> for details on the ordering in which the
@@ -801,11 +785,11 @@ This algorithm provides considerable
 flexibility for developers that are assembling the components of a
 JSF-based web application. For example, an application might include one
 or more custom _UIComponent_ implementations, along with associated
-_Renderer_ s, so it can declare them in an application resource named “
-_/WEB-INF/faces-config.xml_ ” with no need to programmatically register
+__Renderer__s, so it can declare them in an application resource named
+“_/WEB-INF/faces-config.xml_” with no need to programmatically register
 them with _Application_ instance. In addition, the application might
 choose to include a component library (packaged as a JAR file) that
-includes a “ _META-INF/faces-config.xml_ ” resource. The existence of
+includes a “_META-INF/faces-config.xml_” resource. The existence of
 this resource causes components, renderers, and other JSF implementation
 classes that are stored in this library JAR file to be automatically
 registered, with no action required by the application.
@@ -843,7 +827,7 @@ discovered at application startup time. The complete set of discovered
 contracts has no ordering semantics and effectively is represented as a
 _Set<String>_ where the values are just the names of the resource
 libraries. If multiple sources in the application configuration
-resources contained _<resource-library-contracts>_ , they are all merged
+resources contained _<resource-library-contracts>_, they are all merged
 into one element. Duplicates are resolved in as specified in
 <<a6435, Ordering of Artifacts>>. If the
 application configuration resources produced a
@@ -861,17 +845,17 @@ elements.
 The value of the _<url-pattern>_ element may
 be any of the following.
 
-The literal string *, meaning all views
+* The literal string *, meaning all views
 should have these contracts applied.
 
-An absolute prefix mapping, relative to the
+* An absolute prefix mapping, relative to the
 web app root, such as _/directoryName/*_ meaning only views matching
 that prefix should have these contracts applied.
 
-An exact fully qualified file path, relative
-to the web app root, such as _/directoryName/fileName.xhtml_ , meaning
+* An exact fully qualified file path, relative
+to the web app root, such as _/directoryName/fileName.xhtml_, meaning
 exactly that view should have the contracts applied.
-
++
 See <<a4030,
 ViewDeclarationLanguage.calculateResourceLibraryContracts()>> for the
 specification of how the values of the _<url-pattern>_ are to be
@@ -894,15 +878,15 @@ did not produce a _<resource-library-contracts>_ element, the data
 structure should be populated as if this were the contents of the
 _<resource-library-contracts>_ element:
 
-[width="100%",cols="100%",]
-|===
-|<resource-library-contracts> +
-<contract-mapping> +
-<url-pattern>*</url-pattern> +
-<contracts>”all available contracts”</contracts> +
-</contract-mapping> +
+[source,xml]
+----
+<resource-library-contracts>
+  <contract-mapping>
+    <url-pattern>*</url-pattern>
+    <contracts>”all available contracts”</contracts>
+  </contract-mapping>
 </resource-library-contracts>
-|===
+----
 
 Where “all available contracts” is replaced
 with a comma separated list of all the contracts discovered in the
@@ -920,8 +904,8 @@ the application configuration resources completed successfully, any XML
 based flow definitions in the application configuration resources will
 have been successfully discovered as well. The discovered flows must be
 exposed as thread safe immutable application scoped instances of
-_jakarta.faces.flow.Flow_ , and made accessible to the runtime via the
-_FlowHandler_ . If flows exist in the application, but the
+_jakarta.faces.flow.Flow_, and made accessible to the runtime via the
+_FlowHandler_. If flows exist in the application, but the
 _jakarta.faces.CLIENT_WINDOW_MODE_ context-param was not specified, the
 runtime must behave as if the value “url” (without the quotes) was
 specified for this context-param.
@@ -935,7 +919,7 @@ Configuration Resource file in which the element appears. To enable
 multiple flows with the same _id_ to exist in an application, the
 _<faces-config><name>_ element is taken to be the _definingDocumentId_
 of the flow. If no _<name>_ element is specified, the empty string is
-taken as the value for _definingDocumentId_ . Please see
+taken as the value for _definingDocumentId_. Please see
 <<a3840, FlowHandler>> for an overview of the flow
 feature. Note that a number of conventions exist to make defining flows
 simpler. These conventions are specified in
@@ -956,12 +940,12 @@ _META-INF/flows/<flowName>_ JAR entry, where _<flowName>_ is a JAR
 directory entry whose name is identical to that of a flow id in the
 corresponding _faces-config.xml_ file. If there are _@FlowScoped_ beans
 or beans with _@FlowDefinition_ in the JAR, there must be a JAR entry
-named _META-INF/beans.xml_ . This ensures that such beans and
+named _META-INF/beans.xml_. This ensures that such beans and
 definitions are discovered by the runtime at startup. None of the flow
-definition conventions specified in <<UsingJSFInWebApplications.adoc#a6236,See
+definition conventions specified in <<UsingJSFInWebApplications.adoc#a6236,
 Packaging Flows in Directories>> apply when a flow is packaged in a JAR
 file. In other words, the flow must be explicitly declared in the JAR
-file’s _faces-config.xml_ .
+file’s _faces-config.xml_.
 
 {empty}[P1-end]
 
@@ -974,7 +958,7 @@ doing so: flow definition conventions.
 [P1-start-FacesFlowDirectoryPackaging] If the _jakarta.faces.CONFIG_FILES_
 context parameter includes references to files of the form
 _/<flowName>/<flowName>-flow.xml_ or
-_/WEB-INF/<flow-Name>/<flowName>-flow.xml_ , and if such files exist in
+_/WEB-INF/<flow-Name>/<flowName>-flow.xml_, and if such files exist in
 the current application (even if they are zero length), they are treated
 as flow definitions. Flow definitions defined in this way must not be
 nested any deeper in the directory structure than one level deep from
@@ -985,29 +969,29 @@ defined in this manner. Any flow definition in the corresponding
 _-flow.xml_ file will override any of the conventions in the case of a
 conflict.
 
-Every vdl file in that directory is a view
+* Every vdl file in that directory is a view
 node of that flow.
 
-The start node of the flow is the view whose
+* The start node of the flow is the view whose
 name is the same as the name of the flow.
 
-Navigation among any of the views in the
+* Navigation among any of the views in the
 directory is considered to be within the flow.
 
-The flow defining document id is the empty
+* The flow defining document id is the empty
 string.
 
 In the case of a zero length flow definition
 file, the following also applies:
 
-There is one return node in the flow, whose
-id is the id of the flow with the string “ _-return_ ” (without the
-quotes) appended to it. For example, if _flowId_ is _shopping_ , the
-return node id is _shopping-return_ .
+* There is one return node in the flow, whose
+id is the id of the flow with the string “_-return_” (without the
+quotes) appended to it. For example, if _flowId_ is _shopping_, the
+return node id is _shopping-return_.
 
-The from-outcome of the return node is a
+* The from-outcome of the return node is a
 string created with the following formula: +
-_"/" + flowId + "-return"_ .
+_"/" + flowId + "-return"_.
 
 For each directory packaged flow definition,
 the runtime must synthesize an instance of _jakarta.faces.flow.Flow_ that
@@ -1023,18 +1007,17 @@ _FlowHandler_ before the _PostConstructApplicationEvent_ is published.
 ==== Application Shutdown Behavior
 
 {empty}When the JSF runtime is directed to
-shutdown by its container, the following actions must be taken.
-[p1-start-application-shutdown]
+shutdown by its container, the following actions must be taken.[p1-start-application-shutdown]
 
-Ensure that calls to
+. Ensure that calls to
 _FacesContext.getCurrentInstance()_ that happen during application
 shutdown return successfully, as specified in the Javadocs for that
 method.
 
-Publish the
-_jakarta.faces.event.PreDestroyApplicationEvent_ .
+. Publish the
+_jakarta.faces.event.PreDestroyApplicationEvent_.
 
-Call _FactoryFinder.releaseFactories()_ .
+. Call _FactoryFinder.releaseFactories()_.
 
 {empty}[p1-end]
 
@@ -1046,143 +1029,89 @@ that are written to run on JSF 2.3 must include the following schema
 declaration and must conform to the schema shown in
 <<a7037, Appendix A - JSF Metadata>>
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config
-
- xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
-
- version="2.3">
-
-
-
-|===
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+    version="2.3">
+----
 
 [P1-start-schema]Application configuration
 resources that are written to run on JSF 2.2 must include the following
 schema declaration and must conform to the schema shown in
 <<a7037, Appendix A - JSF Metadata>>:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config
-
- xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
-http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
-
- version="2.2">
-
-
-
-|===
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+----
 
 Note that the “hostname” of the _xmlns_ and
 _xsi:schemaLocation_ attributes has changed from “java.sun.com” to
 “xmlns.jcp.org”. The “xmlns.jcp.org” hostname must be used when using
-_version=_ "2.2" and _web-facesconfig_2_2.xsd_ . It is not valid to use
+_version=_ "2.2" and _web-facesconfig_2_2.xsd_. It is not valid to use
 this hostname with versions prior to 2.2. Likewise, it is not valid to
 use the “java.sun.com” hostname when using _version=_ "2.2" and
-_web-facesconfig_2_2.xsd_ .
+_web-facesconfig_2_2.xsd_.
 
 Application configuration resources that are
 written to run on JSF 2.1 must include the following schema declaration:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config
-
- xmlns="http://java.sun.com/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
-
- version="2.1">
-
-
-
-|===
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+    version="2.1">
+----
 
 Application configuration resources that are
 written to run on JSF 2.0 must include the following schema declaration:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config
-
- xmlns="http://java.sun.com/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
-
- version="2.0">
-
-
-
-|===
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+----
 
 Application configuration resources that are
 written to run on JSF 1.2 Application configuration resources must
 include the following schema declaration and must conform to the schema
 referenced in the schemalocation URI shown below:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config version="1.2"
-xmlns="http://java.sun.com/xml/ns/javaee"
-
-
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-
-
-http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
-
-|===
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+----
 
 Application configuration resources that are
 written to run on JSF 1.1 implementations must use the DTD declaration
 and include the following DOCTYPE declaration:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <!DOCTYPE faces-config PUBLIC
-
- “-//Sun Microsystems, Inc.//DTD JavaServer
-Faces Config 1.1//EN”
-
-
-“http://java.sun.com/dtd/web-facesconfig_1_1.dtd”>
-
-|===
+    “-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN”
+    “http://java.sun.com/dtd/web-facesconfig_1_1.dtd”>
+----
 
 {empty}Application configuration resources
 that are written to run on JSF 1.0 implementations must use the DTD
@@ -1190,34 +1119,22 @@ declaration for the 1.0 DTD contained in the binary download of the JSF
 reference implementation. They must also use the following DOCTYPE
 declaration:[P1-end]
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <!DOCTYPE faces-config PUBLIC
-
- “-//Sun Microsystems, Inc.//DTD JavaServer
-Faces Config 1.0//EN”
-
-
-“http://java.sun.com/dtd/web-facesconfig_1_0.dtd”>
-
-|===
+    “-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN”
+    “http://java.sun.com/dtd/web-facesconfig_1_0.dtd”>
+----
 
 [[a6297]]
 ==== Configuration Impact on JSF Runtime
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <!DOCTYPE faces-config PUBLIC
-
- “-//Sun Microsystems, Inc.//DTD JavaServer
-Faces Config 1.1//EN”
-
-
-“http://java.sun.com/dtd/web-facesconfig_1_1.dtd”>
-
-|===
+    “-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN”
+    “http://java.sun.com/dtd/web-facesconfig_1_1.dtd”>
+----
 
 The following XML
 elements<<a9102, 19>> in application configuration resources
@@ -1226,40 +1143,40 @@ properties. It is an error if the value of any of these elements cannot
 be correctly parsed, loaded, set, or otherwise used by the
 implementation.
 
-/faces-config/component -- Create or replace
+* /faces-config/component -- Create or replace
 a component type / component class pair with the _Application_ instance
 for this web application.
 
-/faces-config/converter -- Create or replace
+* /faces-config/converter -- Create or replace
 a converter id / converter class or target class / converter class pair
 with the _Application_ instance for this web application.
 
-/faces-config/render-kit -- Create and
-register a new _RenderKit_ instance with the _RenderKitFactory_ , if one
-does not already exist for the specified _render-kit-id_ .
+* /faces-config/render-kit -- Create and
+register a new _RenderKit_ instance with the _RenderKitFactory_, if one
+does not already exist for the specified _render-kit-id_.
 
-/faces-config/render-kit/renderer -- Create
+* /faces-config/render-kit/renderer -- Create
 or replace a component family + renderer id / renderer class pair with
 the _RenderKit_ associated with the render-kit element we are nested in.
 
-/faces-config/validator -- Create or replace
+* /faces-config/validator -- Create or replace
 a validator id / validator class pair with the _Application_ instance
 for this web application.
 
 For components, converters, and validators,
 it is legal to replace the implementation class that is provided (by the
 JSF implementation) by default. This is accomplished by specifying the
-standard value for the _<component-type>_ , _<converter-id>_ , or
+standard value for the _<component-type>_, _<converter-id>_, or
 _<validator-id>_ that you wish to replace, and specifying your
 implementation class. To avoid class cast exceptions, the replacement
 implementation class must be a subclass of the standard class being
 replaced. For example, if you declare a custom _Converter_
 implementation class for the standard converter identifier
-_jakarta.faces.Integer_ , then your replacement class must be a subclass
-of _jakarta.faces.convert.IntegerConverter_ .
+_jakarta.faces.Integer_, then your replacement class must be a subclass
+of _jakarta.faces.convert.IntegerConverter_.
 
-For replacement _Renderer_ s, your
-implementation class must extend _jakarta.faces.render.Renderer_ .
+For replacement __Renderer__s, your
+implementation class must extend _jakarta.faces.render.Renderer_.
 However, to avoid unexpected behavior, your implementation should
 recognize all of the render-dependent attributes supported by the
 Renderer class you are replacing, and provide equivalent decode and
@@ -1271,141 +1188,141 @@ functionality, provided by the JSF implementation. See
 <<a6336, Delegating Implementation Support>> for
 more information about the classes referenced by these elements:
 
-/faces-config/application/action-listener --
+* /faces-config/application/action-listener --
 Replace the default _ActionListener_ used to process _ActionEvent events
 with an_ instance with the class specified. The contents of this element
 must be a fully qualified Java class name that, when instantiated, is an
-_ActionListener_ .
+_ActionListener_.
 
-/faces-config/application/navigation-handler
+* /faces-config/application/navigation-handler
 -- Replace the default _NavigationHandler_ instance with the one
 specified. The contents of this element must be a fully qualified Java
-class name that, when instantiated, is a _NavigationHandler_ .
+class name that, when instantiated, is a _NavigationHandler_.
 
-/faces-config/application/property-resolver
+* /faces-config/application/property-resolver
 -- Replace the default _PropertyResolver_ instance with the one
 specified. The contents of this element must be a fully qualified Java
-class name that, when instantiated, is a _PropertyResolver_ .
+class name that, when instantiated, is a _PropertyResolver_.
 
-/faces-config/application/resource-handler --
+* /faces-config/application/resource-handler --
 Replace the default _ResourceHandler_ instance with the one specified.
 The contents of this element must be a fully qualified Java class name
-that, when instantiated, is a _ResourceHandler_ .
+that, when instantiated, is a _ResourceHandler_.
 
-/faces-config/application/search-expression-handler
+* /faces-config/application/search-expression-handler
 -- This element contains the fully qualified class name of the concrete
 _jakarta.faces.component.search.SearchExpressionHandler_ implementation
 class that will be used for processing of a search expression.
 
-/faces-config/application/search-keyword-resolver
+* /faces-config/application/search-keyword-resolver
 -- This element contains the fully qualified class name of the concrete
 jakarta.faces.component.search.SearchKeywordResolver implementation class
 that will be used during the processing of a search expression keyword.
 
-/faces-config/application/state-manager --
+* /faces-config/application/state-manager --
 Replace the default _StateManager_ instance with the one specified. The
 contents of this element must be a fully qualified Java class name that,
-when instantiated, is a _StateManager_ .
+when instantiated, is a _StateManager_.
 
-/faces-config/application/system-event-listener
+* /faces-config/application/system-event-listener
 -- Instantiate a new instance of the class specified as the content
 within a nested _system-event-listener-class_ element, which must
-implement _SystemEventListener_ . This instance is referred to as
+implement _SystemEventListener_. This instance is referred to as
 _systemEventListener_ for discussion. If a _system-event-class_ is
-specified as a nested element within _system-event-listener_ , it must
+specified as a nested element within _system-event-listener_, it must
 be a class that extends _SystemEvent_ and has a public zero-arguments
 constructor. The _Class_ object for _system-event-class_ is obtained and
 is referred to as _systemEventClass_ for discussion. If
 _system-event-class_ is not specified, _SystemEvent.class_ must be used
-as the value of system _EventClass_ . If _source-class_ is specified as
-a nested element within _system-event-listener_ , it must be a fully
+as the value of system _EventClass_. If _source-class_ is specified as
+a nested element within _system-event-listener_, it must be a fully
 qualified class name. The _Class_ object for _source-class_ is obtained
 and is referred to as _sourceClass_ for discussion. If _source-class_ is
-not specified, let _sourceClass_ be _null_ . Obtain a reference to the
+not specified, let _sourceClass_ be _null_. Obtain a reference to the
 _Application_ instance and call _subscribeForEvent(_ _facesEventClass_
 _,_ _sourceClass_ _,_ _systemEventListener_ _)_ , passing the arguments
 as assigned in the discussion.
 
-/faces-config/application/variable-resolver
+* /faces-config/application/variable-resolver
 -- Replace the default _VariableResolver_ instance with the one
 specified. The contents of this element must be a fully qualified Java
-class name that, when instantiated, is a _VariableResolver_ .
+class name that, when instantiated, is a _VariableResolver_.
 
-/faces-config/application/view-handler --
+* /faces-config/application/view-handler --
 Replace the default _ViewHandler_ instance with the one specified. The
 contents of this element must be a fully qualified Java class name that,
-when instantiated, is a _ViewHandler_ .
+when instantiated, is a _ViewHandler_.
 
 The following XML elements cause the
 replacement of the default implementation class for the corresponding
 functionality, provided by the JSF implementation. Each of the
 referenced classes must have a public zero-arguments constructor:
 
-_/faces-config/factory/application-factory_
+* _/faces-config/factory/application-factory_
 -- Replace the default _ApplicationFactory_ instance with the one
 specified. The contents of this element must be a fully qualified Java
-class name that, when instantiated, is an _ApplicationFactory_ .
+class name that, when instantiated, is an _ApplicationFactory_.
 
 
-_/faces-config/factory/client-window-factory_ -- Replace the default
+* _/faces-config/factory/client-window-factory_ -- Replace the default
 _ClientWindowFactory_ instance with the one specified. The contents of
 this element must be a fully qualified Java class name that, when
-instantiated, is a _ClientWindowFactory_ .
+instantiated, is a _ClientWindowFactory_.
 
 
-_/faces-config/factory/exception-handler-factory_ -- Replace the default
+* _/faces-config/factory/exception-handler-factory_ -- Replace the default
 _ExceptionHandlerFactory_ instance with the one specified. The contents
 of this element must be a fully qualified Java class name that, when
-instantiated, is a _ExceptionHandlerFactory_ .
+instantiated, is a _ExceptionHandlerFactory_.
 
 
-_/faces-config/factory/faces-context-factory_ -- Replace the default
+* _/faces-config/factory/faces-context-factory_ -- Replace the default
 _FacesContextFactory_ instance with the one specified. The contents of
 this element must be a fully qualified Java class name that, when
-instantiated, is a _FacesContextFactory_ .
+instantiated, is a _FacesContextFactory_.
 
-_/faces-config/factory/flash-factory_ --
+* _/faces-config/factory/flash-factory_ --
 Replace the default _FlashFactory_ instance with the one specified. The
 contents of this element must be a fully qualified Java class name that,
-when instantiated, is a _FlashFactory_ .
+when instantiated, is a _FlashFactory_.
 
-_/faces-config/factory/flow-handler-factory_
+* _/faces-config/factory/flow-handler-factory_
 -- Replace the default _FlowHandlerFactory_ instance with the one
 specified. The contents of this element must be a fully qualified Java
-class name that, when instantiated, is a _FlowHandlerFactory_ .
+class name that, when instantiated, is a _FlowHandlerFactory_.
 
-_/faces-config/factory/lifecycle-factory_ --
+* _/faces-config/factory/lifecycle-factory_ --
 Replace the default _LifecycleFactory_ instance with the one specified.
 The contents of this element must be a fully qualified Java class name
-that, when instantiated, is a _LifecycleFactory_ .
+that, when instantiated, is a _LifecycleFactory_.
 
-_/faces-config/factory/render-kit-factory_
+* _/faces-config/factory/render-kit-factory_
 -- Replace the default _RenderKitFactory_ instance with the one
 specified. The contents of this element must be a fully qualified Java
-class name that, when instantiated, is a _RenderKitFactory_ .
+class name that, when instantiated, is a _RenderKitFactory_.
 
 
-_/faces-config/factory/search-expression-context-kit-factory_ -- This
+* _/faces-config/factory/search-expression-context-kit-factory_ -- This
 element contains the fully qualified class name of the concrete
 _SearchExpressionContextFactory_ implementation class that will be
 called when
 _FactoryFinder.getFactory(SEARCH_EXPRESSION_CONTEXT_FACTORY)_ is called.
 
 
-_/faces-config/factory/view-declaration-language-factory_ -- Replace the
+* _/faces-config/factory/view-declaration-language-factory_ -- Replace the
 default _ViewDeclarationLanguageFactory_ instance with the one
 specified. The contents of this element must be a fully qualified Java
 class name that, when instantiated, is a
-_ViewDeclarationLanguageFactory_ .
+_ViewDeclarationLanguageFactory_.
 
 The following XML elements cause the addition
 of event listeners to standard JSF implementation objects, as follows.
 Each of the referenced classes must have a public zero-arguments
 constructor.
 
-/faces-config/lifecycle/phase-listener --
+* /faces-config/lifecycle/phase-listener --
 Instantiate a new instance of the specified class, which must implement
-_PhaseListener_ , and register it with the _Lifecycle_ instance for the
+_PhaseListener_, and register it with the _Lifecycle_ instance for the
 current web application.
 
 In addition, the following XML elements
@@ -1413,11 +1330,11 @@ influence the runtime behavior of the JSF implementation, even though
 they do not cause registration of objects that are visible to a
 JSF-based application.
 
-/faces-config/managed-bean -- Make the
+* /faces-config/managed-bean -- Make the
 characteristics of a managed bean with the specified _managed-bean-name_
 available to the default _VariableResolver_ implementation.
 
-/faces-config/navigation-rule -- Make the
+* /faces-config/navigation-rule -- Make the
 characteristics of a navigation rule available to the default
 _NavigationHandler_ implementation.
 
@@ -1487,73 +1404,42 @@ value of the _<render-kit-class>_ element within the _<render-kit>_
 element has a constructor that takes an _RenderKit_ instance, the
 existing _RenderKit_ for that _<render-kit-id>_ must be passed to that
 constructor, and the RenderKit resulting from the executing of that
-constructor must be passed to _RenderKitFactory.addRenderKit()_ .
+constructor must be passed to _RenderKitFactory.addRenderKit()_.
 
 For example, say you wanted to provide a
 custom _ViewHandler_ that was the same as the default one, but provided
 a different implementation of the _calculateLocale()_ method. Consider
 this code excerpt from a custom _ViewHandler_ :
 
-[width="100%",cols="100%",]
-|===
-a|
-public class MyViewHandler extends
-ViewHandler \{
+[source,java]
+----
+public class MyViewHandler extends ViewHandler {
 
+  public MyViewHandler() { }
 
+  public MyViewHandler(ViewHandler handler) {
+    super();
+    oldViewHandler = handler;
+  }
 
- public MyViewHandler() \{ }
+  private ViewHandler oldViewHandler = null;
 
+  // Delegate the renderView() method to the old handler
+  public void renderView(FacesContext context, UIViewRoot view)
+      throws IOException, FacesException {
+    oldViewHandler.renderView(context, view);
+  }
 
+  // Delegate other methods in the same manner
 
- public MyViewHandler(ViewHandler handler) \{
-
- super();
-
- oldViewHandler = handler;
-
- }
-
-
-
- private ViewHandler oldViewHandler = null;
-
-
-
- // Delegate the renderView() method to the
-old handler
-
- public void renderView(FacesContext context,
-UIViewRoot view)
-
- throws IOException, FacesException \{
-
- oldViewHandler.renderView(context, view);
-
- }
-
-
-
- // Delegate other methods in the same manner
-
-
-
- // Overridden version of calculateLocale()
-
- public Locale calculateLocale(FacesContext
-context) \{
-
- Locale locale = ... // Custom calculation
-
- return locale;
-
- }
-
-
-
+  // Overridden version of calculateLocale()
+  public Locale calculateLocale(FacesContext context) {
+    Locale locale = ... // Custom calculation
+    return locale;
+  }
 }
 
-|===
+----
 
 
 
@@ -1564,117 +1450,60 @@ previously registered _ViewHandler_ will get passed to it.
 In version 1.2, we added new wrapper classes
 to make it easier to override a subset of the total methods of the class
 and delegate the rest to the previous instance. We provide wrappers for
-_jakarta.faces.application.ViewHandler_ ,
-_jakarta.faces.application.StateManager_ , and
-_jakarta.faces.context.ResponseWriter_ . For example, you could have a
+_jakarta.faces.application.ViewHandler_,
+_jakarta.faces.application.StateManager_, and
+_jakarta.faces.context.ResponseWriter_. For example, you could have a
 _faces-config.xml_ file that contains the following:
 
 
 
-[width="100%",cols="100%",]
-|===
-a|
- <application>
-
-
-<view-handler>com.foo.NewViewHandler</view-handler>
-
-
-<state-manager>com.foo.NewStateManager</state-manager>
-
- </application>
-
-
-
-|===
+[source,xml]
+----
+<application>
+  <view-handler>com.foo.NewViewHandler</view-handler>
+  <state-manager>com.foo.NewStateManager</state-manager>
+</application>
+----
 
 Where your implementations for these classes
 are simply:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 package com.foo;
-
-
 
 import jakarta.faces.application.ViewHandler;
+import jakarta.faces.application.ViewHandlerWrapper;
 
-import
-jakarta.faces.application.ViewHandlerWrapper;
+public class NewViewHandler extends ViewHandlerWrapper {
+  private ViewHandler oldViewHandler = null;
 
+  public NewViewHandler(ViewHandler oldViewHandler) {
+    this.oldViewHandler = oldViewHandler;
+  }
 
-
-public class NewViewHandler extends
-ViewHandlerWrapper \{
-
-
-
- private ViewHandler oldViewHandler = null;
-
-
-
- public NewViewHandler(ViewHandler
-oldViewHandler) \{
-
- this.oldViewHandler = oldViewHandler;
-
- }
-
-
-
- public ViewHandler getWrapped() \{
-
- return oldViewHandler;
-
- }
-
+  public ViewHandler getWrapped() {
+    return oldViewHandler;
+  }
 }
-
-
 
 package com.foo;
 
-
-
 import jakarta.faces.application.StateManager;
+import jakarta.faces.application.StateManagerWrapper;
 
-import
-jakarta.faces.application.StateManagerWrapper;
+public class NewStateManager extends StateManagerWrapper {
+  private StateManager oldStateManager = null;
 
+  public NewStateManager(StateManager oldStateManager) {
+    this.oldStateManager = oldStateManager;
+  }
 
-
-public class NewStateManager extends
-StateManagerWrapper \{
-
-
-
- private StateManager oldStateManager = null;
-
-
-
- public NewStateManager(StateManager
-oldStateManager) \{
-
- this.oldStateManager = oldStateManager;
-
- }
-
-
-
- public StateManager getWrapped() \{
-
- return oldStateManager;
-
- }
-
+  public StateManager getWrapped() {
+    return oldStateManager;
+  }
 }
-
-
-
-
-
-|===
+----
 
 This allows you to override as many or as few
 methods as you’d like.
@@ -1691,13 +1520,13 @@ requirements of their artifacts.
 
 <<a6201, Application
 Startup Behavior>> defines two concepts:
-_applicationConfigurationResources_ and _applicationFacesConfig_ . The
+_applicationConfigurationResources_ and _applicationFacesConfig_. The
 former is an ordered list of all the application configuration resources
-except the one at “ _WEB-INF/faces-config.xml_ ”, and the latter is a
-list containing only the one at “ _WEB-INF/faces-config.xml_ ”.
+except the one at “_WEB-INF/faces-config.xml_”, and the latter is a
+list containing only the one at “_WEB-INF/faces-config.xml_”.
 
 An application configuration resource may
-have a top level _<name>_ element of type _javaee:java-identifierType_ .
+have a top level _<name>_ element of type _javaee:java-identifierType_.
 [P1-facesConfigIdStart]If a _<name>_ element is present, it must be
 considered for the ordering of decoratable artifacts (unless the
 _duplicate name exception_ applies, as described below).
@@ -1706,254 +1535,194 @@ Two cases must be considered to allow
 application configuration resources to express their ordering
 preferences.
 
-Absolute ordering: an _<absolute-ordering>_
+. Absolute ordering: an _<absolute-ordering>_
 element in the _applicationFacesConfig_
-
++
 In this case, ordering preferences that would
 have been handled by case 2 below must be ignored.
-
++
 Any _<name>_ element direct children of the
 _<absolute-ordering>_ must be interpreted as indicating the absolute
 ordering in which those named application configuration resources, which
 may or may not be present in _applicationConfigurationResources,_ must
 be processed.
-
++
 The _<absolute-ordering>_ element may contain
 zero or one _<others />_ elements. The required action for this element
 is described below. If the _<absolute-ordering>_ element does not
 contain an _<others />_ element, any application configuration resources
 not specifically mentioned within _<name />_ elements must be ignored.
-
++
 _Duplicate name exception_ : if, when
 traversing the children of _<absolute-ordering>_ _,_ multiple children
 with the same _<name>_ element are encountered, only the first such
 occurrence must be considered.
-
++
 If an _<ordering>_ element appears in the
-_applicationFacesConfig_ , an informative message must be logged and the
+_applicationFacesConfig_, an informative message must be logged and the
 element must be ignored.
 
-Relative ordering: an _<ordering>_ element
+. Relative ordering: an _<ordering>_ element
 within a file in the _applicationConfigurationResources_
-
++
 An entry in
 _applicationConfigurationResources_ may have an _<ordering>_ element. If
 so, this element must contain zero or one _<before>_ elements and zero
 or one _<after>_ elements. The meaning of these elements is explained
 below.
-
++
 _Duplicate name exception_ : if, when
 traversing the constituent members of
-_applicationConfigurationResources,_ multiple members with the same
+_applicationConfigurationResources_, multiple members with the same
 _<name>_ element are encountered, the application must log an
 informative error message including information to help fix the problem,
 and must fail to deploy. For example, one way to fix this problem is for
 the user to use absolute ordering, in which case relative ordering is
 ignored.
-
++
 If an _<absolute-ordering>_ element appears
-in an entry in _applicationConfigurationResources_ , an informative
+in an entry in _applicationConfigurationResources_, an informative
 message must be logged and the element must be ignored.
 
 Consider this abbreviated but illustrative
 example. faces-configA, faces-configB and faces-configC are found in
-_applicationConfigurationResources_ , while my-faces-config is the
-_applicationFacesConfig_ . The principles that explain the ordering
+_applicationConfigurationResources_, while my-faces-config is the
+_applicationFacesConfig_. The principles that explain the ordering
 result follow the example code.
 
 faces-configA:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>A</name>
-
-
-<ordering><after><name>B</name></after></ordering>
-
- <application>
-
-
-<view-handler>com.a.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.a.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>A</name>
+  <ordering><after><name>B</name></after></ordering>
+  <application>
+    <view-handler>com.a.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.a.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 faces-configB:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>B</name>
-
- <application>
-
-
-<view-handler>com.b.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.b.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>B</name>
+  <application>
+    <view-handler>com.b.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.b.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 faces-configC:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>C</name>
-
- <ordering><before><others
-/></before></ordering>
-
- <application>
-
-
-<view-handler>com.c.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.c.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>C</name>
+  <ordering><before><others/></before></ordering>
+  <application>
+    <view-handler>com.c.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.c.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 my-faces-config:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>my</name>
-
- <application>
-
-
-<view-handler>com.my.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.my.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>my</name>
+  <application>
+    <view-handler>com.my.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.my.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 In this example, the processing order for the
 _applicationConfigurationResources_ and _applicationFacesConfig_ will
 be.
 
-[width="100%",cols="100%",]
-|===
-a|
- _Implementation Specific Config_
-
+----
+Implementation Specific Config
 C
-
 B
-
 A
-
 my
-
-|===
+----
 
 {empty}The preceding example illustrates
 some, but not all, of the following
 principles.[P1-start-decoratableOrdering]
 
-_<before>_ means the document must be
+* _<before>_ means the document must be
 ordered before the document with the name matching the name specified
 within the nested _<name>_ element.
 
-_<after>_ means the document must be ordered
+* _<after>_ means the document must be ordered
 after the document with the name matching the name specified within the
 nested _<name>_ element.
 
-There is a special element _<others />_ which
+* There is a special element _<others />_ which
 may be included zero or one time within the _<before>_ or < _after>_
 elements, or zero or one time directly within the _<absolute-ordering>_
 elements. The _<others />_ element must be handled as follows.
 
-The _<others />_ element represents a set of
+* The _<others />_ element represents a set of
 application configuration resources. This set is described as the set of
 all application configuration resources discovered in the application,
 minus the one being currently processed, minus the application
 configuration resources mentioned by name in the _<ordering/>_ section.
 If this set is the empty set, at the time the application configuration
 resources are being processed, the _<others />_ element must be ignored.
-__
 
-If the _<before>_ element contains a nested
-_<others />_ , the document will be moved to the beginning of the list
-of sorted documents. If there are multiple documents stating < _before>_
-< _others_ />, they will all be at the beginning of the list of sorted
+** If the _<before>_ element contains a nested
+_<others />_, the document will be moved to the beginning of the list
+of sorted documents. If there are multiple documents stating _<before>_
+_<others />_, they will all be at the beginning of the list of sorted
 documents, but the ordering within the group of such documents is
 unspecified.
 
-If the _<after>_ element contains a nested
+** If the _<after>_ element contains a nested
 _<others />_ , the document will be moved to the end of the list of
 sorted documents. If there are multiple documents requiring _<after>_ <
 _others />_ , they will all be at the end of the list of sorted
 documents, but the ordering within the group of such documents is
 unspecified.
 
-Within a _<before>_ or _<after>_ element, if
+** Within a _<before>_ or _<after>_ element, if
 an _<others />_ element is present, but is not the only _<name>_ element
 within its parent element, the other elements within that parent must be
 considered in the ordering process.
 
-If the _<others />_ element appears directly
+** If the _<others />_ element appears directly
 within the _<absolute-ordering>_ element, the runtime must ensure that
 any application configuration resources in
 _applicationConfigurationResources_ not explicitly named in the
 _<absolute-ordering>_ section are included at that point in the
-processing order. __
+processing order.
 
-If a faces-config file does not have an
+* If a faces-config file does not have an
 _<ordering>_ or _<absolute-ordering>_ element the artifacts are assumed
 to not have any ordering dependency.
 
-If the runtime discovers circular references,
+* If the runtime discovers circular references,
 an informative message must be logged, and the application must fail to
 deploy. Again, one course of action the user may take is to use absolute
-ordering in the _applicationFacesConfig_ . __
+ordering in the _applicationFacesConfig_.
 
 The previous example can be extended to
 illustrate the case when _applicationFacesConfig_ contains an ordering
@@ -1961,38 +1730,22 @@ section.
 
 my-faces-config:.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <faces-config>
-
- <name>my</name>
-
- <absolute-ordering>
-
- <name>C</name>
-
- <name>A</name>
-
- </absolute-ordering>
-
- <application>
-
-
-<view-handler>com.my.ViewHandlerImpl</view-handler>
-
- </application>
-
- <lifecycle>
-
-
-<phase-listener>com.my.PhaseListenerImpl</phase-listener>
-
- </lifecycle>
-
+  <name>my</name>
+  <absolute-ordering>
+    <name>C</name>
+    <name>A</name>
+  </absolute-ordering>
+  <application>
+    <view-handler>com.my.ViewHandlerImpl</view-handler>
+  </application>
+  <lifecycle>
+    <phase-listener>com.my.PhaseListenerImpl</phase-listener>
+  </lifecycle>
 </faces-config>
-
-|===
+----
 
 In this example, the constructor decorator
 ordering for _ViewHandler_ would be C, A, my.
@@ -2002,74 +1755,50 @@ included below. All of these apply to the
 _applicationConfigurationResources_ relative ordering case, not to the
 _applicationFacesConfig_ absolute ordering case.
 
-[width="100%",cols="100%",]
-|===
-a|
-Document A -
-<after><others/><name>C</name></after>
-
+----
+Document A - <after><others/><name>C</name></after>
 Document B - <before><others/></before>
-
 Document C - <after><others/></after>
-
 Document D - no ordering
-
 Document E - no ordering
-
-Document F -
-<before><others/><name>B</name></before>
-
-|===
+Document F - <before><others/><name>B</name></before>
+----
 
 The valid parse order is F, B, D/E, C, A,
 where D/E may appear as D, E or E, D
 
-[width="100%",cols="100%",]
-|===
-a|
+----
 Document <no id> - <after><others/></after>
-
- <before><name>C</name></before>
-
+                   <before><name>C</name></before>
 Document B - <before><others/></before>
-
 Document C - no ordering
-
 Document D - <after><others/></after>
-
 Document E - <before><others/></before>
-
 Document F - no ordering
-
-|===
+----
 
 The complete list of parse order solutions
 for the above example is
 
-B,E,F,<no id>,C,D
+[none]
+* B,E,F,<no id>,C,D
 
-B,E,F,<no_id>,D,C
+* B,E,F,<no_id>,D,C
 
-E,B,F,<no id>,C,D
+* E,B,F,<no id>,C,D
 
-E,B,F,<no_id>,D,C
+* E,B,F,<no_id>,D,C
 
-B,E,F,D,<no id>,C
+* B,E,F,D,<no id>,C
 
-E,B,F,D,<no id>,C
+* E,B,F,D,<no id>,C
 
-[width="100%",cols="100%",]
-|===
-a|
+----
 Document A - <after><name>B</name></after>
-
 Document B - no ordering
-
 Document C - <before><others/></before>
-
 Doucment D - no ordering
-
-|===
+----
 
 Resulting parse order: C, B, D, A. The parse
 order could also be: C, D, B, A.
@@ -2080,97 +1809,54 @@ order could also be: C, D, B, A.
 ==== Example Application Configuration Resource
 
 The following example application resource
-file defines a custom _UIComponent_ of type _Date_ , plus a number of
-_Renderer_ s that know how to decode and encode such a component:
+file defines a custom _UIComponent_ of type _Date_, plus a number of
+__Renderer__s that know how to decode and encode such a component:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <?xml version=”1.0”?>
 
 <faces-config version="1.2"
-xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
 
+  <!-- Define our custom component -->
+  <component>
+    <description>
+      A custom component for rendering
+      user-selectable dates in various formats.
+    </description>
+    <display-name>My Custom Date</display-name>
+    <component-type>Date</component-type>
+    <component-class>
+      com.example.components.DateComponent
+    </component-class>
+  </component>
 
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  <!-- Define two renderers that know how to deal with dates -->
+  <render-kit>
+    <!-- No render-kit-id, so add them to default RenderKit -->
+    <renderer>
+      <display-name>Calendar Widget</display-name>
+      <component-family>MyComponent</component-family>
+      <renderer-type>MyCalendar</renderer-type>
+      <renderer-class>
+        com.example.renderers.MyCalendarRenderer
+      </renderer-class>
+    </renderer>
 
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-
-
-http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
-
-<!-- Define our custom component -->
-
-<component>
-
- <description>
-
- A custom component for rendering
-user-selectable dates in various formats.
-
- </description>
-
- <display-name>My Custom Date</display-name>
-
- <component-type>Date</component-type>
-
- <component-class>
-
- com.example.components.DateComponent
-
- </component-class>
-
-</component>
-
-
-
-<!-- Define two renderers that know how to
-deal with dates -->
-
-<render-kit>
-
- <!-- No render-kit-id, so add them to
-default RenderKit -->
-
- <renderer>
-
- <display-name>Calendar Widget</display-name>
-
-
-<component-family>MyComponent</component-family>
-
- <renderer-type>MyCalendar</renderer-type>
-
- <renderer-class>
-
- com.example.renderers.MyCalendarRenderer
-
- </renderer-class>
-
- </renderer>
-
- <renderer>
-
- <display-name>Month/Day/Year</display-name>
-
- <renderer-type>MonthDayYear</renderer-type>
-
- <renderer-class>
-
- com.example.renderers.MonthDayYearRenderer
-
- </renderer-class>
-
- </renderer>
-
-</render-kit>
-
-
-
+    <renderer>
+      <display-name>Month/Day/Year</display-name>
+      <renderer-type>MonthDayYear</renderer-type>
+      <renderer-class>
+        com.example.renderers.MonthDayYearRenderer
+      </renderer-class>
+    </renderer>
+  </render-kit>
 </faces-config>
-
-|===
+----
 
 Additional examples of configuration elements
 that might be found in application configuration resources are in
@@ -2189,24 +1875,24 @@ specified in this section.
 [[a6598]]
 ==== Requirements for scanning of classes for annotations
 
-[P1_start-annotation-discovery]If the
+* [P1_start-annotation-discovery]If the
 _<faces-config>_ element in the _WEB-INF/faces-config.xml_ file contains
-_metadata-complete_ attribute whose value is “ _true_ ”, the
+_metadata-complete_ attribute whose value is “_true_”, the
 implementation must not perform annotation scanning on any classes
 except for those classes provided by the implementation itself.
 Otherwise, continue as follows.
 
-If the runtime discovers a conflict between
+* If the runtime discovers a conflict between
 an entry in the Application Configuration Resources and an annotation,
 the entry in the Application Configuration Resources takes precedence.
 
-All classes in _WEB-INF/classes_ must be
+* All classes in _WEB-INF/classes_ must be
 scanned.
 
-{empty}For every jar in the application's
-_WEB-INF/lib_ directory, if the jar contains a “
-_META-INF/faces-config.xml_ ” file or a file that matches the regular
-expression “ _.*\.faces-config.xml_ ” (even an empty one), all classes
+* {empty}For every jar in the application's
+_WEB-INF/lib_ directory, if the jar contains a
+“_META-INF/faces-config.xml_” file or a file that matches the regular
+expression “_.*\.faces-config.xml_” (even an empty one), all classes
 in that jar must be scanned.[P1_end-annotation-discovery]
 
 

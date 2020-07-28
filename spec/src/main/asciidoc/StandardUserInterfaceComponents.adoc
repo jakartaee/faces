@@ -2,7 +2,7 @@
 == Standard User Interface Components
 
 In addition to the abstract base class
-_UIComponent_ and the abstract base class _UIComponentBase_ , described
+_UIComponent_ and the abstract base class _UIComponentBase_, described
 in the previous chapter, JSF provides a number of concrete user
 interface component implementation classes that cover the most common
 requirements. In addition, component writers will typically create new
@@ -20,7 +20,7 @@ through request-scope, session-scope, or application-scope attributes.
 In addition, the _rendererType_ property of each concrete implementation
 class is set to a defined value, indicating that decoding and encoding
 for this component will (by default) be delegated to the corresponding
-_Renderer_ .
+_Renderer_.
 
 === Standard User Interface Components
 
@@ -32,23 +32,23 @@ that are included in Jakarta Server Faces.
 implementation for each standard _UIComponent_ class must specify two
 public static final String constant values:
 
-_COMPONENT_TYPE_ -- The standard component
+* _COMPONENT_TYPE_ -- The standard component
 type identifier under which the corresponding component class is
 registered with the _Application_ object for this application. This
 value may be used as a parameter to the _createComponent()_ method.
 
-{empty} _COMPONENT_FAMILY_ -- The standard
+* {empty} _COMPONENT_FAMILY_ -- The standard
 component family identifier used to select an appropriate Renderer for
 this component.[P1-end]
 
 For all render-independent properties in the
-following sections (except for _id_ , _scope_ , and _var_ ) the value
+following sections (except for _id_, _scope_, and _var_) the value
 may either be a literal, or it may come from a value expression. Please
-see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,See Value Expressions>> for more
+see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,Value Expressions>> for more
 information.
 
 The following UML class diagram shows the
-classes and interfaces in the package _jakarta.faces.component._
+classes and interfaces in the package _jakarta.faces.component_.
 
 [[a1834]]
 .The _jakarta.faces.component_ package
@@ -57,10 +57,10 @@ image:SF-22.png[image]
 
 ==== UIColumn
 
-_UIColumn_ (extends _UIComponentBase_ ) is a
+_UIColumn_ (extends _UIComponentBase_) is a
 component that represents a single column of data with a parent _UIData_
 component. The child components of a _UIColumn_ will be processed once
-for each row in the data managed by the parent _UIData_ .
+for each row in the data managed by the parent _UIData_.
 
 ===== Component Type
 
@@ -72,7 +72,7 @@ components is “jakarta.faces.Column”.
 _UIColumn_ adds the following
 render-independent properties:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -91,11 +91,11 @@ _[P1-start-uicolumn]UIColumn_ specializes
 the behavior of render-independent properties inherited from the parent
 class as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Column”.
 
-{empty}The default value of the
-_rendererType_ property must be set to _null_ .[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to _null_.[P1-end]
 
 [[a1852]]
 ===== Methods
@@ -109,8 +109,8 @@ methods.
 
 ==== UICommand
 
-_UICommand_ (extends _UIComponentBase;_
-implements _ActionSource_ ) is a control which, when activated by the
+_UICommand_ (extends _UIComponentBase_;
+implements _ActionSource_) is a control which, when activated by the
 user, triggers an application-specific “command” or “action.” Such a
 component is typically rendered as a push button, a menu item, or a
 hyperlink.
@@ -118,14 +118,14 @@ hyperlink.
 ===== Component Type
 
 The standard component type for _UICommand_
-components is “jakarta.faces. _Command_ ”.
+components is “_jakarta.faces.Command_”.
 
 ===== Properties
 
 _UICommand_ adds the following
 render-independent properties.
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -134,7 +134,7 @@ render-independent properties.
 value of this component, normally used as a label.
 |===
 
-See <<UserInterfaceComponentModel.adoc#a1090,See
+See <<UserInterfaceComponentModel.adoc#a1090,
 ActionSource>> for information about properties introduced by the
 implemented classes.
 
@@ -142,30 +142,30 @@ _[P1-start-uicommand]UICommand_ components
 specialize the behavior of render-independent properties inherited from
 the parent class as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Command”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “jakarta.faces.Button”.[P1-end]
 
 ===== Methods
 
 _UICommand_ adds no new processing methods.
-See <<UserInterfaceComponentModel.adoc#a1090,See ActionSource>> for information about
+See <<UserInterfaceComponentModel.adoc#a1090,ActionSource>> for information about
 methods introduced by the implemented classes.
 
 ===== Events
 
 _UICommand_ adds no new event processing
-methods. See <<UserInterfaceComponentModel.adoc#a1090,See ActionSource>> for
+methods. See <<UserInterfaceComponentModel.adoc#a1090,ActionSource>> for
 information about event handling introduced by the implemented classes.
 
 ==== UIData
 
-_UIData_ (extends _UIComponentBase;_
-implements _NamingContainer_ ) is a component that represents a data
+_UIData_ (extends _UIComponentBase_;
+implements _NamingContainer_) is a component that represents a data
 binding to a collection of data objects represented by a DataModel
-instance (see <<StandardUserInterfaceComponents.adoc#a2281,See DataModel>>). Only children
+instance (see <<StandardUserInterfaceComponents.adoc#a2281,DataModel>>). Only children
 of type _UIColumn_ should be processed by renderers associated with this
 component.
 
@@ -180,7 +180,7 @@ components is “jakarta.faces.Data”
 _UIData_ adds the following
 render-independent properties.
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -190,7 +190,7 @@ _DataModel_ |The internal value
 representation of the _UIData_ instance. Subclasses might write to this
 property if they want to restore the internal model during the _Restore
 View Phase_ or if they want to explicitly refresh the model for the
-_Render Response_ phase. __
+_Render Response_ phase.
 
 | _first_ |RW
 | _int_
@@ -210,7 +210,7 @@ beginning of the data model.
 
 |rowCount |RO
 |int |The number
-of rows in the underlying _DataModel_ , which can be -1 if the number of
+of rows in the underlying _DataModel_, which can be -1 if the number of
 rows is unknown.
 
 |rowAvailable |RO
@@ -226,7 +226,7 @@ value.
 |rowIndex |RW
 |int
 |Zero-relative index of the row currently
-being accessed in the underlying _DataModel_ , or -1 for no current row.
+being accessed in the underlying _DataModel_, or -1 for no current row.
 See below for further information.
 
 |rows |RW
@@ -246,7 +246,7 @@ request-scope attribute (if any) under which the data object for the
 current row will be exposed when iterating.
 |===
 
-See <<UserInterfaceComponentModel.adoc#a1134,See
+See <<UserInterfaceComponentModel.adoc#a1134,
 NamingContainer>> for information about properties introduced by the
 implemented classes.
 
@@ -254,14 +254,14 @@ _[P1-start-uidata]UIData_ specializes the
 behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Data”.
 
-{empty}The default value of the
-_rendererType_ property must be set to “ _jakarta.faces.Table_ ”.[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to “_jakarta.faces.Table_”.[P1-end]
 
 The current value identified by the _value_
-property is normally of type _DataModel_ .
+property is normally of type _DataModel_.
 [P1-start-uidataModel]However, a _DataModel_ wrapper instance must
 automatically be provided by the JSF implementation if the current value
 is of one of the following types:
@@ -271,7 +271,7 @@ is of one of the following types:
 - Array of _java.util.Object_
 
 - _java.sql.ResultSet_ (which therefore also
-supports _javax.sql.RowSet_ )
+supports _javax.sql.RowSet_)
 
 - _jakarta.servlet.jsp.jstl.sql.Result_
 
@@ -283,7 +283,7 @@ _DataModel_ instance with a single row.[P1-end]
 
 Convenience implementations of _DataModel_
 are provided in the _jakarta.faces.model_ package for each of the above
-(see <<StandardUserInterfaceComponents.adoc#a2302,See Concrete Implementations>>), and
+(see <<StandardUserInterfaceComponents.adoc#a2302,Concrete Implementations>>), and
 must be used by the _UIData_ component to create the required
 _DataModel_ wrapper.
 
@@ -293,13 +293,13 @@ _DataModel_ wrapper.
 _UIData_ adds no new processing methods.
 However, the getDataModel() method is now protected, so implementations
 have access to the underlying data model. See
- <<UserInterfaceComponentModel.adoc#a1134,See NamingContainer>> for information about
+ <<UserInterfaceComponentModel.adoc#a1134,NamingContainer>> for information about
 methods introduced by the implemented classes.
 
 UIData specializes the behavior of the
 _getClientId()_ method inherited from its parent, in order to create a
 client identifier that includes the current rowIndex value (if it is not
--1). Because _UIData_ is a _NamingContainer_ , this makes it possible
+-1). Because _UIData_ is a _NamingContainer_, this makes it possible
 for rendered client identifiers of child components to be row-specific.
 
 _UIData_ specializes the behavior of the
@@ -314,23 +314,23 @@ wrapped), and call _setRowIndex()_ to re-establish the context in which
 the event was queued, followed by delivery of the event.
 
 _[P1-start-uidataDecode]UIData_ specializes
-the behavior of the _processDecodes()_ , _processValidators()_ , and
+the behavior of the _processDecodes()_, _processValidators()_, and
 _processUpdates()_ methods inherited from its parent as follows:
 
-For each of these methods, the _UIData_
+* For each of these methods, the _UIData_
 implementation must iterate over each row in the underlying data model,
 starting with the row identified by the _first_ property, for the number
 of rows indicated by the _rows_ property, by calling the _setRowIndex()_
 method.
 
-{empty}When iteration is complete, set the
-_rowIndex_ property of this component, and of the underlying _DataModel_
-, to zero, and remove any request attribute exposed via the _var_
+* {empty}When iteration is complete, set the
+_rowIndex_ property of this component, and of the underlying _DataModel_,
+to zero, and remove any request attribute exposed via the _var_
 property.[P1-end]
 
 _UIData_ specializes the behavior of
 _invokeOnComponent()_ inherited from _UIComponentBase_ to examine the
-argument _clientId_ and extract the _rowIndex_ , if any, and position
+argument _clientId_ and extract the _rowIndex_, if any, and position
 the data properly before proceeding to locate the component and invoke
 the callback. Upon normal or exception return from the callback the data
 must be repositioned to match how it was before invoking the callback.
@@ -340,14 +340,14 @@ details.
 ===== Events
 
 _UIData_ adds no new event handling methods.
-See <<UserInterfaceComponentModel.adoc#a1134,See NamingContainer>> for information
+See <<UserInterfaceComponentModel.adoc#a1134,NamingContainer>> for information
 about event handling introduced by the implemented classes.
 
 [[a1932]]
 ==== UIForm
 
-_UIForm_ (extends _UIComponentBase;_
-implements _NamingContainer_ ) is a component that represents an input
+_UIForm_ (extends _UIComponentBase_;
+implements _NamingContainer_) is a component that represents an input
 form to be presented to the user, and whose child components (among
 other things) represent the input fields to be included when the form is
 submitted.
@@ -360,14 +360,14 @@ form.[P1-end]This allows the state for multiple forms to be saved.
 ===== Component Type
 
 The standard component type for _UIForm_
-components is “jakarta.faces. _Form_ ”.
+components is “_jakarta.faces.Form_”.
 
 ===== Properties
 
 _UIForm_ adds the following
 render-independent properties.
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -375,90 +375,80 @@ render-independent properties.
 | _boolean_ |If
 true, this _UIForm_ instance does allow its id to be pre-pendend to its
 descendent’s id during the generation of clientIds for the descendents.
-The default value of this property is _true_ . __
+The default value of this property is _true_.
 |===
 
 _[P1-start-uiform]UIForm_ specializes the
 behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.Form_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.Form_”.
 
-{empty}The default value of the
-_rendererType_ property must be set to “ _jakarta.faces.Form_ ”.[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to “_jakarta.faces.Form_”.[P1-end]
 
 ===== Methods.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public boolean isSubmitted();
-
 public void setSubmitted(boolean submitted)
-
-|===
+----
 
 [P1-start-uiform-setSubmitted]The
 _setSubmitted()_ method of each _UIForm_ instance in the view must be
 called during the _Apply Request Values_ phase of the request processing
 lifecycle, during the processing performed by the _UIComponent.decode()_
 method. If this _UIForm_ instance represents the form actually being
-submitted on this request, the parameter must be set to _true_ ;
-otherwise, it must be set to _false_ .[P1-end] The standard
+submitted on this request, the parameter must be set to _true_;
+otherwise, it must be set to _false_.[P1-end] The standard
 implementation of _UIForm_ delegates the responsibility for calling this
 method to the _Renderer_ associated with this instance..
 
 {empty}[P1-start-uiform-submitted]The value
-of a _UIForm'_ s _submitted_ property must not be saved as part of its
+of a __UIForm__'s _submitted_ property must not be saved as part of its
 state.[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public void processDecodes(FacesContext
-context);
-|===
+[source,java]
+----
+public void processDecodes(FacesContext context);
+----
 
 Override _UIComponent.processDecodes()_ to
 ensure that the _submitted_ property is set for this component. If the
 _submitted_ property decodes to false, do not process the children and
 return immediately.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void processValidators(FacesContext
-context);
-
-public void processUpdates(FacesContext
-context);
-
-|===
+[source,java]
+----
+public void processValidators(FacesContext context);
+public void processUpdates(FacesContext context);
+----
 
 Override _processValidators()_ and
 _processUpdates()_ to ensure that the children of this _UIForm_ instance
 are only processed if _isSubmitted()_ returns true.
 
-[width="100%",cols="100%",]
-|===
-|public void saveState(FacesContext context);
-|===
+[source,java]
+----
+public void saveState(FacesContext context);
+----
 
 [P1-start-uiformSaveState]The _saveState()_
 method of UIForm must call _setSubmitted(false)_ before calling
 _super.saveState()_ as an extra precaution to ensure the submitted state
 is not persisted across requests.[P1-end].
 
-[width="100%",cols="100%",]
-|===
-|protected String
-getContainerClientId(FacesContext context);
-|===
+[source,java]
+----
+protected String getContainerClientId(FacesContext context);
+----
 
 {empty}[P1-start-uiformPrependId]Override the
 parent method to ensure that children of this _UIForm_ instance in the
-view have the form’s _clientId_ prepended to their _clientId_ s if and
-only if the form’s _prependId_ property is _true_ .[P1-end]
+view have the form’s _clientId_ prepended to their __clientId__s if and
+only if the form’s _prependId_ property is _true_.[P1-end]
 
 ===== Events
 
@@ -466,21 +456,21 @@ _UIForm_ adds no new event handling methods.
 
 ==== UIGraphic
 
-_UIGraphic_ (extends _UIComponentBase_ ) is
+_UIGraphic_ (extends _UIComponentBase_) is
 a component that displays a graphical image to the user. The user cannot
 manipulate this component; it is for display purposes only.
 
 ===== Component Type
 
 The standard component type for _UIGraphic_
-components is “jakarta.faces. _Graphic_ ”.
+components is “_jakarta.faces.Graphic_”.
 
 ===== Properties
 
 The following render-independent properties
 are added by the UIGraphic component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -501,11 +491,11 @@ _[P1-start-uigraphic]UIGraphic_ specializes
 the behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Graphic”.
 
-{empty}The default value of the
-_rendererType_ property must be set to “ _jakarta.faces.Image_ ”.[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to “_jakarta.faces.Image_”.[P1-end]
 
 ===== Methods
 
@@ -519,8 +509,8 @@ events.
 [[a1981]]
 ==== UIInput
 
-_UIInput_ (extends _UIOutput_ , implements
-_EditableValueHolder_ ) is a component that both displays the current
+_UIInput_ (extends _UIOutput_, implements
+_EditableValueHolder_) is a component that both displays the current
 value of the component to the user (as _UIOutput_ components do), and
 processes request parameters on the subsequent request that need to be
 decoded.
@@ -528,14 +518,14 @@ decoded.
 ===== Component Type
 
 The standard component type for _UIInput_
-components is “ _jakarta.faces.Input_ ”.
+components is “_jakarta.faces.Input_”.
 
 ===== Properties
 
 _UIInput_ adds the following renderer
 independent properties.:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -569,7 +559,7 @@ _ResourceBundle_ access from the EL.
 
 
 
-See <<UserInterfaceComponentModel.adoc#a1192,See
+See <<UserInterfaceComponentModel.adoc#a1192,
 EditableValueHolder>> for information about properties introduced by the
 implemented interfaces.
 
@@ -577,18 +567,18 @@ implemented interfaces.
 behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.Input_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.Input_”.
 
-The default value of the _rendererType_
-property must be set to “ _jakarta.faces.Text_ ”.
+* The default value of the _rendererType_
+property must be set to “_jakarta.faces.Text_”.
 
-{empty}The _Converter_ specified by the
+* {empty}The _Converter_ specified by the
 _converter_ property (if any) must also be used to perform
 String->Object conversions during decoding.[P1-end]
 
-If the _value_ property has an associated
-_ValueExpression_ , the _setValue()_ method of that _ValueExpression_
+* If the _value_ property has an associated
+_ValueExpression_, the _setValue()_ method of that _ValueExpression_
 will be called during the _Update Model Values_ phase of the request
 processing lifecycle to push the local value of the component back to
 the corresponding model bean property.
@@ -601,65 +591,64 @@ _Update Model Values_ phase of the request processing lifecycle, to push
 the converted (if necessary) and validated (if necessary) local value of
 this component back to the corresponding model bean property.
 
-[width="100%",cols="100%",]
-|===
-|public void updateModel(FacesContext
-context);
-|===
+[source,java]
+----
+public void updateModel(FacesContext context);
+----
 
 The following method is over-ridden from
-_UIComponent:_
+_UIComponent_:
 
-[width="100%",cols="100%",]
-|===
-|public void broadcast(FacesEvent event);
-|===
+[source,java]
+----
+public void broadcast(FacesEvent event);
+----
 
 In addition to the default
 _UIComponent.broadcast(jakarta.faces.event.FacesEvent)_ processing, pass
 the _ValueChangeEvent_ being broadcast to the method referenced by the
 _valueChangeListener_ property (if any).
 
-[width="100%",cols="100%",]
-|===
-|public void validate(FacesContext context);
-|===
+[source,java]
+----
+public void validate(FacesContext context);
+----
 
 Perform the algorithm described in the
-javadoc to validate the local value of this _UIInput_ ..
+javadoc to validate the local value of this _UIInput_.
 
-[width="100%",cols="100%",]
-|===
-|public void resetValue();
-|===
+[source,java]
+----
+public void resetValue();
+----
 
 Perform the algorithm described in the
 javadoc to reset this _UIInput_ to the state where it has no local
 value. This method does not touch the value expresson associated with
-the “ _value_ ” property.
+the “_value_” property.
 
 ===== Events
 
 All events are described in
-<<UserInterfaceComponentModel.adoc#a1192,See EditableValueHolder>>.
+<<UserInterfaceComponentModel.adoc#a1192,EditableValueHolder>>.
 
 ==== UIMessage
 
-_UIMessage_ (extends _UIComponentBase_ )
+_UIMessage_ (extends _UIComponentBase_)
 encapsulates the rendering of error message(s) related to a specified
 input component.
 
 ===== Component Type
 
 The standard component type for _UIMessage_
-components is “ _jakarta.faces.Message_ ”.
+components is “_jakarta.faces.Message_”.
 
 ===== Properties
 
 The following render-independent properties
 are added by the UIMessage component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -687,12 +676,11 @@ _[P1-start-uimessage]UIMessage_ specializes
 the behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.Message_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.Message_”.
 
-{empty}The default value of the
-_rendererType_ property must be set to “ _jakarta.faces.Message_
-”.[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to “_jakarta.faces.Message_”.[P1-end]
 
 ===== Methods.
 
@@ -705,21 +693,21 @@ methods.
 
 ==== UIMessages
 
-_UIMessage_ (extends _UIComponentBase_ )
+_UIMessage_ (extends _UIComponentBase_)
 encapsulates the rendering of error message(s) not related to a
 specified input component, or all enqueued messages.
 
 ===== Component Type
 
-The standard component type for _UIMessage_
-components is “ _jakarta.faces.Message_ s”.
+The standard component type for _UIMessages_
+components is “_jakarta.faces.Messages_”.
 
 ===== Properties
 
 The following render-independent properties
 are added by the UIMessages component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -740,16 +728,15 @@ indicating whether the “summary” property of messages for the specified
 component should be rendered. Default value is “true”.
 |===
 
- _[P1-stat-uimessages]UIMessages_ specializes
+_[P1-stat-uimessages]UIMessages_ specializes
 the behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.Messages_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.Messages_”.
 
-{empty}The default value of the
-_rendererType_ property must be set to “ _jakarta.faces.Messages_
-”.[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to “_jakarta.faces.Messages_”.[P1-end]
 
 ===== Methods.
 
@@ -763,10 +750,10 @@ methods.
 [[a2060]]
 ==== UIOutcomeTarget
 
-UIOutcomeTarget ( _UIOutput_ ) is a component
+UIOutcomeTarget (_UIOutput_) is a component
 that has a value and an outcome, either which may optionally be
 retrieved from a model tier bean via a value expression (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,See Value Expressions>>), and is displayed to
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,Value Expressions>>), and is displayed to
 the user as a hyperlink, appearing in the form of a link or a button.
 The user cannot modify the value of the hyperlink, as it's for display
 purposes only. The target URL of the hyperlink is derived by passing the
@@ -799,10 +786,10 @@ UIOutcomeTarget is "jakarta.faces.OutcomeTarget".
 The following render-independent properties
 are added by thec component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
-|Type |
+|Type |Description
 |Outcome |RW
 |String |The
 logical outcome that is used to resolve a NavigationCase which in turn
@@ -816,14 +803,14 @@ should be appended to the query string of the target URL. Default value
 is "false".
 |===
 
- _[P1-start-uioutcometarget]_ UIOutcomeTarget
+_[P1-start-uioutcometarget]_ UIOutcomeTarget
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the family property must
+* The default value of the family property must
 be set to "jakarta.faces.UIOutcomeTarget"
 
-The default value of the rendererType
+* The default value of the rendererType
 property must be set to "jakarta.faces.Link" _[P1-end]_
 
 ===== Methods
@@ -838,55 +825,55 @@ methods.
 
 ==== UIOutput
 
-_UIOutput_ (extends _UIComponentBase;_
-implements _ValueHolder_ ) is a component that has a value, optionally
+_UIOutput_ (extends _UIComponentBase_;
+implements _ValueHolder_) is a component that has a value, optionally
 retrieved from a model tier bean via a value expression (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,See Value Expressions>>), that is displayed
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2349,Value Expressions>>), that is displayed
 to the user. The user cannot directly modify the rendered value; it is
 for display purposes only:
 
 ===== Component Type
 
 The standard component type for _UIOutput_
-components is “jakarta.faces. _Output_ ”.
+components is “_jakarta.faces.Output_”.
 
 ===== Properties
 
 _UIOutput_ adds no new render-independent
-properties. See <<UserInterfaceComponentModel.adoc#a1173,See ValueHolder>> for
+properties. See <<UserInterfaceComponentModel.adoc#a1173,ValueHolder>> for
 information about properties introduced by the implemented classes.
 
 _[P1-start-uioutput]UIOutput_ specializes
 the behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Output”.
 
-{empty}The default value of the
+* {empty}The default value of the
 _rendererType_ property must be set to “jakarta.faces.Text”.[P1-end]
 
 ===== Methods
 
 _UIOutput_ adds no new processing methods.
-See <<UserInterfaceComponentModel.adoc#a1173,See ValueHolder>> for information about
+See <<UserInterfaceComponentModel.adoc#a1173,ValueHolder>> for information about
 methods introduced by the implemented interfaces.
 
 ===== Events
 
 UIOutput does not originate any standard
-events. See <<UserInterfaceComponentModel.adoc#a1173,See ValueHolder>> for information
+events. See <<UserInterfaceComponentModel.adoc#a1173,ValueHolder>> for information
 about events introduced by the implemented interfaces.
 
 ==== UIPanel
 
-_UIPanel_ (extends _UIComponentBase_ ) is a
+_UIPanel_ (extends _UIComponentBase_) is a
 component that manages the layout of its child components.
 
 ===== Component Type
 
 The standard component type for _UIPanel_
-components is “ _jakarta.faces.Panel_ ”.
+components is “_jakarta.faces.Panel_”.
 
 ===== Properties
 
@@ -897,11 +884,11 @@ _[P1-start-uipanel]UIPanel_ specializes the
 behavior of render-independent properties inherited from the parent
 component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.Panel_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.Panel_”.
 
-{empty}The default value of the
-_rendererType_ property must be set to _null_ .[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to _null_.[P1-end]
 
 ===== Methods
 
@@ -914,7 +901,7 @@ events
 
 ==== UIParameter
 
-_UIParameter_ (extends _UIComponentBase_ is
+_UIParameter_ (extends _UIComponentBase_) is
 a component that represents an optionally named configuration parameter
 that affects the rendering of its parent component. _UIParameter_
 components do not generally have rendering behavior of their own.
@@ -922,14 +909,14 @@ components do not generally have rendering behavior of their own.
 ===== Component Type
 
 The standard component type for _UIParameter_
-components is “ _jakarta.faces.Parameter_ ”.
+components is “_jakarta.faces.Parameter_”.
 
 ===== Properties
 
 The following render-independent properties
 are added by the _UIParameter_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -946,11 +933,11 @@ _[P1-start-uiparameter]UIParameter_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.Parameter”.
 
-{empty}The default value of the
-_rendererType_ property must be set to _null_ .[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to _null_.[P1-end]
 
 ===== Methods
 
@@ -964,21 +951,21 @@ standard events
 
 ==== UISelectBoolean
 
-_UISelectBoolean_ (extends _UIInput_ ) is a
-component that represents a single boolean ( _true_ or _false_ ) value.
+_UISelectBoolean_ (extends _UIInput_) is a
+component that represents a single boolean (_true_ or _false_) value.
 It is most commonly rendered as a checkbox.
 
 ===== Component Type
 
 The standard component type for
-_UISelectBoolean_ components is “jakarta.faces. _SelectBoolean_ ”.
+_UISelectBoolean_ components is “_jakarta.faces.SelectBoolean_”.
 
 ===== Properties
 
 The following render-independent properties
 are added by the _UISelectBoolean_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -993,12 +980,11 @@ _[P1-start-uiselectboolean]UISelectBoolean_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.SelectBoolean_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.SelectBoolean_”.
 
-{empty}The default value of the
-_rendererType_ property must be set to “ _jakarta.faces.Checkbox_
-”.[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to “_jakarta.faces.Checkbox_”.[P1-end]
 
 ===== Methods
 
@@ -1012,7 +998,7 @@ send _ValueChangeEvent_ events from its parent _UIInput_ component.
 
 ==== UISelectItem
 
-_UISelectItem_ (extends _UIComponentBase_ )
+_UISelectItem_ (extends _UIComponentBase_)
 is a component that may be nested inside a _UISelectMany_ or
 _UISelectOne_ component, and represents exactly one _SelectItem_
 instance in the list of available options for that parent component.
@@ -1020,14 +1006,14 @@ instance in the list of available options for that parent component.
 ===== Component Type
 
 The standard component type for
-_UISelectItem_ components is “ _jakarta.faces.SelectItem_ ”.
+_UISelectItem_ components is “_jakarta.faces.SelectItem_”.
 
 ===== Properties
 
 The following render-independent properties
 are added by the _UISelectItem_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1039,7 +1025,7 @@ selection item. This may be useful for tools.
 |itemDisabled |RW
 |boolean |Flag
 indicating that any synthesized _SelectItem_ object should have its
-_disabled_ property set to _true_ .
+_disabled_ property set to _true_.
 
 |itemLabel |RW
 |String |The
@@ -1062,23 +1048,23 @@ this component.
 _[P1-start-uiselectitem]UISelectItem_
 specializes the behavior of render-independent properties inherited
 
-The default value of the _family_ property
+* The default value of the _family_ property
 must be set to “jakarta.faces.SelectItem”.
 
-The default value of the _rendererType_
-property must be set to _null_ .
+* The default value of the _rendererType_
+property must be set to _null_.
 
-If the _value_ property is non- _null_ , it
+* If the _value_ property is non-__null__, it
 must contain a _SelectItem_ instance used to configure the selection
 item specified by this component.
 
-If the _value_ property is a value
+* If the _value_ property is a value
 expression, it must point at a _SelectItem_ instance used to configure
 the selection item specified by this component.
 
-{empty}If the _value_ property is _null_ ,
-and there is no corresponding value expression, the _itemDescription_ ,
-_itemDisabled_ , _itemLabel_ and _itemValue_ properties must be used to
+* {empty}If the _value_ property is _null_,
+and there is no corresponding value expression, the _itemDescription_,
+_itemDisabled_, _itemLabel_ and _itemValue_ properties must be used to
 construct a new _SelectItem_ representing the selection item specified
 by this component.[P1-end]
 
@@ -1094,7 +1080,7 @@ standard events.
 
 ==== UISelectItems
 
-_UISelectItems_ (extends _UIComponentBase_ )
+_UISelectItems_ (extends _UIComponentBase_)
 is a component that may be nested inside a _UISelectMany_ or
 _UISelectOne_ component, and represents zero or more _SelectItem_
 instances for adding selection items to the list of available options
@@ -1103,14 +1089,14 @@ for that parent component.
 ===== Component Type
 
 The standard component type for
-_UISelectItems_ components is “jakarta.faces. _SelectItems_ ”.
+_UISelectItems_ components is “_jakarta.faces.SelectItems_”.
 
 ===== Properties
 
 The following render-independent properties
 are added by the _UISelectItems_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1122,16 +1108,16 @@ _SelectItem_ instances associated with this component.
 _[P1-start-uiselectitems]UISelectItems_
 specializes the behavior of render-independent properties inherited
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.SelectItems_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.SelectItems_”.
 
-The default value of the _rendererType_
-property must be set to _null_ .
+* The default value of the _rendererType_
+property must be set to _null_.
 
-{empty}If the _value_ property (or the value
+* {empty}If the _value_ property (or the value
 returned by a value expression associated with the _value_ property) is
 non-null, it must contain a _SelectItem_ bean, an array of _SelectItem_
-beans, a _Collection_ of _SelectItem_ beans, or a _Map_ , where each map
+beans, a _Collection_ of _SelectItem_ beans, or a _Map_, where each map
 entry is used to construct a _SelectItem_ bean with the key as the
 _label_ property of the bean, and the value as the _value_ property of
 the bean (which must be of the same basic type as the value of the
@@ -1149,7 +1135,7 @@ standard events.
 
 ==== UISelectMany
 
-_UISelectMany_ (extends _UIInput_ ) is a
+_UISelectMany_ (extends _UIInput_) is a
 component that represents one or more selections from a list of
 available options. It is most commonly rendered as a combobox or a
 series of checkboxes.
@@ -1157,14 +1143,14 @@ series of checkboxes.
 ===== Component Type
 
 The standard component type for
-_UISelectMany_ components is “ _jakarta.faces.SelectMany_ ”.
+_UISelectMany_ components is “_jakarta.faces.SelectMany_”.
 
 ===== Properties
 
 The following render-independent properties
 are added by the _UISelectMany_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1180,14 +1166,13 @@ _[P1-start-uiselectmany]UISelectMany_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.SelectMany_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.SelectMany_”.
 
-{empty}The default value of the
-_rendererType_ property must be set to “ _jakarta.faces.Listbox_
-”.[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to “_jakarta.faces.Listbox_”.[P1-end]
 
-See the class Javadocs for _UISelectMany_ for
+* See the class Javadocs for _UISelectMany_ for
 additional requirements related to implicit conversions for the _value_
 property.
 
@@ -1206,7 +1191,7 @@ _ValueChangeEvent_ events from its parent _UIInput_ component.
 
 ==== UISelectOne
 
-_UISelectOne_ (extends _UIInput_ ) is a
+_UISelectOne_ (extends _UIInput_) is a
 component that represents zero or one selection from a list of available
 options. It is most commonly rendered as a combobox or a series of radio
 buttons.
@@ -1214,7 +1199,7 @@ buttons.
 ===== Component Type
 
 The standard component type for _UISelectOne_
-components is “ _jakarta.faces.SelectOne_ ”.
+components is “_jakarta.faces.SelectOne_”.
 
 ===== Properties
 
@@ -1225,11 +1210,11 @@ _[P1-start-uiselectone]UISelectOne_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.SelectOne_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.SelectOne_”.
 
-{empty}The default value of the
-_rendererType_ property must be set to “ _jakarta.faces.Menu_ ”.[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to “_jakarta.faces.Menu_”.[P1-end]
 
 ===== Methods
 
@@ -1246,7 +1231,7 @@ _ValueChangeEvent_ events from its parent _UIInput_ component.
 
 ==== UIViewParameter
 
-_UIViewParameter_ (extends _UIInput_ ) is a
+_UIViewParameter_ (extends _UIInput_) is a
 component that allows the query parameters included in the request by
 _UIOutcomTarget_ renderers to participate in the lifecycle. Please see
 the javadocs for the normative speficication of this component.Events.
@@ -1254,13 +1239,13 @@ the javadocs for the normative speficication of this component.Events.
 [[a2226]]
 ==== UIViewRoot
 
-_UIViewRoot_ (extends _UIComponentBase;_ )
+_UIViewRoot_ (extends _UIComponentBase;_)
 represents the root of the component tree.
 
 ===== Component Type
 
 The standard component type for _UIViewRoot_
-components is “ _jakarta.faces.ViewRoot_ ”
+components is “_jakarta.faces.ViewRoot_”
 
 [[a2230]]
 ===== Properties
@@ -1268,7 +1253,7 @@ components is “ _jakarta.faces.ViewRoot_ ”
 The following render-independent properties
 are added by the _UIViewRoot_ component:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1289,13 +1274,13 @@ view identifier for this view.
 |RW
 |MethodExpression
 | _MethodExpression_ that will be invoked
-before all lifecycle phases except for _Restore View._
+before all lifecycle phases except for _Restore View_.
 
 | _afterPhaseListener_
 |RW
 |MethodExpression
 |MethodExpression that will be invoked after
-all lifecycle phases except for _Restore View_ .
+all lifecycle phases except for _Restore View_.
 
 |viewMap |RW
 |java.util.Map
@@ -1309,13 +1294,13 @@ Validations_ phase through _Invoke Application_ phase, unless it is
 modified by an _Apply Request Values_ event handler for an
 _ActionSource_ or _EditableValueHolder_ component that has its
 _immediate_ property set to true (which therefore causes _Process
-Validations_ , _Update Model Values_ , and _Invoke Application_ phases
+Validations_, _Update Model Values_, and _Invoke Application_ phases
 to be skipped).
 
 {empty} _[P1-start-viewmap]_ The viewMap
 property is lazily created the first time it is accessed, and it is
 destroyed when a different _UIViewRoot_ instance is installed from a
-call to _FacesContext.setViewRoot()_ . After the Map is created a
+call to _FacesContext.setViewRoot()_. After the Map is created a
 _PostConstructViewMapEvent_ must be published using _UIViewRoot_ as the
 event source. Immediately before the Map is destroyed, a
 _PreDestroyViewMapEvent_ must be published using _UIViewRoot_ as the
@@ -1325,11 +1310,11 @@ _[P1-start-uiviewroot]UIViewRoot_
 specializes the behavior of render-independent properties inherited from
 the parent component as follows:
 
-The default value of the _family_ property
-must be set to “ _jakarta.faces.ViewRoot_ ”.
+* The default value of the _family_ property
+must be set to “_jakarta.faces.ViewRoot_”.
 
-{empty}The default value of the
-_rendererType_ property must be set to _null_ .[P1-end]
+* {empty}The default value of the
+_rendererType_ property must be set to _null_.[P1-end]
 
 [[a2257]]
 ===== Methods
@@ -1339,45 +1324,35 @@ UIComponent resources to a target area in the view, and they are also
 used for retrieving UIComponent resources from a target area in the
 view.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addComponentResource(FacesContext
-context,
+[source,java]
+----
+public void addComponentResource(FacesContext context,
+    UIComponent componentResource);
+----
 
-UIComponent componentResource);
-
-|===
-
-Add c _omponentResource,_ that is assumed to
+Add _componentResource_, that is assumed to
 represent a resource instance, to the current view. A resource instance
 is rendered by a resource Renderer (such as ScriptRenderer,
 StylesheetRenderer) as described in the Standard HTML RenderKit. This
 method will cause the resource to be rendered in the “head” element of
-the view. __
+the view.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addComponentResource(FacesContext
-context,
+[source,java]
+----
+public void addComponentResource(FacesContext context,
+    UIComponent componentResource, String target);
+----
 
-UIComponent componentResource, String
-target);
-
-|===
-
-{empty}Add c _omponentResource,_ that is
+{empty}Add _componentResource_, that is
 assumed to represent a resource instance, to the current view at the
 specified target location. [P1-start-addComponentResource] The resource
 must be added using the algorithm outlined in this method’s
 Javadocs.[P1-end]
 
-[width="100%",cols="100%",]
-|===
-|public List<UIComponent>
-getComponentResources(String target);
-|===
+[source,java]
+----
+public List<UIComponent> getComponentResources(String target);
+----
 
 {empty}Return a List of _UIComponent_
 instances residing under the facet identified by target. Each
@@ -1388,54 +1363,43 @@ this method’s Javadocs. [P1-end]
 _UIViewRoot_ specializes the behavior of the
 _UIComponent.queueEvent()_ method to maintain a list of queued events
 that can be transmitted later. It also specializes the behavior of the
-_processDecodes()_ , _processValidators()_ , _processUpdates()_ , and
+_processDecodes()_, _processValidators()_, _processUpdates()_, and
 _processApplication()_ methods to broadcast queued events to registered
 listeners. _UIViewRoot_ clears any remaining events from the event queue
 in these methods if _responseComplete()_ or _renderResponse()_ has been
-set on the _FacesContext._ Please see <<RequestProcessingLifecycle.adoc#a427,See
-Apply Request Values>>, <<RequestProcessingLifecycle.adoc#a438,See Process
-Validations]>>, <<RequestProcessingLifecycle.adoc#a446,See Update Model Values>> and
-<<RequestProcessingLifecycle.adoc#a454,See Invoke Application>> for more details.
+set on the _FacesContext_. Please see <<RequestProcessingLifecycle.adoc#a427,
+Apply Request Values>>, <<RequestProcessingLifecycle.adoc#a438,Process
+Validations]>>, <<RequestProcessingLifecycle.adoc#a446,Update Model Values>> and
+<<RequestProcessingLifecycle.adoc#a454,Invoke Application>> for more details.
 
 [[a2268]]
 ===== Events
 
 _UIViewRoot_ is a source of _PhaseEvent_
 events, which are emitted when the instance moves through all phases of
-the request processing lifecycle except _Restore View_ . This phase
+the request processing lifecycle except _Restore View_. This phase
 cannot emit events from _UIViewRoot_ because the _UIViewRoot_ instance
 isn’t created when this phase starts. See
-<<LifecycleManagement.adoc#a6626,See PhaseEvent>> and
-<<LifecycleManagement.adoc#a6635,See PhaseListener>> for more details on the
+<<LifecycleManagement.adoc#a6626,PhaseEvent>> and
+<<LifecycleManagement.adoc#a6635,PhaseListener>> for more details on the
 event and listener class.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addPhaseListener(PhaseListener
-listener);
-
-
-
-public void
-removePhaseListener(VPhaseListener listener);
-
-
-
-public List<PhaseListener>
-getPhaseListeners();
-
-|===
+[source,java]
+----
+public void addPhaseListener(PhaseListener listener);
+public void removePhaseListener(VPhaseListener listener);
+public List<PhaseListener> getPhaseListeners();
+----
 
 {empty}[P1-start-events] _UIViewRoot_ must
 listen for the top level _PostAddToViewEvent_ event sent by the _Restore
-View_ phase. Refer to _<<RequestProcessingLifecycle.adoc#a404,See Restore View>>_
+View_ phase. Refer to _<<RequestProcessingLifecycle.adoc#a404,Restore View>>_
 for more details about the publishing of this event. Upon receiving this
 event, _UIViewRoot_ must cause any “after” _Restore View_ phase
 listeners to be called.[P1-end]
 
 _UIViewRoot_ is also the source for several
-kinds of system events. The system must publish a _PostAddToViewEvent_ ,
+kinds of system events. The system must publish a _PostAddToViewEvent_,
 with the _UIViewRoot_ as the source, during the _Restore View_ phase,
 immediately after the new _UIViewRoot_ is set into the _FacesContext_
 for the request. The system must publish a _PreRenderView_ event, with
@@ -1450,9 +1414,9 @@ _processDecodes, processValidators, processUpdates, getRendersChildren
 and encodeChildren_ to facilitate partial processing - namely the
 ability to have one or more components processed through the _execute_
 and/or _render_ phases of the request processing lifecycle. Refer to
-<<AjaxIntegration.adoc#a6825,See Partial View
-Traversal>>, <<AjaxIntegration.adoc#a6831,See Partial
-View Processing>>, <<AjaxIntegration.adoc#a6833,See
+<<AjaxIntegration.adoc#a6825,Partial View
+Traversal>>, <<AjaxIntegration.adoc#a6831,Partial
+View Processing>>, <<AjaxIntegration.adoc#a6833,
 Partial View Rendering>> for an overview of partial processing.
 [P1-start-viewroot-partial] _UIViewRoot_ must perform partial processing
 as outlined in the Javadocs for the “processXXX” and “encodeXXX” methods
@@ -1483,7 +1447,7 @@ randomly via a zero-relative index
 An instance of _DataModel_ supports the
 following properties:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1521,7 +1485,7 @@ supports.
 ===== Methods
 
 _DataModel_ must provide an _iterator()_ to
-iterate over the row data for this model. __
+iterate over the row data for this model.
 
 ===== Events
 
@@ -1571,7 +1535,7 @@ _UIComponent_ subclass.
 An instance of _SelectItem_ supports the
 following properties:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1582,7 +1546,7 @@ description of this selection item, for use in development tools.
 | _disabled_ |RW
 |boolean |Flag
 indicating that this option should be rendered in a fashion that
-disables selection by the user. Default value is _false_ .
+disables selection by the user. Default value is _false_.
 
 | _label_ |RW
 | _String_ |Label
@@ -1608,9 +1572,9 @@ An instance of SelectItem supports no events.
 ==== SelectItemGroup
 
 _SelectItemGroup_ is a utility class
-extending _SelectItem_ , that represents a group of subordinate
+extending _SelectItem_, that represents a group of subordinate
 _SelectItem_ instances that can be rendered as a “sub-menu” or “option
-group”. _Renderer_ s will typically ignore the _value_ property of this
+group”. __Renderer__s will typically ignore the _value_ property of this
 instance, but will use the _label_ property to render a heading for the
 sub-menu.
 
@@ -1619,7 +1583,7 @@ sub-menu.
 An instance of _SelectItemGroup_ supports the
 following additional properties:
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
@@ -1631,7 +1595,7 @@ represented by this SelectItemGroup instance.
 |===
 
 Note that, since _SelectItemGroup_ is a
-subclass of _SelectItem_ , _SelectItemGroup_ instances can be included
+subclass of _SelectItem_, _SelectItemGroup_ instances can be included
 in the _selectItems_ property in order to create hierarchies of
 subordinate menus. However, some rendering environments may limit the
 depth to which such nesting is supported; for example, HTML/4.01 does
