@@ -24,18 +24,11 @@ to implement the required functionality for each phase of the request
 processing lifecycle, as described in <<a401,
 Standard Request Processing Lifecycle Phases>>.
 
-[width="100%",cols="100%",]
-|===
-a|
-public void execute(FacesContext context)
-throws FacesException;
-
-
-
-public void render(FacesContext context)
-throws FacesException;
-
-|===
+[source,java]
+----
+public void execute(FacesContext context) throws FacesException;
+public void render(FacesContext context) throws FacesException;
+----
 
 The _execute()_ method performs phases up to,
 but not including, the _Render Response_ phase. The _render()_ method
@@ -47,46 +40,39 @@ As each phase is processed, registered
 _PhaseListener_ instances are also notified. The general processing for
 each phase is as follows:
 
-From the set of registered _PhaseListener_
+* From the set of registered _PhaseListener_
 instances, select the relevant ones for the current phase, where
 “relevant” means that calling _getPhaseId()_ on the _PhaseListener_
 instance returns the phase identifier of the current phase, or the
-special value _PhaseId.ANY_PHASE_ .
+special value _PhaseId.ANY_PHASE_.
 
-Call the _beforePhase()_ method of each
+* Call the _beforePhase()_ method of each
 relevant listener, in the order that the listeners were registered.
 
-If no called listener called the
+* If no called listener called the
 _FacesContext.renderResponse()_ or _FacesContext.responseComplete()_
 method, execute the functionality required for the current phase.
 
-Call the _afterPhase()_ method of each
+* Call the _afterPhase()_ method of each
 relevant listener, in the reverse of the order that the listeners were
 registered.
 
-If the _FacesContext.responseComplete()_
+* If the _FacesContext.responseComplete()_
 method has been called during the processing of the current request, or
 we have just completed the _Render Response_ phase, perform no further
 phases of the request processing lifecycle.
 
-If the _FacesContext.renderResponse()_ method
+* If the _FacesContext.renderResponse()_ method
 has been called during the processing of the current request, and we
 have not yet executed the _Render Response_ phase of the request
 processing lifecycle, ensure that the next executed phase will be
 _Render Response_
 
-[width="100%",cols="100%",]
-|===
-a|
-public void addPhaseListener(PhaseListener
-listener);
-
-
-
-public void removePhaseListener(PhaseListener
-listener);
-
-|===
+[source,java]
+----
+public void addPhaseListener(PhaseListener listener);
+public void removePhaseListener(PhaseListener listener);
+----
 
 These methods register or deregister a
 _PhaseListener_ that wishes to be notified before and after the
@@ -106,11 +92,11 @@ of processing for a particular phase of the request processing
 lifecycle, for the request encapsulated by the _FacesContext_ instance
 passed to our constructor.
 
-[width="100%",cols="100%",]
-|===
-|public PhaseEvent(FacesContext context,
-PhaseId phaseId, Lifecycle lifecycle);
-|===
+[source,java]
+----
+public PhaseEvent(FacesContext context,
+    PhaseId phaseId, Lifecycle lifecycle);
+----
 
 Construct a new _PhaseEvent_ representing the
 execution of the specified phase of the request processing lifecycle, on
@@ -120,16 +106,11 @@ _FacesServlet_ that is processing the request. It will serve as the
 _source_ of the _java.util.EventObject_ from which _PhaseEvent_
 inherits.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public FacesContext getFacesContext();
-
-
-
 public PhaseId getPhaseId();
-
-|===
+----
 
 Return the properties of this event instance.
 The specified _FacesContext_ instance will also be returned if
@@ -145,26 +126,21 @@ particular phase of the request processing lifecycle, on a particular
 request. Implementations of _PhaseListener_ must be programmed in a
 thread-safe manner.
 
-[width="100%",cols="100%",]
-|===
-|public PhaseId getPhaseId();
-|===
+[source,java]
+----
+public PhaseId getPhaseId();
+----
 
 The _PhaseListener_ instance indicates for
 which phase of the request processing lifecycle this listener wishes to
 be notified. If _PhaseId.ANY_PHASE_ is returned, this listener will be
 notified for all standard phases of the request processing lifecycle.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public void beforePhase(PhaseEvent event);
-
-
-
 public void afterPhase(PhaseEvent event);
-
-|===
+----
 
 {empty}The beforePhase() method is called
 before the standard processing for a particular phase is performed,
@@ -174,17 +150,17 @@ _beforePhase()_ has been called on a particular instance, then
 _afterPhase()_ will also be called, regardless of any Exceptions that
 may have been thrown during the actual execution of the lifecycle phase.
 For example, let’s say there are three PhaseListeners attached to the
-lifecycle: _A, B_ , and _C_ , in that order. _A.beforePhase()_ is
+lifecycle: _A, B_, and _C_, in that order. _A.beforePhase()_ is
 called, and executes successfully. _B.beforePhase()_ is called and
 throws an exception. [P1-start_publishExceptionBefore] Any exceptions
 thrown during the _beforePhase()_ listeners must be caught and published
-to the _ExceptionHandler_ , as described
+to the _ExceptionHandler_, as described
 below.[P1-end_publishExceptionBefore] In this example, _C.beforePhase()_
 must not be called. Then the actual lifecycle phase executes. Any
 exceptions thrown during the execution of the actual phase, that reach
 the runtime code that implements the JSF lifecycle phase,
 [P1-start_publishExceptionDuring] must be caught and and published to
-the _ExceptionHandler_ , as described
+the _ExceptionHandler_, as described
 below[P1-end_publishExceptionDuring]. When the lifecycle phase exits,
 due to an exeception or normal termination, the _afterPhase()_ listeners
 must be called in reverse order from the _beforePhase()_ listeners in
@@ -193,14 +169,14 @@ _C.beforePhase()_ was not called. _B.afterPhase()_ must not be called,
 since _B.beforePhase()_ did not execute successfully. _A.afterPhase()_
 must be called. [P1-start_publishExceptionAfter]Any exceptions thrown
 during the _afterPhase()_ liseteners must be caught and published to the
-_ExceptionHandler_ , as described below.[P1-start_publishExceptionAfter]
+_ExceptionHandler_, as described below.[P1-start_publishExceptionAfter]
 
 The previous paragraph detailed several cases
 where exceptions should be published to the _Exception_ handler.
 [P1-start_publishExceptionSpec] The following action must be taken by
 the runtime to implement this requirement as well as an additional
 requirent to cause the _ExceptionHandler_ to take action on the
-published _Exception_ (s). The specification is shown in pseudocode.
+published __Exception__(s). The specification is shown in pseudocode.
 This code does not implement the before/after matching guarantees
 specified above and is only intended to describe the specification for
 publishing and handling _ExceptionQueuedEvent_ instances that arise from
@@ -208,95 +184,44 @@ exceptions being thrown during the execution of a lifecycle phase.
 Methods shown in _thisTypeface()_ are not a part of the API and are just
 included for discussion.
 
-[width="100%",cols="100%",]
-|===
-a|
-FacesContext facesContext =
-FacesContext.getCurrentInstance();
+[source,java]
+----
+FacesContext facesContext = FacesContext.getCurrentInstance();
+Application app = facesContext.getApplication();
+ExceptionHandler handler = facesContext.getExceptionHandler();
 
-Application app =
-facesContext.getApplication();
-
-ExceptionHandler handler =
-facesContext.getExceptionHandler();
-
-
-
-try \{
-
- _callBeforePhaseListeners_ ();
-
-} catch (Throwable thrownException) \{
-
- jakarta.faces.event.ExceptionEventContext
-eventContext =
-
- new ExceptionEventContext(thrownException,
-null,
-
- facesContext.getPhaseId());
-
-
-eventContext.getAttributes().put(EventContext.IN_BEFORE_PHASE,
-
- Boolean.TRUE);
-
- app.publishEvent(ExceptionQueuedEvent.class,
-eventContext);
-
+try {
+  callBeforePhaseListeners();
+} catch (Throwable thrownException) {
+  jakarta.faces.event.ExceptionEventContext eventContext =
+      new ExceptionEventContext(
+          thrownException, null, facesContext.getPhaseId());
+  eventContext.getAttributes()
+      .put(EventContext.IN_BEFORE_PHASE, Boolean.TRUE);
+  app.publishEvent(ExceptionQueuedEvent.class, eventContext);
 }
 
-
-
-try \{
-
- _doCurrentPhase_ ();
-
-} catch (Throwable thrownException) \{
-
- jakarta.faces.event.ExceptionEventContext
-eventContext =
-
- new ExceptionEventContext(thrownException,
-null,
-
- facesContext.getPhaseId());
-
- app.publishEvent(ExceptionQueuedEvent.class,
-eventContext);
-
-} finally \{
-
- try \{
-
- _callAfterPhaseListeners();_
-
- } catch (Throwable thrownException) \{
-
- jakarta.faces.event.ExceptionEventContext
-eventContext =
-
- new ExceptionEventContext(thrownException,
-null,
-
- facesContext.getPhaseId());
-
-
-eventContext.getAttributes().put(EventContext.IN_AFTER_PHASE,
-
- Boolean.TRUE);
-
- app.publishEvent(ExceptionQueuedEvent.class,
-eventContext);
-
- }
-
- handler.handle();
-
+try {
+  doCurrentPhase();
+} catch (Throwable thrownException) {
+  jakarta.faces.event.ExceptionEventContext eventContext =
+      new ExceptionEventContext(
+          thrownException, null, facesContext.getPhaseId());
+  app.publishEvent(ExceptionQueuedEvent.class, eventContext);
+} finally {
+  try {
+    callAfterPhaseListeners();
+  } catch (Throwable thrownException) {
+    jakarta.faces.event.ExceptionEventContext eventContext =
+        new ExceptionEventContext(
+            thrownException, null, facesContext.getPhaseId());
+    eventContext.getAttributes()
+        .put(EventContext.IN_AFTER_PHASE, Boolean.TRUE);
+    app.publishEvent(ExceptionQueuedEvent.class, eventContext);
+  }
+  handler.handle();
 }
-
-|
-|===
+----
 
 body text.
 
@@ -306,12 +231,12 @@ _PhaseListener_ implementations may affect
 the remainder of the request processing lifecycle in several ways,
 including:
 
-Calling _renderResponse()_ on the
+* Calling _renderResponse()_ on the
 _FacesContext_ instance for the current request, which will cause
 control to transfer to the _Render Response_ phase of the request
 processing lifecycle, once processing of the current phase is complete.
 
-Calling responseComplete() on the
+* Calling responseComplete() on the
 FacesContext instance for the current request, which causes processing
 of the request processing lifecycle to terminate once the current phase
 is complete.
@@ -325,35 +250,29 @@ JSF-based web application running in a servlet or portlet container. The
 factory instance can be acquired by JSF implementations or by
 application code, by executing:
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 LifecycleFactory factory = (LifecycleFactory)
-
-
-FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-
-|===
+    FactoryFinder.getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+----
 
 The _LifecycleFactory_ implementation class
 supports the following methods:
 
-[width="100%",cols="100%",]
-|===
-|public void addLifecycle(String lifecycleId,
-Lifecycle lifecycle);
-|===
+[source,java]
+----
+public void addLifecycle(String lifecycleId, Lifecycle lifecycle);
+----
 
 Register a new _Lifecycle_ instance under the
 specified lifecycle identifier, and make it available via calls to the
 _getLifecycle_ method for the remainder of the current web application’s
 lifetime.
 
-[width="100%",cols="100%",]
-|===
-|public Lifecycle getLifecycle(String
-lifecycleId);
-|===
+[source,java]
+----
+public Lifecycle getLifecycle(String lifecycleId);
+----
 
 The _LifecycleFactory_ implementation class
 provides this method to create (if necessary) and return a _Lifecycle_
@@ -367,12 +286,12 @@ designated by the _String_ constant _LifecycleFactory.DEFAULT_LIFECYCLE_
 . For advanced uses, a JSF implementation may support additional
 lifecycle instances, named with unique lifecycle identifiers.
 
-[width="100%",cols="100%",]
-|===
-|public Iterator<String> getLifecycleIds();
-|===
+[source,java]
+----
+public Iterator<String> getLifecycleIds();
+----
 
 This method returns an iterator over the set
 of lifecycle identifiers supported by this factory. This set must
-include the value specified by _LifecycleFactory.DEFAULT_LIFECYCLE_ .
+include the value specified by _LifecycleFactory.DEFAULT_LIFECYCLE_.
 

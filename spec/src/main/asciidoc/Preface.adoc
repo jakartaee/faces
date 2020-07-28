@@ -111,6 +111,10 @@ specification team.
 
 The authors would like to thank the original JCP JSR-372 Expert Group and Contributors.
 
+Ed Burns
+
+Manfred Riem
+
 Frank Caputo
 
 Cagatay Civici

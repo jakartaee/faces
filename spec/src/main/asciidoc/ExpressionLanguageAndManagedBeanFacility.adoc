@@ -4,9 +4,9 @@
 In the descriptions of the standard user
 interface component model, it was noted that all attributes, and nearly
 all properties can have a _value expression_ associated with them (see
-<<UserInterfaceComponentModel.adoc#a911,See ValueExpression properties>>). In
-addition, many properties, such as _action_ , _actionListener_ ,
-_validator_ , and _valueChangeListener_ can be defined by a _method
+<<UserInterfaceComponentModel.adoc#a911,ValueExpression properties>>). In
+addition, many properties, such as _action_, _actionListener_,
+_validator_, and _valueChangeListener_ can be defined by a _method
 expression_ pointing at a public method in some class to be executed.
 This chapter describes the mechanisms and APIs that Jakarta Server Faces
 utilizes in order to evaluate value expressions and method expressions.
@@ -21,7 +21,7 @@ Versions 1.0 and 1.1 of Jakarta Server Faces
 included a built in expression language and required an implementation
 of it. The API for this old JSF EL is still preserved as deprecated
 classes and methods, and implementations must still support that API.
-Please consult the <<ChangeLog.adoc#a8777,See Guide to Deprecated
+Please consult the <<ChangeLog.adoc#a8777,Guide to Deprecated
 Methods Relating to the Unified EL and their Corresponding Replacements>>
 for details. This chapter will focus exclusively on how Faces leverages
 and integrates with the Unified EL. It does not describe how the Unified
@@ -41,10 +41,10 @@ of the _ValueExpression_ is called, which returns the evaluated result.
 Such expressions can be used, for example, to dynamically calculate a
 component value to be displayed:
 
-[width="100%",cols="100%",]
-|===
-|<h:outputText value=”#\{customer.name}”/>
-|===
+[source,xml]
+----
+<h:outputText value=”#{customer.name}”/>
+----
 
 which, when this page is rendered, will
 retrieve the bean stored under the “customer” key, then acquire the name
@@ -57,11 +57,10 @@ on the current _user_ bean (presumably representing the logged-in user)
 to determine whether the _salary_ property of an employee should be
 displayed or not:
 
-[width="100%",cols="100%",]
-|===
-|<h:outputText rendered=”#\{user.manager}”
-value=”#\{employee.salary}”/>
-|===
+[source,xml]
+----
+<h:outputText rendered=”#{user.manager}” value=”#{employee.salary}”/>
+----
 
 which sets the _rendered_ property of the
 component to _false_ if the user is not a manager, and therefore causes
@@ -77,10 +76,10 @@ Value expressions can also be used to set a
 value from the user into the item obtained by evaluating the expression.
 For example:
 
-[width="100%",cols="100%",]
-|===
-|<h:inputText value=”#\{employee.number}”/>
-|===
+[source,xml]
+----
+<h:inputText value=”#{employee.number}”/>
+----
 
 When the page is rendered, the expression is
 evaluated as an r-value and the result is displayed as the default value
@@ -106,95 +105,81 @@ method (if any). They may be used in any phase of the request processing
 lifecycle; the standard JSF components and framework employ them
 (encapsulated in a _MethodExpression_ object) at the following times:
 
-During _Apply Request Values_ or _Invoke
+* During _Apply Request Values_ or _Invoke
 Application_ phase (depending upon the state of the _immediate_
 property), components that implement the _ActionSource2_ behavioral
-interface (see <<UserInterfaceComponentModel.adoc#a1120,See ActionSource2>>) utilize
+interface (see <<UserInterfaceComponentModel.adoc#a1120,ActionSource2>>) utilize
 _MethodExpressions_ as follows:
 
-If the _actionExpression_ property is
+** If the _actionExpression_ property is
 specified, it must be a _MethodExpression_ expression that identifies an
-Application Action method (see <<ApplicationIntegration.adoc#a3553,See
+Application Action method (see <<ApplicationIntegration.adoc#a3553,
 Application Actions>>) that takes no parameters and returns a String.
 
-It’s possible to have a method expression act
+** It’s possible to have a method expression act
 as an _ActionListener_ by using the classs
 _MethodExpressionActionListener_ to wrap a method expression and calling
-the _addActionListener()_ method on the _ActionSource_ . The method
-expression wrapped inside the _MethodExpressionActionListener must_
+the _addActionListener()_ method on the _ActionSource_. The method
+expression wrapped inside the _MethodExpressionActionListener_ must
 identify a public method that accepts an _ActionEvent_ (see
-<<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>) instance, and has a
-return type of _void_ . The called method has exactly the same
+<<UserInterfaceComponentModel.adoc#a1308,Event Classes>>) instance, and has a
+return type of _void_. The called method has exactly the same
 responsibilities as the _processAction()_ method of an _ActionListener_
-instance (see <<UserInterfaceComponentModel.adoc#a1329,See Listener Classes>>) that
+instance (see <<UserInterfaceComponentModel.adoc#a1329,Listener Classes>>) that
 was built in to a separate Java class.
 
-During the _Apply Request Values_ or _Process
+* During the _Apply Request Values_ or _Process
 Validations_ phase (depending upon the state of the _immediate_
 property), components that implement _EditableValueHolder_ (such as
 _UIInput_ and its subclasses) components (see
-<<UserInterfaceComponentModel.adoc#a1192,See EditableValueHolder>>) utilize method
+<<UserInterfaceComponentModel.adoc#a1192,EditableValueHolder>>) utilize method
 expressions as follows:
 
-The user can use the
+** The user can use the
 _MethodExpressionValidator_ class to wrap a method expression that
 identifies a public method that accepts a _FacesContext_ instance and a
 _UIComponent_ instance, and an _Object_ containing the value to be
-validated, and has a return type of _void_ . This
+validated, and has a return type of _void_. This
 _MethodExpressionValidator_ instance can then be added as a normal
 _Validator_ using the _EditableValueHolder.addValidator()_ method. The
 called method has exactly the same responsibilities as the _validate()_
-method of a _Validator_ instance (see <<UserInterfaceComponentModel.adoc#a1414,See
+method of a _Validator_ instance (see <<UserInterfaceComponentModel.adoc#a1414,
 Validator Classes>>) that was built in to a separate Java class.
 
-The user can use the
+** The user can use the
 _MethodExpressionValueChangeListener_ class to wrap a method expression
 that identifies a public method that accepts a _ValueChangeEvent_ (see
-<<UserInterfaceComponentModel.adoc#a1308,See Event Classes>>) instance, and has a
-return type of _void_ . This _MethodExpressionValueChangeListener_
+<<UserInterfaceComponentModel.adoc#a1308,Event Classes>>) instance, and has a
+return type of _void_. This _MethodExpressionValueChangeListener_
 instance can then be added as a normal _ValueChangeListener_ using
 EditableValueHolder.addValueChangeListener(). The called method has
 exactly the same responsibilities as the _processValueChange()_ method
-of a _ValueChangeListener_ instance (see <<UserInterfaceComponentModel.adoc#a1329,See
+of a _ValueChangeListener_ instance (see <<UserInterfaceComponentModel.adoc#a1329,
 Listener Classes>>) that was built in to a separate Java class.
 
 Here is the set of component properties that
-currently support _MethodBinding_ , and the method signatures to which
+currently support _MethodBinding_, and the method signatures to which
 they must point:
 
 .component properties whose type is DEPRECATED MethodBinding
+[width="100%",cols="25%,75%",options="header",]
+|===
+|component property
+|method signature
 
-component property
+|*DEPRECATED* _action_
+|_public String <methodName>();_
 
-method signature
+|*DEPRECATED* _actionListener_
+|_public void <methodName>(jakarta.faces.event.ActionEvent);_
 
- _DEPRECATED_
+|*DEPRECATED* _validator_
+|_public void <methodName>(jakarta.faces.context.FacesContext,
+jakarta.faces.component.UIComponent, java.lang.Object)_
 
- _action_
-
- _public String <methodName>();_
-
- _DEPRECATED_
-
- _actionListener_
-
- _public void
-<methodName>(jakarta.faces.event.ActionEvent);_
-
- _DEPRECATED_
-
- _validator_
-
- _public void
-<methodName>(jakarta.faces.context.FacesContext,
-jakarta.faces.component.UIComponent, java.lang.Object);_
-
- _DEPRECATED_
-
- _valueChangeListener_
-
- _public void
-<methodName>(jakarta.faces.event.ValueChangeEvent);_
+|*DEPRECATED* _valueChangeListener_
+|_public void <methodName>(jakarta.faces.event.ValueChangeEvent);_
+|===
 
 Note that for any of the parameters for the
 above methods may also be a subclass of what is listed above. For the
@@ -205,39 +190,29 @@ strongly typed listener, using the normal _add*()_ pattern Here is the
 list of such wrapper classes:
 
 .MethodExpression wrappers to take the place of DEPRECATED MethodBinding properties
+[width="100%",cols="15%,35%,50%",options="header",]
+|===
+|component listener property
+|Wrapper class
+|method signature
 
-component listener property
+|_actionListener_
+|_jakarta.faces.event.MethodExpressionActionListener_
+|_public void <methodName>(jakarta.faces.event.ActionEvent);_
 
-Wrapper class
-
-method signature
-
-_actionListener_
-
-jakarta. _faces_
-.event.MethodExpressionActionListener
-
-_public void
-<methodName>(jakarta.faces.event.ActionEvent);_
-
-_validator_
-
-jakarta.faces.validator.MethodExpressionValidator
-
-_public void
-<methodName>(jakarta.faces.context.FacesContext,
+|_validator_
+|_jakarta.faces.validator.MethodExpressionValidator_
+|_public void <methodName>(jakarta.faces.context.FacesContext,
 jakarta.faces.component.UIComponent, java.lang.Object);_
 
-_valueChangeListener_
-
-jakarta.faces.event.MethodExpressionValueChangeListener
-
-_public void
-<methodName>(jakarta.faces.event.ValueChangeEvent);_
+|_valueChangeListener_
+|_jakarta.faces.event.MethodExpressionValueChangeListener_
+|_public void <methodName>(jakarta.faces.event.ValueChangeEvent);_
+|===
 
 The _MethodBinding_ typed _action_ property
 of _ActionSource_ is deprecated and has been replaced by the
-_MethodExpression_ typed _actionExpression_ property of _ActionSource2._
+_MethodExpression_ typed _actionExpression_ property of _ActionSource2_.
 
 [[a2403]]
 ==== MethodExpression Syntax and Semantics
@@ -254,7 +229,7 @@ As of version 2.3 of this specification, use
 of the managed bean facility as specified in this section is strongly
 discouraged. A better and more cohesively integrated solution for
 solving the same problem is to use Contexts and Dependency Injection
-(CDI). (See <<Preface.adoc#a173,See
+(CDI). (See <<Preface.adoc#a173,
 Other Jakarta Platform Specifications>>).
 
 Perhaps the biggest value-add of bringing EL
@@ -262,56 +237,56 @@ concepts to Faces happens when the EL is combined with the managed bean
 facility. This feature allows the user to configure an entire complex
 tree of POJO beans, including how they should be scoped and populated
 with initial values, and expose them to EL expressions. Please see
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2477,See Managed Bean Configuration Example>>_ .
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2477,Managed Bean Configuration Example>>_.
 
 The Managed Bean Creation facility is
 configured by the existence of _<managed-bean>_ elements in one or more
-application configuration resources (see <<UsingJSFInWebApplications.adoc#a6195,See
+application configuration resources (see <<UsingJSFInWebApplications.adoc#a6195,
 Application Configuration Resources>>). Note that a special provision has
 been made for application configuration resource files residing within
 _META-INF/managed-beans.xml_ entries on the application classpath.
-Please see <<UsingJSFInWebApplications.adoc#a6254,See Application Configuration
+Please see <<UsingJSFInWebApplications.adoc#a6254,Application Configuration
 Resource Format>> for the normative spec requirement. Such elements
 describe the characteristics of a bean to be created, and properties to
 be initialized, with the following nested elements:
 
-_<managed-bean-name>_ -- The key under which
+* _<managed-bean-name>_ -- The key under which
 the created bean can be retrieved; also the key in the scope under which
 the created bean will be stored, unless the value of
-_<managed-bean-scope>_ is set to _none_ .
+_<managed-bean-scope>_ is set to _none_.
 
-_<managed-bean-class>_ -- The fully
+* _<managed-bean-class>_ -- The fully
 qualified class name of the application class used to instantiate a new
 instance. This class must conform to JavaBeans design patterns -- in
 particular, it must have a public zero-args constructor, and must have
 public property setters for any properties referenced with nested
 _<managed-property>_ elements -- or it must be a class that implements
-_java.util.Map_ or _java.util.List_ .
+_java.util.Map_ or _java.util.List_.
 
-_<managed-bean-scope>_ -- The scope (
-_request_ , _view_ , _session_ , or _application_ ) under which the
+* _<managed-bean-scope>_ -- The scope (
+_request_, _view_, _session_, or _application_) under which the
 newly instantiated bean will be stored after creation (under the key
 specified by the _<managed-bean-name>_ element), or _none_ for a bean
 that should be instantiated and returned, but not stored in any scope.
 The latter option is useful when dynamically constructing trees of
 related objects, as illustrated in the following example. +
 The runtime must must allow the value of this element to be an EL
-_ValueExpression_ . If so, and the expression evaluates to _null_ , an
+_ValueExpression_. If so, and the expression evaluates to _null_, an
 informative error message including the expression string and the name
-of the bean must be logged. If the expression evaluates to a _Map_ ,
+of the bean must be logged. If the expression evaluates to a _Map_,
 that _Map_ is used as the scope into which the bean will be stored. If
-storing the bean into the _Map_ causes an _Exception_ , the exception is
-allowed to flow up to the _ExceptionHandler_ . If the _ValueExpression_
-does not evaluate to a _Map_ , a _FacesException_ must be thrown with a
+storing the bean into the _Map_ causes an _Exception_, the exception is
+allowed to flow up to the _ExceptionHandler_. If the _ValueExpression_
+does not evaluate to a _Map_, a _FacesException_ must be thrown with a
 message that includes the expression string, the _toString()_ of the
 value, and the type of the value.
 
-_<list-entries_ > or _<map-entries>_ -- Used
+* _<list-entries>_ or _<map-entries>_ -- Used
 to configure managed beans that are themselves instances of
-_java.util.List_ or _java.util.Map,_ respectively. See below for details
+_java.util.List_ or _java.util.Map_, respectively. See below for details
 on the contents of these elements.
 
-_<managed-property>_ -- Zero or more
+* _<managed-property>_ -- Zero or more
 elements used to initialize the properties of the newly instantiated
 bean (see below).
 
@@ -329,36 +304,36 @@ Each _<managed-property>_ element contains
 the following elements used to configure the execution of the
 corresponding property setter call:
 
-_<property-name>_ -- The property name of
+* _<property-name>_ -- The property name of
 the property to be configured. The actual property setter method to be
 called will be determined as described in the JavaBeans Specification.
 
-Exactly one of the following sub-elements
+* Exactly one of the following sub-elements
 that can be used to initialize the property value in a number of
 different ways:
 
-- _<map-entries>_ -- A set of key/value pairs
+** _<map-entries>_ -- A set of key/value pairs
 used to initialize the contents of a property of type _java.util.Map_
 (see below for more details).
 
-- _<null-value/>_ -- An empty element
-indicating that this property must be explicitly initialized to _null_ .
+** _<null-value/>_ -- An empty element
+indicating that this property must be explicitly initialized to _null_.
 This element is not allowed if the underlying property is of a Java
 primitive type.
 
-- _<value>_ -- A String value that will have
+** _<value>_ -- A String value that will have
 any leading and trailing spaces stripped, and then be converted
 (according to the rules described in the JSP Specification for the
 <jsp:setProperty> action) to the corresponding data type of the
 property, prior to setting it to this value.
 
-- _<list-entries>_ -- A set of values used to
+** _<list-entries>_ -- A set of values used to
 initialize the contents of a property of type array or _java.util.List_
 See below for more information.
 
 As described above, the _<map-entries>_
 element is used to initialize the key-value pairs of a property of type
-_java.util.Map_ . This element may contain the following nested
+_java.util.Map_. This element may contain the following nested
 elements:
 
 - _<key-class>_ -- Optional element specifying
@@ -372,22 +347,22 @@ created. If not specified, _java.lang.String_ is used.
 - _<map-entry>_ -- Zero or more elements that
 define the actual key-value pairs for a single entry in the map. Nested
 inside is a _<key>_ element to define the key, and then exactly one of
-_<null-value>_ , _<value>_ to define the value. These elements have the
+_<null-value>_, _<value>_ to define the value. These elements have the
 same meaning as when nested in a _<managed-property>_ element, except
 that they refer to an individual map entry’s value instead of the entire
 property value.
 
 As described above, the _<list-entries>_
 element is used to initialize a set of values for a property of type
-array or _java.util.List_ . This element may contain the following
+array or _java.util.List_. This element may contain the following
 nested elements:
 
 - _<value-class>_ -- Optional element
 specifying the fully qualified class name for values in the map to be
 created. If not specified, _java.lang.String_ is used.
 
-- Zero or more elements of type _<null-value>_
-, _<value>_ to define the individual values to be initialized. These
+- Zero or more elements of type _<null-value>_,
+_<value>_ to define the individual values to be initialized. These
 elements have the same meaning as when nested in a _<managed-property>_
 element, except that they refer to an individual list element instead of
 the entire property value.
@@ -395,20 +370,20 @@ the entire property value.
 The following general rules apply to the
 operation of the Managed Bean Creation facility:
 
-Properties are assigned in the order that
+* Properties are assigned in the order that
 their _<managed-property>_ elements are listed in the application
 configuration resource.
 
-If a managed bean has writeable properties
+* If a managed bean has writeable properties
 that are not mentioned in _<managed-property>_ elements, the values of
 those properties are not assigned any values.
 
-The bean instantiation and population with
+* The bean instantiation and population with
 properties must be done lazily, when an EL expression causes the bean to
 be referenced. For example, this is the case when a _ValueExpression_ or
 _MethodExpression_ has its _getValue()_ or _setValue()_ method called.
 
-Due to the above mentioned laziness
+* Due to the above mentioned laziness
 constraint, any error conditions that occur below are only required to
 be manifested at runtime. However, it is conceivable that tools may want
 to detect these errors earlier; this is perfectly acceptable. The
@@ -416,21 +391,21 @@ presense of any of the errors described below, until the end of this
 section, must not prevent the application from deploying and being made
 available to service requests.
 
-[P1-start managed bean config error
+* [P1-start managed bean config error
 conditions] It is an error to specify a managed bean class that does not
 exist, or that cannot be instantiated with a public, zero-args
 constructor.
 
-It is an error to specify a _<property-name>_
+* It is an error to specify a _<property-name>_
 for a property that does not exist, or does not have a public setter
 method, on the specified managed bean class.
 
-{empty}It is an error to specify a _<value>_
+* {empty}It is an error to specify a _<value>_
 element that cannot be converted to the type required by a managed
 property, or that, when evaluated, results in a value that cannot be
 converted to the type required by a managed property. [P1-end]
 
-If the type of the property referenced by the
+* If the type of the property referenced by the
 _<managed-property>_ element is a Java enum, the contents of the
 _<value>_ element must be a String that yields a valid return from
 _java.lang.Enum.valueOf(PROPERTY_CLASS, VALUE)_ where _PROPERTY_CLASS_
@@ -438,70 +413,70 @@ is the _java.lang.Class_ for the property and _VALUE_ is the contents of
 the _<value>_ element in the application configuration resource. If any
 exception is thrown from _Enum.valueOf()_ it is an error.
 
-[P1-start managed bean scope errors] It is an
+* [P1-start managed bean scope errors] It is an
 error for a managed bean created through this facility to have a
 property that points at an object stored in a scope with a (potentially)
 shorter life span. Specifically, this means, for an object created with
-the specified _<managed-bean-scope>_ , then _<value>_ evaluations can
+the specified _<managed-bean-scope>_, then _<value>_ evaluations can
 only point at created objects with the specified managed bean scope:
 
-none -- none
+** none -- none
 
-application -- none, application
+** application -- none, application
 
-session -- none, application, session
+** session -- none, application, session
 
-view -- none, application, session, view
+** view -- none, application, session, view
 
-{empty}request -- none, application, session,
+** {empty}request -- none, application, session,
 view, request [P1-end]
 
-If a bean points to a property whose value is
+* If a bean points to a property whose value is
 a mixed expression containing literal strings and expressions, the net
 scope of the mixed expression is considered to be the scope of the
 narrowest sub-expression, excluding expressions in the none scope.
 
-[P1-start implicit objects in request scope]
+* [P1-start implicit objects in request scope]
 Data accessed via an implicit object is also defined to be in a scope.
 The following implicit objects are considered to be in request scope:
 
- _cookie_
+** _cookie_
 
- _facesContext_
+** _facesContext_
 
- _header_
+** _header_
 
- _headerValues_
+** _headerValues_
 
- _param_
+** _param_
 
- _paramValues_
+** _paramValues_
 
-request
+** _request_
 
- _requestScope_
+** _requestScope_
 
-{empty} _view_ [P1-end]
+** {empty} _view_ [P1-end]
 
-{empty}[P1-start implicit objects in session
+* {empty}[P1-start implicit objects in session
 scope] The only implicit objects in session scope are _session_ and
 _sessionScope_ [P1-end]
 
-[P1-start implicit objects in application
+* [P1-start implicit objects in application
 scope] The following implicit objects are considered to be in
 application scope:
 
-- _application_
+** _application_
 
-- _applicationScope_
+** _applicationScope_
 
-{empty} _initParam_ [P1-end]
+** {empty} _initParam_ [P1-end]
 
-{empty}[P1-start cyclic references error] It
+* {empty}[P1-start cyclic references error] It
 is an error to configure cyclic references between managed beans.
 [P1-end]
 
-{empty}[P1-start managed bean names
+* {empty}[P1-start managed bean names
 correctness] Managed bean names must conform to the syntax of a Java
 language identifier. [P1-end]
 
@@ -509,60 +484,60 @@ The initialization of bean properties from
 _<map-entries>_ and _<list-entries>_ elements must adhere to the
 following algorithm, though any confirming implementation may be used.
 
-For _<map-entries>_ :
+For _<map-entries>_:
 
-Call the property getter, if it exists.
+. Call the property getter, if it exists.
 
-If the getter returns _null_ or doesn't
-exist, create a _java.util.HashMap_ , otherwise use the returned
-_java.util.Map_ .
+. If the getter returns _null_ or doesn't
+exist, create a _java.util.HashMap_, otherwise use the returned
+_java.util.Map_.
 
-Add all entries defined by nested
+. Add all entries defined by nested
 _<map-entry>_ elements in the order they are listed, converting key
 values defined by nested _<key>_ elements to the type defined by
 _<key-class>_ and entry values defined by nested _<value>_ elements to
-the type defined by _<value-class>_ . If a value is given as a value
+the type defined by _<value-class>_. If a value is given as a value
 expression, evaluate the reference and store the result, converting to
-_<value-class_ > if necessary. If _<key-class>_ and/or _<value-class>_
-are not defined, use _java.lang.String_ . Add _null_ for each
+_<value-class>_ if necessary. If _<key-class>_ and/or _<value-class>_
+are not defined, use _java.lang.String_. Add _null_ for each
 _<null-value>_ element.
 
-If a new _java.util.Map_ was created in step
+. If a new _java.util.Map_ was created in step
 2), set the property by calling the setter method, or log an error if
 there is no setter method.
 
-For _<list-entries>_ :
+For _<list-entries>_:
 
-Call the property getter, if it exists.
+. Call the property getter, if it exists.
 
-If the getter returns _null_ or doesn't
-exist, create a _java.util.ArrayList_ , otherwise use the returned
-_Object_ (an array or a _java.util.List_ ).
+. If the getter returns _null_ or doesn't
+exist, create a _java.util.ArrayList_, otherwise use the returned
+_Object_ (an array or a _java.util.List_).
 
-If a _List_ was returned or created in step
+. If a _List_ was returned or created in step
 2), add all elements defined by nested _<value>_ elements in the order
 they are listed, converting values defined by nested _<value>_ elements
-to the type defined by _<value-class>_ . If a value is given as a value
+to the type defined by _<value-class>_. If a value is given as a value
 expression, evaluate the reference and store the result, converting to
-_<value-class_ > if necessary. If a _<value-class>_ is not defined, use
-the value as-is (i.e., as a _java.lang.String_ ). Add null for each
+_<value-class>_ if necessary. If a _<value-class>_ is not defined, use
+the value as-is (i.e., as a _java.lang.String_). Add null for each
 _<null-value>_ element.
 
-If an array was returned in step 2), create a
+. If an array was returned in step 2), create a
 _java.util.ArrayList_ and copy all elements from the returned array to
-the new _List_ , wrapping elements of a primitive type. Add all elements
+the new _List_, wrapping elements of a primitive type. Add all elements
 defined by nested _<value>_ elements as described in step 3).
 
-If a new _java.util.List_ was created in step
-2) and the property is of type _List_ , set the property by calling the
+. If a new _java.util.List_ was created in step
+2) and the property is of type _List_, set the property by calling the
 setter method, or log an error if there is no setter method.
 
-If a new _java.util.List_ was created in step
+. If a new _java.util.List_ was created in step
 2) and the property is a java array, convert the _List_ into an array of
 the property type, and set it by calling the setter method, or log an
 error if there is no setter method.
 
-If a new _java.util.List_ was created in step
+. If a new _java.util.List_ was created in step
 4), convert the _List_ to an array of the proper type for the property
 and set the property by calling the setter method, or log an error if
 there is no setter method.
@@ -572,122 +547,65 @@ there is no setter method.
 
 The following <managed-bean> elements might
 appear in one or more application configuration resources (see
-<<UsingJSFInWebApplications.adoc#a6195,See Application Configuration Resources>>) to
+<<UsingJSFInWebApplications.adoc#a6195,Application Configuration Resources>>) to
 configure the behavior of the Managed Bean Creation facility.
 
 Assume that your application includes
 _CustomerBean_ with properties _mailingAddress_ and _shippingAddress_ of
 type _Address_ (along with additional properties that are not shown),
 and _AddressBean_ implementation classes with String properties of type
-_street_ , _city_ , _state_ , _country_ , and _postalCode_ .
+_street_, _city_, _state_, _country_, and _postalCode_.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <managed-bean>
-
- <description>
-
- A customer bean will be created as needed,
-and stored in
-
- request scope. Its “mailingAddress” and
-“streetAddress”
-
- properties will be initialized by virtue of
-the fact that the
-
- “value” expressions will not encounter any
-object under
-
- key “addressBean” in any scope.
-
- </description>
-
-
-<managed-bean-name>customer</managed-bean-name>
-
- <managed-bean-class>
-
- com.mycompany.mybeans.CustomerBean
-
- </managed-bean-class>
-
- <managed-bean-scope> request
-</managed-bean-scope>
-
- <managed-property>
-
-
-<property-name>mailingAddress</property-name>
-
- <value>#\{addressBean}</value>
-
- </managed-property>
-
- <managed-property>
-
-
-<property-name>shippingAddress</property-name>
-
- <value>#\{addressBean}</value>
-
- </managed-property>
-
- <managed-property>
-
- <property-name>customerType</property-name>
-
- <value>New</value> <!-- Set to literal value
--->
-
- </managed-property>
-
+  <description>
+    A customer bean will be created as needed, and stored in request
+    scope. Its “mailingAddress” and “streetAddress” properties will
+    be initialized by virtue of the fact that the “value” expressions
+    will not encounter any object under key “addressBean” in any scope.
+  </description>
+  <managed-bean-name>customer</managed-bean-name>
+  <managed-bean-class>
+    com.mycompany.mybeans.CustomerBean
+  </managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+  <managed-property>
+    <property-name>mailingAddress</property-name>
+    <value>#{addressBean}</value>
+  </managed-property>
+  <managed-property>
+    <property-name>shippingAddress</property-name>
+    <value>#{addressBean}</value>
+  </managed-property>
+  <managed-property>
+    <property-name>customerType</property-name>
+    <value>New</value> <!-- Set to literal value -->
+  </managed-property>
 </managed-bean>
+----
 
 
 
-|===
-
-
-
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <managed-bean>
-
- <description>
-
- A new AddressBean will not be added to any
-scope, because we
-
- only want to create instances when a
-CustomerBean creation asks
-
- for them. Therefore, we set the scope to
-“none”.
-
- </description>
-
-
-<managed-bean-name>addressBean</managed-bean-name>
-
- <managed-bean-class>
-
- com.mycompany.mybeans.AddressBean
-
- </managed-bean-class>
-
- <managed-bean-scope> none
-</managed-bean-scope>
-
+  <description>
+    A new AddressBean will not be added to any scope, because we
+    only want to create instances when a CustomerBean creation asks
+    for them. Therefore, we set the scope to “none”.
+  </description>
+  <managed-bean-name>addressBean</managed-bean-name>
+  <managed-bean-class>
+    com.mycompany.mybeans.AddressBean
+  </managed-bean-class>
+  <managed-bean-scope>none</managed-bean-scope>
 </managed-bean>
+----
 
-|===
-
-If a value expression “
-_#\{customer.mailingAddress.city}_ ” were to be evaluated by the JSF
-implementation, and there was no object stored under key “ _customer_ ”
+If a value expression
+“_#{customer.mailingAddress.city}_” were to be evaluated by the JSF
+implementation, and there was no object stored under key “_customer_”
 in request, view, session, or application scope, a new _CustomerBean_
 instance will be created and stored in request scope, with its
 _mailingAddress_ and _shippingAddress_ properties being initialized to
@@ -704,39 +622,21 @@ following information to declare that a JDBC data source instance will
 have been created, and stored in application scope, as part of the
 application’s own startup processing.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,xml]
+----
 <referenced-bean>
-
- <description>
-
- A JDBC data source will be initialized and
-made available in
-
- some scope (presumably application) for use
-by the JSF based
-
- application when it is actually run. This
-information is not
-
- used by the JSF implementation itself; only
-by tools.
-
- </description>
-
- <referenced-bean-name> dataSource
-</referenced-bean-name>
-
- <referenced-bean-class>
-
- javax.sql.DataSource
-
- </referenced-bean-class>
-
+  <description>
+    A JDBC data source will be initialized and made available in
+    some scope (presumably application) for use by the JSF based
+    application when it is actually run. This information is not
+    used by the JSF implementation itself; only by tools.
+  </description>
+  <referenced-bean-name>dataSource</referenced-bean-name>
+  <referenced-bean-class>
+    javax.sql.DataSource
+  </referenced-bean-class>
 </referenced-bean>
-
-|===
+----
 
 This information can be utilized by the tool
 to construct user interfaces based on the properties of the referenced
@@ -746,7 +646,7 @@ beans.
 === Managed Bean Annotations
 
 JSF 2.0 introduced several annotations, in
-the package _jakarta.faces.bean_ , that act as analogs to the managed bean
+the package _jakarta.faces.bean_, that act as analogs to the managed bean
 configuration syntax in the application configuration resources
 described earlier in this chapter. JSF 2.0 is a component specification
 of Java EE 6, which also includes a much more powerful and complete set
@@ -765,7 +665,7 @@ use the annotations specified in section 14.5 of the Servlet 2.5
 Specification to allow the container to inject references to container
 managed resources into a managed bean instance before it is made
 accessible to the JSF application. Only beans declared to be in
-_request_ , _session_ , or _application_ scope are eligible for resource
+_request_, _session_, or _application_ scope are eligible for resource
 injection.
 
 In addition to managed beans being injectable
@@ -865,39 +765,24 @@ annotations in a managed bean]
 Following is an example of valid usages of
 this feature in a managed bean or other artifact in the preceding table.
 
-public class User extends Object \{
+[source,java]
+----
+public class User extends Object {
+  private @EJB ShoppingCart cart;
+  private @Resource Inventory inventory;
+  private DataSource customerData;
 
- private @EJB ShoppingCart cart;
+  @Resource(name=”customerData”)
+  private void setCustomerData(DataSource data) {
+    customerData = data;
+  }
 
- private @Resource Inventory inventory;
-
- private DataSource customerData;
-
-
-
- @Resource(name=”customerData”)
-
- private void setCustomerData(DataSource
-data) \{
-
- customerData = data;
-
- }
-
-
-
- public String getOrderSummary() \{
-
- // Do something with the injected resources
-
- // And generate a textual summary of the
-order
-
- }
-
-
-
+  public String getOrderSummary() {
+    // Do something with the injected resources
+    // And generate a textual summary of the order
+  }
 }
+----
 
 This example illustrates that the above
 annotations can be attached to instance variables or to JavaBeans
@@ -915,8 +800,8 @@ _@PreDestroy_ annotations to aid in awareness of the managed-bean
 lifecycle.
 
 Methods on managed beans declared to be in
-_none_ , _request_ , _view_ , _session_ , or _application_ scope,
-annotated with _@PostConstruct_ , must be called by the JSF
+_none_, _request_, _view_, _session_, or _application_ scope,
+annotated with _@PostConstruct_, must be called by the JSF
 implementation after resource injection is performed (if any) but before
 the bean is placed into scope.
 
@@ -927,13 +812,13 @@ service, a message must be logged, and further methods on that managed
 bean instance must not be called. [P1-end]
 
 Methods on managed beans declared to be in
-_request_ , _session_ , or _application_ scope, annotated with
-_@PreDestroy_ , must be called by the JSF implementation before the bean
+_request_, _session_, or _application_ scope, annotated with
+_@PreDestroy_, must be called by the JSF implementation before the bean
 is removed from its scope or before the scope itself is destroyed,
 whichever comes first. In the case of a managed bean placed in _view_
 scope, methods annotated with _@PreDestroy_ must only be called when the
 view scope is destroyed. See the javadoc for
-_FacesContext.setViewRoot()_ . This annotation must be supported in all
+_FacesContext.setViewRoot()_. This annotation must be supported in all
 cases where the above _@PostConstruct_ annotation is supported.
 
 [P1-start rules governing invocation of
@@ -963,13 +848,13 @@ The ELContext is a handy little “holder”
 object that gets passed all around the Unified EL API. It has two
 purposes.
 
-To allow technologies that use the Unified
+* To allow technologies that use the Unified
 EL, such as Jakarta Server Faces, the JSF View Declaration Language (JSF
 VDL), and JSP, to store any context information specific to that
 technology so it can be leveraged during expression evaluation. For
-example the expression “ _$\{view.viewId}_ ” is specific to Faces. It
+example the expression “_${view.viewId}_” is specific to Faces. It
 means, “find the _UIViewRoot_ instance for the current view, and return
-its _viewId_ ”. The Unified EL doesn’t know about the “view” implicit
+its _viewId_”. The Unified EL doesn’t know about the “view” implicit
 object or what a UIViewRoot is, but Jakarta Server Faces does. The Unified
 EL has plugin points that will get called to resolve “view”, but to do
 so, Jakarta Server Faces needs access to the _FacesContext_ from within the
@@ -977,10 +862,10 @@ callstack of EL evaluation. Therefore, the _ELContext_ comes to the
 rescue, having been populated with the _FacesContext_ earlier in the
 request processing lifecycle.
 
-To allow the pluggable resolver to tell the
+* To allow the pluggable resolver to tell the
 Unified EL that it did, in fact, resolve a property and that further
-resolvers must not be consulted. This is done by setting the “
-_propertyResolved_ ” property to _true_ .
+resolvers must not be consulted. This is done by setting the
+“_propertyResolved_” property to _true_.
 
 The complete specification for ELResolver may
 be found in Chapter 2 of the Expression Language Specification, Version
@@ -989,27 +874,27 @@ be found in Chapter 2 of the Expression Language Specification, Version
 ===== Lifetime, Ownership and Cardinality
 
 An ELContext instance is created the first
-time _getELContext_ () is called on the _FacesContext_ for this request.
-Please see _<<Per-RequestStateInformation.adoc#a3099,See ELContext>>_ for details. Its
-lifetime ends the same time the _FacesContext’s_ lifetime ends. The
-_FacesContext_ maintains the owning reference to the _ELContext_ . There
-is at most one _ELContext_ per _FacesContext_ .
+time _getELContext()_ is called on the _FacesContext_ for this request.
+Please see _<<Per-RequestStateInformation.adoc#a3099,ELContext>>_ for details. Its
+lifetime ends the same time the __FacesContext__’s lifetime ends. The
+_FacesContext_ maintains the owning reference to the _ELContext_. There
+is at most one _ELContext_ per _FacesContext_.
 
 ===== Properties
 
-[width="100%",cols="25%,25%,25%,25%",options="header",]
+[width="100%",cols="20%,10%,20%,50%",options="header",]
 |===
 |Name |Access
 |Type |Description
 | _ELResolver_ |RO
 | _jakarta.el.ELResolver_
 |Return the ELResolver instance described in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,See Faces ELResolver for JSP Pages>>_
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,Faces ELResolver for JSP Pages>>_
 
 | _propertyResolved_
 |RW |boolean
 |Set by an ELResolver implementation if it
-successfully resolved a property. See _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See
+successfully resolved a property. See _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,
 ELResolver>>_ for how this property is used.
 |===
 
@@ -1018,22 +903,17 @@ ELResolver>>_ for how this property is used.
 Here is a subset of the methods that are
 relevant to Faces.
 
-[width="100%",cols="100%",]
-|===
-a|
+[source,java]
+----
 public Object getContext(Class key);
-
-void putContext(Class key, Object
-contextInstance);
-
+void putContext(Class key, Object contextInstance);
 ...
-
-|===
+----
 
 As mentioned in
-_<<Per-RequestStateInformation.adoc#a3099,See ELContext>>_ , the _putContext()_ method
+_<<Per-RequestStateInformation.adoc#a3099,ELContext>>_, the _putContext()_ method
 is called, passing the current _FacesContext_ instance the first time
-the system asks the _FacesContext_ for its _ELContext_ . The
+the system asks the _FacesContext_ for its _ELContext_. The
 _getContext()_ method will be called by any _ELResolver_ instances that
 need to access the _FacesContext_ to perform their resolution.
 
@@ -1041,7 +921,7 @@ need to access the _FacesContext_ to perform their resolution.
 
 The creation of an ELContext instance
 precipitates the emission of an _ELContextEvent_ from the _FacesContext_
-that created it. Please see _<<Per-RequestStateInformation.adoc#a3099,See ELContext>>_
+that created it. Please see _<<Per-RequestStateInformation.adoc#a3099,ELContext>>_
 for details.
 
 [[a2634]]
@@ -1052,16 +932,16 @@ _PropertyResolver_ classes as the workhorses of expression evaluation.
 The Unified API has the _ELResolver_ instead. The ELResolver concept is
 the heart of the Unified EL. When an expression is evaluated, the
 ELResolver is responsible for resolving each segment in the expression.
-For example, in rendering the component behind the tag “ _<h:outputText
-value=”#\{user.address.street}”_ />” the ELResolver is called three
+For example, in rendering the component behind the tag “_<h:outputText
+value=”#{user.address.street}” />”_ the ELResolver is called three
 times. Once to resolve “user”, again to resolve the “address” property
 of user, and finally, to resolve the “street” property of “address”. The
 complete specification for ELResolver may be found in Chapter 2 of the
 Expression Language Specification, Version 2.1.
 
 [N/T-start two ELResolver impls] As described
-in more detail in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,See Faces ELResolver for
-JSP Pages>>_ , Faces must provide two implementations of _ELResolver_ .
+in more detail in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,Faces ELResolver for
+JSP Pages>>_, Faces must provide two implementations of _ELResolver_.
 [P1-end]Which of these two implementations is actually used to resolve
 an expression depends on where the expresison is evaluated. If the
 expression is evaluated in a markup page, the ELResolver for markup
@@ -1071,10 +951,10 @@ of Faces java VM hosted code. During the course of evaluation of an
 expression, a variety of sources must be considered to help resolve each
 segment of the expression. These sources are linked in a chain-like
 fashion. Each link in the chain has the opportunity to resolve the
-current segment. If it does so, it must set the “ _propertyResolved_ ”
-property on the _ELContext_ , to _true_ . If not, it must not modify the
-value of the “ _propertyResolved_ ” property. If the “
-_propertyResolved_ ” property is not set to _true_ the return value from
+current segment. If it does so, it must set the “_propertyResolved_”
+property on the _ELContext_, to _true_. If not, it must not modify the
+value of the “_propertyResolved_” property. If the
+“_propertyResolved_” property is not set to _true_ the return value from
 the _ELResolver_ method is ignored by the system.
 
 ===== Lifetime, Ownership, and Cardinality
@@ -1082,12 +962,12 @@ the _ELResolver_ method is ignored by the system.
 ELResolver instances have application
 lifetime and scope. The JSP container maintains one top level ELResolver
 (into which a Faces specific ELResolver is added) accessible from
-_JspContext.getELContext().getELResolver()._ This ELResolver instance is
+_JspContext.getELContext().getELResolver()_. This ELResolver instance is
 also used from the JSF VDL, even though JSF VDL pages do not themselves
 use JSP. Faces maintains one _ELResolver_ (separate from the one handed
 to the JSP container) accessible from
-_FacesContext.getELContext().getELResolver() and
-Application.getELResolver()_ .
+_FacesContext.getELContext().getELResolver()_ and
+_Application.getELResolver()_.
 
 ===== Properties
 
@@ -1098,28 +978,23 @@ ELResolver has no proper JavaBeans properties
 Here is a subset of the methods that are
 relevant to Faces.
 
-[width="100%",cols="100%",]
-|===
-a|
-public Object getValue(ELContext context,
-Object base, Object property);
-
-void setValue(ELContext context, Object base,
-Object property, Object value);
-
+[source,java]
+----
+public Object getValue(ELContext context, Object base, Object property);
+void setValue(ELContext context,
+    Object base, Object property, Object value);
 ...
+----
 
-|===
-
- _getValue()_ looks at the argument _base_
+_getValue()_ looks at the argument _base_
 and tries to return the value of the property named by the argument
-_property_ . For example, if base is a JavaBean, _property_ would be the
+_property_. For example, if base is a JavaBean, _property_ would be the
 name of the JavaBeans property, and the resolver would end up calling
 the _getter_ for that property.
 
- _setValue()_ looks at the argument _base_
+_setValue()_ looks at the argument _base_
 and tries to set the argument _value_ into the property named by the
-argument _property_ . For example, if base is a JavaBean, _property_
+argument _property_. For example, if base is a JavaBean, _property_
 would be the name of the JavaBeans property, and the resolver would end
 up calling the _setter_ for that property.
 
@@ -1144,8 +1019,8 @@ _ValueExpression_ and _MethodExpression_ instances.
 _ExpressionFactory_ instances are
 application scoped. The _Application_ object maintains the
 _ExpressionFactory_ instance used by Faces (See
-_<<ApplicationIntegration.adoc#a3459,See Acquiring ExpressionFactory Instance>>)_
-. The _JspApplicationContext_ object maintains the _ExpressionFactory_
+_<<ApplicationIntegration.adoc#a3459,Acquiring ExpressionFactory Instance>>)_.
+The _JspApplicationContext_ object maintains the _ExpressionFactory_
 used by the JSP container (and therefore by the JSF VDL). It is
 permissible for both of these access methods to yield the same java
 object instance.
@@ -1156,25 +1031,20 @@ _ExpressionFactory_ has no properties.
 
 ===== Methods
 
-[width="100%",cols="100%",]
-|===
-a|
-public MethodExpression
-createMethodExpression(ELContext context, String expression,
-FunctionMapper fnMapper, Class[] paramTypes);
-
-public ValueExpression
-createValueExpression(ELContext context, String expression, Class
-expectedType, FunctionMapper fnMapper);
-
-|===
+[source,java]
+----
+public MethodExpression createMethodExpression(ELContext context,
+    String expression, FunctionMapper fnMapper, Class[] paramTypes);
+public ValueExpression createValueExpression(ELContext context,
+    String expression, Class expectedType, FunctionMapper fnMapper);
+----
 
 These methods take the human readable
-expression string, such as _”#\{user.address.street}”_ and return an
+expression string, such as _”#{user.address.street}”_ and return an
 object oriented representation of the expression. Which method one calls
 depends on what kind of expression you need. The Faces _Application_
 class has convenience methods specific to Faces needs for these
-concepts, please see <<ApplicationIntegration.adoc#a3463,See Programmatically
+concepts, please see <<ApplicationIntegration.adoc#a3463,Programmatically
 Evaluating Expressions>> .
 
 ===== Events
@@ -1189,20 +1059,20 @@ This section provides details on what an
 implementation of the Jakarta Server Faces specification must do to support
 the Unified EL for usage in a Faces application.
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,
 ELResolver>>_ mentions that a Faces implementation must provide two
 implementations of ELResolver. One ELResolver, let’s call it the _Faces
-ELResolver For Markup Pages_ , is plugged in to the top level resolver
-chain returned from _JspContext.getELContext().getELResolver()_ . This
+ELResolver For Markup Pages_, is plugged in to the top level resolver
+chain returned from _JspContext.getELContext().getELResolver()_. This
 top level resolver chain is used by the view declaration language
 container (JSP or JSF View Declaration Language), and possibly by tag
-handlers, to resolve expressions. The other _ELResolver_ , let’s call it
-the _ELResolver for Facelets and Programmatic Access_ , is used by
+handlers, to resolve expressions. The other _ELResolver_, let’s call it
+the _ELResolver for Facelets and Programmatic Access_, is used by
 Facelets markup pages, and is returned from
 _FacesContext.getELContext().getELResolver()_ and
-_Application.getELResolver()_ , and is used to resolve expressions that
+_Application.getELResolver()_, and is used to resolve expressions that
 appear programmatically. See the javadocs for _jakarta.el.ELResolver_ for
-the specification and method semantics for each method in _ELResolver_ .
+the specification and method semantics for each method in _ELResolver_.
 The remainder of this section lists the implementation requirements for
 these two resolvers.
 
@@ -1210,24 +1080,24 @@ these two resolvers.
 ==== Faces ELResolver for JSP Pages
 
 As mentioned in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See ELResolver>>_ , during the course of
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,ELResolver>>_, during the course of
 evaluation of an expression, a variety of sources must be considered to
 help resolve each segment of the expression. These sources are linked in
 a chain-like fashion. Each link in the chain has the opportunity to
 resolve the current segment. The Unified EL provides a container class
 to support this multi-source variable resolution:
-_jakarta.el.CompositeELResolver_ . The implementation for the _Faces
+_jakarta.el.CompositeELResolver_. The implementation for the _Faces
 ELResolver for JSP Pages_ is described as a set of _ELResolvers_ inside
 of a _CompositeELResolver_ instance, but any implementation strategy is
 permissible as long as the semantics are preserved.
 
 {empty}This diagram shows the set of
 _ELResolver_ instances that must be added to the _Faces ELResolver for
-JSP Pages_ . This instance must be handed to the JSP container via a
+JSP Pages_. This instance must be handed to the JSP container via a
 call to
 _JspFactory.getDefaultFactory().getJspApplicationContext().addELResolver()_
 at application startup time. Even though we are making a JSP API call to
-install this _ELResolver_ , we do not require using JSP to develop JSF
+install this _ELResolver_, we do not require using JSP to develop JSF
 applications. It also shows the order in which they must be added.
 [P2-start there are 18 methods in the below tables, each can
 corresponding to a method on a particular ELResolver. With clever
@@ -1246,7 +1116,7 @@ image:SF-26.png[image]
 
 The semantics of each ELResolver are given
 below, either in tables that describe what must be done to implement
-each particular method on _ELResolver_ , or in prose when such a table
+each particular method on _ELResolver_, or in prose when such a table
 is inappropriate.
 
 [[a2673]]
@@ -1258,7 +1128,7 @@ resolving the “facesContext” and “view” implicit objects.
 
 .Faces ImplicitObjectELResolver for JSP
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResolver method
 |implementation requirements
@@ -1271,30 +1141,23 @@ PropertyNotFoundException.
 <<ExpressionLanguageAndManagedBeanFacility.adoc#a2832,See
 ImplicitObjectELResolver for Programmatic Access>> If base is null and
 property is a String equal to
-
 “facesContext”, call
 setPropertyResolved(true) on
-
 the argument ELContext and return the
 FacesContext
-
 for this request.
 
 If base is null and property is a String
 equal to
-
 “view”, call setPropertyResolved(true) on the
-
 argument ELContext and return the UIViewRoot
 for
-
 this request by calling
-
 facesContext.getUIViewRoot().
 
 {empty}This ELResolver must also support the
 implicit object “resource” as specified in
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object ELResolver for Facelets
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object ELResolver for Facelets
 and Programmatic Access>>
 
 | _getType_ a|
@@ -1309,7 +1172,7 @@ return null;
 
 {empty}Otherwise, just return null;This
 ELResolver must also support the implicit object “resuorce” as specified
-in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object ELResolver for
+in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object ELResolver for
 Facelets and Programmatic Access>>
 
 | _setValue_ a|
@@ -1318,9 +1181,9 @@ PropertyNotFoundException.
 
 {empty}If base is null and property is a
 String equal to “facesContext” or “view”, _throw
-jakarta.el.PropertyNotWriteable, since “view” and “facesContext” are
-read-only_ .This ELResolver must also support the implicit object
-“resuorce” as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit
+jakarta.el.PropertyNotWriteable_, since “view” and “facesContext” are
+read-only. This ELResolver must also support the implicit object
+“resuorce” as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit
 Object ELResolver for Facelets and Programmatic Access>>
 
 | _isReadOnly_ a|
@@ -1330,12 +1193,12 @@ If base is null and property is null, throw
 PropertyNotFoundException.
 
 If base is null and property is a String
-equal to “facesContext” or “view”, _call setPropertyResolved(true) on
-the argument ELContext and return true._
+equal to “facesContext” or “view”, call _setPropertyResolved(true)_ on
+the argument _ELContext_ and return _true_.
 
 {empty}Otherwise return false;This ELResolver
 must also support the implicit object “resuorce” as specified in
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object ELResolver for Facelets
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object ELResolver for Facelets
 and Programmatic Access>>
 
 | _getFeatureDescriptors_ a|
@@ -1366,12 +1229,12 @@ If base is null and return String.class.
 ===== ManagedBean ELResolver
 
 This is the means by which the managed bean
-creation facility described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The
+creation facility described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The
 Managed Bean Facility>>_ is called into play during EL resolution.
 
 .ManagedBeanELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -1387,8 +1250,8 @@ the request, session, or application scopes, in that order, return null.
 If base is null, and property matches one of
 the managed-bean-name declarations in the application configuration
 resources, instantiate the bean, populate it with properties as
-described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The Managed Bean
-Facility>>_ , store it in the scope specified by the managed-bean-scope
+described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The Managed Bean
+Facility>>_, store it in the scope specified by the managed-bean-scope
 declaration for this this managed-bean, call setPropertyResolved(true)
 on the argument ELContext, and return the freshly instantiated
 managed-bean.
@@ -1410,7 +1273,7 @@ matches one of the managed-bean-name declarations in the application
 configuration resources, and a managed bean with that managed-bean-name
 does not yet exist in the specified scope, instantiate the bean,
 populate it with properties as described in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The Managed Bean Facility>>_ , store it
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The Managed Bean Facility>>_, store it
 in the scope specified by the managed-bean-scope declaration for this
 this managed-bean and return. If the managed bean does exist, take no
 action and return. In either case (the bean exists or does not exist),
@@ -1452,7 +1315,7 @@ If base is null, return Object.class.
 
 ===== Resource ELResolver
 
-Please see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2940,See
+Please see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2940,
 Resource ELResolver>> for the specification of this ELResolver.
 
 [[a2741]]
@@ -1464,7 +1327,7 @@ during EL resolution.
 
 .ResourceBundleELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -1499,7 +1362,9 @@ setPropertyResolved(true) and return ResourceBundle.class.
 
 | _setValue_ a|
 If base is null and property is null, throw
-PropertyNotFoundException. If base is null and property is a String
+PropertyNotFoundException.
+
+If base is null and property is a String
 equal to the value of the <var> element of one of the
 <resource-bundle>'s in the application configuration resources throw
 jakarta.el.PropertyNotWriteable, since ResourceBundles are read-only.
@@ -1507,12 +1372,18 @@ jakarta.el.PropertyNotWriteable, since ResourceBundles are read-only.
 
 
 | _isReadOnly_ a|
-If base is non-null, return null. If base is
-false and property is null, throw PropertyNotFoundException. If base is
+If base is non-null, return null.
+
+If base is
+false and property is null, throw PropertyNotFoundException.
+
+If base is
 null and property is a String equal to the value of the <var> element of
 one of the <resource-bundle>'s in the application configuration
 resources, call setPropertyResolved(true) on the argument ELContext and
-return true. Otherwise return false;
+return true.
+
+Otherwise return false;
 
 
 
@@ -1549,7 +1420,7 @@ If base is null, return string.Class.
 The _<el-resolver>_ element in the
 application configuration resources will contain the fully qualified
 classname to a class with a public no-arg constructor that implements
-_jakarta.el.ELResolver_ . These are added to the _Faces ELResolver for JSP
+_jakarta.el.ELResolver_. These are added to the _Faces ELResolver for JSP
 Pages_ and the Faces ELResolver for Facelets and Programmatic Access in
 the order in which they occur in the application configuration
 resources.
@@ -1564,20 +1435,20 @@ EL resolution process. If there are one or more _<variable-resolver>_
 elements in the application configuration resources, an instance of
 ELResolver with the following semantics must be created and added to the
 _Faces ELResolver for JSP Pages_ as indicated in the
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,See Faces ELResolver for JSP Pages>>_ .
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,Faces ELResolver for JSP Pages>>_.
 
 By virtue of the decorator pattern described
-in _<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>_
+in _<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
 , the default _VariableResolver_ will be at the end of the
-_VariableResolver_ chain (See _<<ExpressionLanguageAndManagedBeanFacility.adoc#a3020,See
-VariableResolver and the Default VariableResolver>>_ ), if each custom
+_VariableResolver_ chain (See _<<ExpressionLanguageAndManagedBeanFacility.adoc#a3020,
+VariableResolver and the Default VariableResolver>>_), if each custom
 _VariableResolver_ chose to honor the full decorator pattern. If the
 custom _VariableResolver_ chose not to honor the decorator pattern, the
 user is stating that they want to take over complete control of the
 variable resolution system. Note that the head of the _VariableResolver_
 chain is no longer accessible by calling
 _Application.getVariableResolver()_ (Please see
-_<<ApplicationIntegration.adoc#a4171,See VariableResolver Property>>_ for what it
+_<<ApplicationIntegration.adoc#a4171,VariableResolver Property>>_ for what it
 returns). The head of the _VariableResolver_ chain is kept in an
 implementation specific manner.
 
@@ -1587,7 +1458,7 @@ following table.
 
 .ELResolver that is the VariableResolver Chain Wrapper
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -1628,8 +1499,9 @@ return false;
 |return null;
 
 | _getCommonPropertyType_
-|If base is null, we return String.class. If
-base is non-null, return null;
+|If base is null, we return String.class.
+
+If base is non-null, return null;
 |===
 
 [[a2798]]
@@ -1642,20 +1514,20 @@ EL resolution process. If there are one or more _<property-resolver>_
 elements in the application configuration resources, an instance of
 _ELResolver_ with the following semantics must be created and added to
 the _Faces ELResolver for JSP Pages_ as indicated in the
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,See Faces ELResolver for JSP Pages>>_ .
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,Faces ELResolver for JSP Pages>>_.
 
 By virtue of the decorator pattern described
-in _<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>_
-, the default _propertyResolver_ will be at the end of the
-_propertyResolver_ chain (See, _<<ExpressionLanguageAndManagedBeanFacility.adoc#a3025,See
-PropertyResolver and the Default PropertyResolver>>_ ), if each custom
+in _<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_,
+the default _propertyResolver_ will be at the end of the
+_propertyResolver_ chain (See, _<<ExpressionLanguageAndManagedBeanFacility.adoc#a3025,
+PropertyResolver and the Default PropertyResolver>>_), if each custom
 _propertyResolver_ chose to honor the full decorator pattern. If the
 custom _propertyResolver_ chose not to honor the decorator pattern, then
 the user is stating that they want to take over complete control of the
 _propertyResolution_ system. Note that the head of the
 _propertyResolver_ chain is no longer accessible by calling
 _Application.getPropertyResolver()_ (Please see
-_<<ApplicationIntegration.adoc#a4163,See PropertyResolver Property>>_ for what it
+_<<ApplicationIntegration.adoc#a4163,PropertyResolver Property>>_ for what it
 returns). The head of the property resolver chain is kept in an
 implementation specific manner.
 
@@ -1665,18 +1537,18 @@ following table.
 
 .ELResolver that is the PropertyResolver Chain Wrapper
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
 a|
- _getValue_ ,
+_getValue_,
 
-getType,
+_getType_,
 
-isReadOnly,
+_isReadOnly_,
 
-setValue
+_setValue_
 
 a|
 If base or property are null, return null (or
@@ -1707,8 +1579,9 @@ Exception wrapped (snuggly) in a jakarta.el.ELException.
 |return null;
 
 | _getCommonPropertyType_
-|If base is null, return null. If base is
-non-null, return Object.class.
+|If base is null, return null.
+
+If base is non-null, return Object.class.
 |===
 
 [[a2820]]
@@ -1722,8 +1595,8 @@ were added.
 ==== ELResolver for Facelets and Programmatic Access
 
 This section documents the requirements for
-the second _ELResolver_ mentioned in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2664,See
-ELResolver Instances Provided by Faces>>_ , the one that is used for
+the second _ELResolver_ mentioned in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2664,
+ELResolver Instances Provided by Faces>>_, the one that is used for
 Facelets and for programmatic expression evaluation from Faces java
 code.
 
@@ -1734,9 +1607,9 @@ permissible as long as the semantics are preserved. .
 
 {empty}This diagram shows the set of
 _ELResolver_ instances that must be added to the _ELResolver for
-Programmatic Access_ . This instance must be returned from
+Programmatic Access_. This instance must be returned from
 _Application.getELResolver()_ and
-_FacesContext.getELContext().getELResolver()_ _._ It also shows the
+_FacesContext.getELContext().getELResolver()_. It also shows the
 order in which they must be added. [P1-state there are 12 methods in the
 below tables that can be tested for assertion. The remainder of the
 section is covered by the tests in 5.6.1][P1-end]
@@ -1751,7 +1624,7 @@ image:SF-27.png[image]
 
 The semantics of each _ELResolver_ are given
 below, either in tables that describe what must be done to implement
-each particular method on _ELResolver_ , in prose when such a table is
+each particular method on _ELResolver_, in prose when such a table is
 inappropriate, or as a reference to another section where the semantics
 are exactly the same.
 
@@ -1759,14 +1632,14 @@ are exactly the same.
 ===== Implicit Object ELResolver for Facelets and Programmatic Access
 
 This resolver differs from the one in the
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2673,See Faces Implicit Object ELResolver For
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2673,Faces Implicit Object ELResolver For
 JSP>> in that it must resolve all of the implicit objects, not just
 _facesContext_ and _view_
 
 [[a2832]]
 .ImplicitObjectELResolver for Programmatic Access
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%a",options="header",]
 |===
 |ELResolver method
 |implementation requirements
@@ -1777,79 +1650,47 @@ If base is null and property is null, throw
 PropertyNotFoundException.
 
 If base is null and property is a String
-equal to _implicitObject_ , call setPropertyResolved(true) on the
-argument ELContext and return _result_ , where _implicitObject_ and
+equal to _implicitObject_, call setPropertyResolved(true) on the
+argument ELContext and return _result_, where _implicitObject_ and
 _result_ are as follows:
 
+[cols="30%,70%",options="header",]
+!===
+!_implicitObject_ !_result_
+!application !externalContext.getContext()
+!applicationScope !externalContext.getApplicationMap()
+!cookie !externalContext.getRequestCookieMap()
+!facesContext !the FacesContext for this request
 
+!{empty}component
+!the top of the stack of UIComponent instances, as pushed via calls to
+UIComponent.pushComponentToEL().
+See <<UserInterfaceComponentModel.adoc#a1059,Lifecycle Management Methods>>
 
- _implicitObject_ -> _result_
+!flowScope
+!facesContext.getApplication().getFlowHandler().getCurrentFlowScope()
 
-application -> externalContext.getContext()
-
-applicationScope ->
-externalContext.getApplicationMap()
-
-cookie ->
-externalContext.getRequestCookieMap()
-
-facesContext -> the FacesContext for this
-request
-
-{empty}component -> the top of the stack of
-UIComponent instances, as pushed via calls to
-UIComponent.pushComponentToEL(). See <<UserInterfaceComponentModel.adoc#a1059,See
-Lifecycle Management Methods]
-
-flowScope -> +
-facesContext.getApplication().getFlowHandler(). +
-getCurrentFlowScope().
-
-cc -> the current composite component
+!cc !the current composite component
 relative to the declaring page in which the expression appears.
 
-flash -> externalContext.getFlash()
-
-header ->
-externalContext.getRequestHeaderMap()
-
-headerValues ->
-externalContext.getRequestHeaderValuesMap()
-
-initParam ->
-externalContext.getInitParameterMap()
-
-param ->
-externalContext.getRequestParameterMap()
-
-paramValues ->
-externalContext.getRequestParameterValuesMap()
-
-request -> externalContext.getRequest()
-
-requestScope ->
-externalContext.getRequestMap()
-
-resource ->
-facesContext.getApplication().getResourceHandler()
-
-session -> externalContext.getSession()
-
-sessionScope ->
-externalContext.getSessionMap()
-
-view -> facesContext.getViewRoot()
-
-viewScope ->
-facesContext.getViewRoot().getViewMap()
-
-resource ->
-facesContext.getApplication().getResourceHandler()
-
-
+!flash !externalContext.getFlash()
+!header !externalContext.getRequestHeaderMap()
+!headerValues !externalContext.getRequestHeaderValuesMap()
+!initParam !externalContext.getInitParameterMap()
+!param !externalContext.getRequestParameterMap()
+!paramValues !externalContext.getRequestParameterValuesMap()
+!request !externalContext.getRequest()
+!requestScope !externalContext.getRequestMap()
+!resource !facesContext.getApplication().getResourceHandler()
+!session !externalContext.getSession()
+!sessionScope !externalContext.getSessionMap()
+!view !facesContext.getViewRoot()
+!viewScope !facesContext.getViewRoot().getViewMap()
+!resource !facesContext.getApplication().getResourceHandler()
+!===
 
 If base is null, and property doesn’t match
-one of the above _implicitObjects,_ return null.
+one of the above _implicitObjects_, return null.
 
 | _getType_ a|
 If base is non-null, return null.
@@ -1862,12 +1703,11 @@ equal to “application”, “component”, “cc”, “cookie”, “facesCon
 “header”, “headerValues”, “initParam”, “param”, “paramValues”,
 “request”, “resource”, “session”, or “view”, _call
 setPropertyResolved(true) on the argument ELContext and return null to
-indicate that no types are accepted to setValue() for these attributes_
-.
+indicate that no types are accepted to setValue() for these attributes_.
 
 If base is null and property is a String
 equal to “requestScope”, “sessionScope”, or “applicationScope”, _call
-setPropertyResolved(true) on the argument ELContext and return null._
+setPropertyResolved(true) on the argument ELContext and return null_.
 
 Otherwise, null;
 
@@ -1879,13 +1719,12 @@ PropertyNotFoundException.
 
 If base is null and property is a String
 equal to
-
 “applicationScope”, “requestScope”,
 “sessionScope”, “application”, “component”, “cc”, “cookie”,
 “facesContext”, “header”, “headerValues”, “initParam”, “param”,
 “paramValues”, “request”, “resource”, “session”, or “view”, _throw
-jakarta.el.PropertyNotWriteableException, since these implicit objects are
-read-only_ .
+jakarta.el.PropertyNotWriteableException_, since these implicit objects are
+read-only.
 
 Otherwise return null.
 
@@ -1901,7 +1740,7 @@ equal to “applicationScope”, “component”, “cc”, “requestScope”,
 “sessionScope”, “application”, “cookie”, “facesContext”, “header”,
 “headerValues”, “initParam”, “param”, “paramValues”, “request”,
 “resource”, “session”, or “view”, _call setPropertyResolved(true) on the
-argument ELContext and return true._
+argument ELContext and return true_.
 
 Otherwise return null.
 
@@ -1920,45 +1759,27 @@ of FeatureDescriptor, return the implicit object name. The appropriate
 Class must be stored as the value of the ELResolver.TYPE attribute as
 follows:
 
-
-
-implicitObject -> ELResolver.TYPE value
-
-application -> Object.class
-
-applicationScope -> Map.class
-
-component -> UIComponent.class
-
-cc -> UIComponent.class
-
-cookie -> Map.class
-
-facesContext -> FacesContext.class
-
-header -> Map.class
-
-headerValues -> Map.class
-
-initParam -> Map.class
-
-param -> Map.class
-
-paramValues -> Map.class
-
-request -> Object.class
-
-resource -> Object.class
-
-requestScope -> Map.class
-
-session -> Object.class
-
-sessionScope -> Map.class
-
-view -> UIViewRoot.class
-
-
+[cols="30%,70%",options="header",]
+!===
+!implicitObject !ELResolver.TYPE value
+!application !Object.class
+!applicationScope !Map.class
+!component !UIComponent.class
+!cc !UIComponent.class
+!cookie !Map.class
+!facesContext !FacesContext.class
+!header !Map.class
+!headerValues !Map.class
+!initParam !Map.class
+!param !Map.class
+!paramValues !Map.class
+!request !Object.class
+!resource !Object.class
+!requestScope !Map.class
+!session !Object.class
+!sessionScope !Map.class
+!view !UIViewRoot.class
+!===
 
 The shortDescription must be a suitable
 description depending on the implementation. The expert and hidden
@@ -1976,17 +1797,17 @@ If base is null and return String.class
 
 This ELResolver makes it so expressions that
 refer to the attributes of a composite component get correctly
-evaluated. For example, the expression _#\{cc.attrs.usernameLabel}_
+evaluated. For example, the expression _#{cc.attrs.usernameLabel}_
 says, “find the current composite component, call its _getAttributes()_
 method, within the returned _Map_ look up the value under the key
-“usernameLable”. If the value is a _ValueExpression_ , call _getValue()_
+“usernameLable”. If the value is a _ValueExpression_, call _getValue()_
 on it and the result is returned as the evaluation of the expression.
 Otherwise, if the value is _not_ a _ValueExpression_ the value itself is
 returned as the evaluation of the expression.”
 
 .Composite Component Attributes ELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResolver method
 |implementation requirements
@@ -2059,28 +1880,28 @@ no action.
 ===== The CompositeELResolver
 
 As indicated in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2827,See ELResolver for Facelets and
-Programmatic Access>>_ , following the ImplicitObjectELResolver, the
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2827,ELResolver for Facelets and
+Programmatic Access>>_, following the ImplicitObjectELResolver, the
 semantics obtained by adding a _CompositeELResolver_ must be inserted
-here. This _ELResolver_ contains the following _ELResolvers_ , described
+here. This _ELResolver_ contains the following _ELResolvers_, described
 in the referenced sections.
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,See ELResolvers
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,ELResolvers
 in the application configuration resources>>_
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
 VariableResolver Chain Wrapper>>_
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,See
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,
 PropertyResolver Chain Wrapper>>_
 
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2820,See ELResolvers
+. _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2820,ELResolvers
 from Application.addELResolver()>>_
 
 ===== ManagedBean ELResolver
 
 This resolver has the same semantics as the
-one in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2711,See ManagedBean ELResolver>>_ .
+one in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2711,ManagedBean ELResolver>>_.
 
 [[a2940]]
 ===== Resource ELResolver
@@ -2088,12 +1909,12 @@ one in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2711,See ManagedBean EL
 This resolver is a means by which Resource
 instances are encoded into a faces request such that a subsequent faces
 resource request from the browser can be satisfied using the
-ResourceHandler as described in _<<RequestProcessingLifecycle.adoc#a746,See
-Resource Handling>>_ .
+ResourceHandler as described in _<<RequestProcessingLifecycle.adoc#a746,
+Resource Handling>>_.
 
 .ResourceELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -2102,27 +1923,26 @@ If base and property are not null, and base
 is an instance of ResourceHandler (as will be the case with an
 expression such as #\{resource[‘ajax.js’]}, perform the following.
 (Note: This is possible due to the ImplicitObjectELResolver returning
-the ResourceHandler, see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See Implicit Object
+the ResourceHandler, see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,Implicit Object
 ELResolver for Facelets and Programmatic Access>>)
 
-If _property_ does not contain a colon
+* If _property_ does not contain a colon
 character ‘:’, treat _property_ as the _resourceName_ and pass
-_property_ to _ResourceHandler.createResource(_ _resourceName_ _)_ .
+_property_ to _ResourceHandler.createResource(resourceName)_.
 
-If _property_ contains a single colon
+* If _property_ contains a single colon
 character ‘:’, treat the content before the ‘:’ as the _libraryName_ and
 the content after the ‘:’ as the _resourceName_ and pass both to
-_ResourceHandler.createResource(_ _resourceName, libraryName)_ . If the
+_ResourceHandler.createResource(resourceName, libraryName)_. If the
 value of _libraryName_ is the literal string “this” (without the
 quotes), discover the library name of the current resource (or the
 contract name of the current resource, the two are mutually exclusive)
 and replace “this” with that library name (or contract name) before
-calling _ResourceHandler.createResource()_ . In the case of resource
+calling _ResourceHandler.createResource()_. In the case of resource
 library contracts, _libraryName_ will actually be the contract name.
 
-If _property_ contains more than one colon
-character ‘:’, throw a localized _ELException_ , including _property_ .
-__
+* If _property_ contains more than one colon
+character ‘:’, throw a localized _ELException_, including _property_.
 
 If one of the above steps results in the
 creation of a non-null Resource instance, call
@@ -2155,7 +1975,7 @@ If base is null, return Object.class.
 ===== el.ResourceBundleELResolver
 
 This entry in the chain must have the
-semantics the same as the class _jakarta.el.ResourceBundleELResolver_ .
+semantics the same as the class _jakarta.el.ResourceBundleELResolver_.
 The default implementation just includes an instance of this resolver in
 the chain.
 
@@ -2163,7 +1983,7 @@ the chain.
 ===== ResourceBundle ELResolver for Programmatic Access
 
 This resolver has the same semantics as the
-one in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2741,See ResourceBundle ELResolver for JSP
+one in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2741,ResourceBundle ELResolver for JSP
 Pages>>.
 
 [[a2966]]
@@ -2174,12 +1994,12 @@ the Unified EL API and must be added in the following order:
 
 {empty}[P1-start_EL_3_0] If running on a
 container that supports EL 3.0: The return from
-_ExpressionFactory.getStreamELResolver_ ,
-_jakarta.el.StaticFieldELResolver_ . [P1-end_EL_3_0]
+_ExpressionFactory.getStreamELResolver_,
+_jakarta.el.StaticFieldELResolver_. [P1-end_EL_3_0]
 
-_jakarta.el.MapELResolver,
-jakarta.el.ListELResolver, jakarta.el.ArrayELResolver,
-jakarta.el.BeanELResolver_ . These actual ELResolver instances must be
+_jakarta.el.MapELResolver_,
+_jakarta.el.ListELResolver_, _jakarta.el.ArrayELResolver_,
+_jakarta.el.BeanELResolver_. These actual ELResolver instances must be
 added. It is not compliant to simply add other resolvers that preserve
 these semantics.
 
@@ -2192,7 +2012,7 @@ stored in the request, session, or application scopes by name.
 
 .Scoped Attribute ELResolver
 
-[width="100%",cols="50%,50%",options="header",]
+[width="100%",cols="25%,75%",options="header",]
 |===
 |ELResorver method
 |implementation requirements
@@ -2279,16 +2099,16 @@ If base is null return String.class.
 
 If the any of the managed beans in the
 application have the _@jakarta.faces.annotation.FacesConfig_ annotation,
-the ImplicitObjectELResolver from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,See
+the ImplicitObjectELResolver from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,
 Implicit Object ELResolver for Facelets and Programmatic Access>> is not
 present in the chain. Instead, CDI is used to perform EL resolution in
-the same manner is in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2832,See
+the same manner is in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2832,
 ImplicitObjectELResolver for Programmatic Access>> with the following
 additional implicit objects:
 
 - _externalContext_
 
-the current _ExternalContext_ from the
+- the current _ExternalContext_ from the
 current _FacesContext_
 
 
@@ -2297,15 +2117,15 @@ current _FacesContext_
 ==== ELResolver
 
 This class is the Unified EL’s answer to
-Faces’s _VariableResolver_ and _PropertyResolver_ . It turns out that
+Faces’s _VariableResolver_ and _PropertyResolver_. It turns out that
 variable resolution can be seen as a special case of property resolution
-with the base object being _null_ . Please see
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,See ELResolver>>_ for more details _._
+with the base object being _null_. Please see
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,ELResolver>>_ for more details.
 
 ==== ValueExpression
 
 This class is the Unified EL’s answer to
-Faces’s _ValueBinding_ . It is the main object oriented abstraction for
+Faces’s _ValueBinding_. It is the main object oriented abstraction for
 al EL expression that results in a value either being retrieved or set.
 Please see Chapter 2 of the Expression Language Specification, Version
 2.1.
@@ -2313,7 +2133,7 @@ Please see Chapter 2 of the Expression Language Specification, Version
 ==== MethodExpression
 
 This class is the Unified EL’s answer to
-Faces’s _MethodBinding_ . It is the main object oriented abstraction for
+Faces’s _MethodBinding_. It is the main object oriented abstraction for
 al EL expression that results in a method being invoked. Please see
 Chapter 2 of the Expression Language Specification, Version 2.1.
 
@@ -2323,20 +2143,20 @@ Four exception classes are defined to report
 errors related to the evaluation of value exceptions:
 
 - _jakarta.el.ELException_ (which extends
-_java.lang.Exception_ )—used to report a problem evaluating a value
+_java.lang.Exception_)—used to report a problem evaluating a value
 exception dynamically.
 
 - _MethodNotFoundException_ (which extends
-_jakarta.el.ELException_ )—used to report that a requested public method
+_jakarta.el.ELException_)—used to report that a requested public method
 does not exist in the context of evaluation of a method expression.
 
 - _jakarta.el.PropertyNotFoundException_ (which
-extends _jakarta.el.ELException_ )—used to report that a requested
+extends _jakarta.el.ELException_)—used to report that a requested
 property does not exist in the context of evaluation of a value
 expression.
 
 - _jakarta.el.PropertyNotWriteableException_
-(which extends _jakarta.el.ELException_ )—used to indicate that the
+(which extends _jakarta.el.ELException_)—used to indicate that the
 requested property could not be written to when evaluating the
 expression.
 
@@ -2353,13 +2173,13 @@ migration story for these APIs that implementations must follow to allow
 ==== VariableResolver and the Default VariableResolver
 
 User-provided VariableResolver instances will
-still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
-VariableResolver Chain Wrapper>>_ . The decorator pattern described in
-_<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>_
+still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
+VariableResolver Chain Wrapper>>_. The decorator pattern described in
+_<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
 must be supported. Users wishing to affect EL resolution are advised to
 author a custom ELResolver instead. These will get picked up as
-specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,See ELResolvers in the
-application configuration resources>>_ .
+specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,ELResolvers in the
+application configuration resources>>_.
 
 The JSF implementation must provide a default
 _VariableResolver_ implementation that gets the _ELContext_ from the
@@ -2367,32 +2187,32 @@ argument _FacesContext_ and calls _setPropertyResolved(false)_
 on it
 
 The _VariableResolver_ chain is no longer
-accessible from _Application.getVariableResolver()_ . The chain must be
+accessible from _Application.getVariableResolver()_. The chain must be
 kept in an implementation dependent manner, but accessible to the
-ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
-VariableResolver Chain Wrapper>>_ .
+ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
+VariableResolver Chain Wrapper>>_.
 
 [[a3025]]
 ==== PropertyResolver and the Default PropertyResolver
 
 User-provided propertyResolver instances will
-still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,See
-VariableResolver Chain Wrapper>>_ . The decorator pattern described in
-_<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>_
+still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
+VariableResolver Chain Wrapper>>_. The decorator pattern described in
+_<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
 must be supported. Users wishing to affect EL resolution are advised to
 author a custom ELResolver instead. These will get picked up as
-specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,See ELResolvers in the
-application configuration resources>>_ .
+specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,ELResolvers in the
+application configuration resources>>_.
 
 The JSF implementation must provide a default
 _propertyResolver_ implementation that gets the _ELContext_ from the
 argument _FacesContext_ and calls _setPropertyResolved(false)_ on it.
 
 The _PropertyResolver_ chain is no longer
-accessible from _Application.getpropertyResolver()_ . The chain must be
+accessible from _Application.getpropertyResolver()_. The chain must be
 kept in an implementation dependent manner, but accessible to to the
-ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,See
-PropertyResolver Chain Wrapper>>_ .
+ELResolver described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2798,
+PropertyResolver Chain Wrapper>>_.
 
 [[a3029]]
 ==== ValueBinding
@@ -2401,49 +2221,49 @@ The _ValueBinding_ class encapsulates the
 actual evaluation of a value binding. Instances of _ValueBinding_ for
 specific references are acquired from the _Application_ instance by
 calling the _createValueBinding_ method (see
-<<ApplicationIntegration.adoc#a4179,See Acquiring ValueBinding Instances>>).
+<<ApplicationIntegration.adoc#a4179,Acquiring ValueBinding Instances>>).
 
-[width="100%",cols="100%",]
-|===
-|public Object getValue(FacesContext context)
-throws EvaluationException, PropertyNotFoundException;
-|===
+[source,java]
+----
+public Object getValue(FacesContext context)
+    throws EvaluationException, PropertyNotFoundException;
+----
 
 Evaluate the value binding used to create
-this _ValueBinding_ instance, relative to the specified _FacesContext_ ,
+this _ValueBinding_ instance, relative to the specified _FacesContext_,
 and return the referenced value.
 
-[width="100%",cols="100%",]
-|===
-|public void setValue(FacesContext context,
-Object value) throws EvaluationException, PropertyNotFoundException;
-|===
+[source,java]
+----
+public void setValue(FacesContext context, Object value)
+    throws EvaluationException, PropertyNotFoundException;
+----
 
 Evaluate the value binding used to create
-this _ValueBinding_ instance, relative to the specified _FacesContext_ ,
+this _ValueBinding_ instance, relative to the specified _FacesContext_,
 and update the referenced value to the specified new value.
 
-[width="100%",cols="100%",]
-|===
-|public boolean isReadOnly(FacesContext
-context) throws EvaluationException, PropertyNotFoundException;
-|===
+[source,java]
+----
+public boolean isReadOnly(FacesContext context)
+    throws EvaluationException, PropertyNotFoundException;
+----
 
 Evaluate the value binding used to create
-this _ValueBinding_ instance, relative to the specified _FacesContext_ ,
+this _ValueBinding_ instance, relative to the specified _FacesContext_,
 and return _true_ if the corresponding property is known to be
-immutable. Otherwise, return _false_ .
+immutable. Otherwise, return _false_.
 
-[width="100%",cols="100%",]
-|===
-|public Class getType(FacesContext context)
-throws EvaluationException, PropertyNotFoundException;
-|===
+[source,java]
+----
+public Class getType(FacesContext context)
+    throws EvaluationException, PropertyNotFoundException;
+----
 
 Evaluate the value binding used to create
-this _ValueBinding_ instance, relative to the specified _FacesContext_ ,
+this _ValueBinding_ instance, relative to the specified _FacesContext_,
 and return the _Class_ that represents the data type of the referenced
-value, if it can be determined. Otherwise, return _null_ .
+value, if it can be determined. Otherwise, return _null_.
 
 [[a3039]]
 ==== MethodBinding
@@ -2456,28 +2276,27 @@ _MethodBinding_ are immutable, and contain no references to a
 _FacesContext_ (which is passed in as a parameter when the reference
 binding is evaluated).
 
-[width="100%",cols="100%",]
-|===
-|public Object invoke(FacesContext context,
-Object params[]) throws EvaluationException, MethodNotFoundException;
-|===
+[source,java]
+----
+public Object invoke(FacesContext context, Object params[])
+    throws EvaluationException, MethodNotFoundException;
+----
 
 Evaluate the method binding (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,See MethodExpression Syntax and Semantics>>)
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,MethodExpression Syntax and Semantics>>)
 and call the identified method, passing the specified parameters. Return
 any value returned by the invoked method, or return _null_ if the
-invoked method is of type _void_ .
+invoked method is of type _void_.
 
-[width="100%",cols="100%",]
-|===
-|public Class getType(FacesContext context)
-throws MethodNotFoundException;
-|===
+[source,java]
+----
+public Class getType(FacesContext context) throws MethodNotFoundException;
+----
 
 Evaluate the method binding (see
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,See MethodExpression Syntax and Semantics>>)
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2403,MethodExpression Syntax and Semantics>>)
 and return the _Class_ representing the return type of the identified
-method. If this method is of type _void_ , return _null_ instead.
+method. If this method is of type _void_, return _null_ instead.
 
 ==== Expression Evaluation Exceptions
 
@@ -2486,19 +2305,19 @@ errors related to the evaluation of value exceptions [Note that these
 exceptions are deprecated]:
 
 - _EvaluationException_ (which extends
-_FacesException_ )—used to report a problem evaluating a value exception
+_FacesException_)—used to report a problem evaluating a value exception
 dynamically.
 
 - _MethodNotFoundException_ (which extends
-_EvaluationException_ )—used to report that a requested public method
+_EvaluationException_)—used to report that a requested public method
 does not exist in the context of evaluation of a method expression.
 
 - _PropertyNotFoundException_ (which extends
-_EvaluationException_ )—used to report that a requested property does
+_EvaluationException_)—used to report that a requested property does
 not exist in the context of evaluation of a value expression.
 
 - _ReferenceSyntaxException_ (which extends
-_EvaluationException_ )—used to report a syntax error in a value
+_EvaluationException_)—used to report a syntax error in a value
 exception.
 
 
@@ -2507,8 +2326,8 @@ exception.
 As of version 2.3 of this specification, JSF
 must run in a container that supports CDI version 2.0. This requirement
 allows CDI to provide all the functionality of the managed bean facility
-from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,See The Managed Bean Facility>> and
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2536nSee Managed Bean Annotations>> but in a
+from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The Managed Bean Facility>> and
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,Managed Bean Annotations>> but in a
 better integrated way with the rest of the Jakarta EE platform. Delegating
 these features to CDI allows them to evolve independently of JSF. The
 remainder of this section specifies some details of CDI integration
@@ -2518,7 +2337,7 @@ pertinent to JSF.
 ==== JSF Objects Valid for @Inject Injection
 
 It must be possible to inject the following
-JSF objects into other objects using _@Inject_ .
+JSF objects into other objects using _@Inject_.
 
 .Maps Returned by Various JSF Accessors
 
@@ -2539,21 +2358,21 @@ following JSF and Jakarta EE objects into CDI beans.
 
 - jakarta.faces.context.Flash
 
-- jakarta.servlet.http._HttpSession_
+- _jakarta.servlet.http.HttpSession_
 
 .Support for Injection into JSF Managed Objects
 
 It must be possible to use _@Inject_ when
 specifying the following kinds of JSF managed objects.
 
-Validators declared with @
-_jakarta.faces.validator.FacesValidator(managed=”true”)_
+- Validators declared with
+_@jakarta.faces.validator.FacesValidator(managed=”true”)_
 
-Converters declared with @
-_jakarta.faces.convert.FacesConverter(managed=”true”)_
+- Converters declared with
+_@jakarta.faces.convert.FacesConverter(managed=”true”)_
 
-FacesBehaviors declared with @
-_jakarta.faces.component.behavior.FacesBehavior(managed=”true”)_
+- FacesBehaviors declared with
+_@jakarta.faces.component.behavior.FacesBehavior(managed=”true”)_
 
 [[a3070]]
 ==== EL Resolution
@@ -2561,32 +2380,32 @@ _jakarta.faces.component.behavior.FacesBehavior(managed=”true”)_
 The following implicit objects must be
 resolved using CDI
 
-application
+- application
 
-cc
+- cc
 
-component
+- component
 
-facesContext
+- facesContext
 
-flash
+- flash
 
-flowScope
+- flowScope
 
-header
+- header
 
-headerValues
+- headerValues
 
-initParam
+- initParam
 
-param
+- param
 
-paramValues
+- paramValues
 
-session
+- session
 
-view
+- view
 
-viewScope
+- viewScope
 
 
