@@ -2294,7 +2294,7 @@ the _getCreated()_ method of this instance returns _true_, create, call
 _createValidator()_ and register the returned _Validator_ instance on
 the associated _UIComponent_.
 
-[P1-start f:validateLength implementation]
+{empty}[P1-start f:validateLength implementation]
 The implementation class for this action must meet the following
 requirements:
 
@@ -2556,7 +2556,7 @@ _jakarta.faces.event.ValueChangeListener_.
 
 * _type_ and/or binding must be specified.
 
-[P1-start f:valueChangeListener constraints]
+{empty}[P1-start f:valueChangeListener constraints]
 If this tag is not nested inside a _UIComponent_ custom action, or the
 _UIComponent_ implementation class does not correctly implement
 _EditableValueHolder_, or the specified listener class does not

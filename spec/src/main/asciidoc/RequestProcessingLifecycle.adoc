@@ -668,7 +668,7 @@ Saving Methods>>.
 [[a480]]
 ===== Render Response Partial Processing
 
-[P1-start-render-partial-processing]
+{empty}[P1-start-render-partial-processing]
 According to _UIViewRoot.encodeChildren()_ ,
 _FacesContext.processPartial(PhaseId.RENDER_RESPONSE)_ , will be called
 if and only if the current request is an Ajax request. Take these

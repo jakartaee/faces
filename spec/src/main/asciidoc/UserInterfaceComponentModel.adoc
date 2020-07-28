@@ -2810,7 +2810,7 @@ inside of a composite component, including the templating features
 specified in
 <<FaceletsAndWebApplications.adoc#a6043,Facelet
 Templating Tag Library>>. In addition, the tag library specified in
-<<FaceletsAndWebApplications.adoc##a6045,Composite Component Tag Library>> must be
+<<FaceletsAndWebApplications.adoc#a6045,Composite Component Tag Library>> must be
 used to declare the metadata for the composite component. Future
 versions of the JSF specification may relax this requirement, but for
 now at least the _<composite:interface>_ and
@@ -2895,7 +2895,7 @@ this case, the component declares that it contains an implementation of
 _ActionSource2_ (see <<UserInterfaceComponentModel.adoc#a1120,ActionSource2>>),
 and therefore anything one can do with an _ActionSource2_ in a Facelet
 markup page you one do with the composite component. (See
-<<UserInterfaceComponentModel.adoc#1088,Component Behavioral Interfaces>> for
+<<UserInterfaceComponentModel.adoc#a1088,Component Behavioral Interfaces>> for
 more on _ActionSource2_ and other behavioral interfaces). The
 _<composite:implementation>_ section defines the implementation of this
 composite component.

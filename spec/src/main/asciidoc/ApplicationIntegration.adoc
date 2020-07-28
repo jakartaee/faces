@@ -120,7 +120,7 @@ be used by the _NavigationHandler_ to make decisions about navigating
 application flow. See <<ApplicationIntegration.adoc#a3840,FlowHandler>> for
 an overview of the flow feature.
 
-[P1-start flowHandler called after startup]
+{empty}[P1-start flowHandler called after startup]
 _setFlowHandler()_ may only be called at application startup, before any
 Faces requests have been processed. [P1-end] This is a limitation of the
 current Specification, and may be lifted in a future release.
@@ -710,7 +710,7 @@ algorithm described below, all of the nested _<navigation-case>_
 elements for all of these rules shall be treated as if they had been
 nested inside a single _<navigation-rule>_ element.
 
-[P1-start navigation handler requirements]
+{empty}[P1-start navigation handler requirements]
 The default _NavigationHandler_ implementation must behave as if it were
 performing the following algorithm (although optimized implementation
 techniques may be utilized):
@@ -1925,7 +1925,7 @@ This parameter is inspected during the restore view phase (see
 
 {empty}[P1-end]
 
-[P1-start getBookmarkableURL() requirements]
+{empty}[P1-start getBookmarkableURL() requirements]
 The _getBookmarkableURL()_ method must fulfill the following
 responsibilities:
 
@@ -2247,7 +2247,7 @@ case, _null_ must be returned from this method.[P1-end]
 public ViewMetadata getViewMetadata(FacesContext context, String viewId)
 ----
 
-[P1-start getViewtMetaData() requirements]
+{empty}[P1-start getViewtMetaData() requirements]
 The _getViewMetadata()_ method must fulfill the following
 responsibilities:
 
