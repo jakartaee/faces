@@ -10,32 +10,24 @@ http://jsf-spec.java.net/issues/ >.
 
 ==== Big Ticket Features
 
-HTML5 Friendly Markup
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1090
-
-{empty}Start with
+* HTML5 Friendly Markup +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1090 +
+Start with
 <<FaceletsAndWebApplications.adoc#a5581,See HTML5 Friendly Markup>>
 
-Resource Library Contracts
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1142
-
-Start with <<FaceletsAndWebApplications.adoc#a5526,See
+* Resource Library Contracts +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1142 +
+Start with <<FaceletsAndWebApplications.adoc#a5526,
 Resource Library Contracts Background>>.
 
-Faces Flows
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-730
-
-Start with <<ApplicationIntegration.adoc#a3840,See
+* Faces Flows +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-730 +
+Start with <<ApplicationIntegration.adoc#a3840,
 FlowHandler>>.
 
-Stateless Views
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055
-
-Start with <<ApplicationIntegration.adoc#a4126,See
+* Stateless Views +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055 +
+Start with <<ApplicationIntegration.adoc#a4126,
 Stateless Views>>.
 
 ==== Other Features, by Functional Area
@@ -44,158 +36,157 @@ Stateless Views>>.
 
 .Larger Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
 UIData supports the Collection Interface rather than List.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
-- Add the "role" pass through attribute.
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
+Add the "role" pass through attribute.
 
 .Smaller Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
 Warn about some important corner cases when
 _UIComponent.findComponent()_ may not provide the expected results.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1068-PartialResponseProcessing
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1068-PartialResponseProcessing +
 New section describing what happens with
 respect to partial processing during render response. See
-<<RequestProcessingLifecycle.adoc#a480,See Render Response Partial Processing>>.
+<<RequestProcessingLifecycle.adoc#a480,Render Response Partial Processing>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1067-cc:insertChildren +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1067-cc:insertChildren +
 Spec clarifications. See the VDLDoc for _cc:insertChildren_ ,
 _cc:insertFacet_
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1061
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1061 +
 Clarify that both
 _Application.publishEvent()_ and the manual traversal based delivery are
 required for publishing the _PostRestoreStateEvent_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1030 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1030 +
 Clarify docs for h:message h:messages
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1023 +
-- Modify JavaDoc to relax requirements for PostAddToViewEvent publishing
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1023 +
+Modify JavaDoc to relax requirements for PostAddToViewEvent publishing
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1019 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1019 +
 Modify spec for ResponseWriter.writeURIAttribute() to explicitly require
 adherence to the W3C URI spec
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997 +
 javax.faces.component.ComponentSystemEvent: Override
 isAppropriateListener so that it first asks the listener, "are you a
 ComponentSystemEventListener", then, if not, asks
 super.isAppropriateListener()
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-984 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-984 +
 Component Context Manager, see
 _javax.faces.component.visit.ComponentModificationManager_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-943 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-943 +
 See _javax.faces.view.ViewDeclarationLanguageWrapper_
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-784 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-784 +
 Deprecate the CURRENT_COMPONENT and CURRENT_COMPOSITE_COMPONENT
 attributes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-599 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-599 +
 Make it possible to programmatically create components in the same way
 as they are created by Facelets. See
 _javax.faces.application.Application.createComponent(FacesContext,
 String taglibUri, String tagName, Map attrs)_
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-703 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-703 +
 Make "value" optional for @FacesComponent.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-585 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-585 +
 outputText and inputText do not render children by default
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-550 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-550 +
 OutputStylesheet "media" attribute
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1125 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1125 +
 _javax.faces.application.Application_ event subscription clarifications.
 
 ===== Lifecycle
 
 .Larger Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-947-ClientWindow +
 Give JSF the ability to correctly handle browsing context (tab, browser
 window, pop-up, etc). See _javax.faces.lifecycle.ClientWindow_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-758-f:viewAction
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-758-f:viewAction
 and +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1042
-
-A
-jsf-api/src/main/java/javax/faces/component/UIViewAction.java
-
-The heart of this changebundle, this class
++
+A jsf-api/src/main/java/javax/faces/component/UIViewAction.java
++
+--
+[none]
+* The heart of this changebundle, this class
 came over from the JBoss Seam Faces Module, but I've rewritten most of
 the javadoc.
+--
++
+M jsf-api/src/main/java/javax/faces/event/PhaseId.java
++
+--
+[none]
+* new methods +
+* public String getName() +
+* public static PhaseId phaseIdValueOf(String phase)
+--
++
+Change <<ApplicationIntegration.adoc#a3571,
+Default NavigationHandler Algorithm>> to account for UIViewAction
 
-M
-jsf-api/src/main/java/javax/faces/event/PhaseId.java
-
-new methods
-
-public String getName()
-
-public static PhaseId phaseIdValueOf(String
-phase)
-
-Change <<ApplicationIntegration.adoc#a3571,See
-Default NavigationHandler Algorithm] to account for UIViewAction
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1062
-and http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-802 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1062 and +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-802 +
 File Upload
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-766 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-766 +
 Events from the flash
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
 Add support for delay value in options for Ajax requests
 
 .Smaller Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
 In validate(), clarify that setSubmittedValue() null must be called if
 validation succeeds.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071 +
 Add FlashFactory. See
-<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>.
+<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1065
-
-{empty}When calculating the locale for the
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1065 +
+When calculating the locale for the
 resource library prefix, if there is a UIViewRoot, use its locale first,
 otherwise, just use the Applications’s ViewHandler’s calculateLocale()
-method. See <<RequestProcessingLifecycle.adoc#a836,See Libraries of Localized and
+method. See <<RequestProcessingLifecycle.adoc#a836,Libraries of Localized and
 Versioned Resources>>
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1039 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1039 +
 In ApplicationWrapper, mark things as deprecated
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1028 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1028 +
 Deprecate StateManager, point to StateManagementStrategy. In
 StateManagementStrategy, require the use of the visit API to perform the
 saving.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-993 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-993 +
 Wrapper for ActionListener
 
-Tweak circumstances for skipping intervening
-lifecycle phases in the case of view metadata
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-762
-
-Section 2.2.1. Now has this text.
-
+* Tweak circumstances for skipping intervening
+lifecycle phases in the case of view metadata +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-762 
++
+--
+[none]
+* Section 2.2.1. Now has this text.
++
 Otherwise, call getViewMetadata() on the
 ViewDeclarationLanguage instance. If the result is non-null, call
 createMetadataView() on the ViewMetadata instance. Call
@@ -207,73 +198,79 @@ UIViewRoot.METADATA_FACET_NAME. This facet must exist. If the facet has
 no children, call facesContext.renderResponse(). Otherwise, none of the
 previous steps have yielded the discovery any of metadata, so call
 facesContext.renderResponse().
+--
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-566 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-566 +
 UIOutput.getValue() value returns.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-220
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-220 +
 In web-partialresponse_2_2.xsd, require that
 the <partial-response> element has an “id” attribute whose value is the
-return from _UIViewRoot.getContainerClientId()_ .
+return from _UIViewRoot.getContainerClientId()_.
 
 
 
 ===== Platform Integration
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763
-
-Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,See
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763 +
+Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,
 Managed Bean Annotations>> to account for new injectability requirements.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-976 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-976 +
 In Javadoc for “Faces Managed Bean Annotation Specification For
 Containers Conforming to Servlet 2.5 and Beyond”, indicate that
 _javax.faces.bean_ will be deprecated in the next version.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1087 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1087 +
 Introduce CDI based @ViewScoped annotation.
 
 ===== Facelets/VDL
 
 .Larger Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
 Allow cc and non-cc components in one taglib
-
++
 A jsf-api/doc/web-facelettaglibrary_2_2.xsd
-
++
 First change to the facelet taglib schema in
 2.2: introduce the ability to declare a resource which will be the
 composite component for a tag. Now, before you get all excited about
 what conventions we can use to make this easier, let me stop you right
 there. Here is a summary of the ease of use story regarding taglib
 files.
-
-The 80/20 rule says we should make taglib
++
+--
+[none]
+* The 80/20 rule says we should make taglib
 files optional most of the time. Here are the 80% cases.
 
-Employs the cc naming convention
-http://java.sun.com/jsf/composite/<libraryName>
+* Employs the cc naming convention
+\http://java.sun.com/jsf/composite/<libraryName>
 
-The user employs a java component has a
-@FacesComponent on it that declares the necessary metadata.
+* The user employs a java component has a
+@FacesComponent on it that declares the necessary metadata. +
 JAVASERVERFACES_SPEC_PUBLIC-594
-
+--
++
 Here are some of the cases where you must
 have a taglib file, the 20% cases.
-
-If you want to employ a cc with a namespace
-other than http://java.sun.com/jsf/composite/<libraryName> you need to
++
+--
+[none]
+* If you want to employ a cc with a namespace
+other than \http://java.sun.com/jsf/composite/<libraryName> you need to
 have a taglib file that declares <composite-library-name>. Currently you
 must not detlare any <tag> elements in such a taglib file. All the tags
 in such a library must come from the same resource library.
 
-If the user is not employs a java component
+* If the user is not employs a java component
 but is not using @FacesComponent.
-
+--
++
 This patch introduces the following syntax.
-
++
+--
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -289,220 +286,221 @@ This patch introduces the following syntax.
   </tag>
 </facelet-taglib>
 ----
-
+--
++
 Where _<resource-id>_ is a valid resource
 identifier as specified in section 2.6.1.3.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-548
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-548 +
 Require additional check to handle the case
 where, in one resource library, there are both localized and
-non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
+non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,Libraries
 of Localized and Versioned Resources>>.
 
 .Smaller Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038 +
 Declare an annotation corresponding to the
 _javax.faces.FACELETS_RESOURCE_RESOLVER_ application configuration
-parameter. See <<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning
-of classes for annotations>> and <<UsingJSFInWebApplications.adoc#a6088,See
+parameter. See <<UsingJSFInWebApplications.adoc#a6598,Requirements for scanning
+of classes for annotations>> and <<UsingJSFInWebApplications.adoc#a6088,
 Application Configuration Parameters>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082 +
 Account for DOCTYPE discrepancy between
 server side representation of Facelet VDL files, which are proper XHTML,
 and processed files which are sent to the client, which now, by default,
-are HTML5 HTML syntax files. See <<JSFMetadata.adoc#a7061,See The
+are HTML5 HTML syntax files. See <<JSFMetadata.adoc#a7061,The
 facelets-processing element>>.
 
-Fix incorrect VDLDoc
+* Fix incorrect VDLDoc
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-967
 f:selectItems itemValue description incorrect.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-922 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-922 +
 Remove maxlength from f:viewParam
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
 Document that ui:fragment should not be bound to a bean with wider than
 request scope, document that the type of the property must extend from
 UIComponent.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-999 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-999 +
 Changes to "template" attribute requiredness for ui:decorate and
 ui:composition
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-901 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-901 +
 Deprecate “targets” concept.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1088 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1088 +
 add short-name to schema.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-746 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-746 +
 Missing _method-signature_ element in taglib xsd.
 
 ===== Spec Clarifications
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1136 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1136 +
 In _ExternalContext.dispatch()_ , clarify what is to be done if
 _getRequestDispatcher()_ returns _null_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1132 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1132 +
 Replace literal strings with symbolic constants where possible.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1127 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1127 +
 State Saving Serializability concerns.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1114 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1114 +
 _javax.faces.view.facelets.Facelet.apply()_ spec version reference
 error.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1100
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1100 +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1097 +
 HTML5 id attribute sensitivity
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1064
-
-In <<JSFMetadata.adoc#a7061,See The
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1064 +
+In <<JSFMetadata.adoc#a7061,The
 facelets-processing element>>, clarify that in XML and JSPX modes, only
 the CDATA section start and end tags, not the entire CDATA section and
 contents, should be consumed.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1063 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1063 +
 _javax.faces.component.UIViewParameter.getSubmittedValue()_ return
 value.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1058 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1058 +
 ui:repeat tag size attribute
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1036
-
-In <<UserInterfaceComponentModel.adoc#a911,See
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1036 +
+In <<UserInterfaceComponentModel.adoc#a911,
 ValueExpression properties>>, clarify which attributes are expression
 enabled,
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1035
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1035 +
 Change section
-<<Per-RequestStateInformation.adoc#a3300,See FacesMessage>> to clarify the meaning of
+<<Per-RequestStateInformation.adoc#a3300,FacesMessage>> to clarify the meaning of
 having _FacesMessage_ instances on the _FacesContext._
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1026 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1026 +
 f:ajax event attribute is String (not VE)
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1014
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1014 +
 12.1.3
-
-The specification for the context-param that
++
+--
+[none]
+* The specification for the context-param that
 declares the list of TagDecorator implementations to the runtime should
 have always been javax.faces.FACELETS_DECORATORS. Prior to this
 revision, the name of this context param was incorrectly specified as
 javax.faces.DECORATORS. The reference implementation has always used the
 correct name, however.
+--
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1010 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1010 +
 Check existing usages of the state saving method parameter to ensure
 case insensitivity.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1004
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1004 +
 M usingFacesInWebapps.fm
-
-- 12.1.3 Set default for
++
+--
+[none]
+* 12.1.3 Set default for
 javax.faces.FACELETS_BUFFER_SIZE to be 1024.
+--
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
 Additional clarification about binding attribute in VDLdocs
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-915
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1015
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-915 +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1015 +
 Non-normative text about http methods and prefix mapping
 
-http://java.net/jira/browse/JAVASERVERFACES-2740 +
-In <<UserInterfaceComponentModel.adoc#a923,See Component Bindings>>, clarify a corner
+* http://java.net/jira/browse/JAVASERVERFACES-2740 +
+In <<UserInterfaceComponentModel.adoc#a923,Component Bindings>>, clarify a corner
 case regarding bean scope and component binding.
 
 ===== Resources
 
 .Larger Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
 This commit introduces a cleaner contract for allowing views to be
 loaded from the Filesystem (including inside of JAR files). All VDL
 resources must be loaded using ResourceHandler.createViewResource().
 
 .Smaller Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996 +
 Enable configuring the web app resources
-directory. See <<UsingJSFInWebApplications.adoc#a6088,See Application Configuration
+directory. See <<UsingJSFInWebApplications.adoc#a6088,Application Configuration
 Parameters>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-719 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-719 +
 Method to map a viewId to a resourcePath
 
-{empty}http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1130-SerializeServerState +
-Modify <<ApplicationIntegration.adoc#a4135,See State Saving Alternatives and
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1130-SerializeServerState +
+Modify <<ApplicationIntegration.adoc#a4135,State Saving Alternatives and
 Implications>> to clarify there is no requirement to serialize server
 state by default when state saving method is server. Introduce a context
-parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,See Application
+parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,Application
 Configuration Parameters>>
 
 ===== Expression Language
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
++
 Remove text from
 MethodExpressionValueChangeListener and MethodExpressionActionListener
 regarding wrapping any exception thrown by the invoked method being
 wrapped in an AbortProcessingException. Such a requirement is incorrect
 and should not have been introduced.
-
-In section <<Per-RequestStateInformation.adoc#a3253,See
++
+In section <<Per-RequestStateInformation.adoc#a3253,
 ExceptionHandler>>, add _AbortProcessingException_ , to the list of
 exceptions that do not get to the _ExceptionHandler_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1043 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1043 +
 When publishing a ComponentSystemEvent, ensure the EL current component
 is pushed correctly
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1164 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1164 +
 If running in a container that supports EL 3.0, add the necessary
 ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
 Map, List, Array, and Bean ELResolvers>>.
 
 ===== Configuration and Bootstrapping
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig
-
-Modify <<UsingJSFInWebApplications.adoc#a6201,See
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig +
+Modify <<UsingJSFInWebApplications.adoc#a6201,
 Application Startup Behavior>> to account for requirement to call new API
 when starting up.
 
 ===== Miscellaneous
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1169
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1169
++
 New XML Namespace for XSD files introduced in
 JSF 2.2, and also for facelet tag libraries.
-
++
 The following XSD files are new for JSF 2.2,
 and each will be in the XML namespace
 _http://xmlns.jcp.org/xml/ns/javaee_ .
++
+--
+[none]
+* _web-facelettaglibrary_2_2.xsd_
 
- _web-facelettaglibrary_2_2.xsd_
+* _web-facesconfig_2_2.xsd_
 
- _web-facesconfig_2_2.xsd_
-
- _web-partialresponse_2_2.xsd_
-
+* _web-partialresponse_2_2.xsd_
+--
++
 Facelet Tag Libraries will now respond to the
 following URIs
-
++
+--
 [width="100%",cols="24%,38%,38%",options="header",]
 |===
 |Library |Old URI
@@ -560,132 +558,140 @@ http://xmlns.jcp.org/jsf
 
 
 |===
-
+--
++
 Developers are requested to use the values
 from the New URI column, though both columns will work.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997
-
-M
-jsf-api/src/main/java/javax/faces/event/ComponentSystemEvent.java
-
-Override isAppropriateListener so that it
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997
++
+M jsf-api/src/main/java/javax/faces/event/ComponentSystemEvent.java
++
+--
+[none]
+* Override isAppropriateListener so that it
 first asks the listener, "are you a ComponentSystemEventListener", then,
 if not, asks super.isAppropriateListener()
-
-M
-jsf-api/src/main/java/javax/faces/event/SystemEvent.java
-
-in isAppropriateListener(), document the
+--
++
+M jsf-api/src/main/java/javax/faces/event/SystemEvent.java
++
+--
+[none]
+* in isAppropriateListener(), document the
 default implementation.
-
-M
-jsf-api/src/main/java/javax/faces/component/UIComponent.java
-
-Make inner class
+--
++
+M jsf-api/src/main/java/javax/faces/component/UIComponent.java
++
+--
+[none]
+* Make inner class
 ComponentSystemEventListenerAdapter implement
 ComponentSystemEventListener.
+--
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-917
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-917
++
 javax.faces.application.ResourceWrapper:
++
+--
+[none]
+* getContentType()
 
- - getContentType()
+* getLibraryName()
 
- - getLibraryName()
+* getResourceName()
 
- - getResourceName()
+* setContentType(String)
 
- - setContentType(String)
+* setLibraryName(String)
 
- - setLibraryName(String)
+* setResourceName(String)
+--
++
+javax.faces.context.ExternalContextWrapper:
++
+--
+[none]
+* getSessionMaxInactiveInterval()
 
- - setResourceName(String)
+* isSecure()
 
- javax.faces.context.ExternalContextWrapper:
-
- - getSessionMaxInactiveInterval()
-
- - isSecure()
-
- - setSessionMaxInactiveInterval()
-
-
+* setSessionMaxInactiveInterval()
+--
++
 javax.faces.context.PartialViewContextWrapper
++
+--
+[none]
+* setPartialRequest(boolean)
+--
 
- - setPartialRequest(boolean)
-
-12.1.3 add this text to the
-javax.faces.STATE_SAVING_METHOD spec. When examining the value, the
+* 12.1.3 add this text to the
+javax.faces.STATE_SAVING_METHOD spec. +
+When examining the value, the
 runtime must ignore the case.
 
-Add
-ExternalContext.getApplicationContextPath()
+* Add
+ExternalContext.getApplicationContextPath() +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1012
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-787 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-787 +
 restore ViewScope before templates are processed with buildView()
 
-7.6.2.6 typo in spec for renderView(). Should
-be
-
+* 7.6.2.6 typo in spec for renderView(). Should be +
 Return immediately if calling isRendered() on
 the argument UIViewRoot returns false.
 
-Per Matt Benson, remove duplicate
+* Per Matt Benson, remove duplicate
 descriptions of the cc and component implicit object from the getValue()
 specification for the composite component ELResolver in section 5.6.2.1.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-869
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-869
++
 Specify Cross Site Request Forgery
 protection.
-
-Add text in <<RequestProcessingLifecycle.adoc#a404,See
++
+Add text in <<RequestProcessingLifecycle.adoc#a404,
 Restore View>> to describe how non-postback requests are inspected for
 protection, if necessary.
-
++
 Remove text for writeState() in
-<<RenderingModel.adoc#a4288,See ResponseStateManager>>, point to the
+<<RenderingModel.adoc#a4288,ResponseStateManager>>, point to the
 JavaDocs.
-
++
 Add View Protection methods to
-<<ApplicationIntegration.adoc#a3874,See Overview>> for ViewHandler.
-
+<<ApplicationIntegration.adoc#a3874,Overview>> for ViewHandler.
++
 Introduce subsections to
-<<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>> that
+<<ApplicationIntegration.adoc#a3910,Default ViewHandler Implementation>> that
 group the methods by their purpose. Add a new section
-<<ApplicationIntegration.adoc#a3997,See ViewHandler Methods that relate to View
+<<ApplicationIntegration.adoc#a3997,ViewHandler Methods that relate to View
 Protection>>, which points to the javadocs. In
-<<ApplicationIntegration.adoc#a3955,See ViewHandler Methods Relating to
+<<ApplicationIntegration.adoc#a3955,ViewHandler Methods Relating to
 Navigation>>, in the spec for _getActionUrl()_ , specify how view
 protection is affected.
 
-{empty}Remove tables in section
-<<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning of classes for
-annotations>>
-
+* Remove tables in section
+<<UsingJSFInWebApplications.adoc#a6598,Requirements for scanning of classes for
+annotations>> +
 The Javadoc tool lists annotations in a
 separate section, making the tables that list JSF related annotations
 redundant.
 
-.
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082-DoctypeElement
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082-DoctypeElement +
 Add new section
-<<FaceletsAndWebApplications.adoc#a5635,See DOCTYPE and XML Declaration>>.
+<<FaceletsAndWebApplications.adoc#a5635,DOCTYPE and XML Declaration>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1141-SlashInResourceNames
-
-In <<RequestProcessingLifecycle.adoc#a758,See Resource
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1141-SlashInResourceNames +
+In <<RequestProcessingLifecycle.adoc#a758,Resource
 Identifiers>>, declare that resourceName and resourceVersion, in addition
 to the already listed other segments, are subject to the same
 constraints.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129-ResetValues
-
-In <<RequestProcessingLifecycle.adoc#a480,See Render
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129-ResetValues +
+In <<RequestProcessingLifecycle.adoc#a480,Render
 Response Partial Processing>>, require calling _UIViewRoot.resetValues()_
 if necessary.
 
@@ -698,35 +704,43 @@ with Faces 2.1 or 2.0 won’t require any modification when run with Faces
 
 ==== Breakages in Backward Compatibility
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092 +
 Due to an error in previous versions of the
 specification, exceptions were silently being swallowed that now will
 bubble up to the exception handler. Code that was relying on this
 incorrect behavior may need to be modified to account for fixing this
 problem.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-745
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-745
++
 5.6.2.2 Table 5-11. Make the following
 changes to the spec for Composite Component Attribute ELResoler
-
-Modify getType() according to new
++
+--
+[none]
+* Modify getType() according to new
 specification language.
 
-Require the implementation of containsKey()
+* Require the implementation of containsKey()
 on the Map.
-
-containsKey(): If the attributes map contains
++
+====
+[none]
+* containsKey(): If the attributes map contains
 the key, return true. Otherwise, if a default value has been declared
 for the attribute, return true. Otherwise, return false.
-
-{empty}<<UserInterfaceComponentModel.adoc#a1671,See
+====
++
+--
++
+<<UserInterfaceComponentModel.adoc#a1671,
 Composite Component Metadata>>
-
++
 New text dealing with <cc:attribute>
-
-Any additional attributes on
++
+--
+[none]
+* Any additional attributes on
 _<composite:attribute/ >_ are exposed as attributes accessible from the
 _getValue()_ and _attributeNames()_ methods on _PropertyDescriptor_ .
 The return type from getValue() must be a _ValueExpression_ with the
@@ -735,6 +749,7 @@ _getValue(“type”)_ must be _Class_ . If the value specified for the
 _type_ attribute of _<cc:attribute/>_ cannot be converted to an actual
 _Class_ , a _TagAttributeException_ must be thrown, including the _Tag_
 and _TagAttribute_ instances in the constructor.
+--
 
 Yes, this is a backwards incompatible change,
 but because the usecase is so specific, and the performance benefit so
@@ -752,32 +767,24 @@ http://jsf-spec.java.net/issues/ >.
 
 ==== Big Ticket Features
 
-HTML5 Friendly Markup
+* HTML5 Friendly Markup +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1090 +
+Start with
+<<FaceletsAndWebApplications.adoc#a5581,HTML5 Friendly Markup>>
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1090
-
-{empty}Start with
-<<FaceletsAndWebApplications.adoc#a5581,See HTML5 Friendly Markup>>
-
-Resource Library Contracts
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1142
-
-Start with <<FaceletsAndWebApplications.adoc#a5526,See
+* Resource Library Contracts +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1142 +
+Start with <<FaceletsAndWebApplications.adoc#a5526,
 Resource Library Contracts Background>>.
 
-Faces Flows
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-730
-
-Start with <<ApplicationIntegration.adoc#a3840,See
+* Faces Flows +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-730 +
+Start with <<ApplicationIntegration.adoc#a3840,
 FlowHandler>>.
 
-Stateless Views
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055
-
-Start with <<ApplicationIntegration.adoc#a4126,See
+* Stateless Views +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055 +
+Start with <<ApplicationIntegration.adoc#a4126, +
 Stateless Views>>.
 
 ==== Other Features, by Functional Area
@@ -786,159 +793,161 @@ Stateless Views>>.
 
 .Larger Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
 UIData supports the Collection Interface rather than List.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
-- Add the "role" pass through attribute.
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
+Add the "role" pass through attribute.
 
 .Smaller Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
 Warn about some important corner cases when
 _UIComponent.findComponent()_ may not provide the expected results.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1068-PartialResponseProcessing
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1068-PartialResponseProcessing +
 New section describing what happens with
 respect to partial processing during render response. See
-<<RequestProcessingLifecycle.adoc#a480,See Render Response Partial Processing>>.
+<<RequestProcessingLifecycle.adoc#a480,Render Response Partial Processing>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1067-cc:insertChildren +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1067-cc:insertChildren +
 Spec clarifications. See the VDLDoc for _cc:insertChildren_ ,
 _cc:insertFacet_
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1061
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1061 +
 Clarify that both
 _Application.publishEvent()_ and the manual traversal based delivery are
 required for publishing the _PostRestoreStateEvent_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1030 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1030 +
 Clarify docs for h:message h:messages
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1023 +
-- Modify JavaDoc to relax requirements for PostAddToViewEvent publishing
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1023 +
+Modify JavaDoc to relax requirements for PostAddToViewEvent publishing
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1019 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1019 +
 Modify spec for ResponseWriter.writeURIAttribute() to explicitly require
 adherence to the W3C URI spec
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997 +
 javax.faces.component.ComponentSystemEvent: Override
 isAppropriateListener so that it first asks the listener, "are you a
 ComponentSystemEventListener", then, if not, asks
 super.isAppropriateListener()
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-984 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-984 +
 Component Context Manager, see
 _javax.faces.component.visit.ComponentModificationManager_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-943 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-943 +
 See _javax.faces.view.ViewDeclarationLanguageWrapper_
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-784 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-784 +
 Deprecate the CURRENT_COMPONENT and CURRENT_COMPOSITE_COMPONENT
 attributes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-599 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-599 +
 Make it possible to programmatically create components in the same way
 as they are created by Facelets. See
 _javax.faces.application.Application.createComponent(FacesContext,
 String taglibUri, String tagName, Map attrs)_
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-703 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-703 +
 Make "value" optional for @FacesComponent.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-585 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-585 +
 outputText and inputText do not render children by default
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-550 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-550 +
 OutputStylesheet "media" attribute
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1125 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1125 +
 _javax.faces.application.Application_ event subscription clarifications.
 
 ===== Lifecycle
 
 .Larger Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-947-ClientWindow +
 Give JSF the ability to correctly handle browsing context (tab, browser
 window, pop-up, etc). See _javax.faces.lifecycle.ClientWindow_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-758-f:viewAction
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-758-f:viewAction
 and +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1042
-
-A
-jsf-api/src/main/java/javax/faces/component/UIViewAction.java
-
-The heart of this changebundle, this class
++
+A jsf-api/src/main/java/javax/faces/component/UIViewAction.java
++
+--
+[none]
+* The heart of this changebundle, this class
 came over from the JBoss Seam Faces Module, but I've rewritten most of
 the javadoc.
+--
++
+M jsf-api/src/main/java/javax/faces/event/PhaseId.java
++
+--
+[none]
+* new methods
 
-M
-jsf-api/src/main/java/javax/faces/event/PhaseId.java
+* public String getName()
 
-new methods
-
-public String getName()
-
-public static PhaseId phaseIdValueOf(String
+* public static PhaseId phaseIdValueOf(String
 phase)
-
-Change <<ApplicationIntegration.adoc#a3571,See
+--
++
+Change <<ApplicationIntegration.adoc#a3571,
 Default NavigationHandler Algorithm>> to account for UIViewAction
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1062
-and http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-802 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1062 and +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-802 +
 File Upload
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-766 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-766 +
 Events from the flash
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
 Add support for delay value in options for Ajax requests
 
 .Smaller Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
 In validate(), clarify that setSubmittedValue() null must be called if
 validation succeeds.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071
 Add FlashFactory. See
-<<UsingJSFInWebApplications.adoc#a6336,See Delegating Implementation Support>>.
+<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1065
-
-{empty}When calculating the locale for the
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1065 +
+When calculating the locale for the
 resource library prefix, if there is a UIViewRoot, use its locale first,
 otherwise, just use the Applications’s ViewHandler’s calculateLocale()
-method. See <<RequestProcessingLifecycle.adoc#a836,See Libraries of Localized and
+method. See <<RequestProcessingLifecycle.adoc#a836,Libraries of Localized and
 Versioned Resources>>
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1039 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1039 +
 In ApplicationWrapper, mark things as deprecated
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1028 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1028 +
 Deprecate StateManager, point to StateManagementStrategy. In
 StateManagementStrategy, require the use of the visit API to perform the
 saving.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-993 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-993 +
 Wrapper for ActionListener
 
-Tweak circumstances for skipping intervening
+* Tweak circumstances for skipping intervening
 lifecycle phases in the case of view metadata
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-762
-
++
 Section 2.2.1. Now has this text.
-
-Otherwise, call getViewMetadata() on the
++
+--
+[none]
+* Otherwise, call getViewMetadata() on the
 ViewDeclarationLanguage instance. If the result is non-null, call
 createMetadataView() on the ViewMetadata instance. Call
 ViewMetadata.getViewParameters(). If the result is a non-empty
@@ -949,12 +958,12 @@ UIViewRoot.METADATA_FACET_NAME. This facet must exist. If the facet has
 no children, call facesContext.renderResponse(). Otherwise, none of the
 previous steps have yielded the discovery any of metadata, so call
 facesContext.renderResponse().
+--
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-566 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-566 +
 UIOutput.getValue() value returns.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-220
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-220 +
 In web-partialresponse_2_2.xsd, require that
 the <partial-response> element has an “id” attribute whose value is the
 return from _UIViewRoot.getContainerClientId()_ .
@@ -963,59 +972,64 @@ return from _UIViewRoot.getContainerClientId()_ .
 
 ===== Platform Integration
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763
-
-Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,See
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763 +
+Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,
 Managed Bean Annotations>> to account for new injectability requirements.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-976 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-976 +
 In Javadoc for “Faces Managed Bean Annotation Specification For
 Containers Conforming to Servlet 2.5 and Beyond”, indicate that
 _javax.faces.bean_ will be deprecated in the next version.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1087 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1087 +
 Introduce CDI based @ViewScoped annotation.
 
 ===== Facelets/VDL
 
 .Larger Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
 Allow cc and non-cc components in one taglib
-
++
 A jsf-api/doc/web-facelettaglibrary_2_2.xsd
-
++
 First change to the facelet taglib schema in
 2.2: introduce the ability to declare a resource which will be the
 composite component for a tag. Now, before you get all excited about
 what conventions we can use to make this easier, let me stop you right
 there. Here is a summary of the ease of use story regarding taglib
 files.
-
-The 80/20 rule says we should make taglib
++
+--
+[none]
+* The 80/20 rule says we should make taglib
 files optional most of the time. Here are the 80% cases.
 
-Employs the cc naming convention
-http://java.sun.com/jsf/composite/<libraryName>
+* Employs the cc naming convention
+\http://java.sun.com/jsf/composite/<libraryName>
 
-The user employs a java component has a
+* The user employs a java component has a
 @FacesComponent on it that declares the necessary metadata.
 JAVASERVERFACES_SPEC_PUBLIC-594
-
+--
++
 Here are some of the cases where you must
 have a taglib file, the 20% cases.
-
-If you want to employ a cc with a namespace
-other than http://java.sun.com/jsf/composite/<libraryName> you need to
++
+--
+[none]
+* If you want to employ a cc with a namespace
+other than \http://java.sun.com/jsf/composite/<libraryName> you need to
 have a taglib file that declares <composite-library-name>. Currently you
 must not detlare any <tag> elements in such a taglib file. All the tags
 in such a library must come from the same resource library.
 
-If the user is not employs a java component
+* If the user is not employs a java component
 but is not using @FacesComponent.
-
+--
++
 This patch introduces the following syntax.
-
++
 [source,xml]
 ----
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1031,12 +1045,11 @@ This patch introduces the following syntax.
   </tag>
 </facelet-taglib>
 ----
-
++
 Where _<resource-id>_ is a valid resource
 identifier as specified in section 2.6.1.3.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-548
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-548 +
 Require additional check to handle the case
 where, in one resource library, there are both localized and
 non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
@@ -1044,207 +1057,210 @@ of Localized and Versioned Resources>>.
 
 .Smaller Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038 +
 Declare an annotation corresponding to the
 _javax.faces.FACELETS_RESOURCE_RESOLVER_ application configuration
 parameter. See <<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning
 of classes for annotations>> and <<UsingJSFInWebApplications.adoc#a6088,See
 Application Configuration Parameters>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082 +
 Account for DOCTYPE discrepancy between
 server side representation of Facelet VDL files, which are proper XHTML,
 and processed files which are sent to the client, which now, by default,
 are HTML5 HTML syntax files. See <<JSFMetadata.adoc#a7061,See The
 facelets-processing element>>.
 
-Fix incorrect VDLDoc
+* Fix incorrect VDLDoc
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-967
 f:selectItems itemValue description incorrect.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-922 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-922 +
 Remove maxlength from f:viewParam
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
 Document that ui:fragment should not be bound to a bean with wider than
 request scope, document that the type of the property must extend from
 UIComponent.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-999 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-999 +
 Changes to "template" attribute requiredness for ui:decorate and
 ui:composition
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-901 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-901 +
 Deprecate “targets” concept.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1088 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1088 +
 add short-name to schema.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-746 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-746 +
 Missing _method-signature_ element in taglib xsd.
 
 ===== Spec Clarifications
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1136 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1136 +
 In _ExternalContext.dispatch()_ , clarify what is to be done if
 _getRequestDispatcher()_ returns _null_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1132 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1132 +
 Replace literal strings with symbolic constants where possible.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1127 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1127 +
 State Saving Serializability concerns.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1114 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1114 +
 _javax.faces.view.facelets.Facelet.apply()_ spec version reference
 error.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1100
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1100 +
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1097 +
 HTML5 id attribute sensitivity
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1064
-
-In <<JSFMetadata.adoc#a7061,See The
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1064 +
+In <<JSFMetadata.adoc#a7061,The
 facelets-processing element>>, clarify that in XML and JSPX modes, only
 the CDATA section start and end tags, not the entire CDATA section and
 contents, should be consumed.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1063 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1063 +
 _javax.faces.component.UIViewParameter.getSubmittedValue()_ return
 value.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1058 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1058 +
 ui:repeat tag size attribute
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1036
-
-In <<UserInterfaceComponentModel.adoc#a911,See
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1036 +
+In <<UserInterfaceComponentModel.adoc#a911,
 ValueExpression properties>>, clarify which attributes are expression
 enabled,
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1035
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1035 +
 Change section
-<<Per-RequestStateInformation.adoc#a3300,See FacesMessage>> to clarify the meaning of
+<<Per-RequestStateInformation.adoc#a3300,FacesMessage>> to clarify the meaning of
 having _FacesMessage_ instances on the _FacesContext._
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1026 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1026 +
 f:ajax event attribute is String (not VE)
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1014
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1014
++
 12.1.3
-
-The specification for the context-param that
++
+--
+[none]
+* The specification for the context-param that
 declares the list of TagDecorator implementations to the runtime should
 have always been javax.faces.FACELETS_DECORATORS. Prior to this
 revision, the name of this context param was incorrectly specified as
 javax.faces.DECORATORS. The reference implementation has always used the
 correct name, however.
+--
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1010 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1010 +
 Check existing usages of the state saving method parameter to ensure
 case insensitivity.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1004
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1004
++
 M usingFacesInWebapps.fm
-
-- 12.1.3 Set default for
++
+--
+[none]
+* 12.1.3 Set default for
 javax.faces.FACELETS_BUFFER_SIZE to be 1024.
+--
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
 Additional clarification about binding attribute in VDLdocs
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-915
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1015
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-915 +
+http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1015 +
 Non-normative text about http methods and prefix mapping
 
-http://java.net/jira/browse/JAVASERVERFACES-2740 +
-In <<UserInterfaceComponentModel.adoc#a923,See Component Bindings>>, clarify a corner
+* http://java.net/jira/browse/JAVASERVERFACES-2740 +
+In <<UserInterfaceComponentModel.adoc#a923,Component Bindings>>, clarify a corner
 case regarding bean scope and component binding.
 
 ===== Resources
 
 .Larger Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
 This commit introduces a cleaner contract for allowing views to be
 loaded from the Filesystem (including inside of JAR files). All VDL
 resources must be loaded using ResourceHandler.createViewResource().
 
 .Smaller Changes
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996 +
 Enable configuring the web app resources
-directory. See <<UsingJSFInWebApplications.adoc#a6088,See Application Configuration
+directory. See <<UsingJSFInWebApplications.adoc#a6088,Application Configuration
 Parameters>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-719 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-719 +
 Method to map a viewId to a resourcePath
 
-{empty}http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1130-SerializeServerState +
-Modify <<ApplicationIntegration.adoc#a4135,See State Saving Alternatives and
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1130-SerializeServerState +
+Modify <<ApplicationIntegration.adoc#a4135,State Saving Alternatives and
 Implications>> to clarify there is no requirement to serialize server
 state by default when state saving method is server. Introduce a context
-parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,See Application
+parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,Application
 Configuration Parameters>>
 
 ===== Expression Language
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
++
 Remove text from
 MethodExpressionValueChangeListener and MethodExpressionActionListener
 regarding wrapping any exception thrown by the invoked method being
 wrapped in an AbortProcessingException. Such a requirement is incorrect
 and should not have been introduced.
-
++
 In section <<Per-RequestStateInformation.adoc#a3253,See
 ExceptionHandler>>, add _AbortProcessingException_ , to the list of
 exceptions that do not get to the _ExceptionHandler_ .
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1043 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1043 +
 When publishing a ComponentSystemEvent, ensure the EL current component
 is pushed correctly
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1164 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1164 +
 If running in a container that supports EL 3.0, add the necessary
 ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
 Map, List, Array, and Bean ELResolvers>>.
 
 ===== Configuration and Bootstrapping
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig
-
-Modify <<UsingJSFInWebApplications.adoc#a6201,See
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig +
+Modify <<UsingJSFInWebApplications.adoc#a6201,
 Application Startup Behavior>> to account for requirement to call new API
 when starting up.
 
 ===== Miscellaneous
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1169
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1169
++
 New XML Namespace for XSD files introduced in
 JSF 2.2, and also for facelet tag libraries.
-
++
 The following XSD files are new for JSF 2.2,
 and each will be in the XML namespace
 _http://xmlns.jcp.org/xml/ns/javaee_ .
++
+--
+[none]
+* _web-facelettaglibrary_2_2.xsd_
 
- _web-facelettaglibrary_2_2.xsd_
+* _web-facesconfig_2_2.xsd_
 
- _web-facesconfig_2_2.xsd_
-
- _web-partialresponse_2_2.xsd_
-
+* _web-partialresponse_2_2.xsd_
+--
++
 Facelet Tag Libraries will now respond to the
 following URIs
-
++
+--
 [width="100%",cols="24%,38%,38%",options="header",]
 |===
 |Library |Old URI
@@ -1302,132 +1318,139 @@ http://xmlns.jcp.org/jsf
 
 
 |===
-
+--
++
 Developers are requested to use the values
 from the New URI column, though both columns will work.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997
-
-M
-jsf-api/src/main/java/javax/faces/event/ComponentSystemEvent.java
-
-Override isAppropriateListener so that it
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997
++
+M jsf-api/src/main/java/javax/faces/event/ComponentSystemEvent.java
++
+--
+[none]
+* Override isAppropriateListener so that it
 first asks the listener, "are you a ComponentSystemEventListener", then,
 if not, asks super.isAppropriateListener()
-
-M
-jsf-api/src/main/java/javax/faces/event/SystemEvent.java
-
-in isAppropriateListener(), document the
+--
++
+M jsf-api/src/main/java/javax/faces/event/SystemEvent.java
++
+--
+[none]
+* in isAppropriateListener(), document the
 default implementation.
-
-M
-jsf-api/src/main/java/javax/faces/component/UIComponent.java
-
-Make inner class
+--
++
+M jsf-api/src/main/java/javax/faces/component/UIComponent.java
++
+--
+[none]
+* Make inner class
 ComponentSystemEventListenerAdapter implement
 ComponentSystemEventListener.
+--
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-917
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-917
++
 javax.faces.application.ResourceWrapper:
++
+--
+[none]
+* getContentType()
 
- - getContentType()
+* getLibraryName()
 
- - getLibraryName()
+* getResourceName()
 
- - getResourceName()
+* setContentType(String)
 
- - setContentType(String)
+* setLibraryName(String)
 
- - setLibraryName(String)
+* setResourceName(String)
+--
++
+javax.faces.context.ExternalContextWrapper:
++
+--
+[none]
+* getSessionMaxInactiveInterval()
 
- - setResourceName(String)
+* isSecure()
 
- javax.faces.context.ExternalContextWrapper:
-
- - getSessionMaxInactiveInterval()
-
- - isSecure()
-
- - setSessionMaxInactiveInterval()
-
-
+* setSessionMaxInactiveInterval()
+--
++
 javax.faces.context.PartialViewContextWrapper
++
+--
+[none]
+* setPartialRequest(boolean)
+--
 
- - setPartialRequest(boolean)
-
-12.1.3 add this text to the
+* 12.1.3 add this text to the
 javax.faces.STATE_SAVING_METHOD spec. When examining the value, the
 runtime must ignore the case.
 
-Add
+* Add
 ExternalContext.getApplicationContextPath()
 http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1012
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-787 +
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-787 +
 restore ViewScope before templates are processed with buildView()
 
-7.6.2.6 typo in spec for renderView(). Should
-be
-
+* 7.6.2.6 typo in spec for renderView(). Should be +
 Return immediately if calling isRendered() on
 the argument UIViewRoot returns false.
 
-Per Matt Benson, remove duplicate
+* Per Matt Benson, remove duplicate
 descriptions of the cc and component implicit object from the getValue()
 specification for the composite component ELResolver in section 5.6.2.1.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-869
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-869
++
 Specify Cross Site Request Forgery
 protection.
-
-Add text in <<RequestProcessingLifecycle.adoc#a404,See
++
+Add text in <<RequestProcessingLifecycle.adoc#a404,
 Restore View>> to describe how non-postback requests are inspected for
 protection, if necessary.
-
++
 Remove text for writeState() in
-<<RenderingModel.adoc#a4288,See ResponseStateManager>>, point to the
+<<RenderingModel.adoc#a4288,ResponseStateManager>>, point to the
 JavaDocs.
-
++
 Add View Protection methods to
-<<ApplicationIntegration.adoc#a3874,See Overview>> for ViewHandler.
-
+<<ApplicationIntegration.adoc#a3874,Overview>> for ViewHandler.
++
 Introduce subsections to
-<<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>> that
+<<ApplicationIntegration.adoc#a3910,Default ViewHandler Implementation>> that
 group the methods by their purpose. Add a new section
-<<ApplicationIntegration.adoc#a3997,See ViewHandler Methods that relate to View
+<<ApplicationIntegration.adoc#a3997,ViewHandler Methods that relate to View
 Protection>>, which points to the javadocs. In
-<<ApplicationIntegration.adoc#a3955,See ViewHandler Methods Relating to
+<<ApplicationIntegration.adoc#a3955,ViewHandler Methods Relating to
 Navigation>>, in the spec for _getActionUrl()_ , specify how view
 protection is affected.
 
-{empty}Remove tables in section
-<<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning of classes for
-annotations>>
-
+* Remove tables in section
+<<UsingJSFInWebApplications.adoc#a6598,Requirements for scanning of classes for
+annotations>> +
 The Javadoc tool lists annotations in a
 separate section, making the tables that list JSF related annotations
 redundant.
 
-.
-
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082-DoctypeElement
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082-DoctypeElement +
 Add new section
-<<FaceletsAndWebApplications.adoc#a5635,See DOCTYPE and XML Declaration>>.
+<<FaceletsAndWebApplications.adoc#a5635,DOCTYPE and XML Declaration>>.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1141-SlashInResourceNames
-
-In <<RequestProcessingLifecycle.adoc#a758,See Resource
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1141-SlashInResourceNames +
+In <<RequestProcessingLifecycle.adoc#a758,Resource
 Identifiers>>, declare that resourceName and resourceVersion, in addition
 to the already listed other segments, are subject to the same
 constraints.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129-ResetValues
-
-In <<RequestProcessingLifecycle.adoc#a480,See Render
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129-ResetValues +
+In <<RequestProcessingLifecycle.adoc#a480,Render
 Response Partial Processing>>, require calling _UIViewRoot.resetValues()_
 if necessary.
 
@@ -1440,35 +1463,39 @@ with Faces 2.1 or 2.0 won’t require any modification when run with Faces
 
 ==== Breakages in Backward Compatibility
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092 +
 Due to an error in previous versions of the
 specification, exceptions were silently being swallowed that now will
 bubble up to the exception handler. Code that was relying on this
 incorrect behavior may need to be modified to account for fixing this
 problem.
 
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-745
-
+* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-745
++
 5.6.2.2 Table 5-11. Make the following
 changes to the spec for Composite Component Attribute ELResoler
-
-Modify getType() according to new
++
+--
+[none]
+* Modify getType() according to new
 specification language.
 
-Require the implementation of containsKey()
+* Require the implementation of containsKey()
 on the Map.
 
-containsKey(): If the attributes map contains
+** containsKey(): If the attributes map contains
 the key, return true. Otherwise, if a default value has been declared
 for the attribute, return true. Otherwise, return false.
-
-{empty}<<UserInterfaceComponentModel.adoc#a1671,See
+--
++
+<<UserInterfaceComponentModel.adoc#a1671,
 Composite Component Metadata>>
-
++
 New text dealing with <cc:attribute>
-
-Any additional attributes on
++
+--
+[none]
+* Any additional attributes on
 _<composite:attribute/ >_ are exposed as attributes accessible from the
 _getValue()_ and _attributeNames()_ methods on _PropertyDescriptor_ .
 The return type from getValue() must be a _ValueExpression_ with the
@@ -1477,6 +1504,7 @@ _getValue(“type”)_ must be _Class_ . If the value specified for the
 _type_ attribute of _<cc:attribute/>_ cannot be converted to an actual
 _Class_ , a _TagAttributeException_ must be thrown, including the _Tag_
 and _TagAttribute_ instances in the constructor.
+--
 
 Yes, this is a backwards incompatible change,
 but because the usecase is so specific, and the performance benefit so
@@ -2018,39 +2046,39 @@ Composite Component. Therefore I recommend that the documentation of the
 
 ===== Miscellaneous VDLDoc items
 
-VDLDocs for "execute" attribute of f:ajax say
+* VDLDocs for "execute" attribute of f:ajax say
 (must evaluate to java.lang.Object) but then say "Evaluates to
 Collection"
 
-VDLDocs f:selectItem lists the new JSF 2.0
+* VDLDocs f:selectItem lists the new JSF 2.0
 "noSelectionOption" but is not colored green to indicate "new in JSF
 2.0" and the link for f:selectItem in the navigation frame needs to be
 orange
 
-VDLDocs for f:validateBean should have all of
+* VDLDocs for f:validateBean should have all of
 its attributes in green to indicate "new in JSF 2.0" since it is a new
 tag.
 
-VDLDocs for f:validateRegex has a typo in the
+* VDLDocs for f:validateRegex has a typo in the
 description which reads "RegexpValidator" rather than "RegexValidator"
 
-In spec, the "Changes between 1.2 and EDR2"
+* In spec, the "Changes between 1.2 and EDR2"
 section refers the reader to section 3.5.2 for the addition of
 "javax.faces.RegularExpressionValidator" but actually it should be
 section 3.5.5
 
-VDLDocs for h:button say that the outcome
+* VDLDocs for h:button say that the outcome
 attribute is not required, but really it should be required otherwise
 there is no purpose of f:button -- you would end up navigating back to
 the current view. The whole point of f:button is to perform navigation
 to a different view that potentially contains view parameters. Why have
 a bookmarkable URL back to itself?
 
-VDLDocs for h:button don't mention a disabled
+* VDLDocs for h:button don't mention a disabled
 attribute, but the h:link one does have the disabled attribute. My guess
 would be that both should have this attribute?
 
-VDLDocs for h:outputScript and
+* VDLDocs for h:outputScript and
 h:outputStylesheet should indicate that even though the UIOutput class
 implements the ValueHolder interface, the coverter and value attributes
 are basically ignored by the renderers, since the value attribute has no
@@ -2058,29 +2086,29 @@ meaning. This is basically a design flaw -- a new class named
 UIOutputResource should have been created instead of UIOutput being
 reused.
 
-{empty}VDLDocs for h:outputScript and
+* VDLDocs for h:outputScript and
 h:outputStylesheet should indicate that the "name" attribute is
 required, since section 2.6.1.3 implies that this is the case with the
 following resource pattern:
 [localePrefix/][libraryName/][libraryVersion/]resourceName[/resourceVersion]
 
-VDLDocs for h:outputScript needs to have all
+* VDLDocs for h:outputScript needs to have all
 the possible values for the target attribute documented. I think the
 only valid values are "head", "body", and "form"
 
-VDLDocs for h:graphicImage has a dead
+* VDLDocs for h:graphicImage has a dead
 hyperlink to "Common Algorithm for Obtaining A Resource to Render
 
-VDLDocs for h:selectManyCheckbox indicate
+* VDLDocs for h:selectManyCheckbox indicate
 orange for the collectionType and hideNoSelectionOption attributes but
 they should be green to indicate "new in JSF 2.0"
 
-VDLDocs for h:selectManyCheckbox says that
+* VDLDocs for h:selectManyCheckbox says that
 the return type must evaluate to a String, but that's not entirely true.
 It can also evaluate to a concrete class that implements
 java.util.Collection
 
-VDLDocs for ui:param have two "name"
+* VDLDocs for ui:param have two "name"
 attributes specified. The second one should be the "value" attribute
 
 ===== Should TLDDocs now be VDLDocs?
