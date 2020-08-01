@@ -1,32 +1,368 @@
+:issue_tracker_url: https://github.com/eclipse-ee4j/faces-api/issues/
+
 [appendix]
 == Change Log
+
+=== Changes between 2.2 and 2.3
+
+This section gives the reader a survey of the changes between version 2.3
+of the specification and version 2.2, using the categories from the issue
+tracker at {issue_tracker_url}.
+
+==== Big Ticket Features
+
+// #a5904 Section 10.4.1.7 “<f:websocket>”
+* WebSocket Integration +
+Issue ID {issue_tracker_url}1396[1396] +
+See the VDLDocs for <f:websocket /> and
+<<FaceletsAndWebApplications.adoc#a5904>>.
+
+* Multi-field Validation +
+Issue ID {issue_tracker_url}1[1] +
+See the VDLDocs for <f:validateWholeBean />.
+
+* Java Time Support +
+Issue ID {issue_tracker_url}1370[1370] +
+See the VDLDocs for <f:convertDateTime />.
+
+// #a3070 Section 5.9.2 “EL Resolution”
+* Use CDI for evaluation of JSF specific EL implicit Objects +
+Issue ID
+{issue_tracker_url}1311[1311],
+{issue_tracker_url}1322[1322],
+{issue_tracker_url}1325[1325],
+{issue_tracker_url}1327[1327],
+{issue_tracker_url}1328[1328],
+{issue_tracker_url}1334[1334],
+{issue_tracker_url}1332[1332],
+{issue_tracker_url}1331[1331],
+{issue_tracker_url}1384[1384],
+{issue_tracker_url}1385[1385],
+{issue_tracker_url}1383[1383],
+{issue_tracker_url}1386[1386] - {issue_tracker_url}1394[1394] +
+See <<ExpressionLanguageAndManagedBeanFacility.adoc#a3070>>
+
+* Issue ID {issue_tracker_url}1417[1417] +
+Deprecate javax.faces.bean. 
+
+// #a3054 Section 5.9.1 “JSF Objects Valid for @Inject Injection”
+* Support @Inject on JSF specific artifacts +
+Issue ID
+{issue_tracker_url}1316[1316],
+{issue_tracker_url}527[527],
+{issue_tracker_url}1309[1309],
+{issue_tracker_url}1323[1323],
+{issue_tracker_url}1283[1283],
+{issue_tracker_url}1353[1353],
+{issue_tracker_url}1335[1335],
+{issue_tracker_url}1333[1333],
+{issue_tracker_url}1349[1349],
+{issue_tracker_url}1351[1351],
+{issue_tracker_url}1350[1350],
+{issue_tracker_url}1345[1345] +
+See <<ExpressionLanguageAndManagedBeanFacility.adoc#a3054>>
+ 
+* Issue ID {issue_tracker_url}1364[1364] +
+UIData and <ui:repeat> supports Map and Iterable
+
+* Issue ID {issue_tracker_url}1102[1102] +
+ui:repeat condition check. +
+
+* Issue ID {issue_tracker_url}1418[1418] +
+CDI Replacement for @ManagedProperty.
+See javadocs for javax.faces.annotation.ManagedProperty.
+
+* Issue ID {issue_tracker_url}1103[1103], {issue_tracker_url}1364[1364] +
+See the Javadoc for javax.faces.component.UIData,
+and javax.faces.model.IterableDataModel.
+
+* DataModel implementations can be registered +
+Issue ID {issue_tracker_url}1078[1078] +
+See the javadoc for annotation javax.faces.model.FacesDataModel.
+
+* Issue ID {issue_tracker_url}1412[1412] +
+See the javadoc for annotation
+javax.faces.partialViewContext.getEvalScripts().
+
+* Issue ID {issue_tracker_url}613[613] +
+Ajax Method Invocation. See vdldoc for <h:commandScript>.
+
+* Issue ID {issue_tracker_url}1238[1238] +
+Enhanced component search facility.
+See the javadoc for package javax.faces.component.search.
+
+
+==== Other Features, by Functional Area
+
+===== Components/Renderers
+
+.Larger Changes
+
+* Issue ID {issue_tracker_url}217[217] +
+styleClass attribute added to h:column
+
+* Issue ID {issue_tracker_url}329[329] +
+Add “group” attribute to <h:selectOneRadio>.
+
+* Issue ID {issue_tracker_url}1423[1423], {issue_tracker_url}1404[1404] +
+ResourceHandler.markResourceRendered(), and isResourceRendered(),
+UIViewRoot.getComponentResources() enable the discovery of
+dynamically added resources, even within Ajax requests.
+
+* Issue ID {issue_tracker_url}1404[1404] +
+Add API to check if a resource has already been rendered.
+See Javadoc for
+javax.faces.application.ResourceHandler.markResourceRendered()
+and isResourceRendered().
+
+// #a457 Section 2.2.6 “Render Response”
+* Issue ID {issue_tracker_url}1436[1436] +
+In <<RequestProcessingLifecycle.adoc#a457>>,
+specify how Server Push is utilized.
+
+.Smaller Changes
+
+* Issue ID {issue_tracker_url}1422[1422] +
+UISelectMany detects converter based on first item.
+
+* Issue ID {issue_tracker_url}1007[1007] +
+Explicit support for dynamic component manipulation
+
+* Issue ID {issue_tracker_url}819[819] +
+Add “disabled” attribute for h:button
+
+* Issue ID {issue_tracker_url}1300[1300] +
+UIViewRoot.getViewMap() and publishEvent().
+
+* Issue ID {issue_tracker_url}1229[1229] +
+Document UIData.setRowStatePreserved() in VDLDoc and RenderKit Doc.
+
+* Issue ID {issue_tracker_url}1135[1135] +
+Add PostRenderViewEvent.
+
+* Issue ID {issue_tracker_url}1258[1258] +
+Clarify text escaping for <h:outputText> or equivalent EL expressions.
+
+* Issue ID {issue_tracker_url}807[807] +
+Pass FacesContext to system event listeners.
+
+* Issue ID {issue_tracker_url}1113[1113] +
+Remove onselect attribute from SELECT components.
+
+* Issue ID {issue_tracker_url}1433[1433] +
+Add a context-param to enable forcing validation to happen even when
+there is no parameter corresponding to the current component.
+
+===== Lifecycle
+
+.Larger Changes
+
+* Issue ID {issue_tracker_url}790[790] +
+javax.faces.ViewState and ajax with cross form submit.
+
+.Smaller Changes
+
+* Issue ID {issue_tracker_url}473[473] +
+FacesEvent.getFacesContext().
+
+* Issue ID {issue_tracker_url}1241[1241] +
+faces-config supports client-window-factory.
+
+* Issue ID {issue_tracker_url}1346[1346] +
+Simplify decoration of FaceletCacheFactory.
+
+* Issue ID {issue_tracker_url}1361[1361] +
+Correct oversight regarding re-entrancy of flow scoped beans.
+
+* Issue ID {issue_tracker_url}821[821] +
+Implement ExternalContext.getRealPath() on startup and shutdown.
+
+* Issue ID {issue_tracker_url}1401[1401] +
+Explicitly prohibit using NavigationHandler from within ExceptionHandler invoked during RENDER RESPONSE.
+
+* Issue ID {issue_tracker_url}1306[1306] +
+@FlowScoped should be @NormalScope(passivating=true).
+
+* Issue ID {issue_tracker_url}1382[1382] +
+Generify return from ExternalContext.getInitParameterMap().
+
+* Issue ID {issue_tracker_url}1329[1329] +
+@NotNull and <f:viewParam>.
+
+* Issue ID {issue_tracker_url}1403[1403] +
+Allow entry into flow via <f:viewAction>.
+
+* Issue ID {issue_tracker_url}1216[1216] +
+Improve consistency in handling PhaseListener instances
+registered on UIViewRoot components.
+
+* Issue ID {issue_tracker_url}1435[1435] +
+Add ResourceHandler.getViewResources() method.
+
+===== Platform Integration
+
+* Issue ID {issue_tracker_url}1379[1379] +
+ExternalContext.getResponseCharacterEncoding() and Portlet 3.0.
+
+===== Facelets/VDL
+
+.Larger Changes
+
+* Issue ID {issue_tracker_url}1424[1424] +
+Add tag <f:importConstants>, see VDLDoc for that tag.
+
+.Smaller Changes
+
+* Issue ID {issue_tracker_url}1362[1362] +
+Revisit some cardinality rules regarding <tag> and <component> elements.
+
+* Issue ID {issue_tracker_url}936[936] +
+Set FACELETS_REFRESH_PERIOD to -1 if ProjectStage is Production.
+
+===== Spec Clarifications
+
+* Issue ID {issue_tracker_url}1254[1254] +
+Loosen language regarding the contracts attribute on <f:view>.
+
+* Issue ID {issue_tracker_url}1338[1338] +
+Clarify pseudocode for resource libraries.
+
+* Issue ID {issue_tracker_url}1279[1279] +
+Specify UIInput.isEmpty()
+
+* Issue ID {issue_tracker_url}1242[1242] +
+Remove mentione of OpenAjax hub.
+
+* Issue ID {issue_tracker_url}1215[1215] +
+Additional warning on DelegatingMetaTagHandler.getTagHandlerDelegate.
+
+* Issue ID {issue_tracker_url}1131[1131] +
+“name” attribute not required.
+
+* Issue ID {issue_tracker_url}1270[1270] +
+TagDecorator spec namespace modifications.
+
+* Issue ID {issue_tracker_url}1401[1401] +
+Advisory text for ExceptionHandler.
+
+* Issue ID {issue_tracker_url}1402[1402] +
+Explicitly declare that flow eagerness not supported.
+
+* Issue ID {issue_tracker_url}677[677] +
+Document automatic UIPanel behavior for f:facet.
+
+* Issue ID {issue_tracker_url}1095[1095] +
+Description for “rendered” attribute for repeat and fragment.
+
+* Issue ID {issue_tracker_url}1066[1066] +
+Application.getNavigationHandler() and application element.
+
+* Issue ID {issue_tracker_url}803[803] +
+VisitHint.EXECUTE_LIFECYCLE clarifications.
+
+* Issue ID {issue_tracker_url}1217[1217] +
+EnumConverter.getAsString() clarifications.
+
+* Issue ID {issue_tracker_url}1356[1356] +
+UIInput.processValidators() clarifications.
+
+* Issue ID {issue_tracker_url}1424[1424] +
+Public constants for source, behavior, and partial.event.
+See the Javadocs for
+javax.faces.component.behavior.ClientBehaviorContext, and javax.faces.conetxt.PartialViewContext.
+
+* Issue ID {issue_tracker_url}1428[1428] +
+API constants for jsf.js and javax.faces in JavaScript.
+
+// #a3913 Section 7.6.2.1 “ViewHandler Methods that Derive Information From the Incoming Request”
+// #a3955 Section 7.6.2.3 “ViewHandler Methods Relating to Navigation”
+* Issue ID {issue_tracker_url}1260[1260] +
+Support for exact mapping of FacesServlet.
+See <<ApplicationIntegration.adoc#a3913>>
+and <<ApplicationIntegration.adoc#a3955>>.
+
+// #a2541 TABLE 5-3 “JSF Artifacts Eligible for Injection”
+Issue ID {issue_tracker_url}1250[1250] +
+Fix entries in table
+<<ExpressionLanguageAndManagedBeanFacility.adoc#a2541>>.
+
+===== Resources
+
+.Larger Changes
+
+.Smaller Changes
+
+===== Expression Language
+
+
+===== Configuration and Bootstrapping
+
+
+===== Miscellaneous
+
+// #a554 Section 2.5.2.1 “Determining the active Locale”
+* Issue ID {issue_tracker_url}1225[1225] +
+Clarify requirements to support BCP-47 regarding localization.
+See <<RequestProcessingLifecycle.adoc#a554>>
+
+* Issue ID {issue_tracker_url}1429[1429] +
+Add constructor to make wrapping easier.
+
+* Issue ID {issue_tracker_url}1430[1430] +
+Leverage Java SE 8 repeatable annotations where appropriate.
+
+
+==== Backward Compatibility with Previous Versions
+
+// #a6088 Section 11.1.3 “Application Configuration Parameters”
+JSF 2.3 is fully backward compatible with previous releases of JSF,
+unless any of the following context-parameter values are specified.
+See <<UsingJSFInWebApplications.adoc#a6088>> for details.
+
+[none]
+* javax.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE
+
+* javax.faces.DISABLE_FACESSERVLET_TO_XHTML
+
+* javax.faces.VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS.
+
+JSF 2.3 is fully backward compatible with previous releases of JSF
+unless a CDI managed bean is included in the application
+with the annotation @javax.faces.annotation.FacesConfig.
+See the javadocs for that annotation for details.
+
+
+
+==== Breakages in Backward Compatibility
+
+
 
 === Changes between 2.1 and 2.2
 
 This section gives the reader a survey of the
 changes between this version of the specification and the previous
 version, using the categories from the issue tracker at <
-http://jsf-spec.java.net/issues/ >.
+{issue_tracker_url} >.
 
 ==== Big Ticket Features
 
 * HTML5 Friendly Markup +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1090 +
+Issue ID {issue_tracker_url}1090[1090] +
 Start with
-<<FaceletsAndWebApplications.adoc#a5581,See HTML5 Friendly Markup>>
+<<FaceletsAndWebApplications.adoc#a5581,HTML5 Friendly Markup>>
 
 * Resource Library Contracts +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1142 +
+Issue ID {issue_tracker_url}1142[1142] +
 Start with <<FaceletsAndWebApplications.adoc#a5526,
 Resource Library Contracts Background>>.
 
 * Faces Flows +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-730 +
+Issue ID {issue_tracker_url}730[730] +
 Start with <<ApplicationIntegration.adoc#a3840,
 FlowHandler>>.
 
 * Stateless Views +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055 +
+Issue ID {issue_tracker_url}1055[1055] +
 Start with <<ApplicationIntegration.adoc#a4126,
 Stateless Views>>.
 
@@ -36,846 +372,86 @@ Stateless Views>>.
 
 .Larger Changes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
+* Issue ID {issue_tracker_url}479[479] +
 UIData supports the Collection Interface rather than List.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
+* Issue ID {issue_tracker_url}1134[1134] +
 Add the "role" pass through attribute.
 
 .Smaller Changes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
+* Issue ID {issue_tracker_url}1080[1080] +
 Warn about some important corner cases when
 _UIComponent.findComponent()_ may not provide the expected results.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1068-PartialResponseProcessing +
+* Issue ID {issue_tracker_url}1068[1068] +
 New section describing what happens with
 respect to partial processing during render response. See
 <<RequestProcessingLifecycle.adoc#a480,Render Response Partial Processing>>.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1067-cc:insertChildren +
+* Issue ID {issue_tracker_url}1067[1067] +
 Spec clarifications. See the VDLDoc for _cc:insertChildren_ ,
 _cc:insertFacet_
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1061 +
+* Issue ID {issue_tracker_url}1061[1061] +
 Clarify that both
 _Application.publishEvent()_ and the manual traversal based delivery are
 required for publishing the _PostRestoreStateEvent_ .
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1030 +
+* Issue ID {issue_tracker_url}1030[1030] +
 Clarify docs for h:message h:messages
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1023 +
+* Issue ID {issue_tracker_url}1023[1023] +
 Modify JavaDoc to relax requirements for PostAddToViewEvent publishing
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1019 +
+* Issue ID {issue_tracker_url}1019[1019] +
 Modify spec for ResponseWriter.writeURIAttribute() to explicitly require
 adherence to the W3C URI spec
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997 +
+* Issue ID {issue_tracker_url}997[997] +
 javax.faces.component.ComponentSystemEvent: Override
 isAppropriateListener so that it first asks the listener, "are you a
 ComponentSystemEventListener", then, if not, asks
 super.isAppropriateListener()
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-984 +
+* Issue ID {issue_tracker_url}984[984] +
 Component Context Manager, see
 _javax.faces.component.visit.ComponentModificationManager_ .
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-943 +
+* Issue ID {issue_tracker_url}943[943] +
 See _javax.faces.view.ViewDeclarationLanguageWrapper_
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-784 +
+* Issue ID {issue_tracker_url}784[784] +
 Deprecate the CURRENT_COMPONENT and CURRENT_COMPOSITE_COMPONENT
 attributes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-599 +
+* Issue ID {issue_tracker_url}599[599] +
 Make it possible to programmatically create components in the same way
 as they are created by Facelets. See
 _javax.faces.application.Application.createComponent(FacesContext,
 String taglibUri, String tagName, Map attrs)_
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-703 +
+* Issue ID {issue_tracker_url}703[703] +
 Make "value" optional for @FacesComponent.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-585 +
+* Issue ID {issue_tracker_url}585[585] +
 outputText and inputText do not render children by default
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-550 +
+* Issue ID {issue_tracker_url}550[550] +
 OutputStylesheet "media" attribute
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1125 +
+* Issue ID {issue_tracker_url}1125[1125] +
 _javax.faces.application.Application_ event subscription clarifications.
 
 ===== Lifecycle
 
 .Larger Changes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-947-ClientWindow +
+* Issue ID {issue_tracker_url}949[949], {issue_tracker_url}947[947] +
 Give JSF the ability to correctly handle browsing context (tab, browser
 window, pop-up, etc). See _javax.faces.lifecycle.ClientWindow_ .
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-758-f:viewAction
-and +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1042
-+
-A jsf-api/src/main/java/javax/faces/component/UIViewAction.java
-+
---
-[none]
-* The heart of this changebundle, this class
-came over from the JBoss Seam Faces Module, but I've rewritten most of
-the javadoc.
---
-+
-M jsf-api/src/main/java/javax/faces/event/PhaseId.java
-+
---
-[none]
-* new methods +
-* public String getName() +
-* public static PhaseId phaseIdValueOf(String phase)
---
-+
-Change <<ApplicationIntegration.adoc#a3571,
-Default NavigationHandler Algorithm>> to account for UIViewAction
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1062 and +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-802 +
-File Upload
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-766 +
-Events from the flash
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
-Add support for delay value in options for Ajax requests
-
-.Smaller Changes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
-In validate(), clarify that setSubmittedValue() null must be called if
-validation succeeds.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071 +
-Add FlashFactory. See
-<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1065 +
-When calculating the locale for the
-resource library prefix, if there is a UIViewRoot, use its locale first,
-otherwise, just use the Applications’s ViewHandler’s calculateLocale()
-method. See <<RequestProcessingLifecycle.adoc#a836,Libraries of Localized and
-Versioned Resources>>
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1039 +
-In ApplicationWrapper, mark things as deprecated
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1028 +
-Deprecate StateManager, point to StateManagementStrategy. In
-StateManagementStrategy, require the use of the visit API to perform the
-saving.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-993 +
-Wrapper for ActionListener
-
-* Tweak circumstances for skipping intervening
-lifecycle phases in the case of view metadata +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-762 
-+
---
-[none]
-* Section 2.2.1. Now has this text.
-+
-Otherwise, call getViewMetadata() on the
-ViewDeclarationLanguage instance. If the result is non-null, call
-createMetadataView() on the ViewMetadata instance. Call
-ViewMetadata.getViewParameters(). If the result is a non-empty
-Collection, do not call facesContext.renderResponse(). If the result is
-an empty collection, try to obtain the metadata facet of the UIViewRoot
-by asking the UIViewRoot for the facet named
-UIViewRoot.METADATA_FACET_NAME. This facet must exist. If the facet has
-no children, call facesContext.renderResponse(). Otherwise, none of the
-previous steps have yielded the discovery any of metadata, so call
-facesContext.renderResponse().
---
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-566 +
-UIOutput.getValue() value returns.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-220 +
-In web-partialresponse_2_2.xsd, require that
-the <partial-response> element has an “id” attribute whose value is the
-return from _UIViewRoot.getContainerClientId()_.
-
-
-
-===== Platform Integration
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763 +
-Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,
-Managed Bean Annotations>> to account for new injectability requirements.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-976 +
-In Javadoc for “Faces Managed Bean Annotation Specification For
-Containers Conforming to Servlet 2.5 and Beyond”, indicate that
-_javax.faces.bean_ will be deprecated in the next version.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1087 +
-Introduce CDI based @ViewScoped annotation.
-
-===== Facelets/VDL
-
-.Larger Changes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
-Allow cc and non-cc components in one taglib
-+
-A jsf-api/doc/web-facelettaglibrary_2_2.xsd
-+
-First change to the facelet taglib schema in
-2.2: introduce the ability to declare a resource which will be the
-composite component for a tag. Now, before you get all excited about
-what conventions we can use to make this easier, let me stop you right
-there. Here is a summary of the ease of use story regarding taglib
-files.
-+
---
-[none]
-* The 80/20 rule says we should make taglib
-files optional most of the time. Here are the 80% cases.
-
-* Employs the cc naming convention
-\http://java.sun.com/jsf/composite/<libraryName>
-
-* The user employs a java component has a
-@FacesComponent on it that declares the necessary metadata. +
-JAVASERVERFACES_SPEC_PUBLIC-594
---
-+
-Here are some of the cases where you must
-have a taglib file, the 20% cases.
-+
---
-[none]
-* If you want to employ a cc with a namespace
-other than \http://java.sun.com/jsf/composite/<libraryName> you need to
-have a taglib file that declares <composite-library-name>. Currently you
-must not detlare any <tag> elements in such a taglib file. All the tags
-in such a library must come from the same resource library.
-
-* If the user is not employs a java component
-but is not using @FacesComponent.
---
-+
-This patch introduces the following syntax.
-+
---
-[source,xml]
-----
-<?xml version="1.0" encoding="UTF-8"?>
-<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-        http://java.sun.com/xml/ns/javaee/web-facelettaglibary_2_2.xsd"
-    version="2.2">
-  <namespace>test</namespace>
-  <tag>
-    <tag-name>layout</tag-name>
-    <resource-id>myCC/whatever.xhtml</resource-id>
-  </tag>
-</facelet-taglib>
-----
---
-+
-Where _<resource-id>_ is a valid resource
-identifier as specified in section 2.6.1.3.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-548 +
-Require additional check to handle the case
-where, in one resource library, there are both localized and
-non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,Libraries
-of Localized and Versioned Resources>>.
-
-.Smaller Changes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038 +
-Declare an annotation corresponding to the
-_javax.faces.FACELETS_RESOURCE_RESOLVER_ application configuration
-parameter. See <<UsingJSFInWebApplications.adoc#a6598,Requirements for scanning
-of classes for annotations>> and <<UsingJSFInWebApplications.adoc#a6088,
-Application Configuration Parameters>>.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082 +
-Account for DOCTYPE discrepancy between
-server side representation of Facelet VDL files, which are proper XHTML,
-and processed files which are sent to the client, which now, by default,
-are HTML5 HTML syntax files. See <<JSFMetadata.adoc#a7061,The
-facelets-processing element>>.
-
-* Fix incorrect VDLDoc
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-967
-f:selectItems itemValue description incorrect.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-922 +
-Remove maxlength from f:viewParam
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
-Document that ui:fragment should not be bound to a bean with wider than
-request scope, document that the type of the property must extend from
-UIComponent.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-999 +
-Changes to "template" attribute requiredness for ui:decorate and
-ui:composition
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-901 +
-Deprecate “targets” concept.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1088 +
-add short-name to schema.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-746 +
-Missing _method-signature_ element in taglib xsd.
-
-===== Spec Clarifications
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1136 +
-In _ExternalContext.dispatch()_ , clarify what is to be done if
-_getRequestDispatcher()_ returns _null_ .
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1132 +
-Replace literal strings with symbolic constants where possible.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1127 +
-State Saving Serializability concerns.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1114 +
-_javax.faces.view.facelets.Facelet.apply()_ spec version reference
-error.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1100 +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1097 +
-HTML5 id attribute sensitivity
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1064 +
-In <<JSFMetadata.adoc#a7061,The
-facelets-processing element>>, clarify that in XML and JSPX modes, only
-the CDATA section start and end tags, not the entire CDATA section and
-contents, should be consumed.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1063 +
-_javax.faces.component.UIViewParameter.getSubmittedValue()_ return
-value.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1058 +
-ui:repeat tag size attribute
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1036 +
-In <<UserInterfaceComponentModel.adoc#a911,
-ValueExpression properties>>, clarify which attributes are expression
-enabled,
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1035 +
-Change section
-<<Per-RequestStateInformation.adoc#a3300,FacesMessage>> to clarify the meaning of
-having _FacesMessage_ instances on the _FacesContext._
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1026 +
-f:ajax event attribute is String (not VE)
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1014 +
-12.1.3
-+
---
-[none]
-* The specification for the context-param that
-declares the list of TagDecorator implementations to the runtime should
-have always been javax.faces.FACELETS_DECORATORS. Prior to this
-revision, the name of this context param was incorrectly specified as
-javax.faces.DECORATORS. The reference implementation has always used the
-correct name, however.
---
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1010 +
-Check existing usages of the state saving method parameter to ensure
-case insensitivity.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1004 +
-M usingFacesInWebapps.fm
-+
---
-[none]
-* 12.1.3 Set default for
-javax.faces.FACELETS_BUFFER_SIZE to be 1024.
---
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
-Additional clarification about binding attribute in VDLdocs
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-915 +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1015 +
-Non-normative text about http methods and prefix mapping
-
-* http://java.net/jira/browse/JAVASERVERFACES-2740 +
-In <<UserInterfaceComponentModel.adoc#a923,Component Bindings>>, clarify a corner
-case regarding bean scope and component binding.
-
-===== Resources
-
-.Larger Changes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
-This commit introduces a cleaner contract for allowing views to be
-loaded from the Filesystem (including inside of JAR files). All VDL
-resources must be loaded using ResourceHandler.createViewResource().
-
-.Smaller Changes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996 +
-Enable configuring the web app resources
-directory. See <<UsingJSFInWebApplications.adoc#a6088,Application Configuration
-Parameters>>.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-719 +
-Method to map a viewId to a resourcePath
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1130-SerializeServerState +
-Modify <<ApplicationIntegration.adoc#a4135,State Saving Alternatives and
-Implications>> to clarify there is no requirement to serialize server
-state by default when state saving method is server. Introduce a context
-parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,Application
-Configuration Parameters>>
-
-===== Expression Language
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
-+
-Remove text from
-MethodExpressionValueChangeListener and MethodExpressionActionListener
-regarding wrapping any exception thrown by the invoked method being
-wrapped in an AbortProcessingException. Such a requirement is incorrect
-and should not have been introduced.
-+
-In section <<Per-RequestStateInformation.adoc#a3253,
-ExceptionHandler>>, add _AbortProcessingException_ , to the list of
-exceptions that do not get to the _ExceptionHandler_ .
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1043 +
-When publishing a ComponentSystemEvent, ensure the EL current component
-is pushed correctly
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1164 +
-If running in a container that supports EL 3.0, add the necessary
-ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
-Map, List, Array, and Bean ELResolvers>>.
-
-===== Configuration and Bootstrapping
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig +
-Modify <<UsingJSFInWebApplications.adoc#a6201,
-Application Startup Behavior>> to account for requirement to call new API
-when starting up.
-
-===== Miscellaneous
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1169
-+
-New XML Namespace for XSD files introduced in
-JSF 2.2, and also for facelet tag libraries.
-+
-The following XSD files are new for JSF 2.2,
-and each will be in the XML namespace
-_http://xmlns.jcp.org/xml/ns/javaee_ .
-+
---
-[none]
-* _web-facelettaglibrary_2_2.xsd_
-
-* _web-facesconfig_2_2.xsd_
-
-* _web-partialresponse_2_2.xsd_
---
-+
-Facelet Tag Libraries will now respond to the
-following URIs
-+
---
-[width="100%",cols="24%,38%,38%",options="header",]
-|===
-|Library |Old URI
-|New URI
-|Composite Components
-|http://java.sun.com/jsf/composite a|
-http://xmlns.jcp.org/jsf/composite
-
-
-
-|Faces Core
-|http://java.sun.com/jsf/core a|
-http://xmlns.jcp.org/jsf/core
-
-
-
-|HTML_BASIC
-|http://java.sun.com/jsf/html a|
-http://xmlns.jcp.org/jsf/html
-
-
-
-|JSTL Core a|
-http://java.sun.com/jsp/jstl/core
-
-
-
-a|
-http://xmlns.jcp.org/jsp/jstl/core
-
-
-
-|JSTL Functions
-|http://java.sun.com/jsp/jstl/functions a|
-http://xmlns.jcp.org/jsp/jstl/functions
-
-
-
-|Facelets Templating
-|http://java.sun.com/jsf/facelets a|
-http://xmlns.jcp.org/jsf/facelets
-
-
-
-|Pass Through Attributes
-|http://java.sun.com/jsf/passthrough a|
-http://xmlns.jcp.org/jsf/passthrough
-
-
-
-|Pass Through Elements
-|http://java.sun.com/jsf a|
-http://xmlns.jcp.org/jsf
-
-
-
-|===
---
-+
-Developers are requested to use the values
-from the New URI column, though both columns will work.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997
-+
-M jsf-api/src/main/java/javax/faces/event/ComponentSystemEvent.java
-+
---
-[none]
-* Override isAppropriateListener so that it
-first asks the listener, "are you a ComponentSystemEventListener", then,
-if not, asks super.isAppropriateListener()
---
-+
-M jsf-api/src/main/java/javax/faces/event/SystemEvent.java
-+
---
-[none]
-* in isAppropriateListener(), document the
-default implementation.
---
-+
-M jsf-api/src/main/java/javax/faces/component/UIComponent.java
-+
---
-[none]
-* Make inner class
-ComponentSystemEventListenerAdapter implement
-ComponentSystemEventListener.
---
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-917
-+
-javax.faces.application.ResourceWrapper:
-+
---
-[none]
-* getContentType()
-
-* getLibraryName()
-
-* getResourceName()
-
-* setContentType(String)
-
-* setLibraryName(String)
-
-* setResourceName(String)
---
-+
-javax.faces.context.ExternalContextWrapper:
-+
---
-[none]
-* getSessionMaxInactiveInterval()
-
-* isSecure()
-
-* setSessionMaxInactiveInterval()
---
-+
-javax.faces.context.PartialViewContextWrapper
-+
---
-[none]
-* setPartialRequest(boolean)
---
-
-* 12.1.3 add this text to the
-javax.faces.STATE_SAVING_METHOD spec. +
-When examining the value, the
-runtime must ignore the case.
-
-* Add
-ExternalContext.getApplicationContextPath() +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1012
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-787 +
-restore ViewScope before templates are processed with buildView()
-
-* 7.6.2.6 typo in spec for renderView(). Should be +
-Return immediately if calling isRendered() on
-the argument UIViewRoot returns false.
-
-* Per Matt Benson, remove duplicate
-descriptions of the cc and component implicit object from the getValue()
-specification for the composite component ELResolver in section 5.6.2.1.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-869
-+
-Specify Cross Site Request Forgery
-protection.
-+
-Add text in <<RequestProcessingLifecycle.adoc#a404,
-Restore View>> to describe how non-postback requests are inspected for
-protection, if necessary.
-+
-Remove text for writeState() in
-<<RenderingModel.adoc#a4288,ResponseStateManager>>, point to the
-JavaDocs.
-+
-Add View Protection methods to
-<<ApplicationIntegration.adoc#a3874,Overview>> for ViewHandler.
-+
-Introduce subsections to
-<<ApplicationIntegration.adoc#a3910,Default ViewHandler Implementation>> that
-group the methods by their purpose. Add a new section
-<<ApplicationIntegration.adoc#a3997,ViewHandler Methods that relate to View
-Protection>>, which points to the javadocs. In
-<<ApplicationIntegration.adoc#a3955,ViewHandler Methods Relating to
-Navigation>>, in the spec for _getActionUrl()_ , specify how view
-protection is affected.
-
-* Remove tables in section
-<<UsingJSFInWebApplications.adoc#a6598,Requirements for scanning of classes for
-annotations>> +
-The Javadoc tool lists annotations in a
-separate section, making the tables that list JSF related annotations
-redundant.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082-DoctypeElement +
-Add new section
-<<FaceletsAndWebApplications.adoc#a5635,DOCTYPE and XML Declaration>>.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1141-SlashInResourceNames +
-In <<RequestProcessingLifecycle.adoc#a758,Resource
-Identifiers>>, declare that resourceName and resourceVersion, in addition
-to the already listed other segments, are subject to the same
-constraints.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129-ResetValues +
-In <<RequestProcessingLifecycle.adoc#a480,Render
-Response Partial Processing>>, require calling _UIViewRoot.resetValues()_
-if necessary.
-
-==== Backward Compatibility with Previous Versions
-
-Faces 2.2 is backwards compatible with Faces
-2.1 and 2.0. This means that a web-application that was developed to run
-with Faces 2.1 or 2.0 won’t require any modification when run with Faces
-2.2 except in the cases described in the following section.
-
-==== Breakages in Backward Compatibility
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092 +
-Due to an error in previous versions of the
-specification, exceptions were silently being swallowed that now will
-bubble up to the exception handler. Code that was relying on this
-incorrect behavior may need to be modified to account for fixing this
-problem.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-745
-+
-5.6.2.2 Table 5-11. Make the following
-changes to the spec for Composite Component Attribute ELResoler
-+
---
-[none]
-* Modify getType() according to new
-specification language.
-
-* Require the implementation of containsKey()
-on the Map.
-+
-====
-[none]
-* containsKey(): If the attributes map contains
-the key, return true. Otherwise, if a default value has been declared
-for the attribute, return true. Otherwise, return false.
-====
-+
---
-+
-<<UserInterfaceComponentModel.adoc#a1671,
-Composite Component Metadata>>
-+
-New text dealing with <cc:attribute>
-+
---
-[none]
-* Any additional attributes on
-_<composite:attribute/ >_ are exposed as attributes accessible from the
-_getValue()_ and _attributeNames()_ methods on _PropertyDescriptor_ .
-The return type from getValue() must be a _ValueExpression_ with the
-exception of the _getValue(“type”)_ . The return type from
-_getValue(“type”)_ must be _Class_ . If the value specified for the
-_type_ attribute of _<cc:attribute/>_ cannot be converted to an actual
-_Class_ , a _TagAttributeException_ must be thrown, including the _Tag_
-and _TagAttribute_ instances in the constructor.
---
-
-Yes, this is a backwards incompatible change,
-but because the usecase is so specific, and the performance benefit so
-substantial, it was judged to be worth the cost.
-
-
-
-
-=== Changes between 2.1 and 2.2
-
-This section gives the reader a survey of the
-changes between this version of the specification and the previous
-version, using the categories from the issue tracker at <
-http://jsf-spec.java.net/issues/ >.
-
-==== Big Ticket Features
-
-* HTML5 Friendly Markup +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1090 +
-Start with
-<<FaceletsAndWebApplications.adoc#a5581,HTML5 Friendly Markup>>
-
-* Resource Library Contracts +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1142 +
-Start with <<FaceletsAndWebApplications.adoc#a5526,
-Resource Library Contracts Background>>.
-
-* Faces Flows +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-730 +
-Start with <<ApplicationIntegration.adoc#a3840,
-FlowHandler>>.
-
-* Stateless Views +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1055 +
-Start with <<ApplicationIntegration.adoc#a4126, +
-Stateless Views>>.
-
-==== Other Features, by Functional Area
-
-===== Components/Renderers
-
-.Larger Changes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-479-UIDataCollection +
-UIData supports the Collection Interface rather than List.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1134 +
-Add the "role" pass through attribute.
-
-.Smaller Changes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1080-FindComponentWarning +
-Warn about some important corner cases when
-_UIComponent.findComponent()_ may not provide the expected results.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1068-PartialResponseProcessing +
-New section describing what happens with
-respect to partial processing during render response. See
-<<RequestProcessingLifecycle.adoc#a480,Render Response Partial Processing>>.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1067-cc:insertChildren +
-Spec clarifications. See the VDLDoc for _cc:insertChildren_ ,
-_cc:insertFacet_
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1061 +
-Clarify that both
-_Application.publishEvent()_ and the manual traversal based delivery are
-required for publishing the _PostRestoreStateEvent_ .
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1030 +
-Clarify docs for h:message h:messages
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1023 +
-Modify JavaDoc to relax requirements for PostAddToViewEvent publishing
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1019 +
-Modify spec for ResponseWriter.writeURIAttribute() to explicitly require
-adherence to the W3C URI spec
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997 +
-javax.faces.component.ComponentSystemEvent: Override
-isAppropriateListener so that it first asks the listener, "are you a
-ComponentSystemEventListener", then, if not, asks
-super.isAppropriateListener()
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-984 +
-Component Context Manager, see
-_javax.faces.component.visit.ComponentModificationManager_ .
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-943 +
-See _javax.faces.view.ViewDeclarationLanguageWrapper_
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-784 +
-Deprecate the CURRENT_COMPONENT and CURRENT_COMPOSITE_COMPONENT
-attributes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-599 +
-Make it possible to programmatically create components in the same way
-as they are created by Facelets. See
-_javax.faces.application.Application.createComponent(FacesContext,
-String taglibUri, String tagName, Map attrs)_
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-703 +
-Make "value" optional for @FacesComponent.
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-585 +
-outputText and inputText do not render children by default
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-550 +
-OutputStylesheet "media" attribute
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1125 +
-_javax.faces.application.Application_ event subscription clarifications.
-
-===== Lifecycle
-
-.Larger Changes
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-949-ClientWindow +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-947-ClientWindow +
-Give JSF the ability to correctly handle browsing context (tab, browser
-window, pop-up, etc). See _javax.faces.lifecycle.ClientWindow_ .
-
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-758-f:viewAction
-and +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1042
+* Issue ID {issue_tracker_url}758[758] and {issue_tracker_url}1042[1042]
 +
 A jsf-api/src/main/java/javax/faces/component/UIViewAction.java
 +
@@ -901,47 +477,46 @@ phase)
 Change <<ApplicationIntegration.adoc#a3571,
 Default NavigationHandler Algorithm>> to account for UIViewAction
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1062 and +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-802 +
+* Issue ID {issue_tracker_url}1062[1062] and {issue_tracker_url}802[802] +
 File Upload
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-766 +
+* Issue ID {issue_tracker_url}766[766] +
 Events from the flash
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1050 +
+* Issue ID {issue_tracker_url}1050[1050] +
 Add support for delay value in options for Ajax requests
 
 .Smaller Changes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129 +
+* Issue ID {issue_tracker_url}1129[1129] +
 In validate(), clarify that setSubmittedValue() null must be called if
 validation succeeds.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1071
+* Issue ID {issue_tracker_url}1071[1071]
 Add FlashFactory. See
 <<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1065 +
+* Issue ID {issue_tracker_url}1065[1065] +
 When calculating the locale for the
 resource library prefix, if there is a UIViewRoot, use its locale first,
 otherwise, just use the Applications’s ViewHandler’s calculateLocale()
 method. See <<RequestProcessingLifecycle.adoc#a836,Libraries of Localized and
 Versioned Resources>>
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1039 +
+* Issue ID {issue_tracker_url}1039[1039] +
 In ApplicationWrapper, mark things as deprecated
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1028 +
+* Issue ID {issue_tracker_url}1028[1028] +
 Deprecate StateManager, point to StateManagementStrategy. In
 StateManagementStrategy, require the use of the visit API to perform the
 saving.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-993 +
+* Issue ID {issue_tracker_url}993[993] +
 Wrapper for ActionListener
 
 * Tweak circumstances for skipping intervening
 lifecycle phases in the case of view metadata
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-762
+Issue ID {issue_tracker_url}762[762]
 +
 Section 2.2.1. Now has this text.
 +
@@ -960,10 +535,10 @@ previous steps have yielded the discovery any of metadata, so call
 facesContext.renderResponse().
 --
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-566 +
+* Issue ID {issue_tracker_url}566[566] +
 UIOutput.getValue() value returns.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-220 +
+* Issue ID {issue_tracker_url}220[220] +
 In web-partialresponse_2_2.xsd, require that
 the <partial-response> element has an “id” attribute whose value is the
 return from _UIViewRoot.getContainerClientId()_ .
@@ -972,23 +547,23 @@ return from _UIViewRoot.getContainerClientId()_ .
 
 ===== Platform Integration
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-763 +
+* Issue ID {issue_tracker_url}763[763] +
 Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,
 Managed Bean Annotations>> to account for new injectability requirements.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-976 +
+* Issue ID {issue_tracker_url}976[976] +
 In Javadoc for “Faces Managed Bean Annotation Specification For
 Containers Conforming to Servlet 2.5 and Beyond”, indicate that
 _javax.faces.bean_ will be deprecated in the next version.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1087 +
+* Issue ID {issue_tracker_url}1087[1087] +
 Introduce CDI based @ViewScoped annotation.
 
 ===== Facelets/VDL
 
 .Larger Changes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1001 +
+* Issue ID {issue_tracker_url}1001[1001] +
 Allow cc and non-cc components in one taglib
 +
 A jsf-api/doc/web-facelettaglibrary_2_2.xsd
@@ -1010,7 +585,7 @@ files optional most of the time. Here are the 80% cases.
 
 * The user employs a java component has a
 @FacesComponent on it that declares the necessary metadata.
-JAVASERVERFACES_SPEC_PUBLIC-594
+Issue ID {issue_tracker_url}594[594]
 --
 +
 Here are some of the cases where you must
@@ -1049,7 +624,7 @@ This patch introduces the following syntax.
 Where _<resource-id>_ is a valid resource
 identifier as specified in section 2.6.1.3.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-548 +
+* Issue ID {issue_tracker_url}548[548] +
 Require additional check to handle the case
 where, in one resource library, there are both localized and
 non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
@@ -1057,14 +632,14 @@ of Localized and Versioned Resources>>.
 
 .Smaller Changes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1038 +
+* Issue ID {issue_tracker_url}1038[1038] +
 Declare an annotation corresponding to the
 _javax.faces.FACELETS_RESOURCE_RESOLVER_ application configuration
 parameter. See <<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning
 of classes for annotations>> and <<UsingJSFInWebApplications.adoc#a6088,See
 Application Configuration Parameters>>.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082 +
+* Issue ID {issue_tracker_url}1082[1082] +
 Account for DOCTYPE discrepancy between
 server side representation of Facelet VDL files, which are proper XHTML,
 and processed files which are sent to the client, which now, by default,
@@ -1072,77 +647,76 @@ are HTML5 HTML syntax files. See <<JSFMetadata.adoc#a7061,See The
 facelets-processing element>>.
 
 * Fix incorrect VDLDoc
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-967
+Issue ID {issue_tracker_url}967[967]
 f:selectItems itemValue description incorrect.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-922 +
+* Issue ID {issue_tracker_url}922[922] +
 Remove maxlength from f:viewParam
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
+* Issue ID {issue_tracker_url}998[998] +
 Document that ui:fragment should not be bound to a bean with wider than
 request scope, document that the type of the property must extend from
 UIComponent.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-999 +
+* Issue ID {issue_tracker_url}999[999] +
 Changes to "template" attribute requiredness for ui:decorate and
 ui:composition
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-901 +
+* Issue ID {issue_tracker_url}901[901] +
 Deprecate “targets” concept.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1088 +
+* Issue ID {issue_tracker_url}1088[1088] +
 add short-name to schema.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-746 +
+* Issue ID {issue_tracker_url}746[746] +
 Missing _method-signature_ element in taglib xsd.
 
 ===== Spec Clarifications
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1136 +
+* Issue ID {issue_tracker_url}1136[1136] +
 In _ExternalContext.dispatch()_ , clarify what is to be done if
 _getRequestDispatcher()_ returns _null_ .
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1132 +
+* Issue ID {issue_tracker_url}1132[1132] +
 Replace literal strings with symbolic constants where possible.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1127 +
+* Issue ID {issue_tracker_url}1127[1127] +
 State Saving Serializability concerns.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1114 +
+* Issue ID {issue_tracker_url}1114[1114] +
 _javax.faces.view.facelets.Facelet.apply()_ spec version reference
 error.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1100 +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1097 +
+* Issue ID {issue_tracker_url}1100[1100], {issue_tracker_url}1097[1097] +
 HTML5 id attribute sensitivity
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1064 +
+* Issue ID {issue_tracker_url}1064[1064] +
 In <<JSFMetadata.adoc#a7061,The
 facelets-processing element>>, clarify that in XML and JSPX modes, only
 the CDATA section start and end tags, not the entire CDATA section and
 contents, should be consumed.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1063 +
+* Issue ID {issue_tracker_url}1063[1063] +
 _javax.faces.component.UIViewParameter.getSubmittedValue()_ return
 value.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1058 +
+* Issue ID {issue_tracker_url}1058[1058] +
 ui:repeat tag size attribute
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1036 +
+* Issue ID {issue_tracker_url}1036[1036] +
 In <<UserInterfaceComponentModel.adoc#a911,
 ValueExpression properties>>, clarify which attributes are expression
 enabled,
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1035 +
+* Issue ID {issue_tracker_url}1035[1035] +
 Change section
 <<Per-RequestStateInformation.adoc#a3300,FacesMessage>> to clarify the meaning of
 having _FacesMessage_ instances on the _FacesContext._
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1026 +
+* Issue ID {issue_tracker_url}1026[1026] +
 f:ajax event attribute is String (not VE)
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1014
+* Issue ID {issue_tracker_url}1014[1014]
 +
 12.1.3
 +
@@ -1156,11 +730,11 @@ javax.faces.DECORATORS. The reference implementation has always used the
 correct name, however.
 --
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1010 +
+* Issue ID {issue_tracker_url}1010[1010] +
 Check existing usages of the state saving method parameter to ensure
 case insensitivity.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1004
+* Issue ID {issue_tracker_url}1004[1004]
 +
 M usingFacesInWebapps.fm
 +
@@ -1170,14 +744,13 @@ M usingFacesInWebapps.fm
 javax.faces.FACELETS_BUFFER_SIZE to be 1024.
 --
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-998 +
+* Issue ID {issue_tracker_url}998[998] +
 Additional clarification about binding attribute in VDLdocs
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-915 +
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1015 +
+* Issue ID {issue_tracker_url}915[915], {issue_tracker_url}1015[1015] +
 Non-normative text about http methods and prefix mapping
 
-* http://java.net/jira/browse/JAVASERVERFACES-2740 +
+* Issue ID {issue_tracker_url}2740[2740] +
 In <<UserInterfaceComponentModel.adoc#a923,Component Bindings>>, clarify a corner
 case regarding bean scope and component binding.
 
@@ -1185,22 +758,22 @@ case regarding bean scope and component binding.
 
 .Larger Changes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-809 +
+* Issue ID {issue_tracker_url}809[809] +
 This commit introduces a cleaner contract for allowing views to be
 loaded from the Filesystem (including inside of JAR files). All VDL
 resources must be loaded using ResourceHandler.createViewResource().
 
 .Smaller Changes
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-996 +
+* Issue ID {issue_tracker_url}996[996] +
 Enable configuring the web app resources
 directory. See <<UsingJSFInWebApplications.adoc#a6088,Application Configuration
 Parameters>>.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-719 +
+* Issue ID {issue_tracker_url}719[719] +
 Method to map a viewId to a resourcePath
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1130-SerializeServerState +
+* Issue ID {issue_tracker_url}1130[1130] +
 Modify <<ApplicationIntegration.adoc#a4135,State Saving Alternatives and
 Implications>> to clarify there is no requirement to serialize server
 state by default when state saving method is server. Introduce a context
@@ -1209,7 +782,7 @@ Configuration Parameters>>
 
 ===== Expression Language
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092
+* Issue ID {issue_tracker_url}1092[1092]
 +
 Remove text from
 MethodExpressionValueChangeListener and MethodExpressionActionListener
@@ -1221,25 +794,25 @@ In section <<Per-RequestStateInformation.adoc#a3253,See
 ExceptionHandler>>, add _AbortProcessingException_ , to the list of
 exceptions that do not get to the _ExceptionHandler_ .
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1043 +
+* Issue ID {issue_tracker_url}1043[1043] +
 When publishing a ComponentSystemEvent, ensure the EL current component
 is pushed correctly
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1164 +
+* Issue ID {issue_tracker_url}1164[1164] +
 If running in a container that supports EL 3.0, add the necessary
 ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
 Map, List, Array, and Bean ELResolvers>>.
 
 ===== Configuration and Bootstrapping
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-533-ProgrammaticFacesConfig +
+* Issue ID {issue_tracker_url}533[533] +
 Modify <<UsingJSFInWebApplications.adoc#a6201,
 Application Startup Behavior>> to account for requirement to call new API
 when starting up.
 
 ===== Miscellaneous
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1169
+* Issue ID {issue_tracker_url}1169[1169]
 +
 New XML Namespace for XSD files introduced in
 JSF 2.2, and also for facelet tag libraries.
@@ -1323,7 +896,7 @@ http://xmlns.jcp.org/jsf
 Developers are requested to use the values
 from the New URI column, though both columns will work.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-997
+* Issue ID {issue_tracker_url}997[997]
 +
 M jsf-api/src/main/java/javax/faces/event/ComponentSystemEvent.java
 +
@@ -1351,7 +924,7 @@ ComponentSystemEventListenerAdapter implement
 ComponentSystemEventListener.
 --
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-917
+* Issue ID {issue_tracker_url}917[917]
 +
 javax.faces.application.ResourceWrapper:
 +
@@ -1394,9 +967,9 @@ runtime must ignore the case.
 
 * Add
 ExternalContext.getApplicationContextPath()
-http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1012
+Issue ID {issue_tracker_url}1012[1012]
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-787 +
+* Issue ID {issue_tracker_url}787[787] +
 restore ViewScope before templates are processed with buildView()
 
 * 7.6.2.6 typo in spec for renderView(). Should be +
@@ -1407,7 +980,7 @@ the argument UIViewRoot returns false.
 descriptions of the cc and component implicit object from the getValue()
 specification for the composite component ELResolver in section 5.6.2.1.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-869
+* Issue ID {issue_tracker_url}869[869]
 +
 Specify Cross Site Request Forgery
 protection.
@@ -1439,17 +1012,17 @@ The Javadoc tool lists annotations in a
 separate section, making the tables that list JSF related annotations
 redundant.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1082-DoctypeElement +
+* Issue ID {issue_tracker_url}1082[1082] +
 Add new section
 <<FaceletsAndWebApplications.adoc#a5635,DOCTYPE and XML Declaration>>.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1141-SlashInResourceNames +
+* Issue ID {issue_tracker_url}1141[1141] +
 In <<RequestProcessingLifecycle.adoc#a758,Resource
 Identifiers>>, declare that resourceName and resourceVersion, in addition
 to the already listed other segments, are subject to the same
 constraints.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1129-ResetValues +
+* Issue ID {issue_tracker_url}1129[1129] +
 In <<RequestProcessingLifecycle.adoc#a480,Render
 Response Partial Processing>>, require calling _UIViewRoot.resetValues()_
 if necessary.
@@ -1463,14 +1036,14 @@ with Faces 2.1 or 2.0 won’t require any modification when run with Faces
 
 ==== Breakages in Backward Compatibility
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-1092 +
+* Issue ID {issue_tracker_url}1092[1092] +
 Due to an error in previous versions of the
 specification, exceptions were silently being swallowed that now will
 bubble up to the exception handler. Code that was relying on this
 incorrect behavior may need to be modified to account for fixing this
 problem.
 
-* http://java.net/jira/browse/JAVASERVERFACES_SPEC_PUBLIC-745
+* Issue ID {issue_tracker_url}745[745]
 +
 5.6.2.2 Table 5-11. Make the following
 changes to the spec for Composite Component Attribute ELResoler
@@ -2133,7 +1706,7 @@ in the VDLDocs for f:event and that the "name" attribute is actually
 
 The referenced spec public issue number can
 be found in the issue tracker at +
-https://javaserverfaces-spec-public.dev.java.net/servlets/ProjectIssues
+{issue_tracker_url}
 
 
 
@@ -2150,8 +1723,7 @@ Specification |Issue
 |Section 5.6.2.2 is out of sync with the
 current resolver implementation. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=848[Spec
-Public:848]_
+_{issue_tracker_url}848[Issue ID:848]_
 
 |C004 |Errata
 |RenderKitDoc for _OutcomeTarget_ Renderers
@@ -2159,8 +1731,7 @@ are incorrect with respect to intended design. Refer to
 _link:appendixB-changelog.html#UNKNOWN[]ChangeC006_ in the
 footnotes section below. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=823[Spec
-Public:823]_
+_{issue_tracker_url}823[Issue ID:823]_
 
 |C007 |Errata
 |Section JSF.11.4.7 Ordering. After the
@@ -2173,23 +1744,20 @@ resources mentioned by name in the <ordering /> section. If this set is
 the empty set, at the time the application configuration resources are
 being processed, the <others > element must be ignored."
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=824[Spec
-Public:824]_
+_{issue_tracker_url}824[Issue ID:824]_
 
 |C008 |Errata
 |taglib docs for composite:interface are
 missing documentation for _componentType_ attribute.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=849[Spec
-Public:849]_
+_{issue_tracker_url}849[Issue ID:849]_
 
 |C011 |Errata
 |Section JSF.3.6.2.1 Composite Component
 Metadata Specification. Add _BehaviorHolderAttachedObjectTarget_ after
 iii. _ActionSource2AttachedObjectTarget_ |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=825[Spec
-Public:825]_
+_{issue_tracker_url}825[Issue ID:825]_
 
 |C012 |Errata
 |Javadocs for
@@ -2197,66 +1765,57 @@ _ResourceHandler.createResource(String resourceId)_ need to me ammended
 to state that if there is an error in argument resourceId, null must be
 returned by this method. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=851[Spec
-Public:851]_
+_{issue_tracker_url}851[Issue ID:851]_
 
 |C013 |Errata
 |PDL DOCS: f:event listener attribute
 clarification:Change description to: "A method expression that JSF
 invokes when an event occurs. That event is specified with the name
 attribute." |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=586[Spec
-Public:586]_
+_{issue_tracker_url}586[Issue ID:586]_
 
 |C015 |Errata
 | _UIViewRoot.setBeforePhaseListeners()_
 removed the statement that all phases including _RestoreView_ will have
 their _beforePhaseListeners_ called. Reverted to the way it was in 1.2
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=826[Spec
-Public:826]_
+_{issue_tracker_url}826[Issue ID:826]_
 
 |C016 |Errata
 |Section 2.6.2.1 Relocatable Resources: code
 snippet: <f:view..../> should be <f:view...>
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=565[Spec
-Public:565]_
+_{issue_tracker_url}565[Issue ID:565]_
 
 |C017 |Errata
 | _UISelectItem_ doesn't mention
 _itemEscaped_ . |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=430[Spec
-Public:430]_
+_{issue_tracker_url}430[Issue ID:430]_
 
 |C018 |Errata
 |
 _ViewDeclarationLanguage.retargetAttachedObjects()_ misses talking about
 Behaviors |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=827[Spec
-Public:827]_
+_{issue_tracker_url}827[Issue ID:827]_
 
 |C021 |Errata
 |ui:insert missing existing "name" attribute,
 implemented, tested, but not documented |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=667[Spec
-Public:667]_
+_{issue_tracker_url}667[Issue ID:667]_
 
 |C022 |Errata
 | _f:valueChangeListener_ missing "for"
 attribute. Implemented, tested, but not documented
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=828[Spec
-Public:828]_
+_{issue_tracker_url}828[Issue ID:828]_
 
 |C023 |Change
 |in facelets VDLdoc, mark f:verbatim and
 f:subview as deprecated |no
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=852[Spec
-Public:852]_
+_{issue_tracker_url}852[Issue ID:852]_
 
 |C024 |Errata
 |Add an assertion to section 10.3.1 stating
@@ -2264,51 +1823,44 @@ that EL expressions that appear in the facelet XHTML page must appear in
 the rendered view as if they were the right hand side of the value
 attribute of an _<h:outputText>_ at the same point in the page as the EL
 expression |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=829[Spec
-Public:829]_
+_{issue_tracker_url}829[Issue ID:829]_
 
 |C027 |Errata
 |web-facelettaglibrary_2_0.xsd type incorrect
 for composite-library-name. Should be ***javae:string***
 |no |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=854[Spec
-Public:854]_
+_{issue_tracker_url}854[Issue ID:854]_
 
 |C028 |Errata
 | _ui:remove_ VDLDoc has attribute with no
 name |no |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=842[Spec
-Public:842]_
+_{issue_tracker_url}842[Issue ID:842]_
 
 |C029 |Errata
 | _ui:param_ has attribute duplicated. One of
 them should be "value" |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=855[Spec
-Public:855]_
+_{issue_tracker_url}855[Issue ID:855]_
 
 |C030 |Errata
 |RenderKit Docs _javax.faces.CompositeFacet_
 change " The implementation of _encodeBegin()_ , must obtain " to be "
 The implementation of _encodeChildren()_ , must obtain "
 |no |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=843[Spec
-Public:843]_
+_{issue_tracker_url}843[Issue ID:843]_
 
 |C031 |Errata
 |VDL docs state that _composite:attribute_
 has a target attribute with _required=true_ . This attribute is not
 really required on _composite:attribute_ .
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=644[Spec
-Public:644]_
+_{issue_tracker_url}644[Issue ID:644]_
 
 |C032 |Errata
 |Mention in spec that Objects put in view
 scope may need to be Serializable |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=830[Spec
-Public:830]_
+_{issue_tracker_url}830[Issue ID:830]_
 
 |C033 |Errata
 |Modify the javadoc for _ResourceHandler_ to
@@ -2316,16 +1868,14 @@ state that for resources residing at
 _META-INF/resources/<resourceidentifier>_ . The implementation is not
 required to support the optional _libraryVersion_ and _resourceVersion_
 segments |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=844[Spec
-Public:844]_
+_{issue_tracker_url}844[Issue ID:844]_
 
 |C034 |Change
 |Modify table 5-10 to state that implicit
 object cc returns the current composite component, relative to the
 composite component markup page in which the expression appears
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=831[Spec
-Public:831]_
+_{issue_tracker_url}831[Issue ID:831]_
 
 |C035 |Errata
 |3.6.2.1 Modify composite component metadata
@@ -2333,31 +1883,27 @@ specification to state that, within the _cc:interface_ element, the
 following attributes are not available unless _ProjectStage_ is
 _Development_ : displayName, expert, hidden, preferred, shortDescription
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=832[Spec
-Public:832]_
+_{issue_tracker_url}832[Issue ID:832]_
 
 |C037 |Errata
 | _UIComponent.restoreState()_ javadocs must
 be changed to ***say*** NPE is thrown if context is null, but no action
 is taken if state argument is null |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=845[Spec
-Public:845]_
+_{issue_tracker_url}845[Issue ID:845]_
 
 |C040 |Errata
 |VDLDocs for _f:metadata_ . Don't mention
 _f:view_ . State, "This tag must reside within the top level facelet
 page whose filename corresponds ot the _viewid_ being loaded."
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=856[Spec
-Public:856]_
+_{issue_tracker_url}856[Issue ID:856]_
 
 |C043 |Errata
 |Document _SEPARATOR_CHAR_ in section 11.1.3
 where all the other context-params are documented
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=833[Spec
-Public:833]_
+_{issue_tracker_url}833[Issue ID:833]_
 
 |C044 |Errata
 |Section 11.4.6 doesn't include
@@ -2365,48 +1911,41 @@ _ViewDeclarationLanguage_ , _VisitContextFactory_ ,
 _ExceptionHandlerFactory_ , _PartialViewContext_ ,
 _TagHandlerDelegateFactory_ as decoratable
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=834[Spec
-Public:834]_
+_{issue_tracker_url}834[Issue ID:834]_
 
 |C046 |Errata
 |Section 10.4.1.1 specifies the use of
 _AjaxBehaviors pushBehavior_ but _AjaxBehaviors_ is an implementation
 detail (the class exists under com package)
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=836[Spec
-Public:836]_
+_{issue_tracker_url}836[Issue ID:836]_
 
 |C047 |Errata
 |Add "defaults" for "execute", "render"
 _AjaxBehavior_ in vdldocs. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=568[Spec
-Public:568]_
+_{issue_tracker_url}568[Issue ID:568]_
 
 |C048 |Errata
 |JSP should not have _f:viewParam_ . Facelets
 _f:viewParam_ must have _name_ attribute.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=656[Spec
-Public:656]_
+_{issue_tracker_url}656[Issue ID:656]_
 
 |C049 |Errata
 |Spec section 3.2.5 is empty. Fix that
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=835[Spec
-Public:835]_
+_{issue_tracker_url}835[Issue ID:835]_
 
 |C050 |Errata
 |Spec for _UIComponent.setParent()_
 incomplete |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=837[Spec
-Public:837]_
+_{issue_tracker_url}837[Issue ID:837]_
 
 |C054 |Errata
 | _f:event name_ attribute should be type.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=639[Spec
-Public:639]_
+_{issue_tracker_url}639[Issue ID:639]_
 
 |C058 |Errata
 |Section 14.4.1: Table 14-4: responseTxt
@@ -2414,8 +1953,7 @@ should be responseText. Table 14-4: Add _status_ property; Table 14-4:
 There is no "name" property. Table 14-3: reorder "status" values to be
 in chronological order. Section 14.4.1.1: Fix use case.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=642[Spec
-Public:642]_
+_{issue_tracker_url}642[Issue ID:642]_
 
 |C060 |Change
 |Replace the last sentence in the javadoc for
@@ -2423,37 +1961,32 @@ _FacesServlet.service()_ to say "The implementation must make it so
 _FacesContext.release()_ is called within a finally block as late as
 possible in the processing for the JSF related portion of this request".
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=846[Spec
-Public:846]_
+_{issue_tracker_url}846[Issue ID:846]_
 
 |C061 |Change
 |Non-normatively document that JavaBeans
 PropertyEditors will be used for EL Coercion. Mention this in the
 context of JSF converters |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=838[Spec
-Public:838]_
+_{issue_tracker_url}838[Issue ID:838]_
 
 |C062 |Change
 |In 3.1.5, explicitly mention not to use view
 scope |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=839[Spec
-Public:839]_
+_{issue_tracker_url}839[Issue ID:839]_
 
 |C063 |Change
 |7.4.1 Clarify that, in the case of
 navigation actions, an empty string should be treated the same way as
 null: stay on the same page. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=747[Spec
-Public:747]_
+_{issue_tracker_url}747[Issue ID:747]_
 
 |C064 |Change
 |Correct _StateHolder.setTransient_ JavaDoc
 (specified backwards) |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=840[Spec
-Public:840]_
+_{issue_tracker_url}840[Issue ID:840]_
 
 |C065 |Change
 |Correct typos in _Composite.tld_ (for
@@ -2461,8 +1994,7 @@ pdldocs). Specifically, quotes around _actionListener_ ,
 _method-signature_ (spelling). Also clarify the default value "false"
 for "required" attribute. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=841[Spec
-Public:841]_
+_{issue_tracker_url}841[Issue ID:841]_
 
 |C066 |Change
 |Specify that the Component Resource
@@ -2470,209 +2002,179 @@ container facet must be marked transient. Specifically, the JavaDocs for
 _UIViewRoot.getComponentResources_ should include: "Set the transient
 property of the facet to true." |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=800[Spec
-Public:800]_
+_{issue_tracker_url}800[Issue ID:800]_
 
 |C068 |Change
 |Modify the facelet taglib xsd so that older
 versions of taglibs are acceptable. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=744[Spec
-Public:744]_
+_{issue_tracker_url}744[Issue ID:744]_
 
 |C069 |Change
 |Make sure vdldocs for _f:event_ list event
 all possible event types |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=712[Spec
-Public:712]_
+_{issue_tracker_url}712[Issue ID:712]_
 
 |C072 |Errata
 |Neither applyNextHandler of
 DelegatingMetaTagHandler or nextHandler of TagHandler are documented.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=780[Spec
-Public:780]_
+_{issue_tracker_url}780[Issue ID:780]_
 
 |C073 |Errata
 |Specify f:ajax execute/render id behavior in
 vdldocs (as outlined in Section 10.4.1.1 of the spec).
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=567[Spec
-Public:567]_
+_{issue_tracker_url}567[Issue ID:567]_
 
 |C074 |Errata
 |<view-param> has no business being a child
 of <redirect> and should be renamed to <redirect-param>.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=698[Spec
-Public:698]_
+_{issue_tracker_url}698[Issue ID:698]_
 
 |C075 |Errata
 |includeViewParams implicit navigation flag
 should be faces-include-view-params. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=699[Spec
-Public:699]_
+_{issue_tracker_url}699[Issue ID:699]_
 
 |C077 |Errata
 |Event broadcasting should apply to Behaviors
 (not just ClientBehaviors). |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=798[Spec
-Public:798]_
+_{issue_tracker_url}798[Issue ID:798]_
 
 |C078 |Errata
 |PostAddToViewEvent delivery specification
 needs clarification. Clarify UIComponent.getParent and getChildren for
 consistency. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=805[Spec
-Public:805]_
+_{issue_tracker_url}805[Issue ID:805]_
 
 |C079 |Errata
 |RenderKit Docs - TableRenderer:Clarification
 - the docs say to render the footer the same as the header which causes
 the problem. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=255[Spec
-Public:255]_
+_{issue_tracker_url}255[Issue ID:255]_
 
 |C080 |Errata
 |RenderKit Docs - ButtonRenderer Encode
 behavior w/r/t onclick attribute - should not be passthrough attribute.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=257[Spec
-Public:257]_
+_{issue_tracker_url}257[Issue ID:257]_
 
 |C081 |Errata
 |h:message "for" attribute is
 mis-specified:"for" attribute should be relative id (not clientid).
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=266[Spec
-Public:266]_
+_{issue_tracker_url}266[Issue ID:266]_
 
 |C082 |Errata
 |clarify whether expression of
 binding-attribute of f:xxxxListener should be evaluated on postback.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=320[Spec
-Public:320]_
+_{issue_tracker_url}320[Issue ID:320]_
 
 |C083 |Errata
 |Option rendering, specifically when dealing
 with SelectItemGroups, is too generic. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=420[Spec
-Public:420]_
+_{issue_tracker_url}420[Issue ID:420]_
 
 |C084 |Errata
 |submittedValue get/set methods
 underspecified |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=434[Spec
-Public:434]_
+_{issue_tracker_url}434[Issue ID:434]_
 
 |C085 |Errata
 |Current wording in renderkit docs leads to
 double encoding of query parameters |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=436[Spec
-Public:436]_
+_{issue_tracker_url}436[Issue ID:436]_
 
 |C086 |Errata
 |SelectManyCheckBox Clarification
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=466[Spec
-Public:466]_
+_{issue_tracker_url}466[Issue ID:466]_
 
 |C087 |Errata
 |PDL document for JSTL(Facelets) has the
 incorrect URI for the NameSpace. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=509[Spec
-Public:509]_
+_{issue_tracker_url}509[Issue ID:509]_
 
 |C088 |Errata
 |API docs missing for ExceptionEventContext.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=515[Spec
-Public:515]_
+_{issue_tracker_url}515[Issue ID:515]_
 
 |C089 |Errata
 |composite:attribute component documentation
 for the attribute type should be for attribute method-signature.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=524[Spec
-Public:524]_
+_{issue_tracker_url}524[Issue ID:524]_
 
 |C090 |Errata
 |The UML Diagram for javax.faces.event is out
 of date. |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=525[Spec
-Public:525]_
+_{issue_tracker_url}525[Issue ID:525]_
 
 |C091 |Errata
 |Minor typo in the Interface BehaviorHolder
 API. |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=534[Spec
-Public:534]_
+_{issue_tracker_url}534[Issue ID:534]_
 
 |C092 |Errata
 |Two references to the itemLabelEscaped
 attribute. |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=56[Spec
-Public:536]_
+_{issue_tracker_url}536[Issue ID:536]_
 
 |C093 |Errata
 |Missing class description for
 javax.faces.event.PostValidateEvent and
 javax.faces.event.PreValidateEvent. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=537[Spec
-Public:537]_
+_{issue_tracker_url}537[Issue ID:537]_
 
 |C094 |Errata
 |Section 3.7.5 typo - ClientBehavorHolder
 should be ClientBehaviorHolder. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=540[Spec
-Public:540]_
+_{issue_tracker_url}540[Issue ID:540]_
 
 |C095 |Errata
 |Section 4.1.3 typo - NamingContaier should
 be NamingContainer. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=541[Spec
-Public:541]_
+_{issue_tracker_url}541[Issue ID:541]_
 
 |C096 |Errata
 |API Docs: Application.publishEvent: Docs say
 to throw NPE if any of the arguments is null. However, sourceBaseType
 arg can be null. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=553[Spec
-Public:553]_
+_{issue_tracker_url}553[Issue ID:553]_
 
 |C097 |Errata
 |Facelets TLD Docs: Missing "for" attribute
 for "message" and "messages" tags. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=558[Spec
-Public:558]_
+_{issue_tracker_url}558[Issue ID:558]_
 
 |C099 |Errata
 |ResourceHandler docs: Clarify that relative
 paths are disallowed in library names. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=577[Spec
-Public:577]_
+_{issue_tracker_url}577[Issue ID:577]_
 
 |C100 |Errata
 |Renderkit Docs: h:link - Formatting - add
 paragraphs |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=588[Spec
-Public:588]_
+_{issue_tracker_url}588[Issue ID:588]_
 
 |C101 |Errata
 |Spec Section 2.5.9: Fix Grammar: "The first
@@ -2680,140 +2182,120 @@ client behavior to provided by the JSF specification is the
 AjaxBehavior." should be: "The first client behavior provided by the JSF
 specification is the AjaxBehavior." |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=590[Spec
-Public:590]_
+_{issue_tracker_url}590[Issue ID:590]_
 
 |C102 |Errata
 |Spec Section 9.4 doesn't list all the
 validation tags and it lists the validateDoubleRange tag twice.
 |no |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=591[Spec
-Public:591]_
+_{issue_tracker_url}591[Issue ID:591]_
 
 |C103 |Errata
 |Vdldocs and Spec section 3.6.2.1 have
 component:actionSource target attribute with commas as delimiters -
 should be "space" as delimiter. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=592[Spec
-Public:592]_
+_{issue_tracker_url}592[Issue ID:592]_
 
 |C104 |Errata
 |Spec Section 7.4.1: getNavigationCase should
 return NavigationCase and not void. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=605[Spec
-Public:605]_
+_{issue_tracker_url}605[Issue ID:605]_
 
 |C105 |Errata
 |Spec Section 10.4.1.4 says: f:validateBean
 should extend validateHandler. Should be ValidatorHandler.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=615[Spec
-Public:615]_
+_{issue_tracker_url}615[Issue ID:615]_
 
 |C106 |Errata
 |Typo: Pages in the TLD docs says "JSF 2.0
 Page Decraration Language". Should be "Declaration".
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=617[Spec
-Public:617]_
+_{issue_tracker_url}617[Issue ID:617]_
 
 |C107 |Errata
 |Typos: Table 14-1, 14-2, page 14-3.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=629[Spec
-Public:629]_
+_{issue_tracker_url}629[Issue ID:629]_
 
 |C108 |Errata
 |UIData.invokeOnComponent docs need to be
 updated to include handling of column level facets.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=632[Spec
-Public:632]_
+_{issue_tracker_url}632[Issue ID:632]_
 
 |C109 |Errata
 |Spec Section 3.5.6.1 needs to be corrected
 to state that default validators are added during tag execution time.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=635[Spec
-Public:635]_
+_{issue_tracker_url}635[Issue ID:635]_
 
 |C110 |Errata
 |validateBean and validateRequired tags need
 to be removed from the JSP PDL documentation
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=645[Spec
-Public:645]_
+_{issue_tracker_url}645[Issue ID:645]_
 
 |C111 |Errata
 |jsf.ajax.response update element
 clarification needed in JavaScript docs. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=646[Spec
-Public:646]_
+_{issue_tracker_url}646[Issue ID:646]_
 
 |C112 |Errata
 |Spec Section 10.4.1.1: Clarify what happens
 when nesting and wrapping f:ajax tags collide.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=652[Spec
-Public:652]_
+_{issue_tracker_url}652[Issue ID:652]_
 
 |C113 |Errata
 |Typo: Spec Section 8.3.1: "renderkit-id"
 should be "render-kit-id" and "renderkit" should be "render-kit".
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=660[Spec
-Public:660]_
+_{issue_tracker_url}660[Issue ID:660]_
 
 |C114 |Errata
 |Add "rendered" attribute to VDL docs for
 ui:component and ui:fragment. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=661[Spec
-Public:661]_
+_{issue_tracker_url}661[Issue ID:661]_
 
 |C115 |Errata
 |JavaDocs for UIComponent.processValidators
 is incomplete. It should mention _popComponentFromEL_ .
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=664[Spec
-Public:664]_
+_{issue_tracker_url}664[Issue ID:664]_
 
 |C116 |Errata
 |Dead link in VDL docs.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=666[Spec
-Public:666]_
+_{issue_tracker_url}666[Issue ID:666]_
 
 |C117 |Errata
 |Spec Section 2.5.2.4: Standard messages for
 LengthValidator are confusing. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=668[Spec
-Public:668]_
+_{issue_tracker_url}668[Issue ID:668]_
 
 |C118 |Errata
 |Spec/pdldocs don't say what the default is
 for "target" in h:outputScript. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=673[Spec
-Public:673]_
+_{issue_tracker_url}673[Issue ID:673]_
 
 |C119 |Errata
 |partial-view-context-factory is only
 mentioned in the schema part of the spec. Houls be added to Spec Section
 13.4.2. |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=705[Spec
-Public:705]_
+_{issue_tracker_url}705[Issue ID:705]_
 
 |C120 |Errata
 |Specification edits needed - see:
 _http://docs.google.com/Doc?docid=0AW2H0u_g8JuTZGYycDZzdmhfMTRmOHo3ZmJncQ&hl=en[here]_
 |no |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=714[Spec
-Public:714]_
+_{issue_tracker_url}714[Issue ID:714]_
 
 |C121 |Errata
 |Typo - Spec Section 7.5.2: "ViewHanlder"
@@ -2821,8 +2303,7 @@ should be "ViewHandler"; "renderView" and "restoreView" methods should
 call "ViewDeclarationLanguage.renderView" and
 "ViewDeclarationLanguage.restoreView". |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=729[Spec
-Public:729]_
+_{issue_tracker_url}729[Issue ID:729]_
 
 |C122 |Errata
 |Spec Section 2.6.1.3: Specify that a
@@ -2830,62 +2311,53 @@ libraryName or resourceName contains only XML NameChar, but not a colon;
 a libraryName or resourceName does not match the regex
 +++"[0-9]+(_[0-9]+)* or [A-Za-z]{2}(_[A-Za-z]{2}(_[A- Za-z]+)*)?"+++
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=740[Spec
-Public:740]_
+_{issue_tracker_url}740[Issue ID:740]_
 
 |C123 |Errata
 |Typos in PDLDocs for ui:repeat
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=743[Spec
-Public:743]_
+_{issue_tracker_url}743[Issue ID:743]_
 
 |C124 |Errata
 |Remove "partial-traversal" application
 element from the spec as it does not exist in the schema.
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=767[Spec
-Public:767]_
+_{issue_tracker_url}767[Issue ID:767]_
 
 |C125 |Errata
 |Add mssing ID attributes to schema for:
 faces-config-orderingType,faces-config-ordering-orderingType,faces-config-absoluteOrderingType,faces-config-default-valueType,faces-config-from-view-idType,faces-config-client-behavior-rendererType,faces-config-behaviorType,faces-config-value-classType,faces-config-rendererType
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=768[Spec
-Public:768]_
+_{issue_tracker_url}768[Issue ID:768]_
 
 |C126 |Errata
 |UIInput JavaDocs: Specify the handling of
 conversion failures. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=775[Spec
-Public:775]_
+_{issue_tracker_url}775[Issue ID:775]_
 
 |C127 |Errata
 |EditableValueHodler JavaDocs: Missing
 "@Since 2.0" for "resetValue" method. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=779[Spec
-Public:779]_
+_{issue_tracker_url}779[Issue ID:779]_
 
 |C128 |Errata
 |VDL documentation for f:selectItem
 references the "escape" attribute. It should be "itemEscaped".
 |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=788[Spec
-Public:788]_
+_{issue_tracker_url}788[Issue ID:788]_
 
 |C129 |Errata
 |Specify description for "f:param" "disabled"
 attribute. |yes |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=794[Spec
-Public:794]_
+_{issue_tracker_url}794[Issue ID:794]_
 
 |C130 |Errata
 |Simplify PostRestoreStateEvent delivery
 requirements. |yes
 |
-_https://javaserverfaces-spec-public.dev.java.net/issues/show_bug.cgi?id=806[Spec
-Public:806]_
+_{issue_tracker_url}806[Issue ID:806]_
 |===
 
 
