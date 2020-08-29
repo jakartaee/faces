@@ -10,7 +10,7 @@ the canonical _jsf.js_ file.
 === Collecting and Encoding View State
 
 In Jakarta Server Faces 1.2 the
-javax.faces.ViewState parameter was standardized to facilitate
+jakarta.faces.ViewState parameter was standardized to facilitate
 “postback” requests to the server in a Jakarta Server Faces application.
 Implementations must use this parameter to save the view state between
 requests. Refer to the Javadocs for
