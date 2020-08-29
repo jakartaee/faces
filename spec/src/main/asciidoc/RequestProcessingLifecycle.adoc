@@ -2277,7 +2277,7 @@ follows:
   </h:head>
   <h:body>
     <h:form>
-      <h:outputScript name=”ajax.js” library=”javax.faces”
+      <h:outputScript name=”ajax.js” library=”jakarta.faces”
           target=”head”/>
     </h:form>
   </h:body>

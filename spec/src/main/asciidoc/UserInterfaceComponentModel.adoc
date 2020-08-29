@@ -2077,7 +2077,7 @@ published by a call to _Application.publishEvent()_ when a value is
 removed from the flash.
 
 The specification defines the following
-_ComponentSystemEvent_ classes, all in package _javax.faces.event_.
+_ComponentSystemEvent_ classes, all in package _jakarta.faces.event_.
 
 * _InitialStateEvent_ must be published with a
 direct call to _UIComponent.processEvent()_, during the _apply()_
@@ -3175,7 +3175,7 @@ component _BeanDescriptor_. Any additional attributes on
 _<composite:interface/ >_ are exposed as attributes accessible from the
 _getValue()_ and _attributeNames()_ methods on _BeanDescriptor_
 (inherited from _FeatureDescriptor_). The return type from _getValue()_
-must be a _javax.el.ValueExpression_ for such attributes.
+must be a _jakarta.el.ValueExpression_ for such attributes.
 
 ** The list of exposed __AttachedObjectTarget__s
 to which the _page author_ can attach things such as listeners,
@@ -3204,7 +3204,7 @@ For example, if the defining page has
 +
 The list of attached object targets would
 consist of instances of implementations of the following interfaces from
-the package _javax.faces.webapp.vdl_.
+the package _jakarta.faces.webapp.vdl_.
 +
 . EditableValueHolderAttachedObjectTarget
 

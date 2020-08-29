@@ -749,9 +749,9 @@ annotations in a managed bean]
 
 - _@jakarta.ejb.EJBs_
 
-- _@javax.xml.ws.WebServiceRef_
+- _@jakarta.xml.ws.WebServiceRef_
 
-- _@javax.xml.ws.WebServiceRefs_
+- _@jakarta.xml.ws.WebServiceRefs_
 
 - _@jakarta.persistence.PersistenceContext_
 

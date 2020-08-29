@@ -79,7 +79,7 @@ Extensible Markup Language (XML), version 1.0
 (Second Edition) <http://www.w3.org/TR/REC-xml>
 
 The class and method Javadoc documentation for
-the classes and interfaces in _javax.faces_ (and its subpackages) are
+the classes and interfaces in _jakarta.faces_ (and its subpackages) are
 incorporated by reference as requirements of this Specification.
 
 The JSP and Facelet tag library for the
