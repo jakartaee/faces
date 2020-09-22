@@ -9,7 +9,7 @@ which responds with a document which the browser interprets and
 automatically makes subsequent requests on the user’s behalf. The
 responses to each of these subsequent requests are usually images,
 JavaScript files, CSS Style Sheets, and other artifacts that fit “into”
-the original document. If the JSF lifecycle is involved in rendering the
+the original document. If the Jakarta Faces lifecycle is involved in rendering the
 initial response, the entire process of initial request, the response to
 that request, and any subsequent requests made automatically by the
 user-agent, and their responses, is called a _Faces View
@@ -39,7 +39,7 @@ processing lifecycle.
 * _Non-Faces Response_ —A response that was
 not created by the execution of the _render response_ phase of the
 request processing lifecycle. Examples would be a servlet-generated or
-JSP-rendered response that does not incorporate JSF components, a
+JSP-rendered response that does not incorporate Jakarta Faces components, a
 response that sets an HTTP status code other than the usual 200 (such as
 a redirect), or a response whose HTTP body consists entirely of the
 bytes of an in page resource, such as a JavaScript file, a CSS file, an
@@ -74,7 +74,7 @@ that describe the individual classes and interfaces. You will probably
 find it useful to follow the reference and skim the definition of each
 new class or interface as you encounter them, then come back and finish
 the behavior description. Later, you can study the characteristics of
-each JSF API in the subsequent chapters.
+each Jakarta Faces API in the subsequent chapters.
 
 [[a383]]
 === Request Processing Lifecycle Scenarios
@@ -87,7 +87,7 @@ following subsections.
 ==== Non-Faces Request Generates Faces Response
 
 An application that is processing a non-Faces
-request may use JSF to render a Faces response to that request. In order
+request may use Jakarta Faces to render a Faces response to that request. In order
 to accomplish this, the application must perform the common activities
 that are described in the following sections:
 
@@ -107,9 +107,9 @@ calling the _setViewRoot()_ method on the _FacesContext._
 The most common lifecycle will be the case
 where a previous Faces response includes user interface controls that
 will submit a subsequent request to this web application, utilizing a
-request URI that is mapped to the JSF implementation’s controller, as
+request URI that is mapped to the Jakarta Faces implementation’s controller, as
 described in <<UsingJSFInWebApplications.adoc#a6076,See Servlet Mapping>>. Because
-such a request will be initially handled by the JSF implementation, the
+such a request will be initially handled by the Jakarta Faces implementation, the
 application need not take any special steps—its event listeners,
 validators, and application actions will be invoked at appropriate times
 as the standard request processing lifecycle, described in the following
@@ -135,7 +135,7 @@ tree to interested event listeners.
 
 ==== Faces Request Generates Non-Faces Response
 
-Normally, a JSF-based application will
+Normally, a Jakarta Faces-based application will
 utilize the _Render Response_ phase of the request processing lifecycle
 to actually create the response that is sent back to the client. In some
 circumstances, however, this behavior might not be desirable. For
@@ -147,7 +147,7 @@ _HttpServletResponse.sendRedirect_ ).
 
 * A Faces Request causes the generation of a
 response using some other technology (such as a servlet, or a JSP page
-not containing JSF components).
+not containing Jakarta Faces components).
 
 * A Faces Request causes the generation of a
 response simply by serving up the bytes of a resource, such as an image,
@@ -156,7 +156,7 @@ a JavaScript file, a CSS file, or an applet
 In any of these scenarios, the application
 will have used the standard mechanisms of the servlet or portlet API to
 create the response headers and content. It is then necessary to tell
-the JSF implementation that the response has already been created, so
+the Jakarta Faces implementation that the response has already been created, so
 that the _Render Response_ phase of the request processing lifecycle
 should be skipped. This is accomplished by calling the
 _responseComplete()_ method on the _FacesContext_ instance for the
@@ -179,7 +179,7 @@ as early as possible at the beginning of each phase.[P1-end]
 [[a404]]
 ==== Restore View
 
-[P1-start-restoreView]The JSF implementation
+[P1-start-restoreView]The Jakarta Faces implementation
 must perform the following tasks during the _Restore View_ phase of the
 request processing lifecycle:
 
@@ -316,7 +316,7 @@ component’s current state, the component is said to have a “local
 value”.
 
 [P1-start-applyRequestDecode]During the
-_Apply Request Values_ phase, the JSF implementation must call the
+_Apply Request Values_ phase, the Jakarta Faces implementation must call the
 _processDecodes()_ method of the _UIViewRoot_ of the component
 tree.[P1-end] This will normally cause the _processDecodes()_ method of
 each component in the tree to be called recursively, as described in the
@@ -397,7 +397,7 @@ each component. In addition, component classes themselves may implement
 validation logic in their _validate()_ methods.
 
 [P1-start-validation]During the _Process
-Validations_ phase of the request processing lifecycle, the JSF
+Validations_ phase of the request processing lifecycle, the Jakarta Faces
 implementation must call the _processValidators()_ method of the
 _UIViewRoot_ of the tree.[P1-end] This will normally cause the
 _processValidators()_ method of each component in the tree to be called
@@ -463,7 +463,7 @@ update the application's model data in preparation for performing any
 application events that have been enqueued.
 
 [P1-start-updateModel]During the _Update
-Model Values_ phase, the JSF implementation must call the
+Model Values_ phase, the Jakarta Faces implementation must call the
 _processUpdates()_ method of the _UIViewRoot_ component of the
 tree.[P1-end] This will normally cause the _processUpdates()_ method of
 each component in the tree to be called recursively, as described in the
@@ -532,7 +532,7 @@ event queue.
 {empty}Advanced applications (or application
 frameworks) may replace the default _ActionListener_ instance by calling
 the _setActionListener()_ method on the _Application_ instance for this
-application. [P1-start-invokeApplicationListener]However, the JSF
+application. [P1-start-invokeApplicationListener]However, the Jakarta Faces
 implementation must provide a default _ActionListener_ instance that
 behaves as described in <<ApplicationIntegration.adoc#a3402,See ActionListener
 Property>>.[P1-end]
@@ -548,7 +548,7 @@ client
 . Causes the state of the response to be saved
 for processing on subsequent requests.
 
-JSF supports a range of approaches that JSF
+Jakarta Faces supports a range of approaches that Jakarta Faces
 implementations may utilize in creating the response text that
 corresponds to the contents of the response view, including:
 
@@ -570,7 +570,7 @@ page).
 
 Because of the number of possible options,
 the mechanism for implementing the _Render Response_ phase cannot be
-specified precisely. [P1-start-renderResponse]However, all JSF
+specified precisely. [P1-start-renderResponse]However, all Jakarta Faces
 implementations of this phase must conform to the following
 requirements:
 
@@ -581,7 +581,7 @@ _ViewHandler_ , its _buildView()_ method must be called. __
 * Publish the
 _jakarta.faces.event.PreRenderViewEvent_ .
 
-* JSF implementations must provide a default
+* Jakarta Faces implementations must provide a default
 _ViewHandler_ implementation that is capable of handling views written
 in JSP as well as views written in the Faces View Declaration Language
 (VDL). In the case of JSP, the ViewHandler must perform a
@@ -657,8 +657,8 @@ _UIOutput_ ), data conversion must occur as described in the _UIOutput_
 Javadocs.
 
 {empty}Upon completion of rendering, but
-before state saving the JSF runtime must publish a
-_jakarta.faces.event.PostRenderViewEvent_ . After doing so the JSF runtime
+before state saving the Jakarta Faces runtime must publish a
+_jakarta.faces.event.PostRenderViewEvent_ . After doing so the Jakarta Faces runtime
 must save the completed state using the methods of the class
 _StateManager._ This state information must be made accessible on a
 subsequent request, so that the _Restore View_ can access it.[P1-end]
@@ -779,7 +779,7 @@ before the lifecycle management method returns.[P1-end]
 === Common Application Activities
 
 The following subsections describe common
-activities that may be undertaken by an application that is using JSF to
+activities that may be undertaken by an application that is using Jakarta Faces to
 process an incoming request and/or create an outgoing response. Their
 use is described in <<RequestProcessingLifecycle.adoc#a383,See Request Processing
 Lifecycle Scenarios>>, for each request processing lifecycle scenario in
@@ -792,13 +792,13 @@ This phase is only required when the request
 being processed was not submitted from a previous response, and
 therefore did not initiate the _Faces Request Generates Faces Response_
 lifecycle. In order to generate a Faces Response, the application must
-first acquire references to several objects provided by the JSF
+first acquire references to several objects provided by the Jakarta Faces
 implementation, as described below.
 
 ===== Acquire and Configure Lifecycle Reference
 
 [P1-start-lifeReference]As described in
-<<LifecycleManagement.adoc#a6608,See Lifecycle>>, the JSF implementation must
+<<LifecycleManagement.adoc#a6608,See Lifecycle>>, the Jakarta Faces implementation must
 provide an instance of _jakarta.faces.lifecycle.Lifecycle_ that may be
 utilized to manage the remainder of the request processing
 lifecycle.[P1-end] An application may acquire a reference to this
@@ -814,15 +814,15 @@ Lifescycle lifecycle =
 
 It is also legal to specify a different
 lifecycle identifier as a parameter to the _getLifecycle()_ method, as
-long as this identifier is recognized and supported by the JSF
+long as this identifier is recognized and supported by the Jakarta Faces
 implementation you are using. However, using a non-default lifecycle
-identifier will generally not be portable to any other JSF
+identifier will generally not be portable to any other Jakarta Faces
 implementation.
 
 ===== Acquire and Configure FacesContext Reference
 
 [P1-start-contextReference]As described in
-<<Per-RequestStateInformation.adoc#a3091,See FacesContext>>, the JSF implementation
+<<Per-RequestStateInformation.adoc#a3091,See FacesContext>>, the Jakarta Faces implementation
 must provide an instance of _jakarta.faces.context.FacesContext_ to
 contain all of the per-request state information for a Faces Request or
 a Faces Response. An application that is processing a Non-Faces Request,
@@ -873,9 +873,9 @@ UIViewRoot view = viewHandler.createView(facesContext, viewId);
 
 [P1-start-createViewRoot]The _UIViewRoot_
 instance returned by the _createView()_ method must minimally contain a
-single _UIViewRoot_ provided by the JSF implementation, which must
+single _UIViewRoot_ provided by the Jakarta Faces implementation, which must
 encapsulate any implementation-specific component management that is
-required.[P1-end] Optionally, a JSF implementation’s _ViewHandler_ may
+required.[P1-end] Optionally, a Jakarta Faces implementation’s _ViewHandler_ may
 support the automatic population of the returned _UIViewRoot_ with
 additional components, perhaps based on some external metadata
 description.
@@ -896,13 +896,13 @@ more _ViewHandler_ details.
 _UIViewRoot_ instance provided by the _ViewHandler_ , as described in
 the previous subsection, must automatically be configured to utilize the
 default _jakarta.faces.render.RenderKit_ implementation provided by the
-JSF implementation, as described in <<RenderingModel.adoc#a4223,See
+Jakarta Faces implementation, as described in <<RenderingModel.adoc#a4223,See
 RenderKit>>. This _RenderKit_ must support the standard components and
 _Renderer_ s described later in this specification, to maximize the
 portability of your application.[P1-end]
 
 However, a different _RenderKit_ instance
-provided by your JSF implementation (or as an add-on library) may be
+provided by your Jakarta Faces implementation (or as an add-on library) may be
 utilized instead, if desired. A reference to this _RenderKit_ instance
 can be obtained from the standard _RenderKitFactory_ , and then assigned
 to the _UIViewRoot_ instance created previously, as follows:
@@ -970,7 +970,7 @@ components have Renderers.
 
 The user presses a button that causes a form
 submit to occur. This causes the state of the form to be sent as
-_name=value_ pairs in the _POST_ data of the HTTP request. The JSF
+_name=value_ pairs in the _POST_ data of the HTTP request. The Jakarta Faces
 request processing lifecycle is entered, and eventually we come to the
 _Apply Request Values Phase_ . In this phase, the _decode()_ method for
 each _Renderer_ for each _UIComponent_ in the view is called. The
@@ -1025,11 +1025,11 @@ explain what goes on by breaking the task down by function.
 [[a554]]
 ===== Determining the active _Locale_
 
-JSF has the concept of an active _Locale_
+Jakarta Faces has the concept of an active _Locale_
 which is used to look up all localized resources. Converters must use
 this _Locale_ when performing their conversion. This _Locale_ is stored
 as the value of the _locale_ JavaBeans property on the _UIViewRoot_ of
-the current _FacesContext_ . The application developer can tell JSF what
+the current _FacesContext_ . The application developer can tell Jakarta Faces what
 locales the application supports in the applications’
 _WEB-INF/faces-config.xml_ file. For example:
 
@@ -1129,9 +1129,9 @@ namespace so all may get to it. This section describes how resources
 displayed to the end user may be localized. This includes images,
 labels, button text, tooltips, alt text, etc.
 
-Since most JSF components allow pulling their
+Since most Jakarta Faces components allow pulling their
 display value from the model tier, it is easy to do the localization at
-the model tier level. As a convenience, JSF provides the
+the model tier level. As a convenience, Jakarta Faces provides the
 _<f:loadBundle>_ tag, which takes a _ResourceBundle_ and loads it into a
 _Map_ , which is then stored in the scoped namespace in request scope,
 thus making its messages available using the same mechanism for
@@ -1152,13 +1152,13 @@ pulled out of it using the normal value expression syntax.
 [[a584]]
 ===== Localized Application Messages
 
-This section describes how JSF handles
+This section describes how Jakarta Faces handles
 localized error and informational messages that occur as a result of
 conversion, validation, or other application actions during the request
-processing lifecycle. The JSF class
+processing lifecycle. The Jakarta Faces class
 _jakarta.faces.application.FacesMessage_ is provided to encapsulate
 summary, detail, and severity information for a message.
-[P1-start-bundle]A JSF implementation must provide a
+[P1-start-bundle]A Jakarta Faces implementation must provide a
 _jakarta.faces.Messages ResourceBundle_ containing all of the necessary
 keys for the standard messages. The required keys (and a non-normative
 indication of the intended message text) are as follows:
@@ -1356,11 +1356,11 @@ The following message keys are deprecated:
 Specified attribute is not between the expected values of \{0} and
 \{1}[P1-end]
 
-A JSF application may provide its own
+A Jakarta Faces application may provide its own
 messages, or overrides to the standard messages by supplying a
 _<message-bundle>_ element to in the application configuration
 resources. Since the _ResourceBundle_ provided in the Java platform has
-no notion of summary or detail, JSF adopts the policy that
+no notion of summary or detail, Jakarta Faces adopts the policy that
 _ResourceBundle_ key for the message looks up the message summary. The
 detail is stored under the same key as the summary, with __detail_
 appended. [P1-start-bundleKey]These _ResourceBundle_ keys must be used
@@ -1415,7 +1415,7 @@ state management decisions made by the implementation.
 Since the component developer cannot know
 what the state saving method will be at runtime, they must be aware of
 state management. As shown in <<StandardUserInterfaceComponents.adoc#a1834,See The
-jakarta.faces.component package>>, all JSF components implement the
+jakarta.faces.component package>>, all Jakarta Faces components implement the
 _StateHolder_ interface. As a consequence the standard components
 provide implementations of _PartialStateHolder_ to suit their needs.
 [P1-start-componentStateHolder]A custom component that extends
@@ -1467,11 +1467,11 @@ Note that we call _super.saveState()_ and
 _super.restoreState()_ as appropriate. This is absolutely vital! Failing
 to do this will prevent the component from working.
 
-===== State Management Considerations for the JSF Implementor
+===== State Management Considerations for the Jakarta Faces Implementor
 
 The intent of the state management facility
 is to make life easier for the page author, app assembler, and component
-author. However, the complexity has to live somewhere, and the JSF
+author. However, the complexity has to live somewhere, and the Jakarta Faces
 implementor is the lucky role. Here is an overview of the key players.
 Please see the javadocs for each individual class for more information.
 
@@ -1500,7 +1500,7 @@ restoring individual component state.
 ==== Resource Handling
 
 This section only applies to pages written
-using Facelets for JSF 2 and later. <<RequestProcessingLifecycle.adoc#a746,See
+using Facelets. <<RequestProcessingLifecycle.adoc#a746,See
 Resource Handling>> is the starting point for the normative specification
 for Resource Handling. This section gives a non-normative overview of
 the feature. The following steps walk through the points in the
@@ -1566,7 +1566,7 @@ the bytes of the resource.
 ==== View Parameters
 
 This section only applies to pages written
-using Facelets for JSF 2 and later. The normative specification for this
+using Facelets. The normative specification for this
 feature is spread out across several places, including the View
 Declaration Language Documentation for the _<f:metadata>_ element, the
 javadocs for the _UIViewParameter_ , _ViewHandler_ , and
@@ -1596,7 +1596,7 @@ application.
 the request processing lifecycle detects that this is an initial request
 and tries to obtain the _ViewDeclarationLanguage_ instance from the
 _ViewHandler_ for this _viewId_ . Because every page in the app is
-written in Facelets for JSF 2.0, there is a _ViewDeclarationLanguage_
+written in Facelets, there is a _ViewDeclarationLanguage_
 instance. Restore view phase calls
 _ViewDeclarationLanguage.getViewMetadata()_ . Because every view in this
 particular app does have _<f:metadata>_ on every page, this method
@@ -1647,13 +1647,10 @@ viewId.
 [[a707]]
 ==== Bookmarkability
 
-Prior to JSF 2, every client server
-interaction was an HTTP POST. While this works fine in many situations,
-it does not work well when it comes to bookmarking pages in a web
-application. Version 2 of the specification introduces bookmarking
-capability with the use of two new Standard HTML RenderKit additions.
+Jakarta Faces has a bookmarking
+capability with the use of two Standard HTML RenderKit additions.
 
-Provided is a new component (UIOutcomeTarget)
+Provided is a component (UIOutcomeTarget)
 that provides properties that are used to produce a hyperlink at render
 time. The component can appear in the form of a button or a link. This
 feature introduces a concept known as “preemptive navigation”, which
@@ -1663,24 +1660,23 @@ leverage the navigation model while also providing the ability to
 generate bookmarkable non-faces requests.
 
 [[a710]]
-==== JSR 303 Bean Validation
+==== Jakarta Bean Validation
 
-{empty}Version 2 of the specification
-introduces support for JSR 303 Bean Validation.
-[p1-beanValidationRequired]A JSF implentation must support JSR 303 Bean
-Validation if the environment in which the JSF runtime is included
-requires JSR 303 Bean Validation. Currently the only such environment is
-when JSF is included in a Java EE 6 runtime.[p1-end]
+{empty}Jakarta Faces supports Jakarta Bean Validation.
+[p1-beanValidationRequired]A Jakarta Faces implementation must support Jakarta Bean
+Validation if the environment in which the Jakarta Faces runtime is included
+requires Jakarta Bean Validation. Currently the only such environment is
+when Jakarta Faces is included in a Jakarta EE runtime.[p1-end]
 
-A detailed description of the usage of Bean
-Validation with JSF is beyond the scope of this section, but this
+A detailed description of the usage of Jakarta Bean
+Validation with Jakarta Faces is beyond the scope of this section, but this
 section will provide a brief overview of the feature, touching on the
 points of interest to a spec implementor. Consider a simple web
-application that has one page, written in Facelets for JSF 2, that has a
+application that has one page, written in Facelets, that has
 several text fields inside of a form. This application is running in a
-JSF runtime in an environment that does require JSR 303 Bean Validation,
+Jakarta Faces runtime in an environment that does require Jakarta Bean Validation,
 and therefore this feature is available. Assume that every text field is
-bound to a managed bean property that has at least one Bean Validation
+bound to a managed bean property that has at least one Jakarta Bean Validation
 constraint annotation attached to it.
 
 During the render response phase that always
@@ -1704,40 +1700,30 @@ Validation Integration>>.
 [[a716]]
 ==== Ajax
 
-JSF and Ajax have been working well together
-for a number of years. this has led to the sprouting of many JSF Ajax
-frameworks. Although many of these frameworks may appear different, they
-all contribute to a dynamic request response experience. The variations
-in the way these frameworks provide that experience causes component
-compatibility problems when using components from different libraries
-together in the same web application.
-
-JSF 2 introduces Ajax into the specification,
-and it builds upon important concepts from a variety of existing JSF
-Ajax frameworks. The specification introduces a JavaScript library for
+Jakarta Faces supports Ajax. The specification contains a JavaScript library for
 performing basic Ajax operations. The library helps define a standard
 way of sending an Ajax request, and processing an Ajax response, since
-these are problem areas for component compatability. The specification
-provides two ways of adding Ajax to JSF web applications. Page authors
+these are problem areas for component compatibility. The specification
+provides two ways of adding Ajax to Jakarta Faces web applications. Page authors
 may use the JavaScript library directly in their pages by attaching the
-Ajax request call to a JSF component via a JavaScript event (such as
-onclick). They may also take a more declarative aproach and use a core
-Facelets tag (<f:ajax/>) that they can nest within JSF components to
+Ajax request call to a Jakarta Faces component via a JavaScript event (such as
+onclick). They may also take a more declarative approach and use a core
+Facelets tag (<f:ajax/>) that they can nest within Jakarta Faces components to
 “Ajaxify” them. It is also possible to “Ajaxify” regions of a page by
 “wrapping” the tag around component groups.
 
-The server side aspects of JSF Ajax
-frameworks work with the standard JSF lifecycle. In addition to
+The server side aspects of Jakarta Faces Ajax
+frameworks work with the standard Jakarta Faces lifecycle. In addition to
 providing a standard page authoring experience, the specification also
 standardizes the server side processing of Ajax requests. Selected
-components in a JSF view can be priocessed (known as partial processing)
+components in a Jakarta Faces view can be processed (known as partial processing)
 and selected components can be rendered to the client (known as partial
 rendering).
 
 [[a720]]
 ==== Component Behaviors
 
-The JSF 2 specification introduces a new type
+The Jakarta Faces specification contains a type
 of attached object known as component behaviors. Component behaviors
 play a similar role to converters and validators in that they are
 attached to a component instance in order to enhance the component with
@@ -1749,7 +1735,7 @@ component in a view. In particular, the _ClientBehavior_ interface
 defines a contract for behaviors that can enhance a component's rendered
 content with behavior-defined "scripts". These scripts are executed on
 the client in response to end user interaction, but can also trigger
-postbacks back into the JSF request processing lifecycle.
+postbacks back into the Jakarta Faces request processing lifecycle.
 
 The usage pattern for client behaviors is as
 follows:
@@ -1777,7 +1763,7 @@ executed in response to the page author-specified event.
 interaction, for example, hiding or showing content or validating input
 on the client, and possibly posts back to the server.
 
-The first client behavior provided by the JSF
+The first client behavior provided by the Jakarta Faces
 specification is the _AjaxBehavior_ . This behavior is exposed to a page
 author as a Facelets _<f:ajax>_ tag, which can be embedded within any of
 the standard HTML components as follows:
@@ -1791,7 +1777,7 @@ the standard HTML components as follows:
 
 When activated in response to end user
 activity, the _<f:ajax>_ client behavior generates an Ajax request back
-into the JSF request processing lifecycle.
+into the Jakarta Faces request processing lifecycle.
 
 The component behavior framework is
 extensible and allows developers to define custom behaviors and also
@@ -1848,7 +1834,7 @@ runs.
 === Resource Handling
 
 As shown in the diagram in <<RequestProcessingLifecycle.adoc#a390,See Faces Request Generates Faces Response>>,
-[P1-start isResourceRequest rules] the JSF run-time must determine if the current Faces
+[P1-start isResourceRequest rules] the Jakarta Faces run-time must determine if the current Faces
 Request is a _Faces Resource Request_ or a _View Request_ . This must be accomplished by
 calling _Application.getResourceHandler().isResourceRequest()_ . [P1-end]
 Most of the normative specification for resource handling is contained in the Javadocs
@@ -2068,7 +2054,7 @@ An important feature of the resource handler
 is the ability for resources to be localized, versioned, and collected
 into libraries. The localization and versioning scheme is completely
 hidden behind the API of _ResourceHandler_ and _Resource_ and is not
-exposed in any way to the JSF run-time.
+exposed in any way to the Jakarta Faces run-time.
 
 [P1-start resource versioning] The default
 implementation of _ResourceHandler.createResource()_ , for all variants
