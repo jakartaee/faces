@@ -643,7 +643,7 @@ _MethodBinding_.
 _UIComponentBodyTag_ base classes that were designed to adhere to the
 above rules.
 
-Tags that use the Unified EL have the
+Tags that use the Jakarta Expression Language have the
 following constraints:
 
 * all tag attributes must not have an

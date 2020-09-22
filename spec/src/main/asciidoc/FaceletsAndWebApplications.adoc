@@ -59,7 +59,7 @@ UIComponent instances
 compiling a Jakarta Server Pages page to a Servlet, performance can be slow
 | Facelets is simpler and faster than Jakarta Server Pages
 
-| EL Expressions
+| Expression Language Expressions
 | Expressions in template text cause unexpected
 behavior when used in Jakarta Server Pages
 | Expressions in template text operate as
@@ -466,7 +466,7 @@ within a _UIComponent_ tag, For example,
     </h:inputText> 
 ----
 +
-The EL expression must point to a _Map<String, Object>_. If the value
+The Jakarta Expression Language expression must point to a _Map<String, Object>_. If the value
 is a _ValueExpresison_ call _getValue()_ the value first. Whether the
 value is a _ValueExpression_ or not, the value must have its
 _toString()_ called on it.
@@ -969,7 +969,7 @@ composite components. [P1_start_composite_component_method_expression]If
 the type of the attribute is a _MethodExpression_, the code that takes
 the value of the attribute and creates an actual _MethodExpression_
 instance around it must take the following special action. Inspect the
-value of the attribute. If the EL expression string starts with the _cc_
+value of the attribute. If the Jakarta Expression Language expression string starts with the _cc_
 implicit object, is followed by the special string “_attrs_” (without
 the quotes), as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,Composite
 Component Attributes ELResolver>>, and is followed by a single remaining
@@ -1672,7 +1672,7 @@ The following required attribute must be set:
 | String
 | String
 | The name of the websocket channel. It may not
-be an EL expression and it may only contain alphanumeric characters,
+be a Jakarta Expression Language expression and it may only contain alphanumeric characters,
 hyphens, underscores and periods. All open websockets on the same
 channel name will receive the same push notification from the server.
 
@@ -1691,7 +1691,7 @@ identifier of the _UIWebSocket_ component to be created.
 
 |scope |String
 |String |The scope
-of the websocket channel. It may not be an EL expression and allowed
+of the websocket channel. It may not be a Jakarta Expression Language expression and allowed
 values are _application_, _session_ and _view_, case insensitive. When
 the value is _application_, then all channels with the same name
 throughout the application will receive the same push message. When the
@@ -1967,7 +1967,7 @@ to control whether to auto-connect the websocket or not..
 
 The _connected_ attribute defaults to true
 and is interpreted as a JavaScript instruction whether to open or close
-the websocket push connection. If the value is an EL expression and it
+the websocket push connection. If the value is a Jakarta Expression Language expression and it
 becomes false during an ajax request, then the push connection will
 explicitly be closed during _oncomplete_ of that ajax request.
 

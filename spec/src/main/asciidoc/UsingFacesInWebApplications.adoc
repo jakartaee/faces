@@ -673,7 +673,7 @@ attributes are either of type _jakarta.el.ValueExpression_ or
 _jakarta.el.MethodExpression_. For backwards compatability with existing
 Faces component libraries that expose themselves as Jakarta Server Pages tags, the
 existing classes relating to Jakarta Server Pages have been deprecated and new ones
-introduced that leverage the EL API.
+introduced that leverage the Jakarta Expression Language API.
 
 ====  _AttributeTag_
 
