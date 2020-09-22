@@ -9,7 +9,10 @@ Status: {revremark}
 Release: {revdate}
 ....
 
-Copyright (c) 2019 Eclipse Foundation.
+== Copyright
+
+Copyright (C) 2018, 2020 Eclipse Foundation. 
+https://www.eclipse.org/legal/efsl.php[]
 
 === Eclipse Foundation Specification License
 

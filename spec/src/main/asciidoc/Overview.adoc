@@ -1,10 +1,10 @@
 == Overview
 
-Jakarta Server Faces (JSF) is a _user interface_
+Jakarta Server Faces (hereafter Jakarta Faces) is a _user interface_
 (UI) framework for Java web applications. It is designed to
 significantly ease the burden of writing and maintaining applications
 that run on a Java application server and render their UIs back to a
-target client. JSF provides ease-of-use in the following ways:
+target client. Jakarta Faces provides ease-of-use in the following ways:
 
 * Makes it easy to construct a UI from a set of
 reusable UI components
@@ -20,7 +20,7 @@ client-generated events to server-side application code
 * Allows custom UI components to be easily
 built and re-used
 
-Most importantly, JSF establishes standards
+Most importantly, Jakarta Faces establishes standards
 which are designed to be leveraged by tools to provide a developer
 experience which is accessible to a wide variety of developer types,
 ranging from corporate developers to systems programmers. A “corporate
@@ -32,21 +32,21 @@ designing for re-use. A corporate developer typically relies on tools
 for development, while a system programmer may define his or her tool as
 a text editor for writing code.
 
-Therefore, JSF is designed to be tooled, but
+Therefore, Jakarta Faces is designed to be tooled, but
 also exposes the framework and programming model as APIs so that it can
 be used outside of tools, as is sometimes required by systems
 programmers.
 
 === Solving Practical Problems of the Web
 
-JSF’s core architecture is designed to be
+Jakarta Faces’s core architecture is designed to be
 independent of specific protocols and markup. However it is also aimed
 directly at solving many of the common problems encountered when writing
 applications for HTML clients that communicate via HTTP to a Java
 application server that supports servlets and Jakarta Server Pages (JSP)
 based applications. These applications are typically form-based, and are
 comprised of one or more HTML pages with which the user interacts to
-complete a task or set of tasks. JSF tackles the following challenges
+complete a task or set of tasks. Jakarta Faces tackles the following challenges
 associated with these applications:
 
 * Managing UI component state across requests
@@ -79,7 +79,7 @@ to UI events and model interactions.
 The _Jakarta Server Faces Specification_ , and
 the technology that it defines, is addressed to several audiences that
 will use this information in different ways. The following sections
-describe these audiences, the roles that they play with respect to JSF,
+describe these audiences, the roles that they play with respect to Jakarta Faces,
 and how they will use the information contained in this document. As is
 the case with many technologies, the same person may play more than one
 of these roles in a particular development scenario; however, it is
@@ -101,13 +101,13 @@ languages such as JavaScript).
 Page authors will generally assemble the
 content of the pages being created from libraries of prebuilt user
 interface components that are provided by component writers, tool
-providers, and JSF implementors. The components themselves will be
+providers, and Jakarta Faces implementors. The components themselves will be
 represented as configurable objects that utilize the dynamic markup
 capabilities of the underlying rendering technology. When Jakarta Server
 Pages are in use, for example, components will be represented as JSP
 custom actions, which will support configuring the attributes of those
 components as custom action attributes in the JSP page. In addition, the
-pages produced by a page author will be used by the JSF framework to
+pages produced by a page author will be used by the Jakarta Faces framework to
 create component tree hierarchies, called “views”, that represent the
 components on those pages.
 
@@ -154,7 +154,7 @@ JavaScript handling in different browsers, or variations in the WML
 markup supported by different wireless clients).
 
 The component writer role is sometimes
-separate from other JSF roles, but is often combined. For example,
+separate from other Jakarta Faces roles, but is often combined. For example,
 reusable components, component libraries, and render kits might be
 created by:
 
@@ -170,21 +170,21 @@ development group responsible for creating standardized components for
 reuse across applications
 
 * Third party library and framework providers
-creating component libraries that are portable across JSF
+creating component libraries that are portable across Jakarta Faces
 implementations
 
 * Tool providers whose tools can leverage the
-specific capabilities of those libraries in development of JSF-based
+specific capabilities of those libraries in development of Jakarta Faces-based
 applications
 
-* JSF implementors who provide
-implementation-specific component libraries as part of their JSF product
+* Jakarta Faces implementors who provide
+implementation-specific component libraries as part of their Jakarta Faces product
 suite
 
-Within JSF, user interface components are
+Within Jakarta Faces, user interface components are
 represented as Java classes that follow the design patterns outlined in
 the JavaBeans Specification. Therefore, new and existing tools that
-facilitate JavaBean development can be leveraged to create new JSF
+facilitate JavaBean development can be leveraged to create new Jakarta Faces
 components. In addition, the fundamental component APIs are simple
 enough for developers with basic Java programming skills to program by
 hand.
@@ -197,7 +197,7 @@ directly related to the user interface. This encompasses the following
 general areas of responsibility:
 
 * Define mechanisms for persistent storage of
-the information required by JSF-based web applications (such as creating
+the information required by Jakarta Faces-based web applications (such as creating
 schemas in a relational database management system)
 
 * Create a Java object representation of the
@@ -210,11 +210,11 @@ or business logic, in Java objects that are reusable in web and non-web
 applications, such as Session EJBs.
 
 * Expose the data representation and functional
-logic objects for use via JSF, as would be done for any servlet- or
+logic objects for use via Jakarta Faces, as would be done for any servlet- or
 JSP-based application.
 
 Only the latter responsibility is directly
-related to Jakarta Server Faces APIs. In particular, the following steps are
+related to Jakarta Faces APIs. In particular, the following steps are
 required to fulfill this responsibility:
 
 * Expose the underlying data required by the
@@ -224,10 +224,10 @@ _value reference expressions_ , as described in
 <<a1823, Standard User Interface Components>>.”
 
 * Provide application-level event handlers for
-the events that are enqueued by JSF components during the request
+the events that are enqueued by Jakarta Faces components during the request
 processing lifecycle, as described in <<a454, Invoke Application>>.
 
-Application modules interact with JSF through
+Application modules interact with Jakarta Faces through
 standard APIs, and can therefore be created using new and existing tools
 that facilitate general Java development. In addition, application
 modules can be written (either by hand, or by being generated) in
@@ -237,9 +237,9 @@ conformance to an application framework created by a tool provider.
 
 _Tool providers_ , as their name implies,
 are responsible for creating tools that assist in the development of
-JSF-based applications, rather than creating such applications directly.
-JSF APIs support the creation of a rich variety of development tools,
-which can create applications that are portable across multiple JSF
+Jakarta Faces-based applications, rather than creating such applications directly.
+Jakarta Faces APIs support the creation of a rich variety of development tools,
+which can create applications that are portable across multiple Jakarta Faces
 implementations. Examples of possible tools include:
 
 * GUI-oriented page development tools that
@@ -255,10 +255,10 @@ page and component objects
 
 * IDEs that support the development of general
 web applications, adapted to provide specialized support (such as
-configuration management) for JSF
+configuration management) for Jakarta Faces
 
 * Web application frameworks (such as MVC-based
-and workflow management systems) that facilitate the use of JSF
+and workflow management systems) that facilitate the use of Jakarta Faces
 components for user interface design, in conjunction with higher level
 navigation management and other services
 
@@ -268,39 +268,39 @@ components, and application modules needed to provide the required
 application functionality
 
 Tool providers will generally leverage the
-JSF APIs for introspection of the features of component libraries and
+Jakarta Faces APIs for introspection of the features of component libraries and
 render kit frameworks, as well as the application portability implied by
 the use of standard APIs in the code generated for an application.
 
-==== JSF Implementors
+==== Jakarta Faces Implementors
 
-Finally, _JSF implementors_ will provide
+Finally, _Jakarta Faces implementors_ will provide
 runtime environments that implement all of the requirements described in
-this specification. Typically, a JSF implementor will be the provider of
-a Java 2 Platform, Enterprise Edition (J2EE) application server,
-although it is also possible to provide a JSF implementation that is
-portable across J2EE servers.
+this specification. Typically, a Jakarta Faces implementor will be the provider of
+a Jakarta EE application server,
+although it is also possible to provide a Jakarta Faces implementation that is
+portable across Jakarta EE servers.
 
-Advanced features of the JSF APIs allow JSF
+Advanced features of the Jakarta Faces APIs allow Jakarta Faces
 implementors, as well as application developers, to customize and extend
-the basic functionality of JSF in a portable way. These features provide
+the basic functionality of Jakarta Faces in a portable way. These features provide
 a rich environment for server vendors to compete on features and quality
 of service aspects of their implementations, while maximizing the
-portability of JSF-based applications across different JSF
+portability of Jakarta Faces-based applications across different Jakarta Faces
 implementations.
 
 
-=== Introduction to JSF APIs
+=== Introduction to Jakarta Faces APIs
 
 This section briefly describes major
-functional subdivisions of the APIs defined by Jakarta Server Faces. Each
+functional subdivisions of the APIs defined by Jakarta Faces. Each
 subdivision is described in its own chapter, later in this
 specification.
 
 ==== package _jakarta.faces_
 
 This package contains top level classes for
-the Jakarta Server Faces API. The most important class in the package is
+the Jakarta Faces API. The most important class in the package is
 _FactoryFinder_ , which is the mechanism by which users can override
 many of the key pieces of the implementation with their own.
 
@@ -310,9 +310,9 @@ Please see
 ==== package _jakarta.faces.application_
 
 This package contains APIs that are used to
-link an application’s business logic objects to Jakarta Server Faces, as
+link an application’s business logic objects to Jakarta Faces, as
 well as convenient pluggable mechanisms to manage the execution of an
-application that is based on Jakarta Server Faces. The main class in this
+application that is based on Jakarta Faces. The main class in this
 package is _Application_ .
 
 Please see <<a3400, Application>>.
@@ -399,8 +399,8 @@ concrete validator implementation classes.
 ==== package _jakarta.faces.webapp_
 
 Classes required for integration of
-Jakarta Server Faces into web applications, including a standard servlet,
+Jakarta Faces into web applications, including a standard servlet,
 base classes for JSP custom component tags, and concrete tag
 implementations for core tags.
 
-Please see <<UsingJSFInWebApplications.adoc#a6060, Using JSF in Web Applications>>.
+Please see <<UsingJSFInWebApplications.adoc#a6060, Using Jakarta Faces in Web Applications>>.
