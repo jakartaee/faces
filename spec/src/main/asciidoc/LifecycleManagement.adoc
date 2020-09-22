@@ -3,20 +3,20 @@
 In <<a369, Request
 Processing Lifecycle>>, the required functionality of each phase of the
 request processing lifecycle was described. This chapter describes the
-standard APIs used by JSF implementations to manage and execute the
+standard APIs used by Jakarta Faces implementations to manage and execute the
 lifecycle. Each of these classes and interfaces is part of the
 _jakarta.faces.lifecycle_ package.
 
 Page authors, component writers, and
 application developers, in general, will not need to be aware of the
 lifecycle management APIs—they are primarily of interest to tool
-providers and JSF implementors.
+providers and Jakarta Faces implementors.
 
 [[a6608]]
 === Lifecycle
 
-Upon receipt of each JSF-destined request to
-this web application, the JSF implementation must acquire a reference to
+Upon receipt of each Jakarta Faces-destined request to
+this web application, the Jakarta Faces implementation must acquire a reference to
 the _Lifecycle_ instance for this web application, and call its
 _execute()_ and _render()_ methods to perform the request processing
 lifecycle. The _Lifecycle_ instance invokes appropriate processing logic
@@ -145,7 +145,7 @@ public void afterPhase(PhaseEvent event);
 {empty}The beforePhase() method is called
 before the standard processing for a particular phase is performed,
 while the afterPhase() method is called after the standard processing
-has been completed. The JSF implementation must guarantee that, if
+has been completed. The Jakarta Faces implementation must guarantee that, if
 _beforePhase()_ has been called on a particular instance, then
 _afterPhase()_ will also be called, regardless of any Exceptions that
 may have been thrown during the actual execution of the lifecycle phase.
@@ -158,7 +158,7 @@ to the _ExceptionHandler_, as described
 below.[P1-end_publishExceptionBefore] In this example, _C.beforePhase()_
 must not be called. Then the actual lifecycle phase executes. Any
 exceptions thrown during the execution of the actual phase, that reach
-the runtime code that implements the JSF lifecycle phase,
+the runtime code that implements the Jakarta Faces lifecycle phase,
 [P1-start_publishExceptionDuring] must be caught and and published to
 the _ExceptionHandler_, as described
 below[P1-end_publishExceptionDuring]. When the lifecycle phase exits,
@@ -246,8 +246,8 @@ is complete.
 
 A single instance of
 _jakarta.faces.lifecycle.LifecycleFactory_ must be made available to each
-JSF-based web application running in a servlet or portlet container. The
-factory instance can be acquired by JSF implementations or by
+Jakarta Faces-based web application running in a servlet or portlet container. The
+factory instance can be acquired by Jakarta Faces implementations or by
 application code, by executing:
 
 [source,java]
@@ -280,10 +280,10 @@ instance. All requests for the same lifecycle identifier from within the
 same web application will return the same _Lifecycle_ instance, which
 must be programmed in a thread-safe manner.
 
-Every JSF implementation must provide a
+Every Jakarta Faces implementation must provide a
 _Lifecycle_ instance for a default lifecycle identifier that is
 designated by the _String_ constant _LifecycleFactory.DEFAULT_LIFECYCLE_
-. For advanced uses, a JSF implementation may support additional
+. For advanced uses, a Jakarta Faces implementation may support additional
 lifecycle instances, named with unique lifecycle identifiers.
 
 [source,java]

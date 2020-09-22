@@ -3,6 +3,9 @@
 [appendix]
 == Change Log
 
+Note: this refers to historic issues and titles using the term "JSF". This refers to the
+pre-Jakarta Faces specification under the JCP.
+
 === Changes between 2.2 and 2.3
 
 This section gives the reader a survey of the changes between version 2.3

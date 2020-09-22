@@ -2,13 +2,11 @@
 == Ajax Integration
 
 This chapter of the specification describes
-how Ajax integrates with the Jakarta Server Faces framework to create
-dynamic web applications. Jakarta Server Faces 1.2 standardized portions of
-the architecture to facilitate building Web 2.0 applications with Ajax.
-This chapter describes the resources and JavaScript APIs that are used
-to expose the Ajax capabilities of Jakarta Server Faces to page authors and
+how Ajax integrates with the Jakarta Faces framework to create
+dynamic web applications. This chapter describes the resources and JavaScript APIs that are used
+to expose the Ajax capabilities of Jakarta Faces to page authors and
 component authors. It also describes the necessary ingredients of a
-Jakarta Server Faces Ajax framework, namely, a resource delivery mechanism,
+Jakarta Faces Ajax framework, namely, a resource delivery mechanism,
 partial tree traversal, partial page update.
 
 [[a6702]]
@@ -23,13 +21,13 @@ constant
 _jakarta.faces.application.ResourceHandler.JSF_SCRIPT_LIBRARY_NAME_,
 following the conventions in _<<a746, Resource
 Handling>>_. This resource contains the JavaScript APIs that facilitate
-Ajax interaction with Jakarta Server Faces.
+Ajax interaction with Jakarta Faces.
 
 [[a6704]]
 ==== JavaScript Resource Loading
 
 The JavaScript resource can become available
-to a Jakarta Server Faces application using a number of different
+to a Jakarta Faces application using a number of different
 approaches.
 
 [[a6706]]
@@ -132,10 +130,10 @@ JavaScript objects that are not enclosed
 within a namespace are global, which means they run the risk of
 interfering, overriding and/or clobbering previously defined JavaScript
 objects. This section defines the requirements for implementations
-intending to use the Jakarta Server Faces 2.0 JavaScript API.
+intending to use the Jakarta Faces 2.0 JavaScript API.
 
 [P1-start javascript namespace]Any
-implementation that intends to use the Jakarta Server Faces 2.0 JavaScript
+implementation that intends to use the Jakarta Faces JavaScript
 API must define a top level JavaScript object name jsf, whose type is a
 JavaScript associative array. Within that top level JavaScript object,
 there must be a property named ajax..
@@ -157,7 +155,7 @@ if (jsf.ajax == null || typeof jsf.ajax == "undefined") {
 
 This section of the specification outlines
 the Ajax JavaScript APIs that are used to initiate client side
-interactions with the Jakarta Server Faces framework including partial tree
+interactions with the Jakarta Faces framework including partial tree
 traversal and partial page update. All of the functions in this
 JavaScript API will be exposed on a page scoped JavaScript object. Refer
 to <<a6841, JavaScript API>> for details
@@ -385,9 +383,9 @@ signal the error(s).[P1-end]
 [[a6812]]
 ==== Handling Errors On The Server
 
-Jakarta Server Faces handles exceptions on the
+Jakarta Faces handles exceptions on the
 server as outlined in <<a3253, ExceptionHandler>>.
-[P1-start-error-server]Jakarta Server Faces Ajax frameworks must ensure
+[P1-start-error-server]Jakarta Faces Ajax frameworks must ensure
 exception information is written to the response in the format:
 
 [source,xml]
@@ -422,7 +420,7 @@ the environment requires it.
 [[a6825]]
 === Partial View Traversal
 
-The Jakarta Server Faces lifecycle, can be viewed
+The Jakarta Faces lifecycle, can be viewed
 as consisting of an execute phase and a render phase.
 
 
@@ -434,7 +432,7 @@ be used to “visit” one or more components in the view, potentially to
 have them pass through the “execute” and/or “render” phases of the
 request processing lifecycle. This is a key feature for JSF and Ajax
 frameworks and it allows selected components in the view to be processed
-and/or rendered. There are a variety of JSF Ajax frameworks available,
+and/or rendered. There are a variety of Jakarta Faces Ajax frameworks available,
 and they all perform some variation of partial traversal.
 
 [[a6829]]
@@ -555,7 +553,7 @@ component library compatability.
 [[a6837]]
 ===== Writing The Partial Response
 
-Jakarta Server Faces provides
+Jakarta Faces provides
 jakarta.faces.context.PartialResponseWriter to ensure the Ajax response
 that is written follows the standard format as specified in
 <<a7162, XML Schema Definition for Composite
