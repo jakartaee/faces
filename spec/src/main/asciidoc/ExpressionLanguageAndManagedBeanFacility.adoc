@@ -8,24 +8,21 @@ all properties can have a _value expression_ associated with them (see
 addition, many properties, such as _action_, _actionListener_,
 _validator_, and _valueChangeListener_ can be defined by a _method
 expression_ pointing at a public method in some class to be executed.
-This chapter describes the mechanisms and APIs that Jakarta Server Faces
+This chapter describes the mechanisms and APIs that Jakarta Faces
 utilizes in order to evaluate value expressions and method expressions.
 
-Jakarta Server Faces relies on the Unified
-Expression Language (Unified EL, or just EL) provided by version 2.1 of
-the Jakarta Server Pages specification. The EL is described in a
-separate specification document delivered as part of the JSP 2.1 spec.
-Please consult that document for complete details about the EL.
+Jakarta Faces relies on Jakarta Expression Language as described by version 4.0 of
+the Jakarta Expression Language specification. 
+Please consult that document for complete details about the Expression Language.
 
-Versions 1.0 and 1.1 of Jakarta Server Faces
+Versions 1.0 and 1.1 of pre-Jakarta Faces JSF under the JCP
 included a built in expression language and required an implementation
 of it. The API for this old JSF EL is still preserved as deprecated
-classes and methods, and implementations must still support that API.
+classes and methods, and Jakarta Faces implementations must still support that API.
 Please consult the <<ChangeLog.adoc#a8777,Guide to Deprecated
-Methods Relating to the Unified EL and their Corresponding Replacements>>
-for details. This chapter will focus exclusively on how Faces leverages
-and integrates with the Unified EL. It does not describe how the Unified
-EL operates.
+Methods Relating to the Expression Language and their Corresponding Replacements>>
+for details. This chapter will focus exclusively on how Jakarta Faces leverages
+and integrates with Jakarta Expression Language. It does not describe how Jakarta Expression Language operates.
 
 [[a2349]]
 === Value Expressions
@@ -66,11 +63,11 @@ which sets the _rendered_ property of the
 component to _false_ if the user is not a manager, and therefore causes
 this component to render nothing.
 
-The Unified Expression Language has a
+The Jakarta Expression Language has a
 powerful set of coercion rules that automatically convert the type of
 the value to the appropriate type. These rules occasionally rely on the
 JavaBeans _PropertyEditor_ facility to perform this conversion. Note
-that this conversion is entirely separate from normal JSF Conversion.
+that this conversion is entirely separate from normal Jakarta Faces Conversion.
 
 Value expressions can also be used to set a
 value from the user into the item obtained by evaluating the expression.
@@ -89,8 +86,8 @@ conversion and validation as usual) is pushed into the expression.
 
 ==== Value Expression Syntax and Semantics
 
-Please see Section 1.2 of the Expression
-Language Specification, Version 2.1 for the complete specification of
+Please see Section 1.2 of the Jakarta Expression
+Language Specification, Version 4.0 or higher for the complete specification of
 ValueExpression syntax and semantics.
 
 
@@ -102,7 +99,7 @@ setting of properties, method expressions support the invocation (i.e.
 execution) of an arbitrary public method of an arbitrary object, passing
 a specified set of parameters, and returning the result from the called
 method (if any). They may be used in any phase of the request processing
-lifecycle; the standard JSF components and framework employ them
+lifecycle; the standard Jakarta Faces components and framework employ them
 (encapsulated in a _MethodExpression_ object) at the following times:
 
 * During _Apply Request Values_ or _Invoke
@@ -218,25 +215,24 @@ _MethodExpression_ typed _actionExpression_ property of _ActionSource2_.
 ==== MethodExpression Syntax and Semantics
 
 The exact syntax and semantics of
-MethodExpression are now the domain of the Unified EL. Please see
-Section 1.2.1.2 of the Expression Language Specification, Version 2.1.
+MethodExpression are the domain of the Jakarta Expression Language. Please see
+Section 1.2.1.2 of the Jakarta Expression Language Specification, Version 4.0 or higher.
 
 
 [[a2406]]
 === The Managed Bean Facility
 
-As of version 2.3 of this specification, use
-of the managed bean facility as specified in this section is strongly
+The use of the managed bean facility as specified in this section is strongly
 discouraged. A better and more cohesively integrated solution for
 solving the same problem is to use Contexts and Dependency Injection
 (CDI). (See <<Preface.adoc#a173,
 Other Jakarta Platform Specifications>>).
 
-Perhaps the biggest value-add of bringing EL
-concepts to Faces happens when the EL is combined with the managed bean
+Perhaps the biggest value-add of bringing Expression Language
+concepts to Jakarta Faces happens when the Expression Language is combined with the managed bean
 facility. This feature allows the user to configure an entire complex
 tree of POJO beans, including how they should be scoped and populated
-with initial values, and expose them to EL expressions. Please see
+with initial values, and expose them to Expression Language expressions. Please see
 _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2477,Managed Bean Configuration Example>>_.
 
 The Managed Bean Creation facility is
@@ -379,7 +375,7 @@ that are not mentioned in _<managed-property>_ elements, the values of
 those properties are not assigned any values.
 
 * The bean instantiation and population with
-properties must be done lazily, when an EL expression causes the bean to
+properties must be done lazily, when an Expression Language expression causes the bean to
 be referenced. For example, this is the case when a _ValueExpression_ or
 _MethodExpression_ has its _getValue()_ or _setValue()_ method called.
 
@@ -604,7 +600,7 @@ _street_, _city_, _state_, _country_, and _postalCode_.
 ----
 
 If a value expression
-“_#{customer.mailingAddress.city}_” were to be evaluated by the JSF
+“_#{customer.mailingAddress.city}_” were to be evaluated by the Jakarta Faces
 implementation, and there was no object stored under key “_customer_”
 in request, view, session, or application scope, a new _CustomerBean_
 instance will be created and stored in request scope, with its
@@ -613,9 +609,9 @@ instances of _AddressBean_ as defined by the configuration elements
 shown above. Then, the evaluation of the remainder of the expression can
 proceed as usual.
 
-Although not used by the JSF implementation
+Although not used by the Jakarta Faces implementation
 at application runtime, it is also convenient to be able to indicate to
-JSF tools (at design time) that objects of particular types will be
+Jakarta Faces tools (at design time) that objects of particular types will be
 created and made available (at runtime) by some other means. For
 example, an application configuration resource could include the
 following information to declare that a JDBC data source instance will
@@ -627,9 +623,9 @@ application’s own startup processing.
 <referenced-bean>
   <description>
     A JDBC data source will be initialized and made available in
-    some scope (presumably application) for use by the JSF based
+    some scope (presumably application) for use by the Jakarta Faces based
     application when it is actually run. This information is not
-    used by the JSF implementation itself; only by tools.
+    used by the Jakarta Faces implementation itself; only by tools.
   </description>
   <referenced-bean-name>dataSource</referenced-bean-name>
   <referenced-bean-class>
@@ -645,34 +641,33 @@ beans.
 [[a2536]]
 === Managed Bean Annotations
 
-JSF 2.0 introduced several annotations, in
+Jakarta Faces has several annotations, in
 the package _jakarta.faces.bean_, that act as analogs to the managed bean
 configuration syntax in the application configuration resources
-described earlier in this chapter. JSF 2.0 is a component specification
-of Java EE 6, which also includes a much more powerful and complete set
+described earlier in this chapter. Jakarta Faces is a component specification
+of Jakarta EE, which also includes a much more powerful and complete set
 of annotations, from several other component specifications, most
-notably Contexts and Dependency Injection (CDI). These annotations are
-also usable with JSF. The annotations in the package _jakarta.faces.bean_
-will be deprecated in a version of the JSF specification after 2.2.
-Therefore, developers are strongly recommended avoid using those
-annotations and instead use the ones from Java EE 6.
+notably Jakarta Contexts and Dependency Injection (CDI). These annotations are
+also usable with Jakarta Faces. The annotations in the package _jakarta.faces.bean_
+are deprecated. Therefore, developers are strongly recommended to avoid using those
+annotations and instead use the ones from CDI.
 
-==== JSF Managed Classes and Jakarta EE Annotations
+==== Jakarta Faces Managed Classes and Jakarta EE Annotations
 
-JSF Implementations that are running as a
-part of Java EE 5 (or later) must allow managed bean implementations to
-use the annotations specified in section 14.5 of the Servlet 2.5
+Jakarta Faces implementations that are running as a
+part of Jakarta EE must allow managed bean implementations to
+use the annotations specified in section 14.5 of the Jakarta Servlet
 Specification to allow the container to inject references to container
 managed resources into a managed bean instance before it is made
-accessible to the JSF application. Only beans declared to be in
+accessible to the Jakarta Faces application. Only beans declared to be in
 _request_, _session_, or _application_ scope are eligible for resource
 injection.
 
 In addition to managed beans being injectable
-in this manner, the following JSF artifacts are also injectable.
+in this manner, the following Jakarta Faces artifacts are also injectable.
 
 [[a2541]]
-.JSF Artifacts Eligible for Injection
+.Jakarta Faces Artifacts Eligible for Injection
 
 Artifact Type
 
@@ -715,8 +710,7 @@ Artifact Type
 - jakarta.faces.view.facelets. +
 TagHandlerDelegateFactory
 
-{empty}Please consult the Java 2 Platform
-Enterprise Edition Specification 6.0 for complete details of this
+{empty}Please consult the Jakarta EE Specification for complete details of this
 feature. Here is a summary of the Jakarta EE annotations one may use in a
 managed bean or other artifact from the preceding table. [P1-start valid
 annotations in a managed bean]
@@ -786,7 +780,7 @@ public class User extends Object {
 
 This example illustrates that the above
 annotations can be attached to instance variables or to JavaBeans
-setters. The JSF implementation running in a Java EE 5 container must
+setters. The Jakarta Faces implementation running in a Jakarta EE container must
 guarantee that the injections are performed before the bean is handed
 back to the user. Generally, this is done by performing the injection
 immediately after the lazy instantiation of the managed bean.
@@ -794,26 +788,26 @@ immediately after the lazy instantiation of the managed bean.
 [[a2601]]
 ==== Managed Bean Lifecycle Annotations
 
-JSF implementations running in a Java EE 5
+Jakarta Faces implementations running in a Jakarta EE
 compliant container must support attaching the _@PostConstruct_ and
 _@PreDestroy_ annotations to aid in awareness of the managed-bean
 lifecycle.
 
 Methods on managed beans declared to be in
 _none_, _request_, _view_, _session_, or _application_ scope,
-annotated with _@PostConstruct_, must be called by the JSF
+annotated with _@PostConstruct_, must be called by the Jakarta Faces
 implementation after resource injection is performed (if any) but before
 the bean is placed into scope.
 
 {empty}[P1-start rules governing invocation
 of @PostConstruct annotated methods]If the method throws an unchecked
-exception, the JSF implementation must not put the managed-bean into
+exception, the Jakarta Faces implementation must not put the managed-bean into
 service, a message must be logged, and further methods on that managed
 bean instance must not be called. [P1-end]
 
 Methods on managed beans declared to be in
 _request_, _session_, or _application_ scope, annotated with
-_@PreDestroy_, must be called by the JSF implementation before the bean
+_@PreDestroy_, must be called by the Jakarta Faces implementation before the bean
 is removed from its scope or before the scope itself is destroyed,
 whichever comes first. In the case of a managed bean placed in _view_
 scope, methods annotated with _@PreDestroy_ must only be called when the
@@ -823,53 +817,52 @@ cases where the above _@PostConstruct_ annotation is supported.
 
 [P1-start rules governing invocation of
 @PreDestroy annotated methods] If the method throws an unchecked
-exception, the JSF implementation may log it, but the exception must not
+exception, the Jakarta Faces implementation may log it, but the exception must not
 otherwise alter the execution.
 
 {empty}Refer to the Jakarta EE specification
-section 2.5 and the Common Annotations for the JavaTM PlatformTM
+section 2.5 and the Jakarta Annotations
 specification section 2.5 for more details.[P1-end]
 
 
-=== How Faces Leverages the Unified EL
+=== How Faces Leverages the Expression Language
 
 This section is non-normative and covers the
-major players in the Unified EL and how they relate to Jakarta Server Faces.
-The number one goal in this version of the Jakarta Server Faces
-specification is to export the concepts behind the JSF EL into the
-Unified EL, which is part of the the Jakarta Server Pages version 2.1
-specification, and then rely on those facilities to get the work done.
-Readers interested in how to implement the Unified EL itself must
-consult the Unified EL Spec document.
+major players in the Jakarta Expression Language and how they relate to Jakarta Faces.
+The number one goal in this version of the Jakarta Faces
+specification is to export the concepts behind the Jakarta Faces EL into the
+Jakarta Expression Language, and then rely on those facilities to get the work done.
+Readers interested in how to implement the Jakarta Expression Language itself must
+consult the Jakarta Expression Language Spec document.
 
 ==== ELContext
 
 The ELContext is a handy little “holder”
-object that gets passed all around the Unified EL API. It has two
+object that gets passed all around the Jakarta Expression Language API. It has two
 purposes.
 
-* To allow technologies that use the Unified
-EL, such as Jakarta Server Faces, the JSF View Declaration Language (JSF
-VDL), and JSP, to store any context information specific to that
+* To allow technologies that use the Jakarta Expression Language
+, such as Jakarta Faces, the Jakarta Faces View Declaration Language, and JSP, 
+to store any context information specific to that
 technology so it can be leveraged during expression evaluation. For
-example the expression “_${view.viewId}_” is specific to Faces. It
+example the expression “_${view.viewId}_” is specific to Jakarta Faces. It
 means, “find the _UIViewRoot_ instance for the current view, and return
-its _viewId_”. The Unified EL doesn’t know about the “view” implicit
-object or what a UIViewRoot is, but Jakarta Server Faces does. The Unified
-EL has plugin points that will get called to resolve “view”, but to do
-so, Jakarta Server Faces needs access to the _FacesContext_ from within the
-callstack of EL evaluation. Therefore, the _ELContext_ comes to the
+its _viewId_”. The Jakarta Expression Language doesn’t know about the “view” implicit
+object or what a UIViewRoot is, but Jakarta Faces does. The Jakarta Expression Language
+has plugin points that will get called to resolve “view”, but to do
+so, Jakarta Faces needs access to the _FacesContext_ from within the
+callstack of Expression Language evaluation. Therefore, the _ELContext_ comes to the
 rescue, having been populated with the _FacesContext_ earlier in the
 request processing lifecycle.
 
 * To allow the pluggable resolver to tell the
-Unified EL that it did, in fact, resolve a property and that further
+Jakarta Expression Language that it did, in fact, resolve a property and that further
 resolvers must not be consulted. This is done by setting the
 “_propertyResolved_” property to _true_.
 
 The complete specification for ELResolver may
-be found in Chapter 2 of the Expression Language Specification, Version
-2.1.
+be found in Chapter 2 of the Jakarta Expression Language Specification, Version
+4.0.
 
 ===== Lifetime, Ownership and Cardinality
 
@@ -900,8 +893,7 @@ ELResolver>>_ for how this property is used.
 
 ===== Methods
 
-Here is a subset of the methods that are
-relevant to Faces.
+Here is a subset of the methods that are relevant to Jakarta Faces.
 
 [source,java]
 ----
@@ -930,14 +922,14 @@ for details.
 Faces 1.1 used the _VariableResolver_ and
 _PropertyResolver_ classes as the workhorses of expression evaluation.
 The Unified API has the _ELResolver_ instead. The ELResolver concept is
-the heart of the Unified EL. When an expression is evaluated, the
+the heart of the Jakarta Expression Language. When an expression is evaluated, the
 ELResolver is responsible for resolving each segment in the expression.
 For example, in rendering the component behind the tag “_<h:outputText
 value=”#{user.address.street}” />”_ the ELResolver is called three
 times. Once to resolve “user”, again to resolve the “address” property
 of user, and finally, to resolve the “street” property of “address”. The
 complete specification for ELResolver may be found in Chapter 2 of the
-Expression Language Specification, Version 2.1.
+Jakarta Expression Language Specification, Version 4.0 or higher.
 
 [N/T-start two ELResolver impls] As described
 in more detail in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,Faces ELResolver for
@@ -963,7 +955,7 @@ ELResolver instances have application
 lifetime and scope. The JSP container maintains one top level ELResolver
 (into which a Faces specific ELResolver is added) accessible from
 _JspContext.getELContext().getELResolver()_. This ELResolver instance is
-also used from the JSF VDL, even though JSF VDL pages do not themselves
+also used from the Jakarta Faces VDL, even though Jakarta Faces VDL pages do not themselves
 use JSP. Faces maintains one _ELResolver_ (separate from the one handed
 to the JSP container) accessible from
 _FacesContext.getELContext().getELResolver()_ and
@@ -1000,7 +992,7 @@ up calling the _setter_ for that property.
 
 There are other methods, such as
 _isReadOnly()_ that are beyond the scope of this document, but described
-completely in the Unified EL Specification.
+completely in the Jakarta Expression Language Specification.
 
 ===== Events
 
@@ -1009,8 +1001,8 @@ _ELResolver_ precipitates no events.
 [[a2651]]
 ==== ExpressionFactory
 
-Faces 1.1 used the Application class as a
-factory for _ValueBinding_ and _MethodBinding_ instances. The Unified EL
+Pre-Jakarta Faces JSF 1.1 (under the JCP) used the Application class as a
+factory for _ValueBinding_ and _MethodBinding_ instances. The Jakarta Expression Language
 has the _ExpressionFactory_ class instead. It is a factory for
 _ValueExpression_ and _MethodExpression_ instances.
 
@@ -1021,7 +1013,7 @@ application scoped. The _Application_ object maintains the
 _ExpressionFactory_ instance used by Faces (See
 _<<ApplicationIntegration.adoc#a3459,Acquiring ExpressionFactory Instance>>)_.
 The _JspApplicationContext_ object maintains the _ExpressionFactory_
-used by the JSP container (and therefore by the JSF VDL). It is
+used by the JSP container (and therefore by the Jakarta Faces VDL). It is
 permissible for both of these access methods to yield the same java
 object instance.
 
@@ -1057,7 +1049,7 @@ _ExpressionFactory_ precipitates no events.
 
 This section provides details on what an
 implementation of the Jakarta Server Faces specification must do to support
-the Unified EL for usage in a Faces application.
+the Jakarta Expression Language for usage in a Jakarta Faces application.
 
 _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,
 ELResolver>>_ mentions that a Faces implementation must provide two
@@ -1065,7 +1057,7 @@ implementations of ELResolver. One ELResolver, let’s call it the _Faces
 ELResolver For Markup Pages_, is plugged in to the top level resolver
 chain returned from _JspContext.getELContext().getELResolver()_. This
 top level resolver chain is used by the view declaration language
-container (JSP or JSF View Declaration Language), and possibly by tag
+container (JSP or Jakarta Faces View Declaration Language), and possibly by tag
 handlers, to resolve expressions. The other _ELResolver_, let’s call it
 the _ELResolver for Facelets and Programmatic Access_, is used by
 Facelets markup pages, and is returned from
@@ -1084,7 +1076,7 @@ _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,ELResolver>>_, during the
 evaluation of an expression, a variety of sources must be considered to
 help resolve each segment of the expression. These sources are linked in
 a chain-like fashion. Each link in the chain has the opportunity to
-resolve the current segment. The Unified EL provides a container class
+resolve the current segment. The Jakarta Expression Language provides a container class
 to support this multi-source variable resolution:
 _jakarta.el.CompositeELResolver_. The implementation for the _Faces
 ELResolver for JSP Pages_ is described as a set of _ELResolvers_ inside
@@ -1097,7 +1089,7 @@ JSP Pages_. This instance must be handed to the JSP container via a
 call to
 _JspFactory.getDefaultFactory().getJspApplicationContext().addELResolver()_
 at application startup time. Even though we are making a JSP API call to
-install this _ELResolver_, we do not require using JSP to develop JSF
+install this _ELResolver_, we do not require using JSP to develop Jakarta Faces
 applications. It also shows the order in which they must be added.
 [P2-start there are 18 methods in the below tables, each can
 corresponding to a method on a particular ELResolver. With clever
@@ -1230,7 +1222,7 @@ If base is null and return String.class.
 
 This is the means by which the managed bean
 creation facility described in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The
-Managed Bean Facility>>_ is called into play during EL resolution.
+Managed Bean Facility>>_ is called into play during Expression Language resolution.
 
 .ManagedBeanELResolver
 
@@ -1323,7 +1315,7 @@ Resource ELResolver>> for the specification of this ELResolver.
 
 This is the means by which resource bundles
 defined in the application configuration resources are called into play
-during EL resolution.
+during Expression Language resolution.
 
 .ResourceBundleELResolver
 
@@ -1990,10 +1982,10 @@ Pages>>.
 ===== Stream, StaticField, Map, List, Array, and Bean ELResolvers
 
 These ELResolver instances are provided by
-the Unified EL API and must be added in the following order:
+the Jakarta Expression Language API and must be added in the following order:
 
 {empty}[P1-start_EL_3_0] If running on a
-container that supports EL 3.0: The return from
+container that supports Jakarta Expression Language 4.0 or higher: The return from
 _ExpressionFactory.getStreamELResolver_,
 _jakarta.el.StaticFieldELResolver_. [P1-end_EL_3_0]
 
@@ -2095,13 +2087,13 @@ If base is null return String.class.
 
 |===
 
-==== CDI for EL Resolution
+==== CDI for Expression Language Resolution
 
 If the any of the managed beans in the
 application have the _@jakarta.faces.annotation.FacesConfig_ annotation,
 the ImplicitObjectELResolver from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2830,
 Implicit Object ELResolver for Facelets and Programmatic Access>> is not
-present in the chain. Instead, CDI is used to perform EL resolution in
+present in the chain. Instead, CDI is used to perform Expression Language resolution in
 the same manner is in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2832,
 ImplicitObjectELResolver for Programmatic Access>> with the following
 additional implicit objects:
@@ -2116,7 +2108,7 @@ current _FacesContext_
 
 ==== ELResolver
 
-This class is the Unified EL’s answer to
+This class is the Jakarta Expression Language’s answer to
 Faces’s _VariableResolver_ and _PropertyResolver_. It turns out that
 variable resolution can be seen as a special case of property resolution
 with the base object being _null_. Please see
@@ -2124,18 +2116,18 @@ _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,ELResolver>>_ for more de
 
 ==== ValueExpression
 
-This class is the Unified EL’s answer to
-Faces’s _ValueBinding_. It is the main object oriented abstraction for
-al EL expression that results in a value either being retrieved or set.
-Please see Chapter 2 of the Expression Language Specification, Version
-2.1.
+This class is the Jakarta Expression Language’s answer to
+Jakarta Faces’s _ValueBinding_. It is the main object oriented abstraction for
+an Expression Language expression that results in a value either being retrieved or set.
+Please see Chapter 2 of the Jakarta Expression Language Specification, Version
+4.0 or higher.
 
 ==== MethodExpression
 
-This class is the Unified EL’s answer to
-Faces’s _MethodBinding_. It is the main object oriented abstraction for
-al EL expression that results in a method being invoked. Please see
-Chapter 2 of the Expression Language Specification, Version 2.1.
+This class is the Jakarta Expression Language’s answer to
+Jakarta Faces’s _MethodBinding_. It is the main object oriented abstraction for
+an Expression Language expression that results in a method being invoked. Please see
+Chapter 2 of the Jakarta Expression Language Specification, Version 4.0 or higher.
 
 ==== Expression Evaluation Exceptions
 
@@ -2176,12 +2168,12 @@ User-provided VariableResolver instances will
 still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
 VariableResolver Chain Wrapper>>_. The decorator pattern described in
 _<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
-must be supported. Users wishing to affect EL resolution are advised to
+must be supported. Users wishing to affect Expression Language resolution are advised to
 author a custom ELResolver instead. These will get picked up as
 specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,ELResolvers in the
 application configuration resources>>_.
 
-The JSF implementation must provide a default
+The Jakarta Faces implementation must provide a default
 _VariableResolver_ implementation that gets the _ELContext_ from the
 argument _FacesContext_ and calls _setPropertyResolved(false)_
 on it
@@ -2199,12 +2191,12 @@ User-provided propertyResolver instances will
 still continue to work by virtue of _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2773,
 VariableResolver Chain Wrapper>>_. The decorator pattern described in
 _<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
-must be supported. Users wishing to affect EL resolution are advised to
+must be supported. Users wishing to affect Expression Language resolution are advised to
 author a custom ELResolver instead. These will get picked up as
 specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2771,ELResolvers in the
 application configuration resources>>_.
 
-The JSF implementation must provide a default
+The Jakarta Faces implementation must provide a default
 _propertyResolver_ implementation that gets the _ELContext_ from the
 argument _FacesContext_ and calls _setPropertyResolved(false)_ on it.
 
@@ -2323,32 +2315,30 @@ exception.
 
 === CDI Integration
 
-As of version 2.3 of this specification, JSF
-must run in a container that supports CDI version 2.0. This requirement
+Jakarta Faces must run in a container that supports CDI version 3.0 or higher. This requirement
 allows CDI to provide all the functionality of the managed bean facility
 from <<ExpressionLanguageAndManagedBeanFacility.adoc#a2406,The Managed Bean Facility>> and
 <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,Managed Bean Annotations>> but in a
 better integrated way with the rest of the Jakarta EE platform. Delegating
-these features to CDI allows them to evolve independently of JSF. The
+these features to CDI allows them to evolve independently of Jakarta Faces. The
 remainder of this section specifies some details of CDI integration
-pertinent to JSF.
+pertinent to Jakarta Faces.
 
 [[a3054]]
-==== JSF Objects Valid for @Inject Injection
+==== Jakarta Faces Objects Valid for @Inject Injection
 
 It must be possible to inject the following
-JSF objects into other objects using _@Inject_.
+Jakarta Faces objects into other objects using _@Inject_.
 
-.Maps Returned by Various JSF Accessors
+.Maps Returned by Various Jakarta Faces Accessors
 
 The annotations in package
 _jakarta.faces.annotation_ are used to cause _@Inject_ injection of the
 corresponding _Map_ into a field. Generics may be used.
 
-.JSF Objects
+.Jakarta Faces Objects
 
-It must be possible to _@Inject_ the
-following JSF and Jakarta EE objects into CDI beans.
+It must be possible to _@Inject_ the following Jakarta Faces and Jakarta EE objects into CDI beans.
 
 - _jakarta.faces.application.ResourceHandler_
 
@@ -2360,10 +2350,10 @@ following JSF and Jakarta EE objects into CDI beans.
 
 - _jakarta.servlet.http.HttpSession_
 
-.Support for Injection into JSF Managed Objects
+.Support for Injection into Jakarta Faces Managed Objects
 
 It must be possible to use _@Inject_ when
-specifying the following kinds of JSF managed objects.
+specifying the following kinds of Jakarta Faces managed objects.
 
 - Validators declared with
 _@jakarta.faces.validator.FacesValidator(managed=”true”)_
@@ -2375,7 +2365,7 @@ _@jakarta.faces.convert.FacesConverter(managed=”true”)_
 _@jakarta.faces.component.behavior.FacesBehavior(managed=”true”)_
 
 [[a3070]]
-==== EL Resolution
+==== Expression Language Resolution
 
 The following implicit objects must be
 resolved using CDI
