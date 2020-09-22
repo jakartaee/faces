@@ -3,7 +3,7 @@
 
 In addition to the abstract base class
 _UIComponent_ and the abstract base class _UIComponentBase_, described
-in the previous chapter, JSF provides a number of concrete user
+in the previous chapter, Jakarta Faces provides a number of concrete user
 interface component implementation classes that cover the most common
 requirements. In addition, component writers will typically create new
 components by subclassing one of the standard component classes (or the
@@ -263,7 +263,7 @@ _rendererType_ property must be set to “_jakarta.faces.Table_”.[P1-end]
 The current value identified by the _value_
 property is normally of type _DataModel_.
 [P1-start-uidataModel]However, a _DataModel_ wrapper instance must
-automatically be provided by the JSF implementation if the current value
+automatically be provided by the Jakarta Faces implementation if the current value
 is of one of the following types:
 
 - _java.util.List_
@@ -1494,7 +1494,7 @@ No events are generated for this component.
 [[a2302]]
 ===== Concrete Implementations
 
-[P1-start-datamodel]The JSF implementation
+[P1-start-datamodel]The Jakarta Faces implementation
 must provide concrete implementations of DataModel (in the
 jakarta.faces.model package) for the following data wrapping scenarios:
 
