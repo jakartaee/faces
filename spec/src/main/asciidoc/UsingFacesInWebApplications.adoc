@@ -1,19 +1,19 @@
 [[a6060]]
-== Using JSF in Web Applications
+== Using Jakarta Faces in Web Applications
 
-This specification provides JSF implementors
+This specification provides Jakarta Faces implementors
 significant freedom to differentiate themselves through innovative
 implementation techniques, as well as value-added features. However, to
-ensure that web applications based on JSF can be executed unchanged
-across different JSF implementations, the following additional
-requirements, defining how a JSF-based web application is assembled and
-configured, must be supported by all JSF implementations.
+ensure that web applications based on Jakarta Faces can be executed unchanged
+across different Jakarta Faces implementations, the following additional
+requirements, defining how a Jakarta Faces-based web application is assembled and
+configured, must be supported by all Jakarta Faces implementations.
 
 === Web Application Deployment Descriptor
 
-JSF-based applications are _web applications_
+Jakarta Faces-based applications are _web applications_
 that conform to the requirements of the _Jakarta Servlet Specification_
-(version 2.3 or later), and also use the facilities defined in this
+(version 5.0 or later), and also use the facilities defined in this
 specification. Conforming web applications are packaged in a _web
 application archive_ (WAR), with a well-defined internal directory
 structure. A key element of a WAR is the _web application deployment
@@ -21,7 +21,7 @@ descriptor_, an XML document that describes the configuration of the
 resources in this web application. This document is included in the WAR
 file itself, at resource path _/WEB-INF/web.xml_.
 
-Portable JSF-based web applications must
+Portable Jakarta Faces-based web applications must
 include the following configuration elements, in the appropriate
 portions of the web application deployment descriptor. Element values
 that are rendered in _italics_ represent values that the application
@@ -31,14 +31,14 @@ values that must be utilized exactly as shown.
 Executing the request processing lifecycle
 via other mechanisms is also allowed (for example, an MVC-based
 application framework can incorporate calling the correct phase
-implementations in the correct order); however, all JSF implementations
+implementations in the correct order); however, all Jakarta Faces implementations
 must support the functionality described in this chapter to ensure
 application portability.
 
 [[a6066]]
 ==== Servlet Definition
 
-JSF implementations must provide request
+Jakarta Faces implementations must provide request
 processing lifecycle services through a standard servlet, defined by
 this specification. [P1-start-servlet]This servlet must be defined, in
 the deployment descriptor of an application that wishes to employ this
@@ -60,8 +60,8 @@ _faces-servlet-name_ above, may be any desired value; however, the same
 value must be used in the servlet mapping (see
 <<a6076, Servlet Mapping>>).[P1-end]
 
-In addition to _FacesServlet_, JSF
-implementations may support other ways to invoke the Jakarta Server Faces
+In addition to _FacesServlet_, Jakarta Faces
+implementations may support other ways to invoke the Jakarta Faces
 request processing lifecycle, but applications that rely on these
 mechanisms will not be portable.
 
@@ -72,7 +72,7 @@ All requests to a web application are mapped
 to a particular servlet based on matching a URL pattern (as defined in
 the _Jakarta Servlet Specification_) against the portion of the request
 URL after the context path that selected this web application.
-[P1-start-mapping]JSF implementations must support web application that
+[P1-start-mapping]Jakarta Faces implementations must support web application that
 define a _<servlet-mapping>_ that maps any valid _url-pattern_ to the
 _FacesServlet_. [P1-end]Prefix or extension mapping may be used. When
 using prefix mapping, the following mapping is recommended, but not
@@ -101,8 +101,8 @@ mapping is recommended, but not required:
 </servlet-mapping>
 ====
 
-In addition to _FacesServlet_, JSF
-implementations may support other ways to invoke the Jakarta Server Faces
+In addition to _FacesServlet_, Jakarta Faces
+implementations may support other ways to invoke the Jakarta Faces
 request processing lifecycle, but applications that rely on these
 mechanisms will not be portable.
 
@@ -112,7 +112,7 @@ mechanisms will not be portable.
 Servlet containers support application
 configuration parameters that may be customized by including
 _<context-param>_ elements in the web application deployment descriptor.
-[P1-start-configParams]All JSF implementations are required to support
+[P1-start-configParams]All Jakarta Faces implementations are required to support
 the following application configuration parameter names:
 
 
@@ -129,7 +129,7 @@ the specification of this feature.
 
 * _jakarta.faces.CONFIG_FILES_ --
 Comma-delimited list of context-relative resource paths under which the
-JSF implementation will look for application configuration resources
+Jakarta Faces implementation will look for application configuration resources
 (see <<a6254, Application Configuration Resource
 Format>>), before loading a configuration resource named
 “_/WEB-INF/faces-config.xml_” (if such a resource exists). If
@@ -146,7 +146,7 @@ be equal to _TimeZone.getDefault()_ instead of “GMT”.
 
 * _jakarta.faces.DEFAULT_SUFFIX_ -- Allow the
 web application to define an alternate suffix for JSP pages containing
-JSF content. See the javadocs for the symbolic constant
+Jakarta Faces content. See the javadocs for the symbolic constant
 _ViewHandler.DEFAULT_SUFFIX_PARAM_NAME_ for the complete specification.
 
 
@@ -245,7 +245,7 @@ backwards compatibility with existing facelets tag libraries.
 
 * _jakarta.faces.FACELETS_SUFFIX_ -- Allow the
 web application to define an alternate suffix for Facelet based XHTML
-pages containing JSF content. See the javadocs for the symbolic constant
+pages containing Jakarta Faces content. See the javadocs for the symbolic constant
 _ViewHandler.FACELETS_SUFFIX_PARAM_NAME_ for the complete specification.
 
 * _jakarta.faces.FACELETS_VIEW_MAPPINGS_ -- If
@@ -262,7 +262,7 @@ specification.
 * _jakarta.faces.FULL_STATE_SAVING_VIEW_IDS_ --
 The runtime must interpret the value of this parameter as a comma
 separated list of view IDs, each of which must have their state saved
-using the state saving mechanism specified in JSF 1.2.
+using the state saving mechanism specified in pre-Jakarta Faces JSF 1.2 (under the JCP).
 
 
 * _jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL_ -- If this
@@ -278,8 +278,8 @@ _UIInput.setSubmittedValue(null)_ and continue processing using null as
 the current submitted value
 
 * _jakarta.faces.LIFECYCLE_ID_ -- Lifecycle
-identifier of the _Lifecycle_ instance to be used when processing JSF
-requests for this web application. If not specified, the JSF default
+identifier of the _Lifecycle_ instance to be used when processing Jakarta Faces
+requests for this web application. If not specified, the Jakarta Faces default
 instance, identified by _LifecycleFactory.DEFAULT_LIFECYCLE_, must be
 used.
 
@@ -305,7 +305,7 @@ value returns true, the runtime must use partial state mechanism.
 Otherwise the partial state saving mechanism must not be used.
 
 * _jakarta.faces.PROJECT_STAGE_ -- A human
-readable string describing where this particular JSF application is in
+readable string describing where this particular Jakarta Faces application is in
 the software development lifecycle. Valid values are “_Development_”,
 “_UnitTest_”, “_SystemTest_”, or “_Production_”, corresponding to
 the enum constants of the class _jakarta.faces.application.ProjectStage_.
@@ -396,15 +396,15 @@ quotes, must be used by the runtime as the value.
 
 {empty}[P1-end]
 
-JSF implementations may choose to support
+Jakarta Faces implementations may choose to support
 additional configuration parameters, as well as additional mechanisms to
-customize the JSF implementation; however, applications that rely on
-these facilities will not be portable to other JSF implementations.
+customize the Jakarta Faces implementation; however, applications that rely on
+these facilities will not be portable to other Jakarta Faces implementations.
 
 
 === Included Classes and Resources
 
-A JSF-based application will rely on a
+A Jakarta Faces-based application will rely on a
 combination of APIs, and corresponding implementation classes and
 resources, in addition to its own classes and resources. The web
 application archive structure identifies two standard locations for
@@ -538,7 +538,7 @@ per-web-application instance of the appropriate implementation class for
 the specified Jakarta Server Faces factory class, based on the discovery
 algorithm described above.
 
-{empty}JSF implementations must also include
+{empty}Jakarta Faces implementations must also include
 implementations of the several factory classes. In order to be
 dynamically instantiated according to the algorithm defined above, the
 factory implementation class must include a public, no-arguments
@@ -614,7 +614,7 @@ _FacesException_, re-throw it as a _ServletException_ with the
 _FacesException_ as the root cause.
 
 * Call the _release_ () method on the
-_FacesContext_ instance, allowing it to be returned to a pool if the JSF
+_FacesContext_ instance, allowing it to be returned to a pool if the Jakarta Faces
 implementation uses one.
 
 [P1-start-servletParams]The FacesServlet
@@ -640,7 +640,7 @@ required. The value of this constant must be
 
 _[P1-start-uicomponenteltag]UIComponentELTag_ is an implementation of
 _jakarta.servlet.jsp.tagext.BodyTag_, and must be the base class for any
-JSP custom action that corresponds to a JSF _UIComponent_.[P1-end] See
+JSP custom action that corresponds to a Jakarta Faces _UIComponent_.[P1-end] See
 <<a4406, Integration with JSP>>, and the Javadocs
 for _UIComponentELTag_, for more information about using this class as
 the base class for your own _UIComponent_ custom action classes.
@@ -704,24 +704,24 @@ _ValidatorELTag_.
 [[a6195]]
 === Application Configuration Resources
 
-This section describes the JSF support for
+This section describes the Jakarta Faces support for
 portable application configuration resources used to configure
 application components.
 
 ==== Overview
 
-JSF defines a portable configuration resource
+Jakarta Faces defines a portable configuration resource
 format (as an XML document) for standard configuration information.
 Please see the Javadoc overview for a link, titled “faces-config XML
 Schema Documentation” to the XML Schema Definition for such documents.
 
 One or more such application resources will
-be loaded automatically, at application startup time, by the JSF
+be loaded automatically, at application startup time, by the Jakarta Faces
 implementation. The information parsed from such resources will augment
-the information provided by the JSF implementation, as described below.
+the information provided by the Jakarta Faces implementation, as described below.
 
 In addition to their use during the execution
-of a JSF-based web application, configuration resources provide
+of a Jakarta Faces-based web application, configuration resources provide
 information that is useful to development tools created by Tool
 Providers. The mechanism by which configuration resources are made
 available to such tools is outside the scope of this specification.
@@ -736,7 +736,7 @@ configuration process and reduce startup time for applications that do
 not use Jakarta Server Faces Technology.
 
 At application startup time, before any
-requests are processed, the [P1-start-startup]JSF implementation must
+requests are processed, the [P1-start-startup]Jakarta Faces implementation must
 process zero or more application configuration resources, located as
 follows
 
@@ -783,14 +783,14 @@ processed.
 
 This algorithm provides considerable
 flexibility for developers that are assembling the components of a
-JSF-based web application. For example, an application might include one
+Jakarta Faces-based web application. For example, an application might include one
 or more custom _UIComponent_ implementations, along with associated
 __Renderer__s, so it can declare them in an application resource named
 “_/WEB-INF/faces-config.xml_” with no need to programmatically register
 them with _Application_ instance. In addition, the application might
 choose to include a component library (packaged as a JAR file) that
 includes a “_META-INF/faces-config.xml_” resource. The existence of
-this resource causes components, renderers, and other JSF implementation
+this resource causes components, renderers, and other Jakarta Faces implementation
 classes that are stored in this library JAR file to be automatically
 registered, with no action required by the application.
 
@@ -808,11 +808,11 @@ application configuration resources have been processed.[P1-end]
 [P1-start-startupErrors]XML parsing errors
 detected during the loading of an application resource file are fatal to
 application startup, and must cause the application to not be made
-available by the container. JSF implementations that are part of a Jakarta
+available by the container. Jakarta Faces implementations that are part of a Jakarta
 EE technology-compliant implementation are required to validate the
 application resource file against the XML schema for structural
 correctness. [P1-end]The validation is recommended, but not required for
-JSF implementations that are not part of a Jakarta EE technology-compliant
+Jakarta Faces implementations that are not part of a Jakarta EE technology-compliant
 implementation.
 
 [[a6215]]
@@ -1006,7 +1006,7 @@ _FlowHandler_ before the _PostConstructApplicationEvent_ is published.
 [[a6248]]
 ==== Application Shutdown Behavior
 
-{empty}When the JSF runtime is directed to
+{empty}When the Jakarta Faces runtime is directed to
 shutdown by its container, the following actions must be taken.[p1-start-application-shutdown]
 
 . Ensure that calls to
@@ -1025,7 +1025,22 @@ _jakarta.faces.event.PreDestroyApplicationEvent_.
 ==== Application Configuration Resource Format
 
 {empty}Application configuration resources
-that are written to run on JSF 2.3 must include the following schema
+that are written to run on Jakarta Faces 3.0 must include the following schema
+declaration and must conform to the schema shown in
+<<a7037, Appendix A - JSF Metadata>>
+
+[source,xml]
+----
+<faces-config
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+        http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_3_0.xsd"
+    version="2.3">
+----
+
+{empty}Application configuration resources
+that are written to run on pre-Jakarta Faces JSF 2.3 must include the following schema
 declaration and must conform to the schema shown in
 <<a7037, Appendix A - JSF Metadata>>
 
@@ -1040,7 +1055,7 @@ declaration and must conform to the schema shown in
 ----
 
 [P1-start-schema]Application configuration
-resources that are written to run on JSF 2.2 must include the following
+resources that are written to run on pre-Jakarta Faces JSF 2.2 must include the following
 schema declaration and must conform to the schema shown in
 <<a7037, Appendix A - JSF Metadata>>:
 
@@ -1063,7 +1078,7 @@ use the “java.sun.com” hostname when using _version=_ "2.2" and
 _web-facesconfig_2_2.xsd_.
 
 Application configuration resources that are
-written to run on JSF 2.1 must include the following schema declaration:
+written to run on pre-Jakarta Faces JSF 2.1 must include the following schema declaration:
 
 [source,xml]
 ----
@@ -1076,7 +1091,7 @@ written to run on JSF 2.1 must include the following schema declaration:
 ----
 
 Application configuration resources that are
-written to run on JSF 2.0 must include the following schema declaration:
+written to run on pre-Jakarta Faces JSF 2.0 must include the following schema declaration:
 
 [source,xml]
 ----
@@ -1089,7 +1104,7 @@ written to run on JSF 2.0 must include the following schema declaration:
 ----
 
 Application configuration resources that are
-written to run on JSF 1.2 Application configuration resources must
+written to run on pre-Jakarta Faces JSF 1.2 Application configuration resources must
 include the following schema declaration and must conform to the schema
 referenced in the schemalocation URI shown below:
 
@@ -1103,7 +1118,7 @@ referenced in the schemalocation URI shown below:
 ----
 
 Application configuration resources that are
-written to run on JSF 1.1 implementations must use the DTD declaration
+written to run on pre-Jakarta Faces JSF 1.1 implementations must use the DTD declaration
 and include the following DOCTYPE declaration:
 
 [source,xml]
@@ -1114,7 +1129,7 @@ and include the following DOCTYPE declaration:
 ----
 
 {empty}Application configuration resources
-that are written to run on JSF 1.0 implementations must use the DTD
+that are written to run on pre-Jakarta Faces JSF 1.0 implementations must use the DTD
 declaration for the 1.0 DTD contained in the binary download of the JSF
 reference implementation. They must also use the following DOCTYPE
 declaration:[P1-end]
@@ -1127,7 +1142,7 @@ declaration:[P1-end]
 ----
 
 [[a6297]]
-==== Configuration Impact on JSF Runtime
+==== Configuration Impact on Jakarta Faces Runtime
 
 [source,xml]
 ----
@@ -1138,7 +1153,7 @@ declaration:[P1-end]
 
 The following XML
 elements<<a9102, 19>> in application configuration resources
-cause registration of JSF objects into the corresponding factories or
+cause registration of Jakarta Faces objects into the corresponding factories or
 properties. It is an error if the value of any of these elements cannot
 be correctly parsed, loaded, set, or otherwise used by the
 implementation.
@@ -1165,7 +1180,7 @@ for this web application.
 
 For components, converters, and validators,
 it is legal to replace the implementation class that is provided (by the
-JSF implementation) by default. This is accomplished by specifying the
+Jakarta Faces implementation) by default. This is accomplished by specifying the
 standard value for the _<component-type>_, _<converter-id>_, or
 _<validator-id>_ that you wish to replace, and specifying your
 implementation class. To avoid class cast exceptions, the replacement
@@ -1184,7 +1199,7 @@ encode behavior.
 
 The following XML elements cause the
 replacement of the default implementation class for the corresponding
-functionality, provided by the JSF implementation. See
+functionality, provided by the Jakarta Faces implementation. See
 <<a6336, Delegating Implementation Support>> for
 more information about the classes referenced by these elements:
 
@@ -1255,7 +1270,7 @@ when instantiated, is a _ViewHandler_.
 
 The following XML elements cause the
 replacement of the default implementation class for the corresponding
-functionality, provided by the JSF implementation. Each of the
+functionality, provided by the Jakarta Faces implementation. Each of the
 referenced classes must have a public zero-arguments constructor:
 
 * _/faces-config/factory/application-factory_
@@ -1316,7 +1331,7 @@ class name that, when instantiated, is a
 _ViewDeclarationLanguageFactory_.
 
 The following XML elements cause the addition
-of event listeners to standard JSF implementation objects, as follows.
+of event listeners to standard Jakarta Faces implementation objects, as follows.
 Each of the referenced classes must have a public zero-arguments
 constructor.
 
@@ -1326,9 +1341,9 @@ _PhaseListener_, and register it with the _Lifecycle_ instance for the
 current web application.
 
 In addition, the following XML elements
-influence the runtime behavior of the JSF implementation, even though
+influence the runtime behavior of the Jakarta Faces implementation, even though
 they do not cause registration of objects that are visible to a
-JSF-based application.
+Jakarta Faces-based application.
 
 * /faces-config/managed-bean -- Make the
 characteristics of a managed bean with the specified _managed-bean-name_
@@ -1444,10 +1459,10 @@ public class MyViewHandler extends ViewHandler {
 
 
 The second constructor will get called as the
-application is initially configured by the JSF implementation, and the
+application is initially configured by the Jakarta Faces implementation, and the
 previously registered _ViewHandler_ will get passed to it.
 
-In version 1.2, we added new wrapper classes
+In pre-Jakarta Faces JSF 1.2, we added new wrapper classes
 to make it easier to override a subset of the total methods of the class
 and delegate the rest to the previous instance. We provide wrappers for
 _jakarta.faces.application.ViewHandler_,

@@ -1,10 +1,9 @@
 [[a5476]]
 == Facelets and its use in Web Applications
 
-As of version 2 of the Jakarta Server Faces specification,
- implementations must support (although JSF-based
+Jakarta Faces implementations must support (although Jakarta Faces-based
 applications need not utilize) using Facelets as the view declaration
-language for JSF pages. Facelets technology was created by JSR-252 EG
+language for Jakarta Faces pages. Facelets technology was created by JSR-252 EG
 Member Jacob Hookom.
 
 === Non-normative Background
@@ -12,17 +11,17 @@ Member Jacob Hookom.
 To aid implementors in providing a spec
 compliant runtime for Facelets, this section provides a non-normative
 background to motivate the discussion of the Facelets feature. Facelets
-is a replacement for JSP that was designed from the outset with JSF in
-mind. New features introduced in version 2 and later are only exposed to
+is a replacement for JSP that was designed from the outset with Jakarta Faces in
+mind. New features introduced in pre-Jakarta Faces JSF version 2 (under the JCP) and later are only exposed to
 page authors using Facelets. JSP is retained for backwards
 compatibility.
 
 ==== Differences between JSP and Facelets
 
 Facelets was the first non-JSP view
-declaration language designed for Jakarta Server Faces. As such, Facelets
-was able to provide a simpler and more powerful programming model to JSF
-developers than that provided by JSP, largely by leveraging JSF as much
+declaration language designed for Jakarta Faces. As such, Facelets
+was able to provide a simpler and more powerful programming model to Jakarta Faces
+developers than that provided by JSP, largely by leveraging Jakarta Faces as much
 as possible without carrying backwards compatibility with JSP. The
 following table lists some of the differences between Facelets and JSP
 
@@ -73,21 +72,21 @@ implementation for JSP
 one with the implementation.
 |===
 
-==== Differences between Pre JSF 2.0 Facelets and Facelets in JSF 2.0
+==== Differences between Pre JSF 2.0 Facelets and Facelets in Jakarta Faces
 
 The work of taking a snapshot of a version of
-Facelets and producing the specification for Facelets in JSF 2.0
+Facelets and producing the specification for Facelets in Pre-Jakarta Faces JSF 2.0
 consists of extracting the parts of Facelets that are intended to be
 “public” and leaving the rest as implementation details. A decision was
 made early in this process to strive for backwards compatibility between
-the latest popular version of Facelets and Facelets in JSF 2.0. The sole
+the latest popular version of Facelets and Facelets in pre-Jakarta Faces JSF 2.0. The sole
 determinant to backwards compatibility lies in the answer to the
 question, “is there any Java code in the application, or in libraries
 used by the application, that extends from or depends on any class in
 package _com.sun.facelets_ and/or its sub-packages?”
 
 * If the answer to this question is “yes”,
-Facelets in JSF 2.0 is _not_ backwards compatibile with Facelets and
+Facelets in pre-Jakarta Faces JSF 2.0 is _not_ backwards compatibile with Facelets and
 such an application _must_ continue to bundle the Facelets jar file
 along with the application, continue to set the Facelets configuration
 parameters, and also set the
@@ -99,7 +98,7 @@ sub-packages must be modified to depend on the appropriate classes in
 package _jakarta.faces.webapp.vdl_ and/or its sub-packages.
 
 * If the answer to this question is “no”,
-Facelets in JSF 2.0 _is_ backwards compatible with pre-JSF 2.0 Facelets
+Facelets in pre-Jakarta Faces JSF 2.0 _is_ backwards compatible with pre-JSF 2.0 Facelets
 and such an application _must not_ continue to bundle the Facelets jar
 file along with the application, and _must not_ continue to set the
 Facelets configuration parameters.
@@ -108,7 +107,7 @@ Thankfully, most applications that use
 Facelets fall into the latter category, or, if they fall in the former,
 their dependence will easily be migrated to the new public classes.
 
-Facelets in JSF 2.0 provides tag libraries
+Facelets in Jakarta Faces provides tag libraries
 that are compatible with the following libraries already found in pre
 JSF 2.0 Facelets.
 
@@ -135,13 +134,13 @@ JSF 2.0 Facelets.
 |===
 
 Naturally, new features built on Facelets in
-JSF 2.0 are not available in pre JSF 2.0 Facelets and will only work in
-JSF 2.0 or later.
+Jakarta Faces are not available in pre JSF 2.0 Facelets and will only work in
+Jakarta Faces.
 
 [[a5526]]
 ==== Resource Library Contracts Background
 
-JSF defines a system called “resource library
+Jakarta Faces defines a system called “resource library
 contracts” for applying facelet templates to an entire application in a
 re-usable and interchangeable manner. The feature is built on top of the
 resource library facility described in <<RequestProcessingLifecycle.adoc#a836,
@@ -399,8 +398,8 @@ contracts will be correctly fetched.
 [[a5581]]
 ==== HTML5 Friendly Markup
 
-Prior to version 2.2 of this specification,
-the view authoring model relied entirely on the concept of a JSF UI
+Without the HTML5 Friendly Markup feature the view authoring model relies 
+entirely on the concept of a Jakarta Faces UI
 component in a view as a means to encapsulate arbitrarily complex web
 user interface code behind a simple UI component tag in a page. For
 example, the act of including _<my:datePicker value=”#{user.dob}” />_
@@ -429,7 +428,7 @@ attributes and pass through elements.
 
 ._Pass Through Attributes_
 
-For any given JSF component tag in a view,
+For any given Jakarta Faces component tag in a view,
 the set of available attributes that component supports is determined by
 a combination of the _UIComponent_ and _Renderer_ for that tag. In some
 cases the value of the attribute is interpreted by the _UIComponent_ or
@@ -493,9 +492,9 @@ library_.
 ._Pass Through Elements_
 
 This feature circumvents the traditional
-component abstraction model of JSF, allowing the page author nearly
+component abstraction model of Jakarta Faces, allowing the page author nearly
 complete control of the rendered markup, without sacrificing any of the
-server side lifecycle offered by JSF. This is accomplished by means of
+server side lifecycle offered by Jakarta Faces. This is accomplished by means of
 enhancements to the Facelet _TagDecorator_ API. This API describes a
 mapping from the common markup elements to target tags in the HTML_BASIC
 RenderKit such that the actual markup specified by the view author is
@@ -525,7 +524,7 @@ process.
 
 As required in
 <<FaceletsAndWebApplications.adoc#a5608,Specification of the
-ViewDeclarationLanguage Implementation for Facelets for JSF 2.0>>
+ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces>>
 _TagDecorator_ is called during the facelet processing. Because the
 _<input>_ element has an attribute from the _http://java.sun.com/jsf_
 namespace, the system treats the element as a pass through element. The
@@ -558,36 +557,36 @@ jakarta.faces.passthrough.Element renderer is normatively specified in the
 RenderKitDoc for that renderer_.
 
 
-=== Java Programming Language Specification for Facelets in JSF 2.0
+=== Java Programming Language Specification for Facelets in Jakarta Faces
 
 The subsections within this section specify
 the Java API requirements of a Facelets implementation. Adherence to
 this section and the next section, which specifies the XHTML
-specification for Facelets in JSF 2.0, will ensure applications and JSF
+specification for Facelets in Jakarta Faces, will ensure applications and Jakarta Faces
 component libraries that make use of Facelets are portable across
-different implementations of Jakarta Server Faces.
+different implementations of Jakarta Faces.
 
 The original Facelet project did not separate
 the API and the implementation into separate jars, as is common practice
-with JCP specifications. Thus, a significant task for integrating
-Facelets into JSF 2 was deciding which classes to include in the public
+with specifications. Thus, a significant task for integrating
+Facelets into Jakarta Faces was deciding which classes to include in the public
 Java API, and which to keep as an implementation detail.
 
 There were two guiding principles that
-influenced the task of integrating Facelets into JSF 2.
+influenced the task of integrating Facelets into Jakarta Faces.
 
-* The original decision in JSF 1.0 to allow the
+* The original decision in pre-Jakarta Faces JSF 1.0 (under the JCP) to allow the
 ViewHandler to be pluggable enabled the concept of a View Declaration
 Language for JSF. The two most popular ones were Facelets and
 JSFTemplating. The new integration should preserve this pluggability,
 since it is still valuable to be able to replace the View Declaration
 Language.
 
-* After polling users of Facelets, the expert
+* After polling users of Facelets, the JCP expert
 group decided that most of them were only using the markup based API and
 were not extending from the Java classes provided by the Facelet
-project. Therefore, we decided to keep the Java API for Facelets in JSF
-2 as small as possible, only exposing classes where absolutely
+project. Therefore, we decided to keep the Java API for Facelets in Jakarta Faces
+as small as possible, only exposing classes where absolutely
 necessary.
 
 The application of these principles produced
@@ -596,10 +595,10 @@ the Javadocs for that package, and the classes within it, for additional
 normative specification.
 
 [[a5608]]
-==== Specification of the ViewDeclarationLanguage Implementation for Facelets for JSF 2.0
+==== Specification of the ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces
 
 As normatively specified in the javadocs for
-_ViewDeclarationLanguageFactory.getViewDeclarationLanguage()_, a JSF
+_ViewDeclarationLanguageFactory.getViewDeclarationLanguage()_, a Jakarta Faces
 implementation must guarantee that a valid and functional
 _ViewDeclarationLanguage_ instance is returned from this method when the
 argument is a reference to either a JSP view, a Faces XML View or a
@@ -619,8 +618,8 @@ non-metadata children, the view must still be re-built, but care must be
 taken to ensure that the existing components are correctly paired up
 with their VDL counterparts in the VDL page. The implementation must
 examine the _viewId_ of the argument root, which must resolve to an
-entity written in Facelets for JSF 2 markup language. Because Facelets
-for JSF 2.0 views are written in XHTML, an XML parser is well suited to
+entity written in Facelets for Jakarta Faces markup language. Because Facelets
+views are written in XHTML, an XML parser is well suited to
 the task of processing such an entity. Each element in the XHTML view
 falls into one of the following categories, each of which corresponds to
 an instance of a Java object that implements
@@ -641,7 +640,7 @@ The mapping between the categories of
 elements in the XHTML view and the appropriate sub-interface or subclass
 of _FaceletHandler_ is specified below. Each _FaceletHandler_ instance
 must be traversed and its _apply()_ method called in the same
-depth-first order as in the other lifecycle phase methods in jsf. Each
+depth-first order as in the other lifecycle phase methods in Jakarta Faces. Each
 _FaceletHandler_ instance must use the _getNextHandler()_ method of the
 _TagConfig_ instance passed to its constructor to perform the traversal
 starting from the root _FaceletHandler_.
@@ -670,7 +669,7 @@ _jakarta.faces.view.facelets.ComponentHandler_. See the javadocs for that
 class for the normative specification.
 
 * Markup elements that take action on their
-parent or children markup element(s). Usually these come from the JSF
+parent or children markup element(s). Usually these come from the Jakarta Faces
 Core namespace _http://java.sun.com/jsf/core_, but they can also be
 provided by a custom tag library.
 
@@ -704,7 +703,7 @@ for those namespaces.
 _jakarta.faces.view.facelets.TagHandler_.
 
 
-=== XHTML Specification for Facelets for JSF 2.0
+=== XHTML Specification for Facelets for Jakarta Faces
 
 [[a5632]]
 ==== General Requirements
@@ -714,7 +713,7 @@ authored in XHTML. The runtime must support all XHTML pages that conform
 to the XHTML-1.0-Transitional DTD, as described at
 _http://www.w3.org/TR/xhtml1/#a_dtd_XHTML-1.0-Transitional_.
 
-The runtime must ensure that EL expressions
+The runtime must ensure that Jakarta Expression Language expressions
 that appear in the page without being the right-hand-side of a tag
 attribute are treated as if they appeared on the right-hand-side of the
 _value_ attribute of an _<h:outputText />_ element in the
@@ -1012,10 +1011,10 @@ _composite component definition_. [P1_end_nested_composite_components].
 This section specifies the tag libraries that
 must be provided by an implementation.
 
-==== JSF Core Tag Library
+==== Jakarta Faces Core Tag Library
 
 This tag library must be equivalent to the
-one specified in <<IntegrationWithJSP.adoc#a4636,JSF Core Tag Library>>.
+one specified in <<IntegrationWithJSP.adoc#a4636,Jakarta Faces Core Tag Library>>.
 
 For all of the tags that correspond to
 attached objects, the Facelets implementation supportes an additional
@@ -1325,7 +1324,7 @@ associated with the Ajax “execute=’cancel’” action:[[a5815]]
 
 ===== <f:event>
 
-Allow JSF page authors to install
+Allow Jakarta Faces page authors to install
 _ComponentSystemEventListener_ instances on a component in a page.
 Because this tag is closely tied to the event system, please see section
 <<UserInterfaceComponentModel.adoc#a1393,Declarative Listener Registration>> for
@@ -1634,8 +1633,8 @@ _@jakarta.faces.push.Push_ CDI qualifier.
 Although W3C WebSocket supports two-way
 communication, the <f:websocket> push is designed for one-way
 communication, from server to client. In case you intend to send some
-data from client to server, continue using JSF ajax the usual way. This
-has among others the advantage of maintaining the JSF view state, the
+data from client to server, continue using Jakarta Faces ajax the usual way. This
+has among others the advantage of maintaining the Jakarta Faces view state, the
 HTTP session and, critically, all security constraints on business
 service methods.
 
@@ -1786,9 +1785,9 @@ integer context parameter in web.xml to explicitly specify the port.
 
 .Usage (client)
 
-Declare <f:websocket> tag in the JSF view
+Declare <f:websocket> tag in the Jakarta Faces view
 with at least a channel name and an onmessage JavaScript listener
-function. The channel name may not be an EL expression and it may only
+function. The channel name may not be an Expression Language expression and it may only
 contain alphanumeric characters, hyphens, underscores and periods.
 
 Here's an example which refers an existing
