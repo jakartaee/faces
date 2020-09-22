@@ -30,7 +30,7 @@ _FacesContext_ instance for the current request, or the
 _getApplication()_ method of the _ApplicationFactory_ (see
 <<ApplicationIntegration.adoc#a3542,ApplicationFactory>>), and provides
 default implementations of features that determine how application logic
-interacts with the JSF implementation. Advanced applications (or
+interacts with the Jakarta Faces implementation. Advanced applications (or
 application frameworks) can install replacements for these default
 implementations, which will be used from that point on. Access to
 several integration objects is available via JavaBeans property getters
@@ -49,7 +49,7 @@ Return or replace an _ActionListener_
 instance that will be utilized to process _ActionEvent_ events during
 the _Apply Request Values_ or _Invoke Application_ phase of the request
 processing lifecycle. [P1-start default ActionListener requirements] The
-JSF implementation must provide a default implementation
+Jakarta Faces implementation must provide a default implementation
 _ActionListener_ that performs the following functions:
 
 * The _processAction()_ method must first call
@@ -210,7 +210,7 @@ public void setViewHandler(ViewHandler handler);
 ----
 
 {empty}See <<ApplicationIntegration.adoc#a3871,
-ViewHandler>> for the description of the ViewHandler. The JSF
+ViewHandler>> for the description of the ViewHandler. The Jakarta Faces
 implementation must provide a default _ViewHandler_ implementation. This
 implementation may be replaced by calling _setViewHandler()_ before the
 first time the _Render Response_ phase has executed. [P1-start
@@ -277,7 +277,7 @@ _ExpressionFactory_ returned from _getExpressionFactory()_.
 ==== Object Factories
 
 The _Application_ instance for a web
-application also acts as an object factory for the creation of new JSF
+application also acts as an object factory for the creation of new Jakarta Faces
 objects such as components, converters, validators and behaviors..
 
 [source,java]
@@ -295,11 +295,11 @@ public Behavior createBehavior(String behaviorId);
 Each of these methods creates a new instance
 of an object of the requested type <<Footnotes.adoc#a9088,6>>, based on the
 requested identifier. The names of the implementation class used for
-each identifier is normally provided by the JSF implementation
+each identifier is normally provided by the Jakarta Faces implementation
 automatically (for standard classes described in this Specification), or
 in one or more application configuration resources (see
 <<UsingJSFInWebApplications.adoc#a6195,Application Configuration Resources>>)
-included with a JSF web application, or embedded in a JAR file
+included with a Jakarta Faces web application, or embedded in a JAR file
 containing the corresponding implementation classes.
 
 All variants _createConverter()_ must take
@@ -348,11 +348,11 @@ public void addValidator(String validatorId, String validatorClass);
 public void addBehavior(String behaviorId, String behaviorClass);
 ----
 
-JSF-based applications can register
+Jakarta Faces-based applications can register
 additional mappings of identifiers to a corresponding fully qualified
-class name, or replace mappings provided by the JSF implementation in
-order to customize the behavior of standard JSF features. These methods
-are also used by the JSF implementation to register mappings based on
+class name, or replace mappings provided by the Jakarta Faces implementation in
+order to customize the behavior of standard Jakarta Faces features. These methods
+are also used by the Jakarta Faces implementation to register mappings based on
 _<component>_, _<converter>_, _<behavior>_ and _<validator>_ elements
 discovered in an application configuration resource.
 
@@ -365,7 +365,7 @@ public Iterator<String> getValidatorIds();
 public Iterator<String> getBehaviorIds();
 ----
 
-JSF-based applications can ask the
+Jakarta Faces-based applications can ask the
 _Application_ instance for a list of the registered identifiers for
 components, converters, and validators that are known to the instance.
 
@@ -391,7 +391,7 @@ specified in <<UserInterfaceComponentModel.adoc#a1419,Validation Registration>>.
 
 The following methods and properties allow an
 application to describe its supported locales, and to provide
-replacement text for standard messages created by JSF objects.
+replacement text for standard messages created by Jakarta Faces objects.
 
 [source,java]
 ----
@@ -401,7 +401,7 @@ public Locale getDefaultLocale();
 public void setDefaultLocale(Locale newLocale);
 ----
 
-JSF applications may state the _Locale_ s
+Jakarta Faces applications may state the _Locale_ s
 they support (and the default _Locale_ within the set of supported
 __Locale__s) in the application configuration resources file. The setters
 for the following methods must be called when the configuration
@@ -415,10 +415,10 @@ public void setMessageBundle(String messageBundle);
 ----
 
 Specify the fully qualified name of the
-ResourceBundle from which the JSF implementation will acquire message
+ResourceBundle from which the Jakarta Faces implementation will acquire message
 strings that correspond to standard message keys See
 <<RequestProcessingLifecycle.adoc#a584,Localized Application Messages>> for a
-list of the standard message keys recognized by JSF.
+list of the standard message keys recognized by Jakarta Faces.
 
 [[a3526]]
 ==== System Event Methods
@@ -470,7 +470,7 @@ See the javadocs for both variants of
 _subscribeForEvent()_ for the complete specification of these methods.
 
 _publishEvent()_ is called by the system at
-several points in time during the runtime of a JSF application. The
+several points in time during the runtime of a Jakarta Faces application. The
 specification for when _publishEvent()_ is called is given in the
 javadoc for the event classes that are listed in
 <<UserInterfaceComponentModel.adoc#a1308,Event Classes>>. See the javadoc for
@@ -496,8 +496,8 @@ _unsubscribeFromEvent()_ for the complete specification.
 
 A single instance of
 _jakarta.faces.application.ApplicationFactory_ must be made available to
-each JSF-based web application running in a servlet or portlet
-container. The factory instance can be acquired by JSF implementations
+each Jakarta Faces-based web application running in a servlet or portlet
+container. The factory instance can be acquired by Jakarta Faces implementations
 or by application code, by executing:
 
 [source,java]
@@ -516,7 +516,7 @@ public void setApplication(Application application);
 ----
 
 Return or replace the _Application_ instance
-for the current web application. The JSF implementation must provide a
+for the current web application. The Jakarta Faces implementation must provide a
 default _Application_ instance whose behavior is described in
 <<ApplicationIntegration.adoc#a3400,Application>>.
 
@@ -536,7 +536,7 @@ either the _Apply Request Values_ or the _Invoke Application_ phase of
 the request processing lifecycle (depending upon the _immediate_
 property of the _ActionSource_ instance initiating the event).
 
-Application action is not a formal JSF API;
+Application action is not a formal Jakarta Faces API;
 instead any method that meets the following requirements may be used as
 an Action by virtue of evaluating a method binding expression:
 
@@ -566,7 +566,7 @@ same Java class or in different Java classes.
 [[a3562]]
 ==== Overview
 
-Most JSF applications can be thought of as a
+Most Jakarta Faces applications can be thought of as a
 directed graph of views, each node of which roughly corresponds to the
 user’s perception of “location” within the application. Applications
 that use the Faces Flows feature have additional kinds of nodes in the
@@ -579,7 +579,7 @@ current request, and (optionally) selecting a new view to be rendered.
 If the outcome returned by the applicationaction is _null_ or the empty
 string, and none of the navigation cases that map to the current view
 identifier have a non-null condition expression, the same view must be
-re-displayed. This is a change from the old behavior. As of JSF 2.0, the
+re-displayed. This is a change from the old behavior. As of pre-Jakarta Faces JSF 2.0 (under the JCP), the
 NavigationHandler is consulted even on a _null_ outcome, but under this
 circumstance it only checks navigation cases that do not specify an
 outcome (no <from-outcome>) and have a condition expression (specified
@@ -608,11 +608,9 @@ rendered. If the _NavigationHandler_ called the _responseComplete()_
 method on the _FacesContext_ instance, however, the _Render Response_
 phase will be bypassed.
 
-Prior to JSF 2, the NavigationHandler's sole
-task was to execute the navigation for a given scenario. JSF 2
-introduces the _ConfigurableNavigationHandler_ interface, which extends
+Jakarta Faces also contains the _ConfigurableNavigationHandler_ interface, which extends
 the contract of the _NavigationHandler_ to include two additional
-methods that accomodate runtime inspection of the NavigationCases that
+methods that accommodate runtime inspection of the NavigationCases that
 represent the rule-based navigation metamodel. The method
 _getNavigationCase_ consults the _NavigationHandler_ to determine which
 _NavigationCase_ the _handleNavigation_ method would resolve for a given
@@ -630,8 +628,8 @@ public NavigationCase getNavigationCase(FacesContext context,
 public Map<String, Set<NavigationCase>> getNavigationCases();
 ----
 
-{empty}[P1-start-configurablenavhandler]A JSF
-2 compliant-implemention must ensure that its _NavigationHandler_
+{empty}[P1-start-configurablenavhandler]A Jakarta Faces
+compliant-implemention must ensure that its _NavigationHandler_
 implements the _ConfigurableNavigationHandler_ interface. The
 _handleNavigation_ and _getNavigation_ Case methods should use the same
 logic to resolve a _NavigationCase_, which is outlined in the next
@@ -640,7 +638,7 @@ section.[P1-end]
 [[a3571]]
 ==== Default NavigationHandler Algorithm
 
-JSF implementations must provide a default
+Jakarta Faces implementations must provide a default
 _NavigationHandler_ implementation that maps the action reference that
 was utilized (by the default _ActionListener_ implementation) to invoke
 an application action, the logical outcome value returned by that
@@ -686,7 +684,7 @@ element are zero or more _<navigation-case>_ elements that contain
 additional matching criteria based on the action reference expression
 value used to select an application action to be invoked (if any), and
 the logical outcome returned by calling the _invoke()_ method of that
-application action _<<Footnotes.adoc#a9089,7>>_. As of JSF 2, navigation
+application action _<<Footnotes.adoc#a9089,7>>_. Navigation
 cases support a condition element, <if>, whose content must be a single,
 contiguous value expression expected to resolve to a boolean value (if
 the content does not match this requirement, the condition is
@@ -717,7 +715,7 @@ techniques may be utilized):
 
 * If no navigation case is matched by a call to
 the handleNavigation() method, this is an indication that the current
-view should be redisplayed. As of JSF 2.0, a null outcome does not
+view should be redisplayed. A null outcome does not
 unconditionally cause all navigation rules to be skipped.
 
 * Find a _<navigation-rule>_ element for which
@@ -793,7 +791,7 @@ Navigation in Faces Flow Call Nodes other than ViewNodes>>.
 returns _true_, call _getFlash().setKeepMessages(true)_ on the current
 _FacesContext_. Compare the viewId of the current viewRoot with the
 _<to-view-id>_ of the matching _<navigation-case>_. If they differ,
-take any necessary actions to effectively restart the JSF lifecycle on
+take any necessary actions to effectively restart the Jakarta Faces lifecycle on
 the _<to-view-id>_ of the matching _<navigation-case>_. Care must be
 taken to preserve any view parameters or navigation case parameters,
 clear the view map of the _UIViewRoot_, and call _setRenderAll(true)_
@@ -900,7 +898,7 @@ and let the result be _viewIdToTest_.
 ** Obtain the current ViewHandler and call its
 _deriveViewId()_ method, passing the current _FacesContext_ and
 _viewIdToTest_. If _UnsupportedOperationException_ is thrown, which
-will be the case if the _ViewHandler_ is a Pre JSF 2.0 _ViewHandler_,
+will be the case if the _ViewHandler_ is a Pre-Jakarta Faces JSF 1.1 or 1.2 (under the JCP) _ViewHandler_,
 the implementation must ensure the algorithm described for
 _ViewHandler.deriveViewId()_ specified in
 _<<ApplicationIntegration.adoc#a3910,Default ViewHandler Implementation>>_ is
@@ -933,7 +931,7 @@ a matching _<navigation-case>_ element was located...”.
 returns _true_, call _getFlash().setKeepMessages(true)_ on the current
 _FacesContext_. Compare the viewId of the current viewRoot with the
 effective _<to-view-id>_ of the matching _<navigation-case>_. If they
-differ, take any necessary actions effectively restart the JSF lifecycle
+differ, take any necessary actions effectively restart the Jakarta Faces lifecycle
 on the effective _<to-view-id>_ of the matching _<navigation-case>_.
 Care must be taken to preserve any view parameters or navigation case
 parameters, clear the view map of the _UIViewRoot_, and call
@@ -1289,7 +1287,7 @@ public String placeOrder();
 [[a3840]]
 === FlowHandler
 
-Any JSF application can be modeled as a
+Any Jakarta Faces application can be modeled as a
 directed graph where the nodes are views and the edges are transitions
 between the views. Faces Flows introduces several other kinds of nodes
 to this directed graph, providing support for encapsulating related
@@ -1456,7 +1454,7 @@ processing lifecycle. This allows for implementations to support
 different response generation technologies, as well as different state
 saving/restoring approaches.
 
-A JSF implementation must provide a default
+A Jakarta Faces implementation must provide a default
 implementation of the _ViewHandler_ interface. See
 <<ApplicationIntegration.adoc#a3450,ViewHandler Property>> for information on
 replacing this default implementation with another implementation.
@@ -1521,7 +1519,7 @@ public String getActionURL(FacesContext context, String viewId);
 ----
 
 Returns a URL, suitable for encoding and
-rendering, that (if activated) will cause the JSF request processing
+rendering, that (if activated) will cause the Jakarta Faces request processing
 lifecycle for the specified _viewId_ to be executed
 
 [source,java]
@@ -1530,9 +1528,9 @@ public String getBookmarkableURL(FacesContext context, String viewId,
     Map<String,List<String>> parameters, boolean includeViewParams);
 ----
 
-Return a JSF action URL derived from the
+Return a Jakarta Faces action URL derived from the
 viewId argument that is suitable to be used as the target of a link in a
-JSF response. The URL, if activated, would cause the browser to issue an
+Jakarta Faces response. The URL, if activated, would cause the browser to issue an
 initial request to the specified viewId
 
 [source,java]
@@ -1541,7 +1539,7 @@ public String getRedirectURL(FacesContext context, String viewId,
     Map<String, List<String>> parameters, boolean includeViewParams);
 ----
 
-Return a JSF action URL derived from the
+Return a Jakarta Faces action URL derived from the
 _viewId_ argument that is suitable to be used by the _NavigationHandler_
 to issue a redirect request to the URL using an initial request.
 
@@ -1633,12 +1631,12 @@ jsp page representing the view, such as _/foo.jsp_. In the Facelets
 case, this is a context relative path to the XHTML page representing the
 view, such as _/foo.xhtml_.
 
-JSF implementations must provide a default
+Jakarta Faces implementations must provide a default
 _ViewHandler_ implementation, along with a default
 _ViewDeclarationLanguageFactory_ implementation that vends
 _ViewDeclarationLanguage_ implementations designed to support the
-rendering of JSP pages containing JSF components and Facelets pages
-containing JSF components. The default _ViewHandler_ is specified in
+rendering of JSP pages containing Jakarta Faces components and Facelets pages
+containing Jakarta Faces components. The default _ViewHandler_ is specified in
 this section and the default _ViewDeclarationLanguage_ implementations
 are specified in the following section.
 
@@ -2045,7 +2043,7 @@ the core specification, whilst preserving backwards compatibility with
 existing JSP applications, the concept of the _View Declaration
 Language_ was formally introduced in version 2 of the specification. A
 View Declaration Language (VDL) is a syntax used to declare user
-interfaces comprised of instances of JSF __UIComponent__s. Under this
+interfaces comprised of instances of Jakarta Faces __UIComponent__s. Under this
 definition, both JSP and Facelets are examples of an implementation of a
 VDL. Any of the responsibilities of the _ViewHandler_ that specifically
 deal with the VDL sub-system are now the domain of the VDL
@@ -2479,7 +2477,7 @@ _RenderKit_ being used to render a view. Therefore, the _StateManager_
 utilizes a helper object (see <<RenderingModel.adoc#a4288,
 ResponseStateManager>>), that is provided by the _RenderKit_
 implementation, and is therefore aware of the markup language details.
-The JSF implementation must provide a default _StateManager_
+The Jakarta Faces implementation must provide a default _StateManager_
 implementation that supports the behavior described below.
 
 [[a4119]]
@@ -2556,7 +2554,7 @@ _jakarta.faces.bean.ViewScoped_
 [[a4135]]
 ==== State Saving Alternatives and Implications
 
-JSF implementations support two primary
+Jakarta Faces implementations support two primary
 mechanisms for saving state, based on the value of the
 _jakarta.faces.STATE_SAVING_METHOD_ initialization parameter (see
 <<UsingJSFInWebApplications.adoc#a6088,Application Configuration Parameters>>).
@@ -2567,7 +2565,7 @@ the technical details:
 * _client_ -- Cause the saved state to be
 included in the rendered markup that is sent to the client (such as in a
 hidden input field for HTML). The state information must be included in
-the subsequent request, making it possible for JSF to restore the view
+the subsequent request, making it possible for Jakarta Faces to restore the view
 without having saved information on the server side. It is advisable
 that this information be encrypted and tamper evident, since it is being
 sent down to the client, where it may persist for some time.The default
