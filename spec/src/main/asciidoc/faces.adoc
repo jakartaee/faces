@@ -19,7 +19,7 @@ include::IntegrationWithJSP.adoc[]
 
 include::FaceletsAndWebApplications.adoc[]
 
-include::UsingJSFInWebApplications.adoc[]
+include::UsingFacesInWebApplications.adoc[]
 
 include::LifecycleManagement.adoc[]
 
