@@ -201,13 +201,12 @@ the information required by Jakarta Faces-based web applications (such as creati
 schemas in a relational database management system)
 
 * Create a Java object representation of the
-persistent information, such as Entity Enterprise JavaBeans (Entity
-EJBs), and call the corresponding beans as necessary to perform
-persistence of the application’s data.
+persistent information, such as Jakarta Persistence entities, and call the 
+corresponding beans as necessary to perform persistence of the application’s data.
 
 * Encapsulate the application’s functionality,
 or business logic, in Java objects that are reusable in web and non-web
-applications, such as Session EJBs.
+applications, such as CDI beans.
 
 * Expose the data representation and functional
 logic objects for use via Jakarta Faces, as would be done for any servlet- or
