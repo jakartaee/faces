@@ -319,7 +319,7 @@ primitive type.
 
 ** _<value>_ -- A String value that will have
 any leading and trailing spaces stripped, and then be converted
-(according to the rules described in the JSP Specification for the
+(according to the rules described in the Jakarta Server Pages Specification for the
 <jsp:setProperty> action) to the corresponding data type of the
 property, prior to setting it to this value.
 
@@ -842,7 +842,7 @@ object that gets passed all around the Jakarta Expression Language API. It has t
 purposes.
 
 * To allow technologies that use the Jakarta Expression Language
-, such as Jakarta Faces, the Jakarta Faces View Declaration Language, and JSP, 
+, such as Jakarta Faces, the Jakarta Faces View Declaration Language, and Jakarta Server Pages, 
 to store any context information specific to that
 technology so it can be leveraged during expression evaluation. For
 example the expression “_${view.viewId}_” is specific to Jakarta Faces. It
@@ -882,7 +882,7 @@ is at most one _ELContext_ per _FacesContext_.
 | _ELResolver_ |RO
 | _jakarta.el.ELResolver_
 |Return the ELResolver instance described in
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,Faces ELResolver for JSP Pages>>_
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,Faces ELResolver for Jakarta Server Pages Pages>>_
 
 | _propertyResolved_
 |RW |boolean
@@ -933,7 +933,7 @@ Jakarta Expression Language Specification, Version 4.0 or higher.
 
 [N/T-start two ELResolver impls] As described
 in more detail in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2667,Faces ELResolver for
-JSP Pages>>_, Faces must provide two implementations of _ELResolver_.
+Jakarta Server Pages Pages>>_, Faces must provide two implementations of _ELResolver_.
 [P1-end]Which of these two implementations is actually used to resolve
 an expression depends on where the expresison is evaluated. If the
 expression is evaluated in a markup page, the ELResolver for markup
@@ -952,12 +952,12 @@ the _ELResolver_ method is ignored by the system.
 ===== Lifetime, Ownership, and Cardinality
 
 ELResolver instances have application
-lifetime and scope. The JSP container maintains one top level ELResolver
+lifetime and scope. The Jakarta Server Pages container maintains one top level ELResolver
 (into which a Faces specific ELResolver is added) accessible from
 _JspContext.getELContext().getELResolver()_. This ELResolver instance is
 also used from the Jakarta Faces VDL, even though Jakarta Faces VDL pages do not themselves
-use JSP. Faces maintains one _ELResolver_ (separate from the one handed
-to the JSP container) accessible from
+use Jakarta Server Pages. Faces maintains one _ELResolver_ (separate from the one handed
+to the Jakarta Server Pages container) accessible from
 _FacesContext.getELContext().getELResolver()_ and
 _Application.getELResolver()_.
 
@@ -1013,7 +1013,7 @@ application scoped. The _Application_ object maintains the
 _ExpressionFactory_ instance used by Faces (See
 _<<ApplicationIntegration.adoc#a3459,Acquiring ExpressionFactory Instance>>)_.
 The _JspApplicationContext_ object maintains the _ExpressionFactory_
-used by the JSP container (and therefore by the Jakarta Faces VDL). It is
+used by the Jakarta Server Pages container (and therefore by the Jakarta Faces VDL). It is
 permissible for both of these access methods to yield the same java
 object instance.
 
@@ -1057,7 +1057,7 @@ implementations of ELResolver. One ELResolver, let’s call it the _Faces
 ELResolver For Markup Pages_, is plugged in to the top level resolver
 chain returned from _JspContext.getELContext().getELResolver()_. This
 top level resolver chain is used by the view declaration language
-container (JSP or Jakarta Faces View Declaration Language), and possibly by tag
+container (Jakarta Server Pages or Jakarta Faces View Declaration Language), and possibly by tag
 handlers, to resolve expressions. The other _ELResolver_, let’s call it
 the _ELResolver for Facelets and Programmatic Access_, is used by
 Facelets markup pages, and is returned from
@@ -1069,7 +1069,7 @@ The remainder of this section lists the implementation requirements for
 these two resolvers.
 
 [[a2667]]
-==== Faces ELResolver for JSP Pages
+==== Faces ELResolver for Jakarta Server Pages Pages
 
 As mentioned in
 _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2634,ELResolver>>_, during the course of
@@ -1079,17 +1079,17 @@ a chain-like fashion. Each link in the chain has the opportunity to
 resolve the current segment. The Jakarta Expression Language provides a container class
 to support this multi-source variable resolution:
 _jakarta.el.CompositeELResolver_. The implementation for the _Faces
-ELResolver for JSP Pages_ is described as a set of _ELResolvers_ inside
+ELResolver for Jakarta Server Pages Pages_ is described as a set of _ELResolvers_ inside
 of a _CompositeELResolver_ instance, but any implementation strategy is
 permissible as long as the semantics are preserved.
 
 {empty}This diagram shows the set of
 _ELResolver_ instances that must be added to the _Faces ELResolver for
-JSP Pages_. This instance must be handed to the JSP container via a
+Jakarta Server Pages pages_. This instance must be handed to the Jakarta Server Pages container via a
 call to
 _JspFactory.getDefaultFactory().getJspApplicationContext().addELResolver()_
-at application startup time. Even though we are making a JSP API call to
-install this _ELResolver_, we do not require using JSP to develop Jakarta Faces
+at application startup time. Even though we are making a Jakarta Server Pages API call to
+install this _ELResolver_, we do not require using Jakarta Server Pages to develop Jakarta Faces
 applications. It also shows the order in which they must be added.
 [P2-start there are 18 methods in the below tables, each can
 corresponding to a method on a particular ELResolver. With clever
@@ -1100,7 +1100,7 @@ methods do indeed get called on a user-provided VariableResolver or
 PropertyResolver.] [P1-end]
 
 [[a2670]]
-.Faces ELResolver for JSP Pages
+.Faces ELResolver for Jakarta Server Pages Pages
 
 
 
@@ -1112,13 +1112,13 @@ each particular method on _ELResolver_, or in prose when such a table
 is inappropriate.
 
 [[a2673]]
-===== Faces Implicit Object ELResolver For JSP
+===== Faces Implicit Object ELResolver For Jakarta Server Pages
 
 This resolver relies on the presence of
-another, JSP specific, implicit object ELResolver in the chain by only
+another, Jakarta Server Pages specific, implicit object ELResolver in the chain by only
 resolving the “facesContext” and “view” implicit objects.
 
-.Faces ImplicitObjectELResolver for JSP
+.Faces ImplicitObjectELResolver for Jakarta Server Pages
 
 [width="100%",cols="25%,75%",options="header",]
 |===
@@ -1311,7 +1311,7 @@ Please see <<ExpressionLanguageAndManagedBeanFacility.adoc#a2940,
 Resource ELResolver>> for the specification of this ELResolver.
 
 [[a2741]]
-===== ResourceBundle ELResolver for JSP Pages
+===== ResourceBundle ELResolver for Jakarta Server Pages Pages
 
 This is the means by which resource bundles
 defined in the application configuration resources are called into play
@@ -1412,7 +1412,7 @@ If base is null, return string.Class.
 The _<el-resolver>_ element in the
 application configuration resources will contain the fully qualified
 classname to a class with a public no-arg constructor that implements
-_jakarta.el.ELResolver_. These are added to the _Faces ELResolver for JSP
+_jakarta.el.ELResolver_. These are added to the _Faces ELResolver for Jakarta Server Pages
 Pages_ and the Faces ELResolver for Facelets and Programmatic Access in
 the order in which they occur in the application configuration
 resources.
@@ -1426,8 +1426,8 @@ inside the application configuration resources are allowed to affect the
 EL resolution process. If there are one or more _<variable-resolver>_
 elements in the application configuration resources, an instance of
 ELResolver with the following semantics must be created and added to the
-_Faces ELResolver for JSP Pages_ as indicated in the
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,Faces ELResolver for JSP Pages>>_.
+_Faces ELResolver for Jakarta Server Pages Pages_ as indicated in the
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,Faces ELResolver for Jakarta Server Pages Pages>>_.
 
 By virtue of the decorator pattern described
 in _<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_
@@ -1505,8 +1505,8 @@ inside the application configuration resources are allowed to affect the
 EL resolution process. If there are one or more _<property-resolver>_
 elements in the application configuration resources, an instance of
 _ELResolver_ with the following semantics must be created and added to
-the _Faces ELResolver for JSP Pages_ as indicated in the
-_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,Faces ELResolver for JSP Pages>>_.
+the _Faces ELResolver for Jakarta Server Pages Pages_ as indicated in the
+_<<ExpressionLanguageAndManagedBeanFacility.adoc#a2670,Faces ELResolver for Jakarta Server Pages Pages>>_.
 
 By virtue of the decorator pattern described
 in _<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>_,
@@ -1580,7 +1580,7 @@ If base is non-null, return Object.class.
 ===== ELResolvers from Application.addELResolver()
 
 Any such resolvers are considered at this
-point in the _Faces ELResolver for JSP Pages_ in the order in which they
+point in the _Faces ELResolver for Jakarta Server Pages Pages_ in the order in which they
 were added.
 
 [[a2822]]
@@ -1625,7 +1625,7 @@ are exactly the same.
 
 This resolver differs from the one in the
 <<ExpressionLanguageAndManagedBeanFacility.adoc#a2673,Faces Implicit Object ELResolver For
-JSP>> in that it must resolve all of the implicit objects, not just
+Jakarta Server Pages>> in that it must resolve all of the implicit objects, not just
 _facesContext_ and _view_
 
 [[a2832]]
@@ -1975,8 +1975,8 @@ the chain.
 ===== ResourceBundle ELResolver for Programmatic Access
 
 This resolver has the same semantics as the
-one in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2741,ResourceBundle ELResolver for JSP
-Pages>>.
+one in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2741,ResourceBundle ELResolver for Jakarta Server Pages
+pages>>.
 
 [[a2966]]
 ===== Stream, StaticField, Map, List, Array, and Bean ELResolvers

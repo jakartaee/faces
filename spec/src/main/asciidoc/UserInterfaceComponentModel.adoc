@@ -49,7 +49,7 @@ interface components is _jakarta.faces.component.UIComponent_. This class
 defines the state information and behavioral contracts for all
 components through a Java programming language API, which means that
 components are independent of a rendering technology such as Jakarta Server
-Pages (JSP). A standard set of components (described in
+Pages. A standard set of components (described in
 <<StandardUserInterfaceComponents.adoc#a1823,Standard User Interface Components>>)
 that add specialized properties, attributes, and behavior, is also
 provided as a set of concrete subclasses.
@@ -195,9 +195,9 @@ subclass). Such a component binding is used at two different times
 during the processing of a Faces Request:
 
 * {empty}[P3-start how a component binding is
-used from a JSP page] When a component instance is first created
+used from a Jakarta Server Pages page] When a component instance is first created
 (typically by virtue of being referenced by a _UIComponentELTag_ in a
-JSP page), the Jakarta Faces implementation will retrieve the _ValueExpression_
+Jakarta Server Pages page), the Jakarta Faces implementation will retrieve the _ValueExpression_
 for the name _binding_, and call _getValue()_ on it. If this call
 returns a non-null _UIComponent_ value (because the JavaBean
 programmatically instantiated and configured a component already), that
@@ -1087,7 +1087,7 @@ _NamingContainer_ is a marker interface.
 Components that implement _NamingContainer_ have the property that, for
 all of their children that have non- _null_ component identifiers, all
 of those identifiers are unique. This property is enforced by the
-_renderView()_ method on _ViewHandler_ . In JSP based applications, it
+_renderView()_ method on _ViewHandler_ . In Jakarta Server Pages based applications, it
 is also enforced by the _UIComponentELTag_ . Since this is just a marker
 interface, there are no properties, methods, or events. Among the
 standard components, _UIForm_ and _UIData_ implement _NamingContainer_ .
@@ -2722,7 +2722,7 @@ regarding UI components is the context in which the developer interacts
 with the component. There are generally two such contexts.
 
 * In the context of a markup view, such as a
-JSP or Facelet view. In this context the developer interacts with the UI
+Jakarta Server Pages or Facelet view. In this context the developer interacts with the UI
 component using a markup element, setting attributes on that element,
 and nesting child elements within that component markup element.
 
@@ -2767,7 +2767,7 @@ component.
 * Make entries in a _faces-config.xml_ file to
 declare a _Renderer_ that provides client-device independence.
 
-* Provide a JSP or Facelet tag handler that
+* Provide a Jakarta Server Pages or Facelet tag handler that
 allows the page author to build UIs that include the component, and to
 customize each instance of the component with listeners, properties and
 model associations. This includes making the association between the

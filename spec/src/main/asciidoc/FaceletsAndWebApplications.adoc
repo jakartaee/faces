@@ -11,27 +11,27 @@ Member Jacob Hookom.
 To aid implementors in providing a spec
 compliant runtime for Facelets, this section provides a non-normative
 background to motivate the discussion of the Facelets feature. Facelets
-is a replacement for JSP that was designed from the outset with Jakarta Faces in
+is a replacement for Jakarta Server Pages that was designed from the outset with Jakarta Faces in
 mind. New features introduced in pre-Jakarta Faces JSF version 2 (under the JCP) and later are only exposed to
-page authors using Facelets. JSP is retained for backwards
+page authors using Facelets. Jakarta Server Pages is retained for backwards
 compatibility.
 
-==== Differences between JSP and Facelets
+==== Differences between Jakarta Server Pages and Facelets
 
-Facelets was the first non-JSP view
+Facelets was the first non-Jakarta Server Pages view
 declaration language designed for Jakarta Faces. As such, Facelets
 was able to provide a simpler and more powerful programming model to Jakarta Faces
-developers than that provided by JSP, largely by leveraging Jakarta Faces as much
-as possible without carrying backwards compatibility with JSP. The
-following table lists some of the differences between Facelets and JSP
+developers than that provided by Jakarta Server Pages, largely by leveraging Jakarta Faces as much
+as possible without carrying backwards compatibility with Jakarta Server Pages. The
+following table lists some of the differences between Facelets and Jakarta Server Pages
 
 
 
-.Comparison of Facelets and JSP
+.Comparison of Facelets and Jakarta Server Pages
 [%header, cols="2,4,4", frame="topbot", grid="rows", stripes="even"]
 |===
 | Feature Name
-| JSP
+| Jakarta Server Pages
 | Facelets
 
 | Pages are compiled to...
@@ -50,24 +50,24 @@ automatically map to properties, attributes and ValueExpressions on
 UIComponent instances
 
 | Page templating
-| Not supported, must go outside of core JSP
+| Not supported, must go outside of core Jakarta Server Pages
 | Page templating is a core feature of Facelets
 
 | Performance
 
 | Due to the common implementation technique of
-compiling a JSP page to a Servlet, performance can be slow
-| Facelets is simpler and faster than JSP
+compiling a Jakarta Server Pages page to a Servlet, performance can be slow
+| Facelets is simpler and faster than Jakarta Server Pages
 
 | EL Expressions
 | Expressions in template text cause unexpected
-behavior when used in JSP
+behavior when used in Jakarta Server Pages
 | Expressions in template text operate as
 expected.
 
 | JCP Standard
 | Yes, the specification is separate from the
-implementation for JSP
+implementation for Jakarta Server Pages
 | No, the specification is defined by and is
 one with the implementation.
 |===
@@ -415,7 +415,7 @@ well as providing access to the loosened attribute syntax also present
 in HTML5.
 
 This feature is only available to views
-written in Facelets. It is not available to views written in JSP.
+written in Facelets. It is not available to views written in Jakarta Server Pages.
 
 ===== Non-normative Feature Overview
 
@@ -601,7 +601,7 @@ As normatively specified in the javadocs for
 _ViewDeclarationLanguageFactory.getViewDeclarationLanguage()_, a Jakarta Faces
 implementation must guarantee that a valid and functional
 _ViewDeclarationLanguage_ instance is returned from this method when the
-argument is a reference to either a JSP view, a Faces XML View or a
+argument is a reference to either a Jakarta Server Pages view, a Faces XML View or a
 Facelets View. This section describes the specification for the Facelets
 implementation.
 
@@ -745,7 +745,7 @@ facelets-processing element>>.
 
 Facelets leverages the XML namespace
 mechanism to support the concept of a “tag library” analogous to the
-same concept in JSP. However, in Facelets, the role of the tag handler
+same concept in Jakarta Server Pages. However, in Facelets, the role of the tag handler
 java class is greatly reduced and in most cases is unnecessary. The tag
 library mechanism has two purposes.
 
