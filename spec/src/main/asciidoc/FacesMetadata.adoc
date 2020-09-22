@@ -1,6 +1,6 @@
 [appendix]
 [[a7037]]
-== JSF Metadata
+== Jakarta Faces Metadata
 
 The XML Schema Definition for Application
 Configuration Resource files is included in a web browser optimized
@@ -210,13 +210,13 @@ text similar to the following in at the top of their declaring file.
 {empty}Use of this DTD is officially
 deprecated. This DTD is included for reference in
 <<JSFMetadata.adoc#a7139,See Deprecated DTD for Facelet Taglibraries
-Used by Versions of Facelets Prior to JSF 2.0>>. It is expected that
-proper JSF 2.0 Facelet Taglibraries will declare conformance to the
+Used by Versions of Facelets Prior to pre-Jakarta Faces JSF 2.0>>. It is expected that
+proper Jakarta Faces Facelet Taglibraries will declare conformance to the
 following schema, rather than the deprecated
 DTD.[P1_end_facelet_taglib_decl]
 
 [[a7139]]
-==== Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0
+==== Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to pre-Jakarta Faces JSF 2.0
 
 This DTD is deprecated and is included so
 implementors will have a reference.

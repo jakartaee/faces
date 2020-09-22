@@ -27,7 +27,7 @@ include::AjaxIntegration.adoc[]
 
 include::JavaScriptAPI.adoc[]
 
-include::JSFMetadata.adoc[]
+include::FacesMetadata.adoc[]
 
 include::ChangeLog.adoc[]
 

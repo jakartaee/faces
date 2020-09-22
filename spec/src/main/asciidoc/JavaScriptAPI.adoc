@@ -9,18 +9,18 @@ the canonical _jsf.js_ file.
 [[a6844]]
 === Collecting and Encoding View State
 
-In Jakarta Server Faces 1.2 the
+In Jakarta Server Faces the
 jakarta.faces.ViewState parameter was standardized to facilitate
-“postback” requests to the server in a Jakarta Server Faces application.
+“postback” requests to the server in a Jakarta Faces application.
 Implementations must use this parameter to save the view state between
 requests. Refer to the Javadocs for
 jakarta.faces.render.ResponseStateManager.
 
 Collecting and encoding view state that will
 be sent to the server is a common operation used by most Jakarta Server
-Faces Ajax frameworks. When a Jakarta Server Faces view is rendered, it will
+Faces Ajax frameworks. When a Jakarta Faces view is rendered, it will
 contain a hidden field with the identifier jakarta.faces.ViewState whose
-value contains the state for the current view. JSF Ajax clients collect
+value contains the state for the current view. Jakarta Faces Ajax clients collect
 additional view state, combine it with the current view state and send
 it’s encoded form to the server.
 
@@ -91,7 +91,7 @@ JavaScript event handler (such as “onclick”).
 
 [source,xml]
 ----
-<ANY_HTML_OR_JSF_ELEMENT
+<ANY_HTML_OR_FACES_ELEMENT
     on|EVENT|="jsf.ajax.request(source, event, { |OPTIONS| });" />
 ----
 
