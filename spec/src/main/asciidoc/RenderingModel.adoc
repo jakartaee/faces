@@ -1,7 +1,7 @@
 [[a4219]]
 == Rendering Model
 
-Jakarta Server Faces supports two programming
+Jakarta Faces supports two programming
 models for decoding component values from incoming requests, and
 encoding component values into outgoing responses - the _direct
 implementation_ and _delegated implementation_ models. When the _direct
@@ -16,7 +16,7 @@ to customize the decoding and encoding for a particular client device
 or localized application user.
 
 Component writers, application developers,
-tool providers, and JSF implementations will often provide one or more
+tool providers, and Jakarta Faces implementations will often provide one or more
 _RenderKit_ implementations (along with a corresponding library of
 _Renderer_ instances). In many cases, these classes will be provided
 along with the _UIComponent_ classes for the components supported by the
@@ -37,7 +37,7 @@ rendering of client side behavior and decoding for queuing
 _BehaviorEvents_. Refer to
 <<UserInterfaceComponentModel.adoc#a1707,Component
 Behavior Model>> for more details about this feature.
-[P1-start-renderkit]Each JSF implementation must provide a default
+[P1-start-renderkit]Each Jakarta Faces implementation must provide a default
 _RenderKit_ instance (named by the render kit identifier associated with
 the String constant _RenderKitFactory.HTML_BASIC_RENDER_KIT_ as
 described below) that is utilized if no other _RenderKit_ is
@@ -79,14 +79,14 @@ public Iterator<String> getClientBehaviorRendererTypes();
 ----
 
 Applications that wish to go beyond the
-capabilities of the standard _RenderKit_ that is provided by every JSF
+capabilities of the standard _RenderKit_ that is provided by every Jakarta Faces
 implementation may either choose to create their own _RenderKit_
 instances and register them with the _RenderKitFactory_ instance (see
 <<RenderingModel.adoc#a4300,RenderKitFactory>>), or integrate
 additional (or replacement) supported _Renderer_ instances into an
 existing _RenderKit_ instance. For example, it will be common for an
 application that requires custom component classes and __Renderer__s to
-register them with the standard _RenderKit_ provided by the JSF
+register them with the standard _RenderKit_ provided by the Jakarta Faces
 implementation, at application startup time See
 <<UsingJSFInWebApplications.adoc#a6554,Example Application Configuration
 Resource>> for an example of a _faces-config.xml_ configuration resource
@@ -259,7 +259,7 @@ interface.
 ==== ClientBehaviorRenderer Registration
 
 ClientBehaviorRenderer implementations may be
-registered in the JSF faces-config.xml or with an annotation.
+registered in the Jakarta Faces faces-config.xml or with an annotation.
 
 .XML Registration
 
@@ -280,7 +280,7 @@ registered in the JSF faces-config.xml or with an annotation.
 
 .Registration By Annotation
 
-JSF provides the
+Jakarta Faces provides the
 _jakarta.faces.render.FacesBehaviorRenderer annotation_.
 
 [source,java]
@@ -347,8 +347,8 @@ ResponseStateManager.
 
 [P1-start-renderkitFactory]A single instance
 of _jakarta.faces.render.RenderKitFactory_ must be made available to each
-JSF-based web application running in a servlet or portlet
-container.[P1-end] The factory instance can be acquired by JSF
+Jakarta Faces-based web application running in a servlet or portlet
+container.[P1-end] The factory instance can be acquired by Jakarta Faces
 implementations, or by application code, by executing
 
 [source,java]
@@ -372,9 +372,9 @@ _FacesContext_. For example, an implementation might choose a different
 _RenderKit_ based on the “User-Agent” header included in the request, or
 the _Locale_ that has been established for the response view. Note that
 applications which depend on this feature are not guaranteed to be
-portable across JSF implementations.
+portable across Jakarta Faces implementations.
 
-[P1-start-renderkitDefault]Every JSF
+[P1-start-renderkitDefault]Every Jakarta Faces
 implementation must provide a _RenderKit_ instance for a default render
 kit identifier that is designated by the _String_ constant
 _RenderKitFactory.HTML_BASIC_RENDER_KIT_.[P1-end] Additional render kit
@@ -403,11 +403,11 @@ registered for that identifier.
 [[a4314]]
 === Standard HTML RenderKit Implementation
 
-To ensure application portability, all JSF
+To ensure application portability, all Jakarta Faces
 implementations are required to include support for a _RenderKit_, and
 the associated _Renderers_, that meet the requirements defined in this
 section, to generate textual markup that is compatible with HTML 4.01.
-JSF implementors, and other parties, may also provide additional
+Jakarta Faces implementors, and other parties, may also provide additional
 _RenderKit_ libraries, or additional __Renderer__s that are added to the
 standard _RenderKit_ at application startup time, but applications must
 ensure that the standard __Renderer__s are made available for the web
@@ -417,7 +417,7 @@ The required behavior of the standard HTML
 RenderKit is specified in a set of external HTML pages that accompany
 this specification, entitled “The Standard HTML RenderKit”. The behavior
 described in these pages is normative, and are required to be fulfilled
-by all implementations of JSF.
+by all implementations of Jakarta Faces.
 
 
 === The Concrete HTML Component Classes
