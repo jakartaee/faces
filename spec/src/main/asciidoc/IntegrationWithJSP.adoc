@@ -262,7 +262,7 @@ creating new components, as described above, UIComponent custom actions
 will also _delete_ child components (and facets) that are already
 present in the component tree, but are not rendered on this display of
 the page. For example, consider a UIComponent custom action that is
-nested inside a JSTL _<c:if>_ custom action whose condition is true when
+nested inside a Jakarta Tag's _<c:if>_ custom action whose condition is true when
 the page is initially rendered. As described in this section, a new
 UIComponent will have been created and added as a child of the
 _UIComponent_ corresponding to our parent _UIComponent_ custom action.
@@ -383,7 +383,7 @@ custom action that conditionally renders its body (such as Jakarta Tags’s
 _<c:if>_ or _<c:choose>_) must contain a manually assigned _id_
 attribute.
 
-* Interoperation with the JSTL
+* Interoperation with the Jakarta Tag's
 Internationalization-Capable Formatting library (typically used with the
 “_fmt_” prefix) is restricted as follows:
 
@@ -419,7 +419,7 @@ inclusions are transparent—the page is compiled as if the inclusions had
 been performed before compilation was initiated.
 
 * Several mechanisms (including the
-_<jsp:include>_ standard action, the JSTL _<c:import>_ custom action
+_<jsp:include>_ standard action, the Jakarta Tag's _<c:import>_ custom action
 when referencing a resource in the same webapp, and a call to
 _RequestDispatcher.include()_ for a resource in the same webapp) perform
 a runtime dynamic inclusion of the results of including the response
@@ -432,7 +432,7 @@ page at the position of the include action.
 * For mechanisms that aggregate content by
 other means (such as use of an _HttpURLConnection_, a
 _RequestDispatcher.include()_ on a resource from a different web
-application, or accessing an external resource with the JSTL
+application, or accessing an external resource with the Jakarta Tag's
 _<c:import>_ custom action on a resource from a different web
 application, only the response content of the aggregation request is
 available. Therefore, any use of Jakarta Faces components in the generation of
