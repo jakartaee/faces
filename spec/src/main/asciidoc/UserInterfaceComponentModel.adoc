@@ -1047,7 +1047,7 @@ information.
 The _ActionSource2_ interface extends
 _ActionSource_ and provides a JavaBeans property analogous to the
 _action_ property on _ActionSource_ . This allows the _ActionSource_
-concept to leverage the new Unified EL API.
+concept to leverage the Jakarta Expression Language API.
 
 ===== Properties
 
@@ -3086,7 +3086,7 @@ appropriate context.
 Implicit Object ELResolver for Facelets and Programmatic Access>>
 
 |Ability for the _composite component author_
-to refer to the _top level component_ from an EL expression, such as
+to refer to the _top level component_ from a Jakarta Expression Language expression, such as
 _#{cc.children[3]}_.
 
 |{empty}<<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,

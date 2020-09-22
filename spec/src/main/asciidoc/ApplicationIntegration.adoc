@@ -166,7 +166,7 @@ public void addELResolver(ELResolver resolver);
 ----
 
 {empty}[N/T-start elresolver test] Return the
-ELResolver instance to be used for all EL resolution. This is actually
+ELResolver instance to be used for all Expression Language resolution. This is actually
 an instance of jakarta.el.CompositeELResolver that must contain the
 ELResolver instances as specified in _<<ExpressionLanguageAndManagedBeanFacility.adoc#a2822,
 ELResolver for Facelets and Programmatic Access>>_. [N/T-end]
@@ -1026,7 +1026,7 @@ implementation must perform the following steps, in this order, before
 continuing with navigation.
 
 * Make it so any _@FlowScoped_ beans for this
-flow are able to be activated when an EL expression that references them
+flow are able to be activated when an Expression Language expression that references them
 is evaluated.
 
 * Call the initializer for the flow, if any.
@@ -2721,8 +2721,8 @@ public void setVariableResolver(VariableResolver resolver);
 
 {empty}[N/T-start getVariableResolver()
 requirements] getVariableResolver() must return the _VariableResolver_
-that wraps the ELResolver instance that Faces provides to the unified
-EL. The _VariableResolver_ instance will be utilized to convert the
+that wraps the ELResolver instance that Faces provides to the Jakarta
+Expression Language. The _VariableResolver_ instance will be utilized to convert the
 first name in a value expression into a corresponding object. The
 implementation must pass _null_ as the base argument for any methods
 invoked on the underlying ELResolver. This method has been deprecated
