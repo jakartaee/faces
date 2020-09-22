@@ -106,7 +106,7 @@ represented as configurable objects that utilize the dynamic markup
 capabilities of the underlying rendering technology. When Jakarta Server
 Pages are in use, for example, components will be represented as JSP
 custom actions, which will support configuring the attributes of those
-components as custom action attributes in the JSP page. In addition, the
+components as custom action attributes in theJakarta Server Pagespage. In addition, the
 pages produced by a page author will be used by the Jakarta Faces framework to
 create component tree hierarchies, called “views”, that represent the
 components on those pages.
@@ -349,7 +349,7 @@ Please see <<a1251, Conversion Model>>.
 
 As of version 1.2 of this specification, all
 classes and interfaces in this package have been deprecated in favor of
-the Unified Expression Language (EL) from JSP 2.1.
+the Unified Expression Language (EL) fromJakarta Server Pages2.1.
 
 Please see <<a2344, Expression Language and Managed Bean Facility>>.
 
@@ -400,7 +400,7 @@ concrete validator implementation classes.
 
 Classes required for integration of
 Jakarta Faces into web applications, including a standard servlet,
-base classes for JSP custom component tags, and concrete tag
+base classes forJakarta Server Pagescustom component tags, and concrete tag
 implementations for core tags.
 
 Please see <<UsingJSFInWebApplications.adoc#a6060, Using Jakarta Faces in Web Applications>>.

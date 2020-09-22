@@ -82,7 +82,7 @@ The class and method Javadoc documentation for
 the classes and interfaces in _jakarta.faces_ (and its subpackages) are
 incorporated by reference as requirements of this Specification.
 
-The JSP and Facelet tag library for the
+TheJakarta Server Pagesand Facelet tag library for the
 HTML_BASIC standard RenderKit is specified in the VDLDocs and
 incorporated by reference in this Specification.
 

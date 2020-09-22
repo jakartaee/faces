@@ -195,7 +195,7 @@ subclass). Such a component binding is used at two different times
 during the processing of a Faces Request:
 
 * {empty}[P3-start how a component binding is
-used from a JSP page] When a component instance is first created
+used from aJakarta Server Pagespage] When a component instance is first created
 (typically by virtue of being referenced by a _UIComponentELTag_ in a
 JSP page), the Jakarta Faces implementation will retrieve the _ValueExpression_
 for the name _binding_, and call _getValue()_ on it. If this call
@@ -1087,7 +1087,7 @@ _NamingContainer_ is a marker interface.
 Components that implement _NamingContainer_ have the property that, for
 all of their children that have non- _null_ component identifiers, all
 of those identifiers are unique. This property is enforced by the
-_renderView()_ method on _ViewHandler_ . In JSP based applications, it
+_renderView()_ method on _ViewHandler_ . InJakarta Server Pagesbased applications, it
 is also enforced by the _UIComponentELTag_ . Since this is just a marker
 interface, there are no properties, methods, or events. Among the
 standard components, _UIForm_ and _UIData_ implement _NamingContainer_ .
@@ -2767,7 +2767,7 @@ component.
 * Make entries in a _faces-config.xml_ file to
 declare a _Renderer_ that provides client-device independence.
 
-* Provide a JSP or Facelet tag handler that
+* Provide aJakarta Server Pagesor Facelet tag handler that
 allows the page author to build UIs that include the component, and to
 customize each instance of the component with listeners, properties and
 model associations. This includes making the association between the

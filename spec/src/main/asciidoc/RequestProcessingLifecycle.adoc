@@ -59,7 +59,7 @@ case of a Faces Request and will be referred to as a _Faces Resource
 Request_ for the remainder of this specification.
 
 * _Non-Faces Request_ —A request that was sent
-to an application component (e.g. a servlet or JSP page), rather than
+to an application component (e.g. a servlet orJakarta Server Pagespage), rather than
 directed to a Faces view.
 
 In addition, of course, your web application
@@ -146,7 +146,7 @@ different web application resource (via a call to
 _HttpServletResponse.sendRedirect_ ).
 
 * A Faces Request causes the generation of a
-response using some other technology (such as a servlet, or a JSP page
+response using some other technology (such as a servlet, or aJakarta Server Pagespage
 not containing Jakarta Faces components).
 
 * A Faces Request causes the generation of a
@@ -583,7 +583,7 @@ _jakarta.faces.event.PreRenderViewEvent_ .
 
 * Jakarta Faces implementations must provide a default
 _ViewHandler_ implementation that is capable of handling views written
-in JSP as well as views written in the Faces View Declaration Language
+inJakarta Server Pagesas well as views written in the Faces View Declaration Language
 (VDL). In the case of JSP, the ViewHandler must perform a
 _RequestDispatcher.forward()_ call to a web application resource whose
 context-relative path is equal to the view identifier of the component
@@ -1018,7 +1018,7 @@ _UIInput.updateModel()_ .
 
 Jakarta Server Faces is fully internationalized.
 The I18N capability in Jakarta Server Faces builds on the I18N concepts
-offered in the Servlet, JSP and JSTL specifications. I18N happens at
+offered in the Servlet,Jakarta Server Pagesand JSTL specifications. I18N happens at
 several points in the request processing lifecycle, but it is easiest to
 explain what goes on by breaking the task down by function.
 
@@ -1067,7 +1067,7 @@ _language[\{-|_}country[\{-|_}variant]]_ without the colons, for example
 " _ja_JP_SJIS_ ". The separators between the segments must be ' _-_ ' or
 ' ___ '.[P1-end]
 
-In all cases where JSP is utilized, the
+In all cases whereJakarta Server Pagesis utilized, the
 active _Locale_ is set under “request scope” into the JSTL class
 _jakarta.servlet.jsp.jstl.core.Config_ , under the key _Config.FMT_LOCALE_
 .
@@ -1115,15 +1115,15 @@ The above algorithm allows an application to
 use the mechanisms of the underlying technologies to adjust both the
 request and response encoding in an application-specific manner, for
 instance using the page directive with a fixed character encoding
-defined in the contentType attribute in a JSP page, see the Servlet,
-Portlet and JSP specifications for details. Note, though, that the
-character encoding rules prior to Servlet 2.4 and JSP 2.0 are imprecise
+defined in the contentType attribute in aJakarta Server Pagespage, see the Servlet,
+Portlet andJakarta Server Pagesspecifications for details. Note, though, that the
+character encoding rules prior to Servlet 2.4 andJakarta Server Pages2.0 are imprecise
 and special care must be taken for portability between containers.
 
 ===== Localized Text
 
 There is no direct support for this in the
-API, but the JSP layer provides a convenience tag that converts a
+API, but theJakarta Server Pageslayer provides a convenience tag that converts a
 _ResourceBundle_ into a _java.util.Map_ and stores it in the scoped
 namespace so all may get to it. This section describes how resources
 displayed to the end user may be localized. This includes images,
@@ -1483,7 +1483,7 @@ _PartialStateHolder_ .
 
 * _ViewHandler_ the entry point to the state
 management system. Uses a helper class, _StateManager_ , to do the
-actual work. In the JSP case, delegates to the tag handler for the
+actual work. In theJakarta Server Pagescase, delegates to the tag handler for the
 _<f:view>_ tag for some functionality.
 
 * _StateManager_ abstraction for the hard work

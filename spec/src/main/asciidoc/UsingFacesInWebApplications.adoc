@@ -145,7 +145,7 @@ timezone of all _jakarta.faces.convert.DateTimeConverter_ instances must
 be equal to _TimeZone.getDefault()_ instead of “GMT”.
 
 * _jakarta.faces.DEFAULT_SUFFIX_ -- Allow the
-web application to define an alternate suffix for JSP pages containing
+web application to define an alternate suffix forJakarta Server Pagespages containing
 Jakarta Faces content. See the javadocs for the symbolic constant
 _ViewHandler.DEFAULT_SUFFIX_PARAM_NAME_ for the complete specification.
 
@@ -432,21 +432,21 @@ Application-specific classes and resources
 should be included in _/WEB-INF/classes_ or _/WEB-INF/lib_, so that
 they are automatically made available upon application deployment.
 
-==== Servlet and JSP API Classes (jakarta.servlet.*)
+==== Servlet andJakarta Server PagesAPI Classes (jakarta.servlet.*)
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
 the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
-==== JSP Standard Tag Library (JSTL) API Classes (jakarta.servlet.jsp.jstl.*)
+====Jakarta Server PagesStandard Tag Library (JSTL) API Classes (jakarta.servlet.jsp.jstl.*)
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
 the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
-==== JSP Standard Tag Library (JSTL) Implementation Classes
+====Jakarta Server PagesStandard Tag Library (JSTL) Implementation Classes
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
@@ -666,13 +666,13 @@ action. See <<a5163, <f:validateLength>>>,
 [[a6182]]
 === Deprecated APIs in the webapp package
 
-Faces depends on version JSP 2.1 or later,
-and the JSP tags in Faces expose properties that leverage concepts
-specific to that release of JSP. Importantly, most Faces JSP tag
+Faces depends on versionJakarta Server Pages2.1 or later,
+and theJakarta Server Pagestags in Faces expose properties that leverage concepts
+specific to that release of JSP. Importantly, most FacesJakarta Server Pagestag
 attributes are either of type _jakarta.el.ValueExpression_ or
 _jakarta.el.MethodExpression_. For backwards compatability with existing
-Faces component libraries that expose themselves as JSP tags, the
-existing classes relating to JSP have been deprecated and new ones
+Faces component libraries that expose themselves asJakarta Server Pagestags, the
+existing classes relating toJakarta Server Pageshave been deprecated and new ones
 introduced that leverage the EL API.
 
 ====  _AttributeTag_

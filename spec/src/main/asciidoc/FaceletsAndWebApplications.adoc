@@ -11,12 +11,12 @@ Member Jacob Hookom.
 To aid implementors in providing a spec
 compliant runtime for Facelets, this section provides a non-normative
 background to motivate the discussion of the Facelets feature. Facelets
-is a replacement for JSP that was designed from the outset with Jakarta Faces in
+is a replacement forJakarta Server Pagesthat was designed from the outset with Jakarta Faces in
 mind. New features introduced in pre-Jakarta Faces JSF version 2 (under the JCP) and later are only exposed to
-page authors using Facelets. JSP is retained for backwards
+page authors using Facelets.Jakarta Server Pagesis retained for backwards
 compatibility.
 
-==== Differences between JSP and Facelets
+==== Differences betweenJakarta Server Pagesand Facelets
 
 Facelets was the first non-JSP view
 declaration language designed for Jakarta Faces. As such, Facelets
@@ -56,7 +56,7 @@ UIComponent instances
 | Performance
 
 | Due to the common implementation technique of
-compiling a JSP page to a Servlet, performance can be slow
+compiling aJakarta Server Pagespage to a Servlet, performance can be slow
 | Facelets is simpler and faster than JSP
 
 | EL Expressions
@@ -601,7 +601,7 @@ As normatively specified in the javadocs for
 _ViewDeclarationLanguageFactory.getViewDeclarationLanguage()_, a Jakarta Faces
 implementation must guarantee that a valid and functional
 _ViewDeclarationLanguage_ instance is returned from this method when the
-argument is a reference to either a JSP view, a Faces XML View or a
+argument is a reference to either aJakarta Server Pagesview, a Faces XML View or a
 Facelets View. This section describes the specification for the Facelets
 implementation.
 

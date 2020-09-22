@@ -1440,18 +1440,18 @@ to have (Facelets only) in the "Constraints" paragraph of Section
 Facelet Tag Libraries>> outlines the f: namespaced tags that are only
 applicable to Facelets (and not JSP). In that section, f:validateBean,
 and f:validateRequired are listed. However, they are both listed as
-working with JSP as well (kind of like f:validateRegex), as can be seen
-from the JSP TLDDocs.
+working withJakarta Server Pagesas well (kind of like f:validateRegex), as can be seen
+from theJakarta Server PagesTLDDocs.
 
 According to Dan Allen: "those tags only work
 partially in JSP. Yes, they work as single field validators. But the
 branch validator capability does not work (wrapping the validator tag
 around a branch). The later feature is Facelets only. So the validators
 do have their feet in both ponds, but only Facelets has full support. I
-suppose we could mention this tidbit in the JSP section."
+suppose we could mention this tidbit in theJakarta Server Pagessection."
 
 Dan is correct that it should be mentoned in
-the JSP section, but also, that f:validateBean and f:validateRequired
+theJakarta Server Pagessection, but also, that f:validateBean and f:validateRequired
 belong in both Section 10.4 and 9.4, with the limits of their
 functionality described in each section.
 
@@ -2237,7 +2237,7 @@ _{issue_tracker_url}635[Issue ID:635]_
 
 |C110 |Errata
 |validateBean and validateRequired tags need
-to be removed from the JSP PDL documentation
+to be removed from theJakarta Server PagesPDL documentation
 |yes |
 _{issue_tracker_url}645[Issue ID:645]_
 

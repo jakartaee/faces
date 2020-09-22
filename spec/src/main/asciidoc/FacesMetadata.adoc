@@ -72,7 +72,7 @@ _jakarta.faces.DEFAULT_SUFFIX_ _<context-param>_ entries. The
 specification defines three processing modes for Facelets files:
 Facelets XHTML syntax, XML View syntax, and Facelets JSPX syntax. This
 last syntax is intended to ease the migration to Facelets for
-applications already using the JSP document syntax (also known as JSPX
+applications already using theJakarta Server Pagesdocument syntax (also known as JSPX
 syntax). The affect on the processing of files in each of these three
 modes is specified in the following table.
 
