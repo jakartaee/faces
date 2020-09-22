@@ -1434,24 +1434,24 @@ that sub-sections are Facelets-only in nature, then it is not necessary
 to have (Facelets only) in the "Constraints" paragraph of Section
 10.4.1.4 of the spec.
 
-===== Availability of f:validateBean and f:validateRequired in JSP
+===== Availability of f:validateBean and f:validateRequired in Jakarta Server Pages
 
 <<FaceletsAndWebApplications.adoc#a5691,See Standard
 Facelet Tag Libraries>> outlines the f: namespaced tags that are only
-applicable to Facelets (and not JSP). In that section, f:validateBean,
+applicable to Facelets (and not Jakarta Server Pages). In that section, f:validateBean,
 and f:validateRequired are listed. However, they are both listed as
-working withJakarta Server Pagesas well (kind of like f:validateRegex), as can be seen
-from theJakarta Server PagesTLDDocs.
+working with Jakarta Server Pages as well (kind of like f:validateRegex), as can be seen
+from the Jakarta Server Pages TLDDocs.
 
 According to Dan Allen: "those tags only work
-partially in JSP. Yes, they work as single field validators. But the
+partially in Jakarta Server Pages. Yes, they work as single field validators. But the
 branch validator capability does not work (wrapping the validator tag
 around a branch). The later feature is Facelets only. So the validators
 do have their feet in both ponds, but only Facelets has full support. I
-suppose we could mention this tidbit in theJakarta Server Pagessection."
+suppose we could mention this tidbit in the Jakarta Server Pages section."
 
 Dan is correct that it should be mentoned in
-theJakarta Server Pagessection, but also, that f:validateBean and f:validateRequired
+the Jakarta Server Pages section, but also, that f:validateBean and f:validateRequired
 belong in both Section 10.4 and 9.4, with the limits of their
 functionality described in each section.
 
@@ -2237,7 +2237,7 @@ _{issue_tracker_url}635[Issue ID:635]_
 
 |C110 |Errata
 |validateBean and validateRequired tags need
-to be removed from theJakarta Server PagesPDL documentation
+to be removed from the Jakarta Server Pages PDL documentation
 |yes |
 _{issue_tracker_url}645[Issue ID:645]_
 

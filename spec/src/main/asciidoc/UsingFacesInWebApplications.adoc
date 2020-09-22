@@ -145,7 +145,7 @@ timezone of all _jakarta.faces.convert.DateTimeConverter_ instances must
 be equal to _TimeZone.getDefault()_ instead of “GMT”.
 
 * _jakarta.faces.DEFAULT_SUFFIX_ -- Allow the
-web application to define an alternate suffix forJakarta Server Pagespages containing
+web application to define an alternate suffix for Jakarta Server Pages pages containing
 Jakarta Faces content. See the javadocs for the symbolic constant
 _ViewHandler.DEFAULT_SUFFIX_PARAM_NAME_ for the complete specification.
 
@@ -432,21 +432,21 @@ Application-specific classes and resources
 should be included in _/WEB-INF/classes_ or _/WEB-INF/lib_, so that
 they are automatically made available upon application deployment.
 
-==== Servlet andJakarta Server PagesAPI Classes (jakarta.servlet.*)
+==== Servlet and Jakarta Server Pages API Classes (jakarta.servlet.*)
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
 the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
-====Jakarta Server PagesStandard Tag Library (JSTL) API Classes (jakarta.servlet.jsp.jstl.*)
+==== Jakarta Server Pages Standard Tag Library (JSTL) API Classes (jakarta.servlet.jsp.jstl.*)
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
 the servlet container. Therefore, these classes should not be included
 inside the web application archive.
 
-====Jakarta Server PagesStandard Tag Library (JSTL) Implementation Classes
+==== Jakarta Server Pages Standard Tag Library (JSTL) Implementation Classes
 
 These classes will typically be made
 available to all web applications using the shared class facilities of
@@ -640,21 +640,21 @@ required. The value of this constant must be
 
 _[P1-start-uicomponenteltag]UIComponentELTag_ is an implementation of
 _jakarta.servlet.jsp.tagext.BodyTag_, and must be the base class for any
-JSP custom action that corresponds to a Jakarta Faces _UIComponent_.[P1-end] See
-<<a4406, Integration with JSP>>, and the Javadocs
+Jakarta Server Pages custom action that corresponds to a Jakarta Faces _UIComponent_.[P1-end] See
+<<a4406, Integration with Jakarta Server Pages>>, and the Javadocs
 for _UIComponentELTag_, for more information about using this class as
 the base class for your own _UIComponent_ custom action classes.
 
 ===== FacetTag
 
-JSP custom action that adds a named facet
+Jakarta Server Pages custom action that adds a named facet
 (see <<a968, Facet Management>>) to the
 UIComponent associated with the closest parent UIComponent custom
 action. See <<a4843, <f:facet>>>.
 
 ===== ValidatorTag
 
-JSP custom action (and convenience base
+Jakarta Server Pages custom action (and convenience base
 class) that creates and registers a _Validator_ instance on the
 _UIComponent_ associated with the closest parent _UIComponent_ custom
 action. See <<a5163, <f:validateLength>>>,
@@ -666,13 +666,13 @@ action. See <<a5163, <f:validateLength>>>,
 [[a6182]]
 === Deprecated APIs in the webapp package
 
-Faces depends on versionJakarta Server Pages2.1 or later,
-and theJakarta Server Pagestags in Faces expose properties that leverage concepts
-specific to that release of JSP. Importantly, most FacesJakarta Server Pagestag
+Faces depends on version Jakarta Server Pages 2.1 or later,
+and the Jakarta Server Pages tags in Faces expose properties that leverage concepts
+specific to that release of Jakarta Server Pages. Importantly, most Faces Jakarta Server Pages tag
 attributes are either of type _jakarta.el.ValueExpression_ or
 _jakarta.el.MethodExpression_. For backwards compatability with existing
-Faces component libraries that expose themselves asJakarta Server Pagestags, the
-existing classes relating toJakarta Server Pageshave been deprecated and new ones
+Faces component libraries that expose themselves as Jakarta Server Pages tags, the
+existing classes relating to Jakarta Server Pages have been deprecated and new ones
 introduced that leverage the EL API.
 
 ====  _AttributeTag_

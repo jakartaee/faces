@@ -248,7 +248,7 @@ See Programmatically Evaluating Expressions>>_) convenience method.
 
 {empty}[P1-start getExpressionFactory
 requirements] The default implementation simply returns the
-ExpressionFactory from theJakarta Server Pagescontainer by calling
+ExpressionFactory from the Jakarta Server Pages container by calling
 JspFactory.getDefaultFactory().getJspApplicationContext(servletContext).getExpressionFactory().[P1-end]
 
 [[a3463]]
@@ -1625,8 +1625,8 @@ specification.
 
 The terms _view identifier_ and _viewId_ are
 used interchangeably below and mean the context relative path to the web
-application resource that produces the view, such as aJakarta Server Pagespage or a
-Facelets page. In theJakarta Server Pagescase, this is a context relative path to the
+application resource that produces the view, such as a Jakarta Server Pages page or a
+Facelets page. In the Jakarta Server Pages case, this is a context relative path to the
 jsp page representing the view, such as _/foo.jsp_. In the Facelets
 case, this is a context relative path to the XHTML page representing the
 view, such as _/foo.xhtml_.
@@ -1635,7 +1635,7 @@ Jakarta Faces implementations must provide a default
 _ViewHandler_ implementation, along with a default
 _ViewDeclarationLanguageFactory_ implementation that vends
 _ViewDeclarationLanguage_ implementations designed to support the
-rendering ofJakarta Server Pagespages containing Jakarta Faces components and Facelets pages
+rendering of Jakarta Server Pages pages containing Jakarta Faces components and Facelets pages
 containing Jakarta Faces components. The default _ViewHandler_ is specified in
 this section and the default _ViewDeclarationLanguage_ implementations
 are specified in the following section.
@@ -2040,11 +2040,11 @@ View>> for the normative specification of this feature.
 
 To support the introduction of Facelets into
 the core specification, whilst preserving backwards compatibility with
-existingJakarta Server Pagesapplications, the concept of the _View Declaration
+existing Jakarta Server Pages applications, the concept of the _View Declaration
 Language_ was formally introduced in version 2 of the specification. A
 View Declaration Language (VDL) is a syntax used to declare user
 interfaces comprised of instances of Jakarta Faces __UIComponent__s. Under this
-definition, bothJakarta Server Pagesand Facelets are examples of an implementation of a
+definition, both Jakarta Server Pages and Facelets are examples of an implementation of a
 VDL. Any of the responsibilities of the _ViewHandler_ that specifically
 deal with the VDL sub-system are now the domain of the VDL
 implementation. These responsibilities are defined on the
@@ -2072,9 +2072,9 @@ Return the _ViewDeclarationLanguage_ instance
 suitable for handling the VDL contained in the page referenced by the
 argument viewId. [P1-start_required_ViewDeclarationLanguageImpls]The
 default implementation must return a valid _ViewDeclarationLanguage_
-instance for views written in eitherJakarta Server Pagesor Facelets.
+instance for views written in either Jakarta Server Pages or Facelets.
 [P1-end_required_ViewDeclarationLanguageImpls]Whether the instance
-returned is the same for aJakarta Server Pagesor a Facelet view is an implementation
+returned is the same for a Jakarta Server Pages or a Facelet view is an implementation
 detail.
 
 [[a4010]]
@@ -2091,7 +2091,7 @@ implementations
 handles Facelet views
 
 * Behavior required of the implementation that
-handlesJakarta Server Pagesviews
+handles Jakarta Server Pages views
 
 Any implementation strategy is valid as long
 as these requirements are met.
@@ -2130,7 +2130,7 @@ _setViewId()_ method on the new _UIViewRoot_ instance.
 to _FacesContext.setViewRoot()_. This enables the broadest possible
 range of implementations for how tree creation is actually implemented.
 
-TheJakarta Server Pagesand implementation is not required to
+The Jakarta Server Pages and implementation is not required to
 take any additional action.
 
 The Facelet implementation must call
@@ -2156,7 +2156,7 @@ public List<String> calculateResourceLibraryContracts(
     FacesContext context, String viewId)
 ----
 
-TheJakarta Server Pagesimplementation must return _null_.
+The Jakarta Server Pages implementation must return _null_.
 
 The Facelet implementation must examine the
 resource library contracts data structure, which was populated as
@@ -2234,8 +2234,8 @@ Facelet markup file that is to be interpreted as a composite component
 as specified in <<UserInterfaceComponentModel.adoc#a1671,Composite Component
 Metadata>>.
 
-{empty}TheJakarta Server Pagesimplementation is not required
-to support argument _componentResource_ being aJakarta Server Pagesmarkup file. In this
+{empty}The Jakarta Server Pages implementation is not required
+to support argument _componentResource_ being a Jakarta Server Pages markup file. In this
 case, _null_ must be returned from this method.[P1-end]
 
 ===== ViewDeclarationLanguage.getViewMetadata() and getViewParameters()
@@ -2260,8 +2260,8 @@ The Facelets implementation must support
 argument _viewId_ being a Facelet markup file from which the view
 metadata should be extracted.
 
-{empty}TheJakarta Server Pagesimplementation is not required
-to support argument _viewId_ being aJakarta Server Pagesmarkup file. In this case,
+{empty}The Jakarta Server Pages implementation is not required
+to support argument _viewId_ being a Jakarta Server Pages markup file. In this case,
 _null_ must be returned from this method.[P1-end]
 
 .ViewMetadata Contract
@@ -2318,7 +2318,7 @@ returned _Resource_ if non-__null__, must point to a script file that
 can be turned into something that extends _UIComponent_ and implements
 _NamingContainer_.
 
-{empty}TheJakarta Server Pagesimplementation is not required
+{empty}The Jakarta Server Pages implementation is not required
 to support this method. In this case, _null_ must be returned from this
 method.[P1-end]
 
@@ -2339,7 +2339,7 @@ All implementations must:
 * Return immediately if calling _isRendered()_
 on the argument _UIViewRoot_ returns _false_.
 
-TheJakarta Server Pagesimplementation must:
+The Jakarta Server Pages implementation must:
 
 * If the current request is a _ServletRequest_
 , call the _set()_ method of the _jakarta.servlet.jsp.jstl.core.Config_
@@ -2361,14 +2361,14 @@ all content written to the response so that it is ready for output at a
 later point. This is necessary to allow any content appearing after the
 _<f:view>_ tag to appear in the proper position in the page.
 
-* Execute theJakarta Server Pagespage to build the view by
+* Execute the Jakarta Server Pages page to build the view by
 treating the _viewId_ as a context-relative path (starting with a slash
 character), by passing it to the _dispatch()_ method of the
 _ExternalContext_ associated with this request. Otherwise, continue to
-the next step. This causes control to pass to theJakarta Server Pagescontainer, and
+the next step. This causes control to pass to the Jakarta Server Pages container, and
 then to _UIComponentClassicTagBase_. Please consult the javadocs for
 that class for the specification of how to handle building the view by
-executing theJakarta Server Pagespage.
+executing the Jakarta Server Pages page.
 
 * Store the wrapped response in a thread-safe
 manner for use below. Otherwise, omit this step. The default
@@ -2398,7 +2398,7 @@ The Facelets implementation must:
 
 * Call _encodeAll()_ on the _UIViewRoot_.
 
-TheJakarta Server Pagesimplementation must:
+The Jakarta Server Pages implementation must:
 
 * Output any content in the wrapped response
 from above to the response, removing the wrapped response from the
@@ -2408,7 +2408,7 @@ All implementations must:
 
 * Call _endDocument()_ on the _ResponseWriter_.
 
-TheJakarta Server Pagesimplementation must:
+The Jakarta Server Pages implementation must:
 
 * If the old _ResponseWriter_ was not _null_,
 place the old _ResponseWriter_ back into the _FacesContext_.
@@ -2429,7 +2429,7 @@ public UIViewRoot restoreView(FacesContext context, String viewId)
 [P1-start restoreView() requirements]The
 _restoreView()_ method must fulfill the following responsibilities:
 
-TheJakarta Server Pagesimplementation must:
+The Jakarta Server Pages implementation must:
 
 * If no _viewId_ could be identified, return
 _null_.
@@ -2442,7 +2442,7 @@ _UIViewRoot_, which may be _null_.
 The Facelets implementation must:
 
 * Call _ResponseStateManager.isStateless()_.
-If the result is _false_, proceed as specified in the JSP
+If the result is _false_, proceed as specified in the Jakarta Server Pages
 implementation. Otherwise, take the following steps and return.
 
 * Obtain a reference to the
@@ -2525,7 +2525,7 @@ of the statefulness requirements of the components in the view. If a
 component requires state to operate correctly, it must not be used in a
 stateless view. Furthermore, it is not required that _@ViewScoped_
 managed beans work at all with stateless views. This feature only works
-with Facelet based views, notJakarta Server Pagesbased views.
+with Facelet based views, not Jakarta Server Pages based views.
 
 To mark a view as stateless, the existing
 _transient_ property from _UIComponent_ is exposed to the view author by

@@ -2,13 +2,13 @@
 
 [.footnoteNumber]# 1.# [[a9083]]Typically, component
 selection will be driven by the occurrence of special markup (such as
-the existence of aJakarta Server Pagescustom tag) in the template text associated with
+the existence of a Jakarta Server Pages custom tag) in the template text associated with
 the component tree.
 
 [.footnoteNumber]# 2.# [[a9084]]For example, this
-technique is used when custom tags inJakarta Server Pagespages are utilized as the
+technique is used when custom tags in Jakarta Server Pages pages are utilized as the
 rendering technology, as described in <<a4406,
-Integration with JSP>>.
+Integration with Jakarta Server Pages>>.
 
 [.footnoteNumber]# 3.# [[a9085]]The default
 _ViewHandler_ implementation performs a _RequestDispatcher.forward_ call
@@ -16,7 +16,7 @@ to the web application resource that will actually perform the
 rendering, so it expects the tree identifier to be the context-relative
 path (starting with a _/_ character) of the web application resource
 
-[.footnoteNumber]# 4.# [[a9086]]In aJakarta Server Pagesenvironment,
+[.footnoteNumber]# 4.# [[a9086]]In a Jakarta Server Pages environment,
 these steps are performed by a custom tag extending ConverterTag.
 
 [.footnoteNumber]# 5.# [[a9087]]Accessing attributes
@@ -58,7 +58,7 @@ signature specified in the createMethodBinding() call.
 
 [.footnoteNumber]# 13.# [[a9096]]If this extension is
 used, it must be declared in the web application deployment descriptor,
-as described in theJakarta Server Pages2.0 (or later) specification.
+as described in the Jakarta Server Pages 2.0 (or later) specification.
 
 [.footnoteNumber]# 14.# [[a9097]]This example
 illustrates a non-normative convention for naming custom actions based
@@ -77,7 +77,7 @@ consistently in tag library examples throughout this specification.
 components in a facet, nest them inside a <h:panelGroup> custom action
 that is the value of the facet.
 
-[.footnoteNumber]# 17.# [[a9100]]In aJakarta Server Pages2.0 or later
+[.footnoteNumber]# 17.# [[a9100]]In a Jakarta Server Pages 2.0 or later
 environment, the same effect can be accomplished by using
 <include-prelude> and <include-coda> elements in the <jsp-config>
 element in the web application deployment descriptor.

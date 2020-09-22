@@ -43,7 +43,7 @@ Jakarta Faces’s core architecture is designed to be
 independent of specific protocols and markup. However it is also aimed
 directly at solving many of the common problems encountered when writing
 applications for HTML clients that communicate via HTTP to a Java
-application server that supports servlets and Jakarta Server Pages (JSP)
+application server that supports servlets and Jakarta Server Pages
 based applications. These applications are typically form-based, and are
 comprised of one or more HTML pages with which the user interacts to
 complete a task or set of tasks. Jakarta Faces tackles the following challenges
@@ -91,7 +91,7 @@ A _page author_ is primarily responsible for
 creating the user interface of a web application. He or she must be
 familiar with the markup and scripting languages (such as HTML and
 JavaScript) that are understood by the target client devices, as well as
-the rendering technology (such as Jakarta Server Pages) used to create
+the rendering technology (such as  Jakarta Server Pages ) used to create
 dynamic content. Page authors are often focused on graphical design and
 human factors engineering, and are generally not familiar with
 programming languages such as Java or Visual Basic (although many page
@@ -104,9 +104,9 @@ interface components that are provided by component writers, tool
 providers, and Jakarta Faces implementors. The components themselves will be
 represented as configurable objects that utilize the dynamic markup
 capabilities of the underlying rendering technology. When Jakarta Server
-Pages are in use, for example, components will be represented as JSP
+Pages are in use, for example, components will be represented as Jakarta Server Pages
 custom actions, which will support configuring the attributes of those
-components as custom action attributes in theJakarta Server Pagespage. In addition, the
+components as custom action attributes in the Jakarta Server Pages page. In addition, the
 pages produced by a page author will be used by the Jakarta Faces framework to
 create component tree hierarchies, called “views”, that represent the
 components on those pages.
@@ -211,7 +211,7 @@ applications, such as Session EJBs.
 
 * Expose the data representation and functional
 logic objects for use via Jakarta Faces, as would be done for any servlet- or
-JSP-based application.
+Jakarta Server Pages-based application.
 
 Only the latter responsibility is directly
 related to Jakarta Faces APIs. In particular, the following steps are
@@ -349,7 +349,7 @@ Please see <<a1251, Conversion Model>>.
 
 As of version 1.2 of this specification, all
 classes and interfaces in this package have been deprecated in favor of
-the Unified Expression Language (EL) fromJakarta Server Pages2.1.
+the Unified Expression Language (EL) from Jakarta Server Pages 2.1.
 
 Please see <<a2344, Expression Language and Managed Bean Facility>>.
 
@@ -400,7 +400,7 @@ concrete validator implementation classes.
 
 Classes required for integration of
 Jakarta Faces into web applications, including a standard servlet,
-base classes forJakarta Server Pagescustom component tags, and concrete tag
+base classes for Jakarta Server Pages custom component tags, and concrete tag
 implementations for core tags.
 
 Please see <<UsingJSFInWebApplications.adoc#a6060, Using Jakarta Faces in Web Applications>>.

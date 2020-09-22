@@ -1,53 +1,53 @@
 == Preface
 
-This is the Jakarta Server Faces 3.0 (JSF 3.0) specification.
+This is the Jakarta Server Faces 3.0 specification.
 
 === Changes between 3.0 and 2.3
 
 
 ==== Backward Compatibility with Previous Versions
 
-JSF 3.0 has a breaking change due to the namespace change from  `javax.faces` to `jakarta.faces`.
+Jakarta Faces 3.0 has a breaking change due to the namespace change from  `javax.faces` to `jakarta.faces`.
 
 === Related Technologies
 
 [[a173]]
 ==== Other Jakarta Platform Specifications
 
-JSF is based on the following Jakarta specifications:
+Jakarta Faces is based on the following Jakarta specifications:
 
-Jakarta Server Pages Specification, version 3.0
-(JSP), including Expression Language 4.0
-<https://github.com/eclipse-ee4j/jsp-api/>
-
-Jakarta Expression Language 4.0
-<https://github.com/eclipse-ee4j/el-ri> (optional)
 
 Jakarta Servlet Specification, version 5.0
 (Servlet) <https://github.com/eclipse-ee4j/servlet-api>
 
+Jakarta WebSocket, version 2.0
+<https://github.com/eclipse-ee4j/websocket-api>
 
-Contexts and Dependency Injection for Java 2.0
-<http://jcp.org/en/jsr/detail?id=365>
+Jakarta Contexts and Dependency Injection for Java 3.0
+<https://github.com/eclipse-ee4j/cdi>
+
+Jakarta Expression Language 4.0
+<https://github.com/eclipse-ee4j/el-ri>
+
+Jakarta JSON Processing, version 2.0
+<https://github.com/eclipse-ee4j/jsonp>
+
+Jakarta Server Pages  Specification, version 3.0
+<https://github.com/eclipse-ee4j/jsp-api/>
+
+Jakarta Standard Tag Library, version 2.0 
+<https://github.com/eclipse-ee4j/jstl-api>
 
 
 JavaBeans™ Specification, version 1.0.1
 <http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html>
 
-JavaServer Pages™ Standard Tag Library, version
-1.2 (JSTL) <http://jcp.org/en/jsr/detail?id=52>
 
-Jakarta WebSocket, version 2.0
-<https://github.com/eclipse-ee4j/websocket-api>
-
-Jakarta JSON Processing, version 2.0
-<https://github.com/eclipse-ee4j/jsonp>
-
-Therefore, a JSF container must support all of
+Therefore, a Jakarta Faces container must support all of
 the above specifications. This requirement allows faces applications to
-be portable across a variety of JSF implementations.
+be portable across a variety of Jakarta Faces implementations.
 
-In addition, JSF is designed to work
+In addition, Jakarta Faces is designed to work
 synergistically with other web-related Java APIs, including:
 
 Portlet Specification, 1.0 JSR-168
@@ -65,7 +65,7 @@ JSF Portlet Bridge Specification, JSR-301
 ==== Related Documents and Specifications
 
 The following documents and specifications of
-the World Wide Web Consortium will be of interest to JSF implementors,
+the World Wide Web Consortium will be of interest to Jakarta Faces implementors,
 as well as developers of applications and components based on Jakarta Server
 Faces.
 
@@ -82,7 +82,7 @@ The class and method Javadoc documentation for
 the classes and interfaces in _jakarta.faces_ (and its subpackages) are
 incorporated by reference as requirements of this Specification.
 
-TheJakarta Server Pagesand Facelet tag library for the
+The Jakarta Server Pages and Facelet tag library for the
 HTML_BASIC standard RenderKit is specified in the VDLDocs and
 incorporated by reference in this Specification.
 

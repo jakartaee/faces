@@ -1,45 +1,44 @@
 [[a4406]]
-== Integration with JSP
+== Integration with Jakarta Server Pages
 
 Any Jakarta Faces implementations that
 claims compliance with this specification must include a complete
-Jakarta Server Pages implementation, and expose this implementation to the
+ Jakarta Server Pages  implementation, and expose this implementation to the
 runtime of any Jakarta Faces application. Jakarta Faces applications, however, need not use
-JSP as their View Declaration Language (VDL). In fact, a Jakarta Faces application
+Jakarta Server Pages as their View Declaration Language (VDL). In fact, a Jakarta Faces application
 is free to use whatever technology it likes for its VDL, as long as that
 VDL itself complies with the Jakarta Faces specification.
 
 This version of the specification requires
 that implementations support two View Declaration Language syntaxes
 
-* JSP
-
+* Jakarta Server Pages
 * Facelets XHTML
 
-This chapter describes theJakarta Server Pagessupport
-required by Jakarta Server Faces. ThisJakarta Server Pagessupport is enabled by providing
-custom actions so that a Jakarta Faces user interface can be easy defined in a JSP
+This chapter describes the Jakarta Server Pages support
+required by Jakarta Server Faces. This Jakarta Server Pages support is enabled by providing
+custom actions so that a Jakarta Faces user interface can be easy defined in a Jakarta Server Pages
 page by adding tags corresponding to Jakarta Faces UI components. Custom actions
-provided by a Jakarta Faces implementation may be mixed with standardJakarta Server Pagesactions
+provided by a Jakarta Faces implementation may be mixed with standard Jakarta Server Pages actions
 and custom actions from other libraries, as well as template text for
-layout, in the sameJakarta Server Pagespage.
+layout, in the same Jakarta Server Pages page.
 
 Facelets XHTML is specified in
 <<FaceletsAndWebApplications.adoc#a5476,Facelets and its use in Web
 Applications>>. This chapters builds on the previous one. Facelets relies
-on concepts specified in JSP.
+on concepts specified in Jakarta Server Pages.
 
-ForJakarta Server Pagesversion 2.0 and onward, the file
+For Jakarta Server Pages version 2.0 and onward, the file
 extension “_.jsf_” is reserved, and may optionally be used (typically
 by authoring tools) to represent VDL pages containing Jakarta Faces
-content <<Footnotes.adoc#a9096,13>>. When running in aJakarta Server Pages1.2 environment,
-JSP authors must give theirJakarta Server Pagespages that contain Jakarta Faces content a
+content <<Footnotes.adoc#a9096,13>>. When running in a pre-Jakarta Server Pages 2.0 environment,
+Jakarta Server Pages authors must give their Jakarta Server Pages pages that contain Jakarta Faces content a
 filename ending in “_.jsp_”.
 
 [[a4415]]
 === UIComponent Custom Actions
 
-AJakarta Server Pagescustom action (aka custom tag or tag)
+A Jakarta Server Pages custom action (aka custom tag or tag)
 for a Jakarta Faces _UIComponent_ is constructed by combining properties and
 attributes of a Java UI component class with the rendering attributes
 supported by a specific _Renderer_ from a concrete _RenderKit_. For
@@ -106,7 +105,7 @@ attributes are derived from the _UIInput_ component class itself. Also
 note that the _id_ attribute has _rtexprvalue_ set to _true_. This is
 to allow _${}_ expressions in the _id_ attribute so that _<c:forEach>_
 can include faces components that incorporate the index into their id.
-_RenderKit_ implementors will generally provide aJakarta Server Pagestag library which
+_RenderKit_ implementors will generally provide a Jakarta Server Pages tag library which
 includes component custom actions corresponding to each of the component
 classes (or types) supported by each of the __RenderKit__’s _Renderers_.
 See <<RenderingModel.adoc#a4223,RenderKit>> and
@@ -116,11 +115,11 @@ tag library for the standard HTML RenderKit (see
 <<IntegrationWithJSP.adoc#a5363,Standard HTML RenderKit Tag Library>>).
 
 
-=== Using UIComponent Custom Actions inJakarta Server PagesPages
+=== Using UIComponent Custom Actions in Jakarta Server Pages Pages
 
 The following subsections define how a page
 author utilizes the custom actions provided by the _RenderKit_
-implementor in theJakarta Server Pagespages that create the user interface of a
+implementor in the Jakarta Server Pages pages that create the user interface of a
 Jakarta Faces-based web application.
 
 ==== Declaring the Tag Libraries
@@ -136,7 +135,7 @@ the _Jakarta Server Faces Core Tag Library_
 * _http://java.sun.com/jsf/html_ -- URI for
 the _Jakarta Server Faces Standard HTML RenderKit Tag Library_
 
-The page author must use the standard JSP
+The page author must use the standard Jakarta Server Pages
 _taglib_ directive to declare the URI of each tag library to be
 utilized, as well as the prefix used (within this page) to identify
 custom actions from this library. For example,
@@ -155,16 +154,16 @@ libraries <<Footnotes.adoc#a9098,15>>.
 ==== Including Components in a Page
 
 A Jakarta Faces _UIComponent_ custom action can be
-placed at any desired position in aJakarta Server Pagespage that contains the _taglib_
+placed at any desired position in a Jakarta Server Pages page that contains the _taglib_
 directive for the corresponding tag library, subject to the following
 restrictions:
 
-* When using a singleJakarta Server Pagespage to create the
+* When using a single Jakarta Server Pages page to create the
 entire view, Jakarta Faces component custom actions must be nested inside the
 _<f:view>_ custom action from the Jakarta Faces Core Tag Library.
 
 The following example illustrates the general
-use of a UIComponent custom action in aJakarta Server Pagespage. In this scenario:
+use of a UIComponent custom action in a Jakarta Server Pages page. In this scenario:
 
 [source,xml]
 ----
@@ -192,14 +191,14 @@ the first time a particular page is rendered, the component tree may
 also be dynamically constructed.
 
 All markup other than _UIComponent_ custom
-actions is processed by theJakarta Server Pagescontainer, in the usual way. Therefore,
+actions is processed by the Jakarta Server Pages container, in the usual way. Therefore,
 you can use such markup to perform layout control, or include non-Jakarta Faces
 content, in conjunction with the actions that represent UI components.
 
 ==== Creating Components and Overriding Attributes
 
 As _UIComponent_ custom actions are
-encountered during the processing of aJakarta Server Pagespage, the custom action
+encountered during the processing of a Jakarta Server Pages page, the custom action
 implementation must check the component tree for the existence of a
 corresponding _UIComponent_, and (if not found) create and configure a
 new component instance corresponding to this custom action. The details
@@ -274,7 +273,7 @@ _false_, the previous child component will be removed.
 Nested structures of _UIComponent_ custom
 actions will generally mirror the hierarchical relationships of the
 corresponding _UIComponent_ instances in the view that is associated
-with eachJakarta Server Pagespage. For example, assume that a _UIForm_ component (whose
+with each Jakarta Server Pages page. For example, assume that a _UIForm_ component (whose
 component id is _logonForm_) contains a _UIPanel_ component used to
 manage the layout. You might specify the contents of the form like this:
 
@@ -348,7 +347,7 @@ _JSPException_ must be thrown.
 A _Facet_ is a subordinate UIComponent that
 has a special relationship to its parent _UIComponent_, as described in
 <<UserInterfaceComponentModel.adoc#a968,Facet Management>>. Facets can be defined
-in aJakarta Server Pagespage using the _<f:facet>_ custom action. Each facet action
+in a Jakarta Server Pages page using the _<f:facet>_ custom action. Each facet action
 must have one and only one child UIComponent custom
 action <<Footnotes.adoc#a9099,16>>. For example:
 
@@ -369,10 +368,10 @@ action <<Footnotes.adoc#a9099,16>>. For example:
 ----
 
 [[a4536]]
-==== Interoperability withJakarta Server PagesTemplate Text and Other Tag Libraries
+==== Interoperability with Jakarta Server Pages Template Text and Other Tag Libraries
 
 It is permissible to use other tag libraries,
-such as the Jakarta Standard Tag Library (Jakarta Tags) in the sameJakarta Server Pagespage with
+such as the Jakarta Standard Tag Library (Jakarta Tags) in the same Jakarta Server Pages page with
 _UIComponent_ custom actions that correspond to Jakarta Faces components, subject
 to certain restrictions. When Jakarta Faces component actions are nested inside
 custom actions from other libraries, or combined with template text, the
@@ -409,7 +408,7 @@ on the _UIViewRoot_ component to change locales for a particular user.
 
 ==== Composing Pages from Multiple Sources
 
-JSP pages can be composed from multiple
+Jakarta Server Pages pages can be composed from multiple
 sources using several mechanisms:
 
 * The _<%@include%>_ directive performs a
@@ -559,7 +558,7 @@ protected void setProperties(UIComponent component) {
 ----
 
 * Optionally, provide a public _release()_
-method of type _void_, taking no parameters, to be called when the JSP
+method of type _void_, taking no parameters, to be called when the Jakarta Server Pages
 page handler releases this custom action instance. If implemented, the
 method must perform the following tasks:
 
@@ -597,30 +596,30 @@ name is reserved for Faces use.
 ** If the attribute represents a method
 expression, it must have a _<deferred-method>_ element containing a
 _<method-signature>_ element that describes the signature of the method
-pointed to by the expression, as described in section JSP.C.1 in the JSP
-2.1 specification.
+pointed to by the expression, as described in section JSP.C.1 in the Jakarta Server Pages
+3.0 specification.
 
 ** Otherwise, the attribute must be a value
 based attribute, and must have a _<deferred-value>_ element containing a
 <type> element which describes the expected type to which the expression
-will evaluate. Please see section JSP.C.1 in theJakarta Server Pages2.1 specification
+will evaluate. Please see section JSP.C.1 in the Jakarta Server Pages 3.0 specification
 for details.
 
-==== Considerations for Custom Actions written for Jakarta Server Faces 1.1 and 1.0
+==== Considerations for Custom Actions written for pre-Jakarta Faces JSF 1.1 and 1.0
 
-Versions 1.0 and 1.1 of the Jakarta Server Faces
+Versions 1.0 and 1.1 of the pre-Jakarta Faces
 spec included their own EL that happend to have similar semantics to the
-JSP EL, but the implementation was bundled into the Faces
-implementation. This version leverages a new Unified EL facility
-provided by JSP. This change has necessitated deprecating some methods
+Jakarta Server Pages EL, but the implementation was bundled into the Faces
+implementation. This version leverages the Jakarta Expression Language facility. 
+This change has necessitated deprecating some methods
 and classes, including the classes Custom Actions as their base class
-for tags that expose Faces components to theJakarta Server Pagespage. This section
+for tags that expose Faces components to the Jakarta Server Pages page. This section
 explains how custom actions built for Faces 1.0 and 1.1 can continue to
 run Faces 1.2.
 
 ===== Past and Present Tag constraints
 
-Faces 1.0 and 1.1 were targeted at JSP
+Faces 1.0 and 1.1 were targeted at pre-Jakarta Server Pages JSP
 version 1.2 and Servlet version 2.3. This decision brought about several
 constraints for faces tag attributes:
 
@@ -631,7 +630,7 @@ _rtexprvalue_ to be _false_.
 _java.lang.String_.
 
 * Faces had to choose a new expression
-delimiter, _#{}_ , to prevent theJakarta Server Pagescontainer from prematurely
+delimiter, _#{}_ , to prevent the Jakarta Server Pages container from prematurely
 evaluating the expression. This became known as deferred evaluation.
 
 * Because Faces had introduced its own version
@@ -659,7 +658,7 @@ have a _<deferred-value>_ or _<deferred-method>_ element. See
 _<<IntegrationWithJSP.adoc#a4636,Jakarta Faces Core Tag Library>>_ in the
 description for the _Attributes_ column.
 
-* TheJakarta Server PagesContainer will hand the tag setter a
+* The Jakarta Server Pages Container will hand the tag setter a
 _jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_ directly, so
 there is no need to use the Faces API to create them.
 
@@ -668,7 +667,7 @@ classes are deprecated and Faces provides new base class,
 UIComponentELTag to the new rules for taglibs in Faces.
 
 It’s very important to note that we still are
-using #\{} as the delimiters for expressions that appear in aJakarta Server Pagespage
+using #\{} as the delimiters for expressions that appear in a Jakarta Server Pages page
 in the value of a tag attribute, but when the Java API is used, either
 $\{} or #\{} may be used for delimiters.
 
@@ -679,10 +678,10 @@ It is imperative that applications written
 for Faces 1.0 and 1.1 continue to run on Faces 1.2. From the JSP
 perspective, this means
 
-. thatJakarta Server Pagespages using the standard h: and f:
+. that Jakarta Server Pages pages using the standard h: and f:
 tags must work without change
 
-. thatJakarta Server Pagespages using custom faces taglibs
+. that Jakarta Server Pages pages using custom faces taglibs
 must work without change
 
 The first item is enabled by re-writing the
@@ -690,15 +689,15 @@ h: and f: taglibs which must be provided by the Faces implementor.
 
 The second item is enabled as follows. For
 discussion the term _jsp-version_ is used to denote the _jsp-version_
-element in aJakarta Server Pages1.2 (and earlier) TLD, as well as the _version_ element
-in aJakarta Server Pages2.0 (and later) TLD. TheJakarta Server Pagescontainer must examine the
+element in a Jakarta Server Pages 1.2 (and earlier) TLD, as well as the _version_ element
+in a Jakarta Server Pages 2.0 (and later) TLD. The Jakarta Server Pages container must examine the
 _jsp-version_ element of the TLD for a taglib. If the _jsp-version_ is
 less than 2.1, the taglib is deemed to be a Faces 1.0 or 1.1 taglib and
 the container must ignore all expressions that use #\{} as delimiters,
 except for those appearing in tag attribute with a property setter that
 takes a _jakarta.el.ValueExpression_ or _jakarta.el.MethodExpression_. If
 the _jsp-version_ is 2.1 or greater, the taglib is deemed to be a Faces
-1.2 or later taglib and theJakarta Server Pagescontainer is aware of #\{} expressions.
+1.2 or later taglib and the Jakarta Server Pages container is aware of #\{} expressions.
 
 
 [[a4636]]
@@ -720,7 +719,7 @@ _http://java.sun.com/jsf/core_.
 directory of a JAR file containing the corresponding implementation
 classes, suitable for inclusion with a web application, such that the
 tag library descriptor will be located automatically by the algorithm
-described in Section 7.3 of the _Jakarta Server Pages Specification_
+described in Section 7.3 of the _ Jakarta Server Pages  Specification_
 (version 2.1). [P1-end]
 
 {empty}[P1-start no javascript in jakarta_faces_core
@@ -734,7 +733,7 @@ Tag Library is documented in a subsection below, with the following
 outline for each action:
 
 * Name—The name of this custom action, as used
-in aJakarta Server Pagespage.
+in a Jakarta Server Pages page.
 
 * Short Description—A summary of the behavior
 implemented by this custom action.
@@ -747,7 +746,7 @@ as “_userName_” or “_user${i}_” without the quotes.
 
 * Body Content—The type of nested content for
 this custom action, using one of the standard values _empty_, _JSP_,
-or _tagdependent_ as described in theJakarta Server Pagesspecification. This section
+or _tagdependent_ as described in the Jakarta Server Pages specification. This section
 also describes restrictions on the types of content (template text, Jakarta Faces
 core custom actions, Jakarta Faces _UIComponent_ custom actions, and/or other
 custom actions) that can be nested in the body of this custom action.
@@ -1970,7 +1969,7 @@ In this scenario, _<f:subview>_ custom
 actions in imported pages establish a naming scope for components within
 those pages. Identifiers for _<f:subview>_ custom actions nested in a
 single _<f:view>_ custom action must be unique, but it is difficult for
-the page author (and impossible for theJakarta Server Pagespage compiler) to enforce
+the page author (and impossible for the Jakarta Server Pages page compiler) to enforce
 this restriction.
 
 [source,xml]
@@ -2704,12 +2703,12 @@ that of jakarta.faces.event._PhaseListener.afterPhase()_
 
 ===== Constraints
 
-* [P1-start f:view constraints] Any JSP-created
+* [P1-start f:view constraints] Any Jakarta Server Pages-created
 response using actions from the Jakarta Faces Core Tag Library, as well as actions
 extending _jakarta.faces.webapp.UIComponentELTag_ from other tag
 libraries, must be nested inside an occurrence of the _<f:view>_ action.
 
-*Jakarta Server Pagespage fragments included via the standard
+* Jakarta Server Pages page fragments included via the standard
 _<%@ include %>_ directive need not have their Jakarta Faces actions embedded in a
 _<f:view>_ action, because the included template text and custom actions
 will be processed as part of the outer page as it is compiled, and the
@@ -2782,7 +2781,7 @@ _http://java.sun.com/jsf/html_.
 directory of a JAR file containing the corresponding implementation
 classes, suitable for inclusion with a web application, such that the
 tag library descriptor will be located automatically by the algorithm
-described in Section 7.3 of the _Jakarta Server Pages Specification_
+described in Section 7.3 of the _ Jakarta Server Pages  Specification_
 (version 1.2).[P1-end]
 
 [P1-start html_basic return values]The custom
@@ -2916,7 +2915,7 @@ respectively:.
 
 |===
 
-Note, to avoid confusion betweenJakarta Server Pagesand
+Note, to avoid confusion between Jakarta Server Pages and
 Facelets, any Renderers that are only supported in Facelets are
 specified in <<FaceletsAndWebApplications.adoc#a6029,Standard HTML RenderKit Tag
 Library>>.
