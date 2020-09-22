@@ -1,15 +1,15 @@
 [[a883]]
 == User Interface Component Model
 
-A JSF _user interface component_ is the basic
-building block for creating a JSF user interface. A particular component
+A Jakarta Faces _user interface component_ is the basic
+building block for creating a Jakarta Faces user interface. A particular component
 represents a configurable and reusable element in the user interface,
 which may range in complexity from simple (such as a button or text
 field) to compound (such as a tree control or table). Components can
 optionally be associated with corresponding objects in the data model of
 an application, via _value expressions_.
 
-JSF also supports user interface components
+Jakarta Faces also supports user interface components
 with several additional helper APIs:
 
 * _Converters_ —Pluggable support class to
@@ -27,7 +27,7 @@ each Validator. Error messages for validation failures can be generated
 and sent back to the user during rendering.
 
 The user interface for a particular page of a
-JSF-based web application is created by assembling the user interface
+Jakarta Faces-based web application is created by assembling the user interface
 components for a particular request or response into a _view_. The view
 is a tree of classes that implement _UIComponent_. The components in
 the tree have parent-child relationships with other components, starting
@@ -55,16 +55,16 @@ that add specialized properties, attributes, and behavior, is also
 provided as a set of concrete subclasses.
 
 Component writers, tool providers,
-application developers, and JSF implementors can also create additional
+application developers, and Jakarta Faces implementors can also create additional
 _UIComponent_ implementations for use within a particular application.
 To assist such developers, a convenience subclass,
-_jakarta.faces.component.UIComponentBase_, is provided as part of JSF.
+_jakarta.faces.component.UIComponentBase_, is provided as part of Jakarta Faces.
 This class provides useful default implementations of nearly every
 _UIComponent_ method, allowing the component writer to focus on the
 unique characteristics of a particular _UIComponent_ implementation.
 
 The following subsections define the key
-functional capabilities of JSF user interface components.
+functional capabilities of Jakarta Faces user interface components.
 
 [[a895]]
 ==== Component Identifiers
@@ -104,7 +104,7 @@ new instances of _UIComponent_ subclasses with that type. Please see
 _component-type_.
 
 Component types starting with “jakarta.faces.”
-are reserved for use by the JSF specification.
+are reserved for use by the Jakarta Faces specification.
 
 ==== Component Family
 
@@ -121,7 +121,7 @@ superclass, so that renderers who only expect the superclass will still
 be able to process specialized subclasses.
 
 Component families starting with
-“jakarta.faces.” are reserved for use by the JSF specification.
+“jakarta.faces.” are reserved for use by the Jakarta Faces specification.
 
 [[a911]]
 ==== ValueExpression properties
@@ -197,7 +197,7 @@ during the processing of a Faces Request:
 * {empty}[P3-start how a component binding is
 used from a JSP page] When a component instance is first created
 (typically by virtue of being referenced by a _UIComponentELTag_ in a
-JSP page), the JSF implementation will retrieve the _ValueExpression_
+JSP page), the Jakarta Faces implementation will retrieve the _ValueExpression_
 for the name _binding_, and call _getValue()_ on it. If this call
 returns a non-null _UIComponent_ value (because the JavaBean
 programmatically instantiated and configured a component already), that
@@ -228,13 +228,13 @@ in “session” or “view” scopes.
 
 ==== Client Identifiers
 
-Client identifiers are used by JSF
+Client identifiers are used by Jakarta Faces
 implementations, as they decode and encode components, for any occasion
 when the component must have a client side name. Some examples of such
 an occasion are:
 
 * to name request parameters for a subsequent
-request from the JSF-generated page.
+request from the Jakarta Faces-generated page.
 
 * to serve as anchors for client side scripting
 code.
@@ -538,7 +538,7 @@ choice of state saving method on the classes used to implement attribute
 values.
 
 Attribute names that begin with _jakarta.faces_
-are reserved for use by the JSF specification. Names that begin with
+are reserved for use by the Jakarta Faces specification. Names that begin with
 _jakarta_ are reserved for definition through the Eclipse Foundation Process.
 Implementations are not allowed to define names that begin with _jakarta_.
 
@@ -699,7 +699,7 @@ component must implement these methods directly.
 |RO | _boolean_
 |A flag that, if set to _true_, indicates
 that this component manages the rendering of all of its children
-components (so the JSF implementation should not attempt to render
+components (so the Jakarta Faces implementation should not attempt to render
 them). The default implementation in _UIComponentBase_ delegates this
 setting to the associated _Renderer_, if any, and returns _false_
 otherwise.
@@ -722,7 +722,7 @@ implement property values.
 ==== Component Specialization Methods
 
 The methods described in this section are
-called by the JSF implementation during the various phases of the
+called by the Jakarta Faces implementation during the various phases of the
 request processing lifecycle, and may be overridden in a concrete
 subclass to implement specialized behavior for this component.
 
@@ -1026,7 +1026,7 @@ originating _UICommand_ .
 _ActionSource_ includes the following
 methods to register and deregister _ActionListener_ instances interested
 in these events. See <<UserInterfaceComponentModel.adoc#a1300,Event and Listener
-Model>> for more details on the event and listener model provided by JSF.
+Model>> for more details on the event and listener model provided by Jakarta Faces.
 
 [source,java]
 ----
@@ -1035,7 +1035,7 @@ public void removeActionListener(ActionListener listener);
 ----
 
 In addition to manually registered listeners,
-the JSF implementation provides a default _ActionListener_ that will
+the Jakarta Faces implementation provides a default _ActionListener_ that will
 process _ActionEvent_ events during the _Apply Request Values_ or
 _Invoke Application_ phases of the request processing lifecycle. See
 RequestProcessingLifecycle.adoc#a454,Invoke Application>> for more
@@ -1402,7 +1402,7 @@ component differs from the current value, the _ValueChangeEvent_ is
 published. The following methods allow listeners to register and
 deregister for __ValueChangeEvent__s. See
 <<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>> for more
-details on the event and listener model provided by JSF.
+details on the event and listener model provided by Jakarta Faces.
 
 [source,java]
 ----
@@ -1431,7 +1431,7 @@ properties
 
 ===== Methods
 
-The following method gives the JSF runtime
+The following method gives the Jakarta Faces runtime
 access to the list of listeners stored by this instance.:
 
 [source,java]
@@ -1455,7 +1455,7 @@ to _Application.publishEvent()_ that causes the event to actually be
 emitted. In the interest of maximum flexibility, this interface does not
 define how listeners are added, removed, or stored. See
 <<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>> for more
-details on the event and listener model provided by JSF.
+details on the event and listener model provided by Jakarta Faces.
 
 [[a1239]]
 ==== ClientBehaviorHolder
@@ -1468,7 +1468,7 @@ Behavior Model>>). Components that extend UIComponentBase only need to
 implement the getEventNames() method and specify "implements
 ClientBehaviorHolder". UIComponentBase provides base implementations for
 all other methods. [P1-end] The concrete HTML component classes that
-come with JSF implement the _ClientBehaviorHolder_ interface.
+come with Jakarta Faces implement the _ClientBehaviorHolder_ interface.
 
 [source,java]
 ----
@@ -1559,7 +1559,7 @@ Factories>>) for your application.
 [[a1258]]
 ==== Converter
 
-JSF provides the
+Jakarta Faces provides the
 _jakarta.faces.convert.Converter_ interface to define the behavioral
 characteristics of a _Converter_. Instances of implementations of this
 interface are either identified by a _converter identifier_, or by a
@@ -1593,7 +1593,7 @@ For _UIInput_ and _UIOutput_ components that
 wish to explicitly select a _Converter_ to be used, a new _Converter_
 instance of the appropriate type must be created, optionally configured,
 and registered on the component by calling _setConverter()_
-<<a9086, 4>>. Otherwise, the JSF implementation will
+<<a9086, 4>>. Otherwise, the Jakarta Faces implementation will
 automatically create new instances based on the data type being
 converted, if such Converter classes have been registered. In either
 case, Converter implementations need not be threadsafe, because they
@@ -1634,8 +1634,8 @@ ValueHolder.setConverter is called.[P1-end]
 
 ==== Standard Converter Implementations
 
-JSF provides a set of standard _Converter_
-implementations. A JSF implementation must register the _DateTime_ and
+Jakarta Faces provides a set of standard _Converter_
+implementations. A Jakarta Faces implementation must register the _DateTime_ and
 _Number_ converters by name with the _Application_ instance for this web
 application, as described in the table below. This ensures that the
 converters are available for subsequent calls to
@@ -1687,7 +1687,7 @@ _jakarta.faces.convert.ShortConverter_ (or a subclass of this class).
 for a detailed description of the conversion operations they perform,
 and the configuration properties that they support.
 
-[P1-start by-Class converters] A JSF
+[P1-start by-Class converters] A Jakarta Faces
 implementation must register converters for all of the following classes
 using the by-type registration mechanism:
 
@@ -1755,7 +1755,7 @@ system events.
 [[a1302]]
 ==== Overview
 
-JSF implements a model for event notification
+Jakarta Faces implements a model for event notification
 and listener registration based on the design patterns in the _JavaBeans
 Specification_, version 1.0.1. This is similar to the approach taken in
 other user interface toolkits, such as the Swing Framework included in
@@ -1765,12 +1765,12 @@ A _UIComponent_ subclass may choose to emit
 _events_ that signify significant state changes, and broadcast them to
 _listeners_ that have registered an interest in receiving events of the
 type indicated by the event’s implementation class. At the end of
-several phases of the request processing lifecycle, the JSF
+several phases of the request processing lifecycle, the Jakarta Faces
 implementation will broadcast all of the events that have been queued to
-interested listeners. As of JSF version 2, the specification also
+interested listeners. Jakarta Faces also
 defines _system events_. System events are events that are not specific
 to any particular application, but rather stem from specific points in
-time of running a JSF application. The following UML class diagram
+time of running a Jakarta Faces application. The following UML class diagram
 illustrates the key players in the event model. Boxes shaded in gray
 indicate classes or interfaces defined outside of the
 _jakarta.faces.event_ package.
@@ -1784,12 +1784,12 @@ image:SF-18.png[image]
 
 Application events are events that are
 specific to a particular application. Application events are the
-standard events that have been in JSF from the beginning.
+standard events that have been in Jakarta Faces from the beginning.
 
 [[a1308]]
 ===== Event Classes
 
-All events that are broadcast by JSF user
+All events that are broadcast by Jakarta Faces user
 interface components must extend the _jakarta.faces.event.FacesEvent_
 abstract base class. The parameter list for the constructor(s) of this
 event class must include a _UIComponent_, which identifies the
@@ -1828,7 +1828,7 @@ If this property is set to PhaseId.ANY_PHASE
 phase in which it was enqueued.
 
 To facilitate general management of event
-listeners in JSF components, a _FacesEvent_ implementation class must
+listeners in Jakarta Faces components, a _FacesEvent_ implementation class must
 support the following methods:
 
 [source,java]
@@ -1858,7 +1858,7 @@ The above convenience method calls the
 _queueEvent()_ method of the source _UIComponent_ for this event,
 passing this event as a parameter.
 
-JSF includes two standard _FacesEvent_
+Jakarta Faces includes two standard _FacesEvent_
 subclasses, which are emitted by the corresponding standard
 _UIComponent_ subclasses described in the following chapter.
 
@@ -1892,7 +1892,7 @@ recommended that application event listener interfaces follow this
 naming pattern as well.
 
 Corresponding to the two standard event
-classes described in the previous section, JSF defines two standard
+classes described in the previous section, Jakarta Faces defines two standard
 event listener interfaces that may be implemented by application
 classes:
 
@@ -1939,7 +1939,7 @@ public void removeFooListener(FooListener listener);
 The application (or other components) may
 register listener instances at any time, by calling the appropriate add
 method. The set of listeners associated with a component is part of the
-state information that JSF saves and restores. Therefore, listener
+state information that Jakarta Faces saves and restores. Therefore, listener
 implementation classes must have a public zero-argument constructor, and
 may implement _StateHolder_ (see <<UserInterfaceComponentModel.adoc#a1138,
 StateHolder>>) if they have internal state information that needs to be
@@ -1998,17 +1998,17 @@ same source component or a different one, for processing during the
 current lifecycle phase.
 
 * Throw an _AbortProcessingException_, to tell
-the JSF implementation that no further broadcast of this event should
+the Jakarta Faces implementation that no further broadcast of this event should
 take place.
 
 * Call _renderResponse()_ on the _FacesContext_
-instance for the current request. This tells the JSF implementation
+instance for the current request. This tells the Jakarta Faces implementation
 that, when the current phase of the request processing lifecycle has
 been completed, control should be transferred to the _Render Response_
 phase.
 
 * Call _responseComplete()_ on the
-_FacesContext_ instance for the current request. This tells the JSF
+_FacesContext_ instance for the current request. This tells the Jakarta Faces
 implementation that, when the current phase of the request processing
 lifecycle has been completed, processing for this request should be
 terminated (because the actual response content has been generated by
@@ -2017,10 +2017,9 @@ some other means).
 [[a1359]]
 ==== System Events
 
-System Events are introduced in version 2 of
-the specification and represent specific points in time for a JSF
+System Events represent specific points in time for a Jakarta Faces
 application. __PhaseEvent__s also represent specific points in time in a
-JSF application, but the granularity they offer is not as precise as
+Jakarta Faces application, but the granularity they offer is not as precise as
 System Events. For more on __PhaseEvent__s, please see
 <<LifecycleManagement.adoc#a6626,PhaseEvent>>.
 
@@ -2243,7 +2242,7 @@ provided by Jakarta Server Faces for validating user input.
 
 ==== Overview
 
-JSF supports a mechanism for registering zero
+Jakarta Faces supports a mechanism for registering zero
 or more _validators_ on each _EditableValueHolder_ component in the
 component tree. A validator’s purpose is to perform checks on the local
 value of the component, during the _Process Validations_ phase of the
@@ -2273,7 +2272,7 @@ constructor arguments, on the _Validator_ implementation class. In
 addition, a validator may elect to use generic attributes of the
 component being validated for configuration information.
 
-JSF includes implementations of several
+Jakarta Faces includes implementations of several
 standard validators, as described in <<UserInterfaceComponentModel.adoc#a1446,
 Standard Validator Implementations>>.
 
@@ -2283,20 +2282,20 @@ Standard Validator Implementations>>.
 The _EditableValueHolder_ interface
 (implemented by _UIInput_) includes an _addValidator_ method to
 register an additional validator for this component, and a
-_removeValidator_ method to remove an existing registration. In JSF 1.1
+_removeValidator_ method to remove an existing registration. In pre-Jakarta Faces JSF 1.1 (under the JCP)
 there was the ability to set a _MethodBinding_ that points to a method
 that adheres to the _validate_ signature in the _Validator_ interface,
 which will be called after the Validator instances added by calling
-addValidator() have been invoked. In JSF 1.2, this has been replaced by
+addValidator() have been invoked. In pre-Jakarta Faces JSF 1.2 (under the JCP), this has been replaced by
 providing a new wrapper class that implements _Validator_, and accepts
 a _MethodExpression_ instance that points to the same method that the
-_MethodBinding_ pointed to in JSF 1.1. Please see the javadocs for
+_MethodBinding_ pointed to in pre-Jakarta Faces JSF 1.1. Please see the javadocs for
 _EditableValueHolder.setValidator()_.
 
 The application (or other components) may
 register validator instances at any time, by calling the _addValidator_
 method. The set of validators associated with a component is part of the
-state information that JSF saves and restores. Validators that wish to
+state information that Jakarta Faces saves and restores. Validators that wish to
 have configuration properties saved and restored must also implement
 _StateHolder_ (see <<UserInterfaceComponentModel.adoc#a1138,StateHolder>>).
 
@@ -2358,7 +2357,7 @@ via the _@FacesValidator_ annotation.[P1-end]
 
 During the _Process Validations_ phase of the
 request processing lifecycle (as described in
-<<RequestProcessingLifecycle.adoc#a438,Process Validations>>), the JSF
+<<RequestProcessingLifecycle.adoc#a438,Process Validations>>), the Jakarta Faces
 implementation will ensure that the _validate()_ method of each
 registered _Validator_ , the method referenced by the _validator_
 property (if any), and the _validate()_ method of the component itself,
@@ -2427,7 +2426,7 @@ validation.
 
 * Concrete Validator implementations must
 define a public static final String constant VALIDATOR_ID, whose value
-is the standard identifier under which the JSF implementation must
+is the standard identifier under which the Jakarta Faces implementation must
 register this instance (see below).
 
 Please see <<RequestProcessingLifecycle.adoc#a584,
@@ -2480,15 +2479,15 @@ validators. [P1-end]
 ==== Bean Validation Integration
 
 If the implementation is running in a
-container environment that requires Bean Validation, it must expose the
+container environment that requires Jakarta Bean Validation, it must expose the
 bean validation as described in this specification.
 
-As stated in the specification goals of JSR
-303, validation often gets spread out across the application, from user
-interface components to persistent objects. Bean Validation strives to
+As stated in the specification goals of Jakarta Bean Validation, 
+validation often gets spread out across the application, from user
+interface components to persistent objects. Jakarta Bean Validation strives to
 avoid this duplication by defining a set of metadata that can be used to
 express validation constraints that are sharable by any layer of the
-application. Since its inception, JSF has supported a “field level
+application. Since its inception, Jakarta Faces has supported a “field level
 validation” approach. Rather than requiring the developer to define
 validators for each input component (i.e., _EditableValueHolder_), the
 BeanValidator can be automatically applied to all fields on a page so
@@ -2510,7 +2509,7 @@ Validation will be called for every field in the application.
 
 If Bean Validation is present, and the
 _jakarta.faces.VALIDATE_EMPTY_FIELDS_ _<context-param>_ is not explicitly
-set to _false_, JSF will validate _null_ and empty fields so that the
+set to _false_, Jakarta Faces will validate _null_ and empty fields so that the
 _@NotNull_ and _@NotEmpty_ constraints from Bean Validation can be
 leveraged. The next section describes how the reference to the Bean
 Validation ValidatorFactory is obtained by that validator.
@@ -2526,12 +2525,12 @@ retrieved using the following algorithm:
 * If the servlet context contains a
 ValidatorFactory instance under the attribute named
 jakarta.faces.validator.beanValidator.ValidatorFactory, this instance is
-used by JSF to acquire Validator instances (specifically in the
+used by Jakarta Faces to acquire Validator instances (specifically in the
 BeanValidator). This key should be defined in the constant named
 VALIDATOR_FACTORY_KEY on BeanValidator.
 
 * If the servlet context does not contain such
-an entry, JSF looks for a Bean Validation provider in the classpath. If
+an entry, Jakarta Faces looks for a Bean Validation provider in the classpath. If
 present, the standard Bean Validation bootstrap strategy is used. If not
 present, Bean Validation integration is disabled. If the BeanValidator
 is used an no ValidatorFactory can be retrieved, a FacesException is
@@ -2545,15 +2544,15 @@ ValidatorFactory validatorFactory =
 
 {empty}Once instantiated, the result can be
 stored in the servlet context attribute mentioned as a means of caching
-the result. If JSF is running in an EE6 environment, Bean Validation
-will be available, as defined by the EE6 specification, and thus
-activated in JSF. The EE container will be responsible for making the
+the result. If Jakarta Faces is running in a Jakarta EE environment, Jakarta Bean Validation
+will be available, as defined by the Jakarta EE specification, and thus
+activated in Jakarta Faces. The EE container will be responsible for making the
 ValidatorFactory available as an attribute in the ServletContext as
 mentioned above.[P1-end]
 
 ===== Class-Level Validation
 
-JSF conversion and validation as described in
+Jakarta Faces conversion and validation as described in
 this chapter operates on the principle that all conversion and
 validation is performed before values are pushed into the model. This
 principle allows one to safely assume that if a value is pushed into the
@@ -2566,7 +2565,7 @@ valid or not. For example, consider the common case of a user account
 creation page with two fields for the password. The page can only be
 considered valid if both password fields are themselves individually
 valid based on the specified password constraints and also are both the
-same value. JSF provides for this case by providing a facility for
+same value. Jakarta Faces provides for this case by providing a facility for
 performing Class-Level Validation using Bean Validation. Please see the
 VDLDoc for the _<f:validateWholeBean />_ tag for the normative
 specification of this feature as well as a usage example showing the
@@ -2575,18 +2574,18 @@ password validation scenario.
 ===== Localization of Bean Validation Messages
 
 To ensure proper localization of the
-messages, JSF should provide a custom BeanValidation MessageInterpolator
-resolving the Locale according to JSF defaults and delegating to the
+messages, Jakarta Faces should provide a custom BeanValidation MessageInterpolator
+resolving the Locale according to Jakarta Faces defaults and delegating to the
 default MessageInterpolator as defined in
 ValidationFactory.getMessageInterpolator(). A possible implementation is
 shown here:
 
 [source,java]
 ----
-public class JsfMessageInterpolator implements MessageInterpolator {
+public class FacesMessageInterpolator implements MessageInterpolator {
   private final MessageInterpolator delegate;
 
-  public JsfMessageInterpolator(MessageInterpolator delegate) {
+  public FacesMessageInterpolator(MessageInterpolator delegate) {
     this.delegate = delegate;
   }
 
@@ -2608,20 +2607,20 @@ public class JsfMessageInterpolator implements MessageInterpolator {
 
 Once a ValidatorFactory is obtained, as
 described in <<UserInterfaceComponentModel.adoc#a1467,Obtaining a
-ValidatorFactory>>, JSF receives a Validator instance by providing the
+ValidatorFactory>>, Jakarta Faces receives a Validator instance by providing the
 custom message interpolator to the validator state.
 
 [source,java]
 ----
 //could be cached
-MessageInterpolator jsfMessageInterpolator = new JsfMessageInterpolator(
+MessageInterpolator facesMessageInterpolator = new FacesMessageInterpolator(
     validatorFactory.getMessageInterpolator() );
 
 //...
 
 Validator validator = validatorFactory
     .usingContext()
-    .messageInterpolator(jsfMessageInterpolator)
+    .messageInterpolator(facesMessageInterpolator)
     .getValidator();
 ----
 
@@ -2647,7 +2646,7 @@ jakarta.faces.validator.BeanValidator.MESSAGE={0}
 Putting the Bean Validation message
 resolution in full control of producing the displayed message is the
 recommended approach. However, to allow the developer to align the
-messages generated by the BeanValidator with existing JSF 1.2
+messages generated by the BeanValidator with existing Jakarta Faces
 validators, the developer may choose to override this message key in an
 application resource bundle and reference the component label, which
 replaces the second numbered placeholder (i.e., \{1}).
@@ -2671,29 +2670,29 @@ To aid implementors in providing a spec
 compliant runtime for composite components, this section provides a
 non-normative background to motivate the discussion of the composite
 component feature. The composite component feature enables developers to
-write real, reusable, JSF UI components without any Java code or
+write real, reusable, Jakarta Faces UI components without any Java code or
 configuration XML.
 
 [[a1518]]
-===== What does it mean to be a JSF User Interface component?
+===== What does it mean to be a Jakarta Faces User Interface component?
 
-JSF is a component based framework, and JSF
-UI components are the main point of JSF. But what is a JSF UI component,
-really? Conceptually, a JSF UI Component is a software artifact that
+Jakarta Faces is a component based framework, and Jakarta Faces
+UI components are the main point of Jakarta Faces. But what is a Jakarta Faces UI component,
+really? Conceptually, a Jakarta Faces UI Component is a software artifact that
 represents a reusable, self contained piece of a user interface. A very
-narrow definition for “JSF UI Component” is imposed at runtime. This
+narrow definition for “Jakarta Faces UI Component” is imposed at runtime. This
 definition can be summarized as
 
-A JSF UI Component is represented at runtime
+A Jakarta Faces UI Component is represented at runtime
 by an instance of a Java class that includes
 _jakarta.faces.component.UIComponent_ as an ancestor in its inheritance
 hierarchy.
 
 It is easy to write a class that adheres to
 this definition, but in practice, component authors need to do more than
-just this in order to get the most from JSF and to conform to user’s
-expectations of what a JSF UI Component is. For example, users expect a
-JSF UI Component can do some or all of the following:
+just this in order to get the most from Jakarta Faces and to conform to user’s
+expectations of what a Jakarta Faces UI Component is. For example, users expect a
+Jakarta Faces UI Component can do some or all of the following:
 
 * be exposed to the page-author via a markup
 tag with sensible attributes
@@ -2733,9 +2732,9 @@ the developer is writing JavaCode that is either passed the UI component
 as an argument, or obtains a reference to the UI component in some other
 way.
 
-===== How does one make a custom JSF User Interface component (JSF 1.2 and earlier)?
+===== How does one make a custom Jakarta Faces User Interface component?
 
-To satisfy a user’s expectations for a JSF UI
+To satisfy a user’s expectations for a Jakarta Faces UI
 component, the component author must adhere to one of the following best
 practices.
 
@@ -2755,7 +2754,7 @@ Note that the first best practice includes
 the second one “for free” since the stock _UIComponent_ subclasses
 already implement the appropriate behavioral interfaces.
 
-When following either best practice, the JSF
+When following either best practice, the Jakarta Faces
 UI component developer must follow several steps to make the component
 available for use in markup pages or in code, including but not
 necessarily limited to
@@ -2785,14 +2784,14 @@ one creates by following them can be very flexible and powerful. By
 making some simplifying assumptions, it is possible to allow the
 creation of components that are just as powerful but require far less
 complexity to develop. This is the whole point of composite components:
-to enable developers to write real, reusable, JSF UI components without
+to enable developers to write real, reusable, Jakarta Faces UI components without
 any Java code or configuration XML.
 
 [[a1545]]
 ===== How does one make a composite component?
 
 The composite component feature builds on two
-features introduced in JSF 2.0: resources
+features in Jakarta Faces: resources
 (<<RequestProcessingLifecycle.adoc#a746,Resource Handling>>) and Facelets
 (<<FaceletsAndWebApplications.adoc#a5476,Facelets and its use in Web
 Applications>>”). Briefly, a composite component is any Facelet markup
@@ -2812,7 +2811,7 @@ specified in
 Templating Tag Library>>. In addition, the tag library specified in
 <<FaceletsAndWebApplications.adoc#a6045,Composite Component Tag Library>> must be
 used to declare the metadata for the composite component. Future
-versions of the JSF specification may relax this requirement, but for
+versions of the Jakarta Faces specification may relax this requirement, but for
 now at least the _<composite:interface>_ and
 _<composite:implementation>_ sections are required when creating a
 composite component.
@@ -3270,7 +3269,7 @@ adding Behavior attached objects to Jakarta Server Faces components.
 
 ==== Overview
 
-JSF supports a mechanism for enhancing
+Jakarta Faces supports a mechanism for enhancing
 components with additional behaviors that are not explicitly defined by
 the component author.
 
@@ -3286,12 +3285,12 @@ alert when attached to a component and activated by the end user.
 
 While client behaviors typically add
 client-side capabilities, they are not limited to client. Client
-behaviors can also participate in the JSF request processing lifecycle.
-JSF's AjaxBehavior is a good example of such a cross-tier behavior. The
+behaviors can also participate in the Jakarta Faces request processing lifecycle.
+Jakarta Faces's AjaxBehavior is a good example of such a cross-tier behavior. The
 AjaxBehavior both triggers an Ajax request from the client and also
 delivers AjaxBehaviorEvents to listeners on the server.
 
-The standard HTML components provided by JSF
+The standard HTML components provided by Jakarta Faces
 are all client behavior-ready. That is, all of the standard HTML
 components implement the ClientBehaviorHolder interface and allow client
 behaviors to be attached to well defined events. .
@@ -3504,7 +3503,7 @@ _RenderKit.getClientBehaviorRenderer_.
 ==== Behavior Event / Listener Model
 
 The behavior event / listener model is an
-extension of the JSF event / listener model as described in
+extension of the Jakarta Faces event / listener model as described in
 <<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>>.
 BehaviorHolder components are responsible for broadcasting
 BehaviorEvents to behaviors.
@@ -3514,7 +3513,7 @@ BehaviorEvents to behaviors.
 Behaviors can broadcast events in the same
 way that UIComponents can broadcast events. At the root of the behavior
 event hierarchy is BehaviorEvent that extends
-_jakarta.faces.event.FacesEvent_. All events that are broadcast by JSF
+_jakarta.faces.event.FacesEvent_. All events that are broadcast by Jakarta Faces
 behaviors must extend the _jakarta.faces.event.BehaviorEvent_ abstract
 base class. The parameter list for the constructor(s) of this event
 class must include a _UIComponent_, which identifies the component from
@@ -3594,7 +3593,7 @@ events.
 
 This event type extends from
 _jakarta.faces.event.BehaviorEvent_ and it is broadcast from an
-AjaxBehavior. This class follows the standard JSF event / listener
+AjaxBehavior. This class follows the standard Jakarta Faces event / listener
 model, incorporating the usual methods as outlined in
 <<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>>. This class is
 responsible for invoking the method implementation of
@@ -3659,7 +3658,7 @@ _ClientBehaviorHolder.addBehavior(eventName, clientBehavior)_.
 
 ==== Behavior Registration
 
-JSF provides methods for registering
+Jakarta Faces provides methods for registering
 _Behavior_ implementations and these methods are similar to the methods
 used to register converters and validators. Refer to
 <<ApplicationIntegration.adoc#a3468,Object Factories>> for the specifics
@@ -3667,7 +3666,7 @@ about these methods.
 
 ===== XML Registration
 
-JSF provides the usual faces-config.xml
+Jakarta Faces provides the usual faces-config.xml
 registration of custom component behavior implementations.
 
 [source,xml]
@@ -3680,7 +3679,7 @@ registration of custom component behavior implementations.
 
 ===== Registration By Annotation
 
-JSF provides the @FacesBehavior annotation
+Jakarta Faces provides the @FacesBehavior annotation
 for registering custom behavior implementations.
 
 [source,java]
