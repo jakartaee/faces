@@ -132,7 +132,7 @@
     </mailingLists>
 
     <properties>
-        <mojarra.version>3.0.0-RC2</mojarra.version>
+        <mojarra.version>3.0.0-RC5</mojarra.version>
     </properties>
 
     <dependencies>
@@ -284,6 +284,7 @@
                 <targetPath>META-INF</targetPath>
             </resource>
         </resources>
+        
         <plugins>
             <!-- Sets minimal Maven version to 3.5.4 -->
             <plugin>
@@ -317,6 +318,28 @@
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
             </plugin>
+            
+            <!-- Clean unpacked sources jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>clean</id>
+                        <phase>clean</phase>
+                        <configuration>
+                            <target>
+                                <delete dir="src/main/java" />
+                                <delete dir="src/main/resources" />
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            
 
             <!-- Unpack the sources jar that was build and installed by the Mojarra project. This way we can compile that 
                 source again in this project, but for the final artifact jar we only include the jakarta.* classes then. -->
@@ -357,92 +380,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Clean unpacked sources jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>clean</id>
-                        <phase>clean</phase>
-                        <configuration>
-                            <target>
-                                <delete dir="src/main/java" />
-                                <delete dir="src/main/resources" />
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
 
-
-            <!-- Create VDL docs -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>Copy-vdldoc-css</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/vdldoc</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>com.github.matinh.vdldoc</groupId>
-                <artifactId>vdldoc-maven-plugin</artifactId>
-                <version>1.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-vdldoc</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>vdldoc</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <srcDirectory>src/main/resources/com/sun/faces/metadata/taglib</srcDirectory>
-                    <css>jsf-api.css</css>
-                    <browserTitle>Jakarta Server Faces ${project.version} VDL Documentation</browserTitle>
-                    <documentTitle>Jakarta Server Faces ${project.version} VDL Documentation</documentTitle>
-                    <hideGeneratedBy>true</hideGeneratedBy>
-                    <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
-                </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.omnifaces</groupId>
-                <artifactId>renderkitdoc-maven-plugin</artifactId>
-                <version>1.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-renderkitdoc</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <facesConfig>${project.basedir}/src/main/resources/com/sun/faces/standard-html-renderkit.xml</facesConfig>
-                    <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
-                </configuration>
-            </plugin>
 
             <!-- Create API binary jar For the final artifact jar we only include the jakarta.* classes and resources that 
                 we compiled from the unpackaged implementation source attachment jar. See the maven-dependency-plugin for this unpackaging. 
@@ -516,26 +454,138 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
-    </build>
-
-    <reporting>
-        <plugins>
+            
+            <!-- Create JS docs -->
             <plugin>
                 <groupId>com.phasebash.jsdoc</groupId>
                 <artifactId>jsdoc3-maven-plugin</artifactId>
                 <version>1.2.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-jsdoc</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>jsdoc3</goal>
+                        </goals>
+                        <configuration>
+                            <includePrivate>false</includePrivate>
+                            <lenient>true</lenient>
+                            <configFile>${project.build.directory}/../src/main/jsdoc/conf.json</configFile>
+                            <sourceFiles>
+                                <sourceFile>src/main/resources/META-INF/resources/jakarta.faces/jsf-uncompressed.js</sourceFile>
+                            </sourceFiles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+             <!-- Create Renderkit docs -->
+            <plugin>
+                <groupId>org.omnifaces</groupId>
+                <artifactId>renderkitdoc-maven-plugin</artifactId>
+                <version>1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-renderkitdoc</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <configFile>${project.build.directory}/../src/main/jsdoc/conf.json</configFile>
-                    <includePrivate>false</includePrivate>
-                    <lenient>true</lenient>
-                    <sourceFiles>
-                        <sourceFile>src/main/resources/META-INF/resources/jakarta.faces/jsf-uncompressed.js</sourceFile>
-                    </sourceFiles>
+                    <facesConfig>${project.basedir}/src/main/resources/com/sun/faces/standard-html-renderkit.xml</facesConfig>
+                    <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
                 </configuration>
             </plugin>
+            
+            <!-- Create VDL docs -->
+             
+            <!-- Pre-process VDL - copy jsf-api.css to target since vdldoc is unable to find it directly  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-vdldoc-pre-process</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Copy  src/main/vdldoc/jsf-api.css-->
+                            <resources>
+                                <resource>
+                                    <directory>src/main/vdldoc</directory>
+                                </resource>
+                            </resources>
+                            <!-- to  target/vdldoc/jsf-api.css-->
+                            <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Run actual core VDL -->
+            <plugin>
+                <groupId>com.github.matinh.vdldoc</groupId>
+                <artifactId>vdldoc-maven-plugin</artifactId>
+                <version>2.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-vdldoc-core</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>vdldoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <srcDirectory>src/main/resources/com/sun/faces/metadata/taglib</srcDirectory>
+                    <css>jsf-api.css</css>
+                    <browserTitle>Jakarta Server Faces ${project.version} VDL Documentation</browserTitle>
+                    <documentTitle>Jakarta Server Faces ${project.version} VDL Documentation</documentTitle>
+                    <hideGeneratedBy>true</hideGeneratedBy>
+                    <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
+                </configuration>
+            </plugin>
+            <!-- Post-process VDL - correct wrong javax.el.* references  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-vdldoc-post-process</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <replace token="javax.el." value="jakarta.el." dir="${project.build.directory}/vdldoc">                                 
+                                    <include name="**/*.html"/>
+                                 </replace>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-    </reporting>
+    </build>
+
+    
+
+
+
+
+
+
+
+
+
+
+
 
     <profiles>
         <profile>
