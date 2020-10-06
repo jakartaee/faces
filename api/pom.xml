@@ -323,19 +323,38 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.0.0</version>
                 <executions>
+                    <!-- Clean any previously unpacked sources -->
                     <execution>
                         <id>clean</id>
                         <phase>clean</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
                         <configuration>
                             <target>
                                 <delete dir="src/main/java" />
                                 <delete dir="src/main/resources" />
                             </target>
                         </configuration>
+                    </execution>
+                    
+                    <!-- Post-process VDL - correct wrong javax.el.* references  -->
+                    <execution>
+                        <id>generate-vdldoc-post-process</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
+                        <configuration>
+                            <target>
+                                <echo level="info">Replacing in ${project.build.directory}/vdldoc</echo>
+                                <replace token="javax.el." value="jakarta.el." dir="${project.build.directory}/vdldoc" summary="yes">                                 
+                                    <include name="**/*.html"/>
+                                 </replace>
+                            </target>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -549,28 +568,9 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                     <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
                 </configuration>
             </plugin>
+            
             <!-- Post-process VDL - correct wrong javax.el.* references  -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-vdldoc-post-process</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <replace token="javax.el." value="jakarta.el." dir="${project.build.directory}/vdldoc">                                 
-                                    <include name="**/*.html"/>
-                                 </replace>
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            <!-- See antrun plug-in above  -->
         </plugins>
     </build>
 
