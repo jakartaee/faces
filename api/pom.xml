@@ -37,7 +37,7 @@
 
     <groupId>jakarta.faces</groupId>
     <artifactId>jakarta.faces-api</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
 
     <name>Jakarta Server Faces</name>
     <description>
