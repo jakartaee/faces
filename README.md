@@ -12,6 +12,8 @@ Jakarta Server Faces can be built by executing the following from the project ro
 ``mvn clean package``
 
 The API jar can then be found in /app/target.
+The SPEC html/pdf can then be found in /spec/target/generated-docs.
+
 
 Making Changes
 --------------

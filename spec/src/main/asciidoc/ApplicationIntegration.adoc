@@ -1312,7 +1312,7 @@ has two flows, each of which calls the other, passing parameters. Any
 view outside of a flow may navigate to either of the flows, named flow-a
 and flow-b.
 
-image:SF-34.png[image]
+image:flow.svg[image]
 
 This diagram uses the following conventions.
 
