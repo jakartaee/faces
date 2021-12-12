@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
+    Copyright (c) 2021 Contributors to Eclipse Foundation.
     Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -37,7 +38,7 @@
 
     <groupId>jakarta.faces</groupId>
     <artifactId>jakarta.faces-api</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
 
     <name>Jakarta Server Faces</name>
     <description>
@@ -132,14 +133,14 @@
     </mailingLists>
 
     <properties>
-        <mojarra.version>3.0.0-RC5</mojarra.version>
+        <mojarra.version>4.0.0-SNAPSHOT</mojarra.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>5.0.0</version>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -153,21 +154,21 @@
         <dependency>
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
-            <version>4.0.0</version>
+            <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>3.0.0</version>
+            <version>4.0.0.Beta3</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -178,22 +179,6 @@
         <dependency>
             <groupId>jakarta.transaction</groupId>
             <artifactId>jakarta.transaction-api</artifactId>
-            <version>2.0.0-RC3</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.servlet.jsp</groupId>
-            <artifactId>jakarta.servlet.jsp-api</artifactId>
-            <version>3.0.0</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
             <version>2.0.0</version>
             <scope>provided</scope>
             <optional>true</optional>
@@ -202,7 +187,7 @@
         <dependency>
             <groupId>jakarta.json</groupId>
             <artifactId>jakarta.json-api</artifactId>
-            <version>2.0.0</version>
+            <version>2.1.0</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -210,7 +195,7 @@
         <dependency>
             <groupId>jakarta.ejb</groupId>
             <artifactId>jakarta.ejb-api</artifactId>
-            <version>4.0.0-RC2</version>
+            <version>4.0.0</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -218,7 +203,7 @@
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.0.0</version>
+            <version>3.1.0-RC1</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -226,7 +211,7 @@
         <dependency>
             <groupId>jakarta.xml.ws</groupId>
             <artifactId>jakarta.xml.ws-api</artifactId>
-            <version>3.0.0</version>
+            <version>4.0.0-RC1</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -234,14 +219,14 @@
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
-            <version>2.0.0</version>
+            <version>2.1.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>3.0.0</version>
+            <version>4.0.0-RC3</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -286,11 +271,11 @@
         </resources>
         
         <plugins>
-            <!-- Sets minimal Maven version to 3.5.4 -->
+            <!-- Sets minimal Maven version -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M3</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -300,7 +285,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.5.4</version>
+                                    <version>3.6.0</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
@@ -308,13 +293,13 @@
                 </executions>
             </plugin>
 
-            <!-- Restricts the Java version to 1.8 - API remains at Java 8 for now. -->
+            <!-- Restricts the Java version to 11 - API remains at Java 11 for now. -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
             </plugin>
@@ -336,23 +321,6 @@
                             <target>
                                 <delete dir="src/main/java" />
                                 <delete dir="src/main/resources" />
-                            </target>
-                        </configuration>
-                    </execution>
-                    
-                    <!-- Post-process VDL - correct wrong javax.el.* references  -->
-                    <execution>
-                        <id>generate-vdldoc-post-process</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <echo level="info">Replacing in ${project.build.directory}/vdldoc</echo>
-                                <replace token="javax.el." value="jakarta.el." dir="${project.build.directory}/vdldoc" summary="yes">                                 
-                                    <include name="**/*.html"/>
-                                 </replace>
                             </target>
                         </configuration>
                     </execution>
@@ -421,7 +389,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>generate-api-sources</id>
@@ -441,7 +409,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-api-javadocs</id>
@@ -449,7 +417,7 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
-                            <source>1.8</source>
+                            <source>11</source>
                             <additionalJOption>-Xdoclint:none</additionalJOption>
                             <description>Jakarta Server Faces API documentation</description>
                             <doctitle>Jakarta Server Faces API documentation</doctitle>
@@ -457,7 +425,7 @@
                             <header><![CDATA[<br>Jakarta Server Faces API v${project.version}]]></header>
                             <bottom><![CDATA[
 Comments to: <a href="mailto:faces-dev@eclipse.org">faces-dev@eclipse.org</a>.<br>
-Copyright &#169; 2019, 2020 Eclipse Foundation. All rights reserved.<br>
+Copyright &#169; 2019, 2021 Eclipse Foundation. All rights reserved.<br>
 Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.]]>
                             </bottom>
                             <docfilessubdirs>true</docfilessubdirs>
@@ -491,7 +459,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                             <lenient>true</lenient>
                             <configFile>${project.build.directory}/../src/main/jsdoc/conf.json</configFile>
                             <sourceFiles>
-                                <sourceFile>src/main/resources/META-INF/resources/jakarta.faces/jsf-uncompressed.js</sourceFile>
+                                <sourceFile>src/main/resources/META-INF/resources/jakarta.faces/faces-uncompressed.js</sourceFile>
                             </sourceFiles>
                         </configuration>
                     </execution>
@@ -518,76 +486,101 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                 </configuration>
             </plugin>
             
-            <!-- Create VDL docs -->
-             
-            <!-- Pre-process VDL - copy jsf-api.css to target since vdldoc is unable to find it directly  -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-vdldoc-pre-process</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <!-- Copy  src/main/vdldoc/jsf-api.css-->
-                            <resources>
-                                <resource>
-                                    <directory>src/main/vdldoc</directory>
-                                </resource>
-                            </resources>
-                            <!-- to  target/vdldoc/jsf-api.css-->
-                            <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <!-- Run actual core VDL -->
-            <plugin>
-                <groupId>com.github.matinh.vdldoc</groupId>
-                <artifactId>vdldoc-maven-plugin</artifactId>
-                <version>2.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-vdldoc-core</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>vdldoc</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <srcDirectory>src/main/resources/com/sun/faces/metadata/taglib</srcDirectory>
-                    <css>jsf-api.css</css>
-                    <browserTitle>Jakarta Server Faces ${project.version} VDL Documentation</browserTitle>
-                    <documentTitle>Jakarta Server Faces ${project.version} VDL Documentation</documentTitle>
-                    <hideGeneratedBy>true</hideGeneratedBy>
-                    <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
-                </configuration>
-            </plugin>
+           
             
             <!-- Post-process VDL - correct wrong javax.el.* references  -->
             <!-- See antrun plug-in above  -->
         </plugins>
     </build>
 
-    
-
-
-
-
-
-
-
-
-
-
-
 
     <profiles>
+    
+        <!-- Two tag libraries exist with the same facelet-taglib id attribute 'tags'. This is not supported. -->
+        <profile>
+            <id>vdl</id>
+            <build>
+                <plugins>
+                    <!-- Create VDL docs -->
+
+                    <!-- Pre-process VDL - copy faces-api.css to target since vdldoc is unable to find it directly  -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>generate-vdldoc-pre-process</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Copy  src/main/vdldoc/faces-api.css-->
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/vdldoc</directory>
+                                        </resource>
+                                    </resources>
+                                    <!-- to  target/vdldoc/faces-api.css-->
+                                    <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Run actual core VDL -->
+                    <plugin>
+                        <groupId>com.github.matinh.vdldoc</groupId>
+                        <artifactId>vdldoc-maven-plugin</artifactId>
+                        <version>2.0</version>
+                        <executions>
+                            <execution>
+                                <id>generate-vdldoc-core</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>vdldoc</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <srcDirectory>src/main/resources/com/sun/faces/metadata/taglib</srcDirectory>
+                            <css>faces-api.css</css>
+                            <browserTitle>Jakarta Server Faces ${project.version} VDL Documentation</browserTitle>
+                            <documentTitle>Jakarta Server Faces ${project.version} VDL Documentation</documentTitle>
+                            <hideGeneratedBy>true</hideGeneratedBy>
+                            <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
+                        </configuration>
+                    </plugin>
+
+                    <!-- Post-process VDL - correct wrong javax.el.* references  -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>generate-vdldoc-post-process</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <echo level="info">Replacing in ${project.build.directory}/vdldoc</echo>
+                                        <replace token="javax.el." value="jakarta.el." dir="${project.build.directory}/vdldoc" summary="yes">
+                                            <include name="**/*.html" />
+                                        </replace>
+                                    </target>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    
+    
         <profile>
             <id>only-eclipse</id>
             <activation>
