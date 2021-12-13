@@ -1,9 +1,18 @@
 == Preface
 
-This is the Jakarta Server Faces 3.0 specification.
+This is the Jakarta Faces Specification Document, version 4.0.
+
+=== Changes between 4.0 and 3.0
+
+TBD
+
+==== Backward Compatibility with Previous Versions
+
+TBD
 
 === Changes between 3.0 and 2.3
 
+Namespace has been changed from  `javax.faces` to `jakarta.faces`.
 
 ==== Backward Compatibility with Previous Versions
 
@@ -14,33 +23,32 @@ Jakarta Faces 3.0 has a breaking change due to the namespace change from  `javax
 [[a173]]
 ==== Other Jakarta Platform Specifications
 
-Jakarta Faces is based on the following Jakarta specifications:
+Jakarta Faces 4.0 is based on the following Jakarta specifications:
 
 
-Jakarta Servlet Specification, version 5.0
-(Servlet) <https://github.com/eclipse-ee4j/servlet-api>
+Jakarta Servlet, version 6.0
+<https://jakarta.ee/specifications/servlet/>
 
-Jakarta WebSocket, version 2.0
-<https://github.com/eclipse-ee4j/websocket-api>
+Jakarta Expression Language, version 5.0
+<https://jakarta.ee/specifications/expression-language/>
 
-Jakarta Contexts and Dependency Injection for Java 3.0
-<https://github.com/eclipse-ee4j/cdi>
+Jakarta Contexts and Dependency Injection, version 4.0
+<https://jakarta.ee/specifications/cdi/>
 
-Jakarta Expression Language 4.0
-<https://github.com/eclipse-ee4j/el-ri>
+Jakarta Bean Validation, version 3.0
+<https://jakarta.ee/specifications/bean-validation/>
 
-Jakarta JSON Processing, version 2.0
-<https://github.com/eclipse-ee4j/jsonp>
+Jakarta Tags, version 2.0
+<https://jakarta.ee/specifications/tags/>
 
-Jakarta Server Pages  Specification, version 3.0
-<https://github.com/eclipse-ee4j/jsp-api/>
+Jakarta WebSocket, version 2.0, optional
+<https://jakarta.ee/specifications/websocket/>
 
-Jakarta Standard Tag Library, version 2.0 
-<https://github.com/eclipse-ee4j/jstl-api>
+Jakarta JSON Processing, version 2.1, optional
+<https://jakarta.ee/specifications/jsonp/>
 
-
-JavaBeans™ Specification, version 1.0.1
-<http://www.oracle.com/technetwork/java/javase/documentation/spec-136004.html>
+JavaBeans™ Specification, version 1.01
+<https://www.oracle.com/java/technologies/javase/javabeans-spec.html>
 
 
 Therefore, a Jakarta Faces container must support all of
@@ -50,39 +58,39 @@ be portable across a variety of Jakarta Faces implementations.
 In addition, Jakarta Faces is designed to work
 synergistically with other web-related Java APIs, including:
 
-Portlet Specification, 1.0 JSR-168
-<http://jcp.org/en/jsr/detail?id=168>
+Portlet Specification 1.0, JSR-168
+<https://jcp.org/en/jsr/detail?id=168>
 
-Portlet Specification, 2.0 JSR-286
-<http://jcp.org/en/jsr/detail?id=286>
+Portlet Specification 2.0, JSR-286
+<https://jcp.org/en/jsr/detail?id=286>
 
-Portlet Specification, 3.0 JSR-286
-<http://jcp.org/en/jsr/detail?id=362>
+Portlet Specification 3.0, JSR-362
+<https://jcp.org/en/jsr/detail?id=362>
 
-JSF Portlet Bridge Specification, JSR-301
-<http://jcp.org/en/jsr/detail?id=301>
+Portlet Bridge Specification, JSR-301
+<https://jcp.org/en/jsr/detail?id=301>
 
 ==== Related Documents and Specifications
 
 The following documents and specifications of
 the World Wide Web Consortium will be of interest to Jakarta Faces implementors,
-as well as developers of applications and components based on Jakarta Server
+as well as developers of applications and components based on Jakarta
 Faces.
 
-Hypertext Markup Language (HTML), version 4.01
-<http://www.w3.org/TR/html4/>
+Hypertext Markup Language (HTML), Living Standard
+<https://html.spec.whatwg.org/>
 
 Extensible HyperText Markup Language (XHTML),
-version 1.0 <http://www.w3.org/TR/xhtml1>
+version 1.0 <https://www.w3.org/TR/xhtml1/>
 
 Extensible Markup Language (XML), version 1.0
-(Second Edition) <http://www.w3.org/TR/REC-xml>
+(Second Edition) <https://www.w3.org/TR/REC-xml/>
 
 The class and method Javadoc documentation for
 the classes and interfaces in _jakarta.faces_ (and its subpackages) are
 incorporated by reference as requirements of this Specification.
 
-The Jakarta Server Pages and Facelet tag library for the
+The Facelet tag library for the
 HTML_BASIC standard RenderKit is specified in the VDLDocs and
 incorporated by reference in this Specification.
 
@@ -94,7 +102,7 @@ document are to be interpreted as described in
 
 Key words for use in RFCs to Indicate
 Requirement Levels (RFC 2119)
-<http://www.rfc-editor.org/rfc/rfc2119.txt>
+<https://www.rfc-editor.org/rfc/rfc2119.txt>
 
 === Providing Feedback
 
@@ -109,142 +117,100 @@ specification team.
 
 === Acknowledgements
 
-The authors would like to thank the original JCP JSR-372 Expert Group and Contributors.
+The authors would like to thank the Jakarta Faces 4.0 contributors.
 
-Ed Burns
-
-Manfred Riem
-
-Frank Caputo
-
-Cagatay Civici
-
-Ken Fyten
-
-Neil Griffin
-
-Josh Juneau
-
-Brian Leatham
-
-Kito Mann
-
-Michael Müller
-
-Paul Nicolucci
-
-Bauke Scholtz
-
-Arjan Tijms
-
-Leonardo Uribe
+* Arjan Tijms
+* Bauke Scholtz
+* Thomas Andraschko
+* Manfred Riem
+* Christoph Straßer
+* Emil Lefkof
 
 The editors would like to recognize the
-following individuals who have contributed to the success of Jakarta Server
+following individuals who have contributed to the success of Jakarta
 Faces over the years.
 
-[width="100%",cols="50%,50%",]
+[width="100%",cols="33%,33%,33%",]
 |===
-|Dan Allen |Thomas
-Andraschko
-
-|Thomas Asel |Jennifer
-Ball
-
+|Ed Burns
+|Frank Caputo
+|Cagatay Civici
+|Ken Fyten
+|Neil Griffin
+|Josh Juneau
+|Brian Leatham
+|Kito Mann
+|Michael Müller
+|Paul Nicolucci
+|Leonardo Uribe
+|Dan Allen 
+|Thomas Asel
+|Jennifer Ball
 |Lincoln Baxter III
 |Hans Bergsten
-
-|Shawn Bayern |Joseph
-Berkovitz
-
-|Dennis Byrne |Pete
-Carapetyan
-
+|Shawn Bayern
+|Joseph Berkovitz
+|Dennis Byrne
+|Pete Carapetyan
 |Ryan DeLaplante
 |Keith Donald
-
 |Jim Driscoll
 |Hanspeter Duennenberger
-
-|Ken Finnigan |Amy
-Fowler
-
-|Mike Freedman |David
-Geary
-
-|Manfred Geiler |Ted
-Goddard
-
-|Juan Gonzalez |Jeremy
-Grelle
-
-|Rick Hightower |Jacob
-Hookom
-
+|Ken Finnigan
+|Amy Fowler
+|Mike Freedman
+|David Geary
+|Manfred Geiler
+|Ted Goddard
+|Juan Gonzalez
+|Jeremy Grelle
+|Rick Hightower
+|Jacob Hookom
 |Justyna Horwat
 |Alexander Jesse
-
-|Max Katz |Roger Keays
-
-|Gavin King |Roger
-Kitain
-
-|Eric Lazarus |Jason
-Lee
-
-|Felipe Leme |Cody
-Lerum
-
-|Alberto Lemos |Ryan
-Lubke
-
-|Barbara Louis |Martin
-Marinschek
-
-|Kumar Mettu |Craig
-McClanahan
-
-|Pete Muir |Bernd
-Müller
-
-|Michael Müller |Hans
-Muller
-
+|Max Katz
+|Roger Keays
+|Gavin King
+|Roger Kitain
+|Eric Lazarus
+|Jason Lee
+|Felipe Leme
+|Cody Lerum
+|Alberto Lemos
+|Ryan Lubke
+|Barbara Louis
+|Martin Marinschek
+|Kumar Mettu
+|Craig McClanahan
+|Pete Muir
+|Bernd Müller
+|Michael Müller
+|Hans Muller
 |Brendan Murray
 |Michael Nash
-
-|Imre Osswald |Joe
-Ottinger
-
-|Ken Paulsen |Dhiru
-Pandey
-
-|Raj Premkumar |Werner
-Punz
-
-|Matt Raible |Hazem
-Saleh
-
-|Andy Schwartz |Yara
-Senger
-
-|Stan Silvert |Vernon
-Singleton
-
+|Imre Osswald
+|Joe Ottinger
+|Ken Paulsen
+|Dhiru Pandey
+|Raj Premkumar
+|Werner Punz
+|Matt Raible
+|Hazem Saleh
+|Andy Schwartz
+|Yara Senger
+|Stan Silvert
+|Vernon Singleton
 |Bernhard Slominski
 |Alexander Smirnov
-
-|Thomas Spiegel |Kyle
-Stiemann
-
+|Thomas Spiegel
+|Kyle Stiemann
 |James Strachan
 |Jayashri Visvanathan
-
 |Ana von Klopp
 |Matthias Wessendorf
-
-|Adam Winer |Mike
-Youngstrom
-
-|John Zukowski |
+|Adam Winer
+|Mike Youngstrom
+|John Zukowski
+|
+|
 |===

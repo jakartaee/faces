@@ -1,0 +1,1047 @@
+[[a2344]]
+== Expression Language Facility
+
+In the descriptions of the standard user
+interface component model, it was noted that all attributes, and nearly
+all properties can have a _value expression_ associated with them (see
+<<UserInterfaceComponentModel.adoc#a911,ValueExpression properties>>). In
+addition, many properties, such as _action_, _actionListener_,
+_validator_, and _valueChangeListener_ can be defined by a _method
+expression_ pointing at a public method in some class to be executed.
+This chapter describes the mechanisms and APIs that Jakarta Faces
+utilizes in order to evaluate value expressions and method expressions.
+
+Jakarta Faces relies on Jakarta Expression Language as described by version 4.0 of
+the Jakarta Expression Language specification. 
+Please consult that document for complete details about the Expression Language.
+
+This chapter will focus exclusively on how Jakarta Faces leverages
+and integrates with Jakarta Expression Language. It does not describe how Jakarta Expression Language operates.
+
+[[a2349]]
+=== Value Expressions
+
+==== Overview
+
+To support binding of attribute and property
+of values to dynamically calculated results, the name of the attribute
+or property can be associated with a value expression using the
+_setValueExpression()_ method. Whenever the dynamically calculated
+result of evaluating the expression is required, the _getValue()_ method
+of the _ValueExpression_ is called, which returns the evaluated result.
+Such expressions can be used, for example, to dynamically calculate a
+component value to be displayed:
+
+[source,xml]
+----
+<h:outputText value="#{customer.name}" />
+----
+
+which, when this page is rendered, will
+retrieve the bean stored under the “customer” key, then acquire the name
+property from that bean and render it.
+
+Besides the component value itself, value
+expressions can be used to dynamically compute attributes and
+properties. The following example checks a _boolean_ property _manager_
+on the current _user_ bean (presumably representing the logged-in user)
+to determine whether the _salary_ property of an employee should be
+displayed or not:
+
+[source,xml]
+----
+<h:outputText rendered="#{user.manager}" value="#{employee.salary}" />
+----
+
+which sets the _rendered_ property of the
+component to _false_ if the user is not a manager, and therefore causes
+this component to render nothing.
+
+The Jakarta Expression Language has a
+powerful set of coercion rules that automatically convert the type of
+the value to the appropriate type. These rules occasionally rely on the
+JavaBeans _PropertyEditor_ facility to perform this conversion. Note
+that this conversion is entirely separate from normal Jakarta Faces Conversion.
+
+Value expressions can also be used to set a
+value from the user into the item obtained by evaluating the expression.
+For example:
+
+[source,xml]
+----
+<h:inputText value="#{employee.number}" />
+----
+
+When the page is rendered, the expression is
+evaluated as an r-value and the result is displayed as the default value
+in the text field. When the page is submitted, the expression is
+evaluated as an l-value, and the value entered by the user (subject to
+conversion and validation as usual) is pushed into the expression.
+
+==== Value Expression Syntax and Semantics
+
+Please see Section 1.2 of the Jakarta Expression
+Language Specification, Version 4.0 or higher for the complete specification of
+ValueExpression syntax and semantics.
+
+
+=== MethodExpressions
+
+_Method expressions_ are a very similar to
+value expressions, but rather than supporting the dynamic retrieval and
+setting of properties, method expressions support the invocation (i.e.
+execution) of an arbitrary public method of an arbitrary object, passing
+a specified set of parameters, and returning the result from the called
+method (if any). They may be used in any phase of the request processing
+lifecycle; the standard Jakarta Faces components and framework employ them
+(encapsulated in a _MethodExpression_ object) at the following times:
+
+* During _Apply Request Values_ or _Invoke
+Application_ phase (depending upon the state of the _immediate_
+property), components that implement the _ActionSource2_ behavioral
+interface (see <<UserInterfaceComponentModel.adoc#a1120,ActionSource2>>) utilize
+_MethodExpressions_ as follows:
+
+** If the _actionExpression_ property is
+specified, it must be a _MethodExpression_ expression that identifies an
+Application Action method (see <<ApplicationIntegration.adoc#a3553,
+Application Actions>>) that takes no parameters and returns a String.
+
+** It’s possible to have a method expression act
+as an _ActionListener_ by using the classs
+_MethodExpressionActionListener_ to wrap a method expression and calling
+the _addActionListener()_ method on the _ActionSource_. The method
+expression wrapped inside the _MethodExpressionActionListener_ must
+identify a public method that accepts an _ActionEvent_ (see
+<<UserInterfaceComponentModel.adoc#a1308,Event Classes>>) instance, and has a
+return type of _void_. The called method has exactly the same
+responsibilities as the _processAction()_ method of an _ActionListener_
+instance (see <<UserInterfaceComponentModel.adoc#a1329,Listener Classes>>) that
+was built in to a separate Java class.
+
+* During the _Apply Request Values_ or _Process
+Validations_ phase (depending upon the state of the _immediate_
+property), components that implement _EditableValueHolder_ (such as
+_UIInput_ and its subclasses) components (see
+<<UserInterfaceComponentModel.adoc#a1192,EditableValueHolder>>) utilize method
+expressions as follows:
+
+** The user can use the
+_MethodExpressionValidator_ class to wrap a method expression that
+identifies a public method that accepts a _FacesContext_ instance and a
+_UIComponent_ instance, and an _Object_ containing the value to be
+validated, and has a return type of _void_. This
+_MethodExpressionValidator_ instance can then be added as a normal
+_Validator_ using the _EditableValueHolder.addValidator()_ method. The
+called method has exactly the same responsibilities as the _validate()_
+method of a _Validator_ instance (see <<UserInterfaceComponentModel.adoc#a1414,
+Validator Classes>>) that was built in to a separate Java class.
+
+** The user can use the
+_MethodExpressionValueChangeListener_ class to wrap a method expression
+that identifies a public method that accepts a _ValueChangeEvent_ (see
+<<UserInterfaceComponentModel.adoc#a1308,Event Classes>>) instance, and has a
+return type of _void_. This _MethodExpressionValueChangeListener_
+instance can then be added as a normal _ValueChangeListener_ using
+EditableValueHolder.addValueChangeListener(). The called method has
+exactly the same responsibilities as the _processValueChange()_ method
+of a _ValueChangeListener_ instance (see <<UserInterfaceComponentModel.adoc#a1329,
+Listener Classes>>) that was built in to a separate Java class.
+
+
+[[a2403]]
+==== MethodExpression Syntax and Semantics
+
+The exact syntax and semantics of
+MethodExpression are the domain of the Jakarta Expression Language. Please see
+Section 1.2.1.2 of the Jakarta Expression Language Specification, Version 4.0 or higher.
+
+
+==== Jakarta Faces Managed Classes and Jakarta EE Annotations
+
+The following Jakarta Faces artifacts must be injectable.
+
+[[a2541]]
+.Jakarta Faces Artifacts Eligible for Injection
+
+- _jakarta.faces.application.ApplicationFactory_
+
+- _jakarta.faces.application.NavigationHandler_
+
+- _jakarta.faces.application.ResourceHandler_
+
+- _jakarta.faces.application.StateManager_
+
+- _jakarta.faces.component.visit.VisitContextFactory_
+
+- _jakarta.faces.context.ExceptionHandlerFactory_
+
+- _jakarta.faces.context.ExternalContextFactory_
+
+- _jakarta.faces.context.FacesContextFactory_
+
+- _jakarta.faces.context.PartialViewContextFactory_
+
+- _jakarta.faces.event.ActionListener_
+
+- _jakarta.faces.event.SystemEventListener_
+
+- _jakarta.faces.lifecycle.ClientWindowFactory_
+
+- _jakarta.faces.lifecycle.LifecycleFactory_
+
+- _jakarta.faces.event.PhaseListener_
+
+- _jakarta.faces.render.RenderKitFactory_
+
+- _jakarta.faces.view.ViewDeclarationLanguageFactory_
+
+- _jakarta.faces.view.facelets.FaceletCacheFactory_
+
+- _jakarta.faces.view.facelets.TagHandlerDelegateFactory_
+
+Please consult the Jakarta EE Specification for complete details of this
+feature. Here is a summary of the Jakarta EE annotations one may use in a
+ artifact from the preceding table. 
+
+- _@jakarta.inject.Inject_
+
+- _@jakarta.inject.Named_
+
+- _@jakarta.inject.Qualifier_
+
+- _@jakarta.inject.Scope_
+
+- _@jakarta.inject.Singleton_
+
+- _@jakarta.enterprise.context.ApplicationScoped_
+
+- _@jakarta.enterprise.context.ConversationScoped_
+
+- _@jakarta.enterprise.context.Dependent_
+
+- _@jakarta.enterprise.context.RequestScoped_
+
+- _@jakarta.enterprise.context.SessionScoped_
+
+- _@jakarta.annotation.Resource_
+
+- _@jakarta.annotation.Resources_
+
+- _@jakarta.ejb.EJB_
+
+- _@jakarta.ejb.EJBs_
+
+- _@jakarta.xml.ws.WebServiceRef_
+
+- _@jakarta.xml.ws.WebServiceRefs_
+
+- _@jakarta.persistence.PersistenceContext_
+
+- _@jakarta.persistence.PersistenceContexts_
+
+- _@jakarta.persistence.PersistenceUnit_
+
+- _@jakarta.persistence.PersistenceUnits_
+
+
+=== How Faces Leverages the Expression Language
+
+This section is non-normative and covers the
+major players in the Jakarta Expression Language and how they relate to Jakarta Faces.
+The number one goal in this version of the Jakarta Faces
+specification is to export the concepts behind the Jakarta Faces EL into the
+Jakarta Expression Language, and then rely on those facilities to get the work done.
+Readers interested in how to implement the Jakarta Expression Language itself must
+consult the Jakarta Expression Language Spec document.
+
+==== ELContext
+
+The ELContext is a handy little “holder”
+object that gets passed all around the Jakarta Expression Language API. It has two
+purposes.
+
+* To allow technologies that use the Jakarta Expression Language,
+such as Jakarta Faces, Jakarta Server Pages and Jakarta Tags,
+to store any context information specific to that
+technology so it can be leveraged during expression evaluation. For
+example the expression “_#{view.viewId}_” is specific to Jakarta Faces. It
+means, “find the _UIViewRoot_ instance for the current view, and return
+its _viewId_”. The Jakarta Expression Language doesn’t know about the “view” implicit
+object or what a UIViewRoot is, but Jakarta Faces does. The Jakarta Expression Language
+has plugin points that will get called to resolve “view”, but to do
+so, Jakarta Faces needs access to the _FacesContext_ from within the
+callstack of Expression Language evaluation. Therefore, the _ELContext_ comes to the
+rescue, having been populated with the _FacesContext_ earlier in the
+request processing lifecycle.
+
+* To allow the pluggable resolver to tell the
+Jakarta Expression Language that it did, in fact, resolve a property and that further
+resolvers must not be consulted. This is done by setting the
+“_propertyResolved_” property to _true_.
+
+The complete specification for ELResolver may
+be found in Chapter 2 of the Jakarta Expression Language Specification, Version
+4.0.
+
+===== Lifetime, Ownership and Cardinality
+
+An ELContext instance is created the first
+time _getELContext()_ is called on the _FacesContext_ for this request.
+Please see _<<Per-RequestStateInformation.adoc#a3099,ELContext>>_ for details. Its
+lifetime ends the same time the __FacesContext__’s lifetime ends. The
+_FacesContext_ maintains the owning reference to the _ELContext_. There
+is at most one _ELContext_ per _FacesContext_.
+
+===== Properties
+
+[width="100%",cols="20%,10%,20%,50%",options="header",]
+|===
+|Name |Access
+|Type |Description
+| _ELResolver_ |RO
+| _jakarta.el.ELResolver_
+|Return the ELResolver instance described in
+_<<ExpressionLanguageFacility.adoc#a2822,Faces ELResolver for Facelets and Programmatic Access>>_
+
+| _propertyResolved_
+|RW |boolean
+|Set by an ELResolver implementation if it
+successfully resolved a property. See _<<ExpressionLanguageFacility.adoc#a2634,
+ELResolver>>_ for how this property is used.
+|===
+
+===== Methods
+
+Here is a subset of the methods that are relevant to Jakarta Faces.
+
+[source,java]
+----
+public Object getContext(Class key);
+void putContext(Class key, Object contextInstance);
+...
+----
+
+As mentioned in
+_<<Per-RequestStateInformation.adoc#a3099,ELContext>>_, the _putContext()_ method
+is called, passing the current _FacesContext_ instance the first time
+the system asks the _FacesContext_ for its _ELContext_. The
+_getContext()_ method will be called by any _ELResolver_ instances that
+need to access the _FacesContext_ to perform their resolution.
+
+===== Events
+
+The creation of an ELContext instance
+precipitates the emission of an _ELContextEvent_ from the _FacesContext_
+that created it. Please see _<<Per-RequestStateInformation.adoc#a3099,ELContext>>_
+for details.
+
+[[a2634]]
+==== ELResolver
+
+Faces 1.1 used the _VariableResolver_ and
+_PropertyResolver_ classes as the workhorses of expression evaluation.
+The Unified API has the _ELResolver_ instead. The ELResolver concept is
+the heart of the Jakarta Expression Language. When an expression is evaluated, the
+ELResolver is responsible for resolving each segment in the expression.
+For example, in rendering the component behind the tag “_<h:outputText
+value="#{user.address.street}" />”_ the ELResolver is called three
+times. Once to resolve “user”, again to resolve the “address” property
+of user, and finally, to resolve the “street” property of “address”. The
+complete specification for ELResolver may be found in Chapter 2 of the
+Jakarta Expression Language Specification, Version 4.0 or higher.
+
+As described
+in more detail in _<<ExpressionLanguageFacility.adoc#a2664,
+ELResolver Instance Provided by Faces>>_, Faces must provide an implementation of _ELResolver_.
+During the course of evaluation of an
+expression, a variety of sources must be considered to help resolve each
+segment of the expression. These sources are linked in a chain-like
+fashion. Each link in the chain has the opportunity to resolve the
+current segment. If it does so, it must set the “_propertyResolved_”
+property on the _ELContext_, to _true_. If not, it must not modify the
+value of the “_propertyResolved_” property. If the
+“_propertyResolved_” property is not set to _true_ the return value from
+the _ELResolver_ method is ignored by the system.
+
+===== Lifetime, Ownership, and Cardinality
+
+ELResolver instances have application
+lifetime and scope. The CDI container maintains one top level ELResolver
+(into which a Faces specific ELResolver is added) accessible from
+_BeanManager.getELResolver()_. This ELResolver instance is
+also used from the Jakarta Faces VDL. Faces maintains one _ELResolver_ accessible from
+_FacesContext.getELContext().getELResolver()_ and
+_Application.getELResolver()_.
+
+===== Properties
+
+ELResolver has no proper JavaBeans properties
+
+===== Methods
+
+Here is a subset of the methods that are
+relevant to Faces.
+
+[source,java]
+----
+public Object getValue(ELContext context, Object base, Object property);
+void setValue(ELContext context,
+    Object base, Object property, Object value);
+...
+----
+
+_getValue()_ looks at the argument _base_
+and tries to return the value of the property named by the argument
+_property_. For example, if base is a JavaBean, _property_ would be the
+name of the JavaBeans property, and the resolver would end up calling
+the _getter_ for that property.
+
+_setValue()_ looks at the argument _base_
+and tries to set the argument _value_ into the property named by the
+argument _property_. For example, if base is a JavaBean, _property_
+would be the name of the JavaBeans property, and the resolver would end
+up calling the _setter_ for that property.
+
+There are other methods, such as
+_isReadOnly()_ that are beyond the scope of this document, but described
+completely in the Jakarta Expression Language Specification.
+
+===== Events
+
+_ELResolver_ precipitates no events.
+
+[[a2651]]
+==== ExpressionFactory
+
+The Jakarta Expression Language
+owns the _ExpressionFactory_ class. It is a factory for
+_ValueExpression_ and _MethodExpression_ instances.
+
+===== Lifetime, Ownership, and Cardinality
+
+_ExpressionFactory_ instances are
+application scoped. The _Application_ object maintains the
+_ExpressionFactory_ instance used by Faces (See
+_<<ApplicationIntegration.adoc#a3459,Acquiring ExpressionFactory Instance>>)_.
+The _ELManager_ object maintains the _ExpressionFactory_
+used by the Jakarta Expression Language (and therefore by the Jakarta Faces VDL). It is
+permissible for both of these access methods to yield the same java
+object instance.
+
+===== Properties
+
+_ExpressionFactory_ has no properties.
+
+===== Methods
+
+[source,java]
+----
+public MethodExpression createMethodExpression(ELContext context,
+    String expression, FunctionMapper fnMapper, Class[] paramTypes);
+public ValueExpression createValueExpression(ELContext context,
+    String expression, Class expectedType, FunctionMapper fnMapper);
+----
+
+These methods take the human readable
+expression string, such as _"#{user.address.street}"_ and return an
+object oriented representation of the expression. Which method one calls
+depends on what kind of expression you need. The Faces _Application_
+class has convenience methods specific to Faces needs for these
+concepts, please see <<ApplicationIntegration.adoc#a3463,Programmatically
+Evaluating Expressions>> .
+
+===== Events
+
+_ExpressionFactory_ precipitates no events.
+
+
+[[a2664]]
+=== ELResolver Instance Provided by Faces
+
+This section provides details on what an
+implementation of the Jakarta Faces specification must do to support
+the Jakarta Expression Language for usage in a Jakarta Faces application.
+
+_<<ExpressionLanguageFacility.adoc#a2634,
+ELResolver>>_ mentions that a Faces implementation must provide an
+implementation of _ELResolver_. This _ELResolver_, let’s call it
+the _Faces ELResolver for Facelets and Programmatic Access_, is used by
+Facelets markup pages, and is returned from
+_FacesContext.getELContext().getELResolver()_ and
+_Application.getELResolver()_, and is used to resolve expressions that
+appear programmatically. See the javadocs for _jakarta.el.ELResolver_ for
+the specification and method semantics for each method in _ELResolver_.
+The remainder of this section lists the implementation requirements for
+this resolver.
+
+[[a2771]]
+==== ELResolvers from application configuration resources
+
+The _<el-resolver>_ element in the
+application configuration resources will contain the fully qualified
+classname to a class with a public no-arg constructor that implements
+_jakarta.el.ELResolver_. These are added to the _Faces ELResolver for
+Facelets and Programmatic Access_ in
+the order in which they occur in the application configuration
+resources.
+
+[[a2820]]
+==== ELResolvers from Application.addELResolver()
+
+Any such resolvers are considered at this
+point in the _Faces ELResolver for Facelets and Programmatic Access_ in the order in which they
+were added.
+
+[[a2822]]
+==== Faces ELResolver for Facelets and Programmatic Access
+
+This section documents the requirements for
+the second _ELResolver_ mentioned in _<<ExpressionLanguageFacility.adoc#a2664,
+ELResolver Instances Provided by Faces>>_, the one that is used for
+Facelets and for programmatic expression evaluation from Faces java
+code.
+
+The implementation for the _ELResolver for
+Programmatic Access_ is described as a set of _ELResolvers_ inside of a
+_CompositeELResolver_ instance, but any implementation strategy is
+permissible as long as the semantics are preserved. .
+
+This diagram shows the set of
+_ELResolver_ instances that must be added to the _ELResolver for
+Programmatic Access_. This instance must be returned from
+_Application.getELResolver()_ and
+_FacesContext.getELContext().getELResolver()_. It also shows the
+order in which they must be added. 
+
+
+[[a2827]]
+._ELResolver_ for Facelets and Programmatic Access
+
+
+
+image:ELResolverChain.png[ELResolver chain]
+
+The semantics of each _ELResolver_ are given
+below, either in tables that describe what must be done to implement
+each particular method on _ELResolver_, in prose when such a table is
+inappropriate, or as a reference to another section where the semantics
+are exactly the same.
+
+[[a2908]]
+===== faces.CompositeComponentAttributesELResolver
+
+This ELResolver makes it so expressions that
+refer to the attributes of a composite component get correctly
+evaluated. For example, the expression _#{cc.attrs.usernameLabel}_
+says, “find the current composite component, call its _getAttributes()_
+method, within the returned _Map_ look up the value under the key
+“usernameLable”. If the value is a _ValueExpression_, call _getValue()_
+on it and the result is returned as the evaluation of the expression.
+Otherwise, if the value is _not_ a _ValueExpression_ the value itself is
+returned as the evaluation of the expression.”
+
+.Composite Component Attributes ELResolver
+
+[width="100%",cols="25%,75%",options="header",]
+|===
+|ELResolver method
+|implementation requirements
+| _getValue_ a|
+If base is non-null, is an instance of
+UIComponent, is a composite component, and property is non-null and is
+equal to the string “attrs”, return a Map implementation with the
+following characteristics.
+
+Wrap the attributes map of the composite
+component and delegate all calls to the composite component attributes
+map with the following exceptions:
+
+get(), put(), and containsKey() are required
+to be supported.
+
+get(): if the result of calling get() on the
+component attributes map is null, and a default value was declared in
+the composite component metadata, the value will be a ValueExpression.
+Evaluate it and return it. Otherwise, simply return the value from the
+component attributes map.
+
+put(): Call getValueExpression() on the
+component. If this returns non-null, call setValue() on it, passing the
+value argument as the last argument. Otherwise, simply call through to
+put on the component attributes map.
+
+containsKey(): If the attributes map contains
+the key, return true. Otherwise, if a default value has been declared
+for the attribute, return true. Otherwise, return false.
+
+The Map implementation must also implement
+the interface
+
+jakarta.faces.el.CompositeComponentExpressionHolder.
+
+Otherwise, take no action.
+
+| _getType_ |If
+the base argument to getType() is not an instance of the composite
+component attributes map or the property argument to getType() is not an
+instance of java.lang.String, return null. Otherwise, check the top
+level component's ValueExpression collection for an expression under the
+name given by the property argument to getType(). If the expression
+exists, call getType() on the expression. If the property argument to
+getType() is not empty, search the composite component's metadata for a
+declared type on a <cc:attribute> whose name matches the property
+argument to getType(). If the expression and the metadata both yield
+results, the metadata takes precedence ONLY if it provides a narrower
+result than does the expression, i.e. expression type is assignable from
+metadata type. If the metadata result does take precedence, call
+ELContext.setPropertyResolved(true). Otherwise, return whichever result
+was available, or null.
+
+| _setValue_ |Take
+no action.
+
+| _isReadOnly_
+|Take no action and return true.
+
+| _getFeatureDescriptors_
+|Take no action.
+
+| _getCommonPropertyType_
+|Return String.class
+|===
+
+
+
+===== el.CompositeELResolver
+
+As indicated in
+_<<ExpressionLanguageFacility.adoc#a2827,ELResolver for Facelets and
+Programmatic Access>>_, following the _faces.CompositeComponentAttributesELResolver_, the
+semantics obtained by adding a _CompositeELResolver_ must be inserted
+here. This _ELResolver_ contains the following _ELResolvers_, described
+in the referenced sections.
+
+. _<<ExpressionLanguageFacility.adoc#a2771,ELResolvers
+from application configuration resources>>_
+
+. _<<ExpressionLanguageFacility.adoc#a2820,ELResolvers
+from Application.addELResolver()>>_
+
+[[a2940]]
+===== faces.ResourceELResolver
+
+This Resource ELResolver for Facelets and Programmatic Access resolver
+is a means by which Resource
+instances are encoded into a faces request such that a subsequent faces
+resource request from the browser can be satisfied using the
+ResourceHandler as described in _<<RequestProcessingLifecycle.adoc#a746,
+Resource Handling>>_.
+
+.ResourceELResolver
+
+[width="100%",cols="25%,75%",options="header",]
+|===
+|ELResorver method
+|implementation requirements
+| _getValue_ a|
+If base and property are not null, and base
+is an instance of ResourceHandler (as will be the case with an
+expression such as __#{resource['jakarta.faces:faces.js']}__, perform the following.
+(Note: This is possible due to the ImplicitObjectELResolver returning
+the ResourceHandler, see <<ExpressionLanguageFacility.adoc#a2830,
+Implicit Objects for Facelets and Programmatic Access>>)
+
+* If _property_ does not contain a colon
+character ‘:’, treat _property_ as the _resourceName_ and pass
+_property_ to _ResourceHandler.createResource(resourceName)_.
+
+* If _property_ contains a single colon
+character ‘:’, treat the content before the ‘:’ as the _libraryName_ and
+the content after the ‘:’ as the _resourceName_ and pass both to
+_ResourceHandler.createResource(resourceName, libraryName)_. If the
+value of _libraryName_ is the literal string “this” (without the
+quotes), discover the library name of the current resource (or the
+contract name of the current resource, the two are mutually exclusive)
+and replace “this” with that library name (or contract name) before
+calling _ResourceHandler.createResource()_. In the case of resource
+library contracts, _libraryName_ will actually be the contract name.
+
+* If _property_ contains more than one colon
+character ‘:’, throw a localized _ELException_, including _property_.
+
+If one of the above steps results in the
+creation of a non-null Resource instance, call
+ELContext.setPropertyResolved(true). Call the getRequestPath() method on
+the Resource instance, pass the result through
+ExternalContext.encodeResourceUrl() and return the result.
+
+| _getType_
+|Return null. This resolver only performs
+lookups.
+
+| _setValue_ |Take
+no action.
+
+| _isReadOnly_
+|Return false in all cases.
+
+| _getFeatureDescriptors_
+|Return null.
+
+| _getCommonPropertyType_ a|
+If base is non-null, return null.
+
+If base is null, return Object.class.
+
+|===
+
+
+[[a2962]]
+===== el.ResourceBundleELResolver
+
+This entry in the chain must have the
+semantics the same as the class _jakarta.el.ResourceBundleELResolver_.
+The default implementation just includes an instance of this resolver in
+the chain.
+
+[[a2964]]
+===== faces.ResourceBundleELResolver
+
+This Resource Bundle ELResolver for Facelets and Programmatic Access
+is the means by which resource bundles
+defined in the application configuration resources are called into play
+during Expression Language resolution.
+
+.ResourceBundleELResolver
+
+[width="100%",cols="25%,75%",options="header",]
+|===
+|ELResorver method
+|implementation requirements
+| _getValue_ a|
+If base is non-null, return null.
+
+If base is null and property is null, throw
+PropertyNotFoundException.
+
+If base is null and property is a String
+equal to the value of the <var> element of one of the
+<resource-bundle>'s in the application configuration resources, use the
+Locale of the current UIViewRoot and the base-name of the
+resource-bundle to load the ResourceBundle. Call
+setPropertyResolved(true). Return the ResourceBundle. Otherwise, return
+null.
+
+
+
+| _getType_ a|
+If base is non-null, return null.
+
+If base is null and property is null, throw
+PropertyNotFoundException.
+
+If base is null and property is a String
+equal to the value of the <var> element of one of the
+<resource-bundle>'s in the application configuration resources, call
+setPropertyResolved(true) and return ResourceBundle.class.
+
+
+
+| _setValue_ a|
+If base is null and property is null, throw
+PropertyNotFoundException.
+
+If base is null and property is a String
+equal to the value of the <var> element of one of the
+<resource-bundle>'s in the application configuration resources throw
+jakarta.el.PropertyNotWriteable, since ResourceBundles are read-only.
+
+
+
+| _isReadOnly_ a|
+If base is non-null, return null.
+
+If base is
+false and property is null, throw PropertyNotFoundException.
+
+If base is
+null and property is a String equal to the value of the <var> element of
+one of the <resource-bundle>'s in the application configuration
+resources, call setPropertyResolved(true) on the argument ELContext and
+return true.
+
+Otherwise return false;
+
+
+
+| _getFeatureDescriptors_ a|
+If base is non-null, return null.
+
+If base is null, return an Iterator
+containing java.beans.FeatureDescriptor instances, one for each
+<resource-bundle> in the <application> element. It is required that all
+of these FeatureDescriptor instances set Boolean.TRUE as the value of
+the ELResolver.RESOLVABLE_AT_DESIGN_TIME attribute. The name of the
+FeatureDescriptor must be the var element of the <resource-bundle>. The
+displayName of the FeatureDescriptor must be the display-name of the
+<resource-bundle>. ResourceBundle.class must be stored as the value of
+the ELResolver.TYPE attribute. The shortDescription must be a suitable
+description depending on the implementation. The expert and hidden
+properties must be false. The preferred property must be true.
+
+
+
+| _getCommonPropertyType_ a|
+If base is non-null, return null.
+
+If base is null, return string.Class.
+
+
+
+|===
+
+[[a2966]]
+===== Stream, StaticField, Map, List, Array, and Bean ELResolvers
+
+These ELResolver instances are provided by
+the Jakarta Expression Language API and must be added in the following order:
+
+. The return from _ExpressionFactory.getStreamELResolver()_
+. _jakarta.el.StaticFieldELResolver_
+. _jakarta.el.MapELResolver_
+. _jakarta.el.ListELResolver_
+. _jakarta.el.ArrayELResolver_
+. _jakarta.el.BeanELResolver_
+
+These actual ELResolver instances must be
+added. It is not compliant to simply add other resolvers that preserve
+these semantics.
+
+[[a2970]]
+===== faces.ScopedAttributeELResolver
+
+This Scoped Attribute ELResolver for Facelets and Programmatic Access
+is responsible for doing the
+scoped lookup that makes it possible for expressions to pick up anything
+stored in the request, session, or application scopes by name.
+
+.Scoped Attribute ELResolver
+
+[width="100%",cols="25%,75%",options="header",]
+|===
+|ELResorver method
+|implementation requirements
+| _getValue_ a|
+If base is non-null, return null.
+
+If base is null and property is null, throw
+PropertyNotFoundException.
+
+Use the argument property as the key in a
+call to externalContext.getRequestMap().get(). If this returns non-null,
+call setPropertyResolved(true) on the argument ELContext and return the
+value.
+
+Use the argument property as the key in a
+call to facesContext.getViewRoot().getViewMap().get() (accounting for
+the potential for null returns safely). If this returns non-null, call
+setPropertyResolved(true) on the argument ELContext and return the
+value.
+
+Use the argument property as the key in a
+call to externalContext.getSessionMap().get(). If this returns non-null,
+call setPropertyResolved(true) on the argument ELContext and return the
+value.
+
+Use the argument property as the key in a
+call to externalContext.getApplicationMap().get(). If this returns
+non-null, call setPropertyResolved(true) on the argument ELContext and
+return the value.
+
+Otherwise call setPropertyResloved(true) and
+return null;
+
+| _getType_ a|
+If base is non-null, return null.
+
+If base is null and property is null, throw
+PropertyNotFoundException.
+
+Otherwise, setPropertyResolved(true) and
+return Object.class to indicate that any type is permissable to pass to
+a call to setValue().
+
+| _setValue_ a|
+If base is non-null, return null.
+
+If base is null and property is null, throw
+PropertyNotFoundException.
+
+Consult the Maps for the request, session,
+and application, in order, looking for an entry under the key property.
+If found, replace that entry with argument value. If not found, call
+externalContext.getRequestMap().put(property, value).
+
+Call setPropertyResolved(true) and return;
+
+| _isReadOnly_ a|
+If base is false, setPropertyResolved(true)
+return false;
+
+Otherwise, return false;
+
+| _getFeatureDescriptors_ a|
+If base is non-null, return null.
+
+If base is null, return an Iterator of
+java.beans.FeatureDescriptor instances for all attributes in all scopes.
+The FeatureDescriptor name and shortName is the name of the scoped
+attribute. The actual runtime type of the attribute must be stored as
+the value of the ELResolver.TYPE attribute. Boolean.TRUE must be set as
+the value of the ELResolver.RESOLVABLE_AT_DESIGN_TIME attribute. The
+shortDescription must be a suitable description depending on the
+implementation. The expert and hidden properties must be false. The
+preferred property must be true.
+
+| _getCommonPropertyType_ a|
+If base is non-null, return null.
+
+If base is null return String.class.
+
+|===
+
+=== Current Expression Evaluation APIs
+
+==== ELResolver
+
+Please see
+_<<ExpressionLanguageFacility.adoc#a2634,ELResolver>>_ for more details.
+
+[[a3029]]
+==== ValueExpression
+
+It is the main object oriented abstraction for
+an Expression Language expression that results in a value either being retrieved or set.
+Please see Chapter 2 of the Jakarta Expression Language Specification, Version
+4.0 or higher.
+
+[[a3039]]
+==== MethodExpression
+
+It is the main object oriented abstraction for
+an Expression Language expression that results in a method being invoked. Please see
+Chapter 2 of the Jakarta Expression Language Specification, Version 4.0 or higher.
+
+==== Expression Evaluation Exceptions
+
+Four exception classes are defined to report
+errors related to the evaluation of value exceptions:
+
+- _jakarta.el.ELException_ (which extends
+_java.lang.Exception_)—used to report a problem evaluating a value
+exception dynamically.
+
+- _MethodNotFoundException_ (which extends
+_jakarta.el.ELException_)—used to report that a requested public method
+does not exist in the context of evaluation of a method expression.
+
+- _jakarta.el.PropertyNotFoundException_ (which
+extends _jakarta.el.ELException_)—used to report that a requested
+property does not exist in the context of evaluation of a value
+expression.
+
+- _jakarta.el.PropertyNotWriteableException_
+(which extends _jakarta.el.ELException_)—used to indicate that the
+requested property could not be written to when evaluating the
+expression.
+
+=== CDI Integration
+
+Jakarta Faces must run in a container that supports CDI version 3.0 or higher. This requirement
+allows CDI to provide all the functionality of the managed bean facility in a
+better integrated way with the rest of the Jakarta EE platform. Delegating
+these features to CDI allows them to evolve independently of Jakarta Faces. The
+remainder of this section specifies some details of CDI integration
+pertinent to Jakarta Faces.
+
+[[a3054]]
+==== Jakarta Faces Objects Valid for @Inject Injection
+
+It must be possible to inject the following
+Jakarta Faces objects into other objects using _@Inject_.
+
+.Maps Returned by Various Jakarta Faces Accessors
+
+The annotations in package
+_jakarta.faces.annotation_ are used to cause _@Inject_ injection of the
+corresponding _Map_ into a field. Generics may be used.
+
+.Jakarta Faces Objects
+
+It must be possible to _@Inject_ the following Jakarta Faces and Jakarta EE objects into CDI beans.
+
+- _jakarta.faces.application.ResourceHandler_
+
+- _jakarta.faces.context.ExternalContext_
+
+- _jakarta.faces.context.FacesContext_
+
+- _jakarta.faces.context.Flash_
+
+- _jakarta.servlet.http.HttpSession_
+
+.Support for Injection into Jakarta Faces Managed Objects
+
+It must be possible to use _@Inject_ when
+specifying the following kinds of Jakarta Faces managed objects.
+
+- Validators declared with
+_@jakarta.faces.validator.FacesValidator(managed=true)_
+
+- Converters declared with
+_@jakarta.faces.convert.FacesConverter(managed=true)_
+
+- FacesBehaviors declared with
+_@jakarta.faces.component.behavior.FacesBehavior(managed=true)_
+
+[[a3070]]
+==== Expression Language Resolution
+
+The Implicit Objects for Facelets and Programmatic must be
+resolved using CDI
+
+[[a2830]]
+===== Implicit Objects for Facelets and Programmatic Access
+
+The following Implicit Objects for Facelets and Programmatic Access must be resolved using CDI.
+
+[[a2832]]
+.Implicit Objects for Programmatic Access
+
+[width="100%",cols="20%,65%,15%",options="header",]
+|===
+|_implicitObject_ |_source_                                                             |_scope_
+|facesContext     |FacesContext.getCurrentInstance()                                    |request
+|externalContext  |facesContext.getExternalContext()                                    |request
+|application      |externalContext.getContext()                                         |application
+|applicationScope |externalContext.getApplicationMap()                                  |application
+|cc               |UIComponent.getCurrentCompositeComponent(facesContext)               |dependent
+|cookie           |externalContext.getRequestCookieMap()                                |request
+|component        |UIComponent.getCurrentComponent(facesContext)                        |dependent
+|flash            |externalContext.getFlash()                                           |request
+|flowScope        |facesContext.getApplication().getFlowHandler().getCurrentFlowScope() |flow
+|header           |externalContext.getRequestHeaderMap()                                |request
+|headerValues     |externalContext.getRequestHeaderValuesMap()                          |request
+|initParam        |externalContext.getInitParameterMap()                                |application
+|param            |externalContext.getRequestParameterMap()                             |request
+|paramValues      |externalContext.getRequestParameterValuesMap()                       |request
+|request          |externalContext.getRequest()                                         |request
+|requestScope     |externalContext.getRequestMap()                                      |request
+|resource         |facesContext.getApplication().getResourceHandler()                   |request
+|session          |externalContext.getSession()                                         |session
+|sessionScope     |externalContext.getSessionMap()                                      |session
+|view             |facesContext.getViewRoot()                                           |request
+|viewScope        |facesContext.getViewRoot().getViewMap()                              |request
+|===
+

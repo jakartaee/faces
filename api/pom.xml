@@ -1,8 +1,8 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2021 Contributors to Eclipse Foundation.
-    Copyright (c) 2017, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,7 +20,7 @@
 
 <!--
 
-    Project to create the Jakarta Server Faces API jar and docs (vdldoc, renderkit docs).
+    Project to create the Jakarta Faces API jar and docs (vdldocs, jsdocs, renderkit docs).
 
     This depends on a Mojarra build being available in the version set by mojarra.version
 
@@ -40,9 +40,9 @@
     <artifactId>jakarta.faces-api</artifactId>
     <version>4.0.0-SNAPSHOT</version>
 
-    <name>Jakarta Server Faces</name>
+    <name>Jakarta Faces</name>
     <description>
-        Jakarta Server Faces defines an MVC framework for building user interfaces for web applications,
+        Jakarta Faces defines an MVC framework for building user interfaces for web applications,
         including UI components, state management, event handing, input validation, page navigation, and
         support for internationalization and accessibility.
     </description>
@@ -75,59 +75,34 @@
         </developer>
 
         <developer>
-            <id>ren.zhijun.oracle</id>
-            <name>Zhijun Ren</name>
-            <email>ren.zhijun@oracle.com></email>
-            <organization>Oracle America, Inc.</organization>
+            <id>balusc</id>
+            <name>Bauke Scholtz</name>
+            <email>balusc@gmail.com</email>
             <roles>
                 <role>comitter</role>
                 <role>developer</role>
             </roles>
-            <timezone>+8</timezone>
+            <timezone>+4</timezone>
         </developer>
     </developers>
     <contributors>
         <contributor>
-            <name>Jennifer Ball</name>
+            <name>Thomas Andraschko</name>
         </contributor>
         <contributor>
-            <name>Deepak Gothe</name>
+            <name>Manfred Riem</name>
         </contributor>
         <contributor>
-            <name>Jacob Hookom</name>
+            <name>Christoph Straßer</name>
         </contributor>
         <contributor>
-            <name>Justyna Horwat</name>
-        </contributor>
-        <contributor>
-            <name>Roger Kitain</name>
-        </contributor>
-        <contributor>
-            <name>Jason Lee</name>
-        </contributor>
-        <contributor>
-            <name>Craig McClanahan</name>
-        </contributor>
-        <contributor>
-            <name>Gregory Murray</name>
-        </contributor>
-        <contributor>
-            <name>Raj Premkumar</name>
-        </contributor>
-        <contributor>
-            <name>Stan Silvert</name>
-        </contributor>
-        <contributor>
-            <name>Jayashri Visvanathan</name>
-        </contributor>
-        <contributor>
-            <name>Mike Youngstrom</name>
+            <name>Emil Lefkof</name>
         </contributor>
     </contributors>
 
     <mailingLists>
         <mailingList>
-            <name>Jakarta Server Faces Specification Mailing List</name>
+            <name>Jakarta Faces Specification Mailing List</name>
             <post>https://accounts.eclipse.org/mailing-list/faces-dev</post>
         </mailingList>
     </mailingLists>
@@ -419,10 +394,10 @@
                         <configuration>
                             <source>11</source>
                             <additionalJOption>-Xdoclint:none</additionalJOption>
-                            <description>Jakarta Server Faces API documentation</description>
-                            <doctitle>Jakarta Server Faces API documentation</doctitle>
-                            <windowtitle>Jakarta Server Faces API documentation</windowtitle>
-                            <header><![CDATA[<br>Jakarta Server Faces API v${project.version}]]></header>
+                            <description>Jakarta Faces API documentation</description>
+                            <doctitle>Jakarta Faces API documentation</doctitle>
+                            <windowtitle>Jakarta Faces API documentation</windowtitle>
+                            <header><![CDATA[<br>Jakarta Faces API v${project.version}]]></header>
                             <bottom><![CDATA[
 Comments to: <a href="mailto:faces-dev@eclipse.org">faces-dev@eclipse.org</a>.<br>
 Copyright &#169; 2019, 2021 Eclipse Foundation. All rights reserved.<br>
@@ -431,7 +406,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                             <docfilessubdirs>true</docfilessubdirs>
                             <groups>
                                 <group>
-                                    <title>Jakarta Server Faces API Documentation</title>
+                                    <title>Jakarta Faces API Documentation</title>
                                     <packages>
                                         jakarta.faces.*
                                     </packages>
@@ -486,101 +461,88 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                 </configuration>
             </plugin>
             
-           
-            
-            <!-- Post-process VDL - correct wrong javax.el.* references  -->
-            <!-- See antrun plug-in above  -->
+            <!-- Create VDL docs -->
+             
+            <!-- Pre-process VDL - copy faces-api.css for vdldoc  -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-vdldoc-pre-process</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/vdldoc</directory>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Run actual core VDL -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-vdldoc</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includePluginDependencies>true</includePluginDependencies>
+                    <mainClass>org.omnifaces.vdldoc.Main</mainClass>
+                    <arguments>
+                        <argument>-d</argument><argument>${project.build.directory}/vdldoc</argument>
+                        <argument>-windowtitle</argument><argument>Jakarta Faces ${project.version} VDL Documentation</argument>
+                        <argument>-css</argument><argument>faces-api.css</argument>
+                        <argument>-f</argument>
+                        <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.taglib.xml</argument>
+                        <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.facelets.taglib.xml</argument>
+                        <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.core.taglib.xml</argument>
+                        <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.html.taglib.xml</argument>
+                        <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.passthrough.taglib.xml</argument>
+                        <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.composite.taglib.xml</argument>
+                        <argument>src/main/resources/com/sun/faces/metadata/taglib/tags.core.taglib.xml</argument>
+                        <argument>src/main/resources/com/sun/faces/metadata/taglib/tags.functions.taglib.xml</argument>
+                    </arguments>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.omnifaces</groupId>
+                        <artifactId>vdldoc</artifactId>
+                        <version>3.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
+    
+
+
+
+
+
+
+
+
+
+
+
 
     <profiles>
-    
-        <!-- Two tag libraries exist with the same facelet-taglib id attribute 'tags'. This is not supported. -->
-        <profile>
-            <id>vdl</id>
-            <build>
-                <plugins>
-                    <!-- Create VDL docs -->
-
-                    <!-- Pre-process VDL - copy faces-api.css to target since vdldoc is unable to find it directly  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.2.0</version>
-                        <executions>
-                            <execution>
-                                <id>generate-vdldoc-pre-process</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <!-- Copy  src/main/vdldoc/faces-api.css-->
-                                    <resources>
-                                        <resource>
-                                            <directory>src/main/vdldoc</directory>
-                                        </resource>
-                                    </resources>
-                                    <!-- to  target/vdldoc/faces-api.css-->
-                                    <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Run actual core VDL -->
-                    <plugin>
-                        <groupId>com.github.matinh.vdldoc</groupId>
-                        <artifactId>vdldoc-maven-plugin</artifactId>
-                        <version>2.0</version>
-                        <executions>
-                            <execution>
-                                <id>generate-vdldoc-core</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>vdldoc</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <srcDirectory>src/main/resources/com/sun/faces/metadata/taglib</srcDirectory>
-                            <css>faces-api.css</css>
-                            <browserTitle>Jakarta Server Faces ${project.version} VDL Documentation</browserTitle>
-                            <documentTitle>Jakarta Server Faces ${project.version} VDL Documentation</documentTitle>
-                            <hideGeneratedBy>true</hideGeneratedBy>
-                            <reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
-                        </configuration>
-                    </plugin>
-
-                    <!-- Post-process VDL - correct wrong javax.el.* references  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <executions>
-                            <execution>
-                                <id>generate-vdldoc-post-process</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <target>
-                                        <echo level="info">Replacing in ${project.build.directory}/vdldoc</echo>
-                                        <replace token="javax.el." value="jakarta.el." dir="${project.build.directory}/vdldoc" summary="yes">
-                                            <include name="**/*.html" />
-                                        </replace>
-                                    </target>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    
-    
         <profile>
             <id>only-eclipse</id>
             <activation>

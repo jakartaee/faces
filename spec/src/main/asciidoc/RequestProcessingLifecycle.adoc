@@ -16,10 +16,10 @@ user-agent, and their responses, is called a _Faces View
 Request/Response_ for discussion. The following graphic illustrates a
 Faces View Request/Response.
 
-image:SF-11.png[image]
+image:FacesViewRequestResponseLifecycle.png[Faces View Request/Response Lifecycle]
 
 Each Faces View Request/Response goes through
-a well-defined _request processing lifecycle_ made up of _phases_ .
+a well-defined _request processing lifecycle_ made up of __phases__.
 There are three different scenarios that must be considered, each with
 its own combination of phases and activities:
 
@@ -38,8 +38,8 @@ processing lifecycle.
 
 * _Non-Faces Response_ —A response that was
 not created by the execution of the _render response_ phase of the
-request processing lifecycle. Examples would be a servlet-generated or
-JSP-rendered response that does not incorporate Jakarta Faces components, a
+request processing lifecycle. Examples would be a Jakarta Servlet-generated or
+Jakarta Server Pages-rendered response that does not incorporate Jakarta Faces components, a
 response that sets an HTTP status code other than the usual 200 (such as
 a redirect), or a response whose HTTP body consists entirely of the
 bytes of an in page resource, such as a JavaScript file, a CSS file, an
@@ -48,7 +48,7 @@ a Non-Faces Response and will be referred to as a _Faces Resource
 Response_ for the remainder of this specification.
 
 * _Faces Request_ —A request that was sent
-from a previously generated _Faces response_ . Examples would be a
+from a previously generated __Faces response__. Examples would be a
 hyperlink or form submit from a rendered user interface component, where
 the request URI was crafted (by the component or renderer that created
 it) to identify the view to use for processing the request. Another
@@ -59,12 +59,12 @@ case of a Faces Request and will be referred to as a _Faces Resource
 Request_ for the remainder of this specification.
 
 * _Non-Faces Request_ —A request that was sent
-to an application component (e.g. a servlet or Jakarta Server Pages page), rather than
+to an application component (e.g. a Jakarta Servlet or Jakarta Server Pages page), rather than
 directed to a Faces view.
 
 In addition, of course, your web application
 may receive non-Faces requests that generate non-Faces responses.
-Because such requests do not involve Jakarta Server Faces at all, their
+Because such requests do not involve Jakarta Faces at all, their
 processing is outside the scope of this specification, and will not be
 considered further.
 
@@ -92,11 +92,11 @@ to accomplish this, the application must perform the common activities
 that are described in the following sections:
 
 * Acquire Faces object references, as described
-in <<RequestProcessingLifecycle.adoc#a502,See Acquire Faces Object References>>,
+in <<RequestProcessingLifecycle.adoc#a502,Acquire Faces Object References>>,
 below.
 
 * Create a new view, as described in
-<<RequestProcessingLifecycle.adoc#a516,See Create And Configure A New View>>, below.
+<<RequestProcessingLifecycle.adoc#a516,Create And Configure A New View>>, below.
 
 * Store the view into the _FacesContext_ by
 calling the _setViewRoot()_ method on the _FacesContext._
@@ -108,28 +108,28 @@ The most common lifecycle will be the case
 where a previous Faces response includes user interface controls that
 will submit a subsequent request to this web application, utilizing a
 request URI that is mapped to the Jakarta Faces implementation’s controller, as
-described in <<UsingJSFInWebApplications.adoc#a6076,See Servlet Mapping>>. Because
+described in <<UsingFacesInWebApplications.adoc#a6076,Servlet Mapping>>. Because
 such a request will be initially handled by the Jakarta Faces implementation, the
 application need not take any special steps—its event listeners,
 validators, and application actions will be invoked at appropriate times
 as the standard request processing lifecycle, described in the following
 diagrams, is invoked.
 
-image:SF-13.png[image]
+image:FacesResourceRequestLifecycle.png[Faces Resource Request Lifecycle]
 
 The “Handle Resource Request” box, and its
-subsequent boxes, are explained in <<RequestProcessingLifecycle.adoc#a746,See
+subsequent boxes, are explained in <<RequestProcessingLifecycle.adoc#a746,
 Resource Handling>>. The following diagram explains the “Execute and
 Render Lifecycle” box.
 
-image:SF-14.png[image]
+image:FacesExecuteAndRenderLifecycle.png[Faces Execute and Render Lifecycle]
 
 The behavior of the individual phases of the
 request processing lifecycle are described in individual subsections of
 <<a401, Standard Request Processing Lifecycle
 Phases>>. Note that, at the conclusion of several phases of the request
 processing lifecycle, common event processing logic (as described in
-<<RequestProcessingLifecycle.adoc#a494,See Common Event Processing>>) is performed
+<<RequestProcessingLifecycle.adoc#a494,Common Event Processing>>) is performed
 to broadcast any _FacesEvents_ generated by components in the component
 tree to interested event listeners.
 
@@ -143,10 +143,10 @@ example:
 
 * A Faces Request needs to be redirected to a
 different web application resource (via a call to
-_HttpServletResponse.sendRedirect_ ).
+__HttpServletResponse.sendRedirect__).
 
 * A Faces Request causes the generation of a
-response using some other technology (such as a servlet, or a Jakarta Server Pages page
+response using some other technology (such as a Jakarta Servlet, or a Jakarta Server Pages page
 not containing Jakarta Faces components).
 
 * A Faces Request causes the generation of a
@@ -154,7 +154,7 @@ response simply by serving up the bytes of a resource, such as an image,
 a JavaScript file, a CSS file, or an applet
 
 In any of these scenarios, the application
-will have used the standard mechanisms of the servlet or portlet API to
+will have used the standard mechanisms of the Jakarta Servlet or Portlet API to
 create the response headers and content. It is then necessary to tell
 the Jakarta Faces implementation that the response has already been created, so
 that the _Render Response_ phase of the request processing lifecycle
@@ -170,24 +170,24 @@ actions.
 The standard phases of the request processing
 lifecycle are described in the following subsections.
 
-{empty}[P1-start-currentPhaseId]The default
+The default
 request lifecycle processing implementation must ensure that the
 _currentPhaseId_ property of the _FacesContext_ instance for this
 request is set with the proper _PhaseId_ constant for the current phase
-as early as possible at the beginning of each phase.[P1-end]
+as early as possible at the beginning of each phase.
 
 [[a404]]
 ==== Restore View
 
-[P1-start-restoreView]The Jakarta Faces implementation
+The Jakarta Faces implementation
 must perform the following tasks during the _Restore View_ phase of the
 request processing lifecycle:
 
-* Call _initView()_ on the _ViewHandler_ . This
+* Call _initView()_ on the __ViewHandler__. This
 will set the character encoding properly for this request.
 
 * Examine the _FacesContext_ instance for the
-current request. If it already contains a _UIViewRoot_ :
+current request. If it already contains a __UIViewRoot__:
 
 ** Set the _locale_ on this _UIViewRoot_ to the
 value returned by the _getRequestLocale()_ method on the
@@ -203,33 +203,33 @@ means.
 following algorithm, or one semantically equivalent to it.
 
 ** Look in the request map for a value under
-the key _jakarta.servlet.include.path_info_ . If found, let it be the
-_viewId_ .
+the key __jakarta.servlet.include.path_info__. If found, let it be the
+__viewId__.
 
 ** Call _getRequestPathInfo()_ on the current
-_ExternalContext_ . If this value is non-null, let this be the _viewId_
+__ExternalContext__. If this value is non-null, let this be the _viewId_
 .
 
 ** Look in the request map for a value under the
-key _jakarta.servlet.include.servlet_path_ . If found, let it be the
-_viewId_ .
+key __jakarta.servlet.include.servlet_path__. If found, let it be the
+__viewId__.
 
-** If none of these steps yields a non- _null_
+** If none of these steps yields a non-__null__
 viewId, throw a _FacesException_ with an appropriate localized message.
 
 * Determine if this request is a postback or
 initial request by executing the following algorithm. Find the
 render-kit-id for the current request by calling
-_calculateRenderKitId()_ on the _Application_ ’s _ViewHandler_ . Get
-that _RenderKit_ ’s _ResponseStateManager_ and call its _isPostback()_
-method, passing the current _FacesContext_ . If the current request is
+_calculateRenderKitId()_ on the __Application__’s __ViewHandler__. Get
+that __RenderKit__’s _ResponseStateManager_ and call its _isPostback()_
+method, passing the current __FacesContext__. If the current request is
 an attempt by the servlet container to display a servlet error page, do
 not interpret the request as a postback, even if it is indeed a
 postback.
 
 * If the request is a postback, call
-_setProcessingEvents(false)_ on the current _FacesContext_ . Then call
-_ViewHandler.restoreView()_ , passing the _FacesContext_ instance for
+_setProcessingEvents(false)_ on the current __FacesContext__. Then call
+__ViewHandler.restoreView()__, passing the _FacesContext_ instance for
 the current request and the view identifier, and returning a
 _UIViewRoot_ for the restored view. If the return from
 _ViewHandler.restoreView()_ is null, throw a _ViewExpiredException_ with
@@ -240,23 +240,23 @@ was not returned for the view identifier. An application may choose to
 perform some action based on this exception.
 
 * Store the restored _UIViewRoot_ in the
-_FacesContext_ .
+__FacesContext__.
 
 * Call _setProcessingEvents(true)_ on the
-current _FacesContext_ . __
+current __FacesContext__.
 
 * If the request is not a postback, try to
-obtain the _ViewDeclarationLanguage_ from the _ViewHandler_ , for the
+obtain the _ViewDeclarationLanguage_ from the __ViewHandler__, for the
 current _viewId_ by calling _ViewHandler.deriveLogicalViewId()_ and
-passing the result to _ViewHandler.getViewDeclarationLanguage()_ . If no
-such instance can be obtained, call _facesContext.renderResponse()_ .
+passing the result to __ViewHandler.getViewDeclarationLanguage()__. If no
+such instance can be obtained, call __facesContext.renderResponse()__.
 Otherwise, call _getViewMetadata()_ on the _ViewDeclarationLanguage_
-instance. If the result is non- _null_ , call _createMetadataView()_ on
-the _ViewMetadata_ instance. Call _ViewMetadata.hasMetadata()_ , passing
-the newly created _viewRoot_ . If this method returns false, call
-_facesContext.renderResponse()_ . If it turns out that the previous call
+instance. If the result is non-__null__, call _createMetadataView()_ on
+the _ViewMetadata_ instance. Call __ViewMetadata.hasMetadata()__, passing
+the newly created __viewRoot__. If this method returns false, call
+__facesContext.renderResponse()__. If it turns out that the previous call
 to _createViewMetadata()_ did not create a _UIViewRoot_ instance, call
-_createView()_ on the _ViewHandler_ .
+_createView()_ on the __ViewHandler__.
 
 .View Protection
 
@@ -284,19 +284,19 @@ Referer header.
 .
 
 Obtain a reference to the _FlowHandler_ from
-the _Application_ . Call its _clientWindowTransition()_ method. This
+the __Application__. Call its _clientWindowTransition()_ method. This
 ensures that navigation that happened as a result of the renderer for
 the _jakarta.faces.OutcomeTarget_ component-family is correctly handled
 with respect to flows. For example, this enables _<h:button>_ to work
 correctly with flows.
 
-Using _Application.publishEvent()_ , publish
+Using __Application.publishEvent()__, publish
 a _PostAddToViewEvent_ with the created _UIViewRoot_ as the event
 source.
 
-{empty}In all cases, the implementation must
+In all cases, the implementation must
 ensure that the restored tree is traversed and the
-_PostRestoreStateEvent_ is published for every node in the tree.[P1-end]
+_PostRestoreStateEvent_ is published for every node in the tree.
 
 At the end of this phase, the _viewRoot_
 property of the _FacesContext_ instance for the current request will
@@ -315,78 +315,78 @@ information from the current request has been examined to update the
 component’s current state, the component is said to have a “local
 value”.
 
-[P1-start-applyRequestDecode]During the
+During the
 _Apply Request Values_ phase, the Jakarta Faces implementation must call the
 _processDecodes()_ method of the _UIViewRoot_ of the component
-tree.[P1-end] This will normally cause the _processDecodes()_ method of
+tree. This will normally cause the _processDecodes()_ method of
 each component in the tree to be called recursively, as described in the
 Javadocs for the _UIComponent.processDecodes()_ method.
-[P1-start-partialDecode] The _processDecodes()_ method must determine if
+The _processDecodes()_ method must determine if
 the current request is a “partial request” by calling
 _FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
 . If
 _FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
-returns _true_ , perform the sequence of steps as outlined in
-<<RequestProcessingLifecycle.adoc#a436,See
-Apply Request Values Partial Processing>>.[P1-end] Details of the
+returns __true__, perform the sequence of steps as outlined in
+<<RequestProcessingLifecycle.adoc#a436,
+Apply Request Values Partial Processing>>. Details of the
 decoding process follow.
 
 During the decoding of request values, some
 components perform special processing, including:
 
 * Components that implement _ActionSource_
-(such as _UICommand_ ), which recognize that they were activated, will
-queue an _ActionEvent_ . The event will be delivered at the end of
+(such as __UICommand__), which recognize that they were activated, will
+queue an __ActionEvent__. The event will be delivered at the end of
 _Apply Request Values_ phase if the _immediate_ property of the
-component is _true_ , or at the end of _Invoke Application_ phase if it
-is _false_ .
+component is __true__, or at the end of _Invoke Application_ phase if it
+is __false__.
 
 * Components that implement
-_EditableValueHolder_ (such as _UIInput_ ), and whose _immediate_
-property is set to _true_ , will cause the conversion and validation
+_EditableValueHolder_ (such as __UIInput__), and whose _immediate_
+property is set to __true__, will cause the conversion and validation
 processing (including the potential to fire _ValueChangeEvent_ events)
 that normally happens during _Process Validations_ phase to occur during
 _Apply Request Values_ phase instead.
 
 As described in
-<<RequestProcessingLifecycle.adoc#a494,See Common Event Processing>>, the
+<<RequestProcessingLifecycle.adoc#a494,Common Event Processing>>, the
 _processDecodes()_ method on the _UIViewRoot_ component at the root of
 the component tree will have caused any queued events to be broadcast to
 interested listeners.
 
-{empty}At the end of this phase, all
+At the end of this phase, all
 _EditableValueHolder_ components in the component tree will have been
 updated with new submitted values included in this request (or enough
 data to reproduce incorrect input will have been stored, if there were
-conversion errors). [P1-start-applyRequestConversion]In addition,
+conversion errors). In addition,
 conversion and validation will have been performed on
 _EditableValueHolder_ components whose _immediate_ property is set to
-_true_ , as described in the _UIInput_ Javadocs. Conversions and
+__true__, as described in the _UIInput_ Javadocs. Conversions and
 validations that failed will have caused messages to be enqueued via
 calls to the _addMessage()_ method of the _FacesContext_ instance for
 the current request, and the _valid_ property on the corresponding
-component(s) will be set to _false_ . [P1-end]
+component(s) will be set to __false__. 
 
-{empty}If any of the _decode()_ methods that
+If any of the _decode()_ methods that
 were invoked, or an event listener that processed a queued event, called
 _responseComplete()_ on the _FacesContext_ instance for the current
 request, clear the remaining events from the event queue and terminate
 lifecycle processing of the current request.
-[P1-start-applyRequestComplete]If any of the _decode()_ methods that
+If any of the _decode()_ methods that
 were invoked, or an event listener that processed a queued event, called
 _renderResponse()_ on the _FacesContext_ instance for the current
 request, clear the remaining events from the event queue and transfer
 control to the _Render Response_ phase of the request processing
 lifecycle. Otherwise, control must proceed to the _Process Validations_
-phase.[P1-end]
+phase.
 
 [[a436]]
 ===== Apply Request Values Partial Processing
 
-{empty}[P1-start-apply-partial-processing]Call
+Call
 FacesContext.getPartialViewContext(). Call
 PartialViewContext.processPartial() passing the FacesContext,
-PhaseID.APPLY_REQUEST_VALUES as arguments. [P1-end]
+PhaseID.APPLY_REQUEST_VALUES as arguments. 
 
 [[a438]]
 ==== Process Validations
@@ -396,29 +396,29 @@ request, zero or more _Validator_ instances may have been registered for
 each component. In addition, component classes themselves may implement
 validation logic in their _validate()_ methods.
 
-[P1-start-validation]During the _Process
+During the _Process
 Validations_ phase of the request processing lifecycle, the Jakarta Faces
 implementation must call the _processValidators()_ method of the
-_UIViewRoot_ of the tree.[P1-end] This will normally cause the
+_UIViewRoot_ of the tree. This will normally cause the
 _processValidators()_ method of each component in the tree to be called
 recursively, as described in the API reference for the
-_UIComponent.processValidators()_ method. [P1-start-partialValidate] The
+_UIComponent.processValidators()_ method.  The
 _processValidators()_ method must determine if the current request is a
 “partial request” by calling
 _FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
 . If
 _FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
-returns _true_ , perform the sequence of steps as outlined in
-<<RequestProcessingLifecycle.adoc#a444,See
-Partial Validations Partial Processing>>.[P1-end] Note that
+returns __true__, perform the sequence of steps as outlined in
+<<RequestProcessingLifecycle.adoc#a444,
+Partial Validations Partial Processing>>. Note that
 _EditableValueHolder_ components whose _immediate_ property is set to
 _true_ will have had their conversion and validation processing
 performed during _Apply Request Values_ phase.
 
 During the processing of validations, events
-may have been queued by the components and/or _Validator_ s whose
+may have been queued by the components and/or __Validator__s whose
 _validate()_ method was invoked. As described in
-<<RequestProcessingLifecycle.adoc#a494,See Common Event Processing>>, the
+<<RequestProcessingLifecycle.adoc#a494,Common Event Processing>>, the
 _processValidators()_ method on the _UIViewRoot_ component at the root
 of the component tree will have caused any queued events to be broadcast
 to interested listeners.
@@ -428,28 +428,28 @@ configured validations will have been completed. Conversions and
 Validations that failed will have caused messages to be enqueued via
 calls to the _addMessage()_ method of the _FacesContext_ instance for
 the current request, and the _valid_ property on the corresponding
-components will have been set to _false_ .
+components will have been set to __false__.
 
-{empty}If any of the _validate()_ methods
+If any of the _validate()_ methods
 that were invoked, or an event listener that processed a queued event,
 called _responseComplete()_ on the _FacesContext_ instance for the
 current request, clear the remaining events from the event queue and
 terminate lifecycle processing of the current request.
-[P1-start-validationValidate]If any of the _validate()_ methods that
+If any of the _validate()_ methods that
 were invoked, or an event listener that processed a queued event, called
 _renderResponse()_ on the _FacesContext_ instance for the current
 request, clear the remaining events from the event queue and transfer
 control to the _Render Response_ phase of the request processing
 lifecycle. Otherwise, control must proceed to the _Update Model Values_
-phase.[P1-end]
+phase.
 
 [[a444]]
 ===== Partial Validations Partial Processing
 
-{empty}[P1-start-val-partial-processing]Call
+Call
 FacesContext.getPartialViewContext(). Call
 PartialViewContext.processPartial() passing the FacesContext,
-PhaseID.PROCESS_VALIDATIONS as arguments. [P1-end]
+PhaseID.PROCESS_VALIDATIONS as arguments. 
 
 [[a446]]
 ==== Update Model Values
@@ -462,26 +462,26 @@ component tree has been updated, and that it is now appropriate to
 update the application's model data in preparation for performing any
 application events that have been enqueued.
 
-[P1-start-updateModel]During the _Update
+During the _Update
 Model Values_ phase, the Jakarta Faces implementation must call the
 _processUpdates()_ method of the _UIViewRoot_ component of the
-tree.[P1-end] This will normally cause the _processUpdates()_ method of
+tree. This will normally cause the _processUpdates()_ method of
 each component in the tree to be called recursively, as described in the
 API reference for the _UIComponent.processUpdates()_ method.
-[P1-start-partialUpdate] The _processUpdates()_ method must determine if
+The _processUpdates()_ method must determine if
 the current request is a “partial request” by calling
 _FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
 . If
 _FacesContext.getCurrentInstance().getPartialViewContext().isPartialRequest()_
-returns _true_ , perform the sequence of steps as outlined in
-<<RequestProcessingLifecycle.adoc#a452,See
-Update Model Values Partial Processing>>. [P1-end]The actual model update
+returns __true__, perform the sequence of steps as outlined in
+<<RequestProcessingLifecycle.adoc#a452,
+Update Model Values Partial Processing>>. The actual model update
 for a particular component is done in the _updateModel()_ method for
 that component.
 
 During the processing of model updates,
 events may have been queued by the components whose _updateModel()_
-method was invoked. As described in <<RequestProcessingLifecycle.adoc#a494,See
+method was invoked. As described in <<RequestProcessingLifecycle.adoc#a494,
 Common Event Processing>>, the _processUpdates()_ method on the
 UIViewRoot component at the root of the component tree will have caused
 any queued events to be broadcast to interested listeners.
@@ -491,26 +491,26 @@ model data objects will have had their values updated to match the local
 value of the corresponding component, and the component local values
 will have been cleared.
 
-{empty}If any of the _updateModel()_ methods
+If any of the _updateModel()_ methods
 that were invoked, or an event listener that processed a queued event,
 called _responseComplete()_ on the _FacesContext_ instance for the
 current request, clear the remaining events from the event queue and
 terminate lifecycle processing of the current request.
-[P1-start-updateModelComplete]If any of the _updateModel()_ methods that
+If any of the _updateModel()_ methods that
 was invoked, or an event listener that processed a queued event, called
 _renderResponse()_ on the _FacesContext_ instance for the current
 request, clear the remaining events from the event queue and transfer
 control to the _Render Response_ phase of the request processing
 lifecycle. Otherwise, control must proceed to the _Invoke Application_
-phase.[P1-end]
+phase.
 
 [[a452]]
 ===== Update Model Values Partial Processing
 
-{empty}[P1-start-upd-partial-processing]Call
+Call
 FacesContext.getPartialViewContext(). Call
 PartialViewContext.processPartial() passing the FacesContext,
-PhaseID.UPDATE_MODEL_VALUES as arguments. [P1-end]
+PhaseID.UPDATE_MODEL_VALUES as arguments. 
 
 [[a454]]
 ==== Invoke Application
@@ -518,24 +518,24 @@ PhaseID.UPDATE_MODEL_VALUES as arguments. [P1-end]
 If this phase of the request processing
 lifecycle is reached, it is assumed that all model updates have been
 completed, and any remaining event broadcast to the application needs to
-be performed. [P1-start-invokeApplication]The implementation must ensure
+be performed. The implementation must ensure
 that the _processApplication()_ method of the _UIViewRoot_ instance is
-called.[P1-end] The default behavior of this method will be to broadcast
+called. The default behavior of this method will be to broadcast
 any queued events that specify a phase identifier of
-_PhaseId.INVOKE_APPLICATION_ . If _responseComplete()_ was called on the
+__PhaseId.INVOKE_APPLICATION__. If _responseComplete()_ was called on the
 _FacesContext_ instance for the current request, clear the remaining
 events from the event queue and terminate lifecycle processing of the
 current request. If _renderResponse()_ was called on the _FacesContext_
 instance for the current request, clear the remaining events from the
 event queue.
 
-{empty}Advanced applications (or application
+Advanced applications (or application
 frameworks) may replace the default _ActionListener_ instance by calling
 the _setActionListener()_ method on the _Application_ instance for this
-application. [P1-start-invokeApplicationListener]However, the Jakarta Faces
+application. However, the Jakarta Faces
 implementation must provide a default _ActionListener_ instance that
-behaves as described in <<ApplicationIntegration.adoc#a3402,See ActionListener
-Property>>.[P1-end]
+behaves as described in <<ApplicationIntegration.adoc#a3402,ActionListener
+Property>>.
 
 [[a457]]
 ==== Render Response
@@ -565,44 +565,40 @@ encoding with content that is copied from a static “template” resource.
 
 * Interleaving the results of component
 encoding by embedding calls to the encoding methods into a dynamic
-resource (such as representing the components as custom tags in a Jakarta Server Pages
-page).
+resource.
 
 Because of the number of possible options,
 the mechanism for implementing the _Render Response_ phase cannot be
-specified precisely. [P1-start-renderResponse]However, all Jakarta Faces
+specified precisely. However, all Jakarta Faces
 implementations of this phase must conform to the following
 requirements:
 
 * If it is possible to obtain a
-_ViewDeclarationLanguage_ instance for the current _viewId_ , from the
-_ViewHandler_ , its _buildView()_ method must be called. __
+_ViewDeclarationLanguage_ instance for the current __viewId__, from the
+__ViewHandler__, its _buildView()_ method must be called.
 
 * Publish the
-_jakarta.faces.event.PreRenderViewEvent_ .
+__jakarta.faces.event.PreRenderViewEvent__.
 
 * Jakarta Faces implementations must provide a default
 _ViewHandler_ implementation that is capable of handling views written
-in Jakarta Server Pages as well as views written in the Faces View Declaration Language
-(VDL). In the case of Jakarta Server Pages, the ViewHandler must perform a
-_RequestDispatcher.forward()_ call to a web application resource whose
-context-relative path is equal to the view identifier of the component
-tree.
+in the Faces View Declaration Language
+(VDL).
 
 * If all of the response content is being
 derived from the encoding methods of the component or associated
-_Renderer_ s, the component tree should be walked in the same
+__Renderer__s, the component tree should be walked in the same
 depth-first manner as was used in earlier phases to process the
 component tree, but subject to the additional constraints listed here.
-Generally this is handled by a call to _ViewHandler.renderView()_ . __
+Generally this is handled by a call to __ViewHandler.renderView()__.
 
 * If the response content is being interleaved
 from additional sources and the encoding methods, the components may be
-selected for rendering in any desired order <<a9083, 1>>.
+selected for rendering in any desired order.
 
 * During the rendering process, additional
 components may be added to the component tree based on information
-available to the _ViewHandler_ implementation <<a9084, 2>>.
+available to the _ViewHandler_ implementation.
 However, before adding a new component, the _ViewHandler_ implementation
 must first check for the existence of the corresponding component in the
 component tree. If the component already exists (perhaps because a
@@ -617,7 +613,7 @@ content of this child component when the parent or ancestor was
 selected.
 
 * If the _isRendered()_ method of a component
-returns _false_ , the renderer for that component must not generate any
+returns __false__, the renderer for that component must not generate any
 markup, and none of its facets or children (if any) should be rendered.
 
 * It must be possible for the application to
@@ -626,90 +622,89 @@ request processing lifecycle (except during the rendering of the view)
 and have the system behave as expected. For example, the following must
 be permitted. Modification of the view during rendering may lead to
 undefined results. It must be possible to allow components added by the
-templating system (such as Jakarta Server Pages) to be removed from the tree before
+templating system (such as Facelets) to be removed from the tree before
 rendering. It must be possible to programmatically add components to the
 tree and have them render in the proper place in the hierarchy. It must
 be possible to re-order components in the tree before rendering. These
 manipulations do require that any components added to the tree have ids
 that are unique within the scope of the closest parent _NamingContainer_
 component. The value of the _rendersChildren_ property is handled as
-expected, and may be either _true_ or _false_ .
+expected, and may be either _true_ or __false__.
 
 * If running on a container that supports
-Servlet 4.0 or later, after any dynamic component manipulations have
+Jakarta Servlet 4.0 or later, after any dynamic component manipulations have
 been completed, any resources that have been added to the UIViewRoot,
 such as scripts, images, or stylesheets, and any inline images, must be
-pushed to the client using the Servlet Server Push API. All of the
+pushed to the client using the Jakarta Servlet Server Push API. All of the
 pushes must be started before any of the HTML of the response is
 rendered to the client.
 
 * For partial requests, where partial view
 rendering is required, there must be no content written outside of the
-view (outside _f:view_ ). Response writing must be disabled. Response
+view (outside __f:view__). Response writing must be disabled. Response
 writing must be enabled again at the start of _encodeBegin._
 
 When each particular component in the
 component tree is selected for rendering, calls to its _encodeXxx()_
 methods must be performed in the manner described in
-<<UserInterfaceComponentModel.adoc#a1041,See Component Specialization Methods>>. For
+<<UserInterfaceComponentModel.adoc#a1041,Component Specialization Methods>>. For
 components that implement _ValueHolder_ (such as _UIInput_ and
-_UIOutput_ ), data conversion must occur as described in the _UIOutput_
+__UIOutput__), data conversion must occur as described in the _UIOutput_
 Javadocs.
 
-{empty}Upon completion of rendering, but
+Upon completion of rendering, but
 before state saving the Jakarta Faces runtime must publish a
-_jakarta.faces.event.PostRenderViewEvent_ . After doing so the Jakarta Faces runtime
+__jakarta.faces.event.PostRenderViewEvent__. After doing so the Jakarta Faces runtime
 must save the completed state using the methods of the class
 _StateManager._ This state information must be made accessible on a
-subsequent request, so that the _Restore View_ can access it.[P1-end]
-For more on _StateManager_ , see <<ApplicationIntegration.adoc#a4140,See State
+subsequent request, so that the _Restore View_ can access it.
+For more on __StateManager__, see <<ApplicationIntegration.adoc#a4140,State
 Saving Methods>>.
 
 [[a480]]
 ===== Render Response Partial Processing
 
-{empty}[P1-start-render-partial-processing]
-According to _UIViewRoot.encodeChildren()_ ,
-_FacesContext.processPartial(PhaseId.RENDER_RESPONSE)_ , will be called
+According to __UIViewRoot.encodeChildren()__,
+__FacesContext.processPartial(PhaseId.RENDER_RESPONSE)__, will be called
 if and only if the current request is an Ajax request. Take these
 actions in this case.
 
 On the _ExternalContext_ for the request,
 call _setResponseContentType("text/xml")_ and
-_addResponseHeader("Cache-control", "no-cache")_ . Call
-_startDocument()_ on the _PartialResponseWriter_ .
+__addResponseHeader("Cache-control", "no-cache")__. Call
+_startDocument()_ on the __PartialResponseWriter__.
 
-Call _writePreamble(“<?xml version=’1.0’
-encoding=’currentEncoding’?>\n”)_ on the _PartialResponseWriter_ , where
+Call _writePreamble("<?xml version='1.0'
+encoding='currentEncoding'?>\n”)_ on the __PartialResponseWriter__, where
 _encoding_ is the return from the _getCharacterEncoding()_ on the
-_PartialResponseWriter_ , or UTF-8 if that method returns _null_ .
+__PartialResponseWriter__, or UTF-8 if that method returns __null__.
 
-If _isResetValues()_ returns _true_ , call
-_getRenderIds()_ and pass the result to _UIViewRoot.resetValues()_ .
+If _isResetValues()_ returns __true__, call
+_getRenderIds()_ and pass the result to __UIViewRoot.resetValues()__.
 
 If _isRenderAll()_ returns _true_ and the
-view root is not an instance of _NamingContainer_ , call
+view root is not an instance of __NamingContainer__, call
 _startUpdate(PartialResponseWriter.RENDER_ALL_MARKER)_ on the
-_PartialResponseWriter_ . For each child of the _UIViewRoot_ , call
-_encodeAll()_ . Call _endUpdate()_ on the _PartialResponseWriter_ .
+__PartialResponseWriter__. For each child of the __UIViewRoot__, call
+__encodeAll()__. Call _endUpdate()_ on the __PartialResponseWriter__.
 Render the state using the algorithm described below in
-<<RequestProcessingLifecycle.adoc#a487,See Partial State Rendering>>, call
+<<RequestProcessingLifecycle.adoc#a487,Partial State Rendering>>, call
 _endDocument()_ on the _PartialResponseWriter_ and return. If
 _isRenderAll()_ returns _true_ and this _UIViewRoot_ is a
-_NamingContainer_ , treat this as a case where _isRenderAll()_ returned
-_false_ , but use the _UIViewRoot_ itself as the one and only component
+__NamingContainer__, treat this as a case where _isRenderAll()_ returned
+__false__, but use the _UIViewRoot_ itself as the one and only component
 from which the tree visit must start.
 
-If _isRenderAll()_ returns _false_ , if there
+If _isRenderAll()_ returns __false__, if there
 are ids to render, visit the subset of components in the tree to be
 rendered in similar fashion as for other phases, but for each
 _UIComponent_ in the traversal, call _startUpdate(id)_ on the
-_PartialResponseWriter_ , where _id_ is the client id of the component.
+__PartialResponseWriter__, where _id_ is the client id of the component.
 Call _encodeAll()_ on the component, and then _endUpdate()_ on the
-_PartialResponseWriter_ . If there are no ids to render, this step is
+__PartialResponseWriter__. If there are no ids to render, this step is
 un-necessary. After the subset of components (if any) have been
 rendered, Render the state using the algorithm described below in
-<<RequestProcessingLifecycle.adoc#a487,See Partial State Rendering>>, call
+<<RequestProcessingLifecycle.adoc#a487,Partial State Rendering>>, call
 _endDocument()_ on the _PartialResponseWriter_ and return.
 
 [[a487]]
@@ -724,56 +719,55 @@ action and return.
 
 Obtain a unique id for the view state, as
 described in the JavaDocs for the constant field
-_ResponseStateManager.VIEW_STATE_PARAM_ . Pass this id to a call to
-_startUpdate()_ on the _PartialResponseWriter_ . Obtain the view state
+__ResponseStateManager.VIEW_STATE_PARAM__. Pass this id to a call to
+_startUpdate()_ on the __PartialResponseWriter__. Obtain the view state
 to render by calling _getViewState()_ on the application’s
-_StateManager_ . Write the state by calling _write()_ on the
-_PartialResponseWriter_ , passing the state as the argument. Call
-_endUpdate()_ on the _PartialResponseWriter_ .
+__StateManager__. Write the state by calling _write()_ on the
+__PartialResponseWriter__, passing the state as the argument. Call
+_endUpdate()_ on the __PartialResponseWriter__.
 
 If _getClientWindow()_ on the
-_ExternalContext_ , returns non- _null_ , obtain an id for the
+__ExternalContext__, returns non-__null__, obtain an id for the
 _<update>_ element for the window id as described in the JavaDocs for
-the constant _ResponseStateManager.WINDOW_ID_PARAM_ . Pass this id to a
-call to _startUpdate()_ on the _PartialResponseWriter_ . Call _write()_
+the constant __ResponseStateManager.WINDOW_ID_PARAM__. Pass this id to a
+call to _startUpdate()_ on the __PartialResponseWriter__. Call _write()_
 on that same writer, passing the result of calling _getId()_ on the
-_ClientWindow_ . Call _endUpdate()_ on the _PartialResponseWriter_ .
+__ClientWindow__. Call _endUpdate()_ on the __PartialResponseWriter__.
 
-{empty}[P1-end]
 
 
 [[a494]]
 === Common Event Processing
 
 For a complete description of the event
-processing model for Jakarta Server Faces components, see
-<<UserInterfaceComponentModel.adoc#a1300,See Event and Listener Model>>.
+processing model for Jakarta Faces components, see
+<<UserInterfaceComponentModel.adoc#a1300,Event and Listener Model>>.
 
 During several phases of the request
-processing lifecycle, as described in <<RequestProcessingLifecycle.adoc#a401,See
+processing lifecycle, as described in <<RequestProcessingLifecycle.adoc#a401,
 Standard Request Processing Lifecycle Phases>>, the possibility exists
 for events to be queued (via a call to the _queueEvent()_ method on the
 source _UIComponent_ instance, or a call to the _queue()_ method on the
 _FacesEvent_ instance), which must now be broadcast to interested event
 listeners. The broadcast is performed as a side effect of calling the
-appropriate lifecycle management method ( _processDecodes()_ ,
-_processValidators()_ , _processUpdates()_ , or _processApplication()_ )
+appropriate lifecycle management method (__processDecodes()__,
+__processValidators()__, __processUpdates()__, or __processApplication()__)
 on the _UIViewRoot_ instance at the root of the current component tree.
 
-[P1-start-eventBroadcast]For each queued
+For each queued
 event, the _broadcast()_ method of the source _UIComponent_ must be
 called to broadcast the event to all event listeners who have registered
 an interest, on this source component for events of the specified type,
-after which the event is removed from the event queue.[P1-end] See the
+after which the event is removed from the event queue. See the
 API reference for the _UIComponent.broadcast()_ method for the detailed
 functional requirements.
 
-{empty}It is also possible for event
+It is also possible for event
 listeners to cause additional events to be enqueued for processing
 during the current phase of the request processing lifecycle.
-[P1-start-eventOrder]Such events must be broadcast in the order they
+Such events must be broadcast in the order they
 were enqueued, after all originally queued events have been broadcast,
-before the lifecycle management method returns.[P1-end]
+before the lifecycle management method returns.
 
 
 === Common Application Activities
@@ -781,7 +775,7 @@ before the lifecycle management method returns.[P1-end]
 The following subsections describe common
 activities that may be undertaken by an application that is using Jakarta Faces to
 process an incoming request and/or create an outgoing response. Their
-use is described in <<RequestProcessingLifecycle.adoc#a383,See Request Processing
+use is described in <<RequestProcessingLifecycle.adoc#a383,Request Processing
 Lifecycle Scenarios>>, for each request processing lifecycle scenario in
 which the activity is relevant.
 
@@ -797,11 +791,11 @@ implementation, as described below.
 
 ===== Acquire and Configure Lifecycle Reference
 
-[P1-start-lifeReference]As described in
-<<LifecycleManagement.adoc#a6608,See Lifecycle>>, the Jakarta Faces implementation must
+As described in
+<<LifecycleManagement.adoc#a6608,Lifecycle>>, the Jakarta Faces implementation must
 provide an instance of _jakarta.faces.lifecycle.Lifecycle_ that may be
 utilized to manage the remainder of the request processing
-lifecycle.[P1-end] An application may acquire a reference to this
+lifecycle. An application may acquire a reference to this
 instance in a portable manner, as follows:
 
 [source,java]
@@ -821,8 +815,8 @@ implementation.
 
 ===== Acquire and Configure FacesContext Reference
 
-[P1-start-contextReference]As described in
-<<Per-RequestStateInformation.adoc#a3091,See FacesContext>>, the Jakarta Faces implementation
+As described in
+<<Per-RequestStateInformation.adoc#a3091,FacesContext>>, the Jakarta Faces implementation
 must provide an instance of _jakarta.faces.context.FacesContext_ to
 contain all of the per-request state information for a Faces Request or
 a Faces Response. An application that is processing a Non-Faces Request,
@@ -837,11 +831,11 @@ FacesContext facesContext =
     fcFactory.getFacesContext(context, request, response, lifecycle);
 ----
 
-where the _context_ , _request_ , and
+where the __context__, __request__, and
 _response_ objects represent the corresponding instances for the
-application environment.[P1-end] For example, in a servlet-based
-application, these would be the _ServletContext_ , _HttpServletRequest_
-, and _HttpServletResponse_ instances for the current request.
+application environment. For example, in a Jakarta Servlet-based
+application, these would be the __ServletContext__,
+__HttpServletRequest__, and _HttpServletResponse_ instances for the current request.
 
 [[a516]]
 ==== Create And Configure A New View
@@ -860,7 +854,7 @@ Views are represented by a data structure
 rooted in an instance of _jakarta.faces.component.UIViewRoot_, and
 identified by a view identifier whose meaning depends on the
 _ViewHandler_ implementation to be used during the _Render Response_
-phase of the request processing lifecycle <<a9085, 3>>. The
+phase of the request processing lifecycle. The
 _ViewHandler_ provides a factory method that may be utilized to
 construct new component trees, as follows:
 
@@ -871,40 +865,40 @@ ViewHandler viewHandler = application.getViewHandler();
 UIViewRoot view = viewHandler.createView(facesContext, viewId);
 ----
 
-[P1-start-createViewRoot]The _UIViewRoot_
+The _UIViewRoot_
 instance returned by the _createView()_ method must minimally contain a
 single _UIViewRoot_ provided by the Jakarta Faces implementation, which must
 encapsulate any implementation-specific component management that is
-required.[P1-end] Optionally, a Jakarta Faces implementation’s _ViewHandler_ may
+required. Optionally, a Jakarta Faces implementation’s _ViewHandler_ may
 support the automatic population of the returned _UIViewRoot_ with
 additional components, perhaps based on some external metadata
 description.
 
-[P1-start-createView]The caller of
+The caller of
 _ViewHandler.createView()_ must cause the _FacesContext_ to be populated
 with the new _UIViewRoot._ Applications must make sure that it is safe
 to discard any state saved in the view rooted at the _UIViewRoot_
-currently stored in the _FacesContext_ .[P1-end] If Facelets is the page
+currently stored in the __FacesContext__. If Facelets is the page
 definition language, _FacesContext.setViewRoot()_ must be called before
 returning from _ViewHandler.createView()._ Refer to
-<<ApplicationIntegration.adoc#a3910,See Default ViewHandler Implementation>> for
+<<ApplicationIntegration.adoc#a3910,Default ViewHandler Implementation>> for
 more _ViewHandler_ details.
 
 ===== Configure the Desired RenderKit
 
-{empty}[P1-start-defaultRenderkit]The
-_UIViewRoot_ instance provided by the _ViewHandler_ , as described in
+The
+_UIViewRoot_ instance provided by the __ViewHandler__, as described in
 the previous subsection, must automatically be configured to utilize the
 default _jakarta.faces.render.RenderKit_ implementation provided by the
-Jakarta Faces implementation, as described in <<RenderingModel.adoc#a4223,See
+Jakarta Faces implementation, as described in <<RenderingModel.adoc#a4223,
 RenderKit>>. This _RenderKit_ must support the standard components and
-_Renderer_ s described later in this specification, to maximize the
-portability of your application.[P1-end]
+__Renderer__s described later in this specification, to maximize the
+portability of your application.
 
 However, a different _RenderKit_ instance
 provided by your Jakarta Faces implementation (or as an add-on library) may be
 utilized instead, if desired. A reference to this _RenderKit_ instance
-can be obtained from the standard _RenderKitFactory_ , and then assigned
+can be obtained from the standard __RenderKitFactory__, and then assigned
 to the _UIViewRoot_ instance created previously, as follows:
 
 [source,java]
@@ -917,17 +911,17 @@ view.setRenderKitId(renderKitId);
 ----
 
 As described in Chapter 8, changing the
-_RenderKit_ being used changes the set of _Renderer_ s that will
+_RenderKit_ being used changes the set of __Renderer__s that will
 actually perform decoding and encoding activities. Because the
 components themselves store only a _rendererType_ property (a logical
-identifier of a particular _Renderer_ ), it is thus very easy to switch
-between _RenderKit_ s, as long as they support renderers with the same
+identifier of a particular __Renderer__), it is thus very easy to switch
+between __RenderKit__s, as long as they support renderers with the same
 renderer types.
 
-[P1-start-calcRenderkitId]The default
+The default
 _ViewHandler_ must call _calculateRenderKitId()_ on itself and set the
-result into the _UIViewRoot_ ’s _renderKitId_ property.[P1-end] This
-allows applications that use alternative _RenderKit_ s to dynamically
+result into the __UIViewRoot__’s _renderKitId_ property. This
+allows applications that use alternative __RenderKit__s to dynamically
 switch on a per-view basis.
 
 ===== Configure The View’s Components
@@ -935,7 +929,7 @@ switch on a per-view basis.
 At any time, the application can add new
 components to the view, remove them, or modify the attributes and
 properties of existing components. For example, a new _FooComponent_ (an
-implementation of _UIComponent_ ) can be added as a child to the root
+implementation of __UIComponent__) can be added as a child to the root
 _UIViewRoot_ in the component tree as follows:
 
 [source,java]
@@ -946,9 +940,9 @@ facesContext.getViewRoot().getChildren().add(component);
 
 ===== Store the new View in the FacesContext
 
-{empty}[P1-start-setViewRoot]Once the view
+Once the view
 has been created and configured, the _FacesContext_ instance for this
-request must be made aware of it by calling _setViewRoot()_ .[P1-end]
+request must be made aware of it by calling __setViewRoot()__.
 
 
 === Concepts that impact several lifecycle phases
@@ -959,11 +953,11 @@ several request processing lifecycle phases.
 
 ==== Value Handling
 
-At a fundamental level, Jakarta Server Faces is a
+At a fundamental level, Jakarta Faces is a
 way to get values from the user, into your model tier for processing.
 The process by which values flow from the user to the model has been
 documented elsewhere in this spec, but a brief holistic survey comes in
-handy. The following description assumes the Jakarta Server Pages/HTTP case, and that all
+handy. The following description assumes the Jakarta Servlet/HTTP case, and that all
 components have Renderers.
 
 ===== Apply Request Values Phase
@@ -972,19 +966,19 @@ The user presses a button that causes a form
 submit to occur. This causes the state of the form to be sent as
 _name=value_ pairs in the _POST_ data of the HTTP request. The Jakarta Faces
 request processing lifecycle is entered, and eventually we come to the
-_Apply Request Values Phase_ . In this phase, the _decode()_ method for
+__Apply Request Values Phase__. In this phase, the _decode()_ method for
 each _Renderer_ for each _UIComponent_ in the view is called. The
 _Renderer_ takes the value from the request and passes it to the
 _setSubmittedValue()_ method of the component, which is, of course, an
-instance of _EditableValueHolder_ . If the component has the "
-_immediate_ " property set to _true_ , we execute validation immediately
+instance of __EditableValueHolder__. If the component has the 
+“__immediate__” property set to __true__, we execute validation immediately
 after decoding. See below for what happens when we execute validation.
 
 ===== Process Validators Phase
 
 _processValidators()_ is called on the root
-of the view. For each _EditableValueHolder_ in the view, If the “
-_immediate_ ” property is not set, we execute validation for each
+of the view. For each _EditableValueHolder_ in the view, If the 
+“__immediate__” property is not set, we execute validation for each
 _UIInput_ in the view. Otherwise, validation has already occurred and
 this phase is a no-op.
 
@@ -992,13 +986,13 @@ this phase is a no-op.
 
 Please see the javadocs for
 _UIInput.validate()_ for more details, but basically, this method gets
-the submitted value from the component (set during _Apply Request
-Values_ ), gets the _Renderer_ for the component and calls its
-_getConvertedValue()_ , passing the submitted value. If a conversion
+the submitted value from the component (set during __Apply Request
+Values__), gets the _Renderer_ for the component and calls its
+__getConvertedValue()__, passing the submitted value. If a conversion
 error occurs, it is dealt with as described in the javadocs for that
 method. Otherwise, all validators attached to the component are asked to
 validate the converted value. If any validation errors occur, they are
-dealt with as described in the javadocs for _Validator.validate()_ . The
+dealt with as described in the javadocs for __Validator.validate()__. The
 converted value is pushed into the component's _setValue()_ method, and
 a _ValueChangeEvent_ is fired if the value has changed.
 
@@ -1012,13 +1006,13 @@ phase simply causes the converted local value of the _UIInput_ component
 to be pushed to the model in the way specified by the page author. Any
 errors that occur as a result of the attempt to push the value to the
 model tier are dealt with as described in the javadocs for
-_UIInput.updateModel()_ .
+__UIInput.updateModel()__.
 
 ==== Localization and Internationalization (L10N/I18N)
 
-Jakarta Server Faces is fully internationalized.
-The I18N capability in Jakarta Server Faces builds on the I18N concepts
-offered in the Servlet, Jakarta Server Pages and JSTL specifications. I18N happens at
+Jakarta Faces is fully internationalized.
+The I18N capability in Jakarta Faces builds on the I18N concepts
+offered in the Jakarta Servlet and Jakarta Tags specifications. I18N happens at
 several points in the request processing lifecycle, but it is easiest to
 explain what goes on by breaking the task down by function.
 
@@ -1029,7 +1023,7 @@ Jakarta Faces has the concept of an active _Locale_
 which is used to look up all localized resources. Converters must use
 this _Locale_ when performing their conversion. This _Locale_ is stored
 as the value of the _locale_ JavaBeans property on the _UIViewRoot_ of
-the current _FacesContext_ . The application developer can tell Jakarta Faces what
+the current __FacesContext__. The application developer can tell Jakarta Faces what
 locales the application supports in the applications’
 _WEB-INF/faces-config.xml_ file. For example:
 
@@ -1046,31 +1040,26 @@ _WEB-INF/faces-config.xml_ file. For example:
   </application>
 ----
 
-This application’s default locale is _en_ ,
-but it also supports _de, fr,_ and _es_ locales. These elements cause
+This application’s default locale is __en__,
+but it also supports __de__, __fr__, and __es__ locales. These elements cause
 the _Application_ instance to be populated with _Locale_ data. Please
 see the javadocs for details.
 
-The _UIViewRoot_ ’s _Locale_ is determined
+The __UIViewRoot__’s _Locale_ is determined
 and set by the _ViewHandler_ during the execution of the _ViewHandler_
-’s _createView()_ method. [P1-start-locale]This method must cause the
+’s _createView()_ method. This method must cause the
 active _Locale_ to be determined by looking at the user’s preferences
-combined with the application’s stated supported locales.[P1-end] Please
+combined with the application’s stated supported locales. Please
 see the javadocs for details.
 
-{empty}The application can call
+The application can call
 _UIViewRoot.setLocale()_ directly, but it is also possible for the page
-author to override the _UIViewRoot_ ’s locale by using the _locale_
-attribute on the _<f:view_ > tag. [P1-start-localeValue]The value of
+author to override the __UIViewRoot__’s locale by using the _locale_
+attribute on the _<f:view>_ tag. The value of
 this attribute must be specified as
-_language[\{-|_}country[\{-|_}variant]]_ without the colons, for example
-" _ja_JP_SJIS_ ". The separators between the segments must be ' _-_ ' or
-' ___ '.[P1-end]
-
-In all cases where Jakarta Server Pages is utilized, the
-active _Locale_ is set under “request scope” into the JSTL class
-_jakarta.servlet.jsp.jstl.core.Config_ , under the key _Config.FMT_LOCALE_
-.
+__language[{-|\_}country[{-|_}variant]]__ without the colons, for example
+"__ja_JP_SJIS__". The separators between the segments must be ’ _-_ ’ or
+’ ___ ’.
 
 To facilitate BCP 47 support, the Locale
 parsing mentioned above is done only if the JDK Locale.languageForTag
@@ -1084,24 +1073,24 @@ are set and interpreted as follows.
 
 On an initial request to a Faces webapp, the
 request character encoding is left unmodified, relying on the underlying
-request object (e.g., the servlet or portlet request) to parse request
+request object (e.g., the Jakarta Servlet or Portlet request) to parse request
 parameter correctly.
 
-[P1-start-setLocale]At the beginning of the
+At the beginning of the
 render-response phase, the ViewHandler must ensure that the response
 Locale is set to be that of the UIViewRoot, for example by calling
-_ServletResponse.setLocale()_ when running in the servlet
-environment.[P1-end] Setting the response Locale may affect the response
-character encoding, see the Servlet and Portlet specifications for
+_ServletResponse.setLocale()_ when running in the Jakarta Servlet
+environment. Setting the response Locale may affect the response
+character encoding, see the Jakarta Servlet and Portlet specifications for
 details.
 
-[P1-start-encoding]At the end of the
+At the end of the
 render-response phase, the ViewHandler must store the response character
-encoding used by the underlying response object (e.g., the servlet or
-portlet response) in the session (if and only if a session already
+encoding used by the underlying response object (e.g., the Jakarta Servlet or
+Portlet response) in the session (if and only if a session already
 exists) under a well known, implementation-dependent key.
 
-{empty}On a subsequent postback, before any
+On a subsequent postback, before any
 of the ExternalContext methods for accessing request parameters are
 invoked, the ViewHandler must examine the Content-Type header to read
 the charset attribute and use its value to set it as the request
@@ -1109,44 +1098,34 @@ encoding for the underlying request object. If the Content-Type header
 doesn't contain a charset attribute, the encoding previously stored in
 the session (if and only if a session already exists), must be used to
 set the encoding for the underlying request object. If no character
-encoding is found, the request encoding must be left unmodified.[P1-end]
+encoding is found, the request encoding must be left unmodified.
 
 The above algorithm allows an application to
 use the mechanisms of the underlying technologies to adjust both the
-request and response encoding in an application-specific manner, for
-instance using the page directive with a fixed character encoding
-defined in the contentType attribute in a Jakarta Server Pages page, see the Servlet,
-Portlet and Jakarta Server Pages specifications for details. Note, though, that the
-character encoding rules prior to Servlet 2.4 and Jakarta Server Pages 2.0 are imprecise
+request and response encoding in an application-specific manner. Note, though, that the
+character encoding rules prior to Jakarta Servlet 2.4 are imprecise
 and special care must be taken for portability between containers.
 
 ===== Localized Text
-
-There is no direct support for this in the
-API, but the Jakarta Server Pages layer provides a convenience tag that converts a
-_ResourceBundle_ into a _java.util.Map_ and stores it in the scoped
-namespace so all may get to it. This section describes how resources
-displayed to the end user may be localized. This includes images,
-labels, button text, tooltips, alt text, etc.
 
 Since most Jakarta Faces components allow pulling their
 display value from the model tier, it is easy to do the localization at
 the model tier level. As a convenience, Jakarta Faces provides the
 _<f:loadBundle>_ tag, which takes a _ResourceBundle_ and loads it into a
-_Map_ , which is then stored in the scoped namespace in request scope,
+__Map__, which is then stored in the scoped namespace in request scope,
 thus making its messages available using the same mechanism for
 accessing data in the model tier. For example:
 
 [source,xml]
 ----
-<f:loadBundle basename=”com.foo.industryMessages.chemical”
-              var=”messages” />
-<h:outputText value=”#\{messages.benzene}” />
+<f:loadBundle basename="com.foo.industryMessages.chemical"
+              var="messages" />
+<h:outputText value="#{messages.benzene}" />
 ----
 
 This must cause the _ResourceBundle_ named
 _com.foo.industryMessages.chemical_ to be loaded as a Map into the
-request scope under the key _messages_ . Localized content can then be
+request scope under the key __messages__. Localized content can then be
 pulled out of it using the normal value expression syntax.
 
 [[a584]]
@@ -1158,203 +1137,67 @@ conversion, validation, or other application actions during the request
 processing lifecycle. The Jakarta Faces class
 _jakarta.faces.application.FacesMessage_ is provided to encapsulate
 summary, detail, and severity information for a message.
-[P1-start-bundle]A Jakarta Faces implementation must provide a
+A Jakarta Faces implementation must provide a
 _jakarta.faces.Messages ResourceBundle_ containing all of the necessary
 keys for the standard messages. The required keys (and a non-normative
 indication of the intended message text) are as follows:
 
-* jakarta.faces.component.UIInput.CONVERSION --
-\{0}: Conversion error occurred
-
-* jakarta.faces.component.UIInput.REQUIRED --
-\{0}: Validation Error: Value is required
-
-* jakarta.faces.component.UIInput.UPDATE -- \{0}:
-An error occurred when processing your submitted information
-
-* jakarta.faces.component.UISelectOne.INVALID --
-\{0}: Validation Error: Value is not valid
-
-* jakarta.faces.component.UISelectMany.INVALID --
-\{0}: Validation Error: Value is not valid
-
-* jakarta.faces.converter.BigDecimalConverter.DECIMAL=\{2}:
-''\{0}'' must be a signed decimal number.
-
-* jakarta.faces.converter.BigDecimalConverter.DECIMAL_detail=\{2}:
-''\{0}'' must be a signed decimal number consisting of zero or more
-digits, that may be followed by a decimal point and fraction. Example:
-\{1}
-
-* jakarta.faces.converter.BigIntegerConverter.BIGINTEGER=\{2}:
-''\{0}'' must be a number consisting of one or more digits.
-
-* jakarta.faces.converter.BigIntegerConverter.BIGINTEGER_detail=\{2}:
-''\{0}'' must be a number consisting of one or more digits. Example:
-\{1}
-
-* jakarta.faces.converter.BooleanConverter.BOOLEAN=\{1}:
-''\{0}'' must be 'true' or 'false'.
-
-* jakarta.faces.converter.BooleanConverter.BOOLEAN_detail=\{1}:
-''\{0}'' must be 'true' or 'false'. Any value other than 'true' will
-evaluate to 'false'.
-
-* jakarta.faces.converter.ByteConverter.BYTE=\{2}:
-''\{0}'' must be a number between -128 and 127.
-
-* jakarta.faces.converter.ByteConverter.BYTE_detail=\{2}:
-''\{0}'' must be a number between -128 and 127. Example: \{1}
-
-* jakarta.faces.converter.CharacterConverter.CHARACTER=\{1}:
-''\{0}'' must be a valid character.
-
-* jakarta.faces.converter.CharacterConverter.CHARACTER_detail=\{1}:
-''\{0}'' must be a valid ASCII character.
-
-* jakarta.faces.converter.DateTimeConverter.DATE=\{2}:
-''\{0}'' could not be understood as a date.
-
-* jakarta.faces.converter.DateTimeConverter.DATE_detail=\{2}:
-''\{0}'' could not be understood as a date. Example: \{1}
-
-* jakarta.faces.converter.DateTimeConverter.TIME=\{2}:
-''\{0}'' could not be understood as a time.
-
-* jakarta.faces.converter.DateTimeConverter.TIME_detail=\{2}:
-''\{0}'' could not be understood as a time. Example: \{1}
-
-* jakarta.faces.converter.DateTimeConverter.DATETIME=\{2}:
-''\{0}'' could not be understood as a date and time.
-
-* jakarta.faces.converter.DateTimeConverter.DATETIME_detail=\{2}:
-''\{0}'' could not be understood as a date and time. Example: \{1}
-
-* jakarta.faces.converter.DateTimeConverter.PATTERN_TYPE=\{1}:
-A 'pattern' or 'type' attribute must be specified to convert the value
-''\{0}''.
-
-* jakarta.faces.converter.DoubleConverter.DOUBLE=\{2}:
-''\{0}'' must be a number consisting of one or more digits.
-
-* jakarta.faces.converter.DoubleConverter.DOUBLE_detail=\{2}:
-''\{0}'' must be a number between 4.9E-324 and 1.7976931348623157E308
-Example: \{1}
-
-* jakarta.faces.converter.EnumConverter.ENUM=\{2}:
-''\{0}'' must be convertible to an enum.
-
-* jakarta.faces.converter.EnumConverter.ENUM_detail=\{2}:
-''\{0}'' must be convertible to an enum from the enum that contains the
-constant ''\{1}''.
-
-* jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS=\{1}:
-''\{0}'' must be convertible to an enum from the enum, but no enum class
-provided.
-
-* jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS_detail=\{1}:
-''\{0}'' must be convertible to an enum from the enum, but no enum class
-provided.
-
-* jakarta.faces.converter.FloatConverter.FLOAT=\{2}:
-''\{0}'' must be a number consisting of one or more digits.
-
-* jakarta.faces.converter.FloatConverter.FLOAT_detail=\{2}:
-''\{0}'' must be a number between 1.4E-45 and 3.4028235E38 Example: \{1}
-
-* jakarta.faces.converter.IntegerConverter.INTEGER=\{2}:
-''\{0}'' must be a number consisting of one or more digits.
-
-* jakarta.faces.converter.IntegerConverter.INTEGER_detail=\{2}:
-''\{0}'' must be a number between -2147483648 and 2147483647 Example:
-\{1}
-
-* jakarta.faces.converter.LongConverter.LONG=\{2}:
-''\{0}'' must be a number consisting of one or more digits.
-
-* jakarta.faces.converter.LongConverter.LONG_detail=\{2}:
-''\{0}'' must be a number between -9223372036854775808 to
-9223372036854775807 Example: \{1}
-
-* jakarta.faces.converter.NumberConverter.CURRENCY=\{2}:
-''\{0}'' could not be understood as a currency value.
-
-* jakarta.faces.converter.NumberConverter.CURRENCY_detail=\{2}:
-''\{0}'' could not be understood as a currency value. Example: \{1}
-
-* jakarta.faces.converter.NumberConverter.PERCENT=\{2}:
-''\{0}'' could not be understood as a percentage.
-
-* jakarta.faces.converter.NumberConverter.PERCENT_detail=\{2}:
-''\{0}'' could not be understood as a percentage. Example: \{1}
-
-* jakarta.faces.converter.NumberConverter.NUMBER=\{2}:
-''\{0}'' is not a number.
-
-* jakarta.faces.converter.NumberConverter.NUMBER_detail=\{2}:
-''\{0}'' is not a number. Example: \{1}
-
-* jakarta.faces.converter.NumberConverter.PATTERN=\{2}:
-''\{0}'' is not a number pattern.
-
-* jakarta.faces.converter.NumberConverter.PATTERN_detail=\{2}:
-''\{0}'' is not a number pattern. Example: \{1}
-
-* jakarta.faces.converter.ShortConverter.SHORT=\{2}:
-''\{0}'' must be a number consisting of one or more digits.
-
-* jakarta.faces.converter.ShortConverter.SHORT_detail=\{2}:
-''\{0}'' must be a number between -32768 and 32767 Example: \{1}
-
-* jakarta.faces.converter.STRING=\{1}: Could not
-convert ''\{0}'' to a string.
-
-* jakarta.faces.validator.BeanValidator.MESSAGE
--- \{0}
-
-* jakarta.faces.validator.DoubleRangeValidator.MAXIMUM
--- \{1}: Validation Error: Value is greater than allowable maximum of
-‘’\{0}’’
-
-* jakarta.faces.validator.DoubleRangeValidator.MINIMUM
--- \{1}: Validation Error: Value is less than allowable minimum of
-‘’\{0}’’
-
-* jakarta.faces.validator.DoubleRangeValidator.NOT_IN_RANGE
--- \{2}: Validation Error: Specified attribute is not between the
-expected values of \{0} and \{1}.
-
-* jakarta.faces.validator.DoubleRangeValidator.TYPE
--- \{0}: Validation Error: Value is not of the correct type
-
-* jakarta.faces.validator.LengthValidator.MAXIMUM
--- \{1}: Validation Error: Length is greater than allowable maximum of
-‘’\{0}’’
-
-* jakarta.faces.validator.LengthValidator.MINIMUM
--- \{1}: Validation Error: Length is less than allowable minimum of
-‘’\{0}’’
-
-* jakarta.faces.validator.LongRangeValidator.MAXIMUM
--- \{1}: Validation Error: Value is greater than allowable maximum of
-‘’\{0}’’
-
-* jakarta.faces.validator.LongRangeValidator.MINIMUM
--- \{1}: Validation Error Value is less than allowable minimum of
-‘’\{0}’’
-
-* jakarta.faces.validator.LongRangeValidator.NOT_IN_RANGE=\{2}:
-Validation Error: Specified attribute is not between the expected values
-of \{0} and \{1}.
-
-* jakarta.faces.validator.LongRangeValidator.TYPE
--- \{0}: Validation Error: Value is not of the correct type
-
-The following message keys are deprecated:
-
-* {empty}jakarta.faces.validator.NOT_IN_RANGE --
-Specified attribute is not between the expected values of \{0} and
-\{1}[P1-end]
+* jakarta.faces.component.UIInput.CONVERSION=\{0}: Conversion error occurred
+* jakarta.faces.component.UIInput.REQUIRED=\{0}: Validation Error: Value is required
+* jakarta.faces.component.UIInput.UPDATE= \{0}: An error occurred when processing your submitted information
+* jakarta.faces.component.UISelectOne.INVALID=\{0}: Validation Error: Value is not valid
+* jakarta.faces.component.UISelectMany.INVALID=\{0}: Validation Error: Value is not valid
+* jakarta.faces.converter.BigDecimalConverter.DECIMAL=\{2}: ''\{0}'' must be a signed decimal number.
+* jakarta.faces.converter.BigDecimalConverter.DECIMAL_detail=\{2}: ''\{0}'' must be a signed decimal number consisting of zero or more digits, that may be followed by a decimal point and fraction. Example: \{1}
+* jakarta.faces.converter.BigIntegerConverter.BIGINTEGER=\{2}: ''\{0}'' must be a number consisting of one or more digits.
+* jakarta.faces.converter.BigIntegerConverter.BIGINTEGER_detail=\{2}: ''\{0}'' must be a number consisting of one or more digits. Example: \{1}
+* jakarta.faces.converter.BooleanConverter.BOOLEAN=\{1}: ''\{0}'' must be 'true' or 'false'.
+* jakarta.faces.converter.BooleanConverter.BOOLEAN_detail=\{1}: ''\{0}'' must be 'true' or 'false'. Any value other than 'true' will evaluate to 'false'.
+* jakarta.faces.converter.ByteConverter.BYTE=\{2}: ''\{0}'' must be a number between -128 and 127.
+* jakarta.faces.converter.ByteConverter.BYTE_detail=\{2}: ''\{0}'' must be a number between -128 and 127. Example: \{1}
+* jakarta.faces.converter.CharacterConverter.CHARACTER=\{1}: ''\{0}'' must be a valid character.
+* jakarta.faces.converter.CharacterConverter.CHARACTER_detail=\{1}: ''\{0}'' must be a valid ASCII character.
+* jakarta.faces.converter.DateTimeConverter.DATE=\{2}: ''\{0}'' could not be understood as a date.
+* jakarta.faces.converter.DateTimeConverter.DATE_detail=\{2}: ''\{0}'' could not be understood as a date. Example: \{1}
+* jakarta.faces.converter.DateTimeConverter.TIME=\{2}: ''\{0}'' could not be understood as a time.
+* jakarta.faces.converter.DateTimeConverter.TIME_detail=\{2}: ''\{0}'' could not be understood as a time. Example: \{1}
+* jakarta.faces.converter.DateTimeConverter.DATETIME=\{2}: ''\{0}'' could not be understood as a date and time.
+* jakarta.faces.converter.DateTimeConverter.DATETIME_detail=\{2}: '\{0}'' could not be understood as a date and time. Example: \{1}
+* jakarta.faces.converter.DateTimeConverter.PATTERN_TYPE=\{1}: A 'pattern' or 'type' attribute must be specified to convert the value ''\{0}''.
+* jakarta.faces.converter.DoubleConverter.DOUBLE=\{2}: ''\{0}'' must be a number consisting of one or more digits.
+* jakarta.faces.converter.DoubleConverter.DOUBLE_detail=\{2}: ''\{0}'' must be a number between 4.9E-324 and 1.7976931348623157E308 Example: \{1}
+* jakarta.faces.converter.EnumConverter.ENUM=\{2}: ''\{0}'' must be convertible to an enum.
+* jakarta.faces.converter.EnumConverter.ENUM_detail=\{2}: ''\{0}'' must be convertible to an enum from the enum that contains the constant ''\{1}''.
+* jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS=\{1}: ''\{0}'' must be convertible to an enum from the enum, but no enum class provided.
+* jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS_detail=\{1}: ''\{0}'' must be convertible to an enum from the enum, but no enum class provided.
+* jakarta.faces.converter.FloatConverter.FLOAT=\{2}: ''\{0}'' must be a number consisting of one or more digits.
+* jakarta.faces.converter.FloatConverter.FLOAT_detail=\{2}: ''\{0}'' must be a number between 1.4E-45 and 3.4028235E38 Example: \{1}
+* jakarta.faces.converter.IntegerConverter.INTEGER=\{2}: ''\{0}'' must be a number consisting of one or more digits.
+* jakarta.faces.converter.IntegerConverter.INTEGER_detail=\{2}: ''\{0}'' must be a number between -2147483648 and 2147483647 Example: \{1}
+* jakarta.faces.converter.LongConverter.LONG=\{2}: ''\{0}'' must be a number consisting of one or more digits.
+* jakarta.faces.converter.LongConverter.LONG_detail=\{2}: ''\{0}'' must be a number between -9223372036854775808 to 9223372036854775807 Example: \{1}
+* jakarta.faces.converter.NumberConverter.CURRENCY=\{2}: ''\{0}'' could not be understood as a currency value.
+* jakarta.faces.converter.NumberConverter.CURRENCY_detail=\{2}: ''\{0}'' could not be understood as a currency value. Example: \{1}
+* jakarta.faces.converter.NumberConverter.PERCENT=\{2}: ''\{0}'' could not be understood as a percentage.
+* jakarta.faces.converter.NumberConverter.PERCENT_detail=\{2}: ''\{0}'' could not be understood as a percentage. Example: \{1}
+* jakarta.faces.converter.NumberConverter.NUMBER=\{2}: ''\{0}'' is not a number.
+* jakarta.faces.converter.NumberConverter.NUMBER_detail=\{2}: ''\{0}'' is not a number. Example: \{1}
+* jakarta.faces.converter.NumberConverter.PATTERN=\{2}: ''\{0}'' is not a number pattern.
+* jakarta.faces.converter.NumberConverter.PATTERN_detail=\{2}: ''\{0}'' is not a number pattern. Example: \{1}
+* jakarta.faces.converter.ShortConverter.SHORT=\{2}: ''\{0}'' must be a number consisting of one or more digits.
+* jakarta.faces.converter.ShortConverter.SHORT_detail=\{2}: ''\{0}'' must be a number between -32768 and 32767 Example: \{1}
+* jakarta.faces.converter.STRING=\{1}: Could not convert ''\{0}'' to a string.
+* jakarta.faces.validator.BeanValidator.MESSAGE=\{0}
+* jakarta.faces.validator.DoubleRangeValidator.MAXIMUM=\{1}: Validation Error: Value is greater than allowable maximum of ''\{0}''
+* jakarta.faces.validator.DoubleRangeValidator.MINIMUM=\{1}: Validation Error: Value is less than allowable minimum of ''\{0}''
+* jakarta.faces.validator.DoubleRangeValidator.NOT_IN_RANGE=\{2}: Validation Error: Specified attribute is not between the expected values of \{0} and \{1}.
+* jakarta.faces.validator.DoubleRangeValidator.TYPE=\{0}: Validation Error: Value is not of the correct type
+* jakarta.faces.validator.LengthValidator.MAXIMUM=\{1}: Validation Error: Length is greater than allowable maximum of ''\{0}''
+* jakarta.faces.validator.LengthValidator.MINIMUM=\{1}: Validation Error: Length is less than allowable minimum of ''\{0}''
+* jakarta.faces.validator.LongRangeValidator.MAXIMUM=\{1}: Validation Error: Value is greater than allowable maximum of ''\{0}''
+* jakarta.faces.validator.LongRangeValidator.MINIMUM=\{1}: Validation Error Value is less than allowable minimum of ''\{0}''
+* jakarta.faces.validator.LongRangeValidator.NOT_IN_RANGE=\{2}: Validation Error: Specified attribute is not between the expected values of \{0} and \{1}.
+* jakarta.faces.validator.LongRangeValidator.TYPE=\{0}: Validation Error: Value is not of the correct type
 
 A Jakarta Faces application may provide its own
 messages, or overrides to the standard messages by supplying a
@@ -1362,19 +1205,19 @@ _<message-bundle>_ element to in the application configuration
 resources. Since the _ResourceBundle_ provided in the Java platform has
 no notion of summary or detail, Jakarta Faces adopts the policy that
 _ResourceBundle_ key for the message looks up the message summary. The
-detail is stored under the same key as the summary, with __detail_
-appended. [P1-start-bundleKey]These _ResourceBundle_ keys must be used
+detail is stored under the same key as the summary, with _detail_
+appended. These _ResourceBundle_ keys must be used
 to look up the necessary values to create a localized _FacesMessage_
 instance. Note that the value of the summary and detail keys in the
 _ResourceBundle_ may contain parameter substitution tokens, which must
 be substituted with the appropriate values using
-_java.text.MessageFormat_ .[P1-end] Replace the last parameter
+__java.text.MessageFormat__. Replace the last parameter
 substitution token shown in the messages above with the input
 component’s _label_ attribute. For example, _\{1}_ for
 _“DoubleRangeValidator.MAXIMUM”, \{2}_ for _“ShortConverter.SHORT”._ The
 _label_ attribute is a generic attribute. Please see
-_<<UserInterfaceComponentModel.adoc#a993,See Generic Attributes>>_ and
-_<<RenderingModel.adoc#a4314,See Standard HTML RenderKit
+_<<UserInterfaceComponentModel.adoc#a993,Generic Attributes>>_ and
+_<<RenderingModel.adoc#a4314,Standard HTML RenderKit
 Implementation>>_ for more information on these attributes. If the input
 component’s _label_ attribute is not specified, use the component’s
 client identifier.
@@ -1383,7 +1226,7 @@ These messages can be displayed in the page
 using the _UIMessage_ and _UIMessages_ components and their
 corresponding tags, _<h:message>_ and _<h:messages>._
 
-[P1-start-facesMessage]The following
+The following
 algorithm must be used to create a _FacesMessage_ instance given a
 message key.
 
@@ -1395,44 +1238,44 @@ ResourceBundle and look for the message there.
 * If not there, look in the
 _jakarta.faces.Messages_ resource bundle.
 
-* {empty}In either case, if a message is found,
-use the above conventions to create a _FacesMessage_ instance.[P1-end]
+* In either case, if a message is found,
+use the above conventions to create a _FacesMessage_ instance.
 
 ==== State Management
 
-Jakarta Server Faces introduces a powerful and
+Jakarta Faces introduces a powerful and
 flexible system for saving and restoring the state of the view between
 requests to the server. It is useful to describe state management from
 several viewpoints. For the page author, state management happens
 transparently. For the app assembler, state management can be configured
 to save the state in the client or on the server by setting the
 ServletContext InitParameter named _jakarta.faces.STATE_SAVING_METHOD_ to
-either _client_ or _server_ . The value of this parameter directs the
+either _client_ or __server__. The value of this parameter directs the
 state management decisions made by the implementation.
 
 ===== State Management Considerations for the Custom Component Author
 
 Since the component developer cannot know
 what the state saving method will be at runtime, they must be aware of
-state management. As shown in <<StandardUserInterfaceComponents.adoc#a1834,See The
+state management. As shown in <<StandardUserInterfaceComponents.adoc#a1834,The
 jakarta.faces.component package>>, all Jakarta Faces components implement the
 _StateHolder_ interface. As a consequence the standard components
 provide implementations of _PartialStateHolder_ to suit their needs.
-[P1-start-componentStateHolder]A custom component that extends
+A custom component that extends
 _UIComponent_ directly, and does not extend any of the standard
 components, must implement _PartialStateHolder_ (or its older
-super-interface, _StateHolder_ ), manually. The helper class
+super-interface, __StateHolder__), manually. The helper class
 _StateHelper_ exists to simplify this process for the custom component
-author. [P1-end]Please see _<<UserInterfaceComponentModel.adoc#a1159,See
-PartialStateHolder>>_ or <<UserInterfaceComponentModel.adoc#a1138,See StateHolder>> for
+author. Please see _<<UserInterfaceComponentModel.adoc#a1159,
+PartialStateHolder>>_ or <<UserInterfaceComponentModel.adoc#a1138,StateHolder>> for
 details.
 
 A custom component that does extend from one
 of the standard components and maintains its own state, in addition to
 the state maintained by the superclass must take special care to
 implement _StateHolder_ or _PartialStateHolder_ correctly.
-[P1-start-saveState]Notably, calls to _saveState()_ must not alter the
-state in any way.[P1-end] The subclass is responsible for saving and
+Notably, calls to _saveState()_ must not alter the
+state in any way. The subclass is responsible for saving and
 restoring the state of the superclass. Consider this example. My custom
 component represents a “slider” ui widget. As such, it needs to keep
 track of the maximum value, minimum value, and current values as part of
@@ -1479,15 +1322,14 @@ Please see the javadocs for each individual class for more information.
 
 * _StateHelper_ the helper class that defines
 a _Map_ -like contract that makes it easier for components to implement
-_PartialStateHolder_ .
+__PartialStateHolder__.
 
 * _ViewHandler_ the entry point to the state
-management system. Uses a helper class, _StateManager_ , to do the
-actual work. In the Jakarta Server Pages case, delegates to the tag handler for the
-_<f:view>_ tag for some functionality.
+management system. Uses a helper class, __StateManager__, to do the
+actual work.
 
 * _StateManager_ abstraction for the hard work
-of state saving. Uses a helper class, _ResponseStateManager_ , for the
+of state saving. Uses a helper class, __ResponseStateManager__, for the
 rendering technology specific decisions.
 
 * _ResponseStateManager_ abstraction for
@@ -1500,13 +1342,13 @@ restoring individual component state.
 ==== Resource Handling
 
 This section only applies to pages written
-using Facelets. <<RequestProcessingLifecycle.adoc#a746,See
+using Facelets. <<RequestProcessingLifecycle.adoc#a746,
 Resource Handling>> is the starting point for the normative specification
 for Resource Handling. This section gives a non-normative overview of
 the feature. The following steps walk through the points in the
 lifecycle where this feature is encountered. Consider a Faces web
 application that contains resources that have been packaged into the
-application as specified in <<RequestProcessingLifecycle.adoc#a748,See Packaging
+application as specified in <<RequestProcessingLifecycle.adoc#a748,Packaging
 Resources>>. Assume each page in the application includes references to
 resources, specifically scripts and stylesheets. The first diagram in
 this chapter is helpful in understanding this example.
@@ -1515,7 +1357,7 @@ Consider an initial request to the
 application.
 
 * The _ViewHandler_ calls
-_ViewDeclarationLanguage.buildView()_ . This ultimately causes the
+__ViewDeclarationLanguage.buildView()__. This ultimately causes the
 _processEvent()_ method for the _jakarta.faces.resource.Script_ and
 _jakarta.faces.resource.Stylesheet_ renderers (which implement
 _ComponentSystemEventListener)_ to be called after each component that
@@ -1525,14 +1367,14 @@ correct part in the page based on user-specified or application
 invariant rules. Here’s how it works.
 
 * Every _UIComponent_ instance in a view is
-created with a call to some variant of _Application.createComponent()_ .
+created with a call to some variant of __Application.createComponent()__.
 The specification for this method now includes some annotation
 processing requirements. If the component or its renderer has an
 _@ListenerFor_ or _@ListenersFor_ annotation, and the _Script_ and
 _Stylesheet_ renderers must, the component or its renderer are added as
 a component scoped listener for the appropriate event. In the case of
 _Script_ and _Stylesheet_ renderers, they must listen for the
-_PostAddToViewEvent_ .
+__PostAddToViewEvent__.
 
 * When the _processEvent()_ method is called on
 a _Script_ or _Stylesheet_ renderer, the renderer takes the specified
@@ -1541,11 +1383,11 @@ what kind of resource it is, and on what hints the page author has
 declared on the component in the view.
 
 * The _ViewHandler_ calls
-_ViewDeclarationLanguage.renderView()_ . The view is traversed as normal
+__ViewDeclarationLanguage.renderView()__. The view is traversed as normal
 and because the components with _Script_ and _Stylesheet_ renderers have
 already been reparented to the proper place in the view, the normal
 renderering causes the resource to be encoded as described in
-RequestProcessingLifecycle.adoc#a842,See Rendering Resources>>.
+<<RequestProcessingLifecycle.adoc#a842,Rendering Resources>>.
 
 The browser then parses the completely
 rendered page and proceeds to issue subsequent requests for the
@@ -1557,8 +1399,8 @@ one of those resources included in the page.
 * The request comes back to the Faces server.
 The _FacesServlet_ is specified to call
 _ResourceHandler.isResourceRequest()_ as shown in the diagram in
-<<RequestProcessingLifecycle.adoc#a390,See Faces Request Generates Faces Response>>.
-In this case, the method returns _true_ . The _FacesServlet_ is
+<<RequestProcessingLifecycle.adoc#a390,Faces Request Generates Faces Response>>.
+In this case, the method returns __true__. The _FacesServlet_ is
 specified to call _ResourceHandler.handleResourceRequest()_ to serve up
 the bytes of the resource.
 
@@ -1569,7 +1411,7 @@ This section only applies to pages written
 using Facelets. The normative specification for this
 feature is spread out across several places, including the View
 Declaration Language Documentation for the _<f:metadata>_ element, the
-javadocs for the _UIViewParameter_ , _ViewHandler_ , and
+javadocs for the __UIViewParameter__, __ViewHandler__, and
 _ViewDeclarationLanguage_ classes, and the spec language requirements
 for the default _NavigationHandler_ and the Request Processing
 Lifecycle. This leads to a very diffuse field of specification
@@ -1592,18 +1434,18 @@ Consider an initial request to the
 application.
 
 * As specified in section
-<<RequestProcessingLifecycle.adoc#a404,See Restore View>>, the restore view phase of
+<<RequestProcessingLifecycle.adoc#a404,Restore View>>, the restore view phase of
 the request processing lifecycle detects that this is an initial request
 and tries to obtain the _ViewDeclarationLanguage_ instance from the
-_ViewHandler_ for this _viewId_ . Because every page in the app is
+_ViewHandler_ for this __viewId__. Because every page in the app is
 written in Facelets, there is a _ViewDeclarationLanguage_
 instance. Restore view phase calls
-_ViewDeclarationLanguage.getViewMetadata()_ . Because every view in this
+__ViewDeclarationLanguage.getViewMetadata()__. Because every view in this
 particular app does have _<f:metadata>_ on every page, this method
 returns a _ViewMetadata_ instance. Restore view phase calls
-_MetaData.createMetadataView()_ . This method creates a _UIViewRoot_
+__MetaData.createMetadataView()__. This method creates a _UIViewRoot_
 containing only children declared in the _<f:metadata>_ element. Restore
-view phase calls _ViewMetadata.getViewParameters()_ . Because every
+view phase calls __ViewMetadata.getViewParameters()__. Because every
 _<f:metadata>_ in the app has at least one _<f:viewParameter>_ element
 within it, this method returns a non empty _Collection<UIViewParameter>_.
 Restore view phase uses this fact to decide that the lifecycle must
@@ -1662,11 +1504,11 @@ generate bookmarkable non-faces requests.
 [[a710]]
 ==== Jakarta Bean Validation
 
-{empty}Jakarta Faces supports Jakarta Bean Validation.
-[p1-beanValidationRequired]A Jakarta Faces implementation must support Jakarta Bean
+Jakarta Faces supports Jakarta Bean Validation.
+A Jakarta Faces implementation must support Jakarta Bean
 Validation if the environment in which the Jakarta Faces runtime is included
 requires Jakarta Bean Validation. Currently the only such environment is
-when Jakarta Faces is included in a Jakarta EE runtime.[p1-end]
+when Jakarta Faces is included in a Jakarta EE runtime.
 
 A detailed description of the usage of Jakarta Bean
 Validation with Jakarta Faces is beyond the scope of this section, but this
@@ -1681,12 +1523,12 @@ constraint annotation attached to it.
 
 During the render response phase that always
 precedes a postback, due to the specification requirements in
-<<UserInterfaceComponentModel.adoc#a1419,See Validation Registration>>, every
+<<UserInterfaceComponentModel.adoc#a1419,Validation Registration>>, every
 _UIInput_ in this application has an instance of _Validator_ with id
 _jakarta.faces.Bean_ attached to it.
 
 During the process validations phase, due to
-the specification for the _validate()_ method of this _Validator_ , Bean
+the specification for the _validate()_ method of this __Validator__, Bean
 Validation is invoked automatically, for the user specified validation
 constraints, whenever such components are normally validated. The
 _jakarta.faces.Bean_ standard validator also ensures that every
@@ -1694,7 +1536,7 @@ _ConstraintViolation_ that resulted in attempting to validate the model
 data is wrapped in a _FacesMessage_ and added to the _FacesContext_ as
 normal with every other kind of validator.
 
-See also <<UserInterfaceComponentModel.adoc#a1461,See Bean
+See also <<UserInterfaceComponentModel.adoc#a1461,Bean
 Validation Integration>>.
 
 [[a716]]
@@ -1764,14 +1606,14 @@ interaction, for example, hiding or showing content or validating input
 on the client, and possibly posts back to the server.
 
 The first client behavior provided by the Jakarta Faces
-specification is the _AjaxBehavior_ . This behavior is exposed to a page
+specification is the __AjaxBehavior__. This behavior is exposed to a page
 author as a Facelets _<f:ajax>_ tag, which can be embedded within any of
 the standard HTML components as follows:
 
 [source,xml]
 ----
 <h:commandButton>
-  <f:ajax event="mouseover"/>
+  <f:ajax event="mouseover" />
 </h:commandButton>
 ----
 
@@ -1787,24 +1629,24 @@ behaviors.
 ==== System Events
 
 System Events are normatively specified in
-<<UserInterfaceComponentModel.adoc#a1359,See System Events>>. This section provides an
+<<UserInterfaceComponentModel.adoc#a1359,System Events>>. This section provides an
 overview of this feature as it relates to the lifecycle.
 
 System events expand on the idea of lifecycle
-_PhaseEvent_ s. With _PhaseEvent_ s, it is possible to have application
+__PhaseEvent__s. With __PhaseEvent__s, it is possible to have application
 scoped _PhaseListeners_ that are given the opportunity to act on the
 system before and after each phase in the lifecycle. System events
 provide a much more fine grained insight into the system, allowing
 application or component scoped listeners to be notified of a variety of
 kinds of events. The set of events supported in the core specification
-is given in <<UserInterfaceComponentModel.adoc#a1361,See Event
+is given in <<UserInterfaceComponentModel.adoc#a1361,Event
 Classes>>. To accomodate extensibility, users may define their own kinds
 of events.
 
 The system event feature is a simple
 publish/subscribe event model. There is no event queue, events are
 published immediately, and always with a call to
-_Application.publishEvent()_ . There are several ways to declare
+__Application.publishEvent()__. There are several ways to declare
 interest in a particular kind of event.
 
 * Call _Application.subscribeToEvent()_ to add
@@ -1833,10 +1675,10 @@ runs.
 [[a746]]
 === Resource Handling
 
-As shown in the diagram in <<RequestProcessingLifecycle.adoc#a390,See Faces Request Generates Faces Response>>,
-[P1-start isResourceRequest rules] the Jakarta Faces run-time must determine if the current Faces
-Request is a _Faces Resource Request_ or a _View Request_ . This must be accomplished by
-calling _Application.getResourceHandler().isResourceRequest()_ . [P1-end]
+As shown in the diagram in <<RequestProcessingLifecycle.adoc#a390,Faces Request Generates Faces Response>>,
+the Jakarta Faces run-time must determine if the current Faces
+Request is a _Faces Resource Request_ or a __View Request__. This must be accomplished by
+calling __Application.getResourceHandler().isResourceRequest()__. 
 Most of the normative specification for resource handling is contained in the Javadocs
 for _ResourceHandler_ and its related classes. This section contains the specification
 for resource handling that fits best in prose, rather than in Javadocs.
@@ -1854,7 +1696,7 @@ they like.
 [[a750]]
 ===== Packaging Resources into the Web Application Root
 
-[P1-start web app packaging ] The default
+The default
 implementation must support packaging resources in the web application
 root under the path
 
@@ -1862,30 +1704,27 @@ _resources/<resourceIdentifier>_
 
 relative to the web app root. Resources
 packaged into the web app root must be accessed using the
-_getResource*()_ methods on _ExternalContext._ [P1-end]
+_getResource*()_ methods on __ExternalContext__.
 
 [[a754]]
 ===== Packaging Resources into the Classpath
 
-[P1-start classpath packaging ]For the
+For the
 default implementation, resources packaged in the classpath must reside
 under the JAR entry name:
 
 _META-INF/resources/<resourceIdentifier>_
 
-{empty}Resources packaged into the classpath
+Resources packaged into the classpath
 must be accessed using the _getResource*()_ methods of the _ClassLoader_
 obtained by calling the _getContextClassLoader()_ method of the curreth
-_Thread_ .[P1-end]
+__Thread__.
 
 [[a758]]
 ===== Resource Identifiers
 
 _<resourceIdentifier>_ consists of several
 segments, specified as follows.
-
-{empty}[P1-start requirements for something
-to be considered a valid resourceIdentifier]
 
 
 _[localePrefix/][libraryName/][libraryVersion/]resourceName[/resourceVersion]_
@@ -1896,14 +1735,14 @@ that does not follow these rules must not be considered valid and must
 be ignored silently.
 
 * The set of characters that are valid for use
-in the _localePrefix_ , _libraryName_ , _libraryVerison_ ,
+in the __localePrefix__, __libraryName__, __libraryVerison__,
 _resourceName_ and _resourceVersion_ segments of the resource identifier
 is specififed as XML NameChar excluding the path separator and ‘:’
 characters. The specification for XML NameChar may be seen at
-_http://www.w3.org/TR/REC-xml/#NT-NameChar_ .
+__https://www.w3.org/TR/REC-xml/#NT-NameChar__.
 
 * A further restriction applies to
-_libraryName_ . A _libraryName_ must not be an underscore separated
+__libraryName__. A _libraryName_ must not be an underscore separated
 sequence of non-negative integers or a locale string. More rigorously, a
 _libraryName_ must not match either of the following regular
 expressions:
@@ -1935,13 +1774,12 @@ present, both must be a ’ ___ ’ separated list of integers, neither
 starting nor ending with ’ ___ ’
 
 If _resourceVersion_ is present, it must be a
-version number in the same format as _libraryVersion_ . An optional
+version number in the same format as __libraryVersion__. An optional
 “file extension” may be used with the _resourceVersion._ If “file
 extension” is used, a “.” character, followed by a “file extension” must
 be appended to the version number. See the following table for an
 example.
 
-{empty}[P1-end]
 
 The following examples illustrate the nine
 valid combinations of the above resource identifier segments.
@@ -1951,27 +1789,27 @@ valid combinations of the above resource identifier segments.
 a|
 localePrefx
 
-{empty}[optional]
+[optional]
 
 a|
 libraryName
 
-{empty}[optional]
+[optional]
 
 a|
 library
 
-{empty}Version [optional]
+Version [optional]
 
 a|
 resourceName
 
-{empty}[required]
+[required]
 
 a|
 resource
 
-{empty}Version [optional]
+Version [optional]
 
 |Description
 |actual resourceIdentifier
@@ -1980,69 +1818,69 @@ resource
 | __  |
 _duke.gif_ | __
 |A non-localized, non-versioned image
-resource called " _duke.gif_ ", not in a library
+resource called "__duke.gif__", not in a library
 | _duke.gif_
 
 | __  |
 _corporate_ | __
 | _duke.gif_ | __
  |A non-localized, non-versioned image
-resource called " _duke.gif_ " in a library called " _corporate_ "
+resource called "__duke.gif__" in a library called "__corporate__"
 | _corporate/duke.gif_
 
 | __  |
 _corporate_ | _2_3_
 | _duke.gif_ | __
  |A non-localized, non-versioned image
-resource called " _duke.gif_ ", in version _2_3_ of the " _corporate_ "
+resource called "__duke.gif__", in version _2_3_ of the "__corporate__"
 library | _corporate/2_3/duke.gif_
 
 | __  | _basic_
 | _2_3_ |
 _script.js_ | _1_3_4.js_ a|
 A non-localized, version _1.3.4_ script
-resource called " _script.js_ ", in versioned _2_3_
+resource called "__script.js__", in versioned _2_3_
 
-library called " _basic_ ".
+library called "__basic__".
 
 | _basic/2_3/script.js/1_3_4.js_
 
 | _de_ | __
 | __  |
 _header.css_ | __
-|A non-versioned style resource called "
-_header.css"_ localized for locale " _de_ " |
+|A non-versioned style resource called 
+"__header.css__" localized for locale "__de__" |
 _de/header.css_
 
 | _de_AT_ | __
 | __  |
 _footer.css_ | _1_4_2.css_
-|Version _1_4_2_ of style resource "
-_footer.css_ ", localized for locale " _de_AT_ "
+|Version _1_4_2_ of style resource 
+"__footer.css__", localized for locale "__de_AT__"
 | _de_AT/footer.css/1_4_2.css_
 
 | _zh_ |
 _extraFancy_ | __
 | _menu-bar.css_ |
 _2_4.css_ |Version _2_4_ of style resource
-called, " _menu-bar.css_ " in non-versioned library, " _extraFancy_ ",
-localized for locale " _zh_ " |
+called, "__menu-bar.css__" in non-versioned library, "__extraFancy__",
+localized for locale "__zh__" |
 _zh/extraFancy/menu-bar.css/2_4.css_
 
 | _ja_ | _mild_
 | _0_1_ |
 _ajaxTransaction.js_ | __
-|Non-versioned script resource called, "
-_ajaxTransaction.js_ ", in version _0_1_ of library called " _mild_ ",
-localized for locale " _ja_ " |
+|Non-versioned script resource called, 
+"__ajaxTransaction.js__", in version _0_1_ of library called "__mild__",
+localized for locale "__ja__" |
 _ja/mild/0_1/ajaxTransaction.js_
 
 | _de_ch_ |
 _grassy_ | _1_0_ |
 _bg.png_ | _1_0.png_
-|Version _1_0_ of image resource called "
-_bg.png_ ", in version _1_0_ of library called " _grassy_ " localized
-for locale " _de_ch_ " |
+|Version _1_0_ of image resource called 
+"__bg.png__", in version _1_0_ of library called "__grassy__" localized
+for locale "__de_ch__" |
 _de_ch/grassy/1_0/bg.png/1_0.png_
 |===
 
@@ -2056,18 +1894,18 @@ into libraries. The localization and versioning scheme is completely
 hidden behind the API of _ResourceHandler_ and _Resource_ and is not
 exposed in any way to the Jakarta Faces run-time.
 
-[P1-start resource versioning] The default
-implementation of _ResourceHandler.createResource()_ , for all variants
+The default
+implementation of __ResourceHandler.createResource()__, for all variants
 of that method, must implement the following to discover which actual
 resource will be encapsulated within the returned _Resource_ instance.
 An implementation may perform caching of the resource metadata to
-improve performance if the _ProjectStage_ is _ProjectStage.Production_ .
+improve performance if the _ProjectStage_ is __ProjectStage.Production__.
 
 Using the _resourceName_ and _libraryName_
-arguments to _createResource()_ , and the resource packaging scheme
-specified in <<RequestProcessingLifecycle.adoc#a750,See Packaging Resources into
-the Web Application Root>>, <<RequestProcessingLifecycle.adoc#a754,See Packaging
-Resources into the Classpath>>, and <<RequestProcessingLifecycle.adoc#a758,See
+arguments to __createResource()__, and the resource packaging scheme
+specified in <<RequestProcessingLifecycle.adoc#a750,Packaging Resources into
+the Web Application Root>>, <<RequestProcessingLifecycle.adoc#a754,Packaging
+Resources into the Classpath>>, and <<RequestProcessingLifecycle.adoc#a758,
 Resource Identifiers>>, discover the file or entry that contains the
 bytes of the resource. If there are multiple versions of the same
 library, and _libraryVersion_ is not specified, the library with the
@@ -2170,7 +2008,7 @@ function deriveResourceId(contract, prefix, resourceLoader,
             resourceVersion = // execute the comment +
             // Look in the resourcePaths for versioned resources.
             // If one or more versioned resources are found, take
-            // the one with the â€œhighestâ€? version number as the value
+            // the one with the "highest" version number as the value
             // of resourceVersion. If no versioned libraries
             // are found, let resourceVersion remain null.
         }
@@ -2190,7 +2028,7 @@ function deriveResourceId(contract, prefix, resourceLoader,
             resourceVersion = // execute the comment
             // Look in the resourcePaths for versioned resources.
             // If one or more versioned resources are found, take
-            // the one with the â€œhighestâ€? version number as the value
+            // the one with the "highest" version number as the value
             // of resourceVersion. If no versioned libraries
             // are found, let resourceVersion remain null.
         }
@@ -2223,23 +2061,22 @@ function getLocalePrefix() {
 }
 ----
 
-{empty}[P1-end]
 
 [[a842]]
 ==== Rendering Resources
 
 Resources such as images, stylesheets and
 scripts use the resource handling mechanism as outlined in
-<<RequestProcessingLifecycle.adoc#a748,See Packaging Resources>>. So, for example:
+<<RequestProcessingLifecycle.adoc#a748,Packaging Resources>>. So, for example:
 
 [source,xml]
 ----
-<h:graphicImage name=”Planets.gif” library=”images”/>
-<h:graphicImage value=”#{resource[‘images:Planets.gif’]}”/>
+<h:graphicImage library="common" name="images/planets.png" />
+<h:graphicImage value="#{resource['common:images/planets.png']}" />
 ----
 
 These entries render exactly the same markup.
-In addition to using the name and library attributes, stylesheet and
+In addition to using the _name_ and _library_ attributes, stylesheet and
 script resources can be “relocated” to other parts of the view. For
 example, we could specify that a script resource be rendered within an
 HTML “head”, “body” or “form” element in the page.
@@ -2255,24 +2092,22 @@ follows:
 
 [source,xml]
 ----
-<f:view contentType="text/html">
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html">
   <h:head>
-    <meta http-equiv="Content-Type"
-        content="text/html;charset=iso-8859-1" />
     <title>Example View</title>
   </h:head>
   <h:body>
     <h:form>
-      <h:outputScript name=”ajax.js” library=”jakarta.faces”
-          target=”head”/>
+      <h:outputScript library="jakarta.faces" name="faces.js" target="head" />
     </h:form>
   </h:body>
-</f:view>
+</html>
 ----
 
-The <h:outputScript> tag refers to the
-renderer, ScriptRenderer, that listens for PostAddToViewEvent event
-types:
+The example tag _<h:outputScript>_ which extends from _UIOutput_ refers to the example
+renderer, __ScriptRenderer__, implementing __ComponentSystemEventListener__,
+that listens for _PostAddToViewEvent_ event types:
 
 [source,java]
 ----
@@ -2282,27 +2117,27 @@ public class ScriptRenderer extends Renderer
         implements ComponentSystemEventListener {...
 ----
 
-Refer to <<UserInterfaceComponentModel.adoc#a1300,See
+Refer to <<UserInterfaceComponentModel.adoc#a1300,
 Event and Listener Model>>. When the component for this resource is added
-to the view, the ScriptRenderer processEvent method adds the component
+to the view, the _ScriptRenderer.processEvent()_ method adds the component
 to a facet (named by the target attribute) under the view root. using
 the UIViewRoot component resource methods as described in
-<<StandardUserInterfaceComponents.adoc#a2257,See Methods>>.
+<<StandardUserInterfaceComponents.adoc#a2257,Methods>>.
 
 The <h:head> and <h:body> tags refer to the
 renderers HeadRenderer and BodyRenderer respectively. They are described
 in the Standard HTML Renderkit documentation referred to in
-<<RenderingModel.adoc#a4314,See Standard HTML RenderKit Implementation>>.
+<<RenderingModel.adoc#a4314,Standard HTML RenderKit Implementation>>.
 During the rendering phase, the encode methods for these renderers
 render the HTML “head” and “body” elements respectively. Then they
 render all component resources under the facet child (named by target)
 under the UIViewRoot using the UIViewRoot component resource methods as
-described in <<StandardUserInterfaceComponents.adoc#a2257,See Methods>>.
+described in <<StandardUserInterfaceComponents.adoc#a2257,Methods>>.
 
 Existing component libraries (with existing
 head and body components), that want to use this resource loading
 feature must follow the rendering requirements described in
-<<RenderingModel.adoc#a4314,See Standard HTML RenderKit Implementation>>.
+<<RenderingModel.adoc#a4314,Standard HTML RenderKit Implementation>>.
 
 [[a869]]
 ===== Resource Rendering Using Annotations
@@ -2314,14 +2149,14 @@ component that was added to the List of child components. Check for the
 presence of the annotation on the renderer for this component (if there
 is a renderer for the component). The annotation check must be done
 immediately after the component is added to the List. Refer to
-<<UserInterfaceComponentModel.adoc#a937,See Component Tree Manipulation>> for detailed
+<<UserInterfaceComponentModel.adoc#a937,Component Tree Manipulation>> for detailed
 information.
 
 
 [[a872]]
 === Resource Library Contracts
 
-[P1-start_contract_packaging]A resource
+A resource
 library contract is a resource library, as specified in the preceding
 section, except that instead of residing in the _resources_ directory of
 the web-app root, or in the _META-INF/resources_ JAR entry name in a JAR
@@ -2330,9 +2165,9 @@ the _META-INF/contracts_ JAR entry name in a JAR file. When packaged in
 a JAR file, there is one additional packaging requirement: each resource
 library contract in the JAR must have a marker file. The name of the
 file is given by the value of the symbolic constant
-_jakarta.faces.application.ResourceHandler.RESOURCE_CONTRACT_XML_ . This
+__jakarta.faces.application.ResourceHandler.RESOURCE_CONTRACT_XML__. This
 may be a zero length file, though future versions of the specification
-may use the file to declare the usage contract. [P1-end] The requirement
+may use the file to declare the usage contract.  The requirement
 to have a marker file enables implementations to optimize for faster
 deployment while still enabling automatic discovery of the available
 contracts.
@@ -2350,15 +2185,15 @@ META-INF/contracts/
                             script.js
                             background.png
                   subSiteLayout/
-                            jakarta.faces.contract.xml
-                            sub_template.xhtml
+                                jakarta.faces.contract.xml
+                                sub_template.xhtml
 ....
 
 
 All of the other packaging, encoding and
 decoding requirements are the same as for resource libraries.
 
-See FaceletsAndWebApplications.adoc#a5526,See Resource
+See <<FaceletsAndWebApplications.adoc#a5526,Resource
 Library Contracts Background>> for a non-normative overview of the
 feature, including a brief usage example.
 

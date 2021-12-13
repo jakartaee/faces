@@ -7,7 +7,7 @@ include::UserInterfaceComponentModel.adoc[]
 
 include::StandardUserInterfaceComponents.adoc[]
 
-include::ExpressionLanguageAndManagedBeanFacility.adoc[]
+include::ExpressionLanguageFacility.adoc[]
 
 include::Per-RequestStateInformation.adoc[]
 
@@ -15,7 +15,7 @@ include::ApplicationIntegration.adoc[]
 
 include::RenderingModel.adoc[]
 
-include::IntegrationWithJSP.adoc[]
+include::StandardTagLibraries.adoc[]
 
 include::FaceletsAndWebApplications.adoc[]
 

@@ -1,4 +1,4 @@
-:issue_tracker_url: https://github.com/eclipse-ee4j/faces-api/issues/
+issue_tracker_url: https://github.com/eclipse-ee4j/faces-api/issues/
 
 [appendix]
 == Change Log
@@ -14,19 +14,17 @@ tracker at {issue_tracker_url}.
 
 ==== Big Ticket Features
 
-// #a5904 Section 10.4.1.7 “<f:websocket>”
 * WebSocket Integration +
 Issue ID {issue_tracker_url}1396[1396] +
-See the VDLDocs for <f:websocket /> and
-<<FaceletsAndWebApplications.adoc#a5904>>.
+See the VDLDocs for <f:websocket>.
 
 * Multi-field Validation +
 Issue ID {issue_tracker_url}1[1] +
-See the VDLDocs for <f:validateWholeBean />.
+See the VDLDocs for <f:validateWholeBean>.
 
 * Java Time Support +
 Issue ID {issue_tracker_url}1370[1370] +
-See the VDLDocs for <f:convertDateTime />.
+See the VDLDocs for <f:convertDateTime>.
 
 // #a3070 Section 5.9.2 “EL Resolution”
 * Use CDI for evaluation of JSF specific EL implicit Objects +
@@ -43,7 +41,7 @@ Issue ID
 {issue_tracker_url}1385[1385],
 {issue_tracker_url}1383[1383],
 {issue_tracker_url}1386[1386] - {issue_tracker_url}1394[1394] +
-See <<ExpressionLanguageAndManagedBeanFacility.adoc#a3070>>
+See <<ExpressionLanguageFacility.adoc#a3070>>
 
 * Issue ID {issue_tracker_url}1417[1417] +
 Deprecate javax.faces.bean. 
@@ -63,7 +61,7 @@ Issue ID
 {issue_tracker_url}1351[1351],
 {issue_tracker_url}1350[1350],
 {issue_tracker_url}1345[1345] +
-See <<ExpressionLanguageAndManagedBeanFacility.adoc#a3054>>
+See <<ExpressionLanguageFacility.adoc#a3054>>
  
 * Issue ID {issue_tracker_url}1364[1364] +
 UIData and <ui:repeat> supports Map and Iterable
@@ -287,7 +285,7 @@ and <<ApplicationIntegration.adoc#a3955>>.
 // #a2541 TABLE 5-3 “JSF Artifacts Eligible for Injection”
 Issue ID {issue_tracker_url}1250[1250] +
 Fix entries in table
-<<ExpressionLanguageAndManagedBeanFacility.adoc#a2541>>.
+<<ExpressionLanguageFacility.adoc#a2541>>.
 
 ===== Resources
 
@@ -320,7 +318,7 @@ Leverage Java SE 8 repeatable annotations where appropriate.
 // #a6088 Section 11.1.3 “Application Configuration Parameters”
 JSF 2.3 is fully backward compatible with previous releases of JSF,
 unless any of the following context-parameter values are specified.
-See <<UsingJSFInWebApplications.adoc#a6088>> for details.
+See <<UsingFacesInWebApplications.adoc#a6088>> for details.
 
 [none]
 * javax.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE
@@ -393,13 +391,13 @@ respect to partial processing during render response. See
 <<RequestProcessingLifecycle.adoc#a480,Render Response Partial Processing>>.
 
 * Issue ID {issue_tracker_url}1067[1067] +
-Spec clarifications. See the VDLDoc for _cc:insertChildren_ ,
+Spec clarifications. See the VDLDoc for __cc:insertChildren__,
 _cc:insertFacet_
 
 * Issue ID {issue_tracker_url}1061[1061] +
 Clarify that both
 _Application.publishEvent()_ and the manual traversal based delivery are
-required for publishing the _PostRestoreStateEvent_ .
+required for publishing the __PostRestoreStateEvent__.
 
 * Issue ID {issue_tracker_url}1030[1030] +
 Clarify docs for h:message h:messages
@@ -419,7 +417,7 @@ super.isAppropriateListener()
 
 * Issue ID {issue_tracker_url}984[984] +
 Component Context Manager, see
-_javax.faces.component.visit.ComponentModificationManager_ .
+__javax.faces.component.visit.ComponentModificationManager__.
 
 * Issue ID {issue_tracker_url}943[943] +
 See _javax.faces.view.ViewDeclarationLanguageWrapper_
@@ -452,7 +450,7 @@ _javax.faces.application.Application_ event subscription clarifications.
 
 * Issue ID {issue_tracker_url}949[949], {issue_tracker_url}947[947] +
 Give JSF the ability to correctly handle browsing context (tab, browser
-window, pop-up, etc). See _javax.faces.lifecycle.ClientWindow_ .
+window, pop-up, etc). See __javax.faces.lifecycle.ClientWindow__.
 
 * Issue ID {issue_tracker_url}758[758] and {issue_tracker_url}1042[1042]
 +
@@ -497,7 +495,7 @@ validation succeeds.
 
 * Issue ID {issue_tracker_url}1071[1071]
 Add FlashFactory. See
-<<UsingJSFInWebApplications.adoc#a6336,Delegating Implementation Support>>.
+<<UsingFacesInWebApplications.adoc#a6336,Delegating Implementation Support>>.
 
 * Issue ID {issue_tracker_url}1065[1065] +
 When calculating the locale for the
@@ -544,15 +542,15 @@ UIOutput.getValue() value returns.
 * Issue ID {issue_tracker_url}220[220] +
 In web-partialresponse_2_2.xsd, require that
 the <partial-response> element has an “id” attribute whose value is the
-return from _UIViewRoot.getContainerClientId()_ .
+return from __UIViewRoot.getContainerClientId()__.
 
 
 
 ===== Platform Integration
 
 * Issue ID {issue_tracker_url}763[763] +
-Change <<ExpressionLanguageAndManagedBeanFacility.adoc#a2536,
-Managed Bean Annotations>> to account for new injectability requirements.
+Change 
+Managed Bean Annotations to account for new injectability requirements.
 
 * Issue ID {issue_tracker_url}976[976] +
 In Javadoc for “Faces Managed Bean Annotation Specification For
@@ -630,7 +628,7 @@ identifier as specified in section 2.6.1.3.
 * Issue ID {issue_tracker_url}548[548] +
 Require additional check to handle the case
 where, in one resource library, there are both localized and
-non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,See Libraries
+non-localized resources. See <<RequestProcessingLifecycle.adoc#a836,Libraries
 of Localized and Versioned Resources>>.
 
 .Smaller Changes
@@ -638,15 +636,15 @@ of Localized and Versioned Resources>>.
 * Issue ID {issue_tracker_url}1038[1038] +
 Declare an annotation corresponding to the
 _javax.faces.FACELETS_RESOURCE_RESOLVER_ application configuration
-parameter. See <<UsingJSFInWebApplications.adoc#a6598,See Requirements for scanning
-of classes for annotations>> and <<UsingJSFInWebApplications.adoc#a6088,See
+parameter. See <<UsingFacesInWebApplications.adoc#a6598,Requirements for scanning
+of classes for annotations>> and <<UsingFacesInWebApplications.adoc#a6088,
 Application Configuration Parameters>>.
 
 * Issue ID {issue_tracker_url}1082[1082] +
 Account for DOCTYPE discrepancy between
 server side representation of Facelet VDL files, which are proper XHTML,
 and processed files which are sent to the client, which now, by default,
-are HTML5 HTML syntax files. See <<JSFMetadata.adoc#a7061,See The
+are HTML5 HTML syntax files. See <<FacesMetadata.adoc#a7061,The
 facelets-processing element>>.
 
 * Fix incorrect VDLDoc
@@ -677,8 +675,8 @@ Missing _method-signature_ element in taglib xsd.
 ===== Spec Clarifications
 
 * Issue ID {issue_tracker_url}1136[1136] +
-In _ExternalContext.dispatch()_ , clarify what is to be done if
-_getRequestDispatcher()_ returns _null_ .
+In __ExternalContext.dispatch()__, clarify what is to be done if
+_getRequestDispatcher()_ returns __null__.
 
 * Issue ID {issue_tracker_url}1132[1132] +
 Replace literal strings with symbolic constants where possible.
@@ -748,7 +746,7 @@ javax.faces.FACELETS_BUFFER_SIZE to be 1024.
 --
 
 * Issue ID {issue_tracker_url}998[998] +
-Additional clarification about binding attribute in VDLdocs
+Additional clarification about binding attribute in VDLDocs
 
 * Issue ID {issue_tracker_url}915[915], {issue_tracker_url}1015[1015] +
 Non-normative text about http methods and prefix mapping
@@ -770,7 +768,7 @@ resources must be loaded using ResourceHandler.createViewResource().
 
 * Issue ID {issue_tracker_url}996[996] +
 Enable configuring the web app resources
-directory. See <<UsingJSFInWebApplications.adoc#a6088,Application Configuration
+directory. See <<UsingFacesInWebApplications.adoc#a6088,Application Configuration
 Parameters>>.
 
 * Issue ID {issue_tracker_url}719[719] +
@@ -780,7 +778,7 @@ Method to map a viewId to a resourcePath
 Modify <<ApplicationIntegration.adoc#a4135,State Saving Alternatives and
 Implications>> to clarify there is no requirement to serialize server
 state by default when state saving method is server. Introduce a context
-parameter to this effect in <<UsingJSFInWebApplications.adoc#a6088,Application
+parameter to this effect in <<UsingFacesInWebApplications.adoc#a6088,Application
 Configuration Parameters>>
 
 ===== Expression Language
@@ -793,9 +791,9 @@ regarding wrapping any exception thrown by the invoked method being
 wrapped in an AbortProcessingException. Such a requirement is incorrect
 and should not have been introduced.
 +
-In section <<Per-RequestStateInformation.adoc#a3253,See
-ExceptionHandler>>, add _AbortProcessingException_ , to the list of
-exceptions that do not get to the _ExceptionHandler_ .
+In section <<Per-RequestStateInformation.adoc#a3253,
+ExceptionHandler>>, add __AbortProcessingException__, to the list of
+exceptions that do not get to the __ExceptionHandler__.
 
 * Issue ID {issue_tracker_url}1043[1043] +
 When publishing a ComponentSystemEvent, ensure the EL current component
@@ -803,13 +801,13 @@ is pushed correctly
 
 * Issue ID {issue_tracker_url}1164[1164] +
 If running in a container that supports EL 3.0, add the necessary
-ELResolvers. See <<ExpressionLanguageAndManagedBeanFacility.adoc#a2966,See Stream, StaticField,
+ELResolvers. See <<ExpressionLanguageFacility.adoc#a2966,Stream, StaticField,
 Map, List, Array, and Bean ELResolvers>>.
 
 ===== Configuration and Bootstrapping
 
 * Issue ID {issue_tracker_url}533[533] +
-Modify <<UsingJSFInWebApplications.adoc#a6201,
+Modify <<UsingFacesInWebApplications.adoc#a6201,
 Application Startup Behavior>> to account for requirement to call new API
 when starting up.
 
@@ -822,7 +820,7 @@ JSF 2.2, and also for facelet tag libraries.
 +
 The following XSD files are new for JSF 2.2,
 and each will be in the XML namespace
-_http://xmlns.jcp.org/xml/ns/javaee_ .
+__http://xmlns.jcp.org/xml/ns/javaee__.
 +
 --
 [none]
@@ -1005,11 +1003,11 @@ group the methods by their purpose. Add a new section
 <<ApplicationIntegration.adoc#a3997,ViewHandler Methods that relate to View
 Protection>>, which points to the javadocs. In
 <<ApplicationIntegration.adoc#a3955,ViewHandler Methods Relating to
-Navigation>>, in the spec for _getActionUrl()_ , specify how view
+Navigation>>, in the spec for __getActionUrl()__, specify how view
 protection is affected.
 
 * Remove tables in section
-<<UsingJSFInWebApplications.adoc#a6598,Requirements for scanning of classes for
+<<UsingFacesInWebApplications.adoc#a6598,Requirements for scanning of classes for
 annotations>> +
 The Javadoc tool lists annotations in a
 separate section, making the tables that list JSF related annotations
@@ -1072,13 +1070,13 @@ New text dealing with <cc:attribute>
 --
 [none]
 * Any additional attributes on
-_<composite:attribute/ >_ are exposed as attributes accessible from the
-_getValue()_ and _attributeNames()_ methods on _PropertyDescriptor_ .
+_<cc:attribute/ >_ are exposed as attributes accessible from the
+_getValue()_ and _attributeNames()_ methods on __PropertyDescriptor__.
 The return type from getValue() must be a _ValueExpression_ with the
-exception of the _getValue(“type”)_ . The return type from
-_getValue(“type”)_ must be _Class_ . If the value specified for the
+exception of the __getValue("type")__. The return type from
+_getValue("type")_ must be __Class__. If the value specified for the
 _type_ attribute of _<cc:attribute/>_ cannot be converted to an actual
-_Class_ , a _TagAttributeException_ must be thrown, including the _Tag_
+__Class__, a _TagAttributeException_ must be thrown, including the _Tag_
 and _TagAttribute_ instances in the constructor.
 --
 
@@ -1098,7 +1096,7 @@ pass through.
 
 ==== New feature: <facelets-processing>
 
-{empty}<<JSFMetadata.adoc#a7040,See
+See <<FacesMetadata.adoc#a7040,
 Required Handling of *-extension elements in the application
 configuration resources files>>
 
@@ -1110,9 +1108,9 @@ the documents.
 
 ==== Change Restore View Phase
 
-Change <<RequestProcessingLifecycle.adoc#a404,See
+Change <<RequestProcessingLifecycle.adoc#a404,
 Restore View>> to require a call to _ViewHandler.deriveLogicalViewId()_
-before trying to find the _ViewDeclarationLanguage_ .
+before trying to find the __ViewDeclarationLanguage__.
 
 ==== <<ApplicationIntegration.adoc#a3910,Default ViewHandler Implementation>>
 
@@ -1156,16 +1154,14 @@ View" (since the f:view tag is optional, but implied)
 
 [source,xml]
 ----
-<html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
+<!DOCTYPE html>
+<html xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
   <h:head>
-    <title>A simple example of EZComp</title>
+    ...
   </h:head>
   <h:body>
-    <h:form>
-    </h:form>
+    ...
   </h:body>
 </html>
 ----
@@ -1176,10 +1172,8 @@ or "Facelet View" for portlets would look like this:
 
 [source,xml]
 ----
-<f:view xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:f="http://java.sun.com/jsf/core"
-    xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
+<f:view xmlns:f="jakarta.faces.core"
+        xmlns:h="jakarta.faces.html">
   ...
 </f:view>
 ----
@@ -1285,8 +1279,8 @@ for a very long time has this method been used to instigate validation.
 
 Section 3.6.2.1 of the Spec indicates that
 the "hidden" property of the javax.bean.FeatureDescriptor is to appear
-as an attribute for tags like composite:actionSource,
-composite:attribute, composite:facet, and composite:interface but the
+as an attribute for tags like cc:actionSource,
+cc:attribute, cc:facet, and cc:interface but the
 VDLDocs do not declare that the "hidden" property is available.
 
 ==== Chapter 4
@@ -1311,28 +1305,6 @@ Add faces-include-view-params
 
 Fix typo the specified createView() should be
 called in renderView() and restoreView().
-
-==== Chapter 9
-
-===== <<IntegrationWithJSP.adoc#a4654,<f:actionListener> >> of Spec PDF -- Missing "for" attribute of f:actionListener in Spec PDF
-
-The example for f:selectItems includes a
-noSelectionValue attribute, but that attribute isn't documented. VDLDocs
-for f:selectItems does not document the noSelectionValue attribute.
-
-Actually, it does document it, but it only
-looks like it doesn't. It seems as though the itemLabelEscaped attribute
-is documented twice, but really the second occurance is the
-noSelectionValue.
-
-===== <<IntegrationWithJSP.adoc.#a4654,<f:actionListener> >> and <<IntegrationWithJSP.adoc#a5282,<f:valueChangeListener> >>
-
-Add this non-normative text.
-
-Note that if the binding attribute is used,
-the scope of the ValueExpression must be chosen carefully so as not to
-introduce undesireable results. In general, when using the binding
-attribute, do not point to beans in request or narrower scope.
 
 ==== Chapter 10
 
@@ -1368,92 +1340,12 @@ section in appendix that includes the facelet taglib schema.
 Correct xref to point to section in appendix
 that includes the facelet taglib schema.
 
-===== VDLDocs and PDL documentation
+===== VDLDocs
 
-<<FaceletsAndWebApplications.adoc#a6043,See
-Facelet Templating Tag Library>>,
-<<FaceletsAndWebApplications.adoc#a6043,See Facelet
-Templating Tag Library>>, and <<FaceletsAndWebApplications.adoc#a6047,See JSTL Core
-and Function Tag Libraries>> refer the reader to the "VDLDocs" for
-Facelet, CC, and JSTL tag libraries respectively.
+See <<FaceletsAndWebApplications.adoc#a6043,Facelet Templating Tag Library>>,
+and <<FaceletsAndWebApplications.adoc#a6047,Jakarta Tags Core and Function Tag Libraries>>.
+Refer the reader to the "VDLDocs" (View Declaration Language Documentations).
 
-However, when one checks out the Mojarra
-2.0.0 Beta 2 page, it talks about the "PDL" tag library documentation.
-Also, when one clicks on the "PDL Documentation for Facelets2", it uses
-the term "PDL" in several places.
-
-So it looks like the View Declaration
-Language (VDL) terminology hasn't made its way into the tag library docs
-yet.
-
-===== Possible error in section <<FaceletsAndWebApplications.adoc#a1111,<f:ajax> >> of the JSF 2.0 Spec regarding f:ajax and h:panelGrid
-
-Section 10.4.1.1, shows this example:
-
-[source,xml]
-----
-<f:ajax>
-  <h:panelGrid>
-    <h:inputText id=˝text1˝/>
-    <h:commandButton id=˝button1˝/>
-  </h:panelGrid>
-</f:ajax>
-----
-
-And then has the following about the example:
-
-<h:panelGrid> has no default event so in this
-case a behavior would not be applied.
-
-BUT the very next example is this:
-
-[source,xml]
-----
-<f:ajax event=˝click˝>
-  <h:panelGrid id=˝grid1˝>
-    <h:inputText id=˝text1˝/>
-    <h:commandButton id=˝button1˝>
-      <f:ajax event=˝mouseover˝/>
-    </h:commandButton>
-  </h:panelGrid>
-</f:ajax>
-----
-
-And then has the following comment:
-
-From this example, grid1˝ and text1˝ would
-have ajax behavior applied for an onclick˝ event
-
-So... which is it? Does h:panelGrid get ajax
-behavior or not? Can an HTML table have an "onclick" JavaScript event?
-
-===== Redundant mentioning of Facelets in <<FaceletsAndWebApplications.adoc#a5828,<f:validateBean> >> of the JSF 2.0 Spec
-
-Since the parent section (10.4.1) indicates
-that sub-sections are Facelets-only in nature, then it is not necessary
-to have (Facelets only) in the "Constraints" paragraph of Section
-10.4.1.4 of the spec.
-
-===== Availability of f:validateBean and f:validateRequired in Jakarta Server Pages
-
-<<FaceletsAndWebApplications.adoc#a5691,See Standard
-Facelet Tag Libraries>> outlines the f: namespaced tags that are only
-applicable to Facelets (and not Jakarta Server Pages). In that section, f:validateBean,
-and f:validateRequired are listed. However, they are both listed as
-working with Jakarta Server Pages as well (kind of like f:validateRegex), as can be seen
-from the Jakarta Server Pages TLDDocs.
-
-According to Dan Allen: "those tags only work
-partially in Jakarta Server Pages. Yes, they work as single field validators. But the
-branch validator capability does not work (wrapping the validator tag
-around a branch). The later feature is Facelets only. So the validators
-do have their feet in both ponds, but only Facelets has full support. I
-suppose we could mention this tidbit in the Jakarta Server Pages section."
-
-Dan is correct that it should be mentoned in
-the Jakarta Server Pages section, but also, that f:validateBean and f:validateRequired
-belong in both Section 10.4 and 9.4, with the limits of their
-functionality described in each section.
 
 ==== Chapter 13
 
@@ -1466,7 +1358,7 @@ The request contains special parameters that
 indicate the request is a partial execute request or a partial execute
 request that was triggered using Ajax
 
-This needs clarification -- does this mean to
+This needs clarification—does this mean to
 say:
 
 partial execute request (not triggered by
@@ -1512,28 +1404,6 @@ Table 14.3: Reorder rows
 Update schema to remove partial-traversal, as
 well as fixing 768.
 
-===== <<JSFMetadata.adoc.html#a7139,Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0>>
-
-To ease migration for Facelet taglibraries
-declared using pre-JSF 2.0 versions of Facelets, implementations must
-support loading facelet taglibrary files that conform to the pre-JSF 2.0
-Facelets DTD. Per DTD conventions, Facelet taglibrary files declare
-conformance to this DTD by including text similar to the following in at
-the top of their declaring file.
-
-[source,xml]
-----
-<!DOCTYPE facelet-taglib PUBLIC
-    "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
-    "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
-----
-
-Use of this DTD is officially deprecated.
-This DTD is included for reference in Section 1.2.1 "Deprecated DTD for
-Facelet Taglibraries Used by Versions of Facelets Prior to JSF 2.0". It
-is expected that proper JSF 2.0 Facelet Taglibraries will declare
-conformance to the following schema, rather than the deprecated DTD.
-
 ==== VDLDoc changes
 
 ===== Typo in f:selectItems VDLDocs
@@ -1577,7 +1447,7 @@ PostAddToView for the f:event VDLDocs
 
 ===== Need to change "JSP" to "Facelets" in "Body Content" of VDLDocs
 
-Search for "JSP" on the f:event VDLDocs [1].
+Search for "JSP" on the f:event VDLDocs.
 My suspicion is that this is a problem across the board.
 
 ===== Need clarification in VDLDocs for f:metadata
@@ -1645,7 +1515,7 @@ section 3.5.5
 
 * VDLDocs for h:button say that the outcome
 attribute is not required, but really it should be required otherwise
-there is no purpose of f:button -- you would end up navigating back to
+there is no purpose of f:button—you would end up navigating back to
 the current view. The whole point of f:button is to perform navigation
 to a different view that potentially contains view parameters. Why have
 a bookmarkable URL back to itself?
@@ -1658,7 +1528,7 @@ would be that both should have this attribute?
 h:outputStylesheet should indicate that even though the UIOutput class
 implements the ValueHolder interface, the coverter and value attributes
 are basically ignored by the renderers, since the value attribute has no
-meaning. This is basically a design flaw -- a new class named
+meaning. This is basically a design flaw—a new class named
 UIOutputResource should have been created instead of UIOutput being
 reused.
 
@@ -1737,7 +1607,7 @@ footnotes section below. |yes
 _{issue_tracker_url}823[Issue ID:823]_
 
 |C007 |Errata
-|Section JSF.11.4.7 Ordering. After the
+|Section 11.4.7 "Ordering". After the
 sentence "The <others /> element must be handled as follows" add a
 bullet point: "The <others /> element represents a set of application
 configuration resources. This set is described as the set of all
@@ -1750,14 +1620,14 @@ being processed, the <others > element must be ignored."
 _{issue_tracker_url}824[Issue ID:824]_
 
 |C008 |Errata
-|taglib docs for composite:interface are
+|taglib docs for cc:interface are
 missing documentation for _componentType_ attribute.
 |yes |
 _{issue_tracker_url}849[Issue ID:849]_
 
 |C011 |Errata
-|Section JSF.3.6.2.1 Composite Component
-Metadata Specification. Add _BehaviorHolderAttachedObjectTarget_ after
+|Section 3.6.2.1 "Composite Component
+Metadata". Add _BehaviorHolderAttachedObjectTarget_ after
 iii. _ActionSource2AttachedObjectTarget_ |yes
 |
 _{issue_tracker_url}825[Issue ID:825]_
@@ -1792,7 +1662,7 @@ _{issue_tracker_url}565[Issue ID:565]_
 
 |C017 |Errata
 | _UISelectItem_ doesn't mention
-_itemEscaped_ . |yes
+__itemEscaped__. |yes
 |
 _{issue_tracker_url}430[Issue ID:430]_
 
@@ -1847,15 +1717,15 @@ _{issue_tracker_url}855[Issue ID:855]_
 
 |C030 |Errata
 |RenderKit Docs _javax.faces.CompositeFacet_
-change " The implementation of _encodeBegin()_ , must obtain " to be "
-The implementation of _encodeChildren()_ , must obtain "
+change " The implementation of __encodeBegin()__, must obtain " to be "
+The implementation of __encodeChildren()__, must obtain "
 |no |
 _{issue_tracker_url}843[Issue ID:843]_
 
 |C031 |Errata
-|VDL docs state that _composite:attribute_
-has a target attribute with _required=true_ . This attribute is not
-really required on _composite:attribute_ .
+|VDL docs state that _cc:attribute_
+has a target attribute with __required="true"__. This attribute is not
+really required on __cc:attribute__.
 |yes |
 _{issue_tracker_url}644[Issue ID:644]_
 
@@ -1868,7 +1738,7 @@ _{issue_tracker_url}830[Issue ID:830]_
 |C033 |Errata
 |Modify the javadoc for _ResourceHandler_ to
 state that for resources residing at
-_META-INF/resources/<resourceidentifier>_ . The implementation is not
+__META-INF/resources/<resourceidentifier>__. The implementation is not
 required to support the optional _libraryVersion_ and _resourceVersion_
 segments |yes |
 _{issue_tracker_url}844[Issue ID:844]_
@@ -1884,7 +1754,7 @@ _{issue_tracker_url}831[Issue ID:831]_
 |3.6.2.1 Modify composite component metadata
 specification to state that, within the _cc:interface_ element, the
 following attributes are not available unless _ProjectStage_ is
-_Development_ : displayName, expert, hidden, preferred, shortDescription
+__Development__: displayName, expert, hidden, preferred, shortDescription
 |yes |
 _{issue_tracker_url}832[Issue ID:832]_
 
@@ -1896,8 +1766,8 @@ is taken if state argument is null |yes
 _{issue_tracker_url}845[Issue ID:845]_
 
 |C040 |Errata
-|VDLDocs for _f:metadata_ . Don't mention
-_f:view_ . State, "This tag must reside within the top level facelet
+|VDLDocs for __f:metadata__. Don't mention
+__f:view__. State, "This tag must reside within the top level facelet
 page whose filename corresponds ot the _viewid_ being loaded."
 |yes |
 _{issue_tracker_url}856[Issue ID:856]_
@@ -1910,8 +1780,8 @@ _{issue_tracker_url}833[Issue ID:833]_
 
 |C044 |Errata
 |Section 11.4.6 doesn't include
-_ViewDeclarationLanguage_ , _VisitContextFactory_ ,
-_ExceptionHandlerFactory_ , _PartialViewContext_ ,
+__ViewDeclarationLanguage__, __VisitContextFactory__,
+__ExceptionHandlerFactory__, __PartialViewContext__,
 _TagHandlerDelegateFactory_ as decoratable
 |yes |
 _{issue_tracker_url}834[Issue ID:834]_
@@ -1925,12 +1795,12 @@ _{issue_tracker_url}836[Issue ID:836]_
 
 |C047 |Errata
 |Add "defaults" for "execute", "render"
-_AjaxBehavior_ in vdldocs. |yes
+_AjaxBehavior_ in VDLDocs. |yes
 |
 _{issue_tracker_url}568[Issue ID:568]_
 
 |C048 |Errata
-|JSP should not have _f:viewParam_ . Facelets
+|JSP should not have __f:viewParam__. Facelets
 _f:viewParam_ must have _name_ attribute.
 |yes |
 _{issue_tracker_url}656[Issue ID:656]_
@@ -1993,7 +1863,7 @@ _{issue_tracker_url}840[Issue ID:840]_
 
 |C065 |Change
 |Correct typos in _Composite.tld_ (for
-pdldocs). Specifically, quotes around _actionListener_ ,
+pdldocs). Specifically, quotes around __actionListener__,
 _method-signature_ (spelling). Also clarify the default value "false"
 for "required" attribute. |yes
 |
@@ -2014,7 +1884,7 @@ versions of taglibs are acceptable. |yes
 _{issue_tracker_url}744[Issue ID:744]_
 
 |C069 |Change
-|Make sure vdldocs for _f:event_ list event
+|Make sure VDLDocs for _f:event_ list event
 all possible event types |yes
 |
 _{issue_tracker_url}712[Issue ID:712]_
@@ -2027,7 +1897,7 @@ _{issue_tracker_url}780[Issue ID:780]_
 
 |C073 |Errata
 |Specify f:ajax execute/render id behavior in
-vdldocs (as outlined in Section 10.4.1.1 of the spec).
+VDLDocs (as outlined in Section 10.4.1.1 of the spec).
 |yes |
 _{issue_tracker_url}567[Issue ID:567]_
 
@@ -2116,7 +1986,7 @@ _{issue_tracker_url}509[Issue ID:509]_
 _{issue_tracker_url}515[Issue ID:515]_
 
 |C089 |Errata
-|composite:attribute component documentation
+|cc:attribute component documentation
 for the attribute type should be for attribute method-signature.
 |yes |
 _{issue_tracker_url}524[Issue ID:524]_
@@ -2194,7 +2064,7 @@ validation tags and it lists the validateDoubleRange tag twice.
 _{issue_tracker_url}591[Issue ID:591]_
 
 |C103 |Errata
-|Vdldocs and Spec section 3.6.2.1 have
+|VDLDocs and Spec section 3.6.2.1 have
 component:actionSource target attribute with commas as delimiters -
 should be "space" as delimiter. |yes
 |
@@ -2242,7 +2112,7 @@ to be removed from the Jakarta Server Pages PDL documentation
 _{issue_tracker_url}645[Issue ID:645]_
 
 |C111 |Errata
-|jsf.ajax.response update element
+|faces.ajax.response update element
 clarification needed in JavaScript docs. |yes
 |
 _{issue_tracker_url}646[Issue ID:646]_
@@ -2267,7 +2137,7 @@ _{issue_tracker_url}661[Issue ID:661]_
 
 |C115 |Errata
 |JavaDocs for UIComponent.processValidators
-is incomplete. It should mention _popComponentFromEL_ .
+is incomplete. It should mention __popComponentFromEL__.
 |yes |
 _{issue_tracker_url}664[Issue ID:664]_
 
@@ -2295,8 +2165,7 @@ mentioned in the schema part of the spec. Houls be added to Spec Section
 _{issue_tracker_url}705[Issue ID:705]_
 
 |C120 |Errata
-|Specification edits needed - see:
-_http://docs.google.com/Doc?docid=0AW2H0u_g8JuTZGYycDZzdmhfMTRmOHo3ZmJncQ&hl=en[here]_
+|Specification edits needed
 |no |
 _{issue_tracker_url}714[Issue ID:714]_
 
@@ -2378,6 +2247,5 @@ _{issue_tracker_url}806[Issue ID:806]_
 
 === Changes in versions below 2.0 Final
 
-See the JavaServer Faces specification document for these changes. The change log items are removed from this
-document in Jakarta Server Faces specification version 3.0.
-
+See the "JavaServer™ Faces Specification Version 2.3" for these changes.
+The change log items are removed from this document in Jakarta Faces 3.0.

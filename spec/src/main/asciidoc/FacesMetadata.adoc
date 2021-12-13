@@ -2,10 +2,9 @@
 [[a7037]]
 == Jakarta Faces Metadata
 
-The XML Schema Definition for Application
-Configuration Resource files is included in a web browser optimized
-format along with the Javadoc. That is the canonical location of the
-schemas in the specification.
+The XML Schema Definition for Application Configuration Resource __web-facesconfig_4_0.xsd__
+is included in a web browser optimized format along with the Javadoc.
+That is the canonical location of the schemas in the specification.
 
 [[a7040]]
 === Required Handling of _*-extension_ elements in the application configuration resources files
@@ -13,7 +12,7 @@ schemas in the specification.
 As specified in the XML Schema for
 Application Configuration Resources, many of the elements in the file
 have _*-extension_ elements declared in a similar fashion to this one
-for the _faces-config-extension_ :
+for the __faces-config-extension__:
 
 [source,xml]
 ----
@@ -28,7 +27,7 @@ for the _faces-config-extension_ :
     <xsd:any namespace="##any" processContents="lax"
         minOccurs="0" maxOccurs="unbounded" />
   </xsd:sequence>
-  <xsd:attribute name="id" type="xsd:ID"/>
+  <xsd:attribute name="id" type="xsd:ID" />
 </xsd:complexType>
 ----
 
@@ -39,7 +38,7 @@ Note that it is normal for an application to
 have several application configuration resources files. If multiple such
 resource files have conflicting _*-extension_ elements, the last element
 processed takes precedence over preceding elements. Processing order can
-be controlled as specified in <<UsingJSFInWebApplications.adoc#a6435,See Ordering
+be controlled as specified in <<UsingFacesInWebApplications.adoc#a6435,Ordering
 of Artifacts>>.
 
 ====  _faces-config-extension_ handling
@@ -49,7 +48,7 @@ contains a _faces-config-extension_ element, the children of the element
 must be inspected for containing well-formed XML conforming to the
 syntax specified in the following subsection(s). DTD syntax is used for
 convenience since the content of a _*-extension_ element may not be
-constrained due to its declaration as containing _<xsd:any>_ .
+constrained due to its declaration as containing __<xsd:any>__.
 
 [[a7061]]
 ===== The _facelets-processing_ element
@@ -68,11 +67,11 @@ to affect the processing of Facelets VDL files. Therefore, this setting
 only applies to those requests that reach the Facelets
 _ViewDeclarationLanguage_ implementation, as specified to the runtime
 via the _jakarta.faces.FACELETS_VIEW_MAPPINGS_ and
-_jakarta.faces.DEFAULT_SUFFIX_ _<context-param>_ entries. The
+_jakarta.faces.FACELETS_SUFFIX_ _<context-param>_ entries. The
 specification defines three processing modes for Facelets files:
 Facelets XHTML syntax, XML View syntax, and Facelets JSPX syntax. This
 last syntax is intended to ease the migration to Facelets for
-applications already using the Jakarta Server Pages document syntax (also known as JSPX
+applications already using the Jakarta Server Pages XML document syntax (also known as JSPX
 syntax). The affect on the processing of files in each of these three
 modes is specified in the following table.
 
@@ -134,25 +133,25 @@ means that the content is passed through unmodified to the user agent.
 that for CDATA sections, the content of the CDATA section itself is
 passed through, even if the start and end tags should be consumed.
 “escaped” means that sensivite content in the response is automatically
-escaped: _&_ becomes _&amp;_ , for example. “not escaped” means that
+escaped: _&_ becomes __&amp;__, for example. “not escaped” means that
 such content is not escaped.
 
 The content of the _<file-extension>_ element
 is particular to the file extension of the physical resource for the
 Facelets VDL content, as specified in the
-_jakarta.faces.FACELETS_VIEW_MAPPINGS_ and _jakarta.faces.DEFAULT_SUFFIX_
+_jakarta.faces.FACELETS_VIEW_MAPPINGS_ and _jakarta.faces.FACELETS_SUFFIX_
 _<context-param>_ elements. Consider the following example
-_faces-config.xml_ .
+__faces-config.xml__.
 
 [source,xml]
 ----
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <faces-config
-    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-        http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
-    version="2.1">
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+    version="4.0">
   <faces-config-extension>
     <facelets-processing>
       <file-extension>.jspx</file-extension>
@@ -175,8 +174,8 @@ And _web.xml_ content
   <param-value>*.xhtml;*.view.xml;*.jspx</param-value>
 </context-param>
 <context-param>
-  <param-name>jakarta.faces.DEFAULT_SUFFIX</param-name>
-  <param-value>.xhtml .view.xml .jsp .jspx</param-value>
+  <param-name>jakarta.faces.FACELETS_SUFFIX</param-name>
+  <param-value>.xhtml .view.xml .jspx</param-value>
 </context-param>
 ----
 
@@ -189,270 +188,12 @@ processing mode of .view.xml files to be xml.
 [[a7134]]
 === XML Schema Definition For Facelet Taglib
 
-The XML Schema Definition for Facelet Taglib
+The XML Schema Definition for Facelet Taglib __web-facelettaglibrary_4_0.xsd__
 is included in a web browser optimized format along with the Javadoc.
 That is the canonical location of the schemas in the specification.
 
-[P1_start_facelet_taglib_decl]To ease
-migration for Facelet taglibraries declared using pre-JSF 2.0 versions
-of Facelets, implementations must support loading facelet taglibrary
-files that conform to the pre-JSF 2.0 Facelets DTD. Per DTD conventions,
-Facelet taglibrary files declare conformance to this DTD by including
-text similar to the following in at the top of their declaring file.
+=== XML Schema Definition For Partial Response
 
-[source,xml]
-----
-<!DOCTYPE facelet-taglib PUBLIC
-    "-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
-    "http://java.sun.com/dtd/facelet-taglib_1_0.dtd">
-----
-
-{empty}Use of this DTD is officially
-deprecated. This DTD is included for reference in
-<<JSFMetadata.adoc#a7139,See Deprecated DTD for Facelet Taglibraries
-Used by Versions of Facelets Prior to pre-Jakarta Faces JSF 2.0>>. It is expected that
-proper Jakarta Faces Facelet Taglibraries will declare conformance to the
-following schema, rather than the deprecated
-DTD.[P1_end_facelet_taglib_decl]
-
-[[a7139]]
-==== Deprecated DTD for Facelet Taglibraries Used by Versions of Facelets Prior to pre-Jakarta Faces JSF 2.0
-
-This DTD is deprecated and is included so
-implementors will have a reference.
-
-----
-<!ELEMENT facelet-taglib (library-class|(namespace,(tag|function)+))>
-<!ATTLIST facelet-taglib xmlns CDATA #FIXED "http://java.sun.com/JSF/Facelet">
-<!ELEMENT namespace (#PCDATA)>
-<!ELEMENT library-class (#PCDATA)>
-<!ELEMENT tag (tag-name,(handler-class|component|converter|validator|source))>
-<!ELEMENT tag-name (#PCDATA)>
-<!ELEMENT handler-class (#PCDATA)>
-<!ELEMENT component (component-type,renderer-type?,handler-class?)>
-<!ELEMENT component-type (#PCDATA)>
-<!ELEMENT renderer-type (#PCDATA)>
-<!ELEMENT converter (converter-id, handler-class?)>
-<!ELEMENT converter-id (#PCDATA)>
-<!ELEMENT validator (validator-id, handler-class?)>
-<!ELEMENT validator-id (#PCDATA)>
-<!ELEMENT source (#PCDATA)>
-<!ELEMENT function (function-name,function-class,function-signature)>
-<!ELEMENT function-name (#PCDATA)>
-<!ELEMENT function-class (#PCDATA)>
-<!ELEMENT function-signature (#PCDATA)>
-----
-
-
-
-[[a7162]]
-=== XML Schema Definition for Composite Components
-
-[source,xml]
-----
-<xsd:schema
-    targetNamespace="http://java.sun.com/xml/ns/javaee"
-    xmlns:javaee="http://java.sun.com/xml/ns/javaee"
-    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-    xmlns:xml="http://www.w3.org/XML/1998/namespace"
-    elementFormDefault="qualified"
-    attributeFormDefault="unqualified"
-    version="2.0">
-
-  <xsd:annotation>
-    <xsd:documentation>
-      $Id: web-facesuicomponent_2_0.xsd,v 1.1.8.2 2008/03/20 21:12:50 edburns Exp $
-    </xsd:documentation>
-  </xsd:annotation>
-
-  <xsd:annotation>
-    <xsd:documentation>
-      Copyright 2007 Sun Microsystems, Inc.,
-      901 San Antonio Road,
-      Palo Alto, California 94303, U.S.A.
-      All rights reserved.
-
-      Sun Microsystems, Inc. has intellectual property
-      rights relating to technology described in this document. In
-      particular, and without limitation, these intellectual
-      property rights may include one or more of the U.S. patents
-      listed at http://www.sun.com/patents and one or more
-      additional patents or pending patent applications in the
-      U.S. and other countries.
-
-      This document and the technology which it describes are
-      distributed under licenses restricting their use, copying,
-      distribution, and decompilation. No part of this document
-      may be reproduced in any form by any means without prior
-      written authorization of Sun and its licensors, if any.
-
-      Third-party software, including font technology, is
-      copyrighted and licensed from Sun suppliers.
-
-      Sun, Sun Microsystems, the Sun logo, Solaris, Java, Java EE,
-      JavaServer Pages, Enterprise JavaBeans and the Java Coffee
-      Cup logo are trademarks or registered trademarks of Sun
-      Microsystems, Inc. in the U.S. and other countries.
-
-      Federal Acquisitions: Commercial Software - Government Users
-      Subject to Standard License Terms and Conditions.
-
-    </xsd:documentation>
-  </xsd:annotation>
-
-  <xsd:annotation>
-    <xsd:documentation>
-      <![CDATA[
-      The XML Schema for a Jakarta Server Faces UIComponent (Version 2.0).
-
-      The elements in this schema may be used in an XHTML page for
-      a composite component, by pulling in the composite namespace:
-
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:composite="http://java.sun.com/jsf/composite">
-
-      <composite:interface>
-        <composite:attribute name="foo" default="bar" />
-      </composite:/interface>
-      <!-- the rest omitted -->
-</html>
-
-      The elements in this schema may also be used in a facelet taglibrary
-      file in the same manner:
-
-<facelet-taglib xmlns="http://java.sun.com/xml/ns/javaee"
-                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                xmlns:composite="http://java.sun.com/jsf/composite"
-                xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
-                http://java.sun.com/xml/ns/javaee/web-facelettaglibary_2_0.xsd"
-                version="2.0">
-  <namespace>http://domain.com/test_schema</namespace>
-  <tag>
-    <tag-name>testSchema</tag-name>
-    <component>
-      <component-type>jakarta.faces.Input</component-type>
-      <renderer-type>jakarta.faces.Text</renderer-type>
-      <handler-class>com.sun.faces.facelets.tag.jsf.ComponentHandler</handler-class>
-      <component-extension>
-        <composite:attribute name="foo" default="bar" />
-      </component-extension>
-    </component>
-  </tag>
-</facelet-taglib>
-
-      The instance documents may indicate the published
-      version of the schema using xsi:schemaLocation attribute
-      for javaee namespace with the following location:
-
-      http://java.sun.com/xml/ns/javaee/web-facesuicomponent_2_0.xsd
-
-      ]]>
-
-    </xsd:documentation>
-  </xsd:annotation>
-
-  <xsd:include schemaLocation="javaee_5.xsd"/>
-
-  <!-- **************************************************** -->
-
-  <xsd:element name = "attribute" type="javaee:uicomponent-attributeType">
-  </xsd:element>
-
-  <!-- **************************************************** -->
-
-  <xsd:complexType name="uicomponent-attributeType">
-    <xsd:annotation>
-      <xsd:documentation>
-
-        The "attribute" element declares an attribute of this
-        ui component.
-      
-      </xsd:documentation>
-    </xsd:annotation>
-    
-    <xsd:choice minOccurs="0" maxOccurs="unbounded">
-      <xsd:element name="attribute"
-                   type="javaee:uicomponent-attributeType"/>
-    </xsd:choice>
-
-    <xsd:attribute name="name"
-                   type="xsd:string"
-                   use="required"/>
-
-    <xsd:attribute name="displayName"
-                   type="xsd:string"
-                   use="optional"/>
-
-    <xsd:attribute name="shortDescription"
-                   type="xsd:string"
-                   use="optional"/>
-
-    <xsd:attribute name="default"
-                   type="xsd:string"
-                   use="optional"/>
-
-    <xsd:attribute name="method-signature"
-                   type="xsd:string"
-                   use="optional">
-      <xsd:annotation>
-        <xsd:documentation>
-          <![CDATA[
-            Provides the signature of the Java method. The syntax of
-            the method-signature element is as follows (taken from
-            function-signature in web-jsptaglibrary_2_1.xsd):
-
-            MethodSignature ::= ReturnType S MethodName S?
-                               '(' S? Parameters? S? ')'
-
-            ReturnType ::= Type
-
-            MethodName ::= Identifier
-
-            Parameters ::= Parameter
-                         | ( Parameter S? ',' S? Parameters )
-
-            Parameter ::= Type
-                Where:
-
-                   * Type is a basic type or a fully qualified
-                     Java class name (including package name),
-                     as per the 'Type' production in the Java
-                     Language Specification, Second Edition,
-                     Chapter 18.
-
-                   * Identifier is a Java identifier, as per
-                     the 'Identifier' production in the Java
-                     Language Specification, Second
-                     Edition, Chapter 18.
-
-                   Example:
-
-                     java.lang.String nickName( java.lang.String, int )
-
-          ]]>
-        </xsd:documentation>
-      </xsd:annotation>
-    </xsd:attribute>
-
-    <xsd:attribute name="applyTo"
-                   type="xsd:string"
-                   use="optional"/>
-
-    <xsd:attribute name="required"
-                   type="xsd:boolean"
-                   use="optional"/>
-
-    <xsd:attribute name="preferred"
-                   type="xsd:boolean"
-                   use="optional"/>
-
-    <xsd:attribute name="expert"
-                   type="xsd:boolean"
-                   use="optional"/>
-
-  </xsd:complexType>
-
-  <!-- **************************************************** -->
-
-</xsd:schema>
-----
+The XML Schema Definition for Partial Repsonse __web-partialresponse_4_0.xsd__
+is included in a web browser optimized format along with the Javadoc.
+That is the canonical location of the schemas in the specification.

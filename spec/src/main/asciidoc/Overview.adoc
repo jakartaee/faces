@@ -1,6 +1,6 @@
 == Overview
 
-Jakarta Server Faces (hereafter Jakarta Faces) is a _user interface_
+Jakarta Faces is a _user interface_
 (UI) framework for Java web applications. It is designed to
 significantly ease the burden of writing and maintaining applications
 that run on a Java application server and render their UIs back to a
@@ -43,7 +43,7 @@ Jakarta Faces’s core architecture is designed to be
 independent of specific protocols and markup. However it is also aimed
 directly at solving many of the common problems encountered when writing
 applications for HTML clients that communicate via HTTP to a Java
-application server that supports servlets and Jakarta Server Pages
+application server that supports Jakarta Servlet and Jakarta Server Pages
 based applications. These applications are typically form-based, and are
 comprised of one or more HTML pages with which the user interacts to
 complete a task or set of tasks. Jakarta Faces tackles the following challenges
@@ -76,7 +76,7 @@ to UI events and model interactions.
 
 === Specification Audience
 
-The _Jakarta Server Faces Specification_ , and
+The __Jakarta Faces Specification__, and
 the technology that it defines, is addressed to several audiences that
 will use this information in different ways. The following sections
 describe these audiences, the roles that they play with respect to Jakarta Faces,
@@ -91,7 +91,7 @@ A _page author_ is primarily responsible for
 creating the user interface of a web application. He or she must be
 familiar with the markup and scripting languages (such as HTML and
 JavaScript) that are understood by the target client devices, as well as
-the rendering technology (such as  Jakarta Server Pages ) used to create
+the rendering technology (such as Facelets) used to create
 dynamic content. Page authors are often focused on graphical design and
 human factors engineering, and are generally not familiar with
 programming languages such as Java or Visual Basic (although many page
@@ -103,10 +103,10 @@ content of the pages being created from libraries of prebuilt user
 interface components that are provided by component writers, tool
 providers, and Jakarta Faces implementors. The components themselves will be
 represented as configurable objects that utilize the dynamic markup
-capabilities of the underlying rendering technology. When Jakarta Server
-Pages are in use, for example, components will be represented as Jakarta Server Pages
-custom actions, which will support configuring the attributes of those
-components as custom action attributes in the Jakarta Server Pages page. In addition, the
+capabilities of the underlying rendering technology. When Facelets
+are in use, for example, Jakarta Faces components will be represented as
+namespaced tags, which will support configuring the attributes of those
+components as tag attributes in the page. In addition, the
 pages produced by a page author will be used by the Jakarta Faces framework to
 create component tree hierarchies, called “views”, that represent the
 components on those pages.
@@ -145,9 +145,9 @@ appropriate for this component.
 requests
 
 As will be discussed in
-<<a4219, Rendering Model>>,” the encoding and
+<<a4219, Rendering Model>>, the encoding and
 decoding functionality may optionally be delegated to one or more
-_Render Kits_ , which are responsible for customizing these operations
+__Render Kits__, which are responsible for customizing these operations
 to the precise requirements of the client that is initiating a
 particular request (for example, adapting to the differences between
 JavaScript handling in different browsers, or variations in the WML
@@ -209,7 +209,7 @@ or business logic, in Java objects that are reusable in web and non-web
 applications, such as CDI beans.
 
 * Expose the data representation and functional
-logic objects for use via Jakarta Faces, as would be done for any servlet- or
+logic objects for use via Jakarta Faces, as would be done for any Jakarta Servlet- or
 Jakarta Server Pages-based application.
 
 Only the latter responsibility is directly
@@ -218,8 +218,8 @@ required to fulfill this responsibility:
 
 * Expose the underlying data required by the
 user interface layer as objects that are accessible from the web tier
-(such as via request or session attributes in the Servlet API), via
-_value reference expressions_ , as described in
+(such as via request or session attributes in the Jakarta Servlet API), via
+__value reference expressions__, as described in
 <<a1823, Standard User Interface Components>>.”
 
 * Provide application-level event handlers for
@@ -234,7 +234,7 @@ conformance to an application framework created by a tool provider.
 
 ==== Tool Providers
 
-_Tool providers_ , as their name implies,
+__Tool providers__, as their name implies,
 are responsible for creating tools that assist in the development of
 Jakarta Faces-based applications, rather than creating such applications directly.
 Jakarta Faces APIs support the creation of a rich variety of development tools,
@@ -300,7 +300,7 @@ specification.
 
 This package contains top level classes for
 the Jakarta Faces API. The most important class in the package is
-_FactoryFinder_ , which is the mechanism by which users can override
+__FactoryFinder__, which is the mechanism by which users can override
 many of the key pieces of the implementation with their own.
 
 Please see
@@ -312,7 +312,7 @@ This package contains APIs that are used to
 link an application’s business logic objects to Jakarta Faces, as
 well as convenient pluggable mechanisms to manage the execution of an
 application that is based on Jakarta Faces. The main class in this
-package is _Application_ .
+package is __Application__.
 
 Please see <<a3400, Application>>.
 
@@ -332,7 +332,7 @@ for each valid combination of component + renderer.
 
 This package contains classes and interfaces
 defining per-request state information. The main class in this package
-is _FacesContext_ , which is the access point for all per-request
+is __FacesContext__, which is the access point for all per-request
 information, as well as the gateway to several other helper classes.
 
 Please see <<a3091, FacesContext>>.
@@ -340,17 +340,15 @@ Please see <<a3091, FacesContext>>.
 ==== package _jakarta.faces.convert_
 
 This package contains classes and interfaces
-defining converters. The main class in this package is _Converter_ .
+defining converters. The main class in this package is __Converter__.
 
 Please see <<a1251, Conversion Model>>.
 
 ==== package _jakarta.faces.el_
 
-As of version 1.2 of this specification, all
-classes and interfaces in this package have been deprecated in favor of
-the Unified Expression Language (EL) from Jakarta Server Pages 2.1.
+This package contains an interface for the Composite Component Attributes ELResolver.
 
-Please see <<a2344, Expression Language and Managed Bean Facility>>.
+Please see <<a2908, Composite Component Attributes ELResolver>>.
 
 ==== package _jakarta.faces.flow_ and _jakarta.faces.flow.builder_
 
@@ -361,8 +359,8 @@ Please see <<a3840, FlowHandler>>.
 ==== package _jakarta.faces.lifecycle_
 
 This package contains classes and interfaces
-defining lifecycle management for the Jakarta Server Faces implementation.
-The main class in this package is _Lifecycle_ . _Lifecycle_ is the
+defining lifecycle management for the Jakarta Faces implementation.
+The main class in this package is __Lifecycle__. _Lifecycle_ is the
 gateway to executing the request processing lifecycle.
 
 Please see <<a369, 
@@ -373,7 +371,7 @@ Request Processing Lifecycle>>.
 This package contains interfaces describing
 events and event listeners, and concrete event implementation classes.
 All component-level events extend from _FacesEvent_ and all
-component-level listeners extend from _FacesListener_ .
+component-level listeners extend from __FacesListener__.
 
 Please see <<a1300, Event and Listener Model>>.
 
@@ -381,7 +379,7 @@ Please see <<a1300, Event and Listener Model>>.
 
 This package contains classes and interfaces
 defining the rendering model. The main class in this package is
-_RenderKit_ . _RenderKit_ maintains references to a collection of
+__RenderKit__. _RenderKit_ maintains references to a collection of
 _Renderer_ instances which provide rendering capability for a specific
 client device type.
 
@@ -392,14 +390,12 @@ Please see <<RenderingModel.adoc#a4219, Rendering Model>>.
 Interface defining the validator model, and
 concrete validator implementation classes.
 
-{empty}Please see
+Please see
 <<UserInterfaceComponentModel.adoc#a1410, Validation Model>>
 
 ==== package _jakarta.faces.webapp_
 
-Classes required for integration of
-Jakarta Faces into web applications, including a standard servlet,
-base classes for Jakarta Server Pages custom component tags, and concrete tag
-implementations for core tags.
+A standard Jakarta Servlet class required for integration of
+Jakarta Faces into web applications.
 
-Please see <<UsingJSFInWebApplications.adoc#a6060, Using Jakarta Faces in Web Applications>>.
+Please see <<UsingFacesInWebApplications.adoc#a6060, Using Jakarta Faces in Web Applications>>.

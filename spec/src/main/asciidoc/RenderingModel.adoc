@@ -29,7 +29,7 @@ _Renderer_.
 [[a4223]]
 === RenderKit
 
-{empty}A _RenderKit_ instance is optionally
+A _RenderKit_ instance is optionally
 associated with a view, and supports components using the _delegated
 implementation_ programming model for the decoding and encoding of
 component values. It also supports _Behavior_ instances for the
@@ -37,11 +37,11 @@ rendering of client side behavior and decoding for queuing
 _BehaviorEvents_. Refer to
 <<UserInterfaceComponentModel.adoc#a1707,Component
 Behavior Model>> for more details about this feature.
-[P1-start-renderkit]Each Jakarta Faces implementation must provide a default
+Each Jakarta Faces implementation must provide a default
 _RenderKit_ instance (named by the render kit identifier associated with
 the String constant _RenderKitFactory.HTML_BASIC_RENDER_KIT_ as
 described below) that is utilized if no other _RenderKit_ is
-selected.[P1-end]
+selected.
 
 [source,java]
 ----
@@ -88,7 +88,7 @@ existing _RenderKit_ instance. For example, it will be common for an
 application that requires custom component classes and __Renderer__s to
 register them with the standard _RenderKit_ provided by the Jakarta Faces
 implementation, at application startup time See
-<<UsingJSFInWebApplications.adoc#a6554,Example Application Configuration
+<<UsingFacesInWebApplications.adoc#a6554,Example Application Configuration
 Resource>> for an example of a _faces-config.xml_ configuration resource
 that defines two additional Renderer instances to be registered in the
 default _RenderKit_.
@@ -104,14 +104,14 @@ _ResponseWriter_ instance for the specified character encoding.
 
 The _contentTypeList_ parameter is an "Accept
 header style" list of content types for this response, or _null_ if the
-_RenderKit_ should choose the best fit. [P1-start-contentTypeList]The
+_RenderKit_ should choose the best fit. The
 _RenderKit_ must support a value for the _contentTypeList_ argument that
 comes straight from the _Accept_ HTTP header, and therefore requires
-parsing according to the specification of the _Accept_ header.[P1-end]
+parsing according to the specification of the _Accept_ header.
 Please see Section 14.1 of RFC 2616 (the HTTP 1.1 RFC) for the
 specification of the _Accept_ header.
 
-{empty}Implementors are advised to consult
+Implementors are advised to consult
 the _getCharacterEncoding()_ method of class
 _jakarta.faces.servlet.ServletResponse_ to get the required value for the
 characterEncoding parameter for this method. Since the _Writer_ for this
@@ -285,8 +285,8 @@ _jakarta.faces.render.FacesBehaviorRenderer annotation_.
 
 [source,java]
 ----
-@FacesClientBehaviorRenderer(value=”Hello”)
-public class MyRenderer extends ClientBehaviorRenderer {
+@FacesClientBehaviorRenderer(value="Hello")
+public class YourRenderer extends ClientBehaviorRenderer {
   ...
 }
 ----
@@ -329,9 +329,6 @@ postback. The default implementation returns _true_ if this
 _ResponseStateManager_ instance wrote out state on a previous request to
 which this request is a postback. Return false otherwise.
 
-Please see _<<ApplicationIntegration.adoc#a4204,
-ResponseStateManager>>_ for deprecated methods in _ResponseStateManager_.
-
 [source,java]
 ----
 public String getViewState(FacesContext context);
@@ -345,10 +342,10 @@ ResponseStateManager.
 [[a4300]]
 === RenderKitFactory
 
-[P1-start-renderkitFactory]A single instance
+A single instance
 of _jakarta.faces.render.RenderKitFactory_ must be made available to each
 Jakarta Faces-based web application running in a servlet or portlet
-container.[P1-end] The factory instance can be acquired by Jakarta Faces
+container. The factory instance can be acquired by Jakarta Faces
 implementations, or by application code, by executing
 
 [source,java]
@@ -374,10 +371,10 @@ the _Locale_ that has been established for the response view. Note that
 applications which depend on this feature are not guaranteed to be
 portable across Jakarta Faces implementations.
 
-[P1-start-renderkitDefault]Every Jakarta Faces
+Every Jakarta Faces
 implementation must provide a _RenderKit_ instance for a default render
 kit identifier that is designated by the _String_ constant
-_RenderKitFactory.HTML_BASIC_RENDER_KIT_.[P1-end] Additional render kit
+_RenderKitFactory.HTML_BASIC_RENDER_KIT_. Additional render kit
 identifiers, and corresponding instances, can also be made available.
 
 [source,java]
@@ -385,10 +382,10 @@ identifiers, and corresponding instances, can also be made available.
 public Iterator<String> getRenderKitIds();
 ----
 
-{empty}This method returns an _Iterator_ over
+This method returns an _Iterator_ over
 the set of render kit identifiers supported by this factory.
-[P1-start-renderkitIds]This set must include the value specified by
-_RenderKitFactory.HTML_BASIC_RENDER_KIT_.[P1-end]
+This set must include the value specified by
+_RenderKitFactory.HTML_BASIC_RENDER_KIT_.
 
 [source,java]
 ----
@@ -406,7 +403,7 @@ registered for that identifier.
 To ensure application portability, all Jakarta Faces
 implementations are required to include support for a _RenderKit_, and
 the associated _Renderers_, that meet the requirements defined in this
-section, to generate textual markup that is compatible with HTML 4.01.
+section, to generate textual markup that is compatible with HTML Living Standard.
 Jakarta Faces implementors, and other parties, may also provide additional
 _RenderKit_ libraries, or additional __Renderer__s that are added to the
 standard _RenderKit_ at application startup time, but applications must
@@ -545,16 +542,10 @@ Behavior Model>> for additional details.
 | HtmlSelectOneRadio
 |===
 
-{empty}[P1-start-htmlComponent]As with the
+As with the
 standard components in the _jakarta.faces.component_ package, each HTML
 component implementation class must define a static public final String
 constant named _COMPONENT_TYPE_, whose value is “_jakarta.faces_”.
 concatenated with the class name. HTML components, however, must not
 define a _COMPONENT_FAMILY_ constant, or override the _getFamily()_
-method they inherit from their superclass.[P1-end]
-
-
-
-[[a4404]]
-
-===
+method they inherit from their superclass.
