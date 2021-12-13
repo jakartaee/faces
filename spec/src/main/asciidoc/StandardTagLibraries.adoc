@@ -1,0 +1,587 @@
+[[a4406]]
+== Standard Tag Libraries
+
+This chapter describes the Standard Tag Libraries
+required by Jakarta Faces. This support is enabled by providing
+standard tags so that a Jakarta Faces user interface can be easy defined in a
+view by adding tags corresponding to Jakarta Faces UI components. Standard tags
+provided by a Jakarta Faces implementation may be mixed with
+and tags from other libraries, as well as template text for
+layout, in the same view.
+
+Any Jakarta Faces implementation that
+claims compliance with this specification must include a complete
+Facelets implementation of the Standard Tag Libraries, and expose this implementation to the
+runtime of any Jakarta Faces application. Jakarta Faces applications, however, need not use
+Facelets as their View Declaration Language (VDL). In fact, a Jakarta Faces application
+is free to use whatever technology it likes for its VDL, as long as that
+VDL itself complies with the Jakarta Faces specification.
+
+Facelets is specified in
+<<FaceletsAndWebApplications.adoc#a5476,Facelets and its use in Web
+Applications>>.
+
+The exact meaning of the term “page” is dependent on the VDL being used.
+In case of Facelets, that is usually the physical XHTML file
+representing the source code containing the declaration of the tags,
+or a class extending from _jakarta.faces.view.facelets.Facelet_
+having the _@View_ annotation.
+
+The term “view” represents the Jakarta Faces component tree hierarchy,
+as available by __FacesContext.getViewRoot()__,
+that represent the components created by the tags declared on the pages.
+
+
+[[a4415]]
+=== UIComponent Tags
+
+A tag for a Jakarta Faces _UIComponent_ is constructed by combining properties and
+attributes of a Java UI component class with the rendering attributes
+supported by a specific _Renderer_ from a concrete _RenderKit_. For
+example, assume the existence of a concrete _RenderKit_,
+_HTMLRenderKit_, which supports three _Renderer_ types for the
+_UIInput_ component:
+
+.Example Renderer Types
+[%header, width="60%" cols="2,3", frame="topbot", grid="rows", stripes="even"]
+|===
+| RendererType
+| Render-Dependent Attributes
+
+| “Text”
+| “size”
+
+| “Secret”
+| “size”, “secretChar”
+
+| “Textarea”
+| “size”, “rows”
+|===
+
+The tag library descriptor file for the
+corresponding tag library, then, would define three tags—one
+per _Renderer_ type. Below is an example of a portion of the tag
+definition for the _inputText_ tag in the Facelet Taglib syntax
+<<Footnotes.adoc#a9097,^[8]^>>:
+
+[source,xml]
+----
+<tag>
+  <tag-name>inputText</tag-name>
+  <component>
+    <component-type>HtmlInputText</component-type>
+    <renderer-type>Text</renderer-type>
+  </component>
+
+  <attribute>
+    <name>id</name>
+    <required>false</required>
+    <type>java.lang.String</type>
+  </attribute>
+
+  <attribute>
+    <name>id</name>
+    <required>false</required>
+    <type>java.lang.Object</type>
+  </attribute>
+
+  <attribute>
+    <name>size</name>
+    <required>false</required>
+    <type>java.lang.Integer</type>
+  </attribute>
+</tag>
+----
+
+Note that the _size_ attribute is derived
+from the _Renderer_ of type “Text”, while the _id_ and _value_
+attributes are derived from the _UIInput_ component class itself.
+_RenderKit_ implementors will generally provide a Facelets tag library which
+includes component tags corresponding to each of the component
+classes (or types) supported by each of the __RenderKit__’s _Renderers_.
+See <<RenderingModel.adoc#a4223,RenderKit>> and
+<<RenderingModel.adoc#a4245,Renderer>> for details on the
+_RenderKit_ and _Renderer_ APIs. Jakarta Faces implementations must provide such a
+tag library for the standard HTML RenderKit (see
+<<StandardTagLibraries.adoc#a5363,Standard HTML RenderKit Tag Library>>).
+
+
+=== Using UIComponent Tags
+
+The following subsections define how a page
+author utilizes the tags provided by the _RenderKit_
+implementor in the views that create the user interface of a
+Jakarta Faces-based web application.
+
+==== Declaring the Tag Libraries
+
+This specification hereby reserves the
+following Uniform Resource Identifier (URI) values to refer to the
+standard tag libraries defined by Jakarta
+Faces:
+
+* _jakarta.faces.core_ —URI for
+the _Jakarta Faces Core Tag Library_
+
+* _jakarta.faces.html_ —URI for
+the _Jakarta Faces Standard HTML RenderKit Tag Library_
+
+The page author must declare the URI of each tag library to be
+utilized, as well as the prefix used to identify
+tags from this library. For example in Facelets XHTML syntax,
+
+[source,xml]
+----
+<!DOCTYPE html>
+<html xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
+  ...
+</html>
+----
+
+declares the unique resource identifiers of
+the tag libraries being used, as well as the prefixes to be used within
+the root element for referencing tags from these
+libraries <<Footnotes.adoc#a9098,^[9]^>>.
+
+==== Including Components in a Page
+
+A Jakarta Faces _UIComponent_ tag can be
+placed at any desired position in a root element that contains the declaration
+for the corresponding tag library.
+
+The following example illustrates the general
+use of a UIComponent tag in a page. In this scenario:
+
+[source,xml]
+----
+<h:inputText id="username" value="#{loginBacking.username}"/>
+----
+
+represents a _UIInput_ field, to be rendered
+with the “Text” renderer type, and points to the username property of a
+backing bean for the actual value. The _id_ attribute specifies the
+component id of a _UIComponent_ instance, from within the component
+tree, to which this tag corresponds. If no _id_ is
+specified, one may be automatically generated by the tag
+implementation if the tag implementation or functionality requires so.
+
+During the _Render Response_ phase of the
+request processing lifecycle, the appropriate encoding methods of the
+component (or its associated _Renderer_) will be utilized to generate
+the representation of this component in the response page. In addition,
+the first time a particular page is rendered, the component tree may
+also be dynamically constructed.
+
+All markup other than _UIComponent_ tags
+is processed in the usual way. Therefore,
+you can use such markup to perform layout control, or include non-Jakarta Faces
+content, in conjunction with the tags that represent UI components.
+
+==== Creating Components and Overriding Attributes
+
+As _UIComponent_ tags are
+encountered during the processing of a page, the tag
+implementation must check the component tree for the existence of a
+corresponding _UIComponent_, and (if not found) create and configure a
+new component instance corresponding to this tag. The details
+of this process are as follows:
+
+* If the component associated with this
+component tag has been identified already, return it
+unchanged.
+
+* Identify the _component identifier_ for the
+component related to this UIComponent tag, as follows:
+
+** If the page author has specified a value for
+the _id_ attribute, use that value.
+
+** Otherwise, call the _createUniqueId()_ method
+of the _UIViewRoot_ at the root of the component tree for this view, and
+use that value.
+
+* If this _UIComponent_ tag is
+creating a _facet_ (that is, we are nested inside an _<f:facet>_ tag),
+determine if there is a facet of the component associated with
+our parent _UIComponent_ tag, with the specified facet name,
+and proceed as follows:
+
+** If such a facet already exists, take no
+additional action.
+
+** If no such facet already exists, create a new
+_UIComponent_ (by calling the _createComponent()_ method on the
+_Application_ instance for this web application, passing the value
+returned by _getComponentType()_, set the component identifier to the
+specified value, and add the new component as a facet of the component
+associated with our parent _UIComponent_ tag, under the
+specified facet name.
+
+* If this _UIComponent_ tag is not
+creating a facet (that is, we are not nested inside an _<f:facet>_
+tag), determine if there is a child component of the component
+associated with our parent _UIComponent_ tag, with the
+specified component identifier, and proceed as follows:
+
+** If such a child already exists, take no
+additional action.
+
+** If no such child already exists, create a new
+_UIComponent_ (by calling the _createComponent()_ method on the
+_Application_ instance for this web application, passing the value
+returned by _getComponentType()_, set the component identifier to the
+specified value, and add the new component as a child of the component
+associated with our parent _UIComponent_ tag.
+
+==== Deleting Components on Redisplay
+
+In addition to the support for dynamically
+creating new components, as described above, _UIComponent_ tags
+will also _delete_ child components (and facets) that are already
+present in the component tree, but are not rendered on this display of
+the page. For example, consider a _UIComponent_ tag that is
+nested inside a Jakarta Tags _<c:if>_ tag whose condition is _true_ when
+the page is initially rendered. As described in this section, a new
+_UIComponent_ will have been created and added as a child of the
+_UIComponent_ corresponding to our parent _UIComponent_ tag.
+If the page is re-rendered, but this time the _<c:if>_ condition is
+_false_, the previous child component will be removed.
+
+==== Representing Component Hierarchies
+
+Nested structures of _UIComponent_
+tags will generally mirror the hierarchical relationships of the
+corresponding _UIComponent_ instances in the view that is associated
+with each page. For example, assume that a _UIForm_ component (whose
+component id is _loginForm_) contains a _UIPanel_ component used to
+manage the layout. You might specify the contents of the form like this in Facelets XHTML syntax:
+
+[source,xml]
+----
+<h:form id="loginForm">
+  <fieldset>
+    <legend>Login</legend>
+    <p>
+      <h:outputLabel for="username" value="Username:"/>
+      <h:inputText id="username" value="#{loginBacking.username}"/>
+    </p>
+    <p>
+      <h:outputLabel for="password" value="Password:"/>
+      <h:inputSecret id="password" value="#{loginBacking.password}"/>
+    </p>
+    <p>
+      <h:commandButton id="submit" action="#{loginBacking.login}"/>
+      <h:commandButton id="reset" type="reset"/>
+    </p>
+  </fieldset>
+</h:form>
+----
+
+==== Registering Converters, Event Listeners, and Validators
+
+Each Jakarta Faces implementation is required to
+provide the core tag library (see <<StandardTagLibraries.adoc#a4636,Jakarta Faces
+Core Tag Library>>), which includes tags that (when executed)
+create instances of a specified _Converter_, _ValueChangeListener_,
+_ActionListener_ or _Validator_ implementation class, and register the
+created instance with the _UIComponent_ associated with the most
+immediately surrounding _UIComponent_ tag.
+
+Using these facilities, the page author can
+manage all aspects of creating and configuring values associated with
+the view, without having to resort to Java code. For example:
+
+[source,xml]
+----
+<h:inputText id="username" value="#{loginBacking.username}">
+  <f:validateLength minimum="6"/>
+</h:inputText>
+----
+
+associates a validation check (that the value
+entered by the user must contain at least six characters) with the
+username _UIInput_ component being described.
+
+Following are usage examples for the
+_valueChangeListener_ and _actionListener_ tags.
+
+[source,xml]
+----
+<h:inputText id="maxUsers">
+  <f:convertNumber integerOnly="true"/>
+  <f:valueChangeListener type="com.example.YourValueChangeListener"/>
+</h:inputText>
+<h:commandButton value="Login">
+  <f:actionListener type="com.example.YourActionListener"/>
+</h:commandButton>
+----
+
+This example causes a _Converter_ and a
+_ValueChangeListener_ of the user specified type to be instantiated and
+added as to the enclosing _UIInput_ component, and an _ActionListener_ of the user specified type
+is instantiated and added to the enclosing _UICommand_ component. If the
+user specified type could not be instantiated or does not implement the
+proper listener interface a _AbortProcessingException_ must be thrown.
+
+==== Using Facets
+
+A _Facet_ is a subordinate UIComponent that
+has a special relationship to its parent _UIComponent_, as described in
+<<UserInterfaceComponentModel.adoc#a968,Facet Management>>. Facets can be defined
+in a page using the _<f:facet>_ tag. Each facet tag
+must have one and only one child UIComponent
+tag <<Footnotes.adoc#a9099,^[10]^>>. For example:
+
+[source,xml]
+----
+<h:dataTable ...>
+  <f:facet name="header">
+    <h:outputText value="Customer List"/>
+  </f:facet>
+  <h:column>
+    <f:facet name="header">
+      <h:outputText value="Account Id"/>
+    </f:facet>
+    <h:outputText id="accountId" value= "#{customer.accountId}"/>
+  </h:column>
+  ...
+</h:dataTable>
+----
+
+[[a4536]]
+==== Interoperability with Jakarta Tags
+
+It is permissible to use other tag libraries,
+such as the Jakarta Tags in the same view with
+_UIComponent_ tags that correspond to Jakarta Faces components, subject
+to certain restrictions. When Jakarta Faces component tags are nested inside
+tags from other libraries, or combined with template text, the
+following behaviors must be supported:
+
+* Jakarta Faces component tags nested inside a
+tag that conditionally renders its body (such as Jakarta Tags
+_<c:if>_ or _<c:choose>_) must contain a manually assigned _id_
+attribute.
+
+* Interoperation with the Jakarta Tag's
+Internationalization-Capable Formatting library (typically used with the
+“_fmt_” prefix) is restricted as follows:
+
+** The _<fmt:parseDate>_ and
+_<fmt:parseNumber>_ tags should not be used. The corresponding
+Jakarta Faces facility is to use an _<h:inputText>_ component tag with
+an appropriate _DateTimeConverter_ or _NumberConverter_.
+
+** The _<fmt:requestEncoding>_ tag
+should not be used. By the time it is executed, the request parameters
+will have already been parsed, so any change in the setting here will
+have no impact. Jakarta Faces handles character set issues automatically in most
+cases.
+
+** The _<fmt:setLocale/>_ tag should
+not be used. Even though it might work in some circumstances, it would
+result in Jakarta Faces and Jakarta Tags assuming different locales. If the two locales
+use different character sets, the results will be undefined.
+Applications should use Jakarta Faces facilities for setting the _locale_ property
+on the _UIViewRoot_ component to change locales for a particular user.
+
+[[a4549]]
+=== UIComponent tag Implementation Requirements
+
+The tag implementation classes for
+_UIComponent_ tags must conform to all of the requirements
+defined in the specification specific to the VDL. In addition, they must
+meet the following Jakarta Faces-specific requirement:
+
+* On the method that causes a _UIComponent_
+instance to be added to the tree, verify that the component id of that
+_UIComponent_ is unique within the scope of the closest ancestor
+component that is a _NamingContainer_. If this constraint is not met,
+throw _IllegalStateException_.
+
+
+[[a4636]]
+=== Jakarta Faces Core Tag Library
+
+All Jakarta Faces implementations must provide a tag library containing core tags
+(described below) that are independent of a particular _RenderKit_. The
+corresponding tag library descriptor must meet the following
+requirements:
+
+* Must declare a URI (_<uri>_) value of
+_jakarta.faces.core_.
+
+* Must be included in the _META-INF_
+directory of a JAR file containing the corresponding implementation
+classes, suitable for inclusion with a web application, such that the
+tag library descriptor will be located automatically by the algorithm
+specific to the VDL (see <<FaceletsAndWebApplications.adoc#a5638,
+Facelet Tag Library mechanism>> for the Facelets Taglib example).
+
+The tags in the implementation of this tag library must not
+cause JavaScript of CSS to be rendered to the client. Doing so would break the
+requirement that the Jakarta Faces Core Tag library is independent of any specific
+RenderKit. 
+
+Each tag included in the Jakarta Faces Core
+Tag Library is documented in the VDLDocs for the _f:_ tag library.
+
+
+[[a5363]]
+=== Standard HTML RenderKit Tag Library
+
+All Jakarta Faces implementations must provide a tag
+library containing tags that correspond to each valid combination of
+a supported component class (see <<StandardUserInterfaceComponents.adoc#a1823,
+Standard User Interface Components>>”) and a _Renderer_ from the Standard
+HTML RenderKit (see <<RenderingModel.adoc#a4314,Standard HTML
+RenderKit Implementation>>) that supports that component type.  The tag library descriptor for this tag
+library must meet the following requirements:
+
+* Must declare a URI (_<uri>_) value of
+_jakarta.faces.html_.
+
+* Must be included in the _META-INF_
+directory of a JAR file containing the corresponding implementation
+classes, suitable for inclusion with a web application, such that the
+tag library descriptor will be located automatically by the algorithm
+specific to the VDL (see <<FaceletsAndWebApplications.adoc#a5638,
+Facelet Tag Library mechanism>> for the Facelets Taglib example).
+
+The tags defined in this tag library must specify the following return
+values for the _getComponentType()_ and _getRendererType()_ methods,
+respectively:
+
+.Standard HTML RenderKit Tag Library
+[%autowidth%header, cols="3*", frame="topbot", grid="rows", stripes="even"]
+|===
+
+| getComponentType()
+| getRendererType()
+| tag name
+
+| jakarta.faces.Column
+| _null_ <<Footnotes.adoc#a9101,^[11]^>>
+| column
+
+| jakarta.faces.HtmlCommandButton
+| jakarta.faces.Button
+| commandButton
+
+| jakarta.faces.HtmlCommandLink
+| jakarta.faces.Link
+| commandLink
+
+| jakarta.faces.HtmlCommandScript
+| jakarta.faces.Script
+| commandScript
+
+| jakarta.faces.HtmlDataTable
+| jakarta.faces.Table
+| dataTable
+
+| jakarta.faces.HtmlForm
+| jakarta.faces.Form
+| form
+
+| jakarta.faces.HtmlGraphicImage
+| jakarta.faces.Image
+| graphicImage
+
+| jakarta.faces.HtmlInputHidden
+| jakarta.faces.Hidden
+| inputHidden
+
+| jakarta.faces.HtmlInputSecret
+| jakarta.faces.Secret
+| inputSecret
+
+| jakarta.faces.HtmlInputText
+| jakarta.faces.Text
+| inputText
+
+| jakarta.faces.HtmlInputTextarea
+| jakarta.faces.Textarea
+| inputTextarea
+
+| jakarta.faces.HtmlMessage
+| jakarta.faces.Message
+| message
+
+| jakarta.faces.HtmlMessages
+| jakarta.faces.Messages
+| messages
+
+| jakarta.faces.HtmlOutputFormat
+| jakarta.faces.Format
+| outputFormat
+
+| jakarta.faces.HtmlOutputLabel
+| jakarta.faces.Label
+| outputLabel
+
+| jakarta.faces.HtmlOutputLink
+| jakarta.faces.Link
+| outputLink
+
+| jakarta.faces.Output
+| jakarta.faces.Body
+| body
+
+| jakarta.faces.Output
+| jakarta.faces.Head
+| head
+
+| jakarta.faces.Output
+| jakarta.faces.resource.Script
+| outputScript
+
+| jakarta.faces.Output
+| jakarta.faces.resource.Stylesheet
+| outputStylesheet
+
+| jakarta.faces.HtmlOutputText
+| jakarta.faces.Text
+| outputText
+
+| jakarta.faces.HtmlPanelGrid
+| jakarta.faces.Grid
+| panelGrid
+
+| jakarta.faces.HtmlPanelGroup
+| jakarta.faces.Group
+| panelGroup
+
+| jakarta.faces.HtmlSelectBooleanCheckbox
+| jakarta.faces.Checkbox
+| selectBooleanCheckbox
+
+| jakarta.faces.HtmlSelectManyCheckbox
+| jakarta.faces.Checkbox
+| selectManyCheckbox
+
+| jakarta.faces.HtmlSelectManyListbox
+| jakarta.faces.Listbox
+| selectManyListbox
+
+| jakarta.faces.HtmlSelectManyMenu
+| jakarta.faces.Menu
+| selectManyMenu
+
+| jakarta.faces.HtmlSelectOneListbox
+| jakarta.faces.Listbox
+| selectOneListbox
+
+| jakarta.faces.HtmlSelectOneMenu
+| jakarta.faces.Menu
+| selectOneMenu
+
+| jakarta.faces.HtmlSelectOneRadio
+| jakarta.faces.Radio
+| selectOneRadio
+
+|===
+
+Each tag included in the Standard HTML RenderKit 
+Tag Library is documented in the VDLDocs for the _h:_ tag library.

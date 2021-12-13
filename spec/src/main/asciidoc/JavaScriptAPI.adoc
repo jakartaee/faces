@@ -3,13 +3,13 @@
 
 This chapter of the specification describes
 the JavaScript functions that are used to facilitate Ajax operations in
-a Jakarta Server Faces framework. All of these functions are contained in
-the canonical _jsf.js_ file.
+a Jakarta Faces framework. All of these functions are contained in
+the canonical _faces.js_ file.
 
 [[a6844]]
 === Collecting and Encoding View State
 
-In Jakarta Server Faces the
+In Jakarta Faces the
 jakarta.faces.ViewState parameter was standardized to facilitate
 “postback” requests to the server in a Jakarta Faces application.
 Implementations must use this parameter to save the view state between
@@ -17,7 +17,7 @@ requests. Refer to the Javadocs for
 jakarta.faces.render.ResponseStateManager.
 
 Collecting and encoding view state that will
-be sent to the server is a common operation used by most Jakarta Server
+be sent to the server is a common operation used by most Jakarta
 Faces Ajax frameworks. When a Jakarta Faces view is rendered, it will
 contain a hidden field with the identifier jakarta.faces.ViewState whose
 value contains the state for the current view. Jakarta Faces Ajax clients collect
@@ -26,7 +26,7 @@ it’s encoded form to the server.
 
 [source,javascript]
 ----
-jsf.getViewState(FORM_ELEMENT)
+faces.getViewState(FORM_ELEMENT)
 ----
 
 Collect and encode element data for the given
@@ -54,7 +54,7 @@ Collect and Encode Elements Of a Form
 
 [source,javascript]
 ----
-var viewState = jsf.getViewState(form);
+var viewState = faces.getViewState(form);
 ----
 
 
@@ -63,11 +63,11 @@ var viewState = jsf.getViewState(form);
 
 [source,javascript]
 ----
-jsf.ajax.request(source, |event|, { |OPTIONS| });
+faces.ajax.request(source, |event|, { |OPTIONS| });
 ----
 
-The jsf.ajax.request function is responsible
-for sending an Ajax request to the server. [P1-start-ajaxrequest]The
+The faces.ajax.request function is responsible
+for sending an Ajax request to the server. The
 requirements for this function are as follows:
 
 * The request must be sent asynchronously
@@ -81,8 +81,6 @@ attribute
 * All requests will be queued with the use of a
 client side request queue to help ensure request ordering
 
-{empty}[P1-end]
-
 [[a6864]]
 ==== Usage
 
@@ -92,14 +90,14 @@ JavaScript event handler (such as “onclick”).
 [source,xml]
 ----
 <ANY_HTML_OR_FACES_ELEMENT
-    on|EVENT|="jsf.ajax.request(source, event, { |OPTIONS| });" />
+    on|EVENT|="faces.ajax.request(source, event, { |OPTIONS| });" />
 ----
 
 The function arguments are as follows:
 
 source is the DOM element that triggered this
-Ajax request. [P1-start-source]It must be a DOM element object or a
-string identifier for a DOM element. [P1-end]The event argument is the
+Ajax request. It must be a DOM element object or a
+string identifier for a DOM element. The event argument is the
 JavaScript event object. The optional |OPTIONS| argument is a JavaScript
 associative object array that may contain the following name/value
 pairs:
@@ -174,29 +172,29 @@ execute is @this. The default value for render is @none.
 
 [source,xml]
 ----
-<h:commandButton id=”button1” value=”submit”
-    onclick="jsf.ajax.request(this,event);" />
+<h:commandButton id="button1" value="submit"
+    onclick="faces.ajax.request(this,event);" />
 
 is the same as:
 
-<h:commandButton id=”button1” value=”submit”>
-    onclick="jsf.ajax.request(this, event,
+<h:commandButton id="button1" value="submit">
+    onclick="faces.ajax.request(this, event,
         {execute:’@this’, render:’@this’});" />
 ----
 
 [source,xml]
 ----
-<h:commandButton id=”button1” value=”submit”
-    onclick="jsf.ajax.request(this,event, {execute:’@this’});" />
+<h:commandButton id="button1" value="submit"
+    onclick="faces.ajax.request(this,event, {execute:’@this’});" />
 
 is the same as:
 
-<h:commandButton id=”button1” value=”submit”>
-    onclick="jsf.ajax.request(this,event, {execute:’button1’});" />
+<h:commandButton id="button1" value="submit">
+    onclick="faces.ajax.request(this,event, {execute:’button1’});" />
 ----
 
-Refer to <<a1111,
-<f:ajax>>> for the default values for the execute and render attributes
+Refer to the VDLDocs on the _f:_ tag library
+for the default values for the execute and render attributes
 when they are used with the core “<f:ajax>” tag.
 
 [[a6911]]
@@ -206,10 +204,10 @@ The mechanics of sending an Ajax request
 becomes very important to promote component compatability. Even more
 important, is standardizing on the post data that is sent to server
 implementations, so they all can expect the same arguments.
-[P1-start-ajaxrequest-send]The request header must be set with the name
+The request header must be set with the name
 Faces-Request and the value partial/ajax. Specifics of formulating post
 data and sending the request must be followed as outlined in the
-JavaScript documentation for the jsf.ajax.request function. The post
+JavaScript documentation for the faces.ajax.request function. The post
 data arguments that must be sent are:
 
 [%header, cols="3,7", frame="topbot", grid="rows", stripes="even"]
@@ -218,7 +216,7 @@ data arguments that must be sent are:
 
 |jakarta.faces.ViewState
 |The value of the jakarta.faces.ViewState
-hidden field. This is included when using the jsf.getViewState function.
+hidden field. This is included when using the faces.getViewState function.
 
 |jakarta.faces.partial.ajax
 |true
@@ -228,15 +226,13 @@ hidden field. This is included when using the jsf.getViewState function.
 source of this request
 |===
 
-{empty}[P1-end]
-
 [[a6921]]
 ==== Use Case
 
 [source,xml]
 ----
 <h:commandbutton id="submit" value="submit"
-    onclick="jsf.ajax.request(this, event,
+    onclick="faces.ajax.request(this, event,
         {execute:'submit',render:'outtext'}); return false;" />
 ----
 
@@ -249,12 +245,12 @@ component in the view with the identifier outtext.
 
 [source,javascript]
 ----
-jsf.ajax.response(request, context);
+faces.ajax.response(request, context);
 ----
 
-{empty}The jsf.ajax.response function is
+The faces.ajax.response function is
 called when a request completes successfully. This typically means that
-returned status code is >= 200 and < 300. The jsf.ajax.response function
+returned status code is >= 200 and < 300. The faces.ajax.response function
 must extract the XML response from the request argument. The XML
 response is expected to follow the format that is outlined in the
 JavaScript documentation for this function. The response format is an
@@ -263,9 +259,9 @@ The context argument contains properties that facilitate event and error
 processing such as the source DOM element (the DOM element that
 triggered the Ajax request), onevent (the event handling callback for
 the request) and onerror (the error handling callback for the request).
-[P1-start-ajaxresponse] The specifics details of this function’s
-operation must follow the jsf.ajax.response JavaScript
-documentation.[P1-end]
+The specifics details of this function’s
+operation must follow the faces.ajax.response JavaScript
+documentation.
 
 
 [[a6931]]
@@ -278,14 +274,14 @@ connection status. The error callback provides a convenient way for
 implementations to trap errors. The handling of the errors is left up to
 the implementation. These callback function names can also be set using
 the JavaScript API (<<a6871, request
-OPTIONS>>), and the core <f:ajax> tag (<<a1111, <f:ajax>>>).
+OPTIONS>>), and the core <f:ajax> tag.
 
 [[a6933]]
 ==== Request/Response Event Handling
 
 [source,javascript]
 ----
-jsf.ajax.addOnEvent(callback);
+faces.ajax.addOnEvent(callback);
 ----
 
 The callback argument must be a reference to
@@ -311,7 +307,7 @@ jakarta.faces.response is called. For unsuccessful requests, this is
 immediately before the error handling callback is invoked.
 
 | success
-| Occurs immediately after jsf.ajax.response
+| Occurs immediately after faces.ajax.response
 has completed.
 
 |===
@@ -331,7 +327,7 @@ following “data payload”:.
 | “event”
 
 | status
-| {empty}One of the events specified in <<a6936, Events>>
+| One of the events specified in <<a6936, Events>>
 
 | source
 | The DOM element that triggered the Ajax request.
@@ -362,7 +358,7 @@ function statusUpdate(data) {
   // do something with data.status or other parts of data payload
 }
 ...
-jsf.ajax.addOnEvent(statusUpdate);
+faces.ajax.addOnEvent(statusUpdate);
 ----
 
 An event listener can be installed from
@@ -378,7 +374,7 @@ markup in this manner.
 
 [source,javascript]
 ----
-jsf.ajax.addOnError(callback);
+faces.ajax.addOnError(callback);
 ----
 
 The callback argument must be a reference to
@@ -400,9 +396,8 @@ request.status==undefined or request.status<200 or request.status >=300
 | The Ajax response contains an “error” element.
 
 | malformedXML
-| {empty}The Ajax response does not follow the
-proper format. See <<a7162, XML Schema Definition
-for Composite Components>>
+| The Ajax response does not follow the
+proper format.
 
 | emptyResponse
 | There was no Ajax response from the server.
@@ -424,7 +419,7 @@ following “data payload”:.
 | “error”
 
 | status
-| {empty}One of error names defined <<a6976, Errors>>
+| One of error names defined <<a6976, Errors>>
 
 | description
 | Text describing the error
@@ -454,7 +449,7 @@ following “data payload”:.
 
 [source,javascript]
 ----
-jsf.ajax.addOnError(handleError);
+faces.ajax.addOnError(handleError);
 ...
 var handleError = function handleError(data) {
   ... do something with “data payload” ...
@@ -468,26 +463,26 @@ var handleError = function handleError(data) {
 
 [source,javascript]
 ----
-jsf.getProjectStage();
+faces.getProjectStage();
 ----
 
-{empty}[P1-start-projStage]This function must
+This function must
 return the constant representing the current state of the running
 application in a typical product development lifecycle. The returned
 value must be the value returned from the server side method
 jakarta.faces.application.Application.getProjectStage(); Refer to
 <<a3455, ProjectStage Property>> for more details
-about this property.[P1-end]
+about this property.
 
 [[a7020]]
 ==== Use Case
 
 [source,javascript]
 ----
-var projectStage = jakarta.faces.Ajax.getProjectStage();
-if (projectStage == “Production”) {
+var projectStage = faces.getProjectStage();
+if (projectStage == "Production") {
   .... throw exception
-} else if (projectStage == “Development”) {
+} else if (projectStage == "Development") {
   .... send an alert for debugging
 }
 ----
@@ -500,7 +495,7 @@ if (projectStage == “Production”) {
 
 [source,javascript]
 ----
-jsf.util.chain(source, event, |<script>, <script>,...| )
+faces.util.chain(source, event, |<script>, <script>,...| )
 ----
 
 This utility function invokes an arbitrary

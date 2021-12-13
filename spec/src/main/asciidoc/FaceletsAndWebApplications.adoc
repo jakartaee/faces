@@ -12,9 +12,7 @@ To aid implementors in providing a spec
 compliant runtime for Facelets, this section provides a non-normative
 background to motivate the discussion of the Facelets feature. Facelets
 is a replacement for Jakarta Server Pages that was designed from the outset with Jakarta Faces in
-mind. New features introduced in pre-Jakarta Faces JSF version 2 (under the JCP) and later are only exposed to
-page authors using Facelets. Jakarta Server Pages is retained for backwards
-compatibility.
+mind. See <<ApplicationIntegration.adoc#a4003,ViewDeclarationLanguage>>.
 
 ==== Differences between Jakarta Server Pages and Facelets
 
@@ -65,77 +63,13 @@ behavior when used in Jakarta Server Pages
 | Expressions in template text operate as
 expected.
 
-| JCP Standard
+| Jakarta Standard
 | Yes, the specification is separate from the
 implementation for Jakarta Server Pages
 | No, the specification is defined by and is
 one with the implementation.
 |===
 
-==== Differences between Pre JSF 2.0 Facelets and Facelets in Jakarta Faces
-
-The work of taking a snapshot of a version of
-Facelets and producing the specification for Facelets in Pre-Jakarta Faces JSF 2.0
-consists of extracting the parts of Facelets that are intended to be
-“public” and leaving the rest as implementation details. A decision was
-made early in this process to strive for backwards compatibility between
-the latest popular version of Facelets and Facelets in pre-Jakarta Faces JSF 2.0. The sole
-determinant to backwards compatibility lies in the answer to the
-question, “is there any Java code in the application, or in libraries
-used by the application, that extends from or depends on any class in
-package _com.sun.facelets_ and/or its sub-packages?”
-
-* If the answer to this question is “yes”,
-Facelets in pre-Jakarta Faces JSF 2.0 is _not_ backwards compatibile with Facelets and
-such an application _must_ continue to bundle the Facelets jar file
-along with the application, continue to set the Facelets configuration
-parameters, and also set the
-_jakarta.faces.DISABLE_FACELET_JSF_VIEWHANDLER_ _<context-param>_ to
-_true_. Please see <<UsingJSFInWebApplications.adoc#a6088,Application
-Configuration Parameters>> for details on this option. Any code that
-extends or depends on any class in package _com.sun.facelets_ and/or its
-sub-packages must be modified to depend on the appropriate classes in
-package _jakarta.faces.webapp.vdl_ and/or its sub-packages.
-
-* If the answer to this question is “no”,
-Facelets in pre-Jakarta Faces JSF 2.0 _is_ backwards compatible with pre-JSF 2.0 Facelets
-and such an application _must not_ continue to bundle the Facelets jar
-file along with the application, and _must not_ continue to set the
-Facelets configuration parameters.
-
-Thankfully, most applications that use
-Facelets fall into the latter category, or, if they fall in the former,
-their dependence will easily be migrated to the new public classes.
-
-Facelets in Jakarta Faces provides tag libraries
-that are compatible with the following libraries already found in pre
-JSF 2.0 Facelets.
-
-.Taglibs in pre JSF 2.0 Facelets that are available in Facelets in JSF 2.0
-[%header, cols="1,3", frame="topbot", grid="rows", stripes="even"]
-|===
-| Common prefix
-| Namespace URI
-
-| h
-| http://java.sun.com/jsf/html
-
-| f
-| http://java.sun.com/jsf/core
-
-| c
-| http://java.sun.com/jsp/jstl/core
-
-| fn
-| http://java.sun.com/jsp/jstl/functions
-
-| ui
-| http://java.sun.com/jsf/facelets
-|===
-
-Naturally, new features built on Facelets in
-Jakarta Faces are not available in pre JSF 2.0 Facelets and will only work in
-Jakarta Faces.
 
 [[a5526]]
 ==== Resource Library Contracts Background
@@ -209,11 +143,9 @@ next.
 
 [source,xml]
 ----
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+<html xmlns:ui="jakarta.faces.facelets"
+      xmlns:h="jakarta.faces.html">
   <h:head>
     <h:outputStylesheet id="default" name="default.css" />
     <h:outputStylesheet name="cssLayout.css" />
@@ -262,40 +194,30 @@ necessary. The two pages are shown next.
 
 [source,xml]
 ----
-<!DOCTYPE HTML>
-<html xmlns=”http://www.w3.org/1999/xhtml”
-      xmlns:ui=”http://java.sun.com/jsf/facelets”
-      xmlns:h=”http://java.sun.com/jsf/html”>
-  <body>
-    <ui:composition template=”/topNav_template.xhtml”>
-      <ui:define name=”title”>#{msgs.contactsWindowTitle}</ui:define>
-      <ui:define name=”content”>
-        <h:commandButton value=”next” action=”page2” />
-      </ui:define>
-      <ui:define name=”nav”>#{msgs.contactsNavMessage}</ui:define>
-    </ui:composition>
-  </body>
-</html>
+<ui:composition template="/topNav_template.xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html">
+  <ui:define name="title">#{msgs.contactsWindowTitle}</ui:define>
+  <ui:define name="content">
+    <h:commandButton value="next" action="page2" />
+  </ui:define>
+  <ui:define name="nav">#{msgs.contactsNavMessage}</ui:define>
+</ui:composition>
 ----
 
 .page2.xhtml
 
 [source,xml]
 ----
-<!DOCTYPE HTML>
-<html xmlns=”http://www.w3.org/1999/xhtml”
-      xmlns:ui=”http://java.sun.com/jsf/facelets”
-      xmlns:h=”http://java.sun.com/jsf/html”>
-  <body>
-    <ui:composition template=”/leftNav_foo.xhtml”>
-      <ui:define name=”title”>Hard coded title</ui:define>
-      <ui:define name=”content”>
-        <h:commandButton value=”back” action=”index” />
-      </ui:define>
-      <ui:define name=”nav”>Hard coded nav</ui:define>
-    </ui:composition>
-  </body>
-</html>
+<ui:composition template="/leftNav_foo.xhtml"
+                xmlns:ui="jakarta.faces.facelets"
+                xmlns:h="jakarta.faces.html">
+  <ui:define name="title">Hard coded title</ui:define>
+  <ui:define name="content">
+    <h:commandButton value="back" action="index" />
+  </ui:define>
+  <ui:define name="nav">Hard coded nav</ui:define>
+</ui:composition>
 ----
 
 To complete the example, the execution of the
@@ -344,7 +266,7 @@ there is one or more _<resource-library-contracts>_ element, only those
 contracts explicitly named will be made available for use in the
 application. If there is no such element, all of the discovered
 contracts are made available for use in the application. _This behavior
-is normatively specified in <<UsingJSFInWebApplications.adoc#a6215,Resource
+is normatively specified in <<UsingFacesInWebApplications.adoc#a6215,Resource
 Library Contracts>> and in the XML schema for the application
 configuration resources_.
 
@@ -402,7 +324,7 @@ Without the HTML5 Friendly Markup feature the view authoring model relies
 entirely on the concept of a Jakarta Faces UI
 component in a view as a means to encapsulate arbitrarily complex web
 user interface code behind a simple UI component tag in a page. For
-example, the act of including _<my:datePicker value=”#{user.dob}” />_
+example, the act of including _<my:datePicker value="#{user.dob}">_
 in a view could cause a large amount of HTML, CSS, JavaScript, and
 images to be delivered to the user agent. This abstraction is very
 appropriate when the view author is content to delegate the work of
@@ -413,9 +335,6 @@ total control on the user experience of each individual element in the
 view. The HTML5 Friendly Markup feature addresses this requirement, as
 well as providing access to the loosened attribute syntax also present
 in HTML5.
-
-This feature is only available to views
-written in Facelets. It is not available to views written in Jakarta Server Pages.
 
 ===== Non-normative Feature Overview
 
@@ -451,9 +370,9 @@ within a _UIComponent_ tag. For example,
 +
 [source,xml]
 ----
-    <h:inputText value=”#{user.name}”>
-      <f:passThroughAttribute name=”data-sermon” value=”#{pastor.message}” />
-    </h:inputText>
+<h:inputText value="#{user.name}">
+  <f:passThroughAttribute name="autofocus" value="#{config.autofocus}" />
+</h:inputText>
 ----
 
 * Nesting the _<f:passThroughAttributes>_ tag
@@ -461,9 +380,9 @@ within a _UIComponent_ tag, For example,
 +
 [source,xml]
 ----
-    <h:inputText value=”#{user.name}”> 
-      <f:passThroughAttributes value=”#{service.nameValuePairs}” />
-    </h:inputText> 
+<h:inputText value="#{user.name}"> 
+  <f:passThroughAttributes value="#{config.inputTextAttributes}" />
+</h:inputText>
 ----
 +
 The Jakarta Expression Language expression must point to a _Map<String, Object>_. If the value
@@ -472,15 +391,20 @@ value is a _ValueExpression_ or not, the value must have its
 _toString()_ called on it.
 
 * Prefixing the attribute with the shortname
-assigned to the _http://java.sun.com/jsf/passthrough_ XML namespace. For
+assigned to the _jakarta.faces.passthrough_ XML namespace. For
 example
 +
 [source,xml]
 ----
-    <html xmlns:p=”http://java.sun.com/jsf/passthrough”
-          xmlns:h=”http://java.sun.com/jsf/html”>
-      <h:inputText p:foo=”{bar.baz}” value=”#{user.name}” />
-    </html>
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html"
+      xmlns:pt="jakarta.faces.passthrough">
+  <h:body>
+    <h:form>
+      <h:inputText pt:autofocus="#{config.autofocus}" value="#{user.name}" />
+    </h:form>
+  </h:body>
+</html>
 ----
 
 [none]
@@ -514,11 +438,13 @@ process.
 [source,xml]
 ----
 <!DOCTYPE HTML>
-<html xmlns=”http://www.w3.org/1999/xhtml”
-      xmlns:jsf=”http://java.sun.com/jsf”>
-  <body>
-    <input type=”number” pattern=”[0-9]*” jsf:value=”#{my.age}” />
-  </body>
+<html xmlns:faces="jakarta.faces"
+      xmlns:h="jakarta.faces.html">
+  <h:body>
+    <h:form>
+      <input type="number" pattern="[0-9]*" faces:value="#{user.age}" />
+    </h:form>
+  </h:body>
 </html>
 ----
 
@@ -526,7 +452,7 @@ As required in
 <<FaceletsAndWebApplications.adoc#a5608,Specification of the
 ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces>>
 _TagDecorator_ is called during the facelet processing. Because the
-_<input>_ element has an attribute from the _http://java.sun.com/jsf_
+_<input>_ element has an attribute from the _jakarta.faces_
 namespace, the system treats the element as a pass through element. The
 table listed in the javadocs for _TagDecorator_ is consulted and it is
 determined that this component should act as an _<h:inputText>_
@@ -538,20 +464,20 @@ can be found in the table in the javadocs for _TagDecorator_.
 [source,xml]
 ----
 <!DOCTYPE HTML>
-<html xmlns=”http://www.w3.org/1999/xhtml”
-      xmlns:jsf=”http://java.sun.com/jsf”>
-  <body>
-    <meter jsf:id="meter2" min="#{bean.min}" max="#{bean.max}" value="350">
+<html xmlns:faces="jakarta.faces"
+      xmlns:h="jakarta.faces.html">
+  <h:body>
+    <meter faces:id="meter" min="#{bean.min}" max="#{bean.max}" value="350">
       350 degrees
     </meter>
-  </body>
+  </h:body>
 </html>
 ----
 
 As in the preceding example, the
 _TagDecorator_ mechanism is activated but it is determined that this
-component should act as a _<jsf:element>_ component for the purposes of
-postback processing. _The behavior of the <jsf:element> is normatively
+component should act as a _<faces:element>_ component for the purposes of
+postback processing. _The behavior of the <faces:element> is normatively
 specified in the VDLdoc for that tag. The behavior of the
 jakarta.faces.passthrough.Element renderer is normatively specified in the
 RenderKitDoc for that renderer_.
@@ -577,7 +503,7 @@ influenced the task of integrating Facelets into Jakarta Faces.
 
 * The original decision in pre-Jakarta Faces JSF 1.0 (under the JCP) to allow the
 ViewHandler to be pluggable enabled the concept of a View Declaration
-Language for JSF. The two most popular ones were Facelets and
+Language for Jakarta Faces. The two most popular ones were Facelets and
 JSFTemplating. The new integration should preserve this pluggability,
 since it is still valuable to be able to replace the View Declaration
 Language.
@@ -600,8 +526,8 @@ normative specification.
 As normatively specified in the javadocs for
 _ViewDeclarationLanguageFactory.getViewDeclarationLanguage()_, a Jakarta Faces
 implementation must guarantee that a valid and functional
-_ViewDeclarationLanguage_ instance is returned from this method when the
-argument is a reference to either a Jakarta Server Pages view, a Faces XML View or a
+_<<ApplicationIntegration.adoc#a4003,ViewDeclarationLanguage>>_ instance is returned from this method when the
+argument is a reference to a
 Facelets View. This section describes the specification for the Facelets
 implementation.
 
@@ -648,8 +574,9 @@ starting from the root _FaceletHandler_.
 * Standard XHTML markup elements
 
 ** These are declared in the XHTML namespace
-_http://www.w3.org/1999/xhtml_. Such elements should be passed through
-as is to the rendered output.
+_http://www.w3.org/1999/xhtml_ which must be considered the default namespace.
+I.e. the Facelets page authors should not have the  need to explicitly declare this namespace.
+Such elements should be passed through as is to the rendered output.
 
 ** These elements correspond to instances of
 _jakarta.faces.view.facelets.TextHandler_. See the javadocs for that
@@ -659,7 +586,7 @@ class for the normative specification.
 instance in the view.
 
 ** These elements can come from the Standard
-HTML Renderkit namespace _http://java.sun.com/jsf/html_, or from the
+HTML Renderkit namespace _jakarta.faces.html_, or from the
 namespace of a custom tag library (including composite components) as
 described in <<FaceletsAndWebApplications.adoc#a5638,Facelet Tag Library
 mechanism>>.
@@ -670,7 +597,7 @@ class for the normative specification.
 
 * Markup elements that take action on their
 parent or children markup element(s). Usually these come from the Jakarta Faces
-Core namespace _http://java.sun.com/jsf/core_, but they can also be
+Core namespace _jakarta.faces.core_, but they can also be
 provided by a custom tag library.
 
 ** Such elements that represent an attached
@@ -689,14 +616,14 @@ _jakarta.facelets.view.facelets.AttributeHandler_.
 
 * Markup Elements that indicate facelet
 templating, as specified in the VDL Docs for the namespace
-_http://java.sun.com/jsf/facelets_.
+_jakarta.faces.facelets_.
 
 ** Such elements correspond to an instance of
 _jakarta.faces.view.facelets.TagHandler_.
 
 * Markup elements from the Facelet version of
-the JSTL namespaces _http://java.sun.com/jsp/jstl/core_ or
-_http://java.sun.com/jsp/jstl/functions_, as specified in the VDL Docs
+the Jakarta Tags namespaces _jakarta.tags.core_ or
+_jakarta.tags.functions_, as specified in the VDL Docs
 for those namespaces.
 
 ** Such elements correspond to an instance of
@@ -708,7 +635,7 @@ _jakarta.faces.view.facelets.TagHandler_.
 [[a5632]]
 ==== General Requirements
 
-[P1-start_facelet_xhtml]Facelet pages are
+Facelet pages are
 authored in XHTML. The runtime must support all XHTML pages that conform
 to the XHTML-1.0-Transitional DTD, as described at
 _http://www.w3.org/TR/xhtml1/#a_dtd_XHTML-1.0-Transitional_.
@@ -716,9 +643,9 @@ _http://www.w3.org/TR/xhtml1/#a_dtd_XHTML-1.0-Transitional_.
 The runtime must ensure that Jakarta Expression Language expressions
 that appear in the page without being the right-hand-side of a tag
 attribute are treated as if they appeared on the right-hand-side of the
-_value_ attribute of an _<h:outputText />_ element in the
-_http://java.sun.com/jsf/html_ namespace. This behavior must happen
-regardless of whether or not the _http://java.sun.com/jsf/html_
+_value_ attribute of an _<h:outputText>_ element in the
+_jakarta.faces.html_ namespace. This behavior must happen
+regardless of whether or not the _jakarta.faces.html_
 namespace has been declared in the page.
 
 [[a5635]]
@@ -735,10 +662,9 @@ present, it must be the very first markup rendered, and it must precede
 any DOCTYPE declaration (if present). The output of the XML and DOCTYPE
 declarations are subject to the configuration options listed in the
 table titled “Valid <process-as> values and their implications on the
-processing of Facelet VDL files” in <<JSFMetadata.adoc#a7061,The
+processing of Facelet VDL files” in <<FacesMetadata.adoc#a7061,The
 facelets-processing element>>.
 
-{empty}[P1-end_facelet_xhtml]
 
 [[a5638]]
 ==== Facelet Tag Library mechanism
@@ -750,22 +676,21 @@ java class is greatly reduced and in most cases is unnecessary. The tag
 library mechanism has two purposes.
 
 * Allow page authors to access tags declared in
-the supplied tag libraries declared in <<JSFMetadata.adoc#a5691,
+the supplied tag libraries declared in <<FacesMetadata.adoc#a5691,
 Standard Facelet Tag Libraries>>, as well as accessing third-party tag
 libraries developed by the application author, or any other third party
 
 * Define a framework for component authors to
-group a collection of custom _UIComponent_ s into a tag library and
+group a collection of custom __UIComponent__s into a tag library and
 expose them to page authors for use in their pages.
 
-[P1_start_facelet_taglib_decl]The runtime
+The runtime
 must support the following syntax for making the tags in a tag library
 available for use in a Facelet page.
 
 [source,xml]
 ----
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:prefix="namespace_uri">
+<html xmlns:prefix="namespace_uri">
 ----
 
 Where _prefix_ is a page author chosen
@@ -773,10 +698,10 @@ arbitrary string used in the markup inside the _<html>_ tag to refer to
 the tags declared within the tag library and _namespace_uri_ is the
 string declared in the _<namespace>_ element of the facelet tag library
 descriptor. For example, declaring
-_xmlns:h="http://java.sun.com/jsf/html"_ within the _<html>_ element in
+_xmlns:h="jakarta.faces.html"_ within the _<html>_ element in
 a Facelet XHTML page would cause the runtime to make all tags declared
 in <<FaceletsAndWebApplications.adoc#a6029,Standard HTML RenderKit Tag Library>>
-to be available for use in the page using syntax like: _<h:inputText />_.
+to be available for use in the page using syntax like: _<h:inputText>_.
 
 The unprefixed namespace, also known as the
 root namespace, must be passed through without modification or check for
@@ -786,8 +711,8 @@ markup declaration:.
 
 [source,xml]
 ----
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html">
   <math xmlns="http://www.w3.org/1998/Math/MathML"> 
     <msup>
       <msqrt>
@@ -807,7 +732,8 @@ would be rendered as
 
 [source,xml]
 ----
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
   <math xmlns="http://www.w3.org/1998/Math/MathML">
     <msup>
       <msqrt>
@@ -823,14 +749,13 @@ would be rendered as
 </math>
 ----
 
-{empty}[P1_end_facelet_taglib_decl]
 
-[P1_start_facelet_taglib_discovery]The run
+The run
 time must support two modes of discovery for Facelet tag library
 descriptors
 
-* {empty}Via declaration in the web.xml, as
-specified in <<UsingJSFInWebApplications.adoc#a6088,Application Configuration
+* Via declaration in the web.xml, as
+specified in <<UsingFacesInWebApplications.adoc#a6088,Application Configuration
 Parameters>>
 
 * Via auto discovery by placing the tag library
@@ -838,16 +763,16 @@ discriptor file within a jar on the web application classpath, naming
 the file so that it ends with “_.taglib.xml_”, without the quotes, and
 placing the file in the _META-INF_ directory in the jar file.
 
-{empty}The discovery of tag library files
+The discovery of tag library files
 must happen at application startup time and complete before the
 application is placed in service. Failure to parse, process and
 otherwise interpret any of the tag library files discovered must cause
 the application to fail to deploy and must cause an informative error
-message to be logged.[P1_end_facelet_taglib_discovery]
+message to be logged.
 
 The specification for how to interpret a
 facelet tag library descriptor is included in the documentation elements
-of the schema for such files, see <<JSFMetadata.adoc#a7134,XML
+of the schema for such files, see <<FacesMetadata.adoc#a7134,XML
 Schema Definition For Facelet Taglib>>.
 
 
@@ -862,13 +787,13 @@ _emphasis font face_.
 [[a5663]]
 ===== Declaring a composite component library for use in a Facelet page
 
-[P1_start_composite_library_decl]The runtime
+The runtime
 must support the following two ways of declaring a _composite component
 library_.
 
 * If a facelet taglibrary is declared in an
 XHTML page with a namespace starting with the string
-“_http://java.sun.com/jsf/composite/_” (without the quotes), the
+“_jakarta.faces.composite/_” (without the quotes), the
 remainder of the namespace declaration is taken as the name of a
 resource library as described in <<RequestProcessingLifecycle.adoc#a836,
 Libraries of Localized and Versioned Resources>>, as shown in the
@@ -876,19 +801,18 @@ following example:
 +
 [source,xml]
 ----
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ez="http://java.sun.com/jsf/composite/ezcomp">
+<html xmlns:ez="jakarta.faces.composite/ezcomp">
 ----
 +
 The runtime must look for a resource library
 named _ezcomp_. If the substring following
-“_http://java.sun.com/jsf/composite/_” contains a “_/_” character, or
+“_jakarta.faces.composite/_” contains a “_/_” character, or
 any characters not legal for a library name the following action must be
 taken. If _application.getProjectStage()_ is _Development_ an
 informative error message must be placed in the page and also logged.
 Otherwise the message must be logged only.
 
-* {empty}As specified in facelet taglibrary
+* As specified in facelet taglibrary
 schema, the runtime must also support the _<composite-library-name>_
 element. The runtime must interpret the contents of this element as the
 name of a resource library as described in
@@ -897,47 +821,47 @@ Resources>>. If a facelet tag library descriptor file is encountered that
 contains this element, the runtime must examine the _<namespace>_
 element in that same tag library descriptor and make it available for
 use in an XML namespace declaration in facelet
-pages.[P1_end_composite_library_decl]
+pages.
 
 [[a5670]]
 ===== Creating an instance of a _top level component_
 
-[P1_start_top_level_component_creation]If,
+If,
 during the process of building the view, the facelet runtime encounters
 an element in the page using the prefix for the namespace of a composite
 component library, the runtime must create a _Resource_ instance with a
 library property equal to the library name derived in
 <<FaceletsAndWebApplications.adoc#a5663,Declaring a composite component library>>
-for use in a Facelet page]and call the variant of
+for use in a Facelet page and call the variant of
 _application.createComponent()_ that takes a _Resource_.
 
-{empty}After causing the _top level
+After causing the _top level
 component_ to be instantiated, the runtime must create a _UIComponent_
 with component-family of _jakarta.faces.Panel_ and renderer-type
 _jakarta.faces.Group_ to be installed as a facet of the _top level
-component_ under the facet name _UIComponent.COMPOSITE_FACET_NAME_.[P1_end_top_level_component_creation]
+component_ under the facet name _UIComponent.COMPOSITE_FACET_NAME_.
 
 ===== Populating a _top level component_ instance with children
 
-{empty}[P1_start_top_level_component_population]As
+As
 specified in <<UserInterfaceComponentModel.adoc#a1545,How does one make a
-composite component?>> the runtime must support the use of _composite:_
+composite component?>> the runtime must support the use of _cc:_
 tag library in the _defining page_ pointed to by the _Resource_ derived
 as specified in <<FaceletsAndWebApplications.adoc#a5670,Creating an instance of
-a top level component>>. [P1_start_top_level_component_population]The
+a top level component>>. The
 runtime must ensure that all _UIComponent_ children in the _composite
 component definition_ within the _defining page_ are placed as children
-of the _UIComponent.COMPOSITE_FACET_NAME_ facet of the _top level
-facet._ [P1_end_top_level_component_population]
+of the _UIComponent.COMPOSITE_FACET_NAME_ facet of the __top level
+facet__. 
 
 Please see the tag library documentation for
-the _<composite:insertChildren>_ and _<composite:insertFacet>_ tags for
+the _<cc:insertChildren>_ and _<cc:insertFacet>_ tags for
 details on these two tags that are relevant to populating a _top level
 component_ instance with children.
 
 Special handling is required for attributes
 declared on the _composite component tag_ instance in the _using page_.
-[P1_start_composite_component_tag_attributes]The runtime must ensure
+The runtime must ensure
 that all such attributes are copied to the attributes map of the _top
 level component_ instance in the following manner.
 
@@ -959,19 +883,19 @@ Object.class)_
 with “_#{_“, call _expressionFactory.createValueExpression(value,
 Object.class)_
 
-* {empty}If there already is a key in the _map_
+* If there already is a key in the _map_
 for _value_, inspect the type of the value at that key. If the type is
-_MethodExpression_ take no action.[P1_end_composite_component_tag_attributes]
+_MethodExpression_ take no action.
 
 For code that handles tag attributes on
 _UIComponent_ XHTML elements special action must be taken regarding
-composite components. [P1_start_composite_component_method_expression]If
+composite components. If
 the type of the attribute is a _MethodExpression_, the code that takes
 the value of the attribute and creates an actual _MethodExpression_
 instance around it must take the following special action. Inspect the
 value of the attribute. If the Jakarta Expression Language expression string starts with the _cc_
 implicit object, is followed by the special string “_attrs_” (without
-the quotes), as specified in <<ExpressionLanguageAndManagedBeanFacility.adoc#a2908,Composite
+the quotes), as specified in <<ExpressionLanguageFacility.adoc#a2908,Composite
 Component Attributes ELResolver>>, and is followed by a single remaining
 expression segment, let the value of that remaining expression segment
 be _attrName_. In this case, the runtime must guarantee that the actual
@@ -988,21 +912,21 @@ key under the value _attrName_.
 _MethodExpression_. If either of these conditions are _false_ allow the
 ensuing exception to be thrown.
 
-* {empty}Call _invoke()_ on the discovered
+* Call _invoke()_ on the discovered
 _MethodExpression_, passing the arguments passed to our _invoke()_
-method.[P1_end_composite_component_method_expression]
+method.
 
-[P1_start_composite_component_retargeting]Once
+Once
 the composite component has been populated with children, the runtime
 must ensure that _ViewHandler.retargetAttachedObjects()_ and then
 _ViewHandler.retargetMethodExpressions()_ is called, passing the _top
-level component_.[P1_end_composite_component_retargeting] The actions
+level component_. The actions
 taken in these methods set the stage for the tag attribute behavior and
 the special _MethodExpression_ handling behavior described previously.
 
-[P1_start_nested_composite_components]The
+The
 runtime must support the inclusion of composite components within the
-_composite component definition_. [P1_end_nested_composite_components].
+_composite component definition_. .
 
 
 [[a5691]]
@@ -1014,1248 +938,36 @@ must be provided by an implementation.
 ==== Jakarta Faces Core Tag Library
 
 This tag library must be equivalent to the
-one specified in <<IntegrationWithJSP.adoc#a4636,Jakarta Faces Core Tag Library>>.
-
-For all of the tags that correspond to
-attached objects, the Facelets implementation supportes an additional
-attribute, _for_, which is intended for use when the attached object
-tag exists within a composite component. If present, this attribute
-refers to the value of one of the exposed attached objects within the
-composite component inside of which this tag is nested.
-
-The following additional tags apply to the
-Facelet Core Tag Library only.
-
-[[a1111]]
-===== <f:ajax>
-
-This tag serves two roles depending on its
-placement. If this tag is nested within a single component, it will
-associate an Ajax action with that component. If this tag is placed
-around a group of components it will associate an Ajax action with all
-components that support the “events” attribute. In there is an outer
-
-.Syntax
-
-``<f:ajax [event=”Literal”]``
-
-[none]
-* ``[execute=”Literal | Value Expression”] [render=”Literal | Value Expression”]``
-
-* ``[onevent=”Literal | Value Expression”] [onerror=”Literal | Value Expression”]``
-
-* ``[listener=”Method Expression”]``
-
-* ``[disabled=”Literal | Value Expression”] [immediate=”Literal | ValueExpression]/>``
-
-.Body Content
-
-empty.
-
-.Attributes
-
-The following optional attributes are
-available:
-
-[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
-|===
-| Name
-| Expr
-| Type
-| Description
-
-| event
-| String
-| String
-| A String identifying the type of event the
-Ajax action will apply to. If specified, it must be one of the events
-supported by the component the Ajax behavior is being applied to. If not
-specified, the default event is determined for the component. The
-default event is “action” for ActionSource components and “valueChange”
-for EditableValueHolder components.
-
-| execute
-| VE
-| Collection<String>
-| If a literal is specified, it must be a space
-delimited String of component identifiers and/or one of the keywords
-outlined in <<JavaScriptAPI.adoc#a6884,Keywords>>. If not
-specified, then @this is the default. If a ValueExpression is specified,
-it must refer to a property that returns a Collection of Strings. Each
-String in the Collection must not contain spaces.
-
-| render
-| VE
-| Collection<String>
-| If a literal is specified, it must be a space
-delimited String of component identifiers and/or one of the keywords
-outlined in <<JavaScriptAPI.adoc#a6884,Keywords>>. If not
-specified, then @none is the default . If a ValueExpression is
-specified, it must refer to a property that returns a Collection of
-Strings. Each String in the Collection must not contain spaces.
-
-| onevent
-| VE
-| String
-| The name of a JavaScript function that will handle events
-
-| onerror
-| VE
-| String
-| The name of a JavaScript function that will handle errors.
-
-| disabled
-| VE
-| boolean
-| “false” indicates the Ajax behavior script
-should be rendered; “true” indicates the Ajax behavior script should not
-be rendered. “false” is the default.
-
-| listener
-| ME
-| MethodExpression
-| The listener method to execute when Ajax
-requests are processed on he server.
-
-| immediate
-| VE
-| boolean
-| If “true” behavior events generated from this
-behavior are broadcast during Apply Request Values phase. Otherwise, the
-events will be broadcast during Invoke Aplications phase.
-|===
-
-.Specifying “execute”/”render” Identifiers
-
-{empty}The String value for identifiers
-specified for execute and render may be specified as a search expression
-as outlined in the JavaDocs for UIComponent.findComponent.
-[P1_start_execrenderIds]The implementation must resolve these
-identifiers as specified for UIComponent.findComponent.[P1_end]
-
-.Constraints
-
-This tag may be nested within any of the
-standard HTML components. It may also be nested within any custom
-component that implements the ClientBehaviorHolder interface. Refer to
-<<UserInterfaceComponentModel.adoc#a1707,Component
-Behavior Model>> for more information about this interface.
-[P1_start_ajaxtag_events]A TagAttibuteException must be thrown if an
-“event” attribute value is specified that does not match the events
-supported by the component type. [P1_end_ajaxtag_events] For example:
-
-[source,xml]
-----
-<h:commandButton ..>
-  <f:ajax event=”valueChange”/>
-</h:commandButton id=”button1” ...>
-----
-
-{empty}An attempt is made to apply a
-“valueChange” Ajax event to an “action” component. This is invalid and
-the Ajax behavior will not be applied. [P1_start_bevent]The event
-attribute that is specified, must be one of the events returned from the
-ClientBehaviorHolder component implementation of
-ClientBehaviorHolder.getEventNames. If an event is not specified the
-value returned from the component implementation of
-ClientBehaviorHolder.getDefaultEventName must be used. If the event is
-still not determined, a TagAttributeException must be thrown.[P1_end]
-
-This tag may also serve to “ajaxify” regions
-of a page by nesting a group of components within it:
-
-[source,xml]
-----
-<f:ajax>
-  <h:panelGrid>
-    <h:inputText id=”text1”/>
-    <h:commandButton id=”button1”/>
-  </h:panelGrid>
-</f:ajax>
-----
-
-From this example, “text1” and “button1” will
-have ajax behavior applied to them. The default events for these
-components would cause Ajax requests to fire. For “text1” a
-“valueChange” event would apply and for “button1” an “action” event
-would apply. <h:panelGrid> has no default event so in this case a
-behavior would not be applied.
-
-[source,xml]
-----
-<f:ajax event=”click”>
-  <h:panelGrid id=”grid1”>
-    <h:inputText id=”text1”/>
-    <h:commandButton id=”button1”>
-      <f:ajax event=”mouseover”/>
-    </h:commandButton>
-  </h:panelGrid>
-</f:ajax>
-----
-
-From this example, “grid1” and “text1” would
-have ajax behavior applied for an “onclick” event. “button1” would have
-ajax behavior applied for both “mouseover” and “onclick” events. The
-“oncick” event is a supported event type for PanelGrid components.
-
-[source,xml]
-----
-<f:ajax>
-  <h:commandButton id=”button1”>
-    <f:ajax/>
-  </h:commandButton>
-</f:ajax>
-----
-
-For this example, the inner <f:ajax/> would
-apply to “button1”. The outer (wrapping) <f:ajax> would not be applied,
-since it is the same type of submitting behavior (AjaxBehavior) and the
-same event type (action).
-
-[source,xml]
-----
-<f:ajax event=”click”>
-  <h:inputText id=”text1”>
-    <f:ajax event=”click”/>
-  </h:inputText>
-</f:ajax>
-----
-
-For this example, since the event types are
-the same, the inner <f:ajax> event overrides the outer one.
-
-
-
-[source,xml]
-----
-<f:ajax event=”action”>
-  <h:commandButton id=”button1”>
-    <b:greet event=”action”/>
-  </h:commandButton>
-</f:ajax>
-----
-
-Here, there is a custom behavior “greet”
-attached to “button1”. the outer <f:ajax> Ajax behavior will also get
-applied to “button1”. But it will be applied *after* the “greet”
-behavior.
-
-.Description
-
-Enable one or more components in the view to
-perform Ajax operations. This tag handler must create an instance of
-jakarta.faces.component.behavior.AjaxBehavior instance using the tag
-attribute values. If this tag is nested within a single
-ClientBehaviorHolder component:
-
-* If the event attribute is not specified,
-determine the event by calling the component’s getDefaultEventName
-method. If that returns null, throw an exception.
-
-* If the event attribute is specified, ensure
-that it is a valid event - that is one of the events contained in the
-Collection returned from getEventNames method. If it does not exist in
-this Collection, throw an exception.
-
-* Add the AjaxBehavior to the component by
-calling the addBehavior method, passing the event and AjaxBehavior
-instance.
-
-If this tag is wrapped around component
-children add the AjaxBehavior instance to the data structure holding the
-behaviors for that component. As subsequent child components that
-implement the BehaviorHolder interface are evaluated, this AjaxBehavior
-instance must be added as a Behavior to the component. Please refer to
-the Javadocs for the core tag handler AjaxHandler for additional
-requirements.
-
-.Examples
-
-Apply Ajax to “button1” and “text1”:
-
-[source,xml]
-----
-<f:ajax>
-  <h:form>
-    <h:commandButton id=”button1” ...>
-    <h:inputText id=”text1” ..>
-  </h:form>
-</f:ajax>
-----
-
-Apply Ajax to “text1”:
-
-[source,xml]
-----
-<f:ajax event=”valueChange”>
-  <h:form>
-    <h:commandButton id=”button1” ...>
-    <h:inputText id=”text1” ..>
-  </h:form>
-</f:ajax>
-----
-
-Apply Ajax to “button1”:
-
-[source,xml]
-----
-<f:ajax event=”action”>
-  <h:form>
-    <h:commandButton id=”button1” ...>
-    <h:inputText id=”text1” ..>
-  </h:form>
-</f:ajax>
-----
-
-Override default Ajax action. “button1” is
-associated with the Ajax “execute=’cancel’” action:[[a5815]]
-
-[source,xml]
-----
-<f:ajax event=”action” execute=”reset”>
-  <h:form>
-    <h:commandButton id=”button1” ...>
-      <f:ajax execute=”cancel”/>
-    </h:commandButton>
-    <h:inputText id=”text1” ..>
-  </h:form>
-</f:ajax>
-----
-
-===== <f:event>
-
-Allow Jakarta Faces page authors to install
-_ComponentSystemEventListener_ instances on a component in a page.
-Because this tag is closely tied to the event system, please see section
-<<UserInterfaceComponentModel.adoc#a1393,Declarative Listener Registration>> for
-the normative specification.
-
-===== <f:metadata>
-
-Register a facet on the parent component,
-which must be the _UIViewRoot_. This must be a child of the _<f:view>_
-. This tag must reside within the top level XHTML file for the given
-viewId, not in a template. The implementation must ensure that the
-direct child of the facet is a _UIPanel_, even if there is only one
-child of the facet. The implementation must set the id of the _UIPanel_
-to be the value of the _UIViewRoot.METADATA_FACET_NAME_ symbolic
-constant.
-
-[[a5828]]
-===== <f:validateBean>
-
-Register a BeanValidator instance on the
-parent EditableValueHolder UIComponent or the EditableValueHolder
-UIComponent whose client id matches the value of the "for" attribute
-when used within a composite component. If neither criteria is
-satisfied, save the validation groups in an attribute on the parent
-UIComponent to be used as defaults inherited by any BeanValidator in
-that branch of the component tree. Don't save the validation groups
-string if it is null or empty string. If the validationGroups attribute
-is not defined on this tag when used in an EditableValueHolder, or the
-value of the attribute is empty string, attempt to inherit the
-validation groups from the nearest parent component on which a set of
-validation groups is stored. If no validation groups are inherited,
-assume the Default validation group, jakarta.validation.groups.Default. If
-the BeanValidator is one of the default validators, then this tag simply
-specializes the validator by providing the list of validation groups to
-be used. There are two usage patterns for this tag, both shown below.
-The tags surrounding and nested within the _<f:validateBean>_ tag, as
-well as the attributes of the tag itself, are show for illustrative
-purposes only.
-
-.Syntax
-
-[source,xml]
-----
-<h:inputText value=”#{model.property}”>
-  <f:validateBean validationGroups=
-      "jakarta.validation.groups.Default,app.validation.groups.Order"/>
-</h:inputText>
-----
-
-or
-
-[source,xml]
-----
-<h:form>
-  <f:validateBean>
-    <h:inputText value=”#{model.property}” />
-    <h:selectOneRadio value=”#{model.radioProperty}” >
-      ...
-    </h:selectOneRadio>
-    <!-- other input components here -->
-  </f:validateBean>
-</h:form>
-----
-
-.Body Content
-
-Empty in the case when the Bean Validator is
-to be registered on a parent component.
-
-Filled with input components when the Bean
-Validator is to be set on all of the ensclosing input components.
-
-.Attributes
-
-[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
-|===
-|Name |Exp
-|Type |Description
-|binding |VE
-|ValueExpression
-|A ValueExpression that evaluates to an
-object that implements jakarta.faces.validate.BeanValidator
-
-|disabled |VE
-|Boolean |A flag
-which indicates whether this validator, or a default validator with the
-id "jakarta.faces.Bean", should be permitted to be added to this component
-
-|validationGroups
-|VE |String
-|A comma-delimited of type-safe validation
-groups that are passed to the Bean Validation API when validating the
-value
-|===
-
-.Constraints
-
-Must be nested in an EditableValueHolder or
-nested in a composite component and have a for attribute. Otherwise, it
-simply defines enables or disables the validator as a default for the
-branch of the component tree under the parent component and/or sets the
-validation group defaults for the branch. No exception is thrown if one
-of the first two conditions are not met, unlike other standard
-validators.
-
-.Description
-
-* Must use or extend the
-_jakarta.faces.view.facelets.ValidatorHandler_ class
-
-* If not within an EditableValueHolder or
-composite component, store the validation groups as defaults for the
-current branch of the component tree, but only if the value is a
-non-empty string.
-
-* If the disabled attribute is true, the
-validator should not be added. In addition, the validatorId, if present,
-should be added to an exclusion list on the parent component to prevent
-a default validator with the same id from being registered on the
-component.
-
-* The createValidator() method must:
-
-** If binding is non-null, create a
-ValueExpression by invoking Application.createValueExpression() with
-binding as the expression argument, and Validator.class as the
-expectedType argument. Use the ValueExpression to obtain a reference to
-the Validator instance. If there is no exception thrown, and
-ValueExpression.getValue() returned a non-null object that implements
-jakarta.faces.validator.Validator, it must then cast the returned instance
-to jakarta.faces.validator.BeanValidator, configure its properties based
-on the specified attributes, and return the configured instance. If
-there was an exception thrown, rethrow the exception as a TagException.
-
-** Use the validatorId if the validator instance
-could not be created from the binding attribute. Call the
-createValidator() method of the Application instance for this
-application, passing validator id "jakarta.faces.Bean". If the binding
-attribute was also set, evaluate the expression into a ValueExpression
-and store the validator instance by calling setValue() on the
-ValueExpression. It must then cast the returned instance to
-jakarta.faces.validator.BeanValidator, configure its properties based on
-the specified attributes, and return the configured instance. If there
-was an exception thrown, rethrow the exception as a TagException.
-
-[[a5857]]
-===== <f:validateRequired>
-
-Register a RequiredValidator instance on the
-parent EditableValueHolder UIComponent or the EditableValueHolder
-UIComponent whose client id matches the value of the "for" attribute
-when used within a composite component.
-
-.Syntax
-
-[source,xml]
-----
-<f:validateRequired/>
-----
-
-.Body Content
-
-empty
-
-
-
-.Attributes
-
-[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
-|===
-|Name |Exp
-|Type |Description
-|binding |VE
-|ValueExpression
-|A ValueExpression that evaluates to an
-object that implements jakarta.faces.validate.RequiredValidator
-
-|disabled |VE
-|Boolean |A flag
-which indicates whether this validator, or a default validator with the
-id "jakarta.faces.Required", should be permitted to be added to this
-component
-|===
-
-
-
-.Constraints
-
-Must be nested in an EditableValueHolder or
-nested in a composite component and have a for attribute (Facelets
-only). Otherwise, it simply enables or disables the use of the validator
-as a default for the branch of the component tree under the parent. No
-exception is thrown if one of the first two conditions are not met,
-unlike other standard validators.
-
-
-
-.Description
-
-* Must use or extend the
-_jakarta.faces.view.facelets.ValidatorHandler_ class
-
-* If the disabled attribute is true, the
-validator should not be added. In addition, the validatorId, if present,
-should be added to an exclusion list on the parent component to prevent
-a default validator with the same id from being registered on the
-component
-
-* The createValidator() method must:
-
-** If binding is non-null, create a
-ValueExpression by invoking Application.createValueExpression() with
-binding as the expression argument, and Validator.class as the
-expectedType argument. Use the ValueExpression to obtain a reference to
-the Validator instance. If there is no exception thrown, and
-ValueExpression.getValue() returned a non-null object that implements
-jakarta.faces.validator.Validator, it must then cast the returned instance
-to jakarta.faces.validator.RequiredValidator, configure its properties
-based on the specified attributes, and return the configured instance.
-If there was an exception thrown, rethrow the exception as a
-TagException..
-
-** Use the validatorId if the validator instance
-could not be created from the binding attribute. Call the
-createValidator() method of the Application instance for this
-application, passing validator id "jakarta.faces.Required". If the binding
-attribute was also set, evaluate the expression into a ValueExpression
-and store the validator instance by calling setValue() on the
-ValueExpression. It must then cast the returned instance to
-jakarta.faces.validator.RequiredValidator, configure its properties based
-on the specified attributes, and return the configured instance. If
-there was an exception thrown, rethrow the exception as a TagException.
-
-===== <f:validateWholeBean>
-
-Support multi-field validation by enabling
-class-level bean validation on CDI based backing beans.
-
-.Syntax
-
-[source,xml]
-----
-<!-- one or more components validated by <f:validateBean />
-     precede this tag in the tree, with each one using the same
-     validationGroups value and referencing properties on the same
-     model object -->
-<f:validateWholeBean value="#{model}"
-    validationGroups="fully.qualified.class.Name" />
-----
-
-.Body Content
-
-empty
-
-
-
-.Attributes
-
-[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
-|===
-|Name |Exp
-|Type |Description
-|disabled |VE
-|Boolean |A flag
-which indicates whether this validator, or a default validator with the
-id "jakarta.faces.Required", should be permitted to be added to this
-component
-
-|validationGroups
-|VE |String
-|A comma-delimited of type-safe validation
-groups that are passed to the Bean Validation API when validating the
-value
-
-|value |VE
-|Object |A
-ValueExpression referencing the bean to be validated.
-|===
-
-
-
-.Constraints
-
-This tag must be placed in the component tree
-after all of the fields that are to be included in the multi-field
-validation. If this precondition is not met, the results of applying
-this tag are unspecified.
-
-.Description
-
-* See the VDLDoc for _<f:validateWholeBean />_
-for the normative specification and a usage example.
-
-[[a5904]]
-===== <f:websocket>
-
-This tag registers a websocket push
-connection at the client side by rendering the necessary scripts. Push
-messages can be sent from server side via _jakarta.faces.push.PushContext_
-interface which is injected into a using class with the
-_@jakarta.faces.push.Push_ CDI qualifier.
-
-[TIP]
-<f:websocket> is designed for push from server to client
-
-Although W3C WebSocket supports two-way
-communication, the <f:websocket> push is designed for one-way
-communication, from server to client. In case you intend to send some
-data from client to server, continue using Jakarta Faces ajax the usual way. This
-has among others the advantage of maintaining the Jakarta Faces view state, the
-HTTP session and, critically, all security constraints on business
-service methods.
-
-.Syntax
-
-``<f:websocket [binding="ValueExpression"] [id="Literal | ValueExpression"]``
-
-[none]
-* ``channel="Literal" [scope="Literal"]``
-
-* ``[user="Literal | ValueExpression"] [onopen="Literal | ValueExpression"]``
-
-* ``[onmessage="Literal | ValueExpression"] [onclose="Literal | ValueExpression"]``
-
-* ``[connected="Literal | ValueExpression"] [rendered="Literal | ValueExpression"] />``
-
-.Body Content
-
-Empty, or one or more _<f:ajax>_ tags with
-the _event_ attribute set to exactly the push message content.
-
-.Attributes
-
-The following required attribute must be set:
-
-[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
-|===
-
-| Name
-| Expr
-| Type
-| Description
-
-| channel
-| String
-| String
-| The name of the websocket channel. It may not
-be a Jakarta Expression Language expression and it may only contain alphanumeric characters,
-hyphens, underscores and periods. All open websockets on the same
-channel name will receive the same push notification from the server.
-
-|===
-
-The following optional attributes are
-available:
-
-[%header, cols="15%,7%,18%,60%", frame="topbot", grid="rows", stripes="even"]
-|===
-|Name |Exp
-|Type |Description
-|id |VE
-|String |Component
-identifier of the _UIWebSocket_ component to be created.
-
-|scope |String
-|String |The scope
-of the websocket channel. It may not be a Jakarta Expression Language expression and allowed
-values are _application_, _session_ and _view_, case insensitive. When
-the value is _application_, then all channels with the same name
-throughout the application will receive the same push message. When the
-value is _session_, then only the channels with the same name in the
-current user session will receive the same push message. When the value
-is _view_, then only the channel in the current view will receive the
-push message. The default scope is _application_. When the _user_
-attribute is specified, then the default scope is _session_.
-
-|user |VE
-|Serializable |The
-user identifier of the websocket channel, so that user-targeted push
-messages can be sent. It must implement Serializable and preferably have
-low memory footprint. Suggestion: use #{request.remoteUser} or
-#{someLoggedInUser.id}. All open websockets on the same channel and
-user will receive the same push message from the server.
-
-|onopen |VE
-|String |The
-JavaScript event handler function that is invoked when the websocket is
-opened. The function will be invoked with one argument: the channel
-name.
-
-|onmessage |VE
-|String |The
-JavaScript event handler function that is invoked when a push message is
-received from the server. The function will be invoked with three
-arguments: the push message, the channel name and the raw MessageEvent
-itself.
-
-|onclose |VE
-|String |The
-JavaScript event handler function that is invoked when the websocket is
-closed. The function will be invoked with three arguments: the close
-reason code, the channel name and the raw CloseEvent itself. Note that
-this will also be invoked on errors and that you can inspect the close
-reason code if an error occurred and which one (i.e. when the code is
-not 1000). See also RFC 6455 section 7.4.1 and
-jakarta.websocket.CloseReason.CloseCodes API for an elaborate list of all
-close codes.
-
-|connected |VE
-|Boolean |Whether
-to (auto)connect the websocket or not. Defaults to true. It's
-interpreted as a JavaScript instruction whether to open or close the
-websocket push connection. This attribute is implicitly re-evaluated on
-every ajax request by a PreRenderViewEvent listener on the UIViewRoot.
-You can also explicitly set it to false and then manually control in
-JavaScript by jsf.push.open(clientId) and jsf.push.close(clientId).
-
-|rendered |VE
-|Boolean |Whether
-to render the websocket scripts or not. Defaults to true. This attribute
-is implicitly re-evaluated on every ajax request by a PreRenderViewEvent
-listener on the UIViewRoot. If the value changes to false while the
-websocket is already opened, then the websocket will implicitly be
-closed.
-
-|binding |VE
-|UIComponent
-|Value binding expression to a backing bean
-property bound to the component instance for the UIComponent created by
-this tag.
-|===
-
-.Configuration
-
-First, enable the websocket endpoint using
-the context parameter:
-
-[source,xml]
-----
-<context-param>
-  <param-name>jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
-  <param-value>true</param-value>
-</context-param>
-----
-
-In case your server is configured to run a
-WebSocket container on a different TCP port than the HTTP container,
-then you can use the optional jakarta.faces.WEBSOCKET_ENDPOINT_PORT
-integer context parameter in web.xml to explicitly specify the port.
-
-[source,xml]
-----
-<context-param>
-  <param-name>jakarta.faces.WEBSOCKET_ENDPOINT_PORT</param-name>
-  <param-value>8000</param-value>
-</context-param>
-----
-
-.Usage (client)
-
-Declare <f:websocket> tag in the Jakarta Faces view
-with at least a channel name and an onmessage JavaScript listener
-function. The channel name may not be an Expression Language expression and it may only
-contain alphanumeric characters, hyphens, underscores and periods.
-
-Here's an example which refers an existing
-JavaScript listener function.
-
-[source,javascript]
-----
-<f:websocket channel="someChannel"
-    onmessage="someWebsocketListener" />
-
-function someWebsocketListener(message, channel, event) {
-    console.log(message);
-}
-----
-
-Here’s an example which declares an inline
-JavaScript listener function.
-
-[source,xml]
-----
-<f:websocket channel="someChannel"
-    onmessage="function(m){console.log(m);}" />
-----
-
-The onmessage JavaScript listener function
-will be invoked with three arguments:
-
-. message: the push message as JSON object.
-
-. channel: the channel name.
-
-. event: the raw MessageEvent instance.
-
-When successfully connected, the websocket is
-by default open as long as the document is open, and it will
-auto-reconnect at increasing intervals when the connection is
-closed/aborted as result of e.g. a network error or server restart. It
-will not auto-reconnect when the very first connection attempt already
-fails. The websocket will be implicitly closed once the document is
-unloaded.
-
-.Usage (server)
-
-On the Java programming side, you can inject
-a PushContext via @Push annotation on the given channel name in any
-CDI/container managed artifact, such as @Named, @WebServlet, wherever
-you'd like to send a push message and then invoke
-PushContext.send(Object) with any Java object representing the push
-message.
-
-[source,java]
-----
-@Inject @Push
-private PushContext someChannel;
-
-public void sendMessage(Object message) {
-  someChannel.send(message);
-}
-----
-
-By default the name of the channel is taken
-from the name of the variable into which injection takes place.
-
-The channel name can be optionally specified
-via the channel attribute. The example below injects the push context
-for channel name foo into a variable named bar.
-
-[source,java]
-----
-@Inject @Push(channel="foo")
-private PushContext bar;
-----
-
-The message object will be encoded as JSON
-and be delivered as message argument of the onmessage JavaScript
-listener function associated with the channel name. It can be a plain
-vanilla String, but it can also be a collection, map and even a Java
-bean.
-
-.Scopes and Users
-
-By default the websocket is application
-scoped, i.e. any view/session throughout the web application having the
-same websocket channel open will receive the same push message. The push
-message can be sent by all users and the application itself.
-
-The optional scope attribute can be set to
-session to restrict the push messages to all views in the current user
-session only. The push message can only be sent by the user itself and
-not by the application.
-
-[source,xml]
-----
-<f:websocket channel="someChannel" scope="session" ... />
-----
-
-The scope attribute can also be set to view
-to restrict the push messages to the current view only. The push message
-will not show up in other views in the same session even if it's the
-same URL. The push message can only be sent by the user itself and not
-by the application..
-
-[source,xml]
-----
-<f:websocket channel="someChannel" scope="view" ... />
-----
-
-The scope attribute may not be an EL
-expression and allowed values are _application_, _session_ and _view_,
-case insensitive.
-
-Additionally, the optional user attribute can
-be set to the unique identifier of the logged-in user, usually the login
-name or the user ID. This way the push message can be targeted to a
-specific user and can also be sent by other users and the application
-itself. The value of the user attribute must at least implement
-Serializable and have a low memory footprint, so an entire user entity
-is not recommended.
-
-E.g. when you're using container managed
-authentication or a related framework/library:.
-
-[source,xml]
-----
-<f:websocket channel="someChannel" user="#{request.remoteUser}" ... />
-----
-
-Or when you have a custom user entity
-accessible via EL, such as as #{someLoggedInUser} which has an id
-property representing its identifier:.
-
-[source,xml]
-----
-<f:websocket channel="someChannel" user="#{someLoggedInUser.id}" ... />
-----
-
-When the user attribute is specified, then
-the scope defaults to session and cannot be set to application.
-
-On the server side, the push message can be
-targeted to the user specified in the user attribute via
-PushContext.send(Object, Serializable). The push message can be sent by
-all users and the application itself..
-
-[source,java]
-----
-@Inject @Push
-private PushContext someChannel;
-
-public void sendMessage(Object message, User recipientUser) {
-  Long recipientUserId = recipientUser.getId();
-  someChannel.send(message, recipientUserId);
-}
-----
-
-Multiple users can be targeted by passing a
-Collection holding user identifiers to PushContext.send(Object,
-Collection)..
-
-[source,java]
-----
-public void sendMessage(Object message, Group recipientGroup) {
-  Collection<Long> recipientUserIds = recipientGroup.getUserIds();
-  someChannel.send(message, recipientUserIds);
-}
-----
-
-.Conditionally Connecting
-
-You can use the optional connected attribute
-to control whether to auto-connect the websocket or not..
-
-[source,xml]
-----
-<f:websocket ... connected="#{bean.pushable}" />
-----
-
-The _connected_ attribute defaults to true
-and is interpreted as a JavaScript instruction whether to open or close
-the websocket push connection. If the value is a Jakarta Expression Language expression and it
-becomes false during an ajax request, then the push connection will
-explicitly be closed during _oncomplete_ of that ajax request.
-
-You can also explicitly set it to false and
-manually open the push connection in client side by invoking
-jsf.push.open(clientId), passing the component's client ID..
-
-[source,xml]
-----
-<h:commandButton ... onclick="jsf.push.open('foo')">
-  <f:ajax ... />
-</h:commandButton>
-<f:websocket id="foo" channel="bar" scope="view" ... connected="false" />
-----
-
-In case you intend to have an one-time push
-and don’t expect more messages, you can optionally explicitly close the
-push connection from client side by invoking jsf.push.close(clientId),
-passing the component’s client ID. For example, in the onmessage
-JavaScript listener function as below:.
-
-[source,javascript]
-----
-function someWebsocketListener(message) {
-    // ...
-    jsf.push.close('foo');
-}
-----
-
-.Events (client)
-
-The optional onopen JavaScript listener
-function can be used to listen on open of a websocket in client side.
-This will be invoked on the very first connection attempt, regardless of
-whether it will be successful or not. This will not be invoked when the
-websocket auto-reconnects a broken connection after the first successful
-connection.
-
-[source,javascript]
-----
-<f:websocket ... onopen="websocketOpenListener" />
-
-function websocketOpenListener(channel) {
-    // ...
-}
-----
-
-The _onopen_ JavaScript listener function
-will be invoked with one argument:
-
-. channel: the channel name, useful in case you
-intend to have a global listener.
-
-The optional onclose JavaScript listener
-function can be used to listen on a normal or abnormal close of a
-websocket. This will be invoked when the very first connection attempt
-fails, or the server has returned close reason code 1000 (normal
-closure) or 1008 (policy violated), or the maximum reconnect attempts
-has been exceeded. This will not be invoked when the websocket can make
-an auto-reconnect attempt on a broken connection after the first
-successful connection
-
-[source,javascript]
-----
-<f:websocket ... onclose="websocketCloseListener" />
-
-function websocketCloseListener(code, channel, event) {
-    if (code == -1) {
-        // Websockets not supported by client.
-    } else if (code == 1000) {
-        // Normal close (as result of expired session or view).
-    } else {
-        // Abnormal close reason (as result of an error).
-    }
-}
-----
-
-The _onclose_ JavaScript listener function
-will be invoked with three arguments:
-
-. code: the close reason code as integer. If
-this is -1, then the websocket is simply not supported by the client. If
-this is 1000, then it was normally closed. Otherwise, if this is not
-1000, then there may be an error. See also RFC 6455 section 7.4.1 and
-jakarta.websocket.CloseReason.CloseCodes API for an elaborate list of all
-close codes.
-
-. channel: the channel name.
-
-. event: the raw CloseEvent instance.
-
-When a session or view scoped socket is
-automatically closed with close reason code 1000 by the server (and thus
-not manually by the client via jsf.push.close(clientId)), then it means
-that the session or view has expired.
-
-.Events (server)
-
-When a session or view scoped socket is
-automatically closed with close reason code 1000 by the server (and thus
-not manually by the client via jsf.push.close(clientId)), then it means
-that the session or view has expired.
-
-[source,java]
-----
-@ApplicationScoped
-public class WebsocketObserver {
-
-public void onOpen(@Observes @Opened WebsocketEvent event) {
-  String channel = event.getChannel();
-  // Returns <f:websocket channel>.
-  Long userId = event.getUser();
-  // Returns <f:websocket user>, if any.
-  // ...
-}
-
-public void onClose(@Observes @Closed WebsocketEvent event) {
-  String channel = event.getChannel();
-  // Returns <f:websocket channel>.
-  Long userId = event.getUser();
-  // Returns <f:websocket user>, if any.
-  CloseCode code = event.getCloseCode();
-  // Returns close reason code.
-  // ...
-}
-----
-
-.Security Considerations
-
-If the socket is declared in a page which is
-only restricted to logged-in users with a specific role, then you may
-want to add the URL of the push handshake request URL to the set of
-restricted URLs.
-
-
-
-The push handshake request URL is composed of
-the URI prefix /jakarta.faces.push/, followed by channel name. In the
-example of container managed security which has already restricted an
-example page /user/foo.xhtml to logged-in users with the example role
-USER on the example URL pattern /user/* in web.xml like below,
-
-[source,xml]
-----
-<security-constraint>
-  <web-resource-collection>
-    <web-resource-name>
-      Restrict access to role USER.
-    </web-resource-name>
-    <url-pattern>/user/*</url-pattern>
-  </web-resource-collection>
-  <auth-constraint>
-    <role-name>USER</role-name>
-  </auth-constraint>
-</security-constraint>
-----
-
-and the page /user/foo.xhtml in turn contains
-a <f:websocket channel="foo">, then you need to add a restriction on
-push handshake request URL pattern of _/jakarta.faces.push/foo_ as shown
-next.
-
-[source,xml]
-----
-<security-constraint>
-  <web-resource-collection>
-    <web-resource-name>
-      Restrict access to role USER.
-    </web-resource-name>
-    <url-pattern>/user/*</url-pattern>
-    <url-pattern>/jakarta.faces.push/foo</url-pattern>
-  </web-resource-collection>
-  <auth-constraint>
-    <role-name>USER</role-name>
-  </auth-constraint>
-</security-constraint>
-----
-
-As extra security, particularly for those
-public channels which can’t be restricted by security constraints, the
-<f:websocket> will register all so previously declared channels in the
-current HTTP session, and any incoming websocket open request will be
-checked whether they match these channels in the current HTTP session.
-In case the channel is unknown (e.g. randomly guessed or spoofed by end
-users or manually reconnected after the session is expired), then the
-websocket will immediately be closed with close reason code
-CloseCodes.VIOLATED_POLICY (1008). Also, when the HTTP session gets
-destroyed, all session and view scoped channels which are still open
-will explicitly be closed from server side with close reason code
-CloseCodes.NORMAL_CLOSURE (1000). Only application scoped sockets remain
-open and are still reachable from server end even when the session or
-view associated with the page in client side is expired.
-
-.Ajax Support
-
-In case you’d like to perform complex UI
-updates depending on the received push message, then you can nest
-<f:ajax> inside <f:websocket>. Here’s an example:
-
-[source,xml]
-----
-<h:panelGroup id="foo">
-  ... (some complex UI here) ...
-</h:panelGroup>
-
-<h:form>
-  <f:websocket channel="someChannel" scope="view">
-    <f:ajax event="someEvent" listener="#{bean.pushed}" render=":foo" />
-  </f:websocket>
-</h:form>
-----
-
-Here, the push message simply represents the
-ajax event name. You can use any custom event name.
-
-[source,java]
-----
-someChannel.send("someEvent");
-----
-
-An alternative is to combine <f:websocket>
-with <h:commandScript>. The <f:websocket onmessage> can reference
-exactly the <h:commandScript name>. For example,
-
-[source,xml]
-----
-<h:panelGroup id="foo">
-  ... (some complex UI here) ...
-</h:panelGroup>
-<f:websocket channel="someChannel" scope="view" onmessage="pushed" />
-<h:form>
-  <h:commandScript name="pushed" action="#{bean.pushed}" render=":foo" />
-</h:form>
-----
-
-If you pass a Map<String,V> or a JavaBean as
-push message object, then all entries/properties will transparently be
-available as request parameters in the command script method
-#{bean.pushed}.
+one specified in <<StandardTagLibraries.adoc#a4636,Jakarta Faces Core Tag Library>>.
+The specification for this library can be found in the VDLDocs for the _f:_ tag library.
 
 [[a6029]]
 ==== Standard HTML RenderKit Tag Library
 
 This tag library must be equivalent to the
-one specified in <<IntegrationWithJSP.adoc#a5363,Standard HTML RenderKit
-Tag Library>>.
-
-The following additional renderers are added
-to the ones defined in the other section.
-
-
-
-.Renderers Unique to Facelets
-
-[width="100%",cols="34%,33%,33%",options="header",]
-|===
-|getComponentType()
-|getRendererType()
-|custom action name
-|jakarta.faces.Command
-|jakarta.faces.Script
-|commandScript
-
-|jakarta.faces.Script
-|jakarta.faces.Websocket
-|does not apply
-|===
+one specified in <<StandardTagLibraries.adoc#a5363,Standard HTML RenderKit
+Tag Library>>. The specification for this library can be found in the VDLDocs for the _h:_ tag library.
 
 [[a6043]]
 ==== Facelet Templating Tag Library
 
 This tag library is the specified version of
-the ui: tag library found in pre JSF 2.0 Facelets. The specification for
-this library can be found in the VDLDocs for the _ui:_ library.
+the _ui:_ tag library found in Facelets. The specification for
+this library can be found in the VDLDocs for the _ui:_ tag library.
 
 [[a6045]]
 ==== Composite Component Tag Library
 
 This tag library is used to declare composite
 components. The specification for this tag library can be found in the
-VDLDocs for the _composite:_ library.
+VDLDocs for the _cc:_ tag library.
 
 [[a6047]]
-==== JSTL Core and Function Tag Libraries
+==== Jakarta Tags Core and Function Tag Libraries
 
-Facelets exposes a subset of the JSTL Core
-tag library and the entirety of the JSTL Function tag library. Please
-see the VDLDocs for the JSTL Core and JSTL Functions tag libraries for
+Facelets exposes a subset of the Jakarta Tags Core
+tag library and the entirety of the Jakarta Tags Function tag library. Please
+see the VDLDocs for the _jstl-core:_ and _jstl-fn:_ tag libraries for
 the normative specification.
 
 ---
@@ -2263,7 +975,7 @@ the normative specification.
 === Assertions relating to the construction of the view
 hierarchy
 
-[P1-start processListenerForAnnotation] When
+When
 the VDL calls for the creation of a _UIComponent_ instance, after
 calling _Application.createComponent()_ to instantiate the component
 instance, and after calling _setRendererType()_ on the newly
@@ -2284,6 +996,4 @@ property of the _ListenerFor_ annotation on the _Renderer_ instance.
 _UIComponent_ instance from which the _Renderer_ instance was obtained,
 using the _systemEventClass_ from the annotation as the second argument,
 and the _Renderer_ instance as the third argument.
-
-{empty}[P1-end]
 

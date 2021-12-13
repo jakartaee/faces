@@ -1,7 +1,7 @@
-Jakarta Server Faces Specification
+Jakarta Faces Specification
 ============================
 
-This project generates the Jakarta Server Faces Specification.
+This project generates the Jakarta Faces Specification.
 
 Building
 --------

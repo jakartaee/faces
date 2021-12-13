@@ -1,90 +1,55 @@
 '''''
 
-[.footnoteNumber]# 1.# [[a9083]]Typically, component
-selection will be driven by the occurrence of special markup (such as
-the existence of a Jakarta Server Pages custom tag) in the template text associated with
-the component tree.
-
-[.footnoteNumber]# 2.# [[a9084]]For example, this
-technique is used when custom tags in Jakarta Server Pages pages are utilized as the
-rendering technology, as described in <<a4406,
-Integration with Jakarta Server Pages>>.
-
-[.footnoteNumber]# 3.# [[a9085]]The default
-_ViewHandler_ implementation performs a _RequestDispatcher.forward_ call
-to the web application resource that will actually perform the
-rendering, so it expects the tree identifier to be the context-relative
-path (starting with a _/_ character) of the web application resource
-
-[.footnoteNumber]# 4.# [[a9086]]In a Jakarta Server Pages environment,
-these steps are performed by a custom tag extending ConverterTag.
-
-[.footnoteNumber]# 5.# [[a9087]]Accessing attributes
+<<Footnotes.adoc#a9087,[1]>> [[a9087]]Accessing attributes
 via this Map will cause the creation of a session associated with this
 request, if none currently exists.
 
-[.footnoteNumber]# 6.# [[a9088]]Converters can also be
+<<Footnotes.adoc#a9088,[2]>> [[a9088]]Converters can also be
 requested based on the object class of the value to be converted.
 
-[.footnoteNumber]# 7.# [[a9089]]It is an error to
+<<Footnotes.adoc#a9089,[3]>> [[a9089]]It is an error to
 specify more than one <navigation-case>, nested within one or more
 <navigation-rule> elements with the same <from-view-id> matching
 pattern, that have exactly the same combination of <from-xxx>, unless
 each is discriminated by a unique <if> element.
 
-[.footnoteNumber]# 8.# [[a9090]]The presence of the
+<<Footnotes.adoc#a9090,[4]>> [[a9090]]The presence of the
 <if> element in the absense of the <from-outcome> element is
-characterized as an alternate, contextual means of obtai
-
-ning a logical outcome and thus the
+characterized as an alternate, contextual means of obtaining a logical outcome and thus the
 navigation case is checked even when the application action returns a a
 null (or void) outcome value.
 
-[.footnoteNumber]# 9.# [[a9092]]Note that multiple
+<<Footnotes.adoc#a9092,[5]>> [[a9092]]Note that multiple
 conditions can be checked using the built-in operators and grouping
 provided by the Expression Language (e.g., and, or, not).
 
-[.footnoteNumber]# 10.# [[a9093]]Or, equivalently,
+<<Footnotes.adoc#a9093,[6]>> [[a9093]]Or, equivalently,
 with no _<from-view-id>_ element at all.
 
-[.footnoteNumber]# 11.# [[a9094]]The implementation
+<<Footnotes.adoc#a9094,[7]>> [[a9094]]The implementation
 classes for attached object must include a public zero-arguments
 constructor.
 
-[.footnoteNumber]# 12.# [[a9095]]The actual _Method_
-selected for execution must be selected as if by calling
-Class.getMethod() and passing the method name and the parameters
-signature specified in the createMethodBinding() call.
-
-[.footnoteNumber]# 13.# [[a9096]]If this extension is
-used, it must be declared in the web application deployment descriptor,
-as described in the Jakarta Server Pages 2.0 (or later) specification.
-
-[.footnoteNumber]# 14.# [[a9097]]This example
-illustrates a non-normative convention for naming custom actions based
+<<Footnotes.adoc#a9097,[8]>> [[a9097]]This example
+illustrates a non-normative convention for naming tags based
 on a combination of the component name and the renderer type. This
-convention is useful, but not required; custom actions may be given any
-desired custom action name; however the convention is rigorously
+convention is useful, but not required; tags may be given any
+desired tag name; however the convention is rigorously
 followed in the Standard HTML RenderKit Tag Library.
 
-[.footnoteNumber]# 15.# [[a9098]]Consistent with the
+<<Footnotes.adoc#a9098,[9]>> [[a9098]]Consistent with the
 way that namespace prefixes work in XML, the actual prefix used is
 totally up to the page author, and has no semantic meaning. However, the
 values shown above are the suggested defaults, which are used
 consistently in tag library examples throughout this specification.
 
-[.footnoteNumber]# 16.# [[a9099]]If you need multiple
-components in a facet, nest them inside a <h:panelGroup> custom action
+<<Footnotes.adoc#a9099,[10]>> [[a9099]]If you need multiple
+components in a facet, nest them inside a <h:panelGroup> tag
 that is the value of the facet.
 
-[.footnoteNumber]# 17.# [[a9100]]In a Jakarta Server Pages 2.0 or later
-environment, the same effect can be accomplished by using
-<include-prelude> and <include-coda> elements in the <jsp-config>
-element in the web application deployment descriptor.
-
-[.footnoteNumber]# 18.# [[a9101]]This component has no
+<<Footnotes.adoc#a9101,[11]>> [[a9101]]This component has no
 associated Renderer, so the getRendererType() method must return null
 instead of a renderer type.
 
-[.footnoteNumber]# 19.# [[a9102]]Identified by XPath
+<<Footnotes.adoc#a9102,[12]>> [[a9102]]Identified by XPath
 selection expressions.

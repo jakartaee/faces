@@ -30,10 +30,10 @@ request.
 public Application getApplication();
 ----
 
-{empty}[P1-start-application]The Jakarta Faces
+The Jakarta Faces
 implementation must ensure that the _Application_ instance for the
 current web application is available via this method, as a convenient
-alternative to lookup via an _ApplicationFactory_.[P1-end]
+alternative to lookup via an _ApplicationFactory_.
 
 ==== Attributes
 
@@ -42,7 +42,7 @@ alternative to lookup via an _ApplicationFactory_.[P1-end]
 public Map<Object,Object> getAttributes();
 ----
 
-{empty}[P1-start-attributes]Return a mutable
+Return a mutable
 _Map_ representing the attributes associated wth this _FacesContext_
 instance. This _Map_ is useful to store attributes that you want to go
 out of scope when the Faces lifecycle for the current request ends,
@@ -50,7 +50,7 @@ which is not always the same as the request ending, especially in the
 case of _Servlet_ filters that are invoked after the Faces lifecycle for
 this request completes. Accessing this _Map_ does not cause any events
 to fire, as is the case with the other maps: for request, session, and
-application scope.[P1-end]
+application scope.
 
 [[a3099]]
 ==== ELContext
@@ -64,7 +64,7 @@ Return the _ELContext_ instance for this
 _FacesContext_ instance. This _ELContext_ instance has the same lifetime
 and scope as the _FacesContext_ instance with which it is associated,
 and may be created lazily the first time this method is called for a
-given _FacesContext_ instance. [P1-start-elcontext]Upon creation of the
+given _FacesContext_ instance. Upon creation of the
 ELContext instance, the implementation must take the following action:
 
 * Call the
@@ -72,33 +72,32 @@ _ELContext.putContext(java.lang.Class, java.lang.Object)_ method on the
 instance, passing in _FacesContext.class_ and the _this_ reference for
 the _FacesContext_ instance itself.
 
-* {empty}If the _Collection_ returned by
+* If the _Collection_ returned by
 _jakarta.faces.Application.getELContextListeners()_ is non-empty, create
 an instance of _ELContextEvent_ and pass it to each _ELContextListener_
 instance in the _Collection_ by calling the
 _ELContextListener.contextCreated(jakarta.el.ELContextEvent)_
-method.[P1-end]
+method.
 
 ==== ExternalContext
 
-{empty}It is sometimes necessary to interact
-with APIs provided by the containing environment in which the Jakarta Server
+It is sometimes necessary to interact
+with APIs provided by the containing environment in which the Jakarta
 Faces application is running. In most cases this is the servlet API, but
-it is also possible for a Jakarta Server Faces application to run inside of
-a portlet. Jakarta Server Faces provides the _ExternalContext_ abstract
-class for this purpose. [P1-start-externalContext]This class must be
+it is also possible for a Jakarta Faces application to run inside of
+a portlet. Jakarta Faces provides the _ExternalContext_ abstract
+class for this purpose. This class must be
 implemented along with the _FacesContext_ class, and must be accessible
-via the _getExternalContext_ method in _FacesContext_.[P1-end]
+via the _getExternalContext_ method in _FacesContext_.
 
 [source,java]
 ----
 public ExternalContext getExternalContext();
 ----
 
-{empty}[P1-start externalContext during Init]
 The default implementation must return a valid value when this method is
 called during startup time. See the javadocs for this method for the
-complete specification. [P1-end]
+complete specification. 
 
 The _ExternalContext_ instance provides
 immediate access to all of the components defined by the containing
@@ -206,7 +205,7 @@ response object for the current request.
 | _sessionMap_ |RW
 | _java.util.Map_
 |The session scope attributes for this
-request<<a9087,5>>.
+request <<Footnotes.adoc#a9087,^[1]^>>.
 
 | _userPrincipal_
 |RO |
@@ -270,11 +269,11 @@ public Iterator<FacesMessage> getMessages(String clientId);
 public Iterator<FacesMessage> getMessages();
 ----
 
-[P1-start-messageQueue]The
+The
 _getClientIdsWithMessages()_ method must return an _Iterator_ over the
 client identifiers for which at least one _Message_ has been queued.
 This method must be implemented so the clientIds are returned in the
-order of calls to _addMessage()_.[P1-end] The _getMaximumSeverity()_
+order of calls to _addMessage()_. The _getMaximumSeverity()_
 method returns the highest severity level on any _Message_ that has been
 queued, regardless of whether or not the message is associated with a
 specific client identifier or not. The _getMessages(String)_ method
@@ -315,7 +314,7 @@ public void enableResponseWriting(boolean enable);
 
 Jakarta Faces supports output that is generated as
 either a byte stream or a character stream. __UIComponent__s or
-_Renderer_ s that wish to create output in a binary format should call
+__Renderer__s that wish to create output in a binary format should call
 _getResponseStream()_ to acquire a stream capable of binary output.
 Correspondingly, __UIComponent__s or __Renderer__s that wish to create
 output in a character format should call _getResponseWriter()_ to
@@ -331,7 +330,7 @@ _setResponseStream()_ are called.
 
 The enableResponseWriting method is useful to
 enable or disable the writing of content to the current _ResponseWriter_
-instance in this FacesContext. [P1-start-enableWriting]If the enable
+instance in this FacesContext. If the enable
 argument is false, content should not be written to the response if an
 attempt is made to use the current _ResponseWriter_.
 
@@ -371,11 +370,11 @@ example, an event listener that decided an HTTP redirect was required
 would perform the appropriate actions on the response object (i.e.
 calling _ExternalContext.redirect()_) and then call this method.
 
-{empty}In some circumstances, it is possible
+In some circumstances, it is possible
 that both _renderResponse()_ and _responseComplete()_ might have been
-called for the request. [P1-start-flowControl]In this case, the Jakarta Faces
+called for the request. In this case, the Jakarta Faces
 implementation must respect the _responseComplete()_ call (if it was
-made) before checking to see if _renderResponse()_ was called.[P1-end]
+made) before checking to see if _renderResponse()_ was called.
 
 The _getRenderResponse()_ and
 _getResponseComplete()_ methods allow a Jakarta Faces-based application to
@@ -392,10 +391,10 @@ respectively, have been called already for the current request.
 public PartialViewContext getPartialViewContext();
 ----
 
-{empty}[P1-start-getpartialViewContext]The
+The
 getPartialViewContext()method must return an instance of
 PartialViewContext either by creating a new instance, or returning an
-existing instance from the FacesContext.[P1-end-getpartialViewcontext]
+existing instance from the FacesContext.
 
 [[a3229]]
 ==== Partial View Context
@@ -417,23 +416,23 @@ public static FacesContext getCurrentInstance();
 protected static void setCurrentInstance(FacesContext context);
 ----
 
-{empty}Under most circumstances, Jakarta Faces
+Under most circumstances, Jakarta Faces
 components, and application objects that access them, are passed a
 reference to the _FacesContext_ instance for the current request.
 However, in some cases, no such reference is available. The
 _getCurrentInstance()_ method may be called by any Java class in the
 current web application to retrieve an instance of the _FacesContext_
-for this request. [P1-start-currentInstance]The Jakarta Faces implementation must
+for this request. The Jakarta Faces implementation must
 ensure that this value is set correctly before _FacesContextFactory_
 returns a _FacesContext_ instance, and that the value is maintained in a
-thread-safe manner.[P1-end]
+thread-safe manner.
 
-{empty}[P1-start facesContextDuringInit] The
+The
 default implementation must allow this method to be called during
 application startup time, before any requests have been serviced. If
 called during application startup time, the instance returned must have
 the special properties as specified on the javadocs for
-_FacesContext.getCurrentInstance()_ The . [P1-end]
+_FacesContext.getCurrentInstance()_ The . 
 
 [[a3237]]
 ==== CurrentPhaseId
@@ -488,7 +487,7 @@ _Exceptions_ that occur during application startup or shutdown.
 
 Several places in the Faces specification
 require an _Exception_ to be thrown as a result of normal lifecycle
-processing. [P1-start_expected_exceptions]The following expected
+processing. The following expected
 _Exception_ cases must not be handled by the ExceptionHandler.
 
 * All cases where a _ValidatorException_ is
@@ -509,7 +508,7 @@ _AbortProcessingException_ is thrown.
 All other _Exception_ cases must not be
 swallowed, and must be allowed to flow up to the _Lifecycle.execute()_
 method where the individual lifecycle phases are implemented.
-[P1-end_expected_exceptions] At that point, all _Exceptions_ are passed
+At that point, all _Exceptions_ are passed
 to the _ExceptionHandler_ as described in
 <<LifecycleManagement.adoc#a6635,PhaseListener>>.
 
@@ -614,29 +613,6 @@ public void processEvent(SystemEvent ExceptionQueuedEvent)
 The default implementation must store the
 argument _ExceptionQueuedEvent_ in a strongly ordered queue for later
 processing by the _handle()_ method.
-
-==== Backwards Compatible ExceptionHandler
-
-[P1-startPreJsf2ExceptionHandler]The runtime
-must provide an _ExceptionHandlerFactory_ implementation with the fully
-qualified java classname of
-_jakarta.faces.webapp.PreJsf2ExceptionHandlerFactory_ that creates
-_ExceptionHandler_ instances that behave exactly like the default
-_ExceptionHandler_ except that the _handle()_ method behaves as follows.
-
-[none]
-* Pre-Jakarta Faces JSF 1.1 and 1.2 (under the JCP) stated in
-<<LifecycleManagement.adoc#a6635,PhaseListener>> “Any exceptions thrown
-during the _beforePhase()_ listeners must be caught, logged, and
-swallowed...Any exceptions thrown during the _afterPhase()_ liseteners
-must be caught, logged, and swallowed.” The _PreJsf2ExceptionHandler_
-restores this behavior for backwards compatibilty.
-
-{empty}The implementation must allow users to
-install this _ExceptionHandlerFactory_ into the application by nesting
-_<exception-handler-factory>jakarta.faces.webapp.PreJsf2ExceptionHandlerFactory</exception-handler-factory>_
-inside the <factory> element in the application configuration
-resource.[P1-endPreJsf2ExceptionHandler]
 
 ==== Default Error Page
 
@@ -873,10 +849,10 @@ _ResponseWriter_, using a different _Writer_.
 [[a3366]]
 === FacesContextFactory
 
-[P1-start-facesContextFactory]A single
+A single
 instance of _jakarta.faces.context.FacesContextFactory_ must be made
 available to each Jakarta Faces-based web application running in a servlet or
-portlet container.[P1-end] This class is primarily of use by Jakarta Faces
+portlet container. This class is primarily of use by Jakarta Faces
 implementors—applications will not generally call it directly. The
 factory instance can be acquired, by Jakarta Faces implementations or by
 application code, by executing:
@@ -907,10 +883,10 @@ _ServletResponse_.
 [[a3375]]
 === ExceptionHandlerFactory
 
-[P1-start-exceptionHandlerFactory]A single
+A single
 instance of _jakarta.faces.context.ExceptionHandlerFactory_ must be made
 available to each Jakarta Faces-based web application running in a servlet or
-portlet container.[P1-end] The factory instance can be acquired, by Jakarta Faces
+portlet container. The factory instance can be acquired, by Jakarta Faces
 implementations or by application code, by executing:
 
 [source,java]
@@ -935,10 +911,10 @@ instance that has been configured based on the specified parameters.
 [[a3384]]
 === ExternalContextFactory
 
-[P1-start-externalContextFactory]A single
+A single
 instance of _jakarta.faces.context.ExternalContextFactory_ must be made
 available to each Jakarta Faces-based web application running in a servlet or
-portlet container.[P1-end] This class is primarily of use by Jakarta Faces
+portlet container. This class is primarily of use by Jakarta Faces
 implementors—applications will not generally call it directly. The
 factory instance can be acquired, by Jakarta Faces implementations or by
 application code, by executing:

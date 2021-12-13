@@ -1,10 +1,10 @@
-# Contributing to Jakarta Server Faces
+# Contributing to Jakarta Faces
 
 Thanks for your interest in this project.
 
 ## Project description
 
-Jakarta Server Faces defines an MVC framework for building user interfaces for web applications, 
+Jakarta Faces defines an MVC framework for building user interfaces for web applications, 
 including UI components, state management, event handing, input validation, page navigation, and 
 support for internationalization and accessibility.
 

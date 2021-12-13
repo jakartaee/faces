@@ -1,12 +1,12 @@
-# Notices for Jakarta Server Faces
+# Notices for Jakarta Faces
 
-This content is produced and maintained by the Jakarta Server Faces project.
+This content is produced and maintained by the Jakarta Faces project.
 
 * Project home: https://projects.eclipse.org/projects/ee4j.faces
 
 ## Trademarks
 
-Jakarta Server Faces is a trademark of the Eclipse Foundation.
+Jakarta Faces is a trademark of the Eclipse Foundation.
 
 ## Copyright
 
