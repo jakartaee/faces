@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.faces.test.javaee8.searchExpression;
+package ee.jakarta.tck.faces.test.javaee8.searchExpression;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.search.SearchExpressionContext;

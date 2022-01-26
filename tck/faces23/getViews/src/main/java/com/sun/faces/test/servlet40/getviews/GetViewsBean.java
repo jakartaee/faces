@@ -15,7 +15,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.faces.test.servlet40.getviews;
+package ee.jakarta.tck.faces.test.servlet40.getviews;
 
 /**
  *

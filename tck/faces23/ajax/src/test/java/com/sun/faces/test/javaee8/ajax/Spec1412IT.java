@@ -15,7 +15,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.faces.test.javaee8.ajax;
+package ee.jakarta.tck.faces.test.javaee8.ajax;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.sun.faces.test.htmlunit.IgnoringIncorrectnessListener;
+import ee.jakarta.tck.faces.test.htmlunit.IgnoringIncorrectnessListener;
 
 @RunWith(Arquillian.class)
 public class Spec1412IT {

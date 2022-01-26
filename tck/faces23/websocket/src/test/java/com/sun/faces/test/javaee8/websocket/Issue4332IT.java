@@ -13,10 +13,10 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package com.sun.faces.test.javaee8.websocket;
+package ee.jakarta.tck.faces.test.javaee8.websocket;
 
-import static com.sun.faces.test.javaee8.websocket.Spec1396IT.waitUntilWebsocketIsOpened;
-import static com.sun.faces.test.javaee8.websocket.Spec1396IT.waitUntilWebsocketIsPushed;
+import static ee.jakarta.tck.faces.test.javaee8.websocket.Spec1396IT.waitUntilWebsocketIsOpened;
+import static ee.jakarta.tck.faces.test.javaee8.websocket.Spec1396IT.waitUntilWebsocketIsPushed;
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertTrue;

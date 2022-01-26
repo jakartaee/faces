@@ -1,4 +1,4 @@
-package com.sun.faces.test.servlet50.namespaces;
+package ee.jakarta.tck.faces.test.servlet50.namespaces;
 
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UIOutput;

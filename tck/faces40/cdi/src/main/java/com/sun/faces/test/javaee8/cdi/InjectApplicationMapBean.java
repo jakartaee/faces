@@ -15,7 +15,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.faces.test.javaee8.cdi;
+package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import java.util.Map;
 
@@ -31,6 +31,6 @@ public class InjectApplicationMapBean {
     public String getValue() {
         Map applicationMap = CDI.current().select(Map.class, ApplicationMap.Literal.INSTANCE).get();
 
-        return Boolean.toString(applicationMap.containsKey("com.sun.faces.config.WebConfiguration"));
+        return Boolean.toString(applicationMap.containsKey("ee.jakarta.tck.faces.config.WebConfiguration"));
     }
 }

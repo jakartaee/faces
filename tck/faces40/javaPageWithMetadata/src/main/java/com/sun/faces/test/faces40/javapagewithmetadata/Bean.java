@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package com.sun.faces.test.faces40.javapagewithmetadata;
+package ee.jakarta.tck.faces.test.faces40.javapagewithmetadata;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;

@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.faces.test.javaee8.cdi;
+package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
@@ -63,6 +63,6 @@ public class Spec1309IT {
     @Test
     public void testInjectExternalContext() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectExternalContext.xhtml");
-        assertTrue(page.asXml().contains("com.sun.faces.context.ExternalContextImpl"));
+        assertTrue(page.asXml().contains("ee.jakarta.tck.faces.context.ExternalContextImpl"));
     }
 }

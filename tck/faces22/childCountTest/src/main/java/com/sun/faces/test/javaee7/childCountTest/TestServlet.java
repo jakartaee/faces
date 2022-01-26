@@ -18,7 +18,7 @@
  * $Id$
  */
 
-package com.sun.faces.test.javaee7.childCountTest;
+package ee.jakarta.tck.faces.test.javaee7.childCountTest;
 
 import static jakarta.faces.FactoryFinder.FACES_CONTEXT_FACTORY;
 import static jakarta.faces.FactoryFinder.LIFECYCLE_FACTORY;

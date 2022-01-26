@@ -22,6 +22,6 @@
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
               version="2.3">
 	<application>
-		<search-keyword-resolver>com.sun.faces.test.javaee8.searchExpression.CustomSearchKeywordResolver</search-keyword-resolver>
+		<search-keyword-resolver>ee.jakarta.tck.faces.test.javaee8.searchExpression.CustomSearchKeywordResolver</search-keyword-resolver>
 	</application>
 </faces-config>

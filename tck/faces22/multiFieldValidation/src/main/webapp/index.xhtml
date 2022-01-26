@@ -34,18 +34,18 @@
             
             <h:outputText value="Password" />  
             <h:inputText id="password1" value='#{backingBean.password1}'>
-                <f:validateBean validationGroups="com.sun.faces.test.javaee7.multiFieldValidation.simple.PasswordValidationGroup" />
+                <f:validateBean validationGroups="ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.simple.PasswordValidationGroup" />
             </h:inputText>
             
             <h:outputText value="Password again" /> 
             <h:inputText id="password2" value='#{backingBean.password2}'>
-                <f:validateBean validationGroups="com.sun.faces.test.javaee7.multiFieldValidation.simple.PasswordValidationGroup" />
+                <f:validateBean validationGroups="ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.simple.PasswordValidationGroup" />
             </h:inputText>
             
         </h:panelGrid>
         
         <f:validateWholeBean value='#{backingBean}' 
-           validationGroups="com.sun.faces.test.javaee7.multiFieldValidation.simple.PasswordValidationGroup" />
+           validationGroups="ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.simple.PasswordValidationGroup" />
         
         <p><h:messages /></p>
         

@@ -1,4 +1,4 @@
-package com.sun.faces.test.faces40.javapages;
+package ee.jakarta.tck.faces.test.faces40.javapages;
 
 import static jakarta.faces.application.StateManager.IS_BUILDING_INITIAL_STATE;
 

@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.faces.test.faces40.javapages;
+package ee.jakarta.tck.faces.test.faces40.javapages;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.sun.faces.test.htmlunit.DebugOptions;
+import ee.jakarta.tck.faces.test.htmlunit.DebugOptions;
 
 @RunWith(Arquillian.class)
 public class Spec1581IT {

@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package com.sun.faces.test.javaee7.cdimultitenantsetstccl;
+package ee.jakarta.tck.faces.test.javaee7.cdimultitenantsetstccl;
 
 import static jakarta.faces.FactoryFinder.FACES_CONTEXT_FACTORY;
 import static jakarta.faces.FactoryFinder.LIFECYCLE_FACTORY;

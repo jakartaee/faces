@@ -20,7 +20,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.sun.faces.test.javaee8.passthrough;
+package ee.jakarta.tck.faces.test.javaee8.passthrough;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;

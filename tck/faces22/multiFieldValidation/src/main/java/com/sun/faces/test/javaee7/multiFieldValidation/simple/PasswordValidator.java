@@ -14,9 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package com.sun.faces.test.javaee7.multiFieldValidation.simple;
+package ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.simple;
 
-import com.sun.faces.test.javaee7.multiFieldValidation.PasswordHolder;
+import ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.PasswordHolder;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
