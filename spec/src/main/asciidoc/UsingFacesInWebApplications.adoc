@@ -246,6 +246,12 @@ The runtime must interpret the value of this parameter as a comma
 separated list of view IDs, each of which must have their state saved
 using the state saving mechanism specified in pre-Jakarta Faces JSF 1.2 (under the JCP).
 
+* _jakarta.faces.HONOR_CURRENT_COMPONENT_ATTRIBUTES_ --
+The ServletContext init parameter consulted by the UIComponent to tell
+whether or not the CURRENT_COMPONENT and CURRENT_COMPOSITE_COMPONENT attribute keys should be honored as specified.
+If this parameter is not specified, or is set to false,
+the contract specified by the CURRENT_COMPONENT and CURRENT_COMPOSITE_COMPONENT method is not honored.
+If this parameter is set to true, the contract is honored.
 
 * _jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL_ —If this
 param is set, and calling _toLowerCase().equals("true")_ on a _String_
@@ -293,6 +299,12 @@ the software development lifecycle. Valid values are “_Development_”,
 the enum constants of the class _jakarta.faces.application.ProjectStage_.
 It is also possible to set this value via JNDI. See the javadocs for
 _Application.getProjectStage()_.
+
+* _jakarta.faces.RESOURCE_EXCLUDES_ --
+The ServletContext init parameter consulted by the handleResourceRequest to tell which kinds of resources must never be served up in response to a resource request.
+The value of this parameter is a single space separated list of file extensions, including the leading '.' character (without the quotes).
+If not specified, the default value `.class .jsp .jspx .properties .xhtml .groovy` is used.
+If manually specified, the given value entirely overrides the default one and does not supplement it.
 
 * _jakarta.faces.SEPARATOR_CHAR_ --The context
 param that allows the character used to separate segments in a
@@ -356,6 +368,11 @@ is not set or is set to false, the old behavior prevails.
 
 * _jakarta.faces.ENABLE_WEBSOCKET_ENDPOINT_ --
 Enable WebSocket support. See the javadoc for
+_jakarta.faces.component.UIWebsocket_.
+
+* _jakarta.faces.WEBSOCKET_ENDPOINT_PORT_ --
+The integer context parameter name to specify the websocket endpoint port
+when it's different from HTTP port. See the javadoc for
 _jakarta.faces.component.UIWebsocket_.
 
 * _jakarta.faces.WEBAPP_RESOURCES_DIRECTORY_
