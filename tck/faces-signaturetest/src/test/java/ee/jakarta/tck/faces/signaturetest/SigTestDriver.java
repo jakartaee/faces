@@ -80,16 +80,6 @@ public class SigTestDriver extends SignatureTestDriver {
           
   // ---------------------------------------- Methods from SignatureTestDriver
 
-  @Override
-  protected String normalizeFileName(File f) {
-    String sURL = null;
-    try {
-      sURL = f.toURI().toURL().toExternalForm();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
-    return sURL;
-  }
 
   @Override
   protected String[] createTestArguments(String packageListFile, String mapFile,
