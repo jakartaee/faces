@@ -47,7 +47,7 @@
         <skipTests>false</skipTests>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
-        <glassfish.version>7.0.0-M1</glassfish.version>
+        <glassfish.version>7.0.0-SNAPSHOT</glassfish.version>
         <tomcat.version>9.0.12</tomcat.version>
     </properties>
 
@@ -284,14 +284,16 @@
                 <configuration>
                     <aggregate>true</aggregate>
                     <linkXRef>true</linkXRef>
-                    <trimStackTrace>false</trimStackTrace>
-                    <argLine>-XX:+ShowCodeDetailsInExceptionMessages</argLine>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M4</version>
+                <configuration>
+                    <trimStackTrace>false</trimStackTrace>
+                    <argLine>-XX:+ShowCodeDetailsInExceptionMessages</argLine>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>javax.annotation</groupId>
