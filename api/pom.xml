@@ -380,6 +380,7 @@
             </plugin>
 
             <!-- Create Javadoc for API jar -->
+            <!-- Result will be saved in /target/apidocs -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -426,6 +427,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <build>
                 <plugins>
                     <!-- Create JS docs -->
+                    <!-- result will be saved in /target/site/jsdoc -->
                     <plugin>
                         <groupId>com.phasebash.jsdoc</groupId>
                         <artifactId>jsdoc3-maven-plugin</artifactId>
@@ -450,6 +452,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                     </plugin>
 
                     <!-- Create Renderkit docs -->
+                    <!-- Result will be saved in /target/renderkitdoc  -->
                     <plugin>
                         <groupId>org.omnifaces</groupId>
                         <artifactId>renderkitdoc-maven-plugin</artifactId>
@@ -457,7 +460,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         <executions>
                             <execution>
                                 <id>generate-renderkitdoc</id>
-                                <phase>prepare-package</phase>
+                                <phase>generate-resources</phase>
                                 <goals>
                                     <goal>generate</goal>
                                 </goals>
@@ -468,8 +471,34 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                             <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
                         </configuration>
                     </plugin>
+                    <!-- Post-process RKD - override stylesheet.css of renderkitdoc  -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>post-process-renderkitdoc</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/renderkitdoc</directory>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/renderkitdoc</outputDirectory>
+                                    <overwrite>true</overwrite>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
 
                     <!-- Create VDL docs -->
+                    <!-- Result will be saved in /target/vdldoc  -->
 
                     <!-- Pre-process VDL - copy faces-api.css for vdldoc  -->
                     <plugin>
