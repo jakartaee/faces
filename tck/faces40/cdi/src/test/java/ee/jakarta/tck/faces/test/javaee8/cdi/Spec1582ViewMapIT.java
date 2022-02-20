@@ -64,6 +64,8 @@ public class Spec1582ViewMapIT {
     /**
      * Validate that the ViewMap is available using CDI.current using the
      * ViewMap.Literal.
+     * 
+     * See jakarta.faces.annotation.ViewMap.Literal.
      */
     @Test
     public void testInjectViewMap() throws Exception {
