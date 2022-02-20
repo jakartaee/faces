@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.annotation.InitParameterMap;
+import jakarta.inject.Inject;
+
 /**
  * Tests the availability of the init parameter map via CDI
  *
@@ -64,6 +67,11 @@ public class Spec1389IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see InitParameterMap
+     * @see https://github.com/jakartaee/faces/issues/1389
+     */
     @Test
     public void testInjectInitParameterMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectInitParameterMap.xhtml");

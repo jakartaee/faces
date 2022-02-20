@@ -39,7 +39,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import ee.jakarta.tck.faces.test.htmlunit.htmlunit.IgnoringIncorrectnessListener;
+import com.sun.faces.test.htmlunit.IgnoringIncorrectnessListener;
+
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.application.StateManager;
 
 @RunWith(Arquillian.class)
 public class Spec790IT {
@@ -62,6 +65,10 @@ public class Spec790IT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
+     * @see https://github.com/jakartaee/faces/issues/790
+     */
     @Test
     public void testSpec790() throws Exception {
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());
@@ -117,6 +124,11 @@ public class Spec790IT {
         assertTrue(!form3ViewState.getValueAttribute().isEmpty());
     }
 
+    /**
+     * @see NavigationHandler#handleNavigation(jakarta.faces.context.FacesContext, String, String, String)
+     * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
+     * @see https://github.com/jakartaee/faces/issues/790
+     */
     @Test
     public void testSpec790AjaxNavigation() throws Exception {
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());

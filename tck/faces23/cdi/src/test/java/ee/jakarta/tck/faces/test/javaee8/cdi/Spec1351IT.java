@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.component.behavior.FacesBehavior;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1351IT {
 
@@ -60,6 +63,11 @@ public class Spec1351IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see FacesBehavior
+     * @see https://github.com/jakartaee/faces/issues/1351
+     */
     @Test
     public void testInjectValidator() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectBehavior.xhtml");

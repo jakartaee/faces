@@ -39,6 +39,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.view.facelets.FaceletCacheFactory;
+
 @RunWith(Arquillian.class)
 public class Issue3755IT {
 
@@ -64,6 +66,10 @@ public class Issue3755IT {
         webClient.close();
     }
 
+    /**
+     * @see FaceletCacheFactory
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3759
+     */
     @Test
     public void testCustomFactory() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);

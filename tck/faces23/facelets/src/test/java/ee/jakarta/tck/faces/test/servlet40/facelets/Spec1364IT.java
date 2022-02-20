@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -37,6 +38,8 @@ import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import jakarta.faces.component.UIData;
 
 @RunWith(Arquillian.class)
 public class Spec1364IT {
@@ -62,12 +65,22 @@ public class Spec1364IT {
         webClient.close();
     }
 
+    /**
+     * @see UIData
+     * @see Map
+     * @see https://github.com/jakartaee/faces/issues/1364
+     */
     @Test
     public void testDataTableMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/datatableMap.xhtml");
         assertTrue(Pattern.matches("(?s).*START.*Amsterdam.*821702.*Rotterdam.*624799.*Den Haag.*514782.*END.*", page.asXml()));
     }
 
+    /**
+     * @see com.sun.faces.facelets.component.UIRepeat
+     * @see Map
+     * @see https://github.com/jakartaee/faces/issues/1364
+     */
     @Test
     public void testUIRepeatMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/uirepeatMap.xhtml");

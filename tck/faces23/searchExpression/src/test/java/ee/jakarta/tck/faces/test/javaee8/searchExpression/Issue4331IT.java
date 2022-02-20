@@ -38,6 +38,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.application.Application;
+import jakarta.faces.component.search.SearchKeywordResolver;
+
 @RunWith(Arquillian.class)
 public class Issue4331IT {
 
@@ -59,6 +62,10 @@ public class Issue4331IT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see Application#addSearchKeywordResolver(SearchKeywordResolver)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4331
+     */
     @Test
     public void test() throws Exception {
         webClient.setIncorrectnessListener((ignore, nothing) -> {});

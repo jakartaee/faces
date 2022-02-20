@@ -32,13 +32,14 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+
+import jakarta.faces.component.UIWebsocket;
 
 @RunWith(Arquillian.class)
 public class Spec1396IT {
@@ -59,12 +60,20 @@ public class Spec1396IT {
         webClient = new WebClient();
     }
 
+    /**
+     * @see UIWebsocket
+     * @see https://github.com/jakartaee/faces/issues/1396
+     */
     @Test
     public void testEnableWebsocketEndpoint() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1396EnableWebsocketEndpoint.xhtml");
         assertTrue(page.getHtmlElementById("param").asNormalizedText().equals("true"));
     }
 
+    /**
+     * @see UIWebsocket
+     * @see https://github.com/jakartaee/faces/issues/1396
+     */
     @Test
     public void testDefaultWebsocket() throws Exception {
         webClient.setIncorrectnessListener((o, i) -> {}); // Suppress false JS errors on websocket URL.
@@ -83,6 +92,10 @@ public class Spec1396IT {
         webClient.close(); // This will explicitly close websocket as well. HtmlUnit doesn't seem to like to leave it open before loading next page.
     }
 
+    /**
+     * @see UIWebsocket#setUser(java.io.Serializable)
+     * @see https://github.com/jakartaee/faces/issues/1396
+     */
     @Test
     public void testUserScopedWebsocket() throws Exception {
         webClient.setIncorrectnessListener((o, i) -> {}); // Suppress false JS errors on websocket URL.
@@ -101,6 +114,10 @@ public class Spec1396IT {
         webClient.close(); // This will explicitly close websocket as well. HtmlUnit doesn't seem to like to leave it open before loading next page.
     }
 
+    /**
+     * @see UIWebsocket#setScope(String)
+     * @see https://github.com/jakartaee/faces/issues/1396
+     */
     @Test
     public void testViewScopedWebsocket() throws Exception {
         webClient.setIncorrectnessListener((o, i) -> {}); // Suppress false JS errors on websocket URL.

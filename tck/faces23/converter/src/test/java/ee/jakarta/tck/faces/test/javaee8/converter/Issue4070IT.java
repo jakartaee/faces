@@ -26,6 +26,7 @@ import java.io.File;
 import java.net.URL;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.Temporal;
 import java.util.Locale;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -43,6 +44,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+
+import jakarta.faces.convert.DateTimeConverter;
 
 
 @RunWith(Arquillian.class)
@@ -71,6 +74,11 @@ public class Issue4070IT {
         webClient.close();
     }
 
+    /**
+     * @see DateTimeConverter
+     * @see Temporal
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4074
+     */
     @Test
     public void testJavaTimeTypes() throws Exception {
         Locale.setDefault(Locale.US);
@@ -116,6 +124,11 @@ public class Issue4070IT {
         }
     }
 
+    /**
+     * @see DateTimeConverter
+     * @see Temporal
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4074
+     */
     @Test
     public void testInputOutputDiffer() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/Issue4070InputOutputDiffer.xhtml");

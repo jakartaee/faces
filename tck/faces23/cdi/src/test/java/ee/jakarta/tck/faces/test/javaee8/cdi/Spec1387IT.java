@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.annotation.HeaderMap;
+import jakarta.inject.Inject;
+
 /**
  * Tests the availability of the header map via injection
  *
@@ -64,6 +67,11 @@ public class Spec1387IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see HeaderMap
+     * @see https://github.com/jakartaee/faces/issues/1387
+     */
     @Test
     public void testInjectHeaderMap() throws Exception {
         // Add a custom header that the test code knows named "foo"

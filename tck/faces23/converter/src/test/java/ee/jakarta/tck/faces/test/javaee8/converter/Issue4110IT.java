@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.net.URL;
+import java.time.temporal.Temporal;
 import java.util.Locale;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -39,6 +40,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+
+import jakarta.faces.convert.DateTimeConverter;
 
 @RunWith(Arquillian.class)
 public class Issue4110IT {
@@ -66,6 +69,11 @@ public class Issue4110IT {
         webClient.close();
     }
 
+    /**
+     * @see DateTimeConverter
+     * @see Temporal
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4114
+     */
     @Test
     public void testJavaTimeTypes() throws Exception {
         doTestJavaTimeTypes("30 sep. 2015", "localDate", "2015-09-30");

@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.application.ResourceHandler;
+import jakarta.inject.Inject;
+
 /**
  * Tests the availability of the resource handler via CDI
  *
@@ -64,6 +67,11 @@ public class Spec1394IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see ResourceHandler
+     * @see https://github.com/jakartaee/faces/issues/1394
+     */
     @Test
     public void testResourceHandler() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectResourceHandler.xhtml");

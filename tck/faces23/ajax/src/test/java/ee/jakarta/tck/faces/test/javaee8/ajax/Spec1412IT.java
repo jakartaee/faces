@@ -37,7 +37,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import ee.jakarta.tck.faces.test.htmlunit.htmlunit.IgnoringIncorrectnessListener;
+import com.sun.faces.test.htmlunit.IgnoringIncorrectnessListener;
+
+import jakarta.faces.context.PartialViewContext;
 
 @RunWith(Arquillian.class)
 public class Spec1412IT {
@@ -60,6 +62,10 @@ public class Spec1412IT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see PartialViewContext#getEvalScripts()
+     * @see https://github.com/jakartaee/faces/issues/1412
+     */
     @Test
     public void testSpec1412() throws Exception {
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());

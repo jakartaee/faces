@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.context.FacesContext;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec527IT {
 
@@ -60,9 +63,14 @@ public class Spec527IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see FacesContext
+     * @see https://github.com/jakartaee/faces/issues/527
+     */
     @Test
     public void testInjectFacesContext() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectFacesContext.xhtml");
-        assertTrue(page.asXml().contains("ee.jakarta.tck.faces.context.FacesContextImpl"));
+        assertTrue(page.asXml().contains("com.sun.faces.context.FacesContextImpl"));
     }
 }

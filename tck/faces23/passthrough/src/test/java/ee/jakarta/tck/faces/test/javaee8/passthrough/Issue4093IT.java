@@ -45,6 +45,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.component.UIInput;
+
 @RunWith(Arquillian.class)
 public class Issue4093IT {
 
@@ -66,6 +68,11 @@ public class Issue4093IT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see UIInput#isRequired()
+     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
+     */
     @Test
     public void testSpec4093RequiredWithoutPassthrough() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
@@ -81,6 +88,11 @@ public class Issue4093IT {
         assertTrue(output.contains("requiredwithoutpassthrough:value: Validation Error: Value is required."));
     }
 
+    /**
+     * @see UIInput#isRequired()
+     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
+     */
     @Test
     public void testSpec4093RequiredWithPassthrough() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
@@ -96,6 +108,11 @@ public class Issue4093IT {
         assertFalse(output.contains("Please fill out this field"));
     }
 
+    /**
+     * @see UIInput#isRequired()
+     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
+     */
     @Test
     public void testSpec4093ValidateWithoutPassthrough() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
@@ -114,7 +131,9 @@ public class Issue4093IT {
     /**
      * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
      * 
-     * @throws Exception
+     * @see UIInput#isRequired()
+     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
     public void testSpec4093ValidateWithPassthrough() throws Exception {
@@ -134,7 +153,9 @@ public class Issue4093IT {
     /**
      * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
      * 
-     * @throws Exception
+     * @see UIInput#isRequired()
+     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
     public void testSpec4093ValidateWithPassthroughId() throws Exception {

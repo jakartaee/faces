@@ -15,23 +15,46 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package ee.jakarta.tck.faces.test.javaee8.el;
+package ee.jakarta.tck.faces.test.servlet40.el;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static java.lang.System.getProperty;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.net.URL;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.importer.ZipImporter;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.runner.RunWith;
 
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import jakarta.el.ResourceBundleELResolver;
+
+@RunWith(Arquillian.class)
 public class Spec1337IT {
 
-    private String webUrl;
+    @ArquillianResource
+    private URL webUrl;
     private WebClient webClient;
+
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return create(ZipImporter.class, getProperty("finalName") + ".war")
+                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
+                .as(WebArchive.class);
+    }
 
     @Before
     public void setUp() {
-        webUrl = System.getProperty("integration.url");
         webClient = new WebClient();
     }
 
@@ -40,12 +63,20 @@ public class Spec1337IT {
         webClient.close();
     }
 
+    /**
+     * @see ResourceBundleELResolver
+     * @see https://github.com/jakartaee/faces/issues/1337
+     */
     @Test
     public void testResourceEL1() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL1.xhtml");
         assertTrue(page.asXml().contains("/jakarta.faces.resource/resourceEL1.gif"));
     }
 
+    /**
+     * @see ResourceBundleELResolver
+     * @see https://github.com/jakartaee/faces/issues/1337
+     */
     @Test
     public void testResourceEL2() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL2.xhtml");
@@ -53,6 +84,10 @@ public class Spec1337IT {
         assertTrue(page.asXml().contains("?ln=resourceEL2"));
     }
 
+    /**
+     * @see ResourceBundleELResolver
+     * @see https://github.com/jakartaee/faces/issues/1337
+     */
     @Test
     public void testResourceEL3() throws Exception {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);

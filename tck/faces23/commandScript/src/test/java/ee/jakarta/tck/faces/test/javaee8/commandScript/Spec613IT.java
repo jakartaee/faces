@@ -37,6 +37,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.component.html.HtmlCommandScript;
+
 @RunWith(Arquillian.class)
 public class Spec613IT {
 
@@ -58,6 +60,10 @@ public class Spec613IT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see HtmlCommandScript
+     * @see https://github.com/jakartaee/faces/issues/613
+     */
     @Test
     public void test() throws Exception {
         webClient.setIncorrectnessListener((o,i) -> {});

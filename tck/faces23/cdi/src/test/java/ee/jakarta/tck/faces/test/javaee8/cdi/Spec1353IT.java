@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.annotation.RequestCookieMap;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1353IT {
 
@@ -60,6 +63,11 @@ public class Spec1353IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see RequestCookieMap
+     * @see https://github.com/jakartaee/faces/issues/1353
+     */
     @Test
     public void testInjectRequestCookieMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectRequestCookieMap.xhtml");

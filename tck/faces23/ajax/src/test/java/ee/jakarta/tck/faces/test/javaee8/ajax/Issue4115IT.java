@@ -38,7 +38,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-import ee.jakarta.tck.faces.test.htmlunit.htmlunit.IgnoringIncorrectnessListener;
+import com.sun.faces.test.htmlunit.IgnoringIncorrectnessListener;
+
+import jakarta.faces.component.behavior.AjaxBehavior;
 
 @RunWith(Arquillian.class)
 public class Issue4115IT {
@@ -61,6 +63,10 @@ public class Issue4115IT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see AjaxBehavior#getExecute()
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4119
+     */
     @Test
     public void testSpec1412() throws Exception {
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());

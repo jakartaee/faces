@@ -37,6 +37,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.validator.FacesValidator;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1350IT {
 
@@ -61,6 +64,11 @@ public class Spec1350IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see FacesValidator
+     * @see https://github.com/jakartaee/faces/issues/1350
+     */
     @Test
     public void testInjectValidator() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectValidator.xhtml");

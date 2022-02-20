@@ -37,7 +37,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import ee.jakarta.tck.faces.test.htmlunit.htmlunit.IgnoringIncorrectnessListener;
+import com.sun.faces.test.htmlunit.IgnoringIncorrectnessListener;
+
+import jakarta.faces.component.html.HtmlOutputText;
 
 @RunWith(Arquillian.class)
 public class Issue3981IT {
@@ -60,6 +62,10 @@ public class Issue3981IT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see HtmlOutputText#setEscape(boolean)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3985
+     */
     @Test
     public void testIssue3981() throws Exception {
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());

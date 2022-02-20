@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.context.ExternalContext;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1309IT {
 
@@ -60,9 +63,14 @@ public class Spec1309IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see ExternalContext
+     * @see https://github.com/jakartaee/faces/issues/1309
+     */
     @Test
     public void testInjectExternalContext() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectExternalContext.xhtml");
-        assertTrue(page.asXml().contains("ee.jakarta.tck.faces.context.ExternalContextImpl"));
+        assertTrue(page.asXml().contains("com.sun.faces.context.ExternalContextImpl"));
     }
 }
