@@ -61,6 +61,10 @@ public class Spec1582ViewMapIT {
         webClient.close();
     }
 
+    /**
+     * Validate that the ViewMap is available using CDI.current using the
+     * ViewMap.Literal.
+     */
     @Test
     public void testInjectViewMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectViewMap.xhtml");
