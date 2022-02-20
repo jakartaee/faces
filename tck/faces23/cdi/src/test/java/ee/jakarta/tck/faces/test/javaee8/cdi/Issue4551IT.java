@@ -38,6 +38,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.validator.FacesValidator;
+
 @RunWith(Arquillian.class)
 public class Issue4551IT {
 
@@ -62,6 +64,10 @@ public class Issue4551IT {
         webClient.close();
     }
 
+    /**
+     * @see FacesValidator#managed()
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4551
+     */
     @Test
     public void testTwoAnnotatedJSFValidatorsInvoked () throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/issue4551.xhtml");

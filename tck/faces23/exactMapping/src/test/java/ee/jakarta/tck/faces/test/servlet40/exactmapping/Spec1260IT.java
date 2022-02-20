@@ -37,6 +37,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ViewHandler;
+
 @RunWith(Arquillian.class)
 public class Spec1260IT {
 
@@ -62,7 +65,12 @@ public class Spec1260IT {
         webClient.close();
     }
 
-
+    /**
+     * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+     */
     @Test
     public void testExactMappedViewLoads() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "foo");
@@ -72,6 +80,12 @@ public class Spec1260IT {
         assertTrue(content.contains("This is page foo"));
     }
 
+    /**
+     * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+     */
     @Test
     public void testPostBackToExactMappedView() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "foo");
@@ -86,6 +100,12 @@ public class Spec1260IT {
         assertTrue(page.getUrl().getPath().endsWith("/foo"));
     }
 
+    /**
+     * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+     */
     @Test
     public void testLinkToNonExactMappedView() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "foo");
@@ -106,6 +126,12 @@ public class Spec1260IT {
         assertTrue(path.endsWith("/bar.jsf") || path.endsWith("/faces/bar"));
     }
 
+    /**
+     * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+     */
     @Test
     public void testPostBackOnLinkedNonExactMappedView() throws Exception {
 
@@ -122,7 +148,12 @@ public class Spec1260IT {
         assertTrue(path.endsWith("/bar.jsf") || path.endsWith("/faces/bar"));
     }
 
-
+    /**
+     * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+     */
     @Test
     public void testResourceReferenceFromExactMappedView() throws Exception {
 
@@ -135,6 +166,12 @@ public class Spec1260IT {
         assertTrue(content.contains("jakarta.faces.resource/faces.js.jsf") || content.contains("jakarta.faces.resource/faces/faces.js") );
     }
 
+    /**
+     * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+     */
     @Test
     public void testAjaxFromExactMappedView() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "foo");

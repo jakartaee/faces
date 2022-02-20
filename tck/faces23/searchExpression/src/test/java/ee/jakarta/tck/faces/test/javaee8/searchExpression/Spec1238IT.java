@@ -39,6 +39,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.component.search.SearchKeywordResolver;
+
 @RunWith(Arquillian.class)
 public class Spec1238IT {
 
@@ -60,6 +62,10 @@ public class Spec1238IT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see SearchKeywordResolver
+     * @see https://github.com/jakartaee/faces/issues/1238
+     */
     @Test
     public void test() throws Exception {
         webClient.setIncorrectnessListener((ignore, nothing) -> {});

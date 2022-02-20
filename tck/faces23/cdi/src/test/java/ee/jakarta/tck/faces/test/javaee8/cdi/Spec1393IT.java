@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.annotation.RequestMap;
+import jakarta.inject.Inject;
+
 /**
  * Tests the availability of the request map via CDI
  *
@@ -64,6 +67,11 @@ public class Spec1393IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see RequestMap
+     * @see https://github.com/jakartaee/faces/issues/1393
+     */
     @Test
     public void testRequestMap() throws Exception {
 

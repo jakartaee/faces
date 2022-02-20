@@ -36,6 +36,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.annotation.FacesConfig;
+
 @RunWith(Arquillian.class)
 public class Issue3793IT {
 
@@ -60,6 +62,10 @@ public class Issue3793IT {
         webClient.close();
     }
 
+    /**
+     * @see FacesConfig#version()
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3797
+     */
     @Test
     public void testFacesConfig23() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/mojarraFacesConfigVersion.xhtml");

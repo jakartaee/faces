@@ -40,6 +40,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import ee.jakarta.tck.faces.test.htmlunit.htmlunit.IgnoringIncorrectnessListener;
 
+import jakarta.faces.component.UIViewRoot;
+
 @RunWith(Arquillian.class)
 public class Spec1423IT {
 
@@ -62,6 +64,10 @@ public class Spec1423IT {
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());
     }
 
+    /**
+     * @see UIViewRoot#addComponentResource(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, String)
+     * @see https://github.com/jakartaee/faces/issues/1423
+     */
     @Test
     public void testSpec1423Basic() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1423.xhtml");

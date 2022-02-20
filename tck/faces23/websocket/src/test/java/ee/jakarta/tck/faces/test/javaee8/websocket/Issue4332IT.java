@@ -31,13 +31,14 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+
+import jakarta.faces.component.UIWebsocket;
 
 @RunWith(Arquillian.class)
 public class Issue4332IT {
@@ -58,6 +59,10 @@ public class Issue4332IT {
         webClient = new WebClient();
     }
 
+    /**
+     * @see UIWebsocket
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4332
+     */
     @Test
     public void testWebsocketAfterPostback() throws Exception {
         webClient.setIncorrectnessListener((o, i) -> {}); // Suppress false JS errors on websocket URL.

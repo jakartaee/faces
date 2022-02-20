@@ -37,6 +37,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
+import jakarta.faces.convert.FacesConverter;
+
 @RunWith(Arquillian.class)
 public class Issue4324IT {
 
@@ -61,6 +63,10 @@ public class Issue4324IT {
         webClient.close();
     }
 
+    /**
+     * @see FacesConverter#managed()
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4324
+     */
     @Test
     public void testManagedFacesConverterOnAbstractClass() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/issue4324.xhtml");

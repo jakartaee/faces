@@ -37,6 +37,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.event.PostRenderViewEvent;
+
 @RunWith(Arquillian.class)
 public class Spec1135IT {
 
@@ -61,6 +63,10 @@ public class Spec1135IT {
         webClient.close();
     }
 
+    /**
+     * @see PostRenderViewEvent
+     * @see https://github.com/jakartaee/faces/issues/1135
+     */
     @Test
     public void testPreRenderViewEvent() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/postRenderViewEvent.xhtml");

@@ -37,6 +37,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Inject;
 
 /**
  * Tests the injection of values by {@link ManagedProperty}
@@ -66,6 +67,11 @@ public class Spec1418IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see ManagedProperty
+     * @see https://github.com/jakartaee/faces/issues/1418
+     */
     @Test
     public void testManagedPropertyInteger() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml");
@@ -75,6 +81,11 @@ public class Spec1418IT {
         assertTrue(page.asXml().contains("integer3:123"));
     }
 
+    /**
+     * @see Inject
+     * @see ManagedProperty
+     * @see https://github.com/jakartaee/faces/issues/1418
+     */
     @Test
     public void testManagedPropertyString() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml?test=foo");
@@ -82,6 +93,11 @@ public class Spec1418IT {
         assertTrue(page.asXml().contains("testParam:foo"));
     }
 
+    /**
+     * @see Inject
+     * @see ManagedProperty
+     * @see https://github.com/jakartaee/faces/issues/1418
+     */
     @Test
     public void testManagedPropertyGenericMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml");

@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.annotation.FlowMap;
+import jakarta.inject.Inject;
+
 /**
  * Tests the availability of the flow map via injection
  *
@@ -64,6 +67,11 @@ public class Spec1386IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see FlowMap
+     * @see https://github.com/jakartaee/faces/issues/1386
+     */
     @Test
     public void testInjectFlowMap() throws Exception {
         // Start on initial (non-flow) view

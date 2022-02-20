@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Collection;
 import java.util.regex.Pattern;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -37,6 +38,8 @@ import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import jakarta.faces.component.UIData;
 
 @RunWith(Arquillian.class)
 public class Spec1103IT {
@@ -62,18 +65,33 @@ public class Spec1103IT {
         webClient.close();
     }
 
+    /**
+     * @see UIData
+     * @see Iterable
+     * @see https://github.com/jakartaee/faces/issues/1103
+     */
     @Test
     public void testDataTableIterable() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/datatableIterable.xhtml");
         assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.asXml()));
     }
 
+    /**
+     * @see com.sun.faces.facelets.component.UIRepeat
+     * @see Iterable
+     * @see https://github.com/jakartaee/faces/issues/1103
+     */
     @Test
     public void testUIRepeatIterable() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/uirepeatIterable.xhtml");
         assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.asXml()));
     }
 
+    /**
+     * @see com.sun.faces.facelets.component.UIRepeat
+     * @see Collection
+     * @see https://github.com/jakartaee/faces/issues/1103
+     */
     @Test
     public void testUIRepeatCollection() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/uirepeatCollection.xhtml");

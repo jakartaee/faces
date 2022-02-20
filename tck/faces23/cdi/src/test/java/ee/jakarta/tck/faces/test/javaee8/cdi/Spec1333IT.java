@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.component.UIViewRoot;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1333IT {
 
@@ -60,6 +63,11 @@ public class Spec1333IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see UIViewRoot
+     * @see https://github.com/jakartaee/faces/issues/1333
+     */
     @Test
     public void testInjectView() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectView.xhtml");

@@ -37,6 +37,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.convert.FacesConverter;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1349IT {
 
@@ -61,6 +64,11 @@ public class Spec1349IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see FacesConverter
+     * @see https://github.com/jakartaee/faces/issues/1349
+     */
     @Test
     public void testInjectConverter() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectConverter.xhtml");
@@ -71,6 +79,11 @@ public class Spec1349IT {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
     }
 
+    /**
+     * @see Inject
+     * @see FacesConverter
+     * @see https://github.com/jakartaee/faces/issues/1349
+     */
     @Test
     public void testInjectConverter2() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectConverter2.xhtml");
@@ -81,6 +94,11 @@ public class Spec1349IT {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
     }
 
+    /**
+     * @see Inject
+     * @see FacesConverter
+     * @see https://github.com/jakartaee/faces/issues/1349
+     */
     @Test
     public void testInjectConverter3() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectConverter3.xhtml");

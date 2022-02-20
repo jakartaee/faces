@@ -37,6 +37,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.el.ResourceBundleELResolver;
+
 @RunWith(Arquillian.class)
 public class Spec1337IT {
 
@@ -61,12 +63,20 @@ public class Spec1337IT {
         webClient.close();
     }
 
+    /**
+     * @see ResourceBundleELResolver
+     * @see https://github.com/jakartaee/faces/issues/1337
+     */
     @Test
     public void testResourceEL1() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL1.xhtml");
         assertTrue(page.asXml().contains("/jakarta.faces.resource/resourceEL1.gif"));
     }
 
+    /**
+     * @see ResourceBundleELResolver
+     * @see https://github.com/jakartaee/faces/issues/1337
+     */
     @Test
     public void testResourceEL2() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL2.xhtml");
@@ -74,6 +84,10 @@ public class Spec1337IT {
         assertTrue(page.asXml().contains("?ln=resourceEL2"));
     }
 
+    /**
+     * @see ResourceBundleELResolver
+     * @see https://github.com/jakartaee/faces/issues/1337
+     */
     @Test
     public void testResourceEL3() throws Exception {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);

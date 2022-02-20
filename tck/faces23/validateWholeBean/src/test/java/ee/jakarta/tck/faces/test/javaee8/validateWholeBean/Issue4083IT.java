@@ -76,6 +76,10 @@ public class Issue4083IT {
     public static void tearDownClass() {
     }
 
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4087
+     */
     @Test
     public void testValidateWholeBean() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/Issue4083.xhtml");

@@ -30,7 +30,6 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -40,6 +39,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+
+import jakarta.faces.application.NavigationHandler;
+import jakarta.faces.application.StateManager;
+import jakarta.faces.component.NamingContainer;
 
 @RunWith(Arquillian.class)
 public class Spec790WithNamespacedViewIT {
@@ -62,6 +65,11 @@ public class Spec790WithNamespacedViewIT {
         webClient.setJavaScriptTimeout(120000);
     }
 
+    /**
+     * @see NamingContainer
+     * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
+     * @see https://github.com/jakartaee/faces/issues/790
+     */
     @Test
     public void testSpec790WithNamespacedView() throws Exception {
         webClient.setIncorrectnessListener((o, i) -> {});
@@ -121,6 +129,12 @@ public class Spec790WithNamespacedViewIT {
         assertTrue(!form3ViewState.getValueAttribute().isEmpty());
     }
 
+    /**
+     * @see NamingContainer
+     * @see NavigationHandler#handleNavigation(jakarta.faces.context.FacesContext, String, String, String)
+     * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
+     * @see https://github.com/jakartaee/faces/issues/790
+     */
     @Test
     public void testSpec790WithNamespacedViewAjaxNavigation() throws Exception {
         webClient.setIncorrectnessListener((o, i) -> {});

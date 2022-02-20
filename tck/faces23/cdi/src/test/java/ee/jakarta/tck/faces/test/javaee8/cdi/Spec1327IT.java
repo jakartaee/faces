@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.context.ExternalContext;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1327IT {
 
@@ -60,6 +63,11 @@ public class Spec1327IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see ExternalContext#getSession(boolean)
+     * @see https://github.com/jakartaee/faces/issues/1327
+     */
     @Test
     public void testInjectSessionBean() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectSession.xhtml");

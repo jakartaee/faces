@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.annotation.ApplicationMap;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Issue3722IT {
 
@@ -60,6 +63,11 @@ public class Issue3722IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see ApplicationMap
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3726
+     */
     @Test
     public void testInjectApplicationMap2() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectApplicationMap2.xhtml");

@@ -38,6 +38,7 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.faces.context.Flash;
+import jakarta.inject.Inject;
 
 /**
  * Tests the availability of The Flash via injection of a {@link Flash}
@@ -68,6 +69,11 @@ public class Spec1385IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see Flash
+     * @see https://github.com/jakartaee/faces/issues/1385
+     */
     @Test
     public void testInjectFlash() throws Exception {
 

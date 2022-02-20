@@ -36,6 +36,10 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.application.ResourceDependency;
+import jakarta.faces.convert.FacesConverter;
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Issue4913IT {
 
@@ -60,6 +64,12 @@ public class Issue4913IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see ResourceDependency
+     * @see FacesConverter#managed()
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4913
+     */
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4913.xhtml");
