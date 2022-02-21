@@ -37,6 +37,10 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import ee.jakarta.tck.faces.test.htmlunit.htmlunit.DebugOptions;
 
+import jakarta.faces.annotation.View;
+import jakarta.faces.view.ViewDeclarationLanguage;
+import jakarta.faces.view.facelets.Facelet;
+
 @RunWith(Arquillian.class)
 public class Spec1581IT {
 
@@ -62,6 +66,12 @@ public class Spec1581IT {
         webClient.close();
     }
 
+    /**
+     * @see Facelet
+     * @see View
+     * @see ViewDeclarationLanguage#getViewMetadata(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1581
+     */
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "hello.xhtml?id=foo");

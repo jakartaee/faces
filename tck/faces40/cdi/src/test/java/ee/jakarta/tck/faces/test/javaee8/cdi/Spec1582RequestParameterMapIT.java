@@ -37,6 +37,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.inject.Inject;
+
 /**
  * Tests the availability of the request parameter map via CDI
  *
@@ -65,6 +67,11 @@ public class Spec1582RequestParameterMapIT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see jakarta.faces.annotation.RequestParameterMap.Literal
+     * @see https://github.com/jakartaee/faces/issues/1582
+     */
     @Test
     public void testRequestParameterMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectRequestParameterMap.xhtml?foo=bar");

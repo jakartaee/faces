@@ -29,15 +29,16 @@ import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
 
 @RunWith(Arquillian.class)
 public class Spec1567IT {
@@ -63,6 +64,11 @@ public class Spec1567IT {
         webClient.close();
     }
 
+    /**
+     * @see AjaxBehavior#getExecute()
+     * @see UIComponent#getCompositeComponentParent(UIComponent)
+     * @see https://github.com/jakartaee/faces/issues/1567
+     */
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1567IT.xhtml");

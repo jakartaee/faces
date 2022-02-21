@@ -36,6 +36,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.component.UIViewRoot;
+
 @RunWith(Arquillian.class)
 public class Spec1568IT {
 
@@ -60,6 +62,10 @@ public class Spec1568IT {
         webClient.close();
     }
 
+    /**
+     * @see UIViewRoot#getDoctype()
+     * @see https://github.com/jakartaee/faces/issues/1568
+     */
     @Test
     public void testHTML5() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML5.xhtml");
@@ -67,6 +73,10 @@ public class Spec1568IT {
         assertEquals("Page is using HTML5 doctype", "<!DOCTYPE html>", getDoctype(page));
     }
 
+    /**
+     * @see UIViewRoot#getDoctype()
+     * @see https://github.com/jakartaee/faces/issues/1568
+     */
     @Test
     public void testHTML4Public() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML4-public.xhtml");
@@ -74,6 +84,10 @@ public class Spec1568IT {
         assertEquals("Page is using XHTML4 transitional public doctype", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">", getDoctype(page));
     }
 
+    /**
+     * @see UIViewRoot#getDoctype()
+     * @see https://github.com/jakartaee/faces/issues/1568
+     */
     @Test
     public void testHTML4System() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML4-system.xhtml");

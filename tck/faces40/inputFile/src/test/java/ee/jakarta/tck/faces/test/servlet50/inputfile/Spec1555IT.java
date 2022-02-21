@@ -47,6 +47,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.parser.neko.HtmlUnitNekoHtmlParser;
 
+import jakarta.faces.component.html.HtmlInputFile;
+
 @Ignore // Failing because request.getParameter() returns null for all params since jakarta.servlet-api:6.0.0 (worked fine in 5.0.0!) -- TODO remove once Servlet API or GlassFish is fixed 
 @RunWith(Arquillian.class)
 public class Spec1555IT {
@@ -72,11 +74,19 @@ public class Spec1555IT {
         webClient.close();
     }
 
+    /**
+     * @see HtmlInputFile#isMultiple()
+     * @see https://github.com/jakartaee/faces/issues/1555
+     */
     @Test
     public void testSingleSelectionNonAjax() throws Exception {
         testSingleSelection("singleSelectionFormNonAjax");
     }
 
+    /**
+     * @see HtmlInputFile#isMultiple()
+     * @see https://github.com/jakartaee/faces/issues/1555
+     */
     @Test
     public void testSingleSelectionAjax() throws Exception {
         testSingleSelection("singleSelectionFormAjax");
@@ -104,12 +114,20 @@ public class Spec1555IT {
         assertEquals("Uploaded file has been received", "field: singleSelection, name: " + file.getName() + ", size: " + file.length(), message.asNormalizedText());
     }
 
+    /**
+     * @see HtmlInputFile#isMultiple()
+     * @see https://github.com/jakartaee/faces/issues/1555
+     */
     @Test
     @Ignore
     public void testMultipleSelectionNonAjax() throws Exception {
         testMultipleSelection("multipleSelectionFormNonAjax");
     }
 
+    /**
+     * @see HtmlInputFile#isMultiple()
+     * @see https://github.com/jakartaee/faces/issues/1555
+     */
     @Test
     public void testMultipleSelectionAjax() throws Exception {
         testMultipleSelection("multipleSelectionFormAjax");

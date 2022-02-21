@@ -37,6 +37,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.application.ViewHandler;
+import jakarta.faces.webapp.FacesServlet;
+
 /**
  *
  * @author Arjan Tijms
@@ -66,6 +69,11 @@ public class ExtensionlessMappingIT {
         webClient.close();
     }
 
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+     * @see https://github.com/jakartaee/faces/issues/1508
+     */
     @Test
     @RunAsClient
     public void testExtensionlessMappingFoo() throws IOException {
@@ -80,6 +88,11 @@ public class ExtensionlessMappingIT {
         assertTrue(page.getElementById("barlink").getAttribute("href").endsWith("/bar"));
     }
 
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+     * @see https://github.com/jakartaee/faces/issues/1508
+     */
     @Test
     @RunAsClient
     public void testExtensionlessMappingBar() throws IOException {
@@ -91,6 +104,11 @@ public class ExtensionlessMappingIT {
         assertTrue(content.contains("This is page bar"));
     }
 
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+     * @see https://github.com/jakartaee/faces/issues/1508
+     */
     @Test
     @RunAsClient
     public void testExtensionlessMappingSubBar() throws IOException {

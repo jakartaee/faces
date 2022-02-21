@@ -39,6 +39,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
+import jakarta.faces.component.UISelectItemGroup;
+
 @RunWith(Arquillian.class)
 public class Spec1563IT {
 
@@ -63,6 +65,10 @@ public class Spec1563IT {
         webClient.close();
     }
 
+    /**
+     * @see UISelectItemGroup
+     * @see https://github.com/jakartaee/faces/issues/1563
+     */
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1563IT.xhtml");

@@ -39,6 +39,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.component.html.HtmlInputText;
+
 @RunWith(Arquillian.class)
 public class Spec1560IT {
 
@@ -63,6 +65,10 @@ public class Spec1560IT {
         webClient.close();
     }
 
+    /**
+     * @see HtmlInputText#getType()
+     * @see https://github.com/jakartaee/faces/issues/1560
+     */
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1560IT.xhtml");

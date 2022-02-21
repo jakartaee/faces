@@ -37,6 +37,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+
 @RunWith(Arquillian.class)
 public class Issue5032IT {
 
@@ -61,6 +64,11 @@ public class Issue5032IT {
         webClient.close();
     }
 
+    /**
+     * @see AjaxBehavior#getExecute()
+     * @see UIComponent#getCompositeComponentParent(UIComponent)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5032
+     */
     @Test
     public void testImplicitThis() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue5032IT.xhtml");
@@ -75,6 +83,11 @@ public class Issue5032IT {
         assertEquals("there are no validation messages coming from required field form1:input1", "", form1messages);
     }
 
+    /**
+     * @see AjaxBehavior#getExecute()
+     * @see UIComponent#getCompositeComponentParent(UIComponent)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5032
+     */
     @Test
     public void testExplicitThis() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue5032IT.xhtml");
