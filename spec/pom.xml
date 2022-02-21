@@ -35,9 +35,9 @@
    <properties>
         <site.output.dir>${project.build.directory}/staging</site.output.dir>
         <maven.site.skip>true</maven.site.skip>
-        <asciidoctorj.version>2.5.2</asciidoctorj.version>
-        <asciidoctorj.pdf.version>1.6.0</asciidoctorj.pdf.version>
-        <jruby.version>9.3.2.0</jruby.version>
+        <asciidoctorj.version>2.5.3</asciidoctorj.version>
+        <asciidoctorj.pdf.version>1.6.2</asciidoctorj.pdf.version>
+        <jruby.version>9.3.3.0</jruby.version>
         <!-- status: DRAFT, BETA, etc., or blank for final -->
         <status>DRAFT</status>
         <maven.build.timestamp.format>MMMM dd, yyyy</maven.build.timestamp.format>
@@ -76,7 +76,7 @@
             <plugin>
                 <groupId>org.asciidoctor</groupId>
                 <artifactId>asciidoctor-maven-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>2.2.2</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.jruby</groupId>
