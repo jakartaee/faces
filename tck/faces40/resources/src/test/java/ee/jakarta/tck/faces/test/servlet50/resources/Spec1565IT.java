@@ -37,6 +37,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.component.UIOutput;
+
 @RunWith(Arquillian.class)
 public class Spec1565IT {
 
@@ -61,6 +63,11 @@ public class Spec1565IT {
         webClient.close();
     }
 
+    /**
+     * @see UIOutput
+     * @see com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer
+     * @see https://github.com/jakartaee/faces/issues/1565
+     */
     @Test
     public void testHtml5() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1565IT-HTML5.xhtml");
@@ -78,6 +85,11 @@ public class Spec1565IT {
         }
     }
 
+    /**
+     * @see UIOutput
+     * @see com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer
+     * @see https://github.com/jakartaee/faces/issues/1565
+     */
     @Test
     public void testHtml4() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1565IT-HTML4.xhtml");

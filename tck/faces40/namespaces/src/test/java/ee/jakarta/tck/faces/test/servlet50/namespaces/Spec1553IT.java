@@ -38,6 +38,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.application.Application;
+import jakarta.faces.view.facelets.Facelet;
+
 @RunWith(Arquillian.class)
 public class Spec1553IT {
 
@@ -62,6 +65,11 @@ public class Spec1553IT {
         webClient.close();
     }
 
+    /**
+     * @see Facelet
+     * @see Application#createComponent(String)
+     * @see https://github.com/jakartaee/faces/issues/1553
+     */
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1553IT.xhtml");
@@ -97,6 +105,11 @@ public class Spec1553IT {
 
     }
 
+    /**
+     * @see Facelet
+     * @see Application#createComponent(String)
+     * @see https://github.com/jakartaee/faces/issues/1553
+     */
     @Test
     @Ignore // Fails due to FacesInitializer#onStartup(classes) being empty in current GlassFish version -- TODO: remove once GlassFish is fixed, see also outcomments above
     public void testFacesComponent() throws Exception {

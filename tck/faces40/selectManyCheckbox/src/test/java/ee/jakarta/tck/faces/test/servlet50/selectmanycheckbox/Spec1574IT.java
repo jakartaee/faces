@@ -38,6 +38,9 @@ import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.component.html.HtmlSelectManyCheckbox;
+import jakarta.faces.component.html.HtmlSelectOneRadio;
+
 @RunWith(Arquillian.class)
 public class Spec1574IT {
 
@@ -62,6 +65,10 @@ public class Spec1574IT {
         webClient.close();
     }
 
+    /**
+     * @see HtmlSelectManyCheckbox
+     * @see https://github.com/jakartaee/faces/issues/1574
+     */
     @Test
     public void testSelectManyCheckboxDefaultMarkup() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1574IT.xhtml");
@@ -69,6 +76,10 @@ public class Spec1574IT {
         assertValidMarkup(selectManyCheckbox, true, false);
     }
 
+    /**
+     * @see HtmlSelectManyCheckbox
+     * @see https://github.com/jakartaee/faces/issues/1574
+     */
     @Test
     public void testSelectManyCheckboxLineDirectionMarkup() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1574IT.xhtml?layout=lineDirection");
@@ -76,6 +87,10 @@ public class Spec1574IT {
         assertValidMarkup(selectManyCheckbox, true, false);
     }
 
+    /**
+     * @see HtmlSelectManyCheckbox
+     * @see https://github.com/jakartaee/faces/issues/1574
+     */
     @Test
     public void testSelectManyCheckboxPageDirectionMarkup() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1574IT.xhtml?layout=pageDirection");
@@ -83,6 +98,10 @@ public class Spec1574IT {
         assertValidMarkup(selectManyCheckbox, true, true);
     }
 
+    /**
+     * @see HtmlSelectManyCheckbox
+     * @see https://github.com/jakartaee/faces/issues/1574
+     */
     @Test
     public void testSelectManyCheckboxListMarkup() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1574IT.xhtml?layout=list");
@@ -90,6 +109,10 @@ public class Spec1574IT {
         assertValidMarkup(selectManyCheckbox, false, true);
     }
 
+    /**
+     * @see HtmlSelectOneRadio
+     * @see https://github.com/jakartaee/faces/issues/1574
+     */
     @Test
     public void testSelectOneRadioDefaultMarkup() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1574IT.xhtml?radio=true");
@@ -97,6 +120,10 @@ public class Spec1574IT {
         assertValidMarkup(selectOneRadio, true, false);
     }
 
+    /**
+     * @see HtmlSelectOneRadio
+     * @see https://github.com/jakartaee/faces/issues/1574
+     */
     @Test
     public void testSelectOneRadioLineDirectionMarkup() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1574IT.xhtml?radio=true&layout=lineDirection");
@@ -104,6 +131,10 @@ public class Spec1574IT {
         assertValidMarkup(selectOneRadio, true, false);
     }
 
+    /**
+     * @see HtmlSelectOneRadio
+     * @see https://github.com/jakartaee/faces/issues/1574
+     */
     @Test
     public void testSelectOneRadioPageDirectionMarkup() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1574IT.xhtml?radio=true&layout=pageDirection");
@@ -111,6 +142,10 @@ public class Spec1574IT {
         assertValidMarkup(selectOneRadio, true, true);
     }
 
+    /**
+     * @see HtmlSelectOneRadio
+     * @see https://github.com/jakartaee/faces/issues/1574
+     */
     @Test
     public void testSelectOneRadioListMarkup() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1574IT.xhtml?radio=true&layout=list");

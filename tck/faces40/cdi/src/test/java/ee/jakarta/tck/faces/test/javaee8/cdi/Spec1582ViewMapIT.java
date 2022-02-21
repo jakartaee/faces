@@ -37,6 +37,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1582ViewMapIT {
 
@@ -65,7 +67,9 @@ public class Spec1582ViewMapIT {
      * Validate that the ViewMap is available using CDI.current using the
      * ViewMap.Literal.
      * 
-     * See jakarta.faces.annotation.ViewMap.Literal.
+     * @see Inject
+     * @see jakarta.faces.annotation.ViewMap.Literal
+     * @see https://github.com/jakartaee/faces/issues/1582
      */
     @Test
     public void testInjectViewMap() throws Exception {

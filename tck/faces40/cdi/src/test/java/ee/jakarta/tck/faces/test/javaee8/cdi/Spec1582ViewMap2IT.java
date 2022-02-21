@@ -37,6 +37,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.inject.Inject;
+
 @RunWith(Arquillian.class)
 public class Spec1582ViewMap2IT {
 
@@ -61,6 +63,11 @@ public class Spec1582ViewMap2IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see jakarta.faces.annotation.ViewMap.Literal
+     * @see https://github.com/jakartaee/faces/issues/1582
+     */
     @Test
     public void testInjectViewMap2() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectViewMap2.xhtml");

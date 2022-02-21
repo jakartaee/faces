@@ -38,6 +38,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.component.html.HtmlInputFile;
+
 @RunWith(Arquillian.class)
 public class Spec1556IT {
 
@@ -62,6 +64,10 @@ public class Spec1556IT {
         webClient.close();
     }
 
+    /**
+     * @see HtmlInputFile#getAccept()
+     * @see https://github.com/jakartaee/faces/issues/1556
+     */
     @Test
     public void testRenderingOfAcceptAttribute(String form) throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1556IT.xhtml");
