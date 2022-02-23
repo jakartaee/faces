@@ -37,6 +37,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+import jakarta.faces.application.ViewHandler;
+
 @RunWith(Arquillian.class)
 public class Bug22995287IT {
 
@@ -61,6 +63,10 @@ public class Bug22995287IT {
         webClient.close();
     }
 
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
     @Test
     public void testPage2CanBeDisplayed1() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -71,6 +77,10 @@ public class Bug22995287IT {
         assertTrue(pageXml.contains("foo bar"));
     }
 
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
     @Test
     public void testPage2CanBeDisplayed2() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -82,6 +92,10 @@ public class Bug22995287IT {
         assertTrue(pageXml.contains("foo bar"));
     }
 
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
     @Test
     public void testPage2CanBeDisplayed3() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -93,6 +107,10 @@ public class Bug22995287IT {
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
     @Test
     public void testPage2CanBeDisplayed4() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -103,6 +121,10 @@ public class Bug22995287IT {
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
     @Test
     public void testPage3CanBeDisplayed1() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -119,6 +141,10 @@ public class Bug22995287IT {
         }
     }
 
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
     @Test
     public void testPage3CanBeDisplayed2() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -130,6 +156,10 @@ public class Bug22995287IT {
         assertTrue(pageXml.contains("foo bar"));
     }
 
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
     @Test
     public void testPage3CanBeDisplayed3() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -141,6 +171,10 @@ public class Bug22995287IT {
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
     @Test
     public void testPage3CanBeDisplayed4() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);

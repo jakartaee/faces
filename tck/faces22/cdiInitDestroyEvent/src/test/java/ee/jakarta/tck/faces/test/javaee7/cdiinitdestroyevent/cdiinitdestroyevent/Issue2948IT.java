@@ -39,6 +39,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+import jakarta.faces.flow.FlowScoped;
+import jakarta.faces.view.ViewScoped;
+
 @RunWith(Arquillian.class)
 public class Issue2948IT {
 
@@ -63,6 +66,10 @@ public class Issue2948IT {
         webClient.close();
     }
 
+    /**
+     * @see FlowScoped
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
+     */
     @Test
     public void testSessionLogging() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -76,6 +83,10 @@ public class Issue2948IT {
         assertTrue(sessionInitTime < sessionDestroyTime);
     }
 
+    /**
+     * @see FlowScoped
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
+     */
     @Test
     public void testFlowLogging() throws Exception {
         // index.xhtml
@@ -106,6 +117,10 @@ public class Issue2948IT {
 //        assertTrue(flowInitTime < flowDestroyTime);
     }
 
+    /**
+     * @see ViewScoped
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
+     */
     @Test
     public void testViewScopedLogging() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/viewScoped01.xhtml");

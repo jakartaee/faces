@@ -37,6 +37,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+import jakarta.inject.Inject;
+import jakarta.validation.ConstraintValidator;
+
 @RunWith(Arquillian.class)
 public class Issue3014IT {
 
@@ -61,6 +64,11 @@ public class Issue3014IT {
         webClient.close();
     }
 
+    /**
+     * @see Inject
+     * @see ConstraintValidator
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3018
+     */
     @Test
     public void testValidatorInjection() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);

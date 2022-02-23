@@ -39,6 +39,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+import jakarta.faces.component.UIViewParameter;
+
 @RunWith(Arquillian.class)
 public class Issue4550IT {
 
@@ -65,6 +67,10 @@ public class Issue4550IT {
         webClient.close();
     }
 
+    /**
+     * @see UIViewParameter
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4550
+     */
     @Test
     public void testViewParamNullValueAjax() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/viewparam-nullvalue-ajax.xhtml");
