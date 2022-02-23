@@ -40,6 +40,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+import jakarta.faces.view.ViewScoped;
+
 @RunWith(Arquillian.class)
 public class Issue4646IT {
     
@@ -64,6 +66,10 @@ public class Issue4646IT {
         webClient.close();
     }
 
+    /**
+     * @see ViewScoped
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4646
+     */
     @Test
     public void testPreDestroyEventIssue4646() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/issue4646.xhtml");

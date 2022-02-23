@@ -40,6 +40,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.view.ViewScoped;
+
 @RunWith(Arquillian.class)
 public class Issue2641IT {
 
@@ -64,6 +66,10 @@ public class Issue2641IT {
         webClient.close();
     }
 
+    /**
+     * @see ViewScoped
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/2645
+     */
     @Test
     public void testViewScope() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/viewScoped.xhtml");
@@ -115,6 +121,10 @@ public class Issue2641IT {
         assertEquals(previousCount, count);
     }
 
+    /**
+     * @see ViewScoped
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/2645
+     */
     @Test
     public void testInvalidatedSession() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/invalidatedSession.xhtml");
@@ -125,6 +135,10 @@ public class Issue2641IT {
         assertTrue(page.asXml().contains("true"));
     }
 
+    /**
+     * @see ViewScoped
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/2645
+     */
     @Test
     public void testViewScopedInput() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/viewScopedInput.xhtml");

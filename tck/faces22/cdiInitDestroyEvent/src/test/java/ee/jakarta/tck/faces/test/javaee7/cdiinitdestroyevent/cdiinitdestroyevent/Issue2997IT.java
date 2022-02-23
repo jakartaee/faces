@@ -38,6 +38,8 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+import jakarta.faces.flow.FlowScoped;
+
 // https://github.com/eclipse-ee4j/mojarra/issues/3001
 @RunWith(Arquillian.class)
 public class Issue2997IT {
@@ -63,6 +65,10 @@ public class Issue2997IT {
         webClient.close();
     }
 
+    /**
+     * @see FlowScoped
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3001
+     */
     @Test
     public void testGlobalReturn() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);

@@ -39,6 +39,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.flow.FlowScoped;
+
 @RunWith(Arquillian.class)
 public class NoBeansXmlIT {
 
@@ -63,6 +65,10 @@ public class NoBeansXmlIT {
         webClient.close();
     }
 
+    /**
+     * @see FlowScoped
+     * @see https://github.com/javaee/mojarra/commit/2b7dba5430eb0e9837d074ad5383669e0f47d2d1
+     */
     @Test
     public void testFlowWithNoBeansXml() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);

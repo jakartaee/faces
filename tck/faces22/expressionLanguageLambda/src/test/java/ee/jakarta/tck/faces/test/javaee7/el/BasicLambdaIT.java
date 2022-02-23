@@ -41,6 +41,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.faces.application.Application;
+
 @RunWith(Arquillian.class)
 public class BasicLambdaIT {
 
@@ -65,6 +67,10 @@ public class BasicLambdaIT {
         webClient.close();
     }
 
+    /**
+     * @see Application#getELResolver()
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3032
+     */
     @Test
     public void testIndex() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -86,6 +92,10 @@ public class BasicLambdaIT {
         assertEquals("60", out.asNormalizedText());
     }
 
+    /**
+     * @see Application#getELResolver()
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3032
+     */
     @Test
     public void testBookTable() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/bookTable.xhtml");

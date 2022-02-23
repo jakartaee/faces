@@ -36,6 +36,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.FactoryFinder;
+
 @RunWith(Arquillian.class)
 public class Issue3341IT {
     
@@ -66,6 +68,10 @@ public class Issue3341IT {
         webClient.close();
     }
 
+    /**
+     * @see FactoryFinder
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3345
+     */
     @Test
     public void testTCCLReplacementResilience() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);

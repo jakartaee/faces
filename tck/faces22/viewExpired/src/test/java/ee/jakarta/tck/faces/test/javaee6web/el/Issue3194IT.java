@@ -36,6 +36,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.application.ViewExpiredException;
+import jakarta.faces.view.ViewScoped;
+
 @RunWith(Arquillian.class)
 public class Issue3194IT {
 
@@ -60,6 +63,11 @@ public class Issue3194IT {
         webClient.close();
     }
 
+    /**
+     * @see ViewScoped
+     * @see ViewExpiredException
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3198
+     */
     @Test
     public void testViewExpired() throws Exception {
         webClient.getPage(webUrl + "faces/viewExpired.xhtml");

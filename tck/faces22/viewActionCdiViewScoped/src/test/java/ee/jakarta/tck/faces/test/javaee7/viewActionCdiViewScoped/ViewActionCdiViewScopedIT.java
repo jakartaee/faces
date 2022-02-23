@@ -37,6 +37,9 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import jakarta.faces.component.UIViewAction;
+import jakarta.faces.view.ViewScoped;
+
 @RunWith(Arquillian.class)
 public class ViewActionCdiViewScopedIT {
 
@@ -61,6 +64,11 @@ public class ViewActionCdiViewScopedIT {
         webClient.close();
     }
 
+    /**
+     * @see UIViewAction
+     * @see ViewScoped
+     * @see https://github.com/javaee/mojarra/commit/44cf9e4603ed3f948286dec35c4c1fe93e3abb83
+     */
     @Test
     public void testNoQueryParam() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -68,6 +76,11 @@ public class ViewActionCdiViewScopedIT {
         assertTrue(page.getBody().asNormalizedText().indexOf("First Page") != -1);
     }
 
+    /**
+     * @see UIViewAction
+     * @see ViewScoped
+     * @see https://github.com/javaee/mojarra/commit/44cf9e4603ed3f948286dec35c4c1fe93e3abb83
+     */
     @Test
     public void testWithQueryParam() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "/?page=2");

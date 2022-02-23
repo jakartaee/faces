@@ -40,6 +40,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import jakarta.validation.ConstraintValidator;
+
 @RunWith(Arquillian.class)
 public class MethodValidationIT {
 
@@ -64,6 +66,10 @@ public class MethodValidationIT {
         webClient.close();
     }
 
+    /**
+     * @see ConstraintValidator
+     * @see https://github.com/javaee/mojarra/commit/40f15d1fc99e0aac9af9f5b5607c8ac61a85adc6
+     */
     @Test
     public void testIncorrectUsage() throws Exception {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
@@ -80,6 +86,10 @@ public class MethodValidationIT {
         assertEquals(500, page.getWebResponse().getStatusCode());
     }
 
+    /**
+     * @see ConstraintValidator
+     * @see https://github.com/javaee/mojarra/commit/40f15d1fc99e0aac9af9f5b5607c8ac61a85adc6
+     */
     @Test
     public void testCorrectUsage1() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -95,6 +105,10 @@ public class MethodValidationIT {
         assertEquals(200, page.getWebResponse().getStatusCode());
     }
 
+    /**
+     * @see ConstraintValidator
+     * @see https://github.com/javaee/mojarra/commit/40f15d1fc99e0aac9af9f5b5607c8ac61a85adc6
+     */
     @Test
     public void testCorrectUsage2() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);

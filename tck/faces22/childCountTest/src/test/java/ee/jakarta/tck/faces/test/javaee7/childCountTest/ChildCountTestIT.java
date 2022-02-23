@@ -37,6 +37,8 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.WebClient;
 
+import jakarta.faces.component.UIComponent;
+
 @RunWith(Arquillian.class)
 public class ChildCountTestIT {
     
@@ -63,6 +65,10 @@ public class ChildCountTestIT {
         webClient.close();
     }
 
+    /**
+     * @see UIComponent#getChildCount()
+     * @see https://github.com/eclipse-ee4j/mojarra/commit/6ca5e2d2300d0e9dc0d26ce3821346a4bcbffe2e
+     */
     @Test
     public void testChildCountTest() throws Exception {
         TextPage page = webClient.getPage(webUrl + "childCountTest");

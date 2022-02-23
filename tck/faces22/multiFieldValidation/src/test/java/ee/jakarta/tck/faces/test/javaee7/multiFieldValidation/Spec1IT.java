@@ -67,6 +67,10 @@ public class Spec1IT {
         webClient.close();
     }
     
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see https://github.com/jakartaee/faces/issues/1
+     */
     @Test
     public void testSimpleInvalidField() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -94,6 +98,10 @@ public class Spec1IT {
         assertTrue(password2Value.asNormalizedText().isEmpty());
     }
     
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see https://github.com/jakartaee/faces/issues/1
+     */
     @Test
     public void testSimpleInvalidFields() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -121,6 +129,10 @@ public class Spec1IT {
         assertTrue(password2Value.asNormalizedText().isEmpty());
     }
     
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see https://github.com/jakartaee/faces/issues/1
+     */
     @Test
     public void testSimpleValidFieldsInvalidBean() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -149,6 +161,10 @@ public class Spec1IT {
         
     }
     
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see https://github.com/jakartaee/faces/issues/1
+     */
     @Test
     public void testSimpleValidFieldsValidBean() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
@@ -177,6 +193,10 @@ public class Spec1IT {
         
     }
     
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see https://github.com/jakartaee/faces/issues/1
+     */
     @Test
     public void testFailingPreconditionsNotAfterAllInputComponents() throws Exception {
     	try {
