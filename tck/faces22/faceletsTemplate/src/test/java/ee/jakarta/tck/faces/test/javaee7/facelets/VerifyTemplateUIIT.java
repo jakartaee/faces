@@ -60,6 +60,10 @@ public class VerifyTemplateUIIT {
         webClient.close();
     }
 
+    /**
+     * @see com.sun.faces.facelets.component.UIRepeat
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3243
+     */
     @Test
     public void testUL() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
