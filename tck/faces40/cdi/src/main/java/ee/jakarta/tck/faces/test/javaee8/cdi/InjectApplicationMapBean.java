@@ -31,6 +31,6 @@ public class InjectApplicationMapBean {
     public String getValue() {
         Map applicationMap = CDI.current().select(Map.class, ApplicationMap.Literal.INSTANCE).get();
 
-        return Boolean.toString(applicationMap.containsKey("ee.jakarta.tck.faces.config.WebConfiguration"));
+        return Boolean.toString(applicationMap.containsKey("jakarta.faces.BEANS_VALIDATION_AVAILABLE"));
     }
 }

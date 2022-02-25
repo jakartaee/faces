@@ -17,11 +17,11 @@
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import java.util.Map;
+
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.annotation.ApplicationMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import jakarta.faces.annotation.ApplicationMap;
 
 @Named(value = "injectApplicationMapBean")
 @RequestScoped
@@ -30,8 +30,8 @@ public class InjectApplicationMapBean {
     @ApplicationMap
     @Inject
     Map applicationMap;
-    
+
     public String getValue() {
-        return Boolean.toString(applicationMap.containsKey("ee.jakarta.tck.faces.config.WebConfiguration"));
+        return Boolean.toString(applicationMap.containsKey("jakarta.faces.BEANS_VALIDATION_AVAILABLE"));
     }
 }

@@ -32,6 +32,6 @@ public class InjectApplicationMap2Bean {
         @SuppressWarnings("unchecked")
         Map<String, Object> applicationMap = CDI.current().select(Map.class, ApplicationMap.Literal.INSTANCE).get();
 
-        return Boolean.toString(applicationMap.containsKey("ee.jakarta.tck.faces.config.WebConfiguration"));
+        return Boolean.toString(applicationMap.containsKey("jakarta.faces.BEANS_VALIDATION_AVAILABLE"));
     }
 }
