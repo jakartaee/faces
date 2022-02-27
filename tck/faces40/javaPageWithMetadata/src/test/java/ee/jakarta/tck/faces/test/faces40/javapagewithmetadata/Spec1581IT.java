@@ -35,7 +35,7 @@ import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import ee.jakarta.tck.faces.test.htmlunit.htmlunit.DebugOptions;
+import ee.jakarta.tck.faces.test.util.htmlunit.DebugOptions;
 
 import jakarta.faces.annotation.View;
 import jakarta.faces.view.ViewDeclarationLanguage;

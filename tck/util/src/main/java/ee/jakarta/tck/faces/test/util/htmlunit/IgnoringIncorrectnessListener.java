@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package ee.jakarta.tck.faces.test.htmlunit.htmlunit;
+package ee.jakarta.tck.faces.test.util.htmlunit;
 
 import com.gargoylesoftware.htmlunit.IncorrectnessListener;
 

@@ -38,7 +38,7 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import ee.jakarta.tck.faces.test.htmlunit.htmlunit.IgnoringIncorrectnessListener;
+import ee.jakarta.tck.faces.test.util.htmlunit.IgnoringIncorrectnessListener;
 
 import jakarta.faces.component.UIViewRoot;
 
