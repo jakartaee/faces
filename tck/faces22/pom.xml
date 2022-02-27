@@ -33,6 +33,7 @@
     <name>Mojarra ${project.version} - Test - Faces 2.2</name>
 
     <modules>
+        <module>ajax</module>
         <module>cdiBeanValidator</module>
         <module>cdiInitDestroyEvent</module>
         <module>cdiMethodValidation</module>
@@ -48,4 +49,13 @@
         <module>viewExpired</module>
         <module>viewParamNullValueAjax</module>
   </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.glassfish.mojarra.test</groupId>
+            <artifactId>util</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
