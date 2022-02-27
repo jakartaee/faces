@@ -45,10 +45,11 @@
         <module>facesConverter</module>
         <module>flash</module>
         <module>getViews</module>
-        <module>systemEvent</module>
-        <module>searchExpression</module>
+        <module>importConstants</module>
         <module>namespacedView</module>
         <module>passthrough</module>
+        <module>searchExpression</module>
+        <module>systemEvent</module>
         <module>validateWholeBean</module>
         <module>websocket</module>
         <module>xhtmlMappingToFaceletByDefault</module>
