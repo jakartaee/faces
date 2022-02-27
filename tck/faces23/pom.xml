@@ -43,6 +43,7 @@
         <module>faceletCacheFactory</module>
         <module>facelets</module>
         <module>facesConverter</module>
+        <module>flash</module>
         <module>getViews</module>
         <module>systemEvent</module>
         <module>searchExpression</module>
