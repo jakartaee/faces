@@ -88,7 +88,7 @@ public class Spec790WithNamespacedViewIT {
 
         HtmlSubmitInput form1Button = (HtmlSubmitInput) page.getHtmlElementById(namingContainerPrefix + "form1:button");
         page = form1Button.click();
-        webClient.waitForBackgroundJavaScript(60000);
+        webClient.waitForBackgroundJavaScript(3000);
         namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
         form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
         form1ViewState = (HtmlInput) form1.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
@@ -102,7 +102,7 @@ public class Spec790WithNamespacedViewIT {
 
         HtmlAnchor form2Link = (HtmlAnchor) page.getHtmlElementById(namingContainerPrefix + "form2:link");
         page = form2Link.click();
-        webClient.waitForBackgroundJavaScript(60000);
+        webClient.waitForBackgroundJavaScript(3000);
         namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
         form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
         form1ViewState = (HtmlInput) form1.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
@@ -116,7 +116,7 @@ public class Spec790WithNamespacedViewIT {
 
         HtmlAnchor form3Link = (HtmlAnchor) page.getHtmlElementById(namingContainerPrefix + "form3:link");
         page = form3Link.click();
-        webClient.waitForBackgroundJavaScript(60000);
+        webClient.waitForBackgroundJavaScript(3000);
         namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
         form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
         form1ViewState = (HtmlInput) form1.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
@@ -148,7 +148,7 @@ public class Spec790WithNamespacedViewIT {
 
         HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById(namingContainerPrefix + "form:button");
         page = button.click();
-        webClient.waitForBackgroundJavaScript(60000);
+        webClient.waitForBackgroundJavaScript(3000);
         
         namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
         HtmlForm form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
