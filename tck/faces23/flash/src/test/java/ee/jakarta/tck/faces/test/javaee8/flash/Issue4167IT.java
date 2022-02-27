@@ -34,7 +34,7 @@ public class Issue4167IT extends ITBase {
      */
     @Test
     public void test() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "issue4167.xhtml");
+        HtmlPage page = getPage("issue4167.xhtml");
 
         assertTrue(page.getHtmlElementById("result1").asNormalizedText().isEmpty());
         assertTrue(page.getHtmlElementById("result2").asNormalizedText().isEmpty());
