@@ -4,6 +4,7 @@ import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -16,6 +17,7 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.htmlunit.DebugOptions;
 import ee.jakarta.tck.faces.test.util.htmlunit.IgnoringIncorrectnessListener;
@@ -33,7 +35,7 @@ public abstract class ITBase {
                 .importFrom(new File("target/" + getProperty("finalName") + ".war"))
                 .as(WebArchive.class);
     }
-
+    
     @Before
     public void setUp() {
         webClient = new WebClient();
@@ -41,6 +43,10 @@ public abstract class ITBase {
         webClient.setJavaScriptTimeout(120000);
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());
         DebugOptions.setDebugOptions(webClient);
+    }
+
+    protected HtmlPage getPage(String viewId) throws IOException {
+        return webClient.getPage(webUrl + viewId);
     }
 
     @After
