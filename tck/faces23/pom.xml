@@ -49,6 +49,8 @@
         <module>importConstants</module>
         <module>namespacedView</module>
         <module>passthrough</module>
+        <module>refreshPeriodExplicit</module>
+        <module>refreshPeriodProduction</module>
         <module>searchExpression</module>
         <module>systemEvent</module>
         <module>uiinput</module>
