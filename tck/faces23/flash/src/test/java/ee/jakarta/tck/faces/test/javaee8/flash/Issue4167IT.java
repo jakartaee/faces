@@ -24,9 +24,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import jakarta.faces.context.Flash;
 
 public class Issue4167IT extends ITBase {
 
+    /**
+     * @see Flash#keep(String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4171
+     */
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4167.xhtml");
