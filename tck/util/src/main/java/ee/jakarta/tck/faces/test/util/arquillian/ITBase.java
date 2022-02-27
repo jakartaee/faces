@@ -1,0 +1,51 @@
+package ee.jakarta.tck.faces.test.util.arquillian;
+
+import static java.lang.System.getProperty;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+
+import java.io.File;
+import java.net.URL;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.importer.ZipImporter;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+
+import ee.jakarta.tck.faces.test.util.htmlunit.DebugOptions;
+import ee.jakarta.tck.faces.test.util.htmlunit.IgnoringIncorrectnessListener;
+
+@RunWith(Arquillian.class)
+public abstract class ITBase {
+
+    @ArquillianResource
+    protected URL webUrl;
+    protected WebClient webClient;
+
+    @Deployment(testable = false)
+    public static WebArchive createDeployment() {
+        return create(ZipImporter.class, getProperty("finalName") + ".war")
+                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
+                .as(WebArchive.class);
+    }
+
+    @Before
+    public void setUp() {
+        webClient = new WebClient();
+        webClient.getOptions().setJavaScriptEnabled(true);
+        webClient.setJavaScriptTimeout(120000);
+        webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());
+        DebugOptions.setDebugOptions(webClient);
+    }
+
+    @After
+    public void tearDown() {
+        webClient.close();
+    }
+
+}
