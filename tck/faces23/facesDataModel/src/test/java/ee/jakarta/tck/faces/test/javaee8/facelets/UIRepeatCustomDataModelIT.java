@@ -45,7 +45,6 @@ public class UIRepeatCustomDataModelIT extends ITBase {
         // handle a Child11, but these should NOT be picked up and the exact match
         // should be preferred.
         HtmlPage page = getPage("uirepeatCustomDataModel11.xhtml");
-        System.out.println(page.asXml());
         assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.asXml()));
     }
 
