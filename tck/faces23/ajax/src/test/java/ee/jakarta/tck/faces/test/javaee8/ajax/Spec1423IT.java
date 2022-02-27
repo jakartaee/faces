@@ -31,15 +31,14 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import ee.jakarta.tck.faces.test.util.htmlunit.IgnoringIncorrectnessListener;
 
+import ee.jakarta.tck.faces.test.util.htmlunit.IgnoringIncorrectnessListener;
 import jakarta.faces.component.UIViewRoot;
 
 @RunWith(Arquillian.class)
@@ -84,7 +83,6 @@ public class Spec1423IT {
     }
 
     @Test
-    @Ignore // Fails due to FacesInitializer#onStartup(classes) being empty in current GlassFish version -- TODO: remove once GlassFish is fixed
     public void testSpec1423() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1423.xhtml");
         HtmlSubmitInput button;
@@ -101,8 +99,6 @@ public class Spec1423IT {
         button = (HtmlSubmitInput) page.getHtmlElementById("form2:addViaInclude");
         page = button.click();
         webClient.waitForBackgroundJavaScript(60000);
-
-        System.out.println(page.asXml());
 
         assertTrue(page.getHtmlElementById("scriptResult").asNormalizedText().equals("addedViaInclude"));
         assertTrue(page.getHtmlElementById("stylesheetResult").asNormalizedText().equals("rgb(255, 0, 0)"));

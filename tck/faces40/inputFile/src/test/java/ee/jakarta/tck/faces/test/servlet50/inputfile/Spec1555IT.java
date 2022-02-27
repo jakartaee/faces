@@ -49,7 +49,6 @@ import com.gargoylesoftware.htmlunit.html.parser.neko.HtmlUnitNekoHtmlParser;
 
 import jakarta.faces.component.html.HtmlInputFile;
 
-@Ignore // Failing because request.getParameter() returns null for all params since jakarta.servlet-api:6.0.0 (worked fine in 5.0.0!) -- TODO remove once Servlet API or GlassFish is fixed 
 @RunWith(Arquillian.class)
 public class Spec1555IT {
 
@@ -119,7 +118,6 @@ public class Spec1555IT {
      * @see https://github.com/jakartaee/faces/issues/1555
      */
     @Test
-    @Ignore
     public void testMultipleSelectionNonAjax() throws Exception {
         testMultipleSelection("multipleSelectionFormNonAjax");
     }

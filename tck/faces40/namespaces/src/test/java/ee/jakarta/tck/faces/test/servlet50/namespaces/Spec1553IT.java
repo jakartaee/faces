@@ -89,7 +89,7 @@ public class Spec1553IT {
         assertEquals("http://xmlns.jcp.org/jsf/html works", "value", getValue(page.getElementById("h_jcp")));
         assertEquals("http://xmlns.jcp.org/jsf/passthrough works", "email", page.getElementById("p_jcp").getChildElements().iterator().next().getAttribute("type"));
         assertEquals("http://xmlns.jcp.org/jsf/composite works", "value", getValue(page.getElementById("cc_jcp")));
-//        assertEquals("http://xmlns.jcp.org/jsf/component works", "value", getValue(page.getElementById("comp_jcp")));
+        assertEquals("http://xmlns.jcp.org/jsf/component works", "value", getValue(page.getElementById("comp_jcp")));
         assertEquals("http://xmlns.jcp.org/jsp/jstl/core works", "value", getValue(page.getElementById("c_jcp")));
         assertEquals("http://xmlns.jcp.org/jsp/jstl/functions works", "value", getValue(page.getElementById("fn_jcp")));
 
@@ -99,24 +99,10 @@ public class Spec1553IT {
         assertEquals("jakarta.faces.html works", "value", getValue(page.getElementById("h_jakarta")));
         assertEquals("jakarta.faces.passthrough works", "email", page.getElementById("p_jakarta").getChildElements().iterator().next().getAttribute("type"));
         assertEquals("jakarta.faces.composite works", "value", getValue(page.getElementById("cc_jakarta")));
-//        assertEquals("jakarta.faces.component works", "value", getValue(page.getElementById("comp_jakarta")));
+        assertEquals("jakarta.faces.component works", "value", getValue(page.getElementById("comp_jakarta")));
         assertEquals("jakarta.tags.core works", "value", getValue(page.getElementById("c_jakarta")));
         assertEquals("jakarta.tags.functions works", "value", getValue(page.getElementById("fn_jakarta")));
 
-    }
-
-    /**
-     * @see Facelet
-     * @see Application#createComponent(String)
-     * @see https://github.com/jakartaee/faces/issues/1553
-     */
-    @Test
-    @Ignore // Fails due to FacesInitializer#onStartup(classes) being empty in current GlassFish version -- TODO: remove once GlassFish is fixed, see also outcomments above
-    public void testFacesComponent() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec1553IT.xhtml");
-
-        assertEquals("http://xmlns.jcp.org/jsf/component works", "value", getValue(page.getElementById("comp_jcp")));
-        assertEquals("jakarta.faces.component works", "value", getValue(page.getElementById("comp_jakarta")));
     }
 
     private static String getValue(DomElement element) {

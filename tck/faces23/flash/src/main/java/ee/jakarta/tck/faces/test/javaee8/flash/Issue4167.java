@@ -14,15 +14,24 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package ee.jakarta.tck.faces.test.javaee8.cdi;
+package ee.jakarta.tck.faces.test.javaee8.flash;
 
-import jakarta.faces.annotation.FacesConfig;
+import jakarta.enterprise.inject.Model;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.context.Flash;
 
-@FacesConfig(
-	// Activates CDI build-in beans that provide the injection this project tests for.
-    // Note that this project has explicitly no FacesServlet mapping in web.xml as well as no faces-config.xml file.
-    // In other words, this test also assures that FacesInitializer is able to rely on solely this @FacesConfig annotated bean.
-)
-public class ConfigurationBean {
+@Model
+public class Issue4167 {
 
+    public String keepAndRedirect() {
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("message", "issue4167");
+        return "issue4167?faces-redirect=true";
+    }
+    
+    public String keepAndGet() {
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        flash.keep("message");
+        return (String) flash.get("message");
+    }
+    
 }
