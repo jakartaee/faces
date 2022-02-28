@@ -65,6 +65,14 @@ public class Spec1582RequestParameterMapIT {
         webClient.close();
     }
 
+
+    /**
+     * Validate that the RequestParameterValuesMap is available as
+     * Map<String, String[]> using CDI.current using the 
+     * RequestParameterValuesMap.Literal.
+     * 
+     * See jakarta.faces.annotation.RequestParameterValuesMap.Literal.
+     */
     @Test
     public void testRequestParameterMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectRequestParameterMap.xhtml?foo=bar");

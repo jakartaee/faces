@@ -37,10 +37,6 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-/**
- * Tests the availability of the request map via CDI
- *
- */
 @RunWith(Arquillian.class)
 public class Spec1582RequestMapIT {
 
@@ -65,6 +61,12 @@ public class Spec1582RequestMapIT {
         webClient.close();
     }
 
+    /**
+     * Validate that the RequestMap is available as Map<String, Object> using
+     * CDI.current using the RequestMap.Literal.
+     * 
+     * See jakarta.faces.annotation.RequestMap.Literal.
+     */    
     @Test
     public void testRequestMap() throws Exception {
 
