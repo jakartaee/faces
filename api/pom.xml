@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
+    Copyright (c) 2022, 2022 Contributors to Eclipse Foundation.
     Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -107,7 +108,7 @@
     </mailingLists>
 
     <properties>
-        <mojarra.version>4.0.0-M5</mojarra.version>
+        <mojarra.version>4.0.0</mojarra.version>
     </properties>
 
     <dependencies>
@@ -276,7 +277,7 @@
             <!-- Restricts the Java version to 11 - API remains at Java 11 for now. -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.0</version>
+                <version>3.10.0</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
