@@ -243,9 +243,7 @@ testing requirements defined here, except the signature tests.
 
 *{techID}2* Some Conformance Tests may have properties that may be changed.
 Properties that can be changed are identified in the configuration
-interview. Properties that can be changed are identified in the JavaTest
-Environment (.jte) files in the Test Suite
-installation. Apart from changing such properties and other allowed
+interview.  Apart from changing such properties and other allowed
 modifications described in this User's Guide (if any), no source or
 binary code for a Conformance Test may be altered in any way without
 prior written permission. Any such allowed alterations to the
