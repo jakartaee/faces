@@ -40,6 +40,7 @@
         <module>cdiMultiTenantSetsTccl</module>
         <module>cdiNoBeansXml</module>
         <module>childCountTest</module>
+        <module>compositeComponent</module>
         <module>expressionLanguageLambda</module>
         <module>faceletsTemplate</module>
         <module>multiFieldValidation</module>
