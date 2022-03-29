@@ -92,35 +92,27 @@
                         <goals>
                             <goal>wget</goal>
                         </goals>
+                        <configuration>
+                            <skip>${skipITs}</skip>
+                            <url>${ant.zip.url}</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
                     </execution>
-                </executions>
-                <configuration>
-                    <skip>${skipITs}</skip>
-                    <url>${ant.zip.url}</url>
-                    <unpack>true</unpack>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <executions>
                     <execution>
                         <id>download-faces-tck</id>
                         <phase>generate-resources</phase>
                         <goals>
                             <goal>wget</goal>
                         </goals>
+                        <configuration>
+                            <url>${tck.faces.url}</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${maven.multiModuleProjectDirectory}</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <url>${tck.faces.url}</url>
-                    <unpack>true</unpack>
-                    <outputDirectory>${maven.multiModuleProjectDirectory}</outputDirectory>
-                </configuration>
             </plugin>
-
 
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
