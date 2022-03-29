@@ -21,8 +21,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.eclipse.ee4j.faces</groupId>
-        <artifactId>tck-pom</artifactId>
+        <groupId>org.eclipse.ee4j.faces.tck</groupId>
+        <artifactId>jakarta-faces-tck</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
 
