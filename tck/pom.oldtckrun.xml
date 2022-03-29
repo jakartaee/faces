@@ -101,7 +101,25 @@
                     <outputDirectory>${project.build.directory}</outputDirectory>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <executions>
+                    <execution>
+                        <id>download-faces-tck</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <url>${tck.faces.url}</url>
+                    <unpack>true</unpack>
+                    <outputDirectory>${maven.multiModuleProjectDirectory}</outputDirectory>
+                </configuration>
+            </plugin>
 
 
             <plugin>
@@ -121,24 +139,13 @@
                             <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
                     </execution>
-                    
-                    <!--execution>
-                        <id>unpack-tck</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeArtifactIds>jakarta-faces-tck</includeArtifactIds>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                        </configuration>
-                    </execution-->
-                    
+                                        
                 </executions>
             </plugin>
 
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.8</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.ant</groupId>
