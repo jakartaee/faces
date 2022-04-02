@@ -50,7 +50,7 @@
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <glassfish.version>7.0.0-M2</glassfish.version>
         <tomcat.version>9.0.12</tomcat.version>
-        <tck.faces.url>https://download.eclipse.org/ee4j/jakartaee-tck/jakartaee10/staged/eftl/jakarta-faces-tck-4.0.0.zip</tck.faces.url>
+        <!--tck.faces.url>https://download.eclipse.org/ee4j/jakartaee-tck/jakartaee10/staged/eftl/jakarta-faces-tck-4.0.0.zip</tck.faces.url-->
 
     </properties>
 
@@ -348,7 +348,7 @@
                 </configuration>
             </plugin>
 
-            <plugin>
+            <!--plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
                 <version>1.6.7</version>
@@ -366,6 +366,25 @@
                     <unpack>true</unpack>
                     <outputDirectory>${maven.multiModuleProjectDirectory}</outputDirectory>
                 </configuration>
+            </plugin-->
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <version>1.6.0</version>
+                <executions>
+                    <execution>
+                        <id>build-old-tck</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>faces-tck/docker/build_oldtck.sh</executable>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>

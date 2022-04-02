@@ -50,7 +50,7 @@ RMI_CLASSES="-Drmi.classes=$JAKARTA_JARS/glassfish-corba-omgapi.jar"
 
 TCK_SPECIFIC_PROPS="-Djsf.classes=$JAKARTA_JARS/jakarta.enterprise.cdi-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp.jstl-api.jar:$JAKARTA_JARS/jakarta.inject-api.jar:$JAKARTA_JARS/jakarta.faces-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp-api.jar:$JAKARTA_JARS/jakarta.servlet-api.jar:$JAKARTA_JARS/jakarta.el-api.jar:$JAKARTA_JARS/jakarta.annotation-api.jar:$JAKARTA_JARS/glassfish-corba-omgapi.jar"
 
-echo "########## Trunk.$TCK_NAME Started##########"
+echo "########## $TCK_NAME BUILD Started##########"
 ant -f $BASEDIR/install/$TCK_NAME/bin/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/install/$TCK_NAME/bin $RMI_CLASSES $TCK_SPECIFIC_PROPS  clean.all build.all.jars 
 
 ant -f $BASEDIR/install/$TCK_NAME/bin/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/install/$TCK_NAME/bin $RMI_CLASSES $TCK_SPECIFIC_PROPS  build.all 
@@ -58,22 +58,22 @@ ant -f $BASEDIR/install/$TCK_NAME/bin/build.xml -Ddeliverabledir=$TCK_NAME -Dbas
 mkdir -p $BASEDIR/internal/docs/$TCK_NAME
 cp $BASEDIR/internal/docs/dtd/*.dtd $BASEDIR/internal/docs/$TCK_NAME/
 ant -f $BASEDIR/release/tools/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/release/tools -Dskip.createbom="true" -Dskip.build="true" $TCK_SPECIFIC_PROPS $TCK_NAME
-echo "########## Trunk.$TCK_NAME Completed ##########"
+echo "########## $TCK_NAME BUILD Completed ##########"
 
 # Copy build to archive path
-mkdir -p ${WORKSPACE}/standalone-bundles/
-UPPER_TCK=`echo "${TCK_NAME}" | tr '[:lower:]' '[:upper:]'`
-cd ${WORKSPACE}/release/${UPPER_TCK}_BUILD/latest/
-for entry in `ls *.zip`; do
-  date=`echo "$entry" | cut -d_ -f2`
-  strippedEntry=`echo "$entry" | cut -d_ -f1`
-  if [ "$strippedEntry" == "excludelist" ]; then
-      strippedEntry=${strippedEntry}_`echo "$entry" | cut -d_ -f2`
-  fi
-  echo "copying ${WORKSPACE}/release/${UPPER_TCK}_BUILD/latest/$entry to ${WORKSPACE}/standalone-bundles/${strippedEntry}_latest.zip"
-  echo "copying ${WORKSPACE}/release/${UPPER_TCK}_BUILD/latest/$entry to ${WORKSPACE}/standalone-bundles/${strippedEntry}.zip"
-  cp ${WORKSPACE}/release/${UPPER_TCK}_BUILD/latest/$entry ${WORKSPACE}/standalone-bundles/${strippedEntry}.zip
-done
+# mkdir -p ${BASEDIR}/standalone-bundles/
+# UPPER_TCK=`echo "${TCK_NAME}" | tr '[:lower:]' '[:upper:]'`
+# cd ${BASEDIR}/release/${UPPER_TCK}_BUILD/latest/
+# for entry in `ls *.zip`; do
+#   date=`echo "$entry" | cut -d_ -f2`
+#   strippedEntry=`echo "$entry" | cut -d_ -f1`
+#   if [ "$strippedEntry" == "excludelist" ]; then
+#       strippedEntry=${strippedEntry}_`echo "$entry" | cut -d_ -f2`
+#   fi
+#   echo "copying ${BASEDIR}/release/${UPPER_TCK}_BUILD/latest/$entry to ${BASEDIR}/standalone-bundles/${strippedEntry}_latest.zip"
+#   echo "copying ${BASEDIR}/release/${UPPER_TCK}_BUILD/latest/$entry to ${BASEDIR}/standalone-bundles/${strippedEntry}.zip"
+#   cp ${BASEDIR}/release/${UPPER_TCK}_BUILD/latest/$entry ${BASEDIR}/standalone-bundles/${strippedEntry}.zip
+# done
 
 
 

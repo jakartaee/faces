@@ -31,6 +31,14 @@
             <directory>${project.basedir}/</directory>
             <excludes>
                 <exclude>**/target/**</exclude>
+                <exclude>faces-tck/**</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>${maven.multiModuleProjectDirectory}/faces-tck/release/JSF_BUILD/latest/faces-tck</directory>
+            <outputDirectory>faces-tck</outputDirectory>
+            <excludes>
+                <exclude>**/target/**</exclude>
             </excludes>
         </fileSet>
     </fileSets>
