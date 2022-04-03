@@ -33,7 +33,6 @@
         <mkdir dir="${deliverable.bundle.dir}/dist"/>
         <mkdir dir="${deliverable.bundle.dir}/lib/dtds"/>
         <mkdir dir="${deliverable.bundle.dir}/src"/>
-        <mkdir dir="${deliverable.bundle.dir}/weblib"/>
         <mkdir dir="${deliverable.bundle.dir}/src/com/sun/ts/lib/porting"/>
     </target>
     <target name="copyinstall">
@@ -170,6 +169,9 @@
         <!-- the com/sun/ts/lib/implementation/sun/common file -->
         <copy file="${ts.home}/src/com/sun/ts/lib/implementation/sun/common/SunRIURL.java"
               todir="${deliverable.bundle.dir}/src/com/sun/ts/lib/implementation/sun/common"/>
+
+        <copy file="${ts.home}/pom-bundle.xml"
+              tofile="${deliverable.bundle.dir}/pom.xml"/>
         <!--antcall target="mvn"/-->
         <!--
     	   <antcall target="create.doc.bundle"/>

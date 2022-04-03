@@ -37,9 +37,6 @@
         <fileSet>
             <directory>${maven.multiModuleProjectDirectory}/faces-tck/release/JSF_BUILD/latest/faces-tck</directory>
             <outputDirectory>faces-tck</outputDirectory>
-            <excludes>
-                <exclude>**/target/**</exclude>
-            </excludes>
         </fileSet>
     </fileSets>
 

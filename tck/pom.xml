@@ -256,6 +256,21 @@
 
         <plugins>
             <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>faces-tck/release/JSF_BUILD</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>3.0.0</version>
@@ -347,27 +362,6 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-
-            <!--plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <version>1.6.7</version>
-                <executions>
-                    <execution>
-                        <id>download-faces-tck</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <url>${tck.faces.url}</url>
-                    <unpack>true</unpack>
-                    <outputDirectory>${maven.multiModuleProjectDirectory}</outputDirectory>
-                </configuration>
-            </plugin-->
-
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -382,6 +376,9 @@
                         </goals>
                         <configuration>
                             <executable>faces-tck/docker/build_oldtck.sh</executable>
+                            <arguments>
+                                <argument>${maven.multiModuleProjectDirectory}/faces-tck</argument> 
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>

@@ -78,3 +78,5 @@ nbactions.xml
 Mojarra.iml
 *~
 
+**/JSF_BUILD/**
+**/i18n.properties

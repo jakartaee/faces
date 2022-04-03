@@ -29,7 +29,6 @@
           <mkdir dir="${deliverable.bundle.dir}/lib"/>
           <mkdir dir="${deliverable.bundle.dir}/src"/>
           <mkdir dir="${deliverable.bundle.dir}/bin/xml/other"/>
-          <mkdir dir="${deliverable.bundle.dir}/tmp"/>
           <mkdir dir="${deliverable.bundle.dir}/classes"/>
           <mkdir dir="${deliverable.bundle.dir}/dist"/>
 	</target>
