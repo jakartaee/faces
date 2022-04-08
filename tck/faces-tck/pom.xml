@@ -34,6 +34,7 @@
         <skipITs>false</skipITs>
         <tck.home>${maven.multiModuleProjectDirectory}/release/JSF_BUILD/latest/faces-tck</tck.home>
         <tck.tests.home>${tck.home}/src/com/sun/ts/tests/jsf</tck.tests.home>         
+        <tck.mode>standalone</tck.mode>         
         <glassfish.home>${project.build.directory}/glassfish7</glassfish.home>
         <glassfish.version>7.0.0-M2</glassfish.version>
         <glassfish.asadmin>${glassfish.home}/glassfish/bin/asadmin</glassfish.asadmin>
@@ -304,6 +305,22 @@
                                         match="@{key}=.*" replace="@{key}=@{value}" />
                                     </sequential>
                                 </macrodef>
+
+                                <if>
+                                    <equals arg1="${tck.mode}" arg2="platform" />
+                                    <then>
+                                        <copy file="${tck.home}/bin/ts.jtx.platform" tofile="${tck.home}/bin/ts.jtx" overwrite="true"  />
+                                    </then>
+                                    <elseif>
+                                        <equals arg1="${tck.mode}" arg2="standalone" />
+                                            <then>
+                                                <copy file="${tck.home}/bin/ts.jtx.standalone" tofile="${tck.home}/bin/ts.jtx" overwrite="true"  />
+                                            </then>
+                                    </elseif>
+                                    <else>
+                                        <echo message="The value of property ${tck.mode} should be set as standalone or platform " />
+                                    </else>
+                                </if>
 
                                 <!-- Change configuration -->
                                 <!--copy file="${tck.home}/bin/ts.jte.jdk11" tofile="${tck.home}/bin/ts.jte" overwrite="true"  /-->

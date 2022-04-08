@@ -96,7 +96,7 @@
         </copy>
          
                 <copy todir="${deliverable.bundle.dir}/bin" overwrite="true">
-                    <fileset dir="${ts.home}/install/${deliverable.dir}/bin" includes="ts.jtx"/>
+                    <fileset dir="${ts.home}/install/${deliverable.dir}/bin" includes="ts.jtx, ts.jtx.platform,ts.jtx.standalone"/>
                 </copy>
 
                 <copy todir="${deliverable.bundle.dir}/src" includeEmptyDirs="no">
