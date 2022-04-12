@@ -50,7 +50,7 @@
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <glassfish.version>7.0.0-M2</glassfish.version>
         <tomcat.version>9.0.12</tomcat.version>
-        <tck.faces.url>https://download.eclipse.org/ee4j/jakartaee-tck/jakartaee10/staged/eftl/jakarta-faces-tck-4.0.0.zip</tck.faces.url>
+        <!--tck.faces.url>https://download.eclipse.org/ee4j/jakartaee-tck/jakartaee10/staged/eftl/jakarta-faces-tck-4.0.0.zip</tck.faces.url-->
 
     </properties>
 
@@ -256,6 +256,21 @@
 
         <plugins>
             <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>faces-tck/release/JSF_BUILD</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>3.0.0</version>
@@ -347,25 +362,26 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-
             <plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <version>1.6.7</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>download-faces-tck</id>
-                        <phase>generate-resources</phase>
+                        <id>build-old-tck</id>
+                        <phase>generate-sources</phase>
                         <goals>
-                            <goal>wget</goal>
+                            <goal>exec</goal>
                         </goals>
+                        <configuration>
+                            <executable>faces-tck/docker/build_oldtck.sh</executable>
+                            <arguments>
+                                <argument>${maven.multiModuleProjectDirectory}/faces-tck</argument> 
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <url>${tck.faces.url}</url>
-                    <unpack>true</unpack>
-                    <outputDirectory>${maven.multiModuleProjectDirectory}</outputDirectory>
-                </configuration>
             </plugin>
 
             <plugin>
