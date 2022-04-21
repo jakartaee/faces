@@ -15,6 +15,7 @@
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 export WORKSPACE="$1"
+export ANT_HOME="$2"
 
 if [ -z "$WORKSPACE" ]; then
   export WORKSPACE=`pwd`
