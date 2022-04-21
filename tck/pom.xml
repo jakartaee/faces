@@ -42,7 +42,11 @@
     <properties>
         <java.min.version>11</java.min.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
+        <zipname>${project.artifactId}-${project.version}</zipname>
+        <licenseFile>${project.basedir}/LICENSE_EFTL.md</licenseFile>
+        <ant.version>1.10.2</ant.version>
+        <ant.home>${project.build.directory}/apache-ant-${ant.version}</ant.home>
+        <ant.zip.url>https://archive.apache.org/dist/ant/binaries/apache-ant-${ant.version}-bin.zip</ant.zip.url>
         <faces.version>${project.version}</faces.version>
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
@@ -362,6 +366,29 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <version>1.6.7</version>
+                <executions>
+                    <execution>
+                        <id>download-ant</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skipITs}</skip>
+                            <url>${ant.zip.url}</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>                    
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -378,7 +405,19 @@
                             <executable>faces-tck/docker/build_oldtck.sh</executable>
                             <arguments>
                                 <argument>${maven.multiModuleProjectDirectory}/faces-tck</argument> 
+                                <argument>${ant.home}</argument> 
                             </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>build-userguide</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <workingDirectory>${maven.multiModuleProjectDirectory}/docs/userguide</workingDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -395,6 +434,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                            <finalName>${zipname}</finalName>
                             <attach>true</attach>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
@@ -428,6 +468,16 @@
 
     <profiles>
     
+        <profile>
+            <id>build-epl-tck</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <zipname>faces-tck-${project.version}</zipname>
+                <licenseFile>${project.basedir}/LICENSE.md</licenseFile>
+            </properties>
+        </profile>
     
         <profile>
             <id>custom</id>

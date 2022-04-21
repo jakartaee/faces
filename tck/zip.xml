@@ -26,17 +26,43 @@
         <format>zip</format>
     </formats>
 
+        
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}/</directory>
+            <directory>${maven.multiModuleProjectDirectory}/</directory>
+            <includes>
+                <include>faces-signaturetest/**</include>
+                <include>faces23/**</include>
+                <include>faces22/**</include>
+                <include>faces40/**</include>
+                <include>util/**</include>
+                <include>README.md</include>
+                <include>pom.xml</include>
+                <include>${licenseFile}</include>
+            </includes>
             <excludes>
                 <exclude>**/target/**</exclude>
                 <exclude>faces-tck/**</exclude>
+                <exclude>docs/**</exclude>
+                <exclude>zip.xml</exclude>
             </excludes>
         </fileSet>
         <fileSet>
             <directory>${maven.multiModuleProjectDirectory}/faces-tck/release/JSF_BUILD/latest/faces-tck</directory>
             <outputDirectory>faces-tck</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>${project.basedir}/docs</directory>
+            <excludes>
+                <exclude>**/src/**</exclude>
+                <exclude>**/pom.xml</exclude>
+            </excludes>
+            <includes>
+                <include>assertions/**</include>
+                <include>*.*</include>
+                <include>**/generated-docs/**</include>
+                <include>**/staging/**</include>
+            </includes>
         </fileSet>
     </fileSets>
 
