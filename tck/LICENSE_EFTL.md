@@ -1,6 +1,6 @@
 # Eclipse Foundation Technology Compatibility Kit License - v 1.0
 
-Copyright (c) 2018, Eclipse Foundation, Inc. and its licensors.
+Copyright (c) 2022, Eclipse Foundation, Inc. and its licensors.
 
 Redistribution and use in binary form is permitted provided that the
 following conditions are met:
