@@ -112,7 +112,7 @@ public class TestServlet extends BaseComponentTestServlet {
     FacesContext facesContext = getFacesContext();
     UIInput input = (UIInput) createComponent();
     UIViewRoot root = facesContext.getApplication().getViewHandler()
-        .createView(facesContext, "/root");
+        .createView(facesContext, "/root.xhtml");
     root.getChildren().add(input);
     ValueChangeEvent event = new ValueChangeEvent(input, null, null);
     event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
@@ -363,7 +363,7 @@ public class TestServlet extends BaseComponentTestServlet {
     UIInput input = (UIInput) createComponent();
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -402,7 +402,7 @@ public class TestServlet extends BaseComponentTestServlet {
     UIInput input = (UIInput) createComponent();
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -476,7 +476,7 @@ public class TestServlet extends BaseComponentTestServlet {
     UIInput input = (UIInput) createComponent();
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -537,7 +537,7 @@ public class TestServlet extends BaseComponentTestServlet {
     UIInput input = (UIInput) createComponent();
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -607,7 +607,7 @@ public class TestServlet extends BaseComponentTestServlet {
     UIInput input = (UIInput) createComponent();
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -676,7 +676,7 @@ public class TestServlet extends BaseComponentTestServlet {
     input.setRendererType(null);
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -723,7 +723,7 @@ public class TestServlet extends BaseComponentTestServlet {
     input.setRendererType(null);
     FacesContext context = getFacesContext();
     Application application = getApplication();
-    UIViewRoot root = application.getViewHandler().createView(context, "/root");
+    UIViewRoot root = application.getViewHandler().createView(context, "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 

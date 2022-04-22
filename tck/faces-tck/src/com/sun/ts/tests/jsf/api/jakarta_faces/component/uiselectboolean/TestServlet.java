@@ -133,7 +133,7 @@ public class TestServlet
     UIInput input = (UIInput) createComponent();
     input.setRendererType(null);
     UIViewRoot root = facesContext.getApplication().getViewHandler()
-        .createView(facesContext, "/root");
+        .createView(facesContext, "/root.xhtml");
     root.getChildren().add(input);
     ValueChangeEvent event = new ValueChangeEvent(input, null, null);
     event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
@@ -216,7 +216,7 @@ public class TestServlet
     UIInput input = (UIInput) createComponent();
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -277,7 +277,7 @@ public class TestServlet
     UIInput input = (UIInput) createComponent();
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -347,7 +347,7 @@ public class TestServlet
     UIInput input = (UIInput) createComponent();
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
