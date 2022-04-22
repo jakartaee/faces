@@ -219,6 +219,11 @@ public abstract class HttpTCKServlet extends HttpServlet {
       // Set up references to the application and facesContext objects
       application = facesContext.getApplication();
       facesContext.setViewRoot(createViewRoot());
+
+      // Set up RenderKit
+      String renderKitId = facesContext.getApplication().getViewHandler().calculateRenderKitId(facesContext);
+      facesContext.getViewRoot().setRenderKitId(renderKitId);
+
     } else {
       throw new IllegalStateException(
           "Unable to obtain FacesContextFactory instance.");
