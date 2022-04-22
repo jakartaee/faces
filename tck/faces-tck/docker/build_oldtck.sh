@@ -14,14 +14,17 @@
 #
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
-export WORKSPACE="$1"
+export BASEDIR="$1"
 export ANT_HOME="$2"
 
-if [ -z "$WORKSPACE" ]; then
-  export WORKSPACE=`pwd`
+if [ -z "$BASEDIR" ]; then
+  export BASEDIR=`pwd`
 fi
 
-export BASEDIR=${WORKSPACE}
+if [ -z "$ANT_HOME" ]; then
+  export ANT_HOME=`pwd`
+fi
+
 
 if [ -z "$JAKARTA_JARS" ]; then
   export JAKARTA_JARS=$BASEDIR/lib

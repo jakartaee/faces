@@ -74,7 +74,7 @@
 		<copy todir="${deliverable.bundle.dir}/lib" 
                       includeEmptyDirs="no">
 			<fileset dir="${ts.home}/lib" includes="ant_sun.jar, 
-                        ant-contrib-1.0b3.jar, javatest.jar, tsharness.jar, 
+                        ant-contrib-1.0b3.jar, javatest.jar, tsharness.jar, httpclient-4.5.5.jar,
                         apiCheck.jar,
                         *-license"/>
 		</copy>

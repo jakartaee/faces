@@ -119,6 +119,7 @@
             <fileset dir="${ts.home}/lib"
                      includes="tsharness.jar,
                      jsftck.jar,
+                     httpclient-4.5.5.jar,
                      javatest.jar"/>
         </copy>
         
