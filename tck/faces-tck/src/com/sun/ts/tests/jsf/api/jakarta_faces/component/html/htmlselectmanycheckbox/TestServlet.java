@@ -89,7 +89,7 @@ public final class TestServlet extends
     UIInput input = (UIInput) createComponent();
     input.setRendererType(null);
     UIViewRoot root = facesContext.getApplication().getViewHandler()
-        .createView(facesContext, "/root");
+        .createView(facesContext, "/root.xhtml");
     root.getChildren().add(input);
     ValueChangeEvent event = new ValueChangeEvent(input, null, null);
     event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);

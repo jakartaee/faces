@@ -100,7 +100,7 @@ public final class TestServlet extends HttpTCKServlet {
   public void viewHandlerCreateViewTest(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
-    String viewId = "/viewId";
+    String viewId = "/viewId.xhtml";
     UIViewRoot root = getApplication().getViewHandler()
         .createView(getFacesContext(), viewId);
     if (root == null) {
@@ -123,7 +123,7 @@ public final class TestServlet extends HttpTCKServlet {
 
     getFacesContext().setViewRoot(root);
 
-    String newViewId = "/newViewId";
+    String newViewId = "/newViewId.xhtml";
 
     UIViewRoot root2 = getApplication().getViewHandler()
         .createView(getFacesContext(), newViewId);
@@ -273,7 +273,7 @@ public final class TestServlet extends HttpTCKServlet {
 
     JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
         "createView", new Class<?>[] { FacesContext.class, String.class },
-        new Object[] { null, "/viewId" }, out);
+        new Object[] { null, "/viewId.xhtml" }, out);
   }
 
   // ViewHandler.calculateRenderKitId(FacesContext) throws

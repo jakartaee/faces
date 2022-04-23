@@ -94,7 +94,7 @@ public class TestServlet
     input.getChildren().add(item2);
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -161,7 +161,7 @@ public class TestServlet
     input.getChildren().add(item2);
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -237,7 +237,7 @@ public class TestServlet
     input.getChildren().add(item2);
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -312,7 +312,7 @@ public class TestServlet
     input.getChildren().add(item2);
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -366,7 +366,7 @@ public class TestServlet
     input.getChildren().add(item2);
     FacesContext context = getFacesContext();
     Application application = getApplication();
-    UIViewRoot root = application.getViewHandler().createView(context, "/root");
+    UIViewRoot root = application.getViewHandler().createView(context, "/root.xhtml");
     context.setViewRoot(root);
     root.getChildren().add(input);
 
@@ -427,7 +427,7 @@ public class TestServlet
     input.getChildren().add(item2);
     FacesContext context = getFacesContext();
     UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root");
+        "/root.xhtml");
     root.getChildren().add(input);
 
     // if the item selected doens't match the list of
