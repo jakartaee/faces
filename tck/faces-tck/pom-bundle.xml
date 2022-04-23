@@ -164,11 +164,11 @@
                                 <artifactId>htmlunit-core-js</artifactId>
                                 <version>2.15</version>
                             </artifactItem>
-                            <artifactItem>
+                            <!--artifactItem>
                                 <groupId>org.apache.httpcomponents</groupId>
                                 <artifactId>httpclient</artifactId>
                                 <version>4.5.5</version>
-                            </artifactItem>
+                            </artifactItem-->
                             <artifactItem>
                                 <groupId>org.apache.httpcomponents</groupId>
                                 <artifactId>httpcore</artifactId>
