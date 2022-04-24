@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2020 Contributors to Eclipse Foundation.
+ * Copyright (c) 2022 Contributors to Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -40,7 +40,7 @@ public class Issue5078IT extends ITBase {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5078
      */
     @Test
-    public void testUIRepeatResetValues() throws Exception {
+    public void testUIRepeatVisitTreeDuringInvokeApplication() throws Exception {
         HtmlPage page = getPage("faces/issue5078.xhtml");
         HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:repeat:1:button");
         page = button.click();

@@ -93,7 +93,7 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.faces</artifactId>
-            <version>4.0.0-M6</version>
+            <version>4.0.0-SNAPSHOT</version>
         </dependency>
     
         <!--  
@@ -547,7 +547,7 @@
                                         <artifactItem>
                                             <groupId>org.glassfish</groupId>
                                             <artifactId>jakarta.faces</artifactId>
-                                            <version>4.0.0-M6</version>
+                                            <version>4.0.0-SNAPSHOT</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
                                             <outputDirectory>${glassfish.root}/glassfish7/glassfish/modules</outputDirectory>

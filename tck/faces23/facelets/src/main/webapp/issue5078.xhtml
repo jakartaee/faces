@@ -30,7 +30,7 @@
         <h:form id="form">
             <ui:repeat id="repeat" value="#{collectionBean.collection}" var="value">
                 <h:outputText value="#{value} " />
-                <h:commandButton id="button" value="button" action="#{collectionBean.setValue(value)}">
+                <h:commandButton id="button" value="button" actionListener="#{collectionBean.performVisitTree()}" action="#{collectionBean.setValue(value)}">
                     <f:ajax execute="@this" render="@form" />
                 </h:commandButton>
             </ui:repeat>
