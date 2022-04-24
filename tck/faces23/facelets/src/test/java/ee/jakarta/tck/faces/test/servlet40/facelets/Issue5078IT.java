@@ -42,7 +42,6 @@ public class Issue5078IT extends ITBase {
     @Test
     public void testUIRepeatResetValues() throws Exception {
         HtmlPage page = getPage("faces/issue5078.xhtml");
-        System.out.println(page.asXml());
         HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:repeat:1:button");
         page = button.click();
         webClient.waitForBackgroundJavaScript(60000);
