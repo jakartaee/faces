@@ -30,8 +30,18 @@ import jakarta.inject.Named;
 @RequestScoped
 public class CollectionBean {
 
+    private Integer value;
+    
     public Collection<Integer> getCollection() {
         return new TestCollection<>(asList(1, 2, 3));
+    }
+    
+    public Integer getValue() {
+        return value;
+    }
+    
+    public void setValue(Integer value) {
+        this.value = value;
     }
 
     private static class TestCollection<E> extends AbstractCollection<E> {
