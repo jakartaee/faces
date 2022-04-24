@@ -35,6 +35,7 @@ import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 import jakarta.faces.FactoryFinder;
 import jakarta.faces.application.Application;
 import jakarta.faces.application.ViewHandler;
+import jakarta.faces.application.ViewHandlerWrapper;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
@@ -172,11 +173,11 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "renderView", new Class<?>[] { FacesContext.class, UIViewRoot.class },
         new Object[] { null, new UIViewRoot() }, out);
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "renderView", new Class<?>[] { FacesContext.class, UIViewRoot.class },
         new Object[] { getFacesContext(), null }, out);
   }
@@ -261,7 +262,7 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "calculateLocale", new Class<?>[] { FacesContext.class },
         new Object[] { null }, out);
   }
@@ -271,7 +272,7 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "createView", new Class<?>[] { FacesContext.class, String.class },
         new Object[] { null, "/viewId.xhtml" }, out);
   }
@@ -282,7 +283,7 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "calculateRenderKitId", new Class<?>[] { FacesContext.class },
         new Object[] { null }, out);
   }
@@ -293,11 +294,11 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "getResourceURL", new Class<?>[] { FacesContext.class, String.class },
         new Object[] { null, "testString" }, out);
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "getResourceURL", new Class<?>[] { FacesContext.class, String.class },
         new Object[] { getFacesContext(), null }, out);
   }
@@ -308,11 +309,11 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "getActionURL", new Class<?>[] { FacesContext.class, String.class },
         new Object[] { null, "testString" }, out);
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "getActionURL", new Class<?>[] { FacesContext.class, String.class },
         new Object[] { getFacesContext(), null }, out);
   }
@@ -322,7 +323,7 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "restoreView", new Class<?>[] { FacesContext.class, String.class },
         new Object[] { null, "testString" }, out);
   }
@@ -332,7 +333,7 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(getApplication().getViewHandler().getClass(),
+    JSFTestUtil.checkForNPE(((ViewHandlerWrapper)getApplication().getViewHandler()).getWrapped().getClass(),
         "writeState", new Class<?>[] { FacesContext.class },
         new Object[] { null }, out);
   }
