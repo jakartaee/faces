@@ -1287,7 +1287,7 @@ public abstract class BaseUIComponentTestServlet
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
     UIViewRoot root = getFacesContext().getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
     root.setId("root");
     UIComponent comp = createComponent();
     root.getChildren().add(comp);
@@ -1308,7 +1308,7 @@ public abstract class BaseUIComponentTestServlet
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
     UIViewRoot root = getFacesContext().getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
     root.setId("root");
     UIComponent comp = createComponent();
     root.getChildren().add(comp);
@@ -1331,7 +1331,7 @@ public abstract class BaseUIComponentTestServlet
     String expectedId = "myComp";
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -1364,7 +1364,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -1400,7 +1400,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -1434,7 +1434,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -1472,7 +1472,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -1506,7 +1506,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -1534,7 +1534,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -3430,7 +3430,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -3489,7 +3489,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -3544,7 +3544,7 @@ public abstract class BaseUIComponentTestServlet
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -3662,7 +3662,7 @@ public abstract class BaseUIComponentTestServlet
     PrintWriter out = response.getWriter();
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -3808,7 +3808,7 @@ public abstract class BaseUIComponentTestServlet
     String testId = "comp";
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -3852,7 +3852,7 @@ public abstract class BaseUIComponentTestServlet
     String testId = "comp";
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
 
     ResponseWriter rw = new TCKResponseWriter();
     context.setResponseWriter(rw);
@@ -4533,7 +4533,7 @@ public abstract class BaseUIComponentTestServlet
     PrintWriter out = response.getWriter();
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    root.setViewId("/test");
+    root.setViewId("/test.xhtml");
     root.setId("root");
     UIComponent comp = createComponent();
     root.getChildren().add(comp);

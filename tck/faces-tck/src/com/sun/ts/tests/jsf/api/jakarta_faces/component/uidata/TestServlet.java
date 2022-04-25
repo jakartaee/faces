@@ -671,7 +671,7 @@ public class TestServlet extends BaseComponentTestServlet {
     // build component tree
     UIViewRoot viewRoot = new UIViewRoot();
     viewRoot.setRenderKitId(RenderKitFactory.HTML_BASIC_RENDER_KIT);
-    viewRoot.setViewId("/view");
+    viewRoot.setViewId("/view.xhtml");
     getFacesContext().setViewRoot(viewRoot);
 
     UIForm form1 = new UIForm();
@@ -775,7 +775,7 @@ public class TestServlet extends BaseComponentTestServlet {
     // build component tree
     UIViewRoot viewRoot = new UIViewRoot();
     viewRoot.setRenderKitId(RenderKitFactory.HTML_BASIC_RENDER_KIT);
-    viewRoot.setViewId("/view");
+    viewRoot.setViewId("/view.xhtml");
     getFacesContext().setViewRoot(viewRoot);
 
     UIForm form1 = new UIForm();
@@ -874,7 +874,7 @@ public class TestServlet extends BaseComponentTestServlet {
     // build component tree
     UIViewRoot viewRoot = new UIViewRoot();
     viewRoot.setRenderKitId(RenderKitFactory.HTML_BASIC_RENDER_KIT);
-    viewRoot.setViewId("/view");
+    viewRoot.setViewId("/view.xhtml");
     getFacesContext().setViewRoot(viewRoot);
 
     UIForm form1 = new UIForm();

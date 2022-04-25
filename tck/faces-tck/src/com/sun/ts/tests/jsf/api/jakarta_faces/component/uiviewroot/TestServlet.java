@@ -294,7 +294,7 @@ public final class TestServlet extends BaseComponentTestServlet {
 
     FacesContext context = getFacesContext();
     UIViewRoot root = context.getViewRoot();
-    String myId = "myId";
+    String myId = "myId.xhtml";
 
     root.setViewId(myId);
     String result = root.getViewId();
