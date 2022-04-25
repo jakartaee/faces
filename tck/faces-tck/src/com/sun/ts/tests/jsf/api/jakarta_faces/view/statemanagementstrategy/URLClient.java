@@ -57,20 +57,7 @@ public class URLClient extends AbstractUrlClient {
    * @since 2.2
    */
   public void stateMgmtStrategyNonNullTest() throws Fault {
-    TEST_PROPS.setProperty(APITEST, "stateMgmtStratNullForJSPTest");
-    invoke();
-  }
-
-  /**
-   * @testName: stateMgmtStratNullForJSPTest
-   * @assertion_ids: JSF:JAVADOC:2243
-   * @test_Strategy: Validate that StateManagementStrategy is null for JSP
-   *                 views.
-   * 
-   * @since 2.2
-   */
-  public void stateMgmtStratNullForJSPTest() throws Fault {
-    TEST_PROPS.setProperty(APITEST, "stateMgmtStratNullForJSPTest");
+    TEST_PROPS.setProperty(APITEST, "stateMgmtStrategyNonNullTest");
     invoke();
   }
 
