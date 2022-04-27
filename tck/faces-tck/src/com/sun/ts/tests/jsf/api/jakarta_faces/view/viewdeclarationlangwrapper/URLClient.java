@@ -51,37 +51,6 @@ public class URLClient extends AbstractUrlClient {
   // methods
 
   /**
-   * @testName: vdlWrapperGetComponentMetadataUSOETest
-   * 
-   * @assertion_ids: JSF:JAVADOC:2610
-   * 
-   * @test_Strategy: Validate that getComponentMetadata throws an
-   *                 UnsupportedOperationException if in the JSP VDL.
-   * 
-   * @since 2.1
-   */
-  public void vdlWrapperGetComponentMetadataUSOETest() throws Fault {
-    TEST_PROPS.setProperty(APITEST, "vdlWrapperGetComponentMetadataUSOETest");
-    invoke();
-  }
-
-  /**
-   * @testName: vdlWrapperGetScriptComponentResourceUSOETest
-   * 
-   * @assertion_ids: JSF:JAVADOC:2615
-   * 
-   * @test_Strategy: Validate that getScriptComponentResource throws an
-   *                 UnsupportedOperationException if in the JSP VDL.
-   * 
-   * @since 2.1
-   */
-  public void vdlWrapperGetScriptComponentResourceUSOETest() throws Fault {
-    TEST_PROPS.setProperty(APITEST,
-        "vdlWrapperGetScriptComponentResourceUSOETest");
-    invoke();
-  }
-
-  /**
    * @testName: vdlWrapperGetComponentMetadataNPETest
    * 
    * @assertion_ids: JSF:JAVADOC:2608
