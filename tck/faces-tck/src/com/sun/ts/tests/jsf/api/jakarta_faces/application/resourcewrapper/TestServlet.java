@@ -45,7 +45,7 @@ public class TestServlet extends HttpTCKServlet {
 
   private static final String LIBRARY_NAME = "images";
 
-  private static final String RESOURCE_PATH = "/jsf_appl_resourcewrapper_web/TestServlet/jakarta.faces.resource/"
+  private static final String RESOURCE_PATH = "/jsf_appl_resourcewrapper_web/faces/jakarta.faces.resource/"
       + RESOURCE_NAME;
 
   public void init(ServletConfig config) throws ServletException {

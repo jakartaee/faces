@@ -214,7 +214,7 @@ public class TestServlet extends HttpTCKServlet {
     // create the resource
     Resource resource = handler.createResource(RESOURCE_NAME);
 
-    String expected = "/jsf_appl_resource_web/TestServlet/"
+    String expected = "/jsf_appl_resource_web/faces/"
         + "jakarta.faces.resource/" + RESOURCE_NAME;
 
     if (!expected.equals(resource.getRequestPath())) {
@@ -242,7 +242,7 @@ public class TestServlet extends HttpTCKServlet {
     // create the resource.
     Resource resource = handler.createResource(RESOURCE_NAME, LIBRARY_NAME);
 
-    String expected = "/jsf_appl_resource_web/TestServlet/"
+    String expected = "/jsf_appl_resource_web/faces/"
         + "jakarta.faces.resource/" + RESOURCE_NAME + "?ln=" + LIBRARY_NAME;
 
     if (!expected.equals(resource.getRequestPath())) {
@@ -301,7 +301,7 @@ public class TestServlet extends HttpTCKServlet {
 
     // create the resource & set expected test result.
     Resource resource = handler.createResource(RESOURCE_NAME);
-    String expected = "/jsf_appl_resource_web/TestServlet/"
+    String expected = "/jsf_appl_resource_web/faces/"
         + "jakarta.faces.resource/" + RESOURCE_NAME;
 
     if (!expected.equals(resource.toString())) {
