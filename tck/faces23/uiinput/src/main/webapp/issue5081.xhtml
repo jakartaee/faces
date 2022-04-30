@@ -29,10 +29,10 @@
     <h:body>
         <h:outputText id="INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL" value="#{initParam['jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL']}" />
         <h:form id="form">
-        	<h:selectManyCheckbox id="selectmany" required="true">
-        		<f:selectItem itemValue="one" />
+            <h:selectManyCheckbox id="selectmany" required="true">
+                <f:selectItem itemValue="one" />
                 <f:selectItem itemValue="two" />
-        	</h:selectManyCheckbox>
+            </h:selectManyCheckbox>
             <h:message for="selectmany" id="message_for_selectmany" />
             <h:inputText id="input">
                 <f:ajax execute="@this" render="selectmany" />
