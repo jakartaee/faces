@@ -38,6 +38,7 @@
         <glassfish.home>${project.build.directory}/glassfish7</glassfish.home>
         <glassfish.version>7.0.0-M4</glassfish.version>
         <glassfish.asadmin>${glassfish.home}/glassfish/bin/asadmin</glassfish.asadmin>
+        <mojarra.version>4.0.0-M7</mojarra.version>
        
         <jacoco.includes>org/glassfish/**\:com/sun/enterprise/**</jacoco.includes>
         
@@ -151,6 +152,26 @@
                         <configuration>
                             <includeArtifactIds>glassfish</includeArtifactIds>
                             <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.glassfish</groupId>
+                                    <artifactId>jakarta.faces</artifactId>
+                                    <version>${mojarra.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/glassfish7/glassfish/modules</outputDirectory>
+                                    <destFileName>jakarta.faces.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
                         </configuration>
                     </execution>
                     <execution>
