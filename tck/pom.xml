@@ -50,9 +50,12 @@
         <faces.version>${project.version}</faces.version>
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
+        
+        <mojarra.version>4.0.0-SNAPSHOT</mojarra.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <glassfish.version>7.0.0-M4</glassfish.version>
+        
         <tomcat.version>9.0.12</tomcat.version>
         <!--tck.faces.url>https://download.eclipse.org/ee4j/jakartaee-tck/jakartaee10/staged/eftl/jakarta-faces-tck-4.0.0.zip</tck.faces.url-->
 
@@ -495,8 +498,7 @@
 
             <properties>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
-                <!-- Set this to the Mojarra version that's being certified using -Dmojarra.update.version= -->
-                <mojarra.update.version>4.0.0-SNAPSHOT</mojarra.update.version>
+                <!-- Set to the Mojarra version that's being certified using -Dmojarra.version= -->
             </properties>
 
             <dependencies>
@@ -547,7 +549,7 @@
                                         <artifactItem>
                                             <groupId>org.glassfish</groupId>
                                             <artifactId>jakarta.faces</artifactId>
-                                            <version>${mojarra.update.version}</version>
+                                            <version>${mojarra.version}</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
                                             <outputDirectory>${glassfish.root}/glassfish7/glassfish/modules</outputDirectory>
