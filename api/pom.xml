@@ -38,7 +38,7 @@
 
     <groupId>jakarta.faces</groupId>
     <artifactId>jakarta.faces-api</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.0.0-M7</version>
 
     <name>Jakarta Faces</name>
     <description>
@@ -108,7 +108,7 @@
     </mailingLists>
 
     <properties>
-        <mojarra.version>4.0.0</mojarra.version>
+        <mojarra.version>4.0.0-M7</mojarra.version>
     </properties>
 
     <dependencies>
