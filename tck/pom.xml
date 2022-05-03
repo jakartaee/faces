@@ -54,6 +54,7 @@
         
         <mojarra.version>4.0.0-SNAPSHOT</mojarra.version>
         <skipOldTCK>false</skipOldTCK>
+        <skipAssembly>false</skipAssembly>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <glassfish.version>7.0.0-M4</glassfish.version>
@@ -440,6 +441,7 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
+                        	<skip>${skipAssembly}</skip>
                             <finalName>${zipname}</finalName>
                             <attach>true</attach>
                             <appendAssemblyId>false</appendAssemblyId>
