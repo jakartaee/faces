@@ -18,7 +18,7 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
@@ -38,6 +38,7 @@
         <module>faces22</module>
         <module>faces23</module>
         <module>faces40</module>
+        <module>old-tck</module>
     </modules>
 
     <properties>
@@ -60,17 +61,7 @@
         <glassfish.version>7.0.0-M4</glassfish.version>
         
         <tomcat.version>9.0.12</tomcat.version>
-        <!--tck.faces.url>https://download.eclipse.org/ee4j/jakartaee-tck/jakartaee10/staged/eftl/jakarta-faces-tck-4.0.0.zip</tck.faces.url-->
-
     </properties>
-
-    <repositories>
-        <repository>
-            <id>jakarta-staging</id>
-            <snapshots />
-            <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
-        </repository>
-    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -94,12 +85,11 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.faces</artifactId>
-            <version>4.0.0-M6</version>
+            <version>4.0.0-M7</version>
         </dependency>
     
         <dependency>
@@ -139,7 +129,7 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.0.0.Beta3</version>
+            <version>4.0.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -238,6 +228,14 @@
         </dependency>
     </dependencies>
 
+    <repositories>
+        <repository>
+            <id>jakarta-staging</id>
+            <snapshots />
+            <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
+        </repository>
+    </repositories>
+
     <build>
         <finalName>${project.artifactId}</finalName>
         <testResources>
@@ -246,7 +244,6 @@
                 <filtering>true</filtering>
             </testResource>
         </testResources>
-
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -261,7 +258,6 @@
                 </plugin>
             </plugins>
         </pluginManagement>
-
         <plugins>
             <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
@@ -269,7 +265,7 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>faces-tck/release/JSF_BUILD</directory>
+                            <directory>old-tck/source/release/JSF_BUILD</directory>
                             <includes>
                                 <include>**</include>
                             </includes>
@@ -308,22 +304,6 @@
                     <source>${java.min.version}</source>
                     <target>${java.min.version}</target>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <trimStackTrace>false</trimStackTrace>
-                    <argLine>-XX:+ShowCodeDetailsInExceptionMessages</argLine>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>javax.annotation</groupId>
-                        <artifactId>javax.annotation-api</artifactId>
-                        <version>1.3.2</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -391,21 +371,6 @@
                 <version>1.6.0</version>
                 <executions>
                     <execution>
-                        <id>build-old-tck</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipOldTCK}</skip>
-                            <executable>faces-tck/docker/build_oldtck.sh</executable>
-                            <arguments>
-                                <argument>${maven.multiModuleProjectDirectory}/faces-tck</argument> 
-                                <argument>${ant.home}</argument> 
-                            </arguments>
-                        </configuration>
-                    </execution>
-                    <execution>
                         <id>build-userguide</id>
                         <phase>generate-sources</phase>
                         <goals>
@@ -417,7 +382,6 @@
                             <workingDirectory>${maven.multiModuleProjectDirectory}/docs/userguide</workingDirectory>
                         </configuration>
                     </execution>
-                    
                 </executions>
             </plugin>
 
@@ -476,11 +440,6 @@
 		</plugins>
 	</reporting>
 
-
-
-    <!-- Profiles for the application servers against which the tests are run -->
-
-
     <profiles>
     
         <profile>
@@ -496,10 +455,12 @@
     
         <profile>
             <id>custom</id>
-
-
         </profile>
+        
+        
+        <!-- Profiles for the application servers against which the tests are run -->
 
+        
         <!-- ### GlassFish ### -->
 
 
@@ -592,8 +553,6 @@
 
         <profile>
             <id>piranha-embedded-micro</id>
-
-
 
             <dependencies>
                 <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->

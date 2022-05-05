@@ -32,4 +32,3 @@
     <name>Mojarra ${project.version} - Test - Faces 2.3 - passthrough</name>
     <description>Readonly Attribute Ignored when used with passthrough:required</description>
 </project>
-

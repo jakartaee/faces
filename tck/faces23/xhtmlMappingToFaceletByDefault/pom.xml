@@ -31,4 +31,3 @@
 
     <name>Mojarra ${project.version} - Test - Faces 2.3 - xhtmlMappingToFaceletByDefault</name>
 </project>
-

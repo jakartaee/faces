@@ -28,7 +28,7 @@
 
     <artifactId>facesConverter</artifactId>
     <packaging>war</packaging>
-    
+
     <name>Mojarra ${project.version} - Test - Faces 2.3 - facesConverter</name>
 
     <build>

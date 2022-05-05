@@ -30,7 +30,7 @@
     <artifactId>util</artifactId>
 
     <name>Mojarra ${project.version} - Test - Util</name>
-    
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
