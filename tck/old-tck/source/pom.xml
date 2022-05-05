@@ -408,18 +408,11 @@
                                 <mkdir dir="${tck.home}/facesreport"/>
                                 <mkdir dir="${tck.home}/facesreport/faces"/>
                                 
-                                <replace file="${tck.home}/bin/xml/ts.top.import.xml">
-                                  <replacetoken><![CDATA[<jvmarg value="-Xmx512m" />]]></replacetoken>
-                                  <replacevalue><![CDATA[<jvmarg value="-Xmx512m" />
-                                <jvmarg value="-Djavatest.security.noSecurityManager=true"/>]]></replacevalue>
-                                </replace>
-                                
                                 <replace file="${tck.home}/bin/xml/ts.top.import.xml" if:set="suspend-tck" >
                                   <replacetoken><![CDATA[<jvmarg value="-Xmx512m" />]]></replacetoken>
                                   <replacevalue><![CDATA[<jvmarg value="-Xmx512m" />
                                 <jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=9008"/>]]></replacevalue>
                                 </replace>
-                                
                                 
                             </target>
                         </configuration>
