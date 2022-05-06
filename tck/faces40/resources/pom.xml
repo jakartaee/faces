@@ -29,7 +29,7 @@
     <artifactId>resources</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 4.0 - resources</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0 - resources</name>
 
     <build>
         <finalName>test-faces40-resources</finalName>

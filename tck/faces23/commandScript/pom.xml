@@ -29,5 +29,5 @@
     <artifactId>commandScript</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.3 - commandScript</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - commandScript</name>
 </project>

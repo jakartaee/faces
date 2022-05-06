@@ -29,5 +29,5 @@
     <artifactId>cdiMultiTenantSetsTccl</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.2 - CDI Multi-Tenant Sets TCCL</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2 - CDI Multi-Tenant Sets TCCL</name>
 </project>

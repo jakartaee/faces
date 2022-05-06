@@ -30,7 +30,7 @@
     <artifactId>validateWholeBean</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.3 - validateWholeBean</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - validateWholeBean</name>
 
     <build>
         <finalName>test-faces23-systemEvent</finalName>

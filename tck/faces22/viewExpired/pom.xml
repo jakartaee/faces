@@ -29,5 +29,5 @@
     <artifactId>viewExpired</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.2 - View Expired</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2 - View Expired</name>
 </project>

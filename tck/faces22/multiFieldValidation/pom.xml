@@ -29,5 +29,5 @@
     <artifactId>multiFieldValidation</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.2 - Multi Field Validation</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2 - Multi Field Validation</name>
 </project>

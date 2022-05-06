@@ -28,5 +28,5 @@
     <artifactId>childCountTest</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.2 - childCountTest</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2 - childCountTest</name>
 </project>

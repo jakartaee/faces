@@ -29,7 +29,7 @@
     <artifactId>pom</artifactId>
     <packaging>pom</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 4.0</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0</name>
 
     <modules>
 

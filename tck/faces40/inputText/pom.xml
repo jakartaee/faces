@@ -29,7 +29,7 @@
     <artifactId>inputText</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 4.0 - h:inputText</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0 - h:inputText</name>
 
     <build>
         <finalName>test-faces40-inputText</finalName>

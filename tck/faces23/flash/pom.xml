@@ -30,7 +30,7 @@
     <artifactId>flash</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.3 - Flash</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - Flash</name>
 
     <build>
         <finalName>test-faces23-flash</finalName>

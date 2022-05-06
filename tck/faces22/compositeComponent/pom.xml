@@ -30,7 +30,7 @@
     <artifactId>compositeComponent</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.2 - compositeComponent</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2 - compositeComponent</name>
 
     <build>
         <finalName>test-faces22-compositeComponent</finalName>

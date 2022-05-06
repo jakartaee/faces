@@ -30,7 +30,7 @@
     <artifactId>disableFaceletToXhtmlMapping</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.3 - disableFaceletToXhtmlMapping</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - disableFaceletToXhtmlMapping</name>
 
     <build>
         <finalName>test-faces23-disableFaceletToXhtmlMapping</finalName>

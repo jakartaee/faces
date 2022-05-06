@@ -29,7 +29,7 @@
     <artifactId>namespaces</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 4.0 - namespaces</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0 - namespaces</name>
 
     <build>
         <finalName>test-faces40-namespaces</finalName>

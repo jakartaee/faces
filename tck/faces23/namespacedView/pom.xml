@@ -29,5 +29,5 @@
     <artifactId>namespacedView</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.3 - namespacedView</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - namespacedView</name>
 </project>

@@ -28,5 +28,5 @@
     <artifactId>viewParamNullValueAjax</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.2 - viewParameter with null value for Ajax</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2 - viewParameter with null value for Ajax</name>
 </project>

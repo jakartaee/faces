@@ -29,7 +29,7 @@
     <groupId>org.glassfish.mojarra.test</groupId>
     <artifactId>util</artifactId>
 
-    <name>Mojarra ${project.version} - Test - Util</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Util</name>
 
     <dependencies>
         <dependency>

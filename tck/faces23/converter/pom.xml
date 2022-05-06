@@ -29,7 +29,7 @@
     <artifactId>converter</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.3 - Converter</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - Converter</name>
 
     <build>
         <finalName>test-faces23-ajax</finalName>

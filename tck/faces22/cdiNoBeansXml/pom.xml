@@ -29,5 +29,5 @@
     <artifactId>cdiNoBeansXml</artifactId>
     <packaging>war</packaging>
 
-    <name>Mojarra ${project.version} - Test - Faces 2.2 - CDI without a beans.xml</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2 - CDI without a beans.xml</name>
 </project>
