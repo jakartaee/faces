@@ -39,23 +39,18 @@
         <module>faces23</module>
         <module>faces40</module>
         <module>old-tck</module>
+        <module>faces-signaturetest</module>
     </modules>
 
     <properties>
-        <java.min.version>11</java.min.version>
+        <maven.compiler.release>11</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <zipname>${project.artifactId}-${project.version}</zipname>
-        <licenseFile>${project.basedir}/LICENSE_EFTL.md</licenseFile>
-        <ant.version>1.10.2</ant.version>
-        <ant.home>${project.build.directory}/apache-ant-${ant.version}</ant.home>
-        <ant.zip.url>https://archive.apache.org/dist/ant/binaries/apache-ant-${ant.version}-bin.zip</ant.zip.url>
-        <faces.version>${project.version}</faces.version>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
         
-        <mojarra.version>4.0.0-SNAPSHOT</mojarra.version>
-        <skipOldTCK>false</skipOldTCK>
-        <skipAssembly>false</skipAssembly>
+        <faces.version>4.0.0</faces.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <glassfish.version>7.0.0-M4</glassfish.version>
@@ -246,6 +241,16 @@
         </testResources>
         <pluginManagement>
             <plugins>
+                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.9.0</version>
+                    </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
@@ -260,21 +265,6 @@
         </pluginManagement>
         <plugins>
             <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <version>2.4.1</version>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>old-tck/source/release/JSF_BUILD</directory>
-                            <includes>
-                                <include>**</include>
-                            </includes>
-                        </fileset>
-                    </filesets>
-                </configuration>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <version>3.0.0</version>
@@ -283,9 +273,6 @@
                         <requireMavenVersion>
                             <version>3.6.3</version>
                         </requireMavenVersion>
-                        <requireJavaVersion>
-                            <version>${java.min.version}</version>
-                        </requireJavaVersion>
                     </rules>
                 </configuration>
                 <executions>
@@ -296,15 +283,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.9.0</version>
-                <configuration>
-                    <source>${java.min.version}</source>
-                    <target>${java.min.version}</target>
-                </configuration>
-            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -314,16 +293,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
-            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -341,72 +311,7 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>com.googlecode.maven-download-plugin</groupId>
-                <artifactId>download-maven-plugin</artifactId>
-                <inherited>false</inherited>
-                <version>1.6.7</version>
-                <executions>
-                    <execution>
-                        <id>download-ant</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>wget</goal>
-                        </goals>
-                        <configuration>
-                            <skip>${skipITs}</skip>
-                            <url>${ant.zip.url}</url>
-                            <unpack>true</unpack>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                        </configuration>
-                    </execution>                    
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <inherited>false</inherited>
-                <version>1.6.0</version>
-                <executions>
-                    <execution>
-                        <id>build-userguide</id>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                        	<skip>${skipOldTCK}</skip>
-                            <executable>mvn</executable>
-                            <workingDirectory>${maven.multiModuleProjectDirectory}/docs/userguide</workingDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                        	<skip>${skipAssembly}</skip>
-                            <finalName>${zipname}</finalName>
-                            <attach>true</attach>
-                            <appendAssemblyId>false</appendAssemblyId>
-                            <descriptors>
-                                <descriptor>zip.xml</descriptor>
-                            </descriptors>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -427,18 +332,18 @@
     </build>
 
     <reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-report-plugin</artifactId>
-				<version>3.0.0-M6</version>
-				<configuration>
-					<skipSurefireReport>${skipSurefireReport}</skipSurefireReport>
-					<aggregate>true</aggregate>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>3.0.0-M6</version>
+                <configuration>
+                    <skipSurefireReport>${skipSurefireReport}</skipSurefireReport>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
 
     <profiles>
     
@@ -473,7 +378,7 @@
 
             <properties>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
-                <!-- Set to the Mojarra version that's being certified using -Dmojarra.version= -->
+                <mojarra.version>4.0.0-M7</mojarra.version>
             </properties>
 
             <dependencies>

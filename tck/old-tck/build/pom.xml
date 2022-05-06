@@ -23,7 +23,7 @@
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
         <version>1.0.6</version>
-        <relativePath/>
+        <relativePath />
     </parent>
 
     <groupId>org.eclipse.ee4j.faces.tck</groupId>
@@ -34,7 +34,7 @@
     <name>Old Jakarta Faces TCK - build</name>
 
     <properties>
-    	<ant.version>1.10.2</ant.version>
+        <ant.version>1.10.2</ant.version>
         <ant.home>${project.build.directory}/apache-ant-${ant.version}</ant.home>
         <ant.zip.url>https://archive.apache.org/dist/ant/binaries/apache-ant-${ant.version}-bin.zip</ant.zip.url>
     </properties>
@@ -50,7 +50,22 @@
             </plugins>
         </pluginManagement>
         <plugins>
-              <plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.4.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>old-tck/source/release/JSF_BUILD</directory>
+                            <includes>
+                                <include>**</include>
+                            </includes>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
                 <inherited>false</inherited>
@@ -68,7 +83,7 @@
                             <unpack>true</unpack>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
-                    </execution>                    
+                    </execution>
                 </executions>
             </plugin>
 
@@ -89,12 +104,12 @@
                             <executable>${project.basedir}/../source/docker/build_oldtck.sh</executable>
                             <workingDirectory>${project.basedir}/../source</workingDirectory>
                             <environmentVariables>
-                                 <ANT_HOME>${ant.home}/</ANT_HOME>
-                                 <PATH>${ant.home}/bin:${env.PATH}</PATH>
+                                <ANT_HOME>${ant.home}/</ANT_HOME>
+                                <PATH>${ant.home}/bin:${env.PATH}</PATH>
                             </environmentVariables>
                             <arguments>
-                                <argument>${project.basedir}/../source</argument> 
-                                <argument>${ant.home}</argument> 
+                                <argument>${project.basedir}/../source</argument>
+                                <argument>${ant.home}</argument>
                             </arguments>
                             <successCodes>
                                 <successCode>0</successCode>
@@ -104,7 +119,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <artifactId>maven-install-plugin</artifactId>
                 <version>3.0.0-M1</version>

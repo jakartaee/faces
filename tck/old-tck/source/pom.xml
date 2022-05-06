@@ -442,21 +442,21 @@
 
                                 <!-- Deploy single test -->
                                 <sequential if:set="run.test" >
-                                	<dirname property="test.dir" file="${tck.home}/src/${run.test}"/>
-                                	<echo>Deploying from ${test.dir}</echo>
-                                	
-                                	<exec executable="${ant.home}/bin/ant" dir="${test.dir}">
-                                    	<arg value="deploy"  />
-                                	</exec>
+                                    <dirname property="test.dir" file="${tck.home}/src/${run.test}"/>
+                                    <echo>Deploying from ${test.dir}</echo>
+                                    
+                                    <exec executable="${ant.home}/bin/ant" dir="${test.dir}">
+                                        <arg value="deploy"  />
+                                    </exec>
                                 </sequential>
                                 
                                 <!-- Deploy all tests -->
                                 <sequential unless:set="run.test" >
                                     <echo>Deploying all archives</echo>
-                                	<exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}">
+                                    <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}">
                                         <arg value="-Dutil.dir=${tck.home}"  />
-                                    	<arg value="deploy.all"  />
-                                	</exec>
+                                        <arg value="deploy.all"  />
+                                    </exec>
                                 </sequential>
                             </target>
                         </configuration>
