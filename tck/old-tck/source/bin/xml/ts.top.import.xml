@@ -813,7 +813,6 @@
             <arg line=" -batch" />
             <arg line=" -testsuite ${ts.home}/src" />
             <arg line=" -workdir ${work.dir}" />
-            <!--<arg line=" -workdir -create ${ts.home}/tmp/deploy_only_workdir" />-->
             <arg line=" -envFiles ${bin.dir}/ts.jte" />
             <arg line=" -env ${ts.env}" />
             <arg line=" -excludeList ${bin.dir}/ts.jtx" />
@@ -824,6 +823,7 @@
             <arg line=" -runtests ${report.arg}"/>
             <jvmarg value="-Xms256m"/>
             <jvmarg value="-Xmx512m"/>
+        	<jvmarg value="-Djavatest.security.noSecurityManager=true"/>
         </javatest>    
     </presetdef>
     

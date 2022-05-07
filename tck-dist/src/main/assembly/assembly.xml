@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2022, 2022 Contributors to Eclipse Foundation. All rights reserved.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0 http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+    <id>dist</id>
+
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <files>
+
+        <!-- This is the final EFTL license -->
+        <file>
+            <source>src/main/EFTL.txt</source>
+            <destName>LICENSE</destName>
+        </file>
+
+        <!-- The readme included in the distribution zip -->
+        <file>
+            <source>README.md</source>
+            <destName>README.md</destName>
+        </file>
+
+        <!-- Signature file: TODO
+        <file>
+            <source>${project.parent.basedir}/tck/src/main/resources/ee/jakarta/tck/concurrent/spec/signature/jakarta.enterprise.concurrent.sig
+            </source>
+            <outputDirectory>/artifacts</outputDirectory>
+        </file -->
+    </files>
+
+    <fileSets>
+    
+        <!-- The TCK itself -->
+        <fileSet>
+            <directory>${project.basedir}/../tck</directory>
+            <outputDirectory>tck</outputDirectory>
+            <excludes>
+                <exclude>**/target/**</exclude>
+                <exclude>**/source/dist/**</exclude> 
+                <exclude>**/source/dist/classes/**</exclude>
+                <exclude>**/JSF_BUILD/**</exclude>
+            </excludes>
+        </fileSet>
+        
+        <!-- The userguide in PDF -->
+        <fileSet>
+            <directory>${project.basedir}/userguide</directory>
+            <outputDirectory>docs/pdf</outputDirectory>
+            <excludes>
+                <exclude>**/src/**</exclude>
+                <exclude>**/pom.xml</exclude>
+            </excludes>
+            <includes>
+                <include>**/generated-docs/*.pdf</include>
+            </includes>
+        </fileSet>
+        
+        <!-- The userguide in HTML -->
+        <fileSet>
+            <directory>${project.basedir}/userguide</directory>
+            <outputDirectory>docs/html</outputDirectory>
+            <excludes>
+                <exclude>**/src/**</exclude>
+                <exclude>**/pom.xml</exclude>
+            </excludes>
+            <includes>
+                <include>**/staging/**</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+</assembly>
