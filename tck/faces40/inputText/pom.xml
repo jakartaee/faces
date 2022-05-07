@@ -21,7 +21,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.glassfish.mojarra.faces40</groupId>
+        <groupId>org.eclipse.ee4j.tck.faces.faces40</groupId>
         <artifactId>pom</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
