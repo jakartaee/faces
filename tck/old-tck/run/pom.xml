@@ -32,7 +32,7 @@
     <name>Old Jakarta Faces TCK - run</name>
 
     <properties>
-        <ant.version>1.10.2</ant.version>
+        <ant.version>1.10.11</ant.version>
         <ant.home>${project.build.directory}/apache-ant-${ant.version}</ant.home>
         <ant.zip.url>https://archive.apache.org/dist/ant/binaries/apache-ant-${ant.version}-bin.zip</ant.zip.url>
         
