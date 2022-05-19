@@ -90,7 +90,7 @@
         <dependency>
             <groupId>jakarta.faces</groupId>
             <artifactId>jakarta.faces-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -636,5 +636,36 @@
             </build>
         </profile>
 
+        <profile>
+            <id>wildfly-ci-managed</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.wildfly.arquillian</groupId>
+                    <artifactId>wildfly-arquillian-container-managed</artifactId>
+                    <version>5.0.0.Alpha1</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.jboss.sasl</groupId>
+                            <artifactId>jboss-sasl</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                                <jboss.home>${wildfly.dir}</jboss.home>
+                                <jboss.install.dir>${wildfly.dir}</jboss.install.dir>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 </project>
