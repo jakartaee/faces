@@ -108,7 +108,7 @@
     </mailingLists>
 
     <properties>
-        <mojarra.version>4.0.0-M7</mojarra.version>
+        <mojarra.version>4.0.0</mojarra.version>
     </properties>
 
     <dependencies>
@@ -142,14 +142,14 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.0.1</version>
+            <version>3.0.2</version>
             <scope>provided</scope>
         </dependency>
 
@@ -160,7 +160,7 @@
         <dependency>
             <groupId>jakarta.transaction</groupId>
             <artifactId>jakarta.transaction-api</artifactId>
-            <version>2.0.1-RC1</version>
+            <version>2.0.1</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -176,7 +176,7 @@
         <dependency>
             <groupId>jakarta.ejb</groupId>
             <artifactId>jakarta.ejb-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -221,6 +221,7 @@
             <version>${mojarra.version}</version>
             <classifier>sources</classifier>
             <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 
@@ -277,7 +278,7 @@
             <!-- Restricts the Java version to 11 - API remains at Java 11 for now. -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.10.0</version>
+                <version>3.10.1</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
@@ -391,7 +392,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.4.0</version>
                 <executions>
                     <execution>
                         <id>attach-api-javadocs</id>
@@ -420,6 +421,33 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 </group>
                             </groups>
                         </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.2.7</version>
+                <configuration>
+                    <flattenMode>ossrh</flattenMode>
+                </configuration>
+                <executions>
+                    <!-- enable flattening -->
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <!-- ensure proper cleanup -->
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
