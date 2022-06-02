@@ -30,6 +30,7 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -38,9 +39,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.faces.FactoryFinder;
 
+@Ignore("Successful challenge via https://github.com/jakartaee/faces/issues/1679")
 @RunWith(Arquillian.class)
 public class Issue3341IT {
-    
+
     @ArquillianResource
     private URL webUrl;
     private WebClient webClient;
@@ -77,19 +79,19 @@ public class Issue3341IT {
         HtmlPage page = webClient.getPage(webUrl);
 
         String pageText = page.getBody().asNormalizedText();
-        
-        // If the BeforeFilter is configured to 
+
+        // If the BeforeFilter is configured to
         if (pageText.matches("(?s).*SUCCESS.*")) {
             assertTrue(true);
-        } else {        
+        } else {
             assertTrue(pageText.matches("(?s).*Duke.*submit.*"));
             assertTrue(pageText.matches("(?s).*First name:\\s*Duke.*"));
             assertTrue(pageText.matches("(?s).*BeforeServlet init found Lifecycle:\\s*TRUE.*"));
             assertTrue(pageText.matches("(?s).*BeforeServlet init found FacesContext:\\sTRUE.*"));
             assertTrue(pageText.matches("(?s).*BeforeServlet request found Lifecycle:\\s*TRUE.*"));
-            // Yes, the FacesContext.getCurrentInstance() should not be found 
+            // Yes, the FacesContext.getCurrentInstance() should not be found
             // because this is in a Filter before the run of the FacesServlet.service().
-            assertTrue(pageText.matches("(?s).*BeforeServlet request found FacesContext:\\s*FALSE.*"));        
+            assertTrue(pageText.matches("(?s).*BeforeServlet request found FacesContext:\\s*FALSE.*"));
         }
     }
 }
