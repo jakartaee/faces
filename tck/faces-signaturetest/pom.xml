@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
+    Copyright (c) 2022, 2022 Contributors to Eclipse Foundation.
     Copyright (c) 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -29,7 +30,7 @@
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <sigtest.plugin.version>1.5</sigtest.plugin.version>
+        <sigtest.plugin.version>1.6</sigtest.plugin.version>
         <junit.jupiter.version>[5.7.2, 5.8-A00)</junit.jupiter.version>
         <faces.api.version>4.0.0</faces.api.version>
         <enterprise.cdi.api.version>4.0.0</enterprise.cdi.api.version>
@@ -37,7 +38,7 @@
         <websocket.api.version>2.1.0</websocket.api.version>
         <servlet.api.version>6.0.0</servlet.api.version>
         <inject.api.version>2.0.1</inject.api.version>
-        <validation.api.version>3.0.1</validation.api.version>
+        <validation.api.version>3.0.2</validation.api.version>
     </properties>
 
     <dependencies>
@@ -82,7 +83,13 @@
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
-            <version>2.0.0</version>
+            <version>2.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.websocket</groupId>
+            <artifactId>jakarta.websocket-client-api</artifactId>
+            <version>2.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
