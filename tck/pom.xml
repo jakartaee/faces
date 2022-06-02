@@ -378,7 +378,7 @@
 
             <properties>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
-                <mojarra.version>4.0.0-M7</mojarra.version>
+                <mojarra.version>4.0.0</mojarra.version>
             </properties>
 
             <dependencies>
