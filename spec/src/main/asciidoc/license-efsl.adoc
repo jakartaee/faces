@@ -11,7 +11,7 @@ Release: {revdate}
 
 == Copyright
 
-Copyright (C) {docyear} Eclipse Foundation. 
+Copyright (C) 2019, {docyear} Eclipse Foundation. 
 https://www.eclipse.org/legal/efsl.php[]
 
 === Eclipse Foundation Specification License – v1.0
@@ -30,7 +30,7 @@ document, or portions thereof, that you use:
 * link or URL to the original Eclipse Foundation document.
 * All existing copyright notices, or if one does not exist, a notice
   (hypertext is preferred, but a textual representation is permitted)
-  of the form: "Copyright (c) [$date-of-document]
+  of the form: "Copyright (c) 2019, [$date-of-document]
   Eclipse Foundation, Inc. \<<url to this license>>"
 
 Inclusion of the full text of this NOTICE must be provided. We
@@ -50,7 +50,7 @@ specification is expressly prohibited.
 
 The notice is:
 
-"Copyright (c) [$date-of-document] Eclipse Foundation. This software or
+"Copyright (c) 2019, [$date-of-document] Eclipse Foundation. This software or
 document includes material copied from or derived from [title and URI
 of the Eclipse Foundation specification document]."
 

@@ -2,21 +2,6 @@
 
 This is the Jakarta Faces Specification Document, version 4.0.
 
-=== Changes between 4.0 and 3.0
-
-TBD
-
-==== Backward Compatibility with Previous Versions
-
-TBD
-
-=== Changes between 3.0 and 2.3
-
-Namespace has been changed from  `javax.faces` to `jakarta.faces`.
-
-==== Backward Compatibility with Previous Versions
-
-Jakarta Faces 3.0 has a breaking change due to the namespace change from  `javax.faces` to `jakarta.faces`.
 
 === Related Technologies
 

@@ -1,10 +1,107 @@
-issue_tracker_url: https://github.com/eclipse-ee4j/faces-api/issues/
+:issue_tracker_url: https://github.com/jakartaee/faces/issues/
+
+
 
 [appendix]
 == Change Log
 
 Note: this refers to historic issues and titles using the term "JSF". This refers to the
 pre-Jakarta Faces specification under the JCP.
+
+=== Changes between 4.0 and 3.0
+
+This release contains the following changes:
+
+* Issue ID {issue_tracker_url}1581[1581] +
+New API to programmatically create Facelets
+
+* Issue ID {issue_tracker_url}1508[1508] + 
+New automatic extensionless mapping
+
+* Issue ID {issue_tracker_url}1509[1509] +
+New annotation @ClientWindowScoped
+
+* Issue ID {issue_tracker_url}1570[1570] +
+Support custom cookie attributes such as SameSite in ExternalContext#addResponseCookie()
+
+* Issue ID {issue_tracker_url}1555[1555] +
+New attribute &lt;h:inputFile multiple="...">
+
+* Issue ID {issue_tracker_url}1556[1556] +
+New attribute &lt;h:inputFile accept="...">
+
+* Issue ID {issue_tracker_url}1557[1557] +
+New method FacesContext#getLifecycle()
+
+* Issue ID {issue_tracker_url}1559[1559] +
+New tag &lt;f:selectItemGroups>
+
+* Issue ID {issue_tracker_url}1560[1560] +
+New attribute &lt;h:inputText type="...">
+
+* Issue ID {issue_tracker_url}1563[1563] +
+New tag &lt;f:selectItemGroup>
+
+* Issue ID {issue_tracker_url}1568[1568] +
+New method UIViewRoot#getDoctype()
+
+* Issue ID {issue_tracker_url}1573[1573] +
+New attribute &lt;f:websocket onerror="...">
+
+* Issue ID {issue_tracker_url}1574[1574] +
+New layout="list" for &lt;h:selectManyCheckbox> and &lt;h:selectOneRadio>
+
+* Issue ID {issue_tracker_url}1582[1582] +
+New annotation literals for all @Qualifiers
+
+* Issue ID {issue_tracker_url}1558[1558] +
+Make UIComponent#subscribeToEvent() more convenient
+
+* Issue ID {issue_tracker_url}1565[1565] +
+Skip type attribute from &lt;link> and &lt;script> when doctype is HTML5
+
+* Issue ID {issue_tracker_url}1567[1567] +
+Improve &lt;f:ajax> behavior in composite components
+
+This release now requires Java SE 11 or newer (aligned with Jakarta EE 10).
+
+
+==== Backward Compatibility with Previous Versions
+
+This release contains the following backwards incompatible changes:
+
+* Issue ID {issue_tracker_url}1552[1552] +
+Rename "JSF" to "Faces" over all place
+
+* Issue ID {issue_tracker_url}1553[1553] +
+Rename "http://xmlns.jcp.org/jsf/*" URL to "jakarta.faces.*" URN
+
+* Issue ID {issue_tracker_url}1546[1546] +
+Remove all JSP support
+
+* Issue ID {issue_tracker_url}1547[1547] +
+Remove native Managed Beans (@ManagedBean and related)
+
+* Issue ID {issue_tracker_url}1548[1548] +
+Remove MethodBinding, ValueBinding and friends
+
+* Issue ID {issue_tracker_url}1571[1571] +
+Remove CURRENT_COMPONENT constants from UIComponent class
+
+* Issue ID {issue_tracker_url}1578[1578] +
+Remove deprecated methods of StateManager class
+
+* Issue ID {issue_tracker_url}1583[1583] +
+Remove entire ResourceResolver class
+
+
+=== Changes between 3.0 and 2.3
+
+Namespace has been changed from  `javax.faces` to `jakarta.faces`.
+
+==== Backward Compatibility with Previous Versions
+
+Jakarta Faces 3.0 has a breaking change due to the namespace change from  `javax.faces` to `jakarta.faces`.
 
 === Changes between 2.2 and 2.3
 
@@ -70,7 +167,7 @@ UIData and <ui:repeat> supports Map and Iterable
 ui:repeat condition check. +
 
 * Issue ID {issue_tracker_url}1418[1418] +
-CDI Replacement for @ManagedProperty.
+CDI Replacement for @ManagedProperty. +
 See javadocs for javax.faces.annotation.ManagedProperty.
 
 * Issue ID {issue_tracker_url}1103[1103], {issue_tracker_url}1364[1364] +
