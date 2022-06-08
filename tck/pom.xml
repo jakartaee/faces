@@ -53,8 +53,6 @@
         <faces.version>4.0.0</faces.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
-        <glassfish.version>7.0.0-M4</glassfish.version>
-        
         <tomcat.version>9.0.12</tomcat.version>
     </properties>
 
@@ -82,15 +80,9 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>jakarta.faces</artifactId>
-            <version>4.0.0-M7</version>
-        </dependency>
-    
-        <dependency>
             <groupId>jakarta.faces</groupId>
             <artifactId>jakarta.faces-api</artifactId>
-            <version>4.0.1-SNAPSHOT</version>
+            <version>${faces.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -377,11 +369,21 @@
             </activation>
 
             <properties>
-                <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
+                <!-- Explicit version of Mojarra to test -->
                 <mojarra.version>4.0.0</mojarra.version>
+                
+                <!-- Verhicle used for testing the Mojarra version -->
+                <glassfish.version>7.0.0-M4</glassfish.version>
+                <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
             </properties>
 
             <dependencies>
+                <dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>jakarta.faces</artifactId>
+                    <version>${mojarra.version}</version>
+                </dependency>
+            
                 <!-- The actual Arquillian connector -->
                 <dependency>
                     <groupId>org.omnifaces.arquillian</groupId>
