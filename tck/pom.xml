@@ -767,6 +767,11 @@
             <id>wildfly-ci-managed</id>
             <dependencies>
                 <dependency>
+                    <groupId>org.glassfish</groupId>
+                    <artifactId>jakarta.faces</artifactId>
+                    <version>${mojarra.version}</version>
+                </dependency>
+                <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
                     <version>5.0.0.Alpha1</version>
