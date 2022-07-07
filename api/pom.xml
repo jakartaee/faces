@@ -286,6 +286,36 @@
                 </configuration>
             </plugin>
             
+            <!-- Generate the OSGi jar Manifest. -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                    <instructions>
+                        <Specification-Title>Jakarta Faces</Specification-Title>
+                        <Specification-Version>4.0</Specification-Version>
+                        <!-- Set the package version to match the spec version -->
+                        <Export-Package>
+                            javax.faces*;version=4.0
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            
             <!-- Clean unpacked sources jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
