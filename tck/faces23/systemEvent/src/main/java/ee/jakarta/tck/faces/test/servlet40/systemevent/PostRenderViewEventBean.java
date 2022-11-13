@@ -20,8 +20,8 @@ package ee.jakarta.tck.faces.test.servlet40.systemevent;
 import java.io.IOException;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.annotation.FacesConfig;
 import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -31,10 +31,14 @@ import jakarta.inject.Named;
 public class PostRenderViewEventBean {
 
     @Inject
+    private FacesContext facesContext;
+    
+    @Inject
     private ExternalContext externalContext;
 
     public void pre(ComponentSystemEvent event) throws IOException {
-        externalContext.getResponseOutputWriter().write("<!-- pre -->");
+        facesContext.setResponseWriter(facesContext.getRenderKit().createResponseWriter(externalContext.getResponseOutputWriter(), "text/html", "UTF-8"));
+        facesContext.getResponseWriter().write("<!-- pre -->");
     }
 
     public String getRender() {
@@ -42,6 +46,6 @@ public class PostRenderViewEventBean {
     }
 
     public void post(ComponentSystemEvent event) throws IOException {
-        externalContext.getResponseOutputWriter().write("<!-- post -->");
+        facesContext.getResponseWriter().write("<!-- post -->");
     }
 }
