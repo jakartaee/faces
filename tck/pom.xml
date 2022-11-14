@@ -84,7 +84,7 @@
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.faces</artifactId>
-            <version>4.0.0-M7</version>
+            <version>${faces.version}</version>
         </dependency>
     
         <dependency>
@@ -124,7 +124,7 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
 
