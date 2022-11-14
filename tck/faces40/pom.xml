@@ -32,18 +32,16 @@
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0</name>
 
     <modules>
-
-          <module>ajax</module>
-        <module>extensionless-mapping</module>
-        
+        <module>ajax</module>
+        <module>beanValidation</module>
+        <module>cdi</module>
         <module>doctype</module>
-
+        <module>extensionless-mapping</module>
         <module>inputFile</module>
         <module>inputText</module>
-        <module>namespaces</module>
-        <module>cdi</module>
         <module>javaPage</module>
         <module>javaPageWithMetadata</module>
+        <module>namespaces</module>
         <module>resources</module>
         <module>selectItemGroup</module>
         <module>selectItemGroups</module>
