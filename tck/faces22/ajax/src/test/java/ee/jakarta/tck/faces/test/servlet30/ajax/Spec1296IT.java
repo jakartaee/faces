@@ -16,7 +16,7 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import java.nio.charset.StandardCharsets;
 
@@ -37,10 +37,6 @@ public class Spec1296IT extends ITBase {
     public void testPartialResponseWriterOutsideFacesServlet() throws Exception {
         Page page = webClient.getPage(webUrl + "BeforeFilter");
         String pageXml = page.getWebResponse().getContentAsString(StandardCharsets.UTF_8);
-
-        if (pageXml.contains("<p id=\"result\">FAILURE</p>")) {
-            System.out.println(pageXml);
-            fail();
-        }
+        assertTrue(pageXml.matches("(?s).*<\\?xml\\s+version=\\'1\\.0\\'\\s+encoding=\\'UTF-8\\'\\?>\\s*<partial-response>\\s*<changes>\\s*<update\\s+id=\\\"foo\\\">\\s*<\\!\\[CDATA\\[\\s*\\]]>\\s*</update>\\s*</changes>\\s*</partial-response>.*"));
     }
 }

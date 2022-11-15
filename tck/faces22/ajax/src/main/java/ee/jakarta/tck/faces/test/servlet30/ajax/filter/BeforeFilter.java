@@ -18,6 +18,8 @@ package ee.jakarta.tck.faces.test.servlet30.ajax.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Writer;
+import java.lang.reflect.Constructor;
 
 import jakarta.faces.context.PartialResponseWriter;
 import jakarta.faces.context.ResponseWriter;
@@ -45,7 +47,11 @@ public class BeforeFilter implements Filter {
         try {
             HttpServletResponse resp = (HttpServletResponse) response;
             PrintWriter pw = resp.getWriter();
-            ResponseWriter responseWriter = new CustomResponseWriter(pw, "text/xml", "UTF-8");
+
+            ResponseWriter responseWriter;
+            Class htmlResponseWriterClass = Class.forName("com.sun.faces.renderkit.html_basic.HtmlResponseWriter");
+            Constructor ctor = htmlResponseWriterClass.getConstructor(Writer.class, String.class, String.class);
+            responseWriter = (ResponseWriter) ctor.newInstance(pw, "text/xml", "UTF-8");
             PartialResponseWriter partialResponseWriter = new PartialResponseWriter(responseWriter);
 //            partialResponseWriter.writePreamble("<?xml version='1.0' encoding='UTF-8'?>\n");
             partialResponseWriter.startDocument();
