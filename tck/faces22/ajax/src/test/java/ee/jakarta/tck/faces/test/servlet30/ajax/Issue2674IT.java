@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.component.behavior.AjaxBehavior;
@@ -33,9 +34,9 @@ public class Issue2674IT extends ITBase {
      */
     @Test
     public void testProgrammaticAjaxBehavior() throws Exception {
-        String expectedString = "<input id="+'"'+"form:input1"+'"'+" type="+'"'+"text"+'"'+" name="+'"'+"form:input1"+'"'+" value="+'"'+"hi"+'"'+" onfocus="+'"'+"mojarra.ab(this,event,'focus',0,0)"+'"';
         HtmlPage page = getPage("issue2674.xhtml");
-        assertTrue(page.asXml().contains(expectedString));
+        HtmlTextInput input1 = (HtmlTextInput) page.getElementById("form:input1");
+        assertTrue("input1 has programmatically added onfocus attribute", !input1.getAttribute("onfocus").isEmpty());
     }
 }
 
