@@ -74,8 +74,6 @@ public class Issue5032IT {
         HtmlPage page = webClient.getPage(webUrl + "issue5032IT.xhtml");
 
         HtmlTextInput form1input2 = (HtmlTextInput) page.getElementById("form1:inputs:input2");
-        assertEquals("f:ajax execute of form1:input2 is implied as @this", "mojarra.ab(this,event,'valueChange',0,'@form')", form1input2.getOnChangeAttribute());
-
         form1input2.setValueAttribute("1");
         form1input2.fireEvent("change");
         webClient.waitForBackgroundJavaScript(3000);
@@ -93,8 +91,6 @@ public class Issue5032IT {
         HtmlPage page = webClient.getPage(webUrl + "issue5032IT.xhtml");
 
         HtmlTextInput form2input2 = (HtmlTextInput) page.getElementById("form2:inputs:input2");
-        assertEquals("f:ajax execute of form2:input2 is still @this", "mojarra.ab(this,event,'valueChange','@this','@form')", form2input2.getOnChangeAttribute());
-
         form2input2.setValueAttribute("1");
         form2input2.fireEvent("change");
         webClient.waitForBackgroundJavaScript(3000);
