@@ -36,7 +36,7 @@ public class Issue5140IT extends ITBase {
         HtmlPage page = getPage("issue5140.xhtml");
         DomElement unexpectedElement = page.getElementById("Field");
         DomElement expectedElement = page.getElementById("testInputIdField");
-        assertTrue("unexpected element does not exist", unexpectedElement == null);
+        assertTrue("unexpected element may not exist", unexpectedElement == null);
         assertTrue("expected element exists", expectedElement != null);
         assertEquals("ui:insert content is present", "ui:insert content", expectedElement.asNormalizedText());
     }

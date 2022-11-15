@@ -38,7 +38,7 @@ public class Issue4281IT extends ITBase {
         DomElement outputText = page.getElementById("outputText");
         assertTrue("outputText does exist", outputText != null);
         assertTrue("panelGroup does contain parargaph", panelGroup.asNormalizedText().contains("paragraph"));
-        assertFalse("panelGroup does not contain outputText", panelGroup.asNormalizedText().contains("outputText"));
+        assertFalse("panelGroup may not contain outputText", panelGroup.asNormalizedText().contains("outputText"));
         assertTrue("body does contain outputText", page.getBody().asNormalizedText().contains("outputText"));
     }
 
