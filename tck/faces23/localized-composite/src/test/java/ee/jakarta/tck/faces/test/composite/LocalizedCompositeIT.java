@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2022 Contributors to the Eclipse Foundation.
  * Copyright (c) 2017, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -13,12 +13,6 @@
  * https://www.gnu.org/software/classpath/license.html.
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
- */
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
  */
 package ee.jakarta.tck.faces.test.composite;
 
@@ -44,6 +38,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
+/**
+ * Tests if composite component that use resourceBundleMap .properties
+ * reflects locale changes.
+ * 
+ * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
+ * @see https://issues.apache.org/jira/browse/MYFACES-4491
+ * 
+ */
 @RunWith(Arquillian.class)
 public class LocalizedCompositeIT {
 
@@ -65,9 +67,6 @@ public class LocalizedCompositeIT {
         webClient.setJavaScriptTimeout(120000);
     }
 
-    /**
-     * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
-     */
     @Test
     public void testLocalizedCompositeEn() throws Exception {
         webClient.addRequestHeader("Accept-Language", "en-US, en;q=0.9, es-ES");
