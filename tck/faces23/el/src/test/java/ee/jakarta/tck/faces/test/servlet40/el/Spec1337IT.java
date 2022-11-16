@@ -93,7 +93,7 @@ public class Spec1337IT {
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
         webClient.getOptions().setPrintContentOnFailingStatusCode(false);
         HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL3.xhtml");
-        assertTrue(page.asXml().contains("contains more than one colon"));
+        assertTrue(page.asXml().contains("jakarta.el.ELException"));
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
         webClient.getOptions().setPrintContentOnFailingStatusCode(true);
     }

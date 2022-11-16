@@ -44,8 +44,7 @@ public class Issue3097IT extends ITBase {
             HtmlElement submitButton = page.getHtmlElementById("form:submit");
             page = submitButton.click();
             webClient.waitForBackgroundJavaScript(3000);
-            String text = page.asXml();
-            assertTrue(text.indexOf("class jakarta.faces.application.ViewExpiredException") != -1);
+            assertTrue(page.getElementById("errorDiv").getTextContent().contains("jakarta.faces.application.ViewExpiredException"));
         }
     }
 }
