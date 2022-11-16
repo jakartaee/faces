@@ -19,9 +19,6 @@ package ee.jakarta.tck.faces.test.servlet30.ajax.filter;
 import java.io.IOException;
 import java.io.Writer;
 
-import com.sun.faces.util.HtmlUtils;
-import com.sun.faces.util.MessageUtils;
-
 import jakarta.faces.FacesException;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ResponseWriter;
@@ -93,8 +90,7 @@ public class CustomResponseWriter extends ResponseWriter {
         // Check the character encoding
         // Check the character encoding
         if (!HtmlUtils.validateEncoding(encoding)) {
-            throw new IllegalArgumentException(MessageUtils.getExceptionMessageString(
-                  MessageUtils.ENCODING_ERROR_MESSAGE_ID));    
+            throw new IllegalArgumentException();    
         }
     }
 
@@ -169,8 +165,7 @@ public class CustomResponseWriter extends ResponseWriter {
     public void startElement(String name, UIComponent componentForElement)
         throws IOException {
         if (name == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "name"));
+            throw new NullPointerException("name");
         }
         closeStartIfNecessary();
         char firstChar = name.charAt(0);
@@ -203,8 +198,7 @@ public class CustomResponseWriter extends ResponseWriter {
      */
     public void endElement(String name) throws IOException {
         if (name == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "name"));
+            throw new NullPointerException("name");
         }
 
         // always turn escaping back on once an element ends
@@ -252,12 +246,10 @@ public class CustomResponseWriter extends ResponseWriter {
     public void writeAttribute(String name, Object value, String componentPropertyName)
         throws IOException {
         if (name == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "name"));
+            throw new NullPointerException("name");
         }
         if (value == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "value"));
+            throw new NullPointerException("value");
         }
 
         Class valueClass = value.getClass();
@@ -309,12 +301,10 @@ public class CustomResponseWriter extends ResponseWriter {
                                   String componentPropertyName)
         throws IOException {
         if (name == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "name"));
+            throw new NullPointerException("name");
         }
         if (value == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "value"));
+            throw new NullPointerException("value");
         }
 
         //PENDING (horwat) using String as a result of Tomcat char writer
@@ -352,8 +342,7 @@ public class CustomResponseWriter extends ResponseWriter {
      */
     public void writeComment(Object comment) throws IOException {
         if (comment == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "comment"));
+            throw new NullPointerException("comment");
         }
         closeStartIfNecessary();
         writer.write("<!-- ");
@@ -378,8 +367,7 @@ public class CustomResponseWriter extends ResponseWriter {
     public void writeText(Object text, String componentPropertyName)
         throws IOException {
         if (text == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "text"));
+            throw new NullPointerException("text");
         }
         closeStartIfNecessary();
         if (dontEscape) {
@@ -431,8 +419,7 @@ public class CustomResponseWriter extends ResponseWriter {
      */
     public void writeText(char text[]) throws IOException {
         if (text == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "text"));
+            throw new NullPointerException("text");
         }
         closeStartIfNecessary();
         if (dontEscape) {
@@ -464,8 +451,7 @@ public class CustomResponseWriter extends ResponseWriter {
     public void writeText(char text[], int off, int len)
         throws IOException {
         if (text == null) {
-            throw new NullPointerException(MessageUtils.getExceptionMessageString(
-                MessageUtils.NULL_PARAMETERS_ERROR_MESSAGE_ID, "text"));
+            throw new NullPointerException("text");
         }
         if (off < 0 || off > text.length || len < 0 || len > text.length) {
             throw new IndexOutOfBoundsException();
