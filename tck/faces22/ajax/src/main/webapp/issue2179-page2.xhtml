@@ -30,12 +30,12 @@
              <script type="text/javascript">
               var statusUpdate = function statusUpdate(data) {
                  var statusArea = document.getElementById("statusArea");
-                 var text = statusArea.value;
+                 var text = statusArea.innerHTML;
                  text = text + "Name: "+data.source.id;
                  if (data.type === "error") {
                      text = text + " Error: "+data.status+" "+data.errorMessage;
                  }
-                 statusArea.value = text;
+                 statusArea.innerHTML = text;
               }
             </script>
 
@@ -53,7 +53,7 @@
 
             <p>
               <h3> Status:</h3>
-              <textarea id="statusArea" cols="40" rows="10" readonly="readonly" />
+              <div id="statusArea"  />
             </p>
 
       </h:body>

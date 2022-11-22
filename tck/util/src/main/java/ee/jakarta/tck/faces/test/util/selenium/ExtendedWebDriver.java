@@ -1,0 +1,92 @@
+/*
+ * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0, which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the
+ * Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+ * version 2 with the GNU Classpath Exception, which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ */
+package ee.jakarta.tck.faces.test.util.selenium;
+
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+
+/**
+ * an extended web driver interface which takes the response into consideration
+ * selenium does not have an official api but several webdrivers
+ * allow access to the data via various means
+ *
+ * Another possibility would have been a proxy, but I could not find any properly
+ * working proxy for selenium
+ */
+public interface ExtendedWebDriver extends WebDriver {
+
+    /**
+     * gets the response status of the last response (of the last triggered request against get)
+     * @return
+     */
+    int getResponseStatus();
+
+    /**
+     * gets the last response as body
+     * @return
+     */
+    String getResponseBody();
+
+    /**
+     * postinit call for tests
+     */
+    void postInit();
+
+    /**
+     * gets the internal webdriver delegate
+     * @return
+     */
+    WebDriver getDelegate();
+
+    /**
+     * returns a reference to the Selenium JS Executor of this webdriver
+     * @return
+     */
+    JavascriptExecutor getJSExecutor();
+
+    /**
+     * @return the innerText of the Page
+     */
+    String getPageText();
+
+    /**
+     * returns the innerText of the page in a blank reduced state (more than one blank is reduced to one
+     * invisible blanks like nbsp are replaced by normal blanks)
+     * @return
+     */
+    String getPageTextReduced();
+
+    /**
+     * debugging helper which allows to look into the processed response data
+     */
+    void printProcessedResponses();
+
+    /**
+     * quits the driver engine
+     */
+    void quit();
+
+    /**
+     * closes the current tab
+     */
+    void close();
+
+    /**
+     * resets the current page to its initial stage before the page load
+     * without dropping the engine or closing it
+     */
+    void reset();
+}

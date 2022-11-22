@@ -42,5 +42,12 @@
         </h:panelGroup>
     </h:form>
 
+    <div id="windowError"></div>
+    <script type="text/javascript">
+        window.addEventListener("error", event => {
+            let el = document.getElementById("windowError");
+            el.innerHTML = el.innerHTML + " Type: " + event.type + "Message" + event.message;
+        });
+    </script>
 </h:body>     
 </html>
