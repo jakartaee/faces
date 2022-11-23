@@ -37,6 +37,8 @@
         <ant.version>1.10.2</ant.version>
         <ant.home>${project.build.directory}/apache-ant-${ant.version}</ant.home>
         <ant.zip.url>https://archive.apache.org/dist/ant/binaries/apache-ant-${ant.version}-bin.zip</ant.zip.url>
+        
+        <tck.old.skip>${skipITs}</tck.old.skip>
     </properties>
 
     <build>
@@ -78,7 +80,7 @@
                             <goal>wget</goal>
                         </goals>
                         <configuration>
-                            <skip>${skipITs}</skip>
+                            <skip>${tck.old.skip}</skip>
                             <url>${ant.zip.url}</url>
                             <unpack>true</unpack>
                             <outputDirectory>${project.build.directory}</outputDirectory>
@@ -100,7 +102,7 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <skip>${skipITs}</skip>
+                            <skip>${tck.old.skip}</skip>
                             <executable>${project.basedir}/../source/docker/build_oldtck.sh</executable>
                             <workingDirectory>${project.basedir}/../source</workingDirectory>
                             <environmentVariables>
