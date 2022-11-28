@@ -354,7 +354,7 @@ public final class TestServlet extends HttpTCKServlet {
     out.println(JSFTestUtil.PASS);
   }
 
-  // NumberConveter.getAsObject() interaction with Locales
+  // NumberConverter.getAsObject() interaction with Locales
   public void numConverterGetAsObjectLocaleTest(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
@@ -365,7 +365,7 @@ public final class TestServlet extends HttpTCKServlet {
     NumberFormat parser = NumberFormat.getNumberInstance(Locale.FRENCH);
     Object control;
     try {
-      control = parser.parse("5.5");
+      control = parser.parse("5,5"); // French uses the , as delimiter
     } catch (ParseException pe) {
       throw new ServletException("Unexpected Exception", pe);
     }
@@ -381,11 +381,11 @@ public final class TestServlet extends HttpTCKServlet {
     context.getViewRoot().setLocale(Locale.FRENCH);
 
     try {
-      Object result = converter.getAsObject(context, comp, "5.5");
+      Object result = converter.getAsObject(context, comp, "5,5");
       if (!control.equals(result)) {
         out.println(JSFTestUtil.FAIL
             + " The value returned by NumberConverter.getAsObject()"
-            + " for '5.5' using Locale.FRENCH doesn't match that"
+            + " for '5,5' using Locale.FRENCH doesn't match that"
             + " returned by NumberFormat.parse() using the same settings.");
         out.println("Expected: " + control);
         out.println("Received: " + result);
