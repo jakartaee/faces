@@ -31,6 +31,7 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -88,6 +89,7 @@ public class Issue2948IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
      */
     @Test
+    @Ignore("Tests events which are just encouraged and not mandated")
     public void testFlowLogging() throws Exception {
         // index.xhtml
         HtmlPage page = webClient.getPage(webUrl);
@@ -122,6 +124,7 @@ public class Issue2948IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
      */
     @Test
+    @Ignore("Tests events which are just encouraged and not mandated")
     public void testViewScopedLogging() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/viewScoped01.xhtml");
         HtmlElement e = (HtmlElement) page.getElementById("initMessage");
