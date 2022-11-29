@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -47,6 +48,7 @@ import com.sun.ts.tests.jsf.common.viewhandler.TCKViewHandler;
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELContext;
 import jakarta.el.ELContextListener;
+import jakarta.el.ELManager;
 import jakarta.el.ELResolver;
 import jakarta.el.ExpressionFactory;
 import jakarta.el.ValueExpression;
@@ -80,7 +82,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.jsp.JspFactory;
 
 public class TestServlet extends HttpTCKServlet {
 
@@ -817,13 +818,12 @@ public class TestServlet extends HttpTCKServlet {
     PrintWriter out = response.getWriter();
     ApplicationWrapper applicationWrapper = new TCKApplication();
 
-    ExpressionFactory controlFactory = JspFactory.getDefaultFactory()
-        .getJspApplicationContext(servletContext).getExpressionFactory();
+    ExpressionFactory controlFactory = ELManager.getExpressionFactory();
 
     if (controlFactory == null) {
       out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
           + "Unable to obtain ExpressionFactory "
-          + "from JspApplicationContext.");
+          + "from ELManager.");
       return;
     }
 
@@ -837,9 +837,7 @@ public class TestServlet extends HttpTCKServlet {
 
     // Left in for debugging.
     //
-    // ExpressionFactory controlFactoryTwo =
-    // JspFactory.getDefaultFactory().
-    // getJspApplicationContext(servletContext).getExpressionFactory();
+    // ExpressionFactory controlFactoryTwo = ELManager.getExpressionFactory();
     //
     // ExpressionFactory exprFactoryTwo =
     // applicationWrapper.getExpressionFactory();
@@ -849,16 +847,16 @@ public class TestServlet extends HttpTCKServlet {
     // out.println("*** Second Call applicationWrapper.getExpressionFactory() "
     // +
     // "Returns ***: " + exprFactoryTwo.toString());
-    // out.println("*** First Call - JspFactory.getDefaultFactory()." +
+    // out.println("*** First Call - ELManager.getExpressionFactory()." +
     // "getJspApplicationContext(servletContext)." +
     // "getExpressionFactory() Returns ***: " +
     // controlFactory.toString());
-    // out.println("*** Second Call - JspFactory.getDefaultFactory()." +
+    // out.println("*** Second Call - ELManager.getExpressionFactory()." +
     // "getJspApplicationContext(servletContext)." +
     // "getExpressionFactory() Returns ***: " +
     // controlFactoryTwo.toString());
 
-    if (!controlFactory.equals(exprFactory)) {
+    if (!exprFactory.toString().equals(controlFactory.toString())) {
       out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
           + "Expected Application.getExpressionFactory to return "
           + "the same instance as that returned by"

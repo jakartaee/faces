@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -25,6 +26,7 @@ import java.io.PrintWriter;
 import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 
 import jakarta.el.ExpressionFactory;
+import jakarta.el.ELManager;
 import jakarta.el.MethodExpression;
 import jakarta.faces.component.ActionSource2;
 import jakarta.servlet.ServletConfig;
@@ -32,7 +34,6 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.jsp.JspFactory;
 
 public abstract class BaseActionSource2TestServlet
     extends BaseActionSourceTestServlet {
@@ -65,8 +66,7 @@ public abstract class BaseActionSource2TestServlet
 
     PrintWriter out = response.getWriter();
     request.setAttribute("bean", new SimpleBean());
-    ExpressionFactory factory = JspFactory.getDefaultFactory()
-        .getJspApplicationContext(servletContext).getExpressionFactory();
+    ExpressionFactory factory = ELManager.getExpressionFactory();
     MethodExpression expression = factory.createMethodExpression(
         getFacesContext().getELContext(), "#{bean.action}",
         java.lang.String.class, new Class[] {});
