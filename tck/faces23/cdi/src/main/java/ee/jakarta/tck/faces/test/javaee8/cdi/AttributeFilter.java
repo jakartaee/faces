@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2021, 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -20,7 +21,6 @@ import java.io.IOException;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
@@ -32,16 +32,11 @@ import jakarta.servlet.annotation.WebFilter;
 @WebFilter("/*")
 public class AttributeFilter implements Filter {
 
-    public void init(FilterConfig fConfig) throws ServletException {
-    }
-
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	@Override
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		request.setAttribute("fooAttribute", "bar");
+		request.getServletContext().setAttribute("barAttribute", "foo");
 	    chain.doFilter(request, response);
 	}
-
-    @Override
-    public void destroy() {
-    }
 
 }
