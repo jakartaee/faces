@@ -17,10 +17,9 @@
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.context.ExternalContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import jakarta.faces.context.ExternalContext;
 
 @Named(value="injectExternalContextBean")
 @RequestScoped
@@ -29,7 +28,7 @@ public class InjectExternalContextBean {
     @Inject
     ExternalContext context;
 
-    public String getValue() {
-        return context.toString();
+    public boolean isInjected() {
+        return context != null;
     }
 }

@@ -71,6 +71,6 @@ public class Spec527IT {
     @Test
     public void testInjectFacesContext() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectFacesContext.xhtml");
-        assertTrue(page.asXml().contains("com.sun.faces.context.FacesContextImpl"));
+        assertTrue(page.getElementById("injected").getTextContent().equals("true"));
     }
 }
