@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2021, 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -32,6 +33,6 @@ public class InjectApplicationMap2Bean {
     Map<String, Object> applicationMap;
 
     public String getValue() {
-        return Boolean.toString(applicationMap.containsKey("jakarta.faces.BEANS_VALIDATION_AVAILABLE"));
+        return Boolean.toString(applicationMap.containsKey("barAttribute"));
     }
 }
