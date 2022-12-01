@@ -856,7 +856,7 @@ public class TestServlet extends HttpTCKServlet {
     // "getExpressionFactory() Returns ***: " +
     // controlFactoryTwo.toString());
 
-    if (!exprFactory.toString().equals(controlFactory.toString())) {
+    if (!controlFactory.equals(exprFactory)) {
       out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
           + "Expected Application.getExpressionFactory to return "
           + "the same instance as that returned by"
@@ -1769,7 +1769,11 @@ public class TestServlet extends HttpTCKServlet {
     @Override
     public Application getWrapped() {
       context = FacesContext.getCurrentInstance();
-      return context.getApplication();
+      Application application = context.getApplication();
+      while (application instanceof jakarta.faces.application.ApplicationWrapper) {
+          application = ((jakarta.faces.application.ApplicationWrapper)application).getWrapped();
+      }
+      return application;
     }
 
   }
