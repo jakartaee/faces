@@ -34,14 +34,11 @@ import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 import jakarta.faces.application.Application;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
-import jakarta.el.ELManager;
 import jakarta.el.ValueExpression;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.jsp.JspWriter;
-import jakarta.servlet.jsp.PageContext;
 
 public final class TestServlet extends HttpTCKServlet {
 

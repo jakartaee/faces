@@ -1471,6 +1471,9 @@ public class TestServlet extends HttpTCKServlet {
       return;
     }
 
+    while (application instanceof jakarta.faces.application.ApplicationWrapper) {
+        application = ((jakarta.faces.application.ApplicationWrapper)application).getWrapped();
+    }
     ExpressionFactory exprFactory = application.getExpressionFactory();
 
     if (exprFactory == null) {
@@ -1498,10 +1501,10 @@ public class TestServlet extends HttpTCKServlet {
     // "getExpressionFactory() Returns ***: " +
     // controlFactoryTwo.toString());
 
-    if (!exprFactory.toString().equals(controlFactory.toString())) {
+    if (!controlFactory.equals(exprFactory)) {
       out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
           + "Expected Application.getExpressionFactory to return "
-          + "the same type as that returned by "
+          + "the same instance as that returned by "
           + "ELManager.getExpressionFactory()!" + JSFTestUtil.NL
           + "ELManager.getExpressionFactory: " + controlFactory.toString() + JSFTestUtil.NL
           + "application.getExpressionFactory: " + exprFactory.toString());
