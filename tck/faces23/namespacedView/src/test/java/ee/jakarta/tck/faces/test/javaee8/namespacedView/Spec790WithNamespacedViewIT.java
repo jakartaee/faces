@@ -89,7 +89,7 @@ public class Spec790WithNamespacedViewIT {
         HtmlSubmitInput form1Button = (HtmlSubmitInput) page.getHtmlElementById(namingContainerPrefix + "form1:button");
         page = form1Button.click();
         webClient.waitForBackgroundJavaScript(3000);
-        namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
+        namingContainerPrefix = page.getElementsByTagName("form").get(0).getId().split("(?<=:)", 2)[0];
         form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
         form1ViewState = (HtmlInput) form1.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
         form2 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form2");
@@ -103,7 +103,7 @@ public class Spec790WithNamespacedViewIT {
         HtmlAnchor form2Link = (HtmlAnchor) page.getHtmlElementById(namingContainerPrefix + "form2:link");
         page = form2Link.click();
         webClient.waitForBackgroundJavaScript(3000);
-        namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
+        namingContainerPrefix = page.getElementsByTagName("form").get(0).getId().split("(?<=:)", 2)[0];
         form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
         form1ViewState = (HtmlInput) form1.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
         form2 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form2");
@@ -117,7 +117,7 @@ public class Spec790WithNamespacedViewIT {
         HtmlAnchor form3Link = (HtmlAnchor) page.getHtmlElementById(namingContainerPrefix + "form3:link");
         page = form3Link.click();
         webClient.waitForBackgroundJavaScript(3000);
-        namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
+        namingContainerPrefix = page.getElementsByTagName("form").get(0).getId().split("(?<=:)", 2)[0];
         form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
         form1ViewState = (HtmlInput) form1.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
         form2 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form2");
@@ -141,7 +141,7 @@ public class Spec790WithNamespacedViewIT {
 
         HtmlPage page = webClient.getPage(webUrl + "spec790WithNamespacedViewAjaxNavigation.xhtml");
         
-        String namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
+        String namingContainerPrefix = page.getElementsByTagName("form").get(0).getId().split("(?<=:)", 2)[0];
         HtmlForm form = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form");
         HtmlInput formViewState = (HtmlInput) form.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
         assertTrue(!formViewState.getValueAttribute().isEmpty());
@@ -150,7 +150,7 @@ public class Spec790WithNamespacedViewIT {
         page = button.click();
         webClient.waitForBackgroundJavaScript(3000);
         
-        namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
+        namingContainerPrefix = page.getElementsByTagName("form").get(0).getId().split("(?<=:)", 2)[0];
         HtmlForm form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
         HtmlInput form1ViewState = (HtmlInput) form1.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
         HtmlForm form2 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form2");
