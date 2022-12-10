@@ -16,6 +16,7 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
+import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
@@ -29,11 +30,13 @@ public class InjectConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        throw new UnsupportedOperationException("InjectConverter was called");
+        context.addMessage(null, new FacesMessage("InjectConverter#getAsObject() was called"));
+        return value == null ? "" : value;
     }
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        throw new UnsupportedOperationException("InjectConverter was called");
+        context.addMessage(null, new FacesMessage("InjectConverter#getAsString() was called"));
+        return value == null ? null : value.toString();
     }
 }
