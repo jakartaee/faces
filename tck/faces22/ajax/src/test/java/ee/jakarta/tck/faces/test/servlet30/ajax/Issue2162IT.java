@@ -15,6 +15,12 @@
  */
 
 package ee.jakarta.tck.faces.test.servlet30.ajax;
+/**
+ * @see PreRenderViewEvent
+ * @see AjaxBehavior
+ * @see https://github.com/eclipse-ee4j/mojarra/issues/2166
+ */
+
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -32,12 +38,6 @@ import jakarta.faces.event.PreRenderViewEvent;
  * @author Manfred Riem (manfred.riem@oracle.com)
  */
 public class Issue2162IT extends ITBase {
-
-    /**
-     * @see PreRenderViewEvent
-     * @see AjaxBehavior
-     * @see https://github.com/eclipse-ee4j/mojarra/issues/2166
-     */
     @Test
     public void testIssue2162() throws Exception {
         HtmlPage page = getPage("issue2162.xhtml");
