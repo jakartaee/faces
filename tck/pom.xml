@@ -370,7 +370,7 @@
 
             <properties>
                 <!-- Explicit version of Mojarra to test -->
-                <mojarra.version>4.0.0</mojarra.version>
+                <mojarra.version>4.0.1-SNAPSHOT</mojarra.version>
                 
                 <!-- Verhicle used for testing the Mojarra version -->
                 <glassfish.version>7.0.0-M4</glassfish.version>
