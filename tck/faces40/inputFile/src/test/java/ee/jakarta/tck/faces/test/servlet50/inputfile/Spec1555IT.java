@@ -35,7 +35,6 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.helpers.AttributesImpl;
@@ -101,6 +100,7 @@ public class Spec1555IT {
         input.setValueAttribute(file.getAbsolutePath());
 
         page = page.getHtmlElementById(form + ":submit").click();
+        webClient.waitForBackgroundJavaScript(3000);
         
         assertEquals("Value attribute is NOT set", "", page.getHtmlElementById(form + ":input").getAttribute("value"));
 
@@ -144,6 +144,7 @@ public class Spec1555IT {
         addValueAttribute(input, file2.getAbsolutePath());
         addValueAttribute(input, file3.getAbsolutePath());
         page = page.getHtmlElementById(form + ":submit").click();
+        webClient.waitForBackgroundJavaScript(3000);
 
         assertEquals("Value attribute is NOT set", "", page.getHtmlElementById(form + ":input").getAttribute("value"));
 
