@@ -37,7 +37,7 @@ import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
  * which provides a certain infrastructure
  * can be used, but does not have to be
  */
-@RunWith(SeleniumRunner.class)
+@RunWith(SeleniumArquilianRunner.class)
 public class BaseITNG {
 
     @ArquillianResource

@@ -20,14 +20,19 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 
-public class SeleniumRunner extends Arquillian {
-    public SeleniumRunner(Class<?> testClass) throws InitializationError {
+/**
+ * Standard Arquilian runner, which triggers the
+ * default Arquilian/HTMLUnit based test System if
+ * test.selenium is not set as system property
+ */
+public class BaseArquilianRunner extends Arquillian {
+    public BaseArquilianRunner(Class<?> testClass) throws InitializationError {
         super(testClass);
     }
 
     @Override
     protected boolean isIgnored(FrameworkMethod child) {
-        if(!"true".equals(System.getProperty("test.selenium"))) {
+        if("true".equals(System.getProperty("test.selenium"))) {
             return true;
         }
         return super.isIgnored(child);
