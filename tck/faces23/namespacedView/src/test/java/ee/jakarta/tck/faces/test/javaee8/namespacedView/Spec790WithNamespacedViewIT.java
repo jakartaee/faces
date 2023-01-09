@@ -75,7 +75,7 @@ public class Spec790WithNamespacedViewIT {
         webClient.setIncorrectnessListener((o, i) -> {});
 
         HtmlPage page = webClient.getPage(webUrl + "spec790WithNamespacedView.xhtml");
-        String namingContainerPrefix = page.getElementsByTagName("form").get(0).getId().split("(?<=:)", 2)[0];
+        String namingContainerPrefix = page.getHead().getId().split("(?<=:)", 2)[0];
         HtmlForm form1 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form1");
         HtmlInput form1ViewState = (HtmlInput) form1.getInputByName(namingContainerPrefix + "jakarta.faces.ViewState");
         HtmlForm form2 = (HtmlForm) page.getHtmlElementById(namingContainerPrefix + "form2");
