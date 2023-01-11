@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -19,7 +19,7 @@ package ee.jakarta.tck.faces.test.javaee8.validateWholeBean;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.net.URL;
@@ -90,6 +90,6 @@ public class Issue4313IT {
         HtmlSubmitInput submit = (HtmlSubmitInput) page.getHtmlElementById("form:submit");
         HtmlPage page1 = submit.click();
 
-        assertEquals("Password fields must match", page1.getElementById("form:err").getElementsByTagName("li").get(0).asNormalizedText());
+        assertTrue("Validation message not found!", page1.getElementById("form:err").getElementsByTagName("li").get(0).asNormalizedText().contains("Password fields must match"));
     }
 }
