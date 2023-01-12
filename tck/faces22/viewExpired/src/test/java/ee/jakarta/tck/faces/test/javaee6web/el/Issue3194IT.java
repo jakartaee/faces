@@ -30,6 +30,7 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -40,6 +41,7 @@ import jakarta.faces.application.ViewExpiredException;
 import jakarta.faces.view.ViewScoped;
 
 @RunWith(Arquillian.class)
+@Ignore("Sloppy test using Mojarra specific assumptions. See https://github.com/jakartaee/faces/issues/1773")
 public class Issue3194IT {
 
     @ArquillianResource
