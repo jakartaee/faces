@@ -25,11 +25,11 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chromium.ChromiumNetworkConditions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v105.network.Network;
-import org.openqa.selenium.devtools.v105.network.model.Request;
-import org.openqa.selenium.devtools.v105.network.model.RequestId;
-import org.openqa.selenium.devtools.v105.network.model.ResponseReceived;
-import org.openqa.selenium.devtools.v105.network.model.TimeSinceEpoch;
+import org.openqa.selenium.devtools.v108.network.Network;
+import org.openqa.selenium.devtools.v108.network.model.Request;
+import org.openqa.selenium.devtools.v108.network.model.RequestId;
+import org.openqa.selenium.devtools.v108.network.model.ResponseReceived;
+import org.openqa.selenium.devtools.v108.network.model.TimeSinceEpoch;
 import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.html5.SessionStorage;
@@ -44,10 +44,12 @@ import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 import java.net.URI;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Extended driver which we need for getting
@@ -82,6 +84,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     public ChromeDevtoolsDriver(ChromeOptions options) {
         ChromeDriverService chromeDriverService = new ChromeDriverService.Builder().build();
+
         chromeDriverService.sendOutputTo(NullOutputStream.NULL_OUTPUT_STREAM);
         delegate = new ChromeDriver(chromeDriverService, options);
     }
@@ -466,10 +469,18 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         return delegate;
     }
 
+    /*
+     * we only want the cdp version warning once, now matter how
+     * often the driver is called
+     * if not wanted at all the selenium webdriver version must match the browser version
+     */
+    static AtomicBoolean firstLog = new AtomicBoolean(Boolean.TRUE);
+
 
     public static ExtendedWebDriver stdInit() {
         Locale.setDefault(new Locale("en", "US"));
         WebDriverManager.chromedriver().setup();
+        initCDPVersionMessageFilter();
 
         ChromeOptions options = new ChromeOptions();
 
@@ -493,6 +504,22 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         driver.manage().timeouts().scriptTimeout(WebPage.STD_TIMEOUT);
 
         return driver;
+    }
+
+    private static void initCDPVersionMessageFilter() {
+        Logger logger = Logger.getLogger("org.openqa.selenium.devtools.CdpVersionFinder");
+
+        logger.setFilter(record -> {
+            //report the match warning only once, this suffices
+            boolean isMatchWarning = record.getMessage().contains("Unable to find an exact match for CDP version");
+            if(isMatchWarning && !firstLog.get()) {
+                return false;
+            }
+            if(isMatchWarning) {
+                firstLog.set(false);
+            }
+            return true;
+        });
     }
 
 }
