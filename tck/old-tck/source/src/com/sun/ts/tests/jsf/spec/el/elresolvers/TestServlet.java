@@ -598,6 +598,9 @@ public final class TestServlet extends HttpTCKServlet {
     ELResolver[] resolvers = getELResolvers(elContexts);
     boolean passed = true;
 
+    // Force session creation for 'session' implict object
+    request.getSession(true);
+
     for (int i = 0; i < resolvers.length; i++) {
 
       out.println("Testing phase: " + getTestPhase(i));
