@@ -27,6 +27,7 @@ import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 
 import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.application.ViewHandler;
+import jakarta.faces.application.ViewHandlerWrapper;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -64,10 +65,13 @@ public final class TestServlet extends HttpTCKServlet {
 
   private void postTest(FacesContext context) {
 
-    TestViewHandler handler = (TestViewHandler) context.getApplication()
-        .getViewHandler();
+    ViewHandler handler = context.getApplication().getViewHandler();
 
-    context.getApplication().setViewHandler(handler.getDelegate());
+    while (handler instanceof ViewHandlerWrapper) {
+      handler = ((ViewHandlerWrapper)handler).getWrapped();
+    }
+
+    context.getApplication().setViewHandler(((TestViewHandler) handler).getDelegate());
 
   } // END postTest
 
