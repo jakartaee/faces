@@ -32,6 +32,7 @@ import java.util.function.Function;
 public class WebPage {
 
     public static final Duration STD_TIMEOUT = Duration.ofMillis(8000);
+    public static final Duration LONG_TIMEOUT = Duration.ofMillis(16000);
 
     protected ExtendedWebDriver webDriver;
 
@@ -53,20 +54,22 @@ public class WebPage {
      * @param timeout the standard timeout to wait in case the condition is not executed
      */
     public void waitForBackgroundJavascript(Duration timeout) {
-        WebDriverWait wait = new WebDriverWait(webDriver, timeout);
-        double rand = Math.random();
-        @SuppressWarnings("UnnecessaryLabelJS")
-        final String identifier = "__insert__:" + rand;
-        webDriver.manage().timeouts().scriptTimeout(timeout);
-        //We use a trick here, javascript  is cooperative multitasking
-        //so we defer into a time when the script is executed
-        //and then check for the new element
-        webDriver.getJSExecutor().executeAsyncScript("let [resolve] = arguments; setTimeout(function() { var insert__ = document.createElement('div');" +
-                "insert__.id = '" + identifier + "';" +
-                "insert__.innerHTML = 'done';" +
-                "document.body.append(insert__); resolve()}, 0);");
-        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id(identifier), 0));
-        webDriver.getJSExecutor().executeScript("document.body.removeChild(document.getElementById('" + identifier + "'));");
+        synchronized (webDriver) {
+            WebDriverWait wait = new WebDriverWait(webDriver, timeout);
+            double rand = Math.random();
+            @SuppressWarnings("UnnecessaryLabelJS") final String identifier = "__insert__:" + rand;
+            webDriver.manage().timeouts().scriptTimeout(timeout);
+            //We use a trick here, javascript  is cooperative multitasking
+            //so we defer into a time when the script is executed
+            //and then check for the new element, we shift it 50ms into the future
+            //which means we are still in execution or already done
+            webDriver.getJSExecutor().executeAsyncScript("let [resolve] = arguments; setTimeout(function() { var insert__ = document.createElement('div');" +
+                    "insert__.id = '" + identifier + "';" +
+                    "insert__.innerHTML = 'done';" +
+                    "document.body.append(insert__); resolve()}, 50);");
+            wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id(identifier), 0));
+            webDriver.getJSExecutor().executeScript("document.body.removeChild(document.getElementById('" + identifier + "'));");
+        }
     }
 
     /**
@@ -76,21 +79,31 @@ public class WebPage {
      * @param timeout timeout duration
      */
     public <V> void waitForCondition(Function<? super WebDriver, V> isTrue, Duration timeout) {
-        WebDriverWait wait = new WebDriverWait(webDriver, timeout);
-        wait.until(isTrue);
+        synchronized (webDriver) {
+            WebDriverWait wait = new WebDriverWait(webDriver, timeout);
+            wait.until(isTrue);
+        }
     }
+
+    public <V> void waitForCondition(Function<? super WebDriver, V> isTrue) {
+        synchronized (webDriver) {
+            WebDriverWait wait = new WebDriverWait(webDriver, LONG_TIMEOUT);
+            wait.until(isTrue);
+        }
+    }
+
 
     /**
      * simple wait
      * @param timeout
      */
     public void wait(Duration timeout) {
-        try {
-            synchronized (webDriver) {
+        synchronized (webDriver) {
+            try {
                 webDriver.wait(timeout.toMillis());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 
@@ -104,6 +117,14 @@ public class WebPage {
     }
 
     /**
+     * wait for the current request to be ended, with a timeout of "timeout"
+     * @param timeout the timeout for the waiting, if it is exceeded an timeout exception is thrown
+     */
+    public void waitForCurrentRequestEnd(Duration timeout) {
+        waitForCondition(webDriver1 -> webDriver.getResponseStatus() != -1, timeout);
+    }
+
+    /**
      * wait until the current ajax request targeting the same page
      * has stopped and then tests for blocking running scripts
      * still running.
@@ -114,18 +135,24 @@ public class WebPage {
     }
 
     /**
-     * same as before but with a decdicated timeout
+     * same as before but with a dedicated timeout
      * @param timeout the timeout duration after that the wait is cancelled
      *                and an exceotion is thrown
      */
     public void waitReqJs(Duration timeout) {
-        try {
-            Thread.sleep(100);
-            waitForCurrentRequestEnd();
-            waitForBackgroundJavascript(timeout);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        // We stall the connection between browser and client for 100ms to make sure everything
+        // is done (usually a request takes betwen 6 and 20ms)
+        // Note, if you have long running request, I recommend to wait for a condition instead
+        this.wait(Duration.ofMillis(200));
+        // just in case the request takes longer, we also check the request queue for the current request to end
+        waitForCurrentRequestEnd(timeout);
+        // just in case some background javascript still is ongoing (aka request has ended during the waiting period
+        // we use a trick on the cooperative multitasking to get a grip on the end of the javascript processing
+        // (aka new scripts will be processed when the old ones have stopped or a timeout is issued by the scripts)
+        // note, this might cause race conditions with embedded scripts
+        // for this case I can recommend to simply use waitForCondition instead, but for most cases
+        // a simple timeout suffices, given the 100ms timespan of the initial wait
+        waitForBackgroundJavascript(timeout);
     }
 
     /**
@@ -139,12 +166,9 @@ public class WebPage {
                 return webDriver.getJSExecutor().executeScript("return document.readyState").equals("complete");
             }
         };
-        try {
+        synchronized (webDriver) {
             WebDriverWait wait = new WebDriverWait(webDriver, timeOut);
             wait.until(expectation);
-        } catch (Throwable error) {
-            error.printStackTrace();
-            throw new RuntimeException(error);
         }
     }
 
@@ -154,6 +178,8 @@ public class WebPage {
     public void waitForPageToLoad() {
         waitForPageToLoad(STD_TIMEOUT);
     }
+
+
 
     /**
      * conditional waiter and checker which checks whether the page text is present

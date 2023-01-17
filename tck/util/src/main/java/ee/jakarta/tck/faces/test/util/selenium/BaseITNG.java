@@ -28,6 +28,7 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.net.URL;
+import java.time.Duration;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
@@ -75,7 +76,8 @@ public class BaseITNG {
     protected WebPage getPage(String page) {
         webDriver.get(webUrl.toString() + page);
         WebPage webPage = new WebPage(webDriver);
-        webPage.waitForPageToLoad();
+        // Sometimes it takes longer until the first page is loaded after container startup
+        webPage.waitForPageToLoad(Duration.ofSeconds(120));
         return webPage;
     }
 

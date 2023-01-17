@@ -33,7 +33,9 @@ public class DriverPool {
      * creates or activates a new driver instance
      * @return a new or recycled driver instance
      */
-    public ExtendedWebDriver getOrNewInstance() {
+    public synchronized ExtendedWebDriver getOrNewInstance() {
+        //synchronized to avoid get race conditions.... there is a non synchonzed part between the check and remove
+        //to make this easy we simply synchronize the get to fix it
         ExtendedWebDriver webDriver = (availableDrivers.size() > 0) ? availableDrivers.remove() : null;
         if(webDriver == null) {
             webDriver = ChromeDevtoolsDriver.stdInit();

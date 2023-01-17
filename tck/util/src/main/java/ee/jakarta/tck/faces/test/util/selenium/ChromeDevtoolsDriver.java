@@ -97,11 +97,22 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         //we store always the last request for further reference
         initNetworkListeners(devTools);
         initDevTools(devTools);
+        disableCache(devTools);
+    }
+
+    private static void disableCache(DevTools devTools) {
+        devTools.send(Network.setCacheDisabled(true));
     }
 
     private static void initDevTools(DevTools devTools) {
-        devTools.createSession();
-        devTools.send(Network.clearBrowserCache());
+        try {
+            devTools.createSession();
+            devTools.send(Network.clearBrowserCache());
+        } catch (TimeoutException ex) {
+            Logger log = Logger.getLogger(ChromeDevtoolsDriver.class.getName());
+            log.warning("Init timeout error, can happen, " +
+                    "if the driver already has been used, can be safely ignore");
+        }
         devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
     }
 
