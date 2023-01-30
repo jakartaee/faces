@@ -206,7 +206,7 @@
                             <artifactItem>
                                 <groupId>org.apache.commons</groupId>
                                 <artifactId>commons-lang3</artifactId>
-                                <version>3.3.2</version>
+                                <version>3.12.0</version>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>commons-logging</groupId>
@@ -221,12 +221,12 @@
                             <artifactItem>
                                 <groupId>net.sourceforge.htmlunit</groupId>
                                 <artifactId>htmlunit</artifactId>
-                                <version>2.15</version>
+                                <version>2.66.0</version>
                             </artifactItem>
                             <artifactItem>
                                 <groupId>net.sourceforge.htmlunit</groupId>
                                 <artifactId>htmlunit-core-js</artifactId>
-                                <version>2.15</version>
+                                <version>2.66.0</version>
                             </artifactItem>
                             <!--artifactItem>
                                 <groupId>org.apache.httpcomponents</groupId>

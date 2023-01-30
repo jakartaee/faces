@@ -78,7 +78,7 @@ public class URLClient extends BaseHtmlUnitClient {
       formatter.format(JSFTestUtil.FAIL + JSFTestUtil.NL
           + "Unexpected HtmlLabel Rendered! %n"
           + "Expected not label to be rendered! %n" + "Instead found: %s %n",
-          notSeen.asText());
+          notSeen.asNormalizedText());
     }
 
     handleTestStatus(messages);

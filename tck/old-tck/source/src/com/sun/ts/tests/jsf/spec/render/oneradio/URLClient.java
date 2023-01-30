@@ -360,43 +360,43 @@ public class URLClient extends BaseHtmlUnitClient {
 
       // test for .jsp syntax
       if ("encodetest".equals(page.getTitleText())) {
-        if (!("&foo".equals(label0.asText().trim()) && wr
+        if (!("&foo".equals(label0.asNormalizedText().trim()) && wr
             .contains("<label for=\"form:radio11:0\"> " + "&foo</label>"))) {
           formatter.format(
               "Unexpected value in JSP page for Radio " + "Label: %s %n"
                   + "Expected: &foo and <label for=\"form:radio11:0\">"
                   + " &foo</label> %n" + "Recieved: %s and " + wr + "%n",
-              radio110.getId(), label0.asText().trim());
+              radio110.getId(), label0.asNormalizedText().trim());
         }
 
-        if (!("&bar".equals(label1.asText().trim()) && wr.contains(
+        if (!("&bar".equals(label1.asNormalizedText().trim()) && wr.contains(
             "<label for=\"form:radio11:1\">" + " &amp;bar</label>"))) {
           formatter.format(
               "Unexpected value in JSP page for Radio " + "Label: %s %n"
                   + "Expected: &bar and <label for=\"form:radio11:1\">"
                   + " &amp;bar</label> %n" + "Recieved: %s and " + wr + "%n",
-              radio111.getId(), label1.asText().trim());
+              radio111.getId(), label1.asNormalizedText().trim());
         }
       }
 
       // test for facelet syntax
       else if ("encodetest_facelet".equals(page.getTitleText())) {
-        if (!("&foo".equals(label0.asText().trim()) && wr
+        if (!("&foo".equals(label0.asNormalizedText().trim()) && wr
             .contains("<label for=\"form:radio11:0\"> " + "&foo</label>"))) {
           formatter.format(
               "Unexpected value in Facelet page " + "for Radio Label: %s %n "
                   + "Expected: %s and <label for=\"form:radio11:0\">"
                   + " &foo</label>%n" + "Recieved: %s " + wr + "%n",
-              radio110.getId(), "&foo", label0.asText().trim());
+              radio110.getId(), "&foo", label0.asNormalizedText().trim());
         }
 
-        if (!("&bar".equals(label1.asText().trim()) && wr.contains(
+        if (!("&bar".equals(label1.asNormalizedText().trim()) && wr.contains(
             "<label for=\"form:radio11:1\">" + " &amp;bar</label>"))) {
           formatter.format(
               "Unexpected value in Facelet page " + "for Radio Label: %s %n"
                   + "Expected: %s and <label for=\"form:radio11:1\">"
                   + " &amp;bar</label> %n" + "Recieved: %s " + wr + "%n",
-              radio111.getId(), "&bar", label1.asText().trim());
+              radio111.getId(), "&bar", label1.asNormalizedText().trim());
         }
 
       } else {

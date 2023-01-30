@@ -518,11 +518,11 @@ public class URLClient extends BaseHtmlUnitClient {
                     + "specified.  Colspan received '%s' %n.",
                 cell.getColumnSpan());
           } else {
-            if (!"Header Text For Data1".equals(cell.asText())) {
+            if (!"Header Text For Data1".equals(cell.asNormalizedText())) {
               formatter.format("Expected table header cell "
                   + "for table containing ID 'data1' to "
                   + "contain 'Header Text For Data1', " + "received: '%s'. %n",
-                  cell.asText());
+                  cell.asNormalizedText());
             }
           }
 
@@ -569,11 +569,11 @@ public class URLClient extends BaseHtmlUnitClient {
                     + "specified. Colspan received '%s' %n.",
                 cell.getColumnSpan());
           } else {
-            if (!"Footer Text For Data1".equals(cell.asText())) {
+            if (!"Footer Text For Data1".equals(cell.asNormalizedText())) {
               formatter.format("Expected table footer cell for "
                   + "table containing ID 'data1' to "
                   + "contain 'Footer Text For Data1', " + "received: '%s'. %n",
-                  cell.asText());
+                  cell.asNormalizedText());
             }
           }
 
@@ -632,12 +632,12 @@ public class URLClient extends BaseHtmlUnitClient {
                     + "specified. Colspan received '%s' %n.",
                 cell.getColumnSpan());
           } else {
-            if (!"Header Text For Data2".equals(cell.asText())) {
+            if (!"Header Text For Data2".equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table header cell for "
                       + "table containing ID 'data2' to contain "
                       + "'Header Text For Data2', " + "received: '%s'.%n",
-                  cell.asText());
+                  cell.asNormalizedText());
             }
           }
 
@@ -683,12 +683,12 @@ public class URLClient extends BaseHtmlUnitClient {
                     + "specified. Colspan received '%s' %n.",
                 cell.getColumnSpan());
           } else {
-            if (!"Footer Text For Data2".equals(cell.asText())) {
+            if (!"Footer Text For Data2".equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table footer cell for "
                       + "table containing ID 'data2' to contain "
                       + "Footer Text For Data2', received: " + "'%s'. %n",
-                  cell.asText());
+                  cell.asNormalizedText());
             }
           }
 
@@ -775,12 +775,12 @@ public class URLClient extends BaseHtmlUnitClient {
           List headerCells = row.getCells();
           for (int i = 0, size = headerCells.size(); i < size; i++) {
             HtmlTableHeaderCell cell = (HtmlTableHeaderCell) row.getCell(i);
-            if (!headerCellValues[i].equals(cell.asText())) {
+            if (!headerCellValues[i].equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table header cell(%s) "
                       + "for table containing ID 'data1' to "
                       + "contain '%s', received: '%s'. %n",
-                  i, headerCellValues[i], cell.asText());
+                  i, headerCellValues[i], cell.asNormalizedText());
             }
 
             // validate the scope attribute is rendered on each
@@ -815,12 +815,12 @@ public class URLClient extends BaseHtmlUnitClient {
           List headerCells = row.getCells();
           for (int i = 0, size = headerCells.size(); i < size; i++) {
             HtmlTableCell cell = row.getCell(i);
-            if (!footerCellValues[i].equals(cell.asText())) {
+            if (!footerCellValues[i].equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table footer cell(%s) "
                       + "for table containing ID 'data1' to "
                       + "contain '%s', received: '%s'. %n",
-                  i, footerCellValues[i], cell.asText());
+                  i, footerCellValues[i], cell.asNormalizedText());
             }
 
             // validate no scope attribute is rendered
@@ -868,12 +868,12 @@ public class URLClient extends BaseHtmlUnitClient {
           List headerCells = row.getCells();
           for (int i = 0, size = headerCells.size(); i < size; i++) {
             HtmlTableHeaderCell cell = (HtmlTableHeaderCell) row.getCell(i);
-            if (!headerCellValues[i].equals(cell.asText())) {
+            if (!headerCellValues[i].equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table header cell(%s) "
                       + "for table containing ID 'data2' to "
                       + "contain '%s', received: '%s'. %n",
-                  i, headerCellValues[i], cell.asText());
+                  i, headerCellValues[i], cell.asNormalizedText());
             }
 
             // validate the scope attribute is rendered on each
@@ -914,12 +914,12 @@ public class URLClient extends BaseHtmlUnitClient {
           List headerCells = row.getCells();
           for (int i = 0, size = headerCells.size(); i < size; i++) {
             HtmlTableCell cell = row.getCell(i);
-            if (!footerCellValues[i].equals(cell.asText())) {
+            if (!footerCellValues[i].equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table footer cell(%s) "
                       + "for table containing ID 'data2' to "
                       + "contain '%s', received: '%s'. %n",
-                  i, footerCellValues[i], cell.asText());
+                  i, footerCellValues[i], cell.asNormalizedText());
             }
 
             // validate no scope attribute is rendered
@@ -975,12 +975,12 @@ public class URLClient extends BaseHtmlUnitClient {
           List headerCells = row.getCells();
           for (int i = 0, size = headerCells.size(); i < size; i++) {
             HtmlTableHeaderCell cell = (HtmlTableHeaderCell) row.getCell(i);
-            if (!headerCellValues[i].equals(cell.asText())) {
+            if (!headerCellValues[i].equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table header cell(%s) "
                       + "for table containing ID 'data3' to "
                       + "contain '%s', received: '%s'. %n",
-                  i, headerCellValues[i], cell.asText());
+                  i, headerCellValues[i], cell.asNormalizedText());
             }
 
             // validate the scope attribute is rendered on each
@@ -1024,12 +1024,12 @@ public class URLClient extends BaseHtmlUnitClient {
           List headerCells = row.getCells();
           for (int i = 0, size = headerCells.size(); i < size; i++) {
             HtmlTableCell cell = row.getCell(i);
-            if (!footerCellValues[i].equals(cell.asText())) {
+            if (!footerCellValues[i].equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table footer cell(%s) "
                       + "for table containing ID 'data3' to "
                       + "contain '%s', received: '%s'. %n",
-                  i, footerCellValues[i], cell.asText());
+                  i, footerCellValues[i], cell.asNormalizedText());
             }
 
             // validate no scope attribute is rendered
@@ -1152,13 +1152,13 @@ public class URLClient extends BaseHtmlUnitClient {
       for (int i = 0; i < expectedValues.length; i++) {
         HtmlTableRow row = (HtmlTableRow) rows.get(i);
         for (int j = 0; j < expectedValues[i].length; j++) {
-          if (!expectedValues[i][j].equals(row.getCell(j).asText())) {
+          if (!expectedValues[i][j].equals(row.getCell(j).asNormalizedText())) {
             formatter.format(
                 "Expected value at row '%s', column"
                     + " '%s' for table containing ID '%s' "
                     + "to be '%s', received '%s'. %n",
                 i + 1, j + 1, id, expectedValues[i][j],
-                row.getCell(j).asText());
+                row.getCell(j).asNormalizedText());
           }
 
           if (columnClasses != null) {

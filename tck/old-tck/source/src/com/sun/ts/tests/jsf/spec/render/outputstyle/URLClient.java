@@ -23,7 +23,7 @@ import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.List;
 
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
@@ -77,8 +77,8 @@ public class URLClient extends BaseHtmlUnitClient {
     HtmlPage pageOne = getPage(
         CONTEXT_ROOT + "/faces/encodetest_facelet.xhtml");
 
-    List<HtmlLink> links = pageOne.getDocumentElement()
-        .getHtmlElementsByTagName("link");
+    List<HtmlElement> links = pageOne.getDocumentElement()
+        .getElementsByTagName("link");
 
     if (2 != links.size()) {
       formatter.format("Wrong number of '%s' elements rendered. %n"
@@ -89,8 +89,8 @@ public class URLClient extends BaseHtmlUnitClient {
 
     HtmlPage pageTwo = getPage(
         CONTEXT_ROOT + "/faces/encodetest_facelet_1.xhtml");
-    List<HtmlLink> linkTwo = pageTwo.getDocumentElement()
-        .getHtmlElementsByTagName("link");
+    List<HtmlElement> linkTwo = pageTwo.getDocumentElement()
+        .getElementsByTagName("link");
 
     String expected1 = "/jsf_render_outputstyle_web/faces/"
         + "jakarta.faces.resource/night.css";
@@ -102,8 +102,8 @@ public class URLClient extends BaseHtmlUnitClient {
     HtmlPage pageThree = getPage(
         CONTEXT_ROOT + "/faces/encodetest_facelet_2.xhtml");
 
-    List<HtmlLink> linkThree = pageThree.getDocumentElement()
-        .getHtmlElementsByTagName("link");
+    List<HtmlElement> linkThree = pageThree.getDocumentElement()
+        .getElementsByTagName("link");
 
     String expected2 = "/jsf_render_outputstyle_web/faces/"
         + "jakarta.faces.resource/morning.css";
@@ -117,8 +117,8 @@ public class URLClient extends BaseHtmlUnitClient {
     HtmlPage pageOneA = getPage(
         CONTEXT_ROOT + "/faces/encodetest_facelet.xhtml");
 
-    List<HtmlLink> link = pageOne.getDocumentElement()
-        .getHtmlElementsByTagName("link");
+    List<HtmlElement> link = pageOne.getDocumentElement()
+        .getElementsByTagName("link");
 
     String mediaOne = link.get(0).getAttribute("media");
     this.testAtts("screen", mediaOne, "media", formatter);
@@ -132,10 +132,10 @@ public class URLClient extends BaseHtmlUnitClient {
 
   // -------------------------------------------------------- private methods
   // Test HtmlLink, attributes.
-  private void testLink(HtmlLink link, String hrefExpected,
+  private void testLink(HtmlElement link, String hrefExpected,
       Formatter formatter) {
     // test for href attribute
-    String hrefresult = link.getHrefAttribute();
+    String hrefresult = link.getAttribute("href");
 
     this.testAtts(hrefExpected, hrefresult, "href", formatter);
 

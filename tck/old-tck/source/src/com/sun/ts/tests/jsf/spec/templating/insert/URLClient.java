@@ -109,14 +109,14 @@ public class URLClient extends BaseHtmlUnitClient {
         "div", "IGNORED_BOTTOM");
 
     if (!(top == null)) {
-      formatter.format("Unexpected Value Found! %n" + "Found: " + top.asText()
+      formatter.format("Unexpected Value Found! %n" + "Found: " + top.asNormalizedText()
           + "%n" + "This String should not have been found JSF should ignore"
           + "everything outside of the uicompsite tags!");
     }
 
     if (!(bottom == null)) {
       formatter.format(
-          "Unexpected Value Found! %n" + "Found: " + bottom.asText() + "%n"
+          "Unexpected Value Found! %n" + "Found: " + bottom.asNormalizedText() + "%n"
               + "This String should not have been found JSF should ignore"
               + "everything outside of the uicompsite tags!");
     }
@@ -145,7 +145,7 @@ public class URLClient extends BaseHtmlUnitClient {
     validateExistence("PROCESSED_TOP", "div", template, formatter);
 
     this.testString("Default TitleDefault HeadingDefault Content",
-        template.asText(), formatter);
+        template.asNormalizedText(), formatter);
 
     handleTestStatus(messages);
   } // END templateInsertUIDecorateTest
@@ -211,7 +211,7 @@ public class URLClient extends BaseHtmlUnitClient {
         "heading");
 
     validateExistence("heading", "div", head, formatter);
-    String headingValue = head.asText();
+    String headingValue = head.asNormalizedText();
 
     this.testString(expHead, headingValue, formatter);
 
@@ -221,7 +221,7 @@ public class URLClient extends BaseHtmlUnitClient {
         "div", "content");
 
     validateExistence("content", "div", content, formatter);
-    String contentValue = content.asText();
+    String contentValue = content.asNormalizedText();
 
     this.testString(expContent, contentValue, formatter);
 
