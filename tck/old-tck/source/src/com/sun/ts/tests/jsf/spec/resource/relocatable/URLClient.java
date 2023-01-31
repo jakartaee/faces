@@ -22,8 +22,8 @@ package com.sun.ts.tests.jsf.spec.resource.relocatable;
 import java.io.PrintWriter;
 import java.util.Formatter;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 
@@ -103,7 +103,7 @@ public class URLClient extends BaseHtmlUnitClient {
     StringBuilder messages = new StringBuilder(128);
     Formatter formatter = new Formatter(messages);
 
-    HtmlScript htmlscript = (HtmlScript) getElementOfTypeIncludingSrc(page,
+    HtmlElement htmlscript = getElementOfTypeIncludingSrc(page,
         SCRIPT, SCRIPT_NAME);
 
     String result = htmlscript.getParentNode().getNodeName();

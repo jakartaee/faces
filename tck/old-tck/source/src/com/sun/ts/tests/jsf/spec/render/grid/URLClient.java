@@ -512,12 +512,12 @@ public class URLClient extends BaseHtmlUnitClient {
                     + " was specified.  Colspan received '%s'%n.",
                 cell.getColumnSpan());
           } else {
-            if (!"Header Text For Grid1".equals(cell.asText())) {
+            if (!"Header Text For Grid1".equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table header cell for "
                       + "table containing ID 'grid1' to contain "
                       + "'Header Text For Grid1', " + "received: '%s'.%n",
-                  cell.asText());
+                  cell.asNormalizedText());
             }
           }
 
@@ -564,12 +564,12 @@ public class URLClient extends BaseHtmlUnitClient {
                     + " was specified.  Colspan received '%s'%n.",
                 cell.getColumnSpan());
           } else {
-            if (!"Footer Text For Grid1".equals(cell.asText())) {
+            if (!"Footer Text For Grid1".equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table footer cell for "
                       + "table containing ID 'grid1' to contain "
                       + "'Footer Text For Grid1', " + "received: '%s'.%n",
-                  cell.asText());
+                  cell.asNormalizedText());
             }
           }
 
@@ -628,12 +628,12 @@ public class URLClient extends BaseHtmlUnitClient {
                     + " was specified.  Colspan received '%s'%n.",
                 cell.getColumnSpan());
           } else {
-            if (!"Header Text For Grid2".equals(cell.asText())) {
+            if (!"Header Text For Grid2".equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table header cell for "
                       + "table containing ID 'grid2' to contain "
                       + "'Header Text For Grid2', " + "received: '%s'.%n",
-                  cell.asText());
+                  cell.asNormalizedText());
             }
           }
 
@@ -679,12 +679,12 @@ public class URLClient extends BaseHtmlUnitClient {
                     + " was specified.  Colspan received '%s'%n.",
                 cell.getColumnSpan());
           } else {
-            if (!"Footer Text For Grid2".equals(cell.asText())) {
+            if (!"Footer Text For Grid2".equals(cell.asNormalizedText())) {
               formatter.format(
                   "Expected table footer cell for "
                       + "table containing ID 'grid2' to contain "
                       + "'Footer Text For Grid2', " + "received: '%s'.%n",
-                  cell.asText());
+                  cell.asNormalizedText());
             }
           }
 
@@ -748,13 +748,13 @@ public class URLClient extends BaseHtmlUnitClient {
         HtmlTableRow row = (HtmlTableRow) rows.get(i);
         for (int j = 0; j < rowLength; j++) {
           int cellNo = i * rowLength + j;
-          if (!expectedValues[cellNo].equals(row.getCell(j).asText())) {
+          if (!expectedValues[cellNo].equals(row.getCell(j).asNormalizedText())) {
             formatter.format(
                 "Expected value at row '%s', column"
                     + " '%s' for table containing ID '%s' "
                     + "to be '%s', received '%s'.%n",
                 i + 1, j + 1, id, expectedValues[cellNo],
-                row.getCell(j).asText());
+                row.getCell(j).asNormalizedText());
           }
 
           if (columnClasses != null) {

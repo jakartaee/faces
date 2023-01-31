@@ -23,8 +23,8 @@ import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.List;
 
+import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 
@@ -70,17 +70,17 @@ public class URLClient extends BaseHtmlUnitClient {
 
     String[] expected = { "hello.js", "goodbye.js" };
 
-    List<HtmlScript> scripts = page.getDocumentElement()
-        .getHtmlElementsByTagName("script");
+    List<HtmlElement> scripts = page.getDocumentElement()
+        .getElementsByTagName("script");
 
     boolean hjs = false, gjs = false;
-    for (HtmlScript hs : scripts) {
+    for (HtmlElement hs : scripts) {
       if (!hjs) {
-        hjs = hs.getSrcAttribute().contains(expected[0]);
+        hjs = hs.getAttribute("src").contains(expected[0]);
       }
 
       if (!gjs) {
-        gjs = hs.getSrcAttribute().contains(expected[1]);
+        gjs = hs.getAttribute("src").contains(expected[1]);
       }
     }
 

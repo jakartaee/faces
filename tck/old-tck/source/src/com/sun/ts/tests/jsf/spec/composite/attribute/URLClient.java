@@ -193,7 +193,7 @@ public class URLClient extends BaseHtmlUnitClient {
       HtmlPage postBack = (HtmlPage) button.click();
       HtmlTextArea tArea = (HtmlTextArea) getElementOfTypeIncludingId(postBack,
           "textarea", "comments");
-      String comment = tArea.asText();
+      String comment = tArea.asNormalizedText();
       String expected = "You Pressed ERASE!";
 
       if (!comment.equals(expected)) {

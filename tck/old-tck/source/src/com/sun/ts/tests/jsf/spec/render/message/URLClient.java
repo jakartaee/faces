@@ -137,7 +137,7 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      String message1 = span1.asText().trim();
+      String message1 = span1.asNormalizedText().trim();
       if (!"INFO: Summary Message INFO: Detailed Message".equals(message1)) {
         formatter
             .format(testCaseName + ": Unexpected value for " + "message1! %n"
@@ -502,7 +502,7 @@ public class URLClient extends BaseHtmlUnitClient {
       }
 
       // Validate the message itself.
-      String sdMessage = span9.asText().trim();
+      String sdMessage = span9.asNormalizedText().trim();
       if (!"INFO: Summary Message INFO: Detailed Message".equals(sdMessage)) {
         formatter.format(testCaseName + ": Unexpected value for message! "
             + "%n" + "Expected: INFO: Summary Message INFO: Detailed Message"
@@ -541,7 +541,7 @@ public class URLClient extends BaseHtmlUnitClient {
       }
 
       // Validate the message itself.
-      String sMessage = span10.asText().trim();
+      String sMessage = span10.asNormalizedText().trim();
       if (!"INFO: Summary Message".equals(sMessage)) {
         formatter.format(testCaseName + ": Unexpected value for message!" + "%n"
             + "Expected: INFO: Summary Message %n" + "Received: " + sMessage
@@ -582,7 +582,7 @@ public class URLClient extends BaseHtmlUnitClient {
       }
 
       // Validate the message itself.
-      String dMessage = span11.asText().trim();
+      String dMessage = span11.asNormalizedText().trim();
       if (!"INFO: Detailed Message".equals(dMessage)) {
         formatter.format(testCaseName + ": Unexpected value for message! "
             + "%n" + "Expected: INFO: Detailed Message %n" + "Received: "
@@ -621,7 +621,7 @@ public class URLClient extends BaseHtmlUnitClient {
       }
 
       // Validate the message itself.
-      String noMessage = span12.asText().trim();
+      String noMessage = span12.asNormalizedText().trim();
       if (!"".equals(noMessage)) {
         formatter.format(testCaseName + ": Unexpected value for message! "
             + "%n" + "Expected: %n" + "Received: " + noMessage + "%n");

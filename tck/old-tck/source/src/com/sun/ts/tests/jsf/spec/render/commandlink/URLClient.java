@@ -111,9 +111,9 @@ public class URLClient extends BaseHtmlUnitClient {
               link1.getHrefAttribute());
         }
 
-        if (!"Click Me1".equals(link1.asText())) {
+        if (!"Click Me1".equals(link1.asNormalizedText())) {
           formatter.format("Unexpected anchor text. %n" + "Expected: '%s' %n"
-              + "Received: '%s' %n", "Click Me1", link1.asText());
+              + "Received: '%s' %n", "Click Me1", link1.asNormalizedText());
         }
 
         if (link1.getOnClickAttribute().length() < 0) {
@@ -136,9 +136,9 @@ public class URLClient extends BaseHtmlUnitClient {
               link2.getHrefAttribute());
         }
 
-        if (!"Click Me2".equals(link2.asText())) {
+        if (!"Click Me2".equals(link2.asNormalizedText())) {
           formatter.format("Unexpected anchor text. %n" + "Expected '%s' %n"
-              + "Received: '%s' %n", "Click Me2", link2.asText());
+              + "Received: '%s' %n", "Click Me2", link2.asNormalizedText());
         }
 
         if (!"sansserif".equals(link2.getAttribute("class"))) {
@@ -168,11 +168,11 @@ public class URLClient extends BaseHtmlUnitClient {
               link3.getHrefAttribute());
         }
 
-        if (!"Click Me3".equals(link3.asText())) {
+        if (!"Click Me3".equals(link3.asNormalizedText())) {
           formatter.format("Unexpected anchor text.  "
               + "Expected 'Click M3'to be the anchor text "
               + "when specified as a nested child (HtmlOutput), "
-              + "but received: '%s' %n", link3.asText());
+              + "but received: '%s' %n", link3.asNormalizedText());
         }
 
         if (link3.getOnClickAttribute().length() < 0) {
@@ -198,12 +198,12 @@ public class URLClient extends BaseHtmlUnitClient {
               span.getAttribute("class"));
         }
 
-        if (!"Disabled Link".equals(span.asText())) {
+        if (!"Disabled Link".equals(span.asNormalizedText())) {
           formatter.format(
               "Unexpected textual value for rendered "
                   + "span element when command link is disabled%n.  "
                   + "Expected 'Disabled Link'%n, but received '%s'%n",
-              span.asText());
+              span.asNormalizedText());
         }
 
         if (span.getOnClickAttribute().length() > 0) {
@@ -222,11 +222,11 @@ public class URLClient extends BaseHtmlUnitClient {
         formatter.format("Unable to find a span element with an ID"
             + " containing 'link6' %n");
       } else {
-        if (!"Disabled Link(Nested)".equals(span2.asText())) {
+        if (!"Disabled Link(Nested)".equals(span2.asNormalizedText())) {
           formatter.format("Unexpected textual value for rendered "
               + "span element when command link is disabled. "
               + "Expected 'Disabled Link(Nested)', " + "but received '%s' %n",
-              span2.asText());
+              span2.asNormalizedText());
         }
       }
 
