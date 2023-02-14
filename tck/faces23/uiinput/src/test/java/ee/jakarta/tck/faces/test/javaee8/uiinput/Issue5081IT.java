@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2022, 2023 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,7 +19,9 @@ package ee.jakarta.tck.faces.test.javaee8.uiinput;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -31,6 +33,7 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UISelectMany;
 import jakarta.faces.component.behavior.AjaxBehavior;
 
+@RunWith(Arquillian.class)
 public class Issue5081IT extends ITBase {
 
     /**
