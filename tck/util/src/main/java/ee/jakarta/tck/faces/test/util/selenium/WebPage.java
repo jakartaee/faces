@@ -253,6 +253,22 @@ public class WebPage {
             return false;
         }
     }
+
+    /**
+     * adds the reduced page text functionality to the regexp match
+     *
+     * @param regexp
+     * @return
+     */
+    public boolean matchesPageTextReduced(String regexp) {
+        try {
+            waitForCondition(webDriver1 -> webDriver.getPageTextReduced().matches(regexp), STD_TIMEOUT);
+            return true;
+        } catch (TimeoutException ex) {
+            //timeout is wanted in this case and should result in a false
+            return false;
+        }
+    }
     /**
      * conditional waiter and checker which checks whether a text is not in the page
      * we add our own waiter internally, because pageSource always delivers

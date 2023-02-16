@@ -296,7 +296,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     public String getPageTextReduced() {
         String head = delegate.findElement(By.tagName("head")).getAttribute("innerText");
         String body = delegate.findElement(By.tagName("body")).getAttribute("innerText");
-        return (head + " " + body).replaceAll("[\\s\\n ]+", " ");
+        return (head + " " + body).replaceAll("[\\t\\s\\r\\n ]+", " ");
     }
 
     /**
