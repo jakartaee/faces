@@ -42,6 +42,8 @@ import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 
 import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -50,6 +52,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 /**
  * Extended driver which we need for getting
@@ -293,7 +296,8 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     public String getPageTextReduced() {
         String head = delegate.findElement(By.tagName("head")).getAttribute("innerText");
         String body = delegate.findElement(By.tagName("body")).getAttribute("innerText");
-        return (head + " " + body).replaceAll("[\\s\\n ]+", " ");
+        //handle blanks and nbsps
+        return (head + " " + body).replaceAll("[\\s\\u00A0]+", " ");
     }
 
     /**
@@ -402,9 +406,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     }
 
     public DevTools getDevTools() {
-        DevTools ret = delegate.getDevTools();
-
-        return ret;
+        return delegate.getDevTools();
     }
 
 
@@ -433,6 +435,14 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     public String getRequestData() {
         HttpCycleData data = getLastGetData();
         return data.request.getPostData().orElse("");
+    }
+
+    public String[] getRequestDataAsArray() {
+        String requestData = getRequestData();
+        String[] splitData = requestData.split("&");
+        return Stream.of(splitData)
+                .map((String keyVal) -> URLDecoder.decode(keyVal, StandardCharsets.UTF_8))
+                .toArray(String[]::new);
     }
 
     private HttpCycleData getLastGetData() {
@@ -495,7 +505,13 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
         ChromeOptions options = new ChromeOptions();
 
-        options.addArguments("--headless");
+        // we can turn on a visual browser by
+        // adding chromedriver.headless = false to our properties
+        // default is headless = true
+        if(System.getProperty("chromedriver.headless") == null  ||
+        "true".equals(System.getProperty("chromedriver.headless"))) {
+            options.addArguments("--headless");
+        }
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-web-security");
         options.addArguments("--allow-insecure-localhost");
