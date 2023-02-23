@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -40,8 +40,9 @@ import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-@RunWith(Arquillian.class)
-public class ProtectedViewsTestIT {
+import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+
+public class ProtectedViewsTestIT extends ITBase {
 
     @ArquillianResource
     private URL webUrl;

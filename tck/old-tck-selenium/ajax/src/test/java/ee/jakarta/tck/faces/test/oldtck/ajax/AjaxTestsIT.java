@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -36,7 +35,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
@@ -45,8 +43,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
-@RunWith(Arquillian.class)
-public class AjaxTestsIT {
+import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+
+public class AjaxTestsIT extends ITBase {
 
     @ArquillianResource
     private URL webUrl;
@@ -178,6 +177,7 @@ public class AjaxTestsIT {
    * 
    * @since 2.0
    */
+  @Test
   public void ajaxFormKeywordTest() throws Exception {
 
     String EXPECTED = "testtext";
@@ -201,6 +201,7 @@ public class AjaxTestsIT {
    * 
    * @since 2.0
    */
+  @Test
   public void ajaxNoneKeywordTest() throws Exception {
 
     String EXPECTED = "testtext";

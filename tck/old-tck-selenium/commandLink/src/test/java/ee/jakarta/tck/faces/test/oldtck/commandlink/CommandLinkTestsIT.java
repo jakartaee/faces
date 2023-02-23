@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -31,14 +31,12 @@ import java.util.List;
 import java.util.TreeMap;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomAttr;
@@ -47,8 +45,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 
-@RunWith(Arquillian.class)
-public class CommandLinkTestsIT {
+import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+
+public class CommandLinkTestsIT extends ITBase {
 
     @ArquillianResource
     private URL webUrl;
@@ -114,36 +113,36 @@ public class CommandLinkTestsIT {
 
     HtmlPage page = webClient.getPage(webUrl + "/faces/encodetest_facelet.xhtml");
 
-    HtmlAnchor link1 = (HtmlAnchor) page.getElementById("form:link1"); // form:link1? 
+    HtmlAnchor link1 = (HtmlAnchor) page.getElementById("form:link1");
     assertNotNull(link1);
     assertEquals("#",link1.getHrefAttribute());
     assertEquals("Click Me1",link1.asNormalizedText());
     assertFalse(link1.getOnClickAttribute().length() < 0);
 
-    HtmlAnchor link2 = (HtmlAnchor) page.getElementById("form:link2"); // form:link1? 
+    HtmlAnchor link2 = (HtmlAnchor) page.getElementById("form:link2");
     assertNotNull(link2);
     assertEquals("#",link1.getHrefAttribute());
     assertEquals("Click Me2",link2.asNormalizedText());
     assertEquals("sansserif", link2.getAttribute("class"));
     assertFalse(link2.getOnClickAttribute().length() < 0);
 
-    HtmlAnchor link3 = (HtmlAnchor) page.getElementById("form:link3"); // form:link1? 
+    HtmlAnchor link3 = (HtmlAnchor) page.getElementById("form:link3");
     assertNotNull(link2);
     assertEquals("#",link3.getHrefAttribute());
     assertEquals("Click Me3",link3.asNormalizedText());
     assertFalse(link3.getOnClickAttribute().length() < 0);
 
-    HtmlSpan link5 = (HtmlSpan) page.getElementById("form:link5"); // form:link1? 
+    HtmlSpan link5 = (HtmlSpan) page.getElementById("form:link5");
     assertNotNull(link5);
     assertEquals("sansserif", link5.getAttribute("class"));
     assertEquals("Disabled Link",link5.asNormalizedText());
     assertFalse(link5.getOnClickAttribute().length() < 0);
 
-    HtmlSpan span2 = (HtmlSpan) page.getElementById("form:link6"); // form:link1? 
+    HtmlSpan span2 = (HtmlSpan) page.getElementById("form:link6");
     assertNotNull(span2);
     assertEquals("Disabled Link(Nested)",span2.asNormalizedText());
 
-    HtmlAnchor span7 = (HtmlAnchor) page.getElementById("form:link7"); // form:link1? 
+    HtmlAnchor span7 = (HtmlAnchor) page.getElementById("form:link7");
     assertNotNull(span7);
     assertEquals("sansserif",span7.getAttribute("class"));
     assertEquals("rectangle",span7.getShapeAttribute());

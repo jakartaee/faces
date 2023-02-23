@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2012, 2020 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2012, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,12 +17,11 @@
 
 -->
 
-<faces-config version="3.0" 
-			  xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   			  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-        			https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
-
+<faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+    version="4.0">
+    
 		<protected-views>
 			<url-pattern>/views/protected.xhtml</url-pattern>
 		</protected-views>

@@ -31,7 +31,7 @@
  import jakarta.faces.event.ActionListener;
  import jakarta.servlet.http.HttpServletResponse;
  
- @jakarta.inject.Named("ActionListener") @jakarta.enterprise.context.RequestScoped
+ @jakarta.inject.Named("ActionListener") @jakarta.enterprise.context.SessionScoped
  public class SimpleActionListener implements ActionListener, Serializable {
  
    private static final long serialVersionUID = -2123380871083456327L;
@@ -67,7 +67,7 @@
        response.addHeader("actionEvent",
            "Test error.  Can't find expected" + " component ID.");
        // Selenium Result ID Check
-       result = "FAILED. Can't find expected component ID"
+       result = "FAILED. Can't find expected component ID";
      } else {
  
        if (!expectedId.equals(component.getId())) {

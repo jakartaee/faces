@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -24,6 +24,7 @@ import static org.openqa.selenium.Keys.TAB;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -182,6 +183,7 @@ public class AjaxTestsIT extends BaseITNG {
    * 
    * @since 2.0
    */
+  @Ignore("Skipped in  Old TCK for EE10")
   @Test
   public void ajaxPDLResourceTest() throws Exception {
 
@@ -218,5 +220,6 @@ public class AjaxTestsIT extends BaseITNG {
         output = page.findElement(By.id(spanId));
         assertEquals(expectedValue, output.getText());
       }
+    }
 
 }
