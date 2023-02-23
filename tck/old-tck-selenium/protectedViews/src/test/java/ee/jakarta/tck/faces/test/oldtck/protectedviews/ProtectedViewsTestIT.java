@@ -64,4 +64,86 @@ public class ProtectedViewsTestIT {
         webClient.close();
     }
 
+
+  /**
+   * @testName: viewProtectedViewNonAccessPointTest
+   * 
+   * @assertion_ids: PENDING
+   * 
+   * @test_Strategy: Validate that a that we can not gain access to a Protected
+   *                 View from out side that views web-app.
+   * 
+   * @since 2.2
+   */
+  public void viewProtectedViewNonAccessPointTest() throws Fault {
+    StringBuilder messages = new StringBuilder(64);
+    Formatter formatter = new Formatter(messages);
+
+    throwExceptionOnFailingStatusCode = false;
+
+    HtmlPage page = getPage(new WebClient(),
+        CONTEXT_ROOT + "/faces/views/protected.xhtml");
+
+    HtmlAnchor anchor = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
+        "linkOne");
+
+    if (validateExistence("linkOne", "a", anchor, formatter)) {
+      formatter.format("We should not be able to gain access to a "
+          + "Protected View from outside of the Protected View's " + "webapp!");
+      handleTestStatus(messages);
+      formatter.close();
+      return;
+    }
+
+    formatter.close();
+
+  } // END viewProtectedViewNonAccessPointTest
+
+  /**
+   * @testName: viewProtectedViewSameWebAppAccessTest
+   * 
+   * @assertion_ids: PENDING
+   * 
+   * @test_Strategy: Validate that we are able to gain access to a protected
+   *                 view from inside the same web-app through a non-protected
+   *                 view.
+   * 
+   * @since 2.2
+   */
+  public void viewProtectedViewSameWebAppAccessTest() throws Fault {
+    StringBuilder messages = new StringBuilder(64);
+    Formatter formatter = new Formatter(messages);
+    String result;
+    String expected = "This is a Protected View!";
+
+    HtmlPage page = getPage(new WebClient(),
+        CONTEXT_ROOT + "/faces/views/public.xhtml");
+
+    HtmlAnchor anchor = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
+        "linkOne");
+
+    if (!validateExistence("linkOne", "a", anchor, formatter)) {
+      handleTestStatus(messages);
+      return;
+    }
+
+    try {
+      result = anchor.click().getWebResponse().getContentAsString();
+
+      if (!result.contains(expected)) {
+        formatter.format("Error occured during clicking of Link!");
+        handleTestStatus(messages);
+      }
+
+    } catch (IOException e) {
+      formatter.format("Error occured during clicking of Link!");
+      e.printStackTrace();
+      handleTestStatus(messages);
+      formatter.close();
+    }
+
+    formatter.close();
+
+  } // END viewProtectedViewNonAccessPointTest
+
 }
