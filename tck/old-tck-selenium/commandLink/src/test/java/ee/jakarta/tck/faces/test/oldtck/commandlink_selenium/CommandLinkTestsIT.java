@@ -75,42 +75,36 @@ public class CommandLinkTestsIT extends BaseITNG {
   @Test
   public void clinkRenderEncodeTest() throws Exception {
 
-    HtmlPage page = webClient.getPage(webUrl + "/faces/encodetest_facelet.xhtml");
+    WebPage page = getPage("faces/encodetest_facelet.xhtml");
 
-    HtmlAnchor link1 = (HtmlAnchor) page.getElementById("form:link1"); // form:link1? 
-    assertNotNull(link1);
-    assertEquals("#",link1.getHrefAttribute());
-    assertEquals("Click Me1",link1.asNormalizedText());
-    assertFalse(link1.getOnClickAttribute().length() < 0);
+    WebElement link1 = page.findElement(By.id("form:link1"));
+    assertEquals("#",link1.getDomAttribute​("href"));
+    assertEquals("Click Me1",link1.getText());
+    assertFalse(link1.getDomAttribute​("onclick").length() < 0);
 
-    HtmlAnchor link2 = (HtmlAnchor) page.getElementById("form:link2"); // form:link1? 
-    assertNotNull(link2);
-    assertEquals("#",link1.getHrefAttribute());
-    assertEquals("Click Me2",link2.asNormalizedText());
-    assertEquals("sansserif", link2.getAttribute("class"));
-    assertFalse(link2.getOnClickAttribute().length() < 0);
+    WebElement link2 = page.findElement(By.id("form:link2"));
+    assertEquals("#",link1.getDomAttribute​("href"));
+    assertEquals("Click Me2",link2.getText());
+    assertEquals("sansserif", link2.getDomAttribute​("class"));
+    assertFalse(link2.getDomAttribute​("onclick").length() < 0);
 
-    HtmlAnchor link3 = (HtmlAnchor) page.getElementById("form:link3"); // form:link1? 
-    assertNotNull(link2);
-    assertEquals("#",link3.getHrefAttribute());
-    assertEquals("Click Me3",link3.asNormalizedText());
-    assertFalse(link3.getOnClickAttribute().length() < 0);
+    WebElement link3 = page.findElement(By.id("form:link3"));
+    assertEquals("#",link3.getDomAttribute​("href"));
+    assertEquals("Click Me3",link3.getText());
+    assertFalse(link3.getDomAttribute​("onclick").length() < 0);
 
-    HtmlSpan link5 = (HtmlSpan) page.getElementById("form:link5"); // form:link1? 
-    assertNotNull(link5);
-    assertEquals("sansserif", link5.getAttribute("class"));
-    assertEquals("Disabled Link",link5.asNormalizedText());
-    assertFalse(link5.getOnClickAttribute().length() < 0);
+    WebElement link5 = page.findElement(By.id("form:link5"));
+    assertEquals("sansserif", link5.getDomAttribute​("class"));
+    assertEquals("Disabled Link",link5.getText());
+    assertNull(link5.getDomAttribute​("onclick")); 
 
-    HtmlSpan span2 = (HtmlSpan) page.getElementById("form:link6"); // form:link1? 
-    assertNotNull(span2);
-    assertEquals("Disabled Link(Nested)",span2.asNormalizedText());
+    WebElement span2 = page.findElement(By.id("form:link6")); 
+    assertEquals("Disabled Link(Nested)",span2.getText());
 
-    HtmlAnchor span7 = (HtmlAnchor) page.getElementById("form:link7"); // form:link1? 
-    assertNotNull(span7);
-    assertEquals("sansserif",span7.getAttribute("class"));
-    assertEquals("rectangle",span7.getShapeAttribute());
-    assertEquals("gone",span7.getAttribute("title"));
+    WebElement span7 = page.findElement(By.id("form:link7"));
+    assertEquals("sansserif",span7.getDomAttribute​("class"));
+    assertEquals("rectangle",span7.getDomAttribute​("shape"));
+    assertEquals("gone",span7.getDomAttribute​("title"));
   } // END clinkRenderEncodeTest
 
   /**
@@ -124,20 +118,17 @@ public class CommandLinkTestsIT extends BaseITNG {
    */
   @Test
   public void clinkRenderDecodeTest() throws Exception {
-    webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-    HtmlPage page = webClient.getPage(webUrl + "/faces/decodetest_facelet.xhtml");
+    WebPage page = getPage("faces/decodetest_facelet.xhtml");
 
-    HtmlAnchor link1 = (HtmlAnchor) page.getElementById("form:link1");
-    assertNotNull(link1);
-    HtmlPage postBack = (HtmlPage) link1.click();  // FAILs 
+    WebElement result = page.findElement(By.id("result"));
+    assertEquals("", result.getText());
 
-    String msgHeader = postBack.getWebResponse().getResponseHeaderValue("actionEvent");
-    if(msgHeader != null) {
-      fail(msgHeader); // actionEvent is error header, see SimpleActionListener
-    } else {
-      msgHeader = postBack.getWebResponse().getResponseHeaderValue("actionEventOK");
-      assertNotNull("ActionListener was not invoked when CommandButton 'command1' was clicked.", msgHeader);
-    }
+    WebElement link1 = page.findElement(By.id("form:link1"));
+    link1.click();
+
+    result = page.findElement(By.id("result"));
+    assertEquals("PASSED", result.getText());
+
   } // END clinkRenderDecodeTest
 
   /**
@@ -199,14 +190,14 @@ public class CommandLinkTestsIT extends BaseITNG {
     controlSpan.put("tabindex", "0");
     controlSpan.put("title", "sample");
 
-    List<HtmlPage> pages = new ArrayList<HtmlPage>();
-    pages.add(webClient.getPage(webUrl + "/faces/passthroughtest.xhtml"));
-    pages.add(webClient.getPage(webUrl + "/faces/passthroughtest_facelet.xhtml"));
+    List<String> urls = new ArrayList<String>();
+    urls.add("faces/passthroughtest.xhtml");
+    urls.add("faces/passthroughtest_facelet.xhtml");
 
-    for (HtmlPage page : pages) {
-
+    for (String url : urls) {
+      WebPage page = getPage(url);
       // Facelet Specific PassThrough options
-      if (page.getTitleText().contains("facelet")) {
+      if (page.getTitle().contains("facelet")) {
         control.put("foo", "bar");
         control.put("singleatt", "singleAtt");
         control.put("manyattone", "manyOne");
@@ -219,38 +210,20 @@ public class CommandLinkTestsIT extends BaseITNG {
         controlSpan.put("manyattthree", "manyThree");
       }
 
-      HtmlAnchor anchor = (HtmlAnchor) page.getElementById("form:link1");
-      assertNotNull(anchor);
-      HtmlSpan span = (HtmlSpan) page.getElementById("form:link2");
-      assertNotNull(span);
+      WebElement anchor = page.findElement(By.id("form:link1"));
 
-      validateAttributeSet(control, anchor,
-          new String[] { "name", "id", "value", "href", "onclick" });
+      for (Map.Entry<String, String> entry : control.entrySet()) {
+        assertEquals(anchor.getDomAttribute​(entry.getKey()), entry.getValue());
+      }
 
-      validateAttributeSet(controlSpan, span,
-          new String[] { "name", "id", "value", "href", "onclick" });
+
+      WebElement span = page.findElement(By.id("form:link2"));
+      for (Map.Entry<String, String> entry : controlSpan.entrySet()) {
+        assertEquals(span.getDomAttribute​(entry.getKey()), entry.getValue());
+      }
 
     }
 
   } // END clinkRenderPassthroughTest
 
-  private void validateAttributeSet(TreeMap<String, String> control,
-    HtmlElement underTest, String[] ignoredAttributes) {
-
-    Arrays.sort(ignoredAttributes);
-    TreeMap<String, String> fromPage = new TreeMap<String, String>();
-    for (Iterator i = underTest.getAttributesMap().values().iterator(); i
-        .hasNext();) {
-      DomAttr domEntry = (DomAttr) i.next();
-      String key = domEntry.getName();
-      if (Arrays.binarySearch(ignoredAttributes, key) > -1) {
-        continue;
-      }
-      fromPage.put(key, domEntry.getValue());
-    }
-
-    assertEquals(control, fromPage);
-
-  } // END validateAttributeSet
-  
 }

@@ -28,7 +28,7 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 public class ProtectedViewsTestIT extends BaseITNG {
 
-      /**
+ /**
    * @testName: viewProtectedViewNonAccessPointTest
    * 
    * @assertion_ids: PENDING
@@ -40,15 +40,12 @@ public class ProtectedViewsTestIT extends BaseITNG {
    */
   @Test
   public void viewProtectedViewNonAccessPointTest() throws Exception {
-    webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 
-    HtmlPage page = webClient.getPage(webUrl + "faces/views/protected.xhtml");
+    WebPage page = getPage("faces/views/protected.xhtml");
 
-    HtmlAnchor anchor = (HtmlAnchor) page.getElementById("messOne");
+    assertTrue("Illegal Access of a Protected View!", page.findElements​(By.id("messOne")).size() == 0);
 
-    assertNull("Illegal Access of a Protected View!", anchor);
-
-    assertTrue("Expected a ProtectedViewException when accessing a protected view", page.asNormalizedText().contains("jakarta.faces.application.ProtectedViewException"));
+    assertTrue("Expected a ProtectedViewException when accessing a protected view", page.isInPageText("jakarta.faces.application.ProtectedViewException"));
 
   } 
 
@@ -68,13 +65,13 @@ public class ProtectedViewsTestIT extends BaseITNG {
 
     String expected = "This is a Protected View!";
 
-    HtmlPage page = webClient.getPage(webUrl + "faces/views/public.xhtml");
+    WebPage page = getPage("faces/views/public.xhtml");
 
-    HtmlAnchor anchor = (HtmlAnchor) page.getElementById("form1:linkOne");
-    assertNotNull("Anchor linkOne should not be null!", anchor);
+    WebElement anchor = page.findElement(By.id("form1:linkOne"));
 
-    HtmlPage protectedPage = anchor.click();
-    assertEquals(expected, protectedPage.getElementById("messOne").asNormalizedText());
+    anchor.click();
+    page.waitReqJs();
+    assertEquals(expected, page.findElement(By.id("messOne")).getText());
 
   } 
 
