@@ -65,6 +65,7 @@ public class ProtectedViewsTestIT {
     }
 
 
+
   /**
    * @testName: viewProtectedViewNonAccessPointTest
    * 
@@ -75,29 +76,19 @@ public class ProtectedViewsTestIT {
    * 
    * @since 2.2
    */
-  public void viewProtectedViewNonAccessPointTest() throws Fault {
-    StringBuilder messages = new StringBuilder(64);
-    Formatter formatter = new Formatter(messages);
+  @Test
+  public void viewProtectedViewNonAccessPointTest() throws Exception {
+    webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 
-    throwExceptionOnFailingStatusCode = false;
+    HtmlPage page = webClient.getPage(webUrl + "faces/views/protected.xhtml");
 
-    HtmlPage page = getPage(new WebClient(),
-        CONTEXT_ROOT + "/faces/views/protected.xhtml");
+    HtmlAnchor anchor = (HtmlAnchor) page.getElementById("messOne");
 
-    HtmlAnchor anchor = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-        "linkOne");
+    assertNull("Illegal Access of a Protected View!", anchor);
 
-    if (validateExistence("linkOne", "a", anchor, formatter)) {
-      formatter.format("We should not be able to gain access to a "
-          + "Protected View from outside of the Protected View's " + "webapp!");
-      handleTestStatus(messages);
-      formatter.close();
-      return;
-    }
+    assertTrue("Expected a ProtectedViewException when accessing a protected view", page.asNormalizedText().contains("jakarta.faces.application.ProtectedViewException"));
 
-    formatter.close();
-
-  } // END viewProtectedViewNonAccessPointTest
+  } 
 
   /**
    * @testName: viewProtectedViewSameWebAppAccessTest
@@ -110,40 +101,19 @@ public class ProtectedViewsTestIT {
    * 
    * @since 2.2
    */
-  public void viewProtectedViewSameWebAppAccessTest() throws Fault {
-    StringBuilder messages = new StringBuilder(64);
-    Formatter formatter = new Formatter(messages);
-    String result;
+  @Test
+  public void viewProtectedViewSameWebAppAccessTest() throws Exception {
+
     String expected = "This is a Protected View!";
 
-    HtmlPage page = getPage(new WebClient(),
-        CONTEXT_ROOT + "/faces/views/public.xhtml");
+    HtmlPage page = webClient.getPage(webUrl + "faces/views/public.xhtml");
 
-    HtmlAnchor anchor = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-        "linkOne");
+    HtmlAnchor anchor = (HtmlAnchor) page.getElementById("form1:linkOne");
+    assertNotNull("Anchor linkOne should not be null!", anchor);
 
-    if (!validateExistence("linkOne", "a", anchor, formatter)) {
-      handleTestStatus(messages);
-      return;
-    }
+    HtmlPage protectedPage = anchor.click();
+    assertEquals(expected, protectedPage.getElementById("messOne").asNormalizedText());
 
-    try {
-      result = anchor.click().getWebResponse().getContentAsString();
-
-      if (!result.contains(expected)) {
-        formatter.format("Error occured during clicking of Link!");
-        handleTestStatus(messages);
-      }
-
-    } catch (IOException e) {
-      formatter.format("Error occured during clicking of Link!");
-      e.printStackTrace();
-      handleTestStatus(messages);
-      formatter.close();
-    }
-
-    formatter.close();
-
-  } // END viewProtectedViewNonAccessPointTest
+  } 
 
 }

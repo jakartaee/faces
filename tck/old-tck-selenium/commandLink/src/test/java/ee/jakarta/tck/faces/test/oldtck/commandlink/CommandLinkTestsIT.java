@@ -71,9 +71,6 @@ public class CommandLinkTestsIT {
         webClient.close();
     }
 
-     /*
-   * @class.setup_props: webServerHost; webServerPort; ts_home;
-   */
   /**
    * @testName: clinkRenderEncodeTest
    * 
@@ -112,181 +109,45 @@ public class CommandLinkTestsIT {
    * 
    * @since 1.2
    */
-  public void clinkRenderEncodeTest() throws Fault {
+  @Test
+  public void clinkRenderEncodeTest() throws Exception {
 
-    StringBuilder messages = new StringBuilder(64);
-    Formatter formatter = new Formatter(messages);
+    HtmlPage page = webClient.getPage(webUrl + "/faces/encodetest_facelet.xhtml");
 
-    List<HtmlPage> pages = new ArrayList<HtmlPage>();
-    pages.add(getPage(CONTEXT_ROOT + "/faces/encodetest_facelet.xhtml"));
+    HtmlAnchor link1 = (HtmlAnchor) page.getElementById("form:link1"); // form:link1? 
+    assertNotNull(link1);
+    assertEquals("#",link1.getHrefAttribute());
+    assertEquals("Click Me1",link1.asNormalizedText());
+    assertFalse(link1.getOnClickAttribute().length() < 0);
 
-    for (HtmlPage page : pages) {
+    HtmlAnchor link2 = (HtmlAnchor) page.getElementById("form:link2"); // form:link1? 
+    assertNotNull(link2);
+    assertEquals("#",link1.getHrefAttribute());
+    assertEquals("Click Me2",link2.asNormalizedText());
+    assertEquals("sansserif", link2.getAttribute("class"));
+    assertFalse(link2.getOnClickAttribute().length() < 0);
 
-      HtmlAnchor link1 = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-          "link1");
+    HtmlAnchor link3 = (HtmlAnchor) page.getElementById("form:link3"); // form:link1? 
+    assertNotNull(link2);
+    assertEquals("#",link3.getHrefAttribute());
+    assertEquals("Click Me3",link3.asNormalizedText());
+    assertFalse(link3.getOnClickAttribute().length() < 0);
 
-      if (link1 == null) {
-        formatter.format("Unable to find achor with ID containing 'link1'. %n");
-      } else {
-        if (!"#".equals(link1.getHrefAttribute())) {
-          formatter.format(
-              "Unexpected value for attribute 'href'. "
-                  + "Expected '#', received: '%s' %n",
-              link1.getHrefAttribute());
-        }
+    HtmlSpan link5 = (HtmlSpan) page.getElementById("form:link5"); // form:link1? 
+    assertNotNull(link5);
+    assertEquals("sansserif", link5.getAttribute("class"));
+    assertEquals("Disabled Link",link5.asNormalizedText());
+    assertFalse(link5.getOnClickAttribute().length() < 0);
 
-        if (!"Click Me1".equals(link1.asNormalizedText())) {
-          formatter.format("Unexpected anchor text. %n" + "Expected: '%s' %n"
-              + "Received: '%s' %n", "Click Me1", link1.asNormalizedText());
-        }
+    HtmlSpan span2 = (HtmlSpan) page.getElementById("form:link6"); // form:link1? 
+    assertNotNull(span2);
+    assertEquals("Disabled Link(Nested)",span2.asNormalizedText());
 
-        if (link1.getOnClickAttribute().length() < 0) {
-          formatter.format("Expected some render specific content "
-              + "to be rendered in the 'onclick' attribute for "
-              + "the anchor, but no content was found. %n");
-        }
-      }
-
-      HtmlAnchor link2 = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-          "link2");
-
-      if (link2 == null) {
-        formatter.format("Unable to find achor with ID containing 'link1'. %n");
-      } else {
-        if (!"#".equals(link2.getHrefAttribute())) {
-          formatter.format(
-              "Unexpected value for attribute 'href'. "
-                  + "Expected '#', received: '%s' %n",
-              link2.getHrefAttribute());
-        }
-
-        if (!"Click Me2".equals(link2.asNormalizedText())) {
-          formatter.format("Unexpected anchor text. %n" + "Expected '%s' %n"
-              + "Received: '%s' %n", "Click Me2", link2.asNormalizedText());
-        }
-
-        if (!"sansserif".equals(link2.getAttribute("class"))) {
-          formatter.format(
-              "Unexpected value for class attribute. "
-                  + "Expected 'sansserif' %n" + "Received: '%s'",
-              link2.getAttribute("style"));
-        }
-
-        if (link2.getOnClickAttribute().length() < 0) {
-          formatter.format("Expected some render specific content "
-              + "to be rendered in the 'onclick' attribute for "
-              + "the anchor, but no content was found. %n");
-        }
-      }
-
-      HtmlAnchor link3 = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-          "link3");
-
-      if (link3 == null) {
-        formatter.format("Unable to find achor with ID containing 'link3'. %n");
-      } else {
-        if (!"#".equals(link3.getHrefAttribute())) {
-          formatter.format(
-              "Unexpected value for attribute 'href'. "
-                  + "Expected '#', received: '%s' %n",
-              link3.getHrefAttribute());
-        }
-
-        if (!"Click Me3".equals(link3.asNormalizedText())) {
-          formatter.format("Unexpected anchor text.  "
-              + "Expected 'Click M3'to be the anchor text "
-              + "when specified as a nested child (HtmlOutput), "
-              + "but received: '%s' %n", link3.asNormalizedText());
-        }
-
-        if (link3.getOnClickAttribute().length() < 0) {
-          formatter.format("Expected some render specific content "
-              + "to be rendered in the 'onclick' attribute for "
-              + "the anchor, but no content was found. %n");
-        }
-      }
-
-      // ----------------------------------------------------------- case
-      // 5
-      HtmlSpan span = (HtmlSpan) getElementOfTypeIncludingId(page, "span",
-          "link5");
-
-      if (span == null) {
-        formatter.format("Unable to find a span element with an ID"
-            + " containing 'link5' %n");
-      } else {
-        if (!"sansserif".equals(span.getAttribute("class"))) {
-          formatter.format("Unexpected value for class attribute "
-              + "for the rendered span element when CommandLink "
-              + "is disabled. Expected 'sansserif'%n, " + "but received '%s'%n",
-              span.getAttribute("class"));
-        }
-
-        if (!"Disabled Link".equals(span.asNormalizedText())) {
-          formatter.format(
-              "Unexpected textual value for rendered "
-                  + "span element when command link is disabled%n.  "
-                  + "Expected 'Disabled Link'%n, but received '%s'%n",
-              span.asNormalizedText());
-        }
-
-        if (span.getOnClickAttribute().length() > 0) {
-          formatter.format("Expected no render specific content "
-              + "to be rendered in the 'onclick' attribute for "
-              + "the span element, but content was found. %n");
-        }
-      }
-
-      // ----------------------------------------------------------- case
-      // 6
-      HtmlSpan span2 = (HtmlSpan) getElementOfTypeIncludingId(page, "span",
-          "link6");
-
-      if (span2 == null) {
-        formatter.format("Unable to find a span element with an ID"
-            + " containing 'link6' %n");
-      } else {
-        if (!"Disabled Link(Nested)".equals(span2.asNormalizedText())) {
-          formatter.format("Unexpected textual value for rendered "
-              + "span element when command link is disabled. "
-              + "Expected 'Disabled Link(Nested)', " + "but received '%s' %n",
-              span2.asNormalizedText());
-        }
-      }
-
-      // ----------------------------------------------------------- case
-      // 7
-      HtmlAnchor span7 = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-          "link7");
-
-      if (span7 == null) {
-        formatter.format(
-            "Unable to find a span element with an ID" + " containing 'link7'");
-      } else {
-        if (!"sansserif".equals(span7.getAttribute("class"))) {
-          formatter.format("Unexpected value for class attribute " + "for "
-              + "the rendered anchor element when CommandLink is "
-              + "disabled. Expected 'sansserif'%n, " + "but received '%s'%n",
-              span7.getAttribute("class"));
-        }
-
-        if (!"rectangle".equals(span7.getShapeAttribute())) {
-          formatter.format("Unexpected value for shape attribute "
-              + "for the rendered anchor element when "
-              + "CommandLink is disabled. Expected 'gone'%n, "
-              + "but received '%s'%n", span7.getShapeAttribute());
-        }
-
-        if (!"gone".equals(span7.getAttribute("title"))) {
-          formatter.format("Unexpected value for title attribute "
-              + "for the rendered anchor element when "
-              + "CommandLink is disabled. Expected 'gone'%n, "
-              + "but received '%s'%n", span7.getAttribute("title"));
-        }
-      }
-
-      handleTestStatus(messages);
-    }
+    HtmlAnchor span7 = (HtmlAnchor) page.getElementById("form:link7"); // form:link1? 
+    assertNotNull(span7);
+    assertEquals("sansserif",span7.getAttribute("class"));
+    assertEquals("rectangle",span7.getShapeAttribute());
+    assertEquals("gone",span7.getAttribute("title"));
   } // END clinkRenderEncodeTest
 
   /**
@@ -298,40 +159,22 @@ public class CommandLinkTestsIT {
    * 
    * @since 1.2
    */
-  public void clinkRenderDecodeTest() throws Fault {
-    StringBuilder messages = new StringBuilder(64);
-    Formatter formatter = new Formatter(messages);
+  @Test
+  public void clinkRenderDecodeTest() throws Exception {
+    webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+    HtmlPage page = webClient.getPage(webUrl + "/faces/decodetest_facelet.xhtml");
 
-    List<HtmlPage> pages = new ArrayList<HtmlPage>();
-    pages.add(getPage(CONTEXT_ROOT + "/faces/decodetest_facelet.xhtml"));
+    HtmlAnchor link1 = (HtmlAnchor) page.getElementById("form:link1");
+    assertNotNull(link1);
+    HtmlPage postBack = (HtmlPage) link1.click();  // FAILs 
 
-    for (HtmlPage page : pages) {
-      HtmlAnchor link1 = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-          "link1");
-      try {
-        HtmlPage postBack = (HtmlPage) link1.click();
-        // Check to see if an error header was returned
-        String msgHeader = postBack.getWebResponse()
-            .getResponseHeaderValue("actionEvent");
-        if (msgHeader != null) {
-          formatter.format(msgHeader + "%n");
-        } else {
-          // Check for non-error header
-          msgHeader = postBack.getWebResponse()
-              .getResponseHeaderValue("actionEventOK");
-          if (msgHeader == null) {
-            formatter.format("ActionListener was not invoked "
-                + "when CommandButton 'command1' was clicked.%n");
-          }
-
-        }
-      } catch (IOException e) {
-        throw new Fault(e);
-      }
-
-      handleTestStatus(messages);
+    String msgHeader = postBack.getWebResponse().getResponseHeaderValue("actionEvent");
+    if(msgHeader != null) {
+      fail(msgHeader); // actionEvent is error header, see SimpleActionListener
+    } else {
+      msgHeader = postBack.getWebResponse().getResponseHeaderValue("actionEventOK");
+      assertNotNull("ActionListener was not invoked when CommandButton 'command1' was clicked.", msgHeader);
     }
-
   } // END clinkRenderDecodeTest
 
   /**
@@ -345,7 +188,8 @@ public class CommandLinkTestsIT {
    * 
    * @since 1.2
    */
-  public void clinkRenderPassthroughTest() throws Fault {
+  @Test
+  public void clinkRenderPassthroughTest() throws Exception {
 
     TreeMap<String, String> control = new TreeMap<String, String>();
     control.put("accesskey", "U");
@@ -391,14 +235,10 @@ public class CommandLinkTestsIT {
     controlSpan.put("style", "Color: red;");
     controlSpan.put("tabindex", "0");
     controlSpan.put("title", "sample");
- 
-
-    StringBuilder messages = new StringBuilder(64);
-    Formatter formatter = new Formatter(messages);
 
     List<HtmlPage> pages = new ArrayList<HtmlPage>();
-    pages.add(getPage(CONTEXT_ROOT + "/faces/passthroughtest.xhtml"));
-    pages.add(getPage(CONTEXT_ROOT + "/faces/passthroughtest_facelet.xhtml"));
+    pages.add(webClient.getPage(webUrl + "/faces/passthroughtest.xhtml"));
+    pages.add(webClient.getPage(webUrl + "/faces/passthroughtest_facelet.xhtml"));
 
     for (HtmlPage page : pages) {
 
@@ -416,38 +256,23 @@ public class CommandLinkTestsIT {
         controlSpan.put("manyattthree", "manyThree");
       }
 
-      HtmlAnchor anchor = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-          "link1");
-      HtmlSpan span = (HtmlSpan) getElementOfTypeIncludingId(page, "span",
-          "link2");
-
-      if (anchor == null) {
-        formatter.format("Unable to find rendered anchor with ID "
-            + "containing 'link1' %n");
-      }
-
-      if (span == null) {
-        formatter.format(
-            "Unable to find rendered span with ID " + "containing 'link2' %n");
-      }
-
-      if (span == null || anchor == null) {
-        return;
-      }
+      HtmlAnchor anchor = (HtmlAnchor) page.getElementById("form:link1");
+      assertNotNull(anchor);
+      HtmlSpan span = (HtmlSpan) page.getElementById("form:link2");
+      assertNotNull(span);
 
       validateAttributeSet(control, anchor,
-          new String[] { "name", "id", "value", "href", "onclick" }, formatter);
+          new String[] { "name", "id", "value", "href", "onclick" });
 
       validateAttributeSet(controlSpan, span,
-          new String[] { "name", "id", "value", "href", "onclick" }, formatter);
+          new String[] { "name", "id", "value", "href", "onclick" });
 
-      handleTestStatus(messages);
     }
 
   } // END clinkRenderPassthroughTest
 
-  protected void validateAttributeSet(TreeMap<String, String> control,
-    HtmlElement underTest, String[] ignoredAttributes, Formatter formatter) {
+  private void validateAttributeSet(TreeMap<String, String> control,
+    HtmlElement underTest, String[] ignoredAttributes) {
 
     Arrays.sort(ignoredAttributes);
     TreeMap<String, String> fromPage = new TreeMap<String, String>();
@@ -458,20 +283,10 @@ public class CommandLinkTestsIT {
       if (Arrays.binarySearch(ignoredAttributes, key) > -1) {
         continue;
       }
-      // fromPage.put(key, entry.getValue());
       fromPage.put(key, domEntry.getValue());
     }
 
-    if (!control.equals(fromPage)) {
-      formatter.format("%n Unexpected result when validating "
-          + "passthrough attributes received for the rendered "
-          + "'%s' in the response.%n", underTest.getTagName());
-      formatter.format("%nExpected attribute key/value pairs:%n%s",
-          control.toString());
-      formatter.format(
-          "%nAttribute key/value pairs from the " + "response:%n%s",
-          fromPage.toString());
-    }
+    assertEquals(control, fromPage);
 
   } // END validateAttributeSet
     
