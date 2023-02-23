@@ -28,4 +28,54 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 public class ProtectedViewsTestIT extends BaseITNG {
 
+      /**
+   * @testName: viewProtectedViewNonAccessPointTest
+   * 
+   * @assertion_ids: PENDING
+   * 
+   * @test_Strategy: Validate that a that we can not gain access to a Protected
+   *                 View from out side that views web-app.
+   * 
+   * @since 2.2
+   */
+  @Test
+  public void viewProtectedViewNonAccessPointTest() throws Exception {
+    webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+
+    HtmlPage page = webClient.getPage(webUrl + "faces/views/protected.xhtml");
+
+    HtmlAnchor anchor = (HtmlAnchor) page.getElementById("messOne");
+
+    assertNull("Illegal Access of a Protected View!", anchor);
+
+    assertTrue("Expected a ProtectedViewException when accessing a protected view", page.asNormalizedText().contains("jakarta.faces.application.ProtectedViewException"));
+
+  } 
+
+  /**
+   * @testName: viewProtectedViewSameWebAppAccessTest
+   * 
+   * @assertion_ids: PENDING
+   * 
+   * @test_Strategy: Validate that we are able to gain access to a protected
+   *                 view from inside the same web-app through a non-protected
+   *                 view.
+   * 
+   * @since 2.2
+   */
+  @Test
+  public void viewProtectedViewSameWebAppAccessTest() throws Exception {
+
+    String expected = "This is a Protected View!";
+
+    HtmlPage page = webClient.getPage(webUrl + "faces/views/public.xhtml");
+
+    HtmlAnchor anchor = (HtmlAnchor) page.getElementById("form1:linkOne");
+    assertNotNull("Anchor linkOne should not be null!", anchor);
+
+    HtmlPage protectedPage = anchor.click();
+    assertEquals(expected, protectedPage.getElementById("messOne").asNormalizedText());
+
+  } 
+
 }
