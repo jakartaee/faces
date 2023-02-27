@@ -15,55 +15,22 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package ee.jakarta.tck.faces.test.servlet40.exactmapping;
+package ee.jakarta.tck.faces.test.servlet40.exactmapping_selenium;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.net.URL;
-
-import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import jakarta.faces.application.Resource;
 import jakarta.faces.application.ViewHandler;
+import org.junit.Test;
+import org.openqa.selenium.By;
 
-@RunWith(BaseArquilianRunner.class)
-public class Spec1260IT {
+import java.time.Duration;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
+import static org.junit.Assert.assertTrue;
 
 
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
+public class Spec1260IT extends BaseITNG {
 
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
 
     /**
      * @see Resource#getRequestPath()
@@ -73,8 +40,8 @@ public class Spec1260IT {
      */
     @Test
     public void testExactMappedViewLoads() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "foo");
-        String content = page.asXml();
+        WebPage page = getPage("foo");
+        String content = getWebDriver().getPageSource();
 
         // Basic test that if the FacesServlet is mapped to /foo, the right view "foo.xhtml" is loaded.
         assertTrue(content.contains("This is page foo"));
@@ -88,16 +55,14 @@ public class Spec1260IT {
      */
     @Test
     public void testPostBackToExactMappedView() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "foo");
+        WebPage page = getPage("foo");
 
-        page = page.getHtmlElementById("form:commandButton").click();
+        getWebDriver().findElement(By.id("form:commandButton")).click();
+        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("foo method invoked"));
 
-        String content = page.asXml();
-
-        assertTrue(content.contains("foo method invoked"));
 
         // If page /foo postbacks to itself, the new URL should be /foo again
-        assertTrue(page.getUrl().getPath().endsWith("/foo"));
+        assertTrue(page.getCurrentUrl().split("\\?")[0].endsWith("/foo"));
     }
 
     /**
@@ -108,20 +73,18 @@ public class Spec1260IT {
      */
     @Test
     public void testLinkToNonExactMappedView() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "foo");
+        WebPage page = getPage("foo");
 
-        assertTrue(page.asXml().contains("This is page foo"));
+        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("This is page foo"));
 
-        page = page.getHtmlElementById("form:button").click();
+        getWebDriver().findElement(By.id("form:button")).click();
 
-        String content = page.asXml();
-
-        assertTrue(content.contains("This is page bar"));
+        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("This is page bar"));
 
         // view "bar" is not exact mapped, so should be loaded via the suffix
         // or prefix the FacesServlet is mapped to when coming from /foo
 
-        String path = page.getUrl().getPath();
+        String path = page.getCurrentUrl().split("\\?")[0];
 
         assertTrue(path.endsWith("/bar.jsf") || path.endsWith("/faces/bar"));
     }
@@ -136,15 +99,16 @@ public class Spec1260IT {
     public void testPostBackOnLinkedNonExactMappedView() throws Exception {
 
         // Navigate from /foo to /bar.jsf
-        HtmlPage page = webClient.getPage(webUrl + "foo");
-        page = page.getHtmlElementById("form:button").click();
+        WebPage page = getPage("foo");
+        getWebDriver().findElement(By.id("form:button")).click();
+        page.waitReqJs();
 
         // After navigating to a non-exact mapped view, a postback should stil work
-        page = page.getHtmlElementById("form:commandButton").click();
-        assertTrue(page.asXml().contains("foo method invoked"));
+        getWebDriver().findElement(By.id("form:commandButton")).click();
+        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("foo method invoked"));
 
         // Check we're indeed on bar.jsf or faces/bar
-        String path = page.getUrl().getPath();
+        String path = page.getCurrentUrl().split("\\?")[0];
         assertTrue(path.endsWith("/bar.jsf") || path.endsWith("/faces/bar"));
     }
 
@@ -157,13 +121,16 @@ public class Spec1260IT {
     @Test
     public void testResourceReferenceFromExactMappedView() throws Exception {
 
-        HtmlPage page = webClient.getPage(webUrl + "foo");
+        WebPage page = getPage("foo");
 
-        String content = page.asXml();
+        page.waitForCondition(webDriver -> {
+            String content = getWebDriver().getPageSource();
+            return content.contains("jakarta.faces.resource/faces.js.jsf") || content.contains("jakarta.faces.resource/faces/faces.js");
+        });
 
         // Runtime must have found out the mappings of the FacesServlet and used one of the prefix or suffix
         // mappings to render the reference to "faces.js", which is not exactly mapped.
-        assertTrue(content.contains("jakarta.faces.resource/faces.js.jsf") || content.contains("jakarta.faces.resource/faces/faces.js") );
+        // otherwise a timeout exception would have been thrown and the test would have failed
     }
 
     /**
@@ -174,20 +141,16 @@ public class Spec1260IT {
      */
     @Test
     public void testAjaxFromExactMappedView() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "foo");
+        WebPage page = getPage("foo");
 
-        page = page.getHtmlElementById("form:commandButtonAjax").click();
-        webClient.waitForBackgroundJavaScript(6000);
-
-        String content = page.asXml();
-
+        getWebDriver().findElement(By.id("form:commandButtonAjax")).click();
+        page.waitReqJs();
         // AJAX from an exact-mapped view should work
-        assertTrue(content.contains("partial request = true"));
+        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("partial request = true"));
 
         // Part of page not updated via AJAX so should not show
-        assertTrue(!content.contains("should not see this"));
+        assertTrue(!getWebDriver().getPageTextReduced().contains("should not see this"));
     }
-
 
 
 }
