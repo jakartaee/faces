@@ -19,6 +19,7 @@ package ee.jakarta.tck.faces.test.javaee8.uiinput;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +34,6 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UISelectMany;
 import jakarta.faces.component.behavior.AjaxBehavior;
 
-@RunWith(Arquillian.class)
 public class Issue5081IT extends ITBase {
 
     /**
