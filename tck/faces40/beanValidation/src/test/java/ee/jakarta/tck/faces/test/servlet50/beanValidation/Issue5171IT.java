@@ -25,9 +25,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import org.junit.runner.RunWith;
 
-@RunWith(Arquillian.class)
 public class Issue5171IT extends ITBase {
 
     /**
