@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -48,7 +49,7 @@ import com.gargoylesoftware.htmlunit.html.parser.neko.HtmlUnitNekoHtmlParser;
 
 import jakarta.faces.component.html.HtmlInputFile;
 
-@RunWith(Arquillian.class)
+@RunWith(BaseArquilianRunner.class)
 public class Spec1555IT {
 
     @ArquillianResource

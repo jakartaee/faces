@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.net.URL;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -39,7 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.faces.component.html.HtmlCommandScript;
 
-@RunWith(Arquillian.class)
+@RunWith(BaseArquilianRunner.class)
 public class Spec613IT {
 
     @ArquillianResource

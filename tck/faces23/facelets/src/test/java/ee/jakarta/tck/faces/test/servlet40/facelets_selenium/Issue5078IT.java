@@ -15,23 +15,24 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package ee.jakarta.tck.faces.test.servlet40.facelets;
+package ee.jakarta.tck.faces.test.servlet40.facelets_selenium;
 
-import static org.junit.Assert.assertEquals;
-
-import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import static org.junit.Assert.assertTrue;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIViewRoot;
-
-public class Issue5078IT extends ITBase {
+@RunWith(Arquillian.class)
+public class Issue5078IT extends BaseITNG {
 
     /**
      * @see com.sun.faces.facelets.component.UIRepeat
@@ -41,11 +42,19 @@ public class Issue5078IT extends ITBase {
      */
     @Test
     public void testUIRepeatVisitTreeDuringInvokeApplication() throws Exception {
-        HtmlPage page = getPage("faces/issue5078.xhtml");
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:repeat:1:button");
-        page = button.click();
-        webClient.waitForBackgroundJavaScript(60000);
-        assertEquals("2", page.getHtmlElementById("form:value").asNormalizedText());
+        WebPage page = getPage("faces/issue5078.xhtml");
+        ExtendedWebDriver webDriver = getWebDriver();
+        WebElement button = webDriver.findElement(By.id("form:repeat:1:button"));
+        button.click();
+        page.waitForCondition(webDriver1 -> {
+            try {
+                WebElement element = webDriver.findElement(By.id("form:value"));
+                return element != null && element.getText().equals("2");
+            } catch (StaleElementReferenceException ex) {
+                //element has been replaced mid check
+                return false;
+            }
+        });
     }
 
 }

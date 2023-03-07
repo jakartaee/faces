@@ -13,22 +13,26 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package ee.jakarta.tck.faces.test.util.htmlunit;
 
-import com.gargoylesoftware.htmlunit.IncorrectnessListener;
+package ee.jakarta.tck.faces.test.javaee8.cdi_selenium;
 
-/**
- * An ignoring incorrectness listener.
- *
- * <p>
- *  This incorrectness listener ignores any incorrectness.
- * </p>
- */
-public class IgnoringIncorrectnessListener implements IncorrectnessListener {
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import jakarta.faces.component.behavior.FacesBehavior;
+import jakarta.inject.Inject;
+import org.junit.Test;
 
-    @Override
-    public void notify(String message, Object origin) {
 
+public class Spec1351IT extends BaseITNG {
+
+    /**
+     * @see Inject
+     * @see FacesBehavior
+     * @see https://github.com/jakartaee/faces/issues/1351
+     */
+    @Test
+    public void testInjectValidator() throws Exception {
+        WebPage page = getPage("faces/injectBehavior.xhtml");
+        page.waitForCondition(webDriver -> page.isInPage("injectBehavior"));
     }
-
 }

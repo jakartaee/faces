@@ -15,23 +15,25 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package ee.jakarta.tck.faces.test.servlet40.facelets;
+package ee.jakarta.tck.faces.test.servlet40.facelets_selenium;
 
-import static org.junit.Assert.assertTrue;
-
-import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import java.time.Duration;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
+import static org.junit.Assert.assertTrue;
 
-public class Issue4830IT extends ITBase {
+@RunWith(Arquillian.class)
+public class Issue4830IT extends BaseITNG {
 
     /**
      * @see com.sun.faces.facelets.component.UIRepeat
@@ -41,11 +43,13 @@ public class Issue4830IT extends ITBase {
      */
     @Test
     public void testUIRepeatResetValues() throws Exception {
-        HtmlPage page = getPage("faces/issue4830.xhtml");
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
-        page = button.click();
-        webClient.waitForBackgroundJavaScript(60000);
-        assertTrue(page.getHtmlElementById("form:value").asNormalizedText().isEmpty());
+        WebPage page = getPage("faces/issue4830.xhtml");
+        ExtendedWebDriver webDriver = getWebDriver();
+        WebElement button = webDriver.findElement(By.id("form:button"));
+        button.click();
+        page.waitReqJs(Duration.ofMillis(60000));
+        page.waitForCondition(webDriver1 -> webDriver.findElement(By.id("form:value")));
+        assertTrue(webDriver.findElement(By.id("form:value")).getText().isEmpty());
     }
 
 }
