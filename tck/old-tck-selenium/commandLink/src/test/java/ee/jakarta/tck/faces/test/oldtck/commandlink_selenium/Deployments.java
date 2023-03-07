@@ -13,7 +13,7 @@
  * 
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
-package ee.jakarta.tck.faces.test.javaee8.ajax_selenium;
+package ee.jakarta.tck.faces.test.oldtck.commandlink_selenium;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
@@ -34,4 +34,3 @@ public class Deployments {
         return BaseITNG.createDeployment();
     }
 }
-

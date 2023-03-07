@@ -38,6 +38,7 @@
         <module>faces22</module>
         <module>faces23</module>
         <module>faces40</module>
+        <module>old-tck-selenium</module>
         <module>old-tck</module>
         <module>faces-signaturetest</module>
     </modules>
