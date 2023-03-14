@@ -18,7 +18,7 @@ package ee.jakarta.tck.faces.test.servlet50.beanValidation;
 
 import static org.junit.Assert.assertEquals;
 
-import org.jboss.arquillian.junit.Arquillian;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -26,6 +26,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
+@Ignore("Not allowed to add new tests for 4.0.x - enable again in 4.1 or higher")
 public class Issue5171IT extends ITBase {
 
     /**
