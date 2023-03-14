@@ -44,12 +44,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <site.output.dir>${project.build.directory}/staging</site.output.dir>
         <maven.site.skip>true</maven.site.skip>
-        <asciidoctorj.version>2.5.4</asciidoctorj.version>
-        <asciidoctorj.diagram.version>2.2.3</asciidoctorj.diagram.version>
+        <asciidoctorj.version>2.5.7</asciidoctorj.version>
+        <asciidoctorj.diagram.version>2.2.4</asciidoctorj.diagram.version>
         <asciidoctorj.maven.plugin.version>2.2.2</asciidoctorj.maven.plugin.version>
-        <asciidoctorj.pdf.version>2.0.6</asciidoctorj.pdf.version>
+        <asciidoctorj.pdf.version>2.3.4</asciidoctorj.pdf.version>
         <jbake.maven.plugin.version>0.3.6-rc.2</jbake.maven.plugin.version>
-        <freemarker.version>2.3.31</freemarker.version>
+        <freemarker.version>2.3.32</freemarker.version>
         <!-- status: DRAFT, BETA, etc., or blank for final -->
         <status></status>
         <doc.pdf>Jakarta-Server-Faces-TCK-Users-Guide.pdf</doc.pdf>
