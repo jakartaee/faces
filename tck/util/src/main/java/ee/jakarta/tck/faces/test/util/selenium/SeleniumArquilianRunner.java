@@ -20,10 +20,8 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 
 /**
- * Arquilian runner, which uses
- * the extended Selenium Chrome Webdriver
- * Enables itself, if -Dtest.selenium=true is
- * passed as environment parameter
+ * Arquilian runner, which uses the extended Selenium Chrome Webdriver Enables itself, if -Dtest.selenium=true is passed
+ * as environment parameter
  */
 public class SeleniumArquilianRunner extends Arquillian {
     public SeleniumArquilianRunner(Class<?> testClass) throws InitializationError {
@@ -32,9 +30,10 @@ public class SeleniumArquilianRunner extends Arquillian {
 
     @Override
     protected boolean isIgnored(FrameworkMethod child) {
-        if(!"true".equals(System.getProperty("test.selenium"))) {
+        if (!"true".equals(System.getProperty("test.selenium"))) {
             return true;
         }
+
         return super.isIgnored(child);
     }
 }

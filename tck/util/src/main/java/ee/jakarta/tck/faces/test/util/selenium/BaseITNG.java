@@ -15,6 +15,13 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
+import static java.lang.System.getProperty;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+
+import java.io.File;
+import java.net.URL;
+import java.time.Duration;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
@@ -24,17 +31,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
-import java.io.File;
-import java.net.URL;
-import java.time.Duration;
-
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-
 /**
- * Base class for tests,
- * which provides a certain infrastructure
- * can be used, but does not have to be
+ * Base class for tests, which provides a certain infrastructure can be used, but does not have to be
  */
 @RunWith(SeleniumArquilianRunner.class)
 public class BaseITNG {
@@ -45,7 +43,6 @@ public class BaseITNG {
     private ExtendedWebDriver webDriver;
 
     static DriverPool driverPool = new DriverPool();
-
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -59,7 +56,6 @@ public class BaseITNG {
         webDriver = driverPool.getOrNewInstance();
     }
 
-
     @After
     public void tearDown() {
         driverPool.returnInstance(webDriver);
@@ -70,7 +66,6 @@ public class BaseITNG {
         driverPool.quitAll();
     }
 
-
     protected WebPage getPage(String page) {
         webDriver.get(webUrl.toString() + page);
         WebPage webPage = new WebPage(webDriver);
@@ -80,21 +75,20 @@ public class BaseITNG {
     }
 
     /**
-     * selenium does not automatically update
-     * the page handles if a link is clicked
-     * without ajax
+     * Selenium does not automatically update the page handles if a link is clicked without ajax
      */
-    protected void updatePage()
-    {
-        ExtendedWebDriver driver = getWebDriver();
-        for(String winHandle : driver.getWindowHandles()){
-            driver.switchTo().window(winHandle);
+    protected void updatePage() {
+        ExtendedWebDriver webDriver = getWebDriver();
+        for (String windowHandle : webDriver.getWindowHandles()) {
+            webDriver.switchTo().window(windowHandle);
         }
     }
+
     protected int getStatusCode(String page) {
         webDriver.get(webUrl.toString() + page);
         WebPage webPage = new WebPage(webDriver);
         webPage.waitForPageToLoad();
+
         return webPage.getResponseStatus();
     }
 
