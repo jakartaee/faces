@@ -17,22 +17,20 @@
 
 package ee.jakarta.tck.faces.test.servlet40.facelets_selenium;
 
+import static org.junit.Assert.assertTrue;
+
+import java.time.Duration;
+
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.UIComponent;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
-
-import static org.junit.Assert.assertTrue;
-
-@RunWith(Arquillian.class)
 public class Issue4830IT extends BaseITNG {
 
     /**

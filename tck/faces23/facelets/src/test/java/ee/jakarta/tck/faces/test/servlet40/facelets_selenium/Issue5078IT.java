@@ -17,21 +17,17 @@
 
 package ee.jakarta.tck.faces.test.servlet40.facelets_selenium;
 
+import org.junit.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
+
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
-
-@RunWith(Arquillian.class)
 public class Issue5078IT extends BaseITNG {
 
     /**
