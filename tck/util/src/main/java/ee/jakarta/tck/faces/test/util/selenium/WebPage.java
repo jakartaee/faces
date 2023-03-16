@@ -15,15 +15,19 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
  * Mimics the html unit webpage
@@ -39,12 +43,10 @@ public class WebPage {
         this.webDriver = webDriver;
     }
 
-    
     public ExtendedWebDriver getWebDriver() {
         return webDriver;
     }
 
-    
     public void setWebDriver(ExtendedWebDriver webDriver) {
         this.webDriver = webDriver;
     }
@@ -59,41 +61,41 @@ public class WebPage {
     }
 
     /**
-     * This method fixes following issue: While we wait for javascripts
-     * we cannot be entirely sure, that the execution has fully terminated.
-     * The problem is asynchronous code, which opens execution windows.
-     * HTML Unit does not have the problem, because it never executes the code
-     * in a separate process and has full track of the execution "windows"
+     * This method fixes following issue: While we wait for javascripts we cannot be entirely sure, that the execution has
+     * fully terminated. The problem is asynchronous code, which opens execution windows. HTML Unit does not have the
+     * problem, because it never executes the code in a separate process and has full track of the execution "windows"
      *
-     * There is no way to fix this, given the asynchronous nature of the Selenium drivers.
-     * The best bet is simply to give the possibility of another wait delay,
-     * after the supposed execution end, and also use waitForCondition with a dom
+     * There is no way to fix this, given the asynchronous nature of the Selenium drivers. The best bet is simply to give
+     * the possibility of another wait delay, after the supposed execution end, and also use waitForCondition with a dom
      * check wherever possible (aka dom changes happen)
      *
      * @param timeout the timeout until the wait is terminated max
-     * @param delayAfterExcecution this introduces a second delay after the determined
-     *                             end of exeuction point.
+     * @param delayAfterExcecution this introduces a second delay after the determined end of exeuction point.
      */
     public void waitForBackgroundJavascript(Duration timeout, Duration delayAfterExcecution) {
         synchronized (webDriver) {
             WebDriverWait wait = new WebDriverWait(webDriver, timeout);
             double rand = Math.random();
-            @SuppressWarnings("UnnecessaryLabelJS") final String identifier = "__insert__:" + rand;
+
+            @SuppressWarnings("UnnecessaryLabelJS")
+            final String identifier = "__insert__:" + rand;
+
             webDriver.manage().timeouts().scriptTimeout(timeout);
-            // We use a trick here, javascript  is cooperative multitasking
+
+            // We use a trick here, javascript is cooperative multitasking
             // we defer into a time when the script is executed
             // and then execute a small invisible script adding an element
             // At the time the element gets added, we are either at an end of execution
             // phase or in an execution pause (timeouts maybe pending etc...)
             try {
-                webDriver.getJSExecutor().executeAsyncScript("let [resolve] = arguments; setTimeout(function() { var insert__ = document.createElement('div');" +
-                        "insert__.id = '" + identifier + "';" +
-                        "insert__.innerHTML = 'done';" +
-                        "document.body.append(insert__); resolve()}, 50);");
-
+                webDriver.getJSExecutor().executeAsyncScript(
+                        "let [resolve] = arguments; setTimeout(function() { var insert__ = document.createElement('div');"
+                                + "insert__.id = '" + identifier + "';" + "insert__.innerHTML = 'done';"
+                                + "document.body.append(insert__); resolve()}, 50);");
 
                 wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id(identifier), 0));
-                // problem is here, if we are in a code pause phase (aka timeout is pending but not executed)
+
+                // Problem is here, if we are in a code pause phase (aka timeout is pending but not executed)
                 // we are still not at the end of the code. For those cases a simple wait on top might fix the issue
                 // we cannot determine the end of the execution here anymore.
                 if (!delayAfterExcecution.isZero()) {
@@ -106,8 +108,9 @@ public class WebPage {
     }
 
     /**
-     * waits for a certain condition is met, until a timeout is hit.
-     * In case of exceeding the condition, a runtime exception is thrown!
+     * waits for a certain condition is met, until a timeout is hit. In case of exceeding the condition, a runtime exception
+     * is thrown!
+     *
      * @param isTrue the condition lambda to check
      * @param timeout timeout duration
      */
@@ -120,6 +123,7 @@ public class WebPage {
 
     /**
      * The same as before, but with the long default timeout of LONG_TIMEOUT (16000ms)
+     *
      * @param isTrue condition lambda
      */
     public <V> void waitForCondition(Function<? super WebDriver, V> isTrue) {
@@ -129,13 +133,11 @@ public class WebPage {
         }
     }
 
-
     /**
      * Wait for a certain period of time
-     * @param timeout the timeout to wait (note due to the asynchronous nature
-     *                of the web drivers, any code running on the browser itself
-     *                will proceed (aka javascript)
-     *                only the client operations are stalled.
+     *
+     * @param timeout the timeout to wait (note due to the asynchronous nature of the web drivers, any code running on the
+     * browser itself will proceed (aka javascript) only the client operations are stalled.
      */
     public void wait(Duration timeout) {
         synchronized (webDriver) {
@@ -148,8 +150,7 @@ public class WebPage {
     }
 
     /**
-     * waits until no more running requests are present
-     * in case of exceeding our STD_TIMEOUT, a runtime exception is thrown
+     * waits until no more running requests are present in case of exceeding our STD_TIMEOUT, a runtime exception is thrown
      */
     public void waitForCurrentRequestEnd() {
         waitForCondition(webDriver1 -> webDriver.getResponseStatus() != -1, STD_TIMEOUT);
@@ -157,6 +158,7 @@ public class WebPage {
 
     /**
      * wait for the current request to be ended, with a timeout of "timeout"
+     *
      * @param timeout the timeout for the waiting, if it is exceeded a timeout exception is thrown
      */
     public void waitForCurrentRequestEnd(Duration timeout) {
@@ -164,10 +166,8 @@ public class WebPage {
     }
 
     /**
-     * wait until the current Ajax request targeting the same page
-     * has stopped and then tests for blocking running scripts
-     * still running.
-     * A small initial delay cannot hurt either
+     * wait until the current Ajax request targeting the same page has stopped and then tests for blocking running scripts
+     * still running. A small initial delay cannot hurt either
      */
     public void waitReqJs() {
         this.waitReqJs(STD_TIMEOUT);
@@ -175,8 +175,8 @@ public class WebPage {
 
     /**
      * same as before but with a dedicated timeout
-     * @param timeout the timeout duration after that the wait is cancelled
-     *                and an exception is thrown
+     *
+     * @param timeout the timeout duration after that the wait is cancelled and an exception is thrown
      */
     public void waitReqJs(Duration timeout) {
         // We stall the connection between browser and client for 200ms to make sure everything
@@ -198,8 +198,11 @@ public class WebPage {
      * @param timeOut the timeout duration until the wait can proceed before being interupopted
      */
     public void waitForPageToLoad(Duration timeOut) {
-        ExpectedCondition<Boolean> expectation = driver -> webDriver.getJSExecutor()
-                .executeScript("return document.readyState").equals("complete");
+        ExpectedCondition<Boolean> expectation =
+            driver -> webDriver.getJSExecutor()
+                               .executeScript("return document.readyState")
+                               .equals("complete");
+
         synchronized (webDriver) {
             WebDriverWait wait = new WebDriverWait(webDriver, timeOut);
             wait.until(expectation);
@@ -214,20 +217,21 @@ public class WebPage {
     }
 
     /**
-     * conditional waiter and checker which checks whether the page text is present
-     * we add our own waiter internally, because pageSource always delivers
+     * conditional waiter and checker which checks whether the page text is present we add our own waiter internally,
+     * because pageSource always delivers
+     *
      * @param text to check
      * @return true in case of found false in case of found after our standard timeout is reached
      */
     public boolean isInPageText(String text) {
         try {
-            //values are not returned by getPageText
+            // values are not returned by getPageText
             String values = getInputValues();
 
             waitForCondition(webDriver1 -> (webDriver.getPageText() + values).contains(text), STD_TIMEOUT);
             return true;
         } catch (TimeoutException ex) {
-            //timeout is wanted in this case and should result in a false
+            // timeout is wanted in this case and should result in a false
             return false;
         }
     }
@@ -238,7 +242,7 @@ public class WebPage {
             waitForCondition(webDriver1 -> (webDriver.getPageTextReduced() + values.replaceAll("\\s+", " ")).contains(text), STD_TIMEOUT);
             return true;
         } catch (TimeoutException ex) {
-            //timeout is wanted in this case and should result in a false
+            // timeout is wanted in this case and should result in a false
             return false;
         }
     }
@@ -248,7 +252,7 @@ public class WebPage {
             waitForCondition(webDriver1 -> webDriver.getPageText().matches(regexp), STD_TIMEOUT);
             return true;
         } catch (TimeoutException ex) {
-            //timeout is wanted in this case and should result in a false
+            // timeout is wanted in this case and should result in a false
             return false;
         }
     }
@@ -264,13 +268,15 @@ public class WebPage {
             waitForCondition(webDriver1 -> webDriver.getPageTextReduced().matches(regexp), STD_TIMEOUT);
             return true;
         } catch (TimeoutException ex) {
-            //timeout is wanted in this case and should result in a false
+            // timeout is wanted in this case and should result in a false
             return false;
         }
     }
+
     /**
-     * conditional waiter and checker which checks whether a text is not in the page
-     * we add our own waiter internally, because pageSource always delivers
+     * conditional waiter and checker which checks whether a text is not in the page we add our own waiter internally,
+     * because pageSource always delivers
+     *
      * @param text to check
      * @return true in case of found false in case of found after our standard timeout is reached
      */
@@ -280,15 +286,15 @@ public class WebPage {
             waitForCondition(webDriver1 -> !(webDriver.getPageText() + values).contains(text), STD_TIMEOUT);
             return true;
         } catch (TimeoutException ex) {
-            //timeout is wanted in this case and should result in a false
+            // timeout is wanted in this case and should result in a false
             return false;
         }
     }
 
     /**
-     * conditional waiter and checker which checks whether a text is  in the page
-     * we add our own waiter internally, because pageSource always delivers
-     * this version of isInPage checks explicitly the full markup not only the text
+     * conditional waiter and checker which checks whether a text is in the page we add our own waiter internally, because
+     * pageSource always delivers this version of isInPage checks explicitly the full markup not only the text
+     *
      * @param text to check
      * @return true in case of found false in case of found after our standard timeout is reached
      */
@@ -298,17 +304,17 @@ public class WebPage {
             waitForCondition(webDriver1 -> (webDriver.getPageSource() + values).contains(text), STD_TIMEOUT);
             return true;
         } catch (TimeoutException ex) {
-            //timeout is wanted in this case and should result in a false
+            // timeout is wanted in this case and should result in a false
             return false;
         }
     }
+
     /**
-     * conditional waiter and checker which checks whether a text is not in the page
-     * we add our own waiter internally, because pageSource always delivers
-     * we need to add two different condition checkers herte because
-     * a timeout automatically throws internally an error which is mapped to false
-     * We therefore cannot simply wait for the condition either being met or timeout
-     * with one method
+     * conditional waiter and checker which checks whether a text is not in the page we add our own waiter internally,
+     * because pageSource always delivers we need to add two different condition checkers herte because a timeout
+     * automatically throws internally an error which is mapped to false We therefore cannot simply wait for the condition
+     * either being met or timeout with one method
+     *
      * @param text to check
      * @return true in case of found false in case of found after our standard timeout is reached
      */
@@ -318,18 +324,17 @@ public class WebPage {
             waitForCondition(webDriver1 -> !(webDriver.getPageSource() + values).contains(text), STD_TIMEOUT);
             return true;
         } catch (TimeoutException ex) {
-            //timeout is wanted in this case and should result in a false
+            // timeout is wanted in this case and should result in a false
             return false;
         }
     }
 
     /**
-     * conditional waiter and checker which checks whether a text is in the page
-     * we add our own waiter internally, because pageSource always delivers
-     * we need to add two different condition checkers herte because
-     * a timeout automatically throws internally an error which is mapped to false
-     * We therefore cannot simply wait for the condition either being met or timeout
-     * with one method
+     * conditional waiter and checker which checks whether a text is in the page we add our own waiter internally, because
+     * pageSource always delivers we need to add two different condition checkers herte because a timeout automatically
+     * throws internally an error which is mapped to false We therefore cannot simply wait for the condition either being
+     * met or timeout with one method
+     *
      * @param text to check
      * @return true in case of found false in case of found after our standard timeout is reached
      */
@@ -339,7 +344,7 @@ public class WebPage {
             waitForCondition(webDriver1 -> (webDriver.getPageSource() + values).contains(text), STD_TIMEOUT);
             return true;
         } catch (TimeoutException exception) {
-            if(allowExceptions) {
+            if (allowExceptions) {
                 throw exception;
             }
             exception.printStackTrace();
@@ -348,8 +353,9 @@ public class WebPage {
     }
 
     /**
-     * is condition reached or not reached after until a STD_TIMEOUT is reached
-     * if the timeout is exceeded the condition is not met
+     * is condition reached or not reached after until a STD_TIMEOUT is reached if the timeout is exceeded the condition is
+     * not met
+     *
      * @param isTrue the isTrue condition lambda
      * @return true if it is met until STD_TIMEOUT, otherwise false
      */
@@ -358,7 +364,7 @@ public class WebPage {
             waitForCondition(isTrue, STD_TIMEOUT);
             return true;
         } catch (TimeoutException ex) {
-            //timeout is wanted in this case and should result in a false
+            // timeout is wanted in this case and should result in a false
             return false;
         }
     }
@@ -366,6 +372,7 @@ public class WebPage {
     public WebElement findElement(By by) {
         return webDriver.findElement(by);
     }
+
     public List<WebElement> findElements(By by) {
         return webDriver.findElements(by);
     }
@@ -440,6 +447,7 @@ public class WebPage {
 
     /**
      * Convenience method to get all anchor elmements
+     *
      * @return a list of a hrefs as WebElements
      */
     public List<WebElement> getAnchors() {
@@ -447,9 +455,7 @@ public class WebPage {
     }
 
     private String getInputValues() {
-        return webDriver.findElements(By.cssSelector("input, textarea, select"))
-                .stream()
-                .map(webElement -> webElement.getAttribute("value"))
-                .reduce("", (str1, str2) -> str1 + " " + str2);
+        return webDriver.findElements(By.cssSelector("input, textarea, select")).stream()
+                .map(webElement -> webElement.getAttribute("value")).reduce("", (str1, str2) -> str1 + " " + str2);
     }
 }
