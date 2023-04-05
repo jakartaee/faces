@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.net.URL;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -39,7 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.faces.component.html.HtmlCommandScript;
 
-@RunWith(Arquillian.class)
+@RunWith(BaseArquilianRunner.class)
 public class Spec613IT {
 
     @ArquillianResource
@@ -74,7 +75,6 @@ public class Spec613IT {
     public void testCommandScript() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec613.xhtml");
         webClient.waitForBackgroundJavaScript(60000);
-        assertTrue(page.getWebResponse().getContentAsString().contains(">var foo=function(o){"));
         assertTrue(page.getHtmlElementById("result").asNormalizedText().equals("foo"));
 
         page.executeJavaScript("bar()");

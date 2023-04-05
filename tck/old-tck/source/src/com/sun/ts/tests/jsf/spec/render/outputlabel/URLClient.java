@@ -113,11 +113,11 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!"<default>".equals(label_two.asText())) {
+      if (!"<default>".equals(label_two.asNormalizedText())) {
         formatter.format(
             "Unexpected rendered value for the " + "\"value\" attribute. %n"
                 + "Expected: '%s' %n" + "Recieved: '%s' %n",
-            "<default>", label_two.asText());
+            "<default>", label_two.asNormalizedText());
       }
 
       // ---------------------------------------------------------- case 3
@@ -129,11 +129,11 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!"<true>".equals(label_three.asText())) {
+      if (!"<true>".equals(label_three.asNormalizedText())) {
         formatter.format(
             "Unexpected rendered value for the " + "\"value\" attribute. %n"
                 + "Expected: '%s' %n" + "Recieved: '%s' %n",
-            "<true>", label_three.asText());
+            "<true>", label_three.asNormalizedText());
       }
       // ---------------------------------------------------------- case 4
       HtmlLabel label_four = (HtmlLabel) getElementOfTypeIncludingId(page,
@@ -144,11 +144,11 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!"".equals(label_four.asText())) {
+      if (!"".equals(label_four.asNormalizedText())) {
         formatter.format(
             "Unexpected rendered value for the " + "\"value\" attribute. %n"
                 + "Expected: '%s' %n" + "Recieved: '%s' %n",
-            "", label_four.asText());
+            "", label_four.asNormalizedText());
       }
 
       // ---------------------------------------------------------- case 5
@@ -162,12 +162,12 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!expected.equals(label_five.asText())) {
+      if (!expected.equals(label_five.asNormalizedText())) {
         formatter
             .format(
                 "Unexpected value for '%s' Attribute! %n" + "Expected: '%s' %n"
                     + "Recieved: '%s' %n",
-                "value", expected, label_five.asText());
+                "value", expected, label_five.asNormalizedText());
       }
 
       if (!"text".equals(label_five.getAttribute("class"))) {

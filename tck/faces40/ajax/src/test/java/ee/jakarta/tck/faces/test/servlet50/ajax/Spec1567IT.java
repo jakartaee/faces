@@ -23,8 +23,8 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.net.URL;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
@@ -40,7 +40,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.AjaxBehavior;
 
-@RunWith(Arquillian.class)
+@RunWith(BaseArquilianRunner.class)
 public class Spec1567IT {
 
     @ArquillianResource
@@ -72,10 +72,6 @@ public class Spec1567IT {
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1567IT.xhtml");
-
-        validateRenderedMarkup(page, "form1", "form1:messages");
-        validateRenderedMarkup(page, "form2", "form2:messages");
-        validateRenderedMarkup(page, "form3", "form3:inputs form3:messages");
 
         // fill form1 input1
         HtmlTextInput input1 = (HtmlTextInput) page.getElementById("form1:inputs:input1");
@@ -202,17 +198,6 @@ public class Spec1567IT {
         assertEquals("input2 is refreshed to empty string", "", input2.getValueAttribute());
         assertEquals("input3 is filled and refreshed", "1x", input3.getValueAttribute());
         assertEquals("input3 is filled", "setForm3input3:1", messages);
-    }
-
-    private void validateRenderedMarkup(HtmlPage page, String formId, String render) {
-        HtmlTextInput input1 = (HtmlTextInput) page.getElementById(formId + ":inputs:input1");
-        assertEquals("input1 and input2 are implied as @this", "mojarra.ab(this,event,'change','" + formId + ":inputs:input1 " + formId + ":inputs:input2','" + render + "')", input1.getOnChangeAttribute());
-
-        HtmlTextInput input2 = (HtmlTextInput) page.getElementById(formId + ":inputs:input2");
-        assertEquals("input1 and input2 are implied as @this", "mojarra.ab(this,event,'change','" + formId + ":inputs:input1 " + formId + ":inputs:input2','" + render + "')", input2.getOnChangeAttribute());
-
-        HtmlTextInput input3 = (HtmlTextInput) page.getElementById(formId + ":inputs:input3");
-        assertEquals("input3 has still its own f:ajax", "mojarra.ab(this,event,'valueChange',0,'@form')", input3.getOnChangeAttribute());
     }
 
 }

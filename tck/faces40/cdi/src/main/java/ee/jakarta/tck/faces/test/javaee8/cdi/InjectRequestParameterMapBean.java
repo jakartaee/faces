@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2021, 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2021 Contributors to Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -21,6 +21,7 @@ import java.util.Map;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.inject.spi.CDI;
+import jakarta.enterprise.util.TypeLiteral;
 import jakarta.faces.annotation.RequestParameterMap;
 import jakarta.inject.Named;
 
@@ -29,8 +30,7 @@ import jakarta.inject.Named;
 public class InjectRequestParameterMapBean {
 
     public String getRequestParameterValue() {
-        @SuppressWarnings("unchecked")
-        Map<String, String> requestParameterMap = CDI.current().select(Map.class, RequestParameterMap.Literal.INSTANCE).get();
+        Map<String, String> requestParameterMap = CDI.current().select(new TypeLiteral<Map<String, String>>() {}, RequestParameterMap.Literal.INSTANCE).get();
 
         return requestParameterMap.get("foo");
     }

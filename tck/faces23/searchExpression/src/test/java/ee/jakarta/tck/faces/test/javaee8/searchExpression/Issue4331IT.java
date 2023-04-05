@@ -23,6 +23,7 @@ import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import java.io.File;
 import java.net.URL;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -41,7 +42,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import jakarta.faces.application.Application;
 import jakarta.faces.component.search.SearchKeywordResolver;
 
-@RunWith(Arquillian.class)
+@RunWith(BaseArquilianRunner.class)
 public class Issue4331IT {
 
     @ArquillianResource

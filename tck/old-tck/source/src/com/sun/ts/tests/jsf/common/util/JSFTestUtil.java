@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -33,11 +34,11 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 
 import jakarta.el.ExpressionFactory;
+import jakarta.el.ELManager;
 import jakarta.faces.FacesException;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.event.PhaseId;
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.jsp.JspFactory;
 
 public final class JSFTestUtil {
 
@@ -381,8 +382,7 @@ public final class JSFTestUtil {
    */
   public static ExpressionFactory getExpressionFactory(ServletContext ctx) {
 
-    return JspFactory.getDefaultFactory().getJspApplicationContext(ctx)
-        .getExpressionFactory();
+    return ELManager.getExpressionFactory();
 
   } // END getExpressionFactory
 

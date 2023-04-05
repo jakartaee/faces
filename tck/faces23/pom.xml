@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.faces.tck</groupId>
         <artifactId>jakarta-faces-tck</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>org.eclipse.ee4j.tck.faces.faces23</groupId>
@@ -49,8 +49,12 @@
         <module>importConstants</module>
         <module>namespacedView</module>
         <module>passthrough</module>
+<!--
+    Below two are deactivated until the value of jakarta.faces.FACELETS_REFRESH_PERIOD is available via public API such as FaceletCache#getRefreshPerid().
+    See also https://github.com/jakartaee/faces/issues/1701
         <module>refreshPeriodExplicit</module>
         <module>refreshPeriodProduction</module>
+-->
         <module>searchExpression</module>
         <module>systemEvent</module>
         <module>uiinput</module>

@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.faces.tck</groupId>
         <artifactId>jakarta-faces-tck</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.2-SNAPSHOT</version>
     </parent>
 
     <groupId>org.eclipse.ee4j.tck.faces.faces40</groupId>
@@ -32,18 +32,16 @@
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0</name>
 
     <modules>
-
-          <module>ajax</module>
-        <module>extensionless-mapping</module>
-        
+        <module>ajax</module>
+        <module>beanValidation</module>
+        <module>cdi</module>
         <module>doctype</module>
-
+        <module>extensionless-mapping</module>
         <module>inputFile</module>
         <module>inputText</module>
-        <module>namespaces</module>
-        <module>cdi</module>
         <module>javaPage</module>
         <module>javaPageWithMetadata</module>
+        <module>namespaces</module>
         <module>resources</module>
         <module>selectItemGroup</module>
         <module>selectItemGroups</module>

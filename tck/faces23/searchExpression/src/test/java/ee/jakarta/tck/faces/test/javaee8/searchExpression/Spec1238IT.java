@@ -23,6 +23,7 @@ import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import java.io.File;
 import java.net.URL;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -41,7 +42,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import jakarta.faces.component.search.SearchKeywordResolver;
 
-@RunWith(Arquillian.class)
+@RunWith(BaseArquilianRunner.class)
 public class Spec1238IT {
 
     @ArquillianResource
@@ -78,11 +79,20 @@ public class Spec1238IT {
         webClient.waitForBackgroundJavaScript(60000);
 
         HtmlLabel label = (HtmlLabel) page.getHtmlElementById("label");
-        HtmlTextInput input = (HtmlTextInput) page.getHtmlElementById("input");
+        HtmlTextInput input = (HtmlTextInput) page.getHtmlElementById("spec1238ITinput1");
         
         Assert.assertEquals(label.getAttribute("for"), input.getId());
         
-        Assert.assertTrue(input.getAttribute("onchange").contains("@this input2"));
+        String onchange = input.getAttribute("onchange");
+
+        if (onchange.contains("@this")) {
+            Assert.assertFalse(onchange.contains("spec1238ITinput1"));
+        }
+        else {
+            Assert.assertTrue(onchange.contains("spec1238ITinput1"));
+        }
+
+        Assert.assertTrue(onchange.contains("spec1238ITinput2"));
     }
 
     @After

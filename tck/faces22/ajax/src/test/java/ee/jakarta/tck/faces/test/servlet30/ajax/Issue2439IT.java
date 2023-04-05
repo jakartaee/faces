@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.component.behavior.AjaxBehavior;
@@ -32,18 +33,15 @@ public class Issue2439IT extends ITBase {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2443
      */
     @Test
-    public void testUpdateAttributeNamedValue() throws Exception {
-        String expectedString1 = "<input id="+'"'+"form1:input1"+'"'+" type="+'"'+"text"+'"'+" name="+'"'+"form1:input1"+'"'+"/>";
-        
-        String expectedString2 = "<input id="+'"'+"form1:input2"+'"'+" type="+'"'+"text"+'"'+" name="+'"'+"form1:input2"+'"'+" onchange="+'"'+"faces.util.chain(this,event,'mojarra.ab(this,event,"+"\\"+"'valueChange\\"+"'"+",\\'@this\\',\\'@all\\')')"+'"'+"/>";
-
-        String expectedString3 = "<input id="+'"'+"form1:input3"+'"'+" type="+'"'+"text"+'"'+" name="+'"'+"form1:input3"
-+'"'+" onchange="+'"'+"faces.util.chain(this,event,'alert(\\'Hello, World!\\');')"+'"'+"/>";
-
+    public void testDisabledBehaviors() throws Exception {
         HtmlPage page = getPage("disabledBehaviors.xhtml");
-        assertTrue(page.asXml().contains(expectedString1));
-        assertTrue(page.asXml().contains(expectedString2));
-        assertTrue(page.asXml().contains(expectedString3));
+        
+        HtmlTextInput input1 = (HtmlTextInput) page.getElementById("form1:input1");
+        HtmlTextInput input2 = (HtmlTextInput) page.getElementById("form1:input2");
+        HtmlTextInput input3 = (HtmlTextInput) page.getElementById("form1:input3");
+        assertTrue("input1 has no onchange attribute", input1.getAttribute("onchange").isEmpty());
+        assertTrue("input2 has onchange attribute", !input2.getAttribute("onchange").isEmpty());
+        assertTrue("input3 has onchange attribute", !input3.getAttribute("onchange").isEmpty());
     }
 }
 

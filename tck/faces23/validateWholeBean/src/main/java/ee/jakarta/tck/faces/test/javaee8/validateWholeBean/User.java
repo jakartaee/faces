@@ -18,7 +18,7 @@ package ee.jakarta.tck.faces.test.javaee8.validateWholeBean;
 
 import java.io.Serializable;
 
-@UserPassword
+@UserPassword(groups = {UserPasswordValidatorGroup.class})
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;

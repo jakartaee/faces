@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -47,6 +48,7 @@ import com.sun.ts.tests.jsf.common.viewhandler.TCKViewHandler;
 import jakarta.el.CompositeELResolver;
 import jakarta.el.ELContext;
 import jakarta.el.ELContextListener;
+import jakarta.el.ELManager;
 import jakarta.el.ELResolver;
 import jakarta.el.ExpressionFactory;
 import jakarta.el.ValueExpression;
@@ -57,6 +59,7 @@ import jakarta.faces.application.Resource;
 import jakarta.faces.application.ResourceHandler;
 import jakarta.faces.application.StateManager;
 import jakarta.faces.application.ViewHandler;
+import jakarta.faces.application.ViewHandlerWrapper;
 import jakarta.faces.component.ContextCallback;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
@@ -67,6 +70,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.BooleanConverter;
 import jakarta.el.MethodExpression;
 import jakarta.el.ELException;
+import jakarta.el.ELManager;
 import jakarta.el.ValueExpression;
 import jakarta.faces.event.ActionListener;
 import jakarta.faces.event.SystemEvent;
@@ -82,7 +86,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.jsp.JspFactory;
 
 public class TestServlet extends HttpTCKServlet {
 
@@ -1094,10 +1097,22 @@ public class TestServlet extends HttpTCKServlet {
       return;
     }
 
-    if (!resolver.equals(tckHandler)) {
+    boolean matches = false;
+    if (resolver.equals(tckHandler)) {
+      matches = true;
+    } else {
+      while (resolver instanceof ViewHandlerWrapper) {
+        resolver = ((ViewHandlerWrapper)resolver).getWrapped();
+      }
+      if(resolver.equals(tckHandler)){
+        matches = true;
+      }
+    }
+    
+    if(!matches){
       out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Application.getViewHandler didn't return the expected "
-          + "ViewHandler.");
+      + "Application.getViewHandler (nor ViewHandlerWrapper.getWrapped) "
+      + "returned the expected ViewHandler.");
 
       return;
     }
@@ -1447,8 +1462,7 @@ public class TestServlet extends HttpTCKServlet {
       return;
     }
 
-    ExpressionFactory controlFactory = JspFactory.getDefaultFactory()
-        .getJspApplicationContext(servletContext).getExpressionFactory();
+    ExpressionFactory controlFactory = ELManager.getExpressionFactory();
 
     if (controlFactory == null) {
       out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
@@ -1457,6 +1471,9 @@ public class TestServlet extends HttpTCKServlet {
       return;
     }
 
+    while (application instanceof jakarta.faces.application.ApplicationWrapper) {
+        application = ((jakarta.faces.application.ApplicationWrapper)application).getWrapped();
+    }
     ExpressionFactory exprFactory = application.getExpressionFactory();
 
     if (exprFactory == null) {
@@ -1467,9 +1484,7 @@ public class TestServlet extends HttpTCKServlet {
 
     // Left in for debugging.
     //
-    // ExpressionFactory controlFactoryTwo =
-    // JspFactory.getDefaultFactory().
-    // getJspApplicationContext(servletContext).getExpressionFactory();
+    // ExpressionFactory controlFactoryTwo = ELManager.getExpressionFactory();
     //
     // ExpressionFactory exprFactoryTwo =
     // application.getExpressionFactory();
@@ -1477,11 +1492,11 @@ public class TestServlet extends HttpTCKServlet {
     // "Returns ***: " + exprFactory.toString());
     // out.println("*** Second Call application.getExpressionFactory() " +
     // "Returns ***: " + exprFactoryTwo.toString());
-    // out.println("*** First Call - JspFactory.getDefaultFactory()." +
+    // out.println("*** First Call - ELManager.getExpressionFactory()." +
     // "getJspApplicationContext(servletContext)." +
     // "getExpressionFactory() Returns ***: " +
     // controlFactory.toString());
-    // out.println("*** Second Call - JspFactory.getDefaultFactory()." +
+    // out.println("*** Second Call - ELManager.getExpressionFactory()." +
     // "getJspApplicationContext(servletContext)." +
     // "getExpressionFactory() Returns ***: " +
     // controlFactoryTwo.toString());
@@ -1490,9 +1505,9 @@ public class TestServlet extends HttpTCKServlet {
       out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
           + "Expected Application.getExpressionFactory to return "
           + "the same instance as that returned by "
-          + "JspApplicationContext.getExpressionFactory!" + JSFTestUtil.NL
-          + "Found: " + controlFactory.toString() + JSFTestUtil.NL
-          + "Expected: " + exprFactory.toString());
+          + "ELManager.getExpressionFactory()!" + JSFTestUtil.NL
+          + "ELManager.getExpressionFactory: " + controlFactory.toString() + JSFTestUtil.NL
+          + "application.getExpressionFactory: " + exprFactory.toString());
       return;
     }
 

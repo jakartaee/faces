@@ -19,6 +19,7 @@ package ee.jakarta.tck.faces.test.servlet40.facelets;
 
 import static org.junit.Assert.assertEquals;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +31,6 @@ import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 
-@RunWith(Arquillian.class)
 public class Issue5078IT extends ITBase {
 
     /**
