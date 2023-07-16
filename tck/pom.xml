@@ -28,7 +28,7 @@
 
     <groupId>org.eclipse.ee4j.faces.tck</groupId>
     <artifactId>jakarta-faces-tck</artifactId>
-    <version>4.0.2-SNAPSHOT</version>
+    <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Jakarta Faces ${project.version} TCK</name>
@@ -371,7 +371,7 @@
 
             <properties>
                 <!-- Explicit version of Mojarra to test -->
-                <mojarra.version>4.0.2-SNAPSHOT</mojarra.version>
+                <mojarra.version>4.1.0-SNAPSHOT</mojarra.version>
                 
                 <!-- Verhicle used for testing the Mojarra version -->
                 <glassfish.version>7.0.2</glassfish.version>
