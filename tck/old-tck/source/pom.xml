@@ -34,11 +34,12 @@
         <skipITs>false</skipITs>
         <tck.home>${maven.multiModuleProjectDirectory}/release/JSF_BUILD/latest/faces-tck</tck.home>
         <tck.tests.home>${tck.home}/src/com/sun/ts/tests/jsf</tck.tests.home>         
-        <tck.mode>standalone</tck.mode>         
+        <tck.mode>standalone</tck.mode>
+                
         <glassfish.home>${project.build.directory}/glassfish7</glassfish.home>
         <glassfish.version>7.0.0-M4</glassfish.version>
         <glassfish.asadmin>${glassfish.home}/glassfish/bin/asadmin</glassfish.asadmin>
-        <mojarra.version>4.0.0-M7</mojarra.version>
+        <mojarra.version>4.0.0</mojarra.version>
        
         <jacoco.includes>org/glassfish/**\:com/sun/enterprise/**</jacoco.includes>
         
