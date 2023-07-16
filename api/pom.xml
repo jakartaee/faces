@@ -38,7 +38,7 @@
 
     <groupId>jakarta.faces</groupId>
     <artifactId>jakarta.faces-api</artifactId>
-    <version>4.0.1-SNAPSHOT</version>
+    <version>4.1.0-SNAPSHOT</version>
 
     <name>Jakarta Faces</name>
     <description>
@@ -286,6 +286,39 @@
                 </configuration>
             </plugin>
             
+            <!-- Generate the OSGi jar Manifest. -->
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>5.1.6</version>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                    <instructions>
+                        <_noimportjava>true</_noimportjava>
+                        <_runee>JavaSE-11</_runee>
+                        <Specification-Title>Jakarta Faces</Specification-Title>
+                        <Specification-Version>4.0</Specification-Version>
+                        <!-- Set the package version to match the spec version -->
+                        <Export-Package>
+                            jakarta.faces*;version=4.0
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+            
             <!-- Clean unpacked sources jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -359,6 +392,9 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.2.2</version>
                 <configuration>
+                    <archive>
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    </archive>
                     <includes>
                         <include>jakarta/**</include>
                         <include>META-INF/LICENSE.md</include>

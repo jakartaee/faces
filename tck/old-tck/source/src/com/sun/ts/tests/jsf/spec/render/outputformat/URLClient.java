@@ -115,9 +115,9 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!result_two.equals(format_two.asText())) {
+      if (!result_two.equals(format_two.asNormalizedText())) {
         formatter.format("Unexpected rendered value! %n" + "Expected: '%s' %n"
-            + "Recieved: '%s' %n", result_two, format_two.asText());
+            + "Recieved: '%s' %n", result_two, format_two.asNormalizedText());
       }
       // ---------------------------------------------------------- case 3
 
@@ -129,23 +129,23 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!"<default>".equals(format_three.asText())) {
+      if (!"<default>".equals(format_three.asNormalizedText())) {
         formatter.format("Unexpected rendered value! %n" + "Expected: '%s' %n"
-            + "Recieved: '%s' %n", "<default>", format_three.asText());
+            + "Recieved: '%s' %n", "<default>", format_three.asNormalizedText());
       }
 
       // ---------------------------------------------------------- case 4
-      HtmlSpan fomat_four = (HtmlSpan) getElementOfTypeIncludingId(page, "span",
+      HtmlSpan format_four = (HtmlSpan) getElementOfTypeIncludingId(page, "span",
           "formatter4");
 
-      if (!validateExistence("formatter4", "span", fomat_four, formatter)) {
+      if (!validateExistence("formatter4", "span", format_four, formatter)) {
         handleTestStatus(messages);
         return;
       }
 
-      if (!"<true>".equals(fomat_four.asText())) {
+      if (!"<true>".equals(format_four.asNormalizedText())) {
         formatter.format("Unexpected rendered value! %n" + "Expected: '%s' %n"
-            + "Recieved: '%s' %n", "<true>", fomat_four.asText());
+            + "Recieved: '%s' %n", "<true>", format_four.asNormalizedText());
       }
       // ---------------------------------------------------------- case 5
       HtmlSpan format_five = (HtmlSpan) getElementOfTypeIncludingId(page,
@@ -156,9 +156,9 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!"".equals(format_five.asText())) {
+      if (!"".equals(format_five.asNormalizedText())) {
         formatter.format("Unexpected rendered value! %n" + "Expected: '%s' %n"
-            + "Recieved: '%s' %n", "", format_five.asText());
+            + "Recieved: '%s' %n", "", format_five.asNormalizedText());
       }
 
       // ---------------------------------------------------------- case 6
@@ -172,9 +172,9 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!result_six.equals(format_six.asText())) {
+      if (!result_six.equals(format_six.asNormalizedText())) {
         formatter.format("Unexpected rendered value! %n" + "Expected: '%s' %n"
-            + "Recieved: '%s' %n", result_six, format_six.asText());
+            + "Recieved: '%s' %n", result_six, format_six.asNormalizedText());
       }
 
       // ---------------------------------------------------------- case 7
@@ -183,14 +183,14 @@ public class URLClient extends BaseHtmlUnitClient {
       HtmlSpan format_seven = (HtmlSpan) getElementOfTypeIncludingTitle(page,
           "span", "formatter7");
 
-      if (!validateExistence("formatter7", "span", format_six, formatter)) {
+      if (!validateExistence("formatter7", "span", format_seven, formatter)) {
         handleTestStatus(messages);
         return;
       }
 
-      if (!result_seven.equals(format_seven.asText())) {
+      if (!result_seven.equals(format_seven.asNormalizedText())) {
         formatter.format("Unexpected rendered value! %n" + "Expected: '%s' %n"
-            + "Recieved: '%s' %n", result_six, format_six.asText());
+            + "Recieved: '%s' %n", result_seven, format_seven.asNormalizedText());
       }
 
       String clazzAttrSeven = format_seven.getAttribute("class");

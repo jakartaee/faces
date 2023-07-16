@@ -210,7 +210,7 @@ public class URLClient extends BaseHtmlUnitClient {
 
       while (liInt.hasNext()) {
         HtmlListItem li = (HtmlListItem) liInt.next();
-        aMessages.add(li.asText());
+        aMessages.add(li.asNormalizedText());
       }
 
       if (aMessages.size() > 2) {
@@ -632,7 +632,7 @@ public class URLClient extends BaseHtmlUnitClient {
 
       while (liIntNine.hasNext()) {
         HtmlListItem li = (HtmlListItem) liIntNine.next();
-        actNine.add(li.asText());
+        actNine.add(li.asNormalizedText());
       }
 
       if (expNine.size() > 2) {
@@ -703,7 +703,7 @@ public class URLClient extends BaseHtmlUnitClient {
 
       while (liIntTen.hasNext()) {
         HtmlListItem li = (HtmlListItem) liIntTen.next();
-        actTen.add(li.asText());
+        actTen.add(li.asNormalizedText());
       }
 
       if (expTen.size() > 2) {
@@ -774,7 +774,7 @@ public class URLClient extends BaseHtmlUnitClient {
 
       while (liIntEleven.hasNext()) {
         HtmlListItem li = (HtmlListItem) liIntEleven.next();
-        actEleven.add(li.asText());
+        actEleven.add(li.asNormalizedText());
       }
 
       if (expEleven.size() > 2) {
@@ -847,7 +847,7 @@ public class URLClient extends BaseHtmlUnitClient {
         // Only add the html <td> elements to the list.
         if ("td".equals(((HtmlElement) element).getTagName())) {
           HtmlTableDataCell datacell = (HtmlTableDataCell) element;
-          actualTwelve.add(datacell.asText());
+          actualTwelve.add(datacell.asNormalizedText());
         }
       }
 
@@ -961,7 +961,7 @@ public class URLClient extends BaseHtmlUnitClient {
         // Only add the html <td> elements to the list.
         if ("td".equals(((HtmlElement) element).getTagName())) {
           HtmlTableDataCell datacell = (HtmlTableDataCell) element;
-          actualFourteen.add(datacell.asText());
+          actualFourteen.add(datacell.asNormalizedText());
         }
       }
 
@@ -1040,7 +1040,7 @@ public class URLClient extends BaseHtmlUnitClient {
         // Only add the html <td> elements to the list.
         if ("td".equals(((HtmlElement) element).getTagName())) {
           HtmlTableDataCell datacell = (HtmlTableDataCell) element;
-          actualFifteen.add(datacell.asText());
+          actualFifteen.add(datacell.asNormalizedText());
         }
       }
 
@@ -1118,7 +1118,7 @@ public class URLClient extends BaseHtmlUnitClient {
         // Only add the html <td> elements to the list.
         if ("td".equals(((HtmlElement) element).getTagName())) {
           HtmlTableDataCell datacell = (HtmlTableDataCell) element;
-          actualSixteen.add(datacell.asText());
+          actualSixteen.add(datacell.asNormalizedText());
         }
       }
 

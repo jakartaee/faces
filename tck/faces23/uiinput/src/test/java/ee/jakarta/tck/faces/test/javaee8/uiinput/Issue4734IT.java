@@ -1,6 +1,6 @@
 /*
  * Copyright (c) 1997, 2019 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2020 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2020, 2023 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,7 +16,9 @@
  */
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
@@ -25,6 +27,7 @@ import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.component.UIViewParameter;
 import jakarta.faces.component.behavior.AjaxBehavior;
 
+@RunWith(Arquillian.class)
 public class Issue4734IT extends ITBase {
 
     /**

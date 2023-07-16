@@ -1,6 +1,6 @@
 /*
+ * Copyright (c) 2021, 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
- * Copyright (c) 2021 Contributors to Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -22,6 +22,7 @@ import java.util.Map;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.enterprise.inject.spi.CDI;
+import jakarta.enterprise.util.TypeLiteral;
 import jakarta.faces.annotation.RequestCookieMap;
 import jakarta.inject.Named;
 
@@ -29,9 +30,10 @@ import jakarta.inject.Named;
 @SessionScoped
 public class InjectRequestCookieMap2Bean implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     public String getValue() {
-        @SuppressWarnings("unchecked")
-        Map<String, Object> requestCookieMap = CDI.current().select(Map.class, RequestCookieMap.Literal.INSTANCE).get();
+        Map<String, Object> requestCookieMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {}, RequestCookieMap.Literal.INSTANCE).get();
 
         return requestCookieMap.toString();
     }

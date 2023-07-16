@@ -16,7 +16,6 @@
 
 # Mojarra / Faces tests
 
-
 The tests in this folder assert that functionality is working as it should. Test are junit tests
 that use Arquillian to start/stop a server and to deploy/undeploy. The (plain) junit tests then do
 HTTP requests to the server. No Arquillian "magic" is being used, and specifically no magic in-container

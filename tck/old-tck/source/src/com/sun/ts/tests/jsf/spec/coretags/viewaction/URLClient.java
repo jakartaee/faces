@@ -88,7 +88,7 @@ public class URLClient extends BaseHtmlUnitClient {
       return;
     }
 
-    String message1 = span.asText().trim();
+    String message1 = span.asNormalizedText().trim();
     if (!"Test Passed".equals(message1)) {
       formatter.format(JSFTestUtil.FAIL);
     }

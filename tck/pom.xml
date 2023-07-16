@@ -28,7 +28,7 @@
 
     <groupId>org.eclipse.ee4j.faces.tck</groupId>
     <artifactId>jakarta-faces-tck</artifactId>
-    <version>4.0.0-SNAPSHOT</version>
+    <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Jakarta Faces ${project.version} TCK</name>
@@ -38,6 +38,7 @@
         <module>faces22</module>
         <module>faces23</module>
         <module>faces40</module>
+        <module>old-tck-selenium</module>
         <module>old-tck</module>
         <module>faces-signaturetest</module>
     </modules>
@@ -116,7 +117,7 @@
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -370,11 +371,12 @@
 
             <properties>
                 <!-- Explicit version of Mojarra to test -->
-                <mojarra.version>4.0.1-SNAPSHOT</mojarra.version>
+                <mojarra.version>4.1.0-SNAPSHOT</mojarra.version>
                 
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>7.0.0-M4</glassfish.version>
+                <glassfish.version>7.0.2</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
+                <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
             </properties>
 
             <dependencies>
@@ -382,7 +384,7 @@
                 <dependency>
                     <groupId>org.omnifaces.arquillian</groupId>
                     <artifactId>arquillian-glassfish-server-managed</artifactId>
-                    <version>1.1</version>
+                    <version>1.2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -662,6 +664,47 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        
+        
+        <!-- ### Payara ### -->
+
+        <profile>
+            <id>payara-ci-remote</id>
+
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+                <!-- Arquillian Dependencies -->
+                <payara.arquillian.container.version>3.0.alpha6</payara.arquillian.container.version>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-remote</artifactId>
+                    <version>${payara.arquillian.container.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-client-ee9</artifactId>
+                    <scope>test</scope>
+                    <version>${payara.arquillian.container.version}</version>
+                </dependency>
+                <!-- 
+                Solution for 
+                WARNING: A class jakarta.activation.DataSource for a default provider MessageBodyWriter<jakarta.activation.DataSource> was not found. The provider is not available.
+                fish.payara.arquillian.shaded.glassfish.jersey.message.internal.MessagingBinders$EnabledProvidersBinder bindToBinder
+                -->
+                <dependency>
+                    <groupId>jakarta.activation</groupId>
+                    <artifactId>jakarta.activation-api</artifactId>
+                    <version>2.0.1</version>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 </project>

@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.faces.tck</groupId>
         <artifactId>old-faces-tck-parent</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>glassfish-external-tck-faces</artifactId>
@@ -39,8 +39,8 @@
         <tck.home>${project.build.directory}/faces-tck</tck.home>
         <tck.tests.home>${tck.home}/src/com/sun/ts/tests</tck.tests.home>
         <tck.mode>standalone</tck.mode>
+        <tck.old.skip>${skipITs}</tck.old.skip>
          
-        <glassfish.home>${project.build.directory}/glassfish7</glassfish.home>
         <glassfish.asadmin>${glassfish.home}/glassfish/bin/asadmin</glassfish.asadmin>
        
         <jacoco.includes>org/glassfish/**\:com/sun/enterprise/**</jacoco.includes>
@@ -89,7 +89,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <skip>${skipITs}</skip>
+                    <skip>${tck.old.skip}</skip>
                     <url>${ant.zip.url}</url>
                     <unpack>true</unpack>
                     <outputDirectory>${project.build.directory}</outputDirectory>
@@ -100,20 +100,9 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <skip>${skipITs}</skip>
+                    <skip>${tck.old.skip}</skip>
                 </configuration>
                 <executions>
-                    <execution>
-                        <id>unpack-glassfish</id>
-                        <phase>pre-integration-test</phase>
-                        <goals>
-                            <goal>unpack-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeArtifactIds>glassfish</includeArtifactIds>
-                            <outputDirectory>${project.build.directory}</outputDirectory>
-                        </configuration>
-                    </execution>
                     <execution>
                         <id>unpack-tck</id>
                         <phase>pre-integration-test</phase>
@@ -150,7 +139,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <skip>${skipITs}</skip>
+                    <skip>${tck.old.skip}</skip>
                 </configuration>
                 <executions>
                     <execution>

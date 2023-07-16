@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -29,6 +30,7 @@ import java.util.Map;
 import com.sun.ts.tests.jsf.common.servlets.HttpTCKServlet;
 import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 
+
 import jakarta.faces.application.Application;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
@@ -37,9 +39,6 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.jsp.JspFactory;
-import jakarta.servlet.jsp.JspWriter;
-import jakarta.servlet.jsp.PageContext;
 
 public final class TestServlet extends HttpTCKServlet {
 
@@ -1088,8 +1087,6 @@ public final class TestServlet extends HttpTCKServlet {
     PrintWriter out = response.getWriter();
     Application application = getApplication();
     FacesContext facesContext = getFacesContext();
-    PageContext pageContext = JspFactory.getDefaultFactory().getPageContext(
-        this, request, response, null, true, JspWriter.NO_BUFFER, false);
 
     String[][] beanNames = {
         { "requestScopedPackagePrivate", "requestScopedPrivate",
@@ -1177,8 +1174,6 @@ public final class TestServlet extends HttpTCKServlet {
     PrintWriter out = response.getWriter();
     Application application = getApplication();
     FacesContext facesContext = getFacesContext();
-    PageContext pageContext = JspFactory.getDefaultFactory().getPageContext(
-        this, request, response, null, false, JspWriter.NO_BUFFER, false);
 
     String beanName = "RuntimeExceptionPreDestroy";
     String expression = "#{RuntimeExceptionPreDestroy}";
@@ -1188,7 +1183,6 @@ public final class TestServlet extends HttpTCKServlet {
     try {
       ValueBinding binding = application.createValueBinding(expression);
       binding.getValue(facesContext);
-      pageContext.removeAttribute(beanName);
 
       String computedValue = PreDestroyProp.getPreDestroyProperty();
       if (!computedValue.equals(expectedValue)) {

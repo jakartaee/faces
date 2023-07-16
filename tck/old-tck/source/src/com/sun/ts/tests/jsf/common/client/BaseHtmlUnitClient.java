@@ -206,7 +206,7 @@ public class BaseHtmlUnitClient extends EETest {
 
     HtmlElement result = null;
 
-    List list = root.getDocumentElement().getHtmlElementsByTagName(tagName);
+    List list = root.getDocumentElement().getElementsByTagName(tagName);
 
     for (Iterator i = list.iterator(); i.hasNext();) {
       HtmlElement element = (HtmlElement) i.next();
@@ -237,7 +237,7 @@ public class BaseHtmlUnitClient extends EETest {
     HtmlElement result = null;
 
     List<? extends HtmlElement> list = root.getDocumentElement()
-        .getHtmlElementsByTagName(tagName);
+        .getElementsByTagName(tagName);
 
     for (Object element : list) {
       HtmlElement myElement = (HtmlElement) element;
@@ -267,7 +267,7 @@ public class BaseHtmlUnitClient extends EETest {
 
     HtmlElement result = null;
 
-    List list = root.getDocumentElement().getHtmlElementsByTagName(tagName);
+    List list = root.getDocumentElement().getElementsByTagName(tagName);
 
     for (Iterator i = list.iterator(); i.hasNext();) {
       HtmlElement element = (HtmlElement) i.next();
@@ -318,10 +318,10 @@ public class BaseHtmlUnitClient extends EETest {
     String test;
     HtmlElement result = null;
 
-    ArrayList<HtmlElement> scripts = (ArrayList<HtmlElement>) root
-        .getDocumentElement().getHtmlElementsByTagName(tagName);
+    List scripts = root.getDocumentElement().getElementsByTagName(tagName);
 
-    for (HtmlElement e : scripts) {
+    for (Iterator i = scripts.iterator(); i.hasNext();) {
+      HtmlElement e = (HtmlElement) i.next();
       test = e.getAttribute("src");
       if (test.contains(src)) {
         result = e;
@@ -414,7 +414,7 @@ public class BaseHtmlUnitClient extends EETest {
 
     HtmlLabel result = null;
 
-    List list = root.getDocumentElement().getHtmlElementsByTagName(tagName);
+    List list = root.getDocumentElement().getElementsByTagName(tagName);
 
     for (Iterator i = list.iterator(); i.hasNext();) {
       HtmlLabel label = (HtmlLabel) i.next();
@@ -457,14 +457,14 @@ public class BaseHtmlUnitClient extends EETest {
    * @return - A List of HtmlLabels.
    * 
    */
-  protected List<HtmlLabel> getLabelsContaining(HtmlPage root, String myLabel) {
-    List<HtmlLabel> result = new ArrayList<HtmlLabel>();
+  protected List<HtmlElement> getLabelsContaining(HtmlPage root, String myLabel) {
+    List<HtmlElement> result = new ArrayList<HtmlElement>();
 
-    List<HtmlLabel> labels = root.getDocumentElement()
-        .getHtmlElementsByTagName("label");
+    List<HtmlElement> labels = root.getDocumentElement()
+        .getElementsByTagName("label");
 
-    for (HtmlLabel label : labels) {
-      if (label.asText().contains(myLabel)) {
+    for (HtmlElement label : labels) {
+      if (label.asNormalizedText().contains(myLabel)) {
         result.add(label);
       }
     }
@@ -490,7 +490,7 @@ public class BaseHtmlUnitClient extends EETest {
   protected void validateElementValue(HtmlElement element, String expectedValue,
       Formatter formatter) {
 
-    String result = element.asText().trim();
+    String result = element.asNormalizedText().trim();
     if (!expectedValue.equals(result)) {
       formatter.format("Unexpected Test Result For %s! %n" + "Expected: %s %n"
           + "Found: %s %n", element.getId(), expectedValue, result);
@@ -523,7 +523,7 @@ public class BaseHtmlUnitClient extends EETest {
       for (int i = 0; i < options.size(); i++) {
         opt = (HtmlOption) options.get(i);
         expSong = expected.get(i).trim();
-        recSong = opt.asText().trim();
+        recSong = opt.asNormalizedText().trim();
         if (!recSong.equals(expSong)) {
           formatter.format("Unexpected Value Test Value! %n" + "Expected: %s %n"
               + "Found: %s %n", expSong, recSong);
@@ -552,7 +552,7 @@ public class BaseHtmlUnitClient extends EETest {
   protected void testList(HtmlPage page, String myLabels, List<String> expValue,
       int expSize, Formatter formatter, boolean ordered) {
 
-    List<HtmlLabel> renderedList = getLabelsContaining(page, myLabels);
+    List<HtmlElement> renderedList = getLabelsContaining(page, myLabels);
     String[] result;
     String rec;
 
@@ -568,8 +568,8 @@ public class BaseHtmlUnitClient extends EETest {
 
     if (ordered) {
       int i = 0;
-      for (HtmlLabel label : renderedList) {
-        result = label.asText().split(":");
+      for (HtmlElement label : renderedList) {
+        result = label.asNormalizedText().split(":");
         rec = result[1].trim();
         String expectedValue = expValue.get(i);
         if (!(expectedValue.equals(rec))) {
@@ -579,8 +579,8 @@ public class BaseHtmlUnitClient extends EETest {
         i++;
       }
     } else {
-      for (HtmlLabel label : renderedList) {
-        result = label.asText().split(":");
+      for (HtmlElement label : renderedList) {
+        result = label.asNormalizedText().split(":");
         rec = result[1].trim();
         if (!(expValue.contains(rec))) {
           formatter.format("Unexpected Value Rendered! %n" + "Found: %s %n",
@@ -697,12 +697,12 @@ public class BaseHtmlUnitClient extends EETest {
     Formatter formatter = new Formatter(sb);
 
     if (match == true) {
-      if (!pg.asText().matches(str)) {
+      if (!pg.asNormalizedText().matches(str)) {
         formatter.format("Page text should match: %s %n!", str);
       }
 
     } else if (match == false) {
-      if (pg.asText().matches(str)) {
+      if (pg.asNormalizedText().matches(str)) {
         formatter.format("Page text should 'NOT' match: %s %n!", str);
       }
     }
@@ -759,12 +759,12 @@ public class BaseHtmlUnitClient extends EETest {
     Formatter formatter = new Formatter(sb);
 
     if (negTest == false) {
-      if (!pg.asText().contains(str)) {
+      if (!pg.asNormalizedText().contains(str)) {
         formatter.format("Page should contain: %s %n!", str);
       }
 
     } else if (negTest == true) {
-      if (pg.asText().contains(str)) {
+      if (pg.asNormalizedText().contains(str)) {
         formatter.format("Page should 'NOT' contain: %s %n!", str);
       }
     }

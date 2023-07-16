@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -28,6 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
 
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -35,7 +36,6 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xml.sax.helpers.AttributesImpl;
@@ -49,7 +49,7 @@ import com.gargoylesoftware.htmlunit.html.parser.neko.HtmlUnitNekoHtmlParser;
 
 import jakarta.faces.component.html.HtmlInputFile;
 
-@RunWith(Arquillian.class)
+@RunWith(BaseArquilianRunner.class)
 public class Spec1555IT {
 
     @ArquillianResource
@@ -101,6 +101,7 @@ public class Spec1555IT {
         input.setValueAttribute(file.getAbsolutePath());
 
         page = page.getHtmlElementById(form + ":submit").click();
+        webClient.waitForBackgroundJavaScript(3000);
         
         assertEquals("Value attribute is NOT set", "", page.getHtmlElementById(form + ":input").getAttribute("value"));
 
@@ -144,6 +145,7 @@ public class Spec1555IT {
         addValueAttribute(input, file2.getAbsolutePath());
         addValueAttribute(input, file3.getAbsolutePath());
         page = page.getHtmlElementById(form + ":submit").click();
+        webClient.waitForBackgroundJavaScript(3000);
 
         assertEquals("Value attribute is NOT set", "", page.getHtmlElementById(form + ":input").getAttribute("value"));
 
@@ -163,6 +165,7 @@ public class Spec1555IT {
 
     private static File generateTempFile(String name, String ext, int size) throws IOException {
         Path path = Files.createTempFile(name, "." + ext);
+        path.toFile().deleteOnExit();
         byte[] content = new byte[size];
         Files.write(path, content, APPEND);
         return path.toFile();

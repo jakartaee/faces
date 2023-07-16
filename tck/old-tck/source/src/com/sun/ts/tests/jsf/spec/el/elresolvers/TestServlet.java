@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2022 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -38,6 +39,7 @@ import com.sun.ts.tests.jsf.common.servlets.HttpTCKServlet;
 import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 
 import jakarta.el.ELContext;
+import jakarta.el.ELManager;
 import jakarta.el.ELResolver;
 import jakarta.el.PropertyNotWritableException;
 import jakarta.faces.component.UIViewRoot;
@@ -47,8 +49,6 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.jsp.JspFactory;
-import jakarta.servlet.jsp.PageContext;
 
 public final class TestServlet extends HttpTCKServlet {
 
@@ -597,6 +597,9 @@ public final class TestServlet extends HttpTCKServlet {
     ELContext[] elContexts = getELContexts(request, response);
     ELResolver[] resolvers = getELResolvers(elContexts);
     boolean passed = true;
+
+    // Force session creation for 'session' implict object
+    request.getSession(true);
 
     for (int i = 0; i < resolvers.length; i++) {
 
@@ -1536,9 +1539,7 @@ public final class TestServlet extends HttpTCKServlet {
     ELContext[] contexts = new ELContext[2];
     contexts[FACES_PHASE] = getFacesContext().getELContext();
 
-    PageContext context = JspFactory.getDefaultFactory().getPageContext(this,
-        request, response, null, true, 1024, true);
-    contexts[JSP_PHASE] = context.getELContext();
+    contexts[JSP_PHASE] = getFacesContext().getELContext();
 
     return contexts;
 

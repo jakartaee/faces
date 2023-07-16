@@ -105,11 +105,11 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!"<p>".equals(text2.asText())) {
+      if (!"<p>".equals(text2.asNormalizedText())) {
         formatter.format(
             "Unexpected value for'%s' attribute on " + "%s! %n"
                 + "Expected: '%s' %n" + "Found: '%s' %n",
-            "value", "text2", "<p>", text2.asText());
+            "value", "text2", "<p>", text2.asNormalizedText());
       }
 
       // ----------------------------------------------------------- text3
@@ -122,11 +122,11 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if (!"<p>".equals(text3.asText())) {
+      if (!"<p>".equals(text3.asNormalizedText())) {
         formatter.format(
             "Unexpected value for '%s' attribute! on " + "%s %n"
                 + "Expected: '%s' %n" + "Found: '%s' %n",
-            "value", "text3", "<p>", text3.asText());
+            "value", "text3", "<p>", text3.asNormalizedText());
       }
 
       // ----------------------------------------------------------- text4
@@ -139,11 +139,11 @@ public class URLClient extends BaseHtmlUnitClient {
         return;
       }
 
-      if ("<p>".equals(text4.asText())) {
+      if ("<p>".equals(text4.asNormalizedText())) {
         formatter.format(
             "Unexpected value for '%s' attribute! on " + "%s %n"
                 + "Expected: '%s' %n" + "Found: '%s' %n",
-            "value", "text4", "", text4.asText());
+            "value", "text4", "", text4.asNormalizedText());
       }
 
       // ----------------------------------------------------------- text5

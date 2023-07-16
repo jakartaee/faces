@@ -97,7 +97,7 @@ public class SelectManyValidator {
     }
 
     // ensure no messages were queued by the post-back
-    if (clickPage.asText().contains("Error:")) {
+    if (clickPage.asNormalizedText().contains("Error:")) {
       formatter.format("post-back contains 'Error:'");
     }
 
@@ -163,7 +163,7 @@ public class SelectManyValidator {
       }
 
       // ensure no messages were queued by the post-back
-      if (page.asText().contains("Error:")) {
+      if (page.asNormalizedText().contains("Error:")) {
         formatter.format("post-back contains 'Error:'");
       }
 
@@ -231,7 +231,7 @@ public class SelectManyValidator {
       }
 
       // ensure no messages were queued by the post-back
-      if (page.asText().contains("Error:")) {
+      if (page.asNormalizedText().contains("Error:")) {
         formatter.format("post-back contains 'Error:'");
         return false;
       }
@@ -286,7 +286,7 @@ public class SelectManyValidator {
         } else {
           for (String text : selectedOptions) {
             for (HtmlOption option : options) {
-              if (text.equals(option.asText())) {
+              if (text.equals(option.asNormalizedText())) {
                 if (!option.isSelected()) {
                   formatter.format(option.getId()
                       + " is not selected and should have" + " been!");
@@ -346,7 +346,7 @@ public class SelectManyValidator {
       if (options.size() == 4) {
         for (String s : selectedOptions) {
           for (HtmlOption option : options) {
-            option.setSelected(s.equals(option.asText()));
+            option.setSelected(s.equals(option.asNormalizedText()));
           }
         }
       }

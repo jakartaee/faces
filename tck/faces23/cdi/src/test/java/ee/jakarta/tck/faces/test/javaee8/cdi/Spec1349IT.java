@@ -72,11 +72,10 @@ public class Spec1349IT {
     @Test
     public void testInjectConverter() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectConverter.xhtml");
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+        assertTrue(page.getElementById("messages").getTextContent().contains("InjectConverter#getAsString() was called"));
         HtmlElement submit = page.getHtmlElementById("form:submit");
         page = submit.click();
-        assertTrue(page.asXml().contains("InjectConverter was called"));
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
+        assertTrue(page.getElementById("messages").getTextContent().contains("InjectConverter#getAsObject() was called"));
     }
 
     /**

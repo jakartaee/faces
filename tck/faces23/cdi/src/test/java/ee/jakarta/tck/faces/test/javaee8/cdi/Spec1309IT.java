@@ -71,6 +71,6 @@ public class Spec1309IT {
     @Test
     public void testInjectExternalContext() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/injectExternalContext.xhtml");
-        assertTrue(page.asXml().contains("com.sun.faces.context.ExternalContextImpl"));
+        assertTrue(page.getElementById("injected").getTextContent().equals("true"));
     }
 }

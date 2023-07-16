@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2023 Contributors to the Eclipse Foundation. All rights reserved.
  * Copyright (c) 2007, 2022 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -73,6 +74,7 @@ public class JSFSigTestIT extends SigTestEE {
 
     try {
         File file = File.createTempFile(tempFilePrefix, tempFileSuffix);
+        file.deleteOnExit();
         outputStream = new FileOutputStream(file);
         byte[] buffer = new byte[1024];
         while (true) {

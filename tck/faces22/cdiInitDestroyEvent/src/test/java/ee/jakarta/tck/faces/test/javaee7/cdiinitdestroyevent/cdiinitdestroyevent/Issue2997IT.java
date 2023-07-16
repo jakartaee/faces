@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2021, 2022 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -31,6 +31,7 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -41,6 +42,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import jakarta.faces.flow.FlowScoped;
 
 // https://github.com/eclipse-ee4j/mojarra/issues/3001
+// https://github.com/jakartaee/faces/issues/1734
+@Ignore("Depends on non-specified abandoned flow and @Initialized")
 @RunWith(Arquillian.class)
 public class Issue2997IT {
 
