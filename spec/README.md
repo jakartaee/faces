@@ -1,10 +1,8 @@
-Jakarta Faces Specification
-============================
+# Jakarta Faces Specification
 
-This project generates the Jakarta Faces Specification.
+This project generates the Jakarta Faces Specification files.
 
-Building
---------
+## Building
 
 Prerequisites:
 
