@@ -28,7 +28,7 @@
 
     <groupId>org.eclipse.ee4j.faces.tck</groupId>
     <artifactId>old-faces-tck</artifactId>
-    <version>4.1.0-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Old Jakarta Faces TCK - build</name>

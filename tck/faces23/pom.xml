@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.faces.tck</groupId>
         <artifactId>jakarta-faces-tck</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.eclipse.ee4j.tck.faces.faces23</groupId>
