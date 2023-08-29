@@ -32,5 +32,5 @@ To make changes, fork this repository, make your changes, and submit a pull requ
 
 ## Branches
 
-The `master` branch **must** represent the latest release version.
+The `master` branch **must** represent the latest release version, which is currently 4.0.
 Work for Faces.next **must** go in separate branches matching their version.
