@@ -22,7 +22,7 @@
 
     <groupId>org.glassfish.main.tests.tck</groupId>
     <version>4.0.0</version>
-    <artifactId>glassfish-tck-faces</artifactId>
+    <artifactId>old-tck-source</artifactId>
     <packaging>pom</packaging>
 
     <name>TCK: Faces</name>
