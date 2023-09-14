@@ -169,8 +169,53 @@
                                     </elseif>
                                     <else>
                                         <echo message="The value of property ${tck.mode} should be set as standalone or platform " />
+                                        <fail/>
                                     </else>
                                 </if>
+                                
+                                
+                                <!-- 
+                                    Set exclude file 
+                                    
+                                    This will exclude everything except for lines matching a pattern, which will not be excluded.
+                                    In effect, it works as the reverse and only these tests will be executed.
+                                    
+                                -->
+                                <sequential if:set="run.test.pattern">
+                                    <echo message="Running test pattern ${run.test.pattern}" /> 
+                            
+                                    <copy file="${project.basedir}/src/test/etc/ts-all-${tck.mode}.jtx"
+                                        tofile="${tck.home}/bin/ts.jtx.tmp" overwrite="true" verbose="true"/>
+                            
+                                    <replaceregexp file="${tck.home}/bin/ts.jtx.tmp"
+                                        match="${run.test.pattern}" replace="" byline="true" />
+                                        
+                                    <copy file="${tck.home}/bin/ts.jtx.tmp" 
+                                        toFile="${tck.home}/bin/ts.jtx" overwrite="true" verbose="true">
+                                        <filterchain>
+                                            <ignoreblank/>
+                                        </filterchain>
+                                    </copy>
+                                    
+                                    <delete file="${tck.home}/bin/ts.jtx.tmp"/>
+                                    
+                                    <if>
+                                        <equals arg1="${tck.mode}" arg2="platform" />
+                                    <then>
+                                        <loadfile srcFile="${tck.home}/bin/ts.jtx.platform" property="ts.jtx.platform" />
+                                        <echo append="true" message="${ts.jtx.platform}" file="${tck.home}/bin/ts.jtx"/>
+                                    </then>
+                                    <elseif>
+                                        <equals arg1="${tck.mode}" arg2="standalone" />
+                                            <then>
+                                                <loadfile srcFile="${tck.home}/bin/ts.jtx.standalone" property="ts.jtx.standalone"  />
+                                                <echo append="true" message="${ts.jtx.standalone}" file="${tck.home}/bin/ts.jtx"/>
+                                            </then>
+                                    </elseif>
+                                    </if>
+                                    
+                                </sequential>
+                                
                                 
 
                                 <!-- Change configuration -->
