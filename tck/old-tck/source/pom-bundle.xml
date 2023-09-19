@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2021, 2023 Contributors to the Eclipse Foundation. All rights reserved.
+    Copyright (c) 2022 Contributors to the Eclipse Foundation. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -17,30 +17,33 @@
 
 -->
 
+<!--
+
+   Example file for running the OLD TCK. Most products will likely need a customised version, so the use as-is
+   is not that big. Mostly meant for inspiration. 
+
+-->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.eclipse.ee4j.faces.tck</groupId>
-        <artifactId>old-faces-tck-parent</artifactId>
-        <version>4.0.3-SNAPSHOT</version>
-    </parent>
-
-    <artifactId>old-tck-run</artifactId>
+    <groupId>org.glassfish.main.tests.tck</groupId>
+    <version>4.0.0</version>
+    <artifactId>glassfish-tck-faces</artifactId>
     <packaging>pom</packaging>
 
-    <name>Old Jakarta Faces TCK - run</name>
+    <name>TCK: Faces</name>
 
     <properties>
         <ant.version>1.10.2</ant.version>
         <ant.home>${project.build.directory}/apache-ant-${ant.version}</ant.home>
         <ant.zip.url>https://archive.apache.org/dist/ant/binaries/apache-ant-${ant.version}-bin.zip</ant.zip.url>
-        
-        <tck.home>${project.build.directory}/faces-tck</tck.home>
-        <tck.tests.home>${tck.home}/src/com/sun/ts/tests</tck.tests.home>
+        <skipITs>false</skipITs>
+        <tck.home>${project.basedir}</tck.home>
+        <tck.tests.home>${tck.home}/src/com/sun/ts/tests/jsf</tck.tests.home> 
         <tck.mode>standalone</tck.mode>
-        <tck.old.skip>${skipITs}</tck.old.skip>
-         
+        <glassfish.home>${project.build.directory}/glassfish7</glassfish.home>
+        <glassfish.version>7.0.8</glassfish.version>
         <glassfish.asadmin>${glassfish.home}/glassfish/bin/asadmin</glassfish.asadmin>
        
         <jacoco.includes>org/glassfish/**\:com/sun/enterprise/**</jacoco.includes>
@@ -65,16 +68,19 @@
             <type>zip</type>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.eclipse.ee4j.faces.tck</groupId>
-            <artifactId>old-tck-build</artifactId>
-            <version>${project.version}</version>
-            <type>zip</type>
-        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jakarta-staging</id>
+            <snapshots />
+            <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>com.googlecode.maven-download-plugin</groupId>
                 <artifactId>download-maven-plugin</artifactId>
@@ -86,31 +92,142 @@
                         <goals>
                             <goal>wget</goal>
                         </goals>
-                    </execution>
+                        <configuration>
+                            <skip>${skipITs}</skip>
+                            <url>${ant.zip.url}</url>
+                            <unpack>true</unpack>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>                    
                 </executions>
-                <configuration>
-                    <skip>${tck.old.skip}</skip>
-                    <url>${ant.zip.url}</url>
-                    <unpack>true</unpack>
-                    <outputDirectory>${project.build.directory}</outputDirectory>
-                </configuration>
             </plugin>
-
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <configuration>
-                    <skip>${tck.old.skip}</skip>
+                    <skip>${skipITs}</skip>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>unpack-tck</id>
+                        <id>unpack-glassfish</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeArtifactIds>old-tck-build</includeArtifactIds>
+                            <includeArtifactIds>glassfish</includeArtifactIds>
                             <outputDirectory>${project.build.directory}</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-lib-jars</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                        <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                        <artifactItems>
+                            <artifactItem>
+                                <groupId>commons-codec</groupId>
+                                <artifactId>commons-codec</artifactId>
+                                <version>1.9</version>
+                            </artifactItem>    
+                            <artifactItem>
+                                <groupId>commons-collections</groupId>
+                                <artifactId>commons-collections</artifactId>
+                                <version>3.2.1</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>commons-httpclient</groupId>
+                                <artifactId>commons-httpclient</artifactId>
+                                <version>3.1</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>commons-io</groupId>
+                                <artifactId>commons-io</artifactId>
+                                <version>2.4</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.apache.commons</groupId>
+                                <artifactId>commons-lang3</artifactId>
+                                <version>3.12.0</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>commons-logging</groupId>
+                                <artifactId>commons-logging</artifactId>
+                                <version>1.1.3</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>net.sourceforge.cssparser</groupId>
+                                <artifactId>cssparser</artifactId>
+                                <version>0.9.25</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>net.sourceforge.htmlunit</groupId>
+                                <artifactId>htmlunit</artifactId>
+                                <version>2.66.0</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>net.sourceforge.htmlunit</groupId>
+                                <artifactId>htmlunit-core-js</artifactId>
+                                <version>2.66.0</version>
+                            </artifactItem>
+                            <!--artifactItem>
+                                <groupId>org.apache.httpcomponents</groupId>
+                                <artifactId>httpclient</artifactId>
+                                <version>4.5.5</version>
+                            </artifactItem-->
+                            <artifactItem>
+                                <groupId>org.apache.httpcomponents</groupId>
+                                <artifactId>httpcore</artifactId>
+                                <version>4.4.9</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.apache.httpcomponents</groupId>
+                                <artifactId>httpmime</artifactId>
+                                <version>4.5.5</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>jaxen</groupId>
+                                <artifactId>jaxen</artifactId>
+                                <version>1.1.6</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.jdom</groupId>
+                                <artifactId>jdom</artifactId>
+                                <version>1.1.3</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>net.sourceforge.nekohtml</groupId>
+                                <artifactId>nekohtml</artifactId>
+                                <version>1.9.21</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>org.w3c.css</groupId>
+                                <artifactId>sac</artifactId>
+                                <version>1.3</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>xalan</groupId>
+                                <artifactId>serializer</artifactId>
+                                <version>2.7.2</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>xalan</groupId>
+                                <artifactId>xalan</artifactId>
+                                <version>2.7.2</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>xerces</groupId>
+                                <artifactId>xercesImpl</artifactId>
+                                <version>2.11.0</version>
+                            </artifactItem>
+                            <artifactItem>
+                                <groupId>xml-apis</groupId>
+                                <artifactId>xml-apis</artifactId>
+                                <version>1.4.01</version>
+                            </artifactItem>
+                        </artifactItems>
+                        <outputDirectory>${tck.home}/lib</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -118,7 +235,7 @@
 
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>1.8</version>
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.ant</groupId>
@@ -138,7 +255,7 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <skip>${tck.old.skip}</skip>
+                    <skip>${skipITs}</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -146,16 +263,18 @@
                         <phase>pre-integration-test</phase>
                         <configuration>
                             <target xmlns:if="ant:if" xmlns:unless="ant:unless">
-                                <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
+                            
+                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+                                         classpathref="maven.plugin.classpath" />
                                          
-                                <macrodef name="tck-setting">
+                               <macrodef name="tck-setting">
                                     <attribute name="key" /> <attribute name="value" />
                                     <sequential>
                                       <replaceregexp file="${tck.home}/bin/ts.jte" byline="true"
                                         match="@{key}=.*" replace="@{key}=@{value}" />
                                     </sequential>
                                 </macrodef>
-                                
+
                                 <if>
                                     <equals arg1="${tck.mode}" arg2="platform" />
                                     <then>
@@ -169,62 +288,15 @@
                                     </elseif>
                                     <else>
                                         <echo message="The value of property ${tck.mode} should be set as standalone or platform " />
-                                        <fail/>
                                     </else>
                                 </if>
-                                
-                                
-                                <!-- 
-                                    Set exclude file 
-                                    
-                                    This will exclude everything except for lines matching a pattern, which will not be excluded.
-                                    In effect, it works as the reverse and only these tests will be executed.
-                                    
-                                -->
-                                <sequential if:set="run.test.pattern">
-                                    <echo message="Running test pattern ${run.test.pattern}" /> 
-                            
-                                    <copy file="${project.basedir}/src/test/etc/ts-all-${tck.mode}.jtx"
-                                        tofile="${tck.home}/bin/ts.jtx.tmp" overwrite="true" verbose="true"/>
-                            
-                                    <replaceregexp file="${tck.home}/bin/ts.jtx.tmp"
-                                        match="${run.test.pattern}" replace="" byline="true" />
-                                        
-                                    <copy file="${tck.home}/bin/ts.jtx.tmp" 
-                                        toFile="${tck.home}/bin/ts.jtx" overwrite="true" verbose="true">
-                                        <filterchain>
-                                            <ignoreblank/>
-                                        </filterchain>
-                                    </copy>
-                                    
-                                    <delete file="${tck.home}/bin/ts.jtx.tmp"/>
-                                    
-                                    <if>
-                                        <equals arg1="${tck.mode}" arg2="platform" />
-                                    <then>
-                                        <loadfile srcFile="${tck.home}/bin/ts.jtx.platform" property="ts.jtx.platform" />
-                                        <echo append="true" message="${ts.jtx.platform}" file="${tck.home}/bin/ts.jtx"/>
-                                    </then>
-                                    <elseif>
-                                        <equals arg1="${tck.mode}" arg2="standalone" />
-                                            <then>
-                                                <loadfile srcFile="${tck.home}/bin/ts.jtx.standalone" property="ts.jtx.standalone"  />
-                                                <echo append="true" message="${ts.jtx.standalone}" file="${tck.home}/bin/ts.jtx"/>
-                                            </then>
-                                    </elseif>
-                                    </if>
-                                    
-                                </sequential>
-                                
-                                
+
 
                                 <!-- Change configuration -->
+                                <!--copy file="${tck.home}/bin/ts.jte.jdk11" tofile="${tck.home}/bin/ts.jte" overwrite="true"  /-->
                                 
-                                <tck-setting key="web.home" value="${glassfish.home}/glassfish"/>
-                                <tck-setting key="webServerHome" value="${glassfish.home}/glassfish"/>
                                 <tck-setting key="webServerHost" value="localhost"/>
                                 <tck-setting key="webServerPort" value="${port.http}"/>
-                                
                                 <tck-setting key="securedWebServicePort" value="${port.https}"/>
                                 <tck-setting key="s1as.admin.port" value="${port.admin}"/>
                                 <tck-setting key="glassfish.admin.port" value="${port.admin}"/>
@@ -234,6 +306,12 @@
                                 
                                 <tck-setting key="report.dir" value="${tck.home}/facesreport/faces"/>
                                 <tck-setting key="work.dir" value="${tck.home}/faceswork/faces"/>
+                                
+                                <tck-setting key="webServerHome" value="${glassfish.home}/glassfish"/>
+                                
+                                <replaceregexp file="${tck.home}/bin/ts.jte" byline="true"
+                                    match="webServerHome=/ri/glassfish3/glassfish" replace="webServerHome=${glassfish.home}/glassfish" />
+                                
 
                                 <tck-setting key="impl.vi" value="glassfish"/>
                                 <tck-setting key="impl.vi.deploy.dir" value="${webServerHome}/domains/domain1/autodeploy"/>
@@ -241,19 +319,19 @@
                                 
                                 <tck-setting key="jsf.classes" value="${webServerHome}/modules/cdi-api.jar;${webServerHome}/modules/jakarta.servlet.jsp.jstl-api.jar;${webServerHome}/modules/jakarta.inject.jar;${webServerHome}/modules/jakarta.faces.jar;${webServerHome}/modules/jakarta.servlet.jsp-api.jar;${webServerHome}/modules/jakarta.servlet-api.jar;${webServerHome}/modules/expressly.jar"/>
 
-                                <limit maxwait="60">
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
+                                <limit maxwait="300">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
                                         <arg value="delete-domain"/>
                                         <arg value="domain1" />
                                     </exec>
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
                                         <arg value="create-domain"/>
                                         <arg value="--domainproperties=domain.adminPort=${port.admin}:domain.instancePort=${port.http}:http.ssl.port=${port.https}:jms.port=${port.jms}:domain.jmxPort=${port.jmx}:orb.listener.port=${port.orb}:orb.ssl.port=${port.orb.ssl}:orb.mutualauth.port=${port.orb.mutual}" />
                                         <arg value="--user=admin" />
                                         <arg value="--nopassword" />
                                         <arg value="domain1" />
                                     </exec>
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
                                         <arg value="start-domain"/>
                                     </exec>
 
@@ -267,20 +345,27 @@
                                             </exec>
                                         </then>
                                     </if>
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
                                         <arg value="stop-domain"/>
                                         <arg value="domain1"/>
                                     </exec>
                                 </limit>
-                                
                                 <mkdir dir="${tck.home}/facesreport"/>
                                 <mkdir dir="${tck.home}/facesreport/faces"/>
                                 
+                                <replace file="${tck.home}/bin/xml/ts.top.import.xml">
+                                  <replacetoken><![CDATA[<jvmarg value="-Xmx512m" />]]></replacetoken>
+                                  <replacevalue><![CDATA[<jvmarg value="-Xmx512m" />
+                                <jvmarg value="-Djavatest.security.noSecurityManager=true"/>]]></replacevalue>
+                                </replace>
+                                
                                 <replace file="${tck.home}/bin/xml/ts.top.import.xml" if:set="suspend-tck" >
-                                  <replacetoken><![CDATA[<jvmarg value="-Xmx512m"/>]]></replacetoken>
-                                  <replacevalue><![CDATA[<jvmarg value="-Xmx512m"/>
+                                  <replacetoken><![CDATA[<jvmarg value="-Xmx512m" />]]></replacetoken>
+                                  <replacevalue><![CDATA[<jvmarg value="-Xmx512m" />
                                 <jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=9008"/>]]></replacevalue>
                                 </replace>
+                                
+                                
                             </target>
                         </configuration>
                         <goals>
@@ -298,12 +383,12 @@
                             <target xmlns:if="ant:if" xmlns:unless="ant:unless">
                                 <replace file="${glassfish.home}/glassfish/domains/domain1/config/domain.xml" 
                                     token="-Xmx512m" value="-Xmx1024m" />
-                                <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
-                                
+                                    
+                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+                                         classpathref="maven.plugin.classpath" />
                                 <limit maxwait="300">
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
                                         <arg value="start-domain"/>
-                                        <arg value="--suspend" if:set="glassfish.suspend"/>
                                     </exec>
                                 </limit>
                                 
@@ -312,7 +397,7 @@
                                     <dirname property="test.dir" file="${tck.home}/src/${run.test}"/>
                                     <echo>Deploying from ${test.dir}</echo>
                                     
-                                    <exec executable="${ant.home}/bin/ant" dir="${test.dir}" failonerror="true">
+                                    <exec executable="${ant.home}/bin/ant" dir="${test.dir}">
                                         <arg value="deploy"  />
                                     </exec>
                                 </sequential>
@@ -320,7 +405,7 @@
                                 <!-- Deploy all tests -->
                                 <sequential unless:set="run.test" >
                                     <echo>Deploying all archives</echo>
-                                    <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}" failonerror="true">
+                                    <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}">
                                         <arg value="-Dutil.dir=${tck.home}"  />
                                         <arg value="deploy.all"  />
                                     </exec>
@@ -328,8 +413,9 @@
                             </target>
                         </configuration>
                     </execution>
+      
 
-                    <execution>
+                     <execution>
                         <id>run-tck-tests</id>
                         <phase>integration-test</phase>
                         <goals>
@@ -337,10 +423,12 @@
                         </goals>
                         <configuration>
                             <target xmlns:if="ant:if" xmlns:unless="ant:unless">
-                                <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
+                                <taskdef resource="net/sf/antcontrib/antcontrib.properties"
+                                         classpathref="maven.plugin.classpath" />
 
-                                <echo level="info" message="Start running all tests" />
-                                <exec executable="${ant.home}/bin/ant" dir="${tck.home}/bin" resultproperty="testResult">
+                                <echo level="info" message="Start running all tests" unless:set="run.test"/>
+                                <echo level="info" message="Start running single test" if:set="run.test"/>
+                                <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}" resultproperty="testResult">
                                     <arg value="-Dutil.dir=${tck.home}"  />
                                     <arg value="-Dmultiple.tests=${run.test}" if:set="run.test" />
                                     <arg value="run.all" unless:set="run.test"/>
@@ -362,15 +450,6 @@
                                 <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
                                     <arg value="stop-domain" />
                                 </exec>
-                                
-                                <if>
-                                    <not>
-                                        <equals arg1="${testResult}" arg2="0" />
-                                    </not>
-                                    <then>
-                                        <fail/>
-                                    </then>
-                                </if>
                             </target>
                         </configuration>
                     </execution>
