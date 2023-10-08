@@ -7,7 +7,7 @@ This repository contains independent projects for Jakarta Faces API, Specificati
 ## About Jakarta Faces
 
 Jakarta Faces defines an MVC framework for building user interfaces for web applications, 
-including UI components, state management, event handing, input validation, page navigation, and 
+including UI components, state management, event handling, input validation, page navigation, and 
 support for internationalization and accessibility.
 
 ## Building
