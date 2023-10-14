@@ -426,8 +426,8 @@
                                 <configuration>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.glassfish</groupId>
-                                            <artifactId>jakarta.faces</artifactId>
+                                            <groupId>org.glassfish.mojarra</groupId>
+                                            <artifactId>mojarra</artifactId>
                                             <version>${mojarra.version}</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
