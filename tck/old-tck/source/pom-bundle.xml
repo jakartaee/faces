@@ -17,6 +17,13 @@
 
 -->
 
+<!--
+
+   Example file for running the OLD TCK. Most products will likely need a customised version, so the use as-is
+   is not that big. Mostly meant for inspiration. 
+
+-->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -36,7 +43,7 @@
         <tck.tests.home>${tck.home}/src/com/sun/ts/tests/jsf</tck.tests.home> 
         <tck.mode>standalone</tck.mode>
         <glassfish.home>${project.build.directory}/glassfish7</glassfish.home>
-        <glassfish.version>7.0.0-M4</glassfish.version>
+        <glassfish.version>7.0.8</glassfish.version>
         <glassfish.asadmin>${glassfish.home}/glassfish/bin/asadmin</glassfish.asadmin>
        
         <jacoco.includes>org/glassfish/**\:com/sun/enterprise/**</jacoco.includes>
@@ -387,21 +394,21 @@
                                 
                                 <!-- Deploy single test -->
                                 <sequential if:set="run.test" >
-                                	<dirname property="test.dir" file="${tck.home}/src/${run.test}"/>
-                                	<echo>Deploying from ${test.dir}</echo>
-                                	
-                                	<exec executable="${ant.home}/bin/ant" dir="${test.dir}">
-                                    	<arg value="deploy"  />
-                                	</exec>
+                                    <dirname property="test.dir" file="${tck.home}/src/${run.test}"/>
+                                    <echo>Deploying from ${test.dir}</echo>
+                                    
+                                    <exec executable="${ant.home}/bin/ant" dir="${test.dir}">
+                                        <arg value="deploy"  />
+                                    </exec>
                                 </sequential>
                                 
                                 <!-- Deploy all tests -->
                                 <sequential unless:set="run.test" >
                                     <echo>Deploying all archives</echo>
-                                	<exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}">
+                                    <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}">
                                         <arg value="-Dutil.dir=${tck.home}"  />
-                                    	<arg value="deploy.all"  />
-                                	</exec>
+                                        <arg value="deploy.all"  />
+                                    </exec>
                                 </sequential>
                             </target>
                         </configuration>
