@@ -45,7 +45,7 @@
     </modules>
 
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
@@ -261,12 +261,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.4.1</version>
                 <configuration>
                     <rules>
                         <requireMavenVersion>
                             <version>3.6.3</version>
                         </requireMavenVersion>
+                        <requireJavaVersion>
+                            <version>[17,)</version>
+                        </requireJavaVersion>
                     </rules>
                 </configuration>
                 <executions>
@@ -375,7 +378,7 @@
                 <mojarra.version>5.0.0-SNAPSHOT</mojarra.version>
                 
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>7.0.6</glassfish.version>
+                <glassfish.version>7.0.10</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
                 <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
             </properties>
