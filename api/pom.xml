@@ -212,16 +212,11 @@
             <optional>true</optional>
         </dependency>
 
-
-        <!-- Depend on the source jar of the full implementation Mojarra jar. This is used for unpacking and re-compiling. 
-            This jar is created by executing mvn clean install in the [mojarra home]/impl project. -->
         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>jakarta.faces</artifactId>
-            <version>${mojarra.version}</version>
-            <classifier>sources</classifier>
-            <scope>provided</scope>
-            <optional>true</optional>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>2.0.9</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -318,75 +313,7 @@
                     </instructions>
                 </configuration>
             </plugin>
-            
-            <!-- Clean unpacked sources jar -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <!-- Clean any previously unpacked sources -->
-                    <execution>
-                        <id>clean</id>
-                        <phase>clean</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <target>
-                                <delete dir="src/main/java" />
-                                <delete dir="src/main/resources" />
-                            </target>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            
 
-            <!-- Unpack the sources jar that was build and installed by the Mojarra project. This way we can compile that 
-                source again in this project, but for the final artifact jar we only include the jakarta.* classes then. -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                    </execution>
-                </executions>
-
-                <configuration>
-                    <artifactItems>
-                        <artifactItem>
-                            <groupId>org.glassfish</groupId>
-                            <artifactId>jakarta.faces</artifactId>
-                            <version>${mojarra.version}</version>
-                            <classifier>sources</classifier>
-                            <outputDirectory>src/main/java</outputDirectory>
-                            <includes>**/*.java</includes>
-                        </artifactItem>
-
-                        <artifactItem>
-                            <groupId>org.glassfish</groupId>
-                            <artifactId>jakarta.faces</artifactId>
-                            <version>${mojarra.version}</version>
-                            <classifier>sources</classifier>
-                            <outputDirectory>src/main/resources</outputDirectory>
-                            <excludes>**/*.java</excludes>
-                        </artifactItem>
-                    </artifactItems>
-                </configuration>
-            </plugin>
-
-
-
-            <!-- Create API binary jar For the final artifact jar we only include the jakarta.* classes and resources that 
-                we compiled from the unpackaged implementation source attachment jar. See the maven-dependency-plugin for this unpackaging. 
-                This effectively gives us the API jar. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
