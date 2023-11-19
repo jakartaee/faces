@@ -140,6 +140,13 @@ public final class FactoryFinder {
     public final static String FACES_CONTEXT_FACTORY = "jakarta.faces.context.FacesContextFactory";
 
     /**
+     * <p>
+     * The property name for the {@link jakarta.faces.webapp.FacesServletFactory} class name.
+     * </p>
+     */
+    public final static String FACES_SERVLET_FACTORY = "jakarta.faces.webapp.FacesServletFactory";
+
+    /**
      * <p class="changed_added_2_1">
      * The property name for the {@link jakarta.faces.view.facelets.FaceletCacheFactory} class name.
      * </p>
