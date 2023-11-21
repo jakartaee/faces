@@ -70,6 +70,7 @@ import jakarta.enterprise.inject.spi.Bean;
 import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.enterprise.inject.spi.InjectionTarget;
+import static jakarta.faces.FactoryFinder.FACES_SERVLET_FACTORY;
 import jakarta.faces.context.FacesContext;
 
 final class FactoryFinderInstance {
@@ -89,9 +90,23 @@ final class FactoryFinderInstance {
      * not just the last part of the literal!
      * </p>
      */
-    private static final List<String> factoryNames = asSortedList(APPLICATION_FACTORY, VISIT_CONTEXT_FACTORY, EXCEPTION_HANDLER_FACTORY, EXTERNAL_CONTEXT_FACTORY,
-            FACES_CONTEXT_FACTORY, FLASH_FACTORY, FLOW_HANDLER_FACTORY, PARTIAL_VIEW_CONTEXT_FACTORY, CLIENT_WINDOW_FACTORY, LIFECYCLE_FACTORY,
-            RENDER_KIT_FACTORY, VIEW_DECLARATION_LANGUAGE_FACTORY, FACELET_CACHE_FACTORY, TAG_HANDLER_DELEGATE_FACTORY, SEARCH_EXPRESSION_CONTEXT_FACTORY);
+    private static final List<String> factoryNames = asSortedList(
+            APPLICATION_FACTORY, 
+            VISIT_CONTEXT_FACTORY, 
+            EXCEPTION_HANDLER_FACTORY, 
+            EXTERNAL_CONTEXT_FACTORY,
+            FACES_CONTEXT_FACTORY, 
+            FACES_SERVLET_FACTORY,
+            FLASH_FACTORY, 
+            FLOW_HANDLER_FACTORY, 
+            PARTIAL_VIEW_CONTEXT_FACTORY, 
+            CLIENT_WINDOW_FACTORY, 
+            LIFECYCLE_FACTORY,
+            RENDER_KIT_FACTORY, 
+            VIEW_DECLARATION_LANGUAGE_FACTORY, 
+            FACELET_CACHE_FACTORY, 
+            TAG_HANDLER_DELEGATE_FACTORY, 
+            SEARCH_EXPRESSION_CONTEXT_FACTORY);
 
     /**
      * <p>
@@ -487,6 +502,7 @@ final class FactoryFinderInstance {
             entry(EXCEPTION_HANDLER_FACTORY, jakarta.faces.context.ExceptionHandlerFactory.class),
             entry(EXTERNAL_CONTEXT_FACTORY, jakarta.faces.context.ExternalContextFactory.class),
             entry(FACES_CONTEXT_FACTORY, jakarta.faces.context.FacesContextFactory.class),
+            entry(FACES_SERVLET_FACTORY, jakarta.faces.webapp.FacesServletFactory.class),
             entry(FLASH_FACTORY, jakarta.faces.context.FlashFactory.class),
             entry(PARTIAL_VIEW_CONTEXT_FACTORY, jakarta.faces.context.PartialViewContextFactory.class),
             entry(LIFECYCLE_FACTORY, jakarta.faces.lifecycle.LifecycleFactory.class),
