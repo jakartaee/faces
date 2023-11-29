@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2022, 2022 Contributors to Eclipse Foundation.
+    Copyright (c) 2022, 2023 Contributors to Eclipse Foundation.
     Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -18,21 +18,13 @@
 
 -->
 
-<!--
-
-    Project to create the Jakarta Faces API jar and docs (vdldocs, jsdocs, renderkit docs).
-
-    This depends on a Mojarra build being available in the version set by mojarra.version
-
- -->
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.9</version>
         <relativePath />
     </parent>
 
@@ -46,7 +38,7 @@
         including UI components, state management, event handing, input validation, page navigation, and
         support for internationalization and accessibility.
     </description>
-    <url>https://github.com/eclipse-ee4j/faces-api</url>
+    <url>https://github.com/jakartaee/faces</url>
     <inceptionYear>1997</inceptionYear>
     <licenses>
         <license>
@@ -107,42 +99,38 @@
         </mailingList>
     </mailingLists>
 
-    <properties>
-        <mojarra.version>4.0.0</mojarra.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
+            <version>6.1.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
-            <version>2.1.0</version>
+            <version>2.2.0-M1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-client-api</artifactId>
-            <version>2.1.0</version>
+            <version>2.2.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
-            <version>5.0.0</version>
+            <version>6.0.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.0.1</version>
+            <version>4.1.0.Alpha1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -168,7 +156,7 @@
         <dependency>
             <groupId>jakarta.json</groupId>
             <artifactId>jakarta.json-api</artifactId>
-            <version>2.1.0</version>
+            <version>2.1.3</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -184,7 +172,7 @@
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.1.0</version>
+            <version>3.2.0-M1</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -192,7 +180,7 @@
         <dependency>
             <groupId>jakarta.xml.ws</groupId>
             <artifactId>jakarta.xml.ws-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -200,14 +188,14 @@
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
-            <version>2.1.0</version>
+            <version>3.0.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -246,13 +234,11 @@
                 <targetPath>META-INF</targetPath>
             </resource>
         </resources>
-        
         <plugins>
             <!-- Sets minimal Maven version -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>enforce-maven</id>
@@ -275,8 +261,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.10.1</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <release>17</release>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
                 </configuration>
             </plugin>
@@ -285,7 +270,7 @@
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>5.1.6</version>
+                <version>5.1.9</version>
                 <executions>
                     <execution>
                         <id>bundle-manifest</id>
@@ -303,21 +288,19 @@
                     </archive>
                     <instructions>
                         <_noimportjava>true</_noimportjava>
-                        <_runee>JavaSE-11</_runee>
+                        <_runee>JavaSE-17</_runee>
                         <Specification-Title>Jakarta Faces</Specification-Title>
-                        <Specification-Version>4.0</Specification-Version>
+                        <Specification-Version>5.0</Specification-Version>
                         <!-- Set the package version to match the spec version -->
                         <Export-Package>
-                            jakarta.faces*;version=4.0
+                            jakarta.faces*;version=5.0
                         </Export-Package>
                     </instructions>
                 </configuration>
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.2</version>
                 <configuration>
                     <archive>
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
@@ -332,9 +315,7 @@
 
             <!-- Create sources for API jar -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>generate-api-sources</id>
@@ -353,9 +334,7 @@
             <!-- Create Javadoc for API jar -->
             <!-- Result will be saved in /target/apidocs -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.4.0</version>
                 <executions>
                     <execution>
                         <id>attach-api-javadocs</id>
@@ -371,7 +350,7 @@
                             <header><![CDATA[<br>Jakarta Faces API v${project.version}]]></header>
                             <bottom><![CDATA[
 Comments to: <a href="mailto:faces-dev@eclipse.org">faces-dev@eclipse.org</a>.<br>
-Copyright &#169; 2019, 2022 Eclipse Foundation. All rights reserved.<br>
+Copyright &#169; 2019, 2023 Eclipse Foundation. All rights reserved.<br>
 Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.]]>
                             </bottom>
                             <docfilessubdirs>true</docfilessubdirs>
@@ -391,7 +370,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.2.7</version>
+                <version>1.5.0</version>
                 <configuration>
                     <flattenMode>ossrh</flattenMode>
                 </configuration>
@@ -416,8 +395,6 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             </plugin>
         </plugins>
     </build>
-
-
 
     <profiles>
         <profile>
@@ -469,12 +446,15 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                             <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
                         </configuration>
                     </plugin>
-                    <!-- Post-process RKD - override stylesheet.css of renderkitdoc  -->
+                    
+                    
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.2.0</version>
+                        <version>3.3.1</version>
                         <executions>
+                            
+                            <!-- Post-process RKD - override stylesheet.css of renderkitdoc  -->
                             <execution>
                                 <id>post-process-renderkitdoc</id>
                                 <phase>prepare-package</phase>
@@ -491,19 +471,8 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                     <overwrite>true</overwrite>
                                 </configuration>
                             </execution>
-                        </executions>
-                    </plugin>
-
-
-                    <!-- Create VDL docs -->
-                    <!-- Result will be saved in /target/vdldoc  -->
-
-                    <!-- Pre-process VDL - copy faces-api.css for vdldoc  -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <executions>
+                            
+                            <!-- Pre-process VDL - copy faces-api.css for vdldoc  -->
                             <execution>
                                 <id>generate-vdldoc-pre-process</id>
                                 <phase>test</phase>
@@ -522,11 +491,15 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         </executions>
                     </plugin>
 
+
+                    <!-- Create VDL docs -->
+                    <!-- Result will be saved in /target/vdldoc  -->
+
                     <!-- Run actual core VDL -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.0.0</version>
+                        <version>3.1.1</version>
                         <executions>
                             <execution>
                                 <id>generate-vdldoc</id>
