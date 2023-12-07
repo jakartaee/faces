@@ -1,3 +1,5 @@
+api/.flattened-pom.xml
+
 *.class
 .classpath
 .project
