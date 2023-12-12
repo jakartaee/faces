@@ -26,7 +26,7 @@
         <version>4.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>glassfish-external-tck-faces</artifactId>
+    <artifactId>old-tck-run</artifactId>
     <packaging>pom</packaging>
 
     <name>Old Jakarta Faces TCK - run</name>
@@ -67,7 +67,7 @@
         </dependency>
         <dependency>
             <groupId>org.eclipse.ee4j.faces.tck</groupId>
-            <artifactId>old-faces-tck</artifactId>
+            <artifactId>old-tck-build</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
@@ -98,7 +98,6 @@
 
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.3.0</version>
                 <configuration>
                     <skip>${tck.old.skip}</skip>
                 </configuration>
@@ -110,7 +109,7 @@
                             <goal>unpack-dependencies</goal>
                         </goals>
                         <configuration>
-                            <includeArtifactIds>old-faces-tck</includeArtifactIds>
+                            <includeArtifactIds>old-tck-build</includeArtifactIds>
                             <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
                     </execution>
@@ -170,8 +169,53 @@
                                     </elseif>
                                     <else>
                                         <echo message="The value of property ${tck.mode} should be set as standalone or platform " />
+                                        <fail/>
                                     </else>
                                 </if>
+                                
+                                
+                                <!-- 
+                                    Set exclude file 
+                                    
+                                    This will exclude everything except for lines matching a pattern, which will not be excluded.
+                                    In effect, it works as the reverse and only these tests will be executed.
+                                    
+                                -->
+                                <sequential if:set="run.test.pattern">
+                                    <echo message="Running test pattern ${run.test.pattern}" /> 
+                            
+                                    <copy file="${project.basedir}/src/test/etc/ts-all-${tck.mode}.jtx"
+                                        tofile="${tck.home}/bin/ts.jtx.tmp" overwrite="true" verbose="true"/>
+                            
+                                    <replaceregexp file="${tck.home}/bin/ts.jtx.tmp"
+                                        match="${run.test.pattern}" replace="" byline="true" />
+                                        
+                                    <copy file="${tck.home}/bin/ts.jtx.tmp" 
+                                        toFile="${tck.home}/bin/ts.jtx" overwrite="true" verbose="true">
+                                        <filterchain>
+                                            <ignoreblank/>
+                                        </filterchain>
+                                    </copy>
+                                    
+                                    <delete file="${tck.home}/bin/ts.jtx.tmp"/>
+                                    
+                                    <if>
+                                        <equals arg1="${tck.mode}" arg2="platform" />
+                                    <then>
+                                        <loadfile srcFile="${tck.home}/bin/ts.jtx.platform" property="ts.jtx.platform" />
+                                        <echo append="true" message="${ts.jtx.platform}" file="${tck.home}/bin/ts.jtx"/>
+                                    </then>
+                                    <elseif>
+                                        <equals arg1="${tck.mode}" arg2="standalone" />
+                                            <then>
+                                                <loadfile srcFile="${tck.home}/bin/ts.jtx.standalone" property="ts.jtx.standalone"  />
+                                                <echo append="true" message="${ts.jtx.standalone}" file="${tck.home}/bin/ts.jtx"/>
+                                            </then>
+                                    </elseif>
+                                    </if>
+                                    
+                                </sequential>
+                                
                                 
 
                                 <!-- Change configuration -->
@@ -198,18 +242,18 @@
                                 <tck-setting key="jsf.classes" value="${webServerHome}/modules/cdi-api.jar;${webServerHome}/modules/jakarta.servlet.jsp.jstl-api.jar;${webServerHome}/modules/jakarta.inject.jar;${webServerHome}/modules/jakarta.faces.jar;${webServerHome}/modules/jakarta.servlet.jsp-api.jar;${webServerHome}/modules/jakarta.servlet-api.jar;${webServerHome}/modules/expressly.jar"/>
 
                                 <limit maxwait="60">
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
                                         <arg value="delete-domain"/>
                                         <arg value="domain1" />
                                     </exec>
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
                                         <arg value="create-domain"/>
                                         <arg value="--domainproperties=domain.adminPort=${port.admin}:domain.instancePort=${port.http}:http.ssl.port=${port.https}:jms.port=${port.jms}:domain.jmxPort=${port.jmx}:orb.listener.port=${port.orb}:orb.ssl.port=${port.orb.ssl}:orb.mutualauth.port=${port.orb.mutual}" />
                                         <arg value="--user=admin" />
                                         <arg value="--nopassword" />
                                         <arg value="domain1" />
                                     </exec>
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
                                         <arg value="start-domain"/>
                                     </exec>
 
@@ -223,7 +267,7 @@
                                             </exec>
                                         </then>
                                     </if>
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
                                         <arg value="stop-domain"/>
                                         <arg value="domain1"/>
                                     </exec>
@@ -257,7 +301,7 @@
                                 <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
                                 
                                 <limit maxwait="300">
-                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
+                                    <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin" failonerror="true">
                                         <arg value="start-domain"/>
                                         <arg value="--suspend" if:set="glassfish.suspend"/>
                                     </exec>
@@ -268,7 +312,7 @@
                                     <dirname property="test.dir" file="${tck.home}/src/${run.test}"/>
                                     <echo>Deploying from ${test.dir}</echo>
                                     
-                                    <exec executable="${ant.home}/bin/ant" dir="${test.dir}">
+                                    <exec executable="${ant.home}/bin/ant" dir="${test.dir}" failonerror="true">
                                         <arg value="deploy"  />
                                     </exec>
                                 </sequential>
@@ -276,7 +320,7 @@
                                 <!-- Deploy all tests -->
                                 <sequential unless:set="run.test" >
                                     <echo>Deploying all archives</echo>
-                                    <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}">
+                                    <exec executable="${ant.home}/bin/ant" dir="${tck.tests.home}" failonerror="true">
                                         <arg value="-Dutil.dir=${tck.home}"  />
                                         <arg value="deploy.all"  />
                                     </exec>
@@ -318,6 +362,15 @@
                                 <exec executable="${glassfish.asadmin}" dir="${glassfish.home}/glassfish/bin">
                                     <arg value="stop-domain" />
                                 </exec>
+                                
+                                <if>
+                                    <not>
+                                        <equals arg1="${testResult}" arg2="0" />
+                                    </not>
+                                    <then>
+                                        <fail/>
+                                    </then>
+                                </if>
                             </target>
                         </configuration>
                     </execution>
