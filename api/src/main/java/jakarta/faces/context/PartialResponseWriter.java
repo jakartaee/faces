@@ -16,6 +16,8 @@
 
 package jakarta.faces.context;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -97,7 +99,7 @@ public class PartialResponseWriter extends ResponseWriterWrapper {
         ResponseWriter writer = getWrapped();
         String encoding = writer.getCharacterEncoding();
         if (encoding == null) {
-            encoding = "utf-8";
+            encoding = UTF_8.name();
         }
         writer.writePreamble("<?xml version='1.0' encoding='" + encoding + "'?>\n");
         writer.startElement("partial-response", null);

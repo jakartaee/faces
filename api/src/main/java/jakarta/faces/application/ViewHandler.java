@@ -140,7 +140,7 @@ public abstract class ViewHandler {
      * <p class="changed_added_2_2 changed_modified_4_1">
      * <span class="changed_modified_2_3">When</span> a page is requested, what interval in seconds should the compiler
      * check for changes. If you don't want the compiler to check for changes once the page is compiled, then use a value of
-     * -1. Setting a low refresh period helps during development to be able to edit pages in a running application. 
+     * -1. Setting a low refresh period helps during development to be able to edit pages in a running application.
      * <span class="changed_added_2_3 changed_modified_4_1">If this value
      * is not specified, then the default depends on {@link jakarta.faces.application.ProjectStage}. If it is {@code Production},
      * then runtime must act as if it is set to -1</span><span class="changed_added_4_1">, else the runtime must act as if it is
@@ -203,12 +203,17 @@ public abstract class ViewHandler {
      *
      */
     public void initView(FacesContext context) throws FacesException {
-        String encoding = context.getExternalContext().getRequestCharacterEncoding();
-        if (encoding != null) {
+        String originalEncoding = context.getExternalContext().getRequestCharacterEncoding();
+        String encoding = (originalEncoding != null) ? originalEncoding : calculateCharacterEncoding(context);
+
+        if (encoding != null && context.getExternalContext().getSession(false) != null) {
+            context.getExternalContext().getSessionMap().put(CHARACTER_ENCODING_KEY, encoding);
+        }
+
+        if (originalEncoding != null) {
             return;
         }
 
-        encoding = calculateCharacterEncoding(context);
         if (encoding != null) {
             try {
                 context.getExternalContext().setRequestCharacterEncoding(encoding);
@@ -466,7 +471,7 @@ public abstract class ViewHandler {
      * <p class="changed_added_2_0">
      * Return a Jakarta Faces action URL derived from the <code>viewId</code> argument that is suitable to be used by
      * the {@link NavigationHandler} to issue a redirect request to the URL using a NonFaces request. Compliant
-     * implementations must implement this method as specified in 
+     * implementations must implement this method as specified in
      * section 7.6.2 "Default ViewHandler Implementation" of the Jakarta Faces Specification Document.
      * The default implementation simply calls
      * through to {@link #getActionURL}, passing the arguments <code>context</code> and <code>viewId</code>.
