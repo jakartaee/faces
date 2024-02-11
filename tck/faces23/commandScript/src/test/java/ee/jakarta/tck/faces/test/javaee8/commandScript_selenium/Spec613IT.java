@@ -42,12 +42,12 @@ public class Spec613IT extends BaseITNG {
 
     public void testCommandScript() throws Exception {
         WebPage page = getPage("spec613.xhtml");
-        page.wait(Duration.ofMillis(60000));
+        page.wait(Duration.ofMillis(3000));
         ExtendedWebDriver webDriver = getWebDriver();
         assertTrue(webDriver.findElement(By.id("result")).getText().equals("foo"));
 
         webDriver.getJSExecutor().executeScript("bar()");
-        page.wait(Duration.ofMillis(60000));
+        page.wait(Duration.ofMillis(3000));
         assertTrue(webDriver.findElement(By.id("result")).getText().equals("bar"));
     }
 }

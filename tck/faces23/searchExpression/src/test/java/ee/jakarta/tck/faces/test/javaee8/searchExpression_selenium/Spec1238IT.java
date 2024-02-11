@@ -41,7 +41,7 @@ public class Spec1238IT extends BaseITNG {
 
     public void testSearchExpression() throws Exception {
         WebPage page = getPage("spec1238.xhtml");
-        page.wait(Duration.ofMillis(60000));
+        page.wait(Duration.ofMillis(3000));
 
         ExtendedWebDriver webDriver = getWebDriver();
         WebElement label = webDriver.findElement(By.id("label"));
