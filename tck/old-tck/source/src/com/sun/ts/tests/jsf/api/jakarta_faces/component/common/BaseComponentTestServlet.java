@@ -25,7 +25,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 
 public abstract class BaseComponentTestServlet
-    extends BaseActionSource2TestServlet {
+    extends BaseActionExpressionTestServlet {
 
   protected ServletContext servletContext;
 
