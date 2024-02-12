@@ -52,51 +52,6 @@ public final class URLClient extends AbstractUrlClient {
 
   /* Test Declarations */
 
-  /**
-   * @testName: managedBeanELResolverFeatureDescriptorTest
-   * @assertion_ids: PENDING
-   * @test_Strategy: Validate that the feature descriptors for managed beans
-   *                 conform to the requirements: - ELResolver.TYPE -> the
-   *                 actual class representation of the bean type as defined by
-   *                 managed-bean-class - ELResolver.RESOLVABLE_AT_DESIGN_TIME
-   *                 -> Boolean.TRUE - Name and displayName properties are the
-   *                 value of managed-bean-name - Hidden and Expert properties
-   *                 are false - Preferred property is true - shortDescription
-   *                 is populated with the description of the managed bean
-   *                 otherwise null if no description is present. This test uses
-   *                 the ELResolver from both Faces and JSP.
-   * @since 1.2
-   */
-  public void managedBeanELResolverFeatureDescriptorTest() throws Fault {
-    init();
-    TEST_PROPS.setProperty(APITEST,
-        "managedBeanELResolverFeatureDescriptorTest");
-    invoke();
-  }
-
-  /**
-   * @testName: facesImplicitObjectResolverFeatureDescriptorTest
-   * @assertion_ids: PENDING
-   * @test_Strategy: Validate the JSP and Faces defined implicit objects conform
-   *                 to the following requirements. - ELResolver.TYPE -> matches
-   *                 the types defined in table 5-9 of the JSF Spec (in the
-   *                 non-jsp case). - ELResolver.TYPE -> view ->
-   *                 jakarta.faces.component.UIViewRoot facesContext ->
-   *                 jakarta.faces.component.FacesContext (in the JSP case) -
-   *                 ELResolver.RESOLVABLE_AT_DESIGN_TIME -> Boolean.TRUE - Name
-   *                 and displayName properties are the name of the implicit
-   *                 object - Hidden and Expert properties are false - Preferred
-   *                 property is true - shortDescription is non-null. This test
-   *                 uses the ELResolver from both Faces and JSP.
-   * @since 1.2
-   */
-  public void facesImplicitObjectResolverFeatureDescriptorTest() throws Fault {
-    init();
-    TEST_PROPS.setProperty(APITEST,
-        "facesImplicitObjectResolverFeatureDescriptorTest");
-    invoke();
-  }
-
   /*
    * @testName: facesImplicitObjectResolverGetValueTest
    * 

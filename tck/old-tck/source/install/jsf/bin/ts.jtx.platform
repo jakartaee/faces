@@ -27,14 +27,12 @@ com/sun/ts/tests/jsf/spec/composite/facet/URLClient.java#compositeFacetsTagTest
 com/sun/ts/tests/jsf/spec/composite/packaging/classpath/URLClient.java#compositeClasspathPKGTest
 com/sun/ts/tests/jsf/spec/composite/packaging/webapproot/URLClient.java#compositeWebAppRootPKGTest
 com/sun/ts/tests/jsf/spec/composite/valueholder/URLClient.java#compositeValueHolderTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverFeatureDescriptorTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverGetTypeTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverIsReadOnlyTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverSetValueTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesManagedBeanResolverGetValueTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesResourceBundleResolverFeatureDescriptorTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesScopedAttributeResolverFeatureDescriptorTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#managedBeanELResolverFeatureDescriptorTest
 com/sun/ts/tests/jsf/spec/flows/basicmethodcall/URLClient.java#facesFlowBasicMethodCallTest
 com/sun/ts/tests/jsf/spec/flows/basicmultipage/URLClient.java#facesFlowScopeTest
 com/sun/ts/tests/jsf/spec/flows/multipagewebinf/URLClient.java#facesFlowWebInfScopeTest
