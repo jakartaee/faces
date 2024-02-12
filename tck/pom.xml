@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2020, 2022 Contributors to Eclipse Foundation. All rights reserved.
+    Copyright (c) 2020, 2024 Contributors to Eclipse Foundation. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.9</version>
         <relativePath />
     </parent>
 
@@ -44,14 +44,15 @@
     </modules>
 
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
+        <test.selenium>true</test.selenium>
         
-        <faces.version>4.0.0</faces.version>
+        <faces.version>4.1.0-M1</faces.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <tomcat.version>9.0.12</tomcat.version>
@@ -62,14 +63,14 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.7.1.Final</version>
+                <version>1.8.0.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-container-test-api</artifactId>
-                <version>1.7.1.Final</version>
+                <version>1.8.0.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces.arquillian</groupId>
@@ -90,41 +91,41 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
+            <version>6.1.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
-            <version>2.1.0</version>
+            <version>2.2.0-M1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-client-api</artifactId>
-            <version>2.1.0</version>
+            <version>2.2.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
-            <version>5.0.0</version>
+            <version>6.0.0-M2</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.0.1</version>
+            <version>4.1.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.0.1</version>
+            <version>3.1.0-M1</version>
             <scope>provided</scope>
         </dependency>
         
@@ -160,7 +161,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -266,6 +266,9 @@
                         <requireMavenVersion>
                             <version>3.6.3</version>
                         </requireMavenVersion>
+                        <requireJavaVersion>
+                            <version>21</version>
+                        </requireJavaVersion>
                     </rules>
                 </configuration>
                 <executions>
@@ -301,6 +304,7 @@
                 <configuration>
                     <systemPropertyVariables>
                         <finalName>${project.build.finalName}</finalName>
+                        <test.selenium>${test.selenium}</test.selenium>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -376,9 +380,9 @@
                 <mojarra.noupdate>false</mojarra.noupdate>
                 
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>7.0.8</glassfish.version>
+                <glassfish.version>8.0.0-M2</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
-                <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
+                <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
             </properties>
 
             <dependencies>
@@ -394,7 +398,6 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
@@ -433,7 +436,7 @@
                                             <version>${mojarra.version}</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
-                                            <outputDirectory>${glassfish.root}/glassfish7/glassfish/modules</outputDirectory>
+                                            <outputDirectory>${glassfish.root}/glassfish8/glassfish/modules</outputDirectory>
                                             <destFileName>jakarta.faces.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
@@ -445,7 +448,8 @@
                          <artifactId>maven-failsafe-plugin</artifactId>
                          <configuration>
                              <systemPropertyVariables>
-                                 <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
+                                 <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
+                                 <test.selenium>${test.selenium}</test.selenium>
                              </systemPropertyVariables>
                          </configuration>
                     </plugin>

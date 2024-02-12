@@ -37,8 +37,8 @@ public class Issue2578IT extends BaseITNG {
 
         assertTrue(page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello") == -1);
 
-        WebElement input = page.findElement(By.id("form:input"));
-        input.sendKeys("hello");
+        WebElement fill = page.findElement(By.id("form:fill"));
+        fill.click();
         page.waitReqJs();
 
         assertTrue(page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello") != -1);
