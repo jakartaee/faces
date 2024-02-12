@@ -28,14 +28,14 @@ import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 import jakarta.el.ExpressionFactory;
 import jakarta.el.ELManager;
 import jakarta.el.MethodExpression;
-import jakarta.faces.component.ActionSource2;
+import jakarta.faces.component.ActionSource;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public abstract class BaseActionSource2TestServlet
+public abstract class BaseActionExpressionTestServlet
     extends BaseActionSourceTestServlet {
 
   private ServletContext servletContext;
@@ -60,7 +60,7 @@ public abstract class BaseActionSource2TestServlet
 
   // ------------------------------------------------------------ Test Methods
 
-  public void actionSource2GetSetActionExpressionTest(
+  public void actionSourceGetSetActionExpressionTest(
       HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
 
@@ -71,22 +71,22 @@ public abstract class BaseActionSource2TestServlet
         getFacesContext().getELContext(), "#{bean.action}",
         java.lang.String.class, new Class[] {});
 
-    ActionSource2 source2 = (ActionSource2) createComponent();
+    ActionSource source = (ActionSource) createComponent();
 
-    source2.setActionExpression(expression);
+    source.setActionExpression(expression);
 
-    if (source2.getActionExpression() != expression) {
+    if (source.getActionExpression() != expression) {
       out.println(JSFTestUtil.FAIL + " Unexpected return value from"
           + " getActionExpression() after having just called"
           + " setActionExpression().");
       out.println("Expected: " + expression);
-      out.println("Received: " + source2.getActionExpression());
+      out.println("Received: " + source.getActionExpression());
       return;
     }
 
     out.println(JSFTestUtil.PASS);
 
-  } // END actionSource2GetSetMethodExpressionTest
+  } // END actionSourceGetSetMethodExpressionTest
 
   // ----------------------------------------------------------- Inner Classes
 

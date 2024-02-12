@@ -279,7 +279,7 @@ com/sun/ts/tests/jsf/api/jakarta_faces/component/behavior/ajax/URLClient.java#cl
 com/sun/ts/tests/jsf/api/jakarta_faces/component/behavior/ajax/URLClient.java#clientBehaviorGetScriptNPETest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/behavior/clientbehaviorcontext/URLClient.java#createClientBehaviorContextNPETest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/behavior/clientbehaviorcontext/URLClient.java#createClientBehaviorContextParamaterTest
-com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClient.java#actionSource2GetSetActionExpressionTest
+com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClient.java#actionSourceGetSetActionExpressionTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClient.java#actionSourceAddActListNPETest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClient.java#actionSourceAddGetRemoveActListTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClient.java#actionSourceGetSetActionTest
@@ -368,7 +368,7 @@ com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClien
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClient.java#uiComponentSubscribeToEventTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClient.java#uiComponentVisitTreeNegTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandbutton/URLClient.java#uiComponentVisitTreeTest
-com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandlink/URLClient.java#actionSource2GetSetActionExpressionTest
+com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandlink/URLClient.java#actionSourceGetSetActionExpressionTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandlink/URLClient.java#actionSourceAddActListNPETest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandlink/URLClient.java#actionSourceAddGetRemoveActListTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/html/htmlcommandlink/URLClient.java#actionSourceGetSetActionTest
@@ -2811,7 +2811,7 @@ com/sun/ts/tests/jsf/api/jakarta_faces/component/uicolumn/URLClient.java#uiCompo
 com/sun/ts/tests/jsf/api/jakarta_faces/component/uicolumn/URLClient.java#uiComponentSubscribeToEventTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/uicolumn/URLClient.java#uiComponentVisitTreeNegTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/uicolumn/URLClient.java#uiComponentVisitTreeTest
-com/sun/ts/tests/jsf/api/jakarta_faces/component/uicommand/URLClient.java#actionSource2GetSetActionExpressionTest
+com/sun/ts/tests/jsf/api/jakarta_faces/component/uicommand/URLClient.java#actionSourceGetSetActionExpressionTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/uicommand/URLClient.java#actionSourceAddActListNPETest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/uicommand/URLClient.java#actionSourceAddGetRemoveActListTest
 com/sun/ts/tests/jsf/api/jakarta_faces/component/uicommand/URLClient.java#actionSourceGetSetActionTest
