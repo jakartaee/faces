@@ -40,15 +40,4 @@ com/sun/ts/tests/jsf/spec/render/onelistbox/URLClient.java#oneListboxRenderDecod
 com/sun/ts/tests/jsf/spec/render/outputlink/URLClient.java#outputLinkRenderPassthroughTest
 com/sun/ts/tests/jsf/spec/resource/packaging/classpath/URLClient.java#jsfJsDoesExistTest
 com/sun/ts/tests/jsf/spec/webapp/tldsig/URLClient.java#jsfTldSignatureTest
-
-#skipped due to htmlunit's rhino engine /javascript syntax incompabilitities, ported to old-tck-selenium
-com/sun/ts/tests/jsf/spec/ajax/tagwrapper/URLClient.java#ajaxTagWrappingTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxAllKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxThisKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxFormKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxNoneKeywordTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderEncodeTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderDecodeTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderPassthroughTest
 com/sun/ts/tests/jsf/spec/view/protectedview/URLClient.java#viewProtectedViewNonAccessPointTest
-com/sun/ts/tests/jsf/spec/view/protectedview/URLClient.java#viewProtectedViewSameWebAppAccessTest

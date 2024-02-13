@@ -5242,11 +5242,6 @@ com/sun/ts/tests/jsf/api/jakarta_faces/view/viewdeclarationlangwrapper/URLClient
 com/sun/ts/tests/jsf/api/jakarta_faces/view/viewdeclarationlangwrapper/URLClient.java#vdlWrapperRestoreViewNPETest
 com/sun/ts/tests/jsf/api/jakarta_faces/view/viewdeclarationlangwrapper/URLClient.java#vdlWrapperRetargetAttachedObjectsNPETest
 com/sun/ts/tests/jsf/api/jakarta_faces/view/viewdeclarationlangwrapper/URLClient.java#vdlWrapperRetargetMethodExpressionsNPETest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxAllKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxFormKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxNoneKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxThisKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/tagwrapper/URLClient.java#ajaxTagWrappingTest
 com/sun/ts/tests/jsf/spec/appconfigresources/absolute_ordering/URLClient.java#testDocumentAbsoluteOrdering
 com/sun/ts/tests/jsf/spec/appconfigresources/relative_ordering/URLClient.java#testDocumentRelativeOrderingTest1
 com/sun/ts/tests/jsf/spec/appconfigresources/startupbehavior/URLClient.java#applicationConfigurationfilesTest1
@@ -5305,9 +5300,6 @@ com/sun/ts/tests/jsf/spec/render/booleancheckbox/URLClient.java#booleanCheckboxR
 com/sun/ts/tests/jsf/spec/render/booleancheckbox/URLClient.java#booleanCheckboxRenderPassthroughTest
 com/sun/ts/tests/jsf/spec/render/commandbutton/URLClient.java#cbuttonRenderDecodeTest
 com/sun/ts/tests/jsf/spec/render/commandbutton/URLClient.java#cbuttonRenderEncodeNonPassthroughTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderDecodeTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderEncodeTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderPassthroughTest
 com/sun/ts/tests/jsf/spec/render/datatable/URLClient.java#dtableRenderEncodeBasicTest
 com/sun/ts/tests/jsf/spec/render/datatable/URLClient.java#dtableRenderEncodeCaptionTest
 com/sun/ts/tests/jsf/spec/render/datatable/URLClient.java#dtableRenderEncodeColGrpTest
@@ -5407,7 +5399,6 @@ com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatOffse
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatVarStatusTest
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatVarTest
 com/sun/ts/tests/jsf/spec/view/protectedview/URLClient.java#viewProtectedViewNonAccessPointTest
-com/sun/ts/tests/jsf/spec/view/protectedview/URLClient.java#viewProtectedViewSameWebAppAccessTest
 com/sun/ts/tests/jsf/spec/view/viewhandler/URLClient.java#viewHandlerCreateViewTest
 com/sun/ts/tests/jsf/spec/view/viewhandler/URLClient.java#viewHandlerRestoreViewTest
 com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig1Test
