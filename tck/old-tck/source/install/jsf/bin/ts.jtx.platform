@@ -31,8 +31,6 @@ com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResol
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverIsReadOnlyTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverSetValueTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesManagedBeanResolverGetValueTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesResourceBundleResolverFeatureDescriptorTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesScopedAttributeResolverFeatureDescriptorTest
 com/sun/ts/tests/jsf/spec/flows/basicmethodcall/URLClient.java#facesFlowBasicMethodCallTest
 com/sun/ts/tests/jsf/spec/flows/basicmultipage/URLClient.java#facesFlowScopeTest
 com/sun/ts/tests/jsf/spec/flows/multipagewebinf/URLClient.java#facesFlowWebInfScopeTest

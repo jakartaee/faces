@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to Eclipse Foundation.
+ * Copyright (c) 2022, 2024 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -559,82 +559,6 @@ public final class TestServlet extends HttpTCKServlet {
 
     } // END facesScopedAttributeResolverSetValueTest
 
-    public void facesScopedAttributeResolverFeatureDescriptorTest(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-
-        PrintWriter out = response.getWriter();
-        ELContext elContext = getFacesContext().getELContext();
-        ELResolver resolver = elContext.getELResolver();
-        ExternalContext extContext = getFacesContext().getExternalContext();
-        boolean passed = true;
-
-        Map<String, Object> reqMap = extContext.getRequestMap();
-        Map<String, Object> sesMap = extContext.getSessionMap();
-        Map<String, Object> appMap = extContext.getApplicationMap();
-
-        // ensure we have at least 1 in each scope
-        reqMap.put("req", "value1");
-        sesMap.put("ses", "value1");
-        appMap.put("app", "value1");
-
-        HashMap<Object, Class<? extends Object>> names = new HashMap<Object, Class<? extends Object>>();
-        HashMap<String, FeatureDescriptor> controlDescriptors = new HashMap<String, FeatureDescriptor>();
-
-        for (Object key : reqMap.keySet()) {
-            names.put(key, reqMap.get(key).getClass());
-        }
-
-        for (Object key : sesMap.keySet()) {
-            names.put(key, sesMap.get(key).getClass());
-        }
-
-        for (Object key : appMap.keySet()) {
-            names.put(key, appMap.get(key).getClass());
-        }
-
-        // next build a map of 'control' FeatureDescriptors keyed off the name
-        for (Map.Entry entry : names.entrySet()) {
-            String name = (String) entry.getKey();
-            Class clazz = (Class) entry.getValue();
-            FeatureDescriptor descriptor = new FeatureDescriptor();
-            descriptor.setName(name);
-            descriptor.setDisplayName(name);
-            descriptor.setValue("type", clazz);
-            descriptor.setValue("resolvable", Boolean.TRUE);
-            descriptor.setExpert(false);
-            descriptor.setHidden(false);
-            descriptor.setPreferred(true);
-            descriptor.setShortDescription("");
-            controlDescriptors.put(name, descriptor);
-        }
-
-        // begin test test
-        for (Iterator i = resolver.getFeatureDescriptors(elContext, null); i.hasNext();) {
-
-            FeatureDescriptor underTest = (FeatureDescriptor) i.next();
-
-            String name = underTest.getName();
-            if (controlDescriptors.containsKey(name)) {
-                String result = validateFeatureDescriptor(controlDescriptors.get(name), underTest);
-
-                if (result.length() > 0) {
-                    passed = false;
-                    out.println("Test FAILED when validating the FeatureDescriptor" + " for the '" + name + "' scoped attribute.");
-                    out.println(result);
-                }
-            }
-        }
-
-        reqMap.remove("req");
-        sesMap.remove("ses");
-        appMap.remove("app");
-
-        if (passed) {
-            out.println(JSFTestUtil.PASS);
-        }
-
-    } // END facesScopedAttributeResolverFeatureDescriptorTest
-
     // ------------------------------------------------ ResourceBundleELResolver
     public void facesResourceBundleResolverGetValueTest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -756,50 +680,6 @@ public final class TestServlet extends HttpTCKServlet {
 
     } // END facesResourceBundleResolverIsReadOnlyTest
 
-    public void facesResourceBundleResolverFeatureDescriptorTest(HttpServletRequest request, HttpServletResponse response)
-            throws IOException {
-
-        PrintWriter out = response.getWriter();
-        ELContext elContext = getFacesContext().getELContext();
-        ELResolver resolver = elContext.getELResolver();
-        boolean fd_Found = false;
-
-        // Setup golden FeatureDescriptor.
-        FeatureDescriptor controlDesc = new FeatureDescriptor();
-        controlDesc.setValue("resolvable", Boolean.TRUE);
-        controlDesc.setValue("type", ResourceBundle.class);
-        controlDesc.setName("simplerb");
-        controlDesc.setDisplayName("simple");
-        controlDesc.setExpert(false);
-        controlDesc.setHidden(false);
-        controlDesc.setPreferred(true);
-        controlDesc.setShortDescription("");
-
-        for (Iterator i = resolver.getFeatureDescriptors(elContext, null); i.hasNext();) {
-            FeatureDescriptor test = (FeatureDescriptor) i.next();
-            //
-            // out.println("DEBUG ===> FeatureDescriptor Name: " +
-            // test.getName() + NL);
-
-            if ("simplerb".equals(test.getName())) {
-                String result = validateFeatureDescriptor(controlDesc, test);
-                fd_Found = true;
-
-                if (result.length() != 0) {
-                    out.println(result);
-                }
-                break;
-            }
-        }
-
-        if (fd_Found) {
-            out.println(JSFTestUtil.PASS);
-        } else {
-            out.println("Test FAILED! Could not find FeatureDescriptor with name of 'simplerb'");
-        }
-
-    } // END facesResourceBundleResolverFeatureDescriptorTest
-
     public void facesConfigELResolverRegistrationTest(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         PrintWriter out = response.getWriter();
@@ -853,68 +733,6 @@ public final class TestServlet extends HttpTCKServlet {
 
         return passed;
     }
-
-    private static String validateFeatureDescriptor(FeatureDescriptor control, FeatureDescriptor underTest) {
-
-        StringBuffer sb = new StringBuffer(64);
-
-        if (!control.getDisplayName().equals(underTest.getDisplayName())) {
-            sb.append("\tExpected displayName to be '");
-            sb.append(control.getDisplayName());
-            sb.append("', received: '");
-            sb.append(underTest.getDisplayName()).append("'\n");
-        }
-
-        if (!control.getValue("type").equals(underTest.getValue(ELResolver.TYPE))) {
-            sb.append("\tExpected ELResolver.TYPE property to return ");
-            sb.append(control.getValue("type")).append(" (type is ");
-            sb.append(control.getValue("type").getClass().getName());
-            sb.append("), received: ");
-            sb.append(underTest.getValue(ELResolver.TYPE));
-            sb.append(" (type is ");
-            sb.append(underTest.getValue(ELResolver.TYPE).getClass().getName());
-            sb.append(")\n");
-        }
-
-        if (!control.getValue("resolvable").equals(underTest.getValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME))) {
-            sb.append("\tExpected ELResolver.RESOLVABLE_AT_DESIGN_TYPE");
-            sb.append("to be ").append(control.getValue("resolvable"));
-            sb.append(", received: ");
-            sb.append(underTest.getValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME));
-            sb.append('\n');
-        }
-
-        if (control.getShortDescription().length() == 0) {
-            if (underTest.getShortDescription() == null) {
-                sb.append("\tExpected a non-null description.\n");
-            }
-        } else {
-            if (!control.getShortDescription().equals(underTest.getShortDescription().trim())) {
-                sb.append("\tExpected description to be '");
-                sb.append(control.getShortDescription()).append("', ");
-                sb.append("received: '").append(underTest.getShortDescription());
-                sb.append("'\n");
-            }
-        }
-
-        if (control.isExpert() != underTest.isExpert()) {
-            sb.append("\tExpected expert property to be ");
-            sb.append(control.isExpert()).append('\n');
-        }
-
-        if (control.isHidden() != underTest.isHidden()) {
-            sb.append("\tExpected hidden property to be ");
-            sb.append(control.isHidden()).append('\n');
-        }
-
-        if (control.isPreferred() != underTest.isPreferred()) {
-            sb.append("\tExpected preferred property to be ");
-            sb.append(control.isPreferred()).append('\n');
-        }
-
-        return sb.toString();
-
-    } // END validateFeatureDescriptor
 
     /**
      * @return return a two element array with the Faces ELResolver as the first element, and the JSP ELResolver as the
