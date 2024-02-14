@@ -1,4 +1,5 @@
 /*
+ * * Copyright (c) 2024 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -849,7 +850,7 @@ public final class TestServlet extends HttpTCKServlet {
       Method method = methods[i];
       String name = method.getName();
 
-      if (!isExcluded(name, exMethods)) {
+      if (!isExcluded(name, exMethods) && !name.startsWith("lambda$")) {
         Class<?>[] types = method.getParameterTypes();
         Object[] params = new Object[types.length];
 
