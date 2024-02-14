@@ -22,23 +22,23 @@
 
     <groupId>jakarta.faces.tck</groupId>
     <artifactId>faces-sigtest</artifactId>
-    <version>4.0.0</version>
+    <version>4.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Faces TCK Signature Test</name>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <sigtest.plugin.version>1.6</sigtest.plugin.version>
-        <junit.jupiter.version>[5.7.2, 5.8-A00)</junit.jupiter.version>
-        <faces.api.version>4.0.0</faces.api.version>
-        <enterprise.cdi.api.version>4.0.0</enterprise.cdi.api.version>
-        <el.api.version>5.0.0</el.api.version>
-        <websocket.api.version>2.1.0</websocket.api.version>
-        <servlet.api.version>6.0.0</servlet.api.version>
-        <inject.api.version>2.0.1</inject.api.version>
-        <validation.api.version>3.0.2</validation.api.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <sigtest.plugin.version>1.7</sigtest.plugin.version>
+        <junit.jupiter.version>5.10.2</junit.jupiter.version>
+        <faces.api.version>4.1.0-M1</faces.api.version>
+        <enterprise.cdi.api.version>4.1.0-M1</enterprise.cdi.api.version>
+        <el.api.version>6.0.0-M2</el.api.version>
+        <websocket.api.version>2.2.0-M1</websocket.api.version>
+        <servlet.api.version>6.1.0-M1</servlet.api.version>
+        <inject.api.version>2.0.1.MR</inject.api.version>
+        <validation.api.version>3.1.0-M1</validation.api.version>
     </properties>
 
     <dependencies>
@@ -83,13 +83,13 @@
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
-            <version>2.1.0</version>
+            <version>2.2.0-M1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-client-api</artifactId>
-            <version>2.1.0</version>
+            <version>2.2.0-M1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

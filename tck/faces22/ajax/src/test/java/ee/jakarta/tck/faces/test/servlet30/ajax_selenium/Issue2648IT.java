@@ -40,6 +40,6 @@ public class Issue2648IT extends BaseITNG {
         page.waitReqJs();
         page.waitReqJs();
         page = getPage("issue2648-1.xhtml");
-        assertTrue(page.isInPage("IllegalStateException: true"));
+        assertTrue(page.findElement(By.id("form:ise")).getText().equals("true"));
     }
 }

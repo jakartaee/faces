@@ -1326,15 +1326,15 @@ public abstract class BaseUIComponentClient extends AbstractUrlClient {
 
   // -----------------------------------------------------------------------------
   /**
-   * testName: actionSource2GetSetActionExpressionTest assertion_ids:
+   * testName: actionSourceGetSetActionExpressionTest assertion_ids:
    * JSF:JAVADOC:403 test_Strategy: Verify {get,set}ActionExpression in
-   * ActionSource2 components accept and properly return a provided
+   * ActionSource components accept and properly return a provided
    * MethodExpression instance.
    * 
    * @since 1.2
    */
-  public void actionSource2GetSetActionExpressionTest() throws Fault {
-    TEST_PROPS.setProperty(APITEST, "actionSource2GetSetActionExpressionTest");
+  public void actionSourceGetSetActionExpressionTest() throws Fault {
+    TEST_PROPS.setProperty(APITEST, "actionSourceGetSetActionExpressionTest");
     invoke();
   }
 

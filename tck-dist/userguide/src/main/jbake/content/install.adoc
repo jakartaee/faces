@@ -42,11 +42,11 @@ Before you can run the {TechnologyShortName} TCK tests, you must
 install and set up the following software components:
 
 include::req-software.inc[]
-* Java SE {SEversion}
-* Apache Maven {MavenVersion}
-* A CI for {TechnologyShortName} {TechnologyVersion}, one example is {TechnologyRI}
-* {TechnologyShortName} TCK version {TechnologyVersion}
-* The {TechnologyShortName} {TechnologyVersion} Vendor Implementation (VI)
+. Java SE {SEversion}
+. Apache Maven {MavenVersion}
+. A CI for {TechnologyShortName} {TechnologyVersion}, one example is {TechnologyRI}
+. {TechnologyShortName} TCK version {TechnologyVersion}
+. The {TechnologyShortName} {TechnologyVersion} Vendor Implementation (VI)
 
 
 Follow these steps:

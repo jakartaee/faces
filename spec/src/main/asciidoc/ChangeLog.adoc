@@ -8,6 +8,70 @@
 Note: this refers to historic issues and titles using the term "JSF". This refers to the
 pre-Jakarta Faces specification under the JCP.
 
+=== Changes between 4.1 and 4.0
+
+This release contains the following changes:
+
+* Issue ID {issue_tracker_url}1832[1832] +
+Unify ActionSource and ActionSource2
+
+* Issue ID {issue_tracker_url}1829[1829] +
+Faces 4.1: Deprecate full state saving (FSS)
+
+* Issue ID {issue_tracker_url}1828[1828] +
+Remove mentions in javadoc wrt backwards compatibility of facelets.* context params
+
+* Issue ID {issue_tracker_url}1823[1823] +
+FacesMessage: implement equals(), hashcode(), toString()
+
+* Issue ID {issue_tracker_url}1821[1821] +
+Spec: jakarta.faces.FACELETS_REFRESH_PERIOD default when ProjectStage is Development
+
+* Issue ID {issue_tracker_url}1819[1819] +
+Add UUIDConverter
+
+* Issue ID {issue_tracker_url}1811[1811] +
+Missing "if" attribute of <f:viewAction>
+
+* Issue ID {issue_tracker_url}1789[1789] +
+Make FacesMessage#VALUES / VALUES_MAP generic
+
+* Issue ID {issue_tracker_url}1764[1764] +
+Add ExternalContext.setResponseContentLengthLong
+
+* Issue ID {issue_tracker_url}1760[1760] +
+id attribute is missing in vdl of h:head and h:body
+
+* Issue ID {issue_tracker_url}1739[1739] +
+Require firing events for @Initialized, @BeforeDestroyed, @Destroyed for build-in scopes.
+
+* Issue ID {issue_tracker_url}1725[1725] +
+Remove UIComponent.bindings field
+
+* Issue ID {issue_tracker_url}1712[1712] +
+Javadoc for Application.subscribeToEvent methods has a reference to context that is incorrect
+
+* Issue ID {issue_tracker_url}1708[1708] +
+Add missing generics to API that were missed in Faces 4.0
+
+* Issue ID {issue_tracker_url}1707[1707] +
+Deprecate unused PreDestroyCustomScopeEvent and PostConstructCustomScopeEvent
+
+* Issue ID {issue_tracker_url}1549[1549] +
+Deprecate unused composite:extension
+
+* Issue ID {issue_tracker_url}1342[1342] +
+Support @Inject of current flow like "@Inject Flow currentFlow"
+
+* Issue ID {issue_tracker_url}1263[1263] +
+Add rowStatePreserved property to UIRepeat, exactly the same as UIData
+
+* Issue ID {issue_tracker_url}1864[1864] +
+dataTable rowStatePreserved attribute is missing in vdl
+
+This release now requires Java SE 17 or newer (aligned with Jakarta EE 11).
+
+
 === Changes between 4.0 and 3.0
 
 This release contains the following changes:
