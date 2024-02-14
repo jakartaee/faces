@@ -291,14 +291,19 @@ guide.
 
 1.  Make sure that the following software has been correctly installed
 on the system:
+
++
+--
 include::req-software.inc[]
-* Java SE {SEversion}
-* A CI for {TechnologyShortName} {TechnologyVersion}. One example is {TechnologyRI}.
-* {TechnologyShortName} TCK version {TechnologyVersion}
-* The {TechnologyShortName} {TechnologyVersion} Vendor Implementation (VI) +
+. Java SE {SEversion}
+. A CI for {TechnologyShortName} {TechnologyVersion}. One example is {TechnologyRI}.
+. {TechnologyShortName} TCK version {TechnologyVersion}
+. The {TechnologyShortName} {TechnologyVersion} Vendor Implementation (VI) +
 See the documentation for each of these software applications for
 installation instructions. See link:install.html#GBFTP[Chapter 3,
 "Installation,"] for instructions on installing the {TechnologyShortName} TCK.
+--
++
 2.  Set up the {TechnologyShortName} TCK software. +
 See link:config.html#GBFVV[Chapter 4, "Setup and Configuration,"] for
 details about the following steps.

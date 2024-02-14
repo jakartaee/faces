@@ -1,6 +1,6 @@
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 1997, 2023 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -50,7 +50,7 @@
         
         <h:outputText id="willThrowException" value="#{bean.throwExceptionOnAjax}" />
         <h:commandButton id="submit" value="submit">
-            <f:ajax execute="@form" render=":willThrowException" />
+            <f:ajax execute="@form" render="willThrowException" />
         </h:commandButton>
         
     </h:form>
