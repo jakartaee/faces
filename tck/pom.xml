@@ -16,6 +16,53 @@
 
 -->
 
+<!--
+
+Usage:
+
+Run full TCK (runs both current and old)
+
+mvn clean install
+
+
+
+Run full TCK, debugging remote GlassFish (suspends on port 9009)
+
+mvn clean install -Dglassfish.suspend
+
+
+
+Run full TCK, with the version of Mojarra supplied by GlassFish
+(for the signature check mojara.version has to be set to the exact version GlassFish uses)
+
+mvn clean install -Dmojarra.noupdate
+
+
+
+Build old TCK once from the root (NOT from the /old-tck folder)
+
+mvn clean install -pl :old-tck-build  
+
+
+
+Run single old TCK test from the root (NOT from the /old-tck folder)
+
+mvn clean install -pl :old-tck-run  -Drun.test="com/sun/ts/tests/jsf/api/jakarta_faces/context/facescontext/URLClient.java#facesCtxISEAfterReleaseTest"
+
+
+
+Run full old TCK, debugging client TCK from the root (NOT from the /old-tck folder)
+
+mvn clean install -pl :old-tck-run -Dsuspend-tck
+
+
+
+Run full old TCK, debugging remote GlassFish (suspends on port 9009)
+
+mvn clean install -pl :old-tck-run -Dglassfish.suspend
+
+-->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -53,6 +100,16 @@
         <test.selenium>true</test.selenium>
         
         <faces.version>4.1.0-M1</faces.version>
+        
+        <!-- 
+            Set to the actual Faces API the implementation being tested is using.
+            
+            This can best be done in a profile specific to the implementation.
+            See the standard profiles for examples. 
+        -->
+        <sigtest.api.groupId></sigtest.api.groupId>
+        <sigtest.api.artifactId></sigtest.api.artifactId>
+        <sigtest.api.version></sigtest.api.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <tomcat.version>9.0.12</tomcat.version>
@@ -78,47 +135,95 @@
                 <version>1.4</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>jakarta.faces</groupId>
+                <artifactId>jakarta.faces-api</artifactId>
+                <version>${faces.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>jakarta.el</groupId>
+                <artifactId>jakarta.el-api</artifactId>
+                <version>6.0.0-M2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>6.1.0-M1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.websocket</groupId>
+                <artifactId>jakarta.websocket-api</artifactId>
+                <version>2.2.0-M1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.websocket</groupId>
+                <artifactId>jakarta.websocket-client-api</artifactId>
+                <version>2.2.0-M1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.enterprise</groupId>
+                <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                <version>4.1.0-M1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.inject</groupId>
+                <artifactId>jakarta.inject-api</artifactId>
+                <version>2.0.1.MR</version>
+                <scope>provided</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+    
     <dependencies>
         <dependency>
             <groupId>jakarta.faces</groupId>
             <artifactId>jakarta.faces-api</artifactId>
-            <version>${faces.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.1.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
-            <version>2.2.0-M1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-client-api</artifactId>
-            <version>2.2.0-M1</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
-            <version>6.0.0-M2</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.1.0-M1</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
@@ -258,9 +363,7 @@
         </pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.4.0</version>
                 <configuration>
                     <rules>
                         <requireMavenVersion>
@@ -339,6 +442,11 @@
                     <aggregate>true</aggregate>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
         </plugins>
     </reporting>
 
@@ -358,11 +466,11 @@
         <profile>
             <id>custom</id>
         </profile>
-        
-        
+
+
         <!-- Profiles for the application servers against which the tests are run -->
 
-        
+
         <!-- ### GlassFish ### -->
 
 
@@ -375,10 +483,23 @@
 
             <properties>
                 <!-- Explicit version of Mojarra to test -->
-
                 <mojarra.version>4.1.0-SNAPSHOT</mojarra.version>
-                <mojarra.noupdate>false</mojarra.noupdate>
                 
+                <!-- 
+                    By default this profile will copy the Mojarra version to test to GlassFish.
+                    Set this to "true"" to skip copying and therefor use GlassFish as is. That is 
+                    useful to test GlassFish itself instead of just a specific Mojarra version.   
+                -->
+                <mojarra.noupdate>false</mojarra.noupdate>
+
+                <!-- 
+                    Exact artefact used by GlassFish that holds the API classes.
+                    This is used by the signature test in module /faces-signaturetest 
+                -->
+                <sigtest.api.groupId>org.glassfish</sigtest.api.groupId>
+                <sigtest.api.artifactId>jakarta.faces</sigtest.api.artifactId>
+                <sigtest.api.version>${mojarra.version}</sigtest.api.version>
+
                 <!-- Verhicle used for testing the Mojarra version -->
                 <glassfish.version>8.0.0-M2</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
@@ -456,7 +577,6 @@
                 </plugins>
             </build>
         </profile>
-        
 
 
         <!-- ### PIRANHA ### -->
@@ -496,7 +616,6 @@
                 </plugins>
             </build>
         </profile>
-
 
 
         <!-- ### TOMCAT ### -->
@@ -672,8 +791,8 @@
                 </plugins>
             </build>
         </profile>
-        
-        
+
+
         <!-- ### Payara ### -->
 
         <profile>
