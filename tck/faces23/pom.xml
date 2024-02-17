@@ -47,6 +47,7 @@
         <module>flash</module>
         <module>getViews</module>
         <module>importConstants</module>
+        <module>localizedComposite</module>
         <module>namespacedView</module>
         <module>passthrough</module>
 <!--
