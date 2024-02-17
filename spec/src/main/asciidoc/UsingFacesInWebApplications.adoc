@@ -241,10 +241,13 @@ javadocs for the symbolic constant
 _ViewHandler.FACELETS_VIEW_MAPPINGS_PARAM_NAME_ for the complete
 specification.
 
-* _jakarta.faces.FULL_STATE_SAVING_VIEW_IDS_ --
+* +++<del>+++_jakarta.faces.FULL_STATE_SAVING_VIEW_IDS_ --
 The runtime must interpret the value of this parameter as a comma
 separated list of view IDs, each of which must have their state saved
-using the state saving mechanism specified in pre-Jakarta Faces JSF 1.2 (under the JCP).
+using the state saving mechanism specified in pre-Jakarta Faces JSF 1.2 (under the JCP).+++</del>+++
+*Deprecated since 4.1:*
+Full state saving will be removed in favor of partial state saving in order to keep the spec simple.
+Therefore specifying full state saving view IDs via this context parameter will not anymore be an option.
 
 * _jakarta.faces.HONOR_CURRENT_COMPONENT_ATTRIBUTES_ --
 The ServletContext init parameter consulted by the UIComponent to tell
@@ -271,26 +274,12 @@ requests for this web application. If not specified, the Jakarta Faces default
 instance, identified by _LifecycleFactory.DEFAULT_LIFECYCLE_, must be
 used.
 
-* _jakarta.faces.PARTIAL_STATE_SAVING_ --The
+* +++<del>+++_jakarta.faces.PARTIAL_STATE_SAVING_ --The
 ServletContext init parameter consulted by the runtime to determine if
-the partial state saving mechanism should be used. +
-If undefined, the runtime must determine the version level of the
-application.
-+
---
-** For applications versioned at 1.2 and under,
-the runtime must not use the partial state saving mechanism.
-
-** For applications versioned at 2.0 and above,
-the runtime must use the partial state saving mechanism.
---
-+
-If this parameter is defined, and the
-application is versioned at 1.2 and under, the runtime must not use the
-partial state saving mechanism. Otherwise, If this param is defined, and
-calling toLowerCase().equals("true") on a _String_ representation of its
-value returns true, the runtime must use partial state mechanism.
-Otherwise the partial state saving mechanism must not be used.
+the partial state saving mechanism should be used.+++</del>+++
+*Deprecated since 4.1:*
+Full state saving will be removed in favor of partial state saving in order to keep the spec simple.
+Therefore disabling partial state saving via this context parameter will not anymore be an option.
 
 * _jakarta.faces.PROJECT_STAGE_ —A human
 readable string describing where this particular Jakarta Faces application is in
