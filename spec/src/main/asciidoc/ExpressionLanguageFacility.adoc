@@ -98,8 +98,8 @@ lifecycle; the standard Jakarta Faces components and framework employ them
 
 * During _Apply Request Values_ or _Invoke
 Application_ phase (depending upon the state of the _immediate_
-property), components that implement the _ActionSource2_ behavioral
-interface (see <<UserInterfaceComponentModel.adoc#a1120,ActionSource2>>) utilize
+property), components that implement the _ActionSource_ behavioral
+interface (see <<UserInterfaceComponentModel.adoc#a1090,ActionSource>>) utilize
 _MethodExpressions_ as follows:
 
 ** If the _actionExpression_ property is

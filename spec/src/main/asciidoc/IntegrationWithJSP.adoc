@@ -2961,7 +2961,7 @@ passing “converter” as the name of the _ValueExpression_ and the
 _ValueExpression_ instance as the value.
 
 * For a non-__null__ _action_ attribute on
-custom actions related to _ActionSource2_ components (_commandButton_,
+custom actions related to _ActionSource_ components (_commandButton_,
 _commandLink_), the _setProperties()_ method of the tag handler
 implementation class must pass the value of the action attribute, which
 is a _MethodExpression_, to the component’s _setActionExpression()_
