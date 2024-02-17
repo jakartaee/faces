@@ -50,6 +50,6 @@
         <session-timeout>30</session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>localized-composite.xhtml</welcome-file>
+        <welcome-file>issue5160.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>

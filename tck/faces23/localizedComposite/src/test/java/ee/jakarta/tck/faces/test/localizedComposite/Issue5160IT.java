@@ -39,15 +39,15 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 /**
- * Tests if composite component that use resourceBundleMap .properties
- * reflects locale changes.
+ * Tests if composite component that use resourceBundleMap .properties reflects
+ * locale changes.
  * 
  * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
  * @see https://issues.apache.org/jira/browse/MYFACES-4491
  * 
  */
 @RunWith(Arquillian.class)
-public class LocalizedCompositeIT {
+public class Issue5160IT {
 
     @ArquillianResource
     private URL webUrl;
@@ -69,47 +69,61 @@ public class LocalizedCompositeIT {
 
     @Test
     public void testLocalizedCompositeEn() throws Exception {
-        webClient.addRequestHeader("Accept-Language", "en-US, en;q=0.9, es-ES");
-        HtmlPage page = webClient.getPage(webUrl + "localized-composite.xhtml");
-        
-        HtmlHeading1 h1 = (HtmlHeading1) page.getHtmlElementById("header");
-
-        assertEquals("Application", h1.getTextContent());
-        
-        HtmlSubmitInput btn1 = (HtmlSubmitInput) page.getHtmlElementById("frm:btn");
-        assertEquals("My precious button", btn1.getAttribute("value"));
-        HtmlSubmitInput btn2 = (HtmlSubmitInput) page.getHtmlElementById("frm:btn1:btn");
-        assertEquals("Button", btn2.getAttribute("value"));
+        assertLocalizedComposite("en-US", "Application", "My precious button", "Button");
     }
 
     @Test
     public void testLocalizedCompositeEs() throws Exception {
-        webClient.addRequestHeader("Accept-Language", "es-ES");
-        HtmlPage page = webClient.getPage(webUrl + "localized-composite.xhtml");
-        
-        HtmlHeading1 h1 = (HtmlHeading1) page.getHtmlElementById("header");
+        assertLocalizedComposite("es-ES", "Aplicación", "Mi precioso botón", "Botón");
+    }
 
-        assertEquals("Aplicación", h1.getTextContent());
-        
-        HtmlSubmitInput btn1 = (HtmlSubmitInput) page.getHtmlElementById("frm:btn");
-        assertEquals("Mi precioso botón", btn1.getAttribute("value"));
-        HtmlSubmitInput btn2 = (HtmlSubmitInput) page.getHtmlElementById("frm:btn1:btn");
-        assertEquals("Botón", btn2.getAttribute("value"));
+    @Test
+    public void testLocalizedCompositePt() throws Exception {
+        assertLocalizedComposite("pt", "Application", "My precious button", "Accionador");
+    }
+
+    @Test
+    public void testLocalizedCompositePtBr() throws Exception {
+        assertLocalizedComposite("pt-BR", "Application", "My precious button", "Botão");
     }
 
     @Test
     public void testLocalizedCompositePtBrPb() throws Exception {
-        webClient.addRequestHeader("Accept-Language", "pt-BR-PB");
-        HtmlPage page = webClient.getPage(webUrl + "localized-composite.xhtml");
-        
-        HtmlHeading1 h1 = (HtmlHeading1) page.getHtmlElementById("header");
+        assertLocalizedComposite("pt-BR-PB", "Application", "My precious button", "Pitoco");
+    }
 
-        assertEquals("Application", h1.getTextContent());
-        
+    @Test
+    public void testLocalizedCompositePtBrXx() throws Exception {
+        assertLocalizedComposite("pt-BR-XX", "Application", "My precious button", "Botão");
+    }
+
+    @Test
+    public void testLocalizedCompositePtBrXxYy() throws Exception {
+        assertLocalizedComposite("pt-BR-XX-YY", "Application", "My precious button", "Botão");
+    }
+
+    @Test
+    public void testLocalizedCompositePtXxYy() throws Exception {
+        assertLocalizedComposite("pt-XX-YY", "Application", "My precious button", "Accionador");
+    }
+
+    @Test
+    public void testLocalizedCompositePtXx() throws Exception {
+        assertLocalizedComposite("pt-XX", "Application", "My precious button", "Accionador");
+    }
+
+    private void assertLocalizedComposite(String acceptLanguage, String headerText, String buttonText, String compositeButtonText) throws Exception {
+        webClient.addRequestHeader("Accept-Language", acceptLanguage);
+        HtmlPage page = webClient.getPage(webUrl + "issue5160.xhtml");
+
+        HtmlHeading1 h1 = (HtmlHeading1) page.getHtmlElementById("header");
+        assertEquals(headerText, h1.getTextContent());
+
         HtmlSubmitInput btn1 = (HtmlSubmitInput) page.getHtmlElementById("frm:btn");
-        assertEquals("My precious button", btn1.getAttribute("value"));
+        assertEquals(buttonText, btn1.getAttribute("value"));
+
         HtmlSubmitInput btn2 = (HtmlSubmitInput) page.getHtmlElementById("frm:btn1:btn");
-        assertEquals("Pitoco", btn2.getAttribute("value"));
+        assertEquals(compositeButtonText, btn2.getAttribute("value"));
     }
 
     @After

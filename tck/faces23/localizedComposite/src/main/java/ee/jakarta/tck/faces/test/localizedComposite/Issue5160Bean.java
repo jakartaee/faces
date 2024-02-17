@@ -16,50 +16,34 @@
  */
 package ee.jakarta.tck.faces.test.composite;
 
+import java.util.Locale;
+
 import jakarta.annotation.PostConstruct;
-import jakarta.enterprise.context.SessionScoped;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.context.FacesContext;
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpServletRequest;
-import java.io.Serializable;
-import java.util.Locale;
 
 @Named
-@SessionScoped
-public class LocaleBean implements Serializable {
-    
+@RequestScoped
+public class Issue5160Bean {
+
     @Inject
     private HttpServletRequest request;
-    
+
     private Locale locale;
-    
-    private String language;
-    
+
     @PostConstruct
     public void init() {
-        Locale requestLocale = request.getLocale();
-        setLocale(requestLocale != null ? requestLocale.toString() : "en");
+        locale = parseLocale(request.getHeader("Accept-Language"));
     }
-    
-    private void setLocale(String languageTag) {
-        String[] chunks = languageTag.split("(-|_)");
+
+    private Locale parseLocale(String languageTag) {
+        String[] chunks = languageTag.split("[_-]");
         switch (chunks.length) {
-            case 1:
-                locale = new Locale(chunks[0]);
-                break;
-            case 2:
-                locale = new Locale(chunks[0], chunks[1]);
-                break;
-            default:
-                locale = new Locale(chunks[0], chunks[1], chunks[2]);
-                break;
-        }
-        language = locale.toString();
-        UIViewRoot root = FacesContext.getCurrentInstance().getViewRoot();
-        if (root != null) {
-            root.setLocale(locale);
+            case 1: return new Locale(chunks[0]);
+            case 2: return new Locale(chunks[0], chunks[1]);
+            default: return new Locale(chunks[0], chunks[1], chunks[2]);
         }
     }
 
@@ -67,8 +51,4 @@ public class LocaleBean implements Serializable {
         return locale;
     }
 
-    public String getLanguage() {
-        return language;
-    }
-    
 }

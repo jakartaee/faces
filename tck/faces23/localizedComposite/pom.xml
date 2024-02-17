@@ -23,12 +23,12 @@
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces23</groupId>
         <artifactId>pom</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>localized-composite</artifactId>
+    <artifactId>localizedComposite</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - localized-composite</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - localizedComposite</name>
     <description>Composite .properties l10n files should reflect current locale when using resourceBundleMap.</description>
 </project>
