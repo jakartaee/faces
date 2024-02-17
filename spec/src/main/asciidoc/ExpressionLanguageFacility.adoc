@@ -1030,6 +1030,7 @@ The following Implicit Objects for Facelets and Programmatic Access must be reso
 |cookie           |externalContext.getRequestCookieMap()                                |request
 |component        |UIComponent.getCurrentComponent(facesContext)                        |dependent
 |flash            |externalContext.getFlash()                                           |request
+|flow             |facesContext.getApplication().getFlowHandler().getCurrentFlow()      |flow
 |flowScope        |facesContext.getApplication().getFlowHandler().getCurrentFlowScope() |flow
 |header           |externalContext.getRequestHeaderMap()                                |request
 |headerValues     |externalContext.getRequestHeaderValuesMap()                          |request
