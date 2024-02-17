@@ -176,7 +176,9 @@ When a page is requested, what interval in seconds should the compiler
 check for changes. If you don't want the compiler to check for changes
 once the page is compiled, then use a value of -1. Setting a low refresh
 period helps during development to be able to edit pages in a running
-application.
+application. If this value is not specified, then the default depends on
+_Application.getProjectStage()_. If it is _Production_, then runtime must
+act as if it is set to -1, else the runtime must act as if it is set to 0.
 
 * _jakarta.faces.FACELETS_RESOURCE_RESOLVER_ --
 If this param is set, the runtime must interpret its value as a fully
