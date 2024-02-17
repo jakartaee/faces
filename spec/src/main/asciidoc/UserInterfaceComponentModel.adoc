@@ -1606,6 +1606,9 @@ _jakarta.faces.convert.NumberConverter_ (or a subclass of this class).
 * _jakarta.faces.Short_ —An instance of
 _jakarta.faces.convert.ShortConverter_ (or a subclass of this class).
 
+* _jakarta.faces.UUID_ —An instance of
+_jakarta.faces.convert.UUIDConverter_ (or a subclass of this class).
+
 See the Javadocs for these classes
 for a detailed description of the conversion operations they perform,
 and the configuration properties that they support.
@@ -1656,6 +1659,10 @@ _jakarta.faces.convert.ShortConverter_ (or a subclass of this class).
 
 * _java.lang.Enum_, and _java.lang.Enum.TYPE_
 -- An instance of _jakarta.faces.convert.EnumConverter_ (or a subclass of
+this class).
+
+* _java.lang.UUID_, and _java.lang.UUID.TYPE_
+-- An instance of _jakarta.faces.convert.UUIDConverter_ (or a subclass of
 this class).
 
 See the Javadocs for these classes
