@@ -376,7 +376,7 @@
             <properties>
                 <!-- Explicit version of Mojarra to test -->
 
-                <mojarra.version>4.1.0-SNAPSHOT</mojarra.version>
+                <mojarra.version>4.1.0-M1</mojarra.version>
                 <mojarra.noupdate>false</mojarra.noupdate>
                 
                 <!-- Verhicle used for testing the Mojarra version -->

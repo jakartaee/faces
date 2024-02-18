@@ -30,7 +30,7 @@
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <sigtest.plugin.version>1.7</sigtest.plugin.version>
+        <sigtest.plugin.version>2.1</sigtest.plugin.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
         <faces.api.version>4.1.0-M1</faces.api.version>
         <enterprise.cdi.api.version>4.1.0-M1</enterprise.cdi.api.version>
@@ -39,11 +39,17 @@
         <servlet.api.version>6.1.0-M1</servlet.api.version>
         <inject.api.version>2.0.1.MR</inject.api.version>
         <validation.api.version>3.1.0-M1</validation.api.version>
+
+        <glassfish.version>8.0.0-M2</glassfish.version>
+        <mojarra.version>4.1.0-M1</mojarra.version>
+        <glassfish.root>${project.build.directory}</glassfish.root>
+        <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
+
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.netbeans.tools</groupId>
+            <groupId>jakarta.tck</groupId>
             <artifactId>sigtest-maven-plugin</artifactId>
             <version>${sigtest.plugin.version}</version>
         </dependency>
@@ -52,6 +58,11 @@
             <artifactId>jakarta.faces-api</artifactId>
             <version>${faces.api.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jakarta.faces</artifactId>
+            <version>${mojarra.version}</version>
         </dependency>
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -121,9 +132,9 @@
                         <version>3.2.0</version>
                         <executions>
                             <execution>
-                                <id>unpack</id>
+                                <id>copy</id>
                                 <goals>
-                                    <goal>unpack</goal>
+                                    <goal>copy</goal>
                                 </goals>
                                 <configuration>
                                     <artifactItems>
@@ -196,7 +207,7 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.netbeans.tools</groupId>
+                        <groupId>jakarta.tck</groupId>
                         <artifactId>sigtest-maven-plugin</artifactId>
                         <version>${sigtest.plugin.version}</version>
                         <executions>
@@ -207,7 +218,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <FileName>${project.build.directory}/jakarta.faces.sig_${project.version}</FileName>
+                            <sigfile>${project.build.directory}/jakarta.faces.sig_${project.version}</sigfile>
                             <packages>jakarta.faces,jakarta.faces.annotation,jakarta.faces.application,jakarta.faces.component,jakarta.faces.component.behavior,jakarta.faces.component.html,jakarta.faces.component.search,jakarta.faces.component.visit,jakarta.faces.context,jakarta.faces.convert,jakarta.faces.el,jakarta.faces.event,jakarta.faces.flow,jakarta.faces.flow.builder,jakarta.faces.lifecycle,jakarta.faces.model,jakarta.faces.push,jakarta.faces.render,jakarta.faces.validator,jakarta.faces.view,jakarta.faces.view.facelets,jakarta.faces.webapp</packages>
                             <classes>${project.build.directory}</classes>
                         </configuration>
@@ -250,75 +261,21 @@
                         <version>3.2.0</version>
                         <executions>
                             <execution>
-                                <id>copy</id>
+                                <id>unpack</id>
                                 <phase>pre-integration-test</phase>
                                 <goals>
-                                    <goal>copy</goal>
+                                    <goal>unpack</goal>
                                 </goals>
                                 <configuration>
+                                    <outputDirectory>${glassfish.root}</outputDirectory>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>jakarta.faces</groupId>
-                                            <artifactId>jakarta.faces-api</artifactId>
-                                            <version>${faces.api.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${project.build.directory}/</outputDirectory>
-                                            <destFileName>jakarta.faces-api.jar</destFileName>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.el</groupId>
-                                            <artifactId>jakarta.el-api</artifactId>
-                                            <version>${el.api.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${project.build.directory}/</outputDirectory>
-                                            <destFileName>jakarta.el-api.jar</destFileName>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.enterprise</groupId>
-                                            <artifactId>jakarta.enterprise.cdi-api</artifactId>
-                                            <version>${enterprise.cdi.api.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${project.build.directory}/</outputDirectory>
-                                            <destFileName>jakarta.enterprise.cdi-api.jar</destFileName>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.servlet</groupId>
-                                            <artifactId>jakarta.servlet-api</artifactId>
-                                            <version>${servlet.api.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${project.build.directory}/</outputDirectory>
-                                            <destFileName>jakarta.servlet-api.jar</destFileName>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.websocket</groupId>
-                                            <artifactId>jakarta.websocket-api</artifactId>
-                                            <version>${websocket.api.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${project.build.directory}/</outputDirectory>
-                                            <destFileName>jakarta.websocket-api.jar</destFileName>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.websocket</groupId>
-                                            <artifactId>jakarta.websocket-client-api</artifactId>
-                                            <version>${websocket.api.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${project.build.directory}/</outputDirectory>
-                                            <destFileName>jakarta.websocket-client-api.jar</destFileName>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>jakarta.inject</groupId>
-                                            <artifactId>jakarta.inject-api</artifactId>
-                                            <version>${inject.api.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${project.build.directory}/</outputDirectory>
-                                            <destFileName>jakarta.inject-api.jar</destFileName>
+                                            <groupId>org.glassfish.main.distributions</groupId>
+                                            <artifactId>glassfish</artifactId>
+                                            <version>${glassfish.version}</version>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${glassfish.root}</outputDirectory>
                                         </artifactItem>
                                     </artifactItems>
                                 </configuration>
@@ -339,7 +296,7 @@
                                     <systemPropertyVariables>
                                         <jimage.dir>${project.build.directory}/jdk11-bundle</jimage.dir>
                                         <optional.tech.packages.to.ignore>jakarta.xml.bind</optional.tech.packages.to.ignore>
-                                        <signature.sigTestClasspath>${project.build.directory}/jakarta.faces-api.jar:${project.build.directory}/jakarta.el-api.jar:${project.build.directory}/jakarta.enterprise.cdi-api.jar:${project.build.directory}/jakarta.servlet-api.jar:${project.build.directory}/jakarta.websocket-client-api.jar:${project.build.directory}/jakarta.websocket-api.jar:${project.build.directory}/jakarta.inject-api.jar:${project.build.directory}/jdk11-bundle/java.base:${project.build.directory}/jdk11-bundle/java.rmi:${project.build.directory}/jdk11-bundle/java.sql:${project.build.directory}/jdk11-bundle/java.naming</signature.sigTestClasspath>
+                                        <signature.sigTestClasspath>${glassfish.home}/glassfish/modules/jakarta.faces.jar:${glassfish.home}/glassfish/modules/jakarta.el-api.jar:${glassfish.home}/glassfish/modules/jakarta.enterprise.cdi-api.jar:${glassfish.home}/glassfish/modules/jakarta.servlet-api.jar:${glassfish.home}/glassfish/modules/jakarta.websocket-client-api.jar:${glassfish.home}/glassfish/modules/jakarta.websocket-api.jar:${glassfish.home}/glassfish/modules/jakarta.inject-api.jar:${project.build.directory}/jdk11-bundle/java.base:${project.build.directory}/jdk11-bundle/java.rmi:${project.build.directory}/jdk11-bundle/java.sql:${project.build.directory}/jdk11-bundle/java.naming</signature.sigTestClasspath>
                                     </systemPropertyVariables>
                                 </configuration>
                             </execution>
