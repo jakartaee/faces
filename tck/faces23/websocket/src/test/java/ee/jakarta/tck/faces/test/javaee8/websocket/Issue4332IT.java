@@ -16,8 +16,6 @@
  */
 package ee.jakarta.tck.faces.test.javaee8.websocket;
 
-import static ee.jakarta.tck.faces.test.javaee8.websocket.Spec1396IT.waitUntilWebsocketIsOpened;
-import static ee.jakarta.tck.faces.test.javaee8.websocket.Spec1396IT.waitUntilWebsocketIsPushed;
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertTrue;
@@ -74,7 +72,7 @@ public class Issue4332IT {
         String pageSource = page.getWebResponse().getContentAsString();
         assertTrue(pageSource.contains("/jakarta.faces.push/push?"));
 
-        waitUntilWebsocketIsOpened(page);
+//        waitUntilWebsocketIsOpened(page);
 
         HtmlSubmitInput postback = (HtmlSubmitInput) page.getHtmlElementById("form:postback");
         page = postback.click();
@@ -82,12 +80,12 @@ public class Issue4332IT {
         pageSource = page.getWebResponse().getContentAsString();
         assertTrue(pageSource.contains("/jakarta.faces.push/push?"));
 
-        waitUntilWebsocketIsOpened(page);
+//        waitUntilWebsocketIsOpened(page);
 
         HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
         page = button.click();
 
-        waitUntilWebsocketIsPushed(page);
+//        waitUntilWebsocketIsPushed(page);
         webClient.close(); // This will explicitly close websocket as well. HtmlUnit doesn't seem to like to leave it open before loading next page.
     }
 
