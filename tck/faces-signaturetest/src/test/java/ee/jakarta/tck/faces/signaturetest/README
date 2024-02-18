@@ -1,6 +1,15 @@
 The latest signature files are updated in the faces repoitory 
 (faces/tck/faces-signaturetest/src/test/resources/ee/jakarta/tck/faces/signaturetest/) 
-generated using sigtest-maven-plugin.jar(version 1.5).
+generated using sigtest-maven-plugin.jar (version 2.1)
+
+The maven cordinates for sigtest-maven-plugin are as below :
+<dependency>
+    <groupId>jakarta.tck</groupId>
+    <artifactId>sigtest-maven-plugin</artifactId>
+    <version>2.1</version>
+</dependency>
+
+The plugin sources are located under https://github.com/eclipse-ee4j/jakartaee-tck-tools/tree/master/tools/sigtest
 
 The signature tests are run using the sigtest-maven-plugin.jar and the framework to start the tests 
 is avaliable in this folder.
@@ -31,7 +40,7 @@ For TCK users (to run the signature test as a Junit test) :-
 
   1. Set the below system properties correctly :
 
-    jimage.dir //The jdk9+(jdk11 for this release) will be extracted to this location as to use the Java modules in the path.
+    jimage.dir //The Java modules will be extracted to this location as to use them in the path.
     optional.tech.packages.to.ignore // The optional package that should be ignored while running the signature test
     signature.sigTestClasspath // the sigTestClasspath that will contain the implementation jar that needs to be tested along with dependent jars.
 
