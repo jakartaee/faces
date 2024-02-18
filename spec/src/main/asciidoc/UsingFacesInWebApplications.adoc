@@ -234,7 +234,7 @@ separated list of view IDs, each of which must have their state saved
 using the state saving mechanism specified in pre-Jakarta Faces JSF 1.2 (under the JCP).+++</del>+++
 *Deprecated since 4.1:*
 Full state saving will be removed in favor of partial state saving in order to keep the spec simple.
-Therefore specifying full state saving view IDs via this context parameter will not anymore be an option.
+Therefore specifying full state saving view IDs via this context parameter will not be an option anymore.
 
 * _jakarta.faces.HONOR_CURRENT_COMPONENT_ATTRIBUTES_ --
 The ServletContext init parameter consulted by the UIComponent to tell
@@ -266,7 +266,7 @@ ServletContext init parameter consulted by the runtime to determine if
 the partial state saving mechanism should be used.+++</del>+++
 *Deprecated since 4.1:*
 Full state saving will be removed in favor of partial state saving in order to keep the spec simple.
-Therefore disabling partial state saving via this context parameter will not anymore be an option.
+Therefore disabling partial state saving via this context parameter will not be an option anymore.
 
 * _jakarta.faces.PROJECT_STAGE_ —A human
 readable string describing where this particular Jakarta Faces application is in
