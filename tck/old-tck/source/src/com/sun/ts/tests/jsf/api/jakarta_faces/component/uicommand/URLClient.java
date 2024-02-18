@@ -1148,19 +1148,19 @@ public class URLClient extends BaseUIComponentClient {
   }
 
   // --------------------------------------------------------------
-  // ActionSource2
+  // ActionSource
   /**
-   * @testName: actionSource2GetSetActionExpressionTest
+   * @testName: actionSourceGetSetActionExpressionTest
    * @assertion_ids: JSF:JAVADOC:477; JSF:JAVADOC:403; JSF:JAVADOC:403;
    *                 JSF:JAVADOC:463; JSF:JAVADOC:473
-   * @test_Strategy: Verify {get,set}ActionExpression in ActionSource2
+   * @test_Strategy: Verify {get,set}ActionExpression in ActionSource
    *                 components accept and properly return a provided
    *                 MethodExpression instance.
    * 
    * @since 1.2
    */
-  public void actionSource2GetSetActionExpressionTest() throws Fault {
-    super.actionSource2GetSetActionExpressionTest();
+  public void actionSourceGetSetActionExpressionTest() throws Fault {
+    super.actionSourceGetSetActionExpressionTest();
   }
 
   // ------------------------------------------------------------------
