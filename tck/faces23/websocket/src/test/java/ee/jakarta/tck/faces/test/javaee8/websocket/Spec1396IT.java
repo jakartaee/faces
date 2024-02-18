@@ -30,6 +30,10 @@ import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import jakarta.faces.component.UIWebsocket;
 
+/**
+ * NOTE: all websocket related tests must be executed from a SINGLE test class.
+ * Otherwise the push will seem to hang/freeze when executed in a next class. This is probably a selenium webdriver bug.
+ */
 public class Spec1396IT extends BaseITNG {
 
     /**
@@ -103,16 +107,45 @@ public class Spec1396IT extends BaseITNG {
     }
 
     /**
+     * @see UIWebsocket
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4332
+     */
+    @Test
+    public void testWebsocketAfterPostback() throws Exception {
+        WebPage page = getPage("issue4332.xhtml");
+
+        String pageSource = page.getPageSource();
+        assertTrue(pageSource.contains("faces.push.init("));
+        assertTrue(pageSource.contains("/jakarta.faces.push/push?"));
+
+        waitUntilWebsocketIsOpened(getWebDriver(), page);
+
+        WebElement postback = page.findElement(By.id("form:postback"));
+        postback.click();
+
+        pageSource = page.getPageSource();
+        assertTrue(pageSource.contains("faces.push.init("));
+        assertTrue(pageSource.contains("/jakarta.faces.push/push?"));
+
+        waitUntilWebsocketIsOpened(getWebDriver(), page);
+
+        WebElement button = page.findElement(By.id("form:button"));
+        button.click();
+
+        waitUntilWebsocketIsPushed(getWebDriver(), page);
+    }
+
+    /**
      * HtmlUnit is not capable of waiting until WS is opened. Hence this work around.
      */
-    static void waitUntilWebsocketIsOpened(WebDriver browser, WebPage page) throws Exception {
+    private static void waitUntilWebsocketIsOpened(WebDriver browser, WebPage page) throws Exception {
         new WebDriverWait(browser, ofSeconds(3)).until($ -> "yes".equals(page.findElement(By.id("opened")).getText()));
     }
 
     /**
      * HtmlUnit is not capable of waiting until WS is pushed. Hence this work around.
      */
-    static void waitUntilWebsocketIsPushed(WebDriver browser, WebPage page) throws Exception {
+    private static void waitUntilWebsocketIsPushed(WebDriver browser, WebPage page) throws Exception {
         new WebDriverWait(browser, ofSeconds(3)).until($ -> "pushed!".equals(page.findElement(By.id("message")).getText()));
     }
 
