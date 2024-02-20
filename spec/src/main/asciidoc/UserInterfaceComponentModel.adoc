@@ -918,6 +918,11 @@ events, including the ability invoke application actions (see
 _ActionListener_ facility (see <<ApplicationIntegration.adoc#a3402,
 ActionListener Property>>).
 
+The _ActionSource_ interface also provides a JavaBeans _actionExpression_
+property analogous to the _action_ property. This allows the _ActionSource_
+concept to leverage the Jakarta Expression Language API.
+
+
 [[a1092]]
 ===== Properties
 
@@ -935,6 +940,16 @@ indicating that the default _ActionListener_ should execute immediately
 (that is, during the _Apply Request Values_ phase of the request
 processing lifecycle, instead of waiting for _Invoke Application_
 phase). The default value of this property must be _false_.
+
+| _actionExpression_
+|RW |
+_jakarta.el.MethodExpression_ |A
+_MethodExpression_ (see <<ExpressionLanguageFacility.adoc#a3039,MethodExpression>>)
+that must (if non-__null__) point at an action method (see
+<<ApplicationIntegration.adoc#a3553,Application Actions>>). The specified
+method will be called during the _Apply Request Values_ or _Invoke
+Application_ phase of the request processing lifecycle, as described in
+<<RequestProcessingLifecycle.adoc#a454,Invoke Application>>.
 |===
 
 
@@ -992,44 +1007,6 @@ _Invoke Application_ phases of the request processing lifecycle. See
 <<RequestProcessingLifecycle.adoc#a454,Invoke Application>> for more
 information.
 
-[[a1120]]
-==== ActionSource2
-
-The _ActionSource2_ interface extends
-_ActionSource_ and provides a JavaBeans property analogous to the
-_action_ property on __ActionSource__. This allows the _ActionSource_
-concept to leverage the Jakarta Expression Language API.
-
-===== Properties
-
-The following render-independent properties
-are added by the _ActionSource_ interface:
-
-[width="100%",cols="20%,10%,20%,50%",options="header",]
-|===
-|Name |Access
-|Type |Description
-| _actionExpression_
-|RW |
-_jakarta.el.MethodExpression_ |A
-_MethodExpression_ (see <<ExpressionLanguageFacility.adoc#a3039,MethodExpression>>)
-that must (if non-__null__) point at an action method (see
-<<ApplicationIntegration.adoc#a3553,Application Actions>>). The specified
-method will be called during the _Apply Request Values_ or _Invoke
-Application_ phase of the request processing lifecycle, as described in
-<<RequestProcessingLifecycle.adoc#a454,Invoke Application>>.
-|===
-
-
-
-===== Methods
-
-_ActionSource2_ adds no new processing
-methods.
-
-===== Events
-
-_ActionSource2_ adds no new events.
 
 [[a1134]]
 ==== NamingContainer
@@ -1629,6 +1606,9 @@ _jakarta.faces.convert.NumberConverter_ (or a subclass of this class).
 * _jakarta.faces.Short_ —An instance of
 _jakarta.faces.convert.ShortConverter_ (or a subclass of this class).
 
+* _jakarta.faces.UUID_ —An instance of
+_jakarta.faces.convert.UUIDConverter_ (or a subclass of this class).
+
 See the Javadocs for these classes
 for a detailed description of the conversion operations they perform,
 and the configuration properties that they support.
@@ -1679,6 +1659,10 @@ _jakarta.faces.convert.ShortConverter_ (or a subclass of this class).
 
 * _java.lang.Enum_, and _java.lang.Enum.TYPE_
 -- An instance of _jakarta.faces.convert.EnumConverter_ (or a subclass of
+this class).
+
+* _java.lang.UUID_, and _java.lang.UUID.TYPE_
+-- An instance of _jakarta.faces.convert.UUIDConverter_ (or a subclass of
 this class).
 
 See the Javadocs for these classes
@@ -2809,11 +2793,11 @@ directory relative to the _index.xhtml_ file.
 The _<cc:interface>_ section declares
 the public interface that users of this component need to understand. In
 this case, the component declares that it contains an implementation of
-_ActionSource2_ (see <<UserInterfaceComponentModel.adoc#a1120,ActionSource2>>),
-and therefore anything one can do with an _ActionSource2_ in a Facelet
+_ActionSource_ (see <<UserInterfaceComponentModel.adoc#a1090,ActionSource>>),
+and therefore anything one can do with an _ActionSource_ in a Facelet
 markup page you one do with the composite component. (See
 <<UserInterfaceComponentModel.adoc#a1088,Component Behavioral Interfaces>> for
-more on _ActionSource2_ and other behavioral interfaces). The
+more on _ActionSource_ and other behavioral interfaces). The
 _<cc:implementation>_ section defines the implementation of this
 composite component.
 
@@ -3121,13 +3105,13 @@ For example, if the defining page has
 +
 The list of attached object targets would
 consist of instances of implementations of the following interfaces from
-the package _jakarta.faces.webapp.vdl_.
+the package _jakarta.faces.view_.
 +
 . EditableValueHolderAttachedObjectTarget
 
-. ActionSource2AttachedObjectTarget
+. ActionSourceAttachedObjectTarget
 
-. ActionSource2AttachedObjectTarget
+. ActionSourceAttachedObjectTarget
 
 . BehaviorHolderAttachedObjectTarget
 
