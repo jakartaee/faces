@@ -39,7 +39,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <sigtest.plugin.version>2.0</sigtest.plugin.version>
+        <sigtest.plugin.version>2.1</sigtest.plugin.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
         <faces.api.version>4.1.0-M1</faces.api.version>
     </properties>

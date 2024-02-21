@@ -99,7 +99,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <skipTests>false</skipTests>
         <test.selenium>true</test.selenium>
         
-        <faces.version>4.1.0-M1</faces.version>
+        <faces.version>4.1.0-SNAPSHOT</faces.version>
         
         <!-- 
             Set to the actual Faces API the implementation being tested is using.

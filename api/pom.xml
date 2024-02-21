@@ -108,7 +108,7 @@
     </mailingLists>
 
     <properties>
-        <mojarra.version>4.1.0-M1</mojarra.version>
+        <mojarra.version>4.1.0-SNAPSHOT</mojarra.version>
     </properties>
 
     <dependencies>
