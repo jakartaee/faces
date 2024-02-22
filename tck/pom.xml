@@ -369,9 +369,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                         <requireMavenVersion>
                             <version>3.6.3</version>
                         </requireMavenVersion>
-                        <requireJavaVersion>
-                            <version>21</version>
-                        </requireJavaVersion>
                     </rules>
                 </configuration>
                 <executions>
@@ -519,6 +516,23 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
 
             <build>
                 <plugins>
+                    <plugin>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>21</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
