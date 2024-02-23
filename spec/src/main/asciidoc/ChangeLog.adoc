@@ -45,9 +45,6 @@ id attribute is missing in vdl of h:head and h:body
 * Issue ID {issue_tracker_url}1739[1739] +
 Require firing events for @Initialized, @BeforeDestroyed, @Destroyed for build-in scopes.
 
-* Issue ID {issue_tracker_url}1725[1725] +
-Remove UIComponent.bindings field
-
 * Issue ID {issue_tracker_url}1712[1712] +
 Javadoc for Application.subscribeToEvent methods has a reference to context that is incorrect
 
