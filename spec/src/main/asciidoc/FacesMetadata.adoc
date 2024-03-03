@@ -2,7 +2,7 @@
 [[a7037]]
 == Jakarta Faces Metadata
 
-The XML Schema Definition for Application Configuration Resource __web-facesconfig_4_0.xsd__
+The XML Schema Definition for Application Configuration Resource __web-facesconfig_4_1.xsd__
 is included in a web browser optimized format along with the Javadoc.
 That is the canonical location of the schemas in the specification.
 
@@ -150,8 +150,8 @@ __faces-config.xml__.
     xmlns="https://jakarta.ee/xml/ns/jakartaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
-    version="4.0">
+        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+    version="4.1">
   <faces-config-extension>
     <facelets-processing>
       <file-extension>.jspx</file-extension>
@@ -188,12 +188,12 @@ processing mode of .view.xml files to be xml.
 [[a7134]]
 === XML Schema Definition For Facelet Taglib
 
-The XML Schema Definition for Facelet Taglib __web-facelettaglibrary_4_0.xsd__
+The XML Schema Definition for Facelet Taglib __web-facelettaglibrary_4_1.xsd__
 is included in a web browser optimized format along with the Javadoc.
 That is the canonical location of the schemas in the specification.
 
 === XML Schema Definition For Partial Response
 
-The XML Schema Definition for Partial Repsonse __web-partialresponse_4_0.xsd__
+The XML Schema Definition for Partial Repsonse __web-partialresponse_4_1.xsd__
 is included in a web browser optimized format along with the Javadoc.
 That is the canonical location of the schemas in the specification.
