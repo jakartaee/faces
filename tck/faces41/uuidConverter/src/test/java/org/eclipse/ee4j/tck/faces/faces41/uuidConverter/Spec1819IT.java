@@ -86,8 +86,8 @@ public class Spec1819IT extends BaseITNG {
      * @see https://github.com/jakartaee/faces/issues/1819
      */
     @Test
-    public void testValidExplicitUUID() {
-        WebPage page = getPage("spec1819explicitConversion.xhtml");
+    public void testValidExplicitUUIDviaAttribute() {
+        WebPage page = getPage("spec1819explicitConversionViaAttribute.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys(TEST_UUID);
         WebElement submit = page.findElement(By.id("form:submit"));
@@ -103,8 +103,8 @@ public class Spec1819IT extends BaseITNG {
      * @see https://github.com/jakartaee/faces/issues/1819
      */
     @Test
-    public void testInvalidExplicitUUID() {
-        WebPage page = getPage("spec1819explicitConversion.xhtml");
+    public void testInvalidExplicitUUIDviaAttribute() {
+        WebPage page = getPage("spec1819explicitConversionViaAttribute.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys("fubar");
         WebElement submit = page.findElement(By.id("form:submit"));
@@ -120,8 +120,59 @@ public class Spec1819IT extends BaseITNG {
      * @see https://github.com/jakartaee/faces/issues/1819
      */
     @Test
-    public void testEmptyExplicitUUID() {
-        WebPage page = getPage("spec1819explicitConversion.xhtml");
+    public void testEmptyExplicitUUIDviaAttribute() {
+        WebPage page = getPage("spec1819explicitConversionViaAttribute.xhtml");
+        WebElement input = page.findElement(By.id("form:input"));
+        input.sendKeys("");
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        WebElement messages = page.findElement(By.id("form:messages"));
+        assertEquals("", messages.getText());
+        WebElement output = page.findElement(By.id("form:output"));
+        assertEquals("", output.getText());
+    }
+
+    /**
+     * @see UUIDConverter
+     * @see https://github.com/jakartaee/faces/issues/1819
+     */
+    @Test
+    public void testValidExplicitUUIDviaTag() {
+        WebPage page = getPage("spec1819explicitConversionViaTag.xhtml");
+        WebElement input = page.findElement(By.id("form:input"));
+        input.sendKeys(TEST_UUID);
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        WebElement messages = page.findElement(By.id("form:messages"));
+        assertEquals("", messages.getText());
+        WebElement output = page.findElement(By.id("form:output"));
+        assertEquals(TEST_UUID, output.getText());
+    }
+
+    /**
+     * @see UUIDConverter
+     * @see https://github.com/jakartaee/faces/issues/1819
+     */
+    @Test
+    public void testInvalidExplicitUUIDviaTag() {
+        WebPage page = getPage("spec1819explicitConversionViaTag.xhtml");
+        WebElement input = page.findElement(By.id("form:input"));
+        input.sendKeys("fubar");
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        WebElement messages = page.findElement(By.id("form:messages"));
+        assertEquals("form:input: 'fubar' must be a UUID.", messages.getText());
+        WebElement output = page.findElement(By.id("form:output"));
+        assertEquals("", output.getText());
+    }
+
+    /**
+     * @see UUIDConverter
+     * @see https://github.com/jakartaee/faces/issues/1819
+     */
+    @Test
+    public void testEmptyExplicitUUIDviaTag() {
+        WebPage page = getPage("spec1819explicitConversionViaTag.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys("");
         WebElement submit = page.findElement(By.id("form:submit"));
