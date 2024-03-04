@@ -929,9 +929,23 @@ _jakarta.faces.event.PreDestroyApplicationEvent_.
 ==== Application Configuration Resource Format
 
 Application configuration resources
-that are written to run on Jakarta Faces 4.0 must include the following schema
+that are written to run on Jakarta Faces 4.1 must include the following schema
 declaration and must conform to the schema shown in
 <<a7037, Appendix A - Jakarta Faces Metadata>>
+
+[source,xml]
+----
+<faces-config
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+    version="4.1">
+----
+
+Application configuration resources
+that are written to run on Jakarta Faces 4.0 must include the following schema
+declaration:
 
 [source,xml]
 ----
@@ -1712,8 +1726,8 @@ __Renderer__s that know how to decode and encode such a component:
     xmlns="https://jakarta.ee/xml/ns/jakartaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
-    version="4.0">
+        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+    version="4.1">
 
   <!-- Define our custom component -->
   <component>
