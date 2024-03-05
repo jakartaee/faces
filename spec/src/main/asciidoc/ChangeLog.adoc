@@ -66,6 +66,9 @@ Add rowStatePreserved property to UIRepeat, exactly the same as UIData
 * Issue ID {issue_tracker_url}1864[1864] +
 dataTable rowStatePreserved attribute is missing in vdl
 
+* Issue ID {issue_tracker_url}1838[1838] +
+Remove references to the Java SecurityManager and associated APIs
+
 This release now requires Java SE 17 or newer (aligned with Jakarta EE 11).
 
 
