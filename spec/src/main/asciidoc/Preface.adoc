@@ -115,6 +115,7 @@ The authors would like to thank the Jakarta Faces 4.1 contributors.
 * Jason Lee
 * Volodymyr Siedlecki
 * Hantsy Bai
+* Paul Nicolucci
 
 The editors would like to recognize the
 following individuals who have contributed to the success of Jakarta
