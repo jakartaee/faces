@@ -19,13 +19,16 @@ package ee.jakarta.tck.faces.test.javaee8.uidecorate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
+@RunWith(Arquillian.class)
 public class Issue5140IT extends ITBase {
 
     /**

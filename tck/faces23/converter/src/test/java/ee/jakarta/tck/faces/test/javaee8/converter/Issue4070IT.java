@@ -31,7 +31,6 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -75,7 +74,7 @@ public class Issue4070IT {
      * @see Temporal
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4074
      */
-    @Test @Ignore // Fails in JDK21 DateTimeFormatter FormatStyle.MEDIUM because the whitespace between time and 'PM' must be a NNBSP (u202f) instead of plain space.
+    @Test
     public void testLocalDateTime() throws Exception {
         doTestJavaTimeTypes("Sep 30, 2015, 4:14:43 PM", "localDateTime", "2015-09-30T16:14:43");
     }
@@ -85,7 +84,7 @@ public class Issue4070IT {
         doTestJavaTimeTypes("Sep 30, 2015", "localDate", "2015-09-30");
     }
 
-    @Test @Ignore // Fails in JDK21 DateTimeFormatter FormatStyle.MEDIUM because the whitespace between time and 'PM' must be a NNBSP (u202f) instead of plain space.
+    @Test
     public void testLocalTime() throws Exception {
         doTestJavaTimeTypes("4:52:56 PM", "localTime", "16:52:56");
     }

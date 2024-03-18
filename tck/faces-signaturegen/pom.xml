@@ -42,7 +42,7 @@
             For now the sigtest plugin has to be locally compiled from
             https://github.com/eclipse-ee4j/jakartaee-tck-tools/tree/master/tools/sigtest
         -->
-        <sigtest.plugin.version>2.1-SNAPSHOT</sigtest.plugin.version>
+        <sigtest.plugin.version>2.1</sigtest.plugin.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
         <faces.api.version>4.1.0-M1</faces.api.version>
         <enterprise.cdi.api.version>4.1.0-M1</enterprise.cdi.api.version>
