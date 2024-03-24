@@ -42,7 +42,7 @@
                 <h:outputText value="localDateLabel" />
             
                 <h:inputText id="localDate" value="#{backingBean.localDate}">
-                    <f:convertDateTime type="localDate" />
+                    <f:convertDateTime type="localDate" pattern="MMM d, yyyy" />
                 </h:inputText>
             
                 <h:outputText id="localDateValue" value="#{backingBean.localDate}" />
@@ -51,7 +51,7 @@
                 <h:outputText value="localDateTimeLabel" />
             
                 <h:inputText id="localDateTime" value="#{backingBean.localDateTime}">
-                    <f:convertDateTime type="localDateTime" />
+                    <f:convertDateTime type="localDateTime" pattern="MMM d, yyyy, h:mm:ss a" />
                 </h:inputText>
             
                 <h:outputText id="localDateTimeValue" value="#{backingBean.localDateTime}" />
@@ -59,7 +59,7 @@
                 <h:outputText value="localTimeLabel" />
             
                 <h:inputText id="localTime" value="#{backingBean.localTime}">
-                    <f:convertDateTime type="localTime" />
+                    <f:convertDateTime type="localTime" pattern="h:mm:ss a" />
                 </h:inputText>
             
                 <h:outputText id="localTimeValue" value="#{backingBean.localTime}" />

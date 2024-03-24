@@ -1186,6 +1186,8 @@ indication of the intended message text) are as follows:
 * jakarta.faces.converter.NumberConverter.PATTERN_detail=\{2}: ''\{0}'' is not a number pattern. Example: \{1}
 * jakarta.faces.converter.ShortConverter.SHORT=\{2}: ''\{0}'' must be a number consisting of one or more digits.
 * jakarta.faces.converter.ShortConverter.SHORT_detail=\{2}: ''\{0}'' must be a number between -32768 and 32767 Example: \{1}
+* jakarta.faces.converter.UUIDConverter.UUID={2}: ''{0}'' must be a UUID.
+* jakarta.faces.converter.UUIDConverter.UUID_detail={2}: ''{0}'' must be a UUID. Example: {1}
 * jakarta.faces.converter.STRING=\{1}: Could not convert ''\{0}'' to a string.
 * jakarta.faces.validator.BeanValidator.MESSAGE=\{0}
 * jakarta.faces.validator.DoubleRangeValidator.MAXIMUM=\{1}: Validation Error: Value is greater than allowable maximum of ''\{0}''

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2022, 2023 Contributors to Eclipse Foundation.
+    Copyright (c) 2022, 2024 Contributors to Eclipse Foundation.
     Copyright (c) 2017, 2022 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -18,7 +18,15 @@
 
 -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!--
+
+    Project to create the Jakarta Faces API jar and docs (vdldocs, jsdocs, renderkit docs).
+
+    This depends on a Mojarra build being available in the version set by mojarra.version
+
+ -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -103,7 +111,7 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.1.0-M1</version>
+            <version>6.1.0-M2</version>
             <scope>provided</scope>
         </dependency>
 
@@ -123,21 +131,21 @@
         <dependency>
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
-            <version>6.0.0-M1</version>
+            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.1.0-M1</version>
+            <version>4.1.0</version>
             <scope>provided</scope>
         </dependency>
         
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-el-api</artifactId>
-            <version>4.1.0-M1</version>
+            <version>4.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -179,7 +187,7 @@
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.2.0-M1</version>
+            <version>3.2.0-M2</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -187,7 +195,7 @@
         <dependency>
             <groupId>jakarta.xml.ws</groupId>
             <artifactId>jakarta.xml.ws-api</artifactId>
-            <version>4.0.1</version>
+            <version>4.0.2</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -195,14 +203,14 @@
         <dependency>
             <groupId>jakarta.annotation</groupId>
             <artifactId>jakarta.annotation-api</artifactId>
-            <version>3.0.0-M1</version>
+            <version>3.0.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <version>4.0.1</version>
+            <version>4.0.2</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -254,7 +262,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.6.0</version>
+                                    <version>3.9.0</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
@@ -265,7 +273,7 @@
             <!-- Restricts the Java version to 17 - API remains at Java 17 for now. -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.12.1</version>
                 <configuration>
                     <release>17</release>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
@@ -312,6 +320,7 @@
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                     </archive>
                     <includes>
+                        <include>module-info.*</include>
                         <include>jakarta/**</include>
                         <include>META-INF/LICENSE.md</include>
                         <include>META-INF/NOTICE.md</include>
@@ -348,6 +357,7 @@
                             <goal>jar</goal>
                         </goals>
                         <configuration>
+                            <sourcepath>src/main/java</sourcepath>
                             <additionalJOption>-Xdoclint:none</additionalJOption>
                             <description>Jakarta Faces API documentation</description>
                             <doctitle>Jakarta Faces API documentation</doctitle>
@@ -355,7 +365,7 @@
                             <header><![CDATA[<br>Jakarta Faces API v${project.version}]]></header>
                             <bottom><![CDATA[
 Comments to: <a href="mailto:faces-dev@eclipse.org">faces-dev@eclipse.org</a>.<br>
-Copyright &#169; 2019, 2023 Eclipse Foundation. All rights reserved.<br>
+Copyright &#169; 2019, 2024 Eclipse Foundation. All rights reserved.<br>
 Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">license terms</a>.]]>
                             </bottom>
                             <docfilessubdirs>true</docfilessubdirs>
@@ -375,7 +385,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
-                <version>1.5.0</version>
+                <version>1.6.0</version>
                 <configuration>
                     <flattenMode>ossrh</flattenMode>
                 </configuration>
@@ -500,7 +510,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.1.1</version>
+                        <version>3.2.0</version>
                         <executions>
                             <execution>
                                 <id>generate-vdldoc</id>

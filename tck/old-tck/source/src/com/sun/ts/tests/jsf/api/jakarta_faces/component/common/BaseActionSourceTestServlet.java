@@ -27,7 +27,7 @@ import java.util.List;
 
 import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 
-import jakarta.faces.component.ActionSource2;
+import jakarta.faces.component.ActionSource;
 import jakarta.faces.event.MethodExpressionActionListener;
 import jakarta.faces.context.FacesContext;
 import jakarta.el.MethodExpression;
@@ -70,7 +70,7 @@ public abstract class BaseActionSourceTestServlet
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    ActionSource2 source = (ActionSource2) createComponent();
+    ActionSource source = (ActionSource) createComponent();
 
     ActionListener[] listeners = source.getActionListeners();
 
@@ -169,7 +169,7 @@ public abstract class BaseActionSourceTestServlet
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    ActionSource2 source = (ActionSource2) createComponent();
+    ActionSource source = (ActionSource) createComponent();
 
     JSFTestUtil.checkForNPE(source.getClass(), "addActionListener",
         new Class<?>[] { ActionListener.class }, new Object[] { null }, out);
@@ -181,7 +181,7 @@ public abstract class BaseActionSourceTestServlet
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    ActionSource2 source = (ActionSource2) createComponent();
+    ActionSource source = (ActionSource) createComponent();
 
     JSFTestUtil.checkForNPE(source.getClass(), "removeActionListener",
         new Class<?>[] { ActionListener.class }, new Object[] { null }, out);
@@ -192,7 +192,7 @@ public abstract class BaseActionSourceTestServlet
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    ActionSource2 source = (ActionSource2) createComponent();
+    ActionSource source = (ActionSource) createComponent();
     request.setAttribute("actionSource", "value");
     FacesContext context = getFacesContext();
 
@@ -230,7 +230,7 @@ public abstract class BaseActionSourceTestServlet
     MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(elcontext,
     "#{requestScope.actionListener.processAction}", null, new Class[] { ActionEvent.class });
 
-    ActionSource2 source = (ActionSource2) createComponent();
+    ActionSource source = (ActionSource) createComponent();
 
     MethodExpressionActionListener listener = new MethodExpressionActionListener(binding);
     source.addActionListener(listener);
@@ -251,7 +251,7 @@ public abstract class BaseActionSourceTestServlet
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    ActionSource2 source = (ActionSource2) createComponent();
+    ActionSource source = (ActionSource) createComponent();
 
     if (source.isImmediate()) {
       out.println(JSFTestUtil.FAIL + " Expected isImmediate() to return"

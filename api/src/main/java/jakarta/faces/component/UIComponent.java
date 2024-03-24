@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to Eclipse Foundation.
+ * Copyright (c) 2022, 2024 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -20,7 +20,7 @@ package jakarta.faces.component;
 import static jakarta.faces.component.PackageUtils.isAnyNull;
 import static jakarta.faces.component.PackageUtils.isOneOf;
 import static jakarta.faces.application.Resource.COMPONENT_RESOURCE_KEY;
- import static jakarta.faces.component.visit.VisitHint.SKIP_TRANSIENT;
+import static jakarta.faces.component.visit.VisitHint.SKIP_TRANSIENT;
 import static jakarta.faces.component.visit.VisitHint.SKIP_UNRENDERED;
 import static jakarta.faces.component.visit.VisitResult.ACCEPT;
 import static jakarta.faces.component.visit.VisitResult.COMPLETE;
@@ -2377,5 +2377,12 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
         return resourceBundle != null ? result : null;
     }
+
+    // The set of ValueExpressions for this component, keyed by property
+    // name This collection is lazily instantiated
+    // The set of ValueExpressions for this component, keyed by property
+    // name This collection is lazily instantiated
+    @Deprecated
+    protected Map<String, ValueExpression> bindings = null;
 
 }

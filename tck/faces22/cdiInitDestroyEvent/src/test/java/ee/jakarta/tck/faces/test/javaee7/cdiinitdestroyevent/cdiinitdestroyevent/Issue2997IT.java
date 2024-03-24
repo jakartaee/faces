@@ -43,7 +43,6 @@ import jakarta.faces.flow.FlowScoped;
 
 // https://github.com/eclipse-ee4j/mojarra/issues/3001
 // https://github.com/jakartaee/faces/issues/1734
-@Ignore("Depends on non-specified abandoned flow and @Initialized")
 @RunWith(Arquillian.class)
 public class Issue2997IT {
 

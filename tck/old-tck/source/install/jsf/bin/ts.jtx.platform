@@ -27,14 +27,10 @@ com/sun/ts/tests/jsf/spec/composite/facet/URLClient.java#compositeFacetsTagTest
 com/sun/ts/tests/jsf/spec/composite/packaging/classpath/URLClient.java#compositeClasspathPKGTest
 com/sun/ts/tests/jsf/spec/composite/packaging/webapproot/URLClient.java#compositeWebAppRootPKGTest
 com/sun/ts/tests/jsf/spec/composite/valueholder/URLClient.java#compositeValueHolderTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverFeatureDescriptorTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverGetTypeTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverIsReadOnlyTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverSetValueTest
 com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesManagedBeanResolverGetValueTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesResourceBundleResolverFeatureDescriptorTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesScopedAttributeResolverFeatureDescriptorTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#managedBeanELResolverFeatureDescriptorTest
 com/sun/ts/tests/jsf/spec/flows/basicmethodcall/URLClient.java#facesFlowBasicMethodCallTest
 com/sun/ts/tests/jsf/spec/flows/basicmultipage/URLClient.java#facesFlowScopeTest
 com/sun/ts/tests/jsf/spec/flows/multipagewebinf/URLClient.java#facesFlowWebInfScopeTest
@@ -44,15 +40,4 @@ com/sun/ts/tests/jsf/spec/render/onelistbox/URLClient.java#oneListboxRenderDecod
 com/sun/ts/tests/jsf/spec/render/outputlink/URLClient.java#outputLinkRenderPassthroughTest
 com/sun/ts/tests/jsf/spec/resource/packaging/classpath/URLClient.java#jsfJsDoesExistTest
 com/sun/ts/tests/jsf/spec/webapp/tldsig/URLClient.java#jsfTldSignatureTest
-
-#skipped due to htmlunit's rhino engine /javascript syntax incompabilitities, ported to old-tck-selenium
-com/sun/ts/tests/jsf/spec/ajax/tagwrapper/URLClient.java#ajaxTagWrappingTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxAllKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxThisKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxFormKeywordTest
-com/sun/ts/tests/jsf/spec/ajax/keyword/URLClient.java#ajaxNoneKeywordTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderEncodeTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderDecodeTest
-com/sun/ts/tests/jsf/spec/render/commandlink/URLClient.java#clinkRenderPassthroughTest
 com/sun/ts/tests/jsf/spec/view/protectedview/URLClient.java#viewProtectedViewNonAccessPointTest
-com/sun/ts/tests/jsf/spec/view/protectedview/URLClient.java#viewProtectedViewSameWebAppAccessTest
