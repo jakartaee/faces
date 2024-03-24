@@ -18,13 +18,13 @@
 package jakarta.faces.component.html;
 
 import static jakarta.faces.component.html.HtmlComponentUtils.handleAttribute;
+import static jakarta.faces.component.html.HtmlEvents.getFacesActionSourceEventNames;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 import jakarta.faces.component.UICommand;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.event.BehaviorEvent.FacesComponentEvent;
 
 /**
  * <p>
@@ -823,17 +823,14 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
         getStateHelper().put(PropertyKeys.type, type);
     }
 
-    private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList("blur", "change", "click", "action", "dblclick",
-            "focus", "keydown", "keypress", "keyup", "mousedown", "mousemove", "mouseout", "mouseover", "mouseup", "select"));
-
     @Override
     public Collection<String> getEventNames() {
-        return EVENT_NAMES;
+        return getFacesActionSourceEventNames(getFacesContext()); 
     }
 
     @Override
     public String getDefaultEventName() {
-        return "action";
+        return FacesComponentEvent.action.name();
     }
 
 }

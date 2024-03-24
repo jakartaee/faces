@@ -18,13 +18,13 @@
 package jakarta.faces.component.html;
 
 import static jakarta.faces.component.html.HtmlComponentUtils.handleAttribute;
+import static jakarta.faces.component.html.HtmlEvents.getFacesEditableValueHolderEventNames;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.event.BehaviorEvent.FacesComponentEvent;
 
 /**
  * <p>
@@ -846,17 +846,14 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
         handleAttribute(this, "title", title);
     }
 
-    private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(Arrays.asList("blur", "change", "valueChange", "click", "dblclick",
-            "focus", "keydown", "keypress", "keyup", "mousedown", "mousemove", "mouseout", "mouseover", "mouseup", "select"));
-
     @Override
     public Collection<String> getEventNames() {
-        return EVENT_NAMES;
+        return getFacesEditableValueHolderEventNames(getFacesContext()); 
     }
 
     @Override
     public String getDefaultEventName() {
-        return "valueChange";
+        return FacesComponentEvent.valueChange.name();
     }
 
 }

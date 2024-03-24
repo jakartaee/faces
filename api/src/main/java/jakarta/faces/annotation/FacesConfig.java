@@ -44,6 +44,7 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UIInput.ValidateEmptyFields;
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.component.html.HtmlEvents;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
@@ -67,6 +68,13 @@ import jakarta.inject.Qualifier;
 @Target(TYPE)
 @Retention(RUNTIME)
 public @interface FacesConfig {
+
+    /**
+     * <p class="changed_added_5_0">
+     * Returns {@value HtmlEvents#ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME} as {@link String} array with default of empty string array.
+     * </p>
+     */
+    @Nonbinding String[] additionalHtmlEventNames() default {};
 
     /**
      * <p class="changed_added_5_0">
@@ -266,6 +274,7 @@ public @interface FacesConfig {
      * </p>
      */
     @Nonbinding int websocketEndpointPort() default 0;
+
     /**
      * <p class="changed_added_4_0">
      * Supports inline instantiation of the {@link FacesConfig} qualifier.
@@ -281,6 +290,11 @@ public @interface FacesConfig {
          * Instance of the {@link FacesConfig} qualifier.
          */
         public static final Literal INSTANCE = new Literal();
+
+        @Override
+        public String[] additionalHtmlEventNames() {
+            return EMPTY_STRING_ARRAY;
+        }
 
         @Override
         public boolean alwaysPerformValidationWhenRequiredIsTrue() {
@@ -431,7 +445,12 @@ public @interface FacesConfig {
      *
      * @since 5.0
      */
-    public static enum ContextParam {
+    public enum ContextParam {
+
+        /**
+         * Returns {@value HtmlEvents#ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME} as {@link String} array with default of empty string array.
+         */
+        ADDITIONAL_HTML_EVENT_NAMES(HtmlEvents.ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME, FacesConfig::additionalHtmlEventNames, StringArray.SPACE_SEPARATED),
 
         /**
          * Returns {@value UIInput#ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE} as {@link Boolean} with default of {@code false}.
