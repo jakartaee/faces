@@ -1,7 +1,6 @@
 package jakarta.faces.component.html;
 
 import static java.util.Arrays.stream;
-import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toUnmodifiableList;
 
 import java.util.Arrays;
@@ -11,6 +10,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
+import jakarta.faces.annotation.FacesConfig.ContextParam;
 import jakarta.faces.component.ActionSource;
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
@@ -132,16 +132,12 @@ public final class HtmlEvents {
         throw new AssertionError();
     }
 
-    private static String[] parseAdditionalHtmlEventNames(FacesContext context) {
-        return ofNullable(context.getExternalContext().getInitParameter(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME)).map(p -> p.split("\\s+")).orElse(new String[0]);
-    }
-
     /**
      * @param context The involved faces context.
      * @return All additional HTML event names specified via {@link #ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME}.
      */
     public static Collection<String> getAdditionalHtmlEventNames(FacesContext context) {
-        return cache(CacheKey.ADDITIONAL_HTML_EVENT_NAMES, () -> collect(stream(parseAdditionalHtmlEventNames(context))));
+        return cache(CacheKey.ADDITIONAL_HTML_EVENT_NAMES, () -> collect(stream(ContextParam.ADDITIONAL_HTML_EVENT_NAMES.<String[]>getValue(context))));
     }
 
     /**
