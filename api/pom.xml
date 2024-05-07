@@ -126,7 +126,7 @@
     </mailingLists>
 
     <properties>
-        <mojarra.version>4.1.0-SNAPSHOT</mojarra.version>
+        <mojarra.version>4.1.0</mojarra.version>
     </properties>
 
     <dependencies>

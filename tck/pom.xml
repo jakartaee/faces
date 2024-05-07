@@ -487,7 +487,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
 
             <properties>
                 <!-- Explicit version of Mojarra to test -->
-                <mojarra.version>4.1.0-SNAPSHOT</mojarra.version>
+                <mojarra.version>4.1.0</mojarra.version>
                 
                 <!-- 
                     By default this profile will copy the Mojarra version to test to GlassFish.
