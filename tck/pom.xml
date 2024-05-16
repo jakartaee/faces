@@ -505,7 +505,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <sigtest.api.version>${mojarra.version}</sigtest.api.version>
 
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>8.0.0-M5</glassfish.version>
+                <glassfish.version>8.0.0-M6</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
                 <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
             </properties>
@@ -527,7 +527,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>21</version>
+                                    <version>17</version>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
