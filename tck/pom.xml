@@ -564,7 +564,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>copy</id>
+                                <id>update-mojarra</id>
                                 <phase>process-test-classes</phase>
                                 <goals>
                                     <goal>copy</goal>

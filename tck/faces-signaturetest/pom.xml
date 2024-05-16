@@ -41,7 +41,7 @@
 
         <sigtest.plugin.version>2.1</sigtest.plugin.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
-        <faces.api.version>4.1.0-M1</faces.api.version>
+        <faces.api.version>4.1.0</faces.api.version>
     </properties>
 
     <dependencies>
@@ -69,7 +69,7 @@
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <version>3.6.3</version>
+                            <version>3.8.6</version>
                         </requireMavenVersion>
                         <requireJavaVersion>
                             <version>17</version>
@@ -89,7 +89,7 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>copy</id>
+                        <id>copy-api-jar-to-test</id>
                         <phase>pre-integration-test</phase>
                         <goals>
                             <goal>copy</goal>
