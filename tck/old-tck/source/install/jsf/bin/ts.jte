@@ -198,7 +198,7 @@ ${ts.home}/lib/cssparser-0.9.25.jar${pathsep}\
 ${ts.home}/lib/dec-0.1.2.jar${pathsep}\
 ${ts.home}/lib/htmlunit-2.70.0.jar${pathsep}\
 ${ts.home}/lib/htmlunit-core-js-2.70.0.jar${pathsep}\
-${ts.home}/lib/htmlunit-cssparser-1.12.0.jar${pathsep}\
+${ts.home}/lib/htmlunit-cssparser-1.14.0.jar${pathsep}\
 ${ts.home}/lib/htmlunit-xpath-2.70.0.jar${pathsep}\
 ${ts.home}/lib/httpcore-4.4.9.jar${pathsep}\
 ${ts.home}/lib/httpclient-4.5.5.jar${pathsep}\
