@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2024 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -81,10 +82,10 @@ public class Issue4087IT {
         try {
 
             HtmlTextInput input1 = (HtmlTextInput)page.getHtmlElementById("localDateTime1");
-            input1.setValueAttribute("30 sep 2015 16:14:43");
+            input1.setValueAttribute("30 mei 2015 16:14:43");
 
             HtmlTextInput input2 = (HtmlTextInput)page.getHtmlElementById("localDateTime2");
-            input2.setValueAttribute("30 sep 2015 16:14:43");
+            input2.setValueAttribute("30 mei 2015 16:14:43");
 
             HtmlTextInput input3 = (HtmlTextInput)page.getHtmlElementById("localTime1");
             input3.setValueAttribute("16:14:43");
@@ -96,10 +97,10 @@ public class Issue4087IT {
             page1 = submit.click();
 
             HtmlSpan time1Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue1");
-            assertTrue(time1Output.getTextContent().contains("30 sep 2015 16:14"));
+            assertTrue(time1Output.getTextContent().contains("30 mei 2015 16:14"));
 
             HtmlSpan time2Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue2");
-            assertTrue(time2Output.getTextContent().contains("30 sep 2015 16:14"));
+            assertTrue(time2Output.getTextContent().contains("30 mei 2015 16:14"));
 
             HtmlSpan time3Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue1");
             assertTrue(time3Output.getTextContent().contains("16:14:43"));

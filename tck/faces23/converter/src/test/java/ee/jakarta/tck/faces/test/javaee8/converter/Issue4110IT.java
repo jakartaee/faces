@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2024 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -76,7 +77,7 @@ public class Issue4110IT {
      */
     @Test
     public void testLocalDate() throws Exception {
-        doTestJavaTimeTypes("30 sep 2015", "localDate", "2015-09-30");
+        doTestJavaTimeTypes("30 mei 2015", "localDate", "2015-05-30");
     }
 
     @Test
@@ -86,7 +87,7 @@ public class Issue4110IT {
 
     @Test
     public void testLocalDateTime() throws Exception {
-        doTestJavaTimeTypes("30 sep 2015 16:14:43", "localDateTime", "2015-09-30T16:14:43");
+        doTestJavaTimeTypes("30 mei 2015 16:14:43", "localDateTime", "2015-05-30T16:14:43");
     }
 
     private void doTestJavaTimeTypes(String value, String type, String expected) throws Exception {
