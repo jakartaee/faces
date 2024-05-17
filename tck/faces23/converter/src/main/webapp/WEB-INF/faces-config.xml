@@ -24,8 +24,8 @@
 
     <application>
         <locale-config>
-            <default-locale>en_US</default-locale>
-            <supported-locale>en_US</supported-locale>
+            <default-locale>nl_NL</default-locale>
+            <supported-locale>nl_NL</supported-locale>
         </locale-config>
     </application>
 

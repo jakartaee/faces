@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.7</version>
+        <version>1.0.9</version>
         <relativePath />
     </parent>
 
@@ -51,7 +51,7 @@
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
         
-        <faces.version>4.0.0</faces.version>
+        <faces.version>4.0.1</faces.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <tomcat.version>9.0.12</tomcat.version>
@@ -372,10 +372,10 @@
             <properties>
                 <!-- Explicit version of Mojarra to test -->
                 <mojarra.noupdate>false</mojarra.noupdate>
-                <mojarra.version>4.0.8-SNAPSHOT</mojarra.version>
+                <mojarra.version>4.0.11</mojarra.version>
                 
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>7.0.14</glassfish.version>
+                <glassfish.version>7.0.25</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
                 <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
             </properties>

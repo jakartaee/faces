@@ -33,7 +33,7 @@ import jakarta.inject.Named;
 public class BackingBean implements Serializable {
     private static final long serialVersionUID = 1544275452223321526L;
 
-    private Locale locale = new Locale("en", "US");
+    private Locale locale = new Locale("nl", "NL");
 
     public Locale getLocale() {
        return locale;
