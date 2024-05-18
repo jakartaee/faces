@@ -372,10 +372,10 @@
             <properties>
                 <!-- Explicit version of Mojarra to test -->
                 <mojarra.noupdate>false</mojarra.noupdate>
-                <mojarra.version>4.0.7-SNAPSHOT</mojarra.version>
+                <mojarra.version>4.0.8-SNAPSHOT</mojarra.version>
                 
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>7.0.13</glassfish.version>
+                <glassfish.version>7.0.14</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
                 <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
             </properties>
