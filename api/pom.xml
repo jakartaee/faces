@@ -507,37 +507,79 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
         </plugins>
     </build>
 
-
-
     <profiles>
         <profile>
             <id>docs</id>
             <build>
                 <plugins>
                     <!-- Create JS docs -->
-                    <!-- result will be saved in /target/site/jsdoc -->
+                    <!-- result will be saved in /src/main/resources/META-INF/resources/META-INF/resources/jakarta.faces/out -->
                     <plugin>
-                        <groupId>com.phasebash.jsdoc</groupId>
-                        <artifactId>jsdoc3-maven-plugin</artifactId>
-                        <version>1.2.0</version>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>1.15.0</version>
+
+                        <configuration>
+                            <nodeVersion>v21.0.0</nodeVersion>
+                            <npmVersion>10.8.0</npmVersion>
+                            <installDirectory>./target/node</installDirectory>
+                            <workingDirectory>src/main/resources/META-INF/resources/jakarta.faces</workingDirectory>
+                        </configuration>
                         <executions>
                             <execution>
-                                <id>generate-jsdoc</id>
-                                <phase>prepare-package</phase>
+                                <id>install node and npm</id>
                                 <goals>
-                                    <goal>jsdoc3</goal>
+                                    <goal>install-node-and-npm</goal>
                                 </goals>
+                                <phase>generate-resources</phase>
+                            </execution>
+
+                            <execution>
+                                <id>npm install jsdoc</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
                                 <configuration>
-                                    <includePrivate>false</includePrivate>
-                                    <lenient>true</lenient>
-                                    <configFile>${project.build.directory}/../src/main/jsdoc/conf.json</configFile>
-                                    <sourceFiles>
-                                        <sourceFile>src/main/resources/META-INF/resources/jakarta.faces/faces-uncompressed.js</sourceFile>
-                                    </sourceFiles>
+                                    <arguments>install --save-dev jsdoc</arguments>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>npm run init</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>init --force --yes</arguments>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>npm run build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>pkg set scripts.doc="jsdoc"</arguments>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>npm run build1</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>run doc faces-uncompressed.js</arguments>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
+
 
                     <!-- Create Renderkit docs -->
                     <!-- Result will be saved in /target/renderkitdoc  -->
@@ -599,6 +641,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                             </execution>
                         </executions>
                     </plugin>
+
 
 
                     <!-- Create VDL docs -->
