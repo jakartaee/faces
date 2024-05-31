@@ -28,7 +28,6 @@ module jakarta.faces {
     requires static jakarta.websocket;
     requires static jakarta.persistence;
     requires static jakarta.ejb;
-    requires static jakarta.xml.ws;
     requires static jakarta.json;
     requires transitive java.desktop;
     requires transitive java.sql;
