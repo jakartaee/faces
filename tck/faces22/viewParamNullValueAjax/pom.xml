@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces22</groupId>
         <artifactId>pom</artifactId>
-        <version>4.0.3-SNAPSHOT</version>
+        <version>4.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>viewParamNullValueAjax</artifactId>

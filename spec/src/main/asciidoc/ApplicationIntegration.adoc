@@ -2195,10 +2195,10 @@ _UIViewAction_ (respectively) to be added to the view. Because
 _UIViewParameter_ extends _UIInput_ it is valid to attach any of the
 kinds of attached objects to an _<f:viewParameter>_ that are valid for
 any element that represents any other kind of _UIInput_ in the view.
-Because _UIViewAction_ implements _ActionSource2_, it is valid to
+Because _UIViewAction_ implements _ActionSource_, it is valid to
 attach any of the kinds of attached objects to an _<f:viewAction>_ that
 are valid for any element that represents any other kind of
-_ActionSource2_ in the view.
+_ActionSource_ in the view.
 
 
 [source,java]

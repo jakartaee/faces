@@ -29,9 +29,10 @@
         <h:form id="form">
             <h:panelGrid columns="2">
                 <h:outputText value="Ajax Input:"/>
-                <h:inputText id="input" value="#{issue2578Bean.text2}">
-                    <f:ajax  execute="@this" render="@this" event="change"/>
-                </h:inputText>    
+                <h:inputText id="input" value="#{issue2578Bean.text2}" />
+                <h:commandButton id="fill" value="Fill" action="#{issue2578Bean.setText2('hello')}">
+                    <f:ajax execute="@this" render="input" />
+                </h:commandButton>    
             </h:panelGrid>            
             <h:panelGroup>
                 <h:commandButton id="clear" value="Clear" actionListener="#{issue2578Bean.altClear}"

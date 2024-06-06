@@ -47,16 +47,15 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverLogLevel;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chromium.ChromiumNetworkConditions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v108.network.Network;
-import org.openqa.selenium.devtools.v108.network.model.Request;
-import org.openqa.selenium.devtools.v108.network.model.RequestId;
-import org.openqa.selenium.devtools.v108.network.model.ResponseReceived;
-import org.openqa.selenium.devtools.v108.network.model.TimeSinceEpoch;
+import org.openqa.selenium.devtools.v124.network.Network;
+import org.openqa.selenium.devtools.v124.network.model.Request;
+import org.openqa.selenium.devtools.v124.network.model.RequestId;
+import org.openqa.selenium.devtools.v124.network.model.ResponseReceived;
+import org.openqa.selenium.devtools.v124.network.model.TimeSinceEpoch;
 import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.html5.SessionStorage;
@@ -126,7 +125,8 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         options.setExperimentalOption("prefs", prefs);
         options.addArguments("--lang=en");
 
-        options.setLogLevel(ChromeDriverLogLevel.OFF);
+        //* @deprecated Use {@link ChromeDriverService.Builder#withLogLevel(ChromeDriverLogLevel)} to set log level.
+        // options.setLogLevel(ChromeDriverLogLevel.OFF);
 
         ExtendedWebDriver driver = new ChromeDevtoolsDriver(options);
         driver.manage().timeouts().implicitlyWait(WebPage.STD_TIMEOUT);

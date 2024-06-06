@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.faces.tck</groupId>
         <artifactId>jakarta-faces-tck</artifactId>
-        <version>4.0.3-SNAPSHOT</version>
+        <version>4.1.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.eclipse.ee4j.tck.faces.faces23</groupId>
@@ -47,6 +47,7 @@
         <module>flash</module>
         <module>getViews</module>
         <module>importConstants</module>
+        <module>localizedComposite</module>
         <module>namespacedView</module>
         <module>passthrough</module>
 <!--
@@ -57,11 +58,13 @@
 -->
         <module>searchExpression</module>
         <module>systemEvent</module>
+        <module>uidecorate</module>
         <module>uiinput</module>
         <module>uiinput-required-true</module>
         <module>validateWholeBean</module>
         <module>websocket</module>
         <module>xhtmlMappingToFaceletByDefault</module>
+        <module>xhtmlNamespaces</module>
     </modules>
 
     <dependencies>
