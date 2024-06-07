@@ -232,10 +232,6 @@ feature. Here is a summary of the Jakarta EE annotations one may use in a
 
 - _@jakarta.ejb.EJBs_
 
-- _@jakarta.xml.ws.WebServiceRef_
-
-- _@jakarta.xml.ws.WebServiceRefs_
-
 - _@jakarta.persistence.PersistenceContext_
 
 - _@jakarta.persistence.PersistenceContexts_
