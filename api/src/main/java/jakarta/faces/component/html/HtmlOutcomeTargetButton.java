@@ -18,13 +18,13 @@
 package jakarta.faces.component.html;
 
 import static jakarta.faces.component.html.HtmlComponentUtils.handleAttribute;
+import static jakarta.faces.component.html.HtmlEvents.getHtmlBodyElementEventNames;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 
 import jakarta.faces.component.UIOutcomeTarget;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
+import jakarta.faces.component.html.HtmlEvents.HtmlDocumentElementEvent;
 
 /**
  * <p>
@@ -693,17 +693,14 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
         handleAttribute(this, "title", title);
     }
 
-    private static final Collection<String> EVENT_NAMES = Collections.unmodifiableCollection(
-            Arrays.asList("blur", "click", "dblclick", "focus", "keydown", "keypress", "keyup", "mousedown", "mousemove", "mouseout", "mouseover", "mouseup"));
-
     @Override
     public Collection<String> getEventNames() {
-        return EVENT_NAMES;
+        return getHtmlBodyElementEventNames(getFacesContext()); 
     }
 
     @Override
     public String getDefaultEventName() {
-        return null;
+        return HtmlDocumentElementEvent.click.name();
     }
 
 }
