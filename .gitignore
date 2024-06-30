@@ -80,3 +80,4 @@ Mojarra.iml
 
 **/JSF_BUILD/**
 **/i18n.properties
+**/.flattened-pom.xml

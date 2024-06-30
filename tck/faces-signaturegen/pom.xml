@@ -38,19 +38,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!-- 
-            For now the sigtest plugin has to be locally compiled from
-            https://github.com/eclipse-ee4j/jakartaee-tck-tools/tree/master/tools/sigtest
-        -->
         <sigtest.plugin.version>2.1</sigtest.plugin.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
-        <faces.api.version>4.1.0-M1</faces.api.version>
-        <enterprise.cdi.api.version>4.1.0-M1</enterprise.cdi.api.version>
-        <el.api.version>6.0.0-M2</el.api.version>
-        <websocket.api.version>2.2.0-M1</websocket.api.version>
-        <servlet.api.version>6.1.0-M1</servlet.api.version>
+        <faces.api.version>4.1.0</faces.api.version>
+        <enterprise.cdi.api.version>4.1.0</enterprise.cdi.api.version>
+        <el.api.version>6.0.0</el.api.version>
+        <websocket.api.version>2.2.0</websocket.api.version>
+        <servlet.api.version>6.1.0</servlet.api.version>
         <inject.api.version>2.0.1.MR</inject.api.version>
-        <validation.api.version>3.1.0-M1</validation.api.version>
+        <validation.api.version>3.1.0</validation.api.version>
     </properties>
 
     <repositories>

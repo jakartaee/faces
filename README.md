@@ -20,11 +20,6 @@ To make changes, fork this repository, make your changes, and submit a pull requ
 
 ## Plans for Faces.next
 
-### 4.1
-
-- https://github.com/jakartaee/faces/milestone/20
-- https://projects.eclipse.org/projects/ee4j.faces/releases/4.1/plan
-
 ### 5.0
 
 - https://github.com/jakartaee/faces/milestone/22
@@ -32,5 +27,5 @@ To make changes, fork this repository, make your changes, and submit a pull requ
 
 ## Branches
 
-The `master` branch **must** represent the latest release version, which is currently 4.0.
+The `master` branch **must** represent the latest release version, which is currently 4.1.
 Work for Faces.next **must** go in separate branches matching their version.
