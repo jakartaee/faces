@@ -235,22 +235,6 @@
                     <exclude>${findbugs.exclude}</exclude>
                 </excludes>
             </resource>
-            <resource>
-                <directory>${project.basedir}/..</directory>
-                <includes>
-                    <include>LICENSE.md</include>
-                    <include>NOTICE.md</include>
-                </includes>
-                <targetPath>META-INF</targetPath>
-            </resource>
-            <resource>
-                <directory>${project.basedir}</directory>
-                <includes>
-                    <include>LICENSE.md</include>
-                    <include>NOTICE.md</include>
-                </includes>
-                <targetPath>META-INF</targetPath>
-            </resource>
         </resources>
         
         <plugins>
@@ -315,6 +299,32 @@
                         </Export-Package>
                     </instructions>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-license-and-notice-files-from-parent-folder</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/..</directory>
+                                    <includes>
+				                        <include>LICENSE.md</include>
+				                        <include>NOTICE.md</include>
+								    </includes>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
