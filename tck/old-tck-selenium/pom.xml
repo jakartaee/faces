@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.faces.tck</groupId>
         <artifactId>jakarta-faces-tck</artifactId>
-        <version>4.0.3-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
     </parent>
 
     <groupId>org.eclipse.ee4j.tck.faces.old-tck-selenium</groupId>
