@@ -83,10 +83,10 @@ public class Issue4087IT {
         try {
 
             HtmlTextInput input1 = (HtmlTextInput)page.getHtmlElementById("localDateTime1");
-            input1.setValueAttribute("Sep 30, 2015, 4:14:43 PM");
+            input1.setValueAttribute("May 30, 2015, 4:14:43 PM");
 
             HtmlTextInput input2 = (HtmlTextInput)page.getHtmlElementById("localDateTime2");
-            input2.setValueAttribute("Sep 30, 2015, 4:14:43 PM");
+            input2.setValueAttribute("May 30, 2015, 4:14:43 PM");
 
             HtmlTextInput input3 = (HtmlTextInput)page.getHtmlElementById("localTime1");
             input3.setValueAttribute("4:14:43 PM");
@@ -98,10 +98,10 @@ public class Issue4087IT {
             page1 = submit.click();
 
             HtmlSpan time1Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue1");
-            assertTrue(time1Output.getTextContent().contains("Sep 30, 2015, 4:14 PM"));
+            assertTrue(time1Output.getTextContent().contains("May 30, 2015, 4:14 PM"));
 
             HtmlSpan time2Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue2");
-            assertTrue(time2Output.getTextContent().contains("Sep 30, 2015, 4:14 PM"));
+            assertTrue(time2Output.getTextContent().contains("May 30, 2015, 4:14 PM"));
 
             HtmlSpan time3Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue1");
             assertTrue(time3Output.getTextContent().contains("4:14:43 PM"));

@@ -76,9 +76,9 @@ public class Issue4110IT {
      */
     @Test
     public void testJavaTimeTypes() throws Exception {
-        doTestJavaTimeTypes("30 sep. 2015", "localDate", "2015-09-30");
+        doTestJavaTimeTypes("30 may 2015", "localDate", "2015-05-30");
         doTestJavaTimeTypes("16:52:56", "localTime", "16:52:56");
-        doTestJavaTimeTypes("30 sep. 2015 16:14:43", "localDateTime", "2015-09-30T16:14:43");
+        doTestJavaTimeTypes("30 may 2015 16:14:43", "localDateTime", "2015-05-30T16:14:43");
     }
 
     private void doTestJavaTimeTypes(String value, String type, String expected) throws Exception {

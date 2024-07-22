@@ -93,9 +93,9 @@ public class Issue4070IT {
         System.out.println("Expected format " + expectedFormat);
 
 
-        doTestJavaTimeTypes("Sep 30, 2015, 4:14:43 PM", "localDateTime", "2015-09-30T16:14:43");
+        doTestJavaTimeTypes("May 30, 2015, 4:14:43 PM", "localDateTime", "2015-05-30T16:14:43");
 
-        doTestJavaTimeTypes("Sep 30, 2015", "localDate", "2015-09-30");
+        doTestJavaTimeTypes("May 30, 2015", "localDate", "2015-05-30");
 
         doTestJavaTimeTypes("4:52:56 PM", "localTime", "16:52:56");
 
