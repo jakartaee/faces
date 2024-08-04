@@ -1011,9 +1011,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     }
 
     /**
-     * <p class="changed_added_2_2">
-     * Visit the clientIds and, if the component is an instance of {@link EditableValueHolder}, call its
-     * {@link EditableValueHolder#resetValue} method. Use {@link #visitTree} to do the visiting.
+     * <p class="changed_added_2_2 changed_modified_5_0">
+     * Use {@link #visitTree} to visit the clientIds and, if the node is an instance of {@link EditableValueHolder}, call its
+     * {@link EditableValueHolder#resetValue} method.
      * </p>
      *
      * @since 2.2
@@ -1031,6 +1031,10 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         public VisitResult visit(VisitContext context, UIComponent target) {
             if (target instanceof EditableValueHolder) {
                 ((EditableValueHolder) target).resetValue();
+            }
+            else if (!VisitContext.ALL_IDS.equals(context.getIdsToVisit())) {
+                // Render ID didn't specifically point an EditableValueHolder. Visit all children as well.
+                target.visitTree(VisitContext.createVisitContext(context.getFacesContext(), null, context.getHints()), this);
             }
             return VisitResult.ACCEPT;
         }
