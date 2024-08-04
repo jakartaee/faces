@@ -16,87 +16,77 @@
 
 package jakarta.faces.event;
 
-import static java.util.Collections.unmodifiableMap;
 import static java.util.function.Function.identity;
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.toUnmodifiableMap;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 import jakarta.faces.FacesException;
 
 /**
  * <p>
- * <span class="changed_modified_2_2">Typesafe</span> enumeration of the legal values that may be returned by the
+ * <span class="changed_modified_2_2 changed_modified_5_0">Enum</span> of the legal values that may be returned by the
  * <code>getPhaseId()</code> method of the {@link FacesEvent} interface.
+ * </p>
  */
 
-public class PhaseId implements Comparable {
-
-    // ----------------------------------------------------------- Constructors
+public enum PhaseId {
 
     /**
      * <p>
-     * Private constructor to disable the creation of new instances.
+     * Identifier that indicates an interest in events, no matter which request processing phase is being performed.
      * </p>
      */
-    private PhaseId(String newPhaseName) {
-        phaseName = newPhaseName;
-    }
-
-    // ----------------------------------------------------- Instance Variables
+    ANY_PHASE,
 
     /**
      * <p>
-     * The ordinal value assigned to this instance.
+     * Identifier that indicates an interest in events queued for the <em>Restore View</em> phase of the request processing
+     * lifecycle.
      * </p>
      */
-    private final int ordinal = nextOrdinal++;
-
+    RESTORE_VIEW,
+    
     /**
      * <p>
-     * The name for this phase. (can't be null)
-     * The constructor is private and all the values has a name, furthermore
-     * inside the method {@link PhaseId#phaseIdValueOf(String)} the phase name it's required not null
-     *
-     * Even more the name is used inside UIViewAction
-     * {@link jakarta.faces.component.UIViewAction#setPhase}
+     * Identifier that indicates an interest in events queued for the <em>Apply Request Values</em> phase of the request
+     * processing lifecycle.
      * </p>
      */
-
-    private final String phaseName;
-
-    // --------------------------------------------------------- Public Methods
-
+    APPLY_REQUEST_VALUES,
+    
     /**
      * <p>
-     * Compare this {@link PhaseId} instance to the specified one. Returns a negative integer, zero, or a positive integer
-     * if this object is less than, equal to, or greater than the specified object.
+     * Identifier that indicates an interest in events queued for the <em>Process Validations</em> phase of the request
+     * processing lifecycle.
      * </p>
-     *
-     * @param phaseId The other {@link PhaseId} to be compared to
      */
-    @Override
-    public int compareTo(Object phaseId) {
-
-        return ordinal - ((PhaseId)phaseId).ordinal;
-
-    }
-
+    PROCESS_VALIDATIONS,
+    
     /**
      * <p>
-     * Return the ordinal value of this {@link PhaseId} instance.
+     * Identifier that indicates an interest in events queued for the <em>Update Model Values</em> phase of the request
+     * processing lifecycle.
      * </p>
-     *
-     * @return the ordinal
      */
-    public int getOrdinal() {
-
-        return ordinal;
-
-    }
+    UPDATE_MODEL_VALUES,
+    
+    /**
+     * <p>
+     * Identifier that indicates an interest in events queued for the <em>Invoke Application</em> phase of the request
+     * processing lifecycle.
+     * </p>
+     */
+    INVOKE_APPLICATION,
+    
+    /**
+     * <p>
+     * Identifier for the <em>Render Response</em> phase of the request processing lifecycle.
+     * </p>
+     */
+    RENDER_RESPONSE;
 
     /**
      * <p>
@@ -105,7 +95,7 @@ public class PhaseId implements Comparable {
      */
     @Override
     public String toString() {
-        return phaseName + ' ' + ordinal;
+        return name() + ' ' + ordinal();
     }
 
     /**
@@ -119,7 +109,7 @@ public class PhaseId implements Comparable {
      */
 
     public String getName() {
-        return phaseName;
+        return this == ANY_PHASE ? "ANY" : name();
     }
 
     /**
@@ -150,102 +140,20 @@ public class PhaseId implements Comparable {
         return result;
     }
 
-    // ------------------------------------------------------- Static Variables
-
-    /**
-     * <p>
-     * Static counter returning the ordinal value to be assigned to the next instance that is created.
-     * </p>
-     */
-    private static int nextOrdinal = 0;
-
     // ------------------------------------------------------ Create Instances
-
-    // Any new Phase values must go at the end of the list, or we will break
-    // backwards compatibility on serialized instances
-
-    private static final String ANY_PHASE_NAME = "ANY";
-    /**
-     * <p>
-     * Identifier that indicates an interest in events, no matter which request processing phase is being performed.
-     * </p>
-     */
-    public static final PhaseId ANY_PHASE = new PhaseId(ANY_PHASE_NAME);
-
-    private static final String RESTORE_VIEW_NAME = "RESTORE_VIEW";
-    /**
-     * <p>
-     * Identifier that indicates an interest in events queued for the <em>Restore View</em> phase of the request processing
-     * lifecycle.
-     * </p>
-     */
-    public static final PhaseId RESTORE_VIEW = new PhaseId(RESTORE_VIEW_NAME);
-
-    private static final String APPLY_REQUEST_VALUES_NAME = "APPLY_REQUEST_VALUES";
-    /**
-     * <p>
-     * Identifier that indicates an interest in events queued for the <em>Apply Request Values</em> phase of the request
-     * processing lifecycle.
-     * </p>
-     */
-    public static final PhaseId APPLY_REQUEST_VALUES = new PhaseId(APPLY_REQUEST_VALUES_NAME);
-
-    private static final String PROCESS_VALIDATIONS_NAME = "PROCESS_VALIDATIONS";
-    /**
-     * <p>
-     * Identifier that indicates an interest in events queued for the <em>Process Validations</em> phase of the request
-     * processing lifecycle.
-     * </p>
-     */
-    public static final PhaseId PROCESS_VALIDATIONS = new PhaseId(PROCESS_VALIDATIONS_NAME);
-
-    private static final String UPDATE_MODEL_VALUES_NAME = "UPDATE_MODEL_VALUES";
-    /**
-     * <p>
-     * Identifier that indicates an interest in events queued for the <em>Update Model Values</em> phase of the request
-     * processing lifecycle.
-     * </p>
-     */
-    public static final PhaseId UPDATE_MODEL_VALUES = new PhaseId(UPDATE_MODEL_VALUES_NAME);
-
-    private static final String INVOKE_APPLICATION_NAME = "INVOKE_APPLICATION";
-    /**
-     * <p>
-     * Identifier that indicates an interest in events queued for the <em>Invoke Application</em> phase of the request
-     * processing lifecycle.
-     * </p>
-     */
-    public static final PhaseId INVOKE_APPLICATION = new PhaseId(INVOKE_APPLICATION_NAME);
-
-    private static final String RENDER_RESPONSE_NAME = "RENDER_RESPONSE";
-    /**
-     * <p>
-     * Identifier for the <em>Render Response</em> phase of the request processing lifecycle.
-     * </p>
-     */
-    public static final PhaseId RENDER_RESPONSE = new PhaseId(RENDER_RESPONSE_NAME);
-
-    /**
-     * <p>
-     * Array of all defined values, ascending order of ordinal value. Be sure you include any new instances created above,
-     * in the same order.
-     * </p>
-     */
-    private static final PhaseId[] values = { ANY_PHASE, RESTORE_VIEW, APPLY_REQUEST_VALUES, PROCESS_VALIDATIONS, UPDATE_MODEL_VALUES, INVOKE_APPLICATION,
-            RENDER_RESPONSE };
 
     /**
      * <p>
      * List of valid {@link PhaseId} instances, in ascending order of their ordinal value.
      * </p>
      */
-    public static final List<PhaseId> VALUES = List.of(values);
+    public static final List<PhaseId> VALUES = List.of(values());
 
     /**
      * <p>
      * Valid {@link PhaseId} instances, mapped by their uppercase name
      * </p>
      */
-    private static final Map<String,PhaseId> VALUES_BY_NAME = unmodifiableMap(Stream.of(values).collect(toMap( phase -> phase.getName().toUpperCase() , identity())));
+    private static final Map<String,PhaseId> VALUES_BY_NAME = VALUES.stream().collect(toUnmodifiableMap(PhaseId::name, identity()));
 
 }

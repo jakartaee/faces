@@ -782,7 +782,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             this.events = events;
         }
 
-        events.get(event.getPhaseId().getOrdinal()).add(event);
+        events.get(event.getPhaseId().ordinal()).add(event);
     }
 
     /**
@@ -808,7 +808,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         boolean hasMoreAnyPhaseEvents;
         boolean hasMoreCurrentPhaseEvents;
 
-        List<FacesEvent> eventsForPhaseId = events.get(PhaseId.ANY_PHASE.getOrdinal());
+        List<FacesEvent> eventsForPhaseId = events.get(PhaseId.ANY_PHASE.ordinal());
 
         // keep iterating till we have no more events to broadcast.
         // This is necessary for events that cause other events to be
@@ -846,7 +846,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             }
 
             // then broadcast the events for this phase.
-            if ((eventsForPhaseId = events.get(phaseId.getOrdinal())) != null) {
+            if ((eventsForPhaseId = events.get(phaseId.ordinal())) != null) {
                 // We cannot use an Iterator because we will get
                 // ConcurrentModificationException errors, so fake it
                 while (!eventsForPhaseId.isEmpty()) {
@@ -877,9 +877,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             }
 
             // true if we have any more ANY_PHASE events
-            hasMoreAnyPhaseEvents = null != (eventsForPhaseId = events.get(PhaseId.ANY_PHASE.getOrdinal())) && !eventsForPhaseId.isEmpty();
+            hasMoreAnyPhaseEvents = null != (eventsForPhaseId = events.get(PhaseId.ANY_PHASE.ordinal())) && !eventsForPhaseId.isEmpty();
             // true if we have any more events for the argument phaseId
-            hasMoreCurrentPhaseEvents = null != events.get(phaseId.getOrdinal()) && !events.get(phaseId.getOrdinal()).isEmpty();
+            hasMoreCurrentPhaseEvents = null != events.get(phaseId.ordinal()) && !events.get(phaseId.ordinal()).isEmpty();
 
         } while (hasMoreAnyPhaseEvents || hasMoreCurrentPhaseEvents);
     }
