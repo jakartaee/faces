@@ -37,7 +37,9 @@ import jakarta.faces.flow.Flow;
  * </p>
  *
  * @since 2.2
+ * @deprecated Use {@link NavigationHandlerWrapper} instead. The methods have been merged.
  */
+@Deprecated(since = "5.0", forRemoval = true)
 public abstract class ConfigurableNavigationHandlerWrapper extends ConfigurableNavigationHandler implements FacesWrapper<ConfigurableNavigationHandler> {
 
     private ConfigurableNavigationHandler wrapped;
