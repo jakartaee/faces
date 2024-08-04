@@ -46,7 +46,7 @@ import jakarta.faces.convert.Converter;
  * </p>
  */
 
-public class LengthValidator implements Validator, PartialStateHolder {
+public class LengthValidator implements Validator<Object>, PartialStateHolder {
 
     // ------------------------------------------------------ Manifest Constants
 

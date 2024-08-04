@@ -60,7 +60,7 @@ import jakarta.validation.groups.Default;
  *
  * @since 2.0
  */
-public class BeanValidator implements Validator, PartialStateHolder {
+public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
     private static final Logger LOGGER = Logger.getLogger("jakarta.faces.validator", "jakarta.faces.LogStrings");
 
