@@ -25,7 +25,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  */
 
-public class ShortConverter implements Converter {
+public class ShortConverter implements Converter<Short> {
 
     // ------------------------------------------------------ Manifest Constants
 
@@ -70,7 +70,7 @@ public class ShortConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Short getAsObject(FacesContext context, UIComponent component, String value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -99,7 +99,7 @@ public class ShortConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Short value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -111,14 +111,8 @@ public class ShortConverter implements Converter {
             return "";
         }
 
-        // If the incoming value is still a string, play nice
-        // and return the value unmodified
-        if (value instanceof String) {
-            return (String) value;
-        }
-
         try {
-            return Short.toString(((Number) value).shortValue());
+            return value.toString();
         } catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
         }

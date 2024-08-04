@@ -25,7 +25,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  */
 
-public class IntegerConverter implements Converter {
+public class IntegerConverter implements Converter<Integer> {
 
     // ------------------------------------------------------ Manifest Constants
 
@@ -70,7 +70,7 @@ public class IntegerConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Integer getAsObject(FacesContext context, UIComponent component, String value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -99,7 +99,7 @@ public class IntegerConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Integer value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -110,14 +110,8 @@ public class IntegerConverter implements Converter {
             return "";
         }
 
-        // If the incoming value is still a string, play nice
-        // and return the value unmodified
-        if (value instanceof String) {
-            return (String) value;
-        }
-
         try {
-            return Integer.toString(((Number) value).intValue());
+            return value.toString();
         } catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
         }

@@ -104,7 +104,7 @@ import jakarta.faces.context.FacesContext;
  * </ul>
  */
 
-public class DateTimeConverter implements Converter, PartialStateHolder {
+public class DateTimeConverter implements Converter<Object>, PartialStateHolder {
 
     // ------------------------------------------------------ Manifest Constants
 
