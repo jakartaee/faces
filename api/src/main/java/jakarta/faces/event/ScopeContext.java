@@ -25,7 +25,9 @@ import java.util.Map;
  * </p>
  *
  * @since 2.0
+ * @deprecated without replacement as this is nowhere used anymore since 4.0.
  */
+@Deprecated(since = "5.0", forRemoval = true)
 public class ScopeContext {
 
     private final String scopeName;
