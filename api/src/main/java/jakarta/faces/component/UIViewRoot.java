@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
@@ -43,6 +44,7 @@ import jakarta.faces.application.ResourceHandler;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.PartialViewContext;
@@ -1012,7 +1014,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_2">
-     * Visit the clientIds and, if the component is an instance of {@link EditableValueHolder}, call its
+     * Visit the clientIds <span class="changed_added_5_0"> with the given visit hints, if any,</span> and, if the component is an instance of {@link EditableValueHolder}, call its
      * {@link EditableValueHolder#resetValue} method. Use {@link #visitTree} to do the visiting.
      * </p>
      *
@@ -1020,10 +1022,11 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      *
      * @param context the {@link FacesContext} for the request we are processing.
      * @param clientIds The client ids to be visited, on which the described action will be taken.
+     * @param visitHints Since 5.0: Any visit hints you wish to apply to the visit.
      */
 
-    public void resetValues(FacesContext context, Collection<String> clientIds) {
-        visitTree(VisitContext.createVisitContext(context, clientIds, null), new DoResetValues());
+    public void resetValues(FacesContext context, Collection<String> clientIds, VisitHint... visitHints) {
+        visitTree(VisitContext.createVisitContext(context, clientIds, visitHints.length == 0 ? null : Set.of(visitHints)), new DoResetValues());
     }
 
     private static class DoResetValues implements VisitCallback {
