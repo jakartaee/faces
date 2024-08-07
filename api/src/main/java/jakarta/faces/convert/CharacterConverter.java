@@ -25,7 +25,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  */
 
-public class CharacterConverter implements Converter {
+public class CharacterConverter implements Converter<Character> {
 
     // ------------------------------------------------------ Manifest Constants
 
@@ -69,7 +69,7 @@ public class CharacterConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Character getAsObject(FacesContext context, UIComponent component, String value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -96,7 +96,7 @@ public class CharacterConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Character value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -112,6 +112,5 @@ public class CharacterConverter implements Converter {
         } catch (Exception e) {
             throw new ConverterException(e);
         }
-
     }
 }

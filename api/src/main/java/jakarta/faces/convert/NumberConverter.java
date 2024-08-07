@@ -91,7 +91,7 @@ import jakarta.faces.context.FacesContext;
  * </ul>
  */
 
-public class NumberConverter implements Converter, PartialStateHolder {
+public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     // ------------------------------------------------------ Manifest Constants
 
@@ -513,13 +513,13 @@ public class NumberConverter implements Converter, PartialStateHolder {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Number getAsObject(FacesContext context, UIComponent component, String value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
         }
 
-        Object returnValue = null;
+        Number returnValue = null;
         NumberFormat parser = null;
 
         try {
@@ -608,7 +608,7 @@ public class NumberConverter implements Converter, PartialStateHolder {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Number value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -619,12 +619,6 @@ public class NumberConverter implements Converter, PartialStateHolder {
             // If the specified value is null, return a zero-length String
             if (value == null) {
                 return "";
-            }
-
-            // If the incoming value is still a string, play nice
-            // and return the value unmodified
-            if (value instanceof String) {
-                return (String) value;
             }
 
             // Identify the Locale to use for formatting

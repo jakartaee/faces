@@ -27,7 +27,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  */
 
-public class BigIntegerConverter implements Converter {
+public class BigIntegerConverter implements Converter<BigInteger> {
 
     // ------------------------------------------------------ Manifest Constants
 
@@ -72,7 +72,7 @@ public class BigIntegerConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public BigInteger getAsObject(FacesContext context, UIComponent component, String value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -101,7 +101,7 @@ public class BigIntegerConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, BigInteger value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -110,12 +110,6 @@ public class BigIntegerConverter implements Converter {
         // If the specified value is null, return a zero-length String
         if (value == null) {
             return "";
-        }
-
-        // If the incoming value is still a string, play nice
-        // and return the value unmodified
-        if (value instanceof String) {
-            return (String) value;
         }
 
         try {

@@ -25,7 +25,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  */
 
-public class LongConverter implements Converter {
+public class LongConverter implements Converter<Long> {
 
     // ------------------------------------------------------ Manifest Constants
 
@@ -70,7 +70,7 @@ public class LongConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Long getAsObject(FacesContext context, UIComponent component, String value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -99,7 +99,7 @@ public class LongConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Long value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -110,14 +110,8 @@ public class LongConverter implements Converter {
             return "";
         }
 
-        // If the incoming value is still a string, play nice
-        // and return the value unmodified
-        if (value instanceof String) {
-            return (String) value;
-        }
-
         try {
-            return Long.toString(((Number) value).longValue());
+            return value.toString();
         } catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
         }

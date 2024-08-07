@@ -28,7 +28,7 @@ import jakarta.faces.context.FacesContext;
  *
  * @since 1.2
  */
-public class EnumConverter implements Converter, PartialStateHolder {
+public class EnumConverter implements Converter<Enum>, PartialStateHolder {
 
     /**
      * <p>
@@ -107,7 +107,7 @@ public class EnumConverter implements Converter, PartialStateHolder {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Enum getAsObject(FacesContext context, UIComponent component, String value) {
         if (context == null || component == null) {
             throw new NullPointerException();
         }
@@ -148,7 +148,7 @@ public class EnumConverter implements Converter, PartialStateHolder {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Enum value) {
         if (context == null || component == null) {
             throw new NullPointerException();
         }
@@ -163,7 +163,7 @@ public class EnumConverter implements Converter, PartialStateHolder {
         }
 
         if (targetClass.isInstance(value)) {
-            return ((Enum) value).name();
+            return value.name();
         }
 
         throw new ConverterException(MessageFactory.getMessage(context, ENUM_ID, value, value, MessageFactory.getLabel(context, component)));
