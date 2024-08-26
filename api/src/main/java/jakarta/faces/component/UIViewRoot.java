@@ -1013,8 +1013,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     }
 
     /**
-     * <p class="changed_added_2_2 changed_modified_5_0">
-     * Use {@link #visitTree} to visit the clientIds with the given visit hints, if any, and, if the node is an instance of {@link EditableValueHolder}, call its
+     * <p class="changed_added_2_2">
+     * <span class="changed_modified_5_0">Use {@link #visitTree} to visit the clientIds</span> <span class="changed_added_5_0">with the given visit hints, if any,</span> and, if the <span class="changed_modified_5_0">node</span> is an instance of {@link EditableValueHolder}, call its
      * {@link EditableValueHolder#resetValue} method.
      * </p>
      *
