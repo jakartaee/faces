@@ -96,7 +96,7 @@ class FloatConverterTest {
     void testGetAsString3() {
         FloatConverter converter = new FloatConverter();
         FacesContext facesContext = Mockito.mock(FacesContext.class);
-        assertEquals("12.3", converter.getAsString(facesContext, new UIPanel(), "12.3"));
+        assertEquals("12.3", converter.getAsString(facesContext, new UIPanel(), (float) 12.3));
     }
 
     /**

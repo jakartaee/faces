@@ -96,7 +96,7 @@ class DoubleConverterTest {
     void testGetAsString3() {
         DoubleConverter converter = new DoubleConverter();
         FacesContext facesContext = Mockito.mock(FacesContext.class);
-        assertEquals("12.3", converter.getAsString(facesContext, new UIPanel(), "12.3"));
+        assertEquals("12.3", converter.getAsString(facesContext, new UIPanel(), (double) 12.3));
     }
 
     /**
