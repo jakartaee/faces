@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 
@@ -43,6 +44,7 @@ import jakarta.faces.application.ResourceHandler;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
+import jakarta.faces.component.visit.VisitHint;
 import jakarta.faces.component.visit.VisitResult;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.context.PartialViewContext;
@@ -782,7 +784,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             this.events = events;
         }
 
-        events.get(event.getPhaseId().getOrdinal()).add(event);
+        events.get(event.getPhaseId().ordinal()).add(event);
     }
 
     /**
@@ -808,7 +810,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         boolean hasMoreAnyPhaseEvents;
         boolean hasMoreCurrentPhaseEvents;
 
-        List<FacesEvent> eventsForPhaseId = events.get(PhaseId.ANY_PHASE.getOrdinal());
+        List<FacesEvent> eventsForPhaseId = events.get(PhaseId.ANY_PHASE.ordinal());
 
         // keep iterating till we have no more events to broadcast.
         // This is necessary for events that cause other events to be
@@ -846,7 +848,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             }
 
             // then broadcast the events for this phase.
-            if ((eventsForPhaseId = events.get(phaseId.getOrdinal())) != null) {
+            if ((eventsForPhaseId = events.get(phaseId.ordinal())) != null) {
                 // We cannot use an Iterator because we will get
                 // ConcurrentModificationException errors, so fake it
                 while (!eventsForPhaseId.isEmpty()) {
@@ -877,9 +879,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             }
 
             // true if we have any more ANY_PHASE events
-            hasMoreAnyPhaseEvents = null != (eventsForPhaseId = events.get(PhaseId.ANY_PHASE.getOrdinal())) && !eventsForPhaseId.isEmpty();
+            hasMoreAnyPhaseEvents = null != (eventsForPhaseId = events.get(PhaseId.ANY_PHASE.ordinal())) && !eventsForPhaseId.isEmpty();
             // true if we have any more events for the argument phaseId
-            hasMoreCurrentPhaseEvents = null != events.get(phaseId.getOrdinal()) && !events.get(phaseId.getOrdinal()).isEmpty();
+            hasMoreCurrentPhaseEvents = null != events.get(phaseId.ordinal()) && !events.get(phaseId.ordinal()).isEmpty();
 
         } while (hasMoreAnyPhaseEvents || hasMoreCurrentPhaseEvents);
     }
@@ -1012,7 +1014,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_2 changed_modified_5_0">
-     * Use {@link #visitTree} to visit the clientIds and, if the node is an instance of {@link EditableValueHolder}, call its
+     * Use {@link #visitTree} to visit the clientIds with the given visit hints, if any, and, if the node is an instance of {@link EditableValueHolder}, call its
      * {@link EditableValueHolder#resetValue} method.
      * </p>
      *
@@ -1020,10 +1022,11 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      *
      * @param context the {@link FacesContext} for the request we are processing.
      * @param clientIds The client ids to be visited, on which the described action will be taken.
+     * @param visitHints Since 5.0: Any visit hints you wish to apply to the visit.
      */
 
-    public void resetValues(FacesContext context, Collection<String> clientIds) {
-        visitTree(VisitContext.createVisitContext(context, clientIds, null), new DoResetValues());
+    public void resetValues(FacesContext context, Collection<String> clientIds, VisitHint... visitHints) {
+        visitTree(VisitContext.createVisitContext(context, clientIds, visitHints.length == 0 ? null : Set.of(visitHints)), new DoResetValues());
     }
 
     private static class DoResetValues implements VisitCallback {

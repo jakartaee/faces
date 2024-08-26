@@ -16,6 +16,9 @@
 
 package jakarta.faces;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.io.File;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -23,7 +26,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 /**
  * <p>
@@ -32,7 +36,7 @@ import junit.framework.TestCase;
  * should help to keep the wrapper classes in synch with the wrapped classes.
  * </p>
  */
-public class FacesWrapperTestCase extends TestCase {
+class FacesWrapperTest {
 
     private static List<Class<?>> wrapperClasses;
     private static List<Class<?>> noWrapperClasses;
@@ -44,8 +48,8 @@ public class FacesWrapperTestCase extends TestCase {
      * implementing FacesWrapper.
      * @throws java.lang.Exception
      */
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeAll
+    protected static void setUp() throws Exception {
         if (wrapperClasses == null) {
             loadWrapperClasses();
             methodsToIgnore = new ArrayList<Method>();
@@ -56,23 +60,23 @@ public class FacesWrapperTestCase extends TestCase {
     /**
      * Unit test to assert wrapperClasses list was loaded (see {@link #setUp()}.
      */
-    public void testWrapperClassesLoaded() {
+    @Test
+    void testWrapperClassesLoaded() {
         assertNotNull(wrapperClasses);
-        assertTrue("no wrapper classes found!", !wrapperClasses.isEmpty());
+        assertTrue(!wrapperClasses.isEmpty(), "no wrapper classes found!");
     }
 
     /**
      * Unit test to assert there are no *Wrapper classes not implementing
      * FacesWrapper.
      */
-    public void testWrapperClassesImplementFacesWrapper() {
+    @Test
+    void testWrapperClassesImplementFacesWrapper() {
         assertNotNull(noWrapperClasses);
         if (noWrapperClasses.size() > 0) {
-            System.out.println("Wrapper classes not implementing jakarta.faces.FacesWrapper:");
-            System.out.println(noWrapperClasses.toString());
+            System.out.println("[ERROR] Wrapper classes not implementing jakarta.faces.FacesWrapper: " + noWrapperClasses);
         }
-        assertTrue("Found wrapper classes not implementing FacesWrapper!", noWrapperClasses
-                .isEmpty());
+        assertTrue(noWrapperClasses.isEmpty(), "Found wrapper classes not implementing FacesWrapper!");
     }
 
     /**
@@ -80,7 +84,8 @@ public class FacesWrapperTestCase extends TestCase {
      * implementing FacesWrapper do wrap all public and protected methods of the
      * wrapped class.
      */
-    public void testWrapperClassWrapsPublicAndProtectedMethods() {
+    @Test
+    void testWrapperClassWrapsPublicAndProtectedMethods() {
         for (Class<?> wrapper : wrapperClasses) {
             if (wrapper.isInterface()) {
                 continue;
@@ -88,14 +93,14 @@ public class FacesWrapperTestCase extends TestCase {
             List<Method> wrapperMethods = getPublicAndProtectedMethods(wrapper);
             List<Method> methodsToWrap = getPublicAndProtectedMethods(wrapper.getSuperclass());
 
-            System.out.println("verify " + wrapper.getName() + " is wrapping "
-                    + wrapper.getSuperclass().getName() + " well");
+            System.out.println("[INFO] Verifying that " + wrapper.getName() + " is wrapping "
+                    + wrapper.getSuperclass().getName() + " correctly ...");
             String msg = wrapper.getCanonicalName() + " does not wrap method: ";
             for (Method m : methodsToWrap) {
                 if (isMethodContained(m, methodsToIgnore)) {
                     continue;
                 }
-                assertTrue(msg + m.toString(), isMethodContained(m, wrapperMethods));
+                assertTrue(isMethodContained(m, wrapperMethods), msg + m.toString());
             }
         }
     }
@@ -147,7 +152,7 @@ public class FacesWrapperTestCase extends TestCase {
     /**
      * Collect the wrapper classes.
      */
-    private void loadWrapperClasses() {
+    private static void loadWrapperClasses() {
         wrapperClasses = new ArrayList<>();
         noWrapperClasses = new ArrayList<>();
 
@@ -171,7 +176,7 @@ public class FacesWrapperTestCase extends TestCase {
      * @param jakartaFacesFolder current File (directory or file)
      * @throws Exception might throw ClassNotFoundException from class loading.
      */
-    private void collectWrapperClasses(ClassLoader classLoader, String pkg, File jakartaFacesFolder) throws Exception {
+    private static void collectWrapperClasses(ClassLoader classLoader, String pkg, File jakartaFacesFolder) throws Exception {
         for (File file : jakartaFacesFolder.listFiles()) {
             if (file.isDirectory()) {
                 collectWrapperClasses(classLoader, pkg + file.getName() + ".", file);
@@ -192,7 +197,7 @@ public class FacesWrapperTestCase extends TestCase {
      * @param f the File to analyse.
      * @throws Exception ClassLoader exceptions.
      */
-    private void addWrapperClassToWrapperClassesList(ClassLoader cl, String pkg, File f)
+    private static void addWrapperClassToWrapperClassesList(ClassLoader cl, String pkg, File f)
             throws Exception {
         String name = f.getName();
         if (!name.endsWith(".class")) {

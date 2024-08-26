@@ -50,7 +50,7 @@ import jakarta.faces.convert.Converter;
  * </p>
  */
 
-public class LongRangeValidator implements Validator, PartialStateHolder {
+public class LongRangeValidator implements Validator<Object>, PartialStateHolder {
 
     // ------------------------------------------------------ Manifest Constants
 

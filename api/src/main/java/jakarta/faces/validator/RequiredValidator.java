@@ -29,7 +29,7 @@ import jakarta.faces.context.FacesContext;
  *
  * @since 2.0
  */
-public class RequiredValidator implements Validator {
+public class RequiredValidator implements Validator<Object> {
 
     /**
      * <p>
