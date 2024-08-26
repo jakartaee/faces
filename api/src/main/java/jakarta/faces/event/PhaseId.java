@@ -90,12 +90,23 @@ public enum PhaseId {
 
     /**
      * <p>
+     * Return the ordinal value of this {@link PhaseId} instance.
+     * </p>
+     *
+     * @return the ordinal
+     */
+    public int getOrdinal() {
+        return ordinal();
+    }
+
+    /**
+     * <p>
      * Return a String representation of this {@link PhaseId} instance.
      * </p>
      */
     @Override
     public String toString() {
-        return name() + ' ' + ordinal();
+        return name() + ' ' + getOrdinal();
     }
 
     /**
