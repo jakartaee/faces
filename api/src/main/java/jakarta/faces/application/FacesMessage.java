@@ -420,12 +420,23 @@ public class FacesMessage implements Serializable {
 
         /**
          * <p>
+         * Return the ordinal value of this {@link FacesMessage.Severity} instance.
+         * </p>
+         *
+         * @return the ordinal.
+         */
+        public int getOrdinal() {
+            return ordinal();
+        }
+
+        /**
+         * <p>
          * Return a String representation of this {@link FacesMessage.Severity} instance.
          * </p>
          */
         @Override
         public String toString() {
-            return name() + ' ' + ordinal();
+            return name() + ' ' + getOrdinal();
         }
     }
 
