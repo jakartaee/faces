@@ -1034,9 +1034,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         public VisitResult visit(VisitContext context, UIComponent target) {
             if (target instanceof EditableValueHolder) {
                 ((EditableValueHolder) target).resetValue();
-            }
-            else if (!VisitContext.ALL_IDS.equals(context.getIdsToVisit())) {
-                // Render ID didn't specifically point an EditableValueHolder. Visit all children as well.
+            } else if (!VisitContext.ALL_IDS.equals(context.getIdsToVisit())) {
+                // Render ID didn't specifically point to an EditableValueHolder. Visit all children as well.
                 target.visitTree(VisitContext.createVisitContext(context.getFacesContext(), null, context.getHints()), this);
             }
             return VisitResult.ACCEPT;
