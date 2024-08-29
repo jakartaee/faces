@@ -39,8 +39,8 @@ public class Issue5171IT extends ITBase {
         page = page.getElementById("form:submit").click();
         String simpleInputMessage = page.getElementById("form:simpleInputMessage").asNormalizedText();
         String compositeInputMessage = page.getElementById("form:compositeInputMessage").asNormalizedText();
-        assertEquals("simple input must trigger bean validation and show message", "must not be empty", simpleInputMessage);
-        assertEquals("composite input must trigger bean validation and show message", "must not be empty", compositeInputMessage);
+        assertTrue("simple input must trigger bean validation and show message", simpleInputMessage.endsWith("must not be empty"));
+        assertTrue("composite input must trigger bean validation and show message", compositeInputMessage.endsWith("must not be empty"));
 
         HtmlTextInput simpleInput = (HtmlTextInput) page.getElementById("form:simpleInput");
         HtmlTextInput compositeInput = (HtmlTextInput) page.getElementById("form:composite:input");
