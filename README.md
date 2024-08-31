@@ -1,4 +1,4 @@
-# Jakarta Faces
+# Jakarta Faces 4.1
 
 This repository contains independent projects for Jakarta Faces API, Specification and TCK.
 
