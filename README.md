@@ -1,8 +1,6 @@
-# Jakarta Faces
+# Jakarta Faces 5.0
 
-This repository contains independent projects for Jakarta Faces API, Specification and TCK.
-
-[Online JavaDoc](https://javadoc.io/doc/jakarta.faces/jakarta.faces-api)
+This repository contains independent projects for Jakarta Faces 5.0 API, Specification and TCK.
 
 ## About Jakarta Faces
 
@@ -17,13 +15,6 @@ Refer to the `README.md` of the subprojects.
 ## Making Changes
 
 To make changes, fork this repository, make your changes, and submit a pull request.
-
-## Plans for Faces.next
-
-### 5.0
-
-- https://github.com/jakartaee/faces/milestone/22
-- https://projects.eclipse.org/projects/ee4j.faces/releases/5.0
 
 ## Branches
 
