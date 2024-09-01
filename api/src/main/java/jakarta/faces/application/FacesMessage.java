@@ -17,7 +17,6 @@
 
 package jakarta.faces.application;
 
-import static java.util.Arrays.stream;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toUnmodifiableMap;
 
@@ -73,7 +72,7 @@ public class FacesMessage implements Serializable {
 
     // --------------------------------------------------------------- Constants
 
-    private static final long serialVersionUID = -1180773928220076822L;
+    private static final long serialVersionUID = -4161119404763764443L;
 
     /**
      * <p>
@@ -85,51 +84,41 @@ public class FacesMessage implements Serializable {
 
     // ------------------------------------------------- Message Severity Levels
 
-    // Any new Severity values must go at the end of the list, or we will break
-    // backwards compatibility on serialized instances
-
-    private static final String SEVERITY_INFO_NAME = "INFO";
     /**
      * <p>
      * Message severity level indicating an informational message rather than an error.
      * </p>
+     * @deprecated Use {@link Severity#INFO} instead because it has been converted to enum since 5.0.
      */
-    public static final Severity SEVERITY_INFO = new Severity(SEVERITY_INFO_NAME);
-
-    private static final String SEVERITY_WARN_NAME = "WARN";
+    @Deprecated(since = "5.0", forRemoval = true)
+    public static final Severity SEVERITY_INFO = Severity.INFO;
 
     /**
      * <p>
      * Message severity level indicating that an error might have occurred.
      * </p>
+     * @deprecated Use {@link Severity#WARN} instead because it has been converted to enum since 5.0.
      */
-    public static final Severity SEVERITY_WARN = new Severity(SEVERITY_WARN_NAME);
-
-    private static final String SEVERITY_ERROR_NAME = "ERROR";
+    @Deprecated(since = "5.0", forRemoval = true)
+    public static final Severity SEVERITY_WARN = Severity.WARN;
 
     /**
      * <p>
      * Message severity level indicating that an error has occurred.
      * </p>
+     * @deprecated Use {@link Severity#ERROR} instead because it has been converted to enum since 5.0.
      */
-    public static final Severity SEVERITY_ERROR = new Severity(SEVERITY_ERROR_NAME);
-
-    private static final String SEVERITY_FATAL_NAME = "FATAL";
+    @Deprecated(since = "5.0", forRemoval = true)
+    public static final Severity SEVERITY_ERROR = Severity.ERROR;
 
     /**
      * <p>
      * Message severity level indicating that a serious error has occurred.
      * </p>
+     * @deprecated Use {@link Severity#FATAL} instead because it has been converted to enum since 5.0.
      */
-    public static final Severity SEVERITY_FATAL = new Severity(SEVERITY_FATAL_NAME);
-
-    /**
-     * <p>
-     * Array of all defined values, ascending order of ordinal value. Be sure you include any new instances created above,
-     * in the same order.
-     * </p>
-     */
-    private static final Severity[] values = { SEVERITY_INFO, SEVERITY_WARN, SEVERITY_ERROR, SEVERITY_FATAL };
+    @Deprecated(since = "5.0", forRemoval = true)
+    public static final Severity SEVERITY_FATAL = Severity.FATAL;
 
     /**
      * <p>
@@ -137,18 +126,18 @@ public class FacesMessage implements Serializable {
      * order of their ordinal value.
      * </p>
      */
-    public static final List<Severity> VALUES = List.of(values);
+    public static final List<Severity> VALUES = List.of(Severity.values());
 
     /**
      * <p>
      * Immutable <code>Map</code> of valid {@link jakarta.faces.application.FacesMessage.Severity} instances, keyed by name.
      * </p>
      */
-    public final static Map<String,Severity> VALUES_MAP = stream(values).collect(toUnmodifiableMap(severity -> severity.severityName, identity()));
+    public static final Map<String, Severity> VALUES_MAP = VALUES.stream().collect(toUnmodifiableMap(Severity::name, identity()));
 
     // ------------------------------------------------------ Instance Variables
 
-    private transient Severity severity = SEVERITY_INFO;
+    private transient Severity severity = Severity.INFO;
     private transient String summary = null;
     private transient String detail = null;
     private transient boolean rendered;
@@ -260,15 +249,8 @@ public class FacesMessage implements Serializable {
      * </p>
      *
      * @param severity The new severity level
-     *
-     * @throws IllegalArgumentException if the specified severity level is not one of the supported values
      */
     public void setSeverity(Severity severity) {
-
-        if (severity.getOrdinal() < SEVERITY_INFO.getOrdinal() || severity.getOrdinal() > SEVERITY_FATAL.getOrdinal()) {
-            throw new IllegalArgumentException(String.valueOf(severity));
-        }
-
         this.severity = severity;
     }
 
@@ -357,7 +339,7 @@ public class FacesMessage implements Serializable {
      */
     private void writeObject(ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
-        out.writeInt(severity.getOrdinal());
+        out.writeObject(severity);
         out.writeObject(summary);
         out.writeObject(detail);
         out.writeObject(rendered);
@@ -376,20 +358,10 @@ public class FacesMessage implements Serializable {
      */
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
-        severity = SEVERITY_INFO;
+        severity = Severity.INFO;
         summary = null;
         detail = null;
-        int ordinal = in.readInt();
-        if (ordinal == SEVERITY_INFO.getOrdinal()) {
-            severity = SEVERITY_INFO;
-        } else if (ordinal == SEVERITY_WARN.getOrdinal()) {
-            severity = SEVERITY_WARN;
-        } else if (ordinal == SEVERITY_ERROR.getOrdinal()) {
-            severity = SEVERITY_ERROR;
-        } else if (ordinal == SEVERITY_FATAL.getOrdinal()) {
-            severity = SEVERITY_FATAL;
-        }
-
+        severity = (Severity) in.readObject();
         summary = (String) in.readObject();
         detail = (String) in.readObject();
         rendered = (Boolean) in.readObject();
@@ -397,53 +369,54 @@ public class FacesMessage implements Serializable {
 
     /**
      * <p>
-     * Class used to represent message severity levels in a typesafe enumeration.
+     * <span class="changed_modified_5_0">Enum</span> used to represent message severity levels.
      * </p>
      */
-    public static class Severity implements Comparable {
-
-        // ------------------------------------------------------- Constructors
+    public enum Severity {
+        
+        /**
+         * <p>
+         * Message severity level indicating an informational message rather than an error.
+         * </p>
+         * <p>
+         * Historically, this was a constant class known as FacesMessage.SEVERITY_INFO.
+         * </p>
+         * @since 5.0
+         */
+        INFO,
 
         /**
          * <p>
-         * Private constructor to disable the creation of new instances.
+         * Message severity level indicating that an error might have occurred.
          * </p>
+         * <p>
+         * Historically, this was a constant class known as FacesMessage.SEVERITY_WARN.
+         * </p>
+         * @since 5.0
          */
-        private Severity(String newSeverityName) {
-            severityName = newSeverityName;
-        }
-
-        // -------------------------------------------------- Instance Variables
+        WARN,
 
         /**
          * <p>
-         * The ordinal value assigned to this instance.
+         * Message severity level indicating that an error has occurred.
          * </p>
+         * <p>
+         * Historically, this was a constant class known as FacesMessage.SEVERITY_ERROR.
+         * </p>
+         * @since 5.0
          */
-        private final int ordinal = nextOrdinal++;
+        ERROR,
 
         /**
          * <p>
-         * The (optional) name for this severity.
+         * Message severity level indicating that a serious error has occurred.
          * </p>
-         */
-        String severityName;
-
-        // ----------------------------------------------------- Public Methods
-
-        /**
          * <p>
-         * Compare this {@link jakarta.faces.application.FacesMessage.Severity} instance to the specified one. Returns a
-         * negative integer, zero, or a positive integer if this object is less than, equal to, or greater than the specified
-         * object.
+         * Historically, this was a constant class known as FacesMessage.SEVERITY_FATAL.
          * </p>
-         *
-         * @param severity The other object to be compared to
+         * @since 5.0
          */
-        @Override
-        public int compareTo(Object severity) {
-            return ordinal - ((Severity)severity).ordinal;
-        }
+        FATAL;
 
         /**
          * <p>
@@ -453,7 +426,7 @@ public class FacesMessage implements Serializable {
          * @return the ordinal.
          */
         public int getOrdinal() {
-            return ordinal;
+            return ordinal();
         }
 
         /**
@@ -463,22 +436,8 @@ public class FacesMessage implements Serializable {
          */
         @Override
         public String toString() {
-            if (severityName == null) {
-                return Integer.toString(ordinal);
-            }
-
-            return severityName + ' ' + ordinal;
+            return name() + ' ' + getOrdinal();
         }
-
-        // --------------------------------------------------- Static Variables
-
-        /**
-         * <p>
-         * Static counter returning the ordinal value to be assigned to the next instance that is created.
-         * </p>
-         */
-        private static int nextOrdinal = 0;
-
     }
 
 }
