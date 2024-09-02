@@ -1,82 +1,29 @@
-*.class
+# Maven
+bin/
+target/
+.flattened-pom.xml
+
+# Eclipse
 .classpath
 .project
+.metadata/
+.settings/
+*.jsfdia
+*.pageflow
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
+# IntelliJ
 .idea
+*.ipr
 *.iml
-target
+*.iws
+
+# NetBeans
+nbactions.xml
+nb-configuration.xml
 
 # emacs
 *~
 
-*.class
-*.jar
-target/
-/bin/
-/dist/
-.settings/
-/**/.classpath
-/**/.project
-
-/.project
-nb-configuration.xml
-
-# mac
+# OSX
 .DS_Store
 
-target/
-api/src/main/java/
-api/src/main/resources/
-impl/yuicompressor.jar
-changebundle.txt
-dependencies
-build.properties
-**/*.iml
-*.class
-*.jar
-*.jsfdia
-*.pageflow
-target/
-/bin/
-/dist/
-/dependencies/
-/jsf-demo/dist/
-/jsf-tools/build/
-/jsf-tools/target/
-/build.properties
-.settings/
-.metadata/
-.classpath
-.project
-test/**/.classpath
-test/**/.project
-spi/**/.classpath
-spi/**/.project
-impl/**/.classpath
-impl/**/.project
-impl/bnd.bnd
-api/**/.classpath
-api/**/.project
-/nbproject/private/
-/dependencies
-glassfish-8.0/
-nbactions.xml
-/test/javaee8/passthrough/nb-configuration.xml
-*.DS_Store
-.idea/
-Mojarra.iml
-*~
-
-**/JSF_BUILD/**
-**/i18n.properties

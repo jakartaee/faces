@@ -381,8 +381,6 @@ public class SimpleMethodELResolver extends ELResolver {
         desc.setHidden(false);
         desc.setExpert(false);
         desc.setPreferred(true);
-        desc.setValue(ELResolver.RESOLVABLE_AT_DESIGN_TIME, Boolean.TRUE);
-        desc.setValue(ELResolver.TYPE, method.getReturnType());
         methodSet.add(desc);
       }
     }

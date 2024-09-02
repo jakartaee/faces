@@ -32,102 +32,51 @@ import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 
 public class URLClient extends BaseHtmlUnitClient {
 
-  private static final String CONTEXT_ROOT = "/jsf_view_protectedview_web";
+    private static final String CONTEXT_ROOT = "/jsf_view_protectedview_web";
 
-  public static void main(String[] args) {
-    URLClient theTests = new URLClient();
-    Status s = theTests.run(args, new PrintWriter(System.out, true),
-        new PrintWriter(System.err, true));
-    s.exit();
-  }
-
-  public Status run(String[] args, PrintWriter out, PrintWriter err) {
-    return super.run(args, out, err);
-  }
-
-  /*
-   * @class.setup_props: webServerHost; webServerPort; ts_home;
-   */
-
-  /**
-   * @testName: viewProtectedViewNonAccessPointTest
-   * 
-   * @assertion_ids: PENDING
-   * 
-   * @test_Strategy: Validate that a that we can not gain access to a Protected
-   *                 View from out side that views web-app.
-   * 
-   * @since 2.2
-   */
-  public void viewProtectedViewNonAccessPointTest() throws Fault {
-    StringBuilder messages = new StringBuilder(64);
-    Formatter formatter = new Formatter(messages);
-
-    throwExceptionOnFailingStatusCode = false;
-
-    HtmlPage page = getPage(new WebClient(),
-        CONTEXT_ROOT + "/faces/views/protected.xhtml");
-
-    HtmlAnchor anchor = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-        "linkOne");
-
-    if (validateExistence("linkOne", "a", anchor, formatter)) {
-      formatter.format("We should not be able to gain access to a "
-          + "Protected View from outside of the Protected View's " + "webapp!");
-      handleTestStatus(messages);
-      formatter.close();
-      return;
+    public static void main(String[] args) {
+        URLClient theTests = new URLClient();
+        Status s = theTests.run(args, new PrintWriter(System.out, true), new PrintWriter(System.err, true));
+        s.exit();
     }
 
-    formatter.close();
-
-  } // END viewProtectedViewNonAccessPointTest
-
-  /**
-   * @testName: viewProtectedViewSameWebAppAccessTest
-   * 
-   * @assertion_ids: PENDING
-   * 
-   * @test_Strategy: Validate that we are able to gain access to a protected
-   *                 view from inside the same web-app through a non-protected
-   *                 view.
-   * 
-   * @since 2.2
-   */
-  public void viewProtectedViewSameWebAppAccessTest() throws Fault {
-    StringBuilder messages = new StringBuilder(64);
-    Formatter formatter = new Formatter(messages);
-    String result;
-    String expected = "This is a Protected View!";
-
-    HtmlPage page = getPage(new WebClient(),
-        CONTEXT_ROOT + "/faces/views/public.xhtml");
-
-    HtmlAnchor anchor = (HtmlAnchor) getElementOfTypeIncludingId(page, "a",
-        "linkOne");
-
-    if (!validateExistence("linkOne", "a", anchor, formatter)) {
-      handleTestStatus(messages);
-      return;
+    public Status run(String[] args, PrintWriter out, PrintWriter err) {
+        return super.run(args, out, err);
     }
 
-    try {
-      result = anchor.click().getWebResponse().getContentAsString();
+    /*
+     * @class.setup_props: webServerHost; webServerPort; ts_home;
+     */
 
-      if (!result.contains(expected)) {
-        formatter.format("Error occured during clicking of Link!");
-        handleTestStatus(messages);
-      }
+    /**
+     * @testName: viewProtectedViewNonAccessPointTest
+     * 
+     * @assertion_ids: PENDING
+     * 
+     * @test_Strategy: Validate that a that we can not gain access to a Protected View from out side that views web-app.
+     * 
+     * @since 2.2
+     */
+    public void viewProtectedViewNonAccessPointTest() throws Fault {
+        StringBuilder messages = new StringBuilder(64);
+        Formatter formatter = new Formatter(messages);
 
-    } catch (IOException e) {
-      formatter.format("Error occured during clicking of Link!");
-      e.printStackTrace();
-      handleTestStatus(messages);
-      formatter.close();
-    }
+        throwExceptionOnFailingStatusCode = false;
 
-    formatter.close();
+        HtmlPage page = getPage(new WebClient(), CONTEXT_ROOT + "/faces/views/protected.xhtml");
 
-  } // END viewProtectedViewNonAccessPointTest
+        HtmlAnchor anchor = (HtmlAnchor) getElementOfTypeIncludingId(page, "a", "linkOne");
+
+        if (validateExistence("linkOne", "a", anchor, formatter)) {
+            formatter.format(
+                    "We should not be able to gain access to a " + "Protected View from outside of the Protected View's " + "webapp!");
+            handleTestStatus(messages);
+            formatter.close();
+            return;
+        }
+
+        formatter.close();
+
+    } // END viewProtectedViewNonAccessPointTest
 
 } // END URLClient

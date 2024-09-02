@@ -156,36 +156,29 @@ interpret each entry in the list as a path relative to the web
 application root and interpret the file found at that path as a facelet
 tag library, conforming to the facelet taglibrary schema and expose the
 tags therein according to <<a5638, Facelet Tag
-Library mechanism>>. The runtime must also consider the
-_facelets.LIBRARIES_ param name as an alias to this param name for
-backwards compatibility with existing facelets tag libraries.
+Library mechanism>>.
 
 * _jakarta.faces.FACELETS_BUFFER_SIZE_ —The
 buffer size to set on the response when the _ResponseWriter_ is
 generated. By default the value is 1024. A value of -1 will not assign a
 buffer size on the response. This should be increased if you are using
 development mode in order to guarantee that the response isn't partially
-rendered when an error is generated. The runtime must also consider the
-_facelets.BUFFER_SIZE_ param name as an alias to this param name for
-backwards compatibility with existing facelets tag libraries.
+rendered when an error is generated.
 
 * _jakarta.faces.FACELETS_DECORATORS_ —A
 semicolon (;) delimitted list of class names of type
 _jakarta.faces.view.facelets.TagDecorator_, with a no-argument
 constructor. These decorators will be loaded when the first request for
-a Facelets VDL view hits the _ViewHandler_ for page compilation.The
-runtime must also consider the _facelets.DECORATORS_ param name as an
-alias to this param name for backwards compatibility with existing
-facelets tag libraries.
+a Facelets VDL view hits the _ViewHandler_ for page compilation.
 
 * _jakarta.faces.FACELETS_REFRESH_PERIOD_ --
 When a page is requested, what interval in seconds should the compiler
 check for changes. If you don't want the compiler to check for changes
 once the page is compiled, then use a value of -1. Setting a low refresh
 period helps during development to be able to edit pages in a running
-application.The runtime must also consider the _facelets.REFRESH_PERIOD_
-param name as an alias to this param name for backwards compatibility
-with existing facelets tag libraries.
+application. If this value is not specified, then the default depends on
+_Application.getProjectStage()_. If it is _Production_, then runtime must
+act as if it is set to -1, else the runtime must act as if it is set to 0.
 
 * _jakarta.faces.FACELETS_RESOURCE_RESOLVER_ --
 If this param is set, the runtime must interpret its value as a fully
@@ -198,9 +191,7 @@ message and continue. If it does conform to these requirements and has a
 one-argument constructor, the default _ResourceResolver_ must be passed
 to the constructor. If it has a zero argument constructor it is invoked
 directly. In either case, the new _ResourceResolver_ replaces the old
-one. The runtime must also consider the _facelets.RESOURCE_RESOLVER_
-param name as an alias to this param name for backwards compatibility
-with existing facelets tag libraries.
+one.
 +
 Related to this param is the corresponding
 annotation, _jakarta.faces.view.facelets.FaceletsResourceResolver_. The
@@ -221,9 +212,7 @@ instance as listed above must apply to the annotated class.
 this param is set, and calling _toLowerCase().equals("true")_ on a
 _String_ representation of its value returns _true_, the runtime must
 ensure that any XML comments in the Facelets source page are not
-delivered to the client. The runtime must also consider the
-_facelets.SKIP_COMMENTS_ param name as an alias to this param name for
-backwards compatibility with existing facelets tag libraries.
+delivered to the client.
 
 * _jakarta.faces.FACELETS_SUFFIX_ —Allow the
 web application to define alternate suffixes for Facelet based XHTML
@@ -234,17 +223,18 @@ _ViewHandler.FACELETS_SUFFIX_PARAM_NAME_ for the complete specification.
 this param is set, the runtime must interpret it as a semicolon (;)
 separated list of strings that is used to forcibly declare that certain
 pages in the application must be interpreted as using Facelets,
-regardless of their extension. The runtime must also consider the
-_facelets.VIEW_MAPPINGS_ param name as an alias to this param name for
-backwards compatibility with existing facelets applications. See the
+regardless of their extension. See the
 javadocs for the symbolic constant
 _ViewHandler.FACELETS_VIEW_MAPPINGS_PARAM_NAME_ for the complete
 specification.
 
-* _jakarta.faces.FULL_STATE_SAVING_VIEW_IDS_ --
+* +++<del>+++_jakarta.faces.FULL_STATE_SAVING_VIEW_IDS_ --
 The runtime must interpret the value of this parameter as a comma
 separated list of view IDs, each of which must have their state saved
-using the state saving mechanism specified in pre-Jakarta Faces JSF 1.2 (under the JCP).
+using the state saving mechanism specified in pre-Jakarta Faces JSF 1.2 (under the JCP).+++</del>+++
+*Deprecated since 4.1:*
+Full state saving will be removed in favor of partial state saving in order to keep the spec simple.
+Therefore specifying full state saving view IDs via this context parameter will not be an option anymore.
 
 * _jakarta.faces.HONOR_CURRENT_COMPONENT_ATTRIBUTES_ --
 The ServletContext init parameter consulted by the UIComponent to tell
@@ -271,26 +261,12 @@ requests for this web application. If not specified, the Jakarta Faces default
 instance, identified by _LifecycleFactory.DEFAULT_LIFECYCLE_, must be
 used.
 
-* _jakarta.faces.PARTIAL_STATE_SAVING_ --The
+* +++<del>+++_jakarta.faces.PARTIAL_STATE_SAVING_ --The
 ServletContext init parameter consulted by the runtime to determine if
-the partial state saving mechanism should be used. +
-If undefined, the runtime must determine the version level of the
-application.
-+
---
-** For applications versioned at 1.2 and under,
-the runtime must not use the partial state saving mechanism.
-
-** For applications versioned at 2.0 and above,
-the runtime must use the partial state saving mechanism.
---
-+
-If this parameter is defined, and the
-application is versioned at 1.2 and under, the runtime must not use the
-partial state saving mechanism. Otherwise, If this param is defined, and
-calling toLowerCase().equals("true") on a _String_ representation of its
-value returns true, the runtime must use partial state mechanism.
-Otherwise the partial state saving mechanism must not be used.
+the partial state saving mechanism should be used.+++</del>+++
+*Deprecated since 4.1:*
+Full state saving will be removed in favor of partial state saving in order to keep the spec simple.
+Therefore disabling partial state saving via this context parameter will not be an option anymore.
 
 * _jakarta.faces.PROJECT_STAGE_ —A human
 readable string describing where this particular Jakarta Faces application is in
@@ -953,9 +929,23 @@ _jakarta.faces.event.PreDestroyApplicationEvent_.
 ==== Application Configuration Resource Format
 
 Application configuration resources
-that are written to run on Jakarta Faces 4.0 must include the following schema
+that are written to run on Jakarta Faces 4.1 must include the following schema
 declaration and must conform to the schema shown in
 <<a7037, Appendix A - Jakarta Faces Metadata>>
+
+[source,xml]
+----
+<faces-config
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+    version="4.1">
+----
+
+Application configuration resources
+that are written to run on Jakarta Faces 4.0 must include the following schema
+declaration:
 
 [source,xml]
 ----
@@ -1736,8 +1726,8 @@ __Renderer__s that know how to decode and encode such a component:
     xmlns="https://jakarta.ee/xml/ns/jakartaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
-    version="4.0">
+        https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+    version="4.1">
 
   <!-- Define our custom component -->
   <component>

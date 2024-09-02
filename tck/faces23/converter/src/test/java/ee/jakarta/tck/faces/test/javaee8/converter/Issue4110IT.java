@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2024 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -75,10 +76,18 @@ public class Issue4110IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4114
      */
     @Test
-    public void testJavaTimeTypes() throws Exception {
-        doTestJavaTimeTypes("30 sep. 2015", "localDate", "2015-09-30");
+    public void testLocalDate() throws Exception {
+        doTestJavaTimeTypes("30 mei 2015", "localDate", "2015-05-30");
+    }
+
+    @Test
+    public void testLocalTime() throws Exception {
         doTestJavaTimeTypes("16:52:56", "localTime", "16:52:56");
-        doTestJavaTimeTypes("30 sep. 2015 16:14:43", "localDateTime", "2015-09-30T16:14:43");
+    }
+
+    @Test
+    public void testLocalDateTime() throws Exception {
+        doTestJavaTimeTypes("30 mei 2015 16:14:43", "localDateTime", "2015-05-30T16:14:43");
     }
 
     private void doTestJavaTimeTypes(String value, String type, String expected) throws Exception {

@@ -21,4 +21,4 @@
 # package that should be tested by the signature tests.
 ###############################################################
 
-jakarta.faces=4.0.0
+jakarta.faces=4.1.0
