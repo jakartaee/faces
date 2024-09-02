@@ -207,13 +207,13 @@ class FacesWrapperTest {
         Class<?> c = cl.loadClass(className);
         Class<?> wrappedClass = c.getSuperclass();
         if (wrappedClass != null) {
-            // we are not interested in interfaces extending FacesWrapper interface.
+            // we are not interested in interfaces extending FacesWrapper interface (so only getSuperClass() is checked and getInterfaces() is ignored).
             // also skip classes implementing FacesWrapper but extend from Object (e.g. factories).
-            if (FacesWrapper.class.isAssignableFrom(wrappedClass) || wrappedClass == Object.class) {
+            if (wrappedClass == Object.class) {
                 return;
             }
         }
-        if (FacesWrapper.class.isAssignableFrom(c)) {
+        if (Modifier.isAbstract(c.getModifiers()) && FacesWrapper.class.isAssignableFrom(c)) {
             wrapperClasses.add(c);
         } else if (c != FacesWrapper.class && c.getName().endsWith("Wrapper")) {
             noWrapperClasses.add(c);
