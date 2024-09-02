@@ -387,6 +387,14 @@ public class FacesMessage implements Serializable {
 
         /**
          * <p>
+         * Message severity level indicating a success message rather than an error.
+         * </p>
+         * @since 5.0
+         */
+        SUCCESS,
+
+        /**
+         * <p>
          * Message severity level indicating that an error might have occurred.
          * </p>
          * <p>
