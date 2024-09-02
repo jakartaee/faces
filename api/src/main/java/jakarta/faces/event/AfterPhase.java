@@ -29,7 +29,7 @@ import jakarta.inject.Qualifier;
 /**
  * <p class="changed_added_5_0">
  * This qualifier allows you to observe after phase events via CDI.
- * The CDI event must be fired synchronously after all associated phase listeners have been invoked.
+ * The CDI event must be fired synchronously after invocation of all associated phase listeners.
  * </p>
  * @since 5.0
  * @see BeforePhase
