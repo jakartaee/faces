@@ -27,7 +27,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  */
 
-public class BigDecimalConverter implements Converter {
+public class BigDecimalConverter implements Converter<BigDecimal> {
 
     // ------------------------------------------------------ Manifest Constants
 
@@ -72,7 +72,7 @@ public class BigDecimalConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public BigDecimal getAsObject(FacesContext context, UIComponent component, String value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -102,7 +102,7 @@ public class BigDecimalConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, BigDecimal value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -111,12 +111,6 @@ public class BigDecimalConverter implements Converter {
         // If the specified value is null, return a zero-length String
         if (value == null) {
             return "";
-        }
-
-        // If the incoming value is still a string, play nice
-        // and return the value unmodified
-        if (value instanceof String) {
-            return (String) value;
         }
 
         try {

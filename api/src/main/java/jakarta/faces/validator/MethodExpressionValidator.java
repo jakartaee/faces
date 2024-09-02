@@ -37,7 +37,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  */
 
-public class MethodExpressionValidator implements Validator, StateHolder {
+public class MethodExpressionValidator implements Validator<Object>, StateHolder {
 
     private static final String BEANS_VALIDATION_AVAILABLE = "jakarta.faces.private.BEANS_VALIDATION_AVAILABLE";
 

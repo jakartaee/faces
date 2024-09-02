@@ -960,6 +960,8 @@ hcls PropertyKeys
 
 CLSS public abstract jakarta.faces.component.UIComponent
 cons public init()
+fld protected java.util.Map<java.lang.String,jakarta.el.ValueExpression> bindings
+ anno 0 java.lang.Deprecated(boolean forRemoval=false, java.lang.String since="")
 fld public final static java.lang.String ATTRS_WITH_DECLARED_DEFAULT_VALUES = "jakarta.faces.component.ATTR_NAMES_WITH_DEFAULT_VALUES"
 fld public final static java.lang.String BEANINFO_KEY = "jakarta.faces.component.BEANINFO_KEY"
 fld public final static java.lang.String COMPOSITE_COMPONENT_TYPE_KEY = "jakarta.faces.component.COMPOSITE_COMPONENT_TYPE"

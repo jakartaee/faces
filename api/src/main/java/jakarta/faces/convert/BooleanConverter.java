@@ -25,7 +25,7 @@ import jakarta.faces.context.FacesContext;
  * </p>
  */
 
-public class BooleanConverter implements Converter {
+public class BooleanConverter implements Converter<Boolean> {
 
     // ------------------------------------------------------ Manifest Constants
 
@@ -69,7 +69,7 @@ public class BooleanConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Boolean getAsObject(FacesContext context, UIComponent component, String value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();
@@ -98,7 +98,7 @@ public class BooleanConverter implements Converter {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component, Boolean value) {
 
         if (context == null || component == null) {
             throw new NullPointerException();

@@ -93,10 +93,28 @@
             <name>Manfred Riem</name>
         </contributor>
         <contributor>
-            <name>Christoph Straßer</name>
+            <name>Emil Lefkof</name>
         </contributor>
         <contributor>
-            <name>Emil Lefkof</name>
+            <name>Paolo B</name>
+        </contributor>
+        <contributor>
+            <name>Nicola Isotta</name>
+        </contributor>
+        <contributor>
+            <name>Emil Sierżęga</name>
+        </contributor>
+        <contributor>
+            <name>Jason Lee</name>
+        </contributor>
+        <contributor>
+            <name>Volodymyr Siedlecki</name>
+        </contributor>
+        <contributor>
+            <name>Hantsy Bai</name>
+        </contributor>
+        <contributor>
+            <name>Paul Nicolucci</name>
         </contributor>
     </contributors>
 
@@ -111,20 +129,20 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.1.0-M2</version>
+            <version>6.1.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
-            <version>2.2.0-M1</version>
+            <version>2.2.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-client-api</artifactId>
-            <version>2.2.0-M1</version>
+            <version>2.2.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -152,7 +170,7 @@
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.1.0-M1</version>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -187,15 +205,7 @@
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
-            <version>3.2.0-M2</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.xml.ws</groupId>
-            <artifactId>jakarta.xml.ws-api</artifactId>
-            <version>4.0.2</version>
+            <version>3.2.0</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -214,11 +224,21 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+        
+        
+        <!-- Test -->
 
         <dependency>
-            <groupId>org.powermock</groupId>
-            <artifactId>powermock-module-junit4</artifactId>
-            <version>2.0.9</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.11.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -232,23 +252,8 @@
                     <exclude>${findbugs.exclude}</exclude>
                 </excludes>
             </resource>
-            <resource>
-                <directory>${project.basedir}/..</directory>
-                <includes>
-                    <include>LICENSE.md</include>
-                    <include>NOTICE.md</include>
-                </includes>
-                <targetPath>META-INF</targetPath>
-            </resource>
-            <resource>
-                <directory>${project.basedir}</directory>
-                <includes>
-                    <include>LICENSE.md</include>
-                    <include>NOTICE.md</include>
-                </includes>
-                <targetPath>META-INF</targetPath>
-            </resource>
         </resources>
+        
         <plugins>
             <!-- Sets minimal Maven version -->
             <plugin>
@@ -273,7 +278,7 @@
             <!-- Restricts the Java version to 17 - API remains at Java 17 for now. -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.12.1</version>
+                <version>3.13.0</version>
                 <configuration>
                     <release>17</release>
                     <compilerArgument>-Xlint:unchecked</compilerArgument>
@@ -311,6 +316,32 @@
                         </Export-Package>
                     </instructions>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+                <executions>
+                    <execution>
+                        <id>copy-license-and-notice-files-from-parent-folder</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/..</directory>
+                                    <includes>
+				                        <include>LICENSE.md</include>
+				                        <include>NOTICE.md</include>
+								    </includes>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -417,29 +448,73 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <build>
                 <plugins>
                     <!-- Create JS docs -->
-                    <!-- result will be saved in /target/site/jsdoc -->
+                    <!-- result will be saved in /src/main/resources/META-INF/resources/META-INF/resources/jakarta.faces/out -->
                     <plugin>
-                        <groupId>com.phasebash.jsdoc</groupId>
-                        <artifactId>jsdoc3-maven-plugin</artifactId>
-                        <version>1.2.0</version>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <version>1.15.0</version>
+
+                        <configuration>
+                            <nodeVersion>v21.0.0</nodeVersion>
+                            <npmVersion>10.8.0</npmVersion>
+                            <installDirectory>./target/node</installDirectory>
+                            <workingDirectory>src/main/resources/META-INF/resources/jakarta.faces</workingDirectory>
+                        </configuration>
                         <executions>
                             <execution>
-                                <id>generate-jsdoc</id>
-                                <phase>prepare-package</phase>
+                                <id>install node and npm</id>
                                 <goals>
-                                    <goal>jsdoc3</goal>
+                                    <goal>install-node-and-npm</goal>
                                 </goals>
+                                <phase>generate-resources</phase>
+                            </execution>
+
+                            <execution>
+                                <id>npm install jsdoc</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
                                 <configuration>
-                                    <includePrivate>false</includePrivate>
-                                    <lenient>true</lenient>
-                                    <configFile>${project.build.directory}/../src/main/jsdoc/conf.json</configFile>
-                                    <sourceFiles>
-                                        <sourceFile>src/main/resources/META-INF/resources/jakarta.faces/faces-uncompressed.js</sourceFile>
-                                    </sourceFiles>
+                                    <arguments>install --save-dev jsdoc</arguments>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>npm run init</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>init --force --yes</arguments>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>npm run build</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>pkg set scripts.doc="jsdoc"</arguments>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>npm run build1</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>run doc faces-uncompressed.js</arguments>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
+
 
                     <!-- Create Renderkit docs -->
                     <!-- Result will be saved in /target/renderkitdoc  -->
@@ -501,6 +576,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                             </execution>
                         </executions>
                     </plugin>
+
 
 
                     <!-- Create VDL docs -->
