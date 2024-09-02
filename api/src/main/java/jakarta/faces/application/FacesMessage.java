@@ -375,7 +375,7 @@ public class FacesMessage implements Serializable {
     public enum Severity {
         
         /**
-         * <p>
+         * <p class="changed_added_5_0">
          * Message severity level indicating an informational message rather than an error.
          * </p>
          * <p>
@@ -386,7 +386,7 @@ public class FacesMessage implements Serializable {
         INFO,
 
         /**
-         * <p>
+         * <p class="changed_added_5_0">
          * Message severity level indicating a success message rather than an error.
          * </p>
          * @since 5.0
@@ -394,7 +394,7 @@ public class FacesMessage implements Serializable {
         SUCCESS,
 
         /**
-         * <p>
+         * <p class="changed_added_5_0">
          * Message severity level indicating that an error might have occurred.
          * </p>
          * <p>
@@ -405,7 +405,7 @@ public class FacesMessage implements Serializable {
         WARN,
 
         /**
-         * <p>
+         * <p class="changed_added_5_0">
          * Message severity level indicating that an error has occurred.
          * </p>
          * <p>
@@ -416,7 +416,7 @@ public class FacesMessage implements Serializable {
         ERROR,
 
         /**
-         * <p>
+         * <p class="changed_added_5_0">
          * Message severity level indicating that a serious error has occurred.
          * </p>
          * <p>

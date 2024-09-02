@@ -384,7 +384,7 @@ public class HtmlMessages extends UIMessages {
     }
 
     /**
-     * <p>
+     * <p class="changed_added_5_0">
      * Return the value of the <code>successClass</code> property.
      * </p>
      *
@@ -398,7 +398,7 @@ public class HtmlMessages extends UIMessages {
     }
 
     /**
-     * <p>
+     * <p class="changed_added_5_0">
      * Set the value of the <code>successClass</code> property.
      * </p>
      *
@@ -410,7 +410,7 @@ public class HtmlMessages extends UIMessages {
     }
 
     /**
-     * <p>
+     * <p class="changed_added_5_0">
      * Return the value of the <code>successStyle</code> property.
      * </p>
      *
@@ -424,7 +424,7 @@ public class HtmlMessages extends UIMessages {
     }
 
     /**
-     * <p>
+     * <p class="changed_added_5_0">
      * Set the value of the <code>successStyle</code> property.
      * </p>
      *
