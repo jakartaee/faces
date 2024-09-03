@@ -48,8 +48,8 @@ class SharedUtils {
         var parts = valueExpressionString.split(quote("."));
         var lastPart = parts[parts.length - 1];
 
-        if (lastPart.contains("[") || lastPart.contains("]") || !lastPart.endsWith("}")) {
-            return null; // TODO: implement.
+        if (lastPart.contains("]")) {
+            return null; // TODO: implement?
         }
 
         parts[parts.length - 1] = "get" + Character.toUpperCase(lastPart.charAt(0)) + lastPart.substring(1, lastPart.length() - 1) + "()}";
