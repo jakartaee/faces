@@ -85,11 +85,11 @@ public class Spec1443Bean {
     }
 
     public void observeAfterPhaseUpdateModelValues(@Observes @AfterPhase(PhaseId.UPDATE_MODEL_VALUES) PhaseEvent event) {
-        observedPhases.add("afterPhaseUpdateModelValuesL " + event.getPhaseId());
+        observedPhases.add("afterPhaseUpdateModelValues: " + event.getPhaseId());
     }
 
     public void observeAfterPhaseRenderResponse(@Observes @AfterPhase(PhaseId.RENDER_RESPONSE) PhaseEvent event) {
-        observedPhases.add("afterPhaseRenderResponseL " + event.getPhaseId());
+        observedPhases.add("afterPhaseRenderResponse: " + event.getPhaseId());
     }
 
     public void observeAfterPhaseAny(@Observes @AfterPhase(PhaseId.ANY_PHASE) PhaseEvent event) {

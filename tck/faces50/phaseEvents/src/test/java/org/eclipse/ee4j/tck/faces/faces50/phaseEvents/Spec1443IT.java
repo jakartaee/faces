@@ -79,7 +79,7 @@ public class Spec1443IT extends BaseITNG {
                 beforePhaseDefault: UPDATE_MODEL_VALUES 4,
                 beforeBeforePhaseAny: UPDATE_MODEL_VALUES 4,
                 beforePhaseUpdateModelValues: UPDATE_MODEL_VALUES 4,
-                afterPhaseUpdateModelValuesL UPDATE_MODEL_VALUES 4,
+                afterPhaseUpdateModelValues: UPDATE_MODEL_VALUES 4,
                 afterPhaseAny: UPDATE_MODEL_VALUES 4,
                 afterPhaseDefault: UPDATE_MODEL_VALUES 4,
                 beforePhaseDefault: INVOKE_APPLICATION 5,
