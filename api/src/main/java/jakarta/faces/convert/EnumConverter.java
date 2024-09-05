@@ -71,18 +71,23 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
     private boolean initialState;
 
    /**
-    *  For StateHolder
+    * <p class="changed_modified_5_0">
+    * Instantiates an enum converter whereby the target class is automatically inferred from the model value in
+    * {@link #getAsString(FacesContext, UIComponent, Enum)} or the return type of the getter method associated with the model value.
+    * </p>
     */
     public EnumConverter() {
 
     }
 
     /**
-     * Instantiates an enum converter with a class where enum constants are taken from.
+     * <p>
+     * Instantiates an enum converter with <span class="changed_modified_5_0">an explicit target class</span> where enum constants are taken from.
+     * </p>
      *
      * @param targetClass Class where the enum constants are taken from by the converter methods.
      */
-    public EnumConverter(Class targetClass) {
+    public EnumConverter(Class<? extends Enum> targetClass) {
         this.targetClass = targetClass;
     }
 
@@ -92,7 +97,9 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
     /**
      * <p>
      * Convert the <code>value</code> argument to one of the enum constants of the class provided in our constructor. If no
-     * target class argument has been provided to the constructor of this instance, throw a <code>ConverterException</code>
+     * target class argument has been provided to the constructor of this instance <span class="changed_modified_5_0">or
+     * inferred in the {@link #getAsString(FacesContext, UIComponent, Enum)} method, then use the return type of the getter
+     * method associated with the model value. If it cannot be inferred, then</span> throw a <code>ConverterException</code>
      * containing the {@link #ENUM_NO_CLASS_ID} message with proper parameters. If the <code>value</code> argument is
      * <code>null</code> or it has a length of zero, return <code>null</code>. Otherwise, perform the equivalent of
      * <code>Enum.valueOf</code> using target class and <code>value</code> and return the <code>Object</code>. If the
@@ -110,6 +117,10 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
     public Enum getAsObject(FacesContext context, UIComponent component, String value) {
         if (context == null || component == null) {
             throw new NullPointerException();
+        }
+
+        if (targetClass == null) {
+            targetClass = SharedUtils.getReturnTypeOfGetterMethodAssociatedWithModelValue(context, component);
         }
 
         if (targetClass == null) {
@@ -136,7 +147,9 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
     /**
      * <p class="changed_modified_2_3">
      * Convert the enum constant given by the <code>value</code> argument into a String. If no target class argument has
-     * been provided to the constructor of this instance, throw a <code>ConverterException</code> containing the
+     * been provided to the constructor of this instance, <span class="changed_modified_5_0">then use {@link Class#getDeclaringClass()} of the
+     * <code>value</code> argument as target class, or if the <code>value</code> argument is <code>null</code>, then use the return type of the
+     * getter method associated with the model value. If it cannot be inferred, then</span> throw a <code>ConverterException</code> containing the
      * {@link #ENUM_NO_CLASS_ID} message with proper parameters. If the <code>value</code> argument is <code>null</code>,
      * return the empty String. If the value is an instance of the provided target class, return its string value by
      * <span class="changed_added_2_0">casting it to a <code>java.lang.Enum</code> and returning the result of calling the
@@ -151,6 +164,10 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
     public String getAsString(FacesContext context, UIComponent component, Enum value) {
         if (context == null || component == null) {
             throw new NullPointerException();
+        }
+
+        if (targetClass == null) {
+            targetClass = value != null ? value.getDeclaringClass() : SharedUtils.getReturnTypeOfGetterMethodAssociatedWithModelValue(context, component);
         }
 
         if (targetClass == null) {
