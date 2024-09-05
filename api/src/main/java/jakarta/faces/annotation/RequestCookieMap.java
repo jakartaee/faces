@@ -25,8 +25,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.util.Map;
 
 import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.enterprise.util.TypeLiteral;
 import jakarta.inject.Qualifier;
 
 /**
@@ -41,6 +43,16 @@ import jakarta.inject.Qualifier;
 @Qualifier
 @Retention(value = RUNTIME)
 public @interface RequestCookieMap {
+
+    /**
+     * <p class="changed_added_5_0">
+     * Instance of the generic {@link RequestCookieMap} type.
+     * </p>
+     */
+    public static final TypeLiteral<Map<String, Object>> TYPE = new TypeLiteral<>() {
+        private static final long serialVersionUID = 1L;
+    };
+
     /**
      * <p class="changed_added_4_0">
      * Supports inline instantiation of the {@link RequestCookieMap} qualifier.
