@@ -89,7 +89,6 @@ public class Issue2948IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
      */
     @Test
-    @Ignore("Tests events which are just encouraged and not mandated")
     public void testFlowLogging() throws Exception {
         // index.xhtml
         HtmlPage page = webClient.getPage(webUrl);
@@ -124,7 +123,6 @@ public class Issue2948IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
      */
     @Test
-    @Ignore("Tests events which are just encouraged and not mandated")
     public void testViewScopedLogging() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/viewScoped01.xhtml");
         HtmlElement e = (HtmlElement) page.getElementById("initMessage");

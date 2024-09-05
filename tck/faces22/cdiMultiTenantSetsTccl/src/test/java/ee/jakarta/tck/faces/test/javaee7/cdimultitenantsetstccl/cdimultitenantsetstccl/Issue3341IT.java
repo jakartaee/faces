@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.faces.FactoryFinder;
 
-@Ignore("Successful challenge via https://github.com/jakartaee/faces/issues/1679")
+@Ignore("Because this is Mojarra specific: https://github.com/jakartaee/faces/issues/1679")
 @RunWith(Arquillian.class)
 public class Issue3341IT {
 

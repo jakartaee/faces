@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2022 Contributors to Eclipse Foundation.
+ * Copyright (c) 2022, 2024 Contributors to Eclipse Foundation.
  * Copyright (c) 2009, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -2311,7 +2311,7 @@ public class TestServlet extends HttpTCKServlet {
         new Object[] { null, srcClass, sel }, out);
 
     out.append("Running==> application.subscribeToEvent(Class, "
-        + "SystemEventListener, null)" + JSFTestUtil.NL);
+        + "Class, null)" + JSFTestUtil.NL);
     JSFTestUtil.checkForNPE(application, "subscribeToEvent",
         new Class<?>[] { Class.class, Class.class, SystemEventListener.class },
         new Object[] { TCKSystemEvent.class, srcClass, null }, out);
@@ -2320,7 +2320,7 @@ public class TestServlet extends HttpTCKServlet {
         + JSFTestUtil.NL);
     JSFTestUtil.checkForNPE(application, "subscribeToEvent",
         new Class<?>[] { Class.class, Class.class, SystemEventListener.class },
-        new Object[] { TCKSystemEvent.class, srcClass, null }, out);
+        new Object[] { TCKSystemEvent.class, null, null }, out);
 
     out.append("Running==> application.subscribeToEvent(null, null, null)"
         + JSFTestUtil.NL);

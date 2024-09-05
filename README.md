@@ -1,28 +1,30 @@
-# Jakarta Faces
+# Jakarta Faces 4.1
 
-This repository contains the code for Jakarta Faces.
+This repository contains independent projects for Jakarta Faces 4.1 API, Specification and TCK.
 
-[Online JavaDoc](https://javadoc.io/doc/jakarta.faces/jakarta.faces-api)
+[Online JavaDoc](https://jakarta.ee/specifications/faces/4.1/apidocs/)
 
-Building
---------
+## About Jakarta Faces
 
-Jakarta Faces can be built by executing the following from the project root:
+Jakarta Faces defines an MVC framework for building user interfaces for web applications, 
+including UI components, state management, event handling, input validation, page navigation, and 
+support for internationalization and accessibility.
 
-``mvn clean package``
+## Building
 
-The API jar can then be found in /app/target.
-The SPEC html/pdf can then be found in /spec/target/generated-docs.
+Refer to the `README.md` of the subprojects.
 
-
-Making Changes
---------------
+## Making Changes
 
 To make changes, fork this repository, make your changes, and submit a pull request.
 
-About Jakarta Faces
--------------
+## Plans for Faces.next
 
-Jakarta Faces defines an MVC framework for building user interfaces for web applications, 
-including UI components, state management, event handing, input validation, page navigation, and 
-support for internationalization and accessibility.
+### 5.0
+
+- https://github.com/jakartaee/faces/milestone/22
+
+## Branches
+
+The `master` branch **must** represent the latest release version, which is currently 4.1.
+Work for Faces.next **must** go in separate branches matching their version.

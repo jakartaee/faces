@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2020, 2022 Contributors to Eclipse Foundation. All rights reserved.
+    Copyright (c) 2020, 2024 Contributors to Eclipse Foundation.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -16,19 +16,66 @@
 
 -->
 
+<!--
+
+Usage:
+
+Run full TCK (runs both current and old)
+
+mvn clean install
+
+
+
+Run full TCK, debugging remote GlassFish (suspends on port 9009)
+
+mvn clean install -Dglassfish.suspend
+
+
+
+Run full TCK, with the version of Mojarra supplied by GlassFish
+(for the signature check mojara.version has to be set to the exact version GlassFish uses)
+
+mvn clean install -Dmojarra.noupdate
+
+
+
+Build old TCK once from the root (NOT from the /old-tck folder)
+
+mvn clean install -pl :old-tck-build  
+
+
+
+Run single old TCK test from the root (NOT from the /old-tck folder)
+
+mvn clean install -pl :old-tck-run  -Drun.test="com/sun/ts/tests/jsf/api/jakarta_faces/context/facescontext/URLClient.java#facesCtxISEAfterReleaseTest"
+
+
+
+Run full old TCK, debugging client TCK from the root (NOT from the /old-tck folder)
+
+mvn clean install -pl :old-tck-run -Dsuspend-tck
+
+
+
+Run full old TCK, debugging remote GlassFish (suspends on port 9009)
+
+mvn clean install -pl :old-tck-run -Dglassfish.suspend
+
+-->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>org.eclipse.ee4j</groupId>
         <artifactId>project</artifactId>
-        <version>1.0.6</version>
+        <version>1.0.9</version>
         <relativePath />
     </parent>
 
     <groupId>org.eclipse.ee4j.faces.tck</groupId>
     <artifactId>jakarta-faces-tck</artifactId>
-    <version>4.0.2-SNAPSHOT</version>
+    <version>4.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Jakarta Faces ${project.version} TCK</name>
@@ -38,20 +85,32 @@
         <module>faces22</module>
         <module>faces23</module>
         <module>faces40</module>
+        <module>faces41</module>
         <module>old-tck-selenium</module>
         <module>old-tck</module>
         <module>faces-signaturetest</module>
     </modules>
 
     <properties>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
+        <test.selenium>true</test.selenium>
         
-        <faces.version>4.0.0</faces.version>
+        <faces.version>4.1.0-SNAPSHOT</faces.version>
+        
+        <!-- 
+            Set to the actual Faces API the implementation being tested is using.
+            
+            This can best be done in a profile specific to the implementation.
+            See the standard profiles for examples. 
+        -->
+        <sigtest.api.groupId></sigtest.api.groupId>
+        <sigtest.api.artifactId></sigtest.api.artifactId>
+        <sigtest.api.version></sigtest.api.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <tomcat.version>9.0.12</tomcat.version>
@@ -62,69 +121,117 @@
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.7.0.Alpha10</version>
+                <version>1.8.0.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-container-test-api</artifactId>
-                <version>1.7.0.Alpha10</version>
+                <version>1.8.0.Final</version>
             </dependency>
             <dependency>
-                <groupId>fish.payara.arquillian</groupId>
-                <artifactId>payara-client-ee8</artifactId>
-                <version>2.3.1</version>
+                <groupId>org.omnifaces.arquillian</groupId>
+                <artifactId>glassfish-client-ee10</artifactId>
+                <version>1.4</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.faces</groupId>
+                <artifactId>jakarta.faces-api</artifactId>
+                <version>${faces.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            
+            <dependency>
+                <groupId>jakarta.el</groupId>
+                <artifactId>jakarta.el-api</artifactId>
+                <version>6.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.servlet</groupId>
+                <artifactId>jakarta.servlet-api</artifactId>
+                <version>6.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.websocket</groupId>
+                <artifactId>jakarta.websocket-api</artifactId>
+                <version>2.2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.websocket</groupId>
+                <artifactId>jakarta.websocket-client-api</artifactId>
+                <version>2.2.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.enterprise</groupId>
+                <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                <version>4.1.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.inject</groupId>
+                <artifactId>jakarta.inject-api</artifactId>
+                <version>2.0.1.MR</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
+    
     <dependencies>
         <dependency>
             <groupId>jakarta.faces</groupId>
             <artifactId>jakarta.faces-api</artifactId>
-            <version>${faces.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.0.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-api</artifactId>
-            <version>2.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>jakarta.websocket</groupId>
             <artifactId>jakarta.websocket-client-api</artifactId>
-            <version>2.1.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.el</groupId>
             <artifactId>jakarta.el-api</artifactId>
-            <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.enterprise</groupId>
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
-            <version>4.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.0.1</version>
+            <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
         
@@ -160,7 +267,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -193,13 +299,13 @@
         <dependency>
             <groupId>org.skyscreamer</groupId>
             <artifactId>jsonassert</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>net.sourceforge.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.58.0</version>
+            <version>2.70.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -211,7 +317,7 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20210307</version>
+            <version>20240303</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -237,34 +343,37 @@
                  <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.3.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.10.1</version>
+                    <version>3.13.0</version>
                     </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.2.0</version>
+                    <version>3.6.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.2.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.0.0-M5</version>
+                    <version>3.2.5</version>
                 </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0</version>
                 <configuration>
                     <rules>
                         <requireMavenVersion>
-                            <version>3.6.3</version>
+                            <version>3.8.6</version>
                         </requireMavenVersion>
                     </rules>
                 </configuration>
@@ -280,7 +389,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.4.0</version>
                 <configuration>
                     <attachClasses>true</attachClasses>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -299,8 +408,10 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <rerunFailingTestsCount>3</rerunFailingTestsCount>
                     <systemPropertyVariables>
                         <finalName>${project.build.finalName}</finalName>
+                        <test.selenium>${test.selenium}</test.selenium>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -308,7 +419,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.0.0-M6</version>
+                <version>3.2.5</version>
                 <executions>
                     <execution>
                         <phase>post-integration-test</phase>
@@ -329,11 +440,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.0.0-M6</version>
+                <version>3.2.5</version>
                 <configuration>
                     <skipSurefireReport>${skipSurefireReport}</skipSurefireReport>
                     <aggregate>true</aggregate>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <version>3.3.2</version>
             </plugin>
         </plugins>
     </reporting>
@@ -354,11 +470,11 @@
         <profile>
             <id>custom</id>
         </profile>
-        
-        
+
+
         <!-- Profiles for the application servers against which the tests are run -->
 
-        
+
         <!-- ### GlassFish ### -->
 
 
@@ -371,12 +487,27 @@
 
             <properties>
                 <!-- Explicit version of Mojarra to test -->
-                <mojarra.version>4.0.2-SNAPSHOT</mojarra.version>
+                <mojarra.version>4.1.0</mojarra.version>
                 
+                <!-- 
+                    By default this profile will copy the Mojarra version to test to GlassFish.
+                    Set this to "true"" to skip copying and therefor use GlassFish as is. That is 
+                    useful to test GlassFish itself instead of just a specific Mojarra version.   
+                -->
+                <mojarra.noupdate>false</mojarra.noupdate>
+
+                <!-- 
+                    Exact artefact used by GlassFish that holds the API classes.
+                    This is used by the signature test in module /faces-signaturetest 
+                -->
+                <sigtest.api.groupId>org.glassfish</sigtest.api.groupId>
+                <sigtest.api.artifactId>jakarta.faces</sigtest.api.artifactId>
+                <sigtest.api.version>${mojarra.version}</sigtest.api.version>
+
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>7.0.2</glassfish.version>
+                <glassfish.version>8.0.0-M6</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
-                <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
+                <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
             </properties>
 
             <dependencies>
@@ -384,7 +515,7 @@
                 <dependency>
                     <groupId>org.omnifaces.arquillian</groupId>
                     <artifactId>arquillian-glassfish-server-managed</artifactId>
-                    <version>1.2</version>
+                    <version>1.4</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -392,7 +523,23 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <configuration>
+                            <rules>
+                                <requireJavaVersion>
+                                    <version>17</version>
+                                </requireJavaVersion>
+                            </rules>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
@@ -417,12 +564,13 @@
                                 </configuration>
                             </execution>
                             <execution>
-                                <id>copy</id>
+                                <id>update-mojarra</id>
                                 <phase>process-test-classes</phase>
                                 <goals>
                                     <goal>copy</goal>
                                 </goals>
                                 <configuration>
+                                    <skip>${mojarra.noupdate}</skip>
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>org.glassfish</groupId>
@@ -430,7 +578,7 @@
                                             <version>${mojarra.version}</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
-                                            <outputDirectory>${glassfish.root}/glassfish7/glassfish/modules</outputDirectory>
+                                            <outputDirectory>${glassfish.root}/glassfish8/glassfish/modules</outputDirectory>
                                             <destFileName>jakarta.faces.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
@@ -442,11 +590,12 @@
                          <artifactId>maven-failsafe-plugin</artifactId>
                          <configuration>
                              <systemPropertyVariables>
-                                 <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
+                                 <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
                                  <glassfish.systemProperties>
                                      user.language=en
                                      user.country=US
                                  </glassfish.systemProperties>
+                                 <test.selenium>${test.selenium}</test.selenium>
                              </systemPropertyVariables>
                          </configuration>
                     </plugin>
@@ -455,17 +604,16 @@
         </profile>
 
 
-
         <!-- ### PIRANHA ### -->
 
         <profile>
             <id>piranha-embedded-micro</id>
 
             <dependencies>
-                <!-- Java EE based client dependencies to contact a server via WebSocket or REST -->
+                <!-- Jakarta EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
-                    <groupId>fish.payara.arquillian</groupId>
-                    <artifactId>payara-client-ee8</artifactId>
+                    <groupId>org.omnifaces.arquillian</groupId>
+                    <artifactId>glassfish-client-ee10</artifactId>
                     <scope>test</scope>
                 </dependency>
 
@@ -493,7 +641,6 @@
                 </plugins>
             </build>
         </profile>
-
 
 
         <!-- ### TOMCAT ### -->
@@ -668,6 +815,47 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+
+        <!-- ### Payara ### -->
+
+        <profile>
+            <id>payara-ci-remote</id>
+
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+
+            <properties>
+                <!-- Arquillian Dependencies -->
+                <payara.arquillian.container.version>3.0.alpha8</payara.arquillian.container.version>
+            </properties>
+
+            <dependencies>
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>arquillian-payara-server-remote</artifactId>
+                    <version>${payara.arquillian.container.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>fish.payara.arquillian</groupId>
+                    <artifactId>payara-client-ee9</artifactId>
+                    <scope>test</scope>
+                    <version>${payara.arquillian.container.version}</version>
+                </dependency>
+                <!-- 
+                Solution for 
+                WARNING: A class jakarta.activation.DataSource for a default provider MessageBodyWriter<jakarta.activation.DataSource> was not found. The provider is not available.
+                fish.payara.arquillian.shaded.glassfish.jersey.message.internal.MessagingBinders$EnabledProvidersBinder bindToBinder
+                -->
+                <dependency>
+                    <groupId>jakarta.activation</groupId>
+                    <artifactId>jakarta.activation-api</artifactId>
+                    <version>2.0.1</version>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 </project>

@@ -7,7 +7,7 @@
 :email: https://accounts.eclipse.org/mailing-list/faces-dev
 :version-label!:
 :doctype: book
-:license: Eclipse Foundation Specification License v1.0
+:license: Eclipse Foundation Specification License v1.1
 :source-highlighter: coderay
 :toc: left
 :toclevels: 4

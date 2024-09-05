@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2024 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -23,7 +24,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.net.URL;
 import java.time.temporal.Temporal;
-import java.util.Locale;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -76,38 +76,37 @@ public class Issue4087IT {
      */
     @Test
     public void testJavaTimeTypes() throws Exception {
-        Locale.setDefault(Locale.US);
         HtmlPage page = webClient.getPage(webUrl + "faces/issue4087.xhtml");
         HtmlPage page1 = null;
 
         try {
 
             HtmlTextInput input1 = (HtmlTextInput)page.getHtmlElementById("localDateTime1");
-            input1.setValueAttribute("Sep 30, 2015, 4:14:43 PM");
+            input1.setValueAttribute("30 mei 2015 16:14:43");
 
             HtmlTextInput input2 = (HtmlTextInput)page.getHtmlElementById("localDateTime2");
-            input2.setValueAttribute("Sep 30, 2015, 4:14:43 PM");
+            input2.setValueAttribute("30 mei 2015 16:14:43");
 
             HtmlTextInput input3 = (HtmlTextInput)page.getHtmlElementById("localTime1");
-            input3.setValueAttribute("4:14:43 PM");
+            input3.setValueAttribute("16:14:43");
 
             HtmlTextInput input4 = (HtmlTextInput)page.getHtmlElementById("localTime2");
-            input4.setValueAttribute("4:14:43 PM");
+            input4.setValueAttribute("16:14:43");
 
             HtmlSubmitInput submit = (HtmlSubmitInput)page.getHtmlElementById("submit");
             page1 = submit.click();
 
             HtmlSpan time1Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue1");
-            assertTrue(time1Output.getTextContent().contains("Sep 30, 2015, 4:14 PM"));
+            assertTrue(time1Output.getTextContent().contains("30 mei 2015 16:14"));
 
             HtmlSpan time2Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue2");
-            assertTrue(time2Output.getTextContent().contains("Sep 30, 2015, 4:14 PM"));
+            assertTrue(time2Output.getTextContent().contains("30 mei 2015 16:14"));
 
             HtmlSpan time3Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue1");
-            assertTrue(time3Output.getTextContent().contains("4:14:43 PM"));
+            assertTrue(time3Output.getTextContent().contains("16:14:43"));
 
             HtmlSpan time4Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue2");
-            assertTrue(time4Output.getTextContent().contains("4:14 PM"));
+            assertTrue(time4Output.getTextContent().contains("16:14"));
         } catch (AssertionError w) {
             System.out.println(page.asXml());
             if (page1 != null) {
