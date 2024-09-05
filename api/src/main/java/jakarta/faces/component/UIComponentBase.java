@@ -1142,24 +1142,16 @@ public abstract class UIComponentBase extends UIComponent {
             Object savedFacesListeners = listeners != null ? listeners.saveState(context) : null;
             Object savedSysEventListeners = saveSystemEventListeners(context);
             Object savedBehaviors = saveBehaviorsState(context);
-            Object savedBindings = null;
-
-            if (bindings != null) {
-                savedBindings = saveBindingsState(context);
-            }
-
             Object savedHelper = null;
             if (stateHelper != null) {
                 savedHelper = stateHelper.saveState(context);
             }
 
-            if (isAllNull(savedFacesListeners, savedSysEventListeners, savedBehaviors, savedBindings, savedHelper)) {
+            if (isAllNull(savedFacesListeners, savedSysEventListeners, savedBehaviors, savedHelper)) {
                 return null;
             }
 
-            if (values == null || values.length != 5) {
-                values = new Object[5];
-            }
+            values = new Object[4];
 
             // Since we're saving partial state, skip id and clientId
             // as this will be reconstructed from the template execution
@@ -1167,29 +1159,22 @@ public abstract class UIComponentBase extends UIComponent {
             values[0] = savedFacesListeners;
             values[1] = savedSysEventListeners;
             values[2] = savedBehaviors;
-            values[3] = savedBindings;
-            values[4] = savedHelper;
+            values[3] = savedHelper;
 
             return values;
 
         } else {
-            if (values == null || values.length != 6) {
-                values = new Object[6];
-            }
+            values = new Object[5];
 
             values[0] = listeners != null ? listeners.saveState(context) : null;
             values[1] = saveSystemEventListeners(context);
             values[2] = saveBehaviorsState(context);
 
-            if (bindings != null) {
-                values[3] = saveBindingsState(context);
-            }
-
             if (stateHelper != null) {
-                values[4] = stateHelper.saveState(context);
+                values[3] = stateHelper.saveState(context);
             }
 
-            values[5] = id;
+            values[4] = id;
 
             return values;
         }
@@ -1229,18 +1214,14 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (values[3] != null) {
-            bindings = restoreBindingsState(context, values[3]);
+            getStateHelper().restoreState(context, values[3]);
         }
 
-        if (values[4] != null) {
-            getStateHelper().restoreState(context, values[4]);
-        }
-
-        if (values.length == 6) {
+        if (values.length == 5) {
             // This means we've saved full state and need to do a little more
             // work to finish the job
-            if (values[5] != null) {
-                id = (String) values[5];
+            if (values[4] != null) {
+                id = (String) values[4];
             }
         }
 
@@ -1431,42 +1412,6 @@ public abstract class UIComponentBase extends UIComponent {
             throw new IllegalStateException("Unknown object type");
         }
         return result;
-    }
-
-    private static Map<String, ValueExpression> restoreBindingsState(FacesContext context, Object state) {
-
-        if (state == null) {
-            return null;
-        }
-        Object[] values = (Object[]) state;
-        String[] names = (String[]) values[0];
-        Object[] states = (Object[]) values[1];
-        Map<String, ValueExpression> bindings = new HashMap<>(names.length);
-        for (int i = 0; i < names.length; i++) {
-            bindings.put(names[i], (ValueExpression) restoreAttachedState(context, states[i]));
-        }
-        return bindings;
-
-    }
-
-    private Object saveBindingsState(FacesContext context) {
-
-        if (bindings == null) {
-            return null;
-        }
-
-        Object values[] = new Object[2];
-        values[0] = bindings.keySet().toArray(new String[bindings.size()]);
-
-        Object[] bindingValues = bindings.values().toArray();
-        for (int i = 0; i < bindingValues.length; i++) {
-            bindingValues[i] = saveAttachedState(context, bindingValues[i]);
-        }
-
-        values[1] = bindingValues;
-
-        return values;
-
     }
 
     private Object saveSystemEventListeners(FacesContext ctx) {
@@ -1861,7 +1806,7 @@ public abstract class UIComponentBase extends UIComponent {
     // Versions 1.333 and older used inheritance to provide the
     // basic map functionality. This was wasteful since a
     // component could be completely configured via ValueExpressions
-    // or (Bindings) which means an EMPTY_OBJECT_ARRAY Map would always be
+    // which means an EMPTY_OBJECT_ARRAY Map would always be
     // present when it wasn't needed. By using composition,
     // we control if and when the Map is instantiated thereby
     // reducing unneeded object allocation. This change also
