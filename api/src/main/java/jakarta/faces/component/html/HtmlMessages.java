@@ -46,7 +46,7 @@ public class HtmlMessages extends UIMessages {
      * The property keys.
      */
     protected enum PropertyKeys {
-        dir, errorClass, errorStyle, fatalClass, fatalStyle, infoClass, infoStyle, lang, layout, role, style, styleClass, title, tooltip, warnClass, warnStyle,;
+        dir, errorClass, errorStyle, fatalClass, fatalStyle, infoClass, infoStyle, lang, layout, role, style, styleClass, successClass, successStyle, title, tooltip, warnClass, warnStyle,;
 
         String toString;
 
@@ -381,6 +381,58 @@ public class HtmlMessages extends UIMessages {
      */
     public void setStyleClass(java.lang.String styleClass) {
         getStateHelper().put(PropertyKeys.styleClass, styleClass);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Return the value of the <code>successClass</code> property.
+     * </p>
+     *
+     * @return the property value
+     * <p>
+     * Contents: CSS style class to apply to any message with a severity class of "INFO".
+     * @since 5.0
+     */
+    public java.lang.String getSuccessClass() {
+        return (java.lang.String) getStateHelper().eval(PropertyKeys.successClass);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Set the value of the <code>successClass</code> property.
+     * </p>
+     *
+     * @param successClass the new property value
+     * @since 5.0
+     */
+    public void setSuccessClass(java.lang.String successClass) {
+        getStateHelper().put(PropertyKeys.successClass, successClass);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Return the value of the <code>successStyle</code> property.
+     * </p>
+     *
+     * @return the property value
+     * <p>
+     * Contents: CSS style(s) to apply to any message with a severity class of "INFO".
+     * @since 5.0
+     */
+    public java.lang.String getSuccessStyle() {
+        return (java.lang.String) getStateHelper().eval(PropertyKeys.successStyle);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Set the value of the <code>successStyle</code> property.
+     * </p>
+     *
+     * @param successStyle the new property value
+     * @since 5.0
+     */
+    public void setSuccessStyle(java.lang.String successStyle) {
+        getStateHelper().put(PropertyKeys.successStyle, successStyle);
     }
 
     /**
