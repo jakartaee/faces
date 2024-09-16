@@ -685,7 +685,6 @@ div.contentContainer ul.blockList li.blockList h2{
                  border-left-width:thin; border-right:none;
                  border-top:none; border-bottom:none; border-color:red;
                  text-decoration: line-through; }
-*/
 
    .changed_added_4_0 {
                  background-color:#cfc; 
@@ -700,6 +699,26 @@ div.contentContainer ul.blockList li.blockList h2{
                  border-top:none; border-bottom:none; border-color:#fa0;}
 
    .changed_deleted_4_0 {
+                 background-color:#fcc; 
+                 padding-left:0.2em; border-left:solid;
+                 border-left-width:0.2em; border-right:none;
+                 border-top:none; border-bottom:none; border-color:#f00;
+                 text-decoration: line-through; }
+*/
+
+   .changed_added_4_1 {
+                 background-color:#cfc; 
+                 padding-left:0.2em; border-left:solid;
+                 border-left-width:0.2em; border-right:none;
+                 border-top:none; border-bottom:none; border-color:#080;}
+
+   .changed_modified_4_1 {
+                 background-color:#fec; 
+                 padding-left:0.2em; border-left:solid;
+                 border-left-width:0.2em; border-right:none;
+                 border-top:none; border-bottom:none; border-color:#fa0;}
+
+   .changed_deleted_4_1 {
                  background-color:#fcc; 
                  padding-left:0.2em; border-left:solid;
                  border-left-width:0.2em; border-right:none;
