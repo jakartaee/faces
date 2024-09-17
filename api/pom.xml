@@ -474,7 +474,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>install - -save-dev jsdoc</arguments>
+                                    <arguments>install -D jsdoc</arguments>
                                 </configuration>
                             </execution>
 
@@ -485,7 +485,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>init - -force - -yes</arguments>
+                                    <arguments>init -f -y</arguments>
                                 </configuration>
                             </execution>
 
