@@ -531,10 +531,10 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         </executions>
                         <configuration>
                             <facesConfig>${project.basedir}/src/main/renderkitdoc/standard-html-renderkit.xml</facesConfig>
-                            <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+                            <schemaDirectory>${project.basedir}/src/main/xsd</schemaDirectory>
                         </configuration>
                     </plugin>
-                    
+
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>3.3.1</version>
@@ -566,7 +566,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 <configuration>
                                     <resources>
                                         <resource>
-                                            <directory>src/main/vdldoc</directory>
+                                            <directory>src/main/vdldoc/resources</directory>
                                         </resource>
                                     </resources>
                                     <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>

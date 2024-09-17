@@ -20,8 +20,8 @@
 <facelet-taglib id="pt"
     xmlns="https://jakarta.ee/xml/ns/jakartaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_1.xsd"
-    version="4.1"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee ../xsd/web-facelettaglibrary_5_0.xsd"
+    version="5.0"
 >
     <description><![CDATA[
         <p><strong>Jakarta Faces Passthrough Attributes Tag Library</strong></p>
@@ -35,7 +35,7 @@
  
         <p>Usage example</p>
 
-        <code><pre>&lt;h:outputText value="Namespaced Attributes" p:foo="bar" /&gt;</pre></code>
+        <code><pre>&lt;h:outputText value="Namespaced Attributes" pt:foo="bar" /&gt;</pre></code>
 
         <p>Would cause <code>&lt;span foo="bar"&gt;Namespaced Attributes&lt;/span&gt;</code> to be rendered.</p>
 
@@ -44,11 +44,4 @@
     
     ]]></description>
     <namespace>jakarta.faces.passthrough</namespace>
-    <tag>
-        <description><![CDATA[
-
-        ]]></description>
-        <tag-name> </tag-name>
-    </tag>        
-
 </facelet-taglib>

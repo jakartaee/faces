@@ -20,8 +20,8 @@
 <facelet-taglib id="faces"
     xmlns="https://jakarta.ee/xml/ns/jakartaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facelettaglibrary_4_1.xsd"
-    version="4.1"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee ../xsd/web-facelettaglibrary_5_0.xsd"
+    version="5.0"
 >
     <description><![CDATA[
         <p><strong>Jakarta Faces Passthrough Elements Tag Library</strong></p>
@@ -65,6 +65,9 @@
         
         ]]></description>
         <tag-name>element</tag-name>
+        <component>
+            <component-type />
+        </component>
         <attribute>
           <description><![CDATA[
 
