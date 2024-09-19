@@ -247,10 +247,6 @@
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>META-INF/README</exclude>
-                    <exclude>${findbugs.exclude}</exclude>
-                </excludes>
             </resource>
         </resources>
         
@@ -449,6 +445,8 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                 <plugins>
                     <!-- Create JS docs -->
                     <!-- result will be saved in /src/main/resources/META-INF/resources/META-INF/resources/jakarta.faces/out -->
+                    <!-- TODO: this unfortunately only works in Mojarra project! We need to split faces-uncompressed.js into API+impl but that's only possible with TypeScript. -->
+                    <!-- 
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
@@ -476,7 +474,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>install --save-dev jsdoc</arguments>
+                                    <arguments>install -D jsdoc</arguments>
                                 </configuration>
                             </execution>
 
@@ -487,7 +485,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>init --force --yes</arguments>
+                                    <arguments>init -f -y</arguments>
                                 </configuration>
                             </execution>
 
@@ -514,7 +512,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                             </execution>
                         </executions>
                     </plugin>
-
+                    -->
 
                     <!-- Create Renderkit docs -->
                     <!-- Result will be saved in /target/renderkitdoc  -->
@@ -532,11 +530,11 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                             </execution>
                         </executions>
                         <configuration>
-                            <facesConfig>${project.basedir}/src/main/resources/com/sun/faces/standard-html-renderkit.xml</facesConfig>
-                            <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>
+                            <facesConfig>${project.basedir}/src/main/renderkitdoc/standard-html-renderkit.xml</facesConfig>
+                            <schemaDirectory>${project.basedir}/src/main/xsd</schemaDirectory>
                         </configuration>
                     </plugin>
-                    
+
                     <plugin>
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>3.3.1</version>
@@ -551,7 +549,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 <configuration>
                                     <resources>
                                         <resource>
-                                            <directory>src/main/renderkitdoc</directory>
+                                            <directory>src/main/renderkitdoc/resources</directory>
                                         </resource>
                                     </resources>
                                     <outputDirectory>${project.build.directory}/renderkitdoc</outputDirectory>
@@ -568,7 +566,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 <configuration>
                                     <resources>
                                         <resource>
-                                            <directory>src/main/vdldoc</directory>
+                                            <directory>src/main/vdldoc/resources</directory>
                                         </resource>
                                     </resources>
                                     <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
@@ -607,21 +605,21 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 <argument>-css</argument>
                                 <argument>faces-api.css</argument>
                                 <argument>-f</argument>
-                                <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.taglib.xml</argument>
-                                <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.facelets.taglib.xml</argument>
-                                <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.core.taglib.xml</argument>
-                                <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.html.taglib.xml</argument>
-                                <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.passthrough.taglib.xml</argument>
-                                <argument>src/main/resources/com/sun/faces/metadata/taglib/faces.composite.taglib.xml</argument>
-                                <argument>src/main/resources/com/sun/faces/metadata/taglib/tags.core.taglib.xml</argument>
-                                <argument>src/main/resources/com/sun/faces/metadata/taglib/tags.functions.taglib.xml</argument>
+                                <argument>src/main/vdldoc/faces.taglib.xml</argument>
+                                <argument>src/main/vdldoc/faces.facelets.taglib.xml</argument>
+                                <argument>src/main/vdldoc/faces.core.taglib.xml</argument>
+                                <argument>src/main/vdldoc/faces.html.taglib.xml</argument>
+                                <argument>src/main/vdldoc/faces.passthrough.taglib.xml</argument>
+                                <argument>src/main/vdldoc/faces.composite.taglib.xml</argument>
+                                <argument>src/main/vdldoc/tags.core.taglib.xml</argument>
+                                <argument>src/main/vdldoc/tags.functions.taglib.xml</argument>
                             </arguments>
                         </configuration>
                         <dependencies>
                             <dependency>
                                 <groupId>org.omnifaces</groupId>
                                 <artifactId>vdldoc</artifactId>
-                                <version>3.1</version>
+                                <version>3.2</version>
                             </dependency>
                         </dependencies>
                     </plugin>

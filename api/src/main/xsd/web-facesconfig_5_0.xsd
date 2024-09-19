@@ -6,7 +6,7 @@
             targetNamespace="https://jakarta.ee/xml/ns/jakartaee"
             version="5.0"
             xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <xsd:include schemaLocation="jakartaee_10.xsd"/>
+  <xsd:include schemaLocation="jakartaee_12.xsd"/>
 
   <xsd:annotation>
     <xsd:documentation>
@@ -54,7 +54,7 @@
       version of the schema using xsi:schemaLocation attribute
       for jakartaee namespace with the following location:</p>
       
-      <p>https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd</p>
+      <p>https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_5_0.xsd</p>
       
       ]]>
     </xsd:documentation>
