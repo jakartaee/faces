@@ -448,7 +448,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>3.3.1</version>
                         <executions>
-                            <!-- Pre-process tsdocs - copy faces-api.css for vdldoc  -->
+                            <!-- Pre-process tsdocs - copy faces.d.ts for tsdoc  -->
                             <execution>
                                 <id>pre-process-tsdoc</id>
                                 <phase>generate-resources</phase>
