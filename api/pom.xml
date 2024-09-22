@@ -20,7 +20,7 @@
 
 <!--
 
-    Project to create the Jakarta Faces API jar and docs (vdldocs, jsdocs, renderkit docs).
+    Project to create the Jakarta Faces API jar and docs (vdldocs, tsdocs, renderkit docs).
 
     This depends on a Mojarra build being available in the version set by mojarra.version
 
@@ -443,20 +443,73 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <id>docs</id>
             <build>
                 <plugins>
-                    <!-- Create JS docs -->
-                    <!-- result will be saved in /src/main/resources/META-INF/resources/META-INF/resources/jakarta.faces/out -->
-                    <!-- TODO: this unfortunately only works in Mojarra project! We need to split faces-uncompressed.js into API+impl but that's only possible with TypeScript. -->
-                    <!-- 
+                    <!-- Pre/post process resources for docs. -->
+                    <plugin>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>3.3.1</version>
+                        <executions>
+                            <!-- Pre-process tsdocs - copy faces-api.css for vdldoc  -->
+                            <execution>
+                                <id>pre-process-tsdoc</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/resources/META-INF/resources/jakarta.faces</directory>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/tsdoc</outputDirectory>
+                                </configuration>
+                            </execution>
+                            <!-- Post-process renderkitdocs - override stylesheet.css of renderkitdoc  -->
+                            <execution>
+                                <id>post-process-renderkitdoc</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/renderkitdoc/resources</directory>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/renderkitdoc</outputDirectory>
+                                    <overwrite>true</overwrite>
+                                </configuration>
+                            </execution>
+                            <!-- Pre-process vdldocs - copy faces-api.css for vdldoc  -->
+                            <execution>
+                                <id>generate-vdldoc-pre-process</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/vdldoc/resources</directory>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Create TS docs -->
+                    <!-- result will be saved in /target/tsdoc/docs -->
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.15.0</version>
-
+                        <version>1.15.1</version>
                         <configuration>
-                            <nodeVersion>v21.0.0</nodeVersion>
-                            <npmVersion>10.8.0</npmVersion>
-                            <installDirectory>./target/node</installDirectory>
-                            <workingDirectory>src/main/resources/META-INF/resources/jakarta.faces</workingDirectory>
+                            <nodeVersion>v22.9.0</nodeVersion>
+                            <installDirectory>${project.build.directory}</installDirectory>
+                            <workingDirectory>${project.build.directory}/tsdoc</workingDirectory>
                         </configuration>
                         <executions>
                             <execution>
@@ -466,20 +519,18 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 </goals>
                                 <phase>generate-resources</phase>
                             </execution>
-
                             <execution>
-                                <id>npm install jsdoc</id>
+                                <id>npm install typedoc</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>install -D jsdoc</arguments>
+                                    <arguments>install -D typedoc</arguments>
                                 </configuration>
                             </execution>
-
                             <execution>
-                                <id>npm run init</id>
+                                <id>npm init</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
@@ -488,31 +539,28 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                     <arguments>init -f -y</arguments>
                                 </configuration>
                             </execution>
-
                             <execution>
-                                <id>npm run build</id>
+                                <id>npm configure typedoc script</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>pkg set scripts.doc="jsdoc"</arguments>
+                                    <arguments>pkg set scripts.typedoc=typedoc</arguments>
                                 </configuration>
                             </execution>
-
                             <execution>
-                                <id>npm run build1</id>
+                                <id>npm run typedoc script</id>
                                 <goals>
                                     <goal>npm</goal>
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>run doc faces-uncompressed.js</arguments>
+                                    <arguments>run typedoc faces.d.ts --readme none</arguments>
                                 </configuration>
                             </execution>
                         </executions>
                     </plugin>
-                    -->
 
                     <!-- Create Renderkit docs -->
                     <!-- Result will be saved in /target/renderkitdoc  -->
@@ -535,52 +583,8 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         </configuration>
                     </plugin>
 
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>3.3.1</version>
-                        <executions>
-                            <!-- Post-process RKD - override stylesheet.css of renderkitdoc  -->
-                            <execution>
-                                <id>post-process-renderkitdoc</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/main/renderkitdoc/resources</directory>
-                                        </resource>
-                                    </resources>
-                                    <outputDirectory>${project.build.directory}/renderkitdoc</outputDirectory>
-                                    <overwrite>true</overwrite>
-                                </configuration>
-                            </execution>
-                            <!-- Pre-process VDL - copy faces-api.css for vdldoc  -->
-                            <execution>
-                                <id>generate-vdldoc-pre-process</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <resources>
-                                        <resource>
-                                            <directory>src/main/vdldoc/resources</directory>
-                                        </resource>
-                                    </resources>
-                                    <outputDirectory>${project.build.directory}/vdldoc</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-
-
                     <!-- Create VDL docs -->
                     <!-- Result will be saved in /target/vdldoc  -->
-
-                    <!-- Run actual core VDL -->
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
