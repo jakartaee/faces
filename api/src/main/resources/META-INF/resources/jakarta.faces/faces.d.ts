@@ -16,7 +16,7 @@
 
 /**
  * <span class="changed_modified_2_2">The top level global namespace
- * for Jakarta Faces functionality.</span>
+ * for the Jakarta Faces JavaScript API.</span>
  * @namespace
  * @since 2.0
  */

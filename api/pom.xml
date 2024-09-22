@@ -556,7 +556,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>run typedoc faces.d.ts --readme none</arguments>
+                                    <arguments>run typedoc faces.d.ts</arguments>
                                 </configuration>
                             </execution>
                         </executions>
