@@ -34,7 +34,7 @@ export declare namespace faces {
     /**
      * <p>An integer specifying the implementation version that this file implements.
      * It's a monotonically increasing number, reset with every increment of
-     * <code>faces.specversion</code>
+     * <code>{@link faces.specversion}</code>
      * This number is implementation dependent.</p>
      * @since 2.0
      */
@@ -65,13 +65,11 @@ export declare namespace faces {
         /**
          * Register a callback for error handling.
          * <p><b>Usage:</b></p>
-         * <pre><code>
-         * faces.ajax.addOnError(handleError);
-         * ...
-         * var handleError = function handleError(data) {
-         * ...
+         * <pre><code>const handleError = function handleError(data) {
+         *     // ...
          * }
-         * </pre></code>
+         * 
+         * faces.ajax.addOnError(handleError);</pre></code>
          * <p><b>Implementation Requirements:</b></p>
          * This function must accept a reference to an existing JavaScript function.
          * The JavaScript function reference must be added to a list of callbacks, making it possible
@@ -82,18 +80,16 @@ export declare namespace faces {
          * @param callback a reference to a function to call on an error
          * @since 2.0
          */
-        export function addOnError(callback: () => void): void;
+        export function addOnError(callback: Function): void;
 
         /**
          * Register a callback for event handling.
          * <p><b>Usage:</b></p>
-         * <pre><code>
-         * faces.ajax.addOnEvent(statusUpdate);
-         * ...
-         * var statusUpdate = function statusUpdate(data) {
-         * ...
+         * <pre><code>const statusUpdate = function statusUpdate(data) {
+         *     // ...
          * }
-         * </pre></code>
+         * 
+         * faces.ajax.addOnEvent(statusUpdate);</pre></code>
          * <p><b>Implementation Requirements:</b></p>
          * This function must accept a reference to an existing JavaScript function.
          * The JavaScript function reference must be added to a list of callbacks, making it possible
@@ -104,19 +100,23 @@ export declare namespace faces {
          * @param callback a reference to a function to call on an event
          * @since 2.0
          */
-        export function addOnEvent(callback: () => void): void;
+        export function addOnEvent(callback: Function): void;
         
         /**
          * <p><span class="changed_modified_2_2">Send</span> an
-         * asynchronous Ajax req uest to the server.
+         * asynchronous Ajax request to the server.
          * <p><b>Usage:</b></p>
-         * <pre><code>
          * Example showing all optional arguments:
-         *
-         * &lt;commandButton id="button1" value="submit"
-         *     onclick="faces.ajax.request(this,event,
-         *       {execute:'button1',render:'status',onevent: handleEvent,onerror: handleError});return false;"/&gt;
-         * &lt;/commandButton/&gt;
+         * <pre><code>&lt;button
+         *     id="button1"
+         *     value="submit"
+         *     onclick="faces.ajax.request(this, event, {
+         *         execute: 'button1',
+         *         render: 'status',
+         *         onevent: handleEvent,
+         *         onerror: handleError
+         *      }); return false;"&gt;
+         * &lt;/button&gt;
          * </pre></code>
          * <p><b>Implementation Requirements:</b></p>
          * This function must:
@@ -148,7 +148,7 @@ export declare namespace faces {
          * <li>Determine the <code>source</code> element's <code>form</code>
          * element.</li>
          * <li>Get the <code>form</code> view state by calling
-         * {@link faces.getViewState} passing the
+         * <code>{@link faces.getViewState}</code> passing the
          * <code>form</code> element as the argument.</li>
          * <li>Collect post data arguments for the Ajax request.
          * <ul>
@@ -160,8 +160,8 @@ export declare namespace faces {
          * </tr>
          * <tr>
          * <td><code>jakarta.faces.ViewState</code></td>
-         * <td><code>Contents of jakarta.faces.ViewState hidden field.  This is included when
-         * {@link faces.getViewState} is used.</code></td>
+         * <td>Contents of <code>jakarta.faces.ViewState</code> hidden field.This is included when
+         * <code>{@link faces.getViewState}</code> is used.</td>
          * </tr>
          * <tr>
          * <td><code>jakarta.faces.partial.ajax</code></td>
@@ -169,14 +169,14 @@ export declare namespace faces {
          * </tr>
          * <tr>
          * <td><code>jakarta.faces.source</code></td>
-         * <td><code>The identifier of the element that triggered this request.</code></td>
+         * <td>The identifier of the element that triggered this request.</td>
          * </tr>
          * <tr class="changed_added_2_2">
          * <td><code>jakarta.faces.ClientWindow</code></td>
-         * <td><code>Call faces.getClientWindow(), passing the current
-         * form.  If the return is non-null, it must be set as the
+         * <td>Call <code>{@link faces.getClientWindow}</code>, passing the current
+         * form.  If the return is non-<code>null</code>, it must be set as the
          * value of this name/value pair, otherwise, a name/value
-         * pair for client window must not be sent.</code></td>
+         * pair for client window must not be sent.</td>
          * </tr>
          * </table>
          * </li>
@@ -305,7 +305,7 @@ export declare namespace faces {
          * must examine the queue and determine the next request to be sent.  The behavior of the
          * request callback function must be as follows:
          * <ul>
-         * <li>If the request completed successfully invoke {@link faces.ajax.response}
+         * <li>If the request completed successfully invoke <code>{@link faces.ajax.response}</code>
          * passing the <code>request</code> object.</li>
          * <li>If the request did not complete successfully, notify the client.</li>
          * <li>Regardless of the outcome of the request (success or error) every request in the
@@ -332,23 +332,23 @@ export declare namespace faces {
          * </tr>
          * <tr>
          * <td><code>execute</code></td>
-         * <td><code>space seperated list of client identifiers</code></td>
+         * <td>space seperated list of client identifiers</td>
          * </tr>
          * <tr>
          * <td><code>render</code></td>
-         * <td><code>space seperated list of client identifiers</code></td>
+         * <td>space seperated list of client identifiers</td>
          * </tr>
          * <tr>
          * <td><code>onevent</code></td>
-         * <td><code>function to callback for event</code></td>
+         * <td>function to callback for event</td>
          * </tr>
          * <tr>
          * <td><code>onerror</code></td>
-         * <td><code>function to callback for error</code></td>
+         * <td>function to callback for error</td>
          * </tr>
          * <tr>
          * <td><code>params</code></td>
-         * <td><code>object containing parameters to include in the request</code></td>
+         * <td>object containing parameters to include in the request</td>
          * </tr>
          * <tr class="changed_added_2_2">
          * <td><code>delay</code></td>
@@ -385,30 +385,30 @@ export declare namespace faces {
          * <p><span class="changed_modified_2_2">Receive</span> an Ajax response
          * from the server.
          * <p><b>Usage:</b></p>
-         * <pre><code>
-         * faces.ajax.response(request, context);
-         * </pre></code>
+         * <pre><code>faces.ajax.response(request, context);</pre></code>
          * <p><b>Implementation Requirements:</b></p>
          * This function must evaluate the markup returned in the
          * <code>request.responseXML</code> object and perform the following action:
          * <ul>
-         * <p>If there is no XML response returned, signal an <code>emptyResponse</code>
+         * <li>If there is no XML response returned, signal an <code>emptyResponse</code>
          * error. If the XML response does not follow the format as outlined
          * in Appendix A.3 "XML Schema Definition For Partial Response" of the Jakarta Faces Specification Document
          * signal a <code>malformedError</code> error.  Refer to
-         * Jakarta Faces Specification Document section 13.3.6.3 "Signaling Errors".</p>
-         * <p>If the response was successfully processed, send a <code>success</code>
-         * event as outlined in Jakarta Faces Specification Document section 13.3.5.3 "Sending Events".</p>
+         * Jakarta Faces Specification Document section 13.3.6.3 "Signaling Errors".</li>
+         * <li>If the response was successfully processed, send a <code>success</code>
+         * event as outlined in Jakarta Faces Specification Document section 13.3.5.3 "Sending Events".</li>
+         * </ul>
          * <p><i>Update Element Processing</i></p>
          * The <code>update</code> element is used to update a single DOM element.  The
          * "id" attribute of the <code>update</code> element refers to the DOM element that
          * will be updated.  The contents of the <code>CDATA</code> section is the data that
          * will be used when updating the contents of the DOM element as specified by the
          * <code>&lt;update&gt;</code> element identifier.
+         * <ul>
          * <li>If an <code>&lt;update&gt;</code> element is found in the response
          * with the identifier <code>jakarta.faces.ViewRoot</code>:
          * <pre><code>&lt;update id="jakarta.faces.ViewRoot"&gt;
-         *    &lt;![CDATA[...]]&gt;
+         *     &lt;![CDATA[...]]&gt;
          * &lt;/update&gt;</code></pre>
          * Update the entire DOM replacing the appropriate <code>head</code> and/or
          * <code>body</code> sections with the content from the response.</li>
@@ -490,7 +490,9 @@ export declare namespace faces {
          * <code>&lt;update&gt;</code> element identifier, and replace its contents with
          * the <code>&lt;update&gt;</code> element's <code>CDATA</code> contents.</li>
          * </li>
+         * </ul>
          * <p><i>Insert Element Processing</i></p>
+         * <ul>
          * <li>If an <code>&lt;insert&gt;</code> element is found in
          * the response with a nested <code>&lt;before&gt;</code>
          * element:
@@ -527,12 +529,16 @@ export declare namespace faces {
          * the DOM element in the document.</li>
          * </ul>
          * </li>
+         * </ul>
          * <p><i>Delete Element Processing</i></p>
+         * <ul>
          * <li>If a <code>&lt;delete&gt;</code> element is found in the response:
          * <pre><code>&lt;delete id="delete id"/&gt;</code></pre>
          * Find the DOM element whose identifier matches <code>delete id</code> and remove it
          * from the DOM.</li>
+         * </ul>
          * <p><i>Element Attribute Update Processing</i></p>
+         * <ul>
          * <li>If an <code>&lt;attributes&gt;</code> element is found in the response:
          * <pre><code>&lt;attributes id="id of element with attribute"&gt;
          *    &lt;attribute name="attribute name" value="attribute value"&gt;
@@ -545,7 +551,9 @@ export declare namespace faces {
          * with <code>attribute value</code>.</li>
          * </ul>
          * </li>
+         * </ul>
          * <p><i>JavaScript Processing</i></p>
+         * <ul>
          * <li>If an <code>&lt;eval&gt;</code> element is found in the response:
          * <pre><code>&lt;eval&gt;
          *    &lt;![CDATA[...JavaScript...]]&gt;
@@ -555,7 +563,9 @@ export declare namespace faces {
          * from the response and execute it as if it were JavaScript code.</li>
          * </ul>
          * </li>
+         * </ul>
          * <p><i>Redirect Processing</i></p>
+         * <ul>
          * <li>If a <code>&lt;redirect&gt;</code> element is found in the response:
          * <pre><code>&lt;redirect url="redirect url"/&gt;</code></pre>
          * Cause a redirect to the url <code>redirect url</code>.</li>
@@ -569,16 +579,16 @@ export declare namespace faces {
          * and the <code>error-message</code> contents. Signal a <code>serverError</code> passing
          * the <code>errorName</code> and <code>errorMessage</code>.  Refer to
          * Jakarta Faces Specification Document section 13.3.6.3 "Signaling Errors".</li>
+         * </ul>
          * <p><i>Extensions</i></p>
+         * <ul>
          * <li>The <code>&lt;extensions&gt;</code> element provides a way for framework
          * implementations to provide their own information.</li>
          * <p><li>The implementation must check if &lt;script&gt; elements in the response can
          * be automatically run, as some browsers support this feature and some do not.
          * If they can not be run, then scripts should be extracted from the response and
-         * run separately.</li></p>
+         * run separately.</li>
          * </ul>
-         *
-         * </p>
          *
          * @param request The <code>XMLHttpRequest</code> instance that
          * contains the status code and response message from the server.
@@ -596,14 +606,13 @@ export declare namespace faces {
      * the currently running application instance.  Calling this method must
      * not cause any network transaction to happen to the server.</p>
      * <p><b>Usage:</b></p>
-     * <pre><code>
-     * var stage = faces.getProjectStage();
-     * if (stage === ProjectStage.Development) {
-     *  ...
-     * } else if stage === ProjectStage.Production) {
-     *  ...
-     * }
-     * </code></pre>
+     * <pre><code>const stage = faces.getProjectStage();
+     * 
+     * if (stage === 'Development') {
+     *     // ...
+     * } else if (stage === 'Production') {
+     *     // ...
+     * }</code></pre>
      *
      * @returns <code>String</code> representing the current state of the
      * running application in a typical product development lifecycle.  Refer
@@ -618,9 +627,7 @@ export declare namespace faces {
      * with the specified <code>form</code> element.  This will include
      * all input controls of type <code>hidden</code>.</p>
      * <p><b>Usage:</b></p>
-     * <pre><code>
-     * var state = faces.getViewState(form);
-     * </pre></code>
+     * <pre><code>const state = faces.getPartialViewState(form);</pre></code>
      *
      * @param form The <code>form</code> element whose contained
      * <code>input</code> controls will be collected and encoded.
@@ -638,9 +645,7 @@ export declare namespace faces {
      * with the specified <code>form</code> element.  This will include
      * all input controls of type <code>hidden</code>.</p>
      * <p><b>Usage:</b></p>
-     * <pre><code>
-     * var state = faces.getViewState(form);
-     * </pre></code>
+     * <pre><code>const state = faces.getViewState(form);</pre></code>
      *
      * @param form The <code>form</code> element whose contained
      * <code>input</code> controls will be collected and encoded.
@@ -680,7 +685,7 @@ export declare namespace faces {
         
         /**
          * Initialize a websocket on the given client identifier. When connected, it will stay open and reconnect as
-         * long as URL is valid and <code>faces.push.close()</code> hasn't explicitly been called on the same client
+         * long as URL is valid and <code>{@link faces.push.close}</code> hasn't explicitly been called on the same client
          * identifier.
          * @param clientId The client identifier of the websocket.
          * @param url The URL of the websocket. All open websockets on the same URL will receive the
@@ -695,24 +700,24 @@ export declare namespace faces {
          * occurred and the web socket will attempt to reconnect. The function will be invoked with three arguments: the
          * error reason code, the channel name and the raw <code>CloseEvent</code> itself. Note that this will not be
          * invoked on final close of the web socket, even when the final close is caused by an error. See also
-         * <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a> and <code>jakarta.websocket.CloseReason.CloseCodes</code> API
-         * for an elaborate list of all close codes.
+         * <a href="https://datatracker.ietf.org/doc/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a> and
+         * <code>jakarta.websocket.CloseReason.CloseCodes</code> API for an elaborate list of all close codes.
          * @param onclose The function to be invoked when the web socket is closed and will not anymore attempt
          * to reconnect. The function will be invoked with three arguments: the close reason code, the channel name
          * and the raw <code>CloseEvent</code> itself. Note that this will also be invoked when the close is caused by an
          * error and that you can inspect the close reason code if an actual connection error occurred and which one (i.e.
-         * when the code is not 1000 or 1008). See also <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455
+         * when the code is not 1000 or 1008). See also <a href="https://datatracker.ietf.org/doc/html/rfc6455#section-7.4.1">RFC 6455
          * section 7.4.1</a> and <code>jakarta.websocket.CloseReason.CloseCodes</code> API for an elaborate list of all close codes.
          * @param behaviors Client behavior functions to be invoked when specific message is received.
          * @param autoconnect Whether or not to automatically connect the socket. Defaults to <code>false</code>.
          * @since 2.3
          */
-        export function init(clientId: string, url: string, channel: string, onopen: () => void, onmessage: () => void, onerror: () => void, onclose: () => void, behaviors: object, autoconnect: boolean): void;
+        export function init(clientId: string, url: string, channel: string, onopen: Function, onmessage: Function, onerror: Function, onclose: Function, behaviors: object, autoconnect: boolean): void;
 
         /**
          * Open the websocket on the given client identifier.
          * @param clientId The client identifier of the websocket.
-         * @throws When client identifier is unknown. You may need to initialize it first via <code>init()</code> function.
+         * @throws When client identifier is unknown. You may need to initialize it first via <code>{@link faces.push.init}</code> function.
          * @since 2.3
          */
         export function open(clientId: string): void;
@@ -720,7 +725,7 @@ export declare namespace faces {
         /**
          * Close the websocket on the given client identifier.
          * @param clientId The client identifier of the websocket.
-         * @throws When client identifier is unknown. You may need to initialize it first via <code>init()</code> function.
+         * @throws When client identifier is unknown. You may need to initialize it first via <code>{@link faces.push.init}</code> function.
          * @since 2.3
          */
         export function close(clientId: string): void;
