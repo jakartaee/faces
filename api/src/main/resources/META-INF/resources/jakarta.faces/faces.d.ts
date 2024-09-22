@@ -372,7 +372,7 @@ export declare namespace faces {
          * </tr>
          * </table>
          * The <code>options</code> argument is optional.
-         * @throws If first required argument
+         * @throws {Error} If first required argument
          * <code>element</code> is not specified, or if one or more
          * of the components in the <code>options.execute</code>
          * list is a file upload component, but the form's enctype
@@ -594,7 +594,7 @@ export declare namespace faces {
          * contains the status code and response message from the server.
          * @param context An object containing the request context, including the following properties:
          * the source element, per call onerror callback function, and per call onevent callback function.
-         * @throws If request contains no data.
+         * @throws {Error} If request contains no data.
          * @since 2.0
          */
         export function response(request: XMLHttpRequest, context: object): void;
@@ -669,7 +669,7 @@ export declare namespace faces {
      * value is a DOM element, start the search from there.
      * @returns The windowId of the current window, or null
      *  if the windowId cannot be determined.
-     * @throws If more than one WindowId is found.
+     * @throws {Error} If more than one WindowId is found.
      * @since 2.2
      */
     export function getClientWindow(node: object): string;
@@ -717,7 +717,7 @@ export declare namespace faces {
         /**
          * Open the websocket on the given client identifier.
          * @param clientId The client identifier of the websocket.
-         * @throws When client identifier is unknown. You may need to initialize it first via <code>{@link faces.push.init}</code> function.
+         * @throws {Error} When client identifier is unknown. You may need to initialize it first via <code>{@link faces.push.init}</code> function.
          * @since 2.3
          */
         export function open(clientId: string): void;
@@ -725,7 +725,7 @@ export declare namespace faces {
         /**
          * Close the websocket on the given client identifier.
          * @param clientId The client identifier of the websocket.
-         * @throws When client identifier is unknown. You may need to initialize it first via <code>{@link faces.push.init}</code> function.
+         * @throws {Error} When client identifier is unknown. You may need to initialize it first via <code>{@link faces.push.init}</code> function.
          * @since 2.3
          */
         export function close(clientId: string): void;
