@@ -69,7 +69,7 @@ export declare namespace faces {
          *     // ...
          * }
          * 
-         * faces.ajax.addOnError(handleError);</pre></code>
+         * faces.ajax.addOnError(handleError);</code></pre>
          * <p><b>Implementation Requirements:</b></p>
          * This function must accept a reference to an existing JavaScript function.
          * The JavaScript function reference must be added to a list of callbacks, making it possible
@@ -89,7 +89,7 @@ export declare namespace faces {
          *     // ...
          * }
          * 
-         * faces.ajax.addOnEvent(statusUpdate);</pre></code>
+         * faces.ajax.addOnEvent(statusUpdate);</code></pre>
          * <p><b>Implementation Requirements:</b></p>
          * This function must accept a reference to an existing JavaScript function.
          * The JavaScript function reference must be added to a list of callbacks, making it possible
@@ -117,7 +117,7 @@ export declare namespace faces {
          *         onerror: handleError
          *      }); return false;"&gt;
          * &lt;/button&gt;
-         * </pre></code>
+         * </code></pre>
          * <p><b>Implementation Requirements:</b></p>
          * This function must:
          * <ul>
@@ -385,7 +385,7 @@ export declare namespace faces {
          * <p><span class="changed_modified_2_2">Receive</span> an Ajax response
          * from the server.
          * <p><b>Usage:</b></p>
-         * <pre><code>faces.ajax.response(request, context);</pre></code>
+         * <pre><code>faces.ajax.response(request, context);</code></pre>
          * <p><b>Implementation Requirements:</b></p>
          * This function must evaluate the markup returned in the
          * <code>request.responseXML</code> object and perform the following action:
@@ -627,7 +627,7 @@ export declare namespace faces {
      * with the specified <code>form</code> element.  This will include
      * all input controls of type <code>hidden</code>.</p>
      * <p><b>Usage:</b></p>
-     * <pre><code>const state = faces.getPartialViewState(form);</pre></code>
+     * <pre><code>const state = faces.getPartialViewState(form);</code></pre>
      *
      * @param form The <code>form</code> element whose contained
      * <code>input</code> controls will be collected and encoded.
@@ -645,7 +645,7 @@ export declare namespace faces {
      * with the specified <code>form</code> element.  This will include
      * all input controls of type <code>hidden</code>.</p>
      * <p><b>Usage:</b></p>
-     * <pre><code>const state = faces.getViewState(form);</pre></code>
+     * <pre><code>const state = faces.getViewState(form);</code></pre>
      *
      * @param form The <code>form</code> element whose contained
      * <code>input</code> controls will be collected and encoded.
