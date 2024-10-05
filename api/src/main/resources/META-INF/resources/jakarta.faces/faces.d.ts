@@ -379,7 +379,7 @@ export declare namespace faces {
          * is not set to <code>multipart/form-data</code>
          * @since 2.0
          */
-        export function request(source: HTMLElement, event: Event, options: object): void;
+        export function request(source: Element, event?: Event, options?: { execute?: string, render?: string, onevent?: Function, onerror?: Function, params?: object, delay?: string | number, resetValues?: boolean }): void;
         
         /**
          * <p><span class="changed_modified_2_2">Receive</span> an Ajax response
@@ -593,13 +593,13 @@ export declare namespace faces {
          * @param request The <code>XMLHttpRequest</code> instance that
          * contains the status code and response message from the server.
          * @param context An object containing the request context, including the following properties:
-         * the source element, per call onerror callback function, and per call onevent callback function.
+         * the identifier of the source element, per call onerror callback function, and per call onevent callback function.
          * @throws {Error} If request contains no data.
          * @since 2.0
          */
-        export function response(request: XMLHttpRequest, context: object): void;
+        export function response(request: XMLHttpRequest, context: { sourceid?: string, onerror?: Function, onevent?: Function }): void;
     }
-    
+
     /**
      *
      * <p>Return the value of <code>Application.getProjectStage()</code> for
@@ -638,7 +638,7 @@ export declare namespace faces {
      * @returns The encoded state for the specified form's input controls.
      * @since 2.0
      */
-    export function getPartialViewState(form: HTMLElement, execute: string): string;
+    export function getPartialViewState(form: Element, execute: string): string;
     
     /**
      * <p>Collect and encode state for input controls associated
@@ -655,7 +655,7 @@ export declare namespace faces {
      * @returns The encoded state for the specified form's input controls.
      * @since 2.0
      */
-    export function getViewState(form: HTMLElement): string;
+    export function getViewState(form: Element): string;
     
     /**
      * <p class="changed_added_2_2">Return the windowId of the window
@@ -672,7 +672,7 @@ export declare namespace faces {
      * @throws {Error} If more than one WindowId is found.
      * @since 2.2
      */
-    export function getClientWindow(node: object): string;
+    export function getClientWindow(node?: Element | string): string | null;
     
     /**
      * <p class="changed_added_2_3">
@@ -744,7 +744,7 @@ export declare namespace faces {
          * and subsequent scripts are not invoked.  Any number of scripts may
          * specified after the <code>event</code> argument.</p>
          *
-         * @param {HTMLElement} source The DOM element that triggered this Ajax request, or an
+         * @param {Element} source The DOM element that triggered this Ajax request, or an
          * id string of the element to use as the triggering element.
          * @param {Event} event The DOM event that triggered this Ajax request.  The
          * <code>event</code> argument is optional.
@@ -752,6 +752,6 @@ export declare namespace faces {
          *  otherwise returns <code>true</code>.
          * @since 2.0
          */
-        export function chain(source: HTMLElement, event: Event): boolean;
+        export function chain(source: Element | string, event?: Event): boolean;
     }
 }
