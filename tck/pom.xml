@@ -86,6 +86,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <module>faces23</module>
         <module>faces40</module>
         <module>faces41</module>
+        <module>faces50</module>
         <module>old-tck-selenium</module>
         <module>old-tck</module>
         <module>faces-signaturetest</module>
@@ -100,7 +101,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <skipTests>false</skipTests>
         <test.selenium>true</test.selenium>
         
-        <faces.version>4.1.0-SNAPSHOT</faces.version>
+        <faces.version>5.0.0-SNAPSHOT</faces.version>
         
         <!-- 
             Set to the actual Faces API the implementation being tested is using.
@@ -370,11 +371,15 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <plugins>
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.5.0</version>
                 <configuration>
                     <rules>
                         <requireMavenVersion>
                             <version>3.8.6</version>
                         </requireMavenVersion>
+                        <requireJavaVersion>
+                            <version>[17,)</version>
+                        </requireJavaVersion>
                     </rules>
                 </configuration>
                 <executions>
@@ -573,8 +578,8 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                                     <skip>${mojarra.noupdate}</skip>
                                     <artifactItems>
                                         <artifactItem>
-                                            <groupId>org.glassfish</groupId>
-                                            <artifactId>jakarta.faces</artifactId>
+                                            <groupId>org.glassfish.mojarra</groupId>
+                                            <artifactId>mojarra</artifactId>
                                             <version>${mojarra.version}</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
