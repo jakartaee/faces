@@ -596,6 +596,10 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                          <configuration>
                              <systemPropertyVariables>
                                  <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
+                                 <glassfish.systemProperties>
+                                     user.language=en
+                                     user.country=US
+                                 </glassfish.systemProperties>
                                  <test.selenium>${test.selenium}</test.selenium>
                              </systemPropertyVariables>
                          </configuration>

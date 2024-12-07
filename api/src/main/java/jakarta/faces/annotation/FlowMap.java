@@ -25,8 +25,10 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.util.Map;
 
 import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.enterprise.util.TypeLiteral;
 import jakarta.inject.Qualifier;
 
 /**
@@ -41,6 +43,15 @@ import jakarta.inject.Qualifier;
 @Qualifier
 @Retention(value = RUNTIME)
 public @interface FlowMap {
+
+    /**
+     * <p class="changed_added_5_0">
+     * Instance of the generic {@link FlowMap} type.
+     * </p>
+     */
+    public static final TypeLiteral<Map<Object, Object>> TYPE = new TypeLiteral<>() {
+        private static final long serialVersionUID = 1L;
+    };
 
     /**
      * <p class="changed_added_4_0">
