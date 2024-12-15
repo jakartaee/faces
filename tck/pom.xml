@@ -86,6 +86,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <module>faces23</module>
         <module>faces40</module>
         <module>faces41</module>
+        <module>faces50</module>
         <module>old-tck-selenium</module>
         <module>old-tck</module>
         <module>faces-signaturetest</module>
@@ -419,7 +420,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                     </execution>
                 </executions>
                 <configuration>
-                    <rerunFailingTestsCount>3</rerunFailingTestsCount>
+                    <rerunFailingTestsCount>0</rerunFailingTestsCount>
                     <systemPropertyVariables>
                         <finalName>${project.build.finalName}</finalName>
                         <test.selenium>${test.selenium}</test.selenium>
