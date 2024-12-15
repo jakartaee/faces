@@ -38,7 +38,6 @@ public class Spec1412IT extends BaseITNG {
     public void testSpec1412() throws Exception {
 
         WebPage page = getPage("spec1412.xhtml");
-        page.waitForPageToLoad();
         assertTrue(page.isNotInPage("Success!"));
 
         WebElement button = page.findElement(By.id("form:button"));

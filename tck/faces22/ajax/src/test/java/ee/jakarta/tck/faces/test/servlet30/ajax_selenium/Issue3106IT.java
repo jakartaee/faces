@@ -23,8 +23,6 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
-
 import static org.junit.Assert.assertTrue;
 
 public class Issue3106IT extends BaseITNG {
@@ -39,13 +37,11 @@ public class Issue3106IT extends BaseITNG {
 
         WebElement element = page.findElement(By.id("form:submit"));
 
-        element.click();
-        page.wait(Duration.ofMillis(500));
+        page.guardAjax(element::click);
 
-        page.findElement(By.id("form:submit")).click();
+        page.guardAjax(page.findElement(By.id("form:submit"))::click);
 
         //2 requests after that we have to move forward
-        Thread.sleep(3000);
         page = getPage("multiPart1b.xhtml");
 
         assertTrue(page.isInPageText("Count is 2"));

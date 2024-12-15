@@ -52,7 +52,7 @@ public class Issue2179IT extends BaseITNG {
         // or a div with innerHTML which always will work, also value does work
         WebPage page = getPage("issue2179-page2.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
-        page.guardAjax(button::click);
+        button.click();
 
         assertTrue(page.isInPageTextReduced("Name: form:submit Error: serverError"));
     }

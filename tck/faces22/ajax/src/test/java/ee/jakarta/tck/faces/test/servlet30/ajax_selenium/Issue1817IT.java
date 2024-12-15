@@ -47,14 +47,6 @@ public class Issue1817IT extends BaseITNG {
             WebElement anchor = page.findElement(By.id(id[0]));
             page.guardAjax(anchor::click);
             String expectedText = "Triggered item: " + id[1];
-            WebElement body = page.findElement(By.tagName("body"));
-            try {
-
-                page.waitForCondition(wd -> page.isInPage(expectedText), WebPage.STD_TIMEOUT);
-            } catch(TimeoutException ex) {
-                // test failing. The text of triggered item shows now number
-                fail("Expected Text:" + expectedText +" not found");
-            }
             assertTrue(page.isInPage(expectedText));
         }
     }

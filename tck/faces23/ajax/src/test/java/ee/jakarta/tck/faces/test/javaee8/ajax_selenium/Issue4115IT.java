@@ -39,7 +39,6 @@ public class Issue4115IT extends BaseITNG {
     public void testSpec1412() throws Exception {
 
         WebPage page = getPage("issue4115.xhtml");
-        page.waitForPageToLoad();
         assertTrue(page.findElement(By.id("form:output")).getText().isEmpty());
 
         ExtendedTextInput input = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("form:input")));

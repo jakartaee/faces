@@ -39,7 +39,6 @@ public class Issue3097IT extends BaseITNG {
             WebElement expireButton = page.findElement(By.id("form:expireSessionSoon"));
             page.guardAjax(expireButton::click);
 
-            Thread.sleep(25000);
             WebElement submitButton = page.findElement(By.id("form:submit"));
             page.guardAjax(submitButton::click);
 
