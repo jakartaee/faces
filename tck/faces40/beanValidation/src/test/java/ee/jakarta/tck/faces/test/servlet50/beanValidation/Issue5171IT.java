@@ -17,6 +17,7 @@
 package ee.jakarta.tck.faces.test.servlet50.beanValidation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
