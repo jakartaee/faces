@@ -35,7 +35,6 @@ public class Spec1296IT extends BaseITNG {
         String pageXml = page.getResponseBody();
 
         if (pageXml.contains("<p id=\"result\">FAILURE</p>")) {
-            System.out.println(pageXml);
             fail();
         }
     }

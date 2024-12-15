@@ -45,8 +45,7 @@ public class Issue4115IT extends BaseITNG {
         ExtendedTextInput input = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("form:input")));
         input.setValue("execute");
         WebElement link =  page.findElement(By.id("form:link"));
-        link.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.guardAjax(link::click);
         assertTrue(page.findElement(By.id("form:output")).getText().trim().equals("executeParamValue"));
     }
 }

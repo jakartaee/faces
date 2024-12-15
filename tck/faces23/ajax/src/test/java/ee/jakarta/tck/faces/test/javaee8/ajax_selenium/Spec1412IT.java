@@ -45,8 +45,7 @@ public class Spec1412IT extends BaseITNG {
 
         assertTrue(button.getAttribute("value").equals("foo"));
 
-        button.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.guardAjax(button::click);
         assertTrue(page.isInPage("Success!"));
 
         button =  page.findElement(By.id("form:button"));

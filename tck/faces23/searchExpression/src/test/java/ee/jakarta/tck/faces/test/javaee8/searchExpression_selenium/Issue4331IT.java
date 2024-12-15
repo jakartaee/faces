@@ -42,7 +42,6 @@ public class Issue4331IT extends BaseITNG {
 
     public void testCustomSearchKeywordResolverAddedViaFacesConfig() throws Exception {
         WebPage page = getPage("issue4331.xhtml");
-        page.waitReqJs(Duration.ofMillis(60000));
 
         WebElement input = getWebDriver().findElement(By.id("input"));
         Assert.assertFalse(input.getAttribute("onchange").contains("@custom"));
