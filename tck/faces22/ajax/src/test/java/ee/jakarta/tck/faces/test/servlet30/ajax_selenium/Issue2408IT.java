@@ -47,16 +47,13 @@ public class Issue2408IT extends BaseITNG {
         // This will ensure JavaScript finishes before evaluating the page.
         assertTrue(page.getPageSource().contains("Status: Pending"));
 
-        getCheckBoxes(page).get(0).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckBoxes(page).get(0)::click);
         assertTrue(page.isInPage("Status: mcheck-1"));
 
-        getCheckBoxes(page).get(1).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckBoxes(page).get(1)::click);
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2"));
 
-        getCheckBoxes(page).get(2).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckBoxes(page).get(2)::click);
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
@@ -72,18 +69,15 @@ public class Issue2408IT extends BaseITNG {
         assertTrue(page.getPageSource().contains("Status: Pending"));
 
         WebElement cbox1 = page.findElement(By.id("form:compId:cbox:0"));
-        cbox1.click();
-        page.waitReqJs();
+        page.guardAjax(cbox1::click);
         assertTrue(page.isInPage("Status: mcheck-1"));
 
         WebElement cbox2 = page.findElement(By.id("form:compId:cbox:1"));
-        cbox2.click();
-        page.waitReqJs();
+        page.guardAjax(cbox2::click);
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2"));
 
         WebElement cbox3 = page.findElement(By.id("form:compId:cbox:2"));
-        cbox3.click();
-        page.waitReqJs();
+        page.guardAjax(cbox3::click);
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
@@ -97,16 +91,13 @@ public class Issue2408IT extends BaseITNG {
         // This will ensure JavaScript finishes before evaluating the page.
         assertTrue(page.getPageSource().contains("Status: Pending"));
 
-        getCheckBoxes(page).get(0).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckBoxes(page).get(0)::click);
         assertTrue(page.isInPage("Status: mcheck-1"));
 
-        getCheckBoxes(page).get(1).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckBoxes(page).get(1)::click);
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2"));
 
-        getCheckBoxes(page).get(2).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckBoxes(page).get(2)::click);
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
@@ -121,16 +112,13 @@ public class Issue2408IT extends BaseITNG {
         // This will ensure JavaScript finishes before evaluating the page.
         assertTrue(page.isInPage("Status: Pending"));
 
-        getRadios(page).get(0).click();
-        page.waitReqJs();
+        page.guardAjax(getRadios(page).get(0)::click);
         assertTrue(page.isInPage("Status: radio-1"));
 
-        getRadios(page).get(1).click();
-        page.waitReqJs();
+        page.guardAjax(getRadios(page).get(1)::click);
         assertTrue(page.isInPage("Status: radio-2"));
 
-        getRadios(page).get(2).click();
-        page.waitReqJs();
+        page.guardAjax(getRadios(page).get(2)::click);
         assertTrue(page.isInPage("Status: radio-3"));
     }
 
@@ -146,18 +134,15 @@ public class Issue2408IT extends BaseITNG {
         assertTrue(page.isInPage("Status: Pending"));
 
         WebElement radio1 = page.findElement(By.id("form:compId:radio:0"));
-        radio1.click();
-        page.waitReqJs();
+        page.guardAjax(radio1::click);
         assertTrue(page.isInPage("Status: radio-1"));
 
         WebElement radio2 = page.findElement(By.id("form:compId:radio:1"));
-        radio2.click();
-        page.waitReqJs();
+        page.guardAjax(radio2::click);
         assertTrue(page.isInPage("Status: radio-2"));
 
         WebElement radio3 = page.findElement(By.id("form:compId:radio:2"));
-        radio3.click();
-        page.waitReqJs();
+        page.guardAjax(radio3::click);
         assertTrue(page.isInPage("Status: radio-3"));
     }
 
@@ -171,16 +156,13 @@ public class Issue2408IT extends BaseITNG {
         // This will ensure JavaScript finishes before evaluating the page.
         assertTrue(page.isInPage("Status: Pending"));
 
-        getRadios(page).get(0).click();
-        page.waitReqJs();
+        page.guardAjax(getRadios(page).get(0)::click);
         assertTrue(page.isInPage("Status: radio-1"));
 
-        getRadios(page).get(1).click();
-        page.waitReqJs();
+        page.guardAjax(getRadios(page).get(1)::click);
         assertTrue(page.isInPage("Status: radio-2"));
 
-        getRadios(page).get(2).click();
-        page.waitReqJs();
+        page.guardAjax(getRadios(page).get(2)::click);
         assertTrue(page.isInPage("Status: radio-3"));
     }
 

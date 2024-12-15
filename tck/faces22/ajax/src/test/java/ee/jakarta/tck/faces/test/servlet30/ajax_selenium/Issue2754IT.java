@@ -34,18 +34,14 @@ public class Issue2754IT extends BaseITNG {
     @Test
     public void testAjaxViewScope() throws Exception {
         WebPage page = getPage("issue2754.xhtml");
-        WebElement input = page.findElement(By.id("input"));
         WebElement button = page.findElement(By.id("button"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         // i18n issue, error means messages are visible
         assertTrue(page.findElements(By.cssSelector("#messages > li")).size() > 0);
-        input = page.findElement(By.id("input"));
+        WebElement input = page.findElement(By.id("input"));
         input.sendKeys("hello");
-        page.waitReqJs();
         button = page.findElement(By.id("button"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertTrue(page.findElements(By.cssSelector("#messages > li")).size() == 0);
     }
 }

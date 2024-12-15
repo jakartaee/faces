@@ -39,9 +39,10 @@ public class Issue5032IT extends BaseITNG {
 
         ExtendedTextInput form1input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form1:inputs:input2")));
 
-        form1input2.setValue("1");
-        form1input2.fireEvent("change");
-        page.waitReqJs();
+        page.guardAjax(() -> {
+            form1input2.setValue("1");
+            form1input2.fireEvent("change");
+        });
         String form1messages = page.findElement(By.id("form1:messages")).getText();
         assertEquals("there are no validation messages coming from required field form1:input1", "", form1messages);
     }
@@ -57,9 +58,10 @@ public class Issue5032IT extends BaseITNG {
 
         ExtendedTextInput form2input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form2:inputs:input2")));
 
-        form2input2.setValue("1");
-        form2input2.fireEvent("change");
-        page.waitReqJs();
+        page.guardAjax(() -> {
+            form2input2.setValue("1");
+            form2input2.fireEvent("change");
+        });
         String form2messages = page.findElement(By.id("form2:messages")).getText();
         assertEquals("there are no validation messages coming from required field form2:input1", "", form2messages);
     }

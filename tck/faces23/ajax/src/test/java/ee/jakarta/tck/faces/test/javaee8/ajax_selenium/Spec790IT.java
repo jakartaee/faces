@@ -54,8 +54,7 @@ public class Spec790IT extends BaseITNG {
         assertTrue(!form3ViewState.getValue().isEmpty());
 
         WebElement form1Button = page.findElement(By.id("form1:button"));
-        form1Button.click();
-        page.waitReqJs(Duration.ofMillis(6000));
+        page.guardAjax(form1Button::click);
 
         form1 =  page.findElement(By.id("form1"));
         form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
@@ -68,8 +67,7 @@ public class Spec790IT extends BaseITNG {
         assertTrue(!form3ViewState.getValue().isEmpty());
 
         WebElement form2Link =  page.findElement(By.id("form2:link"));
-        form2Link.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.guardAjax(form2Link::click);
         form1 =  page.findElement(By.id("form1"));
         form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
         form2 =  page.findElement(By.id("form2"));
@@ -81,8 +79,7 @@ public class Spec790IT extends BaseITNG {
         assertTrue(!form3ViewState.getValue().isEmpty());
 
         WebElement form3Link =  page.findElement(By.id("form3:link"));
-        form3Link.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.guardAjax(form3Link::click);
         form1 =  page.findElement(By.id("form1"));
         form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
         form2 =  page.findElement(By.id("form2"));
@@ -109,11 +106,7 @@ public class Spec790IT extends BaseITNG {
         assertTrue(!formViewState.getValue().isEmpty());
 
         WebElement button = page.findElement(By.id("form:button"));
-        button.click();
-        page.waitReqJs(Duration.ofMillis(60000));
-        System.out.println(page.getRequestData());
-        System.out.println(page.getResponseBody());
-        System.out.println(page.getPageSource());
+        page.guardAjax(button::click);
         WebElement form1 =  page.findElement(By.id("form1"));
         ExtendedTextInput form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
         WebElement form2 =  page.findElement(By.id("form2"));

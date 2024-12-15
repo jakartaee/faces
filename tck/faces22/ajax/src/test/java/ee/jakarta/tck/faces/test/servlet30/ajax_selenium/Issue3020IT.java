@@ -55,7 +55,7 @@ public class Issue3020IT extends BaseITNG {
         WebElement in1 = page.findElement(By.id("input"));
         in1.sendKeys("a");
 
-        page.waitReqJs();
+        Thread.sleep(3000);
 
         // Check that the ajax request does not succeed, change from the original which had direct access to the js exceptions
         WebElement errorHolder = page.findElement(By.id("windowError"));

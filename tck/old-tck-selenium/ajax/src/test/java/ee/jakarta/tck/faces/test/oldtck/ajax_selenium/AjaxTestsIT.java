@@ -52,25 +52,23 @@ public class AjaxTestsIT extends BaseITNG {
       // Submit the ajax request
       WebElement button1 = page.findElement(By.id("button1"));
       assertNotNull(button1);
-      button1.click();
-  
-      page.waitReqJs();
+      page.guardAjax(button1::click);
 
       // Check that the ajax request succeeds
       span1 = page.findElement(By.id("out1"));
       assertEquals("1", span1.getText());
   
       // Check on the text field
-      WebElement intext = page.findElement(By.id("intext"));
-      intext.sendKeys("test");
-      intext.sendKeys(TAB); // click out of intext to force onchange event
-      page.waitReqJs();
+      page.guardAjax(() -> {
+          WebElement intext = page.findElement(By.id("intext"));
+          intext.sendKeys("test");
+          intext.sendKeys(TAB); // click out of intext to force onchange event
+      });
       assertTrue(page.findElement(By.id("outtext")).getText().equals("test"));
   
       // Check the checkbox
       WebElement checkbox = page.findElement(By.id("checkbox"));
-      checkbox.click();
-      page.waitReqJs();
+      page.guardAjax(checkbox::click);
       span2 = page.findElement(By.id("checkedvalue"));
       assertEquals("true", span2.getText());
   

@@ -45,11 +45,12 @@ public class Issue5081IT extends BaseITNG {
 
         ExtendedWebDriver webDriver = getWebDriver();
 
-        WebElement input = webDriver.findElement(By.id("form:input"));
-        input.sendKeys("text");
-        // \t key equals to blur
-        input.sendKeys("\t");
-        page.waitReqJs(Duration.ofMillis(3000));
+        WebElement input1 = webDriver.findElement(By.id("form:input"));
+        page.guardAjax(() -> {
+            input1.sendKeys("text");
+            // \t key equals to blur
+            input1.sendKeys("\t");
+        });
         WebElement submit = webDriver.findElement(By.id("form:submit"));
         submit.click();
         page.waitForCondition(webDriver1 ->
@@ -57,13 +58,13 @@ public class Issue5081IT extends BaseITNG {
         WebElement message = webDriver.findElement(By.id("form:message_for_selectmany"));
         assertEquals("There is a required message", "form:selectmany: Validation Error: Value is required.", message.getText());
 
-        input = webDriver.findElement(By.id("form:input"));
-        input.sendKeys("more");
-        input.sendKeys("\t"); // Before the fix, the second blur failed with java.lang.ClassCastException: class java.lang.String cannot be cast to class [Ljava.lang.Object;
-        page.waitReqJs(Duration.ofMillis(3000));
+        WebElement input2 = webDriver.findElement(By.id("form:input"));
+        page.guardAjax(() -> {
+            input2.sendKeys("more");
+            input2.sendKeys("\t"); // Before the fix, the second blur failed with java.lang.ClassCastException: class java.lang.String cannot be cast to class [Ljava.lang.Object;
+        });
         submit = webDriver.findElement(By.id("form:submit"));
-        submit.click();
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.guardAjax(submit::click);
         message = webDriver.findElement(By.id("form:message_for_selectmany"));
         assertEquals("There is a still required message", "form:selectmany: Validation Error: Value is required.", message.getText());
     }

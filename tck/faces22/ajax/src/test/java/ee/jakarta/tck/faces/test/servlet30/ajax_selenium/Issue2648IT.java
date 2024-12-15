@@ -36,9 +36,7 @@ public class Issue2648IT extends BaseITNG {
         boolean exceptionThrown = false;
         WebPage page = getPage("issue2648.xhtml");
         WebElement input = page.findElement(By.id("form:button"));
-        input.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(input::click);
         page = getPage("issue2648-1.xhtml");
         assertTrue(page.findElement(By.id("form:ise")).getText().equals("true"));
     }

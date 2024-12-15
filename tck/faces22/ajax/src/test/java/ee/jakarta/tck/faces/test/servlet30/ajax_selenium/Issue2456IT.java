@@ -36,8 +36,7 @@ public class Issue2456IT extends BaseITNG {
         WebPage page = getPage("script.xhtml");
         assertTrue(page.isInPage("SCRIPT EXECUTED!"));
         WebElement button = page.findElement(By.id("form1:button1"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertTrue(page.isInPage("SCRIPT EXECUTED!"));
     }
 }

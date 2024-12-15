@@ -38,10 +38,7 @@ public class Issue3351IT extends BaseITNG {
         assertTrue(page.isInPage("value1,value2,"));
         
         WebElement button = page.findElement(By.id("form:button1"));
-        button.click();
-        page.waitReqJs();
-        
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertTrue(page.isInPage("value2,"));
         assertFalse(page.isInPage("value1,value2,"));
     }

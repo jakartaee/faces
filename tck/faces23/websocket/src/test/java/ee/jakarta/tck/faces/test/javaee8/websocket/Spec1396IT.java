@@ -122,6 +122,7 @@ public class Spec1396IT extends BaseITNG {
 
         WebElement postback = page.findElement(By.id("form:postback"));
         postback.click();
+        page.waitForPageToLoad();
 
         pageSource = page.getPageSource();
         assertTrue(pageSource.contains("faces.push.init("));

@@ -54,8 +54,7 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
         assertTrue(!form3ViewState.getAttribute("value").isEmpty());
 
         WebElement form1Button =  page.findElement(By.id(namingContainerPrefix + "form1:button"));
-        form1Button.click();
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.guardAjax(form1Button::click);
         namingContainerPrefix = getNamingContainerId(page);
         form1 =  page.findElement(By.id(namingContainerPrefix + "form1"));
         form1ViewState =  form1.findElement(By.name( namingContainerPrefix +  "jakarta.faces.ViewState"));
@@ -69,7 +68,7 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
 
         WebElement form2Link =  page.findElement(By.id(namingContainerPrefix + "form2:link"));
         form2Link.click();
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.waitForPageToLoad();
         namingContainerPrefix = getNamingContainerId(page);
         form1 =  page.findElement(By.id(namingContainerPrefix + "form1"));
         form1ViewState =  form1.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
@@ -83,7 +82,7 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
 
         WebElement form3Link =  page.findElement(By.id(namingContainerPrefix + "form3:link"));
         form3Link.click();
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.waitForPageToLoad();
         namingContainerPrefix = getNamingContainerId(page);
         form1 =  page.findElement(By.id(namingContainerPrefix + "form1"));
         form1ViewState =  form1.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
@@ -114,8 +113,7 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
         assertTrue(!formViewState.getAttribute("value").isEmpty());
 
         WebElement button = page.findElement(By.id(namingContainerPrefix + "form:button"));
-        button.click();
-        page.waitReqJs(Duration.ofMillis(10000));
+        page.guardAjax(button::click);
         
         namingContainerPrefix = getNamingContainerId(page);
         WebElement form1 =  page.findElement(By.id(namingContainerPrefix + "form1"));

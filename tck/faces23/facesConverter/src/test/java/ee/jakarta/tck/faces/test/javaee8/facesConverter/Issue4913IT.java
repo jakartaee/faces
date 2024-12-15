@@ -73,12 +73,10 @@ public class Issue4913IT {
     @Test
     public void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4913.xhtml");
-        webClient.waitForBackgroundJavaScript(3000);
         validateMarkup(page);
 
         // Refresh page 
         page = webClient.getPage(webUrl + "issue4913.xhtml");
-        webClient.waitForBackgroundJavaScript(3000);
         validateMarkup(page);
     }
     

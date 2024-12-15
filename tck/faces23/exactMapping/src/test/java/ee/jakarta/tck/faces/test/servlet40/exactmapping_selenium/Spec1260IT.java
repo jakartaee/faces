@@ -100,8 +100,7 @@ public class Spec1260IT extends BaseITNG {
 
         // Navigate from /foo to /bar.jsf
         WebPage page = getPage("foo");
-        getWebDriver().findElement(By.id("form:button")).click();
-        page.waitReqJs();
+        page.guardAjax(getWebDriver().findElement(By.id("form:button"))::click);
 
         // After navigating to a non-exact mapped view, a postback should stil work
         getWebDriver().findElement(By.id("form:commandButton")).click();
@@ -143,8 +142,7 @@ public class Spec1260IT extends BaseITNG {
     public void testAjaxFromExactMappedView() throws Exception {
         WebPage page = getPage("foo");
 
-        getWebDriver().findElement(By.id("form:commandButtonAjax")).click();
-        page.waitReqJs();
+        page.guardAjax(getWebDriver().findElement(By.id("form:commandButtonAjax"))::click);
         // AJAX from an exact-mapped view should work
         page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("partial request = true"));
 

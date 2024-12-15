@@ -37,9 +37,7 @@ public class Issue2751IT extends BaseITNG {
         WebElement input = page.findElement(By.id("form1:foo"));
         assertTrue(page.isInPage("foo"));
         WebElement button = page.findElement(By.id("form1:button"));
-        button.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         input = page.findElement(By.id("form1:foo"));
         assertTrue(page.isInPage("myclass"));
     }

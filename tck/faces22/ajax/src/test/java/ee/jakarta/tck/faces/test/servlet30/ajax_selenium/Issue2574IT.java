@@ -35,9 +35,7 @@ public class Issue2574IT extends BaseITNG {
     public void testOtherScriptType() throws Exception {
         WebPage page = getPage("issue2574.xhtml");
         WebElement button1 = page.findElement(By.id("form:refresh"));
-        button1.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button1::click);
         assertTrue(page.isInPage("This script must not be eval'ed on ajax response."));
     }
 }

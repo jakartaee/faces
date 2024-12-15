@@ -17,7 +17,6 @@ public class DemoTestIT extends BaseITNG {
     @Test
     public void runMainPage()  {
         int statusCode = getStatusCode("index.xhtml");
-        System.out.println(statusCode);
         assertEquals(200, statusCode);
     }
 

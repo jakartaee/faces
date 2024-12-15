@@ -43,8 +43,7 @@ public class Spec1423IT extends BaseITNG {
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().isEmpty());
 
         button = page.findElement(By.id("form1:addViaHead"));
-        button.click();
-        page.waitReqJs(Duration.ofMillis(6000));
+        page.guardAjax(button::click);
         assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaHead"));
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().isEmpty());
     }
@@ -85,14 +84,13 @@ public class Spec1423IT extends BaseITNG {
         });
 
         button = page.findElement(By.id("form2:addViaInclude"));
-        button.click();
+        page.guardAjax(button::click);
 
-        page.waitReqJs(Duration.ofMillis(6000));
         assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaBody"));
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(255, 0, 0)"));
 
         button = page.findElement(By.id("form1:addProgrammatically"));
-        button.click();
+        page.guardAjax(button::click);
         // wait for condition implictly also handles the
 
         page.waitForCondition(wd -> {
@@ -102,21 +100,18 @@ public class Spec1423IT extends BaseITNG {
 
 
         button = page.findElement(By.id("form1:addViaHead"));
-        button.click();
-        page.waitReqJs(Duration.ofMillis(6000));
+        page.guardAjax(button::click);
 
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)"));
         assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically"));
 
         button = page.findElement(By.id("form1:addViaBody"));
-        button.click();
-        page.waitReqJs(Duration.ofMillis(6000));
+        page.guardAjax(button::click);
         assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically"));
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)"));
 
         button = page.findElement(By.id("form2:addViaInclude"));
-        button.click();
-        page.waitReqJs(Duration.ofMillis(6000));
+        page.guardAjax(button::click);
         assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically"));
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)"));
     }

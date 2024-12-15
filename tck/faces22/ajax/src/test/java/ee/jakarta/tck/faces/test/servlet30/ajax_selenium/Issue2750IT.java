@@ -38,9 +38,7 @@ public class Issue2750IT extends BaseITNG {
         assertTrue(cbox.isSelected() == false);
         assertTrue(page.isInPage("foo"));
         WebElement button = page.findElement(By.id("form1:button"));
-        button.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         cbox = page.findElement(By.id("form1:foo"));
         assertTrue(cbox.isSelected() == true);
     }
@@ -55,9 +53,7 @@ public class Issue2750IT extends BaseITNG {
         WebElement input = page.findElement(By.id("form1:foo"));
         assertTrue(input.isEnabled());
         WebElement button = page.findElement(By.id("form1:button"));
-        button.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         input = page.findElement(By.id("form1:foo"));
         assertTrue(input.isEnabled());
     }

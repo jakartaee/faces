@@ -38,28 +38,16 @@ public class Issue3833IT extends BaseITNG {
     public void testUIRepeatStateSaving() throws Exception {
         WebPage page = getPage("issue3833.xhtml");
 
-        Select select1 = new Select(page.findElement(By.id("form:repeat:0:list")));
-        Select select2 = new Select(page.findElement(By.id("form:repeat:1:list")));
-
-
-        select1.selectByIndex(0);
-        page.waitForCurrentRequestEnd();
-        Thread.sleep(3000);
+        page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:0:list"))).selectByIndex(0));
         assertTrue(page.findElement(By.id("form:message")).getText().equals("null -> 1"));
 
-        select2.selectByIndex(0);
-        page.waitForCurrentRequestEnd();
-        Thread.sleep(3000);
+        page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:1:list"))).selectByIndex(0));
         assertTrue(page.findElement(By.id("form:message")).getText().equals("null -> 3"));
 
-        select1.selectByIndex(1);
-        page.waitForCurrentRequestEnd();
-        Thread.sleep(3000);
+        page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:0:list"))).selectByIndex(1));
         assertTrue(page.findElement(By.id("form:message")).getText().equals("1 -> 2"));
 
-        select2.selectByIndex(1);
-        page.waitForCurrentRequestEnd();
-        Thread.sleep(3000);
+        page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:1:list"))).selectByIndex(1));
         assertTrue(page.findElement(By.id("form:message")).getText().equals("3 -> 4"));
     }
 }

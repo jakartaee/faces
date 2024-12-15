@@ -37,10 +37,7 @@ public class Issue4345IT extends BaseITNG {
         WebPage page = getPage("issue4345start.xhtml");
 
         WebElement issue4340Button = page.findElement(By.id("form:issue4345Button"));
-        issue4340Button.click();
-        page.waitReqJs();
-
-        page.waitReqJs();
+        page.guardAjax(issue4340Button::click);
 
         WebElement result = page.findElement(By.id("issue4345Result"));
         assertNotNull(result);

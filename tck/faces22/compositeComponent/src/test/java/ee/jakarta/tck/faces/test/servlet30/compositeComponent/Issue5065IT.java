@@ -43,8 +43,6 @@ public class Issue5065IT extends ITBase {
         HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("form:submit");
         page = button.click();
 
-        webClient.waitForBackgroundJavaScript(3000);
-
         String inlineInvokeApplication = page.getElementById("form:invokeApplication").asNormalizedText();
         String inlineRenderResponse = page.getElementById("form:renderResponse").asNormalizedText();
         assertEquals("same inline component is reused during render response", inlineInvokeApplication, inlineRenderResponse);

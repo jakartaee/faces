@@ -35,9 +35,7 @@ public class Issue2749IT extends BaseITNG {
     public void testUpdateAttributeNamedOn() throws Exception {
         WebPage page = getPage("attributeNameIsOn.xhtml");
         WebElement button = page.findElement(By.id("form1:button"));
-        button.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertTrue(page.isInPage("ONCLICK CALLED"));
     }
 

@@ -36,10 +36,8 @@ public class Issue3344IT extends BaseITNG {
         WebPage page = getPage("ajaxRedirect01.xhtml");
         
         WebElement button = page.findElement(By.id("button"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         
-        page.waitReqJs();
         assertTrue(page.isInPage("&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"));
     }
 }

@@ -44,21 +44,19 @@ public class Issue4550IT extends BaseITNG {
         ExtendedWebDriver webDriver = getWebDriver();
         WebElement submit = webDriver.findElement(By.id("form:ajaxCommandButton"));
         assertNotNull(submit);
-        submit.click();
-        page.waitForCondition(wd -> webDriver.getPageTextReduced().contains(TEST_STRING));
+        page.guardAjax(submit::click);
+        assertTrue(webDriver.getPageTextReduced().contains(TEST_STRING));
 
         // Ajax submit click
         submit =  webDriver.findElement(By.id("form:ajaxCommandButton"));
         assertNotNull(submit);
-        submit.click();
-        page.waitReqJs();
+        page.guardAjax(submit::click);
         assertTrue(webDriver.getPageTextReduced().contains(TEST_STRING));
 
         // Non Ajax submit click
         submit =  webDriver.findElement(By.id("form:commandButton"));
         assertNotNull(submit);
-        submit.click();
-        page.waitReqJs();
+        page.guardAjax(submit::click);
         assertTrue(webDriver.getPageTextReduced().contains(TEST_STRING));
     }
 

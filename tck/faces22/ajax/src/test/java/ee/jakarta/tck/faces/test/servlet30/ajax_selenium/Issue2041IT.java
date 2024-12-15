@@ -42,16 +42,13 @@ public class Issue2041IT extends BaseITNG {
         assertTrue(page.isInPage("PAGE 1 END"));
 
         WebElement anchor =  page.findElement(By.id("commandLink"));
-        anchor.click();
-        page.waitReqJs();
-        updatePage();
+        page.guardAjax(anchor::click);
 
         assertTrue(page.isInPage("PAGE 2 BEGIN"));
         assertTrue(page.isInPage("PAGE 2 END"));
 
         anchor =  page.findElement(By.id("commandLink"));
-        anchor.click();
-        page.waitReqJs();
+        page.guardAjax(anchor::click);
 
         assertTrue(page.getPageSource().indexOf("PAGE 1 BEGIN") != -1);
         assertTrue(page.getPageSource().indexOf("PAGE 1 END") != -1);

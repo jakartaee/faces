@@ -41,39 +41,34 @@ public class Issue2906IT extends BaseITNG {
 
         List<WebElement> anchors = page.getAnchors();
         WebElement anchor = anchors.get(9);
-        anchor.click();
-        page.waitReqJs();
+        page.guardAjax(anchor::click);
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(3\\s+){8}3.*"));
         assertTrue(anchors.size() == 9);
 
         anchor = anchors.get(8);
-        anchor.click();
-        page.waitReqJs();
+        page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(4\\s+){7}4.*"));
         assertTrue(anchors.size() == 8);
 
         anchor = anchors.get(7);
-        anchor.click();
-        page.waitReqJs();
+        page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(5\\s+){6}5.*"));
         assertTrue(anchors.size() == 7);
 
         anchor = anchors.get(0);
-        anchor.click();
-        page.waitReqJs();
+        page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(6\\s+){5}6.*"));
         assertTrue(anchors.size() == 6);
 
         anchor = anchors.get(2);
-        anchor.click();
-        page.waitReqJs();
+        page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(7\\s+){4}7.*"));

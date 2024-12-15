@@ -37,13 +37,10 @@ public class Issue3097IT extends BaseITNG {
 
         if (page.getPageSource().indexOf("State Saving Method: server") != -1) {
             WebElement expireButton = page.findElement(By.id("form:expireSessionSoon"));
-            expireButton.click();
-        page.waitReqJs();
+            page.guardAjax(expireButton::click);
 
-            Thread.sleep(25000);
             WebElement submitButton = page.findElement(By.id("form:submit"));
-            submitButton.click();
-        page.waitReqJs();
+            page.guardAjax(submitButton::click);
 
             assertTrue(page.isInPageText("jakarta.faces.application.ViewExpiredException"));
         }

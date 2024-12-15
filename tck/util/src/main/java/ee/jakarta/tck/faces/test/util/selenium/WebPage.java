@@ -18,6 +18,7 @@ package ee.jakarta.tck.faces.test.util.selenium;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 import java.util.function.Function;
 
 import org.openqa.selenium.By;
@@ -49,62 +50,6 @@ public class WebPage {
 
     public void setWebDriver(ExtendedWebDriver webDriver) {
         this.webDriver = webDriver;
-    }
-
-    /**
-     * implemented helper to wait for the background javascript
-     *
-     * @param timeout the standard timeout to wait in case the condition is not executed
-     */
-    public void waitForBackgroundJavascript(Duration timeout) {
-        this.waitForBackgroundJavascript(timeout, Duration.ZERO);
-    }
-
-    /**
-     * This method fixes following issue: While we wait for javascripts we cannot be entirely sure, that the execution has
-     * fully terminated. The problem is asynchronous code, which opens execution windows. HTML Unit does not have the
-     * problem, because it never executes the code in a separate process and has full track of the execution "windows"
-     *
-     * There is no way to fix this, given the asynchronous nature of the Selenium drivers. The best bet is simply to give
-     * the possibility of another wait delay, after the supposed execution end, and also use waitForCondition with a dom
-     * check wherever possible (aka dom changes happen)
-     *
-     * @param timeout the timeout until the wait is terminated max
-     * @param delayAfterExcecution this introduces a second delay after the determined end of exeuction point.
-     */
-    public void waitForBackgroundJavascript(Duration timeout, Duration delayAfterExcecution) {
-        synchronized (webDriver) {
-            WebDriverWait wait = new WebDriverWait(webDriver, timeout);
-            double rand = Math.random();
-
-            @SuppressWarnings("UnnecessaryLabelJS")
-            final String identifier = "__insert__:" + rand;
-
-            webDriver.manage().timeouts().scriptTimeout(timeout);
-
-            // We use a trick here, javascript is cooperative multitasking
-            // we defer into a time when the script is executed
-            // and then execute a small invisible script adding an element
-            // At the time the element gets added, we are either at an end of execution
-            // phase or in an execution pause (timeouts maybe pending etc...)
-            try {
-                webDriver.getJSExecutor().executeAsyncScript(
-                        "let [resolve] = arguments; setTimeout(function() { var insert__ = document.createElement('div');"
-                                + "insert__.id = '" + identifier + "';" + "insert__.innerHTML = 'done';"
-                                + "document.body.append(insert__); resolve()}, 50);");
-
-                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id(identifier), 0));
-
-                // Problem is here, if we are in a code pause phase (aka timeout is pending but not executed)
-                // we are still not at the end of the code. For those cases a simple wait on top might fix the issue
-                // we cannot determine the end of the execution here anymore.
-                if (!delayAfterExcecution.isZero()) {
-                    wait(delayAfterExcecution);
-                }
-            } finally {
-                webDriver.getJSExecutor().executeScript("document.body.removeChild(document.getElementById('" + identifier + "'));");
-            }
-        }
     }
 
     /**
@@ -150,46 +95,15 @@ public class WebPage {
     }
 
     /**
-     * waits until no more running requests are present in case of exceeding our STD_TIMEOUT, a runtime exception is thrown
+     * wait until the current Ajax request targeting the same page has completed
+     * 
+     * @param the ajax action to execute, usually {@code WebElement::click}
      */
-    public void waitForCurrentRequestEnd() {
-        waitForCondition(webDriver1 -> webDriver.getResponseStatus() != -1, STD_TIMEOUT);
-    }
-
-    /**
-     * wait for the current request to be ended, with a timeout of "timeout"
-     *
-     * @param timeout the timeout for the waiting, if it is exceeded a timeout exception is thrown
-     */
-    public void waitForCurrentRequestEnd(Duration timeout) {
-        waitForCondition(webDriver1 -> webDriver.getResponseStatus() != -1, timeout);
-    }
-
-    /**
-     * wait until the current Ajax request targeting the same page has stopped and then tests for blocking running scripts
-     * still running. A small initial delay cannot hurt either
-     */
-    public void waitReqJs() {
-        this.waitReqJs(STD_TIMEOUT);
-    }
-
-    /**
-     * same as before but with a dedicated timeout
-     *
-     * @param timeout the timeout duration after that the wait is cancelled and an exception is thrown
-     */
-    public void waitReqJs(Duration timeout) {
-        // We stall the connection between browser and client for 200ms to make sure everything
-        // is done (usually a request takes between 6 and 20ms), but
-        // Note, if you have long-running request, I recommend to wait for a condition instead
-        this.wait(Duration.ofMillis(200));
-
-        // just in case the request takes longer, we also check the request queue for the current request to end
-        waitForCurrentRequestEnd(timeout);
-
-        // we stall the tests at another 100ms simply to make sure everything has been properly executed
-        // this reduces the chance to fall into an execution window significantly, but does not eliminate it entirely
-        waitForBackgroundJavascript(timeout, Duration.ofMillis(100));
+    public void guardAjax(Runnable action) {
+        var uuid = UUID.randomUUID().toString();
+        webDriver.getJSExecutor().executeScript("window.$ajax=true;faces.ajax.addOnEvent(data=>{if(data.status=='complete')window.$ajax='" + uuid + "'})");
+        action.run();
+        waitForCondition($ -> webDriver.getJSExecutor().executeScript("return window.$ajax=='" + uuid + "' || (!window.$ajax && document.readyState=='complete')"));
     }
 
     /**

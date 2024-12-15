@@ -21,7 +21,6 @@ package ee.jakarta.tck.faces.test.servlet40.getviews;
  *
  * @author mmueller
  */
-import static jakarta.faces.annotation.FacesConfig.Version.JSF_2_3;
 import static jakarta.faces.application.ViewVisitOption.RETURN_AS_MINIMAL_IMPLICIT_OUTCOME;
 import static java.util.stream.Collectors.toList;
 
