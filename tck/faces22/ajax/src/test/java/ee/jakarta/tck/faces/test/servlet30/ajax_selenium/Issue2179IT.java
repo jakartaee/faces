@@ -36,8 +36,7 @@ public class Issue2179IT extends BaseITNG {
     @Test
     public void testEncodeException() throws Exception {
         WebPage page = getPage("issue2179-page1.xhtml");
-        int responseStatus = page.getResponseStatus();
-        assertTrue(responseStatus == 500);
+        assertTrue(page.isInPageTextReduced("IO EXCEPTION!!!!!"));
     }
 
     /**
