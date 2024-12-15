@@ -15,14 +15,11 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
-import static java.time.Duration.ofSeconds;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -170,37 +167,10 @@ public class WebPage {
     }
 
     /**
-     * wait until the current Ajax request targeting the same page has stopped and then tests for blocking running scripts
-     * still running. A small initial delay cannot hurt either
+     * wait until the current Ajax request targeting the same page has completed
      * 
-     * @Deprecated This approach is inefficient and flaky, it causes intermittently failing tests, use {@link #guardAjax(Runnable)} instead.
+     * @param the ajax action to execute, usually {@code WebElement::click}
      */
-    @Deprecated
-    public void waitReqJs() {
-        this.waitReqJs(STD_TIMEOUT);
-    }
-
-    /**
-     * same as before but with a dedicated timeout
-     *
-     * @param timeout the timeout duration after that the wait is cancelled and an exception is thrown
-     * @Deprecated This approach is inefficient and flaky, it causes intermittently failing tests, use {@link #guardAjax(Runnable)} instead.
-     */
-    @Deprecated
-    public void waitReqJs(Duration timeout) {
-        // We stall the connection between browser and client for 200ms to make sure everything
-        // is done (usually a request takes between 6 and 20ms), but
-        // Note, if you have long-running request, I recommend to wait for a condition instead
-        this.wait(Duration.ofMillis(200));
-
-        // just in case the request takes longer, we also check the request queue for the current request to end
-        waitForCurrentRequestEnd(timeout);
-
-        // we stall the tests at another 100ms simply to make sure everything has been properly executed
-        // this reduces the chance to fall into an execution window significantly, but does not eliminate it entirely
-        waitForBackgroundJavascript(timeout, Duration.ofMillis(100));
-    }
-
     public void guardAjax(Runnable action) {
         var uuid = UUID.randomUUID().toString();
         webDriver.getJSExecutor().executeScript("window.$ajax=true;faces.ajax.addOnEvent(data=>{if(data.status=='complete')window.$ajax='" + uuid + "'})");
