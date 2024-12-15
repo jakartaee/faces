@@ -53,62 +53,6 @@ public class WebPage {
     }
 
     /**
-     * implemented helper to wait for the background javascript
-     *
-     * @param timeout the standard timeout to wait in case the condition is not executed
-     */
-    public void waitForBackgroundJavascript(Duration timeout) {
-        this.waitForBackgroundJavascript(timeout, Duration.ZERO);
-    }
-
-    /**
-     * This method fixes following issue: While we wait for javascripts we cannot be entirely sure, that the execution has
-     * fully terminated. The problem is asynchronous code, which opens execution windows. HTML Unit does not have the
-     * problem, because it never executes the code in a separate process and has full track of the execution "windows"
-     *
-     * There is no way to fix this, given the asynchronous nature of the Selenium drivers. The best bet is simply to give
-     * the possibility of another wait delay, after the supposed execution end, and also use waitForCondition with a dom
-     * check wherever possible (aka dom changes happen)
-     *
-     * @param timeout the timeout until the wait is terminated max
-     * @param delayAfterExcecution this introduces a second delay after the determined end of exeuction point.
-     */
-    public void waitForBackgroundJavascript(Duration timeout, Duration delayAfterExcecution) {
-        synchronized (webDriver) {
-            WebDriverWait wait = new WebDriverWait(webDriver, timeout);
-            double rand = Math.random();
-
-            @SuppressWarnings("UnnecessaryLabelJS")
-            final String identifier = "__insert__:" + rand;
-
-            webDriver.manage().timeouts().scriptTimeout(timeout);
-
-            // We use a trick here, javascript is cooperative multitasking
-            // we defer into a time when the script is executed
-            // and then execute a small invisible script adding an element
-            // At the time the element gets added, we are either at an end of execution
-            // phase or in an execution pause (timeouts maybe pending etc...)
-            try {
-                webDriver.getJSExecutor().executeAsyncScript(
-                        "let [resolve] = arguments; setTimeout(function() { var insert__ = document.createElement('div');"
-                                + "insert__.id = '" + identifier + "';" + "insert__.innerHTML = 'done';"
-                                + "document.body.append(insert__); resolve()}, 50);");
-
-                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id(identifier), 0));
-
-                // Problem is here, if we are in a code pause phase (aka timeout is pending but not executed)
-                // we are still not at the end of the code. For those cases a simple wait on top might fix the issue
-                // we cannot determine the end of the execution here anymore.
-                if (!delayAfterExcecution.isZero()) {
-                    wait(delayAfterExcecution);
-                }
-            } finally {
-                webDriver.getJSExecutor().executeScript("document.body.removeChild(document.getElementById('" + identifier + "'));");
-            }
-        }
-    }
-
-    /**
      * waits for a certain condition is met, until a timeout is hit. In case of exceeding the condition, a runtime exception
      * is thrown!
      *

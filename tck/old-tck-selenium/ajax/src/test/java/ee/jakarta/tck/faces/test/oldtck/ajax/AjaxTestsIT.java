@@ -89,21 +89,20 @@ public class AjaxTestsIT extends ITBase {
       // Submit the ajax request
       HtmlInput button1 = (HtmlInput) page.getElementById("button1");
       assertNotNull(button1);
-      page = button1.click();
-  
-      webClient.waitForBackgroundJavaScript(3000);
+      page.guardAjax(button1::click);
 
       // Check that the ajax request succeeds - eventually.
       span1 = (HtmlSpan) page.getElementById("out1");
       assertEquals("1",span1.asNormalizedText());
   
       // // Check on the text field
-      HtmlInput intext = (HtmlInput) page.getElementById("intext");
-      assertNotNull(intext);
-      intext.focus();
-      intext.type("test");
-      intext.blur();
-      webClient.waitForBackgroundJavaScript(3000);
+      page.guardAjax(() -> {
+          HtmlInput intext = (HtmlInput) page.getElementById("intext");
+          assertNotNull(intext);
+          intext.focus();
+          intext.type("test");
+          intext.blur();
+      });
 
       span3 = (HtmlSpan) page.getElementById("outtext");
       assertNotNull(span3);
@@ -257,9 +256,7 @@ public class AjaxTestsIT extends ITBase {
 
         // Submit the ajax request
         HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById(buttonId);
-        page = button.click();
-
-        webClient.waitForBackgroundJavaScript(3000);
+        page.guardAjax(button::click);
 
         // Check that the ajax request succeeds - if the page is rewritten,
         // this will be the same

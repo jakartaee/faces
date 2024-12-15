@@ -64,7 +64,6 @@ public class Issue4330IT extends ITBase {
         assertTrue(disabledCheckbox.isDisabled());
 
         hack.click();
-        webClient.waitForBackgroundJavaScript(1000);
 
         assertFalse(disabledRadio.isDisabled());
         assertFalse(disabledCheckbox.isDisabled());
