@@ -44,7 +44,6 @@ public class Issue2041IT extends BaseITNG {
         WebElement anchor =  page.findElement(By.id("commandLink"));
         anchor.click();
         page.waitReqJs();
-        updatePage();
 
         assertTrue(page.isInPage("PAGE 2 BEGIN"));
         assertTrue(page.isInPage("PAGE 2 END"));
