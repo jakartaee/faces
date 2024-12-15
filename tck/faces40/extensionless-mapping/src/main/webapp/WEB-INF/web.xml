@@ -49,8 +49,8 @@
         <param-value>true</param-value>
     </context-param>
 
-
-    <welcome-file-list>
-        <welcome-file>spec1567IT.xhtml</welcome-file>
-    </welcome-file-list>
+    <!-- Prevent ;jsessionid= being added to URLs so we can test easier -->
+    <session-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
 </web-app>
