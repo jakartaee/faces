@@ -116,7 +116,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <tomcat.version>9.0.12</tomcat.version>
         
         <!-- web.xml defaults -->
-        <webapp.projectStage>Development</webapp.projectStage>
+        <webapp.projectStage>Production</webapp.projectStage>
         <webapp.stateSavingMethod>server</webapp.stateSavingMethod>
         <webapp.partialStateSaving>true</webapp.partialStateSaving>
         <webapp.serializeServerState>false</webapp.serializeServerState>
