@@ -40,13 +40,11 @@ public class Issue1533IT extends BaseITNG {
     public void testIssue1533() throws Exception {
         WebPage page = getPage("issue1533.xhtml");
         WebElement input = page.findElement(By.id("form:vip:0"));
-        input.click();
-        page.waitReqJs();
-
+        page.guardAjax(input::click);
+        
         assertTrue(page.getPageSource().indexOf("form:vip-true") != -1);
         input =  page.findElement(By.id("form:vip:1"));
-        input.click();
-        page.waitReqJs();
+        page.guardAjax(input::click);
 
         assertTrue(page.getPageSource().indexOf("form:vip-false") != -1);
     }

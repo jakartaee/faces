@@ -35,10 +35,7 @@ public class Issue3473IT extends BaseITNG {
     public void testButtonOnlySubmitsOne() throws Exception {
         WebPage page = getPage("ajaxScriptError.xhtml");
         WebElement button = page.findElement(By.id("form:commandButton"));
-        page.waitReqJs();
-        button.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertTrue(page.isInPage("Error from form:commandButton"));
     }
 }

@@ -39,24 +39,18 @@ public class Issue1581IT extends BaseITNG {
     public void testSelectManyCheckboxInComposite() throws Exception {
         WebPage page = getPage("issue1581.xhtml");
 
-        // This will ensure JavaScript finishes before evaluating the page.
-        page.waitReqJs();
         assertCheckBoxes(getCheckboxes(page), false, false, false, false);
 
-        getCheckboxes(page).get(0).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckboxes(page).get(0)::click);
         assertCheckBoxes(getCheckboxes(page), true, false, false, false);
 
-        getCheckboxes(page).get(1).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckboxes(page).get(1)::click);
         assertCheckBoxes(getCheckboxes(page), true, true, false, false);
 
-        getCheckboxes(page).get(2).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckboxes(page).get(2)::click);
         assertCheckBoxes(getCheckboxes(page), true, true, true, false);
 
-        getCheckboxes(page).get(3).click();
-        page.waitReqJs();
+        page.guardAjax(getCheckboxes(page).get(3)::click);
         assertCheckBoxes(getCheckboxes(page), true, true, true, true);
     }
 

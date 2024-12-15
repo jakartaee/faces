@@ -35,17 +35,14 @@ public class Issue2697IT extends BaseITNG {
     public void testAjaxViewScope() throws Exception {
         WebPage page = getPage("viewScope.xhtml");
         WebElement button = page.findElement(By.id("form:reset"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
 
         button =  page.findElement(By.id("form:ajax"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertTrue(page.isInPage("VIEWSCOPEBEAN() CALLED"));
         button = page.findElement(By.id("form:reset"));
         // Assert that second Ajax request does not execute the bean constructor again.
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertTrue(!page.isInPage("VIEWSCOPEBEAN() CALLED VIEWSCOPEBEAN() CALLED"));
     }
 }

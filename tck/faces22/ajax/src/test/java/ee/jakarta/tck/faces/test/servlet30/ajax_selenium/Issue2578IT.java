@@ -38,14 +38,12 @@ public class Issue2578IT extends BaseITNG {
         assertTrue(page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello") == -1);
 
         WebElement fill = page.findElement(By.id("form:fill"));
-        fill.click();
-        page.waitReqJs();
+        page.guardAjax(fill::click);
 
         assertTrue(page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello") != -1);
 
         WebElement button = page.findElement(By.id("form:clear"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
 
         assertTrue(page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello") == -1);
 

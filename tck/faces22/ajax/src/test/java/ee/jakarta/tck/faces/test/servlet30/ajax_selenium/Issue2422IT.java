@@ -40,13 +40,9 @@ public class Issue2422IT extends BaseITNG {
     public void testSelectBooleanCheckbox() throws Exception {
         WebPage page = getPage("selectBooleanCheckbox.xhtml");
         WebElement cbox = page.findElement(By.id("checkbox"));
-        // This will ensure JavaScript finishes before evaluating the page.
-        page.waitReqJs();
         assertTrue(!cbox.isSelected());
 
-        cbox.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(cbox::click);
         assertTrue(cbox.isSelected());
 
     }

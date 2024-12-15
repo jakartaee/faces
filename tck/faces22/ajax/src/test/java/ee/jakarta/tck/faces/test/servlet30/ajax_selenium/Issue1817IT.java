@@ -45,8 +45,7 @@ public class Issue1817IT extends BaseITNG {
                 .collect(Collectors.toList());
         for (String[] id : ids) {
             WebElement anchor = page.findElement(By.id(id[0]));
-            anchor.click();
-            page.waitReqJs();
+            page.guardAjax(anchor::click);
             String expectedText = "Triggered item: " + id[1];
             WebElement body = page.findElement(By.tagName("body"));
             try {

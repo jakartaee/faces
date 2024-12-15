@@ -40,10 +40,7 @@ public class Issue2381IT extends BaseITNG {
     public void testBodyAttributesAfterUpdate() throws Exception {
         WebPage page = getPage("updateBody.xhtml");
         WebElement button = page.findElement(By.id("form1:bodytag"));
-        button.click();
-        page.waitReqJs();
-        // This will ensure JavaScript finishes before evaluating the page.
-        page.waitReqJs();
+        page.guardAjax(button::click);
         
         assertTrue(page.isInPage("BODY CLASS:foo"));
     }

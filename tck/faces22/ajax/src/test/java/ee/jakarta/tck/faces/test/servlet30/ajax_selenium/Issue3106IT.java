@@ -46,7 +46,6 @@ public class Issue3106IT extends BaseITNG {
 
         //2 requests after that we have to move forward
         Thread.sleep(3000);
-        updatePage();
         page = getPage("multiPart1b.xhtml");
 
         assertTrue(page.isInPageText("Count is 2"));
