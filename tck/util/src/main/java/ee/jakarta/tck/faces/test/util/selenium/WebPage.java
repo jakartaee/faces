@@ -95,22 +95,6 @@ public class WebPage {
     }
 
     /**
-     * waits until no more running requests are present in case of exceeding our STD_TIMEOUT, a runtime exception is thrown
-     */
-    public void waitForCurrentRequestEnd() {
-        waitForCondition(webDriver1 -> webDriver.getResponseStatus() != -1, STD_TIMEOUT);
-    }
-
-    /**
-     * wait for the current request to be ended, with a timeout of "timeout"
-     *
-     * @param timeout the timeout for the waiting, if it is exceeded a timeout exception is thrown
-     */
-    public void waitForCurrentRequestEnd(Duration timeout) {
-        waitForCondition(webDriver1 -> webDriver.getResponseStatus() != -1, timeout);
-    }
-
-    /**
      * wait until the current Ajax request targeting the same page has completed
      * 
      * @param the ajax action to execute, usually {@code WebElement::click}
