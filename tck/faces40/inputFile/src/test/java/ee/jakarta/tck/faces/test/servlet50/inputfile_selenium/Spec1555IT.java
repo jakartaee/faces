@@ -66,9 +66,7 @@ public class Spec1555IT extends BaseITNG {
         // Selenium allows to send the file name as key input
         input.sendKeys(file.getAbsolutePath());
 
-        webDriver.findElement(By.id(form + ":submit")).click();
-        page.waitReqJs();
-        page.wait(Duration.ofMillis(3000));
+        page.guardAjax(webDriver.findElement(By.id(form + ":submit"))::click);
         assertEquals("Value attribute is NOT set", "", webDriver.findElement(By.id(form + ":input")).getAttribute("value"));
 
         WebElement messages = webDriver.findElement(By.id("messages"));
@@ -119,9 +117,7 @@ public class Spec1555IT extends BaseITNG {
 
         String files = String.join("\n", fileNames);
         input.sendKeys(files);
-        webDriver.findElement(By.id(form + ":submit")).click();
-        page.waitReqJs();
-        page.wait(Duration.ofMillis(3000));
+        page.guardAjax(webDriver.findElement(By.id(form + ":submit"))::click);
 
         assertEquals("Value attribute is NOT set", "", webDriver.findElement(By.id(form + ":input")).getAttribute("value"));
 
