@@ -25,7 +25,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.faces.tck</groupId>
         <artifactId>jakarta-faces-tck</artifactId>
-        <version>4.1.0-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
     </parent>
 
     <groupId>jakarta.faces.tck</groupId>
@@ -41,7 +41,7 @@
 
         <sigtest.plugin.version>2.1</sigtest.plugin.version>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
-        <faces.api.version>4.1.0</faces.api.version>
+        <faces.api.version>5.0.0-SNAPSHOT</faces.api.version>
     </properties>
 
     <dependencies>
