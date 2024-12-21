@@ -35,9 +35,7 @@ public class Issue2666IT extends BaseITNG {
     public void testRequestParamWithNoNameDoesNotExist() throws Exception {
         WebPage page = getPage("issue2666.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
-        button.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button::click);
 
         // Assert the page does not display the request parameter name 'button' that 
         // is in the page without a 'name' attribute.

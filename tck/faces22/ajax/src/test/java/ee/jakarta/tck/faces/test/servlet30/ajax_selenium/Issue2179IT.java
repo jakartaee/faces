@@ -36,8 +36,7 @@ public class Issue2179IT extends BaseITNG {
     @Test
     public void testEncodeException() throws Exception {
         WebPage page = getPage("issue2179-page1.xhtml");
-        int responseStatus = page.getResponseStatus();
-        assertTrue(responseStatus == 500);
+        assertTrue(page.isInPageTextReduced("IO EXCEPTION!!!!!"));
     }
 
     /**
@@ -54,7 +53,6 @@ public class Issue2179IT extends BaseITNG {
         WebPage page = getPage("issue2179-page2.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
         button.click();
-        //page.waitReqJs();
 
         assertTrue(page.isInPageTextReduced("Name: form:submit Error: serverError"));
     }

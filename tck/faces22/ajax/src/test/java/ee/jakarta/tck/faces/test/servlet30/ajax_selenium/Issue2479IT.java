@@ -44,8 +44,7 @@ public class Issue2479IT extends BaseITNG {
         WebElement span3 = page.findElement(By.id("table:2:inCity"));
         assertTrue((span3.getText()).equals("alpha"));
         Select select = new Select(page.findElement(By.id("selectMenu")));
-        select.selectByValue("beta");
-        page.waitReqJs();
+        page.guardAjax(() -> select.selectByValue("beta"));
         //failing
         span1 = page.findElement(By.id("table:0:inCity"));
         assertTrue((span1.getText()).equals("beta"));

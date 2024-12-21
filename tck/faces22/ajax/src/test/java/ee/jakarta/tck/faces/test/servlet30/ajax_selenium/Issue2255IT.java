@@ -38,20 +38,16 @@ public class Issue2255IT extends BaseITNG {
         WebPage page = getPage("divInComposite.xhtml");
         assertTrue(page.isInPage("false"));
         WebElement cbox =  page.findElement(By.id("cc:form:test"));
-        cbox.click();
-        page.waitReqJs();
+        page.guardAjax(cbox::click);
 
         assertTrue(page.isInPage("true"));
-        cbox.click();
-        page.waitReqJs();
+        page.guardAjax(cbox::click);
 
         assertTrue(page.isInPage("false"));
-        cbox.click();
-        page.waitReqJs();
+        page.guardAjax(cbox::click);
 
         assertTrue(page.isInPage("true"));
-        cbox.click();
-        page.waitReqJs();
+        page.guardAjax(cbox::click);
 
         assertTrue(page.isInPage("false"));
     }

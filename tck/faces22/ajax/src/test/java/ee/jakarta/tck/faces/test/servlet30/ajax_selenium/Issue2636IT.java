@@ -35,27 +35,23 @@ public class Issue2636IT extends BaseITNG {
     @Test
     public void testCommandLinksInRepeat() throws Exception {
         WebPage page = getPage("issue2636.xhtml");
-        page.waitReqJs();
         List<WebElement> anchors = page.getAnchors();
 
         WebElement anchor1 = anchors.get(0);
-        anchor1.click();
-        page.waitReqJs();
+        page.guardAjax(anchor1::click);
         assertTrue(page.isInPage("linkAction1"));
 
         anchors = page.getAnchors();
 
         WebElement anchor2 = anchors.get(1);
-        anchor2.click();
-        page.waitReqJs();
+        page.guardAjax(anchor2::click);
 
         assertTrue(page.isInPage("linkAction2"));
 
         anchors = page.getAnchors();
 
         anchor1 = anchors.get(0);
-        anchor1.click();
-        page.waitReqJs();
+        page.guardAjax(anchor1::click);
 
         assertTrue(page.isInPage("linkAction1"));
     }

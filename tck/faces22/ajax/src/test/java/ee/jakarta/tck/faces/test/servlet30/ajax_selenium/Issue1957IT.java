@@ -37,8 +37,7 @@ public class Issue1957IT extends BaseITNG {
     public void testPanelGroupAjaxBehavior() throws Exception {
         WebPage page = getPage("issue1957.xhtml");
         WebElement span = page.findElement(By.id("form:group"));
-        span.click();
-        page.waitReqJs();
+        page.guardAjax(span::click);
         assertTrue(page.isInPage("form:group Event: begin"));
         assertTrue(page.isInPage("form:group Event: complete"));
         assertTrue(page.isInPage("form:group Event: success"));

@@ -36,10 +36,7 @@ public class Issue3261IT extends BaseITNG {
 
         WebPage page = getPage("legendWithoutId.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
-
-        button.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         
         assertEquals(200, page.getResponseStatus());
     }

@@ -40,12 +40,10 @@ public class Issue1825IT extends BaseITNG {
     public void testIssue1825() throws Exception {
         WebPage page = getPage("issue1825.xhtml");
         WebElement button = page.findElement(By.id("form:button"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertEquals(200, page.getResponseStatus());
         button =  page.findElement(By.id("form:button"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
         assertEquals(200, page.getResponseStatus());
     }
 }

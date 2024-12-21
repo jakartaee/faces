@@ -68,9 +68,8 @@ public class ProtectedViewsTestIT extends BaseITNG {
     WebPage page = getPage("faces/views/public.xhtml");
 
     WebElement anchor = page.findElement(By.id("form1:linkOne"));
+    page.guardAjax(anchor::click);
 
-    anchor.click();
-    page.waitReqJs();
     assertEquals(expected, page.findElement(By.id("messOne")).getText());
 
   } 

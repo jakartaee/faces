@@ -43,16 +43,13 @@ public class Spec1386IT extends BaseITNG {
 
         // Enter main flow
         ExtendedWebDriver webDriver = getWebDriver();
-        webDriver.findElement(By.id("form:enter")).click();
-
-        page.waitReqJs();
+        page.guardAjax(webDriver.findElement(By.id("form:enter"))::click);
 
         // Put value in flow scope map
-        webDriver.findElement(By.id("form:init")).click();
-        page.waitReqJs();
+        page.guardAjax(webDriver.findElement(By.id("form:init"))::click);
 
         // Navigate to next page in flow
-        webDriver.findElement(By.id("form:next")).click();
+        page.guardAjax(webDriver.findElement(By.id("form:next"))::click);
 
 
         // Value should be available from flow map now
@@ -60,23 +57,19 @@ public class Spec1386IT extends BaseITNG {
 
 
         // Enter nested flow
-        webDriver.findElement(By.id("form:nested")).click();
-        page.waitReqJs();
+        page.guardAjax(webDriver.findElement(By.id("form:nested"))::click);
 
         // Put (different) value in flow map using same key
-        webDriver.findElement(By.id("form:init")).click();
-        page.waitReqJs();
+        page.guardAjax(webDriver.findElement(By.id("form:init"))::click);
 
         // Navigate to next page in nested flow
-        webDriver.findElement(By.id("form:next")).click();
-        page.waitReqJs();
+        page.guardAjax(webDriver.findElement(By.id("form:next"))::click);
         // Different value should be available from flow map now
         page.waitForCondition(webDriver1 -> page.isInPage("foo:barx"));
 
 
         // Exit nested flow
-        webDriver.findElement(By.id("form:exit")).click();
-        page.waitReqJs();
+        page.guardAjax(webDriver.findElement(By.id("form:exit"))::click);
 
         // Original value should be available from flow map again
         page.waitForCondition(webDriver1 -> page.isInPage("foo:bar"));

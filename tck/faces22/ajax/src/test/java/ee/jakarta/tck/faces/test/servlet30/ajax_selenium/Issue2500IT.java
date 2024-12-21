@@ -35,16 +35,10 @@ public class Issue2500IT extends BaseITNG {
     public void testNoDuplicateViewState() throws Exception {
         WebPage page = getPage("dupViewState.xhtml");
         WebElement button1 = page.findElement(By.id("btn5"));
-        button1.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button1::click);
         WebElement button2 = page.findElement(By.id("button1"));
-        button2.click();
-        page.waitReqJs();
-        page.waitReqJs();
-        button2.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(button2::click);
+        page.guardAjax(button2::click);
         assertTrue(page.isInPage("jakarta.faces.ViewState Has One Value"));
     }
 }

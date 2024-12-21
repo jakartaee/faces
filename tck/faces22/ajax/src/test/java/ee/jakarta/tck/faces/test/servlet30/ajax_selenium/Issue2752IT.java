@@ -35,14 +35,10 @@ public class Issue2752IT extends BaseITNG {
     public void testInsertFromResponse() throws Exception {
         WebPage page = getPage("insertElement.xhtml");
          WebElement beforeButton = page.findElement(By.id("beforeButton"));
-        beforeButton.click();
-        // This will ensure JavaScript finishes before evaluating the page.
-        page.waitReqJs();
+         page.guardAjax(beforeButton::click);
         assertTrue(page.isInPageText("This is before textalpha"));
         WebElement afterButton = page.findElement(By.id("afterButton"));
-        afterButton.click();
-        // This will ensure JavaScript finishes before evaluating the page.
-        page.waitReqJs();
+        page.guardAjax(afterButton::click);
         assertTrue(page.isInPageText("This is before textalphaThis is after text"));
     }
 

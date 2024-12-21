@@ -44,8 +44,7 @@ public class Issue2162IT extends BaseITNG {
         assertTrue(page.getPageSource().indexOf("Init called\n") != -1);
 
         WebElement button = page.findElement(By.id("form:submit"));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
 
         // init called not present probably a mojarra codebase issue
         // showing up in Chrome - works in htmlunit!

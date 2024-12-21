@@ -44,8 +44,7 @@ public class Issue1284IT extends BaseITNG {
 
         // Submit the ajax request
         WebElement button1 = page.findElement(By.id("form1:button1"));
-        button1.click();
-        page.waitReqJs();
+        page.guardAjax(button1::click);
 
 
         // Check that the ajax request succeeds
@@ -68,8 +67,7 @@ public class Issue1284IT extends BaseITNG {
 
         // Submit the ajax request
         WebElement button1 = page.findElement(By.id("form1:button1"));
-        button1.click();
-        page.waitReqJs();
+        page.guardAjax(button1::click);
 
 
         // Check that the ajax request succeeds

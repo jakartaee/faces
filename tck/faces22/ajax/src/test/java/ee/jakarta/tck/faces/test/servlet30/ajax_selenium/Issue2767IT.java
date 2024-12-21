@@ -35,29 +35,19 @@ public class Issue2767IT extends BaseITNG {
     public void testCommandLinkRadio() throws Exception {
         WebPage page = getPage("issue2767.xhtml");
         WebElement anchor = page.findElement(By.id("testLink"));
-        // This will ensure JavaScript finishes before evaluating the page.
-        page.waitReqJs();
-        anchor.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(anchor::click);
         assertTrue(page.isInPage("LINK ACTION"));
         WebElement radio1 = page.findElement(By.id("testRadio:0"));
         WebElement radio2 = page.findElement(By.id("testRadio:1"));
         WebElement radio3 = page.findElement(By.id("testRadio:2"));
 
-        radio1.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(radio1::click);
         assertTrue(page.isInPage("RADIO:red"));
 
-        radio2.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(radio2::click);
         assertTrue(page.isInPage("RADIO:blue"));
 
-        radio3.click();
-        page.waitReqJs();
-        page.waitReqJs();
+        page.guardAjax(radio3::click);
         assertTrue(page.isInPage("RADIO:white"));
     }
 }
