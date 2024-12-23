@@ -21,6 +21,7 @@ import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import java.io.File;
 import java.net.URL;
 import java.time.Duration;
+import java.util.regex.Pattern;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -30,6 +31,8 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 /**
  * Base class for tests, which provides a certain infrastructure can be used, but does not have to be
@@ -71,6 +74,7 @@ public class BaseITNG {
         WebPage webPage = new WebPage(webDriver);
         // Sometimes it takes longer until the first page is loaded after container startup
         webPage.waitForPageToLoad(Duration.ofSeconds(120));
+        PageFactory.initElements(webDriver, this);
         return webPage;
     }
 
@@ -94,5 +98,17 @@ public class BaseITNG {
 
     public ExtendedWebDriver getWebDriver() {
         return webDriver;
+    }
+
+    protected String getHrefURI(WebElement link) {
+        String uri = link.getAttribute("href").substring(webUrl.toExternalForm().length());
+        String uriWithoutJsessionId = uri.split(";jsessionid=", 2)[0];
+        String[] uriAndQueryString = uri.split(Pattern.quote("?"), 2);
+
+        if (uriAndQueryString.length == 2) {
+            uriWithoutJsessionId += "?" + uriAndQueryString[1]; 
+        }
+
+        return uriWithoutJsessionId;
     }
 }

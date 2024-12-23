@@ -20,33 +20,21 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.eclipse.ee4j.faces.tck</groupId>
-        <artifactId>jakarta-faces-tck</artifactId>
+        <groupId>org.eclipse.ee4j.tck.faces.faces50</groupId>
+        <artifactId>pom</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.eclipse.ee4j.tck.faces.faces50</groupId>
-    <artifactId>pom</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>example_jar_with_metadata_complete_false</artifactId>
+    <packaging>jar</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0</name>
-
-    <modules>
-        <module>example_jar_with_metadata_complete_false</module>
-        <module>example_jar_with_metadata_complete_true</module>
-        <module>ajax</module>
-        <module>facelets</module>
-        <module>facesConfig</module>
-        <module>phaseEvents</module>
-        <module>uiinput</module>
-        <module>viewProtection</module>
-    </modules>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0 - ${project.artifactId}</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
-            <artifactId>util</artifactId>
-            <version>${project.version}</version>
+            <groupId>jakarta.faces</groupId>
+            <artifactId>jakarta.faces-api</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

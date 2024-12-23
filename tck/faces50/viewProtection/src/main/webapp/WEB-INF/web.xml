@@ -16,15 +16,17 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
-<web-app
-    xmlns="https://jakarta.ee/xml/ns/jakartaee" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
-    version="6.0"
->
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
     <context-param>
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
+    </context-param>
+    <context-param>
+        <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>
+        <param-value>${webapp.partialStateSaving}</param-value>
     </context-param>
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>
@@ -38,9 +40,17 @@
     <servlet>
         <servlet-name>facesServlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
         <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.jsf</url-pattern>
+        <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
+
+    <error-page>
+        <exception-type>jakarta.faces.application.ProtectedViewException</exception-type>
+        <location>/WEB-INF/errorpages/issue5503-ProtectedViewException.xhtml</location>
+    </error-page>
 </web-app>
