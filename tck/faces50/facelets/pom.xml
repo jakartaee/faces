@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) Contributors to Eclipse Foundation.
+    Copyright (c) 2024 Contributors to Eclipse Foundation.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -28,7 +28,7 @@
     <artifactId>facelets</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0 - Facelets</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0 - ${project.artifactId}</name>
 
     <build>
         <finalName>test-faces50-facelets</finalName>

@@ -32,8 +32,14 @@
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0</name>
 
     <modules>
+        <module>example_jar_with_metadata_complete_false</module>
+        <module>example_jar_with_metadata_complete_true</module>
+        <module>ajax</module>
         <module>facelets</module>
+        <module>facesConfig</module>
         <module>phaseEvents</module>
+        <module>uiinput</module>
+        <module>viewProtection</module>
     </modules>
 
     <dependencies>

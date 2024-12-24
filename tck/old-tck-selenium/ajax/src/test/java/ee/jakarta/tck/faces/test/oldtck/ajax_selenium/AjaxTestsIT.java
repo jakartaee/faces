@@ -210,8 +210,7 @@ public class AjaxTestsIT extends BaseITNG {
 
         // Submit the ajax request
         WebElement button = page.findElement(By.id(buttonId));
-        button.click();
-        page.waitReqJs();
+        page.guardAjax(button::click);
 
         // Check that the ajax request succeeds - if the page is rewritten,
         // this will be the same

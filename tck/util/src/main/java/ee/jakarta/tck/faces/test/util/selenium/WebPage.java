@@ -27,7 +27,6 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -92,6 +91,16 @@ public class WebPage {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    /**
+     * wait until the current non-Ajax request targeting the same page has completed
+     * 
+     * @param the non-ajax action to execute, usually {@code WebElement::click}
+     */
+    public void guardHttp(Runnable action) {
+        action.run();
+        waitForPageToLoad();
     }
 
     /**
