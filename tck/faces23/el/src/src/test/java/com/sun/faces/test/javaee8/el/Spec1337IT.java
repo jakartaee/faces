@@ -36,31 +36,11 @@ import org.junit.runner.RunWith;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
+import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+
 import jakarta.el.ResourceBundleELResolver;
 
-@ExtendWith(ArquillianExtension.class)
-public class Spec1337IT {
-
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
+public class Spec1337IT extends ITBase {
 
     /**
      * @see ResourceBundleELResolver

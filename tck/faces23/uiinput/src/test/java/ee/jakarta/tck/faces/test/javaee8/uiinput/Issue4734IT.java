@@ -19,16 +19,13 @@ package ee.jakarta.tck.faces.test.javaee8.uiinput;
 import jakarta.faces.component.UIViewParameter;
 import jakarta.faces.component.behavior.AjaxBehavior;
 
-import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
-@ExtendWith(ArquillianExtension.class)
 class Issue4734IT extends ITBase {
 
   /**

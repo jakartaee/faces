@@ -21,9 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.component.UIInput;
 
-import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
@@ -31,7 +29,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
-@ExtendWith(ArquillianExtension.class)
 class Spec1433IT extends ITBase {
 
   /**

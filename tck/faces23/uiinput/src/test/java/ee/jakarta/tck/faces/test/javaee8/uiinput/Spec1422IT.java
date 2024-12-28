@@ -26,9 +26,7 @@ import jakarta.faces.application.Application;
 import jakarta.faces.component.UISelectItems;
 import jakarta.faces.component.UISelectMany;
 
-import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -36,7 +34,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
-@ExtendWith(ArquillianExtension.class)
 class Spec1422IT extends ITBase {
 
   /**

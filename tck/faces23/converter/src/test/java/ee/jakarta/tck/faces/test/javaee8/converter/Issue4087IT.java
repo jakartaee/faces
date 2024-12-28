@@ -17,57 +17,23 @@
 
 package ee.jakarta.tck.faces.test.javaee8.converter;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.net.URL;
 import java.time.temporal.Temporal;
 
 import jakarta.faces.convert.DateTimeConverter;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
+import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
-@ExtendWith(ArquillianExtension.class)
-public class Issue4087IT {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-        webClient.addRequestHeader("Accept-Language", "en-US");
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
+public class Issue4087IT extends ITBase {
 
   /**
    * @see DateTimeConverter

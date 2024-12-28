@@ -24,9 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.component.UISelectItem;
 import jakarta.faces.component.html.HtmlSelectManyCheckbox;
 
-import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
@@ -36,7 +34,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
-@ExtendWith(ArquillianExtension.class)
 class Issue4330IT extends ITBase {
 
   /**

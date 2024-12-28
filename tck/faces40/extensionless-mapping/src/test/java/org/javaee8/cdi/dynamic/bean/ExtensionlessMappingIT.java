@@ -15,59 +15,26 @@
  */
 package org.javaee8.cdi.dynamic.bean;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.webapp.FacesServlet;
 
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
 /**
  *
  * @author Arjan Tijms
  *
  */
-@ExtendWith(ArquillianExtension.class)
-public class ExtensionlessMappingIT {
-
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
+public class ExtensionlessMappingIT extends ITBase {
 
   /**
    * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME

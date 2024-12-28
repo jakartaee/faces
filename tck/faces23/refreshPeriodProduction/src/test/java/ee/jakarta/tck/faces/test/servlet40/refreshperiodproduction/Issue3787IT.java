@@ -28,7 +28,6 @@ import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.application.ProjectStage;
 import jakarta.faces.application.ViewHandler;
 
-@ExtendWith(ArquillianExtension.class)
 public class Issue3787IT extends ITBase  {
 
     /**
