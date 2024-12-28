@@ -17,38 +17,39 @@
 
 package ee.jakarta.tck.faces.test.javaee8.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.context.PartialViewContext;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import static org.junit.Assert.assertTrue;
+class Spec1412IT extends BaseITNG {
 
-public class Spec1412IT extends BaseITNG {
-
-    /**
-     * @see PartialViewContext#getEvalScripts()
+  /**
+   * @see PartialViewContext#getEvalScripts()
      * @see https://github.com/jakartaee/faces/issues/1412
-     */
-    @Test
-    public void testSpec1412() throws Exception {
+   */
+  @Test
+  void spec1412() throws Exception {
 
         WebPage page = getPage("spec1412.xhtml");
         assertTrue(page.isNotInPage("Success!"));
 
         WebElement button = page.findElement(By.id("form:button"));
 
-        assertTrue(button.getAttribute("value").equals("foo"));
+      assertEquals("foo", button.getAttribute("value"));
 
         page.guardAjax(button::click);
         assertTrue(page.isInPage("Success!"));
 
         button =  page.findElement(By.id("form:button"));
-        assertTrue(button.getAttribute("value").equals("bar"));
+      assertEquals("bar", button.getAttribute("value"));
     }
 
 }

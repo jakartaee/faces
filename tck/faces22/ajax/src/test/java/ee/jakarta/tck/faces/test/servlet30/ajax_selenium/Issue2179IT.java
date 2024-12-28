@@ -16,36 +16,38 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.context.ExceptionHandler;
 import jakarta.faces.context.PartialViewContext;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2179IT extends BaseITNG {
-    
-    /**
-     * @see PartialViewContext
+class Issue2179IT extends BaseITNG {
+
+  /**
+   * @see PartialViewContext
      * @see ExceptionHandler
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2183
-     */
-    @Test
-    public void testEncodeException() throws Exception {
+   */
+  @Test
+  void encodeException() throws Exception {
         WebPage page = getPage("issue2179-page1.xhtml");
         assertTrue(page.isInPageTextReduced("IO EXCEPTION!!!!!"));
     }
 
-    /**
-     * @see PartialViewContext
+  /**
+   * @see PartialViewContext
      * @see ExceptionHandler
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2183
-     */
-    @Test
-    public void testDecodeException() {
+   */
+  @Test
+  void decodeException() {
         // the major change is to shift the textarea over
         // apparently they used the text attribute which does not work
         // on new browsers, innerText must be used

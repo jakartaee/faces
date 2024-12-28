@@ -17,27 +17,28 @@
 
 package ee.jakarta.tck.faces.test.servlet30.compositeComponent;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.component.UIViewRoot;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.component.UIViewRoot;
 
-@RunWith(Arquillian.class)
-public class Issue5065IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Issue5065IT extends ITBase {
 
-    /**
-     * @see UIViewRoot#findComponent(String)
+  /**
+   * @see UIViewRoot#findComponent(String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5065
-     */
-    @Test
-    public void testFindComponentWhenNestedInComposite() throws Exception {
+   */
+  @Test
+  void findComponentWhenNestedInComposite() throws Exception {
         HtmlPage page = getPage("issue5065.xhtml");
 
         HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("form:submit");
@@ -45,15 +46,15 @@ public class Issue5065IT extends ITBase {
 
         String inlineInvokeApplication = page.getElementById("form:invokeApplication").asNormalizedText();
         String inlineRenderResponse = page.getElementById("form:renderResponse").asNormalizedText();
-        assertEquals("same inline component is reused during render response", inlineInvokeApplication, inlineRenderResponse);
+        assertEquals(inlineInvokeApplication, inlineRenderResponse, "same inline component is reused during render response");
 
         String htmlWrapperInvokeApplication = page.getElementById("form:htmlWrapper:invokeApplication").asNormalizedText();
         String htmlWrapperRenderResponse = page.getElementById("form:htmlWrapper:renderResponse").asNormalizedText();
-        assertEquals("same htmlwrapper component is reused during render response", htmlWrapperInvokeApplication, htmlWrapperRenderResponse);
+        assertEquals(htmlWrapperInvokeApplication, htmlWrapperRenderResponse, "same htmlwrapper component is reused during render response");
 
         String componentWrapperInvokeApplication = page.getElementById("form:componentWrapper:invokeApplication").asNormalizedText();
         String componentWrapperRenderResponse = page.getElementById("form:componentWrapper:renderResponse").asNormalizedText();
-        assertEquals("same componentWrapper component is reused during render response", componentWrapperInvokeApplication, componentWrapperRenderResponse);
+        assertEquals(componentWrapperInvokeApplication, componentWrapperRenderResponse, "same componentWrapper component is reused during render response");
 
     }
 }

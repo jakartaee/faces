@@ -16,32 +16,32 @@
 
 package ee.jakarta.tck.faces.test.servlet50.beanValidation;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
-@RunWith(Arquillian.class)
-public class Issue5171IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Issue5171IT extends ITBase {
 
-    /**
-     * @see https://github.com/eclipse-ee4j/mojarra/issues/5171
-     */
-    @Test
-    public void test() throws Exception {
+  /**
+   * @see https://github.com/eclipse-ee4j/mojarra/issues/5171
+   */
+  @Test
+  void test() throws Exception {
         HtmlPage page = getPage("issue5171.xhtml");
         page = page.getElementById("form:submit").click();
         String simpleInputMessage = page.getElementById("form:simpleInputMessage").asNormalizedText();
         String compositeInputMessage = page.getElementById("form:compositeInputMessage").asNormalizedText();
-        assertTrue("simple input must trigger bean validation and show message", simpleInputMessage.endsWith("must not be empty"));
-        assertTrue("composite input must trigger bean validation and show message", compositeInputMessage.endsWith("must not be empty"));
+        assertTrue(simpleInputMessage.endsWith("must not be empty"), "simple input must trigger bean validation and show message");
+        assertTrue(compositeInputMessage.endsWith("must not be empty"), "composite input must trigger bean validation and show message");
 
         HtmlTextInput simpleInput = (HtmlTextInput) page.getElementById("form:simpleInput");
         HtmlTextInput compositeInput = (HtmlTextInput) page.getElementById("form:composite:input");
@@ -50,7 +50,7 @@ public class Issue5171IT extends ITBase {
         page = page.getElementById("form:submit").click();
         simpleInputMessage = page.getElementById("form:simpleInputMessage").asNormalizedText();
         compositeInputMessage = page.getElementById("form:compositeInputMessage").asNormalizedText();
-        assertEquals("simple input must pass bean validation and clear out message", "", simpleInputMessage);
-        assertEquals("composite input must pass bean validation and clear out message", "", compositeInputMessage);
+        assertEquals("", simpleInputMessage, "simple input must pass bean validation and clear out message");
+        assertEquals("", compositeInputMessage, "composite input must pass bean validation and clear out message");
     }
 }

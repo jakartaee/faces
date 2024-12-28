@@ -16,27 +16,27 @@
 
 package ee.jakarta.tck.faces.test.faces50.facelets;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 
-@RunWith(Arquillian.class)
-public class Spec1713IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Spec1713IT extends ITBase {
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see https://github.com/jakartaee/faces/issues/1713
-     */
-    @Test
-    public void testSpec1713() throws Exception {
+   */
+  @Test
+  void spec1713() throws Exception {
         HtmlPage page = getPage("spec1713.xhtml");
         assertOutput(page, "repeat1", "1 2 3");
         assertOutput(page, "repeat2", "-3 -2 -1 0 1 2 3");
@@ -69,7 +69,7 @@ public class Spec1713IT extends ITBase {
     }
 
     private void assertOutput(HtmlPage page, String clientId, String expected) {
-        assertEquals(clientId, expected, page.getHtmlElementById(clientId).asNormalizedText());
+        assertEquals(expected, page.getHtmlElementById(clientId).asNormalizedText(), clientId);
     }
 
     private void assertFacesException(String clientId) throws Exception {

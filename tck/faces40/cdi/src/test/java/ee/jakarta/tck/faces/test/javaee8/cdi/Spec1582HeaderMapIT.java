@@ -19,31 +19,31 @@ package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import jakarta.inject.Inject;
 
 /**
  * Tests the availability of the header map via injection
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Spec1582HeaderMapIT {
 
     @ArquillianResource
@@ -57,23 +57,23 @@ public class Spec1582HeaderMapIT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see jakarta.faces.annotation.HeaderMap.Literal
      * @see https://github.com/jakartaee/faces/issues/1582
-     */
-    @Test
-    public void testInjectHeaderMap() throws Exception {
+   */
+  @Test
+  void injectHeaderMap() throws Exception {
         // Add a custom header that the test code knows named "foo"
         webClient.addRequestHeader("foo", "bar");
 

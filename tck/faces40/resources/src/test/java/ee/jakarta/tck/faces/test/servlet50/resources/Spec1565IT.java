@@ -18,28 +18,28 @@ package ee.jakarta.tck.faces.test.servlet50.resources;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.component.UIOutput;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import jakarta.faces.component.UIOutput;
-
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Spec1565IT {
 
     @ArquillianResource
@@ -53,57 +53,57 @@ public class Spec1565IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see UIOutput
+  /**
+   * @see UIOutput
      * @see com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer
      * @see https://github.com/jakartaee/faces/issues/1565
-     */
-    @Test
-    public void testHtml5() throws Exception {
+   */
+  @Test
+  void html5() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1565IT-HTML5.xhtml");
 
         for (DomElement element : page.getElementsByTagName("script")) {
-            assertEquals("Script element has no type attribute", "", element.getAttribute("type"));
+            assertEquals("", element.getAttribute("type"), "Script element has no type attribute");
         }
 
         for (DomElement element : page.getElementsByTagName("link")) {
-            assertEquals("Link element has no type attribute", "", element.getAttribute("type"));
+            assertEquals("", element.getAttribute("type"), "Link element has no type attribute");
         }
 
         for (DomElement element : page.getElementsByTagName("style")) {
-            assertEquals("Style element has no type attribute", "", element.getAttribute("type"));
+            assertEquals("", element.getAttribute("type"), "Style element has no type attribute");
         }
     }
 
-    /**
-     * @see UIOutput
+  /**
+   * @see UIOutput
      * @see com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer
      * @see https://github.com/jakartaee/faces/issues/1565
-     */
-    @Test
-    public void testHtml4() throws Exception {
+   */
+  @Test
+  void html4() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1565IT-HTML4.xhtml");
 
         for (DomElement element : page.getElementsByTagName("script")) {
-            assertEquals("Script element has a type='text/javascript' attribute", "text/javascript", element.getAttribute("type"));
+            assertEquals("text/javascript", element.getAttribute("type"), "Script element has a type='text/javascript' attribute");
         }
 
         for (DomElement element : page.getElementsByTagName("link")) {
-            assertEquals("Link element has a type='text/css' attribute", "text/css", element.getAttribute("type"));
+            assertEquals("text/css", element.getAttribute("type"), "Link element has a type='text/css' attribute");
         }
 
         for (DomElement element : page.getElementsByTagName("style")) {
-            assertEquals("Style element has a type='text/css' attribute", "text/css", element.getAttribute("type"));
+            assertEquals("text/css", element.getAttribute("type"), "Style element has a type='text/css' attribute");
         }
     }
 

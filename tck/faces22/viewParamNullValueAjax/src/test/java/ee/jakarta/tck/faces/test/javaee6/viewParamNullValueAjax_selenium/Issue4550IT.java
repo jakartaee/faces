@@ -17,27 +17,29 @@
 
 package ee.jakarta.tck.faces.test.javaee6.viewParamNullValueAjax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.UIViewParameter;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue4550IT extends BaseITNG {
+class Issue4550IT extends BaseITNG {
 
     private static String TEST_STRING = "Test Rhuan";
 
-    /**
-     * @see UIViewParameter
+  /**
+   * @see UIViewParameter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4550
-     */
-    @Test
-    public void testViewParamNullValueAjax() throws Exception {
+   */
+  @Test
+  void viewParamNullValueAjax() throws Exception {
         WebPage page = getPage("faces/viewparam-nullvalue-ajax.xhtml");
 
         // Ajax submit click

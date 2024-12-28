@@ -16,27 +16,29 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.component.html.HtmlBody;
-import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
 
-public class Issue1781IT extends BaseITNG {
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    /**
-     * Test attaching a ClientBehaviorHolder to h:body. Note the current 2.1
-     * spec does not allow using f:ajax outside of a form so this will throw
-     * a script error which we are going to ignore.
-     * 
-     * @see ClientBehaviorHolder
+class Issue1781IT extends BaseITNG {
+
+  /**
+   * Test attaching a ClientBehaviorHolder to h:body. Note the current 2.1
+   * spec does not allow using f:ajax outside of a form so this will throw
+   * a script error which we are going to ignore.
+   * 
+   * @see ClientBehaviorHolder
      * @see HtmlBody
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1785
-     */
-    @Test
-    public void testAjaxToOnBody() throws Exception {
+   */
+  @Test
+  void ajaxToOnBody() throws Exception {
         WebPage page = getPage("body.xhtml");
         assertEquals(200, page.getResponseStatus());
     }

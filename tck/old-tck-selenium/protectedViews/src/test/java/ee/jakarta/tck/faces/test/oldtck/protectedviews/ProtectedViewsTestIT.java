@@ -18,10 +18,10 @@ package ee.jakarta.tck.faces.test.oldtck.protectedviews;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.net.URL;
@@ -31,10 +31,9 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
@@ -55,16 +54,15 @@ public class ProtectedViewsTestIT extends ITBase {
                 .as(WebArchive.class);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         webClient = new WebClient();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         webClient.close();
     }
-
 
 
   /**
@@ -78,18 +76,18 @@ public class ProtectedViewsTestIT extends ITBase {
    * @since 2.2
    */
   @Test
-  public void viewProtectedViewNonAccessPointTest() throws Exception {
+  void viewProtectedViewNonAccessPointTest() throws Exception {
     webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
 
     HtmlPage page = webClient.getPage(webUrl + "faces/views/protected.xhtml");
 
     HtmlAnchor anchor = (HtmlAnchor) page.getElementById("messOne");
 
-    assertNull("Illegal Access of a Protected View!", anchor);
+    assertNull(anchor, "Illegal Access of a Protected View!");
 
-    assertTrue("Expected a ProtectedViewException when accessing a protected view", page.asNormalizedText().contains("jakarta.faces.application.ProtectedViewException"));
+    assertTrue(page.asNormalizedText().contains("jakarta.faces.application.ProtectedViewException"), "Expected a ProtectedViewException when accessing a protected view");
 
-  } 
+  }
 
   /**
    * @testName: viewProtectedViewSameWebAppAccessTest
@@ -103,14 +101,14 @@ public class ProtectedViewsTestIT extends ITBase {
    * @since 2.2
    */
   @Test
-  public void viewProtectedViewSameWebAppAccessTest() throws Exception {
+  void viewProtectedViewSameWebAppAccessTest() throws Exception {
 
     String expected = "This is a Protected View!";
 
     HtmlPage page = webClient.getPage(webUrl + "faces/views/public.xhtml");
 
     HtmlAnchor anchor = (HtmlAnchor) page.getElementById("form1:linkOne");
-    assertNotNull("Anchor linkOne should not be null!", anchor);
+    assertNotNull(anchor, "Anchor linkOne should not be null!");
 
     HtmlPage protectedPage = anchor.click();
     assertEquals(expected, protectedPage.getElementById("messOne").asNormalizedText());

@@ -31,4 +31,12 @@
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - passthrough</name>
     <description>Readonly Attribute Ignored when used with passthrough:required</description>
+ <dependencies>
+  <dependency>
+   <groupId>org.junit.jupiter</groupId>
+   <artifactId>junit-jupiter</artifactId>
+   <version>5.11.4</version>
+   <scope>test</scope>
+  </dependency>
+ </dependencies>
 </project>

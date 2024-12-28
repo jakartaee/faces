@@ -17,28 +17,29 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.component.UIInput;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.component.UIInput;
 
-@RunWith(Arquillian.class)
-public class Spec1433IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Spec1433IT extends ITBase {
 
-    /**
-     * @see UIInput#ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE
+  /**
+   * @see UIInput#ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE
      * @see https://github.com/jakartaee/faces/issues/1433
-     */
-    @Test
-    public void testSpec1433() throws Exception {
+   */
+  @Test
+  void spec1433() throws Exception {
         HtmlPage page = getPage("spec1433.xhtml");
         HtmlTextInput input = (HtmlTextInput) page.getElementById("form:input");
         input.setAttribute("id", "");

@@ -19,31 +19,30 @@ package ee.jakarta.tck.faces.test.javaee7.cdiinitdestroyevent.cdiinitdestroyeven
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.flow.FlowScoped;
+import jakarta.faces.view.ViewScoped;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
-import jakarta.faces.flow.FlowScoped;
-import jakarta.faces.view.ViewScoped;
-
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Issue2948IT {
 
     @ArquillianResource
@@ -57,22 +56,22 @@ public class Issue2948IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see FlowScoped
+  /**
+   * @see FlowScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
-     */
-    @Test
-    public void testSessionLogging() throws Exception {
+   */
+  @Test
+  void sessionLogging() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
         HtmlElement e = (HtmlElement) page.getElementById("initMessage");
         long sessionInitTime = Long.valueOf(e.asNormalizedText());
@@ -84,12 +83,12 @@ public class Issue2948IT {
         assertTrue(sessionInitTime < sessionDestroyTime);
     }
 
-    /**
-     * @see FlowScoped
+  /**
+   * @see FlowScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
-     */
-    @Test
-    public void testFlowLogging() throws Exception {
+   */
+  @Test
+  void flowLogging() throws Exception {
         // index.xhtml
         HtmlPage page = webClient.getPage(webUrl);
 
@@ -118,12 +117,12 @@ public class Issue2948IT {
 //        assertTrue(flowInitTime < flowDestroyTime);
     }
 
-    /**
-     * @see ViewScoped
+  /**
+   * @see ViewScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
-     */
-    @Test
-    public void testViewScopedLogging() throws Exception {
+   */
+  @Test
+  void viewScopedLogging() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/viewScoped01.xhtml");
         HtmlElement e = (HtmlElement) page.getElementById("initMessage");
         long flowInitTime = Long.valueOf(e.asNormalizedText());

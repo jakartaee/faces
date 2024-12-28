@@ -16,26 +16,29 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2578IT extends BaseITNG {
-    
-    /**
-     * @see AjaxBehavior
+class Issue2578IT extends BaseITNG {
+
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2582
-     */
-    @Test
-    public void testAjaxClear() throws Exception {
+   */
+  @Test
+  void ajaxClear() throws Exception {
         WebPage page = getPage("issue2578.xhtml");
 
-        assertTrue(page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello") == -1);
+      assertEquals(-1, page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello"));
 
         WebElement fill = page.findElement(By.id("form:fill"));
         page.guardAjax(fill::click);
@@ -45,7 +48,7 @@ public class Issue2578IT extends BaseITNG {
         WebElement button = page.findElement(By.id("form:clear"));
         page.guardAjax(button::click);
 
-        assertTrue(page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello") == -1);
+      assertEquals(-1, page.findElement(By.id("form:input")).getAttribute("value").indexOf("hello"));
 
     }
 }

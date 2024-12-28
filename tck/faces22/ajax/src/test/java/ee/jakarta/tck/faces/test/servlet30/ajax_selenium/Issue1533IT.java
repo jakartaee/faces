@@ -16,28 +16,30 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 
 /**
  * @author Manfred Riem (manfred.riem@oracle.com)
  */
-public class Issue1533IT extends BaseITNG {
+class Issue1533IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see WebElementOneRadio
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1537
-     */
-    @Test
-    public void testIssue1533() throws Exception {
+   */
+  @Test
+  void issue1533() throws Exception {
         WebPage page = getPage("issue1533.xhtml");
         WebElement input = page.findElement(By.id("form:vip:0"));
         page.guardAjax(input::click);

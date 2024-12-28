@@ -18,30 +18,30 @@ package ee.jakarta.tck.faces.test.javaee6web.el;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.application.ViewExpiredException;
+import jakarta.faces.view.ViewScoped;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import jakarta.faces.application.ViewExpiredException;
-import jakarta.faces.view.ViewScoped;
-
-@RunWith(Arquillian.class)
-@Ignore("Sloppy test using Mojarra specific assumptions. See https://github.com/jakartaee/faces/issues/1773")
+@ExtendWith(ArquillianExtension.class)
+@Disabled("Sloppy test using Mojarra specific assumptions. See https://github.com/jakartaee/faces/issues/1773")
 public class Issue3194IT {
 
     @ArquillianResource
@@ -55,23 +55,23 @@ public class Issue3194IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see ViewScoped
+  /**
+   * @see ViewScoped
      * @see ViewExpiredException
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3198
-     */
-    @Test
-    public void testViewExpired() throws Exception {
+   */
+  @Test
+  void viewExpired() throws Exception {
         webClient.getPage(webUrl + "faces/viewExpired.xhtml");
         webClient.getPage(webUrl + "faces/viewExpired.xhtml");
         webClient.getPage(webUrl + "faces/viewExpired.xhtml");

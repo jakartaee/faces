@@ -18,29 +18,29 @@ package ee.jakarta.tck.faces.test.servlet50.inputfile;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.component.html.HtmlInputFile;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
-import jakarta.faces.component.html.HtmlInputFile;
-
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Spec1556IT {
 
     @ArquillianResource
@@ -54,36 +54,36 @@ public class Spec1556IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see HtmlInputFile#getAccept()
+  /**
+   * @see HtmlInputFile#getAccept()
      * @see https://github.com/jakartaee/faces/issues/1556
-     */
-    @Test
-    public void testRenderingOfAcceptAttribute(String form) throws Exception {
+   */
+  @Test
+  void renderingOfAcceptAttribute(String form) throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1556IT.xhtml");
 
         HtmlFileInput inputFileWithoutAccept = page.getHtmlElementById("form:inputFileWithoutAccept");
-        assertEquals("Unspecified 'accept' attribute on h:inputFile is NOT rendered", "", inputFileWithoutAccept.getAttribute("accept"));
+        assertEquals("", inputFileWithoutAccept.getAttribute("accept"), "Unspecified 'accept' attribute on h:inputFile is NOT rendered");
 
         HtmlFileInput inputFileWithAccept = page.getHtmlElementById("form:inputFileWithAccept");
-        assertEquals("Specified 'accept' attribute on h:inputFile is rendered", "image/*", inputFileWithAccept.getAttribute("accept"));
+        assertEquals("image/*", inputFileWithAccept.getAttribute("accept"), "Specified 'accept' attribute on h:inputFile is rendered");
 
         // It's for Mojarra also explicitly tested on h:inputText because they share the same renderer.
         HtmlTextInput inputTextWithoutAccept = page.getHtmlElementById("form:inputTextWithoutAccept");
-        assertEquals("Unspecified 'accept' attribute on h:inputText is NOT rendered", "", inputTextWithoutAccept.getAttribute("accept"));
+        assertEquals("", inputTextWithoutAccept.getAttribute("accept"), "Unspecified 'accept' attribute on h:inputText is NOT rendered");
 
         HtmlTextInput inputTextWithAccept = page.getHtmlElementById("form:inputTextWithAccept");
-        assertEquals("Specified 'accept' attribute on h:inputText is NOT rendered", "", inputTextWithAccept.getAttribute("accept"));
+        assertEquals("", inputTextWithAccept.getAttribute("accept"), "Specified 'accept' attribute on h:inputText is NOT rendered");
 
         // NOTE: HtmlUnit doesn't support filtering files by accept attribute. So the upload part is not tested to keep it simple (it's nonetheless already tested in Spec1555IT).
     }

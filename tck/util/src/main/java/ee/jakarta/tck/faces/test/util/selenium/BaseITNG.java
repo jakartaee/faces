@@ -27,17 +27,17 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 /**
  * Base class for tests, which provides a certain infrastructure can be used, but does not have to be
  */
-@RunWith(SeleniumArquilianRunner.class)
+@ExtendWith(SeleniumArquilianRunner.class)
 public class BaseITNG {
 
     @ArquillianResource
@@ -54,18 +54,18 @@ public class BaseITNG {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webDriver = driverPool.getOrNewInstance();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         driverPool.returnInstance(webDriver);
     }
 
-    @AfterClass
-    public static void afterAll() {
+  @AfterAll
+  static void afterAll() {
         driverPool.quitAll();
     }
 

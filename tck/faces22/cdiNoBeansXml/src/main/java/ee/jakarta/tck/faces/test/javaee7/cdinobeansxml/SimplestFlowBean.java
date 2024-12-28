@@ -17,6 +17,7 @@
 package ee.jakarta.tck.faces.test.javaee7.cdinobeansxml;
 
 import java.io.Serializable;
+
 import jakarta.faces.flow.FlowScoped;
 import jakarta.inject.Named;
 

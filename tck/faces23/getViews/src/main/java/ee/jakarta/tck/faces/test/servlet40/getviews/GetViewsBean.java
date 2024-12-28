@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.annotation.FacesConfig;
 import jakarta.faces.annotation.ManagedProperty;
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.application.ViewVisitOption;

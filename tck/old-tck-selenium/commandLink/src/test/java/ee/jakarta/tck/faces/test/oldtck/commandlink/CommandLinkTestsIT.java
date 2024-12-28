@@ -17,10 +17,10 @@ package ee.jakarta.tck.faces.test.oldtck.commandlink;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.net.URL;
@@ -34,9 +34,9 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomAttr;
@@ -60,12 +60,12 @@ public class CommandLinkTestsIT extends ITBase {
                 .as(WebArchive.class);
     }
 
-    @Before
+    @BeforeEach
     public void setUp() {
         webClient = new WebClient();
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         webClient.close();
     }
@@ -109,7 +109,7 @@ public class CommandLinkTestsIT extends ITBase {
    * @since 1.2
    */
   @Test
-  public void clinkRenderEncodeTest() throws Exception {
+  void clinkRenderEncodeTest() throws Exception {
 
     HtmlPage page = webClient.getPage(webUrl + "/faces/encodetest_facelet.xhtml");
 
@@ -159,7 +159,7 @@ public class CommandLinkTestsIT extends ITBase {
    * @since 1.2
    */
   @Test
-  public void clinkRenderDecodeTest() throws Exception {
+  void clinkRenderDecodeTest() throws Exception {
     webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
     HtmlPage page = webClient.getPage(webUrl + "/faces/decodetest_facelet.xhtml");
 
@@ -172,7 +172,7 @@ public class CommandLinkTestsIT extends ITBase {
       fail(msgHeader); // actionEvent is error header, see SimpleActionListener
     } else {
       msgHeader = postBack.getWebResponse().getResponseHeaderValue("actionEventOK");
-      assertNotNull("ActionListener was not invoked when CommandButton 'command1' was clicked.", msgHeader);
+      assertNotNull(msgHeader, "ActionListener was not invoked when CommandButton 'command1' was clicked.");
     }
   } // END clinkRenderDecodeTest
 
@@ -188,7 +188,7 @@ public class CommandLinkTestsIT extends ITBase {
    * @since 1.2
    */
   @Test
-  public void clinkRenderPassthroughTest() throws Exception {
+  void clinkRenderPassthroughTest() throws Exception {
 
     TreeMap<String, String> control = new TreeMap<String, String>();
     control.put("accesskey", "U");

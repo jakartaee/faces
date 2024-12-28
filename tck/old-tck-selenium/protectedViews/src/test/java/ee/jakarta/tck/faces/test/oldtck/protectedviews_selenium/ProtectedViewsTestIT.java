@@ -16,19 +16,18 @@
 
 package ee.jakarta.tck.faces.test.oldtck.protectedviews_selenium;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class ProtectedViewsTestIT extends BaseITNG {
+class ProtectedViewsTestIT extends BaseITNG {
 
- /**
+  /**
    * @testName: viewProtectedViewNonAccessPointTest
    * 
    * @assertion_ids: PENDING
@@ -39,15 +38,15 @@ public class ProtectedViewsTestIT extends BaseITNG {
    * @since 2.2
    */
   @Test
-  public void viewProtectedViewNonAccessPointTest() throws Exception {
+  void viewProtectedViewNonAccessPointTest() throws Exception {
 
     WebPage page = getPage("faces/views/protected.xhtml");
 
-    assertTrue("Illegal Access of a Protected View!", page.findElements​(By.id("messOne")).size() == 0);
+    assertEquals(0, page.findElements​(By.id("messOne")).size(), "Illegal Access of a Protected View!");
 
-    assertTrue("Expected a ProtectedViewException when accessing a protected view", page.isInPageText("jakarta.faces.application.ProtectedViewException"));
+    assertTrue(page.isInPageText("jakarta.faces.application.ProtectedViewException"), "Expected a ProtectedViewException when accessing a protected view");
 
-  } 
+  }
 
   /**
    * @testName: viewProtectedViewSameWebAppAccessTest
@@ -61,7 +60,7 @@ public class ProtectedViewsTestIT extends BaseITNG {
    * @since 2.2
    */
   @Test
-  public void viewProtectedViewSameWebAppAccessTest() throws Exception {
+  void viewProtectedViewSameWebAppAccessTest() throws Exception {
 
     String expected = "This is a Protected View!";
 

@@ -22,22 +22,22 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.htmlunit.DebugOptions;
 import ee.jakarta.tck.faces.test.util.htmlunit.IgnoringIncorrectnessListener;
+import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 
-@RunWith(BaseArquilianRunner.class)
+@ExtendWith(BaseArquilianRunner.class)
 public abstract class ITBase {
 
     @ArquillianResource
@@ -51,7 +51,7 @@ public abstract class ITBase {
                 .as(WebArchive.class);
     }
     
-    @Before
+    @BeforeEach
     public void setUp() {
         webClient = new WebClient();
         webClient.getOptions().setJavaScriptEnabled(true);
@@ -64,7 +64,7 @@ public abstract class ITBase {
         return webClient.getPage(webUrl + viewId);
     }
 
-    @After
+    @AfterEach
     public void tearDown() {
         webClient.close();
     }

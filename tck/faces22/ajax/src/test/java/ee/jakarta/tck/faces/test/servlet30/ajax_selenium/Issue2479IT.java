@@ -16,42 +16,42 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.time.Duration;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import static org.junit.Assert.assertTrue;
+class Issue2479IT extends BaseITNG {
 
-public class Issue2479IT extends BaseITNG {
-
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2483
-     */
-    @Test
-    public void testSelectDataTable() throws Exception {
+   */
+  @Test
+  void selectDataTable() throws Exception {
         WebPage page = getPage("selectOneMenuDataTable.xhtml");
         WebElement span1 = page.findElement(By.id("table:0:inCity"));
-        assertTrue((span1.getText()).equals("alpha"));
+      assertEquals("alpha", (span1.getText()));
         WebElement span2 = page.findElement(By.id("table:1:inCity"));
-        assertTrue((span2.getText()).equals("alpha"));
+      assertEquals("alpha", (span2.getText()));
         WebElement span3 = page.findElement(By.id("table:2:inCity"));
-        assertTrue((span3.getText()).equals("alpha"));
+      assertEquals("alpha", (span3.getText()));
         Select select = new Select(page.findElement(By.id("selectMenu")));
         page.guardAjax(() -> select.selectByValue("beta"));
         //failing
         span1 = page.findElement(By.id("table:0:inCity"));
-        assertTrue((span1.getText()).equals("beta"));
+      assertEquals("beta", (span1.getText()));
         span2 = page.findElement(By.id("table:1:inCity"));
-        assertTrue((span2.getText()).equals("beta"));
+      assertEquals("beta", (span2.getText()));
         span3 = page.findElement(By.id("table:2:inCity"));
-        assertTrue((span3.getText()).equals("beta"));
+      assertEquals("beta", (span3.getText()));
     }
 }
 

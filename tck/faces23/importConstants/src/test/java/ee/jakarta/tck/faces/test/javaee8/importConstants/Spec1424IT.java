@@ -17,29 +17,30 @@
 
 package ee.jakarta.tck.faces.test.javaee8.importConstants;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.component.UIImportConstants;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.component.UIImportConstants;
 
-@RunWith(Arquillian.class)
-public class Spec1424IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Spec1424IT extends ITBase {
 
-    /**
-     * @see UIImportConstants
+  /**
+   * @see UIImportConstants
      * @see https://github.com/jakartaee/faces/issues/1424
-     */
-    @Test
-    public void test() throws Exception {
+   */
+  @Test
+  void test() throws Exception {
         HtmlPage page = getPage("spec1424.xhtml");
 
-        assertTrue(page.getHtmlElementById("result").asNormalizedText().equals("jakarta.faces.PARTIAL_STATE_SAVING"));
-        assertTrue(page.getHtmlElementById("results").asNormalizedText().equals("{ACCEPT=ACCEPT, COMPLETE=COMPLETE, REJECT=REJECT}"));
+      assertEquals("jakarta.faces.PARTIAL_STATE_SAVING", page.getHtmlElementById("result").asNormalizedText());
+      assertEquals("{ACCEPT=ACCEPT, COMPLETE=COMPLETE, REJECT=REJECT}", page.getHtmlElementById("results").asNormalizedText());
     }
 }

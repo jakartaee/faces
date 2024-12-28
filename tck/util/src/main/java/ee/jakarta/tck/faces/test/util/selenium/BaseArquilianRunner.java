@@ -15,27 +15,28 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.runners.model.FrameworkMethod;
-import org.junit.runners.model.InitializationError;
+import static java.lang.Boolean.parseBoolean;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.extension.ConditionEvaluationResult;
+import org.junit.jupiter.api.extension.ExecutionCondition;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 /**
- * Standard Arquilian runner, which triggers the default Arquilian/HTMLUnit based test System
- * if <code>test.selenium</code> is not set as system property.
+ * Arquillian runner which triggers HtmlUnit based tests if <code>test.selenium</code> is not set to <code>true</code>.
  */
-public class BaseArquilianRunner extends Arquillian {
-
-    public BaseArquilianRunner(Class<?> testClass) throws InitializationError {
-        super(testClass);
-    }
+@ExtendWith(ArquillianExtension.class)
+public class BaseArquilianRunner implements ExecutionCondition {
 
     @Override
-    protected boolean isIgnored(FrameworkMethod child) {
-        if ("true".equals(System.getProperty("test.selenium"))) {
-            return true;
+    public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        if (parseBoolean(System.getProperty("test.selenium"))) {
+            return disabled("Test disabled because 'test.selenium' system property is not set to 'true'");
         }
 
-        return super.isIgnored(child);
+        return enabled("Test enabled because 'test.selenium' system property is set to 'true'");
     }
-
 }

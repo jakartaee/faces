@@ -20,7 +20,6 @@ package ee.jakarta.tck.faces.test.servlet40.refreshperiodproduction;
 import static org.junit.Assert.assertTrue;
 
 import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -29,7 +28,7 @@ import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.application.ProjectStage;
 import jakarta.faces.application.ViewHandler;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Issue3787IT extends ITBase  {
 
     /**

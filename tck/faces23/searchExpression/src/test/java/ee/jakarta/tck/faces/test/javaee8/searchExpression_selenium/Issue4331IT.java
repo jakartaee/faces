@@ -17,26 +17,28 @@
 package ee.jakarta.tck.faces.test.javaee8.searchExpression_selenium;
 
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.application.Application;
 import jakarta.faces.component.search.SearchKeywordResolver;
-import org.junit.Assert;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 public class Issue4331IT extends BaseITNG {
 
 
-    /**
-     * @see Application#addSearchKeywordResolver(SearchKeywordResolver)
+  /**
+   * @see Application#addSearchKeywordResolver(SearchKeywordResolver)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4331
-     */
-    @Test
-    public void test() throws Exception {
+   */
+  @Test
+  void test() throws Exception {
         testCustomSearchKeywordResolverAddedViaFacesConfig();
     }
 
@@ -44,8 +46,8 @@ public class Issue4331IT extends BaseITNG {
         WebPage page = getPage("issue4331.xhtml");
 
         WebElement input = getWebDriver().findElement(By.id("input"));
-        Assert.assertFalse(input.getAttribute("onchange").contains("@custom"));
-        Assert.assertTrue(input.getAttribute("onchange").contains("input"));
+        assertFalse(input.getAttribute("onchange").contains("@custom"));
+        assertTrue(input.getAttribute("onchange").contains("input"));
     }
 
 

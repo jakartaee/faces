@@ -16,23 +16,26 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2697IT extends BaseITNG {
+class Issue2697IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2701
-     */
-    @Test
-    public void testAjaxViewScope() throws Exception {
+   */
+  @Test
+  void ajaxViewScope() throws Exception {
         WebPage page = getPage("viewScope.xhtml");
         WebElement button = page.findElement(By.id("form:reset"));
         page.guardAjax(button::click);
@@ -43,6 +46,6 @@ public class Issue2697IT extends BaseITNG {
         button = page.findElement(By.id("form:reset"));
         // Assert that second Ajax request does not execute the bean constructor again.
         page.guardAjax(button::click);
-        assertTrue(!page.isInPage("VIEWSCOPEBEAN() CALLED VIEWSCOPEBEAN() CALLED"));
+      assertFalse(page.isInPage("VIEWSCOPEBEAN() CALLED VIEWSCOPEBEAN() CALLED"));
     }
 }

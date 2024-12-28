@@ -18,27 +18,27 @@ package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.annotation.FacesConfig;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import jakarta.faces.annotation.FacesConfig;
-
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Issue3793IT {
 
     @ArquillianResource
@@ -52,24 +52,24 @@ public class Issue3793IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see FacesConfig#version()
+  /**
+   * @see FacesConfig#version()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3797
-     */
-    @Test
-    public void testFacesConfig23() throws Exception {
+   */
+  @Test
+  void facesConfig23() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/mojarraFacesConfigVersion.xhtml");
 
-        assertTrue(!page.asXml().contains("2.3"));
+      assertFalse(page.asXml().contains("2.3"));
     }
 }

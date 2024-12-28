@@ -17,27 +17,29 @@
 
 package ee.jakarta.tck.faces.test.javaee8.flash;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.context.Flash;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.context.Flash;
 
-@RunWith(Arquillian.class)
-public class Issue4167IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Issue4167IT extends ITBase {
 
-    /**
-     * @see Flash#keep(String)
+  /**
+   * @see Flash#keep(String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4171
-     */
-    @Test
-    public void test() throws Exception {
+   */
+  @Test
+  void test() throws Exception {
         HtmlPage page = getPage("issue4167.xhtml");
 
         assertTrue(page.getHtmlElementById("result1").asNormalizedText().isEmpty());
@@ -47,9 +49,9 @@ public class Issue4167IT extends ITBase {
         HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
         page = button.click();
 
-        assertTrue(page.getHtmlElementById("result1").asNormalizedText().equals("issue4167"));
-        assertTrue(page.getHtmlElementById("result2").asNormalizedText().equals("issue4167"));
-        assertTrue(page.getHtmlElementById("result3").asNormalizedText().equals("issue4167"));
+      assertEquals("issue4167", page.getHtmlElementById("result1").asNormalizedText());
+      assertEquals("issue4167", page.getHtmlElementById("result2").asNormalizedText());
+      assertEquals("issue4167", page.getHtmlElementById("result3").asNormalizedText());
     }
 
 }

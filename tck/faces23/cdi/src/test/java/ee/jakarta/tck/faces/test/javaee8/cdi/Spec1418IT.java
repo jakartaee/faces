@@ -18,32 +18,32 @@ package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.annotation.ManagedProperty;
+import jakarta.inject.Inject;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import jakarta.faces.annotation.ManagedProperty;
-import jakarta.inject.Inject;
 
 /**
  * Tests the injection of values by {@link ManagedProperty}
  *
  */
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Spec1418IT {
 
     @ArquillianResource
@@ -57,23 +57,23 @@ public class Spec1418IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-     */
-    @Test
-    public void testManagedPropertyInteger() throws Exception {
+   */
+  @Test
+  void managedPropertyInteger() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml");
 
         assertTrue(page.asXml().contains("integer1:42"));
@@ -81,25 +81,25 @@ public class Spec1418IT {
         assertTrue(page.asXml().contains("integer3:123"));
     }
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-     */
-    @Test
-    public void testManagedPropertyString() throws Exception {
+   */
+  @Test
+  void managedPropertyString() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml?test=foo");
 
         assertTrue(page.asXml().contains("testParam:foo"));
     }
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-     */
-    @Test
-    public void testManagedPropertyGenericMap() throws Exception {
+   */
+  @Test
+  void managedPropertyGenericMap() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml");
 
         assertTrue(page.asXml().contains("stringMap:bar"));
