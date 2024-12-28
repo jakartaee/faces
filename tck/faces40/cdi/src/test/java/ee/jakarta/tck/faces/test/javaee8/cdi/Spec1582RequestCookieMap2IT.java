@@ -23,11 +23,10 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Spec1582RequestCookieMap2IT extends ITBase {
+public class Spec1582RequestCookieMap2IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -36,7 +35,7 @@ public class Spec1582RequestCookieMap2IT extends ITBase {
    */
   @Test
   void injectRequestCookieMap2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectRequestCookieMap2.xhtml");
-        assertTrue(page.asXml().contains("{}"));
+        WebPage page = getPage("faces/injectRequestCookieMap2.xhtml");
+        assertTrue(page.getPageSource().contains("{}"));
     }
 }

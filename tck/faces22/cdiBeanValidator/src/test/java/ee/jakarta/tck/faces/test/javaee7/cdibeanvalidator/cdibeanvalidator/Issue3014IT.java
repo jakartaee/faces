@@ -22,25 +22,25 @@ import jakarta.inject.Inject;
 import jakarta.validation.ConstraintValidator;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Issue3014IT extends BaseITNG {
 
-public class Issue3014IT extends ITBase {
-
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see ConstraintValidator
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3018
-   */
-  @Test
-  void validatorInjection() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("button");
-        page = button.click();
+     */
+    @Test
+    void validatorInjection() throws Exception {
+        WebPage page = getPage("");
+        WebElement button = page.findElement(By.id("button"));
+        button.click();
 
-      assertFalse(page.asXml().contains("my message"));
+        assertFalse(page.getPageSource().contains("my message"));
     }
 }

@@ -23,15 +23,14 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the availability of the request parameter values map via CDI
  *
  */
-public class Spec1391IT extends ITBase {
+public class Spec1391IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -40,11 +39,11 @@ public class Spec1391IT extends ITBase {
    */
   @Test
   void requestParameterValuesMap() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectRequestParameterValuesMap.xhtml?foo=bar0&foo=bar1");
+        WebPage page = getPage("injectRequestParameterValuesMap.xhtml?foo=bar0&foo=bar1");
 
         // Both request parameter values should be printed on the page (order is not guaranteed)
-        assertTrue(page.asXml().contains("foo:bar0"));
-        assertTrue(page.asXml().contains("foo:bar1"));
+        assertTrue(page.getPageSource().contains("foo:bar0"));
+        assertTrue(page.getPageSource().contains("foo:bar1"));
     }
 
 }

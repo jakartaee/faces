@@ -33,7 +33,7 @@ public class Spec1422 {
     private List<Item> selectedItems;
     private static List<Item> availableItems = Arrays.asList(Item.values());
     private List<Object> selectedNumbers;
-    private static List<? extends Number> availableNumbers = Arrays.asList(null, 1, 2L, new BigInteger("3"), 4.5, 6.7F, new BigDecimal("8.9")); 
+    private static List<? extends Number> availableNumbers = Arrays.asList(null, 1, 2L, new BigInteger("3"), 4.5, 6.7F, new BigDecimal("8.9"));
 
     public void submit() {
         for (Item item : selectedItems) { // Should not throw ClassCastException here.
@@ -71,15 +71,15 @@ public class Spec1422 {
     public List<Item> getAvailableItems() {
         return availableItems;
     }
-    
+
     public List<Object> getSelectedNumbers() {
         return selectedNumbers;
     }
-    
+
     public void setSelectedNumbers(List<Object> selectedNumbers) {
         this.selectedNumbers = selectedNumbers;
     }
-    
+
     public List<? extends Number> getAvailableNumbers() {
         return availableNumbers;
     }

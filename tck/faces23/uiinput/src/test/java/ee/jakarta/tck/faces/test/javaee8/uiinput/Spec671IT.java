@@ -23,42 +23,41 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.component.UIInput;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+class Spec671IT extends BaseITNG {
 
-class Spec671IT extends ITBase {
-
-  /**
-   * @see UIInput#EMPTY_STRING_AS_NULL_PARAM_NAME
+    /**
+     * @see UIInput#EMPTY_STRING_AS_NULL_PARAM_NAME
      * @see https://github.com/jakartaee/faces/issues/671
-   */
-  @Test
-  void spec671() throws Exception {
-        HtmlPage page;
-        HtmlTextInput text;
-        HtmlSubmitInput button;
+     */
+    @Test
+    void spec671() throws Exception {
+        WebPage page;
+        WebElement text;
+        WebElement button;
 
         page = getPage("spec671.xhtml");
-      assertEquals("true", page.getHtmlElementById("param").asNormalizedText());
+        assertEquals("true", page.findElement(By.id("param")).getText());
 
-        text = (HtmlTextInput) page.getHtmlElementById("form:input");
-        assertTrue(text.getValueAttribute().isEmpty());
+        text = page.findElement(By.id("form:input"));
+        assertTrue(text.getDomAttribute("value").isEmpty());
 
-        text.setValueAttribute("foo");
-        button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
-        page = button.click();
-        text = (HtmlTextInput) page.getHtmlElementById("form:input");
-      assertEquals("foo", text.getValueAttribute());
+        text.sendKeys("foo");
+        button = page.findElement(By.id("form:button"));
+        button.click();
+        text = page.findElement(By.id("form:input"));
+        assertEquals("foo", text.getDomAttribute("value"));
 
-        text.setValueAttribute("");
-        button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
-        page = button.click();
-        text = (HtmlTextInput) page.getHtmlElementById("form:input");
-        assertTrue(text.getValueAttribute().isEmpty());
+        text.clear();
+        button = page.findElement(By.id("form:button"));
+        button.click();
+        text = page.findElement(By.id("form:input"));
+        assertTrue(text.getDomAttribute("value").isEmpty());
     }
 
 }

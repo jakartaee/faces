@@ -23,44 +23,39 @@ import jakarta.el.ResourceBundleELResolver;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1337IT extends BaseITNG {
 
-public class Spec1337IT extends ITBase {
-
-  /**
-   * @see ResourceBundleELResolver
+    /**
+     * @see ResourceBundleELResolver
      * @see https://github.com/jakartaee/faces/issues/1337
-   */
-  @Test
-  void resourceEL1() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL1.xhtml");
-        assertTrue(page.asXml().contains("/jakarta.faces.resource/resourceEL1.gif"));
+     */
+    @Test
+    void resourceEL1() throws Exception {
+        WebPage page = getPage("faces/resourceEL1.xhtml");
+        assertTrue(page.getPageSource().contains("/jakarta.faces.resource/resourceEL1.gif"));
     }
 
-  /**
-   * @see ResourceBundleELResolver
+    /**
+     * @see ResourceBundleELResolver
      * @see https://github.com/jakartaee/faces/issues/1337
-   */
-  @Test
-  void resourceEL2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL2.xhtml");
-        assertTrue(page.asXml().contains("/jakarta.faces.resource/resourceEL2.gif"));
-        assertTrue(page.asXml().contains("?ln=resourceEL2"));
+     */
+    @Test
+    void resourceEL2() throws Exception {
+        WebPage page = getPage("faces/resourceEL2.xhtml");
+        assertTrue(page.getPageSource().contains("/jakarta.faces.resource/resourceEL2.gif"));
+        assertTrue(page.getPageSource().contains("?ln=resourceEL2"));
     }
 
-  /**
-   * @see ResourceBundleELResolver
+    /**
+     * @see ResourceBundleELResolver
      * @see https://github.com/jakartaee/faces/issues/1337
-   */
-  @Test
-  void resourceEL3() throws Exception {
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        webClient.getOptions().setPrintContentOnFailingStatusCode(false);
-        HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL3.xhtml");
-        assertTrue(page.asXml().contains("jakarta.el.ELException"));
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
-        webClient.getOptions().setPrintContentOnFailingStatusCode(true);
+     */
+    @Test
+    void resourceEL3() throws Exception {
+        WebPage page = getPage("faces/resourceEL3.xhtml");
+        assertTrue(page.getPageSource().contains("jakarta.el.ELException"));
     }
 }

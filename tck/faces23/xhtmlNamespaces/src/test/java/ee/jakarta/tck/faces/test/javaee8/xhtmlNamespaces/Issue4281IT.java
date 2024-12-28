@@ -20,26 +20,26 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-class Issue4281IT extends ITBase {
+class Issue4281IT extends BaseITNG {
 
   /**
    * @see https://github.com/eclipse-ee4j/mojarra/issues/4281
    */
   @Test
   void test() throws Exception {
-        HtmlPage page = getPage("issue4281.xhtml");
-        DomElement panelGroup = page.getElementById("panelGroup");
-        DomElement outputText = page.getElementById("outputText");
+        WebPage page = getPage("issue4281.xhtml");
+        WebElement panelGroup = page.findElement(By.id("panelGroup"));
+        WebElement outputText = page.findElement(By.id("outputText"));
         assertTrue(outputText != null, "outputText does exist");
-        assertTrue(panelGroup.asNormalizedText().contains("paragraph"), "panelGroup does contain parargaph");
-        assertFalse(panelGroup.asNormalizedText().contains("outputText"), "panelGroup may not contain outputText");
-        assertTrue(page.getBody().asNormalizedText().contains("outputText"), "body does contain outputText");
+        assertTrue(panelGroup.getText().contains("paragraph"), "panelGroup does contain parargaph");
+        assertFalse(panelGroup.getText().contains("outputText"), "panelGroup may not contain outputText");
+        assertTrue(page.getPageSource().contains("outputText"), "body does contain outputText");
     }
 
 }

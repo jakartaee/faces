@@ -23,13 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.context.Flash;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-class Issue4167IT extends ITBase {
+class Issue4167IT extends BaseITNG {
 
   /**
    * @see Flash#keep(String)
@@ -37,18 +37,18 @@ class Issue4167IT extends ITBase {
    */
   @Test
   void test() throws Exception {
-        HtmlPage page = getPage("issue4167.xhtml");
+        WebPage page = getPage("issue4167.xhtml");
 
-        assertTrue(page.getHtmlElementById("result1").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("result2").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("result3").asNormalizedText().isEmpty());
+        assertTrue(page.findElement(By.id("result1")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("result2")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("result3")).getText().isEmpty());
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
-        page = button.click();
+        WebElement button = page.findElement(By.id("form:button"));
+        button.click();
 
-      assertEquals("issue4167", page.getHtmlElementById("result1").asNormalizedText());
-      assertEquals("issue4167", page.getHtmlElementById("result2").asNormalizedText());
-      assertEquals("issue4167", page.getHtmlElementById("result3").asNormalizedText());
+      assertEquals("issue4167", page.findElement(By.id("result1")).getText());
+      assertEquals("issue4167", page.findElement(By.id("result2")).getText());
+      assertEquals("issue4167", page.findElement(By.id("result3")).getText());
     }
 
 }

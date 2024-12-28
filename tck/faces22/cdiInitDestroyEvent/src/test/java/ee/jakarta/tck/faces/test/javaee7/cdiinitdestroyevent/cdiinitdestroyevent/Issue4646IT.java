@@ -23,14 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import jakarta.faces.view.ViewScoped;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Issue4646IT extends ITBase {
+public class Issue4646IT extends BaseITNG {
 
   /**
    * @see ViewScoped
@@ -38,31 +37,31 @@ public class Issue4646IT extends ITBase {
    */
   @Test
   void preDestroyEventIssue4646() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/issue4646.xhtml");
-        HtmlElement counterElement = (HtmlElement) page.getElementById("counterMessage");
-        int currentCount = parseInt(counterElement.asNormalizedText());
+        WebPage page = getPage("faces/issue4646.xhtml");
+        WebElement counterElement = page.findElement(By.id("counterMessage"));
+        int currentCount = parseInt(counterElement.getText());
         
         // +1
-        page = webClient.getPage(webUrl + "faces/issue4646.xhtml");
-        counterElement = (HtmlElement) page.getElementById("counterMessage");
-        assertEquals(currentCount + 1, parseInt(counterElement.asNormalizedText()), "+1 should be the objects created");
+        page = getPage("faces/issue4646.xhtml");
+        counterElement = page.findElement(By.id("counterMessage"));
+        assertEquals(currentCount + 1, parseInt(counterElement.getText()), "+1 should be the objects created");
         
         // +2
-        page = webClient.getPage(webUrl + "faces/issue4646.xhtml");
-        counterElement = (HtmlElement) page.getElementById("counterMessage");
-        assertEquals(currentCount + 2, parseInt(counterElement.asNormalizedText()), "+2 should be the objects created");
+        page = getPage("faces/issue4646.xhtml");
+        counterElement = page.findElement(By.id("counterMessage"));
+        assertEquals(currentCount + 2, parseInt(counterElement.getText()), "+2 should be the objects created");
         
         // invalidate
-        HtmlSubmitInput invalidateButton = (HtmlSubmitInput) page.getElementById("invalidateSession");
+        WebElement invalidateButton = page.findElement(By.id("invalidateSession"));
         invalidateButton.click();
         
         // should be the initial count
-        page = webClient.getPage(webUrl + "faces/issue4646.xhtml");
-        counterElement = (HtmlElement) page.getElementById("counterMessage");
-        assertEquals(currentCount, parseInt(counterElement.asNormalizedText()), "The initial count should be again");
+        page = getPage("faces/issue4646.xhtml");
+        counterElement = page.findElement(By.id("counterMessage"));
+        assertEquals(currentCount, parseInt(counterElement.getText()), "The initial count should be again");
         
         // invalidate again
-        invalidateButton = (HtmlSubmitInput) page.getElementById("invalidateSession");
+        invalidateButton = page.findElement(By.id("invalidateSession"));
         invalidateButton.click();
     }
 }

@@ -27,8 +27,6 @@ import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
 
-import jakarta.faces.component.html.HtmlInputFile;
-
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -39,21 +37,21 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Spec1555IT extends BaseITNG {
 
-  /**
-   * @see HtmlInputFile#isMultiple()
+    /**
+     * @see WebElementFile#isMultiple()
      * @see https://github.com/jakartaee/faces/issues/1555
-   */
-  @Test
-  void singleSelectionNonAjax() throws Exception {
+     */
+    @Test
+    void singleSelectionNonAjax() throws Exception {
         testSingleSelection("singleSelectionFormNonAjax");
     }
 
-  /**
-   * @see HtmlInputFile#isMultiple()
+    /**
+     * @see WebElementFile#isMultiple()
      * @see https://github.com/jakartaee/faces/issues/1555
-   */
-  @Test
-  void singleSelectionAjax() throws Exception {
+     */
+    @Test
+    void singleSelectionAjax() throws Exception {
         testSingleSelection("singleSelectionFormAjax");
     }
 
@@ -62,14 +60,14 @@ class Spec1555IT extends BaseITNG {
         ExtendedWebDriver webDriver = getWebDriver();
         WebElement input = webDriver.findElement(By.id(form + ":input"));
 
-      assertNull(input.getAttribute("multiple"), "Multiple attribute is NOT set");
+        assertNull(input.getDomAttribute("multiple"), "Multiple attribute is NOT set");
 
         File file = generateTempFile("file", "bin", 123);
         // Selenium allows to send the file name as key input
         input.sendKeys(file.getAbsolutePath());
 
         page.guardAjax(webDriver.findElement(By.id(form + ":submit"))::click);
-        assertEquals("", webDriver.findElement(By.id(form + ":input")).getAttribute("value"), "Value attribute is NOT set");
+        assertEquals(null, webDriver.findElement(By.id(form + ":input")).getDomAttribute("value"), "Value attribute is NOT set");
 
         WebElement messages = webDriver.findElement(By.id("messages"));
 
@@ -81,21 +79,21 @@ class Spec1555IT extends BaseITNG {
         assertEquals("field: singleSelection, name: " + file.getName() + ", size: " + file.length(), message.getText(), "Uploaded file has been received");
     }
 
-  /**
-   * @see HtmlInputFile#isMultiple()
+    /**
+     * @see WebElementFile#isMultiple()
      * @see https://github.com/jakartaee/faces/issues/1555
-   */
-  @Test
-  void multipleSelectionNonAjax() throws Exception {
+     */
+    @Test
+    void multipleSelectionNonAjax() throws Exception {
         testMultipleSelection("multipleSelectionFormNonAjax");
     }
 
-  /**
-   * @see HtmlInputFile#isMultiple()
+    /**
+     * @see WebElementFile#isMultiple()
      * @see https://github.com/jakartaee/faces/issues/1555
-   */
-  @Test
-  void multipleSelectionAjax() throws Exception {
+     */
+    @Test
+    void multipleSelectionAjax() throws Exception {
         testMultipleSelection("multipleSelectionFormAjax");
     }
 
@@ -104,24 +102,19 @@ class Spec1555IT extends BaseITNG {
         ExtendedWebDriver webDriver = getWebDriver();
         WebElement input = webDriver.findElement(By.id(form + ":input"));
 
-        assertEquals("true", input.getAttribute("multiple"), "Multiple attribute is set");
+        assertEquals("true", input.getDomAttribute("multiple"), "Multiple attribute is set");
 
         File file1 = generateTempFile("file1", "bin", 123);
         File file2 = generateTempFile("file2", "bin", 234);
         File file3 = generateTempFile("file3", "bin", 345);
 
-        String[] fileNames = {
-                file1.getAbsolutePath(),
-                file2.getAbsolutePath(),
-                file3.getAbsolutePath()
-        };
-
+        String[] fileNames = { file1.getAbsolutePath(), file2.getAbsolutePath(), file3.getAbsolutePath() };
 
         String files = String.join("\n", fileNames);
         input.sendKeys(files);
         page.guardAjax(webDriver.findElement(By.id(form + ":submit"))::click);
 
-        assertEquals("", webDriver.findElement(By.id(form + ":input")).getAttribute("value"), "Value attribute is NOT set");
+        assertEquals(null, webDriver.findElement(By.id(form + ":input")).getDomAttribute("value"), "Value attribute is NOT set");
 
         WebElement messages = webDriver.findElement(By.id("messages"));
         List childElements = messages.findElements(By.cssSelector("*"));
@@ -133,9 +126,12 @@ class Spec1555IT extends BaseITNG {
         WebElement message2 = iterator.next();
         WebElement message3 = iterator.next();
 
-        assertEquals("field: multipleSelection, name: " + file1.getName() + ", size: " + file1.length(), message1.getText(), "First uploaded file has been received");
-        assertEquals("field: multipleSelection, name: " + file2.getName() + ", size: " + file2.length(), message2.getText(), "Second uploaded file has been received");
-        assertEquals("field: multipleSelection, name: " + file3.getName() + ", size: " + file3.length(), message3.getText(), "Third uploaded file has been received");
+        assertEquals("field: multipleSelection, name: " + file1.getName() + ", size: " + file1.length(), message1.getText(),
+                "First uploaded file has been received");
+        assertEquals("field: multipleSelection, name: " + file2.getName() + ", size: " + file2.length(), message2.getText(),
+                "Second uploaded file has been received");
+        assertEquals("field: multipleSelection, name: " + file3.getName() + ", size: " + file3.length(), message3.getText(),
+                "Third uploaded file has been received");
     }
 
     private static File generateTempFile(String name, String ext, int size) throws IOException {

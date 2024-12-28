@@ -17,6 +17,7 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
+import static java.lang.Boolean.parseBoolean;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,54 +26,51 @@ import jakarta.faces.component.UISelectItem;
 import jakarta.faces.component.html.HtmlSelectManyCheckbox;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+class Issue4330IT extends BaseITNG {
 
-class Issue4330IT extends ITBase {
-
-  /**
-   * @see HtmlSelectManyCheckbox
+    /**
+     * @see HtmlSelectManyCheckbox
      * @see UISelectItem#isItemDisabled()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4330
-   */
-  @Test
-  void issue4330() throws Exception {
-        HtmlPage page;
-        HtmlRadioButtonInput disabledRadio;
-        HtmlCheckBoxInput enabledCheckbox;
-        HtmlCheckBoxInput disabledCheckbox;
-        HtmlButtonInput hack;
-        HtmlSubmitInput submit;
+     */
+    @Test
+    void issue4330() throws Exception {
+        WebPage page;
+        WebElement disabledRadio;
+        WebElement enabledCheckbox;
+        WebElement disabledCheckbox;
+        WebElement hack;
+        WebElement submit;
 
         page = getPage("issue4330.xhtml");
-        assertTrue(page.getHtmlElementById("form:result").asNormalizedText().isEmpty());
+        assertTrue(page.findElement(By.id("form:result")).getText().isEmpty());
 
-        disabledRadio = page.getHtmlElementById("form:one:1");
-        enabledCheckbox = page.getHtmlElementById("form:many:0");
-        disabledCheckbox = page.getHtmlElementById("form:many:1");
-        hack = page.getHtmlElementById("form:hack");
-        submit = page.getHtmlElementById("form:submit");
+        disabledRadio = page.findElement(By.id("form:one:1"));
+        enabledCheckbox = page.findElement(By.id("form:many:0"));
+        disabledCheckbox = page.findElement(By.id("form:many:1"));
+        hack = page.findElement(By.id("form:hack"));
+        submit = page.findElement(By.id("form:submit"));
 
-        assertTrue(disabledRadio.isDisabled());
-        assertTrue(disabledCheckbox.isDisabled());
+        assertTrue(parseBoolean(disabledRadio.getDomAttribute("disabled")));
+        assertTrue(parseBoolean(disabledCheckbox.getDomAttribute("disabled")));
 
         hack.click();
 
-        assertFalse(disabledRadio.isDisabled());
-        assertFalse(disabledCheckbox.isDisabled());
+        assertFalse(parseBoolean(disabledRadio.getDomAttribute("disabled")));
+        assertFalse(parseBoolean(disabledCheckbox.getDomAttribute("disabled")));
 
-        disabledRadio.setChecked(true);
-        enabledCheckbox.setChecked(true);
-        disabledCheckbox.setChecked(true);
+        disabledRadio.click();
+        enabledCheckbox.click();
+        disabledCheckbox.click();
 
-        page = submit.click();
-      assertEquals("[enabled]", page.getHtmlElementById("form:result").asNormalizedText()); // Thus not "disabled[enabled, disabled]"
+        submit.click();
+        assertEquals("[enabled]", page.findElement(By.id("form:result")).getText()); // Thus not "disabled[enabled, disabled]"
     }
 
 }

@@ -22,13 +22,13 @@ import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Issue4913IT extends ITBase {
+public class Issue4913IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -38,19 +38,19 @@ public class Issue4913IT extends ITBase {
    */
   @Test
   void test() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "issue4913.xhtml");
+        WebPage page = getPage("issue4913.xhtml");
         validateMarkup(page);
 
         // Refresh page 
-        page = webClient.getPage(webUrl + "issue4913.xhtml");
+        page = getPage("issue4913.xhtml");
         validateMarkup(page);
     }
     
-    private static void validateMarkup(HtmlPage page) {
-        DomElement issue4913Converter = page.getElementById("issue4913Converter");
-        assertEquals("value is successfully converted in a managed converter", issue4913Converter.asNormalizedText(), "Converter is invoked");
+    private static void validateMarkup(WebPage page) {
+        WebElement issue4913Converter = page.findElement(By.id("issue4913Converter"));
+        assertEquals("value is successfully converted in a managed converter", issue4913Converter.getText(), "Converter is invoked");
 
-        DomElement issue4913ResourceDependency = page.getElementById("issue4913ResourceDependency");
-        assertEquals("resource dependency is successfully injected via a managed converter", issue4913ResourceDependency.asNormalizedText(), "Resource dependency is injected");
+        WebElement issue4913ResourceDependency = page.findElement(By.id("issue4913ResourceDependency"));
+        assertEquals("resource dependency is successfully injected via a managed converter", issue4913ResourceDependency.getText(), "Resource dependency is injected");
     }
 }

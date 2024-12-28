@@ -20,134 +20,127 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.application.ViewHandler;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Bug22995287IT extends BaseITNG {
 
-public class Bug22995287IT extends ITBase {
-
-  /**
-   * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
-   */
-  @Test
-  void page2CanBeDisplayed1() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlAnchor link = page.getHtmlElementById("get_parameter_fparam");
-        page = link.click();
+     */
+    @Test
+    void page2CanBeDisplayed1() throws Exception {
+        WebPage page = getPage("");
+        WebElement link = page.findElement(By.id("get_parameter_fparam"));
+        link.click();
 
-        String pageXml = page.getBody().asXml();
+        String pageXml = page.getPageSource();
         assertTrue(pageXml.contains("foo bar"));
     }
 
-  /**
-   * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
-   */
-  @Test
-  void page2CanBeDisplayed2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlAnchor link = page.getHtmlElementById("get_parameter_outcome");
+     */
+    @Test
+    void page2CanBeDisplayed2() throws Exception {
+        WebPage page = getPage("");
+        WebElement link = page.findElement(By.id("get_parameter_outcome"));
 
-        page = link.click();
+        link.click();
 
-        String pageXml = page.getBody().asXml();
+        String pageXml = page.getPageSource();
         assertTrue(pageXml.contains("foo bar"));
     }
 
-  /**
-   * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
-   */
-  @Test
-  void page2CanBeDisplayed3() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlAnchor link = page.getHtmlElementById("get_parameter_none");
+     */
+    @Test
+    void page2CanBeDisplayed3() throws Exception {
+        WebPage page = getPage("");
+        WebElement link = page.findElement(By.id("get_parameter_none"));
 
-        page = link.click();
+        link.click();
 
-        String pageXml = page.getBody().asXml();
+        String pageXml = page.getPageSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
-  /**
-   * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
-   */
-  @Test
-  void page2CanBeDisplayed4() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("button_to_page2");
-        page = button.click();
+     */
+    @Test
+    void page2CanBeDisplayed4() throws Exception {
+        WebPage page = getPage("");
+        WebElement button = page.findElement(By.id("button_to_page2"));
+        button.click();
 
-        String pageXml = page.getBody().asXml();
+        String pageXml = page.getPageSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
-  /**
-   * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
-   */
-  @Test
-  void page3CanBeDisplayed1() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        try {
-            HtmlAnchor link = page.getHtmlElementById("page3_get_parameter_fparam");
-            page = link.click();
+     */
+    @Test
+    void page3CanBeDisplayed1() throws Exception {
+        WebPage page = getPage("");
+        WebElement link = page.findElement(By.id("page3_get_parameter_fparam"));
+        link.click();
 
-            String pageXml = page.getBody().asXml();
-            assertTrue(pageXml.contains("foo bar"));
-        } catch (AssertionError e) {
-            System.out.println(page.asXml());
-
-            throw e;
-        }
-    }
-
-  /**
-   * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
-     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
-   */
-  @Test
-  void page3CanBeDisplayed2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlAnchor link = page.getHtmlElementById("page3_get_parameter_outcome");
-
-        page = link.click();
-
-        String pageXml = page.getBody().asXml();
+        String pageXml = page.getPageSource();
         assertTrue(pageXml.contains("foo bar"));
     }
 
-  /**
-   * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
-   */
-  @Test
-  void page3CanBeDisplayed3() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlAnchor link = page.getHtmlElementById("page3_get_parameter_none");
+     */
+    @Test
+    void page3CanBeDisplayed2() throws Exception {
+        WebPage page = getPage("");
+        WebElement link = page.findElement(By.id("page3_get_parameter_outcome"));
 
-        page = link.click();
+        link.click();
 
-        String pageXml = page.getBody().asXml();
+        String pageXml = page.getPageSource();
+        assertTrue(pageXml.contains("foo bar"));
+    }
+
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
+     */
+    @Test
+    void page3CanBeDisplayed3() throws Exception {
+        WebPage page = getPage("");
+        WebElement link = page.findElement(By.id("page3_get_parameter_none"));
+
+        link.click();
+
+        String pageXml = page.getPageSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
-  /**
-   * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
+    /**
+     * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4127
-   */
-  @Test
-  void page3CanBeDisplayed4() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("page3_button_to_page2");
-        page = button.click();
+     */
+    @Test
+    void page3CanBeDisplayed4() throws Exception {
+        WebPage page = getPage("");
+        WebElement button = page.findElement(By.id("page3_button_to_page2"));
+        button.click();
 
-        String pageXml = page.getBody().asXml();
+        String pageXml = page.getPageSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 }

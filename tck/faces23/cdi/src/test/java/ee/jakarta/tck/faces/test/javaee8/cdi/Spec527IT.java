@@ -22,12 +22,12 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Spec527IT extends ITBase {
+public class Spec527IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -36,7 +36,7 @@ public class Spec527IT extends ITBase {
    */
   @Test
   void injectFacesContext() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectFacesContext.xhtml");
-      assertEquals("true", page.getElementById("injected").getTextContent());
+        WebPage page = getPage("faces/injectFacesContext.xhtml");
+      assertEquals("true", page.findElement(By.id("injected")).getText());
     }
 }

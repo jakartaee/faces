@@ -40,9 +40,9 @@ class Issue2439IT extends BaseITNG {
         WebElement input1 = page.findElement(By.id("form1:input1"));
         WebElement input2 = page.findElement(By.id("form1:input2"));
         WebElement input3 = page.findElement(By.id("form1:input3"));
-        assertTrue(input1.getAttribute("onchange") == null || input1.getAttribute("onchange").isEmpty(), "input1 has no onchange attribute");
-        assertTrue(input2.getAttribute("onchange") != null && !input2.getAttribute("onchange").isEmpty(), "input2 has onchange attribute");
-        assertTrue(input3.getAttribute("onchange") != null && !input3.getAttribute("onchange").isEmpty(), "input3 has onchange attribute");
+        assertTrue(input1.getDomAttribute("onchange") == null || input1.getDomAttribute("onchange").isEmpty(), "input1 has no onchange attribute");
+        assertTrue(input2.getDomAttribute("onchange") != null && !input2.getDomAttribute("onchange").isEmpty(), "input2 has onchange attribute");
+        assertTrue(input3.getDomAttribute("onchange") != null && !input3.getDomAttribute("onchange").isEmpty(), "input3 has onchange attribute");
     }
 }
 

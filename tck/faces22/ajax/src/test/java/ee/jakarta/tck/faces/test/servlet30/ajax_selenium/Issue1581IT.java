@@ -74,7 +74,7 @@ class Issue1581IT extends BaseITNG {
         List<WebElement> elements = page.findElements(By.tagName("input"));
         for (Iterator<WebElement> it = elements.iterator(); it.hasNext(); ) {
             WebElement elem = it.next();
-            if (elem.getAttribute("type").equals("checkbox")) {
+            if (elem.getDomAttribute("type").equals("checkbox")) {
                 checkBoxes.add(elem);
             }
         }

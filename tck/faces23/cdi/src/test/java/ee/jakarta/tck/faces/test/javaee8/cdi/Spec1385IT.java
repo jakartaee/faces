@@ -24,16 +24,15 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the availability of The Flash via injection of a {@link Flash}
  * instance.
  *
  */
-public class Spec1385IT extends ITBase {
+public class Spec1385IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -44,17 +43,17 @@ public class Spec1385IT extends ITBase {
   void injectFlash() throws Exception {
 
         // Renders nothing of interest, should cause cookie to be set
-        webClient.getPage(webUrl + "faces/injectFlash.xhtml?setFlash=true");
+        getPage("faces/injectFlash.xhtml?setFlash=true");
 
         // Next request processes cookie, should render value put in Flash and set "deletion" cookie
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectFlash.xhtml?getFlash=true");
+        WebPage page = getPage("faces/injectFlash.xhtml?getFlash=true");
 
-        assertTrue(page.asXml().contains("foo:bar"));
+        assertTrue(page.getPageSource().contains("foo:bar"));
 
         // No cookie anymore and the value put in Flash previously should not be rendered anymore
-        page = webClient.getPage(webUrl + "faces/injectFlash.xhtml?getFlash=true");
+        page = getPage("faces/injectFlash.xhtml?getFlash=true");
 
-        assertFalse(page.asXml().contains("foo:bar"));
+        assertFalse(page.getPageSource().contains("foo:bar"));
     }
 
 }

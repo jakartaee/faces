@@ -23,15 +23,14 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the injection of values by {@link ManagedProperty}
  *
  */
-public class Spec1418IT extends ITBase {
+public class Spec1418IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -40,11 +39,11 @@ public class Spec1418IT extends ITBase {
    */
   @Test
   void managedPropertyInteger() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml");
+        WebPage page = getPage("injectManagedProperty.xhtml");
 
-        assertTrue(page.asXml().contains("integer1:42"));
-        assertTrue(page.asXml().contains("integer2:99"));
-        assertTrue(page.asXml().contains("integer3:123"));
+        assertTrue(page.getPageSource().contains("integer1:42"));
+        assertTrue(page.getPageSource().contains("integer2:99"));
+        assertTrue(page.getPageSource().contains("integer3:123"));
     }
 
   /**
@@ -54,9 +53,9 @@ public class Spec1418IT extends ITBase {
    */
   @Test
   void managedPropertyString() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml?test=foo");
+        WebPage page = getPage("injectManagedProperty.xhtml?test=foo");
 
-        assertTrue(page.asXml().contains("testParam:foo"));
+        assertTrue(page.getPageSource().contains("testParam:foo"));
     }
 
   /**
@@ -66,10 +65,10 @@ public class Spec1418IT extends ITBase {
    */
   @Test
   void managedPropertyGenericMap() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml");
+        WebPage page = getPage("injectManagedProperty.xhtml");
 
-        assertTrue(page.asXml().contains("stringMap:bar"));
-        assertTrue(page.asXml().contains("integerMap:10"));
+        assertTrue(page.getPageSource().contains("stringMap:bar"));
+        assertTrue(page.getPageSource().contains("integerMap:10"));
     }
 
 }

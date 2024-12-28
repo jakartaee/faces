@@ -20,161 +20,152 @@ package ee.jakarta.tck.faces.test.javaee7.multiFieldValidation;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1IT extends BaseITNG {
 
-public class Spec1IT extends ITBase {
-
-  /**
-   * @see com.sun.faces.ext.component.UIValidateWholeBean
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-   */
-  @Test
-  void simpleInvalidField() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        
-        HtmlTextInput password1 = page.getHtmlElementById("password1");
-        password1.setValueAttribute("foofoofoo");
+     */
+    @Test
+    void simpleInvalidField() throws Exception {
+        WebPage page = getPage("");
 
-        HtmlTextInput password2 = page.getHtmlElementById("password2");
-        password2.setValueAttribute("bar");
-        
-        HtmlSubmitInput button = page.getHtmlElementById("submit");
-        
-        page = button.click();
-        
-        String pageText = page.asXml();
-      assertFalse(pageText.contains("[foofoofoo]"));
+        WebElement password1 = page.findElement(By.id("password1"));
+        password1.sendKeys("foofoofoo");
+
+        WebElement password2 = page.findElement(By.id("password2"));
+        password2.sendKeys("bar");
+
+        WebElement button = page.findElement(By.id("submit"));
+
+        button.click();
+
+        String pageText = page.getPageSource();
+        assertFalse(pageText.contains("[foofoofoo]"));
         assertTrue(pageText.contains("[bar]"));
 
-      assertFalse(pageText.contains("Password fields must match"));
-        
-        HtmlParagraph password1Value = page.getHtmlElementById("password1Value");
-        assertTrue(password1Value.asNormalizedText().isEmpty());
-        
-        HtmlParagraph password2Value = page.getHtmlElementById("password2Value");
-        assertTrue(password2Value.asNormalizedText().isEmpty());
+        assertFalse(pageText.contains("Password fields must match"));
+
+        WebElement password1Value = page.findElement(By.id("password1Value"));
+        assertTrue(password1Value.getText().isEmpty());
+
+        WebElement password2Value = page.findElement(By.id("password2Value"));
+        assertTrue(password2Value.getText().isEmpty());
     }
 
-  /**
-   * @see com.sun.faces.ext.component.UIValidateWholeBean
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-   */
-  @Test
-  void simpleInvalidFields() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        
-        HtmlTextInput password1 = page.getHtmlElementById("password1");
-        password1.setValueAttribute("foo");
+     */
+    @Test
+    void simpleInvalidFields() throws Exception {
+        WebPage page = getPage("");
 
-        HtmlTextInput password2 = page.getHtmlElementById("password2");
-        password2.setValueAttribute("bar");
-        
-        HtmlSubmitInput button = page.getHtmlElementById("submit");
-        
-        page = button.click();
-        
-        String pageText = page.asXml();
+        WebElement password1 = page.findElement(By.id("password1"));
+        password1.sendKeys("foo");
+
+        WebElement password2 = page.findElement(By.id("password2"));
+        password2.sendKeys("bar");
+
+        WebElement button = page.findElement(By.id("submit"));
+
+        button.click();
+
+        String pageText = page.getPageSource();
         assertTrue(pageText.contains("[foo]"));
         assertTrue(pageText.contains("[bar]"));
 
-      assertFalse(pageText.contains("Password fields must match"));
-        
-        HtmlParagraph password1Value = page.getHtmlElementById("password1Value");
-        assertTrue(password1Value.asNormalizedText().isEmpty());
-        
-        HtmlParagraph password2Value = page.getHtmlElementById("password2Value");
-        assertTrue(password2Value.asNormalizedText().isEmpty());
+        assertFalse(pageText.contains("Password fields must match"));
+
+        WebElement password1Value = page.findElement(By.id("password1Value"));
+        assertTrue(password1Value.getText().isEmpty());
+
+        WebElement password2Value = page.findElement(By.id("password2Value"));
+        assertTrue(password2Value.getText().isEmpty());
     }
 
-  /**
-   * @see com.sun.faces.ext.component.UIValidateWholeBean
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-   */
-  @Test
-  void simpleValidFieldsInvalidBean() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        
-        HtmlTextInput password1 = page.getHtmlElementById("password1");
-        password1.setValueAttribute("foofoofoo");
+     */
+    @Test
+    void simpleValidFieldsInvalidBean() throws Exception {
+        WebPage page = getPage("");
 
-        HtmlTextInput password2 = page.getHtmlElementById("password2");
-        password2.setValueAttribute("barbarbar");
-        
-        HtmlSubmitInput button = page.getHtmlElementById("submit");
-        
-        page = button.click();
-        
-        String pageText = page.asXml();
-      assertFalse(pageText.contains("[foofoofoo]"));
-      assertFalse(pageText.contains("[barbarbar]"));
-        
+        WebElement password1 = page.findElement(By.id("password1"));
+        password1.sendKeys("foofoofoo");
+
+        WebElement password2 = page.findElement(By.id("password2"));
+        password2.sendKeys("barbarbar");
+
+        WebElement button = page.findElement(By.id("submit"));
+
+        button.click();
+
+        String pageText = page.getPageSource();
+        assertFalse(pageText.contains("[foofoofoo]"));
+        assertFalse(pageText.contains("[barbarbar]"));
+
         assertTrue(pageText.contains("Password fields must match"));
 
-        HtmlParagraph password1Value = page.getHtmlElementById("password1Value");
-        assertTrue(password1Value.asNormalizedText().isEmpty());
-        
-        HtmlParagraph password2Value = page.getHtmlElementById("password2Value");
-        assertTrue(password2Value.asNormalizedText().isEmpty());
-        
+        WebElement password1Value = page.findElement(By.id("password1Value"));
+        assertTrue(password1Value.getText().isEmpty());
+
+        WebElement password2Value = page.findElement(By.id("password2Value"));
+        assertTrue(password2Value.getText().isEmpty());
+
     }
 
-  /**
-   * @see com.sun.faces.ext.component.UIValidateWholeBean
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-   */
-  @Test
-  void simpleValidFieldsValidBean() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        
-        HtmlTextInput password1 = page.getHtmlElementById("password1");
-        password1.setValueAttribute("foofoofoo");
+     */
+    @Test
+    void simpleValidFieldsValidBean() throws Exception {
+        WebPage page = getPage("");
 
-        HtmlTextInput password2 = page.getHtmlElementById("password2");
-        password2.setValueAttribute("foofoofoo");
-        
-        HtmlSubmitInput button = page.getHtmlElementById("submit");
-        
-        page = button.click();
-        
-        String pageText = page.asXml();
-      assertFalse(pageText.contains("[foofoofoo]"));
-      assertFalse(pageText.contains("[barbarbar]"));
+        WebElement password1 = page.findElement(By.id("password1"));
+        password1.sendKeys("foofoofoo");
 
-      assertFalse(pageText.contains("Password fields must match"));
+        WebElement password2 = page.findElement(By.id("password2"));
+        password2.sendKeys("foofoofoo");
 
-        HtmlParagraph password1Value = page.getHtmlElementById("password1Value");
-        assertTrue(password1Value.asNormalizedText().contains("foofoofoo"));
-        
-        HtmlParagraph password2Value = page.getHtmlElementById("password2Value");
-        assertTrue(password2Value.asNormalizedText().contains("foofoofoo"));
-        
+        WebElement button = page.findElement(By.id("submit"));
+
+        button.click();
+
+        String pageText = page.getPageSource();
+        assertFalse(pageText.contains("[foofoofoo]"));
+        assertFalse(pageText.contains("[barbarbar]"));
+
+        assertFalse(pageText.contains("Password fields must match"));
+
+        WebElement password1Value = page.findElement(By.id("password1Value"));
+        assertTrue(password1Value.getText().contains("foofoofoo"));
+
+        WebElement password2Value = page.findElement(By.id("password2Value"));
+        assertTrue(password2Value.getText().contains("foofoofoo"));
+
     }
 
-  /**
-   * @see com.sun.faces.ext.component.UIValidateWholeBean
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-   */
-  @Test
-  void failingPreconditionsNotAfterAllInputComponents() throws Exception {
-    	try {
-    		// In this test f:validateWholeBean is misplaced (does not appear after
-    		// all input components), which should result in an exception    		
-    		webClient.getPage(webUrl + "faces/failingDevTimePreconditions.xhtml");
-    		fail("Exception should have been thrown resulting in a 500 http status code");
-    	} catch (FailingHttpStatusCodeException e) {
-    		assertEquals(500, e.getStatusCode());
-    	}
+     */
+    @Test
+    void failingPreconditionsNotAfterAllInputComponents() throws Exception {
+        // In this test f:validateWholeBean is misplaced (does not appear after
+        // all input components), which should result in an exception
+        WebPage page = getPage("faces/failingDevTimePreconditions.xhtml");
+        assertEquals(500, page.getResponseStatus(), "Exception should have been thrown resulting in a 500 http status code");
     }
-    
-    
+
 }

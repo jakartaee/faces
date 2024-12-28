@@ -28,87 +28,87 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Spec1760IT extends BaseITNG {
 
-  /**
-   * @see RenderKit
+    /**
+     * @see RenderKit
      * @see https://github.com/jakartaee/faces/issues/1760
-   * @see https://github.com/jakartaee/faces/issues/1100
-   */
-  @Test
-  void defaultOutputWithID() {
+     * @see https://github.com/jakartaee/faces/issues/1100
+     */
+    @Test
+    void defaultOutputWithID() {
         WebPage page = getPage("spec1760withIDdefault.xhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("headId", head.getAttribute("id"));
-        assertEquals("bodyId", body.getAttribute("id"));
+        assertEquals("headId", head.getDomAttribute("id"));
+        assertEquals("bodyId", body.getDomAttribute("id"));
     }
 
-  /**
-   * @see RenderKit
+    /**
+     * @see RenderKit
      * @see https://github.com/jakartaee/faces/issues/1760
-   * @see https://github.com/jakartaee/faces/issues/1100
-   */
-  @Test
-  void defaultOutputWithoutID() {
+     * @see https://github.com/jakartaee/faces/issues/1100
+     */
+    @Test
+    void defaultOutputWithoutID() {
         WebPage page = getPage("spec1760withoutIDdefault.xhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals(null, head.getDomAttribute("id"));
+        assertEquals(null, body.getDomAttribute("id"));
     }
 
-  /**
-   * @see RenderKit
+    /**
+     * @see RenderKit
      * @see https://github.com/jakartaee/faces/issues/1760
-   * @see https://github.com/jakartaee/faces/issues/1100
-   */
-  @Test
-  void xhtmlOutputWithID() {
+     * @see https://github.com/jakartaee/faces/issues/1100
+     */
+    @Test
+    void xhtmlOutputWithID() {
         WebPage page = getPage("spec1760withIDxhtml.xhtmlAsXhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals(null, head.getDomAttribute("id"));
+        assertEquals(null, body.getDomAttribute("id"));
     }
 
-  /**
-   * @see RenderKit
+    /**
+     * @see RenderKit
      * @see https://github.com/jakartaee/faces/issues/1760
-   * @see https://github.com/jakartaee/faces/issues/1100
-   */
-  @Test
-  void xhtmlOutputWithoutID() {
+     * @see https://github.com/jakartaee/faces/issues/1100
+     */
+    @Test
+    void xhtmlOutputWithoutID() {
         WebPage page = getPage("spec1760withoutIDxhtml.xhtmlAsXhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals(null, head.getDomAttribute("id"));
+        assertEquals(null, body.getDomAttribute("id"));
     }
 
-  /**
-   * @see RenderKit
+    /**
+     * @see RenderKit
      * @see https://github.com/jakartaee/faces/issues/1760
-   * @see https://github.com/jakartaee/faces/issues/1100
-   */
-  @Test
-  void xmlOutputWithID() {
+     * @see https://github.com/jakartaee/faces/issues/1100
+     */
+    @Test
+    void xmlOutputWithID() {
         WebPage page = getPage("spec1760withIDxml.xhtmlAsXml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals(null, head.getDomAttribute("id"));
+        assertEquals(null, body.getDomAttribute("id"));
     }
 
-  /**
-   * @see RenderKit
+    /**
+     * @see RenderKit
      * @see https://github.com/jakartaee/faces/issues/1760
-   * @see https://github.com/jakartaee/faces/issues/1100
-   */
-  @Test
-  void xmlOutputWithoutID() {
+     * @see https://github.com/jakartaee/faces/issues/1100
+     */
+    @Test
+    void xmlOutputWithoutID() {
         WebPage page = getPage("spec1760withoutIDxml.xhtmlAsXml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals(null, head.getDomAttribute("id"));
+        assertEquals(null, body.getDomAttribute("id"));
     }
 }

@@ -20,23 +20,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class XhtmlMappingToFaceletIT extends ITBase {
+public class XhtmlMappingToFaceletIT extends BaseITNG {
 
   @Test
   void verifyFacesMappingtoXhtmlByDefault() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "index.xhtml");
+        WebPage page = getPage("index.xhtml");
 
-        assertTrue(page.getBody().asXml().indexOf("ViewState") != -1);
+        assertTrue(page.getPageSource().indexOf("ViewState") != -1);
     }
 
   @Test
   void verifyMinimalXhtmlWithoutXmlProlog() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "withoutxmlprolog.xhtml");
+        WebPage page = getPage("withoutxmlprolog.xhtml");
 
-        assertTrue(page.getBody().asXml().indexOf("This is a minimal") != -1);
+        assertTrue(page.getPageSource().indexOf("This is a minimal") != -1);
     }
 }

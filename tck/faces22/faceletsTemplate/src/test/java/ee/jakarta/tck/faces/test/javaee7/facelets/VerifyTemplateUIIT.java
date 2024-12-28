@@ -20,23 +20,22 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class VerifyTemplateUIIT extends BaseITNG {
 
-public class VerifyTemplateUIIT extends ITBase {
-
-  /**
-   * @see com.sun.faces.facelets.component.UIRepeat
+    /**
+     * @see com.sun.faces.facelets.component.UIRepeat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3243
-   */
-  @Test
-  void ul() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        String pageXml = page.getBody().asXml();
-        
-        assertTrue(pageXml.matches("(?s).*<li>\\s+a\\s+</li>.*"));
-        assertTrue(pageXml.matches("(?s).*<li>\\s+b\\s+</li>.*"));
-        assertTrue(pageXml.matches("(?s).*<li>\\s+c\\s+</li>.*"));
+     */
+    @Test
+    void ul() throws Exception {
+        WebPage page = getPage("");
+        String pageXml = page.getPageSource();
+
+        assertTrue(pageXml.matches("(?s).*<li>\\s*a\\s*</li>.*"));
+        assertTrue(pageXml.matches("(?s).*<li>\\s*b\\s*</li>.*"));
+        assertTrue(pageXml.matches("(?s).*<li>\\s*c\\s*</li>.*"));
     }
 }

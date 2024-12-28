@@ -24,62 +24,48 @@ import java.time.temporal.Temporal;
 import jakarta.faces.convert.DateTimeConverter;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Issue4087IT extends BaseITNG {
 
-
-public class Issue4087IT extends ITBase {
-
-  /**
-   * @see DateTimeConverter
+    /**
+     * @see DateTimeConverter
      * @see Temporal
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4091
-   */
-  @Test
-  void javaTimeTypes() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/issue4087.xhtml");
-        HtmlPage page1 = null;
+     */
+    @Test
+    void javaTimeTypes() throws Exception {
+        WebPage page = getPage("faces/issue4087.xhtml");
+        WebElement input1 = page.findElement(By.id("localDateTime1"));
+        input1.sendKeys("30 mei 2015 16:14:43");
 
-        try {
+        WebElement input2 = page.findElement(By.id("localDateTime2"));
+        input2.sendKeys("30 mei 2015 16:14:43");
 
-            HtmlTextInput input1 = (HtmlTextInput)page.getHtmlElementById("localDateTime1");
-            input1.setValueAttribute("30 mei 2015 16:14:43");
+        WebElement input3 = page.findElement(By.id("localTime1"));
+        input3.sendKeys("16:14:43");
 
-            HtmlTextInput input2 = (HtmlTextInput)page.getHtmlElementById("localDateTime2");
-            input2.setValueAttribute("30 mei 2015 16:14:43");
+        WebElement input4 = page.findElement(By.id("localTime2"));
+        input4.sendKeys("16:14:43");
 
-            HtmlTextInput input3 = (HtmlTextInput)page.getHtmlElementById("localTime1");
-            input3.setValueAttribute("16:14:43");
+        WebElement submit = page.findElement(By.id("submit"));
+        submit.click();
 
-            HtmlTextInput input4 = (HtmlTextInput)page.getHtmlElementById("localTime2");
-            input4.setValueAttribute("16:14:43");
+        WebElement time1Output = page.findElement(By.id("localDateTimeValue1"));
+        assertTrue(time1Output.getText().contains("30 mei 2015 16:14"));
 
-            HtmlSubmitInput submit = (HtmlSubmitInput)page.getHtmlElementById("submit");
-            page1 = submit.click();
+        WebElement time2Output = page.findElement(By.id("localDateTimeValue2"));
+        assertTrue(time2Output.getText().contains("30 mei 2015 16:14"));
 
-            HtmlSpan time1Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue1");
-            assertTrue(time1Output.getTextContent().contains("30 mei 2015 16:14"));
+        WebElement time3Output = page.findElement(By.id("localTimeValue1"));
+        assertTrue(time3Output.getText().contains("16:14:43"));
 
-            HtmlSpan time2Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue2");
-            assertTrue(time2Output.getTextContent().contains("30 mei 2015 16:14"));
-
-            HtmlSpan time3Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue1");
-            assertTrue(time3Output.getTextContent().contains("16:14:43"));
-
-            HtmlSpan time4Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue2");
-            assertTrue(time4Output.getTextContent().contains("16:14"));
-        } catch (AssertionError w) {
-            System.out.println(page.asXml());
-            if (page1 != null) {
-                System.out.println(page1.asXml());
-            }
-            throw w;
-        }
+        WebElement time4Output = page.findElement(By.id("localTimeValue2"));
+        assertTrue(time4Output.getText().contains("16:14"));
     }
 
 }

@@ -23,52 +23,51 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.application.Application;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class BasicLambdaIT extends BaseITNG {
 
-public class BasicLambdaIT extends ITBase {
-
-  /**
-   * @see Application#getELResolver()
+    /**
+     * @see Application#getELResolver()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3032
-   */
-  @Test
-  void index() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlElement out = page.getHtmlElementById("output");
-        assertEquals("20", out.asNormalizedText());
+     */
+    @Test
+    void index() throws Exception {
+        WebPage page = getPage("");
+        WebElement out = page.findElement(By.id("output"));
+        assertEquals("20", out.getText());
 
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("input");
-        input.setValueAttribute("1");
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("button");
-        page = button.click();
-        out = page.getHtmlElementById("output");
-        assertEquals("40", out.asNormalizedText());
+        WebElement input = page.findElement(By.id("input"));
+        input.sendKeys("1");
+        WebElement button = page.findElement(By.id("button"));
+        button.click();
+        out = page.findElement(By.id("output"));
+        assertEquals("40", out.getText());
 
-        input = (HtmlTextInput) page.getElementById("input");
-        input.setValueAttribute("2");
-        button = (HtmlSubmitInput) page.getElementById("button");
-        page = button.click();
-        out = page.getHtmlElementById("output");
-        assertEquals("60", out.asNormalizedText());
+        input = page.findElement(By.id("input"));
+        input.clear();
+        input.sendKeys("2");
+        button = page.findElement(By.id("button"));
+        button.click();
+        out = page.findElement(By.id("output"));
+        assertEquals("60", out.getText());
     }
 
-  /**
-   * @see Application#getELResolver()
+    /**
+     * @see Application#getELResolver()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3032
-   */
-  @Test
-  void bookTable() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/bookTable.xhtml");
-        assertTrue(page.asNormalizedText().contains("At Swim Two Birds"));
-        assertTrue(page.asNormalizedText().contains("The Third Policeman"));
-        
-        HtmlElement out = page.getHtmlElementById("output2");
-        assertEquals("The Picture of Dorian Gray", out.asNormalizedText());
+     */
+    @Test
+    void bookTable() throws Exception {
+        WebPage page = getPage("faces/bookTable.xhtml");
+        assertTrue(page.getPageSource().contains("At Swim Two Birds"));
+        assertTrue(page.getPageSource().contains("The Third Policeman"));
+
+        WebElement out = page.findElement(By.id("output2"));
+        assertEquals("The Picture of Dorian Gray", out.getText());
     }
 }

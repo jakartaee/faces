@@ -43,13 +43,13 @@ class Spec1412IT extends BaseITNG {
 
         WebElement button = page.findElement(By.id("form:button"));
 
-      assertEquals("foo", button.getAttribute("value"));
+      assertEquals("foo", button.getDomAttribute("value"));
 
         page.guardAjax(button::click);
         assertTrue(page.isInPage("Success!"));
 
         button =  page.findElement(By.id("form:button"));
-      assertEquals("bar", button.getAttribute("value"));
+      assertEquals("bar", button.getDomAttribute("value"));
     }
 
 }

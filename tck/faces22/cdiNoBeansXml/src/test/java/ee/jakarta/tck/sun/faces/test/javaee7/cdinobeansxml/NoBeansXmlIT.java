@@ -14,22 +14,20 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package ee.jakarta.tck.faces.test.javaee7.cdinobeansxml;
+package ee.jakarta.tck.sun.faces.test.javaee7.cdinobeansxml;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.flow.FlowScoped;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class NoBeansXmlIT extends ITBase {
+public class NoBeansXmlIT extends BaseITNG {
 
   /**
    * @see FlowScoped
@@ -37,18 +35,18 @@ public class NoBeansXmlIT extends ITBase {
    */
   @Test
   void flowWithNoBeansXml() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("enterFlow");
-        page = button.click();
+        WebPage page = getPage("");
+        WebElement button = page.findElement(By.id("enterFlow"));
+        button.click();
         
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("input");
+        WebElement input = page.findElement(By.id("input"));
         String message = "" + System.currentTimeMillis();
-        input.setValueAttribute(message);
-        button = (HtmlSubmitInput) page.getElementById("a");
-        page = button.click();
+        input.sendKeys(message);
+        button = page.findElement(By.id("a"));
+        button.click();
         
-        HtmlElement e = (HtmlElement) page.getElementById("value");
+        WebElement e = page.findElement(By.id("value"));
         
-        assertEquals(e.asNormalizedText(), message);
+        assertEquals(e.getText(), message);
     }    
 }

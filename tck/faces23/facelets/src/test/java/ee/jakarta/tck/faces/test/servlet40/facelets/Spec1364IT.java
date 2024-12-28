@@ -26,11 +26,10 @@ import jakarta.faces.component.UIData;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Spec1364IT extends ITBase {
+public class Spec1364IT extends BaseITNG {
 
   /**
    * @see UIData
@@ -39,8 +38,8 @@ public class Spec1364IT extends ITBase {
    */
   @Test
   void dataTableMap() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/datatableMap.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*Amsterdam.*821702.*Rotterdam.*624799.*Den Haag.*514782.*END.*", page.asXml()));
+        WebPage page = getPage("faces/datatableMap.xhtml");
+        assertTrue(Pattern.matches("(?s).*START.*Amsterdam.*821702.*Rotterdam.*624799.*Den Haag.*514782.*END.*", page.getPageSource()));
     }
 
   /**
@@ -50,8 +49,8 @@ public class Spec1364IT extends ITBase {
    */
   @Test
   void uIRepeatMap() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/uirepeatMap.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*Amsterdam-821702.*Rotterdam-624799.*Den Haag-514782.*END.*", page.asXml()));
+        WebPage page = getPage("faces/uirepeatMap.xhtml");
+        assertTrue(Pattern.matches("(?s).*START.*Amsterdam-821702.*Rotterdam-624799.*Den Haag-514782.*END.*", page.getPageSource()));
     }
 
 }
