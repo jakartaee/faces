@@ -22,47 +22,48 @@ import jakarta.faces.component.UIViewRoot;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1568IT extends BaseITNG {
 
-public class Spec1568IT extends ITBase {
-
-  /**
-   * @see UIViewRoot#getDoctype()
+    /**
+     * @see UIViewRoot#getDoctype()
      * @see https://github.com/jakartaee/faces/issues/1568
-   */
-  @Test
-  void html5() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML5.xhtml");
+     */
+    @Test
+    void html5() throws Exception {
+        WebPage page = getPage("spec1568IT-HTML5.xhtml");
 
         assertEquals("<!DOCTYPE html>", getDoctype(page), "Page is using HTML5 doctype");
     }
 
-  /**
-   * @see UIViewRoot#getDoctype()
+    /**
+     * @see UIViewRoot#getDoctype()
      * @see https://github.com/jakartaee/faces/issues/1568
-   */
-  @Test
-  void html4Public() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML4-public.xhtml");
+     */
+    @Test
+    void html4Public() throws Exception {
+        WebPage page = getPage("spec1568IT-HTML4-public.xhtml");
 
-        assertEquals("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">", getDoctype(page), "Page is using XHTML4 transitional public doctype");
+        assertEquals("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">",
+                getDoctype(page), "Page is using XHTML4 transitional public doctype");
     }
 
-  /**
-   * @see UIViewRoot#getDoctype()
+    /**
+     * @see UIViewRoot#getDoctype()
      * @see https://github.com/jakartaee/faces/issues/1568
-   */
-  @Test
-  void html4System() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML4-system.xhtml");
+     */
+    @Test
+    void html4System() throws Exception {
+        WebPage page = getPage("spec1568IT-HTML4-system.xhtml");
 
-        assertEquals("<!DOCTYPE html SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">", getDoctype(page), "Page is using XHTML4 strict system doctype");
+        assertEquals("<!DOCTYPE html SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">", getDoctype(page),
+                "Page is using XHTML4 strict system doctype");
     }
 
-    private static String getDoctype(HtmlPage page) {
-        return page.getWebResponse().getContentAsString().split("\n", 2)[0];
+    private static String getDoctype(WebPage page) {
+        return page.getPageSource().split("\n", 2)[0];
     }
 
 }

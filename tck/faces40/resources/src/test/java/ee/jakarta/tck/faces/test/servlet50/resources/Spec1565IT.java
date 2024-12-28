@@ -21,55 +21,55 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import jakarta.faces.component.UIOutput;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1565IT extends BaseITNG {
 
-public class Spec1565IT extends ITBase {
-
-  /**
-   * @see UIOutput
+    /**
+     * @see UIOutput
      * @see com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer
      * @see https://github.com/jakartaee/faces/issues/1565
-   */
-  @Test
-  void html5() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec1565IT-HTML5.xhtml");
+     */
+    @Test
+    void html5() throws Exception {
+        WebPage page = getPage("spec1565IT-HTML5.xhtml");
 
-        for (DomElement element : page.getElementsByTagName("script")) {
-            assertEquals("", element.getAttribute("type"), "Script element has no type attribute");
+        for (WebElement element : page.findElements(By.tagName("script"))) {
+            assertEquals("", element.getDomAttribute("type"), "Script element has no type attribute");
         }
 
-        for (DomElement element : page.getElementsByTagName("link")) {
-            assertEquals("", element.getAttribute("type"), "Link element has no type attribute");
+        for (WebElement element : page.findElements(By.tagName("link"))) {
+            assertEquals("", element.getDomAttribute("type"), "Link element has no type attribute");
         }
 
-        for (DomElement element : page.getElementsByTagName("style")) {
-            assertEquals("", element.getAttribute("type"), "Style element has no type attribute");
+        for (WebElement element : page.findElements(By.tagName("style"))) {
+            assertEquals("", element.getDomAttribute("type"), "Style element has no type attribute");
         }
     }
 
-  /**
-   * @see UIOutput
+    /**
+     * @see UIOutput
      * @see com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer
      * @see https://github.com/jakartaee/faces/issues/1565
-   */
-  @Test
-  void html4() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec1565IT-HTML4.xhtml");
+     */
+    @Test
+    void html4() throws Exception {
+        WebPage page = getPage("spec1565IT-HTML4.xhtml");
 
-        for (DomElement element : page.getElementsByTagName("script")) {
-            assertEquals("text/javascript", element.getAttribute("type"), "Script element has a type='text/javascript' attribute");
+        for (WebElement element : page.findElements(By.tagName("script"))) {
+            assertEquals("text/javascript", element.getDomAttribute("type"), "Script element has a type='text/javascript' attribute");
         }
 
-        for (DomElement element : page.getElementsByTagName("link")) {
-            assertEquals("text/css", element.getAttribute("type"), "Link element has a type='text/css' attribute");
+        for (WebElement element : page.findElements(By.tagName("link"))) {
+            assertEquals("text/css", element.getDomAttribute("type"), "Link element has a type='text/css' attribute");
         }
 
-        for (DomElement element : page.getElementsByTagName("style")) {
-            assertEquals("text/css", element.getAttribute("type"), "Style element has a type='text/css' attribute");
+        for (WebElement element : page.findElements(By.tagName("style"))) {
+            assertEquals("text/css", element.getDomAttribute("type"), "Style element has a type='text/css' attribute");
         }
     }
 

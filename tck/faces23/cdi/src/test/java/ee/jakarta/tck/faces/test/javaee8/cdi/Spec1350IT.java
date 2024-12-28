@@ -22,26 +22,24 @@ import jakarta.faces.validator.FacesValidator;
 import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1350IT extends BaseITNG {
 
-public class Spec1350IT extends ITBase {
-
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see FacesValidator
      * @see https://github.com/jakartaee/faces/issues/1350
-   */
-  @Test
-  void injectValidator() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectValidator.xhtml");
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        HtmlElement submit = page.getHtmlElementById("form:submit");
-        page = submit.click();
-        assertTrue(page.asXml().contains("InjectValidator was called"));
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
+     */
+    @Test
+    void injectValidator() throws Exception {
+        WebPage page = getPage("faces/injectValidator.xhtml");
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        assertTrue(page.getPageSource().contains("InjectValidator was called"));
     }
 }

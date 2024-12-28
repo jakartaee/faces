@@ -23,15 +23,14 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the availability of the request map via CDI
  *
  */
-public class Spec1393IT extends ITBase {
+public class Spec1393IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -41,10 +40,10 @@ public class Spec1393IT extends ITBase {
   @Test
   void requestMap() throws Exception {
 
-        HtmlPage page = webClient.getPage(webUrl + "injectRequestMap.xhtml");
+        WebPage page = getPage("injectRequestMap.xhtml");
 
         // Request attribute is set in AttributeFilter
-        assertTrue(page.asXml().contains("fooAttribute:bar"));
+        assertTrue(page.getPageSource().contains("fooAttribute:bar"));
     }
 
 }

@@ -38,7 +38,7 @@ class Issue2674IT extends BaseITNG {
   void programmaticAjaxBehavior() throws Exception {
         WebPage page = getPage("issue2674.xhtml");
         WebElement input1 = page.findElement(By.id("form:input1"));
-      assertFalse(input1.getAttribute("onfocus").isEmpty(), "input1 has programmatically added onfocus attribute");
+      assertFalse(input1.getDomAttribute("onfocus").isEmpty(), "input1 has programmatically added onfocus attribute");
     }
 }
 

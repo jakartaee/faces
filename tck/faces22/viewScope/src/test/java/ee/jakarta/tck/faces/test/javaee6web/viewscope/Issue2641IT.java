@@ -22,15 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.view.ViewScoped;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Issue2641IT extends ITBase {
+public class Issue2641IT extends BaseITNG {
 
   /**
    * @see ViewScoped
@@ -38,52 +36,52 @@ public class Issue2641IT extends ITBase {
    */
   @Test
   void viewScope() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/viewScoped.xhtml");
+        WebPage page = getPage("faces/viewScoped.xhtml");
         int previousCount = 0;
-        int count = Integer.parseInt(page.getElementById("count").getTextContent());
+        int count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertTrue(previousCount < count);
         previousCount = count;
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("stay");
-        page = button.click();
-        count = Integer.parseInt(page.getElementById("count").getTextContent());
+        WebElement button = page.findElement(By.id("stay"));
+        button.click();
+        count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertEquals(previousCount, count);
 
-        button = (HtmlSubmitInput) page.getElementById("stay");
-        page = button.click();
-        count = Integer.parseInt(page.getElementById("count").getTextContent());
+        button = page.findElement(By.id("stay"));
+        button.click();
+        count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertEquals(previousCount, count);
 
-        button = (HtmlSubmitInput) page.getElementById("go");
-        page = button.click();
-        count = Integer.parseInt(page.getElementById("count").getTextContent());
+        button = page.findElement(By.id("go"));
+        button.click();
+        count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertTrue(previousCount < count);
         previousCount = count;
 
-        button = (HtmlSubmitInput) page.getElementById("stay");
-        page = button.click();
-        count = Integer.parseInt(page.getElementById("count").getTextContent());
+        button = page.findElement(By.id("stay"));
+        button.click();
+        count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertEquals(previousCount, count);
 
-        button = (HtmlSubmitInput) page.getElementById("stay");
-        page = button.click();
-        count = Integer.parseInt(page.getElementById("count").getTextContent());
+        button = page.findElement(By.id("stay"));
+        button.click();
+        count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertEquals(previousCount, count);
 
-        button = (HtmlSubmitInput) page.getElementById("go");
-        page = button.click();
-        count = Integer.parseInt(page.getElementById("count").getTextContent());
+        button = page.findElement(By.id("go"));
+        button.click();
+        count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertTrue(previousCount < count);
         previousCount = count;
 
-        button = (HtmlSubmitInput) page.getElementById("stay");
-        page = button.click();
-        count = Integer.parseInt(page.getElementById("count").getTextContent());
+        button = page.findElement(By.id("stay"));
+        button.click();
+        count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertEquals(previousCount, count);
 
-        button = (HtmlSubmitInput) page.getElementById("stay");
-        page = button.click();
-        count = Integer.parseInt(page.getElementById("count").getTextContent());
+        button = page.findElement(By.id("stay"));
+        button.click();
+        count = Integer.parseInt(page.findElement(By.id("count")).getText());
         assertEquals(previousCount, count);
     }
 
@@ -93,12 +91,12 @@ public class Issue2641IT extends ITBase {
    */
   @Test
   void invalidatedSession() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/invalidatedSession.xhtml");
+        WebPage page = getPage("faces/invalidatedSession.xhtml");
 
-        assertTrue(page.asXml().contains("This is from the @PostConstruct"));
-        webClient.getPage(webUrl + "faces/invalidatedPerform.xhtml");
-        page = webClient.getPage(webUrl + "faces/invalidatedVerify.xhtml");
-        assertTrue(page.asXml().contains("true"));
+        assertTrue(page.getPageSource().contains("This is from the @PostConstruct"));
+        getPage("faces/invalidatedPerform.xhtml");
+        page = getPage("faces/invalidatedVerify.xhtml");
+        assertTrue(page.getPageSource().contains("true"));
     }
 
   /**
@@ -107,13 +105,13 @@ public class Issue2641IT extends ITBase {
    */
   @Test
   void viewScopedInput() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/viewScopedInput.xhtml");
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("input");
+        WebPage page = getPage("faces/viewScopedInput.xhtml");
+        WebElement input = page.findElement(By.id("input"));
         String value = "" + System.currentTimeMillis();
-        input.setValueAttribute(value);
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("stay");
-        page = button.click();
-        DomElement output = page.getElementById("output");
-        assertTrue(output.asNormalizedText().contains(value));
+        input.sendKeys(value);
+        WebElement button = page.findElement(By.id("stay"));
+        button.click();
+        WebElement output = page.findElement(By.id("output"));
+        assertTrue(output.getText().contains(value));
     }
 }

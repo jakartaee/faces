@@ -51,9 +51,9 @@ class Spec790WithNamespacedViewIT extends BaseITNG {
         WebElement form2ViewState = form2.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
         WebElement form3 = page.findElement(By.id((namingContainerPrefix + "form3")));
         WebElement form3ViewState = form3.findElement(By.name( namingContainerPrefix +  "jakarta.faces.ViewState"));
-      assertFalse(form1ViewState.getAttribute("value").isEmpty());
-      assertFalse(form2ViewState.getAttribute("value").isEmpty());
-      assertFalse(form3ViewState.getAttribute("value").isEmpty());
+      assertFalse(form1ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form2ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form3ViewState.getDomAttribute("value").isEmpty());
 
         WebElement form1Button =  page.findElement(By.id(namingContainerPrefix + "form1:button"));
         page.guardAjax(form1Button::click);
@@ -64,9 +64,9 @@ class Spec790WithNamespacedViewIT extends BaseITNG {
         form2ViewState =  form2.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
         form3 =  page.findElement(By.id(namingContainerPrefix + "form3"));
         form3ViewState =  form3.findElement(By.name(  namingContainerPrefix + "jakarta.faces.ViewState"));
-      assertFalse(form1ViewState.getAttribute("value").isEmpty());
-      assertFalse(form2ViewState.getAttribute("value").isEmpty());
-      assertFalse(form3ViewState.getAttribute("value").isEmpty());
+      assertFalse(form1ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form2ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form3ViewState.getDomAttribute("value").isEmpty());
 
         WebElement form2Link =  page.findElement(By.id(namingContainerPrefix + "form2:link"));
         form2Link.click();
@@ -78,9 +78,9 @@ class Spec790WithNamespacedViewIT extends BaseITNG {
         form2ViewState =  form2.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
         form3 =  page.findElement(By.id(namingContainerPrefix + "form3"));
         form3ViewState =  form3.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
-      assertFalse(form1ViewState.getAttribute("value").isEmpty());
-      assertFalse(form2ViewState.getAttribute("value").isEmpty());
-      assertFalse(form3ViewState.getAttribute("value").isEmpty());
+      assertFalse(form1ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form2ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form3ViewState.getDomAttribute("value").isEmpty());
 
         WebElement form3Link =  page.findElement(By.id(namingContainerPrefix + "form3:link"));
         form3Link.click();
@@ -92,9 +92,9 @@ class Spec790WithNamespacedViewIT extends BaseITNG {
         form2ViewState =  form2.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
         form3 =  page.findElement(By.id(namingContainerPrefix + "form3"));
         form3ViewState =  form3.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
-      assertFalse(form1ViewState.getAttribute("value").isEmpty());
-      assertFalse(form2ViewState.getAttribute("value").isEmpty());
-      assertFalse(form3ViewState.getAttribute("value").isEmpty());
+      assertFalse(form1ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form2ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form3ViewState.getDomAttribute("value").isEmpty());
     }
 
 
@@ -112,7 +112,7 @@ class Spec790WithNamespacedViewIT extends BaseITNG {
         String namingContainerPrefix = getNamingContainerId(page);
         WebElement form =  page.findElement(By.id(namingContainerPrefix + "form"));
         WebElement formViewState =  form.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
-      assertFalse(formViewState.getAttribute("value").isEmpty());
+      assertFalse(formViewState.getDomAttribute("value").isEmpty());
 
         WebElement button = page.findElement(By.id(namingContainerPrefix + "form:button"));
         page.guardAjax(button::click);
@@ -122,12 +122,12 @@ class Spec790WithNamespacedViewIT extends BaseITNG {
         WebElement form1ViewState =  form1.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
         WebElement form2 =  page.findElement(By.id(namingContainerPrefix + "form2"));
         WebElement form2ViewState =  form2.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
-      assertFalse(form1ViewState.getAttribute("value").isEmpty());
-      assertFalse(form2ViewState.getAttribute("value").isEmpty());
+      assertFalse(form1ViewState.getDomAttribute("value").isEmpty());
+      assertFalse(form2ViewState.getDomAttribute("value").isEmpty());
     }
 
     private static String getNamingContainerId(WebPage page) {
-        return page.findElement(By.cssSelector("body > div, body > form")).getAttribute("id").split("(?<=:)", 2)[0];
+        return page.findElement(By.cssSelector("body > div, body > form")).getDomAttribute("id").split("(?<=:)", 2)[0];
     }
 
 

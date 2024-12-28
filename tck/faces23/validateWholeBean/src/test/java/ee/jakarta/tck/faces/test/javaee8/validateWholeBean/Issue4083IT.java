@@ -20,32 +20,32 @@ package ee.jakarta.tck.faces.test.javaee8.validateWholeBean;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Issue4083IT extends BaseITNG {
 
-public class Issue4083IT extends ITBase {
-
-  /**
-   * @see com.sun.faces.ext.component.UIValidateWholeBean
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4087
-   */
-  @Test
-  void validateWholeBean() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/Issue4083.xhtml");
+     */
+    @Test
+    void validateWholeBean() throws Exception {
+        WebPage page = getPage("faces/Issue4083.xhtml");
 
-        HtmlPasswordInput password1 = (HtmlPasswordInput) page.getHtmlElementById("password1");
-        password1.setValueAttribute("mike@!2016GO");
+        WebElement password1 = page.findElement(By.id("password1"));
+        password1.sendKeys("mike@!2016GO");
 
-        HtmlPasswordInput password2 = (HtmlPasswordInput) page.getHtmlElementById("password2");
-        password2.setValueAttribute("mike@!2015G0");
+        WebElement password2 = page.findElement(By.id("password2"));
+        password2.sendKeys("mike@!2015G0");
 
-        HtmlSubmitInput submit = (HtmlSubmitInput) page.getHtmlElementById("submit");
-        HtmlPage page1 = submit.click();
+        WebElement submit = page.findElement(By.id("submit"));
+        submit.click();
 
-        assertTrue(page1.getElementById("err").getElementsByTagName("li").get(0).asNormalizedText().contains("Password fields must match"), "Validation message not found!");
+        assertTrue(page.findElement(By.id("err")).findElements(By.tagName("li")).get(0).getText().contains("Password fields must match"),
+                "Validation message not found!");
     }
 }

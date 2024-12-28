@@ -24,11 +24,10 @@ import jakarta.faces.view.facelets.Facelet;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Spec1581IT extends ITBase {
+public class Spec1581IT extends BaseITNG {
 
   /**
    * @see Facelet
@@ -38,9 +37,9 @@ public class Spec1581IT extends ITBase {
    */
   @Test
   void test() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "hello.xhtml?id=foo");
+        WebPage page = getPage("hello.xhtml?id=foo");
 
-        assertTrue(page.asXml().contains("Id is:foo"));
+        assertTrue(page.getPageSource().contains("Id is:foo"));
     }
 
 }

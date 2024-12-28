@@ -23,11 +23,10 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Issue3730IT extends ITBase {
+public class Issue3730IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -36,7 +35,7 @@ public class Issue3730IT extends ITBase {
    */
   @Test
   void injectSessionMap2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectSessionMap2.xhtml");
-        assertTrue(page.asXml().contains("key=value"));
+        WebPage page = getPage("faces/injectSessionMap2.xhtml");
+        assertTrue(page.getPageSource().contains("key=value"));
     }
 }

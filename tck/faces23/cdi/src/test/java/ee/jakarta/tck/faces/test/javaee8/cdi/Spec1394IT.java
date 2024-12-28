@@ -23,15 +23,14 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the availability of the resource handler via CDI
  *
  */
-public class Spec1394IT extends ITBase {
+public class Spec1394IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -40,9 +39,9 @@ public class Spec1394IT extends ITBase {
    */
   @Test
   void resourceHandler() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectResourceHandler.xhtml");
+        WebPage page = getPage("injectResourceHandler.xhtml");
 
-        assertTrue(page.asXml().contains("jsfLibraryExists:true"));
+        assertTrue(page.getPageSource().contains("jsfLibraryExists:true"));
     }
 
 }

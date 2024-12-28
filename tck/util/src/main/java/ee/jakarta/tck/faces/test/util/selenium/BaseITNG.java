@@ -64,12 +64,11 @@ public abstract class BaseITNG implements ExecutionCondition {
 
     private ExtendedWebDriver webDriver;
 
-    static DriverPool driverPool = new DriverPool();
+    protected static final DriverPool driverPool = new DriverPool();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
+        return create(ZipImporter.class, getProperty("finalName") + ".war").importFrom(new File("target/" + getProperty("finalName") + ".war"))
                 .as(WebArchive.class);
     }
 
@@ -79,7 +78,7 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     @AfterEach
-    void tearDown() {
+    protected void tearDown() {
         driverPool.returnInstance(webDriver);
     }
 
@@ -98,8 +97,7 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * Selenium does not automatically update the page handles if a link is clicked
-     * without ajax
+     * Selenium does not automatically update the page handles if a link is clicked without ajax
      */
     protected void updatePage() {
         ExtendedWebDriver webDriver = getWebDriver();

@@ -20,29 +20,27 @@ import jakarta.faces.component.UIViewParameter;
 import jakarta.faces.component.behavior.AjaxBehavior;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+class Issue4734IT extends BaseITNG {
 
-class Issue4734IT extends ITBase {
-
-  /**
-   * @see UIViewParameter
+    /**
+     * @see UIViewParameter
      * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4734
-   */
-  @Test
-  void issue4734() throws Exception {
-        HtmlPage page = getPage("issue4734.xhtml");
-        HtmlSubmitInput submit = page.getHtmlElementById("form:submit");
+     */
+    @Test
+    void issue4734() throws Exception {
+        WebPage page = getPage("issue4734.xhtml");
 
-        submit.click(); // The first click is expected to work fine.
+        page.guardHttp(page.findElement(By.id("form:submit"))::click); // The first click is expected to work fine.
 
-        submit.click(); // Before the fix, the second click failed with com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException: 500 Internal Server Error
+        page.guardHttp(page.findElement(By.id("form:submit"))::click); // Before the fix, the second click failed with 500 Internal Server Error
 
-        submit.click(); // A third one, just to be sure it keeps working! ;)
+        page.guardHttp(page.findElement(By.id("form:submit"))::click); // A third one, just to be sure it keeps working! ;)
     }
 
 }

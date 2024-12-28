@@ -22,11 +22,10 @@ import jakarta.faces.annotation.FacesConfig;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Issue3793IT extends ITBase {
+public class Issue3793IT extends BaseITNG {
 
   /**
    * @see FacesConfig#version()
@@ -34,8 +33,8 @@ public class Issue3793IT extends ITBase {
    */
   @Test
   void facesConfig23() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/mojarraFacesConfigVersion.xhtml");
+        WebPage page = getPage("faces/mojarraFacesConfigVersion.xhtml");
 
-      assertFalse(page.asXml().contains("2.3"));
+      assertFalse(page.getPageSource().contains("2.3"));
     }
 }

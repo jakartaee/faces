@@ -17,29 +17,29 @@
 package ee.jakarta.tck.faces.test.javaee8.uidecorate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+class Issue5140IT extends BaseITNG {
 
-class Issue5140IT extends ITBase {
-
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/5140
-   */
-  @Test
-  void test() throws Exception {
-        HtmlPage page = getPage("issue5140.xhtml");
-        DomElement unexpectedElement = page.getElementById("Field");
-        DomElement expectedElement = page.getElementById("testInputIdField");
-      assertNull(unexpectedElement, "unexpected element may not exist");
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5140
+     */
+    @Test
+    void test() throws Exception {
+        WebPage page = getPage("issue5140.xhtml");
+        assertThrows(NoSuchElementException.class, () -> page.findElement(By.id("Field")), "unexpected element may not exist");
+        WebElement expectedElement = page.findElement(By.id("testInputIdField"));
         assertTrue(expectedElement != null, "expected element exists");
-        assertEquals("ui:insert content", expectedElement.asNormalizedText(), "ui:insert content is present");
+        assertEquals("ui:insert content", expectedElement.getText(), "ui:insert content is present");
     }
 
 }

@@ -21,13 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import jakarta.faces.convert.FacesConverter;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Issue4324IT extends ITBase {
+public class Issue4324IT extends BaseITNG {
 
   /**
    * @see FacesConverter#managed()
@@ -35,9 +35,9 @@ public class Issue4324IT extends ITBase {
    */
   @Test
   void managedFacesConverterOnAbstractClass() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/issue4324.xhtml");
-        HtmlSpan output = page.getHtmlElementById("output");
-        assertEquals("ConcreteEntity", output.getTextContent());
+        WebPage page = getPage("faces/issue4324.xhtml");
+        WebElement output = page.findElement(By.id("output"));
+        assertEquals("ConcreteEntity", output.getText());
     }
 
 }

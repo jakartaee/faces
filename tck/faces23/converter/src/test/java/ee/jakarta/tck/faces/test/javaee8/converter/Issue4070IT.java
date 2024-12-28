@@ -24,86 +24,76 @@ import java.time.temporal.Temporal;
 import jakarta.faces.convert.DateTimeConverter;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Issue4070IT extends BaseITNG {
 
-
-public class Issue4070IT extends ITBase {
-
-  /**
-   * @see DateTimeConverter
+    /**
+     * @see DateTimeConverter
      * @see Temporal
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4074
-   */
-  @Test
-  void localDateTime() throws Exception {
+     */
+    @Test
+    void localDateTime() throws Exception {
         doTestJavaTimeTypes("May 30, 2015, 4:14:43 PM", "localDateTime", "2015-05-30T16:14:43");
     }
 
-  @Test
-  void localDate() throws Exception {
+    @Test
+    void localDate() throws Exception {
         doTestJavaTimeTypes("May 30, 2015", "localDate", "2015-05-30");
     }
 
-  @Test
-  void localTime() throws Exception {
+    @Test
+    void localTime() throws Exception {
         doTestJavaTimeTypes("4:52:56 PM", "localTime", "16:52:56");
     }
 
-  @Test
-  void offsetTime() throws Exception {
+    @Test
+    void offsetTime() throws Exception {
         doTestJavaTimeTypes("17:07:19.358-04:00", "offsetTime", "17:07:19.358-04:00");
     }
 
-  @Test
-  void offsetDateTime() throws Exception {
+    @Test
+    void offsetDateTime() throws Exception {
         doTestJavaTimeTypes("2015-09-30T17:24:36.529-04:00", "offsetDateTime", "2015-09-30T17:24:36.529-04:00");
     }
 
-  @Test
-  void zonedDateTime() throws Exception {
+    @Test
+    void zonedDateTime() throws Exception {
         doTestJavaTimeTypes("2015-09-30T17:31:42.09-04:00[America/New_York]", "zonedDateTime", "2015-09-30T17:31:42.090-04:00[America/New_York]");
     }
 
     private void doTestJavaTimeTypes(String value, String inputId, String expected) throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/Issue4070Using.xhtml");
+        WebPage page = getPage("faces/Issue4070Using.xhtml");
+        WebElement input = page.findElement(By.id(inputId));
+        input.sendKeys(value);
+        WebElement submit = page.findElement(By.id("submit"));
+        submit.click();
 
-        try {
-            HtmlTextInput input = page.getHtmlElementById(inputId);
-            input.setValueAttribute(value);
-            HtmlSubmitInput submit = page.getHtmlElementById("submit");
-            page = submit.click();
-
-            HtmlSpan output = page.getHtmlElementById(inputId + "Value");
-            assertEquals(expected, output.getTextContent());
-        } catch (AssertionError e) {
-            System.out.println(page.getHtmlElementById("messages").asXml());
-
-            throw e;
-        }
+        WebElement output = page.findElement(By.id(inputId + "Value"));
+        assertEquals(expected, output.getText());
     }
 
-  /**
-   * @see DateTimeConverter
+    /**
+     * @see DateTimeConverter
      * @see Temporal
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4074
-   */
-  @Test
-  void inputOutputDiffer() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/Issue4070InputOutputDiffer.xhtml");
+     */
+    @Test
+    void inputOutputDiffer() throws Exception {
+        WebPage page = getPage("faces/Issue4070InputOutputDiffer.xhtml");
 
-        HtmlTextInput input = page.getHtmlElementById("localDate");
-        input.setValueAttribute("30.09.2015");
-        HtmlSubmitInput submit = page.getHtmlElementById("submit");
-        page = submit.click();
+        WebElement input = page.findElement(By.id("localDate"));
+        input.sendKeys("30.09.2015");
+        WebElement submit = page.findElement(By.id("submit"));
+        submit.click();
 
-        HtmlSpan output = page.getHtmlElementById("localDateValue");
-        assertEquals("30.09.15", output.getTextContent());
+        WebElement output = page.findElement(By.id("localDateValue"));
+        assertEquals("30.09.15", output.getText());
     }
 
 }

@@ -23,30 +23,29 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the availability of the header map via injection
  *
  */
-public class Spec1387IT extends ITBase {
+public class Spec1387IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see HeaderMap
      * @see https://github.com/jakartaee/faces/issues/1387
-   */
-  @Test
-  void injectHeaderMap() throws Exception {
+     */
+    @Test
+    void injectHeaderMap() throws Exception {
         // Add a custom header that the test code knows named "foo"
-        webClient.addRequestHeader("foo", "bar");
+        getWebDriver().addRequestHeader("foo", "bar");
 
-        HtmlPage page = webClient.getPage(webUrl + "injectHeaderMap.xhtml");
+        WebPage page = getPage("injectHeaderMap.xhtml");
 
         // Header value should be printed on the page
-        assertTrue(page.asXml().contains("foo:bar"));
+        assertTrue(page.getPageSource().contains("foo:bar"));
     }
 
 }

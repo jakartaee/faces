@@ -18,68 +18,66 @@ package ee.jakarta.tck.faces.test.servlet50.selectitemgroup;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import jakarta.faces.component.UISelectItemGroup;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1563IT extends BaseITNG {
 
-public class Spec1563IT extends ITBase {
-
-  /**
-   * @see UISelectItemGroup
+    /**
+     * @see UISelectItemGroup
      * @see https://github.com/jakartaee/faces/issues/1563
-   */
-  @Test
-  void test() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec1563IT.xhtml");
-        HtmlSelect select = page.getHtmlElementById("form:input");
+     */
+    @Test
+    void test() throws Exception {
+        WebPage page = getPage("spec1563IT.xhtml");
+        Select select = new Select(page.findElement(By.id("form:input")));
 
         assertValidMarkup(select);
 
-        select.setSelectedAttribute(select.getOptionByValue("5"), true);
+        select.selectByValue("5");
 
-        assertEquals("", page.getHtmlElementById("form:messages").asNormalizedText(), "messages is empty before submit");
-        assertEquals("", page.getHtmlElementById("form:output").asNormalizedText(), "output is empty before submit");
+        assertEquals("", page.findElement(By.id("form:messages")).getText(), "messages is empty before submit");
+        assertEquals("", page.findElement(By.id("form:output")).getText(), "output is empty before submit");
 
-        page = page.getHtmlElementById("form:submit").click();
-
-        assertValidMarkup(select);
-        assertEquals("", page.getHtmlElementById("form:messages").asNormalizedText(), "messages is still empty after submit");
-        assertEquals("5", page.getHtmlElementById("form:output").asNormalizedText(), "output is '5' after submit");
-
-        select = page.getHtmlElementById("form:input");
-        select.setSelectedAttribute(select.getOptionByValue("2"), true);
-        page = page.getHtmlElementById("form:submit").click();
+        page.findElement(By.id("form:submit")).click();
 
         assertValidMarkup(select);
-        assertEquals("", page.getHtmlElementById("form:messages").asNormalizedText(), "messages is still empty after submit");
-        assertEquals("2", page.getHtmlElementById("form:output").asNormalizedText(), "output is '2' after submit");
+        assertEquals("", page.findElement(By.id("form:messages")).getText(), "messages is still empty after submit");
+        assertEquals("5", page.findElement(By.id("form:output")).getText(), "output is '5' after submit");
+
+        select = new Select(page.findElement(By.id("form:input")));
+        select.selectByValue("2");
+        page.findElement(By.id("form:submit")).click();
+
+        assertValidMarkup(select);
+        assertEquals("", page.findElement(By.id("form:messages")).getText(), "messages is still empty after submit");
+        assertEquals("2", page.findElement(By.id("form:output")).getText(), "output is '2' after submit");
     }
 
-    private static void assertValidMarkup(HtmlSelect select) {
-        assertEquals(2, select.getChildElementCount(), "select has 2 children");
+    private static void assertValidMarkup(Select select) {
+        List<WebElement> optgroups = select.getWrappedElement().findElements(By.tagName("optgroup"));
+        assertEquals(2, optgroups.size(), "select has 2 optgroup children");
 
-        for (DomElement child : select.getChildElements()) {
-            assertEquals("optgroup", child.getNodeName(), "child element is an optgroup");
-            assertEquals(3, child.getChildElementCount(), "child has in turn 3 grandchildren");
-
-            for (DomElement grandchild : child.getChildElements()) {
-                assertEquals("option", grandchild.getNodeName(), "grandchild  element is an option");
-            }
+        for (WebElement optgroup : optgroups) {
+            List<WebElement> options = optgroup.findElements(By.tagName("option"));
+            assertEquals(3, options.size(), "optgroup has in turn 3 options");
         }
 
         assertEquals(6, select.getOptions().size(), "select element has 6 options");
 
-        HtmlOption option2 = select.getOptionByValue("2");
+        WebElement option2 = select.getOptions().get(1);
         assertEquals("Cat", option2.getText(), "2nd option is 'Cat'");
 
-        HtmlOption option5 = select.getOptionByValue("5");
+        WebElement option5 = select.getOptions().get(4);
         assertEquals("Audi", option5.getText(), "5th option is 'Audi'");
     }
 }

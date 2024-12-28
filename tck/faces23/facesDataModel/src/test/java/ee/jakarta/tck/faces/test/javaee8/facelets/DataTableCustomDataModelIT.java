@@ -25,11 +25,10 @@ import jakarta.faces.model.FacesDataModel;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-class DataTableCustomDataModelIT extends ITBase {
+class DataTableCustomDataModelIT extends BaseITNG {
 
   /**
    * @see HtmlDataTable
@@ -47,8 +46,8 @@ class DataTableCustomDataModelIT extends ITBase {
         // registered for super classes of Child11 (e.g. Child1), which can also
         // handle a Child11, but these should NOT be picked up and the exact match
         // should be preferred.
-        HtmlPage page = getPage("datatableCustomDataModel11.xhtml");
-        assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.asXml()));
+        WebPage page = getPage("datatableCustomDataModel11.xhtml");
+        assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.getPageSource()));
     }
 
   /**
@@ -66,7 +65,7 @@ class DataTableCustomDataModelIT extends ITBase {
         // The challenge here is that the DataModel for the closest super class
         // should be chosen, which in this test is the DataModel that handles
         // a Child11.
-        HtmlPage page = getPage("datatableCustomDataModel111.xhtml");
-        assertTrue(matches("(?s).*START.*111-member 1.*111-member 2.*END.*", page.asXml()));
+        WebPage page = getPage("datatableCustomDataModel111.xhtml");
+        assertTrue(matches("(?s).*START.*111-member 1.*111-member 2.*END.*", page.getPageSource()));
     }
 }

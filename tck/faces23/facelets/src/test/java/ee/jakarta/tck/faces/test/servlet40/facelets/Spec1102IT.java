@@ -20,12 +20,12 @@ package ee.jakarta.tck.faces.test.servlet40.facelets;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-class Spec1102IT extends ITBase {
+class Spec1102IT extends BaseITNG {
 
   /**
    * @see com.sun.faces.facelets.component.UIRepeat
@@ -34,16 +34,16 @@ class Spec1102IT extends ITBase {
    */
   @Test
   void spec1102() throws Exception {
-        HtmlPage page = getPage("faces/spec1102.xhtml");
+        WebPage page = getPage("faces/spec1102.xhtml");
 
-      assertEquals("123", page.getHtmlElementById("repeat1").asNormalizedText());
-// Outcommented for #1717       assertTrue(page.getHtmlElementById("repeat2").asNormalizedText().equals("-3-2-10123"));
-// Outcommented for #1717       assertTrue(page.getHtmlElementById("repeat3").asNormalizedText().equals("3210-1-2-3"));
-// Outcommented for #1717       assertTrue(page.getHtmlElementById("repeat4").asNormalizedText().equals("-3-113"));
-// Outcommented for #1717       assertTrue(page.getHtmlElementById("repeat5").asNormalizedText().equals("-3-2"));
-// Outcommented for #1717       assertTrue(page.getHtmlElementById("repeat6").asNormalizedText().equals("-3"));
-      assertEquals("3", page.getHtmlElementById("repeat7").asNormalizedText());
-// Outcommented for #1717       assertTrue(page.getHtmlElementById("repeat8").asNormalizedText().equals("0123"));
+      assertEquals("123", page.findElement(By.id("repeat1")).getText());
+// Outcommented for #1717       assertTrue(page.findElement(By.id("repeat2")).getText().equals("-3-2-10123"));
+// Outcommented for #1717       assertTrue(page.findElement(By.id("repeat3")).getText().equals("3210-1-2-3"));
+// Outcommented for #1717       assertTrue(page.findElement(By.id("repeat4")).getText().equals("-3-113"));
+// Outcommented for #1717       assertTrue(page.findElement(By.id("repeat5")).getText().equals("-3-2"));
+// Outcommented for #1717       assertTrue(page.findElement(By.id("repeat6")).getText().equals("-3"));
+      assertEquals("3", page.findElement(By.id("repeat7")).getText());
+// Outcommented for #1717       assertTrue(page.findElement(By.id("repeat8")).getText().equals("0123"));
     }
 
 }

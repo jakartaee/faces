@@ -24,66 +24,56 @@ import jakarta.faces.webapp.FacesServlet;
 
 import org.jboss.arquillian.container.test.api.RunAsClient;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  *
  * @author Arjan Tijms
  *
  */
-public class ExtensionlessMappingIT extends ITBase {
+public class ExtensionlessMappingIT extends BaseITNG {
 
-  /**
-   * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
      * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1508
-   */
-  @Test
-  @RunAsClient
-  void extensionlessMappingFoo() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "foo");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "foo" + "` :\n" + content + "\n");
-
+     */
+    @Test
+    @RunAsClient
+    void extensionlessMappingFoo() throws IOException {
+        WebPage page = getPage("foo");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page foo"));
-
-        assertTrue(page.getElementById("barxhtmllink").getAttribute("href").endsWith("/bar"));
-        assertTrue(page.getElementById("barlink").getAttribute("href").endsWith("/bar"));
+        assertTrue(page.findElement(By.id("barxhtmllink")).getDomAttribute("href").endsWith("/bar"));
+        assertTrue(page.findElement(By.id("barlink")).getDomAttribute("href").endsWith("/bar"));
     }
 
-  /**
-   * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
      * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1508
-   */
-  @Test
-  @RunAsClient
-  void extensionlessMappingBar() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "bar");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "bar" + "` :\n" + content + "\n");
-
+     */
+    @Test
+    @RunAsClient
+    void extensionlessMappingBar() throws IOException {
+        WebPage page = getPage("bar");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page bar"));
     }
 
-  /**
-   * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
      * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1508
-   */
-  @Test
-  @RunAsClient
-  void extensionlessMappingSubBar() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "sub/bar");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "sub/bar" + "` :\n" + content + "\n");
-
+     */
+    @Test
+    @RunAsClient
+    void extensionlessMappingSubBar() throws IOException {
+        WebPage page = getPage("sub/bar");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page sub-bar"));
     }
 

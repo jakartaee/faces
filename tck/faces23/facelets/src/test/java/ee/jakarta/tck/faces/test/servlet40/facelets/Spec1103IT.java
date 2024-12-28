@@ -26,11 +26,10 @@ import jakarta.faces.component.UIData;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Spec1103IT extends ITBase {
+public class Spec1103IT extends BaseITNG {
 
   /**
    * @see UIData
@@ -39,8 +38,8 @@ public class Spec1103IT extends ITBase {
    */
   @Test
   void dataTableIterable() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/datatableIterable.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.asXml()));
+        WebPage page = getPage("faces/datatableIterable.xhtml");
+        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getPageSource()));
     }
 
   /**
@@ -50,8 +49,8 @@ public class Spec1103IT extends ITBase {
    */
   @Test
   void uIRepeatIterable() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/uirepeatIterable.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.asXml()));
+        WebPage page = getPage("faces/uirepeatIterable.xhtml");
+        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getPageSource()));
     }
 
   /**
@@ -61,7 +60,7 @@ public class Spec1103IT extends ITBase {
    */
   @Test
   void uIRepeatCollection() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/uirepeatCollection.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*1.*2.*3.*END.*", page.asXml()));
+        WebPage page = getPage("faces/uirepeatCollection.xhtml");
+        assertTrue(Pattern.matches("(?s).*START.*1.*2.*3.*END.*", page.getPageSource()));
     }
 }

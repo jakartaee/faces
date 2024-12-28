@@ -19,8 +19,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 /**
- * an extended web driver interface which takes the response into consideration selenium does not have an official api
- * but several webdrivers allow access to the data via various means
+ * an extended web driver interface which takes the response into consideration selenium does not have an official api but several webdrivers allow access to
+ * the data via various means
  *
  * Another possibility would have been a proxy, but I could not find any properly working proxy for selenium
  */
@@ -70,8 +70,8 @@ public interface ExtendedWebDriver extends WebDriver {
     String getPageText();
 
     /**
-     * returns the innerText of the page in a blank reduced state (more than one blank is reduced to one invisible blanks
-     * like nbsp are replaced by normal blanks)
+     * returns the innerText of the page in a blank reduced state (more than one blank is reduced to one invisible blanks like nbsp are replaced by normal
+     * blanks)
      *
      * @return
      */
@@ -98,4 +98,9 @@ public interface ExtendedWebDriver extends WebDriver {
      * resets the current page to its initial stage before the page load without dropping the engine or closing it
      */
     void reset();
+
+    /**
+     * add header to all upcoming requests until {@link #quit()} is invoked
+     */
+    void addRequestHeader(String name, String value);
 }

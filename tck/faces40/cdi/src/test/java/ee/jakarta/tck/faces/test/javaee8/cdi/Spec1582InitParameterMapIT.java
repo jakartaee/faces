@@ -23,15 +23,14 @@ import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the availability of the init parameter map via CDI
  *
  */
-public class Spec1582InitParameterMapIT extends ITBase {
+public class Spec1582InitParameterMapIT extends BaseITNG {
 
   /**
    * @see Inject
@@ -40,10 +39,10 @@ public class Spec1582InitParameterMapIT extends ITBase {
    */
   @Test
   void injectInitParameterMap() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectInitParameterMap.xhtml");
+        WebPage page = getPage("injectInitParameterMap.xhtml");
 
         // Init parameter value should be printed on the page
-        assertTrue(page.asXml().contains("MY_TEST_PARAMETER:IS_THERE"));
+        assertTrue(page.getPageSource().contains("MY_TEST_PARAMETER:IS_THERE"));
     }
 
 }

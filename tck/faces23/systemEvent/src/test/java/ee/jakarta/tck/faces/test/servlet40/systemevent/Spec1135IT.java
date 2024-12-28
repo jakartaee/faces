@@ -23,20 +23,19 @@ import jakarta.faces.event.PostRenderViewEvent;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1135IT extends BaseITNG {
 
-public class Spec1135IT extends ITBase {
-
-  /**
-   * @see PostRenderViewEvent
+    /**
+     * @see PostRenderViewEvent
      * @see https://github.com/jakartaee/faces/issues/1135
-   */
-  @Test
-  void preRenderViewEvent() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/postRenderViewEvent.xhtml");
-        String response = page.getWebResponse().getContentAsString();
+     */
+    @Test
+    void preRenderViewEvent() throws Exception {
+        WebPage page = getPage("faces/postRenderViewEvent.xhtml");
+        String response = page.getResponseBody();
 
         int prePos = response.indexOf("<!-- pre -->");
         int htmlStartPos = response.indexOf("<html");

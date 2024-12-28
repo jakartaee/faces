@@ -22,14 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.view.facelets.FaceletCacheFactory;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Issue3755IT extends ITBase {
+public class Issue3755IT extends BaseITNG {
 
   /**
    * @see FaceletCacheFactory
@@ -37,14 +36,14 @@ public class Issue3755IT extends ITBase {
    */
   @Test
   void customFactory() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlTextInput input = page.getHtmlElementById("input");
+        WebPage page = getPage("");
+        WebElement input = page.findElement(By.id("input"));
         String inputText = "" + System.currentTimeMillis();
-        input.setText(inputText);
-        HtmlSubmitInput submit = page.getHtmlElementById("submit");
-        page = submit.click();
+        input.sendKeys(inputText);
+        WebElement submit = page.findElement(By.id("submit"));
+        submit.click();
 
-        String pageText = page.getBody().asNormalizedText();
+        String pageText = page.getPageSource();
         assertTrue(pageText.contains("output: " + inputText));
         assertTrue(pageText.matches("(?s).*message.\\d+.*"));
     }

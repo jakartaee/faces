@@ -23,12 +23,11 @@ import jakarta.faces.FactoryFinder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 @Disabled("Because this is Mojarra specific: https://github.com/jakartaee/faces/issues/1679")
-public class Issue3341IT extends ITBase {
+public class Issue3341IT extends BaseITNG {
 
   /**
    * @see FactoryFinder
@@ -36,9 +35,9 @@ public class Issue3341IT extends ITBase {
    */
   @Test
   void tcclReplacementResilience() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
+        WebPage page = getPage("");
 
-        String pageText = page.getBody().asNormalizedText();
+        String pageText = page.getPageSource();
 
         // If the BeforeFilter is configured to
         if (pageText.matches("(?s).*SUCCESS.*")) {

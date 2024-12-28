@@ -22,13 +22,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.validator.FacesValidator;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class Issue4551IT extends ITBase {
+public class Issue4551IT extends BaseITNG {
 
   /**
    * @see FacesValidator#managed()
@@ -36,10 +36,10 @@ public class Issue4551IT extends ITBase {
    */
   @Test
   void twoAnnotatedJSFValidatorsInvoked() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/issue4551.xhtml");
-        HtmlElement submit = page.getHtmlElementById("form:submit");
-        page = submit.click();
-        assertTrue(page.asNormalizedText().contains("CustomValidator1 was validated"));
-        assertTrue(page.asNormalizedText().contains("CustomValidator2 was validated"));
+        WebPage page = getPage("faces/issue4551.xhtml");
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        assertTrue(page.getPageSource().contains("CustomValidator1 was validated"));
+        assertTrue(page.getPageSource().contains("CustomValidator2 was validated"));
     }
 }

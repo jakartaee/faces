@@ -24,26 +24,25 @@ import jakarta.faces.component.UIComponent;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.TextPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class ChildCountTestIT extends BaseITNG {
 
-public class ChildCountTestIT extends ITBase {
-    
     Logger logger = Logger.getLogger(ChildCountTestIT.class.getName());
 
-  /**
-   * @see UIComponent#getChildCount()
+    /**
+     * @see UIComponent#getChildCount()
      * @see https://github.com/eclipse-ee4j/mojarra/commit/6ca5e2d2300d0e9dc0d26ce3821346a4bcbffe2e
-   */
-  @Test
-  void childCountTest() throws Exception {
-        TextPage page = webClient.getPage(webUrl + "childCountTest");
-        if (!page.getContent().contains("Test PASSED")) {
-            logger.warning(page.getContent());
+     */
+    @Test
+    void childCountTest() throws Exception {
+        WebPage page = getPage("childCountTest");
+        if (!page.getPageSource().contains("Test PASSED")) {
+            logger.warning(page.getPageSource());
         }
 
-        assertTrue(page.getContent().contains("Test PASSED"));
+        assertTrue(page.getPageSource().contains("Test PASSED"));
     }
-   
+
 }

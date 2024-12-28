@@ -21,16 +21,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-class DisableFaceletToXhtmlIT extends ITBase {
+class DisableFaceletToXhtmlIT extends BaseITNG {
 
   @Test
   void doTest() throws Exception {
-        HtmlPage page = getPage("index.xhtml");
-      assertEquals(-1, page.getBody().asXml().indexOf("ViewState"));
+        WebPage page = getPage("index.xhtml");
+      assertEquals(-1, page.getPageSource().indexOf("ViewState"));
     }
 
 }

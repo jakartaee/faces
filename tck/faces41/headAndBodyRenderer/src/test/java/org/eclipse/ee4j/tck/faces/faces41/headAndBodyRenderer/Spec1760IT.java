@@ -38,8 +38,8 @@ class Spec1760IT extends BaseITNG {
         WebPage page = getPage("spec1760withIDdefault.xhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("headId", head.getAttribute("id"));
-        assertEquals("bodyId", body.getAttribute("id"));
+        assertEquals("headId", head.getDomAttribute("id"));
+        assertEquals("bodyId", body.getDomAttribute("id"));
     }
 
   /**
@@ -52,8 +52,8 @@ class Spec1760IT extends BaseITNG {
         WebPage page = getPage("spec1760withoutIDdefault.xhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals("", head.getDomAttribute("id"));
+        assertEquals("", body.getDomAttribute("id"));
     }
 
   /**
@@ -66,8 +66,8 @@ class Spec1760IT extends BaseITNG {
         WebPage page = getPage("spec1760withIDxhtml.xhtmlAsXhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals("", head.getDomAttribute("id"));
+        assertEquals("", body.getDomAttribute("id"));
     }
 
   /**
@@ -80,8 +80,8 @@ class Spec1760IT extends BaseITNG {
         WebPage page = getPage("spec1760withoutIDxhtml.xhtmlAsXhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals("", head.getDomAttribute("id"));
+        assertEquals("", body.getDomAttribute("id"));
     }
 
   /**
@@ -94,8 +94,8 @@ class Spec1760IT extends BaseITNG {
         WebPage page = getPage("spec1760withIDxml.xhtmlAsXml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals("", head.getDomAttribute("id"));
+        assertEquals("", body.getDomAttribute("id"));
     }
 
   /**
@@ -108,7 +108,7 @@ class Spec1760IT extends BaseITNG {
         WebPage page = getPage("spec1760withoutIDxml.xhtmlAsXml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
-        assertEquals("", head.getAttribute("id"));
-        assertEquals("", body.getAttribute("id"));
+        assertEquals("", head.getDomAttribute("id"));
+        assertEquals("", body.getDomAttribute("id"));
     }
 }

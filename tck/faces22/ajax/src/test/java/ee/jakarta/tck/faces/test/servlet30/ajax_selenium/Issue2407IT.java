@@ -41,9 +41,9 @@ class Issue2407IT extends BaseITNG {
   @Test
   void updateAttributeNamedValue() throws Exception {
         WebPage page = getPage("attributeNameIsValue.xhtml");
-        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getAttribute("value").equals("foo")));
+        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomAttribute("value").equals("foo")));
         WebElement button = page.findElement(By.id("form1:button"));
         button.click();
-        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getAttribute("value").equals("bar")));
+        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomAttribute("value").equals("bar")));
     }
 }

@@ -20,30 +20,24 @@ import jakarta.faces.annotation.View;
 import jakarta.faces.view.facelets.Facelet;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1581IT extends BaseITNG {
 
-public class Spec1581IT extends ITBase {
-
-  /**
-   * @see Facelet
+    /**
+     * @see Facelet
      * @see View
      * @see https://github.com/jakartaee/faces/issues/1581
-   */
-  @Test
-  void test() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "hello.xhtml");
-
-        System.out.println(page.asXml());
-
-        HtmlInput button = (HtmlInput) page.getElementById("form:button");
-        page = button.click();
-
-        System.out.println(page.asXml());
-
+     */
+    @Test
+    void test() throws Exception {
+        WebPage page = getPage("hello.xhtml");
+        WebElement button = page.findElement(By.id("form:button"));
+        button.click();
     }
 
 }

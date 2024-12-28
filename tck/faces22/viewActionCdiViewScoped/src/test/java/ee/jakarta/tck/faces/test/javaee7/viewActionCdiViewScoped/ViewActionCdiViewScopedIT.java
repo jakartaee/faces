@@ -24,11 +24,10 @@ import jakarta.faces.view.ViewScoped;
 
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-public class ViewActionCdiViewScopedIT extends ITBase {
+public class ViewActionCdiViewScopedIT extends BaseITNG {
 
   /**
    * @see UIViewAction
@@ -37,9 +36,9 @@ public class ViewActionCdiViewScopedIT extends ITBase {
    */
   @Test
   void noQueryParam() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
+        WebPage page = getPage("");
 
-        assertTrue(page.getBody().asNormalizedText().indexOf("First Page") != -1);
+        assertTrue(page.getPageSource().indexOf("First Page") != -1);
     }
 
   /**
@@ -49,8 +48,8 @@ public class ViewActionCdiViewScopedIT extends ITBase {
    */
   @Test
   void withQueryParam() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "/?page=2");
+        WebPage page = getPage("/?page=2");
 
-        assertTrue(page.getBody().asNormalizedText().indexOf("Second Page") != -1);
+        assertTrue(page.getPageSource().indexOf("Second Page") != -1);
     }
 }

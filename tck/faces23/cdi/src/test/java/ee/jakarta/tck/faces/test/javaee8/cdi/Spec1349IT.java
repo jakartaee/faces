@@ -22,55 +22,51 @@ import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+public class Spec1349IT extends BaseITNG {
 
-public class Spec1349IT extends ITBase {
-
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see FacesConverter
      * @see https://github.com/jakartaee/faces/issues/1349
-   */
-  @Test
-  void injectConverter() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectConverter.xhtml");
-        assertTrue(page.getElementById("messages").getTextContent().contains("InjectConverter#getAsString() was called"));
-        HtmlElement submit = page.getHtmlElementById("form:submit");
-        page = submit.click();
-        assertTrue(page.getElementById("messages").getTextContent().contains("InjectConverter#getAsObject() was called"));
+     */
+    @Test
+    void injectConverter() throws Exception {
+        WebPage page = getPage("faces/injectConverter.xhtml");
+        assertTrue(page.findElement(By.id("messages")).getText().contains("InjectConverter#getAsString() was called"));
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        assertTrue(page.findElement(By.id("messages")).getText().contains("InjectConverter#getAsObject() was called"));
     }
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see FacesConverter
      * @see https://github.com/jakartaee/faces/issues/1349
-   */
-  @Test
-  void injectConverter2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectConverter2.xhtml");
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        HtmlElement submit = page.getHtmlElementById("form:submit");
-        page = submit.click();
-        assertTrue(page.asXml().contains("InjectConverter2 was called"));
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
+     */
+    @Test
+    void injectConverter2() throws Exception {
+        WebPage page = getPage("faces/injectConverter2.xhtml");
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        assertTrue(page.getPageSource().contains("InjectConverter2 was called"));
     }
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see FacesConverter
      * @see https://github.com/jakartaee/faces/issues/1349
-   */
-  @Test
-  void injectConverter3() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectConverter3.xhtml");
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        HtmlElement submit = page.getHtmlElementById("form:submit");
-        page = submit.click();
-        assertTrue(page.asXml().contains("InjectConverter3 was called"));
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
+     */
+    @Test
+    void injectConverter3() throws Exception {
+        WebPage page = getPage("faces/injectConverter3.xhtml");
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        assertTrue(page.getPageSource().contains("InjectConverter3 was called"));
     }
 }

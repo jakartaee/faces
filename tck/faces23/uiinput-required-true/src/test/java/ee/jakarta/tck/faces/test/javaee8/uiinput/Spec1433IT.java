@@ -22,32 +22,31 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import jakarta.faces.component.UIInput;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+class Spec1433IT extends BaseITNG {
 
-class Spec1433IT extends ITBase {
-
-  /**
-   * @see UIInput#ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE
+    /**
+     * @see UIInput#ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE
      * @see https://github.com/jakartaee/faces/issues/1433
-   */
-  @Test
-  void spec1433() throws Exception {
-        HtmlPage page = getPage("spec1433.xhtml");
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("form:input");
-        input.setAttribute("id", "");
-        input.setAttribute("name", "");
-        input.setValueAttribute("non-empty value");
+     */
+    @Test
+    void spec1433() throws Exception {
+        WebPage page = getPage("spec1433.xhtml");
+        WebElement input = page.findElement(By.id("form:input"));
+        getWebDriver().getJSExecutor()
+                .executeScript("var input = document.getElementById('form:input');input.setAttribute('id', '');input.setAttribute('name', '');");
+        input.sendKeys("non-empty value");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:submit");
+        WebElement button = page.findElement(By.id("form:submit"));
 
-        page = button.click();
+        button.click();
 
-        String output = page.asNormalizedText();
+        String output = page.getPageSource();
 
         assertTrue(output.contains("Spec1433Bean Validator Message"));
 

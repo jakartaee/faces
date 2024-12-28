@@ -24,12 +24,11 @@ import jakarta.faces.view.ViewScoped;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 @Disabled("Sloppy test using Mojarra specific assumptions. See https://github.com/jakartaee/faces/issues/1773")
-public class Issue3194IT extends ITBase {
+public class Issue3194IT extends BaseITNG {
 
   /**
    * @see ViewScoped
@@ -38,36 +37,36 @@ public class Issue3194IT extends ITBase {
    */
   @Test
   void viewExpired() throws Exception {
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        HtmlPage page = webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        assertTrue(page.asXml().contains("1"));
-        page = webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        assertTrue(page.asXml().contains("2"));
-        page = webClient.getPage(webUrl + "faces/viewExpired.xhtml");
-        assertTrue(page.asXml().contains("3"));
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        getPage("faces/viewExpired.xhtml");
+        WebPage page = getPage("faces/viewExpired.xhtml");
+        assertTrue(page.getPageSource().contains("1"));
+        page = getPage("faces/viewExpired.xhtml");
+        assertTrue(page.getPageSource().contains("2"));
+        page = getPage("faces/viewExpired.xhtml");
+        assertTrue(page.getPageSource().contains("3"));
     }
 }
