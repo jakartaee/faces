@@ -69,7 +69,7 @@ public class Spec1556IT {
      * @see https://github.com/jakartaee/faces/issues/1556
    */
   @Test
-  void renderingOfAcceptAttribute(String form) throws Exception {
+  void renderingOfAcceptAttribute() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1556IT.xhtml");
 
         HtmlFileInput inputFileWithoutAccept = page.getHtmlElementById("form:inputFileWithoutAccept");
