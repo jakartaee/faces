@@ -49,14 +49,15 @@ public class Spec1563IT extends BaseITNG {
         assertEquals("", page.findElement(By.id("form:output")).getText(), "output is empty before submit");
 
         page.findElement(By.id("form:submit")).click();
+        select = new Select(page.findElement(By.id("form:input")));
 
         assertValidMarkup(select);
         assertEquals("", page.findElement(By.id("form:messages")).getText(), "messages is still empty after submit");
         assertEquals("5", page.findElement(By.id("form:output")).getText(), "output is '5' after submit");
 
-        select = new Select(page.findElement(By.id("form:input")));
         select.selectByValue("2");
         page.findElement(By.id("form:submit")).click();
+        select = new Select(page.findElement(By.id("form:input")));
 
         assertValidMarkup(select);
         assertEquals("", page.findElement(By.id("form:messages")).getText(), "messages is still empty after submit");
