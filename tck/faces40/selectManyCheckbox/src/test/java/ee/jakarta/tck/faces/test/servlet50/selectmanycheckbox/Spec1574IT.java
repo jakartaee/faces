@@ -123,45 +123,44 @@ public class Spec1574IT extends BaseITNG {
 
         if (table) {
             assertEquals("table", element.getTagName(), "element is table");
-            assertEquals(1, element.findElements(By.xpath(".//*")).size(), "table has 1 child");
-            assertEquals("tbody", element.findElements(By.xpath(".//*")).get(0).getTagName(), "table child is tbody");
+            assertEquals(1, element.findElements(By.xpath("./*")).size(), "table has 1 child");
+            assertEquals("tbody", element.findElements(By.xpath("./*")).get(0).getTagName(), "table child is tbody");
             int tbodyChildCount = vertical ? 4 : 1;
-            assertEquals(tbodyChildCount, element.findElements(By.xpath(".//*")).get(0).findElements(By.xpath(".//*")).size(),
+            assertEquals(tbodyChildCount, element.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).size(),
                     "tbody has " + tbodyChildCount + " rows");
             int i = 1;
 
-            for (WebElement row : element.findElements(By.xpath(".//*")).get(0).findElements(By.xpath(".//*"))) {
+            for (WebElement row : element.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*"))) {
                 assertEquals("tr", row.getTagName(), "row is tr");
                 int trChildCount = vertical ? 1 : 4;
-                assertEquals(trChildCount, row.findElements(By.xpath(".//*")).size(), "tr has " + trChildCount + " cells");
+                assertEquals(trChildCount, row.findElements(By.xpath("./*")).size(), "tr has " + trChildCount + " cells");
 
-                for (WebElement cell : row.findElements(By.xpath(".//*"))) {
+                for (WebElement cell : row.findElements(By.xpath("./*"))) {
                     assertEquals("td", cell.getTagName(), "cell is td");
 
                     if (i % 2 == 0) {
-                        assertEquals(1, cell.findElements(By.xpath(".//*")).size(), "cell has 1 child");
-                        assertEquals("table", cell.findElements(By.xpath(".//*")).get(0).getTagName(), "cell child is table");
-                        assertEquals(1, cell.findElements(By.xpath(".//*")).get(0).findElements(By.xpath(".//*")).size(), "child table has 1 child");
-                        assertEquals("tbody", cell.findElements(By.xpath(".//*")).get(0).findElements(By.xpath(".//*")).get(0).getTagName(), "group is tbody");
+                        assertEquals(1, cell.findElements(By.xpath("./*")).size(), "cell has 1 child");
+                        assertEquals("table", cell.findElements(By.xpath("./*")).get(0).getTagName(), "cell child is table");
+                        assertEquals(1, cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).size(), "child table has 1 child");
+                        assertEquals("tbody", cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).get(0).getTagName(), "group is tbody");
                         int groupChildCount = vertical ? 3 : 1;
                         assertEquals(groupChildCount,
-                                cell.findElements(By.xpath(".//*")).get(0).findElements(By.xpath(".//*")).get(0).findElements(By.xpath(".//*")).size(),
+                                cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).size(),
                                 "group has " + groupChildCount + " rows");
 
-                        for (WebElement group : cell.findElements(By.xpath(".//*")).get(0).findElements(By.xpath(".//*")).get(0)
-                                .findElements(By.xpath(".//*"))) {
+                        for (WebElement group : cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*"))) {
                             assertEquals("tr", group.getTagName(), "group is tr");
 
-                            for (WebElement item : group.findElements(By.xpath(".//*"))) {
+                            for (WebElement item : group.findElements(By.xpath("./*"))) {
                                 assertEquals("td", item.getTagName(), "item is td");
-                                assertEquals(2, item.findElements(By.xpath(".//*")).size(), "td has 2 children");
-                                assertEquals("input", item.findElements(By.xpath(".//*")).get(0).getTagName(), "first child is input");
-                                assertEquals("label", item.findElements(By.xpath(".//*")).get(1).getTagName(), "second child is label");
+                                assertEquals(2, item.findElements(By.xpath("./*")).size(), "td has 2 children");
+                                assertEquals("input", item.findElements(By.xpath("./*")).get(0).getTagName(), "first child is input");
+                                assertEquals("label", item.findElements(By.xpath("./*")).get(1).getTagName(), "second child is label");
                                 inputFields++;
                             }
                         }
                     } else {
-                        assertEquals(0, cell.findElements(By.xpath(".//*")).size(), "cell has no children");
+                        assertEquals(0, cell.findElements(By.xpath("./*")).size(), "cell has no children");
                     }
 
                     i++;
@@ -169,18 +168,18 @@ public class Spec1574IT extends BaseITNG {
             }
         } else {
             assertEquals("ul", element.getTagName(), "element is ul");
-            assertEquals(2, element.findElements(By.xpath(".//*")).size(), "ul has 2 children");
+            assertEquals(2, element.findElements(By.xpath("./*")).size(), "ul has 2 children");
 
-            for (WebElement group : element.findElements(By.xpath(".//*"))) {
+            for (WebElement group : element.findElements(By.xpath("./*"))) {
                 assertEquals("li", group.getTagName(), "group is li");
-                assertEquals(1, group.findElements(By.xpath(".//*")).size(), "li has 1 child");
-                assertEquals("ul", group.findElements(By.xpath(".//*")).get(0).getTagName(), "child is ul");
+                assertEquals(1, group.findElements(By.xpath("./*")).size(), "li has 1 child");
+                assertEquals("ul", group.findElements(By.xpath("./*")).get(0).getTagName(), "child is ul");
 
-                for (WebElement item : group.findElements(By.xpath(".//*")).get(0).findElements(By.xpath(".//*"))) {
+                for (WebElement item : group.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*"))) {
                     assertEquals("li", item.getTagName(), "item is li");
-                    assertEquals(2, item.findElements(By.xpath(".//*")).size(), "li has 2 children");
-                    assertEquals("input", item.findElements(By.xpath(".//*")).get(0).getTagName(), "first child is input");
-                    assertEquals("label", item.findElements(By.xpath(".//*")).get(1).getTagName(), "second child is label");
+                    assertEquals(2, item.findElements(By.xpath("./*")).size(), "li has 2 children");
+                    assertEquals("input", item.findElements(By.xpath("./*")).get(0).getTagName(), "first child is input");
+                    assertEquals("label", item.findElements(By.xpath("./*")).get(1).getTagName(), "second child is label");
                     inputFields++;
                 }
             }
