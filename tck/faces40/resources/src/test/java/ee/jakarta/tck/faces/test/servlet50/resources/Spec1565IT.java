@@ -39,15 +39,15 @@ public class Spec1565IT extends BaseITNG {
         WebPage page = getPage("spec1565IT-HTML5.xhtml");
 
         for (WebElement element : page.findElements(By.tagName("script"))) {
-            assertEquals("", element.getDomAttribute("type"), "Script element has no type attribute");
+            assertEquals(null, element.getDomAttribute("type"), "Script element has no type attribute");
         }
 
         for (WebElement element : page.findElements(By.tagName("link"))) {
-            assertEquals("", element.getDomAttribute("type"), "Link element has no type attribute");
+            assertEquals(null, element.getDomAttribute("type"), "Link element has no type attribute");
         }
 
         for (WebElement element : page.findElements(By.tagName("style"))) {
-            assertEquals("", element.getDomAttribute("type"), "Style element has no type attribute");
+            assertEquals(null, element.getDomAttribute("type"), "Style element has no type attribute");
         }
     }
 

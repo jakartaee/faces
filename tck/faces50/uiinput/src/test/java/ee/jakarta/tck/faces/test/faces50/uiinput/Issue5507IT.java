@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
 package ee.jakarta.tck.faces.test.faces50.uiinput;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -51,8 +52,8 @@ class Issue5507IT extends BaseITNG {
     @FindBy(id = "form2:radio4")
     private WebElement form2Radio4;
 
-  @Test
-  void selectOneRadioStyleClassAttributeRendering() {
+    @Test
+    void selectOneRadioStyleClassAttributeRendering() {
         getPage("issue5507.xhtml");
         assertEquals("someStyleClass", form1Radio1.getDomAttribute("class"));
         assertEquals("someStyleClass", form1Radio2.getDomAttribute("class"));
@@ -60,20 +61,20 @@ class Issue5507IT extends BaseITNG {
         assertEquals("someStyleClass", form1Radio4.getDomAttribute("class"));
         assertEquals("someStyleClass", form2Radio1.getDomAttribute("class"));
         assertEquals("otherStyleClass", form2Radio2.getDomAttribute("class"));
-        assertEquals("", form2Radio3.getDomAttribute("class"));
-        assertEquals("", form2Radio4.getDomAttribute("class"));
+        assertEquals(null, form2Radio3.getDomAttribute("class"));
+        assertEquals(null, form2Radio4.getDomAttribute("class"));
     }
 
-  @Test
-  void selectOneRadioStyleAttributeRendering() {
+    @Test
+    void selectOneRadioStyleAttributeRendering() {
         getPage("issue5507.xhtml");
         assertEquals("accent-color: blue;", form1Radio1.getDomAttribute("style"));
         assertEquals("accent-color: blue;", form1Radio2.getDomAttribute("style"));
         assertEquals("accent-color: blue;", form1Radio3.getDomAttribute("style"));
         assertEquals("accent-color: blue;", form1Radio4.getDomAttribute("style"));
         assertEquals("accent-color: red;", form2Radio1.getDomAttribute("style"));
-        assertEquals("", form2Radio2.getDomAttribute("style"));
-        assertEquals("", form2Radio3.getDomAttribute("style"));
+        assertEquals(null, form2Radio2.getDomAttribute("style"));
+        assertEquals(null, form2Radio3.getDomAttribute("style"));
         assertEquals("accent-color: green;", form2Radio4.getDomAttribute("style"));
     }
 
