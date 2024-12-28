@@ -18,17 +18,17 @@
 
 function buttonpush(target, exec, element, event) {
     try {
-        faces.ajax.request(element, event, { execute: exec, render: target });
+        faces.ajax.request(element, event, {execute: exec, render: target});
     } catch (ex) {
         // Handle errors here
         alert(ex);
     }
     return false;
-}
+} 
 
 function resetpush(element, event) {
     try {
-        faces.ajax.request(element, event, { execute: element.id });
+        faces.ajax.request(element, event, {execute: element.id});
     } catch (ex) {
         // Handle errors here
         alert(ex);
