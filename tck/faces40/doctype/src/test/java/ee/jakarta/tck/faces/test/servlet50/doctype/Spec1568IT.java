@@ -63,7 +63,7 @@ public class Spec1568IT extends BaseITNG {
     }
 
     private static String getDoctype(WebPage page) {
-        return page.getPageSource().split("\n", 2)[0];
+        return (String) page.getWebDriver().getJSExecutor().executeScript("return new XMLSerializer().serializeToString(document.doctype);");
     }
 
 }
