@@ -15,30 +15,51 @@
  */
 package ee.jakarta.tck.faces.test.util.arquillian;
 
+import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.extension.ConditionEvaluationResult;
+import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.htmlunit.DebugOptions;
 import ee.jakarta.tck.faces.test.util.htmlunit.IgnoringIncorrectnessListener;
-import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
 
-@ExtendWith(BaseArquilianRunner.class)
-public abstract class ITBase {
+/**
+ * Use this for HtmlUnit based tests.
+ */
+@ExtendWith(ArquillianExtension.class)
+@TestInstance(Lifecycle.PER_CLASS)
+public abstract class ITBase implements ExecutionCondition {
+
+    @Override
+    public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        if (parseBoolean(System.getProperty("test.selenium"))) {
+            return disabled("Test disabled because 'test.selenium' system property is not set to 'true'");
+        }
+
+        return enabled("Test enabled because 'test.selenium' system property is set to 'true'");
+    }
 
     @ArquillianResource
     protected URL webUrl;
@@ -50,7 +71,7 @@ public abstract class ITBase {
                 .importFrom(new File("target/" + getProperty("finalName") + ".war"))
                 .as(WebArchive.class);
     }
-    
+
     @BeforeEach
     public void setUp() {
         webClient = new WebClient();
