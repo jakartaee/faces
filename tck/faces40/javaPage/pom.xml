@@ -31,20 +31,6 @@
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0 - Java Page</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
-            <artifactId>util</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-  <dependency>
-   <groupId>org.junit.jupiter</groupId>
-   <artifactId>junit-jupiter</artifactId>
-   <version>5.11.4</version>
-   <scope>test</scope>
-  </dependency>
-    </dependencies>
-
     <build>
         <finalName>test-faces40-javaPage</finalName>
     </build>

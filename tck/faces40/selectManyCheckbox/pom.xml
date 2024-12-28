@@ -30,14 +30,6 @@
     <packaging>war</packaging>
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0 - h:selectManyCheckbox</name>
- <dependencies>
-  <dependency>
-   <groupId>org.junit.jupiter</groupId>
-   <artifactId>junit-jupiter</artifactId>
-   <version>5.11.4</version>
-   <scope>test</scope>
-  </dependency>
- </dependencies>
 
     <build>
         <finalName>test-faces40-selectManyCheckbox</finalName>

@@ -41,12 +41,6 @@
             <artifactId>example_jar_with_metadata_complete_true</artifactId>
             <version>${project.version}</version>
         </dependency>
-  <dependency>
-   <groupId>org.junit.jupiter</groupId>
-   <artifactId>junit-jupiter</artifactId>
-   <version>5.11.4</version>
-   <scope>test</scope>
-  </dependency>
     </dependencies>
 
     <build>
