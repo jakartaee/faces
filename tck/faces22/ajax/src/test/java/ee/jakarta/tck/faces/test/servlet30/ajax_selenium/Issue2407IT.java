@@ -30,20 +30,19 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Issue2407IT extends BaseITNG {
 
-  /**
-   * This test verifies that an attribute named 'value' can be successfully updated
-   * from a partial response (over Ajax). 
-   * 
-   * @see AjaxBehavior
+    /**
+     * This test verifies that an attribute named 'value' can be successfully updated from a partial response (over Ajax).
+     * 
+     * @see AjaxBehavior
      * @see HtmlCommandButton#getValue()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2411
-   */
-  @Test
-  void updateAttributeNamedValue() throws Exception {
+     */
+    @Test
+    void updateAttributeNamedValue() throws Exception {
         WebPage page = getPage("attributeNameIsValue.xhtml");
-        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomAttribute("value").equals("foo")));
+        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomProperty("value").equals("foo")));
         WebElement button = page.findElement(By.id("form1:button"));
         button.click();
-        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomAttribute("value").equals("bar")));
+        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomProperty("value").equals("bar")));
     }
 }

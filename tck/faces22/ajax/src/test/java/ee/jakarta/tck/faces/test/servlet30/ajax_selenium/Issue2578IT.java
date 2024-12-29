@@ -30,25 +30,25 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Issue2578IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2582
-   */
-  @Test
-  void ajaxClear() throws Exception {
+     */
+    @Test
+    void ajaxClear() throws Exception {
         WebPage page = getPage("issue2578.xhtml");
 
-      assertEquals(-1, page.findElement(By.id("form:input")).getDomAttribute("value").indexOf("hello"));
+        assertEquals(-1, page.findElement(By.id("form:input")).getDomProperty("value").indexOf("hello"));
 
         WebElement fill = page.findElement(By.id("form:fill"));
         page.guardAjax(fill::click);
 
-        assertTrue(page.findElement(By.id("form:input")).getDomAttribute("value").indexOf("hello") != -1);
+        assertTrue(page.findElement(By.id("form:input")).getDomProperty("value").indexOf("hello") != -1);
 
         WebElement button = page.findElement(By.id("form:clear"));
         page.guardAjax(button::click);
 
-      assertEquals(-1, page.findElement(By.id("form:input")).getDomAttribute("value").indexOf("hello"));
+        assertEquals(-1, page.findElement(By.id("form:input")).getDomProperty("value").indexOf("hello"));
 
     }
 }

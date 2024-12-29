@@ -31,25 +31,25 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Spec1412IT extends BaseITNG {
 
-  /**
-   * @see PartialViewContext#getEvalScripts()
+    /**
+     * @see PartialViewContext#getEvalScripts()
      * @see https://github.com/jakartaee/faces/issues/1412
-   */
-  @Test
-  void spec1412() throws Exception {
+     */
+    @Test
+    void spec1412() throws Exception {
 
         WebPage page = getPage("spec1412.xhtml");
         assertTrue(page.isNotInPage("Success!"));
 
         WebElement button = page.findElement(By.id("form:button"));
 
-      assertEquals("foo", button.getDomAttribute("value"));
+        assertEquals("foo", button.getDomProperty("value"));
 
         page.guardAjax(button::click);
         assertTrue(page.isInPage("Success!"));
 
-        button =  page.findElement(By.id("form:button"));
-      assertEquals("bar", button.getDomAttribute("value"));
+        button = page.findElement(By.id("form:button"));
+        assertEquals("bar", button.getDomProperty("value"));
     }
 
 }

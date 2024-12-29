@@ -45,19 +45,19 @@ class Spec671IT extends BaseITNG {
         assertEquals("true", page.findElement(By.id("param")).getText());
 
         text = page.findElement(By.id("form:input"));
-        assertTrue(text.getDomAttribute("value").isEmpty());
+        assertTrue(text.getDomProperty("value").isEmpty());
 
         text.sendKeys("foo");
         button = page.findElement(By.id("form:button"));
         button.click();
         text = page.findElement(By.id("form:input"));
-        assertEquals("foo", text.getDomAttribute("value"));
+        assertEquals("foo", text.getDomProperty("value"));
 
         text.clear();
         button = page.findElement(By.id("form:button"));
         button.click();
         text = page.findElement(By.id("form:input"));
-        assertTrue(text.getDomAttribute("value").isEmpty());
+        assertTrue(text.getDomProperty("value").isEmpty());
     }
 
 }

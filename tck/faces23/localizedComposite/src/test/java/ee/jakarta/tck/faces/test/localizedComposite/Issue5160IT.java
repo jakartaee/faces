@@ -94,9 +94,9 @@ public class Issue5160IT extends BaseITNG {
         assertEquals(headerText, h1.getText());
 
         WebElement btn1 = page.findElement(By.id("frm:btn"));
-        assertEquals(buttonText, btn1.getDomAttribute("value"));
+        assertEquals(buttonText, btn1.getDomProperty("value"));
 
         WebElement btn2 = page.findElement(By.id("frm:btn1:btn"));
-        assertEquals(compositeButtonText, btn2.getDomAttribute("value"));
+        assertEquals(compositeButtonText, btn2.getDomProperty("value"));
     }
 }

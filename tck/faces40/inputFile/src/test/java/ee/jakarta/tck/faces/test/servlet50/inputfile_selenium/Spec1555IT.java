@@ -67,7 +67,7 @@ class Spec1555IT extends BaseITNG {
         input.sendKeys(file.getAbsolutePath());
 
         page.guardAjax(webDriver.findElement(By.id(form + ":submit"))::click);
-        assertEquals(null, webDriver.findElement(By.id(form + ":input")).getDomAttribute("value"), "Value attribute is NOT set");
+        assertEquals(null, webDriver.findElement(By.id(form + ":input")).getDomProperty("value"), "Value attribute is NOT set");
 
         WebElement messages = webDriver.findElement(By.id("messages"));
 
@@ -114,7 +114,7 @@ class Spec1555IT extends BaseITNG {
         input.sendKeys(files);
         page.guardAjax(webDriver.findElement(By.id(form + ":submit"))::click);
 
-        assertEquals(null, webDriver.findElement(By.id(form + ":input")).getDomAttribute("value"), "Value attribute is NOT set");
+        assertEquals(null, webDriver.findElement(By.id(form + ":input")).getDomProperty("value"), "Value attribute is NOT set");
 
         WebElement messages = webDriver.findElement(By.id("messages"));
         List childElements = messages.findElements(By.cssSelector("*"));

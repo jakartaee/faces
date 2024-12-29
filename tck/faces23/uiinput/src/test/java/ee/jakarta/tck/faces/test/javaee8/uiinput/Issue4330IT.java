@@ -57,13 +57,13 @@ class Issue4330IT extends BaseITNG {
         hack = page.findElement(By.id("form:hack"));
         submit = page.findElement(By.id("form:submit"));
 
-        assertTrue(parseBoolean(disabledRadio.getDomAttribute("disabled")));
-        assertTrue(parseBoolean(disabledCheckbox.getDomAttribute("disabled")));
+        assertTrue(parseBoolean(disabledRadio.getDomProperty("disabled")));
+        assertTrue(parseBoolean(disabledCheckbox.getDomProperty("disabled")));
 
         hack.click();
 
-        assertFalse(parseBoolean(disabledRadio.getDomAttribute("disabled")));
-        assertFalse(parseBoolean(disabledCheckbox.getDomAttribute("disabled")));
+        assertFalse(parseBoolean(disabledRadio.getDomProperty("disabled")));
+        assertFalse(parseBoolean(disabledCheckbox.getDomProperty("disabled")));
 
         disabledRadio.click();
         enabledCheckbox.click();
