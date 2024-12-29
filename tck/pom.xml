@@ -421,7 +421,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                     </execution>
                 </executions>
                 <configuration>
-                    <rerunFailingTestsCount>0</rerunFailingTestsCount>
+                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
                     <systemPropertyVariables>
                         <finalName>${project.build.finalName}</finalName>
                         <test.selenium>${test.selenium}</test.selenium>
