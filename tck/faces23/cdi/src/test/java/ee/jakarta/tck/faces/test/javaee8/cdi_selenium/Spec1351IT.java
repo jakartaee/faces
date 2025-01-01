@@ -16,22 +16,24 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import jakarta.faces.component.behavior.FacesBehavior;
 import jakarta.inject.Inject;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 
-public class Spec1351IT extends BaseITNG {
+class Spec1351IT extends BaseITNG {
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see FacesBehavior
      * @see https://github.com/jakartaee/faces/issues/1351
-     */
-    @Test
-    public void testInjectValidator() throws Exception {
+   */
+  @Test
+  void injectValidator() throws Exception {
         WebPage page = getPage("faces/injectBehavior.xhtml");
         page.waitForCondition(webDriver -> page.isInPage("injectBehavior"));
     }

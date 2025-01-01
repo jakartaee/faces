@@ -17,6 +17,7 @@
 package ee.jakarta.tck.faces.test.javaee7.el;
 
 import java.util.List;
+
 import jakarta.enterprise.context.Dependent;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;

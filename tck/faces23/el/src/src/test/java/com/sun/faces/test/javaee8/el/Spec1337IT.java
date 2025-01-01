@@ -31,7 +31,6 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -39,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.el.ResourceBundleELResolver;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Spec1337IT {
 
     @ArquillianResource

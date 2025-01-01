@@ -19,10 +19,9 @@ package ee.jakarta.tck.faces.test.javaee8.cdi;
 import java.util.Map;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.annotation.RequestMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import jakarta.faces.annotation.RequestMap;
 
 @Named
 @RequestScoped

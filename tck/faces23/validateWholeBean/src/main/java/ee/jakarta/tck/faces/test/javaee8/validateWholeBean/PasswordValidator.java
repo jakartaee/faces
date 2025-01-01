@@ -16,7 +16,6 @@
 
 package ee.jakarta.tck.faces.test.javaee8.validateWholeBean;
 
-import java.util.logging.Logger;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 

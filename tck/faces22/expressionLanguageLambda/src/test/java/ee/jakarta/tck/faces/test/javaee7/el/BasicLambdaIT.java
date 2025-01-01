@@ -19,21 +19,23 @@ package ee.jakarta.tck.faces.test.javaee7.el;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.application.Application;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
@@ -41,9 +43,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
-import jakarta.faces.application.Application;
-
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class BasicLambdaIT {
 
     @ArquillianResource
@@ -57,22 +57,22 @@ public class BasicLambdaIT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see Application#getELResolver()
+  /**
+   * @see Application#getELResolver()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3032
-     */
-    @Test
-    public void testIndex() throws Exception {
+   */
+  @Test
+  void index() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
         HtmlElement out = page.getHtmlElementById("output");
         assertEquals("20", out.asNormalizedText());
@@ -92,12 +92,12 @@ public class BasicLambdaIT {
         assertEquals("60", out.asNormalizedText());
     }
 
-    /**
-     * @see Application#getELResolver()
+  /**
+   * @see Application#getELResolver()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3032
-     */
-    @Test
-    public void testBookTable() throws Exception {
+   */
+  @Test
+  void bookTable() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/bookTable.xhtml");
         assertTrue(page.asNormalizedText().contains("At Swim Two Birds"));
         assertTrue(page.asNormalizedText().contains("The Third Policeman"));

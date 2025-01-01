@@ -16,24 +16,26 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
-import org.openqa.selenium.WebElement;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import jakarta.faces.component.behavior.AjaxBehavior;
 
-public class Issue2636IT extends BaseITNG {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 
-    /**
-     * @see AjaxBehavior
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Issue2636IT extends BaseITNG {
+
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2640
-     */
-    @Test
-    public void testCommandLinksInRepeat() throws Exception {
+   */
+  @Test
+  void commandLinksInRepeat() throws Exception {
         WebPage page = getPage("issue2636.xhtml");
         List<WebElement> anchors = page.getAnchors();
 

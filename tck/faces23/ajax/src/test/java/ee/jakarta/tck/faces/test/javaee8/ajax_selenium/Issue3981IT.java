@@ -17,35 +17,34 @@
 
 package ee.jakarta.tck.faces.test.javaee8.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.html.HtmlOutputText;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import static org.junit.Assert.assertTrue;
 
+class Issue3981IT extends BaseITNG {
 
-public class Issue3981IT extends BaseITNG {
-
-    /**
-     * @see HtmlOutputText#setEscape(boolean)
+  /**
+   * @see HtmlOutputText#setEscape(boolean)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3985
-     */
-    @Test
-    public void testIssue3981() throws Exception {
+   */
+  @Test
+  void issue3981() throws Exception {
         WebPage page = getPage("issue3981.xhtml");
         assertTrue(page.findElement(By.id("form:result")).getText().trim().isEmpty());
 
         WebElement button = page.findElement(By.id("form:button"));
         page.guardAjax(button::click);
 
-        assertTrue(page.findElement(By.id("form:result")).getText().trim().equals("Success!"));
+      assertEquals("Success!", page.findElement(By.id("form:result")).getText().trim());
     }
 
 }

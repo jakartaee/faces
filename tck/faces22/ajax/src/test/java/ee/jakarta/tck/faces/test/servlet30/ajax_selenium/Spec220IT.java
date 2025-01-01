@@ -16,26 +16,28 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedTextInput;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.render.ResponseStateManager;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static junit.framework.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.ExtendedTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Spec220IT extends BaseITNG {
+class Spec220IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see ResponseStateManager#VIEW_STATE_PARAM
      * @see https://github.com/jakartaee/faces/issues/220
-     */
-    @Test
-    public void testViewState() throws Exception {
+   */
+  @Test
+  void viewState() throws Exception {
         WebPage page = getPage("viewState1.xhtml");
         ExtendedTextInput textField = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("firstName")));
         textField.setValue("ajaxFirstName");

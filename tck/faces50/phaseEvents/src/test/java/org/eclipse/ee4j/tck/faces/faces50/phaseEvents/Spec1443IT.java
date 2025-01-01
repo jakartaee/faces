@@ -15,29 +15,29 @@
  */
 package org.eclipse.ee4j.tck.faces.faces50.phaseEvents;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
 import jakarta.faces.event.AfterPhase;
 import jakarta.faces.event.BeforePhase;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Spec1443IT extends BaseITNG {
+class Spec1443IT extends BaseITNG {
 
-    /**
-     * @see AfterPhase
+  /**
+   * @see AfterPhase
      * @see BeforePhase
      * @see https://github.com/jakartaee/faces/issues/1443
-     */
-    @Test
-    public void testObservedPhases() {
+   */
+  @Test
+  void observedPhases() {
         WebPage page = getPage("spec1443.xhtml");
         WebElement observedPhasesOnInitialRequest = page.findElement(By.id("observedPhases"));
         assertEquals(List.of(

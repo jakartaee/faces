@@ -16,31 +16,30 @@
  */
 package ee.jakarta.tck.faces.test.javaee8.uiinput_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UISelectMany;
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+class Issue5081IT extends BaseITNG {
 
-public class Issue5081IT extends BaseITNG {
-
-    /**
-     * @see UISelectMany
+  /**
+   * @see UISelectMany
      * @see AjaxBehavior
      * @see UIInput#EMPTY_STRING_AS_NULL_PARAM_NAME
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5081
-     */
-    @Test
-    public void testIssue4734() throws Exception {
+   */
+  @Test
+  void issue4734() throws Exception {
         WebPage page = getPage("issue5081.xhtml");
 
         ExtendedWebDriver webDriver = getWebDriver();
@@ -56,7 +55,7 @@ public class Issue5081IT extends BaseITNG {
         page.waitForCondition(webDriver1 ->
                 page.getPageSource().contains("Validation Error"));
         WebElement message = webDriver.findElement(By.id("form:message_for_selectmany"));
-        assertEquals("There is a required message", "form:selectmany: Validation Error: Value is required.", message.getText());
+        assertEquals("form:selectmany: Validation Error: Value is required.", message.getText(), "There is a required message");
 
         WebElement input2 = webDriver.findElement(By.id("form:input"));
         page.guardAjax(() -> {
@@ -66,7 +65,7 @@ public class Issue5081IT extends BaseITNG {
         submit = webDriver.findElement(By.id("form:submit"));
         page.guardAjax(submit::click);
         message = webDriver.findElement(By.id("form:message_for_selectmany"));
-        assertEquals("There is a still required message", "form:selectmany: Validation Error: Value is required.", message.getText());
+        assertEquals("form:selectmany: Validation Error: Value is required.", message.getText(), "There is a still required message");
     }
 
 }

@@ -16,22 +16,24 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2969IT extends BaseITNG {
+class Issue2969IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2973
-     */
-    @Test
-    public void testAjaxProjectStage() throws Exception {
+   */
+  @Test
+  void ajaxProjectStage() throws Exception {
         WebPage page = getPage("ajaxProjectStage.xhtml");
         String stage = page.findElement(By.id("stage")).getText();
         assertTrue(stage.equals("Production") || stage.equals("Development")); 

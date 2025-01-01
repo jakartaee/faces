@@ -16,23 +16,25 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2574IT extends BaseITNG {
+class Issue2574IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2578
-     */
-    @Test
-    public void testOtherScriptType() throws Exception {
+   */
+  @Test
+  void otherScriptType() throws Exception {
         WebPage page = getPage("issue2574.xhtml");
         WebElement button1 = page.findElement(By.id("form:refresh"));
         page.guardAjax(button1::click);

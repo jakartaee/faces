@@ -16,27 +16,28 @@
  */
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.component.UIViewParameter;
+import jakarta.faces.component.behavior.AjaxBehavior;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.component.UIViewParameter;
-import jakarta.faces.component.behavior.AjaxBehavior;
 
-@RunWith(Arquillian.class)
-public class Issue4734IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Issue4734IT extends ITBase {
 
-    /**
-     * @see UIViewParameter
+  /**
+   * @see UIViewParameter
      * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4734
-     */
-    @Test
-    public void testIssue4734() throws Exception {
+   */
+  @Test
+  void issue4734() throws Exception {
         HtmlPage page = getPage("issue4734.xhtml");
         HtmlSubmitInput submit = page.getHtmlElementById("form:submit");
 

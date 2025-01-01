@@ -16,28 +16,30 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi_selenium;
 
+import jakarta.faces.annotation.FlowMap;
+import jakarta.inject.Inject;
+
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.annotation.FlowMap;
-import jakarta.inject.Inject;
-import org.junit.Test;
-import org.openqa.selenium.By;
 
 /**
  * Tests the availability of the flow map via injection
  *
  */
 
-public class Spec1386IT extends BaseITNG {
+class Spec1386IT extends BaseITNG {
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see FlowMap
      * @see https://github.com/jakartaee/faces/issues/1386
-     */
-    @Test
-    public void testInjectFlowMap() throws Exception {
+   */
+  @Test
+  void injectFlowMap() throws Exception {
         // Start on initial (non-flow) view
         WebPage page = getPage("injectFlowMap.xhtml");
 

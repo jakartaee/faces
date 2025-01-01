@@ -16,10 +16,10 @@
 
 package ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.simple;
 
-import ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.PasswordHolder;
-
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+
+import ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.PasswordHolder;
 
 class PasswordValidator implements ConstraintValidator<Password, PasswordHolder> {
 

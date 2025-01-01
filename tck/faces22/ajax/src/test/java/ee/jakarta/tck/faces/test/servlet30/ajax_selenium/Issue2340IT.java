@@ -16,27 +16,29 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.html.HtmlCommandLink;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 
-public class Issue2340IT extends BaseITNG {
+class Issue2340IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see HtmlCommandLink
      * @see WebElementOneRadio
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2344
-     */
-    @Test
-    public void testCommandLinkRadio() throws Exception {
+   */
+  @Test
+  void commandLinkRadio() throws Exception {
         WebPage page = getPage("commandLinkRadio.xhtml");
         WebElement anchor = page.findElement(By.id("testLink"));
         page.guardAjax(anchor::click);

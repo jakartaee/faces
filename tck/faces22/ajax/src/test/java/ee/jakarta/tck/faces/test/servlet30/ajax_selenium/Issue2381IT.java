@@ -16,28 +16,30 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.html.HtmlBody;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2381IT extends BaseITNG {
+class Issue2381IT extends BaseITNG {
 
-    /**
-     * This test verifies that the page contains updated information from an
-     * Ajax response.  The response is updated in <code>UpdateBean</code>.
-     * 
-     * @see AjaxBehavior
+  /**
+   * This test verifies that the page contains updated information from an
+   * Ajax response.  The response is updated in <code>UpdateBean</code>.
+   * 
+   * @see AjaxBehavior
      * @see HtmlBody
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2385
-     */
-    @Test
-    public void testBodyAttributesAfterUpdate() throws Exception {
+   */
+  @Test
+  void bodyAttributesAfterUpdate() throws Exception {
         WebPage page = getPage("updateBody.xhtml");
         WebElement button = page.findElement(By.id("form1:bodytag"));
         page.guardAjax(button::click);

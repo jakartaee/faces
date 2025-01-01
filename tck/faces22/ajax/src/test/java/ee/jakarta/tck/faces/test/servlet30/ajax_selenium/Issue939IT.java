@@ -16,26 +16,29 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue939IT extends BaseITNG {
+class Issue939IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/943
-     */
-    @Test
-    public void testCdataEscape1() throws Exception {
+   */
+  @Test
+  void cdataEscape1() throws Exception {
         WebPage page = getPage("issue939.xhtml");
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("")); 
-        assertTrue(page.findElement(By.id("form1:in1")).getText().equals("")); 
+      assertEquals("", page.findElement(By.id("form1:out1")).getText());
+      assertEquals("", page.findElement(By.id("form1:in1")).getText()); 
 
         WebElement in1 = page.findElement(By.id("form1:in1"));
         in1.sendKeys("]]>");
@@ -43,17 +46,17 @@ public class Issue939IT extends BaseITNG {
         // Submit the ajax request
         WebElement button1 = page.findElement(By.id("form1:button1"));
         page.guardAjax(button1::click);
-        
 
-        // Check that the ajax request succeeds
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("]]>")); 
+
+      // Check that the ajax request succeeds
+      assertEquals("]]>", page.findElement(By.id("form1:out1")).getText()); 
     }
 
-    @Test
-    public void testCdataEscape2() throws Exception {
+  @Test
+  void cdataEscape2() throws Exception {
         WebPage page = getPage("issue939.xhtml");
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("")); 
-        assertTrue(page.findElement(By.id("form1:in1")).getText().equals("")); 
+      assertEquals("", page.findElement(By.id("form1:out1")).getText());
+      assertEquals("", page.findElement(By.id("form1:in1")).getText()); 
 
         WebElement in1 = page.findElement(By.id("form1:in1"));
         in1.sendKeys("<!");
@@ -61,17 +64,17 @@ public class Issue939IT extends BaseITNG {
         // Submit the ajax request
         WebElement button1 = page.findElement(By.id("form1:button1"));
         page.guardAjax(button1::click);
-        
 
-        // Check that the ajax request succeeds
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("<!")); 
+
+      // Check that the ajax request succeeds
+      assertEquals("<!", page.findElement(By.id("form1:out1")).getText()); 
     }
 
-    @Test
-    public void testCdataEscape3() throws Exception {
+  @Test
+  void cdataEscape3() throws Exception {
         WebPage page = getPage("issue939.xhtml");
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("")); 
-        assertTrue(page.findElement(By.id("form1:in1")).getText().equals("")); 
+      assertEquals("", page.findElement(By.id("form1:out1")).getText());
+      assertEquals("", page.findElement(By.id("form1:in1")).getText()); 
 
         WebElement in1 = page.findElement(By.id("form1:in1"));
         in1.sendKeys("]");
@@ -79,17 +82,17 @@ public class Issue939IT extends BaseITNG {
         // Submit the ajax request
         WebElement button1 = page.findElement(By.id("form1:button1"));
         page.guardAjax(button1::click);
-        
 
-        // Check that the ajax request succeeds
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("]")); 
+
+      // Check that the ajax request succeeds
+      assertEquals("]", page.findElement(By.id("form1:out1")).getText()); 
     }
 
-    @Test
-    public void testCdataEscape4() throws Exception {
+  @Test
+  void cdataEscape4() throws Exception {
         WebPage page = getPage("issue939.xhtml");
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("")); 
-        assertTrue(page.findElement(By.id("form1:in1")).getText().equals("")); 
+      assertEquals("", page.findElement(By.id("form1:out1")).getText());
+      assertEquals("", page.findElement(By.id("form1:in1")).getText()); 
 
         WebElement in1 = page.findElement(By.id("form1:in1"));
         in1.sendKeys("<![CDATA[ ]]>");
@@ -97,9 +100,9 @@ public class Issue939IT extends BaseITNG {
         // Submit the ajax request
         WebElement button1 = page.findElement(By.id("form1:button1"));
         page.guardAjax(button1::click);
-        
 
-        // Check that the ajax request succeeds
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("<![CDATA[ ]]>")); 
+
+      // Check that the ajax request succeeds
+      assertEquals("<![CDATA[ ]]>", page.findElement(By.id("form1:out1")).getText()); 
     }
 }

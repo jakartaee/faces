@@ -18,29 +18,29 @@ package ee.jakarta.tck.faces.test.javaee7.cdimultitenantsetstccl.cdimultitenants
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.FactoryFinder;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import jakarta.faces.FactoryFinder;
-
-@Ignore("Because this is Mojarra specific: https://github.com/jakartaee/faces/issues/1679")
-@RunWith(Arquillian.class)
+@Disabled("Because this is Mojarra specific: https://github.com/jakartaee/faces/issues/1679")
+@ExtendWith(ArquillianExtension.class)
 public class Issue3341IT {
 
     @ArquillianResource
@@ -54,28 +54,28 @@ public class Issue3341IT {
                 .as(WebArchive.class);
     }
 
-    /**
-     * Setup before testing.
-     */
-    @Before
-    public void setUp() {
+  /**
+   * Setup before testing.
+   */
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    /**
-     * Tear down after testing.
-     */
-    @After
-    public void tearDown() {
+  /**
+   * Tear down after testing.
+   */
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see FactoryFinder
+  /**
+   * @see FactoryFinder
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3345
-     */
-    @Test
-    public void testTCCLReplacementResilience() throws Exception {
+   */
+  @Test
+  void tcclReplacementResilience() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
 
         String pageText = page.getBody().asNormalizedText();

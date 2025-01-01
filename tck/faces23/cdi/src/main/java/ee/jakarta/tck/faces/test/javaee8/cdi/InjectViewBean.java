@@ -17,10 +17,9 @@
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.component.UIViewRoot;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import jakarta.faces.component.UIViewRoot;
 
 @Named(value = "injectViewBean")
 @ApplicationScoped

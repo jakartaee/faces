@@ -17,12 +17,16 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.component.UISelectItem;
+import jakarta.faces.component.html.HtmlSelectManyCheckbox;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
@@ -31,19 +35,17 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.component.UISelectItem;
-import jakarta.faces.component.html.HtmlSelectManyCheckbox;
 
-@RunWith(Arquillian.class)
-public class Issue4330IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Issue4330IT extends ITBase {
 
-    /**
-     * @see HtmlSelectManyCheckbox
+  /**
+   * @see HtmlSelectManyCheckbox
      * @see UISelectItem#isItemDisabled()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4330
-     */
-    @Test
-    public void testIssue4330() throws Exception {
+   */
+  @Test
+  void issue4330() throws Exception {
         HtmlPage page;
         HtmlRadioButtonInput disabledRadio;
         HtmlCheckBoxInput enabledCheckbox;
@@ -73,7 +75,7 @@ public class Issue4330IT extends ITBase {
         disabledCheckbox.setChecked(true);
 
         page = submit.click();
-        assertTrue(page.getHtmlElementById("form:result").asNormalizedText().equals("[enabled]")); // Thus not "disabled[enabled, disabled]"
+      assertEquals("[enabled]", page.getHtmlElementById("form:result").asNormalizedText()); // Thus not "disabled[enabled, disabled]"
     }
 
 }

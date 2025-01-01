@@ -18,27 +18,27 @@ package ee.jakarta.tck.faces.test.servlet50.doctype;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.component.UIViewRoot;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
-import jakarta.faces.component.UIViewRoot;
-
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Spec1568IT {
 
     @ArquillianResource
@@ -52,47 +52,47 @@ public class Spec1568IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see UIViewRoot#getDoctype()
+  /**
+   * @see UIViewRoot#getDoctype()
      * @see https://github.com/jakartaee/faces/issues/1568
-     */
-    @Test
-    public void testHTML5() throws Exception {
+   */
+  @Test
+  void html5() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML5.xhtml");
 
-        assertEquals("Page is using HTML5 doctype", "<!DOCTYPE html>", getDoctype(page));
+        assertEquals("<!DOCTYPE html>", getDoctype(page), "Page is using HTML5 doctype");
     }
 
-    /**
-     * @see UIViewRoot#getDoctype()
+  /**
+   * @see UIViewRoot#getDoctype()
      * @see https://github.com/jakartaee/faces/issues/1568
-     */
-    @Test
-    public void testHTML4Public() throws Exception {
+   */
+  @Test
+  void html4Public() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML4-public.xhtml");
 
-        assertEquals("Page is using XHTML4 transitional public doctype", "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">", getDoctype(page));
+        assertEquals("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">", getDoctype(page), "Page is using XHTML4 transitional public doctype");
     }
 
-    /**
-     * @see UIViewRoot#getDoctype()
+  /**
+   * @see UIViewRoot#getDoctype()
      * @see https://github.com/jakartaee/faces/issues/1568
-     */
-    @Test
-    public void testHTML4System() throws Exception {
+   */
+  @Test
+  void html4System() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec1568IT-HTML4-system.xhtml");
 
-        assertEquals("Page is using XHTML4 strict system doctype", "<!DOCTYPE html SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">", getDoctype(page));
+        assertEquals("<!DOCTYPE html SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">", getDoctype(page), "Page is using XHTML4 strict system doctype");
     }
 
     private static String getDoctype(HtmlPage page) {

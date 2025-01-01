@@ -16,26 +16,28 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * @author Manfred Riem (manfred.riem@oracle.com)
  */
-public class Issue2041IT extends BaseITNG {
+class Issue2041IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2045
-     */
-    @Test
-    public void testIssue2041() throws Exception {
+   */
+  @Test
+  void issue2041() throws Exception {
         WebPage page = getPage("issue2041.xhtml");
 
         assertTrue(page.isInPage("PAGE 1 BEGIN"));

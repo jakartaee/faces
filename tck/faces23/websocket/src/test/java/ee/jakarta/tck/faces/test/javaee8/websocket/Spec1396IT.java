@@ -17,10 +17,12 @@
 package ee.jakarta.tck.faces.test.javaee8.websocket;
 
 import static java.time.Duration.ofSeconds;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import jakarta.faces.component.UIWebsocket;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -28,30 +30,29 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.UIWebsocket;
 
 /**
  * NOTE: all websocket related tests must be executed from a SINGLE test class.
  * Otherwise the push will seem to hang/freeze when executed in a next class. This is probably a selenium webdriver bug.
  */
-public class Spec1396IT extends BaseITNG {
+class Spec1396IT extends BaseITNG {
 
-    /**
-     * @see UIWebsocket
+  /**
+   * @see UIWebsocket
      * @see https://github.com/jakartaee/faces/issues/1396
-     */
-    @Test
-    public void testEnableWebsocketEndpoint() throws Exception {
+   */
+  @Test
+  void enableWebsocketEndpoint() throws Exception {
         WebPage page = getPage("spec1396EnableWebsocketEndpoint.xhtml");
         assertEquals("true", page.findElement(By.id("param")).getText());
     }
 
-    /**
-     * @see UIWebsocket
+  /**
+   * @see UIWebsocket
      * @see https://github.com/jakartaee/faces/issues/1396
-     */
-    @Test
-    public void testDefaultWebsocket() throws Exception {
+   */
+  @Test
+  void defaultWebsocket() throws Exception {
         WebPage page = getPage("spec1396DefaultWebsocket.xhtml");
 
         String pageSource = page.getPageSource();
@@ -66,12 +67,12 @@ public class Spec1396IT extends BaseITNG {
         waitUntilWebsocketIsPushed(getWebDriver(), page);
     }
 
-    /**
-     * @see UIWebsocket#setUser(java.io.Serializable)
+  /**
+   * @see UIWebsocket#setUser(java.io.Serializable)
      * @see https://github.com/jakartaee/faces/issues/1396
-     */
-    @Test
-    public void testUserScopedWebsocket() throws Exception {
+   */
+  @Test
+  void userScopedWebsocket() throws Exception {
         WebPage page = getPage("spec1396UserScopedWebsocket.xhtml");
 
         String pageSource = page.getPageSource();
@@ -86,12 +87,12 @@ public class Spec1396IT extends BaseITNG {
         waitUntilWebsocketIsPushed(getWebDriver(), page);
     }
 
-    /**
-     * @see UIWebsocket#setScope(String)
+  /**
+   * @see UIWebsocket#setScope(String)
      * @see https://github.com/jakartaee/faces/issues/1396
-     */
-    @Test
-    public void testViewScopedWebsocket() throws Exception {
+   */
+  @Test
+  void viewScopedWebsocket() throws Exception {
         WebPage page = getPage("spec1396ViewScopedWebsocket.xhtml");
 
         String pageSource = page.getPageSource();
@@ -106,12 +107,12 @@ public class Spec1396IT extends BaseITNG {
         waitUntilWebsocketIsPushed(getWebDriver(), page);
     }
 
-    /**
-     * @see UIWebsocket
+  /**
+   * @see UIWebsocket
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4332
-     */
-    @Test
-    public void testWebsocketAfterPostback() throws Exception {
+   */
+  @Test
+  void websocketAfterPostback() throws Exception {
         WebPage page = getPage("issue4332.xhtml");
 
         String pageSource = page.getPageSource();

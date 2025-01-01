@@ -16,23 +16,25 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue3020IT extends BaseITNG {
+class Issue3020IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3024
-     */
-    @Test
-    public void testDelayPositive() throws Exception {
+   */
+  @Test
+  void delayPositive() throws Exception {
         WebPage page = getPage("issue3020Positive.xhtml");
 
         WebElement in1 = page.findElement(By.id("input"));
@@ -44,12 +46,12 @@ public class Issue3020IT extends BaseITNG {
         assertTrue(page.findElement(By.id("result")).getText().contains("aaaaaaaaaa"));
     }
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3024
-     */
-    @Test
-    public void testDelayNegative() throws Exception {
+   */
+  @Test
+  void delayNegative() throws Exception {
         WebPage page = getPage("issue3020Negative.xhtml");
 
         WebElement in1 = page.findElement(By.id("input"));

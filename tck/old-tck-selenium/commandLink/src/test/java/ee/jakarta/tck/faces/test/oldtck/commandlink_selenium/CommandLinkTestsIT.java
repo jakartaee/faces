@@ -16,23 +16,22 @@
 
 package ee.jakarta.tck.faces.test.oldtck.commandlink_selenium;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class CommandLinkTestsIT extends BaseITNG {
+class CommandLinkTestsIT extends BaseITNG {
 
   /**
    * @testName: clinkRenderEncodeTest
@@ -73,7 +72,7 @@ public class CommandLinkTestsIT extends BaseITNG {
    * @since 1.2
    */
   @Test
-  public void clinkRenderEncodeTest() throws Exception {
+  void clinkRenderEncodeTest() throws Exception {
 
     WebPage page = getPage("faces/encodetest_facelet.xhtml");
 
@@ -117,7 +116,7 @@ public class CommandLinkTestsIT extends BaseITNG {
    * @since 1.2
    */
   @Test
-  public void clinkRenderDecodeTest() throws Exception {
+  void clinkRenderDecodeTest() throws Exception {
     WebPage page = getPage("faces/decodetest_facelet.xhtml");
 
     WebElement result = page.findElement(By.id("result"));
@@ -143,7 +142,7 @@ public class CommandLinkTestsIT extends BaseITNG {
    * @since 1.2
    */
   @Test
-  public void clinkRenderPassthroughTest() throws Exception {
+  void clinkRenderPassthroughTest() throws Exception {
 
     TreeMap<String, String> control = new TreeMap<String, String>();
     control.put("accesskey", "U");

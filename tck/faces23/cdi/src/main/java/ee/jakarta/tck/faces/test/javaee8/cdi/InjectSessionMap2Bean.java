@@ -20,10 +20,9 @@ import java.io.Serializable;
 import java.util.Map;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.faces.annotation.SessionMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import jakarta.faces.annotation.SessionMap;
 
 @Named(value = "injectSessionMap2Bean")
 @ApplicationScoped

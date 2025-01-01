@@ -16,27 +16,27 @@
 
 package ee.jakarta.tck.faces.test.oldtck.ajax_selenium;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.openqa.selenium.Keys.TAB;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class AjaxTestsIT extends BaseITNG {
+class AjaxTestsIT extends BaseITNG {
 
 
-    @Test
-    public void ajaxTagWrappingTest() throws Exception {
+  @Test
+  void ajaxTagWrappingTest() throws Exception {
       WebPage page = getPage("faces/tagwrapper/ajaxTagWrap.xhtml");
 
       // First we'll check the first page was output correctly
@@ -64,7 +64,7 @@ public class AjaxTestsIT extends BaseITNG {
           intext.sendKeys("test");
           intext.sendKeys(TAB); // click out of intext to force onchange event
       });
-      assertTrue(page.findElement(By.id("outtext")).getText().equals("test"));
+      assertEquals("test", page.findElement(By.id("outtext")).getText());
   
       // Check the checkbox
       WebElement checkbox = page.findElement(By.id("checkbox"));
@@ -73,6 +73,7 @@ public class AjaxTestsIT extends BaseITNG {
       assertEquals("true", span2.getText());
   
     }// End ajaxAllKeywordTest
+
 
   /**
    * @testName: ajaxAllKeywordTest
@@ -83,7 +84,7 @@ public class AjaxTestsIT extends BaseITNG {
    * @since 2.0
    */
   @Test
-  public void ajaxAllKeywordTest() throws Exception {
+  void ajaxAllKeywordTest() throws Exception {
 
     String EXPECTED = "testtext";
 
@@ -99,6 +100,7 @@ public class AjaxTestsIT extends BaseITNG {
 
   }// End ajaxAllKeywordTest
 
+
   /**
    * @testName: ajaxThisKeywordTest
    * @assertion_ids: PENDING
@@ -108,7 +110,7 @@ public class AjaxTestsIT extends BaseITNG {
    * @since 2.0
    */
   @Test
-  public void ajaxThisKeywordTest() throws Exception {
+  void ajaxThisKeywordTest() throws Exception {
 
     String EXPECTED = "testtext";
 
@@ -132,7 +134,7 @@ public class AjaxTestsIT extends BaseITNG {
    * @since 2.0
    */
   @Test
-  public void ajaxFormKeywordTest() throws Exception {
+  void ajaxFormKeywordTest() throws Exception {
 
     String EXPECTED = "testtext";
 
@@ -147,7 +149,7 @@ public class AjaxTestsIT extends BaseITNG {
     this.validateKeyword(urls, buttonId, spanId, EXPECTED);
   } // End ajaxThisKeywordTest
 
-   /**
+  /**
    * @testName: ajaxNoneKeywordTest
    * @assertion_ids: PENDING
    * @test_Strategy: Unsure the keyword 'none' works correctly with the f:ajax
@@ -156,7 +158,7 @@ public class AjaxTestsIT extends BaseITNG {
    * @since 2.0
    */
   @Test
-  public void ajaxNoneKeywordTest() throws Exception {
+  void ajaxNoneKeywordTest() throws Exception {
 
     String EXPECTED = "testtext";
 
@@ -181,9 +183,9 @@ public class AjaxTestsIT extends BaseITNG {
    * 
    * @since 2.0
    */
-  @Ignore("Skipped in  Old TCK for EE10")
+  @Disabled("Skipped in  Old TCK for EE10")
   @Test
-  public void ajaxPDLResourceTest() throws Exception {
+  void ajaxPDLResourceTest() throws Exception {
 
     WebPage page = getPage("faces/jsresource/pdlApproach.xhtml");
     WebElement script = page.findElement(By.tagName("script"));

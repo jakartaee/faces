@@ -16,21 +16,23 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import jakarta.faces.component.behavior.AjaxBehavior;
+
+import org.junit.jupiter.api.Test;
+
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+class Issue2443IT extends BaseITNG {
 
-public class Issue2443IT extends BaseITNG {
-
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2447
-     */
-    @Test
-    public void testQuotesInScript() throws Exception {
+   */
+  @Test
+  void quotesInScript() throws Exception {
         String expectedText = '"' + "<div></div>" + '"' + ";";
         WebPage page = getPage("scriptQuote.xhtml");
         assertTrue(page.isInPage(expectedText));

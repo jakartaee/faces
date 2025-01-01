@@ -16,28 +16,28 @@
 
 package ee.jakarta.tck.faces.test.servlet50.ajax_selenium;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.ExtendedTextInput;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
-import org.openqa.selenium.By;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-public class Spec1567IT extends BaseITNG {
+class Spec1567IT extends BaseITNG {
 
 
-
-    /**
-     * @see AjaxBehavior#getExecute()
+  /**
+   * @see AjaxBehavior#getExecute()
      * @see UIComponent#getCompositeComponentParent(UIComponent)
      * @see https://github.com/jakartaee/faces/issues/1567
-     */
-    @Test
-    public void test() throws Exception {
+   */
+  @Test
+  void test() throws Exception {
         WebPage page = getPage("spec1567IT.xhtml");
 
         // fill form1 input1
@@ -52,10 +52,10 @@ public class Spec1567IT extends BaseITNG {
         ExtendedTextInput input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form1:inputs:input3")));
 
         String messages = page.findElement(By.id("form1:messages")).getText();
-        assertEquals("input1 is filled with 1", "1", input1.getValue());
-        assertEquals("input2 is empty", "", input2.getValue());
-        assertEquals("input3 is empty", "", input3.getValue());
-        assertEquals("input1 is filled and input2 is empty", "setForm1input1:1\nsetForm1input2:", messages);
+        assertEquals("1", input1.getValue(), "input1 is filled with 1");
+        assertEquals("", input2.getValue(), "input2 is empty");
+        assertEquals("", input3.getValue(), "input3 is empty");
+        assertEquals("setForm1input1:1\nsetForm1input2:", messages, "input1 is filled and input2 is empty");
 
         // fill form1 input2
         page.guardAjax(() -> {
@@ -68,10 +68,10 @@ public class Spec1567IT extends BaseITNG {
         input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form1:inputs:input2")));
         input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form1:inputs:input3")));
         messages = page.findElement(By.id("form1:messages")).getText();
-        assertEquals("input1 is filled with 1", "1", input1.getValue());
-        assertEquals("input2 is filled with 1", "1", input2.getValue());
-        assertEquals("input3 is empty", "", input3.getValue());
-        assertEquals("input1 is filled and input2 is filled", "setForm1input1:1\nsetForm1input2:1", messages);
+        assertEquals("1", input1.getValue(), "input1 is filled with 1");
+        assertEquals("1", input2.getValue(), "input2 is filled with 1");
+        assertEquals("", input3.getValue(), "input3 is empty");
+        assertEquals("setForm1input1:1\nsetForm1input2:1", messages, "input1 is filled and input2 is filled");
 
         // fill form1 input3
         page.guardAjax(() -> {
@@ -84,10 +84,10 @@ public class Spec1567IT extends BaseITNG {
         input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form1:inputs:input2")));
         input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form1:inputs:input3")));
         messages =  page.findElement(By.id("form1:messages")).getText();
-        assertEquals("input1 is refreshed to empty string", "", input1.getValue());
-        assertEquals("input2 is refreshed to empty string", "", input2.getValue());
-        assertEquals("input3 is filled and refreshed", "1x", input3.getValue());
-        assertEquals("input3 is filled", "setForm1input3:1", messages);
+        assertEquals("", input1.getValue(), "input1 is refreshed to empty string");
+        assertEquals("", input2.getValue(), "input2 is refreshed to empty string");
+        assertEquals("1x", input3.getValue(), "input3 is filled and refreshed");
+        assertEquals("setForm1input3:1", messages, "input3 is filled");
 
         // fill form2 input1
         page.guardAjax(() -> {
@@ -101,10 +101,10 @@ public class Spec1567IT extends BaseITNG {
         input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form2:inputs:input3")));
 
         messages =  page.findElement(By.id("form2:messages")).getText();
-        assertEquals("input1 is filled with 1", "1", input1.getValue());
-        assertEquals("input2 is empty", "", input2.getValue());
-        assertEquals("input3 is empty", "", input3.getValue());
-        assertEquals("input1 is filled and input2 is empty", "setForm2input1:1\nsetForm2input2:", messages);
+        assertEquals("1", input1.getValue(), "input1 is filled with 1");
+        assertEquals("", input2.getValue(), "input2 is empty");
+        assertEquals("", input3.getValue(), "input3 is empty");
+        assertEquals("setForm2input1:1\nsetForm2input2:", messages, "input1 is filled and input2 is empty");
 
         // fill form2 input2
         page.guardAjax(() -> {
@@ -117,10 +117,10 @@ public class Spec1567IT extends BaseITNG {
         input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form2:inputs:input2")));
         input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form2:inputs:input3")));
         messages = page.findElement(By.id("form2:messages")).getText();
-        assertEquals("input1 is filled with 1", "1", input1.getValue());
-        assertEquals("input2 is filled with 1", "1", input2.getValue());
-        assertEquals("input3 is empty", "", input3.getValue());
-        assertEquals("input1 is filled and input2 is filled", "setForm2input1:1\nsetForm2input2:1", messages);
+        assertEquals("1", input1.getValue(), "input1 is filled with 1");
+        assertEquals("1", input2.getValue(), "input2 is filled with 1");
+        assertEquals("", input3.getValue(), "input3 is empty");
+        assertEquals("setForm2input1:1\nsetForm2input2:1", messages, "input1 is filled and input2 is filled");
 
         // fill form2 input3
         page.guardAjax(() -> {
@@ -133,10 +133,10 @@ public class Spec1567IT extends BaseITNG {
         input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form2:inputs:input2")));
         input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form2:inputs:input3")));
         messages =  page.findElement(By.id("form2:messages")).getText();
-        assertEquals("input1 is refreshed to empty string", "", input1.getValue());
-        assertEquals("input2 is refreshed to empty string", "", input2.getValue());
-        assertEquals("input3 is filled and refreshed", "1x", input3.getValue());
-        assertEquals("input3 is filled", "setForm2input3:1", messages);
+        assertEquals("", input1.getValue(), "input1 is refreshed to empty string");
+        assertEquals("", input2.getValue(), "input2 is refreshed to empty string");
+        assertEquals("1x", input3.getValue(), "input3 is filled and refreshed");
+        assertEquals("setForm2input3:1", messages, "input3 is filled");
 
         // fill form3 input1
         page.guardAjax(() -> {
@@ -150,10 +150,10 @@ public class Spec1567IT extends BaseITNG {
         input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form3:inputs:input3")));
 
         messages =  page.findElement(By.id("form3:messages")).getText();
-        assertEquals("input1 is refreshed to 1x", "1x", input1.getValue());
-        assertEquals("input2 is refreshed to x", "x", input2.getValue());
-        assertEquals("input3 is empty", "", input3.getValue());
-        assertEquals("input1 is filled and input2 is empty", "setForm3input1:1\nsetForm3input2:", messages);
+        assertEquals("1x", input1.getValue(), "input1 is refreshed to 1x");
+        assertEquals("x", input2.getValue(), "input2 is refreshed to x");
+        assertEquals("", input3.getValue(), "input3 is empty");
+        assertEquals("setForm3input1:1\nsetForm3input2:", messages, "input1 is filled and input2 is empty");
 
         // fill form3 input2
         page.guardAjax(() -> {
@@ -166,10 +166,10 @@ public class Spec1567IT extends BaseITNG {
         input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form3:inputs:input2")));
         input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form3:inputs:input3")));
         messages = page.findElement(By.id("form3:messages")).getText();
-        assertEquals("input1 is refreshed to 1xx", "1xx", input1.getValue());
-        assertEquals("input2 is refreshed to 1x", "1x", input2.getValue());
-        assertEquals("input3 is empty", "", input3.getValue());
-        assertEquals("input1 is filled and input2 is filled", "setForm3input1:1x\nsetForm3input2:1", messages);
+        assertEquals("1xx", input1.getValue(), "input1 is refreshed to 1xx");
+        assertEquals("1x", input2.getValue(), "input2 is refreshed to 1x");
+        assertEquals("", input3.getValue(), "input3 is empty");
+        assertEquals("setForm3input1:1x\nsetForm3input2:1", messages, "input1 is filled and input2 is filled");
 
         // fill form3 input3
         page.guardAjax(() -> {
@@ -182,10 +182,10 @@ public class Spec1567IT extends BaseITNG {
         input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form3:inputs:input2")));
         input3 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form3:inputs:input3")));
         messages =  page.findElement(By.id("form3:messages")).getText();
-        assertEquals("input1 is refreshed to empty string", "", input1.getValue());
-        assertEquals("input2 is refreshed to empty string", "", input2.getValue());
-        assertEquals("input3 is filled and refreshed", "1x", input3.getValue());
-        assertEquals("input3 is filled", "setForm3input3:1", messages);
+        assertEquals("", input1.getValue(), "input1 is refreshed to empty string");
+        assertEquals("", input2.getValue(), "input2 is refreshed to empty string");
+        assertEquals("1x", input3.getValue(), "input3 is filled and refreshed");
+        assertEquals("setForm3input3:1", messages, "input3 is filled");
     }
 
 }

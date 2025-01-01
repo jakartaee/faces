@@ -18,27 +18,28 @@
 package ee.jakarta.tck.faces.test.javaee8.facelets;
 
 import static java.util.regex.Pattern.matches;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.model.FacesDataModel;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.model.FacesDataModel;
 
-@RunWith(Arquillian.class)
-public class UIRepeatCustomDataModelIT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class UIRepeatCustomDataModelIT extends ITBase {
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see FacesDataModel
      * @see https://github.com/jakartaee/faces/issues/1078
-     */
-    @Test
-    public void testExactClassMatch() throws Exception {
+   */
+  @Test
+  void exactClassMatch() throws Exception {
 
         // In this test a backing bean will return an object of type Child11.
         // There's a DataModel registered for exactly this class, which should
@@ -52,13 +53,13 @@ public class UIRepeatCustomDataModelIT extends ITBase {
         assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.asXml()));
     }
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see FacesDataModel
      * @see https://github.com/jakartaee/faces/issues/1078
-     */
-    @Test
-    public void testClosestSuperClassMatch() throws Exception {
+   */
+  @Test
+  void closestSuperClassMatch() throws Exception {
 
         // In this test a backing bean will return an object of type Child111.
         // There's NO DataModel registered for exactly this class. However, there

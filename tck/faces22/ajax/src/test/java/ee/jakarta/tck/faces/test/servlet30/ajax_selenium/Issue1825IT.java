@@ -16,28 +16,30 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertEquals;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * @author Manfred Riem (manfred.riem@oracle.com)
  */
-public class Issue1825IT extends BaseITNG {
+class Issue1825IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see UIComponent#getCurrentCompositeComponent(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1829
-     */
-    @Test
-    public void testIssue1825() throws Exception {
+   */
+  @Test
+  void issue1825() throws Exception {
         WebPage page = getPage("issue1825.xhtml");
         WebElement button = page.findElement(By.id("form:button"));
         page.guardAjax(button::click);

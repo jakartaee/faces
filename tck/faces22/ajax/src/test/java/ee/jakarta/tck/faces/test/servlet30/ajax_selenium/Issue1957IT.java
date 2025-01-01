@@ -16,25 +16,27 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
 import jakarta.faces.component.html.HtmlPanelGroup;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue1957IT extends BaseITNG {
-    
-    /**
-     * @see ClientBehaviorHolder
+class Issue1957IT extends BaseITNG {
+
+  /**
+   * @see ClientBehaviorHolder
      * @see HtmlPanelGroup
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1961
-     */
-    @Test
-    public void testPanelGroupAjaxBehavior() throws Exception {
+   */
+  @Test
+  void panelGroupAjaxBehavior() throws Exception {
         WebPage page = getPage("issue1957.xhtml");
         WebElement span = page.findElement(By.id("form:group"));
         page.guardAjax(span::click);

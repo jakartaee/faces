@@ -16,11 +16,13 @@
 
 package ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.failingDevTimePreconditions;
 
-import ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.PasswordHolder;
 import java.io.Serializable;
+
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 import jakarta.validation.constraints.NotNull;
+
+import ee.jakarta.tck.faces.test.javaee7.multiFieldValidation.PasswordHolder;
 
 @Named
 @SessionScoped

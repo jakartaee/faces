@@ -16,29 +16,31 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.event.PreRenderViewEvent;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * @author Manfred Riem (manfred.riem@oracle.com)
  */
-public class Issue2162IT extends BaseITNG {
+class Issue2162IT extends BaseITNG {
 
-    /**
-     * @see PreRenderViewEvent
+  /**
+   * @see PreRenderViewEvent
      * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2166
-     */
-    @Test
-    public void testIssue2162() throws Exception {
+   */
+  @Test
+  void issue2162() throws Exception {
         WebPage page = getPage("issue2162.xhtml");
 
         assertTrue(page.getPageSource().indexOf("Init called\n") != -1);

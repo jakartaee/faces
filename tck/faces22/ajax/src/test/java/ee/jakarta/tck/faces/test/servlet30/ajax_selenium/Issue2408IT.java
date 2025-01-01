@@ -16,32 +16,34 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import jakarta.faces.component.html.HtmlSelectManyCheckbox;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+import jakarta.faces.component.html.HtmlSelectManyCheckbox;
 
-public class Issue2408IT extends BaseITNG {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-    /**
-     * This test verifies correct function of SelectManyCheckbox in a Composite
-     * Component over Ajax.
-     *
-     * @see AjaxBehavior
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Issue2408IT extends BaseITNG {
+
+  /**
+   * This test verifies correct function of SelectManyCheckbox in a Composite
+   * Component over Ajax.
+   *
+   * @see AjaxBehavior
      * @see HtmlSelectManyCheckbox
      * @see UIComponent#getCurrentCompositeComponent(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2412
-     */
-    @Test
-    public void testSelectManyCheckboxInComposite() throws Exception {
+   */
+  @Test
+  void selectManyCheckboxInComposite() throws Exception {
         WebPage page = getPage("selectManyCheckboxInComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -57,12 +59,12 @@ public class Issue2408IT extends BaseITNG {
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
-    /**
-     * This test verifies correct function of SelectManyCheckbox in a Composite
-     * Component over Ajax. The components in the page have ids.
-     */
-    @Test
-    public void testSelectManyCheckboxIdsInComposite() throws Exception {
+  /**
+   * This test verifies correct function of SelectManyCheckbox in a Composite
+   * Component over Ajax. The components in the page have ids.
+   */
+  @Test
+  void selectManyCheckboxIdsInComposite() throws Exception {
         WebPage page = getPage("selectManyCheckboxIdsInComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -81,11 +83,11 @@ public class Issue2408IT extends BaseITNG {
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
-    /**
-     * This test verifies correct function of SelectManyCheckbox Component over Ajax.
-     */
-    @Test
-    public void testSelectManyCheckboxNoComposite() throws Exception {
+  /**
+   * This test verifies correct function of SelectManyCheckbox Component over Ajax.
+   */
+  @Test
+  void selectManyCheckboxNoComposite() throws Exception {
         WebPage page = getPage("selectManyCheckboxNoComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -101,12 +103,12 @@ public class Issue2408IT extends BaseITNG {
         assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
-    /**
-     * This test verifies correct function of SelectOneRadio in a Composite
-     * Component over Ajax.
-     */
-    @Test
-    public void testSelectOneRadioInComposite() throws Exception {
+  /**
+   * This test verifies correct function of SelectOneRadio in a Composite
+   * Component over Ajax.
+   */
+  @Test
+  void selectOneRadioInComposite() throws Exception {
         WebPage page = getPage("selectOneRadioInComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -122,12 +124,12 @@ public class Issue2408IT extends BaseITNG {
         assertTrue(page.isInPage("Status: radio-3"));
     }
 
-    /**
-     * This test verifies correct function of SelectOneRadio in a Composite
-     * Component over Ajax. The components in the page have ids.
-     */
-    @Test
-    public void testSelectOneRadioIdsInComposite() throws Exception {
+  /**
+   * This test verifies correct function of SelectOneRadio in a Composite
+   * Component over Ajax. The components in the page have ids.
+   */
+  @Test
+  void selectOneRadioIdsInComposite() throws Exception {
         WebPage page = getPage("selectOneRadioIdsInComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -146,11 +148,11 @@ public class Issue2408IT extends BaseITNG {
         assertTrue(page.isInPage("Status: radio-3"));
     }
 
-    /**
-     * This test verifies correct function of SelectOneRadio Component over Ajax.
-     */
-    @Test
-    public void testSelectOneRadioNoComposite() throws Exception {
+  /**
+   * This test verifies correct function of SelectOneRadio Component over Ajax.
+   */
+  @Test
+  void selectOneRadioNoComposite() throws Exception {
         WebPage page = getPage("selectOneRadioNoComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.

@@ -17,30 +17,30 @@ package ee.jakarta.tck.faces.test.javaee8.facesConverter;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
 
-@RunWith(Arquillian.class)
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.jboss.arquillian.test.api.ArquillianResource;
+import org.jboss.shrinkwrap.api.importer.ZipImporter;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.DomElement;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+
+@ExtendWith(ArquillianExtension.class)
 public class Issue4913IT {
 
     @ArquillianResource
@@ -54,24 +54,24 @@ public class Issue4913IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see ResourceDependency
      * @see FacesConverter#managed()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4913
-     */
-    @Test
-    public void test() throws Exception {
+   */
+  @Test
+  void test() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4913.xhtml");
         validateMarkup(page);
 
@@ -82,9 +82,9 @@ public class Issue4913IT {
     
     private static void validateMarkup(HtmlPage page) {
         DomElement issue4913Converter = page.getElementById("issue4913Converter");
-        assertEquals("Converter is invoked", "value is successfully converted in a managed converter", issue4913Converter.asNormalizedText());
+        assertEquals("value is successfully converted in a managed converter", issue4913Converter.asNormalizedText(), "Converter is invoked");
 
         DomElement issue4913ResourceDependency = page.getElementById("issue4913ResourceDependency");
-        assertEquals("Resource dependency is injected", "resource dependency is successfully injected via a managed converter", issue4913ResourceDependency.asNormalizedText());
+        assertEquals("resource dependency is successfully injected via a managed converter", issue4913ResourceDependency.asNormalizedText(), "Resource dependency is injected");
     }
 }

@@ -16,28 +16,30 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.html.HtmlCommandButton;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2421IT extends BaseITNG {
+class Issue2421IT extends BaseITNG {
 
-    /**
-     * This test verifies that an attribute named 'disabled' can be successfully updated
-     * from a partial response (over Ajax). 
-     * 
-     * @see AjaxBehavior
+  /**
+   * This test verifies that an attribute named 'disabled' can be successfully updated
+   * from a partial response (over Ajax). 
+   * 
+   * @see AjaxBehavior
      * @see HtmlCommandButton#isDisabled()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2425
-     */
-    @Test
-    public void testUpdateAttributeNamedDisabled() throws Exception {
+   */
+  @Test
+  void updateAttributeNamedDisabled() throws Exception {
         WebPage page = getPage("attributeNameIsDisabled.xhtml");
         WebElement input = page.findElement(By.id("form1:foo"));
         assertTrue(input.isEnabled());

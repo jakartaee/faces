@@ -16,39 +16,42 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2750IT extends BaseITNG {
+class Issue2750IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2754
-     */
-    @Test
-    public void testUpdateAttributeNamedChecked() throws Exception {
+   */
+  @Test
+  void updateAttributeNamedChecked() throws Exception {
         WebPage page = getPage("attributeNameIsChecked.xhtml");
         WebElement cbox = page.findElement(By.id("form1:foo"));
-        assertTrue(cbox.isSelected() == false);
+      assertEquals(false, cbox.isSelected());
         assertTrue(page.isInPage("foo"));
         WebElement button = page.findElement(By.id("form1:button"));
         page.guardAjax(button::click);
         cbox = page.findElement(By.id("form1:foo"));
-        assertTrue(cbox.isSelected() == true);
+      assertEquals(true, cbox.isSelected());
     }
 
-    /**
-     * This test verifies that an attribute named 'readonly' can be successfully updated
-     * from a partial response (over Ajax).
-     */
-    @Test
-    public void testUpdateAttributeNamedReadonly() throws Exception {
+  /**
+   * This test verifies that an attribute named 'readonly' can be successfully updated
+   * from a partial response (over Ajax).
+   */
+  @Test
+  void updateAttributeNamedReadonly() throws Exception {
         WebPage page = getPage("attributeNameIsReadonly.xhtml");
         WebElement input = page.findElement(By.id("form1:foo"));
         assertTrue(input.isEnabled());

@@ -14,10 +14,9 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
 package ee.jakarta.tck.faces.test.faces50.facesConfig;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -26,22 +25,22 @@ import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 /**
  * https://github.com/eclipse-ee4j/mojarra/issues/5511
  */
-public class Issue5511IT extends BaseITNG {
+class Issue5511IT extends BaseITNG {
 
     @FindBy(id = "exampleFacesComponent")
     private WebElement exampleFacesComponent;
 
-    @Test
-    public void testJarWithMetadataCompleteFalse() {
+  @Test
+  void jarWithMetadataCompleteFalse() {
         getPage("issue5511-using-jar-with-metadata-complete-false.xhtml");
-        assertEquals("The @FacesComponent annotation SHOULD be processed because of metadata-complete=false on its JAR", "span", exampleFacesComponent.getTagName().toLowerCase());
-        assertEquals("Because it renders a span via HtmlOutputText, it should output its value as well.", "Hello World", exampleFacesComponent.getText());
+        assertEquals("span", exampleFacesComponent.getTagName().toLowerCase(), "The @FacesComponent annotation SHOULD be processed because of metadata-complete=false on its JAR");
+        assertEquals("Hello World", exampleFacesComponent.getText(), "Because it renders a span via HtmlOutputText, it should output its value as well.");
     }
 
-    @Test
-    public void testJarWithMetadataCompleteTrue() {
+  @Test
+  void jarWithMetadataCompleteTrue() {
         getPage("issue5511-using-jar-with-metadata-complete-true.xhtml");
-        assertEquals("The @FacesComponent annotation SHOULD NOT be processed because of metadata-complete=true on its JAR", "ex:examplefacescomponent", exampleFacesComponent.getTagName().toLowerCase());
-        assertEquals("Because it does not render to a valid HTML element, it should not output anything either.", "", exampleFacesComponent.getText());
+        assertEquals("ex:examplefacescomponent", exampleFacesComponent.getTagName().toLowerCase(), "The @FacesComponent annotation SHOULD NOT be processed because of metadata-complete=true on its JAR");
+        assertEquals("", exampleFacesComponent.getText(), "Because it does not render to a valid HTML element, it should not output anything either.");
     }
 }

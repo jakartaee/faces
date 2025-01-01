@@ -31,14 +31,6 @@
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0 - Java Page with Metadata</name>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
-            <artifactId>util</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
-
     <build>
         <finalName>test-faces40-javaPageWithMetadata</finalName>
     </build>

@@ -19,22 +19,24 @@ package ee.jakarta.tck.faces.test.javaee8.converter;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.net.URL;
 import java.time.temporal.Temporal;
 import java.util.Locale;
 
+import jakarta.faces.convert.DateTimeConverter;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -42,9 +44,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
-import jakarta.faces.convert.DateTimeConverter;
-
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Issue4110IT {
 
     @ArquillianResource
@@ -59,34 +59,34 @@ public class Issue4110IT {
     }
 
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
         webClient.addRequestHeader("Accept-Language", "en-US");
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 
-    /**
-     * @see DateTimeConverter
+  /**
+   * @see DateTimeConverter
      * @see Temporal
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4114
-     */
-    @Test
-    public void testLocalDate() throws Exception {
+   */
+  @Test
+  void localDate() throws Exception {
         doTestJavaTimeTypes("30 mei 2015", "localDate", "2015-05-30");
     }
 
-    @Test
-    public void testLocalTime() throws Exception {
+  @Test
+  void localTime() throws Exception {
         doTestJavaTimeTypes("16:52:56", "localTime", "16:52:56");
     }
 
-    @Test
-    public void testLocalDateTime() throws Exception {
+  @Test
+  void localDateTime() throws Exception {
         doTestJavaTimeTypes("30 mei 2015 16:14:43", "localDateTime", "2015-05-30T16:14:43");
     }
 

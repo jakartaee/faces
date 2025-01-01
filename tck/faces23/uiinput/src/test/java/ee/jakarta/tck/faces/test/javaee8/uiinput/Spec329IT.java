@@ -17,29 +17,30 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.component.html.HtmlSelectOneRadio;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.component.html.HtmlSelectOneRadio;
 
-@RunWith(Arquillian.class)
-public class Spec329IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Spec329IT extends ITBase {
 
-    /**
-     * @see HtmlSelectOneRadio#getGroup()
+  /**
+   * @see HtmlSelectOneRadio#getGroup()
      * @see https://github.com/jakartaee/faces/issues/329
-     */
-    @Test
-    public void testSpec329() throws Exception {
+   */
+  @Test
+  void spec329() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "spec329.xhtml");
         assertTrue(page.getHtmlElementById("messages").asNormalizedText().isEmpty());
         assertTrue(page.getHtmlElementById("inDataTableWithEntityList:selectedItem").asNormalizedText().isEmpty());

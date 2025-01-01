@@ -17,25 +17,26 @@
 
 package ee.jakarta.tck.faces.test.javaee8.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.UIViewRoot;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import static org.junit.Assert.assertTrue;
+class Spec1423IT extends BaseITNG {
 
-public class Spec1423IT extends BaseITNG {
-
-    /**
-     * @see UIViewRoot#addComponentResource(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, String)
+  /**
+   * @see UIViewRoot#addComponentResource(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, String)
      * @see https://github.com/jakartaee/faces/issues/1423
-     */
-    @Test
-    public void testSpec1423Basic() throws Exception {
+   */
+  @Test
+  void spec1423Basic() throws Exception {
         WebPage page = getPage("spec1423.xhtml");
         WebElement button;
 
@@ -44,12 +45,12 @@ public class Spec1423IT extends BaseITNG {
 
         button = page.findElement(By.id("form1:addViaHead"));
         page.guardAjax(button::click);
-        assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaHead"));
+      assertEquals("addedViaHead", page.findElement(By.id("scriptResult")).getText().trim());
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().isEmpty());
     }
 
-    @Test
-    public void testSpec1423() throws Exception {
+  @Test
+  void spec1423() throws Exception {
         WebPage page = getPage("spec1423.xhtml");
         WebElement button;
 
@@ -59,61 +60,53 @@ public class Spec1423IT extends BaseITNG {
         button = page.findElement(By.id("form1:addViaHead"));
         button.click();
 
-        page.waitForCondition(wd -> {
-            return page.findElement(By.id("stylesheetResult")).getText().trim().isEmpty() &&
-                    page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaHead");
-        });
+        page.waitForCondition(wd -> page.findElement(By.id("stylesheetResult")).getText().trim().isEmpty() &&
+                    page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaHead"));
 
 
-        assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaHead"));
+      assertEquals("addedViaHead", page.findElement(By.id("scriptResult")).getText().trim());
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().isEmpty());
 
         button = page.findElement(By.id("form2:addViaInclude"));
         button.click();
 
-        page.waitForCondition(wd -> {
-            return page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(255, 0, 0)") &&
-                    page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaInclude");
-        });
+        page.waitForCondition(wd -> page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(255, 0, 0)") &&
+                    page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaInclude"));
 
         button = page.findElement(By.id("form1:addViaBody"));
         button.click();
-        page.waitForCondition(wd -> {
-            return  page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaBody") &&
-                    page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(255, 0, 0)");
-        });
+        page.waitForCondition(wd ->  page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaBody") &&
+                    page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(255, 0, 0)"));
 
         button = page.findElement(By.id("form2:addViaInclude"));
         page.guardAjax(button::click);
 
-        assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaBody"));
-        assertTrue(page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(255, 0, 0)"));
+      assertEquals("addedViaBody", page.findElement(By.id("scriptResult")).getText().trim());
+      assertEquals("rgb(255, 0, 0)", page.findElement(By.id("stylesheetResult")).getText().trim());
 
         button = page.findElement(By.id("form1:addProgrammatically"));
         page.guardAjax(button::click);
         // wait for condition implictly also handles the
 
-        page.waitForCondition(wd -> {
-            return page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)") &&
-                    page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically");
-        });
+        page.waitForCondition(wd -> page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)") &&
+                    page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically"));
 
 
         button = page.findElement(By.id("form1:addViaHead"));
         page.guardAjax(button::click);
 
-        assertTrue(page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)"));
-        assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically"));
+      assertEquals("rgb(0, 255, 0)", page.findElement(By.id("stylesheetResult")).getText().trim());
+      assertEquals("addedProgrammatically", page.findElement(By.id("scriptResult")).getText().trim());
 
         button = page.findElement(By.id("form1:addViaBody"));
         page.guardAjax(button::click);
-        assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically"));
-        assertTrue(page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)"));
+      assertEquals("addedProgrammatically", page.findElement(By.id("scriptResult")).getText().trim());
+      assertEquals("rgb(0, 255, 0)", page.findElement(By.id("stylesheetResult")).getText().trim());
 
         button = page.findElement(By.id("form2:addViaInclude"));
         page.guardAjax(button::click);
-        assertTrue(page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically"));
-        assertTrue(page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)"));
+      assertEquals("addedProgrammatically", page.findElement(By.id("scriptResult")).getText().trim());
+      assertEquals("rgb(0, 255, 0)", page.findElement(By.id("stylesheetResult")).getText().trim());
     }
 
 }

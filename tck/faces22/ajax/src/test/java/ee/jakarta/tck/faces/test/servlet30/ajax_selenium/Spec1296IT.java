@@ -16,21 +16,23 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
+import jakarta.faces.context.PartialResponseWriter;
+
+import org.junit.jupiter.api.Test;
+
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.context.PartialResponseWriter;
-import org.junit.Test;
 
-import static org.junit.Assert.fail;
+class Spec1296IT extends BaseITNG {
 
-public class Spec1296IT extends BaseITNG {
-
-    /**
-     * @see PartialResponseWriter
+  /**
+   * @see PartialResponseWriter
      * @see https://github.com/jakartaee/faces/issues/1296
-     */
-    @Test
-    public void testPartialResponseWriterOutsideFacesServlet() throws Exception {
+   */
+  @Test
+  void partialResponseWriterOutsideFacesServlet() throws Exception {
         WebPage page = getPage("BeforeFilter");
         String pageXml = page.getResponseBody();
 

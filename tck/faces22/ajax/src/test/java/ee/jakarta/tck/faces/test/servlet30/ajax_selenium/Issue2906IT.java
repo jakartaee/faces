@@ -16,24 +16,27 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
-import org.openqa.selenium.WebElement;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.Assert.assertTrue;
+import jakarta.faces.component.behavior.AjaxBehavior;
 
-public class Issue2906IT extends BaseITNG {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.WebElement;
 
-    /**
-     * @see AjaxBehavior
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Issue2906IT extends BaseITNG {
+
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2910
-     */
-    @Test
-    public void testCommandLinksInRepeat() throws Exception {
+   */
+  @Test
+  void commandLinksInRepeat() throws Exception {
         WebPage page = getPage("issue2906.xhtml");
 
 
@@ -44,34 +47,34 @@ public class Issue2906IT extends BaseITNG {
         page.guardAjax(anchor::click);
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(3\\s+){8}3.*"));
-        assertTrue(anchors.size() == 9);
+      assertEquals(9, anchors.size());
 
         anchor = anchors.get(8);
         page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(4\\s+){7}4.*"));
-        assertTrue(anchors.size() == 8);
+      assertEquals(8, anchors.size());
 
         anchor = anchors.get(7);
         page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(5\\s+){6}5.*"));
-        assertTrue(anchors.size() == 7);
+      assertEquals(7, anchors.size());
 
         anchor = anchors.get(0);
         page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(6\\s+){5}6.*"));
-        assertTrue(anchors.size() == 6);
+      assertEquals(6, anchors.size());
 
         anchor = anchors.get(2);
         page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesPageTextReduced(".*(7\\s+){4}7.*"));
-        assertTrue(anchors.size() == 5);
+      assertEquals(5, anchors.size());
     }
 }

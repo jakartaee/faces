@@ -17,26 +17,27 @@
 
 package ee.jakarta.tck.faces.test.javaee8.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedTextInput;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.ExtendedTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import static org.junit.Assert.assertTrue;
+class Issue4115IT extends BaseITNG {
 
-public class Issue4115IT extends BaseITNG {
-
-    /**
-     * @see AjaxBehavior#getExecute()
+  /**
+   * @see AjaxBehavior#getExecute()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4119
-     */
-    @Test
-    public void testSpec1412() throws Exception {
+   */
+  @Test
+  void spec1412() throws Exception {
 
         WebPage page = getPage("issue4115.xhtml");
         assertTrue(page.findElement(By.id("form:output")).getText().isEmpty());
@@ -45,6 +46,6 @@ public class Issue4115IT extends BaseITNG {
         input.setValue("execute");
         WebElement link =  page.findElement(By.id("form:link"));
         page.guardAjax(link::click);
-        assertTrue(page.findElement(By.id("form:output")).getText().trim().equals("executeParamValue"));
+      assertEquals("executeParamValue", page.findElement(By.id("form:output")).getText().trim());
     }
 }

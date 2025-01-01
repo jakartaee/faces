@@ -19,22 +19,23 @@ package ee.jakarta.tck.faces.test.javaee7.multiFieldValidation;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.net.URL;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -43,7 +44,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Spec1IT {
 
     @ArquillianResource
@@ -57,22 +58,22 @@ public class Spec1IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
-    
-    /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+
+  /**
+   * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-     */
-    @Test
-    public void testSimpleInvalidField() throws Exception {
+   */
+  @Test
+  void simpleInvalidField() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
         
         HtmlTextInput password1 = page.getHtmlElementById("password1");
@@ -86,10 +87,10 @@ public class Spec1IT {
         page = button.click();
         
         String pageText = page.asXml();
-        assertTrue(!pageText.contains("[foofoofoo]"));
+      assertFalse(pageText.contains("[foofoofoo]"));
         assertTrue(pageText.contains("[bar]"));
-        
-        assertTrue(!pageText.contains("Password fields must match"));
+
+      assertFalse(pageText.contains("Password fields must match"));
         
         HtmlParagraph password1Value = page.getHtmlElementById("password1Value");
         assertTrue(password1Value.asNormalizedText().isEmpty());
@@ -97,13 +98,13 @@ public class Spec1IT {
         HtmlParagraph password2Value = page.getHtmlElementById("password2Value");
         assertTrue(password2Value.asNormalizedText().isEmpty());
     }
-    
-    /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+
+  /**
+   * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-     */
-    @Test
-    public void testSimpleInvalidFields() throws Exception {
+   */
+  @Test
+  void simpleInvalidFields() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
         
         HtmlTextInput password1 = page.getHtmlElementById("password1");
@@ -119,8 +120,8 @@ public class Spec1IT {
         String pageText = page.asXml();
         assertTrue(pageText.contains("[foo]"));
         assertTrue(pageText.contains("[bar]"));
-        
-        assertTrue(!pageText.contains("Password fields must match"));
+
+      assertFalse(pageText.contains("Password fields must match"));
         
         HtmlParagraph password1Value = page.getHtmlElementById("password1Value");
         assertTrue(password1Value.asNormalizedText().isEmpty());
@@ -128,13 +129,13 @@ public class Spec1IT {
         HtmlParagraph password2Value = page.getHtmlElementById("password2Value");
         assertTrue(password2Value.asNormalizedText().isEmpty());
     }
-    
-    /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+
+  /**
+   * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-     */
-    @Test
-    public void testSimpleValidFieldsInvalidBean() throws Exception {
+   */
+  @Test
+  void simpleValidFieldsInvalidBean() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
         
         HtmlTextInput password1 = page.getHtmlElementById("password1");
@@ -148,8 +149,8 @@ public class Spec1IT {
         page = button.click();
         
         String pageText = page.asXml();
-        assertTrue(!pageText.contains("[foofoofoo]"));
-        assertTrue(!pageText.contains("[barbarbar]"));
+      assertFalse(pageText.contains("[foofoofoo]"));
+      assertFalse(pageText.contains("[barbarbar]"));
         
         assertTrue(pageText.contains("Password fields must match"));
 
@@ -160,13 +161,13 @@ public class Spec1IT {
         assertTrue(password2Value.asNormalizedText().isEmpty());
         
     }
-    
-    /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+
+  /**
+   * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-     */
-    @Test
-    public void testSimpleValidFieldsValidBean() throws Exception {
+   */
+  @Test
+  void simpleValidFieldsValidBean() throws Exception {
         HtmlPage page = webClient.getPage(webUrl);
         
         HtmlTextInput password1 = page.getHtmlElementById("password1");
@@ -180,10 +181,10 @@ public class Spec1IT {
         page = button.click();
         
         String pageText = page.asXml();
-        assertTrue(!pageText.contains("[foofoofoo]"));
-        assertTrue(!pageText.contains("[barbarbar]"));
-        
-        assertTrue(!pageText.contains("Password fields must match"));
+      assertFalse(pageText.contains("[foofoofoo]"));
+      assertFalse(pageText.contains("[barbarbar]"));
+
+      assertFalse(pageText.contains("Password fields must match"));
 
         HtmlParagraph password1Value = page.getHtmlElementById("password1Value");
         assertTrue(password1Value.asNormalizedText().contains("foofoofoo"));
@@ -192,13 +193,13 @@ public class Spec1IT {
         assertTrue(password2Value.asNormalizedText().contains("foofoofoo"));
         
     }
-    
-    /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+
+  /**
+   * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
-     */
-    @Test
-    public void testFailingPreconditionsNotAfterAllInputComponents() throws Exception {
+   */
+  @Test
+  void failingPreconditionsNotAfterAllInputComponents() throws Exception {
     	try {
     		// In this test f:validateWholeBean is misplaced (does not appear after
     		// all input components), which should result in an exception    		

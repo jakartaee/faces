@@ -15,10 +15,11 @@
  */
 package ee.jakarta.tck.faces.test.servlet50.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import org.eu.ingwar.tools.arquillian.extension.suite.annotations.ArquillianSuiteDeployment;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 
 /**
  * Given Arquilian has no single deployment testsuite

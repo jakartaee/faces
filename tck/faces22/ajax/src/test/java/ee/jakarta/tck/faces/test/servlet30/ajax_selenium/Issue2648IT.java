@@ -16,28 +16,31 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2648IT extends BaseITNG {
+class Issue2648IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2652
-     */
-    @Test
-    public void testIssue2648() throws Exception {
+   */
+  @Test
+  void issue2648() throws Exception {
         boolean exceptionThrown = false;
         WebPage page = getPage("issue2648.xhtml");
         WebElement input = page.findElement(By.id("form:button"));
         page.guardAjax(input::click);
         page = getPage("issue2648-1.xhtml");
-        assertTrue(page.findElement(By.id("form:ise")).getText().equals("true"));
+      assertEquals("true", page.findElement(By.id("form:ise")).getText());
     }
 }

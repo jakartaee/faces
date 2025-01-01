@@ -24,30 +24,30 @@ package ee.jakarta.tck.faces.test.javaee8.passthrough;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.net.URL;
 
+import jakarta.faces.component.UIInput;
+
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
-import jakarta.faces.component.UIInput;
-
-@RunWith(Arquillian.class)
+@ExtendWith(ArquillianExtension.class)
 public class Issue4093IT {
 
     @ArquillianResource
@@ -61,20 +61,20 @@ public class Issue4093IT {
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+  @BeforeEach
+  void setUp() {
         webClient = new WebClient();
         webClient.getOptions().setJavaScriptEnabled(true);
         webClient.setJavaScriptTimeout(120000);
     }
 
-    /**
-     * @see UIInput#isRequired()
+  /**
+   * @see UIInput#isRequired()
      * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
-     */
-    @Test
-    public void testSpec4093RequiredWithoutPassthrough() throws Exception {
+   */
+  @Test
+  void spec4093RequiredWithoutPassthrough() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
         HtmlTextInput input = (HtmlTextInput) page.getElementById("requiredwithoutpassthrough:value");
         input.setAttribute("value", "");
@@ -88,13 +88,13 @@ public class Issue4093IT {
         assertTrue(output.contains("requiredwithoutpassthrough:value: Validation Error: Value is required."));
     }
 
-    /**
-     * @see UIInput#isRequired()
+  /**
+   * @see UIInput#isRequired()
      * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
-     */
-    @Test
-    public void testSpec4093RequiredWithPassthrough() throws Exception {
+   */
+  @Test
+  void spec4093RequiredWithPassthrough() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
         HtmlTextInput input = (HtmlTextInput) page.getElementById("requiredwithpassthrough:value");
         input.setAttribute("value", "");
@@ -108,13 +108,13 @@ public class Issue4093IT {
         assertFalse(output.contains("Please fill out this field"));
     }
 
-    /**
-     * @see UIInput#isRequired()
+  /**
+   * @see UIInput#isRequired()
      * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
-     */
-    @Test
-    public void testSpec4093ValidateWithoutPassthrough() throws Exception {
+   */
+  @Test
+  void spec4093ValidateWithoutPassthrough() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
         HtmlTextInput input = (HtmlTextInput) page.getElementById("validatewithoutpassthrough:value");
         input.setAttribute("value", "");
@@ -128,15 +128,15 @@ public class Issue4093IT {
         assertTrue(output.contains("validatewithoutpassthrough:value: Validation Error: Value is required."));
     }
 
-    /**
-     * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
-     * 
-     * @see UIInput#isRequired()
+  /**
+   * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
+   * 
+   * @see UIInput#isRequired()
      * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
-     */
-    @Test
-    public void testSpec4093ValidateWithPassthrough() throws Exception {
+   */
+  @Test
+  void spec4093ValidateWithPassthrough() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
         HtmlTextInput input = (HtmlTextInput) page.getElementById("validatewithpassthrough:value");
         input.setAttribute("value", "");
@@ -150,15 +150,15 @@ public class Issue4093IT {
         assertFalse(output.contains("Please fill out this field"));
     }
 
-    /**
-     * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
-     * 
-     * @see UIInput#isRequired()
+  /**
+   * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
+   * 
+   * @see UIInput#isRequired()
      * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
-     */
-    @Test
-    public void testSpec4093ValidateWithPassthroughId() throws Exception {
+   */
+  @Test
+  void spec4093ValidateWithPassthroughId() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
         HtmlTextInput input = (HtmlTextInput) page.getElementById("validatewithpassthrough:value");
         input.setAttribute("value", "");
@@ -172,8 +172,8 @@ public class Issue4093IT {
         assertFalse(output.contains("Please fill out this field"));
     }
 
-    @After
-    public void tearDown() {
+  @AfterEach
+  void tearDown() {
         webClient.close();
     }
 

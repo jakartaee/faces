@@ -17,14 +17,14 @@ package org.eclipse.ee4j.tck.faces.faces41.facesMessage;
 
 import static jakarta.faces.application.FacesMessage.SEVERITY_INFO;
 import static jakarta.faces.application.FacesMessage.SEVERITY_WARN;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import jakarta.faces.application.FacesMessage;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class Spec1823IT {
+class Spec1823IT {
 
     private static final FacesMessage MESSAGE1A = new FacesMessage(SEVERITY_INFO, "summary1", "detail1");
     private static final FacesMessage MESSAGE1B = new FacesMessage(SEVERITY_INFO, "summary1", "detail1");
@@ -51,12 +51,12 @@ public class Spec1823IT {
         }
     }
 
-    /**
-     * @see FacesMessage
+  /**
+   * @see FacesMessage
      * @see https://github.com/jakartaee/faces/issues/1823
-     */
-    @Test
-    public void testEquals() {
+   */
+  @Test
+  void equals() {
         assertEquals(MESSAGE1A, MESSAGE1A);
         assertEquals(MESSAGE1A, MESSAGE1B);
         assertNotEquals(MESSAGE1A, MESSAGE2A);
@@ -79,12 +79,12 @@ public class Spec1823IT {
         assertNotEquals(new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1"), new CustomFacesMessage(SEVERITY_WARN, "summary1", "detail1"));
     }
 
-    /**
-     * @see FacesMessage
+  /**
+   * @see FacesMessage
      * @see https://github.com/jakartaee/faces/issues/1823
-     */
-    @Test
-    public void testHashCode() {
+   */
+  @Test
+  void testHashCode() {
         assertEquals(MESSAGE1A.hashCode(), MESSAGE1A.hashCode());
         assertEquals(MESSAGE1A.hashCode(), MESSAGE1B.hashCode());
         assertNotEquals(MESSAGE1A.hashCode(), MESSAGE2A.hashCode());

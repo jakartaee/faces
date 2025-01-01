@@ -17,35 +17,37 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.faces.application.Application;
+import jakarta.faces.component.UISelectItems;
+import jakarta.faces.component.UISelectMany;
+
+import org.jboss.arquillian.junit5.ArquillianExtension;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-import jakarta.faces.application.Application;
-import jakarta.faces.component.UISelectItems;
-import jakarta.faces.component.UISelectMany;
 
-@RunWith(Arquillian.class)
-public class Spec1422IT extends ITBase {
+@ExtendWith(ArquillianExtension.class)
+class Spec1422IT extends ITBase {
 
-    /**
-     * @see UISelectMany
+  /**
+   * @see UISelectMany
      * @see UISelectItems
      * @see Collection
      * @see Application#createConverter(Class)
      * @see https://github.com/jakartaee/faces/issues/1422
-     */
-    @Test
-    public void testSpec1422() throws Exception {
+   */
+  @Test
+  void spec1422() throws Exception {
         HtmlPage page;
         HtmlCheckBoxInput item1;
         HtmlCheckBoxInput item2;
@@ -84,7 +86,7 @@ public class Spec1422IT extends ITBase {
         number6.setChecked(true);
         number7.setChecked(true);
         page = button.click();
-        assertTrue(page.getHtmlElementById("form:result").asNormalizedText().equals("[ONE, TWO, THREE][null, 1, 2, 3, 4.5, 6.7, 8.9]"));
+      assertEquals("[ONE, TWO, THREE][null, 1, 2, 3, 4.5, 6.7, 8.9]", page.getHtmlElementById("form:result").asNormalizedText());
     }
 
 }

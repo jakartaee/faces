@@ -17,6 +17,7 @@
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import java.io.Serializable;
+
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
