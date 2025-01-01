@@ -46,8 +46,8 @@ public class Issue4331IT extends BaseITNG {
         WebPage page = getPage("issue4331.xhtml");
 
         WebElement input = getWebDriver().findElement(By.id("input"));
-        assertFalse(input.getAttribute("onchange").contains("@custom"));
-        assertTrue(input.getAttribute("onchange").contains("input"));
+        assertFalse(input.getDomAttribute("onchange").contains("@custom"));
+        assertTrue(input.getDomAttribute("onchange").contains("input"));
     }
 
 

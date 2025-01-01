@@ -14,7 +14,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package ee.jakarta.tck.faces.test.composite;
+package ee.jakarta.tck.faces.test.localizedComposite;
 
 import java.util.Locale;
 
@@ -41,9 +41,12 @@ public class Issue5160Bean {
     private Locale parseLocale(String languageTag) {
         String[] chunks = languageTag.split("[_-]");
         switch (chunks.length) {
-            case 1: return new Locale(chunks[0]);
-            case 2: return new Locale(chunks[0], chunks[1]);
-            default: return new Locale(chunks[0], chunks[1], chunks[2]);
+        case 1:
+            return new Locale(chunks[0]);
+        case 2:
+            return new Locale(chunks[0], chunks[1]);
+        default:
+            return new Locale(chunks[0], chunks[1], chunks[2]);
         }
     }
 

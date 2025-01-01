@@ -15,108 +15,65 @@
  */
 package org.javaee8.cdi.dynamic.bean;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.webapp.FacesServlet;
 
-import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  *
  * @author Arjan Tijms
  *
  */
-@ExtendWith(ArquillianExtension.class)
-public class ExtensionlessMappingIT {
+public class ExtensionlessMappingIT extends BaseITNG {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
-
-  /**
-   * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
      * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1508
-   */
-  @Test
-  @RunAsClient
-  void extensionlessMappingFoo() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "foo");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "foo" + "` :\n" + content + "\n");
-
+     */
+    @Test
+    @RunAsClient
+    void extensionlessMappingFoo() throws IOException {
+        WebPage page = getPage("foo");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page foo"));
-
-        assertTrue(page.getElementById("barxhtmllink").getAttribute("href").endsWith("/bar"));
-        assertTrue(page.getElementById("barlink").getAttribute("href").endsWith("/bar"));
+        assertTrue(page.findElement(By.id("barxhtmllink")).getDomAttribute("href").endsWith("/bar"));
+        assertTrue(page.findElement(By.id("barlink")).getDomAttribute("href").endsWith("/bar"));
     }
 
-  /**
-   * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
      * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1508
-   */
-  @Test
-  @RunAsClient
-  void extensionlessMappingBar() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "bar");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "bar" + "` :\n" + content + "\n");
-
+     */
+    @Test
+    @RunAsClient
+    void extensionlessMappingBar() throws IOException {
+        WebPage page = getPage("bar");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page bar"));
     }
 
-  /**
-   * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
+    /**
+     * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
      * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1508
-   */
-  @Test
-  @RunAsClient
-  void extensionlessMappingSubBar() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "sub/bar");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "sub/bar" + "` :\n" + content + "\n");
-
+     */
+    @Test
+    @RunAsClient
+    void extensionlessMappingSubBar() throws IOException {
+        WebPage page = getPage("sub/bar");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page sub-bar"));
     }
 

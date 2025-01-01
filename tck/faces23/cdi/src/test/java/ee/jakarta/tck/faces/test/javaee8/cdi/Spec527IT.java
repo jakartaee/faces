@@ -16,52 +16,18 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.io.File;
-import java.net.URL;
 
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-@ExtendWith(ArquillianExtension.class)
-public class Spec527IT {
-
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
+public class Spec527IT extends BaseITNG {
 
   /**
    * @see Inject
@@ -70,7 +36,7 @@ public class Spec527IT {
    */
   @Test
   void injectFacesContext() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectFacesContext.xhtml");
-      assertEquals("true", page.getElementById("injected").getTextContent());
+        WebPage page = getPage("faces/injectFacesContext.xhtml");
+      assertEquals("true", page.findElement(By.id("injected")).getText());
     }
 }

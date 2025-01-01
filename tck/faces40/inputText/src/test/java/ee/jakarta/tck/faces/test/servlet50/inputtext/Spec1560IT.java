@@ -16,92 +16,54 @@
 
 package ee.jakarta.tck.faces.test.servlet50.inputtext;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.io.File;
-import java.net.URL;
-
-import jakarta.faces.component.html.HtmlInputText;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-@ExtendWith(ArquillianExtension.class)
-public class Spec1560IT {
+public class Spec1560IT extends BaseITNG {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
-
-  /**
-   * @see HtmlInputText#getType()
+    /**
+     * @see WebElement#getType()
      * @see https://github.com/jakartaee/faces/issues/1560
-   */
-  @Test
-  void test() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec1560IT.xhtml");
+     */
+    @Test
+    void test() throws Exception {
+        WebPage page = getPage("spec1560IT.xhtml");
 
-        HtmlInput noType = (HtmlInput) page.getElementById("form:noType");
-        assertEquals("text", noType.getTypeAttribute(), "Default type is 'text'");
+        WebElement noType = page.findElement(By.id("form:noType"));
+        assertEquals("text", noType.getDomAttribute("type"), "Default type is 'text'");
 
-        HtmlInput typeEmail = (HtmlInput) page.getElementById("form:typeEmail");
-        assertEquals("email", typeEmail.getTypeAttribute(), "Type set via actual attribute is 'email'");
+        WebElement typeEmail = page.findElement(By.id("form:typeEmail"));
+        assertEquals("email", typeEmail.getDomAttribute("type"), "Type set via actual attribute is 'email'");
 
-        HtmlInput passthroughTypeEmail = (HtmlInput) page.getElementById("form:passthroughTypeEmail");
-        assertEquals("email", passthroughTypeEmail.getTypeAttribute(), "Type set via passthrough attribute is 'email'");
+        WebElement passthroughTypeEmail = page.findElement(By.id("form:passthroughTypeEmail"));
+        assertEquals("email", passthroughTypeEmail.getDomAttribute("type"), "Type set via passthrough attribute is 'email'");
 
-        HtmlInput typeTelAndPassthroughTypeEmail = (HtmlInput) page.getElementById("form:typeTelAndPassthroughTypeEmail");
-        assertEquals("email", typeTelAndPassthroughTypeEmail.getTypeAttribute(), "Type overridden via passthrough attribute is 'email'");
+        WebElement typeTelAndPassthroughTypeEmail = page.findElement(By.id("form:typeTelAndPassthroughTypeEmail"));
+        assertEquals("email", typeTelAndPassthroughTypeEmail.getDomAttribute("type"), "Type overridden via passthrough attribute is 'email'");
 
-        HtmlInput typeButton = (HtmlInput) page.getElementById("form:typeButton");
-        assertEquals("button", typeButton.getTypeAttribute(), "Type set via actual attribute is 'button'");
+        WebElement typeButton = page.findElement(By.id("form:typeButton"));
+        assertEquals("button", typeButton.getDomAttribute("type"), "Type set via actual attribute is 'button'");
 
-        HtmlElement messageForTypeEmail = (HtmlElement) page.getElementById("form:messageForTypeEmail");
-        HtmlElement messageForTypeButton = (HtmlElement) page.getElementById("form:messageForTypeButton");
-        HtmlElement messages = (HtmlElement) page.getElementById("messages");
+        WebElement messageForTypeEmail = page.findElement(By.id("form:messageForTypeEmail"));
+        WebElement messageForTypeButton = page.findElement(By.id("form:messageForTypeButton"));
+        WebElement messages = page.findElement(By.id("messages"));
 
-        String emailMessage = messageForTypeEmail.asNormalizedText();
-        String buttonMessage = messageForTypeButton.asNormalizedText();
-        String globalMessage = messages.asNormalizedText();
+        String emailMessage = messageForTypeEmail.getText();
+        String buttonMessage = messageForTypeButton.getText();
+        String globalMessage = messages.getText();
 
         if ("Development".equals(System.getProperty("webapp.projectStage"))) {
             assertEquals("", emailMessage, "There is no faces message for type 'email'");
             assertNotEquals("", buttonMessage, "There is a faces message for type 'button'");
             assertEquals(globalMessage, buttonMessage, "The message for type 'button' is the only message set");
-        }
-        else {
+        } else {
             assertEquals("", emailMessage, "There is no faces message for type 'email'");
             assertEquals("", buttonMessage, "There is no faces message for type 'button'");
             assertEquals("", globalMessage, "There is no faces message set at all");

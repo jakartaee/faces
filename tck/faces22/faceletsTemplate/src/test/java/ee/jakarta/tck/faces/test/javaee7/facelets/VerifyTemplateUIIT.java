@@ -16,61 +16,26 @@
 
 package ee.jakarta.tck.faces.test.javaee7.facelets;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-@ExtendWith(ArquillianExtension.class)
-public class VerifyTemplateUIIT {
+public class VerifyTemplateUIIT extends BaseITNG {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-    
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
-
-  /**
-   * @see com.sun.faces.facelets.component.UIRepeat
+    /**
+     * @see com.sun.faces.facelets.component.UIRepeat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3243
-   */
-  @Test
-  void ul() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        String pageXml = page.getBody().asXml();
-        
-        assertTrue(pageXml.matches("(?s).*<li>\\s+a\\s+</li>.*"));
-        assertTrue(pageXml.matches("(?s).*<li>\\s+b\\s+</li>.*"));
-        assertTrue(pageXml.matches("(?s).*<li>\\s+c\\s+</li>.*"));
+     */
+    @Test
+    void ul() throws Exception {
+        WebPage page = getPage("");
+        String pageXml = page.getPageSource();
+
+        assertTrue(pageXml.matches("(?s).*<li>\\s*a\\s*</li>.*"));
+        assertTrue(pageXml.matches("(?s).*<li>\\s*b\\s*</li>.*"));
+        assertTrue(pageXml.matches("(?s).*<li>\\s*c\\s*</li>.*"));
     }
 }

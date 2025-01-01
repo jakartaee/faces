@@ -21,16 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.UIImportConstants;
 
-import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-@ExtendWith(ArquillianExtension.class)
-class Spec1424IT extends ITBase {
+class Spec1424IT extends BaseITNG {
 
   /**
    * @see UIImportConstants
@@ -38,9 +35,9 @@ class Spec1424IT extends ITBase {
    */
   @Test
   void test() throws Exception {
-        HtmlPage page = getPage("spec1424.xhtml");
+        WebPage page = getPage("spec1424.xhtml");
 
-      assertEquals("jakarta.faces.PARTIAL_STATE_SAVING", page.getHtmlElementById("result").asNormalizedText());
-      assertEquals("{ACCEPT=ACCEPT, COMPLETE=COMPLETE, REJECT=REJECT}", page.getHtmlElementById("results").asNormalizedText());
+      assertEquals("jakarta.faces.PARTIAL_STATE_SAVING", page.findElement(By.id("result")).getText());
+      assertEquals("{ACCEPT=ACCEPT, COMPLETE=COMPLETE, REJECT=REJECT}", page.findElement(By.id("results")).getText());
     }
 }

@@ -41,7 +41,7 @@ class Issue1817IT extends BaseITNG {
   void ajaxUIRepeat() throws Exception {
         WebPage page = getPage("issue1817.xhtml");
         final List<WebElement> elements = page.findElements(By.tagName("a"));
-        List<String[]> ids = elements.stream().map(element -> new String[]{element.getAttribute("id"), element.getText()})
+        List<String[]> ids = elements.stream().map(element -> new String[]{element.getDomAttribute("id"), element.getText()})
                 .collect(Collectors.toList());
         for (String[] id : ids) {
             WebElement anchor = page.findElement(By.id(id[0]));

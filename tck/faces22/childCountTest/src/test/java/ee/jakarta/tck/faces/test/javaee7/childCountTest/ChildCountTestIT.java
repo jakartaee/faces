@@ -16,67 +16,33 @@
 
 package ee.jakarta.tck.faces.test.javaee7.childCountTest;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.net.URL;
 import java.util.logging.Logger;
 
 import jakarta.faces.component.UIComponent;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-@ExtendWith(ArquillianExtension.class)
-public class ChildCountTestIT {
-    
+public class ChildCountTestIT extends BaseITNG {
+
     Logger logger = Logger.getLogger(ChildCountTestIT.class.getName());
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
-
-  /**
-   * @see UIComponent#getChildCount()
+    /**
+     * @see UIComponent#getChildCount()
      * @see https://github.com/eclipse-ee4j/mojarra/commit/6ca5e2d2300d0e9dc0d26ce3821346a4bcbffe2e
-   */
-  @Test
-  void childCountTest() throws Exception {
-        TextPage page = webClient.getPage(webUrl + "childCountTest");
-        if (!page.getContent().contains("Test PASSED")) {
-            logger.warning(page.getContent());
+     */
+    @Test
+    void childCountTest() throws Exception {
+        WebPage page = getPage("childCountTest");
+        if (!page.getPageSource().contains("Test PASSED")) {
+            logger.warning(page.getPageSource());
         }
 
-        assertTrue(page.getContent().contains("Test PASSED"));
+        assertTrue(page.getPageSource().contains("Test PASSED"));
     }
-   
+
 }

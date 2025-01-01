@@ -52,6 +52,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chromium.ChromiumNetworkConditions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v124.network.Network;
+import org.openqa.selenium.devtools.v124.network.model.Headers;
 import org.openqa.selenium.devtools.v124.network.model.Request;
 import org.openqa.selenium.devtools.v124.network.model.RequestId;
 import org.openqa.selenium.devtools.v124.network.model.ResponseReceived;
@@ -74,15 +75,14 @@ import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 /**
- * Extended driver which we need for getting the http response code and the http response without having to revert to
- * proxy solutions
+ * Extended driver which we need for getting the http response code and the http response without having to revert to proxy solutions
  *
  * <p>
  * We need access top the response body and response code from always the last access
  *
  * <p>
- * We use the chrome dev tools to access the data but we isolate the new functionality in an interface, so other drivers
- * must apply something different to get the results
+ * We use the chrome dev tools to access the data but we isolate the new functionality in an interface, so other drivers must apply something different to get
+ * the results
  *
  * @see also https://medium.com/codex/selenium4-a-peek-into-chrome-devtools-92bca6de55e0
  */
@@ -90,8 +90,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     /*
-     * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the
-     * selenium webdriver version must match the browser version
+     * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the selenium webdriver version must match the
+     * browser version
      */
     static AtomicBoolean firstLog = new AtomicBoolean(Boolean.TRUE);
 
@@ -125,7 +125,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         options.setExperimentalOption("prefs", prefs);
         options.addArguments("--lang=en");
 
-        //* @deprecated Use {@link ChromeDriverService.Builder#withLogLevel(ChromeDriverLogLevel)} to set log level.
+        // * @deprecated Use {@link ChromeDriverService.Builder#withLogLevel(ChromeDriverLogLevel)} to set log level.
         // options.setLogLevel(ChromeDriverLogLevel.OFF);
 
         ExtendedWebDriver driver = new ChromeDevtoolsDriver(options);
@@ -205,10 +205,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
             RequestId requestId = entry.getRequestId();
             // Only in case of a match we add response to request
             // so we only cover our ajax cycle and the original get
-            Optional<HttpCycleData> found =
-                    cycleData.stream()
-                             .filter(item -> item.requestId.toJson().equals(requestId.toJson()))
-                             .findFirst();
+            Optional<HttpCycleData> found = cycleData.stream().filter(item -> item.requestId.toJson().equals(requestId.toJson())).findFirst();
 
             found.ifPresent(httpCycleData -> httpCycleData.responseReceived = entry);
         });
@@ -383,9 +380,8 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     }
 
     /**
-     * closes the current tab for good, this has been problematic when the last or only tab was closes for recycling
-     * apparently we run into dev tools timeouts then hence reset now is the preferred way to recycle tabs instead of using
-     * close
+     * closes the current tab for good, this has been problematic when the last or only tab was closes for recycling apparently we run into dev tools timeouts
+     * then hence reset now is the preferred way to recycle tabs instead of using close
      */
     @Override
     public void close() {
@@ -526,16 +522,13 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         String requestData = getRequestData();
         String[] splitData = requestData.split("&");
 
-        return Stream.of(splitData).map((String keyVal) -> URLDecoder.decode(keyVal, StandardCharsets.UTF_8))
-                     .toArray(String[]::new);
+        return Stream.of(splitData).map((String keyVal) -> URLDecoder.decode(keyVal, StandardCharsets.UTF_8)).toArray(String[]::new);
     }
 
     private HttpCycleData getLastGetData() {
         sortResponses();
 
-        return cycleData
-                .stream()
-                .filter(item -> item.request.getUrl().contains(lastGet))
+        return cycleData.stream().filter(item -> item.request.getUrl().contains(lastGet))
                 // missing last api
                 .reduce((item1, item2) -> item2).orElse(null);
     }
@@ -552,8 +545,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
                 return 1;
             }
 
-            return Long.compare(o1.responseReceived.getTimestamp().toJson().longValue(),
-                    o2.responseReceived.getTimestamp().toJson().longValue());
+            return Long.compare(o1.responseReceived.getTimestamp().toJson().longValue(), o2.responseReceived.getTimestamp().toJson().longValue());
         });
     }
 
@@ -582,6 +574,10 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         return delegate;
     }
 
+    @Override
+    public void addRequestHeader(String name, String value) {
+        getDevTools().send(Network.setExtraHTTPHeaders(new Headers(Map.of(name, value))));
+    }
 }
 
 class HttpCycleData {

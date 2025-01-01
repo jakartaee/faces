@@ -17,82 +17,35 @@
 
 package ee.jakarta.tck.faces.test.javaee8.validateWholeBean;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-@ExtendWith(ArquillianExtension.class)
-public class Issue4083IT {
+public class Issue4083IT extends BaseITNG {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
-
-    public Issue4083IT() {
-    }
-
-  @BeforeAll
-  static void setUpClass() {
-    }
-
-  @AfterAll
-  static void tearDownClass() {
-    }
-
-  /**
-   * @see com.sun.faces.ext.component.UIValidateWholeBean
+    /**
+     * @see com.sun.faces.ext.component.UIValidateWholeBean
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4087
-   */
-  @Test
-  void validateWholeBean() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/Issue4083.xhtml");
+     */
+    @Test
+    void validateWholeBean() throws Exception {
+        WebPage page = getPage("faces/Issue4083.xhtml");
 
-        HtmlPasswordInput password1 = (HtmlPasswordInput) page.getHtmlElementById("password1");
-        password1.setValueAttribute("mike@!2016GO");
+        WebElement password1 = page.findElement(By.id("password1"));
+        password1.sendKeys("mike@!2016GO");
 
-        HtmlPasswordInput password2 = (HtmlPasswordInput) page.getHtmlElementById("password2");
-        password2.setValueAttribute("mike@!2015G0");
+        WebElement password2 = page.findElement(By.id("password2"));
+        password2.sendKeys("mike@!2015G0");
 
-        HtmlSubmitInput submit = (HtmlSubmitInput) page.getHtmlElementById("submit");
-        HtmlPage page1 = submit.click();
+        WebElement submit = page.findElement(By.id("submit"));
+        submit.click();
 
-        assertTrue(page1.getElementById("err").getElementsByTagName("li").get(0).asNormalizedText().contains("Password fields must match"), "Validation message not found!");
+        assertTrue(page.findElement(By.id("err")).findElements(By.tagName("li")).get(0).getText().contains("Password fields must match"),
+                "Validation message not found!");
     }
 }

@@ -17,84 +17,45 @@
 
 package ee.jakarta.tck.faces.test.servlet40.el;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.File;
-import java.net.URL;
 
 import jakarta.el.ResourceBundleELResolver;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-@ExtendWith(ArquillianExtension.class)
-public class Spec1337IT {
+public class Spec1337IT extends BaseITNG {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
-
-  /**
-   * @see ResourceBundleELResolver
+    /**
+     * @see ResourceBundleELResolver
      * @see https://github.com/jakartaee/faces/issues/1337
-   */
-  @Test
-  void resourceEL1() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL1.xhtml");
-        assertTrue(page.asXml().contains("/jakarta.faces.resource/resourceEL1.gif"));
+     */
+    @Test
+    void resourceEL1() throws Exception {
+        WebPage page = getPage("faces/resourceEL1.xhtml");
+        assertTrue(page.getPageSource().contains("/jakarta.faces.resource/resourceEL1.gif"));
     }
 
-  /**
-   * @see ResourceBundleELResolver
+    /**
+     * @see ResourceBundleELResolver
      * @see https://github.com/jakartaee/faces/issues/1337
-   */
-  @Test
-  void resourceEL2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL2.xhtml");
-        assertTrue(page.asXml().contains("/jakarta.faces.resource/resourceEL2.gif"));
-        assertTrue(page.asXml().contains("?ln=resourceEL2"));
+     */
+    @Test
+    void resourceEL2() throws Exception {
+        WebPage page = getPage("faces/resourceEL2.xhtml");
+        assertTrue(page.getPageSource().contains("/jakarta.faces.resource/resourceEL2.gif"));
+        assertTrue(page.getPageSource().contains("?ln=resourceEL2"));
     }
 
-  /**
-   * @see ResourceBundleELResolver
+    /**
+     * @see ResourceBundleELResolver
      * @see https://github.com/jakartaee/faces/issues/1337
-   */
-  @Test
-  void resourceEL3() throws Exception {
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        webClient.getOptions().setPrintContentOnFailingStatusCode(false);
-        HtmlPage page = webClient.getPage(webUrl + "faces/resourceEL3.xhtml");
-        assertTrue(page.asXml().contains("jakarta.el.ELException"));
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
-        webClient.getOptions().setPrintContentOnFailingStatusCode(true);
+     */
+    @Test
+    void resourceEL3() throws Exception {
+        WebPage page = getPage("faces/resourceEL3.xhtml");
+        assertTrue(page.getPageSource().contains("jakarta.el.ELException"));
     }
 }

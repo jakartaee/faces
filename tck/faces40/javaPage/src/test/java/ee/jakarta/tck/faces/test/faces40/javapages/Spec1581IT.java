@@ -16,72 +16,28 @@
 
 package ee.jakarta.tck.faces.test.faces40.javapages;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-
-import java.io.File;
-import java.net.URL;
-
 import jakarta.faces.annotation.View;
 import jakarta.faces.view.facelets.Facelet;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.htmlunit.DebugOptions;
+public class Spec1581IT extends BaseITNG {
 
-@ExtendWith(ArquillianExtension.class)
-public class Spec1581IT {
-
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-        DebugOptions.setDebugOptions(webClient);
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
-
-  /**
-   * @see Facelet
+    /**
+     * @see Facelet
      * @see View
      * @see https://github.com/jakartaee/faces/issues/1581
-   */
-  @Test
-  void test() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "hello.xhtml");
-
-        System.out.println(page.asXml());
-
-        HtmlInput button = (HtmlInput) page.getElementById("form:button");
-        page = button.click();
-
-        System.out.println(page.asXml());
-
+     */
+    @Test
+    void test() throws Exception {
+        WebPage page = getPage("hello.xhtml");
+        WebElement button = page.findElement(By.id("form:button"));
+        button.click();
     }
 
 }

@@ -52,9 +52,9 @@ public class Spec1238IT extends BaseITNG {
         WebElement label = webDriver.findElement(By.id("label"));
         WebElement input = webDriver.findElement(By.id("spec1238ITinput1"));
         
-        assertEquals(label.getAttribute("for"), input.getAttribute("id"));
+        assertEquals(label.getDomAttribute("for"), input.getDomAttribute("id"));
         
-        String onchange = input.getAttribute("onchange");
+        String onchange = input.getDomAttribute("onchange");
 
         if (onchange.contains("@this")) {
             assertFalse(onchange.contains("spec1238ITinput1"));

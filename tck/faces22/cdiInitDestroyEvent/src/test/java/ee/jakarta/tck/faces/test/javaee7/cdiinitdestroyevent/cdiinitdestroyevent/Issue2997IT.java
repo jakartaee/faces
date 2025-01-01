@@ -17,106 +17,72 @@
 
 package ee.jakarta.tck.faces.test.javaee7.cdiinitdestroyevent.cdiinitdestroyevent;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.File;
-import java.net.URL;
 
 import jakarta.faces.flow.FlowScoped;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 // https://github.com/eclipse-ee4j/mojarra/issues/3001
 // https://github.com/jakartaee/faces/issues/1734
-@ExtendWith(ArquillianExtension.class)
-public class Issue2997IT {
+public class Issue2997IT extends BaseITNG {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
-
-  /**
-   * @see FlowScoped
+    /**
+     * @see FlowScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3001
-   */
-  @Test
-  void globalReturn() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
+     */
+    @Test
+    void globalReturn() throws Exception {
+        WebPage page = getPage("");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("flow-with-templates");
-        page = button.click();
+        WebElement button = page.findElement(By.id("flow-with-templates"));
+        button.click();
 
-        String pageText = page.getBody().asNormalizedText();
+        String pageText = page.getPageSource();
         assertTrue(pageText.contains("Bottom From Template"));
         assertTrue(pageText.contains("issue2997Bean"));
 
-        button = (HtmlSubmitInput) page.getElementById("issue2997Home");
-        page = button.click();
+        button = page.findElement(By.id("issue2997Home"));
+        button.click();
 
-        pageText = page.getBody().asNormalizedText();
+        pageText = page.getPageSource();
         assertTrue(pageText.contains("Issue2997Home"));
         assertTrue(pageText.contains("flow-with-templates"));
         assertTrue(pageText.contains("issue2997Bean"));
 
-        page = webClient.getPage(webUrl);
+        page = getPage("");
 
-        button = (HtmlSubmitInput) page.getElementById("flow-with-templates");
-        page = button.click();
+        button = page.findElement(By.id("flow-with-templates"));
+        button.click();
 
-        pageText = page.getBody().asNormalizedText();
+        pageText = page.getPageSource();
         assertTrue(pageText.contains("Bottom From Template"));
 
-        button = (HtmlSubmitInput) page.getElementById("issue2997UserList");
-        page = button.click();
+        button = page.findElement(By.id("issue2997UserList"));
+        button.click();
 
-        pageText = page.getBody().asNormalizedText();
+        pageText = page.getPageSource();
         assertTrue(pageText.contains("Issue2997UserList"));
         assertTrue(pageText.contains("flow-with-templates"));
         assertTrue(pageText.contains("issue2997Bean"));
 
-        page = webClient.getPage(webUrl);
+        page = getPage("");
 
-        button = (HtmlSubmitInput) page.getElementById("flow-with-templates");
-        page = button.click();
+        button = page.findElement(By.id("flow-with-templates"));
+        button.click();
 
-        pageText = page.getBody().asNormalizedText();
+        pageText = page.getPageSource();
         assertTrue(pageText.contains("Bottom From Template"));
 
-        button = (HtmlSubmitInput) page.getElementById("issue2997PageInFacesConfig");
-        page = button.click();
+        button = page.findElement(By.id("issue2997PageInFacesConfig"));
+        button.click();
 
-        pageText = page.getBody().asNormalizedText();
+        pageText = page.getPageSource();
         assertTrue(pageText.contains("Issue2997PageInFacesConfig"));
         assertTrue(pageText.contains("flow-with-templates"));
         assertTrue(pageText.contains("issue2997Bean"));

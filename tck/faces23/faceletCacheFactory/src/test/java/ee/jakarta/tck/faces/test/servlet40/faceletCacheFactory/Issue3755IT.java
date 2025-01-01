@@ -17,54 +17,18 @@
 
 package ee.jakarta.tck.faces.test.servlet40.faceletCacheFactory;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.io.File;
-import java.net.URL;
 
 import jakarta.faces.view.facelets.FaceletCacheFactory;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit5.ArquillianExtension;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-@ExtendWith(ArquillianExtension.class)
-public class Issue3755IT {
-
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-
-  @BeforeEach
-  void setUp() {
-        webClient = new WebClient();
-    }
-
-  @AfterEach
-  void tearDown() {
-        webClient.close();
-    }
+public class Issue3755IT extends BaseITNG {
 
   /**
    * @see FaceletCacheFactory
@@ -72,14 +36,14 @@ public class Issue3755IT {
    */
   @Test
   void customFactory() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlTextInput input = page.getHtmlElementById("input");
+        WebPage page = getPage("");
+        WebElement input = page.findElement(By.id("input"));
         String inputText = "" + System.currentTimeMillis();
-        input.setText(inputText);
-        HtmlSubmitInput submit = page.getHtmlElementById("submit");
-        page = submit.click();
+        input.sendKeys(inputText);
+        WebElement submit = page.findElement(By.id("submit"));
+        submit.click();
 
-        String pageText = page.getBody().asNormalizedText();
+        String pageText = page.getPageSource();
         assertTrue(pageText.contains("output: " + inputText));
         assertTrue(pageText.matches("(?s).*message.\\d+.*"));
     }
