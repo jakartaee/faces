@@ -3356,9 +3356,15 @@
         </attribute>
         <attribute>
             <description>
+                <![CDATA[
+                <strong>
+                    The use of this attribute has been <a href="https://github.com/jakartaee/faces/issues/1972">deprecated</a> in Faces 5.0, without replacement.
+                </strong>
+                <br/><br/>
                 Flag indicating whether or not this form should prepend its id
                 to its descendent's id during the clientId generation process.
                 If this flag is not set, the default value is true.
+                ]]>
             </description>
             <name>prependId</name>
             <required>false</required>
