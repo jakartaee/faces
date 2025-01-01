@@ -42,7 +42,5 @@
     <servlet-mapping>
         <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
-        <url-pattern>*.xhtmlAsXhtml</url-pattern>
-        <url-pattern>*.xhtmlAsXml</url-pattern>
     </servlet-mapping>
 </web-app>

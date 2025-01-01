@@ -191,7 +191,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         devTools.addListener(Network.requestWillBeSent(), entry -> {
             // The Faces ajax only targets itself
             // That way we can filter out resource requests early
-            if (!entry.getRequest().getUrl().contains(lastGet)) {
+            if (lastGet != null && !entry.getRequest().getUrl().contains(lastGet)) {
                 return;
             }
 
