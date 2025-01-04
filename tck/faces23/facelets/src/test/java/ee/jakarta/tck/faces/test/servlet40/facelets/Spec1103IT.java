@@ -17,84 +17,50 @@
 
 package ee.jakarta.tck.faces.test.servlet40.facelets;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.net.URL;
 import java.util.Collection;
 import java.util.regex.Pattern;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
 import jakarta.faces.component.UIData;
 
-@RunWith(Arquillian.class)
-public class Spec1103IT {
+import org.junit.jupiter.api.Test;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
+public class Spec1103IT extends BaseITNG {
 
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
-
-    /**
-     * @see UIData
+  /**
+   * @see UIData
      * @see Iterable
      * @see https://github.com/jakartaee/faces/issues/1103
-     */
-    @Test
-    public void testDataTableIterable() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/datatableIterable.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.asXml()));
+   */
+  @Test
+  void dataTableIterable() throws Exception {
+        WebPage page = getPage("faces/datatableIterable.xhtml");
+        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getPageSource()));
     }
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see Iterable
      * @see https://github.com/jakartaee/faces/issues/1103
-     */
-    @Test
-    public void testUIRepeatIterable() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/uirepeatIterable.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.asXml()));
+   */
+  @Test
+  void uIRepeatIterable() throws Exception {
+        WebPage page = getPage("faces/uirepeatIterable.xhtml");
+        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getPageSource()));
     }
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see Collection
      * @see https://github.com/jakartaee/faces/issues/1103
-     */
-    @Test
-    public void testUIRepeatCollection() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/uirepeatCollection.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*1.*2.*3.*END.*", page.asXml()));
+   */
+  @Test
+  void uIRepeatCollection() throws Exception {
+        WebPage page = getPage("faces/uirepeatCollection.xhtml");
+        assertTrue(Pattern.matches("(?s).*START.*1.*2.*3.*END.*", page.getPageSource()));
     }
 }

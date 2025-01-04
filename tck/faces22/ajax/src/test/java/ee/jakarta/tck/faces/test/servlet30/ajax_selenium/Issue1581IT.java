@@ -16,27 +16,28 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 
-public class Issue1581IT extends BaseITNG {
+class Issue1581IT extends BaseITNG {
 
-    /**
-     * This test verifies correct function of SelectManyCheckbox in a Composite
-     * Component over Ajax. 
-     */
-    @Test
-    public void testSelectManyCheckboxInComposite() throws Exception {
+  /**
+   * This test verifies correct function of SelectManyCheckbox in a Composite
+   * Component over Ajax. 
+   */
+  @Test
+  void selectManyCheckboxInComposite() throws Exception {
         WebPage page = getPage("issue1581.xhtml");
 
         assertCheckBoxes(getCheckboxes(page), false, false, false, false);
@@ -73,7 +74,7 @@ public class Issue1581IT extends BaseITNG {
         List<WebElement> elements = page.findElements(By.tagName("input"));
         for (Iterator<WebElement> it = elements.iterator(); it.hasNext(); ) {
             WebElement elem = it.next();
-            if (elem.getAttribute("type").equals("checkbox")) {
+            if (elem.getDomAttribute("type").equals("checkbox")) {
                 checkBoxes.add(elem);
             }
         }

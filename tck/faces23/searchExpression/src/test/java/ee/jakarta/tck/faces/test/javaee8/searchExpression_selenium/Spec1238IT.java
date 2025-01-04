@@ -17,25 +17,30 @@
 package ee.jakarta.tck.faces.test.javaee8.searchExpression_selenium;
 
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.search.SearchKeywordResolver;
-import org.junit.Assert;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 
+import jakarta.faces.component.search.SearchKeywordResolver;
+
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
 public class Spec1238IT extends BaseITNG {
 
-    /**
-     * @see SearchKeywordResolver
+  /**
+   * @see SearchKeywordResolver
      * @see https://github.com/jakartaee/faces/issues/1238
-     */
-    @Test
-    public void test() throws Exception {
+   */
+  @Test
+  void test() throws Exception {
         testSearchExpression();
     }
 
@@ -47,16 +52,16 @@ public class Spec1238IT extends BaseITNG {
         WebElement label = webDriver.findElement(By.id("label"));
         WebElement input = webDriver.findElement(By.id("spec1238ITinput1"));
         
-        Assert.assertEquals(label.getAttribute("for"), input.getAttribute("id"));
+        assertEquals(label.getDomAttribute("for"), input.getDomAttribute("id"));
         
-        String onchange = input.getAttribute("onchange");
+        String onchange = input.getDomAttribute("onchange");
 
         if (onchange.contains("@this")) {
-            Assert.assertFalse(onchange.contains("spec1238ITinput1"));
+            assertFalse(onchange.contains("spec1238ITinput1"));
         }
         else {
-            Assert.assertTrue(onchange.contains("spec1238ITinput1"));
+            assertTrue(onchange.contains("spec1238ITinput1"));
         }
-        Assert.assertTrue(onchange.contains("spec1238ITinput2"));
+        assertTrue(onchange.contains("spec1238ITinput2"));
     }
 }

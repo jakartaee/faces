@@ -18,27 +18,24 @@
 package ee.jakarta.tck.faces.test.javaee8.facelets;
 
 import static java.util.regex.Pattern.matches;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.model.FacesDataModel;
 
-@RunWith(Arquillian.class)
-public class UIRepeatCustomDataModelIT extends ITBase {
+import org.junit.jupiter.api.Test;
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class UIRepeatCustomDataModelIT extends BaseITNG {
+
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see FacesDataModel
      * @see https://github.com/jakartaee/faces/issues/1078
-     */
-    @Test
-    public void testExactClassMatch() throws Exception {
+   */
+  @Test
+  void exactClassMatch() throws Exception {
 
         // In this test a backing bean will return an object of type Child11.
         // There's a DataModel registered for exactly this class, which should
@@ -48,17 +45,17 @@ public class UIRepeatCustomDataModelIT extends ITBase {
         // registered for super classes of Child11 (e.g. Child1), which can also
         // handle a Child11, but these should NOT be picked up and the exact match
         // should be preferred.
-        HtmlPage page = getPage("uirepeatCustomDataModel11.xhtml");
-        assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.asXml()));
+        WebPage page = getPage("uirepeatCustomDataModel11.xhtml");
+        assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.getPageSource()));
     }
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see FacesDataModel
      * @see https://github.com/jakartaee/faces/issues/1078
-     */
-    @Test
-    public void testClosestSuperClassMatch() throws Exception {
+   */
+  @Test
+  void closestSuperClassMatch() throws Exception {
 
         // In this test a backing bean will return an object of type Child111.
         // There's NO DataModel registered for exactly this class. However, there
@@ -67,7 +64,7 @@ public class UIRepeatCustomDataModelIT extends ITBase {
         // The challenge here is that the DataModel for the closest super class
         // should be chosen, which in this test is the DataModel that handles
         // a Child11.
-        HtmlPage page = getPage("uirepeatCustomDataModel111.xhtml");
-        assertTrue(matches("(?s).*START.*111-member 1.*111-member 2.*END.*", page.asXml()));
+        WebPage page = getPage("uirepeatCustomDataModel111.xhtml");
+        assertTrue(matches("(?s).*START.*111-member 1.*111-member 2.*END.*", page.getPageSource()));
     }
 }

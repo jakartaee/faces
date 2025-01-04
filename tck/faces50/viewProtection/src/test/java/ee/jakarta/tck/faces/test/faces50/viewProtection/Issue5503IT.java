@@ -15,10 +15,10 @@
  */
 package ee.jakarta.tck.faces.test.faces50.viewProtection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -28,7 +28,7 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 /**
  * https://github.com/eclipse-ee4j/mojarra/issues/5503
  */
-public class Issue5503IT extends BaseITNG {
+class Issue5503IT extends BaseITNG {
 
     @FindBy(id = "protectedViewLink")
     private WebElement protectedViewLink;
@@ -36,60 +36,60 @@ public class Issue5503IT extends BaseITNG {
     @FindBy(id = "unprotectedViewLink")
     private WebElement unprotectedViewLink;
 
-    @Test
-    public void testOpeningProtectedViewWithXhtmlMapping() {
+  @Test
+  void openingProtectedViewWithXhtmlMapping() {
         WebPage page = getPage("issue5503-protected.xhtml");
         assertEquals("issue5503 - ProtectedViewException", page.getTitle());
     }
 
-    @Test
-    public void testOpeningProtectedViewWithJsfMapping() {
+  @Test
+  void openingProtectedViewWithJsfMapping() {
         WebPage page = getPage("issue5503-protected.jsf");
         assertEquals("issue5503 - ProtectedViewException", page.getTitle());
     }
 
-    @Test
-    public void testOpeningProtectedViewWithFacesMapping() {
+  @Test
+  void openingProtectedViewWithFacesMapping() {
         WebPage page = getPage("faces/issue5503-protected.xhtml");
         assertEquals("issue5503 - ProtectedViewException", page.getTitle());
     }
 
-    @Test
-    public void testLinkingProtectedViewWithXhtmlMapping() {
+  @Test
+  void linkingProtectedViewWithXhtmlMapping() {
         WebPage page = getPage("issue5503-unprotected.xhtml");
         assertEquals("issue5503 - unprotected view", page.getTitle());
         assertEquals("issue5503-unprotected.xhtml", getHrefURI(unprotectedViewLink));
-        assertTrue("'" + getHrefURI(protectedViewLink) + "' starts with 'issue5503-protected.xhtml?jakarta.faces.Token='", getHrefURI(protectedViewLink).startsWith("issue5503-protected.xhtml?jakarta.faces.Token="));
+        assertTrue(getHrefURI(protectedViewLink).startsWith("issue5503-protected.xhtml?jakarta.faces.Token="), "'" + getHrefURI(protectedViewLink) + "' starts with 'issue5503-protected.xhtml?jakarta.faces.Token='");
 
         page.guardHttp(protectedViewLink::click);
         assertEquals("issue5503 - protected view", page.getTitle());
         assertEquals("issue5503-unprotected.xhtml", getHrefURI(unprotectedViewLink));
-        assertTrue("'" + getHrefURI(protectedViewLink) + "' starts with 'issue5503-protected.xhtml?jakarta.faces.Token='", getHrefURI(protectedViewLink).startsWith("issue5503-protected.xhtml?jakarta.faces.Token="));
+        assertTrue(getHrefURI(protectedViewLink).startsWith("issue5503-protected.xhtml?jakarta.faces.Token="), "'" + getHrefURI(protectedViewLink) + "' starts with 'issue5503-protected.xhtml?jakarta.faces.Token='");
     }
 
-    @Test
-    public void testLinkingProtectedViewWithJsfMapping() {
+  @Test
+  void linkingProtectedViewWithJsfMapping() {
         WebPage page = getPage("issue5503-unprotected.jsf");
         assertEquals("issue5503 - unprotected view", page.getTitle());
         assertEquals("issue5503-unprotected.jsf", getHrefURI(unprotectedViewLink));
-        assertTrue("'" + getHrefURI(protectedViewLink) + "' starts with 'issue5503-protected.jsf?jakarta.faces.Token='", getHrefURI(protectedViewLink).startsWith("issue5503-protected.jsf?jakarta.faces.Token="));
+        assertTrue(getHrefURI(protectedViewLink).startsWith("issue5503-protected.jsf?jakarta.faces.Token="), "'" + getHrefURI(protectedViewLink) + "' starts with 'issue5503-protected.jsf?jakarta.faces.Token='");
 
         page.guardHttp(protectedViewLink::click);
         assertEquals("issue5503 - protected view", page.getTitle());
         assertEquals("issue5503-unprotected.jsf", getHrefURI(unprotectedViewLink));
-        assertTrue("'" + getHrefURI(protectedViewLink) + "' starts with 'issue5503-protected.jsf?jakarta.faces.Token='", getHrefURI(protectedViewLink).startsWith("issue5503-protected.jsf?jakarta.faces.Token="));
+        assertTrue(getHrefURI(protectedViewLink).startsWith("issue5503-protected.jsf?jakarta.faces.Token="), "'" + getHrefURI(protectedViewLink) + "' starts with 'issue5503-protected.jsf?jakarta.faces.Token='");
     }
 
-    @Test
-    public void testLinkingProtectedViewWithFacesMapping() {
+  @Test
+  void linkingProtectedViewWithFacesMapping() {
         WebPage page = getPage("faces/issue5503-unprotected.xhtml");
         assertEquals("issue5503 - unprotected view", page.getTitle());
         assertEquals("faces/issue5503-unprotected.xhtml", getHrefURI(unprotectedViewLink));
-        assertTrue("'" + getHrefURI(protectedViewLink) + "' starts with 'faces/issue5503-protected.xhtml?jakarta.faces.Token='", getHrefURI(protectedViewLink).startsWith("faces/issue5503-protected.xhtml?jakarta.faces.Token="));
+        assertTrue(getHrefURI(protectedViewLink).startsWith("faces/issue5503-protected.xhtml?jakarta.faces.Token="), "'" + getHrefURI(protectedViewLink) + "' starts with 'faces/issue5503-protected.xhtml?jakarta.faces.Token='");
 
         page.guardHttp(protectedViewLink::click);
         assertEquals("issue5503 - protected view", page.getTitle());
         assertEquals("faces/issue5503-unprotected.xhtml", getHrefURI(unprotectedViewLink));
-        assertTrue("'" + getHrefURI(protectedViewLink) + "' starts with 'faces/issue5503-protected.xhtml?jakarta.faces.Token='", getHrefURI(protectedViewLink).startsWith("faces/issue5503-protected.xhtml?jakarta.faces.Token="));
+        assertTrue(getHrefURI(protectedViewLink).startsWith("faces/issue5503-protected.xhtml?jakarta.faces.Token="), "'" + getHrefURI(protectedViewLink) + "' starts with 'faces/issue5503-protected.xhtml?jakarta.faces.Token='");
     }
 }

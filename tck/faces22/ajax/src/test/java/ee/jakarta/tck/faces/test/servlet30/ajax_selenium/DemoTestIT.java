@@ -1,21 +1,23 @@
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
+
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
 
 
-public class DemoTestIT extends BaseITNG {
+class DemoTestIT extends BaseITNG {
 
-    @Test
-    public void test1()  {
-        assertEquals(true, true);
+  @Test
+  void test1()  {
+      assertTrue(true);
     }
 
-    @Test
-    public void runMainPage()  {
+  @Test
+  void runMainPage()  {
         int statusCode = getStatusCode("index.xhtml");
         assertEquals(200, statusCode);
     }

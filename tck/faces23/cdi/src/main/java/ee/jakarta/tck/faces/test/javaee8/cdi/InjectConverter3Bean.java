@@ -17,10 +17,9 @@
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import jakarta.faces.convert.FacesConverter;
 
 @Named(value="injectConverter3Bean")
 @RequestScoped

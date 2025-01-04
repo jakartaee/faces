@@ -17,20 +17,17 @@
 
 package ee.jakarta.tck.faces.test.servlet40.refreshperiodexplicit;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.application.ProjectStage;
 import jakarta.faces.application.ViewHandler;
 
-@RunWith(Arquillian.class)
-public class Issue3787IT extends ITBase {
+import org.junit.jupiter.api.Test;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+public class Issue3787IT extends BaseITNG {
 
     /**
      * @see ViewHandler#FACELETS_REFRESH_PERIOD_PARAM_NAME
@@ -39,7 +36,7 @@ public class Issue3787IT extends ITBase {
      */
     @Test
     public void testGetRefreshPeriod() throws Exception {
-        HtmlPage page = getPage("index.xhtml");
-        assertTrue(page.getBody().asNormalizedText().contains("30000"));
+        WebPage page = getPage("index.xhtml");
+        assertTrue(page.getPageSource().contains("30000"));
     }
 }

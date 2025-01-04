@@ -14,23 +14,22 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 package org.eclipse.ee4j.tck.faces.faces41.uiRepeat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Spec1263IT extends BaseITNG {
+class Spec1263IT extends BaseITNG {
 
-    /**
-     * @see UIRepeat
+  /**
+   * @see UIRepeat
      * @see https://github.com/jakartaee/faces/issues/1263
-     */
-    @Test
-    public void testUiRepeatRowStatePreserved() {
+   */
+  @Test
+  void uiRepeatRowStatePreserved() {
         WebPage page = getPage("spec1263.xhtml");
         page.findElement(By.id("row:0:cell:0:form:input")).sendKeys("00");
         page.findElement(By.id("row:0:cell:0:form:submit")).click();

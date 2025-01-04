@@ -16,28 +16,31 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.context.PartialViewContext;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue1284IT extends BaseITNG {
+class Issue1284IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see PartialViewContext#getEvalScripts()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1289
-     */
-    @Test
-    public void testCdataEscape5() throws Exception {
+   */
+  @Test
+  void cdataEscape5() throws Exception {
         WebPage page = getPage("issue1284.xhtml");
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("")); 
-        assertTrue(page.findElement(By.id("form1:in1")).getText().equals("")); 
+      assertEquals("", page.findElement(By.id("form1:out1")).getText());
+      assertEquals("", page.findElement(By.id("form1:in1")).getText()); 
 
         WebElement in1 = page.findElement(By.id("form1:in1"));
         in1.sendKeys("[");
@@ -47,20 +50,20 @@ public class Issue1284IT extends BaseITNG {
         page.guardAjax(button1::click);
 
 
-        // Check that the ajax request succeeds
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("[")); 
+      // Check that the ajax request succeeds
+      assertEquals("[", page.findElement(By.id("form1:out1")).getText()); 
     }
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see PartialViewContext#getEvalScripts()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1289
-     */
-    @Test
-    public void testCdataEscape6() throws Exception {
+   */
+  @Test
+  void cdataEscape6() throws Exception {
         WebPage page = getPage("issue1284.xhtml");
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("")); 
-        assertTrue(page.findElement(By.id("form1:in1")).getText().equals("")); 
+      assertEquals("", page.findElement(By.id("form1:out1")).getText());
+      assertEquals("", page.findElement(By.id("form1:in1")).getText()); 
 
         WebElement in1 = page.findElement(By.id("form1:in1"));
         in1.sendKeys("var a=[");
@@ -70,7 +73,7 @@ public class Issue1284IT extends BaseITNG {
         page.guardAjax(button1::click);
 
 
-        // Check that the ajax request succeeds
-        assertTrue(page.findElement(By.id("form1:out1")).getText().equals("var a=[")); 
+      // Check that the ajax request succeeds
+      assertEquals("var a=[", page.findElement(By.id("form1:out1")).getText()); 
     }
 }

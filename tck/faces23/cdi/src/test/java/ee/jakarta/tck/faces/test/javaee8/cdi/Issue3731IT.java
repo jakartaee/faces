@@ -16,61 +16,26 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.annotation.ViewMap;
 import jakarta.inject.Inject;
 
-@RunWith(Arquillian.class)
-public class Issue3731IT {
+import org.junit.jupiter.api.Test;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
+public class Issue3731IT extends BaseITNG {
 
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
-
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see ViewMap
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3735
-     */
-    @Test
-    public void testInjectViewMap2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectViewMap2.xhtml");
-        assertTrue(page.asXml().contains("{}"));
+   */
+  @Test
+  void injectViewMap2() throws Exception {
+        WebPage page = getPage("faces/injectViewMap2.xhtml");
+        assertTrue(page.getPageSource().contains("{}"));
     }
 }

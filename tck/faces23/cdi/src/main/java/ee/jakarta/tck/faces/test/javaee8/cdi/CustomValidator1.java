@@ -16,14 +16,13 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
-import jakarta.inject.Inject;
-
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.validator.FacesValidator;
 import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
+import jakarta.inject.Inject;
 
 @FacesValidator(value = "validator.CustomValidator1", managed = true)
 public class CustomValidator1 implements Validator<String> {

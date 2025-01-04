@@ -15,9 +15,9 @@
  */
 package ee.jakarta.tck.faces.test.faces50.uiinput;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -26,7 +26,7 @@ import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 /**
  * https://github.com/eclipse-ee4j/mojarra/issues/5507
  */
-public class Issue5507IT extends BaseITNG {
+class Issue5507IT extends BaseITNG {
 
     @FindBy(id = "form1:table:0:radio")
     private WebElement form1Radio1;
@@ -53,29 +53,29 @@ public class Issue5507IT extends BaseITNG {
     private WebElement form2Radio4;
 
     @Test
-    public void testSelectOneRadioStyleClassAttributeRendering() {
+    void selectOneRadioStyleClassAttributeRendering() {
         getPage("issue5507.xhtml");
-        assertEquals("someStyleClass", form1Radio1.getAttribute("class"));
-        assertEquals("someStyleClass", form1Radio2.getAttribute("class"));
-        assertEquals("someStyleClass", form1Radio3.getAttribute("class"));
-        assertEquals("someStyleClass", form1Radio4.getAttribute("class"));
-        assertEquals("someStyleClass", form2Radio1.getAttribute("class"));
-        assertEquals("otherStyleClass", form2Radio2.getAttribute("class"));
-        assertEquals("", form2Radio3.getAttribute("class"));
-        assertEquals("", form2Radio4.getAttribute("class"));
+        assertEquals("someStyleClass", form1Radio1.getDomAttribute("class"));
+        assertEquals("someStyleClass", form1Radio2.getDomAttribute("class"));
+        assertEquals("someStyleClass", form1Radio3.getDomAttribute("class"));
+        assertEquals("someStyleClass", form1Radio4.getDomAttribute("class"));
+        assertEquals("someStyleClass", form2Radio1.getDomAttribute("class"));
+        assertEquals("otherStyleClass", form2Radio2.getDomAttribute("class"));
+        assertEquals(null, form2Radio3.getDomAttribute("class"));
+        assertEquals(null, form2Radio4.getDomAttribute("class"));
     }
 
     @Test
-    public void testSelectOneRadioStyleAttributeRendering() {
+    void selectOneRadioStyleAttributeRendering() {
         getPage("issue5507.xhtml");
-        assertEquals("accent-color: blue;", form1Radio1.getAttribute("style"));
-        assertEquals("accent-color: blue;", form1Radio2.getAttribute("style"));
-        assertEquals("accent-color: blue;", form1Radio3.getAttribute("style"));
-        assertEquals("accent-color: blue;", form1Radio4.getAttribute("style"));
-        assertEquals("accent-color: red;", form2Radio1.getAttribute("style"));
-        assertEquals("", form2Radio2.getAttribute("style"));
-        assertEquals("", form2Radio3.getAttribute("style"));
-        assertEquals("accent-color: green;", form2Radio4.getAttribute("style"));
+        assertEquals("accent-color: blue;", form1Radio1.getDomAttribute("style"));
+        assertEquals("accent-color: blue;", form1Radio2.getDomAttribute("style"));
+        assertEquals("accent-color: blue;", form1Radio3.getDomAttribute("style"));
+        assertEquals("accent-color: blue;", form1Radio4.getDomAttribute("style"));
+        assertEquals("accent-color: red;", form2Radio1.getDomAttribute("style"));
+        assertEquals(null, form2Radio2.getDomAttribute("style"));
+        assertEquals(null, form2Radio3.getDomAttribute("style"));
+        assertEquals("accent-color: green;", form2Radio4.getDomAttribute("style"));
     }
 
 }

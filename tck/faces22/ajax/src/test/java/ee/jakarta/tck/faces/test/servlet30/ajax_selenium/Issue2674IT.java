@@ -16,26 +16,28 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2674IT extends BaseITNG {
+class Issue2674IT extends BaseITNG {
 
     /**
      * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2678
      */
     @Test
-    public void testProgrammaticAjaxBehavior() throws Exception {
+    void programmaticAjaxBehavior() throws Exception {
         WebPage page = getPage("issue2674.xhtml");
         WebElement input1 = page.findElement(By.id("form:input1"));
-        assertTrue("input1 has programmatically added onfocus attribute", !input1.getAttribute("onfocus").isEmpty());
+        assertFalse(input1.getDomAttribute("onfocus") == null || input1.getDomAttribute("onfocus").isEmpty(),
+                "input1 has programmatically added onfocus attribute");
     }
 }
-

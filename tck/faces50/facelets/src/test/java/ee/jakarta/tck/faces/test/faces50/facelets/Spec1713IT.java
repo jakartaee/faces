@@ -16,28 +16,23 @@
 
 package ee.jakarta.tck.faces.test.faces50.facelets;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-@RunWith(Arquillian.class)
-public class Spec1713IT extends ITBase {
+class Spec1713IT extends BaseITNG {
 
     /**
      * @see com.sun.faces.facelets.component.UIRepeat
      * @see https://github.com/jakartaee/faces/issues/1713
      */
     @Test
-    public void testSpec1713() throws Exception {
-        HtmlPage page = getPage("spec1713.xhtml");
+    void spec1713() throws Exception {
+        WebPage page = getPage("spec1713.xhtml");
         assertOutput(page, "repeat1", "1 2 3");
         assertOutput(page, "repeat2", "-3 -2 -1 0 1 2 3");
         assertOutput(page, "repeat3", "3 2 1 0 -1 -2 -3");
@@ -56,7 +51,7 @@ public class Spec1713IT extends ITBase {
         assertOutput(page, "repeat16", "A C E");
         assertOutput(page, "repeat17", "B D");
         assertOutput(page, "repeat18", "B");
-        
+
         assertFacesException("repeat19");
         assertFacesException("repeat20");
         assertFacesException("repeat21");
@@ -68,11 +63,11 @@ public class Spec1713IT extends ITBase {
         assertFacesException("repeat27");
     }
 
-    private void assertOutput(HtmlPage page, String clientId, String expected) {
-        assertEquals(clientId, expected, page.getHtmlElementById(clientId).asNormalizedText());
+    private void assertOutput(WebPage page, String clientId, String expected) {
+        assertEquals(expected, page.findElement(By.id(clientId)).getText(), clientId);
     }
 
     private void assertFacesException(String clientId) throws Exception {
-        assertThrows(FailingHttpStatusCodeException.class, () -> getPage("spec1713.xhtml?clientId=" + clientId));
+        assertEquals(500, getPage("spec1713.xhtml?clientId=" + clientId).getResponseStatus());
     }
 }

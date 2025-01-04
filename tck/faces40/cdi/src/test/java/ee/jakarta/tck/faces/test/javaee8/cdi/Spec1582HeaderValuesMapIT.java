@@ -17,55 +17,20 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.inject.Inject;
+
+import org.junit.jupiter.api.Test;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the availability of the header values map via CDI
  *
  */
-@RunWith(Arquillian.class)
-public class Spec1582HeaderValuesMapIT {
-
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
+public class Spec1582HeaderValuesMapIT extends BaseITNG {
 
     /**
      * @see Inject
@@ -73,14 +38,14 @@ public class Spec1582HeaderValuesMapIT {
      * @see https://github.com/jakartaee/faces/issues/1582
      */
     @Test
-    public void testInjectHeaderValuesMap() throws Exception {
+    void injectHeaderValuesMap() throws Exception {
         // Add a custom header that the test code knows named "foo"
-        webClient.addRequestHeader("foo", "bar");
+        getWebDriver().addRequestHeader("foo", "bar");
 
-        HtmlPage page = webClient.getPage(webUrl + "injectHeaderValuesMap.xhtml");
+        WebPage page = getPage("injectHeaderValuesMap.xhtml");
 
         // Header value should be printed on the page
-        assertTrue(page.asXml().contains("foo-0:bar"));
+        assertTrue(page.getPageSource().contains("foo-0:bar"));
     }
 
 }

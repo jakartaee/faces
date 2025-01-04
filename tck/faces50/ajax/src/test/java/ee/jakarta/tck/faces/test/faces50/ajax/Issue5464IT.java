@@ -14,16 +14,15 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
 package ee.jakarta.tck.faces.test.faces50.ajax;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 
-public class Issue5464IT extends BaseITNG {
+class Issue5464IT extends BaseITNG {
 
     @FindBy(id = "form:input")
     private WebElement input;
@@ -34,22 +33,22 @@ public class Issue5464IT extends BaseITNG {
     @FindBy(id = "form:output")
     private WebElement output;
 
-    /**
-     * https://github.com/eclipse-ee4j/mojarra/issues/5464
-     */
-    @Test
-    public void testFFFE() {
+  /**
+   * https://github.com/eclipse-ee4j/mojarra/issues/5464
+   */
+  @Test
+  void fffe() {
         var page = getPage("issue5464.xhtml");
         input.sendKeys("f\uFFFEoo");
         page.guardAjax(submit::click);
         assertEquals("Result: foo", output.getText());
     }
 
-    /**
-     * https://github.com/eclipse-ee4j/mojarra/issues/4516
-     */
-    @Test
-    public void test000C() {
+  /**
+   * https://github.com/eclipse-ee4j/mojarra/issues/4516
+   */
+  @Test
+  void test000C() {
         var page = getPage("issue5464.xhtml");
         input.sendKeys("f\u000Coo");
         page.guardAjax(submit::click);

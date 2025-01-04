@@ -17,23 +17,19 @@
 
 package ee.jakarta.tck.faces.test.javaee8.disablefacelettoxhtmlmapping;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
+class DisableFaceletToXhtmlIT extends BaseITNG {
 
-@RunWith(Arquillian.class)
-public class DisableFaceletToXhtmlIT extends ITBase {
-    
-    @Test
-    public void doTest() throws Exception {
-        HtmlPage page = getPage("index.xhtml");
-        assertTrue(page.getBody().asXml().indexOf("ViewState") == -1);
+  @Test
+  void doTest() throws Exception {
+        WebPage page = getPage("index.xhtml");
+      assertEquals(-1, page.getPageSource().indexOf("ViewState"));
     }
 
 }

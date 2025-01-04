@@ -16,94 +16,59 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.annotation.ManagedProperty;
 import jakarta.inject.Inject;
+
+import org.junit.jupiter.api.Test;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the injection of values by {@link ManagedProperty}
  *
  */
-@RunWith(Arquillian.class)
-public class Spec1418IT {
+public class Spec1418IT extends BaseITNG {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
-
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-     */
-    @Test
-    public void testManagedPropertyInteger() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml");
+   */
+  @Test
+  void managedPropertyInteger() throws Exception {
+        WebPage page = getPage("injectManagedProperty.xhtml");
 
-        assertTrue(page.asXml().contains("integer1:42"));
-        assertTrue(page.asXml().contains("integer2:99"));
-        assertTrue(page.asXml().contains("integer3:123"));
+        assertTrue(page.getPageSource().contains("integer1:42"));
+        assertTrue(page.getPageSource().contains("integer2:99"));
+        assertTrue(page.getPageSource().contains("integer3:123"));
     }
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-     */
-    @Test
-    public void testManagedPropertyString() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml?test=foo");
+   */
+  @Test
+  void managedPropertyString() throws Exception {
+        WebPage page = getPage("injectManagedProperty.xhtml?test=foo");
 
-        assertTrue(page.asXml().contains("testParam:foo"));
+        assertTrue(page.getPageSource().contains("testParam:foo"));
     }
 
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-     */
-    @Test
-    public void testManagedPropertyGenericMap() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectManagedProperty.xhtml");
+   */
+  @Test
+  void managedPropertyGenericMap() throws Exception {
+        WebPage page = getPage("injectManagedProperty.xhtml");
 
-        assertTrue(page.asXml().contains("stringMap:bar"));
-        assertTrue(page.asXml().contains("integerMap:10"));
+        assertTrue(page.getPageSource().contains("stringMap:bar"));
+        assertTrue(page.getPageSource().contains("integerMap:10"));
     }
 
 }

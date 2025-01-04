@@ -16,53 +16,19 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.validator.FacesValidator;
 import jakarta.inject.Inject;
 
-@RunWith(Arquillian.class)
-public class Spec1350IT {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
+public class Spec1350IT extends BaseITNG {
 
     /**
      * @see Inject
@@ -70,12 +36,10 @@ public class Spec1350IT {
      * @see https://github.com/jakartaee/faces/issues/1350
      */
     @Test
-    public void testInjectValidator() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/injectValidator.xhtml");
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        HtmlElement submit = page.getHtmlElementById("form:submit");
-        page = submit.click();
-        assertTrue(page.asXml().contains("InjectValidator was called"));
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(true);
+    void injectValidator() throws Exception {
+        WebPage page = getPage("faces/injectValidator.xhtml");
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
+        assertTrue(page.getPageSource().contains("InjectValidator was called"));
     }
 }

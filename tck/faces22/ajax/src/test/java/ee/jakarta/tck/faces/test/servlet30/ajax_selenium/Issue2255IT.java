@@ -16,25 +16,27 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2255IT extends BaseITNG {
+class Issue2255IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see UIComponent#getCurrentCompositeComponent(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2259
-     */
-    @Test
-    public void testBehaviorState() throws Exception {
+   */
+  @Test
+  void behaviorState() throws Exception {
         WebPage page = getPage("divInComposite.xhtml");
         assertTrue(page.isInPage("false"));
         WebElement cbox =  page.findElement(By.id("cc:form:test"));

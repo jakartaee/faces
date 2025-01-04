@@ -16,30 +16,29 @@
 
 package ee.jakarta.tck.faces.test.javaee8.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedTextInput;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.application.StateManager;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.time.Duration;
-
-import static org.junit.Assert.assertTrue;
-
-
-public class Spec790IT extends BaseITNG {
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.ExtendedTextInput;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 
+class Spec790IT extends BaseITNG {
 
-    /**
-     * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
+
+  /**
+   * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
      * @see https://github.com/jakartaee/faces/issues/790
-     */
-    @Test
-    public void testSpec790() throws Exception {
+   */
+  @Test
+  void spec790() throws Exception {
 
         WebPage page = getPage("spec790.xhtml");
         WebElement form1 = page.findElement(By.id("form1"));
@@ -49,9 +48,9 @@ public class Spec790IT extends BaseITNG {
         ExtendedTextInput form2ViewState =  new ExtendedTextInput( getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
         WebElement form3 =  page.findElement(By.id("form3"));
         ExtendedTextInput form3ViewState = form2ViewState =  new ExtendedTextInput( getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
-        assertTrue(!form1ViewState.getValue().isEmpty());
-        assertTrue(!form2ViewState.getValue().isEmpty());
-        assertTrue(!form3ViewState.getValue().isEmpty());
+      assertFalse(form1ViewState.getValue().isEmpty());
+      assertFalse(form2ViewState.getValue().isEmpty());
+      assertFalse(form3ViewState.getValue().isEmpty());
 
         WebElement form1Button = page.findElement(By.id("form1:button"));
         page.guardAjax(form1Button::click);
@@ -62,9 +61,9 @@ public class Spec790IT extends BaseITNG {
         form2ViewState = new ExtendedTextInput( getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
         form3 =  page.findElement(By.id("form3"));
         form3ViewState = new ExtendedTextInput( getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
-        assertTrue(!form1ViewState.getValue().isEmpty());
-        assertTrue(!form2ViewState.getValue().isEmpty());
-        assertTrue(!form3ViewState.getValue().isEmpty());
+      assertFalse(form1ViewState.getValue().isEmpty());
+      assertFalse(form2ViewState.getValue().isEmpty());
+      assertFalse(form3ViewState.getValue().isEmpty());
 
         WebElement form2Link =  page.findElement(By.id("form2:link"));
         page.guardAjax(form2Link::click);
@@ -74,9 +73,9 @@ public class Spec790IT extends BaseITNG {
         form2ViewState = new ExtendedTextInput( getWebDriver(),form2.findElement(By.name("jakarta.faces.ViewState")));
         form3 =  page.findElement(By.id("form3"));
         form3ViewState = new ExtendedTextInput( getWebDriver(),form3.findElement(By.name("jakarta.faces.ViewState")));
-        assertTrue(!form1ViewState.getValue().isEmpty());
-        assertTrue(!form2ViewState.getValue().isEmpty());
-        assertTrue(!form3ViewState.getValue().isEmpty());
+      assertFalse(form1ViewState.getValue().isEmpty());
+      assertFalse(form2ViewState.getValue().isEmpty());
+      assertFalse(form3ViewState.getValue().isEmpty());
 
         WebElement form3Link =  page.findElement(By.id("form3:link"));
         page.guardAjax(form3Link::click);
@@ -86,24 +85,24 @@ public class Spec790IT extends BaseITNG {
         form2ViewState = new ExtendedTextInput( getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
         form3 =  page.findElement(By.id("form3"));
         form3ViewState = new ExtendedTextInput( getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
-        assertTrue(!form1ViewState.getValue().isEmpty());
-        assertTrue(!form2ViewState.getValue().isEmpty());
-        assertTrue(!form3ViewState.getValue().isEmpty());
+      assertFalse(form1ViewState.getValue().isEmpty());
+      assertFalse(form2ViewState.getValue().isEmpty());
+      assertFalse(form3ViewState.getValue().isEmpty());
     }
 
-    /**
-     * @see NavigationHandler#handleNavigation(jakarta.faces.context.FacesContext, String, String, String)
+  /**
+   * @see NavigationHandler#handleNavigation(jakarta.faces.context.FacesContext, String, String, String)
      * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
      * @see https://github.com/jakartaee/faces/issues/790
-     */
-    @Test
-    public void testSpec790AjaxNavigation() throws Exception {
+   */
+  @Test
+  void spec790AjaxNavigation() throws Exception {
         
 
         WebPage page = getPage("spec790AjaxNavigation.xhtml");
         WebElement form =  page.findElement(By.id("form"));
         ExtendedTextInput formViewState = new ExtendedTextInput( getWebDriver(), form.findElement(By.name("jakarta.faces.ViewState")));
-        assertTrue(!formViewState.getValue().isEmpty());
+      assertFalse(formViewState.getValue().isEmpty());
 
         WebElement button = page.findElement(By.id("form:button"));
         page.guardAjax(button::click);
@@ -111,8 +110,8 @@ public class Spec790IT extends BaseITNG {
         ExtendedTextInput form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
         WebElement form2 =  page.findElement(By.id("form2"));
         ExtendedTextInput form2ViewState = new ExtendedTextInput( getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
-        assertTrue(!form1ViewState.getValue().isEmpty());
-        assertTrue(!form2ViewState.getValue().isEmpty());
+      assertFalse(form1ViewState.getValue().isEmpty());
+      assertFalse(form2ViewState.getValue().isEmpty());
     }
 
 

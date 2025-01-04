@@ -16,23 +16,26 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2754IT extends BaseITNG {
+class Issue2754IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior
+  /**
+   * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2758
-     */
-    @Test
-    public void testAjaxViewScope() throws Exception {
+   */
+  @Test
+  void ajaxViewScope() throws Exception {
         WebPage page = getPage("issue2754.xhtml");
         WebElement button = page.findElement(By.id("button"));
         page.guardAjax(button::click);
@@ -42,6 +45,6 @@ public class Issue2754IT extends BaseITNG {
         input.sendKeys("hello");
         button = page.findElement(By.id("button"));
         page.guardAjax(button::click);
-        assertTrue(page.findElements(By.cssSelector("#messages > li")).size() == 0);
+      assertEquals(0, page.findElements(By.cssSelector("#messages > li")).size());
     }
 }

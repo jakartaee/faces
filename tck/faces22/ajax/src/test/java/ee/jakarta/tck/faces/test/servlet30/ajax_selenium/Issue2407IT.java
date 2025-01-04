@@ -16,32 +16,33 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.html.HtmlCommandButton;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue2407IT extends BaseITNG {
+class Issue2407IT extends BaseITNG {
 
     /**
-     * This test verifies that an attribute named 'value' can be successfully updated
-     * from a partial response (over Ajax). 
+     * This test verifies that an attribute named 'value' can be successfully updated from a partial response (over Ajax).
      * 
      * @see AjaxBehavior
      * @see HtmlCommandButton#getValue()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2411
      */
     @Test
-    public void testUpdateAttributeNamedValue() throws Exception {
+    void updateAttributeNamedValue() throws Exception {
         WebPage page = getPage("attributeNameIsValue.xhtml");
-        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getAttribute("value").equals("foo")));
+        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomProperty("value").equals("foo")));
         WebElement button = page.findElement(By.id("form1:button"));
         button.click();
-        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getAttribute("value").equals("bar")));
+        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomProperty("value").equals("bar")));
     }
 }

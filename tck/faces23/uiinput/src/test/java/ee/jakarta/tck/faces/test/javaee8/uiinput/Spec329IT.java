@@ -17,84 +17,79 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.component.html.HtmlSelectOneRadio;
 
-@RunWith(Arquillian.class)
-public class Spec329IT extends ITBase {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Spec329IT extends BaseITNG {
 
     /**
      * @see HtmlSelectOneRadio#getGroup()
      * @see https://github.com/jakartaee/faces/issues/329
      */
     @Test
-    public void testSpec329() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "spec329.xhtml");
-        assertTrue(page.getHtmlElementById("messages").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("inDataTableWithEntityList:selectedItem").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("inRepeatWithSelectItemList:selectedItem").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInFirstRadio:selectedItem").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInEachRadio:selectedItem").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("multipleRadioButtonsWithSelectItemList:selectedItem").asNormalizedText().isEmpty());
+    void spec329() throws Exception {
+        WebPage page = getPage("spec329.xhtml");
+        assertTrue(page.findElement(By.id("messages")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("inDataTableWithEntityList:selectedItem")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("inRepeatWithSelectItemList:selectedItem")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("multipleRadioButtonsWithStaticItemsInFirstRadio:selectedItem")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("multipleRadioButtonsWithStaticItemsInEachRadio:selectedItem")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("multipleRadioButtonsWithSelectItemList:selectedItem")).getText().isEmpty());
 
-        page = ((HtmlSubmitInput) page.getHtmlElementById("inDataTableWithEntityList:button")).click();
-        assertEquals("required", page.getHtmlElementById("messages").asNormalizedText()); // It should appear only once!
-        
-        HtmlRadioButtonInput inDataTableWithEntityListRadio = (HtmlRadioButtonInput) page.getHtmlElementById("inDataTableWithEntityList:table:1:radio");
-        inDataTableWithEntityListRadio.setChecked(true);
-        page = ((HtmlSubmitInput) page.getHtmlElementById("inDataTableWithEntityList:button")).click();
-        
-        System.out.println("\n\n***** " + page.getHtmlElementById("messages").asNormalizedText() + "\n\n\n");
-        
-        assertTrue(page.getHtmlElementById("messages").asNormalizedText().isEmpty());
-        assertEquals("two", page.getHtmlElementById("inDataTableWithEntityList:selectedItem").asNormalizedText());
+        (page.findElement(By.id("inDataTableWithEntityList:button"))).click();
+        assertEquals("required", page.findElement(By.id("messages")).getText()); // It should appear only once!
 
-        page = ((HtmlSubmitInput) page.getHtmlElementById("inRepeatWithSelectItemList:button")).click();
-        assertEquals("required", page.getHtmlElementById("messages").asNormalizedText()); // It should appear only once!
+        WebElement inDataTableWithEntityListRadio = page.findElement(By.id("inDataTableWithEntityList:table:1:radio"));
+        inDataTableWithEntityListRadio.click();
+        (page.findElement(By.id("inDataTableWithEntityList:button"))).click();
 
-        HtmlRadioButtonInput inRepeatWithSelectItemListRadio = (HtmlRadioButtonInput) page.getHtmlElementById("inRepeatWithSelectItemList:repeat:1:radio");
-        inRepeatWithSelectItemListRadio.setChecked(true);
-        page = ((HtmlSubmitInput) page.getHtmlElementById("inRepeatWithSelectItemList:button")).click();
-        assertTrue(page.getHtmlElementById("messages").asNormalizedText().isEmpty());
-        assertEquals("value2", page.getHtmlElementById("inRepeatWithSelectItemList:selectedItem").asNormalizedText());
+        assertTrue(page.findElement(By.id("messages")).getText().isEmpty());
+        assertEquals("two", page.findElement(By.id("inDataTableWithEntityList:selectedItem")).getText());
 
-        page = ((HtmlSubmitInput) page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInFirstRadio:button")).click();
-        assertEquals("required1", page.getHtmlElementById("messages").asNormalizedText()); // It should appear only once for first component!
+        (page.findElement(By.id("inRepeatWithSelectItemList:button"))).click();
+        assertEquals("required", page.findElement(By.id("messages")).getText()); // It should appear only once!
 
-        HtmlRadioButtonInput multipleRadioButtonsWithStaticItemsInFirstRadio = (HtmlRadioButtonInput) page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInFirstRadio:radio2");
-        multipleRadioButtonsWithStaticItemsInFirstRadio.setChecked(true);
-        page = ((HtmlSubmitInput) page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInFirstRadio:button")).click();
-        assertTrue(page.getHtmlElementById("messages").asNormalizedText().isEmpty());
-        assertEquals("two", page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInFirstRadio:selectedItem").asNormalizedText());
+        WebElement inRepeatWithSelectItemListRadio = page.findElement(By.id("inRepeatWithSelectItemList:repeat:1:radio"));
+        inRepeatWithSelectItemListRadio.click();
+        (page.findElement(By.id("inRepeatWithSelectItemList:button"))).click();
+        assertTrue(page.findElement(By.id("messages")).getText().isEmpty());
+        assertEquals("value2", page.findElement(By.id("inRepeatWithSelectItemList:selectedItem")).getText());
 
-        page = ((HtmlSubmitInput) page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInEachRadio:button")).click();
-        assertEquals("required1", page.getHtmlElementById("messages").asNormalizedText()); // It should appear only once for first component!
+        (page.findElement(By.id("multipleRadioButtonsWithStaticItemsInFirstRadio:button"))).click();
+        assertEquals("required1", page.findElement(By.id("messages")).getText()); // It should appear only once for first component!
 
-        HtmlRadioButtonInput multipleRadioButtonsWithStaticItemsInEachRadio = (HtmlRadioButtonInput) page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInEachRadio:radio2");
-        multipleRadioButtonsWithStaticItemsInEachRadio.setChecked(true);
-        page = ((HtmlSubmitInput) page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInEachRadio:button")).click();
-        assertTrue(page.getHtmlElementById("messages").asNormalizedText().isEmpty());
-        assertEquals("two", page.getHtmlElementById("multipleRadioButtonsWithStaticItemsInEachRadio:selectedItem").asNormalizedText());
+        WebElement multipleRadioButtonsWithStaticItemsInFirstRadio = page.findElement(By.id("multipleRadioButtonsWithStaticItemsInFirstRadio:radio2"));
+        multipleRadioButtonsWithStaticItemsInFirstRadio.click();
+        (page.findElement(By.id("multipleRadioButtonsWithStaticItemsInFirstRadio:button"))).click();
+        assertTrue(page.findElement(By.id("messages")).getText().isEmpty());
+        assertEquals("two", page.findElement(By.id("multipleRadioButtonsWithStaticItemsInFirstRadio:selectedItem")).getText());
 
-        page = ((HtmlSubmitInput) page.getHtmlElementById("multipleRadioButtonsWithSelectItemList:button")).click();
-        assertEquals("required1", page.getHtmlElementById("messages").asNormalizedText()); // It should appear only once for first component!
+        (page.findElement(By.id("multipleRadioButtonsWithStaticItemsInEachRadio:button"))).click();
+        assertEquals("required1", page.findElement(By.id("messages")).getText()); // It should appear only once for first component!
 
-        HtmlRadioButtonInput multipleRadioButtonsWithSelectItemListRadio = (HtmlRadioButtonInput) page.getHtmlElementById("multipleRadioButtonsWithSelectItemList:radio2");
-        multipleRadioButtonsWithSelectItemListRadio.setChecked(true);
-        page = ((HtmlSubmitInput) page.getHtmlElementById("multipleRadioButtonsWithSelectItemList:button")).click();
-        assertTrue(page.getHtmlElementById("messages").asNormalizedText().isEmpty());
-        assertEquals("value2", page.getHtmlElementById("multipleRadioButtonsWithSelectItemList:selectedItem").asNormalizedText());
+        WebElement multipleRadioButtonsWithStaticItemsInEachRadio = page.findElement(By.id("multipleRadioButtonsWithStaticItemsInEachRadio:radio2"));
+        multipleRadioButtonsWithStaticItemsInEachRadio.click();
+        (page.findElement(By.id("multipleRadioButtonsWithStaticItemsInEachRadio:button"))).click();
+        assertTrue(page.findElement(By.id("messages")).getText().isEmpty());
+        assertEquals("two", page.findElement(By.id("multipleRadioButtonsWithStaticItemsInEachRadio:selectedItem")).getText());
+
+        (page.findElement(By.id("multipleRadioButtonsWithSelectItemList:button"))).click();
+        assertEquals("required1", page.findElement(By.id("messages")).getText()); // It should appear only once for first component!
+
+        WebElement multipleRadioButtonsWithSelectItemListRadio = page.findElement(By.id("multipleRadioButtonsWithSelectItemList:radio2"));
+        multipleRadioButtonsWithSelectItemListRadio.click();
+        (page.findElement(By.id("multipleRadioButtonsWithSelectItemList:button"))).click();
+        assertTrue(page.findElement(By.id("messages")).getText().isEmpty());
+        assertEquals("value2", page.findElement(By.id("multipleRadioButtonsWithSelectItemList:selectedItem")).getText());
     }
 
 }

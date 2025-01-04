@@ -17,57 +17,20 @@
 
 package ee.jakarta.tck.faces.test.javaee8.converter;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
-import java.net.URL;
 import java.time.temporal.Temporal;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 import jakarta.faces.convert.DateTimeConverter;
 
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-@RunWith(Arquillian.class)
-public class Issue4087IT {
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-        webClient.addRequestHeader("Accept-Language", "en-US");
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
+public class Issue4087IT extends BaseITNG {
 
     /**
      * @see DateTimeConverter
@@ -75,45 +38,34 @@ public class Issue4087IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4091
      */
     @Test
-    public void testJavaTimeTypes() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/issue4087.xhtml");
-        HtmlPage page1 = null;
+    void javaTimeTypes() throws Exception {
+        WebPage page = getPage("faces/issue4087.xhtml");
+        WebElement input1 = page.findElement(By.id("localDateTime1"));
+        input1.sendKeys("30 mei 2015 16:14:43");
 
-        try {
+        WebElement input2 = page.findElement(By.id("localDateTime2"));
+        input2.sendKeys("30 mei 2015 16:14:43");
 
-            HtmlTextInput input1 = (HtmlTextInput)page.getHtmlElementById("localDateTime1");
-            input1.setValueAttribute("30 mei 2015 16:14:43");
+        WebElement input3 = page.findElement(By.id("localTime1"));
+        input3.sendKeys("16:14:43");
 
-            HtmlTextInput input2 = (HtmlTextInput)page.getHtmlElementById("localDateTime2");
-            input2.setValueAttribute("30 mei 2015 16:14:43");
+        WebElement input4 = page.findElement(By.id("localTime2"));
+        input4.sendKeys("16:14:43");
 
-            HtmlTextInput input3 = (HtmlTextInput)page.getHtmlElementById("localTime1");
-            input3.setValueAttribute("16:14:43");
+        WebElement submit = page.findElement(By.id("submit"));
+        submit.click();
 
-            HtmlTextInput input4 = (HtmlTextInput)page.getHtmlElementById("localTime2");
-            input4.setValueAttribute("16:14:43");
+        WebElement time1Output = page.findElement(By.id("localDateTimeValue1"));
+        assertTrue(time1Output.getText().contains("30 mei 2015 16:14"));
 
-            HtmlSubmitInput submit = (HtmlSubmitInput)page.getHtmlElementById("submit");
-            page1 = submit.click();
+        WebElement time2Output = page.findElement(By.id("localDateTimeValue2"));
+        assertTrue(time2Output.getText().contains("30 mei 2015 16:14"));
 
-            HtmlSpan time1Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue1");
-            assertTrue(time1Output.getTextContent().contains("30 mei 2015 16:14"));
+        WebElement time3Output = page.findElement(By.id("localTimeValue1"));
+        assertTrue(time3Output.getText().contains("16:14:43"));
 
-            HtmlSpan time2Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue2");
-            assertTrue(time2Output.getTextContent().contains("30 mei 2015 16:14"));
-
-            HtmlSpan time3Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue1");
-            assertTrue(time3Output.getTextContent().contains("16:14:43"));
-
-            HtmlSpan time4Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue2");
-            assertTrue(time4Output.getTextContent().contains("16:14"));
-        } catch (AssertionError w) {
-            System.out.println(page.asXml());
-            if (page1 != null) {
-                System.out.println(page1.asXml());
-            }
-            throw w;
-        }
+        WebElement time4Output = page.findElement(By.id("localTimeValue2"));
+        assertTrue(time4Output.getText().contains("16:14"));
     }
 
 }

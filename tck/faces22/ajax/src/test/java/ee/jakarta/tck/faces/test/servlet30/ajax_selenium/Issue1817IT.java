@@ -16,32 +16,32 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.behavior.AjaxBehavior;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import jakarta.faces.component.behavior.AjaxBehavior;
 
-public class Issue1817IT extends BaseITNG {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-    /**
-     * @see AjaxBehavior
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Issue1817IT extends BaseITNG {
+
+  /**
+   * @see AjaxBehavior
      * @see com.sun.faces.facelets.component.UIRepeat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1821
-     */
-    @Test
-    public void testAjaxUIRepeat() throws Exception {
+   */
+  @Test
+  void ajaxUIRepeat() throws Exception {
         WebPage page = getPage("issue1817.xhtml");
         final List<WebElement> elements = page.findElements(By.tagName("a"));
-        List<String[]> ids = elements.stream().map(element -> new String[]{element.getAttribute("id"), element.getText()})
+        List<String[]> ids = elements.stream().map(element -> new String[]{element.getDomAttribute("id"), element.getText()})
                 .collect(Collectors.toList());
         for (String[] id : ids) {
             WebElement anchor = page.findElement(By.id(id[0]));

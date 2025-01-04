@@ -15,59 +15,26 @@
  */
 package org.javaee8.cdi.dynamic.bean;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.container.test.api.RunAsClient;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.webapp.FacesServlet;
+
+import org.jboss.arquillian.container.test.api.RunAsClient;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  *
  * @author Arjan Tijms
  *
  */
-@RunWith(Arquillian.class)
-public class ExtensionlessMappingIT {
-
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
+public class ExtensionlessMappingIT extends BaseITNG {
 
     /**
      * @see FacesServlet#AUTOMATIC_EXTENSIONLESS_MAPPING_PARAM_NAME
@@ -76,16 +43,12 @@ public class ExtensionlessMappingIT {
      */
     @Test
     @RunAsClient
-    public void testExtensionlessMappingFoo() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "foo");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "foo" + "` :\n" + content + "\n");
-
+    void extensionlessMappingFoo() throws IOException {
+        WebPage page = getPage("foo");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page foo"));
-
-        assertTrue(page.getElementById("barxhtmllink").getAttribute("href").endsWith("/bar"));
-        assertTrue(page.getElementById("barlink").getAttribute("href").endsWith("/bar"));
+        assertTrue(page.findElement(By.id("barxhtmllink")).getDomAttribute("href").endsWith("/bar"));
+        assertTrue(page.findElement(By.id("barlink")).getDomAttribute("href").endsWith("/bar"));
     }
 
     /**
@@ -95,12 +58,9 @@ public class ExtensionlessMappingIT {
      */
     @Test
     @RunAsClient
-    public void testExtensionlessMappingBar() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "bar");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "bar" + "` :\n" + content + "\n");
-
+    void extensionlessMappingBar() throws IOException {
+        WebPage page = getPage("bar");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page bar"));
     }
 
@@ -111,12 +71,9 @@ public class ExtensionlessMappingIT {
      */
     @Test
     @RunAsClient
-    public void testExtensionlessMappingSubBar() throws IOException {
-        HtmlPage page = webClient.getPage(webUrl + "sub/bar");
-        String content = page.asXml();
-
-        System.out.println("\nContent for `"+ webUrl + "sub/bar" + "` :\n" + content + "\n");
-
+    void extensionlessMappingSubBar() throws IOException {
+        WebPage page = getPage("sub/bar");
+        String content = page.getPageSource();
         assertTrue(content.contains("This is page sub-bar"));
     }
 

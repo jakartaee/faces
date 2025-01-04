@@ -22,51 +22,19 @@
  */
 package ee.jakarta.tck.faces.test.javaee8.passthrough;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.component.UIInput;
 
-@RunWith(Arquillian.class)
-public class Issue4093IT {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-        webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.setJavaScriptTimeout(120000);
-    }
+public class Issue4093IT extends BaseITNG {
 
     /**
      * @see UIInput#isRequired()
@@ -74,16 +42,14 @@ public class Issue4093IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
-    public void testSpec4093RequiredWithoutPassthrough() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("requiredwithoutpassthrough:value");
-        input.setAttribute("value", "");
+    void spec4093RequiredWithoutPassthrough() throws Exception {
+        WebPage page = getPage("issue4093.xhtml");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("requiredwithoutpassthrough:submit");
+        WebElement button = page.findElement(By.id("requiredwithoutpassthrough:submit"));
 
-        page = button.click();
+        button.click();
 
-        String output = page.asNormalizedText();
+        String output = page.getPageSource();
 
         assertTrue(output.contains("requiredwithoutpassthrough:value: Validation Error: Value is required."));
     }
@@ -94,16 +60,14 @@ public class Issue4093IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
-    public void testSpec4093RequiredWithPassthrough() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("requiredwithpassthrough:value");
-        input.setAttribute("value", "");
+    void spec4093RequiredWithPassthrough() throws Exception {
+        WebPage page = getPage("issue4093.xhtml");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("requiredwithpassthrough:submit");
+        WebElement button = page.findElement(By.id("requiredwithpassthrough:submit"));
 
-        page = button.click();
+        button.click();
 
-        String output = page.asNormalizedText();
+        String output = page.getPageSource();
 
         assertFalse(output.contains("Please fill out this field"));
     }
@@ -114,16 +78,14 @@ public class Issue4093IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
-    public void testSpec4093ValidateWithoutPassthrough() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("validatewithoutpassthrough:value");
-        input.setAttribute("value", "");
+    void spec4093ValidateWithoutPassthrough() throws Exception {
+        WebPage page = getPage("issue4093.xhtml");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("validatewithoutpassthrough:submit");
+        WebElement button = page.findElement(By.id("validatewithoutpassthrough:submit"));
 
-        page = button.click();
+        button.click();
 
-        String output = page.asNormalizedText();
+        String output = page.getPageSource();
 
         assertTrue(output.contains("validatewithoutpassthrough:value: Validation Error: Value is required."));
     }
@@ -136,16 +98,14 @@ public class Issue4093IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
-    public void testSpec4093ValidateWithPassthrough() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("validatewithpassthrough:value");
-        input.setAttribute("value", "");
+    void spec4093ValidateWithPassthrough() throws Exception {
+        WebPage page = getPage("issue4093.xhtml");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("validatewithpassthrough:submit");
+        WebElement button = page.findElement(By.id("validatewithpassthrough:submit"));
 
-        page = button.click();
+        button.click();
 
-        String output = page.asNormalizedText();
+        String output = page.getPageSource();
 
         assertFalse(output.contains("Please fill out this field"));
     }
@@ -158,23 +118,15 @@ public class Issue4093IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
-    public void testSpec4093ValidateWithPassthroughId() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "issue4093.xhtml");
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("validatewithpassthrough:value");
-        input.setAttribute("value", "");
+    void spec4093ValidateWithPassthroughId() throws Exception {
+        WebPage page = getPage("issue4093.xhtml");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("validatewithpassthrough:submit");
+        WebElement button = page.findElement(By.id("validatewithpassthrough:submit"));
 
-        page = button.click();
+        button.click();
 
-        String output = page.asNormalizedText();
+        String output = page.getPageSource();
 
         assertFalse(output.contains("Please fill out this field"));
     }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
-
 }

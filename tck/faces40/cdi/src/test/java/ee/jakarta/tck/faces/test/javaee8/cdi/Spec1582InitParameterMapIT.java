@@ -17,67 +17,32 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.inject.Inject;
+
+import org.junit.jupiter.api.Test;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * Tests the availability of the init parameter map via CDI
  *
  */
-@RunWith(Arquillian.class)
-public class Spec1582InitParameterMapIT {
+public class Spec1582InitParameterMapIT extends BaseITNG {
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
-
-    /**
-     * @see Inject
+  /**
+   * @see Inject
      * @see jakarta.faces.annotation.InitParameterMap.Literal
      * @see https://github.com/jakartaee/faces/issues/1582
-     */
-    @Test
-    public void testInjectInitParameterMap() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "injectInitParameterMap.xhtml");
+   */
+  @Test
+  void injectInitParameterMap() throws Exception {
+        WebPage page = getPage("injectInitParameterMap.xhtml");
 
         // Init parameter value should be printed on the page
-        assertTrue(page.asXml().contains("MY_TEST_PARAMETER:IS_THERE"));
+        assertTrue(page.getPageSource().contains("MY_TEST_PARAMETER:IS_THERE"));
     }
 
 }

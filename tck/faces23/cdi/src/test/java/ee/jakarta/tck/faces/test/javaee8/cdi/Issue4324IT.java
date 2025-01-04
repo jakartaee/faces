@@ -16,62 +16,28 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
-
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.convert.FacesConverter;
 
-@RunWith(Arquillian.class)
-public class Issue4324IT {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
+public class Issue4324IT extends BaseITNG {
 
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
-
-    /**
-     * @see FacesConverter#managed()
+  /**
+   * @see FacesConverter#managed()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4324
-     */
-    @Test
-    public void testManagedFacesConverterOnAbstractClass() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "faces/issue4324.xhtml");
-        HtmlSpan output = page.getHtmlElementById("output");
-        assertEquals("ConcreteEntity", output.getTextContent());
+   */
+  @Test
+  void managedFacesConverterOnAbstractClass() throws Exception {
+        WebPage page = getPage("faces/issue4324.xhtml");
+        WebElement output = page.findElement(By.id("output"));
+        assertEquals("ConcreteEntity", output.getText());
     }
 
 }

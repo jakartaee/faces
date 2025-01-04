@@ -16,61 +16,26 @@
 
 package ee.jakarta.tck.faces.test.javaee8.xhtmlmappingtofaceletbydefault;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.junit.jupiter.api.Test;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import java.io.File;
-import java.net.URL;
+public class XhtmlMappingToFaceletIT extends BaseITNG {
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
+  @Test
+  void verifyFacesMappingtoXhtmlByDefault() throws Exception {
+        WebPage page = getPage("index.xhtml");
 
-@RunWith(Arquillian.class)
-public class XhtmlMappingToFaceletIT {
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
-
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
+        assertTrue(page.getPageSource().indexOf("ViewState") != -1);
     }
 
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
+  @Test
+  void verifyMinimalXhtmlWithoutXmlProlog() throws Exception {
+        WebPage page = getPage("withoutxmlprolog.xhtml");
 
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
-
-    @Test
-    public void verifyFacesMappingtoXhtmlByDefault() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "index.xhtml");
-
-        assertTrue(page.getBody().asXml().indexOf("ViewState") != -1);
-    }
-    
-    @Test
-    public void verifyMinimalXhtmlWithoutXmlProlog() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl + "withoutxmlprolog.xhtml");
-
-        assertTrue(page.getBody().asXml().indexOf("This is a minimal") != -1);
+        assertTrue(page.getPageSource().indexOf("This is a minimal") != -1);
     }
 }

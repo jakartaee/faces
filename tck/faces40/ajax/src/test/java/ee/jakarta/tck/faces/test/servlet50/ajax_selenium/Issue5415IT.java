@@ -16,25 +16,25 @@
 
 package ee.jakarta.tck.faces.test.servlet50.ajax_selenium;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.AjaxBehavior;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Issue5415IT extends BaseITNG {
+class Issue5415IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior#getExecute()
+  /**
+   * @see AjaxBehavior#getExecute()
      * @see UIComponent#getCompositeComponentParent(UIComponent)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5415
-     */
-    @Test
-    public void testExecuteCcClientId() throws Exception {
+   */
+  @Test
+  void executeCcClientId() throws Exception {
         WebPage page = getPage("issue5415IT.xhtml");
         assertEquals(200, page.getResponseStatus());
         assertEquals("Issue5415IT", page.getTitle());

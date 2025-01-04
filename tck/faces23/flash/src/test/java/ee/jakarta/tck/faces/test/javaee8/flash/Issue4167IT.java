@@ -17,39 +17,38 @@
 
 package ee.jakarta.tck.faces.test.javaee8.flash;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.context.Flash;
 
-@RunWith(Arquillian.class)
-public class Issue4167IT extends ITBase {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-    /**
-     * @see Flash#keep(String)
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Issue4167IT extends BaseITNG {
+
+  /**
+   * @see Flash#keep(String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4171
-     */
-    @Test
-    public void test() throws Exception {
-        HtmlPage page = getPage("issue4167.xhtml");
+   */
+  @Test
+  void test() throws Exception {
+        WebPage page = getPage("issue4167.xhtml");
 
-        assertTrue(page.getHtmlElementById("result1").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("result2").asNormalizedText().isEmpty());
-        assertTrue(page.getHtmlElementById("result3").asNormalizedText().isEmpty());
+        assertTrue(page.findElement(By.id("result1")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("result2")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("result3")).getText().isEmpty());
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
-        page = button.click();
+        WebElement button = page.findElement(By.id("form:button"));
+        button.click();
 
-        assertTrue(page.getHtmlElementById("result1").asNormalizedText().equals("issue4167"));
-        assertTrue(page.getHtmlElementById("result2").asNormalizedText().equals("issue4167"));
-        assertTrue(page.getHtmlElementById("result3").asNormalizedText().equals("issue4167"));
+      assertEquals("issue4167", page.findElement(By.id("result1")).getText());
+      assertEquals("issue4167", page.findElement(By.id("result2")).getText());
+      assertEquals("issue4167", page.findElement(By.id("result3")).getText());
     }
 
 }

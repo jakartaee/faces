@@ -16,8 +16,10 @@
  */
 
 package ee.jakarta.tck.faces.test.servlet40.facelets_selenium;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
@@ -25,19 +27,17 @@ import org.openqa.selenium.WebElement;
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIViewRoot;
 
-public class Issue5078IT extends BaseITNG {
+class Issue5078IT extends BaseITNG {
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see UIComponent#visitTree(jakarta.faces.component.visit.VisitContext, jakarta.faces.component.visit.VisitCallback)
      * @see UIViewRoot#processApplication(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5078
-     */
-    @Test
-    public void testUIRepeatVisitTreeDuringInvokeApplication() throws Exception {
+   */
+  @Test
+  void uIRepeatVisitTreeDuringInvokeApplication() throws Exception {
         WebPage page = getPage("faces/issue5078.xhtml");
         ExtendedWebDriver webDriver = getWebDriver();
         WebElement button = webDriver.findElement(By.id("form:repeat:1:button"));

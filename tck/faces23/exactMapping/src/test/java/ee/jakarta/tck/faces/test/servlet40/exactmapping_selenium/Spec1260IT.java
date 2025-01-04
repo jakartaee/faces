@@ -17,29 +17,30 @@
 
 package ee.jakarta.tck.faces.test.servlet40.exactmapping_selenium;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.application.Resource;
 import jakarta.faces.application.ViewHandler;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
-import java.time.Duration;
-
-import static org.junit.Assert.assertTrue;
-
-
-public class Spec1260IT extends BaseITNG {
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 
-    /**
-     * @see Resource#getRequestPath()
+class Spec1260IT extends BaseITNG {
+
+
+  /**
+   * @see Resource#getRequestPath()
      * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
      * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/jakartaee/faces/issues/1260
-     */
-    @Test
-    public void testExactMappedViewLoads() throws Exception {
+   */
+  @Test
+  void exactMappedViewLoads() throws Exception {
         WebPage page = getPage("foo");
         String content = getWebDriver().getPageSource();
 
@@ -47,14 +48,14 @@ public class Spec1260IT extends BaseITNG {
         assertTrue(content.contains("This is page foo"));
     }
 
-    /**
-     * @see Resource#getRequestPath()
+  /**
+   * @see Resource#getRequestPath()
      * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
      * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/jakartaee/faces/issues/1260
-     */
-    @Test
-    public void testPostBackToExactMappedView() throws Exception {
+   */
+  @Test
+  void postBackToExactMappedView() throws Exception {
         WebPage page = getPage("foo");
 
         getWebDriver().findElement(By.id("form:commandButton")).click();
@@ -65,14 +66,14 @@ public class Spec1260IT extends BaseITNG {
         assertTrue(page.getCurrentUrl().split("\\?")[0].endsWith("/foo"));
     }
 
-    /**
-     * @see Resource#getRequestPath()
+  /**
+   * @see Resource#getRequestPath()
      * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
      * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/jakartaee/faces/issues/1260
-     */
-    @Test
-    public void testLinkToNonExactMappedView() throws Exception {
+   */
+  @Test
+  void linkToNonExactMappedView() throws Exception {
         WebPage page = getPage("foo");
 
         page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("This is page foo"));
@@ -89,14 +90,14 @@ public class Spec1260IT extends BaseITNG {
         assertTrue(path.endsWith("/bar.jsf") || path.endsWith("/faces/bar"));
     }
 
-    /**
-     * @see Resource#getRequestPath()
+  /**
+   * @see Resource#getRequestPath()
      * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
      * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/jakartaee/faces/issues/1260
-     */
-    @Test
-    public void testPostBackOnLinkedNonExactMappedView() throws Exception {
+   */
+  @Test
+  void postBackOnLinkedNonExactMappedView() throws Exception {
 
         // Navigate from /foo to /bar.jsf
         WebPage page = getPage("foo");
@@ -111,14 +112,14 @@ public class Spec1260IT extends BaseITNG {
         assertTrue(path.endsWith("/bar.jsf") || path.endsWith("/faces/bar"));
     }
 
-    /**
-     * @see Resource#getRequestPath()
+  /**
+   * @see Resource#getRequestPath()
      * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
      * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/jakartaee/faces/issues/1260
-     */
-    @Test
-    public void testResourceReferenceFromExactMappedView() throws Exception {
+   */
+  @Test
+  void resourceReferenceFromExactMappedView() throws Exception {
 
         WebPage page = getPage("foo");
 
@@ -132,22 +133,22 @@ public class Spec1260IT extends BaseITNG {
         // otherwise a timeout exception would have been thrown and the test would have failed
     }
 
-    /**
-     * @see Resource#getRequestPath()
+  /**
+   * @see Resource#getRequestPath()
      * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
      * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/jakartaee/faces/issues/1260
-     */
-    @Test
-    public void testAjaxFromExactMappedView() throws Exception {
+   */
+  @Test
+  void ajaxFromExactMappedView() throws Exception {
         WebPage page = getPage("foo");
 
         page.guardAjax(getWebDriver().findElement(By.id("form:commandButtonAjax"))::click);
         // AJAX from an exact-mapped view should work
         page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("partial request = true"));
 
-        // Part of page not updated via AJAX so should not show
-        assertTrue(!getWebDriver().getPageTextReduced().contains("should not see this"));
+      // Part of page not updated via AJAX so should not show
+      assertFalse(getWebDriver().getPageTextReduced().contains("should not see this"));
     }
 
 

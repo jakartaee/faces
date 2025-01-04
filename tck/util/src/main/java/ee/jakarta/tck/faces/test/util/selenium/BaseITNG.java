@@ -15,8 +15,11 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
+import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 import java.io.File;
 import java.net.URL;
@@ -24,48 +27,63 @@ import java.time.Duration;
 import java.util.regex.Pattern;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.extension.ConditionEvaluationResult;
+import org.junit.jupiter.api.extension.ExecutionCondition;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 /**
- * Base class for tests, which provides a certain infrastructure can be used, but does not have to be
+ * Use this for Selenium based tests.
  */
-@RunWith(SeleniumArquilianRunner.class)
-public class BaseITNG {
+@ExtendWith(ArquillianExtension.class)
+@TestInstance(Lifecycle.PER_CLASS)
+public abstract class BaseITNG implements ExecutionCondition {
+
+    @Override
+    public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
+        if (parseBoolean(System.getProperty("test.selenium"))) {
+            return enabled("Test enabled because 'test.selenium' system property is set to 'true'");
+        }
+
+        return disabled("Test disabled because 'test.selenium' system property is not set to 'true'");
+    }
 
     @ArquillianResource
     protected URL webUrl;
 
     private ExtendedWebDriver webDriver;
 
-    static DriverPool driverPool = new DriverPool();
+    protected static final DriverPool driverPool = new DriverPool();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
+        return create(ZipImporter.class, getProperty("finalName") + ".war").importFrom(new File("target/" + getProperty("finalName") + ".war"))
                 .as(WebArchive.class);
     }
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         webDriver = driverPool.getOrNewInstance();
     }
 
-    @After
-    public void tearDown() {
+    @AfterEach
+    protected void tearDown() {
         driverPool.returnInstance(webDriver);
     }
 
-    @AfterClass
-    public static void afterAll() {
+    @AfterAll
+    static void afterAll() {
         driverPool.quitAll();
     }
 
@@ -106,7 +124,7 @@ public class BaseITNG {
         String[] uriAndQueryString = uri.split(Pattern.quote("?"), 2);
 
         if (uriAndQueryString.length == 2) {
-            uriWithoutJsessionId += "?" + uriAndQueryString[1]; 
+            uriWithoutJsessionId += "?" + uriAndQueryString[1];
         }
 
         return uriWithoutJsessionId;

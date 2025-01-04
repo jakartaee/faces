@@ -15,27 +15,27 @@
  */
 package org.eclipse.ee4j.tck.faces.faces41.uuidConverter;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.convert.UUIDConverter;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-public class Spec1819IT extends BaseITNG {
+class Spec1819IT extends BaseITNG {
 
     private static final String TEST_UUID = "cafebabe-0420-0069-dead-123456789012";
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testValidImplicitUUID() {
+   */
+  @Test
+  void validImplicitUUID() {
         WebPage page = getPage("spec1819implicitConversion.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys(TEST_UUID);
@@ -47,12 +47,12 @@ public class Spec1819IT extends BaseITNG {
         assertEquals(TEST_UUID, output.getText());
     }
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testInvalidImplicitUUID() {
+   */
+  @Test
+  void invalidImplicitUUID() {
         WebPage page = getPage("spec1819implicitConversion.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys("fubar");
@@ -64,12 +64,12 @@ public class Spec1819IT extends BaseITNG {
         assertEquals("", output.getText());
     }
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testEmptyImplicitUUID() {
+   */
+  @Test
+  void emptyImplicitUUID() {
         WebPage page = getPage("spec1819implicitConversion.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys("");
@@ -81,12 +81,12 @@ public class Spec1819IT extends BaseITNG {
         assertEquals("", output.getText());
     }
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testValidExplicitUUIDviaAttribute() {
+   */
+  @Test
+  void validExplicitUUIDviaAttribute() {
         WebPage page = getPage("spec1819explicitConversionViaAttribute.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys(TEST_UUID);
@@ -98,12 +98,12 @@ public class Spec1819IT extends BaseITNG {
         assertEquals(TEST_UUID, output.getText());
     }
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testInvalidExplicitUUIDviaAttribute() {
+   */
+  @Test
+  void invalidExplicitUUIDviaAttribute() {
         WebPage page = getPage("spec1819explicitConversionViaAttribute.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys("fubar");
@@ -115,12 +115,12 @@ public class Spec1819IT extends BaseITNG {
         assertEquals("", output.getText());
     }
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testEmptyExplicitUUIDviaAttribute() {
+   */
+  @Test
+  void emptyExplicitUUIDviaAttribute() {
         WebPage page = getPage("spec1819explicitConversionViaAttribute.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys("");
@@ -132,12 +132,12 @@ public class Spec1819IT extends BaseITNG {
         assertEquals("", output.getText());
     }
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testValidExplicitUUIDviaTag() {
+   */
+  @Test
+  void validExplicitUUIDviaTag() {
         WebPage page = getPage("spec1819explicitConversionViaTag.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys(TEST_UUID);
@@ -149,12 +149,12 @@ public class Spec1819IT extends BaseITNG {
         assertEquals(TEST_UUID, output.getText());
     }
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testInvalidExplicitUUIDviaTag() {
+   */
+  @Test
+  void invalidExplicitUUIDviaTag() {
         WebPage page = getPage("spec1819explicitConversionViaTag.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys("fubar");
@@ -166,12 +166,12 @@ public class Spec1819IT extends BaseITNG {
         assertEquals("", output.getText());
     }
 
-    /**
-     * @see UUIDConverter
+  /**
+   * @see UUIDConverter
      * @see https://github.com/jakartaee/faces/issues/1819
-     */
-    @Test
-    public void testEmptyExplicitUUIDviaTag() {
+   */
+  @Test
+  void emptyExplicitUUIDviaTag() {
         WebPage page = getPage("spec1819explicitConversionViaTag.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
         input.sendKeys("");

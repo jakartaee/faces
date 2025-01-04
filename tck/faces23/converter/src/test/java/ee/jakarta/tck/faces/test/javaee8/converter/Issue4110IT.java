@@ -17,58 +17,21 @@
 
 package ee.jakarta.tck.faces.test.javaee8.converter;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.File;
-import java.net.URL;
 import java.time.temporal.Temporal;
 import java.util.Locale;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-
 import jakarta.faces.convert.DateTimeConverter;
 
-@RunWith(Arquillian.class)
-public class Issue4110IT {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-        webClient.addRequestHeader("Accept-Language", "en-US");
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
+public class Issue4110IT extends BaseITNG {
 
     /**
      * @see DateTimeConverter
@@ -76,38 +39,30 @@ public class Issue4110IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4114
      */
     @Test
-    public void testLocalDate() throws Exception {
+    void localDate() throws Exception {
         doTestJavaTimeTypes("30 mei 2015", "localDate", "2015-05-30");
     }
 
     @Test
-    public void testLocalTime() throws Exception {
+    void localTime() throws Exception {
         doTestJavaTimeTypes("16:52:56", "localTime", "16:52:56");
     }
 
     @Test
-    public void testLocalDateTime() throws Exception {
+    void localDateTime() throws Exception {
         doTestJavaTimeTypes("30 mei 2015 16:14:43", "localDateTime", "2015-05-30T16:14:43");
     }
 
     private void doTestJavaTimeTypes(String value, String type, String expected) throws Exception {
         Locale.setDefault(Locale.US);
-        HtmlPage page = webClient.getPage(webUrl + "faces/issue4110.xhtml");
+        WebPage page = getPage("faces/issue4110.xhtml");
+        WebElement input = page.findElement(By.id("form:" + type + "Input"));
+        input.sendKeys(value);
+        WebElement submit = page.findElement(By.id("form:submit"));
+        submit.click();
 
-        try {
-            HtmlTextInput input = page.getHtmlElementById("form:" + type + "Input");
-            input.setValueAttribute(value);
-            HtmlSubmitInput submit = page.getHtmlElementById("form:submit");
-            page = submit.click();
-
-            HtmlSpan output = page.getHtmlElementById("form:" + type + "Output");
-            assertEquals(expected, output.getTextContent());
-        } catch (AssertionError e) {
-            if (page != null) {
-                System.out.println(page.asXml());
-            }
-            throw e;
-        }
+        WebElement output = page.findElement(By.id("form:" + type + "Output"));
+        assertEquals(expected, output.getText());
     }
 
 }

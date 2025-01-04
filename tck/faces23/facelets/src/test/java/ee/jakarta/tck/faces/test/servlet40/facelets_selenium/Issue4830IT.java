@@ -17,30 +17,29 @@
 
 package ee.jakarta.tck.faces.test.servlet40.facelets_selenium;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.Duration;
+import jakarta.faces.component.EditableValueHolder;
+import jakarta.faces.component.UIComponent;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import jakarta.faces.component.EditableValueHolder;
-import jakarta.faces.component.UIComponent;
 
-public class Issue4830IT extends BaseITNG {
+class Issue4830IT extends BaseITNG {
 
-    /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+  /**
+   * @see com.sun.faces.facelets.component.UIRepeat
      * @see UIComponent#visitTree(jakarta.faces.component.visit.VisitContext, jakarta.faces.component.visit.VisitCallback)
      * @see EditableValueHolder#resetValue()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4830
-     */
-    @Test
-    public void testUIRepeatResetValues() throws Exception {
+   */
+  @Test
+  void uIRepeatResetValues() throws Exception {
         WebPage page = getPage("faces/issue4830.xhtml");
         ExtendedWebDriver webDriver = getWebDriver();
         WebElement button = webDriver.findElement(By.id("form:button"));

@@ -17,24 +17,28 @@
 package ee.jakarta.tck.faces.test.servlet50.ajax_selenium;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.behavior.AjaxBehavior;
+
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.test.util.selenium.ExtendedTextInput;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
-import org.junit.Test;
-import org.openqa.selenium.By;
-
-import static org.junit.Assert.assertEquals;
 
 
-public class Issue5032IT extends BaseITNG {
+class Issue5032IT extends BaseITNG {
 
-    /**
-     * @see AjaxBehavior#getExecute()
+  /**
+   * @see AjaxBehavior#getExecute()
      * @see UIComponent#getCompositeComponentParent(UIComponent)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5032
-     */
-    @Test
-    public void testImplicitThis() throws Exception {
+   */
+  @Test
+  void implicitThis() throws Exception {
         WebPage page = getPage("issue5032IT.xhtml");
 
         ExtendedTextInput form1input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form1:inputs:input2")));
@@ -44,16 +48,16 @@ public class Issue5032IT extends BaseITNG {
             form1input2.fireEvent("change");
         });
         String form1messages = page.findElement(By.id("form1:messages")).getText();
-        assertEquals("there are no validation messages coming from required field form1:input1", "", form1messages);
+        assertEquals("", form1messages, "there are no validation messages coming from required field form1:input1");
     }
 
-    /**
-     * @see AjaxBehavior#getExecute()
+  /**
+   * @see AjaxBehavior#getExecute()
      * @see UIComponent#getCompositeComponentParent(UIComponent)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5032
-     */
-    @Test
-    public void testExplicitThis() throws Exception {
+   */
+  @Test
+  void explicitThis() throws Exception {
         WebPage page = getPage("issue5032IT.xhtml");
 
         ExtendedTextInput form2input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form2:inputs:input2")));
@@ -63,7 +67,7 @@ public class Issue5032IT extends BaseITNG {
             form2input2.fireEvent("change");
         });
         String form2messages = page.findElement(By.id("form2:messages")).getText();
-        assertEquals("there are no validation messages coming from required field form2:input1", "", form2messages);
+        assertEquals("", form2messages, "there are no validation messages coming from required field form2:input1");
     }
 
 }

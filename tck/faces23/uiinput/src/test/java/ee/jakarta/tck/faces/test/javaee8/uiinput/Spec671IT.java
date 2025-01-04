@@ -17,49 +17,47 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.component.UIInput;
 
-@RunWith(Arquillian.class)
-public class Spec671IT extends ITBase {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Spec671IT extends BaseITNG {
 
     /**
      * @see UIInput#EMPTY_STRING_AS_NULL_PARAM_NAME
      * @see https://github.com/jakartaee/faces/issues/671
      */
     @Test
-    public void testSpec671() throws Exception {
-        HtmlPage page;
-        HtmlTextInput text;
-        HtmlSubmitInput button;
+    void spec671() throws Exception {
+        WebPage page;
+        WebElement text;
+        WebElement button;
 
         page = getPage("spec671.xhtml");
-        assertTrue(page.getHtmlElementById("param").asNormalizedText().equals("true"));
+        assertEquals("true", page.findElement(By.id("param")).getText());
 
-        text = (HtmlTextInput) page.getHtmlElementById("form:input");
-        assertTrue(text.getValueAttribute().isEmpty());
+        text = page.findElement(By.id("form:input"));
+        assertTrue(text.getDomProperty("value").isEmpty());
 
-        text.setValueAttribute("foo");
-        button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
-        page = button.click();
-        text = (HtmlTextInput) page.getHtmlElementById("form:input");
-        assertTrue(text.getValueAttribute().equals("foo"));
+        text.sendKeys("foo");
+        button = page.findElement(By.id("form:button"));
+        button.click();
+        text = page.findElement(By.id("form:input"));
+        assertEquals("foo", text.getDomProperty("value"));
 
-        text.setValueAttribute("");
-        button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
-        page = button.click();
-        text = (HtmlTextInput) page.getHtmlElementById("form:input");
-        assertTrue(text.getValueAttribute().isEmpty());
+        text.clear();
+        button = page.findElement(By.id("form:button"));
+        button.click();
+        text = page.findElement(By.id("form:input"));
+        assertTrue(text.getDomProperty("value").isEmpty());
     }
 
 }

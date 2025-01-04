@@ -17,73 +17,38 @@
 
 package ee.jakarta.tck.faces.test.javaee7.cdimethodvalidation.cdimethodvalidation;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.net.URL;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.arquillian.test.api.ArquillianResource;
-import org.jboss.shrinkwrap.api.importer.ZipImporter;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.validation.ConstraintValidator;
 
-@RunWith(Arquillian.class)
-public class MethodValidationIT {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
-    @ArquillianResource
-    private URL webUrl;
-    private WebClient webClient;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-    @Deployment(testable = false)
-    public static WebArchive createDeployment() {
-        return create(ZipImporter.class, getProperty("finalName") + ".war")
-                .importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
-    }
-
-    @Before
-    public void setUp() {
-        webClient = new WebClient();
-    }
-
-    @After
-    public void tearDown() {
-        webClient.close();
-    }
+public class MethodValidationIT extends BaseITNG {
 
     /**
      * @see ConstraintValidator
      * @see https://github.com/javaee/mojarra/commit/40f15d1fc99e0aac9af9f5b5607c8ac61a85adc6
      */
     @Test
-    public void testIncorrectUsage() throws Exception {
-        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("firstName");
-        input.setValueAttribute("notfoo");
+    void incorrectUsage() throws Exception {
+        WebPage page = getPage("");
+        WebElement input = page.findElement(By.id("firstName"));
+        input.sendKeys("notfoo");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("button");
-        page = button.click();
-        String text = page.asNormalizedText();
+        WebElement button = page.findElement(By.id("button"));
+        button.click();
+        String text = page.getPageSource();
 
         assertTrue(text.contains("FooConstraint"));
         assertTrue(text.contains("my message"));
-        assertEquals(500, page.getWebResponse().getStatusCode());
+        assertEquals(500, page.getResponseStatus());
     }
 
     /**
@@ -91,18 +56,18 @@ public class MethodValidationIT {
      * @see https://github.com/javaee/mojarra/commit/40f15d1fc99e0aac9af9f5b5607c8ac61a85adc6
      */
     @Test
-    public void testCorrectUsage1() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("lastName");
-        input.setValueAttribute("notfoo");
+    void correctUsage1() throws Exception {
+        WebPage page = getPage("");
+        WebElement input = page.findElement(By.id("lastName"));
+        input.sendKeys("notfoo");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("button");
-        page = button.click();
-        String text = page.asNormalizedText();
+        WebElement button = page.findElement(By.id("button"));
+        button.click();
+        String text = page.getPageSource();
 
-        assertTrue(!text.contains("FooConstraint"));
+        assertFalse(text.contains("FooConstraint"));
         assertTrue(text.contains("my message"));
-        assertEquals(200, page.getWebResponse().getStatusCode());
+        assertEquals(200, page.getResponseStatus());
     }
 
     /**
@@ -110,17 +75,17 @@ public class MethodValidationIT {
      * @see https://github.com/javaee/mojarra/commit/40f15d1fc99e0aac9af9f5b5607c8ac61a85adc6
      */
     @Test
-    public void testCorrectUsage2() throws Exception {
-        HtmlPage page = webClient.getPage(webUrl);
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("requestValue");
-        input.setValueAttribute("bar");
+    void correctUsage2() throws Exception {
+        WebPage page = getPage("");
+        WebElement input = page.findElement(By.id("requestValue"));
+        input.sendKeys("bar");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getElementById("button");
-        page = button.click();
-        String text = page.asNormalizedText();
+        WebElement button = page.findElement(By.id("button"));
+        button.click();
+        String text = page.getPageSource();
 
         assertTrue(text.contains("FooConstraint"));
         assertTrue(text.contains("my message"));
-        assertEquals(200, page.getWebResponse().getStatusCode());
+        assertEquals(200, page.getResponseStatus());
     }
 }

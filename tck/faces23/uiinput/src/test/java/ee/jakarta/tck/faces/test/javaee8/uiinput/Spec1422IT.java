@@ -17,25 +17,23 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Collection;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.application.Application;
 import jakarta.faces.component.UISelectItems;
 import jakarta.faces.component.UISelectMany;
 
-@RunWith(Arquillian.class)
-public class Spec1422IT extends ITBase {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Spec1422IT extends BaseITNG {
 
     /**
      * @see UISelectMany
@@ -45,46 +43,31 @@ public class Spec1422IT extends ITBase {
      * @see https://github.com/jakartaee/faces/issues/1422
      */
     @Test
-    public void testSpec1422() throws Exception {
-        HtmlPage page;
-        HtmlCheckBoxInput item1;
-        HtmlCheckBoxInput item2;
-        HtmlCheckBoxInput item3;
-        HtmlCheckBoxInput number1;
-        HtmlCheckBoxInput number2;
-        HtmlCheckBoxInput number3;
-        HtmlCheckBoxInput number4;
-        HtmlCheckBoxInput number5;
-        HtmlCheckBoxInput number6;
-        HtmlCheckBoxInput number7;
-        HtmlSubmitInput button;
+    void spec1422() throws Exception {
+        WebPage page = getPage("spec1422.xhtml");
+        assertTrue(page.findElement(By.id("form:result")).getText().isEmpty());
 
-        page = getPage("spec1422.xhtml");
-        assertTrue(page.getHtmlElementById("form:result").asNormalizedText().isEmpty());
-
-        item1 = (HtmlCheckBoxInput) page.getHtmlElementById("form:items:0");
-        item2 = (HtmlCheckBoxInput) page.getHtmlElementById("form:items:1");
-        item3 = (HtmlCheckBoxInput) page.getHtmlElementById("form:items:2");
-        number1 = (HtmlCheckBoxInput) page.getHtmlElementById("form:numbers:0");
-        number2 = (HtmlCheckBoxInput) page.getHtmlElementById("form:numbers:1");
-        number3 = (HtmlCheckBoxInput) page.getHtmlElementById("form:numbers:2");
-        number4 = (HtmlCheckBoxInput) page.getHtmlElementById("form:numbers:3");
-        number5 = (HtmlCheckBoxInput) page.getHtmlElementById("form:numbers:4");
-        number6 = (HtmlCheckBoxInput) page.getHtmlElementById("form:numbers:5");
-        number7 = (HtmlCheckBoxInput) page.getHtmlElementById("form:numbers:6");
-        button = (HtmlSubmitInput) page.getHtmlElementById("form:button");
-        item1.setChecked(true);
-        item2.setChecked(true);
-        item3.setChecked(true);
-        number1.setChecked(true);
-        number2.setChecked(true);
-        number3.setChecked(true);
-        number4.setChecked(true);
-        number5.setChecked(true);
-        number6.setChecked(true);
-        number7.setChecked(true);
-        page = button.click();
-        assertTrue(page.getHtmlElementById("form:result").asNormalizedText().equals("[ONE, TWO, THREE][null, 1, 2, 3, 4.5, 6.7, 8.9]"));
+        WebElement item1 = page.findElement(By.id("form:items:0"));
+        WebElement item2 = page.findElement(By.id("form:items:1"));
+        WebElement item3 = page.findElement(By.id("form:items:2"));
+        WebElement number1 = page.findElement(By.id("form:numbers:1"));
+        WebElement number2 = page.findElement(By.id("form:numbers:2"));
+        WebElement number3 = page.findElement(By.id("form:numbers:3"));
+        WebElement number4 = page.findElement(By.id("form:numbers:4"));
+        WebElement number5 = page.findElement(By.id("form:numbers:5"));
+        WebElement number6 = page.findElement(By.id("form:numbers:6"));
+        WebElement button = page.findElement(By.id("form:button"));
+        item1.click();
+        item2.click();
+        item3.click();
+        number1.click();
+        number2.click();
+        number3.click();
+        number4.click();
+        number5.click();
+        number6.click();
+        button.click();
+        assertEquals("[ONE, TWO, THREE][null, 1, 2, 3, 4.5, 6.7, 8.9]", page.findElement(By.id("form:result")).getText());
     }
 
 }

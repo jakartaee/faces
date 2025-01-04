@@ -18,11 +18,11 @@ package ee.jakarta.tck.faces.test.javaee8.cdi;
 
 import java.io.Serializable;
 import java.util.Map;
+
 import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.annotation.RequestCookieMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
-
-import jakarta.faces.annotation.RequestCookieMap;
 
 @Named(value = "injectRequestCookieMap2Bean")
 @SessionScoped

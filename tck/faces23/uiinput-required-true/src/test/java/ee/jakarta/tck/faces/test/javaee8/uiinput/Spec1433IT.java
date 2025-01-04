@@ -17,39 +17,36 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uiinput;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.component.UIInput;
 
-@RunWith(Arquillian.class)
-public class Spec1433IT extends ITBase {
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+
+class Spec1433IT extends BaseITNG {
 
     /**
      * @see UIInput#ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE
      * @see https://github.com/jakartaee/faces/issues/1433
      */
     @Test
-    public void testSpec1433() throws Exception {
-        HtmlPage page = getPage("spec1433.xhtml");
-        HtmlTextInput input = (HtmlTextInput) page.getElementById("form:input");
-        input.setAttribute("id", "");
-        input.setAttribute("name", "");
-        input.setValueAttribute("non-empty value");
+    void spec1433() throws Exception {
+        WebPage page = getPage("spec1433.xhtml");
+        WebElement input = page.findElement(By.id("form:input"));
+        getWebDriver().getJSExecutor()
+                .executeScript("var input = document.getElementById('form:input');input.setAttribute('id', '');input.setAttribute('name', '');");
+        input.sendKeys("non-empty value");
 
-        HtmlSubmitInput button = (HtmlSubmitInput) page.getHtmlElementById("form:submit");
+        WebElement button = page.findElement(By.id("form:submit"));
 
-        page = button.click();
+        button.click();
 
-        String output = page.asNormalizedText();
+        String output = page.getPageSource();
 
         assertTrue(output.contains("Spec1433Bean Validator Message"));
 

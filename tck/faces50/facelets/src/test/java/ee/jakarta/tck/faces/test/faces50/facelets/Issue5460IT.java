@@ -14,16 +14,15 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
 package ee.jakarta.tck.faces.test.faces50.facelets;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import static org.junit.Assert.assertEquals;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 
-public class Issue5460IT extends BaseITNG {
+class Issue5460IT extends BaseITNG {
 
     @FindBy(id = "form:cc1:required")
     private WebElement cc1required;
@@ -100,12 +99,12 @@ public class Issue5460IT extends BaseITNG {
     @FindBy(id = "form:submit")
     private WebElement submit;
 
-    /**
-     * https://github.com/eclipse-ee4j/mojarra/issues/5460
-     * https://github.com/eclipse-ee4j/mojarra/issues/5417
-     */
-    @Test
-    public void test() {
+  /**
+   * https://github.com/eclipse-ee4j/mojarra/issues/5460
+   * https://github.com/eclipse-ee4j/mojarra/issues/5417
+   */
+  @Test
+  void test() {
         var page = getPage("issue5460.xhtml");
 
         assertEquals("false", cc1required.getText()); assertEquals("true", cc1valid.getText());

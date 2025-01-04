@@ -18,7 +18,6 @@
 package ee.jakarta.tck.faces.test.servlet40.exactmapping;
 
 import jakarta.enterprise.context.RequestScoped;
-import jakarta.faces.annotation.FacesConfig;
 import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;

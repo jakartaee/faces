@@ -16,32 +16,30 @@
 
 package ee.jakarta.tck.faces.test.javaee8.uidecorate;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
-import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
-
-@RunWith(Arquillian.class)
-public class Issue5140IT extends ITBase {
+class Issue5140IT extends BaseITNG {
 
     /**
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5140
      */
     @Test
-    public void test() throws Exception {
-        HtmlPage page = getPage("issue5140.xhtml");
-        DomElement unexpectedElement = page.getElementById("Field");
-        DomElement expectedElement = page.getElementById("testInputIdField");
-        assertTrue("unexpected element may not exist", unexpectedElement == null);
-        assertTrue("expected element exists", expectedElement != null);
-        assertEquals("ui:insert content is present", "ui:insert content", expectedElement.asNormalizedText());
+    void test() throws Exception {
+        WebPage page = getPage("issue5140.xhtml");
+        assertThrows(NoSuchElementException.class, () -> page.findElement(By.id("Field")), "unexpected element may not exist");
+        WebElement expectedElement = page.findElement(By.id("testInputIdField"));
+        assertTrue(expectedElement != null, "expected element exists");
+        assertEquals("ui:insert content", expectedElement.getText(), "ui:insert content is present");
     }
 
 }
