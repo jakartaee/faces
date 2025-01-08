@@ -70,7 +70,9 @@ public class UIForm extends UIComponentBase implements NamingContainer, UniqueId
          * <p>
          * The prependId flag.
          * </p>
+         * @deprecated This attribute breaks the {@link UIComponent#findComponent(String)}.
          */
+        @Deprecated(since = "5.0", forRemoval = true)
         prependId,
 
         /**
@@ -146,7 +148,9 @@ public class UIForm extends UIComponentBase implements NamingContainer, UniqueId
      * Is the id prepended.
      *
      * @return <code>true</code> if it is, <code>false</code> otherwise.
+     * @deprecated This attribute breaks the {@link UIComponent#findComponent(String)}.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public boolean isPrependId() {
         return (Boolean) getStateHelper().eval(PropertyKeys.prependId, true);
     }
@@ -155,7 +159,9 @@ public class UIForm extends UIComponentBase implements NamingContainer, UniqueId
      * Set whether the id should be prepended.
      * 
      * @param prependId <code>true</code> if it is, <code>false</code> otherwise.
+     * @deprecated This attribute breaks the {@link UIComponent#findComponent(String)}.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public void setPrependId(boolean prependId) {
         getStateHelper().put(PropertyKeys.prependId, prependId);
     }
