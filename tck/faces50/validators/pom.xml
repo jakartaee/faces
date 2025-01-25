@@ -20,35 +20,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.eclipse.ee4j.faces.tck</groupId>
-        <artifactId>jakarta-faces-tck</artifactId>
+        <groupId>org.eclipse.ee4j.tck.faces.faces50</groupId>
+        <artifactId>pom</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.eclipse.ee4j.tck.faces.faces50</groupId>
-    <artifactId>pom</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>validators</artifactId>
+    <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0 - ${project.artifactId}</name>
 
-    <modules>
-        <module>example_jar_with_metadata_complete_false</module>
-        <module>example_jar_with_metadata_complete_true</module>
-        <module>ajax</module>
-        <module>converters</module>
-        <module>facelets</module>
-        <module>facesConfig</module>
-        <module>phaseEvents</module>
-        <module>uiinput</module>
-        <module>validators</module>
-        <module>viewProtection</module>
-    </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
-            <artifactId>util</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+    <build>
+        <finalName>test-faces50-validators</finalName>
+    </build>
 </project>
