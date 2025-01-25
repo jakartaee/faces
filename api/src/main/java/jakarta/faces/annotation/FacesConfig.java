@@ -235,10 +235,10 @@ public @interface FacesConfig {
 
     /**
      * <p class="changed_added_5_0">
-     * Returns {@value StateManager#STATE_SAVING_METHOD_PARAM_NAME} as {@link String} with default of {@link StateSavingMethod#CLIENT}.
+     * Returns {@value StateManager#STATE_SAVING_METHOD_PARAM_NAME} as {@link String} with default of {@link StateSavingMethod#SERVER}.
      * </p>
      */
-    @Nonbinding StateSavingMethod stateSavingMethod() default StateSavingMethod.CLIENT;
+    @Nonbinding StateSavingMethod stateSavingMethod() default StateSavingMethod.SERVER;
 
     /**
      * <p class="changed_added_5_0">
@@ -408,7 +408,7 @@ public @interface FacesConfig {
 
         @Override
         public StateSavingMethod stateSavingMethod() {
-            return StateSavingMethod.CLIENT;
+            return StateSavingMethod.SERVER;
         }
 
         @Override
@@ -565,7 +565,7 @@ public @interface FacesConfig {
         SEPARATOR_CHAR(UINamingContainer.SEPARATOR_CHAR_PARAM_NAME, FacesConfig::separatorChar),
 
         /**
-         * Returns {@value StateManager#STATE_SAVING_METHOD_PARAM_NAME} as {@link String} with default of {@link StateSavingMethod#CLIENT}..
+         * Returns {@value StateManager#STATE_SAVING_METHOD_PARAM_NAME} as {@link String} with default of {@link StateSavingMethod#SERVER}..
          * @see StateManager#STATE_SAVING_METHOD_PARAM_NAME
          */
         STATE_SAVING_METHOD(StateManager.STATE_SAVING_METHOD_PARAM_NAME, FacesConfig::stateSavingMethod),

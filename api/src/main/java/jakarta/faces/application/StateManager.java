@@ -53,7 +53,7 @@ public abstract class StateManager {
      * </p>
      *
      * <p>
-     * If this parameter is not specified, the default value is {@link StateSavingMethod#CLIENT}
+     * If this parameter is not specified, the default value is {@link StateSavingMethod#SERVER}
      * </p>
      */
     public static final String STATE_SAVING_METHOD_PARAM_NAME = "jakarta.faces.STATE_SAVING_METHOD";
@@ -239,7 +239,7 @@ public abstract class StateManager {
      */
     public boolean isSavingStateInClient(FacesContext context) {
         if (savingStateInClient == null) {
-            savingStateInClient = ContextParam.STATE_SAVING_METHOD.isDefault(context);
+            savingStateInClient = ContextParam.STATE_SAVING_METHOD.getValue(context) == StateSavingMethod.CLIENT;
         }
         return savingStateInClient;
     }
