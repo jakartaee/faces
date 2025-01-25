@@ -43,9 +43,10 @@ class Issue5540IT extends BaseITNG {
         var page = getPage("issue5540.xhtml");
         input.sendKeys("x");
         page.guardHttp(submit::click);
+        var messagesText = messages.getText();
         assertAll(
-            () -> assertTrue(messages.getText().contains("validated by @Size"), messages + " contains 'validated by @Size'"),
-            () -> assertTrue(messages.getText().contains("validated by @Pattern"), messages + " contains 'validated by @Pattern'")
+            () -> assertTrue(messagesText.contains("validated by @Size"), messagesText + " contains 'validated by @Size'"),
+            () -> assertTrue(messagesText.contains("validated by @Pattern"), messagesText + " contains 'validated by @Pattern'")
         );
     }
 }
