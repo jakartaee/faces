@@ -565,7 +565,7 @@ public @interface FacesConfig {
         SEPARATOR_CHAR(UINamingContainer.SEPARATOR_CHAR_PARAM_NAME, FacesConfig::separatorChar),
 
         /**
-         * Returns {@value StateManager#STATE_SAVING_METHOD_PARAM_NAME} as {@link String} with default of {@link StateSavingMethod#SERVER}..
+         * Returns {@value StateManager#STATE_SAVING_METHOD_PARAM_NAME} as {@link String} with default of {@link StateSavingMethod#SERVER}.
          * @see StateManager#STATE_SAVING_METHOD_PARAM_NAME
          */
         STATE_SAVING_METHOD(StateManager.STATE_SAVING_METHOD_PARAM_NAME, FacesConfig::stateSavingMethod),
