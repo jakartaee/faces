@@ -55,5 +55,10 @@
         <c:if test="#{param.clientId eq 'repeat25'}"><ui:repeat value="#{['A', 'B', 'C', 'D', 'E']}" var="i" size="6"> #{i} </ui:repeat></c:if>
         <c:if test="#{param.clientId eq 'repeat26'}"><ui:repeat value="#{['A', 'B', 'C', 'D', 'E']}" var="i" offset="2" size="4"> #{i} </ui:repeat></c:if>
         <c:if test="#{param.clientId eq 'repeat27'}"><ui:repeat value="#{['A', 'B', 'C', 'D', 'E']}" var="i" step="0"> #{i} </ui:repeat></c:if>
+
+        <span id="repeat28"><ui:repeat begin="-3" end="3" step="-2" var="i"> #{i} </ui:repeat></span>
+        <span id="repeat29"><ui:repeat value="#{['A', 'B', 'C', 'D', 'E']}" var="i" step="-2"> #{i} </ui:repeat></span>
+        <span id="repeat30"><ui:repeat value="#{['A', 'B', 'C', 'D', 'E']}" var="i" offset="1" step="-2"> #{i} </ui:repeat></span>
+        <span id="repeat31"><ui:repeat value="#{['A', 'B', 'C', 'D', 'E']}" var="i" offset="1" step="-2" size="2"> #{i} </ui:repeat></span>
     </h:body>
 </html>

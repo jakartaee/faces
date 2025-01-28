@@ -61,6 +61,11 @@ class Spec1713IT extends BaseITNG {
         assertFacesException("repeat25");
         assertFacesException("repeat26");
         assertFacesException("repeat27");
+
+        assertOutput(page, "repeat28", "3 1 -1 -3");
+        assertOutput(page, "repeat29", "E C A");
+        assertOutput(page, "repeat30", "D B");
+        assertOutput(page, "repeat31", "B");
     }
 
     private void assertOutput(WebPage page, String clientId, String expected) {

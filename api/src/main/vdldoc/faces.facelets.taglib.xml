@@ -909,7 +909,9 @@ attribute must be an absolute path starting with "/".</span>
                 <div class="changed_modified_5_0">
                     <p>
                         Iteration will only process every step items of the collection, starting with the first one.
-                        If the <code>step</code> attribute is less than <code>1</code>: a <code>FacesException</code> must be thrown.
+                        If the <code>step</code> attribute is <em>not</em> specified: use <code>1</code> as default.
+                        If the <code>step</code> attribute is negative: iterate backwards.
+                        If the <code>step</code> attribute is equal to <code>0</code>: a <code>FacesException</code> must be thrown.
                     </p>
                 </div>
             ]]>
