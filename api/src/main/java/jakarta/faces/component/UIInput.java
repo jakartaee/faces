@@ -307,7 +307,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
 
     /**
      * <p class="changed_added_2_2">
-     * If there is a local value, return it, otherwise return the result of calling {@code super.getVaue()}.
+     * If there is a local value, return it, otherwise return the result of calling {@code super.getValue()}.
      * </p>
      *
      * @since 2.2
