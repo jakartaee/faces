@@ -36,9 +36,9 @@
         <module>example_jar_with_metadata_complete_true</module>
         <module>ajax</module>
         <module>converters</module>
+        <module>events</module>
         <module>facelets</module>
         <module>facesConfig</module>
-        <module>phaseEvents</module>
         <module>uiinput</module>
         <module>viewProtection</module>
     </modules>

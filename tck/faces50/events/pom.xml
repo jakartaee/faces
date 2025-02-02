@@ -25,12 +25,12 @@
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>phaseEvents</artifactId>
+    <artifactId>events</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0 - phaseEvents</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0 - ${project.artifactId}</name>
 
     <build>
-        <finalName>test-faces50-phaseEvents</finalName>
+        <finalName>test-faces50-${project.artifactId}</finalName>
     </build>
 </project>
