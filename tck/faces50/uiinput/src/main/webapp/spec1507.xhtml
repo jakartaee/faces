@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html lang="en"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:c="jakarta.tags.core"
+>
+    <h:head>
+        <title>spec1507</title>
+    </h:head>
+    <h:body>
+        <h:form id="form1">
+            <!-- component attribute -->
+            <h:inputText id="input1" value="#{spec1507Bean.input1}" oninput="document.getElementById('form1:output1').innerHTML = this.value" />
+            <h:outputText id="output1" />
+        </h:form>
+
+        <h:form id="form2">
+            <!-- ajax event -->
+            <h:inputText id="input2" value="#{spec1507Bean.input2}">
+                <f:ajax event="input" render="output2" />
+            </h:inputText>
+            <h:outputText id="output2" value="#{spec1507Bean.input2}" />
+        </h:form>
+
+        <h:form id="form3">
+            <!-- component attribute *and* single ajax event -->
+            <h:inputText id="input3" value="#{spec1507Bean.input3}" oninput="document.getElementById('form3:output3a').innerHTML = this.value">
+                <f:ajax event="input" render="output3b" />
+            </h:inputText>
+            <h:outputText id="output3a" value="#{spec1507Bean.input3}" />
+            <h:outputText id="output3b" value="#{spec1507Bean.input3}" />
+        </h:form>
+
+        <h:form id="form4">
+            <!-- component attribute *and* multiple ajax events -->
+            <h:inputText id="input4" value="#{spec1507Bean.input4}" oninput="document.getElementById('form4:output4a').innerHTML = this.value">
+                <f:ajax event="input" render="output4b" />
+                <f:ajax event="input" render="output4c" />
+                <f:ajax event="input" render="output4d" />
+            </h:inputText>
+            <h:outputText id="output4a" value="#{spec1507Bean.input4}" />
+            <h:outputText id="output4b" value="#{spec1507Bean.input4}" />
+            <h:outputText id="output4c" value="#{spec1507Bean.input4}" />
+            <h:outputText id="output4d" value="#{spec1507Bean.input4}" />
+        </h:form>
+
+        <h:form id="form5">
+            <!-- mixed ajax events -->
+            <h:inputText id="input5" value="#{spec1507Bean.input5}">
+                <f:ajax event="keydown" render="output5a" />
+                <f:ajax event="input" render="output5b" />
+                <f:ajax event="change" render="output5c" />
+            </h:inputText>
+            <h:outputText id="output5a" value="#{spec1507Bean.input5}" />
+            <h:outputText id="output5b" value="#{spec1507Bean.input5}" />
+            <h:outputText id="output5c" value="#{spec1507Bean.input5}" />
+        </h:form>
+
+        <h:form id="form6">
+            <!-- custom ajax events -->
+            <h:inputText id="input6">
+                <f:ajax event="spec1507customevent1" />
+                <f:ajax event="spec1507customevent2" />
+            </h:inputText>
+        </h:form>
+
+        <c:if test="#{param.renderInputWithUnsupportedAjaxEvent}">
+            <h:form id="form7">
+                <!-- unsupported ajax event; should cause 500 error -->
+                <h:inputText id="input7">
+                    <f:ajax event="spec1507unsupportedevent1" />
+                </h:inputText>
+            </h:form>
+        </c:if>
+    </h:body>
+</html>
