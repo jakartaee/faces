@@ -38,7 +38,6 @@ import jakarta.faces.component.search.SearchKeywordResolver;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.event.ActionListener;
-import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 import jakarta.faces.flow.FlowHandler;
@@ -1303,10 +1302,12 @@ public abstract class Application {
      * 
      * <li class="changed_added_5_0">
      * <p>
-     * If the <code>systemEventClass</code> is not assignable to {@link ComponentSystemEvent} class, then fire it as a synchronous CDI event. 
+     * Finally fire the system event as a synchronous CDI event. 
      * If the <code>source</code> of this non-component system event is an instance of {@link UIViewRoot}, then fire an additional synchronous CDI event
      * selecting the {@link View} qualifier having the current {@link UIViewRoot#getViewId()} as value.
      * </p>
+     * </li>
+     * 
      * </ul>
      *
      * <p>
