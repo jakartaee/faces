@@ -29,13 +29,16 @@ import jakarta.el.ELResolver;
 import jakarta.el.ExpressionFactory;
 import jakarta.el.ValueExpression;
 import jakarta.faces.FacesException;
+import jakarta.faces.annotation.View;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.component.behavior.Behavior;
 import jakarta.faces.component.search.SearchExpressionHandler;
 import jakarta.faces.component.search.SearchKeywordResolver;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.event.ActionListener;
+import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 import jakarta.faces.flow.FlowHandler;
@@ -1297,7 +1300,13 @@ public abstract class Application {
      * <em>traverseListenerList</em> on the list.
      * </p>
      * </li>
-     *
+     * 
+     * <li class="changed_added_5_0">
+     * <p>
+     * If the <code>systemEventClass</code> is not assignable to {@link ComponentSystemEvent} class, then fire it as a synchronous CDI event. 
+     * If the <code>source</code> of this non-component system event is an instance of {@link UIViewRoot}, then fire an additional synchronous CDI event
+     * selecting the {@link View} qualifier having the current {@link UIViewRoot#getViewId()} as value.
+     * </p>
      * </ul>
      *
      * <p>
