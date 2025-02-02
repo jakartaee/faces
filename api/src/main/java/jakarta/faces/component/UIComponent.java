@@ -17,9 +17,9 @@
 
 package jakarta.faces.component;
 
+import static jakarta.faces.application.Resource.COMPONENT_RESOURCE_KEY;
 import static jakarta.faces.component.PackageUtils.isAnyNull;
 import static jakarta.faces.component.PackageUtils.isOneOf;
-import static jakarta.faces.application.Resource.COMPONENT_RESOURCE_KEY;
 import static jakarta.faces.component.visit.VisitHint.SKIP_TRANSIENT;
 import static jakarta.faces.component.visit.VisitHint.SKIP_UNRENDERED;
 import static jakarta.faces.component.visit.VisitResult.ACCEPT;
@@ -186,7 +186,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * Properties that are tracked by state saving.
      */
     enum PropertyKeys {
-        rendered, attributes, bindings, rendererType, systemEventListeners, behaviors, passThroughAttributes
+        rendered, attributes, valueExpressions, rendererType, systemEventListeners, behaviors, passThroughAttributes
     }
 
     /**
@@ -318,7 +318,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
         }
 
         @SuppressWarnings("unchecked")
-        Map<String, ValueExpression> map = (Map<String, ValueExpression>) getStateHelper().get(UIComponentBase.PropertyKeys.bindings);
+        Map<String, ValueExpression> map = (Map<String, ValueExpression>) getStateHelper().get(UIComponentBase.PropertyKeys.valueExpressions);
 
         return map != null ? map.get(name) : null;
     }
@@ -375,7 +375,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
                     getStateHelper().add(PropertyKeysPrivate.attributesThatAreSet, name);
                 }
 
-                getStateHelper().put(UIComponentBase.PropertyKeys.bindings, name, binding);
+                getStateHelper().put(UIComponentBase.PropertyKeys.valueExpressions, name, binding);
 
             } else {
                 ELContext context = FacesContext.getCurrentInstance().getELContext();
@@ -387,7 +387,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             }
         } else {
             getStateHelper().remove(PropertyKeysPrivate.attributesThatAreSet, name);
-            getStateHelper().remove(UIComponentBase.PropertyKeys.bindings, name);
+            getStateHelper().remove(UIComponentBase.PropertyKeys.valueExpressions, name);
         }
     }
 
