@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Contributors to the Eclipse Foundation.
+ * Copyright (c) Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -27,7 +27,7 @@ import org.openqa.selenium.support.FindBy;
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 
 /**
- * https://github.com/jakartaee/faces/issues/15070
+ * https://github.com/jakartaee/faces/issues/1507
  */
 class Spec1507IT extends BaseITNG {
 
