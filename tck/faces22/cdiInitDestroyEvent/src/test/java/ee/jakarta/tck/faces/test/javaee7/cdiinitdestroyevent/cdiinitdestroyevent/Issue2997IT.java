@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021, 2022 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2021, 2024 Contributors to the Eclipse Foundation.
  * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.flow.FlowScoped;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -30,6 +31,7 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 // https://github.com/eclipse-ee4j/mojarra/issues/3001
 // https://github.com/jakartaee/faces/issues/1734
+@Disabled("Depends on non-specified abandoned flow -- See https://github.com/jakartaee/faces/issues/1955")
 public class Issue2997IT extends BaseITNG {
 
     /**
