@@ -33,7 +33,7 @@
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
 
-    <!-- Below are part of test -->
+    <!-- Below are part of test; these have higher priority than any annotated config -->
     <context-param>
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>

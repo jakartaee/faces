@@ -20,6 +20,7 @@ import jakarta.faces.annotation.FacesConfig;
 
 /**
  * This one has the highest priority, meaning all others will be ignored.
+ * Only actual <context-param> values will override any annotated value.
  */
 @FacesConfig(automaticExtensionlessMapping = true, datetimeConverterDefaultTimezoneIsSystemTimezone = true)
 @Priority(2)
