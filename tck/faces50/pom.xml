@@ -39,6 +39,7 @@
         <module>events</module>
         <module>facelets</module>
         <module>facesConfig</module>
+        <module>facesConfigContextParam</module>
         <module>uiinput</module>
         <module>viewProtection</module>
     </modules>
