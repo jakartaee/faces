@@ -22,14 +22,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.util.EnumMap;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
 import jakarta.enterprise.util.AnnotationLiteral;
 import jakarta.enterprise.util.Nonbinding;
@@ -393,7 +388,7 @@ public @interface FacesConfig {
 
         @Override
         public String[] resourceExcludes() {
-            return ContextParam.StringArray.SPACE_SEPARATED.split(ResourceHandler.RESOURCE_EXCLUDES_DEFAULT_VALUE);
+            return ResourceHandler.RESOURCE_EXCLUDES_DEFAULT_VALUE.split(" ");
         }
 
         @Override
@@ -450,7 +445,7 @@ public @interface FacesConfig {
         /**
          * Returns {@value HtmlEvents#ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME} as {@link String} array with default of empty string array.
          */
-        ADDITIONAL_HTML_EVENT_NAMES(HtmlEvents.ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME, FacesConfig::additionalHtmlEventNames, StringArray.SPACE_SEPARATED),
+        ADDITIONAL_HTML_EVENT_NAMES(HtmlEvents.ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME, FacesConfig::additionalHtmlEventNames),
 
         /**
          * Returns {@value UIInput#ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE} as {@link Boolean} with default of {@code false}.
@@ -470,7 +465,7 @@ public @interface FacesConfig {
         /**
          * Returns {@value FacesServlet#CONFIG_FILES_ATTR} as {@link String} array with default of empty string array.
          */
-        CONFIG_FILES(FacesServlet.CONFIG_FILES_ATTR, FacesConfig::configFiles, StringArray.COMMA_SEPARATED),
+        CONFIG_FILES(FacesServlet.CONFIG_FILES_ATTR, FacesConfig::configFiles),
 
         /**
          * Returns {@value Converter#DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_PARAM_NAME} as {@link Boolean} with default of {@code false}.
@@ -505,12 +500,12 @@ public @interface FacesConfig {
         /**
          * Returns {@value ViewHandler#FACELETS_DECORATORS_PARAM_NAME} as {@link String} array with default of empty string array.
          */
-        FACELETS_DECORATORS(ViewHandler.FACELETS_DECORATORS_PARAM_NAME, FacesConfig::faceletsDecorators, StringArray.SEMICOLON_SEPARATED),
+        FACELETS_DECORATORS(ViewHandler.FACELETS_DECORATORS_PARAM_NAME, FacesConfig::faceletsDecorators),
 
         /**
          * Returns {@value ViewHandler#FACELETS_LIBRARIES_PARAM_NAME} as {@link String} array with default of empty string array.
          */
-        FACELETS_LIBRARIES(ViewHandler.FACELETS_LIBRARIES_PARAM_NAME, FacesConfig::faceletsLibraries, StringArray.SEMICOLON_SEPARATED),
+        FACELETS_LIBRARIES(ViewHandler.FACELETS_LIBRARIES_PARAM_NAME, FacesConfig::faceletsLibraries),
 
         /**
          * Returns {@value ViewHandler#FACELETS_REFRESH_PERIOD_PARAM_NAME} as {@link Integer} with default of {@code -1} when
@@ -531,7 +526,7 @@ public @interface FacesConfig {
         /**
          * Returns {@value ViewHandler#FACELETS_VIEW_MAPPINGS_PARAM_NAME} as {@link String} array with default of empty string array.
          */
-        FACELETS_VIEW_MAPPINGS(ViewHandler.FACELETS_VIEW_MAPPINGS_PARAM_NAME, FacesConfig::faceletsViewMappings, StringArray.SEMICOLON_SEPARATED),
+        FACELETS_VIEW_MAPPINGS(ViewHandler.FACELETS_VIEW_MAPPINGS_PARAM_NAME, FacesConfig::faceletsViewMappings),
 
         /**
          * Returns {@value UIInput#EMPTY_STRING_AS_NULL_PARAM_NAME} as {@link Boolean} with default of {@code false}.
@@ -552,7 +547,7 @@ public @interface FacesConfig {
         /**
          * Returns {@value ResourceHandler#RESOURCE_EXCLUDES_PARAM_NAME} as {@link String} array with default of {@value ResourceHandler#RESOURCE_EXCLUDES_DEFAULT_VALUE}.
          */
-        RESOURCE_EXCLUDES(ResourceHandler.RESOURCE_EXCLUDES_PARAM_NAME, FacesConfig::resourceExcludes, StringArray.SPACE_SEPARATED),
+        RESOURCE_EXCLUDES(ResourceHandler.RESOURCE_EXCLUDES_PARAM_NAME, FacesConfig::resourceExcludes),
 
         /**
          * Returns {@value StateManager#SERIALIZE_SERVER_STATE_PARAM_NAME} as {@link Boolean} with default of {@code false}.
@@ -597,52 +592,19 @@ public @interface FacesConfig {
 
         ;
 
-        private static final Logger LOGGER = Logger.getLogger("jakarta.faces.annotation");
-        private static final Map<ContextParam, Object> VALUES = new EnumMap<>(ContextParam.class);
-        private static final AtomicReference<Optional<FacesConfig>> ANNOTATED_CONFIG = new AtomicReference<>();
-
-        private enum StringArray {
-            SPACE_SEPARATED("\\s+"),
-            SEMICOLON_SEPARATED("\\s*;\\s*"),
-            COMMA_SEPARATED("\\s*,\\s*");
-
-            private Pattern pattern;
-
-            private StringArray(String pattern) {
-                this.pattern = Pattern.compile(pattern);
-            }
-
-            public String[] split(String value) {
-                return pattern.split(value);
-            }
-        }
-
         private final String name;
-        private final Function<FacesConfig, ?> annotatedValue;
-        private final Optional<Function<FacesContext, ?>> defaultValueSupplier;
-        private final StringArray separated;
-        private final Object defaultAnnotatedValue;
         private final Class<?> type;
+        private final Function<FacesContext, ?> defaultValueSupplier;
 
         private <T> ContextParam(String name, Function<FacesConfig, T> annotatedValue) {
-            this(name, annotatedValue, null, null);
-        }
-
-        private ContextParam(String name, Function<FacesConfig, String[]> annotatedValue, StringArray separated) {
-            this(name, annotatedValue, null, separated);
+            this(name, annotatedValue, null);
         }
 
         private <T> ContextParam(String name, Function<FacesConfig, T> annotatedValue, Function<FacesContext, T> defaultValueSupplier) {
-            this(name, annotatedValue, defaultValueSupplier, null);
-        }
-
-        private <T> ContextParam(String name, Function<FacesConfig, T> annotatedValue, Function<FacesContext, T> defaultValueSupplier, StringArray separated) {
             this.name = name;
-            this.annotatedValue = annotatedValue;
-            this.defaultValueSupplier = Optional.ofNullable(defaultValueSupplier);
-            this.separated = separated;
-            this.defaultAnnotatedValue = annotatedValue.apply(FacesConfig.Literal.INSTANCE);
+            T defaultAnnotatedValue = annotatedValue.apply(FacesConfig.Literal.INSTANCE);
             this.type = defaultAnnotatedValue.getClass();
+            this.defaultValueSupplier = Optional.ofNullable(defaultValueSupplier).orElse($ -> defaultAnnotatedValue);
         }
 
         /**
@@ -674,20 +636,15 @@ public @interface FacesConfig {
 
         /**
          * <p>
-         * Returns the value of the context parameter, converted to the expected type as indicated by {@link #getType()}.
-         * This method never returns {@code null}. When the context parameter is not set, a default value is returned.
-         * <p>
-         * The implementation must first look for {@link ExternalContext#getInitParameter(String)}. If it is non-{@code null}, then return it.
-         * Else look for any {@link FacesConfig} annotation. If present, then return it. Else return the default value.
+         * Returns the value of the context parameter via {@link ExternalContext#getContextParamValue(ContextParam)}
          * @param <T> The expected return type.
          * @param context The involved faces context.
          * @return The value of the context parameter, converted to the expected type as indicated by {@link #getType()}.
          * @throws ClassCastException When inferred {@code T} is of wrong type. See {@link #getType()} for the correct type.
          * @throws IllegalArgumentException When the value of the context parameter cannot be converted to the expected type as indicated by {@link #getType()}.
          */
-        @SuppressWarnings("unchecked")
         public <T> T getValue(FacesContext context) {
-            return (T) VALUES.computeIfAbsent(this, param -> getContextParamValue(context).orElseGet(() -> getAnnotatedValue(context).orElseGet(() -> getDefaultValue(context))));
+            return context.getExternalContext().getContextParamValue(this);
         }
 
         /**
@@ -711,8 +668,7 @@ public @interface FacesConfig {
          */
         @SuppressWarnings("unchecked")
         public <T> T getDefaultValue(FacesContext context) {
-            Object supplied = defaultValueSupplier.map(supplier -> supplier.apply(context)).orElse(null);
-            return (T) (supplied != null ? supplied : defaultAnnotatedValue);
+            return (T) defaultValueSupplier.apply(context);
         }
 
         /**
@@ -724,65 +680,6 @@ public @interface FacesConfig {
          */
         public boolean isDefault(FacesContext context) {
             return Objects.equals(getValue(context), getDefaultValue(context));
-        }
-
-        @SuppressWarnings("unchecked")
-        private <T> Optional<T> getContextParamValue(FacesContext context) {
-            String value = context.getExternalContext().getInitParameter(name);
-
-            if (value == null) {
-                return Optional.empty();
-            }
-            else if (type == String.class) {
-                return Optional.of((T) value);
-            }
-            else if (type == String[].class) {
-                return Optional.of((T) separated.split(value));
-            }
-            else if (type == Character.class) {
-                if (value.length() == 1) {
-                    return Optional.of((T) Character.valueOf(value.charAt(0)));
-                }
-            }
-            else if (type == Boolean.class) {
-                return Optional.of((T) Boolean.valueOf(value));
-            }
-            else if (type == Integer.class) {
-                try {
-                    return Optional.of((T) Integer.valueOf(value));
-                }
-                catch (NumberFormatException e) {
-                    throw new IllegalArgumentException(getName() + ": invalid value: " + value, e);
-                }
-            }
-            else if (type.isEnum()) {
-                for (Object constant : type.getEnumConstants()) {
-                    if (constant.toString().equalsIgnoreCase(value)) {
-                        return Optional.of((T) constant);
-                    }
-                }
-            }
-
-            throw new IllegalArgumentException(getName() + ": invalid value: " + value);
-        }
-
-        /**
-         * We're using getBeanReferencesByQualifier() because CDI.current().select(FacesConfig.Literal.INSTANCE) would throw ambiguous resolution when
-         * there are multiple beans with {@code @FacesConfig}.
-         */
-        @SuppressWarnings("unchecked")
-        private <T> Optional<T> getAnnotatedValue(FacesContext context) {
-            Optional<FacesConfig> annotatedConfig = ANNOTATED_CONFIG.updateAndGet(config -> config != null ? config : PackageUtils
-                    .getBeanReferencesByQualifier(context, FacesConfig.Literal.INSTANCE).stream()
-                    .sorted(PackageUtils.BEAN_PRIORITY_COMPARATOR)
-                    .peek(bean -> LOGGER.info("@FacesConfig found on " + bean.getClass() + " -- if any, others are ignored"))
-                    .map(bean -> bean.getClass().getAnnotation(FacesConfig.class))
-                    .findFirst());
-            return annotatedConfig.map(config -> (T) annotatedValue.apply(config)).filter(value -> !shouldDelegateToDefaultValueSupplier(value));
-        }
-
-        private <T> boolean shouldDelegateToDefaultValueSupplier(T value) {
-            return defaultValueSupplier.isPresent() && Objects.equals(value, defaultAnnotatedValue);
         }
 
     }

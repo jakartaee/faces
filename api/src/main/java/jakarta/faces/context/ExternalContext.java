@@ -30,6 +30,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import jakarta.faces.annotation.FacesConfig;
+import jakarta.faces.annotation.FacesConfig.ContextParam;
 import jakarta.faces.lifecycle.ClientWindow;
 
 /**
@@ -595,6 +597,21 @@ public abstract class ExternalContext {
      *
      */
     public abstract Map<String, String> getInitParameterMap();
+
+    /**
+     * <p class="changed_added_5_0">
+     * Returns the value of the given context parameter, converted to the expected type as indicated by {@link ContextParam#getType()}.
+     * This method never returns {@code null}. When the context parameter is not set, a default value is returned.
+     * <p>
+     * The implementation must first look for {@link ExternalContext#getInitParameter(String)}. If it is non-{@code null}, then return it.
+     * Else look for any {@link FacesConfig} annotation. If present, then return it. Else return the default value.
+     * @param <T> The expected return type.
+     * @param contextParam The context parameter to retrive the value for.
+     * @return The value of the context parameter, converted to the expected type as indicated by {@link ContextParam#getType()}.
+     * @throws ClassCastException When inferred {@code T} is of wrong type. See {@link ContextParam#getType()} for the correct type.
+     * @throws IllegalArgumentException When the value of the context parameter cannot be converted to the expected type as indicated by {@link ContextParam#getType()}.
+     */
+    public abstract <T> T getContextParamValue(FacesConfig.ContextParam contextParam);
 
     /**
      * <p>
