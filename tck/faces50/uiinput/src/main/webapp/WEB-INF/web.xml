@@ -36,4 +36,14 @@
         <param-name>jakarta.faces.SERIALIZE_SERVER_STATE</param-name>
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
+
+    <context-param>
+        <param-name>jakarta.faces.ADDITIONAL_HTML_EVENT_NAMES</param-name>
+        <param-value>spec1507customevent1 spec1507customevent2</param-value>
+    </context-param>
+
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/errorpages/500.xhtml</location>
+    </error-page>
 </web-app>
