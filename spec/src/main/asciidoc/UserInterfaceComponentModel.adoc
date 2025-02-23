@@ -2091,6 +2091,13 @@ renderers, validators and converters to declare that they want to
 register for system events. Please see the javadocs for those
 annotations for the complete specification.
 
+The CDI _@Observes_ annotation can also be used to listen on a specific system event.
+
+[source,java]
+----
+public void observePreRenderViewEvent(@Observes PreRenderViewEvent event)
+----
+
 [[a1393]]
 ===== Declarative Listener Registration
 
@@ -2132,12 +2139,12 @@ public void processEvent(jakarta.faces.event.ComponentSystemEvent event)
 [[a1403]]
 ===== Listener Registration By Annotation
 
-The _ListenerFor_ and _ListenersFor_
+The _@ListenerFor_ and _@ListenersFor_
 annotations can be applied to components and rendererers. Classes tagged
-with the _ListenerFor_ annotation are installed as listeners. The
-_ListenersFor_ annotation is a container annotation tp specify multiple
-_ListenerFor_ annotations for a single class. Please refer to the
-Javadocs for the _ListenerFor_ and _ListenersFor_ classes for more
+with the _@ListenerFor_ annotation are installed as listeners. The
+_@ListenersFor_ annotation is a container annotation to specify multiple
+_@ListenerFor_ annotations for a single class. Please refer to the
+Javadocs for the _@ListenerFor_ and _@ListenersFor_ classes for more
 details.
 
 ===== Listener Registration By Application Configuration Resources
