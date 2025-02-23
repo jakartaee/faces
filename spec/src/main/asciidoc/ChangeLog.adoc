@@ -8,6 +8,14 @@
 Note: this refers to historic issues and titles using the term "JSF". This refers to the
 pre-Jakarta Faces specification under the JCP.
 
+=== Changes between 5.0 and 4.1
+
+This release contains the following changes:
+
+* Issue ID {issue_tracker_url}1564[1564] +
+Resolve _#{cc}_ using EL instead of CDI
+
+
 === Changes between 4.1 and 4.0
 
 This release contains the following changes:

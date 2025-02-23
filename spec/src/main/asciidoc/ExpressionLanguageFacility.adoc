@@ -524,6 +524,59 @@ each particular method on _ELResolver_, in prose when such a table is
 inappropriate, or as a reference to another section where the semantics
 are exactly the same.
 
+[[a2830]]
+===== faces.CompositeComponentELResolver
+
+This _ELResolver_ makes it so that expressions that refer to the
+current composite component _#{cc}_ get correctly evaluated.
+
+.Composite Component ELResolver
+
+[width="100%",cols="25%,75%a",options="header",]
+|===
+|ELResolver method
+|implementation requirements
+| _getValue_ a|
+If base is _null_ and property is a String equal to _cc_,
+call _setPropertyResolved(true)_ on the argument _ELContext_
+and return the current composite component relative to
+the declaring page in which the expression appears.
+
+Otherwise return _null_.
+
+| _setValue_ a|
+If base is _null_ and property is a String equal to _cc_,
+throw _jakarta.el.PropertyNotWriteableException_,
+since this is read-only.
+
+Otherwise return _null_.
+
+| _isReadOnly_ a|
+If base is _null_ and property is a String equal to _cc_,
+call _setPropertyResolved(true)_ on the argument _ELContext_
+and return _true_.
+
+Otherwise return _false_.
+
+| _getType_ a|
+If base is _null_ and property is a String equal to _cc_,
+call _setPropertyResolved(true)_ on the argument _ELContext_
+and return _null_, since this is read-only.
+
+Otherwise return _null_.
+
+| _getCommonPropertyType_ a|
+If base is _null_ return _String.class_.
+
+Otherwise return _null_.
+
+| _getFeatureDescriptors_ a|
+Return _null_.
+
+|===
+
+
+
 [[a2908]]
 ===== faces.CompositeComponentAttributesELResolver
 
@@ -751,7 +804,7 @@ PropertyNotFoundException.
 If base is null and property is a String
 equal to the value of the <var> element of one of the
 <resource-bundle>'s in the application configuration resources throw
-jakarta.el.PropertyNotWriteable, since ResourceBundles are read-only.
+jakarta.el.PropertyNotWriteableException, since ResourceBundles are read-only.
 
 
 
@@ -1022,7 +1075,6 @@ The following Implicit Objects for Facelets and Programmatic Access must be reso
 |externalContext  |facesContext.getExternalContext()                                    |request
 |application      |externalContext.getContext()                                         |application
 |applicationScope |externalContext.getApplicationMap()                                  |application
-|cc               |UIComponent.getCurrentCompositeComponent(facesContext)               |dependent
 |cookie           |externalContext.getRequestCookieMap()                                |request
 |component        |UIComponent.getCurrentComponent(facesContext)                        |dependent
 |flash            |externalContext.getFlash()                                           |request
