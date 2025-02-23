@@ -1668,6 +1668,8 @@ processes the annotation.
 an application configuration resource to add an application scoped
 listener.
 
+* Use the CDI _@Observes_ annotation on the specific system event.
+
 This feature is conceptually related to the
 lifecycle because there are calls to _Application.publishEvent()_
 sprinkled throughout the code that gets executed when the lifecycle
