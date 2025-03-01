@@ -45,6 +45,30 @@ public abstract class FaceletContext extends ELContext {
     public static final String FACELET_CONTEXT_KEY = "jakarta.faces.FACELET_CONTEXT".intern();
 
     /**
+     * <p class="changed_added_5_0">
+     * Returns the current {@link FaceletContext} instance from the attributes of {@link FacesContext#getCurrentInstance()}.
+     * </p>
+     * 
+     * @return the current {@link FaceletContext} instance from the attributes of {@link FacesContext#getCurrentInstance()}.
+     * @since 5.0
+     */
+    public static FaceletContext getCurrentInstance() {
+        return getCurrentInstance(FacesContext.getCurrentInstance());
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Returns the current {@link FaceletContext} instance from the attributes of the given {@link FacesContext} instance.
+     * </p>
+     * 
+     * @return the current {@link FaceletContext} instance from the attributes of the given {@link FacesContext} instance.
+     * @since 5.0
+     */
+    public static FaceletContext getCurrentInstance(FacesContext context) {
+        return (FaceletContext) context.getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
+    }
+
+    /**
      * <p class="changed_added_2_0">
      * The current FacesContext bound to this "request". Must not be <code>null</code>.
      * </p>
