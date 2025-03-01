@@ -63,4 +63,13 @@ public enum VisitHint {
      */
     EXECUTE_LIFECYCLE,
 
+    /**
+     * <p class="changed_added_5_0">
+     * Hint that indicates that any model value must be cleared.
+     * </p>
+     *
+     * @since 5.0
+     */
+    CLEAR_MODEL,
+
 }
