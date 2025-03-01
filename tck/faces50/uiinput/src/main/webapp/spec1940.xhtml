@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html lang="en"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:ui="jakarta.faces.facelets"
+>
+    <h:head>
+        <title>spec1940</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <h:inputText id="input" binding="#{input}" value="#{spec1940Bean.value}" required="true" />
+            <h:commandButton id="submitAndRerender" value="submitAndRerender">
+                <f:ajax execute="@form" render="@form" />
+            </h:commandButton>
+            <h:commandButton id="rerenderWithoutResetValues" value="rerenderWithoutResetValues">
+                <f:ajax execute="@this" render="@form" />
+            </h:commandButton>
+            <h:commandButton id="rerenderWithResetValuesAttribute" value="rerenderWithResetValuesAttribute">
+                <f:ajax execute="@this" render="@form" resetValues="true" clearModel="false" />
+            </h:commandButton>
+            <h:commandButton id="rerenderWithResetValuesAndClearModelAttributes" value="rerenderWithResetValuesAndClearModelAttributes">
+                <f:ajax execute="@this" render="@form" resetValues="true" clearModel="true" />
+            </h:commandButton>
+            <h:commandButton id="rerenderWithClearModelAttributeOnly" value="rerenderWithClearModelAttributeOnly">
+                <f:ajax execute="@this" render="@form" clearModel="false" />
+            </h:commandButton>
+            <h:commandButton id="rerenderWithResetValuesTag" value="rerenderWithResetValuesTag">
+                <f:ajax execute="@this" render="@form" />
+                <f:resetValues render="form:input" />
+            </h:commandButton>
+            <h:commandButton id="rerenderWithResetValuesTagAndClearModelAttribute" value="rerenderWithResetValuesTagAndClearModelAttribute">
+                <f:ajax execute="@this" render="@form" />
+                <f:resetValues render="form:input" clearModel="true" />
+            </h:commandButton>
+            <h:outputText id="inputSubmittedValue" value="#{input.submittedValue}" />
+            <h:outputText id="inputValid" value="#{input.valid}" />
+            <h:outputText id="inputLocalValueSet" value="#{input.localValueSet}" />
+            <h:outputText id="inputValue" value="#{input.value}" />
+            <h:outputText id="modelValue" value="#{spec1940Bean.value}" />
+            <h:message id="message" for="input" />
+        </h:form>
+    </h:body>
+</html>
