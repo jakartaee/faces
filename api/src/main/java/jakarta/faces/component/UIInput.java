@@ -24,10 +24,10 @@ import java.util.Map;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
 import jakarta.faces.FacesException;
-import jakarta.faces.annotation.FacesConfig.ContextParam;
 import jakarta.faces.application.Application;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
@@ -255,6 +255,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      */
     public UIInput() {
 
+        super();
         setRendererType("jakarta.faces.Text");
 
     }
@@ -883,7 +884,8 @@ public class UIInput extends UIOutput implements EditableValueHolder {
         if (null != bool) {
             isSetAlwaysValidateRequired = bool;
         } else {
-            isSetAlwaysValidateRequired = ContextParam.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE.isSet(context);
+            String val = context.getExternalContext().getInitParameter(ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE);
+            isSetAlwaysValidateRequired = Boolean.valueOf(val);
         }
 
         return isSetAlwaysValidateRequired;
@@ -1377,7 +1379,8 @@ public class UIInput extends UIOutput implements EditableValueHolder {
     boolean considerEmptyStringNull(FacesContext ctx) {
 
         if (emptyStringIsNull == null) {
-            emptyStringIsNull = ContextParam.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL.isSet(ctx);
+            String val = ctx.getExternalContext().getInitParameter(EMPTY_STRING_AS_NULL_PARAM_NAME);
+            emptyStringIsNull = Boolean.valueOf(val);
         }
 
         return emptyStringIsNull;
@@ -1387,24 +1390,16 @@ public class UIInput extends UIOutput implements EditableValueHolder {
     private boolean validateEmptyFields(FacesContext ctx) {
 
         if (validateEmptyFields == null) {
-            ValidateEmptyFields val = null;
+            ExternalContext extCtx = ctx.getExternalContext();
+            String val = extCtx.getInitParameter(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
 
-            if (!ContextParam.VALIDATE_EMPTY_FIELDS.isSet(ctx)) {
-                String appVal = (String) ctx.getExternalContext().getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
-
-                if (appVal != null) {
-                    val = ValidateEmptyFields.valueOf(appVal.toUpperCase());
-                }
+            if (null == val) {
+                val = (String) extCtx.getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
             }
-
-            if (val == null) {
-                val = ContextParam.VALIDATE_EMPTY_FIELDS.getValue(ctx);
-            }
-
-            if (val == ValidateEmptyFields.AUTO) {
+            if (val == null || ValidateEmptyFields.AUTO.name().equalsIgnoreCase(val)) {
                 validateEmptyFields = isBeansValidationAvailable(ctx);
             } else {
-                validateEmptyFields = val == ValidateEmptyFields.TRUE;
+                validateEmptyFields = Boolean.valueOf(val);
             }
         }
 

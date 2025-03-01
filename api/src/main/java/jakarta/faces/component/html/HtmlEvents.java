@@ -1,6 +1,8 @@
 package jakarta.faces.component.html;
 
-import static java.util.Arrays.stream;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
+import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toUnmodifiableList;
 
 import java.util.Arrays;
@@ -10,7 +12,6 @@ import java.util.Map;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import jakarta.faces.annotation.FacesConfig.ContextParam;
 import jakarta.faces.component.ActionSource;
 import jakarta.faces.component.EditableValueHolder;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
@@ -126,10 +127,12 @@ public final class HtmlEvents {
         FACES_EDITABLE_VALUE_HOLDER_EVENT_NAMES;
     }
 
-    private static final Map<CacheKey, Collection<String>> CACHE = new EnumMap<>(CacheKey.class);
-
     private HtmlEvents() {
         throw new AssertionError();
+    }
+
+    private static Collection<String> getContextParam(FacesContext context) {
+        return ofNullable(context.getExternalContext().getInitParameter(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME)).map(param -> asList(param.split("\\s+"))).orElse(emptyList());
     }
 
     /**
@@ -137,7 +140,7 @@ public final class HtmlEvents {
      * @return All additional HTML event names specified via {@link #ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME}.
      */
     public static Collection<String> getAdditionalHtmlEventNames(FacesContext context) {
-        return cache(CacheKey.ADDITIONAL_HTML_EVENT_NAMES, () -> collect(stream(ContextParam.ADDITIONAL_HTML_EVENT_NAMES.<String[]>getValue(context))));
+        return cache(context, CacheKey.ADDITIONAL_HTML_EVENT_NAMES, () -> getContextParam(context));
     }
 
     /**
@@ -145,7 +148,7 @@ public final class HtmlEvents {
      * @return All supported event names for HTML document elements, including additional HTML event names.
      */
     public static Collection<String> getHtmlDocumentElementEventNames(FacesContext context) {
-        return cache(CacheKey.HTML_DOCUMENT_ELEMENT_EVENT_NAMES, () -> merge(getAdditionalHtmlEventNames(context), HtmlDocumentElementEvent.values()));
+        return cache(context, CacheKey.HTML_DOCUMENT_ELEMENT_EVENT_NAMES, () -> merge(getAdditionalHtmlEventNames(context), HtmlDocumentElementEvent.values()));
     }
 
     /**
@@ -153,7 +156,7 @@ public final class HtmlEvents {
      * @return All supported event names for HTML body elements, including HTML document element event names.
      */
     public static Collection<String> getHtmlBodyElementEventNames(FacesContext context) {
-        return cache(CacheKey.HTML_BODY_ELEMENT_EVENT_NAMES, () -> merge(getHtmlDocumentElementEventNames(context), HtmlBodyElementEvent.values()));
+        return cache(context, CacheKey.HTML_BODY_ELEMENT_EVENT_NAMES, () -> merge(getHtmlDocumentElementEventNames(context), HtmlBodyElementEvent.values()));
     }
 
     /**
@@ -161,7 +164,7 @@ public final class HtmlEvents {
      * @return All supported event names for HTML implementations of Faces {@link ActionSource} components, including HTML body element event names.
      */
     public static Collection<String> getFacesActionSourceEventNames(FacesContext context) {
-        return cache(CacheKey.FACES_ACTION_SOURCE_EVENT_NAMES, () -> merge(getHtmlBodyElementEventNames(context), FacesComponentEvent.action));
+        return cache(context, CacheKey.FACES_ACTION_SOURCE_EVENT_NAMES, () -> merge(getHtmlBodyElementEventNames(context), FacesComponentEvent.action));
     }
 
     /**
@@ -169,7 +172,7 @@ public final class HtmlEvents {
      * @return All supported event names for HTML implementations of Faces {@link EditableValueHolder} components, including HTML body element event names.
      */
     public static Collection<String> getFacesEditableValueHolderEventNames(FacesContext context) {
-        return cache(CacheKey.FACES_EDITABLE_VALUE_HOLDER_EVENT_NAMES, () -> merge(getHtmlBodyElementEventNames(context), FacesComponentEvent.valueChange));
+        return cache(context, CacheKey.FACES_EDITABLE_VALUE_HOLDER_EVENT_NAMES, () -> merge(getHtmlBodyElementEventNames(context), FacesComponentEvent.valueChange));
     }
 
     private static Collection<String> collect(Stream<String> stream) {
@@ -180,7 +183,10 @@ public final class HtmlEvents {
         return collect(Stream.concat(Arrays.stream(enumValues).map(e -> e.name()), eventNames.stream()));
     }
 
-    private static Collection<String> cache(CacheKey key, Supplier<Collection<String>> supplier) {
-        return CACHE.computeIfAbsent(key, $ -> supplier.get());
+    @SuppressWarnings("unchecked")
+    private static Collection<String> cache(FacesContext context, CacheKey key, Supplier<Collection<String>> supplier) {
+        return ((Map<CacheKey, Collection<String>>) context.getExternalContext().getApplicationMap()
+                .computeIfAbsent(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME, $ -> new EnumMap<>(CacheKey.class)))
+                .computeIfAbsent(key, $ -> supplier.get());
     }
 }
