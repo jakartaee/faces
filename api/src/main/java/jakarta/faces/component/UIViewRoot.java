@@ -1049,7 +1049,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                 editableValueHolder.resetValue();
                 if (context.getHints().contains(VisitHint.CLEAR_MODEL)) {
                     editableValueHolder.setValue(null);
-                    ((UIInput) target).updateModel(context.getFacesContext());
+                    if (editableValueHolder instanceof UIInput input) {
+                        input.updateModel(context.getFacesContext());
+                    }
                 }
             } else if (!VisitContext.ALL_IDS.equals(context.getIdsToVisit())) {
                 // Render ID didn't specifically point to an EditableValueHolder. Visit all children as well.
