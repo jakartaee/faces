@@ -1705,7 +1705,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * @throws IllegalArgumentException if <code>class</code> is not, and does not implement, {@link FacesListener}
      * @throws NullPointerException if <code>clazz</code> is <code>null</code>
      */
-    protected abstract FacesListener[] getFacesListeners(Class clazz);
+    protected abstract FacesListener[] getFacesListeners(Class<? extends FacesListener> clazz);
 
     /**
      * <p>
