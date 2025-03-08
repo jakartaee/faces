@@ -16,17 +16,14 @@
 
 package jakarta.faces.validator;
 
-import static jakarta.faces.component.UIInput.VALIDATE_EMPTY_FIELDS_PARAM_NAME;
-
 import java.util.Map;
 
 import jakarta.el.ELContext;
 import jakarta.el.ELException;
 import jakarta.el.MethodExpression;
-import jakarta.faces.annotation.FacesConfig.ContextParam;
 import jakarta.faces.component.StateHolder;
 import jakarta.faces.component.UIComponent;
-import jakarta.faces.component.UIInput.ValidateEmptyFields;
+import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 
 /**
@@ -41,6 +38,8 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
 
     private static final String BEANS_VALIDATION_AVAILABLE = "jakarta.faces.private.BEANS_VALIDATION_AVAILABLE";
 
+    private static final String VALIDATE_EMPTY_FIELDS_PARAM_NAME = "jakarta.faces.VALIDATE_EMPTY_FIELDS";
+
     // ------------------------------------------------------ Instance Variables
 
     private MethodExpression methodExpression = null;
@@ -48,6 +47,8 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
     private Boolean validateEmptyFields;
 
     public MethodExpressionValidator() {
+
+        super();
 
     }
 
@@ -60,6 +61,7 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
      */
     public MethodExpressionValidator(MethodExpression methodExpression) {
 
+        super();
         this.methodExpression = methodExpression;
 
     }
@@ -135,24 +137,16 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
     private boolean validateEmptyFields(FacesContext ctx) {
 
         if (validateEmptyFields == null) {
-            ValidateEmptyFields val = null;
+            ExternalContext extCtx = ctx.getExternalContext();
+            String val = extCtx.getInitParameter(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
 
-            if (!ContextParam.VALIDATE_EMPTY_FIELDS.isSet(ctx)) {
-                String appVal = (String) ctx.getExternalContext().getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
-
-                if (appVal != null) {
-                    val = ValidateEmptyFields.valueOf(appVal.toUpperCase());
-                }
+            if (null == val) {
+                val = (String) extCtx.getApplicationMap().get(VALIDATE_EMPTY_FIELDS_PARAM_NAME);
             }
-
-            if (val == null) {
-                val = ContextParam.VALIDATE_EMPTY_FIELDS.getValue(ctx);
-            }
-
-            if (val == ValidateEmptyFields.AUTO) {
+            if (val == null || "auto".equals(val)) {
                 validateEmptyFields = isBeansValidationAvailable(ctx);
             } else {
-                validateEmptyFields = val == ValidateEmptyFields.TRUE;
+                validateEmptyFields = Boolean.valueOf(val);
             }
         }
 
