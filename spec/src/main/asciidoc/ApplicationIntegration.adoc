@@ -470,6 +470,9 @@ javadoc for the event classes that are listed in
 <<UserInterfaceComponentModel.adoc#a1308,Event Classes>>. See the javadoc for
 _publishEvent()_ for the complete specification.
 
+The _publishEvent()_ also fires the system event instance as a CDI event
+which can be listened for using the _@Observes_ annotation.
+
 ===== Unsubscribing from system events
 
 [source,java]
