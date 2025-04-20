@@ -18,11 +18,11 @@
 package jakarta.faces.component;
 
 import static jakarta.faces.component.PackageUtils.addToDescendantMarkIdCache;
-import static jakarta.faces.component.PackageUtils.isNotRenderingResponse;
-import static jakarta.faces.component.PackageUtils.removeFromDescendantMarkIdCache;
 import static jakarta.faces.component.PackageUtils.isAllNull;
 import static jakarta.faces.component.PackageUtils.isAnyNull;
 import static jakarta.faces.component.PackageUtils.isEmpty;
+import static jakarta.faces.component.PackageUtils.isNotRenderingResponse;
+import static jakarta.faces.component.PackageUtils.removeFromDescendantMarkIdCache;
 import static java.beans.Introspector.getBeanInfo;
 import static java.lang.Boolean.TRUE;
 import static java.lang.Character.isDigit;
@@ -1778,10 +1778,6 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     private static void disconnectFromView(FacesContext context, Application application, UIComponent component) {
-
-        application.publishEvent(context, PreRemoveFromViewEvent.class, component);
-        component.setInView(false);
-        component.compositeParent = null;
         if (component.getChildCount() > 0) {
             List<UIComponent> children = component.getChildren();
             for (UIComponent c : children) {
@@ -1795,6 +1791,9 @@ public abstract class UIComponentBase extends UIComponent {
             }
         }
 
+        application.publishEvent(context, PreRemoveFromViewEvent.class, component);
+        component.setInView(false);
+        component.compositeParent = null;
     }
 
     // --------------------------------------------------------- Private Classes
