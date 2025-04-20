@@ -10716,7 +10716,7 @@
 
             <p><a name="encode">Encode Behavior</a></p>
             <ul>
-                <li><span class="changed_modified_2_3">If the "group" attribute is not specified,</span> render as follows.
+                <li><span class="changed_modified_2_3">If the "group" attribute is not specified,</span> render the <span class="changed_modified_5_0">root element</span> as follows.
                     <ul>
                         <li class="changed_modified_4_0">If the "layout" attribute is specified, and its value is "list", render a "ul" element as root element, otherwise render a "table" element.</li>
                         <li>As an exception to the general rules about how to handle the "id" attribute, render it as an attribute on the outer <span class="changed_modified_4_0">root</span> element, the value of which is the <code>clientId</code> of the component per the rules at the beginning of this specification.</li>
@@ -10724,6 +10724,21 @@
                         <li>If the "style", "border" attributes are specified, pass them thru <span class="changed_added_2_0">and render their values as the "style" and "border" attributes on the <span class="changed_modified_4_0">root element</span>, respectively.</span>.</li>
                         <li>If the "layout" attribute is specified, and its value is "pageDirection", render the children elements vertically, otherwise horizontally, in the <span class="changed_modified_4_0">root element</span>.</li>
                         <li>If any of the children are an instance of <code>SelectItemGroup</code>, render them as a nested <span class="changed_modified_4_0">root element</span>.</li>
+                    </ul>
+                </li>
+                <li class="changed_added_5_0">
+                    If the "group" attribute is specified, then no root element is rendered and each component having the same <code>group</code> attribute within a <code>UIForm</code> will render a single html "input" element of type "radio".
+                    The <code>SelectItem</code> children of all components having the same <code>group</code> attribute within a <code>UIForm</code> will be redistributed as follows.
+                    <ul>
+                        <li>If the current component is the first component of the group, then it needs to have at least one <code>SelectItem</code> child, and all remaining <code>SelectItem</code> children are reassigned to the other components of the same group.</li>
+                        <li>If the current component is not the first component of the group, then consider as follows.
+                            <ul>
+                                <li>If it has no <code>SelectItem</code> child, then it will look for it in the first component of the group, at the same index as the component itself relative to the group.</li>
+                                <li>If it has at least one <code>SelectItem</code> child, then it will be used, and any one in the first component of the group will be ignored, and all remaining <code>SelectItem</code> children in the current component are ignored.</li>
+                                <li>If no suitable <code>SelectItem</code> child can be found, then an exception will be thrown.</li>
+                                <li>If the <code>value</code> attribute is not specified, then the one from the first component of the group will be used.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </li>
                 <li>Each of the <code>SelectItem</code> children are ultimately rendered as follows.
@@ -10906,11 +10921,12 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description>
+            <description><![CDATA[
                 Width (in pixels) of the border to be drawn
                 around the table containing the options list.
-                &lt;p class="changed_added_4_0"&gt;This attribute is ignored when the "layout" attribute equals to "list".&lt;span&gt;
-            </description>
+                <span class="changed_added_2_3 changed_modified_5_0">This attribute is ignored when the "group" attribute is specified.</span>
+                <span class="changed_added_4_0">This attribute is ignored when the "layout" attribute equals to "list".</span>
+            ]]></description>
             <name>border</name>
             <required>false</required>
             <type>int</type>
@@ -10984,13 +11000,14 @@
             <type>java.lang.String</type>
         </attribute>
         <attribute>
-            <description>
+            <description><![CDATA[
                 Orientation of the options list to be created.
                 Valid values are "pageDirection" (list is laid
                 out vertically), or "lineDirection" (list is
                 laid out horizontally). If not specified, the
                 default value is "lineDirection".
-            </description>
+                <span class="changed_added_2_3 changed_modified_5_0">This attribute is ignored when the "group" attribute is specified.</span>
+            ]]></description>
             <name>layout</name>
             <required>false</required>
             <type>java.lang.String</type>
@@ -11195,6 +11212,18 @@
                 correctly interpreting the value of this attribute.</p>]]>
             </description>
             <name>role</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description><![CDATA[<div class="changed_added_2_3 changed_modified_5_0">
+                Specifies the name of the radio button group.
+                When specified, then the <code>layout</code> and <code>border</code> attributes are ignored and the component renders a single radio button along with the label without additional markup.
+                Radio button components having the same group within a <code>UIForm</code> parent will share the same <code>value</code> attribute and <code>UISelectItem</code> children.
+                If the <code>value</code> attribute is absent on the current radio button component, then the one from first radio button component of the same group will be used.
+                If the <code>UISelectItem</code> child is absent on the current radio button component, then the one from first radio button component of the same group will be used, by same index as the current radio button component itself relative to other radio button components having the same group.
+            </div>]]></description>
+            <name>group</name>
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>

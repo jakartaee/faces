@@ -11495,50 +11495,73 @@ this application, and passing the result through the
 
       <p>Encode Behavior</p>
 
-      <ul>
+        <ul>
+            <li><span class="changed_modified_2_3">If the "group" attribute is not specified,</span> render the <span class="changed_modified_5_0">root element</span> as follows.
+                <ul>
+                    <li class="changed_modified_4_0">If the "layout" attribute is specified, and its value is "list", render a "ul" element as root element, otherwise render a "table" element.</li>
+                    <li>As an exception to the general rules about how to handle the "id" attribute, render it as an attribute on the outer <span class="changed_modified_4_0">root</span> element, the value of which is the <code>clientId</code> of the component per the rules at the beginning of this specification.</li>
+                    <li>If the "styleClass" attribute is specified, render the value of the "styleClass" attribute as the value of the "class" attribute on the <span class="changed_modified_4_0">root</span> element.</li>
+                    <li>If the "style", "border" attributes are specified, pass them thru <span class="changed_added_2_0">and render their values as the "style" and "border" attributes on the <span class="changed_modified_4_0">root element</span>, respectively.</span>.</li>
+                    <li>If the "layout" attribute is specified, and its value is "pageDirection", render the children elements vertically, otherwise horizontally, in the <span class="changed_modified_4_0">root element</span>.</li>
+                    <li>If any of the children are an instance of <code>SelectItemGroup</code>, render them as a nested <span class="changed_modified_4_0">root element</span>.</li>
+                </ul>
+            </li>
+            <li class="changed_added_5_0">
+                If the "group" attribute is specified, then no root element is rendered and each component having the same <code>group</code> attribute within a <code>UIForm</code> will render a single html "input" element of type "radio".
+                The <code>SelectItem</code> children of all components having the same <code>group</code> attribute within a <code>UIForm</code> will be redistributed as follows.
+                <ul>
+                    <li>If the current component is the first component of the group, then it needs to have at least one <code>SelectItem</code> child, and all remaining <code>SelectItem</code> children are reassigned to the other components of the same group.</li>
+                    <li>If the current component is not the first component of the group, then consider as follows.
+                        <ul>
+                            <li>If it has no <code>SelectItem</code> child, then it will look for it in the first component of the group, at the same index as the component itself relative to the group.</li>
+                            <li>If it has at least one <code>SelectItem</code> child, then it will be used, and any one in the first component of the group will be ignored, and all remaining <code>SelectItem</code> children in the current component are ignored.</li>
+                            <li>If no suitable <code>SelectItem</code> child can be found, then an exception will be thrown.</li>
+                            <li>If the <code>value</code> attribute is not specified, then the one from the first component of the group will be used.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>Each of the <code>SelectItem</code> children are ultimately rendered as follows.
+                <ul>
+                    <li class="changed_added_2_3">If the <code>SelectItem.getLabel()</code> is specified, and the <code>group</code> attribute is specified, render as follows.
+                        <ul>
+                            <li>Render a "label" element.</li>
+                            <li>Render the "for" attribute of the "label" element whose value is the corresponding "input" element's "id" value.</li>
+                            <li>Render any "class" attribute as the "class" attribute on the "label" element.</li>
+                            <li>Render the label value from <code>SelectItem.getLabel()</code>.</li>
+                            <li>Close out the "label" element.</li>
+                        </ul>
+                    </li>
+                    <li>Render an "input" element of "type" "radio" for each child component.</li>
+                    <li>Render an "id" attribute on the "input" element. Each "id" value must be unique.</li>
+                    <li>If the "group" attribute is not specified, render the "name" attribute on the "input" element with the value of the <code>clientId</code> of the component.</li>
+                    <li class="changed_added_2_3">If the "group" attribute is specified, render as follows.
+                        <ul>
+                            <li>Render the "name" attribute on the "input" element with the value of the "group" attribute.</li>
+                            <li>If the "styleClass" attribute is specified, render the value of the "styleClass" attribute as the value of the "class" attribute on the "input" element.</li>
+                            <li>If the "style" attribute is specified, pass it thru and render its value as the "style" attribute on the "input" element.</li>
+                        </ul>
+                    </li>
+                    <li>Render the input value from <code>SelectItem.getValue()</code>.</li>
+                    <li>Coerce the select item value to the type of the parent <code>UISelectOne</code> value using the Expression Language coercion rules before comparing the values. 
+                        If the select item value is equal to the value of the parent <code>UISelectOne</code>, render an appropriate HTML boolean value indicating "checked" for the enclosing "input".</li>
+                    <li>If the current <code>SelectItem.isDisabled()</code> returns true, render "disabled" as the value of the "disabled" attribute.</li>
+                    <li>Close out the "input" element.</li>
+                    <li>If the <code>SelectItem.getLabel()</code> is specified, <span class="changed_modified_2_3">and the <code>group</code> attribute is not specified,</span> render as follows.
+                        <ul>
+                            <li>Render a "label" element.</li>
+                            <li>Render the "for" attribute of the "label" element whose value is the corresponding "input" element's "id" value.</li>
+                            <li>Render any "class" attribute as the "class" attribute on the "label" element.</li>
+                            <li>Render the label value from <code>SelectItem.getLabel()</code>.</li>
+                            <li>Close out the "label" element.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>See the "<a href="jakarta.faces.SelectManyjakarta.faces.Listbox.html">Rendering the option elements</a>" specification for <code>ListboxRenderer</code> for more detail on how to render the "option" elements in this renderer.</li>
+        </ul>
 
-      <p>Render a "table" element. If the "styleClass" is specified,
-      render the value of the "styleClass" attribute as the value of the
-      "class" attribute on the "table" element. If the "style", "border"
-      attributes are specified, convey them <span
-      class="changed_added_2_0">and render their values as the "style"
-      and "border" attributes on the "table", respectively.</span>. If
-      the "layout" attribute is specified, and its value is
-      "pageDirection", render the children elements vertically,
-      otherwise horizontally, in the table.  If any of the children are
-      an instance of SelectItemGroup, render them as a nested table.
-      Each of the children are ultimately rendered as follows.  Render
-      an "input" element of "type" "radio" for each child component.
-      Render the "name" attribute on the "input" element with the value
-      of the <code>clientId</code> of the component.  Render an "id"
-      attribute on the "input" element.  Each "id" value must be unique.
-      If the current SelectItem.isDisabled() returns true, render
-      "disabled" as the value of the "disabled" attribute.  Close out
-      the "input" element.  Render a "label" element.  Render the "for"
-      attribute of the "label" element whose value is the corresponding
-      "input" element's "id" value.  Render any "style" as the "class"
-      attribute on the "label" element.  Close out the starting "label"
-      element and render the label value from SelectItem.getLabel().
-      Close out the "label" element.  As an exception to the general
-      rules about how to handle the "id" attribute, render it as an
-      attribute on the outer "table" element, the value of which is the
-      <code>clientId</code> of the component per the rules at the
-      beginning of this specification.  Coerce the value of the
-      currently rendered child to the type of the parent UISelectOne
-      value using the Expression Language coercion rules before
-      comparing the values.  If the value of the currently rendered
-      child is equal to the value of the parent UISelectOne, render an
-      appropriate HTML boolean value indicating "checked" for the
-      enclosing "input".  See the <a
-      href="jakarta.faces.SelectManyjakarta.faces.Listbox.html">"Rendering the option elements" </a>
-      specification for <code>ListboxRenderer</code> for more detail on
-      how to render the "option" elements in this renderer.  <span
-      class="changed_modified_2_0_rev_a">Note that this renderer does
-      not support <code>SelectItemGroup</code> elements, so the text
-      that describes the rendering of <code>SelectItemGroup</code> does
-      not apply to this renderer.</span></p>
-
-      </ul>]]></description>
+            ]]></description>
             <component-family>jakarta.faces.SelectOne</component-family>
             <renderer-type>jakarta.faces.Radio</renderer-type>
             <renderer-class />
@@ -12000,11 +12023,12 @@ this application, and passing the result through the
 
 
             <attribute>
-                <description>
+                <description><![CDATA[
           Width (in pixels) of the border to be drawn
           around the table containing the options list.
-          This attribute is ignored when "group" attribute is specified.
-                </description>
+          <span class="changed_added_2_3 changed_modified_5_0">This attribute is ignored when the "group" attribute is specified.</span>
+          <span class="changed_added_4_0">This attribute is ignored when the "layout" attribute equals to "list".</span>
+                ]]></description>
                 <display-name>Table Border</display-name>
                 <icon />
                 <attribute-name>border</attribute-name>
@@ -12017,7 +12041,6 @@ this application, and passing the result through the
                 <description>
           CSS style class to apply to the rendered label
           on disabled options.
-          This attribute is ignored when "group" attribute is specified.
                 </description>
                 <display-name>Disabled Label Class</display-name>
                 <icon />
@@ -12028,7 +12051,6 @@ this application, and passing the result through the
                 <description>
           CSS style class to apply to the rendered label
           on enabled options.
-          This attribute is ignored when "group" attribute is specified.
                 </description>
                 <display-name>Enabled Label Class</display-name>
                 <icon />
@@ -12036,31 +12058,27 @@ this application, and passing the result through the
                 <attribute-class>java.lang.String</attribute-class>
             </attribute>
             <attribute>
-                <description>
+                <description><![CDATA[
           Orientation of the options list to be created.
           Valid values are "pageDirection" (list is laid
           out vertically), or "lineDirection" (list is
           laid out horizontally).  If not specified, the
           default value is "lineDirection".
-          This attribute is ignored when "group" attribute is specified.
-                </description>
+          <span class="changed_added_2_3 changed_modified_5_0">This attribute is ignored when the "group" attribute is specified.</span>
+                ]]></description>
                 <display-name>Layout</display-name>
                 <icon />
                 <attribute-name>layout</attribute-name>
                 <attribute-class>java.lang.String</attribute-class>
             </attribute>
             <attribute>
-                <description><![CDATA[
-          Specifies the name of the radio button group. Radio button components
-          having the same group within a <code>UIForm</code> parent will uncheck
-          all others when being checked. If the <code>value</code> attribute is
-          absent then the one from first component of the group will be used. If
-          the <code>UISelectItem</code> child is absent then the one from first
-          component of the group will be used. When specified, the
-          <code>group</code> attribute disables the default rendering of the
-          "table" element and any attribute related to the rendering of the
-          "table" element, such as "border", is ignored.
-            ]]></description>
+                <description><![CDATA[<div class="changed_added_2_3 changed_modified_5_0">
+                    Specifies the name of the radio button group.
+                    When specified, then the <code>layout</code> and <code>border</code> attributes are ignored and the component renders a single radio button along with the label without additional markup.
+                    Radio button components having the same group within a <code>UIForm</code> parent will share the same <code>value</code> attribute and <code>UISelectItem</code> children.
+                    If the <code>value</code> attribute is absent on the current radio button component, then the one from first radio button component of the same group will be used.
+                    If the <code>UISelectItem</code> child is absent on the current radio button component, then the one from first radio button component of the same group will be used, by same index as the current radio button component itself relative to other radio button components having the same group.
+                </div>]]></description>
                 <display-name>Group</display-name>
                 <icon />
                 <attribute-name>group</attribute-name>
