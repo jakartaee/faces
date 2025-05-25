@@ -17,6 +17,10 @@
 
 package jakarta.faces.view.facelets;
 
+import java.io.IOException;
+
+import jakarta.faces.component.UIComponent;
+
 /**
  * <p class="changed_added_2_0">
  * An interface that allows other code to identify FaceletHandlers that may provide text (String) content.
@@ -24,7 +28,7 @@ package jakarta.faces.view.facelets;
  *
  * @since 2.0
  */
-public interface TextHandler {
+public interface TextHandler extends FaceletHandler {
 
     /**
      * <p class="changed_added_2_0">
@@ -45,4 +49,15 @@ public interface TextHandler {
      * @return the resolved literal String value of the contained text after evaluating EL
      */
     String getText(FaceletContext ctx);
+
+    /**
+     * <p class="changed_added_5_0">
+     * The default implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of
+     * not breaking existing implementations of this interface.
+     * </p>
+     */
+    @Override
+    default void apply(FaceletContext ctx, UIComponent parent) throws IOException {
+        throw new UnsupportedOperationException();
+    }
 }
