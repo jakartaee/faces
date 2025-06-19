@@ -21,8 +21,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 

@@ -22,8 +22,8 @@ package com.sun.ts.tests.jsf.spec.composite.facet;
 import java.io.PrintWriter;
 import java.util.Formatter;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSpan;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 

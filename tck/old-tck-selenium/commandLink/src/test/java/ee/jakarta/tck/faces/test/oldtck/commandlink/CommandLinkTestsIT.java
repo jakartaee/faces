@@ -38,12 +38,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomAttr;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.DomAttr;
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSpan;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 

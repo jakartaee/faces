@@ -36,10 +36,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlPasswordInput;
+import org.htmlunit.html.HtmlSubmitInput;
 
 @RunWith(Arquillian.class)
 public class Issue4083IT {

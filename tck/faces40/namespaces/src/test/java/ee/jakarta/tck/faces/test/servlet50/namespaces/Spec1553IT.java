@@ -34,9 +34,9 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlPage;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.view.facelets.Facelet;

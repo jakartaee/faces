@@ -28,13 +28,13 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlListItem;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import com.gargoylesoftware.htmlunit.html.HtmlUnorderedList;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlListItem;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlTable;
+import org.htmlunit.html.HtmlTableDataCell;
+import org.htmlunit.html.HtmlUnorderedList;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 

@@ -34,8 +34,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebClient;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebClient;
 
 import jakarta.faces.component.UIComponent;
 

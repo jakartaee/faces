@@ -23,8 +23,8 @@ package com.sun.ts.tests.jsf.api.jakarta_faces.application.applicationISE;
 import java.io.PrintWriter;
 import java.net.URL;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlPage;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.AbstractUrlClient;
 
