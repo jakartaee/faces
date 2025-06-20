@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces40</groupId>
         <artifactId>pom</artifactId>
-        <version>4.0.3-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>selectItemGroups</artifactId>

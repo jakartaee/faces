@@ -24,7 +24,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces23</groupId>
         <artifactId>pom</artifactId>
-        <version>4.0.3-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>disableFaceletToXhtmlMapping</artifactId>
