@@ -20,8 +20,8 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSubmitInput;
 
 import ee.jakarta.tck.faces.test.util.arquillian.ITBase;
 import jakarta.faces.component.UIViewParameter;
@@ -42,7 +42,7 @@ public class Issue4734IT extends ITBase {
 
         submit.click(); // The first click is expected to work fine.
 
-        submit.click(); // Before the fix, the second click failed with com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException: 500 Internal Server Error
+        submit.click(); // Before the fix, the second click failed with org.htmlunit.FailingHttpStatusCodeException: 500 Internal Server Error
 
         submit.click(); // A third one, just to be sure it keeps working! ;)
     }

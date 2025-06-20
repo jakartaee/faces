@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlPage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
@@ -31,8 +33,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import ee.jakarta.tck.faces.test.util.htmlunit.DebugOptions;
 import ee.jakarta.tck.faces.test.util.htmlunit.IgnoringIncorrectnessListener;
@@ -50,7 +50,7 @@ public abstract class ITBase {
                 .importFrom(new File("target/" + getProperty("finalName") + ".war"))
                 .as(WebArchive.class);
     }
-    
+
     @Before
     public void setUp() {
         webClient = new WebClient();
