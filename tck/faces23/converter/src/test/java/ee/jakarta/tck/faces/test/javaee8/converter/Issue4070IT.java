@@ -1,4 +1,5 @@
 /*
+ * Copyright (c) 2024, 2025 Contributors to Eclipse Foundation.
  * Copyright (c) 1997, 2021 Oracle and/or its affiliates. All rights reserved.
  *
  * This program and the accompanying materials are made available under the
@@ -17,17 +18,12 @@
 package ee.jakarta.tck.faces.test.javaee8.converter;
 
 import static java.lang.System.getProperty;
-import static java.time.ZonedDateTime.now;
-import static java.time.format.FormatStyle.MEDIUM;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.net.URL;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.Temporal;
-import java.util.Locale;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -66,7 +62,7 @@ public class Issue4070IT {
     public void setUp() {
         webClient = new WebClient();
         webClient.getOptions().setTimeout(900_000);
-        webClient.addRequestHeader("Accept-Language", "en-US");
+        webClient.addRequestHeader("Accept-Language", "nl-NL");
     }
 
     @After
@@ -80,29 +76,32 @@ public class Issue4070IT {
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4074
      */
     @Test
-    public void testJavaTimeTypes() throws Exception {
-        Locale.setDefault(Locale.US);
+    public void testLocalDateTime() throws Exception {
+        doTestJavaTimeTypes("30 mei 2015 16:14:43", "localDateTime", "2015-05-30T16:14:43");
+    }
 
-        DateTimeFormatter formatter = DateTimeFormatter
-            .ofLocalizedDateTime(
-                MEDIUM, MEDIUM)
-            .withLocale(
-                Locale.US);
+    @Test
+    public void testLocalDate() throws Exception {
+        doTestJavaTimeTypes("30 mei 2015", "localDate", "2015-05-30");
+    }
 
-        String expectedFormat = formatter.format(now(ZoneId.of("America/New_York")));
-        System.out.println("Expected format " + expectedFormat);
+    @Test
+    public void testLocalTime() throws Exception {
+        doTestJavaTimeTypes("16:52:56", "localTime", "16:52:56");
+    }
 
-
-        doTestJavaTimeTypes("Sep 30, 2015, 4:14:43 PM", "localDateTime", "2015-09-30T16:14:43");
-
-        doTestJavaTimeTypes("Sep 30, 2015", "localDate", "2015-09-30");
-
-        doTestJavaTimeTypes("4:52:56 PM", "localTime", "16:52:56");
-
+    @Test
+    public void testOffsetTime() throws Exception {
         doTestJavaTimeTypes("17:07:19.358-04:00", "offsetTime", "17:07:19.358-04:00");
+    }
 
+    @Test
+    public void testOffsetDateTime() throws Exception {
         doTestJavaTimeTypes("2015-09-30T17:24:36.529-04:00", "offsetDateTime", "2015-09-30T17:24:36.529-04:00");
+    }
 
+    @Test
+    public void testZonedDateTime() throws Exception {
         doTestJavaTimeTypes("2015-09-30T17:31:42.09-04:00[America/New_York]", "zonedDateTime", "2015-09-30T17:31:42.090-04:00[America/New_York]");
     }
 
@@ -118,7 +117,7 @@ public class Issue4070IT {
             HtmlSpan output = page.getHtmlElementById(inputId + "Value");
             assertEquals(expected, output.getTextContent());
         } catch (AssertionError e) {
-            System.out.println(page.asXml());
+            System.out.println(page.getHtmlElementById("messages").asXml());
 
             throw e;
         }

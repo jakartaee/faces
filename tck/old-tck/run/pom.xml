@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.eclipse.ee4j.faces.tck</groupId>
         <artifactId>old-faces-tck-parent</artifactId>
-        <version>4.0.3-SNAPSHOT</version>
+        <version>4.0.4-SNAPSHOT</version>
     </parent>
 
     <artifactId>old-tck-run</artifactId>
