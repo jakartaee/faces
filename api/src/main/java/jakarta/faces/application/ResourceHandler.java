@@ -253,7 +253,7 @@ public abstract class ResourceHandler {
      * The default value for the {@link #RESOURCE_EXCLUDES_PARAM_NAME} init param.
      * </p>
      */
-    public static final String RESOURCE_EXCLUDES_DEFAULT_VALUE = ".class .jsp .jspx .properties .xhtml .groovy"; // NOTE: when changing, ensure {@link FacesConfig#resourceExcludes()} is also adjusted.
+    public static final String RESOURCE_EXCLUDES_DEFAULT_VALUE = ".class .jsp .jspx .properties .xhtml .groovy";
 
     // ---------------------------------------------------------- Public Methods
 
