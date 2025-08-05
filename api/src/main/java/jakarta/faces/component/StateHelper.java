@@ -36,23 +36,25 @@ public interface StateHelper extends StateHolder {
      * otherwise reside in an instance variable on the component.
      * </p>
      *
+     * @param <T> The generic type of the value.
      * @param key the key for the value
      * @param value the value
      * @return the previously stored value
      * @since 2.0
      */
-    Object put(Serializable key, Object value);
+    <T> T put(Serializable key, T value);
 
     /**
      * <p class="changed_added_2_0">
      * Remove the key/value pair from the helper, returning the value previously stored under this key.
      * </p>
      *
+     * @param <T> The generic type of the removed value.
      * @param key the key to remove
      * @return the removed value.
      * @since 2.0
      */
-    Object remove(Serializable key);
+    <T> T remove(Serializable key);
 
     /**
      * <p class="changed_added_2_0">
@@ -69,24 +71,26 @@ public interface StateHelper extends StateHolder {
      *
      * </div>
      *
+     * @param <T> The generic type of the value.
      * @param key the key of the map itself
      * @param mapKey the key within the internal map
      * @param value the value for the key in the internal map
      * @return the value.
      * @since 2.0
      */
-    Object put(Serializable key, String mapKey, Object value);
+    <T> T put(Serializable key, String mapKey, T value);
 
     /**
      * <p class="changed_added_2_0">
      * Return the value currently associated with the specified <code>key</code> if any.
      * </p>
      *
+     * @param <T> The generic type of the value.
      * @param key the key for which the value should be returned.
      * @return the value.
      * @since 2.0
      */
-    Object get(Serializable key);
+    <T> T get(Serializable key);
 
     /**
      * <p class="changed_added_2_0">
@@ -94,13 +98,13 @@ public interface StateHelper extends StateHolder {
      * if no such value is found.
      * </p>
      *
+     * @param <T> The generic type of the evaluated value.
      * @param key the name of the value in the internal map, or the name of a value expression in the components value
      * expression collection.
-     *
      * @return the evaluated value.
      * @since 2.0
      */
-    Object eval(Serializable key);
+    <T> T eval(Serializable key);
 
     /**
      * <p class="changed_added_2_0">
@@ -108,12 +112,13 @@ public interface StateHelper extends StateHolder {
      * specified <code>defaultValue</code>
      * </p>
      *
+     * @param <T> The generic type of the evaluated value.
      * @param key the key for which the value should be returned.
      * @param defaultValue the value to return if no value is found in the call to <code>eval()</code>.
      * @return the evaluated value.
      * @since 2.0
      */
-    Object eval(Serializable key, Object defaultValue);
+    <T> T eval(Serializable key, T defaultValue);
 
     /**
      * <p class="changed_added_4_0">
@@ -152,10 +157,11 @@ public interface StateHelper extends StateHolder {
      * argument <code>valueOrKey</code> and return null.
      * </p>
      *
+     * @param <T> The generic type of the removed value.
      * @param key the key of in the inner data structure whose value is a <code>Collection</code> or <code>Map</code>
      * @param valueOrKey the value or key to be removed.
      * @return the removed value.
      */
-    Object remove(Serializable key, Object valueOrKey);
+    <T> T remove(Serializable key, Object valueOrKey);
 
 }
