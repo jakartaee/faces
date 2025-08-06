@@ -757,10 +757,6 @@ public abstract class UIComponentBase extends UIComponent {
             throw new NullPointerException();
         }
 
-        if (initialStateMarked()) {
-            initialState = false;
-        }
-
         if (listenersByEventClass == null) {
             listenersByEventClass = new HashMap<>(3, 1.0f);
         }
@@ -773,6 +769,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (!listenersForEventClass.contains(facesLifecycleListener)) {
+            clearInitialState();
             listenersForEventClass.add(facesLifecycleListener);
         }
     }
