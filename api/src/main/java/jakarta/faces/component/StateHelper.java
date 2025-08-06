@@ -89,6 +89,28 @@ public interface StateHelper extends StateHolder {
     Object get(Serializable key);
 
     /**
+     * <p class="changed_added_5_0">
+     * Performs the same logic as {@link #get(java.io.Serializable)} } but if no value is found, this will put and return the
+     * return-value of the {@code defaultValueSupplier}.
+     * </p>
+     *
+     * @param <T> The generic type of the value.
+     * @param key the key for which the value should be returned.
+     * @param defaultValueSupplier the supplier used to put and return the default value if no value is found in the call to {@code get()}.
+     * @return the value.
+     * @throws ClassCastException When {@code T} is of wrong type.
+     * @since 5.0
+     */
+    default <T> T computeIfAbsent(Serializable key, Supplier<T> defaultValueSupplier) {
+        T value = (T) get(key);
+        if (value == null) {
+            value = defaultValueSupplier.get();
+            put(key, value);
+        }
+        return value;
+    }
+
+    /**
      * <p class="changed_added_2_0">
      * Attempts to find a value associated with the specified key, using the value expression collection from the component
      * if no such value is found.
