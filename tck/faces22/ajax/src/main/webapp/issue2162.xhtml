@@ -32,9 +32,9 @@
         <h:body>
             <h:form id="form">
                 <h:commandButton id="submit" value="Submit">
-                    <h:outputText value="#{issue2162Bean.initCalled}"/>
-                    <f:ajax event="click" execute="@form" render="@all"/>
+                    <f:ajax event="click" execute="@form" render="@form"/>
                 </h:commandButton>
+                <h:outputText id="output" value="#{issue2162Bean.initCalled}"/>
             </h:form>
         </h:body>
     </f:view>

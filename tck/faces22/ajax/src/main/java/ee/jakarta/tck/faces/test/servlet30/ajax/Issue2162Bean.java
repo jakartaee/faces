@@ -18,11 +18,11 @@ package ee.jakarta.tck.faces.test.servlet30.ajax;
 
 import java.io.Serializable;
 
-import jakarta.enterprise.context.SessionScoped;
+import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 @Named
-@SessionScoped
+@ViewScoped
 public class Issue2162Bean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class Issue2162Bean implements Serializable {
      * Init.
      */
     public void init() {
-        this.initCalled.append("Init called\n");
+        this.initCalled.append("Init called ");
     }
     
     /**

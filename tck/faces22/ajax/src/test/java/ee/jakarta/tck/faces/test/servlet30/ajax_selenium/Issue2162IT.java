@@ -16,8 +16,7 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.event.PreRenderViewEvent;
@@ -43,14 +42,11 @@ class Issue2162IT extends BaseITNG {
   void issue2162() throws Exception {
         WebPage page = getPage("issue2162.xhtml");
 
-        assertTrue(page.getPageSource().indexOf("Init called\n") != -1);
+        assertEquals("Init called", page.findElement(By.id("form:output")).getText());
 
         WebElement button = page.findElement(By.id("form:submit"));
         page.guardAjax(button::click);
 
-        // init called not present probably a mojarra codebase issue
-        // showing up in Chrome - works in htmlunit!
-        assertTrue(page.getPageSource().indexOf("Init called\nInit called\n") != -1);
-        assertFalse(page.getPageSource().indexOf("Init called\nInit called\nInit called") != -1);
+        assertEquals("Init called Init called", page.findElement(By.id("form:output")).getText());
     }
 }
