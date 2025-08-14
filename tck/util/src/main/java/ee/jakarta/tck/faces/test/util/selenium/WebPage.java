@@ -130,12 +130,12 @@ public class WebPage {
     }
 
     /**
-     * Returns true if the document.body is completely empty or if {@link NoSuchWindowException} has been thrown while inspecting that.
+     * Returns true if the document.body is completely empty or if an exception has been thrown which indicates that the browser window is unreachable somehow.
      */
     protected boolean isEmpty() {
         try {
             return findElement(By.tagName("body")) == null || (boolean) executeScript("return !document.body.innerHTML.length");
-        } catch (NoSuchWindowException | UnreachableBrowserException thisAlsoIndicatesEmptyPage) {
+        } catch (NoSuchWindowException | UnreachableBrowserException theseExceptionsAlsoIndicateEmptyPage) {
             return true;
         }
     }
