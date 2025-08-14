@@ -23,10 +23,12 @@ import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.remote.UnreachableBrowserException;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
@@ -41,6 +43,7 @@ public class WebPage {
 
     public WebPage(ExtendedWebDriver webDriver) {
         this.webDriver = webDriver;
+        PageFactory.initElements(webDriver, this);
     }
 
     public ExtendedWebDriver getWebDriver() {
@@ -110,9 +113,9 @@ public class WebPage {
      */
     public void guardAjax(Runnable action) {
         var uuid = UUID.randomUUID().toString();
-        webDriver.getJSExecutor().executeScript("window.$ajax=true;faces.ajax.addOnEvent(data=>{if(data.status=='complete')window.$ajax='" + uuid + "'})");
+        executeScript("window.$ajax=true;faces.ajax.addOnEvent(data=>{if(data.status=='complete')window.$ajax='" + uuid + "'})");
         action.run();
-        waitForCondition($ -> webDriver.getJSExecutor().executeScript("return window.$ajax=='" + uuid + "' || (!window.$ajax && document.readyState=='complete')"));
+        waitForCondition($ -> executeScript("return window.$ajax=='" + uuid + "' || (!window.$ajax && document.readyState=='complete')"));
     }
 
     /**
@@ -121,15 +124,25 @@ public class WebPage {
      * @param timeOut the timeout duration until the wait can proceed before being interupopted
      */
     public void waitForPageToLoad(Duration timeOut) {
-        ExpectedCondition<Boolean> expectation =
-            driver -> webDriver.getJSExecutor()
-                               .executeScript("return document.readyState")
-                               .equals("complete");
-
         synchronized (webDriver) {
-            WebDriverWait wait = new WebDriverWait(webDriver, timeOut);
-            wait.until(expectation);
+            waitForCondition($ -> executeScript("return document.readyState=='complete'"), timeOut);
         }
+    }
+
+    /**
+     * Returns true if the document.body is completely empty or if {@link NoSuchWindowException} has been thrown while inspecting that.
+     */
+    protected boolean isEmpty() {
+        try {
+            return findElement(By.tagName("body")) == null || (boolean) executeScript("return !document.body.innerHTML.length");
+        } catch (NoSuchWindowException | UnreachableBrowserException thisAlsoIndicatesEmptyPage) {
+            return true;
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private <T> T executeScript(String script) {
+        return (T) webDriver.getJSExecutor().executeScript(script);
     }
 
     /**
@@ -379,6 +392,6 @@ public class WebPage {
 
     private String getInputValues() {
         return webDriver.findElements(By.cssSelector("input, textarea, select")).stream()
-                .map(webElement -> webElement.getAttribute("value")).reduce("", (str1, str2) -> str1 + " " + str2);
+                .map(webElement -> webElement.getDomProperty("value")).reduce("", (str1, str2) -> str1 + " " + str2);
     }
 }

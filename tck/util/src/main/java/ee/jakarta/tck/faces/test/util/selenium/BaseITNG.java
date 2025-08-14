@@ -23,7 +23,9 @@ import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 import java.io.File;
 import java.net.URL;
-import java.time.Duration;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -41,7 +43,6 @@ import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
 
 /**
  * Use this for Selenium based tests.
@@ -49,6 +50,8 @@ import org.openqa.selenium.support.PageFactory;
 @ExtendWith(ArquillianExtension.class)
 @TestInstance(Lifecycle.PER_CLASS)
 public abstract class BaseITNG implements ExecutionCondition {
+
+    private static final Logger logger = Logger.getLogger(BaseITNG.class.getName());
 
     @Override
     public ConditionEvaluationResult evaluateExecutionCondition(ExtensionContext context) {
@@ -83,35 +86,55 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     @AfterAll
-    static void afterAll() {
+    void afterAll() {
         driverPool.quitAll();
     }
 
     protected WebPage getPage(String page) {
-        webDriver.get(webUrl.toString() + page);
+        return getPage(page, 0);
+    }
+
+    private WebPage getPage(String page, int retryAttempt) {
+        String existingWindowHandle = webDriver.getWindowHandle();
+        String url = webUrl.toString() + page;
+        webDriver.get(url);
+
+        if (!webDriver.getWindowHandles().contains(existingWindowHandle)) {
+            updatePage();
+        }
+
         WebPage webPage = new WebPage(webDriver);
-        // Sometimes it takes longer until the first page is loaded after container startup
-        webPage.waitForPageToLoad(Duration.ofSeconds(120));
-        PageFactory.initElements(webDriver, this);
+        webPage.waitForPageToLoad();
+
+        if (webPage.isEmpty()) {
+            // For some reason the page is sometimes completely empty even when webPage.waitForPageToLoad() returns document.readyState==complete.
+            // Most likely some weird bug in Chrome driver. For now simply retry (max 6 times).
+            Level level = retryAttempt++ < 3 ? Level.FINE : Level.WARNING;
+            logger.log(level, "Empty page returned?! Retry attempt #" + retryAttempt + " on " + url);
+            
+            if (retryAttempt < 6) {
+                return getPage(page, retryAttempt);
+            }
+        }
+
         return webPage;
     }
 
     /**
-     * Selenium does not automatically update the page handles if a link is clicked without ajax
+     * Selenium does not automatically update the window handles if a link is clicked without ajax
      */
     protected void updatePage() {
-        ExtendedWebDriver webDriver = getWebDriver();
-        for (String windowHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(windowHandle);
+        Set<String> windowHandles = webDriver.getWindowHandles();
+
+        if (windowHandles.isEmpty()) {
+            throw new IllegalStateException("No browser windows available");
         }
+
+        webDriver.switchTo().window(windowHandles.iterator().next());
     }
 
     protected int getStatusCode(String page) {
-        webDriver.get(webUrl.toString() + page);
-        WebPage webPage = new WebPage(webDriver);
-        webPage.waitForPageToLoad();
-
-        return webPage.getResponseStatus();
+        return getPage(page).getResponseStatus();
     }
 
     public ExtendedWebDriver getWebDriver() {
@@ -119,7 +142,7 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     protected String getHrefURI(WebElement link) {
-        String uri = link.getAttribute("href").substring(webUrl.toExternalForm().length());
+        String uri = link.getDomProperty("href").substring(webUrl.toExternalForm().length());
         String uriWithoutJsessionId = uri.split(";jsessionid=", 2)[0];
         String[] uriAndQueryString = uri.split(Pattern.quote("?"), 2);
 
