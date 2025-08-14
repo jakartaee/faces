@@ -37,7 +37,6 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -71,8 +70,7 @@ public abstract class BaseITNG implements ExecutionCondition {
 
     private ExtendedWebDriver webDriver;
 
-    // TODO: DriverPool is temporarily outcommented because this is apparently also causing flaky tests. Needs investigating later.
-    // protected static final DriverPool driverPool = new DriverPool();
+    protected static final DriverPool driverPool = new DriverPool();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -80,32 +78,19 @@ public abstract class BaseITNG implements ExecutionCondition {
                 .as(WebArchive.class);
     }
 
-    @BeforeAll
-    void beforeAll() {
-        webDriver = ChromeDevtoolsDriver.stdInit();
-    }
-
     @BeforeEach
     void setUp() {
-        // webDriver = driverPool.getOrNewInstance();
-        webDriver.postInit();
+        webDriver = driverPool.getOrNewInstance();
     }
 
     @AfterEach
     protected void tearDown() {
-        // driverPool.returnInstance(webDriver);
-        webDriver.reset();
+        driverPool.returnInstance(webDriver);
     }
 
     @AfterAll
     void afterAll() {
-        try {
-            // driverPool.quitAll();
-            webDriver.quit();
-        }
-        catch (Exception e) {
-            logger.warning("Cannot quit driver: " + e);
-        }
+        driverPool.quitAll();
     }
 
     protected WebPage getPage(String page) {

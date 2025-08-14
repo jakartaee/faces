@@ -83,7 +83,7 @@ public class DriverPool {
      * cleans up the pool
      */
     public void quitAll() {
-        allDrivers.stream().forEach(webDriver -> webDriver.quit());
+        allDrivers.stream().forEach(webDriver -> { try { webDriver.quit(); } catch (Exception ignore) {}});
         allDrivers.clear();
         availableDrivers.clear();
     }
