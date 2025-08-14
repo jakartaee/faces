@@ -23,6 +23,7 @@ import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
@@ -130,12 +131,12 @@ public class WebPage {
     }
 
     /**
-     * Returns true if the document.body is completely empty or if an exception has been thrown which indicates that the browser window is unreachable somehow.
+     * Returns true if the document.body is completely empty or if an exception has been thrown which indicates that the page is unusable somehow.
      */
     protected boolean isEmpty() {
         try {
             return findElement(By.tagName("body")) == null || (boolean) executeScript("return !document.body.innerHTML.length");
-        } catch (NoSuchWindowException | UnreachableBrowserException theseExceptionsAlsoIndicateEmptyPage) {
+        } catch (NoSuchElementException | NoSuchWindowException | UnreachableBrowserException theseExceptionsAlsoIndicateEmptyPage) {
             return true;
         }
     }

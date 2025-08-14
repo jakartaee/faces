@@ -17,6 +17,8 @@ package ee.jakarta.tck.faces.test.util.selenium;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.WARNING;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
@@ -35,6 +37,7 @@ import org.jboss.shrinkwrap.api.importer.ZipImporter;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
@@ -42,6 +45,7 @@ import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -67,7 +71,8 @@ public abstract class BaseITNG implements ExecutionCondition {
 
     private ExtendedWebDriver webDriver;
 
-    protected static final DriverPool driverPool = new DriverPool();
+    // TODO: DriverPool is temporarily outcommented because this is apparently also causing flaky tests. Needs investigating later.
+    // protected static final DriverPool driverPool = new DriverPool();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -75,19 +80,32 @@ public abstract class BaseITNG implements ExecutionCondition {
                 .as(WebArchive.class);
     }
 
+    @BeforeAll
+    void beforeAll() {
+        webDriver = ChromeDevtoolsDriver.stdInit();
+    }
+
     @BeforeEach
     void setUp() {
-        webDriver = driverPool.getOrNewInstance();
+        // webDriver = driverPool.getOrNewInstance();
+        webDriver.postInit();
     }
 
     @AfterEach
     protected void tearDown() {
-        driverPool.returnInstance(webDriver);
+        // driverPool.returnInstance(webDriver);
+        webDriver.reset();
     }
 
     @AfterAll
     void afterAll() {
-        driverPool.quitAll();
+        try {
+            // driverPool.quitAll();
+            webDriver.quit();
+        }
+        catch (Exception e) {
+            logger.warning("Cannot quit driver: " + e);
+        }
     }
 
     protected WebPage getPage(String page) {
@@ -104,15 +122,21 @@ public abstract class BaseITNG implements ExecutionCondition {
         }
 
         WebPage webPage = new WebPage(webDriver);
-        webPage.waitForPageToLoad();
+
+        try {
+            webPage.waitForPageToLoad();
+        }
+        catch (TimeoutException e) {
+            logger.fine("Page load timed out for " + url);
+        }
 
         if (webPage.isEmpty()) {
             // For some reason the page is sometimes completely empty even when webPage.waitForPageToLoad() returns document.readyState==complete.
-            // Most likely some weird bug in Chrome driver. For now simply retry (max 6 times).
-            Level level = retryAttempt++ < 3 ? Level.FINE : Level.WARNING;
-            logger.log(level, "Empty page returned?! Retry attempt #" + retryAttempt + " on " + url);
-            
-            if (retryAttempt < 6) {
+            // Most likely some weird bug in Chrome driver. For now simply retry (max 3 times).
+            Level level = retryAttempt++ < 2 ? FINE : WARNING;
+            logger.log(level, "Empty page returned?! Retrying .. " + url);
+
+            if (retryAttempt < 3) {
                 return getPage(page, retryAttempt);
             }
         }
