@@ -44,7 +44,6 @@ import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -111,7 +110,7 @@ public abstract class BaseITNG implements ExecutionCondition {
         try {
             webPage.waitForPageToLoad();
         }
-        catch (TimeoutException e) {
+        catch (Exception ignore) {
             logger.fine("Page load timed out for " + url);
         }
 
