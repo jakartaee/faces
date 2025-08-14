@@ -51,12 +51,12 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chromium.ChromiumNetworkConditions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v124.network.Network;
-import org.openqa.selenium.devtools.v124.network.model.Headers;
-import org.openqa.selenium.devtools.v124.network.model.Request;
-import org.openqa.selenium.devtools.v124.network.model.RequestId;
-import org.openqa.selenium.devtools.v124.network.model.ResponseReceived;
-import org.openqa.selenium.devtools.v124.network.model.TimeSinceEpoch;
+import org.openqa.selenium.devtools.v138.network.Network;
+import org.openqa.selenium.devtools.v138.network.model.Headers;
+import org.openqa.selenium.devtools.v138.network.model.Request;
+import org.openqa.selenium.devtools.v138.network.model.RequestId;
+import org.openqa.selenium.devtools.v138.network.model.ResponseReceived;
+import org.openqa.selenium.devtools.v138.network.model.TimeSinceEpoch;
 import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.html5.Location;
 import org.openqa.selenium.html5.SessionStorage;
@@ -184,7 +184,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
             Logger log = Logger.getLogger(ChromeDevtoolsDriver.class.getName());
             log.warning("Init timeout error, can happen, " + "if the driver already has been used, can be safely ignore");
         }
-        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()));
     }
 
     private void initNetworkListeners(DevTools devTools) {
