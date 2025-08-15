@@ -296,8 +296,8 @@
                         </goals>
                         <configuration>
                             <target xmlns:if="ant:if" xmlns:unless="ant:unless">
-                                <replace file="${glassfish.home}/glassfish/domains/domain1/config/domain.xml" 
-                                    token="-Xmx512m" value="-Xmx1024m" />
+                                <replace file="${glassfish.home}/glassfish/domains/domain1/config/domain.xml"
+                                    token="-Xmx512m" value="-Xmx4g" />
                                 <taskdef resource="net/sf/antcontrib/antcontrib.properties" classpathref="maven.plugin.classpath" />
 
                                 <limit maxwait="300">
