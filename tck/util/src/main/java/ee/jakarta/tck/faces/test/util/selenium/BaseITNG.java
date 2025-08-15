@@ -45,6 +45,7 @@ import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 /**
  * Use this for Selenium based tests.
@@ -106,6 +107,7 @@ public abstract class BaseITNG implements ExecutionCondition {
         }
 
         WebPage webPage = new WebPage(webDriver);
+        PageFactory.initElements(webDriver, this);
 
         try {
             webPage.waitForPageToLoad();
