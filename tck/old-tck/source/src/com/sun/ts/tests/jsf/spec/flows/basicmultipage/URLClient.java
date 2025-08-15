@@ -21,9 +21,9 @@ package com.sun.ts.tests.jsf.spec.flows.basicmultipage;
 
 import java.io.PrintWriter;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlTextInput;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 

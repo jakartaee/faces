@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2021, 2024 Contributors to Eclipse Foundation.
+    Copyright (c) 2021, 2025 Contributors to Eclipse Foundation.
     Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
 
     This program and the accompanying materials are made available under the
@@ -54,7 +54,7 @@
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-devtools-v138</artifactId>
+            <artifactId>selenium-devtools-v${chromedriver.version}</artifactId>
             <version>4.34.0</version>
         </dependency>
         <dependency>
@@ -70,21 +70,23 @@
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <version>3.3.4</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+            <version>3.3.4</version>
         </dependency>
         <dependency>
             <groupId>org.eu.ingwar.tools</groupId>
             <artifactId>arquillian-suite-extension</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.2</version>
         </dependency>
 
         <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
+            <groupId>org.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.70.0</version>
+            <version>4.13.0</version>
         </dependency>
     </dependencies>
 </project>

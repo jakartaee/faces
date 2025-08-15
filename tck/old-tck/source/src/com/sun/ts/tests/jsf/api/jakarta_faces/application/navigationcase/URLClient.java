@@ -21,10 +21,10 @@ package com.sun.ts.tests.jsf.api.jakarta_faces.application.navigationcase;
 
 import java.io.PrintWriter;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSubmitInput;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.AbstractUrlClient;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
