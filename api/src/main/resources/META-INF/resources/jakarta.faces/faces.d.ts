@@ -563,6 +563,21 @@ export declare namespace faces {
          * from the response and execute it as if it were JavaScript code.</li>
          * </ul>
          * </li>
+         * <li class="changed_added_5_0">If a CSP <code>nonce</code> attribute is present on the
+         * <code>&lt;script&gt;</code> element that corresponds to the <code>jakarta.faces:faces.js</code>
+         * resource, for example:
+         * <pre><code>&lt;script
+         *     src=".../jakarta.faces.resource/faces.js?ln=jakarta.faces"
+         *     nonce="..."&gt;
+         * &lt;/script&gt;</code></pre>
+         * <ul>
+         * <li>Extract this CSP <code>nonce</code> attribute and apply it when executing the JavaScript
+         * code so that the browser permits execution.</li>
+         * <li>This CSP <code>nonce</code> attribute should also be applied when executing the JavaScript
+         * code found in other response elements, such as <code>&lt;update&gt;</code>,
+         * <code>&lt;insert&gt;</code> and <code>&lt;extensions&gt;</code>.</li>
+         * </ul>
+         * </li>
          * </ul>
          * <p><i>Redirect Processing</i></p>
          * <ul>
@@ -584,10 +599,6 @@ export declare namespace faces {
          * <ul>
          * <li>The <code>&lt;extensions&gt;</code> element provides a way for framework
          * implementations to provide their own information.</li>
-         * <p><li>The implementation must check if &lt;script&gt; elements in the response can
-         * be automatically run, as some browsers support this feature and some do not.
-         * If they can not be run, then scripts should be extracted from the response and
-         * run separately.</li>
          * </ul>
          *
          * @param request The <code>XMLHttpRequest</code> instance that
