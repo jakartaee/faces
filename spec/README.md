@@ -14,7 +14,7 @@ Run the full build:
 `mvn install`
 
 Locate the html files:
-- `target/generated-docs/faces-spec-<version>.html`
+- `target/generated-docs/jakarta-faces-<version>.html`
 
 Locate the PDF files:
-- `target/generated-docs/faces-spec-<version>.pdf`
+- `target/generated-docs/jakarta-faces-<version>.pdf`
