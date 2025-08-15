@@ -448,7 +448,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         <artifactId>maven-resources-plugin</artifactId>
                         <version>3.3.1</version>
                         <executions>
-                            <!-- Pre-process tsdocs - copy faces.d.ts for tsdoc  -->
+                            <!-- Pre-process tsdocs - copy faces.d.ts and faces-api.css for tsdoc  -->
                             <execution>
                                 <id>pre-process-tsdoc</id>
                                 <phase>generate-resources</phase>
@@ -459,6 +459,9 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                     <resources>
                                         <resource>
                                             <directory>src/main/resources/META-INF/resources/jakarta.faces</directory>
+                                        </resource>
+                                        <resource>
+                                            <directory>src/main/tsdoc/resources</directory>
                                         </resource>
                                     </resources>
                                     <outputDirectory>${project.build.directory}/tsdoc</outputDirectory>
@@ -556,7 +559,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                                 </goals>
                                 <phase>generate-resources</phase>
                                 <configuration>
-                                    <arguments>run typedoc faces.d.ts</arguments>
+                                    <arguments>run typedoc -- --entryPoints faces.d.ts --customCss faces-api.css</arguments>
                                 </configuration>
                             </execution>
                         </executions>

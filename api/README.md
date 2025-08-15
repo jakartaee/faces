@@ -35,6 +35,9 @@ The docs can be found in `target`.
 browse ./target/tsdoc/docs/index.html
 ```
 
+The CSS of tsdoc can be customized via `src/main/tsdoc/resources/faces-api.css`.
+It is primarily used to adjust the `.changed_added_***`, `.changed_modified_***` and `.changed_deleted_***` styles in the vdldoc.
+
 **Browse VDL docs**:
 
 ```bash
