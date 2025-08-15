@@ -454,14 +454,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <systemPropertyVariables>
                         <finalName>${project.build.finalName}</finalName>
@@ -469,11 +461,30 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                         <chromedriver.version>${chromedriver.version}</chromedriver.version>
                     </systemPropertyVariables>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                    </execution>
+                    <execution>
+                        <id>veify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>post-integration-test</phase>
@@ -482,9 +493,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
             </plugin>
         </plugins>
     </build>
