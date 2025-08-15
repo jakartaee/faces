@@ -2123,7 +2123,7 @@
             element. Render "#" as the value of the "href" attribute. Render
             the current value of the component as the link text if it is
             specified. Render JavaScript that is functionally equivalent to
-            the following <span class="changed_modified_5_0">by registering a click event listener on the element using <code>Element.addEventListener</code></span>:&lt;/p&gt;
+            the following &lt;span class="changed_modified_5_0"&gt;by registering a click event listener on the element using &lt;code&gt;Element.addEventListener&lt;/code&gt;&lt;/span&gt;:&lt;/p&gt;
             &lt;p&gt;&lt;code&gt;document.forms['CLIENT_ID']['hiddenFieldName'].value='CLIENT_ID';
             document.forms['CLIENT_ID']['PARAM1_NAME'].value='PARAM1_VALUE';
             document.forms['CLIENT_ID']['PARAM2_NAME'].value='PARAM2_VALUE';
