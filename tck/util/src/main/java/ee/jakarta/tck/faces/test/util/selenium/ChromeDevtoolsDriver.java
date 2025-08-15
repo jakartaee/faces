@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023, 2025 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,6 +15,7 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +34,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import org.apache.commons.io.output.NullOutputStream;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Credentials;
@@ -50,17 +50,13 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chromium.ChromiumNetworkConditions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v124.network.Network;
-import org.openqa.selenium.devtools.v124.network.model.Request;
-import org.openqa.selenium.devtools.v124.network.model.RequestId;
-import org.openqa.selenium.devtools.v124.network.model.ResponseReceived;
-import org.openqa.selenium.devtools.v124.network.model.TimeSinceEpoch;
-import org.openqa.selenium.html5.LocalStorage;
-import org.openqa.selenium.html5.Location;
-import org.openqa.selenium.html5.SessionStorage;
+import org.openqa.selenium.devtools.v139.network.Network;
+import org.openqa.selenium.devtools.v139.network.model.Request;
+import org.openqa.selenium.devtools.v139.network.model.RequestId;
+import org.openqa.selenium.devtools.v139.network.model.ResponseReceived;
+import org.openqa.selenium.devtools.v139.network.model.TimeSinceEpoch;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.logging.EventType;
-import org.openqa.selenium.mobile.NetworkConnection;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.remote.CommandExecutor;
 import org.openqa.selenium.remote.CommandPayload;
@@ -86,7 +82,6 @@ import static java.util.Optional.empty;
  *
  * @see also https://medium.com/codex/selenium4-a-peek-into-chrome-devtools-92bca6de55e0
  */
-@SuppressWarnings("unused")
 public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     /*
@@ -156,7 +151,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     public ChromeDevtoolsDriver(ChromeOptions options) {
         ChromeDriverService chromeDriverService = new ChromeDriverService.Builder().build();
 
-        chromeDriverService.sendOutputTo(NullOutputStream.INSTANCE);
+        chromeDriverService.sendOutputTo(OutputStream.nullOutputStream());
         delegate = new ChromeDriver(chromeDriverService, options);
     }
 
@@ -185,7 +180,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
             Logger.getLogger(ChromeDevtoolsDriver.class.getName())
                   .warning("Init timeout error, can happen, " + "if the driver already has been used, can be safely ignore");
         }
-        devTools.send(Network.enable(empty(), empty(), empty()));
+        devTools.send(Network.enable(empty(), empty(), empty(), empty()));
     }
 
     private void initNetworkListeners(DevTools devTools) {
