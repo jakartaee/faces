@@ -41,7 +41,7 @@ mvn clean install -Dmojarra.noupdate
 
 Build old TCK once from the root (NOT from the /old-tck folder)
 
-mvn clean install -pl :old-tck-build  
+mvn clean install -pl :old-tck-build
 
 
 
@@ -96,18 +96,19 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        
+
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
         <test.selenium>true</test.selenium>
-        
+        <chromedriver.version>138</chromedriver.version>
+
         <faces.version>5.0.0-SNAPSHOT</faces.version>
-        
-        <!-- 
+
+        <!--
             Set to the actual Faces API the implementation being tested is using.
-            
+
             This can best be done in a profile specific to the implementation.
-            See the standard profiles for examples. 
+            See the standard profiles for examples.
         -->
         <sigtest.api.groupId></sigtest.api.groupId>
         <sigtest.api.artifactId></sigtest.api.artifactId>
@@ -115,7 +116,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <tomcat.version>9.0.12</tomcat.version>
-        
+
         <!-- web.xml defaults -->
         <webapp.projectStage>Production</webapp.projectStage>
         <webapp.stateSavingMethod>server</webapp.stateSavingMethod>
@@ -128,19 +129,19 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.8.0.Final</version>
+                <version>1.9.5.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-container-test-api</artifactId>
-                <version>1.8.0.Final</version>
+                <version>1.9.5.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.omnifaces.arquillian</groupId>
                 <artifactId>glassfish-client-ee10</artifactId>
-                <version>1.4</version>
+                <version>1.8</version>
                 <scope>test</scope>
             </dependency>
 
@@ -150,11 +151,11 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <version>${faces.version}</version>
                 <scope>provided</scope>
             </dependency>
-            
+
             <dependency>
                 <groupId>jakarta.el</groupId>
                 <artifactId>jakarta.el-api</artifactId>
-                <version>6.0.0</version>
+                <version>6.0.1</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -190,9 +191,39 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <version>2.0.1.MR</version>
                 <scope>provided</scope>
             </dependency>
+            <dependency>
+                <groupId>org.htmlunit</groupId>
+                <artifactId>htmlunit-core-js</artifactId>
+                <version>4.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.htmlunit</groupId>
+                <artifactId>neko-htmlunit</artifactId>
+                <version>4.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.htmlunit</groupId>
+                <artifactId>htmlunit-cssparser</artifactId>
+                <version>4.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.htmlunit</groupId>
+                <artifactId>htmlunit-xpath</artifactId>
+                <version>4.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.htmlunit</groupId>
+                <artifactId>htmlunit-csp</artifactId>
+                <version>4.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.htmlunit</groupId>
+                <artifactId>htmlunit-websocket-client</artifactId>
+                <version>4.13.0</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-    
+
     <dependencies>
         <dependency>
             <groupId>jakarta.faces</groupId>
@@ -228,7 +259,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <artifactId>jakarta.enterprise.cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>jakarta.inject</groupId>
             <artifactId>jakarta.inject-api</artifactId>
@@ -238,10 +269,10 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.1.0</version>
+            <version>3.1.1</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>jakarta.ejb</groupId>
             <artifactId>jakarta.ejb-api</artifactId>
@@ -290,12 +321,14 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+            <version>3.3.4</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+            <version>3.3.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -311,9 +344,9 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.htmlunit</groupId>
+            <groupId>org.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>2.70.0</version>
+            <version>4.13.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -325,7 +358,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20240303</version>
+            <version>20250517</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -397,7 +430,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -408,7 +441,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                     <filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
                 </configuration>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -425,10 +458,11 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                     <systemPropertyVariables>
                         <finalName>${project.build.finalName}</finalName>
                         <test.selenium>${test.selenium}</test.selenium>
+                        <chromedriver.version>${chromedriver.version}</chromedriver.version>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -468,7 +502,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
     </reporting>
 
     <profiles>
-    
+
         <profile>
             <id>build-epl-tck</id>
             <activation>
@@ -479,7 +513,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <licenseFile>${project.basedir}/LICENSE.md</licenseFile>
             </properties>
         </profile>
-    
+
         <profile>
             <id>custom</id>
         </profile>
@@ -501,24 +535,24 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <properties>
                 <!-- Explicit version of Mojarra to test -->
                 <mojarra.version>5.0.0-SNAPSHOT</mojarra.version>
-                
-                <!-- 
+
+                <!--
                     By default this profile will copy the Mojarra version to test to GlassFish.
-                    Set this to "true"" to skip copying and therefor use GlassFish as is. That is 
-                    useful to test GlassFish itself instead of just a specific Mojarra version.   
+                    Set this to "true"" to skip copying and therefor use GlassFish as is. That is
+                    useful to test GlassFish itself instead of just a specific Mojarra version.
                 -->
                 <mojarra.noupdate>false</mojarra.noupdate>
 
-                <!-- 
+                <!--
                     Exact artefact used by GlassFish that holds the API classes.
-                    This is used by the signature test in module /faces-signaturetest 
+                    This is used by the signature test in module /faces-signaturetest
                 -->
                 <sigtest.api.groupId>org.glassfish</sigtest.api.groupId>
                 <sigtest.api.artifactId>jakarta.faces</sigtest.api.artifactId>
                 <sigtest.api.version>${mojarra.version}</sigtest.api.version>
 
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>8.0.0-JDK17-M7</glassfish.version>
+                <glassfish.version>8.0.0-M12</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
                 <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
             </properties>
@@ -528,7 +562,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <dependency>
                     <groupId>org.omnifaces.arquillian</groupId>
                     <artifactId>arquillian-glassfish-server-managed</artifactId>
-                    <version>1.4</version>
+                    <version>1.8</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -899,8 +933,8 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                     <scope>test</scope>
                     <version>${payara.arquillian.container.version}</version>
                 </dependency>
-                <!-- 
-                Solution for 
+                <!--
+                Solution for
                 WARNING: A class jakarta.activation.DataSource for a default provider MessageBodyWriter<jakarta.activation.DataSource> was not found. The provider is not available.
                 fish.payara.arquillian.shaded.glassfish.jersey.message.internal.MessagingBinders$EnabledProvidersBinder bindToBinder
                 -->

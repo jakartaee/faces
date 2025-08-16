@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023, 2025 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -19,7 +19,6 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -72,7 +71,8 @@ import org.openqa.selenium.remote.SessionId;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import static ee.jakarta.tck.faces.test.util.selenium.WebPage.STD_TIMEOUT;
+import static java.util.Optional.empty;
 
 /**
  * Extended driver which we need for getting the http response code and the http response without having to revert to proxy solutions
@@ -101,10 +101,13 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     public static ExtendedWebDriver stdInit() {
         Locale.setDefault(new Locale("en", "US"));
-        WebDriverManager.chromedriver().setup();
         initCDPVersionMessageFilter();
 
         ChromeOptions options = new ChromeOptions();
+
+        if (System.getProperty("chromedriver.version") != null && !System.getProperty("chromedriver.version").isEmpty()) {
+            options.setBrowserVersion(System.getProperty("chromedriver.version"));
+        }
 
         // We can turn on a visual browser by
         // adding chromedriver.headless = false to our properties
@@ -120,18 +123,16 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         options.addArguments("--ignore-urlfetcher-cert-requests");
         options.addArguments("--auto-open-devtools-for-tabs");
         options.addArguments("--disable-gpu");
-        Map<String, Object> prefs = new HashMap<>();
-        prefs.put("intl.accept_languages", "en");
-        options.setExperimentalOption("prefs", prefs);
+        options.setExperimentalOption("prefs", Map.of("intl.accept_languages", "en"));
         options.addArguments("--lang=en");
 
         // * @deprecated Use {@link ChromeDriverService.Builder#withLogLevel(ChromeDriverLogLevel)} to set log level.
         // options.setLogLevel(ChromeDriverLogLevel.OFF);
 
         ExtendedWebDriver driver = new ChromeDevtoolsDriver(options);
-        driver.manage().timeouts().implicitlyWait(WebPage.STD_TIMEOUT);
-        driver.manage().timeouts().pageLoadTimeout(WebPage.STD_TIMEOUT);
-        driver.manage().timeouts().scriptTimeout(WebPage.STD_TIMEOUT);
+        driver.manage().timeouts().implicitlyWait(STD_TIMEOUT);
+        driver.manage().timeouts().pageLoadTimeout(STD_TIMEOUT);
+        driver.manage().timeouts().scriptTimeout(STD_TIMEOUT);
 
         return driver;
     }
@@ -155,7 +156,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     public ChromeDevtoolsDriver(ChromeOptions options) {
         ChromeDriverService chromeDriverService = new ChromeDriverService.Builder().build();
 
-        chromeDriverService.sendOutputTo(NullOutputStream.NULL_OUTPUT_STREAM);
+        chromeDriverService.sendOutputTo(NullOutputStream.INSTANCE);
         delegate = new ChromeDriver(chromeDriverService, options);
     }
 
@@ -181,10 +182,10 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
             devTools.createSession();
             devTools.send(Network.clearBrowserCache());
         } catch (TimeoutException ex) {
-            Logger log = Logger.getLogger(ChromeDevtoolsDriver.class.getName());
-            log.warning("Init timeout error, can happen, " + "if the driver already has been used, can be safely ignore");
+            Logger.getLogger(ChromeDevtoolsDriver.class.getName())
+                  .warning("Init timeout error, can happen, " + "if the driver already has been used, can be safely ignore");
         }
-        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty()));
+        devTools.send(Network.enable(empty(), empty(), empty(), empty()));
     }
 
     private void initNetworkListeners(DevTools devTools) {
@@ -225,30 +226,6 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     public void register(Predicate<URI> whenThisMatches, Supplier<Credentials> useTheseCredentials) {
         delegate.register(whenThisMatches, useTheseCredentials);
-    }
-
-    public LocalStorage getLocalStorage() {
-        return delegate.getLocalStorage();
-    }
-
-    public SessionStorage getSessionStorage() {
-        return delegate.getSessionStorage();
-    }
-
-    public Location location() {
-        return delegate.location();
-    }
-
-    public void setLocation(Location location) {
-        delegate.setLocation(location);
-    }
-
-    public NetworkConnection.ConnectionType getNetworkConnection() {
-        return delegate.getNetworkConnection();
-    }
-
-    public NetworkConnection.ConnectionType setNetworkConnection(NetworkConnection.ConnectionType type) {
-        return delegate.setNetworkConnection(type);
     }
 
     public void launchApp(String id) {

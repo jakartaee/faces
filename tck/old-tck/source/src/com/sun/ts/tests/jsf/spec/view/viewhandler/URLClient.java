@@ -24,8 +24,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Formatter;
 
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlPage;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 import com.sun.ts.tests.jsf.common.util.JSFTestUtil;

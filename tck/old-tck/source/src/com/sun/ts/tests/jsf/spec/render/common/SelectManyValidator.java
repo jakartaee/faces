@@ -23,15 +23,15 @@ import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
 
-import com.gargoylesoftware.htmlunit.html.DomAttr;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
+import org.htmlunit.html.DomAttr;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSelect;
+import org.htmlunit.html.HtmlTable;
 
 /**
  * $Id

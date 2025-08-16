@@ -22,8 +22,8 @@ package com.sun.ts.tests.jsf.spec.resource.relocatable;
 import java.io.PrintWriter;
 import java.util.Formatter;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 
