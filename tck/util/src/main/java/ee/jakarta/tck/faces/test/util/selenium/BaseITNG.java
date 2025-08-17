@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023, 2025 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,12 +15,8 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-
 import java.io.File;
 import java.net.URL;
-import java.time.Duration;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -30,6 +26,9 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.runner.RunWith;
+
+import static java.lang.System.getProperty;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 
 /**
  * Base class for tests, which provides a certain infrastructure can be used, but does not have to be
@@ -68,20 +67,14 @@ public class BaseITNG {
 
     protected WebPage getPage(String page) {
         webDriver.get(webUrl.toString() + page);
-        WebPage webPage = new WebPage(webDriver);
-        // Sometimes it takes longer until the first page is loaded after container startup
-        webPage.waitForPageToLoad(Duration.ofSeconds(120));
-        return webPage;
+        return new WebPage(webDriver);
     }
 
     /**
      * Selenium does not automatically update the page handles if a link is clicked without ajax
      */
     protected void updatePage() {
-        ExtendedWebDriver webDriver = getWebDriver();
-        for (String windowHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(windowHandle);
-        }
+        webDriver.switchToWindowWithUrl(webDriver.getCurrentUrl());
     }
 
     protected int getStatusCode(String page) {

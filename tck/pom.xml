@@ -99,7 +99,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
         <test.selenium>true</test.selenium>
-        <failsafe.rerunFailingTestsCount>3</failsafe.rerunFailingTestsCount>
+        <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
         <failsafe.failOnFlakeCount>0</failsafe.failOnFlakeCount>
 
         <arquillian.version>1.10.0.Final</arquillian.version>
@@ -548,6 +548,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
 
             <properties>
                 <arquillian.glassfish.version>2.1.0</arquillian.glassfish.version>
+                <slf4j.version>2.0.17</slf4j.version>
                 <!-- Explicit version of Mojarra to test -->
                 <mojarra.version>4.1.0</mojarra.version>
 
@@ -571,6 +572,8 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <glassfish.dirName>glassfish8</glassfish.dirName>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
                 <glassfish.home>${glassfish.root}/${glassfish.dirName}</glassfish.home>
+                <test.logManager>org.glassfish.main.jul.GlassFishLogManager</test.logManager>
+                <test.logLevel>INFO</test.logLevel>
             </properties>
 
             <dependencies>
@@ -584,6 +587,18 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                     <groupId>ee.omnifish.arquillian</groupId>
                     <artifactId>glassfish-client-ee11</artifactId>
                     <version>${arquillian.glassfish.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.main</groupId>
+                    <artifactId>glassfish-jul-extension</artifactId>
+                    <version>${glassfish.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <version>${slf4j.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -655,17 +670,21 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                         </executions>
                     </plugin>
                     <plugin>
-                         <artifactId>maven-failsafe-plugin</artifactId>
-                         <configuration>
-                             <systemPropertyVariables>
-                                 <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
-                                 <glassfish.systemProperties>
-                                     user.language=en
-                                     user.country=US
-                                 </glassfish.systemProperties>
-                                 <test.selenium>${test.selenium}</test.selenium>
-                             </systemPropertyVariables>
-                         </configuration>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
+                                <glassfish.systemProperties>
+                                    user.language=en
+                                    user.country=US
+                                </glassfish.systemProperties>
+                                <glassfish.suspend>${glassfish.suspend}</glassfish.suspend>
+                                <test.selenium>${test.selenium}</test.selenium>
+                                <java.util.logging.manager>${test.logManager}</java.util.logging.manager>
+                                <java.util.logging.config.useDefaults>true</java.util.logging.config.useDefaults>
+                                <java.util.logging.config.defaultLevel>${test.logLevel}</java.util.logging.config.defaultLevel>
+                            </systemPropertyVariables>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>

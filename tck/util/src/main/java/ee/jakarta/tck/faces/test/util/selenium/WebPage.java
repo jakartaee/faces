@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023, 2025 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,24 +15,29 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBeMoreThan;
 
 /**
  * Mimics the html unit webpage
  */
 public class WebPage {
+    private static final Logger LOG = System.getLogger(WebPage.class.getName());
 
     public static final Duration STD_TIMEOUT = Duration.ofMillis(8000);
     public static final Duration LONG_TIMEOUT = Duration.ofMillis(16000);
@@ -73,12 +78,11 @@ public class WebPage {
      * @param delayAfterExcecution this introduces a second delay after the determined end of exeuction point.
      */
     public void waitForBackgroundJavascript(Duration timeout, Duration delayAfterExcecution) {
+        Duration originalScriptTimeout = webDriver.manage().timeouts().getScriptTimeout();
         synchronized (webDriver) {
-            WebDriverWait wait = new WebDriverWait(webDriver, timeout);
-            double rand = Math.random();
-
+            WebDriverWait wait = new WebDriverWait(webDriver, timeout, delayAfterExcecution);
             @SuppressWarnings("UnnecessaryLabelJS")
-            final String identifier = "__insert__:" + rand;
+            final String identifier = "__insert__:" + Math.random();
 
             webDriver.manage().timeouts().scriptTimeout(timeout);
 
@@ -93,7 +97,7 @@ public class WebPage {
                                 + "insert__.id = '" + identifier + "';" + "insert__.innerHTML = 'done';"
                                 + "document.body.append(insert__); resolve()}, 50);");
 
-                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.id(identifier), 0));
+                wait.until(numberOfElementsToBeMoreThan(By.id(identifier), 0));
 
                 // Problem is here, if we are in a code pause phase (aka timeout is pending but not executed)
                 // we are still not at the end of the code. For those cases a simple wait on top might fix the issue
@@ -102,7 +106,14 @@ public class WebPage {
                     wait(delayAfterExcecution);
                 }
             } finally {
-                webDriver.getJSExecutor().executeScript("document.body.removeChild(document.getElementById('" + identifier + "'));");
+                webDriver.manage().timeouts().scriptTimeout(originalScriptTimeout);
+                try {
+                    webDriver.getJSExecutor()
+                        .executeScript("document.body.removeChild(document.getElementById('" + identifier + "'));");
+                } catch (JavascriptException e) {
+                    // Can happen if the page was reloaded.
+                    LOG.log(Level.WARNING, "Failed to remove the javascript we added.", e);
+                }
             }
         }
     }
@@ -144,6 +155,7 @@ public class WebPage {
             try {
                 webDriver.wait(timeout.toMillis());
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
         }
@@ -170,7 +182,7 @@ public class WebPage {
      * still running. A small initial delay cannot hurt either
      */
     public void waitReqJs() {
-        this.waitReqJs(STD_TIMEOUT);
+        waitReqJs(STD_TIMEOUT);
     }
 
     /**
@@ -179,13 +191,8 @@ public class WebPage {
      * @param timeout the timeout duration after that the wait is cancelled and an exception is thrown
      */
     public void waitReqJs(Duration timeout) {
-        // We stall the connection between browser and client for 200ms to make sure everything
-        // is done (usually a request takes between 6 and 20ms), but
-        // Note, if you have long-running request, I recommend to wait for a condition instead
-        this.wait(Duration.ofMillis(200));
-
-        // just in case the request takes longer, we also check the request queue for the current request to end
-        waitForCurrentRequestEnd(timeout);
+        // Now we expect the XHR request was sent and we wait for finishing all consequences.
+        webDriver.waitForFaces(timeout);
 
         // we stall the tests at another 100ms simply to make sure everything has been properly executed
         // this reduces the chance to fall into an execution window significantly, but does not eliminate it entirely

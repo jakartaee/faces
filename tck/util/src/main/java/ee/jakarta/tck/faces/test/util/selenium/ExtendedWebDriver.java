@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023, 2025 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,6 +14,8 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
 package ee.jakarta.tck.faces.test.util.selenium;
+
+import java.time.Duration;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -81,6 +83,22 @@ public interface ExtendedWebDriver extends WebDriver {
      * debugging helper which allows to look into the processed response data
      */
     void printProcessedResponses();
+
+
+    /**
+     * Waits for until the communication with Faces server is completed.
+     *
+     * @param timeout
+     */
+    void waitForFaces(Duration timeout);
+
+    /**
+     * Takes current windows handles and switches the driver to the one with the given url.
+     * If such window was not found, result is undefined.
+     *
+     * @param url
+     */
+    void switchToWindowWithUrl(String url);
 
     /**
      * quits the driver engine
