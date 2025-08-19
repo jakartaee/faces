@@ -361,7 +361,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     @Override
     public void get(String url) {
         LOG.log(INFO, "Opening URL {0}", url);
-        lastGet = url;
+        int questionMark = url.indexOf('?');
+        lastGet = questionMark > 0 ? url.substring(0, questionMark) : url;
         if (firstRequest) {
             firstRequest = false;
             getAndWaitForWindowAndFaces(url, Duration.ofSeconds(60));
