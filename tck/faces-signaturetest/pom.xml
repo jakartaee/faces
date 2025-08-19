@@ -84,7 +84,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -106,7 +106,7 @@
                                     <outputDirectory>${project.build.directory}/</outputDirectory>
                                     <destFileName>jakarta.faces-vendor-api.jar</destFileName>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>jakarta.el</groupId>
                                     <artifactId>jakarta.el-api</artifactId>
@@ -115,7 +115,7 @@
                                     <outputDirectory>${project.build.directory}/</outputDirectory>
                                     <destFileName>jakarta.el-api.jar</destFileName>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>jakarta.enterprise</groupId>
                                     <artifactId>jakarta.enterprise.cdi-api</artifactId>
@@ -132,7 +132,7 @@
                                     <outputDirectory>${project.build.directory}/</outputDirectory>
                                     <destFileName>jakarta.inject-api.jar</destFileName>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>jakarta.servlet</groupId>
                                     <artifactId>jakarta.servlet-api</artifactId>
@@ -141,7 +141,7 @@
                                     <outputDirectory>${project.build.directory}/</outputDirectory>
                                     <destFileName>jakarta.servlet-api.jar</destFileName>
                                 </artifactItem>
-                                
+
                                 <artifactItem>
                                     <groupId>jakarta.websocket</groupId>
                                     <artifactId>jakarta.websocket-api</artifactId>
@@ -166,22 +166,14 @@
 
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                        <configuration>
-                            <dependenciesToScan>jakarta.faces.tck:facestck-sigtest-${project.version}</dependenciesToScan>
-                            <systemPropertyVariables>
-                                <jimage.dir>${project.build.directory}/jdk-bundle</jimage.dir>
-                                <optional.tech.packages.to.ignore>jakarta.xml.bind</optional.tech.packages.to.ignore>
-                                <signature.sigTestClasspath>${project.build.directory}/jakarta.faces-vendor-api.jar:${project.build.directory}/jakarta.el-api.jar:${project.build.directory}/jakarta.enterprise.cdi-api.jar:${project.build.directory}/jakarta.servlet-api.jar:${project.build.directory}/jakarta.websocket-client-api.jar:${project.build.directory}/jakarta.websocket-api.jar:${project.build.directory}/jakarta.inject-api.jar:${project.build.directory}/jdk-bundle/java.base:${project.build.directory}/jdk-bundle/java.rmi:${project.build.directory}/jdk-bundle/java.sql:${project.build.directory}/jdk-bundle/java.naming</signature.sigTestClasspath>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <dependenciesToScan>jakarta.faces.tck:facestck-sigtest-${project.version}</dependenciesToScan>
+                    <systemPropertyVariables>
+                        <jimage.dir>${project.build.directory}/jdk-bundle</jimage.dir>
+                        <optional.tech.packages.to.ignore>jakarta.xml.bind</optional.tech.packages.to.ignore>
+                        <signature.sigTestClasspath>${project.build.directory}/jakarta.faces-vendor-api.jar:${project.build.directory}/jakarta.el-api.jar:${project.build.directory}/jakarta.enterprise.cdi-api.jar:${project.build.directory}/jakarta.servlet-api.jar:${project.build.directory}/jakarta.websocket-client-api.jar:${project.build.directory}/jakarta.websocket-api.jar:${project.build.directory}/jakarta.inject-api.jar:${project.build.directory}/jdk-bundle/java.base:${project.build.directory}/jdk-bundle/java.rmi:${project.build.directory}/jdk-bundle/java.sql:${project.build.directory}/jdk-bundle/java.naming</signature.sigTestClasspath>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>
