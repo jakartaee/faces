@@ -100,9 +100,18 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
         <test.selenium>true</test.selenium>
-        <chromedriver.version>138</chromedriver.version>
+        <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
+        <failsafe.failOnFlakeCount>0</failsafe.failOnFlakeCount>
 
+        <arquillian.version>1.10.0.Final</arquillian.version>
+        <arquillian-suite-extension.version>1.2.2</arquillian-suite-extension.version>
+        <chromedriver.version>139</chromedriver.version>
         <faces.version>5.0.0-SNAPSHOT</faces.version>
+        <htmlunit.version>4.13.0</htmlunit.version>
+        <junit.version>5.13.4</junit.version>
+        <selenium.version>4.35.0</selenium.version>
+        <shrinkwrap-resolver.version>3.3.4</shrinkwrap-resolver.version>
+        <webdrivermanager.version>6.2.0</webdrivermanager.version>
 
         <!--
             Set to the actual Faces API the implementation being tested is using.
@@ -129,19 +138,19 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.9.5.Final</version>
+                <version>${arquillian.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-container-test-api</artifactId>
-                <version>1.9.5.Final</version>
+                <version>${arquillian.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.omnifaces.arquillian</groupId>
-                <artifactId>glassfish-client-ee10</artifactId>
-                <version>1.8</version>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.13.2</version>
                 <scope>test</scope>
             </dependency>
 
@@ -193,33 +202,39 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             </dependency>
             <dependency>
                 <groupId>org.htmlunit</groupId>
+                <artifactId>htmlunit</artifactId>
+                <version>${htmlunit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.htmlunit</groupId>
                 <artifactId>htmlunit-core-js</artifactId>
-                <version>4.13.0</version>
+                <version>${htmlunit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.htmlunit</groupId>
                 <artifactId>neko-htmlunit</artifactId>
-                <version>4.13.0</version>
+                <version>${htmlunit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.htmlunit</groupId>
                 <artifactId>htmlunit-cssparser</artifactId>
-                <version>4.13.0</version>
+                <version>${htmlunit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.htmlunit</groupId>
                 <artifactId>htmlunit-xpath</artifactId>
-                <version>4.13.0</version>
+                <version>${htmlunit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.htmlunit</groupId>
                 <artifactId>htmlunit-csp</artifactId>
-                <version>4.13.0</version>
+                <version>${htmlunit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.htmlunit</groupId>
                 <artifactId>htmlunit-websocket-client</artifactId>
-                <version>4.13.0</version>
+                <version>${htmlunit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -305,7 +320,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
-            <version>5.11.4</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -321,14 +336,14 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
-            <version>3.3.4</version>
+            <version>${shrinkwrap-resolver.version}</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.shrinkwrap.resolver</groupId>
             <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
-            <version>3.3.4</version>
+            <version>${shrinkwrap-resolver.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -346,7 +361,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <dependency>
             <groupId>org.htmlunit</groupId>
             <artifactId>htmlunit</artifactId>
-            <version>4.13.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -389,22 +403,32 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.13.0</version>
+                    <version>3.14.0</version>
                     </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.6.1</version>
+                    <version>3.8.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.2.5</version>
+                    <version>3.5.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.2.5</version>
+                    <version>3.5.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-report-plugin</artifactId>
+                    <version>3.5.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.4.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -434,7 +458,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.4.0</version>
                 <configuration>
                     <attachClasses>true</attachClasses>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
@@ -445,28 +468,37 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
-                    <rerunFailingTestsCount>2</rerunFailingTestsCount>
                     <systemPropertyVariables>
                         <finalName>${project.build.finalName}</finalName>
                         <test.selenium>${test.selenium}</test.selenium>
                         <chromedriver.version>${chromedriver.version}</chromedriver.version>
                     </systemPropertyVariables>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>integration-test</goal>
+                        </goals>
+                        <phase>integration-test</phase>
+                    </execution>
+                    <execution>
+                        <id>veify</id>
+                        <goals>
+                            <goal>verify</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.2.5</version>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
                 <executions>
                     <execution>
                         <phase>post-integration-test</phase>
@@ -475,9 +507,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -487,7 +516,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>3.2.5</version>
                 <configuration>
                     <skipSurefireReport>${skipSurefireReport}</skipSurefireReport>
                     <aggregate>true</aggregate>
@@ -533,6 +561,8 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             </activation>
 
             <properties>
+                <arquillian.glassfish.version>2.1.0</arquillian.glassfish.version>
+                <slf4j.version>2.0.17</slf4j.version>
                 <!-- Explicit version of Mojarra to test -->
                 <mojarra.version>5.0.0-SNAPSHOT</mojarra.version>
 
@@ -553,16 +583,36 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
 
                 <!-- Verhicle used for testing the Mojarra version -->
                 <glassfish.version>8.0.0-M12</glassfish.version>
+                <glassfish.dirName>glassfish8</glassfish.dirName>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
-                <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
+                <glassfish.home>${glassfish.root}/${glassfish.dirName}</glassfish.home>
+                <test.logManager>org.glassfish.main.jul.GlassFishLogManager</test.logManager>
+                <test.logLevel>INFO</test.logLevel>
             </properties>
 
             <dependencies>
-                <!-- The actual Arquillian connector -->
                 <dependency>
-                    <groupId>org.omnifaces.arquillian</groupId>
+                    <groupId>ee.omnifish.arquillian</groupId>
                     <artifactId>arquillian-glassfish-server-managed</artifactId>
-                    <version>1.8</version>
+                    <version>${arquillian.glassfish.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>ee.omnifish.arquillian</groupId>
+                    <artifactId>glassfish-client-ee11</artifactId>
+                    <version>${arquillian.glassfish.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.glassfish.main</groupId>
+                    <artifactId>glassfish-jul-extension</artifactId>
+                    <version>${glassfish.version}</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-jdk14</artifactId>
+                    <version>${slf4j.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -675,17 +725,21 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                         </executions>
                     </plugin>
                     <plugin>
-                         <artifactId>maven-failsafe-plugin</artifactId>
-                         <configuration>
-                             <systemPropertyVariables>
-                                 <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
-                                 <glassfish.systemProperties>
-                                     user.language=en
-                                     user.country=US
-                                 </glassfish.systemProperties>
-                                 <test.selenium>${test.selenium}</test.selenium>
-                             </systemPropertyVariables>
-                         </configuration>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
+                                <glassfish.systemProperties>
+                                    user.language=en
+                                    user.country=US
+                                </glassfish.systemProperties>
+                                <glassfish.suspend>${glassfish.suspend}</glassfish.suspend>
+                                <test.selenium>${test.selenium}</test.selenium>
+                                <java.util.logging.manager>${test.logManager}</java.util.logging.manager>
+                                <java.util.logging.config.useDefaults>true</java.util.logging.config.useDefaults>
+                                <java.util.logging.config.defaultLevel>${test.logLevel}</java.util.logging.config.defaultLevel>
+                            </systemPropertyVariables>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -696,11 +750,13 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
 
         <profile>
             <id>piranha-embedded-micro</id>
-
+            <properties>
+                <arquillian.piranha.version>21.6.0-SNAPSHOT</arquillian.piranha.version>
+            </properties>
             <dependencies>
                 <!-- Jakarta EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
-                    <groupId>org.omnifaces.arquillian</groupId>
+                    <groupId>ee.omnifish.arquillian</groupId>
                     <artifactId>glassfish-client-ee10</artifactId>
                     <scope>test</scope>
                 </dependency>
@@ -708,7 +764,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <dependency>
                     <groupId>cloud.piranha.arquillian</groupId>
                     <artifactId>piranha-arquillian-server</artifactId>
-                    <version>21.6.0-SNAPSHOT</version>
+                    <version>${arquillian.piranha.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -737,6 +793,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <id>tomcat-remote</id>
 
             <properties>
+                <arquillian.tomcat.version>1.1.0.Final</arquillian.tomcat.version>
                 <skipEJB>true</skipEJB>
                 <skipCDI>true</skipCDI>
                 <skipJSF>true</skipJSF>
@@ -747,7 +804,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-tomcat-remote-7</artifactId>
-                    <version>1.1.0.Final</version>
+                    <version>${arquillian.tomcat.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -771,6 +828,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <id>tomcat-ci-managed</id>
 
             <properties>
+                <arquillian.tomcat.version>1.1.0.Final</arquillian.tomcat.version>
                 <skipEJB>true</skipEJB>
                 <skipCDI>true</skipCDI>
                 <skipJSF>true</skipJSF>
@@ -807,7 +865,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-tomcat-managed-7</artifactId>
-                    <version>1.1.0.Final</version>
+                    <version>${arquillian.tomcat.version}</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -875,11 +933,14 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
 
         <profile>
             <id>wildfly-ci-managed</id>
+            <properties>
+                <arquillian.wildfly.version>5.0.0.Alpha1</arquillian.wildfly.version>
+            </properties>
             <dependencies>
                 <dependency>
                     <groupId>org.wildfly.arquillian</groupId>
                     <artifactId>wildfly-arquillian-container-managed</artifactId>
-                    <version>5.0.0.Alpha1</version>
+                    <version>${arquillian.wildfly.version}</version>
                     <exclusions>
                         <exclusion>
                             <groupId>org.jboss.sasl</groupId>
@@ -916,22 +977,21 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             </activation>
 
             <properties>
-                <!-- Arquillian Dependencies -->
-                <payara.arquillian.container.version>3.0.alpha8</payara.arquillian.container.version>
+                <arquillian.payara.version>3.0.alpha8</arquillian.payara.version>
             </properties>
 
             <dependencies>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>arquillian-payara-server-remote</artifactId>
-                    <version>${payara.arquillian.container.version}</version>
+                    <version>${arquillian.payara.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>fish.payara.arquillian</groupId>
                     <artifactId>payara-client-ee9</artifactId>
                     <scope>test</scope>
-                    <version>${payara.arquillian.container.version}</version>
+                    <version>${arquillian.payara.version}</version>
                 </dependency>
                 <!--
                 Solution for

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023, 2025 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -14,12 +14,6 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
 package ee.jakarta.tck.faces.test.util.selenium;
-
-import static java.lang.Boolean.parseBoolean;
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
-import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 import java.io.File;
 import java.net.URL;
@@ -42,6 +36,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
+
+import static java.lang.Boolean.parseBoolean;
+import static java.lang.System.getProperty;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 /**
  * Use this for Selenium based tests.
@@ -100,10 +100,7 @@ public abstract class BaseITNG implements ExecutionCondition {
      * Selenium does not automatically update the page handles if a link is clicked without ajax
      */
     protected void updatePage() {
-        ExtendedWebDriver webDriver = getWebDriver();
-        for (String windowHandle : webDriver.getWindowHandles()) {
-            webDriver.switchTo().window(windowHandle);
-        }
+        webDriver.switchToWindowWithUrl(webDriver.getCurrentUrl());
     }
 
     protected int getStatusCode(String page) {
