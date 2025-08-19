@@ -524,7 +524,7 @@ each particular method on _ELResolver_, in prose when such a table is
 inappropriate, or as a reference to another section where the semantics
 are exactly the same.
 
-[[a2830]]
+[[a2831]]
 ===== faces.CompositeComponentELResolver
 
 This _ELResolver_ makes it so that expressions that refer to the

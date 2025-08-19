@@ -831,7 +831,7 @@
       element.  Render "#" as the value of the "href" attribute. Render
       the current value of the component as the link text if it is
       specified. Render JavaScript that is functionally equivalent to
-      the following as the value of the "onclick" attribute:</p>
+      the following <span class="changed_modified_5_0">by registering a click event listener on the element using <code>Element.addEventListener</code></span>:</p>
 
       <p><code>document.forms['CLIENT_ID']['hiddenFieldName'].value='CLIENT_ID';
       document.forms['CLIENT_ID']['PARAM1_NAME'].value='PARAM1_VALUE';
@@ -880,8 +880,8 @@
       of the component or its children as specified above.</p>
 
       <p>If the user specified a <code>target</code> attribute, its
-      value must be set using javascript since the <code>onclick</code>
-      handler will prevent the target attribute from being generated.
+      value must be set using javascript since the <span class="changed_modified_5_0">click
+      event listener</span> will prevent the target attribute from being generated.
       This must be accomplished using JavaScript that is equivalent to
       the following.</p>
 
@@ -7297,10 +7297,10 @@ this application, and passing the result through the
   <code>UIParameter</code> goes on the left hand side, and the value of
   the <code>UIParameter</code> on the right hand side.  The name and the
   value must be URLEncoded.  Each <code>UIParameter</code> instance is
-  separeted by an ampersand, as dictated in the URL spec.  The final
-  encoded result will be written out to the onclick attribute of the
-  button as "window.location.href = '<encoded HREF value>'".  If the
-  developer has specified a custom onlclick the window.location.href
+  separeted by an ampersand, as dictated in the URL spec.  <span class="changed_modified_5_0">The final
+  encoded result will be used to register a click event listener on the button via 
+  <code>Element.addEventListener</code>, which will execute <code>window.location.href = '&lt;encoded HREF value&gt;'</code>.</span>  If the
+  developer has specified a custom onclick the window.location.href
   name/value pair will be appended at the end of the developer specified
   script.  If the "fragment" attribute is specified, the value will be
   included at the end of the resulting URL preceded by a hash mark.  If
@@ -7310,7 +7310,7 @@ this application, and passing the result through the
   href="renderkit-summary.html#general_encoding">General
   Notes on Encoding</a>" regarding the "id" attribute for UIInput
   components.  If the "disabled" attribute is specified, do not render
-  the "onclick" element and assign the "disabled" attribute a value of
+  the <span class="changed_modified_5_0">click event listener</span> and assign the "disabled" attribute a value of
   true.</p>
 
 </div></div>

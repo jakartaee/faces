@@ -45,16 +45,16 @@
             method of the <code>ExternalContext</code>.  The name of the <code>UIParameter</code> goes on the
             left hand side, and the value of the <code>UIParameter</code> on the right hand side.  The name
             and the value must be URLEncoded.  Each <code>UIParameter</code> instance is separeted by an
-            ampersand, as dictated in the URL spec.  The final encoded result will be written out to the
-            onclick attribute of the button as "window.location.href = '<encoded HREF value>'".
-            If the developer has specified a custom onlclick the window.location.href name/value
+            ampersand, as dictated in the URL spec.  <span class="changed_modified_5_0">The final encoded result will be used to register a click event listener on the button via 
+            <code>Element.addEventListener</code>, which will execute <code>window.location.href = '&lt;encoded HREF value&gt;'</code>.</span>
+            If the developer has specified a custom onclick the window.location.href name/value
             pair will be appended at the end of the developer specified script.
             If the "fragment" attribute is specified, the value will be included at the end
             of the resulting URL preceded by a hash mark.  If the "styleClass" attribute is specified,
             render its value as the value of the "class" attribute.  If the "id" attribute is specified,
             follow the same steps as mentioned in the "<a href="../../../renderkitdocs/HTML_BASIC/renderkit-summary.html#general_encoding">General
             Notes on Encoding</a>" regarding the "id" attribute for UIInput components.  If the
-            "disabled" attribute is specified, do not render the "onclick" element and assign the
+            "disabled" attribute is specified, do not render the <span class="changed_modified_5_0">click event listener</span> and assign the
             "disabled" attribute a value of true.</div>]]>
         </description>
         <tag-name>button</tag-name>
@@ -2123,7 +2123,7 @@
             element. Render "#" as the value of the "href" attribute. Render
             the current value of the component as the link text if it is
             specified. Render JavaScript that is functionally equivalent to
-            the following as the value of the "onclick" attribute:&lt;/p&gt;
+            the following &lt;span class="changed_modified_5_0"&gt;by registering a click event listener on the element using &lt;code&gt;Element.addEventListener&lt;/code&gt;&lt;/span&gt;:&lt;/p&gt;
             &lt;p&gt;&lt;code&gt;document.forms['CLIENT_ID']['hiddenFieldName'].value='CLIENT_ID';
             document.forms['CLIENT_ID']['PARAM1_NAME'].value='PARAM1_VALUE';
             document.forms['CLIENT_ID']['PARAM2_NAME'].value='PARAM2_VALUE';
@@ -2167,8 +2167,8 @@
             of the component or its children as specified above.&lt;/p&gt;
             &lt;p&gt;If the user specified a &lt;code&gt;target&lt;/code&gt;
             attribute, its
-            value must be set using javascript since the &lt;code&gt;onclick&lt;/code&gt;
-            handler will prevent the target attribute from being generated.
+            value must be set using javascript since the &lt;span class="changed_modified_5_0"&gt;click
+            event listener&lt;/span&gt; will prevent the target attribute from being generated.
             This must be accomplished using JavaScript that is equivalent to
             the following.&lt;/p&gt;
             &lt;p&gt;&lt;code&gt;document.forms['CLIENT_ID'].target='TARGET';&lt;/code&gt;&lt;/p&gt;

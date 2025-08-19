@@ -22,8 +22,8 @@ package com.sun.ts.tests.jsf.spec.ajax.jsresource;
 import java.io.PrintWriter;
 import java.util.Formatter;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlScript;
 import com.sun.javatest.Status;
 import com.sun.ts.tests.jsf.common.client.BaseHtmlUnitClient;
 

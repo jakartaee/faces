@@ -29,16 +29,16 @@ import java.util.List;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.DomAttr;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.WebClient;
+import org.htmlunit.html.DomAttr;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSelect;
+import org.htmlunit.html.HtmlSpan;
+import org.htmlunit.html.HtmlSubmitInput;
 import com.sun.ts.lib.harness.EETest;
 import com.sun.ts.lib.util.TestUtil;
 
@@ -139,7 +139,7 @@ public class BaseHtmlUnitClient extends EETest {
    * Added to compensate for changes in the HtmlUnit 1.4 API.
    * </p>
    * 
-   * @see #getAllElementsOfGivenClass(com.gargoylesoftware.htmlunit.html.HtmlElement,
+   * @see #getAllElementsOfGivenClass(org.htmlunit.html.HtmlElement,
    *      java.util.List, Class)
    */
   protected List getAllElementsOfGivenClass(HtmlPage root,
