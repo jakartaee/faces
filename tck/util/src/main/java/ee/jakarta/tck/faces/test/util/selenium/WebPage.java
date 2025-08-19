@@ -30,6 +30,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static java.lang.System.Logger.Level.TRACE;
+
 /**
  * Mimics the html unit webpage
  */
@@ -292,6 +294,7 @@ public class WebPage {
             return true;
         } catch (TimeoutException ex) {
             // timeout is wanted in this case and should result in a false
+            LOG.log(TRACE, "This exception was expected.", ex);
             return false;
         }
     }

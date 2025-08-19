@@ -18,7 +18,6 @@ package ee.jakarta.tck.faces.test.util.selenium;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Collection;
 import java.util.Comparator;
@@ -81,6 +80,7 @@ import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 
 import static ee.jakarta.tck.faces.test.util.selenium.WebPage.STD_TIMEOUT;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.naturalOrder;
 import static java.util.Comparator.nullsFirst;
@@ -226,7 +226,6 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
                 LOG.log(INFO, () -> "Recording request: " + reflectionToString(request));
                 HttpCycleData data = findOrCreate(request.getRequestId());
                 data.request = request.getRequest();
-                cycleData.add(data);
             } finally {
                 cycleDataWriteLock.unlock();
             }
@@ -239,10 +238,10 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             cycleDataWriteLock.lock();
             try {
-                LOG.log(INFO, () -> "Recording response: " + reflectionToString(response));
+                LOG.log(INFO, () -> "Recording response: " + reflectionToString(response) + ", code: "
+                    + response.getResponse().getStatus());
                 HttpCycleData data = findOrCreate(response.getRequestId());
                 data.responseReceived = response;
-                cycleData.add(data);
             } finally {
                 cycleDataWriteLock.unlock();
             }
@@ -257,8 +256,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     private HttpCycleData findOrCreate(RequestId requestId) {
-        return cycleData.stream().filter(data -> data.isRequest(requestId)).findFirst()
-            .orElse(new HttpCycleData(requestId));
+        HttpCycleData found = cycleData.stream().filter(data -> data.isRequest(requestId)).findFirst()
+            .orElse(null);
+        if (found != null) {
+            return found;
+        }
+        HttpCycleData data = new HttpCycleData(requestId);
+        cycleData.add(data);
+        return data;
     }
 
     public Capabilities getCapabilities() {
@@ -430,11 +435,6 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
                 LOG.log(FINEST, "Waiting for communication with Faces server ...");
                 return false;
             }
-            HttpCycleData data = getLastGetData();
-            LOG.log(FINEST, "LastGetData: {0}", data);
-            if (data == null) {
-                return false;
-            }
             JavascriptExecutor jsExecutor = getJSExecutor();
             String jsCommand = "return document.readyState";
             Object result = jsExecutor.executeScript(jsCommand);
@@ -475,43 +475,42 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
     @Override
     public WebElement findElement(By locator) {
-        return facesContentWait.until(driver -> {
-            RemoteWebElement element = (RemoteWebElement) driver.findElement(locator);
-            // element.getText will use our execute method.
-            // This is a temporary workaround for Spec1263IT and others which doesn't wait
-            // after click() until the element is redrawn.
-            element.setParent(this);
-            return element;
-        });
+        facesContentWait.untilResponsesCome();
+        RemoteWebElement element = (RemoteWebElement) delegate.findElement(locator);
+        // element.getText will use our execute method.
+        // This is a temporary workaround for Spec1263IT and others which doesn't wait
+        // after click() until the element is redrawn.
+        element.setParent(this);
+        return element;
     }
 
     @Override
     public List<WebElement> findElements(By locator) {
-        return facesContentWait.until(driver -> driver.findElements(locator));
+        facesContentWait.untilResponsesCome();
+        return delegate.findElements(locator);
     }
 
     @Override
     public String getPageSource() {
-        return facesContentWait.until(driver -> driver.getPageSource());
+        facesContentWait.untilResponsesCome();
+        return delegate.getPageSource();
     }
 
     @Override
     public String getPageText() {
-        return facesContentWait.until(driver -> {
-            String head = driver.findElement(By.tagName("head")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
-            String body = driver.findElement(By.tagName("body")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
-            return head + " " + body;
-        });
+        facesContentWait.untilResponsesCome();
+        String head = delegate.findElement(By.tagName("head")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
+        String body = delegate.findElement(By.tagName("body")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
+        return head + " " + body;
     }
 
     @Override
     public String getPageTextReduced() {
-        return facesContentWait.until(driver -> {
-            String head = driver.findElement(By.tagName("head")).getAttribute("innerText");
-            String body = driver.findElement(By.tagName("body")).getAttribute("innerText");
-            // handle blanks and nbsps
-            return (head + " " + body).replaceAll("[\\s\\u00A0]+", " ");
-        });
+        facesContentWait.untilResponsesCome();
+        String head = delegate.findElement(By.tagName("head")).getAttribute("innerText");
+        String body = delegate.findElement(By.tagName("body")).getAttribute("innerText");
+        // handle blanks and nbsps
+        return (head + " " + body).replaceAll("[\\s\\u00A0]+", " ");
     }
 
     /**
@@ -608,7 +607,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     public List<WebElement> findElements(SearchContext context, BiFunction<String, Object, CommandPayload> findCommand, By locator) {
-        return facesContentWait.until(driver -> driver.findElements(context, findCommand, locator));
+        facesContentWait.untilResponsesCome();
+        return delegate.findElements(context, findCommand, locator);
     }
 
     public Object executeScript(String script, Object... args) {
@@ -671,27 +671,29 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         String requestData = getRequestData();
         String[] splitData = requestData.split("&");
 
-        return Stream.of(splitData).map((String keyVal) -> URLDecoder.decode(keyVal, StandardCharsets.UTF_8)).toArray(String[]::new);
+        return Stream.of(splitData).map((String keyVal) -> URLDecoder.decode(keyVal, UTF_8)).toArray(String[]::new);
     }
 
     private HttpCycleData getLastGetData() {
         if (lastGet == null) {
             return null;
         }
-
-        return cycleData.stream().filter(item -> item.hasBaseUrl(lastGet)).sorted(RESPONSE_TIME_COMPARATOR.reversed())
-            .findFirst().orElse(null);
+        waitForFaces(STD_TIMEOUT);
+        return cycleData.stream()
+            .filter(item -> item.hasBaseUrl(lastGet) && item.hasResponse()
+                && item.responseReceived.getType() == ResourceType.DOCUMENT)
+            .sorted(RESPONSE_TIME_COMPARATOR.reversed()).findFirst().orElse(null);
     }
 
     @Override
     public void printProcessedResponses() {
         cycleData.stream().filter(HttpCycleData::hasResponse).sorted(RESPONSE_TIME_COMPARATOR)
                 // Missing last api
-                .forEach(item -> {
+                .forEachOrdered(item -> {
                     System.out.println("Url: " + item.request.getUrl());
                     System.out.println("RequestId: " + item.requestId.toJson());
                     Optional<TimeSinceEpoch> responseTime = item.responseReceived.getResponse().getResponseTime();
-                    System.out.println("ResponseTime: " + responseTime.orElse(new TimeSinceEpoch(-1)));
+                    System.out.println("ResponseTime: " + responseTime.orElse(null));
                     System.out.println("ResponseStatus: " + item.responseReceived.getResponse().getStatus());
                 });
     }
@@ -719,9 +721,13 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         }
 
         public <V> V until(Function<? super ChromeDriver, V> isTrue) {
-            // Block if there is anything what could result in changes.
-            super.until(d -> !isCommunicationInProgress());
+            untilResponsesCome();
             return super.until(isTrue);
+        }
+
+        /** Block if there is anything what could result in changes. */
+        public void untilResponsesCome() {
+            super.until(d -> !isCommunicationInProgress());
         }
 
         public ChromeDriverWait ignoring(Class<? extends Throwable> exceptionType) {
@@ -766,15 +772,15 @@ class HttpCycleData {
         return responseReceived != null;
     }
 
-    public Integer getResponseTime() {
+    public Double getResponseTime() {
         if (responseReceived == null) {
             return null;
         }
-        MonotonicTime timestamp = responseReceived.getTimestamp();
-        if (timestamp == null) {
+        TimeSinceEpoch responseTime = responseReceived.getResponse().getResponseTime().orElse(null);
+        if (responseTime == null) {
             return null;
         }
-        return timestamp.toJson().intValue();
+        return responseTime.toJson().doubleValue();
     }
 
     @Override
