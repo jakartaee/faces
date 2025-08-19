@@ -85,20 +85,28 @@ client side request queue to help ensure request ordering
 ==== Usage
 
 Typically, this function is attached as a
-JavaScript event handler (such as “onclick”).
+JavaScript event listener.
 
 [source,xml]
 ----
-<ANY_HTML_OR_FACES_ELEMENT
-    on|EVENT|="faces.ajax.request(source, event, { |OPTIONS| });" />
+<ANY_HTML_OR_FACES_ELEMENT id="clientId" />
+<script>
+  document.getElementById('clientId').addEventListener(
+    |EVENT|,
+    function(event) {
+      faces.ajax.request(source, event, { |OPTIONS| });
+    }
+  );
+</script>
 ----
 
-The function arguments are as follows:
+The _|EVENT|_ argument is the DOM event name such as “click”.
 
-source is the DOM element that triggered this
+The function arguments are as follows:
+_source_ is the DOM element that triggered this
 Ajax request. It must be a DOM element object or a
-string identifier for a DOM element. The event argument is the
-JavaScript event object. The optional |OPTIONS| argument is a JavaScript
+string identifier for a DOM element. The _event_ argument is the
+JavaScript event object. The optional _|OPTIONS|_ argument is a JavaScript
 associative object array that may contain the following name/value
 pairs:
 
@@ -170,27 +178,30 @@ Values for the execute and render attributes
 are not required. When using the JavaScript API, the default values for
 execute is @this. The default value for render is @none.
 
-[source,xml]
+[source,javascript]
 ----
-<h:commandButton id="button1" value="submit"
-    onclick="faces.ajax.request(this,event);" />
+faces.ajax.request(this, event)
+----
 
 is the same as:
 
-<h:commandButton id="button1" value="submit">
-    onclick="faces.ajax.request(this, event,
-        {execute:’@this’, render:’@this’});" />
+[source,javascript]
+----
+faces.ajax.request(this, event, {execute:'@this', render:'@this'})
 ----
 
-[source,xml]
+And, on a _<ANY_RENDERED_HTML_ELEMENT id="form:element">_
+
+[source,javascript]
 ----
-<h:commandButton id="button1" value="submit"
-    onclick="faces.ajax.request(this,event, {execute:’@this’});" />
+faces.ajax.request(this, event, {execute:'@this'})
+----
 
 is the same as:
 
-<h:commandButton id="button1" value="submit">
-    onclick="faces.ajax.request(this,event, {execute:’button1’});" />
+[source,javascript]
+----
+faces.ajax.request(this, event, {execute:'form:element'})
 ----
 
 Refer to the VDLDocs on the _f:_ tag library
@@ -229,16 +240,18 @@ source of this request
 [[a6921]]
 ==== Use Case
 
-[source,xml]
+[source,javascript]
 ----
-<h:commandbutton id="submit" value="submit"
-    onclick="faces.ajax.request(this, event,
-        {execute:'submit',render:'outtext'}); return false;" />
+faces.ajax.request(this, event, {execute:'@this', render:'outtext'})
 ----
 
 This use case assumes there is another
-component in the view with the identifier outtext.
+component in the view with the identifier _outtext_.
 
+[source,xml]
+----
+<h:outputText id="outtext" value="#{bean.text}" />
+----
 
 [[a7017]]
 === Processing The Ajax Response
