@@ -29,44 +29,23 @@
     <title>Ajax</title>
 </h:head>
 <h:body>
-    <div id="output" />
-    <script>
-        faces.ajax.addOnEvent(function(data) {
-            if (data.status === "success") {
-                document.getElementById("output").innerHTML += " " + data.source.id;
-            }
-        });
-    </script>
-
     <h:form id="form1">    <!-- Note that unlike previous examples, prependid='true' -->
 <!-- Test one: No behaviors rendered -->
        <h:inputText id="input1">
-	      <f:ajax execute="@form" render="@form" disabled="true" />
-          <f:ajax execute="@this" render="@form" disabled="true" />
+	  <f:ajax execute="@all" render="@all" disabled="true"/>
+          <f:ajax execute="@this" render="@all" disabled="true"/>
        </h:inputText>
        <br/>
-<!-- Test two: One ajax behavior rendered -->
+<!-- Test two: Second behavior rendered -->
        <h:inputText id="input2">
-	      <f:ajax execute="@form" render="@form" disabled="true" />
-          <f:ajax execute="@this" render="@form" />
+	  <f:ajax execute="@all" render="@all" disabled="true"/>
+          <f:ajax execute="@this" render="@all"/>
        </h:inputText>
        <br/>
-<!-- Test three: Custom (non-ajax) behavior and disabled ajax behavior rendered -->
+<!-- Test three: First behavior rendered -->
        <h:inputText id="input3">
           <be:greet/>
-          <f:ajax execute="@form" render="@form" disabled="true" />
-       </h:inputText>
-       <br/>
-<!-- Test four: Two ajax behaviors rendered -->
-       <h:inputText id="input4">
-          <f:ajax execute="@form" render="@form" />
-          <f:ajax execute="@this" render="@form" />
-       </h:inputText>
-       <br/>
-<!-- Test five: Ajax behavior and custom (non-ajax) behavior rendered -->
-       <h:inputText id="input5">
-          <f:ajax execute="@this" render="@form" />
-          <be:greet/>
+	  <f:ajax execute="@all" render="@all" disabled="true"/>
        </h:inputText>
     </h:form>
 
