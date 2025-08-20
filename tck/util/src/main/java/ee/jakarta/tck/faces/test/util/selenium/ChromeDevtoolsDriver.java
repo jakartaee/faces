@@ -15,29 +15,33 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
+import java.io.OutputStream;
 import java.net.URI;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
-import org.apache.commons.io.output.NullOutputStream;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Credentials;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Pdf;
 import org.openqa.selenium.ScriptKey;
@@ -50,29 +54,43 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chromium.ChromiumNetworkConditions;
 import org.openqa.selenium.devtools.DevTools;
-import org.openqa.selenium.devtools.v138.network.Network;
-import org.openqa.selenium.devtools.v138.network.model.Headers;
-import org.openqa.selenium.devtools.v138.network.model.Request;
-import org.openqa.selenium.devtools.v138.network.model.RequestId;
-import org.openqa.selenium.devtools.v138.network.model.ResponseReceived;
-import org.openqa.selenium.devtools.v138.network.model.TimeSinceEpoch;
-import org.openqa.selenium.html5.LocalStorage;
-import org.openqa.selenium.html5.Location;
-import org.openqa.selenium.html5.SessionStorage;
+import org.openqa.selenium.devtools.v139.network.Network;
+import org.openqa.selenium.devtools.v139.network.model.Headers;
+import org.openqa.selenium.devtools.v139.network.model.MonotonicTime;
+import org.openqa.selenium.devtools.v139.network.model.Request;
+import org.openqa.selenium.devtools.v139.network.model.RequestId;
+import org.openqa.selenium.devtools.v139.network.model.ResourceType;
+import org.openqa.selenium.devtools.v139.network.model.ResponseReceived;
+import org.openqa.selenium.devtools.v139.network.model.TimeSinceEpoch;
 import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.logging.EventType;
-import org.openqa.selenium.mobile.NetworkConnection;
 import org.openqa.selenium.print.PrintOptions;
 import org.openqa.selenium.remote.CommandExecutor;
 import org.openqa.selenium.remote.CommandPayload;
+import org.openqa.selenium.remote.DriverCommand;
 import org.openqa.selenium.remote.ErrorHandler;
 import org.openqa.selenium.remote.FileDetector;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.remote.SessionId;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 
 import static ee.jakarta.tck.faces.test.util.selenium.WebPage.STD_TIMEOUT;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.naturalOrder;
+import static java.util.Comparator.nullsFirst;
 import static java.util.Optional.empty;
+import static java.util.function.Predicate.not;
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.FINEST;
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.WARNING;
+import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
 
 /**
  * Extended driver which we need for getting the http response code and the http response without having to revert to proxy solutions
@@ -86,18 +104,24 @@ import static java.util.Optional.empty;
  *
  * @see also https://medium.com/codex/selenium4-a-peek-into-chrome-devtools-92bca6de55e0
  */
-@SuppressWarnings("unused")
-public class ChromeDevtoolsDriver implements ExtendedWebDriver {
+public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWebDriver {
 
-    /*
-     * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the selenium webdriver version must match the
-     * browser version
+    private static final Logger LOG = Logger.getLogger(ChromeDevtoolsDriver.class.getName());
+    private static final Comparator<HttpCycleData> RESPONSE_TIME_COMPARATOR = comparing(HttpCycleData::getResponseTime,
+        nullsFirst(naturalOrder()));
+
+    /**
+     * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the
+     * selenium webdriver version must match the browser version
      */
-    static AtomicBoolean firstLog = new AtomicBoolean(Boolean.TRUE);
+    private static AtomicBoolean firstLog = new AtomicBoolean(Boolean.TRUE);
 
-    ChromeDriver delegate;
-    List<HttpCycleData> cycleData = new CopyOnWriteArrayList<>();
-    String lastGet;
+    private ChromeDriver delegate;
+    private ChromeDriverWait facesContentWait;
+    private ConcurrentLinkedQueue<HttpCycleData> cycleData = new ConcurrentLinkedQueue<>();
+    private ReentrantLock cycleDataWriteLock = new ReentrantLock();
+    private boolean firstRequest = true;
+    private String lastGet;
 
     public static ExtendedWebDriver stdInit() {
         Locale.setDefault(new Locale("en", "US"));
@@ -105,14 +129,16 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
         ChromeOptions options = new ChromeOptions();
 
-        if (System.getProperty("chromedriver.version") != null && !System.getProperty("chromedriver.version").isEmpty()) {
-            options.setBrowserVersion(System.getProperty("chromedriver.version"));
+        String chromedriverVersion = System.getProperty("chromedriver.version");
+        if (chromedriverVersion != null && !chromedriverVersion.isEmpty()) {
+            options.setBrowserVersion(chromedriverVersion);
         }
 
         // We can turn on a visual browser by
         // adding chromedriver.headless = false to our properties
         // default is headless = true
-        if (System.getProperty("chromedriver.headless") == null || "true".equals(System.getProperty("chromedriver.headless"))) {
+        String headless = System.getProperty("chromedriver.headless");
+        if (headless == null || "true".equals(headless)) {
             options.addArguments("--headless");
         }
 
@@ -121,13 +147,13 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         options.addArguments("--allow-insecure-localhost");
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--ignore-urlfetcher-cert-requests");
-        options.addArguments("--auto-open-devtools-for-tabs");
+        if (Boolean.getBoolean("chromedriver.auto-open-devtools-for-tabs")) {
+            LOG.log(WARNING, "The --auto-open-devtools-for-tabs can cause test instability.");
+            options.addArguments("--auto-open-devtools-for-tabs");
+        }
         options.addArguments("--disable-gpu");
         options.setExperimentalOption("prefs", Map.of("intl.accept_languages", "en"));
         options.addArguments("--lang=en");
-
-        // * @deprecated Use {@link ChromeDriverService.Builder#withLogLevel(ChromeDriverLogLevel)} to set log level.
-        // options.setLogLevel(ChromeDriverLogLevel.OFF);
 
         ExtendedWebDriver driver = new ChromeDevtoolsDriver(options);
         driver.manage().timeouts().implicitlyWait(STD_TIMEOUT);
@@ -156,8 +182,11 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     public ChromeDevtoolsDriver(ChromeOptions options) {
         ChromeDriverService chromeDriverService = new ChromeDriverService.Builder().build();
 
-        chromeDriverService.sendOutputTo(NullOutputStream.INSTANCE);
+        chromeDriverService.sendOutputTo(OutputStream.nullOutputStream());
         delegate = new ChromeDriver(chromeDriverService, options);
+        facesContentWait = new ChromeDriverWait(delegate, STD_TIMEOUT, Duration.ofMillis(100L))
+            .ignoring(WebDriverException.class);
+        setCommandExecutor(delegate.getCommandExecutor());
     }
 
     /**
@@ -182,34 +211,59 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
             devTools.createSession();
             devTools.send(Network.clearBrowserCache());
         } catch (TimeoutException ex) {
-            Logger.getLogger(ChromeDevtoolsDriver.class.getName())
-                  .warning("Init timeout error, can happen, " + "if the driver already has been used, can be safely ignore");
+            LOG.warning("Init timeout error, can happen, if the driver already has been used, can be safely ignore");
         }
         devTools.send(Network.enable(empty(), empty(), empty(), empty()));
     }
 
     private void initNetworkListeners(DevTools devTools) {
-        devTools.addListener(Network.requestWillBeSent(), entry -> {
-            // The Faces ajax only targets itself
-            // That way we can filter out resource requests early
-            if (lastGet != null && !entry.getRequest().getUrl().contains(lastGet)) {
+        devTools.addListener(Network.requestWillBeSent(), request -> {
+            if (isIgnored(request.getType().orElse(null))) {
                 return;
             }
-
-            HttpCycleData data = new HttpCycleData();
-            data.requestId = entry.getRequestId();
-            data.request = entry.getRequest();
-            cycleData.add(data);
+            cycleDataWriteLock.lock();
+            try {
+                LOG.log(INFO, () -> "Recording request: " + reflectionToString(request));
+                HttpCycleData data = findOrCreate(request.getRequestId());
+                data.request = request.getRequest();
+            } finally {
+                cycleDataWriteLock.unlock();
+            }
         });
 
-        devTools.addListener(Network.responseReceived(), entry -> {
-            RequestId requestId = entry.getRequestId();
-            // Only in case of a match we add response to request
-            // so we only cover our ajax cycle and the original get
-            Optional<HttpCycleData> found = cycleData.stream().filter(item -> item.requestId.toJson().equals(requestId.toJson())).findFirst();
-
-            found.ifPresent(httpCycleData -> httpCycleData.responseReceived = entry);
+        // Sometimes response event comes even before request event.
+        devTools.addListener(Network.responseReceived(), response -> {
+            if (isIgnored(response.getType())) {
+                return;
+            }
+            cycleDataWriteLock.lock();
+            try {
+                LOG.log(INFO, () -> "Recording response: " + reflectionToString(response) + ", code: "
+                    + response.getResponse().getStatus());
+                HttpCycleData data = findOrCreate(response.getRequestId());
+                data.responseReceived = response;
+            } finally {
+                cycleDataWriteLock.unlock();
+            }
         });
+    }
+
+    /**
+     * Interesting for us are just {@link ResourceType#XHR} and {@link ResourceType#DOCUMENT} types.
+     */
+    private boolean isIgnored(ResourceType resourceType) {
+        return resourceType != ResourceType.XHR && resourceType != ResourceType.DOCUMENT;
+    }
+
+    private HttpCycleData findOrCreate(RequestId requestId) {
+        HttpCycleData found = cycleData.stream().filter(data -> data.isRequest(requestId)).findFirst()
+            .orElse(null);
+        if (found != null) {
+            return found;
+        }
+        HttpCycleData data = new HttpCycleData(requestId);
+        cycleData.add(data);
+        return data;
     }
 
     public Capabilities getCapabilities() {
@@ -230,6 +284,19 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     public void launchApp(String id) {
         delegate.launchApp(id);
+    }
+
+    @Override
+    protected Response execute(CommandPayload payload) {
+        // Session can change, there's a command for that.
+        setSessionId(delegate.getSessionId().toString());
+        Response response = super.execute(payload);
+        if (DriverCommand.CLICK_ELEMENT.equals(payload.getName())) {
+            LOG.log(FINEST, "Some element click was executed, waiting for Faces for sure ...");
+            waitForFaces(STD_TIMEOUT);
+            LOG.log(FINEST, "Waiting finished.");
+        }
+        return response;
     }
 
     public Map<String, Object> executeCdpCommand(String commandName, Map<String, Object> parameters) {
@@ -298,8 +365,102 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     @Override
     public void get(String url) {
-        lastGet = url;
+        LOG.log(INFO, "Opening URL {0}", url);
+        int questionMark = url.indexOf('?');
+        lastGet = questionMark > 0 ? url.substring(0, questionMark) : url;
+        if (firstRequest) {
+            firstRequest = false;
+            getAndWaitForWindowAndFaces(url, Duration.ofSeconds(60));
+        } else {
+            getAndWaitForFaces(url, Duration.ofSeconds(10));
+        }
+    }
+
+    /**
+     * Navigates the current window to the url and waits until the retrieved page is settled down,
+     * which means all additional XHR requests were processed.
+     * If the window was switched somehow, tries to find the right window again.
+     *
+     * @param url target link
+     * @param timeout time to wait.
+     */
+    protected void getAndWaitForWindowAndFaces(String url, Duration timeout) {
+        WebDriverWait waitForWindow = new WebDriverWait(delegate, timeout, Duration.ofSeconds(5));
+        WebDriverWait waitForJs = new WebDriverWait(delegate, Duration.ofSeconds(10L), Duration.ofMillis(10));
+        waitForWindow.until(d -> {
+            try {
+                d.get(url);
+            } catch (NoSuchWindowException e) {
+                switchToWindowWithUrl(lastGet);
+                return false;
+            }
+            try {
+                waitForJs.until(e -> !cycleData.isEmpty());
+            } catch (TimeoutException e) {
+                // Will reload the page again
+                return false;
+            }
+            return true;
+        });
+        LOG.log(FINEST, "Communication with Faces started!");
+        waitForFaces(timeout);
+    }
+
+    /**
+     * Navigates the current window to the url and waits until the retrieved page is settled down,
+     * which means all additional XHR requests were processed.
+     *
+     * @param url target link
+     * @param timeout time to wait.
+     */
+    protected void getAndWaitForFaces(String url, Duration timeout) {
         delegate.get(url);
+        waitForFaces(timeout);
+    }
+
+    @Override
+    public void waitForFaces(Duration timeout) {
+        Duration pause = Duration.ofMillis(100);
+        // Some tests click a button and immediately check the result.
+        // As they probably produced a XHR request immediately,
+        // we should allow it to make it to the cycleData.
+        try {
+            Thread.sleep(pause.toMillis());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        ChromeDriverWait wait = new ChromeDriverWait(delegate, timeout, pause);
+        wait.until(d -> {
+            if (cycleData.isEmpty()) {
+                LOG.log(FINEST, "Waiting for communication with Faces server ...");
+                return false;
+            }
+            JavascriptExecutor jsExecutor = getJSExecutor();
+            String jsCommand = "return document.readyState";
+            Object result = jsExecutor.executeScript(jsCommand);
+            LOG.log(FINE, () -> jsCommand + " returned " + result);
+            // See JavaScript specifications for readyState values
+            return "complete".equals(result);
+        });
+    }
+
+    @Override
+    public void switchToWindowWithUrl(String url) {
+        for (String handle : getWindowHandles()) {
+            delegate.switchTo().window(handle);
+            if (delegate.getCurrentUrl().equals(url)) {
+                LOG.log(INFO, "Switched to open window with the url: {0}", delegate.getCurrentUrl());
+                return;
+            }
+        }
+        for (String handle : getWindowHandles()) {
+            delegate.switchTo().window(handle);
+            if (delegate.getCurrentUrl().startsWith("http")) {
+                LOG.log(WARNING, "Switched to random window using any http url. URL: {0}", delegate.getCurrentUrl());
+                return;
+            }
+        }
+        throw new IllegalStateException("Failed to find usable window.");
     }
 
     @Override
@@ -314,21 +475,30 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     @Override
     public WebElement findElement(By locator) {
-        return delegate.findElement(locator);
+        facesContentWait.untilResponsesCome();
+        RemoteWebElement element = (RemoteWebElement) delegate.findElement(locator);
+        // element.getText will use our execute method.
+        // This is a temporary workaround for Spec1263IT and others which doesn't wait
+        // after click() until the element is redrawn.
+        element.setParent(this);
+        return element;
     }
 
     @Override
     public List<WebElement> findElements(By locator) {
+        facesContentWait.untilResponsesCome();
         return delegate.findElements(locator);
     }
 
     @Override
     public String getPageSource() {
+        facesContentWait.untilResponsesCome();
         return delegate.getPageSource();
     }
 
     @Override
     public String getPageText() {
+        facesContentWait.untilResponsesCome();
         String head = delegate.findElement(By.tagName("head")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
         String body = delegate.findElement(By.tagName("body")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
         return head + " " + body;
@@ -336,6 +506,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     @Override
     public String getPageTextReduced() {
+        facesContentWait.untilResponsesCome();
         String head = delegate.findElement(By.tagName("head")).getAttribute("innerText");
         String body = delegate.findElement(By.tagName("body")).getAttribute("innerText");
         // handle blanks and nbsps
@@ -354,6 +525,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
         cycleData.clear();
         lastGet = null;
+        firstRequest = false;
     }
 
     /**
@@ -401,29 +573,28 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     @Override
     public int getResponseStatus() {
-        try {
-            HttpCycleData data = getLastGetData();
-            if (data == null) {
-                return -1;
-            }
-            if (data.responseReceived == null) {
-                return -1;
-            }
-            return data.responseReceived.getResponse().getStatus();
-        } catch (java.util.NoSuchElementException ex) {
+        HttpCycleData data = getLastGetData();
+        if (data == null || !data.hasResponse()) {
             return -1;
         }
+        return data.responseReceived.getResponse().getStatus();
     }
 
     @Override
     public String getResponseBody() {
         HttpCycleData data = getLastGetData();
+        if (data == null) {
+            return null;
+        }
         return delegate.getDevTools().send(Network.getResponseBody(data.requestId)).getBody();
     }
 
     @Override
     public String getRequestData() {
         HttpCycleData data = getLastGetData();
+        if (data == null) {
+            return null;
+        }
         return data.request.getPostData().orElse("");
     }
 
@@ -436,6 +607,7 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
     }
 
     public List<WebElement> findElements(SearchContext context, BiFunction<String, Object, CommandPayload> findCommand, By locator) {
+        facesContentWait.untilResponsesCome();
         return delegate.findElements(context, findCommand, locator);
     }
 
@@ -499,44 +671,29 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
         String requestData = getRequestData();
         String[] splitData = requestData.split("&");
 
-        return Stream.of(splitData).map((String keyVal) -> URLDecoder.decode(keyVal, StandardCharsets.UTF_8)).toArray(String[]::new);
+        return Stream.of(splitData).map((String keyVal) -> URLDecoder.decode(keyVal, UTF_8)).toArray(String[]::new);
     }
 
     private HttpCycleData getLastGetData() {
-        sortResponses();
-
-        return cycleData.stream().filter(item -> item.request.getUrl().contains(lastGet))
-                // missing last api
-                .reduce((item1, item2) -> item2).orElse(null);
-    }
-
-    private void sortResponses() {
-        // We sort by response timestamps, with items with no response being first
-        // last response always being the one at the bottom
-        cycleData.sort((o1, o2) -> {
-            if (o1.responseReceived == null) {
-                return -1;
-            }
-
-            if (o2.responseReceived == null) {
-                return 1;
-            }
-
-            return Long.compare(o1.responseReceived.getTimestamp().toJson().longValue(), o2.responseReceived.getTimestamp().toJson().longValue());
-        });
+        if (lastGet == null) {
+            return null;
+        }
+        waitForFaces(STD_TIMEOUT);
+        return cycleData.stream()
+            .filter(item -> item.hasBaseUrl(lastGet) && item.hasResponse()
+                && item.responseReceived.getType() == ResourceType.DOCUMENT)
+            .sorted(RESPONSE_TIME_COMPARATOR.reversed()).findFirst().orElse(null);
     }
 
     @Override
     public void printProcessedResponses() {
-        sortResponses();
-
-        cycleData.stream().filter(item -> item.responseReceived != null)
+        cycleData.stream().filter(HttpCycleData::hasResponse).sorted(RESPONSE_TIME_COMPARATOR)
                 // Missing last api
-                .forEach(item -> {
+                .forEachOrdered(item -> {
                     System.out.println("Url: " + item.request.getUrl());
                     System.out.println("RequestId: " + item.requestId.toJson());
                     Optional<TimeSinceEpoch> responseTime = item.responseReceived.getResponse().getResponseTime();
-                    System.out.println("ResponseTime: " + responseTime.orElse(new TimeSinceEpoch(-1)));
+                    System.out.println("ResponseTime: " + responseTime.orElse(null));
                     System.out.println("ResponseStatus: " + item.responseReceived.getResponse().getStatus());
                 });
     }
@@ -548,17 +705,86 @@ public class ChromeDevtoolsDriver implements ExtendedWebDriver {
 
     @Override
     public JavascriptExecutor getJSExecutor() {
-        return delegate;
+        return this;
     }
 
     @Override
     public void addRequestHeader(String name, String value) {
         getDevTools().send(Network.setExtraHTTPHeaders(new Headers(Map.of(name, value))));
     }
+
+    private class ChromeDriverWait extends FluentWait<ChromeDriver> {
+        ChromeDriverWait(ChromeDriver input, Duration timeout, Duration pause) {
+            super(input);
+            withTimeout(timeout);
+            pollingEvery(pause);
+        }
+
+        public <V> V until(Function<? super ChromeDriver, V> isTrue) {
+            untilResponsesCome();
+            return super.until(isTrue);
+        }
+
+        /** Block if there is anything what could result in changes. */
+        public void untilResponsesCome() {
+            super.until(d -> !isCommunicationInProgress());
+        }
+
+        public ChromeDriverWait ignoring(Class<? extends Throwable> exceptionType) {
+            return ignoreAll(List.of(exceptionType));
+        }
+
+        public <K extends Throwable> ChromeDriverWait ignoreAll(Collection<Class<? extends K>> types) {
+            super.ignoreAll(types);
+            return this;
+        }
+
+        private boolean isCommunicationInProgress() {
+            Optional<HttpCycleData> incomplete = cycleData.stream().filter(not(HttpCycleData::hasResponse)).findAny();
+            if (incomplete.isPresent()) {
+                LOG.log(FINE, "Still waiting for response for {0}.", incomplete.get());
+                return true;
+            }
+            return false;
+        }
+    }
 }
 
 class HttpCycleData {
-    public RequestId requestId;
+    public final RequestId requestId;
     public Request request;
     public ResponseReceived responseReceived;
+
+    public HttpCycleData(RequestId requestId) {
+        this.requestId = requestId;
+    }
+
+    public boolean isRequest(RequestId id) {
+        return requestId.toJson().equals(id.toJson());
+    }
+
+    public boolean hasBaseUrl(String urlBase) {
+        String url = request == null ? null : request.getUrl();
+        return url != null && url.startsWith(urlBase);
+    }
+
+    public boolean hasResponse() {
+        return responseReceived != null;
+    }
+
+    public Double getResponseTime() {
+        if (responseReceived == null) {
+            return null;
+        }
+        TimeSinceEpoch responseTime = responseReceived.getResponse().getResponseTime().orElse(null);
+        if (responseTime == null) {
+            return null;
+        }
+        return responseTime.toJson().doubleValue();
+    }
+
+    @Override
+    public String toString() {
+        return reflectionToString(this);
+    }
 }

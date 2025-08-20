@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023, 2025 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -15,6 +15,7 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
+import java.lang.System.Logger;
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
@@ -29,10 +30,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static java.lang.System.Logger.Level.TRACE;
+
 /**
  * Mimics the html unit webpage
  */
 public class WebPage {
+    private static final Logger LOG = System.getLogger(WebPage.class.getName());
 
     public static final Duration STD_TIMEOUT = Duration.ofMillis(8000);
     public static final Duration LONG_TIMEOUT = Duration.ofMillis(16000);
@@ -88,6 +92,7 @@ public class WebPage {
             try {
                 webDriver.wait(timeout.toMillis());
             } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
             }
         }
@@ -95,7 +100,7 @@ public class WebPage {
 
     /**
      * wait until the current non-Ajax request targeting the same page has completed
-     * 
+     *
      * @param the non-ajax action to execute, usually {@code WebElement::click}
      */
     public void guardHttp(Runnable action) {
@@ -105,13 +110,14 @@ public class WebPage {
 
     /**
      * wait until the current Ajax request targeting the same page has completed
-     * 
+     *
      * @param the ajax action to execute, usually {@code WebElement::click}
      */
     public void guardAjax(Runnable action) {
         var uuid = UUID.randomUUID().toString();
         webDriver.getJSExecutor().executeScript("window.$ajax=true;faces.ajax.addOnEvent(data=>{if(data.status=='complete')window.$ajax='" + uuid + "'})");
         action.run();
+        webDriver.waitForFaces(STD_TIMEOUT);
         waitForCondition($ -> webDriver.getJSExecutor().executeScript("return window.$ajax=='" + uuid + "' || (!window.$ajax && document.readyState=='complete')"));
     }
 
@@ -288,6 +294,7 @@ public class WebPage {
             return true;
         } catch (TimeoutException ex) {
             // timeout is wanted in this case and should result in a false
+            LOG.log(TRACE, "This exception was expected.", ex);
             return false;
         }
     }

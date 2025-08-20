@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Contributors to the Eclipse Foundation.
+ * Copyright (c) 2023, 2025 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0 which is available at
@@ -21,7 +21,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * a helper class providing pool management for our drivers Note, the pool itself is thread safe (and must be), the
  * drivers are not!
  */
-@SuppressWarnings("unused")
 public class DriverPool {
 
     ConcurrentLinkedQueue<ExtendedWebDriver> allDrivers = new ConcurrentLinkedQueue<>();
@@ -35,7 +34,7 @@ public class DriverPool {
     public synchronized ExtendedWebDriver getOrNewInstance() {
         // synchronized to avoid get race conditions.... there is a non synchonzed part between the check and remove
         // to make this easy we simply synchronize the get to fix it
-        ExtendedWebDriver webDriver = (availableDrivers.size() > 0) ? availableDrivers.remove() : null;
+        ExtendedWebDriver webDriver = availableDrivers.isEmpty() ? null : availableDrivers.remove();
         if (webDriver == null) {
             webDriver = ChromeDevtoolsDriver.stdInit();
             allDrivers.add(webDriver);
@@ -83,7 +82,7 @@ public class DriverPool {
      * cleans up the pool
      */
     public void quitAll() {
-        allDrivers.stream().forEach(webDriver -> webDriver.quit());
+        allDrivers.stream().forEach(ExtendedWebDriver::quit);
         allDrivers.clear();
         availableDrivers.clear();
     }
