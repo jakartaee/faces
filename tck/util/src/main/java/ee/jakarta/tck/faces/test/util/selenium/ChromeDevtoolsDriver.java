@@ -16,7 +16,6 @@
 package ee.jakarta.tck.faces.test.util.selenium;
 
 import java.io.OutputStream;
-import java.lang.Thread.State;
 import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -262,10 +261,12 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             .orElse(new HttpCycleData(requestId));
     }
 
+    @Override
     public Capabilities getCapabilities() {
         return delegate.getCapabilities();
     }
 
+    @Override
     public void setFileDetector(FileDetector detector) {
         delegate.setFileDetector(detector);
     }
@@ -343,18 +344,22 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         delegate.deleteNetworkConditions();
     }
 
+    @Override
     public SessionId getSessionId() {
         return delegate.getSessionId();
     }
 
+    @Override
     public ErrorHandler getErrorHandler() {
         return delegate.getErrorHandler();
     }
 
+    @Override
     public void setErrorHandler(ErrorHandler handler) {
         delegate.setErrorHandler(handler);
     }
 
+    @Override
     public CommandExecutor getCommandExecutor() {
         return delegate.getCommandExecutor();
     }
@@ -545,7 +550,12 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      */
     @Override
     public void quit() {
-        delegate.quit();
+        try {
+            delegate.quit();
+        } catch (TimeoutException e) {
+            // DevTools cleanup raced with browser shutdown — ignore
+            LOG.log(WARNING, "Ignoring DevTools timeout during quit()", e);
+        }
     }
 
     @Override
@@ -600,62 +610,77 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         return data.request.getPostData().orElse("");
     }
 
+    @Override
     public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
         return delegate.getScreenshotAs(outputType);
     }
 
+    @Override
     public Pdf print(PrintOptions printOptions) throws WebDriverException {
         return delegate.print(printOptions);
     }
 
+    @Override
     public List<WebElement> findElements(SearchContext context, BiFunction<String, Object, CommandPayload> findCommand, By locator) {
         return facesContentWait.until(driver -> driver.findElements(context, findCommand, locator));
     }
 
+    @Override
     public Object executeScript(String script, Object... args) {
         return delegate.executeScript(script, args);
     }
 
+    @Override
     public Object executeAsyncScript(String script, Object... args) {
         return delegate.executeAsyncScript(script, args);
     }
 
+    @Override
     public void setLogLevel(Level level) {
         delegate.setLogLevel(level);
     }
 
+    @Override
     public void perform(Collection<Sequence> actions) {
         delegate.perform(actions);
     }
 
+    @Override
     public void resetInputState() {
         delegate.resetInputState();
     }
 
+    @Override
     public VirtualAuthenticator addVirtualAuthenticator(VirtualAuthenticatorOptions options) {
         return delegate.addVirtualAuthenticator(options);
     }
 
+    @Override
     public void removeVirtualAuthenticator(VirtualAuthenticator authenticator) {
         delegate.removeVirtualAuthenticator(authenticator);
     }
 
+    @Override
     public FileDetector getFileDetector() {
         return delegate.getFileDetector();
     }
 
+    @Override
     public ScriptKey pin(String script) {
         return delegate.pin(script);
     }
 
+    @Override
     public void unpin(ScriptKey key) {
         delegate.unpin(key);
     }
 
+    @Override
     public Set<ScriptKey> getPinnedScripts() {
         return delegate.getPinnedScripts();
     }
 
+    @Override
     public Object executeScript(ScriptKey key, Object... args) {
         return delegate.executeScript(key, args);
     }
@@ -715,16 +740,19 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             pollingEvery(pause);
         }
 
+        @Override
         public <V> V until(Function<? super ChromeDriver, V> isTrue) {
             // Block if there is anything what could result in changes.
             super.until(d -> !isCommunicationInProgress());
             return super.until(isTrue);
         }
 
+        @Override
         public ChromeDriverWait ignoring(Class<? extends Throwable> exceptionType) {
             return ignoreAll(List.of(exceptionType));
         }
 
+        @Override
         public <K extends Throwable> ChromeDriverWait ignoreAll(Collection<Class<? extends K>> types) {
             super.ignoreAll(types);
             return this;
