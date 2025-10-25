@@ -17,6 +17,7 @@ package ee.jakarta.tck.faces.test.faces50.converters;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Set;
 
@@ -77,5 +78,20 @@ class Issue5596IT extends BaseITNG {
                 () -> assertEquals("123.45", page.findElement(By.id(id + ":bigDecimal")).getDomProperty("value"))
             );
         }
+    }
+
+    /**
+     * https://github.com/eclipse-ee4j/mojarra/issues/5609
+     */
+    @Test
+    void testNotNullValidation() {
+        String formId = "formForNotNullValidation";
+        var page = getPage("issue5596.xhtml");
+        assertEquals("", page.findElement(By.id(formId + ":messages")).getText());
+        page.guardHttp(page.findElement(By.id(formId + ":submit"))::click);
+        assertNotEquals("", page.findElement(By.id(formId + ":messages")).getText());
+        page.findElement(By.id(formId + ":string")).sendKeys("not null");
+        page.guardHttp(page.findElement(By.id(formId + ":submit"))::click);
+        assertEquals("", page.findElement(By.id(formId + ":messages")).getText());
     }
 }
