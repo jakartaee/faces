@@ -80,6 +80,7 @@ import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 
 import static ee.jakarta.tck.faces.test.util.selenium.WebPage.STD_TIMEOUT;
+import static java.lang.Boolean.TRUE;
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.naturalOrder;
 import static java.util.Comparator.nullsFirst;
@@ -90,6 +91,9 @@ import static java.util.logging.Level.FINEST;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.WARNING;
 import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.DOCUMENT;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.FETCH;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.XHR;
 
 /**
  * Extended driver which we need for getting the http response code and the http response without having to revert to
@@ -114,7 +118,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the
      * selenium webdriver version must match the browser version
      */
-    private static AtomicBoolean firstLog = new AtomicBoolean(Boolean.TRUE);
+    private static AtomicBoolean firstLog = new AtomicBoolean(TRUE);
+    private final ReentrantLock devToolsInitLock = new ReentrantLock();
+    private volatile boolean devToolsInitialized;
 
     private ChromeDriver delegate;
     private ChromeDriverWait facesContentWait;
@@ -122,6 +128,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     private ReentrantLock cycleDataWriteLock = new ReentrantLock();
     private boolean firstRequest = true;
     private String lastGet;
+
 
     public static ExtendedWebDriver stdInit() {
         Locale.setDefault(new Locale("en", "US"));
@@ -139,7 +146,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         // default is headless = true
         String headless = System.getProperty("chromedriver.headless");
         if (headless == null || "true".equals(headless)) {
-            options.addArguments("--headless");
+            options.addArguments("--headless=new");
         }
 
         options.addArguments("--no-sandbox");
@@ -202,6 +209,29 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         disableCache(devTools);
     }
 
+
+    public void postInitX() {
+        devToolsInitLock.lock();
+        try {
+            if (devToolsInitialized) {
+                return;
+            }
+
+            DevTools devTools = delegate.getDevTools();
+
+            Runnable init = () -> {
+                initNetworkListeners(devTools);
+                initDevTools(devTools);
+                disableCache(devTools);
+            };
+
+            runWithRetry(init, 4, Duration.ofMillis(150), 2.0);
+            devToolsInitialized = true;
+        } finally {
+            devToolsInitLock.unlock();
+        }
+    }
+
     private static void disableCache(DevTools devTools) {
         devTools.send(Network.setCacheDisabled(true));
     }
@@ -211,9 +241,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             devTools.createSession();
             devTools.send(Network.clearBrowserCache());
         } catch (TimeoutException ex) {
-            LOG.warning("Init timeout error, can happen, if the driver already has been used, can be safely ignore");
+            LOG.warning("Init timeout error, can happen, if the driver already has been used, can be safely ignored");
         }
-        devTools.send(Network.enable(empty(), empty(), empty(), empty()));
+
+        runWithRetry(
+            () -> devTools.send(Network.enable(empty(), empty(), empty(), empty())),
+            4,
+            Duration.ofMillis(150),
+            2.0);
     }
 
     private void initNetworkListeners(DevTools devTools) {
@@ -253,7 +288,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      * Interesting for us are just {@link ResourceType#XHR} and {@link ResourceType#DOCUMENT} types.
      */
     private boolean isIgnored(ResourceType resourceType) {
-        return resourceType != ResourceType.XHR && resourceType != ResourceType.DOCUMENT;
+        return resourceType != XHR && resourceType != DOCUMENT && resourceType != FETCH;
     }
 
     private HttpCycleData findOrCreate(RequestId requestId) {
@@ -402,7 +437,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             return true;
         });
+
         LOG.log(FINEST, "Communication with Faces started!");
+
         waitForFaces(timeout);
     }
 
@@ -421,6 +458,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     @Override
     public void waitForFaces(Duration timeout) {
         Duration pause = Duration.ofMillis(100);
+
         // Some tests click a button and immediately check the result.
         // As they probably produced a XHR request immediately,
         // we should allow it to make it to the cycleData.
@@ -429,21 +467,24 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
         ChromeDriverWait wait = new ChromeDriverWait(delegate, timeout, pause);
+
         wait.until(d -> {
             if (cycleData.isEmpty()) {
                 LOG.log(FINEST, "Waiting for communication with Faces server ...");
                 return false;
             }
+
             HttpCycleData data = getLastGetData();
             LOG.log(FINEST, "LastGetData: {0}", data);
             if (data == null) {
                 return false;
             }
-            JavascriptExecutor jsExecutor = getJSExecutor();
-            String jsCommand = "return document.readyState";
-            Object result = jsExecutor.executeScript(jsCommand);
-            LOG.log(FINE, () -> jsCommand + " returned " + result);
+
+            Object result = getJSExecutor().executeScript("return document.readyState");
+            LOG.log(FINE, () -> "return document.readyState returned " + result);
+
             // See JavaScript specifications for readyState values
             return "complete".equals(result);
         });
@@ -742,9 +783,10 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
         @Override
         public <V> V until(Function<? super ChromeDriver, V> isTrue) {
-            // Block if there is anything what could result in changes.
-            super.until(d -> !isCommunicationInProgress());
-            return super.until(isTrue);
+            return super.until(d -> {
+                if (isCommunicationInProgress()) return null; // keep waiting
+                return isTrue.apply(d);
+            });
         }
 
         @Override
@@ -766,6 +808,37 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             return false;
         }
+    }
+
+    private static void runWithRetry(Runnable r, int attempts, Duration initialDelay, double backoff) {
+        if (attempts <= 0) {
+            return; // nothing to do
+        }
+
+        Duration delay = initialDelay;
+        RuntimeException lastException = null;
+
+        for (int i = 1; i <= attempts; i++) {
+            try {
+                r.run();
+                return;
+            } catch (WebDriverException e) {
+                lastException = e;
+
+                LOG.log(WARNING, "CDP init attempt {0} failed; retrying in {1} ms", new Object[] { i, delay.toMillis() });
+
+                try {
+                    Thread.sleep(delay.toMillis());
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw lastException;
+                }
+
+                delay = delay.multipliedBy((long) backoff);
+            }
+        }
+
+        throw lastException;
     }
 }
 
