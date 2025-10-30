@@ -119,8 +119,6 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      * selenium webdriver version must match the browser version
      */
     private static AtomicBoolean firstLog = new AtomicBoolean(TRUE);
-    private final ReentrantLock devToolsInitLock = new ReentrantLock();
-    private volatile boolean devToolsInitialized;
 
     private ChromeDriver delegate;
     private ChromeDriverWait facesContentWait;
@@ -209,29 +207,6 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         disableCache(devTools);
     }
 
-
-    public void postInitX() {
-        devToolsInitLock.lock();
-        try {
-            if (devToolsInitialized) {
-                return;
-            }
-
-            DevTools devTools = delegate.getDevTools();
-
-            Runnable init = () -> {
-                initNetworkListeners(devTools);
-                initDevTools(devTools);
-                disableCache(devTools);
-            };
-
-            runWithRetry(init, 4, Duration.ofMillis(150), 2.0);
-            devToolsInitialized = true;
-        } finally {
-            devToolsInitLock.unlock();
-        }
-    }
-
     private static void disableCache(DevTools devTools) {
         devTools.send(Network.setCacheDisabled(true));
     }
@@ -246,7 +221,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
         runWithRetry(
             () -> devTools.send(Network.enable(empty(), empty(), empty(), empty())),
-            4,
+            10,
             Duration.ofMillis(150),
             2.0);
     }

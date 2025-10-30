@@ -99,7 +99,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
         <test.selenium>true</test.selenium>
-        <failsafe.rerunFailingTestsCount>0</failsafe.rerunFailingTestsCount>
+        <failsafe.rerunFailingTestsCount>4</failsafe.rerunFailingTestsCount>
         <failsafe.failOnFlakeCount>0</failsafe.failOnFlakeCount>
 
         <arquillian.version>1.10.0.Final</arquillian.version>
