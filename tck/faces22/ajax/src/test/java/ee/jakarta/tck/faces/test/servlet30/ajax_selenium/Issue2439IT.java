@@ -16,12 +16,15 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
@@ -29,20 +32,39 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Issue2439IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior#isDisabled()
+    /**
+     * @see AjaxBehavior#isDisabled()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2443
-   */
-  @Test
-  void disabledBehaviors() throws Exception {
+     */
+    @Test
+    void disabledBehaviors() throws Exception {
         WebPage page = getPage("disabledBehaviors.xhtml");
-        
+
+        WebElement output = page.findElement(By.id("output"));
         WebElement input1 = page.findElement(By.id("form1:input1"));
+
+        try {
+            page.guardAjax(() -> input1.sendKeys("1", Keys.TAB));
+            fail("There should be no ajax behavior");
+        }
+        catch (TimeoutException e) {
+            assertEquals("", output.getText());
+        }
+
         WebElement input2 = page.findElement(By.id("form1:input2"));
+        page.guardAjax(() -> input2.sendKeys("2", Keys.TAB));
+        assertEquals("form1:input2", output.getText());
+
         WebElement input3 = page.findElement(By.id("form1:input3"));
-        assertTrue(input1.getDomAttribute("onchange") == null || input1.getDomAttribute("onchange").isEmpty(), "input1 has no onchange attribute");
-        assertTrue(input2.getDomAttribute("onchange") != null && !input2.getDomAttribute("onchange").isEmpty(), "input2 has onchange attribute");
-        assertTrue(input3.getDomAttribute("onchange") != null && !input3.getDomAttribute("onchange").isEmpty(), "input3 has onchange attribute");
+        input3.sendKeys("3", Keys.TAB);
+        assertEquals("form1:input2 Hello, form1:input3", output.getText());
+
+        WebElement input4 = page.findElement(By.id("form1:input4"));
+        page.guardAjax(() -> input4.sendKeys("4", Keys.TAB));
+        assertEquals("form1:input2 Hello, form1:input3 form1:input4 form1:input4", output.getText());
+
+        WebElement input5 = page.findElement(By.id("form1:input5"));
+        page.guardAjax(() -> input5.sendKeys("5", Keys.TAB));
+        assertEquals("form1:input2 Hello, form1:input3 form1:input4 form1:input4 Hello, form1:input5 form1:input5", output.getText());
     }
 }
-

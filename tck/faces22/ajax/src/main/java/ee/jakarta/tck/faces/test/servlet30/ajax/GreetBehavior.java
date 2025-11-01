@@ -42,12 +42,12 @@ public class GreetBehavior extends ClientBehaviorBase {
 
     public String getScript(ClientBehaviorContext behaviorContext) {
 
-        String name = (this.name == null) ? "World" : this.name;
+        String name = (this.name == null) ? behaviorContext.getComponent().getClientId() : this.name;
 
-        StringBuilder builder = new StringBuilder(19 + name.length());
-        builder.append("alert('Hello, ");
+        StringBuilder builder = new StringBuilder();
+        builder.append("document.getElementById('output').innerHTML+=' Hello, ");
         builder.append(name);
-        builder.append("!');");
+        builder.append("';");
 
         return builder.toString();
     }
