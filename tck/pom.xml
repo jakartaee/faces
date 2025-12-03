@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2020, 2023 Contributors to Eclipse Foundation. All rights reserved.
+    Copyright (c) 2020, 2025 Contributors to Eclipse Foundation. All rights reserved.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -47,10 +47,10 @@
         <maven.compiler.release>11</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        
+
         <maven.test.skip>false</maven.test.skip>
         <skipTests>false</skipTests>
-        
+
         <faces.version>4.0.1</faces.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
@@ -59,22 +59,35 @@
 
     <dependencyManagement>
         <dependencies>
+	        <dependency>
+	            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+	            <artifactId>shrinkwrap-resolver-impl-maven</artifactId>
+	            <version>3.3.4</version>
+	            <type>jar</type>
+	            <scope>test</scope>
+	        </dependency>
+	        <dependency>
+	            <groupId>org.jboss.shrinkwrap.resolver</groupId>
+	            <artifactId>shrinkwrap-resolver-impl-maven-archive</artifactId>
+	            <version>3.3.4</version>
+	            <scope>test</scope>
+	        </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian</groupId>
                 <artifactId>arquillian-bom</artifactId>
-                <version>1.7.1.Final</version>
+                <version>1.10.0.Final</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.jboss.arquillian.container</groupId>
                 <artifactId>arquillian-container-test-api</artifactId>
-                <version>1.7.1.Final</version>
+                <version>1.10.0.Final</version>
             </dependency>
             <dependency>
-                <groupId>org.omnifaces.arquillian</groupId>
+                <groupId>org.omnifish.arquillian</groupId>
                 <artifactId>glassfish-client-ee10</artifactId>
-                <version>1.4</version>
+                <version>2.1.2</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -127,7 +140,7 @@
             <version>3.0.1</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>jakarta.ejb</groupId>
             <artifactId>jakarta.ejb-api</artifactId>
@@ -260,7 +273,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.4.0</version>
+                <version>3.6.2</version>
                 <configuration>
                     <rules>
                         <requireMavenVersion>
@@ -276,7 +289,7 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -286,7 +299,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
@@ -304,7 +317,7 @@
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-report-plugin</artifactId>
@@ -339,7 +352,7 @@
     </reporting>
 
     <profiles>
-    
+
         <profile>
             <id>build-epl-tck</id>
             <activation>
@@ -350,15 +363,15 @@
                 <licenseFile>${project.basedir}/LICENSE.md</licenseFile>
             </properties>
         </profile>
-    
+
         <profile>
             <id>custom</id>
         </profile>
-        
-        
+
+
         <!-- Profiles for the application servers against which the tests are run -->
 
-        
+
         <!-- ### GlassFish ### -->
 
 
@@ -373,7 +386,7 @@
                 <!-- Explicit version of Mojarra to test -->
                 <mojarra.noupdate>false</mojarra.noupdate>
                 <mojarra.version>4.0.11</mojarra.version>
-                
+
                 <!-- Verhicle used for testing the Mojarra version -->
                 <glassfish.version>7.0.25</glassfish.version>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
@@ -383,9 +396,9 @@
             <dependencies>
                 <!-- The actual Arquillian connector -->
                 <dependency>
-                    <groupId>org.omnifaces.arquillian</groupId>
+                    <groupId>ee.omnifish.arquillian</groupId>
                     <artifactId>arquillian-glassfish-server-managed</artifactId>
-                    <version>1.4</version>
+                    <version>2.1.2</version>
                     <scope>test</scope>
                 </dependency>
             </dependencies>
@@ -451,7 +464,7 @@
                 </plugins>
             </build>
         </profile>
-        
+
 
 
         <!-- ### PIRANHA ### -->
@@ -462,7 +475,7 @@
             <dependencies>
                 <!-- Jakarta EE based client dependencies to contact a server via WebSocket or REST -->
                 <dependency>
-                    <groupId>org.omnifaces.arquillian</groupId>
+                    <groupId>ee.omnifish.arquillian</groupId>
                     <artifactId>glassfish-client-ee10</artifactId>
                     <scope>test</scope>
                 </dependency>
@@ -667,8 +680,8 @@
                 </plugins>
             </build>
         </profile>
-        
-        
+
+
         <!-- ### Payara ### -->
 
         <profile>
@@ -696,8 +709,8 @@
                     <scope>test</scope>
                     <version>${payara.arquillian.container.version}</version>
                 </dependency>
-                <!-- 
-                Solution for 
+                <!--
+                Solution for
                 WARNING: A class jakarta.activation.DataSource for a default provider MessageBodyWriter<jakarta.activation.DataSource> was not found. The provider is not available.
                 fish.payara.arquillian.shaded.glassfish.jersey.message.internal.MessagingBinders$EnabledProvidersBinder bindToBinder
                 -->
