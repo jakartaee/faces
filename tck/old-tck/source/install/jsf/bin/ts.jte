@@ -15,13 +15,13 @@
 #
 
 #########################################################################
-#                                                                   	
-#   JavaTest Environment file for JSF Compatibility Test Suite       
-#                                                                       
-#   Environment specific properties in this file will likely	 	
+#
+#   JavaTest Environment file for JSF Compatibility Test Suite
+#
+#   Environment specific properties in this file will likely
 #   have to be modified prior to running the JSF TCK. Instructions
-#   for modifying these properties are contained in this file.	
-#                                                                       
+#   for modifying these properties are contained in this file.
+#
 #########################################################################
 
 #########################################################################
@@ -40,7 +40,7 @@ jte.version=@JTE_VERSION@
 # webServerHost - Specifies the host of the target container
 # webServerPort - Specifies the port the container is bound
 # webServerHome - Specifies the installation directory of the container
-# 
+#
 # The web.deployment.handler property must refer to an ANT file containing
 # at least a single target named 'deploy'.  When 'ant deploy' is invoked,
 # this target will be invoked to handle the deployment of the web
@@ -96,7 +96,7 @@ jspservlet.classes=${webServerHome}/modules/jakarta.servlet.jsp.jar${pathsep}${w
 # the total timeout delay.  Note: this value only works with Javatest's
 # batch mode (runclient).  When using the Javatest GUI users must change
 # this timeout factor in the GUI. Configure -> Edit Configuration -> View
-# -> choose Standard Values -> select tab Execution ->  set Time Factor. 
+# -> choose Standard Values -> select tab Execution ->  set Time Factor.
 ########################################################################
 javatest.timeout.factor=2.0
 
@@ -106,11 +106,11 @@ javatest.timeout.factor=2.0
 #                    modules will be expanded by the jimage tool for use
 #                    in sigTestClasspath
 #
-# @sigTestClasspath: This property must be set when running signature 
+# @sigTestClasspath: This property must be set when running signature
 #                    tests.  This property should be set to a list of
-#                    jar files and/or directories which contain your 
-#                    Java EE and Java SE classes. Paths must be 
-#                    separated by the appropriate path separator 
+#                    jar files and/or directories which contain your
+#                    Java EE and Java SE classes. Paths must be
+#                    separated by the appropriate path separator
 #                    (';' windows, ':' Unixes).
 #
 ########################################################################
@@ -121,16 +121,16 @@ sigTestClasspath=${jsf.classes}${pathsep}${jspservlet.classes}${pathsep}${jimage
 ########################################################################
 #These properties must be set to tell the Javatest harness the
 #class names of your porting class implementations. By default
-#the property settings below point to Sun RI specific classes.  
+#the property settings below point to Sun RI specific classes.
 ########################################################################
 porting.ts.url.class.1=com.sun.ts.lib.implementation.sun.common.SunRIURL
 
 
 ########################################################################
-# Javatest batch mode work directory and report directory, and policy for 
+# Javatest batch mode work directory and report directory, and policy for
 # handling existing work and report directories.  These properties affects
 # runclient and report targets, but not gui target.
-# To disable generating test report, unset report.dir, or set it to "none" 
+# To disable generating test report, unset report.dir, or set it to "none"
 # either here or from command line, as in the following command:
 #               ant runclient -Dreport.dir="none"
 #
@@ -138,18 +138,18 @@ porting.ts.url.class.1=com.sun.ts.lib.implementation.sun.common.SunRIURL
 # report.dir will be handled, and it must be one of the following values:
 # overwrite     overwrites all content in work.dir and report.dir
 # backup        moves all content in work.dir and report.dir to
-#               work.dir_time_day_bak and report.dir_time_day_bak, 
-#               respectively 
+#               work.dir_time_day_bak and report.dir_time_day_bak,
+#               respectively
 # append        reuses and preserves the existing work.dir and report.dir
-######################################################################## 
+########################################################################
 work.dir=/tmp/JTwork
 report.dir=/tmp/JTreport
 if.existing.work.report.dirs=overwrite
- 
+
 ########################################################################
 ## Common environment for both ts_unix and ts_win32
 #
-# @command.testExecute - This command is used to execute any test 
+# @command.testExecute - This command is used to execute any test
 #                        clients which are not run inside an
 #                        application client container.  For example,
 #                        any URL clients or standalone java clients
@@ -167,12 +167,12 @@ command.testExecute=com.sun.ts.lib.harness.ExecTSTestCmd \
                     ${JAVA_OPTIONS} $testExecuteClass $testExecuteArgs
 
 ########################################################################
-# Environment ts_unix                                              
+# Environment ts_unix
 ########################################################################
 env.ts_unix.menu=true
 
 ########################################################################
-# Environment ts_win32						       
+# Environment ts_win32
 ########################################################################
 env.ts_win32.menu=true
 
@@ -194,11 +194,10 @@ ${ts.home}/lib/commons-lang3-3.12.0.jar${pathsep}\
 ${ts.home}/lib/commons-codec-1.9.jar${pathsep}\
 ${ts.home}/lib/commons-collections-3.2.1.jar${pathsep}\
 ${ts.home}/lib/commons-httpclient-3.1.jar${pathsep}\
-${ts.home}/lib/cssparser-0.9.25.jar${pathsep}\
 ${ts.home}/lib/dec-0.1.2.jar${pathsep}\
 ${ts.home}/lib/htmlunit-2.70.0.jar${pathsep}\
 ${ts.home}/lib/htmlunit-core-js-2.70.0.jar${pathsep}\
-${ts.home}/lib/htmlunit-cssparser-1.12.0.jar${pathsep}\
+${ts.home}/lib/htmlunit-cssparser-1.14.0.jar${pathsep}\
 ${ts.home}/lib/htmlunit-xpath-2.70.0.jar${pathsep}\
 ${ts.home}/lib/httpcore-4.4.9.jar${pathsep}\
 ${ts.home}/lib/httpclient-4.5.5.jar${pathsep}\
@@ -217,7 +216,7 @@ ${ts.home}/lib/xml-apis-1.4.01.jar${pathsep}\
 
 ##########################################################################
 # Final classpath
-# DO NOT EDIT 
+# DO NOT EDIT
 ##########################################################################
 ts.classpath=${local.classes}${pathsep}${ant.home}/lib/ant.jar
 ts.harness.classpath=${ts.classpath}
@@ -240,7 +239,7 @@ harness.log.port=2000
 harness.log.mode=silent
 harness.log.traceflag=true
 harness.executeMode=2
-harness.log.delayseconds=1 
+harness.log.delayseconds=1
 harness.socket.retry.count=10
 ts_home=${TS_HOME}
 

@@ -69,7 +69,7 @@
 	<target name="check.for.cancel.out" depends="ts.version">
 		<echo message="If this information is not correct, CTRL-C out of this build" />
 	</target>
-	
+
 	<target name="usage">
 		<echo message="deliverables:" />
 		<echo message=" caj           [overrides]" />
@@ -165,7 +165,7 @@
 		<condition property="deliverable.bundle.dir" value="${bundle.dir}/${deliverable.name.token}${deliverable.type}">
 			<contains string="${deliverable.name}" substring="jakartaee" casesensitive="false" />
 		</condition>
-		
+
 		<condition property="deliverable.bundle.dir" value="${bundle.dir}/${deliverable.tck.dir}-${deliverable.type}">
 			<not>
 				<contains string="${deliverable.name}" substring="jakartaee" casesensitive="false" />
@@ -251,7 +251,7 @@
 		<antfetch antfile="${xml.file.to.call}" target="get.deliverable.version.number" return="deliverable.version">
 			<property name="time.stamp.bundle.string" value="${time.stamp.bundle.string}" />
 		</antfetch>
-		
+
 		<property name="zip.fullname" value="${zip.name}-${deliverable.version}" />
 		<property name="zip.file" value="${zip.fullname}.zip" />
 		<property name="excludelist.zip.file" value="excludelist_${zip.fullname}.zip" />
@@ -265,9 +265,9 @@
 
 	<target name="-unix-zip" if="isUnixPlatform">
 		<chmod dir="${deliverable.bundle.dir}/bin/xml/other" perm="ugo+rwx" includes="unix.sh" />
-		
+
 		<echo> **** unix zip ${zip.file} *** ${zip.name} </echo>
-		
+
 		<exec executable="zip" dir="${bundle.dir}" failonerror="true">
 			<arg line="-rq" />
 			<arg line="${zip.file} ${zip.name}" />
@@ -315,14 +315,9 @@
 
 	<target name="build" depends="setup, check.for.jakartaee.subset">
 		<ant antfile="common.xml" target="build" />
-		<antfetch antfile="${xml.file.to.call}" target="build" return="deliverable.tck.version">
+		<ant antfile="${xml.file.to.call}" target="build">
 			<property name="time.stamp.bundle.string" value="${time.stamp.bundle.string}" />
-		</antfetch>
-
-		<!-- Set this property to a default value to make it known that the version prop needs to be set -->
-		<!-- This property should be set in the deliverable specific bundling files and will be returned -->
-		<!-- by the previous antfetch call -->
-		<property name="deliverable.tck.version" value="unset_deliverable_tck_version" />
+		</ant>
 
 		<property name="zip.fullname" value="${zip.name}" />
 		<property name="zip.file" value="${zip.fullname}.zip" />
@@ -352,7 +347,7 @@
 		<chmod file="${deliverable.bundle.dir}" perm="777" includes="**/*" />
 
 		<antcall target="binary.finder" />
-		
+
 		<antcall target="createzipfile" />
 		<if>
 			<not>
@@ -576,7 +571,7 @@
 
 	<target name="jakartaee-ejb" depends="has.override, no.override">
 		<var name="deliverable.name" value="JAKARTAEE-EJB" />
-		<property name="test.areas" value="ejb,ejb30, 
+		<property name="test.areas" value="ejb,ejb30,
             appclient,
             integration/session,
             integration/entity,
