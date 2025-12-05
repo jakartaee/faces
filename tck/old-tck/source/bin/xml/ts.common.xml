@@ -139,9 +139,11 @@
                destdir="${class.dir}" 
                includes="${pkg.dir}/**/*.java"
                memoryMaximumSize="400m"
-               deprecation="on" >
+               deprecation="off"
+			>
 			<classpath>
 				<pathelement path="${ts.classpath}${pathsep}${ant.home}/lib/ant.jar" />
+				<pathelement path="${rmi.classes}" />
 			</classpath>
 			<compilerarg line="${jdk.compiler.args}"/>
 		</javac>

@@ -16,6 +16,7 @@
 
 export BASEDIR="$1"
 export ANT_HOME="$2"
+export VERSION="$3"
 
 if [ -z "$BASEDIR" ]; then
   export BASEDIR=`pwd`
@@ -54,16 +55,20 @@ mvn -f $BASEDIR/docker/pom.getlibs.xml clean -Pstaging dependency:copy-dependenc
 
 RMI_CLASSES="-Drmi.classes=$JAKARTA_JARS/glassfish-corba-omgapi.jar"
 
-TCK_SPECIFIC_PROPS="-Djsf.classes=$JAKARTA_JARS/jakarta.enterprise.cdi-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp.jstl-api.jar:$JAKARTA_JARS/jakarta.inject-api.jar:$JAKARTA_JARS/jakarta.faces-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp-api.jar:$JAKARTA_JARS/jakarta.servlet-api.jar:$JAKARTA_JARS/jakarta.el-api.jar:$JAKARTA_JARS/jakarta.annotation-api.jar:$JAKARTA_JARS/glassfish-corba-omgapi.jar"
+TCK_SPECIFIC_PROPS="-Djsf.classes=$JAKARTA_JARS/jakarta.enterprise.cdi-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp.jstl-api.jar:$JAKARTA_JARS/jakarta.inject-api.jar\
+:$JAKARTA_JARS/jakarta.faces-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp-api.jar:$JAKARTA_JARS/jakarta.servlet-api.jar:$JAKARTA_JARS/jakarta.el-api.jar\
+:$JAKARTA_JARS/jakarta.annotation-api.jar:$JAKARTA_JARS/glassfish-corba-omgapi.jar"
 
 echo "########## $TCK_NAME BUILD Started##########"
-ant -f $BASEDIR/install/$TCK_NAME/bin/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/install/$TCK_NAME/bin $RMI_CLASSES $TCK_SPECIFIC_PROPS  clean.all build.all.jars 
+ant -f $BASEDIR/install/$TCK_NAME/bin/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/install/$TCK_NAME/bin $RMI_CLASSES $TCK_SPECIFIC_PROPS  clean.all build.all.jars
 
-ant -f $BASEDIR/install/$TCK_NAME/bin/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/install/$TCK_NAME/bin $RMI_CLASSES $TCK_SPECIFIC_PROPS  build.all 
-  
+ant -f $BASEDIR/install/$TCK_NAME/bin/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/install/$TCK_NAME/bin $RMI_CLASSES $TCK_SPECIFIC_PROPS  build.all
+
 mkdir -p $BASEDIR/internal/docs/$TCK_NAME
 cp $BASEDIR/internal/docs/dtd/*.dtd $BASEDIR/internal/docs/$TCK_NAME/
-ant -f $BASEDIR/release/tools/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/release/tools -Dskip.createbom="true" -Dskip.build="true" $TCK_SPECIFIC_PROPS $TCK_NAME
+ant -f $BASEDIR/release/tools/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/release/tools -Dskip.createbom="true" -Ddeliverable.tck.version="$VERSION"\
+ -Dcts.harness.debug="true"\
+  $TCK_SPECIFIC_PROPS $TCK_NAME
 echo "########## $TCK_NAME BUILD Completed ##########"
 
 # Copy build to archive path
