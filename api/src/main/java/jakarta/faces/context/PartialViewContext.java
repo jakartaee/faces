@@ -279,7 +279,7 @@ public abstract class PartialViewContext {
      * sequence:
      * <ol>
      * <li>If {@link #isResetValues()} returns <code>true</code>, then call
-     * {@link UIViewRoot#resetValues(FacesContext, Collection)}, passing {@link #getRenderIds()}.</li>
+     * {@link UIViewRoot#resetValues(FacesContext, Collection, jakarta.faces.component.visit.VisitHint...)}, passing {@link #getRenderIds()}.</li>
      * <li>If {@link #isRenderAll()} returns <code>false</code>, then render any component resource of {@link UIViewRoot}
      * whose {@link ResourceHandler#getRendererTypeForResourceName(String)} does not return <code>null</code>, and whose
      * {@link UIComponent#getChildCount()} is zero, and whose

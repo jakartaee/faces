@@ -26,6 +26,7 @@ import jakarta.el.ValueExpression;
 import jakarta.faces.FacesException;
 import jakarta.faces.application.Application;
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 import jakarta.faces.context.ExceptionHandler;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
@@ -155,12 +156,12 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      * </p>
      */
     public static final String ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE = "jakarta.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE";
-    
+
     /**
      * <p class="changed_added_5_0">
      * Allowed values for the initialization parameter named by the {@value UIInput#VALIDATE_EMPTY_FIELDS_PARAM_NAME} constant.
      * </p>
-     * 
+     *
      * @since 5.0
      */
     public enum ValidateEmptyFields {
@@ -171,14 +172,14 @@ public class UIInput extends UIOutput implements EditableValueHolder {
          * </p>
          */
         AUTO,
-        
+
         /**
          * <p>
          * Indicates that empty fields should always be validated.
          * </p>
          */
         TRUE,
-        
+
         /**
          * <p>
          * Indicates that empty fields should never be validated.
@@ -738,7 +739,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
                 if (null == messageStr) {
                     message = MessageFactory.getMessage(context, UPDATE_MESSAGE_ID, MessageFactory.getLabel(context, this));
                 } else {
-                    message = new FacesMessage(FacesMessage.SEVERITY_ERROR, messageStr, messageStr);
+                    message = new FacesMessage(Severity.ERROR, messageStr, messageStr);
                 }
                 setValid(false);
             } catch (Exception e) {
@@ -1008,7 +1009,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      * the value is <code>null</code> or equal <span class="changed_modified_5_0">(ignoring case) to the enum constant {@link ValidateEmptyFields#AUTO}</span> take
      * appropriate action to determine if Bean Validation is present in the runtime environment. If not, validation should
      * not proceed. If so, validation should proceed. If the value is equal (ignoring case) to
-     * <span class="changed_modified_5_0">the enum constant {@link ValidateEmptyFields#TRUE}</span> validation should proceed. Otherwise, 
+     * <span class="changed_modified_5_0">the enum constant {@link ValidateEmptyFields#TRUE}</span> validation should proceed. Otherwise,
      * <span class="changed_added_5_0">if the value is equal (ignoring case) to the enum constant {@link ValidateEmptyFields#FALSE}</span> validation should not
      * proceed.
      * </p>
@@ -1035,7 +1036,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
             String requiredMessageStr = getRequiredMessage();
             FacesMessage message;
             if (null != requiredMessageStr) {
-                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, requiredMessageStr, requiredMessageStr);
+                message = new FacesMessage(Severity.ERROR, requiredMessageStr, requiredMessageStr);
             } else {
                 message = MessageFactory.getMessage(context, REQUIRED_MESSAGE_ID, MessageFactory.getLabel(context, this));
             }
@@ -1058,8 +1059,8 @@ public class UIInput extends UIOutput implements EditableValueHolder {
                         String validatorMessageString = getValidatorMessage();
 
                         if (null != validatorMessageString) {
-                            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, validatorMessageString, validatorMessageString);
-                            message.setSeverity(FacesMessage.SEVERITY_ERROR);
+                            message = new FacesMessage(Severity.ERROR, validatorMessageString, validatorMessageString);
+                            message.setSeverity(Severity.ERROR);
                         } else {
                             Collection<FacesMessage> messages = ve.getFacesMessages();
                             if (null != messages) {
@@ -1362,7 +1363,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
         FacesMessage message;
         String converterMessageString = getConverterMessage();
         if (null != converterMessageString) {
-            message = new FacesMessage(FacesMessage.SEVERITY_ERROR, converterMessageString, converterMessageString);
+            message = new FacesMessage(Severity.ERROR, converterMessageString, converterMessageString);
         } else {
             message = ce.getFacesMessage();
             if (message == null) {

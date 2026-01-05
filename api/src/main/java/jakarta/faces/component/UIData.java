@@ -38,6 +38,7 @@ import jakarta.enterprise.util.AnnotationLiteral;
 import jakarta.faces.FacesException;
 import jakarta.faces.application.Application;
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 import jakarta.faces.application.StateManager;
 import jakarta.faces.component.visit.VisitCallback;
 import jakarta.faces.component.visit.VisitContext;
@@ -2128,7 +2129,7 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
     private boolean contextHasErrorMessages(FacesContext context) {
 
         FacesMessage.Severity sev = context.getMaximumSeverity();
-        return sev != null && FacesMessage.SEVERITY_ERROR.compareTo(sev) >= 0;
+        return sev != null && Severity.ERROR.compareTo(sev) >= 0;
 
     }
 
