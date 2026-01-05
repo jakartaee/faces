@@ -18,7 +18,6 @@ package ee.jakarta.tck.faces.test.javaee8.searchExpression_selenium;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
@@ -51,17 +50,33 @@ public class Spec1238IT extends BaseITNG {
         ExtendedWebDriver webDriver = getWebDriver();
         WebElement label = webDriver.findElement(By.id("label"));
         WebElement input = webDriver.findElement(By.id("spec1238ITinput1"));
-        
-        assertEquals(label.getDomAttribute("for"), input.getDomAttribute("id"));
-        
-        String onchange = input.getDomAttribute("onchange");
 
-        if (onchange.contains("@this")) {
-            assertFalse(onchange.contains("spec1238ITinput1"));
+        assertEquals(label.getDomAttribute("for"), input.getDomAttribute("id"));
+
+        String behaviorScript = findBehaviorScript(page, input);
+
+        if (behaviorScript.contains("@this")) {
+            assertTrue(behaviorScript.contains("@this spec1238ITinput2"));
         }
         else {
-            assertTrue(onchange.contains("spec1238ITinput1"));
+            assertTrue(behaviorScript.contains("spec1238ITinput1 spec1238ITinput2"));
         }
-        assertTrue(onchange.contains("spec1238ITinput2"));
+    }
+
+    public static String findBehaviorScript(WebPage page, WebElement input) {
+        var id = input.getAttribute("id");
+
+        for (var script : page.findElements(By.tagName("script"))) {
+            var src = script.getAttribute("src");
+            if (src == null || src.isEmpty()) {
+                var content = script.getDomProperty("textContent");
+
+                if (content.contains("'" + id + "'") || content.contains("\"" + id + "\"")) {
+                    return content;
+                }
+            }
+        }
+
+        return null;
     }
 }

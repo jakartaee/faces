@@ -17,6 +17,7 @@
 package ee.jakarta.tck.faces.test.javaee8.searchExpression_selenium;
 
 
+import static ee.jakarta.tck.faces.test.javaee8.searchExpression_selenium.Spec1238IT.findBehaviorScript;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -45,9 +46,12 @@ public class Issue4331IT extends BaseITNG {
     public void testCustomSearchKeywordResolverAddedViaFacesConfig() throws Exception {
         WebPage page = getPage("issue4331.xhtml");
 
-        WebElement input = getWebDriver().findElement(By.id("input"));
-        assertFalse(input.getDomAttribute("onchange").contains("@custom"));
-        assertTrue(input.getDomAttribute("onchange").contains("input"));
+        WebElement input = getWebDriver().findElement(By.id("issue4331ITInput1"));
+
+        String behaviorScript = findBehaviorScript(page, input);
+
+        assertFalse(behaviorScript.contains("@custom"));
+        assertTrue(behaviorScript.contains("issue4331ITInput1"));
     }
 
 
