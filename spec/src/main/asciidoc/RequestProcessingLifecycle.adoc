@@ -1062,7 +1062,7 @@ __language[{-|\_}country[{-|_}variant]]__ without the colons, for example
 ’ ___ ’.
 
 To facilitate BCP 47 support, the Locale
-parsing mentioned above is done only if the JDK Locale.languageForTag
+parsing mentioned above is done only if the JDK Locale.forLanguageTag
 method does not return a Locale with a language in it. The additional
 format of the Locale string is as specified by that method.
 
