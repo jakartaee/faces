@@ -516,7 +516,7 @@ order in which they must be added.
 
 
 
-image:ELResolverChain.png[ELResolver chain]
+image:ELResolverChain.svg[ELResolver chain]
 
 The semantics of each _ELResolver_ are given
 below, either in tables that describe what must be done to implement
@@ -861,6 +861,8 @@ the Jakarta Expression Language API and must be added in the following order:
 . _jakarta.el.MapELResolver_
 . _jakarta.el.ListELResolver_
 . _jakarta.el.ArrayELResolver_
+. _jakarta.el.OptionalELResolver_
+. _jakarta.el.RecordELResolver_
 . _jakarta.el.BeanELResolver_
 
 These actual ELResolver instances must be
