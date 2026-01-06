@@ -1238,7 +1238,7 @@ specified. The contents of this element must be a fully qualified Java
 class name that, when instantiated, is a _RenderKitFactory_.
 
 
-* _/faces-config/factory/search-expression-context-kit-factory_ —This
+* _/faces-config/factory/search-expression-context-factory_ —This
 element contains the fully qualified class name of the concrete
 _SearchExpressionContextFactory_ implementation class that will be
 called when
