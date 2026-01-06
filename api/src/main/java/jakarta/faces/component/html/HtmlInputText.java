@@ -54,7 +54,7 @@ public class HtmlInputText extends UIInput implements ClientBehaviorHolder {
      */
     protected enum PropertyKeys {
         accesskey, alt, autocomplete, dir, disabled, label, lang, maxlength, onblur, onchange, onclick, ondblclick, onfocus, onkeydown, onkeypress, onkeyup,
-        onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onselect, readonly, role, size, style, styleClass, tabindex, title, type;
+        onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onselect, passthrough, readonly, role, size, style, styleClass, tabindex, title, type;
 
         String toString;
 
@@ -644,6 +644,36 @@ public class HtmlInputText extends UIInput implements ClientBehaviorHolder {
     public void setOnselect(java.lang.String onselect) {
         getStateHelper().put(PropertyKeys.onselect, onselect);
         handleAttribute(this, "onselect", onselect);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Return the value of the <code>passthrough</code> property.
+     * </p>
+     *
+     * @return the property value
+     * <p>
+     * Contents: The passthrough attribute represents a short hint (a word or short phrase) intended to aid the user with data entry.
+     *
+     * @since 5.0
+     */
+    public java.lang.String getPassthrough() {
+        return (java.lang.String) getStateHelper().eval(PropertyKeys.passthrough);
+
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Set the value of the <code>passthrough</code> property.
+     * </p>
+     *
+     * @param passthrough the new property value
+     *
+     * @since 5.0
+     */
+    public void setPassthrough(java.lang.String passthrough) {
+        getStateHelper().put(PropertyKeys.passthrough, passthrough);
+        handleAttribute(this, "passthrough", passthrough);
     }
 
     /**
