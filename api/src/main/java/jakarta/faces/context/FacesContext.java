@@ -835,13 +835,13 @@ public abstract class FacesContext {
 
     /**
      * <p class="changed_modified_2_0">
-     * Return the {@link FacesContext} instance for the request that is being processed by the current thread. If called
-     * during application initialization or shutdown, any method documented as "valid to call this method during application
-     * startup or shutdown" must be supported during application startup or shutdown time. The result of calling a method
-     * during application startup or shutdown time that does not have this designation is undefined.
+     * Return the {@link FacesContext} instance for the request that is being processed by the current thread<span
+     * class="changed_added_5_0">, or <code>null</code> if no FacesContext is associated with the current thread</span>.
+     * <span class="changed_modified_5_0">See the Jakarta Faces Specification Document section on "FacesContext Availability"
+     * for the complete normative requirements.</span>
      * </p>
      *
-     * @return the instance of <code>FacesContext</code>.
+     * @return the instance of <code>FacesContext</code>, or <code>null</code> if no FacesContext is associated with the current thread.
      */
     public static FacesContext getCurrentInstance() {
         return instance.get();

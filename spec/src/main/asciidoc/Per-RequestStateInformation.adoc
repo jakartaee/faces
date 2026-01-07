@@ -427,12 +427,57 @@ ensure that this value is set correctly before _FacesContextFactory_
 returns a _FacesContext_ instance, and that the value is maintained in a
 thread-safe manner.
 
-The
-default implementation must allow this method to be called during
-application startup time, before any requests have been serviced. If
-called during application startup time, the instance returned must have
-the special properties as specified on the javadocs for
-_FacesContext.getCurrentInstance()_ The . 
+[[a3235]]
+==== FacesContext Availability
+
+_FacesContext.getCurrentInstance()_ must return a
+non-__null__ _FacesContext_ instance only in the following scenarios:
+
+* *During request processing*: From the time a
+_FacesContext_ is created via _FacesContextFactory_ for request processing
+until _release()_ is called at the end of request processing.
+
+* *During PostConstructApplicationEvent
+processing*: The runtime must create a _FacesContext_ instance and
+associate it with the current thread via
+_FacesContext.setCurrentInstance()_ immediately before publishing
+_jakarta.faces.event.PostConstructApplicationEvent_. This _FacesContext_
+instance must remain available while all
+_PostConstructApplicationEvent_ listeners are being invoked. The
+runtime must call _release()_ on the _FacesContext_ instance and invoke
+_FacesContext.setCurrentInstance(null)_ immediately after all listeners
+have completed. Any method documented as "valid to call this method
+during application startup or shutdown" must be supported during this
+time.
+
+* *During PreDestroyApplicationEvent processing*:
+The runtime must create a _FacesContext_ instance and associate it with
+the current thread via _FacesContext.setCurrentInstance()_ immediately
+before publishing _jakarta.faces.event.PreDestroyApplicationEvent_. This
+_FacesContext_ instance must remain available while all
+_PreDestroyApplicationEvent_ listeners are being invoked. The runtime
+must call _release()_ on the _FacesContext_ instance and invoke
+_FacesContext.setCurrentInstance(null)_ immediately after all listeners
+have completed. Any method documented as "valid to call this method
+during application startup or shutdown" must be supported during this
+time.
+
+In all other scenarios, including but not limited
+to application initialization (before _PostConstructApplicationEvent_),
+background threads, scheduled tasks, listener callbacks (such as
+_HttpSessionListener_ invoked by session timeout), and any time between
+the completion of _PostConstructApplicationEvent_ and the first servlet
+request, _FacesContext.getCurrentInstance()_ must return __null__.
+
+The Jakarta Faces implementation must ensure that
+_FacesContext_ instances are maintained in a thread-safe manner using
+_ThreadLocal_ or equivalent mechanism. Implementations must ensure that
+_release()_ is called and _setCurrentInstance(null)_ is invoked to clear
+the _ThreadLocal_ association whenever a _FacesContext_ is no longer
+needed. This cleanup is critical for preventing _FacesContext_ leakage
+between requests and between applications in shared servlet containers.
+Implementations must ensure this cleanup occurs even in the presence of
+exceptions during request processing or event handling.
 
 [[a3237]]
 ==== CurrentPhaseId

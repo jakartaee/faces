@@ -711,7 +711,9 @@ Perform the actions specified in
 The
 runtime must publish the
 _jakarta.faces.event.PostConstructApplicationEvent_ immediately after all
-application configuration resources have been processed.
+application configuration resources have been processed. The runtime must
+create and make available a _FacesContext_ instance during this event processing
+as specified in <<Per-RequestStateInformation.adoc#a3235,FacesContext Availability>>.
 
 XML parsing errors
 detected during the loading of an application resource file are fatal to
@@ -914,13 +916,10 @@ _FlowHandler_ before the _PostConstructApplicationEvent_ is published.
 When the Jakarta Faces runtime is directed to
 shutdown by its container, the following actions must be taken.
 
-. Ensure that calls to
-_FacesContext.getCurrentInstance()_ that happen during application
-shutdown return successfully, as specified in the Javadocs for that
-method.
-
 . Publish the
-_jakarta.faces.event.PreDestroyApplicationEvent_.
+_jakarta.faces.event.PreDestroyApplicationEvent_. The runtime must
+create and make available a _FacesContext_ instance during this event processing
+as specified in <<Per-RequestStateInformation.adoc#a3235,FacesContext Availability>>.
 
 . Call _FactoryFinder.releaseFactories()_.
 
