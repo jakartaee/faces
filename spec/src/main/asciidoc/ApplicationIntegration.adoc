@@ -1470,7 +1470,9 @@ public String calculateCharacterEncoding(FacesContext context);
 
 The _initView()_ method must be called immediately after checking for the
 existence of the _FacesContext_ parameter and before invoking any
-_PhaseListener.beforePhase()_ callbacks for the _Restore View Phase_.
+_PhaseListener.beforePhase()_ callbacks for the _Restore View Phase_. See the javadocs for this
+method for the specification.
+
 
 [source,java]
 ----
