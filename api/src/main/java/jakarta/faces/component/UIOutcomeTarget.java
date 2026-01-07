@@ -71,6 +71,12 @@ public class UIOutcomeTarget extends UIOutput {
      * Return whether or not the view parameters should be encoded into the target url.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * When <code>true</code>, view parameter values are obtained from the source view (the view being navigated away from)
+     * and encoded into the target URL. See the Jakarta Faces Specification Document section on ViewHandler.getBookmarkableURL()
+     * for the complete algorithm and clarifications on view parameter value resolution.
+     * </p>
+     *
      * @return <code>true</code> if the view parameters should be encoded in the url, <code>false</code> otherwise.
      * @since 2.0
      */
