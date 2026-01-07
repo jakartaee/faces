@@ -155,12 +155,12 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      * </p>
      */
     public static final String ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE = "jakarta.faces.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE";
-    
+
     /**
      * <p class="changed_added_5_0">
      * Allowed values for the initialization parameter named by the {@value UIInput#VALIDATE_EMPTY_FIELDS_PARAM_NAME} constant.
      * </p>
-     * 
+     *
      * @since 5.0
      */
     public enum ValidateEmptyFields {
@@ -171,14 +171,14 @@ public class UIInput extends UIOutput implements EditableValueHolder {
          * </p>
          */
         AUTO,
-        
+
         /**
          * <p>
          * Indicates that empty fields should always be validated.
          * </p>
          */
         TRUE,
-        
+
         /**
          * <p>
          * Indicates that empty fields should never be validated.
@@ -957,8 +957,8 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      *
      * <p>
      * If the <code>valid</code> property on this component is still <code>true</code>, and the <code>required</code>
-     * property is also <code>true</code>, ensure that the local value is not empty (where "empty" is defined as
-     * <code>null</code> or a zero-length String). If the local value is empty:
+     * property is also <code>true</code>, ensure that the local value is not empty (where "empty" is defined
+     * <span class="changed_modified_5_0">by {@link #isEmpty(Object)}</span>). If the local value is empty:
      * </p>
      *
      * <ul>
@@ -1008,7 +1008,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      * the value is <code>null</code> or equal <span class="changed_modified_5_0">(ignoring case) to the enum constant {@link ValidateEmptyFields#AUTO}</span> take
      * appropriate action to determine if Bean Validation is present in the runtime environment. If not, validation should
      * not proceed. If so, validation should proceed. If the value is equal (ignoring case) to
-     * <span class="changed_modified_5_0">the enum constant {@link ValidateEmptyFields#TRUE}</span> validation should proceed. Otherwise, 
+     * <span class="changed_modified_5_0">the enum constant {@link ValidateEmptyFields#TRUE}</span> validation should proceed. Otherwise,
      * <span class="changed_added_5_0">if the value is equal (ignoring case) to the enum constant {@link ValidateEmptyFields#FALSE}</span> validation should not
      * proceed.
      * </p>
