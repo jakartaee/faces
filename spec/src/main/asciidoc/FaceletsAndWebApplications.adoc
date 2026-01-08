@@ -415,9 +415,9 @@ library_.
 
 ._Pass Through Attributes on Facets_
 
-Pass through attributes may be specified on _<f:facet>_ tags using any of
-the three methods described above. When pass through attributes are declared
-on a facet, the following behavior applies:
+Pass through attributes may be specified on _<f:facet>_ tags using the
+_jakarta.faces.passthrough_ XML namespace described above. When pass through
+attributes are declared on a facet, the following behavior applies:
 
 * If the _<f:facet>_ tag contains pass through attributes but no child _UIComponent_,
 the runtime must automatically create a _UIComponent_ with component-family of
