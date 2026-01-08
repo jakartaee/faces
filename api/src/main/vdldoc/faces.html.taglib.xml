@@ -11267,6 +11267,18 @@
         </attribute>
         <attribute>
             <description>
+                <![CDATA[<span class="changed_added_2_3">
+                    Space-separated list of CSS style class(es) to be applied when
+                    this element is rendered. This value must be passed through
+                    as the "class" attribute on generated markup.
+                </span>]]>
+            </description>
+            <name>styleClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
                 Space-separated list of CSS style class(es) that will be
                 applied to any column footer generated for this table.
             </description>
