@@ -5418,11 +5418,11 @@
             will be
             the only message we render. Obtain the severity style for this
             message. If the severity of the message is
-            &lt;code&gt;FacesMessage.SEVERITY_INFO&lt;/code&gt;, the severity
+            &lt;code&gt;Severity.INFO&lt;/code&gt;, the severity
             style
             comes from the value of the "infoStyle" attribute. If the
             severity of the message is
-            &lt;code&gt;FacesMessage.SEVERITY_WARN&lt;/code&gt;, the severity
+            &lt;code&gt;Severity.WARN&lt;/code&gt;, the severity
             style
             comes from the value of the "warnStyle" attribute, and so on for
             each of the severities, &lt;code&gt;INFO, WARN, ERROR&lt;/code&gt;

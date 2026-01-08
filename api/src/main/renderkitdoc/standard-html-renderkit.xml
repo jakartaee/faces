@@ -4922,10 +4922,10 @@
         resolve the associated component.</p>  This will be
         the only message we render.  Obtain the severity style for this
         message.  If the severity of the message is
-        <code>FacesMessage.SEVERITY_INFO</code>, the severity style
+        <code>Severity.INFO</code>, the severity style
         comes from the value of the "infoStyle" attribute.  If the
         severity of the message is
-        <code>FacesMessage.SEVERITY_WARN</code>, the severity style
+        <code>Severity.WARN</code>, the severity style
         comes from the value of the "warnStyle" attribute, and so on for
         each of the severities, <code>INFO, WARN, ERROR</code> and
         <code>FATAL</code>.  The same rules apply for obtaining the
