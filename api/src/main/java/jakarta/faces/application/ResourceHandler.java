@@ -21,6 +21,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import jakarta.faces.FacesException;
 import jakarta.faces.context.FacesContext;
 
 /**
@@ -255,6 +256,19 @@ public abstract class ResourceHandler {
      */
     public static final String RESOURCE_EXCLUDES_DEFAULT_VALUE = ".class .jsp .jspx .properties .xhtml .groovy";
 
+    /**
+     * <p class="changed_added_5_0">
+     * The boolean context parameter name to explicitly enable Content Security Policy (CSP) nonce generation.
+     * When enabled, Jakarta Faces generates a Content Security Policy (CSP) nonce value for the current request.
+     * The generated nonce can be obtained via {@link #getCurrentNonce(jakarta.faces.context.FacesContext)}.
+     * If this context parameter is not enabled, no nonce is generated and {@link #getCurrentNonce(jakarta.faces.context.FacesContext)} returns {@code null}.
+     * </p>
+     *
+     * @since 5.0
+     */
+    public static final String ENABLE_CSP_NONCE = "jakarta.faces.ENABLE_CSP_NONCE";
+
+
     // ---------------------------------------------------------- Public Methods
 
     /**
@@ -307,7 +321,7 @@ public abstract class ResourceHandler {
      *
      * <li>
      * <p>
-     * Considering resource library contracts (at the locations specified in the 
+     * Considering resource library contracts (at the locations specified in the
      * Jakarta Faces Specification Document section 2.7 "Resource Library Contracts").
      * </p>
      * </li>
@@ -320,7 +334,7 @@ public abstract class ResourceHandler {
      *
      * <li>
      * <p>
-     * Considering faces flows (at the locations specified in the 
+     * Considering faces flows (at the locations specified in the
      * Jakarta Faces Specification Document section 11.3.3 "Faces Flows").
      * </p>
      * </li>
@@ -417,7 +431,7 @@ public abstract class ResourceHandler {
      * <div class="changed_added_2_2">
      *
      * <p>
-     * The resource must be identified according to the specification in 
+     * The resource must be identified according to the specification in
      * section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document. New requirements were
      * introduced in version 2.2 of the specification.
      * </p>
@@ -742,5 +756,50 @@ public abstract class ResourceHandler {
         Set<String> resourceIdentifiers = (Set<String>) context.getAttributes().get(RESOURCE_IDENTIFIER);
         return resourceIdentifiers != null && resourceIdentifiers.contains(resourceIdentifier);
     }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Returns the Content Security Policy (CSP) nonce for the current request, or {@code null} if CSP nonce support is not enabled. When enabled via
+     * {@link #ENABLE_CSP_NONCE}, then the runtime ensures that each view has a consistent nonce value that can be used to allow inline scripts to execute safely.
+     * </p>
+     *
+     * <p>
+     * Behavior depends on the type of request:
+     * </p>
+     *
+     * <ul>
+     *   <li>
+     *     <strong>Initial (non-postback, non-AJAX) request:</strong>
+     *     A new nonce is generated.
+     *     If the view is not transient, it is stored in the view so that subsequent requests can reuse it.
+     *   </li>
+     *   <li>
+     *     <strong>Postback or AJAX request:</strong>
+     *     The nonce is retrieved from the request and validated against the nonce associated with the current view.
+     *     If a mismatch is detected, a {@link jakarta.faces.FacesException} is thrown.
+     *     In some special cases (e.g., forwards or stateless views), a new nonce may be generated if no existing nonce is available.
+     *   </li>
+     * </ul>
+     *
+     * <p>
+     * The returned nonce is intended to be used:
+     * </p>
+     *
+     * <ul>
+     *   <li>As the value of the {@code nonce} attribute on rendered {@code <script>} elements.</li>
+     *   <li>As part of the {@code Content-Security-Policy} response header, for example: <code>script-src 'self' 'nonce-&lt;value&gt;'</code>.</li>
+     * </ul>
+     *
+     * <p>
+     * Implementations must return the same nonce for all calls during the same request and view.
+     * </p>
+     *
+     * @param context the {@link FacesContext} for the current request
+     * @return a Base64-encoded CSP nonce value, or {@code null} if CSP nonce support is not enabled
+     * @throws FacesException if the nonce retrieved from the request does not match the nonce associated with the current view
+     *
+     * @since 5.0
+     */
+    public abstract String getCurrentNonce(FacesContext context);
 
 }
