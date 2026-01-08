@@ -792,6 +792,7 @@ public abstract class ResourceHandler {
      *
      * <p>
      * Implementations must return the same nonce for all calls during the same request and view.
+     * For backward compatibility, a default implementation is provided that returns {@code null}.
      * </p>
      *
      * @param context the {@link FacesContext} for the current request
@@ -800,6 +801,8 @@ public abstract class ResourceHandler {
      *
      * @since 5.0
      */
-    public abstract String getCurrentNonce(FacesContext context);
+    public String getCurrentNonce(FacesContext context) {
+        return null;
+    }
 
 }
