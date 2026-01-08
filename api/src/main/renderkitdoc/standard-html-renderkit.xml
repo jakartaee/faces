@@ -4962,6 +4962,13 @@
       no detail, output the "summary" as the value of the "title" attribute.</span>  
       Close out the span if necessary.</p>
 
+      <p><span class="changed_added_5_0">If there are no messages to render
+      for the specified component, and the component has a user-specified
+      "id" attribute, render an empty "span" element with only the "id"
+      attribute set to the component's client identifier. If there are no
+      messages to render and the component does not have a user-specified
+      "id" attribute, render nothing.</span></p>
+
       </ul>]]></description>
             <component-family>jakarta.faces.Message</component-family>
             <renderer-type>jakarta.faces.Message</renderer-type>
@@ -5204,6 +5211,22 @@
      string if the components "globalOnly" property is
      <code>true</code>.  If the layout was "table" close out the table
      elements, otherwise, close out the list elements.</p>
+
+     <p><span class="changed_added_5_0">If there are no messages to render
+     for the specified component, and the component has a user-specified
+     "id" attribute, render an empty "div" element with only the "id"
+     attribute set to the component's client identifier. If there are no
+     messages to render and the component does not have a user-specified
+     "id" attribute, render nothing.</span></p>
+
+     <p><span class="changed_added_5_0">Exception: The preceding rule does
+     not apply when the <code>UIMessages</code> component is being used to
+     display development-time diagnostic messages (such as when
+     <code>ProjectStage</code> is <code>Development</code> and the component
+     is rendering framework diagnostic information). In such cases, the
+     renderer may choose to render diagnostic markup even when there are no
+     application messages, regardless of whether an "id" attribute is present.
+     </span></p>
 
             ]]></description>
             <component-family>jakarta.faces.Messages</component-family>
