@@ -1686,9 +1686,10 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      * it.
      * </p>
      *
+     * @param <T> The generic type of the data model.
      * @return the data model.
      */
-    protected DataModel getDataModel() {
+    protected <T> DataModel<T> getDataModel() {
 
         // Return any previously cached DataModel instance
         if (model != null) {
