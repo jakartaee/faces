@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import jakarta.faces.FacesException;
 import jakarta.faces.context.FacesContext;
 
 /**
@@ -764,24 +763,6 @@ public abstract class ResourceHandler {
      * </p>
      *
      * <p>
-     * Behavior depends on the type of request:
-     * </p>
-     *
-     * <ul>
-     *   <li>
-     *     <strong>Initial (non-postback, non-AJAX) request:</strong>
-     *     A new nonce is generated.
-     *     If the view is not transient, it is stored in the view so that subsequent requests can reuse it.
-     *   </li>
-     *   <li>
-     *     <strong>Postback or AJAX request:</strong>
-     *     The nonce is retrieved from the request and validated against the nonce associated with the current view.
-     *     If a mismatch is detected, a {@link jakarta.faces.FacesException} is thrown.
-     *     In some special cases (e.g., forwards or stateless views), a new nonce may be generated if no existing nonce is available.
-     *   </li>
-     * </ul>
-     *
-     * <p>
      * The returned nonce is intended to be used:
      * </p>
      *
@@ -791,13 +772,13 @@ public abstract class ResourceHandler {
      * </ul>
      *
      * <p>
-     * Implementations must return the same nonce for all calls during the same request and view.
-     * For backward compatibility, a default implementation is provided that returns {@code null}.
+     * Implementations must generate a unique nonce for the current view and save it in the {@link jakarta.faces.component.UIViewRoot#getViewMap view state}.
+     * The same nonce will be returned for the duration of the view, including postbacks and AJAX requests. The view state itself is cryptographically
+     * protected, so the nonce cannot be tampered with by the client. For backward compatibility, a default implementation is provided that returns {@code null}.
      * </p>
      *
-     * @param context the {@link FacesContext} for the current request
-     * @return a Base64-encoded CSP nonce value, or {@code null} if CSP nonce support is not enabled
-     * @throws FacesException if the nonce retrieved from the request does not match the nonce associated with the current view
+     * @param context The {@link FacesContext} for this request.
+     * @return a Base64-encoded CSP nonce value, or {@code null} if CSP nonce support is not enabled.
      *
      * @since 5.0
      */
