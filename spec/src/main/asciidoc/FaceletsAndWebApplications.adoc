@@ -413,6 +413,44 @@ the VDLdoc for <f:passthroughAttribute>, <f:passThroughAttributes> tags
 in the “Faces Core” tag library, and the “Pass Through Attributes” tag
 library_.
 
+._Pass Through Attributes on Facets_
+
+Pass through attributes may be specified on _<f:facet>_ tags using any of
+the three methods described above. When pass through attributes are declared
+on a facet, the following behavior applies:
+
+* If the _<f:facet>_ tag contains pass through attributes but no child _UIComponent_,
+the runtime must automatically create a _UIComponent_ with component-family of
+_jakarta.faces.Panel_ and renderer-type _jakarta.faces.Group_ as the facet component.
+The pass through attributes must be associated with this automatically created component.
+
+* When rendering a facet that has pass through attributes, the renderer must write
+the pass through attributes to the parent component's rendered output at the point
+where the facet is rendered.
+
+For example:
+
+[source,xml]
+----
+<h:dataTable value="#{customers}" var="customer">
+  <f:facet name="header" pt:styleClass="table-header" pt:role="banner">
+    <h:outputText value="Customer List"/>
+  </f:facet>
+  <f:facet name="footer" pt:class="table-footer"/>
+  ...
+</h:dataTable>
+----
+
+In this example:
+
+* The _header_ facet contains both a child component and pass through attributes.
+The _styleClass_ and _role_ attributes will be rendered on the table's header element.
+
+* The _footer_ facet contains only pass through attributes without a child component.
+A _UIPanel_ is automatically created as the facet component, and the _class_ attribute
+will be rendered on the table's footer element.
+
+
 ._Pass Through Elements_
 
 This feature circumvents the traditional
