@@ -1742,7 +1742,8 @@ be ignored silently.
 in the __localePrefix__, __libraryName__, __libraryVerison__,
 _resourceName_ and _resourceVersion_ segments of the resource identifier
 is specififed as XML NameChar excluding the path separator and ‘:’
-characters. The specification for XML NameChar may be seen at
+characters, with the exception of resourceName, which may contain the path separator
+character. The specification for XML NameChar may be seen at
 __https://www.w3.org/TR/REC-xml/#NT-NameChar__.
 
 * A further restriction applies to
