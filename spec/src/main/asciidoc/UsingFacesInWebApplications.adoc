@@ -154,6 +154,18 @@ be equal to _TimeZone.getDefault()_ instead of “GMT”.
 a _String_ representation of its value returns _true_, the default
 mapping of the _FacesServlet_ to _*.xhtml_ must not take effect.
 
+* _jakarta.faces.ENABLE_CSP_NONCE_ --
+If this param is set, and calling _toLowerCase().equals("true")_ on a
+_String_ representation of its value returns _true_, the runtime must
+generate a Content Security Policy (CSP) nonce value for the current request.
+The generated nonce can be obtained via the _ResourceHandler.getCurrentNonce()_
+method and is intended to be used as the value of the _nonce_ attribute on
+rendered _<script>_ elements and as part of the _Content-Security-Policy_
+response header. See the javadocs for the constant
+_jakarta.faces.application.ResourceHandler.ENABLE_CSP_NONCE_ and the method
+_jakarta.faces.application.ResourceHandler.getCurrentNonce()_ for the complete
+specification of this feature.
+
 * _jakarta.faces.EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING_ --
 Comma-delimited list of fully qualified exception class names to ignore in logging.
 Implementations and component libraries should consult this when determining whether
