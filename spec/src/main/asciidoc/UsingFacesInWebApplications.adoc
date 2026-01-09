@@ -121,6 +121,12 @@ javadocs for the constant
 _jakarta.faces.component.UIInput.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE_
 for the specification of this feature.
 
+* _jakarta.faces.AUTOMATIC_EXTENSIONLESS_MAPPING
+-- If this param is set, and calling _toLowerCase().equals("true")_ on
+a _String_ representation of its value returns _true_, Faces views that are
+normally accessed via _*.xhtml_ URLs can also be accessed without the file extension.
+For example, both _/page.xhtml_ and _/page_ will render the same view.
+
 * _jakarta.faces.CLIENT_WINDOW_MODE_ —The
 context-param that controls the operation of the _ClientWindow_ feature.
 See the javadocs for the constant
