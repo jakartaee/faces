@@ -958,8 +958,8 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      *
      * <p>
      * If the <code>valid</code> property on this component is still <code>true</code>, and the <code>required</code>
-     * property is also <code>true</code>, ensure that the local value is not empty (where "empty" is defined as
-     * <code>null</code> or a zero-length String). If the local value is empty:
+     * property is also <code>true</code>, ensure that the local value is not empty (where "empty" is defined
+     * <span class="changed_modified_5_0">by {@link #isEmpty(Object)}</span>). If the local value is empty:
      * </p>
      *
      * <ul>
