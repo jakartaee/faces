@@ -12326,7 +12326,9 @@ href="../../javadocs/jakarta/faces/component/UIViewRoot.html#addComponentResourc
         the <code>ExternalContext</code>.  Use the result as the value
         of the "src" attribute.  Use the result from calling
         <code>resource.getContentType()</code> as the value of the
-        "type" attribute.</span></p>
+        "type" attribute. <span class="changed_added_5_0">If the
+        DOCTYPE is HTML5 and the "type" attribute equals "type/javascript",
+        then omit the "type" attribute.</span></span></p>
 
        </ul>
 
@@ -12421,11 +12423,16 @@ changed_modified_2_1 changed_modified_2_2">Render</span> the markup for a
         Algorithm for Obtaining A Resource to Render</a> to obtain a
         reference to the <code>Resource</code> to be encoded.</p>
 
-<p>Output a <code>&lt;link&gt;</code> element.  Use the result from
-calling <code>resource.getRequestPath()</code> as the value of the
-"href" attribute, the result from calling
+<p>Output a <code>&lt;link&gt;</code> element. <span class="changed_modified_5_0">Call
+<code>resource.getRequestPath()</code>.  If the result contains
+a query string, take care to handle it correctly.  Pass the
+request path to a call to <code>encodeResourceURL()</code> on
+the <code>ExternalContext</code>. Use the result as the value
+of the "src" attribute.</span> Use the result from calling
 <code>resource.getContentType()</code> as the value of the "type"
-attribute, and the literal string "stylesheet" as the value of the "rel"
+attribute. <span class="changed_added_5_0">If the
+DOCTYPE is HTML5 and the "type" attribute equals "type/css",
+then omit the "type" attribute.</span> Use the literal string "stylesheet" as the value of the "rel"
 attribute.  <span class="changed_modified_2_2">If this tag has a "media"
 attribute, use its value as the value of the "media" attribute.
 Otherwise, do not render a media attribute.</span></p>
