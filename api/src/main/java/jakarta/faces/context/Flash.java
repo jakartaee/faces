@@ -91,10 +91,7 @@ import jakarta.faces.event.PostPutFlashValueEvent;
  *
  * <p class="changed_added_5_0">
  * The implementation must ensure that any cookies used to store or transmit the Flash key have the <code>HttpOnly</code>
- * flag set to <code>true</code> by calling <code>setHttpOnly(true)</code> on the cookie instance. This prevents
- * client-side scripts from accessing the Flash cookie, providing protection against Cross-Site Scripting (XSS) attacks.
- * The Flash cookie contains no information that client-side JavaScript needs to access, and setting this flag
- * significantly improves the security posture of applications using the Flash scope.
+ * flag set to <code>true</code> on the cookie instance.
  * </p>
  *
  * <p>
