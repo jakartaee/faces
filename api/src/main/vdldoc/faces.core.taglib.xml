@@ -1382,9 +1382,7 @@ just a regular Java Object (POJO) that conforms to JavaBeans naming
 conventions for its properties.  The <code>value</code> attribute on
 line 2 points to a <code>List&lt;HobbitBean&gt;</code>, though it could
 just as well point to a <code>Collection</code>, array, or
-<code>jakarta.faces.model.DataModel</code>.  The attributes on lines 3
-through 9, inclusive, leverage the fact that the value is a collection
-of POJOs.
+<code>jakarta.faces.model.DataModel</code>.
 </p>
 
 
