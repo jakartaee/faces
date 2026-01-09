@@ -869,10 +869,10 @@ for <code>@NamedEvent</code>.</p>
 
             <p class="changed_added_2_0">Declare the metadata
             facet for this view. This must be a <span class="changed_added_4_1">direct</span> child of the
-            <code>&lt;f:view&gt;</code>. This tag
-            must reside within the top level XHTML file for the given
-            viewId<span class="changed_modified_2_0_rev_a">, or in a
-            template client, but</span> not in a template. The
+			<span class="changed_modified_5_0"><code>UIViewRoot</code> for the given viewId.
+			It is not permitted to place the metadata facet inside other components, or within templates,
+            template clients, includes, tag files, or composite components. If this requirement is violated,
+            the implementation must throw a <code>TagException</code>.</span>The
             implementation must insure that the direct child of the
             facet is a <code>UIPanel</code>, even if there
             is only one child of the facet. The implementation must set
@@ -1382,9 +1382,7 @@ just a regular Java Object (POJO) that conforms to JavaBeans naming
 conventions for its properties.  The <code>value</code> attribute on
 line 2 points to a <code>List&lt;HobbitBean&gt;</code>, though it could
 just as well point to a <code>Collection</code>, array, or
-<code>jakarta.faces.model.DataModel</code>.  The attributes on lines 3
-through 9, inclusive, leverage the fact that the value is a collection
-of POJOs.
+<code>jakarta.faces.model.DataModel</code>.
 </p>
 
 

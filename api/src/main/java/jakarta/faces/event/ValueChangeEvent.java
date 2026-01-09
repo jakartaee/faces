@@ -24,8 +24,10 @@ import jakarta.faces.context.FacesContext;
  * A {@link ValueChangeEvent} is a notification that the local value of the source component has been change as a result
  * of user interface activity. It is not fired unless validation of the new value was completed successfully.
  * </p>
+ *
+ * @param <T> The generic type of changed value.
  */
-public class ValueChangeEvent extends FacesEvent {
+public class ValueChangeEvent<T> extends FacesEvent {
 
     private static final long serialVersionUID = 2455861757565618446L;
 
@@ -43,7 +45,7 @@ public class ValueChangeEvent extends FacesEvent {
      * @param newValue The new local value of thie {@link UIComponent}
      * @throws IllegalArgumentException if <code>component</code> is <code>null</code>
      */
-    public ValueChangeEvent(UIComponent component, Object oldValue, Object newValue) {
+    public ValueChangeEvent(UIComponent component, T oldValue, T newValue) {
         super(component);
         this.oldValue = oldValue;
         this.newValue = newValue;
@@ -64,7 +66,7 @@ public class ValueChangeEvent extends FacesEvent {
      * @param newValue The new local value of thie {@link UIComponent}
      * @throws IllegalArgumentException if <code>component</code> is <code>null</code>
      */
-    public ValueChangeEvent(FacesContext facesContext, UIComponent component, Object oldValue, Object newValue) {
+    public ValueChangeEvent(FacesContext facesContext, UIComponent component, T oldValue, T newValue) {
         super(facesContext, component);
         this.oldValue = oldValue;
         this.newValue = newValue;
@@ -77,7 +79,7 @@ public class ValueChangeEvent extends FacesEvent {
      * The previous local value of the source {@link UIComponent}.
      * </p>
      */
-    private Object oldValue = null;
+    private T oldValue = null;
 
     /**
      * <p>
@@ -86,7 +88,7 @@ public class ValueChangeEvent extends FacesEvent {
      *
      * @return the previous local value
      */
-    public Object getOldValue() {
+    public T getOldValue() {
 
         return oldValue;
 
@@ -97,7 +99,7 @@ public class ValueChangeEvent extends FacesEvent {
      * The current local value of the source {@link UIComponent}.
      * </p>
      */
-    private Object newValue = null;
+    private T newValue = null;
 
     /**
      * <p>
@@ -106,7 +108,7 @@ public class ValueChangeEvent extends FacesEvent {
      *
      * @return the current local value
      */
-    public Object getNewValue() {
+    public T getNewValue() {
 
         return newValue;
 

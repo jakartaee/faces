@@ -76,6 +76,12 @@ import jakarta.faces.context.FacesContext;
  *
  * </ul>
  *
+ * <p class="changed_added_5_0">
+ * <strong>Special consideration for <code>UIViewRoot</code> on postback requests:</strong> for postback requests where
+ * the view is being restored from state, the event must be published if and only if partial state saving is enabled.
+ * This ensures that event listeners are notified when a restored view root is placed into the view, while avoiding
+ * duplicate event firing for full state saving scenarios where the view is completely reconstructed from saved state.
+ * </p>
  *
  * </div>
  *

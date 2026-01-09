@@ -251,6 +251,11 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
      * proceed.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * If the <em>value</em> argument is non-<code>null</code>, obtain a <code>jakarta.el.ExpressionFactory</code> and use
+     * <code>coerceToType()</code> to coerce the <em>value</em> argument to the type returned by <code>ValueExpression.getType()</code>.
+     * </p>
+     *
      * <p>
      * Call {@link jakarta.validation.Validator#validateValue}, passing <em>valueBaseClass</em>, <em>valueProperty</em>, the
      * <em>value</em> argument, and <em>validatorGroupsArray</em> as arguments.
@@ -309,7 +314,7 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
         }
 
         Class<?>[] validationGroupsArray = parseValidationGroups(getValidationGroups());
-        
+
         if (isResolvable(valueReference, valueExpression)) {
             jakarta.validation.Validator beanValidator = getBeanValidator(context);
             Object coercedValue = value == null ? null : context.getApplication().getExpressionFactory().coerceToType(value, valueExpression.getType(context.getELContext()));
