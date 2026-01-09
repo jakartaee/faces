@@ -17,6 +17,8 @@ package ee.jakarta.tck.faces.test.faces50.uiinput;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.component.UISelectItems;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -24,9 +26,6 @@ import org.openqa.selenium.support.ui.Select;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 
-/**
- * https://github.com/jakartaee/faces/issues/1507
- */
 class Spec1791IT extends BaseITNG {
 
     @FindBy(id = "form:selectItemArray")
@@ -47,6 +46,10 @@ class Spec1791IT extends BaseITNG {
     @FindBy(id = "form:selectItemMapWithVar")
     private WebElement selectItemMapWithVar;
 
+    /**
+     * @see UISelectItems
+     * @see https://github.com/jakartaee/faces/issues/1791
+     */
     @Test
     void testSelectItemArray() {
         getPage("spec1791.xhtml");
@@ -54,6 +57,10 @@ class Spec1791IT extends BaseITNG {
         assertEquals("label: label1", new Select(selectItemArrayWithVar).getFirstSelectedOption().getText());
     }
 
+    /**
+     * @see UISelectItems
+     * @see https://github.com/jakartaee/faces/issues/1791
+     */
     @Test
     void testSelectItemList() {
         getPage("spec1791.xhtml");
@@ -61,6 +68,10 @@ class Spec1791IT extends BaseITNG {
         assertEquals("label: label1", new Select(selectItemListWithVar).getFirstSelectedOption().getText());
     }
 
+    /**
+     * @see UISelectItems
+     * @see https://github.com/jakartaee/faces/issues/1791
+     */
     @Test
     void testSelectItemMap() {
         getPage("spec1791.xhtml");
