@@ -44,8 +44,8 @@ import jakarta.faces.event.SystemEventListener;
  * </p>
  *
  * <p>
- * This approach allows the <code>ExceptionHandler</code> facility specified in 
- * section 6.2 "ExceptionHandler" of the Jakarta Faces Specification Document to 
+ * This approach allows the <code>ExceptionHandler</code> facility specified in
+ * section 6.2 "ExceptionHandler" of the Jakarta Faces Specification Document to
  * operate on the <code>Exception</code>.
  * </p>
  *
@@ -85,7 +85,7 @@ import jakarta.faces.event.SystemEventListener;
  *
  * <p>
  * With either approach, any <code>ExceptionQueuedEvent</code> instances that are published in this way are accessible
- * to the {@link #handle} method, which is called at the end of each lifecycle phase, as specified in 
+ * to the {@link #handle} method, which is called at the end of each lifecycle phase, as specified in
  * section 6.2 "ExceptionHandler" of the Jakarta Faces Specification Document.
  * </p>
  *
@@ -107,10 +107,21 @@ import jakarta.faces.event.SystemEventListener;
 public abstract class ExceptionHandler implements SystemEventListener {
 
     /**
+     * <p class="changed_added_5_0">
+     * The name of the context init parameter that specifies exception types to be ignored in logging by <code>ExceptionHandler</code> implementations.
+     * The parameter value must be a comma-separated list of fully qualified exception class names. Implementations and component libraries should consult this
+     * parameter when determining whether to log a given exception, and should ignore exceptions that are instances of the specified types.
+     * </p>
+     *
+     * @since 5.0
+     */
+    public static final String EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING_PARAM_NAME = "jakarta.faces.EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING";
+
+    /**
      * <p class="changed_added_2_0">
      * Take action to handle the <code>Exception</code> instances residing inside the {@link ExceptionQueuedEvent} instances
      * that have been queued by calls to <code>Application().publishEvent(ExceptionQueuedEvent.class,
-     * <em>eventContext</em>)</code>. The requirements of the default implementation are detailed in 
+     * <em>eventContext</em>)</code>. The requirements of the default implementation are detailed in
      * section 6.2.1 "Default ExceptionHandler implementation" of the Jakarta Faces Specification Document.
      * </p>
      *
