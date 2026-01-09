@@ -773,8 +773,8 @@ public abstract class ResourceHandler {
      *
      * <p>
      * Implementations must generate a unique nonce for the current view and save it in the {@link jakarta.faces.component.UIViewRoot#getViewMap view state}.
-     * The same nonce will be returned for the duration of the view, including postbacks and AJAX requests. The view state itself is cryptographically
-     * protected, so the nonce cannot be tampered with by the client. For backward compatibility, a default implementation is provided that returns {@code null}.
+     * The same nonce will be returned for the duration of the view, including postbacks and AJAX requests.
+     * For backward compatibility, a default implementation is provided that returns {@code null}.
      * </p>
      *
      * @param context The {@link FacesContext} for this request.
