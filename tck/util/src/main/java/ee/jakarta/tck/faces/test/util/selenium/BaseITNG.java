@@ -17,6 +17,7 @@ package ee.jakarta.tck.faces.test.util.selenium;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
+import static java.util.Optional.ofNullable;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
@@ -128,7 +129,7 @@ public abstract class BaseITNG implements ExecutionCondition {
         return uriWithoutJsessionId;
     }
 
-    protected String getBehaviorScript(WebPage page, WebElement input) {
+    protected WebElement getBehaviorScriptElement(WebPage page, WebElement input) {
         var id = input.getAttribute("id");
 
         for (var script : page.findElements(By.tagName("script"))) {
@@ -137,11 +138,15 @@ public abstract class BaseITNG implements ExecutionCondition {
                 var content = script.getDomProperty("textContent");
 
                 if (content.contains("'" + id + "'") || content.contains("\"" + id + "\"")) {
-                    return content;
+                    return script;
                 }
             }
         }
 
         return null;
+    }
+
+    protected String getBehaviorScript(WebPage page, WebElement input) {
+        return ofNullable(getBehaviorScriptElement(page, input)).map(script -> script.getDomProperty("textContent")).orElse(null);
     }
 }
