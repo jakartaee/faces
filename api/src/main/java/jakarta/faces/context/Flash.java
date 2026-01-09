@@ -89,6 +89,11 @@ import jakarta.faces.event.PostPutFlashValueEvent;
  * described in the javadocs.
  * </p>
  *
+ * <p class="changed_added_5_0">
+ * The implementation must ensure that any cookies used to store or transmit the Flash key have the <code>HttpOnly</code>
+ * flag set to <code>true</code> on the cookie instance.
+ * </p>
+ *
  * <p>
  * Jakarta Expression Language Usage Example
  * </p>
