@@ -1932,12 +1932,15 @@ during this URL generation phase. This ensures that components like _<h:button>_
 _includeViewParams="true"_ correctly propagate the source page's parameter values to the destination URL.
 
 ** When using Facelets template composition:
-The _<f:metadata>_ section containing _<f:viewParam>_ elements must be processed regardless of whether it appears
-within template composition tags such as _<ui:composition>_, _<ui:define>_, or _<ui:insert>_. The _ViewMetadata_
-obtained via _ViewDeclarationLanguage.getViewMetadata()_ must reflect all view parameters defined in the
-complete composed view, including those within template sections. Implementations must ensure that the
-entire Facelets template hierarchy is considered when collecting view metadata, not just the top-level
-template file.
+The _<f:metadata>_ section containing _<f:viewParam>_ elements must only be defined in the template client
+page (the root page that corresponds to the _viewId_, which uses _<ui:composition template="...">_), and
+must not be defined in the template file itself (the file referenced by the _template_ attribute) nor in
+any files included via _<ui:include>_. Within the template client page, the _<f:metadata>_ section may be
+placed either inside _<ui:define>_ tags (to be inserted into a corresponding _<ui:insert>_ in the template)
+or outside of _<ui:define>_ tags at the root level. If _<f:metadata>_ is placed in a template file or
+included file, the implementation must throw a _TagException_. The _ViewMetadata_ obtained via
+_ViewDeclarationLanguage.getViewMetadata()_ must reflect only the view parameters defined in the template
+client page (the root page for the _viewId_).
 
 * If argument _includeViewParams_ is _false_,
 take no action to add additional entries to _parameters_. Let
