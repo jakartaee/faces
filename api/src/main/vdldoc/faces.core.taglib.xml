@@ -872,7 +872,7 @@ for <code>@NamedEvent</code>.</p>
 			<span class="changed_modified_5_0"><code>UIViewRoot</code> for the given viewId.
 			It is not permitted to place the metadata facet inside other components, or within templates,
             template clients, includes, tag files, or composite components. If this requirement is violated,
-            the implementation must throw a <code>FacesException</code>.</span>The
+            the implementation must throw a <code>TagException</code>.</span>The
             implementation must insure that the direct child of the
             facet is a <code>UIPanel</code>, even if there
             is only one child of the facet. The implementation must set
