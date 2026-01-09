@@ -680,9 +680,10 @@ _http://www.w3.org/TR/xhtml1/#a_dtd_XHTML-1.0-Transitional_.
 
 The runtime must ensure that Jakarta Expression Language expressions
 that appear in the page without being the right-hand-side of a tag
-attribute are treated as if they appeared on the right-hand-side of the
+attribute produce rendered output equivalent to the
 _value_ attribute of an _<h:outputText>_ element in the
-_jakarta.faces.html_ namespace. This behavior must happen
+_jakarta.faces.html_ namespace, without requiring a _UIOutput_ component
+instance in the component tree. This behavior must happen
 regardless of whether or not the _jakarta.faces.html_
 namespace has been declared in the page.
 
