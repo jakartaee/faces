@@ -283,7 +283,7 @@ public abstract class ResourceHandler {
      * The algorithm specified in section 2.6.1.4 "Libraries of Localized and Versioned Resources" of the Jakarta Faces Specification Document
      * must be executed to create
      * the <code>Resource</code>. <span class="changed_added_2_2">New requirements were introduced in version 2.2 of the
-     * specification. For historical reasons, this method operate correctly when the argument {@code resourceName} is of the
+     * specification. For historical reasons, this method <span class="changed_added_5_0">must</span> operate correctly when the argument {@code resourceName} is of the
      * form {@code libraryName/resourceName}, even when {@code resourceName} contains '/' characters. </span>
      * </p>
      *

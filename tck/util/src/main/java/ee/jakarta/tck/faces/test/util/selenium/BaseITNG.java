@@ -15,6 +15,12 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
+import static java.lang.Boolean.parseBoolean;
+import static java.lang.System.getProperty;
+import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
+import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
+
 import java.io.File;
 import java.net.URL;
 import java.time.Duration;
@@ -34,14 +40,9 @@ import org.junit.jupiter.api.extension.ConditionEvaluationResult;
 import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
-
-import static java.lang.Boolean.parseBoolean;
-import static java.lang.System.getProperty;
-import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
-import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 /**
  * Use this for Selenium based tests.
@@ -125,5 +126,22 @@ public abstract class BaseITNG implements ExecutionCondition {
         }
 
         return uriWithoutJsessionId;
+    }
+
+    protected String getBehaviorScript(WebPage page, WebElement input) {
+        var id = input.getAttribute("id");
+
+        for (var script : page.findElements(By.tagName("script"))) {
+            var src = script.getAttribute("src");
+            if (src == null || src.isEmpty()) {
+                var content = script.getDomProperty("textContent");
+
+                if (content.contains("'" + id + "'") || content.contains("\"" + id + "\"")) {
+                    return content;
+                }
+            }
+        }
+
+        return null;
     }
 }

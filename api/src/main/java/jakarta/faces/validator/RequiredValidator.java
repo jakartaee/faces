@@ -17,6 +17,7 @@
 package jakarta.faces.validator;
 
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
@@ -63,7 +64,7 @@ public class RequiredValidator implements Validator<Object> {
 
             // respect the message string override on the component to emulate required="true" behavior
             if (requiredMessageStr != null) {
-                msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, requiredMessageStr, requiredMessageStr);
+                msg = new FacesMessage(Severity.ERROR, requiredMessageStr, requiredMessageStr);
             } else {
                 msg = MessageFactory.getMessage(context, UIInput.REQUIRED_MESSAGE_ID, MessageFactory.getLabel(context, component));
             }

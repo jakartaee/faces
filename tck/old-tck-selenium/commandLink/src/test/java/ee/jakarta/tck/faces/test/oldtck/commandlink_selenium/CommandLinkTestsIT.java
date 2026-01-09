@@ -18,6 +18,7 @@ package ee.jakarta.tck.faces.test.oldtck.commandlink_selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.ArrayList;
@@ -79,23 +80,23 @@ class CommandLinkTestsIT extends BaseITNG {
     WebElement link1 = page.findElement(By.id("form:link1"));
     assertEquals("#",link1.getDomAttribute​("href"));
     assertEquals("Click Me1",link1.getText());
-    assertFalse(link1.getDomAttribute​("onclick").length() < 0);
+    assertNotNull(getBehaviorScript(page, link1));
 
     WebElement link2 = page.findElement(By.id("form:link2"));
     assertEquals("#",link1.getDomAttribute​("href"));
     assertEquals("Click Me2",link2.getText());
     assertEquals("sansserif", link2.getDomAttribute​("class"));
-    assertFalse(link2.getDomAttribute​("onclick").length() < 0);
+    assertNotNull(getBehaviorScript(page, link2));
 
     WebElement link3 = page.findElement(By.id("form:link3"));
     assertEquals("#",link3.getDomAttribute​("href"));
     assertEquals("Click Me3",link3.getText());
-    assertFalse(link3.getDomAttribute​("onclick").length() < 0);
+    assertNotNull(getBehaviorScript(page, link3));
 
     WebElement link5 = page.findElement(By.id("form:link5"));
     assertEquals("sansserif", link5.getDomAttribute​("class"));
     assertEquals("Disabled Link",link5.getText());
-    assertNull(link5.getDomAttribute​("onclick")); 
+    assertNull(getBehaviorScript(page, link5)); 
 
     WebElement span2 = page.findElement(By.id("form:link6")); 
     assertEquals("Disabled Link(Nested)",span2.getText());

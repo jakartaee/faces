@@ -26,6 +26,7 @@ import jakarta.faces.FactoryFinder;
 import jakarta.faces.application.Application;
 import jakarta.faces.application.ApplicationFactory;
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 
@@ -81,7 +82,7 @@ class MessageFactory {
      * @param messageId - the key of the message in the resource bundle
      * @param params - substittion parameters
      *
-     * @return a localized <code>FacesMessage</code> with the severity of FacesMessage.SEVERITY_ERROR
+     * @return a localized <code>FacesMessage</code> with the severity of Severity.ERROR
      */
     static FacesMessage getMessage(String messageId, Object... params) {
         Locale locale = null;
@@ -108,7 +109,7 @@ class MessageFactory {
      * @param messageId - the key of the message in the resource bundle
      * @param params - substittion parameters
      *
-     * @return a localized <code>FacesMessage</code> with the severity of FacesMessage.SEVERITY_ERROR
+     * @return a localized <code>FacesMessage</code> with the severity of Severity.ERROR
      */
     static FacesMessage getMessage(Locale locale, String messageId, Object... params) {
         String summary = null;
@@ -165,7 +166,7 @@ class MessageFactory {
 
         // At this point, we have a summary and a bundle.
         FacesMessage ret = new BindingFacesMessage(locale, summary, detail, params);
-        ret.setSeverity(FacesMessage.SEVERITY_ERROR);
+        ret.setSeverity(Severity.ERROR);
         return ret;
     }
 
@@ -178,7 +179,7 @@ class MessageFactory {
      * @param messageId - the key of the message in the resource bundle
      * @param params - substittion parameters
      *
-     * @return a localized <code>FacesMessage</code> with the severity of FacesMessage.SEVERITY_ERROR
+     * @return a localized <code>FacesMessage</code> with the severity of Severity.ERROR
      */
     static FacesMessage getMessage(FacesContext context, String messageId, Object... params) {
 

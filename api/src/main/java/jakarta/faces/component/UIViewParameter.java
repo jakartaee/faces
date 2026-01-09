@@ -22,6 +22,7 @@ import java.util.Iterator;
 import jakarta.el.ValueExpression;
 import jakarta.faces.FactoryFinder;
 import jakarta.faces.application.FacesMessage;
+import jakarta.faces.application.FacesMessage.Severity;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
@@ -251,7 +252,7 @@ public class UIViewParameter extends UIInput {
             String requiredMessageStr = getRequiredMessage();
             FacesMessage message;
             if (null != requiredMessageStr) {
-                message = new FacesMessage(FacesMessage.SEVERITY_ERROR, requiredMessageStr, requiredMessageStr);
+                message = new FacesMessage(Severity.ERROR, requiredMessageStr, requiredMessageStr);
             } else {
                 message = MessageFactory.getMessage(context, REQUIRED_MESSAGE_ID, MessageFactory.getLabel(context, this));
             }
