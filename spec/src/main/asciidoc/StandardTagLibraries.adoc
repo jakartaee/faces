@@ -331,7 +331,8 @@ has a special relationship to its parent _UIComponent_, as described in
 <<UserInterfaceComponentModel.adoc#a968,Facet Management>>. Facets can be defined
 in a page using the _<f:facet>_ tag. Each facet tag
 must have one and only one child UIComponent
-tag <<Footnotes.adoc#a9099,^[10]^>>. For example:
+tag <<Footnotes.adoc#a9099,^[10]^>>, unless the facet declares pass through attributes,
+in which case a _UIPanel_ component is automatically created. For example:
 
 [source,xml]
 ----
@@ -344,6 +345,10 @@ tag <<Footnotes.adoc#a9099,^[10]^>>. For example:
       <h:outputText value="Account Id"/>
     </f:facet>
     <h:outputText id="accountId" value= "#{customer.accountId}"/>
+  </h:column>
+  <h:column>
+    <f:facet name="header" pt:styleClass="icon-email" />
+    <h:outputText id="email" value= "#{customer.email}"/>
   </h:column>
   ...
 </h:dataTable>
