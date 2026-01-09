@@ -52,7 +52,7 @@
             If the "fragment" attribute is specified, the value will be included at the end
             of the resulting URL preceded by a hash mark.  If the "styleClass" attribute is specified,
             render its value as the value of the "class" attribute.  If the "id" attribute is specified,
-            follow the same steps as mentioned in the "<a href="../../../renderkitdocs/HTML_BASIC/renderkit-summary.html#general_encoding">General
+            follow the same steps as mentioned in the "<a href="../../renderkitdoc/html_basic/renderkit-summary#general_encoding">General
             Notes on Encoding</a>" regarding the "id" attribute for UIInput components.  If the
             "disabled" attribute is specified, do not render the <span class="changed_modified_5_0">click event listener</span> and assign the
             "disabled" attribute a value of true.</div>]]>
@@ -566,7 +566,7 @@
             If the "styleClass" attribute is specified, render
             its value as the value of the "class" attribute.  If the "id" attribute
             is specified, follow the same steps as mentioned in the
-            "<a href="../../../renderkitdocs/HTML_BASIC/renderkit-summary.html#general_encoding">General
+            "<a href="../../renderkitdoc/html_basic/renderkit-summary#general_encoding">General
             Notes on Encoding</a>" regarding the "id" attribute for UIInput components.
             If the "disabled" attribute is specified, do not render the HTML "a"
             anchor element or the "href" element.  Instead, render a "span" element.
@@ -3295,7 +3295,7 @@
             value of the "class" attribute. Render a "name"
             attribute with a value the same as the "id" attribute as described
             in "&lt;a
-            href="../../../renderkitdocs/HTML_BASIC/renderkit-summary.html#general_encoding"&gt;General
+            href="../../renderkitdoc/html_basic/renderkit-summary#general_encoding"&gt;General
             Notes on
             Encoding&lt;/a&gt;" regarding the "id" attribute for UIInput
             components. &lt;p class="changed_added_2_0"&gt;Obtain the &lt;code&gt;UIViewRoot
@@ -4988,6 +4988,17 @@
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>
+        <attribute>
+            <description>
+                <![CDATA[<div class="changed_added_5_0">
+                    The placeholder attribute represents a short hint (a word or short phrase)
+                    intended to aid the user with data entry.
+                </div>]]>
+            </description>
+            <name>placeholder</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
     </tag>
     <tag>
         <description>
@@ -5402,6 +5413,17 @@
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>
+        <attribute>
+            <description>
+                <![CDATA[<div class="changed_added_5_0">
+                    The placeholder attribute represents a short hint (a word or short phrase)
+                    intended to aid the user with data entry.
+                </div>]]>
+            </description>
+            <name>placeholder</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
     </tag>
     <tag>
         <description>
@@ -5418,11 +5440,11 @@
             will be
             the only message we render. Obtain the severity style for this
             message. If the severity of the message is
-            &lt;code&gt;FacesMessage.SEVERITY_INFO&lt;/code&gt;, the severity
+            &lt;code&gt;Severity.INFO&lt;/code&gt;, the severity
             style
             comes from the value of the "infoStyle" attribute. If the
             severity of the message is
-            &lt;code&gt;FacesMessage.SEVERITY_WARN&lt;/code&gt;, the severity
+            &lt;code&gt;Severity.WARN&lt;/code&gt;, the severity
             style
             comes from the value of the "warnStyle" attribute, and so on for
             each of the severities, &lt;code&gt;INFO, WARN, ERROR&lt;/code&gt;
@@ -6399,7 +6421,7 @@
             attribute
             is specified, follow the same steps as mentioned in the
             "&lt;a
-            href="../../../renderkitdocs/HTML_BASIC/renderkit-summary.html#general_encoding"&gt;General
+            href="../../renderkitdoc/html_basic/renderkit-summary#general_encoding"&gt;General
             Notes on Encoding&lt;/a&gt;" regarding the "id" attribute for
             UIInput components.
             If the "disabled" attribute is specified, do not render the HTML "a"
@@ -11262,6 +11284,18 @@
                 The component identifier for the associated component
             </description>
             <name>id</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[<span class="changed_added_2_3">
+                    Space-separated list of CSS style class(es) to be applied when
+                    this element is rendered. This value must be passed through
+                    as the "class" attribute on generated markup.
+                </span>]]>
+            </description>
+            <name>styleClass</name>
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>

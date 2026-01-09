@@ -121,6 +121,12 @@ javadocs for the constant
 _jakarta.faces.component.UIInput.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE_
 for the specification of this feature.
 
+* _jakarta.faces.AUTOMATIC_EXTENSIONLESS_MAPPING
+-- If this param is set, and calling _toLowerCase().equals("true")_ on
+a _String_ representation of its value returns _true_, Faces views that are
+normally accessed via _*.xhtml_ URLs can also be accessed without the file extension.
+For example, both _/page.xhtml_ and _/page_ will render the same view.
+
 * _jakarta.faces.CLIENT_WINDOW_MODE_ —The
 context-param that controls the operation of the _ClientWindow_ feature.
 See the javadocs for the constant
@@ -136,7 +142,6 @@ Format>>), before loading a configuration resource named
 “_/WEB-INF/faces-config.xml_” is present in the list, it must be
 ignored.
 
-
 * _jakarta.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE_ --
 If this param is set, and calling _toLowerCase().equals("true")_ on a
 _String_ representation of its value returns _true_,
@@ -148,6 +153,12 @@ be equal to _TimeZone.getDefault()_ instead of “GMT”.
 -- If this param is set, and calling _toLowerCase().equals("true")_ on
 a _String_ representation of its value returns _true_, the default
 mapping of the _FacesServlet_ to _*.xhtml_ must not take effect.
+
+* _jakarta.faces.EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING_ --
+Comma-delimited list of fully qualified exception class names to ignore in logging.
+Implementations and component libraries should consult this when determining whether
+to log a given exception, and should ignore exceptions that are instances of the
+specified types.
 
 * _jakarta.faces.FACELETS_LIBRARIES_ —If this
 param is set, the runtime must interpret it as a semicolon (;) separated
@@ -1238,7 +1249,7 @@ specified. The contents of this element must be a fully qualified Java
 class name that, when instantiated, is a _RenderKitFactory_.
 
 
-* _/faces-config/factory/search-expression-context-kit-factory_ —This
+* _/faces-config/factory/search-expression-context-factory_ —This
 element contains the fully qualified class name of the concrete
 _SearchExpressionContextFactory_ implementation class that will be
 called when

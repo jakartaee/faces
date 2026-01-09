@@ -59,7 +59,7 @@ public class UISelectItems extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "jakarta.faces.SelectItems";
 
     enum PropertyKeys {
-        value
+        value, var
     }
 
     // ------------------------------------------------------------ Constructors
@@ -131,6 +131,37 @@ public class UISelectItems extends UIComponentBase {
     public void setValue(Object value) {
 
         getStateHelper().put(PropertyKeys.value, value);
+
+    }
+
+    /**
+     * <p>
+     * Return the request-scope attribute name under which the object for the current item will be exposed when iterating.
+     * This property is <strong>not</strong> enabled for value binding expressions.
+     * </p>
+     *
+     * @return the request-scope attribute name.
+     *
+     * @since 5.0
+     */
+    public String getVar() {
+
+        return (String) getStateHelper().get(PropertyKeys.var);
+
+    }
+
+    /**
+     * <p>
+     * Set the request-scope attribute name under which the object for the current item wil be exposed when iterating.
+     * </p>
+     *
+     * @param var The new request-scope attribute name
+     *
+     * @since 5.0
+     */
+    public void setVar(String var) {
+
+        getStateHelper().put(PropertyKeys.var, var);
 
     }
 

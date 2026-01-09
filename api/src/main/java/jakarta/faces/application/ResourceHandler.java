@@ -270,7 +270,7 @@ public abstract class ResourceHandler {
      * The algorithm specified in section 2.6.1.4 "Libraries of Localized and Versioned Resources" of the Jakarta Faces Specification Document
      * must be executed to create
      * the <code>Resource</code>. <span class="changed_added_2_2">New requirements were introduced in version 2.2 of the
-     * specification. For historical reasons, this method operate correctly when the argument {@code resourceName} is of the
+     * specification. For historical reasons, this method <span class="changed_added_5_0">must</span> operate correctly when the argument {@code resourceName} is of the
      * form {@code libraryName/resourceName}, even when {@code resourceName} contains '/' characters. </span>
      * </p>
      *
@@ -307,7 +307,7 @@ public abstract class ResourceHandler {
      *
      * <li>
      * <p>
-     * Considering resource library contracts (at the locations specified in the 
+     * Considering resource library contracts (at the locations specified in the
      * Jakarta Faces Specification Document section 2.7 "Resource Library Contracts").
      * </p>
      * </li>
@@ -320,7 +320,7 @@ public abstract class ResourceHandler {
      *
      * <li>
      * <p>
-     * Considering faces flows (at the locations specified in the 
+     * Considering faces flows (at the locations specified in the
      * Jakarta Faces Specification Document section 11.3.3 "Faces Flows").
      * </p>
      * </li>
@@ -417,7 +417,7 @@ public abstract class ResourceHandler {
      * <div class="changed_added_2_2">
      *
      * <p>
-     * The resource must be identified according to the specification in 
+     * The resource must be identified according to the specification in
      * section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document. New requirements were
      * introduced in version 2.2 of the specification.
      * </p>

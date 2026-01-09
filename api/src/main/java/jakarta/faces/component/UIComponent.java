@@ -1160,6 +1160,21 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
+     * Convenience method to return the named facet using an enum identifier, if it exists, or <code>null</code>
+     * otherwise. This method delegates to {@link #getFacet(String)} using the result of calling
+     * <code>identifier.toString()</code>. If the requested facet does not exist, the facets Map must not be created.
+     * </p>
+     *
+     * @param identifier Enum identifier of the desired facet
+     * @return the component, or <code>null</code>.
+     * @since 5.0
+     */
+    public UIComponent getFacet(Enum<?> identifier) {
+        return getFacet(identifier.toString());
+    }
+
+    /**
+     * <p>
      * Return an <code>Iterator</code> over the facet followed by child {@link UIComponent}s of this {@link UIComponent}.
      * Facets are returned in an undefined order, followed by all the children in the order they are stored in the child
      * list. If this component has no facets or children, an empty <code>Iterator</code> is returned.

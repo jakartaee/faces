@@ -1,0 +1,181 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.2.9">
+  <diagram name="Page-1" id="i1-wmqN0ozhQ6W89C4KI">
+    <mxGraphModel dx="1426" dy="751" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;ELResolver for Facelets and Programmatic Access&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="300" x="160" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;faces.FlashELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="144" x="186" y="71" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;faces.CompositeComponentAttributesELResovler&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="280" x="186" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;faces.CompositeComponentELResovler&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="220" x="186" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-6" edge="1" parent="1" source="csBtMf-HKXXrRTZ_TLWm-29" style="endArrow=none;html=1;rounded=1;entryX=0.03;entryY=0.967;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;curved=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="csBtMf-HKXXrRTZ_TLWm-1" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="170" y="590" />
+            </Array>
+            <mxPoint x="190" y="480" as="sourcePoint" />
+            <mxPoint x="320" y="40" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-7" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="80.94" as="sourcePoint" />
+            <mxPoint x="170" y="80.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-8" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="109.94" as="sourcePoint" />
+            <mxPoint x="170" y="109.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-9" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="139.94" as="sourcePoint" />
+            <mxPoint x="170" y="139.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-10" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.CompositeELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="154" x="186" y="160" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-11" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="169.94" as="sourcePoint" />
+            <mxPoint x="170" y="169.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-13" edge="1" parent="1" style="endArrow=none;html=1;rounded=1;entryX=0.03;entryY=0.967;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;curved=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="195" y="230" />
+            </Array>
+            <mxPoint x="210" y="230" as="sourcePoint" />
+            <mxPoint x="195" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-14" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="210" y="199.94" as="sourcePoint" />
+            <mxPoint x="194" y="199.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-15" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;font face=&quot;Helvetica&quot; style=&quot;&quot;&gt;&lt;i&gt;&amp;nbsp;ELResolvers from application configuration resources&lt;/i&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="20" width="250" x="210" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-16" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;font face=&quot;Helvetica&quot; style=&quot;&quot;&gt;&lt;i&gt;&amp;nbsp;ELResolvers from Application.addELResolver()&lt;/i&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="20" width="220" x="210" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-18" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;faces.Resource&lt;/b&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;ELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="164" x="186" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.ResourceBundleELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="184" x="186" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;faces&lt;/b&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;.ResourceBundleELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="194" x="186" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;ExpressionFactory.getStreamELResolver()&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="254" x="186" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-22" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.StaticFieldELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="164" x="186" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.MapELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="114" x="186" y="400" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.ListELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="124" x="186" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.ArrayELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="124" x="186" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.OptionalELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="144" x="186" y="490" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-27" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.RecordELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="134" x="186" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-28" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;el.BeanELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="124" x="186" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeWidth=3;shadow=1;glass=0;fontFamily=Courier New;fontSize=10;align=left;" value="&lt;b&gt;&amp;nbsp;faces.ScopedAttributeELResolver&lt;/b&gt;" vertex="1">
+          <mxGeometry height="20" width="204" x="186" y="580" as="geometry" />
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-31" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="259.94" as="sourcePoint" />
+            <mxPoint x="170" y="259.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-32" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="289.94" as="sourcePoint" />
+            <mxPoint x="170" y="289.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-33" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="319.94" as="sourcePoint" />
+            <mxPoint x="170" y="319.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-34" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="349.94" as="sourcePoint" />
+            <mxPoint x="170" y="349.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-35" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="379.94" as="sourcePoint" />
+            <mxPoint x="170" y="379.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-36" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="409.94" as="sourcePoint" />
+            <mxPoint x="170" y="409.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-37" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="439.94" as="sourcePoint" />
+            <mxPoint x="170" y="439.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-38" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="469.94" as="sourcePoint" />
+            <mxPoint x="170" y="469.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-39" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="499.94" as="sourcePoint" />
+            <mxPoint x="170" y="499.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-40" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="529.94" as="sourcePoint" />
+            <mxPoint x="170" y="529.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="csBtMf-HKXXrRTZ_TLWm-41" edge="1" parent="1" style="endArrow=none;html=1;rounded=0;strokeWidth=3;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="186" y="559.94" as="sourcePoint" />
+            <mxPoint x="170" y="559.94" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
