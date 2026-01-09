@@ -183,7 +183,8 @@ The Jakarta Faces implementation
 must perform the following tasks during the _Restore View_ phase of the
 request processing lifecycle:
 
-* Call _initView()_ on the __ViewHandler__. This
+* Call _initView()_ on the _ViewHandler_ before invoking any
+_PhaseListener.beforePhase()_ callbacks. This 
 will set the character encoding properly for this request.
 
 * Examine the _FacesContext_ instance for the

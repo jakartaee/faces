@@ -33,6 +33,7 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseListener;
 import jakarta.faces.push.PushContext;
 import jakarta.faces.view.ViewDeclarationLanguage;
 
@@ -195,7 +196,7 @@ public abstract class ViewHandler {
      * </p>
      *
      * <p>
-     * This method must be called at the beginning of the <em>Restore View Phase</em> of the Request Processing Lifecycle.
+     * <span class="changed_modified_5_0">This method must be called before any {@link PhaseListener#beforePhase} invocations for the <em>Restore View Phase</em>.</span>
      * It is responsible for performing any per-request initialization necessary to the operation of the lifycecle.
      * </p>
      *

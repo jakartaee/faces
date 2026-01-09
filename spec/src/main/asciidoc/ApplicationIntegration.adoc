@@ -1468,11 +1468,11 @@ public void initView(FacesContext) throws FacesException;
 public String calculateCharacterEncoding(FacesContext context);
 ----
 
-The _initView()_ method must be called as the
-first method in the implementation of the _Restore View Phase_ of the
-request processing lifecycle, immediately after checking for the
-existence of the _FacesContext_ parameter. See the javadocs for this
+The _initView()_ method must be called immediately after checking for the
+existence of the _FacesContext_ parameter and before invoking any
+_PhaseListener.beforePhase()_ callbacks for the _Restore View Phase_. See the javadocs for this
 method for the specification.
+
 
 [source,java]
 ----
