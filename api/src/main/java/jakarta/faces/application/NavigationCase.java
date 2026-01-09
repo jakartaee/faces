@@ -322,7 +322,13 @@ public class NavigationCase {
     /**
      * <p class="changed_added_2_0">
      * Return the <code>&lt;redirect&gt;</code> value for this <code>&lt;navigation-case&gt;</code>. This will be
-     * <code>true</code> if the view parametets should be encoded into the redirect URL (only applies to redirect case)
+     * <code>true</code> if the view parameters should be encoded into the redirect URL (only applies to redirect case)
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * When <code>true</code>, view parameter values are obtained from the source view (the view being navigated away from)
+     * and encoded into the target URL. See the Jakarta Faces Specification Document section on ViewHandler.getBookmarkableURL()
+     * for the complete algorithm and clarifications on view parameter value resolution.
      * </p>
      *
      * @return <code>true</code> if view parameters are to be included, <code>false</code> otherwise.

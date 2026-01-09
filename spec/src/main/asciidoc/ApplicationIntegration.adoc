@@ -1091,7 +1091,7 @@ implementation:
 
   <navigation-case>
     <description>
-      Illustrate paramaters
+      Illustrate parameters
     </description>
     <from-outcome>redirectPasswordStrength</from-outcome>
     <redirect>
@@ -1875,7 +1875,7 @@ The _getBookmarkableURL()_ method must fulfill the following
 responsibilities:
 
 * If argument _includeViewParams_ is _true_,
-obtain the view paramaters corresponding to the argument _viewId_ and
+obtain the view parameters corresponding to the argument _viewId_ and
 append them to the _Map_ given in argument _parameters_. Let the
 resultant _Map_ be called _paramsToEncode_.
 
@@ -1922,8 +1922,28 @@ element. If such a _List_ exists, add _value_ to it. Otherwise create a
 _List<String>_, add _value_ to it, and add it to the _parameters_ map
 under the appropriate key.
 
+** When navigating from one view to another (current _viewId_ differs from argument _viewId_):
+The view parameter values must be obtained from the *current view's context* at the time the URL is generated.
+Specifically, when executing the step "locate the _UIViewParameter_ instance in the current view whose name is
+equivalent to the current element and let value be the result of calling _getStringValue()_ on the located
+_UIViewParameter_", the implementation must use the _UIViewParameter_ instance from the current _UIViewRoot_
+(the source page), not from the destination view. The destination view's backing beans must not be accessed
+during this URL generation phase. This ensures that components like _<h:button>_ and _<h:link>_ with
+_includeViewParams="true"_ correctly propagate the source page's parameter values to the destination URL.
+
+** When using Facelets template composition:
+The _<f:metadata>_ section containing _<f:viewParam>_ elements must only be defined in the template client
+page (the root page that corresponds to the _viewId_, which uses _<ui:composition template="...">_), and
+must not be defined in the template file itself (the file referenced by the _template_ attribute) nor in
+any files included via _<ui:include>_. Within the template client page, the _<f:metadata>_ section may be
+placed either inside _<ui:define>_ tags (to be inserted into a corresponding _<ui:insert>_ in the template)
+or outside of _<ui:define>_ tags at the root level. If _<f:metadata>_ is placed in a template file or
+included file, the implementation must throw a _TagException_. The _ViewMetadata_ obtained via
+_ViewDeclarationLanguage.getViewMetadata()_ must reflect only the view parameters defined in the template
+client page (the root page for the _viewId_).
+
 * If argument _includeViewParams_ is _false_,
-take no action to add additional entries to _paramaters_. Let
+take no action to add additional entries to _parameters_. Let
 _paramsToEncode_ be _parameters_.
 
 * Call _getActionURL()_ on the argument
