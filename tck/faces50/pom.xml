@@ -36,6 +36,7 @@
         <module>example_jar_with_metadata_complete_true</module>
         <module>ajax</module>
         <module>converters</module>
+        <module>csp</module>
         <module>events</module>
         <module>facelets</module>
         <module>faceletsRefresh</module>
