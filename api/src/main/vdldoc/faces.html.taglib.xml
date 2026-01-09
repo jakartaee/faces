@@ -4990,8 +4990,10 @@
         </attribute>
         <attribute>
             <description>
-                The placeholder attribute represents a short hint (a word or short phrase)
-                intended to aid the user with data entry.
+                <![CDATA[<div class="changed_added_5_0">
+                    The placeholder attribute represents a short hint (a word or short phrase)
+                    intended to aid the user with data entry.
+                </div>]]>
             </description>
             <name>placeholder</name>
             <required>false</required>
@@ -5413,8 +5415,10 @@
         </attribute>
         <attribute>
             <description>
-                The placeholder attribute represents a short hint (a word or short phrase)
-                intended to aid the user with data entry.
+                <![CDATA[<div class="changed_added_5_0">
+                    The placeholder attribute represents a short hint (a word or short phrase)
+                    intended to aid the user with data entry.
+                </div>]]>
             </description>
             <name>placeholder</name>
             <required>false</required>
