@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html lang="en"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:pt="jakarta.faces.passthrough"
+>
+    <h:head>
+        <title>spec2032</title>
+    </h:head>
+    <h:body>
+        <h:dataTable id="table" value="#{['one','two','three']}" var="item">
+            <f:facet name="header" pt:role="banner">
+                header
+            </f:facet>
+            <h:column>
+                <f:facet name="header" pt:class="icon-header" pt:style="color: green;" />
+                <f:facet name="footer" pt:styleClass="my-footer" pt:style="font-size: 8px;">
+                    footer
+                </f:facet>
+                #{item}1
+            </h:column>
+            <h:column>
+                <f:facet name="header" pt:title="tooltip">
+                    col2
+                </f:facet>
+                #{item}2
+            </h:column>
+        </h:dataTable>
+    </h:body>
+</html>
