@@ -437,8 +437,8 @@ non-__null__ _FacesContext_ instance only in the following scenarios:
 _FacesContext_ is created via _FacesContextFactory_ for request processing
 until _release()_ is called at the end of request processing.
 
-* *During PostConstructApplicationEvent
-processing*: The runtime must create a _FacesContext_ instance and
+* *During PostConstructApplicationEvent processing*:
+The runtime must create a _FacesContext_ instance and
 associate it with the current thread via
 _FacesContext.setCurrentInstance()_ immediately before publishing
 _jakarta.faces.event.PostConstructApplicationEvent_. This _FacesContext_
