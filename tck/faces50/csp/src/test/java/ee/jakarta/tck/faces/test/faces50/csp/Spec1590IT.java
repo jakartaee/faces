@@ -120,9 +120,6 @@ class Spec1590IT extends BaseITNG {
     @Test
     public void testFacesUtilChain() {
         var page = getPage("spec1590.xhtml");
-
-        System.out.println(page.getPageSource());
-
         var nonce = getNonce(page);
         assertNotNull(nonce);
         assertEquals(nonce, getBehaviorScriptElement(page, facesUtilChain).getAttribute("nonce"));
