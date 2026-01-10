@@ -778,9 +778,23 @@
 							<equals arg1="@{descriptor}" arg2="" />
 						</not>
 						<then>
+							<!-- Filter the descriptor to replace Maven-style ${} properties -->
+							<mkdir dir="${ts.home}/tmp/filtered-descriptors/${pkg.dir}"/>
+							<copy file="@{descriptordir}/@{descriptor}"
+							      tofile="${ts.home}/tmp/filtered-descriptors/${pkg.dir}/@{descriptor}"
+							      overwrite="true">
+								<filterchain>
+									<tokenfilter>
+										<replacestring from="$${webapp.projectStage}" to="${webapp.projectStage}"/>
+										<replacestring from="$${webapp.stateSavingMethod}" to="${webapp.stateSavingMethod}"/>
+										<replacestring from="$${webapp.partialStateSaving}" to="${webapp.partialStateSaving}"/>
+										<replacestring from="$${webapp.serializeServerState}" to="${webapp.serializeServerState}"/>
+									</tokenfilter>
+								</filterchain>
+							</copy>
 							<preservejar>
 								<jar-elements/>
-								<zipfileset dir="@{descriptordir}"
+								<zipfileset dir="${ts.home}/tmp/filtered-descriptors/${pkg.dir}"
                                  includes="@{descriptor}"
                                  fullpath="@{internaldescriptorname}"/>
 							</preservejar>
