@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -84,7 +86,7 @@ class Spec1507IT extends BaseITNG {
 
     @Test
     void testComponentAttribute() {
-        getPage("spec1507.xhtml");
+        var page = getPage("spec1507.xhtml");
 
         assertNotNull(input1.getDomAttribute("oninput"));
 
@@ -92,7 +94,7 @@ class Spec1507IT extends BaseITNG {
 
         input1.sendKeys("abc");
 
-        assertEquals("abc", output1.getText());
+        page.waitForCondition($ -> "abc".equals(output1.getText()), Duration.ofSeconds(3));
     }
 
     @Test
@@ -105,7 +107,7 @@ class Spec1507IT extends BaseITNG {
 
         page.guardAjax(() -> input2.sendKeys("abc" + Keys.TAB));
 
-        assertEquals("abc", output2.getText());
+        page.waitForCondition($ -> "abc".equals(output2.getText()), Duration.ofSeconds(3));
     }
 
     @Test
@@ -119,8 +121,8 @@ class Spec1507IT extends BaseITNG {
 
         page.guardAjax(() -> input3.sendKeys("abc" + Keys.TAB));
 
-        assertEquals("abc", output3a.getText());
-        assertEquals("abc", output3b.getText());
+        page.waitForCondition($ -> "abc".equals(output3a.getText()), Duration.ofSeconds(3));
+        page.waitForCondition($ -> "abc".equals(output3b.getText()), Duration.ofSeconds(3));
     }
 
     @Test
@@ -135,10 +137,10 @@ class Spec1507IT extends BaseITNG {
 
         page.guardAjax(() -> input4.sendKeys("abc" + Keys.TAB));
 
-        assertEquals("abc", output4a.getText());
-        assertEquals("abc", output4b.getText());
-        assertEquals("abc", output4c.getText());
-        assertEquals("abc", output4d.getText());
+        page.waitForCondition($ -> "abc".equals(output4a.getText()), Duration.ofSeconds(3));
+        page.waitForCondition($ -> "abc".equals(output4b.getText()), Duration.ofSeconds(3));
+        page.waitForCondition($ -> "abc".equals(output4c.getText()), Duration.ofSeconds(3));
+        page.waitForCondition($ -> "abc".equals(output4d.getText()), Duration.ofSeconds(3));
     }
 
     @Test
@@ -155,15 +157,15 @@ class Spec1507IT extends BaseITNG {
 
         page.guardAjax(() -> input5.sendKeys("abc" + Keys.TAB));
 
-        assertEquals("abc", output5a.getText());
-        assertEquals("abc", output5b.getText());
-        assertEquals("abc", output5c.getText());
+        page.waitForCondition($ -> "abc".equals(output5a.getText()), Duration.ofSeconds(3));
+        page.waitForCondition($ -> "abc".equals(output5b.getText()), Duration.ofSeconds(3));
+        page.waitForCondition($ -> "abc".equals(output5c.getText()), Duration.ofSeconds(3));
     }
 
     @Test
     void testCustomAjaxEvents() {
         getPage("spec1507.xhtml");
-        
+
         assertNotNull(input6.getDomAttribute("onspec1507customevent1"));
         assertNotNull(input6.getDomAttribute("onspec1507customevent2"));
     }
