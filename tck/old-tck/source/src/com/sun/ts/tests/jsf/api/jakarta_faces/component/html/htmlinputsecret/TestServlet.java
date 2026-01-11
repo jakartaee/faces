@@ -29,7 +29,7 @@ import jakarta.servlet.ServletException;
 public final class TestServlet
     extends com.sun.ts.tests.jsf.api.jakarta_faces.component.uiinput.TestServlet {
 
-  private static final String[] attrNames = { "accesskey", "alt",
+  private static final String[] attrNames = { "accesskey",
       "autocomplete", "dir", "lang", "maxlength", "onblur", "onchange",
       "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup",
       "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup",
