@@ -82,7 +82,7 @@ public final class TestServlet extends HttpTCKServlet {
     UIComponent component2 = getApplication()
         .createComponent(UIOutput.COMPONENT_TYPE);
     component2.setId("component2");
-    FacesMessage message1 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message1 = new TCKMessage(FacesMessage.Severity.INFO,
         "message1 summary", "message1 detail", "message1");
 
     context.addMessage(component1.getClientId(context), message1);
@@ -184,13 +184,13 @@ public final class TestServlet extends HttpTCKServlet {
     UIComponent component = getApplication()
         .createComponent(UIInput.COMPONENT_TYPE);
     component.setId("input1");
-    FacesMessage message1 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message1 = new TCKMessage(FacesMessage.Severity.INFO,
         "message1 summary", "message1 detail", "message1");
-    FacesMessage message2 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message2 = new TCKMessage(FacesMessage.Severity.INFO,
         "message2 summary", "message2 detail", "message2");
-    FacesMessage message3 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message3 = new TCKMessage(FacesMessage.Severity.INFO,
         "message3 summary", "message3 detail", "message3");
-    FacesMessage message4 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message4 = new TCKMessage(FacesMessage.Severity.INFO,
         "message4 summary", "message4 detail", "message4");
 
     FacesContextWrapper context = new TCKFacesContext();
@@ -501,13 +501,13 @@ public final class TestServlet extends HttpTCKServlet {
     FacesContextWrapper context = new TCKFacesContext();
 
     context.setViewRoot(new UIViewRoot());
-    FacesMessage message1 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message1 = new TCKMessage(FacesMessage.Severity.INFO,
         "message1 summary", "message1 detail", "message1");
-    FacesMessage message2 = new TCKMessage(FacesMessage.SEVERITY_WARN,
+    FacesMessage message2 = new TCKMessage(FacesMessage.Severity.WARN,
         "message2 summary", "message2 detail", "message2");
-    FacesMessage message3 = new TCKMessage(FacesMessage.SEVERITY_ERROR,
+    FacesMessage message3 = new TCKMessage(FacesMessage.Severity.ERROR,
         "message3 summary", "message3 detail", "message3");
-    FacesMessage message4 = new TCKMessage(FacesMessage.SEVERITY_FATAL,
+    FacesMessage message4 = new TCKMessage(FacesMessage.Severity.FATAL,
         "message4 summary", "message4 detail", "message4");
 
     /*
@@ -526,55 +526,55 @@ public final class TestServlet extends HttpTCKServlet {
 
     context.addMessage(null, message1);
     int severity = context.getMaximumSeverity().getOrdinal();
-    if (severity != FacesMessage.SEVERITY_INFO.getOrdinal()) {
+    if (severity != FacesMessage.Severity.INFO.getOrdinal()) {
       out.println(JSFTestUtil.FAIL + " Expected FacesContext."
           + "getMaximumSeverity() to return FacesMessage."
           + "SEVERITY_INFO when only a SEVERITY_INFO message exists"
           + " in the FacesContext.");
       out.println("Severity Recieved: " + severity);
-      out.println("Integer value of FacesMessage.SEVERITY_INFO: "
-          + FacesMessage.SEVERITY_INFO);
+      out.println("Integer value of FacesMessage.Severity.INFO: "
+          + FacesMessage.Severity.INFO);
       return;
     }
 
     context.addMessage(null, message2);
     severity = context.getMaximumSeverity().getOrdinal();
-    if (severity != FacesMessage.SEVERITY_WARN.getOrdinal()) {
+    if (severity != FacesMessage.Severity.WARN.getOrdinal()) {
       out.println(JSFTestUtil.FAIL + " Expected FacesContext."
           + "getMaximumSeverity() to return FacesMessage."
           + "SEVERITY_WARN when both a SEVERITY_INFO and "
           + "SEVERITY_WARN message exist in the FacesContext.");
       out.println("Severity Recieved: " + severity);
-      out.println("Integer value of FacesMessage.SEVERITY_WARN: "
-          + FacesMessage.SEVERITY_WARN);
+      out.println("Integer value of FacesMessage.Severity.WARN: "
+          + FacesMessage.Severity.WARN);
       return;
     }
 
     context.addMessage(null, message3);
     severity = context.getMaximumSeverity().getOrdinal();
-    if (severity != FacesMessage.SEVERITY_ERROR.getOrdinal()) {
+    if (severity != FacesMessage.Severity.ERROR.getOrdinal()) {
       out.println(JSFTestUtil.FAIL + " Expected FacesContext."
           + "getMaximumSeverity() to return FacesMessage."
           + "SEVERITY_ERROR when messages with SEVERITY_INFO, "
           + "SEVERITY_WARN, and SEVERITY_ERROR exist in the"
           + " FacesContext.");
       out.println("Severity Recieved: " + severity);
-      out.println("Integer value of FacesMessage.SEVERITY_ERROR: "
-          + FacesMessage.SEVERITY_ERROR);
+      out.println("Integer value of FacesMessage.Severity.ERROR: "
+          + FacesMessage.Severity.ERROR);
       return;
     }
 
     context.addMessage(null, message4);
     severity = context.getMaximumSeverity().getOrdinal();
-    if (severity != FacesMessage.SEVERITY_FATAL.getOrdinal()) {
+    if (severity != FacesMessage.Severity.FATAL.getOrdinal()) {
       out.println(JSFTestUtil.FAIL + " Expected FacesContext."
           + "getMaximumSeverity() to return FacesMessage."
           + "SEVERITY_ERROR when messages with SEVERITY_INFO, "
           + "SEVERITY_WARN, SEVERITY_ERROR, SEVERITY_FATAL exist"
           + " in the FacesContext.");
       out.println("Severity Recieved: " + severity);
-      out.println("Integer value of FacesMessage.SEVERITY_FATAL: "
-          + FacesMessage.SEVERITY_FATAL);
+      out.println("Integer value of FacesMessage.Severity.FATAL: "
+          + FacesMessage.Severity.FATAL);
       return;
     }
 
@@ -1008,13 +1008,13 @@ public final class TestServlet extends HttpTCKServlet {
       component.setId(compId);
     }
 
-    FacesMessage message1 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message1 = new TCKMessage(FacesMessage.Severity.INFO,
         "message1 summary", "message1 detail", "message1");
-    FacesMessage message2 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message2 = new TCKMessage(FacesMessage.Severity.INFO,
         "message2 summary", "message2 detail", "message2");
-    FacesMessage message3 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message3 = new TCKMessage(FacesMessage.Severity.INFO,
         "message3 summary", "message3 detail", "message3");
-    FacesMessage message4 = new TCKMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage message4 = new TCKMessage(FacesMessage.Severity.INFO,
         "message4 summary", "message4 detail", "message4");
 
     context.setViewRoot(createViewRoot());

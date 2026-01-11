@@ -55,7 +55,7 @@ public final class TestServlet extends HttpTCKServlet {
     PrintWriter out = response.getWriter();
 
     try {
-      new FacesMessage(FacesMessage.SEVERITY_INFO, "summary", "detail");
+      new FacesMessage(FacesMessage.Severity.INFO, "summary", "detail");
       out.println(JSFTestUtil.PASS);
 
     } catch (Exception e) {
@@ -103,28 +103,28 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage facesMessage = new FacesMessage(FacesMessage.Severity.INFO,
         "summary", "detail");
     // first, call getSeverity on an instance that was constructed passing
     // the severity information in
-    if (facesMessage.getSeverity().getOrdinal() != FacesMessage.SEVERITY_INFO
+    if (facesMessage.getSeverity().getOrdinal() != FacesMessage.Severity.INFO
         .getOrdinal()) {
       out.println(JSFTestUtil.FAIL + "Expected FacesMesssage.getServerity() "
           + "to return Message.SEVERITY_INFO." + JSFTestUtil.NL
           + "Actual severity returned: " + JSFTestUtil
-              .getSeverityAsString(FacesMessage.SEVERITY_INFO.getOrdinal()));
+              .getSeverityAsString(FacesMessage.Severity.INFO.getOrdinal()));
       return;
     }
 
-    facesMessage.setSeverity(FacesMessage.SEVERITY_FATAL);
+    facesMessage.setSeverity(FacesMessage.Severity.FATAL);
 
-    if (facesMessage.getSeverity().getOrdinal() != FacesMessage.SEVERITY_FATAL
+    if (facesMessage.getSeverity().getOrdinal() != FacesMessage.Severity.FATAL
         .getOrdinal()) {
       out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
           + "Expected FacesMessage.getServerity() to return "
           + "Message.SEVERITY_FATAL." + JSFTestUtil.NL
           + "Actual severity returned: " + JSFTestUtil
-              .getSeverityAsString(FacesMessage.SEVERITY_FATAL.getOrdinal()));
+              .getSeverityAsString(FacesMessage.Severity.FATAL.getOrdinal()));
       return;
     }
 
@@ -136,7 +136,7 @@ public final class TestServlet extends HttpTCKServlet {
   public void facesMessageGetSetSummaryTest(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
-    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage facesMessage = new FacesMessage(FacesMessage.Severity.INFO,
         "summary", "detail");
 
     if (!"summary".equals(facesMessage.getSummary())) {
@@ -168,7 +168,7 @@ public final class TestServlet extends HttpTCKServlet {
   public void facesMessageGetSetDetailTest(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
-    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage facesMessage = new FacesMessage(FacesMessage.Severity.INFO,
         "summary", "detail");
 
     if (!"detail".equals(facesMessage.getDetail())) {
@@ -200,7 +200,7 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage facesMessage = new FacesMessage(FacesMessage.Severity.INFO,
         "summary", "detail");
 
     if (facesMessage.isRendered()) {
@@ -232,10 +232,10 @@ public final class TestServlet extends HttpTCKServlet {
     PrintWriter out = response.getWriter();
     int z = 0;
 
-    FacesMessage facesMessageOne = new FacesMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage facesMessageOne = new FacesMessage(FacesMessage.Severity.INFO,
         "summary", "detail");
 
-    FacesMessage facesMessageTwo = new FacesMessage(FacesMessage.SEVERITY_FATAL,
+    FacesMessage facesMessageTwo = new FacesMessage(FacesMessage.Severity.FATAL,
         "summary", "detail");
 
     // compare to see that they are the same.
@@ -264,7 +264,7 @@ public final class TestServlet extends HttpTCKServlet {
       HttpServletResponse response) throws ServletException, IOException {
     PrintWriter out = response.getWriter();
 
-    FacesMessage facesMessageOne = new FacesMessage(FacesMessage.SEVERITY_INFO,
+    FacesMessage facesMessageOne = new FacesMessage(FacesMessage.Severity.INFO,
         "summary", "detail");
 
     if (!(facesMessageOne.getSeverity().toString().contains("INFO"))) {
