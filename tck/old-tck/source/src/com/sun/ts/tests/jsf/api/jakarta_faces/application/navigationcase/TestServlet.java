@@ -30,7 +30,6 @@ import com.sun.ts.tests.jsf.common.servlets.HttpTCKServlet;
 import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 
 import jakarta.faces.application.Application;
-import jakarta.faces.application.ConfigurableNavigationHandler;
 import jakarta.faces.application.NavigationCase;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.ServletException;
@@ -398,14 +397,13 @@ public class TestServlet extends HttpTCKServlet {
     NavigationCase result = null;
 
     if (application != null && context != null && navSet != null) {
-      ConfigurableNavigationHandler cnh = (ConfigurableNavigationHandler) application
-          .getNavigationHandler();
+      NavigationHandler nh = application.getNavigationHandler();
 
       // Add NavigationCase to NavigationHandler's Map.
-      cnh.getNavigationCases().put(viewId, navSet);
+      nh.getNavigationCases().put(viewId, navSet);
 
       // retrieve newly added NavigationCase.
-      result = cnh.getNavigationCase(context, fromAction, fromOutCome);
+      result = nh.getNavigationCase(context, fromAction, fromOutCome);
     }
 
     return result;
