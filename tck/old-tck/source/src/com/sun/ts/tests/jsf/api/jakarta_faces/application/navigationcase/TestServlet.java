@@ -31,6 +31,7 @@ import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.application.NavigationCase;
+import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
