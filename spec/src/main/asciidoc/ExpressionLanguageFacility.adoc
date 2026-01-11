@@ -1064,13 +1064,19 @@ _@jakarta.faces.component.behavior.FacesBehavior(managed=true)_
 [[a3070]]
 ==== Expression Language Resolution
 
-The Implicit Objects for Facelets and Programmatic must be
-resolved using CDI
+The Implicit Objects for Facelets and Programmatic Access must be produced and named using CDI,
+with the exception of environment-specific types which must only be named for EL resolution.
 
 [[a2830]]
 ===== Implicit Objects for Facelets and Programmatic Access
 
-The following Implicit Objects for Facelets and Programmatic Access must be resolved using CDI.
+The following Implicit Objects for Facelets and Programmatic Access must be produced and named
+using CDI (making them available for both _@Inject_ and EL resolution), except for
+environment-specific types _request_, _session_, and _application_, which must only be named
+(using _@Named_) for EL resolution. The naming for environment-specific types can be accomplished
+using either a CDI producer or an implicit EL resolver. This separation maintains proper
+specification boundaries, as the CDI specification mandates that servlet containers provide
+built-in beans for _@Inject_ support of _HttpServletRequest_, _HttpSession_, and _ServletContext_.
 
 [[a2832]]
 .Implicit Objects for Programmatic Access
