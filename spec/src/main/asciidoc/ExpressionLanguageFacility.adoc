@@ -875,7 +875,7 @@ these semantics.
 This Scoped Attribute ELResolver for Facelets and Programmatic Access
 is responsible for doing the
 scoped lookup that makes it possible for expressions to pick up anything
-stored in the request, session, or application scopes by name.
+stored in the request, session, application, or import scopes by name.
 
 .Scoped Attribute ELResolver
 
@@ -909,6 +909,11 @@ Use the argument property as the key in a
 call to externalContext.getApplicationMap().get(). If this returns
 non-null, call setPropertyResolved(true) on the argument ELContext and
 return the value.
+
+Use the argument property as the key in a
+call to facesContext.getELContext().getImportHandler().resolveClass(). If this returns
+an instance of Class, call setPropertyResolved(true) on the argument ELContext and
+return the value wrapped in a new instance of jakarta.el.ELClass.
 
 Otherwise call setPropertyResloved(true) and
 return null;
