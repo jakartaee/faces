@@ -126,16 +126,18 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <tomcat.version>9.0.12</tomcat.version>
 
-        <!-- Jakarta EE API versions -->
-        <jakarta.activation-api.version>2.2.0-M1</jakarta.activation-api.version>
+        <!-- Jakarta EE API versions matching the GlassFish server-->
+        <jakarta.faces-api.version>${faces.version}</jakarta.faces-api.version>
+        <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
         <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
         <jakarta.cdi-api.version>4.1.0</jakarta.cdi-api.version>
-        <jakarta.el-api.version>6.0.0</jakarta.el-api.version> <!-- NOTE: 6.1.0-M1 doesn't work because of unresolveable transient dependency on org.eclipse.ee4j:project:pom:2.0.0-SNAPSHOT -->
+        <jakarta.el-api.version>6.0.0</jakarta.el-api.version>
         <jakarta.inject-api.version>2.0.1</jakarta.inject-api.version>
-        <jakarta.jsp-api.version>4.1.0-M1</jakarta.jsp-api.version>
-        <jakarta.jstl-api.version>3.1.0-M1</jakarta.jstl-api.version>
-        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version> <!-- NOTE: 6.2.0-M1 doesn't work because of unresolveable transient dependency on org.eclipse.ee4j:project:pom:2.0.0-SNAPSHOT -->
-        <jakarta.validation-api.version>4.0.0-M1</jakarta.validation-api.version>
+        <jakarta.jsp-api.version>4.0.0</jakarta.jsp-api.version>
+        <jakarta.jstl-api.version>3.0.0</jakarta.jstl-api.version>
+        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
+        <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
+        <jakarta.websocket-api.version>2.0.0</jakarta.websocket-api.version>
 
         <!-- web.xml defaults -->
         <webapp.projectStage>Production</webapp.projectStage>
@@ -168,7 +170,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <dependency>
                 <groupId>jakarta.faces</groupId>
                 <artifactId>jakarta.faces-api</artifactId>
-                <version>${faces.version}</version>
+                <version>${jakarta.faces-api.version}</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -189,13 +191,13 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <dependency>
                 <groupId>jakarta.websocket</groupId>
                 <artifactId>jakarta.websocket-api</artifactId>
-                <version>2.2.0</version>
+                <version>${jakarta.websocket-api.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>jakarta.websocket</groupId>
                 <artifactId>jakarta.websocket-client-api</artifactId>
-                <version>2.2.0</version>
+                <version>${jakarta.websocket-api.version}</version>
                 <scope>provided</scope>
             </dependency>
 
@@ -422,15 +424,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <id>jakarta-staging</id>
             <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
         </repository>
-<!-- 
-        <repository>
-            <id>jakarta-snapshots</id>
-            <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
- -->
     </repositories>
 
     <build>
