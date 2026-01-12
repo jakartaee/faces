@@ -1447,4 +1447,45 @@ public void init(ServletConfig config) throws ServletException {
     out.println(JSFTestUtil.PASS);
   }
 
+  // NumberConverter.getAsString() throws NPE if either context or
+  // component are null
+  public void numConverterGetAsStringNPETest(HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
+    PrintWriter out = response.getWriter();
+    NumberConverter converter = new NumberConverter();
+
+    try {
+      converter.getAsString(null, new UIInput(), 1.23);
+      out.println(JSFTestUtil.FAIL + " No Exception thrown when a null"
+          + " FacesContext is passed to NumberConveter.getAs" + "Object().");
+      return;
+    } catch (Exception e) {
+      if (!(e instanceof NullPointerException)) {
+        out.println(JSFTestUtil.FAIL + " Exception thrown when a null"
+            + " FacesContext was passed to NumberConverter.get"
+            + "asObject(), but it wasn't an instance of"
+            + " NullPointerException.");
+        out.println("Exception received: " + e.getClass().getName());
+        return;
+      }
+    }
+
+    try {
+      converter.getAsString(getFacesContext(), null, 1.23);
+      out.println(JSFTestUtil.FAIL + " No Exception thrown when a null"
+          + " UIComponent is passed to NumberConveter.getAs" + "Object().");
+      return;
+    } catch (Exception e) {
+      if (!(e instanceof NullPointerException)) {
+        out.println(JSFTestUtil.FAIL + " Exception thrown when a null"
+            + " UIComponent was passed to NumberConverter.get"
+            + "asObject(), but it wasn't an instance of"
+            + " NullPointerException.");
+        out.println("Exception received: " + e.getClass().getName());
+        return;
+      }
+    }
+
+    out.println(JSFTestUtil.PASS);
+  }
 }

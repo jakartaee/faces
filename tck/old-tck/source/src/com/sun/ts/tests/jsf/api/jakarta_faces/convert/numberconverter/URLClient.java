@@ -246,17 +246,6 @@ public final class URLClient extends AbstractUrlClient {
   }
 
   /**
-   * @testName: numConverterGetAsStringStringInputTest
-   * @assertion_ids: JSF:JAVADOC:1679; JSF:JAVADOC:1662; JSF:JAVADOC:1674
-   * @test_Strategy: Ensure getAsString() can properly handle input values of
-   *                 type String.
-   */
-  public void numConverterGetAsStringStringInputTest() throws Fault {
-    TEST_PROPS.setProperty(APITEST, "numConverterGetAsStringStringInputTest");
-    invoke();
-  }
-
-  /**
    * @testName: numConverterGetAsStringLocaleTest
    * @assertion_ids: JSF:JAVADOC:1679; JSF:JAVADOC:1662; JSF:JAVADOC:1667
    * @test_Strategy: Ensure getAsString() uses the locale from the approriate

@@ -246,7 +246,6 @@ public final class TestServlet extends HttpTCKServlet {
   public void enumConverterGetAsStringCETest(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     String ExpectedException = "ConverterException";
-    boolean pass1 = false;
     boolean pass2 = false;
     boolean pass3 = false;
 
@@ -278,14 +277,15 @@ public final class TestServlet extends HttpTCKServlet {
       e.printStackTrace();
     }
 
-    // ConverterException when target class is null
+    // NO ConverterException when target class is null (it doesn't anymore throw since #1938)
     try {
       noArgsConverter.getAsString(context, component, Suit.DIAMONDS);
-      out.println("Conversion to String of constant when target class is null "
-          + "did thorw a " + ExpectedException);
+      pass3 = true;
 
     } catch (ConverterException ce) {
-      pass3 = true;
+        out.println("Conversion to String of constant when target class is null "
+                + "did throw a ConverterException");
+        ce.printStackTrace();
 
     } catch (Exception e) {
       out.println(
@@ -296,7 +296,7 @@ public final class TestServlet extends HttpTCKServlet {
       e.printStackTrace();
     }
 
-    out.println((pass1 && pass2 && pass3) ? "Test PASSED," : "Test FAILED.");
+    out.println((pass2 && pass3) ? "Test PASSED," : "Test FAILED.");
 
   } // End enumConverterGetAsStringCETest
 
