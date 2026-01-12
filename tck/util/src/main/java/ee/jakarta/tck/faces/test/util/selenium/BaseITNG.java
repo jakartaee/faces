@@ -17,7 +17,6 @@ package ee.jakarta.tck.faces.test.util.selenium;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
-import static java.util.Optional.ofNullable;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
@@ -25,6 +24,8 @@ import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 import java.io.File;
 import java.net.URL;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -129,8 +130,9 @@ public abstract class BaseITNG implements ExecutionCondition {
         return uriWithoutJsessionId;
     }
 
-    protected WebElement getBehaviorScriptElement(WebPage page, WebElement input) {
+    protected List<WebElement> getBehaviorScriptElements(WebPage page, WebElement input) {
         var id = input.getAttribute("id");
+        var elements = new ArrayList<WebElement>();
 
         for (var script : page.findElements(By.tagName("script"))) {
             var src = script.getAttribute("src");
@@ -138,15 +140,25 @@ public abstract class BaseITNG implements ExecutionCondition {
                 var content = script.getDomProperty("textContent");
 
                 if (content.contains("'" + id + "'") || content.contains("\"" + id + "\"")) {
-                    return script;
+                    elements.add(script);
                 }
             }
         }
 
-        return null;
+        return elements;
+    }
+
+    protected List<String> getBehaviorScripts(WebPage page, WebElement input) {
+        return getBehaviorScriptElements(page, input).stream().map(script -> script.getDomProperty("textContent")).toList();
+    }
+
+    protected WebElement getBehaviorScriptElement(WebPage page, WebElement input) {
+        var elements = getBehaviorScriptElements(page, input);
+        return elements.isEmpty() ? null : elements.get(0);
     }
 
     protected String getBehaviorScript(WebPage page, WebElement input) {
-        return ofNullable(getBehaviorScriptElement(page, input)).map(script -> script.getDomProperty("textContent")).orElse(null);
+        var scripts = getBehaviorScripts(page, input);
+        return scripts.isEmpty() ? null : scripts.get(0);
     }
 }

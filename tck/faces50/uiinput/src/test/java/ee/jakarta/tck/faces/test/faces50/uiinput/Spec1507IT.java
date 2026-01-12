@@ -27,6 +27,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
  * https://github.com/jakartaee/faces/issues/1507
@@ -92,7 +93,7 @@ class Spec1507IT extends BaseITNG {
 
         assertEquals("", output1.getText());
 
-        input1.sendKeys("abc");
+        input1.sendKeys("abc" + Keys.TAB);
 
         page.waitForCondition($ -> "abc".equals(output1.getText()), Duration.ofSeconds(3));
     }
@@ -101,7 +102,7 @@ class Spec1507IT extends BaseITNG {
     void testAjaxEvent() {
         var page = getPage("spec1507.xhtml");
 
-        assertNotNull(input2.getDomAttribute("oninput"));
+        assertBehaviorScriptRendered(page, input2, "input");
 
         assertEquals("", output2.getText());
 
@@ -114,7 +115,7 @@ class Spec1507IT extends BaseITNG {
     void testComponentAttributeAndSingleAjaxEvent() {
         var page = getPage("spec1507.xhtml");
 
-        assertNotNull(input3.getDomAttribute("oninput"));
+        assertBehaviorScriptRendered(page, input3, "input");
 
         assertEquals("", output3a.getText());
         assertEquals("", output3b.getText());
@@ -129,7 +130,7 @@ class Spec1507IT extends BaseITNG {
     void testComponentAttributeAndMultipleAjaxEvents() {
         var page = getPage("spec1507.xhtml");
 
-        assertNotNull(input4.getDomAttribute("oninput"));
+        assertBehaviorScriptRendered(page, input4, "input");
 
         assertEquals("", output4a.getText());
         assertEquals("", output4b.getText());
@@ -147,9 +148,9 @@ class Spec1507IT extends BaseITNG {
     void testMixedAjaxEvents() {
         var page = getPage("spec1507.xhtml");
 
-        assertNotNull(input5.getDomAttribute("onkeydown"));
-        assertNotNull(input5.getDomAttribute("oninput"));
-        assertNotNull(input5.getDomAttribute("onchange"));
+        assertBehaviorScriptRendered(page, input5, "keydown");
+        assertBehaviorScriptRendered(page, input5, "input");
+        assertBehaviorScriptRendered(page, input5, "change");
 
         assertEquals("", output5a.getText());
         assertEquals("", output5b.getText());
@@ -164,10 +165,10 @@ class Spec1507IT extends BaseITNG {
 
     @Test
     void testCustomAjaxEvents() {
-        getPage("spec1507.xhtml");
+        var page = getPage("spec1507.xhtml");
 
-        assertNotNull(input6.getDomAttribute("onspec1507customevent1"));
-        assertNotNull(input6.getDomAttribute("onspec1507customevent2"));
+        assertBehaviorScriptRendered(page, input6, "spec1507customevent1");
+        assertBehaviorScriptRendered(page, input6, "spec1507customevent2");
     }
 
     @Test
@@ -175,6 +176,11 @@ class Spec1507IT extends BaseITNG {
         var page = getPage("spec1507.xhtml?renderInputWithUnsupportedAjaxEvent=true");
 
         assertTrue(page.getPageSource().contains("500"));
+    }
+
+    private void assertBehaviorScriptRendered(WebPage page, WebElement input, String behaviorEventName) {
+        var scripts = getBehaviorScripts(page, input);
+        assertTrue(scripts.stream().anyMatch(script -> script.contains("'" + behaviorEventName + "'") || script.contains("\"" + behaviorEventName + "\"")), scripts.toString());
     }
 
 }
