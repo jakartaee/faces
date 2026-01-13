@@ -39,11 +39,35 @@ Add StateHelper#computeIfAbsent
 * Issue ID {issue_tracker_url}2015[2015] +
 Add FaceletContext#getCurrentInstance
 
+* Issue ID {issue_tracker_url}2014[2014] +
+Clarify h:selectOneRadio group attribute
+
+* Issue ID {issue_tracker_url}2008[2008] +
+TextHandler now extends FaceletHandler
+
+* Issue ID {issue_tracker_url}1972[1972] +
+Deprecate h:form prependId attribute
+
+* Issue ID {issue_tracker_url}1938[1938] +
+EnumConverter now autodiscovers type
+
+* Issue ID {issue_tracker_url}1936[1936] +
+Clarify UIViewRoot#resetValues behavior
+
+* Issue ID {issue_tracker_url}1934[1934] +
+Add FacesMessage.Severity enum and deprecate the string constants
+
+* Issue ID {issue_tracker_url}1875[1875] +
+Add missing UISelectItems#getVar/setVar methods
+
 * Issue ID {issue_tracker_url}1861[1861] +
 Add FacesServletFactory
 
 * Issue ID {issue_tracker_url}1849[1849] +
 Clarify f:metadata placement requirements
+
+* Issue ID {issue_tracker_url}1835[1835] +
+Clarify when to fire PostAddToViewEvent
 
 * Issue ID {issue_tracker_url}1833[1833] +
 Unify ConfigurableNavigationHandler and NavigationHandler
@@ -55,16 +79,62 @@ Add enums for STATE_SAVING_METHOD and VALIDATE_EMPTY_FIELDS context parameters
 Add TypeLiteral constants for annotation literals of generic types
 
 * Issue ID {issue_tracker_url}1791[1791] +
-Fix f:selectItems var attribute
+Fix f:selectItems var attribute to support SelectItem and Map as well
 
 * Issue ID {issue_tracker_url}1713[1713] +
-Clarify ui:repeat attributes
+Clarify ui:repeat size/offset/begin/end attributes
+
+* Issue ID {issue_tracker_url}1592[1592] +
+Add FacesMessage.Severity.SUCCESS
 
 * Issue ID {issue_tracker_url}1590[1590] +
-CSP support
+Add CSP support
 
 * Issue ID {issue_tracker_url}1564[1564] +
-Resolve _#{cc}_ using EL instead of CDI
+Resolve _#{cc}_ and _#{component}_ using EL instead of CDI, and clarify expression language resolution on environment-specific types _request_, _session_, and _application_
+
+* Issue ID {issue_tracker_url}1501[1501] +
+Add CDI @Observes support for system events
+
+* Issue ID {issue_tracker_url}1462[1462] +
+Add PartialResponseWriterWrapper
+
+* Issue ID {issue_tracker_url}1443[1443] +
+Add CDI @Observes support for phase events
+
+* Issue ID {issue_tracker_url}1368[1368] +
+Add EL import handler to EL resolver chain
+
+* Issue ID {issue_tracker_url}1366[1366] +
+Clarify resource name requirements
+
+* Issue ID {issue_tracker_url}1278[1278] +
+Clarify that UIInput#isEmpty must be consulted during validate
+
+* Issue ID {issue_tracker_url}1244[1244] +
+Clarify how to compile EL in template text
+
+* Issue ID {issue_tracker_url}1202[1202] +
+Clarify cc:attributes type attribute
+
+* Issue ID {issue_tracker_url}1201[1201] +
+Clarify that Flash cookie must be httpOnly
+
+* Issue ID {issue_tracker_url}1160[1160] +
+Clarify includeViewParams=true behavior
+
+* Issue ID {issue_tracker_url}1112[1112] +
+Clarify FacesContext#release requirements
+
+* Issue ID {issue_tracker_url}908[908] +
+Clarify h:outputStyesheet request path rendering
+
+* Issue ID {issue_tracker_url}816[816] +
+Clarify ViewHandler#initView requirements
+
+* Issue ID {issue_tracker_url}583[583] +
+Clarify h:message(s) rendering when no messages
+
 
 ==== Backward Compatibility with Previous Versions
 
@@ -81,6 +151,15 @@ Add generics to StateHelper methods
 
 * Issue ID {issue_tracker_url}2027[2027] +
 Add generics to UIData#getDataModel
+
+* Issue ID {issue_tracker_url}2012[2012] +
+Add generics to UIComponent#getFacesListeners
+
+* Issue ID {issue_tracker_url}1948[1948] +
+Migrate PhaseId to enum
+
+* Issue ID {issue_tracker_url}1937[1937] +
+Remove deprecated custom scope context
 
 * Issue ID {issue_tracker_url}1871[1871] +
 Remove deprecated composite:extension and custom scope events
