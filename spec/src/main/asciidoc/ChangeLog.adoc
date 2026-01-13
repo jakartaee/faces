@@ -70,7 +70,7 @@ Clarify f:metadata placement requirements
 Clarify when to fire PostAddToViewEvent
 
 * Issue ID {issue_tracker_url}1833[1833] +
-Unify ConfigurableNavigationHandler and NavigationHandler
+Unify ConfigurableNavigationHandler and NavigationHandler and deprecate ConfigurableNavigationHandler
 
 * Issue ID {issue_tracker_url}1831[1831] +
 Add enums for STATE_SAVING_METHOD and VALIDATE_EMPTY_FIELDS context parameters
