@@ -10,19 +10,23 @@ pre-Jakarta Faces specification under the JCP.
 
 === Changes between 5.0 and 4.1
 
-This release contains the following changes:
+This release contains the following backwards compatible changes:
 
 * Issue ID {issue_tracker_url}2105[2105] +
 Deprecate java.sun.com and xmlns.jcp.org XML namespaces
-
-* Issue ID {issue_tracker_url}2026[2026] +
-Parameterize Application#createConverter and createValidator
 
 * Issue ID {issue_tracker_url}1590[1590] +
 CSP support
 
 * Issue ID {issue_tracker_url}1564[1564] +
 Resolve _#{cc}_ using EL instead of CDI
+
+==== Backward Compatibility with Previous Versions
+
+This release contains the following backwards incompatible changes:
+
+* Issue ID {issue_tracker_url}2026[2026] +
+Parameterize Application#createConverter and createValidator
 
 
 === Changes between 4.1 and 4.0
