@@ -49,16 +49,16 @@ TextHandler now extends FaceletHandler
 Deprecate h:form prependId attribute
 
 * Issue ID {issue_tracker_url}1938[1938] +
-EnumConverter now autodiscovers type
+EnumConverter now auto-discovers type
 
 * Issue ID {issue_tracker_url}1936[1936] +
 Clarify UIViewRoot#resetValues behavior
 
 * Issue ID {issue_tracker_url}1934[1934] +
-Add FacesMessage.Severity enum and deprecate the string constants
+Add FacesMessage.Severity enum and deprecate string constants
 
 * Issue ID {issue_tracker_url}1875[1875] +
-Add missing UISelectItems#getVar/setVar methods
+Add UISelectItems#getVar/setVar methods
 
 * Issue ID {issue_tracker_url}1861[1861] +
 Add FacesServletFactory
@@ -70,7 +70,7 @@ Clarify f:metadata placement requirements
 Clarify when to fire PostAddToViewEvent
 
 * Issue ID {issue_tracker_url}1833[1833] +
-Unify ConfigurableNavigationHandler and NavigationHandler and deprecate ConfigurableNavigationHandler
+Move ConfigurableNavigationHandler methods to NavigationHandler and deprecate subclass
 
 * Issue ID {issue_tracker_url}1831[1831] +
 Add enums for STATE_SAVING_METHOD and VALIDATE_EMPTY_FIELDS context parameters
@@ -79,7 +79,7 @@ Add enums for STATE_SAVING_METHOD and VALIDATE_EMPTY_FIELDS context parameters
 Add TypeLiteral constants for annotation literals of generic types
 
 * Issue ID {issue_tracker_url}1791[1791] +
-Fix f:selectItems var attribute to support SelectItem and Map as well
+Extend f:selectItems var attribute to support SelectItem and Map
 
 * Issue ID {issue_tracker_url}1713[1713] +
 Clarify ui:repeat size/offset/begin/end attributes
@@ -91,7 +91,7 @@ Add FacesMessage.Severity.SUCCESS
 Add CSP support
 
 * Issue ID {issue_tracker_url}1564[1564] +
-Resolve _#{cc}_ and _#{component}_ using EL instead of CDI, and clarify expression language resolution on environment-specific types _request_, _session_, and _application_
+Resolve _#{cc}_/_#{component}_ via EL instead of CDI; clarify _request_, _session_, _application_ EL resolution
 
 * Issue ID {issue_tracker_url}1501[1501] +
 Add CDI @Observes support for system events
@@ -109,13 +109,13 @@ Add EL import handler to EL resolver chain
 Clarify resource name requirements
 
 * Issue ID {issue_tracker_url}1278[1278] +
-Clarify that UIInput#isEmpty must be consulted during validate
+Clarify that UIInput#isEmpty must be consulted during UIInput#validate
 
 * Issue ID {issue_tracker_url}1244[1244] +
-Clarify how to compile EL in template text
+Clarify how to interpret EL in template text
 
 * Issue ID {issue_tracker_url}1202[1202] +
-Clarify cc:attributes type attribute
+Clarify cc:attribute type attribute
 
 * Issue ID {issue_tracker_url}1201[1201] +
 Clarify that Flash cookie must be httpOnly
@@ -127,7 +127,7 @@ Clarify includeViewParams=true behavior
 Clarify FacesContext#release requirements
 
 * Issue ID {issue_tracker_url}908[908] +
-Clarify h:outputStyesheet request path rendering
+Clarify h:outputStylesheet request path rendering
 
 * Issue ID {issue_tracker_url}816[816] +
 Clarify ViewHandler#initView requirements
