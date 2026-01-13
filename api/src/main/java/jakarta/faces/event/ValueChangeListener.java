@@ -24,9 +24,11 @@ import jakarta.faces.component.UIComponent;
  * implements this interface, and then registers itself with the source {@link UIComponent} of interest, by calling
  * <code>addValueChangeListener()</code>.
  * </p>
+ *
+ * @param <T> The generic type of changed value.
  */
 
-public interface ValueChangeListener extends FacesListener {
+public interface ValueChangeListener<T> extends FacesListener {
 
     /**
      * <p>
@@ -38,6 +40,6 @@ public interface ValueChangeListener extends FacesListener {
      * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the
      * current event should be performed
      */
-    void processValueChange(ValueChangeEvent event) throws AbortProcessingException;
+    void processValueChange(ValueChangeEvent<T> event) throws AbortProcessingException;
 
 }
