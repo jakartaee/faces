@@ -31,7 +31,7 @@ New: passthrough attributes on facets
 Change: ByteConverter default error message
 
 * Issue ID {issue_tracker_url}2025[2025] +
-New: placeholder attribute to input components
+New: placeholder attribute in input components
 
 * Issue ID {issue_tracker_url}2024[2024] +
 New: StateHelper#computeIfAbsent
@@ -127,7 +127,7 @@ Spec: clarify that Flash cookie must be httpOnly
 Spec: clarify includeViewParams=true behavior
 
 * Issue ID {issue_tracker_url}1112[1112] +
-Spec: clarify FacesContext#release requirements
+Spec: clarify FacesContext#getCurrentInstance/release requirements
 
 * Issue ID {issue_tracker_url}908[908] +
 Spec: clarify h:outputStylesheet request path rendering
@@ -159,7 +159,7 @@ Change: parameterized UIData#getDataModel
 Change: parameterized UIComponent#getFacesListeners
 
 * Issue ID {issue_tracker_url}1948[1948] +
-Change: migrated PhaseId to enum
+Change: migrated PhaseId string constants to enum
 
 * Issue ID {issue_tracker_url}1937[1937] +
 Removal: custom scope context deprecated since 4.0
