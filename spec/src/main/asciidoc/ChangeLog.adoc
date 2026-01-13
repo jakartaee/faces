@@ -15,6 +15,54 @@ This release contains the following backwards compatible changes:
 * Issue ID {issue_tracker_url}2105[2105] +
 Deprecate java.sun.com and xmlns.jcp.org XML namespaces
 
+* Issue ID {issue_tracker_url}2097[2097] +
+Add EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING context parameter
+
+* Issue ID {issue_tracker_url}2041[2041] +
+BeanValidator uses EL-coerced value
+
+* Issue ID {issue_tracker_url}2034[2034] +
+Add enum support to UIComponent#getFacet
+
+* Issue ID {issue_tracker_url}2032[2032] +
+Allow passthrough attributes on facets
+
+* Issue ID {issue_tracker_url}2029[2029] +
+Fix ByteConverter default error message
+
+* Issue ID {issue_tracker_url}2025[2025] +
+Add placeholder attribute to input components
+
+* Issue ID {issue_tracker_url}2024[2024] +
+Add StateHelper#computeIfAbsent
+
+* Issue ID {issue_tracker_url}2015[2015] +
+Add FaceletContext#getCurrentInstance
+
+* Issue ID {issue_tracker_url}1871[1871] +
+Remove deprecated composite:extension and custom scope events
+
+* Issue ID {issue_tracker_url}1861[1861] +
+Add FacesServletFactory
+
+* Issue ID {issue_tracker_url}1849[1849] +
+Clarify f:metadata placement requirements
+
+* Issue ID {issue_tracker_url}1833[1833] +
+Unify ConfigurableNavigationHandler and NavigationHandler
+
+* Issue ID {issue_tracker_url}1831[1831] +
+Add enums for STATE_SAVING_METHOD and VALIDATE_EMPTY_FIELDS context parameters
+
+* Issue ID {issue_tracker_url}1824[1824] +
+Add TypeLiteral constants for annotation literals of generic types
+
+* Issue ID {issue_tracker_url}1791[1791] +
+Fix f:selectItems var attribute
+
+* Issue ID {issue_tracker_url}1713[1713] +
+Clarify ui:repeat attributes
+
 * Issue ID {issue_tracker_url}1590[1590] +
 CSP support
 
@@ -26,7 +74,25 @@ Resolve _#{cc}_ using EL instead of CDI
 This release contains the following backwards incompatible changes:
 
 * Issue ID {issue_tracker_url}2026[2026] +
-Parameterize Application#createConverter and createValidator
+Add generics to Application#createConverter and createValidator
+
+* Issue ID {issue_tracker_url}2033[2033] +
+Add generics to ValueChangeEvent
+
+* Issue ID {issue_tracker_url}2028[2028] +
+Add generics to StateHelper methods
+
+* Issue ID {issue_tracker_url}2027[2027] +
+Add generics to UIData#getDataModel
+
+* Issue ID {issue_tracker_url}1830[1830] +
+Remove deprecated code marked for removal
+
+* Issue ID {issue_tracker_url}1822[1822] +
+Add generics to standard converters
+
+* Issue ID {issue_tracker_url}1725[1725] +
+Remove UIComponent.bindings field
 
 
 === Changes between 4.1 and 4.0
