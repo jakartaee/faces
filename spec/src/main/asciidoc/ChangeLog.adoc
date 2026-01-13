@@ -39,9 +39,6 @@ Add StateHelper#computeIfAbsent
 * Issue ID {issue_tracker_url}2015[2015] +
 Add FaceletContext#getCurrentInstance
 
-* Issue ID {issue_tracker_url}1871[1871] +
-Remove deprecated composite:extension and custom scope events
-
 * Issue ID {issue_tracker_url}1861[1861] +
 Add FacesServletFactory
 
@@ -85,14 +82,17 @@ Add generics to StateHelper methods
 * Issue ID {issue_tracker_url}2027[2027] +
 Add generics to UIData#getDataModel
 
+* Issue ID {issue_tracker_url}1871[1871] +
+Remove deprecated composite:extension and custom scope events
+
 * Issue ID {issue_tracker_url}1830[1830] +
-Remove deprecated code marked for removal
+Remove deprecated constants and attributes
 
 * Issue ID {issue_tracker_url}1822[1822] +
 Add generics to standard converters
 
 * Issue ID {issue_tracker_url}1725[1725] +
-Remove UIComponent.bindings field
+Remove deprecated UIComponent.bindings field
 
 
 === Changes between 4.1 and 4.0
