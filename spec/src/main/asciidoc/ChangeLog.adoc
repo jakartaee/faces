@@ -13,7 +13,7 @@ pre-Jakarta Faces specification under the JCP.
 This release contains the following backwards compatible changes:
 
 * Issue ID {issue_tracker_url}2105[2105] +
-Deprecate java.sun.com and xmlns.jcp.org XML namespaces
+Deprecate \http://java.sun.com and \http://xmlns.jcp.org XML namespaces
 
 * Issue ID {issue_tracker_url}2097[2097] +
 Add EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING context parameter
@@ -49,7 +49,7 @@ TextHandler now extends FaceletHandler
 Deprecate h:form prependId attribute
 
 * Issue ID {issue_tracker_url}1938[1938] +
-EnumConverter now auto-discovers type
+EnumConverter now auto-discovers enum type
 
 * Issue ID {issue_tracker_url}1936[1936] +
 Clarify UIViewRoot#resetValues behavior
@@ -91,7 +91,7 @@ Add FacesMessage.Severity.SUCCESS
 Add CSP support
 
 * Issue ID {issue_tracker_url}1564[1564] +
-Resolve _#{cc}_/_#{component}_ via EL instead of CDI; clarify _request_, _session_, _application_ EL resolution
+Resolve \#{cc}/#{component} via EL instead of CDI; clarify _request_, _session_, _application_ EL resolution
 
 * Issue ID {issue_tracker_url}1501[1501] +
 Add CDI @Observes support for system events
@@ -159,19 +159,19 @@ Add generics to UIComponent#getFacesListeners
 Migrate PhaseId to enum
 
 * Issue ID {issue_tracker_url}1937[1937] +
-Remove deprecated custom scope context
+Remove since 4.0 deprecated custom scope context
 
 * Issue ID {issue_tracker_url}1871[1871] +
-Remove deprecated cc:extension and custom scope events
+Remove since 4.0 deprecated cc:extension and custom scope events
 
 * Issue ID {issue_tracker_url}1830[1830] +
-Remove deprecated constants and attributes
+Remove since 4.0 deprecated constants and attributes
 
 * Issue ID {issue_tracker_url}1822[1822] +
 Add generics to standard converters
 
 * Issue ID {issue_tracker_url}1725[1725] +
-Remove deprecated UIComponent.bindings field
+Remove since 4.0 deprecated UIComponent.bindings field
 
 
 === Changes between 4.1 and 4.0
@@ -304,7 +304,7 @@ This release contains the following backwards incompatible changes:
 Rename "JSF" to "Faces" over all place
 
 * Issue ID {issue_tracker_url}1553[1553] +
-Rename "http://xmlns.jcp.org/jsf/\*" XML namespace URI to "jakarta.faces.\*" XML namespace URN
+Rename "http://xmlns.jcp.org/jsf/\*" XML namespace URI to "jakarta.faces.*" XML namespace URN
 +
 Facelet Tag Libraries will now respond to the
 following URIs
