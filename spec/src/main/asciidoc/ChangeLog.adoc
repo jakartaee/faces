@@ -162,7 +162,7 @@ Migrate PhaseId to enum
 Remove deprecated custom scope context
 
 * Issue ID {issue_tracker_url}1871[1871] +
-Remove deprecated composite:extension and custom scope events
+Remove deprecated cc:extension and custom scope events
 
 * Issue ID {issue_tracker_url}1830[1830] +
 Remove deprecated constants and attributes
