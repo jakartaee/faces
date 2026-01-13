@@ -938,12 +938,13 @@ public abstract class Application {
      * must be taken.
      * </p>
      *
+     * @param <T> The generic type of object value to convert.
      * @param converterId The converter id for which to create and return a new {@link Converter} instance
      * @return the converter.
      * @throws FacesException if the {@link Converter} cannot be created
      * @throws NullPointerException if <code>converterId</code> is <code>null</code>
      */
-    public abstract Converter createConverter(String converterId);
+    public abstract <T> Converter<T> createConverter(String converterId);
 
     /**
      * <p>
@@ -979,12 +980,13 @@ public abstract class Application {
      * <code>TimeZone.getDefault()</code>.
      * </p>
      *
+     * @param <T> The generic type of object value to convert.
      * @param targetClass Target class for which to return a {@link Converter}
      * @return the converter.
      * @throws FacesException if the {@link Converter} cannot be created
      * @throws NullPointerException if <code>targetClass</code> is <code>null</code>
      */
-    public abstract Converter createConverter(Class<?> targetClass);
+    public abstract <T> Converter<T> createConverter(Class<T> targetClass);
 
     /**
      * <p>
@@ -1221,12 +1223,13 @@ public abstract class Application {
      * must be taken.
      * </p>
      *
+     * @param <T> The generic type of object value to validate.
      * @param validatorId The validator id for which to create and return a new {@link Validator} instance
      * @return the validator.
      * @throws FacesException if a {@link Validator} of the specified id cannot be created
      * @throws NullPointerException if <code>validatorId</code> is <code>null</code>
      */
-    public abstract Validator createValidator(String validatorId) throws FacesException;
+    public abstract <T> Validator<T> createValidator(String validatorId) throws FacesException;
 
     /**
      * <p>
@@ -1299,15 +1302,15 @@ public abstract class Application {
      * <em>traverseListenerList</em> on the list.
      * </p>
      * </li>
-     * 
+     *
      * <li class="changed_added_5_0">
      * <p>
-     * Finally fire the system event as a synchronous CDI event. 
+     * Finally fire the system event as a synchronous CDI event.
      * If the <code>source</code> of this non-component system event is an instance of {@link UIViewRoot}, then fire an additional synchronous CDI event
      * selecting the {@link View} qualifier having the current {@link UIViewRoot#getViewId()} as value.
      * </p>
      * </li>
-     * 
+     *
      * </ul>
      *
      * <p>
