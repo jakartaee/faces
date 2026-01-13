@@ -13,127 +13,130 @@ pre-Jakarta Faces specification under the JCP.
 This release contains the following backwards compatible changes:
 
 * Issue ID {issue_tracker_url}2105[2105] +
-Deprecate \http://java.sun.com and \http://xmlns.jcp.org XML namespaces
+Deprecation: \http://java.sun.com and \http://xmlns.jcp.org XML namespaces
 
 * Issue ID {issue_tracker_url}2097[2097] +
-Add EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING context parameter
+New: EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING context parameter
 
 * Issue ID {issue_tracker_url}2041[2041] +
-BeanValidator uses EL-coerced value
+Change: BeanValidator uses EL-coerced value
 
 * Issue ID {issue_tracker_url}2034[2034] +
-Add enum support to UIComponent#getFacet
+New: enum support in UIComponent#getFacet
 
 * Issue ID {issue_tracker_url}2032[2032] +
-Allow passthrough attributes on facets
+New: passthrough attributes on facets
 
 * Issue ID {issue_tracker_url}2029[2029] +
-Fix ByteConverter default error message
+Change: ByteConverter default error message
 
 * Issue ID {issue_tracker_url}2025[2025] +
-Add placeholder attribute to input components
+New: placeholder attribute to input components
 
 * Issue ID {issue_tracker_url}2024[2024] +
-Add StateHelper#computeIfAbsent
+New: StateHelper#computeIfAbsent
 
 * Issue ID {issue_tracker_url}2015[2015] +
-Add FaceletContext#getCurrentInstance
+New: FaceletContext#getCurrentInstance
 
 * Issue ID {issue_tracker_url}2014[2014] +
-Clarify h:selectOneRadio group attribute
+Spec: clarify h:selectOneRadio group attribute
 
 * Issue ID {issue_tracker_url}2008[2008] +
-TextHandler now extends FaceletHandler
+Change: TextHandler now extends FaceletHandler
 
 * Issue ID {issue_tracker_url}1972[1972] +
-Deprecate h:form prependId attribute
+Deprecation: h:form prependId attribute
 
 * Issue ID {issue_tracker_url}1938[1938] +
-EnumConverter now auto-discovers enum type
+Change: EnumConverter now auto-discovers enum type
 
 * Issue ID {issue_tracker_url}1936[1936] +
-Clarify UIViewRoot#resetValues behavior
+Spec: clarify UIViewRoot#resetValues behavior
 
 * Issue ID {issue_tracker_url}1934[1934] +
-Add FacesMessage.Severity enum and deprecate string constants
+New: FacesMessage.Severity enum +
+Deprecation: FacesMessage.SEVERITY_INFO etc string constants
 
 * Issue ID {issue_tracker_url}1875[1875] +
-Add UISelectItems#getVar/setVar methods
+New: missing UISelectItems#getVar/setVar methods
 
 * Issue ID {issue_tracker_url}1861[1861] +
-Add FacesServletFactory
+New: FacesServletFactory
 
 * Issue ID {issue_tracker_url}1849[1849] +
-Clarify f:metadata placement requirements
+Spec: clarify f:metadata placement requirements
 
 * Issue ID {issue_tracker_url}1835[1835] +
-Clarify when to fire PostAddToViewEvent
+Spec: clarify when to fire PostAddToViewEvent
 
 * Issue ID {issue_tracker_url}1833[1833] +
-Move ConfigurableNavigationHandler methods to NavigationHandler and deprecate subclass
+Change: move ConfigurableNavigationHandler methods to NavigationHandler +
+Deprecation: ConfigurableNavigationHandler
 
 * Issue ID {issue_tracker_url}1831[1831] +
-Add enums for STATE_SAVING_METHOD and VALIDATE_EMPTY_FIELDS context parameters
+New: enums for STATE_SAVING_METHOD and VALIDATE_EMPTY_FIELDS context parameters
 
 * Issue ID {issue_tracker_url}1824[1824] +
-Add TypeLiteral constants for annotation literals of generic types
+New: TypeLiteral constants for annotation literals of generic types
 
 * Issue ID {issue_tracker_url}1791[1791] +
-Extend f:selectItems var attribute to support SelectItem and Map
+Change: extend f:selectItems var attribute to support SelectItem and Map
 
 * Issue ID {issue_tracker_url}1713[1713] +
-Clarify ui:repeat size/offset/begin/end attributes
+Spec: clarify ui:repeat size/offset/begin/end attributes
 
 * Issue ID {issue_tracker_url}1592[1592] +
-Add FacesMessage.Severity.SUCCESS
+New: FacesMessage.Severity.SUCCESS
 
 * Issue ID {issue_tracker_url}1590[1590] +
-Add CSP support
+New: CSP support with ENABLE_CSP_NONCE context parameter
 
 * Issue ID {issue_tracker_url}1564[1564] +
-Resolve \#{cc}/#{component} via EL instead of CDI; clarify _request_, _session_, _application_ EL resolution
+Change: resolve \#{cc} and \#{component} via EL instead of CDI +
+Spec: clarify _request_, _session_, and _application_ EL resolution
 
 * Issue ID {issue_tracker_url}1501[1501] +
-Add CDI @Observes support for system events
+New: CDI @Observes support for system events
 
 * Issue ID {issue_tracker_url}1462[1462] +
-Add PartialResponseWriterWrapper
+New: PartialResponseWriterWrapper
 
 * Issue ID {issue_tracker_url}1443[1443] +
-Add CDI @Observes support for phase events
+New: CDI @Observes support for phase events
 
 * Issue ID {issue_tracker_url}1368[1368] +
-Add EL import handler to EL resolver chain
+New: EL import handler in resolver chain
 
 * Issue ID {issue_tracker_url}1366[1366] +
-Clarify resource name requirements
+Spec: clarify resource name requirements
 
 * Issue ID {issue_tracker_url}1278[1278] +
-Clarify that UIInput#isEmpty must be consulted during UIInput#validate
+Spec: clarify that UIInput#isEmpty must be consulted during UIInput#validate
 
 * Issue ID {issue_tracker_url}1244[1244] +
-Clarify how to interpret EL in template text
+Spec: clarify how to interpret EL in template text
 
 * Issue ID {issue_tracker_url}1202[1202] +
-Clarify cc:attribute type attribute default
+Spec: clarify cc:attribute type attribute default
 
 * Issue ID {issue_tracker_url}1201[1201] +
-Clarify that Flash cookie must be httpOnly
+Spec: clarify that Flash cookie must be httpOnly
 
 * Issue ID {issue_tracker_url}1160[1160] +
-Clarify includeViewParams=true behavior
+Spec: clarify includeViewParams=true behavior
 
 * Issue ID {issue_tracker_url}1112[1112] +
-Clarify FacesContext#release requirements
+Spec: clarify FacesContext#release requirements
 
 * Issue ID {issue_tracker_url}908[908] +
-Clarify h:outputStylesheet request path rendering
+Spec: clarify h:outputStylesheet request path rendering
 
 * Issue ID {issue_tracker_url}816[816] +
-Clarify ViewHandler#initView requirements
+Spec: clarify ViewHandler#initView requirements
 
 * Issue ID {issue_tracker_url}583[583] +
-Clarify h:message(s) rendering when no messages
+Spec: clarify h:message(s) rendering when no messages
 
 
 ==== Backward Compatibility with Previous Versions
@@ -141,37 +144,37 @@ Clarify h:message(s) rendering when no messages
 This release contains the following backwards incompatible changes:
 
 * Issue ID {issue_tracker_url}2026[2026] +
-Add generics to Application#createConverter and createValidator
+Change: parameterized Application#createConverter and createValidator
 
 * Issue ID {issue_tracker_url}2033[2033] +
-Add generics to ValueChangeEvent
+Change: parameterized ValueChangeEvent
 
 * Issue ID {issue_tracker_url}2028[2028] +
-Add generics to StateHelper methods
+Change: parameterized StateHelper methods
 
 * Issue ID {issue_tracker_url}2027[2027] +
-Add generics to UIData#getDataModel
+Change: parameterized UIData#getDataModel
 
 * Issue ID {issue_tracker_url}2012[2012] +
-Add generics to UIComponent#getFacesListeners
+Change: parameterized UIComponent#getFacesListeners
 
 * Issue ID {issue_tracker_url}1948[1948] +
-Migrate PhaseId to enum
+Change: migrated PhaseId to enum
 
 * Issue ID {issue_tracker_url}1937[1937] +
-Remove since 4.0 deprecated custom scope context
+Removal: custom scope context deprecated since 4.0
 
 * Issue ID {issue_tracker_url}1871[1871] +
-Remove since 4.0 deprecated cc:extension and custom scope events
+Removal: cc:extension and custom scope events deprecated since 4.0
 
 * Issue ID {issue_tracker_url}1830[1830] +
-Remove since 4.0 deprecated constants and attributes
+Removal: constants and attributes deprecated since 4.0
 
 * Issue ID {issue_tracker_url}1822[1822] +
-Add generics to standard converters
+Change: parameterized standard converters
 
 * Issue ID {issue_tracker_url}1725[1725] +
-Remove since 4.0 deprecated UIComponent.bindings field
+Removal: UIComponent.bindings field deprecated since 2.3
 
 
 === Changes between 4.1 and 4.0
