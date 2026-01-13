@@ -125,6 +125,10 @@
                             <environmentVariables>
                                 <ANT_HOME>${ant.home}/</ANT_HOME>
                                 <PATH>${ant.home}/bin:${env.PATH}</PATH>
+                                <WEBAPP_PROJECT_STAGE>${webapp.projectStage}</WEBAPP_PROJECT_STAGE>
+                                <WEBAPP_STATE_SAVING_METHOD>${webapp.stateSavingMethod}</WEBAPP_STATE_SAVING_METHOD>
+                                <WEBAPP_PARTIAL_STATE_SAVING>${webapp.partialStateSaving}</WEBAPP_PARTIAL_STATE_SAVING>
+                                <WEBAPP_SERIALIZE_SERVER_STATE>${webapp.serializeServerState}</WEBAPP_SERIALIZE_SERVER_STATE>
                             </environmentVariables>
                             <arguments>
                                 <argument>${project.basedir}/../source</argument>

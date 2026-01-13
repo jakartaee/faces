@@ -16,6 +16,7 @@
 
 package jakarta.faces.application;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -101,6 +102,7 @@ public abstract class NavigationHandler {
      * </p>
      * <p>
      * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.0.
+     * For backward compatibility with earlier implementations, a default implementation is provided which returns <code>null</code>.
      * </p>
      *
      * @param context The {@link FacesContext} for the current request
@@ -111,7 +113,9 @@ public abstract class NavigationHandler {
      * @throws NullPointerException if <code>context</code> is <code>null</code>
      * @since 5.0
      */
-    public abstract NavigationCase getNavigationCase(FacesContext context, String fromAction, String outcome);
+    public NavigationCase getNavigationCase(FacesContext context, String fromAction, String outcome) {
+        return null;
+    }
 
     /**
      * <p class="changed_added_5_0">
@@ -124,7 +128,7 @@ public abstract class NavigationHandler {
      * {@code toFlowDocumentId} parameter.
      * </p>
      * <p>
-     * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.2. 
+     * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.2.
      * </p>
      *
      * @param context The {@link FacesContext} for the current request
@@ -149,13 +153,16 @@ public abstract class NavigationHandler {
      * that <code>&lt;from-view-id&gt;</code>. The implementation must support live modifications to this <code>Map</code>.
      * </p>
      * <p>
-     * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.0. 
+     * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.0.
+     * For backward compatibility with earlier implementations, a default implementation is provided which returns an empty map.
      * </p>
      *
      * @return a map with navigation cases.
      * @since 5.0
      */
-    public abstract Map<String, Set<NavigationCase>> getNavigationCases();
+    public Map<String, Set<NavigationCase>> getNavigationCases() {
+        return Collections.emptyMap();
+    }
 
     /**
      * <p class="changed_added_5_0">
@@ -164,7 +171,7 @@ public abstract class NavigationHandler {
      * action" is null.
      * </p>
      * <p>
-     * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.0. 
+     * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.0.
      * </p>
      *
      * @param outcome the provided outcome.
@@ -177,11 +184,11 @@ public abstract class NavigationHandler {
 
     /**
      * <p class="changed_added_5_0">
-     * Called by the flow system to cause the flow to be inspected for navigation rules. For backward compatibility with
-     * earlier implementations, an empty method is provided.
+     * Called by the flow system to cause the flow to be inspected for navigation rules.
      * </p>
      * <p>
-     * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.2. 
+     * Historically this method was declared in {@code ConfigurableNavigationHandler} since 2.2.
+     * For backward compatibility with earlier implementations, a default implementation is provided which does nothing.
      * </p>
      *
      * @param context the Faces context.

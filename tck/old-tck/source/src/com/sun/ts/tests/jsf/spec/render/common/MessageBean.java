@@ -68,64 +68,64 @@ public class MessageBean implements Serializable {
     FacesContext context = FacesContext.getCurrentInstance();
 
     if ("INFO".equals(severity)) {
-      message = new FacesMessage(FacesMessage.SEVERITY_INFO, INFO_SUMMARY,
+      message = new FacesMessage(FacesMessage.Severity.INFO, INFO_SUMMARY,
           INFO_DETAIL);
 
       context.addMessage(id, message);
 
     } else if ("WARN".equals(severity)) {
-      message = new FacesMessage(FacesMessage.SEVERITY_WARN, WARN_SUMMARY,
+      message = new FacesMessage(FacesMessage.Severity.WARN, WARN_SUMMARY,
           WARN_DETAIL);
 
       context.addMessage(id, message);
 
     } else if ("ERROR".equals(severity)) {
-      message = new FacesMessage(FacesMessage.SEVERITY_ERROR, ERROR_SUMMARY,
+      message = new FacesMessage(FacesMessage.Severity.ERROR, ERROR_SUMMARY,
           ERROR_DETAIL);
 
       context.addMessage(id, message);
 
     } else if ("FATAL".equals(severity)) {
-      message = new FacesMessage(FacesMessage.SEVERITY_FATAL, FATAL_SUMMARY,
+      message = new FacesMessage(FacesMessage.Severity.FATAL, FATAL_SUMMARY,
           FATAL_DETAIL);
 
       context.addMessage(id, message);
 
     } else if ("MESSAGES_INFO".equals(severity)) {
-      inputOneMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+      inputOneMessage = new FacesMessage(FacesMessage.Severity.INFO,
           INFO_SUMMARY + "_One ", INFO_DETAIL + "_One ");
 
-      inputTwoMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+      inputTwoMessage = new FacesMessage(FacesMessage.Severity.INFO,
           INFO_SUMMARY + "_Two ", INFO_DETAIL + "_Two ");
 
       context.addMessage(null, inputOneMessage);
       context.addMessage(null, inputTwoMessage);
 
     } else if ("MESSAGES_WARN".equals(severity)) {
-      inputOneMessage = new FacesMessage(FacesMessage.SEVERITY_WARN,
+      inputOneMessage = new FacesMessage(FacesMessage.Severity.WARN,
           WARN_SUMMARY + "_One ", WARN_DETAIL + "_One ");
 
-      inputTwoMessage = new FacesMessage(FacesMessage.SEVERITY_WARN,
+      inputTwoMessage = new FacesMessage(FacesMessage.Severity.WARN,
           WARN_SUMMARY + "_Two ", WARN_DETAIL + "_Two ");
 
       context.addMessage(null, inputOneMessage);
       context.addMessage(null, inputTwoMessage);
 
     } else if ("MESSAGES_ERROR".equals(severity)) {
-      inputOneMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+      inputOneMessage = new FacesMessage(FacesMessage.Severity.ERROR,
           ERROR_SUMMARY + "_One ", ERROR_DETAIL + "_One ");
 
-      inputTwoMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,
+      inputTwoMessage = new FacesMessage(FacesMessage.Severity.ERROR,
           ERROR_SUMMARY + "_Two ", ERROR_DETAIL + "_Two ");
 
       context.addMessage(null, inputOneMessage);
       context.addMessage(null, inputTwoMessage);
 
     } else if ("MESSAGES_FATAL".equals(severity)) {
-      inputOneMessage = new FacesMessage(FacesMessage.SEVERITY_FATAL,
+      inputOneMessage = new FacesMessage(FacesMessage.Severity.FATAL,
           FATAL_SUMMARY + "_One ", FATAL_DETAIL + "_One ");
 
-      inputTwoMessage = new FacesMessage(FacesMessage.SEVERITY_FATAL,
+      inputTwoMessage = new FacesMessage(FacesMessage.Severity.FATAL,
           FATAL_SUMMARY + "_Two ", FATAL_DETAIL + "_Two ");
 
       context.addMessage(null, inputOneMessage);

@@ -246,7 +246,6 @@ public final class TestServlet extends HttpTCKServlet {
   public void enumConverterGetAsStringCETest(HttpServletRequest request,
       HttpServletResponse response) throws ServletException, IOException {
     String ExpectedException = "ConverterException";
-    boolean pass1 = false;
     boolean pass2 = false;
     boolean pass3 = false;
 
@@ -257,24 +256,6 @@ public final class TestServlet extends HttpTCKServlet {
     FacesContext context = getFacesContext();
     UIComponent component = getApplication()
         .createComponent(UIInput.COMPONENT_TYPE);
-
-    // ConverterException when value to be converted is not an enum constant
-    try {
-      argsConverter.getAsString(context, component, "some string");
-      out.println("Conversion to String of value that is not an enum constant "
-          + "class did thorw a " + ExpectedException);
-
-    } catch (ConverterException ce) {
-      pass1 = true;
-
-    } catch (Exception e) {
-      out.println(
-          "Conversion to String of value that is not an enum constant throw incorrect "
-              + "Exception: " + JSFTestUtil.NL + "Expected: "
-              + ExpectedException + JSFTestUtil.NL + "Received: "
-              + e.getClass().getSimpleName());
-      e.printStackTrace();
-    }
 
     // ConverterException when value to be converted is a constant from a
     // different enum class
@@ -296,14 +277,15 @@ public final class TestServlet extends HttpTCKServlet {
       e.printStackTrace();
     }
 
-    // ConverterException when target class is null
+    // NO ConverterException when target class is null (it doesn't anymore throw since #1938)
     try {
       noArgsConverter.getAsString(context, component, Suit.DIAMONDS);
-      out.println("Conversion to String of constant when target class is null "
-          + "did thorw a " + ExpectedException);
+      pass3 = true;
 
     } catch (ConverterException ce) {
-      pass3 = true;
+        out.println("Conversion to String of constant when target class is null "
+                + "did throw a ConverterException");
+        ce.printStackTrace();
 
     } catch (Exception e) {
       out.println(
@@ -314,7 +296,7 @@ public final class TestServlet extends HttpTCKServlet {
       e.printStackTrace();
     }
 
-    out.println((pass1 && pass2 && pass3) ? "Test PASSED," : "Test FAILED.");
+    out.println((pass2 && pass3) ? "Test PASSED," : "Test FAILED.");
 
   } // End enumConverterGetAsStringCETest
 

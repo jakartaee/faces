@@ -1028,7 +1028,7 @@ public class TestServlet extends BaseComponentTestServlet {
       if ("bad".equals(vlu)) {
         trace("ERROR");
         context.addMessage(component.getClientId(context), new FacesMessage(
-            FacesMessage.SEVERITY_ERROR, component.getClientId(context), null));
+            FacesMessage.Severity.ERROR, component.getClientId(context), null));
         ((UIInput) component).setValid(false);
       }
 

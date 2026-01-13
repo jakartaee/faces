@@ -29,9 +29,6 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import com.sun.ts.tests.jsf.common.servlets.HttpTCKServlet;
-import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
@@ -40,6 +37,9 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import com.sun.ts.tests.jsf.common.servlets.HttpTCKServlet;
+import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
 
 public final class TestServlet extends HttpTCKServlet {
 
@@ -55,7 +55,8 @@ public final class TestServlet extends HttpTCKServlet {
 
   private static final String[] TYPES = { "number", "currency", "percent" };
 
-  public void init(ServletConfig config) throws ServletException {
+  @Override
+public void init(ServletConfig config) throws ServletException {
     super.init(config);
   }
 
@@ -666,63 +667,6 @@ public final class TestServlet extends HttpTCKServlet {
       return;
     }
 
-    result = converter.getAsString(context, comp, "");
-    if (!"".equals(result)) {
-      out.println(JSFTestUtil.FAIL + " Expected NumberConverter.getAsString() "
-          + "to return a zero-length String if a zero-length String argument was passed.");
-      out.println("Received: " + result);
-      return;
-    }
-
-    out.println(JSFTestUtil.PASS);
-  }
-
-  // NumberConverter.getAsString() will convert String arguments to
-  // Number (Long or Double) to be formatted.
-  public void numConverterGetAsStringStringInputTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    NumberConverter converter = new NumberConverter();
-    converter.setLocale(Locale.FRENCH);
-    FacesContext context = getFacesContext();
-    UIComponent comp = new UIInput();
-
-    NumberFormat formatter = NumberFormat.getNumberInstance(Locale.FRENCH);
-    formatter.setGroupingUsed(true);
-
-    // if input is String, the result should be the same value as the
-    // input value
-    String control = "1235.5";
-    try {
-      Object result = converter.getAsString(context, comp, "1235.5");
-      if (!control.equals(result)) {
-        out.println(JSFTestUtil.FAIL + " NumberConverter.getAsString() failed"
-            + " to return the same result using the same input arguments"
-            + " as that returned by NumberFormat.format().");
-        out.println("Expected: " + control);
-        out.println("Received: " + result);
-        return;
-      }
-    } catch (Exception e) {
-      throw new ServletException("Unexpected Exception: " + e.toString(), e);
-    }
-
-    control = "1234";
-
-    try {
-      Object result = converter.getAsString(context, comp, "1234");
-      if (!control.equals(result)) {
-        out.println(JSFTestUtil.FAIL + " NumberConverter.getAsString() failed"
-            + " to return the same result using the same input arguments"
-            + " as that returned by NumberFormat.format().");
-        out.println("Expected: " + control);
-        out.println("Received: " + result);
-        return;
-      }
-    } catch (Exception e) {
-      throw new ServletException("Unexpected Exception: " + e.toString(), e);
-    }
-
     out.println(JSFTestUtil.PASS);
   }
 
@@ -883,7 +827,7 @@ public final class TestServlet extends HttpTCKServlet {
       throw new ServletException("Test initialization failed!", nsme);
     }
 
-    Object[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
+    Number[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
         Long.valueOf(3145192) };
 
     for (int i = 0; i < TYPES.length; i++) {
@@ -947,7 +891,7 @@ public final class TestServlet extends HttpTCKServlet {
       throw new ServletException("Test initialization failed!", nsme);
     }
 
-    Object[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
+    Number[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
         Long.valueOf(3145192) };
 
     for (int j = 0; j < 2; j++) {
@@ -1030,7 +974,7 @@ public final class TestServlet extends HttpTCKServlet {
       throw new ServletException("Test initialization failed!", nsme);
     }
 
-    Object[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
+    Number[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
         Long.valueOf(3145192) };
 
     for (int j = 0; j < 2; j++) {
@@ -1120,7 +1064,7 @@ public final class TestServlet extends HttpTCKServlet {
       throw new ServletException("Test initialization failed!", nsme);
     }
 
-    Object[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
+    Number[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
         Long.valueOf(3145192) };
 
     for (int j = 0; j < 2; j++) {
@@ -1214,7 +1158,7 @@ public final class TestServlet extends HttpTCKServlet {
       throw new ServletException("Test initialization failed!", nsme);
     }
 
-    Object[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
+    Number[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
         Long.valueOf(3145192) };
 
     for (int i = 0; i < TYPES.length; i++) {
@@ -1291,7 +1235,7 @@ public final class TestServlet extends HttpTCKServlet {
       throw new ServletException("Test initialization failed!", nsme);
     }
 
-    Object[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
+    Number[] inputs = { Double.valueOf(1234.56), Double.valueOf(45.6666666),
         Long.valueOf(3145192) };
 
     for (int i = 0; i < TYPES.length; i++) {
@@ -1511,7 +1455,7 @@ public final class TestServlet extends HttpTCKServlet {
     NumberConverter converter = new NumberConverter();
 
     try {
-      converter.getAsString(null, new UIInput(), "1.23");
+      converter.getAsString(null, new UIInput(), 1.23);
       out.println(JSFTestUtil.FAIL + " No Exception thrown when a null"
           + " FacesContext is passed to NumberConveter.getAs" + "Object().");
       return;
@@ -1527,7 +1471,7 @@ public final class TestServlet extends HttpTCKServlet {
     }
 
     try {
-      converter.getAsString(getFacesContext(), null, "1.23");
+      converter.getAsString(getFacesContext(), null, 1.23);
       out.println(JSFTestUtil.FAIL + " No Exception thrown when a null"
           + " UIComponent is passed to NumberConveter.getAs" + "Object().");
       return;

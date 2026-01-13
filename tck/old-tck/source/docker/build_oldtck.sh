@@ -54,7 +54,10 @@ mvn -f $BASEDIR/docker/pom.getlibs.xml clean -Pstaging dependency:copy-dependenc
 
 RMI_CLASSES="-Drmi.classes=$JAKARTA_JARS/glassfish-corba-omgapi.jar"
 
-TCK_SPECIFIC_PROPS="-Djsf.classes=$JAKARTA_JARS/jakarta.enterprise.cdi-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp.jstl-api.jar:$JAKARTA_JARS/jakarta.inject-api.jar:$JAKARTA_JARS/jakarta.faces-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp-api.jar:$JAKARTA_JARS/jakarta.servlet-api.jar:$JAKARTA_JARS/jakarta.el-api.jar:$JAKARTA_JARS/jakarta.annotation-api.jar:$JAKARTA_JARS/glassfish-corba-omgapi.jar"
+# Web.xml properties for filtering (with defaults matching root pom.xml)
+WEBAPP_PROPS="-Dwebapp.projectStage=${WEBAPP_PROJECT_STAGE:-Production} -Dwebapp.stateSavingMethod=${WEBAPP_STATE_SAVING_METHOD:-server} -Dwebapp.partialStateSaving=${WEBAPP_PARTIAL_STATE_SAVING:-true} -Dwebapp.serializeServerState=${WEBAPP_SERIALIZE_SERVER_STATE:-false}"
+
+TCK_SPECIFIC_PROPS="-Djsf.classes=$JAKARTA_JARS/jakarta.enterprise.cdi-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp.jstl-api.jar:$JAKARTA_JARS/jakarta.inject-api.jar:$JAKARTA_JARS/jakarta.faces-api.jar:$JAKARTA_JARS/jakarta.servlet.jsp-api.jar:$JAKARTA_JARS/jakarta.servlet-api.jar:$JAKARTA_JARS/jakarta.el-api.jar:$JAKARTA_JARS/jakarta.annotation-api.jar:$JAKARTA_JARS/glassfish-corba-omgapi.jar $WEBAPP_PROPS"
 
 echo "########## $TCK_NAME BUILD Started##########"
 ant -f $BASEDIR/install/$TCK_NAME/bin/build.xml -Ddeliverabledir=$TCK_NAME -Dbasedir=$BASEDIR/install/$TCK_NAME/bin $RMI_CLASSES $TCK_SPECIFIC_PROPS  clean.all build.all.jars 

@@ -246,15 +246,6 @@ public final class BaseConverterTestServlet extends HttpTCKServlet {
       return;
     }
 
-    convResult = converter.getAsString(getFacesContext(), component, "");
-    if (!"".equals(convResult)) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected getAsString() to return a zero-length "
-          + "String if value was a zero-length String." + JSFTestUtil.NL
-          + "Value returned: " + convResult);
-      return;
-    }
-
     try {
       convResult = converter.getAsString(getFacesContext(), component, null);
       if (!"".equals(convResult)) {

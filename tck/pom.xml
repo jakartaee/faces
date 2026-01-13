@@ -126,6 +126,19 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <tomcat.version>9.0.12</tomcat.version>
 
+        <!-- Jakarta EE API versions matching the GlassFish server-->
+        <jakarta.faces-api.version>${faces.version}</jakarta.faces-api.version>
+        <jakarta.activation-api.version>2.1.0</jakarta.activation-api.version>
+        <jakarta.annotation-api.version>3.0.0</jakarta.annotation-api.version>
+        <jakarta.cdi-api.version>4.1.0</jakarta.cdi-api.version>
+        <jakarta.el-api.version>6.0.0</jakarta.el-api.version>
+        <jakarta.inject-api.version>2.0.1</jakarta.inject-api.version>
+        <jakarta.jsp-api.version>4.0.0</jakarta.jsp-api.version>
+        <jakarta.jstl-api.version>3.0.0</jakarta.jstl-api.version>
+        <jakarta.servlet-api.version>6.1.0</jakarta.servlet-api.version>
+        <jakarta.validation-api.version>3.1.1</jakarta.validation-api.version>
+        <jakarta.websocket-api.version>2.0.0</jakarta.websocket-api.version>
+
         <!-- web.xml defaults -->
         <webapp.projectStage>Production</webapp.projectStage>
         <webapp.stateSavingMethod>server</webapp.stateSavingMethod>
@@ -157,47 +170,77 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
             <dependency>
                 <groupId>jakarta.faces</groupId>
                 <artifactId>jakarta.faces-api</artifactId>
-                <version>${faces.version}</version>
+                <version>${jakarta.faces-api.version}</version>
                 <scope>provided</scope>
             </dependency>
 
             <dependency>
                 <groupId>jakarta.el</groupId>
                 <artifactId>jakarta.el-api</artifactId>
-                <version>6.0.1</version>
+                <version>${jakarta.el-api.version}</version>
                 <scope>provided</scope>
             </dependency>
 
             <dependency>
                 <groupId>jakarta.servlet</groupId>
                 <artifactId>jakarta.servlet-api</artifactId>
-                <version>6.1.0</version>
+                <version>${jakarta.servlet-api.version}</version>
                 <scope>provided</scope>
             </dependency>
 
             <dependency>
                 <groupId>jakarta.websocket</groupId>
                 <artifactId>jakarta.websocket-api</artifactId>
-                <version>2.2.0</version>
+                <version>${jakarta.websocket-api.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>jakarta.websocket</groupId>
                 <artifactId>jakarta.websocket-client-api</artifactId>
-                <version>2.2.0</version>
+                <version>${jakarta.websocket-api.version}</version>
                 <scope>provided</scope>
             </dependency>
 
             <dependency>
                 <groupId>jakarta.enterprise</groupId>
                 <artifactId>jakarta.enterprise.cdi-api</artifactId>
-                <version>4.1.0</version>
+                <version>${jakarta.cdi-api.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>jakarta.inject</groupId>
                 <artifactId>jakarta.inject-api</artifactId>
-                <version>2.0.1.MR</version>
+                <version>${jakarta.inject-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.servlet.jsp</groupId>
+                <artifactId>jakarta.servlet.jsp-api</artifactId>
+                <version>${jakarta.jsp-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.servlet.jsp.jstl</groupId>
+                <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+                <version>${jakarta.jstl-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.annotation</groupId>
+                <artifactId>jakarta.annotation-api</artifactId>
+                <version>${jakarta.annotation-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.activation</groupId>
+                <artifactId>jakarta.activation-api</artifactId>
+                <version>${jakarta.activation-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.validation</groupId>
+                <artifactId>jakarta.validation-api</artifactId>
+                <version>${jakarta.validation-api.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -284,7 +327,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <dependency>
             <groupId>jakarta.validation</groupId>
             <artifactId>jakarta.validation-api</artifactId>
-            <version>3.1.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -380,8 +422,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
     <repositories>
         <repository>
             <id>jakarta-staging</id>
-            <snapshots />
-            <url>https://jakarta.oss.sonatype.org/content/repositories/staging</url>
+            <url>https://jakarta.oss.sonatype.org/content/repositories/staging/</url>
         </repository>
     </repositories>
 

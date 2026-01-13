@@ -326,10 +326,10 @@ public final class JSFTestUtil {
    * String value.
    * </p>
    * <ul>
-   * <li>FacesMessage.SEVERITY_INFO returns SEVERITY_INFO</li>
-   * <li>FacesMessage.SEVERITY_ERROR returns SEVERITY_ERROR</li>
-   * <li>FacesMessage.SEVERITY_FATAL returns SEVERITY_FATAL</li>
-   * <li>FacesMessage.SEVERITY_WARN returns SEVERITY_WARN</li>
+   * <li>FacesMessage.Severity.INFO returns SEVERITY_INFO</li>
+   * <li>FacesMessage.Severity.ERROR returns SEVERITY_ERROR</li>
+   * <li>FacesMessage.Severity.FATAL returns SEVERITY_FATAL</li>
+   * <li>FacesMessage.Severity.WARN returns SEVERITY_WARN</li>
    * </ul>
    * 
    * @param severity
@@ -337,13 +337,13 @@ public final class JSFTestUtil {
    * @return The String equivalent of the passed value.
    */
   public static String getSeverityAsString(int severity) {
-    if (severity == FacesMessage.SEVERITY_INFO.getOrdinal())
+    if (severity == FacesMessage.Severity.INFO.getOrdinal())
       return "SEVERITY_INFO";
-    else if (severity == FacesMessage.SEVERITY_ERROR.getOrdinal())
+    else if (severity == FacesMessage.Severity.ERROR.getOrdinal())
       return "SEVERITY_ERROR";
-    else if (severity == FacesMessage.SEVERITY_FATAL.getOrdinal())
+    else if (severity == FacesMessage.Severity.FATAL.getOrdinal())
       return "SEVERITY_FATAL";
-    else if (severity == FacesMessage.SEVERITY_WARN.getOrdinal())
+    else if (severity == FacesMessage.Severity.WARN.getOrdinal())
       return "SEVERITY_WARN";
     else
       return "UNKNOWN_SEVERITY";
