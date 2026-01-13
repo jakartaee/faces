@@ -115,7 +115,7 @@ Clarify that UIInput#isEmpty must be consulted during UIInput#validate
 Clarify how to interpret EL in template text
 
 * Issue ID {issue_tracker_url}1202[1202] +
-Clarify cc:attribute type attribute
+Clarify cc:attribute type attribute default
 
 * Issue ID {issue_tracker_url}1201[1201] +
 Clarify that Flash cookie must be httpOnly
