@@ -15,6 +15,9 @@ This release contains the following changes:
 * Issue ID {issue_tracker_url}2105[2105] +
 Deprecate java.sun.com and xmlns.jcp.org XML namespaces
 
+* Issue ID {issue_tracker_url}2026[2026] +
+Parameterize Application#createConverter and createValidator
+
 * Issue ID {issue_tracker_url}1590[1590] +
 CSP support
 
