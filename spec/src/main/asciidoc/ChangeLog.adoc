@@ -12,11 +12,14 @@ pre-Jakarta Faces specification under the JCP.
 
 This release contains the following changes:
 
-* Issue ID {issue_tracker_url}1564[1564] +
-Resolve _#{cc}_ using EL instead of CDI
+* Issue ID {issue_tracker_url}2105[2105] +
+Deprecate java.sun.com and xmlns.jcp.org XML namespaces
 
 * Issue ID {issue_tracker_url}1590[1590] +
 CSP support
+
+* Issue ID {issue_tracker_url}1564[1564] +
+Resolve _#{cc}_ using EL instead of CDI
 
 
 === Changes between 4.1 and 4.0
@@ -149,7 +152,53 @@ This release contains the following backwards incompatible changes:
 Rename "JSF" to "Faces" over all place
 
 * Issue ID {issue_tracker_url}1553[1553] +
-Rename "http://xmlns.jcp.org/jsf/*" URL to "jakarta.faces.*" URN
+Rename "http://xmlns.jcp.org/jsf/\*" XML namespace URI to "jakarta.faces.\*" XML namespace URN
++
+Facelet Tag Libraries will now respond to the
+following URIs
++
+--
+[width="100%",cols="24%,38%,38%",options="header",]
+|===
+|Library |Old URI
+|New URI
+|Faces Core
+|\http://xmlns.jcp.org/jsf/core a|
+jakarta.faces.core
+
+|Faces HTML
+|\http://xmlns.jcp.org/jsf/html a|
+jakarta.faces.html
+
+|Facelets Templating
+|\http://xmlns.jcp.org/jsf/facelets a|
+jakarta.faces.facelets
+
+|Composite Components
+|\http://xmlns.jcp.org/jsf/composite a|
+jakarta.faces.composite
+
+|Pass Through Attributes
+|\http://xmlns.jcp.org/jsf/passthrough a|
+jakarta.faces.passthrough
+
+|Pass Through Elements
+|\http://xmlns.jcp.org/jsf a|
+jakarta.faces
+
+|Tags Core
+|\http://xmlns.jcp.org/jsp/jstl/core a|
+jakarta.tags.core
+
+|Tags Functions
+|\http://xmlns.jcp.org/jsp/jstl/functions a|
+jakarta.tags.functions
+
+|===
+--
++
+Developers are requested to use the values
+from the New URI column, though both columns will work.
 
 * Issue ID {issue_tracker_url}1546[1546] +
 Remove all JSP support
@@ -1011,57 +1060,37 @@ following URIs
 |===
 |Library |Old URI
 |New URI
-|Composite Components
-|http://java.sun.com/jsf/composite a|
-http://xmlns.jcp.org/jsf/composite
-
-
-
 |Faces Core
-|http://java.sun.com/jsf/core a|
-http://xmlns.jcp.org/jsf/core
+|\http://java.sun.com/jsf/core a|
+\http://xmlns.jcp.org/jsf/core
 
-
-
-|HTML_BASIC
-|http://java.sun.com/jsf/html a|
-http://xmlns.jcp.org/jsf/html
-
-
-
-|JSTL Core a|
-http://java.sun.com/jsp/jstl/core
-
-
-
-a|
-http://xmlns.jcp.org/jsp/jstl/core
-
-
-
-|JSTL Functions
-|http://java.sun.com/jsp/jstl/functions a|
-http://xmlns.jcp.org/jsp/jstl/functions
-
-
+|Faces HTML
+|\http://java.sun.com/jsf/html a|
+\http://xmlns.jcp.org/jsf/html
 
 |Facelets Templating
-|http://java.sun.com/jsf/facelets a|
-http://xmlns.jcp.org/jsf/facelets
+|\http://java.sun.com/jsf/facelets a|
+\http://xmlns.jcp.org/jsf/facelets
 
-
+|Composite Components
+|\http://java.sun.com/jsf/composite a|
+\http://xmlns.jcp.org/jsf/composite
 
 |Pass Through Attributes
-|http://java.sun.com/jsf/passthrough a|
-http://xmlns.jcp.org/jsf/passthrough
-
-
+|\http://java.sun.com/jsf/passthrough a|
+\http://xmlns.jcp.org/jsf/passthrough
 
 |Pass Through Elements
-|http://java.sun.com/jsf a|
-http://xmlns.jcp.org/jsf
+|\http://java.sun.com/jsf a|
+\http://xmlns.jcp.org/jsf
 
+|JSTL Core
+|\http://java.sun.com/jsp/jstl/core a|
+\http://xmlns.jcp.org/jsp/jstl/core
 
+|JSTL Functions
+|\http://java.sun.com/jsp/jstl/functions a|
+\http://xmlns.jcp.org/jsp/jstl/functions
 
 |===
 --
