@@ -84,7 +84,8 @@ New: TypeLiteral constants for annotation literals of generic types
 Change: extend f:selectItems var attribute to support SelectItem and Map
 
 * Issue ID {issue_tracker_url}1713[1713] +
-Spec: clarify ui:repeat size/offset/begin/end attributes
+Spec: clarify ui:repeat size/offset/begin/end attributes +
+Change: throw FacesException when ui:repeat attribute is wrong
 
 * Issue ID {issue_tracker_url}1592[1592] +
 New: FacesMessage.Severity.SUCCESS
