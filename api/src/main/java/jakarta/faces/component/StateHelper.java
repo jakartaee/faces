@@ -148,12 +148,13 @@ public interface StateHelper extends StateHolder {
      * return-value of the <code>defaultValueSupplier</code>
      * </p>
      *
+     * @param <T> The generic type of the evaluated value.
      * @param key the key for which the value should be returned.
      * @param defaultValueSupplier the supplier used to evaluate the default value if no value is found in the call to <code>eval()</code>.
      * @return the evaluated value.
      * @since 4.0
      */
-    Object eval(Serializable key, Supplier<Object> defaultValueSupplier);
+    <T> T eval(Serializable key, Supplier<T> defaultValueSupplier);
 
     /**
      * <p class="changed_added_2_0">

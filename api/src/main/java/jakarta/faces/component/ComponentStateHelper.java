@@ -163,15 +163,15 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
      * @param key
      */
     @Override
-    public Object get(Serializable key) {
-        return defaultMap.get(key);
+    public <T> T get(Serializable key) {
+        return (T) defaultMap.get(key);
     }
 
     /**
      * @see StateHelper#eval(java.io.Serializable)
      */
     @Override
-    public Object eval(Serializable key) {
+    public <T> T eval(Serializable key) {
         return eval(key, null);
     }
 
@@ -179,8 +179,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
      * @see StateHelper#eval(java.io.Serializable, Object)
      */
     @Override
-    public Object eval(Serializable key, Object defaultValue) {
-        Object retVal = get(key);
+    public <T> T eval(Serializable key, T defaultValue) {
+        T retVal = (T) get(key);
 
         if (retVal == null) {
             ValueExpression valueExpression = component.getValueExpression(key.toString());
@@ -197,8 +197,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
      * @see StateHelper#eval(java.io.Serializable, Supplier)
      */
     @Override
-    public Object eval(Serializable key, Supplier<Object> defaultValueSupplier) {
-        Object retVal = get(key);
+    public <T> T eval(Serializable key, Supplier<T> defaultValueSupplier) {
+        T retVal = (T) get(key);
 
         if (retVal == null) {
             ValueExpression valueExpression = component.getValueExpression(key.toString());
