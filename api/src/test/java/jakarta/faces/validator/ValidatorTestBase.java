@@ -31,7 +31,7 @@ abstract class ValidatorTestBase {
         when(mockedViewRoot.getViewId()).thenReturn("/viewId");
 
         Application mockedApplication = Mockito.mock(Application.class);
-        when(mockedApplication.createConverter(NumberConverter.CONVERTER_ID)).thenReturn(new NumberConverter());
+        when(mockedApplication.<Number>createConverter(NumberConverter.CONVERTER_ID)).thenReturn(new NumberConverter());
 
         RenderKit mockedRenderKit = Mockito.mock(RenderKit.class);
 
