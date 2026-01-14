@@ -13,20 +13,169 @@ pre-Jakarta Faces specification under the JCP.
 This release contains the following backwards compatible changes:
 
 * Issue ID {issue_tracker_url}2105[2105] +
-Deprecate java.sun.com and xmlns.jcp.org XML namespaces
+Deprecation: \http://java.sun.com and \http://xmlns.jcp.org XML namespaces
+
+* Issue ID {issue_tracker_url}2097[2097] +
+New: EXCEPTION_TYPES_TO_IGNORE_IN_LOGGING context parameter
+
+* Issue ID {issue_tracker_url}2041[2041] +
+Change: BeanValidator uses EL-coerced value
+
+* Issue ID {issue_tracker_url}2034[2034] +
+New: enum support in UIComponent#getFacet
+
+* Issue ID {issue_tracker_url}2032[2032] +
+New: passthrough attributes on facets
+
+* Issue ID {issue_tracker_url}2029[2029] +
+Change: ByteConverter default error message
+
+* Issue ID {issue_tracker_url}2025[2025] +
+New: placeholder attribute in input components
+
+* Issue ID {issue_tracker_url}2024[2024] +
+New: StateHelper#computeIfAbsent
+
+* Issue ID {issue_tracker_url}2015[2015] +
+New: FaceletContext#getCurrentInstance
+
+* Issue ID {issue_tracker_url}2014[2014] +
+Spec: clarify h:selectOneRadio group attribute
+
+* Issue ID {issue_tracker_url}2008[2008] +
+Change: TextHandler now extends FaceletHandler
+
+* Issue ID {issue_tracker_url}1972[1972] +
+Deprecation: h:form prependId attribute
+
+* Issue ID {issue_tracker_url}1938[1938] +
+Change: EnumConverter now auto-discovers enum type
+
+* Issue ID {issue_tracker_url}1936[1936] +
+Spec: clarify UIViewRoot#resetValues behavior
+
+* Issue ID {issue_tracker_url}1934[1934] +
+New: FacesMessage.Severity enum +
+Deprecation: FacesMessage.SEVERITY_INFO etc string constants
+
+* Issue ID {issue_tracker_url}1875[1875] +
+New: missing UISelectItems#getVar/setVar methods
+
+* Issue ID {issue_tracker_url}1861[1861] +
+New: FacesServletFactory
+
+* Issue ID {issue_tracker_url}1849[1849] +
+Spec: clarify f:metadata placement requirements
+
+* Issue ID {issue_tracker_url}1835[1835] +
+Spec: clarify when to fire PostAddToViewEvent
+
+* Issue ID {issue_tracker_url}1833[1833] +
+Change: move ConfigurableNavigationHandler methods to NavigationHandler +
+Deprecation: ConfigurableNavigationHandler
+
+* Issue ID {issue_tracker_url}1831[1831] +
+New: enums for STATE_SAVING_METHOD and VALIDATE_EMPTY_FIELDS context parameters
+
+* Issue ID {issue_tracker_url}1824[1824] +
+New: TypeLiteral constants for annotation literals of generic types
+
+* Issue ID {issue_tracker_url}1791[1791] +
+Change: extend f:selectItems var attribute to support SelectItem and Map
+
+* Issue ID {issue_tracker_url}1713[1713] +
+Spec: clarify ui:repeat size/offset/begin/end attributes +
+Change: throw FacesException when ui:repeat attribute is wrong
+
+* Issue ID {issue_tracker_url}1592[1592] +
+New: FacesMessage.Severity.SUCCESS
 
 * Issue ID {issue_tracker_url}1590[1590] +
-CSP support
+New: CSP support with ENABLE_CSP_NONCE context parameter
 
 * Issue ID {issue_tracker_url}1564[1564] +
-Resolve _#{cc}_ using EL instead of CDI
+Change: resolve \#{cc} and \#{component} via EL instead of CDI +
+Spec: clarify _request_, _session_, and _application_ EL resolution
+
+* Issue ID {issue_tracker_url}1501[1501] +
+New: CDI @Observes support for system events
+
+* Issue ID {issue_tracker_url}1462[1462] +
+New: PartialResponseWriterWrapper
+
+* Issue ID {issue_tracker_url}1443[1443] +
+New: CDI @Observes support for phase events
+
+* Issue ID {issue_tracker_url}1368[1368] +
+New: EL import handler in resolver chain
+
+* Issue ID {issue_tracker_url}1366[1366] +
+Spec: clarify resource name requirements
+
+* Issue ID {issue_tracker_url}1278[1278] +
+Spec: clarify that UIInput#isEmpty must be consulted during UIInput#validate
+
+* Issue ID {issue_tracker_url}1244[1244] +
+Spec: clarify how to interpret EL in template text
+
+* Issue ID {issue_tracker_url}1202[1202] +
+Spec: clarify cc:attribute type attribute default
+
+* Issue ID {issue_tracker_url}1201[1201] +
+Spec: clarify that Flash cookie must be httpOnly
+
+* Issue ID {issue_tracker_url}1160[1160] +
+Spec: clarify includeViewParams=true behavior
+
+* Issue ID {issue_tracker_url}1112[1112] +
+Spec: clarify FacesContext#getCurrentInstance/release requirements
+
+* Issue ID {issue_tracker_url}908[908] +
+Spec: clarify h:outputStylesheet request path rendering
+
+* Issue ID {issue_tracker_url}816[816] +
+Spec: clarify ViewHandler#initView requirements
+
+* Issue ID {issue_tracker_url}583[583] +
+Spec: clarify h:message(s) rendering when no messages
+
 
 ==== Backward Compatibility with Previous Versions
 
 This release contains the following backwards incompatible changes:
 
 * Issue ID {issue_tracker_url}2026[2026] +
-Parameterize Application#createConverter and createValidator
+Change: parameterized Application#createConverter and createValidator
+
+* Issue ID {issue_tracker_url}2033[2033] +
+Change: parameterized ValueChangeEvent
+
+* Issue ID {issue_tracker_url}2028[2028] +
+Change: parameterized StateHelper methods
+
+* Issue ID {issue_tracker_url}2027[2027] +
+Change: parameterized UIData#getDataModel
+
+* Issue ID {issue_tracker_url}2012[2012] +
+Change: parameterized UIComponent#getFacesListeners
+
+* Issue ID {issue_tracker_url}1948[1948] +
+Change: migrated PhaseId string constants to enum
+
+* Issue ID {issue_tracker_url}1937[1937] +
+Removal: custom scope context deprecated since 4.0
+
+* Issue ID {issue_tracker_url}1871[1871] +
+Removal: cc:extension and custom scope events deprecated since 4.0
+
+* Issue ID {issue_tracker_url}1830[1830] +
+Removal: constants and attributes deprecated since 4.0
+
+* Issue ID {issue_tracker_url}1822[1822] +
+Change: parameterized standard converters
+
+* Issue ID {issue_tracker_url}1725[1725] +
+Removal: UIComponent.bindings field deprecated since 2.3
 
 
 === Changes between 4.1 and 4.0
@@ -159,7 +308,7 @@ This release contains the following backwards incompatible changes:
 Rename "JSF" to "Faces" over all place
 
 * Issue ID {issue_tracker_url}1553[1553] +
-Rename "http://xmlns.jcp.org/jsf/\*" XML namespace URI to "jakarta.faces.\*" XML namespace URN
+Rename "http://xmlns.jcp.org/jsf/\*" XML namespace URI to "jakarta.faces.*" XML namespace URN
 +
 Facelet Tag Libraries will now respond to the
 following URIs
