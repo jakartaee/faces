@@ -285,7 +285,6 @@
           <description><![CDATA[ 
             <p class="changed_added_5_0">
                 Clear the model values as well when <code>resetValues</code> is <code>true</code>.
-                A <code>VisitHint.CLEAR_MODEL</code> will be added to the <code>UIViewRoot.resetValues()</code> call of <code>resetValues</code>.
                 The implementation must cause <code>EditableValueHolder.setValue()</code> to be invoked with value of <code>null</code>, followed by <code>UIInput.updateModel()</code>.
                 This attribute is ignored when <code>resetValues</code> is not <code>true</code>.
             </p>
@@ -3070,7 +3069,6 @@ public class BackingBean implements PasswordHolder, Cloneable {
           <description><![CDATA[ 
             <p class="changed_added_5_0">
                 Clear the model values as well.
-                A <code>VisitHint.CLEAR_MODEL</code> will be added to the <code>UIViewRoot.resetValues()</code> call of <code>resetValues</code>.
                 The implementation must cause <code>EditableValueHolder.setValue()</code> to be invoked with value of <code>null</code>, followed by <code>UIInput.updateModel()</code>.
             </p>
           ]]></description>
