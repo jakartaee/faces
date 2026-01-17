@@ -17,9 +17,11 @@
 package jakarta.faces.component;
 
 
+import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableList;
 import static java.util.logging.Level.SEVERE;
 import static java.util.logging.Level.WARNING;
+import static java.util.stream.Collectors.toUnmodifiableMap;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -32,6 +34,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
@@ -750,12 +753,12 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * An array of Lists of events that have been queued for later broadcast, with one List for each lifecycle phase. The
-     * list indices match the ordinals of the PhaseId instances. This instance is lazily instantiated. This list is
+     * An map of Lists of events by PhaseId that have been queued for later broadcast, with one List for each lifecycle phase.
+     * This instance is lazily instantiated. This list is
      * <strong>NOT</strong> part of the state that is saved and restored for this component.
      * </p>
      */
-    private List<List<FacesEvent>> events;
+    private Map<PhaseId, List<FacesEvent>> events;
 
     /**
      * <p>
@@ -776,15 +779,25 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
         // We are a UIViewRoot, so no need to check for the ISE
         if (events == null) {
-            int len = PhaseId.VALUES.size();
-            List<List<FacesEvent>> events = new ArrayList<>(len);
-            for (int i = 0; i < len; i++) {
-                events.add(new ArrayList<>(5));
-            }
-            this.events = events;
+            events = new HashMap<>(PhaseId.VALUES.size());
         }
 
-        events.get(event.getPhaseId().ordinal()).add(event);
+        events.computeIfAbsent(event.getPhaseId(), $ -> new ArrayList<>(5)).add(event);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Returns an unmodifiable map of unmodifiable lists of faces events that have been queued so far.
+     * </p>
+     * @return an unmodifiable map of unmodifiable lists of faces events that have been queued so far.
+     * @since 5.0
+     */
+    public Map<PhaseId, List<FacesEvent>> getQueuedEvents() {
+        if (events == null) {
+            return emptyMap();
+        }
+
+        return events.entrySet().stream().collect(toUnmodifiableMap(Entry::getKey, entry -> unmodifiableList(entry.getValue())));
     }
 
     /**
@@ -810,7 +823,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         boolean hasMoreAnyPhaseEvents;
         boolean hasMoreCurrentPhaseEvents;
 
-        List<FacesEvent> eventsForPhaseId = events.get(PhaseId.ANY_PHASE.ordinal());
+        List<FacesEvent> eventsForPhaseId = events.get(PhaseId.ANY_PHASE);
 
         // keep iterating till we have no more events to broadcast.
         // This is necessary for events that cause other events to be
@@ -848,7 +861,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             }
 
             // then broadcast the events for this phase.
-            if ((eventsForPhaseId = events.get(phaseId.ordinal())) != null) {
+            if ((eventsForPhaseId = events.get(phaseId)) != null) {
                 // We cannot use an Iterator because we will get
                 // ConcurrentModificationException errors, so fake it
                 while (!eventsForPhaseId.isEmpty()) {
@@ -879,9 +892,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             }
 
             // true if we have any more ANY_PHASE events
-            hasMoreAnyPhaseEvents = null != (eventsForPhaseId = events.get(PhaseId.ANY_PHASE.ordinal())) && !eventsForPhaseId.isEmpty();
+            hasMoreAnyPhaseEvents = null != (eventsForPhaseId = events.get(PhaseId.ANY_PHASE)) && !eventsForPhaseId.isEmpty();
             // true if we have any more events for the argument phaseId
-            hasMoreCurrentPhaseEvents = null != events.get(phaseId.ordinal()) && !events.get(phaseId.ordinal()).isEmpty();
+            hasMoreCurrentPhaseEvents = null != events.get(phaseId) && !events.get(phaseId).isEmpty();
 
         } while (hasMoreAnyPhaseEvents || hasMoreCurrentPhaseEvents);
     }
@@ -1024,16 +1037,45 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * @param clientIds The client ids to be visited, on which the described action will be taken.
      * @param visitHints Since 5.0: Any visit hints you wish to apply to the visit.
      */
-
     public void resetValues(FacesContext context, Collection<String> clientIds, VisitHint... visitHints) {
-        visitTree(VisitContext.createVisitContext(context, clientIds, visitHints.length == 0 ? null : Set.of(visitHints)), new DoResetValues());
+        resetValues(context, clientIds, false, visitHints);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Use {@link #visitTree} to visit the clientIds with the given visit hints, if any, and, if the node is an instance of {@link EditableValueHolder}, call its
+     * {@link EditableValueHolder#resetValue} method, and, if {@code clearModel} is true, then invoke {@link EditableValueHolder#setValue(Object)} with value of {@code null},
+     * followed by {@link UIInput#updateModel(FacesContext)}.
+     * </p>
+     *
+     * @since 5.0
+     *
+     * @param context the {@link FacesContext} for the request we are processing.
+     * @param clientIds The client ids to be visited, on which the described action will be taken.
+     * @param clearModel Whether to clear the model values as well.
+     * @param visitHints Any visit hints you wish to apply to the visit.
+     */
+    public void resetValues(FacesContext context, Collection<String> clientIds, boolean clearModel, VisitHint... visitHints) {
+        visitTree(VisitContext.createVisitContext(context, clientIds, visitHints.length == 0 ? null : Set.of(visitHints)), new DoResetValues(clearModel));
     }
 
     private static class DoResetValues implements VisitCallback {
+        private final boolean clearModel;
+
+        private DoResetValues(boolean clearModel) {
+            this.clearModel = clearModel;
+        }
+
         @Override
         public VisitResult visit(VisitContext context, UIComponent target) {
-            if (target instanceof EditableValueHolder) {
-                ((EditableValueHolder) target).resetValue();
+            if (target instanceof EditableValueHolder editableValueHolder) {
+                editableValueHolder.resetValue();
+                if (clearModel) {
+                    editableValueHolder.setValue(null);
+                    if (editableValueHolder instanceof UIInput input) {
+                        input.updateModel(context.getFacesContext());
+                    }
+                }
             } else if (!VisitContext.ALL_IDS.equals(context.getIdsToVisit())) {
                 // Render ID didn't specifically point to an EditableValueHolder. Visit all children as well.
                 target.visitTree(VisitContext.createVisitContext(context.getFacesContext(), null, context.getHints()), this);
@@ -1354,11 +1396,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     private void clearFacesEvents(FacesContext context) {
         if (context.getRenderResponse() || context.getResponseComplete()) {
             if (events != null) {
-                for (List<FacesEvent> eventList : events) {
-                    if (eventList != null) {
-                        eventList.clear();
-                    }
-                }
+                events.values().forEach(List::clear);
                 events = null;
             }
         }

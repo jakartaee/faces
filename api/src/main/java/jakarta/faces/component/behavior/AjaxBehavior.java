@@ -74,6 +74,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
     private Boolean disabled;
     private Boolean immediate;
     private Boolean resetValues;
+    private Boolean clearModel;
 
     private Map<String, ValueExpression> bindings;
 
@@ -293,6 +294,37 @@ public class AjaxBehavior extends ClientBehaviorBase {
     }
 
     /**
+     * <p class="changed_added_5_0">
+     * Return the clearModel status of this behavior.
+     * </p>
+     *
+     * @return the clearModel status.
+     *
+     * @since 5.0
+     */
+
+    public boolean isClearModel() {
+        Boolean result = (Boolean) eval(CLEAR_MODEL, clearModel);
+        return result != null ? result : false;
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Set the clearModel status of this behavior.
+     * </p>
+     *
+     * @param clearModel the clearModel status.
+     *
+     * @since 5.0
+     */
+
+    public void setClearModel(boolean clearModel) {
+        this.clearModel = clearModel;
+
+        clearInitialState();
+    }
+
+    /**
      * <p class="changed_added_2_0">
      * Return the disabled status of this behavior.
      * </p>
@@ -378,6 +410,20 @@ public class AjaxBehavior extends ClientBehaviorBase {
      */
     public boolean isResetValuesSet() {
         return resetValues != null || getValueExpression(RESET_VALUES) != null;
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Tests whether the clearModel attribute is specified. Returns true if the clearModel attribute is specified, either
+     * as a locally set property or as a value expression.
+     * </p>
+     *
+     * @return the flag whether the clearModel attribute is specified.
+     *
+     * @since 5.0
+     */
+    public boolean isClearModelSet() {
+        return clearModel != null || getValueExpression(CLEAR_MODEL) != null;
     }
 
     /**
@@ -494,7 +540,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
                 values = new Object[] { superState };
             }
         } else {
-            values = new Object[10];
+            values = new Object[11];
 
             values[0] = superState;
             values[1] = onerror;
@@ -502,10 +548,11 @@ public class AjaxBehavior extends ClientBehaviorBase {
             values[3] = disabled;
             values[4] = immediate;
             values[5] = resetValues;
-            values[6] = delay;
-            values[7] = saveList(execute);
-            values[8] = saveList(render);
-            values[9] = saveBindings(context, bindings);
+            values[6] = clearModel;
+            values[7] = delay;
+            values[8] = saveList(execute);
+            values[9] = saveList(render);
+            values[10] = saveBindings(context, bindings);
         }
 
         return values;
@@ -528,10 +575,11 @@ public class AjaxBehavior extends ClientBehaviorBase {
                 disabled = (Boolean) values[3];
                 immediate = (Boolean) values[4];
                 resetValues = (Boolean) values[5];
-                delay = (String) values[6];
-                execute = restoreList(EXECUTE, values[7]);
-                render = restoreList(RENDER, values[8]);
-                bindings = restoreBindings(context, values[9]);
+                clearModel = (Boolean) values[6];
+                delay = (String) values[7];
+                execute = restoreList(EXECUTE, values[8]);
+                render = restoreList(RENDER, values[9]);
+                bindings = restoreBindings(context, values[10]);
 
                 // If we saved state last time, save state again next time.
                 clearInitialState();
@@ -692,6 +740,9 @@ public class AjaxBehavior extends ClientBehaviorBase {
             case RESET_VALUES:
                 resetValues = (Boolean) value;
                 break;
+            case CLEAR_MODEL:
+                clearModel = (Boolean) value;
+                break;
             case DISABLED:
                 disabled = (Boolean) value;
                 break;
@@ -771,6 +822,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
     private static final String ONERROR = "onerror";
     private static final String IMMEDIATE = "immediate";
     private static final String RESET_VALUES = "resetValues";
+    private static final String CLEAR_MODEL = "clearModel";
     private static final String DISABLED = "disabled";
     private static final String EXECUTE = "execute";
     private static final String RENDER = "render";
