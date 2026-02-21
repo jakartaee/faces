@@ -816,7 +816,12 @@ for <code>@NamedEvent</code>.</p>
                 Constant field values are all <code>public static final</code> fields of the given type.
                 The map key represents the constant field name as <code>String</code>.
                 The map value represents the actual constant field value.
-                This works for classes, interfaces and enums. 
+                This works for classes, interfaces and enums.
+            </p>
+            <p class="changed_added_5_0">
+                This tag can also be declared outside of the metadata facet of a view.
+                In that case, the resolved constants will be available to all UI component renderers, but not to tag handlers positioned before this tag.
+                Additionally, when declared outside of the metadata facet, the corresponding component will not be returned by <code>ViewMetadata.getImportConstants()</code>.
             </p>
         ]]></description>
         <tag-name>importConstants</tag-name>
