@@ -272,10 +272,27 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
      *
      * @see ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)
      * @since 2.0
+     * @deprecated Use {@link #getRedirectURL(FacesContext, String, Map, String, boolean)} instead.
      */
     @Override
+    @Deprecated(since = "5.0", forRemoval = true)
     public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
         return getWrapped().getRedirectURL(context, viewId, parameters, includeViewParams);
+    }
+
+    /**
+     * <p>
+     * The default behavior of this method is to call
+     * {@link ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)} on the wrapped
+     * {@link ViewHandler} object.
+     * </p>
+     *
+     * @see ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)
+     * @since 5.0
+     */
+    @Override
+    public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
+        return getWrapped().getRedirectURL(context, viewId, parameters, fragment, includeViewParams);
     }
 
     /**
@@ -287,10 +304,27 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
      *
      * @see ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)
      * @since 2.0
+     * @deprecated Use {@link #getBookmarkableURL(FacesContext, String, Map, String, boolean)} instead.
      */
     @Override
+    @Deprecated(since = "5.0", forRemoval = true)
     public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
         return getWrapped().getBookmarkableURL(context, viewId, parameters, includeViewParams);
+    }
+
+    /**
+     * <p>
+     * The default behavior of this method is to call
+     * {@link ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)} on the
+     * wrapped {@link ViewHandler} object.
+     * </p>
+     *
+     * @see ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)
+     * @since 5.0
+     */
+    @Override
+    public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
+        return getWrapped().getBookmarkableURL(context, viewId, parameters, fragment, includeViewParams);
     }
 
     /**
