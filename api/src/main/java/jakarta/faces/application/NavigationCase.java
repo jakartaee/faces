@@ -71,7 +71,9 @@ public class NavigationCase {
      * @param parameters return from {@link #getParameters}
      * @param redirect return from {@link #isRedirect}
      * @param includeViewParams return {@link #isIncludeViewParams}
+     * @deprecated Use {@link #NavigationCase(String, String, String, String, String, String, Map, String, boolean, boolean)} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public NavigationCase(String fromViewId, String fromAction, String fromOutcome, String condition, String toViewId, Map<String, List<String>> parameters,
             boolean redirect, boolean includeViewParams) {
 
@@ -95,7 +97,9 @@ public class NavigationCase {
      * @param parameters return from {@link #getParameters}
      * @param redirect return from {@link #isRedirect}
      * @param includeViewParams return {@link #isIncludeViewParams}
+     * @deprecated Use {@link #NavigationCase(String, String, String, String, String, String, Map, String, boolean, boolean)} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public NavigationCase(String fromViewId, String fromAction, String fromOutcome, String condition, String toViewId, String toFlowDocumentId,
             Map<String, List<String>> parameters, boolean redirect, boolean includeViewParams) {
 
@@ -188,7 +192,7 @@ public class NavigationCase {
         ExternalContext extContext = context.getExternalContext();
 
         return new URL(extContext.getRequestScheme(), extContext.getRequestServerName(), extContext.getRequestServerPort(), context.getApplication()
-                .getViewHandler().getRedirectURL(context, getToViewId(context), evaluateExpressions(context, getParameters()), isIncludeViewParams()));
+                .getViewHandler().getRedirectURL(context, getToViewId(context), evaluateExpressions(context, getParameters()), null, isIncludeViewParams()));
     }
 
     /**
@@ -206,7 +210,7 @@ public class NavigationCase {
         ExternalContext extContext = context.getExternalContext();
 
         return new URL(extContext.getRequestScheme(), extContext.getRequestServerName(), extContext.getRequestServerPort(),
-                context.getApplication().getViewHandler().getBookmarkableURL(context, getToViewId(context), getParameters(), isIncludeViewParams()));
+                context.getApplication().getViewHandler().getBookmarkableURL(context, getToViewId(context), getParameters(), null, isIncludeViewParams()));
     }
 
     /**

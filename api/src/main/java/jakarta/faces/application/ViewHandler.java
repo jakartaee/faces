@@ -494,7 +494,9 @@ public abstract class ViewHandler {
      * @param includeViewParams A flag indicating whether view parameters should be encoded into this URL
      * @return the redirect URL.
      * @since 2.0
+     * @deprecated Use {@link #getRedirectURL(FacesContext, String, Map, String, boolean)} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
         return getActionURL(context, viewId);
     }
@@ -538,7 +540,9 @@ public abstract class ViewHandler {
      * @return the bookmarkable URL.
      *
      * @since 2.0
+     * @deprecated Use {@link #getBookmarkableURL(FacesContext, String, Map, String, boolean)} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
         return getActionURL(context, viewId);
     }

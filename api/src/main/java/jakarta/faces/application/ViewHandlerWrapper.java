@@ -272,8 +272,10 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
      *
      * @see ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)
      * @since 2.0
+     * @deprecated Use {@link #getRedirectURL(FacesContext, String, Map, String, boolean)} instead.
      */
     @Override
+    @Deprecated(since = "5.0", forRemoval = true)
     public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
         return getWrapped().getRedirectURL(context, viewId, parameters, includeViewParams);
     }
@@ -302,8 +304,10 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
      *
      * @see ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)
      * @since 2.0
+     * @deprecated Use {@link #getBookmarkableURL(FacesContext, String, Map, String, boolean)} instead.
      */
     @Override
+    @Deprecated(since = "5.0", forRemoval = true)
     public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
         return getWrapped().getBookmarkableURL(context, viewId, parameters, includeViewParams);
     }
