@@ -328,11 +328,10 @@ public class NavigationCase {
 
     /**
      * <p class="changed_added_5_0">
-     * Return the URL fragment to be included for navigation cases requiring a redirect. If no URL fragment is defined,
-     * <code>null</code> will be returned.
-     * </p>
+     * Return the URL fragment identifier (the part after {@code #} in a URL) to be appended to the redirect or
+     * bookmarkable URL for this navigation case. Returns {@code null} when no fragment is defined.
      *
-     * @return the URL fragment, or <code>null</code>
+     * @return the URL fragment identifier without the leading {@code #}, or {@code null} if none is defined
      * @since 5.0
      */
     public String getFragment() {
