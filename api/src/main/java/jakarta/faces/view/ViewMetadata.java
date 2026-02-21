@@ -108,10 +108,15 @@ public abstract class ViewMetadata {
      * Utility method to extract view metadata from the provided {@link UIViewRoot}.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * Note that this method only returns {@link UIImportConstants} instances that are declared inside the metadata facet of the provided {@link UIViewRoot}.
+     * Those declared outside of the metadata facet are not included.
+     * </p>
+     *
      * @param root The {@link UIViewRoot} from which the metadata will be extracted.
      *
-     * @return A <code>Collection</code> of {@link UIImportConstants} instances. If the view has no metadata, the collection
-     * will be empty.
+     * @return A <code>Collection</code> of {@link UIImportConstants} instances <span class="changed_modified_5_0">declared inside the metadata facet of the
+     * provided {@link UIViewRoot}. If the view has no metadata or no import constants are declared inside the metadata facet</span>, the collection will be empty.
      */
     public static Collection<UIImportConstants> getImportConstants(UIViewRoot root) {
         return getMetadataChildren(root, UIImportConstants.class);
