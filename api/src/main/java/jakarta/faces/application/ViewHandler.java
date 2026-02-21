@@ -531,7 +531,7 @@ public abstract class ViewHandler {
      * </p>
      *
      * @param context The FacesContext processing this request
-     * @param viewId The view identiTMfier of the target page
+     * @param viewId The view identifier of the target page
      * @param parameters A mapping of parameter names to one or more values
      * @param includeViewParams A flag indicating whether view parameters should be encoded into this URL
      *
