@@ -60,7 +60,7 @@ public abstract class NavigationCaseWrapper extends NavigationCase implements Fa
      * @since 2.3
      */
     public NavigationCaseWrapper(NavigationCase wrapped) {
-        super((String) null, (String) null, (String) null, (String) null, (String) null, (Map<String, List<String>>) null, false, false);
+        super((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (Map<String, List<String>>) null, (String) null, false, false);
         this.wrapped = wrapped;
     }
 
@@ -117,6 +117,11 @@ public abstract class NavigationCaseWrapper extends NavigationCase implements Fa
     @Override
     public Map<String, List<String>> getParameters() {
         return getWrapped().getParameters();
+    }
+
+    @Override
+    public String getFragment() {
+        return getWrapped().getFragment();
     }
 
     @Override

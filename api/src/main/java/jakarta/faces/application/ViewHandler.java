@@ -494,8 +494,32 @@ public abstract class ViewHandler {
      * @param includeViewParams A flag indicating whether view parameters should be encoded into this URL
      * @return the redirect URL.
      * @since 2.0
+     * @deprecated Use {@link #getRedirectURL(FacesContext, String, Map, String, boolean)} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
+        return getActionURL(context, viewId);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Return a Jakarta Faces action URL derived from the <code>viewId</code> argument that is suitable to be used by
+     * the {@link NavigationHandler} to issue a redirect request to the URL using a NonFaces request. Compliant
+     * implementations must implement this method as specified in
+     * section 7.6.2 "Default ViewHandler Implementation" of the Jakarta Faces Specification Document.
+     * The default implementation simply calls
+     * through to {@link #getActionURL}, passing the arguments <code>context</code> and <code>viewId</code>.
+     * </p>
+     *
+     * @param context The FacesContext processing this request
+     * @param viewId The view identifier of the target page
+     * @param parameters A mapping of parameter names to one or more values
+     * @param fragment The URL fragment
+     * @param includeViewParams A flag indicating whether view parameters should be encoded into this URL
+     * @return the redirect URL.
+     * @since 5.0
+     */
+    public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
         return getActionURL(context, viewId);
     }
 
@@ -516,8 +540,33 @@ public abstract class ViewHandler {
      * @return the bookmarkable URL.
      *
      * @since 2.0
+     * @deprecated Use {@link #getBookmarkableURL(FacesContext, String, Map, String, boolean)} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
+        return getActionURL(context, viewId);
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Return a Jakarta Faces action URL derived from the viewId argument that is suitable to be used as the target
+     * of a link in a Jakarta Faces response. Compliant implementations must implement this method as specified in
+     * section 7.6.2 "Default ViewHandler Implementation" of the Jakarta Faces Specification Document.
+     * The default implementation simply calls through to {@link #getActionURL}, passing the arguments
+     * <code>context</code> and <code>viewId</code>.
+     * </p>
+     *
+     * @param context The FacesContext processing this request
+     * @param viewId The view identifier of the target page
+     * @param parameters A mapping of parameter names to one or more values
+     * @param fragment The URL fragment
+     * @param includeViewParams A flag indicating whether view parameters should be encoded into this URL
+     *
+     * @return the bookmarkable URL.
+     *
+     * @since 5.0
+     */
+    public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
         return getActionURL(context, viewId);
     }
 

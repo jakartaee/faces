@@ -45,6 +45,7 @@ public class NavigationCase {
     private final String toViewId;
     private final String toFlowDocumentId;
     private final Map<String, List<String>> parameters;
+    private final String fragment;
     private final boolean redirect;
     private final boolean includeViewParams;
 
@@ -57,7 +58,7 @@ public class NavigationCase {
 
     /**
      * <p class="changed_added_2_0">
-     * Construct a new <code>NavigationCase</code> based on the provided arguments. 
+     * Construct a new <code>NavigationCase</code> based on the provided arguments.
      * See section 7.4.2 "Default NavigationHandler Algorithm" of the Jakarta Faces Specification Document for how a
      * <code>NavigationCase</code> is used by the standard {@link ConfigurableNavigationHandler}
      * </p>
@@ -70,26 +71,20 @@ public class NavigationCase {
      * @param parameters return from {@link #getParameters}
      * @param redirect return from {@link #isRedirect}
      * @param includeViewParams return {@link #isIncludeViewParams}
+     * @deprecated Use {@link #NavigationCase(String, String, String, String, String, String, Map, String, boolean, boolean)} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public NavigationCase(String fromViewId, String fromAction, String fromOutcome, String condition, String toViewId, Map<String, List<String>> parameters,
             boolean redirect, boolean includeViewParams) {
 
-        this.fromViewId = fromViewId;
-        this.fromAction = fromAction;
-        this.fromOutcome = fromOutcome;
-        this.condition = condition;
-        this.toViewId = toViewId;
-        toFlowDocumentId = null;
-        this.parameters = parameters;
-        this.redirect = redirect;
-        this.includeViewParams = includeViewParams;
+        this(fromViewId, fromAction, fromOutcome, condition, toViewId, null, parameters, redirect, includeViewParams);
 
     }
 
     /**
      * <p class="changed_added_2_0">
-     * Construct a new <code>NavigationCase</code> based on the provided arguments. 
-     * See section 7.4.2 "Default NavigationHandler Algorithm" of the Jakarta Faces Specification Document 
+     * Construct a new <code>NavigationCase</code> based on the provided arguments.
+     * See section 7.4.2 "Default NavigationHandler Algorithm" of the Jakarta Faces Specification Document
      * for how a <code>NavigationCase</code> is used by the standard {@link ConfigurableNavigationHandler}
      * </p>
      *
@@ -102,9 +97,37 @@ public class NavigationCase {
      * @param parameters return from {@link #getParameters}
      * @param redirect return from {@link #isRedirect}
      * @param includeViewParams return {@link #isIncludeViewParams}
+     * @deprecated Use {@link #NavigationCase(String, String, String, String, String, String, Map, String, boolean, boolean)} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public NavigationCase(String fromViewId, String fromAction, String fromOutcome, String condition, String toViewId, String toFlowDocumentId,
             Map<String, List<String>> parameters, boolean redirect, boolean includeViewParams) {
+
+        this(fromViewId, fromAction, fromOutcome, condition, toViewId, toFlowDocumentId, parameters, null, redirect, includeViewParams);
+
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Construct a new <code>NavigationCase</code> based on the provided arguments.
+     * See section 7.4.2 "Default NavigationHandler Algorithm" of the Jakarta Faces Specification Document
+     * for how a <code>NavigationCase</code> is used by the standard {@link ConfigurableNavigationHandler}
+     * </p>
+     *
+     * @param fromViewId return from {@link #getFromViewId}
+     * @param fromAction return from {@link #getFromAction}
+     * @param fromOutcome return from {@link #getFromOutcome}
+     * @param condition A string to be interpreted as a <code>ValueExpression</code> by a call to {@link #getCondition}
+     * @param toViewId return from {@link #getToViewId}
+     * @param toFlowDocumentId the toFlow documentId.
+     * @param parameters return from {@link #getParameters}
+     * @param fragment return from {@link #getFragment}
+     * @param redirect return from {@link #isRedirect}
+     * @param includeViewParams return {@link #isIncludeViewParams}
+     * @since 5.0
+     */
+    public NavigationCase(String fromViewId, String fromAction, String fromOutcome, String condition, String toViewId, String toFlowDocumentId,
+            Map<String, List<String>> parameters, String fragment, boolean redirect, boolean includeViewParams) {
 
         this.fromViewId = fromViewId;
         this.fromAction = fromAction;
@@ -113,6 +136,7 @@ public class NavigationCase {
         this.toViewId = toViewId;
         this.toFlowDocumentId = toFlowDocumentId;
         this.parameters = parameters;
+        this.fragment = fragment;
         this.redirect = redirect;
         this.includeViewParams = includeViewParams;
 
@@ -168,7 +192,7 @@ public class NavigationCase {
         ExternalContext extContext = context.getExternalContext();
 
         return new URL(extContext.getRequestScheme(), extContext.getRequestServerName(), extContext.getRequestServerPort(), context.getApplication()
-                .getViewHandler().getRedirectURL(context, getToViewId(context), evaluateExpressions(context, getParameters()), isIncludeViewParams()));
+                .getViewHandler().getRedirectURL(context, getToViewId(context), evaluateExpressions(context, getParameters()), null, isIncludeViewParams()));
     }
 
     /**
@@ -184,9 +208,9 @@ public class NavigationCase {
      */
     public URL getBookmarkableURL(FacesContext context) throws MalformedURLException {
         ExternalContext extContext = context.getExternalContext();
-        
+
         return new URL(extContext.getRequestScheme(), extContext.getRequestServerName(), extContext.getRequestServerPort(),
-                context.getApplication().getViewHandler().getBookmarkableURL(context, getToViewId(context), getParameters(), isIncludeViewParams()));
+                context.getApplication().getViewHandler().getBookmarkableURL(context, getToViewId(context), getParameters(), null, isIncludeViewParams()));
     }
 
     /**
@@ -307,6 +331,18 @@ public class NavigationCase {
     }
 
     /**
+     * <p class="changed_added_5_0">
+     * Return the URL fragment identifier (the part after {@code #} in a URL) to be appended to the redirect or
+     * bookmarkable URL for this navigation case. Returns {@code null} when no fragment is defined.
+     *
+     * @return the URL fragment identifier without the leading {@code #}, or {@code null} if none is defined
+     * @since 5.0
+     */
+    public String getFragment() {
+        return fragment;
+    }
+
+    /**
      * <p class="changed_added_2_0">
      * Return the <code>&lt;redirect&gt;</code> value for this <code>&lt;navigation-case&gt;</code>. This will be
      * <code>true</code> if the new view should be navigated to via a
@@ -354,7 +390,8 @@ public class NavigationCase {
                 && !(fromViewId != null ? !fromViewId.equals(that.fromViewId) : that.fromViewId != null)
                 && !(toViewId != null ? !toViewId.equals(that.toViewId) : that.toViewId != null)
                 && !(toFlowDocumentId != null ? !toFlowDocumentId.equals(that.toFlowDocumentId) : that.toFlowDocumentId != null)
-                && !(parameters != null ? !parameters.equals(that.parameters) : that.parameters != null);
+                && !(parameters != null ? !parameters.equals(that.parameters) : that.parameters != null)
+                && !(fragment != null ? !fragment.equals(that.fragment) : that.fragment != null);
 
     }
 
@@ -369,9 +406,10 @@ public class NavigationCase {
             result = 31 * result + (toFlowDocumentId != null ? toFlowDocumentId.hashCode() : 0);
             result = 31 * result + (redirect ? 1 : 0);
             result = 31 * result + (parameters != null ? parameters.hashCode() : 0);
+            result = 31 * result + (fragment != null ? fragment.hashCode() : 0);
             hashCode = result;
         }
-        
+
         return hashCode;
 
     }
@@ -389,6 +427,7 @@ public class NavigationCase {
             sb.append(", faces-redirect=").append(redirect);
             sb.append(", includeViewParams=").append(includeViewParams).append('\'');
             sb.append(", parameters=").append(parameters != null ? parameters.toString() : "");
+            sb.append(", fragment=").append(fragment != null ? fragment.toString() : "");
             sb.append('}');
             toString = sb.toString();
         }
