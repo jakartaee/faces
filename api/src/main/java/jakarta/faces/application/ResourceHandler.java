@@ -259,7 +259,7 @@ public abstract class ResourceHandler {
     /**
      * <p class="changed_added_5_0">
      * The boolean context parameter name to explicitly enable Content Security Policy (CSP) nonce generation.
-     * When this parameter is set to {@code true}, the runtime generates a Content Security Policy (CSP) nonce value for the current request.
+     * When this parameter is set to {@code true}, the runtime generates a Content Security Policy (CSP) nonce value for the current view.
      * The generated nonce can be obtained via {@link #getCurrentNonce(jakarta.faces.context.FacesContext)}.
      * If this context parameter is not enabled, no nonce is generated and {@link #getCurrentNonce(jakarta.faces.context.FacesContext)} returns {@code null}.
      * </p>
@@ -280,7 +280,8 @@ public abstract class ResourceHandler {
      * </p>
      * <p>
      * The value must be a valid CSP policy string and <strong>must</strong> include the expression <code>#{nonce}</code> (e.g., <code>'nonce-#{nonce}'</code>),
-     * which the runtime will substitute with a dynamically generated nonce value on a per-request basis.
+     * which the runtime will substitute with the nonce value of the current view as returned by {@link #getCurrentNonce(jakarta.faces.context.FacesContext)}.
+     * For ajax requests, the nonce remains the same as long as the view lives. For non-ajax (full page) requests, a new nonce is generated.
      * Other EL expressions besides the special <code>#{nonce}</code> placeholder will be evaluated on a per-request basis using the current {@link ELContext}.
      * If this parameter is not specified, the value defined by {@link #DEFAULT_CSP_POLICY} is used.
      * </p>
@@ -302,7 +303,7 @@ public abstract class ResourceHandler {
      * <p class="changed_added_5_0">
      * The default value for the <code>Content-Security-Policy</code> response header if the {@link #ENABLE_CSP_NONCE_PARAM_NAME} is set to {@code true} <strong>and</strong> the {@link #CSP_POLICY_PARAM_NAME} is not provided.
      * The value is <code>{@value}</code>.
-     * The runtime will substitute <code>#{nonce}</code> with the actual nonce value on each request.
+     * The runtime will substitute <code>#{nonce}</code> with the actual nonce value of the current view.
      * </p>
      *
      * @since 5.0
@@ -814,13 +815,14 @@ public abstract class ResourceHandler {
      * </ul>
      *
      * <p>
-     * Implementations must generate a unique nonce for the current view and save it in the {@link jakarta.faces.component.UIViewRoot#getViewMap view state}.
-     * The same nonce will be returned for the duration of the view, including postbacks and ajax requests.
+     * Implementations must generate a unique nonce for the current view and save it in the {@link jakarta.faces.component.UIViewRoot#getViewMap view map}.
+     * The same nonce will be returned for the duration of the view, including ajax requests.
+     * For non-ajax postbacks, a new nonce must be generated, as the full page is re-rendered with a new {@code Content-Security-Policy} response header.
      * For backward compatibility, a default implementation is provided that returns {@code null}.
      * </p>
      *
      * @param context The {@link FacesContext} for this request.
-     * @return a Base64-encoded CSP nonce value, or {@code null} if CSP nonce support is not enabled.
+     * @return a Base64-encoded CSP nonce value generated from at least 128 bits of a cryptographically secure random source, or {@code null} if CSP nonce support is not enabled.
      *
      * @since 5.0
      */
