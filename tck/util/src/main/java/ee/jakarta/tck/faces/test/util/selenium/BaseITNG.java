@@ -130,6 +130,10 @@ public abstract class BaseITNG implements ExecutionCondition {
         return uriWithoutJsessionId;
     }
 
+    protected String getContextPath() {
+        return webUrl.getPath().replaceAll("/$", "");
+    }
+
     protected List<WebElement> getBehaviorScriptElements(WebPage page, WebElement input) {
         var id = input.getAttribute("id");
         var elements = new ArrayList<WebElement>();

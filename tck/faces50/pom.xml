@@ -42,6 +42,7 @@
         <module>faceletsRefresh</module>
         <module>facesConfig</module>
         <module>importConstants</module>
+        <module>resources</module>
         <module>uiinput</module>
         <module>validators</module>
         <module>viewProtection</module>
