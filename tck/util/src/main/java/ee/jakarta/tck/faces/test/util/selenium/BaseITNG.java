@@ -17,17 +17,23 @@ package ee.jakarta.tck.faces.test.util.selenium;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
+import static java.net.URI.create;
+import static java.net.http.HttpClient.newHttpClient;
+import static java.net.http.HttpRequest.newBuilder;
+import static java.net.http.HttpResponse.BodyHandlers.ofString;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.disabled;
 import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.exception.UncheckedException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -112,6 +118,19 @@ public abstract class BaseITNG implements ExecutionCondition {
         webPage.waitForPageToLoad();
 
         return webPage.getResponseStatus();
+    }
+
+    protected String getResponseBody(String resource) {
+        try {
+            return newHttpClient().send(newBuilder(create(webUrl + resource)).build(), ofString()).body();
+        }
+        catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException(e);
+        }
+        catch (IOException e) {
+            throw new UncheckedException(e);
+        }
     }
 
     public ExtendedWebDriver getWebDriver() {
