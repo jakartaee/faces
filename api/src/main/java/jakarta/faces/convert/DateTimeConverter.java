@@ -81,6 +81,13 @@ import jakarta.faces.context.FacesContext;
  * <li>If a <code>timezone</code> has been specified, it must be passed to the underlying <code>DateFormat</code> instance.
  * Otherwise the "GMT" timezone is used.</li>
  * <li>In all cases, parsing must be non-lenient; the given string must strictly adhere to the parsing format.</li>
+ * <li><span class="changed_added_5_0">When the {@code type} is one of {@code localDate}, {@code localDateTime}, or
+ * {@code localTime}, and no explicit {@code pattern} has been specified, any Unicode fixed-width whitespace characters
+ * in the input string and in the localized format pattern derived from {@code dateStyle}/{@code timeStyle} must be
+ * normalized to regular spaces (U+0020), and any zero-width characters must be stripped, before parsing. This ensures
+ * that user input containing regular spaces is accepted even when the locale data uses non-breaking spaces such as
+ * NNBSP (U+202F) or NBSP (U+00A0). This normalization must only be applied during parsing, not during
+ * formatting.</span></li>
  * </ul>
  *
  * <p>
