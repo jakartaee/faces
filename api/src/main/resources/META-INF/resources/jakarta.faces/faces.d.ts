@@ -379,7 +379,7 @@ export declare namespace faces {
          * is not set to <code>multipart/form-data</code>
          * @since 2.0
          */
-        export function request(source: Element, event?: Event, options?: { execute?: string, render?: string, onevent?: Function, onerror?: Function, params?: object, delay?: string | number, resetValues?: boolean }): void;
+        export function request(source: Element | string, event?: Event, options?: { execute?: string, render?: string, onevent?: Function, onerror?: Function, params?: object, delay?: string | number, resetValues?: boolean }): void;
         
         /**
          * <p><span class="changed_modified_2_2">Receive</span> an Ajax response
@@ -638,24 +638,6 @@ export declare namespace faces {
      * with the specified <code>form</code> element.  This will include
      * all input controls of type <code>hidden</code>.</p>
      * <p><b>Usage:</b></p>
-     * <pre><code>const state = faces.getPartialViewState(form);</code></pre>
-     *
-     * @param form The <code>form</code> element whose contained
-     * <code>input</code> controls will be collected and encoded.
-     * Only successful controls will be collected and encoded in
-     * accordance with: <a href="http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2">
-     * Section 17.13.2 of the HTML Specification</a>.
-     * @param execute The option.execute string built inside faces.ajax.request
-     * @returns The encoded state for the specified form's input controls.
-     * @since 2.0
-     */
-    export function getPartialViewState(form: Element, execute: string): string;
-    
-    /**
-     * <p>Collect and encode state for input controls associated
-     * with the specified <code>form</code> element.  This will include
-     * all input controls of type <code>hidden</code>.</p>
-     * <p><b>Usage:</b></p>
      * <pre><code>const state = faces.getViewState(form);</code></pre>
      *
      * @param form The <code>form</code> element whose contained
@@ -703,9 +685,9 @@ export declare namespace faces {
          * same push notification from the server.
          * @param channel The channel name of the websocket.
          * @param onopen The JavaScript event handler function that is invoked when the websocket is opened.
-         * The function will be invoked with one argument: the client identifier.
+         * The function will be invoked with one argument: the channel name.
          * @param onmessage The JavaScript event handler function that is invoked when a message is received from
-         * the server. The function will be invoked with three arguments: the push message, the client identifier and
+         * the server. The function will be invoked with three arguments: the push message, the channel name and
          * the raw <code>MessageEvent</code> itself.
          * @param onerror The JavaScript event handler function that is invoked when a connection error has
          * occurred and the web socket will attempt to reconnect. The function will be invoked with three arguments: the
@@ -723,7 +705,7 @@ export declare namespace faces {
          * @param autoconnect Whether or not to automatically connect the socket. Defaults to <code>false</code>.
          * @since 2.3
          */
-        export function init(clientId: string, url: string, channel: string, onopen: Function, onmessage: Function, onerror: Function, onclose: Function, behaviors: object, autoconnect: boolean): void;
+        export function init(clientId: string, url: string, channel: string, onopen: Function | string | null, onmessage: Function | string | null, onerror: Function | string | null, onclose: Function | string | null, behaviors: object, autoconnect: boolean): void;
 
         /**
          * Open the websocket on the given client identifier.
@@ -763,6 +745,6 @@ export declare namespace faces {
          *  otherwise returns <code>true</code>.
          * @since 2.0
          */
-        export function chain(source: Element | string, event?: Event): boolean;
+        export function chain(source: Element | string, event?: Event, ...scripts: string[]): boolean;
     }
 }
