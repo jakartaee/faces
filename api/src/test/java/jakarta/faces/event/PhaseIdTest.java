@@ -16,6 +16,7 @@
 
 package jakarta.faces.event;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Iterator;
@@ -30,7 +31,8 @@ class PhaseIdTest {
         String cur = null;
         while (valueIter.hasNext()) {
             cur = valueIter.next().toString();
-            assertTrue(cur.length() > 3);
+            assertNotNull(cur);
+            assertTrue(cur.length() > 3, "PhaseId toString too short: \"" + cur + "\"");
         }
 
     }

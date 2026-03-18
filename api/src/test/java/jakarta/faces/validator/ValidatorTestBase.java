@@ -18,12 +18,16 @@ import org.mockito.Mockito;
 abstract class ValidatorTestBase {
 
     private MockedStatic<FacesContext> mockStaticFacesContext;
+    private Locale previousDefaultLocale;
 
     FacesContext mockFacesContext() {
         return mockFacesContextWithLocale(Locale.getDefault());
     }
 
     FacesContext mockFacesContextWithLocale(Locale locale) {
+        if (previousDefaultLocale == null) {
+            previousDefaultLocale = Locale.getDefault();
+        }
         Locale.setDefault(locale);
 
         UIViewRoot mockedViewRoot = Mockito.mock(UIViewRoot.class);
@@ -52,6 +56,10 @@ abstract class ValidatorTestBase {
         if (mockStaticFacesContext != null) {
             mockStaticFacesContext.close();
             mockStaticFacesContext = null;
+        }
+        if (previousDefaultLocale != null) {
+            Locale.setDefault(previousDefaultLocale);
+            previousDefaultLocale = null;
         }
     }
 }

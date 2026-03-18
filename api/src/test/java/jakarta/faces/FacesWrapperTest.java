@@ -73,10 +73,8 @@ class FacesWrapperTest {
     @Test
     void testWrapperClassesImplementFacesWrapper() {
         assertNotNull(noWrapperClasses);
-        if (noWrapperClasses.size() > 0) {
-            System.out.println("[ERROR] Wrapper classes not implementing jakarta.faces.FacesWrapper: " + noWrapperClasses);
-        }
-        assertTrue(noWrapperClasses.isEmpty(), "Found wrapper classes not implementing FacesWrapper!");
+        assertTrue(noWrapperClasses.isEmpty(),
+                "Wrapper classes not implementing jakarta.faces.FacesWrapper: " + noWrapperClasses);
     }
 
     /**
@@ -93,8 +91,6 @@ class FacesWrapperTest {
             List<Method> wrapperMethods = getPublicAndProtectedMethods(wrapper);
             List<Method> methodsToWrap = getPublicAndProtectedMethods(wrapper.getSuperclass());
 
-            System.out.println("[INFO] Verifying that " + wrapper.getName() + " is wrapping "
-                    + wrapper.getSuperclass().getName() + " correctly ...");
             String msg = wrapper.getCanonicalName() + " does not wrap method: ";
             for (Method m : methodsToWrap) {
                 if (isMethodContained(m, methodsToIgnore)) {
