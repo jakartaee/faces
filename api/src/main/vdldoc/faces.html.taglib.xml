@@ -3155,6 +3155,15 @@
         </attribute>
         <attribute>
             <description>
+                <![CDATA[<p class="changed_added_2_3">
+                CSS style class to apply to each row.</p>]]>
+            </description>
+            <name>rowClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
             <![CDATA[
                 <div class="changed_added_2_1">
                     <p>
@@ -5523,6 +5532,17 @@
         </attribute>
         <attribute>
             <description>
+                <![CDATA[<span class="changed_added_2_0">
+                Flag indicating whether previously handled messages
+                are redisplayed or not. Default value is "true".
+                </span>]]>
+            </description>
+            <name>redisplay</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>
                 Flag indicating whether the detail portion of displayed messages
                 should be included. Default value is "true".
             </description>
@@ -5804,6 +5824,17 @@
         </attribute>
         <attribute>
             <description>
+                <![CDATA[<span class="changed_added_2_0">
+                Flag indicating whether previously handled messages
+                are redisplayed or not. Default value is "true".
+                </span>]]>
+            </description>
+            <name>redisplay</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>
                 Flag indicating whether the detail portion of displayed messages
                 should be included. Default value is "false".
             </description>
@@ -5968,6 +5999,27 @@
             <name>binding</name>
             <required>false</required>
             <type>jakarta.faces.component.UIComponent</type>
+        </attribute>
+        <attribute>
+            <description>
+                <![CDATA[<p class="changed_added_2_2">Per the WAI-ARIA spec and its
+                relationship to HTML5 (Section title ARIA Role Attriubute),
+                every HTML element may have a "role" attribute whose value
+                must be passed through unmodified on the element on which it
+                is declared in the final rendered markup.  The attribute, if
+                specified, must have a value that is a string literal that is,
+                or an EL Expression that evaluates to, a set of
+                space-separated tokens representing the various WAI-ARIA roles
+                that the element belongs to.
+                </p>
+
+                <p class="changed_added_2_2">It is the page author's
+                responsibility to ensure that the user agent is capable of
+                correctly interpreting the value of this attribute.</p>]]>
+            </description>
+            <name>role</name>
+            <required>false</required>
+            <type>java.lang.String</type>
         </attribute>
     </tag>
     <tag>
@@ -6923,6 +6975,14 @@
         </attribute>
         <attribute>
             <description>
+                The media type for this stylesheet. Default is "screen".
+            </description>
+            <name>media</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
                 The ValueExpression linking this component to a property in a
                 backing bean
             </description>
@@ -7706,6 +7766,15 @@
         </attribute>
         <attribute>
             <description>
+                <![CDATA[<p class="changed_added_2_3">
+                CSS style class to apply to each row.</p>]]>
+            </description>
+            <name>rowClass</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
                 Code specifying which rules will appear between cells
                 within this table. Valid values are: none (no rules,
                 default value); groups (between row groups); rows
@@ -7844,6 +7913,96 @@
                 be produced.
             </description>
             <name>layout</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                clicked over this element.
+            </description>
+            <name>onclick</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                double clicked over this element.
+            </description>
+            <name>ondblclick</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a key is
+                pressed down over this element.
+            </description>
+            <name>onkeydown</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a key is
+                pressed and released over this element.
+            </description>
+            <name>onkeypress</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a key is
+                released over this element.
+            </description>
+            <name>onkeyup</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                pressed down over this element.
+            </description>
+            <name>onmousedown</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                moved within this element.
+            </description>
+            <name>onmousemove</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                moved away from this element.
+            </description>
+            <name>onmouseout</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                moved onto this element.
+            </description>
+            <name>onmouseover</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Javascript code executed when a pointer button is
+                released over this element.
+            </description>
+            <name>onmouseup</name>
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>
@@ -11525,6 +11684,15 @@
                 </span>]]>
             </description>
             <name>accept</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Access key that, when pressed, transfers focus
+                to this element.
+            </description>
+            <name>accesskey</name>
             <required>false</required>
             <type>java.lang.String</type>
         </attribute>
