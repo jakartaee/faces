@@ -623,8 +623,8 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <sigtest.api.version>${mojarra.version}</sigtest.api.version>
 
                 <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>8.0.0-M12</glassfish.version>
-                <glassfish.dirName>glassfish8</glassfish.dirName>
+                <glassfish.version>9.0.0-M1</glassfish.version>
+                <glassfish.dirName>glassfish9</glassfish.dirName>
                 <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
                 <glassfish.home>${glassfish.root}/${glassfish.dirName}</glassfish.home>
                 <test.logManager>org.glassfish.main.jul.GlassFishLogManager</test.logManager>
@@ -716,8 +716,8 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                                             <version>${faces.version}</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
-                                            <outputDirectory>${glassfish.root}/glassfish8/glassfish/modules</outputDirectory>
-                                            <destFileName>jakarta.faces.jar</destFileName>
+                                            <outputDirectory>${glassfish.home}/glassfish/modules</outputDirectory>
+                                            <destFileName>jakarta.faces-api.jar</destFileName>
                                         </artifactItem>
                                         <artifactItem>
                                             <groupId>org.glassfish.mojarra</groupId>
@@ -725,7 +725,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                                             <version>${mojarra.version}</version>
                                             <type>jar</type>
                                             <overWrite>true</overWrite>
-                                            <outputDirectory>${glassfish.root}/glassfish8/glassfish/modules</outputDirectory>
+                                            <outputDirectory>${glassfish.home}/glassfish/modules</outputDirectory>
                                             <destFileName>mojarra.jar</destFileName>
                                         </artifactItem>
                                     </artifactItems>
@@ -734,42 +734,10 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>glassfish8-patch-for-faces5</id> <!-- TEMPORARY - REMOVE WHEN GLASSFISH 9 IS AVAILABLE - see also README.md in that folder -->
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>copy-resources</goal>
-                                </goals>
-                                <configuration>
-                                    <outputDirectory>${glassfish.root}/glassfish8/glassfish/modules</outputDirectory>
-                                    <resources>
-                                        <!-- We need to support executing the TCK from parent folder as well as from module folders which are so far only 2 levels deep. -->
-                                        <resource>
-                                            <directory>glassfish8-patch-for-faces5</directory>
-                                            <includes><include>*.jar</include></includes>
-                                        </resource>
-                                        <resource>
-                                            <directory>../glassfish8-patch-for-faces5</directory>
-                                            <includes><include>*.jar</include></includes>
-                                        </resource>
-                                        <resource>
-                                            <directory>../../glassfish8-patch-for-faces5</directory>
-                                            <includes><include>*.jar</include></includes>
-                                        </resource>
-                                    </resources>
-                                    <overwrite>true</overwrite>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
                             <systemPropertyVariables>
-                                <glassfish.home>${glassfish.root}/glassfish8</glassfish.home>
+                                <glassfish.home>${glassfish.home}</glassfish.home>
                                 <glassfish.systemProperties>
                                     user.language=en
                                     user.country=US
