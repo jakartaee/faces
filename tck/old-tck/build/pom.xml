@@ -84,13 +84,8 @@
                         <fileset>
                             <directory>${project.basedir}/../source/lib</directory>
                             <includes>
-                                <include>*.jar</include>
+                                <include>jakarta.faces-api.jar</include>
                             </includes>
-                            <excludes>
-                                <exclude>ant_sun.jar</exclude>
-                                <exclude>apiCheck.jar</exclude>
-                                <exclude>javatest.jar</exclude>
-                            </excludes>
                         </fileset>
                     </filesets>
                 </configuration>
