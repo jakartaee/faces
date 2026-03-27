@@ -15,9 +15,14 @@
  */
 package ee.jakarta.tck.faces.test.faces50.csp;
 
+import static java.net.URI.create;
+import static java.net.http.HttpClient.newHttpClient;
+import static java.net.http.HttpRequest.newBuilder;
+import static java.net.http.HttpResponse.BodyHandlers.ofString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.application.ResourceHandler;
 
@@ -66,15 +71,16 @@ class Spec1590IT extends BaseITNG {
      * @see https://github.com/jakartaee/faces/issues/1590
      */
     @Test
-    public void testCommandLink() {
+    public void testCommandLinkWithoutAjax() {
         var page = getPage("spec1590.xhtml");
         var nonce = getNonce(page);
         assertNotNull(nonce);
         assertEquals(nonce, getBehaviorScriptElement(page, commandLink).getAttribute("nonce"));
         assertEquals("false", commandLinkExecuted.getText());
-        page.guardAjax(commandLink::click);
+        page.guardHttp(commandLink::click);
         assertEquals("true", commandLinkExecuted.getText());
-        assertEquals(nonce, getBehaviorScriptElement(page, commandLink).getAttribute("nonce"));
+        // Non-ajax postback must generate a new nonce.
+        assertNotEquals(nonce, getNonce(page));
     }
 
     /**
@@ -148,6 +154,41 @@ class Spec1590IT extends BaseITNG {
         assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, commandScript).getAttribute("nonce"));
         assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, facesUtilChain).getAttribute("nonce"));
         assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, refreshButton).getAttribute("nonce"));
+    }
+
+    /**
+     * @see ResourceHandler#CSP_POLICY_PARAM_NAME
+     * @see https://github.com/jakartaee/faces/issues/1590
+     */
+    @Test
+    public void testCspResponseHeader() throws Exception {
+        var response = newHttpClient().send(newBuilder(create(webUrl + "spec1590.xhtml")).build(), ofString());
+        var cspHeader = response.headers().firstValue("Content-Security-Policy");
+        assertTrue(cspHeader.isPresent(), "Content-Security-Policy response header must be present");
+        assertTrue(cspHeader.get().contains("script-src"), "Content-Security-Policy response header must contain script-src directive");
+        assertTrue(cspHeader.get().contains("'nonce-"), "Content-Security-Policy response header must contain nonce");
+    }
+
+    /**
+     * @see ResourceHandler#getCurrentNonce
+     * @see https://github.com/jakartaee/faces/issues/1590
+     */
+    @Test
+    public void testNonceConsistentDuringAjaxPostback() {
+        var page = getPage("spec1590.xhtml");
+        var nonce = getNonce(page);
+        assertNotNull(nonce);
+        ajaxInput.sendKeys("first");
+        page.guardAjax(ajaxButton::click);
+        // Ajax postback must retain the same nonce on faces.js.
+        assertEquals(nonce, getNonce(page));
+        // Verify behavior scripts were successfully eval'd during ajax by performing another round-trip.
+        // If the event listeners weren't properly re-attached, this would fail.
+        ajaxInput.clear();
+        ajaxInput.sendKeys("second");
+        page.guardAjax(ajaxButton::click);
+        assertEquals("second", ajaxOutput.getText());
+        assertEquals(nonce, getNonce(page));
     }
 
     private String getNonce(WebPage page) {
