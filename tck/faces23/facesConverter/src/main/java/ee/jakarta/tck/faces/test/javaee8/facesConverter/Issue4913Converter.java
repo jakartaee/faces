@@ -23,7 +23,7 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
 
-@FacesConverter(value = "issue4913Converter", managed = true)
+@FacesConverter(value = "issue4913Converter")
 @ResourceDependency(name = "issue4913ResourceDependency.js", target = "head")
 public class Issue4913Converter implements Converter<Object> {
 

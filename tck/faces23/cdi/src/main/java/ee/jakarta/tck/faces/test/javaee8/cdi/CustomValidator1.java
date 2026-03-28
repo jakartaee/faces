@@ -24,7 +24,7 @@ import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 import jakarta.inject.Inject;
 
-@FacesValidator(value = "validator.CustomValidator1", managed = true)
+@FacesValidator(value = "validator.CustomValidator1")
 public class CustomValidator1 implements Validator<String> {
 
 	@Inject

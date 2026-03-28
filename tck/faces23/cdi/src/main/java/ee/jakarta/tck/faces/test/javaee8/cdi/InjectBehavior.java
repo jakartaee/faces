@@ -20,7 +20,7 @@ import jakarta.faces.component.behavior.ClientBehaviorBase;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.behavior.FacesBehavior;
 
-@FacesBehavior(value = "injectBehavior", managed = true)
+@FacesBehavior(value = "injectBehavior")
 public class InjectBehavior extends ClientBehaviorBase {
 
     /**

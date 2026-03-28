@@ -25,7 +25,7 @@ import jakarta.inject.Named;
 @RequestScoped
 public class InjectConverter3Bean {
 
-    @FacesConverter(value = "injectConverter3", managed = true)
+    @FacesConverter(value = "injectConverter3")
     @Inject
     private InjectConverter3 injectConverter3;
     

@@ -22,7 +22,7 @@ import jakarta.faces.validator.FacesValidator;
 import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 
-@FacesValidator(value = "injectValidator", isDefault = false, managed = true)
+@FacesValidator(value = "injectValidator", isDefault = false)
 public class InjectValidator implements Validator {
 
     public InjectValidator() {
