@@ -27,6 +27,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import jakarta.enterprise.inject.Stereotype;
 import jakarta.enterprise.util.AnnotationLiteral;
 import jakarta.inject.Qualifier;
 
@@ -37,9 +38,8 @@ import jakarta.inject.Qualifier;
  * <em>validator-id</em> and the fully qualified class name of the class to which this annotation is attached is taken
  * to be the <em>validator-class</em>. 
  * 
- * The implementation must guarantee that for each class annotated with  * <code>FacesValidator</code>, found with the 
- * algorithm in 
- * section 11.4 "Annotations that correspond to and may take the place of entries in the Application Configuration Resources" of the Jakarta Faces Specification Document,
+ * The implementation must guarantee that for each class annotated with <code>FacesValidator</code>,
+ * <span class="changed_modified_5_0">discovered during CDI bean discovery</span>,
  * {@link jakarta.faces.application.Application#addValidator(java.lang.String,java.lang.String)} is called, passing the
  * derived <em>validator-id</em> as the first argument and the derived <em>validator-class</em> as the second argument.
  * The implementation must guarantee that all such calls to <code>addValidator()</code> happen during application
@@ -50,6 +50,7 @@ import jakarta.inject.Qualifier;
 @Target({ TYPE, FIELD, METHOD, PARAMETER })
 @Inherited
 @Qualifier
+@Stereotype
 public @interface FacesValidator {
 
     /**
@@ -84,9 +85,14 @@ public @interface FacesValidator {
      * CDI managed validator.
      * </p>
      *
+     * <p class="changed_modified_5_0">
+     * Since Faces 5.0, all validators are CDI managed. This attribute is ignored.
+     * </p>
+     *
      * @return true if CDI managed, false otherwise.
+     * @deprecated Since 5.0. All validators are now CDI managed. This attribute is ignored.
      */
-
+    @Deprecated(since = "5.0", forRemoval = true)
     boolean managed() default false;
 
     /**

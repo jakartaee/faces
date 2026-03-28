@@ -24,6 +24,8 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import jakarta.enterprise.inject.Stereotype;
+
 /**
  * <p class="changed_added_2_0">
  * The presence of this annotation on a class automatically registers the class with the runtime as a {@link ClientBehaviorRenderer}.
@@ -36,9 +38,8 @@ import java.lang.annotation.Target;
  *
  * Within that {@link RenderKit}, the value of the {@link #rendererType} attribute is taken to be the <em>renderer-type</em>
  *
- * The implementation must guarantee that for each class annotated with <code>FacesBehaviorRenderer</code>, found with the
- * algorithm in 
- * section 11.4 "Annotations that correspond to and may take the place of entries in the Application Configuration Resources" of the Jakarta Faces Specification Document,
+ * The implementation must guarantee that for each class annotated with <code>FacesBehaviorRenderer</code>,
+ * <span class="changed_modified_5_0">discovered during CDI bean discovery</span>,
  * the following actions are taken.
  * </p>
  *
@@ -83,6 +84,7 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(TYPE)
 @Inherited
+@Stereotype
 public @interface FacesBehaviorRenderer {
 
     /**

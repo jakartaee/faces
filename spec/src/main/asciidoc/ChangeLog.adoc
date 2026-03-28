@@ -144,6 +144,11 @@ Spec: clarify h:message(s) rendering when no messages
 
 This release contains the following backwards incompatible changes:
 
+* Issue ID {issue_tracker_url}1584[1584] +
+Change: replace class scanning with CDI bean discovery for annotation discovery. +
+The Faces configuration annotations are now CDI stereotypes, making them bean defining annotations. +
+Deprecation: `metadata-complete` attribute on `<faces-config>` and `managed` attribute on `@FacesConverter`, `@FacesValidator`, `@FacesBehavior`.
+
 * Issue ID {issue_tracker_url}2026[2026] +
 Change: parameterized Application#createConverter and createValidator
 

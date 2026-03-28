@@ -207,35 +207,13 @@
       <xsd:annotation>
         <xsd:documentation>
 
-          The metadata-complete attribute defines whether this
-          Faces application is complete, or whether
-          the class files available to this module and packaged with
-          this application should be examined for annotations
-          that specify configuration information.
-          
-          This attribute is only inspected on the application 
-          configuration resource file located at "WEB-INF/faces-config.xml".
-          The presence of this attribute on any application configuration
-          resource other than the one located at "WEB-INF/faces-config.xml",
-          including any files named using the jakarta.faces.CONFIG_FILES
-          attribute, must be ignored.
-          
-          If metadata-complete is set to "true", the Faces
-          runtime must ignore any annotations that specify configuration
-          information, which might be present in the class files
-          of the application.
-          
-          If metadata-complete is not specified or is set to
-          "false", the Faces runtime must examine the class
-          files of the application for annotations, as specified by
-          the specification.
-          
-          If "WEB-INF/faces-config.xml" is not present, the 
-          Faces runtime will assume metadata-complete to be "false".
-          
-          The value of this attribute will have no impact on
-          runtime annotations such as @ResourceDependency or
-          @ListenerFor.
+          Deprecated since Faces 5.0. This attribute is ignored.
+
+          Since Faces 5.0, annotation discovery is performed via CDI
+          bean discovery and is no longer controlled by this attribute.
+          To exclude classes from annotation discovery, use the
+          "exclude" element in beans.xml or the
+          @jakarta.enterprise.inject.Vetoed annotation on the class.
           
         </xsd:documentation>
       </xsd:annotation>
