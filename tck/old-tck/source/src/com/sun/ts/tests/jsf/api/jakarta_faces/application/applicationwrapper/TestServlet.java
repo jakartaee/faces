@@ -65,6 +65,7 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UIOutput;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.BooleanConverter;
+import jakarta.faces.convert.Converter;
 import jakarta.el.MethodExpression;
 import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
@@ -304,10 +305,10 @@ public class TestServlet extends HttpTCKServlet {
 
     applicationWrapper.addConverter("TCKConverter",
         "jakarta.faces.convert.BooleanConverter");
-    BooleanConverter converter;
+    Converter converter;
 
     try {
-      converter = (BooleanConverter) applicationWrapper
+      converter = applicationWrapper
           .createConverter("TCKConverter");
 
     } catch (Exception e) {
@@ -347,9 +348,9 @@ public class TestServlet extends HttpTCKServlet {
      * first find see if the implementation reruns the BooleanConverter for this
      * class
      */
-    BooleanConverter converter;
+    Converter converter;
     try {
-      converter = (BooleanConverter) applicationWrapper
+      converter = applicationWrapper
           .createConverter(this.getClass());
       if (converter == null) {
         out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
@@ -360,7 +361,7 @@ public class TestServlet extends HttpTCKServlet {
 
       applicationWrapper.addConverter(GenericServlet.class,
           "jakarta.faces.convert.BooleanConverter");
-      converter = (BooleanConverter) applicationWrapper
+      converter = applicationWrapper
           .createConverter(this.getClass());
 
       if (converter == null) {
@@ -372,7 +373,7 @@ public class TestServlet extends HttpTCKServlet {
 
       applicationWrapper.addConverter(HttpServlet.class,
           "jakarta.faces.convert.BooleanConverter");
-      converter = (BooleanConverter) applicationWrapper
+      converter = applicationWrapper
           .createConverter(this.getClass());
 
       if (converter == null) {
@@ -384,7 +385,7 @@ public class TestServlet extends HttpTCKServlet {
 
       applicationWrapper.addConverter(this.getClass(),
           "jakarta.faces.convert.BooleanConverter");
-      converter = (BooleanConverter) applicationWrapper
+      converter = applicationWrapper
           .createConverter(this.getClass());
 
       if (converter == null) {
