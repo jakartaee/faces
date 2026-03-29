@@ -80,7 +80,7 @@ public class Spec1501Bean implements Serializable {
         return observedEvents;
     }
     
-    private static boolean isCurrentView(UIComponent source) {
+    private static boolean isCurrentView(Object source) {
         return source instanceof UIViewRoot view && view.getViewId().equals("/spec1501.xhtml");
     }
 }
