@@ -121,6 +121,16 @@ javadocs for the constant
 _jakarta.faces.component.UIInput.ALWAYS_PERFORM_VALIDATION_WHEN_REQUIRED_IS_TRUE_
 for the specification of this feature.
 
+* _jakarta.faces.ADDITIONAL_HTML_EVENT_NAMES_ --
+If this param is set, the runtime must interpret its value as a
+space-separated list of additional HTML event names to be recognized by all
+_ClientBehaviorHolder_ components in addition to the event names defined in
+_HtmlEvents.HtmlDocumentElementEvent_ and _HtmlEvents.HtmlBodyElementEvent_.
+This allows custom HTML event names to be used with _f:ajax_.
+See the javadocs for the constant
+_jakarta.faces.component.html.HtmlEvents.ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME_
+for the specification of this feature.
+
 * _jakarta.faces.AUTOMATIC_EXTENSIONLESS_MAPPING
 -- If this param is set, and calling _toLowerCase().equals("true")_ on
 a _String_ representation of its value returns _true_, Faces views that are

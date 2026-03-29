@@ -23,13 +23,22 @@ import jakarta.faces.event.BehaviorEvent.FacesComponentEvent;
  * Events supported by HTML elements as per <a href="https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers-on-elements,-document-objects,-and-window-objects">current spec</a>.
  * These can be used to supply {@link ClientBehaviorHolder#getEventNames()} and {@link ClientBehaviorHolder#getDefaultEventName()}.
  * </p>
+ * <p>
+ * The events are split into two enums: {@link HtmlDocumentElementEvent} lists the events that fire on the element itself,
+ * while {@link HtmlBodyElementEvent} lists the events that are also part of the HTML spec's <code>GlobalEventHandlers</code>
+ * but have special behavior on the HTML <code>&lt;body&gt;</code> element where they are forwarded to the <code>Window</code> object
+ * instead of firing on the element. Components that represent the HTML <code>&lt;body&gt;</code> element should use
+ * {@link #getHtmlDocumentElementEventNames(FacesContext)} to avoid exposing these window-level events as component behavior events,
+ * while all other components should use {@link #getHtmlBodyElementEventNames(FacesContext)} or one of its supersets.
+ * </p>
  *
  * @since 5.0
  */
 public final class HtmlEvents {
 
     /**
-     * Events supported by all HTML document elements.
+     * Events supported by all HTML document elements that always fire on the element itself.
+     * See {@link HtmlBodyElementEvent} for events that are forwarded to the <code>Window</code> object on the HTML <code>&lt;body&gt;</code> element.
      */
     public enum HtmlDocumentElementEvent {
         abort,
@@ -43,6 +52,7 @@ public final class HtmlEvents {
         change,
         click,
         close,
+        command,
         contextlost,
         contextmenu,
         contextrestored,
@@ -99,7 +109,9 @@ public final class HtmlEvents {
     }
 
     /**
-     * Events supported by all HTML body elements, in addition to the events supported by all HTML document elements.
+     * Events from the HTML spec's <code>GlobalEventHandlers</code> that have special behavior on the HTML body element:
+     * instead of firing on the element itself, they are forwarded to the <code>Window</code> object.
+     * These events are valid on all HTML elements, but are listed separately here because of this distinction.
      */
     public enum HtmlBodyElementEvent {
         blur,
