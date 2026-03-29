@@ -20,5 +20,5 @@ import jakarta.faces.component.html.HtmlOutputText;
 
 @FacesComponent(createTag = true, namespace="example_jar_with_metadata_complete_false")
 public class ExampleFacesComponent extends HtmlOutputText {
-
+    //
 }
