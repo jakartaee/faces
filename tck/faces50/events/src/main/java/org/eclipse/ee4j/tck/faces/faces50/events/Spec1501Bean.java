@@ -53,15 +53,15 @@ public class Spec1501Bean implements Serializable {
     }
 
     public void observePostConstructViewMapEvent(@Observes @Default PostConstructViewMapEvent event) {
-        observedEvents.add("PostConstructViewMapEvent: " + (event.getSource() instanceof UIViewRoot));
+        if (isCurrentView(event.getSource())) observedEvents.add("PostConstructViewMapEvent: " + (event.getSource() instanceof UIViewRoot));
     }
 
     public void observePreRenderViewEvent(@Observes @Default PreRenderViewEvent event) {
-        observedEvents.add("PreRenderViewEvent: " + (event.getSource() instanceof UIViewRoot));
+        if (isCurrentView(event.getSource())) observedEvents.add("PreRenderViewEvent: " + (event.getSource() instanceof UIViewRoot));
     }
 
     public void observePreDestroyViewMapEvent(@Observes @Default PreDestroyViewMapEvent event) {
-        observedEvents.add("PreDestroyViewMapEvent: " + (event.getSource() instanceof UIViewRoot));
+        if (isCurrentView(event.getSource())) observedEvents.add("PreDestroyViewMapEvent: " + (event.getSource() instanceof UIViewRoot));
     }
 
     public void observeMyPostConstructViewMapEvent(@Observes @View("/spec1501.xhtml") PostConstructViewMapEvent event) {
@@ -78,5 +78,9 @@ public class Spec1501Bean implements Serializable {
 
     public List<String> getObservedEvents() {
         return observedEvents;
+    }
+    
+    private static boolean isCurrentView(UIComponent source) {
+        return source instanceof UIViewRoot view && view.getViewId().equals("/spec1501.xhtml");
     }
 }
