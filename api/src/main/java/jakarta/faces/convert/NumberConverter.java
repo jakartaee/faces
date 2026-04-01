@@ -55,6 +55,12 @@ import jakarta.faces.context.FacesContext;
  * <li>If the <code>integerOnly</code> property has been set to true, only the integer portion of the String will be
  * parsed. See the JavaDocs for the <code>setParseIntegerOnly()</code> method of the <code>java.text.NumberFormat</code>
  * class for more information.</li>
+ * <li><span class="changed_added_5_0">Before parsing, if the {@code NumberFormat} is a {@code DecimalFormat} and its
+ * grouping separator, monetary grouping separator, positive/negative prefix, or positive/negative suffix contains
+ * Unicode fixed-width whitespace characters such as NBSP (U+00A0) or NNBSP (U+202F), those characters in both the input
+ * string and the formatter's symbols must be normalized to regular spaces (U+0020), and any zero-width characters must
+ * be stripped. This ensures that user input containing regular spaces is accepted even when the locale data uses
+ * non-breaking spaces. This normalization must only be applied during parsing, not during formatting.</span></li>
  * </ul>
  *
  * <p>
