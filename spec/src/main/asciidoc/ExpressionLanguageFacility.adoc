@@ -1107,3 +1107,26 @@ built-in beans for _@Inject_ support of _HttpServletRequest_, _HttpSession_, and
 |viewScope        |facesContext.getViewRoot().getViewMap()                              |request
 |===
 
+[[a3080]]
+==== Conversation Context Propagation
+
+The CDI conversation scope is active during all Servlet requests.
+When a long-running conversation is associated with the current Servlet request,
+it may be propagated to any subsequent Servlet request via use of a request parameter named `cid`
+containing the unique identifier of the conversation.
+In this case, the application must manage this request parameter.
+
+However, if the current Servlet request is a Faces request,
+and the conversation is in long-running state,
+it is propagated automatically according to the following rules:
+
+* The long-running conversation context associated with a request that renders a Faces view
+is automatically propagated to any Faces request (Faces form submission)
+that originates from that rendered page.
+
+* The long-running conversation context associated with a request that results in a Faces redirect
+(a redirect resulting from a navigation rule or a _NavigationHandler_)
+is automatically propagated to the resulting non-Faces request,
+and to any other subsequent request to the same URL.
+This is accomplished via use of a request parameter named `cid`
+containing the unique identifier of the conversation.
