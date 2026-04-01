@@ -23,7 +23,7 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
 
-@FacesConverter(forClass=BaseEntity.class, managed=true)
+@FacesConverter(forClass=BaseEntity.class)
 public class BaseEntityConverter implements Converter<BaseEntity> {
 
 	@Inject

@@ -18,6 +18,9 @@
 package ee.jakarta.tck.faces.test.javaee8.importConstants;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.List;
 
 import jakarta.faces.component.UIImportConstants;
 
@@ -38,6 +41,12 @@ class Spec1424IT extends BaseITNG {
         WebPage page = getPage("spec1424.xhtml");
 
       assertEquals("jakarta.faces.PARTIAL_STATE_SAVING", page.findElement(By.id("result")).getText());
-      assertEquals("{ACCEPT=ACCEPT, COMPLETE=COMPLETE, REJECT=REJECT}", page.findElement(By.id("results")).getText());
+
+      String results = page.findElement(By.id("results")).getText();
+      List<String> entries = List.of(results.substring(1, results.length() - 1).split(", "));
+      assertEquals(3, entries.size());
+      assertTrue(entries.contains("ACCEPT=ACCEPT"));
+      assertTrue(entries.contains("REJECT=REJECT"));
+      assertTrue(entries.contains("COMPLETE=COMPLETE"));
     }
 }

@@ -21,7 +21,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 
-@FacesConverter(value = "injectConverter3", managed = true)
+@FacesConverter(value = "injectConverter3")
 public class InjectConverter3 implements Converter {
 
     public InjectConverter3() {

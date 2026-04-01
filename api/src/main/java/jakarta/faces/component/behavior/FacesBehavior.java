@@ -27,6 +27,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import jakarta.enterprise.inject.Stereotype;
 import jakarta.enterprise.util.AnnotationLiteral;
 import jakarta.inject.Qualifier;
 
@@ -44,6 +45,7 @@ import jakarta.inject.Qualifier;
 @Target({ TYPE, FIELD, METHOD, PARAMETER })
 @Inherited
 @Qualifier
+@Stereotype
 public @interface FacesBehavior {
     
     /**
@@ -59,8 +61,14 @@ public @interface FacesBehavior {
      * CDI managed behavior.
      * </p>
      *
+     * <p class="changed_modified_5_0">
+     * Since Faces 5.0, all behaviors are CDI managed. This attribute is ignored.
+     * </p>
+     *
      * @return true if CDI managed, false otherwise.
+     * @deprecated Since 5.0. All behaviors are now CDI managed. This attribute is ignored.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     boolean managed() default false;
 
     /**

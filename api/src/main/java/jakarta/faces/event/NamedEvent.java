@@ -23,6 +23,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import jakarta.enterprise.inject.Stereotype;
+
 /**
  * <p class="changed_added_2_0">
  * The presence of this annotation on a class automatically registers the class with the runtime as a
@@ -40,6 +42,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Inherited
+@Stereotype
 public @interface NamedEvent {
 
     /**

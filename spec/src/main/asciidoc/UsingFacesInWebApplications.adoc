@@ -1801,26 +1801,18 @@ Application Configuration Resources. The implementation requirements are
 specified in this section.
 
 [[a6598]]
-==== Requirements for scanning of classes for annotations
-
-* If the
-_<faces-config>_ element in the _WEB-INF/faces-config.xml_ file contains
-_metadata-complete_ attribute whose value is “_true_”, the
-implementation must not perform annotation scanning on any classes
-except for those classes provided by the implementation itself.
-Otherwise, continue as follows.
+==== Requirements for discovery of classes with annotations
 
 * If the runtime discovers a conflict between
 an entry in the Application Configuration Resources and an annotation,
 the entry in the Application Configuration Resources takes precedence.
 
-* All classes in _WEB-INF/classes_ must be
-scanned.
+* The annotations listed in <<a6596>> are CDI stereotypes.
+This means they are bean defining annotations, and classes annotated with them are discovered during CDI bean discovery even when `bean-discovery-mode` is `annotated`.
+The implementation must use a CDI extension or a CDI build compatible extension to observe these annotated types during deployment and register them with the runtime.
 
-* For every jar in the application's
-_WEB-INF/lib_ directory, if the jar contains a
-“_META-INF/faces-config.xml_” file or a file that matches the regular
-expression “_.*\.faces-config.xml_” (even an empty one), all classes
-in that jar must be scanned.
+* Library JARs containing classes with Faces configuration annotations must be CDI bean archives, i.e. they must contain a `META-INF/beans.xml` file.
+
+* In order to exclude classes from annotation discovery, the application can use the `<exclude>` element in `beans.xml` or the `@jakarta.enterprise.inject.Vetoed` annotation on the class.
 
 

@@ -23,6 +23,8 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
+import jakarta.enterprise.inject.Stereotype;
+
 /**
  * <p class="changed_added_2_0">The presence of this annotation on a
  * class automatically registers the class with the runtime as a {@link
@@ -30,8 +32,7 @@ import java.lang.annotation.Target;
  * be the <em>component-type</em> and the fully qualified class name of
  * the class to which this annotation is attached is taken to be the
  * <em>component-class</em>.  The implementation must guarantee that for
- * each class annotated with <code>FacesComponent</code>, found with the scanning algorithm in 
- * section 11.4 "Annotations that correspond to and may take the place of entries in the Application Configuration Resources" of the Jakarta Faces Specification Document,
+ * each class annotated with <code>FacesComponent</code>, <span class="changed_modified_5_0">discovered during CDI bean discovery</span>,
  * {@link jakarta.faces.application.Application#addComponent(java.lang.String,java.lang.String)}
  * is called, passing the derived <em>component-type</em> as the first
  * argument and the derived <em>component-class</em> as the second
@@ -53,6 +54,7 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target(TYPE)
 @Inherited
+@Stereotype
 public @interface FacesComponent {
 
     /**
