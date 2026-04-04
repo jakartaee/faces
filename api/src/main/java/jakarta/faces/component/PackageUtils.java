@@ -40,9 +40,9 @@ import jakarta.faces.model.SelectItem;
 
 class PackageUtils {
 
-    final static String MARK_CREATED = "com.sun.faces.facelets.MARK_ID";
-    private final static String MARK_ID_CACHE = "com.sun.faces.facelets.MARK_ID_CACHE";
-    private static final String PATTERN_CACHE_KEY = "com.sun.faces.patternCache";
+    final static String MARK_CREATED = "org.glassfish.mojarra.facelets.MARK_ID";
+    private final static String MARK_ID_CACHE = "org.glassfish.mojarra.facelets.MARK_ID_CACHE";
+    private static final String PATTERN_CACHE_KEY = "org.glassfish.mojarra.patternCache";
     private static final String CLIENT_ID_NESTED_IN_ITERATOR_PATTERN = "CLIENT_ID_NESTED_IN_ITERATOR_PATTERN";
 
     private PackageUtils() {

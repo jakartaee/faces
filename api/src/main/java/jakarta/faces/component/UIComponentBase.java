@@ -110,7 +110,7 @@ public abstract class UIComponentBase extends UIComponent {
     private static final int MY_STATE = 0;
     private static final int CHILD_STATE = 1;
 
-    private static final String FACES_COMPONENT_DESCRIPTORS_MAP_NAME = "com.sun.faces.component.COMPONENT_DESCRIPTORS_MAP";
+    private static final String FACES_COMPONENT_DESCRIPTORS_MAP_NAME = "org.glassfish.mojarra.component.COMPONENT_DESCRIPTORS_MAP";
 
     /**
      * <p>

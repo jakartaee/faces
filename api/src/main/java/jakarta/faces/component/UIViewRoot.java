@@ -1634,11 +1634,11 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      */
     @SuppressWarnings("unchecked")
     public Map<String, Object> getViewMap(boolean create) {
-        Map<String, Object> viewMap = (Map<String, Object>) getTransientStateHelper().getTransient("com.sun.faces.application.view.viewMap");
+        Map<String, Object> viewMap = (Map<String, Object>) getTransientStateHelper().getTransient("org.glassfish.mojarra.application.view.viewMap");
 
         if (create && viewMap == null) {
             viewMap = new ViewMap(getFacesContext().getApplication().getProjectStage());
-            getTransientStateHelper().putTransient("com.sun.faces.application.view.viewMap", viewMap);
+            getTransientStateHelper().putTransient("org.glassfish.mojarra.application.view.viewMap", viewMap);
             getFacesContext().getApplication().publishEvent(getFacesContext(), PostConstructViewMapEvent.class, UIViewRoot.class, this);
         }
 
@@ -1800,7 +1800,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             throw new NullPointerException();
         }
 
-        String viewMapId = (String) getTransientStateHelper().getTransient("com.sun.faces.application.view.viewMapId");
+        String viewMapId = (String) getTransientStateHelper().getTransient("org.glassfish.mojarra.application.view.viewMapId");
         Object superState = super.saveState(context);
 
         if (superState != null || viewMapId != null) {
@@ -1822,19 +1822,19 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
         values = (Object[]) state;
 
-        if (!context.getAttributes().containsKey("com.sun.faces.application.view.restoreViewScopeOnly")) {
+        if (!context.getAttributes().containsKey("org.glassfish.mojarra.application.view.restoreViewScopeOnly")) {
             super.restoreState(context, values[0]);
         }
 
         String viewMapId = (String) values[1];
 
-        getTransientStateHelper().putTransient("com.sun.faces.application.view.viewMapId", viewMapId);
+        getTransientStateHelper().putTransient("org.glassfish.mojarra.application.view.viewMapId", viewMapId);
 
-        Map<String, Object> viewMaps = (Map<String, Object>) context.getExternalContext().getSessionMap().get("com.sun.faces.application.view.activeViewMaps");
+        Map<String, Object> viewMaps = (Map<String, Object>) context.getExternalContext().getSessionMap().get("org.glassfish.mojarra.application.view.activeViewMaps");
 
         if (viewMaps != null) {
             Map<String, Object> viewMap = (Map<String, Object>) viewMaps.get(viewMapId);
-            getTransientStateHelper().putTransient("com.sun.faces.application.view.viewMap", viewMap);
+            getTransientStateHelper().putTransient("org.glassfish.mojarra.application.view.viewMap", viewMap);
         }
     }
 
