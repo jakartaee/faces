@@ -31,7 +31,7 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 public class Spec1IT extends BaseITNG {
 
     /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see org.glassfish.mojarra.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
      */
     @Test
@@ -62,7 +62,7 @@ public class Spec1IT extends BaseITNG {
     }
 
     /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see org.glassfish.mojarra.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
      */
     @Test
@@ -93,7 +93,7 @@ public class Spec1IT extends BaseITNG {
     }
 
     /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see org.glassfish.mojarra.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
      */
     @Test
@@ -125,7 +125,7 @@ public class Spec1IT extends BaseITNG {
     }
 
     /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see org.glassfish.mojarra.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
      */
     @Test
@@ -157,7 +157,7 @@ public class Spec1IT extends BaseITNG {
     }
 
     /**
-     * @see com.sun.faces.ext.component.UIValidateWholeBean
+     * @see org.glassfish.mojarra.ext.component.UIValidateWholeBean
      * @see https://github.com/jakartaee/faces/issues/1
      */
     @Test

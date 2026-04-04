@@ -30,7 +30,7 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 class UIRepeatCustomDataModelIT extends BaseITNG {
 
   /**
-   * @see com.sun.faces.facelets.component.UIRepeat
+   * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see FacesDataModel
      * @see https://github.com/jakartaee/faces/issues/1078
    */
@@ -50,7 +50,7 @@ class UIRepeatCustomDataModelIT extends BaseITNG {
     }
 
   /**
-   * @see com.sun.faces.facelets.component.UIRepeat
+   * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see FacesDataModel
      * @see https://github.com/jakartaee/faces/issues/1078
    */

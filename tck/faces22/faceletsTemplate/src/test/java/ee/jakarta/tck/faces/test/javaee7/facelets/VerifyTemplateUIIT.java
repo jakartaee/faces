@@ -26,7 +26,7 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 public class VerifyTemplateUIIT extends BaseITNG {
 
     /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+     * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3243
      */
     @Test

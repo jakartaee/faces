@@ -27,7 +27,7 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 class Spec1713IT extends BaseITNG {
 
     /**
-     * @see com.sun.faces.facelets.component.UIRepeat
+     * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see https://github.com/jakartaee/faces/issues/1713
      */
     @Test

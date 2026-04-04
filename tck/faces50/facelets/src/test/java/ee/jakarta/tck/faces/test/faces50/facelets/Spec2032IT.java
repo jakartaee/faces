@@ -26,7 +26,7 @@ import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
 class Spec2032IT extends BaseITNG {
 
     /**
-     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see org.glassfish.mojarra.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/jakartaee/faces/issues/2032
      */
     @Test
