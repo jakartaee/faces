@@ -33,7 +33,7 @@ class StateHolderSaver implements Serializable {
     private String className = null;
     private Serializable savedState = null;
 
-    public static final String DYNAMIC_COMPONENT = "com.sun.faces.DynamicComponent";
+    private static final String DYNAMIC_COMPONENT = "com.sun.faces.DynamicComponent";
 
     private enum StateHolderTupleIndices {
         StateHolderSaverInstance, ComponentAddedDynamically, LastMember

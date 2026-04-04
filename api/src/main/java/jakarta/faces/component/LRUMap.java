@@ -41,5 +41,4 @@ class LRUMap<K, V> extends LinkedHashMap<K, V> {
         return size() > maxCapacity;
     }
 
-    // TEST: com.sun.faces.TestLRUMap_local
 }

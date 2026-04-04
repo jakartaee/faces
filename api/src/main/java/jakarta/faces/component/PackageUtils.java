@@ -15,10 +15,8 @@
  */
 package jakarta.faces.component;
 
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.event.PhaseId;
-import jakarta.faces.model.SelectItem;
 import static java.lang.Character.isDigit;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +34,13 @@ import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.PhaseId;
+import jakarta.faces.model.SelectItem;
+
 class PackageUtils {
 
-    public final static String MARK_CREATED = "com.sun.faces.facelets.MARK_ID";
+    final static String MARK_CREATED = "com.sun.faces.facelets.MARK_ID";
     private final static String MARK_ID_CACHE = "com.sun.faces.facelets.MARK_ID_CACHE";
     private static final String PATTERN_CACHE_KEY = "com.sun.faces.patternCache";
     private static final String CLIENT_ID_NESTED_IN_ITERATOR_PATTERN = "CLIENT_ID_NESTED_IN_ITERATOR_PATTERN";
