@@ -80,6 +80,7 @@ import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 
 import static ee.jakarta.tck.faces.test.util.selenium.WebPage.STD_TIMEOUT;
+import static java.lang.Boolean.TRUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
 import static java.util.Comparator.naturalOrder;
@@ -91,6 +92,9 @@ import static java.util.logging.Level.FINEST;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.WARNING;
 import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.DOCUMENT;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.FETCH;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.XHR;
 
 /**
  * Extended driver which we need for getting the http response code and the http response without having to revert to proxy solutions
@@ -114,7 +118,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the
      * selenium webdriver version must match the browser version
      */
-    private static AtomicBoolean firstLog = new AtomicBoolean(Boolean.TRUE);
+    private static AtomicBoolean firstLog = new AtomicBoolean(TRUE);
 
     private ChromeDriver delegate;
     private ChromeDriverWait facesContentWait;
@@ -122,6 +126,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     private ReentrantLock cycleDataWriteLock = new ReentrantLock();
     private boolean firstRequest = true;
     private String lastGet;
+
 
     public static ExtendedWebDriver stdInit() {
         Locale.setDefault(new Locale("en", "US"));
@@ -139,7 +144,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         // default is headless = true
         String headless = System.getProperty("chromedriver.headless");
         if (headless == null || "true".equals(headless)) {
-            options.addArguments("--headless");
+            options.addArguments("--headless=new");
         }
 
         options.addArguments("--no-sandbox");
@@ -211,9 +216,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             devTools.createSession();
             devTools.send(Network.clearBrowserCache());
         } catch (TimeoutException ex) {
-            LOG.warning("Init timeout error, can happen, if the driver already has been used, can be safely ignore");
+            LOG.warning("Init timeout error, can happen, if the driver already has been used, can be safely ignored");
         }
-        devTools.send(Network.enable(empty(), empty(), empty(), empty()));
+
+        runWithRetry(
+            () -> devTools.send(Network.enable(empty(), empty(), empty(), empty())),
+            10,
+            Duration.ofMillis(150),
+            2.0);
     }
 
     private void initNetworkListeners(DevTools devTools) {
@@ -252,7 +262,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      * Interesting for us are just {@link ResourceType#XHR} and {@link ResourceType#DOCUMENT} types.
      */
     private boolean isIgnored(ResourceType resourceType) {
-        return resourceType != ResourceType.XHR && resourceType != ResourceType.DOCUMENT;
+        return resourceType != XHR && resourceType != DOCUMENT && resourceType != FETCH;
     }
 
     private HttpCycleData findOrCreate(RequestId requestId) {
@@ -266,10 +276,12 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         return data;
     }
 
+    @Override
     public Capabilities getCapabilities() {
         return delegate.getCapabilities();
     }
 
+    @Override
     public void setFileDetector(FileDetector detector) {
         delegate.setFileDetector(detector);
     }
@@ -347,18 +359,22 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         delegate.deleteNetworkConditions();
     }
 
+    @Override
     public SessionId getSessionId() {
         return delegate.getSessionId();
     }
 
+    @Override
     public ErrorHandler getErrorHandler() {
         return delegate.getErrorHandler();
     }
 
+    @Override
     public void setErrorHandler(ErrorHandler handler) {
         delegate.setErrorHandler(handler);
     }
 
+    @Override
     public CommandExecutor getCommandExecutor() {
         return delegate.getCommandExecutor();
     }
@@ -402,7 +418,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             return true;
         });
+
         LOG.log(FINEST, "Communication with Faces started!");
+
         waitForFaces(timeout);
     }
 
@@ -421,6 +439,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     @Override
     public void waitForFaces(Duration timeout) {
         Duration pause = Duration.ofMillis(100);
+
         // Some tests click a button and immediately check the result.
         // As they probably produced a XHR request immediately,
         // we should allow it to make it to the cycleData.
@@ -429,16 +448,24 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
         ChromeDriverWait wait = new ChromeDriverWait(delegate, timeout, pause);
+
         wait.until(d -> {
             if (cycleData.isEmpty()) {
                 LOG.log(FINEST, "Waiting for communication with Faces server ...");
                 return false;
             }
-            JavascriptExecutor jsExecutor = getJSExecutor();
-            String jsCommand = "return document.readyState";
-            Object result = jsExecutor.executeScript(jsCommand);
-            LOG.log(FINE, () -> jsCommand + " returned " + result);
+
+            HttpCycleData data = getLastGetData();
+            LOG.log(FINEST, "LastGetData: {0}", data);
+            if (data == null) {
+                return false;
+            }
+
+            Object result = getJSExecutor().executeScript("return document.readyState");
+            LOG.log(FINE, () -> "return document.readyState returned " + result);
+
             // See JavaScript specifications for readyState values
             return "complete".equals(result);
         });
@@ -475,42 +502,43 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
     @Override
     public WebElement findElement(By locator) {
-        facesContentWait.untilResponsesCome();
-        RemoteWebElement element = (RemoteWebElement) delegate.findElement(locator);
-        // element.getText will use our execute method.
-        // This is a temporary workaround for Spec1263IT and others which doesn't wait
-        // after click() until the element is redrawn.
-        element.setParent(this);
-        return element;
+        return facesContentWait.until(driver -> {
+            RemoteWebElement element = (RemoteWebElement) driver.findElement(locator);
+            // element.getText will use our execute method.
+            // This is a temporary workaround for Spec1263IT and others which doesn't wait
+            // after click() until the element is redrawn.
+            element.setParent(this);
+            return element;
+        });
     }
 
     @Override
     public List<WebElement> findElements(By locator) {
-        facesContentWait.untilResponsesCome();
-        return delegate.findElements(locator);
+        return facesContentWait.until(driver -> driver.findElements(locator));
     }
 
     @Override
     public String getPageSource() {
-        facesContentWait.untilResponsesCome();
-        return delegate.getPageSource();
+        return facesContentWait.until(driver -> driver.getPageSource());
     }
 
     @Override
     public String getPageText() {
-        facesContentWait.untilResponsesCome();
-        String head = delegate.findElement(By.tagName("head")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
-        String body = delegate.findElement(By.tagName("body")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
-        return head + " " + body;
+        return facesContentWait.until(driver -> {
+            String head = driver.findElement(By.tagName("head")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
+            String body = driver.findElement(By.tagName("body")).getAttribute("innerText").replaceAll("[\\s\\n ]", " ");
+            return head + " " + body;
+        });
     }
 
     @Override
     public String getPageTextReduced() {
-        facesContentWait.untilResponsesCome();
-        String head = delegate.findElement(By.tagName("head")).getAttribute("innerText");
-        String body = delegate.findElement(By.tagName("body")).getAttribute("innerText");
-        // handle blanks and nbsps
-        return (head + " " + body).replaceAll("[\\s\\u00A0]+", " ");
+        return facesContentWait.until(driver -> {
+            String head = driver.findElement(By.tagName("head")).getAttribute("innerText");
+            String body = driver.findElement(By.tagName("body")).getAttribute("innerText");
+            // handle blanks and nbsps
+            return (head + " " + body).replaceAll("[\\s\\u00A0]+", " ");
+        });
     }
 
     /**
@@ -543,7 +571,12 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      */
     @Override
     public void quit() {
-        delegate.quit();
+        try {
+            delegate.quit();
+        } catch (TimeoutException e) {
+            // DevTools cleanup raced with browser shutdown — ignore
+            LOG.log(WARNING, "Ignoring DevTools timeout during quit()", e);
+        }
     }
 
     @Override
@@ -598,63 +631,77 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         return data.request.getPostData().orElse("");
     }
 
+    @Override
     public <X> X getScreenshotAs(OutputType<X> outputType) throws WebDriverException {
         return delegate.getScreenshotAs(outputType);
     }
 
+    @Override
     public Pdf print(PrintOptions printOptions) throws WebDriverException {
         return delegate.print(printOptions);
     }
 
+    @Override
     public List<WebElement> findElements(SearchContext context, BiFunction<String, Object, CommandPayload> findCommand, By locator) {
-        facesContentWait.untilResponsesCome();
-        return delegate.findElements(context, findCommand, locator);
+        return facesContentWait.until(driver -> driver.findElements(context, findCommand, locator));
     }
 
+    @Override
     public Object executeScript(String script, Object... args) {
         return delegate.executeScript(script, args);
     }
 
+    @Override
     public Object executeAsyncScript(String script, Object... args) {
         return delegate.executeAsyncScript(script, args);
     }
 
+    @Override
     public void setLogLevel(Level level) {
         delegate.setLogLevel(level);
     }
 
+    @Override
     public void perform(Collection<Sequence> actions) {
         delegate.perform(actions);
     }
 
+    @Override
     public void resetInputState() {
         delegate.resetInputState();
     }
 
+    @Override
     public VirtualAuthenticator addVirtualAuthenticator(VirtualAuthenticatorOptions options) {
         return delegate.addVirtualAuthenticator(options);
     }
 
+    @Override
     public void removeVirtualAuthenticator(VirtualAuthenticator authenticator) {
         delegate.removeVirtualAuthenticator(authenticator);
     }
 
+    @Override
     public FileDetector getFileDetector() {
         return delegate.getFileDetector();
     }
 
+    @Override
     public ScriptKey pin(String script) {
         return delegate.pin(script);
     }
 
+    @Override
     public void unpin(ScriptKey key) {
         delegate.unpin(key);
     }
 
+    @Override
     public Set<ScriptKey> getPinnedScripts() {
         return delegate.getPinnedScripts();
     }
 
+    @Override
     public Object executeScript(ScriptKey key, Object... args) {
         return delegate.executeScript(key, args);
     }
@@ -678,11 +725,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         if (lastGet == null) {
             return null;
         }
-        waitForFaces(STD_TIMEOUT);
-        return cycleData.stream()
-            .filter(item -> item.hasBaseUrl(lastGet) && item.hasResponse()
-                && item.responseReceived.getType() == ResourceType.DOCUMENT)
-            .sorted(RESPONSE_TIME_COMPARATOR.reversed()).findFirst().orElse(null);
+
+        return cycleData.stream().filter(item -> item.hasBaseUrl(lastGet)).sorted(RESPONSE_TIME_COMPARATOR.reversed())
+            .findFirst().orElse(null);
     }
 
     @Override
@@ -720,20 +765,20 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             pollingEvery(pause);
         }
 
+        @Override
         public <V> V until(Function<? super ChromeDriver, V> isTrue) {
-            untilResponsesCome();
-            return super.until(isTrue);
+            return super.until(d -> {
+                if (isCommunicationInProgress()) return null; // keep waiting
+                return isTrue.apply(d);
+            });
         }
 
-        /** Block if there is anything what could result in changes. */
-        public void untilResponsesCome() {
-            super.until(d -> !isCommunicationInProgress());
-        }
-
+        @Override
         public ChromeDriverWait ignoring(Class<? extends Throwable> exceptionType) {
             return ignoreAll(List.of(exceptionType));
         }
 
+        @Override
         public <K extends Throwable> ChromeDriverWait ignoreAll(Collection<Class<? extends K>> types) {
             super.ignoreAll(types);
             return this;
@@ -747,6 +792,37 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             return false;
         }
+    }
+
+    private static void runWithRetry(Runnable r, int attempts, Duration initialDelay, double backoff) {
+        if (attempts <= 0) {
+            return; // nothing to do
+        }
+
+        Duration delay = initialDelay;
+        RuntimeException lastException = null;
+
+        for (int i = 1; i <= attempts; i++) {
+            try {
+                r.run();
+                return;
+            } catch (WebDriverException e) {
+                lastException = e;
+
+                LOG.log(WARNING, "CDP init attempt {0} failed; retrying in {1} ms", new Object[] { i, delay.toMillis() });
+
+                try {
+                    Thread.sleep(delay.toMillis());
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw lastException;
+                }
+
+                delay = delay.multipliedBy((long) backoff);
+            }
+        }
+
+        throw lastException;
     }
 }
 
