@@ -75,9 +75,15 @@
                 <configuration>
                     <filesets>
                         <fileset>
-                            <directory>old-tck/source/release/JSF_BUILD</directory>
+                            <directory>${project.basedir}/../source/release/JSF_BUILD</directory>
                             <includes>
                                 <include>**</include>
+                            </includes>
+                        </fileset>
+                        <fileset>
+                            <directory>${project.basedir}/../source/lib</directory>
+                            <includes>
+                                <include>jakarta.faces-api.jar</include>
                             </includes>
                         </fileset>
                     </filesets>
