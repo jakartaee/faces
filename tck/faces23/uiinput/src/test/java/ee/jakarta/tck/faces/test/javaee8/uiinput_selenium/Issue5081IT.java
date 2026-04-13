@@ -49,7 +49,7 @@ public class Issue5081IT extends BaseITNG {
         input.sendKeys("text");
         // \t key equals to blur
         input.sendKeys("\t");
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.waitReqJs();
         WebElement submit = webDriver.findElement(By.id("form:submit"));
         submit.click();
         page.waitForCondition(webDriver1 ->
@@ -60,10 +60,10 @@ public class Issue5081IT extends BaseITNG {
         input = webDriver.findElement(By.id("form:input"));
         input.sendKeys("more");
         input.sendKeys("\t"); // Before the fix, the second blur failed with java.lang.ClassCastException: class java.lang.String cannot be cast to class [Ljava.lang.Object;
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.waitReqJs();
         submit = webDriver.findElement(By.id("form:submit"));
         submit.click();
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.waitReqJs();
         message = webDriver.findElement(By.id("form:message_for_selectmany"));
         assertEquals("There is a still required message", "form:selectmany: Validation Error: Value is required.", message.getText());
     }

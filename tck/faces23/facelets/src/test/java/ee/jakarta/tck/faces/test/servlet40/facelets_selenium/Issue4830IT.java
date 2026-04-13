@@ -45,7 +45,7 @@ public class Issue4830IT extends BaseITNG {
         ExtendedWebDriver webDriver = getWebDriver();
         WebElement button = webDriver.findElement(By.id("form:button"));
         button.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.waitReqJs(WebPage.VERY_LONG_TIMEOUT);
         page.waitForCondition(webDriver1 -> webDriver.findElement(By.id("form:value")));
         assertTrue(webDriver.findElement(By.id("form:value")).getText().isEmpty());
     }

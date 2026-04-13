@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import org.htmlunit.WebClient;
 import org.htmlunit.html.HtmlPage;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -55,7 +56,7 @@ public abstract class ITBase {
     public void setUp() {
         webClient = new WebClient();
         webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.setJavaScriptTimeout(120000);
+        webClient.setJavaScriptTimeout(WebPage.VERY_LONG_TIMEOUT.toMillis());
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());
         DebugOptions.setDebugOptions(webClient);
     }

@@ -39,8 +39,9 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElements
 public class WebPage {
     private static final Logger LOG = System.getLogger(WebPage.class.getName());
 
-    public static final Duration STD_TIMEOUT = Duration.ofMillis(8000);
-    public static final Duration LONG_TIMEOUT = Duration.ofMillis(16000);
+    public static final Duration STD_TIMEOUT = Duration.ofMillis(Integer.parseInt(System.getProperty("ee.jakarta.tck.faces.timeout", "10000")));
+    public static final Duration LONG_TIMEOUT = STD_TIMEOUT.multipliedBy(3);
+    public static final Duration VERY_LONG_TIMEOUT = STD_TIMEOUT.multipliedBy(10);
 
     protected ExtendedWebDriver webDriver;
 
