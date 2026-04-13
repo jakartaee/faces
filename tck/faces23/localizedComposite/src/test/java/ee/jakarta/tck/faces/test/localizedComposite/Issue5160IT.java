@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.net.URL;
 
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -41,10 +42,10 @@ import org.htmlunit.html.HtmlSubmitInput;
 /**
  * Tests if composite component that use resourceBundleMap .properties reflects
  * locale changes.
- * 
+ *
  * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
  * @see https://issues.apache.org/jira/browse/MYFACES-4491
- * 
+ *
  */
 @RunWith(Arquillian.class)
 public class Issue5160IT {
@@ -64,7 +65,7 @@ public class Issue5160IT {
     public void setUp() {
         webClient = new WebClient();
         webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.setJavaScriptTimeout(120000);
+        webClient.setJavaScriptTimeout(WebPage.VERY_LONG_TIMEOUT.toMillis());
     }
 
     @Test

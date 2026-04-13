@@ -55,7 +55,7 @@ public class Spec790IT extends BaseITNG {
 
         WebElement form1Button = page.findElement(By.id("form1:button"));
         form1Button.click();
-        page.waitReqJs(Duration.ofMillis(6000));
+        page.waitReqJs();
 
         form1 =  page.findElement(By.id("form1"));
         form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
@@ -69,7 +69,7 @@ public class Spec790IT extends BaseITNG {
 
         WebElement form2Link =  page.findElement(By.id("form2:link"));
         form2Link.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.waitReqJs(WebPage.VERY_LONG_TIMEOUT);
         form1 =  page.findElement(By.id("form1"));
         form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
         form2 =  page.findElement(By.id("form2"));
@@ -82,7 +82,7 @@ public class Spec790IT extends BaseITNG {
 
         WebElement form3Link =  page.findElement(By.id("form3:link"));
         form3Link.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.waitReqJs(WebPage.VERY_LONG_TIMEOUT);
         form1 =  page.findElement(By.id("form1"));
         form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
         form2 =  page.findElement(By.id("form2"));
@@ -101,7 +101,7 @@ public class Spec790IT extends BaseITNG {
      */
     @Test
     public void testSpec790AjaxNavigation() throws Exception {
-        
+
 
         WebPage page = getPage("spec790AjaxNavigation.xhtml");
         WebElement form =  page.findElement(By.id("form"));
@@ -110,7 +110,7 @@ public class Spec790IT extends BaseITNG {
 
         WebElement button = page.findElement(By.id("form:button"));
         button.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.waitReqJs(WebPage.VERY_LONG_TIMEOUT);
         System.out.println(page.getRequestData());
         System.out.println(page.getResponseBody());
         System.out.println(page.getPageSource());

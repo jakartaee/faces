@@ -30,6 +30,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.net.URL;
 
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -65,7 +66,7 @@ public class Issue4093IT {
     public void setUp() {
         webClient = new WebClient();
         webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.setJavaScriptTimeout(120000);
+        webClient.setJavaScriptTimeout(WebPage.VERY_LONG_TIMEOUT.toMillis());
     }
 
     /**
@@ -130,7 +131,7 @@ public class Issue4093IT {
 
     /**
      * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
-     * 
+     *
      * @see UIInput#isRequired()
      * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
@@ -152,7 +153,7 @@ public class Issue4093IT {
 
     /**
      * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
-     * 
+     *
      * @see UIInput#isRequired()
      * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
