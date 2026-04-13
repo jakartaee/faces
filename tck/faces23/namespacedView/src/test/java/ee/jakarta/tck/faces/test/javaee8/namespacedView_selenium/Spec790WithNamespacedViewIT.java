@@ -55,7 +55,7 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
 
         WebElement form1Button =  page.findElement(By.id(namingContainerPrefix + "form1:button"));
         form1Button.click();
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.waitReqJs();
         namingContainerPrefix = getNamingContainerId(page);
         form1 =  page.findElement(By.id(namingContainerPrefix + "form1"));
         form1ViewState =  form1.findElement(By.name( namingContainerPrefix +  "jakarta.faces.ViewState"));
@@ -69,7 +69,7 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
 
         WebElement form2Link =  page.findElement(By.id(namingContainerPrefix + "form2:link"));
         form2Link.click();
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.waitReqJs();
         namingContainerPrefix = getNamingContainerId(page);
         form1 =  page.findElement(By.id(namingContainerPrefix + "form1"));
         form1ViewState =  form1.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
@@ -83,7 +83,7 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
 
         WebElement form3Link =  page.findElement(By.id(namingContainerPrefix + "form3:link"));
         form3Link.click();
-        page.waitReqJs(Duration.ofMillis(3000));
+        page.waitReqJs();
         namingContainerPrefix = getNamingContainerId(page);
         form1 =  page.findElement(By.id(namingContainerPrefix + "form1"));
         form1ViewState =  form1.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
@@ -107,7 +107,7 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
     public void testSpec790WithNamespacedViewAjaxNavigation() throws Exception {
 
         WebPage page = getPage("spec790WithNamespacedViewAjaxNavigation.xhtml");
-        
+
         String namingContainerPrefix = getNamingContainerId(page);
         WebElement form =  page.findElement(By.id(namingContainerPrefix + "form"));
         WebElement formViewState =  form.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));
@@ -115,8 +115,8 @@ public class Spec790WithNamespacedViewIT extends BaseITNG {
 
         WebElement button = page.findElement(By.id(namingContainerPrefix + "form:button"));
         button.click();
-        page.waitReqJs(Duration.ofMillis(10000));
-        
+        page.waitReqJs();
+
         namingContainerPrefix = getNamingContainerId(page);
         WebElement form1 =  page.findElement(By.id(namingContainerPrefix + "form1"));
         WebElement form1ViewState =  form1.findElement(By.name( namingContainerPrefix + "jakarta.faces.ViewState"));

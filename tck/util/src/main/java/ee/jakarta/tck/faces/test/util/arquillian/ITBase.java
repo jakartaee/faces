@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseArquilianRunner;
+import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.test.api.ArquillianResource;
 import org.jboss.shrinkwrap.api.importer.ZipImporter;
@@ -50,12 +51,12 @@ public abstract class ITBase {
                 .importFrom(new File("target/" + getProperty("finalName") + ".war"))
                 .as(WebArchive.class);
     }
-    
+
     @Before
     public void setUp() {
         webClient = new WebClient();
         webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.setJavaScriptTimeout(120000);
+        webClient.setJavaScriptTimeout(WebPage.VERY_LONG_TIMEOUT.toMillis());
         webClient.setIncorrectnessListener(new IgnoringIncorrectnessListener());
         DebugOptions.setDebugOptions(webClient);
     }
