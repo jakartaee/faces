@@ -100,6 +100,10 @@ New: CSP support with ENABLE_CSP_NONCE context parameter
 Change: resolve \#{cc} and \#{component} via EL instead of CDI +
 Spec: clarify _request_, _session_, and _application_ EL resolution
 
+* Issue ID {issue_tracker_url}1507[1507] +
+New: automatically pass through all HTML on-event attributes via HtmlEvents +
+New: ADDITIONAL_HTML_EVENT_NAMES context parameter
+
 * Issue ID {issue_tracker_url}1501[1501] +
 New: CDI @Observes support for system events
 

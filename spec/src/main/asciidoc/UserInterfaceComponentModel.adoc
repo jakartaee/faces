@@ -1393,6 +1393,18 @@ ClientBehaviorHolder". UIComponentBase provides base implementations for
 all other methods.  The concrete HTML component classes that
 come with Jakarta Faces implement the _ClientBehaviorHolder_ interface.
 
+The _HtmlEvents_ helper class provides the set of
+event names supported by HTML elements as per the
+https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers-on-elements,-document-objects,-and-window-objects[current HTML spec].
+The concrete HTML component classes use _HtmlEvents_ to dynamically return
+the supported event names from _getEventNames()_.
+The _HtmlEvents.HtmlDocumentElementEvent_ enum defines the events supported
+by all HTML document elements, and the _HtmlEvents.HtmlBodyElementEvent_ enum
+defines additional events supported by the HTML body element.
+The _BehaviorEvent.FacesComponentEvent_ enum defines the additional component-level
+events: _action_ for _ActionSource_ components and _valueChange_ for
+_EditableValueHolder_ components.
+
 [source,java]
 ----
 public void addClientBehavior(String eventName, ClientBehavior behavior);
@@ -3535,8 +3547,15 @@ _ClientBehavior_ instances can be added to components. For
 _ClientBehavior_ implementations that extend _UIComponentBase_, the
 minimal requirement is to override _getEventNames()_ to return a
 non-empty collection of the event names exposed by the
-_ClientBehaviorHolder_. A optional default event name may be specified
-as well. For example:
+_ClientBehaviorHolder_. An optional default event name may be specified
+as well.
+
+The standard HTML component classes use _HtmlEvents_ to return
+the appropriate set of event names. _ActionSource_ components use
+_HtmlEvents.getFacesActionSourceEventNames()_, _EditableValueHolder_ components use
+_HtmlEvents.getFacesEditableValueHolderEventNames()_, and other components use
+_HtmlEvents.getHtmlBodyElementEventNames()_ or _HtmlEvents.getHtmlDocumentElementEventNames()_
+as appropriate for the HTML element they represent.
 
 Here’s an example code snippet from one of
 the Html components:
@@ -3546,16 +3565,12 @@ the Html components:
 public class HtmlCommandButton extends
     jakarta.faces.component.UICommand implements ClientBehaviorHolder {
 ...
-  private static final Collection<String> EVENT_NAMES =
-      Collections.unmodifiableCollection(
-          Arrays.asList("blur","change","click","action",...) );
-
   public Collection<String> getEventNames() {
-    return EVENT_NAMES;
+    return HtmlEvents.getFacesActionSourceEventNames(getFacesContext());
   }
-  
+
   public String getDefaultEventName() {
-    return "action";
+    return FacesComponentEvent.action.name();
   }
 ...
 ----
