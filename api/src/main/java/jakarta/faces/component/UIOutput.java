@@ -68,10 +68,8 @@ public class UIOutput extends UIComponentBase implements ValueHolder {
      */
     public static final String COMPONENT_FAMILY = "jakarta.faces.Output";
 
-    private static final String FORCE_FULL_CONVERTER_STATE = "com.sun.faces.component.UIOutput.forceFullConverterState";
-
     enum PropertyKeys {
-        value, converter
+        value, converter, converterSet
     }
 
     private Converter<?> converter;
@@ -187,13 +185,15 @@ public class UIOutput extends UIComponentBase implements ValueHolder {
 
         Object converterState = null;
         if (converter != null) {
-            if (!initialStateMarked() || getAttributes().containsKey(FORCE_FULL_CONVERTER_STATE)) {
+            if (!initialStateMarked() || getAttributes().containsKey(PropertyKeys.converterSet.name())) {
                 /*
-                 * Check if our parent component has its initial state marked and we know we don't. That means we are not using the same
-                 * state saving algorithm. So we are going to ALWAYS force to do FSS for the converter.
+                 * Check if our parent component has its initial state marked and we know we don't.
+                 * That means we are not using the same state saving algorithm.
+                 * Can happen when this UIOutput is dynamically created/added.
+                 * So we are going to ALWAYS force to do FSS for the converter.
                  */
                 if (getParent() != null && getParent().initialStateMarked()) {
-                    getAttributes().put(FORCE_FULL_CONVERTER_STATE, true);
+                    getAttributes().put(PropertyKeys.converterSet.name(), true);
                     if (converter instanceof PartialStateHolder) {
                         PartialStateHolder partialStateHolder = (PartialStateHolder) converter;
                         partialStateHolder.clearInitialState();

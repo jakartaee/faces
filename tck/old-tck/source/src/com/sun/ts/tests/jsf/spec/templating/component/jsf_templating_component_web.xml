@@ -24,7 +24,7 @@
     <display-name>jsf_templating_component</display-name>
 
     <context-param>
-        <param-name>com.sun.faces.validateXml</param-name>
+        <param-name>org.glassfish.mojarra.validateXml</param-name>
         <param-value>true</param-value>
     </context-param>
 

@@ -34,7 +34,7 @@ class Issue3833IT extends BaseITNG {
 
   /**
    * @see AjaxBehavior
-     * @see com.sun.faces.facelets.component.UIRepeat
+     * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3837
    */
   @Test

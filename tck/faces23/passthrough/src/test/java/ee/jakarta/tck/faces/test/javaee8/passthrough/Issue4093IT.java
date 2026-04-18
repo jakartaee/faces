@@ -38,7 +38,7 @@ public class Issue4093IT extends BaseITNG {
 
     /**
      * @see UIInput#isRequired()
-     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see org.glassfish.mojarra.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
@@ -56,7 +56,7 @@ public class Issue4093IT extends BaseITNG {
 
     /**
      * @see UIInput#isRequired()
-     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see org.glassfish.mojarra.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
@@ -74,7 +74,7 @@ public class Issue4093IT extends BaseITNG {
 
     /**
      * @see UIInput#isRequired()
-     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see org.glassfish.mojarra.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
@@ -94,7 +94,7 @@ public class Issue4093IT extends BaseITNG {
      * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
      * 
      * @see UIInput#isRequired()
-     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see org.glassfish.mojarra.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test
@@ -114,7 +114,7 @@ public class Issue4093IT extends BaseITNG {
      * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
      * 
      * @see UIInput#isRequired()
-     * @see com.sun.faces.facelets.tag.faces.PassThroughAttributeLibrary
+     * @see org.glassfish.mojarra.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
      */
     @Test

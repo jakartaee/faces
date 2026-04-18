@@ -31,7 +31,7 @@ public class Spec1565IT extends BaseITNG {
 
     /**
      * @see UIOutput
-     * @see com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer
+     * @see org.glassfish.mojarra.renderkit.html_basic.ScriptStyleBaseRenderer
      * @see https://github.com/jakartaee/faces/issues/1565
      */
     @Test
@@ -53,7 +53,7 @@ public class Spec1565IT extends BaseITNG {
 
     /**
      * @see UIOutput
-     * @see com.sun.faces.renderkit.html_basic.ScriptStyleBaseRenderer
+     * @see org.glassfish.mojarra.renderkit.html_basic.ScriptStyleBaseRenderer
      * @see https://github.com/jakartaee/faces/issues/1565
      */
     @Test

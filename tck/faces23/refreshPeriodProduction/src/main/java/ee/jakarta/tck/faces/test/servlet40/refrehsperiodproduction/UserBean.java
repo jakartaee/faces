@@ -18,7 +18,7 @@ package ee.jakarta.tck.faces.test.servlet40.refrehsperiodproduction;
 
 import java.io.Serializable;
 
-import com.sun.faces.application.ApplicationAssociate;
+import org.glassfish.mojarra.application.ApplicationAssociate;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;

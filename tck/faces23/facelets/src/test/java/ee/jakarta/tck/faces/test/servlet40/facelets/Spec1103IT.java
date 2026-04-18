@@ -43,7 +43,7 @@ public class Spec1103IT extends BaseITNG {
     }
 
   /**
-   * @see com.sun.faces.facelets.component.UIRepeat
+   * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see Iterable
      * @see https://github.com/jakartaee/faces/issues/1103
    */
@@ -54,7 +54,7 @@ public class Spec1103IT extends BaseITNG {
     }
 
   /**
-   * @see com.sun.faces.facelets.component.UIRepeat
+   * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see Collection
      * @see https://github.com/jakartaee/faces/issues/1103
    */

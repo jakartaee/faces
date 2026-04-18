@@ -43,7 +43,7 @@ public class Spec1364IT extends BaseITNG {
     }
 
   /**
-   * @see com.sun.faces.facelets.component.UIRepeat
+   * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see Map
      * @see https://github.com/jakartaee/faces/issues/1364
    */

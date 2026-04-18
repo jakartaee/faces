@@ -33,7 +33,7 @@ import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 class Issue4830IT extends BaseITNG {
 
   /**
-   * @see com.sun.faces.facelets.component.UIRepeat
+   * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see UIComponent#visitTree(jakarta.faces.component.visit.VisitContext, jakarta.faces.component.visit.VisitCallback)
      * @see EditableValueHolder#resetValue()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4830

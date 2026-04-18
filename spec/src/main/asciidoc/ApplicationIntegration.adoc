@@ -1359,7 +1359,7 @@ basic_faces_flow_call/
                flow-b-flow.xml
                next_a.xhtml
                next_b.xhtml
-  src/main/java/com/sun/faces/basic_faces_flow_call/
+  src/main/java/com/example/basic_faces_flow_call/
                                 FlowA.java
                                 Flow_a_Bean.java
                                 Flow_b_Bean.java

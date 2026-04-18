@@ -519,8 +519,6 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
     // ----------------------------------------------------- Private helper methods for bean validation
 
-    // MOJARRA IMPLEMENTATION NOTE: identical code exists in Mojarra's com.sun.faces.util.BeanValidation
-
     private static jakarta.validation.Validator getBeanValidator(FacesContext context) {
         ValidatorFactory validatorFactory = getValidatorFactory(context);
 

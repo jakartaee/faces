@@ -40,8 +40,6 @@ import jakarta.faces.context.FacesContext;
 
 class MessageFactory {
 
-    private static final String MOJARRA_RESOURCE_BASENAME = "com.sun.faces.resources.Messages";
-
     private MessageFactory() {
     }
 
@@ -149,23 +147,10 @@ class MessageFactory {
             }
         }
 
-        // no hit found in the standard jakarta.faces.Messages bundle.
-        // check the Mojarra resources
         if (summary == null) {
-            // see if we have a summary in the app provided bundle
-            bundle = ResourceBundle.getBundle(MOJARRA_RESOURCE_BASENAME, locale, getCurrentLoader(appClass));
-            if (null == bundle) {
-                throw new NullPointerException();
-            }
-            // see if we have a hit
-            try {
-                summary = bundle.getString(messageId);
-            } catch (MissingResourceException e) {
-                return null;
-            }
+            return null;
         }
 
-        // At this point, we have a summary and a bundle.
         FacesMessage ret = new BindingFacesMessage(locale, summary, detail, params);
         ret.setSeverity(Severity.ERROR);
         return ret;
