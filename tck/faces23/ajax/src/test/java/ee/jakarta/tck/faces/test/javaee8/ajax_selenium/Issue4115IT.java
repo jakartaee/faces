@@ -46,7 +46,7 @@ public class Issue4115IT extends BaseITNG {
         input.setValue("execute");
         WebElement link =  page.findElement(By.id("form:link"));
         link.click();
-        page.waitReqJs(Duration.ofMillis(60000));
+        page.waitReqJs(WebPage.VERY_LONG_TIMEOUT);
         assertTrue(page.findElement(By.id("form:output")).getText().trim().equals("executeParamValue"));
     }
 }

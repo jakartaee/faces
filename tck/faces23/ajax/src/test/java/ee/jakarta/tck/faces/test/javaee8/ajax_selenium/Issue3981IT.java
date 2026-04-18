@@ -44,7 +44,7 @@ public class Issue3981IT extends BaseITNG {
 
         WebElement button = page.findElement(By.id("form:button"));
         button.click();
-        page.waitReqJs(Duration.ofMillis(6000));
+        page.waitReqJs();
 
         assertTrue(page.findElement(By.id("form:result")).getText().trim().equals("Success!"));
     }
