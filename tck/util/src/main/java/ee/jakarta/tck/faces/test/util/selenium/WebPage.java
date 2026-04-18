@@ -38,8 +38,8 @@ import static java.lang.System.Logger.Level.TRACE;
 public class WebPage {
     private static final Logger LOG = System.getLogger(WebPage.class.getName());
 
-    public static final Duration STD_TIMEOUT = Duration.ofMillis(8000);
-    public static final Duration LONG_TIMEOUT = Duration.ofMillis(16000);
+    public static final Duration STD_TIMEOUT = Duration.ofMillis(Integer.parseInt(System.getProperty("ee.jakarta.tck.faces.timeout", "10000")));
+    public static final Duration LONG_TIMEOUT = STD_TIMEOUT.multipliedBy(3);
 
     protected ExtendedWebDriver webDriver;
 
@@ -70,7 +70,7 @@ public class WebPage {
     }
 
     /**
-     * The same as before, but with the long default timeout of LONG_TIMEOUT (16000ms)
+     * The same as before, but with the long default timeout of LONG_TIMEOUT
      *
      * @param isTrue condition lambda
      */

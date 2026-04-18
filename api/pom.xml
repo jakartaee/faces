@@ -632,8 +632,28 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                 </plugins>
             </build>
         </profile>
-    
-    
+
+		<profile>
+			<id>not-eclipse</id>
+			<activation>
+				<property>
+					<name>!m2e.version</name>
+				</property>
+			</activation>
+			<build>
+				<resources>
+					<resource>
+						<directory>${project.basedir}/..</directory>
+						<includes>
+							<include>LICENSE.md</include>
+							<include>NOTICE.md</include>
+						</includes>
+						<targetPath>META-INF</targetPath>
+					</resource>
+				</resources>
+			</build>
+		</profile>
+
         <profile>
             <id>only-eclipse</id>
             <activation>
@@ -644,7 +664,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <build>
                 <pluginManagement>
                     <plugins>
-                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on 
+						<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on 
                             the Maven build itself. -->
                         <plugin>
                             <groupId>org.eclipse.m2e</groupId>
