@@ -48,7 +48,7 @@ public class ViewActionCdiViewScopedIT extends BaseITNG {
    */
   @Test
   void withQueryParam() throws Exception {
-        WebPage page = getPage("/?page=2");
+        WebPage page = getPage("?page=2");
 
         assertTrue(page.getPageSource().indexOf("Second Page") != -1);
     }

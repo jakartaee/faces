@@ -615,12 +615,12 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <mojarra.noupdate>false</mojarra.noupdate>
 
                 <!--
-                    Exact artefact used by GlassFish that holds the API classes.
+                    Jakarta Faces API artefact that holds the API classes.
                     This is used by the signature test in module /faces-signaturetest
                 -->
-                <sigtest.api.groupId>org.glassfish</sigtest.api.groupId>
-                <sigtest.api.artifactId>jakarta.faces</sigtest.api.artifactId>
-                <sigtest.api.version>${mojarra.version}</sigtest.api.version>
+                <sigtest.api.groupId>jakarta.faces</sigtest.api.groupId>
+                <sigtest.api.artifactId>jakarta.faces-api</sigtest.api.artifactId>
+                <sigtest.api.version>${faces.version}</sigtest.api.version>
 
                 <!-- Verhicle used for testing the Mojarra version -->
                 <glassfish.version>9.0.0-M1</glassfish.version>
