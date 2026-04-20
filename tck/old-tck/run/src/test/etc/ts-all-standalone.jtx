@@ -5286,14 +5286,6 @@ com/sun/ts/tests/jsf/spec/jstl/fntrim/URLClient.java#jstlFunctiontrimTagTest
 com/sun/ts/tests/jsf/spec/jstl/foreachtag/URLClient.java#jstlCoreForEachTagTest
 com/sun/ts/tests/jsf/spec/jstl/iftag/URLClient.java#jstlCoreIfTagTest
 com/sun/ts/tests/jsf/spec/jstl/iftag/URLClient.java#jstlCoreURITest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerFromViewAsteriskOnlyTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerFromViewExactMatchTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerFromViewPatternMatchTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerFromViewSearchOrderTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerNavigationCaseTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerNoNavCaseGoToNextRuleTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerNullOutcomeTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerRedirectTest
 com/sun/ts/tests/jsf/spec/render/body/URLClient.java#bodyRenderPassthroughTest
 com/sun/ts/tests/jsf/spec/render/booleancheckbox/URLClient.java#booleanCheckboxRenderDecodeTest
 com/sun/ts/tests/jsf/spec/render/booleancheckbox/URLClient.java#booleanCheckboxRenderEncodeTest
@@ -5398,9 +5390,6 @@ com/sun/ts/tests/jsf/spec/templating/remove/URLClient.java#templateUIRemoveTagTe
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatOffsetTest
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatVarStatusTest
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatVarTest
-com/sun/ts/tests/jsf/spec/view/protectedview/URLClient.java#viewProtectedViewNonAccessPointTest
-com/sun/ts/tests/jsf/spec/view/viewhandler/URLClient.java#viewHandlerCreateViewTest
-com/sun/ts/tests/jsf/spec/view/viewhandler/URLClient.java#viewHandlerRestoreViewTest
 com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig1Test
 com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig2Test
 com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig3Test
