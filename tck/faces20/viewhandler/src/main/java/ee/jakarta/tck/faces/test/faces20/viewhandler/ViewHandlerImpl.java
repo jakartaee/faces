@@ -19,6 +19,8 @@
  */
 package ee.jakarta.tck.faces.test.faces20.viewhandler;
 
+import ee.jakarta.tck.faces.test.util.common.util.JSFTestUtil;
+
 import jakarta.faces.FacesException;
 import jakarta.faces.application.ViewHandler;
 import jakarta.faces.application.ViewHandlerWrapper;
@@ -26,8 +28,6 @@ import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 
 public class ViewHandlerImpl extends ViewHandlerWrapper {
-
-  private static final String NL = System.getProperty("line.separator", "\n");
 
   protected ViewHandler viewHandler;
 
@@ -46,8 +46,8 @@ public class ViewHandlerImpl extends ViewHandlerWrapper {
     if (!root.getViewId().endsWith(".xhtml")) {
       throw new FacesException("createView: ViewId has been "
           + "manipulated before being passed to the ViewHandler."
-          + NL + "Expected viewId: /greetings.xhtml" + NL
-          + "Received viewId: " + viewId + NL);
+          + JSFTestUtil.NL + "Expected viewId: /greetings.xhtml" + JSFTestUtil.NL
+          + "Received viewId: " + viewId + JSFTestUtil.NL);
     }
     return root;
   }
@@ -58,8 +58,8 @@ public class ViewHandlerImpl extends ViewHandlerWrapper {
     if (!root.getViewId().endsWith(".xhtml")) {
       throw new FacesException("restoreView: ViewId has been "
           + "manipulated before being passed to the ViewHandler. "
-          + NL + "Expected viewId: /greetings.xhtml" + NL
-          + "Received viewId: " + viewId + NL);
+          + JSFTestUtil.NL + "Expected viewId: /greetings.xhtml" + JSFTestUtil.NL
+          + "Received viewId: " + viewId + JSFTestUtil.NL);
     }
     return root;
   }

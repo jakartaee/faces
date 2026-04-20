@@ -17,13 +17,13 @@
 /*
  * $Id$
  */
-package com.sun.ts.tests.jsf.spec.navigation;
+package ee.jakarta.tck.faces.test.faces20.navigation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import com.sun.ts.tests.jsf.common.servlets.HttpTCKServlet;
-import com.sun.ts.tests.jsf.common.util.JSFTestUtil;
+import ee.jakarta.tck.faces.test.util.common.servlets.HttpTCKServlet;
+import ee.jakarta.tck.faces.test.util.common.util.JSFTestUtil;
 
 import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.application.ViewHandler;

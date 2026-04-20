@@ -5285,14 +5285,6 @@ com/sun/ts/tests/jsf/spec/jstl/fntrim/URLClient.java#jstlFunctiontrimTagTest
 com/sun/ts/tests/jsf/spec/jstl/foreachtag/URLClient.java#jstlCoreForEachTagTest
 com/sun/ts/tests/jsf/spec/jstl/iftag/URLClient.java#jstlCoreIfTagTest
 com/sun/ts/tests/jsf/spec/jstl/iftag/URLClient.java#jstlCoreURITest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerFromViewAsteriskOnlyTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerFromViewExactMatchTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerFromViewPatternMatchTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerFromViewSearchOrderTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerNavigationCaseTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerNoNavCaseGoToNextRuleTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerNullOutcomeTest
-com/sun/ts/tests/jsf/spec/navigation/URLClient.java#navHandlerRedirectTest
 com/sun/ts/tests/jsf/spec/render/body/URLClient.java#bodyRenderPassthroughTest
 com/sun/ts/tests/jsf/spec/render/booleancheckbox/URLClient.java#booleanCheckboxRenderDecodeTest
 com/sun/ts/tests/jsf/spec/render/booleancheckbox/URLClient.java#booleanCheckboxRenderEncodeTest

@@ -18,7 +18,7 @@
  * $Id$
  */
 
-package com.sun.ts.tests.jsf.spec.navigation;
+package ee.jakarta.tck.faces.test.faces20.navigation;
 
 import java.io.IOException;
 import java.util.Locale;
