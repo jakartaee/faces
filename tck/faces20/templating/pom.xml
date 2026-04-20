@@ -26,15 +26,11 @@
     </parent>
 
     <artifactId>templating</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - templating</name>
 
-    <modules>
-        <module>component</module>
-        <module>fragment</module>
-        <module>insert</module>
-        <module>remove</module>
-        <module>repeat</module>
-    </modules>
+    <build>
+        <finalName>test-faces20-templating</finalName>
+    </build>
 </project>
