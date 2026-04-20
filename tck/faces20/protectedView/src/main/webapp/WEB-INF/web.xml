@@ -22,23 +22,23 @@
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
     version="6.0">
 
-    <display-name>test-faces20-protectedView</display-name>
-
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
-
-    <context-param>
-        <param-name>org.glassfish.mojarra.validateXml</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <session-config>
-        <session-timeout>54</session-timeout>
-    </session-config>
+	<display-name>jsf_view_protectedview</display-name>
+		
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	
+	<context-param>
+		<param-name>org.glassfish.mojarra.validateXml</param-name>
+		<param-value>true</param-value>
+	</context-param>	
+	
+	<session-config>
+		<session-timeout>54</session-timeout>
+	</session-config>
 </web-app>

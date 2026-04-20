@@ -24,8 +24,8 @@
     <application>
         <view-handler>ee.jakarta.tck.faces.test.faces20.viewhandler.ViewHandlerImpl</view-handler>
     </application>
-
+    
     <navigation-rule>
     </navigation-rule>
-
+    
 </faces-config>
