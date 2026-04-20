@@ -21,17 +21,16 @@
 
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
-        <artifactId>pom</artifactId>
+        <artifactId>composite</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>composite</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>components</artifactId>
+    <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - composite</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - composite - components</name>
 
-    <modules>
-        <module>components</module>
-        <module>packaging</module>
-    </modules>
+    <build>
+        <finalName>test-faces20-composite-components</finalName>
+    </build>
 </project>
