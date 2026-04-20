@@ -5247,17 +5247,6 @@ com/sun/ts/tests/jsf/spec/appconfigresources/relative_ordering/URLClient.java#te
 com/sun/ts/tests/jsf/spec/appconfigresources/startupbehavior/URLClient.java#applicationConfigurationfilesTest1
 com/sun/ts/tests/jsf/spec/appconfigresources/startupbehavior/URLClient.java#applicationConfigurationfilesTest2
 com/sun/ts/tests/jsf/spec/composite/insertchildren/URLClient.java#compositeRenderUsingPageChildrenTagTest
-com/sun/ts/tests/jsf/spec/coretags/selectitems/URLClient.java#selectItemsValueTest
-com/sun/ts/tests/jsf/spec/coretags/viewaction/URLClient.java#viewActionTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesArrayListMapBeanResolverTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesConfigELResolverRegistrationTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesImplicitObjectResolverGetValueTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesResourceBundleResolverGetTypeTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesResourceBundleResolverGetValueTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesResourceBundleResolverIsReadOnlyTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesResourceBundleResolverSetValueTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesScopedAttributeResolverGetValueTest
-com/sun/ts/tests/jsf/spec/el/elresolvers/URLClient.java#facesScopedAttributeResolverSetValueTest
 com/sun/ts/tests/jsf/spec/flows/basicflowcall/URLClient.java#facesFlowCallTest
 com/sun/ts/tests/jsf/spec/flows/basicimplicit/URLClient.java#facesFlowImplicitTest
 com/sun/ts/tests/jsf/spec/flows/basicmultipage/URLClient.java#facesFlowEntryExitTest
@@ -5389,7 +5378,3 @@ com/sun/ts/tests/jsf/spec/templating/remove/URLClient.java#templateUIRemoveTagTe
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatOffsetTest
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatVarStatusTest
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatVarTest
-com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig1Test
-com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig2Test
-com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig3Test
-com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig4Test

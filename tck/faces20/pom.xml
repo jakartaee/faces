@@ -32,9 +32,16 @@
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0</name>
 
     <modules>
+        <module>ajax</module>
+        <module>appconfigresources</module>
+        <module>coretags</module>
+        <module>el</module>
         <module>navigation</module>
         <module>protectedView</module>
+        <module>resource</module>
+        <module>templating</module>
         <module>viewhandler</module>
+        <module>webapp</module>
     </modules>
 
     <dependencies>
