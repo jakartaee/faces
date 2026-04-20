@@ -26,11 +26,11 @@
     </parent>
 
     <artifactId>el</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - el</name>
 
-    <modules>
-        <module>elresolvers</module>
-    </modules>
+    <build>
+        <finalName>test-faces20-el</finalName>
+    </build>
 </project>

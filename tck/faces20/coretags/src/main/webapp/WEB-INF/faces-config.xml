@@ -16,21 +16,19 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
-        <artifactId>pom</artifactId>
-        <version>5.0.0-SNAPSHOT</version>
-    </parent>
+<faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd"
+    version="4.0">
 
-    <artifactId>coretags</artifactId>
-    <packaging>war</packaging>
-
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - coretags</name>
-
-    <build>
-        <finalName>test-faces20-coretags</finalName>
-    </build>
-</project>
+    <navigation-rule>
+        <from-view-id>/viewaction/test_facelet.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{book.checkAuthor}</from-action>
+            <if>#{book.result}</if>
+            <to-view-id>/viewaction/passed_facelet.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

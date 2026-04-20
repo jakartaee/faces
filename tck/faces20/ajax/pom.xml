@@ -26,13 +26,11 @@
     </parent>
 
     <artifactId>ajax</artifactId>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - ajax</name>
 
-    <modules>
-        <module>jsresource</module>
-        <module>keyword</module>
-        <module>tagwrapper</module>
-    </modules>
+    <build>
+        <finalName>test-faces20-ajax</finalName>
+    </build>
 </project>
