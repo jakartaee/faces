@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2023 Contributors to Eclipse Foundation.
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -20,27 +20,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.eclipse.ee4j.faces.tck</groupId>
-        <artifactId>jakarta-faces-tck</artifactId>
+        <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
+        <artifactId>pom</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>org.eclipse.ee4j.tck.faces.old-tck-selenium</groupId>
-    <artifactId>pom</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>protectedView</artifactId>
+    <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Old TCK Selenium</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - protectedView</name>
 
-    <modules>
-        <module>ajax</module>
-        <module>commandLink</module>
-    </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
-            <artifactId>util</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+    <build>
+        <finalName>test-faces20-protectedView</finalName>
+    </build>
 </project>

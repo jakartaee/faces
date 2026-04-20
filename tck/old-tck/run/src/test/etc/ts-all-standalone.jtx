@@ -5398,9 +5398,6 @@ com/sun/ts/tests/jsf/spec/templating/remove/URLClient.java#templateUIRemoveTagTe
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatOffsetTest
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatVarStatusTest
 com/sun/ts/tests/jsf/spec/templating/repeat/URLClient.java#templateUIRepeatVarTest
-com/sun/ts/tests/jsf/spec/view/protectedview/URLClient.java#viewProtectedViewNonAccessPointTest
-com/sun/ts/tests/jsf/spec/view/viewhandler/URLClient.java#viewHandlerCreateViewTest
-com/sun/ts/tests/jsf/spec/view/viewhandler/URLClient.java#viewHandlerRestoreViewTest
 com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig1Test
 com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig2Test
 com/sun/ts/tests/jsf/spec/webapp/factoryfinder/URLClient.java#factoryFinderConfig3Test

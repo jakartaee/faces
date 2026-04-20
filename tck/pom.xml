@@ -82,6 +82,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
 
     <modules>
         <module>util</module>
+        <module>faces20</module>
         <module>faces22</module>
         <module>faces23</module>
         <module>faces40</module>
