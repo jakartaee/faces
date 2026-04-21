@@ -34,8 +34,11 @@
     <modules>
         <module>ajax</module>
         <module>appconfigresources</module>
+        <module>composite</module>
         <module>coretags</module>
         <module>el</module>
+        <module>flows</module>
+        <module>jstl</module>
         <module>navigation</module>
         <module>protectedView</module>
         <module>resource</module>
