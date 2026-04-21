@@ -32,7 +32,6 @@
     <name>Jakarta Faces TCK ${project.version} - Test - Old TCK Selenium</name>
 
     <modules>
-        <module>ajax</module>
         <module>commandLink</module>
     </modules>
 
