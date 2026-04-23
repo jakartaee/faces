@@ -88,7 +88,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <module>faces40</module>
         <module>faces41</module>
         <module>faces50</module>
-        <module>old-tck-selenium</module>
         <module>old-tck</module>
         <module>faces-signaturetest</module>
     </modules>
