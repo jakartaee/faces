@@ -39,28 +39,6 @@ mvn clean install -Dmojarra.noupdate
 
 
 
-Build old TCK once from the root (NOT from the /old-tck folder)
-
-mvn clean install -pl :old-tck-build
-
-
-
-Run single old TCK test from the root (NOT from the /old-tck folder)
-
-mvn clean install -pl :old-tck-run  -Drun.test="com/sun/ts/tests/jsf/api/jakarta_faces/context/facescontext/URLClient.java#facesCtxISEAfterReleaseTest"
-
-
-
-Run full old TCK, debugging client TCK from the root (NOT from the /old-tck folder)
-
-mvn clean install -pl :old-tck-run -Dsuspend-tck
-
-
-
-Run full old TCK, debugging remote GlassFish (suspends on port 9009)
-
-mvn clean install -pl :old-tck-run -Dglassfish.suspend
-
 -->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -88,7 +66,6 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
         <module>faces40</module>
         <module>faces41</module>
         <module>faces50</module>
-        <module>old-tck</module>
         <module>faces-signaturetest</module>
     </modules>
 

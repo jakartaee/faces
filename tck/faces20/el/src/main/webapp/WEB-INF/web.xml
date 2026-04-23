@@ -23,10 +23,6 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" >
 
 	<display-name>jsf_el_resolvers</display-name>
-    <context-param>
-        <param-name>org.glassfish.mojarra.validateXml</param-name>
-        <param-value>true</param-value>
-    </context-param>
 	<servlet>
 		<servlet-name>TestServlet</servlet-name>
 		<servlet-class>ee.jakarta.tck.faces.test.faces20.el.elresolvers.TestServlet</servlet-class>

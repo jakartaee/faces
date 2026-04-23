@@ -21,11 +21,6 @@
     <display-name>jsf_appconfigresources_startupbehavior</display-name>
 
     <context-param>
-        <param-name>org.glassfish.mojarra.validateXml</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <context-param>
         <param-name>jakarta.faces.CONFIG_FILES</param-name>
         <param-value>
             /META-INF/testCase2-config.xml, /META-INF/testCase2-config_1.xml

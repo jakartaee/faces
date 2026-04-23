@@ -25,11 +25,6 @@
     <display-name>jsf_appconfigresources_absolute_ordering</display-name>
 
     <context-param>
-        <param-name>org.glassfish.mojarra.validateXml</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
-    <context-param>
         <param-name>jakarta.faces.CONFIG_FILES</param-name>
         <param-value>/META-INF/faces-configB.xml</param-value>
     </context-param>

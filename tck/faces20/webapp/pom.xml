@@ -33,5 +33,9 @@
     <modules>
         <module>factoryfinder-tckjar</module>
         <module>factoryfinder</module>
+        <module>factoryfinder-altlast</module>
+        <module>factoryfinder-decorated</module>
+        <module>factoryfinder-metainflast-tckjar</module>
+        <module>factoryfinder-metainflast</module>
     </modules>
 </project>

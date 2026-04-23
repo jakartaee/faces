@@ -47,4 +47,29 @@ class FactoryFinderIT extends BaseITNG {
     void factoryFinderConfig4Test() {
         runServletTest("factoryFinderConfig4Test");
     }
+
+    @Test
+    void getFactoryTest() {
+        runServletTest("getFactoryTest");
+    }
+
+    @Test
+    void getFactoryNullPointerExceptionTest() {
+        runServletTest("getFactoryNullPointerExceptionTest");
+    }
+
+    @Test
+    void getFactoryNoConfiguredIllegalArgumentExceptionTest() {
+        runServletTest("getFactoryNoConfiguredIllegalArgumentExceptionTest");
+    }
+
+    @Test
+    void setFactoryNPETest() {
+        runServletTest("setFactoryNPETest");
+    }
+
+    @Test
+    void setFactoryIAETest() {
+        runServletTest("setFactoryIAETest");
+    }
 }
