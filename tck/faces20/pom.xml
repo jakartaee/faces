@@ -33,6 +33,7 @@
 
     <modules>
         <module>ajax</module>
+        <module>api</module>
         <module>appconfigresources</module>
         <module>composite</module>
         <module>coretags</module>

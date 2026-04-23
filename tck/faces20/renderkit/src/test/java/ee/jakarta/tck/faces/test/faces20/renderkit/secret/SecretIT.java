@@ -129,7 +129,6 @@ class SecretIT extends BaseITNG {
             assertEquals(value, input.getDomAttribute(name), "attribute " + name));
     }
 
-    // Mojarra renders value="" rather than omitting the attribute; both satisfy "no value rendered" per spec.
     private static void assertValueNotRendered(WebElement element, String id) {
         String value = element.getDomAttribute("value");
         assertTrue(value == null || value.isEmpty(), id + " value not rendered (was '" + value + "')");

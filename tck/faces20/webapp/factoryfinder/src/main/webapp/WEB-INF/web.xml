@@ -29,11 +29,6 @@
         <param-value>/WEB-INF/config/faces-config.xml</param-value>
     </context-param>
 
-    <context-param>
-        <param-name>org.glassfish.mojarra.validateXml</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
 	<servlet>
 		<servlet-name>TestServlet</servlet-name>		
 		<servlet-class>ee.jakarta.tck.faces.test.faces20.webapp.factoryfinder.TestServlet</servlet-class>
