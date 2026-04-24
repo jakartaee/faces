@@ -80,7 +80,7 @@ public class ProgressListener implements TestExecutionListener {
 
             ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> \n" +
             ">\n" +
-            "> S T A R T I N G   T E S T   R U N   W I T H  " + totalTests + "  T E S T S \n" +
+            "> S T A R T I N G   T E S T   R U N   W I T H   " + totalTests + "   T E S T S \n" +
             ">\n" +
             "> " + rootDir + "\n" +
             ">\n" +
@@ -92,7 +92,7 @@ public class ProgressListener implements TestExecutionListener {
 
         int i = 0;
         for (String testClass : testClasses ) {
-            System.out.println(BOLD_BLUE + (i++) + ") " + testClass + RESET);
+            System.out.println(BOLD_BLUE + (++i) + ") " + testClass + RESET);
         }
 
     }
@@ -167,7 +167,7 @@ public class ProgressListener implements TestExecutionListener {
 
                 ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> \n" +
                 ">\n" +
-                "> E N D I N G   T E S T   R U N " + rootDir + "\n" +
+                "> E N D I N G   T E S T   R U N   " + rootDir + "\n" +
                 ">\n" +
                 ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> \n" +
 
