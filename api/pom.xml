@@ -124,6 +124,10 @@
         </mailingList>
     </mailingLists>
 
+    <properties>
+        <central.autoPublish>false</central.autoPublish>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -694,6 +698,37 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         </plugin>
                     </plugins>
                 </pluginManagement>
+            </build>
+        </profile>
+
+        <!-- Maven Central release.
+             Activated EITHER by `-Pcentral-release` (manual, e.g. dev staging) OR automatically by
+             `-Dcentral.autoPublish=true` (used by CI). The autoPublish flag inside the plugin config
+             reads the same property, so:
+               * `mvn deploy -Pcentral-release`           -> stages (autoPublish=false)
+               * `mvn deploy -Dcentral.autoPublish=true`  -> stages AND publishes (CI)
+             A bare `mvn deploy` does not activate the profile and never reaches Maven Central. -->
+        <profile>
+            <id>central-release</id>
+            <activation>
+                <property>
+                    <name>central.autoPublish</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>0.10.0</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <autoPublish>${central.autoPublish}</autoPublish>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>
