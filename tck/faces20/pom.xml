@@ -33,6 +33,7 @@
 
     <modules>
         <module>ajax</module>
+        <module>api</module>
         <module>appconfigresources</module>
         <module>composite</module>
         <module>coretags</module>
@@ -41,6 +42,7 @@
         <module>jstl</module>
         <module>navigation</module>
         <module>protectedView</module>
+        <module>renderkit</module>
         <module>resource</module>
         <module>templating</module>
         <module>viewhandler</module>

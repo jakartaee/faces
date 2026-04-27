@@ -23,11 +23,6 @@
 
     <display-name>jsf_ajax</display-name>
 
-    <context-param>
-        <param-name>org.glassfish.mojarra.validateXml</param-name>
-        <param-value>true</param-value>
-    </context-param>
-
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>

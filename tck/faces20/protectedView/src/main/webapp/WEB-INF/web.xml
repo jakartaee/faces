@@ -33,11 +33,6 @@
 		<url-pattern>/faces/*</url-pattern>
 	</servlet-mapping>
 	
-	<context-param>
-		<param-name>org.glassfish.mojarra.validateXml</param-name>
-		<param-value>true</param-value>
-	</context-param>	
-	
 	<session-config>
 		<session-timeout>54</session-timeout>
 	</session-config>
