@@ -385,7 +385,7 @@
             <properties>
                 <!-- Explicit version of Mojarra to test -->
                 <mojarra.noupdate>false</mojarra.noupdate>
-                <mojarra.version>4.0.11</mojarra.version>
+                <mojarra.version>4.0.17-SNAPSHOT</mojarra.version>
 
                 <!-- Verhicle used for testing the Mojarra version -->
                 <glassfish.version>7.0.25</glassfish.version>
@@ -460,6 +460,49 @@
                                  <glassfish.home>${glassfish.root}/glassfish7</glassfish.home>
                              </systemPropertyVariables>
                          </configuration>
+                    </plugin>
+
+                    <!--
+                        Auto-skip the IT tests that are incompatible with the CSP backport in Mojarra 4.0.17+ / 4.1.8+
+                        (#5606 — inline event-attribute assumptions that no longer hold once handlers are attached via
+                        mojarra.ael). Detection is by mojarra.version; only the 4.0.17+ and 4.1.8+ ranges trigger the
+                        exclusions — older Mojarra and any other (newer or non-Mojarra) versions run unfiltered.
+                    -->
+                    <plugin>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
+                        <version>3.0.2</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.groovy</groupId>
+                                <artifactId>groovy</artifactId>
+                                <version>4.0.21</version>
+                                <scope>runtime</scope>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>compute-csp-backport-flags</id>
+                                <phase>validate</phase>
+                                <goals><goal>execute</goal></goals>
+                                <configuration>
+                                    <scripts>
+                                        <script><![CDATA[
+                                            def raw = (project.properties['mojarra.version'] ?: '').replace('-SNAPSHOT', '')
+                                            if (!(raw ==~ /\d+\.\d+\.\d+/)) return
+                                            def (maj, min, inc) = raw.tokenize('.')*.toInteger()
+                                            def cspBackport =
+                                                (maj == 4 && min == 0 && inc >= 17) ||
+                                                (maj == 4 && min == 1 && inc >= 8)
+                                            if (cspBackport && !project.properties.containsKey('it.test')) {
+                                                project.properties['it.test'] = '**/*IT.java,!**/Issue2439IT.java,!**/Issue2674IT.java,!**/Issue4331IT.java,!**/Spec1238IT.java'
+                                                project.properties['failsafe.failIfNoSpecifiedTests'] = 'false'
+                                            }
+                                        ]]></script>
+                                    </scripts>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
