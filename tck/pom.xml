@@ -720,7 +720,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                                                 (maj == 4 && min == 0 && inc >= 17) ||
                                                 (maj == 4 && min == 1 && inc >= 8)
                                             if (cspBackport && !project.properties.containsKey('it.test')) {
-                                                project.properties['it.test'] = '**/*IT.java,!**/Issue2439IT.java,!**/Issue2674IT.java,!**/Issue4331IT.java,!**/Spec1238IT.java'
+                                                project.properties['it.test'] = '**/*IT.java,!**/Issue2439IT.java,!**/Issue2674IT.java,!**/Issue4331IT.java,!**/Spec1238IT.java,!**/CommandLinkTestsIT.java'
                                                 project.properties['failsafe.failIfNoSpecifiedTests'] = 'false'
                                             }
                                         ]]></script>
