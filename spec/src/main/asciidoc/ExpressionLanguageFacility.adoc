@@ -1025,7 +1025,30 @@ pertinent to Jakarta Faces.
 ==== Jakarta Faces Objects Valid for @Inject Injection
 
 It must be possible to inject the following
-Jakarta Faces objects into other objects using _@Inject_.
+kinds of objects into other objects using _@Inject_.
+
+.Implicit Objects
+
+[.changed_modified_5_0]
+The non-environment-specific implicit objects listed in
+<<a2832,Implicit Objects for Programmatic Access>> must be produced as CDI beans,
+making them available for _@Inject_ injection. This includes:
+
+- _jakarta.faces.component.UIComponent_ (named _component_)
+- _jakarta.faces.component.UIViewRoot_ (named _view_)
+- _jakarta.faces.context.ExternalContext_ (named _externalContext_)
+- _jakarta.faces.context.FacesContext_ (named _facesContext_)
+- _jakarta.faces.context.Flash_ (named _flash_)
+- _jakarta.faces.application.ResourceHandler_ (named _resource_)
+- _jakarta.faces.flow.Flow_ (named _flow_)
+
+Note that injection of environment-specific types is provided by the Jakarta Servlet
+specification's built-in CDI beans, not by Jakarta Faces. The corresponding Faces
+implicit objects are exposed only as named EL beans, not for typed _@Inject_ injection:
+
+- _jakarta.servlet.http.HttpServletRequest_ (named _request_)
+- _jakarta.servlet.http.HttpSession_ (named _session_)
+- _jakarta.servlet.ServletContext_ (named _application_)
 
 .Maps Returned by Various Jakarta Faces Accessors
 
@@ -1033,19 +1056,14 @@ The annotations in package
 _jakarta.faces.annotation_ are used to cause _@Inject_ injection of the
 corresponding _Map_ into a field. Generics may be used.
 
-.Jakarta Faces Objects
+.Faces Expression Language Values
 
-It must be possible to _@Inject_ the following Jakarta Faces and Jakarta EE objects into CDI beans.
-
-- _jakarta.faces.application.ResourceHandler_
-
-- _jakarta.faces.context.ExternalContext_
-
-- _jakarta.faces.context.FacesContext_
-
-- _jakarta.faces.context.Flash_
-
-- _jakarta.servlet.http.HttpSession_
+[.changed_added_5_0]
+The _@jakarta.faces.annotation.ManagedProperty_ qualifier may be combined with
+_@Inject_ on a field to inject the value of a Faces Expression Language expression.
+The expression is evaluated lazily, on every access, against the current
+_FacesContext_. The declared type of the injected field must be compatible with
+the type of the resolved expression value.
 
 .Support for Injection into Jakarta Faces Managed Objects
 
