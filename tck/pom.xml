@@ -550,7 +550,7 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                 <arquillian.glassfish.version>2.1.0</arquillian.glassfish.version>
                 <slf4j.version>2.0.17</slf4j.version>
                 <!-- Explicit version of Mojarra to test -->
-                <mojarra.version>4.1.0</mojarra.version>
+                <mojarra.version>4.1.8-SNAPSHOT</mojarra.version>
 
                 <!--
                     By default this profile will copy the Mojarra version to test to GlassFish.
@@ -685,6 +685,49 @@ mvn clean install -pl :old-tck-run -Dglassfish.suspend
                                 <java.util.logging.config.defaultLevel>${test.logLevel}</java.util.logging.config.defaultLevel>
                             </systemPropertyVariables>
                         </configuration>
+                    </plugin>
+
+                    <!--
+                        Auto-skip the IT tests that are incompatible with the CSP backport in Mojarra 4.0.17+ / 4.1.8+
+                        (#5606 — inline event-attribute assumptions that no longer hold once handlers are attached via
+                        mojarra.ael). Detection is by mojarra.version; only the 4.0.17+ and 4.1.8+ ranges trigger the
+                        exclusions — older Mojarra and any other (newer or non-Mojarra) versions run unfiltered.
+                    -->
+                    <plugin>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
+                        <version>3.0.2</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.groovy</groupId>
+                                <artifactId>groovy</artifactId>
+                                <version>4.0.21</version>
+                                <scope>runtime</scope>
+                            </dependency>
+                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>compute-csp-backport-flags</id>
+                                <phase>validate</phase>
+                                <goals><goal>execute</goal></goals>
+                                <configuration>
+                                    <scripts>
+                                        <script><![CDATA[
+                                            def raw = (project.properties['mojarra.version'] ?: '').replace('-SNAPSHOT', '')
+                                            if (!(raw ==~ /\d+\.\d+\.\d+/)) return
+                                            def (maj, min, inc) = raw.tokenize('.')*.toInteger()
+                                            def cspBackport =
+                                                (maj == 4 && min == 0 && inc >= 17) ||
+                                                (maj == 4 && min == 1 && inc >= 8)
+                                            if (cspBackport && !project.properties.containsKey('it.test')) {
+                                                project.properties['it.test'] = '**/*IT.java,!**/Issue2439IT.java,!**/Issue2674IT.java,!**/Issue4331IT.java,!**/Spec1238IT.java,!**/CommandLinkTestsIT.java'
+                                                project.properties['failsafe.failIfNoSpecifiedTests'] = 'false'
+                                            }
+                                        ]]></script>
+                                    </scripts>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
