@@ -164,11 +164,12 @@ export declare namespace faces {
         }
 
         /**
-         * <p class="changed_added_5_0">Request context object passed to
+         * <p class="changed_added_5_0">Per-request context object built by
+         * <code>{@link faces.ajax.request}</code> and passed to
          * <code>{@link faces.ajax.response}</code>.</p>
          * @since 5.0
          */
-        export interface ResponseContext {
+        export interface RequestContext {
             sourceid?: string;
             onerror?: OnErrorCallback;
             onevent?: OnEventCallback;
@@ -720,7 +721,7 @@ export declare namespace faces {
          * @throws {Error} If request contains no data.
          * @since 2.0
          */
-        export function response(request: XMLHttpRequest, context: ResponseContext): void;
+        export function response(request: XMLHttpRequest, context: RequestContext): void;
     }
 
     /**
