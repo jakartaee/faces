@@ -23,6 +23,60 @@
 export declare namespace faces {
 
     /**
+     * <p class="changed_added_5_0">Project stage values, mirroring
+     * <code>jakarta.faces.application.ProjectStage</code>.</p>
+     * @since 5.0
+     */
+    export type ProjectStage = "Development" | "UnitTest" | "SystemTest" | "Production";
+
+    /**
+     * <p class="changed_added_5_0">Status values sent to an
+     * <code>{@link faces.ajax.OnEventCallback}</code>.</p>
+     * @since 5.0
+     */
+    export type AjaxEventStatus = "begin" | "complete" | "success";
+
+    /**
+     * <p class="changed_added_5_0">Status values sent to an
+     * <code>{@link faces.ajax.OnErrorCallback}</code>.</p>
+     * @since 5.0
+     */
+    export type AjaxErrorStatus = "httpError" | "emptyResponse" | "malformedXML" | "serverError";
+
+    /**
+     * <p class="changed_added_5_0">Data passed to an
+     * <code>{@link faces.ajax.OnEventCallback}</code>.</p>
+     * @since 5.0
+     */
+    export interface AjaxEvent {
+        type: "event";
+        status: AjaxEventStatus;
+        source?: Element;
+        responseCode?: number;
+        responseText?: string;
+        responseXML?: XMLDocument;
+    }
+
+    /**
+     * <p class="changed_added_5_0">Data passed to an
+     * <code>{@link faces.ajax.OnErrorCallback}</code>. <code>errorName</code> and
+     * <code>errorMessage</code> are populated for <code>serverError</code> only.</p>
+     * @since 5.0
+     */
+    export interface AjaxError {
+        type: "error";
+        status: AjaxErrorStatus;
+        source?: Element;
+        responseCode?: number;
+        responseText?: string;
+        responseXML?: XMLDocument;
+        /** Fully qualified class name string. Present for <code>serverError</code>. */
+        errorName?: string;
+        /** Error message. Present for <code>serverError</code>. */
+        errorMessage?: string;
+    }
+
+    /**
      * <p>An integer specifying the specification version that this file implements.
      * Its format is: rightmost two digits, bug release number, next two digits,
      * minor release number, leftmost digits, major release number.
@@ -63,6 +117,64 @@ export declare namespace faces {
     export namespace ajax {
 
         /**
+         * <p class="changed_added_5_0">Callback signature for
+         * <code>{@link faces.ajax.addOnEvent}</code> and the
+         * <code>onevent</code> option of <code>{@link faces.ajax.request}</code>.</p>
+         * @since 5.0
+         */
+        export type OnEventCallback = (data: AjaxEvent) => void;
+
+        /**
+         * <p class="changed_added_5_0">Callback signature for
+         * <code>{@link faces.ajax.addOnError}</code> and the
+         * <code>onerror</code> option of <code>{@link faces.ajax.request}</code>.</p>
+         * @since 5.0
+         */
+        export type OnErrorCallback = (data: AjaxError) => void;
+
+        /**
+         * <p class="changed_added_5_0">Options object for
+         * <code>{@link faces.ajax.request}</code>.</p>
+         * @since 5.0
+         */
+        export interface RequestOptions {
+            /** Space-separated list of client identifiers to execute on the server. */
+            execute?: string;
+            /** Space-separated list of client identifiers to render after the server roundtrip. */
+            render?: string;
+            /** Function to invoke for ajax lifecycle events. */
+            onevent?: OnEventCallback;
+            /** Function to invoke if an error occurs. */
+            onerror?: OnErrorCallback;
+            /** Additional name/value pairs to include in the request. */
+            params?: Record<string, string | number | boolean>;
+            /**
+             * If less than <em>delay</em> milliseconds elapse between calls to
+             * <em>request()</em> only the most recent one is sent and all other
+             * requests are discarded. The literal string <code>"none"</code>
+             * (or omission) means no delay.
+             */
+            delay?: number | "none";
+            /**
+             * If true, sends <code>jakarta.faces.partial.resetValues=true</code> with
+             * the request, causing <code>UIViewRoot.resetValues()</code> to be called
+             * with the value of the <code>render</code> attribute.
+             */
+            resetValues?: boolean;
+        }
+
+        /**
+         * <p class="changed_added_5_0">Request context object passed to
+         * <code>{@link faces.ajax.response}</code>.</p>
+         * @since 5.0
+         */
+        export interface ResponseContext {
+            sourceid?: string;
+            onerror?: OnErrorCallback;
+            onevent?: OnEventCallback;
+        }
+
+        /**
          * Register a callback for error handling.
          * <p><b>Usage:</b></p>
          * <pre><code>const handleError = function handleError(data) {
@@ -80,7 +192,7 @@ export declare namespace faces {
          * @param callback a reference to a function to call on an error
          * @since 2.0
          */
-        export function addOnError(callback: Function): void;
+        export function addOnError(callback: OnErrorCallback): void;
 
         /**
          * Register a callback for event handling.
@@ -100,7 +212,7 @@ export declare namespace faces {
          * @param callback a reference to a function to call on an event
          * @since 2.0
          */
-        export function addOnEvent(callback: Function): void;
+        export function addOnEvent(callback: OnEventCallback): void;
         
         /**
          * <p><span class="changed_modified_2_2">Send</span> an
@@ -379,7 +491,7 @@ export declare namespace faces {
          * is not set to <code>multipart/form-data</code>
          * @since 2.0
          */
-        export function request(source: Element | string, event?: Event, options?: { execute?: string, render?: string, onevent?: Function, onerror?: Function, params?: object, delay?: string | number, resetValues?: boolean }): void;
+        export function request(source: Element | string, event?: Event | null, options?: RequestOptions): void;
         
         /**
          * <p><span class="changed_modified_2_2">Receive</span> an Ajax response
@@ -608,7 +720,7 @@ export declare namespace faces {
          * @throws {Error} If request contains no data.
          * @since 2.0
          */
-        export function response(request: XMLHttpRequest, context: { sourceid?: string, onerror?: Function, onevent?: Function }): void;
+        export function response(request: XMLHttpRequest, context: ResponseContext): void;
     }
 
     /**
@@ -631,7 +743,7 @@ export declare namespace faces {
      * <code>jakarta.faces.application.ProjectStage</code>.
      * @since 2.0
      */
-    export function getProjectStage(): string;
+    export function getProjectStage(): ProjectStage;
 
     /**
      * <p>Collect and encode state for input controls associated
@@ -648,7 +760,7 @@ export declare namespace faces {
      * @returns The encoded state for the specified form's input controls.
      * @since 2.0
      */
-    export function getViewState(form: Element): string;
+    export function getViewState(form: HTMLFormElement): string;
     
     /**
      * <p class="changed_added_2_2">Return the windowId of the window
@@ -665,7 +777,7 @@ export declare namespace faces {
      * @throws {Error} If more than one WindowId is found.
      * @since 2.2
      */
-    export function getClientWindow(node?: Element | string): string | null;
+    export function getClientWindow(node?: HTMLElement | string): string | null;
     
     /**
      * <p class="changed_added_2_3">
@@ -675,7 +787,33 @@ export declare namespace faces {
      * @since 2.3
      */
     export namespace push {
-        
+
+        /**
+         * <p class="changed_added_5_0">Invoked when the websocket is opened.</p>
+         * @since 5.0
+         */
+        export type OnOpenHandler = (channel: string) => void;
+
+        /**
+         * <p class="changed_added_5_0">Invoked when a message is received from the server.</p>
+         * @since 5.0
+         */
+        export type OnMessageHandler = (message: unknown, channel: string, event: MessageEvent) => void;
+
+        /**
+         * <p class="changed_added_5_0">Invoked when a connection error occurs and the
+         * websocket will attempt to reconnect.</p>
+         * @since 5.0
+         */
+        export type OnErrorHandler = (code: number, channel: string, event: CloseEvent) => void;
+
+        /**
+         * <p class="changed_added_5_0">Invoked when the websocket is closed and will not
+         * attempt to reconnect.</p>
+         * @since 5.0
+         */
+        export type OnCloseHandler = (code: number, channel: string, event: CloseEvent) => void;
+
         /**
          * Initialize a websocket on the given client identifier. When connected, it will stay open and reconnect as
          * long as URL is valid and <code>{@link faces.push.close}</code> hasn't explicitly been called on the same client
@@ -705,7 +843,17 @@ export declare namespace faces {
          * @param autoconnect Whether or not to automatically connect the socket. Defaults to <code>false</code>.
          * @since 2.3
          */
-        export function init(clientId: string, url: string, channel: string, onopen: Function | string | null, onmessage: Function | string | null, onerror: Function | string | null, onclose: Function | string | null, behaviors: object, autoconnect: boolean): void;
+        export function init(
+            clientId: string,
+            url: string,
+            channel: string,
+            onopen: OnOpenHandler | string | null,
+            onmessage: OnMessageHandler | string | null,
+            onerror: OnErrorHandler | string | null,
+            onclose: OnCloseHandler | string | null,
+            behaviors: Record<string, Array<() => void>>,
+            autoconnect: boolean,
+        ): void;
 
         /**
          * Open the websocket on the given client identifier.
@@ -745,6 +893,6 @@ export declare namespace faces {
          *  otherwise returns <code>true</code>.
          * @since 2.0
          */
-        export function chain(source: Element | string, event?: Event, ...scripts: string[]): boolean;
+        export function chain(source: HTMLElement | string, event?: Event | null, ...scripts: string[]): boolean;
     }
 }
