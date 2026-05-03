@@ -44,17 +44,34 @@ export declare namespace faces {
     export type AjaxErrorStatus = "httpError" | "emptyResponse" | "malformedXML" | "serverError";
 
     /**
-     * <p class="changed_added_5_0">Data passed to an
-     * <code>{@link faces.ajax.OnEventCallback}</code>.</p>
+     * <p class="changed_added_5_0">Common shape for the data passed to the ajax
+     * callbacks (<code>{@link faces.ajax.OnEventCallback}</code> and
+     * <code>{@link faces.ajax.OnErrorCallback}</code>).</p>
      * @since 5.0
      */
-    export interface AjaxEvent {
-        type: "event";
-        status: AjaxEventStatus;
+    export interface AjaxData {
+        /** The DOM element that triggered the request, if available. */
         source?: Element;
+        /** HTTP response status code, if the response reached the client. */
         responseCode?: number;
+        /** Raw response body, if the response reached the client. */
         responseText?: string;
+        /** Parsed XML response, if the response reached the client. */
         responseXML?: XMLDocument;
+    }
+
+    /**
+     * <p class="changed_added_5_0">Data passed to an
+     * <code>{@link faces.ajax.OnEventCallback}</code>. The inherited
+     * <code>responseCode</code>, <code>responseText</code> and
+     * <code>responseXML</code> are absent for <code>status === "begin"</code>.</p>
+     * @since 5.0
+     */
+    export interface AjaxEvent extends AjaxData {
+        /** Discriminator: always <code>"event"</code>. */
+        type: "event";
+        /** Lifecycle status of the request. */
+        status: AjaxEventStatus;
     }
 
     /**
@@ -63,13 +80,11 @@ export declare namespace faces {
      * <code>errorMessage</code> are populated for <code>serverError</code> only.</p>
      * @since 5.0
      */
-    export interface AjaxError {
+    export interface AjaxError extends AjaxData {
+        /** Discriminator: always <code>"error"</code>. */
         type: "error";
+        /** Error status. */
         status: AjaxErrorStatus;
-        source?: Element;
-        responseCode?: number;
-        responseText?: string;
-        responseXML?: XMLDocument;
         /** Fully qualified class name string. Present for <code>serverError</code>. */
         errorName?: string;
         /** Error message. Present for <code>serverError</code>. */
@@ -170,8 +185,11 @@ export declare namespace faces {
          * @since 5.0
          */
         export interface RequestContext {
+            /** Identifier of the element that triggered this request. */
             sourceid?: string;
+            /** Per-request error callback, layered on top of any callbacks registered via <code>{@link faces.ajax.addOnError}</code>. */
             onerror?: OnErrorCallback;
+            /** Per-request event callback, layered on top of any callbacks registered via <code>{@link faces.ajax.addOnEvent}</code>. */
             onevent?: OnEventCallback;
         }
 
