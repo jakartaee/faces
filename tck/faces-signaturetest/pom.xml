@@ -32,7 +32,7 @@
     <artifactId>faces-sigtest</artifactId>
     <packaging>jar</packaging>
 
-    <name>Faces TCK Signature Test</name>
+    <name>Jakarta Faces TCK ${project.version} - Signature Test</name>
 
     <properties>
         <maven.compiler.release>17</maven.compiler.release>

@@ -56,7 +56,7 @@ mvn clean install -Dmojarra.noupdate
     <version>5.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces ${project.version} TCK</name>
+    <name>Jakarta Faces TCK ${project.version}</name>
 
     <modules>
         <module>util</module>
