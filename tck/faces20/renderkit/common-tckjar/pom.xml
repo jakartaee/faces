@@ -21,19 +21,12 @@
 
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
-        <artifactId>pom</artifactId>
+        <artifactId>renderkit</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>renderkit</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>renderkit-common-tckjar</artifactId>
+    <packaging>jar</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - renderkit</name>
-
-    <modules>
-        <module>common-tckjar</module>
-        <module>input</module>
-        <module>output</module>
-        <module>structure</module>
-    </modules>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - renderkit - common tckjar</name>
 </project>
