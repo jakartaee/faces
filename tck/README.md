@@ -104,20 +104,40 @@ mvn clean install -T 4 -Dglassfish.home=/path/to/glassfish9
 | `-T 8` | Eight Maven threads. Pool grows up to `gf.pool.maxSize` to match. |
 | `-T 1` | Sequential build, single slot. |
 
-To force more pool slots than the default `max(4, cores/2)` cap, set
-`gf.pool.size` to the count you want. The grow cap is auto-raised to match,
-so you don't have to set both. Example for a 10-core (20-thread) host
-running 16 GFs:
+### Sizing `-T` and the pool for the host
+
+Each parallel test module spawns a failsafe-fork JVM, drives a Chrome
+instance, and pushes deploy/HTTP traffic at its leased GlassFish JVM. So
+**every `-T N` slot keeps roughly three hot processes busy** (test JVM +
+browser + GF), plus the Maven master and OS overhead, and each GF JVM
+holds ~1 GB resident. Pick `-T` to leave both CPU and memory headroom:
+
+| Host | Recommended `-T` |
+| --- | --- |
+| 4-core / 8-thread laptop | `-T 4` |
+| 10-core / 20-thread workstation | `-T 8` (`-T 10` reliably saturates and Selenium ajax timeouts start firing) |
+| 16-core / 32-thread CI | `-T 12`–`-T 16` |
+| 32-core / 64-thread server | `-T 20`–`-T 24` |
+
+Going higher than these guidelines tends to *slow* the build on Selenium-
+heavy modules: per-request latency stretches past the test's 30-second
+ajax wait, modules like `faces23/ajax` start failing intermittently, and
+the failure cost outweighs the parallelism gain. If you must push higher,
+set `-Dfailsafe.rerunFailingTestsCount=2` to absorb pure flakes.
+
+The pool grows on demand up to `max(4, cores/2)`, so by default `-T 4`
+ramps to 4 slots and `-T 8` ramps to 8 (subject to the cap). To run more
+slots than the default cap, set `gf.pool.size` to the count you want —
+the grow cap auto-raises to match, so you don't have to set both:
 
 ```bash
 mvn clean install -T 16 -Dgf.pool.size=16
 ```
 
-`-Dgf.pool.maxSize=N` is only needed when you want a *higher* grow ceiling
-than the initial provision (e.g. `-Dgf.pool.size=4 -Dgf.pool.maxSize=16` to
-start small and let grow-on-demand scale up to 16). Memory is the real
-constraint — budget ~1 GB per slot for GlassFish plus headroom for the
-test JVMs and browsers.
+`-Dgf.pool.maxSize=N` is only needed when you want a *higher* grow
+ceiling than the initial provision (e.g. `-Dgf.pool.size=4
+-Dgf.pool.maxSize=16` to start small and let grow-on-demand scale up to
+16).
 
 ## Pool lifecycle helpers
 
