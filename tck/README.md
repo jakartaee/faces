@@ -63,13 +63,6 @@ The pool starts with one slot and grows on demand, so a sequential build
 uses one GlassFish; `-T 4` grows up to four; `-T 8` up to eight (capped at
 `max(4, cores/2)`). Pick `-T` based on host capacity.
 
-The `cyclonedx-maven-plugin:makeAggregateBom` mojo is annotated
-`@aggregator` (it walks the full reactor's dep graph for every SBOM).
-The TCK root pom binds it to run **once at the root reactor**, not
-per-module — so the parallel build doesn't repeatedly serialise on it.
-Skip the SBOM entirely with `-DskipSBOM`. To force eager provisioning
-of all pool slots from the start: `-Dgf.pool.size=N`.
-
 A single test module:
 
 ```bash
