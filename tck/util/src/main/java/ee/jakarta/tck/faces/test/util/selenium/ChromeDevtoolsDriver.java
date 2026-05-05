@@ -148,6 +148,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         }
 
         options.addArguments("--no-sandbox");
+        options.addArguments("--disable-dev-shm-usage"); 
         options.addArguments("--disable-web-security");
         options.addArguments("--allow-insecure-localhost");
         options.addArguments("--remote-allow-origins=*");
