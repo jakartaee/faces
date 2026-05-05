@@ -17,14 +17,13 @@
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
@@ -43,13 +42,8 @@ class Issue2439IT extends BaseITNG {
         WebElement output = page.findElement(By.id("output"));
         WebElement input1 = page.findElement(By.id("form1:input1"));
 
-        try {
-            page.guardAjax(() -> input1.sendKeys("1", Keys.TAB));
-            fail("There should be no ajax behavior");
-        }
-        catch (TimeoutException e) {
-            assertEquals("", output.getText());
-        }
+        assertTrue(page.assertNoAjax(() -> input1.sendKeys("1", Keys.TAB)), "no ajax expected for disabled behavior");
+        assertEquals("", output.getText());
 
         WebElement input2 = page.findElement(By.id("form1:input2"));
         page.guardAjax(() -> input2.sendKeys("2", Keys.TAB));

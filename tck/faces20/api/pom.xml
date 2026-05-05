@@ -32,7 +32,11 @@
 
     <modules>
         <module>common-tckjar</module>
-        <module>api</module>
+        <module>component</module>
+        <module>event</module>
+        <module>converter-validator</module>
+        <module>misc</module>
+        <module>app</module>
         <module>application</module>
         <module>lifecycle</module>
         <module>renderkit</module>

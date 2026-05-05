@@ -18,6 +18,7 @@
 package ee.jakarta.tck.faces.test.javaee8.ajax_selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.context.PartialViewContext;
@@ -39,7 +40,7 @@ class Spec1412IT extends BaseITNG {
     void spec1412() throws Exception {
 
         WebPage page = getPage("spec1412.xhtml");
-        assertTrue(page.isNotInPage("Success!"));
+        assertFalse(page.getPageSource().contains("Success!"));
 
         WebElement button = page.findElement(By.id("form:button"));
 

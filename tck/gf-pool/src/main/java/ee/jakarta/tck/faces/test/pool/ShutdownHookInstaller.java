@@ -9,12 +9,15 @@
  */
 package ee.jakarta.tck.faces.test.pool;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.tools.ant.Project;
@@ -165,6 +168,10 @@ public final class ShutdownHookInstaller extends Task {
         if (slotDirs == null) {
             return;
         }
+        // Stop slots concurrently — each asadmin stop-domain takes ~500 ms and the
+        // calls are independent. The FileLock probe inside stopSlotIfIdle is safe
+        // across threads because each slot has its own lock file.
+        List<Thread> stoppers = new ArrayList<>(slotDirs.length);
         for (File slotDir : slotDirs) {
             int slotIdx;
             try {
@@ -172,7 +179,19 @@ public final class ShutdownHookInstaller extends Task {
             } catch (NumberFormatException e) {
                 continue;
             }
-            stopSlotIfIdle(slotDir.toPath(), slotIdx, stopSlotScript, poolDir);
+            Thread t = new Thread(
+                () -> stopSlotIfIdle(slotDir.toPath(), slotIdx, stopSlotScript, poolDir),
+                "gf-pool-stop-slot-" + slotIdx);
+            t.start();
+            stoppers.add(t);
+        }
+        for (Thread t : stoppers) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
         }
     }
 
@@ -201,9 +220,22 @@ public final class ShutdownHookInstaller extends Task {
         ProcessBuilder pb = new ProcessBuilder("bash", script.getAbsolutePath());
         pb.environment().put("POOL_DIR", poolDir.getAbsolutePath());
         pb.environment().put("SLOT_IDX", String.valueOf(slotIdx));
-        pb.inheritIO();
+        pb.redirectErrorStream(true);
         try {
-            pb.start().waitFor();
+            Process process = pb.start();
+            // Buffer the entire per-slot output and emit it as one block so the
+            // concurrent slots' lines don't interleave mid-line on the console.
+            ByteArrayOutputStream buf = new ByteArrayOutputStream();
+            process.getInputStream().transferTo(buf);
+            process.waitFor();
+            String out = buf.toString();
+            if (!out.isEmpty() && !out.endsWith("\n")) {
+                out += "\n";
+            }
+            synchronized (ShutdownHookInstaller.class) {
+                System.out.print(out);
+                System.out.flush();
+            }
         } catch (IOException | InterruptedException e) {
             System.err.println("[gf-pool] failed to stop slot " + slotIdx + ": " + e);
             if (e instanceof InterruptedException) {

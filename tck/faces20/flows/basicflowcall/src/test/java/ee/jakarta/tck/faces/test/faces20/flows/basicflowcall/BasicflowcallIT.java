@@ -16,6 +16,7 @@
 package ee.jakarta.tck.faces.test.faces20.flows.basicflowcall;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -64,7 +65,7 @@ class BasicflowcallIT extends BaseITNG {
         page.guardHttp(callB::click);
 
         assertTrue(page.isInPageText("Flow_b_Bean"), "Flow_b_Bean");
-        assertTrue(page.isNotInPageText("Flow_a_Bean"), "Not Flow_a_Bean");
+        assertFalse((page.getPageText() + page.getInputValues()).contains("Flow_a_Bean"), "Not Flow_a_Bean");
         assertEquals("param1Value", findByIdSuffix(page, "param1FromFlowA").getText(), "param1FromFlowA");
         assertEquals("param2Value", findByIdSuffix(page, "param2FromFlowA").getText(), "param2FromFlowA");
 

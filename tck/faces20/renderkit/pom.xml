@@ -26,11 +26,14 @@
     </parent>
 
     <artifactId>renderkit</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - renderkit</name>
 
-    <build>
-        <finalName>test-faces20-renderkit</finalName>
-    </build>
+    <modules>
+        <module>common-tckjar</module>
+        <module>input</module>
+        <module>output</module>
+        <module>structure</module>
+    </modules>
 </project>

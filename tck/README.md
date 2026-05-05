@@ -144,6 +144,14 @@ pool independently of a build:
 ./stop-pool.sh                                  # stop everything
 ```
 
+To watch how many surefire-forked test JVMs are running concurrently
+during a build (each one leases a slot, so this is also the live slot
+lease count):
+
+```bash
+watch -n 1 'pgrep -fa "java.*surefirebooter" | grep -v "/bin/sh" | wc -l'
+```
+
 ## Testing against other servers (WIP)
 
 Other Arquillian-supported servers can be selected via profile:

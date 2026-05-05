@@ -38,7 +38,7 @@ class Issue2179IT extends BaseITNG {
   @Test
   void encodeException() throws Exception {
         WebPage page = getPage("issue2179-page1.xhtml");
-        assertTrue(page.isInPageTextReduced("IO EXCEPTION!!!!!"));
+        assertTrue(page.getPageTextReduced().contains("IO EXCEPTION!!!!!"));
     }
 
   /**
@@ -54,8 +54,8 @@ class Issue2179IT extends BaseITNG {
         // or a div with innerHTML which always will work, also value does work
         WebPage page = getPage("issue2179-page2.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
-        button.click();
+        page.guardAjax(button::click);
 
-        assertTrue(page.isInPageTextReduced("Name: form:submit Error: serverError"));
+        assertTrue(page.getInputValues().contains("Name: form:submit Error: serverError"));
     }
 }

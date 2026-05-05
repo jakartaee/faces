@@ -481,7 +481,7 @@
                         <phase>integration-test</phase>
                     </execution>
                     <execution>
-                        <id>veify</id>
+                        <id>verify</id>
                         <goals>
                             <goal>verify</goal>
                         </goals>

@@ -161,7 +161,10 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         options.addArguments("--lang=en");
 
         ExtendedWebDriver driver = new ChromeDevtoolsDriver(options);
-        driver.manage().timeouts().implicitlyWait(STD_TIMEOUT);
+        // Disable Selenium's implicit wait. Mixing it with explicit waits is documented as
+        // unreliable, and on findElements() it turns an empty (legitimate) result into a full
+        // STD_TIMEOUT block. findElement() now relies solely on facesContentWait to retry.
+        driver.manage().timeouts().implicitlyWait(Duration.ZERO);
         driver.manage().timeouts().pageLoadTimeout(STD_TIMEOUT);
         driver.manage().timeouts().scriptTimeout(STD_TIMEOUT);
 
@@ -513,7 +516,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
     @Override
     public List<WebElement> findElements(By locator) {
-        return facesContentWait.until(driver -> driver.findElements(locator));
+        // No facesContentWait wrap: empty result is a valid answer for findElements, not a
+        // condition to wait on. Tests that need an element to appear should use findElement().
+        return delegate.findElements(locator);
     }
 
     @Override
@@ -649,7 +654,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
     @Override
     public List<WebElement> findElements(SearchContext context, BiFunction<String, Object, CommandPayload> findCommand, By locator) {
-        return facesContentWait.until(driver -> driver.findElements(context, findCommand, locator));
+        return delegate.findElements(context, findCommand, locator);
     }
 
     @Override
