@@ -148,7 +148,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         }
 
         options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage"); 
+        // Defensive: containerized CI typically caps /dev/shm at 64 MiB, which is small for
+        // Chrome's renderer IPC. Routing shared memory to /tmp via this flag is the standard
+        // Selenium-on-Kubernetes mitigation. In practice the TCK's actual /dev/shm usage stays
+        // well below the cap (verified empirically — tck-procs.log on a full reactor run showed
+        // 0/64M throughout), but this costs nothing on hosts that aren't constrained and
+        // protects against future cgroup tightening or an extra-heavy test that could push past
+        // the limit.
+        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-web-security");
         options.addArguments("--allow-insecure-localhost");
         options.addArguments("--remote-allow-origins=*");
@@ -210,25 +217,6 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
     private static void disableCache(DevTools devTools) {
         devTools.send(Network.setCacheDisabled(true));
-    }
-
-    /**
-     * Cheap CDP-level liveness probe. Returns {@code true} if the underlying DevTools WebSocket
-     * is still able to round-trip a no-op command, {@code false} on any failure (timeout, closed
-     * session, etc.). Used by {@link DriverPool#getOrNewInstance()} to detect a recycled driver
-     * whose WebDriver wire is alive but whose DevTools channel has died — in which case the
-     * normal {@link #postInit()} path would otherwise spin in a 10-attempt retry loop for ~9
-     * minutes before giving up. {@code Network.setCacheDisabled(true)} is the no-op of choice
-     * because it's already used by {@link #disableCache} so it's known to be supported by every
-     * Chrome version this driver targets, and it's idempotent.
-     */
-    public boolean isCdpAlive() {
-        try {
-            delegate.getDevTools().send(Network.setCacheDisabled(true));
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     private static void initDevTools(DevTools devTools) {
@@ -569,7 +557,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         DevTools devTools = delegate.getDevTools();
         devTools.clearListeners();
         devTools.send(Network.clearBrowserCookies()); // just to be sure w clear out all cookies
-        devTools.disconnectSession(); // This kills off the existing session
+        // disconnectSession() used to be called here to kill off the existing CDP session so the
+        // next postInit() rebuilt a clean one. That cycle was reliable on Selenium 4.20 (the
+        // version the 4.1.0 TCK zip is frozen at), but starting somewhere in the 4.21..4.35 range
+        // the re-attach intermittently fails: postInit()'s createSession() silently times out,
+        // its Network.enable() retry loop spins for ~9 minutes, and BaseITNG.setUp throws
+        // TimeoutException. clearListeners() + clearBrowserCookies() above already drop the
+        // per-test state we actually need to reset; keeping the WebSocket alive avoids the
+        // re-attach race entirely.
 
         cycleData.clear();
         lastGet = null;

@@ -35,19 +35,6 @@ public class DriverPool {
         // synchronized to avoid get race conditions.... there is a non synchonzed part between the check and remove
         // to make this easy we simply synchronize the get to fix it
         ExtendedWebDriver webDriver = availableDrivers.isEmpty() ? null : availableDrivers.remove();
-        if (webDriver != null && !isAlive(webDriver)) {
-            // A pooled driver's CDP session can go stale between tests (renderer crash,
-            // dropped DevTools WebSocket, etc.). Without this guard, postInit()'s
-            // Network.enable() retry loop spins for ~9 minutes before giving up and the
-            // next test class errors with a misleading TimeoutException at setUp.
-            try {
-                webDriver.quit();
-            } catch (Exception ignore) {
-                // Best-effort cleanup; the driver is already broken.
-            }
-            allDrivers.remove(webDriver);
-            webDriver = null;
-        }
         if (webDriver == null) {
             webDriver = ChromeDevtoolsDriver.stdInit();
             allDrivers.add(webDriver);
@@ -55,23 +42,6 @@ public class DriverPool {
 
         webDriver.postInit();
         return webDriver;
-    }
-
-    private static boolean isAlive(ExtendedWebDriver driver) {
-        // The WebDriver wire (HTTP to chromedriver) and the CDP WebSocket (chromedriver to
-        // Chrome) are independent channels. A pooled driver can have a healthy WebDriver wire
-        // (getCurrentUrl returns fine) yet a dead DevTools WebSocket (Network.* sends time out)
-        // — and it's the latter that causes the 9-minute postInit retry hang. So probe both:
-        // the WebDriver wire first (cheap), then the CDP channel (the actual failure mode).
-        try {
-            driver.getCurrentUrl();
-        } catch (Exception e) {
-            return false;
-        }
-        if (driver instanceof ChromeDevtoolsDriver) {
-            return ((ChromeDevtoolsDriver) driver).isCdpAlive();
-        }
-        return true;
     }
 
     /**
