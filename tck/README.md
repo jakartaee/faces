@@ -1,5 +1,5 @@
 <!---
-[//]: # " Copyright (c) 2021 Contributors to the Eclipse foundation. All rights reserved.
+[//]: # " Copyright (c) 2021, 2026 Contributors to the Eclipse foundation. All rights reserved. "
 [//]: # "  "
 [//]: # " This program and the accompanying materials are made available under the "
 [//]: # " terms of the Eclipse Public License v. 2.0, which is available at "
@@ -14,161 +14,137 @@
 [//]: # " SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 "
 -->
 
-# Faces "new" tests
+# Jakarta Faces TCK
 
-The tests in this folder assert that functionality is working as it should. Test are junit tests
-that use Arquillian to start/stop a server and to deploy/undeploy. The (plain) junit tests then do
-HTTP requests to the server. No Arquillian "magic" is being used, and specifically no magic in-container
-transfer of test code happens. All test code runs client-side in regular junit tests.
+Integration tests that assert the Faces API and reference implementation behave
+as the spec mandates. Tests are JUnit + Selenium driving real HTTP requests
+against a deployed WAR; Arquillian only handles deploy/undeploy. No in-container
+test transfer is used — all assertions run client-side.
 
-## NOTE
+## Architecture: the GlassFish pool
 
-This is a relatively new effort (started in Mojarra 4.0). Not all functionality is covered yet.
+The TCK runs every test module against a pre-started GlassFish instance from a
+shared **pool**, leased per-module by a Java agent attached to each
+failsafe-forked test JVM. The pool lives entirely under
+`gf-pool/target/pool/` and is wiped by `mvn clean`.
+
+- `gf-pool` module: unpacks GlassFish, overlays the Mojarra build under test,
+  clones the install into `slot-N/` directories (hardlinked via `cp -al`),
+  patches each slot's port range, and starts the initial slot's domain.
+- `SlotLeaserAgent` (Java agent, `-javaagent:slot-leaser-agent.jar`):
+  acquires a `FileLock` on `slot-N/lock`, publishes the slot's
+  `arquillian.adminPort` / `httpPort` / `httpsPort` as system properties for
+  the Arquillian remote container, and holds the lock for the JVM lifetime
+  (released automatically on JVM exit).
+- Grow-on-demand: if every existing slot is leased, the agent provisions
+  another slot up to `max(4, cores/2)`. So a single
+  `mvn -Dit.test=…` boots one server; `mvn -T 4 install` grows to four;
+  CI on a 32-core host tops out at 16.
+- `ShutdownHookInstaller`: a custom Ant task registered by the `gf-pool`
+  antrun. Runs in the Maven JVM and installs a JVM shutdown hook that stops
+  every running slot at session end — both on normal completion and on
+  `Ctrl+C`.
 
 ## Running the tests
 
-A default run of the tests can be started using:
+Full suite, sequentially:
 
 ```bash
 mvn clean install
 ```
 
-This will transparently download and unzip GlassFish into the root of this `test2` folder and update it with the build
-of Mojarra produced by this project. The tests are then run against this server.
-
-### Running the tests with a specific version of Mojarra
-
-Tests can be run with any version of Mojarra supported by GlassFish (7.x the moment):
+To actually exercise the pool's parallelism, pass `-T N`:
 
 ```bash
-mvn clean install -pl :childCountTest -Dmojarra.version=4.0.0
+mvn clean install -T 4
 ```
+
+The pool starts with one slot and grows on demand, so a sequential build
+uses one GlassFish; `-T 4` grows up to four; `-T 8` up to eight (capped at
+`max(4, cores/2)`). Pick `-T` based on host capacity.
+
+The `cyclonedx-maven-plugin:makeAggregateBom` mojo is annotated
+`@aggregator` (it walks the full reactor's dep graph for every SBOM).
+The TCK root pom binds it to run **once at the root reactor**, not
+per-module — so the parallel build doesn't repeatedly serialise on it.
+Skip the SBOM entirely with `-DskipSBOM`. To force eager provisioning
+of all pool slots from the start: `-Dgf.pool.size=N`.
+
+A single test module:
 
 ```bash
-mvn clean install -pl :childCountTest -Dmojarra.version=4.0.5-SNAPSHOT
+mvn -pl faces50/ajax -am verify
 ```
 
-etc
-
-### Running the tests with the supplied version of Mojarra using the default GlassFish server
-
-Tests can be run without updating Mojarra and using the version that ships with GlassFish (7.x the moment):
+A single test class or method:
 
 ```bash
-mvn clean install -pl :childCountTest -Dmojarra.noupdate=true
+mvn -pl faces50/ajax -am verify -Dit.test=Issue5594IT
+mvn -pl faces50/ajax -am verify -Dit.test=Issue5594IT#someMethod
 ```
 
-
-### Debugging using the default GlassFish server
-
-GlassFish can be switched to debugging mode and suspend right at the start using:
+Against an existing GlassFish install (skips the zip download and the
+Mojarra overlay; that install becomes the pool's clone source — every
+slot is `cp -al`-cloned from it, with `applications/`, `generated/`,
+`logs/` cleared per slot):
 
 ```bash
-mvn clean install -Dsuspend=true
+mvn clean install -T 4 -Dglassfish.home=/path/to/glassfish9
 ```
 
-This will suspend the JVM running GlassFish and wait for a debug connection on port `9009`.
+## Common overrides
 
-### Debugging a specific test
+| Flag | Effect |
+| --- | --- |
+| `-Dmojarra.version=X.Y.Z` | Test against a specific Mojarra release/snapshot. |
+| `-Dmojarra.noupdate=true` | Skip the Mojarra overlay; test the build that ships with GlassFish. Set `-Dsigtest.api.version=` to match the API GlassFish ships. |
+| `-Dglassfish.home=/path/to/glassfish9` | Skip the GlassFish download; clone slots from an existing install. Each slot still gets a fresh copy of `domains/` with `applications/`, `generated/`, `logs/` cleared. |
+| `-Dgf.pool.size=N` | Pre-provision N slots at build time instead of the default 1. |
+| `-Dgf.pool.maxSize=N` | Override the grow-on-demand cap (default `max(4, cores/2)`). |
+| `-T 8` | Eight Maven threads. Pool grows up to `gf.pool.maxSize` to match. |
+| `-T 1` | Sequential build, single slot. |
 
-A specific test module can be tested using the normal Maven method of building a single module:
+To force more pool slots than the default `max(4, cores/2)` cap, set
+`gf.pool.size` to the count you want. The grow cap is auto-raised to match,
+so you don't have to set both. Example for a 10-core (20-thread) host
+running 16 GFs:
 
 ```bash
-mvn -pl :childCountTest  clean install -Dsuspend=true
+mvn clean install -T 16 -Dgf.pool.size=16
 ```
 
-A specific test class or even test method within such test class can be done via the normal Maven failsafe way:
+`-Dgf.pool.maxSize=N` is only needed when you want a *higher* grow ceiling
+than the initial provision (e.g. `-Dgf.pool.size=4 -Dgf.pool.maxSize=16` to
+start small and let grow-on-demand scale up to 16). Memory is the real
+constraint — budget ~1 GB per slot for GlassFish plus headroom for the
+test JVMs and browsers.
 
+## Pool lifecycle helpers
+
+The pool is normally stopped automatically at the end of every Maven session
+by `ShutdownHookInstaller`. Two convenience scripts are provided for running the
+pool independently of a build:
 
 ```bash
-mvn clean install -pl :childCountTest -Dit.test=ChildCountTestIT#testChildCountTest -Dsuspend=true
+./start-pool.sh                                 # provision and start the pool
+./start-pool.sh -Dglassfish.home=/path/to/gf    # pass through gf-pool overrides
+./stop-pool.sh                                  # stop everything
 ```
 
-### Testing against other server (WIP)
+## Testing against other servers (WIP)
 
-The tests support being run against any server for which there is an Arquillian connector available via profiles:
+Other Arquillian-supported servers can be selected via profile:
 
 ```bash
 mvn clean install -Ppiranha-embedded-micro
+mvn clean install -Ptomcat-ci-managed
 ```
 
-Note: Since this is a brand new project, support for other servers, specifically updating them to use specific Faces builds is WIP.
+Coverage and Mojarra-version handling for non-GlassFish servers is still
+work-in-progress.
 
-## Running the test manually
+## Running tests manually
 
-Every test module produces a plain war. This war can be deployed to any server supporting wars, which is at least every Jakarta EE compatible server. Look at the test code
-for hints on which URLs to request manually using e.g. a web browser.
-
-# Faces "old" tests
-
-A subset of the tests in this folder are from the "old tck", which is the TCK based on the JavaTest harness and Apache Ant. These tests are run as part of the overall TCK run. E.g. they will be executed when running: 
-
-```bash
-mvn clean install
-```
-
-## Running only the old tests
-
-The module containing the old tests can be executed separately using the normal Maven method of building a single module:
-
-```bash
-mvn clean install -pl :old-tck-build,old-tck-run
-```
-
-When the old TCK has already been build once for this release of the TCK, subsequent invocations can be done by omitting the build step:
-
-
-```bash
-mvn clean install -pl :old-tck-run
-```
-
-## Running a single old tests
-
-Executing a single old test is different from running a single new test. It is done by using the `run.test` parameter and the full URL of the test (URLs are printed after the old test executed, and can also be found in the `ts-all-platform.jtx` and `ts-all-standalone.jtx` files). 
-
-For example:
-
-
-```bash
-mvn clean install -pl :old-tck-run -Drun.test="com/sun/ts/tests/jsf/api/jakarta_faces/validator/doublerangevalidator/URLClient.java#stateHolderSaveStateNPETest"
-```
-
-
-## Running multiple old tests
-
-Using the `run.test.pattern` a regexp can be specified that runs all tests matching that.
-
-For example, the following runs all component tests:
-
-```bash
-mvn clean install -pl :old-tck-run -Drun.test.pattern='^com/sun/ts/tests/jsf/api/jakarta_faces/component'
-```
-
-The following runs all tests except the component tests:
-
-
-```bash
-mvn clean install -pl :old-tck-run -Drun.test.pattern='^((?!com/sun/ts/tests/jsf/api/jakarta_faces/component).)*$'
-```
-
-
-## Debugging old tests
-
-GlassFish can be switched to debugging mode and suspend right at the start using:
-
-```bash
-mvn clean install -glassfish.suspend=true
-```
-
-This will suspend the JVM running GlassFish and wait for a debug connection on port `9009`.
-
-
-
-
-
-
-
-
-
-
-
+Each test module produces a plain WAR (e.g. `faces50/ajax/target/test-faces50-ajax.war`).
+Deploy it to any Jakarta EE compatible server; the test code itself is documented
+inline and identifies the URLs to request via a browser.

@@ -16,30 +16,8 @@
 
 -->
 
-<!--
+<!-- See README.md for usage, architecture, and overrides. -->
 
-Usage:
-
-Run full TCK (runs both current and old)
-
-mvn clean install
-
-
-
-Run full TCK, debugging remote GlassFish (suspends on port 9009)
-
-mvn clean install -Dglassfish.suspend
-
-
-
-Run full TCK, with the version of Mojarra supplied by GlassFish
-(for the signature check mojara.version has to be set to the exact version GlassFish uses)
-
-mvn clean install -Dmojarra.noupdate
-
-
-
--->
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
@@ -60,6 +38,7 @@ mvn clean install -Dmojarra.noupdate
 
     <modules>
         <module>util</module>
+        <module>gf-pool</module>
         <module>faces20</module>
         <module>faces22</module>
         <module>faces23</module>
@@ -70,7 +49,7 @@ mvn clean install -Dmojarra.noupdate
     </modules>
 
     <properties>
-        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -96,9 +75,9 @@ mvn clean install -Dmojarra.noupdate
             This can best be done in a profile specific to the implementation.
             See the standard profiles for examples.
         -->
-        <sigtest.api.groupId></sigtest.api.groupId>
-        <sigtest.api.artifactId></sigtest.api.artifactId>
-        <sigtest.api.version></sigtest.api.version>
+        <sigtest.api.groupId>jakarta.faces</sigtest.api.groupId>
+        <sigtest.api.artifactId>jakarta.faces-api</sigtest.api.artifactId>
+        <sigtest.api.version>${faces.version}</sigtest.api.version>
 
         <!-- Application Server versions (these are downloaded and installed in these versions by Maven for the CI profiles) -->
         <tomcat.version>9.0.12</tomcat.version>
@@ -460,7 +439,7 @@ mvn clean install -Dmojarra.noupdate
                             <version>3.8.6</version>
                         </requireMavenVersion>
                         <requireJavaVersion>
-                            <version>[17,)</version>
+                            <version>[${maven.compiler.release},)</version>
                         </requireJavaVersion>
                     </rules>
                 </configuration>
@@ -512,16 +491,30 @@ mvn clean install -Dmojarra.noupdate
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
+                <!--
+                    Override the cyclonedx-maven-plugin execution inherited from
+                    the org.eclipse.ee4j:project parent's 'sbom' profile so the
+                    reactor produces ONE aggregate SBOM (at the root) instead of
+                    re-running makeAggregateBom in every module. The mojo is
+                    @aggregator and walks the full reactor dep graph each time,
+                    which serialised every parallel `mvn -T N` build with
+                    "aggregator mojo is already being executed" warnings while
+                    other builders parked. Skip the whole thing with -DskipSBOM.
+                -->
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>post-integration-test</phase>
+                        <id>default</id>
+                        <phase>none</phase>
+                    </execution>
+                    <execution>
+                        <!-- Run once on the root reactor build only. -->
+                        <id>aggregate-bom-root</id>
+                        <inherited>false</inherited>
+                        <phase>verify</phase>
                         <goals>
-                            <goal>failsafe-report-only</goal>
+                            <goal>makeAggregateBom</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -574,44 +567,42 @@ mvn clean install -Dmojarra.noupdate
         <profile>
             <id>glassfish-ci-managed</id>
 
+            <!--
+                Activate only on modules that actually deploy a WAR to GlassFish
+                (those with src/main/webapp). Skips util, gf-pool, intermediate
+                aggregator poms, the example_jar_* fixtures, and faces-signaturetest
+                (which runs sigtest-maven-plugin without any GlassFish involvement
+                and would otherwise hang in the agent's premain waiting for a slot
+                the test never leases).
+            -->
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <file>
+                    <exists>${basedir}/src/main/webapp</exists>
+                </file>
             </activation>
 
             <properties>
-                <arquillian.glassfish.version>2.1.0</arquillian.glassfish.version>
+                <arquillian.glassfish.version>2.1.3</arquillian.glassfish.version>
                 <slf4j.version>2.0.17</slf4j.version>
-                <!-- Explicit version of Mojarra to test -->
-                <mojarra.version>5.0.0-SNAPSHOT</mojarra.version>
-
-                <!--
-                    By default this profile will copy the Mojarra version to test to GlassFish.
-                    Set this to "true"" to skip copying and therefor use GlassFish as is. That is
-                    useful to test GlassFish itself instead of just a specific Mojarra version.
-                -->
-                <mojarra.noupdate>false</mojarra.noupdate>
-
-                <!--
-                    Jakarta Faces API artefact that holds the API classes.
-                    This is used by the signature test in module /faces-signaturetest
-                -->
-                <sigtest.api.groupId>jakarta.faces</sigtest.api.groupId>
-                <sigtest.api.artifactId>jakarta.faces-api</sigtest.api.artifactId>
-                <sigtest.api.version>${faces.version}</sigtest.api.version>
-
-                <!-- Verhicle used for testing the Mojarra version -->
-                <glassfish.version>9.0.0-M1</glassfish.version>
-                <glassfish.dirName>glassfish9</glassfish.dirName>
-                <glassfish.root>${maven.multiModuleProjectDirectory}/target</glassfish.root>
-                <glassfish.home>${glassfish.root}/${glassfish.dirName}</glassfish.home>
-                <test.logManager>org.glassfish.main.jul.GlassFishLogManager</test.logManager>
                 <test.logLevel>INFO</test.logLevel>
             </properties>
 
             <dependencies>
+                <!--
+                    Pool-leasing agent. Provides /META-INF Premain-Class=SlotLeaserAgent so
+                    the failsafe-forked JVM can attach via -javaagent and lease one of the
+                    pre-started GlassFish slots. The dependency is also what gets the gf-pool
+                    artifact path resolvable as a Maven property below.
+                -->
+                <dependency>
+                    <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
+                    <artifactId>gf-pool</artifactId>
+                    <version>${project.version}</version>
+                    <scope>test</scope>
+                </dependency>
                 <dependency>
                     <groupId>ee.omnifish.arquillian</groupId>
-                    <artifactId>arquillian-glassfish-server-managed</artifactId>
+                    <artifactId>arquillian-glassfish-server-remote</artifactId>
                     <version>${arquillian.glassfish.version}</version>
                     <scope>test</scope>
                 </dependency>
@@ -619,12 +610,6 @@ mvn clean install -Dmojarra.noupdate
                     <groupId>ee.omnifish.arquillian</groupId>
                     <artifactId>glassfish-client-ee11</artifactId>
                     <version>${arquillian.glassfish.version}</version>
-                    <scope>test</scope>
-                </dependency>
-                <dependency>
-                    <groupId>org.glassfish.main</groupId>
-                    <artifactId>glassfish-jul-extension</artifactId>
-                    <version>${glassfish.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
@@ -638,90 +623,42 @@ mvn clean install -Dmojarra.noupdate
             <build>
                 <plugins>
                     <plugin>
-                        <artifactId>maven-enforcer-plugin</artifactId>
-                        <configuration>
-                            <rules>
-                                <requireJavaVersion>
-                                    <version>17</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>enforce</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
+                        <!--
+                            Resolves the gf-pool jar path into a Maven property
+                            (${org.eclipse.ee4j.tck.faces.test:gf-pool:jar}) so failsafe's argLine
+                            can reference it as a -javaagent.
+                        -->
                         <artifactId>maven-dependency-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>unpack</id>
-                                <phase>process-test-classes</phase>
+                                <id>resolve-agent-path</id>
+                                <phase>initialize</phase>
                                 <goals>
-                                    <goal>unpack</goal>
+                                    <goal>properties</goal>
                                 </goals>
-                                <configuration>
-                                    <outputDirectory>${glassfish.root}</outputDirectory>
-                                    <markersDirectory>${glassfish.root}/dependency-maven-plugin-markers</markersDirectory>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>org.glassfish.main.distributions</groupId>
-                                            <artifactId>glassfish</artifactId>
-                                            <version>${glassfish.version}</version>
-                                            <type>zip</type>
-                                            <overWrite>false</overWrite>
-                                            <outputDirectory>${glassfish.root}</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>update-mojarra</id>
-                                <phase>process-test-classes</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <skip>${mojarra.noupdate}</skip>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>jakarta.faces</groupId>
-                                            <artifactId>jakarta.faces-api</artifactId>
-                                            <version>${faces.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${glassfish.home}/glassfish/modules</outputDirectory>
-                                            <destFileName>jakarta.faces-api.jar</destFileName>
-                                        </artifactItem>
-                                        <artifactItem>
-                                            <groupId>org.glassfish.mojarra</groupId>
-                                            <artifactId>mojarra</artifactId>
-                                            <version>${mojarra.version}</version>
-                                            <type>jar</type>
-                                            <overWrite>true</overWrite>
-                                            <outputDirectory>${glassfish.home}/glassfish/modules</outputDirectory>
-                                            <destFileName>mojarra.jar</destFileName>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
                     <plugin>
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <configuration>
+                            <!--
+                                gf.pool.dir MUST be on the JVM command line (not in
+                                systemPropertyVariables) so the SlotLeaserAgent's
+                                premain can read it before the booter has applied
+                                surefire's property file. Pool size is self-
+                                discovered by scanning slot directories.
+                            -->
+                            <!--
+                                If a sibling profile or plugin (e.g. JaCoCo) ever needs to
+                                contribute its own JVM args, change this to
+                                "@{argLine} -javaagent:..." AND make sure something defines
+                                ${argLine} or the @{argLine} placeholder will be passed
+                                literally to the forked JVM and crash the test.
+                            -->
+                            <argLine>-javaagent:${org.eclipse.ee4j.tck.faces.test:gf-pool:jar} -Dgf.pool.dir=${maven.multiModuleProjectDirectory}/gf-pool/target/pool</argLine>
                             <systemPropertyVariables>
-                                <glassfish.home>${glassfish.home}</glassfish.home>
-                                <glassfish.systemProperties>
-                                    user.language=en
-                                    user.country=US
-                                </glassfish.systemProperties>
-                                <glassfish.suspend>${glassfish.suspend}</glassfish.suspend>
                                 <test.selenium>${test.selenium}</test.selenium>
-                                <java.util.logging.manager>${test.logManager}</java.util.logging.manager>
                                 <java.util.logging.config.useDefaults>true</java.util.logging.config.useDefaults>
                                 <java.util.logging.config.defaultLevel>${test.logLevel}</java.util.logging.config.defaultLevel>
                             </systemPropertyVariables>

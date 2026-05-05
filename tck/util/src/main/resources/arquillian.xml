@@ -6,4 +6,19 @@
         <property name="deploymentClass">ee.jakarta.tck.faces.test.util.selenium.BaseITNG</property>
     </extension>
 
+    <!--
+        Remote container pointed at one of the gf-pool slots. The SlotLeaserAgent
+        (-javaagent on the failsafe-forked JVM) leases a slot before tests run and
+        publishes the slot's ports as system properties. Defaults let an IDE talk
+        to a stock GlassFish on 4848/8080/8181 when running tests directly without
+        the agent.
+    -->
+    <container qualifier="glassfish-remote-tck" default="true">
+        <configuration>
+            <property name="adminHost">localhost</property>
+            <property name="adminPort">${arquillian.adminPort:4848}</property>
+            <property name="adminHttps">false</property>
+        </configuration>
+    </container>
+
 </arquillian>
