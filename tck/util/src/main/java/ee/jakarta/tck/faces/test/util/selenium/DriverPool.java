@@ -58,13 +58,20 @@ public class DriverPool {
     }
 
     private static boolean isAlive(ExtendedWebDriver driver) {
+        // The WebDriver wire (HTTP to chromedriver) and the CDP WebSocket (chromedriver to
+        // Chrome) are independent channels. A pooled driver can have a healthy WebDriver wire
+        // (getCurrentUrl returns fine) yet a dead DevTools WebSocket (Network.* sends time out)
+        // — and it's the latter that causes the 9-minute postInit retry hang. So probe both:
+        // the WebDriver wire first (cheap), then the CDP channel (the actual failure mode).
         try {
-            // Cheap, CDP-free liveness probe — throws on a dead WebDriver session.
             driver.getCurrentUrl();
-            return true;
         } catch (Exception e) {
             return false;
         }
+        if (driver instanceof ChromeDevtoolsDriver) {
+            return ((ChromeDevtoolsDriver) driver).isCdpAlive();
+        }
+        return true;
     }
 
     /**

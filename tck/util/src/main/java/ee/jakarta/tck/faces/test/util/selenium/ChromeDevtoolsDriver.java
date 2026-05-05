@@ -212,6 +212,25 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         devTools.send(Network.setCacheDisabled(true));
     }
 
+    /**
+     * Cheap CDP-level liveness probe. Returns {@code true} if the underlying DevTools WebSocket
+     * is still able to round-trip a no-op command, {@code false} on any failure (timeout, closed
+     * session, etc.). Used by {@link DriverPool#getOrNewInstance()} to detect a recycled driver
+     * whose WebDriver wire is alive but whose DevTools channel has died — in which case the
+     * normal {@link #postInit()} path would otherwise spin in a 10-attempt retry loop for ~9
+     * minutes before giving up. {@code Network.setCacheDisabled(true)} is the no-op of choice
+     * because it's already used by {@link #disableCache} so it's known to be supported by every
+     * Chrome version this driver targets, and it's idempotent.
+     */
+    public boolean isCdpAlive() {
+        try {
+            delegate.getDevTools().send(Network.setCacheDisabled(true));
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     private static void initDevTools(DevTools devTools) {
         try {
             devTools.createSession();
