@@ -21,26 +21,24 @@
 
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
-        <artifactId>pom</artifactId>
+        <artifactId>api</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>api</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>api-converter-validator</artifactId>
+    <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - api</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - api - converter-validator</name>
 
-    <modules>
-        <module>common-tckjar</module>
-        <module>component</module>
-        <module>event</module>
-        <module>converter-validator</module>
-        <module>misc</module>
-        <module>app</module>
-        <module>application</module>
-        <module>lifecycle</module>
-        <module>renderkit</module>
-        <module>factoryfinderrelease</module>
-        <module>statemanager-client</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
+            <artifactId>api-common-tckjar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>test-faces20-api-converter-validator</finalName>
+    </build>
 </project>
