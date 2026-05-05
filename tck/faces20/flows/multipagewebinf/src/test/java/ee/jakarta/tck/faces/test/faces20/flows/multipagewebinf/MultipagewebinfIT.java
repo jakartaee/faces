@@ -15,6 +15,7 @@
  */
 package ee.jakarta.tck.faces.test.faces20.flows.multipagewebinf;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -74,7 +75,7 @@ class MultipagewebinfIT extends BaseITNG {
         page.guardHttp(returnButton::click);
 
         assertTrue(page.isInPageText("return page"), "return page");
-        assertTrue(page.isNotInPageText(flowScopeValue), "flowScopeValue not visible");
+        assertFalse((page.getPageText() + page.getInputValues()).contains(flowScopeValue), "flowScopeValue not visible");
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
