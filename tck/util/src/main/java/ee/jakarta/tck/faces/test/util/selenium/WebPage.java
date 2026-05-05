@@ -122,6 +122,23 @@ public class WebPage {
     }
 
     /**
+     * Run {@code action} and verify that it does NOT trigger an Ajax request within a short window.
+     *
+     * @return {@code true} if no Ajax fired (the expected case for negative-path assertions),
+     *         {@code false} if an Ajax response did complete.
+     */
+    public boolean assertNoAjax(Runnable action) {
+        webDriver.getJSExecutor().executeScript("window.$ajaxFired=false;faces.ajax.addOnEvent(()=>window.$ajaxFired=true)");
+        action.run();
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+        return Boolean.FALSE.equals(webDriver.getJSExecutor().executeScript("return window.$ajaxFired"));
+    }
+
+    /**
      * waits for backgrounds processes on the browser to complete
      *
      * @param timeOut the timeout duration until the wait can proceed before being interupopted
