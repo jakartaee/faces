@@ -16,12 +16,17 @@
 package ee.jakarta.tck.faces.test.util.selenium;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.logging.Logger;
+
+import org.openqa.selenium.WebDriverException;
 
 /**
  * a helper class providing pool management for our drivers Note, the pool itself is thread safe (and must be), the
  * drivers are not!
  */
 public class DriverPool {
+
+    private static final Logger LOG = Logger.getLogger(DriverPool.class.getName());
 
     ConcurrentLinkedQueue<ExtendedWebDriver> allDrivers = new ConcurrentLinkedQueue<>();
     ConcurrentLinkedQueue<ExtendedWebDriver> availableDrivers = new ConcurrentLinkedQueue<>();
@@ -40,7 +45,21 @@ public class DriverPool {
             allDrivers.add(webDriver);
         }
 
-        webDriver.postInit();
+        try {
+            webDriver.postInit();
+        } catch (WebDriverException ex) {
+            // Replace the broken driver; reusing it would time out on every call.
+            LOG.warning(() -> "Driver postInit failed (" + ex.getClass().getSimpleName() + "); replacing with a fresh instance");
+            try {
+                webDriver.quit();
+            } catch (RuntimeException ignored) {
+                // best-effort cleanup
+            }
+            allDrivers.remove(webDriver);
+            webDriver = ChromeDevtoolsDriver.stdInit();
+            allDrivers.add(webDriver);
+            webDriver.postInit();
+        }
         return webDriver;
     }
 

@@ -148,14 +148,6 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         }
 
         options.addArguments("--no-sandbox");
-        // Defensive: containerized CI typically caps /dev/shm at 64 MiB, which is small for
-        // Chrome's renderer IPC. Routing shared memory to /tmp via this flag is the standard
-        // Selenium-on-Kubernetes mitigation. In practice the TCK's actual /dev/shm usage stays
-        // well below the cap (verified empirically — tck-procs.log on a full reactor run showed
-        // 0/64M throughout), but this costs nothing on hosts that aren't constrained and
-        // protects against future cgroup tightening or an extra-heavy test that could push past
-        // the limit.
-        options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-web-security");
         options.addArguments("--allow-insecure-localhost");
         options.addArguments("--remote-allow-origins=*");
@@ -220,16 +212,15 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     private static void initDevTools(DevTools devTools) {
-        try {
-            devTools.createSession();
-            devTools.send(Network.clearBrowserCache());
-        } catch (TimeoutException ex) {
-            LOG.warning("Init timeout error, can happen, if the driver already has been used, can be safely ignored");
-        }
+        // A createSession() failure leaves the CDP WebSocket dead; subsequent sends cannot
+        // recover and only burn the sendAndWait timeout. Propagate so the pool can replace
+        // the driver instead of retrying on a dead session.
+        devTools.createSession();
+        devTools.send(Network.clearBrowserCache());
 
         runWithRetry(
             () -> devTools.send(Network.enable(empty(), empty(), empty(), empty())),
-            10,
+            3,
             Duration.ofMillis(150),
             2.0);
     }
