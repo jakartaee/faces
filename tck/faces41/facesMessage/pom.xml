@@ -26,11 +26,13 @@
     </parent>
 
     <artifactId>facesMessage</artifactId>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
+    <!--
+        Pure unit test on jakarta.faces.application.FacesMessage (Spec1823IT
+        uses only JUnit assertions, no Arquillian/deploy). Packaged as jar so
+        the glassfish-ci-managed profile (which activates on src/main/webapp)
+        does not attach the gf-pool agent or pull in GlassFish dependencies.
+    -->
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.1 - facesMessage</name>
-
-    <build>
-        <finalName>test-faces41-facesMessage</finalName>
-    </build>
 </project>

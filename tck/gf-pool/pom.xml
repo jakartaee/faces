@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.eclipse.ee4j.faces.tck</groupId>
+        <artifactId>jakarta-faces-tck</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
+    <artifactId>gf-pool</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Jakarta Faces TCK ${project.version} - Test - GlassFish Pool</name>
+
+    <dependencies>
+        <!--
+            Provided by maven-antrun-plugin's embedded Ant runtime; we extend
+            org.apache.tools.ant.Task in ShutdownHookInstaller so this is a
+            compile-time-only dependency.
+        -->
+        <dependency>
+            <groupId>org.apache.ant</groupId>
+            <artifactId>ant</artifactId>
+            <version>1.10.13</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <!--
+        Pool of pre-started GlassFish instances, leased by failsafe-forked test JVMs
+        via the SlotLeaserAgent. Each slot gets its own install (cp -al hardlinked
+        from a single unpacked distribution) and a disjoint port range so up to
+        ${gf.pool.size} test modules can run integration tests in parallel without
+        collisions.
+
+        Lifecycle:
+          - process-classes: unpack GlassFish, overlay Mojarra, then for each slot
+                             clone the install, patch ports, and start the domain
+                             (provision-slot.sh is idempotent: a slot whose admin
+                             port is already responding is left alone)
+          - manual `mvn -pl gf-pool antrun:run@stop` (or stop-pool.sh): stop domains
+
+        Disables the glassfish-ci-managed profile for itself so this module does not
+        recursively wire in the per-module GlassFish lifecycle.
+    -->
+    <properties>
+        <!--
+            Initial number of slots provisioned at build time. Default 1 keeps
+            cold-start cheap; the SlotLeaserAgent grows the pool on demand up
+            to gf.pool.maxSize when concurrent tests need more.
+        -->
+        <gf.pool.size>1</gf.pool.size>
+
+        <!--
+            Hard cap on pool growth. Empty default: pool-up.sh computes
+            max(4, cores/2) so an 8-core laptop tops out at 4, a 32-core
+            CI host at 16. Override via -Dgf.pool.maxSize=N.
+        -->
+        <gf.pool.maxSize></gf.pool.maxSize>
+        <gf.pool.dir>${project.build.directory}/pool</gf.pool.dir>
+        <gf.pool.dist>${project.build.directory}/dist</gf.pool.dist>
+        <gf.pool.adminPort.base>14848</gf.pool.adminPort.base>
+
+        <!--
+            Per-slot port stride. Each slot needs 10 contiguous ports
+            (admin+http+https+iiop×3+jmx+jms+osgi+derby), so stride must be
+            >= 10. Stride=100 keeps slots visually distinct in logs and lets
+            us run hundreds of slots while staying under the 65535 ceiling
+            (slot N uses ports 14848 + N*100 .. + 9).
+        -->
+        <gf.pool.portStride>100</gf.pool.portStride>
+
+        <glassfish.version>9.0.0-M2</glassfish.version>
+        <mojarra.version>5.0.0-SNAPSHOT</mojarra.version>
+        <mojarra.noupdate>false</mojarra.noupdate>
+
+        <!--
+            Source install used as the template for all slot clones. Default points at
+            the directory the maven-dependency-plugin unpacks the zip into. The
+            glassfish-source-copy profile below overrides this to ${glassfish.home}
+            when -Dglassfish.home=/path/to/glassfish9 is supplied, in which case
+            the unpack + mojarra overlay are skipped.
+        -->
+        <gf.pool.source>${gf.pool.dist}/glassfish9</gf.pool.source>
+    </properties>
+
+    <build>
+        <finalName>slot-leaser-agent</finalName>
+
+        <plugins>
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Premain-Class>ee.jakarta.tck.faces.test.pool.SlotLeaserAgent</Premain-Class>
+                            <Can-Redefine-Classes>false</Can-Redefine-Classes>
+                            <Can-Retransform-Classes>false</Can-Retransform-Classes>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-glassfish</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${gf.pool.dist}</outputDirectory>
+                            <markersDirectory>${gf.pool.dist}/markers</markersDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.glassfish.main.distributions</groupId>
+                                    <artifactId>glassfish</artifactId>
+                                    <version>${glassfish.version}</version>
+                                    <type>zip</type>
+                                    <overWrite>false</overWrite>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>overlay-mojarra</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${mojarra.noupdate}</skip>
+                            <outputDirectory>${gf.pool.dist}/glassfish9/glassfish/modules</outputDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>jakarta.faces</groupId>
+                                    <artifactId>jakarta.faces-api</artifactId>
+                                    <version>${faces.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <destFileName>jakarta.faces-api.jar</destFileName>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.glassfish.mojarra</groupId>
+                                    <artifactId>mojarra</artifactId>
+                                    <version>${mojarra.version}</version>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <destFileName>mojarra.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>start-pool</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <!--
+                                    Arm the JVM shutdown hook FIRST, before pool-up.sh
+                                    starts any GlassFish processes. If the script fails
+                                    midway (port collision, asadmin error, etc.) the
+                                    already-started GFs still get cleaned up at JVM exit
+                                    instead of being orphaned with no hook to stop them.
+                                    The taskdef'd class extends Ant's Task and runs
+                                    in-process inside maven-antrun-plugin's embedded Ant
+                                    project, which shares the Maven JVM, so the hook
+                                    persists for the remainder of the build. (The simpler
+                                    <java fork="false"> would throw on JDK 17+ because
+                                    Ant's in-process Java task installs a SecurityManager.)
+                                -->
+                                <taskdef name="gf-pool"
+                                         classname="ee.jakarta.tck.faces.test.pool.ShutdownHookInstaller"
+                                         classpath="${project.build.outputDirectory}"/>
+                                <gf-pool poolDir="${gf.pool.dir}"
+                                         scriptDir="${project.basedir}/src/main/scripts"/>
+
+                                <exec executable="bash" failonerror="true">
+                                    <env key="POOL_SIZE"   value="${gf.pool.size}"/>
+                                    <env key="MAX_SIZE"    value="${gf.pool.maxSize}"/>
+                                    <env key="POOL_DIR"    value="${gf.pool.dir}"/>
+                                    <env key="SOURCE_HOME" value="${gf.pool.source}"/>
+                                    <env key="ADMIN_BASE"  value="${gf.pool.adminPort.base}"/>
+                                    <env key="PORT_STRIDE" value="${gf.pool.portStride}"/>
+                                    <env key="SCRIPT_DIR"  value="${project.basedir}/src/main/scripts"/>
+                                    <arg value="${project.basedir}/src/main/scripts/pool-up.sh"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>stop</id>
+                        <phase>none</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <exec executable="bash" failonerror="false">
+                                    <env key="POOL_DIR" value="${gf.pool.dir}"/>
+                                    <arg value="${project.basedir}/src/main/scripts/pool-down.sh"/>
+                                </exec>
+                            </target>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!--
+            Activated when -Dglassfish.home=<path> is supplied. Skips the
+            zip download and the Mojarra overlay; slots are cloned directly
+            from the user-provided install at ${glassfish.home}. Idempotent:
+            provision-slot.sh skips slots whose admin port is already responding.
+        -->
+        <profile>
+            <id>glassfish-source-copy</id>
+            <activation>
+                <property>
+                    <name>glassfish.home</name>
+                </property>
+            </activation>
+            <properties>
+                <gf.pool.source>${glassfish.home}</gf.pool.source>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-glassfish</id>
+                                <phase>none</phase>
+                            </execution>
+                            <execution>
+                                <id>overlay-mojarra</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
