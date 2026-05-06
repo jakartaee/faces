@@ -253,13 +253,18 @@ public final class SlotLeaserAgent {
     }
 
     /**
-     * Grows the pool by one slot. Synchronised across concurrent test JVMs
-     * via a blocking file lock on {@code grow.lock} so two JVMs can't pick
-     * the same next index. Slot indices are 1-based for human readability;
-     * scans from 1 and fills the lowest-unused slot (gap-aware).
+     * Grows the pool by one slot. The grow.lock file lock only covers the
+     * scan-and-claim step — picking the next free index and creating its
+     * (empty) slot directory atomically. The actual provisioning (cp -al
+     * + asadmin start-domain, ~5-7s) runs OUTSIDE the lock, so concurrent
+     * test JVMs that all need a cold slot grow the pool in parallel rather
+     * than serialising at ~5-7s per slot. provision-slot.sh tolerates the
+     * pre-created dir by clearing its contents instead of rm -rf'ing the
+     * dir itself, so the claim isn't briefly invisible to a third caller.
      */
     private static int tryGrow(Path poolDir, PoolConfig config) throws Exception {
         Path growLockFile = poolDir.resolve("grow.lock");
+        int next;
         try (FileChannel fc = FileChannel.open(growLockFile,
                 StandardOpenOption.CREATE,
                 StandardOpenOption.READ,
@@ -268,25 +273,29 @@ public final class SlotLeaserAgent {
             // Advance past any existing slot dir (provisioned OR mid-bootstrap),
             // not only those with ports.properties — otherwise we'd reuse the
             // index of an in-flight bootstrap and corrupt its slot dir.
-            int next = 1;
+            next = 1;
             while (Files.exists(poolDir.resolve("slot-" + next))) {
                 next++;
             }
-            ProcessBuilder pb = new ProcessBuilder("bash",
-                    config.scriptDir.resolve("provision-slot.sh").toString());
-            pb.environment().put("SLOT_IDX", String.valueOf(next));
-            pb.environment().put("POOL_DIR", poolDir.toString());
-            pb.environment().put("SOURCE_HOME", config.source.toString());
-            pb.environment().put("ADMIN_BASE", String.valueOf(config.adminBase));
-            pb.environment().put("PORT_STRIDE", String.valueOf(config.portStride));
-            pb.inheritIO();
-            int exit = pb.start().waitFor();
-            if (exit != 0) {
-                throw new IllegalStateException(
-                        "provision-slot.sh failed (slot=" + next + ", exit=" + exit + ")");
-            }
-            return next;
+            // Claim the index by creating its (empty) dir while we still hold
+            // grow.lock. The next caller's Files.exists check will see it and
+            // advance to next+1.
+            Files.createDirectory(poolDir.resolve("slot-" + next));
         }
+        ProcessBuilder pb = new ProcessBuilder("bash",
+                config.scriptDir.resolve("provision-slot.sh").toString());
+        pb.environment().put("SLOT_IDX", String.valueOf(next));
+        pb.environment().put("POOL_DIR", poolDir.toString());
+        pb.environment().put("SOURCE_HOME", config.source.toString());
+        pb.environment().put("ADMIN_BASE", String.valueOf(config.adminBase));
+        pb.environment().put("PORT_STRIDE", String.valueOf(config.portStride));
+        pb.inheritIO();
+        int exit = pb.start().waitFor();
+        if (exit != 0) {
+            throw new IllegalStateException(
+                    "provision-slot.sh failed (slot=" + next + ", exit=" + exit + ")");
+        }
+        return next;
     }
 
     private static String requiredProperty(String name) {

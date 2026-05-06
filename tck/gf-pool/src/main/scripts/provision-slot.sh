@@ -44,8 +44,14 @@ fi
 
 echo "[gf-pool] provisioning slot ${SLOT_IDX} from ${SOURCE_HOME} (admin=${admin_port} http=${http_port})"
 
-rm -rf "${slot_dir}"
+# SlotLeaserAgent.tryGrow may pre-create ${slot_dir} (empty) under grow.lock
+# to claim this index, then release the lock so the next caller can claim
+# its own index in parallel. We must therefore clear ${slot_dir}'s contents
+# rather than rm -rf the dir itself — otherwise the claim is briefly invisible
+# and a concurrent tryGrow could pick the same index. mkdir -p covers the
+# pool-up.sh path where the dir doesn't exist yet.
 mkdir -p "${slot_dir}"
+find "${slot_dir}" -mindepth 1 -delete 2>/dev/null || true
 
 # Bootstrap-in-flight sentinel. SlotLeaserAgent reads this to know a
 # provision is still running and waits for it (rather than racing tryGrow
