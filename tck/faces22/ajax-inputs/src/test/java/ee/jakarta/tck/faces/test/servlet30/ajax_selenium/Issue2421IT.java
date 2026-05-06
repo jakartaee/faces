@@ -43,7 +43,7 @@ class Issue2421IT extends BaseITNG {
         WebPage page = getPage("attributeNameIsDisabled.xhtml");
         WebElement input = page.findElement(By.id("form1:foo"));
         assertTrue(input.isEnabled());
-        assertTrue(page.isInPage("foo"));
+        assertTrue(page.containsSource("foo"));
         WebElement button = page.findElement(By.id("form1:button"));
         page.guardAjax(button::click);
         input = page.findElement(By.id("form1:foo"));

@@ -42,7 +42,7 @@ public class Spec1389IT extends BaseITNG {
         WebPage page = getPage("injectInitParameterMap.xhtml");
 
         // Init parameter value should be printed on the page
-        assertTrue(page.getPageSource().contains("MY_TEST_PARAMETER:IS_THERE"));
+        assertTrue(page.containsText("MY_TEST_PARAMETER:IS_THERE"));
     }
 
 }

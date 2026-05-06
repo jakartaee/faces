@@ -29,15 +29,15 @@ class FactoryIT extends BaseITNG {
     @Test
     void facesFlowFactoryTest() {
         WebPage page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Page with link to flow entry"), "Page with link to flow entry");
+        assertTrue(page.containsText("Page with link to flow entry"), "Page with link to flow entry");
 
         WebElement start = findByIdSuffix(page, "start");
         page.guardHttp(start::click);
 
-        assertTrue(page.isInPageText("First page in the flow"), "First page in the flow");
-        assertTrue(page.isInPageText("basicFlow"), "basicFlow");
-        assertTrue(page.isInPageText("Did we wrap: true"), "Did we wrap: true");
-        assertTrue(page.isInPageText("Did we inject: MyAppBean"), "Did we inject: MyAppBean");
+        assertTrue(page.containsText("First page in the flow"), "First page in the flow");
+        assertTrue(page.containsText("basicFlow"), "basicFlow");
+        assertTrue(page.containsText("Did we wrap: true"), "Did we wrap: true");
+        assertTrue(page.containsText("Did we inject: MyAppBean"), "Did we inject: MyAppBean");
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

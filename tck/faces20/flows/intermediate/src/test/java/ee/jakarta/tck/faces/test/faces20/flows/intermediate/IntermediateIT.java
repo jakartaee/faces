@@ -40,7 +40,7 @@ class IntermediateIT extends BaseITNG {
 
     private void goTest(String button) {
         WebPage page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Outside of flow"), "Outside of flow");
+        assertTrue(page.containsText("Outside of flow"), "Outside of flow");
 
         WebElement enter = findByIdSuffix(page, button);
         page.guardHttp(enter::click);
@@ -48,20 +48,20 @@ class IntermediateIT extends BaseITNG {
         WebElement createCustomer = findByIdSuffix(page, "createCustomer");
         page.guardHttp(createCustomer::click);
 
-        assertTrue(page.isInPageText("View customer page"), "View customer page");
-        assertTrue(page.matchesPageText("(?s).*Customer Id:\\s+([0-9])+.*"), "Customer Id present");
+        assertTrue(page.containsText("View customer page"), "View customer page");
+        assertTrue(page.matchesText("(?s).*Customer Id:\\s+([0-9])+.*"), "Customer Id present");
 
         WebElement upgrade = findByIdSuffix(page, "upgrade");
         page.guardHttp(upgrade::click);
 
-        assertTrue(page.isInPageText("View customer page"), "View customer page (after upgrade)");
-        assertTrue(page.matchesPageText("(?s).*Customer is upgraded:\\s+true.*"), "Customer is upgraded: true");
+        assertTrue(page.containsText("View customer page"), "View customer page (after upgrade)");
+        assertTrue(page.matchesText("(?s).*Customer is upgraded:\\s+true.*"), "Customer is upgraded: true");
 
         WebElement exit = findByIdSuffix(page, "exit");
         page.guardHttp(exit::click);
 
-        assertTrue(page.isInPageText("return page"), "return page");
-        assertTrue(page.isInPageText("Finalizer called"), "Finalizer called");
+        assertTrue(page.containsText("return page"), "return page");
+        assertTrue(page.containsText("Finalizer called"), "Finalizer called");
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

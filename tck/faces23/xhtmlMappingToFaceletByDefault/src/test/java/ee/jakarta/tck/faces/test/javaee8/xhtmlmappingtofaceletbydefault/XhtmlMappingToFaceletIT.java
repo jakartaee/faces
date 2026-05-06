@@ -29,13 +29,13 @@ public class XhtmlMappingToFaceletIT extends BaseITNG {
   void verifyFacesMappingtoXhtmlByDefault() throws Exception {
         WebPage page = getPage("index.xhtml");
 
-        assertTrue(page.getPageSource().indexOf("ViewState") != -1);
+        assertTrue(page.containsSource("ViewState"));
     }
 
   @Test
   void verifyMinimalXhtmlWithoutXmlProlog() throws Exception {
         WebPage page = getPage("withoutxmlprolog.xhtml");
 
-        assertTrue(page.getPageSource().indexOf("This is a minimal") != -1);
+        assertTrue(page.containsSource("This is a minimal"));
     }
 }

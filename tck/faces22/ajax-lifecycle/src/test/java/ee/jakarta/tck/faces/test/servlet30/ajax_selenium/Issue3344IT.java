@@ -40,6 +40,6 @@ class Issue3344IT extends BaseITNG {
         WebElement button = page.findElement(By.id("button"));
         page.guardAjax(button::click);
         
-        assertTrue(page.isInPage("&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"));
+        assertTrue(page.containsSource("&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"));
     }
 }

@@ -38,11 +38,11 @@ public class ChildCountTestIT extends BaseITNG {
     @Test
     void childCountTest() throws Exception {
         WebPage page = getPage("childCountTest");
-        if (!page.getPageSource().contains("Test PASSED")) {
-            logger.warning(page.getPageSource());
+        if (!page.containsText("Test PASSED")) {
+            logger.warning(page.getSource());
         }
 
-        assertTrue(page.getPageSource().contains("Test PASSED"));
+        assertTrue(page.containsText("Test PASSED"));
     }
 
 }

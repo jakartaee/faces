@@ -42,7 +42,7 @@ public class Spec1390IT extends BaseITNG {
         WebPage page = getPage("injectRequestParameterMap.xhtml?foo=bar");
 
         // Request parameter value should be printed on the page
-        assertTrue(page.getPageSource().contains("foo:bar"));
+        assertTrue(page.containsText("foo:bar"));
     }
 
 }

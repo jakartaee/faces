@@ -45,14 +45,14 @@ public class Issue2997IT extends BaseITNG {
         WebElement button = page.findElement(By.id("flow-with-templates"));
         button.click();
 
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
         assertTrue(pageText.contains("Bottom From Template"));
         assertTrue(pageText.contains("issue2997Bean"));
 
         button = page.findElement(By.id("issue2997Home"));
         button.click();
 
-        pageText = page.getPageSource();
+        pageText = page.getSource();
         assertTrue(pageText.contains("Issue2997Home"));
         assertTrue(pageText.contains("flow-with-templates"));
         assertTrue(pageText.contains("issue2997Bean"));
@@ -62,13 +62,13 @@ public class Issue2997IT extends BaseITNG {
         button = page.findElement(By.id("flow-with-templates"));
         button.click();
 
-        pageText = page.getPageSource();
+        pageText = page.getSource();
         assertTrue(pageText.contains("Bottom From Template"));
 
         button = page.findElement(By.id("issue2997UserList"));
         button.click();
 
-        pageText = page.getPageSource();
+        pageText = page.getSource();
         assertTrue(pageText.contains("Issue2997UserList"));
         assertTrue(pageText.contains("flow-with-templates"));
         assertTrue(pageText.contains("issue2997Bean"));
@@ -78,13 +78,13 @@ public class Issue2997IT extends BaseITNG {
         button = page.findElement(By.id("flow-with-templates"));
         button.click();
 
-        pageText = page.getPageSource();
+        pageText = page.getSource();
         assertTrue(pageText.contains("Bottom From Template"));
 
         button = page.findElement(By.id("issue2997PageInFacesConfig"));
         button.click();
 
-        pageText = page.getPageSource();
+        pageText = page.getSource();
         assertTrue(pageText.contains("Issue2997PageInFacesConfig"));
         assertTrue(pageText.contains("flow-with-templates"));
         assertTrue(pageText.contains("issue2997Bean"));

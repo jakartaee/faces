@@ -66,8 +66,7 @@ class Spec790WithNamespacedViewIT extends BaseITNG {
         assertFalse(form3ViewState.getDomProperty("value").isEmpty());
 
         WebElement form2Link = page.findElement(By.id(namingContainerPrefix + "form2:link"));
-        form2Link.click();
-        page.waitForPageToLoad();
+        page.guardHttp(form2Link::click);
         namingContainerPrefix = getNamingContainerId(page);
         form1 = page.findElement(By.id(namingContainerPrefix + "form1"));
         form1ViewState = form1.findElement(By.name(namingContainerPrefix + "jakarta.faces.ViewState"));
@@ -80,8 +79,7 @@ class Spec790WithNamespacedViewIT extends BaseITNG {
         assertFalse(form3ViewState.getDomProperty("value").isEmpty());
 
         WebElement form3Link = page.findElement(By.id(namingContainerPrefix + "form3:link"));
-        form3Link.click();
-        page.waitForPageToLoad();
+        page.guardHttp(form3Link::click);
         namingContainerPrefix = getNamingContainerId(page);
         form1 = page.findElement(By.id(namingContainerPrefix + "form1"));
         form1ViewState = form1.findElement(By.name(namingContainerPrefix + "jakarta.faces.ViewState"));

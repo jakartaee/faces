@@ -45,7 +45,7 @@ public class Spec1387IT extends BaseITNG {
         WebPage page = getPage("injectHeaderMap.xhtml");
 
         // Header value should be printed on the page
-        assertTrue(page.getPageSource().contains("foo:bar"));
+        assertTrue(page.containsText("foo:bar"));
     }
 
 }

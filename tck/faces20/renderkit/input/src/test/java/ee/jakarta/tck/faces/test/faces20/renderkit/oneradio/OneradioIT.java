@@ -94,7 +94,7 @@ class OneradioIT extends BaseITNG {
         WebElement label111 = findLabelFor(page, radio111.getAttribute("id"));
         assertEquals("&foo", label110.getText().trim(), "radio11:0 label text (unescaped)");
         assertEquals("&bar", label111.getText().trim(), "radio11:1 label text (escaped)");
-        assertTrue(page.getPageSource().contains("&amp;bar</label>"), "radio11:1 escaped in source");
+        assertTrue(page.containsSource("&amp;bar</label>"), "radio11:1 escaped in source");
 
         // radio12: binding, two radios, none checked
         WebElement radio120 = findByIdSuffix(page, "radio12:0");

@@ -36,6 +36,6 @@ public class Spec1582ViewMap2IT extends BaseITNG {
   @Test
   void injectViewMap2() throws Exception {
         WebPage page = getPage("injectViewMap2.xhtml");
-        assertTrue(page.getPageSource().contains("{}"));
+        assertTrue(page.containsText("{}"));
     }
 }

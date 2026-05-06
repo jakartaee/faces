@@ -35,6 +35,6 @@ public class Issue3793IT extends BaseITNG {
   void facesConfig23() throws Exception {
         WebPage page = getPage("faces/mojarraFacesConfigVersion.xhtml");
 
-      assertFalse(page.getPageSource().contains("2.3"));
+      assertFalse(page.containsText("2.3"));
     }
 }

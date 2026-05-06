@@ -43,14 +43,14 @@ class Issue2162IT extends BaseITNG {
   void issue2162() throws Exception {
         WebPage page = getPage("issue2162.xhtml");
 
-        assertTrue(page.getPageSource().indexOf("Init called\n") != -1);
+        assertTrue(page.containsSource("Init called\n"));
 
         WebElement button = page.findElement(By.id("form:submit"));
         page.guardAjax(button::click);
 
         // init called not present probably a mojarra codebase issue
         // showing up in Chrome - works in htmlunit!
-        assertTrue(page.getPageSource().indexOf("Init called\nInit called\n") != -1);
-        assertFalse(page.getPageSource().indexOf("Init called\nInit called\nInit called") != -1);
+        assertTrue(page.containsSource("Init called\nInit called\n"));
+        assertFalse(page.containsSource("Init called\nInit called\nInit called"));
     }
 }

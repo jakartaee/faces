@@ -37,6 +37,6 @@ public class Issue3787IT extends BaseITNG {
     @Test
     public void testGetRefreshPeriod() throws Exception {
         WebPage page = getPage("index.xhtml");
-        assertTrue(page.getPageSource().indexOf("-1") != -1);
+        assertTrue(page.containsText("-1"));
     }
 }

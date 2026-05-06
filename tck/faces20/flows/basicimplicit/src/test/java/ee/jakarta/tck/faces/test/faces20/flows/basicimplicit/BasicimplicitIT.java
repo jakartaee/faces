@@ -29,22 +29,22 @@ class BasicimplicitIT extends BaseITNG {
     @Test
     void facesFlowImplicitTest() {
         WebPage page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Page with link to flow entry"), "Page with link to flow entry");
+        assertTrue(page.containsText("Page with link to flow entry"), "Page with link to flow entry");
 
         WebElement start = findByIdSuffix(page, "start");
         page.guardHttp(start::click);
 
-        assertTrue(page.isInPageText("First page in the flow"), "First page in the flow");
-        assertTrue(page.isInPageText("basicFlow"), "basicFlow");
+        assertTrue(page.containsText("First page in the flow"), "First page in the flow");
+        assertTrue(page.containsText("basicFlow"), "basicFlow");
 
         page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Page with link to flow entry"), "Page with link to flow entry");
+        assertTrue(page.containsText("Page with link to flow entry"), "Page with link to flow entry");
 
         start = findByIdSuffix(page, "start");
         page.guardHttp(start::click);
 
-        assertTrue(page.isInPageText("First page in the flow"), "First page in the flow");
-        assertTrue(page.isInPageText("basicFlow"), "basicFlow");
+        assertTrue(page.containsText("First page in the flow"), "First page in the flow");
+        assertTrue(page.containsText("basicFlow"), "basicFlow");
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

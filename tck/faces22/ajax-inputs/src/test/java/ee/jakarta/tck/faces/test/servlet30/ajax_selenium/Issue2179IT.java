@@ -38,7 +38,7 @@ class Issue2179IT extends BaseITNG {
   @Test
   void encodeException() throws Exception {
         WebPage page = getPage("issue2179-page1.xhtml");
-        assertTrue(page.getPageTextReduced().contains("IO EXCEPTION!!!!!"));
+        assertTrue(page.containsText("IO EXCEPTION!!!!!"));
     }
 
   /**
@@ -48,14 +48,10 @@ class Issue2179IT extends BaseITNG {
    */
   @Test
   void decodeException() {
-        // the major change is to shift the textarea over
-        // apparently they used the text attribute which does not work
-        // on new browsers, innerText must be used
-        // or a div with innerHTML which always will work, also value does work
         WebPage page = getPage("issue2179-page2.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
         page.guardAjax(button::click);
 
-        assertTrue(page.getInputValues().contains("Name: form:submit Error: serverError"));
+        assertTrue(page.containsText("Name: form:submit Error: serverError"));
     }
 }

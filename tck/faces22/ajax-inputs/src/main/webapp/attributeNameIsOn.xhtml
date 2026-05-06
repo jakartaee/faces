@@ -31,12 +31,12 @@
              <script type="text/javascript">
               var statusUpdate = function statusUpdate(data) {
                  var statusArea = document.getElementById("statusArea");
-                 var text = statusArea.value;
+                 var text = statusArea.innerText;
                  text = text + "Name: "+data.source.id;
                  if (data.type === "event") {
                      text = text + " Response: "+data.responseText;
                  }
-                 statusArea.value = text;
+                 statusArea.innerText = text;
               }
             </script>
     <h:form id="form1">
@@ -51,7 +51,7 @@
        <br/>
        <br/>
        <h3> Status:</h3>
-       <textarea id="statusArea" cols="40" rows="10" readonly="readonly" />
+       <div id="statusArea"/>
     </h:form>
 </h:body>
 </html>

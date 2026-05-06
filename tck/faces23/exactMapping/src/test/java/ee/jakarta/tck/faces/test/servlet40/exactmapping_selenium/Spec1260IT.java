@@ -42,10 +42,9 @@ class Spec1260IT extends BaseITNG {
   @Test
   void exactMappedViewLoads() throws Exception {
         WebPage page = getPage("foo");
-        String content = getWebDriver().getPageSource();
 
         // Basic test that if the FacesServlet is mapped to /foo, the right view "foo.xhtml" is loaded.
-        assertTrue(content.contains("This is page foo"));
+        assertTrue(page.containsText("This is page foo"));
     }
 
   /**
@@ -58,9 +57,8 @@ class Spec1260IT extends BaseITNG {
   void postBackToExactMappedView() throws Exception {
         WebPage page = getPage("foo");
 
-        getWebDriver().findElement(By.id("form:commandButton")).click();
-        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("foo method invoked"));
-
+        page.guardHttp(page.findElement(By.id("form:commandButton"))::click);
+        assertTrue(page.containsText("foo method invoked"));
 
         // If page /foo postbacks to itself, the new URL should be /foo again
         assertTrue(page.getCurrentUrl().split("\\?")[0].endsWith("/foo"));
@@ -76,11 +74,11 @@ class Spec1260IT extends BaseITNG {
   void linkToNonExactMappedView() throws Exception {
         WebPage page = getPage("foo");
 
-        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("This is page foo"));
+        assertTrue(page.containsText("This is page foo"));
 
-        getWebDriver().findElement(By.id("form:button")).click();
+        page.guardHttp(page.findElement(By.id("form:button"))::click);
 
-        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("This is page bar"));
+        assertTrue(page.containsText("This is page bar"));
 
         // view "bar" is not exact mapped, so should be loaded via the suffix
         // or prefix the FacesServlet is mapped to when coming from /foo
@@ -101,11 +99,11 @@ class Spec1260IT extends BaseITNG {
 
         // Navigate from /foo to /bar.jsf
         WebPage page = getPage("foo");
-        page.guardAjax(getWebDriver().findElement(By.id("form:button"))::click);
+        page.guardAjax(page.findElement(By.id("form:button"))::click);
 
         // After navigating to a non-exact mapped view, a postback should stil work
-        getWebDriver().findElement(By.id("form:commandButton")).click();
-        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("foo method invoked"));
+        page.guardHttp(page.findElement(By.id("form:commandButton"))::click);
+        assertTrue(page.containsText("foo method invoked"));
 
         // Check we're indeed on bar.jsf or faces/bar
         String path = page.getCurrentUrl().split("\\?")[0];
@@ -123,14 +121,10 @@ class Spec1260IT extends BaseITNG {
 
         WebPage page = getPage("foo");
 
-        page.waitForCondition(webDriver -> {
-            String content = getWebDriver().getPageSource();
-            return content.contains("jakarta.faces.resource/faces.js.jsf") || content.contains("jakarta.faces.resource/faces/faces.js");
-        });
-
         // Runtime must have found out the mappings of the FacesServlet and used one of the prefix or suffix
         // mappings to render the reference to "faces.js", which is not exactly mapped.
-        // otherwise a timeout exception would have been thrown and the test would have failed
+        assertTrue(page.containsSource("jakarta.faces.resource/faces.js.jsf")
+                || page.containsSource("jakarta.faces.resource/faces/faces.js"));
     }
 
   /**
@@ -143,12 +137,12 @@ class Spec1260IT extends BaseITNG {
   void ajaxFromExactMappedView() throws Exception {
         WebPage page = getPage("foo");
 
-        page.guardAjax(getWebDriver().findElement(By.id("form:commandButtonAjax"))::click);
+        page.guardAjax(page.findElement(By.id("form:commandButtonAjax"))::click);
         // AJAX from an exact-mapped view should work
-        page.waitForCondition(webDriver -> getWebDriver().getPageTextReduced().contains("partial request = true"));
+        assertTrue(page.containsText("partial request = true"));
 
       // Part of page not updated via AJAX so should not show
-      assertFalse(getWebDriver().getPageTextReduced().contains("should not see this"));
+      assertFalse(page.containsText("should not see this"));
     }
 
 

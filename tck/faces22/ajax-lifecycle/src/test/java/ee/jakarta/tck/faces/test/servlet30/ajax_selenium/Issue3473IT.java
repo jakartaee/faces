@@ -38,6 +38,6 @@ class Issue3473IT extends BaseITNG {
         WebPage page = getPage("ajaxScriptError.xhtml");
         WebElement button = page.findElement(By.id("form:commandButton"));
         page.guardAjax(button::click);
-        assertTrue(page.isInPage("Error from form:commandButton"));
+        assertTrue(page.containsText("Error from form:commandButton"));
     }
 }

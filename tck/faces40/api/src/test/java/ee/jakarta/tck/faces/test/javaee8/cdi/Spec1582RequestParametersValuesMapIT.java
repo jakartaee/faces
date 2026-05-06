@@ -42,8 +42,8 @@ public class Spec1582RequestParametersValuesMapIT extends BaseITNG {
         WebPage page = getPage("injectRequestParameterValuesMap.xhtml?foo=bar0&foo=bar1");
 
         // Both request parameter values should be printed on the page (order is not guaranteed)
-        assertTrue(page.getPageSource().contains("foo:bar0"));
-        assertTrue(page.getPageSource().contains("foo:bar1"));
+        assertTrue(page.containsText("foo:bar0"));
+        assertTrue(page.containsText("foo:bar1"));
     }
 
 }

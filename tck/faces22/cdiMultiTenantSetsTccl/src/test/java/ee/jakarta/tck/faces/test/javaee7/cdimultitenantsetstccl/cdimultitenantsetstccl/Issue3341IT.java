@@ -37,7 +37,7 @@ public class Issue3341IT extends BaseITNG {
   void tcclReplacementResilience() throws Exception {
         WebPage page = getPage("");
 
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
 
         // If the BeforeFilter is configured to
         if (pageText.matches("(?s).*SUCCESS.*")) {

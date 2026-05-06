@@ -38,18 +38,18 @@ class Issue2767IT extends BaseITNG {
         WebPage page = getPage("issue2767.xhtml");
         WebElement anchor = page.findElement(By.id("testLink"));
         page.guardAjax(anchor::click);
-        assertTrue(page.isInPage("LINK ACTION"));
+        assertTrue(page.containsText("LINK ACTION"));
         WebElement radio1 = page.findElement(By.id("testRadio:0"));
         WebElement radio2 = page.findElement(By.id("testRadio:1"));
         WebElement radio3 = page.findElement(By.id("testRadio:2"));
 
         page.guardAjax(radio1::click);
-        assertTrue(page.isInPage("RADIO:red"));
+        assertTrue(page.containsText("RADIO:red"));
 
         page.guardAjax(radio2::click);
-        assertTrue(page.isInPage("RADIO:blue"));
+        assertTrue(page.containsText("RADIO:blue"));
 
         page.guardAjax(radio3::click);
-        assertTrue(page.isInPage("RADIO:white"));
+        assertTrue(page.containsText("RADIO:white"));
     }
 }

@@ -37,10 +37,10 @@ class Issue2751IT extends BaseITNG {
   void updateAttributeNamedClass() throws Exception {
         WebPage page = getPage("attributeNameIsClass.xhtml");
         WebElement input = page.findElement(By.id("form1:foo"));
-        assertTrue(page.isInPage("foo"));
+        assertTrue(page.containsSource("foo"));
         WebElement button = page.findElement(By.id("form1:button"));
         page.guardAjax(button::click);
         input = page.findElement(By.id("form1:foo"));
-        assertTrue(page.isInPage("myclass"));
+        assertTrue(page.containsSource("myclass"));
     }
 }

@@ -39,7 +39,7 @@ public class Spec1103IT extends BaseITNG {
   @Test
   void dataTableIterable() throws Exception {
         WebPage page = getPage("faces/datatableIterable.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getPageSource()));
+        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getSource()));
     }
 
   /**
@@ -50,7 +50,7 @@ public class Spec1103IT extends BaseITNG {
   @Test
   void uIRepeatIterable() throws Exception {
         WebPage page = getPage("faces/uirepeatIterable.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getPageSource()));
+        assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getSource()));
     }
 
   /**
@@ -61,6 +61,6 @@ public class Spec1103IT extends BaseITNG {
   @Test
   void uIRepeatCollection() throws Exception {
         WebPage page = getPage("faces/uirepeatCollection.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*1.*2.*3.*END.*", page.getPageSource()));
+        assertTrue(Pattern.matches("(?s).*START.*1.*2.*3.*END.*", page.getSource()));
     }
 }

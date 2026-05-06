@@ -36,6 +36,6 @@ public class Spec1333IT extends BaseITNG {
   @Test
   void injectView() throws Exception {
         WebPage page = getPage("faces/injectView.xhtml");
-        assertTrue(page.getPageSource().contains("UIViewRoot"));
+        assertTrue(page.containsText("UIViewRoot"));
     }
 }

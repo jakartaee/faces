@@ -35,7 +35,7 @@ class Issue2443IT extends BaseITNG {
   void quotesInScript() throws Exception {
         String expectedText = '"' + "<div></div>" + '"' + ";";
         WebPage page = getPage("scriptQuote.xhtml");
-        assertTrue(page.isInPage(expectedText));
+        assertTrue(page.containsSource(expectedText));
     }
 }
 

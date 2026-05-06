@@ -38,23 +38,23 @@ class CommandlinkIT extends BaseITNG {
         WebElement link1 = findByIdSuffix(page, "link1");
         assertEquals("#", link1.getDomAttribute("href"), "link1 href");
         assertEquals("Click Me1", link1.getText(), "link1 text");
-        assertNotNull(getBehaviorScript(page, link1), "link1 onclick script");
+        assertNotNull(page.getBehaviorScript(link1), "link1 onclick script");
 
         WebElement link2 = findByIdSuffix(page, "link2");
         assertEquals("#", link2.getDomAttribute("href"), "link2 href");
         assertEquals("Click Me2", link2.getText(), "link2 text");
         assertEquals("sansserif", link2.getDomAttribute("class"), "link2 class");
-        assertNotNull(getBehaviorScript(page, link2), "link2 onclick script");
+        assertNotNull(page.getBehaviorScript(link2), "link2 onclick script");
 
         WebElement link3 = findByIdSuffix(page, "link3");
         assertEquals("#", link3.getDomAttribute("href"), "link3 href");
         assertEquals("Click Me3", link3.getText(), "link3 text");
-        assertNotNull(getBehaviorScript(page, link3), "link3 onclick script");
+        assertNotNull(page.getBehaviorScript(link3), "link3 onclick script");
 
         WebElement link5 = findByIdSuffix(page, "link5");
         assertEquals("sansserif", link5.getDomAttribute("class"), "link5 class");
         assertEquals("Disabled Link", link5.getText(), "link5 text");
-        assertNull(getBehaviorScript(page, link5), "link5 no onclick (disabled)");
+        assertNull(page.getBehaviorScript(link5), "link5 no onclick (disabled)");
 
         WebElement link6 = findByIdSuffix(page, "link6");
         assertEquals("Disabled Link(Nested)", link6.getText(), "link6 text (nested, disabled)");

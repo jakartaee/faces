@@ -44,7 +44,7 @@ class ProtectedViewsTestIT extends BaseITNG {
 
     assertEquals(0, page.findElements​(By.id("messOne")).size(), "Illegal Access of a Protected View!");
 
-    assertTrue(page.isInPageText("jakarta.faces.application.ProtectedViewException"), "Expected a ProtectedViewException when accessing a protected view");
+    assertTrue(page.containsText("jakarta.faces.application.ProtectedViewException"), "Expected a ProtectedViewException when accessing a protected view");
 
   }
 

@@ -41,6 +41,6 @@ class Issue2500IT extends BaseITNG {
         WebElement button2 = page.findElement(By.id("button1"));
         page.guardAjax(button2::click);
         page.guardAjax(button2::click);
-        assertTrue(page.isInPage("jakarta.faces.ViewState Has One Value"));
+        assertTrue(page.containsText("jakarta.faces.ViewState Has One Value"));
     }
 }
