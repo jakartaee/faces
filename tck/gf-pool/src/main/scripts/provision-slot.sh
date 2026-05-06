@@ -20,6 +20,31 @@
 
 set -euo pipefail
 
+# Portable in-place sed: BSD sed (default on macOS) needs an explicit extension
+# arg, GNU sed treats the next arg as the script. -i.bak works on both; remove
+# the backup after.
+sed_inplace() {
+    local file="$1"; shift
+    sed -i.bak "$@" "${file}" && rm -f "${file}.bak"
+}
+
+# Hardlink-clone the install: cheap on Linux (cp -al, sub-second, shared
+# inodes), CoW-clone on macOS APFS (ditto, sub-second, shared blocks),
+# fall back to a deep recursive copy elsewhere (slow, no sharing, but
+# correct).
+clone_install() {
+    local src="$1"
+    local dst="$2"
+    if cp -al "${src}" "${dst}" 2>/dev/null; then
+        return
+    fi
+    if command -v ditto >/dev/null 2>&1; then
+        ditto "${src}" "${dst}"
+        return
+    fi
+    cp -R "${src}" "${dst}"
+}
+
 slot_dir="${POOL_DIR}/slot-${SLOT_IDX}"
 slot_home="${slot_dir}/glassfish9"
 asadmin="${slot_home}/glassfish/bin/asadmin"
@@ -48,7 +73,7 @@ rm -rf "${slot_dir}"
 mkdir -p "${slot_dir}"
 
 # Hardlink-clone the entire install (~free, sub-second on local fs).
-cp -al "${SOURCE_HOME}" "${slot_dir}/glassfish9"
+clone_install "${SOURCE_HOME}" "${slot_dir}/glassfish9"
 
 # Replace domains/ with a real copy because port-patch rewrites domain.xml in
 # place; a hardlink would propagate edits back to the source install and
@@ -66,17 +91,17 @@ patch_pair() {
     local match="$1"
     local key="$2"
     local val="$3"
-    sed -i -E \
+    sed_inplace "${domain_xml}" -E \
         -e "s/${key}=\"[0-9]+\"([^/]*${match})/${key}=\"${val}\"\\1/g" \
-        -e "s/(${match}[^/]*)${key}=\"[0-9]+\"/\\1${key}=\"${val}\"/g" \
-        "${domain_xml}"
+        -e "s/(${match}[^/]*)${key}=\"[0-9]+\"/\\1${key}=\"${val}\"/g"
 }
 
 # Inject JVM options into every <java-config> block (server-config and
 # default-config). Locale pinning matches what the legacy managed Arquillian
 # container set via glassfish.systemProperties so tests that assert on locale-
 # sensitive output (numbers, dates) stay stable across host environments.
-sed -i 's|</java-config>|<jvm-options>-Duser.language=en</jvm-options><jvm-options>-Duser.country=US</jvm-options></java-config>|g' "${domain_xml}"
+sed_inplace "${domain_xml}" \
+    's|</java-config>|<jvm-options>-Duser.language=en</jvm-options><jvm-options>-Duser.country=US</jvm-options></java-config>|g'
 
 patch_pair 'name="admin-listener"'    'port'  "${admin_port}"
 patch_pair 'name="http-listener-1"'   'port'  "${http_port}"
@@ -87,7 +112,7 @@ patch_pair 'id="SSL_MUTUALAUTH"'      'port'  "${iiop_mutual_port}"
 patch_pair 'name="system"'            'port'  "${jmx_port}"
 patch_pair 'name="JMS_PROVIDER_PORT"' 'value' "${jms_port}"
 patch_pair 'name="PortNumber"'        'value' "${derby_port}"
-sed -i -E "s/-Dosgi\\.shell\\.telnet\\.port=[0-9]+/-Dosgi.shell.telnet.port=${osgi_port}/g" "${domain_xml}"
+sed_inplace "${domain_xml}" -E "s/-Dosgi\\.shell\\.telnet\\.port=[0-9]+/-Dosgi.shell.telnet.port=${osgi_port}/g"
 
 cat > "${slot_dir}/ports.properties" <<EOF
 arquillian.adminPort=${admin_port}
