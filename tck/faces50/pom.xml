@@ -31,20 +31,19 @@
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0</name>
 
+    <!--
+        Long modules first (after the example_jar_* prereqs needed by misc).
+        See README §"Sizing -T and the pool".
+    -->
     <modules>
         <module>example_jar_with_metadata_complete_false</module>
         <module>example_jar_with_metadata_complete_true</module>
-        <module>ajax</module>
-        <module>converters</module>
-        <module>csp</module>
-        <module>events</module>
-        <module>facelets</module>
-        <module>faceletsRefresh</module>
-        <module>facesConfig</module>
-        <module>importConstants</module>
-        <module>resources</module>
         <module>uiinput</module>
-        <module>validators</module>
+        <module>converters</module>
+        <module>facelets</module>
+        <module>ajax</module>
+        <module>csp</module>
+        <module>misc</module>
         <module>viewProtection</module>
     </modules>
 
