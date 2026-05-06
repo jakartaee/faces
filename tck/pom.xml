@@ -36,12 +36,12 @@
 
     <name>Jakarta Faces TCK ${project.version}</name>
 
-    <!--                                                                                                                                                                                                                     
-        faces-signaturetest is declared early so the -T scheduler picks it up                                                                                                                                                       
-        in the first wave; it has no dependency on util/gf-pool/test modules                                                                                                                                                 
-        and can run in parallel with the pool warm-up rather than waiting at                                                                                                                                                 
-        the tail of the build.                                                                                                                                                                                               
-    -->                                                                                                                                                                                                                      
+    <!--
+        faces-signaturetest is declared early so the -T scheduler picks it up
+        in the first wave; it has no dependency on util/gf-pool/test modules
+        and can run in parallel with the pool warm-up rather than waiting at
+        the tail of the build.
+    -->
     <modules>
         <module>util</module>
         <module>gf-pool</module>
