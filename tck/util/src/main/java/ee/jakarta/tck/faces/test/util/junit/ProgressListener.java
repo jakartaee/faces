@@ -33,12 +33,12 @@ import org.junit.platform.launcher.TestPlan;
  * log is sufficient even when {@code target/failsafe-reports} is incomplete
  * (e.g. build aborted before the surefire writer ran).
  *
- * <p>Output format (white brackets, bold colour for the status word, slot
- * and progress):
+ * <p>Output format (white brackets, bold colour for the status word, slot,
+ * module and progress):
  * <pre>
- *   [RUNNING][SLOT1][1/35] SecretIT#secretRenderPassthroughTest()
- *   [SKIPPED][SLOT3][4/95] Issue3833IT#test  reason: ignored at the request by the myfaces community
- *   [FAILED][SLOT3][5/123] HtmlCommandButtonIT#actionTest  exception: org.opentest4j.AssertionFailedError: expected: <foo> but was: <bar>
+ *   [RUNNING][SLOT1][faces20-api-application-misc][1/35] SecretIT#secretRenderPassthroughTest()
+ *   [SKIPPED][SLOT3][faces22-ajax-inputs][4/95] Issue3833IT#test  reason: ignored at the request by the myfaces community
+ *   [FAILED][SLOT3][faces20-api-component-html-input][5/123] HtmlCommandButtonIT#actionTest  exception: org.opentest4j.AssertionFailedError: expected: <foo> but was: <bar>
  * </pre>
  */
 public class ProgressListener implements TestExecutionListener {
@@ -51,10 +51,22 @@ public class ProgressListener implements TestExecutionListener {
 
     private final AtomicInteger progress = new AtomicInteger();
     private int total;
+    private String module;
 
     @Override
     public void testPlanExecutionStarted(TestPlan testPlan) {
         total = (int) testPlan.countTestIdentifiers(TestIdentifier::isTest);
+        // The root pom passes ${project.build.finalName} as a system property to
+        // every failsafe fork (see pom.xml maven-failsafe-plugin config). The
+        // "test-" prefix is repo convention, not information — strip it so the
+        // tag stays compact. Vendor distributions that don't pass finalName get
+        // no module segment (graceful degradation, same as the slot bracket).
+        var finalName = System.getProperty("finalName");
+        if (finalName != null && finalName.startsWith("test-")) {
+            module = finalName.substring("test-".length());
+        } else {
+            module = finalName;
+        }
     }
 
     @Override
@@ -90,6 +102,9 @@ public class ProgressListener implements TestExecutionListener {
         var sb = new StringBuilder().append(WHITE).append('[').append(color).append(status).append(WHITE).append(']');
         if (slot != null) {
             sb.append('[').append(color).append("SLOT").append(slot).append(WHITE).append(']');
+        }
+        if (module != null) {
+            sb.append('[').append(color).append(module).append(WHITE).append(']');
         }
         if (total > 0) {
             sb.append('[').append(color).append(n).append('/').append(total).append(WHITE).append(']');
