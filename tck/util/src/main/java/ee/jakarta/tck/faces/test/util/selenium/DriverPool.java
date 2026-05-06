@@ -48,19 +48,28 @@ public class DriverPool {
         try {
             webDriver.postInit();
         } catch (WebDriverException ex) {
-            // Replace the broken driver; reusing it would time out on every call.
-            LOG.warning(() -> "Driver postInit failed (" + ex.getClass().getSimpleName() + "); replacing with a fresh instance");
-            try {
-                webDriver.quit();
-            } catch (RuntimeException ignored) {
-                // best-effort cleanup
-            }
-            allDrivers.remove(webDriver);
-            webDriver = ChromeDevtoolsDriver.stdInit();
-            allDrivers.add(webDriver);
+            webDriver = replace(webDriver, "postInit failed (" + ex.getClass().getSimpleName() + ")");
             webDriver.postInit();
         }
         return webDriver;
+    }
+
+    /**
+     * Discards a driver whose CDP session has gone unresponsive (TimeoutException
+     * on send / postInit / get / etc.) and returns a fresh one. Retains pool size
+     * by removing the old from {@code allDrivers} before adding the replacement.
+     */
+    public ExtendedWebDriver replace(ExtendedWebDriver bad, String reason) {
+        LOG.warning(() -> "Replacing driver: " + reason);
+        try {
+            bad.quit();
+        } catch (RuntimeException ignored) {
+            // best-effort cleanup
+        }
+        allDrivers.remove(bad);
+        ExtendedWebDriver fresh = ChromeDevtoolsDriver.stdInit();
+        allDrivers.add(fresh);
+        return fresh;
     }
 
     /**
