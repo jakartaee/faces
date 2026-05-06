@@ -16,24 +16,29 @@
 package ee.jakarta.tck.faces.test.util.junit;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.platform.engine.TestExecutionResult;
 import org.junit.platform.engine.support.descriptor.ClassSource;
 import org.junit.platform.engine.support.descriptor.MethodSource;
 import org.junit.platform.launcher.TestExecutionListener;
 import org.junit.platform.launcher.TestIdentifier;
+import org.junit.platform.launcher.TestPlan;
 
 /**
  * One line per test event, tagged with the GlassFish pool slot the
- * failsafe-fork JVM is leasing. On failure the full stack trace is printed
- * inline so the build log is sufficient even when {@code target/failsafe-reports}
- * is incomplete (e.g. build aborted before the surefire writer ran).
+ * failsafe-fork JVM is leasing and the per-JVM progress counter (with
+ * {@code reuseForks=false} that maps 1:1 to "test N of M within this IT
+ * class"). On failure the full stack trace is printed inline so the build
+ * log is sufficient even when {@code target/failsafe-reports} is incomplete
+ * (e.g. build aborted before the surefire writer ran).
  *
- * <p>Output format (white brackets, bold colour for the status word and slot):
+ * <p>Output format (white brackets, bold colour for the status word, slot
+ * and progress):
  * <pre>
- *   [RUNNING][SLOT3] HtmlCommandButtonIT#actionTest
- *   [SKIPPED][SLOT3] Issue3833IT#test  reason: ignored at the request by the myfaces community
- *   [FAILED][SLOT3] HtmlCommandButtonIT#actionTest  exception: org.opentest4j.AssertionFailedError: expected: <foo> but was: <bar>
+ *   [RUNNING][SLOT1][1/35] SecretIT#secretRenderPassthroughTest()
+ *   [SKIPPED][SLOT3][4/95] Issue3833IT#test  reason: ignored at the request by the myfaces community
+ *   [FAILED][SLOT3][5/123] HtmlCommandButtonIT#actionTest  exception: org.opentest4j.AssertionFailedError: expected: <foo> but was: <bar>
  * </pre>
  */
 public class ProgressListener implements TestExecutionListener {
@@ -44,17 +49,25 @@ public class ProgressListener implements TestExecutionListener {
     private static final String BOLD_RED    = "\u001B[1;31m";
     private static final String RESET       = "\u001B[0m";
 
+    private final AtomicInteger progress = new AtomicInteger();
+    private int total;
+
+    @Override
+    public void testPlanExecutionStarted(TestPlan testPlan) {
+        total = (int) testPlan.countTestIdentifiers(TestIdentifier::isTest);
+    }
+
     @Override
     public void executionStarted(TestIdentifier id) {
         if (id.isTest()) {
-            System.out.println(tag(BOLD_GREEN, "RUNNING") + " " + label(id));
+            System.out.println(tag(BOLD_GREEN, "RUNNING", progress.incrementAndGet()) + " " + label(id));
         }
     }
 
     @Override
     public void executionSkipped(TestIdentifier id, String reason) {
         if (id.isTest()) {
-            System.out.println(tag(BOLD_YELLOW, "SKIPPED") + " " + label(id) + "  reason: " + reason);
+            System.out.println(tag(BOLD_YELLOW, "SKIPPED", progress.incrementAndGet()) + " " + label(id) + "  reason: " + reason);
         }
     }
 
@@ -67,16 +80,19 @@ public class ProgressListener implements TestExecutionListener {
             return;
         }
 
-        var out = new StringBuilder(tag(BOLD_RED, "FAILED")).append(' ').append(label(id));
+        var out = new StringBuilder(tag(BOLD_RED, "FAILED", progress.get())).append(' ').append(label(id));
         result.getThrowable().ifPresent(t -> out.append("  exception: ").append(t.toString()));
         System.out.print(out);
     }
 
-    private static String tag(String color, String status) {
+    private String tag(String color, String status, int n) {
         var slot = System.getProperty("gf.pool.slot");
         var sb = new StringBuilder().append(WHITE).append('[').append(color).append(status).append(WHITE).append(']');
         if (slot != null) {
             sb.append('[').append(color).append("SLOT").append(slot).append(WHITE).append(']');
+        }
+        if (total > 0) {
+            sb.append('[').append(color).append(n).append('/').append(total).append(WHITE).append(']');
         }
         return sb.append(RESET).toString();
     }
