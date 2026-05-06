@@ -60,17 +60,10 @@
     <properties>
         <!--
             Initial number of slots provisioned at build time. Default 1 keeps
-            cold-start cheap; the SlotLeaserAgent grows the pool on demand up
-            to gf.pool.maxSize when concurrent tests need more.
+            cold-start cheap; the SlotLeaserAgent grows the pool on demand to
+            match concurrent demand (effectively the running -T value).
         -->
         <gf.pool.size>1</gf.pool.size>
-
-        <!--
-            Hard cap on pool growth. Empty default: pool-up.sh computes
-            max(4, cores/2) so an 8-core laptop tops out at 4, a 32-core
-            CI host at 16. Override via -Dgf.pool.maxSize=N.
-        -->
-        <gf.pool.maxSize></gf.pool.maxSize>
         <gf.pool.dir>${project.build.directory}/pool</gf.pool.dir>
         <gf.pool.dist>${project.build.directory}/dist</gf.pool.dist>
         <gf.pool.adminPort.base>14848</gf.pool.adminPort.base>
@@ -203,7 +196,6 @@
 
                                 <exec executable="bash" failonerror="true">
                                     <env key="POOL_SIZE"   value="${gf.pool.size}"/>
-                                    <env key="MAX_SIZE"    value="${gf.pool.maxSize}"/>
                                     <env key="POOL_DIR"    value="${gf.pool.dir}"/>
                                     <env key="SOURCE_HOME" value="${gf.pool.source}"/>
                                     <env key="ADMIN_BASE"  value="${gf.pool.adminPort.base}"/>

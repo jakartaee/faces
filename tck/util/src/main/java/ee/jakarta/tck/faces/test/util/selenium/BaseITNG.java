@@ -49,6 +49,7 @@ import org.junit.jupiter.api.extension.ExecutionCondition;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
@@ -97,7 +98,17 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     protected WebPage getPage(String page) {
-        webDriver.get(webUrl.toString() + page);
+        String url = webUrl.toString() + page;
+        try {
+            webDriver.get(url);
+        } catch (WebDriverException ex) {
+            // CDP session can die between @BeforeEach and the first navigation
+            // (Chrome crash, paged-out, dropped WebSocket). DriverPool only retries
+            // on postInit failure; here we cover the post-postInit gap.
+            webDriver = driverPool.replace(webDriver, "navigation failed (" + ex.getClass().getSimpleName() + ")");
+            webDriver.postInit();
+            webDriver.get(url);
+        }
         WebPage webPage = new WebPage(webDriver);
         // Sometimes it takes longer until the first page is loaded after container startup
         webPage.waitForPageToLoad(Duration.ofSeconds(120));

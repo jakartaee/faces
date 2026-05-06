@@ -32,10 +32,7 @@
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.1</name>
 
     <modules>
-        <module>facesMessage</module>
-        <module>headAndBodyRenderer</module>
-        <module>uiRepeat</module>
-        <module>uuidConverter</module>
+        <module>api</module>
     </modules>
 
     <dependencies>

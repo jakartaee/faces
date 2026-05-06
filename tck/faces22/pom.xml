@@ -33,7 +33,8 @@
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2</name>
 
     <modules>
-        <module>ajax</module>
+        <module>ajax-inputs</module>
+        <module>ajax-lifecycle</module>
         <module>cdiBeanValidator</module>
         <module>cdiInitDestroyEvent</module>
         <module>cdiMethodValidation</module>

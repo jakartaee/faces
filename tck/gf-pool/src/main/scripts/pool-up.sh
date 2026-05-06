@@ -8,7 +8,6 @@
 # ${POOL_DIR}/config.properties so SlotLeaserAgent can grow the pool on
 # demand later. Inputs:
 #   POOL_SIZE   - initial slot count (default 1)
-#   MAX_SIZE    - hard cap; empty = max(4, cores/2)
 #   POOL_DIR    - pool root (.gf-pool)
 #   SOURCE_HOME - GlassFish install template (must contain glassfish/bin/asadmin)
 #   ADMIN_BASE  - base admin port (e.g. 14848)
@@ -23,27 +22,8 @@ if [[ ! -x "${SOURCE_HOME}/glassfish/bin/asadmin" ]]; then
     exit 1
 fi
 
-if [[ -z "${MAX_SIZE:-}" ]]; then
-    cores="$(nproc 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null || echo 4)"
-    # Half-cores leaves headroom for the Maven master, surefire forks,
-    # browsers, and the OS. Floor of 4 keeps low-core machines usable.
-    floor=4
-    MAX_SIZE=$(( cores / 2 ))
-    if (( MAX_SIZE < floor )); then
-        MAX_SIZE=${floor}
-    fi
-fi
-
 if [[ -z "${POOL_SIZE:-}" ]]; then
     POOL_SIZE=1
-fi
-
-# If the user explicitly asked for more initial slots than the cap, they
-# clearly want headroom for at least that many — raise the cap to match
-# instead of clamping POOL_SIZE down. So `-Dgf.pool.size=16` alone is
-# enough; no need to also pass -Dgf.pool.maxSize=16.
-if (( POOL_SIZE > MAX_SIZE )); then
-    MAX_SIZE="${POOL_SIZE}"
 fi
 
 mkdir -p "${POOL_DIR}"
@@ -54,17 +34,29 @@ cat > "${POOL_DIR}/config.properties" <<EOF
 source=${SOURCE_HOME}
 adminBase=${ADMIN_BASE}
 portStride=${PORT_STRIDE}
-maxSize=${MAX_SIZE}
 scriptDir=${SCRIPT_DIR}
 EOF
 
-echo "[gf-pool] initial=${POOL_SIZE} max=${MAX_SIZE} (cores: ${cores:-n/a})"
+echo "[gf-pool] initial=${POOL_SIZE} (grows on demand to match -T)"
 
+# Provision slots in parallel and buffer per-slot output so concurrent
+# log lines don't interleave mid-line on the console.
+pids=()
+outs=()
 for ((i = 1; i <= POOL_SIZE; i++)); do
+    tmp=$(mktemp); outs+=("${tmp}")
     SLOT_IDX="$i" \
     POOL_DIR="${POOL_DIR}" \
     SOURCE_HOME="${SOURCE_HOME}" \
     ADMIN_BASE="${ADMIN_BASE}" \
     PORT_STRIDE="${PORT_STRIDE}" \
-        bash "${SCRIPT_DIR}/provision-slot.sh"
+        bash "${SCRIPT_DIR}/provision-slot.sh" >"${tmp}" 2>&1 &
+    pids+=($!)
 done
+fail=0
+for i in "${!pids[@]}"; do
+    wait "${pids[$i]}" || fail=1
+    cat "${outs[$i]}"
+    rm -f "${outs[$i]}"
+done
+exit "${fail}"

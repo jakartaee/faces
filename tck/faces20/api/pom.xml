@@ -30,15 +30,24 @@
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - api</name>
 
+    <!--
+        Declared roughly by descending wall time after the *-tckjar prerequisites,
+        so the long modules start as soon as their tckjars are ready and the
+        mid-build CPU dip stays short. See README §"Sizing -T and the pool".
+    -->
     <modules>
         <module>common-tckjar</module>
-        <module>component</module>
-        <module>event</module>
-        <module>converter-validator</module>
-        <module>misc</module>
-        <module>app</module>
+        <module>component-tckjar</module>
         <module>application</module>
+        <module>component-html-input</module>
+        <module>component-ui</module>
+        <module>misc</module>
+        <module>event</module>
+        <module>component-html-output</module>
+        <module>converter-validator</module>
+        <module>component-misc</module>
         <module>lifecycle</module>
+        <module>app</module>
         <module>renderkit</module>
         <module>factoryfinderrelease</module>
         <module>statemanager-client</module>

@@ -39,9 +39,8 @@ import java.util.Properties;
  * <p>If every existing slot is leased the agent grows the pool: it acquires
  * a global grow-lock, computes the next slot index, execs
  * {@code provision-slot.sh} with the slot's port range, and leases the new
- * slot. Growth is capped at {@code maxSize} read from
- * {@code ${gf.pool.dir}/config.properties} (written by {@code pool-up.sh}).
- * If the cap is reached the agent waits for an existing slot to free.
+ * slot. Growth is unbounded — concurrent demand naturally caps it at the
+ * Maven {@code -T} value, since each test JVM only ever leases one slot.
  */
 public final class SlotLeaserAgent {
 
@@ -78,11 +77,9 @@ public final class SlotLeaserAgent {
             if (discovered < 0) {
                 return; // success
             }
-            if (discovered < config.maxSize) {
-                int grown = tryGrow(poolDir, config);
-                if (grown >= 0 && tryAcquire(poolDir, grown)) {
-                    return;
-                }
+            int grown = tryGrow(poolDir, config);
+            if (grown >= 0 && tryAcquire(poolDir, grown)) {
+                return;
             }
             Thread.sleep(POLL_INTERVAL_MILLIS);
         }
@@ -221,9 +218,7 @@ public final class SlotLeaserAgent {
      * Grows the pool by one slot. Synchronised across concurrent test JVMs
      * via a blocking file lock on {@code grow.lock} so two JVMs can't pick
      * the same next index. Slot indices are 1-based for human readability;
-     * scans from 1 and fills the lowest-unused slot (gap-aware). Returns
-     * the new slot index, or -1 if the cap was reached between the busy
-     * check and lock acquisition.
+     * scans from 1 and fills the lowest-unused slot (gap-aware).
      */
     private static int tryGrow(Path poolDir, PoolConfig config) throws Exception {
         Path growLockFile = poolDir.resolve("grow.lock");
@@ -235,9 +230,6 @@ public final class SlotLeaserAgent {
             int next = 1;
             while (Files.exists(poolDir.resolve("slot-" + next).resolve("ports.properties"))) {
                 next++;
-            }
-            if (next > config.maxSize) {
-                return -1;
             }
             ProcessBuilder pb = new ProcessBuilder("bash",
                     config.scriptDir.resolve("provision-slot.sh").toString());
@@ -268,14 +260,12 @@ public final class SlotLeaserAgent {
         final Path source;
         final int adminBase;
         final int portStride;
-        final int maxSize;
         final Path scriptDir;
 
         private PoolConfig(Properties p) {
             this.source = Paths.get(require(p, "source"));
             this.adminBase = Integer.parseInt(require(p, "adminBase"));
             this.portStride = Integer.parseInt(require(p, "portStride"));
-            this.maxSize = Integer.parseInt(require(p, "maxSize"));
             this.scriptDir = Paths.get(require(p, "scriptDir"));
         }
 
