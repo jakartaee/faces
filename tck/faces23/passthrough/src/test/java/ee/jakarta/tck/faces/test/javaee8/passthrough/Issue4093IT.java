@@ -49,7 +49,7 @@ public class Issue4093IT extends BaseITNG {
 
         button.click();
 
-        String output = page.getPageSource();
+        String output = page.getSource();
 
         assertTrue(output.contains("requiredwithoutpassthrough:value: Validation Error: Value is required."));
     }
@@ -67,7 +67,7 @@ public class Issue4093IT extends BaseITNG {
 
         button.click();
 
-        String output = page.getPageSource();
+        String output = page.getSource();
 
         assertFalse(output.contains("Please fill out this field"));
     }
@@ -85,7 +85,7 @@ public class Issue4093IT extends BaseITNG {
 
         button.click();
 
-        String output = page.getPageSource();
+        String output = page.getSource();
 
         assertTrue(output.contains("validatewithoutpassthrough:value: Validation Error: Value is required."));
     }
@@ -105,7 +105,7 @@ public class Issue4093IT extends BaseITNG {
 
         button.click();
 
-        String output = page.getPageSource();
+        String output = page.getSource();
 
         assertFalse(output.contains("Please fill out this field"));
     }
@@ -125,7 +125,7 @@ public class Issue4093IT extends BaseITNG {
 
         button.click();
 
-        String output = page.getPageSource();
+        String output = page.getSource();
 
         assertFalse(output.contains("Please fill out this field"));
     }

@@ -40,8 +40,8 @@ class Issue1957IT extends BaseITNG {
         WebPage page = getPage("issue1957.xhtml");
         WebElement span = page.findElement(By.id("form:group"));
         page.guardAjax(span::click);
-        assertTrue(page.isInPage("form:group Event: begin"));
-        assertTrue(page.isInPage("form:group Event: complete"));
-        assertTrue(page.isInPage("form:group Event: success"));
+        assertTrue(page.containsText("form:group Event: begin"));
+        assertTrue(page.containsText("form:group Event: complete"));
+        assertTrue(page.containsText("form:group Event: success"));
     }
 }

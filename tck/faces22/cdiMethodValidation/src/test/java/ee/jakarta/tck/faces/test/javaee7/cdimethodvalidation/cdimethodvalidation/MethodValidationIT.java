@@ -44,7 +44,7 @@ public class MethodValidationIT extends BaseITNG {
 
         WebElement button = page.findElement(By.id("button"));
         button.click();
-        String text = page.getPageSource();
+        String text = page.getSource();
 
         assertTrue(text.contains("FooConstraint"));
         assertTrue(text.contains("my message"));
@@ -63,7 +63,7 @@ public class MethodValidationIT extends BaseITNG {
 
         WebElement button = page.findElement(By.id("button"));
         button.click();
-        String text = page.getPageSource();
+        String text = page.getSource();
 
         assertFalse(text.contains("FooConstraint"));
         assertTrue(text.contains("my message"));
@@ -82,7 +82,7 @@ public class MethodValidationIT extends BaseITNG {
 
         WebElement button = page.findElement(By.id("button"));
         button.click();
-        String text = page.getPageSource();
+        String text = page.getSource();
 
         assertTrue(text.contains("FooConstraint"));
         assertTrue(text.contains("my message"));

@@ -44,7 +44,7 @@ class Spec220IT extends BaseITNG {
         
         WebElement button = page.findElement(By.id("submitAjax"));
         page.guardAjax(button::click);
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
         assertTrue(pageText.contains("|ajaxFirstName|"));
 
         textField = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("firstName")));
@@ -52,7 +52,7 @@ class Spec220IT extends BaseITNG {
         
         button = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("submitNonAjax")));
         page.guardAjax(button::click);
-        pageText = page.getPageSource();
+        pageText = page.getSource();
         assertTrue(pageText.contains("|nonAjaxFirstName|"));
     }
 }

@@ -54,7 +54,7 @@ public class Spec1349IT extends BaseITNG {
         WebPage page = getPage("faces/injectConverter2.xhtml");
         WebElement submit = page.findElement(By.id("form:submit"));
         submit.click();
-        assertTrue(page.getPageSource().contains("InjectConverter2 was called"));
+        assertTrue(page.containsText("InjectConverter2 was called"));
     }
 
     /**
@@ -67,6 +67,6 @@ public class Spec1349IT extends BaseITNG {
         WebPage page = getPage("faces/injectConverter3.xhtml");
         WebElement submit = page.findElement(By.id("form:submit"));
         submit.click();
-        assertTrue(page.getPageSource().contains("InjectConverter3 was called"));
+        assertTrue(page.containsText("InjectConverter3 was called"));
     }
 }

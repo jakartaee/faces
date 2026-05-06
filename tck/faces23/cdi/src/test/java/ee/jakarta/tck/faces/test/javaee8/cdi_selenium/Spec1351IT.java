@@ -16,6 +16,8 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi_selenium;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.component.behavior.FacesBehavior;
 import jakarta.inject.Inject;
 
@@ -35,6 +37,6 @@ class Spec1351IT extends BaseITNG {
   @Test
   void injectValidator() throws Exception {
         WebPage page = getPage("faces/injectBehavior.xhtml");
-        page.waitForCondition(webDriver -> page.isInPage("injectBehavior"));
+        assertTrue(page.containsSource("injectBehavior"));
     }
 }

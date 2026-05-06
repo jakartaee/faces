@@ -38,7 +38,7 @@ public class Bug22995287IT extends BaseITNG {
         WebElement link = page.findElement(By.id("get_parameter_fparam"));
         link.click();
 
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
         assertTrue(pageXml.contains("foo bar"));
     }
 
@@ -53,7 +53,7 @@ public class Bug22995287IT extends BaseITNG {
 
         link.click();
 
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
         assertTrue(pageXml.contains("foo bar"));
     }
 
@@ -68,7 +68,7 @@ public class Bug22995287IT extends BaseITNG {
 
         link.click();
 
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
@@ -82,7 +82,7 @@ public class Bug22995287IT extends BaseITNG {
         WebElement button = page.findElement(By.id("button_to_page2"));
         button.click();
 
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
@@ -96,7 +96,7 @@ public class Bug22995287IT extends BaseITNG {
         WebElement link = page.findElement(By.id("page3_get_parameter_fparam"));
         link.click();
 
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
         assertTrue(pageXml.contains("foo bar"));
     }
 
@@ -111,7 +111,7 @@ public class Bug22995287IT extends BaseITNG {
 
         link.click();
 
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
         assertTrue(pageXml.contains("foo bar"));
     }
 
@@ -126,7 +126,7 @@ public class Bug22995287IT extends BaseITNG {
 
         link.click();
 
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 
@@ -140,7 +140,7 @@ public class Bug22995287IT extends BaseITNG {
         WebElement button = page.findElement(By.id("page3_button_to_page2"));
         button.click();
 
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
 }

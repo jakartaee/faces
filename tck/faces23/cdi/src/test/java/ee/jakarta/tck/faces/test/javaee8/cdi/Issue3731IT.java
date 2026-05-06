@@ -36,6 +36,6 @@ public class Issue3731IT extends BaseITNG {
   @Test
   void injectViewMap2() throws Exception {
         WebPage page = getPage("faces/injectViewMap2.xhtml");
-        assertTrue(page.getPageSource().contains("{}"));
+        assertTrue(page.containsText("{}"));
     }
 }

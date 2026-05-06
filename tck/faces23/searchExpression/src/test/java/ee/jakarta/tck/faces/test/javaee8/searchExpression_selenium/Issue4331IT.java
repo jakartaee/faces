@@ -45,9 +45,9 @@ public class Issue4331IT extends BaseITNG {
     public void testCustomSearchKeywordResolverAddedViaFacesConfig() throws Exception {
         WebPage page = getPage("issue4331.xhtml");
 
-        WebElement input = getWebDriver().findElement(By.id("issue4331ITInput1"));
+        WebElement input = page.findElement(By.id("issue4331ITInput1"));
 
-        String behaviorScript = getBehaviorScript(page, input);
+        String behaviorScript = page.getBehaviorScript(input);
 
         assertFalse(behaviorScript.contains("@custom"));
         assertTrue(behaviorScript.contains("issue4331ITInput1"));

@@ -86,7 +86,6 @@ class Spec1423IT extends BaseITNG {
 
         button = page.findElement(By.id("form1:addProgrammatically"));
         page.guardAjax(button::click);
-        // wait for condition implictly also handles the
 
         page.waitForCondition(wd -> page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(0, 255, 0)") &&
                     page.findElement(By.id("scriptResult")).getText().trim().equals("addedProgrammatically"));

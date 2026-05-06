@@ -55,7 +55,7 @@ class Spec1396IT extends BaseITNG {
   void defaultWebsocket() throws Exception {
         WebPage page = getPage("spec1396DefaultWebsocket.xhtml");
 
-        String pageSource = page.getPageSource();
+        String pageSource = page.getSource();
         assertTrue(pageSource.contains("faces.push.init("));
         assertTrue(pageSource.contains("/jakarta.faces.push/push?"));
 
@@ -75,7 +75,7 @@ class Spec1396IT extends BaseITNG {
   void userScopedWebsocket() throws Exception {
         WebPage page = getPage("spec1396UserScopedWebsocket.xhtml");
 
-        String pageSource = page.getPageSource();
+        String pageSource = page.getSource();
         assertTrue(pageSource.contains("faces.push.init("));
         assertTrue(pageSource.contains("/jakarta.faces.push/user?"));
 
@@ -95,7 +95,7 @@ class Spec1396IT extends BaseITNG {
   void viewScopedWebsocket() throws Exception {
         WebPage page = getPage("spec1396ViewScopedWebsocket.xhtml");
 
-        String pageSource = page.getPageSource();
+        String pageSource = page.getSource();
         assertTrue(pageSource.contains("faces.push.init("));
         assertTrue(pageSource.contains("/jakarta.faces.push/view?"));
 
@@ -115,17 +115,16 @@ class Spec1396IT extends BaseITNG {
   void websocketAfterPostback() throws Exception {
         WebPage page = getPage("issue4332.xhtml");
 
-        String pageSource = page.getPageSource();
+        String pageSource = page.getSource();
         assertTrue(pageSource.contains("faces.push.init("));
         assertTrue(pageSource.contains("/jakarta.faces.push/push?"));
 
         waitUntilWebsocketIsOpened(getWebDriver(), page);
 
         WebElement postback = page.findElement(By.id("form:postback"));
-        postback.click();
-        page.waitForPageToLoad();
+        page.guardHttp(postback::click);
 
-        pageSource = page.getPageSource();
+        pageSource = page.getSource();
         assertTrue(pageSource.contains("faces.push.init("));
         assertTrue(pageSource.contains("/jakarta.faces.push/push?"));
 

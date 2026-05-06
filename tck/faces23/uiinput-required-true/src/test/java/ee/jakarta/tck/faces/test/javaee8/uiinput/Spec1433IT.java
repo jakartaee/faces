@@ -38,15 +38,14 @@ class Spec1433IT extends BaseITNG {
     void spec1433() throws Exception {
         WebPage page = getPage("spec1433.xhtml");
         WebElement input = page.findElement(By.id("form:input"));
-        getWebDriver().getJSExecutor()
-                .executeScript("var input = document.getElementById('form:input');input.setAttribute('id', '');input.setAttribute('name', '');");
+        page.executeScript("var input = document.getElementById('form:input');input.setAttribute('id', '');input.setAttribute('name', '');");
         input.sendKeys("non-empty value");
 
         WebElement button = page.findElement(By.id("form:submit"));
 
         button.click();
 
-        String output = page.getPageSource();
+        String output = page.getSource();
 
         assertTrue(output.contains("Spec1433Bean Validator Message"));
 

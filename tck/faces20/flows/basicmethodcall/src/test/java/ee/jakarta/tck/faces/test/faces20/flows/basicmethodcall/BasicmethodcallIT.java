@@ -34,7 +34,7 @@ class BasicmethodcallIT extends BaseITNG {
 
     private void goTest(String startId) {
         WebPage page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Outside of flow"), "Outside of flow");
+        assertTrue(page.containsText("Outside of flow"), "Outside of flow");
 
         WebElement start = findByIdSuffix(page, startId);
         page.guardHttp(start::click);
@@ -42,7 +42,7 @@ class BasicmethodcallIT extends BaseITNG {
         WebElement outcomeFromMethod = findByIdSuffix(page, "outcome-from-method");
         page.guardHttp(outcomeFromMethod::click);
 
-        assertTrue(page.isInPageText("Last page in the flow"), "Last page in the flow");
+        assertTrue(page.containsText("Last page in the flow"), "Last page in the flow");
 
         page = getPage("faces/index.xhtml");
 
@@ -52,7 +52,7 @@ class BasicmethodcallIT extends BaseITNG {
         WebElement outcomeFromMarkup = findByIdSuffix(page, "outcome-from-markup");
         page.guardHttp(outcomeFromMarkup::click);
 
-        assertTrue(page.isInPageText("voidMethod called in flow-a"), "voidMethod called in flow-a");
+        assertTrue(page.containsText("voidMethod called in flow-a"), "voidMethod called in flow-a");
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

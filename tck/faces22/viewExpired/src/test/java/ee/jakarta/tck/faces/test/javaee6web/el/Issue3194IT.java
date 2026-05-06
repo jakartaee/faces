@@ -63,10 +63,10 @@ public class Issue3194IT extends BaseITNG {
         getPage("faces/viewExpired.xhtml");
         getPage("faces/viewExpired.xhtml");
         WebPage page = getPage("faces/viewExpired.xhtml");
-        assertTrue(page.getPageSource().contains("1"));
+        assertTrue(page.containsText("1"));
         page = getPage("faces/viewExpired.xhtml");
-        assertTrue(page.getPageSource().contains("2"));
+        assertTrue(page.containsText("2"));
         page = getPage("faces/viewExpired.xhtml");
-        assertTrue(page.getPageSource().contains("3"));
+        assertTrue(page.containsText("3"));
     }
 }

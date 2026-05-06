@@ -41,6 +41,6 @@ public class Issue3014IT extends BaseITNG {
         WebElement button = page.findElement(By.id("button"));
         button.click();
 
-        assertFalse(page.getPageSource().contains("my message"));
+        assertFalse(page.containsText("my message"));
     }
 }

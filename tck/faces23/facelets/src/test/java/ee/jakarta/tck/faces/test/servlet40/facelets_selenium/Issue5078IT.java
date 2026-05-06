@@ -16,16 +16,16 @@
  */
 
 package ee.jakarta.tck.faces.test.servlet40.facelets_selenium;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Issue5078IT extends BaseITNG {
@@ -39,18 +39,9 @@ class Issue5078IT extends BaseITNG {
   @Test
   void uIRepeatVisitTreeDuringInvokeApplication() throws Exception {
         WebPage page = getPage("faces/issue5078.xhtml");
-        ExtendedWebDriver webDriver = getWebDriver();
-        WebElement button = webDriver.findElement(By.id("form:repeat:1:button"));
-        button.click();
-        page.waitForCondition(webDriver1 -> {
-            try {
-                WebElement element = webDriver.findElement(By.id("form:value"));
-                return element != null && element.getText().equals("2");
-            } catch (StaleElementReferenceException ex) {
-                //element has been replaced mid check
-                return false;
-            }
-        });
+        WebElement button = page.findElement(By.id("form:repeat:1:button"));
+        page.guardAjax(button::click);
+        assertEquals("2", page.findElement(By.id("form:value")).getText());
     }
 
 }

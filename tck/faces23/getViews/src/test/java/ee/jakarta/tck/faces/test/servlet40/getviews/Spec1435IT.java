@@ -41,7 +41,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViews() throws Exception {
         WebPage page = getPage("getViews.jsf");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews.xhtml"));
         assertTrue(content.contains("view: /foo.xhtml")); // include marker since is also subset of "/level2/foo.xhtml" etc
@@ -61,7 +61,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPath() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews.xhtml"));
         assertFalse(content.contains("view: /foo.xhtml"));
@@ -82,7 +82,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewsAsImplicit() throws Exception {
         WebPage page = getPage("getViews.jsf?implicit=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews"));
         assertTrue(content.contains("view: /foo"));
@@ -112,7 +112,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewsWithLimit2() throws Exception {
         WebPage page = getPage("getViews.jsf?maxDepth=2");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews.xhtml"));
         assertTrue(content.contains("view: /foo.xhtml")); // include marker since is also subset of "/level2/foo.xhtml" etc
@@ -133,7 +133,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathImplicit() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews"));
         assertFalse(content.contains("view: /foo"));
@@ -162,7 +162,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathImplicitWithLimit2() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=2");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews"));
         assertFalse(content.contains("view: /foo"));
@@ -193,7 +193,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathImplicitWithLimit3() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=3");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews"));
         assertFalse(content.contains("view: /foo"));
@@ -224,7 +224,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathImplicitWithLimit0() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=0");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews"));
         assertFalse(content.contains("view: /foo"));
@@ -260,7 +260,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewsVDL() throws Exception {
         WebPage page = getPage("getViews.jsf?fromVDL=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews.xhtml"));
         assertTrue(content.contains("view: /foo.xhtml")); // include marker since is also subset of "/level2/foo.xhtml" etc
@@ -280,7 +280,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathVDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&fromVDL=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews.xhtml"));
         assertFalse(content.contains("view: /foo.xhtml"));
@@ -301,7 +301,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewsAsImplicitVDL() throws Exception {
         WebPage page = getPage("getViews.jsf?implicit=true&fromVDL=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews"));
         assertTrue(content.contains("view: /foo"));
@@ -331,7 +331,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewsWithLimit2VDL() throws Exception {
         WebPage page = getPage("getViews.jsf?maxDepth=2&fromVDL=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews.xhtml"));
         assertTrue(content.contains("view: /foo.xhtml")); // include marker since is also subset of "/level2/foo.xhtml" etc
@@ -352,7 +352,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathImplicitVDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&fromVDL=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews"));
         assertFalse(content.contains("view: /foo"));
@@ -381,7 +381,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathImplicitWithLimit2VDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=2&fromVDL=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews"));
         assertFalse(content.contains("view: /foo"));
@@ -412,7 +412,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathImplicitWithLimit3VDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=3&fromVDL=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews"));
         assertFalse(content.contains("view: /foo"));
@@ -443,7 +443,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewsForPathImplicitWithLimit0VDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=0&fromVDL=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews"));
         assertFalse(content.contains("view: /foo"));
@@ -478,7 +478,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewResources() throws Exception {
         WebPage page = getPage("getViewResources.jsf");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews.xhtml"));
         assertTrue(content.contains("resource name: /foo.xhtml")); // include marker since is also subset of "/level2/foo.xhtml" etc
@@ -498,7 +498,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewResourcesForPath() throws Exception {
         WebPage page = getPage("getViewResources.jsf?path=%2Flevel2%2F");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews.xhtml"));
         assertFalse(content.contains("view: /foo.xhtml"));
@@ -519,7 +519,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewResourcesTopLevel() throws Exception {
         WebPage page = getPage("getViewResources.jsf?topLevel=true");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews.xhtml"));
         assertTrue(content.contains("resource name: /foo.xhtml")); // include marker since is also subset of "/level2/foo.xhtml" etc
@@ -539,7 +539,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewResourcesWithLimit2() throws Exception {
         WebPage page = getPage("getViewResources.jsf?maxDepth=2");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertTrue(content.contains("/getViews.xhtml"));
         assertTrue(content.contains("resource name: /foo.xhtml")); // include marker since is also subset of "/level2/foo.xhtml" etc
@@ -561,7 +561,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getViewResourcesForPathWithLimit3() throws Exception {
         WebPage page = getPage("getViewResources.jsf?path=%2Flevel2%2F&maxDepth=3");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews.xhtml"));
         assertFalse(content.contains("resource name: /foo.xhtml"));
@@ -584,7 +584,7 @@ public class Spec1435IT extends BaseITNG {
   @Test
   void getAllViewResourcesForPathWithLimit0() throws Exception {
         WebPage page = getPage("getViewResources.jsf?path=%2Flevel2%2F&maxDepth=0");
-        String content = page.getPageSource();
+        String content = page.getSource();
 
         assertFalse(content.contains("/getViews.xhtml"));
         assertFalse(content.contains("resource name: /foo.xhtml")); // include marker since is also subset of "/level2/foo.xhtml" etc

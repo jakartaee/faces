@@ -17,6 +17,7 @@
 package ee.jakarta.tck.faces.test.javaee8.uiinput_selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.UISelectMany;
@@ -27,7 +28,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Issue5081IT extends BaseITNG {
@@ -42,29 +42,27 @@ class Issue5081IT extends BaseITNG {
   void issue4734() throws Exception {
         WebPage page = getPage("issue5081.xhtml");
 
-        ExtendedWebDriver webDriver = getWebDriver();
 
-        WebElement input1 = webDriver.findElement(By.id("form:input"));
+        WebElement input1 = page.findElement(By.id("form:input"));
         page.guardAjax(() -> {
             input1.sendKeys("text");
             // \t key equals to blur
             input1.sendKeys("\t");
         });
-        WebElement submit = webDriver.findElement(By.id("form:submit"));
-        submit.click();
-        page.waitForCondition(webDriver1 ->
-                page.getPageSource().contains("Validation Error"));
-        WebElement message = webDriver.findElement(By.id("form:message_for_selectmany"));
+        WebElement submit = page.findElement(By.id("form:submit"));
+        page.guardHttp(submit::click);
+        assertTrue(page.containsText("Validation Error"));
+        WebElement message = page.findElement(By.id("form:message_for_selectmany"));
         assertEquals("form:selectmany: Validation Error: Value is required.", message.getText(), "There is a required message");
 
-        WebElement input2 = webDriver.findElement(By.id("form:input"));
+        WebElement input2 = page.findElement(By.id("form:input"));
         page.guardAjax(() -> {
             input2.sendKeys("more");
             input2.sendKeys("\t"); // Before the fix, the second blur failed with java.lang.ClassCastException: class java.lang.String cannot be cast to class [Ljava.lang.Object;
         });
-        submit = webDriver.findElement(By.id("form:submit"));
+        submit = page.findElement(By.id("form:submit"));
         page.guardAjax(submit::click);
-        message = webDriver.findElement(By.id("form:message_for_selectmany"));
+        message = page.findElement(By.id("form:message_for_selectmany"));
         assertEquals("form:selectmany: Validation Error: Value is required.", message.getText(), "There is a still required message");
     }
 

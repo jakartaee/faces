@@ -47,7 +47,7 @@ class Issue1817IT extends BaseITNG {
             WebElement anchor = page.findElement(By.id(id[0]));
             page.guardAjax(anchor::click);
             String expectedText = "Triggered item: " + id[1];
-            assertTrue(page.isInPage(expectedText));
+            assertTrue(page.containsText(expectedText));
         }
     }
 }

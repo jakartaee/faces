@@ -27,7 +27,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Issue4830IT extends BaseITNG {
@@ -41,11 +40,9 @@ class Issue4830IT extends BaseITNG {
   @Test
   void uIRepeatResetValues() throws Exception {
         WebPage page = getPage("faces/issue4830.xhtml");
-        ExtendedWebDriver webDriver = getWebDriver();
-        WebElement button = webDriver.findElement(By.id("form:button"));
+        WebElement button = page.findElement(By.id("form:button"));
         page.guardAjax(button::click);
-        page.waitForCondition(webDriver1 -> webDriver.findElement(By.id("form:value")));
-        assertTrue(webDriver.findElement(By.id("form:value")).getText().isEmpty());
+        assertTrue(page.findElement(By.id("form:value")).getText().isEmpty());
     }
 
 }

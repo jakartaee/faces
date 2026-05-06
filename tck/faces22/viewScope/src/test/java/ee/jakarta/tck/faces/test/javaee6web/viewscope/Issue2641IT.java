@@ -93,10 +93,10 @@ public class Issue2641IT extends BaseITNG {
   void invalidatedSession() throws Exception {
         WebPage page = getPage("faces/invalidatedSession.xhtml");
 
-        assertTrue(page.getPageSource().contains("This is from the @PostConstruct"));
+        assertTrue(page.containsText("This is from the @PostConstruct"));
         getPage("faces/invalidatedPerform.xhtml");
         page = getPage("faces/invalidatedVerify.xhtml");
-        assertTrue(page.getPageSource().contains("true"));
+        assertTrue(page.containsText("true"));
     }
 
   /**

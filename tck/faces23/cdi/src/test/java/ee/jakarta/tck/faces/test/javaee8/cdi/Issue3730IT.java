@@ -36,6 +36,6 @@ public class Issue3730IT extends BaseITNG {
   @Test
   void injectSessionMap2() throws Exception {
         WebPage page = getPage("faces/injectSessionMap2.xhtml");
-        assertTrue(page.getPageSource().contains("key=value"));
+        assertTrue(page.containsText("key=value"));
     }
 }

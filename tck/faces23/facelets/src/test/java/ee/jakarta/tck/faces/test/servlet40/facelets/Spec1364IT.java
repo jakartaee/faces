@@ -39,7 +39,7 @@ public class Spec1364IT extends BaseITNG {
   @Test
   void dataTableMap() throws Exception {
         WebPage page = getPage("faces/datatableMap.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*Amsterdam.*821702.*Rotterdam.*624799.*Den Haag.*514782.*END.*", page.getPageSource()));
+        assertTrue(Pattern.matches("(?s).*START.*Amsterdam.*821702.*Rotterdam.*624799.*Den Haag.*514782.*END.*", page.getSource()));
     }
 
   /**
@@ -50,7 +50,7 @@ public class Spec1364IT extends BaseITNG {
   @Test
   void uIRepeatMap() throws Exception {
         WebPage page = getPage("faces/uirepeatMap.xhtml");
-        assertTrue(Pattern.matches("(?s).*START.*Amsterdam-821702.*Rotterdam-624799.*Den Haag-514782.*END.*", page.getPageSource()));
+        assertTrue(Pattern.matches("(?s).*START.*Amsterdam-821702.*Rotterdam-624799.*Den Haag-514782.*END.*", page.getSource()));
     }
 
 }

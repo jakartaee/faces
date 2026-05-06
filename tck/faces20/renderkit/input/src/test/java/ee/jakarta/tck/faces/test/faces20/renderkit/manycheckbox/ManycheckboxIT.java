@@ -176,7 +176,7 @@ class ManycheckboxIT extends BaseITNG {
 
         page.guardHttp(findByIdSuffix(page, "command")::click);
 
-        assertFalse(page.getPageSource().contains("Error:"), "post-back contains 'Error:'");
+        assertFalse(page.containsText("Error:"), "post-back contains 'Error:'");
 
         for (String id : SELECT_IDS) {
             List<WebElement> items = findCheckboxItems(page, id);

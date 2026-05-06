@@ -36,15 +36,15 @@ class Issue3171IT extends BaseITNG {
   @Test
   void exceptionDuringRenderOk() throws Exception {
         WebPage page = getPage("exceptionDuringRender.xhtml");
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
 
         assertTrue(pageText.contains("not an ajax request"));
 
         WebElement button = page.findElement(By.id("submit"));
         page.guardAjax(button::click);
 
-        assertTrue(page.isInPageText("not an ajax request"));
-        assertTrue(page.isInPageText("Error from submit"));
+        assertTrue(page.containsText("not an ajax request"));
+        assertTrue(page.containsText("Error from submit"));
         
     }
 }

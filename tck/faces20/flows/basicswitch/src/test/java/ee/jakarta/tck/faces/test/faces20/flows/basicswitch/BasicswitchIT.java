@@ -40,7 +40,7 @@ class BasicswitchIT extends BaseITNG {
 
     private void exerciseSwitch(String startId, String switchId, String expectedResult) {
         WebPage page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Outside of flow"), "Outside of flow");
+        assertTrue(page.containsText("Outside of flow"), "Outside of flow");
 
         WebElement start = findByIdSuffix(page, startId);
         page.guardHttp(start::click);
@@ -48,7 +48,7 @@ class BasicswitchIT extends BaseITNG {
         WebElement switchButton = findByIdSuffix(page, switchId);
         page.guardHttp(switchButton::click);
 
-        assertTrue(page.isInPageText(expectedResult), expectedResult);
+        assertTrue(page.containsText(expectedResult), expectedResult);
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

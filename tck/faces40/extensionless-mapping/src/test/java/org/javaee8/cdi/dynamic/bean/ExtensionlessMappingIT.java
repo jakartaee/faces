@@ -45,7 +45,7 @@ public class ExtensionlessMappingIT extends BaseITNG {
     @RunAsClient
     void extensionlessMappingFoo() throws IOException {
         WebPage page = getPage("foo");
-        String content = page.getPageSource();
+        String content = page.getSource();
         assertTrue(content.contains("This is page foo"));
         assertTrue(page.findElement(By.id("barxhtmllink")).getDomAttribute("href").endsWith("/bar"));
         assertTrue(page.findElement(By.id("barlink")).getDomAttribute("href").endsWith("/bar"));
@@ -60,7 +60,7 @@ public class ExtensionlessMappingIT extends BaseITNG {
     @RunAsClient
     void extensionlessMappingBar() throws IOException {
         WebPage page = getPage("bar");
-        String content = page.getPageSource();
+        String content = page.getSource();
         assertTrue(content.contains("This is page bar"));
     }
 
@@ -73,7 +73,7 @@ public class ExtensionlessMappingIT extends BaseITNG {
     @RunAsClient
     void extensionlessMappingSubBar() throws IOException {
         WebPage page = getPage("sub/bar");
-        String content = page.getPageSource();
+        String content = page.getSource();
         assertTrue(content.contains("This is page sub-bar"));
     }
 

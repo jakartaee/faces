@@ -162,7 +162,7 @@ class ManymenuIT extends BaseITNG {
 
         page.guardHttp(findByIdSuffix(page, "command")::click);
 
-        assertFalse(page.getPageSource().contains("Error:"), "post-back contains 'Error:'");
+        assertFalse(page.containsText("Error:"), "post-back contains 'Error:'");
 
         for (String id : SELECT_IDS) {
             WebElement select = findByIdSuffix(page, id);

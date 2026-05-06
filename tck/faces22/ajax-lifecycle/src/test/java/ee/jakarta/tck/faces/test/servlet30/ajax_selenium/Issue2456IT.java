@@ -36,10 +36,10 @@ class Issue2456IT extends BaseITNG {
   @Test
   void script() throws Exception {
         WebPage page = getPage("script.xhtml");
-        assertTrue(page.isInPage("SCRIPT EXECUTED!"));
+        assertTrue(page.containsText("SCRIPT EXECUTED!"));
         WebElement button = page.findElement(By.id("form1:button1"));
         page.guardAjax(button::click);
-        assertTrue(page.isInPage("SCRIPT EXECUTED!"));
+        assertTrue(page.containsText("SCRIPT EXECUTED!"));
     }
 }
 
