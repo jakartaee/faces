@@ -44,8 +44,22 @@ fi
 
 echo "[gf-pool] provisioning slot ${SLOT_IDX} from ${SOURCE_HOME} (admin=${admin_port} http=${http_port})"
 
-rm -rf "${slot_dir}"
+# SlotLeaserAgent.tryGrow may pre-create ${slot_dir} (empty) under grow.lock
+# to claim this index, then release the lock so the next caller can claim
+# its own index in parallel. We must therefore clear ${slot_dir}'s contents
+# rather than rm -rf the dir itself — otherwise the claim is briefly invisible
+# and a concurrent tryGrow could pick the same index. mkdir -p covers the
+# pool-up.sh path where the dir doesn't exist yet.
 mkdir -p "${slot_dir}"
+find "${slot_dir}" -mindepth 1 -delete 2>/dev/null || true
+
+# Bootstrap-in-flight sentinel. SlotLeaserAgent reads this to know a
+# provision is still running and waits for it (rather than racing tryGrow
+# and double-provisioning the same slot index). The EXIT trap removes the
+# pid on any exit — success, error, or signal — so a stale pid never
+# survives this script (modulo SIGKILL, which is rare in practice).
+echo "$$" > "${slot_dir}/.bootstrap.pid"
+trap 'rm -f "${slot_dir}/.bootstrap.pid"' EXIT
 
 # Hardlink-clone the entire install (~free, sub-second on local fs).
 cp -al "${SOURCE_HOME}" "${slot_dir}/glassfish9"
@@ -89,13 +103,6 @@ patch_pair 'name="JMS_PROVIDER_PORT"' 'value' "${jms_port}"
 patch_pair 'name="PortNumber"'        'value' "${derby_port}"
 sed -i -E "s/-Dosgi\\.shell\\.telnet\\.port=[0-9]+/-Dosgi.shell.telnet.port=${osgi_port}/g" "${domain_xml}"
 
-cat > "${slot_dir}/ports.properties" <<EOF
-arquillian.adminPort=${admin_port}
-arquillian.httpPort=${http_port}
-arquillian.httpsPort=${https_port}
-glassfish.home=${slot_home}
-EOF
-
 # Pre-create the lock file so the JVM shutdown hook can always FileChannel.open
 # + tryLock it. Without this, builds that fail before any test JVM agent has
 # run leave no lock file behind, the hook's existence check returns early,
@@ -104,3 +111,15 @@ EOF
 
 echo "[gf-pool] starting slot ${SLOT_IDX}"
 "${asadmin}" start-domain domain1
+
+# Write ports.properties LAST. SlotLeaserAgent uses its existence as the
+# "slot is fully provisioned and the GF admin port should be listening"
+# signal. Writing it earlier would let the agent observe a slot whose
+# admin port is not yet up — the health probe would skip it, but only
+# after wasting a poll cycle and possibly triggering a redundant tryGrow.
+cat > "${slot_dir}/ports.properties" <<EOF
+arquillian.adminPort=${admin_port}
+arquillian.httpPort=${http_port}
+arquillian.httpsPort=${https_port}
+glassfish.home=${slot_home}
+EOF
