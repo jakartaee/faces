@@ -56,7 +56,6 @@ import org.openqa.selenium.chromium.ChromiumNetworkConditions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v139.network.Network;
 import org.openqa.selenium.devtools.v139.network.model.Headers;
-import org.openqa.selenium.devtools.v139.network.model.MonotonicTime;
 import org.openqa.selenium.devtools.v139.network.model.Request;
 import org.openqa.selenium.devtools.v139.network.model.RequestId;
 import org.openqa.selenium.devtools.v139.network.model.ResourceType;
@@ -129,7 +128,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
 
     public static ExtendedWebDriver stdInit() {
-        Locale.setDefault(new Locale("en", "US"));
+        Locale.setDefault(Locale.US);
         initCDPVersionMessageFilter();
 
         ChromeOptions options = new ChromeOptions();
@@ -159,6 +158,10 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         options.addArguments("--disable-gpu");
         options.setExperimentalOption("prefs", Map.of("intl.accept_languages", "en"));
         options.addArguments("--lang=en");
+
+        // containerised CI defaults /dev/shm to 64MB, far below what Chrome's helpers need;
+        // when exhausted, allocations spill to disk and CDP round-trips slow 4-6× (observed on Eclipse Jenkins).
+        options.addArguments("--disable-dev-shm-usage");
 
         ExtendedWebDriver driver = new ChromeDevtoolsDriver(options);
         // Disable Selenium's implicit wait. Mixing it with explicit waits is documented as
