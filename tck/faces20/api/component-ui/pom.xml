@@ -21,35 +21,24 @@
 
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
-        <artifactId>pom</artifactId>
+        <artifactId>api</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>api</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>api-component-ui</artifactId>
+    <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - api</name>
+    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - api - component ui</name>
 
-    <!--
-        Declared roughly by descending wall time after the *-tckjar prerequisites,
-        so the long modules start as soon as their tckjars are ready and the
-        mid-build CPU dip stays short. See README §"Sizing -T and the pool".
-    -->
-    <modules>
-        <module>common-tckjar</module>
-        <module>component-tckjar</module>
-        <module>application</module>
-        <module>component-html-input</module>
-        <module>component-ui</module>
-        <module>misc</module>
-        <module>event</module>
-        <module>component-html-output</module>
-        <module>converter-validator</module>
-        <module>component-misc</module>
-        <module>lifecycle</module>
-        <module>app</module>
-        <module>renderkit</module>
-        <module>factoryfinderrelease</module>
-        <module>statemanager-client</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
+            <artifactId>api-component-tckjar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>test-faces20-api-component-ui</finalName>
+    </build>
 </project>
