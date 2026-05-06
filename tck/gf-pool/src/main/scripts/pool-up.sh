@@ -39,11 +39,24 @@ EOF
 
 echo "[gf-pool] initial=${POOL_SIZE} (grows on demand to match -T)"
 
+# Provision slots in parallel and buffer per-slot output so concurrent
+# log lines don't interleave mid-line on the console.
+pids=()
+outs=()
 for ((i = 1; i <= POOL_SIZE; i++)); do
+    tmp=$(mktemp); outs+=("${tmp}")
     SLOT_IDX="$i" \
     POOL_DIR="${POOL_DIR}" \
     SOURCE_HOME="${SOURCE_HOME}" \
     ADMIN_BASE="${ADMIN_BASE}" \
     PORT_STRIDE="${PORT_STRIDE}" \
-        bash "${SCRIPT_DIR}/provision-slot.sh"
+        bash "${SCRIPT_DIR}/provision-slot.sh" >"${tmp}" 2>&1 &
+    pids+=($!)
 done
+fail=0
+for i in "${!pids[@]}"; do
+    wait "${pids[$i]}" || fail=1
+    cat "${outs[$i]}"
+    rm -f "${outs[$i]}"
+done
+exit "${fail}"
