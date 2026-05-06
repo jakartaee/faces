@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.net.http.HttpClient;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +76,8 @@ public abstract class BaseITNG implements ExecutionCondition {
     private ExtendedWebDriver webDriver;
 
     protected static final DriverPool driverPool = new DriverPool();
+    
+    private static final HttpClient HTTP = newHttpClient();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -133,7 +136,7 @@ public abstract class BaseITNG implements ExecutionCondition {
 
     protected String getResponseBody(String resource) {
         try {
-            return newHttpClient().send(newBuilder(create(webUrl + resource)).build(), ofString()).body();
+            return HTTP.send(newBuilder(create(webUrl + resource)).build(), ofString()).body();
         }
         catch (InterruptedException e) {
             Thread.currentThread().interrupt();
