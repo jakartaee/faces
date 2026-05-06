@@ -109,7 +109,7 @@ holds ~1 GB resident. Pick `-T` to leave both CPU and memory headroom:
 | --- | --- | --- |
 | 4-core / 8-thread laptop | 16 GB | `-T 4` |
 | 10-core / 20-thread workstation | 16 GB | `-T 5`–`-T 6` (memory-bound, see below) |
-| 10-core / 20-thread workstation | 32 GB+ | `-T 8` (`-T 10` reliably saturates and Selenium ajax timeouts start firing) |
+| 10-core / 20-thread workstation | 32 GB+ | `-T 8` (`-T 10` saturates and Selenium ajax timeouts start firing) |
 | 16-core / 32-thread CI | 32 GB+ | `-T 12`–`-T 16` |
 | 32-core / 64-thread server | 64 GB+ | `-T 20`–`-T 24` |
 
@@ -130,25 +130,13 @@ and the failsafe log cascades with
 The pool's per-test recovery absorbs single failures, but back-to-back
 exhaustion will error individual ITs.
 
-If you watch a system monitor mid-build, expect a U-shape in CPU
-utilisation: full saturation at start, a partial dip in the middle, then
-saturation again near the end. That dip is the few longest modules
-(currently in the 1:00–1:40 range) being the only thing in flight while
-shorter modules have finished and downstream modules wait on them. Each
-long module pins exactly one Maven worker, so for that window the worker
-count exceeds eligible-module count and a higher `-T` value cannot help.
-The log appears stalled because failsafe buffers per-module output until
-the module finishes. The reactor declares its long modules first so they
-start as soon as the shared `*-tckjar` prerequisites are ready, which keeps
-the dip short; cutting it further requires splitting the long modules.
-
 The pool grows on demand to match concurrent demand, so `-T N` naturally
 caps growth at N (each test JVM only ever leases one slot). To skip the
 warm-up cost of growing one slot at a time on cold builds, pre-provision
 the pool with `gf.pool.size`:
 
 ```bash
-mvn clean install -T 16 -Dgf.pool.size=16
+mvn clean install -T 8 -Dgf.pool.size=8
 ```
 
 ## Pool lifecycle helpers
