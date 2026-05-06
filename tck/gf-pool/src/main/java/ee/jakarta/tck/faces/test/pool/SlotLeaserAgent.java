@@ -77,14 +77,52 @@ public final class SlotLeaserAgent {
             if (discovered < 0) {
                 return; // success
             }
-            int grown = tryGrow(poolDir, config);
-            if (grown >= 0 && tryAcquire(poolDir, grown)) {
-                return;
+            // pool-up.sh kicks off all N initial provisions in the background and
+            // returns immediately. Skip tryGrow while any of those (or a previous
+            // tryGrow's exec) is still running — otherwise we'd race with their
+            // provision-slot.sh and double-provision the same slot index.
+            if (!hasInflightBootstrap(poolDir)) {
+                int grown = tryGrow(poolDir, config);
+                if (grown >= 0 && tryAcquire(poolDir, grown)) {
+                    return;
+                }
             }
             Thread.sleep(POLL_INTERVAL_MILLIS);
         }
         throw new IllegalStateException("Could not lease a GlassFish pool slot within "
                 + timeoutSeconds + "s (pool=" + poolDir + ")");
+    }
+
+    /**
+     * Returns true if any {@code slot-N/.bootstrap.pid} exists and points at a
+     * still-alive process. provision-slot.sh writes the pid at start and removes
+     * it on EXIT, so a live entry means a bootstrap is genuinely in progress and
+     * a {@code ports.properties} for that slot is imminent — wait for it instead
+     * of provisioning a new index.
+     */
+    private static boolean hasInflightBootstrap(Path poolDir) throws IOException {
+        try (java.util.stream.Stream<Path> entries = Files.list(poolDir)) {
+            for (Path entry : (Iterable<Path>) entries::iterator) {
+                String name = entry.getFileName().toString();
+                if (!name.startsWith("slot-") || Files.exists(entry.resolve("ports.properties"))) {
+                    continue;
+                }
+                Path pidFile = entry.resolve(".bootstrap.pid");
+                if (!Files.exists(pidFile)) {
+                    continue;
+                }
+                try {
+                    long pid = Long.parseLong(Files.readString(pidFile).trim());
+                    if (ProcessHandle.of(pid).map(ProcessHandle::isAlive).orElse(false)) {
+                        return true;
+                    }
+                } catch (NumberFormatException | IOException ignored) {
+                    // Stale or unreadable pid file — treat as not in-flight; tryGrow
+                    // will then advance past this slot index since the slot dir exists.
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -227,8 +265,11 @@ public final class SlotLeaserAgent {
                 StandardOpenOption.READ,
                 StandardOpenOption.WRITE);
              FileLock ignored = fc.lock()) {
+            // Advance past any existing slot dir (provisioned OR mid-bootstrap),
+            // not only those with ports.properties — otherwise we'd reuse the
+            // index of an in-flight bootstrap and corrupt its slot dir.
             int next = 1;
-            while (Files.exists(poolDir.resolve("slot-" + next).resolve("ports.properties"))) {
+            while (Files.exists(poolDir.resolve("slot-" + next))) {
                 next++;
             }
             ProcessBuilder pb = new ProcessBuilder("bash",
