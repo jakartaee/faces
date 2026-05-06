@@ -31,20 +31,24 @@
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0</name>
 
+    <!--
+        Long modules first so they start when their *-tckjar prereqs land,
+        not at the end of the queue. See README §"Sizing -T and the pool".
+    -->
     <modules>
-        <module>ajax</module>
         <module>api</module>
-        <module>appconfigresources</module>
+        <module>renderkit</module>
+        <module>ajax</module>
         <module>composite</module>
+        <module>templating</module>
+        <module>jstl</module>
+        <module>flows</module>
+        <module>appconfigresources</module>
         <module>coretags</module>
         <module>el</module>
-        <module>flows</module>
-        <module>jstl</module>
         <module>navigation</module>
         <module>protectedView</module>
-        <module>renderkit</module>
         <module>resource</module>
-        <module>templating</module>
         <module>viewhandler</module>
         <module>webapp</module>
     </modules>
