@@ -26,9 +26,23 @@
     </parent>
 
     <artifactId>api-application</artifactId>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - api - application</name>
+
+    <!--
+        Declared by descending wall time so the long children start as soon as
+        a worker thread is free. application-core (ApplicationIT 82 + 4 tests)
+        is the long pole; the rest fall in well under a minute and overlap with
+        unrelated modules in the wider reactor.
+    -->
+    <modules>
+        <module>application-core</module>
+        <module>application-wrapper</module>
+        <module>application-viewhandler</module>
+        <module>application-resourcehandler</module>
+        <module>application-misc</module>
+    </modules>
 
     <dependencies>
         <dependency>
@@ -39,9 +53,15 @@
     </dependencies>
 
     <build>
-        <finalName>test-faces20-api-application</finalName>
         <plugins>
             <plugin>
+                <!--
+                    Each *IT here installs global TCK mocks (TCKApplication,
+                    TCKStateManager, TCKViewHandler, …) into Application/Factory
+                    singletons. State leaks across test classes if the JVM is
+                    reused, so force a fresh fork per IT class even though the
+                    extra JVM startups are not free.
+                -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
