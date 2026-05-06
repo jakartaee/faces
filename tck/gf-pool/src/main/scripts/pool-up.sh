@@ -4,9 +4,9 @@
 #
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 #
-# Provisions and starts the initial set of slots, then writes
-# ${POOL_DIR}/config.properties so SlotLeaserAgent can grow the pool on
-# demand later. Inputs:
+# Launches the initial set of slots' provisioners in the background and
+# returns immediately, then writes ${POOL_DIR}/config.properties so
+# SlotLeaserAgent can grow the pool on demand later. Inputs:
 #   POOL_SIZE   - initial slot count (default 1)
 #   POOL_DIR    - pool root (.gf-pool)
 #   SOURCE_HOME - GlassFish install template (must contain glassfish/bin/asadmin)
@@ -14,6 +14,14 @@
 #   PORT_STRIDE - per-slot stride (e.g. 100)
 #   SCRIPT_DIR  - directory containing provision-slot.sh (the agent uses
 #                 this to grow the pool)
+#
+# Bootstrap is non-blocking by design: each provision-slot.sh runs in a
+# detached subshell with stdout+stderr teed to ${POOL_DIR}/slot-N-bootstrap.log,
+# so the antrun phase costs ~milliseconds instead of blocking on N parallel
+# asadmin start-domain JVMs (~5-20s wall on -Tlarge). SlotLeaserAgent is
+# bootstrap-aware via ${POOL_DIR}/slot-N/.bootstrap.pid: it waits for
+# ports.properties (written last by provision-slot.sh on success) before
+# leasing, and skips tryGrow while a bootstrap is still in flight.
 
 set -euo pipefail
 
@@ -37,26 +45,17 @@ portStride=${PORT_STRIDE}
 scriptDir=${SCRIPT_DIR}
 EOF
 
-echo "[gf-pool] initial=${POOL_SIZE} (grows on demand to match -T)"
+echo "[gf-pool] launching ${POOL_SIZE} bootstrap(s) in background (grows on demand to match -T)"
 
-# Provision slots in parallel and buffer per-slot output so concurrent
-# log lines don't interleave mid-line on the console.
-pids=()
-outs=()
 for ((i = 1; i <= POOL_SIZE; i++)); do
-    tmp=$(mktemp); outs+=("${tmp}")
+    log="${POOL_DIR}/slot-${i}-bootstrap.log"
     SLOT_IDX="$i" \
     POOL_DIR="${POOL_DIR}" \
     SOURCE_HOME="${SOURCE_HOME}" \
     ADMIN_BASE="${ADMIN_BASE}" \
     PORT_STRIDE="${PORT_STRIDE}" \
-        bash "${SCRIPT_DIR}/provision-slot.sh" >"${tmp}" 2>&1 &
-    pids+=($!)
+        nohup bash "${SCRIPT_DIR}/provision-slot.sh" >"${log}" 2>&1 < /dev/null &
+    disown
 done
-fail=0
-for i in "${!pids[@]}"; do
-    wait "${pids[$i]}" || fail=1
-    cat "${outs[$i]}"
-    rm -f "${outs[$i]}"
-done
-exit "${fail}"
+
+echo "[gf-pool] bootstrap launched (per-slot logs: ${POOL_DIR}/slot-N-bootstrap.log)"

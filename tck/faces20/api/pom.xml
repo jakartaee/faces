@@ -52,4 +52,11 @@
         <module>factoryfinderrelease</module>
         <module>statemanager-client</module>
     </modules>
+
+    <!--
+        application/ is now a packaging=pom that aggregates 5 child WARs
+        (application-core, application-wrapper, application-viewhandler,
+        application-resourcehandler, application-misc). Maven walks the
+        sub-reactor inline; no further changes needed here.
+    -->
 </project>

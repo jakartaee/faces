@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -42,6 +43,9 @@ public final class ShutdownHookInstaller extends Task {
 
     private static final AtomicBoolean installed = new AtomicBoolean(false);
     private static final AtomicBoolean stopped = new AtomicBoolean(false);
+
+    private static final long BOOTSTRAP_WAIT_MILLIS = 30_000L;
+    private static final long BOOTSTRAP_POLL_MILLIS = 200L;
 
     private File poolDir;
     private File scriptDir;
@@ -157,6 +161,11 @@ public final class ShutdownHookInstaller extends Task {
         if (!poolDir.isDirectory() || !stopSlotScript.isFile()) {
             return;
         }
+        // pool-up.sh launches provision-slot.sh in the background. If the build
+        // exits while one is still mid-asadmin-start-domain, calling stop-domain
+        // here would race the start and orphan the GF process. Wait briefly for
+        // any live bootstrap pids to clear before iterating slots.
+        waitForInflightBootstraps(poolDir);
         // Iterate slots in Java (rather than shelling out to pool-down.sh)
         // because we need to test each slot's lock with FileChannel.tryLock().
         // bash's flock(1) and Java's FileLock use *different* OS lock spaces
@@ -193,6 +202,40 @@ public final class ShutdownHookInstaller extends Task {
                 return;
             }
         }
+    }
+
+    private static void waitForInflightBootstraps(File poolDir) {
+        long deadline = System.currentTimeMillis() + BOOTSTRAP_WAIT_MILLIS;
+        while (System.currentTimeMillis() < deadline && hasLiveBootstrap(poolDir)) {
+            try {
+                Thread.sleep(BOOTSTRAP_POLL_MILLIS);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                return;
+            }
+        }
+    }
+
+    private static boolean hasLiveBootstrap(File poolDir) {
+        File[] slotDirs = poolDir.listFiles((d, n) -> n.startsWith("slot-"));
+        if (slotDirs == null) {
+            return false;
+        }
+        for (File slot : slotDirs) {
+            File pidFile = new File(slot, ".bootstrap.pid");
+            if (!pidFile.isFile()) {
+                continue;
+            }
+            try {
+                long pid = Long.parseLong(Files.readString(pidFile.toPath()).trim());
+                if (ProcessHandle.of(pid).map(ProcessHandle::isAlive).orElse(false)) {
+                    return true;
+                }
+            } catch (NumberFormatException | IOException ignored) {
+                // Stale pid file — not live.
+            }
+        }
+        return false;
     }
 
     private static void stopSlotIfIdle(Path slotDir, int slotIdx, File stopSlotScript, File poolDir) {
