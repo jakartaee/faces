@@ -58,7 +58,7 @@ class Spec1423IT extends BaseITNG {
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().isEmpty());
 
         button = page.findElement(By.id("form1:addViaHead"));
-        button.click();
+        page.guardAjax(button::click);
 
         page.waitForCondition(wd -> page.findElement(By.id("stylesheetResult")).getText().trim().isEmpty() &&
                     page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaHead"));
@@ -68,13 +68,13 @@ class Spec1423IT extends BaseITNG {
         assertTrue(page.findElement(By.id("stylesheetResult")).getText().isEmpty());
 
         button = page.findElement(By.id("form2:addViaInclude"));
-        button.click();
+        page.guardAjax(button::click);
 
         page.waitForCondition(wd -> page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(255, 0, 0)") &&
                     page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaInclude"));
 
         button = page.findElement(By.id("form1:addViaBody"));
-        button.click();
+        page.guardAjax(button::click);
         page.waitForCondition(wd ->  page.findElement(By.id("scriptResult")).getText().trim().equals("addedViaBody") &&
                     page.findElement(By.id("stylesheetResult")).getText().trim().equals("rgb(255, 0, 0)"));
 

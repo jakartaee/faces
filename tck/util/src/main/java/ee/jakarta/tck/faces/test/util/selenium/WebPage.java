@@ -115,7 +115,10 @@ public class WebPage {
      */
     public void guardAjax(Runnable action) {
         var uuid = UUID.randomUUID().toString();
-        webDriver.getJSExecutor().executeScript("window.$ajax=true;faces.ajax.addOnEvent(data=>{if(data.status=='complete')window.$ajax='" + uuid + "'})");
+        webDriver.getJSExecutor().executeScript(
+                "window.$ajax=true;"
+                + "faces.ajax.addOnEvent(data=>{if(data.status=='success')window.$ajax='" + uuid + "'});"
+                + "faces.ajax.addOnError(()=>window.$ajax='" + uuid + "')");
         action.run();
         webDriver.waitForFaces(STD_TIMEOUT);
         waitForCondition($ -> webDriver.getJSExecutor().executeScript("return window.$ajax=='" + uuid + "' || (!window.$ajax && document.readyState=='complete')"));
