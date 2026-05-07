@@ -24,7 +24,7 @@
 
     <factory>
         <application-factory>
-            ee.jakarta.tck.faces.test.faces20.webapp.factoryfinder.TCKApplicationFactory
+            ee.jakarta.tck.faces.faces20.webapp.factoryfinder.TCKApplicationFactory
         </application-factory>
     </factory>    
 

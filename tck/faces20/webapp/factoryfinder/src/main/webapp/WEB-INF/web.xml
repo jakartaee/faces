@@ -21,9 +21,7 @@
          xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
-	<display-name>jsf_webapp_ff</display-name>
-
-    <!-- Specify an alternate configuration file -->
+<!-- Specify an alternate configuration file -->
     <context-param>
         <param-name>jakarta.faces.CONFIG_FILES</param-name>
         <param-value>/WEB-INF/config/faces-config.xml</param-value>
@@ -31,22 +29,19 @@
 
 	<servlet>
 		<servlet-name>TestServlet</servlet-name>		
-		<servlet-class>ee.jakarta.tck.faces.test.faces20.webapp.factoryfinder.TestServlet</servlet-class>
+		<servlet-class>ee.jakarta.tck.faces.faces20.webapp.factoryfinder.TestServlet</servlet-class>
 	</servlet>
-    <servlet>
+<servlet-mapping>
+		<servlet-name>TestServlet</servlet-name>
+		<url-pattern>/TestServlet</url-pattern>
+	</servlet-mapping>
+<servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>TestServlet</servlet-name>
-		<url-pattern>/TestServlet</url-pattern>
-	</servlet-mapping>
-	<session-config>
-		<session-timeout>54</session-timeout>
-	</session-config>
-</web-app>
 
+</web-app>

@@ -29,28 +29,31 @@
     <artifactId>pom</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
+
+    <properties>
+        <test.moduleName>faces20</test.moduleName>
+    </properties>
 
     <!--
-        Long modules first so they start when their *-tckjar prereqs land,
-        not at the end of the queue. See README §"Sizing -T and the pool".
+        Long modules first. See README §"Sizing -T and the pool".
     -->
     <modules>
         <module>api</module>
         <module>renderkit</module>
-        <module>ajax</module>
+        <module>flows</module>
+        <module>webapp</module>
         <module>composite</module>
+        <module>resource</module>
+        <module>appconfigresources</module>
+        <module>ajax</module>
         <module>templating</module>
         <module>jstl</module>
-        <module>flows</module>
-        <module>appconfigresources</module>
         <module>coretags</module>
+        <module>protected-view</module>
+        <module>viewhandler</module>
         <module>el</module>
         <module>navigation</module>
-        <module>protectedView</module>
-        <module>resource</module>
-        <module>viewhandler</module>
-        <module>webapp</module>
     </modules>
 
     <dependencies>

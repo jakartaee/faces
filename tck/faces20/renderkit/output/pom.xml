@@ -28,7 +28,7 @@
     <artifactId>renderkit-output</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - renderkit - output</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <dependencies>
         <dependency>
@@ -39,6 +39,6 @@
     </dependencies>
 
     <build>
-        <finalName>test-faces20-renderkit-output</finalName>
+        <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
     </build>
 </project>

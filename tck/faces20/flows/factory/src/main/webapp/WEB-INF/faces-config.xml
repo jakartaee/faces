@@ -22,7 +22,7 @@
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
                         https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd">
     <factory>
-        <flow-handler-factory>ee.jakarta.tck.faces.test.faces20.flows.factory.FlowHandlerFactoryTestImpl</flow-handler-factory>
+        <flow-handler-factory>ee.jakarta.tck.faces.faces20.flows.factory.FlowHandlerFactoryTestImpl</flow-handler-factory>
     </factory>
     <flow-definition id="flow">
         <start-node>start</start-node>

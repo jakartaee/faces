@@ -28,7 +28,7 @@
     <artifactId>renderkit</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - renderkit</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <modules>
         <module>common-tckjar</module>

@@ -28,5 +28,5 @@
     <artifactId>renderkit-common-tckjar</artifactId>
     <packaging>jar</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - renderkit - common tckjar</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 </project>

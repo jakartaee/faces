@@ -22,7 +22,7 @@
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd"
     version="3.0">
     <application>
-        <view-handler>ee.jakarta.tck.faces.test.faces20.viewhandler.ViewHandlerImpl</view-handler>
+        <view-handler>ee.jakarta.tck.faces.faces20.viewhandler.ViewHandlerImpl</view-handler>
     </application>
     
     <navigation-rule>

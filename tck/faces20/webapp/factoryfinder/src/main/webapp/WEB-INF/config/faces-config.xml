@@ -24,7 +24,7 @@
 
     <factory>
         <faces-context-factory>
-            ee.jakarta.tck.faces.test.faces20.webapp.factoryfinder.TCKFacesContextFactory
+            ee.jakarta.tck.faces.faces20.webapp.factoryfinder.TCKFacesContextFactory
         </faces-context-factory>
     </factory>
    
