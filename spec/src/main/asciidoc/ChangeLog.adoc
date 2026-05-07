@@ -12,6 +12,9 @@ pre-Jakarta Faces specification under the JCP.
 
 This release contains the following backwards compatible changes:
 
+* Issue ID {issue_tracker_url}2137[2137] +
+Spec: clarify Jakarta Faces objects valid for _@Inject_ injection
+
 * Issue ID {issue_tracker_url}2134[2134] +
 Spec: add <<a3080,conversation context propagation>> rules
 
