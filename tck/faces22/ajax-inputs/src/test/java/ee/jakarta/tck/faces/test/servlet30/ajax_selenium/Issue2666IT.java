@@ -41,6 +41,6 @@ class Issue2666IT extends BaseITNG {
 
         // Assert the page does not display the request parameter name 'button' that 
         // is in the page without a 'name' attribute.
-        assertTrue(page.isInPage("Request parameter name 'button' does not exist"));
+        assertTrue(page.containsText("Request parameter name 'button' does not exist"));
     }
 }

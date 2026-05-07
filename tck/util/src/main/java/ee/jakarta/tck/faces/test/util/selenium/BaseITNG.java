@@ -29,9 +29,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.http.HttpClient;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.exception.UncheckedException;
@@ -113,25 +110,13 @@ public abstract class BaseITNG implements ExecutionCondition {
             webDriver.get(url);
         }
         WebPage webPage = new WebPage(webDriver);
-        // Sometimes it takes longer until the first page is loaded after container startup
-        webPage.waitForPageToLoad(Duration.ofSeconds(120));
         PageFactory.initElements(webDriver, this);
         return webPage;
     }
 
-    /**
-     * Selenium does not automatically update the page handles if a link is clicked without ajax
-     */
-    protected void updatePage() {
-        webDriver.switchToWindowWithUrl(webDriver.getCurrentUrl());
-    }
-
     protected int getStatusCode(String page) {
         webDriver.get(webUrl.toString() + page);
-        WebPage webPage = new WebPage(webDriver);
-        webPage.waitForPageToLoad();
-
-        return webPage.getResponseStatus();
+        return new WebPage(webDriver).getResponseStatus();
     }
 
     protected String getResponseBody(String resource) {
@@ -212,35 +197,4 @@ public abstract class BaseITNG implements ExecutionCondition {
         return webUrl.getPath().replaceAll("/$", "");
     }
 
-    protected List<WebElement> getBehaviorScriptElements(WebPage page, WebElement input) {
-        var id = input.getAttribute("id");
-        var elements = new ArrayList<WebElement>();
-
-        for (var script : page.findElements(By.tagName("script"))) {
-            var src = script.getAttribute("src");
-            if (src == null || src.isEmpty()) {
-                var content = script.getDomProperty("textContent");
-
-                if (content.contains("'" + id + "'") || content.contains("\"" + id + "\"")) {
-                    elements.add(script);
-                }
-            }
-        }
-
-        return elements;
-    }
-
-    protected List<String> getBehaviorScripts(WebPage page, WebElement input) {
-        return getBehaviorScriptElements(page, input).stream().map(script -> script.getDomProperty("textContent")).toList();
-    }
-
-    protected WebElement getBehaviorScriptElement(WebPage page, WebElement input) {
-        var elements = getBehaviorScriptElements(page, input);
-        return elements.isEmpty() ? null : elements.get(0);
-    }
-
-    protected String getBehaviorScript(WebPage page, WebElement input) {
-        var scripts = getBehaviorScripts(page, input);
-        return scripts.isEmpty() ? null : scripts.get(0);
-    }
 }

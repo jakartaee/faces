@@ -39,7 +39,7 @@ public class Spec1581IT extends BaseITNG {
   void test() throws Exception {
         WebPage page = getPage("javapagewithmetadata.xhtml?id=foo");
 
-        assertTrue(page.getPageSource().contains("Id is:foo"));
+        assertTrue(page.containsText("Id is:foo"));
     }
 
 }

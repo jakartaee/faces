@@ -47,16 +47,16 @@ class Issue2408IT extends BaseITNG {
         WebPage page = getPage("selectManyCheckboxInComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
-        assertTrue(page.getPageSource().contains("Status: Pending"));
+        assertTrue(page.containsText("Status: Pending"));
 
         page.guardAjax(getCheckBoxes(page).get(0)::click);
-        assertTrue(page.isInPage("Status: mcheck-1"));
+        assertTrue(page.containsText("Status: mcheck-1"));
 
         page.guardAjax(getCheckBoxes(page).get(1)::click);
-        assertTrue(page.isInPage("Status: mcheck-1 mcheck-2"));
+        assertTrue(page.containsText("Status: mcheck-1 mcheck-2"));
 
         page.guardAjax(getCheckBoxes(page).get(2)::click);
-        assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
+        assertTrue(page.containsText("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
   /**
@@ -68,19 +68,19 @@ class Issue2408IT extends BaseITNG {
         WebPage page = getPage("selectManyCheckboxIdsInComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
-        assertTrue(page.getPageSource().contains("Status: Pending"));
+        assertTrue(page.containsText("Status: Pending"));
 
         WebElement cbox1 = page.findElement(By.id("form:compId:cbox:0"));
         page.guardAjax(cbox1::click);
-        assertTrue(page.isInPage("Status: mcheck-1"));
+        assertTrue(page.containsText("Status: mcheck-1"));
 
         WebElement cbox2 = page.findElement(By.id("form:compId:cbox:1"));
         page.guardAjax(cbox2::click);
-        assertTrue(page.isInPage("Status: mcheck-1 mcheck-2"));
+        assertTrue(page.containsText("Status: mcheck-1 mcheck-2"));
 
         WebElement cbox3 = page.findElement(By.id("form:compId:cbox:2"));
         page.guardAjax(cbox3::click);
-        assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
+        assertTrue(page.containsText("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
   /**
@@ -91,16 +91,16 @@ class Issue2408IT extends BaseITNG {
         WebPage page = getPage("selectManyCheckboxNoComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
-        assertTrue(page.getPageSource().contains("Status: Pending"));
+        assertTrue(page.containsText("Status: Pending"));
 
         page.guardAjax(getCheckBoxes(page).get(0)::click);
-        assertTrue(page.isInPage("Status: mcheck-1"));
+        assertTrue(page.containsText("Status: mcheck-1"));
 
         page.guardAjax(getCheckBoxes(page).get(1)::click);
-        assertTrue(page.isInPage("Status: mcheck-1 mcheck-2"));
+        assertTrue(page.containsText("Status: mcheck-1 mcheck-2"));
 
         page.guardAjax(getCheckBoxes(page).get(2)::click);
-        assertTrue(page.isInPage("Status: mcheck-1 mcheck-2 mcheck-3"));
+        assertTrue(page.containsText("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
   /**
@@ -112,16 +112,16 @@ class Issue2408IT extends BaseITNG {
         WebPage page = getPage("selectOneRadioInComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
-        assertTrue(page.isInPage("Status: Pending"));
+        assertTrue(page.containsText("Status: Pending"));
 
         page.guardAjax(getRadios(page).get(0)::click);
-        assertTrue(page.isInPage("Status: radio-1"));
+        assertTrue(page.containsText("Status: radio-1"));
 
         page.guardAjax(getRadios(page).get(1)::click);
-        assertTrue(page.isInPage("Status: radio-2"));
+        assertTrue(page.containsText("Status: radio-2"));
 
         page.guardAjax(getRadios(page).get(2)::click);
-        assertTrue(page.isInPage("Status: radio-3"));
+        assertTrue(page.containsText("Status: radio-3"));
     }
 
   /**
@@ -133,19 +133,19 @@ class Issue2408IT extends BaseITNG {
         WebPage page = getPage("selectOneRadioIdsInComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
-        assertTrue(page.isInPage("Status: Pending"));
+        assertTrue(page.containsText("Status: Pending"));
 
         WebElement radio1 = page.findElement(By.id("form:compId:radio:0"));
         page.guardAjax(radio1::click);
-        assertTrue(page.isInPage("Status: radio-1"));
+        assertTrue(page.containsText("Status: radio-1"));
 
         WebElement radio2 = page.findElement(By.id("form:compId:radio:1"));
         page.guardAjax(radio2::click);
-        assertTrue(page.isInPage("Status: radio-2"));
+        assertTrue(page.containsText("Status: radio-2"));
 
         WebElement radio3 = page.findElement(By.id("form:compId:radio:2"));
         page.guardAjax(radio3::click);
-        assertTrue(page.isInPage("Status: radio-3"));
+        assertTrue(page.containsText("Status: radio-3"));
     }
 
   /**
@@ -156,16 +156,16 @@ class Issue2408IT extends BaseITNG {
         WebPage page = getPage("selectOneRadioNoComposite.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
-        assertTrue(page.isInPage("Status: Pending"));
+        assertTrue(page.containsText("Status: Pending"));
 
         page.guardAjax(getRadios(page).get(0)::click);
-        assertTrue(page.isInPage("Status: radio-1"));
+        assertTrue(page.containsText("Status: radio-1"));
 
         page.guardAjax(getRadios(page).get(1)::click);
-        assertTrue(page.isInPage("Status: radio-2"));
+        assertTrue(page.containsText("Status: radio-2"));
 
         page.guardAjax(getRadios(page).get(2)::click);
-        assertTrue(page.isInPage("Status: radio-3"));
+        assertTrue(page.containsText("Status: radio-3"));
     }
 
     private List<WebElement> getCheckBoxes(WebPage page) {

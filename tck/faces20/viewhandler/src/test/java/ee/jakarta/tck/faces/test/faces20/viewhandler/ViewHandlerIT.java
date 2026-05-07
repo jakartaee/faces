@@ -48,8 +48,8 @@ class ViewHandlerIT extends BaseITNG {
 
         assertEquals(200, page.getResponseStatus(),
                 "Initial GET of greetings.jsf must not fail; ViewHandler.createView received an invalid viewId.");
-        assertTrue(page.isInPage(EXPECTED_TEXT),
-                "Expected greetings page to render; instead got: " + page.getPageSource());
+        assertTrue(page.containsText(EXPECTED_TEXT),
+                "Expected greetings page to render; instead got: " + page.getSource());
     }
 
     /**
@@ -74,8 +74,8 @@ class ViewHandlerIT extends BaseITNG {
 
         assertEquals(200, page.getResponseStatus(),
                 "Postback to greetings.jsf must not fail; ViewHandler.restoreView received an invalid viewId.");
-        assertTrue(page.isInPage(EXPECTED_TEXT),
-                "Expected greetings page after postback; instead got: " + page.getPageSource());
+        assertTrue(page.containsText(EXPECTED_TEXT),
+                "Expected greetings page after postback; instead got: " + page.getSource());
     }
 
 }

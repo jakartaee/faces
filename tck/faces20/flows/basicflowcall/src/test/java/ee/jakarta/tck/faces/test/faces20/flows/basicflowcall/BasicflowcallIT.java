@@ -32,15 +32,15 @@ class BasicflowcallIT extends BaseITNG {
     void facesFlowCallTest() {
         // Outside the Flow structure. (/index.xhtml)
         WebPage page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Outside of flow"), "Outside of flow");
+        assertTrue(page.containsText("Outside of flow"), "Outside of flow");
 
         // First page of Flow. (flow-a/flow-a.xhtml)
         WebElement startA = findByIdSuffix(page, "start_a");
         page.guardHttp(startA::click);
 
-        assertTrue(page.isInPageText("First page in the flow"), "First page in the flow");
-        assertTrue(page.isInPageText("Flow_a_Bean"), "Flow_a_Bean");
-        assertTrue(page.matchesPageText("(?s).*Has a flow:\\s+true\\..*"), "Has a flow: true");
+        assertTrue(page.containsText("First page in the flow"), "First page in the flow");
+        assertTrue(page.containsText("Flow_a_Bean"), "Flow_a_Bean");
+        assertTrue(page.matchesText("(?s).*Has a flow:\\s+true\\..*"), "Has a flow: true");
         assertEquals("", findByIdSuffix(page, "param1FromFlowB").getText(), "param1FromFlowB");
         assertEquals("", findByIdSuffix(page, "param2FromFlowB").getText(), "param2FromFlowB");
 
@@ -48,7 +48,7 @@ class BasicflowcallIT extends BaseITNG {
         WebElement nextA = findByIdSuffix(page, "next_a");
         page.guardHttp(nextA::click);
 
-        assertTrue(page.isInPageText("Second page in the flow"), "Second page in the flow");
+        assertTrue(page.containsText("Second page in the flow"), "Second page in the flow");
 
         WebElement input = findByIdSuffix(page, "input");
         String value = "" + System.currentTimeMillis();
@@ -58,14 +58,14 @@ class BasicflowcallIT extends BaseITNG {
         WebElement next = findByIdSuffix(page, "next");
         page.guardHttp(next::click);
 
-        assertTrue(page.isInPageText(value), "value");
+        assertTrue(page.containsText(value), "value");
 
         // Enter flow-b, passing parameters.
         WebElement callB = findByIdSuffix(page, "callB");
         page.guardHttp(callB::click);
 
-        assertTrue(page.isInPageText("Flow_b_Bean"), "Flow_b_Bean");
-        assertFalse((page.getPageText() + page.getInputValues()).contains("Flow_a_Bean"), "Not Flow_a_Bean");
+        assertTrue(page.containsText("Flow_b_Bean"), "Flow_b_Bean");
+        assertFalse(page.containsText("Flow_a_Bean"), "Not Flow_a_Bean");
         assertEquals("param1Value", findByIdSuffix(page, "param1FromFlowA").getText(), "param1FromFlowA");
         assertEquals("param2Value", findByIdSuffix(page, "param2FromFlowA").getText(), "param2FromFlowA");
 
@@ -73,7 +73,7 @@ class BasicflowcallIT extends BaseITNG {
         nextA = findByIdSuffix(page, "next_a");
         page.guardHttp(nextA::click);
 
-        assertTrue(page.isInPageText("Second page in the flow"), "Second page in the flow (flow-b)");
+        assertTrue(page.containsText("Second page in the flow"), "Second page in the flow (flow-b)");
 
         input = findByIdSuffix(page, "input");
         value = "" + System.currentTimeMillis();
@@ -83,7 +83,7 @@ class BasicflowcallIT extends BaseITNG {
         next = findByIdSuffix(page, "next");
         page.guardHttp(next::click);
 
-        assertTrue(page.isInPageText(value), "value (flow-b)");
+        assertTrue(page.containsText(value), "value (flow-b)");
 
         // Enter flow-a, passing parameters.
         WebElement callA = findByIdSuffix(page, "callA");
@@ -96,7 +96,7 @@ class BasicflowcallIT extends BaseITNG {
         nextA = findByIdSuffix(page, "next_a");
         page.guardHttp(nextA::click);
 
-        assertTrue(page.isInPageText("Second page in the flow"), "Second page in the flow (flow-a reentered)");
+        assertTrue(page.containsText("Second page in the flow"), "Second page in the flow (flow-a reentered)");
 
         // Enter last page of Flow-a
         next = findByIdSuffix(page, "next");

@@ -40,19 +40,19 @@ class Issue2041IT extends BaseITNG {
   void issue2041() throws Exception {
         WebPage page = getPage("issue2041.xhtml");
 
-        assertTrue(page.isInPage("PAGE 1 BEGIN"));
-        assertTrue(page.isInPage("PAGE 1 END"));
+        assertTrue(page.containsText("PAGE 1 BEGIN"));
+        assertTrue(page.containsText("PAGE 1 END"));
 
         WebElement anchor =  page.findElement(By.id("commandLink"));
         page.guardAjax(anchor::click);
 
-        assertTrue(page.isInPage("PAGE 2 BEGIN"));
-        assertTrue(page.isInPage("PAGE 2 END"));
+        assertTrue(page.containsText("PAGE 2 BEGIN"));
+        assertTrue(page.containsText("PAGE 2 END"));
 
         anchor =  page.findElement(By.id("commandLink"));
         page.guardAjax(anchor::click);
 
-        assertTrue(page.getPageSource().indexOf("PAGE 1 BEGIN") != -1);
-        assertTrue(page.getPageSource().indexOf("PAGE 1 END") != -1);
+        assertTrue(page.containsText("PAGE 1 BEGIN"));
+        assertTrue(page.containsText("PAGE 1 END"));
     }
 }

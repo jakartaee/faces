@@ -38,7 +38,7 @@ public class ViewActionCdiViewScopedIT extends BaseITNG {
   void noQueryParam() throws Exception {
         WebPage page = getPage("");
 
-        assertTrue(page.getPageSource().indexOf("First Page") != -1);
+        assertTrue(page.containsText("First Page"));
     }
 
   /**
@@ -50,6 +50,6 @@ public class ViewActionCdiViewScopedIT extends BaseITNG {
   void withQueryParam() throws Exception {
         WebPage page = getPage("?page=2");
 
-        assertTrue(page.getPageSource().indexOf("Second Page") != -1);
+        assertTrue(page.containsText("Second Page"));
     }
 }

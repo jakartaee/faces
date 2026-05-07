@@ -37,11 +37,11 @@ class Issue3351IT extends BaseITNG {
   @Test
   void buttonOnlySubmitsOne() throws Exception {
         WebPage page = getPage("buttonOnlySubmitsOne.xhtml");
-        assertTrue(page.isInPage("value1,value2,"));
+        assertTrue(page.containsText("value1,value2,"));
         
         WebElement button = page.findElement(By.id("form:button1"));
         page.guardAjax(button::click);
-        assertTrue(page.isInPage("value2,"));
-        assertFalse(page.isInPage("value1,value2,"));
+        assertTrue(page.containsText("value2,"));
+        assertFalse(page.containsText("value1,value2,"));
     }
 }

@@ -42,10 +42,10 @@ class Issue2697IT extends BaseITNG {
 
         button =  page.findElement(By.id("form:ajax"));
         page.guardAjax(button::click);
-        assertTrue(page.isInPage("VIEWSCOPEBEAN() CALLED"));
+        assertTrue(page.containsSource("VIEWSCOPEBEAN() CALLED"));
         button = page.findElement(By.id("form:reset"));
         // Assert that second Ajax request does not execute the bean constructor again.
         page.guardAjax(button::click);
-      assertFalse(page.isInPage("VIEWSCOPEBEAN() CALLED VIEWSCOPEBEAN() CALLED"));
+      assertFalse(page.containsSource("VIEWSCOPEBEAN() CALLED VIEWSCOPEBEAN() CALLED"));
     }
 }

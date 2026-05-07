@@ -16,6 +16,8 @@
 
 package ee.jakarta.tck.faces.test.javaee8.cdi_selenium;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import jakarta.faces.annotation.FlowMap;
 import jakarta.inject.Inject;
 
@@ -23,7 +25,6 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 /**
@@ -44,37 +45,36 @@ class Spec1386IT extends BaseITNG {
         WebPage page = getPage("injectFlowMap.xhtml");
 
         // Enter main flow
-        ExtendedWebDriver webDriver = getWebDriver();
-        page.guardAjax(webDriver.findElement(By.id("form:enter"))::click);
+        page.guardAjax(page.findElement(By.id("form:enter"))::click);
 
         // Put value in flow scope map
-        page.guardAjax(webDriver.findElement(By.id("form:init"))::click);
+        page.guardAjax(page.findElement(By.id("form:init"))::click);
 
         // Navigate to next page in flow
-        page.guardAjax(webDriver.findElement(By.id("form:next"))::click);
+        page.guardAjax(page.findElement(By.id("form:next"))::click);
 
 
         // Value should be available from flow map now
-        page.waitForCondition(webDriver1 -> page.isInPage("foo:bar"));
+        assertTrue(page.containsText("foo:bar"));
 
 
         // Enter nested flow
-        page.guardAjax(webDriver.findElement(By.id("form:nested"))::click);
+        page.guardAjax(page.findElement(By.id("form:nested"))::click);
 
         // Put (different) value in flow map using same key
-        page.guardAjax(webDriver.findElement(By.id("form:init"))::click);
+        page.guardAjax(page.findElement(By.id("form:init"))::click);
 
         // Navigate to next page in nested flow
-        page.guardAjax(webDriver.findElement(By.id("form:next"))::click);
+        page.guardAjax(page.findElement(By.id("form:next"))::click);
         // Different value should be available from flow map now
-        page.waitForCondition(webDriver1 -> page.isInPage("foo:barx"));
+        assertTrue(page.containsText("foo:barx"));
 
 
         // Exit nested flow
-        page.guardAjax(webDriver.findElement(By.id("form:exit"))::click);
+        page.guardAjax(page.findElement(By.id("form:exit"))::click);
 
         // Original value should be available from flow map again
-        page.waitForCondition(webDriver1 -> page.isInPage("foo:bar"));
+        assertTrue(page.containsText("foo:bar"));
 
     }
 

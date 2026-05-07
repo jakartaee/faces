@@ -75,7 +75,7 @@ class Spec1590IT extends BaseITNG {
         var page = getPage("spec1590.xhtml");
         var nonce = getNonce(page);
         assertNotNull(nonce);
-        assertEquals(nonce, getBehaviorScriptElement(page, commandLink).getAttribute("nonce"));
+        assertEquals(nonce, page.getBehaviorScriptElement(commandLink).getAttribute("nonce"));
         assertEquals("false", commandLinkExecuted.getText());
         page.guardHttp(commandLink::click);
         assertEquals("true", commandLinkExecuted.getText());
@@ -92,8 +92,8 @@ class Spec1590IT extends BaseITNG {
         var page = getPage("spec1590.xhtml");
         var nonce = getNonce(page);
         assertNotNull(nonce);
-        assertEquals(nonce, getBehaviorScriptElement(page, ajaxInput).getAttribute("nonce"));
-        assertEquals(nonce, getBehaviorScriptElement(page, ajaxButton).getAttribute("nonce"));
+        assertEquals(nonce, page.getBehaviorScriptElement(ajaxInput).getAttribute("nonce"));
+        assertEquals(nonce, page.getBehaviorScriptElement(ajaxButton).getAttribute("nonce"));
         assertEquals("", ajaxOutput.getText());
         ajaxInput.sendKeys("first");
         page.guardAjax(ajaxButton::click);
@@ -113,7 +113,7 @@ class Spec1590IT extends BaseITNG {
         var page = getPage("spec1590.xhtml");
         var nonce = getNonce(page);
         assertNotNull(nonce);
-        assertEquals(nonce, getBehaviorScriptElement(page, commandScript).getAttribute("nonce"));
+        assertEquals(nonce, page.getBehaviorScriptElement(commandScript).getAttribute("nonce"));
         assertEquals("false", commandScriptExecuted.getText());
         page.guardAjax(() -> page.getJSExecutor().executeScript("commandScript()"));
         assertEquals("true", commandScriptExecuted.getText());
@@ -128,7 +128,7 @@ class Spec1590IT extends BaseITNG {
         var page = getPage("spec1590.xhtml");
         var nonce = getNonce(page);
         assertNotNull(nonce);
-        assertEquals(nonce, getBehaviorScriptElement(page, facesUtilChain).getAttribute("nonce"));
+        assertEquals(nonce, page.getBehaviorScriptElement(facesUtilChain).getAttribute("nonce"));
         assertEquals("false", facesUtilChainExecuted.getText());
         page.guardAjax(facesUtilChain::click);
         assertEquals("true", facesUtilChainExecuted.getText());
@@ -143,17 +143,17 @@ class Spec1590IT extends BaseITNG {
         var page = getPage("spec1590.xhtml");
         var nonce = getNonce(page);
         assertNotNull(nonce);
-        assertEquals(nonce, getBehaviorScriptElement(page, refreshButton).getAttribute("nonce"));
+        assertEquals(nonce, page.getBehaviorScriptElement(refreshButton).getAttribute("nonce"));
         page.guardHttp(refreshButton::click);
-        assertNotEquals(nonce, getBehaviorScriptElement(page, refreshButton).getAttribute("nonce"));
+        assertNotEquals(nonce, page.getBehaviorScriptElement(refreshButton).getAttribute("nonce"));
 
         var nonceAfterRefresh = getNonce(page);
-        assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, commandLink).getAttribute("nonce"));
-        assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, ajaxInput).getAttribute("nonce"));
-        assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, ajaxButton).getAttribute("nonce"));
-        assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, commandScript).getAttribute("nonce"));
-        assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, facesUtilChain).getAttribute("nonce"));
-        assertEquals(nonceAfterRefresh, getBehaviorScriptElement(page, refreshButton).getAttribute("nonce"));
+        assertEquals(nonceAfterRefresh, page.getBehaviorScriptElement(commandLink).getAttribute("nonce"));
+        assertEquals(nonceAfterRefresh, page.getBehaviorScriptElement(ajaxInput).getAttribute("nonce"));
+        assertEquals(nonceAfterRefresh, page.getBehaviorScriptElement(ajaxButton).getAttribute("nonce"));
+        assertEquals(nonceAfterRefresh, page.getBehaviorScriptElement(commandScript).getAttribute("nonce"));
+        assertEquals(nonceAfterRefresh, page.getBehaviorScriptElement(facesUtilChain).getAttribute("nonce"));
+        assertEquals(nonceAfterRefresh, page.getBehaviorScriptElement(refreshButton).getAttribute("nonce"));
     }
 
     /**

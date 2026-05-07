@@ -16,7 +16,7 @@
 
 package ee.jakarta.tck.faces.test.servlet30.ajax_selenium;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
 import jakarta.faces.component.html.HtmlCommandButton;
@@ -40,9 +40,9 @@ class Issue2407IT extends BaseITNG {
     @Test
     void updateAttributeNamedValue() throws Exception {
         WebPage page = getPage("attributeNameIsValue.xhtml");
-        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomProperty("value").equals("foo")));
-        WebElement button = page.findElement(By.id("form1:button"));
-        button.click();
-        assertTrue(page.isCondition(webDriver1 -> page.findElement(By.id("form1:foo")).getDomProperty("value").equals("bar")));
+        WebElement foo = page.findElement(By.id("form1:foo"));
+        assertEquals("foo", foo.getDomProperty("value"));
+        page.guardAjax(page.findElement(By.id("form1:button"))::click);
+        assertEquals("bar", foo.getDomProperty("value"));
     }
 }

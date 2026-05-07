@@ -38,10 +38,10 @@ class Issue2752IT extends BaseITNG {
         WebPage page = getPage("insertElement.xhtml");
          WebElement beforeButton = page.findElement(By.id("beforeButton"));
          page.guardAjax(beforeButton::click);
-        assertTrue(page.isInPageText("This is before textalpha"));
+        assertTrue(page.containsText("This is before textalpha"));
         WebElement afterButton = page.findElement(By.id("afterButton"));
         page.guardAjax(afterButton::click);
-        assertTrue(page.isInPageText("This is before textalphaThis is after text"));
+        assertTrue(page.containsText("This is before textalphaThis is after text"));
     }
 
 }

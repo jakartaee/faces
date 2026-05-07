@@ -40,6 +40,6 @@ public class Spec1350IT extends BaseITNG {
         WebPage page = getPage("faces/injectValidator.xhtml");
         WebElement submit = page.findElement(By.id("form:submit"));
         submit.click();
-        assertTrue(page.getPageSource().contains("InjectValidator was called"));
+        assertTrue(page.containsText("InjectValidator was called"));
     }
 }

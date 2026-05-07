@@ -30,34 +30,34 @@ class MultipagewebinfIT extends BaseITNG {
     @Test
     void facesFlowWebInfEntryExitTest() {
         WebPage page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Page with link to flow entry"), "Page with link to flow entry");
+        assertTrue(page.containsText("Page with link to flow entry"), "Page with link to flow entry");
 
         WebElement start = findByIdSuffix(page, "start");
         page.guardHttp(start::click);
 
-        assertTrue(page.isInPageText("First page in the flow"), "First page in the flow");
-        assertTrue(page.isInPageText("basicFlow"), "basicFlow");
+        assertTrue(page.containsText("First page in the flow"), "First page in the flow");
+        assertTrue(page.containsText("basicFlow"), "basicFlow");
 
         page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Page with link to flow entry"), "Page with link to flow entry");
+        assertTrue(page.containsText("Page with link to flow entry"), "Page with link to flow entry");
 
         start = findByIdSuffix(page, "start");
         page.guardHttp(start::click);
 
-        assertTrue(page.isInPageText("First page in the flow"), "First page in the flow");
-        assertTrue(page.isInPageText("basicFlow"), "basicFlow");
+        assertTrue(page.containsText("First page in the flow"), "First page in the flow");
+        assertTrue(page.containsText("basicFlow"), "basicFlow");
     }
 
     @Test
     void facesFlowWebInfScopeTest() {
         WebPage page = getPage("faces/index.xhtml");
-        assertTrue(page.isInPageText("Page with link to flow entry"), "Page with link to flow entry");
+        assertTrue(page.containsText("Page with link to flow entry"), "Page with link to flow entry");
 
         WebElement start = findByIdSuffix(page, "start");
         page.guardHttp(start::click);
 
-        assertTrue(page.isInPageText("First page in the flow"), "First page in the flow");
-        assertTrue(page.isInPageText("basicFlow"), "basicFlow");
+        assertTrue(page.containsText("First page in the flow"), "First page in the flow");
+        assertTrue(page.containsText("basicFlow"), "basicFlow");
 
         WebElement nextA = findByIdSuffix(page, "next_a");
         page.guardHttp(nextA::click);
@@ -69,13 +69,13 @@ class MultipagewebinfIT extends BaseITNG {
         WebElement next = findByIdSuffix(page, "next");
         page.guardHttp(next::click);
 
-        assertTrue(page.isInPageText(flowScopeValue), "flowScopeValue visible");
+        assertTrue(page.containsText(flowScopeValue), "flowScopeValue visible");
 
         WebElement returnButton = findByIdSuffix(page, "return");
         page.guardHttp(returnButton::click);
 
-        assertTrue(page.isInPageText("return page"), "return page");
-        assertFalse((page.getPageText() + page.getInputValues()).contains(flowScopeValue), "flowScopeValue not visible");
+        assertTrue(page.containsText("return page"), "return page");
+        assertFalse(page.containsText(flowScopeValue), "flowScopeValue not visible");
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

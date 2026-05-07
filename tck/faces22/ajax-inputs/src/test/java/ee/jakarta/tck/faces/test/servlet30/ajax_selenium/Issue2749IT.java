@@ -38,7 +38,7 @@ class Issue2749IT extends BaseITNG {
         WebPage page = getPage("attributeNameIsOn.xhtml");
         WebElement button = page.findElement(By.id("form1:button"));
         page.guardAjax(button::click);
-        assertTrue(page.isInPage("ONCLICK CALLED"));
+        assertTrue(page.containsText("ONCLICK CALLED"));
     }
 
 }

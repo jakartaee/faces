@@ -41,7 +41,7 @@ public class Spec1394IT extends BaseITNG {
   void resourceHandler() throws Exception {
         WebPage page = getPage("injectResourceHandler.xhtml");
 
-        assertTrue(page.getPageSource().contains("jsfLibraryExists:true"));
+        assertTrue(page.containsText("jsfLibraryExists:true"));
     }
 
 }

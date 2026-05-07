@@ -64,8 +64,8 @@ public class BasicLambdaIT extends BaseITNG {
     @Test
     void bookTable() throws Exception {
         WebPage page = getPage("faces/bookTable.xhtml");
-        assertTrue(page.getPageSource().contains("At Swim Two Birds"));
-        assertTrue(page.getPageSource().contains("The Third Policeman"));
+        assertTrue(page.containsText("At Swim Two Birds"));
+        assertTrue(page.containsText("The Third Policeman"));
 
         WebElement out = page.findElement(By.id("output2"));
         assertEquals("The Picture of Dorian Gray", out.getText());

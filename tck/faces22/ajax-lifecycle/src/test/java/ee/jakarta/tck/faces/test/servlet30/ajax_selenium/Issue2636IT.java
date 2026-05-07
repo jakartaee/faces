@@ -41,20 +41,20 @@ class Issue2636IT extends BaseITNG {
 
         WebElement anchor1 = anchors.get(0);
         page.guardAjax(anchor1::click);
-        assertTrue(page.isInPage("linkAction1"));
+        assertTrue(page.containsText("linkAction1"));
 
         anchors = page.getAnchors();
 
         WebElement anchor2 = anchors.get(1);
         page.guardAjax(anchor2::click);
 
-        assertTrue(page.isInPage("linkAction2"));
+        assertTrue(page.containsText("linkAction2"));
 
         anchors = page.getAnchors();
 
         anchor1 = anchors.get(0);
         page.guardAjax(anchor1::click);
 
-        assertTrue(page.isInPage("linkAction1"));
+        assertTrue(page.containsText("linkAction1"));
     }
 }

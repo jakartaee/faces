@@ -32,7 +32,7 @@ public class VerifyTemplateUIIT extends BaseITNG {
     @Test
     void ul() throws Exception {
         WebPage page = getPage("");
-        String pageXml = page.getPageSource();
+        String pageXml = page.getSource();
 
         assertTrue(pageXml.matches("(?s).*<li>\\s*a\\s*</li>.*"));
         assertTrue(pageXml.matches("(?s).*<li>\\s*b\\s*</li>.*"));

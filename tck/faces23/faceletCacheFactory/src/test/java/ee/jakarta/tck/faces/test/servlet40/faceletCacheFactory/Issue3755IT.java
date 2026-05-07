@@ -43,7 +43,7 @@ public class Issue3755IT extends BaseITNG {
         WebElement submit = page.findElement(By.id("submit"));
         submit.click();
 
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
         assertTrue(pageText.contains("output: " + inputText));
         assertTrue(pageText.matches("(?s).*message.\\d+.*"));
     }

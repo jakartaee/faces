@@ -39,7 +39,7 @@ class Issue2750IT extends BaseITNG {
         WebPage page = getPage("attributeNameIsChecked.xhtml");
         WebElement cbox = page.findElement(By.id("form1:foo"));
       assertEquals(false, cbox.isSelected());
-        assertTrue(page.isInPage("foo"));
+        assertTrue(page.containsSource("foo"));
         WebElement button = page.findElement(By.id("form1:button"));
         page.guardAjax(button::click);
         cbox = page.findElement(By.id("form1:foo"));

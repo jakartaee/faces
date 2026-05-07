@@ -27,7 +27,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Issue4550IT extends BaseITNG {
@@ -43,23 +42,22 @@ class Issue4550IT extends BaseITNG {
         WebPage page = getPage("faces/viewparam-nullvalue-ajax.xhtml");
 
         // Ajax submit click
-        ExtendedWebDriver webDriver = getWebDriver();
-        WebElement submit = webDriver.findElement(By.id("form:ajaxCommandButton"));
+        WebElement submit = page.findElement(By.id("form:ajaxCommandButton"));
         assertNotNull(submit);
         page.guardAjax(submit::click);
-        assertTrue(webDriver.getPageTextReduced().contains(TEST_STRING));
+        assertTrue(page.containsText(TEST_STRING));
 
         // Ajax submit click
-        submit =  webDriver.findElement(By.id("form:ajaxCommandButton"));
+        submit =  page.findElement(By.id("form:ajaxCommandButton"));
         assertNotNull(submit);
         page.guardAjax(submit::click);
-        assertTrue(webDriver.getPageTextReduced().contains(TEST_STRING));
+        assertTrue(page.containsText(TEST_STRING));
 
         // Non Ajax submit click
-        submit =  webDriver.findElement(By.id("form:commandButton"));
+        submit =  page.findElement(By.id("form:commandButton"));
         assertNotNull(submit);
         page.guardAjax(submit::click);
-        assertTrue(webDriver.getPageTextReduced().contains(TEST_STRING));
+        assertTrue(page.containsText(TEST_STRING));
     }
 
 }

@@ -20,8 +20,6 @@ package ee.jakarta.tck.faces.test.javaee8.searchExpression_selenium;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.Duration;
-
 import jakarta.faces.component.search.SearchKeywordResolver;
 
 import org.junit.jupiter.api.Test;
@@ -29,7 +27,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 public class Spec1238IT extends BaseITNG {
@@ -45,15 +42,13 @@ public class Spec1238IT extends BaseITNG {
 
     public void testSearchExpression() throws Exception {
         WebPage page = getPage("spec1238.xhtml");
-        page.wait(Duration.ofMillis(3000));
 
-        ExtendedWebDriver webDriver = getWebDriver();
-        WebElement label = webDriver.findElement(By.id("label"));
-        WebElement input = webDriver.findElement(By.id("spec1238ITinput1"));
+        WebElement label = page.findElement(By.id("label"));
+        WebElement input = page.findElement(By.id("spec1238ITinput1"));
 
         assertEquals(label.getDomAttribute("for"), input.getDomAttribute("id"));
 
-        String behaviorScript = getBehaviorScript(page, input);
+        String behaviorScript = page.getBehaviorScript(input);
 
         if (behaviorScript.contains("@this")) {
             assertTrue(behaviorScript.contains("@this spec1238ITinput2"));

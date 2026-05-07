@@ -29,7 +29,7 @@ class DisableFaceletToXhtmlIT extends BaseITNG {
   @Test
   void doTest() throws Exception {
         WebPage page = getPage("index.xhtml");
-      assertEquals(-1, page.getPageSource().indexOf("ViewState"));
+      assertEquals(-1, page.getSource().indexOf("ViewState"));
     }
 
 }

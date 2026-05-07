@@ -36,6 +36,6 @@ public class Issue3729IT extends BaseITNG {
   @Test
   void injectRequestCookieMap2() throws Exception {
         WebPage page = getPage("faces/injectRequestCookieMap2.xhtml");
-        assertTrue(page.getPageSource().contains("{}"));
+        assertTrue(page.containsText("{}"));
     }
 }

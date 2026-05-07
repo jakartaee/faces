@@ -200,7 +200,7 @@ class JstlIT extends BaseITNG {
     @Test
     void jstlCoreForEachTagTest() {
         WebPage page = getPage("faces/foreachtag/foreachtag_facelet.xhtml");
-        String body = page.getPageSource();
+        String body = page.getSource();
 
         // case 1: String array iteration
         assertAllPresent(body, List.of("Firstname: Geddy", "Firstname: Alex", "Firstname: Neil"));

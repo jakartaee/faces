@@ -40,14 +40,14 @@ class Spec1412IT extends BaseITNG {
     void spec1412() throws Exception {
 
         WebPage page = getPage("spec1412.xhtml");
-        assertFalse(page.getPageSource().contains("Success!"));
+        assertFalse(page.containsText("Success!"));
 
         WebElement button = page.findElement(By.id("form:button"));
 
         assertEquals("foo", button.getDomProperty("value"));
 
         page.guardAjax(button::click);
-        assertTrue(page.isInPage("Success!"));
+        assertTrue(page.containsText("Success!"));
 
         button = page.findElement(By.id("form:button"));
         assertEquals("bar", button.getDomProperty("value"));

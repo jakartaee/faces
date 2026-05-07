@@ -37,6 +37,6 @@ class Issue2674IT extends BaseITNG {
     void programmaticAjaxBehavior() throws Exception {
         WebPage page = getPage("issue2674.xhtml");
         WebElement input1 = page.findElement(By.id("form:input1"));
-        assertFalse(getBehaviorScript(page, input1) == null, "input1 must have behavior script");
+        assertFalse(page.getBehaviorScript(input1) == null, "input1 must have behavior script");
     }
 }

@@ -44,7 +44,7 @@ class Issue2381IT extends BaseITNG {
         WebElement button = page.findElement(By.id("form1:bodytag"));
         page.guardAjax(button::click);
         
-        assertTrue(page.isInPage("BODY CLASS:foo"));
+        assertTrue(page.containsText("BODY CLASS:foo"));
     }
 
 }

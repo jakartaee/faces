@@ -39,7 +39,7 @@ class Issue4281IT extends BaseITNG {
         assertTrue(outputText != null, "outputText does exist");
         assertTrue(panelGroup.getText().contains("paragraph"), "panelGroup does contain parargaph");
         assertFalse(panelGroup.getText().contains("outputText"), "panelGroup may not contain outputText");
-        assertTrue(page.getPageSource().contains("outputText"), "body does contain outputText");
+        assertTrue(page.containsText("outputText"), "body does contain outputText");
     }
 
 }

@@ -41,9 +41,9 @@ public class Spec1418IT extends BaseITNG {
   void managedPropertyInteger() throws Exception {
         WebPage page = getPage("injectManagedProperty.xhtml");
 
-        assertTrue(page.getPageSource().contains("integer1:42"));
-        assertTrue(page.getPageSource().contains("integer2:99"));
-        assertTrue(page.getPageSource().contains("integer3:123"));
+        assertTrue(page.containsText("integer1:42"));
+        assertTrue(page.containsText("integer2:99"));
+        assertTrue(page.containsText("integer3:123"));
     }
 
   /**
@@ -55,7 +55,7 @@ public class Spec1418IT extends BaseITNG {
   void managedPropertyString() throws Exception {
         WebPage page = getPage("injectManagedProperty.xhtml?test=foo");
 
-        assertTrue(page.getPageSource().contains("testParam:foo"));
+        assertTrue(page.containsText("testParam:foo"));
     }
 
   /**
@@ -67,8 +67,8 @@ public class Spec1418IT extends BaseITNG {
   void managedPropertyGenericMap() throws Exception {
         WebPage page = getPage("injectManagedProperty.xhtml");
 
-        assertTrue(page.getPageSource().contains("stringMap:bar"));
-        assertTrue(page.getPageSource().contains("integerMap:10"));
+        assertTrue(page.containsText("stringMap:bar"));
+        assertTrue(page.containsText("integerMap:10"));
     }
 
 }

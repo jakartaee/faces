@@ -19,15 +19,12 @@ package ee.jakarta.tck.faces.test.javaee8.commandScript_selenium;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.Duration;
-
 import jakarta.faces.component.html.HtmlCommandScript;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 
@@ -44,12 +41,13 @@ public class Spec613IT extends BaseITNG {
 
     public void testCommandScript() throws Exception {
         WebPage page = getPage("spec613.xhtml");
-        page.wait(Duration.ofMillis(3000));
-        ExtendedWebDriver webDriver = getWebDriver();
-      assertEquals("foo", webDriver.findElement(By.id("result")).getText());
+        // h:commandScript foo has autorun="true" — its ajax fires on document
+        // ready, before we get control here, so guardAjax can't wrap it; poll.
+        // The render=":result" replaces the result element each cycle, so re-find
+        // it inside the predicate to dodge StaleElementReferenceException.
+        page.waitForCondition($ -> "foo".equals(page.findElement(By.id("result")).getText()));
 
-        webDriver.getJSExecutor().executeScript("bar()");
-        page.wait(Duration.ofMillis(3000));
-      assertEquals("bar", webDriver.findElement(By.id("result")).getText());
+        page.guardAjax(() -> page.executeScript("bar()"));
+        assertEquals("bar", page.findElement(By.id("result")).getText());
     }
 }

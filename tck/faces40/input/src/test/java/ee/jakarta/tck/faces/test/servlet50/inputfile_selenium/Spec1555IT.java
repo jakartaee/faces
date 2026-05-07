@@ -32,7 +32,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.ExtendedWebDriver;
 import ee.jakarta.tck.faces.test.util.selenium.WebPage;
 
 class Spec1555IT extends BaseITNG {
@@ -57,8 +56,7 @@ class Spec1555IT extends BaseITNG {
 
     private void testSingleSelection(String form) throws Exception {
         WebPage page = getPage("spec1555IT.xhtml");
-        ExtendedWebDriver webDriver = getWebDriver();
-        WebElement input = webDriver.findElement(By.id(form + ":input"));
+        WebElement input = page.findElement(By.id(form + ":input"));
 
         assertNull(input.getDomAttribute("multiple"), "Multiple attribute is NOT set");
 
@@ -66,10 +64,10 @@ class Spec1555IT extends BaseITNG {
         // Selenium allows to send the file name as key input
         input.sendKeys(file.getAbsolutePath());
 
-        page.guardAjax(webDriver.findElement(By.id(form + ":submit"))::click);
-        assertEquals("", webDriver.findElement(By.id(form + ":input")).getDomProperty("value"), "Value attribute is NOT set");
+        page.guardAjax(page.findElement(By.id(form + ":submit"))::click);
+        assertEquals("", page.findElement(By.id(form + ":input")).getDomProperty("value"), "Value attribute is NOT set");
 
-        WebElement messages = webDriver.findElement(By.id("messages"));
+        WebElement messages = page.findElement(By.id("messages"));
 
         List<WebElement> messagesElements = messages.findElements(By.cssSelector("*"));
         assertEquals(1, messagesElements.size(), "There is 1 message");
@@ -99,8 +97,7 @@ class Spec1555IT extends BaseITNG {
 
     private void testMultipleSelection(String form) throws Exception {
         WebPage page = getPage("spec1555IT.xhtml");
-        ExtendedWebDriver webDriver = getWebDriver();
-        WebElement input = webDriver.findElement(By.id(form + ":input"));
+        WebElement input = page.findElement(By.id(form + ":input"));
 
         assertEquals("true", input.getDomAttribute("multiple"), "Multiple attribute is set");
 
@@ -112,11 +109,11 @@ class Spec1555IT extends BaseITNG {
 
         String files = String.join("\n", fileNames);
         input.sendKeys(files);
-        page.guardAjax(webDriver.findElement(By.id(form + ":submit"))::click);
+        page.guardAjax(page.findElement(By.id(form + ":submit"))::click);
 
-        assertEquals("", webDriver.findElement(By.id(form + ":input")).getDomProperty("value"), "Value attribute is NOT set");
+        assertEquals("", page.findElement(By.id(form + ":input")).getDomProperty("value"), "Value attribute is NOT set");
 
-        WebElement messages = webDriver.findElement(By.id("messages"));
+        WebElement messages = page.findElement(By.id("messages"));
         List childElements = messages.findElements(By.cssSelector("*"));
 
         assertEquals(3, childElements.size(), "There are 3 messages");

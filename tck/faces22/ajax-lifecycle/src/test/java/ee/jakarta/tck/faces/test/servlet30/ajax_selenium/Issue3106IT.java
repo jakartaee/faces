@@ -46,6 +46,6 @@ class Issue3106IT extends BaseITNG {
         //2 requests after that we have to move forward
         page = getPage("multiPart1b.xhtml");
 
-        assertTrue(page.isInPageText("Count is 2"));
+        assertTrue(page.containsText("Count is 2"));
     }
 }

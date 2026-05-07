@@ -44,10 +44,10 @@ class Issue1533IT extends BaseITNG {
         WebElement input = page.findElement(By.id("form:vip:0"));
         page.guardAjax(input::click);
         
-        assertTrue(page.getPageSource().indexOf("form:vip-true") != -1);
+        assertTrue(page.containsText("form:vip-true"));
         input =  page.findElement(By.id("form:vip:1"));
         page.guardAjax(input::click);
 
-        assertTrue(page.getPageSource().indexOf("form:vip-false") != -1);
+        assertTrue(page.containsText("form:vip-false"));
     }
 }

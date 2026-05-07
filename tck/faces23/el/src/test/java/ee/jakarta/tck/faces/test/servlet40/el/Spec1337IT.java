@@ -35,7 +35,7 @@ public class Spec1337IT extends BaseITNG {
     @Test
     void resourceEL1() throws Exception {
         WebPage page = getPage("faces/resourceEL1.xhtml");
-        assertTrue(page.getPageSource().contains("/jakarta.faces.resource/resourceEL1.gif"));
+        assertTrue(page.containsText("/jakarta.faces.resource/resourceEL1.gif"));
     }
 
     /**
@@ -45,8 +45,8 @@ public class Spec1337IT extends BaseITNG {
     @Test
     void resourceEL2() throws Exception {
         WebPage page = getPage("faces/resourceEL2.xhtml");
-        assertTrue(page.getPageSource().contains("/jakarta.faces.resource/resourceEL2.gif"));
-        assertTrue(page.getPageSource().contains("?ln=resourceEL2"));
+        assertTrue(page.containsText("/jakarta.faces.resource/resourceEL2.gif"));
+        assertTrue(page.containsText("?ln=resourceEL2"));
     }
 
     /**
@@ -56,6 +56,6 @@ public class Spec1337IT extends BaseITNG {
     @Test
     void resourceEL3() throws Exception {
         WebPage page = getPage("faces/resourceEL3.xhtml");
-        assertTrue(page.getPageSource().contains("jakarta.el.ELException"));
+        assertTrue(page.containsText("jakarta.el.ELException"));
     }
 }

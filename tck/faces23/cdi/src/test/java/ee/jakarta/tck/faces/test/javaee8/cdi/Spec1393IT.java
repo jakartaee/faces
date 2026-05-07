@@ -43,7 +43,7 @@ public class Spec1393IT extends BaseITNG {
         WebPage page = getPage("injectRequestMap.xhtml");
 
         // Request attribute is set in AttributeFilter
-        assertTrue(page.getPageSource().contains("fooAttribute:bar"));
+        assertTrue(page.containsText("fooAttribute:bar"));
     }
 
 }

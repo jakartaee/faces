@@ -38,6 +38,11 @@ public class Issue5160IT extends BaseITNG {
     @Override
     @AfterEach
     protected void tearDown() {
+        // Each test sets a different Accept-Language via addRequestHeader, which
+        // is additive on the underlying Chrome instance; reusing the driver would
+        // make subsequent tests send all previously-set languages stacked together
+        // and the wrong locale would win. Discard the driver so the next test
+        // starts with a clean header set.
         driverPool.quitInstance(getWebDriver());
     }
 

@@ -48,12 +48,12 @@ public class Spec1385IT extends BaseITNG {
         // Next request processes cookie, should render value put in Flash and set "deletion" cookie
         WebPage page = getPage("faces/injectFlash.xhtml?getFlash=true");
 
-        assertTrue(page.getPageSource().contains("foo:bar"));
+        assertTrue(page.containsText("foo:bar"));
 
         // No cookie anymore and the value put in Flash previously should not be rendered anymore
         page = getPage("faces/injectFlash.xhtml?getFlash=true");
 
-        assertFalse(page.getPageSource().contains("foo:bar"));
+        assertFalse(page.containsText("foo:bar"));
     }
 
 }

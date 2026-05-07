@@ -46,7 +46,7 @@ class UIRepeatCustomDataModelIT extends BaseITNG {
         // handle a Child11, but these should NOT be picked up and the exact match
         // should be preferred.
         WebPage page = getPage("uirepeatCustomDataModel11.xhtml");
-        assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.getPageSource()));
+        assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.getSource()));
     }
 
   /**
@@ -65,6 +65,6 @@ class UIRepeatCustomDataModelIT extends BaseITNG {
         // should be chosen, which in this test is the DataModel that handles
         // a Child11.
         WebPage page = getPage("uirepeatCustomDataModel111.xhtml");
-        assertTrue(matches("(?s).*START.*111-member 1.*111-member 2.*END.*", page.getPageSource()));
+        assertTrue(matches("(?s).*START.*111-member 1.*111-member 2.*END.*", page.getSource()));
     }
 }

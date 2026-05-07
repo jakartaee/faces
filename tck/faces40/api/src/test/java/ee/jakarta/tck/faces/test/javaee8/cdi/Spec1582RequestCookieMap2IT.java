@@ -36,6 +36,6 @@ public class Spec1582RequestCookieMap2IT extends BaseITNG {
   @Test
   void injectRequestCookieMap2() throws Exception {
         WebPage page = getPage("injectRequestCookieMap2.xhtml");
-        assertTrue(page.getPageSource().contains("{}"));
+        assertTrue(page.containsText("{}"));
     }
 }

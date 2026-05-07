@@ -48,7 +48,7 @@ public class Spec1IT extends BaseITNG {
 
         button.click();
 
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
         assertFalse(pageText.contains("[foofoofoo]"));
         assertTrue(pageText.contains("[bar]"));
 
@@ -79,7 +79,7 @@ public class Spec1IT extends BaseITNG {
 
         button.click();
 
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
         assertTrue(pageText.contains("[foo]"));
         assertTrue(pageText.contains("[bar]"));
 
@@ -110,7 +110,7 @@ public class Spec1IT extends BaseITNG {
 
         button.click();
 
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
         assertFalse(pageText.contains("[foofoofoo]"));
         assertFalse(pageText.contains("[barbarbar]"));
 
@@ -142,7 +142,7 @@ public class Spec1IT extends BaseITNG {
 
         button.click();
 
-        String pageText = page.getPageSource();
+        String pageText = page.getSource();
         assertFalse(pageText.contains("[foofoofoo]"));
         assertFalse(pageText.contains("[barbarbar]"));
 

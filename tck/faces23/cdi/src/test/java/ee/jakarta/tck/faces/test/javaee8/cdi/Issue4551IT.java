@@ -39,7 +39,7 @@ public class Issue4551IT extends BaseITNG {
         WebPage page = getPage("faces/issue4551.xhtml");
         WebElement submit = page.findElement(By.id("form:submit"));
         submit.click();
-        assertTrue(page.getPageSource().contains("CustomValidator1 was validated"));
-        assertTrue(page.getPageSource().contains("CustomValidator2 was validated"));
+        assertTrue(page.containsText("CustomValidator1 was validated"));
+        assertTrue(page.containsText("CustomValidator2 was validated"));
     }
 }

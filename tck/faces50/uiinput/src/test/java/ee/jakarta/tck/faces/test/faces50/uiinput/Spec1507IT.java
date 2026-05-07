@@ -19,8 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.time.Duration;
-
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -93,9 +91,10 @@ class Spec1507IT extends BaseITNG {
 
         assertEquals("", output1.getText());
 
+        // Pure JS oninput handler updates output1 directly in the browser —
+        // no XHR fires, so guardAjax doesn't apply. Wait for the DOM mutation.
         input1.sendKeys("abc" + Keys.TAB);
-
-        page.waitForCondition($ -> "abc".equals(output1.getText()), Duration.ofSeconds(3));
+        page.waitForCondition($ -> "abc".equals(output1.getText()));
     }
 
     @Test
@@ -108,7 +107,7 @@ class Spec1507IT extends BaseITNG {
 
         page.guardAjax(() -> input2.sendKeys("abc" + Keys.TAB));
 
-        page.waitForCondition($ -> "abc".equals(output2.getText()), Duration.ofSeconds(3));
+        assertEquals("abc", output2.getText());
     }
 
     @Test
@@ -122,8 +121,8 @@ class Spec1507IT extends BaseITNG {
 
         page.guardAjax(() -> input3.sendKeys("abc" + Keys.TAB));
 
-        page.waitForCondition($ -> "abc".equals(output3a.getText()), Duration.ofSeconds(3));
-        page.waitForCondition($ -> "abc".equals(output3b.getText()), Duration.ofSeconds(3));
+        assertEquals("abc", output3a.getText());
+        assertEquals("abc", output3b.getText());
     }
 
     @Test
@@ -138,10 +137,10 @@ class Spec1507IT extends BaseITNG {
 
         page.guardAjax(() -> input4.sendKeys("abc" + Keys.TAB));
 
-        page.waitForCondition($ -> "abc".equals(output4a.getText()), Duration.ofSeconds(3));
-        page.waitForCondition($ -> "abc".equals(output4b.getText()), Duration.ofSeconds(3));
-        page.waitForCondition($ -> "abc".equals(output4c.getText()), Duration.ofSeconds(3));
-        page.waitForCondition($ -> "abc".equals(output4d.getText()), Duration.ofSeconds(3));
+        assertEquals("abc", output4a.getText());
+        assertEquals("abc", output4b.getText());
+        assertEquals("abc", output4c.getText());
+        assertEquals("abc", output4d.getText());
     }
 
     @Test
@@ -158,9 +157,9 @@ class Spec1507IT extends BaseITNG {
 
         page.guardAjax(() -> input5.sendKeys("abc" + Keys.TAB));
 
-        page.waitForCondition($ -> "abc".equals(output5a.getText()), Duration.ofSeconds(3));
-        page.waitForCondition($ -> "abc".equals(output5b.getText()), Duration.ofSeconds(3));
-        page.waitForCondition($ -> "abc".equals(output5c.getText()), Duration.ofSeconds(3));
+        assertEquals("abc", output5a.getText());
+        assertEquals("abc", output5b.getText());
+        assertEquals("abc", output5c.getText());
     }
 
     @Test
@@ -175,11 +174,11 @@ class Spec1507IT extends BaseITNG {
     void testUnsupportedAjaxEvent() {
         var page = getPage("spec1507.xhtml?renderInputWithUnsupportedAjaxEvent=true");
 
-        assertTrue(page.getPageSource().contains("500"));
+        assertTrue(page.containsText("500"));
     }
 
     private void assertBehaviorScriptRendered(WebPage page, WebElement input, String behaviorEventName) {
-        var scripts = getBehaviorScripts(page, input);
+        var scripts = page.getBehaviorScripts(input);
         assertTrue(scripts.stream().anyMatch(script -> script.contains("'" + behaviorEventName + "'") || script.contains("\"" + behaviorEventName + "\"")), scripts.toString());
     }
 

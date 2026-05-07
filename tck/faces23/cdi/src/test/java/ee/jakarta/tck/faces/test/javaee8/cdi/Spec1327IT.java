@@ -36,6 +36,6 @@ public class Spec1327IT extends BaseITNG {
   @Test
   void injectSessionBean() throws Exception {
         WebPage page = getPage("faces/injectSession.xhtml");
-        assertTrue(page.getPageSource().contains("Session"));
+        assertTrue(page.containsText("Session"));
     }
 }

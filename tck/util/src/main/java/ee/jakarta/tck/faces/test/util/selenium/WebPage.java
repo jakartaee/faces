@@ -15,97 +15,54 @@
  */
 package ee.jakarta.tck.faces.test.util.selenium;
 
-import java.lang.System.Logger;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import static java.lang.System.Logger.Level.TRACE;
-
 /**
- * Mimics the html unit webpage
+ * High-level facade over {@link ExtendedWebDriver} for integration tests.
+ * Adds settle/poll primitives ({@link #guardHttp}, {@link #guardAjax},
+ * {@link #waitForCondition}) and assertion-friendly content checks
+ * ({@link #containsText}, {@link #containsSource}, {@link #matchesText}).
  */
 public class WebPage {
-    private static final Logger LOG = System.getLogger(WebPage.class.getName());
 
-    public static final Duration STD_TIMEOUT = Duration.ofMillis(Integer.parseInt(System.getProperty("ee.jakarta.tck.faces.timeout", "10000")));
-    public static final Duration LONG_TIMEOUT = STD_TIMEOUT.multipliedBy(3);
+    static final Duration STD_TIMEOUT = Duration.ofMillis(Integer.parseInt(System.getProperty("ee.jakarta.tck.faces.timeout", "10000")));
 
-    protected ExtendedWebDriver webDriver;
+    private ExtendedWebDriver webDriver;
 
     public WebPage(ExtendedWebDriver webDriver) {
         this.webDriver = webDriver;
     }
 
-    public ExtendedWebDriver getWebDriver() {
-        return webDriver;
-    }
-
-    public void setWebDriver(ExtendedWebDriver webDriver) {
-        this.webDriver = webDriver;
-    }
-
     /**
-     * waits for a certain condition is met, until a timeout is hit. In case of exceeding the condition, a runtime exception
-     * is thrown!
-     *
-     * @param isTrue the condition lambda to check
-     * @param timeout timeout duration
-     */
-    public <V> void waitForCondition(Function<? super WebDriver, V> isTrue, Duration timeout) {
-        synchronized (webDriver) {
-            WebDriverWait wait = new WebDriverWait(webDriver, timeout);
-            wait.until(isTrue);
-        }
-    }
-
-    /**
-     * The same as before, but with the long default timeout of LONG_TIMEOUT
-     *
-     * @param isTrue condition lambda
+     * Polls until {@code isTrue} returns truthy or {@link #STD_TIMEOUT} elapses.
+     * Throws {@link org.openqa.selenium.TimeoutException} on timeout. Tests
+     * that need a non-default timeout should construct {@link WebDriverWait}
+     * directly off the inherited {@code getWebDriver()}.
      */
     public <V> void waitForCondition(Function<? super WebDriver, V> isTrue) {
-        synchronized (webDriver) {
-            WebDriverWait wait = new WebDriverWait(webDriver, LONG_TIMEOUT);
-            wait.until(isTrue);
-        }
+        new WebDriverWait(webDriver, STD_TIMEOUT).until(isTrue);
     }
 
     /**
-     * Wait for a certain period of time
+     * Run {@code action} and block until the resulting non-Ajax navigation has
+     * completed (i.e. the new page's {@code document.readyState} is {@code complete}).
      *
-     * @param timeout the timeout to wait (note due to the asynchronous nature of the web drivers, any code running on the
-     * browser itself will proceed (aka javascript) only the client operations are stalled.
-     */
-    public void wait(Duration timeout) {
-        synchronized (webDriver) {
-            try {
-                webDriver.wait(timeout.toMillis());
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
-    /**
-     * wait until the current non-Ajax request targeting the same page has completed
-     *
-     * @param the non-ajax action to execute, usually {@code WebElement::click}
+     * @param action the non-ajax action to execute, usually {@code WebElement::click}
      */
     public void guardHttp(Runnable action) {
         action.run();
-        waitForPageToLoad();
+        new WebDriverWait(webDriver, STD_TIMEOUT).until(
+                $ -> "complete".equals(executeScript("return document.readyState")));
     }
 
     /**
@@ -115,13 +72,12 @@ public class WebPage {
      */
     public void guardAjax(Runnable action) {
         var uuid = UUID.randomUUID().toString();
-        webDriver.getJSExecutor().executeScript(
-                "window.$ajax=true;"
+        executeScript("window.$ajax=true;"
                 + "faces.ajax.addOnEvent(data=>{if(data.status=='success')window.$ajax='" + uuid + "'});"
                 + "faces.ajax.addOnError(()=>window.$ajax='" + uuid + "')");
         action.run();
         webDriver.waitForFaces(STD_TIMEOUT);
-        waitForCondition($ -> webDriver.getJSExecutor().executeScript("return window.$ajax=='" + uuid + "' || (!window.$ajax && document.readyState=='complete')"));
+        waitForCondition($ -> executeScript("return window.$ajax=='" + uuid + "' || (!window.$ajax && document.readyState=='complete')"));
     }
 
     /**
@@ -131,143 +87,43 @@ public class WebPage {
      *         {@code false} if an Ajax response did complete.
      */
     public boolean assertNoAjax(Runnable action) {
-        webDriver.getJSExecutor().executeScript("window.$ajaxFired=false;faces.ajax.addOnEvent(()=>window.$ajaxFired=true)");
+        executeScript("window.$ajaxFired=false;faces.ajax.addOnEvent(()=>window.$ajaxFired=true)");
         action.run();
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        return Boolean.FALSE.equals(webDriver.getJSExecutor().executeScript("return window.$ajaxFired"));
+        return Boolean.FALSE.equals(executeScript("return window.$ajaxFired"));
     }
 
     /**
-     * waits for backgrounds processes on the browser to complete
-     *
-     * @param timeOut the timeout duration until the wait can proceed before being interupopted
+     * Returns true if the page's visible text (whitespace-collapsed) contains
+     * the given text. Synchronous: assumes the caller already settled the page
+     * via guardHttp, guardAjax, or getPage. If you need to wait for the text
+     * to appear, use {@link #waitForCondition} explicitly.
      */
-    public void waitForPageToLoad(Duration timeOut) {
-        ExpectedCondition<Boolean> expectation =
-            driver -> webDriver.getJSExecutor()
-                               .executeScript("return document.readyState")
-                               .equals("complete");
-
-        synchronized (webDriver) {
-            WebDriverWait wait = new WebDriverWait(webDriver, timeOut);
-            wait.until(expectation);
-        }
+    public boolean containsText(String text) {
+        return getText().contains(text);
     }
 
     /**
-     * wait until the page load is finished
+     * Returns true if the page's full HTML markup contains the given text.
+     * Synchronous; same precondition as {@link #containsText}. Use this only
+     * when the asserted text lives in markup-only context (HTML attributes,
+     * encoded entities, script content) — for visible page content prefer
+     * {@link #containsText}.
      */
-    public void waitForPageToLoad() {
-        waitForPageToLoad(STD_TIMEOUT);
+    public boolean containsSource(String text) {
+        return getSource().contains(text);
     }
 
     /**
-     * conditional waiter and checker which checks whether the page text is present we add our own waiter internally,
-     * because pageSource always delivers
-     *
-     * @param text to check
-     * @return true in case of found false in case of found after our standard timeout is reached
+     * Returns true if the page's visible text (whitespace-collapsed) matches
+     * the given regex. Synchronous; same precondition as {@link #containsText}.
      */
-    public boolean isInPageText(String text) {
-        try {
-            // values are not returned by getPageText
-            String values = getInputValues();
-
-            waitForCondition(webDriver1 -> (webDriver.getPageText() + values).contains(text), STD_TIMEOUT);
-            return true;
-        } catch (TimeoutException ex) {
-            // timeout is wanted in this case and should result in a false
-            return false;
-        }
-    }
-
-    public boolean matchesPageText(String regexp) {
-        try {
-            waitForCondition(webDriver1 -> webDriver.getPageText().matches(regexp), STD_TIMEOUT);
-            return true;
-        } catch (TimeoutException ex) {
-            // timeout is wanted in this case and should result in a false
-            return false;
-        }
-    }
-
-    /**
-     * adds the reduced page text functionality to the regexp match
-     *
-     * @param regexp
-     * @return
-     */
-    public boolean matchesPageTextReduced(String regexp) {
-        try {
-            waitForCondition(webDriver1 -> webDriver.getPageTextReduced().matches(regexp), STD_TIMEOUT);
-            return true;
-        } catch (TimeoutException ex) {
-            // timeout is wanted in this case and should result in a false
-            return false;
-        }
-    }
-
-    /**
-     * conditional waiter and checker which checks whether a text is in the page we add our own waiter internally, because
-     * pageSource always delivers this version of isInPage checks explicitly the full markup not only the text
-     *
-     * @param text to check
-     * @return true in case of found false in case of found after our standard timeout is reached
-     */
-    public boolean isInPage(String text) {
-        try {
-            String values = getInputValues();
-            waitForCondition(webDriver1 -> (webDriver.getPageSource() + values).contains(text), STD_TIMEOUT);
-            return true;
-        } catch (TimeoutException ex) {
-            // timeout is wanted in this case and should result in a false
-            return false;
-        }
-    }
-
-    /**
-     * conditional waiter and checker which checks whether a text is in the page we add our own waiter internally, because
-     * pageSource always delivers we need to add two different condition checkers herte because a timeout automatically
-     * throws internally an error which is mapped to false We therefore cannot simply wait for the condition either being
-     * met or timeout with one method
-     *
-     * @param text to check
-     * @return true in case of found false in case of found after our standard timeout is reached
-     */
-    public boolean isInPage(String text, boolean allowExceptions) {
-        try {
-            String values = getInputValues();
-            waitForCondition(webDriver1 -> (webDriver.getPageSource() + values).contains(text), STD_TIMEOUT);
-            return true;
-        } catch (TimeoutException exception) {
-            if (allowExceptions) {
-                throw exception;
-            }
-            exception.printStackTrace();
-            return false;
-        }
-    }
-
-    /**
-     * is condition reached or not reached after until a STD_TIMEOUT is reached if the timeout is exceeded the condition is
-     * not met
-     *
-     * @param isTrue the isTrue condition lambda
-     * @return true if it is met until STD_TIMEOUT, otherwise false
-     */
-    public <V> boolean isCondition(Function<? super WebDriver, V> isTrue) {
-        try {
-            waitForCondition(isTrue, STD_TIMEOUT);
-            return true;
-        } catch (TimeoutException ex) {
-            // timeout is wanted in this case and should result in a false
-            LOG.log(TRACE, "This exception was expected.", ex);
-            return false;
-        }
+    public boolean matchesText(String regex) {
+        return getText().matches(regex);
     }
 
     public WebElement findElement(By by) {
@@ -286,24 +142,15 @@ public class WebPage {
         return webDriver.getResponseBody();
     }
 
-    public String getRequestData() {
-        return webDriver.getRequestData();
-    }
-
-    public void postInit() {
-        webDriver.postInit();
-    }
-
     public JavascriptExecutor getJSExecutor() {
         return webDriver.getJSExecutor();
     }
 
-    public void printProcessedResponses() {
-        webDriver.printProcessedResponses();
-    }
-
-    public void get(String url) {
-        webDriver.get(url);
+    /**
+     * Convenience shorthand for {@code getJSExecutor().executeScript(script, args)}.
+     */
+    public Object executeScript(String script, Object... args) {
+        return webDriver.getJSExecutor().executeScript(script, args);
     }
 
     public String getCurrentUrl() {
@@ -314,44 +161,23 @@ public class WebPage {
         return webDriver.getTitle();
     }
 
-    public String getPageSource() {
+    /**
+     * Returns the full HTML markup of the current page. Escape hatch for
+     * tests that need to fetch the page once and run multiple operations
+     * (regex, substring, repeated lookups) on the same snapshot. For simple
+     * "does X appear?" checks use {@link #containsSource}.
+     */
+    public String getSource() {
         return webDriver.getPageSource();
     }
 
-    public String getPageText() {
-        return webDriver.getPageText();
-    }
-
-    public String getPageTextReduced() {
+    /**
+     * Returns the page's visible text with all whitespace collapsed to single
+     * spaces (head + body innerText, runs of whitespace and non-breaking
+     * spaces normalised). Callers should prefer {@link #containsText} and {@link #matchesText}.
+     */
+    private String getText() {
         return webDriver.getPageTextReduced();
-    }
-
-    public void close() {
-        webDriver.close();
-    }
-
-    public void quit() {
-        webDriver.quit();
-    }
-
-    public Set<String> getWindowHandles() {
-        return webDriver.getWindowHandles();
-    }
-
-    public String getWindowHandle() {
-        return webDriver.getWindowHandle();
-    }
-
-    public WebDriver.TargetLocator switchTo() {
-        return webDriver.switchTo();
-    }
-
-    public WebDriver.Navigation navigate() {
-        return webDriver.navigate();
-    }
-
-    public WebDriver.Options manage() {
-        return webDriver.manage();
     }
 
     /**
@@ -363,8 +189,46 @@ public class WebPage {
         return webDriver.findElements(By.cssSelector("a[href]"));
     }
 
-    public String getInputValues() {
-        return webDriver.findElements(By.cssSelector("input, textarea, select")).stream()
-                .map(webElement -> webElement.getAttribute("value")).reduce("", (str1, str2) -> str1 + " " + str2);
+    /**
+     * Returns inline (non-{@code src}) {@code <script>} elements whose textContent
+     * mentions the given input's id (single- or double-quoted) — i.e. the JSF
+     * client-behavior scripts wired up to that input.
+     */
+    public List<WebElement> getBehaviorScriptElements(WebElement input) {
+        var id = input.getAttribute("id");
+        var elements = new ArrayList<WebElement>();
+        for (var script : findElements(By.tagName("script"))) {
+            var src = script.getAttribute("src");
+            if (src == null || src.isEmpty()) {
+                var content = script.getDomProperty("textContent");
+                if (content.contains("'" + id + "'") || content.contains("\"" + id + "\"")) {
+                    elements.add(script);
+                }
+            }
+        }
+        return elements;
+    }
+
+    /**
+     * Same as {@link #getBehaviorScriptElements} but returns the script bodies as strings.
+     */
+    public List<String> getBehaviorScripts(WebElement input) {
+        return getBehaviorScriptElements(input).stream().map(script -> script.getDomProperty("textContent")).toList();
+    }
+
+    /**
+     * Returns the first script element wired to {@code input}, or {@code null} if none.
+     */
+    public WebElement getBehaviorScriptElement(WebElement input) {
+        var elements = getBehaviorScriptElements(input);
+        return elements.isEmpty() ? null : elements.get(0);
+    }
+
+    /**
+     * Returns the body of the first script wired to {@code input}, or {@code null} if none.
+     */
+    public String getBehaviorScript(WebElement input) {
+        var scripts = getBehaviorScripts(input);
+        return scripts.isEmpty() ? null : scripts.get(0);
     }
 }

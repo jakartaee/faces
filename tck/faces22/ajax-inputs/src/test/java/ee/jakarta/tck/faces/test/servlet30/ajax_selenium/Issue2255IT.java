@@ -38,19 +38,19 @@ class Issue2255IT extends BaseITNG {
   @Test
   void behaviorState() throws Exception {
         WebPage page = getPage("divInComposite.xhtml");
-        assertTrue(page.isInPage("false"));
+        assertTrue(page.containsText("false"));
         WebElement cbox =  page.findElement(By.id("cc:form:test"));
         page.guardAjax(cbox::click);
 
-        assertTrue(page.isInPage("true"));
+        assertTrue(page.containsText("true"));
         page.guardAjax(cbox::click);
 
-        assertTrue(page.isInPage("false"));
+        assertTrue(page.containsText("false"));
         page.guardAjax(cbox::click);
 
-        assertTrue(page.isInPage("true"));
+        assertTrue(page.containsText("true"));
         page.guardAjax(cbox::click);
 
-        assertTrue(page.isInPage("false"));
+        assertTrue(page.containsText("false"));
     }
 }

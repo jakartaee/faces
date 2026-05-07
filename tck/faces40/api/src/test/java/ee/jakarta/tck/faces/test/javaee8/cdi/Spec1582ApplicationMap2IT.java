@@ -36,6 +36,6 @@ public class Spec1582ApplicationMap2IT extends BaseITNG {
   @Test
   void injectApplicationMap2() throws Exception {
         WebPage page = getPage("injectApplicationMap2.xhtml");
-        assertTrue(page.getPageSource().contains("true"));
+        assertTrue(page.containsText("true"));
     }
 }
