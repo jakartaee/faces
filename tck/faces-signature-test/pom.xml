@@ -29,10 +29,10 @@
     </parent>
 
     <groupId>jakarta.faces.tck</groupId>
-    <artifactId>faces-sigtest</artifactId>
+    <artifactId>faces-signature-test</artifactId>
     <packaging>jar</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Signature Test</name>
+    <name>Jakarta Faces TCK ${project.version} - ${project.artifactId}</name>
 
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
@@ -167,7 +167,6 @@
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
-                    <dependenciesToScan>jakarta.faces.tck:facestck-sigtest-${project.version}</dependenciesToScan>
                     <systemPropertyVariables>
                         <jimage.dir>${project.build.directory}/jdk-bundle</jimage.dir>
                         <optional.tech.packages.to.ignore>jakarta.xml.bind</optional.tech.packages.to.ignore>
