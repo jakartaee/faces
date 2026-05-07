@@ -18,7 +18,7 @@
  * $Id$
  */
 
-package ee.jakarta.tck.faces.test.util.common.servlets;
+package ee.jakarta.tck.faces.util.servlets;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

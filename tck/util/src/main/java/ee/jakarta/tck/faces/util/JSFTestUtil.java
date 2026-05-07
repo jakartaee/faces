@@ -19,7 +19,7 @@
  * $Id$
  */
 
-package ee.jakarta.tck.faces.test.util.common.util;
+package ee.jakarta.tck.faces.util;
 
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;

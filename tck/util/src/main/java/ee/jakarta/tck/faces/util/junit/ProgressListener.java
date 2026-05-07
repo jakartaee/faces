@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package ee.jakarta.tck.faces.test.util.junit;
+package ee.jakarta.tck.faces.util.junit;
 
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -94,7 +94,7 @@ public class ProgressListener implements TestExecutionListener {
 
         var out = new StringBuilder(tag(BOLD_RED, "FAILED", progress.get())).append(' ').append(label(id));
         result.getThrowable().ifPresent(t -> out.append("  exception: ").append(t.toString()));
-        System.out.print(out);
+        System.out.println(out);
     }
 
     private String tag(String color, String status, int n) {

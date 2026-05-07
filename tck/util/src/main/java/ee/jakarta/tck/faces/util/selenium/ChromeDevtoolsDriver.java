@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
-package ee.jakarta.tck.faces.test.util.selenium;
+package ee.jakarta.tck.faces.util.selenium;
 
 import java.io.OutputStream;
 import java.net.URI;
@@ -78,7 +78,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 
-import static ee.jakarta.tck.faces.test.util.selenium.WebPage.STD_TIMEOUT;
+import static ee.jakarta.tck.faces.util.selenium.WebPage.STD_TIMEOUT;
 import static java.lang.Boolean.TRUE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Comparator.comparing;
