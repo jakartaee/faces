@@ -23,60 +23,61 @@ import jakarta.faces.event.ValueChangeListener;
 
 public class TCKValueChangeListener implements ValueChangeListener {
 
-  private String id = null;
+    private String id = null;
 
-  public TCKValueChangeListener() {
-  }
-
-  public TCKValueChangeListener(String id) {
-    this.id = id;
-  }
-
-  // ----------------------------------------------------------- Pubic Methods
-
-  public String getId() {
-    return (this.id);
-  }
-
-  public void processValueChange(ValueChangeEvent event) {
-    trace(getId() + '@' + JSFTestUtil.getPhaseIdAsString(event.getPhaseId()));
-  }
-
-  // ---------------------------------------------------- Static Trace Methods
-
-  // Accumulated trace log
-  private static StringBuffer trace = new StringBuffer();
-
-  // Append to the current trace log (or clear if null)
-  public static void trace(String text) {
-    if (text == null) {
-      trace.setLength(0);
-    } else {
-      trace.append('/');
-      trace.append(text);
+    public TCKValueChangeListener() {
     }
-  }
 
-  // Retrieve the current trace log
-  public static String trace() {
-    return (trace.toString());
-  }
+    public TCKValueChangeListener(String id) {
+        this.id = id;
+    }
 
-  // this needs to be named differently because other test methods
-  // rely on the standard equal method.
-  public boolean isEqual(Object otherObj) {
-    if (!(otherObj instanceof TCKValueChangeListener)) {
-      return false;
+    // ----------------------------------------------------------- Pubic Methods
+
+    public String getId() {
+        return (this.id);
     }
-    TCKValueChangeListener other = (TCKValueChangeListener) otherObj;
-    if ((null != id && null == other.id) || (null == id && null != other.id)) {
-      return false;
+
+    public void processValueChange(ValueChangeEvent event) {
+        trace(getId() + '@' + JSFTestUtil.getPhaseIdAsString(event.getPhaseId()));
     }
-    boolean idsAreEqual = true;
-    if (null != id) {
-      idsAreEqual = id.equals(other.id);
+
+    // ---------------------------------------------------- Static Trace Methods
+
+    // Accumulated trace log
+    private static StringBuffer trace = new StringBuffer();
+
+    // Append to the current trace log (or clear if null)
+    public static void trace(String text) {
+        if (text == null) {
+            trace.setLength(0);
+        }
+        else {
+            trace.append('/');
+            trace.append(text);
+        }
     }
-    return idsAreEqual;
-  }
+
+    // Retrieve the current trace log
+    public static String trace() {
+        return (trace.toString());
+    }
+
+    // this needs to be named differently because other test methods
+    // rely on the standard equal method.
+    public boolean isEqual(Object otherObj) {
+        if (!(otherObj instanceof TCKValueChangeListener)) {
+            return false;
+        }
+        TCKValueChangeListener other = (TCKValueChangeListener) otherObj;
+        if ((null != id && null == other.id) || (null == id && null != other.id)) {
+            return false;
+        }
+        boolean idsAreEqual = true;
+        if (null != id) {
+            idsAreEqual = id.equals(other.id);
+        }
+        return idsAreEqual;
+    }
 
 }

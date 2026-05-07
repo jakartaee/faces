@@ -44,43 +44,50 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
     }
 
     public void lengthValidatorCtor1Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         try {
             new LengthValidator();
             pw.println(JSFTestUtil.PASS);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             pw.println(JSFTestUtil.FAIL + " Default constructor of LengthValidator");
             e.printStackTrace();
         }
     }
 
     public void lengthValidatorCtor2Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         try {
             new LengthValidator(Integer.MAX_VALUE);
             pw.println(JSFTestUtil.PASS);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             pw.println(JSFTestUtil.FAIL + " LengthValidator(int maximum)");
             e.printStackTrace();
         }
     }
 
     public void lengthValidatorCtor3Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         try {
             new LengthValidator(Integer.MAX_VALUE, Integer.MIN_VALUE);
             pw.println(JSFTestUtil.PASS);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             pw.println(JSFTestUtil.FAIL + " LengthValidator(int maximum, int minimum)");
             e.printStackTrace();
         }
     }
 
     public void lengthValidatorGetSetMaximumTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         LengthValidator lVal = new LengthValidator();
         lVal.setMaximum(Integer.MAX_VALUE);
@@ -89,22 +96,29 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
             lVal.setMaximum(Integer.MAX_VALUE);
             if (lVal.getMaximum() == Integer.MAX_VALUE) {
                 pw.println(JSFTestUtil.PASS);
-            } else {
-                pw.println(JSFTestUtil.FAIL + " Original maximum value was not overwritten"
-                        + " when LengthValidator.setMaximum(int) was called.");
+            }
+            else {
+                pw.println(
+                    JSFTestUtil.FAIL + " Original maximum value was not overwritten"
+                        + " when LengthValidator.setMaximum(int) was called."
+                );
                 pw.println("Expected: " + Integer.MAX_VALUE);
                 pw.println("Received: " + lVal.getMaximum());
             }
-        } else {
-            pw.println(JSFTestUtil.FAIL + " LengthValidator.getMaximum() didn't not return"
-                    + " the same value passed to LengthValidator.setMaximum()");
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " LengthValidator.getMaximum() didn't not return"
+                    + " the same value passed to LengthValidator.setMaximum()"
+            );
             pw.println("Expected: " + Integer.MAX_VALUE);
             pw.println("Received: " + lVal.getMaximum());
         }
     }
 
     public void lengthValidatorGetSetMinimumTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         LengthValidator lVal = new LengthValidator();
         lVal.setMinimum(Integer.MIN_VALUE);
@@ -113,22 +127,29 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
             lVal.setMinimum(Integer.MAX_VALUE);
             if (lVal.getMinimum() == Integer.MAX_VALUE) {
                 pw.println(JSFTestUtil.PASS);
-            } else {
-                pw.println(JSFTestUtil.FAIL + " Original minimum value was not overwritten"
-                        + " when LengthValidator.setMinimum(int) was called.");
+            }
+            else {
+                pw.println(
+                    JSFTestUtil.FAIL + " Original minimum value was not overwritten"
+                        + " when LengthValidator.setMinimum(int) was called."
+                );
                 pw.println("Expected: " + Integer.MAX_VALUE);
                 pw.println("Received: " + lVal.getMinimum());
             }
-        } else {
-            pw.println(JSFTestUtil.FAIL + " LengthValidator.getMinimum() didn't not return"
-                    + " the same value passed to LengthValidator.setMinimum()");
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " LengthValidator.getMinimum() didn't not return"
+                    + " the same value passed to LengthValidator.setMinimum()"
+            );
             pw.println("Expected: " + Integer.MAX_VALUE);
             pw.println("Received: " + lVal.getMinimum());
         }
     }
 
     public void lengthValidatorValidateTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         UIInput input = (UIInput) getApplication().createComponent(UIInput.COMPONENT_TYPE);
         FacesContext facesContext = getFacesContext();
@@ -158,7 +179,8 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
     }
 
     public void lengthValidatorValidateMaxViolationTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         UIInput input = (UIInput) getApplication().createComponent(UIInput.COMPONENT_TYPE);
         input.setId("C" + Long.valueOf(System.currentTimeMillis()).toString());
@@ -177,14 +199,19 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
         input.setValue(Double.valueOf(100.0));
         try {
             lVal.validate(facesContext, input, input.getValue());
-            pw.println(JSFTestUtil.FAIL + " No Exception thrown when value was greater than "
-                    + "allowable maximum.");
+            pw.println(
+                JSFTestUtil.FAIL + " No Exception thrown when value was greater than "
+                    + "allowable maximum."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof ValidatorException)) {
-                pw.println(JSFTestUtil.FAIL + " Exception thrown when value was "
+                pw.println(
+                    JSFTestUtil.FAIL + " Exception thrown when value was "
                         + "greater than allowable maximum, but it wasn't an "
-                        + "instance of ValidatorException");
+                        + "instance of ValidatorException"
+                );
                 pw.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -194,7 +221,8 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
     }
 
     public void lengthValidatorValidateMinViolationTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         UIInput input = (UIInput) getApplication().createComponent(UIInput.COMPONENT_TYPE);
         input.setId("C" + Long.valueOf(System.currentTimeMillis()).toString());
@@ -213,14 +241,19 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
         input.setValue("arbitrary value");
         try {
             lVal.validate(facesContext, input, input.getValue());
-            pw.println(JSFTestUtil.FAIL + " No Exception thrown when value was less than "
-                    + "allowable minimum.");
+            pw.println(
+                JSFTestUtil.FAIL + " No Exception thrown when value was less than "
+                    + "allowable minimum."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof ValidatorException)) {
-                pw.println(JSFTestUtil.FAIL + " Exception thrown when value was "
+                pw.println(
+                    JSFTestUtil.FAIL + " Exception thrown when value was "
                         + "less than allowable minimum, but it wasn't an "
-                        + "instance of ValidatorException");
+                        + "instance of ValidatorException"
+                );
                 pw.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -230,30 +263,38 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
     }
 
     public void lengthValidatorValidateNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         FacesContext facesContext = getFacesContext();
         UIInput input = (UIInput) getApplication().createComponent(UIInput.COMPONENT_TYPE);
 
         if (facesContext == null) {
-            pw.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-                    + "Unable to obtain FacesContext instance.");
+            pw.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Unable to obtain FacesContext instance."
+            );
             return;
         }
 
         LengthValidator lv = new LengthValidator(Integer.MAX_VALUE, 50);
 
-        JSFTestUtil.checkForNPE(lv, "validate",
-                new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
-                new Object[] { null, input, 20 }, pw);
+        JSFTestUtil.checkForNPE(
+            lv, "validate",
+            new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
+            new Object[] { null, input, 20 }, pw
+        );
 
-        JSFTestUtil.checkForNPE(lv, "validate",
-                new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
-                new Object[] { facesContext, null, 20 }, pw);
+        JSFTestUtil.checkForNPE(
+            lv, "validate",
+            new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
+            new Object[] { facesContext, null, 20 }, pw
+        );
     }
 
     public void stateHolderSaveRestoreStateTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         LengthValidator preSave = new LengthValidator(1000);
@@ -261,15 +302,19 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
         Object state = preSave.saveState(getFacesContext());
 
         if (state == null) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-                    + "saveState() failed to returned null");
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "saveState() failed to returned null"
+            );
             return;
         }
 
         if (!(state instanceof Serializable)) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "The Object returned by saveState() was "
-                    + "not an instance of java.io.Serializable.");
+                    + "not an instance of java.io.Serializable."
+            );
             return;
         }
 
@@ -278,24 +323,33 @@ public class LengthValidatorTestServlet extends BaseValidatorTestServlet {
 
         if (postSave.getMaximum() == preSave.getMaximum()) {
             out.println(JSFTestUtil.PASS);
-        } else {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-                    + "getMaximum did not match after restore was called!");
+        }
+        else {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "getMaximum did not match after restore was called!"
+            );
         }
     }
 
     private static void testValidation(UIInput input, LengthValidator lv, FacesContext context, PrintWriter pw) {
         try {
-            pw.println("Test Validation min-max length: " + lv.getMinimum() + "-"
+            pw.println(
+                "Test Validation min-max length: " + lv.getMinimum() + "-"
                     + lv.getMaximum() + JSFTestUtil.NL + "Test Input Value: "
-                    + input.getValue() + JSFTestUtil.NL);
+                    + input.getValue() + JSFTestUtil.NL
+            );
 
             lv.validate(context, input, input.getValue());
-        } catch (Exception e) {
-            pw.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+        }
+        catch (Exception e) {
+            pw.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "Exception thrown during validation of value." + JSFTestUtil.NL
-                    + "Exception: " + e);
+                    + "Exception: " + e
+            );
             return;
         }
     }
+
 }

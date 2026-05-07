@@ -44,4 +44,5 @@ public class AttributeBean implements Serializable {
     public void setAttMap(Map<String, Object> attMap) {
         this.attMap = attMap;
     }
+
 }

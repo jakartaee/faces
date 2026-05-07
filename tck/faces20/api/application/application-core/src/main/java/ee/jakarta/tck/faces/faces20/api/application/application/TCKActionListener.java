@@ -22,11 +22,12 @@ import jakarta.faces.event.PhaseId;
 
 public class TCKActionListener implements ActionListener {
 
-  public void processAction(ActionEvent event) throws AbortProcessingException {
-    return;
-  }
+    public void processAction(ActionEvent event) throws AbortProcessingException {
+        return;
+    }
 
-  public PhaseId getPhaseId() {
-    return PhaseId.INVOKE_APPLICATION;
-  }
+    public PhaseId getPhaseId() {
+        return PhaseId.INVOKE_APPLICATION;
+    }
+
 }

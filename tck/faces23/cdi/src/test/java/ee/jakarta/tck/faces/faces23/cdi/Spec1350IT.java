@@ -42,4 +42,5 @@ public class Spec1350IT extends BaseITNG {
         submit.click();
         assertTrue(page.containsText("InjectValidator was called"));
     }
+
 }

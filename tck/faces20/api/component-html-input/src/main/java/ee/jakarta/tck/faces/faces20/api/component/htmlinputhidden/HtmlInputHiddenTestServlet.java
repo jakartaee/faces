@@ -26,14 +26,15 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlInputHiddenTestServlet")
 public final class HtmlInputHiddenTestServlet extends UIInputTestServlet {
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Hidden");
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Hidden");
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlInputHidden();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlInputHidden();
+    }
+
 }

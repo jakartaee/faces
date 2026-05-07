@@ -24,13 +24,29 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 class ApplicationWrapperISEIT extends BaseITNG {
 
     private void runServletTest(String testName) {
-    	getResponseBody("init.xhtml");
+        getResponseBody("init.xhtml");
         String body = getResponseBody("ApplicationWrapperISETestServlet?testname=" + testName);
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void applicationWrapperAddELResolverISETest() { runServletTest("applicationWrapperAddELResolverISETest"); }
-    @Test void applicationWrapperSetResourceHandlerISETest() { runServletTest("applicationWrapperSetResourceHandlerISETest"); }
-    @Test void applicationWrapperSetStateManagerISETest() { runServletTest("applicationWrapperSetStateManagerISETest"); }
-    @Test void applicationWrapperSetViewHandlerISETest() { runServletTest("applicationWrapperSetViewHandlerISETest"); }
+    @Test
+    void applicationWrapperAddELResolverISETest() {
+        runServletTest("applicationWrapperAddELResolverISETest");
+    }
+
+    @Test
+    void applicationWrapperSetResourceHandlerISETest() {
+        runServletTest("applicationWrapperSetResourceHandlerISETest");
+    }
+
+    @Test
+    void applicationWrapperSetStateManagerISETest() {
+        runServletTest("applicationWrapperSetStateManagerISETest");
+    }
+
+    @Test
+    void applicationWrapperSetViewHandlerISETest() {
+        runServletTest("applicationWrapperSetViewHandlerISETest");
+    }
+
 }

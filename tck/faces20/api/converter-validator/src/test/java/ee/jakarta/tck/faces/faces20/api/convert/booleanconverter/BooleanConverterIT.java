@@ -28,8 +28,24 @@ class BooleanConverterIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void booleanConverterGetAsObjectTest() { runServletTest("converterGetAsObjectTest"); }
-    @Test void booleanConverterGetAsObjectNPETest() { runServletTest("converterGetAsObjectNPETest"); }
-    @Test void booleanConverterGetAsStringTest() { runServletTest("converterGetAsStringTest"); }
-    @Test void booleanConverterGetAsStringNPETest() { runServletTest("converterGetAsStringNPETest"); }
+    @Test
+    void booleanConverterGetAsObjectTest() {
+        runServletTest("converterGetAsObjectTest");
+    }
+
+    @Test
+    void booleanConverterGetAsObjectNPETest() {
+        runServletTest("converterGetAsObjectNPETest");
+    }
+
+    @Test
+    void booleanConverterGetAsStringTest() {
+        runServletTest("converterGetAsStringTest");
+    }
+
+    @Test
+    void booleanConverterGetAsStringNPETest() {
+        runServletTest("converterGetAsStringNPETest");
+    }
+
 }

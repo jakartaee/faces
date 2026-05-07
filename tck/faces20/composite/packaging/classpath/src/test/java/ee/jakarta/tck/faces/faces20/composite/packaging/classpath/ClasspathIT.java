@@ -36,8 +36,12 @@ class ClasspathIT extends BaseITNG {
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

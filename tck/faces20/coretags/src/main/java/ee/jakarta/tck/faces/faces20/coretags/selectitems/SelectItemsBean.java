@@ -24,110 +24,110 @@ import java.util.List;
 
 import jakarta.faces.model.SelectItem;
 
-@jakarta.inject.Named("Music") @jakarta.enterprise.context.RequestScoped
+@jakarta.inject.Named("Music")
+@jakarta.enterprise.context.RequestScoped
 public class SelectItemsBean {
 
-  private List<String> myList;
+    private List<String> myList;
 
-  {
-    myList = new ArrayList<String>();
-    myList.add("Rush");
-    myList.add("Yes");
-    myList.add("Doors");
-  }
-
-  // List of SelectItems
-  public List<SelectItem> getListNames() {
-    List<SelectItem> listNames = new ArrayList<SelectItem>();
-
-    for (String s : myList) {
-      listNames.add(new SelectItem(s));
+    {
+        myList = new ArrayList<String>();
+        myList.add("Rush");
+        myList.add("Yes");
+        myList.add("Doors");
     }
 
-    return listNames;
-  }
+    // List of SelectItems
+    public List<SelectItem> getListNames() {
+        List<SelectItem> listNames = new ArrayList<SelectItem>();
 
-  // String[] of SelectItems
-  public SelectItem[] getArrayNames() {
-    SelectItem[] arrayNames = new SelectItem[3];
+        for (String s : myList) {
+            listNames.add(new SelectItem(s));
+        }
 
-    int i = 0;
-    for (String s : myList) {
-      arrayNames[i] = new SelectItem(s);
-      i++;
+        return listNames;
     }
 
-    return arrayNames;
-  }
+    // String[] of SelectItems
+    public SelectItem[] getArrayNames() {
+        SelectItem[] arrayNames = new SelectItem[3];
 
-  public List<Band> getMyBands() {
-    List<Band> bands = new ArrayList<Band>();
+        int i = 0;
+        for (String s : myList) {
+            arrayNames[i] = new SelectItem(s);
+            i++;
+        }
 
-    bands.add(new Band("><&", "Escape Characters", "Escape Characters"));
-    // the below option is here as debug only.
-    // bands.add(new Band("Tool", "Great Band", "&<>\'"));
-
-    return bands;
-  }
-
-  // -------------------------------------------------------- Inner classes
-  public static class Band {
-
-    private String name;
-
-    private String description;
-
-    private String genre;
-
-    public Band(String name, String description, String genre) {
-      this.name = name;
-      this.description = description;
-      this.genre = genre;
+        return arrayNames;
     }
 
-    /**
-     * @return the name of the band
-     */
-    public String getName() {
-      return name;
+    public List<Band> getMyBands() {
+        List<Band> bands = new ArrayList<Band>();
+
+        bands.add(new Band("><&", "Escape Characters", "Escape Characters"));
+        // the below option is here as debug only.
+        // bands.add(new Band("Tool", "Great Band", "&<>\'"));
+
+        return bands;
     }
 
-    /**
-     * @param bandname
-     *          the name of the band.
-     */
-    public void setName(String bandname) {
-      this.name = bandname;
-    }
+    // -------------------------------------------------------- Inner classes
+    public static class Band {
 
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-      return description;
-    }
+        private String name;
 
-    /**
-     * @param description
-     *          the description to set
-     */
-    public void setDescription(String description) {
-      this.description = description;
-    }
+        private String description;
 
-    /**
-     * @return the genre
-     */
-    public String getGenre() {
-      return genre;
-    }
+        private String genre;
 
-    /**
-     * @param genre
-     *          the genre to set
-     */
-    public void setGenre(String genre) {
-      this.genre = genre;
-    }
-  }// -- End Band Class
+        public Band(String name, String description, String genre) {
+            this.name = name;
+            this.description = description;
+            this.genre = genre;
+        }
+
+        /**
+         * @return the name of the band
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * @param bandname the name of the band.
+         */
+        public void setName(String bandname) {
+            this.name = bandname;
+        }
+
+        /**
+         * @return the description
+         */
+        public String getDescription() {
+            return description;
+        }
+
+        /**
+         * @param description the description to set
+         */
+        public void setDescription(String description) {
+            this.description = description;
+        }
+
+        /**
+         * @return the genre
+         */
+        public String getGenre() {
+            return genre;
+        }
+
+        /**
+         * @param genre the genre to set
+         */
+        public void setGenre(String genre) {
+            this.genre = genre;
+        }
+
+    }// -- End Band Class
+
 }

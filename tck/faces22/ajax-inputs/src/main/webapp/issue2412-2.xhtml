@@ -18,10 +18,10 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:cc="http://java.sun.com/jsf/composite/issue2412">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:cc="http://java.sun.com/jsf/composite/issue2412">
 
 <f:view>
    <h:head>
@@ -30,7 +30,7 @@
        <h:form id="form">
            <cc:compositeControl id="compId">
                <f:facet name="content">
-	          Before
+              Before
                   <h:selectManyCheckbox id="cbox" value="#{issue2412Bean.sarray}">
                       <f:selectItem itemValue="mcheck-1" itemLabel="1"/>
                       <f:selectItem itemValue="mcheck-2" itemLabel="2"/>
@@ -39,7 +39,7 @@
                   </h:selectManyCheckbox>
                   After
                   <br/>
-                  <h:outputText id="out" value="Status: #{issue2412Bean.string}"/>                  
+                  <h:outputText id="out" value="Status: #{issue2412Bean.string}"/>
                </f:facet>
           </cc:compositeControl>
        </h:form>

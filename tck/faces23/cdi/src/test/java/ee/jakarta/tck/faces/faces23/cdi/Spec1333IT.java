@@ -28,14 +28,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1333IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see UIViewRoot
      * @see https://github.com/jakartaee/faces/issues/1333
-   */
-  @Test
-  void injectView() throws Exception {
+     */
+    @Test
+    void injectView() throws Exception {
         WebPage page = getPage("spec1333.xhtml");
         assertTrue(page.containsText("UIViewRoot"));
     }
+
 }

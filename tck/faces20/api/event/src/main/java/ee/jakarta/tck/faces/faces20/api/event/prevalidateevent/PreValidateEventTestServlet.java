@@ -26,18 +26,18 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/PreValidateEventTestServlet")
 public final class PreValidateEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UICommand uic = new UICommand();
+    private static final UICommand uic = new UICommand();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PreValidateEvent(component);
-  }
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PreValidateEvent(component);
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
 
-  // ------------------------------------------------------------ test methods
+    // ------------------------------------------------------------ test methods
 
 }

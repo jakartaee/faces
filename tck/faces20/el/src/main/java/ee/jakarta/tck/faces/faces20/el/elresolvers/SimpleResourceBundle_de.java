@@ -24,15 +24,15 @@ import java.util.ListResourceBundle;
 
 public class SimpleResourceBundle_de extends ListResourceBundle {
 
-  // ----------------------------------------- Methods from ListResourceBundle
+    // ----------------------------------------- Methods from ListResourceBundle
 
-  /**
-   * See class description.
-   */
-  protected Object[][] getContents() {
+    /**
+     * See class description.
+     */
+    protected Object[][] getContents() {
 
-    return new Object[][] { { "key", "value" } };
+        return new Object[][] { { "key", "value" } };
 
-  } // END getContents
+    } // END getContents
 
 } // END SimpleResourceBundle_de

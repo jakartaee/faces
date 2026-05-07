@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 
     Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
@@ -17,6 +16,7 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -29,26 +29,25 @@
     </h:head>
     <h:body>
         <h:form prependId="false" id="form">
-            
+
             <h:panelGrid columns="2">
 
-                <h:outputText value="Password" />  
+                <h:outputText value="Password" />
                 <h:inputSecret id="password1" value="#{backingBean.password1}">
                     <f:validateBean validationGroups="ee.jakarta.tck.faces.faces23.validate_whole_bean.UserPasswordValidatorGroup" />
                 </h:inputSecret>
 
-                <h:outputText value="Password again" /> 
+                <h:outputText value="Password again" />
                 <h:inputSecret id="password2" value="#{backingBean.password2}">
                     <f:validateBean validationGroups="ee.jakarta.tck.faces.faces23.validate_whole_bean.UserPasswordValidatorGroup" />
                 </h:inputSecret>
-                
+
                 <h:commandButton id="submit" value="Submit"/>
             </h:panelGrid>
-            
+
             <h:messages id="err"/>
            <f:validateWholeBean value="#{backingBean}" copierType="SerializationCopier"
                                  validationGroups="ee.jakarta.tck.faces.faces23.validate_whole_bean.PasswordValidationGroup" />
         </h:form>
     </h:body>
 </html>
-

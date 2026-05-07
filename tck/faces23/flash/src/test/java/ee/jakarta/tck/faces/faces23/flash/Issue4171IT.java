@@ -31,12 +31,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue4171IT extends BaseITNG {
 
-  /**
-   * @see Flash#keep(String)
+    /**
+     * @see Flash#keep(String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4171
-   */
-  @Test
-  void test() throws Exception {
+     */
+    @Test
+    void test() throws Exception {
         WebPage page = getPage("issue4171.xhtml");
 
         assertTrue(page.findElement(By.id("result1")).getText().isEmpty());
@@ -46,9 +46,9 @@ class Issue4171IT extends BaseITNG {
         WebElement button = page.findElement(By.id("form:button"));
         button.click();
 
-      assertEquals("issue4171", page.findElement(By.id("result1")).getText());
-      assertEquals("issue4171", page.findElement(By.id("result2")).getText());
-      assertEquals("issue4171", page.findElement(By.id("result3")).getText());
+        assertEquals("issue4171", page.findElement(By.id("result1")).getText());
+        assertEquals("issue4171", page.findElement(By.id("result2")).getText());
+        assertEquals("issue4171", page.findElement(By.id("result3")).getText());
     }
 
 }

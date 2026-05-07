@@ -26,13 +26,14 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Spec1389Bean {
-    
-    @Inject @InitParameterMap
+
+    @Inject
+    @InitParameterMap
     private Map<String, String> initParameterMap;
 
     public String getInitParameterValue() {
         // MY_TEST_PARAMETER set in web.xml, should be available
         return initParameterMap.get("MY_TEST_PARAMETER");
     }
-    
+
 }

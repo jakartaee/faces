@@ -29,15 +29,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2756IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2756
-   */
-  @Test
-  void insertFromResponse() throws Exception {
+     */
+    @Test
+    void insertFromResponse() throws Exception {
         WebPage page = getPage("issue2756.xhtml");
-         WebElement beforeButton = page.findElement(By.id("beforeButton"));
-         page.guardAjax(beforeButton::click);
+        WebElement beforeButton = page.findElement(By.id("beforeButton"));
+        page.guardAjax(beforeButton::click);
         assertTrue(page.containsText("This is before textalpha"));
         WebElement afterButton = page.findElement(By.id("afterButton"));
         page.guardAjax(afterButton::click);

@@ -63,4 +63,5 @@ public class OutputUIComponentBean implements Serializable {
         text.setStyleClass("text");
         this.text = text;
     }
+
 }

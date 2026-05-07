@@ -30,12 +30,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2758IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2758
-   */
-  @Test
-  void ajaxOnViewScopedComponentDoesNotCreateNewView() throws Exception {
+     */
+    @Test
+    void ajaxOnViewScopedComponentDoesNotCreateNewView() throws Exception {
         WebPage page = getPage("issue2758.xhtml");
         WebElement button = page.findElement(By.id("button"));
         page.guardAjax(button::click);
@@ -45,6 +45,7 @@ class Issue2758IT extends BaseITNG {
         input.sendKeys("hello");
         button = page.findElement(By.id("button"));
         page.guardAjax(button::click);
-      assertEquals(0, page.findElements(By.cssSelector("#messages > li")).size());
+        assertEquals(0, page.findElements(By.cssSelector("#messages > li")).size());
     }
+
 }

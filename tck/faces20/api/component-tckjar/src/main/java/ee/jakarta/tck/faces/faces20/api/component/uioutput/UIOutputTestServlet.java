@@ -34,65 +34,69 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/UIOutputTestServlet")
 public class UIOutputTestServlet extends BaseComponentTestServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Text");
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UIOutput();
-  }
-  // --------------------------------------------------------- Private Classes
-
-  @ListenerFor(systemEventClass = PostAddToViewEvent.class, sourceClass = CustomOutput.class)
-  @ResourceDependencies({
-      @ResourceDependency(name = "#{'hello.js'}", library = "test", target = "#{'body'}"),
-      @ResourceDependency(name = "black-n-blue.css", library = "#{'test'}") })
-
-  public static final class CustomOutput extends UIOutput
-      implements ComponentSystemEventListener {
-
-    private boolean processEventInvoked;
-
-    private ComponentSystemEvent event;
-
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
     @Override
-    public void processEvent(ComponentSystemEvent event)
-        throws AbortProcessingException {
-      processEventInvoked = true;
-      this.event = event;
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Text");
     }
 
-    public void reset() {
-      processEventInvoked = false;
-      event = null;
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UIOutput();
+    }
+    // --------------------------------------------------------- Private Classes
+
+    @ListenerFor(systemEventClass = PostAddToViewEvent.class, sourceClass = CustomOutput.class)
+    @ResourceDependencies(
+        {
+            @ResourceDependency(name = "#{'hello.js'}", library = "test", target = "#{'body'}"),
+            @ResourceDependency(name = "black-n-blue.css", library = "#{'test'}") }
+    )
+
+    public static final class CustomOutput extends UIOutput
+        implements
+            ComponentSystemEventListener {
+
+        private boolean processEventInvoked;
+
+        private ComponentSystemEvent event;
+
+        @Override
+        public void processEvent(ComponentSystemEvent event)
+            throws AbortProcessingException
+        {
+            processEventInvoked = true;
+            this.event = event;
+        }
+
+        public void reset() {
+            processEventInvoked = false;
+            event = null;
+        }
+
+        public boolean isProcessEventInvoked() {
+            return processEventInvoked;
+        }
+
+        public ComponentSystemEvent getEvent() {
+            return event;
+        }
+
     }
 
-    public boolean isProcessEventInvoked() {
-      return processEventInvoked;
-    }
-
-    public ComponentSystemEvent getEvent() {
-      return event;
-    }
-  }
 }

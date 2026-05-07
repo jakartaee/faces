@@ -40,4 +40,5 @@ public class FormatterUIBean implements Serializable {
         fscore.setValue("100-50");
         this.fscore = fscore;
     }
+
 }

@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
 package ee.jakarta.tck.faces.faces50.misc;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -27,23 +28,30 @@ class Issue5511IT extends BaseITNG {
     @FindBy(id = "exampleFacesComponent")
     private WebElement exampleFacesComponent;
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/5511
-   */
-  @Test
-  void jarWithMetadataCompleteFalse() {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5511
+     */
+    @Test
+    void jarWithMetadataCompleteFalse() {
         getPage("issue5511-using-jar-with-metadata-complete-false.xhtml");
-        assertEquals("span", exampleFacesComponent.getTagName().toLowerCase(), "The @FacesComponent annotation SHOULD be processed because metadata-complete is ignored since Faces 5.0");
+        assertEquals(
+            "span", exampleFacesComponent.getTagName().toLowerCase(),
+            "The @FacesComponent annotation SHOULD be processed because metadata-complete is ignored since Faces 5.0"
+        );
         assertEquals("Hello World", exampleFacesComponent.getText(), "Because it renders a span via HtmlOutputText, it should output its value as well.");
     }
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/5511
-   */
-  @Test
-  void jarWithMetadataCompleteTrue() {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5511
+     */
+    @Test
+    void jarWithMetadataCompleteTrue() {
         getPage("issue5511-using-jar-with-metadata-complete-true.xhtml");
-        assertEquals("span", exampleFacesComponent.getTagName().toLowerCase(), "The @FacesComponent annotation SHOULD be processed because metadata-complete is ignored since Faces 5.0");
+        assertEquals(
+            "span", exampleFacesComponent.getTagName().toLowerCase(),
+            "The @FacesComponent annotation SHOULD be processed because metadata-complete is ignored since Faces 5.0"
+        );
         assertEquals("Hello World", exampleFacesComponent.getText(), "Because it renders a span via HtmlOutputText, it should output its value as well.");
     }
+
 }

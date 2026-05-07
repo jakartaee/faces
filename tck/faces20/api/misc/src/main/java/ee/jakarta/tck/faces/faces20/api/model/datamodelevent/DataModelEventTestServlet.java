@@ -33,7 +33,8 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DataModelEventTestServlet extends HttpTCKServlet {
 
     public void dataModelEventTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         String[] data = { "string" };
         DataModel model = new ArrayDataModel(data);
@@ -41,48 +42,61 @@ public class DataModelEventTestServlet extends HttpTCKServlet {
         DataModelEvent event = new DataModelEvent(model, 0, "string1");
 
         if (event.getDataModel() != model) {
-            out.println(JSFTestUtil.FAIL + " getDataModel() didn't return"
+            out.println(
+                JSFTestUtil.FAIL + " getDataModel() didn't return"
                     + "the expected 'model'." + JSFTestUtil.NL + "Expected: "
-                    + model.toString() + "Received: " + event.getDataModel().toString());
+                    + model.toString() + "Received: " + event.getDataModel().toString()
+            );
             return;
         }
 
         if (event.getRowIndex() != 0) {
-            out.println(JSFTestUtil.FAIL + " Unexpected v alue returned from getRowIndex()!"
-                    + JSFTestUtil.NL + "Row index received: " + event.getRowIndex());
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected v alue returned from getRowIndex()!"
+                    + JSFTestUtil.NL + "Row index received: " + event.getRowIndex()
+            );
             return;
         }
 
         if (event.getRowData() != "string1") {
-            out.println(JSFTestUtil.FAIL + " getRowData() returned an unexpected value."
+            out.println(
+                JSFTestUtil.FAIL + " getRowData() returned an unexpected value."
                     + JSFTestUtil.NL + "Expected: " + "string1" + JSFTestUtil.NL
-                    + "Received: " + event.getRowData());
+                    + "Received: " + event.getRowData()
+            );
             return;
         }
 
         event = new DataModelEvent(model, -1, null);
 
         if (event.getDataModel() != model) {
-            out.println(JSFTestUtil.FAIL
+            out.println(
+                JSFTestUtil.FAIL
                     + " getDataModel() didn't return the expected value." + JSFTestUtil.NL
                     + "Expected: " + model.toString() + JSFTestUtil.NL + "Received: "
-                    + event.getDataModel().toString());
+                    + event.getDataModel().toString()
+            );
             return;
         }
 
         if (event.getRowIndex() != -1) {
-            out.println(JSFTestUtil.FAIL + " Expected getRowIndex() to return -1."
-                    + JSFTestUtil.NL + "Row index received: " + event.getRowIndex());
+            out.println(
+                JSFTestUtil.FAIL + " Expected getRowIndex() to return -1."
+                    + JSFTestUtil.NL + "Row index received: " + event.getRowIndex()
+            );
             return;
         }
 
         if (event.getRowData() != null) {
-            out.println(JSFTestUtil.FAIL + " getRowData() returned an unexpected value."
+            out.println(
+                JSFTestUtil.FAIL + " getRowData() returned an unexpected value."
                     + JSFTestUtil.NL + "Expected: null" + JSFTestUtil.NL
-                    + "Received: " + event.getRowData());
+                    + "Received: " + event.getRowData()
+            );
             return;
         }
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

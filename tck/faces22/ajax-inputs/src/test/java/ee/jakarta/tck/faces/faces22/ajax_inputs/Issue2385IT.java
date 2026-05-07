@@ -30,20 +30,19 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2385IT extends BaseITNG {
 
-  /**
-   * This test verifies that the page contains updated information from an
-   * Ajax response.  The response is updated in <code>UpdateBean</code>.
-   * 
-   * @see AjaxBehavior
+    /**
+     * This test verifies that the page contains updated information from an Ajax response. The response is updated in <code>UpdateBean</code>.
+     *
+     * @see AjaxBehavior
      * @see HtmlBody
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2385
-   */
-  @Test
-  void bodyAttributesAfterUpdate() throws Exception {
+     */
+    @Test
+    void bodyAttributesAfterUpdate() throws Exception {
         WebPage page = getPage("issue2385.xhtml");
         WebElement button = page.findElement(By.id("form1:bodytag"));
         page.guardAjax(button::click);
-        
+
         assertTrue(page.containsText("BODY CLASS:foo"));
     }
 

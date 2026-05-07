@@ -30,7 +30,8 @@ public class TCKResultSetMetaData implements ResultSetMetaData {
         this.clazz = clazz;
         try {
             descriptors = Introspector.getBeanInfo(clazz).getPropertyDescriptors();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new SQLException(e.getMessage());
         }
     }
@@ -38,7 +39,8 @@ public class TCKResultSetMetaData implements ResultSetMetaData {
     public PropertyDescriptor getDescriptor(int columnIndex) throws SQLException {
         try {
             return descriptors[columnIndex - 1];
-        } catch (IndexOutOfBoundsException e) {
+        }
+        catch (IndexOutOfBoundsException e) {
             throw new SQLException("Invalid columnIndex " + columnIndex);
         }
     }
@@ -134,4 +136,5 @@ public class TCKResultSetMetaData implements ResultSetMetaData {
     public boolean isWrapperFor(Class<?> iface) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }

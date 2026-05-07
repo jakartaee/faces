@@ -23,38 +23,39 @@ import jakarta.faces.context.FacesContext;
 
 public class TCKResourceHandler extends ResourceHandler {
 
-  @Override
-  public Resource createResource(String arg0) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public Resource createResource(String arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  @Override
-  public Resource createResource(String arg0, String arg1) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public Resource createResource(String arg0, String arg1) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  @Override
-  public Resource createResource(String arg0, String arg1, String arg2) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public Resource createResource(String arg0, String arg1, String arg2) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  @Override
-  public void handleResourceRequest(FacesContext arg0) throws IOException {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public void handleResourceRequest(FacesContext arg0) throws IOException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  @Override
-  public boolean isResourceRequest(FacesContext arg0) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public boolean isResourceRequest(FacesContext arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  @Override
-  public String getRendererTypeForResourceName(String arg0) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public String getRendererTypeForResourceName(String arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  @Override
-  public boolean libraryExists(String arg0) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public boolean libraryExists(String arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

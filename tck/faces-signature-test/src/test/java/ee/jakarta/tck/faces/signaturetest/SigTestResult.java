@@ -14,7 +14,6 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-
 package ee.jakarta.tck.faces.signaturetest;
 
 import java.io.Serializable;
@@ -23,110 +22,111 @@ import java.util.List;
 
 public class SigTestResult implements Serializable {
 
-  private static final String NL = System.getProperty("line.separator", "\n");
+    private static final String NL = System.getProperty("line.separator", "\n");
 
-  private List failedPkgs = new ArrayList();
+    private List failedPkgs = new ArrayList();
 
-  private List passedPkgs = new ArrayList();
+    private List passedPkgs = new ArrayList();
 
-  private List failedClasses = new ArrayList();
+    private List failedClasses = new ArrayList();
 
-  private List passedClasses = new ArrayList();
+    private List passedClasses = new ArrayList();
 
-  // ---------------------------------------------------------- Public Methods
+    // ---------------------------------------------------------- Public Methods
 
-  public synchronized boolean passed() {
+    public synchronized boolean passed() {
 
-    return (failedPkgs.size() == 0 && failedClasses.size() == 0);
+        return (failedPkgs.size() == 0 && failedClasses.size() == 0);
 
-  } // end passed
+    } // end passed
 
-  public synchronized void addFailedPkg(String pkg) {
+    public synchronized void addFailedPkg(String pkg) {
 
-    failedPkgs.add(pkg);
+        failedPkgs.add(pkg);
 
-  } // END addFailedPkg
+    } // END addFailedPkg
 
-  public synchronized void addPassedPkg(String pkg) {
+    public synchronized void addPassedPkg(String pkg) {
 
-    passedPkgs.add(pkg);
+        passedPkgs.add(pkg);
 
-  } // END addPassedPkg
+    } // END addPassedPkg
 
-  public synchronized void addFailedClass(String className) {
+    public synchronized void addFailedClass(String className) {
 
-    failedClasses.add(className);
+        failedClasses.add(className);
 
-  } // END addFailedClass
+    } // END addFailedClass
 
-  public synchronized void addPassedClass(String className) {
+    public synchronized void addPassedClass(String className) {
 
-    passedClasses.add(className);
+        passedClasses.add(className);
 
-  } // END addPassedClass
+    } // END addPassedClass
 
-  public String toString() {
+    public String toString() {
 
-    String delim = "******************************************************"
-        + NL;
-    if (!pkgsTested() && !classesTested()) {
-      return (delim + "******** No packages or classes were tested **********"
-          + NL + delim);
-    }
-    StringBuffer buf = new StringBuffer();
-    buf.append(delim);
-    buf.append(delim);
-    if (passed()) {
-      buf.append("All package signatures passed.").append(NL);
-    } else {
-      buf.append("Some signatures failed.").append(NL);
-      if (failedPkgs.size() > 0) {
-        buf.append("\tFailed packages listed below: ").append(NL);
-        formatList(failedPkgs, buf);
-      }
-      if (failedClasses.size() > 0) {
-        buf.append("\tFailed classes listed below: ").append(NL);
-        formatList(failedClasses, buf);
-      }
-    }
-    if (passedPkgs.size() > 0) {
-      buf.append("\tPassed packages listed below: ").append(NL);
-      formatList(passedPkgs, buf);
-    }
-    if (passedClasses.size() > 0) {
-      buf.append("\tPassed classes listed below: ").append(NL);
-      formatList(passedClasses, buf);
-    }
-    buf.append("\t");
-    buf.append(delim);
-    buf.append(delim);
-    return buf.toString();
+        String delim = "******************************************************"
+            + NL;
+        if (!pkgsTested() && !classesTested()) {
+            return (delim + "******** No packages or classes were tested **********"
+                + NL + delim);
+        }
+        StringBuffer buf = new StringBuffer();
+        buf.append(delim);
+        buf.append(delim);
+        if (passed()) {
+            buf.append("All package signatures passed.").append(NL);
+        }
+        else {
+            buf.append("Some signatures failed.").append(NL);
+            if (failedPkgs.size() > 0) {
+                buf.append("\tFailed packages listed below: ").append(NL);
+                formatList(failedPkgs, buf);
+            }
+            if (failedClasses.size() > 0) {
+                buf.append("\tFailed classes listed below: ").append(NL);
+                formatList(failedClasses, buf);
+            }
+        }
+        if (passedPkgs.size() > 0) {
+            buf.append("\tPassed packages listed below: ").append(NL);
+            formatList(passedPkgs, buf);
+        }
+        if (passedClasses.size() > 0) {
+            buf.append("\tPassed classes listed below: ").append(NL);
+            formatList(passedClasses, buf);
+        }
+        buf.append("\t");
+        buf.append(delim);
+        buf.append(delim);
+        return buf.toString();
 
-  } // END toString
+    } // END toString
 
-  // --------------------------------------------------------- Private Methods
+    // --------------------------------------------------------- Private Methods
 
-  private synchronized void formatList(List list, StringBuffer buf) {
+    private synchronized void formatList(List list, StringBuffer buf) {
 
-    synchronized (this) {
-      for (int i = 0; i < list.size(); i++) {
-        String pkg = (String) (list.get(i));
-        buf.append("\t\t").append(pkg).append(NL);
-      }
-    }
+        synchronized (this) {
+            for (int i = 0; i < list.size(); i++) {
+                String pkg = (String) (list.get(i));
+                buf.append("\t\t").append(pkg).append(NL);
+            }
+        }
 
-  } // END formatList
+    } // END formatList
 
-  private synchronized boolean pkgsTested() {
+    private synchronized boolean pkgsTested() {
 
-    return (failedPkgs.size() != 0 || passedPkgs.size() != 0);
+        return (failedPkgs.size() != 0 || passedPkgs.size() != 0);
 
-  } // END pkgsTested
+    } // END pkgsTested
 
-  private synchronized boolean classesTested() {
+    private synchronized boolean classesTested() {
 
-    return (failedClasses.size() != 0 || passedClasses.size() != 0);
+        return (failedClasses.size() != 0 || passedClasses.size() != 0);
 
-  } // END classesTested
+    } // END classesTested
 
 } // end class SigTestResult

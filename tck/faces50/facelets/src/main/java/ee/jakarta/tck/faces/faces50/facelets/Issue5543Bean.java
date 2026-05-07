@@ -31,4 +31,5 @@ public class Issue5543Bean {
     public void setText(String text) {
         this.text = text;
     }
+
 }

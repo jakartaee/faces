@@ -21,20 +21,21 @@ import jakarta.faces.event.SystemEventListener;
 
 public class TestSystemEventListener implements SystemEventListener {
 
-  private String action = null;
+    private String action = null;
 
-  @Override
-  public void processEvent(SystemEvent arg0) throws AbortProcessingException {
-    action = "success";
-    System.out.println("Processed Action");
-  }
+    @Override
+    public void processEvent(SystemEvent arg0) throws AbortProcessingException {
+        action = "success";
+        System.out.println("Processed Action");
+    }
 
-  @Override
-  public boolean isListenerForSource(Object arg0) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    @Override
+    public boolean isListenerForSource(Object arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-  public String getActionString() {
-    return action;
-  }
+    public String getActionString() {
+        return action;
+    }
+
 }

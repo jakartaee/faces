@@ -27,26 +27,26 @@ import jakarta.servlet.http.HttpServletResponseWrapper;
 
 public class TestServletResponseWrapper extends HttpServletResponseWrapper {
 
-  private boolean redirectSent = false;
+    private boolean redirectSent = false;
 
-  public TestServletResponseWrapper(HttpServletResponse response) {
-    super(response);
-  }
+    public TestServletResponseWrapper(HttpServletResponse response) {
+        super(response);
+    }
 
-  // ---------------------------------- Methods from HttpServletRequestWrapper
+    // ---------------------------------- Methods from HttpServletRequestWrapper
 
-  public void sendRedirect(String s) throws IOException {
+    public void sendRedirect(String s) throws IOException {
 
-    redirectSent = true;
+        redirectSent = true;
 
-  } // END sendRedirect
+    } // END sendRedirect
 
-  // ---------------------------------------------------------- Public Methods
+    // ---------------------------------------------------------- Public Methods
 
-  public boolean getRedirectSent() {
+    public boolean getRedirectSent() {
 
-    return redirectSent;
+        return redirectSent;
 
-  } // END getRedirectSent
+    } // END getRedirectSent
 
 }

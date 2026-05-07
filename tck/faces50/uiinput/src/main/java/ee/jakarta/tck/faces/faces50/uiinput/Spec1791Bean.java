@@ -45,4 +45,5 @@ public class Spec1791Bean {
     public Map<String, Object> getSelectItemMap() {
         return Arrays.stream(selectItems).collect(Collectors.toMap(SelectItem::getLabel, SelectItem::getValue));
     }
+
 }

@@ -28,6 +28,14 @@ class FacesContextFactoryIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void facesCtxFactoryGetFacesContextNPETest() { runServletTest("facesCtxFactoryGetFacesContextNPETest"); }
-    @Test void facesCtxFactoryGetFacesContextTest() { runServletTest("facesCtxFactoryGetFacesContextTest"); }
+    @Test
+    void facesCtxFactoryGetFacesContextNPETest() {
+        runServletTest("facesCtxFactoryGetFacesContextNPETest");
+    }
+
+    @Test
+    void facesCtxFactoryGetFacesContextTest() {
+        runServletTest("facesCtxFactoryGetFacesContextTest");
+    }
+
 }

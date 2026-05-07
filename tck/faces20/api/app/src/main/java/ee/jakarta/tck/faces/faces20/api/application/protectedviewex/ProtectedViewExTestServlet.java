@@ -30,97 +30,118 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ProtectedViewExTestServlet")
 public final class ProtectedViewExTestServlet extends HttpTCKServlet {
 
-  // ------------------------------------------------------------------- Tests
+    // ------------------------------------------------------------------- Tests
 
-  public void protectViewExceptionTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Throwable tckException = new TCKException();
+    public void protectViewExceptionTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Throwable tckException = new TCKException();
 
-    // protectedViewException(java.lang.String message)
-    ProtectedViewException exOne = new ProtectedViewException("Vocals");
+        // protectedViewException(java.lang.String message)
+        ProtectedViewException exOne = new ProtectedViewException("Vocals");
 
-    if (!(this.checkMessage(exOne, "Vocals", out))) {
-      return;
+        if (!(this.checkMessage(exOne, "Vocals", out))) {
+            return;
+        }
+
+        // ProtectedViewException(java.lang.String message,
+        // java.lang.Throwable cause)
+        ProtectedViewException exTwo = new ProtectedViewException(
+            "Vocals",
+            tckException
+        );
+
+        if (
+            !(this.checkMessage(exOne, "Vocals", out)
+                && this.checkCause(exTwo, "TCKException", out))
+        ) {
+            return;
+        }
+
+        // ProtectedViewException(java.lang.Throwable rootCause)
+        ProtectedViewException exThree = new ProtectedViewException(tckException);
+
+        if (!(this.checkCause(exThree, "TCKException", out))) {
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    // ProtectedViewException(java.lang.String message,
-    // java.lang.Throwable cause)
-    ProtectedViewException exTwo = new ProtectedViewException("Vocals",
-        tckException);
+    // ---------------------------------------------- private methods
 
-    if (!(this.checkMessage(exOne, "Vocals", out)
-        && this.checkCause(exTwo, "TCKException", out))) {
-      return;
+    private Boolean checkMessage(
+        ProtectedViewException vee, String expectedMess,
+        PrintWriter out
+    )
+    {
+        String resultMess = vee.getMessage();
+
+        if (resultMess == null) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "ViewExpiredException.getMessage() returned null when "
+                    + "not expected too!"
+            );
+
+            return false;
+        }
+
+        if (!resultMess.contains(expectedMess)) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Message does not contain initially set message!" + JSFTestUtil.NL
+                    + "Expected: " + expectedMess + JSFTestUtil.NL + "Received: "
+                    + resultMess
+            );
+
+            return false;
+        }
+
+        return true;
     }
 
-    // ProtectedViewException(java.lang.Throwable rootCause)
-    ProtectedViewException exThree = new ProtectedViewException(tckException);
+    private Boolean checkCause(
+        ProtectedViewException vee, String expectedCause,
+        PrintWriter out
+    )
+    {
+        String resultCause = vee.getCause().getClass().getSimpleName();
 
-    if (!(this.checkCause(exThree, "TCKException", out))) {
-      return;
+        if (resultCause == null) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "ViewExpiredException.getCause() returned null when "
+                    + "not expected too!"
+            );
+            return false;
+
+        }
+
+        if (!resultCause.contains(expectedCause)) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Cause does not contain Initially set cause!" + JSFTestUtil.NL
+                    + "Expected: " + expectedCause + JSFTestUtil.NL + "Received: "
+                    + resultCause
+            );
+            return false;
+
+        }
+
+        return true;
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // ----------------------------------------------------------- private
+    // classes
 
-  // ---------------------------------------------- private methods
-
-  private Boolean checkMessage(ProtectedViewException vee, String expectedMess,
-      PrintWriter out) {
-    String resultMess = vee.getMessage();
-
-    if (resultMess == null) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "ViewExpiredException.getMessage() returned null when "
-          + "not expected too!");
-
-      return false;
-    }
-
-    if (!resultMess.contains(expectedMess)) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Message does not contain initially set message!" + JSFTestUtil.NL
-          + "Expected: " + expectedMess + JSFTestUtil.NL + "Received: "
-          + resultMess);
-
-      return false;
-    }
-
-    return true;
-  }
-
-  private Boolean checkCause(ProtectedViewException vee, String expectedCause,
-      PrintWriter out) {
-    String resultCause = vee.getCause().getClass().getSimpleName();
-
-    if (resultCause == null) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "ViewExpiredException.getCause() returned null when "
-          + "not expected too!");
-      return false;
+    private class TCKException extends Throwable {
+        // this class does not thing other then server as a none SE Exception
+        // for this testcase.
 
     }
-
-    if (!resultCause.contains(expectedCause)) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Cause does not contain Initially set cause!" + JSFTestUtil.NL
-          + "Expected: " + expectedCause + JSFTestUtil.NL + "Received: "
-          + resultCause);
-      return false;
-
-    }
-
-    return true;
-  }
-
-  // ----------------------------------------------------------- private
-  // classes
-
-  private class TCKException extends Throwable {
-    // this class does not thing other then server as a none SE Exception
-    // for this testcase.
-
-  }
 
 } // End TestServlet

@@ -20,8 +20,12 @@ import jakarta.faces.context.FacesContext;
 
 public class TCKNavigationHandler extends NavigationHandler {
 
-  public void handleNavigation(FacesContext context, String actionRef,
-      String outcome) {
-    return;
-  }
+    public void handleNavigation(
+        FacesContext context, String actionRef,
+        String outcome
+    )
+    {
+        return;
+    }
+
 }

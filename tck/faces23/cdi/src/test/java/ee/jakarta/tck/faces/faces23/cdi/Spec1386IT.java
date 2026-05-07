@@ -27,16 +27,15 @@ import org.openqa.selenium.By;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 class Spec1386IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see FlowMap
      * @see https://github.com/jakartaee/faces/issues/1386
-   */
-  @Test
-  void injectFlowMap() throws Exception {
+     */
+    @Test
+    void injectFlowMap() throws Exception {
         // Start on initial (non-flow) view
         WebPage page = getPage("spec1386.xhtml");
 
@@ -49,10 +48,8 @@ class Spec1386IT extends BaseITNG {
         // Navigate to next page in flow
         page.guardAjax(page.findElement(By.id("form:next"))::click);
 
-
         // Value should be available from flow map now
         assertTrue(page.containsText("foo:bar"));
-
 
         // Enter nested flow
         page.guardAjax(page.findElement(By.id("form:nested"))::click);
@@ -64,7 +61,6 @@ class Spec1386IT extends BaseITNG {
         page.guardAjax(page.findElement(By.id("form:next"))::click);
         // Different value should be available from flow map now
         assertTrue(page.containsText("foo:barx"));
-
 
         // Exit nested flow
         page.guardAjax(page.findElement(By.id("form:exit"))::click);

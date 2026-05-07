@@ -27,5 +27,5 @@
             ee.jakarta.tck.faces.faces20.webapp.factoryfinder.TCKFacesContextFactory
         </faces-context-factory>
     </factory>
-   
+
 </faces-config>

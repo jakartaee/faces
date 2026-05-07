@@ -37,61 +37,77 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/PhaseEventTestServlet")
 public final class PhaseEventTestServlet extends HttpTCKServlet {
 
-  public void phaseEventGetPhaseIdTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void phaseEventGetPhaseIdTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    FacesContext context = getFacesContext();
-    LifecycleFactory factory = (LifecycleFactory) FactoryFinder
-        .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+        FacesContext context = getFacesContext();
+        LifecycleFactory factory = (LifecycleFactory) FactoryFinder
+            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
 
-    PhaseEvent pe = new PhaseEvent(context, PhaseId.ANY_PHASE,
-        factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE));
+        PhaseEvent pe = new PhaseEvent(
+            context, PhaseId.ANY_PHASE,
+            factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE)
+        );
 
-    String golden = PhaseId.ANY_PHASE.getName();
-    String result = pe.getPhaseId().getName();
-    if (golden.equals(result)) {
-      out.println(JSFTestUtil.PASS);
+        String golden = PhaseId.ANY_PHASE.getName();
+        String result = pe.getPhaseId().getName();
+        if (golden.equals(result)) {
+            out.println(JSFTestUtil.PASS);
 
-    } else {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected result from PhaseEvent.getPhaseId!" + JSFTestUtil.NL
-          + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result);
-    }
+        }
+        else {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected result from PhaseEvent.getPhaseId!" + JSFTestUtil.NL
+                    + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result
+            );
+        }
 
-  } // End phaseEventGetPhaseIdTest
+    } // End phaseEventGetPhaseIdTest
 
-  public void phaseEventGetFacesContextTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void phaseEventGetFacesContextTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    String summary = "TCKTest";
-    FacesContext context = getFacesContext();
-    context.addMessage("cid", new FacesMessage(summary));
+        String summary = "TCKTest";
+        FacesContext context = getFacesContext();
+        context.addMessage("cid", new FacesMessage(summary));
 
-    LifecycleFactory factory = (LifecycleFactory) FactoryFinder
-        .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+        LifecycleFactory factory = (LifecycleFactory) FactoryFinder
+            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
 
-    PhaseEvent pe = new PhaseEvent(context, PhaseId.ANY_PHASE,
-        factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE));
+        PhaseEvent pe = new PhaseEvent(
+            context, PhaseId.ANY_PHASE,
+            factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE)
+        );
 
-    FacesContext myContext = pe.getFacesContext();
-    List<FacesMessage> messages = myContext.getMessageList("cid");
-    Iterator<FacesMessage> i = messages.iterator();
+        FacesContext myContext = pe.getFacesContext();
+        List<FacesMessage> messages = myContext.getMessageList("cid");
+        Iterator<FacesMessage> i = messages.iterator();
 
-    while (i.hasNext()) {
-      FacesMessage fm = i.next();
+        while (i.hasNext()) {
+            FacesMessage fm = i.next();
 
-      if (summary.equals(fm.getSummary())) {
-        out.println(JSFTestUtil.PASS);
-        return;
+            if (summary.equals(fm.getSummary())) {
+                out.println(JSFTestUtil.PASS);
+                return;
 
-      } else {
-        out.println(JSFTestUtil.FAIL
-            + " Unable to find Message added to FacesContext!");
+            }
+            else {
+                out.println(
+                    JSFTestUtil.FAIL
+                        + " Unable to find Message added to FacesContext!"
+                );
 
-      }
-    }
-  } // End phaseEventGetFacesContextTest
+            }
+        }
+    } // End phaseEventGetFacesContextTest
 
 } // End TestServlet

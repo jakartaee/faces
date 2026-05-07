@@ -28,9 +28,29 @@ class ResourceWrapperIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void resourceWrapperGetInputStreamTest() { runServletTest("resourceWrapperGetInputStreamTest"); }
-    @Test void resourceWrapperGetRequestPathLibTest() { runServletTest("resourceWrapperGetRequestPathLibTest"); }
-    @Test void resourceWrapperGetRequestPathTest() { runServletTest("resourceWrapperGetRequestPathTest"); }
-    @Test void resourceWrapperGetResponseHeadersTest() { runServletTest("resourceWrapperGetResponseHeadersTest"); }
-    @Test void resourceWrapperGetURLTest() { runServletTest("resourceWrapperGetURLTest"); }
+    @Test
+    void resourceWrapperGetInputStreamTest() {
+        runServletTest("resourceWrapperGetInputStreamTest");
+    }
+
+    @Test
+    void resourceWrapperGetRequestPathLibTest() {
+        runServletTest("resourceWrapperGetRequestPathLibTest");
+    }
+
+    @Test
+    void resourceWrapperGetRequestPathTest() {
+        runServletTest("resourceWrapperGetRequestPathTest");
+    }
+
+    @Test
+    void resourceWrapperGetResponseHeadersTest() {
+        runServletTest("resourceWrapperGetResponseHeadersTest");
+    }
+
+    @Test
+    void resourceWrapperGetURLTest() {
+        runServletTest("resourceWrapperGetURLTest");
+    }
+
 }

@@ -34,121 +34,144 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/UIViewParameterTestServlet")
 public class UIViewParameterTestServlet extends BaseComponentTestServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType(null);
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UIViewParameter();
-  }
-
-  // ----------------------------------------- UIViewParameter
-
-  public void uiViewParameterIsImmediateTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    UIViewParameter viewparam = (UIViewParameter) createComponent();
-
-    if (viewparam.isImmediate()) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Default setting for 'isImmediate() " + " MUST be false!");
-
-    } else {
-      // UIViewparameter.isImmediate() should always return false.
-      // (according to API doc.)
-      viewparam.setImmediate(true);
-      if (viewparam.isImmediate()) {
-        out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-            + "Unxpected value returned from isImmediate()" + JSFTestUtil.NL
-            + "Expected: false" + JSFTestUtil.NL + "Received: true");
-
-      } else {
-        out.println(JSFTestUtil.PASS);
-      }
-    }
-  } // End uiViewParameterIsImmediateTest
-
-  public void uiViewParameterGetSetNameTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    String golden = "Bytor";
-    UIViewParameter viewparam = (UIViewParameter) createComponent();
-
-    viewparam.setName(golden);
-
-    if (golden.equals(viewparam.getName())) {
-      out.println(JSFTestUtil.PASS);
-
-    } else {
-      out.println(
-          JSFTestUtil.FAIL + " Unexpected Value returned from getName()!"
-              + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
-              + "Received: " + viewparam.getName());
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType(null);
     }
 
-  } // End uiViewParameterGetSetNameTest
-
-  public void uiViewParameterGetSetSubmittedValueTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIViewParameter viewparam = (UIViewParameter) createComponent();
-    String golden = "true";
-
-    viewparam.setSubmittedValue(golden);
-    String result = (String) viewparam.getSubmittedValue();
-
-    if (!(golden.equals(result))) {
-      out.println(JSFTestUtil.FAIL
-          + " Value returned by getSubmittedValue() was not the value set by "
-          + "setSubmittedValue()." + JSFTestUtil.NL + "Expected: " + golden
-          + JSFTestUtil.NL + "Received: " + result);
-    } else {
-      out.println(JSFTestUtil.PASS);
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UIViewParameter();
     }
 
-  } // End uiViewParameterGetSetSubmittedValueTest
+    // ----------------------------------------- UIViewParameter
 
-  public void uiViewParameterGetStringValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext context = getFacesContext();
-    UIViewParameter viewparam = (UIViewParameter) createComponent();
-    String golden = "true";
+    public void uiViewParameterIsImmediateTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    viewparam.setValue(golden);
-    String result = viewparam.getStringValue(context);
+        UIViewParameter viewparam = (UIViewParameter) createComponent();
 
-    if (!(golden.equals(result))) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Wrong value returned by getStringValue()!" + JSFTestUtil.NL
-          + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
-          + "Received: " + result);
-    } else {
-      out.println(JSFTestUtil.PASS);
-    }
+        if (viewparam.isImmediate()) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Default setting for 'isImmediate() " + " MUST be false!"
+            );
 
-  } // End uiViewParameterGetStringValueTest
+        }
+        else {
+            // UIViewparameter.isImmediate() should always return false.
+            // (according to API doc.)
+            viewparam.setImmediate(true);
+            if (viewparam.isImmediate()) {
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL
+                        + "Unxpected value returned from isImmediate()" + JSFTestUtil.NL
+                        + "Expected: false" + JSFTestUtil.NL + "Received: true"
+                );
+
+            }
+            else {
+                out.println(JSFTestUtil.PASS);
+            }
+        }
+    } // End uiViewParameterIsImmediateTest
+
+    public void uiViewParameterGetSetNameTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        String golden = "Bytor";
+        UIViewParameter viewparam = (UIViewParameter) createComponent();
+
+        viewparam.setName(golden);
+
+        if (golden.equals(viewparam.getName())) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected Value returned from getName()!"
+                    + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
+                    + "Received: " + viewparam.getName()
+            );
+        }
+
+    } // End uiViewParameterGetSetNameTest
+
+    public void uiViewParameterGetSetSubmittedValueTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIViewParameter viewparam = (UIViewParameter) createComponent();
+        String golden = "true";
+
+        viewparam.setSubmittedValue(golden);
+        String result = (String) viewparam.getSubmittedValue();
+
+        if (!(golden.equals(result))) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Value returned by getSubmittedValue() was not the value set by "
+                    + "setSubmittedValue()." + JSFTestUtil.NL + "Expected: " + golden
+                    + JSFTestUtil.NL + "Received: " + result
+            );
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
+
+    } // End uiViewParameterGetSetSubmittedValueTest
+
+    public void uiViewParameterGetStringValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext context = getFacesContext();
+        UIViewParameter viewparam = (UIViewParameter) createComponent();
+        String golden = "true";
+
+        viewparam.setValue(golden);
+        String result = viewparam.getStringValue(context);
+
+        if (!(golden.equals(result))) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Wrong value returned by getStringValue()!" + JSFTestUtil.NL
+                    + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
+                    + "Received: " + result
+            );
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
+
+    } // End uiViewParameterGetStringValueTest
 
 } // End TestServlet

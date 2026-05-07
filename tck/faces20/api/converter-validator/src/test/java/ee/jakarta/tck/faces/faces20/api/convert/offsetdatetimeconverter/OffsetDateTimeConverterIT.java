@@ -28,8 +28,24 @@ class OffsetDateTimeConverterIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void LocalDateTimeConverterGetAsObjectTest() { runServletTest("converterGetAsObjectTest"); }
-    @Test void LocalDateTimeConverterGetAsObjectNPETest() { runServletTest("converterGetAsObjectNPETest"); }
-    @Test void LocalDateTimeConverterGetAsStringTest() { runServletTest("converterGetAsStringTest"); }
-    @Test void LocalDateTimeConverterGetAsStringNPETest() { runServletTest("converterGetAsStringNPETest"); }
+    @Test
+    void LocalDateTimeConverterGetAsObjectTest() {
+        runServletTest("converterGetAsObjectTest");
+    }
+
+    @Test
+    void LocalDateTimeConverterGetAsObjectNPETest() {
+        runServletTest("converterGetAsObjectNPETest");
+    }
+
+    @Test
+    void LocalDateTimeConverterGetAsStringTest() {
+        runServletTest("converterGetAsStringTest");
+    }
+
+    @Test
+    void LocalDateTimeConverterGetAsStringNPETest() {
+        runServletTest("converterGetAsStringNPETest");
+    }
+
 }

@@ -20,7 +20,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class PasswordValidator implements ConstraintValidator<Password, BackingBean> {
-    
+
     @Override
     public void initialize(Password constraintAnnotation) {
         // NOOP

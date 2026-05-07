@@ -19,31 +19,31 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html">
     <f:metadata>
-    	<f:viewAction action="#{issue4550Bean.onView}" />
-    	<f:viewParam name="test" value="#{issue4550Bean.testString}" />
+        <f:viewAction action="#{issue4550Bean.onView}" />
+        <f:viewParam name="test" value="#{issue4550Bean.testString}" />
     </f:metadata>
-    
+
     <h:head>
-    	<title>issue 4550 viewparameter bug</title>
+        <title>issue 4550 viewparameter bug</title>
     </h:head>
-    
+
     <h:body>
-    	<h:form id="form">
-    		<h:commandButton id="ajaxCommandButton" value="1. ajax request" action="#{issue4550Bean.someMethod()}">
-    			<f:ajax />
-    		</h:commandButton>
-    
-    		<br />            
+        <h:form id="form">
+            <h:commandButton id="ajaxCommandButton" value="1. ajax request" action="#{issue4550Bean.someMethod()}">
+                <f:ajax />
+            </h:commandButton>
+
+            <br />
                 after an ajax request any subsequent call (btn 1 - ajax or btn 2 - non ajax) causes the null value on all view parameters
             <br />
-    
-    		<h:commandButton id="commandButton" value="2. second click causes null value" action="#{issue4550Bean.someMethod()}" />
-    
-    		<h:outputText id="testText" value="the test text valus is #{issue4550Bean.testString}" />
-    	</h:form>
+
+            <h:commandButton id="commandButton" value="2. second click causes null value" action="#{issue4550Bean.someMethod()}" />
+
+            <h:outputText id="testText" value="the test text valus is #{issue4550Bean.testString}" />
+        </h:form>
     </h:body>
 </html>

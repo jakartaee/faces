@@ -37,4 +37,5 @@ class ClientBehaviorContextIT extends BaseITNG {
     void createClientBehaviorContextParamaterTest() {
         runServletTest("createClientBehaviorContextParamaterTest");
     }
+
 }

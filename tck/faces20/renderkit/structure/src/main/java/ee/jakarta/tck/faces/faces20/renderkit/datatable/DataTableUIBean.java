@@ -61,4 +61,5 @@ public class DataTableUIBean implements Serializable {
 
         return column;
     }
+
 }

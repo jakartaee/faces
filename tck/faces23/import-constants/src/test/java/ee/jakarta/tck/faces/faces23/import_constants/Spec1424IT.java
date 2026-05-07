@@ -32,21 +32,22 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec1424IT extends BaseITNG {
 
-  /**
-   * @see UIImportConstants
+    /**
+     * @see UIImportConstants
      * @see https://github.com/jakartaee/faces/issues/1424
-   */
-  @Test
-  void test() throws Exception {
+     */
+    @Test
+    void test() throws Exception {
         WebPage page = getPage("spec1424.xhtml");
 
-      assertEquals("jakarta.faces.PARTIAL_STATE_SAVING", page.findElement(By.id("result")).getText());
+        assertEquals("jakarta.faces.PARTIAL_STATE_SAVING", page.findElement(By.id("result")).getText());
 
-      String results = page.findElement(By.id("results")).getText();
-      List<String> entries = List.of(results.substring(1, results.length() - 1).split(", "));
-      assertEquals(3, entries.size());
-      assertTrue(entries.contains("ACCEPT=ACCEPT"));
-      assertTrue(entries.contains("REJECT=REJECT"));
-      assertTrue(entries.contains("COMPLETE=COMPLETE"));
+        String results = page.findElement(By.id("results")).getText();
+        List<String> entries = List.of(results.substring(1, results.length() - 1).split(", "));
+        assertEquals(3, entries.size());
+        assertTrue(entries.contains("ACCEPT=ACCEPT"));
+        assertTrue(entries.contains("REJECT=REJECT"));
+        assertTrue(entries.contains("COMPLETE=COMPLETE"));
     }
+
 }

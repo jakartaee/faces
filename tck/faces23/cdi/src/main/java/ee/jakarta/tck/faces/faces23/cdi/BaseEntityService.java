@@ -20,5 +20,5 @@ import jakarta.ejb.Stateless;
 
 @Stateless
 public class BaseEntityService {
-	
+
 }

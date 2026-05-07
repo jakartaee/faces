@@ -21,65 +21,67 @@ import java.util.List;
 
 import jakarta.faces.event.ActionEvent;
 
-@jakarta.inject.Named("album") @jakarta.enterprise.context.RequestScoped
+@jakarta.inject.Named("album")
+@jakarta.enterprise.context.RequestScoped
 public class AlbumBean implements Serializable {
 
-  private String artist;
+    private String artist;
 
-  private String album;
+    private String album;
 
-  private List<String> songs;
+    private List<String> songs;
 
-  private String comments;
+    private String comments;
 
-  public AlbumBean() {
-    this.initialSetup();
-  }
+    public AlbumBean() {
+        this.initialSetup();
+    }
 
-  public String getArtist() {
-    return artist;
-  }
+    public String getArtist() {
+        return artist;
+    }
 
-  public void setArtist(String artist) {
-    this.artist = artist;
-  }
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
 
-  public String getAlbum() {
-    return album;
-  }
+    public String getAlbum() {
+        return album;
+    }
 
-  public void setAlbum(String album) {
-    this.album = album;
-  }
+    public void setAlbum(String album) {
+        this.album = album;
+    }
 
-  public List<String> getSongs() {
-    return songs;
-  }
+    public List<String> getSongs() {
+        return songs;
+    }
 
-  public void setSongs(List<String> song) {
-    this.songs = song;
-  }
+    public void setSongs(List<String> song) {
+        this.songs = song;
+    }
 
-  public String getComments() {
-    return comments;
-  }
+    public String getComments() {
+        return comments;
+    }
 
-  public void setComments(String comments) {
-    this.comments = comments;
-  }
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 
-  public void eraseComments(ActionEvent ae) {
-    comments = "You Pressed ERASE!";
-  }
+    public void eraseComments(ActionEvent ae) {
+        comments = "You Pressed ERASE!";
+    }
 
-  private void initialSetup() {
-    this.artist = "Rush";
-    this.album = "Hemispheres";
+    private void initialSetup() {
+        this.artist = "Rush";
+        this.album = "Hemispheres";
 
-    this.songs = new ArrayList<String>();
-    this.songs.add("Cygnus X-1 Book II");
-    this.songs.add("Circumstances");
-    this.songs.add("The Trees");
-    this.songs.add("La Villa Strangiato");
-  }
+        this.songs = new ArrayList<String>();
+        this.songs.add("Cygnus X-1 Book II");
+        this.songs.add("Circumstances");
+        this.songs.add("The Trees");
+        this.songs.add("La Villa Strangiato");
+    }
+
 }

@@ -29,91 +29,86 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.ExtendedTextInput;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 class Spec790IT extends BaseITNG {
 
-
-  /**
-   * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
+    /**
+     * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
      * @see https://github.com/jakartaee/faces/issues/790
-   */
-  @Test
-  void spec790() throws Exception {
+     */
+    @Test
+    void spec790() throws Exception {
 
         WebPage page = getPage("spec790.xhtml");
         WebElement form1 = page.findElement(By.id("form1"));
 
-        ExtendedTextInput form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
+        ExtendedTextInput form1ViewState = new ExtendedTextInput(getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
         WebElement form2 = page.findElement(By.id("form2"));
-        ExtendedTextInput form2ViewState =  new ExtendedTextInput( getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
-        WebElement form3 =  page.findElement(By.id("form3"));
-        ExtendedTextInput form3ViewState = form2ViewState =  new ExtendedTextInput( getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
-      assertFalse(form1ViewState.getValue().isEmpty());
-      assertFalse(form2ViewState.getValue().isEmpty());
-      assertFalse(form3ViewState.getValue().isEmpty());
+        ExtendedTextInput form2ViewState = new ExtendedTextInput(getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
+        WebElement form3 = page.findElement(By.id("form3"));
+        ExtendedTextInput form3ViewState = form2ViewState = new ExtendedTextInput(getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
+        assertFalse(form1ViewState.getValue().isEmpty());
+        assertFalse(form2ViewState.getValue().isEmpty());
+        assertFalse(form3ViewState.getValue().isEmpty());
 
         WebElement form1Button = page.findElement(By.id("form1:button"));
         page.guardAjax(form1Button::click);
 
-        form1 =  page.findElement(By.id("form1"));
-        form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
-        form2 =  page.findElement(By.id("form2"));
-        form2ViewState = new ExtendedTextInput( getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
-        form3 =  page.findElement(By.id("form3"));
-        form3ViewState = new ExtendedTextInput( getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
-      assertFalse(form1ViewState.getValue().isEmpty());
-      assertFalse(form2ViewState.getValue().isEmpty());
-      assertFalse(form3ViewState.getValue().isEmpty());
+        form1 = page.findElement(By.id("form1"));
+        form1ViewState = new ExtendedTextInput(getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
+        form2 = page.findElement(By.id("form2"));
+        form2ViewState = new ExtendedTextInput(getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
+        form3 = page.findElement(By.id("form3"));
+        form3ViewState = new ExtendedTextInput(getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
+        assertFalse(form1ViewState.getValue().isEmpty());
+        assertFalse(form2ViewState.getValue().isEmpty());
+        assertFalse(form3ViewState.getValue().isEmpty());
 
-        WebElement form2Link =  page.findElement(By.id("form2:link"));
+        WebElement form2Link = page.findElement(By.id("form2:link"));
         page.guardAjax(form2Link::click);
-        form1 =  page.findElement(By.id("form1"));
-        form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
-        form2 =  page.findElement(By.id("form2"));
-        form2ViewState = new ExtendedTextInput( getWebDriver(),form2.findElement(By.name("jakarta.faces.ViewState")));
-        form3 =  page.findElement(By.id("form3"));
-        form3ViewState = new ExtendedTextInput( getWebDriver(),form3.findElement(By.name("jakarta.faces.ViewState")));
-      assertFalse(form1ViewState.getValue().isEmpty());
-      assertFalse(form2ViewState.getValue().isEmpty());
-      assertFalse(form3ViewState.getValue().isEmpty());
+        form1 = page.findElement(By.id("form1"));
+        form1ViewState = new ExtendedTextInput(getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
+        form2 = page.findElement(By.id("form2"));
+        form2ViewState = new ExtendedTextInput(getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
+        form3 = page.findElement(By.id("form3"));
+        form3ViewState = new ExtendedTextInput(getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
+        assertFalse(form1ViewState.getValue().isEmpty());
+        assertFalse(form2ViewState.getValue().isEmpty());
+        assertFalse(form3ViewState.getValue().isEmpty());
 
-        WebElement form3Link =  page.findElement(By.id("form3:link"));
+        WebElement form3Link = page.findElement(By.id("form3:link"));
         page.guardAjax(form3Link::click);
-        form1 =  page.findElement(By.id("form1"));
-        form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
-        form2 =  page.findElement(By.id("form2"));
-        form2ViewState = new ExtendedTextInput( getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
-        form3 =  page.findElement(By.id("form3"));
-        form3ViewState = new ExtendedTextInput( getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
-      assertFalse(form1ViewState.getValue().isEmpty());
-      assertFalse(form2ViewState.getValue().isEmpty());
-      assertFalse(form3ViewState.getValue().isEmpty());
+        form1 = page.findElement(By.id("form1"));
+        form1ViewState = new ExtendedTextInput(getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
+        form2 = page.findElement(By.id("form2"));
+        form2ViewState = new ExtendedTextInput(getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
+        form3 = page.findElement(By.id("form3"));
+        form3ViewState = new ExtendedTextInput(getWebDriver(), form3.findElement(By.name("jakarta.faces.ViewState")));
+        assertFalse(form1ViewState.getValue().isEmpty());
+        assertFalse(form2ViewState.getValue().isEmpty());
+        assertFalse(form3ViewState.getValue().isEmpty());
     }
 
-  /**
-   * @see NavigationHandler#handleNavigation(jakarta.faces.context.FacesContext, String, String, String)
+    /**
+     * @see NavigationHandler#handleNavigation(jakarta.faces.context.FacesContext, String, String, String)
      * @see StateManager#getViewState(jakarta.faces.context.FacesContext)
      * @see https://github.com/jakartaee/faces/issues/790
-   */
-  @Test
-  void spec790AjaxNavigation() throws Exception {
-
+     */
+    @Test
+    void spec790AjaxNavigation() throws Exception {
 
         WebPage page = getPage("spec790-2.xhtml");
-        WebElement form =  page.findElement(By.id("form"));
-        ExtendedTextInput formViewState = new ExtendedTextInput( getWebDriver(), form.findElement(By.name("jakarta.faces.ViewState")));
-      assertFalse(formViewState.getValue().isEmpty());
+        WebElement form = page.findElement(By.id("form"));
+        ExtendedTextInput formViewState = new ExtendedTextInput(getWebDriver(), form.findElement(By.name("jakarta.faces.ViewState")));
+        assertFalse(formViewState.getValue().isEmpty());
 
         WebElement button = page.findElement(By.id("form:button"));
         page.guardAjax(button::click);
-        WebElement form1 =  page.findElement(By.id("form1"));
-        ExtendedTextInput form1ViewState = new ExtendedTextInput( getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
-        WebElement form2 =  page.findElement(By.id("form2"));
-        ExtendedTextInput form2ViewState = new ExtendedTextInput( getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
-      assertFalse(form1ViewState.getValue().isEmpty());
-      assertFalse(form2ViewState.getValue().isEmpty());
+        WebElement form1 = page.findElement(By.id("form1"));
+        ExtendedTextInput form1ViewState = new ExtendedTextInput(getWebDriver(), form1.findElement(By.name("jakarta.faces.ViewState")));
+        WebElement form2 = page.findElement(By.id("form2"));
+        ExtendedTextInput form2ViewState = new ExtendedTextInput(getWebDriver(), form2.findElement(By.name("jakarta.faces.ViewState")));
+        assertFalse(form1ViewState.getValue().isEmpty());
+        assertFalse(form2ViewState.getValue().isEmpty());
     }
-
-
 
 }

@@ -28,5 +28,9 @@ class ClientBehaviorRendererIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void clientBehaviorRendererDecodeNPETest() { runServletTest("clientBehaviorRendererDecodeNPETest"); }
+    @Test
+    void clientBehaviorRendererDecodeNPETest() {
+        runServletTest("clientBehaviorRendererDecodeNPETest");
+    }
+
 }

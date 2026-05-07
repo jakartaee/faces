@@ -26,120 +26,121 @@ import java.util.Map;
 @jakarta.enterprise.context.RequestScoped
 public class CommonBean {
 
-  private String escapeString = "><&'\"";
+    private String escapeString = "><&'\"";
 
-  private String nullString = null;
+    private String nullString = null;
 
-  private String trimString = "  \t  trimmed string  \n";
+    private String trimString = "  \t  trimmed string  \n";
 
-  private String[] joinString = { "one", "two", "three" };
+    private String[] joinString = { "one", "two", "three" };
 
-  private List<Boolean> fList;
+    private List<Boolean> fList;
 
-  private Collection<String> fColl;
+    private Collection<String> fColl;
 
-  private ArrayList<Integer> fAList;
+    private ArrayList<Integer> fAList;
 
-  private Map<String, String> fMap;
+    private Map<String, String> fMap;
 
-  private Hashtable<String, String> fHash;
+    private Hashtable<String, String> fHash;
 
-  public CommonBean() {
-    fList = new ArrayList<Boolean>();
-    fList.add(true);
-    fList.add(false);
-    fList.add(true);
+    public CommonBean() {
+        fList = new ArrayList<Boolean>();
+        fList.add(true);
+        fList.add(false);
+        fList.add(true);
 
-    fColl = new ArrayList<String>();
-    fColl.add("A");
-    fColl.add("B");
-    fColl.add("C");
+        fColl = new ArrayList<String>();
+        fColl.add("A");
+        fColl.add("B");
+        fColl.add("C");
 
-    fAList = new ArrayList<Integer>();
-    fAList.add(1);
-    fAList.add(2);
-    fAList.add(3);
+        fAList = new ArrayList<Integer>();
+        fAList.add(1);
+        fAList.add(2);
+        fAList.add(3);
 
-    fMap = new HashMap<String, String>();
-    fMap.put("key1", "value1");
-    fMap.put("key2", "value2");
-    fMap.put("key3", "value3");
+        fMap = new HashMap<String, String>();
+        fMap.put("key1", "value1");
+        fMap.put("key2", "value2");
+        fMap.put("key3", "value3");
 
-    fHash = new Hashtable<String, String>();
-    fHash.put("key1", "value1");
-    fHash.put("key2", "value2");
-    fHash.put("key3", "value3");
-  }
+        fHash = new Hashtable<String, String>();
+        fHash.put("key1", "value1");
+        fHash.put("key2", "value2");
+        fHash.put("key3", "value3");
+    }
 
-  public String getEscapeString() {
-    return escapeString;
-  }
+    public String getEscapeString() {
+        return escapeString;
+    }
 
-  public void setEscapeString(String escapeString) {
-    this.escapeString = escapeString;
-  }
+    public void setEscapeString(String escapeString) {
+        this.escapeString = escapeString;
+    }
 
-  public String getNullString() {
-    return nullString;
-  }
+    public String getNullString() {
+        return nullString;
+    }
 
-  public void setNullString(String nullString) {
-    this.nullString = nullString;
-  }
+    public void setNullString(String nullString) {
+        this.nullString = nullString;
+    }
 
-  public String[] getJoinString() {
-    return joinString;
-  }
+    public String[] getJoinString() {
+        return joinString;
+    }
 
-  public void setJoinString(String[] joinString) {
-    this.joinString = joinString;
-  }
+    public void setJoinString(String[] joinString) {
+        this.joinString = joinString;
+    }
 
-  public List<Boolean> getfList() {
-    return fList;
-  }
+    public List<Boolean> getfList() {
+        return fList;
+    }
 
-  public void setfList(List<Boolean> fList) {
-    this.fList = fList;
-  }
+    public void setfList(List<Boolean> fList) {
+        this.fList = fList;
+    }
 
-  public Collection<String> getfColl() {
-    return fColl;
-  }
+    public Collection<String> getfColl() {
+        return fColl;
+    }
 
-  public void setfColl(Collection<String> fColl) {
-    this.fColl = fColl;
-  }
+    public void setfColl(Collection<String> fColl) {
+        this.fColl = fColl;
+    }
 
-  public ArrayList<Integer> getfAList() {
-    return fAList;
-  }
+    public ArrayList<Integer> getfAList() {
+        return fAList;
+    }
 
-  public void setfAList(ArrayList<Integer> fAList) {
-    this.fAList = fAList;
-  }
+    public void setfAList(ArrayList<Integer> fAList) {
+        this.fAList = fAList;
+    }
 
-  public Map<String, String> getfMap() {
-    return fMap;
-  }
+    public Map<String, String> getfMap() {
+        return fMap;
+    }
 
-  public void setfMap(Map<String, String> fMap) {
-    this.fMap = fMap;
-  }
+    public void setfMap(Map<String, String> fMap) {
+        this.fMap = fMap;
+    }
 
-  public Hashtable<String, String> getfHash() {
-    return fHash;
-  }
+    public Hashtable<String, String> getfHash() {
+        return fHash;
+    }
 
-  public void setfHash(Hashtable<String, String> fHash) {
-    this.fHash = fHash;
-  }
+    public void setfHash(Hashtable<String, String> fHash) {
+        this.fHash = fHash;
+    }
 
-  public String getTrimString() {
-    return trimString;
-  }
+    public String getTrimString() {
+        return trimString;
+    }
 
-  public void setTrimString(String trimString) {
-    this.trimString = trimString;
-  }
+    public void setTrimString(String trimString) {
+        this.trimString = trimString;
+    }
+
 }

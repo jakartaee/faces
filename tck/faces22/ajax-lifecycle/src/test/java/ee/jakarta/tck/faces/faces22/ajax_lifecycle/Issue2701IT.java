@@ -30,22 +30,23 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2701IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2701
-   */
-  @Test
-  void viewScopedBeanSurvivesAjaxRequest() throws Exception {
+     */
+    @Test
+    void viewScopedBeanSurvivesAjaxRequest() throws Exception {
         WebPage page = getPage("issue2701.xhtml");
         WebElement button = page.findElement(By.id("form:reset"));
         page.guardAjax(button::click);
 
-        button =  page.findElement(By.id("form:ajax"));
+        button = page.findElement(By.id("form:ajax"));
         page.guardAjax(button::click);
         assertTrue(page.containsSource("VIEWSCOPEBEAN() CALLED"));
         button = page.findElement(By.id("form:reset"));
         // Assert that second Ajax request does not execute the bean constructor again.
         page.guardAjax(button::click);
-      assertFalse(page.containsSource("VIEWSCOPEBEAN() CALLED VIEWSCOPEBEAN() CALLED"));
+        assertFalse(page.containsSource("VIEWSCOPEBEAN() CALLED VIEWSCOPEBEAN() CALLED"));
     }
+
 }

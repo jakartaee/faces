@@ -30,24 +30,34 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/FactoryFinderReleaseTestServlet")
 public final class FactoryFinderReleaseTestServlet extends HttpTCKServlet {
-  public void getFactoriesISETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    // release the factory instances allocated in the getFactoryTest
-    PrintWriter pw = response.getWriter();
-    try {
-      FactoryFinder.releaseFactories();
-      FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-      pw.println("Test FAILED" + JSFTestUtil.NL + "Expected an "
-          + "IllegalStateException to be thrown, no Exception thrown "
-          + "at all!.");
-    } catch (IllegalStateException ise) {
-      pw.println(JSFTestUtil.PASS);
 
-    } catch (Exception e) {
-      pw.println("Test FAILED" + JSFTestUtil.NL + "Unexpected Exception thrown!"
-          + JSFTestUtil.NL + "Expected: IllegalStateException" + JSFTestUtil.NL
-          + "Received: " + JSFTestUtil.NL + e.toString());
+    public void getFactoriesISETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        // release the factory instances allocated in the getFactoryTest
+        PrintWriter pw = response.getWriter();
+        try {
+            FactoryFinder.releaseFactories();
+            FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+            pw.println(
+                "Test FAILED" + JSFTestUtil.NL + "Expected an "
+                    + "IllegalStateException to be thrown, no Exception thrown "
+                    + "at all!."
+            );
+        }
+        catch (IllegalStateException ise) {
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            pw.println(
+                "Test FAILED" + JSFTestUtil.NL + "Unexpected Exception thrown!"
+                    + JSFTestUtil.NL + "Expected: IllegalStateException" + JSFTestUtil.NL
+                    + "Received: " + JSFTestUtil.NL + e.toString()
+            );
+        }
     }
-  }
 
 }

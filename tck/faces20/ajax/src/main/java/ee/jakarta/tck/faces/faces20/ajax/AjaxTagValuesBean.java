@@ -26,56 +26,58 @@ import java.util.LinkedHashSet;
 import jakarta.faces.event.ActionEvent;
 import java.io.Serializable;
 
-
-@jakarta.inject.Named("ajaxtag") @jakarta.enterprise.context.SessionScoped
+@jakarta.inject.Named("ajaxtag")
+@jakarta.enterprise.context.SessionScoped
 public class AjaxTagValuesBean implements Serializable {
 
-  private static final long serialVersionUID = -2564031884433676327L;
+    private static final long serialVersionUID = -2564031884433676327L;
 
-  private Integer count = 0;
+    private Integer count = 0;
 
-  private Boolean checked = false;
+    private Boolean checked = false;
 
-  private String text = "";
+    private String text = "";
 
-  private String[] outArray = { "out1", ":form2:out2", ":out3" };
+    private String[] outArray = { "out1", ":form2:out2", ":out3" };
 
-  private Collection<String> outSet = new LinkedHashSet<String>(
-      Arrays.asList(outArray));
+    private Collection<String> outSet = new LinkedHashSet<String>(
+        Arrays.asList(outArray)
+    );
 
-  private String render = "out1";
+    private String render = "out1";
 
-  public String getText() {
-    return text;
-  }
+    public String getText() {
+        return text;
+    }
 
-  public void setText(String text) {
-    this.text = text;
-  }
+    public void setText(String text) {
+        this.text = text;
+    }
 
-  public Boolean getChecked() {
-    return checked;
-  }
+    public Boolean getChecked() {
+        return checked;
+    }
 
-  public void setChecked(Boolean checked) {
-    this.checked = checked;
-  }
+    public void setChecked(Boolean checked) {
+        this.checked = checked;
+    }
 
-  public Integer getCount() {
-    return count++;
-  }
+    public Integer getCount() {
+        return count++;
+    }
 
-  public void reset(ActionEvent ae) {
-    count = 0;
-    checked = false;
-    text = "";
-  }
+    public void reset(ActionEvent ae) {
+        count = 0;
+        checked = false;
+        text = "";
+    }
 
-  public Collection<String> getRenderList() {
-    return outSet;
-  }
+    public Collection<String> getRenderList() {
+        return outSet;
+    }
 
-  public String getRenderOne() {
-    return render;
-  }
+    public String getRenderOne() {
+        return render;
+    }
+
 }

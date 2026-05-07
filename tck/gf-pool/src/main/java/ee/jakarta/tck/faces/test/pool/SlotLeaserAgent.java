@@ -27,21 +27,16 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Java agent attached to the failsafe-forked test JVM. At {@code premain} it leases
- * one of the GlassFish pool slots managed by the {@code gf-pool} module by
- * acquiring an exclusive {@link FileLock} on {@code ${gf.pool.dir}/slot-N/lock}.
- * The lock is held in static fields so it survives for the JVM lifetime; JVM exit
- * releases it automatically. Once a slot is leased the agent loads
- * {@code slot-N/ports.properties} and exposes its keys (notably
- * {@code arquillian.adminPort}, {@code arquillian.httpPort},
- * {@code arquillian.httpsPort}) as system properties so the arquillian
- * remote container picks them up.
+ * Java agent attached to the failsafe-forked test JVM. At {@code premain} it leases one of the GlassFish pool slots managed by the {@code gf-pool} module by
+ * acquiring an exclusive {@link FileLock} on {@code ${gf.pool.dir}/slot-N/lock}. The lock is held in static fields so it survives for the JVM lifetime; JVM
+ * exit releases it automatically. Once a slot is leased the agent loads {@code slot-N/ports.properties} and exposes its keys (notably
+ * {@code arquillian.adminPort}, {@code arquillian.httpPort}, {@code arquillian.httpsPort}) as system properties so the arquillian remote container picks them
+ * up.
  *
- * <p>If every existing slot is leased the agent grows the pool: it acquires
- * a global grow-lock, computes the next slot index, execs
- * {@code provision-slot.sh} with the slot's port range, and leases the new
- * slot. Growth is unbounded — concurrent demand naturally caps it at the
- * Maven {@code -T} value, since each test JVM only ever leases one slot.
+ * <p>
+ * If every existing slot is leased the agent grows the pool: it acquires a global grow-lock, computes the next slot index, execs {@code provision-slot.sh} with
+ * the slot's port range, and leases the new slot. Growth is unbounded — concurrent demand naturally caps it at the Maven {@code -T} value, since each test JVM
+ * only ever leases one slot.
  */
 public final class SlotLeaserAgent {
 
@@ -90,16 +85,16 @@ public final class SlotLeaserAgent {
             }
             Thread.sleep(POLL_INTERVAL_MILLIS);
         }
-        throw new IllegalStateException("Could not lease a GlassFish pool slot within "
-                + timeoutSeconds + "s (pool=" + poolDir + ")");
+        throw new IllegalStateException(
+            "Could not lease a GlassFish pool slot within "
+                + timeoutSeconds + "s (pool=" + poolDir + ")"
+        );
     }
 
     /**
-     * Returns true if any {@code slot-N/.bootstrap.pid} exists and points at a
-     * still-alive process. provision-slot.sh writes the pid at start and removes
-     * it on EXIT, so a live entry means a bootstrap is genuinely in progress and
-     * a {@code ports.properties} for that slot is imminent — wait for it instead
-     * of provisioning a new index.
+     * Returns true if any {@code slot-N/.bootstrap.pid} exists and points at a still-alive process. provision-slot.sh writes the pid at start and removes it on
+     * EXIT, so a live entry means a bootstrap is genuinely in progress and a {@code ports.properties} for that slot is imminent — wait for it instead of
+     * provisioning a new index.
      */
     private static boolean hasInflightBootstrap(Path poolDir) throws IOException {
         try (java.util.stream.Stream<Path> entries = Files.list(poolDir)) {
@@ -117,7 +112,8 @@ public final class SlotLeaserAgent {
                     if (ProcessHandle.of(pid).map(ProcessHandle::isAlive).orElse(false)) {
                         return true;
                     }
-                } catch (NumberFormatException | IOException ignored) {
+                }
+                catch (NumberFormatException | IOException ignored) {
                     // Stale or unreadable pid file — treat as not in-flight; tryGrow
                     // will then advance past this slot index since the slot dir exists.
                 }
@@ -127,18 +123,12 @@ public final class SlotLeaserAgent {
     }
 
     /**
-     * Enumerate every leasable slot under {@code poolDir} (gap-tolerant:
-     * a {@code slot-N/} without {@code ports.properties} from a crashed
-     * provision is skipped, not used as a stopping condition), then try to
-     * acquire one in least-recently-used order. The lock file's mtime is
-     * touched on every successful acquire (because we open it WRITE), so
-     * sorting ascending by mtime biases toward the slot that has been idle
-     * the longest — which evens out load when tests have wildly different
-     * durations and a strict scan order would let fast-test JVMs cycle
-     * through one slot while another holds a long test.
+     * Enumerate every leasable slot under {@code poolDir} (gap-tolerant: a {@code slot-N/} without {@code ports.properties} from a crashed provision is
+     * skipped, not used as a stopping condition), then try to acquire one in least-recently-used order. The lock file's mtime is touched on every successful
+     * acquire (because we open it WRITE), so sorting ascending by mtime biases toward the slot that has been idle the longest — which evens out load when tests
+     * have wildly different durations and a strict scan order would let fast-test JVMs cycle through one slot while another holds a long test.
      *
-     * @return -1 if a slot was leased; otherwise the count of leasable slots
-     *         observed (all busy).
+     * @return -1 if a slot was leased; otherwise the count of leasable slots observed (all busy).
      */
     private static int scanAndTryAcquire(Path poolDir) throws IOException {
         List<Integer> candidates = new ArrayList<>();
@@ -153,7 +143,8 @@ public final class SlotLeaserAgent {
                 }
                 try {
                     candidates.add(Integer.parseInt(name.substring("slot-".length())));
-                } catch (NumberFormatException ignored) {
+                }
+                catch (NumberFormatException ignored) {
                     // Not a numeric slot dir — ignore.
                 }
             }
@@ -173,7 +164,8 @@ public final class SlotLeaserAgent {
         }
         try {
             return Integer.parseInt(raw.trim());
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e) {
             return null;
         }
     }
@@ -182,7 +174,8 @@ public final class SlotLeaserAgent {
         try (Socket socket = new Socket()) {
             socket.connect(new InetSocketAddress("localhost", adminPort), HEALTH_PROBE_TIMEOUT_MILLIS);
             return true;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             return false;
         }
     }
@@ -192,7 +185,8 @@ public final class SlotLeaserAgent {
         // mtime; in either case treat as oldest so this slot is tried first.
         try {
             return Files.getLastModifiedTime(poolDir.resolve("slot-" + slot).resolve("lock")).toMillis();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             return 0L;
         }
     }
@@ -203,10 +197,12 @@ public final class SlotLeaserAgent {
         if (!Files.exists(portsFile)) {
             return false;
         }
-        FileChannel channel = FileChannel.open(slotDir.resolve("lock"),
-                StandardOpenOption.CREATE,
-                StandardOpenOption.READ,
-                StandardOpenOption.WRITE);
+        FileChannel channel = FileChannel.open(
+            slotDir.resolve("lock"),
+            StandardOpenOption.CREATE,
+            StandardOpenOption.READ,
+            StandardOpenOption.WRITE
+        );
         FileLock lock = null;
         try {
             lock = channel.tryLock();
@@ -241,36 +237,45 @@ public final class SlotLeaserAgent {
             // control channel and reports "Corrupted channel" on direct writes.
             // Slot identity is observable via the gf.pool.slot system property.
             return true;
-        } catch (RuntimeException | IOException e) {
+        }
+        catch (RuntimeException | IOException e) {
             // Anything between open() and the assignment to heldChannel/heldLock
             // must release the channel; otherwise a transient failure leaks an FD
             // every poll cycle.
             if (lock != null) {
-                try { lock.release(); } catch (IOException ignored) { /* nothing useful */ }
+                try {
+                    lock.release();
+                }
+                catch (IOException ignored) {
+                    /* nothing useful */ }
             }
-            try { channel.close(); } catch (IOException ignored) { /* nothing useful */ }
+            try {
+                channel.close();
+            }
+            catch (IOException ignored) {
+                /* nothing useful */ }
             throw e;
         }
     }
 
     /**
-     * Grows the pool by one slot. The grow.lock file lock only covers the
-     * scan-and-claim step — picking the next free index and creating its
-     * (empty) slot directory atomically. The actual provisioning (cp -al
-     * + asadmin start-domain, ~5-7s) runs OUTSIDE the lock, so concurrent
-     * test JVMs that all need a cold slot grow the pool in parallel rather
-     * than serialising at ~5-7s per slot. provision-slot.sh tolerates the
-     * pre-created dir by clearing its contents instead of rm -rf'ing the
-     * dir itself, so the claim isn't briefly invisible to a third caller.
+     * Grows the pool by one slot. The grow.lock file lock only covers the scan-and-claim step — picking the next free index and creating its (empty) slot
+     * directory atomically. The actual provisioning (cp -al + asadmin start-domain, ~5-7s) runs OUTSIDE the lock, so concurrent test JVMs that all need a cold
+     * slot grow the pool in parallel rather than serialising at ~5-7s per slot. provision-slot.sh tolerates the pre-created dir by clearing its contents
+     * instead of rm -rf'ing the dir itself, so the claim isn't briefly invisible to a third caller.
      */
     private static int tryGrow(Path poolDir, PoolConfig config) throws Exception {
         Path growLockFile = poolDir.resolve("grow.lock");
         int next;
-        try (FileChannel fc = FileChannel.open(growLockFile,
+        try (
+            FileChannel fc = FileChannel.open(
+                growLockFile,
                 StandardOpenOption.CREATE,
                 StandardOpenOption.READ,
-                StandardOpenOption.WRITE);
-             FileLock ignored = fc.lock()) {
+                StandardOpenOption.WRITE
+            );
+            FileLock ignored = fc.lock()
+        ) {
             // Prefer recycling a dead slot (lock acquirable + admin port closed)
             // over advancing to a fresh index. Without this, a slot whose GF JVM
             // exited would keep its dir around and tryGrow would walk past it,
@@ -279,7 +284,8 @@ public final class SlotLeaserAgent {
             if (recycle > 0) {
                 clearSlotDir(poolDir.resolve("slot-" + recycle));
                 next = recycle;
-            } else {
+            }
+            else {
                 // Advance past any existing slot dir (provisioned OR mid-bootstrap),
                 // not only those with ports.properties — otherwise we'd reuse the
                 // index of an in-flight bootstrap and corrupt its slot dir.
@@ -293,8 +299,10 @@ public final class SlotLeaserAgent {
                 Files.createDirectory(poolDir.resolve("slot-" + next));
             }
         }
-        ProcessBuilder pb = new ProcessBuilder("bash",
-                config.scriptDir.resolve("provision-slot.sh").toString());
+        ProcessBuilder pb = new ProcessBuilder(
+            "bash",
+            config.scriptDir.resolve("provision-slot.sh").toString()
+        );
         pb.environment().put("SLOT_IDX", String.valueOf(next));
         pb.environment().put("POOL_DIR", poolDir.toString());
         pb.environment().put("SOURCE_HOME", config.source.toString());
@@ -311,15 +319,15 @@ public final class SlotLeaserAgent {
         int exit = pb.start().waitFor();
         if (exit != 0) {
             throw new IllegalStateException(
-                    "provision-slot.sh failed (slot=" + next + ", exit=" + exit + ")");
+                "provision-slot.sh failed (slot=" + next + ", exit=" + exit + ")"
+            );
         }
         return next;
     }
 
     /**
-     * Returns the lowest slot index whose GF JVM is dead and whose lock can be
-     * acquired now, or -1 if no such slot exists. Caller must hold grow.lock so
-     * that no other agent leases the slot between the check and the recycle.
+     * Returns the lowest slot index whose GF JVM is dead and whose lock can be acquired now, or -1 if no such slot exists. Caller must hold grow.lock so that
+     * no other agent leases the slot between the check and the recycle.
      */
     private static int findRecyclableSlot(Path poolDir) throws IOException {
         List<Integer> indices = new ArrayList<>();
@@ -334,7 +342,8 @@ public final class SlotLeaserAgent {
                 }
                 try {
                     indices.add(Integer.parseInt(name.substring("slot-".length())));
-                } catch (NumberFormatException ignored) {
+                }
+                catch (NumberFormatException ignored) {
                     // not numeric, skip
                 }
             }
@@ -346,7 +355,8 @@ public final class SlotLeaserAgent {
             Properties properties = new Properties();
             try (InputStream in = Files.newInputStream(portsFile)) {
                 properties.load(in);
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 continue;
             }
             Integer adminPort = parsePort(properties.getProperty("arquillian.adminPort"));
@@ -354,17 +364,22 @@ public final class SlotLeaserAgent {
                 continue; // alive
             }
             // Probe lock to confirm no one is mid-lease on this dead slot.
-            try (FileChannel lockChannel = FileChannel.open(slotDir.resolve("lock"),
+            try (
+                FileChannel lockChannel = FileChannel.open(
+                    slotDir.resolve("lock"),
                     StandardOpenOption.CREATE,
                     StandardOpenOption.READ,
-                    StandardOpenOption.WRITE)) {
+                    StandardOpenOption.WRITE
+                )
+            ) {
                 FileLock probe = lockChannel.tryLock();
                 if (probe == null) {
                     continue; // someone holds it
                 }
                 probe.release();
                 return slot;
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 continue;
             }
         }
@@ -372,9 +387,8 @@ public final class SlotLeaserAgent {
     }
 
     /**
-     * Empties a slot dir's contents but keeps the dir itself, so a concurrent
-     * caller's Files.exists("slot-N") still returns true and won't claim the
-     * same index. provision-slot.sh handles a pre-existing-but-empty dir.
+     * Empties a slot dir's contents but keeps the dir itself, so a concurrent caller's Files.exists("slot-N") still returns true and won't claim the same
+     * index. provision-slot.sh handles a pre-existing-but-empty dir.
      */
     private static void clearSlotDir(Path slotDir) throws IOException {
         if (!Files.isDirectory(slotDir)) {
@@ -382,14 +396,15 @@ public final class SlotLeaserAgent {
         }
         try (java.util.stream.Stream<Path> entries = Files.walk(slotDir)) {
             entries.sorted(Comparator.reverseOrder())
-                    .filter(p -> !p.equals(slotDir))
-                    .forEach(p -> {
-                        try {
-                            Files.deleteIfExists(p);
-                        } catch (IOException ignored) {
-                            // best-effort; provision-slot.sh will overwrite what it needs
-                        }
-                    });
+                .filter(p -> !p.equals(slotDir))
+                .forEach(p -> {
+                    try {
+                        Files.deleteIfExists(p);
+                    }
+                    catch (IOException ignored) {
+                        // best-effort; provision-slot.sh will overwrite what it needs
+                    }
+                });
         }
     }
 
@@ -402,6 +417,7 @@ public final class SlotLeaserAgent {
     }
 
     private static final class PoolConfig {
+
         final Path source;
         final int adminBase;
         final int portStride;
@@ -425,8 +441,10 @@ public final class SlotLeaserAgent {
         static PoolConfig load(Path poolDir) throws IOException {
             Path file = poolDir.resolve("config.properties");
             if (!Files.exists(file)) {
-                throw new IllegalStateException("Pool config not found at " + file
-                        + " — has the gf-pool module run?");
+                throw new IllegalStateException(
+                    "Pool config not found at " + file
+                        + " — has the gf-pool module run?"
+                );
             }
             Properties p = new Properties();
             try (InputStream in = Files.newInputStream(file)) {
@@ -434,5 +452,7 @@ public final class SlotLeaserAgent {
             }
             return new PoolConfig(p);
         }
+
     }
+
 }

@@ -49,4 +49,5 @@ public class FormUIBean implements Serializable {
 
         this.myForm = myForm;
     }
+
 }

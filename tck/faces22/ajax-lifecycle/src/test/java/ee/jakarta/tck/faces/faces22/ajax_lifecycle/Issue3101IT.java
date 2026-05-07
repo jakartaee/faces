@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3101IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3101
-   */
-  @Test
-  void viewExpiredExceptionRenderedAfterServerStateExpiry() throws Exception {
+     */
+    @Test
+    void viewExpiredExceptionRenderedAfterServerStateExpiry() throws Exception {
         WebPage page = getPage("issue3101.xhtml");
 
         if (page.containsText("State Saving Method: server")) {
@@ -47,4 +47,5 @@ class Issue3101IT extends BaseITNG {
             assertTrue(page.containsText("jakarta.faces.application.ViewExpiredException"));
         }
     }
+
 }

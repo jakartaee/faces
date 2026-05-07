@@ -50,11 +50,15 @@ class OneradioIT extends BaseITNG {
         WebElement radio20 = findByIdSuffix(page, "radio2:0");
         WebElement radio21 = findByIdSuffix(page, "radio2:1");
         assertNotNull(radio20.getDomAttribute("disabled"), "radio2:0 disabled");
-        assertEquals("Color: red;", findLabelFor(page, radio20.getAttribute("id")).getDomAttribute("class"),
-            "radio2:0 label class");
+        assertEquals(
+            "Color: red;", findLabelFor(page, radio20.getAttribute("id")).getDomAttribute("class"),
+            "radio2:0 label class"
+        );
         assertNull(radio21.getDomAttribute("disabled"), "radio2:1 disabled");
-        assertEquals("text", findLabelFor(page, radio21.getAttribute("id")).getDomAttribute("class"),
-            "radio2:1 label class");
+        assertEquals(
+            "text", findLabelFor(page, radio21.getAttribute("id")).getDomAttribute("class"),
+            "radio2:1 label class"
+        );
 
         // radio3: styleClass=text on enclosing table
         WebElement radio30 = findByIdSuffix(page, "radio3:0");
@@ -169,8 +173,7 @@ class OneradioIT extends BaseITNG {
 
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement radio = findByIdSuffix(page, "radio1:0");
-        expected.forEach((name, value) ->
-            assertEquals(value, radio.getDomAttribute(name), "attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, radio.getDomAttribute(name), "attribute " + name));
     }
 
     private static WebElement findLabelFor(WebPage page, String forId) {
@@ -188,8 +191,12 @@ class OneradioIT extends BaseITNG {
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

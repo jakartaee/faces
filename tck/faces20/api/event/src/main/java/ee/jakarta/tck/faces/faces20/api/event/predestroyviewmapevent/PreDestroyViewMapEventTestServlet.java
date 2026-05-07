@@ -26,17 +26,18 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/PreDestroyViewMapEventTestServlet")
 public final class PreDestroyViewMapEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UIViewRoot UIVR = new UIViewRoot();
+    private static final UIViewRoot UIVR = new UIViewRoot();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PreDestroyViewMapEvent((UIViewRoot) component);
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PreDestroyViewMapEvent((UIViewRoot) component);
 
-  }
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return UIVR;
-  }
-  // ------------------------------------------------------------ test methods
+    @Override
+    protected UIComponent getTestComponent() {
+        return UIVR;
+    }
+
+    // ------------------------------------------------------------ test methods
 }

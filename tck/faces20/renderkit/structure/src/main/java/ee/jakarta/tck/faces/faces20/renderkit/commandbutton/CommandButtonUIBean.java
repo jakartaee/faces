@@ -41,4 +41,5 @@ public class CommandButtonUIBean implements Serializable {
 
         this.onoff = onoff;
     }
+
 }

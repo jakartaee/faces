@@ -26,17 +26,19 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlMessagesTestServlet")
 public final class HtmlMessagesTestServlet extends UIMessagesTestServlet {
 
-  private static final String[] attrNames = { "errorClass", "errorStyle", "fatalClass", "fatalStyle", "infoClass", "infoStyle", "style", "styleClass", "title", "warnClass", "warnStyle", "tooltip", "layout", "dir", "lang" };
+    private static final String[] attrNames = { "errorClass", "errorStyle", "fatalClass", "fatalStyle", "infoClass", "infoStyle", "style", "styleClass",
+        "title", "warnClass", "warnStyle", "tooltip", "layout", "dir", "lang" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Messages");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Messages");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlMessages();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlMessages();
+    }
+
 }

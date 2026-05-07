@@ -28,13 +28,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1389IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see InitParameterMap
      * @see https://github.com/jakartaee/faces/issues/1389
-   */
-  @Test
-  void injectInitParameterMap() throws Exception {
+     */
+    @Test
+    void injectInitParameterMap() throws Exception {
         WebPage page = getPage("spec1389.xhtml");
 
         // Init parameter value should be printed on the page

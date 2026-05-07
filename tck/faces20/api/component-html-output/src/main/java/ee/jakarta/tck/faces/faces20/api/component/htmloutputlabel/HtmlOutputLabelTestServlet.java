@@ -26,17 +26,19 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlOutputLabelTestServlet")
 public final class HtmlOutputLabelTestServlet extends UIOutputTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "dir", "for", "lang", "onblur", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title" };
+    private static final String[] attrNames = { "accesskey", "dir", "for", "lang", "onblur", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress",
+        "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Label");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Label");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlOutputLabel();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlOutputLabel();
+    }
+
 }

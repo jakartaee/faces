@@ -30,249 +30,335 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/FacesMessageTestServlet")
 public final class FacesMessageTestServlet extends HttpTCKServlet {
 
-  // ------------------------------------------------ Test Declarations -----
-  // No-arg constructor
-  public void facesMessageNoArgCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    // ------------------------------------------------ Test Declarations -----
+    // No-arg constructor
+    public void facesMessageNoArgCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    try {
-      new FacesMessage();
-      out.println(JSFTestUtil.PASS);
+        try {
+            new FacesMessage();
+            out.println(JSFTestUtil.PASS);
 
-    } catch (Exception e) {
-      out.println(JSFTestUtil.FAIL + " Unexected Exception creating new "
-          + "FacesMessage instance.");
-      e.printStackTrace();
-    }
-  }
-
-  // arg constructor
-  public void facesMessageCtor01Test(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    try {
-      new FacesMessage(FacesMessage.Severity.INFO, "summary", "detail");
-      out.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      out.println(JSFTestUtil.FAIL + " Unexpected Exception thrown by "
-          + "constructor.");
-      e.printStackTrace();
-    }
-  }
-
-  // FacesMessage(String summary)
-  public void facesMessageCtorSumTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    try {
-      new FacesMessage("summary");
-      out.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      out.println(JSFTestUtil.FAIL + " Unexpected Exception thrown by "
-          + "constructor.");
-      e.printStackTrace();
-    }
-  }
-
-  // FacesMessage(String summary, String detail)
-  public void facesMessageCtorSumDetTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    try {
-      new FacesMessage("summary", "detail");
-      out.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      out.println(JSFTestUtil.FAIL + " Unexpected Exception thrown by "
-          + "constructor.");
-      e.printStackTrace();
-    }
-  }
-
-  // FacesMessage.getServerity()
-  // FacesMessage.setSeverity(int)
-  public void facesMessageGetSetSeverityTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    FacesMessage facesMessage = new FacesMessage(FacesMessage.Severity.INFO,
-        "summary", "detail");
-    // first, call getSeverity on an instance that was constructed passing
-    // the severity information in
-    if (facesMessage.getSeverity().getOrdinal() != FacesMessage.Severity.INFO
-        .getOrdinal()) {
-      out.println(JSFTestUtil.FAIL + "Expected FacesMesssage.getServerity() "
-          + "to return Message.SEVERITY_INFO." + JSFTestUtil.NL
-          + "Actual severity returned: " + JSFTestUtil
-              .getSeverityAsString(FacesMessage.Severity.INFO.getOrdinal()));
-      return;
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexected Exception creating new "
+                    + "FacesMessage instance."
+            );
+            e.printStackTrace();
+        }
     }
 
-    facesMessage.setSeverity(FacesMessage.Severity.FATAL);
+    // arg constructor
+    public void facesMessageCtor01Test(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    if (facesMessage.getSeverity().getOrdinal() != FacesMessage.Severity.FATAL
-        .getOrdinal()) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected FacesMessage.getServerity() to return "
-          + "Message.SEVERITY_FATAL." + JSFTestUtil.NL
-          + "Actual severity returned: " + JSFTestUtil
-              .getSeverityAsString(FacesMessage.Severity.FATAL.getOrdinal()));
-      return;
+        try {
+            new FacesMessage(FacesMessage.Severity.INFO, "summary", "detail");
+            out.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected Exception thrown by "
+                    + "constructor."
+            );
+            e.printStackTrace();
+        }
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // FacesMessage(String summary)
+    public void facesMessageCtorSumTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  // FacesMessage.getSummary()
-  // FacesMessage.setSummary(String)
-  public void facesMessageGetSetSummaryTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    FacesMessage facesMessage = new FacesMessage(FacesMessage.Severity.INFO,
-        "summary", "detail");
+        try {
+            new FacesMessage("summary");
+            out.println(JSFTestUtil.PASS);
 
-    if (!"summary".equals(facesMessage.getSummary())) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected FacesMessage.getSummary() to "
-          + "return the summary value passed to the FacesMessage "
-          + "constructor." + JSFTestUtil.NL + "Expected: 'summary'"
-          + JSFTestUtil.NL + "Received: '" + facesMessage.getSummary() + "'");
-      return;
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected Exception thrown by "
+                    + "constructor."
+            );
+            e.printStackTrace();
+        }
     }
 
-    facesMessage.setSummary("newsummary");
+    // FacesMessage(String summary, String detail)
+    public void facesMessageCtorSumDetTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    if (!"newsummary".equals(facesMessage.getSummary())) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected FacesMessage.getSummary() to "
-          + "return the summary value set by "
-          + "FacesMessage.setSummary(String)." + JSFTestUtil.NL
-          + "Expected: 'newsummary'" + JSFTestUtil.NL + "Received: '"
-          + facesMessage.getSummary() + "'");
-      return;
+        try {
+            new FacesMessage("summary", "detail");
+            out.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected Exception thrown by "
+                    + "constructor."
+            );
+            e.printStackTrace();
+        }
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // FacesMessage.getServerity()
+    // FacesMessage.setSeverity(int)
+    public void facesMessageGetSetSeverityTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  // FacesMessage.getDetail()
-  // FacesMessage.setDetail(String)
-  public void facesMessageGetSetDetailTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    FacesMessage facesMessage = new FacesMessage(FacesMessage.Severity.INFO,
-        "summary", "detail");
+        FacesMessage facesMessage = new FacesMessage(
+            FacesMessage.Severity.INFO,
+            "summary", "detail"
+        );
+        // first, call getSeverity on an instance that was constructed passing
+        // the severity information in
+        if (
+            facesMessage.getSeverity().getOrdinal() != FacesMessage.Severity.INFO
+                .getOrdinal()
+        ) {
+            out.println(
+                JSFTestUtil.FAIL + "Expected FacesMesssage.getServerity() "
+                    + "to return Message.SEVERITY_INFO." + JSFTestUtil.NL
+                    + "Actual severity returned: " + JSFTestUtil
+                        .getSeverityAsString(FacesMessage.Severity.INFO.getOrdinal())
+            );
+            return;
+        }
 
-    if (!"detail".equals(facesMessage.getDetail())) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected FacesMessage.getDetail() to "
-          + "return the detail value passed to the FacesMessage"
-          + " constructor." + JSFTestUtil.NL + "Expected: 'detail'"
-          + JSFTestUtil.NL + "Received: '" + facesMessage.getDetail() + "'");
-      return;
+        facesMessage.setSeverity(FacesMessage.Severity.FATAL);
+
+        if (
+            facesMessage.getSeverity().getOrdinal() != FacesMessage.Severity.FATAL
+                .getOrdinal()
+        ) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected FacesMessage.getServerity() to return "
+                    + "Message.SEVERITY_FATAL." + JSFTestUtil.NL
+                    + "Actual severity returned: " + JSFTestUtil
+                        .getSeverityAsString(FacesMessage.Severity.FATAL.getOrdinal())
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    facesMessage.setDetail("newdetail");
+    // FacesMessage.getSummary()
+    // FacesMessage.setSummary(String)
+    public void facesMessageGetSetSummaryTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesMessage facesMessage = new FacesMessage(
+            FacesMessage.Severity.INFO,
+            "summary", "detail"
+        );
 
-    if (!"newdetail".equals(facesMessage.getDetail())) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected FacesMessage.getDetail() to return the "
-          + "detail value set by FacesMessage.setDetail(String)."
-          + JSFTestUtil.NL + "Expected: 'newdetail'" + JSFTestUtil.NL
-          + "Received: '" + facesMessage.getDetail() + "'");
-      return;
+        if (!"summary".equals(facesMessage.getSummary())) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected FacesMessage.getSummary() to "
+                    + "return the summary value passed to the FacesMessage "
+                    + "constructor." + JSFTestUtil.NL + "Expected: 'summary'"
+                    + JSFTestUtil.NL + "Received: '" + facesMessage.getSummary() + "'"
+            );
+            return;
+        }
+
+        facesMessage.setSummary("newsummary");
+
+        if (!"newsummary".equals(facesMessage.getSummary())) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected FacesMessage.getSummary() to "
+                    + "return the summary value set by "
+                    + "FacesMessage.setSummary(String)." + JSFTestUtil.NL
+                    + "Expected: 'newsummary'" + JSFTestUtil.NL + "Received: '"
+                    + facesMessage.getSummary() + "'"
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // FacesMessage.getDetail()
+    // FacesMessage.setDetail(String)
+    public void facesMessageGetSetDetailTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesMessage facesMessage = new FacesMessage(
+            FacesMessage.Severity.INFO,
+            "summary", "detail"
+        );
 
-  // FacesMessage.rendered()
-  // FacesMessage.isRendered()
-  public void facesMessageIsRenderedTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        if (!"detail".equals(facesMessage.getDetail())) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected FacesMessage.getDetail() to "
+                    + "return the detail value passed to the FacesMessage"
+                    + " constructor." + JSFTestUtil.NL + "Expected: 'detail'"
+                    + JSFTestUtil.NL + "Received: '" + facesMessage.getDetail() + "'"
+            );
+            return;
+        }
 
-    FacesMessage facesMessage = new FacesMessage(FacesMessage.Severity.INFO,
-        "summary", "detail");
+        facesMessage.setDetail("newdetail");
 
-    if (facesMessage.isRendered()) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Unexpected return from FacesMessage.isRendered() "
-          + "prior to FacesMessage.rendered()" + "was called!" + JSFTestUtil.NL
-          + "Expected: 'false'" + JSFTestUtil.NL + "Received: '"
-          + facesMessage.isRendered() + "'");
-      return;
+        if (!"newdetail".equals(facesMessage.getDetail())) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected FacesMessage.getDetail() to return the "
+                    + "detail value set by FacesMessage.setDetail(String)."
+                    + JSFTestUtil.NL + "Expected: 'newdetail'" + JSFTestUtil.NL
+                    + "Received: '" + facesMessage.getDetail() + "'"
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    facesMessage.rendered();
+    // FacesMessage.rendered()
+    // FacesMessage.isRendered()
+    public void facesMessageIsRenderedTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    if (!facesMessage.isRendered()) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + " Unexpected return from FacesMessage.isRendered() "
-          + "after FacesMessage.rendered() was called!" + JSFTestUtil.NL
-          + "Expected: 'true'" + JSFTestUtil.NL + "Received: '"
-          + facesMessage.isRendered() + "'");
-      return;
+        FacesMessage facesMessage = new FacesMessage(
+            FacesMessage.Severity.INFO,
+            "summary", "detail"
+        );
+
+        if (facesMessage.isRendered()) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Unexpected return from FacesMessage.isRendered() "
+                    + "prior to FacesMessage.rendered()" + "was called!" + JSFTestUtil.NL
+                    + "Expected: 'false'" + JSFTestUtil.NL + "Received: '"
+                    + facesMessage.isRendered() + "'"
+            );
+            return;
+        }
+
+        facesMessage.rendered();
+
+        if (!facesMessage.isRendered()) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + " Unexpected return from FacesMessage.isRendered() "
+                    + "after FacesMessage.rendered() was called!" + JSFTestUtil.NL
+                    + "Expected: 'true'" + JSFTestUtil.NL + "Received: '"
+                    + facesMessage.isRendered() + "'"
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // FacesMessage.Severity.compareTo(Object)
+    public void facesMessageSeverityCompareToTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        int z = 0;
 
-  // FacesMessage.Severity.compareTo(Object)
-  public void facesMessageSeverityCompareToTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    int z = 0;
+        FacesMessage facesMessageOne = new FacesMessage(
+            FacesMessage.Severity.INFO,
+            "summary", "detail"
+        );
 
-    FacesMessage facesMessageOne = new FacesMessage(FacesMessage.Severity.INFO,
-        "summary", "detail");
+        FacesMessage facesMessageTwo = new FacesMessage(
+            FacesMessage.Severity.FATAL,
+            "summary", "detail"
+        );
 
-    FacesMessage facesMessageTwo = new FacesMessage(FacesMessage.Severity.FATAL,
-        "summary", "detail");
+        // compare to see that they are the same.
+        if (
+            z != facesMessageOne.getSeverity()
+                .compareTo(facesMessageOne.getSeverity())
+        ) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected test value to equal 0 when Severities "
+                    + "were compared"
+            );
+            return;
+        }
 
-    // compare to see that they are the same.
-    if (z != facesMessageOne.getSeverity()
-        .compareTo(facesMessageOne.getSeverity())) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected test value to equal 0 when Severities "
-          + "were compared");
-      return;
+        // compare to see that they are the same.
+        if (
+            z == facesMessageOne.getSeverity()
+                .compareTo(facesMessageTwo.getSeverity())
+        ) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected test value to NOT equal 0 when Severities "
+                    + "were compared"
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    // compare to see that they are the same.
-    if (z == facesMessageOne.getSeverity()
-        .compareTo(facesMessageTwo.getSeverity())) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected test value to NOT equal 0 when Severities "
-          + "were compared");
-      return;
+    // FacesMessage.Severity.toString()
+    public void facesMessageSeverityToStringTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        FacesMessage facesMessageOne = new FacesMessage(
+            FacesMessage.Severity.INFO,
+            "summary", "detail"
+        );
+
+        if (!(facesMessageOne.getSeverity().toString().contains("INFO"))) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected FacesMessage.getSeverity().toString() "
+                    + "to contain 'INFO'."
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
-
-    out.println(JSFTestUtil.PASS);
-  }
-
-  // FacesMessage.Severity.toString()
-  public void facesMessageSeverityToStringTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    FacesMessage facesMessageOne = new FacesMessage(FacesMessage.Severity.INFO,
-        "summary", "detail");
-
-    if (!(facesMessageOne.getSeverity().toString().contains("INFO"))) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected FacesMessage.getSeverity().toString() "
-          + "to contain 'INFO'.");
-      return;
-    }
-
-    out.println(JSFTestUtil.PASS);
-  }
 
 }

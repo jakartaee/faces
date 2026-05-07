@@ -50,7 +50,8 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorBroadcastTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         FacesContext context = getFacesContext();
 
@@ -75,10 +76,12 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
         String traceExpected = "/AP0@ANY_PHASE/AP1@ANY_PHASE/AP2@ANY_PHASE";
         String traceReceived = TCKBehaviorListener.trace();
         if (!traceExpected.equals(traceReceived)) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "Listeners not invoked in the expected order or were invoked too many times."
                     + JSFTestUtil.NL + "Listener trace expected: " + traceExpected
-                    + JSFTestUtil.NL + "Listener trace received: " + traceReceived);
+                    + JSFTestUtil.NL + "Listener trace received: " + traceReceived
+            );
             return;
         }
 
@@ -86,30 +89,38 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorAddListenerNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "addAjaxBehaviorListener",
-                new Class<?>[] { AjaxBehaviorListener.class }, new Object[] { null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "addAjaxBehaviorListener",
+            new Class<?>[] { AjaxBehaviorListener.class }, new Object[] { null }, out
+        );
     }
 
     public void ajaxBehaviorGetSetDelayTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
 
         behavior.setDelay("1000");
 
         if (!"1000".equals(behavior.getDelay())) {
-            out.println(JSFTestUtil.FAIL + " Unexpected value for Delay!"
-                    + JSFTestUtil.NL + "Expected: 1000" + JSFTestUtil.NL + "Received: " + behavior.getDelay());
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value for Delay!"
+                    + JSFTestUtil.NL + "Expected: 1000" + JSFTestUtil.NL + "Received: " + behavior.getDelay()
+            );
             return;
         }
 
         behavior.setDelay("none");
         if (!"none".equals(behavior.getDelay())) {
-            out.println(JSFTestUtil.FAIL + " Unexpected value for Delay!"
-                    + JSFTestUtil.NL + "Expected: none" + JSFTestUtil.NL + "Received: " + behavior.getDelay());
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value for Delay!"
+                    + JSFTestUtil.NL + "Expected: none" + JSFTestUtil.NL + "Received: " + behavior.getDelay()
+            );
             return;
         }
 
@@ -117,7 +128,8 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorGetSetExecuteTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
 
@@ -132,9 +144,11 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
 
         for (String id : compIds) {
             if (!ids.contains(id)) {
-                out.println(JSFTestUtil.FAIL + "Unexpected result from setExecute or getExecute!"
+                out.println(
+                    JSFTestUtil.FAIL + "Unexpected result from setExecute or getExecute!"
                         + JSFTestUtil.NL + "Expected: ID0, ID1, ID2"
-                        + JSFTestUtil.NL + "Received: " + ids);
+                        + JSFTestUtil.NL + "Received: " + ids
+                );
                 return;
             }
         }
@@ -143,15 +157,18 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorSetIsDisabledTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
 
         behavior.setDisabled(true);
 
         if (!behavior.isDisabled()) {
-            out.println(JSFTestUtil.FAIL + " Unexpected value for 'Disabled'!"
-                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + behavior.isDisabled());
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value for 'Disabled'!"
+                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + behavior.isDisabled()
+            );
             return;
         }
 
@@ -159,15 +176,18 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorSetIsImmediateTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
 
         behavior.setImmediate(true);
 
         if (!behavior.isImmediate()) {
-            out.println(JSFTestUtil.FAIL + " Unexpected value for 'Immediate'!"
-                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + behavior.isImmediate());
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value for 'Immediate'!"
+                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + behavior.isImmediate()
+            );
             return;
         }
 
@@ -175,34 +195,46 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorGetSetValueExpressionNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "getValueExpression",
-                new Class<?>[] { String.class }, new Object[] { null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "getValueExpression",
+            new Class<?>[] { String.class }, new Object[] { null }, out
+        );
 
         ExpressionFactory factory = JSFTestUtil.getExpressionFactory(servletContext);
         ValueExpression literalExpr = factory.createValueExpression(
-                getFacesContext().getELContext(), "literalValue", String.class);
+            getFacesContext().getELContext(), "literalValue", String.class
+        );
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "setValueExpression",
-                new Class<?>[] { String.class, ValueExpression.class },
-                new Object[] { null, literalExpr }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "setValueExpression",
+            new Class<?>[] { String.class, ValueExpression.class },
+            new Object[] { null, literalExpr }, out
+        );
     }
 
     public void ajaxBehaviorAddRemoveBehaviorListenerNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "addAjaxBehaviorListener",
-                new Class<?>[] { AjaxBehaviorListener.class }, new Object[] { null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "addAjaxBehaviorListener",
+            new Class<?>[] { AjaxBehaviorListener.class }, new Object[] { null }, out
+        );
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "removeAjaxBehaviorListener",
-                new Class<?>[] { AjaxBehaviorListener.class }, new Object[] { null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "removeAjaxBehaviorListener",
+            new Class<?>[] { AjaxBehaviorListener.class }, new Object[] { null }, out
+        );
     }
 
     public void ajaxBehaviorGetSetOnerrorTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
         String golden = "error.js";
@@ -211,9 +243,11 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
         String result = behavior.getOnerror();
 
         if (!golden.equals(result)) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "Unexpected value returned from getOnerror()" + JSFTestUtil.NL
-                    + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result);
+                    + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result
+            );
             return;
         }
 
@@ -221,7 +255,8 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorGetSetOnventTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
         String golden = "TCKSystemEvent";
@@ -230,9 +265,11 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
         String result = behavior.getOnevent();
 
         if (!golden.equals(result)) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "Unexpected value returned from getOnevent()" + JSFTestUtil.NL
-                    + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result);
+                    + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result
+            );
             return;
         }
 
@@ -240,7 +277,8 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorGetSetRenderTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
         String golden = "TCKComp";
@@ -252,9 +290,11 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
         Collection<String> result = behavior.getRender();
 
         if (!result.contains(golden)) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "Unexpected value returned from getRender()" + JSFTestUtil.NL
-                    + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result);
+                    + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result
+            );
             return;
         }
 
@@ -262,22 +302,26 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorGetSetValueExpressionTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
         request.setAttribute("lp", new AlbumBean());
 
         ExpressionFactory factory = JSFTestUtil.getExpressionFactory(servletContext);
         ValueExpression expression = factory.createValueExpression(
-                getFacesContext().getELContext(), "#{lp.album}", String.class);
+            getFacesContext().getELContext(), "#{lp.album}", String.class
+        );
 
         behavior.setValueExpression("bean", expression);
 
         if (behavior.getValueExpression("bean") != expression) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "Expected getValueExpression() to return the non-literal ValueExpression set via setValueExpression()."
                     + JSFTestUtil.NL + "Expected: " + expression
-                    + JSFTestUtil.NL + "Received: " + behavior.getValueExpression("bean"));
+                    + JSFTestUtil.NL + "Received: " + behavior.getValueExpression("bean")
+            );
             return;
         }
 
@@ -285,31 +329,39 @@ public class AjaxBehaviorTestServlet extends BaseBehaviorTestServlet {
     }
 
     public void ajaxBehaviorIsSetResetValuesTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         AjaxBehavior behavior = (AjaxBehavior) createBehavior();
 
         behavior.setResetValues(false);
 
         if (behavior.isResetValues()) {
-            out.println(JSFTestUtil.FAIL + " Unexpected value for isResetValues!"
-                    + JSFTestUtil.NL + "Expected: false" + JSFTestUtil.NL + "Received: " + behavior.isResetValues());
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value for isResetValues!"
+                    + JSFTestUtil.NL + "Expected: false" + JSFTestUtil.NL + "Received: " + behavior.isResetValues()
+            );
             return;
         }
 
         behavior.setResetValues(true);
         if (!behavior.isResetValues()) {
-            out.println(JSFTestUtil.FAIL + " Unexpected value for setResetValues!"
-                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + behavior.isResetValues());
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value for setResetValues!"
+                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + behavior.isResetValues()
+            );
             return;
         }
 
         if (!behavior.isResetValuesSet()) {
-            out.println(JSFTestUtil.FAIL + " Unexpected value for isResetValuesSet!"
-                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + behavior.isResetValuesSet());
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value for isResetValuesSet!"
+                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + behavior.isResetValuesSet()
+            );
             return;
         }
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

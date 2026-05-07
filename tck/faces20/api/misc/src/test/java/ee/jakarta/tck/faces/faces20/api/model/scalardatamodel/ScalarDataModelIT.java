@@ -87,4 +87,5 @@ class ScalarDataModelIT extends BaseITNG {
     void dataModelAddDataModelListenerNPETest() {
         runServletTest("dataModelAddDataModelListenerNPETest");
     }
+
 }

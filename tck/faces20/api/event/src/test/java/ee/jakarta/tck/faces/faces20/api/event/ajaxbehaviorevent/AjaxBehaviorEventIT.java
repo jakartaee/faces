@@ -28,10 +28,34 @@ class AjaxBehaviorEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void behaviorEventCtorTest() { runServletTest("behaviorEventCtorTest"); }
-    @Test void behaviorEventGetBehaviorTest() { runServletTest("behaviorEventGetBehaviorTest"); }
-    @Test void behaviorEventIAETest() { runServletTest("behaviorEventIAETest"); }
-    @Test void behaviorEventIsApproiateListenerNegTest() { runServletTest("behaviorEventIsApproiateListenerNegTest"); }
-    @Test void behaviorEventIsApproiateListenerPosTest() { runServletTest("behaviorEventIsApproiateListenerPosTest"); }
-    @Test void behaviorEventProcessListenerTest() { runServletTest("behaviorEventProcessListenerTest"); }
+    @Test
+    void behaviorEventCtorTest() {
+        runServletTest("behaviorEventCtorTest");
+    }
+
+    @Test
+    void behaviorEventGetBehaviorTest() {
+        runServletTest("behaviorEventGetBehaviorTest");
+    }
+
+    @Test
+    void behaviorEventIAETest() {
+        runServletTest("behaviorEventIAETest");
+    }
+
+    @Test
+    void behaviorEventIsApproiateListenerNegTest() {
+        runServletTest("behaviorEventIsApproiateListenerNegTest");
+    }
+
+    @Test
+    void behaviorEventIsApproiateListenerPosTest() {
+        runServletTest("behaviorEventIsApproiateListenerPosTest");
+    }
+
+    @Test
+    void behaviorEventProcessListenerTest() {
+        runServletTest("behaviorEventProcessListenerTest");
+    }
+
 }

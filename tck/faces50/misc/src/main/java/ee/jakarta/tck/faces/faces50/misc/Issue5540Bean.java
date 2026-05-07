@@ -24,15 +24,16 @@ import jakarta.validation.constraints.Size;
 @RequestScoped
 public class Issue5540Bean {
 
-    @Size(min=2, message="validated by @Size")
-    @Pattern(regexp=".{2,}", message="validated by @Pattern")
+    @Size(min = 2, message = "validated by @Size")
+    @Pattern(regexp = ".{2,}", message = "validated by @Pattern")
     private String input;
 
     public String getInput() {
         return input;
     }
-    
+
     public void setInput(String input) {
         this.input = input;
     }
+
 }

@@ -30,30 +30,33 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class Spec1296Filter implements Filter {
-    
+
     private FilterConfig filterConfig = null;
-    
+
     public Spec1296Filter() {
-    }    
-    
+    }
+
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain)
-            throws IOException, ServletException {
-        
-        
+    public void doFilter(
+        ServletRequest request, ServletResponse response,
+        FilterChain chain
+    )
+        throws IOException, ServletException
+    {
+
         try {
             HttpServletResponse resp = (HttpServletResponse) response;
             PrintWriter pw = resp.getWriter();
             ResponseWriter responseWriter = new Spec1296ResponseFilter(pw, "text/xml", "UTF-8");
             PartialResponseWriter partialResponseWriter = new PartialResponseWriter(responseWriter);
-//            partialResponseWriter.writePreamble("<?xml version='1.0' encoding='UTF-8'?>\n");
+            // partialResponseWriter.writePreamble("<?xml version='1.0' encoding='UTF-8'?>\n");
             partialResponseWriter.startDocument();
             partialResponseWriter.startUpdate("foo");
             partialResponseWriter.endUpdate();
             partialResponseWriter.endDocument();
             partialResponseWriter.close();
-        } catch (Exception t) {
+        }
+        catch (Exception t) {
             HttpServletResponse resp = (HttpServletResponse) response;
             PrintWriter pw = resp.getWriter();
             try {
@@ -69,24 +72,26 @@ public class Spec1296Filter implements Filter {
                     indent = indentBuilder.toString();
                     pw.print("<p>" + indent + " Exception: " + cause.getClass().getName() + "</p>");
                     pw.print("<p>" + indent + " Exception Message: " + cause.getLocalizedMessage() + "</p>");
-                        pw.print("<code><pre>");
-                        cause.printStackTrace(pw);
-                        pw.print("</pre></code>");
-                } while (null != (cause = cause.getCause()));
+                    pw.print("<code><pre>");
+                    cause.printStackTrace(pw);
+                    pw.print("</pre></code>");
+                }
+                while (null != (cause = cause.getCause()));
                 pw.print("</body></html>");
                 resp.setStatus(200);
                 pw.close();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
             }
         }
-        
+
     }
 
-    public void destroy() {        
+    public void destroy() {
     }
 
-    public void init(FilterConfig filterConfig) {        
+    public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
     }
-    
+
 }

@@ -1,4 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 
     Copyright (c) 2013, 2022 Oracle and/or its affiliates. All rights reserved.
@@ -16,16 +15,17 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <xhtml xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="jakarta.faces.html"
-	xmlns:f="jakarta.faces.core"> <h:head>
-	<title>Public View</title>
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"> <h:head>
+    <title>Public View</title>
 </h:head> <h:body>
-	<h:outputText value="This is a Public View!" />
-	<h:form id="form1">
-		<h:commandLink id="linkOne" value="linkOne" action="protected.xhtml">
-			<h:outputText value="To Protected View" />
-		</h:commandLink>
-	</h:form>
+    <h:outputText value="This is a Public View!" />
+    <h:form id="form1">
+        <h:commandLink id="linkOne" value="linkOne" action="protected.xhtml">
+            <h:outputText value="To Protected View" />
+        </h:commandLink>
+    </h:form>
 </h:body> </xhtml>

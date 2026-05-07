@@ -32,4 +32,5 @@ class AbsoluteOrderingIT extends BaseITNG {
         WebElement status = page.findElement(By.id("status"));
         assertEquals("Order Correct: true", status.getText());
     }
+
 }

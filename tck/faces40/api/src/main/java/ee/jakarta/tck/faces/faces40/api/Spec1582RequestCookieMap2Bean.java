@@ -33,8 +33,10 @@ public class Spec1582RequestCookieMap2Bean implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public String getValue() {
-        Map<String, Object> requestCookieMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {}, RequestCookieMap.Literal.INSTANCE).get();
+        Map<String, Object> requestCookieMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {
+        }, RequestCookieMap.Literal.INSTANCE).get();
 
         return requestCookieMap.toString();
     }
+
 }

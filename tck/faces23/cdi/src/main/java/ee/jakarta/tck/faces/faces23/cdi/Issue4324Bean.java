@@ -23,9 +23,10 @@ import jakarta.inject.Named;
 @RequestScoped
 public class Issue4324Bean {
 
-	private ConcreteEntity concreteEntity = new ConcreteEntity();
-	
-	public ConcreteEntity getConcreteEntity() {
-		return concreteEntity;
-	}
+    private ConcreteEntity concreteEntity = new ConcreteEntity();
+
+    public ConcreteEntity getConcreteEntity() {
+        return concreteEntity;
+    }
+
 }

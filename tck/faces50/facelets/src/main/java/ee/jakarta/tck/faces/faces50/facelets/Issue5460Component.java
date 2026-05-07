@@ -39,4 +39,5 @@ public class Issue5460Component extends UIInput implements NamingContainer {
     public String getAttributeResults() {
         return getAttributes().get("required") + " " + getAttributes().get("styleClass");
     }
+
 }

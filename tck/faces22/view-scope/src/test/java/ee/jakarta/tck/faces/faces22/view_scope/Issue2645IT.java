@@ -30,12 +30,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue2645IT extends BaseITNG {
 
-  /**
-   * @see ViewScoped
+    /**
+     * @see ViewScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2645
-   */
-  @Test
-  void viewScope() throws Exception {
+     */
+    @Test
+    void viewScope() throws Exception {
         WebPage page = getPage("issue2645-1.xhtml");
         int previousCount = 0;
         int count = Integer.parseInt(page.findElement(By.id("count")).getText());
@@ -85,12 +85,12 @@ public class Issue2645IT extends BaseITNG {
         assertEquals(previousCount, count);
     }
 
-  /**
-   * @see ViewScoped
+    /**
+     * @see ViewScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2645
-   */
-  @Test
-  void invalidatedSession() throws Exception {
+     */
+    @Test
+    void invalidatedSession() throws Exception {
         WebPage page = getPage("issue2645-2.xhtml");
 
         assertTrue(page.containsText("This is from the @PostConstruct"));
@@ -99,12 +99,12 @@ public class Issue2645IT extends BaseITNG {
         assertTrue(page.containsText("true"));
     }
 
-  /**
-   * @see ViewScoped
+    /**
+     * @see ViewScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2645
-   */
-  @Test
-  void viewScopedInput() throws Exception {
+     */
+    @Test
+    void viewScopedInput() throws Exception {
         WebPage page = getPage("issue2645-5.xhtml");
         WebElement input = page.findElement(By.id("input"));
         String value = "" + System.currentTimeMillis();
@@ -114,4 +114,5 @@ public class Issue2645IT extends BaseITNG {
         WebElement output = page.findElement(By.id("output"));
         assertTrue(output.getText().contains(value));
     }
+
 }

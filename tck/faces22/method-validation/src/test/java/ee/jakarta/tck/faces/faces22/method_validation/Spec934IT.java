@@ -88,4 +88,5 @@ public class Spec934IT extends BaseITNG {
         assertTrue(text.contains("my message"));
         assertEquals(200, page.getResponseStatus());
     }
+
 }

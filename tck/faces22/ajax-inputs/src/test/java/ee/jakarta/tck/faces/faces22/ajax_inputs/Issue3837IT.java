@@ -16,7 +16,6 @@
 
 package ee.jakarta.tck.faces.faces22.ajax_inputs;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
@@ -32,25 +31,26 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 @Disabled("ignored at the request by the myfaces community -- See https://github.com/jakartaee/faces/issues/1757")
 class Issue3837IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3837
-   */
-  @Test
-  void uiRepeatPreservesPerRowStateAcrossPostback() throws Exception {
+     */
+    @Test
+    void uiRepeatPreservesPerRowStateAcrossPostback() throws Exception {
         WebPage page = getPage("issue3837.xhtml");
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:0:list"))).selectByIndex(0));
-      assertEquals("null -> 1", page.findElement(By.id("form:message")).getText());
+        assertEquals("null -> 1", page.findElement(By.id("form:message")).getText());
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:1:list"))).selectByIndex(0));
-      assertEquals("null -> 3", page.findElement(By.id("form:message")).getText());
+        assertEquals("null -> 3", page.findElement(By.id("form:message")).getText());
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:0:list"))).selectByIndex(1));
-      assertEquals("1 -> 2", page.findElement(By.id("form:message")).getText());
+        assertEquals("1 -> 2", page.findElement(By.id("form:message")).getText());
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:1:list"))).selectByIndex(1));
-      assertEquals("3 -> 4", page.findElement(By.id("form:message")).getText());
+        assertEquals("3 -> 4", page.findElement(By.id("form:message")).getText());
     }
+
 }

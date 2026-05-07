@@ -66,7 +66,7 @@ class BodyIT extends BaseITNG {
 
     private static void verifyAttributes(WebPage page, Map<String, String> expected) {
         WebElement body = page.findElement(By.tagName("body"));
-        expected.forEach((name, value) ->
-            assertEquals(value, body.getDomAttribute(name), "body attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, body.getDomAttribute(name), "body attribute " + name));
     }
+
 }

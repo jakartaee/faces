@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html>
 <!--
 
     Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
@@ -17,11 +16,12 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
+<!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
-    
+
     <head>
         <title>First page in the flow</title>
     </head>
@@ -30,9 +30,9 @@
         <p>First page in the flow</p>
 
         <p>Value: <h:inputText id="input" value="#{simplestFlowBean.name}" /></p>
- 
+
         <p><h:commandButton id="a" value="next" action="a" /></p>
-        
+
         <p id="initMessage">#{userBean.initFlowMessage}</p>
     </h:form>
     </body>

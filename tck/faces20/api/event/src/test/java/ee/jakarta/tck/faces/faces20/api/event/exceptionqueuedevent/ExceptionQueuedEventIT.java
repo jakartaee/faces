@@ -28,9 +28,29 @@ class ExceptionQueuedEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void exceptionQueuedEventCtorTest() { runServletTest("exceptionQueuedEventCtorTest"); }
-    @Test void exceptionQueuedEventGetContextTest() { runServletTest("exceptionQueuedEventGetContextTest"); }
-    @Test void exceptionQueuedEventIsApproiateListenerNegativeTest() { runServletTest("exceptionQueuedEventIsApproiateListenerNegativeTest"); }
-    @Test void exceptionQueuedEventIsApproiateListenerPostiveTest() { runServletTest("exceptionQueuedEventIsApproiateListenerPostiveTest"); }
-    @Test void exceptionQueuedEventProcessListenerTest() { runServletTest("exceptionQueuedEventProcessListenerTest"); }
+    @Test
+    void exceptionQueuedEventCtorTest() {
+        runServletTest("exceptionQueuedEventCtorTest");
+    }
+
+    @Test
+    void exceptionQueuedEventGetContextTest() {
+        runServletTest("exceptionQueuedEventGetContextTest");
+    }
+
+    @Test
+    void exceptionQueuedEventIsApproiateListenerNegativeTest() {
+        runServletTest("exceptionQueuedEventIsApproiateListenerNegativeTest");
+    }
+
+    @Test
+    void exceptionQueuedEventIsApproiateListenerPostiveTest() {
+        runServletTest("exceptionQueuedEventIsApproiateListenerPostiveTest");
+    }
+
+    @Test
+    void exceptionQueuedEventProcessListenerTest() {
+        runServletTest("exceptionQueuedEventProcessListenerTest");
+    }
+
 }

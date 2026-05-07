@@ -32,17 +32,17 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue1821IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1821
-   */
-  @Test
-  void ajaxUIRepeat() throws Exception {
+     */
+    @Test
+    void ajaxUIRepeat() throws Exception {
         WebPage page = getPage("issue1821.xhtml");
         final List<WebElement> elements = page.findElements(By.tagName("a"));
-        List<String[]> ids = elements.stream().map(element -> new String[]{element.getDomAttribute("id"), element.getText()})
-                .collect(Collectors.toList());
+        List<String[]> ids = elements.stream().map(element -> new String[] { element.getDomAttribute("id"), element.getText() })
+            .collect(Collectors.toList());
         for (String[] id : ids) {
             WebElement anchor = page.findElement(By.id(id[0]));
             page.guardAjax(anchor::click);
@@ -50,5 +50,5 @@ class Issue1821IT extends BaseITNG {
             assertTrue(page.containsText(expectedText));
         }
     }
-}
 
+}

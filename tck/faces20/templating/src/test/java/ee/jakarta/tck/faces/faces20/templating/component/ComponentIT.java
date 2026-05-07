@@ -32,26 +32,33 @@ class ComponentIT extends BaseITNG {
     @Test
     void uicomponentVisableTest() {
         WebPage page = getPage("component/visableTest.xhtml");
-        assertTrue(containsSpanWithText(page, "rendered"),
-            "Expected <span> with text 'rendered'");
+        assertTrue(
+            containsSpanWithText(page, "rendered"),
+            "Expected <span> with text 'rendered'"
+        );
     }
 
     @Test
     void uicomponentNotVisableTest() {
         WebPage page = getPage("component/notVisableTest.xhtml");
-        assertEquals(0, page.findElements(By.tagName("span")).size(),
-            "Expected no <span> elements when rendered='false'");
+        assertEquals(
+            0, page.findElements(By.tagName("span")).size(),
+            "Expected no <span> elements when rendered='false'"
+        );
     }
 
     @Test
     void uicomponentBindTest() {
         WebPage page = getPage("component/component_binding.xhtml");
-        assertTrue(containsSpanWithText(page, "Vidtily Chernobyl"),
-            "Expected <span> bound to Character.name");
+        assertTrue(
+            containsSpanWithText(page, "Vidtily Chernobyl"),
+            "Expected <span> bound to Character.name"
+        );
     }
 
     private boolean containsSpanWithText(WebPage page, String text) {
         List<WebElement> spans = page.findElements(By.tagName("span"));
         return spans.stream().anyMatch(s -> text.equals(s.getText()));
     }
+
 }

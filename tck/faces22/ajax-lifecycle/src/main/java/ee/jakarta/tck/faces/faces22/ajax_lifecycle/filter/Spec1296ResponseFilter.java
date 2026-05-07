@@ -23,11 +23,10 @@ import jakarta.faces.FacesException;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ResponseWriter;
 
-
 /**
- * <p><strong>Spec1296ResponseFilter</strong> is an Html specific implementation
- * of the <code>ResponseWriter</code> abstract class.
- * Kudos to Adam Winer (Oracle) for much of this code.
+ * <p>
+ * <strong>Spec1296ResponseFilter</strong> is an Html specific implementation of the <code>ResponseWriter</code> abstract class. Kudos to Adam Winer (Oracle)
+ * for much of this code.
  */
 public class Spec1296ResponseFilter extends ResponseWriter {
 
@@ -63,24 +62,23 @@ public class Spec1296ResponseFilter extends ResponseWriter {
 
     // Internal buffer for to store the result of String.getChars() for
     // values passed to the writer as String to reduce the overhead
-    // of String.charAt().  This buffer will be grown, if necessary, to
+    // of String.charAt(). This buffer will be grown, if necessary, to
     // accomodate larger values.
     private char[] textBuffer = new char[128];
 
     private char[] charHolder = new char[1];
 
-
     /**
-     * Constructor sets the <code>ResponseWriter</code> and
-     * encoding.
+     * Constructor sets the <code>ResponseWriter</code> and encoding.
      *
-     * @param writer      the <code>ResponseWriter</code>
+     * @param writer the <code>ResponseWriter</code>
      * @param contentType the content type.
-     * @param encoding    the character encoding.
+     * @param encoding the character encoding.
      * @throws if the encoding is not recognized.
      */
     public Spec1296ResponseFilter(Writer writer, String contentType, String encoding)
-        throws FacesException {
+        throws FacesException
+    {
         this.writer = writer;
         if (null != contentType) {
             this.contentType = contentType;
@@ -90,10 +88,9 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         // Check the character encoding
         // Check the character encoding
         if (!Spec1296HtmlUtils.validateEncoding(encoding)) {
-            throw new IllegalArgumentException();    
+            throw new IllegalArgumentException();
         }
     }
-
 
     /**
      * @return the content type such as "text/html" for this ResponseWriter.
@@ -102,20 +99,18 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         return contentType;
     }
 
-
     /**
-     * @return the character encoding, such as "ISO-8859-1" for this
-     *         ResponseWriter.  Refer to:
-     *         <a href="http://www.iana.org/assignments/character-sets">theIANA</a>
-     *         for a list of character encodings.
+     * @return the character encoding, such as "ISO-8859-1" for this ResponseWriter. Refer to:
+     * <a href="http://www.iana.org/assignments/character-sets">theIANA</a> for a list of character encodings.
      */
     public String getCharacterEncoding() {
         return encoding;
     }
 
-
     /**
-     * <p>Write the text that should begin a response.</p>
+     * <p>
+     * Write the text that should begin a response.
+     * </p>
      *
      * @throws IOException if an input/output error occurs
      */
@@ -123,14 +118,12 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         // do nothing;
     }
 
-
     /**
      * Output the text for the end of a document.
      */
     public void endDocument() throws IOException {
         writer.flush();
     }
-
 
     /**
      * Flush any buffered output to the contained writer.
@@ -148,53 +141,50 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         closeStartIfNecessary();
     }
 
-
     /**
-     * <p>Write the start of an element, up to and including the
-     * element name.  Clients call <code>writeAttribute()</code> or
-     * <code>writeURIAttribute()</code> methods to add attributes after
-     * calling this method.
+     * <p>
+     * Write the start of an element, up to and including the element name. Clients call <code>writeAttribute()</code> or <code>writeURIAttribute()</code>
+     * methods to add attributes after calling this method.
      *
-     * @param name                Name of the starting element
-     * @param componentForElement The UIComponent instance that applies to this
-     *                            element.  This argument may be <code>null</code>.
-     * @throws IOException          if an input/output error occurs
-     * @throws NullPointerException if <code>name</code>
-     *                              is <code>null</code>
+     * @param name Name of the starting element
+     * @param componentForElement The UIComponent instance that applies to this element. This argument may be <code>null</code>.
+     * @throws IOException if an input/output error occurs
+     * @throws NullPointerException if <code>name</code> is <code>null</code>
      */
     public void startElement(String name, UIComponent componentForElement)
-        throws IOException {
+        throws IOException
+    {
         if (name == null) {
             throw new NullPointerException("name");
         }
         closeStartIfNecessary();
         char firstChar = name.charAt(0);
-        if ((firstChar == 's') ||
-            (firstChar == 'S')) {
-            if ("script".equalsIgnoreCase(name) ||
-                "style".equalsIgnoreCase(name)) {
+        if (
+            (firstChar == 's') ||
+                (firstChar == 'S')
+        ) {
+            if (
+                "script".equalsIgnoreCase(name) ||
+                    "style".equalsIgnoreCase(name)
+            ) {
                 dontEscape = true;
             }
         }
-        
-        
-        //PENDING (horwat) using String as a result of Tomcat char writer
-        //         ArrayIndexOutOfBoundsException (3584)
+
+        // PENDING (horwat) using String as a result of Tomcat char writer
+        // ArrayIndexOutOfBoundsException (3584)
         writer.write("<");
         writer.write(name);
         closeStart = true;
     }
 
-
     /**
-     * <p>Write the end of an element. This method will first
-     * close any open element created by a call to
-     * <code>startElement()</code>.
+     * <p>
+     * Write the end of an element. This method will first close any open element created by a call to <code>startElement()</code>.
      *
      * @param name Name of the element to be ended
-     * @throws IOException          if an input/output error occurs
-     * @throws NullPointerException if <code>name</code>
-     *                              is <code>null</code>
+     * @throws IOException if an input/output error occurs
+     * @throws NullPointerException if <code>name</code> is <code>null</code>
      */
     public void endElement(String name) throws IOException {
         if (name == null) {
@@ -219,32 +209,27 @@ public class Spec1296ResponseFilter extends ResponseWriter {
 
         writer.write("</");
         writer.write(name);
-        //PENDING (horwat) using String as a result of Tomcat char writer
-        //         ArrayIndexOutOfBoundsException (3584)
+        // PENDING (horwat) using String as a result of Tomcat char writer
+        // ArrayIndexOutOfBoundsException (3584)
         writer.write(">");
     }
 
-
     /**
-     * <p>Write a properly escaped attribute name and the corresponding
-     * value.  The value text will be converted to a String if
-     * necessary.  This method may only be called after a call to
-     * <code>startElement()</code>, and before the opened element has been
-     * closed.</p>
+     * <p>
+     * Write a properly escaped attribute name and the corresponding value. The value text will be converted to a String if necessary. This method may only be
+     * called after a call to <code>startElement()</code>, and before the opened element has been closed.
+     * </p>
      *
-     * @param name                  Attribute name to be added
-     * @param value                 Attribute value to be added
-     * @param componentPropertyName The name of the component property to
-     *                              which this attribute argument applies.  This argument may be
-     *                              <code>null</code>.
-     * @throws IllegalStateException if this method is called when there
-     *                               is no currently open element
-     * @throws IOException           if an input/output error occurs
-     * @throws NullPointerException  if <code>name</code> or
-     *                               <code>value</code> is <code>null</code>
+     * @param name Attribute name to be added
+     * @param value Attribute value to be added
+     * @param componentPropertyName The name of the component property to which this attribute argument applies. This argument may be <code>null</code>.
+     * @throws IllegalStateException if this method is called when there is no currently open element
+     * @throws IOException if an input/output error occurs
+     * @throws NullPointerException if <code>name</code> or <code>value</code> is <code>null</code>
      */
     public void writeAttribute(String name, Object value, String componentPropertyName)
-        throws IOException {
+        throws IOException
+    {
         if (name == null) {
             throw new NullPointerException("name");
         }
@@ -257,49 +242,48 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         // Output Boolean values specially
         if (valueClass == Boolean.class) {
             if (Boolean.TRUE.equals(value)) {
-                //PENDING (horwat) using String as a result of
-                //Tomcat char writer ArrayIndexOutOfBoundsException (3584)
+                // PENDING (horwat) using String as a result of
+                // Tomcat char writer ArrayIndexOutOfBoundsException (3584)
                 writer.write(" ");
                 writer.write(name);
-            } else {
+            }
+            else {
                 // Don't write anything for "false" booleans
             }
-        } else {
+        }
+        else {
             writer.write(" ");
             writer.write(name);
             writer.write("=\"");
-            
+
             // write the attribute value
             ensureTextBufferCapacity(value.toString());
             Spec1296HtmlUtils.writeAttribute(writer, true, true, buffer, value.toString(), textBuffer, true, false);
-            //PENDING (horwat) using String as a result of Tomcat char
-            //        writer ArrayIndexOutOfBoundsException (3584)
+            // PENDING (horwat) using String as a result of Tomcat char
+            // writer ArrayIndexOutOfBoundsException (3584)
             writer.write("\"");
         }
     }
 
-
     /**
-     * <p>Write a properly encoded URI attribute name and the corresponding
-     * value. The value text will be converted to a String if necessary).
-     * This method may only be called after a call to
-     * <code>startElement()</code>, and before the opened element has been
-     * closed.</p>
+     * <p>
+     * Write a properly encoded URI attribute name and the corresponding value. The value text will be converted to a String if necessary). This method may only
+     * be called after a call to <code>startElement()</code>, and before the opened element has been closed.
+     * </p>
      *
-     * @param name                  Attribute name to be added
-     * @param value                 Attribute value to be added
-     * @param componentPropertyName The name of the component property to
-     *                              which this attribute argument applies.  This argument may be
-     *                              <code>null</code>.
-     * @throws IllegalStateException if this method is called when there
-     *                               is no currently open element
-     * @throws IOException           if an input/output error occurs
-     * @throws NullPointerException  if <code>name</code> or
-     *                               <code>value</code> is <code>null</code>
+     * @param name Attribute name to be added
+     * @param value Attribute value to be added
+     * @param componentPropertyName The name of the component property to which this attribute argument applies. This argument may be <code>null</code>.
+     * @throws IllegalStateException if this method is called when there is no currently open element
+     * @throws IOException if an input/output error occurs
+     * @throws NullPointerException if <code>name</code> or <code>value</code> is <code>null</code>
      */
-    public void writeURIAttribute(String name, Object value,
-                                  String componentPropertyName)
-        throws IOException {
+    public void writeURIAttribute(
+        String name, Object value,
+        String componentPropertyName
+    )
+        throws IOException
+    {
         if (name == null) {
             throw new NullPointerException("name");
         }
@@ -307,8 +291,8 @@ public class Spec1296ResponseFilter extends ResponseWriter {
             throw new NullPointerException("value");
         }
 
-        //PENDING (horwat) using String as a result of Tomcat char writer
-        //         ArrayIndexOutOfBoundsException (3584)
+        // PENDING (horwat) using String as a result of Tomcat char writer
+        // ArrayIndexOutOfBoundsException (3584)
         writer.write(" ");
         writer.write(name);
         writer.write("=\"");
@@ -318,27 +302,25 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         // Javascript URLs should not be URL-encoded
         if (stringValue.startsWith("javascript:")) {
             Spec1296HtmlUtils.writeAttribute(writer, true, true, buffer, stringValue, textBuffer, true, false);
-        } else {
+        }
+        else {
             Spec1296HtmlUtils.writeURL(writer, stringValue, textBuffer, encoding);
         }
-        
-        //PENDING (horwat) using String as a result of Tomcat char writer
-        //         ArrayIndexOutOfBoundsException (3584)
+
+        // PENDING (horwat) using String as a result of Tomcat char writer
+        // ArrayIndexOutOfBoundsException (3584)
         writer.write("\"");
     }
 
-
     /**
-     * <p>Write a comment string containing the specified text.
-     * The text will be converted to a String if necessary.
-     * If there is an open element that has been created by a call
-     * to <code>startElement()</code>, that element will be closed
-     * first.</p>
+     * <p>
+     * Write a comment string containing the specified text. The text will be converted to a String if necessary. If there is an open element that has been
+     * created by a call to <code>startElement()</code>, that element will be closed first.
+     * </p>
      *
      * @param comment Text content of the comment
-     * @throws IOException          if an input/output error occurs
-     * @throws NullPointerException if <code>comment</code>
-     *                              is <code>null</code>
+     * @throws IOException if an input/output error occurs
+     * @throws NullPointerException if <code>comment</code> is <code>null</code>
      */
     public void writeComment(Object comment) throws IOException {
         if (comment == null) {
@@ -350,42 +332,42 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         writer.write(" -->");
     }
 
-
     /**
-     * <p>Write a properly escaped object. The object will be converted
-     * to a String if necessary.  If there is an open element
-     * that has been created by a call to <code>startElement()</code>,
-     * that element will be closed first.</p>
+     * <p>
+     * Write a properly escaped object. The object will be converted to a String if necessary. If there is an open element that has been created by a call to
+     * <code>startElement()</code>, that element will be closed first.
+     * </p>
      *
-     * @param text                  Text to be written
-     * @param componentPropertyName The name of the component property to
-     *                              which this text argument applies.  This argument may be <code>null</code>.
-     * @throws IOException          if an input/output error occurs
-     * @throws NullPointerException if <code>text</code>
-     *                              is <code>null</code>
+     * @param text Text to be written
+     * @param componentPropertyName The name of the component property to which this text argument applies. This argument may be <code>null</code>.
+     * @throws IOException if an input/output error occurs
+     * @throws NullPointerException if <code>text</code> is <code>null</code>
      */
     public void writeText(Object text, String componentPropertyName)
-        throws IOException {
+        throws IOException
+    {
         if (text == null) {
             throw new NullPointerException("text");
         }
         closeStartIfNecessary();
         if (dontEscape) {
             writer.write(text.toString());
-        } else {
+        }
+        else {
             ensureTextBufferCapacity(text.toString());
             Spec1296HtmlUtils.writeText(writer, true, true, buffer, text.toString(), textBuffer, false);
         }
     }
 
-
     /**
-     * <p>Write a properly escaped single character, If there
-     * is an open element that has been created by a call to
-     * <code>startElement()</code>, that element will be closed first.</p>
+     * <p>
+     * Write a properly escaped single character, If there is an open element that has been created by a call to <code>startElement()</code>, that element will
+     * be closed first.
+     * </p>
      * <p/>
-     * <p>All angle bracket occurrences in the argument must be escaped
-     * using the &amp;gt; &amp;lt; syntax.</p>
+     * <p>
+     * All angle bracket occurrences in the argument must be escaped using the &amp;gt; &amp;lt; syntax.
+     * </p>
      *
      * @param text Text to be written
      * @throws IOException if an input/output error occurs
@@ -394,28 +376,27 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         closeStartIfNecessary();
         if (dontEscape) {
             writer.write(text);
-        } else {
+        }
+        else {
             charHolder[0] = text;
             Spec1296HtmlUtils.writeText(writer, true, true, buffer, charHolder, false);
         }
     }
 
-
     /**
-     * <p>Write properly escaped text from a character array.
-     * The output from this command is identical to the invocation:
-     * <code>writeText(c, 0, c.length)</code>.
-     * If there is an open element that has been created by a call to
-     * <code>startElement()</code>, that element will be closed first.</p>
+     * <p>
+     * Write properly escaped text from a character array. The output from this command is identical to the invocation: <code>writeText(c, 0, c.length)</code>.
+     * If there is an open element that has been created by a call to <code>startElement()</code>, that element will be closed first.
+     * </p>
      * </p>
      * <p/>
-     * <p>All angle bracket occurrences in the argument must be escaped
-     * using the &amp;gt; &amp;lt; syntax.</p>
+     * <p>
+     * All angle bracket occurrences in the argument must be escaped using the &amp;gt; &amp;lt; syntax.
+     * </p>
      *
      * @param text Text to be written
-     * @throws IOException          if an input/output error occurs
-     * @throws NullPointerException if <code>text</code>
-     *                              is <code>null</code>
+     * @throws IOException if an input/output error occurs
+     * @throws NullPointerException if <code>text</code> is <code>null</code>
      */
     public void writeText(char text[]) throws IOException {
         if (text == null) {
@@ -424,32 +405,32 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         closeStartIfNecessary();
         if (dontEscape) {
             writer.write(text);
-        } else {
+        }
+        else {
             Spec1296HtmlUtils.writeText(writer, true, true, buffer, text, false);
         }
     }
 
-
     /**
-     * <p>Write properly escaped text from a character array.
-     * If there is an open element that has been created by a call
-     * to <code>startElement()</code>, that element will be closed
-     * first.</p>
+     * <p>
+     * Write properly escaped text from a character array. If there is an open element that has been created by a call to <code>startElement()</code>, that
+     * element will be closed first.
+     * </p>
      * <p/>
-     * <p>All angle bracket occurrences in the argument must be escaped
-     * using the &amp;gt; &amp;lt; syntax.</p>
+     * <p>
+     * All angle bracket occurrences in the argument must be escaped using the &amp;gt; &amp;lt; syntax.
+     * </p>
      *
      * @param text Text to be written
-     * @param off  Starting offset (zero-relative)
-     * @param len  Number of characters to be written
-     * @throws IndexOutOfBoundsException if the calculated starting or
-     *                                   ending position is outside the bounds of the character array
-     * @throws IOException               if an input/output error occurs
-     * @throws NullPointerException      if <code>text</code>
-     *                                   is <code>null</code>
+     * @param off Starting offset (zero-relative)
+     * @param len Number of characters to be written
+     * @throws IndexOutOfBoundsException if the calculated starting or ending position is outside the bounds of the character array
+     * @throws IOException if an input/output error occurs
+     * @throws NullPointerException if <code>text</code> is <code>null</code>
      */
     public void writeText(char text[], int off, int len)
-        throws IOException {
+        throws IOException
+    {
         if (text == null) {
             throw new NullPointerException("text");
         }
@@ -459,13 +440,14 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         closeStartIfNecessary();
         if (dontEscape) {
             writer.write(text, off, len);
-        } else {
+        }
+        else {
             Spec1296HtmlUtils.writeText(writer, true, true, buffer, text, off, len, false);
         }
     }
 
     /**
-     * Starts a CDATA block.  Nested blocks are not allowed.
+     * Starts a CDATA block. Nested blocks are not allowed.
      *
      * @throws IOException on a read/write error
      * @throws IllegalStateException If startCDATA is called a second time before endCDATA.
@@ -474,7 +456,7 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         if (writingCdata) {
             throw new IllegalStateException("CDATA tags may not nest");
         }
-        closeStartIfNecessary();        
+        closeStartIfNecessary();
         writingCdata = true;
         writer.write("<![CDATA[");
         closeStart = false;
@@ -492,36 +474,35 @@ public class Spec1296ResponseFilter extends ResponseWriter {
     }
 
     /**
-     * <p>Create a new instance of this <code>ResponseWriter</code> using
-     * a different <code>Writer</code>.
+     * <p>
+     * Create a new instance of this <code>ResponseWriter</code> using a different <code>Writer</code>.
      *
-     * @param writer The <code>Writer</code> that will be used to create
-     *               another <code>ResponseWriter</code>.
+     * @param writer The <code>Writer</code> that will be used to create another <code>ResponseWriter</code>.
      */
     public ResponseWriter cloneWithWriter(Writer writer) {
         try {
-            return new Spec1296ResponseFilter(writer, getContentType(),
-                                          getCharacterEncoding());
-        } catch (FacesException e) {
+            return new Spec1296ResponseFilter(
+                writer, getContentType(),
+                getCharacterEncoding()
+            );
+        }
+        catch (FacesException e) {
             // This should never happen
             throw new IllegalStateException();
         }
     }
 
-
     /**
-     * This method automatically closes a previous element (if not
-     * already closed).
+     * This method automatically closes a previous element (if not already closed).
      */
     private void closeStartIfNecessary() throws IOException {
         if (closeStart) {
-            //PENDING (horwat) using String as a result of Tomcat char 
-            //         writer ArrayIndexOutOfBoundsException (3584)
+            // PENDING (horwat) using String as a result of Tomcat char
+            // writer ArrayIndexOutOfBoundsException (3584)
             writer.write(">");
             closeStart = false;
         }
     }
-
 
     /**
      * Methods From <code>java.io.Writer</code>
@@ -532,30 +513,25 @@ public class Spec1296ResponseFilter extends ResponseWriter {
         writer.close();
     }
 
-
     public void write(char cbuf) throws IOException {
         closeStartIfNecessary();
         writer.write(cbuf);
     }
-
 
     public void write(char[] cbuf, int off, int len) throws IOException {
         closeStartIfNecessary();
         writer.write(cbuf, off, len);
     }
 
-
     public void write(int c) throws IOException {
         closeStartIfNecessary();
         writer.write(c);
     }
 
-
     public void write(String str) throws IOException {
         closeStartIfNecessary();
         writer.write(str);
     }
-
 
     public void write(String str, int off, int len) throws IOException {
         closeStartIfNecessary();
@@ -568,4 +544,5 @@ public class Spec1296ResponseFilter extends ResponseWriter {
             textBuffer = new char[len * 2];
         }
     }
+
 }

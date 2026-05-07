@@ -29,30 +29,38 @@ import jakarta.servlet.http.HttpServletResponse;
 public abstract class BaseBehaviorTestServlet extends ClientBehaviorBaseTestServlet {
 
     public void behaviorBroadcastNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "broadcast",
-                new Class<?>[] { BehaviorEvent.class }, new Object[] { null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "broadcast",
+            new Class<?>[] { BehaviorEvent.class }, new Object[] { null }, out
+        );
     }
 
     public void behaviorMICInitialStateTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         BehaviorBase cb = createBehavior();
 
         cb.markInitialState();
         if (!cb.initialStateMarked()) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-                    + "Expected State to be true after BehaviorBase.markInitialState() had been called!");
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected State to be true after BehaviorBase.markInitialState() had been called!"
+            );
             return;
         }
 
         cb.clearInitialState();
         if (cb.initialStateMarked()) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-                    + "Expected State to be false after BehaviorBase.clearInitialState() had been called!");
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected State to be false after BehaviorBase.clearInitialState() had been called!"
+            );
             return;
         }
 
@@ -60,27 +68,33 @@ public abstract class BaseBehaviorTestServlet extends ClientBehaviorBaseTestServ
     }
 
     public void behaviorSITransientTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         BehaviorBase cb = createBehavior();
 
         cb.setTransient(true);
         if (!cb.isTransient()) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "Unexpected value returned from BehaviorBase.isTransient()!"
-                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + cb.isTransient());
+                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: " + cb.isTransient()
+            );
             return;
         }
 
         cb.setTransient(false);
         if (cb.isTransient()) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "Unexpected value returned from BehaviorBase.isTransient()!"
-                    + JSFTestUtil.NL + "Expected: false" + JSFTestUtil.NL + "Received: " + cb.isTransient());
+                    + JSFTestUtil.NL + "Expected: false" + JSFTestUtil.NL + "Received: " + cb.isTransient()
+            );
             return;
         }
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

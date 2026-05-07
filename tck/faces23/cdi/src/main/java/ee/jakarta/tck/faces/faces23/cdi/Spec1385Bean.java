@@ -25,24 +25,24 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Spec1385Bean {
-    
+
     @Inject
     private Flash flash;
-    
+
     @Inject
     private ExternalContext context;
-    
+
     public void preRenderView() {
         if (context.getRequestParameterMap().containsKey("setFlash")) {
             flash.put("foo", "bar");
         }
     }
-    
+
     public String getFlashValue() {
         if (context.getRequestParameterMap().containsKey("getFlash")) {
             return (String) flash.get("foo");
         }
-        
+
         return "";
     }
 

@@ -26,17 +26,20 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlInputSecretTestServlet")
 public final class HtmlInputSecretTestServlet extends UIInputTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "autocomplete", "dir", "lang", "maxlength", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "size", "style", "styleClass", "tabindex", "title", "disabled", "readonly", "redisplay" };
+    private static final String[] attrNames = { "accesskey", "autocomplete", "dir", "lang", "maxlength", "onblur", "onchange", "onclick", "ondblclick",
+        "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "size", "style",
+        "styleClass", "tabindex", "title", "disabled", "readonly", "redisplay" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Secret");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Secret");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlInputSecret();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlInputSecret();
+    }
+
 }

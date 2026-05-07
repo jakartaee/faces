@@ -20,15 +20,16 @@ import jakarta.faces.event.AjaxBehaviorListener;
 
 public class TestAjaxBehaviorListener implements AjaxBehaviorListener {
 
-  private String action = null;
+    private String action = null;
 
-  public String getActionString() {
-    return action;
-  }
+    public String getActionString() {
+        return action;
+    }
 
-  @Override
-  public void processAjaxBehavior(AjaxBehaviorEvent arg0) {
-    action = "success";
-    System.out.println("Processed Action");
-  }
+    @Override
+    public void processAjaxBehavior(AjaxBehaviorEvent arg0) {
+        action = "success";
+        System.out.println("Processed Action");
+    }
+
 }

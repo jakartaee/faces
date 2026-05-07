@@ -29,67 +29,74 @@ import jakarta.faces.event.PhaseListener;
 import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.faces.lifecycle.LifecycleFactory;
 
-@jakarta.inject.Named("orderingBean") @jakarta.enterprise.context.SessionScoped
+@jakarta.inject.Named("orderingBean")
+@jakarta.enterprise.context.SessionScoped
 public class OrderingBean implements Serializable {
 
-  private static final long serialVersionUID = -2562021884483676327L;
+    private static final long serialVersionUID = -2562021884483676327L;
 
-  private String[] suffixes;
+    private String[] suffixes;
 
-  private int total;
+    private int total;
 
-  // Absolute Ordering
-  public boolean isAbsoluteOrderCorrect() {
-    suffixes = new String[] { "B", "C", "A", "D" };
-    total = 4;
+    // Absolute Ordering
+    public boolean isAbsoluteOrderCorrect() {
+        suffixes = new String[] { "B", "C", "A", "D" };
+        total = 4;
 
-    return isOrderCorrect();
-  }
-
-  // Relative Ordering test 1
-  public boolean isRelativeOneOrderCorrect() {
-    suffixes = new String[] { "B", "C", "A" };
-    total = 3;
-
-    return isOrderCorrect();
-  }
-
-  // ---------------------------------------------------------- private methods
-  private boolean isOrderCorrect() {
-
-    LifecycleFactory factory = (LifecycleFactory) FactoryFinder
-        .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-    Lifecycle l = factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-    PhaseListener[] listeners = l.getPhaseListeners();
-    List<PhaseListener> list = new ArrayList<PhaseListener>();
-    for (PhaseListener listener : listeners) {
-      if (listener.getClass().getName()
-          .contains("ee.jakarta.tck.faces.faces20.appconfigresources."
-              + "common.listeners.PhaseListener")) {
-        list.add(listener);
-      }
-    }
-    listeners = list.toArray(new PhaseListener[list.size()]);
-    if (listeners.length != total) {
-      System.out.println("INCORRECT LISTENER COUNT: " + listeners.length);
-
-      for (int i = 0; listeners.length != i; i++) {
-        System.out
-            .println("LISTENER FOUND: " + listeners[i].getClass().getName());
-      }
-      return false;
+        return isOrderCorrect();
     }
 
-    for (int i = 0; i < listeners.length; i++) {
-      if (!listeners[i].getClass().getName().endsWith(suffixes[i])) {
-        System.out.println(
-            "INCORRECT DOCUMENT ORDERING: " + Arrays.toString(listeners));
+    // Relative Ordering test 1
+    public boolean isRelativeOneOrderCorrect() {
+        suffixes = new String[] { "B", "C", "A" };
+        total = 3;
 
-        return false;
-      }
+        return isOrderCorrect();
     }
 
-    return true;
+    // ---------------------------------------------------------- private methods
+    private boolean isOrderCorrect() {
 
-  }
+        LifecycleFactory factory = (LifecycleFactory) FactoryFinder
+            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+        Lifecycle l = factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+        PhaseListener[] listeners = l.getPhaseListeners();
+        List<PhaseListener> list = new ArrayList<PhaseListener>();
+        for (PhaseListener listener : listeners) {
+            if (
+                listener.getClass().getName()
+                    .contains(
+                        "ee.jakarta.tck.faces.faces20.appconfigresources."
+                            + "common.listeners.PhaseListener"
+                    )
+            ) {
+                list.add(listener);
+            }
+        }
+        listeners = list.toArray(new PhaseListener[list.size()]);
+        if (listeners.length != total) {
+            System.out.println("INCORRECT LISTENER COUNT: " + listeners.length);
+
+            for (int i = 0; listeners.length != i; i++) {
+                System.out
+                    .println("LISTENER FOUND: " + listeners[i].getClass().getName());
+            }
+            return false;
+        }
+
+        for (int i = 0; i < listeners.length; i++) {
+            if (!listeners[i].getClass().getName().endsWith(suffixes[i])) {
+                System.out.println(
+                    "INCORRECT DOCUMENT ORDERING: " + Arrays.toString(listeners)
+                );
+
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
 }

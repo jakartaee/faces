@@ -26,89 +26,90 @@ import java.util.Vector;
 @jakarta.enterprise.context.RequestScoped
 public class BandBean {
 
-  private String[] firstNames = { "Geddy", "Alex", "Neil" };
+    private String[] firstNames = { "Geddy", "Alex", "Neil" };
 
-  private List<String> lastNames = new ArrayList<String>();
+    private List<String> lastNames = new ArrayList<String>();
 
-  private Vector<String> albums = new Vector<String>();
+    private Vector<String> albums = new Vector<String>();
 
-  private LinkedList<String> songs = new LinkedList<String>();
+    private LinkedList<String> songs = new LinkedList<String>();
 
-  private HashSet<String> releaseYears = new HashSet<String>();
+    private HashSet<String> releaseYears = new HashSet<String>();
 
-  private TreeSet<String> ratings = new TreeSet<String>();
+    private TreeSet<String> ratings = new TreeSet<String>();
 
-  public BandBean() {
-    this.initialSetup();
-  }
+    public BandBean() {
+        this.initialSetup();
+    }
 
-  private void initialSetup() {
-    lastNames.add("Lee");
-    lastNames.add("Lifeson");
-    lastNames.add("Peart");
+    private void initialSetup() {
+        lastNames.add("Lee");
+        lastNames.add("Lifeson");
+        lastNames.add("Peart");
 
-    albums.add("Exit Stage Left");
-    albums.add("Hemispheres");
-    albums.add("Farewell To Kings");
+        albums.add("Exit Stage Left");
+        albums.add("Hemispheres");
+        albums.add("Farewell To Kings");
 
-    songs.add("Freewill");
-    songs.add("2112");
-    songs.add("Subdivisions");
+        songs.add("Freewill");
+        songs.add("2112");
+        songs.add("Subdivisions");
 
-    releaseYears.add("1971");
-    releaseYears.add("1972");
-    releaseYears.add("1973");
+        releaseYears.add("1971");
+        releaseYears.add("1972");
+        releaseYears.add("1973");
 
-    ratings.add("8");
-    ratings.add("9");
-    ratings.add("10");
-  }
+        ratings.add("8");
+        ratings.add("9");
+        ratings.add("10");
+    }
 
-  public String[] getFirstNames() {
-    return firstNames;
-  }
+    public String[] getFirstNames() {
+        return firstNames;
+    }
 
-  public void setFirstNames(String[] firstNames) {
-    this.firstNames = firstNames;
-  }
+    public void setFirstNames(String[] firstNames) {
+        this.firstNames = firstNames;
+    }
 
-  public List<String> getLastNames() {
-    return lastNames;
-  }
+    public List<String> getLastNames() {
+        return lastNames;
+    }
 
-  public void setLastNames(List<String> lastNames) {
-    this.lastNames = lastNames;
-  }
+    public void setLastNames(List<String> lastNames) {
+        this.lastNames = lastNames;
+    }
 
-  public Vector getAlbums() {
-    return albums;
-  }
+    public Vector getAlbums() {
+        return albums;
+    }
 
-  public void setAlbums(Vector albums) {
-    this.albums = albums;
-  }
+    public void setAlbums(Vector albums) {
+        this.albums = albums;
+    }
 
-  public LinkedList getSongs() {
-    return songs;
-  }
+    public LinkedList getSongs() {
+        return songs;
+    }
 
-  public void setSongs(LinkedList songs) {
-    this.songs = songs;
-  }
+    public void setSongs(LinkedList songs) {
+        this.songs = songs;
+    }
 
-  public HashSet getReleaseYears() {
-    return releaseYears;
-  }
+    public HashSet getReleaseYears() {
+        return releaseYears;
+    }
 
-  public void setReleaseYears(HashSet releaseYears) {
-    this.releaseYears = releaseYears;
-  }
+    public void setReleaseYears(HashSet releaseYears) {
+        this.releaseYears = releaseYears;
+    }
 
-  public TreeSet getRatings() {
-    return ratings;
-  }
+    public TreeSet getRatings() {
+        return ratings;
+    }
 
-  public void setRatings(TreeSet ratings) {
-    this.ratings = ratings;
-  }
+    public void setRatings(TreeSet ratings) {
+        this.ratings = ratings;
+    }
+
 }

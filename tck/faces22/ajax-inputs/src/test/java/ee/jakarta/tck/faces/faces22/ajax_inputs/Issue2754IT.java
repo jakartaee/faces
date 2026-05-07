@@ -30,28 +30,27 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2754IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2754
-   */
-  @Test
-  void updateAttributeNamedChecked() throws Exception {
+     */
+    @Test
+    void updateAttributeNamedChecked() throws Exception {
         WebPage page = getPage("issue2754-1.xhtml");
         WebElement cbox = page.findElement(By.id("form1:foo"));
-      assertEquals(false, cbox.isSelected());
+        assertEquals(false, cbox.isSelected());
         assertTrue(page.containsSource("foo"));
         WebElement button = page.findElement(By.id("form1:button"));
         page.guardAjax(button::click);
         cbox = page.findElement(By.id("form1:foo"));
-      assertEquals(true, cbox.isSelected());
+        assertEquals(true, cbox.isSelected());
     }
 
-  /**
-   * This test verifies that an attribute named 'readonly' can be successfully updated
-   * from a partial response (over Ajax).
-   */
-  @Test
-  void updateAttributeNamedReadonly() throws Exception {
+    /**
+     * This test verifies that an attribute named 'readonly' can be successfully updated from a partial response (over Ajax).
+     */
+    @Test
+    void updateAttributeNamedReadonly() throws Exception {
         WebPage page = getPage("issue2754-2.xhtml");
         WebElement input = page.findElement(By.id("form1:foo"));
         assertTrue(input.isEnabled());

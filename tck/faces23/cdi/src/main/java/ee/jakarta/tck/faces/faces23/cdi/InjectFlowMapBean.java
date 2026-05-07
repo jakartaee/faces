@@ -26,10 +26,11 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class InjectFlowMapBean {
-    
-    @Inject @FlowMap
+
+    @Inject
+    @FlowMap
     private Map<Object, Object> flowMap;
-    
+
     public void initFoo() {
         flowMap.put("foo", "bar");
     }
@@ -37,5 +38,5 @@ public class InjectFlowMapBean {
     public String getFoo() {
         return (String) flowMap.get("foo");
     }
-    
+
 }

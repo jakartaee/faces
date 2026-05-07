@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 package ee.jakarta.tck.faces.faces41.api;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -24,12 +25,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec1263IT extends BaseITNG {
 
-  /**
-   * @see UIRepeat
+    /**
+     * @see UIRepeat
      * @see https://github.com/jakartaee/faces/issues/1263
-   */
-  @Test
-  void uiRepeatRowStatePreserved() {
+     */
+    @Test
+    void uiRepeatRowStatePreserved() {
         WebPage page = getPage("spec1263.xhtml");
         page.findElement(By.id("row:0:cell:0:form:input")).sendKeys("00");
         page.findElement(By.id("row:0:cell:0:form:submit")).click();
@@ -47,4 +48,5 @@ class Spec1263IT extends BaseITNG {
         page.findElement(By.id("row:1:cell:1:form:submit")).click();
         assertEquals("[[00, 01], [10, 11]]", page.findElement(By.id("output")).getText());
     }
+
 }

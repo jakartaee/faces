@@ -26,28 +26,28 @@ import jakarta.inject.Named;
 @RequestScoped
 public class ManagedPropertyBean {
 
-	public Integer getMyInteger1() {
-		return 42;
-	}
-	
-	public Integer getMyInteger2() {
-		return 99;
-	}
-	
-	public Integer getMyInteger3() {
-		return 123;
-	}
-	
+    public Integer getMyInteger1() {
+        return 42;
+    }
+
+    public Integer getMyInteger2() {
+        return 99;
+    }
+
+    public Integer getMyInteger3() {
+        return 123;
+    }
+
     public Map<String, String> getMyStringMap() {
         Map<String, String> map = new HashMap<>();
         map.put("foo", "bar");
         return map;
     }
-    
+
     public Map<Integer, Integer> getMyIntegerMap() {
         Map<Integer, Integer> map = new HashMap<>();
         map.put(9, 10);
         return map;
     }
-	
+
 }

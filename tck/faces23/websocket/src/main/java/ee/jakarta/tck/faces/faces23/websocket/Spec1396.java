@@ -30,18 +30,21 @@ public class Spec1396 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Inject @Push
+    @Inject
+    @Push
     private PushContext push;
 
-    @Inject @Push
+    @Inject
+    @Push
     private PushContext user;
 
-    @Inject @Push
+    @Inject
+    @Push
     private PushContext view;
 
     private String ajaxOutput;
 
-    public void send(){
+    public void send() {
         push.send("pushed!");
 
         user.send("pushed!", "user");

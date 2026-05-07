@@ -32,48 +32,58 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/StateManagementStrategyTestServlet")
 public final class StateManagementStrategyTestServlet extends HttpTCKServlet {
 
-  private static final String FACELETS_VIEWID = "/root.xhtml";
+    private static final String FACELETS_VIEWID = "/root.xhtml";
 
-  /**
-   * <code>init</code> initializes the servlet.
-   *
-   * @param config
-   *          - <code>ServletConfig</code>
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  // ------------------------------------------- Test Methods
-
-  public void stateMgmtStrategyNonNullTest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext context = getFacesContext();
-    StateManagementStrategy statestrategy = this.getStateMgtmStrat(context,
-        FACELETS_VIEWID);
-
-    if (statestrategy == null) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "StateManagementStrategy Must be non-null for Facelet Views!");
-
-    } else {
-      out.println(JSFTestUtil.PASS);
-
+    /**
+     * <code>init</code> initializes the servlet.
+     *
+     * @param config - <code>ServletConfig</code>
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-  }// End stateMgmtStrategyNonNullTest
+    // ------------------------------------------- Test Methods
 
-  // --------------------------------------------- private methods
+    public void stateMgmtStrategyNonNullTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext context = getFacesContext();
+        StateManagementStrategy statestrategy = this.getStateMgtmStrat(
+            context,
+            FACELETS_VIEWID
+        );
 
-  private StateManagementStrategy getStateMgtmStrat(FacesContext context,
-      String viewId) {
+        if (statestrategy == null) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "StateManagementStrategy Must be non-null for Facelet Views!"
+            );
 
-    StateManagementStrategy stmgt = context.getApplication().getViewHandler()
-        .getViewDeclarationLanguage(context, viewId)
-        .getStateManagementStrategy(context, viewId);
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
 
-    return stmgt;
-  }
+        }
+
+    }// End stateMgmtStrategyNonNullTest
+
+    // --------------------------------------------- private methods
+
+    private StateManagementStrategy getStateMgtmStrat(
+        FacesContext context,
+        String viewId
+    )
+    {
+
+        StateManagementStrategy stmgt = context.getApplication().getViewHandler()
+            .getViewDeclarationLanguage(context, viewId)
+            .getStateManagementStrategy(context, viewId);
+
+        return stmgt;
+    }
 
 }

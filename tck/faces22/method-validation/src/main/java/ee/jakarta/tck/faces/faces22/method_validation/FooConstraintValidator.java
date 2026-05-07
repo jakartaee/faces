@@ -20,7 +20,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class FooConstraintValidator implements ConstraintValidator<FooConstraint, String> {
-    
+
     @Override
     public void initialize(FooConstraint a) {
     }
@@ -29,5 +29,5 @@ public class FooConstraintValidator implements ConstraintValidator<FooConstraint
     public boolean isValid(String t, ConstraintValidatorContext cvc) {
         return t != null && "foo".equals(t);
     }
-    
+
 }

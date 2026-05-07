@@ -26,17 +26,19 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlGraphicImageTestServlet")
 public final class HtmlGraphicImageTestServlet extends UIGraphicTestServlet {
 
-  private static final String[] attrNames = { "alt", "dir", "height", "lang", "longdesc", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "title", "usemap", "width", "ismap" };
+    private static final String[] attrNames = { "alt", "dir", "height", "lang", "longdesc", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup",
+        "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "title", "usemap", "width", "ismap" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Image");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Image");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlGraphicImage();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlGraphicImage();
+    }
+
 }

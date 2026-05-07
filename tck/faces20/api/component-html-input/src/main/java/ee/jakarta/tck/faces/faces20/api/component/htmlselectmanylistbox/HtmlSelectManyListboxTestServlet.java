@@ -26,17 +26,20 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlSelectManyListboxTestServlet")
 public final class HtmlSelectManyListboxTestServlet extends UISelectManyTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "size", "style", "styleClass", "tabindex", "title", "disabled", "readonly", "disabledClass", "enabledClass" };
+    private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress",
+        "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "size", "style", "styleClass", "tabindex", "title", "disabled",
+        "readonly", "disabledClass", "enabledClass" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Listbox");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Listbox");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlSelectManyListbox();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlSelectManyListbox();
+    }
+
 }

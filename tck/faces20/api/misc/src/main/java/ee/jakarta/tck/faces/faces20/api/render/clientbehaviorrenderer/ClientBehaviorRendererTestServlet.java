@@ -40,63 +40,71 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ClientBehaviorRendererTestServlet")
 public final class ClientBehaviorRendererTestServlet extends HttpTCKServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws jakarta.servlet.ServletException
-   *           if an error occurs
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws jakarta.servlet.ServletException if an error occurs
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+    }
 
-  public RenderKit getRenderKit() {
-    RenderKitFactory factory = (RenderKitFactory) FactoryFinder
-        .getFactory(FactoryFinder.RENDER_KIT_FACTORY);
+    public RenderKit getRenderKit() {
+        RenderKitFactory factory = (RenderKitFactory) FactoryFinder
+            .getFactory(FactoryFinder.RENDER_KIT_FACTORY);
 
-    return factory.getRenderKit(getFacesContext(),
-        RenderKitFactory.HTML_BASIC_RENDER_KIT);
-  }
+        return factory.getRenderKit(
+            getFacesContext(),
+            RenderKitFactory.HTML_BASIC_RENDER_KIT
+        );
+    }
 
-  // --------------------------------------------------------- Test Methods
+    // --------------------------------------------------------- Test Methods
 
-  public void clientBehaviorRendererDecodeNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
+    public void clientBehaviorRendererDecodeNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
 
-    FacesContext context = getFacesContext();
-    ClientBehavior cb = new AjaxBehavior();
-    UIComponent comp = new UIForm();
-    ClientBehaviorRenderer cbr = new TCKcbr();
+        FacesContext context = getFacesContext();
+        ClientBehavior cb = new AjaxBehavior();
+        UIComponent comp = new UIForm();
+        ClientBehaviorRenderer cbr = new TCKcbr();
 
-    // null FacesContext
-    JSFTestUtil
-        .checkForNPE(
-            cbr, "decode", new Class<?>[] { FacesContext.class,
-                UIComponent.class, ClientBehavior.class },
-            new Object[] { null, comp, cb }, pw);
+        // null FacesContext
+        JSFTestUtil
+            .checkForNPE(
+                cbr, "decode", new Class<?>[] { FacesContext.class,
+                    UIComponent.class, ClientBehavior.class },
+                new Object[] { null, comp, cb }, pw
+            );
 
-    // null UIComponent
-    JSFTestUtil
-        .checkForNPE(
-            cbr, "decode", new Class<?>[] { FacesContext.class,
-                UIComponent.class, ClientBehavior.class },
-            new Object[] { context, null, cb }, pw);
+        // null UIComponent
+        JSFTestUtil
+            .checkForNPE(
+                cbr, "decode", new Class<?>[] { FacesContext.class,
+                    UIComponent.class, ClientBehavior.class },
+                new Object[] { context, null, cb }, pw
+            );
 
-    // null ClientBehavior
-    JSFTestUtil
-        .checkForNPE(cbr, "decode",
-            new Class<?>[] { FacesContext.class, UIComponent.class,
-                ClientBehavior.class },
-            new Object[] { context, comp, null }, pw);
+        // null ClientBehavior
+        JSFTestUtil
+            .checkForNPE(
+                cbr, "decode",
+                new Class<?>[] { FacesContext.class, UIComponent.class,
+                    ClientBehavior.class },
+                new Object[] { context, comp, null }, pw
+            );
 
-  }
+    }
 
-  private class TCKcbr extends ClientBehaviorRenderer {
+    private class TCKcbr extends ClientBehaviorRenderer {
 
-  }
+    }
+
 }

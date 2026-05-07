@@ -34,88 +34,104 @@ import jakarta.servlet.http.HttpServletResponse;
  */
 public abstract class BaseSystemEventTestServlet extends HttpTCKServlet {
 
-  private Application app;
+    private Application app;
 
-  private SystemEvent se = null;
+    private SystemEvent se = null;
 
-  private String eventName = null;
+    private String eventName = null;
 
-  // --------------------------------------------------------- abstract methods
-  /**
-   * <p>
-   * Creates a new {@link SystemEvent} instance.
-   * </p>
-   *
-   * @return a new {@link SystemEvent} instance.
-   */
-  protected abstract SystemEvent createEvent(Object src);
+    // --------------------------------------------------------- abstract methods
+    /**
+     * <p>
+     * Creates a new {@link SystemEvent} instance.
+     * </p>
+     *
+     * @return a new {@link SystemEvent} instance.
+     */
+    protected abstract SystemEvent createEvent(Object src);
 
-  // ---------------------------------------------------------- private methods
-  private void setupEvent() {
-    app = getFacesContext().getApplication();
-    se = createEvent(app);
-    eventName = se.getClass().getName();
-  }
-
-  // ------------------------------------------------------------- test methods
-  public void systemEventIsAppropriateListenerPostiveTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    // make sure the return value is true if SystemEventListener is
-    // passed as a parameter to isAppropriateListener.
-
-    FacesListener testListener = new TestSystemEventListener();
-
-    this.setupEvent();
-
-    if (se.isAppropriateListener(testListener)) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println("Test FAILED. " + eventName + ".isAppropriateListener "
-          + "did not return true when ActionListener was passed in "
-          + "as a parameter");
+    // ---------------------------------------------------------- private methods
+    private void setupEvent() {
+        app = getFacesContext().getApplication();
+        se = createEvent(app);
+        eventName = se.getClass().getName();
     }
-  }
 
-  public void systemEventIsAppropriateListenerNegativeTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    // make sure the return value is false if valuechangeListener is passed
-    // as a parameter to isAppropriateListener.
+    // ------------------------------------------------------------- test methods
+    public void systemEventIsAppropriateListenerPostiveTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        // make sure the return value is true if SystemEventListener is
+        // passed as a parameter to isAppropriateListener.
 
-    FacesListener testListener = new TestValueChangeListener();
+        FacesListener testListener = new TestSystemEventListener();
 
-    this.setupEvent();
+        this.setupEvent();
 
-    if (!(se.isAppropriateListener(testListener))) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println("Test FAILED. " + eventName + ".isAppropriateListener "
-          + "did not return false when ValueChangeListener was "
-          + "passed in as a parameter");
+        if (se.isAppropriateListener(testListener)) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                "Test FAILED. " + eventName + ".isAppropriateListener "
+                    + "did not return true when ActionListener was passed in "
+                    + "as a parameter"
+            );
+        }
     }
-  }
 
-  public void systemEventProcessListenerTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
+    public void systemEventIsAppropriateListenerNegativeTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        // make sure the return value is false if valuechangeListener is passed
+        // as a parameter to isAppropriateListener.
 
-    // make sure the SystemEventListener.processAction() is called from
-    // ActionEvent.processListener.
+        FacesListener testListener = new TestValueChangeListener();
 
-    TestSystemEventListener testListener = new TestSystemEventListener();
+        this.setupEvent();
 
-    this.setupEvent();
-
-    se.processListener(testListener);
-    if ((testListener.getActionString()).equals("success")) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println(JSFTestUtil.FAIL + " ActionEvent.processListener"
-          + " did not invoke processAction on the input listener. ");
+        if (!(se.isAppropriateListener(testListener))) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                "Test FAILED. " + eventName + ".isAppropriateListener "
+                    + "did not return false when ValueChangeListener was "
+                    + "passed in as a parameter"
+            );
+        }
     }
-  }
+
+    public void systemEventProcessListenerTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        // make sure the SystemEventListener.processAction() is called from
+        // ActionEvent.processListener.
+
+        TestSystemEventListener testListener = new TestSystemEventListener();
+
+        this.setupEvent();
+
+        se.processListener(testListener);
+        if ((testListener.getActionString()).equals("success")) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " ActionEvent.processListener"
+                    + " did not invoke processAction on the input listener. "
+            );
+        }
+    }
 
 }// End BaseSystemEventTestServlet

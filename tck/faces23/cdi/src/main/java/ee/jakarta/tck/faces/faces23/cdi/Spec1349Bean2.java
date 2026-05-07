@@ -21,26 +21,27 @@ import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named(value="spec1349Bean2")
+@Named(value = "spec1349Bean2")
 @RequestScoped
 public class Spec1349Bean2 {
 
     @FacesConverter(value = "injectConverter3")
     @Inject
     private InjectConverter3 injectConverter3;
-    
+
     private Long value;
-    
+
     public Long getValue() {
         return value;
     }
-    
+
     public void setValue(Long value) {
         this.value = value;
     }
-    
+
     public String submit() {
         injectConverter3.getAsObject(null, null, null);
         return "";
     }
+
 }

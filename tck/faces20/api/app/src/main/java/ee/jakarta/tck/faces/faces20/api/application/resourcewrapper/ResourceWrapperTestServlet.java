@@ -36,148 +36,171 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ResourceWrapperTestServlet")
 public final class ResourceWrapperTestServlet extends HttpTCKServlet {
 
-  /*
-   * private test values. (These are the expected results!)
-   */
-  private static final String RESOURCE_NAME = "duke-boxer.gif";
+    /*
+     * private test values. (These are the expected results!)
+     */
+    private static final String RESOURCE_NAME = "duke-boxer.gif";
 
-  private static final String LIBRARY_NAME = "images";
+    private static final String LIBRARY_NAME = "images";
 
-  private static final String RESOURCE_PATH_SUFFIX = "/faces/jakarta.faces.resource/" + RESOURCE_NAME;
+    private static final String RESOURCE_PATH_SUFFIX = "/faces/jakarta.faces.resource/" + RESOURCE_NAME;
 
-  private String resourcePath(HttpServletRequest request) {
-    return request.getContextPath() + RESOURCE_PATH_SUFFIX;
-  }
-
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    config.getServletContext();
-  }
-
-  public void destroy() {
-    super.destroy();
-  }
-
-  // ------------------------------------------------------------------- Tests
-  public void resourceWrapperGetInputStreamTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    ResourceWrapper wrapped = new TCKResourceWrapper();
-
-    if (wrapped.getInputStream().read() > 0) {
-      out.println("Test PASSED.");
-
-    } else {
-      out.println("Test FAILED.");
-      out.println("InputSteam Empty");
+    private String resourcePath(HttpServletRequest request) {
+        return request.getContextPath() + RESOURCE_PATH_SUFFIX;
     }
 
-  }
-
-  public void resourceWrapperGetURLTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    ResourceWrapper wrapped = new TCKResourceWrapper();
-
-    int expected = 2947;
-
-    InputStream is = wrapped.getURL().openStream();
-    int result = 0;
-    while (is.read() != -1) {
-      result++;
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        config.getServletContext();
     }
 
-    if (expected == result) {
-      out.println(JSFTestUtil.PASS);
-    } else {
-      out.println("Test FAILED. Unexpected URL Path!");
-      out.println("Expected Resource Size: " + expected + " bits");
-      out.println("Recieved Resource Size: " + result + " bits");
+    public void destroy() {
+        super.destroy();
     }
 
-  }
+    // ------------------------------------------------------------------- Tests
+    public void resourceWrapperGetInputStreamTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceWrapperGetRequestPathTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceWrapper wrapped = new TCKResourceWrapper();
 
-    ResourceWrapper wrapped = new TCKResourceWrapper();
+        if (wrapped.getInputStream().read() > 0) {
+            out.println("Test PASSED.");
 
-    if (resourcePath(request).equals(wrapped.getRequestPath())) {
-      out.println("Test PASSED.");
+        }
+        else {
+            out.println("Test FAILED.");
+            out.println("InputSteam Empty");
+        }
 
-    } else {
-      out.println("Test FAILED. Invalid RequestPath Returned.");
-      out.println("Expected: " + resourcePath(request));
-      out.println("Received: " + wrapped.getRequestPath());
     }
 
-  }
+    public void resourceWrapperGetURLTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceWrapperGetRequestPathLibTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceWrapper wrapped = new TCKResourceWrapper();
 
-    ResourceWrapper wrapped = new TCKResourceLibWrapper();
+        int expected = 2947;
 
-    String expected = resourcePath(request) + "?ln=" + LIBRARY_NAME;
+        InputStream is = wrapped.getURL().openStream();
+        int result = 0;
+        while (is.read() != -1) {
+            result++;
+        }
 
-    if (expected.equals(wrapped.getRequestPath())) {
-      out.println("Test PASSED.");
+        if (expected == result) {
+            out.println(JSFTestUtil.PASS);
+        }
+        else {
+            out.println("Test FAILED. Unexpected URL Path!");
+            out.println("Expected Resource Size: " + expected + " bits");
+            out.println("Recieved Resource Size: " + result + " bits");
+        }
 
-    } else {
-      out.println("Test FAILED. Invalid RequestPath Returned.");
-      out.println("Expected: " + expected);
-      out.println("Received: " + wrapped.getRequestPath());
     }
 
-  }
+    public void resourceWrapperGetRequestPathTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceWrapperGetResponseHeadersTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceWrapper wrapped = new TCKResourceWrapper();
 
-    ResourceWrapper wrapped = new TCKResourceWrapper();
+        if (resourcePath(request).equals(wrapped.getRequestPath())) {
+            out.println("Test PASSED.");
 
-    Map rMap = wrapped.getResponseHeaders();
+        }
+        else {
+            out.println("Test FAILED. Invalid RequestPath Returned.");
+            out.println("Expected: " + resourcePath(request));
+            out.println("Received: " + wrapped.getRequestPath());
+        }
 
-    if (!(rMap == null)) {
-      out.println("Test PASSED.");
-
-    } else {
-      out.println("Test FAILED. Zero Length ResponseHeader Returned.");
     }
-  }
 
-  // ------------------------------------------------------- private classes
-  /*
-   * ResourceWrapped.
-   */
-  private class TCKResourceWrapper extends ResourceWrapper {
+    public void resourceWrapperGetRequestPathLibTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    @Override
-    public Resource getWrapped() {
-      ResourceHandler rh = getFacesContext().getApplication()
-          .getResourceHandler();
+        ResourceWrapper wrapped = new TCKResourceLibWrapper();
 
-      Resource resource = rh.createResource(RESOURCE_NAME);
+        String expected = resourcePath(request) + "?ln=" + LIBRARY_NAME;
 
-      return resource;
+        if (expected.equals(wrapped.getRequestPath())) {
+            out.println("Test PASSED.");
+
+        }
+        else {
+            out.println("Test FAILED. Invalid RequestPath Returned.");
+            out.println("Expected: " + expected);
+            out.println("Received: " + wrapped.getRequestPath());
+        }
+
     }
-  }
 
-  private class TCKResourceLibWrapper extends ResourceWrapper {
+    public void resourceWrapperGetResponseHeadersTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    @Override
-    public Resource getWrapped() {
-      ResourceHandler rh = getFacesContext().getApplication()
-          .getResourceHandler();
+        ResourceWrapper wrapped = new TCKResourceWrapper();
 
-      Resource resource = rh.createResource(RESOURCE_NAME, LIBRARY_NAME);
+        Map rMap = wrapped.getResponseHeaders();
 
-      return resource;
+        if (!(rMap == null)) {
+            out.println("Test PASSED.");
+
+        }
+        else {
+            out.println("Test FAILED. Zero Length ResponseHeader Returned.");
+        }
     }
-  }
+
+    // ------------------------------------------------------- private classes
+    /*
+     * ResourceWrapped.
+     */
+    private class TCKResourceWrapper extends ResourceWrapper {
+
+        @Override
+        public Resource getWrapped() {
+            ResourceHandler rh = getFacesContext().getApplication()
+                .getResourceHandler();
+
+            Resource resource = rh.createResource(RESOURCE_NAME);
+
+            return resource;
+        }
+
+    }
+
+    private class TCKResourceLibWrapper extends ResourceWrapper {
+
+        @Override
+        public Resource getWrapped() {
+            ResourceHandler rh = getFacesContext().getApplication()
+                .getResourceHandler();
+
+            Resource resource = rh.createResource(RESOURCE_NAME, LIBRARY_NAME);
+
+            return resource;
+        }
+
+    }
+
 }

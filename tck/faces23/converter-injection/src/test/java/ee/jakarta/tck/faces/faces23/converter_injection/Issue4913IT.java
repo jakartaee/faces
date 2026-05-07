@@ -30,27 +30,30 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue4913IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see ResourceDependency
      * @see FacesConverter#managed()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4913
-   */
-  @Test
-  void test() throws Exception {
+     */
+    @Test
+    void test() throws Exception {
         WebPage page = getPage("issue4913.xhtml");
         validateMarkup(page);
 
-        // Refresh page 
+        // Refresh page
         page = getPage("issue4913.xhtml");
         validateMarkup(page);
     }
-    
+
     private static void validateMarkup(WebPage page) {
         WebElement issue4913Converter = page.findElement(By.id("issue4913Converter"));
         assertEquals("value is successfully converted in a managed converter", issue4913Converter.getText(), "Converter is invoked");
 
         WebElement issue4913ResourceDependency = page.findElement(By.id("issue4913ResourceDependency"));
-        assertEquals("resource dependency is successfully injected via a managed converter", issue4913ResourceDependency.getText(), "Resource dependency is injected");
+        assertEquals(
+            "resource dependency is successfully injected via a managed converter", issue4913ResourceDependency.getText(), "Resource dependency is injected"
+        );
     }
+
 }

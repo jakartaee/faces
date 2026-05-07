@@ -62,13 +62,14 @@ public class MaintainCustomerBean implements Serializable {
     public void initializeFlow() {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, Object> requestMap = context.getExternalContext()
-                .getRequestMap();
+            .getRequestMap();
         requestMap.put("initializerMessage", "Initializer called");
     }
 
     public void cleanUpFlow() {
         Map<String, Object> requestMap = FacesContext.getCurrentInstance()
-                .getExternalContext().getRequestMap();
+            .getExternalContext().getRequestMap();
         requestMap.put("finalizerMessage", "Finalizer called");
     }
+
 }

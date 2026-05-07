@@ -1,5 +1,4 @@
 <?xml version="1.0" ?>
-<!DOCTYPE spec SYSTEM "https://raw.githubusercontent.com/eclipse-ee4j/jakartaee-tck/master/internal/docs/dtd/spec_assertions.dtd">
 <!--
 
     Copyright (c) 2018, 2020 Oracle and/or its affiliates. All rights reserved.
@@ -17,6 +16,7 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
+<!DOCTYPE spec SYSTEM "https://raw.githubusercontent.com/eclipse-ee4j/jakartaee-tck/master/internal/docs/dtd/spec_assertions.dtd">
 
 <?xml-stylesheet href='https://raw.githubusercontent.com/eclipse-ee4j/jakartaee-tck/master/internal/docs/xsl/spec_assertions.xsl'?>
 		<assertion required="true" impl-spec="false" defined-by="technology" status="active" testable="false">

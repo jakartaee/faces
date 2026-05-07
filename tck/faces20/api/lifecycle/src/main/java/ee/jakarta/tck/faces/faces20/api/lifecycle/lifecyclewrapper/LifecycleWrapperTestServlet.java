@@ -37,200 +37,232 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/LifecycleWrapperTestServlet")
 public final class LifecycleWrapperTestServlet extends HttpTCKServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws jakarta.servlet.ServletException
-   *           if an error occurs
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  // ------------------------------------------------------- Test Methods
-
-  public void lifecycleWpprAddGetRemovePhaseListenersTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    TCKPhaseListener listener = new TCKPhaseListener("id", PhaseId.ANY_PHASE);
-
-    Lifecycle lifecycle = new TCKLifecycleWrapper().getWrapped();
-
-    // clear the listeners out
-    PhaseListener[] listeners = lifecycle.getPhaseListeners();
-    for (int i = 0; i < listeners.length; i++) {
-      lifecycle.removePhaseListener(listeners[i]);
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws jakarta.servlet.ServletException if an error occurs
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-    lifecycle.addPhaseListener(listener);
+    // ------------------------------------------------------- Test Methods
 
-    listeners = lifecycle.getPhaseListeners();
-    if (listeners.length != 1) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected the number of listeners returned "
-          + "by getPhaseListeners() to be 1. " + JSFTestUtil.NL
-          + "Number received: " + listeners.length);
-      return;
+    public void lifecycleWpprAddGetRemovePhaseListenersTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        TCKPhaseListener listener = new TCKPhaseListener("id", PhaseId.ANY_PHASE);
+
+        Lifecycle lifecycle = new TCKLifecycleWrapper().getWrapped();
+
+        // clear the listeners out
+        PhaseListener[] listeners = lifecycle.getPhaseListeners();
+        for (int i = 0; i < listeners.length; i++) {
+            lifecycle.removePhaseListener(listeners[i]);
+        }
+
+        lifecycle.addPhaseListener(listener);
+
+        listeners = lifecycle.getPhaseListeners();
+        if (listeners.length != 1) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected the number of listeners returned "
+                    + "by getPhaseListeners() to be 1. " + JSFTestUtil.NL
+                    + "Number received: " + listeners.length
+            );
+            return;
+        }
+
+        lifecycle
+            .removePhaseListener(new TCKPhaseListener("id1", PhaseId.ANY_PHASE));
+
+        listeners = lifecycle.getPhaseListeners();
+        if (listeners.length != 1) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected the number of listeners "
+                    + "returned by getPhaseListeners() to be 1." + JSFTestUtil.NL
+                    + "Number received: " + listeners.length
+            );
+            return;
+        }
+
+        lifecycle.removePhaseListener(listener);
+
+        listeners = lifecycle.getPhaseListeners();
+        if (listeners.length != 0) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected the number of listeners returned "
+                    + "by getPhaseListeners() to be 0. " + JSFTestUtil.NL
+                    + "Number received: " + listeners.length
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    lifecycle
-        .removePhaseListener(new TCKPhaseListener("id1", PhaseId.ANY_PHASE));
+    public void lifecycleWpprAddPhaseListenerNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Lifecycle lifecycle = new TCKLifecycleWrapper().getWrapped();
 
-    listeners = lifecycle.getPhaseListeners();
-    if (listeners.length != 1) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected the number of listeners "
-          + "returned by getPhaseListeners() to be 1." + JSFTestUtil.NL
-          + "Number received: " + listeners.length);
-      return;
+        try {
+            lifecycle.addPhaseListener(null);
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "No exception thrown when attemtping to "
+                    + "add a null PhaseListener to the current Lifecycle."
+            );
+            return;
+
+        }
+        catch (NullPointerException npe) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Wrong Exception thrown when attempting to "
+                    + "add a null PhaseListener to the current Lifecycle. "
+                    + JSFTestUtil.NL + "Expected: NullPointerException." + JSFTestUtil.NL
+                    + "Received: " + e.getClass().getName()
+            );
+        }
+
     }
 
-    lifecycle.removePhaseListener(listener);
+    public void lifecycleWpprRemovePhaseListenerNPETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Lifecycle lifecycle = new TCKLifecycleWrapper().getWrapped();
 
-    listeners = lifecycle.getPhaseListeners();
-    if (listeners.length != 0) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected the number of listeners returned "
-          + "by getPhaseListeners() to be 0. " + JSFTestUtil.NL
-          + "Number received: " + listeners.length);
-      return;
+        try {
+            lifecycle.removePhaseListener(null);
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "No exception thrown when attemtping to "
+                    + "provide a null argument to remove a PhaseListener."
+            );
+            return;
+        }
+        catch (Exception e) {
+            if (!(e instanceof NullPointerException)) {
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL
+                        + "Exception thrown when attempting to "
+                        + "provide a null argument to remove a PhaseListener "
+                        + "from the the current Lifecycle, but it wasn't an "
+                        + "instance of NullPointerException." + JSFTestUtil.NL
+                        + "Exception received: " + e.getClass().getName()
+                );
+                return;
+            }
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void lifecycleWpprRenderNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Lifecycle lifecycle = new TCKLifecycleWrapper().getWrapped();
 
-  public void lifecycleWpprAddPhaseListenerNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Lifecycle lifecycle = new TCKLifecycleWrapper().getWrapped();
+        try {
+            lifecycle.render(null);
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "No exception thrown when attemtping to "
+                    + "render while passing in a null for FacesContext."
+            );
+            return;
 
-    try {
-      lifecycle.addPhaseListener(null);
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "No exception thrown when attemtping to "
-          + "add a null PhaseListener to the current Lifecycle.");
-      return;
+        }
+        catch (NullPointerException npe) {
+            out.println(JSFTestUtil.PASS);
 
-    } catch (NullPointerException npe) {
-      out.println(JSFTestUtil.PASS);
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Wrong Exception thrown when attempting to "
+                    + "render while passing in a null for FacesContext. " + JSFTestUtil.NL
+                    + "Expected: NullPointerException." + JSFTestUtil.NL + "Received: "
+                    + e.getClass().getName()
+            );
+        }
 
-    } catch (Exception e) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Wrong Exception thrown when attempting to "
-          + "add a null PhaseListener to the current Lifecycle. "
-          + JSFTestUtil.NL + "Expected: NullPointerException." + JSFTestUtil.NL
-          + "Received: " + e.getClass().getName());
+    }
+    // --------------------------------------------------------- Private Classes
+
+    private static class TCKPhaseListener implements PhaseListener {
+
+        private String id;
+
+        private PhaseId phaseId;
+
+        private StringBuffer log;
+
+        private TCKPhaseListener() {
+        }
+
+        public TCKPhaseListener(String id, PhaseId phaseId) {
+            this.id = id;
+            this.phaseId = phaseId;
+            log = new StringBuffer();
+        }
+
+        public void afterPhase(PhaseEvent event) {
+            log.append("/A" + id + '@' + JSFTestUtil.getPhaseIdAsString(phaseId));
+        }
+
+        public void beforePhase(PhaseEvent event) {
+            log.append("/B" + id + '@' + JSFTestUtil.getPhaseIdAsString(phaseId));
+        }
+
+        public PhaseId getPhaseId() {
+            return phaseId;
+        }
+
+        public String getTrace() {
+            return log.toString();
+        }
+
+        public void resetTrace() {
+            log = new StringBuffer();
+        }
+
     }
 
-  }
+    private static class TCKLifecycleWrapper extends LifecycleWrapper {
 
-  public void lifecycleWpprRemovePhaseListenerNPETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Lifecycle lifecycle = new TCKLifecycleWrapper().getWrapped();
+        @Override
+        public Lifecycle getWrapped() {
+            LifecycleFactory factory = (LifecycleFactory) FactoryFinder
+                .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
 
-    try {
-      lifecycle.removePhaseListener(null);
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "No exception thrown when attemtping to "
-          + "provide a null argument to remove a PhaseListener.");
-      return;
-    } catch (Exception e) {
-      if (!(e instanceof NullPointerException)) {
-        out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-            + "Exception thrown when attempting to "
-            + "provide a null argument to remove a PhaseListener "
-            + "from the the current Lifecycle, but it wasn't an "
-            + "instance of NullPointerException." + JSFTestUtil.NL
-            + "Exception received: " + e.getClass().getName());
-        return;
-      }
+            return factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+        }
+
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
-
-  public void lifecycleWpprRenderNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Lifecycle lifecycle = new TCKLifecycleWrapper().getWrapped();
-
-    try {
-      lifecycle.render(null);
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "No exception thrown when attemtping to "
-          + "render while passing in a null for FacesContext.");
-      return;
-
-    } catch (NullPointerException npe) {
-      out.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Wrong Exception thrown when attempting to "
-          + "render while passing in a null for FacesContext. " + JSFTestUtil.NL
-          + "Expected: NullPointerException." + JSFTestUtil.NL + "Received: "
-          + e.getClass().getName());
-    }
-
-  }
-  // --------------------------------------------------------- Private Classes
-
-  private static class TCKPhaseListener implements PhaseListener {
-
-    private String id;
-
-    private PhaseId phaseId;
-
-    private StringBuffer log;
-
-    private TCKPhaseListener() {
-    }
-
-    public TCKPhaseListener(String id, PhaseId phaseId) {
-      this.id = id;
-      this.phaseId = phaseId;
-      log = new StringBuffer();
-    }
-
-    public void afterPhase(PhaseEvent event) {
-      log.append("/A" + id + '@' + JSFTestUtil.getPhaseIdAsString(phaseId));
-    }
-
-    public void beforePhase(PhaseEvent event) {
-      log.append("/B" + id + '@' + JSFTestUtil.getPhaseIdAsString(phaseId));
-    }
-
-    public PhaseId getPhaseId() {
-      return phaseId;
-    }
-
-    public String getTrace() {
-      return log.toString();
-    }
-
-    public void resetTrace() {
-      log = new StringBuffer();
-    }
-
-  }
-
-  private static class TCKLifecycleWrapper extends LifecycleWrapper {
-
-    @Override
-    public Lifecycle getWrapped() {
-      LifecycleFactory factory = (LifecycleFactory) FactoryFinder
-          .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-
-      return factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-    }
-
-  }
 }

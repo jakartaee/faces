@@ -30,28 +30,29 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2183IT extends BaseITNG {
 
-  /**
-   * @see PartialViewContext
+    /**
+     * @see PartialViewContext
      * @see ExceptionHandler
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2183
-   */
-  @Test
-  void encodeException() throws Exception {
+     */
+    @Test
+    void encodeException() throws Exception {
         WebPage page = getPage("issue2183-page1.xhtml");
         assertTrue(page.containsText("IO EXCEPTION!!!!!"));
     }
 
-  /**
-   * @see PartialViewContext
+    /**
+     * @see PartialViewContext
      * @see ExceptionHandler
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2183
-   */
-  @Test
-  void decodeException() {
+     */
+    @Test
+    void decodeException() {
         WebPage page = getPage("issue2183-page2.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
         page.guardAjax(button::click);
 
         assertTrue(page.containsText("Name: form:submit Error: serverError"));
     }
+
 }

@@ -22,37 +22,39 @@ import jakarta.faces.event.ComponentSystemEvent;
 
 public class CustomOutput extends UIOutput {
 
-  private boolean processEventInvoked;
+    private boolean processEventInvoked;
 
-  private ComponentSystemEvent event;
+    private ComponentSystemEvent event;
 
-  private String myValue = "Default_Test_Value";
+    private String myValue = "Default_Test_Value";
 
-  public void processEvent(ComponentSystemEvent event)
-      throws AbortProcessingException {
-    processEventInvoked = true;
-    this.event = event;
-  }
+    public void processEvent(ComponentSystemEvent event)
+        throws AbortProcessingException
+    {
+        processEventInvoked = true;
+        this.event = event;
+    }
 
-  public void reset() {
-    processEventInvoked = false;
-    event = null;
-  }
+    public void reset() {
+        processEventInvoked = false;
+        event = null;
+    }
 
-  public boolean isProcessEventInvoked() {
-    return processEventInvoked;
-  }
+    public boolean isProcessEventInvoked() {
+        return processEventInvoked;
+    }
 
-  public ComponentSystemEvent getEvent() {
-    return event;
-  }
+    public ComponentSystemEvent getEvent() {
+        return event;
+    }
 
-  @Override
-  public String getValue() {
-    return myValue;
-  }
+    @Override
+    public String getValue() {
+        return myValue;
+    }
 
-  public void setValue(Object s) {
-    myValue = s.toString();
-  }
+    public void setValue(Object s) {
+        myValue = s.toString();
+    }
+
 }

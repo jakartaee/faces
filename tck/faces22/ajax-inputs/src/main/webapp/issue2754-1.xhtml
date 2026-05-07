@@ -30,7 +30,7 @@
 <h:body>
     <h:form id="form1">
        <h:selectBooleanCheckbox id="foo" />
-       <h:commandButton id="button" value="checked" action="#{updateBean.updateCheckedAsAttributeName}"> 
+       <h:commandButton id="button" value="checked" action="#{updateBean.updateCheckedAsAttributeName}">
           <f:ajax render="foo"/>
        </h:commandButton>
     </h:form>

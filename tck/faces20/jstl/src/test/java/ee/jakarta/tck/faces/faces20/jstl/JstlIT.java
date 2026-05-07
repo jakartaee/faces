@@ -81,8 +81,10 @@ class JstlIT extends BaseITNG {
 
         // fn:escapeXml turns '><&\'"' into '&gt;&lt;&amp;&#039;&#034;'; h:outputText
         // then re-escapes it for HTML so the browser shows the literal entity text.
-        assertEquals("&gt;&lt;&amp;&#039;&#034;",
-            page.findElement(By.id("case1")).getText(), "case1");
+        assertEquals(
+            "&gt;&lt;&amp;&#039;&#034;",
+            page.findElement(By.id("case1")).getText(), "case1"
+        );
         assertEquals("", page.findElement(By.id("case2")).getText(), "case2");
     }
 
@@ -267,4 +269,5 @@ class JstlIT extends BaseITNG {
             assertTrue(body.contains(item), "Expected body to contain: " + item);
         }
     }
+
 }

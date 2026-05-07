@@ -57,4 +57,5 @@ class OutputstyleIT extends BaseITNG {
         assertTrue(link.getDomAttribute("href").contains(hrefFragment), "link href contains " + hrefFragment);
         assertEquals(STYLESHEET, link.getDomAttribute("rel"), "link rel");
     }
+
 }

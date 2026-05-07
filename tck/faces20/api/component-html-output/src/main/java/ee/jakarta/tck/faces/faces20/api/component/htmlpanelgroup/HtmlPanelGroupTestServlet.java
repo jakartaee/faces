@@ -26,18 +26,19 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlPanelGroupTestServlet")
 public final class HtmlPanelGroupTestServlet extends UIPanelTestServlet {
 
-  private static final String[] attrNames = { "style", "styleClass" };
+    private static final String[] attrNames = { "style", "styleClass" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Group");
-    setRendersChildren(null);
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Group");
+        setRendersChildren(null);
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlPanelGroup();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlPanelGroup();
+    }
+
 }

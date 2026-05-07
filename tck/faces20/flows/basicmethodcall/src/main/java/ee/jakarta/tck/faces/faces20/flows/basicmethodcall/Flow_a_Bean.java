@@ -41,7 +41,10 @@ public class Flow_a_Bean implements Serializable {
 
     public void voidMethod() {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().getRequestMap().put("message",
-                "voidMethod called in flow-a");
+        context.getExternalContext().getRequestMap().put(
+            "message",
+            "voidMethod called in flow-a"
+        );
     }
+
 }

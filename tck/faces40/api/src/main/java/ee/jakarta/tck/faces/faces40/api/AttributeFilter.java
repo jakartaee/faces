@@ -37,12 +37,12 @@ public class AttributeFilter implements Filter {
     public void init(FilterConfig fConfig) throws ServletException {
     }
 
-	@Override
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		request.setAttribute("fooAttribute", "bar");
-		request.getServletContext().setAttribute("barAttribute", "foo");
-	    chain.doFilter(request, response);
-	}
+        request.setAttribute("fooAttribute", "bar");
+        request.getServletContext().setAttribute("barAttribute", "foo");
+        chain.doFilter(request, response);
+    }
 
     @Override
     public void destroy() {

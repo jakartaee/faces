@@ -27,11 +27,12 @@ import jakarta.inject.Inject;
 @FacesValidator(value = "validator.CustomValidator2")
 public class CustomValidator2 implements Validator<String> {
 
-	@Inject
-	private AnnotatedBean annotatedBean;
+    @Inject
+    private AnnotatedBean annotatedBean;
 
-	@Override
-	public void validate(FacesContext context, UIComponent component, String value) throws ValidatorException {
-		context.addMessage(component.getClientId(context), new FacesMessage("CustomValidator2 was validated with injected " + annotatedBean));
-	}
+    @Override
+    public void validate(FacesContext context, UIComponent component, String value) throws ValidatorException {
+        context.addMessage(component.getClientId(context), new FacesMessage("CustomValidator2 was validated with injected " + annotatedBean));
+    }
+
 }

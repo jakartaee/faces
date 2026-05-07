@@ -28,25 +28,28 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/AjaxBehaviorEventTestServlet")
 public final class AjaxBehaviorEventTestServlet extends BaseBehaviorEventTestServlet {
 
-  private static final UICommand uic = new UICommand();
+    private static final UICommand uic = new UICommand();
 
-  private static final Behavior behavior = new AjaxBehavior();
+    private static final Behavior behavior = new AjaxBehavior();
 
-  @Override
-  protected BehaviorEvent createEvent(UIComponent component,
-      Behavior behavior) {
-    return new AjaxBehaviorEvent(component, behavior);
-  }
+    @Override
+    protected BehaviorEvent createEvent(
+        UIComponent component,
+        Behavior behavior
+    )
+    {
+        return new AjaxBehaviorEvent(component, behavior);
+    }
 
-  @Override
-  protected Behavior getTestBehavior() {
-    return behavior;
-  }
+    @Override
+    protected Behavior getTestBehavior() {
+        return behavior;
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
 
-  // ------------------------------------------------------------- test methods
+    // ------------------------------------------------------------- test methods
 }

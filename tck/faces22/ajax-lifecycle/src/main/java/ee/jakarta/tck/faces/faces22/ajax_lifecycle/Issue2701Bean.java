@@ -23,13 +23,14 @@ import jakarta.inject.Named;
 
 @Named
 @ViewScoped
-public class Issue2701Bean implements Serializable{
+public class Issue2701Bean implements Serializable {
 
     public Issue2701Bean() {
 
         if (null == System.getProperty("RESULT")) {
             System.setProperty("RESULT", "VIEWCOPEBEAN() CALLED ");
-        } else {
+        }
+        else {
             String result = System.getProperty("RESULT");
             result += "VIEWSCOPEBEAN() CALLED ";
             System.setProperty("RESULT", result);
@@ -41,14 +42,14 @@ public class Issue2701Bean implements Serializable{
         if (null == System.getProperty("RESULT")) {
             System.setProperty("RESULT", "");
         }
-       
+
         return System.getProperty("RESULT");
     }
 
-    // Reset property to the single constructor load so we can determine if the 
+    // Reset property to the single constructor load so we can determine if the
     // constructor is called more than once.
     public void reset() {
         System.setProperty("RESULT", "VIEWSCOPEBEAN() CALLED ");
     }
-    
+
 }

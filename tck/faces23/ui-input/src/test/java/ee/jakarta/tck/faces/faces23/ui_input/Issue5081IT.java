@@ -32,16 +32,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue5081IT extends BaseITNG {
 
-  /**
-   * @see UISelectMany
+    /**
+     * @see UISelectMany
      * @see AjaxBehavior
      * @see UIInput#EMPTY_STRING_AS_NULL_PARAM_NAME
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5081
-   */
-  @Test
-  void issue4734() throws Exception {
+     */
+    @Test
+    void issue4734() throws Exception {
         WebPage page = getPage("issue5081.xhtml");
-
 
         WebElement input1 = page.findElement(By.id("form:input"));
         page.guardAjax(() -> {
@@ -58,7 +57,8 @@ class Issue5081IT extends BaseITNG {
         WebElement input2 = page.findElement(By.id("form:input"));
         page.guardAjax(() -> {
             input2.sendKeys("more");
-            input2.sendKeys("\t"); // Before the fix, the second blur failed with java.lang.ClassCastException: class java.lang.String cannot be cast to class [Ljava.lang.Object;
+            input2.sendKeys("\t"); // Before the fix, the second blur failed with java.lang.ClassCastException: class java.lang.String cannot be cast to class
+                                   // [Ljava.lang.Object;
         });
         submit = page.findElement(By.id("form:submit"));
         page.guardAjax(submit::click);

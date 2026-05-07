@@ -25,21 +25,23 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/ExceptionQueuedEventTestServlet")
 public final class ExceptionQueuedEventTestServlet extends BaseExceptionQueuedEventTestServlet {
 
-  private FacesContext fcontext;
+    private FacesContext fcontext;
 
-  @Override
-  protected ExceptionQueuedEvent createEvent(ExceptionQueuedEventContext eqec) {
-    return new ExceptionQueuedEvent(eqec);
-  }
+    @Override
+    protected ExceptionQueuedEvent createEvent(ExceptionQueuedEventContext eqec) {
+        return new ExceptionQueuedEvent(eqec);
+    }
 
-  @Override
-  protected ExceptionQueuedEventContext getExceptionQueuedEventContext() {
-    fcontext = getFacesContext();
-    ExceptionQueuedEventContext eqec = new ExceptionQueuedEventContext(fcontext,
-        new IllegalArgumentException());
+    @Override
+    protected ExceptionQueuedEventContext getExceptionQueuedEventContext() {
+        fcontext = getFacesContext();
+        ExceptionQueuedEventContext eqec = new ExceptionQueuedEventContext(
+            fcontext,
+            new IllegalArgumentException()
+        );
 
-    return eqec;
-  }
+        return eqec;
+    }
 
-  // ------------------------------------------------------------- test methods
+    // ------------------------------------------------------------- test methods
 }

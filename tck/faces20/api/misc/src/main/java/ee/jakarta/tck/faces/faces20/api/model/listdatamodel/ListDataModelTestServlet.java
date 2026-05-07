@@ -51,24 +51,29 @@ public class ListDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void listDataModelCtorTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = new ListDataModel(Arrays.asList(new String[] { "string1", "string2" }));
 
         int curRow = model.getRowIndex();
 
         if (curRow != 0) {
-            out.println(JSFTestUtil.FAIL + " Expected getRowIndex() to return 0"
+            out.println(
+                JSFTestUtil.FAIL + " Expected getRowIndex() to return 0"
                     + " when called against DataModel instance created by"
-                    + " passing data to wrap to constructor.");
+                    + " passing data to wrap to constructor."
+            );
             out.println("Row index returned: " + curRow);
             return;
         }
 
         if (!model.isRowAvailable()) {
-            out.println(JSFTestUtil.FAIL + " Expected isRowAvailable() to return"
+            out.println(
+                JSFTestUtil.FAIL + " Expected isRowAvailable() to return"
                     + " true when called against DataModel instance created"
-                    + " by passing data to wrap to constructor.");
+                    + " by passing data to wrap to constructor."
+            );
             return;
         }
 
@@ -76,7 +81,8 @@ public class ListDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelGetSetWrappedDataTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
@@ -89,8 +95,10 @@ public class ListDataModelTestServlet extends BaseModelTestServlet {
         Object ret = model.getWrappedData();
 
         if (!list.equals(ret)) {
-            out.println(JSFTestUtil.FAIL + " The value returned from getWrappedData()"
-                    + " was not the same as what was set via setWrappedData().");
+            out.println(
+                JSFTestUtil.FAIL + " The value returned from getWrappedData()"
+                    + " was not the same as what was set via setWrappedData()."
+            );
             out.println("Expected: " + list);
             out.println("Received: " + ret);
             return;
@@ -100,20 +108,26 @@ public class ListDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelSetWrappedDataCCETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
         try {
             model.setWrappedData("invalid");
-            out.println(JSFTestUtil.FAIL + " No exception thrown when attempting"
-                    + " to call setWrappedData() with an invalid type.");
+            out.println(
+                JSFTestUtil.FAIL + " No exception thrown when attempting"
+                    + " to call setWrappedData() with an invalid type."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof ClassCastException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when calling"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when calling"
                         + " setWrappedData() with an invalid type, but it wasn't"
-                        + " an instance of ClassCastException.");
+                        + " an instance of ClassCastException."
+                );
                 out.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -121,4 +135,5 @@ public class ListDataModelTestServlet extends BaseModelTestServlet {
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

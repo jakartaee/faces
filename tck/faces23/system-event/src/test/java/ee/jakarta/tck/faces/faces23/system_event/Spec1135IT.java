@@ -48,4 +48,5 @@ public class Spec1135IT extends BaseITNG {
         // Assert that the fragments are rendered in the right order
         assertTrue(prePos < htmlStartPos && htmlStartPos < htmlEndPos && htmlEndPos < postPos);
     }
+
 }

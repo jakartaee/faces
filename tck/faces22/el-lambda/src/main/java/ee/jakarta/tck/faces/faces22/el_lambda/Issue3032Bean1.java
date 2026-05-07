@@ -25,21 +25,22 @@ import jakarta.inject.Named;
 @Named
 @Dependent
 public class Issue3032Bean1 {
-    
+
     public String getValue() {
         String result = "";
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
         @SuppressWarnings("unchecked")
         List<Issue3032Bean2> issue3032Bean2s = context.getApplication().evaluateExpressionGet(
-            context, 
+            context,
             "#{issue3032Bean3.issue3032Bean2s.stream().filter(b->b.category == 'Philosophical Fiction').toList()}",
-            List.class);
-        
+            List.class
+        );
+
         if (!issue3032Bean2s.isEmpty()) {
             result = issue3032Bean2s.get(0).getTitle();
         }
-        
+
         return result;
     }
 

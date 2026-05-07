@@ -51,24 +51,29 @@ public class CollectionDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void collectionDataModelCtorTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = new CollectionDataModel(Arrays.asList(new String[] { "string1", "string2" }));
 
         int curRow = model.getRowIndex();
 
         if (curRow != 0) {
-            out.println(JSFTestUtil.FAIL + "! Expected getRowIndex() to return 0"
+            out.println(
+                JSFTestUtil.FAIL + "! Expected getRowIndex() to return 0"
                     + " when called against DataModel instance created by"
                     + " passing data to wrap to constructor." + JSFTestUtil.NL
-                    + "Row index returned: " + curRow);
+                    + "Row index returned: " + curRow
+            );
             return;
         }
 
         if (!model.isRowAvailable()) {
-            out.println(JSFTestUtil.FAIL + "! Expected isRowAvailable() to return"
+            out.println(
+                JSFTestUtil.FAIL + "! Expected isRowAvailable() to return"
                     + " true when called against DataModel instance created"
-                    + " by passing data to wrap to constructor.");
+                    + " by passing data to wrap to constructor."
+            );
             return;
         }
 
@@ -76,7 +81,8 @@ public class CollectionDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelGetSetWrappedDataTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
@@ -89,10 +95,12 @@ public class CollectionDataModelTestServlet extends BaseModelTestServlet {
         Object ret = model.getWrappedData();
 
         if (!list.equals(ret)) {
-            out.println(JSFTestUtil.FAIL + "! The value returned from getWrappedData()"
+            out.println(
+                JSFTestUtil.FAIL + "! The value returned from getWrappedData()"
                     + " was not the same as what was set via setWrappedData()."
                     + JSFTestUtil.NL + "Expected: " + list + JSFTestUtil.NL
-                    + "Received: " + ret);
+                    + "Received: " + ret
+            );
             return;
         }
 
@@ -100,25 +108,32 @@ public class CollectionDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelSetWrappedDataCCETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
         try {
             model.setWrappedData("invalid");
-            out.println(JSFTestUtil.FAIL + " No exception thrown when attempting"
-                    + " to call setWrappedData() with an invalid type.");
+            out.println(
+                JSFTestUtil.FAIL + " No exception thrown when attempting"
+                    + " to call setWrappedData() with an invalid type."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof ClassCastException)) {
-                out.println(JSFTestUtil.FAIL + "! Exception thrown when calling"
+                out.println(
+                    JSFTestUtil.FAIL + "! Exception thrown when calling"
                         + " setWrappedData() with an invalid type, but it wasn't"
                         + " an instance of ClassCastException." + JSFTestUtil.NL
-                        + "Exception received: " + e.getClass().getName());
+                        + "Exception received: " + e.getClass().getName()
+                );
                 return;
             }
         }
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

@@ -64,4 +64,5 @@ public class SimpleActionListener implements ActionListener, Serializable {
     public String getResult() {
         return result;
     }
+
 }

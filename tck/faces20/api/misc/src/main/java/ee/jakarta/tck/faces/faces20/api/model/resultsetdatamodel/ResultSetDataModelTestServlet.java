@@ -58,24 +58,29 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void resultSetDataModelCtorTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = new ResultSetDataModel(new TCKResultSet(new String[] { "string1", "string2" }));
 
         int curRow = model.getRowIndex();
 
         if (curRow != 0) {
-            out.println(JSFTestUtil.FAIL + " Expected getRowIndex() to return 0"
+            out.println(
+                JSFTestUtil.FAIL + " Expected getRowIndex() to return 0"
                     + " when called against DataModel instance created by"
-                    + " passing data to wrap to constructor.");
+                    + " passing data to wrap to constructor."
+            );
             out.println("Row index returned: " + curRow);
             return;
         }
 
         if (!model.isRowAvailable()) {
-            out.println(JSFTestUtil.FAIL + " Expected isRowAvailable() to return"
+            out.println(
+                JSFTestUtil.FAIL + " Expected isRowAvailable() to return"
                     + " true when called against DataModel instance created"
-                    + " by passing data to wrap to constructor.");
+                    + " by passing data to wrap to constructor."
+            );
             return;
         }
 
@@ -83,7 +88,8 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelGetSetWrappedDataTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
@@ -94,8 +100,10 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
         Object ret = model.getWrappedData();
 
         if (!result.equals(ret)) {
-            out.println(JSFTestUtil.FAIL + " The value returned from getWrappedData()"
-                    + " was not the same as what was set via setWrappedData().");
+            out.println(
+                JSFTestUtil.FAIL + " The value returned from getWrappedData()"
+                    + " was not the same as what was set via setWrappedData()."
+            );
             out.println("Expected: " + result);
             out.println("Received: " + ret);
             return;
@@ -105,20 +113,26 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelSetWrappedDataCCETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
         try {
             model.setWrappedData("invalid");
-            out.println(JSFTestUtil.FAIL + " No exception thrown when attempting"
-                    + " to call setWrappedData() with an invalid type.");
+            out.println(
+                JSFTestUtil.FAIL + " No exception thrown when attempting"
+                    + " to call setWrappedData() with an invalid type."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof ClassCastException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when calling"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when calling"
                         + " setWrappedData() with an invalid type, but it wasn't"
-                        + " an instance of ClassCastException.");
+                        + " an instance of ClassCastException."
+                );
                 out.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -128,7 +142,8 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void resultSetDataModelGetRowDataSpecializedMapTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
         initDataModel(model);
@@ -142,28 +157,37 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
         }
 
         if (!map.containsKey("BOOLprop")) {
-            out.println(JSFTestUtil.FAIL + " Unable to find key 'BOOLprop'"
-                    + " in Map returned by ResultSetDataModel.getRowData()");
+            out.println(
+                JSFTestUtil.FAIL + " Unable to find key 'BOOLprop'"
+                    + " in Map returned by ResultSetDataModel.getRowData()"
+            );
             return;
         }
 
         if (!map.containsKey("boolPrOP")) {
-            out.println(JSFTestUtil.FAIL + " Unable to find key 'boolPrOP'"
-                    + " in Map returned by ResultSetDataModel.getRowData()");
+            out.println(
+                JSFTestUtil.FAIL + " Unable to find key 'boolPrOP'"
+                    + " in Map returned by ResultSetDataModel.getRowData()"
+            );
             return;
         }
 
         try {
             map.clear();
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when calling clear()"
-                    + " on the Map returned by ResultSetDataModel.getRowData().");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when calling clear()"
+                    + " on the Map returned by ResultSetDataModel.getRowData()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when calling clear()"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when calling clear()"
                         + " on the Map returned by ResultSetDataModel."
                         + "getRowData(), but it wasn't an instance of"
-                        + " UnsupportedOperationException.");
+                        + " UnsupportedOperationException."
+                );
                 out.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -171,15 +195,20 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             map.remove("someProperty");
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when calling remove()"
-                    + " on the Map returned by ResultSetDataModel.getRowData().");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when calling remove()"
+                    + " on the Map returned by ResultSetDataModel.getRowData()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when calling remove()"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when calling remove()"
                         + " on the Map returned by ResultSetDataModel."
                         + "getRowData(), but it wasn't an instance of"
-                        + " UnsupportedOperationException.");
+                        + " UnsupportedOperationException."
+                );
                 out.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -192,14 +221,19 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             entrySet.add(en);
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when adding a new"
-                    + " Object to the Set obtained by entrySet().");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when adding a new"
+                    + " Object to the Set obtained by entrySet()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when adding a new"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when adding a new"
                         + " Object to the Set obtained by entrySet(), but it"
-                        + " wasn't an instance of UnsupportedOperationException.");
+                        + " wasn't an instance of UnsupportedOperationException."
+                );
                 out.println("Exception recevied: " + e.getClass().getName());
                 return;
             }
@@ -207,14 +241,19 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             entrySet.remove("New String");
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when attempting to remove"
-                    + " an Object from the Set obtained by entrySet().");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when attempting to remove"
+                    + " an Object from the Set obtained by entrySet()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when attempting to remove"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when attempting to remove"
                         + " an Object from the Set obtained by entrySet(), but it"
-                        + " wasn't an instance of UnsupportedOperationException.");
+                        + " wasn't an instance of UnsupportedOperationException."
+                );
                 out.println("Exception recevied: " + e.getClass().getName());
                 return;
             }
@@ -229,16 +268,20 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
         }
 
         if (!pi.equals(map.get("floatProp"))) {
-            out.println(JSFTestUtil.FAIL + " Expected the value of 'floatProp'"
-                    + " to be '3.14' after updating the Entry in the Set");
+            out.println(
+                JSFTestUtil.FAIL + " Expected the value of 'floatProp'"
+                    + " to be '3.14' after updating the Entry in the Set"
+            );
             out.println("Value recevied: " + map.get("floatProp"));
             return;
         }
 
         if (pi.floatValue() != (((TestBean) beans.get(1)).getFloatProp())) {
-            out.println(JSFTestUtil.FAIL + " Expected updating the EntrySet to write"
+            out.println(
+                JSFTestUtil.FAIL + " Expected updating the EntrySet to write"
                     + " through to the underlying result set, but this was"
-                    + " not the case.");
+                    + " not the case."
+            );
             out.println("Expected: " + pi.floatValue());
             out.println("Received: " + ((TestBean) beans.get(1)).getFloatProp());
             return;
@@ -248,14 +291,19 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             keySet.add("New String");
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when adding a new"
-                    + " Object to the Set obtained by keySet().");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when adding a new"
+                    + " Object to the Set obtained by keySet()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when adding a new"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when adding a new"
                         + " Object to the Set obtained by keySet(), but it"
-                        + " wasn't an instance of UnsupportedOperationException.");
+                        + " wasn't an instance of UnsupportedOperationException."
+                );
                 out.println("Exception recevied: " + e.getClass().getName());
                 return;
             }
@@ -263,14 +311,19 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             keySet.remove("New String");
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when attempting to remove"
-                    + " an Object from the Set obtained by keySet().");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when attempting to remove"
+                    + " an Object from the Set obtained by keySet()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when attempting to remove"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when attempting to remove"
                         + " an Object from the Set obtained by keySet(), but it"
-                        + " wasn't an instance of UnsupportedOperationException.");
+                        + " wasn't an instance of UnsupportedOperationException."
+                );
                 out.println("Exception recevied: " + e.getClass().getName());
                 return;
             }
@@ -278,14 +331,19 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             map.put("nosuchkeyexists", "value");
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when calling put()"
-                    + " with a non-existent key.");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when calling put()"
+                    + " with a non-existent key."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof IllegalArgumentException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when calling put()"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when calling put()"
                         + " with a non-existent key, but it wasn't an instance"
-                        + " of IllegalArgumentException.");
+                        + " of IllegalArgumentException."
+                );
                 out.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -293,18 +351,23 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             map.put("charProp", Character.valueOf('*'));
-        } catch (Exception e) {
-            out.println(JSFTestUtil.FAIL + " Unexpected exception calling put() with"
-                    + " a known good key.");
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected exception calling put() with"
+                    + " a known good key."
+            );
             out.println("Exception: " + e);
             return;
         }
 
         char result = ((TestBean) beans.get(1)).getCharProp();
         if (result != '*') {
-            out.println(JSFTestUtil.FAIL + " Expected the result of the put() "
+            out.println(
+                JSFTestUtil.FAIL + " Expected the result of the put() "
                     + "operation to write through to the underlying "
-                    + "ResultSet, but this was not the case.");
+                    + "ResultSet, but this was not the case."
+            );
             out.println("Expected value for charProp: '*'");
             out.println("Received: " + result);
             return;
@@ -314,14 +377,19 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             c.add("New String");
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when adding a new"
-                    + " Object to the Collection obtained by values().");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when adding a new"
+                    + " Object to the Collection obtained by values()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when adding a new"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when adding a new"
                         + " Object to the Collection obtained by values(), but it"
-                        + " wasn't an instance of UnsupportedOperationException.");
+                        + " wasn't an instance of UnsupportedOperationException."
+                );
                 out.println("Exception recevied: " + e.getClass().getName());
                 return;
             }
@@ -329,14 +397,19 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             c.remove("New String");
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when attempting to remove"
-                    + " an Object from the Collection obtained by values().");
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when attempting to remove"
+                    + " an Object from the Collection obtained by values()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when attempting to remove"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when attempting to remove"
                         + " an Object from the Collection obtained by values(), but it"
-                        + " wasn't an instance of UnsupportedOperationException.");
+                        + " wasn't an instance of UnsupportedOperationException."
+                );
                 out.println("Exception recevied: " + e.getClass().getName());
                 return;
             }
@@ -346,16 +419,21 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         try {
             i.remove();
-            out.println(JSFTestUtil.FAIL
+            out.println(
+                JSFTestUtil.FAIL
                     + " No Exception thrown when attempting to remove"
-                    + " an Object from the Iterator obtained from Collection.iterator().");
+                    + " an Object from the Iterator obtained from Collection.iterator()."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof UnsupportedOperationException)) {
-                out.println(JSFTestUtil.FAIL
+                out.println(
+                    JSFTestUtil.FAIL
                         + " Exception thrown when attempting to remove"
                         + " an Object from the Iterator obtained from Collection.iterator(), but it"
-                        + " wasn't an instance of UnsupportedOperationException.");
+                        + " wasn't an instance of UnsupportedOperationException."
+                );
                 out.println("Exception recevied: " + e.getClass().getName());
                 return;
             }
@@ -365,7 +443,8 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void resultSetDataModelGetRowDataMapTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
         initDataModel(model);
@@ -374,44 +453,58 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
         Map map = (Map) model.getRowData();
 
         if (!map.containsKey("boolProp")) {
-            out.println(JSFTestUtil.FAIL + " containsKey() returned false for a key"
-                    + " that is known to exist in the Map.");
+            out.println(
+                JSFTestUtil.FAIL + " containsKey() returned false for a key"
+                    + " that is known to exist in the Map."
+            );
             return;
         }
 
         if (map.containsKey("nosuchkey")) {
-            out.println(JSFTestUtil.FAIL + " containsKey() returned true for a key"
-                    + " that is know not to exist in the Map.");
+            out.println(
+                JSFTestUtil.FAIL + " containsKey() returned true for a key"
+                    + " that is know not to exist in the Map."
+            );
             return;
         }
 
         if (!map.containsValue(Boolean.FALSE)) {
-            out.println(JSFTestUtil.FAIL + " containsValue() returned false for a "
-                    + "value that is known to exist in the Map.");
+            out.println(
+                JSFTestUtil.FAIL + " containsValue() returned false for a "
+                    + "value that is known to exist in the Map."
+            );
             return;
         }
 
         if (map.containsValue(Boolean.TRUE)) {
-            out.println(JSFTestUtil.FAIL + " containsValue() returned true for a value"
-                    + " that is known not to exist in the Map.");
+            out.println(
+                JSFTestUtil.FAIL + " containsValue() returned true for a value"
+                    + " that is known not to exist in the Map."
+            );
             return;
         }
 
         if (!map.equals(map)) {
-            out.println(JSFTestUtil.FAIL + " equals() returned false when testing "
-                    + "equality on identical Map instances.");
+            out.println(
+                JSFTestUtil.FAIL + " equals() returned false when testing "
+                    + "equality on identical Map instances."
+            );
             return;
         }
 
         if (map.equals(new HashMap())) {
-            out.println(JSFTestUtil.FAIL + " equals() returned true when testing"
-                    + " equality between two different Map instances.");
+            out.println(
+                JSFTestUtil.FAIL + " equals() returned true when testing"
+                    + " equality between two different Map instances."
+            );
             return;
         }
 
         if (!map.get("boolProp").equals(Boolean.FALSE)) {
-            out.println(JSFTestUtil.FAIL + " Unexpected value returned when calling"
-                    + " Map.get(\"boolProp\")");
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value returned when calling"
+                    + " Map.get(\"boolProp\")"
+            );
             out.println("Expected: " + Boolean.FALSE);
             out.println("Recevied: " + map.get("boolProp"));
             return;
@@ -425,4 +518,5 @@ public class ResultSetDataModelTestServlet extends BaseModelTestServlet {
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

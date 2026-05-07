@@ -128,14 +128,17 @@ class CommandbuttonIT extends BaseITNG {
 
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement button = findByIdSuffix(page, "command1");
-        expected.forEach((name, value) ->
-            assertEquals(value, button.getDomAttribute(name), "attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, button.getDomAttribute(name), "attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

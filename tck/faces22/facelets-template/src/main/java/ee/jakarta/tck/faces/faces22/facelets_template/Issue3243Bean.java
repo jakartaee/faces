@@ -29,15 +29,17 @@ import jakarta.inject.Named;
 @Named
 @PermitAll
 public class Issue3243Bean implements Serializable {
+
     private static final long serialVersionUID = -5419091806376438376L;
-    
+
     private final String template = "foo";
 
     public String getTemplate() {
         return template;
     }
-    
+
     public List<String> getTestString() {
-        return asList(new String[] {"a", "b", "c"});
-    }    
+        return asList(new String[] { "a", "b", "c" });
+    }
+
 }

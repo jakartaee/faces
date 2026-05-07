@@ -24,45 +24,49 @@ import jakarta.faces.application.NavigationCase;
 
 public class TCKNavigationCase {
 
-  public static NavigationCase getCase(String caseName) {
-    String fromViewId = null;
-    String fromAction = null;
-    String fromOutcome = null;
-    String condition = null;
-    String toViewId = null;
-    boolean isRedirect = false;
-    boolean isParameters = false;
-    Map<String, List<java.lang.String>> parameters = null;
+    public static NavigationCase getCase(String caseName) {
+        String fromViewId = null;
+        String fromAction = null;
+        String fromOutcome = null;
+        String condition = null;
+        String toViewId = null;
+        boolean isRedirect = false;
+        boolean isParameters = false;
+        Map<String, List<java.lang.String>> parameters = null;
 
-    if ("red".equalsIgnoreCase(caseName)) {
-      fromViewId = "/stop.xhtml";
-      fromAction = "#{color.result}";
-      fromOutcome = "Red";
-      condition = "#{'Red' == color.color}";
-      toViewId = "/red.xhtml";
+        if ("red".equalsIgnoreCase(caseName)) {
+            fromViewId = "/stop.xhtml";
+            fromAction = "#{color.result}";
+            fromOutcome = "Red";
+            condition = "#{'Red' == color.color}";
+            toViewId = "/red.xhtml";
 
-    } else if ("blue".equalsIgnoreCase(caseName)) {
-      fromViewId = "/stop.xhtml";
-      fromAction = "#{color.result}";
-      fromOutcome = "Blue";
-      condition = "#{'Blue' == color.color}";
-      toViewId = "/blue.xhtml";
+        }
+        else if ("blue".equalsIgnoreCase(caseName)) {
+            fromViewId = "/stop.xhtml";
+            fromAction = "#{color.result}";
+            fromOutcome = "Blue";
+            condition = "#{'Blue' == color.color}";
+            toViewId = "/blue.xhtml";
 
-    } else if ("green".equalsIgnoreCase(caseName)) {
-      ArrayList<String> al = new ArrayList<String>();
-      parameters = new HashMap<String, List<java.lang.String>>();
-      al.add("/red.xhtml");
-      fromViewId = "/stop.xhtml";
-      fromAction = "#{color.result}";
-      toViewId = "/blue.xhtml";
-      isRedirect = true;
-      isParameters = true;
-      parameters.put("id", al);
+        }
+        else if ("green".equalsIgnoreCase(caseName)) {
+            ArrayList<String> al = new ArrayList<String>();
+            parameters = new HashMap<String, List<java.lang.String>>();
+            al.add("/red.xhtml");
+            fromViewId = "/stop.xhtml";
+            fromAction = "#{color.result}";
+            toViewId = "/blue.xhtml";
+            isRedirect = true;
+            isParameters = true;
+            parameters.put("id", al);
 
+        }
+
+        return new NavigationCase(
+            fromViewId, fromAction, fromOutcome, condition,
+            toViewId, parameters, isRedirect, isParameters
+        );
     }
-
-    return new NavigationCase(fromViewId, fromAction, fromOutcome, condition,
-        toViewId, parameters, isRedirect, isParameters);
-  }
 
 }

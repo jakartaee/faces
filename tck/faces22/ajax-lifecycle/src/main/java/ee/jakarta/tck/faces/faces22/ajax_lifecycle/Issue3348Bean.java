@@ -31,7 +31,7 @@ public class Issue3348Bean {
 
     public Issue3348Bean() {
     }
-    
+
     public void causeRedirect() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         ExternalContext extContext = facesContext.getExternalContext();
@@ -40,19 +40,14 @@ public class Issue3348Bean {
         int port = extContext.getRequestServerPort();
         String contextPath = extContext.getRequestContextPath();
         StringBuilder sb = new StringBuilder();
-        sb.append(scheme).
-           append("://").
-           append(host).
-           append(":").
-           append(port).
-           append(contextPath).
-           append("/issue3348-2.html");        
+        sb.append(scheme).append("://").append(host).append(":").append(port).append(contextPath).append("/issue3348-2.html");
         try {
             extContext.redirect(sb.toString());
-        } catch (IOException ex) {
+        }
+        catch (IOException ex) {
             Logger.getLogger(Issue3348Bean.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
+
     }
-    
+
 }

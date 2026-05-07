@@ -30,19 +30,20 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue1829IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see UIComponent#getCurrentCompositeComponent(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1829
-   */
-  @Test
-  void getCurrentCompositeComponentReturnsCorrectInstanceAcrossAjaxRoundTrips() throws Exception {
+     */
+    @Test
+    void getCurrentCompositeComponentReturnsCorrectInstanceAcrossAjaxRoundTrips() throws Exception {
         WebPage page = getPage("issue1829.xhtml");
         WebElement button = page.findElement(By.id("form:button"));
         page.guardAjax(button::click);
         assertEquals(200, page.getResponseStatus());
-        button =  page.findElement(By.id("form:button"));
+        button = page.findElement(By.id("form:button"));
         page.guardAjax(button::click);
         assertEquals(200, page.getResponseStatus());
     }
+
 }

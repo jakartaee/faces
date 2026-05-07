@@ -34,37 +34,41 @@ class KeywordIT extends BaseITNG {
     @Test
     void ajaxAllKeywordTest() {
         validateKeyword(
-                Arrays.asList("ajaxAllKeyword1.xhtml", "ajaxAllKeyword2.xhtml", "ajaxAllKeyword3.xhtml"),
-                "form:allKeyword",
-                "form:out",
-                EXPECTED);
+            Arrays.asList("ajaxAllKeyword1.xhtml", "ajaxAllKeyword2.xhtml", "ajaxAllKeyword3.xhtml"),
+            "form:allKeyword",
+            "form:out",
+            EXPECTED
+        );
     }
 
     @Test
     void ajaxThisKeywordTest() {
         validateKeyword(
-                Arrays.asList("ajaxThisKeyword1.xhtml", "ajaxThisKeyword2.xhtml", "ajaxThisKeyword3.xhtml"),
-                "form:thisKeyword",
-                "form:out",
-                EXPECTED);
+            Arrays.asList("ajaxThisKeyword1.xhtml", "ajaxThisKeyword2.xhtml", "ajaxThisKeyword3.xhtml"),
+            "form:thisKeyword",
+            "form:out",
+            EXPECTED
+        );
     }
 
     @Test
     void ajaxFormKeywordTest() {
         validateKeyword(
-                Arrays.asList("ajaxFormKeyword1.xhtml", "ajaxFormKeyword2.xhtml", "ajaxFormKeyword3.xhtml"),
-                "form:formKeyword",
-                "form:out",
-                EXPECTED);
+            Arrays.asList("ajaxFormKeyword1.xhtml", "ajaxFormKeyword2.xhtml", "ajaxFormKeyword3.xhtml"),
+            "form:formKeyword",
+            "form:out",
+            EXPECTED
+        );
     }
 
     @Test
     void ajaxNoneKeywordTest() {
         validateKeyword(
-                Arrays.asList("ajaxNoneKeyword1.xhtml", "ajaxNoneKeyword2.xhtml", "ajaxNoneKeyword3.xhtml"),
-                "form:noneKeyword",
-                "form:out",
-                EXPECTED);
+            Arrays.asList("ajaxNoneKeyword1.xhtml", "ajaxNoneKeyword2.xhtml", "ajaxNoneKeyword3.xhtml"),
+            "form:noneKeyword",
+            "form:out",
+            EXPECTED
+        );
     }
 
     private void validateKeyword(List<String> urls, String buttonId, String spanId, String expectedValue) {
@@ -81,4 +85,5 @@ class KeywordIT extends BaseITNG {
             assertEquals(expectedValue, output.getText());
         }
     }
+
 }

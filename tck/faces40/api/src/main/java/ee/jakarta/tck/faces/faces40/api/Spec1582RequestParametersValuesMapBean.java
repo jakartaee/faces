@@ -30,13 +30,15 @@ import jakarta.inject.Named;
 public class Spec1582RequestParametersValuesMapBean {
 
     public String getRequestParameterValue0() {
-        Map<String, String[]> requestParameterValuesMap = CDI.current().select(new TypeLiteral<Map<String, String[]>>() {}, RequestParameterValuesMap.Literal.INSTANCE).get();
+        Map<String, String[]> requestParameterValuesMap = CDI.current().select(new TypeLiteral<Map<String, String[]>>() {
+        }, RequestParameterValuesMap.Literal.INSTANCE).get();
 
         return requestParameterValuesMap.get("foo")[0];
     }
 
     public String getRequestParameterValue1() {
-        Map<String, String[]> requestParameterValuesMap = CDI.current().select(new TypeLiteral<Map<String, String[]>>() {}, RequestParameterValuesMap.Literal.INSTANCE).get();
+        Map<String, String[]> requestParameterValuesMap = CDI.current().select(new TypeLiteral<Map<String, String[]>>() {
+        }, RequestParameterValuesMap.Literal.INSTANCE).get();
 
         return requestParameterValuesMap.get("foo")[1];
     }

@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2771IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2771
-   */
-  @Test
-  void commandLinkRadio() throws Exception {
+     */
+    @Test
+    void commandLinkRadio() throws Exception {
         WebPage page = getPage("issue2771.xhtml");
         WebElement anchor = page.findElement(By.id("testLink"));
         page.guardAjax(anchor::click);
@@ -52,4 +52,5 @@ class Issue2771IT extends BaseITNG {
         page.guardAjax(radio3::click);
         assertTrue(page.containsText("RADIO:white"));
     }
+
 }

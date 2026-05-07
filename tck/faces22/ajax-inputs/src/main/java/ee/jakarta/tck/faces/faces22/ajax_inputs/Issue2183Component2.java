@@ -20,7 +20,7 @@ import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
 
-@FacesComponent( value = "org.glassfish.mojarra.test.servlet30.ajax.Issue2183Component2" )
+@FacesComponent(value = "org.glassfish.mojarra.test.servlet30.ajax.Issue2183Component2")
 public class Issue2183Component2 extends UIInput {
 
     public Issue2183Component2() {
@@ -32,6 +32,7 @@ public class Issue2183Component2 extends UIInput {
     }
 
     public void decode(FacesContext context) {
-        throw new RuntimeException("decode: A RuntimeException Has Occurred!"); 
+        throw new RuntimeException("decode: A RuntimeException Has Occurred!");
     }
+
 }

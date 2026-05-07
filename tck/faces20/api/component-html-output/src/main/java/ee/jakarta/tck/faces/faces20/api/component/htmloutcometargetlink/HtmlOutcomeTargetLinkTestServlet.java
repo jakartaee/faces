@@ -26,17 +26,19 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlOutcomeTargetLinkTestServlet")
 public final class HtmlOutcomeTargetLinkTestServlet extends UIOutcomeTargetTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title" };
+    private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup",
+        "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Link");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Link");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlOutcomeTargetLink();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlOutcomeTargetLink();
+    }
+
 }

@@ -29,22 +29,21 @@ import org.openqa.selenium.WebElement;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 class Issue3985IT extends BaseITNG {
 
-  /**
-   * @see HtmlOutputText#setEscape(boolean)
+    /**
+     * @see HtmlOutputText#setEscape(boolean)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3985
-   */
-  @Test
-  void issue3985() throws Exception {
+     */
+    @Test
+    void issue3985() throws Exception {
         WebPage page = getPage("issue3985.xhtml");
         assertTrue(page.findElement(By.id("form:result")).getText().trim().isEmpty());
 
         WebElement button = page.findElement(By.id("form:button"));
         page.guardAjax(button::click);
 
-      assertEquals("Success!", page.findElement(By.id("form:result")).getText().trim());
+        assertEquals("Success!", page.findElement(By.id("form:result")).getText().trim());
     }
 
 }

@@ -82,4 +82,5 @@ class Spec2032IT extends BaseITNG {
         assertEquals("", tfootSecondCellClass);
         assertEquals("", tfootSecondCellTitle);
     }
+
 }

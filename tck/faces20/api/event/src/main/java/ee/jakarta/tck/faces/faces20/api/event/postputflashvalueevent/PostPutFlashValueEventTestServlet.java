@@ -31,36 +31,46 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/PostPutFlashValueEventTestServlet")
 public final class PostPutFlashValueEventTestServlet extends BaseSystemEventTestServlet {
-  private static final String FLASH_KEY = "key";
 
-  @Override
-  protected SystemEvent createEvent(Object src) {
-    return new PostPutFlashValueEvent(FLASH_KEY);
-  }
+    private static final String FLASH_KEY = "key";
 
-  // ------------------------------------------- PostKeepFlashValueEvent
-
-  public void postPutFlashValueEventGetKeyTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Application app = getFacesContext().getApplication();
-
-    if (app != null) {
-      PostPutFlashValueEvent pKeep = (PostPutFlashValueEvent) createEvent(app);
-      String result = pKeep.getKey();
-
-      if (!FLASH_KEY.equals(result)) {
-        pw.println(JSFTestUtil.FAIL + " Wrong key value!" + JSFTestUtil.NL
-            + "Expected: " + FLASH_KEY + JSFTestUtil.NL + "Received: "
-            + result);
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unexpected problem obtaining "
-          + "Application instance.");
+    @Override
+    protected SystemEvent createEvent(Object src) {
+        return new PostPutFlashValueEvent(FLASH_KEY);
     }
-  } // End postPutFlashValueEventGetKeyTest
+
+    // ------------------------------------------- PostKeepFlashValueEvent
+
+    public void postPutFlashValueEventGetKeyTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Application app = getFacesContext().getApplication();
+
+        if (app != null) {
+            PostPutFlashValueEvent pKeep = (PostPutFlashValueEvent) createEvent(app);
+            String result = pKeep.getKey();
+
+            if (!FLASH_KEY.equals(result)) {
+                pw.println(
+                    JSFTestUtil.FAIL + " Wrong key value!" + JSFTestUtil.NL
+                        + "Expected: " + FLASH_KEY + JSFTestUtil.NL + "Received: "
+                        + result
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " Unexpected problem obtaining "
+                    + "Application instance."
+            );
+        }
+    } // End postPutFlashValueEventGetKeyTest
 
 } // End TestServlet

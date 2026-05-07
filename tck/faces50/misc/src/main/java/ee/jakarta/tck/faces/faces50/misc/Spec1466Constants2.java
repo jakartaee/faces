@@ -16,5 +16,7 @@
 package ee.jakarta.tck.faces.faces50.misc;
 
 public enum Spec1466Constants2 {
-    ONE2, TWO2, THREE2
+    ONE2,
+    TWO2,
+    THREE2
 }

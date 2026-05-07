@@ -36,4 +36,5 @@ public class Issue3734Bean implements Serializable {
         sessionMap.put("key", "value");
         return sessionMap.toString();
     }
+
 }

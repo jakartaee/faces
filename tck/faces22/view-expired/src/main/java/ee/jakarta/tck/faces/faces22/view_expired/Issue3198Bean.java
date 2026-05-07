@@ -39,11 +39,11 @@ public class Issue3198Bean implements Serializable {
         Map<String, Object> applicationMap = FacesContext.getCurrentInstance().getExternalContext().getApplicationMap();
         if (!applicationMap.containsKey("count")) {
             applicationMap.put("count", 1);
-        } else {
+        }
+        else {
             int count = ((Integer) applicationMap.get("count")) + 1;
             applicationMap.put("count", count);
         }
     }
-
 
 }

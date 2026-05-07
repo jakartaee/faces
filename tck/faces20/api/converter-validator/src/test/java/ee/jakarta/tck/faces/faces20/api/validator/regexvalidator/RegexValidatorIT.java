@@ -67,4 +67,5 @@ class RegexValidatorIT extends BaseITNG {
     void validatorPartialStateTest() {
         runServletTest("validatorPartialStateTest");
     }
+
 }

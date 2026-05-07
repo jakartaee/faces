@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2504IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2504
-   */
-  @Test
-  void noDuplicateViewState() throws Exception {
+     */
+    @Test
+    void noDuplicateViewState() throws Exception {
         WebPage page = getPage("issue2504.xhtml");
         WebElement button1 = page.findElement(By.id("btn5"));
         page.guardAjax(button1::click);
@@ -43,4 +43,5 @@ class Issue2504IT extends BaseITNG {
         page.guardAjax(button2::click);
         assertTrue(page.containsText("jakarta.faces.ViewState Has One Value"));
     }
+
 }

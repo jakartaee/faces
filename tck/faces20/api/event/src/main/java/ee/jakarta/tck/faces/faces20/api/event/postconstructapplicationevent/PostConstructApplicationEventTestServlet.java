@@ -32,56 +32,75 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/PostConstructApplicationEventTestServlet")
 public final class PostConstructApplicationEventTestServlet extends BaseSystemEventTestServlet {
 
-  @Override
-  protected SystemEvent createEvent(Object src) {
-    Application app = getFacesContext().getApplication();
+    @Override
+    protected SystemEvent createEvent(Object src) {
+        Application app = getFacesContext().getApplication();
 
-    return new PostConstructApplicationEvent(app);
-  }
-
-  // ----------------------------------------------
-  // PostConstructApplicationEvent Tests
-
-  public void postConstructApplicationEventCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Application app = getFacesContext().getApplication();
-
-    if (app != null) {
-      PostConstructApplicationEvent pca = (PostConstructApplicationEvent) createEvent(
-          app);
-      if (pca == null) {
-        pw.println(JSFTestUtil.FAIL
-            + " Unable to create PostConstructApplicationEvent");
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unexpected problem obtaining "
-          + "Application instance.");
+        return new PostConstructApplicationEvent(app);
     }
-  }
 
-  public void postConstructApplicationEventGetAppTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Application app = getFacesContext().getApplication();
-    PostConstructApplicationEvent pca = (PostConstructApplicationEvent) createEvent(
-        app);
+    // ----------------------------------------------
+    // PostConstructApplicationEvent Tests
 
-    if (app != null) {
-      if (app != pca.getApplication()) {
-        pw.println(
-            JSFTestUtil.FAIL + "PostConstructApplicationEvent.getApplication() "
-                + "returned unexpected result.");
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
+    public void postConstructApplicationEventCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Application app = getFacesContext().getApplication();
 
-    } else {
-      pw.println("Test FAILED. Unexpected problem obtaining "
-          + "Application instance.");
+        if (app != null) {
+            PostConstructApplicationEvent pca = (PostConstructApplicationEvent) createEvent(
+                app
+            );
+            if (pca == null) {
+                pw.println(
+                    JSFTestUtil.FAIL
+                        + " Unable to create PostConstructApplicationEvent"
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " Unexpected problem obtaining "
+                    + "Application instance."
+            );
+        }
     }
-  }
+
+    public void postConstructApplicationEventGetAppTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Application app = getFacesContext().getApplication();
+        PostConstructApplicationEvent pca = (PostConstructApplicationEvent) createEvent(
+            app
+        );
+
+        if (app != null) {
+            if (app != pca.getApplication()) {
+                pw.println(
+                    JSFTestUtil.FAIL + "PostConstructApplicationEvent.getApplication() "
+                        + "returned unexpected result."
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+
+        }
+        else {
+            pw.println(
+                "Test FAILED. Unexpected problem obtaining "
+                    + "Application instance."
+            );
+        }
+    }
+
 }

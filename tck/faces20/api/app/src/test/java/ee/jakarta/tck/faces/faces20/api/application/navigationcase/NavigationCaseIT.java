@@ -28,16 +28,64 @@ class NavigationCaseIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void navigationCaseEqualsTest() { runServletTest("navigationCaseEqualsTest"); }
-    @Test void navigationCaseGetActionURLTest() { runServletTest("navigationCaseGetActionURLTest"); }
-    @Test void navigationCaseGetBookmarkableURLTest() { runServletTest("navigationCaseGetBookmarkableURLTest"); }
-    @Test void navigationCaseGetConditionTest() { runServletTest("navigationCaseGetConditionTest"); }
-    @Test void navigationCaseGetRedirectURLTest() { runServletTest("navigationCaseGetRedirectURLTest"); }
-    @Test void navigationCaseHasConditionTest() { runServletTest("navigationCaseHasConditionTest"); }
-    @Test void navigationGetFromActionTest() { runServletTest("navigationGetFromActionTest"); }
-    @Test void navigationGetFromOutcomeTest() { runServletTest("navigationGetFromOutcomeTest"); }
-    @Test void navigationGetFromViewIdTest() { runServletTest("navigationGetFromViewIdTest"); }
-    @Test void navigationGetToViewIdTest() { runServletTest("navigationGetToViewIdTest"); }
-    @Test void navigationIsIncludeViewParamsTest() { runServletTest("navigationIsIncludeViewParamsTest"); }
-    @Test void navigationIsRedirectTest() { runServletTest("navigationIsRedirectTest"); }
+    @Test
+    void navigationCaseEqualsTest() {
+        runServletTest("navigationCaseEqualsTest");
+    }
+
+    @Test
+    void navigationCaseGetActionURLTest() {
+        runServletTest("navigationCaseGetActionURLTest");
+    }
+
+    @Test
+    void navigationCaseGetBookmarkableURLTest() {
+        runServletTest("navigationCaseGetBookmarkableURLTest");
+    }
+
+    @Test
+    void navigationCaseGetConditionTest() {
+        runServletTest("navigationCaseGetConditionTest");
+    }
+
+    @Test
+    void navigationCaseGetRedirectURLTest() {
+        runServletTest("navigationCaseGetRedirectURLTest");
+    }
+
+    @Test
+    void navigationCaseHasConditionTest() {
+        runServletTest("navigationCaseHasConditionTest");
+    }
+
+    @Test
+    void navigationGetFromActionTest() {
+        runServletTest("navigationGetFromActionTest");
+    }
+
+    @Test
+    void navigationGetFromOutcomeTest() {
+        runServletTest("navigationGetFromOutcomeTest");
+    }
+
+    @Test
+    void navigationGetFromViewIdTest() {
+        runServletTest("navigationGetFromViewIdTest");
+    }
+
+    @Test
+    void navigationGetToViewIdTest() {
+        runServletTest("navigationGetToViewIdTest");
+    }
+
+    @Test
+    void navigationIsIncludeViewParamsTest() {
+        runServletTest("navigationIsIncludeViewParamsTest");
+    }
+
+    @Test
+    void navigationIsRedirectTest() {
+        runServletTest("navigationIsRedirectTest");
+    }
+
 }

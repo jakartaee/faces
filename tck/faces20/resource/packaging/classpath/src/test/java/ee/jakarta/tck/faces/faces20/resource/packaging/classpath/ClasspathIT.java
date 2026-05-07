@@ -95,4 +95,5 @@ class ClasspathIT extends BaseITNG {
     void jsfJsDoesExistTest() {
         runServletTest("jsfJsDoesExistTest");
     }
+
 }

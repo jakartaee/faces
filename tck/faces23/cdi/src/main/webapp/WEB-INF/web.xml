@@ -41,7 +41,7 @@
         <param-name>jakarta.faces.FACELETS_LIBRARIES</param-name>
         <param-value>/WEB-INF/injectBehavior.taglib.xml</param-value>
     </context-param>
-    
+
     <context-param>
         <param-name>MY_TEST_PARAMETER</param-name>
         <param-value>IS_THERE</param-value>

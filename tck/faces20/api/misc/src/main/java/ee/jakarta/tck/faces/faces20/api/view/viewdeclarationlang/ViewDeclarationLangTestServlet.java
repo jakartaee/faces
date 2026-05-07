@@ -41,280 +41,358 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ViewDeclarationLangTestServlet")
 public final class ViewDeclarationLangTestServlet extends HttpTCKServlet {
 
-  private static final String FACELETS_VIEWID = "/root.xhtml";
+    private static final String FACELETS_VIEWID = "/root.xhtml";
 
-  /**
-   * <code>init</code> initializes the servlet.
-   *
-   * @param config
-   *          - <code>ServletConfig</code>
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  public void vdlGetComponentMetadataNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter pw = response.getWriter();
-
-    FacesContext context = getFacesContext();
-    Resource resource = this.getResource(context);
-    ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
-
-    // FacesContext as 'null'
-    JSFTestUtil.checkForNPE(vdl, "getComponentMetadata",
-        new Class<?>[] { FacesContext.class, Resource.class },
-        new Object[] { null, resource }, pw);
-
-    // Resource as 'null'
-    JSFTestUtil.checkForNPE(vdl, "getComponentMetadata",
-        new Class<?>[] { FacesContext.class, Resource.class },
-        new Object[] { context, null }, pw);
-
-  }// End vdlGetComponentMetadataNPETest
-
-  public void vdlGetScriptComponentResourceNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter pw = response.getWriter();
-
-    FacesContext context = getFacesContext();
-    Resource resource = this.getResource(context);
-    ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
-
-    // FacesContext as 'null'
-    JSFTestUtil.checkForNPE(vdl, "getScriptComponentResource",
-        new Class<?>[] { FacesContext.class, Resource.class },
-        new Object[] { null, resource }, pw);
-
-    // Resource as 'null'
-    JSFTestUtil.checkForNPE(vdl, "getScriptComponentResource",
-        new Class<?>[] { FacesContext.class, Resource.class },
-        new Object[] { context, null }, pw);
-
-  }// End vdlGetScriptComponentResourceNPETest
-
-  public void vdlRenderViewNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter pw = response.getWriter();
-
-    FacesContext context = getFacesContext();
-    ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
-    UIViewRoot view = context.getViewRoot();
-
-    // FacesContext as 'null'
-    JSFTestUtil.checkForNPE(vdl, "renderView",
-        new Class<?>[] { FacesContext.class, UIViewRoot.class },
-        new Object[] { null, view }, pw);
-
-    // UIViewRoot as 'null'
-    JSFTestUtil.checkForNPE(vdl, "renderView",
-        new Class<?>[] { FacesContext.class, UIViewRoot.class },
-        new Object[] { context, null }, pw);
-
-  }// End vdlRenderViewNPETest
-
-  public void vdlRetargetMethodExpressionsNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter pw = response.getWriter();
-
-    FacesContext context = getFacesContext();
-    ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
-    UIComponent component = new UIInput();
-
-    // FacesContext as 'null'
-    JSFTestUtil.checkForNPE(vdl, "retargetMethodExpressions",
-        new Class<?>[] { FacesContext.class, UIComponent.class },
-        new Object[] { null, component }, pw);
-
-    // Component as 'null'
-    JSFTestUtil.checkForNPE(vdl, "retargetMethodExpressions",
-        new Class<?>[] { FacesContext.class, UIComponent.class },
-        new Object[] { context, null }, pw);
-
-  }// End vdlRetargetMethodExpressionsNPETest
-
-  public void vdlRetargetAttachedObjectsNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter pw = response.getWriter();
-
-    FacesContext context = getFacesContext();
-    ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
-    UIComponent component = new UIInput();
-
-    List<AttachedObjectHandler> handlers = new ArrayList<AttachedObjectHandler>();
-    handlers.add(new TCKAttachedObjectHandler());
-
-    // FacesContext as 'null'
-    JSFTestUtil.checkForNPE(vdl, "retargetAttachedObjects",
-        new Class<?>[] { FacesContext.class, UIComponent.class, List.class },
-        new Object[] { null, component, handlers }, pw);
-
-    // Component as 'null'
-    JSFTestUtil.checkForNPE(vdl, "retargetAttachedObjects",
-        new Class<?>[] { FacesContext.class, UIComponent.class, List.class },
-        new Object[] { context, null, handlers }, pw);
-
-    // AttachedObjectHandler as 'null'
-    JSFTestUtil.checkForNPE(vdl, "retargetAttachedObjects",
-        new Class<?>[] { FacesContext.class, UIComponent.class, List.class },
-        new Object[] { context, component, null }, pw);
-
-  }// End vdlRetargetAttachedObjectsNPETest
-
-  public void vdlRestoreViewNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter pw = response.getWriter();
-
-    FacesContext context = getFacesContext();
-    String vid = context.getViewRoot().getViewId();
-    ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
-
-    // FacesContext as 'null'
-    JSFTestUtil.checkForNPE(vdl, "restoreView",
-        new Class<?>[] { FacesContext.class, String.class },
-        new Object[] { null, vid }, pw);
-
-    // viewId as 'null'
-    JSFTestUtil.checkForNPE(vdl, "restoreView",
-        new Class<?>[] { FacesContext.class, String.class },
-        new Object[] { context, null }, pw);
-
-  }// End vdlRestoreViewNPETest
-
-  public void vdlCreateViewNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter pw = response.getWriter();
-
-    FacesContext context = getFacesContext();
-    ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
-
-    // FacesContext as 'null'
-    JSFTestUtil.checkForNPE(vdl, "createView",
-        new Class<?>[] { FacesContext.class, String.class },
-        new Object[] { null, FACELETS_VIEWID }, pw);
-
-    // viewId as 'null'
-    JSFTestUtil.checkForNPE(vdl, "createView",
-        new Class<?>[] { FacesContext.class, String.class },
-        new Object[] { context, null }, pw);
-
-  }// End vdlCreateViewNPETest
-
-  public void vdlGetViewMetadataNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter pw = response.getWriter();
-
-    FacesContext context = getFacesContext();
-    ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
-
-    // FacesContext as 'null'
-    JSFTestUtil.checkForNPE(vdl, "getViewMetadata",
-        new Class<?>[] { FacesContext.class, String.class },
-        new Object[] { null, FACELETS_VIEWID }, pw);
-
-    // viewId as 'null'
-    JSFTestUtil.checkForNPE(vdl, "getViewMetadata",
-        new Class<?>[] { FacesContext.class, String.class },
-        new Object[] { context, null }, pw);
-
-  }// End vdlGetViewMetadataNPETest
-
-  public void vdlGetViewMetaDataTest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext context = getFacesContext();
-    String root = "myRoot.xhtml";
-
-    ViewDeclarationLanguage vdl = this.getVDL(context, root);
-    ViewMetadata vm = vdl.getViewMetadata(context, root);
-    String result = vm.getViewId();
-
-    if (root.equals(result)) {
-      out.println(JSFTestUtil.PASS);
-
-    } else {
-      out.println(JSFTestUtil.FAIL + " Unexpected value found!" + JSFTestUtil.NL
-          + "Expected: " + root + JSFTestUtil.NL + "Received: " + result);
-
+    /**
+     * <code>init</code> initializes the servlet.
+     *
+     * @param config - <code>ServletConfig</code>
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-  }// End vdlGetViewMetaDataTest
+    public void vdlGetComponentMetadataNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
 
-  public void vdlGetIdTest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext context = getFacesContext();
-    String root = "myRoot.xhtml";
+        FacesContext context = getFacesContext();
+        Resource resource = this.getResource(context);
+        ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
 
-    ViewDeclarationLanguage vdl = this.getVDL(context, root);
+        // FacesContext as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "getComponentMetadata",
+            new Class<?>[] { FacesContext.class, Resource.class },
+            new Object[] { null, resource }, pw
+        );
 
-    String result = vdl.getId();
+        // Resource as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "getComponentMetadata",
+            new Class<?>[] { FacesContext.class, Resource.class },
+            new Object[] { context, null }, pw
+        );
 
-    if (ViewDeclarationLanguage.FACELETS_VIEW_DECLARATION_LANGUAGE_ID
-        .equals(result)) {
-      out.println(JSFTestUtil.PASS);
+    }// End vdlGetComponentMetadataNPETest
 
-    } else {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "Unexpected value found!"
-          + JSFTestUtil.NL + "Expected: " + root + JSFTestUtil.NL + "Received: "
-          + result);
+    public void vdlGetScriptComponentResourceNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
 
+        FacesContext context = getFacesContext();
+        Resource resource = this.getResource(context);
+        ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
+
+        // FacesContext as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "getScriptComponentResource",
+            new Class<?>[] { FacesContext.class, Resource.class },
+            new Object[] { null, resource }, pw
+        );
+
+        // Resource as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "getScriptComponentResource",
+            new Class<?>[] { FacesContext.class, Resource.class },
+            new Object[] { context, null }, pw
+        );
+
+    }// End vdlGetScriptComponentResourceNPETest
+
+    public void vdlRenderViewNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        FacesContext context = getFacesContext();
+        ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
+        UIViewRoot view = context.getViewRoot();
+
+        // FacesContext as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "renderView",
+            new Class<?>[] { FacesContext.class, UIViewRoot.class },
+            new Object[] { null, view }, pw
+        );
+
+        // UIViewRoot as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "renderView",
+            new Class<?>[] { FacesContext.class, UIViewRoot.class },
+            new Object[] { context, null }, pw
+        );
+
+    }// End vdlRenderViewNPETest
+
+    public void vdlRetargetMethodExpressionsNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        FacesContext context = getFacesContext();
+        ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
+        UIComponent component = new UIInput();
+
+        // FacesContext as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "retargetMethodExpressions",
+            new Class<?>[] { FacesContext.class, UIComponent.class },
+            new Object[] { null, component }, pw
+        );
+
+        // Component as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "retargetMethodExpressions",
+            new Class<?>[] { FacesContext.class, UIComponent.class },
+            new Object[] { context, null }, pw
+        );
+
+    }// End vdlRetargetMethodExpressionsNPETest
+
+    public void vdlRetargetAttachedObjectsNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        FacesContext context = getFacesContext();
+        ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
+        UIComponent component = new UIInput();
+
+        List<AttachedObjectHandler> handlers = new ArrayList<AttachedObjectHandler>();
+        handlers.add(new TCKAttachedObjectHandler());
+
+        // FacesContext as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "retargetAttachedObjects",
+            new Class<?>[] { FacesContext.class, UIComponent.class, List.class },
+            new Object[] { null, component, handlers }, pw
+        );
+
+        // Component as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "retargetAttachedObjects",
+            new Class<?>[] { FacesContext.class, UIComponent.class, List.class },
+            new Object[] { context, null, handlers }, pw
+        );
+
+        // AttachedObjectHandler as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "retargetAttachedObjects",
+            new Class<?>[] { FacesContext.class, UIComponent.class, List.class },
+            new Object[] { context, component, null }, pw
+        );
+
+    }// End vdlRetargetAttachedObjectsNPETest
+
+    public void vdlRestoreViewNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        FacesContext context = getFacesContext();
+        String vid = context.getViewRoot().getViewId();
+        ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
+
+        // FacesContext as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "restoreView",
+            new Class<?>[] { FacesContext.class, String.class },
+            new Object[] { null, vid }, pw
+        );
+
+        // viewId as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "restoreView",
+            new Class<?>[] { FacesContext.class, String.class },
+            new Object[] { context, null }, pw
+        );
+
+    }// End vdlRestoreViewNPETest
+
+    public void vdlCreateViewNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        FacesContext context = getFacesContext();
+        ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
+
+        // FacesContext as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "createView",
+            new Class<?>[] { FacesContext.class, String.class },
+            new Object[] { null, FACELETS_VIEWID }, pw
+        );
+
+        // viewId as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "createView",
+            new Class<?>[] { FacesContext.class, String.class },
+            new Object[] { context, null }, pw
+        );
+
+    }// End vdlCreateViewNPETest
+
+    public void vdlGetViewMetadataNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        FacesContext context = getFacesContext();
+        ViewDeclarationLanguage vdl = this.getVDL(context, FACELETS_VIEWID);
+
+        // FacesContext as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "getViewMetadata",
+            new Class<?>[] { FacesContext.class, String.class },
+            new Object[] { null, FACELETS_VIEWID }, pw
+        );
+
+        // viewId as 'null'
+        JSFTestUtil.checkForNPE(
+            vdl, "getViewMetadata",
+            new Class<?>[] { FacesContext.class, String.class },
+            new Object[] { context, null }, pw
+        );
+
+    }// End vdlGetViewMetadataNPETest
+
+    public void vdlGetViewMetaDataTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext context = getFacesContext();
+        String root = "myRoot.xhtml";
+
+        ViewDeclarationLanguage vdl = this.getVDL(context, root);
+        ViewMetadata vm = vdl.getViewMetadata(context, root);
+        String result = vm.getViewId();
+
+        if (root.equals(result)) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value found!" + JSFTestUtil.NL
+                    + "Expected: " + root + JSFTestUtil.NL + "Received: " + result
+            );
+
+        }
+
+    }// End vdlGetViewMetaDataTest
+
+    public void vdlGetIdTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext context = getFacesContext();
+        String root = "myRoot.xhtml";
+
+        ViewDeclarationLanguage vdl = this.getVDL(context, root);
+
+        String result = vdl.getId();
+
+        if (
+            ViewDeclarationLanguage.FACELETS_VIEW_DECLARATION_LANGUAGE_ID
+                .equals(result)
+        ) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL + "Unexpected value found!"
+                    + JSFTestUtil.NL + "Expected: " + root + JSFTestUtil.NL + "Received: "
+                    + result
+            );
+
+        }
+
+    }// End vdlGetIdTest
+
+    public void vdlViewExistsTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext context = getFacesContext();
+        String root = "myRoot.xhtml";
+
+        ViewDeclarationLanguage vdl = this.getVDL(context, root);
+
+        if (vdl.viewExists(context, root)) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL + "View did not exists!"
+                    + JSFTestUtil.NL + "Expected: " + root + " to exist."
+            );
+
+        }
+
+    }// End vdlViewExistsTest
+
+    // --------------------------------------------- private methods
+
+    private ViewDeclarationLanguage getVDL(FacesContext context, String viewId) {
+        ViewDeclarationLanguage vdl = context.getApplication().getViewHandler()
+            .getViewDeclarationLanguage(context, viewId);
+
+        return vdl;
     }
 
-  }// End vdlGetIdTest
+    private Resource getResource(FacesContext context) {
+        ResourceHandler handler = context.getApplication().getResourceHandler();
+        Resource resource = handler.createResource("myComp.xhtml");
 
-  public void vdlViewExistsTest(HttpServletRequest request,
-      HttpServletResponse response) throws IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext context = getFacesContext();
-    String root = "myRoot.xhtml";
-
-    ViewDeclarationLanguage vdl = this.getVDL(context, root);
-
-    if (vdl.viewExists(context, root)) {
-      out.println(JSFTestUtil.PASS);
-
-    } else {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "View did not exists!"
-          + JSFTestUtil.NL + "Expected: " + root + " to exist.");
-
+        return resource;
     }
 
-  }// End vdlViewExistsTest
+    // --------------------------------------------- private classes
 
-  // --------------------------------------------- private methods
+    private static class TCKAttachedObjectHandler
+        implements
+            AttachedObjectHandler {
 
-  private ViewDeclarationLanguage getVDL(FacesContext context, String viewId) {
-    ViewDeclarationLanguage vdl = context.getApplication().getViewHandler()
-        .getViewDeclarationLanguage(context, viewId);
+        @Override
+        public void applyAttachedObject(FacesContext arg0, UIComponent arg1) {
+            // Do nothing this is a Class for test only.
 
-    return vdl;
-  }
+        }
 
-  private Resource getResource(FacesContext context) {
-    ResourceHandler handler = context.getApplication().getResourceHandler();
-    Resource resource = handler.createResource("myComp.xhtml");
-
-    return resource;
-  }
-
-  // --------------------------------------------- private classes
-
-  private static class TCKAttachedObjectHandler
-      implements AttachedObjectHandler {
-
-    @Override
-    public void applyAttachedObject(FacesContext arg0, UIComponent arg1) {
-      // Do nothing this is a Class for test only.
+        @Override
+        public String getFor() {
+            // Do nothing this is a Class for test only.
+            return null;
+        }
 
     }
-
-    @Override
-    public String getFor() {
-      // Do nothing this is a Class for test only.
-      return null;
-    }
-
-  }
 
 }

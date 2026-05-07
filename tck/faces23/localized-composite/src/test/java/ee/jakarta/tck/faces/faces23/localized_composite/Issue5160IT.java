@@ -41,10 +41,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositeEn() throws Exception {
@@ -53,10 +53,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositeEs() throws Exception {
@@ -65,10 +65,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositePt() throws Exception {
@@ -77,10 +77,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositePtBr() throws Exception {
@@ -89,10 +89,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositePtBrPb() throws Exception {
@@ -101,10 +101,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositePtBrXx() throws Exception {
@@ -113,10 +113,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositePtBrXxYy() throws Exception {
@@ -125,10 +125,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositePtXxYy() throws Exception {
@@ -137,10 +137,10 @@ public class Issue5160IT extends BaseITNG {
 
     /**
      * Tests if composite component that use resourceBundleMap .properties reflects locale changes.
-     * 
+     *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5160
      * @see https://issues.apache.org/jira/browse/MYFACES-4491
-     * 
+     *
      */
     @Test
     void localizedCompositePtXx() throws Exception {
@@ -160,4 +160,5 @@ public class Issue5160IT extends BaseITNG {
         WebElement btn2 = page.findElement(By.id("frm:btn1:btn"));
         assertEquals(compositeButtonText, btn2.getDomProperty("value"));
     }
+
 }

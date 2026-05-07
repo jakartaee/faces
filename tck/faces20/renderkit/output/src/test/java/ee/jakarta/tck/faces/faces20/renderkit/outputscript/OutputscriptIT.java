@@ -42,4 +42,5 @@ class OutputscriptIT extends BaseITNG {
             .map(script -> script.getDomAttribute("src"))
             .anyMatch(src -> src != null && src.contains(needle));
     }
+
 }

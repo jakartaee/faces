@@ -21,7 +21,7 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
               version="2.3">
-	<application>
-		<search-keyword-resolver>ee.jakarta.tck.faces.faces23.search_expression.CustomSearchKeywordResolver</search-keyword-resolver>
-	</application>
+    <application>
+        <search-keyword-resolver>ee.jakarta.tck.faces.faces23.search_expression.CustomSearchKeywordResolver</search-keyword-resolver>
+    </application>
 </faces-config>

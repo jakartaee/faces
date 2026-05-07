@@ -28,7 +28,19 @@ class ApplicationFactoryIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void applicationFactoryGetSetApplicationTest() { runServletTest("applicationFactoryGetSetApplicationTest"); }
-    @Test void applicationFactoryGetWrappedTest() { runServletTest("applicationFactoryGetWrappedTest"); }
-    @Test void applicationFactorySetApplicationNPETest() { runServletTest("applicationFactorySetApplicationNPETest"); }
+    @Test
+    void applicationFactoryGetSetApplicationTest() {
+        runServletTest("applicationFactoryGetSetApplicationTest");
+    }
+
+    @Test
+    void applicationFactoryGetWrappedTest() {
+        runServletTest("applicationFactoryGetWrappedTest");
+    }
+
+    @Test
+    void applicationFactorySetApplicationNPETest() {
+        runServletTest("applicationFactorySetApplicationNPETest");
+    }
+
 }

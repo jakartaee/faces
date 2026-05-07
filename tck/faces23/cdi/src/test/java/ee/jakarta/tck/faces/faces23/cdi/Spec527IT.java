@@ -29,14 +29,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec527IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see FacesContext
      * @see https://github.com/jakartaee/faces/issues/527
-   */
-  @Test
-  void injectFacesContext() throws Exception {
+     */
+    @Test
+    void injectFacesContext() throws Exception {
         WebPage page = getPage("spec527.xhtml");
-      assertEquals("true", page.findElement(By.id("injected")).getText());
+        assertEquals("true", page.findElement(By.id("injected")).getText());
     }
+
 }

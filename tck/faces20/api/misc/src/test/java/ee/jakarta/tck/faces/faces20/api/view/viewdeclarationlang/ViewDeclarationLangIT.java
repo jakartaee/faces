@@ -28,15 +28,59 @@ class ViewDeclarationLangIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void vdlCreateViewNPETest() { runServletTest("vdlCreateViewNPETest"); }
-    @Test void vdlGetComponentMetadataNPETest() { runServletTest("vdlGetComponentMetadataNPETest"); }
-    @Test void vdlGetIdTest() { runServletTest("vdlGetIdTest"); }
-    @Test void vdlGetScriptComponentResourceNPETest() { runServletTest("vdlGetScriptComponentResourceNPETest"); }
-    @Test void vdlGetViewMetadataNPETest() { runServletTest("vdlGetViewMetadataNPETest"); }
-    @Test void vdlGetViewMetaDataTest() { runServletTest("vdlGetViewMetaDataTest"); }
-    @Test void vdlRenderViewNPETest() { runServletTest("vdlRenderViewNPETest"); }
-    @Test void vdlRestoreViewNPETest() { runServletTest("vdlRestoreViewNPETest"); }
-    @Test void vdlRetargetAttachedObjectsNPETest() { runServletTest("vdlRetargetAttachedObjectsNPETest"); }
-    @Test void vdlRetargetMethodExpressionsNPETest() { runServletTest("vdlRetargetMethodExpressionsNPETest"); }
-    @Test void vdlViewExistsTest() { runServletTest("vdlViewExistsTest"); }
+    @Test
+    void vdlCreateViewNPETest() {
+        runServletTest("vdlCreateViewNPETest");
+    }
+
+    @Test
+    void vdlGetComponentMetadataNPETest() {
+        runServletTest("vdlGetComponentMetadataNPETest");
+    }
+
+    @Test
+    void vdlGetIdTest() {
+        runServletTest("vdlGetIdTest");
+    }
+
+    @Test
+    void vdlGetScriptComponentResourceNPETest() {
+        runServletTest("vdlGetScriptComponentResourceNPETest");
+    }
+
+    @Test
+    void vdlGetViewMetadataNPETest() {
+        runServletTest("vdlGetViewMetadataNPETest");
+    }
+
+    @Test
+    void vdlGetViewMetaDataTest() {
+        runServletTest("vdlGetViewMetaDataTest");
+    }
+
+    @Test
+    void vdlRenderViewNPETest() {
+        runServletTest("vdlRenderViewNPETest");
+    }
+
+    @Test
+    void vdlRestoreViewNPETest() {
+        runServletTest("vdlRestoreViewNPETest");
+    }
+
+    @Test
+    void vdlRetargetAttachedObjectsNPETest() {
+        runServletTest("vdlRetargetAttachedObjectsNPETest");
+    }
+
+    @Test
+    void vdlRetargetMethodExpressionsNPETest() {
+        runServletTest("vdlRetargetMethodExpressionsNPETest");
+    }
+
+    @Test
+    void vdlViewExistsTest() {
+        runServletTest("vdlViewExistsTest");
+    }
+
 }

@@ -35,4 +35,5 @@ public class TCKContextFactoryFour extends TCKDecoratedContextFactory {
     public FacesContextFactory getWrapped() {
         return this;
     }
+
 }

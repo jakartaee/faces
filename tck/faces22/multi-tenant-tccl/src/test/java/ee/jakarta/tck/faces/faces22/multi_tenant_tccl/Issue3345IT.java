@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 @Disabled("Because this is Mojarra specific: https://github.com/jakartaee/faces/issues/1679")
 public class Issue3345IT extends BaseITNG {
 
-  /**
-   * @see FactoryFinder
+    /**
+     * @see FactoryFinder
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3345
-   */
-  @Test
-  void tcclReplacementResilience() throws Exception {
+     */
+    @Test
+    void tcclReplacementResilience() throws Exception {
         WebPage page = getPage("issue3345.xhtml");
 
         String pageText = page.getSource();
@@ -42,7 +42,8 @@ public class Issue3345IT extends BaseITNG {
         // If the BeforeFilter is configured to
         if (pageText.matches("(?s).*SUCCESS.*")) {
             assertTrue(true);
-        } else {
+        }
+        else {
             assertTrue(pageText.matches("(?s).*Duke.*submit.*"));
             assertTrue(pageText.matches("(?s).*First name:\\s*Duke.*"));
             assertTrue(pageText.matches("(?s).*BeforeServlet init found Lifecycle:\\s*TRUE.*"));
@@ -53,4 +54,5 @@ public class Issue3345IT extends BaseITNG {
             assertTrue(pageText.matches("(?s).*BeforeServlet request found FacesContext:\\s*FALSE.*"));
         }
     }
+
 }

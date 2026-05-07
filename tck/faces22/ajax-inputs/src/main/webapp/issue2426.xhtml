@@ -24,7 +24,7 @@
 <h:head>
 </h:head>
 <h:body>
-	<h:form prependId="false">
+    <h:form prependId="false">
                 <h:selectBooleanCheckbox id="checkbox" value="#{facesContext.externalContext.sessionMap['checkbox']}">
                         <f:ajax execute="checkbox radio" />
                 </h:selectBooleanCheckbox>
@@ -34,6 +34,6 @@
                         <f:selectItem itemValue="2" itemLabel="2" />
                         <f:ajax />
                 </h:selectOneRadio>
-	</h:form>
+    </h:form>
 </h:body>
 </html>

@@ -28,8 +28,8 @@ class ValueholderIT extends BaseITNG {
 
     /** Input id, value to type, expected round-tripped value (converter title-cases the first letter). */
     private static final String[][] TEST_VALUES = {
-            { "firstname", "peter", "Peter" },
-            { "lastname", "griffin", "Griffin" } };
+        { "firstname", "peter", "Peter" },
+        { "lastname", "griffin", "Griffin" } };
 
     @Test
     void compositeValueHolderTest() {
@@ -54,15 +54,21 @@ class ValueholderIT extends BaseITNG {
 
         for (String[] testValue : TEST_VALUES) {
             WebElement input = findByIdSuffix(page, testValue[0]);
-            assertEquals(testValue[2], input.getAttribute("value"),
-                    "Round-tripped value for " + testValue[0]);
+            assertEquals(
+                testValue[2], input.getAttribute("value"),
+                "Round-tripped value for " + testValue[0]
+            );
         }
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

@@ -27,10 +27,10 @@ import jakarta.inject.Named;
 public class BackingBean implements Serializable {
 
     private static final long serialVersionUID = 1544275452223321526L;
-    
+
     private String password1;
     private String password2;
-    
+
     private User user = new User();
 
     public String getPassword1() {
@@ -48,8 +48,9 @@ public class BackingBean implements Serializable {
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
-    
+
     public User getUser() {
-		return user;
-	}
+        return user;
+    }
+
 }

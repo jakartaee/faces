@@ -27,32 +27,33 @@ import java.util.List;
 @jakarta.enterprise.context.RequestScoped
 public class ColorBean {
 
-  private List<String> colors = new ArrayList<String>();
+    private List<String> colors = new ArrayList<String>();
 
-  public ColorBean() {
-    this.initialSetup();
-  }
+    public ColorBean() {
+        this.initialSetup();
+    }
 
-  private void initialSetup() {
-    // ArrayList
-    colors.add("Red");
-    colors.add("Green");
-    colors.add("Blue");
-    colors.add("Violet");
-    colors.add("Pink");
-  }
+    private void initialSetup() {
+        // ArrayList
+        colors.add("Red");
+        colors.add("Green");
+        colors.add("Blue");
+        colors.add("Violet");
+        colors.add("Pink");
+    }
 
-  /**
-   * @return the colors
-   */
-  public List getColors() {
-    return colors;
-  }
+    /**
+     * @return the colors
+     */
+    public List getColors() {
+        return colors;
+    }
 
-  /**
-   * @param colors
-   */
-  public void setColors(List<String> colors) {
-    this.colors = colors;
-  }
+    /**
+     * @param colors
+     */
+    public void setColors(List<String> colors) {
+        this.colors = colors;
+    }
+
 }

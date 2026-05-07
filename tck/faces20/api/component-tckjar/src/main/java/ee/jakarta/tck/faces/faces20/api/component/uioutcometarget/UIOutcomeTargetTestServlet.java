@@ -35,136 +35,158 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/UIOutcomeTargetTestServlet")
 public class UIOutcomeTargetTestServlet extends BaseComponentTestServlet {
 
-  private List<String> rendererType;
+    private List<String> rendererType;
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    rendererType = new ArrayList<String>();
-    rendererType.add("jakarta.faces.Link");
-    rendererType.add("jakarta.faces.Button");
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        rendererType = new ArrayList<String>();
+        rendererType.add("jakarta.faces.Link");
+        rendererType.add("jakarta.faces.Button");
 
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UIOutcomeTarget();
-  }
-
-  // --------------------------------------------------- overridden test cases
-  // UIComponent.{get,set}RendererType
-  @Override
-  public void uiComponentGetSetRendererTypeTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    UIComponent comp = createComponent();
-
-    // First check the default return value for the component
-    // under test base on the rendererType variable. If null,
-    // then expect the return type to be null, if non null,
-    // make sure the values are equal.
-    if (this.rendererType == null) {
-      if (comp.getRendererType() != null) {
-        out.println(JSFTestUtil.FAIL + " Expected getRendererType() to"
-            + " return null for this component type.");
-        out.println("Value received: " + comp.getRendererType());
-        return;
-      }
-    } else {
-      if (!this.rendererType.contains(comp.getRendererType())) {
-        out.println(JSFTestUtil.FAIL + " Unexpected renderType returned "
-            + "from getRendererType()." + JSFTestUtil.NL + "Expected"
-            + rendererType.get(0) + " or " + rendererType.get(1)
-            + JSFTestUtil.NL + "Received: " + comp.getRendererType());
-        return;
-      }
     }
 
-    // now ensure that the value can be overridden
-    comp.setRendererType("string");
-
-    if (!"string".equals(comp.getRendererType())) {
-      out.println(JSFTestUtil.FAIL + " Expected getRendererType() to"
-          + " return 'string' for this component "
-          + "after having explicitly set it via setRendererType()");
-      out.println("Value received: " + comp.getRendererType());
-      return;
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UIOutcomeTarget();
     }
 
-    // ensure we can set null
-    comp.setRendererType(null);
-    if (comp.getRendererType() != null) {
-      out.println(JSFTestUtil.FAIL + " Expected getRendererType() to return"
-          + " null after having explicitly set it via setRendererType().");
-      return;
+    // --------------------------------------------------- overridden test cases
+    // UIComponent.{get,set}RendererType
+    @Override
+    public void uiComponentGetSetRendererTypeTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        UIComponent comp = createComponent();
+
+        // First check the default return value for the component
+        // under test base on the rendererType variable. If null,
+        // then expect the return type to be null, if non null,
+        // make sure the values are equal.
+        if (this.rendererType == null) {
+            if (comp.getRendererType() != null) {
+                out.println(
+                    JSFTestUtil.FAIL + " Expected getRendererType() to"
+                        + " return null for this component type."
+                );
+                out.println("Value received: " + comp.getRendererType());
+                return;
+            }
+        }
+        else {
+            if (!this.rendererType.contains(comp.getRendererType())) {
+                out.println(
+                    JSFTestUtil.FAIL + " Unexpected renderType returned "
+                        + "from getRendererType()." + JSFTestUtil.NL + "Expected"
+                        + rendererType.get(0) + " or " + rendererType.get(1)
+                        + JSFTestUtil.NL + "Received: " + comp.getRendererType()
+                );
+                return;
+            }
+        }
+
+        // now ensure that the value can be overridden
+        comp.setRendererType("string");
+
+        if (!"string".equals(comp.getRendererType())) {
+            out.println(
+                JSFTestUtil.FAIL + " Expected getRendererType() to"
+                    + " return 'string' for this component "
+                    + "after having explicitly set it via setRendererType()"
+            );
+            out.println("Value received: " + comp.getRendererType());
+            return;
+        }
+
+        // ensure we can set null
+        comp.setRendererType(null);
+        if (comp.getRendererType() != null) {
+            out.println(
+                JSFTestUtil.FAIL + " Expected getRendererType() to return"
+                    + " null after having explicitly set it via setRendererType()."
+            );
+            return;
+        }
+
+        // reset the renderer type
+        // comp.setRendererType(rendererType);
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    // reset the renderer type
-    // comp.setRendererType(rendererType);
+    // --------------------------------------------------------------
+    // UIOutcomeTarget
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void uiOutcomeTargetGetSetOutcomeTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIOutcomeTarget outcome = (UIOutcomeTarget) createComponent();
 
-  // --------------------------------------------------------------
-  // UIOutcomeTarget
+        String golden = "frodo";
+        outcome.setOutcome(golden);
+        String result = outcome.getOutcome();
 
-  public void uiOutcomeTargetGetSetOutcomeTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIOutcomeTarget outcome = (UIOutcomeTarget) createComponent();
+        if (!result.equals(golden)) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected value for outcome property!"
+                    + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
+                    + "Received: " + result
+            );
 
-    String golden = "frodo";
-    outcome.setOutcome(golden);
-    String result = outcome.getOutcome();
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
 
-    if (!result.equals(golden)) {
-      out.println(JSFTestUtil.FAIL + " Unexpected value for outcome property!"
-          + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
-          + "Received: " + result);
+    } // end uiOutcomeTargetGetSetOutcomeTest
 
-    } else {
-      out.println(JSFTestUtil.PASS);
-    }
+    public void uiOutcomeTargetIsSetIncludeViewParamsTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIOutcomeTarget outcome = (UIOutcomeTarget) createComponent();
 
-  } // end uiOutcomeTargetGetSetOutcomeTest
+        boolean golden = true;
+        outcome.setIncludeViewParams(golden);
+        boolean result = outcome.isIncludeViewParams();
 
-  public void uiOutcomeTargetIsSetIncludeViewParamsTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIOutcomeTarget outcome = (UIOutcomeTarget) createComponent();
+        if (!result) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected value for for view parameters setting!"
+                    + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
+                    + "Received: " + result
+            );
 
-    boolean golden = true;
-    outcome.setIncludeViewParams(golden);
-    boolean result = outcome.isIncludeViewParams();
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
 
-    if (!result) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected value for for view parameters setting!"
-          + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
-          + "Received: " + result);
+    } // end uiOutcomeTargetIsSetIncludeViewParamsTest
 
-    } else {
-      out.println(JSFTestUtil.PASS);
-    }
-
-  } // end uiOutcomeTargetIsSetIncludeViewParamsTest
 }

@@ -45,7 +45,8 @@ public class Issue2504Bean implements Serializable {
     public void toggle(ActionEvent ae) {
         if (visible) {
             visible = false;
-        } else if (!visible) {
+        }
+        else if (!visible) {
             visible = true;
         }
 
@@ -64,23 +65,25 @@ public class Issue2504Bean implements Serializable {
 
     private void determineViewStateValueOccurences() {
         FacesContext context = FacesContext.getCurrentInstance();
-        Map <String, String[]>requestParams = context.getExternalContext().getRequestParameterValuesMap();
+        Map<String, String[]> requestParams = context.getExternalContext().getRequestParameterValuesMap();
         Set s = requestParams.entrySet();
         Iterator it = s.iterator();
         while (it.hasNext()) {
-            Map.Entry m = (Map.Entry)it.next();
-            String key = (String)m.getKey();
-            String[] values = (String[])m.getValue();
+            Map.Entry m = (Map.Entry) it.next();
+            String key = (String) m.getKey();
+            String[] values = (String[]) m.getValue();
             if (key.equals("jakarta.faces.ViewState")) {
                 if (null != values) {
                     if (values.length > 1) {
                         msg = "jakarta.faces.ViewState Has More than One Value";
-                    } else if (values.length == 1) {
+                    }
+                    else if (values.length == 1) {
                         msg = "jakarta.faces.ViewState Has One Value";
                     }
-                } 
-               break;
-           }
+                }
+                break;
+            }
         }
-    } 
+    }
+
 }

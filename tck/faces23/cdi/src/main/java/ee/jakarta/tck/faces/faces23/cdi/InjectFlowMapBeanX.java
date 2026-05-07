@@ -26,8 +26,9 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class InjectFlowMapBeanX {
-    
-    @Inject @FlowMap
+
+    @Inject
+    @FlowMap
     private Map<Object, Object> flowMap;
 
     public void initFoo() {

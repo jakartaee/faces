@@ -17,18 +17,18 @@
 
 -->
 
-<faces-config version="3.0" 
-			  xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   			  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-        			https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
+<faces-config version="3.0"
+              xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                    https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
 
   <flow-definition id="flow-b">
-    
+
     <flow-return id="taskFlowReturn1">
       <from-outcome>#{flow_b_Bean.returnValue}</from-outcome>
-    </flow-return>            
-    
+    </flow-return>
+
     <method-call id="outcome-from-method">
       <method>#{flow_b_Bean.methodWithOutcome}</method>
       <default-outcome>taskFlowReturn1</default-outcome>
@@ -40,12 +40,12 @@
         <value>#{flow_b_Bean.integer}</value>
       </parameter>
     </method-call>
-    
+
     <method-call id="outcome-from-markup">
       <method>#{flow_b_Bean.voidMethod}</method>
       <default-outcome>taskFlowReturn1</default-outcome>
     </method-call>
-    
+
   </flow-definition>
-  
+
 </faces-config>

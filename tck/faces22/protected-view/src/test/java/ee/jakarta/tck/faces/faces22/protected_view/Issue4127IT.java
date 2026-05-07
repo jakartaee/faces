@@ -143,4 +143,5 @@ public class Issue4127IT extends BaseITNG {
         String pageXml = page.getSource();
         assertTrue(pageXml.contains("Welcome to Page2"));
     }
+
 }

@@ -36,71 +36,90 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/FacesContextFactoryTestServlet")
 public final class FacesContextFactoryTestServlet extends HttpTCKServlet {
 
-  ServletContext servletContext;
+    ServletContext servletContext;
 
-  Lifecycle lifecycle;
+    Lifecycle lifecycle;
 
-  public void init(ServletConfig config) throws ServletException {
-    servletContext = config.getServletContext();
-    LifecycleFactory lifeFactory = (LifecycleFactory) FactoryFinder
-        .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-    lifecycle = lifeFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-    super.init(config);
-  }
-
-  // ------------------------------------------- Test Methods ----
-
-  // FacesContextFactory.getFacesContext()
-  public void facesCtxFactoryGetFacesContextTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    FacesContextFactory contextFactory = (FacesContextFactory) FactoryFinder
-        .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
-    FacesContext context = contextFactory.getFacesContext(servletContext,
-        request, response, lifecycle);
-
-    if (context == null) {
-      out.println(
-          JSFTestUtil.FAIL + " Unable to obtain a FacesContext instance from"
-              + " the FacesContextFactory.");
-    } else {
-      out.println(JSFTestUtil.PASS);
+    public void init(ServletConfig config) throws ServletException {
+        servletContext = config.getServletContext();
+        LifecycleFactory lifeFactory = (LifecycleFactory) FactoryFinder
+            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+        lifecycle = lifeFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+        super.init(config);
     }
 
-  } // End facesCtxFactoryGetFacesContextTest
+    // ------------------------------------------- Test Methods ----
 
-  // FacesContextFactory.getFacesContext() throws NPE if any arguments are
-  // null.
-  public void facesCtxFactoryGetFacesContextNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    // FacesContextFactory.getFacesContext()
+    public void facesCtxFactoryGetFacesContextTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    FacesContextFactory contextFactory = (FacesContextFactory) FactoryFinder
-        .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+        FacesContextFactory contextFactory = (FacesContextFactory) FactoryFinder
+            .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+        FacesContext context = contextFactory.getFacesContext(
+            servletContext,
+            request, response, lifecycle
+        );
 
-    // null context
-    JSFTestUtil.checkForNPE(contextFactory, "getFacesContext",
-        new Class<?>[] { Object.class, Object.class, Object.class,
-            Lifecycle.class },
-        new Object[] { null, request, response, lifecycle }, out);
+        if (context == null) {
+            out.println(
+                JSFTestUtil.FAIL + " Unable to obtain a FacesContext instance from"
+                    + " the FacesContextFactory."
+            );
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
 
-    // null request
-    JSFTestUtil.checkForNPE(contextFactory, "getFacesContext",
-        new Class<?>[] { Object.class, Object.class, Object.class,
-            Lifecycle.class },
-        new Object[] { servletContext, null, response, lifecycle }, out);
+    } // End facesCtxFactoryGetFacesContextTest
 
-    // null response
-    JSFTestUtil.checkForNPE(contextFactory, "getFacesContext",
-        new Class<?>[] { Object.class, Object.class, Object.class,
-            Lifecycle.class },
-        new Object[] { servletContext, request, null, lifecycle }, out);
+    // FacesContextFactory.getFacesContext() throws NPE if any arguments are
+    // null.
+    public void facesCtxFactoryGetFacesContextNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    // null lifecycle
-    JSFTestUtil.checkForNPE(contextFactory, "getFacesContext",
-        new Class<?>[] { Object.class, Object.class, Object.class,
-            Lifecycle.class },
-        new Object[] { servletContext, request, response, null }, out);
-  }
+        FacesContextFactory contextFactory = (FacesContextFactory) FactoryFinder
+            .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+
+        // null context
+        JSFTestUtil.checkForNPE(
+            contextFactory, "getFacesContext",
+            new Class<?>[] { Object.class, Object.class, Object.class,
+                Lifecycle.class },
+            new Object[] { null, request, response, lifecycle }, out
+        );
+
+        // null request
+        JSFTestUtil.checkForNPE(
+            contextFactory, "getFacesContext",
+            new Class<?>[] { Object.class, Object.class, Object.class,
+                Lifecycle.class },
+            new Object[] { servletContext, null, response, lifecycle }, out
+        );
+
+        // null response
+        JSFTestUtil.checkForNPE(
+            contextFactory, "getFacesContext",
+            new Class<?>[] { Object.class, Object.class, Object.class,
+                Lifecycle.class },
+            new Object[] { servletContext, request, null, lifecycle }, out
+        );
+
+        // null lifecycle
+        JSFTestUtil.checkForNPE(
+            contextFactory, "getFacesContext",
+            new Class<?>[] { Object.class, Object.class, Object.class,
+                Lifecycle.class },
+            new Object[] { servletContext, request, response, null }, out
+        );
+    }
+
 }

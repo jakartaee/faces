@@ -16,7 +16,6 @@
 
 package ee.jakarta.tck.faces.faces22.ajax_lifecycle;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
@@ -30,17 +29,18 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2652IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2652
-   */
-  @Test
-  void illegalStateExceptionWhenAjaxRequestNoLongerHasViewState() throws Exception {
+     */
+    @Test
+    void illegalStateExceptionWhenAjaxRequestNoLongerHasViewState() throws Exception {
         boolean exceptionThrown = false;
         WebPage page = getPage("issue2652.xhtml");
         WebElement input = page.findElement(By.id("form:button"));
         page.guardAjax(input::click);
         page = getPage("issue2652-1.xhtml");
-      assertEquals("true", page.findElement(By.id("form:ise")).getText());
+        assertEquals("true", page.findElement(By.id("form:ise")).getText());
     }
+
 }

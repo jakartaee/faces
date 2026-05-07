@@ -73,13 +73,13 @@ public abstract class BaseITNG implements ExecutionCondition {
     private ExtendedWebDriver webDriver;
 
     protected static final DriverPool driverPool = new DriverPool();
-    
+
     private static final HttpClient HTTP = newHttpClient();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
         return create(ZipImporter.class, getProperty("finalName") + ".war").importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
+            .as(WebArchive.class);
     }
 
     @BeforeEach
@@ -101,7 +101,8 @@ public abstract class BaseITNG implements ExecutionCondition {
         String url = webUrl.toString() + page;
         try {
             webDriver.get(url);
-        } catch (WebDriverException ex) {
+        }
+        catch (WebDriverException ex) {
             // CDP session can die between @BeforeEach and the first navigation
             // (Chrome crash, paged-out, dropped WebSocket). DriverPool only retries
             // on postInit failure; here we cover the post-postInit gap.
@@ -133,9 +134,8 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * Send a GET to {@code resource} with the given request headers (including, if desired, a Cookie header)
-     * and return the response body as a String. Useful for tests that exercise request headers, cookies, or
-     * similar metadata.
+     * Send a GET to {@code resource} with the given request headers (including, if desired, a Cookie header) and return the response body as a String. Useful
+     * for tests that exercise request headers, cookies, or similar metadata.
      */
     protected String getResponseBody(String resource, java.util.Map<String, String> headers) {
         try {
@@ -157,15 +157,16 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * Send a GET to {@code resource} WITHOUT following redirects and return the 'Location' header (null if absent).
-     * Useful for tests that verify a 3xx redirect target.
+     * Send a GET to {@code resource} WITHOUT following redirects and return the 'Location' header (null if absent). Useful for tests that verify a 3xx redirect
+     * target.
      */
     protected String getResponseLocation(String resource) {
         try {
             java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder()
-                    .followRedirects(java.net.http.HttpClient.Redirect.NEVER).build();
+                .followRedirects(java.net.http.HttpClient.Redirect.NEVER).build();
             java.net.http.HttpResponse<String> response = client.send(
-                    newBuilder(create(webUrl + resource)).build(), ofString());
+                newBuilder(create(webUrl + resource)).build(), ofString()
+            );
             return response.headers().firstValue("Location").orElse(null);
         }
         catch (InterruptedException e) {

@@ -36,131 +36,148 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/UIGraphicTestServlet")
 public class UIGraphicTestServlet extends BaseComponentTestServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Image");
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UIGraphic();
-  }
-
-  // ------------------------------------------- Test Methods ----
-
-  @Override
-  public void uiComponentGetSetValueExpressionTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-
-    BufferedResponseWrapper wrapper = new BufferedResponseWrapper(response);
-
-    super.uiComponentGetSetValueExpressionTest(request, wrapper);
-    String result = wrapper.getBufferedWriter().toString();
-
-    PrintWriter out = response.getWriter();
-
-    if (result.indexOf(JSFTestUtil.PASS) == -1) {
-      out.println(result);
-      return;
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Image");
     }
 
-    // default processing of get,setValueExpression is ok, now validate
-    // processing specific to UIGraphic
-    request.setAttribute("tckUrl", "http://java.sun.com");
-
-    ExpressionFactory factory = JSFTestUtil
-        .getExpressionFactory(servletContext);
-    ValueExpression expression = factory.createValueExpression(
-        getFacesContext().getELContext(), "#{requestScope.tckUrl}",
-        java.lang.String.class);
-    ValueExpression literalExpr = factory.createValueExpression(
-        getFacesContext().getELContext(), "http://java.net",
-        java.lang.String.class);
-
-    UIGraphic graphic = (UIGraphic) createComponent();
-
-    graphic.setValueExpression("url", expression);
-
-    if (!"http://java.sun.com".equals(graphic.getValue())) {
-      out.println(JSFTestUtil.FAIL + " setValueExpression() with a key of 'url'"
-          + " didn't set the ValueExpression provided as the value"
-          + " of the component.");
-      out.println("Expected: http://java.net");
-      out.println("Received: " + graphic.getValue());
-      return;
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UIGraphic();
     }
 
-    // ensure there is no special processing if the ValueExpression
-    // happens to be literal
-    graphic.setValueExpression("url", literalExpr);
-    if (!"http://java.net".equals(graphic.getValue())) {
-      out.println(JSFTestUtil.FAIL + " setValueExpression() with a key of 'url'"
-          + " didn't set the literal ValueExpression provided as the "
-          + "value of the component.");
-      out.println("Expected: " + expression);
-      out.println("Received: " + graphic.getValue());
-      return;
+    // ------------------------------------------- Test Methods ----
+
+    @Override
+    public void uiComponentGetSetValueExpressionTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+
+        BufferedResponseWrapper wrapper = new BufferedResponseWrapper(response);
+
+        super.uiComponentGetSetValueExpressionTest(request, wrapper);
+        String result = wrapper.getBufferedWriter().toString();
+
+        PrintWriter out = response.getWriter();
+
+        if (result.indexOf(JSFTestUtil.PASS) == -1) {
+            out.println(result);
+            return;
+        }
+
+        // default processing of get,setValueExpression is ok, now validate
+        // processing specific to UIGraphic
+        request.setAttribute("tckUrl", "http://java.sun.com");
+
+        ExpressionFactory factory = JSFTestUtil
+            .getExpressionFactory(servletContext);
+        ValueExpression expression = factory.createValueExpression(
+            getFacesContext().getELContext(), "#{requestScope.tckUrl}",
+            java.lang.String.class
+        );
+        ValueExpression literalExpr = factory.createValueExpression(
+            getFacesContext().getELContext(), "http://java.net",
+            java.lang.String.class
+        );
+
+        UIGraphic graphic = (UIGraphic) createComponent();
+
+        graphic.setValueExpression("url", expression);
+
+        if (!"http://java.sun.com".equals(graphic.getValue())) {
+            out.println(
+                JSFTestUtil.FAIL + " setValueExpression() with a key of 'url'"
+                    + " didn't set the ValueExpression provided as the value"
+                    + " of the component."
+            );
+            out.println("Expected: http://java.net");
+            out.println("Received: " + graphic.getValue());
+            return;
+        }
+
+        // ensure there is no special processing if the ValueExpression
+        // happens to be literal
+        graphic.setValueExpression("url", literalExpr);
+        if (!"http://java.net".equals(graphic.getValue())) {
+            out.println(
+                JSFTestUtil.FAIL + " setValueExpression() with a key of 'url'"
+                    + " didn't set the literal ValueExpression provided as the "
+                    + "value of the component."
+            );
+            out.println("Expected: " + expression);
+            out.println("Received: " + graphic.getValue());
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
+
     }
 
-    out.println(JSFTestUtil.PASS);
+    public void uiGraphicSetGetValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIGraphic command = (UIGraphic) createComponent();
 
-  }
+        command.setValue("value");
 
-  public void uiGraphicSetGetValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIGraphic command = (UIGraphic) createComponent();
+        if (!"value".equals(command.getValue())) {
+            out.println(
+                JSFTestUtil.FAIL + " UIGraphic.getValue() didn't return"
+                    + " the value as set by UIGraphic.setValue()."
+            );
+            out.println("Expected: value");
+            out.println("Received: " + command.getValue());
+            return;
+        }
 
-    command.setValue("value");
-
-    if (!"value".equals(command.getValue())) {
-      out.println(JSFTestUtil.FAIL + " UIGraphic.getValue() didn't return"
-          + " the value as set by UIGraphic.setValue().");
-      out.println("Expected: value");
-      out.println("Received: " + command.getValue());
-      return;
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void uiGraphicGetSetURLTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void uiGraphicGetSetURLTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        UIGraphic graphic = (UIGraphic) createComponent();
 
-    UIGraphic graphic = (UIGraphic) createComponent();
+        String url = "http://java.sun.com";
 
-    String url = "http://java.sun.com";
+        graphic.setUrl(url);
+        String result = graphic.getUrl();
+        if (!url.equals(result)) {
+            out.println(
+                JSFTestUtil.FAIL + " Expected UIGraphic.getURL() to return"
+                    + " the value as set by UIGraphic.setURL()."
+            );
+            out.println("Expected: " + url);
+            out.println("Received: " + result);
+            return;
+        }
 
-    graphic.setUrl(url);
-    String result = graphic.getUrl();
-    if (!url.equals(result)) {
-      out.println(JSFTestUtil.FAIL + " Expected UIGraphic.getURL() to return"
-          + " the value as set by UIGraphic.setURL().");
-      out.println("Expected: " + url);
-      out.println("Received: " + result);
-      return;
+        out.println(JSFTestUtil.PASS);
     }
-
-    out.println(JSFTestUtil.PASS);
-  }
 
 }

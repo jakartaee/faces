@@ -28,12 +28,44 @@ class ViewDeclarationLangWrapperIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void vdlWrapperCreateViewNPETest() { runServletTest("vdlWrapperCreateViewNPETest"); }
-    @Test void vdlWrapperGetComponentMetadataNPETest() { runServletTest("vdlWrapperGetComponentMetadataNPETest"); }
-    @Test void vdlWrapperGetScriptComponentResourceNPETest() { runServletTest("vdlWrapperGetScriptComponentResourceNPETest"); }
-    @Test void vdlWrapperGetViewMetadataNPETest() { runServletTest("vdlWrapperGetViewMetadataNPETest"); }
-    @Test void vdlWrapperRenderViewNPETest() { runServletTest("vdlWrapperRenderViewNPETest"); }
-    @Test void vdlWrapperRestoreViewNPETest() { runServletTest("vdlWrapperRestoreViewNPETest"); }
-    @Test void vdlWrapperRetargetAttachedObjectsNPETest() { runServletTest("vdlWrapperRetargetAttachedObjectsNPETest"); }
-    @Test void vdlWrapperRetargetMethodExpressionsNPETest() { runServletTest("vdlWrapperRetargetMethodExpressionsNPETest"); }
+    @Test
+    void vdlWrapperCreateViewNPETest() {
+        runServletTest("vdlWrapperCreateViewNPETest");
+    }
+
+    @Test
+    void vdlWrapperGetComponentMetadataNPETest() {
+        runServletTest("vdlWrapperGetComponentMetadataNPETest");
+    }
+
+    @Test
+    void vdlWrapperGetScriptComponentResourceNPETest() {
+        runServletTest("vdlWrapperGetScriptComponentResourceNPETest");
+    }
+
+    @Test
+    void vdlWrapperGetViewMetadataNPETest() {
+        runServletTest("vdlWrapperGetViewMetadataNPETest");
+    }
+
+    @Test
+    void vdlWrapperRenderViewNPETest() {
+        runServletTest("vdlWrapperRenderViewNPETest");
+    }
+
+    @Test
+    void vdlWrapperRestoreViewNPETest() {
+        runServletTest("vdlWrapperRestoreViewNPETest");
+    }
+
+    @Test
+    void vdlWrapperRetargetAttachedObjectsNPETest() {
+        runServletTest("vdlWrapperRetargetAttachedObjectsNPETest");
+    }
+
+    @Test
+    void vdlWrapperRetargetMethodExpressionsNPETest() {
+        runServletTest("vdlWrapperRetargetMethodExpressionsNPETest");
+    }
+
 }

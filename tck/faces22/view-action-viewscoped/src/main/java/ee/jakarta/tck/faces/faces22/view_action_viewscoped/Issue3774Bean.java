@@ -24,6 +24,7 @@ import jakarta.inject.Named;
 @Named
 @ViewScoped
 public class Issue3774Bean implements Serializable {
+
     private static final long serialVersionUID = -1839329918134710280L;
 
     private String page;
@@ -45,4 +46,3 @@ public class Issue3774Bean implements Serializable {
     }
 
 }
-

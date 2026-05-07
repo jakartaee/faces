@@ -26,33 +26,33 @@
 </h:head>
 <h:body>
         <h1>Multi-field validation</h1>
-        
+
         <p>Taken from Emmanuel Bernard's blog entry &lt;<a href='http://in.relation.to/2008/04/01/bean-validation-sneak-peek-part-ii-custom-constraints/#H-ClasslevelConstraints'>http://in.relation.to/2008/04/01/bean-validation-sneak-peek-part-ii-custom-constraints/#H-ClasslevelConstraints</a>&gt;.</p>
-        
+
     <h:form prependId="false">
         <h:panelGrid columns="2">
-            
-            <h:outputText value="Password" />  
+
+            <h:outputText value="Password" />
             <h:inputText id="password1" value='#{spec1Bean2.password1}'>
                 <f:validateBean validationGroups="ee.jakarta.tck.faces.faces22.multi_field_validation.simple.PasswordValidationGroup" />
             </h:inputText>
-            
-            <h:outputText value="Password again" /> 
+
+            <h:outputText value="Password again" />
             <h:inputText id="password2" value='#{spec1Bean2.password2}'>
                 <f:validateBean validationGroups="ee.jakarta.tck.faces.faces22.multi_field_validation.simple.PasswordValidationGroup" />
             </h:inputText>
-            
+
         </h:panelGrid>
-        
-        <f:validateWholeBean value='#{spec1Bean2}' 
+
+        <f:validateWholeBean value='#{spec1Bean2}'
            validationGroups="ee.jakarta.tck.faces.faces22.multi_field_validation.simple.PasswordValidationGroup" />
-        
+
         <p><h:messages /></p>
-        
+
         <p id="password1Value">#{spec1Bean2.password1}</p>
 
         <p id="password2Value">#{spec1Bean2.password2}</p>
-        
+
         <h:commandButton value="submit" id="submit" />
     </h:form>
 </h:body>

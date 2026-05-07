@@ -32,8 +32,8 @@
                 <h:inputText id="input" value="#{issue2582Bean.text2}" />
                 <h:commandButton id="fill" value="Fill" action="#{issue2582Bean.setText2('hello')}">
                     <f:ajax execute="@this" render="input" />
-                </h:commandButton>    
-            </h:panelGrid>            
+                </h:commandButton>
+            </h:panelGrid>
             <h:panelGroup>
                 <h:commandButton id="clear" value="Clear" actionListener="#{issue2582Bean.altClear}"
                                  immediate="true">

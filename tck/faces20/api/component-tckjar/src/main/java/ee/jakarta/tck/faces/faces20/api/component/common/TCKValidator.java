@@ -23,37 +23,41 @@ import jakarta.faces.validator.Validator;
 
 public class TCKValidator implements Validator {
 
-  private static StringBuffer log = new StringBuffer();
+    private static StringBuffer log = new StringBuffer();
 
-  private String id;
+    private String id;
 
-  private boolean markInvalid;
+    private boolean markInvalid;
 
-  public TCKValidator() {
-  }
-
-  public TCKValidator(String id, boolean markInvalid) {
-    this.id = id;
-    this.markInvalid = markInvalid;
-  }
-
-  public void validate(FacesContext context, UIComponent component,
-      Object value) {
-    log.append("/" + id);
-    if (markInvalid) {
-      ((UIInput) component).setValid(false);
+    public TCKValidator() {
     }
-  }
 
-  public void markInvalid(boolean markInvalid) {
-    this.markInvalid = markInvalid;
-  }
+    public TCKValidator(String id, boolean markInvalid) {
+        this.id = id;
+        this.markInvalid = markInvalid;
+    }
 
-  public static String getTrace() {
-    return log.toString();
-  }
+    public void validate(
+        FacesContext context, UIComponent component,
+        Object value
+    )
+    {
+        log.append("/" + id);
+        if (markInvalid) {
+            ((UIInput) component).setValid(false);
+        }
+    }
 
-  public static void clearTrace() {
-    log = new StringBuffer();
-  }
+    public void markInvalid(boolean markInvalid) {
+        this.markInvalid = markInvalid;
+    }
+
+    public static String getTrace() {
+        return log.toString();
+    }
+
+    public static void clearTrace() {
+        log = new StringBuffer();
+    }
+
 }

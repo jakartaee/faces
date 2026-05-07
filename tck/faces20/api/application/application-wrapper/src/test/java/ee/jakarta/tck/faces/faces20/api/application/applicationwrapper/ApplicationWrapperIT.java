@@ -33,54 +33,254 @@ class ApplicationWrapperIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void applicationWrapperAddBehaviorTest() { runServletTest("applicationWrapperAddBehaviorTest"); }
-    @Test void applicationWrapperAddComponentTest() { runServletTest("applicationWrapperAddComponentTest"); }
-    @Test void applicationWrapperAddCreateConverterByClassTest() { runServletTest("applicationWrapperAddCreateConverterByClassTest"); }
-    @Test void applicationWrapperAddCreateConverterByStringTest() { runServletTest("applicationWrapperAddCreateConverterByStringTest"); }
-    @Test void applicationWrapperAddCreateValidatorTest() { runServletTest("applicationWrapperAddCreateValidatorTest"); }
-    @Test void applicationWrapperAddDefaultValidatorIdTest() { runServletTest("applicationWrapperAddDefaultValidatorIdTest"); }
-    @Test void applicationWrapperAddELResolverTest() { runServletTest("applicationWrapperAddELResolverTest"); }
-    @Test void applicationWrapperAddGetRemoveELContextListenerTest() { runServletTest("applicationWrapperAddGetRemoveELContextListenerTest"); }
-    @Test void applicationWrapperCreateBehaviorFETest() { runServletTest("applicationWrapperCreateBehaviorFETest"); }
-    @Test void applicationWrapperCreateBehaviorTest() { runServletTest("applicationWrapperCreateBehaviorTest"); }
-    @Test void applicationWrapperCreateComponentBindingTest() { runServletTest("applicationWrapperCreateComponentBindingTest"); }
-    @Test void applicationWrapperCreateComponentExpressionFETest() { runServletTest("applicationWrapperCreateComponentExpressionFETest"); }
-    @Test void applicationWrapperCreateComponentExpressionFSSNullTest() { runServletTest("applicationWrapperCreateComponentExpressionFSSNullTest"); }
-    @Test void applicationWrapperCreateComponentExpressionFSSTest() { runServletTest("applicationWrapperCreateComponentExpressionFSSTest"); }
-    @Test void applicationWrapperCreateComponentExpressionTest() { runServletTest("applicationWrapperCreateComponentExpressionTest"); }
-    @Test void applicationWrapperCreateComponentFETest() { runServletTest("applicationWrapperCreateComponentFETest"); }
-    @Test void applicationWrapperCreateComponentFSSNullTest() { runServletTest("applicationWrapperCreateComponentFSSNullTest"); }
-    @Test void applicationWrapperCreateComponentFSSTest() { runServletTest("applicationWrapperCreateComponentFSSTest"); }
-    @Test void applicationWrapperCreateComponentTest() { runServletTest("applicationWrapperCreateComponentTest"); }
-    @Test void applicationWrapperCreateValidatorFETest() { runServletTest("applicationWrapperCreateValidatorFETest"); }
-    @Test void applicationWrapperEvaluationExpressionGetTest() { runServletTest("applicationWrapperEvaluationExpressionGetTest"); }
-    @Test void applicationWrapperGetActionListenerTest() { runServletTest("applicationWrapperGetActionListenerTest"); }
-    @Test void applicationWrapperGetBehaviorIdsTest() { runServletTest("applicationWrapperGetBehaviorIdsTest"); }
-    @Test void applicationWrapperGetComponentTypesTest() { runServletTest("applicationWrapperGetComponentTypesTest"); }
-    @Test void applicationWrapperGetConverterIdsTest() { runServletTest("applicationWrapperGetConverterIdsTest"); }
-    @Test void applicationWrapperGetConverterTypesTest() { runServletTest("applicationWrapperGetConverterTypesTest"); }
-    @Test void applicationWrapperGetDefaultValidatorInfoTest() { runServletTest("applicationWrapperGetDefaultValidatorInfoTest"); }
-    @Test void applicationWrapperGetELResolverTest() { runServletTest("applicationWrapperGetELResolverTest"); }
-    @Test void applicationWrapperGetExpressionFactoryTest() { runServletTest("applicationWrapperGetExpressionFactoryTest"); }
-    @Test void applicationWrapperGetProjectStageTest() { runServletTest("applicationWrapperGetProjectStageTest"); }
-    @Test void applicationWrapperGetResourceBundleTest() { runServletTest("applicationWrapperGetResourceBundleTest"); }
-    @Test void applicationWrapperGetResourceHandlerTest() { runServletTest("applicationWrapperGetResourceHandlerTest"); }
-    @Test void applicationWrapperGetSetDefaultRenderKitIDTest() { runServletTest("applicationWrapperGetSetDefaultRenderKitIDTest"); }
-    @Test void applicationWrapperGetSetMessageBundleTest() { runServletTest("applicationWrapperGetSetMessageBundleTest"); }
-    @Test void applicationWrapperGetSetNavigationHandlerTest() { runServletTest("applicationWrapperGetSetNavigationHandlerTest"); }
-    @Test void applicationWrapperGetSetStateManagerTest() { runServletTest("applicationWrapperGetSetStateManagerTest"); }
-    @Test void applicationWrapperGetSetViewHandlerTest() { runServletTest("applicationWrapperGetSetViewHandlerTest"); }
-    @Test void applicationWrapperGetValidatorIdsTest() { runServletTest("applicationWrapperGetValidatorIdsTest"); }
-    @Test void applicationWrapperSetActionListenerTest() { runServletTest("applicationWrapperSetActionListenerTest"); }
-    @Test void applicationWrapperSetGetDefaultLocaleTest() { runServletTest("applicationWrapperSetGetDefaultLocaleTest"); }
-    @Test void applicationWrapperSetGetSupportedLocalesTest() { runServletTest("applicationWrapperSetGetSupportedLocalesTest"); }
-    @Test void applicationWrapperSetResourceHandlerNPETest() { runServletTest("applicationWrapperSetResourceHandlerNPETest"); }
-    @Test void applicationWrapperSetResourceHandlerTest() { runServletTest("applicationWrapperSetResourceHandlerTest"); }
-    @Test void applicationWrapperSetStateManagerNPETest() { runServletTest("applicationWrapperSetStateManagerNPETest"); }
-    @Test void applicationWrapperSetViewHandlerNPETest() { runServletTest("applicationWrapperSetViewHandlerNPETest"); }
-    @Test void applicationWrapperSubscribeToEventNoSrcClassTest() { runServletTest("applicationWrapperSubscribeToEventNoSrcClassTest"); }
-    @Test void applicationWrapperSubscribeToEventNullTest() { runServletTest("applicationWrapperSubscribeToEventNullTest"); }
-    @Test void applicationWrapperSubscribeToEventTest() { runServletTest("applicationWrapperSubscribeToEventTest"); }
-    @Test void applicationWrapperUnsubscribeFromEventNoSrcClassTest() { runServletTest("applicationWrapperUnsubscribeFromEventNoSrcClassTest"); }
-    @Test void applicationWrapperUnsubscribeFromEventTest() { runServletTest("applicationWrapperUnsubscribeFromEventTest"); }
+    @Test
+    void applicationWrapperAddBehaviorTest() {
+        runServletTest("applicationWrapperAddBehaviorTest");
+    }
+
+    @Test
+    void applicationWrapperAddComponentTest() {
+        runServletTest("applicationWrapperAddComponentTest");
+    }
+
+    @Test
+    void applicationWrapperAddCreateConverterByClassTest() {
+        runServletTest("applicationWrapperAddCreateConverterByClassTest");
+    }
+
+    @Test
+    void applicationWrapperAddCreateConverterByStringTest() {
+        runServletTest("applicationWrapperAddCreateConverterByStringTest");
+    }
+
+    @Test
+    void applicationWrapperAddCreateValidatorTest() {
+        runServletTest("applicationWrapperAddCreateValidatorTest");
+    }
+
+    @Test
+    void applicationWrapperAddDefaultValidatorIdTest() {
+        runServletTest("applicationWrapperAddDefaultValidatorIdTest");
+    }
+
+    @Test
+    void applicationWrapperAddELResolverTest() {
+        runServletTest("applicationWrapperAddELResolverTest");
+    }
+
+    @Test
+    void applicationWrapperAddGetRemoveELContextListenerTest() {
+        runServletTest("applicationWrapperAddGetRemoveELContextListenerTest");
+    }
+
+    @Test
+    void applicationWrapperCreateBehaviorFETest() {
+        runServletTest("applicationWrapperCreateBehaviorFETest");
+    }
+
+    @Test
+    void applicationWrapperCreateBehaviorTest() {
+        runServletTest("applicationWrapperCreateBehaviorTest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentBindingTest() {
+        runServletTest("applicationWrapperCreateComponentBindingTest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentExpressionFETest() {
+        runServletTest("applicationWrapperCreateComponentExpressionFETest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentExpressionFSSNullTest() {
+        runServletTest("applicationWrapperCreateComponentExpressionFSSNullTest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentExpressionFSSTest() {
+        runServletTest("applicationWrapperCreateComponentExpressionFSSTest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentExpressionTest() {
+        runServletTest("applicationWrapperCreateComponentExpressionTest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentFETest() {
+        runServletTest("applicationWrapperCreateComponentFETest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentFSSNullTest() {
+        runServletTest("applicationWrapperCreateComponentFSSNullTest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentFSSTest() {
+        runServletTest("applicationWrapperCreateComponentFSSTest");
+    }
+
+    @Test
+    void applicationWrapperCreateComponentTest() {
+        runServletTest("applicationWrapperCreateComponentTest");
+    }
+
+    @Test
+    void applicationWrapperCreateValidatorFETest() {
+        runServletTest("applicationWrapperCreateValidatorFETest");
+    }
+
+    @Test
+    void applicationWrapperEvaluationExpressionGetTest() {
+        runServletTest("applicationWrapperEvaluationExpressionGetTest");
+    }
+
+    @Test
+    void applicationWrapperGetActionListenerTest() {
+        runServletTest("applicationWrapperGetActionListenerTest");
+    }
+
+    @Test
+    void applicationWrapperGetBehaviorIdsTest() {
+        runServletTest("applicationWrapperGetBehaviorIdsTest");
+    }
+
+    @Test
+    void applicationWrapperGetComponentTypesTest() {
+        runServletTest("applicationWrapperGetComponentTypesTest");
+    }
+
+    @Test
+    void applicationWrapperGetConverterIdsTest() {
+        runServletTest("applicationWrapperGetConverterIdsTest");
+    }
+
+    @Test
+    void applicationWrapperGetConverterTypesTest() {
+        runServletTest("applicationWrapperGetConverterTypesTest");
+    }
+
+    @Test
+    void applicationWrapperGetDefaultValidatorInfoTest() {
+        runServletTest("applicationWrapperGetDefaultValidatorInfoTest");
+    }
+
+    @Test
+    void applicationWrapperGetELResolverTest() {
+        runServletTest("applicationWrapperGetELResolverTest");
+    }
+
+    @Test
+    void applicationWrapperGetExpressionFactoryTest() {
+        runServletTest("applicationWrapperGetExpressionFactoryTest");
+    }
+
+    @Test
+    void applicationWrapperGetProjectStageTest() {
+        runServletTest("applicationWrapperGetProjectStageTest");
+    }
+
+    @Test
+    void applicationWrapperGetResourceBundleTest() {
+        runServletTest("applicationWrapperGetResourceBundleTest");
+    }
+
+    @Test
+    void applicationWrapperGetResourceHandlerTest() {
+        runServletTest("applicationWrapperGetResourceHandlerTest");
+    }
+
+    @Test
+    void applicationWrapperGetSetDefaultRenderKitIDTest() {
+        runServletTest("applicationWrapperGetSetDefaultRenderKitIDTest");
+    }
+
+    @Test
+    void applicationWrapperGetSetMessageBundleTest() {
+        runServletTest("applicationWrapperGetSetMessageBundleTest");
+    }
+
+    @Test
+    void applicationWrapperGetSetNavigationHandlerTest() {
+        runServletTest("applicationWrapperGetSetNavigationHandlerTest");
+    }
+
+    @Test
+    void applicationWrapperGetSetStateManagerTest() {
+        runServletTest("applicationWrapperGetSetStateManagerTest");
+    }
+
+    @Test
+    void applicationWrapperGetSetViewHandlerTest() {
+        runServletTest("applicationWrapperGetSetViewHandlerTest");
+    }
+
+    @Test
+    void applicationWrapperGetValidatorIdsTest() {
+        runServletTest("applicationWrapperGetValidatorIdsTest");
+    }
+
+    @Test
+    void applicationWrapperSetActionListenerTest() {
+        runServletTest("applicationWrapperSetActionListenerTest");
+    }
+
+    @Test
+    void applicationWrapperSetGetDefaultLocaleTest() {
+        runServletTest("applicationWrapperSetGetDefaultLocaleTest");
+    }
+
+    @Test
+    void applicationWrapperSetGetSupportedLocalesTest() {
+        runServletTest("applicationWrapperSetGetSupportedLocalesTest");
+    }
+
+    @Test
+    void applicationWrapperSetResourceHandlerNPETest() {
+        runServletTest("applicationWrapperSetResourceHandlerNPETest");
+    }
+
+    @Test
+    void applicationWrapperSetResourceHandlerTest() {
+        runServletTest("applicationWrapperSetResourceHandlerTest");
+    }
+
+    @Test
+    void applicationWrapperSetStateManagerNPETest() {
+        runServletTest("applicationWrapperSetStateManagerNPETest");
+    }
+
+    @Test
+    void applicationWrapperSetViewHandlerNPETest() {
+        runServletTest("applicationWrapperSetViewHandlerNPETest");
+    }
+
+    @Test
+    void applicationWrapperSubscribeToEventNoSrcClassTest() {
+        runServletTest("applicationWrapperSubscribeToEventNoSrcClassTest");
+    }
+
+    @Test
+    void applicationWrapperSubscribeToEventNullTest() {
+        runServletTest("applicationWrapperSubscribeToEventNullTest");
+    }
+
+    @Test
+    void applicationWrapperSubscribeToEventTest() {
+        runServletTest("applicationWrapperSubscribeToEventTest");
+    }
+
+    @Test
+    void applicationWrapperUnsubscribeFromEventNoSrcClassTest() {
+        runServletTest("applicationWrapperUnsubscribeFromEventNoSrcClassTest");
+    }
+
+    @Test
+    void applicationWrapperUnsubscribeFromEventTest() {
+        runServletTest("applicationWrapperUnsubscribeFromEventTest");
+    }
+
 }

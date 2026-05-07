@@ -39,212 +39,259 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/LifecycleFactoryTestServlet")
 public final class LifecycleFactoryTestServlet extends HttpTCKServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws jakarta.servlet.ServletException
-   *           if an error occurs
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  private LifecycleFactory getFactory() {
-    return (LifecycleFactory) FactoryFinder
-        .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-  }
-
-  // ------------------------------------------------------- Test Methods
-
-  public void lifecycleFactoryGetLifecycleTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    LifecycleFactory factory = getFactory();
-    Lifecycle lifecycle = factory
-        .getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-
-    if (lifecycle == null) {
-      out.println(JSFTestUtil.FAIL + " Using getLifecycle() to request"
-          + " the default Lifecycle instance of the application"
-          + " returned null.");
-      return;
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws jakarta.servlet.ServletException if an error occurs
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
-
-  public void lifecycleFactoryGetLifecycleIAETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    LifecycleFactory factory = getFactory();
-
-    try {
-      factory.getLifecycle("totallyinvalidlifecycleid");
-      out.println(JSFTestUtil.FAIL + " No exception thrown when passing"
-          + " a lifecycle ID for which there is no lifecycle registered.");
-      return;
-    } catch (Exception e) {
-      if (!(e instanceof IllegalArgumentException)) {
-        out.println(JSFTestUtil.FAIL + " Exception throw when passing"
-            + " an unregistered lifecycle ID, but it wasn't an instance"
-            + " of IllegalArgumentException.");
-        out.println("Exception received: " + e.getClass().getName());
-        return;
-      }
+    private LifecycleFactory getFactory() {
+        return (LifecycleFactory) FactoryFinder
+            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // ------------------------------------------------------- Test Methods
 
-  public void lifecycleFactoryAddLifecycleTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    LifecycleFactory factory = getFactory();
+    public void lifecycleFactoryGetLifecycleTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        LifecycleFactory factory = getFactory();
+        Lifecycle lifecycle = factory
+            .getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
 
-    Lifecycle lifecycle = new TCKLifecycle();
-    factory.addLifecycle("tcklifecycle", lifecycle);
+        if (lifecycle == null) {
+            out.println(
+                JSFTestUtil.FAIL + " Using getLifecycle() to request"
+                    + " the default Lifecycle instance of the application"
+                    + " returned null."
+            );
+            return;
+        }
 
-    // make sure it can be obtained via a call to getLifecycle(String)
-    Lifecycle retLife = factory.getLifecycle("tcklifecycle");
-    if (lifecycle != retLife) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Added new lifecycle via call to "
-          + "addLifecycle(String, Lifecycle), but the lifecycle was"
-          + "not returned as expected by a call to " + "getLifecycle(String)");
-      out.println("Expected: " + lifecycle.getClass().getSimpleName());
-      out.println("Received: " + retLife.getClass().getSimpleName());
-      return;
+        out.println(JSFTestUtil.PASS);
     }
 
-    try {
-      factory.addLifecycle("tcklifecycle", new TCKLifecycle());
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + " No Exception thrown when attempting"
-          + "to add a Lifecycle using an ID that already exists.");
-      return;
-    } catch (Exception e) {
-      if (!(e instanceof IllegalArgumentException)) {
-        out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-            + " Exception thrown when attempting"
-            + " to add a Lifecycle using an ID that has already "
-            + "been registerd, but it wasn't an instance of"
-            + " IllegalArgumentException.");
-        out.println("Exception received: " + e.getClass().getName());
-        return;
-      }
+    public void lifecycleFactoryGetLifecycleIAETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        LifecycleFactory factory = getFactory();
+
+        try {
+            factory.getLifecycle("totallyinvalidlifecycleid");
+            out.println(
+                JSFTestUtil.FAIL + " No exception thrown when passing"
+                    + " a lifecycle ID for which there is no lifecycle registered."
+            );
+            return;
+        }
+        catch (Exception e) {
+            if (!(e instanceof IllegalArgumentException)) {
+                out.println(
+                    JSFTestUtil.FAIL + " Exception throw when passing"
+                        + " an unregistered lifecycle ID, but it wasn't an instance"
+                        + " of IllegalArgumentException."
+                );
+                out.println("Exception received: " + e.getClass().getName());
+                return;
+            }
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void lifecycleFactoryAddLifecycleTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        LifecycleFactory factory = getFactory();
 
-  public void lifecycleFactoryGetLifecycleIdsTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    LifecycleFactory factory = getFactory();
+        Lifecycle lifecycle = new TCKLifecycle();
+        factory.addLifecycle("tcklifecycle", lifecycle);
 
-    Lifecycle lifecycle = new TCKLifecycle();
-    factory.addLifecycle("tcklifecycle2", lifecycle);
+        // make sure it can be obtained via a call to getLifecycle(String)
+        Lifecycle retLife = factory.getLifecycle("tcklifecycle");
+        if (lifecycle != retLife) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Added new lifecycle via call to "
+                    + "addLifecycle(String, Lifecycle), but the lifecycle was"
+                    + "not returned as expected by a call to " + "getLifecycle(String)"
+            );
+            out.println("Expected: " + lifecycle.getClass().getSimpleName());
+            out.println("Received: " + retLife.getClass().getSimpleName());
+            return;
+        }
 
-    int count = 0;
-    List<String> ids = new ArrayList<String>();
+        try {
+            factory.addLifecycle("tcklifecycle", new TCKLifecycle());
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + " No Exception thrown when attempting"
+                    + "to add a Lifecycle using an ID that already exists."
+            );
+            return;
+        }
+        catch (Exception e) {
+            if (!(e instanceof IllegalArgumentException)) {
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL
+                        + " Exception thrown when attempting"
+                        + " to add a Lifecycle using an ID that has already "
+                        + "been registerd, but it wasn't an instance of"
+                        + " IllegalArgumentException."
+                );
+                out.println("Exception received: " + e.getClass().getName());
+                return;
+            }
+        }
 
-    List<String> expectedIds = new ArrayList<String>();
-    expectedIds.add(LifecycleFactory.DEFAULT_LIFECYCLE);
-    expectedIds.add("tcklifecycle2");
-
-    for (Iterator<String> i = factory.getLifecycleIds(); i.hasNext();) {
-      ids.add(i.next());
-      count++;
+        out.println(JSFTestUtil.PASS);
     }
 
-    if (count < 2) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Expected at least 2 registered" + " lifecycle IDs to be retured.");
-      out.println("Actual count: " + count);
-      return;
+    public void lifecycleFactoryGetLifecycleIdsTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        LifecycleFactory factory = getFactory();
+
+        Lifecycle lifecycle = new TCKLifecycle();
+        factory.addLifecycle("tcklifecycle2", lifecycle);
+
+        int count = 0;
+        List<String> ids = new ArrayList<String>();
+
+        List<String> expectedIds = new ArrayList<String>();
+        expectedIds.add(LifecycleFactory.DEFAULT_LIFECYCLE);
+        expectedIds.add("tcklifecycle2");
+
+        for (Iterator<String> i = factory.getLifecycleIds(); i.hasNext();) {
+            ids.add(i.next());
+            count++;
+        }
+
+        if (count < 2) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Expected at least 2 registered" + " lifecycle IDs to be retured."
+            );
+            out.println("Actual count: " + count);
+            return;
+        }
+
+        if (!ids.containsAll(expectedIds)) {
+            out.println(
+                "The Iterator returned by getLifecycleIds() didn't"
+                    + " return all of the expected results." + JSFTestUtil.NL
+                    + "Expected Iterator to contain at least the following: " + "'"
+                    + LifecycleFactory.DEFAULT_LIFECYCLE + "', '" + "tcklifecycle2'"
+                    + JSFTestUtil.NL + "Lifecycle IDs recevied: "
+                    + JSFTestUtil.getAsString(factory.getLifecycleIds())
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    if (!ids.containsAll(expectedIds)) {
-      out.println("The Iterator returned by getLifecycleIds() didn't"
-          + " return all of the expected results." + JSFTestUtil.NL
-          + "Expected Iterator to contain at least the following: " + "'"
-          + LifecycleFactory.DEFAULT_LIFECYCLE + "', '" + "tcklifecycle2'"
-          + JSFTestUtil.NL + "Lifecycle IDs recevied: "
-          + JSFTestUtil.getAsString(factory.getLifecycleIds()));
-      return;
+    public void lifecycleFactoryAddLifecycleNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        LifecycleFactory factory = getFactory();
+        Lifecycle cycle = factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+
+        // null lifecycleId
+        JSFTestUtil.checkForNPE(
+            factory, "addLifecycle",
+            new Class<?>[] { String.class, Lifecycle.class },
+            new Object[] { null, cycle }, pw
+        );
+
+        // null lifecycle
+        JSFTestUtil.checkForNPE(
+            factory, "addLifecycle",
+            new Class<?>[] { String.class, Lifecycle.class },
+            new Object[] { "abc", null }, pw
+        );
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void lifecycleFactoryGetLifecycleNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        LifecycleFactory factory = getFactory();
 
-  public void lifecycleFactoryAddLifecycleNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    LifecycleFactory factory = getFactory();
-    Lifecycle cycle = factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-
-    // null lifecycleId
-    JSFTestUtil.checkForNPE(factory, "addLifecycle",
-        new Class<?>[] { String.class, Lifecycle.class },
-        new Object[] { null, cycle }, pw);
-
-    // null lifecycle
-    JSFTestUtil.checkForNPE(factory, "addLifecycle",
-        new Class<?>[] { String.class, Lifecycle.class },
-        new Object[] { "abc", null }, pw);
-  }
-
-  public void lifecycleFactoryGetLifecycleNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    LifecycleFactory factory = getFactory();
-
-    // null lifecycleId
-    JSFTestUtil.checkForNPE(factory, "getLifecycle",
-        new Class<?>[] { String.class }, new Object[] { null }, pw);
-  }
-
-  public void lifecycleFactoryGetWrappedNullTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    LifecycleFactory factory = getFactory().getWrapped();
-
-    if (factory == null) {
-      out.println(JSFTestUtil.PASS);
-      return;
+        // null lifecycleId
+        JSFTestUtil.checkForNPE(
+            factory, "getLifecycle",
+            new Class<?>[] { String.class }, new Object[] { null }, pw
+        );
     }
 
-    out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-        + "The default of LifecycleFactory.getWrapped() should return "
-        + "null!");
-  }
+    public void lifecycleFactoryGetWrappedNullTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        LifecycleFactory factory = getFactory().getWrapped();
 
-  // --------------------------------------------------------- Private Classes
+        if (factory == null) {
+            out.println(JSFTestUtil.PASS);
+            return;
+        }
 
-  private static class TCKLifecycle extends Lifecycle {
-
-    public void render(FacesContext context) throws FacesException {
-      // no-op
+        out.println(
+            JSFTestUtil.FAIL + JSFTestUtil.NL
+                + "The default of LifecycleFactory.getWrapped() should return "
+                + "null!"
+        );
     }
 
-    public void addPhaseListener(PhaseListener listener) {
-      // no-op
+    // --------------------------------------------------------- Private Classes
+
+    private static class TCKLifecycle extends Lifecycle {
+
+        public void render(FacesContext context) throws FacesException {
+            // no-op
+        }
+
+        public void addPhaseListener(PhaseListener listener) {
+            // no-op
+        }
+
+        public void execute(FacesContext context) throws FacesException {
+            // no-op
+        }
+
+        public PhaseListener[] getPhaseListeners() {
+            return new PhaseListener[0];
+        }
+
+        public void removePhaseListener(PhaseListener listener) {
+            // no-op
+        }
+
     }
 
-    public void execute(FacesContext context) throws FacesException {
-      // no-op
-    }
-
-    public PhaseListener[] getPhaseListeners() {
-      return new PhaseListener[0];
-    }
-
-    public void removePhaseListener(PhaseListener listener) {
-      // no-op
-    }
-  }
 }

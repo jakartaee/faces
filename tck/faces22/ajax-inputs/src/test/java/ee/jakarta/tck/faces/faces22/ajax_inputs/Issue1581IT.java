@@ -29,15 +29,13 @@ import org.openqa.selenium.WebElement;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 class Issue1581IT extends BaseITNG {
 
-  /**
-   * This test verifies correct function of SelectManyCheckbox in a Composite
-   * Component over Ajax. 
-   */
-  @Test
-  void selectManyCheckboxInComposite() throws Exception {
+    /**
+     * This test verifies correct function of SelectManyCheckbox in a Composite Component over Ajax.
+     */
+    @Test
+    void selectManyCheckboxInComposite() throws Exception {
         WebPage page = getPage("issue1581.xhtml");
 
         assertCheckBoxes(getCheckboxes(page), false, false, false, false);
@@ -55,11 +53,10 @@ class Issue1581IT extends BaseITNG {
         assertCheckBoxes(getCheckboxes(page), true, true, true, true);
     }
 
-
     private void assertCheckBoxes(List<WebElement> checkboxes, boolean... expectedValues) {
         for (int cnt = 0; cnt < checkboxes.size(); cnt++) {
             WebElement checkbox = checkboxes.get(cnt);
-            //label assertion, the gettext of the parent returns the label only
+            // label assertion, the gettext of the parent returns the label only
             assert (checkbox.findElement(By.xpath("..")).getText()).equals("JAVASERVERFACES-" + (cnt + 1));
             boolean assertionValue = expectedValues[cnt];
             assertEquals(checkbox.isSelected(), assertionValue);
@@ -68,11 +65,10 @@ class Issue1581IT extends BaseITNG {
 
     private List<WebElement> getCheckboxes(WebPage page) {
 
-
         List<WebElement> checkBoxes = new ArrayList<>();
 
         List<WebElement> elements = page.findElements(By.tagName("input"));
-        for (Iterator<WebElement> it = elements.iterator(); it.hasNext(); ) {
+        for (Iterator<WebElement> it = elements.iterator(); it.hasNext();) {
             WebElement elem = it.next();
             if (elem.getDomAttribute("type").equals("checkbox")) {
                 checkBoxes.add(elem);

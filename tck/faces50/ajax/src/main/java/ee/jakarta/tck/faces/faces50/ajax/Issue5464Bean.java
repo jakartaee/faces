@@ -40,4 +40,5 @@ public class Issue5464Bean {
     public String getOutput() {
         return output;
     }
+
 }

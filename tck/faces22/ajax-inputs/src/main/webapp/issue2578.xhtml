@@ -24,11 +24,11 @@
       xmlns:h="http://java.sun.com/jsf/html">
 
       <h:head></h:head>
-      
+
       <h:body>
 
             <h:form id="form">
-            
+
                 <p id="output"></p>
 
                 <script id="template" type="text/template">
@@ -38,7 +38,7 @@
                 <h:commandButton id="refresh" value="Ajax Refresh">
                     <f:ajax render="@form" />
                 </h:commandButton>
-                
+
                 <script type="text/javascript">
                     document.getElementById("output").innerHTML = document.getElementById("template").innerHTML;
                 </script>

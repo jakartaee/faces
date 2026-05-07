@@ -26,16 +26,17 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/PostRenderViewEventTestServlet")
 public final class PostRenderViewEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UIViewRoot uic = new UIViewRoot();
+    private static final UIViewRoot uic = new UIViewRoot();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PostRenderViewEvent((UIViewRoot) component);
-  }
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PostRenderViewEvent((UIViewRoot) component);
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
-  // ------------------------------------------------------------ test methods
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
+
+    // ------------------------------------------------------------ test methods
 }

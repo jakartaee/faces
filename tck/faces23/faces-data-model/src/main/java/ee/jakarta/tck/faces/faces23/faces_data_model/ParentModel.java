@@ -22,45 +22,45 @@ import jakarta.faces.model.FacesDataModel;
 @FacesDataModel(forClass = Parent.class)
 public class ParentModel<E> extends DataModel<E> {
 
-	private Parent parent;
-	private int rowIndex = 0;
-	
-	@Override
-	public int getRowCount() {
-		return 2;
-	}
+    private Parent parent;
+    private int rowIndex = 0;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public E getRowData() {
-		// Dummy iteration, a Parent type has no data members
-		return rowIndex == 0? (E) "parent1" : (E) "parent2";
-	}
+    @Override
+    public int getRowCount() {
+        return 2;
+    }
 
-	@Override
-	public int getRowIndex() {
-		return rowIndex;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public E getRowData() {
+        // Dummy iteration, a Parent type has no data members
+        return rowIndex == 0 ? (E) "parent1" : (E) "parent2";
+    }
 
-	@Override
-	public Object getWrappedData() {
-		return parent;
-	}
+    @Override
+    public int getRowIndex() {
+        return rowIndex;
+    }
 
-	@Override
-	public boolean isRowAvailable() {
-		return rowIndex < 2;
-	}
+    @Override
+    public Object getWrappedData() {
+        return parent;
+    }
 
-	@Override
-	public void setRowIndex(int rowIndex) {
-		this.rowIndex = rowIndex;
-		
-	}
+    @Override
+    public boolean isRowAvailable() {
+        return rowIndex < 2;
+    }
 
-	@Override
-	public void setWrappedData(Object wrappedData) {
-		parent = (Parent) wrappedData;
-	}
+    @Override
+    public void setRowIndex(int rowIndex) {
+        this.rowIndex = rowIndex;
+
+    }
+
+    @Override
+    public void setWrappedData(Object wrappedData) {
+        parent = (Parent) wrappedData;
+    }
 
 }

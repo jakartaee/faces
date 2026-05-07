@@ -34,108 +34,151 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class TestServlet extends HttpTCKServlet {
 
-  // private indicators that a test has previously passed.
-  // this is necessary if a test is run multiple times
-  // without reloading the application
-  private boolean setGetLocaleTestPassed = false;
+    // private indicators that a test has previously passed.
+    // this is necessary if a test is run multiple times
+    // without reloading the application
+    private boolean setGetLocaleTestPassed = false;
 
-  private ServletContext servletContext;
+    private ServletContext servletContext;
 
-  private static final int IMAGE_SIZE = 2947;
+    private static final int IMAGE_SIZE = 2947;
 
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    servletContext = config.getServletContext();
-  }
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        servletContext = config.getServletContext();
+    }
 
-  public void destroy() {
-    super.destroy();
-  }
+    public void destroy() {
+        super.destroy();
+    }
 
-  // ------------------------------------------------------------------- Tests
-  public void resourceClassPathResPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    // ------------------------------------------------------------------- Tests
+    public void resourceClassPathResPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-class.gif",
-        IMAGE_SIZE, out);
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-class.gif",
+            IMAGE_SIZE, out
+        );
 
-  }
+    }
 
-  public void resourceClassPathNoFileExtPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void resourceClassPathNoFileExtPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(),
-        "negative_test_image", IMAGE_SIZE, null, out);
-  }
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(),
+            "negative_test_image", IMAGE_SIZE, null, out
+        );
+    }
 
-  public void resourceClassPathLocaleDEPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void resourceClassPathLocaleDEPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-de.gif",
-        IMAGE_SIZE, out);
-  }
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-de.gif",
+            IMAGE_SIZE, out
+        );
+    }
 
-  public void resourceClassPathLocaleENPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void resourceClassPathLocaleENPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-en.gif",
-        IMAGE_SIZE, "locLib", out);
-  }
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-en.gif",
+            IMAGE_SIZE, "locLib", out
+        );
+    }
 
-  public void resourceClassPathLocaleFRPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void resourceClassPathLocaleFRPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-fr.gif",
-        IMAGE_SIZE, out);
-  }
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-fr.gif",
+            IMAGE_SIZE, out
+        );
+    }
 
-  // ------------------------------------------------------ negative test cases
+    // ------------------------------------------------------ negative test cases
 
-  public void resourceClassPathTrailingUSNegativePkgTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void resourceClassPathTrailingUSNegativePkgTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "trailing.css", 0,
-        "class-styles", true, out);
-  }
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "trailing.css", 0,
+            "class-styles", true, out
+        );
+    }
 
-  public void resourceClassPathLeadingUSNegativePkgTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void resourceClassPathLeadingUSNegativePkgTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "leading.css", 0,
-        "class-styles", true, out);
-  }
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "leading.css", 0,
+            "class-styles", true, out
+        );
+    }
 
-  public void resourceClassPathNoFileExtVerNegetivePkgTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void resourceClassPathNoFileExtVerNegetivePkgTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "doug.css", 0,
-        "class-styles", true, out);
-  }
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "doug.css", 0,
+            "class-styles", true, out
+        );
+    }
 
-  public void jsfJsDoesExistTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void jsfJsDoesExistTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ResourceChecker.doesExists(this.getTCKHandler(), "faces.js", "jakarta.faces",
-        out);
-  }
+        ResourceChecker.doesExists(
+            this.getTCKHandler(), "faces.js", "jakarta.faces",
+            out
+        );
+    }
 
-  // ---------------------------------------------------------- private methods
-  private ResourceHandler getTCKHandler() {
-    ResourceHandler handler = getFacesContext().getApplication()
-        .getResourceHandler();
+    // ---------------------------------------------------------- private methods
+    private ResourceHandler getTCKHandler() {
+        ResourceHandler handler = getFacesContext().getApplication()
+            .getResourceHandler();
 
-    return handler;
-  }
+        return handler;
+    }
+
 }

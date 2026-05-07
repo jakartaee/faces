@@ -27,146 +27,159 @@ import jakarta.faces.application.Resource;
 import jakarta.faces.application.ResourceHandler;
 
 public class ResourceChecker {
-  private static final String NL = System.getProperty("line.separator", "\n");
 
-  /**
-   * Validate that a JSF Resource can be generated and found in the webapp.
-   *
-   * @param handler
-   *          - The @ResourceHandle used to create the resource.
-   * @param resource
-   *          - The Name(@String) of which the resource is packaged as.
-   * @param expected
-   *          - The expected size of the resource.(in bytes)
-   * @param lib
-   *          - The name of the library(@String) that the resource is packaged
-   *          under. excepts @null.
-   * @param negativeTest
-   *          - passing true in indicates this as a negative test case.
-   * @param out
-   *          - @PrintWriter to log test messages to.
-   */
-  public static void checkIndentifier(ResourceHandler handler, String resource,
-      int expected, String lib, Boolean negativeTest, PrintWriter out) {
+    private static final String NL = System.getProperty("line.separator", "\n");
 
-    if (handler != null) {
-      try {
-        Resource res = handler.createResource(resource, lib);
+    /**
+     * Validate that a JSF Resource can be generated and found in the webapp.
+     *
+     * @param handler - The @ResourceHandle used to create the resource.
+     * @param resource - The Name(@String) of which the resource is packaged as.
+     * @param expected - The expected size of the resource.(in bytes)
+     * @param lib - The name of the library(@String) that the resource is packaged under. excepts @null.
+     * @param negativeTest - passing true in indicates this as a negative test case.
+     * @param out - @PrintWriter to log test messages to.
+     */
+    public static void checkIndentifier(
+        ResourceHandler handler, String resource,
+        int expected, String lib, Boolean negativeTest, PrintWriter out
+    )
+    {
 
-        if (res != null) {
-          InputStream is = res.getInputStream();
+        if (handler != null) {
+            try {
+                Resource res = handler.createResource(resource, lib);
 
-          int result = 0;
-          while (is.read() != -1) {
-            result++;
-          }
+                if (res != null) {
+                    InputStream is = res.getInputStream();
 
-          if (expected == result) {
-            out.println("NegativeTest = " + negativeTest + NL + "Test PASSED");
+                    int result = 0;
+                    while (is.read() != -1) {
+                        result++;
+                    }
 
-          } else if (negativeTest) {
-            out.println("NegativeTest = " + negativeTest + NL + "Test FAILED."
-                + NL + "NegativeTest = " + negativeTest + NL
-                + "Should not have been able to get a handle " + NL + "to : "
-                + resource + "' in  Library '" + lib + "'!");
+                    if (expected == result) {
+                        out.println("NegativeTest = " + negativeTest + NL + "Test PASSED");
 
-          } else {
-            out.println("Test FAILED." + NL + "Resource: " + resource + NL
-                + "Expected: " + expected + NL + "Received: " + result);
-          }
-        } else {
-          if (negativeTest) {
-            out.println("NegativeTest = True" + NL + "Test PASSED");
+                    }
+                    else if (negativeTest) {
+                        out.println(
+                            "NegativeTest = " + negativeTest + NL + "Test FAILED."
+                                + NL + "NegativeTest = " + negativeTest + NL
+                                + "Should not have been able to get a handle " + NL + "to : "
+                                + resource + "' in  Library '" + lib + "'!"
+                        );
 
-          } else {
-            out.println("Test FAILED." + NL + "Unable to Obtain Resource '"
-                + resource + "' in  Library '" + lib + "'!");
-          }
+                    }
+                    else {
+                        out.println(
+                            "Test FAILED." + NL + "Resource: " + resource + NL
+                                + "Expected: " + expected + NL + "Received: " + result
+                        );
+                    }
+                }
+                else {
+                    if (negativeTest) {
+                        out.println("NegativeTest = True" + NL + "Test PASSED");
+
+                    }
+                    else {
+                        out.println(
+                            "Test FAILED." + NL + "Unable to Obtain Resource '"
+                                + resource + "' in  Library '" + lib + "'!"
+                        );
+                    }
+                }
+
+            }
+            catch (Exception e) {
+                out.println("Test FAILED. See stacktrace below...");
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+
+                e.printStackTrace(pw);
+                out.println(sw.toString());
+            }
+
         }
-
-      } catch (Exception e) {
-        out.println("Test FAILED. See stacktrace below...");
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-
-        e.printStackTrace(pw);
-        out.println(sw.toString());
-      }
-
-    } else {
-      out.println(
-          "Test FAILED.  Unable to obtain ResourceHandler " + "instance.");
-    }
-  }
-
-  /**
-   * Validate that a JSF Resource can be generated and found in the webapp.
-   * Resource is not packaged under a Library, and this is for positive test
-   * case only.
-   *
-   * @param handler
-   *          - The @ResourceHandle used to create the resource.
-   * @param resource
-   *          - The Name(@String) of which the resource is packaged as.
-   * @param expected
-   *          - expected size of the resource.(in bytes)
-   * @param out
-   *          - @PrintWriter to log test messages to.
-   */
-  public static void checkIndentifier(ResourceHandler handler, String resource,
-      int expected, PrintWriter out) {
-
-    checkIndentifier(handler, resource, expected, null, false, out);
-  }
-
-  /**
-   * Validate that a JSF Resource can be generated and found in the webapp. This
-   * is for positive test case only.
-   *
-   * @param handler
-   *          - The @ResourceHandle used to create the resource.
-   * @param resource
-   *          - The Name(@String) of which the resource is packaged as.
-   * @param expected
-   *          - The expected size of the resource.(in bytes)
-   * @param lib
-   *          - The name of the library(@String) that the resource is packaged
-   *          under.
-   * @param out
-   *          - @PrintWriter to log test messages to.
-   */
-  public static void checkIndentifier(ResourceHandler handler, String resource,
-      int expected, String lib, PrintWriter out) {
-
-    checkIndentifier(handler, resource, expected, lib, false, out);
-  }
-
-  public static void doesExists(ResourceHandler handler, String resource,
-      String lib, PrintWriter out) {
-
-    if (handler != null) {
-      try {
-        Resource res = handler.createResource(resource, lib);
-
-        if (res != null) {
-          out.println("Test PASSED");
-        } else {
-          out.println("Test FAILED." + NL + "Unable to Obtain Resource '"
-              + resource + "' in  Library '" + lib + "'!");
+        else {
+            out.println(
+                "Test FAILED.  Unable to obtain ResourceHandler " + "instance."
+            );
         }
-
-      } catch (Exception e) {
-        out.println("Test FAILED. See stacktrace below...");
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-
-        e.printStackTrace(pw);
-        out.println(sw.toString());
-      }
-
-    } else {
-      out.println(
-          "Test FAILED.  Unable to obtain ResourceHandler " + "instance.");
     }
-  }
+
+    /**
+     * Validate that a JSF Resource can be generated and found in the webapp. Resource is not packaged under a Library, and this is for positive test case only.
+     *
+     * @param handler - The @ResourceHandle used to create the resource.
+     * @param resource - The Name(@String) of which the resource is packaged as.
+     * @param expected - expected size of the resource.(in bytes)
+     * @param out - @PrintWriter to log test messages to.
+     */
+    public static void checkIndentifier(
+        ResourceHandler handler, String resource,
+        int expected, PrintWriter out
+    )
+    {
+
+        checkIndentifier(handler, resource, expected, null, false, out);
+    }
+
+    /**
+     * Validate that a JSF Resource can be generated and found in the webapp. This is for positive test case only.
+     *
+     * @param handler - The @ResourceHandle used to create the resource.
+     * @param resource - The Name(@String) of which the resource is packaged as.
+     * @param expected - The expected size of the resource.(in bytes)
+     * @param lib - The name of the library(@String) that the resource is packaged under.
+     * @param out - @PrintWriter to log test messages to.
+     */
+    public static void checkIndentifier(
+        ResourceHandler handler, String resource,
+        int expected, String lib, PrintWriter out
+    )
+    {
+
+        checkIndentifier(handler, resource, expected, lib, false, out);
+    }
+
+    public static void doesExists(
+        ResourceHandler handler, String resource,
+        String lib, PrintWriter out
+    )
+    {
+
+        if (handler != null) {
+            try {
+                Resource res = handler.createResource(resource, lib);
+
+                if (res != null) {
+                    out.println("Test PASSED");
+                }
+                else {
+                    out.println(
+                        "Test FAILED." + NL + "Unable to Obtain Resource '"
+                            + resource + "' in  Library '" + lib + "'!"
+                    );
+                }
+
+            }
+            catch (Exception e) {
+                out.println("Test FAILED. See stacktrace below...");
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+
+                e.printStackTrace(pw);
+                out.println(sw.toString());
+            }
+
+        }
+        else {
+            out.println(
+                "Test FAILED.  Unable to obtain ResourceHandler " + "instance."
+            );
+        }
+    }
+
 }

@@ -30,7 +30,8 @@ import jakarta.inject.Named;
 public class Spec1582RequestMapBean {
 
     public String getRequestValue() {
-        Map<String, Object> requestMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {}, RequestMap.Literal.INSTANCE).get();
+        Map<String, Object> requestMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {
+        }, RequestMap.Literal.INSTANCE).get();
 
         return (String) requestMap.get("fooAttribute");
     }

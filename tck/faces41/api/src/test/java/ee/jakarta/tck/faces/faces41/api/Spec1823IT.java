@@ -44,19 +44,21 @@ class Spec1823IT {
     private static final FacesMessage MESSAGE8B = new FacesMessage(SEVERITY_WARN, "summary2", "detail2");
 
     public static class CustomFacesMessage extends FacesMessage {
+
         private static final long serialVersionUID = 1L;
 
         public CustomFacesMessage(Severity severity, String summary, String detail) {
             super(severity, summary, detail);
         }
+
     }
 
-  /**
-   * @see FacesMessage
+    /**
+     * @see FacesMessage
      * @see https://github.com/jakartaee/faces/issues/1823
-   */
-  @Test
-  void equals() {
+     */
+    @Test
+    void equals() {
         assertEquals(MESSAGE1A, MESSAGE1A);
         assertEquals(MESSAGE1A, MESSAGE1B);
         assertNotEquals(MESSAGE1A, MESSAGE2A);
@@ -79,12 +81,12 @@ class Spec1823IT {
         assertNotEquals(new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1"), new CustomFacesMessage(SEVERITY_WARN, "summary1", "detail1"));
     }
 
-  /**
-   * @see FacesMessage
+    /**
+     * @see FacesMessage
      * @see https://github.com/jakartaee/faces/issues/1823
-   */
-  @Test
-  void testHashCode() {
+     */
+    @Test
+    void testHashCode() {
         assertEquals(MESSAGE1A.hashCode(), MESSAGE1A.hashCode());
         assertEquals(MESSAGE1A.hashCode(), MESSAGE1B.hashCode());
         assertNotEquals(MESSAGE1A.hashCode(), MESSAGE2A.hashCode());
@@ -103,7 +105,12 @@ class Spec1823IT {
         assertNotEquals(MESSAGE1A.hashCode(), MESSAGE8B.hashCode());
         assertEquals(MESSAGE1A.hashCode(), new FacesMessage(SEVERITY_INFO, "summary1", "detail1").hashCode());
         assertNotEquals(MESSAGE1A, new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1").hashCode());
-        assertEquals(new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1").hashCode(), new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1").hashCode());
-        assertNotEquals(new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1").hashCode(), new CustomFacesMessage(SEVERITY_WARN, "summary1", "detail1").hashCode());
+        assertEquals(
+            new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1").hashCode(), new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1").hashCode()
+        );
+        assertNotEquals(
+            new CustomFacesMessage(SEVERITY_INFO, "summary1", "detail1").hashCode(), new CustomFacesMessage(SEVERITY_WARN, "summary1", "detail1").hashCode()
+        );
     }
+
 }

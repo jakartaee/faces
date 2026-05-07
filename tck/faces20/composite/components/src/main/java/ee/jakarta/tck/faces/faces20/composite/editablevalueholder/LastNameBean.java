@@ -22,31 +22,33 @@ import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.ValueChangeEvent;
 import jakarta.faces.event.ValueChangeListener;
 
-@jakarta.inject.Named("lastname") @jakarta.enterprise.context.SessionScoped
+@jakarta.inject.Named("lastname")
+@jakarta.enterprise.context.SessionScoped
 public class LastNameBean implements ValueChangeListener, Serializable {
 
-  private static final long serialVersionUID = -2564031838083638087L;
+    private static final long serialVersionUID = -2564031838083638087L;
 
-  public ValueChangeListener getValueChangeListener() {
-    ValueChangeListener lname = new LastNameBean();
-    return lname;
-  }
+    public ValueChangeListener getValueChangeListener() {
+        ValueChangeListener lname = new LastNameBean();
+        return lname;
+    }
 
-  @Override
-  public void processValueChange(ValueChangeEvent arg0)
-      throws AbortProcessingException {
-    FacesContext.getCurrentInstance().getExternalContext().getRequestMap()
-        .put("changed", "TRUE");
-  }
+    @Override
+    public void processValueChange(ValueChangeEvent arg0)
+        throws AbortProcessingException
+    {
+        FacesContext.getCurrentInstance().getExternalContext().getRequestMap()
+            .put("changed", "TRUE");
+    }
 
-  protected String lastname = "";
+    protected String lastname = "";
 
-  public String getLastName() {
-    return lastname;
-  }
+    public String getLastName() {
+        return lastname;
+    }
 
-  public void setLastName(String lastname) {
-    this.lastname = lastname;
-  }
+    public void setLastName(String lastname) {
+        this.lastname = lastname;
+    }
 
 }

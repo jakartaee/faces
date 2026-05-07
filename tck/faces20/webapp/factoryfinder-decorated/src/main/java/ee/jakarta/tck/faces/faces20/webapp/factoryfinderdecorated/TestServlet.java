@@ -31,28 +31,34 @@ public class TestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         response.setContentType("text/plain");
         PrintWriter pw = response.getWriter();
         try {
             FacesContextFactory fcf = (FacesContextFactory) FactoryFinder
-                    .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+                .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
 
             TCKDecoratedContextFactory tckFactory = (TCKDecoratedContextFactory) fcf.getWrapped();
             String factNameFour = tckFactory.getClass().getCanonicalName();
             String factNameThree = tckFactory.getParent();
 
-            if (factNameThree.contains("TCKContextFactoryThree")
-                    && factNameFour.contains("TCKContextFactoryFour")) {
+            if (
+                factNameThree.contains("TCKContextFactoryThree")
+                    && factNameFour.contains("TCKContextFactoryFour")
+            ) {
                 pw.println("Test PASSED");
-            } else {
+            }
+            else {
                 pw.println("Test FAILED. FacesContext factories were not decorated in correct order.");
                 pw.println("Found: " + factNameThree + " And " + factNameFour);
                 pw.println("Expected: TCKContextFactoryFour wrapping TCKContextFactoryThree");
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             pw.println("Test FAILED.");
             pw.println(e.toString());
         }
     }
+
 }

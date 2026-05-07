@@ -16,7 +16,6 @@
 
 package ee.jakarta.tck.faces.faces22.ajax_inputs;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
@@ -31,16 +30,16 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue1288IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see PartialViewContext#getEvalScripts()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1288
-   */
-  @Test
-  void cdataEscape5() throws Exception {
+     */
+    @Test
+    void cdataEscape5() throws Exception {
         WebPage page = getPage("issue1288.xhtml");
-      assertEquals("", page.findElement(By.id("form1:out1")).getText());
-      assertEquals("", page.findElement(By.id("form1:in1")).getText()); 
+        assertEquals("", page.findElement(By.id("form1:out1")).getText());
+        assertEquals("", page.findElement(By.id("form1:in1")).getText());
 
         WebElement in1 = page.findElement(By.id("form1:in1"));
         in1.sendKeys("[");
@@ -49,21 +48,20 @@ class Issue1288IT extends BaseITNG {
         WebElement button1 = page.findElement(By.id("form1:button1"));
         page.guardAjax(button1::click);
 
-
-      // Check that the ajax request succeeds
-      assertEquals("[", page.findElement(By.id("form1:out1")).getText()); 
+        // Check that the ajax request succeeds
+        assertEquals("[", page.findElement(By.id("form1:out1")).getText());
     }
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see PartialViewContext#getEvalScripts()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1288
-   */
-  @Test
-  void cdataEscape6() throws Exception {
+     */
+    @Test
+    void cdataEscape6() throws Exception {
         WebPage page = getPage("issue1288.xhtml");
-      assertEquals("", page.findElement(By.id("form1:out1")).getText());
-      assertEquals("", page.findElement(By.id("form1:in1")).getText()); 
+        assertEquals("", page.findElement(By.id("form1:out1")).getText());
+        assertEquals("", page.findElement(By.id("form1:in1")).getText());
 
         WebElement in1 = page.findElement(By.id("form1:in1"));
         in1.sendKeys("var a=[");
@@ -72,8 +70,8 @@ class Issue1288IT extends BaseITNG {
         WebElement button1 = page.findElement(By.id("form1:button1"));
         page.guardAjax(button1::click);
 
-
-      // Check that the ajax request succeeds
-      assertEquals("var a=[", page.findElement(By.id("form1:out1")).getText()); 
+        // Check that the ajax request succeeds
+        assertEquals("var a=[", page.findElement(By.id("form1:out1")).getText());
     }
+
 }

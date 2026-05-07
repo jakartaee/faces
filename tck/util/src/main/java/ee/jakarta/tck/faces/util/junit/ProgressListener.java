@@ -26,15 +26,13 @@ import org.junit.platform.launcher.TestIdentifier;
 import org.junit.platform.launcher.TestPlan;
 
 /**
- * One line per test event, tagged with the GlassFish pool slot the
- * failsafe-fork JVM is leasing and the per-JVM progress counter (with
- * {@code reuseForks=false} that maps 1:1 to "test N of M within this IT
- * class"). On failure the full stack trace is printed inline so the build
- * log is sufficient even when {@code target/failsafe-reports} is incomplete
- * (e.g. build aborted before the surefire writer ran).
+ * One line per test event, tagged with the GlassFish pool slot the failsafe-fork JVM is leasing and the per-JVM progress counter (with {@code reuseForks=false}
+ * that maps 1:1 to "test N of M within this IT class"). On failure the full stack trace is printed inline so the build log is sufficient even when
+ * {@code target/failsafe-reports} is incomplete (e.g. build aborted before the surefire writer ran).
  *
- * <p>Output format (white brackets, bold colour for the status word, slot,
- * module and progress):
+ * <p>
+ * Output format (white brackets, bold colour for the status word, slot, module and progress):
+ *
  * <pre>
  *   [RUNNING][SLOT1][faces20-api-application-misc][1/35] SecretIT#secretRenderPassthroughTest()
  *   [SKIPPED][SLOT3][faces22-ajax-inputs][4/95] Issue3833IT#test  reason: ignored at the request by the myfaces community
@@ -43,11 +41,11 @@ import org.junit.platform.launcher.TestPlan;
  */
 public class ProgressListener implements TestExecutionListener {
 
-    private static final String WHITE       = "\u001B[37m";
-    private static final String BOLD_GREEN  = "\u001B[1;32m";
+    private static final String WHITE = "\u001B[37m";
+    private static final String BOLD_GREEN = "\u001B[1;32m";
     private static final String BOLD_YELLOW = "\u001B[1;33m";
-    private static final String BOLD_RED    = "\u001B[1;31m";
-    private static final String RESET       = "\u001B[0m";
+    private static final String BOLD_RED = "\u001B[1;31m";
+    private static final String RESET = "\u001B[0m";
 
     private final AtomicInteger progress = new AtomicInteger();
     private int total;
@@ -64,7 +62,8 @@ public class ProgressListener implements TestExecutionListener {
         var finalName = System.getProperty("finalName");
         if (finalName != null && finalName.startsWith("test-")) {
             module = finalName.substring("test-".length());
-        } else {
+        }
+        else {
             module = finalName;
         }
     }
@@ -113,9 +112,11 @@ public class ProgressListener implements TestExecutionListener {
     }
 
     private static String label(TestIdentifier id) {
-    	var className = id.getSource().flatMap(s -> {
-            if (s instanceof ClassSource cs) return Optional.of(simple(cs.getClassName()));
-            if (s instanceof MethodSource ms) return Optional.of(simple(ms.getClassName()));
+        var className = id.getSource().flatMap(s -> {
+            if (s instanceof ClassSource cs)
+                return Optional.of(simple(cs.getClassName()));
+            if (s instanceof MethodSource ms)
+                return Optional.of(simple(ms.getClassName()));
             return Optional.empty();
         });
         return className.map(c -> c + "#" + id.getDisplayName()).orElse(id.getDisplayName());
@@ -125,4 +126,5 @@ public class ProgressListener implements TestExecutionListener {
         int dot = fqn.lastIndexOf('.');
         return dot < 0 ? fqn : fqn.substring(dot + 1);
     }
+
 }

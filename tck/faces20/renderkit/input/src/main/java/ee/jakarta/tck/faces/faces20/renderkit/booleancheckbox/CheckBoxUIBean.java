@@ -36,4 +36,5 @@ public class CheckBoxUIBean {
         yesno.setStyleClass("text");
         this.yesno = yesno;
     }
+
 }

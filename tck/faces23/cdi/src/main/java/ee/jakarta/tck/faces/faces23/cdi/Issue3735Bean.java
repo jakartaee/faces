@@ -34,4 +34,5 @@ public class Issue3735Bean {
     public String getValue() {
         return viewMap.toString();
     }
+
 }

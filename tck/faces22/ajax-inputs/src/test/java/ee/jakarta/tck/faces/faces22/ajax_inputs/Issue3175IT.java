@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3175IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3175
-   */
-  @Test
-  void exceptionDuringRenderOk() throws Exception {
+     */
+    @Test
+    void exceptionDuringRenderOk() throws Exception {
         WebPage page = getPage("issue3175.xhtml");
         String pageText = page.getSource();
 
@@ -45,6 +45,7 @@ class Issue3175IT extends BaseITNG {
 
         assertTrue(page.containsText("not an ajax request"));
         assertTrue(page.containsText("Error from submit"));
-        
+
     }
+
 }

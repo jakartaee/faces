@@ -31,36 +31,47 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/PostKeepFlashValueEventTestServlet")
 public final class PostKeepFlashValueEventTestServlet extends BaseSystemEventTestServlet {
-  private static final String POST_KEY = "postkey";
 
-  @Override
-  protected SystemEvent createEvent(Object src) {
-    return new PostKeepFlashValueEvent(POST_KEY);
-  }
+    private static final String POST_KEY = "postkey";
 
-  // ------------------------------------------- PostKeepFlashValueEvent
-
-  public void postKeepFlashValueEventGetKeyTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Application app = getFacesContext().getApplication();
-
-    if (app != null) {
-      PostKeepFlashValueEvent pKeep = (PostKeepFlashValueEvent) createEvent(
-          app);
-      String result = pKeep.getKey();
-
-      if (!POST_KEY.equals(result)) {
-        pw.println(JSFTestUtil.FAIL + " Wrong key value!" + JSFTestUtil.NL
-            + "Expected: " + POST_KEY + JSFTestUtil.NL + "Received: " + result);
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unexpected problem obtaining "
-          + "Application instance.");
+    @Override
+    protected SystemEvent createEvent(Object src) {
+        return new PostKeepFlashValueEvent(POST_KEY);
     }
-  }
+
+    // ------------------------------------------- PostKeepFlashValueEvent
+
+    public void postKeepFlashValueEventGetKeyTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Application app = getFacesContext().getApplication();
+
+        if (app != null) {
+            PostKeepFlashValueEvent pKeep = (PostKeepFlashValueEvent) createEvent(
+                app
+            );
+            String result = pKeep.getKey();
+
+            if (!POST_KEY.equals(result)) {
+                pw.println(
+                    JSFTestUtil.FAIL + " Wrong key value!" + JSFTestUtil.NL
+                        + "Expected: " + POST_KEY + JSFTestUtil.NL + "Received: " + result
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " Unexpected problem obtaining "
+                    + "Application instance."
+            );
+        }
+    }
 
 } // TestServlet

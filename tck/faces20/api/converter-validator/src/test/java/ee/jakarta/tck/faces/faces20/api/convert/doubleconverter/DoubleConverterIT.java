@@ -28,8 +28,24 @@ class DoubleConverterIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void doubleConverterGetAsObjectTest() { runServletTest("converterGetAsObjectTest"); }
-    @Test void doubleConverterGetAsObjectNPETest() { runServletTest("converterGetAsObjectNPETest"); }
-    @Test void doubleConverterGetAsStringTest() { runServletTest("converterGetAsStringTest"); }
-    @Test void doubleConverterGetAsStringNPETest() { runServletTest("converterGetAsStringNPETest"); }
+    @Test
+    void doubleConverterGetAsObjectTest() {
+        runServletTest("converterGetAsObjectTest");
+    }
+
+    @Test
+    void doubleConverterGetAsObjectNPETest() {
+        runServletTest("converterGetAsObjectNPETest");
+    }
+
+    @Test
+    void doubleConverterGetAsStringTest() {
+        runServletTest("converterGetAsStringTest");
+    }
+
+    @Test
+    void doubleConverterGetAsStringNPETest() {
+        runServletTest("converterGetAsStringNPETest");
+    }
+
 }

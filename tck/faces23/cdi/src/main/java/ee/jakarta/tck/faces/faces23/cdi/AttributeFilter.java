@@ -32,11 +32,11 @@ import jakarta.servlet.annotation.WebFilter;
 @WebFilter("/*")
 public class AttributeFilter implements Filter {
 
-	@Override
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		request.setAttribute("fooAttribute", "bar");
-		request.getServletContext().setAttribute("barAttribute", "foo");
-	    chain.doFilter(request, response);
-	}
+        request.setAttribute("fooAttribute", "bar");
+        request.getServletContext().setAttribute("barAttribute", "foo");
+        chain.doFilter(request, response);
+    }
 
 }

@@ -70,5 +70,7 @@ public class Spec1263 implements Serializable {
         public String toString() {
             return value;
         }
+
     }
+
 }

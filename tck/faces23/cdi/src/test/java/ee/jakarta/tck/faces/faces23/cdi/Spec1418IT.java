@@ -28,13 +28,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1418IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-   */
-  @Test
-  void managedPropertyInteger() throws Exception {
+     */
+    @Test
+    void managedPropertyInteger() throws Exception {
         WebPage page = getPage("spec1418.xhtml");
 
         assertTrue(page.containsText("integer1:42"));
@@ -42,25 +42,25 @@ public class Spec1418IT extends BaseITNG {
         assertTrue(page.containsText("integer3:123"));
     }
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-   */
-  @Test
-  void managedPropertyString() throws Exception {
+     */
+    @Test
+    void managedPropertyString() throws Exception {
         WebPage page = getPage("spec1418.xhtml?test=foo");
 
         assertTrue(page.containsText("testParam:foo"));
     }
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see ManagedProperty
      * @see https://github.com/jakartaee/faces/issues/1418
-   */
-  @Test
-  void managedPropertyGenericMap() throws Exception {
+     */
+    @Test
+    void managedPropertyGenericMap() throws Exception {
         WebPage page = getPage("spec1418.xhtml");
 
         assertTrue(page.containsText("stringMap:bar"));

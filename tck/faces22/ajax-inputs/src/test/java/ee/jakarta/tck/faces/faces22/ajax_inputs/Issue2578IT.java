@@ -29,15 +29,16 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2578IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2578
-   */
-  @Test
-  void otherScriptType() throws Exception {
+     */
+    @Test
+    void otherScriptType() throws Exception {
         WebPage page = getPage("issue2578.xhtml");
         WebElement button1 = page.findElement(By.id("form:refresh"));
         page.guardAjax(button1::click);
         assertTrue(page.containsText("This script must not be eval'ed on ajax response."));
     }
+
 }

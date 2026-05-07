@@ -32,88 +32,104 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/UIParameterTestServlet")
 public class UIParameterTestServlet extends BaseComponentTestServlet {
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType(null);
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link jakarta.faces.component.UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link jakarta.faces.component.UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UIParameter();
-  }
-
-  // ------------------------------------------- Test Methods ----
-
-  // ------------------------------------------- UIparameter Tests
-
-  public void uiParameterSetGetNameTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIParameter param = (UIParameter) createComponent();
-    String golden = "Frodo";
-
-    param.setName(golden);
-    String result = param.getName();
-
-    if (!result.equals(golden)) {
-      out.println(JSFTestUtil.FAIL + " UIParameter.getName() didn't return"
-          + " the value as set by UIParameter.setName().");
-      out.println("Expected: " + golden);
-      out.println("Received: " + result);
-      return;
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType(null);
     }
 
-    out.println(JSFTestUtil.PASS);
-
-  } // uiParameterSetGetNameTest
-
-  public void uiParameterSetGetValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIParameter param = (UIParameter) createComponent();
-    boolean golden = true;
-
-    param.setValue(golden);
-    boolean result = (Boolean) param.getValue();
-
-    if (!result) {
-      out.println(JSFTestUtil.FAIL + " UIParameter.getValue() didn't return"
-          + " the value as set by UIParameter.setValue().");
-      out.println("Expected: " + golden);
-      out.println("Received: " + result);
-      return;
+    /**
+     * <p>
+     * Creates a new {@link jakarta.faces.component.UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link jakarta.faces.component.UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UIParameter();
     }
 
-    out.println(JSFTestUtil.PASS);
+    // ------------------------------------------- Test Methods ----
 
-  } // uiParameterSetGetValueTest
+    // ------------------------------------------- UIparameter Tests
 
-  public void uiParameterIsSetDisableTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIParameter param = (UIParameter) createComponent();
-    boolean golden = true;
+    public void uiParameterSetGetNameTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIParameter param = (UIParameter) createComponent();
+        String golden = "Frodo";
 
-    param.setDisable(golden);
-    boolean result = (Boolean) param.isDisable();
+        param.setName(golden);
+        String result = param.getName();
 
-    if (!result) {
-      out.println(JSFTestUtil.FAIL + " UIParameter.isDisable() didn't return"
-          + " the value as set by UIParameter.setDisable().");
-      out.println("Expected: " + golden);
-      out.println("Received: " + result);
-      return;
-    }
+        if (!result.equals(golden)) {
+            out.println(
+                JSFTestUtil.FAIL + " UIParameter.getName() didn't return"
+                    + " the value as set by UIParameter.setName()."
+            );
+            out.println("Expected: " + golden);
+            out.println("Received: " + result);
+            return;
+        }
 
-    out.println(JSFTestUtil.PASS);
+        out.println(JSFTestUtil.PASS);
 
-  } // uiParameterIsSetDisableTest
+    } // uiParameterSetGetNameTest
+
+    public void uiParameterSetGetValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIParameter param = (UIParameter) createComponent();
+        boolean golden = true;
+
+        param.setValue(golden);
+        boolean result = (Boolean) param.getValue();
+
+        if (!result) {
+            out.println(
+                JSFTestUtil.FAIL + " UIParameter.getValue() didn't return"
+                    + " the value as set by UIParameter.setValue()."
+            );
+            out.println("Expected: " + golden);
+            out.println("Received: " + result);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
+
+    } // uiParameterSetGetValueTest
+
+    public void uiParameterIsSetDisableTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIParameter param = (UIParameter) createComponent();
+        boolean golden = true;
+
+        param.setDisable(golden);
+        boolean result = (Boolean) param.isDisable();
+
+        if (!result) {
+            out.println(
+                JSFTestUtil.FAIL + " UIParameter.isDisable() didn't return"
+                    + " the value as set by UIParameter.setDisable()."
+            );
+            out.println("Expected: " + golden);
+            out.println("Received: " + result);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
+
+    } // uiParameterIsSetDisableTest
+
 }

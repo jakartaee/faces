@@ -49,4 +49,5 @@ class Issue5540IT extends BaseITNG {
             () -> assertTrue(messagesText.contains("validated by @Pattern"), messagesText + " contains 'validated by @Pattern'")
         );
     }
+
 }

@@ -26,17 +26,20 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlSelectManyMenuTestServlet")
 public final class HtmlSelectManyMenuTestServlet extends UISelectManyTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title", "disabled", "readonly", "disabledClass", "enabledClass" };
+    private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress",
+        "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title", "disabled", "readonly",
+        "disabledClass", "enabledClass" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Menu");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Menu");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlSelectManyMenu();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlSelectManyMenu();
+    }
+
 }

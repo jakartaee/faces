@@ -35,130 +35,167 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/FacesEventTestServlet")
 public final class FacesEventTestServlet extends HttpTCKServlet {
 
-  public void facesEventCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    if (uic != null) {
+    public void facesEventCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        if (uic != null) {
 
-      FacesEvent fe = new TCKFacesEvent(uic);
-      if (fe == null) {
-        pw.println(
-            JSFTestUtil.FAIL + ": FacesEvent(UIComponent) returned null");
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unable to obtain UIComponent instance.");
-    }
-  }
-
-  public void facesEventCtorIllegalArgumentExceptionTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      new TCKFacesEvent(null);
-      pw.println(JSFTestUtil.FAIL + " The constructor of FacesEvent should "
-          + "have thrown an IllegalArgumentException when provided a null "
-          + "component.  No Exception was thrown.");
-    } catch (IllegalArgumentException iae) {
-      pw.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      pw.println(JSFTestUtil.FAIL + ": Exception thrown, but was not an "
-          + "instance of IllegalArgumentException.");
-      e.printStackTrace();
-    }
-  }
-
-  public void facesEventGetComponentTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    UIViewRoot root = new UIViewRoot();
-    FacesEvent fe = new TCKFacesEvent(uic);
-    root.getChildren().add(uic);
-    if (uic == fe.getComponent()) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println(JSFTestUtil.FAIL + " FacesEvent.getComponent() didn't return"
-          + " the same UIComponent provided to its constructor.");
-    }
-  }
-
-  public void facesEventQueueISETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-
-    PrintWriter pw = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    UIComponent root = getApplication()
-        .createComponent(UIOutput.COMPONENT_TYPE);
-    FacesEvent fe = new TCKFacesEvent(uic);
-    root.getChildren().add(uic);
-
-    JSFTestUtil.checkForISE(fe, "queue", new Class<?>[] {}, new Object[] {},
-        pw);
-
-  } // END facesEventQueueISETest
-
-  public void facesEventGetSetPhaseIdTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-
-    PrintWriter out = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    FacesEvent fe = new TCKFacesEvent(uic);
-
-    fe.setPhaseId(PhaseId.ANY_PHASE);
-
-    if (!fe.getPhaseId().equals(PhaseId.ANY_PHASE)) {
-      out.println(JSFTestUtil.FAIL);
-
-    } else {
-      out.println(JSFTestUtil.PASS);
+            FacesEvent fe = new TCKFacesEvent(uic);
+            if (fe == null) {
+                pw.println(
+                    JSFTestUtil.FAIL + ": FacesEvent(UIComponent) returned null"
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+        }
+        else {
+            pw.println(JSFTestUtil.FAIL + " Unable to obtain UIComponent instance.");
+        }
     }
 
-  } // END facesEventGetPhaseIdTest
+    public void facesEventCtorIllegalArgumentExceptionTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            new TCKFacesEvent(null);
+            pw.println(
+                JSFTestUtil.FAIL + " The constructor of FacesEvent should "
+                    + "have thrown an IllegalArgumentException when provided a null "
+                    + "component.  No Exception was thrown."
+            );
+        }
+        catch (IllegalArgumentException iae) {
+            pw.println(JSFTestUtil.PASS);
 
-  public void facesEventSetPhaseIdIAETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    FacesEvent fe = new TCKFacesEvent(uic);
-
-    try {
-      fe.setPhaseId(null);
-      out.println(
-          JSFTestUtil.FAIL + "Expected IllegalArgumentException to be thrown!");
-
-    } catch (IllegalArgumentException iae) {
-      out.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      out.println(
-          JSFTestUtil.FAIL + "Exception thrown, but not the correct one!"
-              + JSFTestUtil.NL + " Expected: IllegalArgumentException"
-              + JSFTestUtil.NL + "Received: ");
-      e.printStackTrace();
+        }
+        catch (Exception e) {
+            pw.println(
+                JSFTestUtil.FAIL + ": Exception thrown, but was not an "
+                    + "instance of IllegalArgumentException."
+            );
+            e.printStackTrace();
+        }
     }
 
-  } // END facesEventSetPhaseIdIAETest
-
-  // ------------------------------------ Private Classes
-
-  private static class TCKFacesEvent extends FacesEvent {
-
-    public TCKFacesEvent(UIComponent component) {
-      super(component);
+    public void facesEventGetComponentTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        UIViewRoot root = new UIViewRoot();
+        FacesEvent fe = new TCKFacesEvent(uic);
+        root.getChildren().add(uic);
+        if (uic == fe.getComponent()) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " FacesEvent.getComponent() didn't return"
+                    + " the same UIComponent provided to its constructor."
+            );
+        }
     }
 
-    public boolean isAppropriateListener(FacesListener listener) {
-      return false;
-    }
+    public void facesEventQueueISETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
 
-    public void processListener(FacesListener listener) {
+        PrintWriter pw = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        UIComponent root = getApplication()
+            .createComponent(UIOutput.COMPONENT_TYPE);
+        FacesEvent fe = new TCKFacesEvent(uic);
+        root.getChildren().add(uic);
+
+        JSFTestUtil.checkForISE(
+            fe, "queue", new Class<?>[] {}, new Object[] {},
+            pw
+        );
+
+    } // END facesEventQueueISETest
+
+    public void facesEventGetSetPhaseIdTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+
+        PrintWriter out = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        FacesEvent fe = new TCKFacesEvent(uic);
+
+        fe.setPhaseId(PhaseId.ANY_PHASE);
+
+        if (!fe.getPhaseId().equals(PhaseId.ANY_PHASE)) {
+            out.println(JSFTestUtil.FAIL);
+
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
+
+    } // END facesEventGetPhaseIdTest
+
+    public void facesEventSetPhaseIdIAETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        FacesEvent fe = new TCKFacesEvent(uic);
+
+        try {
+            fe.setPhaseId(null);
+            out.println(
+                JSFTestUtil.FAIL + "Expected IllegalArgumentException to be thrown!"
+            );
+
+        }
+        catch (IllegalArgumentException iae) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + "Exception thrown, but not the correct one!"
+                    + JSFTestUtil.NL + " Expected: IllegalArgumentException"
+                    + JSFTestUtil.NL + "Received: "
+            );
+            e.printStackTrace();
+        }
+
+    } // END facesEventSetPhaseIdIAETest
+
+    // ------------------------------------ Private Classes
+
+    private static class TCKFacesEvent extends FacesEvent {
+
+        public TCKFacesEvent(UIComponent component) {
+            super(component);
+        }
+
+        public boolean isAppropriateListener(FacesListener listener) {
+            return false;
+        }
+
+        public void processListener(FacesListener listener) {
+
+        }
 
     }
-  }
 
 }

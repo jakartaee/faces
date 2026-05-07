@@ -17,5 +17,5 @@
 package ee.jakarta.tck.faces.faces22.multi_field_validation.simple;
 
 interface PasswordValidationGroup {
-    
+
 }

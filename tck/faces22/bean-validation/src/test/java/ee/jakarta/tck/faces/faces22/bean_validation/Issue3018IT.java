@@ -43,4 +43,5 @@ public class Issue3018IT extends BaseITNG {
 
         assertFalse(page.containsText("my message"));
     }
+
 }

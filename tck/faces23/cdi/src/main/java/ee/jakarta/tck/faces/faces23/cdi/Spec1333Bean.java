@@ -31,4 +31,5 @@ public class Spec1333Bean {
     public String getValue() {
         return viewRoot.toString();
     }
+
 }

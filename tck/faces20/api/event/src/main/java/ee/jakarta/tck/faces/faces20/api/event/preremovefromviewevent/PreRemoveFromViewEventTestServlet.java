@@ -35,41 +35,46 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/PreRemoveFromViewEventTestServlet")
 public final class PreRemoveFromViewEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UICommand UIC = new UICommand();
+    private static final UICommand UIC = new UICommand();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PreRemoveFromViewEvent(component);
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PreRemoveFromViewEvent(component);
 
-  }
-
-  @Override
-  protected UIComponent getTestComponent() {
-    return UIC;
-  }
-  // ------------------------------------------------------------
-  // PreRemoveFromViewEvent Tests
-
-  public void preRemoveFromViewEventIsApproiateListenerPostiveTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-
-    SystemEventListener testListener = new TestSystemEventListener();
-    ComponentSystemEvent cse = createEvent(getTestComponent());
-    String eventName = cse.getClass().getName();
-
-    // make sure the return value is true if SystemEventListener is
-    // passed as a parameter to isAppropriateListener.
-
-    if (cse.isAppropriateListener(testListener)) {
-      pw.println(JSFTestUtil.PASS);
-
-    } else {
-      pw.println("Test FAILED. " + eventName + ".isAppropriateListener "
-          + "did not return true when SystemEventListener was passed in "
-          + "as a parameter");
     }
-  }
+
+    @Override
+    protected UIComponent getTestComponent() {
+        return UIC;
+    }
+    // ------------------------------------------------------------
+    // PreRemoveFromViewEvent Tests
+
+    public void preRemoveFromViewEventIsApproiateListenerPostiveTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        SystemEventListener testListener = new TestSystemEventListener();
+        ComponentSystemEvent cse = createEvent(getTestComponent());
+        String eventName = cse.getClass().getName();
+
+        // make sure the return value is true if SystemEventListener is
+        // passed as a parameter to isAppropriateListener.
+
+        if (cse.isAppropriateListener(testListener)) {
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            pw.println(
+                "Test FAILED. " + eventName + ".isAppropriateListener "
+                    + "did not return true when SystemEventListener was passed in "
+                    + "as a parameter"
+            );
+        }
+    }
 
 }

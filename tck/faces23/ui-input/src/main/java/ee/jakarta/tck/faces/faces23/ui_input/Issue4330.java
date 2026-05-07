@@ -23,23 +23,23 @@ import jakarta.enterprise.inject.Model;
 @Model
 public class Issue4330 {
 
-	private String selectedValue;
-	private List<String> selectedValues;
+    private String selectedValue;
+    private List<String> selectedValues;
 
-	public String getSelectedValue() {
-		return selectedValue;
-	}
+    public String getSelectedValue() {
+        return selectedValue;
+    }
 
-	public void setSelectedValue(String selectedValue) {
-		this.selectedValue = selectedValue;
-	}
+    public void setSelectedValue(String selectedValue) {
+        this.selectedValue = selectedValue;
+    }
 
-	public List<String> getSelectedValues() {
-		return selectedValues;
-	}
+    public List<String> getSelectedValues() {
+        return selectedValues;
+    }
 
-	public void setSelectedValues(List<String> selectedValues) {
-		this.selectedValues = selectedValues;
-	}
+    public void setSelectedValues(List<String> selectedValues) {
+        this.selectedValues = selectedValues;
+    }
 
 }

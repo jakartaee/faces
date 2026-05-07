@@ -28,19 +28,79 @@ class ResourceIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void resourceGetContentTypeTest() { runServletTest("resourceGetContentTypeTest"); }
-    @Test void resourceGetInputStreamTest() { runServletTest("resourceGetInputStreamTest"); }
-    @Test void resourceGetLibraryNameNullTest() { runServletTest("resourceGetLibraryNameNullTest"); }
-    @Test void resourceGetLibraryNameTest() { runServletTest("resourceGetLibraryNameTest"); }
-    @Test void resourceGetRequestPathLibTest() { runServletTest("resourceGetRequestPathLibTest"); }
-    @Test void resourceGetRequestPathTest() { runServletTest("resourceGetRequestPathTest"); }
-    @Test void resourceGetResourceNameTest() { runServletTest("resourceGetResourceNameTest"); }
-    @Test void resourceGetResponseHeadersTest() { runServletTest("resourceGetResponseHeadersTest"); }
-    @Test void resourceGetURLTest() { runServletTest("resourceGetURLTest"); }
-    @Test void resourceSetContentTypeTest() { runServletTest("resourceSetContentTypeTest"); }
-    @Test void resourceSetLibraryNameTest() { runServletTest("resourceSetLibraryNameTest"); }
-    @Test void resourceSetResourceNameNPETest() { runServletTest("resourceSetResourceNameNPETest"); }
-    @Test void resourceSetResourceNameTest() { runServletTest("resourceSetResourceNameTest"); }
-    @Test void resourceToStringTest() { runServletTest("resourceToStringTest"); }
-    @Test void resourceUserAgentNeedsUpdateTrueTest() { runServletTest("resourceUserAgentNeedsUpdateTrueTest"); }
+    @Test
+    void resourceGetContentTypeTest() {
+        runServletTest("resourceGetContentTypeTest");
+    }
+
+    @Test
+    void resourceGetInputStreamTest() {
+        runServletTest("resourceGetInputStreamTest");
+    }
+
+    @Test
+    void resourceGetLibraryNameNullTest() {
+        runServletTest("resourceGetLibraryNameNullTest");
+    }
+
+    @Test
+    void resourceGetLibraryNameTest() {
+        runServletTest("resourceGetLibraryNameTest");
+    }
+
+    @Test
+    void resourceGetRequestPathLibTest() {
+        runServletTest("resourceGetRequestPathLibTest");
+    }
+
+    @Test
+    void resourceGetRequestPathTest() {
+        runServletTest("resourceGetRequestPathTest");
+    }
+
+    @Test
+    void resourceGetResourceNameTest() {
+        runServletTest("resourceGetResourceNameTest");
+    }
+
+    @Test
+    void resourceGetResponseHeadersTest() {
+        runServletTest("resourceGetResponseHeadersTest");
+    }
+
+    @Test
+    void resourceGetURLTest() {
+        runServletTest("resourceGetURLTest");
+    }
+
+    @Test
+    void resourceSetContentTypeTest() {
+        runServletTest("resourceSetContentTypeTest");
+    }
+
+    @Test
+    void resourceSetLibraryNameTest() {
+        runServletTest("resourceSetLibraryNameTest");
+    }
+
+    @Test
+    void resourceSetResourceNameNPETest() {
+        runServletTest("resourceSetResourceNameNPETest");
+    }
+
+    @Test
+    void resourceSetResourceNameTest() {
+        runServletTest("resourceSetResourceNameTest");
+    }
+
+    @Test
+    void resourceToStringTest() {
+        runServletTest("resourceToStringTest");
+    }
+
+    @Test
+    void resourceUserAgentNeedsUpdateTrueTest() {
+        runServletTest("resourceUserAgentNeedsUpdateTrueTest");
+    }
+
 }

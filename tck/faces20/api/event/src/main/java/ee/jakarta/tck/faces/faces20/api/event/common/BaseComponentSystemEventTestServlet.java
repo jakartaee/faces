@@ -34,154 +34,191 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  */
 public abstract class BaseComponentSystemEventTestServlet
-    extends HttpTCKServlet {
+    extends
+        HttpTCKServlet {
 
-  private ComponentSystemEvent cse = null;
+    private ComponentSystemEvent cse = null;
 
-  private String eventName = null;
+    private String eventName = null;
 
-  private UIComponent uic = null;
+    private UIComponent uic = null;
 
-  // --------------------------------------------------------- abstract methods
+    // --------------------------------------------------------- abstract methods
 
-  /**
-   * <p>
-   * Creates a new {@link ComponentSystemEvent} instance.
-   * </p>
-   *
-   * @return a new {@link ComponentSystemEvent} instance.
-   */
-  protected abstract ComponentSystemEvent createEvent(UIComponent component);
+    /**
+     * <p>
+     * Creates a new {@link ComponentSystemEvent} instance.
+     * </p>
+     *
+     * @return a new {@link ComponentSystemEvent} instance.
+     */
+    protected abstract ComponentSystemEvent createEvent(UIComponent component);
 
-  /**
-   * <p>
-   * Creates a new {@link UIcomponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  protected abstract UIComponent getTestComponent();
+    /**
+     * <p>
+     * Creates a new {@link UIcomponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    protected abstract UIComponent getTestComponent();
 
-  // ---------------------------------------------------------- private methods
+    // ---------------------------------------------------------- private methods
 
-  private void setupEvent() {
-    uic = getTestComponent();
-    cse = createEvent(uic);
-    eventName = cse.getClass().getName();
-  }
-
-  // ------------------------------------------------------------- test methods
-
-  public void componentSystemEventCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-
-    this.setupEvent();
-
-    if (cse == null) {
-      pw.println(
-          JSFTestUtil.FAIL + eventName + "(UIComponent) " + "returned null");
-    } else {
-      pw.println(JSFTestUtil.PASS);
+    private void setupEvent() {
+        uic = getTestComponent();
+        cse = createEvent(uic);
+        eventName = cse.getClass().getName();
     }
 
-  }
+    // ------------------------------------------------------------- test methods
 
-  public void componentSystemEventIAETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      createEvent(null);
-      pw.println(JSFTestUtil.FAIL + " The constructor for " + eventName
-          + " should have thrown an IllegalArgumentException when "
-          + "provided a null component.  No Exception was thrown.");
+    public void componentSystemEventCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
 
-    } catch (IllegalArgumentException iae) {
-      pw.println(JSFTestUtil.PASS);
+        this.setupEvent();
 
-    } catch (Exception e) {
-      pw.println(JSFTestUtil.FAIL + ": Wrong exception thrown!" + JSFTestUtil.NL
-          + "Expected: IllegalArgumentException");
-      e.printStackTrace();
+        if (cse == null) {
+            pw.println(
+                JSFTestUtil.FAIL + eventName + "(UIComponent) " + "returned null"
+            );
+        }
+        else {
+            pw.println(JSFTestUtil.PASS);
+        }
+
     }
-  }
 
-  public void componentSystemEventGetComponentTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
+    public void componentSystemEventIAETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            createEvent(null);
+            pw.println(
+                JSFTestUtil.FAIL + " The constructor for " + eventName
+                    + " should have thrown an IllegalArgumentException when "
+                    + "provided a null component.  No Exception was thrown."
+            );
 
-    this.setupEvent();
+        }
+        catch (IllegalArgumentException iae) {
+            pw.println(JSFTestUtil.PASS);
 
-    if (uic.equals(cse.getComponent())) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println("Test FAILED. " + eventName + ".getComponent() "
-          + "didn't return the same UIComponent provided to its "
-          + "constructor!" + JSFTestUtil.NL + "Expected: "
-          + uic.getClass().getName() + JSFTestUtil.NL + "Received: "
-          + cse.getComponent().getClass().getName());
+        }
+        catch (Exception e) {
+            pw.println(
+                JSFTestUtil.FAIL + ": Wrong exception thrown!" + JSFTestUtil.NL
+                    + "Expected: IllegalArgumentException"
+            );
+            e.printStackTrace();
+        }
     }
-  }
 
-  public void componentSystemEventIsApproiateListenerPostiveTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    // make sure the return value is true if ComponentSystemEventListener is
-    // passed as a parameter to isAppropriateListener.
+    public void componentSystemEventGetComponentTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
 
-    ComponentSystemEventListener testListener = new TCKComponentSystemEventListener();
+        this.setupEvent();
 
-    this.setupEvent();
-
-    if (cse.isAppropriateListener(testListener)) {
-      pw.println(JSFTestUtil.PASS);
-
-    } else {
-      pw.println("Test FAILED. " + eventName + ".isAppropriateListener "
-          + "did not return true when ComponentSystemEventListener was passed in "
-          + "as a parameter");
+        if (uic.equals(cse.getComponent())) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                "Test FAILED. " + eventName + ".getComponent() "
+                    + "didn't return the same UIComponent provided to its "
+                    + "constructor!" + JSFTestUtil.NL + "Expected: "
+                    + uic.getClass().getName() + JSFTestUtil.NL + "Received: "
+                    + cse.getComponent().getClass().getName()
+            );
+        }
     }
-  }
 
-  public void componentSystemEventIsApproiateListenerNegativeTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    // make sure the return value is false if valuechangeListener is passed
-    // as a parameter to isAppropriateListener.
+    public void componentSystemEventIsApproiateListenerPostiveTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        // make sure the return value is true if ComponentSystemEventListener is
+        // passed as a parameter to isAppropriateListener.
 
-    FacesListener testListener = new TestValueChangeListener();
+        ComponentSystemEventListener testListener = new TCKComponentSystemEventListener();
 
-    this.setupEvent();
+        this.setupEvent();
 
-    if (!(cse.isAppropriateListener(testListener))) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println("Test FAILED. " + eventName + ".isAppropriateListener "
-          + "did not return false when ValueChangeListener was "
-          + "passed in as a parameter");
+        if (cse.isAppropriateListener(testListener)) {
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            pw.println(
+                "Test FAILED. " + eventName + ".isAppropriateListener "
+                    + "did not return true when ComponentSystemEventListener was passed in "
+                    + "as a parameter"
+            );
+        }
     }
-  }
 
-  public void componentSystemEventProcessListenerTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
+    public void componentSystemEventIsApproiateListenerNegativeTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        // make sure the return value is false if valuechangeListener is passed
+        // as a parameter to isAppropriateListener.
 
-    // make sure the SystemEventListener.processAction() is called from
-    // ActionEvent.processListener.
+        FacesListener testListener = new TestValueChangeListener();
 
-    TCKComponentSystemEventListener testListener = new TCKComponentSystemEventListener();
+        this.setupEvent();
 
-    this.setupEvent();
-
-    cse.processListener(testListener);
-    if ((testListener.getActionString()).equals("success")) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println(JSFTestUtil.FAIL + " ActionEvent.processListener"
-          + " did not invoke processAction on the input listener. ");
+        if (!(cse.isAppropriateListener(testListener))) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                "Test FAILED. " + eventName + ".isAppropriateListener "
+                    + "did not return false when ValueChangeListener was "
+                    + "passed in as a parameter"
+            );
+        }
     }
-  }
+
+    public void componentSystemEventProcessListenerTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        // make sure the SystemEventListener.processAction() is called from
+        // ActionEvent.processListener.
+
+        TCKComponentSystemEventListener testListener = new TCKComponentSystemEventListener();
+
+        this.setupEvent();
+
+        cse.processListener(testListener);
+        if ((testListener.getActionString()).equals("success")) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " ActionEvent.processListener"
+                    + " did not invoke processAction on the input listener. "
+            );
+        }
+    }
+
 }

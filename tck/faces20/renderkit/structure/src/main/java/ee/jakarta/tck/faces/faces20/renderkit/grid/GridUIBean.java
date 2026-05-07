@@ -57,4 +57,5 @@ public class GridUIBean implements Serializable {
         column.getChildren().add(text);
         return column;
     }
+
 }

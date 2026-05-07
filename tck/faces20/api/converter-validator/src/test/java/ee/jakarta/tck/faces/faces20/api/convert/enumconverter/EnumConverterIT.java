@@ -28,13 +28,49 @@ class EnumConverterIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void enumConverterIsSetTransientTest() { runServletTest("enumConverterIsSetTransientTest"); }
-    @Test void enumConverterGetAsObjectTest() { runServletTest("enumConverterGetAsObjectTest"); }
-    @Test void enumConverterGetAsObjectCETest() { runServletTest("enumConverterGetAsObjectCETest"); }
-    @Test void enumConverterGetAsObjectNPE1Test() { runServletTest("enumConverterGetAsObjectNPE1Test"); }
-    @Test void enumConverterGetAsObjectNPE2Test() { runServletTest("enumConverterGetAsObjectNPE2Test"); }
-    @Test void enumConverterGetAsStringTest() { runServletTest("enumConverterGetAsStringTest"); }
-    @Test void enumConverterGetAsStringCETest() { runServletTest("enumConverterGetAsStringCETest"); }
-    @Test void enumConverterGetAsStringNPE1Test() { runServletTest("enumConverterGetAsStringNPE1Test"); }
-    @Test void enumConverterGetAsStringNPE2Test() { runServletTest("enumConverterGetAsStringNPE2Test"); }
+    @Test
+    void enumConverterIsSetTransientTest() {
+        runServletTest("enumConverterIsSetTransientTest");
+    }
+
+    @Test
+    void enumConverterGetAsObjectTest() {
+        runServletTest("enumConverterGetAsObjectTest");
+    }
+
+    @Test
+    void enumConverterGetAsObjectCETest() {
+        runServletTest("enumConverterGetAsObjectCETest");
+    }
+
+    @Test
+    void enumConverterGetAsObjectNPE1Test() {
+        runServletTest("enumConverterGetAsObjectNPE1Test");
+    }
+
+    @Test
+    void enumConverterGetAsObjectNPE2Test() {
+        runServletTest("enumConverterGetAsObjectNPE2Test");
+    }
+
+    @Test
+    void enumConverterGetAsStringTest() {
+        runServletTest("enumConverterGetAsStringTest");
+    }
+
+    @Test
+    void enumConverterGetAsStringCETest() {
+        runServletTest("enumConverterGetAsStringCETest");
+    }
+
+    @Test
+    void enumConverterGetAsStringNPE1Test() {
+        runServletTest("enumConverterGetAsStringNPE1Test");
+    }
+
+    @Test
+    void enumConverterGetAsStringNPE2Test() {
+        runServletTest("enumConverterGetAsStringNPE2Test");
+    }
+
 }

@@ -26,17 +26,20 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlOutputLinkTestServlet")
 public final class HtmlOutputLinkTestServlet extends UIOutputTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "charset", "coords", "dir", "hreflang", "lang", "onblur", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "rel", "rev", "shape", "style", "styleClass", "tabindex", "target", "title", "type" };
+    private static final String[] attrNames = { "accesskey", "charset", "coords", "dir", "hreflang", "lang", "onblur", "onclick", "ondblclick", "onfocus",
+        "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "rel", "rev", "shape", "style",
+        "styleClass", "tabindex", "target", "title", "type" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Link");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Link");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlOutputLink();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlOutputLink();
+    }
+
 }

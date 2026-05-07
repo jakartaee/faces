@@ -26,12 +26,13 @@ import jakarta.servlet.annotation.WebServlet;
 
 @WebServlet("/PreClearFlashEventTestServlet")
 public final class PreClearFlashEventTestServlet extends BaseSystemEventTestServlet {
-  private Map<String, Object> keys = new HashMap<String, Object>();
 
-  @Override
-  protected SystemEvent createEvent(Object src) {
-    keys.put("test", "test");
-    return new PreClearFlashEvent(keys);
-  }
+    private Map<String, Object> keys = new HashMap<String, Object>();
+
+    @Override
+    protected SystemEvent createEvent(Object src) {
+        keys.put("test", "test");
+        return new PreClearFlashEvent(keys);
+    }
 
 } // End TestServlet

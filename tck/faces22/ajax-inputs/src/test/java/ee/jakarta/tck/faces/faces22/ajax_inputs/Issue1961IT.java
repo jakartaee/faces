@@ -30,13 +30,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue1961IT extends BaseITNG {
 
-  /**
-   * @see ClientBehaviorHolder
+    /**
+     * @see ClientBehaviorHolder
      * @see HtmlPanelGroup
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1961
-   */
-  @Test
-  void panelGroupAjaxBehavior() throws Exception {
+     */
+    @Test
+    void panelGroupAjaxBehavior() throws Exception {
         WebPage page = getPage("issue1961.xhtml");
         WebElement span = page.findElement(By.id("form:group"));
         page.guardAjax(span::click);
@@ -44,4 +44,5 @@ class Issue1961IT extends BaseITNG {
         assertTrue(page.containsText("form:group Event: complete"));
         assertTrue(page.containsText("form:group Event: success"));
     }
+
 }

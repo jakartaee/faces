@@ -19,21 +19,22 @@ package ee.jakarta.tck.faces.faces23.cdi;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
-@Named(value="spec1350Bean")
+@Named(value = "spec1350Bean")
 @RequestScoped
 public class Spec1350Bean {
 
     private Long value;
-    
+
     public Long getValue() {
         return value;
     }
-    
+
     public void setValue(Long value) {
         this.value = value;
     }
-    
+
     public String submit() {
         return "";
     }
+
 }

@@ -30,16 +30,16 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2259IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see UIComponent#getCurrentCompositeComponent(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2259
-   */
-  @Test
-  void behaviorState() throws Exception {
+     */
+    @Test
+    void behaviorState() throws Exception {
         WebPage page = getPage("issue2259.xhtml");
         assertTrue(page.containsText("false"));
-        WebElement cbox =  page.findElement(By.id("cc:form:test"));
+        WebElement cbox = page.findElement(By.id("cc:form:test"));
         page.guardAjax(cbox::click);
 
         assertTrue(page.containsText("true"));
@@ -53,4 +53,5 @@ class Issue2259IT extends BaseITNG {
 
         assertTrue(page.containsText("false"));
     }
+
 }

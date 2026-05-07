@@ -22,23 +22,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
-    
+
     <head>
         <title>Create customer page</title>
     </head>
     <body bgcolor="red">
-        
+
         <p>Create customer page</p>
-        
+
     <h:form prependId="false">
-        
+
         <p>Initializer message: #{initializerMessage}</p>
 
         <p><h:commandButton id="return" value="return" action="success" /></p>
-        
+
         <p><h:commandButton id="createCustomer" value="Create Customer" action="#{maintainCustomerBean.createCustomer}" /></p>
-        
+
     </h:form>
-        
+
     </body>
 </html>

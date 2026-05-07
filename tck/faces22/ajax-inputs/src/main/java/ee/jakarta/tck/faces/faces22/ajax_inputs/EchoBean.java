@@ -25,7 +25,7 @@ import jakarta.inject.Named;
 @Named
 @SessionScoped
 public class EchoBean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     String str = "";

@@ -49,24 +49,29 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void scalarDataModelCtorTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = new ScalarDataModel(new TestBean());
 
         int curRow = model.getRowIndex();
 
         if (curRow != 0) {
-            out.println(JSFTestUtil.FAIL + " Expected getRowIndex() to return 0"
+            out.println(
+                JSFTestUtil.FAIL + " Expected getRowIndex() to return 0"
                     + " when called against DataModel instance created by"
-                    + " passing data to wrap to constructor.");
+                    + " passing data to wrap to constructor."
+            );
             out.println("Row index returned: " + curRow);
             return;
         }
 
         if (!model.isRowAvailable()) {
-            out.println(JSFTestUtil.FAIL + " Expected isRowAvailable() to return"
+            out.println(
+                JSFTestUtil.FAIL + " Expected isRowAvailable() to return"
                     + " true when called against DataModel instance created"
-                    + " by passing data to wrap to constructor.");
+                    + " by passing data to wrap to constructor."
+            );
             return;
         }
 
@@ -74,7 +79,8 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelGetSetWrappedDataTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
@@ -85,8 +91,10 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
         Object ret = model.getWrappedData();
 
         if (!bean.equals(ret)) {
-            out.println(JSFTestUtil.FAIL + " The value returned from getWrappedData()"
-                    + " was not the same as what was set via setWrappedData().");
+            out.println(
+                JSFTestUtil.FAIL + " The value returned from getWrappedData()"
+                    + " was not the same as what was set via setWrappedData()."
+            );
             out.println("Expected: " + bean);
             out.println("Received: " + ret);
             return;
@@ -97,15 +105,18 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
 
     @Override
     public void dataModelGetRowCountTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
 
         int result = data.getRowCount();
         if (result != -1) {
-            out.println(JSFTestUtil.FAIL + " Expected DataModel.getRowCount() to"
-                    + " return -1 if no data was available on the Model " + "tier.");
+            out.println(
+                JSFTestUtil.FAIL + " Expected DataModel.getRowCount() to"
+                    + " return -1 if no data was available on the Model " + "tier."
+            );
             out.println("Row count received: " + result);
             return;
         }
@@ -115,8 +126,10 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
 
         result = data.getRowCount();
         if (result != 1) {
-            out.println(JSFTestUtil.FAIL + " Expected DataModel.getRowCount() to "
-                    + "return 1.");
+            out.println(
+                JSFTestUtil.FAIL + " Expected DataModel.getRowCount() to "
+                    + "return 1."
+            );
             out.println("Row count received: " + result);
             return;
         }
@@ -126,7 +139,8 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
 
     @Override
     public void dataModelGetRowDataTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
@@ -134,8 +148,10 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
         data.setRowIndex(0);
         Object result = data.getRowData();
         if (result != null) {
-            out.println("Test FAILED[1].  Expected DataModel.getRowData() to "
-                    + "return a null result.");
+            out.println(
+                "Test FAILED[1].  Expected DataModel.getRowData() to "
+                    + "return a null result."
+            );
             return;
         }
 
@@ -143,8 +159,10 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
         result = data.getRowData();
         Object bean = result;
         if (!bean.equals(beans.get(0))) {
-            out.println("Test FAILED[1].  The Object returned by UIData."
-                    + "getRowData() at index 0 was not the expected Object.");
+            out.println(
+                "Test FAILED[1].  The Object returned by UIData."
+                    + "getRowData() at index 0 was not the expected Object."
+            );
             out.println("Expected: " + beans.get(0));
             out.println("Recevied: " + bean);
             return;
@@ -152,4 +170,5 @@ public class ScalarDataModelTestServlet extends BaseModelTestServlet {
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

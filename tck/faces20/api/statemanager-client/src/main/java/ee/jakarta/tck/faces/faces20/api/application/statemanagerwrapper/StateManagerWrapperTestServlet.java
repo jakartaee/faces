@@ -30,11 +30,15 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/StateManagerWrapperTestServlet")
 public final class StateManagerWrapperTestServlet extends HttpTCKServlet {
 
-    public void stateManagerIsSavingStateInClientTest(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    public void stateManagerIsSavingStateInClientTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         StateManager manager = new SimpleStateManagerWrapper(
-                getApplication().getStateManager());
+            getApplication().getStateManager()
+        );
         out.println(manager.isSavingStateInClient(getFacesContext()));
     }
 
@@ -54,5 +58,7 @@ public final class StateManagerWrapperTestServlet extends HttpTCKServlet {
         public StateManager getWrapped() {
             return manager;
         }
+
     }
+
 }

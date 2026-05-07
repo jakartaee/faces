@@ -26,17 +26,18 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlOutputFormatTestServlet")
 public final class HtmlOutputFormatTestServlet extends UIOutputTestServlet {
 
-  private static final String[] attrNames = { "style", "styleClass", "title", "escape", "dir", "lang" };
+    private static final String[] attrNames = { "style", "styleClass", "title", "escape", "dir", "lang" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Format");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Format");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlOutputFormat();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlOutputFormat();
+    }
+
 }

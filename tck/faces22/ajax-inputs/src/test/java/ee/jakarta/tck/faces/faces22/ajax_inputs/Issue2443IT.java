@@ -61,4 +61,5 @@ class Issue2443IT extends BaseITNG {
         page.guardAjax(() -> input5.sendKeys("5", Keys.TAB));
         assertEquals("form1:input2 Hello, form1:input3 form1:input4 form1:input4 Hello, form1:input5 form1:input5", output.getText());
     }
+
 }

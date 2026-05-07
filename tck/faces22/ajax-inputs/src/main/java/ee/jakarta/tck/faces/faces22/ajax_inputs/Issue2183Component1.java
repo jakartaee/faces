@@ -22,7 +22,7 @@ import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
 
-@FacesComponent( value = "org.glassfish.mojarra.test.servlet30.ajax.Issue2183Component1" )
+@FacesComponent(value = "org.glassfish.mojarra.test.servlet30.ajax.Issue2183Component1")
 public class Issue2183Component1 extends UIInput {
 
     public Issue2183Component1() {
@@ -37,4 +37,5 @@ public class Issue2183Component1 extends UIInput {
         super.encodeAll(context);
         throw new IOException("IO EXCEPTION!!!!!");
     }
+
 }

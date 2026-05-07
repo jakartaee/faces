@@ -28,6 +28,14 @@ class RenderKitFactoryIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void renderKitFactoryAddGetRenderKitTest() { runServletTest("renderKitFactoryAddGetRenderKitTest"); }
-    @Test void renderKitFactoryGetRenderKitIdsTest() { runServletTest("renderKitFactoryGetRenderKitIdsTest"); }
+    @Test
+    void renderKitFactoryAddGetRenderKitTest() {
+        runServletTest("renderKitFactoryAddGetRenderKitTest");
+    }
+
+    @Test
+    void renderKitFactoryGetRenderKitIdsTest() {
+        runServletTest("renderKitFactoryGetRenderKitIdsTest");
+    }
+
 }

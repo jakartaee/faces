@@ -29,17 +29,18 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3265IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3265
-   */
-  @Test
-  void legendWithoutIdOK() throws Exception {
+     */
+    @Test
+    void legendWithoutIdOK() throws Exception {
 
         WebPage page = getPage("issue3265.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
         page.guardAjax(button::click);
-        
+
         assertEquals(200, page.getResponseStatus());
     }
+
 }

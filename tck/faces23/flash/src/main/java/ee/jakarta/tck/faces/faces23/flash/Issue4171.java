@@ -27,11 +27,11 @@ public class Issue4171 {
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("message", "issue4171");
         return "issue4171?faces-redirect=true";
     }
-    
+
     public String keepAndGet() {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         flash.keep("message");
         return (String) flash.get("message");
     }
-    
+
 }

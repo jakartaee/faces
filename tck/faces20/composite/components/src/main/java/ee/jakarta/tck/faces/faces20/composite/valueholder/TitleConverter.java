@@ -23,30 +23,37 @@ import jakarta.faces.convert.FacesConverter;
 @FacesConverter(value = "titleCase")
 public class TitleConverter implements Converter {
 
-  @Override
-  public Object getAsObject(FacesContext context, UIComponent component,
-      String value) {
+    @Override
+    public Object getAsObject(
+        FacesContext context, UIComponent component,
+        String value
+    )
+    {
 
-    if (value == null || value.isEmpty()) {
-      return value;
+        if (value == null || value.isEmpty()) {
+            return value;
+        }
+
+        System.out.println("(asObject)Before String: " + value);
+
+        String old = value.substring(0, 1);
+        return value.replaceFirst(old, old.toUpperCase());
     }
 
-    System.out.println("(asObject)Before String: " + value);
+    @Override
+    public String getAsString(
+        FacesContext context, UIComponent component,
+        Object value
+    )
+    {
 
-    String old = value.substring(0, 1);
-    return value.replaceFirst(old, old.toUpperCase());
-  }
+        if (value == null || value.toString().isEmpty()) {
+            return null;
+        }
 
-  @Override
-  public String getAsString(FacesContext context, UIComponent component,
-      Object value) {
-
-    if (value == null || value.toString().isEmpty()) {
-      return null;
+        System.out.println("(asString)Before String: " + value);
+        String old = value.toString().substring(0, 1);
+        return value.toString().replaceFirst(old, old.toUpperCase());
     }
 
-    System.out.println("(asString)Before String: " + value);
-    String old = value.toString().substring(0, 1);
-    return value.toString().replaceFirst(old, old.toUpperCase());
-  }
 }

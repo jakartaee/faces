@@ -43,49 +43,58 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/StateManagerTestServlet")
 public final class StateManagerTestServlet extends HttpTCKServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws jakarta.servlet.ServletException
-   *           if an error occurs
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  // ---------------------------------------------------------------- Test
-  // Methods
-
-  // Validation of return value will be performed on the client side.
-  public void stateManagerIsSavingStateInClientTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    out.println(getApplication().getStateManager()
-        .isSavingStateInClient(getFacesContext()));
-  }
-
-  // Validate NPE is thrown when context is null
-  public void stateManagerIsSavingStateInClientNPETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-
-    PrintWriter out = response.getWriter();
-
-    try {
-      getApplication().getStateManager().isSavingStateInClient(null);
-      out.println("Test FAILED  No Exception Thrown!");
-
-    } catch (NullPointerException npe) {
-      out.println(JSFTestUtil.PASS);
-    } catch (Exception e) {
-      out.println("Test FAILED  Unexpected Exception thrown." + JSFTestUtil.NL
-          + "Expected: NullPointerException" + JSFTestUtil.NL + "Received: "
-          + JSFTestUtil.NL + e.toString());
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws jakarta.servlet.ServletException if an error occurs
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
-  }
+
+    // ---------------------------------------------------------------- Test
+    // Methods
+
+    // Validation of return value will be performed on the client side.
+    public void stateManagerIsSavingStateInClientTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        out.println(
+            getApplication().getStateManager()
+                .isSavingStateInClient(getFacesContext())
+        );
+    }
+
+    // Validate NPE is thrown when context is null
+    public void stateManagerIsSavingStateInClientNPETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+
+        PrintWriter out = response.getWriter();
+
+        try {
+            getApplication().getStateManager().isSavingStateInClient(null);
+            out.println("Test FAILED  No Exception Thrown!");
+
+        }
+        catch (NullPointerException npe) {
+            out.println(JSFTestUtil.PASS);
+        }
+        catch (Exception e) {
+            out.println(
+                "Test FAILED  Unexpected Exception thrown." + JSFTestUtil.NL
+                    + "Expected: NullPointerException" + JSFTestUtil.NL + "Received: "
+                    + JSFTestUtil.NL + e.toString()
+            );
+        }
+    }
 
 }

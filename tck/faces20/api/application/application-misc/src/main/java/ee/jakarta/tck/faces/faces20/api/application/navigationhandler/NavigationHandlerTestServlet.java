@@ -32,25 +32,29 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/NavigationHandlerTestServlet")
 public final class NavigationHandlerTestServlet extends HttpTCKServlet {
 
-  // Test for HandleNavigationCase(FacesContext, String, String) throws
-  // NullPointerException
-  public void navigationHandlerHandleNavigationCaseNPETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Application application = getApplication();
+    // Test for HandleNavigationCase(FacesContext, String, String) throws
+    // NullPointerException
+    public void navigationHandlerHandleNavigationCaseNPETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Application application = getApplication();
 
-    if (application == null) {
-      out.println(JSFTestUtil.APP_NULL_MSG);
-      return;
-    }
+        if (application == null) {
+            out.println(JSFTestUtil.APP_NULL_MSG);
+            return;
+        }
 
-    NavigationHandler nh = application.getNavigationHandler();
+        NavigationHandler nh = application.getNavigationHandler();
 
-    JSFTestUtil.checkForNPE(nh, "handleNavigation",
-        new Class<?>[] { FacesContext.class, String.class, String.class },
-        new Object[] { null, "#{bogus.postOne}", "" }, out);
+        JSFTestUtil.checkForNPE(
+            nh, "handleNavigation",
+            new Class<?>[] { FacesContext.class, String.class, String.class },
+            new Object[] { null, "#{bogus.postOne}", "" }, out
+        );
 
-  }// End navigationHandlerHandleNavigationCaseNPETest
+    }// End navigationHandlerHandleNavigationCaseNPETest
 
 }

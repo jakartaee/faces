@@ -50,463 +50,517 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/UISelectManyTestServlet")
 public class UISelectManyTestServlet extends UIInputTestServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Listbox");
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UISelectMany();
-  }
-
-  // ------------------------------------------- Test Methods ----
-
-  @Override
-  public void uiComponentGetSetValueExpressionTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-
-    BufferedResponseWrapper wrapper = new BufferedResponseWrapper(response);
-
-    super.uiComponentGetSetValueExpressionTest(request, wrapper);
-    String result = wrapper.getBufferedWriter().toString();
-
-    PrintWriter out = response.getWriter();
-
-    if (result.indexOf(JSFTestUtil.PASS) == -1) {
-      out.println(result);
-      return;
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Listbox");
     }
 
-    List<String> values = new ArrayList<String>();
-    values.add("value1");
-    values.add("value2");
-
-    // default processing of get,setValueExpression is ok, now validate
-    // processing specific to UIGraphic
-    request.setAttribute("values", values);
-
-    ExpressionFactory factory = JSFTestUtil
-        .getExpressionFactory(servletContext);
-    ValueExpression expression = factory.createValueExpression(
-        getFacesContext().getELContext(), "#{requestScope.values}",
-        java.util.List.class);
-
-    UISelectMany many = (UISelectMany) createComponent();
-
-    many.setValueExpression("selectedValues", expression);
-
-    if (many.getValue() != values) {
-      out.println(JSFTestUtil.FAIL + " getValue() returned unexpected value"
-          + " after having called setValueExpression().");
-      out.println("Expected: " + values);
-      out.println("Received: " + many.getValue());
-    }
-    out.println(JSFTestUtil.PASS);
-
-  }
-
-  // Test event queuing and broadcasting (any phase listeners)
-  @Override
-  public void uiInputBroadcastTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-
-    PrintWriter out = response.getWriter();
-    FacesContext facesContext = getFacesContext();
-    UIInput input = (UIInput) createComponent();
-    input.setRendererType(null);
-    UIViewRoot root = facesContext.getApplication().getViewHandler()
-        .createView(facesContext, "/root.xhtml");
-    root.getChildren().add(input);
-    ValueChangeEvent event = new ValueChangeEvent(input, null, null);
-    event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
-
-    // Register three listeners
-    input.addValueChangeListener(new TCKValueChangeListener("AP0"));
-    input.addValueChangeListener(new TCKValueChangeListener("AP1"));
-    input.addValueChangeListener(new TCKValueChangeListener("AP2"));
-
-    // Fire events and evaluate results
-    TCKValueChangeListener.trace(null);
-    input.queueEvent(event);
-    root.processDecodes(facesContext);
-    root.processValidators(facesContext);
-    root.processApplication(facesContext);
-    String trace = TCKValueChangeListener.trace();
-    String expectedTrace = "/AP0@PROCESS_VALIDATIONS/AP1@PROCESS_VALIDATIONS/AP2@PROCESS_VALIDATIONS";
-    if (!expectedTrace.equals(trace)) {
-      out.println(JSFTestUtil.FAIL + " Unexpected listener trace.");
-      out.println("Expected trace: " + expectedTrace);
-      out.println("Trace received: " + trace);
-      return;
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UISelectMany();
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // ------------------------------------------- Test Methods ----
 
-  @Override
-  public void uiInputBroadcastValueChangeListenerTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext facesContext = getFacesContext();
-    UIInput input = (UIInput) createComponent();
-    input.setRendererType(null);
-    UIViewRoot root = new UIViewRoot();
-    root.getChildren().add(input);
+    @Override
+    public void uiComponentGetSetValueExpressionTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
 
-    TCKValueChangeListener listener = new TCKValueChangeListener("VCLR");
+        BufferedResponseWrapper wrapper = new BufferedResponseWrapper(response);
 
-    MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(
-      facesContext.getELContext(), "#{requestScope.reqVCL.processValueChange}", null,
-        new Class[] { ValueChangeEvent.class });
-    MethodExpressionValueChangeListener lnr = new MethodExpressionValueChangeListener(binding);
+        super.uiComponentGetSetValueExpressionTest(request, wrapper);
+        String result = wrapper.getBufferedWriter().toString();
 
-    request.setAttribute("reqVCL", listener);
-    input.addValueChangeListener(lnr);
+        PrintWriter out = response.getWriter();
 
-    ValueChangeEvent event = new ValueChangeEvent(input, null, null);
-    event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
-    TCKValueChangeListener.trace(null);
-    input.queueEvent(event);
-    root.processDecodes(facesContext);
-    root.processValidators(facesContext);
-    root.processApplication(facesContext);
+        if (result.indexOf(JSFTestUtil.PASS) == -1) {
+            out.println(result);
+            return;
+        }
 
-    String trace = TCKValueChangeListener.trace();
+        List<String> values = new ArrayList<String>();
+        values.add("value1");
+        values.add("value2");
 
-    if (trace.length() == 0) {
-      out.println(JSFTestUtil.FAIL + " The ValueChangeListener as referenced"
-          + " by ValueChangeListenerRef 'requestScope.reqVCL.processValueChange'"
-          + " was not invoked.");
-      return;
+        // default processing of get,setValueExpression is ok, now validate
+        // processing specific to UIGraphic
+        request.setAttribute("values", values);
+
+        ExpressionFactory factory = JSFTestUtil
+            .getExpressionFactory(servletContext);
+        ValueExpression expression = factory.createValueExpression(
+            getFacesContext().getELContext(), "#{requestScope.values}",
+            java.util.List.class
+        );
+
+        UISelectMany many = (UISelectMany) createComponent();
+
+        many.setValueExpression("selectedValues", expression);
+
+        if (many.getValue() != values) {
+            out.println(
+                JSFTestUtil.FAIL + " getValue() returned unexpected value"
+                    + " after having called setValueExpression()."
+            );
+            out.println("Expected: " + values);
+            out.println("Received: " + many.getValue());
+        }
+        out.println(JSFTestUtil.PASS);
+
     }
 
-    if (!"/VCLR@PROCESS_VALIDATIONS".equals(trace)) {
-      out.println(JSFTestUtil.FAIL + " Unexpected Listener trace.");
-      out.println("Expected: /VCLR@PROCESS_VALIDATIONS");
-      out.println("Received: " + trace);
-      return;
+    // Test event queuing and broadcasting (any phase listeners)
+    @Override
+    public void uiInputBroadcastTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+
+        PrintWriter out = response.getWriter();
+        FacesContext facesContext = getFacesContext();
+        UIInput input = (UIInput) createComponent();
+        input.setRendererType(null);
+        UIViewRoot root = facesContext.getApplication().getViewHandler()
+            .createView(facesContext, "/root.xhtml");
+        root.getChildren().add(input);
+        ValueChangeEvent event = new ValueChangeEvent(input, null, null);
+        event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
+
+        // Register three listeners
+        input.addValueChangeListener(new TCKValueChangeListener("AP0"));
+        input.addValueChangeListener(new TCKValueChangeListener("AP1"));
+        input.addValueChangeListener(new TCKValueChangeListener("AP2"));
+
+        // Fire events and evaluate results
+        TCKValueChangeListener.trace(null);
+        input.queueEvent(event);
+        root.processDecodes(facesContext);
+        root.processValidators(facesContext);
+        root.processApplication(facesContext);
+        String trace = TCKValueChangeListener.trace();
+        String expectedTrace = "/AP0@PROCESS_VALIDATIONS/AP1@PROCESS_VALIDATIONS/AP2@PROCESS_VALIDATIONS";
+        if (!expectedTrace.equals(trace)) {
+            out.println(JSFTestUtil.FAIL + " Unexpected listener trace.");
+            out.println("Expected trace: " + expectedTrace);
+            out.println("Trace received: " + trace);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    @Override
+    public void uiInputBroadcastValueChangeListenerTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext facesContext = getFacesContext();
+        UIInput input = (UIInput) createComponent();
+        input.setRendererType(null);
+        UIViewRoot root = new UIViewRoot();
+        root.getChildren().add(input);
 
-  @Override
-  public void uiInputValidate3aTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIInput input = (UIInput) createComponent();
-    input.setRendererType(null);
-    UISelectItem item1 = new UISelectItem();
-    item1.setItemValue("new");
-    UISelectItem item2 = new UISelectItem();
-    item2.setItemValue("new2");
-    UISelectItem item3 = new UISelectItem();
-    item3.setItemValue("new3");
-    input.getChildren().add(item1);
-    input.getChildren().add(item2);
-    input.getChildren().add(item3);
-    FacesContext context = getFacesContext();
-    UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root.xhtml");
-    context.setViewRoot(root);
-    root.getChildren().add(input);
+        TCKValueChangeListener listener = new TCKValueChangeListener("VCLR");
 
-    // Verify that a UIInput instance that has a local value,
-    // and the valid property is true all validators associated
-    // with the component are invoked, if the component is marked
-    // invalid by a validator, no listener is invoked.
-    input.setSubmittedValue(new String[] { "new" });
+        MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(
+            facesContext.getELContext(), "#{requestScope.reqVCL.processValueChange}", null,
+            new Class[] { ValueChangeEvent.class }
+        );
+        MethodExpressionValueChangeListener lnr = new MethodExpressionValueChangeListener(binding);
 
-    // Setup the validators
-    TCKValidator validator1 = new TCKValidator("VL1", false);
-    TCKValidator validator2 = new TCKValidator("VL2", true);
+        request.setAttribute("reqVCL", listener);
+        input.addValueChangeListener(lnr);
 
-    input.addValidator(validator1);
-    request.setAttribute("TCKValidator", validator2);
+        ValueChangeEvent event = new ValueChangeEvent(input, null, null);
+        event.setPhaseId(PhaseId.PROCESS_VALIDATIONS);
+        TCKValueChangeListener.trace(null);
+        input.queueEvent(event);
+        root.processDecodes(facesContext);
+        root.processValidators(facesContext);
+        root.processApplication(facesContext);
 
-    MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(
-      context.getELContext(), "#{requestScope.TCKValidator.validate}", null,
-        new Class[] { FacesContext.class, UIComponent.class, Object.class });
-    MethodExpressionValidator validator = new MethodExpressionValidator(binding);
-    input.addValidator(validator);
+        String trace = TCKValueChangeListener.trace();
 
-    // Setup the listeners
-    TCKValueChangeListener listener = new TCKValueChangeListener("VCL1");
+        if (trace.length() == 0) {
+            out.println(
+                JSFTestUtil.FAIL + " The ValueChangeListener as referenced"
+                    + " by ValueChangeListenerRef 'requestScope.reqVCL.processValueChange'"
+                    + " was not invoked."
+            );
+            return;
+        }
 
-    input.addValueChangeListener(listener);
+        if (!"/VCLR@PROCESS_VALIDATIONS".equals(trace)) {
+            out.println(JSFTestUtil.FAIL + " Unexpected Listener trace.");
+            out.println("Expected: /VCLR@PROCESS_VALIDATIONS");
+            out.println("Received: " + trace);
+            return;
+        }
 
-    TCKValueChangeListener.trace(null);
-    TCKValidator.clearTrace();
-
-    root.processValidators(context);
-
-    String valTrace = TCKValidator.getTrace();
-    if (!"/VL1/VL2".equals(valTrace)) {
-      out.println(JSFTestUtil.FAIL + " Validator trace did not return as "
-          + "expected.");
-      out.println("Traced expected: /VL1/VL2");
-      out.println("Trace received: " + valTrace);
-      return;
+        out.println(JSFTestUtil.PASS);
     }
 
-    String listenerTrace = TCKValueChangeListener.trace();
-    if (listenerTrace.length() != 0) {
-      out.println(JSFTestUtil.FAIL + " ValueChangeListener was incorrectly"
-          + " invoked after a Validator marked the component as invalid.");
-      return;
+    @Override
+    public void uiInputValidate3aTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIInput input = (UIInput) createComponent();
+        input.setRendererType(null);
+        UISelectItem item1 = new UISelectItem();
+        item1.setItemValue("new");
+        UISelectItem item2 = new UISelectItem();
+        item2.setItemValue("new2");
+        UISelectItem item3 = new UISelectItem();
+        item3.setItemValue("new3");
+        input.getChildren().add(item1);
+        input.getChildren().add(item2);
+        input.getChildren().add(item3);
+        FacesContext context = getFacesContext();
+        UIViewRoot root = getApplication().getViewHandler().createView(
+            context,
+            "/root.xhtml"
+        );
+        context.setViewRoot(root);
+        root.getChildren().add(input);
+
+        // Verify that a UIInput instance that has a local value,
+        // and the valid property is true all validators associated
+        // with the component are invoked, if the component is marked
+        // invalid by a validator, no listener is invoked.
+        input.setSubmittedValue(new String[] { "new" });
+
+        // Setup the validators
+        TCKValidator validator1 = new TCKValidator("VL1", false);
+        TCKValidator validator2 = new TCKValidator("VL2", true);
+
+        input.addValidator(validator1);
+        request.setAttribute("TCKValidator", validator2);
+
+        MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(
+            context.getELContext(), "#{requestScope.TCKValidator.validate}", null,
+            new Class[] { FacesContext.class, UIComponent.class, Object.class }
+        );
+        MethodExpressionValidator validator = new MethodExpressionValidator(binding);
+        input.addValidator(validator);
+
+        // Setup the listeners
+        TCKValueChangeListener listener = new TCKValueChangeListener("VCL1");
+
+        input.addValueChangeListener(listener);
+
+        TCKValueChangeListener.trace(null);
+        TCKValidator.clearTrace();
+
+        root.processValidators(context);
+
+        String valTrace = TCKValidator.getTrace();
+        if (!"/VL1/VL2".equals(valTrace)) {
+            out.println(
+                JSFTestUtil.FAIL + " Validator trace did not return as "
+                    + "expected."
+            );
+            out.println("Traced expected: /VL1/VL2");
+            out.println("Trace received: " + valTrace);
+            return;
+        }
+
+        String listenerTrace = TCKValueChangeListener.trace();
+        if (listenerTrace.length() != 0) {
+            out.println(
+                JSFTestUtil.FAIL + " ValueChangeListener was incorrectly"
+                    + " invoked after a Validator marked the component as invalid."
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    @Override
+    public void uiInputValidate3bTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIInput input = (UIInput) createComponent();
+        input.setRendererType(null);
+        UISelectItem item1 = new UISelectItem();
+        item1.setItemValue("new");
+        UISelectItem item2 = new UISelectItem();
+        item2.setItemValue("new2");
+        UISelectItem item3 = new UISelectItem();
+        item3.setItemValue("new3");
+        input.getChildren().add(item1);
+        input.getChildren().add(item2);
+        input.getChildren().add(item3);
+        FacesContext context = getFacesContext();
+        UIViewRoot root = getApplication().getViewHandler().createView(
+            context,
+            "/root.xhtml"
+        );
+        context.setViewRoot(root);
+        root.getChildren().add(input);
 
-  @Override
-  public void uiInputValidate3bTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIInput input = (UIInput) createComponent();
-    input.setRendererType(null);
-    UISelectItem item1 = new UISelectItem();
-    item1.setItemValue("new");
-    UISelectItem item2 = new UISelectItem();
-    item2.setItemValue("new2");
-    UISelectItem item3 = new UISelectItem();
-    item3.setItemValue("new3");
-    input.getChildren().add(item1);
-    input.getChildren().add(item2);
-    input.getChildren().add(item3);
-    FacesContext context = getFacesContext();
-    UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root.xhtml");
-    context.setViewRoot(root);
-    root.getChildren().add(input);
+        // Verify that a UIInput instance that has a local value,
+        // and the valid property is true all validators associated
+        // with the component are invoked, if the component is marked
+        // invalid by a validator, no listener is invoked.
+        input.setSubmittedValue(new String[] { "new" });
 
-    // Verify that a UIInput instance that has a local value,
-    // and the valid property is true all validators associated
-    // with the component are invoked, if the component is marked
-    // invalid by a validator, no listener is invoked.
-    input.setSubmittedValue(new String[] { "new" });
+        // Setup the validators
+        TCKValidator validator1 = new TCKValidator("VL1", false);
+        TCKValidator validator2 = new TCKValidator("VL2", true);
 
-    // Setup the validators
-    TCKValidator validator1 = new TCKValidator("VL1", false);
-    TCKValidator validator2 = new TCKValidator("VL2", true);
+        input.addValidator(validator1);
+        request.setAttribute("TCKValidator", validator2);
 
-    input.addValidator(validator1);
-    request.setAttribute("TCKValidator", validator2);
+        MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(
+            context.getELContext(), "#{requestScope.TCKValidator.validate}", null,
+            new Class[] { FacesContext.class, UIComponent.class, Object.class }
+        );
+        MethodExpressionValidator validator = new MethodExpressionValidator(binding);
+        input.addValidator(validator);
 
-    MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(
-      context.getELContext(), "#{requestScope.TCKValidator.validate}", null,
-        new Class[] { FacesContext.class, UIComponent.class, Object.class });
-    MethodExpressionValidator validator = new MethodExpressionValidator(binding);
-    input.addValidator(validator);
+        // Setup the listeners
+        TCKValueChangeListener listener = new TCKValueChangeListener("VCL1");
 
-    // Setup the listeners
-    TCKValueChangeListener listener = new TCKValueChangeListener("VCL1");
+        input.addValueChangeListener(listener);
 
-    input.addValueChangeListener(listener);
+        TCKValueChangeListener.trace(null);
+        TCKValidator.clearTrace();
 
-    TCKValueChangeListener.trace(null);
-    TCKValidator.clearTrace();
+        // All validators succeed, and the value differs from the previous.
+        // ensure the listener was invoked.
+        validator2.markInvalid(false);
+        TCKValueChangeListener.trace(null);
+        TCKValidator.clearTrace();
+        input.setValid(true);
+        input.setSubmittedValue(new String[] { "new3" });
 
-    // All validators succeed, and the value differs from the previous.
-    // ensure the listener was invoked.
-    validator2.markInvalid(false);
-    TCKValueChangeListener.trace(null);
-    TCKValidator.clearTrace();
-    input.setValid(true);
-    input.setSubmittedValue(new String[] { "new3" });
+        root.processValidators(context);
 
-    root.processValidators(context);
+        String valTrace = TCKValidator.getTrace();
+        if (!"/VL1/VL2".equals(valTrace)) {
+            out.println(
+                JSFTestUtil.FAIL + " Validator trace did not return as "
+                    + "expected."
+            );
+            out.println("Traced expected: /VL1/VL2");
+            out.println("Trace received: " + valTrace);
+            return;
+        }
 
-    String valTrace = TCKValidator.getTrace();
-    if (!"/VL1/VL2".equals(valTrace)) {
-      out.println(JSFTestUtil.FAIL + " Validator trace did not return as "
-          + "expected.");
-      out.println("Traced expected: /VL1/VL2");
-      out.println("Trace received: " + valTrace);
-      return;
+        String listenerTrace = TCKValueChangeListener.trace();
+        if (!"/VCL1@ANY_PHASE".equals(listenerTrace)) {
+            out.println(JSFTestUtil.FAIL + " Unexpected listener trace.");
+            out.println("Expected: /VCL1@ANY_PHASE");
+            out.println("Received: " + listenerTrace);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    String listenerTrace = TCKValueChangeListener.trace();
-    if (!"/VCL1@ANY_PHASE".equals(listenerTrace)) {
-      out.println(JSFTestUtil.FAIL + " Unexpected listener trace.");
-      out.println("Expected: /VCL1@ANY_PHASE");
-      out.println("Received: " + listenerTrace);
-      return;
+    @Override
+    public void uiInputValidate3cTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIInput input = (UIInput) createComponent();
+        input.setRendererType(null);
+        UISelectItem item1 = new UISelectItem();
+        item1.setItemValue("new");
+        UISelectItem item2 = new UISelectItem();
+        item2.setItemValue("new2");
+        UISelectItem item3 = new UISelectItem();
+        item3.setItemValue("new3");
+        input.getChildren().add(item1);
+        input.getChildren().add(item2);
+        input.getChildren().add(item3);
+        FacesContext context = getFacesContext();
+        UIViewRoot root = getApplication().getViewHandler().createView(
+            context,
+            "/root.xhtml"
+        );
+        context.setViewRoot(root);
+        root.getChildren().add(input);
+
+        // Verify that a UIInput instance that has a local value,
+        // and the valid property is true all validators associated
+        // with the component are invoked, if the component is marked
+        // invalid by a validator, no listener is invoked.
+        input.setSubmittedValue(new String[] { "new" });
+
+        // Setup the validators
+        TCKValidator validator1 = new TCKValidator("VL1", false);
+        TCKValidator validator2 = new TCKValidator("VL2", true);
+
+        input.addValidator(validator1);
+        request.setAttribute("TCKValidator", validator2);
+
+        MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(
+            context.getELContext(), "#{requestScope.TCKValidator.validate}", null,
+            new Class[] { FacesContext.class, UIComponent.class, Object.class }
+        );
+        MethodExpressionValidator validator = new MethodExpressionValidator(binding);
+
+        input.addValidator(validator);
+
+        // Setup the listeners
+        TCKValueChangeListener listener = new TCKValueChangeListener("VCL1");
+
+        input.addValueChangeListener(listener);
+
+        TCKValueChangeListener.trace(null);
+        TCKValidator.clearTrace();
+
+        // finally, if the new and previous values do not differ,
+        // the listener will not be invoked.
+        input.setSubmittedValue(new String[] { "new2" });
+        input.setValue(new String[] { "new2" });
+        TCKValueChangeListener.trace(null);
+        TCKValidator.clearTrace();
+
+        root.processValidators(context);
+
+        String valTrace = TCKValidator.getTrace();
+        if (!"/VL1/VL2".equals(valTrace)) {
+            out.println(
+                JSFTestUtil.FAIL + " Validator trace did not return as "
+                    + "expected."
+            );
+            out.println("Expected no trace");
+            out.println("Trace received: " + valTrace);
+            return;
+        }
+
+        String listenerTrace = TCKValueChangeListener.trace();
+        if (listenerTrace.length() != 0) {
+            out.println(
+                JSFTestUtil.FAIL + " ValueChangeListener was incorrectly"
+                    + " invoked after a Validator marked the component as invalid."
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void uiInputValidate6Test(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIInput input = (UIInput) createComponent();
+        UISelectItem item1 = new UISelectItem();
+        item1.setItemValue("new");
+        UISelectItem item2 = new UISelectItem();
+        item2.setItemValue("new2");
+        UISelectItem item3 = new UISelectItem();
+        item3.setItemValue("new3");
+        input.getChildren().add(item1);
+        input.getChildren().add(item2);
+        input.getChildren().add(item3);
+        FacesContext context = getFacesContext();
+        UIViewRoot root = getApplication().getViewHandler().createView(
+            context,
+            "/root.xhtml"
+        );
+        root.getChildren().add(input);
 
-  @Override
-  public void uiInputValidate3cTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIInput input = (UIInput) createComponent();
-    input.setRendererType(null);
-    UISelectItem item1 = new UISelectItem();
-    item1.setItemValue("new");
-    UISelectItem item2 = new UISelectItem();
-    item2.setItemValue("new2");
-    UISelectItem item3 = new UISelectItem();
-    item3.setItemValue("new3");
-    input.getChildren().add(item1);
-    input.getChildren().add(item2);
-    input.getChildren().add(item3);
-    FacesContext context = getFacesContext();
-    UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root.xhtml");
-    context.setViewRoot(root);
-    root.getChildren().add(input);
+        // lastly, if the item selected doens't match the list of
+        // available items, then queue a message and mark the component
+        // invalid.
 
-    // Verify that a UIInput instance that has a local value,
-    // and the valid property is true all validators associated
-    // with the component are invoked, if the component is marked
-    // invalid by a validator, no listener is invoked.
-    input.setSubmittedValue(new String[] { "new" });
+        input.setSubmittedValue(new String[] { "invalid" });
+        input.setValid(true);
+        TCKValueChangeListener.trace(null);
+        TCKValidator.clearTrace();
 
-    // Setup the validators
-    TCKValidator validator1 = new TCKValidator("VL1", false);
-    TCKValidator validator2 = new TCKValidator("VL2", true);
+        root.processValidators(context);
 
-    input.addValidator(validator1);
-    request.setAttribute("TCKValidator", validator2);
+        int messageCount = checkMessages();
+        if (messageCount != 1) {
+            out.println(
+                JSFTestUtil.FAIL + " No message queued into the FacesContext"
+                    + " when the item selected doesn't match the list of available"
+                    + " items."
+            );
+            return;
+        }
 
-    MethodExpression binding = getApplication().getExpressionFactory().createMethodExpression(
-      context.getELContext(), "#{requestScope.TCKValidator.validate}", null,
-        new Class[] { FacesContext.class, UIComponent.class, Object.class });
-    MethodExpressionValidator validator = new MethodExpressionValidator(binding);
+        if (input.isValid()) {
+            out.println(
+                JSFTestUtil.FAIL + " UIInput instance was not marked invalid"
+                    + " when the item selected didn't match the list of available"
+                    + " values."
+            );
+            return;
+        }
 
-    input.addValidator(validator);
-
-    // Setup the listeners
-    TCKValueChangeListener listener = new TCKValueChangeListener("VCL1");
-
-    input.addValueChangeListener(listener);
-
-    TCKValueChangeListener.trace(null);
-    TCKValidator.clearTrace();
-
-    // finally, if the new and previous values do not differ,
-    // the listener will not be invoked.
-    input.setSubmittedValue(new String[] { "new2" });
-    input.setValue(new String[] { "new2" });
-    TCKValueChangeListener.trace(null);
-    TCKValidator.clearTrace();
-
-    root.processValidators(context);
-
-    String valTrace = TCKValidator.getTrace();
-    if (!"/VL1/VL2".equals(valTrace)) {
-      out.println(JSFTestUtil.FAIL + " Validator trace did not return as "
-          + "expected.");
-      out.println("Expected no trace");
-      out.println("Trace received: " + valTrace);
-      return;
+        out.println(JSFTestUtil.PASS);
     }
 
-    String listenerTrace = TCKValueChangeListener.trace();
-    if (listenerTrace.length() != 0) {
-      out.println(JSFTestUtil.FAIL + " ValueChangeListener was incorrectly"
-          + " invoked after a Validator marked the component as invalid.");
-      return;
+    // ------------------- selectMany Tests
+
+    public void uiSelectManyGetSetSelectedValuesTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        UISelectMany many = (UISelectMany) createComponent();
+
+        String[] test = new String[] { "red", "white", "blue" };
+
+        many.setSelectedValues(test);
+        String[] result = (String[]) many.getSelectedValues();
+
+        int resultSize = result.length;
+
+        for (int i = 0; i < resultSize; i++) {
+            if (!Arrays.asList(test).contains(result[i])) {
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL
+                        + "Expected returned array of selected items to have the below value in it!"
+                        + JSFTestUtil.NL + "Missing: " + result[i]
+                );
+                return;
+            }
+        }
+
+        out.println(JSFTestUtil.PASS);
+
     }
-
-    out.println(JSFTestUtil.PASS);
-  }
-
-  public void uiInputValidate6Test(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIInput input = (UIInput) createComponent();
-    UISelectItem item1 = new UISelectItem();
-    item1.setItemValue("new");
-    UISelectItem item2 = new UISelectItem();
-    item2.setItemValue("new2");
-    UISelectItem item3 = new UISelectItem();
-    item3.setItemValue("new3");
-    input.getChildren().add(item1);
-    input.getChildren().add(item2);
-    input.getChildren().add(item3);
-    FacesContext context = getFacesContext();
-    UIViewRoot root = getApplication().getViewHandler().createView(context,
-        "/root.xhtml");
-    root.getChildren().add(input);
-
-    // lastly, if the item selected doens't match the list of
-    // available items, then queue a message and mark the component
-    // invalid.
-
-    input.setSubmittedValue(new String[] { "invalid" });
-    input.setValid(true);
-    TCKValueChangeListener.trace(null);
-    TCKValidator.clearTrace();
-
-    root.processValidators(context);
-
-    int messageCount = checkMessages();
-    if (messageCount != 1) {
-      out.println(JSFTestUtil.FAIL + " No message queued into the FacesContext"
-          + " when the item selected doesn't match the list of available"
-          + " items.");
-      return;
-    }
-
-    if (input.isValid()) {
-      out.println(JSFTestUtil.FAIL + " UIInput instance was not marked invalid"
-          + " when the item selected didn't match the list of available"
-          + " values.");
-      return;
-    }
-
-    out.println(JSFTestUtil.PASS);
-  }
-
-  // ------------------- selectMany Tests
-
-  public void uiSelectManyGetSetSelectedValuesTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    UISelectMany many = (UISelectMany) createComponent();
-
-    String[] test = new String[] { "red", "white", "blue" };
-
-    many.setSelectedValues(test);
-    String[] result = (String[]) many.getSelectedValues();
-
-    int resultSize = result.length;
-
-    for (int i = 0; i < resultSize; i++) {
-      if (!Arrays.asList(test).contains(result[i])) {
-        out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-            + "Expected returned array of selected items to have the below value in it!"
-            + JSFTestUtil.NL + "Missing: " + result[i]);
-        return;
-      }
-    }
-
-    out.println(JSFTestUtil.PASS);
-
-  }
 
 }

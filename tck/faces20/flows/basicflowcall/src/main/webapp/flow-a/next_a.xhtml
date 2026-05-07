@@ -22,7 +22,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
-    
+
     <head>
         <title>Second page in the flow</title>
     </head>
@@ -30,12 +30,12 @@
     <h:form prependId="false">
         <p>Second page in the flow</p>
         <p>Flow bean name: #{flow_a_Bean.name}</p>
-        
+
         <p>value: <h:inputText id="input" value="#{flowScope.value}" /></p>
-        
+
         <p><h:commandButton id="start" value="back" action="flow-a" /></p>
         <p><h:commandButton id="next" value="next" action="next_b" /></p>
-        
+
     </h:form>
     </body>
 </html>

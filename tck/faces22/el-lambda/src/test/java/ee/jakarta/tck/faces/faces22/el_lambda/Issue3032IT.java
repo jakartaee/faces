@@ -70,4 +70,5 @@ public class Issue3032IT extends BaseITNG {
         WebElement out = page.findElement(By.id("output2"));
         assertEquals("The Picture of Dorian Gray", out.getText());
     }
+
 }

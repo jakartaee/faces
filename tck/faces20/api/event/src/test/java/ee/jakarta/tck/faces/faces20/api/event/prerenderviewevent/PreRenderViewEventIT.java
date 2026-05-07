@@ -28,10 +28,34 @@ class PreRenderViewEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void componentSystemEventCtorTest() { runServletTest("componentSystemEventCtorTest"); }
-    @Test void componentSystemEventGetComponentTest() { runServletTest("componentSystemEventGetComponentTest"); }
-    @Test void componentSystemEventIAETest() { runServletTest("componentSystemEventIAETest"); }
-    @Test void componentSystemEventIsApproiateListenerNegativeTest() { runServletTest("componentSystemEventIsApproiateListenerNegativeTest"); }
-    @Test void componentSystemEventIsApproiateListenerPostiveTest() { runServletTest("componentSystemEventIsApproiateListenerPostiveTest"); }
-    @Test void componentSystemEventProcessListenerTest() { runServletTest("componentSystemEventProcessListenerTest"); }
+    @Test
+    void componentSystemEventCtorTest() {
+        runServletTest("componentSystemEventCtorTest");
+    }
+
+    @Test
+    void componentSystemEventGetComponentTest() {
+        runServletTest("componentSystemEventGetComponentTest");
+    }
+
+    @Test
+    void componentSystemEventIAETest() {
+        runServletTest("componentSystemEventIAETest");
+    }
+
+    @Test
+    void componentSystemEventIsApproiateListenerNegativeTest() {
+        runServletTest("componentSystemEventIsApproiateListenerNegativeTest");
+    }
+
+    @Test
+    void componentSystemEventIsApproiateListenerPostiveTest() {
+        runServletTest("componentSystemEventIsApproiateListenerPostiveTest");
+    }
+
+    @Test
+    void componentSystemEventProcessListenerTest() {
+        runServletTest("componentSystemEventProcessListenerTest");
+    }
+
 }

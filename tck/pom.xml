@@ -458,6 +458,76 @@
                 </executions>
             </plugin>
 
+            <!-- Add missing license headers to source files. -->
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>4.6</version>
+                <executions>
+                    <execution>
+                        <id>add missing license headers</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                        <configuration>
+                            <licenseSets>
+                                <licenseSet>
+                                    <header>${maven.multiModuleProjectDirectory}/LICENSE.txt</header>
+                                    <excludes>
+                                       <exclude>*.*</exclude> <!-- excludes files in root folder -->
+                                       <exclude>**/.*</exclude> <!-- excludes dotfiles -->
+                                    </excludes>
+                                </licenseSet>
+                            </licenseSets>
+                            <properties>
+                                <year>2026</year>
+                            </properties>
+                            <skipExistingHeaders>true</skipExistingHeaders>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Apply code formatting (Java via Eclipse JDT, XML/XHTML whitespace). -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>format source code</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                        <configuration>
+                            <java>
+                                <eclipse>
+                                    <file>${maven.multiModuleProjectDirectory}/eclipse-formatter.xml</file>
+                                </eclipse>
+                                <trimTrailingWhitespace />
+                            </java>
+                            <formats>
+                                <format>
+                                    <includes>
+                                        <include>pom.xml</include>
+                                        <include>src/**/*.xml</include>
+                                        <include>src/**/*.xhtml</include>
+                                    </includes>
+                                    <trimTrailingWhitespace />
+                                    <endWithNewline />
+                                    <indent>
+                                        <spaces>true</spaces>
+                                        <spacesPerTab>4</spacesPerTab>
+                                    </indent>
+                                </format>
+                            </formats>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>

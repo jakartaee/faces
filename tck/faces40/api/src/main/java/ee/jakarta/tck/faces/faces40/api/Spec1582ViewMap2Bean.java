@@ -30,8 +30,10 @@ import jakarta.inject.Named;
 public class Spec1582ViewMap2Bean {
 
     public String getValue() {
-        Map<String, Object> viewMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {}, ViewMap.Literal.INSTANCE).get();
+        Map<String, Object> viewMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {
+        }, ViewMap.Literal.INSTANCE).get();
 
         return viewMap.toString();
     }
+
 }

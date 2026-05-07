@@ -22,44 +22,44 @@ import jakarta.faces.model.FacesDataModel;
 @FacesDataModel(forClass = Child11.class)
 public class Child11Model<E> extends DataModel<E> {
 
-	private Child11 child;
-	private int rowIndex = 0;
-	
-	@Override
-	public int getRowCount() {
-		return 2;
-	}
+    private Child11 child;
+    private int rowIndex = 0;
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public E getRowData() {
-		return rowIndex == 0? (E) child.getTest() : (E) child.getTest2();
-	}
+    @Override
+    public int getRowCount() {
+        return 2;
+    }
 
-	@Override
-	public int getRowIndex() {
-		return rowIndex;
-	}
+    @SuppressWarnings("unchecked")
+    @Override
+    public E getRowData() {
+        return rowIndex == 0 ? (E) child.getTest() : (E) child.getTest2();
+    }
 
-	@Override
-	public Object getWrappedData() {
-		return child;
-	}
+    @Override
+    public int getRowIndex() {
+        return rowIndex;
+    }
 
-	@Override
-	public boolean isRowAvailable() {
-		return rowIndex < 2;
-	}
+    @Override
+    public Object getWrappedData() {
+        return child;
+    }
 
-	@Override
-	public void setRowIndex(int rowIndex) {
-		this.rowIndex = rowIndex;
-		
-	}
+    @Override
+    public boolean isRowAvailable() {
+        return rowIndex < 2;
+    }
 
-	@Override
-	public void setWrappedData(Object arg0) {
-		child = (Child11) arg0;
-	}
+    @Override
+    public void setRowIndex(int rowIndex) {
+        this.rowIndex = rowIndex;
+
+    }
+
+    @Override
+    public void setWrappedData(Object arg0) {
+        child = (Child11) arg0;
+    }
 
 }

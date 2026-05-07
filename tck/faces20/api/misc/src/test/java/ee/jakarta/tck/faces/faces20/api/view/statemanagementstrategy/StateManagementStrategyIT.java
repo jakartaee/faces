@@ -28,5 +28,9 @@ class StateManagementStrategyIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void stateMgmtStrategyNonNullTest() { runServletTest("stateMgmtStrategyNonNullTest"); }
+    @Test
+    void stateMgmtStrategyNonNullTest() {
+        runServletTest("stateMgmtStrategyNonNullTest");
+    }
+
 }

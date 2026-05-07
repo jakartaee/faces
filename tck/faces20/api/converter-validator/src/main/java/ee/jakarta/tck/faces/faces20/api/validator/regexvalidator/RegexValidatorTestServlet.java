@@ -37,116 +37,146 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/RegexValidatorTestServlet")
 public class RegexValidatorTestServlet extends BaseValidatorTestServlet {
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  @Override
-  protected Validator createValidator() {
-    return new RegexValidator();
-  }
-
-  // ---------------------------------------------------- RegexValidator Tests
-
-  public void regexValidatorCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      new RegexValidator();
-      pw.println(JSFTestUtil.PASS);
-    } catch (Exception e) {
-      pw.println("The no-arg constructor for regexValidator "
-          + "threw an unexpected exception ");
-      e.printStackTrace();
-    }
-  }
-
-  public void regexValidateNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    FacesContext facesContext = getFacesContext();
-
-    if (facesContext == null) {
-      pw.println(JSFTestUtil.FAIL + " Unable to obtain FacesContext instance.");
-      return;
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-    UIInput input = (UIInput) getApplication()
-        .createComponent(UIInput.COMPONENT_TYPE);
-    input.setId("input1");
-    input.setValue("aabb");
-
-    RegexValidator rev = new RegexValidator();
-    rev.setPattern("a*b");
-
-    // Test for null FacesContext throws NPE
-    JSFTestUtil.checkForNPE(rev, "validate",
-        new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
-        new Object[] { null, input, input.getValue() }, pw);
-
-    // Test for null UIComponent throws NPE
-    JSFTestUtil.checkForNPE(rev, "validate",
-        new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
-        new Object[] { facesContext, null, input.getValue() }, pw);
-  }
-
-  // setPattern() & getPattern() test
-  public void regexValidateSetGetPatternTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    String expected = "abc-xyz";
-
-    RegexValidator rev = new RegexValidator();
-    rev.setPattern(expected);
-
-    String result = rev.getPattern();
-
-    if (expected.equals(result)) {
-      pw.println(JSFTestUtil.PASS);
-
-    } else {
-      pw.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "Expected: " + expected
-          + JSFTestUtil.NL + "Recieved: " + result);
+    @Override
+    protected Validator createValidator() {
+        return new RegexValidator();
     }
 
-  }
+    // ---------------------------------------------------- RegexValidator Tests
 
-  // StateHolder.saveState(), StateHolder.restoreState()
-  public void stateHolderSaveRestoreStateTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    // Begin test setup
-    RegexValidator preSave = new RegexValidator();
-    preSave.setPattern("abc-xyz");
-
-    // Save and restore state and compare the results
-    Object state = preSave.saveState(getFacesContext());
-
-    if (state == null) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "saveState() failed to returned null");
-      return;
+    public void regexValidatorCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            new RegexValidator();
+            pw.println(JSFTestUtil.PASS);
+        }
+        catch (Exception e) {
+            pw.println(
+                "The no-arg constructor for regexValidator "
+                    + "threw an unexpected exception "
+            );
+            e.printStackTrace();
+        }
     }
 
-    if (!(state instanceof Serializable)) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "The Object returned by saveState() was "
-          + "not an instance of java.io.Serializable.");
-      return;
+    public void regexValidateNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        FacesContext facesContext = getFacesContext();
+
+        if (facesContext == null) {
+            pw.println(JSFTestUtil.FAIL + " Unable to obtain FacesContext instance.");
+            return;
+        }
+
+        UIInput input = (UIInput) getApplication()
+            .createComponent(UIInput.COMPONENT_TYPE);
+        input.setId("input1");
+        input.setValue("aabb");
+
+        RegexValidator rev = new RegexValidator();
+        rev.setPattern("a*b");
+
+        // Test for null FacesContext throws NPE
+        JSFTestUtil.checkForNPE(
+            rev, "validate",
+            new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
+            new Object[] { null, input, input.getValue() }, pw
+        );
+
+        // Test for null UIComponent throws NPE
+        JSFTestUtil.checkForNPE(
+            rev, "validate",
+            new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
+            new Object[] { facesContext, null, input.getValue() }, pw
+        );
     }
 
-    RegexValidator postSave = new RegexValidator();
-    postSave.restoreState(getFacesContext(), state);
+    // setPattern() & getPattern() test
+    public void regexValidateSetGetPatternTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        String expected = "abc-xyz";
 
-    if (postSave.getPattern().equals(preSave.getPattern())) {
-      out.println(JSFTestUtil.PASS);
+        RegexValidator rev = new RegexValidator();
+        rev.setPattern(expected);
 
-    } else {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "getPattern did not match after restore was called!");
+        String result = rev.getPattern();
+
+        if (expected.equals(result)) {
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL + "Expected: " + expected
+                    + JSFTestUtil.NL + "Recieved: " + result
+            );
+        }
+
     }
 
-  }
+    // StateHolder.saveState(), StateHolder.restoreState()
+    public void stateHolderSaveRestoreStateTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        // Begin test setup
+        RegexValidator preSave = new RegexValidator();
+        preSave.setPattern("abc-xyz");
+
+        // Save and restore state and compare the results
+        Object state = preSave.saveState(getFacesContext());
+
+        if (state == null) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "saveState() failed to returned null"
+            );
+            return;
+        }
+
+        if (!(state instanceof Serializable)) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "The Object returned by saveState() was "
+                    + "not an instance of java.io.Serializable."
+            );
+            return;
+        }
+
+        RegexValidator postSave = new RegexValidator();
+        postSave.restoreState(getFacesContext(), state);
+
+        if (postSave.getPattern().equals(preSave.getPattern())) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "getPattern did not match after restore was called!"
+            );
+        }
+
+    }
+
 }

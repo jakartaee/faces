@@ -22,11 +22,11 @@ import jakarta.enterprise.context.Dependent;
 
 @Dependent
 public class HelloService implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     public String sayHello(@FooConstraint String mustBeFoo) {
         return "value is foo";
     }
-    
+
 }

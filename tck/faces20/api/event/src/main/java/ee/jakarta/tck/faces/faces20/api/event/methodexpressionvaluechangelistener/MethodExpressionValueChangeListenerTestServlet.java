@@ -35,76 +35,88 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/MethodExpressionValueChangeListenerTestServlet")
 public final class MethodExpressionValueChangeListenerTestServlet extends HttpTCKServlet {
 
-  public void mevChangeListenerCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Boolean pf = true;
-    ArrayList<MethodExpressionValueChangeListener> meValueListener = new ArrayList<MethodExpressionValueChangeListener>();
+    public void mevChangeListenerCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Boolean pf = true;
+        ArrayList<MethodExpressionValueChangeListener> meValueListener = new ArrayList<MethodExpressionValueChangeListener>();
 
-    request.setAttribute("bean", new SimpleBean());
+        request.setAttribute("bean", new SimpleBean());
 
-    ExpressionFactory factory = getFacesContext().getApplication()
-        .getExpressionFactory();
+        ExpressionFactory factory = getFacesContext().getApplication()
+            .getExpressionFactory();
 
-    try {
-      MethodExpression me = factory.createMethodExpression(
-          getFacesContext().getELContext(), "#{bean.action}",
-          java.lang.String.class, new Class[] {});
+        try {
+            MethodExpression me = factory.createMethodExpression(
+                getFacesContext().getELContext(), "#{bean.action}",
+                java.lang.String.class, new Class[] {}
+            );
 
-      MethodExpression metwo = factory.createMethodExpression(
-          getFacesContext().getELContext(), "#{bean.action}",
-          java.lang.String.class, new Class[] {});
+            MethodExpression metwo = factory.createMethodExpression(
+                getFacesContext().getELContext(), "#{bean.action}",
+                java.lang.String.class, new Class[] {}
+            );
 
-      meValueListener.add(new MethodExpressionValueChangeListener());
-      meValueListener.add(new MethodExpressionValueChangeListener(me));
-      meValueListener.add(new MethodExpressionValueChangeListener(me, metwo));
+            meValueListener.add(new MethodExpressionValueChangeListener());
+            meValueListener.add(new MethodExpressionValueChangeListener(me));
+            meValueListener.add(new MethodExpressionValueChangeListener(me, metwo));
 
-    } catch (Exception e) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL);
-      e.printStackTrace();
-    }
+        }
+        catch (Exception e) {
+            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL);
+            e.printStackTrace();
+        }
 
-    Iterator<MethodExpressionValueChangeListener> i = meValueListener
-        .iterator();
+        Iterator<MethodExpressionValueChangeListener> i = meValueListener
+            .iterator();
 
-    while (i.hasNext()) {
-      if (null == i.next()) {
-        pf = false;
-      }
-    }
+        while (i.hasNext()) {
+            if (null == i.next()) {
+                pf = false;
+            }
+        }
 
-    if (!pf) {
-      out.println(JSFTestUtil.FAIL);
-    } else {
-      out.println(JSFTestUtil.PASS);
-    }
+        if (!pf) {
+            out.println(JSFTestUtil.FAIL);
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
 
-  } // End MEVChangeListenerCtorTest
+    } // End MEVChangeListenerCtorTest
 
-  public void mevChangeListenerProcessValueChgNPETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void mevChangeListenerProcessValueChgNPETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(MethodExpressionValueChangeListener.class,
-        "processValueChange", new Class[] { ValueChangeEvent.class },
-        new Object[] { null }, out);
+        JSFTestUtil.checkForNPE(
+            MethodExpressionValueChangeListener.class,
+            "processValueChange", new Class[] { ValueChangeEvent.class },
+            new Object[] { null }, out
+        );
 
-  } // End mevChangeListenerProcessValueChgTest
+    } // End mevChangeListenerProcessValueChgTest
 
-  // ------------------------------------------------- Private Classes
+    // ------------------------------------------------- Private Classes
 
-  public class SimpleBean {
+    public class SimpleBean {
 
-    public String action(String s) {
-      String res = "defaultValue";
+        public String action(String s) {
+            String res = "defaultValue";
 
-      if (!(s == null)) {
-        res = s;
-      }
+            if (!(s == null)) {
+                res = s;
+            }
 
-      return res;
-    }
+            return res;
+        }
 
-  } // END SimpleBean
+    } // END SimpleBean
+
 }

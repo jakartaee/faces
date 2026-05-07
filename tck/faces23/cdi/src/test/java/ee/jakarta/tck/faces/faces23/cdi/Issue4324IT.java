@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue4324IT extends BaseITNG {
 
-  /**
-   * @see FacesConverter#managed()
+    /**
+     * @see FacesConverter#managed()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4324
-   */
-  @Test
-  void managedFacesConverterOnAbstractClass() throws Exception {
+     */
+    @Test
+    void managedFacesConverterOnAbstractClass() throws Exception {
         WebPage page = getPage("issue4324.xhtml");
         WebElement output = page.findElement(By.id("output"));
         assertEquals("ConcreteEntity", output.getText());

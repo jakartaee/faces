@@ -22,7 +22,6 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-
 @Named
 @RequestScoped
 public class Spec1260Bean {
@@ -49,6 +48,5 @@ public class Spec1260Bean {
     public String getMessage2() {
         return message2;
     }
-
 
 }

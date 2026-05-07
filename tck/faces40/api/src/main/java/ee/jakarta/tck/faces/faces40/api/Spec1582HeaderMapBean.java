@@ -30,7 +30,8 @@ import jakarta.inject.Named;
 public class Spec1582HeaderMapBean {
 
     public String getHeaderValue() {
-        Map<String, String> headerMap = CDI.current().select(new TypeLiteral<Map<String, String>>() {}, HeaderMap.Literal.INSTANCE).get();
+        Map<String, String> headerMap = CDI.current().select(new TypeLiteral<Map<String, String>>() {
+        }, HeaderMap.Literal.INSTANCE).get();
 
         return headerMap.get("foo");
     }

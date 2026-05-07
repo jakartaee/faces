@@ -23,16 +23,23 @@ import jakarta.faces.convert.ConverterException;
 
 public class TCKConverter implements Converter {
 
-  public Object getAsObject(FacesContext context, UIComponent component,
-      String value) {
-    if ("fail".equals(value))
-      throw new ConverterException();
-    else
-      return "converted";
-  }
+    public Object getAsObject(
+        FacesContext context, UIComponent component,
+        String value
+    )
+    {
+        if ("fail".equals(value))
+            throw new ConverterException();
+        else
+            return "converted";
+    }
 
-  public String getAsString(FacesContext context, UIComponent component,
-      Object value) {
-    return value.toString();
-  }
+    public String getAsString(
+        FacesContext context, UIComponent component,
+        Object value
+    )
+    {
+        return value.toString();
+    }
+
 }

@@ -29,38 +29,43 @@ import jakarta.faces.context.FacesContext;
 
 public class ViewHandlerImpl extends ViewHandlerWrapper {
 
-  protected ViewHandler viewHandler;
+    protected ViewHandler viewHandler;
 
-  public ViewHandlerImpl(ViewHandler viewHandler) {
-    this.viewHandler = viewHandler;
-  }
-
-  @Override
-  public ViewHandler getWrapped() {
-    return viewHandler;
-  }
-
-  @Override
-  public UIViewRoot createView(FacesContext context, String viewId) {
-    UIViewRoot root = this.getWrapped().createView(context, viewId);
-    if (!root.getViewId().endsWith(".xhtml")) {
-      throw new FacesException("createView: ViewId has been "
-          + "manipulated before being passed to the ViewHandler."
-          + JSFTestUtil.NL + "Expected viewId: /greetings.xhtml" + JSFTestUtil.NL
-          + "Received viewId: " + viewId + JSFTestUtil.NL);
+    public ViewHandlerImpl(ViewHandler viewHandler) {
+        this.viewHandler = viewHandler;
     }
-    return root;
-  }
 
-  @Override
-  public UIViewRoot restoreView(FacesContext context, String viewId) {
-    UIViewRoot root = this.getWrapped().restoreView(context, viewId);
-    if (!root.getViewId().endsWith(".xhtml")) {
-      throw new FacesException("restoreView: ViewId has been "
-          + "manipulated before being passed to the ViewHandler. "
-          + JSFTestUtil.NL + "Expected viewId: /greetings.xhtml" + JSFTestUtil.NL
-          + "Received viewId: " + viewId + JSFTestUtil.NL);
+    @Override
+    public ViewHandler getWrapped() {
+        return viewHandler;
     }
-    return root;
-  }
+
+    @Override
+    public UIViewRoot createView(FacesContext context, String viewId) {
+        UIViewRoot root = this.getWrapped().createView(context, viewId);
+        if (!root.getViewId().endsWith(".xhtml")) {
+            throw new FacesException(
+                "createView: ViewId has been "
+                    + "manipulated before being passed to the ViewHandler."
+                    + JSFTestUtil.NL + "Expected viewId: /greetings.xhtml" + JSFTestUtil.NL
+                    + "Received viewId: " + viewId + JSFTestUtil.NL
+            );
+        }
+        return root;
+    }
+
+    @Override
+    public UIViewRoot restoreView(FacesContext context, String viewId) {
+        UIViewRoot root = this.getWrapped().restoreView(context, viewId);
+        if (!root.getViewId().endsWith(".xhtml")) {
+            throw new FacesException(
+                "restoreView: ViewId has been "
+                    + "manipulated before being passed to the ViewHandler. "
+                    + JSFTestUtil.NL + "Expected viewId: /greetings.xhtml" + JSFTestUtil.NL
+                    + "Received viewId: " + viewId + JSFTestUtil.NL
+            );
+        }
+        return root;
+    }
+
 }

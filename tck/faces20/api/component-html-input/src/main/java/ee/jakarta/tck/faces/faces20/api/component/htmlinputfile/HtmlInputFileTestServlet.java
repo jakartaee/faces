@@ -28,14 +28,15 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlInputFileTestServlet")
 public final class HtmlInputFileTestServlet extends UIInputTestServlet {
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.File");
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.File");
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlInputFile();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlInputFile();
+    }
+
 }

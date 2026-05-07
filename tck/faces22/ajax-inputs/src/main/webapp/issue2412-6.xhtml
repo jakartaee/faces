@@ -18,17 +18,17 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:cc="http://java.sun.com/jsf/composite/issue2412">
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:cc="http://java.sun.com/jsf/composite/issue2412">
 
 <f:view>
    <h:head>
    </h:head>
    <h:body>
        <h:form>
-	          Before
+              Before
                   <h:selectOneRadio value="#{issue2412Bean.string}">
                       <f:selectItem itemValue="radio-1" itemLabel="1"/>
                       <f:selectItem itemValue="radio-2" itemLabel="2"/>
@@ -37,7 +37,7 @@
                   </h:selectOneRadio>
                   After
                   <br/>
-                  <h:outputText id="out" value="Status: #{issue2412Bean.string}"/>                  
+                  <h:outputText id="out" value="Status: #{issue2412Bean.string}"/>
        </h:form>
    </h:body>
 </f:view>

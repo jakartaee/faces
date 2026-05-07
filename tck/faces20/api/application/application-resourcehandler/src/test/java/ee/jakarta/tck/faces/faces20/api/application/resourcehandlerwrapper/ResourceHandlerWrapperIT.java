@@ -28,11 +28,39 @@ class ResourceHandlerWrapperIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void resourceHandlerWrapperCreateResourceNLTTest() { runServletTest("resourceHandlerWrapperCreateResourceNLTTest"); }
-    @Test void resourceHandlerWrapperCreateResourceNLTest() { runServletTest("resourceHandlerWrapperCreateResourceNLTest"); }
-    @Test void resourceHandlerWrapperCreateResourceNTest() { runServletTest("resourceHandlerWrapperCreateResourceNTest"); }
-    @Test void resourceHandlerWrapperCreateResourceNullTest() { runServletTest("resourceHandlerWrapperCreateResourceNullTest"); }
-    @Test void resourceHandlerWrapperHandleResourceRequestTest() { runServletTest("resourceHandlerWrapperHandleResourceRequestTest"); }
-    @Test void resourceHandlerWrapperLibraryExistsTest() { runServletTest("resourceHandlerWrapperLibraryExistsTest"); }
-    @Test void resourceHandlerWrappergetRendererTypeTest() { runServletTest("resourceHandlerWrappergetRendererTypeTest"); }
+    @Test
+    void resourceHandlerWrapperCreateResourceNLTTest() {
+        runServletTest("resourceHandlerWrapperCreateResourceNLTTest");
+    }
+
+    @Test
+    void resourceHandlerWrapperCreateResourceNLTest() {
+        runServletTest("resourceHandlerWrapperCreateResourceNLTest");
+    }
+
+    @Test
+    void resourceHandlerWrapperCreateResourceNTest() {
+        runServletTest("resourceHandlerWrapperCreateResourceNTest");
+    }
+
+    @Test
+    void resourceHandlerWrapperCreateResourceNullTest() {
+        runServletTest("resourceHandlerWrapperCreateResourceNullTest");
+    }
+
+    @Test
+    void resourceHandlerWrapperHandleResourceRequestTest() {
+        runServletTest("resourceHandlerWrapperHandleResourceRequestTest");
+    }
+
+    @Test
+    void resourceHandlerWrapperLibraryExistsTest() {
+        runServletTest("resourceHandlerWrapperLibraryExistsTest");
+    }
+
+    @Test
+    void resourceHandlerWrappergetRendererTypeTest() {
+        runServletTest("resourceHandlerWrappergetRendererTypeTest");
+    }
+
 }

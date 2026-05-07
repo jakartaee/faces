@@ -36,16 +36,17 @@ public class Issue2652Bean implements Serializable {
     public void processAjax(AjaxBehaviorEvent event) throws AbortProcessingException {
         FacesContext fctx = FacesContext.getCurrentInstance();
         ExternalContext ectx = fctx.getExternalContext();
-        HttpSession session = (HttpSession)ectx.getSession(true);
+        HttpSession session = (HttpSession) ectx.getSession(true);
         String temp1 = session.getServletContext().getContextPath() + "/issue2652-1.xhtml";
         String temp2 = session.getServletContext().getContextPath() + "/issue2652-2.xhtml";
         try {
-            boolean complete1 = fctx.getResponseComplete(); 
-            ectx.redirect(temp1); 
-            boolean complete2 = fctx.getResponseComplete(); 
-            ectx.redirect(temp2); 
-            boolean complete3 = fctx.getResponseComplete(); 
-        } catch (Exception e) {
+            boolean complete1 = fctx.getResponseComplete();
+            ectx.redirect(temp1);
+            boolean complete2 = fctx.getResponseComplete();
+            ectx.redirect(temp2);
+            boolean complete3 = fctx.getResponseComplete();
+        }
+        catch (Exception e) {
             if (e instanceof IllegalStateException) {
                 session.setAttribute("IllegalStateException", "true");
             }
@@ -55,19 +56,19 @@ public class Issue2652Bean implements Serializable {
     public void process(ActionEvent event) {
         FacesContext fctx = FacesContext.getCurrentInstance();
         ExternalContext ectx = fctx.getExternalContext();
-        HttpSession session = (HttpSession)ectx.getSession(true);
+        HttpSession session = (HttpSession) ectx.getSession(true);
         String temp1 = session.getServletContext().getContextPath() + "/issue2652-1.xhtml";
         String temp2 = session.getServletContext().getContextPath() + "/issue2652-2.xhtml";
         try {
-            boolean complete1 = fctx.getResponseComplete(); 
-            ectx.redirect(temp1); 
-            boolean complete2 = fctx.getResponseComplete(); 
-            ectx.redirect(temp2); 
-            boolean complete3 = fctx.getResponseComplete(); 
-        } catch (Exception e) {
+            boolean complete1 = fctx.getResponseComplete();
+            ectx.redirect(temp1);
+            boolean complete2 = fctx.getResponseComplete();
+            ectx.redirect(temp2);
+            boolean complete3 = fctx.getResponseComplete();
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 

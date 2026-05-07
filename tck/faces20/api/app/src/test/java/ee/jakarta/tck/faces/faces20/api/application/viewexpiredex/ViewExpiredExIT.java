@@ -28,5 +28,9 @@ class ViewExpiredExIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void viewExpiredExceptionTest() { runServletTest("viewExpiredExceptionTest"); }
+    @Test
+    void viewExpiredExceptionTest() {
+        runServletTest("viewExpiredExceptionTest");
+    }
+
 }

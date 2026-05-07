@@ -27,14 +27,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue3797IT extends BaseITNG {
 
-  /**
-   * @see FacesConfig#version()
+    /**
+     * @see FacesConfig#version()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3797
-   */
-  @Test
-  void facesConfig23() throws Exception {
+     */
+    @Test
+    void facesConfig23() throws Exception {
         WebPage page = getPage("issue3797.xhtml");
 
-      assertFalse(page.containsText("2.3"));
+        assertFalse(page.containsText("2.3"));
     }
+
 }

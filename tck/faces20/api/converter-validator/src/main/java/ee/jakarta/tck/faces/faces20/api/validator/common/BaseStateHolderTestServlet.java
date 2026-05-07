@@ -33,33 +33,41 @@ public abstract class BaseStateHolderTestServlet extends HttpTCKServlet {
     protected abstract Validator createValidator();
 
     public void stateHolderIsSetTransientTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         StateHolder holder;
         if (createValidator() instanceof StateHolder) {
             holder = (StateHolder) createValidator();
-        } else {
-            out.println("The Specific Validator that you are trying to test "
-                    + "does not implement the StateHolder interface!");
+        }
+        else {
+            out.println(
+                "The Specific Validator that you are trying to test "
+                    + "does not implement the StateHolder interface!"
+            );
             return;
         }
 
         holder.setTransient(false);
 
         if (holder.isTransient()) {
-            out.println(JSFTestUtil.FAIL + " Expected isTransient() to return"
+            out.println(
+                JSFTestUtil.FAIL + " Expected isTransient() to return"
                     + " false after having explicitly setting it as such via"
-                    + " setTransient().");
+                    + " setTransient()."
+            );
             return;
         }
 
         holder.setTransient(true);
 
         if (!holder.isTransient()) {
-            out.println(JSFTestUtil.FAIL + " Expected isTransient() to return true"
+            out.println(
+                JSFTestUtil.FAIL + " Expected isTransient() to return true"
                     + " after having explicitly setting it as such via"
-                    + " setTransient().");
+                    + " setTransient()."
+            );
             return;
         }
 
@@ -67,37 +75,50 @@ public abstract class BaseStateHolderTestServlet extends HttpTCKServlet {
     }
 
     public void stateHolderRestoreStateNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
 
         StateHolder holder;
         if (createValidator() instanceof StateHolder) {
             holder = (StateHolder) createValidator();
-        } else {
-            pw.println("The Specific Validator that you are trying to test "
-                    + "does not implement the StateHolder interface!");
+        }
+        else {
+            pw.println(
+                "The Specific Validator that you are trying to test "
+                    + "does not implement the StateHolder interface!"
+            );
             return;
         }
 
-        JSFTestUtil.checkForNPE(holder, "restoreState",
-                new Class<?>[] { FacesContext.class, Object.class },
-                new Object[] { null, "abc" }, pw);
+        JSFTestUtil.checkForNPE(
+            holder, "restoreState",
+            new Class<?>[] { FacesContext.class, Object.class },
+            new Object[] { null, "abc" }, pw
+        );
     }
 
     public void stateHolderSaveStateNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
 
         StateHolder holder;
         if (createValidator() instanceof StateHolder) {
             holder = (StateHolder) createValidator();
-        } else {
-            pw.println("The Specific Validator that you are trying to test "
-                    + "does not implement the StateHolder interface!");
+        }
+        else {
+            pw.println(
+                "The Specific Validator that you are trying to test "
+                    + "does not implement the StateHolder interface!"
+            );
             return;
         }
 
-        JSFTestUtil.checkForNPE(holder, "saveState",
-                new Class<?>[] { FacesContext.class }, new Object[] { null }, pw);
+        JSFTestUtil.checkForNPE(
+            holder, "saveState",
+            new Class<?>[] { FacesContext.class }, new Object[] { null }, pw
+        );
     }
+
 }

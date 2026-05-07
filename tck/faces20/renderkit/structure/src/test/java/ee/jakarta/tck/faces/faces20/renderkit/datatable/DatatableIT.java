@@ -32,9 +32,9 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class DatatableIT extends BaseITNG {
 
     private static final String[][] EXPECTED_BODY = {
-        {"Anna", "f", "28"},
-        {"Cort", "m", "7"},
-        {"Cade", "m", "4"}
+        { "Anna", "f", "28" },
+        { "Cort", "m", "7" },
+        { "Cade", "m", "4" }
     };
 
     @Test
@@ -51,9 +51,11 @@ class DatatableIT extends BaseITNG {
         WebElement data2 = findByIdSuffix(page, "data2");
         assertNull(findOptionalChild(data2, "caption"), "data2 caption");
         assertNull(findOptionalChild(data2, "thead"), "data2 thead");
-        assertBodyRows(data2, "data2",
-            new String[] {"odd", "even", "odd"},
-            new String[] {"even", "odd", null});
+        assertBodyRows(
+            data2, "data2",
+            new String[] { "odd", "even", "odd" },
+            new String[] { "even", "odd", null }
+        );
 
         // data3: bound HtmlDataTable with title/bgcolor/border attributes set by bean.
         WebElement data3 = findByIdSuffix(page, "data3");
@@ -155,26 +157,32 @@ class DatatableIT extends BaseITNG {
         WebPage page = getPage("datatable/encodetestColumnHeaderFooter.xhtml");
 
         // data1: per-column header/footer facets -> each th has scope=col + no class; each td has no scope + no class.
-        assertColumnHeadersAndFooters(findByIdSuffix(page, "data1"), "data1",
-            new String[] {"Name Header", "", "Age Header"},
-            new String[] {"", "Gender Footer", "Age Footer"},
-            null, null);
+        assertColumnHeadersAndFooters(
+            findByIdSuffix(page, "data1"), "data1",
+            new String[] { "Name Header", "", "Age Header" },
+            new String[] { "", "Gender Footer", "Age Footer" },
+            null, null
+        );
         assertBodyRows(findByIdSuffix(page, "data1"), "data1", null, null);
 
         // data2: headerClass+footerClass on table -> every th+td gets "sansserif" class.
-        assertColumnHeadersAndFooters(findByIdSuffix(page, "data2"), "data2",
-            new String[] {"Name Header", "", "Age Header"},
-            new String[] {"", "Gender Footer", "Age Footer"},
-            new String[] {"sansserif", "sansserif", "sansserif"},
-            new String[] {"sansserif", "sansserif", "sansserif"});
+        assertColumnHeadersAndFooters(
+            findByIdSuffix(page, "data2"), "data2",
+            new String[] { "Name Header", "", "Age Header" },
+            new String[] { "", "Gender Footer", "Age Footer" },
+            new String[] { "sansserif", "sansserif", "sansserif" },
+            new String[] { "sansserif", "sansserif", "sansserif" }
+        );
         assertBodyRows(findByIdSuffix(page, "data2"), "data2", null, null);
 
         // data3: headerClass+footerClass on table AND on columns -> column-level overrides.
-        assertColumnHeadersAndFooters(findByIdSuffix(page, "data3"), "data3",
-            new String[] {"Name Header", "", "Age Header"},
-            new String[] {"", "Gender Footer", "Age Footer"},
-            new String[] {"columnClass", "sansserif", "sansserif"},
-            new String[] {"sansserif", "sansserif", "columnClass"});
+        assertColumnHeadersAndFooters(
+            findByIdSuffix(page, "data3"), "data3",
+            new String[] { "Name Header", "", "Age Header" },
+            new String[] { "", "Gender Footer", "Age Footer" },
+            new String[] { "columnClass", "sansserif", "sansserif" },
+            new String[] { "sansserif", "sansserif", "columnClass" }
+        );
         assertBodyRows(findByIdSuffix(page, "data3"), "data3", null, null);
     }
 
@@ -192,9 +200,12 @@ class DatatableIT extends BaseITNG {
         verifyPassthroughAttributes(getPage("datatable/passthroughtest_facelet.xhtml"), faceletControl);
     }
 
-    private static void assertColumnHeadersAndFooters(WebElement table, String id,
-            String[] headerTexts, String[] footerTexts,
-            String[] headerClasses, String[] footerClasses) {
+    private static void assertColumnHeadersAndFooters(
+        WebElement table, String id,
+        String[] headerTexts, String[] footerTexts,
+        String[] headerClasses, String[] footerClasses
+    )
+    {
         WebElement thead = table.findElement(By.tagName("thead"));
         List<WebElement> headerRows = thead.findElements(By.tagName("tr"));
         assertEquals(1, headerRows.size(), id + " header row count");
@@ -203,8 +214,10 @@ class DatatableIT extends BaseITNG {
             WebElement cell = headerCells.get(i);
             assertEquals(headerTexts[i], cell.getText().trim(), id + " header cell[" + i + "] text");
             assertEquals("col", cell.getDomAttribute("scope"), id + " header cell[" + i + "] scope");
-            assertEquals(headerClasses == null ? null : headerClasses[i],
-                cell.getDomAttribute("class"), id + " header cell[" + i + "] class");
+            assertEquals(
+                headerClasses == null ? null : headerClasses[i],
+                cell.getDomAttribute("class"), id + " header cell[" + i + "] class"
+            );
         }
 
         WebElement tfoot = table.findElement(By.tagName("tfoot"));
@@ -215,8 +228,10 @@ class DatatableIT extends BaseITNG {
             WebElement cell = footerCells.get(i);
             assertEquals(footerTexts[i], cell.getText().trim(), id + " footer cell[" + i + "] text");
             assertNull(cell.getDomAttribute("scope"), id + " footer cell[" + i + "] scope");
-            assertEquals(footerClasses == null ? null : footerClasses[i],
-                cell.getDomAttribute("class"), id + " footer cell[" + i + "] class");
+            assertEquals(
+                footerClasses == null ? null : footerClasses[i],
+                cell.getDomAttribute("class"), id + " footer cell[" + i + "] class"
+            );
         }
     }
 
@@ -230,13 +245,19 @@ class DatatableIT extends BaseITNG {
             List<WebElement> cells = row.findElements(By.tagName("td"));
             for (int c = 0; c < EXPECTED_BODY[r].length; c++) {
                 WebElement cell = cells.get(c);
-                assertEquals(EXPECTED_BODY[r][c], cell.getText().trim(),
-                    id + " body[" + r + "][" + c + "] text");
-                assertEquals(columnClasses == null ? null : columnClasses[c],
-                    cell.getDomAttribute("class"), id + " body[" + r + "][" + c + "] class");
+                assertEquals(
+                    EXPECTED_BODY[r][c], cell.getText().trim(),
+                    id + " body[" + r + "][" + c + "] text"
+                );
+                assertEquals(
+                    columnClasses == null ? null : columnClasses[c],
+                    cell.getDomAttribute("class"), id + " body[" + r + "][" + c + "] class"
+                );
             }
-            assertEquals(rowClasses == null ? null : rowClasses[r],
-                row.getDomAttribute("class"), id + " row[" + r + "] class");
+            assertEquals(
+                rowClasses == null ? null : rowClasses[r],
+                row.getDomAttribute("class"), id + " row[" + r + "] class"
+            );
         }
     }
 
@@ -274,14 +295,17 @@ class DatatableIT extends BaseITNG {
 
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement data1 = findByIdSuffix(page, "data1");
-        expected.forEach((name, value) ->
-            assertEquals(value, data1.getDomAttribute(name), "attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, data1.getDomAttribute(name), "attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

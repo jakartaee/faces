@@ -28,16 +28,64 @@ class ResourceHandlerIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void resourceHandlerCreateResourceBothNullTest() { runServletTest("resourceHandlerCreateResourceBothNullTest"); }
-    @Test void resourceHandlerCreateResourceContentNullTest() { runServletTest("resourceHandlerCreateResourceContentNullTest"); }
-    @Test void resourceHandlerCreateResourceLibNullTest() { runServletTest("resourceHandlerCreateResourceLibNullTest"); }
-    @Test void resourceHandlerCreateResourceNLCTest() { runServletTest("resourceHandlerCreateResourceNLCTest"); }
-    @Test void resourceHandlerCreateResourceNLTest() { runServletTest("resourceHandlerCreateResourceNLTest"); }
-    @Test void resourceHandlerCreateResourceNPETest() { runServletTest("resourceHandlerCreateResourceNPETest"); }
-    @Test void resourceHandlerCreateResourceNTest() { runServletTest("resourceHandlerCreateResourceNTest"); }
-    @Test void resourceHandlerHandleResourceRequestTest() { runServletTest("resourceHandlerHandleResourceRequestTest"); }
-    @Test void resourceHandlerIsResourceRenderedTest() { runServletTest("resourceHandlerIsResourceRenderedTest"); }
-    @Test void resourceHandlerMarkResourceRenderedTest() { runServletTest("resourceHandlerMarkResourceRenderedTest"); }
-    @Test void resourceHandlergetRendererTypeForResourceNameTest() { runServletTest("resourceHandlergetRendererTypeForResourceNameTest"); }
-    @Test void resourceHandlerlibraryExistsTest() { runServletTest("resourceHandlerlibraryExistsTest"); }
+    @Test
+    void resourceHandlerCreateResourceBothNullTest() {
+        runServletTest("resourceHandlerCreateResourceBothNullTest");
+    }
+
+    @Test
+    void resourceHandlerCreateResourceContentNullTest() {
+        runServletTest("resourceHandlerCreateResourceContentNullTest");
+    }
+
+    @Test
+    void resourceHandlerCreateResourceLibNullTest() {
+        runServletTest("resourceHandlerCreateResourceLibNullTest");
+    }
+
+    @Test
+    void resourceHandlerCreateResourceNLCTest() {
+        runServletTest("resourceHandlerCreateResourceNLCTest");
+    }
+
+    @Test
+    void resourceHandlerCreateResourceNLTest() {
+        runServletTest("resourceHandlerCreateResourceNLTest");
+    }
+
+    @Test
+    void resourceHandlerCreateResourceNPETest() {
+        runServletTest("resourceHandlerCreateResourceNPETest");
+    }
+
+    @Test
+    void resourceHandlerCreateResourceNTest() {
+        runServletTest("resourceHandlerCreateResourceNTest");
+    }
+
+    @Test
+    void resourceHandlerHandleResourceRequestTest() {
+        runServletTest("resourceHandlerHandleResourceRequestTest");
+    }
+
+    @Test
+    void resourceHandlerIsResourceRenderedTest() {
+        runServletTest("resourceHandlerIsResourceRenderedTest");
+    }
+
+    @Test
+    void resourceHandlerMarkResourceRenderedTest() {
+        runServletTest("resourceHandlerMarkResourceRenderedTest");
+    }
+
+    @Test
+    void resourceHandlergetRendererTypeForResourceNameTest() {
+        runServletTest("resourceHandlergetRendererTypeForResourceNameTest");
+    }
+
+    @Test
+    void resourceHandlerlibraryExistsTest() {
+        runServletTest("resourceHandlerlibraryExistsTest");
+    }
+
 }

@@ -123,12 +123,18 @@ class Spec1555IT extends BaseITNG {
         WebElement message2 = iterator.next();
         WebElement message3 = iterator.next();
 
-        assertEquals("field: multipleSelection, name: " + file1.getName() + ", size: " + file1.length(), message1.getText(),
-                "First uploaded file has been received");
-        assertEquals("field: multipleSelection, name: " + file2.getName() + ", size: " + file2.length(), message2.getText(),
-                "Second uploaded file has been received");
-        assertEquals("field: multipleSelection, name: " + file3.getName() + ", size: " + file3.length(), message3.getText(),
-                "Third uploaded file has been received");
+        assertEquals(
+            "field: multipleSelection, name: " + file1.getName() + ", size: " + file1.length(), message1.getText(),
+            "First uploaded file has been received"
+        );
+        assertEquals(
+            "field: multipleSelection, name: " + file2.getName() + ", size: " + file2.length(), message2.getText(),
+            "Second uploaded file has been received"
+        );
+        assertEquals(
+            "field: multipleSelection, name: " + file3.getName() + ", size: " + file3.length(), message3.getText(),
+            "Third uploaded file has been received"
+        );
     }
 
     private static File generateTempFile(String name, String ext, int size) throws IOException {
@@ -138,4 +144,5 @@ class Spec1555IT extends BaseITNG {
         Files.write(path, content, APPEND);
         return path.toFile();
     }
+
 }

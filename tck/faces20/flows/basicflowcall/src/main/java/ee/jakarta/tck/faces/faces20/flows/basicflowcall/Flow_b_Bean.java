@@ -33,4 +33,5 @@ public class Flow_b_Bean implements Serializable {
     public String getReturnValue() {
         return "/return1";
     }
+
 }

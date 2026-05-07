@@ -23,7 +23,7 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
 <servlet>
         <servlet-name>TestServlet</servlet-name>
-	<servlet-class>ee.jakarta.tck.faces.faces20.resource.packaging.classpath.TestServlet</servlet-class>
+    <servlet-class>ee.jakarta.tck.faces.faces20.resource.packaging.classpath.TestServlet</servlet-class>
     </servlet>
 <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>

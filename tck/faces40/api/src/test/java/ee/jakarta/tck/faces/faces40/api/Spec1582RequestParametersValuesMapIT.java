@@ -28,13 +28,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1582RequestParametersValuesMapIT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see jakarta.faces.annotation.RequestParameterValuesMap.Literal
      * @see https://github.com/jakartaee/faces/issues/1582
-   */
-  @Test
-  void requestParameterValuesMap() throws Exception {
+     */
+    @Test
+    void requestParameterValuesMap() throws Exception {
         WebPage page = getPage("spec1582RequestParametersValuesMap.xhtml?foo=bar0&foo=bar1");
 
         // Both request parameter values should be printed on the page (order is not guaranteed)

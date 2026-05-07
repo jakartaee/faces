@@ -30,17 +30,17 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec1078DataTableIT extends BaseITNG {
 
-  /**
-   * @see HtmlDataTable
+    /**
+     * @see HtmlDataTable
      * @see FacesDataModel
      * @see https://github.com/jakartaee/faces/issues/1078
-   */
-  @Test
-  void exactClassMatch() throws Exception {
+     */
+    @Test
+    void exactClassMatch() throws Exception {
 
         // In this test a backing bean will return an object of type Child11.
         // There's a DataModel registered for exactly this class, which should
-        // be picked up. 
+        // be picked up.
         //
         // The (small) challenge is that there are also DataModels
         // registered for super classes of Child11 (e.g. Child1), which can also
@@ -50,13 +50,13 @@ class Spec1078DataTableIT extends BaseITNG {
         assertTrue(matches("(?s).*START.*11-member 1.*11-member 2.*END.*", page.getSource()));
     }
 
-  /**
-   * @see HtmlDataTable
+    /**
+     * @see HtmlDataTable
      * @see FacesDataModel
      * @see https://github.com/jakartaee/faces/issues/1078
-   */
-  @Test
-  void closestSuperClassMatch() throws Exception {
+     */
+    @Test
+    void closestSuperClassMatch() throws Exception {
 
         // In this test a backing bean will return an object of type Child111.
         // There's NO DataModel registered for exactly this class. However, there
@@ -68,4 +68,5 @@ class Spec1078DataTableIT extends BaseITNG {
         WebPage page = getPage("spec1078DataTable-2.xhtml");
         assertTrue(matches("(?s).*START.*111-member 1.*111-member 2.*END.*", page.getSource()));
     }
+
 }

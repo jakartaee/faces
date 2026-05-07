@@ -26,17 +26,20 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlSelectBooleanCheckboxTestServlet")
 public final class HtmlSelectBooleanCheckboxTestServlet extends UISelectBooleanTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "style", "styleClass", "tabindex", "title", "disabled", "readonly" };
+    private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress",
+        "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "style", "styleClass", "tabindex", "title", "disabled",
+        "readonly" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Checkbox");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Checkbox");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlSelectBooleanCheckbox();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlSelectBooleanCheckbox();
+    }
+
 }

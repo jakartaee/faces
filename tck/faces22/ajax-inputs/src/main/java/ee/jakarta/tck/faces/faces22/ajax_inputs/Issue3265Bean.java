@@ -36,4 +36,5 @@ public class Issue3265Bean implements Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

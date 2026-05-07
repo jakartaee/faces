@@ -28,13 +28,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1582InitParameterMapIT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see jakarta.faces.annotation.InitParameterMap.Literal
      * @see https://github.com/jakartaee/faces/issues/1582
-   */
-  @Test
-  void injectInitParameterMap() throws Exception {
+     */
+    @Test
+    void injectInitParameterMap() throws Exception {
         WebPage page = getPage("spec1582InitParameterMap.xhtml");
 
         // Init parameter value should be printed on the page

@@ -33,181 +33,209 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/UISelectItemTestServlet")
 public class UISelectItemTestServlet extends BaseComponentTestServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType(null);
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UISelectItem();
-  }
-
-  // ------------------------------------------- Test Methods ----
-
-  public void uiSelectItemGetSetValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItem command = (UISelectItem) createComponent();
-    String test = "value";
-    command.setValue(test);
-    String result = (String) command.getValue();
-
-    if (!test.equals(result)) {
-      out.println(JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
-          + " the value as set by UISelectItem.setValue().");
-      out.println("Expected: " + test);
-      out.println("Received: " + result);
-      return;
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType(null);
     }
 
-    out.println(JSFTestUtil.PASS);
-
-  } // End uiSelectItemGetSetValueTest
-
-  public void uiSelectItemGetSetItemDescriptionTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItem command = (UISelectItem) createComponent();
-    String test = "Description";
-    command.setItemDescription(test);
-    String result = command.getItemDescription();
-
-    if (!test.equals(result)) {
-      out.println(
-          JSFTestUtil.FAIL + " UISelectItem.getItemDescription() didn't return"
-              + " the value as set by UISelectItem.setItemDescription().");
-      out.println("Expected: " + test);
-      out.println("Received: " + result);
-      return;
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UISelectItem();
     }
 
-    out.println(JSFTestUtil.PASS);
+    // ------------------------------------------- Test Methods ----
 
-  } // uiSelectItemGetSetItemDescriptionTest
+    public void uiSelectItemGetSetValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItem command = (UISelectItem) createComponent();
+        String test = "value";
+        command.setValue(test);
+        String result = (String) command.getValue();
 
-  public void uiSelectItemGetSetItemLabelTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItem command = (UISelectItem) createComponent();
-    String test = "Label";
-    command.setItemLabel(test);
-    String result = command.getItemLabel();
+        if (!test.equals(result)) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
+                    + " the value as set by UISelectItem.setValue()."
+            );
+            out.println("Expected: " + test);
+            out.println("Received: " + result);
+            return;
+        }
 
-    if (!test.equals(result)) {
-      out.println(
-          JSFTestUtil.FAIL + " UISelectItem.getItemLabel() didn't return"
-              + " the value as set by UISelectItem.setItemLabel().");
-      out.println("Expected: " + test);
-      out.println("Received: " + result);
-      return;
-    }
+        out.println(JSFTestUtil.PASS);
 
-    out.println(JSFTestUtil.PASS);
+    } // End uiSelectItemGetSetValueTest
 
-  } // uiSelectItemGetSetItemLabelTest
+    public void uiSelectItemGetSetItemDescriptionTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItem command = (UISelectItem) createComponent();
+        String test = "Description";
+        command.setItemDescription(test);
+        String result = command.getItemDescription();
 
-  public void uiSelectItemIsSetItemDisabledTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItem command = (UISelectItem) createComponent();
-    boolean value = true;
-    command.setItemDisabled(value);
-    boolean result = command.isItemDisabled();
+        if (!test.equals(result)) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.getItemDescription() didn't return"
+                    + " the value as set by UISelectItem.setItemDescription()."
+            );
+            out.println("Expected: " + test);
+            out.println("Received: " + result);
+            return;
+        }
 
-    if (!result) {
-      out.println(
-          JSFTestUtil.FAIL + " UISelectItem.isItemDisabled() didn't return"
-              + " the value as set by UISelectItem.setItemDisabled().");
-      out.println("Expected: " + value);
-      out.println("Received: " + result);
-      return;
-    }
+        out.println(JSFTestUtil.PASS);
 
-    out.println(JSFTestUtil.PASS);
+    } // uiSelectItemGetSetItemDescriptionTest
 
-  } // uiSelectItemIsSetItemDisabledTest
+    public void uiSelectItemGetSetItemLabelTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItem command = (UISelectItem) createComponent();
+        String test = "Label";
+        command.setItemLabel(test);
+        String result = command.getItemLabel();
 
-  public void uiSelectItemIsSetItemEscapedTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItem command = (UISelectItem) createComponent();
-    boolean value = true;
-    command.setItemEscaped(value);
-    boolean result = command.isItemEscaped();
+        if (!test.equals(result)) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.getItemLabel() didn't return"
+                    + " the value as set by UISelectItem.setItemLabel()."
+            );
+            out.println("Expected: " + test);
+            out.println("Received: " + result);
+            return;
+        }
 
-    if (!result) {
-      out.println(
-          JSFTestUtil.FAIL + " UISelectItem.isItemEscaped() didn't return"
-              + " the value as set by UISelectItem.setItemEscaped().");
-      out.println("Expected: " + value);
-      out.println("Received: " + result);
-      return;
-    }
+        out.println(JSFTestUtil.PASS);
 
-    out.println(JSFTestUtil.PASS);
+    } // uiSelectItemGetSetItemLabelTest
 
-  } // uiSelectItemIsSetItemEscapedTest
+    public void uiSelectItemIsSetItemDisabledTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItem command = (UISelectItem) createComponent();
+        boolean value = true;
+        command.setItemDisabled(value);
+        boolean result = command.isItemDisabled();
 
-  public void uiSelectItemIsSetNoSelectionOptionTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItem command = (UISelectItem) createComponent();
-    boolean value = true;
-    command.setNoSelectionOption(value);
-    boolean result = command.isNoSelectionOption();
+        if (!result) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.isItemDisabled() didn't return"
+                    + " the value as set by UISelectItem.setItemDisabled()."
+            );
+            out.println("Expected: " + value);
+            out.println("Received: " + result);
+            return;
+        }
 
-    if (!result) {
-      out.println(JSFTestUtil.FAIL
-          + " UISelectItem.isNoSelectionOptionTest() didn't return"
-          + " the value as set by UISelectItem.setNoSelectionOptionTest().");
-      out.println("Expected: " + value);
-      out.println("Received: " + result);
-      return;
-    }
+        out.println(JSFTestUtil.PASS);
 
-    out.println(JSFTestUtil.PASS);
+    } // uiSelectItemIsSetItemDisabledTest
 
-  } // uiSelectItemIsSetNoSelectionOptionTest
+    public void uiSelectItemIsSetItemEscapedTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItem command = (UISelectItem) createComponent();
+        boolean value = true;
+        command.setItemEscaped(value);
+        boolean result = command.isItemEscaped();
 
-  public void uiSelectItemGetSetItemValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItem command = (UISelectItem) createComponent();
-    boolean test = true;
+        if (!result) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.isItemEscaped() didn't return"
+                    + " the value as set by UISelectItem.setItemEscaped()."
+            );
+            out.println("Expected: " + value);
+            out.println("Received: " + result);
+            return;
+        }
 
-    command.setItemValue(test);
-    boolean result = (Boolean) command.getItemValue();
+        out.println(JSFTestUtil.PASS);
 
-    if (!result) {
-      out.println(
-          JSFTestUtil.FAIL + " UISelectItem.getItemValue() didn't return"
-              + " the value as set by UISelectItem.setItemValue().");
-      out.println("Expected: " + test);
-      out.println("Received: " + result);
-      return;
-    }
+    } // uiSelectItemIsSetItemEscapedTest
 
-    out.println(JSFTestUtil.PASS);
+    public void uiSelectItemIsSetNoSelectionOptionTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItem command = (UISelectItem) createComponent();
+        boolean value = true;
+        command.setNoSelectionOption(value);
+        boolean result = command.isNoSelectionOption();
 
-  } // End uiSelectItemGetSetValueTest
+        if (!result) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " UISelectItem.isNoSelectionOptionTest() didn't return"
+                    + " the value as set by UISelectItem.setNoSelectionOptionTest()."
+            );
+            out.println("Expected: " + value);
+            out.println("Received: " + result);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
+
+    } // uiSelectItemIsSetNoSelectionOptionTest
+
+    public void uiSelectItemGetSetItemValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItem command = (UISelectItem) createComponent();
+        boolean test = true;
+
+        command.setItemValue(test);
+        boolean result = (Boolean) command.getItemValue();
+
+        if (!result) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.getItemValue() didn't return"
+                    + " the value as set by UISelectItem.setItemValue()."
+            );
+            out.println("Expected: " + test);
+            out.println("Received: " + result);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
+
+    } // End uiSelectItemGetSetValueTest
 
 }

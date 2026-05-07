@@ -34,7 +34,7 @@
         <param-name>jakarta.faces.SERIALIZE_SERVER_STATE</param-name>
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
-    
+
     <filter>
         <filter-name>BeforeFilter</filter-name>
         <filter-class>ee.jakarta.tck.faces.faces22.multi_tenant_tccl.BeforeFilter</filter-class>

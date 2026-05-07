@@ -24,10 +24,10 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Spec1394Bean {
-    
+
     @Inject
     private ResourceHandler resourceHandler;
-    
+
     public boolean isJsfLibraryExists() {
         return resourceHandler.libraryExists("jakarta.faces");
     }

@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2753IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2753
-   */
-  @Test
-  void updateAttributeNamedOn() throws Exception {
+     */
+    @Test
+    void updateAttributeNamedOn() throws Exception {
         WebPage page = getPage("issue2753.xhtml");
         WebElement button = page.findElement(By.id("form1:button"));
         page.guardAjax(button::click);

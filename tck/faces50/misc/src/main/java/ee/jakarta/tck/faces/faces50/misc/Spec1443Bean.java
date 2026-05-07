@@ -99,4 +99,5 @@ public class Spec1443Bean {
     public List<String> getObservedPhases() {
         return observedPhases;
     }
+
 }

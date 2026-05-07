@@ -32,67 +32,72 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public abstract class BaseActionExpressionTestServlet
-    extends BaseActionSourceTestServlet {
+    extends
+        BaseActionSourceTestServlet {
 
-  private ServletContext servletContext;
+    private ServletContext servletContext;
 
-  /**
-   * <p>
-   * Initialize this <code>Servlet</code> instance.
-   * </p>
-   *
-   * @param config
-   *          the configuration for this <code>Servlet</code>
-   *
-   * @throws jakarta.servlet.ServletException
-   *           indicates initialization failure
-   */
-  public void init(ServletConfig config) throws ServletException {
+    /**
+     * <p>
+     * Initialize this <code>Servlet</code> instance.
+     * </p>
+     *
+     * @param config the configuration for this <code>Servlet</code>
+     *
+     * @throws jakarta.servlet.ServletException indicates initialization failure
+     */
+    public void init(ServletConfig config) throws ServletException {
 
-    servletContext = config.getServletContext();
-    super.init(config);
+        servletContext = config.getServletContext();
+        super.init(config);
 
-  } // init
+    } // init
 
-  // ------------------------------------------------------------ Test Methods
+    // ------------------------------------------------------------ Test Methods
 
-  public void actionSourceGetSetActionExpressionTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+    public void actionSourceGetSetActionExpressionTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
 
-    PrintWriter out = response.getWriter();
-    request.setAttribute("bean", new SimpleBean());
-    ExpressionFactory factory = ELManager.getExpressionFactory();
-    MethodExpression expression = factory.createMethodExpression(
-        getFacesContext().getELContext(), "#{bean.action}",
-        java.lang.String.class, new Class[] {});
+        PrintWriter out = response.getWriter();
+        request.setAttribute("bean", new SimpleBean());
+        ExpressionFactory factory = ELManager.getExpressionFactory();
+        MethodExpression expression = factory.createMethodExpression(
+            getFacesContext().getELContext(), "#{bean.action}",
+            java.lang.String.class, new Class[] {}
+        );
 
-    ActionSource source = (ActionSource) createComponent();
+        ActionSource source = (ActionSource) createComponent();
 
-    source.setActionExpression(expression);
+        source.setActionExpression(expression);
 
-    if (source.getActionExpression() != expression) {
-      out.println(JSFTestUtil.FAIL + " Unexpected return value from"
-          + " getActionExpression() after having just called"
-          + " setActionExpression().");
-      out.println("Expected: " + expression);
-      out.println("Received: " + source.getActionExpression());
-      return;
-    }
+        if (source.getActionExpression() != expression) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected return value from"
+                    + " getActionExpression() after having just called"
+                    + " setActionExpression()."
+            );
+            out.println("Expected: " + expression);
+            out.println("Received: " + source.getActionExpression());
+            return;
+        }
 
-    out.println(JSFTestUtil.PASS);
+        out.println(JSFTestUtil.PASS);
 
-  } // END actionSourceGetSetMethodExpressionTest
+    } // END actionSourceGetSetMethodExpressionTest
 
-  // ----------------------------------------------------------- Inner Classes
+    // ----------------------------------------------------------- Inner Classes
 
-  private static class SimpleBean {
+    private static class SimpleBean {
 
-    public String getAction() {
+        public String getAction() {
 
-      return "action";
+            return "action";
 
-    } // END getAction
+        } // END getAction
 
-  } // END SimpleBean
+    } // END SimpleBean
+
 }

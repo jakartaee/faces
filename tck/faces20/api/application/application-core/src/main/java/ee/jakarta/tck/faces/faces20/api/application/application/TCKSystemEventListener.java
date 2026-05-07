@@ -21,13 +21,14 @@ import jakarta.faces.event.SystemEventListener;
 
 public class TCKSystemEventListener implements SystemEventListener {
 
-  @Override
-  public void processEvent(SystemEvent event) throws AbortProcessingException {
-    // no-op: test only verifies subscribeToEvent accepts the listener.
-  }
+    @Override
+    public void processEvent(SystemEvent event) throws AbortProcessingException {
+        // no-op: test only verifies subscribeToEvent accepts the listener.
+    }
 
-  @Override
-  public boolean isListenerForSource(Object source) {
-    return false;
-  }
+    @Override
+    public boolean isListenerForSource(Object source) {
+        return false;
+    }
+
 }

@@ -33,109 +33,135 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/BeanValidatorTestServlet")
 public class BeanValidatorTestServlet extends BaseValidatorTestServlet {
 
-  /**
-   * <code>init</code> initializes the servlet.
-   *
-   * @param config
-   *          - <code>ServletConfig</code>
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  @Override
-  protected Validator createValidator() {
-    return new BeanValidator();
-  }
-
-  public void beanValidatorCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      new BeanValidator();
-      pw.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      pw.println("The no-arg constructor for BeanValidator "
-          + "threw an unexpected exception ");
-      e.printStackTrace();
-    }
-  }
-
-  public void beanvalidatorClearInitialStateTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    BeanValidator bv = new BeanValidator();
-    bv.markInitialState();
-
-    if (bv.initialStateMarked()) {
-      bv.clearInitialState();
+    /**
+     * <code>init</code> initializes the servlet.
+     *
+     * @param config - <code>ServletConfig</code>
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-    if (!bv.initialStateMarked()) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println(JSFTestUtil.FAIL + " BeanValidator.clearInitialState didn't "
-          + "Reset the PartialStateHolder to a non-delta tracking " + "state.");
-    }
-  }
-
-  public void beanvalidatorgetsetValidationGroupsTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-
-    BeanValidator bv = new BeanValidator();
-    String vgs = "group1, group2, group3";
-    bv.setValidationGroups(vgs);
-
-    if (bv.getValidationGroups().equals(vgs)) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println("Test FAILED. BeanValidator.set/getValidationGroups() "
-          + "didn't set or get the correct information." + JSFTestUtil.NL
-          + "Expected: " + vgs + JSFTestUtil.NL + "Received: "
-          + bv.getValidationGroups());
-    }
-  }
-
-  // StateHolder.saveState(), StateHolder.restoreState()
-  public void stateHolderSaveRestoreStateTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    // Begin test setup
-    BeanValidator preSave = new BeanValidator();
-    preSave.setValidationGroups("abc, efg, xyx");
-
-    // Save and restore state and compare the results
-    Object state = preSave.saveState(getFacesContext());
-
-    if (state == null) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "saveState() failed to returned null");
-      return;
+    @Override
+    protected Validator createValidator() {
+        return new BeanValidator();
     }
 
-    if (!(state instanceof Serializable)) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "The Object returned by saveState() was "
-          + "not an instance of java.io.Serializable.");
-      return;
+    public void beanValidatorCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            new BeanValidator();
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            pw.println(
+                "The no-arg constructor for BeanValidator "
+                    + "threw an unexpected exception "
+            );
+            e.printStackTrace();
+        }
     }
 
-    BeanValidator postSave = new BeanValidator();
-    postSave.restoreState(getFacesContext(), state);
+    public void beanvalidatorClearInitialStateTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        BeanValidator bv = new BeanValidator();
+        bv.markInitialState();
 
-    if (postSave.getValidationGroups().equals(preSave.getValidationGroups())) {
-      out.println(JSFTestUtil.PASS);
+        if (bv.initialStateMarked()) {
+            bv.clearInitialState();
+        }
 
-    } else {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "getValidationGroups did not match after restore was " + "called!");
+        if (!bv.initialStateMarked()) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " BeanValidator.clearInitialState didn't "
+                    + "Reset the PartialStateHolder to a non-delta tracking " + "state."
+            );
+        }
     }
 
-  }
+    public void beanvalidatorgetsetValidationGroupsTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        BeanValidator bv = new BeanValidator();
+        String vgs = "group1, group2, group3";
+        bv.setValidationGroups(vgs);
+
+        if (bv.getValidationGroups().equals(vgs)) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                "Test FAILED. BeanValidator.set/getValidationGroups() "
+                    + "didn't set or get the correct information." + JSFTestUtil.NL
+                    + "Expected: " + vgs + JSFTestUtil.NL + "Received: "
+                    + bv.getValidationGroups()
+            );
+        }
+    }
+
+    // StateHolder.saveState(), StateHolder.restoreState()
+    public void stateHolderSaveRestoreStateTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        // Begin test setup
+        BeanValidator preSave = new BeanValidator();
+        preSave.setValidationGroups("abc, efg, xyx");
+
+        // Save and restore state and compare the results
+        Object state = preSave.saveState(getFacesContext());
+
+        if (state == null) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "saveState() failed to returned null"
+            );
+            return;
+        }
+
+        if (!(state instanceof Serializable)) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "The Object returned by saveState() was "
+                    + "not an instance of java.io.Serializable."
+            );
+            return;
+        }
+
+        BeanValidator postSave = new BeanValidator();
+        postSave.restoreState(getFacesContext(), state);
+
+        if (postSave.getValidationGroups().equals(preSave.getValidationGroups())) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "getValidationGroups did not match after restore was " + "called!"
+            );
+        }
+
+    }
 
 }

@@ -50,10 +50,10 @@ public class BeforeFilter implements Filter {
     public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
         ServletContext servletContext = this.filterConfig.getServletContext();
-        
+
         LifecycleFactory lifecycle = (LifecycleFactory) FactoryFinder.getFactory(LIFECYCLE_FACTORY);
         servletContext.setAttribute(INIT_HAS_LIFECYCLE_KEY, lifecycle != null ? "TRUE" : "FALSE");
-        
+
         FacesContext initFacesContext = FacesContext.getCurrentInstance();
         servletContext.setAttribute(INIT_HAS_INITFACESCONTEXT_KEY, initFacesContext != null ? "TRUE" : "FALSE");
     }
@@ -66,10 +66,10 @@ public class BeforeFilter implements Filter {
         thread.setContextClassLoader(ourCustomClassLoader);
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        
+
         LifecycleFactory lifecycle = (LifecycleFactory) FactoryFinder.getFactory(LIFECYCLE_FACTORY);
         httpServletRequest.setAttribute(REQUEST_HAS_LIFECYCLE, lifecycle != null ? "TRUE" : "FALSE");
-        
+
         FacesContext facesContext = FacesContext.getCurrentInstance();
         httpServletRequest.setAttribute(REQUEST_HAS_FACESCONTEXT, facesContext != null ? "TRUE" : "FALSE");
 
@@ -78,24 +78,29 @@ public class BeforeFilter implements Filter {
         if (cdiIsTCCLReplacementResilient) {
             try {
                 chain.doFilter(request, response);
-            } catch (Exception t) {
+            }
+            catch (Exception t) {
                 throw new ServletException(t);
-            } finally {
+            }
+            finally {
                 thread.setContextClassLoader(originalContextClassLoader);
             }
-        } else {
+        }
+        else {
             FacesContextFactory facesContextFactory = (FacesContextFactory) FactoryFinder.getFactory(FACES_CONTEXT_FACTORY);
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             PrintWriter printWriter = httpServletResponse.getWriter();
             try {
                 if (facesContextFactory != null) {
                     printWriter.print("<html><body><p id=\"result\">SUCCESS</p></body></html>");
-                } else {
+                }
+                else {
                     printWriter.print("<html><body><p id=\"result\">FAILURE</p></body></html>");
                 }
                 httpServletResponse.setStatus(200);
                 printWriter.close();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
             }
         }
 

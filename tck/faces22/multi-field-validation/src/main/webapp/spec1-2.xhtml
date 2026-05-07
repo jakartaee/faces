@@ -26,34 +26,34 @@
 </h:head>
 <h:body>
         <h1>Multi-field validation</h1>
-        
+
         <p>The validateWholeBean tag is not after all of the fields being validated
         in the class-level validation, causing the values to not be populated.</p>
-        
+
     <h:form prependId="false">
         <h:panelGrid columns="3">
-            
-            <h:outputText value="Password" />  
+
+            <h:outputText value="Password" />
             <h:inputText id="password1" value='#{spec1Bean1.password1}'>
                 <f:validateBean validationGroups="ee.jakarta.tck.faces.faces22.multi_field_validation.failingDevTimePreconditions.PasswordValidationGroup" />
             </h:inputText>
-            
-            <f:validateWholeBean value='#{spec1Bean1}' 
+
+            <f:validateWholeBean value='#{spec1Bean1}'
                validationGroups="ee.jakarta.tck.faces.faces22.multi_field_validation.failingDevTimePreconditions.PasswordValidationGroup" />
-        
-            <h:outputText value="Password again" /> 
+
+            <h:outputText value="Password again" />
             <h:inputText id="password2" value='#{spec1Bean1.password2}'>
                 <f:validateBean validationGroups="ee.jakarta.tck.faces.faces22.multi_field_validation.failingDevTimePreconditions.PasswordValidationGroup" />
             </h:inputText>
-            
+
         </h:panelGrid>
-        
+
         <p><h:messages /></p>
-        
+
         <p id="password1Value">#{spec1Bean1.password1}</p>
 
         <p id="password2Value">#{spec1Bean1.password2}</p>
-        
+
         <h:commandButton value="submit" id="submit"/>
     </h:form>
 </h:body>

@@ -1,3 +1,18 @@
+/*
+ * Copyright (c) 2026 Contributors to Eclipse Foundation.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0, which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the
+ * Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+ * version 2 with the GNU Classpath Exception, which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ */
 package ee.jakarta.tck.faces.faces40.api;
 
 import static jakarta.faces.application.StateManager.IS_BUILDING_INITIAL_STATE;
@@ -34,20 +49,16 @@ public class JavaPage extends Facelet {
         output.setValue("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
         rootChildren.add(output);
 
-
         HtmlBody body = components.create(HtmlBody.COMPONENT_TYPE);
         rootChildren.add(body);
-
 
         HtmlForm form = components.create(HtmlForm.COMPONENT_TYPE);
         form.setId("form");
         body.getChildren().add(form);
 
-
         HtmlOutputText message = components.create(HtmlOutputText.COMPONENT_TYPE);
         message.setId("message");
         form.getChildren().add(message);
-
 
         HtmlCommandButton actionButton = components.create(HtmlCommandButton.COMPONENT_TYPE);
         actionButton.setId("button");
@@ -55,23 +66,24 @@ public class JavaPage extends Facelet {
         actionButton.setValue("Do action");
         form.getChildren().add(actionButton);
 
-
         output = new UIOutput();
         output.setValue("</html>");
         rootChildren.add(output);
     }
 
     private static class ComponentBuilder {
+
         FacesContext facesContext;
 
         ComponentBuilder(FacesContext facesContext) {
             this.facesContext = facesContext;
         }
 
-       @SuppressWarnings("unchecked")
-       <T> T create(String componentType) {
-           return (T) facesContext.getApplication().createComponent(facesContext, componentType, null);
-       }
+        @SuppressWarnings("unchecked")
+        <T> T create(String componentType) {
+            return (T) facesContext.getApplication().createComponent(facesContext, componentType, null);
+        }
+
     }
 
 }

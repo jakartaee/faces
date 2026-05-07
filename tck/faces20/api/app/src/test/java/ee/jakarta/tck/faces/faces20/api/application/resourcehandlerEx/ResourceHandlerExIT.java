@@ -28,9 +28,29 @@ class ResourceHandlerExIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void resourceHandlerExcludeClassTest() { runServletTest("resourceHandlerExcludeClassTest"); }
-    @Test void resourceHandlerExcludeJSPTest() { runServletTest("resourceHandlerExcludeJSPTest"); }
-    @Test void resourceHandlerExcludeJSPXTest() { runServletTest("resourceHandlerExcludeJSPXTest"); }
-    @Test void resourceHandlerExcludePropertiesTest() { runServletTest("resourceHandlerExcludePropertiesTest"); }
-    @Test void resourceHandlerExcludeXHTMLTest() { runServletTest("resourceHandlerExcludeXHTMLTest"); }
+    @Test
+    void resourceHandlerExcludeClassTest() {
+        runServletTest("resourceHandlerExcludeClassTest");
+    }
+
+    @Test
+    void resourceHandlerExcludeJSPTest() {
+        runServletTest("resourceHandlerExcludeJSPTest");
+    }
+
+    @Test
+    void resourceHandlerExcludeJSPXTest() {
+        runServletTest("resourceHandlerExcludeJSPXTest");
+    }
+
+    @Test
+    void resourceHandlerExcludePropertiesTest() {
+        runServletTest("resourceHandlerExcludePropertiesTest");
+    }
+
+    @Test
+    void resourceHandlerExcludeXHTMLTest() {
+        runServletTest("resourceHandlerExcludeXHTMLTest");
+    }
+
 }

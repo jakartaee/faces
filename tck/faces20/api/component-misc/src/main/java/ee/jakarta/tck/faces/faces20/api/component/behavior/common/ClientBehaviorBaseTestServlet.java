@@ -45,23 +45,32 @@ public abstract class ClientBehaviorBaseTestServlet extends HttpTCKServlet {
     protected abstract ClientBehaviorBase createBehavior();
 
     public void clientBehaviorDecodeNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "decode",
-                new Class<?>[] { FacesContext.class, UIComponent.class },
-                new Object[] { null, new UIInput() }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "decode",
+            new Class<?>[] { FacesContext.class, UIComponent.class },
+            new Object[] { null, new UIInput() }, out
+        );
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "decode",
-                new Class<?>[] { FacesContext.class, UIComponent.class },
-                new Object[] { getFacesContext(), null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "decode",
+            new Class<?>[] { FacesContext.class, UIComponent.class },
+            new Object[] { getFacesContext(), null }, out
+        );
     }
 
     public void clientBehaviorGetScriptNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "getScript",
-                new Class<?>[] { ClientBehaviorContext.class }, new Object[] { null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "getScript",
+            new Class<?>[] { ClientBehaviorContext.class }, new Object[] { null }, out
+        );
     }
+
 }

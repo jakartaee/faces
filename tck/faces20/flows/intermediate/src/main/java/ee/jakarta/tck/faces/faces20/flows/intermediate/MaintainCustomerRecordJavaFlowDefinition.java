@@ -38,18 +38,24 @@ public class MaintainCustomerRecordJavaFlowDefinition implements Serializable {
         flowBuilder.viewNode(flowId, "/" + flowId + "/" + flowId + ".xhtml");
 
         flowBuilder.switchNode("router1").markAsStartNode()
-                .defaultOutcome("view-customer").switchCase()
-                .condition("#{flowScope.customerId == null}")
-                .fromOutcome("create-customer");
-        flowBuilder.viewNode("create-customer",
-                "/" + flowId + "/" + "create-customer.xhtml");
-        flowBuilder.viewNode("view-customer",
-                "/" + flowId + "/" + "view-customer.xhtml");
-        flowBuilder.viewNode("maintain-customer-record",
-                "/" + flowId + "/" + "maintain-customer-record");
+            .defaultOutcome("view-customer").switchCase()
+            .condition("#{flowScope.customerId == null}")
+            .fromOutcome("create-customer");
+        flowBuilder.viewNode(
+            "create-customer",
+            "/" + flowId + "/" + "create-customer.xhtml"
+        );
+        flowBuilder.viewNode(
+            "view-customer",
+            "/" + flowId + "/" + "view-customer.xhtml"
+        );
+        flowBuilder.viewNode(
+            "maintain-customer-record",
+            "/" + flowId + "/" + "maintain-customer-record"
+        );
         flowBuilder.methodCallNode("upgrade-customer")
-                .expression("#{maintainCustomerBeanJava.upgradeCustomer}")
-                .defaultOutcome("view-customer");
+            .expression("#{maintainCustomerBeanJava.upgradeCustomer}")
+            .defaultOutcome("view-customer");
         flowBuilder.initializer("#{maintainCustomerBeanJava.initializeFlow}");
         flowBuilder.finalizer("#{maintainCustomerBeanJava.cleanUpFlow}");
         flowBuilder.returnNode("success").fromOutcome("/complete");
@@ -57,4 +63,5 @@ public class MaintainCustomerRecordJavaFlowDefinition implements Serializable {
 
         return flowBuilder.getFlow();
     }
+
 }

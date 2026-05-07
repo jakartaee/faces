@@ -39,84 +39,105 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/MethodExpressionValidatorTestServlet")
 public class MethodExpressionValidatorTestServlet extends BaseValidatorTestServlet {
 
-  /**
-   * <code>init</code> initializes the servlet.
-   *
-   * @param config
-   *          - <code>ServletConfig</code>
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  @Override
-  protected Validator createValidator() {
-    return new MethodExpressionValidator();
-  }
-
-  public void methodExpressionValidatorCtor1Test(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-
-    try {
-      new MethodExpressionValidator();
-      pw.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      pw.println("The no-arg constructor for MethodExpressionValidator "
-          + "threw an unexpected exception");
-      e.printStackTrace();
-    }
-  }
-
-  public void methodExpressionValidatorCtor2Test(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-
-    PrintWriter pw = response.getWriter();
-    FacesContext facesContext = getFacesContext();
-    Application app = facesContext.getApplication();
-    ExpressionFactory ef = app.getExpressionFactory();
-
-    MethodExpression me = ef.createMethodExpression(facesContext.getELContext(),
-        "test.nothing", null, new Class[] {});
-
-    try {
-      new MethodExpressionValidator(me);
-      pw.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      pw.println("MethodExpressionValidator(MethodExpression) " + "constructor"
-          + "threw an unexpected exception ");
-      e.printStackTrace();
-    }
-  }
-
-  public void methodExpressionValidateNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    FacesContext facesContext = getFacesContext();
-
-    if (facesContext == null) {
-      pw.println(JSFTestUtil.FAIL + " Unable to obtain FacesContext instance.");
-      return;
+    /**
+     * <code>init</code> initializes the servlet.
+     *
+     * @param config - <code>ServletConfig</code>
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-    UIInput input = (UIInput) getApplication()
-        .createComponent(UIInput.COMPONENT_TYPE);
-    input.setId("input1");
+    @Override
+    protected Validator createValidator() {
+        return new MethodExpressionValidator();
+    }
 
-    input.setValue(new ServletException());
-    MethodExpressionValidator mev = new MethodExpressionValidator();
+    public void methodExpressionValidatorCtor1Test(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
 
-    // Test for null FacesContext throws NPE
-    JSFTestUtil.checkForNPE(mev, "validate",
-        new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
-        new Object[] { null, input, input.getValue() }, pw);
+        try {
+            new MethodExpressionValidator();
+            pw.println(JSFTestUtil.PASS);
 
-    // Test for null UIComponent throws NPE
-    JSFTestUtil.checkForNPE(mev, "validate",
-        new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
-        new Object[] { facesContext, null, input.getValue() }, pw);
+        }
+        catch (Exception e) {
+            pw.println(
+                "The no-arg constructor for MethodExpressionValidator "
+                    + "threw an unexpected exception"
+            );
+            e.printStackTrace();
+        }
+    }
 
-  }
+    public void methodExpressionValidatorCtor2Test(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+
+        PrintWriter pw = response.getWriter();
+        FacesContext facesContext = getFacesContext();
+        Application app = facesContext.getApplication();
+        ExpressionFactory ef = app.getExpressionFactory();
+
+        MethodExpression me = ef.createMethodExpression(
+            facesContext.getELContext(),
+            "test.nothing", null, new Class[] {}
+        );
+
+        try {
+            new MethodExpressionValidator(me);
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            pw.println(
+                "MethodExpressionValidator(MethodExpression) " + "constructor"
+                    + "threw an unexpected exception "
+            );
+            e.printStackTrace();
+        }
+    }
+
+    public void methodExpressionValidateNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        FacesContext facesContext = getFacesContext();
+
+        if (facesContext == null) {
+            pw.println(JSFTestUtil.FAIL + " Unable to obtain FacesContext instance.");
+            return;
+        }
+
+        UIInput input = (UIInput) getApplication()
+            .createComponent(UIInput.COMPONENT_TYPE);
+        input.setId("input1");
+
+        input.setValue(new ServletException());
+        MethodExpressionValidator mev = new MethodExpressionValidator();
+
+        // Test for null FacesContext throws NPE
+        JSFTestUtil.checkForNPE(
+            mev, "validate",
+            new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
+            new Object[] { null, input, input.getValue() }, pw
+        );
+
+        // Test for null UIComponent throws NPE
+        JSFTestUtil.checkForNPE(
+            mev, "validate",
+            new Class<?>[] { FacesContext.class, UIComponent.class, Object.class },
+            new Object[] { facesContext, null, input.getValue() }, pw
+        );
+
+    }
+
 }

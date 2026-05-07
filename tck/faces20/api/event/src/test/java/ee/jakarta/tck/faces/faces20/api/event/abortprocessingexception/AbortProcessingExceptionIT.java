@@ -28,8 +28,24 @@ class AbortProcessingExceptionIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void abortProcessingExceptionCtor01Test() { runServletTest("abortProcessingExceptionCtor01Test"); }
-    @Test void abortProcessingExceptionCtor02Test() { runServletTest("abortProcessingExceptionCtor02Test"); }
-    @Test void abortProcessingExceptionCtor03Test() { runServletTest("abortProcessingExceptionCtor03Test"); }
-    @Test void abortProcessingExceptionNoArgCtorTest() { runServletTest("abortProcessingExceptionNoArgCtorTest"); }
+    @Test
+    void abortProcessingExceptionCtor01Test() {
+        runServletTest("abortProcessingExceptionCtor01Test");
+    }
+
+    @Test
+    void abortProcessingExceptionCtor02Test() {
+        runServletTest("abortProcessingExceptionCtor02Test");
+    }
+
+    @Test
+    void abortProcessingExceptionCtor03Test() {
+        runServletTest("abortProcessingExceptionCtor03Test");
+    }
+
+    @Test
+    void abortProcessingExceptionNoArgCtorTest() {
+        runServletTest("abortProcessingExceptionNoArgCtorTest");
+    }
+
 }

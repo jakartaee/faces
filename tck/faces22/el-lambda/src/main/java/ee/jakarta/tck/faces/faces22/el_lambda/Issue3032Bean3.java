@@ -27,11 +27,11 @@ import jakarta.inject.Named;
 @Named
 @SessionScoped
 public class Issue3032Bean3 implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private List<Issue3032Bean2> issue3032Bean2s;
-    
+
     @PostConstruct
     private void create() {
         issue3032Bean2s = new CopyOnWriteArrayList<Issue3032Bean2>();

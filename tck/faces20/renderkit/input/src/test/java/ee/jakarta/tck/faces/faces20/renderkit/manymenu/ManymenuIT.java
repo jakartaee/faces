@@ -44,7 +44,7 @@ class ManymenuIT extends BaseITNG {
 
     private static final String[][] INITIAL_SELECTIONS = {
         new String[0], new String[0], new String[0], new String[0], new String[0],
-        {"Bilbo", "Pippin", "Merry"}, {"Frodo"}, {"Pippin", "Frodo"}, {"Bilbo", "Merry"},
+        { "Bilbo", "Pippin", "Merry" }, { "Frodo" }, { "Pippin", "Frodo" }, { "Bilbo", "Merry" },
         new String[0], new String[0], new String[0]
     };
 
@@ -166,7 +166,7 @@ class ManymenuIT extends BaseITNG {
 
         for (String id : SELECT_IDS) {
             WebElement select = findByIdSuffix(page, id);
-            assertSelectionMatches(select, new String[] {"Bilbo"}, id + " post-back");
+            assertSelectionMatches(select, new String[] { "Bilbo" }, id + " post-back");
         }
     }
 
@@ -179,8 +179,10 @@ class ManymenuIT extends BaseITNG {
         List<String> expectedList = Arrays.asList(expected);
         for (WebElement option : options) {
             boolean shouldBeSelected = expectedList.contains(option.getText().trim());
-            assertEquals(shouldBeSelected, option.isSelected(),
-                context + ": option '" + option.getText().trim() + "' selected state");
+            assertEquals(
+                shouldBeSelected, option.isSelected(),
+                context + ": option '" + option.getText().trim() + "' selected state"
+            );
         }
     }
 
@@ -210,14 +212,17 @@ class ManymenuIT extends BaseITNG {
 
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement menu = findByIdSuffix(page, "menu1");
-        expected.forEach((name, value) ->
-            assertEquals(value, menu.getDomAttribute(name), "attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, menu.getDomAttribute(name), "attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

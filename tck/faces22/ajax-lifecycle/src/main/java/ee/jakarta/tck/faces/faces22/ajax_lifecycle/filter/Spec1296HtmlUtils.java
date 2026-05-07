@@ -34,8 +34,12 @@ import java.util.Set;
  */
 public class Spec1296HtmlUtils {
 
-    private final static Set<String> UTF_CHARSET = new HashSet<>(Arrays.asList("UTF-8", "UTF-16", "UTF-16BE", "UTF-16LE", "UTF-32", "UTF-32BE", "UTF-32LE",
-            "x-UTF-16LE-BOM", "X-UTF-32BE-BOM", "X-UTF-32LE-BOM", ""));
+    private final static Set<String> UTF_CHARSET = new HashSet<>(
+        Arrays.asList(
+            "UTF-8", "UTF-16", "UTF-16BE", "UTF-16LE", "UTF-32", "UTF-32BE", "UTF-32LE",
+            "x-UTF-16LE-BOM", "X-UTF-32BE-BOM", "X-UTF-32LE-BOM", ""
+        )
+    );
 
     // -------------------------------------------------
     // The following methods include the handling of
@@ -49,7 +53,9 @@ public class Spec1296HtmlUtils {
     /**
      * Write char array text.
      */
-    static public void writeText(Writer out, boolean escapeUnicode, boolean escapeIsocode, char[] buff, char[] text, int start, int length, boolean forXml) throws IOException {
+    static public void writeText(Writer out, boolean escapeUnicode, boolean escapeIsocode, char[] buff, char[] text, int start, int length, boolean forXml)
+        throws IOException
+    {
         int buffLength = buff.length;
         int buffIndex = 0;
 
@@ -64,14 +70,17 @@ public class Spec1296HtmlUtils {
     /**
      * Write String text.
      */
-    static public void writeText(Writer out, boolean escapeUnicode, boolean escapeIsocode, char[] buff, String text, char[] textBuff, boolean forXml) throws IOException {
+    static public void writeText(Writer out, boolean escapeUnicode, boolean escapeIsocode, char[] buff, String text, char[] textBuff, boolean forXml)
+        throws IOException
+    {
 
         int length = text.length();
 
         if (length >= 16) {
             text.getChars(0, length, textBuff, 0);
             writeText(out, escapeUnicode, escapeIsocode, buff, textBuff, 0, length, forXml);
-        } else {
+        }
+        else {
             int buffLength = buff.length;
             int buffIndex = 0;
             for (int i = 0; i < length; i++) {
@@ -83,8 +92,11 @@ public class Spec1296HtmlUtils {
 
     }
 
-    private static int writeTextChar(Writer out, boolean escapeUnicode, boolean escapeIsocode, char ch, int buffIndex, char[] buff, int buffLength, boolean forXml)
-            throws IOException {
+    private static int writeTextChar(
+        Writer out, boolean escapeUnicode, boolean escapeIsocode, char ch, int buffIndex, char[] buff, int buffLength, boolean forXml
+    )
+        throws IOException
+    {
         int nextIndex;
         if (ch <= 0x1f) {
             if (!isPrintableControlChar(ch, forXml)) {
@@ -96,38 +108,49 @@ public class Spec1296HtmlUtils {
             // most of the Latin alphabet)
             if (ch >= 0x3f) {
                 nextIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
-            } else if (ch >= 0x27) { // If above "'"...
+            }
+            else if (ch >= 0x27) { // If above "'"...
                 // If between "'" and ";", no escaping is needed
                 if (ch < 0x3c) {
                     nextIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
-                } else if (ch == '<') {
-                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, LT_CHARS);
-                } else if (ch == '>') {
-                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, GT_CHARS);
-                } else {
-                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                 }
-            } else {
-                if (ch == '&') {
-                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, AMP_CHARS);
-                } else if (ch == '"') {
-                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, "\"".toCharArray());
-                } else {
+                else if (ch == '<') {
+                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, LT_CHARS);
+                }
+                else if (ch == '>') {
+                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, GT_CHARS);
+                }
+                else {
                     nextIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                 }
             }
-        } else if (ch <= 0xff) {
+            else {
+                if (ch == '&') {
+                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, AMP_CHARS);
+                }
+                else if (ch == '"') {
+                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, "\"".toCharArray());
+                }
+                else {
+                    nextIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
+                }
+            }
+        }
+        else if (ch <= 0xff) {
             if (escapeIsocode) {
                 // ISO-8859-1 entities: encode as needed
                 nextIndex = addToBuffer(out, buff, buffIndex, buffLength, sISO8859_1_Entities[ch - 0xA0]);
-            } else {
+            }
+            else {
                 nextIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
             }
-        } else {
+        }
+        else {
             if (escapeUnicode) {
                 // UNICODE entities: encode as needed
                 nextIndex = _writeDecRef(out, buff, buffIndex, buffLength, ch);
-            } else {
+            }
+            else {
                 nextIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
             }
         }
@@ -135,11 +158,13 @@ public class Spec1296HtmlUtils {
     }
 
     /**
-     * Write a string attribute. Note that this code is duplicated below for character arrays - change both places if you
-     * make any changes!!!
+     * Write a string attribute. Note that this code is duplicated below for character arrays - change both places if you make any changes!!!
      */
-    static public void writeAttribute(Writer out, boolean escapeUnicode, boolean escapeIsocode, char[] buff, String text, char[] textBuff,
-            boolean isScriptInAttributeValueEnabled, boolean forXml) throws IOException {
+    static public void writeAttribute(
+        Writer out, boolean escapeUnicode, boolean escapeIsocode, char[] buff, String text, char[] textBuff,
+        boolean isScriptInAttributeValueEnabled, boolean forXml
+    ) throws IOException
+    {
 
         int length = text.length();
         if (length >= 16) {
@@ -149,7 +174,8 @@ public class Spec1296HtmlUtils {
             }
             text.getChars(0, length, textBuff, 0);
             writeAttribute(out, escapeUnicode, escapeIsocode, buff, textBuff, 0, length, isScriptInAttributeValueEnabled, forXml);
-        } else {
+        }
+        else {
             int buffLength = buff.length;
             int buffIndex = 0;
             for (int i = 0; i < length; i++) {
@@ -172,51 +198,65 @@ public class Spec1296HtmlUtils {
                             // ensure the attribute value is long enough
                             // to accomodate "script:"
                             if (!isScriptInAttributeValueEnabled && i + 6 < text.length()) {
-                                if ('c' == text.charAt(i + 1) && 'r' == text.charAt(i + 2) && 'i' == text.charAt(i + 3) && 'p' == text.charAt(i + 4)
-                                        && 't' == text.charAt(i + 5) && ':' == text.charAt(i + 6)) {
+                                if (
+                                    'c' == text.charAt(i + 1) && 'r' == text.charAt(i + 2) && 'i' == text.charAt(i + 3) && 'p' == text.charAt(i + 4)
+                                        && 't' == text.charAt(i + 5) && ':' == text.charAt(i + 6)
+                                ) {
                                     return;
                                 }
                             }
                         }
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
-                    } else if (ch >= 0x27) { // If above "'"...
+                    }
+                    else if (ch >= 0x27) { // If above "'"...
                         // If between "'" and ";", no escaping is needed
                         if (ch < 0x3c) {
                             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
-                        } else if (ch == '<') {
+                        }
+                        else if (ch == '<') {
                             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, LT_CHARS);
-                        } else if (ch == '>') {
+                        }
+                        else if (ch == '>') {
                             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, GT_CHARS);
-                        } else {
+                        }
+                        else {
                             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                         }
-                    } else {
+                    }
+                    else {
                         if (ch == '&') {
                             // HTML 4.0, section B.7.1: ampersands followed by
                             // an open brace don't get escaped
                             if (i + 1 < length && text.charAt(i + 1) == '{') {
                                 buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
-                            } else {
+                            }
+                            else {
                                 buffIndex = addToBuffer(out, buff, buffIndex, buffLength, AMP_CHARS);
                             }
-                        } else if (ch == '"') {
+                        }
+                        else if (ch == '"') {
                             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, QUOT_CHARS);
-                        } else {
+                        }
+                        else {
                             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                         }
                     }
-                } else if (ch <= 0xff) {
+                }
+                else if (ch <= 0xff) {
                     if (escapeIsocode) {
                         // ISO-8859-1 entities: encode as needed
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, sISO8859_1_Entities[ch - 0xA0]);
-                    } else {
+                    }
+                    else {
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                     }
-                } else {
+                }
+                else {
                     if (escapeUnicode) {
                         // UNICODE entities: encode as needed
                         buffIndex = _writeDecRef(out, buff, buffIndex, buffLength, ch);
-                    } else {
+                    }
+                    else {
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                     }
                 }
@@ -227,11 +267,13 @@ public class Spec1296HtmlUtils {
     }
 
     /**
-     * Write a character array attribute. Note that this code is duplicated above for string - change both places if you
-     * make any changes!!!
+     * Write a character array attribute. Note that this code is duplicated above for string - change both places if you make any changes!!!
      */
-    static public void writeAttribute(Writer out, boolean escapeUnicode, boolean escapeIsocode, char[] buff, char[] text, int start, int length,
-            boolean isScriptInAttributeValueEnabled, boolean forXml) throws IOException {
+    static public void writeAttribute(
+        Writer out, boolean escapeUnicode, boolean escapeIsocode, char[] buff, char[] text, int start, int length,
+        boolean isScriptInAttributeValueEnabled, boolean forXml
+    ) throws IOException
+    {
         int buffLength = buff.length;
         int buffIndex = 0;
 
@@ -256,52 +298,66 @@ public class Spec1296HtmlUtils {
                         // ensure the attribute value is long enough
                         // to accomodate "script:"
                         if (!isScriptInAttributeValueEnabled && i + 6 < text.length) {
-                            if ('c' == text[i + 1] && 'r' == text[i + 2] && 'i' == text[i + 3] && 'p' == text[i + 4] && 't' == text[i + 5]
-                                    && ':' == text[i + 6]) {
+                            if (
+                                'c' == text[i + 1] && 'r' == text[i + 2] && 'i' == text[i + 3] && 'p' == text[i + 4] && 't' == text[i + 5]
+                                    && ':' == text[i + 6]
+                            ) {
                                 return;
                             }
                         }
                     }
 
                     buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
-                } else if (ch >= 0x27) { // If above "'"...
+                }
+                else if (ch >= 0x27) { // If above "'"...
                     if (ch < 0x3c) {
                         // If between "'" and ";", no escaping is needed
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
-                    } else if (ch == '<') {
+                    }
+                    else if (ch == '<') {
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, LT_CHARS);
-                    } else if (ch == '>') {
+                    }
+                    else if (ch == '>') {
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, GT_CHARS);
-                    } else {
+                    }
+                    else {
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                     }
-                } else {
+                }
+                else {
                     if (ch == '&') {
                         // HTML 4.0, section B.7.1: ampersands followed by
                         // an open brace don't get escaped
                         if (i + 1 < end && text[i + 1] == '{') {
                             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
-                        } else {
+                        }
+                        else {
                             buffIndex = addToBuffer(out, buff, buffIndex, buffLength, AMP_CHARS);
                         }
-                    } else if (ch == '"') {
+                    }
+                    else if (ch == '"') {
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, QUOT_CHARS);
-                    } else {
+                    }
+                    else {
                         buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                     }
                 }
-            } else if (ch <= 0xff) {
+            }
+            else if (ch <= 0xff) {
                 if (escapeIsocode) {
                     // ISO-8859-1 entities: encode as needed
                     buffIndex = addToBuffer(out, buff, buffIndex, buffLength, sISO8859_1_Entities[ch - 0xA0]);
-                } else {
+                }
+                else {
                     buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                 }
-            } else {
+            }
+            else {
                 if (escapeUnicode) {
                     // UNICODE entities: encode as needed
                     buffIndex = _writeDecRef(out, buff, buffIndex, buffLength, ch);
-                } else {
+                }
+                else {
                     buffIndex = addToBuffer(out, buff, buffIndex, buffLength, ch);
                 }
             }
@@ -317,8 +373,7 @@ public class Spec1296HtmlUtils {
     }
 
     /**
-     * Writes a character as a decimal escape. Hex escapes are smaller than the decimal version, but Netscape didn't support
-     * hex escapes until 4.7.4.
+     * Writes a character as a decimal escape. Hex escapes are smaller than the decimal version, but Netscape didn't support hex escapes until 4.7.4.
      */
     static private int _writeDecRef(Writer out, char[] buffer, int bufferIndex, int bufferLength, char ch) throws IOException {
         if (ch == '\u20ac') {
@@ -340,7 +395,8 @@ public class Spec1296HtmlUtils {
             bufferIndex = addToBuffer(out, buffer, bufferIndex, bufferLength, (char) ('0' + i / 10));
             i = i % 10;
             bufferIndex = addToBuffer(out, buffer, bufferIndex, bufferLength, (char) ('0' + i));
-        } else if (i > 1000) {
+        }
+        else if (i > 1000) {
             bufferIndex = addToBuffer(out, buffer, bufferIndex, bufferLength, (char) ('0' + i / 1000));
             i = i % 1000;
             bufferIndex = addToBuffer(out, buffer, bufferIndex, bufferLength, (char) ('0' + i / 100));
@@ -348,7 +404,8 @@ public class Spec1296HtmlUtils {
             bufferIndex = addToBuffer(out, buffer, bufferIndex, bufferLength, (char) ('0' + i / 10));
             i = i % 10;
             bufferIndex = addToBuffer(out, buffer, bufferIndex, bufferLength, (char) ('0' + i));
-        } else {
+        }
+        else {
             bufferIndex = addToBuffer(out, buffer, bufferIndex, bufferLength, (char) ('0' + i / 100));
             i = i % 100;
             bufferIndex = addToBuffer(out, buffer, bufferIndex, bufferLength, (char) ('0' + i / 10));
@@ -382,8 +439,7 @@ public class Spec1296HtmlUtils {
     }
 
     /**
-     * Add an array of characters to the buffer, flushing the buffer if the buffer is full, and returning the new buffer
-     * index.
+     * Add an array of characters to the buffer, flushing the buffer if the buffer is full, and returning the new buffer index.
      */
     private static int addToBuffer(Writer out, char[] buffer, int bufferIndex, int bufferLength, char[] toAdd) throws IOException {
 
@@ -412,22 +468,20 @@ public class Spec1296HtmlUtils {
 
     /**
      * Writes a string into URL-encoded format out to a Writer.
-     * 
+     *
      * All characters before the start of the query string will be encoded using UTF-8.
-     * 
-     * Characters after the start of the query string will be encoded using a client-defined encoding. You'll need to use
-     * the encoding that the server will expect. (HTML forms will generate query strings using the character encoding that
-     * the HTML itself was generated in.)
-     * 
-     * All characters will be encoded as needed for URLs, with the exception of the percent symbol ("%"). Because this is
-     * the character itself used for escaping, attempting to escape this character would cause this code to double-escape
-     * some strings. It also may be necessary to pre-escape some characters. In particular, a question mark ("?") is
-     * considered the start of the query string.
-     * 
+     *
+     * Characters after the start of the query string will be encoded using a client-defined encoding. You'll need to use the encoding that the server will
+     * expect. (HTML forms will generate query strings using the character encoding that the HTML itself was generated in.)
+     *
+     * All characters will be encoded as needed for URLs, with the exception of the percent symbol ("%"). Because this is the character itself used for
+     * escaping, attempting to escape this character would cause this code to double-escape some strings. It also may be necessary to pre-escape some
+     * characters. In particular, a question mark ("?") is considered the start of the query string.
+     *
      *
      * <p>
-     * NOTE: This is method is duplicated below. The difference being the acceptance of a char[] for the text to write. Any
-     * changes made here, should be made below.
+     * NOTE: This is method is duplicated below. The difference being the acceptance of a char[] for the text to write. Any changes made here, should be made
+     * below.
      * </p>
      *
      * @param out a Writer for the output
@@ -440,14 +494,16 @@ public class Spec1296HtmlUtils {
         if (length >= 16) {
             text.getChars(0, length, textBuff, 0);
             writeURL(out, textBuff, 0, length, queryEncoding);
-        } else {
+        }
+        else {
             for (int i = 0; i < length; i++) {
                 char ch = text.charAt(i);
 
                 if (ch < 33 || ch > 126) {
                     if (ch == ' ') {
                         out.write('+');
-                    } else {
+                    }
+                    else {
                         textBuff[i] = ch;
                         encodeURIString(out, textBuff, "UTF-8", i, i + 1);
                     }
@@ -471,7 +527,8 @@ public class Spec1296HtmlUtils {
                     out.write('?');
                     encodeURIString(out, text, queryEncoding, i + 1);
                     return;
-                } else {
+                }
+                else {
                     out.write(ch);
                 }
             }
@@ -480,21 +537,19 @@ public class Spec1296HtmlUtils {
 
     /**
      * Writes a string into URL-encoded format out to a Writer.
-     * 
+     *
      * All characters before the start of the query string will be encoded using UTF-8.
-     * 
-     * Characters after the start of the query string will be encoded using a client-defined encoding. You'll need to use
-     * the encoding that the server will expect. (HTML forms will generate query strings using the character encoding that
-     * the HTML itself was generated in.)
-     * 
-     * All characters will be encoded as needed for URLs, with the exception of the percent symbol ("%"). Because this is
-     * the character itself used for escaping, attempting to escape this character would cause this code to double-escape
-     * some strings. It also may be necessary to pre-escape some characters. In particular, a question mark ("?") is
-     * considered the start of the query string.
-     * 
+     *
+     * Characters after the start of the query string will be encoded using a client-defined encoding. You'll need to use the encoding that the server will
+     * expect. (HTML forms will generate query strings using the character encoding that the HTML itself was generated in.)
+     *
+     * All characters will be encoded as needed for URLs, with the exception of the percent symbol ("%"). Because this is the character itself used for
+     * escaping, attempting to escape this character would cause this code to double-escape some strings. It also may be necessary to pre-escape some
+     * characters. In particular, a question mark ("?") is considered the start of the query string.
+     *
      * <p>
-     * NOTE: This is method is duplicated above. The difference being the acceptance of a String for the text to write. Any
-     * changes made here, should be made above.
+     * NOTE: This is method is duplicated above. The difference being the acceptance of a String for the text to write. Any changes made here, should be made
+     * above.
      * </p>
      *
      * @param out a Writer for the output
@@ -529,7 +584,8 @@ public class Spec1296HtmlUtils {
                 out.write('?');
                 encodeURIString(out, textBuff, queryEncoding, i + 1, end);
                 return;
-            } else {
+            }
+            else {
                 out.write(ch);
             }
         }
@@ -576,15 +632,18 @@ public class Spec1296HtmlUtils {
                         continue;
                     }
                     out.write(AMP_CHARS);
-                } else {
+                }
+                else {
                     out.write(ch);
                 }
-            } else {
+            }
+            else {
                 if (buf == null) {
                     buf = new MyByteArrayOutputStream(MAX_BYTES_PER_CHAR);
                     if (encoding != null) {
                         writer = new OutputStreamWriter(buf, encoding);
-                    } else {
+                    }
+                    else {
                         writer = new OutputStreamWriter(buf, UTF_8);
                     }
                     charArray = new char[1];
@@ -598,7 +657,8 @@ public class Spec1296HtmlUtils {
                     charArray[0] = ch;
                     writer.write(charArray, 0, 1);
                     writer.flush();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     buf.reset();
                     continue;
                 }
@@ -631,15 +691,18 @@ public class Spec1296HtmlUtils {
                         continue;
                     }
                     out.write(AMP_CHARS);
-                } else {
+                }
+                else {
                     out.write(ch);
                 }
-            } else {
+            }
+            else {
                 if (buf == null) {
                     buf = new MyByteArrayOutputStream(MAX_BYTES_PER_CHAR);
                     if (encoding != null) {
                         writer = new OutputStreamWriter(buf, encoding);
-                    } else {
+                    }
+                    else {
                         writer = new OutputStreamWriter(buf, UTF_8);
                     }
                     charArray = new char[1];
@@ -653,7 +716,8 @@ public class Spec1296HtmlUtils {
                     charArray[0] = ch;
                     writer.write(charArray, 0, 1);
                     writer.flush();
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     buf.reset();
                     continue;
                 }
@@ -703,7 +767,8 @@ public class Spec1296HtmlUtils {
     static private char intToHex(int i) {
         if (i < 10) {
             return (char) ('0' + i);
-        } else {
+        }
+        else {
             return (char) ('A' + (i - 10));
         }
     }
@@ -758,24 +823,24 @@ public class Spec1296HtmlUtils {
     // Entities from HTML 4.0, section 24.2.1; character codes 0xA0 to 0xFF
     //
     static private char[][] sISO8859_1_Entities = new char[][] { "&nbsp;".toCharArray(), "&iexcl;".toCharArray(), "&cent;".toCharArray(),
-            "&pound;".toCharArray(), "&curren;".toCharArray(), "&yen;".toCharArray(), "&brvbar;".toCharArray(), "&sect;".toCharArray(), "&uml;".toCharArray(),
-            "&copy;".toCharArray(), "&ordf;".toCharArray(), "&laquo;".toCharArray(), "&not;".toCharArray(), "&shy;".toCharArray(), "&reg;".toCharArray(),
-            "&macr;".toCharArray(), "&deg;".toCharArray(), "&plusmn;".toCharArray(), "&sup2;".toCharArray(), "&sup3;".toCharArray(), "&acute;".toCharArray(),
-            "&micro;".toCharArray(), "&para;".toCharArray(), "&middot;".toCharArray(), "&cedil;".toCharArray(), "&sup1;".toCharArray(), "&ordm;".toCharArray(),
-            "&raquo;".toCharArray(), "&frac14;".toCharArray(), "&frac12;".toCharArray(), "&frac34;".toCharArray(), "&iquest;".toCharArray(),
-            "&Agrave;".toCharArray(), "&Aacute;".toCharArray(), "&Acirc;".toCharArray(), "&Atilde;".toCharArray(), "&Auml;".toCharArray(),
-            "&Aring;".toCharArray(), "&AElig;".toCharArray(), "&Ccedil;".toCharArray(), "&Egrave;".toCharArray(), "&Eacute;".toCharArray(),
-            "&Ecirc;".toCharArray(), "&Euml;".toCharArray(), "&Igrave;".toCharArray(), "&Iacute;".toCharArray(), "&Icirc;".toCharArray(),
-            "&Iuml;".toCharArray(), "&ETH;".toCharArray(), "&Ntilde;".toCharArray(), "&Ograve;".toCharArray(), "&Oacute;".toCharArray(),
-            "&Ocirc;".toCharArray(), "&Otilde;".toCharArray(), "&Ouml;".toCharArray(), "&times;".toCharArray(), "&Oslash;".toCharArray(),
-            "&Ugrave;".toCharArray(), "&Uacute;".toCharArray(), "&Ucirc;".toCharArray(), "&Uuml;".toCharArray(), "&Yacute;".toCharArray(),
-            "&THORN;".toCharArray(), "&szlig;".toCharArray(), "&agrave;".toCharArray(), "&aacute;".toCharArray(), "&acirc;".toCharArray(),
-            "&atilde;".toCharArray(), "&auml;".toCharArray(), "&aring;".toCharArray(), "&aelig;".toCharArray(), "&ccedil;".toCharArray(),
-            "&egrave;".toCharArray(), "&eacute;".toCharArray(), "&ecirc;".toCharArray(), "&euml;".toCharArray(), "&igrave;".toCharArray(),
-            "&iacute;".toCharArray(), "&icirc;".toCharArray(), "&iuml;".toCharArray(), "&eth;".toCharArray(), "&ntilde;".toCharArray(),
-            "&ograve;".toCharArray(), "&oacute;".toCharArray(), "&ocirc;".toCharArray(), "&otilde;".toCharArray(), "&ouml;".toCharArray(),
-            "&divide;".toCharArray(), "&oslash;".toCharArray(), "&ugrave;".toCharArray(), "&uacute;".toCharArray(), "&ucirc;".toCharArray(),
-            "&uuml;".toCharArray(), "&yacute;".toCharArray(), "&thorn;".toCharArray(), "&yuml;".toCharArray() };
+        "&pound;".toCharArray(), "&curren;".toCharArray(), "&yen;".toCharArray(), "&brvbar;".toCharArray(), "&sect;".toCharArray(), "&uml;".toCharArray(),
+        "&copy;".toCharArray(), "&ordf;".toCharArray(), "&laquo;".toCharArray(), "&not;".toCharArray(), "&shy;".toCharArray(), "&reg;".toCharArray(),
+        "&macr;".toCharArray(), "&deg;".toCharArray(), "&plusmn;".toCharArray(), "&sup2;".toCharArray(), "&sup3;".toCharArray(), "&acute;".toCharArray(),
+        "&micro;".toCharArray(), "&para;".toCharArray(), "&middot;".toCharArray(), "&cedil;".toCharArray(), "&sup1;".toCharArray(), "&ordm;".toCharArray(),
+        "&raquo;".toCharArray(), "&frac14;".toCharArray(), "&frac12;".toCharArray(), "&frac34;".toCharArray(), "&iquest;".toCharArray(),
+        "&Agrave;".toCharArray(), "&Aacute;".toCharArray(), "&Acirc;".toCharArray(), "&Atilde;".toCharArray(), "&Auml;".toCharArray(),
+        "&Aring;".toCharArray(), "&AElig;".toCharArray(), "&Ccedil;".toCharArray(), "&Egrave;".toCharArray(), "&Eacute;".toCharArray(),
+        "&Ecirc;".toCharArray(), "&Euml;".toCharArray(), "&Igrave;".toCharArray(), "&Iacute;".toCharArray(), "&Icirc;".toCharArray(),
+        "&Iuml;".toCharArray(), "&ETH;".toCharArray(), "&Ntilde;".toCharArray(), "&Ograve;".toCharArray(), "&Oacute;".toCharArray(),
+        "&Ocirc;".toCharArray(), "&Otilde;".toCharArray(), "&Ouml;".toCharArray(), "&times;".toCharArray(), "&Oslash;".toCharArray(),
+        "&Ugrave;".toCharArray(), "&Uacute;".toCharArray(), "&Ucirc;".toCharArray(), "&Uuml;".toCharArray(), "&Yacute;".toCharArray(),
+        "&THORN;".toCharArray(), "&szlig;".toCharArray(), "&agrave;".toCharArray(), "&aacute;".toCharArray(), "&acirc;".toCharArray(),
+        "&atilde;".toCharArray(), "&auml;".toCharArray(), "&aring;".toCharArray(), "&aelig;".toCharArray(), "&ccedil;".toCharArray(),
+        "&egrave;".toCharArray(), "&eacute;".toCharArray(), "&ecirc;".toCharArray(), "&euml;".toCharArray(), "&igrave;".toCharArray(),
+        "&iacute;".toCharArray(), "&icirc;".toCharArray(), "&iuml;".toCharArray(), "&eth;".toCharArray(), "&ntilde;".toCharArray(),
+        "&ograve;".toCharArray(), "&oacute;".toCharArray(), "&ocirc;".toCharArray(), "&otilde;".toCharArray(), "&ouml;".toCharArray(),
+        "&divide;".toCharArray(), "&oslash;".toCharArray(), "&ugrave;".toCharArray(), "&uacute;".toCharArray(), "&ucirc;".toCharArray(),
+        "&uuml;".toCharArray(), "&yacute;".toCharArray(), "&thorn;".toCharArray(), "&yuml;".toCharArray() };
 
     // ----------------------------------------------------------
     // The following is used to verify encodings

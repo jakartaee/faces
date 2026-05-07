@@ -42,7 +42,8 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
     }
 
     public void dataModelAddGetRemoveDataModelListenerTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
@@ -50,29 +51,35 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
 
         DataModelListener[] listeners = data.getDataModelListeners();
         if (listeners.length != 0) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "DataModel.getDataModelListeners() returned a "
-                    + "non-empty array of listeners.");
+                    + "non-empty array of listeners."
+            );
             return;
         }
 
         data.addDataModelListener(listener);
         listeners = data.getDataModelListeners();
         if (listeners.length != 1) {
-            out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
                     + "DataModel.getDataModelListeners() returned an "
                     + "unexpected value after adding a single DataModelListener."
                     + JSFTestUtil.NL + "Expected: 1" + JSFTestUtil.NL + "Received: "
-                    + listeners.length);
+                    + listeners.length
+            );
             return;
         }
 
         data.removeDataModelListener(new TCKDataListener());
         listeners = data.getDataModelListeners();
         if (listeners.length != 1) {
-            out.println(JSFTestUtil.FAIL + " DataModel.getDataModelListeners()"
+            out.println(
+                JSFTestUtil.FAIL + " DataModel.getDataModelListeners()"
                     + " returned an unexpected value after attempting to remove"
-                    + " a listener that wasn't already added to the DataModel");
+                    + " a listener that wasn't already added to the DataModel"
+            );
             out.println("Expected: 1");
             out.println("Received: " + listeners.length);
             return;
@@ -81,9 +88,11 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         data.removeDataModelListener(listener);
         listeners = data.getDataModelListeners();
         if (listeners.length != 0) {
-            out.println(JSFTestUtil.FAIL + " DataModel.getDataModelListeners()"
+            out.println(
+                JSFTestUtil.FAIL + " DataModel.getDataModelListeners()"
                     + " returned an unexpected value after removing a single"
-                    + " DataModelListener.");
+                    + " DataModelListener."
+            );
             out.println("Expected: 0");
             out.println("Received: " + listeners.length);
             return;
@@ -93,14 +102,17 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
     }
 
     public void dataModelIsRowAvailableTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
         if (data.isRowAvailable()) {
-            out.println(JSFTestUtil.FAIL + " Expected DataModel.isRowAvailable() to "
+            out.println(
+                JSFTestUtil.FAIL + " Expected DataModel.isRowAvailable() to "
                     + "return false if the DataModel object didn't wrap"
-                    + " an underlying data source.");
+                    + " an underlying data source."
+            );
             return;
         }
 
@@ -109,15 +121,19 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         data.setRowIndex(0);
 
         if (!data.isRowAvailable()) {
-            out.println(JSFTestUtil.FAIL + " Expected DataModel.isRowAvailable() to"
-                    + " return true when row index was within a valid range.");
+            out.println(
+                JSFTestUtil.FAIL + " Expected DataModel.isRowAvailable() to"
+                    + " return true when row index was within a valid range."
+            );
             return;
         }
 
         data.setRowIndex(11);
         if (data.isRowAvailable()) {
-            out.println(JSFTestUtil.FAIL + " Expected DataModel.isRowAvailable() to"
-                    + " return false when specified row index was out of range.");
+            out.println(
+                JSFTestUtil.FAIL + " Expected DataModel.isRowAvailable() to"
+                    + " return false when specified row index was out of range."
+            );
             return;
         }
 
@@ -125,14 +141,17 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
     }
 
     public void dataModelGetRowCountTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
         int result = data.getRowCount();
         if (result != -1) {
-            out.println(JSFTestUtil.FAIL + " Expected DataModel.getRowCount() to"
-                    + " return -1 if no data was available on the Model tier.");
+            out.println(
+                JSFTestUtil.FAIL + " Expected DataModel.getRowCount() to"
+                    + " return -1 if no data was available on the Model tier."
+            );
             out.println("Row count received: " + result);
             return;
         }
@@ -150,30 +169,37 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
     }
 
     public void dataModelGetSetRowIndexTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
         int result = data.getRowIndex();
         if (result != -1) {
-            out.println(JSFTestUtil.FAIL + " Expected DataModel.getRowIndex() to return"
-                    + " -1 when no backing data has been specified.");
+            out.println(
+                JSFTestUtil.FAIL + " Expected DataModel.getRowIndex() to return"
+                    + " -1 when no backing data has been specified."
+            );
             out.println("Value received: " + result);
             return;
         }
 
         data.setRowIndex(0);
         if (data.getRowIndex() != 0) {
-            out.println(JSFTestUtil.FAIL + " DataModel.getRowIndex() didn't return"
-                    + " the value as set by DataModel.setRowIndex().");
+            out.println(
+                JSFTestUtil.FAIL + " DataModel.getRowIndex() didn't return"
+                    + " the value as set by DataModel.setRowIndex()."
+            );
             out.println("Expected: 0");
             out.println("Received: " + data.getRowIndex());
         }
 
         data.setRowIndex(-1);
         if (data.getRowIndex() != -1) {
-            out.println(JSFTestUtil.FAIL + " DataModel.getRowIndex() didn't return"
-                    + " the value as set by DataModel.setRowIndex().");
+            out.println(
+                JSFTestUtil.FAIL + " DataModel.getRowIndex() didn't return"
+                    + " the value as set by DataModel.setRowIndex()."
+            );
             out.println("Expected: -1");
             out.println("Received: " + data.getRowIndex());
         }
@@ -182,7 +208,8 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
     }
 
     public void dataModelSetRowIndexIAETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
@@ -190,14 +217,19 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
 
         try {
             data.setRowIndex(-2);
-            out.println("No Exception thrown when trying to set the row index"
-                    + " to a value less then -1.");
+            out.println(
+                "No Exception thrown when trying to set the row index"
+                    + " to a value less then -1."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof IllegalArgumentException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when trying"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when trying"
                         + " to set the row index to a value less than 1"
-                        + ", but it wasn't an instance of IllegalArgumentException.");
+                        + ", but it wasn't an instance of IllegalArgumentException."
+                );
                 out.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -207,31 +239,40 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
     }
 
     public void dataModelRemoveDataModelListenerNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         DataModel data = createDataModel();
-        JSFTestUtil.checkForNPE(data, "removeDataModelListener",
-                new Class<?>[] { DataModelListener.class }, new Object[] { null }, pw);
+        JSFTestUtil.checkForNPE(
+            data, "removeDataModelListener",
+            new Class<?>[] { DataModelListener.class }, new Object[] { null }, pw
+        );
     }
 
     public void dataModelAddDataModelListenerNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         DataModel data = createDataModel();
-        JSFTestUtil.checkForNPE(data, "addDataModelListener",
-                new Class<?>[] { DataModelListener.class }, new Object[] { null }, pw);
+        JSFTestUtil.checkForNPE(
+            data, "addDataModelListener",
+            new Class<?>[] { DataModelListener.class }, new Object[] { null }, pw
+        );
     }
 
     public void dataModelGetRowDataTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
         data.setRowIndex(0);
         Object result = data.getRowData();
         if (result != null) {
-            out.println("Test FAILED[1].  Expected DataModel.getRowData() to "
-                    + "return a null result.");
+            out.println(
+                "Test FAILED[1].  Expected DataModel.getRowData() to "
+                    + "return a null result."
+            );
             return;
         }
 
@@ -239,8 +280,10 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         result = data.getRowData();
         Object bean = result;
         if (!bean.equals(beans.get(0))) {
-            out.println("Test FAILED[1].  The Object returned by UIData."
-                    + "getRowData() at index 0 was not the expected Object.");
+            out.println(
+                "Test FAILED[1].  The Object returned by UIData."
+                    + "getRowData() at index 0 was not the expected Object."
+            );
             out.println("Expected: " + beans.get(0));
             out.println("Recevied: " + bean);
             return;
@@ -249,15 +292,19 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         data.setRowIndex(5);
         result = data.getRowData();
         if (result == null) {
-            out.println("Test FAILED[2].  Expected UIData.getRowData() to "
-                    + "returna non-null result.");
+            out.println(
+                "Test FAILED[2].  Expected UIData.getRowData() to "
+                    + "returna non-null result."
+            );
             return;
         }
 
         bean = result;
         if (!bean.equals(beans.get(5))) {
-            out.println("Test FAILED[1].  The Object returned by UIData."
-                    + "getRowData() at index 5 was not expected the Object.");
+            out.println(
+                "Test FAILED[1].  The Object returned by UIData."
+                    + "getRowData() at index 5 was not expected the Object."
+            );
             out.println("Expected: " + beans.get(5));
             out.println("Recevied: " + bean);
             return;
@@ -267,7 +314,8 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
     }
 
     public void dataModelGetRowDataIAETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
@@ -275,15 +323,20 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         data.setRowIndex(11);
         try {
             data.getRowData();
-            out.println("No Exception thrown when trying to retrieve a data"
-                    + " row when the index is out of the valid row range.");
+            out.println(
+                "No Exception thrown when trying to retrieve a data"
+                    + " row when the index is out of the valid row range."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof IllegalArgumentException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when trying"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when trying"
                         + " to retrieve a data row when the index is out of the"
                         + " valid row range, but it wasn't an instance of"
-                        + " IllegalArgumentException.");
+                        + " IllegalArgumentException."
+                );
                 out.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -293,7 +346,8 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
     }
 
     public void dataModelListenerTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         DataModel data = createDataModel();
@@ -308,9 +362,11 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
 
         String trace = TCKDataListener.getTrace();
         if (!"/l1/l2".equals(trace)) {
-            out.println(JSFTestUtil.FAIL + " Unexpected listener trace after"
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected listener trace after"
                     + " calling setWrappedData() which should have set the row"
-                    + " index to 0 and caused an event to fire.");
+                    + " index to 0 and caused an event to fire."
+            );
             out.println("Exepcted: /l1/l2");
             out.println("Received: " + trace);
             return;
@@ -325,8 +381,10 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         data.setRowIndex(2);
         trace = TCKDataListener.getTrace();
         if (!"/l1/l2".equals(trace)) {
-            out.println(JSFTestUtil.FAIL + " Unexpected listener trace after"
-                    + " calling setRowIndex() which should have cause an event to fire.");
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected listener trace after"
+                    + " calling setRowIndex() which should have cause an event to fire."
+            );
             out.println("Exepcted: /l1/l2");
             out.println("Received: " + trace);
             return;
@@ -336,9 +394,11 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         data.setRowIndex(2);
         trace = TCKDataListener.getTrace();
         if (trace.length() != 0) {
-            out.println(JSFTestUtil.FAIL + " Didn't expect any trace information to"
+            out.println(
+                JSFTestUtil.FAIL + " Didn't expect any trace information to"
                     + " be returned from the listeners when the row index value"
-                    + " is set, but the value hasn't changed.");
+                    + " is set, but the value hasn't changed."
+            );
             out.println("Trace recieved: " + trace);
             return;
         }
@@ -350,16 +410,20 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         data.setRowIndex(1);
         trace = TCKDataListener.getTrace();
         if (trace.length() != 0) {
-            out.println(JSFTestUtil.FAIL + " Didn't expect any trace information to"
+            out.println(
+                JSFTestUtil.FAIL + " Didn't expect any trace information to"
                     + " be returned from the listeners when there was no backing"
-                    + " data installed in the DataModel instance.");
+                    + " data installed in the DataModel instance."
+            );
             out.println("Trace recieved: " + trace);
             return;
         }
 
         if (data.getRowIndex() != 1) {
-            out.println(JSFTestUtil.FAIL + " Expected the row index to be stored"
-                    + " even though no backing data had been set.");
+            out.println(
+                JSFTestUtil.FAIL + " Expected the row index to be stored"
+                    + " even though no backing data had been set."
+            );
             return;
         }
 
@@ -392,5 +456,7 @@ public abstract class BaseModelTestServlet extends HttpTCKServlet {
         public static void resetTrace() {
             log = new StringBuffer();
         }
+
     }
+
 }

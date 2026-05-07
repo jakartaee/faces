@@ -38,4 +38,5 @@ class ViewActionIT extends BaseITNG {
 
         assertEquals("Test Passed", page.findElement(By.id("result")).getText());
     }
+
 }

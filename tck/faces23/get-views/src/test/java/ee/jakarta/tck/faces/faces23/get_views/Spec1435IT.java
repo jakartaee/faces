@@ -29,17 +29,16 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 public class Spec1435IT extends BaseITNG {
 
-  // ### ViewHandler based tests
+    // ### ViewHandler based tests
 
-  /**
-   * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViews() throws Exception {
+     */
+    @Test
+    void getAllViews() throws Exception {
         WebPage page = getPage("getViews.jsf");
         String content = page.getSource();
 
@@ -54,12 +53,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include.xtml"));
     }
 
-  /**
-   * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPath() throws Exception {
+     */
+    @Test
+    void getViewsForPath() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F");
         String content = page.getSource();
 
@@ -75,12 +74,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include.xtml"));
     }
 
-  /**
-   * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewsAsImplicit() throws Exception {
+     */
+    @Test
+    void getAllViewsAsImplicit() throws Exception {
         WebPage page = getPage("getViews.jsf?implicit=true");
         String content = page.getSource();
 
@@ -105,12 +104,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
-  /**
-   * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewsWithLimit2() throws Exception {
+     */
+    @Test
+    void getAllViewsWithLimit2() throws Exception {
         WebPage page = getPage("getViews.jsf?maxDepth=2");
         String content = page.getSource();
 
@@ -126,12 +125,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include.xtml"));
     }
 
-  /**
-   * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathImplicit() throws Exception {
+     */
+    @Test
+    void getViewsForPathImplicit() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true");
         String content = page.getSource();
 
@@ -155,12 +154,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
-  /**
-   * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathImplicitWithLimit2() throws Exception {
+     */
+    @Test
+    void getViewsForPathImplicitWithLimit2() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=2");
         String content = page.getSource();
 
@@ -186,12 +185,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
-  /**
-   * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathImplicitWithLimit3() throws Exception {
+     */
+    @Test
+    void getViewsForPathImplicitWithLimit3() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=3");
         String content = page.getSource();
 
@@ -217,12 +216,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
-  /**
-   * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewHandler#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathImplicitWithLimit0() throws Exception {
+     */
+    @Test
+    void getViewsForPathImplicitWithLimit0() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=0");
         String content = page.getSource();
 
@@ -249,16 +248,14 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
+    // ### ViewDeclarationLanguage based tests
 
-  // ### ViewDeclarationLanguage based tests
-
-
-  /**
-   * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewsVDL() throws Exception {
+     */
+    @Test
+    void getAllViewsVDL() throws Exception {
         WebPage page = getPage("getViews.jsf?fromVDL=true");
         String content = page.getSource();
 
@@ -273,12 +270,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include.xtml"));
     }
 
-  /**
-   * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathVDL() throws Exception {
+     */
+    @Test
+    void getViewsForPathVDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&fromVDL=true");
         String content = page.getSource();
 
@@ -294,12 +291,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include.xtml"));
     }
 
-  /**
-   * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewsAsImplicitVDL() throws Exception {
+     */
+    @Test
+    void getAllViewsAsImplicitVDL() throws Exception {
         WebPage page = getPage("getViews.jsf?implicit=true&fromVDL=true");
         String content = page.getSource();
 
@@ -324,12 +321,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
-  /**
-   * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewsWithLimit2VDL() throws Exception {
+     */
+    @Test
+    void getAllViewsWithLimit2VDL() throws Exception {
         WebPage page = getPage("getViews.jsf?maxDepth=2&fromVDL=true");
         String content = page.getSource();
 
@@ -345,12 +342,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include.xtml"));
     }
 
-  /**
-   * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathImplicitVDL() throws Exception {
+     */
+    @Test
+    void getViewsForPathImplicitVDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&fromVDL=true");
         String content = page.getSource();
 
@@ -374,12 +371,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
-  /**
-   * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathImplicitWithLimit2VDL() throws Exception {
+     */
+    @Test
+    void getViewsForPathImplicitWithLimit2VDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=2&fromVDL=true");
         String content = page.getSource();
 
@@ -405,12 +402,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
-  /**
-   * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathImplicitWithLimit3VDL() throws Exception {
+     */
+    @Test
+    void getViewsForPathImplicitWithLimit3VDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=3&fromVDL=true");
         String content = page.getSource();
 
@@ -436,12 +433,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
-  /**
-   * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
+    /**
+     * @see ViewDeclarationLanguage#getViews(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ViewVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewsForPathImplicitWithLimit0VDL() throws Exception {
+     */
+    @Test
+    void getViewsForPathImplicitWithLimit0VDL() throws Exception {
         WebPage page = getPage("getViews.jsf?path=%2Flevel2%2F&implicit=true&maxDepth=0&fromVDL=true");
         String content = page.getSource();
 
@@ -468,15 +465,14 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("include"));
     }
 
+    // ### ResourceHandler based tests
 
-  // ### ResourceHandler based tests
-
-  /**
-   * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ResourceVisitOption...)
+    /**
+     * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ResourceVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewResources() throws Exception {
+     */
+    @Test
+    void getAllViewResources() throws Exception {
         WebPage page = getPage("getViewResources.jsf");
         String content = page.getSource();
 
@@ -491,12 +487,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("/some_file.txt"));
     }
 
-  /**
-   * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ResourceVisitOption...)
+    /**
+     * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ResourceVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewResourcesForPath() throws Exception {
+     */
+    @Test
+    void getViewResourcesForPath() throws Exception {
         WebPage page = getPage("getViewResources.jsf?path=%2Flevel2%2F");
         String content = page.getSource();
 
@@ -512,12 +508,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("/some_file.txt"));
     }
 
-  /**
-   * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ResourceVisitOption...)
+    /**
+     * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, jakarta.faces.application.ResourceVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewResourcesTopLevel() throws Exception {
+     */
+    @Test
+    void getAllViewResourcesTopLevel() throws Exception {
         WebPage page = getPage("getViewResources.jsf?topLevel=true");
         String content = page.getSource();
 
@@ -532,12 +528,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("/some_file.txt"));
     }
 
-  /**
-   * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ResourceVisitOption...)
+    /**
+     * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ResourceVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewResourcesWithLimit2() throws Exception {
+     */
+    @Test
+    void getAllViewResourcesWithLimit2() throws Exception {
         WebPage page = getPage("getViewResources.jsf?maxDepth=2");
         String content = page.getSource();
 
@@ -554,12 +550,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("/some_file.txt"));
     }
 
-  /**
-   * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ResourceVisitOption...)
+    /**
+     * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ResourceVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getViewResourcesForPathWithLimit3() throws Exception {
+     */
+    @Test
+    void getViewResourcesForPathWithLimit3() throws Exception {
         WebPage page = getPage("getViewResources.jsf?path=%2Flevel2%2F&maxDepth=3");
         String content = page.getSource();
 
@@ -577,12 +573,12 @@ public class Spec1435IT extends BaseITNG {
         assertFalse(content.contains("/some_file.txt"));
     }
 
-  /**
-   * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ResourceVisitOption...)
+    /**
+     * @see ResourceHandler#getViewResources(jakarta.faces.context.FacesContext, String, int, jakarta.faces.application.ResourceVisitOption...)
      * @see https://github.com/jakartaee/faces/issues/1435
-   */
-  @Test
-  void getAllViewResourcesForPathWithLimit0() throws Exception {
+     */
+    @Test
+    void getAllViewResourcesForPathWithLimit0() throws Exception {
         WebPage page = getPage("getViewResources.jsf?path=%2Flevel2%2F&maxDepth=0");
         String content = page.getSource();
 

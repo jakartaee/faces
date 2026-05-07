@@ -35,4 +35,5 @@ class JsResourceIT extends BaseITNG {
         assertTrue(script.getDomAttribute("src").contains("faces.js"));
         assertTrue(script.getDomAttribute("src").contains("jakarta.faces"));
     }
+
 }

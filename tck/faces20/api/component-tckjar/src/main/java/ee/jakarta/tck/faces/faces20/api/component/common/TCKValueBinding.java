@@ -25,113 +25,115 @@ import jakarta.el.ValueExpression;
 
 public class TCKValueBinding extends ValueExpression implements StateHolder {
 
-  private ValueExpression binding;
+    private ValueExpression binding;
 
-  private String ref;
+    private String ref;
 
-  public TCKValueBinding() {
-    super();
-  }
+    public TCKValueBinding() {
+        super();
+    }
 
-  public TCKValueBinding(ValueExpression binding, String ref) {
-    this.binding = binding;
-    this.ref = ref;
-  }
+    public TCKValueBinding(ValueExpression binding, String ref) {
+        this.binding = binding;
+        this.ref = ref;
+    }
 
-  public Class getExpectedType() {
-    return Object.class;
-  }
+    public Class getExpectedType() {
+        return Object.class;
+    }
 
+    public Class getType(ELContext context) throws PropertyNotFoundException {
+        return binding.getType(context);
+    }
 
-  public Class getType(ELContext context) throws PropertyNotFoundException {
-    return binding.getType(context);
-  }
+    public Object getValue(ELContext context)
+        throws ELException, PropertyNotFoundException
+    {
+        return binding.getValue(context);
+    }
 
-  public Object getValue(ELContext context)
-      throws ELException, PropertyNotFoundException {
-    return binding.getValue(context);
-  }
+    public boolean isReadOnly(ELContext context)
+        throws PropertyNotFoundException
+    {
+        return binding.isReadOnly(context);
+    }
 
-  public boolean isReadOnly(ELContext context)
-      throws PropertyNotFoundException {
-    return binding.isReadOnly(context);
-  }
+    public void setValue(ELContext context, Object value)
+        throws ELException, PropertyNotFoundException
+    {
+        binding.setValue(context, value);
+    }
 
-  public void setValue(ELContext context, Object value)
-      throws ELException, PropertyNotFoundException {
-    binding.setValue(context, value);
-  }
+    public Object saveState(FacesContext context) {
+        Object values[] = new Object[2];
+        values[0] = ref;
+        values[1] = binding;
+        return (values);
+    }
 
-  public Object saveState(FacesContext context) {
-    Object values[] = new Object[2];
-    values[0] = ref;
-    values[1] = binding;
-    return (values);
-  }
-
-  public boolean isTransient() {
-    return false;
-  }
-
-  public boolean isLiteralText() {
-    return false;
-  }
-
-
-  public void setTransient(boolean newTransientValue) {
-    // ignore
-  }
-
-  public void restoreState(FacesContext context, Object state) {
-    Object values[] = (Object[]) state;
-    ref = (String) values[0];
-    binding = (ValueExpression) values[1];
-  }
-
-  public void restoreState(ELContext context, Object state) {
-    Object values[] = (Object[]) state;
-    ref = (String) values[0];
-    binding = (ValueExpression) values[1];
-  }
-
-  public String getRef() {
-    return ref;
-  }
-
-  public String getExpressionString() {
-    return binding.getExpressionString();
-  }
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((binding == null) ? 0 : binding.hashCode());
-    result = prime * result + ((ref == null) ? 0 : ref.hashCode());
-    return result;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    TCKValueBinding other = (TCKValueBinding) obj;
-    if (binding == null) {
-      if (other.binding != null)
+    public boolean isTransient() {
         return false;
-    } else if (!binding.equals(other.binding))
-      return false;
-    if (ref == null) {
-      if (other.ref != null)
-        return false;
-    } else if (!ref.equals(other.ref))
-      return false;
-    return true;
-  }
+    }
 
+    public boolean isLiteralText() {
+        return false;
+    }
+
+    public void setTransient(boolean newTransientValue) {
+        // ignore
+    }
+
+    public void restoreState(FacesContext context, Object state) {
+        Object values[] = (Object[]) state;
+        ref = (String) values[0];
+        binding = (ValueExpression) values[1];
+    }
+
+    public void restoreState(ELContext context, Object state) {
+        Object values[] = (Object[]) state;
+        ref = (String) values[0];
+        binding = (ValueExpression) values[1];
+    }
+
+    public String getRef() {
+        return ref;
+    }
+
+    public String getExpressionString() {
+        return binding.getExpressionString();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((binding == null) ? 0 : binding.hashCode());
+        result = prime * result + ((ref == null) ? 0 : ref.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TCKValueBinding other = (TCKValueBinding) obj;
+        if (binding == null) {
+            if (other.binding != null)
+                return false;
+        }
+        else if (!binding.equals(other.binding))
+            return false;
+        if (ref == null) {
+            if (other.ref != null)
+                return false;
+        }
+        else if (!ref.equals(other.ref))
+            return false;
+        return true;
+    }
 
 }

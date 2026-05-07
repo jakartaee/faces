@@ -31,28 +31,32 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class TestFilter implements Filter {
 
-  // --------------------------------------- Methods from jakarta.servlet.Filter
+    // --------------------------------------- Methods from jakarta.servlet.Filter
 
-  public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(FilterConfig filterConfig) throws ServletException {
 
-    System.out.println("[TestFilter] init");
+        System.out.println("[TestFilter] init");
 
-  } // END init
+    } // END init
 
-  public void doFilter(ServletRequest servletRequest,
-      ServletResponse servletResponse, FilterChain filterChain)
-      throws IOException, ServletException {
+    public void doFilter(
+        ServletRequest servletRequest,
+        ServletResponse servletResponse, FilterChain filterChain
+    )
+        throws IOException, ServletException
+    {
 
-    TestServletResponseWrapper wrapper = new TestServletResponseWrapper(
-        (HttpServletResponse) servletResponse);
-    filterChain.doFilter(servletRequest, wrapper);
+        TestServletResponseWrapper wrapper = new TestServletResponseWrapper(
+            (HttpServletResponse) servletResponse
+        );
+        filterChain.doFilter(servletRequest, wrapper);
 
-  } // END doFilter
+    } // END doFilter
 
-  public void destroy() {
+    public void destroy() {
 
-    System.out.println("[TestFilter] destroy");
+        System.out.println("[TestFilter] destroy");
 
-  } // END destroy
+    } // END destroy
 
 }

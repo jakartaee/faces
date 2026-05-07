@@ -41,13 +41,13 @@
     <h:form id="form1">    <!-- Note that unlike previous examples, prependid='true' -->
 <!-- Test one: No behaviors rendered -->
        <h:inputText id="input1">
-	      <f:ajax execute="@form" render="@form" disabled="true" />
+          <f:ajax execute="@form" render="@form" disabled="true" />
           <f:ajax execute="@this" render="@form" disabled="true" />
        </h:inputText>
        <br/>
 <!-- Test two: One ajax behavior rendered -->
        <h:inputText id="input2">
-	      <f:ajax execute="@form" render="@form" disabled="true" />
+          <f:ajax execute="@form" render="@form" disabled="true" />
           <f:ajax execute="@this" render="@form" />
        </h:inputText>
        <br/>

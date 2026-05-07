@@ -32,153 +32,193 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ViewExpiredExTestServlet")
 public final class ViewExpiredExTestServlet extends HttpTCKServlet {
 
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    config.getServletContext();
-  }
-
-  public void destroy() {
-    super.destroy();
-  }
-
-  // ------------------------------------------------------------------- Tests
-
-  public void viewExpiredExceptionTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Throwable tckException = new TCKException();
-
-    // ViewExpiredException(java.lang.String viewId)
-    ViewExpiredException vOne = new ViewExpiredException("Geddy");
-    if (this.checkViewId(vOne, "Geddy", out)) {
-      // do nothing test passed.
-
-    } else {
-      return;
-
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        config.getServletContext();
     }
 
-    // ViewExpiredException(java.lang.String message,
-    // java.lang.String viewId)
-    ViewExpiredException vTwo = new ViewExpiredException("Vocals", "Geddy");
-    if (this.checkViewId(vTwo, "Geddy", out)
-        && this.checkMessage(vTwo, "Vocals", out)) {
-      // do nothing test passed.
-
-    } else {
-      return;
+    public void destroy() {
+        super.destroy();
     }
 
-    // ViewExpiredException(java.lang.Throwable cause,
-    // java.lang.String viewId)
-    ViewExpiredException vThree = new ViewExpiredException(tckException,
-        "Geddy");
+    // ------------------------------------------------------------------- Tests
 
-    if (this.checkViewId(vThree, "Geddy", out)
-        && this.checkCause(vThree, "TCKException", out)) {
-      // do nothing test passed.
+    public void viewExpiredExceptionTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Throwable tckException = new TCKException();
 
-    } else {
-      return;
+        // ViewExpiredException(java.lang.String viewId)
+        ViewExpiredException vOne = new ViewExpiredException("Geddy");
+        if (this.checkViewId(vOne, "Geddy", out)) {
+            // do nothing test passed.
+
+        }
+        else {
+            return;
+
+        }
+
+        // ViewExpiredException(java.lang.String message,
+        // java.lang.String viewId)
+        ViewExpiredException vTwo = new ViewExpiredException("Vocals", "Geddy");
+        if (
+            this.checkViewId(vTwo, "Geddy", out)
+                && this.checkMessage(vTwo, "Vocals", out)
+        ) {
+            // do nothing test passed.
+
+        }
+        else {
+            return;
+        }
+
+        // ViewExpiredException(java.lang.Throwable cause,
+        // java.lang.String viewId)
+        ViewExpiredException vThree = new ViewExpiredException(
+            tckException,
+            "Geddy"
+        );
+
+        if (
+            this.checkViewId(vThree, "Geddy", out)
+                && this.checkCause(vThree, "TCKException", out)
+        ) {
+            // do nothing test passed.
+
+        }
+        else {
+            return;
+        }
+
+        // ViewExpiredException(java.lang.String message,
+        // java.lang.Throwable cause,
+        // java.lang.String viewId)
+        ViewExpiredException vFour = new ViewExpiredException(
+            "Vocals",
+            tckException, "Geddy"
+        );
+
+        if (
+            this.checkViewId(vFour, "Geddy", out)
+                && this.checkMessage(vFour, "Vocals", out)
+                && this.checkCause(vFour, "TCKException", out)
+        ) {
+            // do nothing test passed.
+
+        }
+        else {
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    // ViewExpiredException(java.lang.String message,
-    // java.lang.Throwable cause,
-    // java.lang.String viewId)
-    ViewExpiredException vFour = new ViewExpiredException("Vocals",
-        tckException, "Geddy");
+    // ----------------------------------------------------------- private
+    // methods
 
-    if (this.checkViewId(vFour, "Geddy", out)
-        && this.checkMessage(vFour, "Vocals", out)
-        && this.checkCause(vFour, "TCKException", out)) {
-      // do nothing test passed.
+    private Boolean checkViewId(
+        ViewExpiredException vee, String expectedId,
+        PrintWriter out
+    )
+    {
+        String resultViewId = vee.getViewId();
+        Boolean result = true;
 
-    } else {
-      return;
+        if (resultViewId == null) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "ViewExpiredException.getViewId() returned null when "
+                    + "not expected too!"
+            );
+            result = false;
+
+        }
+        else if (!resultViewId.contains(expectedId)) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "ViewId does not contain initially set viewId!" + JSFTestUtil.NL
+                    + "Expected: " + expectedId + JSFTestUtil.NL + "Received: "
+                    + resultViewId
+            );
+            result = false;
+        }
+
+        return result;
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    private Boolean checkMessage(
+        ViewExpiredException vee, String expectedMess,
+        PrintWriter out
+    )
+    {
+        String resultMess = vee.getMessage();
+        Boolean result = true;
 
-  // ----------------------------------------------------------- private
-  // methods
+        if (resultMess == null) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "ViewExpiredException.getMessage() returned null when "
+                    + "not expected too!"
+            );
+            result = false;
 
-  private Boolean checkViewId(ViewExpiredException vee, String expectedId,
-      PrintWriter out) {
-    String resultViewId = vee.getViewId();
-    Boolean result = true;
+        }
+        else if (!resultMess.contains(expectedMess)) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Message does not contain initially set message!" + JSFTestUtil.NL
+                    + "Expected: " + expectedMess + JSFTestUtil.NL + "Received: "
+                    + resultMess
+            );
+            result = false;
 
-    if (resultViewId == null) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "ViewExpiredException.getViewId() returned null when "
-          + "not expected too!");
-      result = false;
+        }
 
-    } else if (!resultViewId.contains(expectedId)) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "ViewId does not contain initially set viewId!" + JSFTestUtil.NL
-          + "Expected: " + expectedId + JSFTestUtil.NL + "Received: "
-          + resultViewId);
-      result = false;
+        return result;
     }
 
-    return result;
-  }
+    private Boolean checkCause(
+        ViewExpiredException vee, String expectedCause,
+        PrintWriter out
+    )
+    {
+        String resultCause = vee.getCause().getClass().getSimpleName();
+        Boolean result = true;
 
-  private Boolean checkMessage(ViewExpiredException vee, String expectedMess,
-      PrintWriter out) {
-    String resultMess = vee.getMessage();
-    Boolean result = true;
+        if (resultCause == null) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "ViewExpiredException.getCause() returned null when "
+                    + "not expected too!"
+            );
+            result = false;
 
-    if (resultMess == null) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "ViewExpiredException.getMessage() returned null when "
-          + "not expected too!");
-      result = false;
+        }
+        if (!resultCause.contains(expectedCause)) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL
+                    + "Cause does not contain Initially set cause!" + JSFTestUtil.NL
+                    + "Expected: " + expectedCause + JSFTestUtil.NL + "Received: "
+                    + resultCause
+            );
+            result = false;
 
-    } else if (!resultMess.contains(expectedMess)) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Message does not contain initially set message!" + JSFTestUtil.NL
-          + "Expected: " + expectedMess + JSFTestUtil.NL + "Received: "
-          + resultMess);
-      result = false;
+        }
 
+        return result;
     }
 
-    return result;
-  }
+    // ----------------------------------------------------------- private
+    // classes
 
-  private Boolean checkCause(ViewExpiredException vee, String expectedCause,
-      PrintWriter out) {
-    String resultCause = vee.getCause().getClass().getSimpleName();
-    Boolean result = true;
-
-    if (resultCause == null) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "ViewExpiredException.getCause() returned null when "
-          + "not expected too!");
-      result = false;
+    private class TCKException extends Throwable {
+        // this class does not thing other then server as a none SE Exception
+        // for this testcase.
 
     }
-    if (!resultCause.contains(expectedCause)) {
-      out.println(JSFTestUtil.FAIL + JSFTestUtil.NL
-          + "Cause does not contain Initially set cause!" + JSFTestUtil.NL
-          + "Expected: " + expectedCause + JSFTestUtil.NL + "Received: "
-          + resultCause);
-      result = false;
-
-    }
-
-    return result;
-  }
-
-  // ----------------------------------------------------------- private
-  // classes
-
-  private class TCKException extends Throwable {
-    // this class does not thing other then server as a none SE Exception
-    // for this testcase.
-
-  }
 
 } // End TestServlet

@@ -28,36 +28,45 @@ import jakarta.servlet.http.HttpServletResponse;
 public abstract class PartialStateHolderTestServlet extends BaseStateHolderTestServlet {
 
     public void validatorPartialStateTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         PartialStateHolder psh;
         if (createValidator() instanceof PartialStateHolder) {
             psh = (PartialStateHolder) createValidator();
-        } else {
-            out.println("The Specific Validator that you are trying to test "
-                    + "does not implement the PartialStateHolder interface!");
+        }
+        else {
+            out.println(
+                "The Specific Validator that you are trying to test "
+                    + "does not implement the PartialStateHolder interface!"
+            );
             return;
         }
 
         psh.markInitialState();
         if (!psh.initialStateMarked()) {
-            out.println("Test FAILED." + JSFTestUtil.NL
+            out.println(
+                "Test FAILED." + JSFTestUtil.NL
                     + "Unexpected state returned when calling "
                     + "initialStateMarked after markInitialState() was called"
-                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: false");
+                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: false"
+            );
             return;
         }
 
         psh.clearInitialState();
         if (psh.initialStateMarked()) {
-            out.println("Test FAILED." + JSFTestUtil.NL
+            out.println(
+                "Test FAILED." + JSFTestUtil.NL
                     + "Unexpected state returned when calling "
                     + "IntialStateMarked() after clearInitialState() was called"
-                    + JSFTestUtil.NL + "Expected: false" + JSFTestUtil.NL + "Received: true");
+                    + JSFTestUtil.NL + "Expected: false" + JSFTestUtil.NL + "Received: true"
+            );
             return;
         }
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

@@ -41,4 +41,5 @@ public class InputTextUIBean implements Serializable {
 
         this.greeting = greeting;
     }
+
 }

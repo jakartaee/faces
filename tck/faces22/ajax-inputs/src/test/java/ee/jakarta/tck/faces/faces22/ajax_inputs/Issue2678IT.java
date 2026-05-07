@@ -39,4 +39,5 @@ class Issue2678IT extends BaseITNG {
         WebElement input1 = page.findElement(By.id("form:input1"));
         assertFalse(page.getBehaviorScript(input1) == null, "input1 must have behavior script");
     }
+
 }

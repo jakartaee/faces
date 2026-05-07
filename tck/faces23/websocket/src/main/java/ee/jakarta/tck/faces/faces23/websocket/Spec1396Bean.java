@@ -25,10 +25,11 @@ import jakarta.inject.Named;
 @RequestScoped
 public class Spec1396Bean {
 
-    @Inject @Push
+    @Inject
+    @Push
     private PushContext push;
 
-    public void send(){
+    public void send() {
         push.send("pushed!");
     }
 

@@ -31,37 +31,38 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue4646IT extends BaseITNG {
 
-  /**
-   * @see ViewScoped
+    /**
+     * @see ViewScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4646
-   */
-  @Test
-  void preDestroyEventInvokedOnSessionInvalidate() throws Exception {
+     */
+    @Test
+    void preDestroyEventInvokedOnSessionInvalidate() throws Exception {
         WebPage page = getPage("issue4646.xhtml");
         WebElement counterElement = page.findElement(By.id("counterMessage"));
         int currentCount = parseInt(counterElement.getText());
-        
+
         // +1
         page = getPage("issue4646.xhtml");
         counterElement = page.findElement(By.id("counterMessage"));
         assertEquals(currentCount + 1, parseInt(counterElement.getText()), "+1 should be the objects created");
-        
+
         // +2
         page = getPage("issue4646.xhtml");
         counterElement = page.findElement(By.id("counterMessage"));
         assertEquals(currentCount + 2, parseInt(counterElement.getText()), "+2 should be the objects created");
-        
+
         // invalidate
         WebElement invalidateButton = page.findElement(By.id("invalidateSession"));
         invalidateButton.click();
-        
+
         // should be the initial count
         page = getPage("issue4646.xhtml");
         counterElement = page.findElement(By.id("counterMessage"));
         assertEquals(currentCount, parseInt(counterElement.getText()), "The initial count should be again");
-        
+
         // invalidate again
         invalidateButton = page.findElement(By.id("invalidateSession"));
         invalidateButton.click();
     }
+
 }

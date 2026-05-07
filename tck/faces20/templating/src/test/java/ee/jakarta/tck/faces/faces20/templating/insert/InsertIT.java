@@ -56,47 +56,70 @@ class InsertIT extends BaseITNG {
         WebPage pageThree = getPage("insert/compositionPgThree.xhtml");
         testPage(pageThree, EXPECTED_OVERRIDES);
 
-        assertEquals(0, pageThree.findElements(By.id("IGNORED_TOP")).size(),
-            "JSF should ignore everything outside of the composition tag (IGNORED_TOP)");
-        assertEquals(0, pageThree.findElements(By.id("IGNORED_BOTTOM")).size(),
-            "JSF should ignore everything outside of the composition tag (IGNORED_BOTTOM)");
+        assertEquals(
+            0, pageThree.findElements(By.id("IGNORED_TOP")).size(),
+            "JSF should ignore everything outside of the composition tag (IGNORED_TOP)"
+        );
+        assertEquals(
+            0, pageThree.findElements(By.id("IGNORED_BOTTOM")).size(),
+            "JSF should ignore everything outside of the composition tag (IGNORED_BOTTOM)"
+        );
     }
 
     @Test
     void templateInsertUIDecorateTest() {
         WebPage page = getPage("insert/decoratePgOne.xhtml");
 
-        assertEquals(1, page.findElements(By.id("title_header_content")).size(),
-            "Expected <div id='title_header_content'>");
-        assertEquals("Default TitleDefault HeadingDefault Content".replaceAll("\\s+", ""),
+        assertEquals(
+            1, page.findElements(By.id("title_header_content")).size(),
+            "Expected <div id='title_header_content'>"
+        );
+        assertEquals(
+            "Default TitleDefault HeadingDefault Content".replaceAll("\\s+", ""),
             page.findElements(By.id("title_header_content")).get(0).getText().replaceAll("\\s+", ""),
-            "Expected default composed content");
+            "Expected default composed content"
+        );
     }
 
     @Test
     void templateInsertUIDecorateOutSideTest() {
         WebPage page = getPage("insert/decoratePgTwo.xhtml");
 
-        assertEquals(1, page.findElements(By.id("PROCESSED_TOP")).size(),
-            "Expected <div id='PROCESSED_TOP'>");
-        assertEquals(1, page.findElements(By.id("PROCESSED_BOTTOM")).size(),
-            "Expected <div id='PROCESSED_BOTTOM'>");
+        assertEquals(
+            1, page.findElements(By.id("PROCESSED_TOP")).size(),
+            "Expected <div id='PROCESSED_TOP'>"
+        );
+        assertEquals(
+            1, page.findElements(By.id("PROCESSED_BOTTOM")).size(),
+            "Expected <div id='PROCESSED_BOTTOM'>"
+        );
     }
 
     private void testPage(WebPage page, Map<String, String> expected) {
-        assertEquals(expected.get("title"), page.getTitle(),
-            "Unexpected page title");
+        assertEquals(
+            expected.get("title"), page.getTitle(),
+            "Unexpected page title"
+        );
 
-        assertTrue(page.findElements(By.id("heading")).size() == 1,
-            "Expected <div id='heading'>");
-        assertEquals(expected.get("heading"),
+        assertTrue(
+            page.findElements(By.id("heading")).size() == 1,
+            "Expected <div id='heading'>"
+        );
+        assertEquals(
+            expected.get("heading"),
             page.findElements(By.id("heading")).get(0).getText(),
-            "Unexpected heading value");
+            "Unexpected heading value"
+        );
 
-        assertTrue(page.findElements(By.id("content")).size() == 1,
-            "Expected <div id='content'>");
-        assertEquals(expected.get("content"),
+        assertTrue(
+            page.findElements(By.id("content")).size() == 1,
+            "Expected <div id='content'>"
+        );
+        assertEquals(
+            expected.get("content"),
             page.findElements(By.id("content")).get(0).getText(),
-            "Unexpected content value");
+            "Unexpected content value"
+        );
     }
+
 }

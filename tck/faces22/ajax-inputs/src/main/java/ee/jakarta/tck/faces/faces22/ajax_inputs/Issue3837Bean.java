@@ -27,6 +27,7 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Issue3837Bean implements Serializable {
+
     private static final long serialVersionUID = 1L;
     private static final List<String> list1 = Arrays.asList("1", "2");
     private static final List<String> list2 = Arrays.asList("3", "4");
@@ -36,7 +37,7 @@ public class Issue3837Bean implements Serializable {
     private String message = "";
 
     public List<List<String>> getList() {
-      return list;
+        return list;
     }
 
     public List<String> getShortList() {
@@ -54,4 +55,5 @@ public class Issue3837Bean implements Serializable {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

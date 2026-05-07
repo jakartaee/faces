@@ -39,4 +39,5 @@ public class InjectConverter implements Converter {
         context.addMessage(null, new FacesMessage("InjectConverter#getAsString() was called"));
         return value == null ? null : value.toString();
     }
+
 }

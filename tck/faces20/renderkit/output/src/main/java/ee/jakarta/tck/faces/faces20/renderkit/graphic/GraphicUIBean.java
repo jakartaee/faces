@@ -41,4 +41,5 @@ public class GraphicUIBean implements Serializable {
         img1.setValue("/someImage.png");
         this.img1 = img1;
     }
+
 }

@@ -76,4 +76,5 @@ public class Issue5460Bean {
     public void setCc6(String cc6) {
         this.cc6 = cc6;
     }
+
 }

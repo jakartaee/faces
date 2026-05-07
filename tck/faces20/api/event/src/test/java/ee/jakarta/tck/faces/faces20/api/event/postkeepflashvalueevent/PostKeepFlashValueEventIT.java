@@ -28,8 +28,24 @@ class PostKeepFlashValueEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void postKeepFlashValueEventGetKeyTest() { runServletTest("postKeepFlashValueEventGetKeyTest"); }
-    @Test void systemEventIsAppropriateListenerNegativeTest() { runServletTest("systemEventIsAppropriateListenerNegativeTest"); }
-    @Test void systemEventIsAppropriateListenerPostiveTest() { runServletTest("systemEventIsAppropriateListenerPostiveTest"); }
-    @Test void systemEventProcessListenerTest() { runServletTest("systemEventProcessListenerTest"); }
+    @Test
+    void postKeepFlashValueEventGetKeyTest() {
+        runServletTest("postKeepFlashValueEventGetKeyTest");
+    }
+
+    @Test
+    void systemEventIsAppropriateListenerNegativeTest() {
+        runServletTest("systemEventIsAppropriateListenerNegativeTest");
+    }
+
+    @Test
+    void systemEventIsAppropriateListenerPostiveTest() {
+        runServletTest("systemEventIsAppropriateListenerPostiveTest");
+    }
+
+    @Test
+    void systemEventProcessListenerTest() {
+        runServletTest("systemEventProcessListenerTest");
+    }
+
 }

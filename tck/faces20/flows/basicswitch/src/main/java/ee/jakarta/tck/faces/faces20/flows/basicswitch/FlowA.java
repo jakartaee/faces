@@ -36,27 +36,28 @@ public class FlowA implements Serializable {
         String flowId = "flow-a";
         flowBuilder.id("", flowId);
         flowBuilder.viewNode(flowId, "/" + flowId + "/" + flowId + ".xhtml")
-                .markAsStartNode();
+            .markAsStartNode();
         flowBuilder.returnNode("taskFlowReturn1")
-                .fromOutcome("#{flow_a_Bean.returnValue}");
+            .fromOutcome("#{flow_a_Bean.returnValue}");
         flowBuilder.switchNode("switchA").defaultOutcome("defaultPage").switchCase()
-                .condition("#{flow_a_Bean.switchA_Case01}").fromOutcome("page01")
-                .switchCase().condition("#{flow_a_Bean.switchA_Case02}")
-                .fromOutcome("page02").switchCase()
-                .condition("#{flow_a_Bean.switchA_Case03}")
-                .fromOutcome("switchA_result");
+            .condition("#{flow_a_Bean.switchA_Case01}").fromOutcome("page01")
+            .switchCase().condition("#{flow_a_Bean.switchA_Case02}")
+            .fromOutcome("page02").switchCase()
+            .condition("#{flow_a_Bean.switchA_Case03}")
+            .fromOutcome("switchA_result");
         flowBuilder.switchNode("switchB").defaultOutcome("defaultPage").switchCase()
-                .condition("#{flow_a_Bean.switchB_Case01}").fromOutcome("page01")
-                .switchCase().condition("#{flow_a_Bean.switchB_Case02}")
-                .fromOutcome("switchB_result").switchCase()
-                .condition("#{flow_a_Bean.switchB_Case03}").fromOutcome("page03");
+            .condition("#{flow_a_Bean.switchB_Case01}").fromOutcome("page01")
+            .switchCase().condition("#{flow_a_Bean.switchB_Case02}")
+            .fromOutcome("switchB_result").switchCase()
+            .condition("#{flow_a_Bean.switchB_Case03}").fromOutcome("page03");
         flowBuilder.switchNode("switchC")
-                .defaultOutcome("#{flow_a_Bean.defaultOutcome}").switchCase()
-                .condition("#{flow_a_Bean.switchC_Case01}").fromOutcome("page01")
-                .switchCase().condition("#{flow_a_Bean.switchC_Case02}")
-                .fromOutcome("page02").switchCase()
-                .condition("#{flow_a_Bean.switchC_Case03}").fromOutcome("page03");
+            .defaultOutcome("#{flow_a_Bean.defaultOutcome}").switchCase()
+            .condition("#{flow_a_Bean.switchC_Case01}").fromOutcome("page01")
+            .switchCase().condition("#{flow_a_Bean.switchC_Case02}")
+            .fromOutcome("page02").switchCase()
+            .condition("#{flow_a_Bean.switchC_Case03}").fromOutcome("page03");
 
         return flowBuilder.getFlow();
     }
+
 }

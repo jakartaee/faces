@@ -119,8 +119,7 @@ class FormIT extends BaseITNG {
 
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement form = findByIdSuffix(page, "form1");
-        expected.forEach((name, value) ->
-            assertEquals(value, form.getDomAttribute(name), "attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, form.getDomAttribute(name), "attribute " + name));
     }
 
     private static String valueOrEmpty(WebElement element) {
@@ -130,8 +129,12 @@ class FormIT extends BaseITNG {
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

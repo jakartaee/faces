@@ -36,69 +36,86 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ApplicationWrapperISETestServlet")
 public final class ApplicationWrapperISETestServlet extends HttpTCKServlet {
 
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    config.getServletContext();
-  }
-
-  public void applicationWrapperAddELResolverISETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Application application = new TCKAppWrapper().getWrapped();
-
-    JSFTestUtil.checkForISE(application, "addELResolver",
-        new Class<?>[] { ELResolver.class },
-        new Object[] { new TCKELResolver() }, out);
-
-  }
-
-  // Test for ApplicationWrapper.setResourceHandler() throws
-  // IllegalStateException
-  public void applicationWrapperSetResourceHandlerISETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Application application = new TCKAppWrapper().getWrapped();
-
-    JSFTestUtil.checkForISE(application, "setResourceHandler",
-        new Class<?>[] { ResourceHandler.class },
-        new Object[] { application.getResourceHandler() }, out);
-  }
-
-  // Test for ApplicationWrapper.setStateManager() throws
-  // IllegalStateException
-  public void applicationWrapperSetStateManagerISETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Application application = new TCKAppWrapper().getWrapped();
-
-    JSFTestUtil.checkForISE(application, "setStateManager",
-        new Class<?>[] { StateManager.class },
-        new Object[] { new TCKStateManager(application.getStateManager()) }, out);
-  }
-
-  public void applicationWrapperSetViewHandlerISETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Application application = new TCKAppWrapper().getWrapped();
-
-    JSFTestUtil.checkForISE(application, "setViewHandler",
-        new Class<?>[] { ViewHandler.class },
-        new Object[] { new TCKViewHandler() }, out);
-
-  }
-
-  // ------------------------ Private Implementations ------------------------
-
-  private class TCKAppWrapper extends ApplicationWrapper {
-
-    @Override
-    public Application getWrapped() {
-      return getApplication();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        config.getServletContext();
     }
 
-  }
+    public void applicationWrapperAddELResolverISETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Application application = new TCKAppWrapper().getWrapped();
+
+        JSFTestUtil.checkForISE(
+            application, "addELResolver",
+            new Class<?>[] { ELResolver.class },
+            new Object[] { new TCKELResolver() }, out
+        );
+
+    }
+
+    // Test for ApplicationWrapper.setResourceHandler() throws
+    // IllegalStateException
+    public void applicationWrapperSetResourceHandlerISETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Application application = new TCKAppWrapper().getWrapped();
+
+        JSFTestUtil.checkForISE(
+            application, "setResourceHandler",
+            new Class<?>[] { ResourceHandler.class },
+            new Object[] { application.getResourceHandler() }, out
+        );
+    }
+
+    // Test for ApplicationWrapper.setStateManager() throws
+    // IllegalStateException
+    public void applicationWrapperSetStateManagerISETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Application application = new TCKAppWrapper().getWrapped();
+
+        JSFTestUtil.checkForISE(
+            application, "setStateManager",
+            new Class<?>[] { StateManager.class },
+            new Object[] { new TCKStateManager(application.getStateManager()) }, out
+        );
+    }
+
+    public void applicationWrapperSetViewHandlerISETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Application application = new TCKAppWrapper().getWrapped();
+
+        JSFTestUtil.checkForISE(
+            application, "setViewHandler",
+            new Class<?>[] { ViewHandler.class },
+            new Object[] { new TCKViewHandler() }, out
+        );
+
+    }
+
+    // ------------------------ Private Implementations ------------------------
+
+    private class TCKAppWrapper extends ApplicationWrapper {
+
+        @Override
+        public Application getWrapped() {
+            return getApplication();
+        }
+
+    }
 
 }

@@ -21,8 +21,7 @@ import java.util.logging.Logger;
 import org.openqa.selenium.WebDriverException;
 
 /**
- * a helper class providing pool management for our drivers Note, the pool itself is thread safe (and must be), the
- * drivers are not!
+ * a helper class providing pool management for our drivers Note, the pool itself is thread safe (and must be), the drivers are not!
  */
 public class DriverPool {
 
@@ -47,7 +46,8 @@ public class DriverPool {
 
         try {
             webDriver.postInit();
-        } catch (WebDriverException ex) {
+        }
+        catch (WebDriverException ex) {
             webDriver = replace(webDriver, "postInit failed (" + ex.getClass().getSimpleName() + ")");
             webDriver.postInit();
         }
@@ -55,15 +55,15 @@ public class DriverPool {
     }
 
     /**
-     * Discards a driver whose CDP session has gone unresponsive (TimeoutException
-     * on send / postInit / get / etc.) and returns a fresh one. Retains pool size
+     * Discards a driver whose CDP session has gone unresponsive (TimeoutException on send / postInit / get / etc.) and returns a fresh one. Retains pool size
      * by removing the old from {@code allDrivers} before adding the replacement.
      */
     public ExtendedWebDriver replace(ExtendedWebDriver bad, String reason) {
         LOG.warning(() -> "Replacing driver: " + reason);
         try {
             bad.quit();
-        } catch (RuntimeException ignored) {
+        }
+        catch (RuntimeException ignored) {
             // best-effort cleanup
         }
         allDrivers.remove(bad);
@@ -114,4 +114,5 @@ public class DriverPool {
         allDrivers.clear();
         availableDrivers.clear();
     }
+
 }

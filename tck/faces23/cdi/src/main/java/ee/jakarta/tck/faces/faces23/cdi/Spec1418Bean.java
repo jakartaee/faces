@@ -27,22 +27,28 @@ import jakarta.inject.Named;
 @RequestScoped
 public class Spec1418Bean {
 
-    @Inject @ManagedProperty("#{managedPropertyBean.myInteger1}")
+    @Inject
+    @ManagedProperty("#{managedPropertyBean.myInteger1}")
     private Integer injectedInteger1;
 
-    @Inject @ManagedProperty("#{managedPropertyBean.myInteger2}")
+    @Inject
+    @ManagedProperty("#{managedPropertyBean.myInteger2}")
     private Integer injectedInteger2;
-    
-    @Inject @ManagedProperty("#{managedPropertyBean.myInteger3}")
+
+    @Inject
+    @ManagedProperty("#{managedPropertyBean.myInteger3}")
     private Integer injectedInteger3;
 
-    @Inject @ManagedProperty("#{param['test']}")
+    @Inject
+    @ManagedProperty("#{param['test']}")
     private String testParam;
-    
-    @Inject @ManagedProperty("#{managedPropertyBean.myStringMap}")
+
+    @Inject
+    @ManagedProperty("#{managedPropertyBean.myStringMap}")
     private Map<String, String> stringMap;
 
-    @Inject @ManagedProperty("#{managedPropertyBean.myIntegerMap}")
+    @Inject
+    @ManagedProperty("#{managedPropertyBean.myIntegerMap}")
     private Map<Integer, Integer> integerMap;
 
     public Integer getInjectedInteger1() {
@@ -60,7 +66,7 @@ public class Spec1418Bean {
     public String getTestParam() {
         return testParam;
     }
-    
+
     public Map<String, String> getStringMap() {
         return stringMap;
     }

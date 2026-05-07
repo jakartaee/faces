@@ -30,13 +30,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 @Disabled("Sloppy test using Mojarra specific assumptions. See https://github.com/jakartaee/faces/issues/1773")
 public class Issue3198IT extends BaseITNG {
 
-  /**
-   * @see ViewScoped
+    /**
+     * @see ViewScoped
      * @see ViewExpiredException
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3198
-   */
-  @Test
-  void repeatedRequestsDoNotCauseViewExpiredException() throws Exception {
+     */
+    @Test
+    void repeatedRequestsDoNotCauseViewExpiredException() throws Exception {
         getPage("issue3198.xhtml");
         getPage("issue3198.xhtml");
         getPage("issue3198.xhtml");
@@ -69,4 +69,5 @@ public class Issue3198IT extends BaseITNG {
         page = getPage("issue3198.xhtml");
         assertTrue(page.containsText("3"));
     }
+
 }

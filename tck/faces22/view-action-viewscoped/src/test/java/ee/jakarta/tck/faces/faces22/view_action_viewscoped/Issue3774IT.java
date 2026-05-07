@@ -29,27 +29,28 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue3774IT extends BaseITNG {
 
-  /**
-   * @see UIViewAction
+    /**
+     * @see UIViewAction
      * @see ViewScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3774
-   */
-  @Test
-  void noQueryParam() throws Exception {
+     */
+    @Test
+    void noQueryParam() throws Exception {
         WebPage page = getPage("");
 
         assertTrue(page.containsText("First Page"));
     }
 
-  /**
-   * @see UIViewAction
+    /**
+     * @see UIViewAction
      * @see ViewScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3774
-   */
-  @Test
-  void withQueryParam() throws Exception {
+     */
+    @Test
+    void withQueryParam() throws Exception {
         WebPage page = getPage("?page=2");
 
         assertTrue(page.containsText("Second Page"));
     }
+
 }

@@ -31,4 +31,5 @@ public class Spec1327Bean {
     public String getValue() {
         return session.toString();
     }
+
 }

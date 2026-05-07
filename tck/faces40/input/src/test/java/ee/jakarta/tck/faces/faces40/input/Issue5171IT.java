@@ -28,11 +28,11 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue5171IT extends BaseITNG {
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/5171
-   */
-  @Test
-  void test() throws Exception {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5171
+     */
+    @Test
+    void test() throws Exception {
         WebPage page = getPage("issue5171.xhtml");
         page.findElement(By.id("form:submit")).click();
         String simpleInputMessage = page.findElement(By.id("form:simpleInputMessage")).getText();
@@ -50,4 +50,5 @@ class Issue5171IT extends BaseITNG {
         assertEquals("", simpleInputMessage, "simple input must pass bean validation and clear out message");
         assertEquals("", compositeInputMessage, "composite input must pass bean validation and clear out message");
     }
+
 }

@@ -43,7 +43,7 @@ class ManycheckboxIT extends BaseITNG {
 
     private static final String[][] INITIAL_SELECTIONS = {
         new String[0], new String[0], new String[0], new String[0], new String[0],
-        {"Bilbo", "Pippin", "Merry"}, {"Frodo"}, {"Pippin", "Frodo"}, {"Bilbo", "Merry"},
+        { "Bilbo", "Pippin", "Merry" }, { "Frodo" }, { "Pippin", "Frodo" }, { "Bilbo", "Merry" },
         new String[0], new String[0], new String[0]
     };
 
@@ -64,10 +64,14 @@ class ManycheckboxIT extends BaseITNG {
         WebElement checkbox21 = findByIdSuffix(page, "form:checkbox2:1");
         assertNotNull(checkbox20.getDomAttribute("disabled"), "checkbox2:0 disabled");
         assertNull(checkbox21.getDomAttribute("disabled"), "checkbox2:1 disabled");
-        assertEquals("Color: red;", findLabelFor(page, checkbox20.getDomAttribute("id")).getDomAttribute("class"),
-            "checkbox2:0 label class");
-        assertEquals("text", findLabelFor(page, checkbox21.getDomAttribute("id")).getDomAttribute("class"),
-            "checkbox2:1 label class");
+        assertEquals(
+            "Color: red;", findLabelFor(page, checkbox20.getDomAttribute("id")).getDomAttribute("class"),
+            "checkbox2:0 label class"
+        );
+        assertEquals(
+            "text", findLabelFor(page, checkbox21.getDomAttribute("id")).getDomAttribute("class"),
+            "checkbox2:1 label class"
+        );
 
         // Case 3: styleClass applies to the enclosing table.
         WebElement checkbox30 = findByIdSuffix(page, "form:checkbox3:0");
@@ -87,16 +91,22 @@ class ManycheckboxIT extends BaseITNG {
         assertNull(findByIdSuffix(page, "form:checkbox7:0").getDomAttribute("readonly"), "checkbox7:0 readonly");
 
         // Case 8: default layout -> single <tr> holds both cells (horizontal).
-        assertEquals(2, findEnclosingRow(findByIdSuffix(page, "form:checkbox8:0")).findElements(By.tagName("td")).size(),
-            "checkbox8 default layout row cell count");
+        assertEquals(
+            2, findEnclosingRow(findByIdSuffix(page, "form:checkbox8:0")).findElements(By.tagName("td")).size(),
+            "checkbox8 default layout row cell count"
+        );
 
         // Case 9: layout="lineDirection" -> horizontal, 2 cells per row.
-        assertEquals(2, findEnclosingRow(findByIdSuffix(page, "form:checkbox9:0")).findElements(By.tagName("td")).size(),
-            "checkbox9 lineDirection row cell count");
+        assertEquals(
+            2, findEnclosingRow(findByIdSuffix(page, "form:checkbox9:0")).findElements(By.tagName("td")).size(),
+            "checkbox9 lineDirection row cell count"
+        );
 
         // Case 10: layout="pageDirection" -> vertical, 1 cell per row.
-        assertEquals(1, findEnclosingRow(findByIdSuffix(page, "form:checkbox10:0")).findElements(By.tagName("td")).size(),
-            "checkbox10 pageDirection row cell count");
+        assertEquals(
+            1, findEnclosingRow(findByIdSuffix(page, "form:checkbox10:0")).findElements(By.tagName("td")).size(),
+            "checkbox10 pageDirection row cell count"
+        );
 
         // Case 11: border="11" rendered on enclosing table.
         WebElement checkbox110 = findByIdSuffix(page, "form:checkbox11:0");
@@ -180,7 +190,7 @@ class ManycheckboxIT extends BaseITNG {
 
         for (String id : SELECT_IDS) {
             List<WebElement> items = findCheckboxItems(page, id);
-            assertCheckboxSelection(items, new String[] {"Bilbo"}, id + " post-back");
+            assertCheckboxSelection(items, new String[] { "Bilbo" }, id + " post-back");
         }
     }
 
@@ -188,9 +198,12 @@ class ManycheckboxIT extends BaseITNG {
         // Each <h:selectManyCheckbox id="X"> renders a <table id="X"> whose <input type="checkbox"> children hold
         // the option values; we match by suffix to allow the enclosing form prefix ("selectmany01:X").
         String suffix = ":" + id;
-        WebElement table = page.findElement(By.xpath(
-            "//table[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        WebElement table = page.findElement(
+            By.xpath(
+                "//table[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
         return table.findElements(By.xpath(".//input[@type='checkbox']"));
     }
 
@@ -202,8 +215,10 @@ class ManycheckboxIT extends BaseITNG {
         List<String> expectedList = Arrays.asList(expected);
         for (WebElement item : items) {
             String label = labelText(item);
-            assertEquals(expectedList.contains(label), item.isSelected(),
-                context + ": option '" + label + "' selected state");
+            assertEquals(
+                expectedList.contains(label), item.isSelected(),
+                context + ": option '" + label + "' selected state"
+            );
         }
     }
 
@@ -272,8 +287,7 @@ class ManycheckboxIT extends BaseITNG {
 
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement checkbox = findByIdSuffix(page, "checkbox1:0");
-        expected.forEach((name, value) ->
-            assertEquals(value, checkbox.getDomAttribute(name), "attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, checkbox.getDomAttribute(name), "attribute " + name));
         // Spec (standard-html-renderkit: SelectMany/Checkbox): style/styleClass render on the outer <table>.
         WebElement table = findByIdSuffix(page, "checkbox1");
         assertEquals("Color: red;", table.getDomAttribute("style"), "table style");
@@ -281,8 +295,12 @@ class ManycheckboxIT extends BaseITNG {
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

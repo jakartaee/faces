@@ -36,4 +36,5 @@ public class Spec1940Bean implements Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

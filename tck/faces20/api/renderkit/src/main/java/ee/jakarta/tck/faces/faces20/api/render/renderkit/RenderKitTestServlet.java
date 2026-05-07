@@ -45,375 +45,459 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/RenderKitTestServlet")
 public final class RenderKitTestServlet extends HttpTCKServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws jakarta.servlet.ServletException
-   *           if an error occurs
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  public RenderKit getRenderKit() {
-    RenderKitFactory factory = (RenderKitFactory) FactoryFinder
-        .getFactory(FactoryFinder.RENDER_KIT_FACTORY);
-
-    return factory.getRenderKit(getFacesContext(),
-        RenderKitFactory.HTML_BASIC_RENDER_KIT);
-  }
-
-  // ---------------------------------------------------- Test Methods
-
-  public void renderKitAddGetRendererTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    TCKRenderer renderer = new TCKRenderer();
-    RenderKit defaultKit = getRenderKit();
-
-    defaultKit.addRenderer("TCK", "TCK", renderer);
-    Renderer result = defaultKit.getRenderer("TCK", "TCK");
-
-    if (result != renderer) {
-      out.println(JSFTestUtil.FAIL + " Unexpected result returned"
-          + " from getRenderer() when requesting a Renderer that"
-          + " was added via addRenderer().");
-      out.println("Expected: " + renderer);
-      out.println("Received: " + result);
-      return;
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws jakarta.servlet.ServletException if an error occurs
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public RenderKit getRenderKit() {
+        RenderKitFactory factory = (RenderKitFactory) FactoryFinder
+            .getFactory(FactoryFinder.RENDER_KIT_FACTORY);
 
-  public void renderKitGetRendererTypesTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    TCKRenderer renderer = new TCKRenderer();
-    RenderKit defaultKit = getRenderKit();
-    String type = "TCK";
-
-    defaultKit.addRenderer(type, type, renderer);
-    Iterator<String> itr = defaultKit.getRendererTypes(type);
-    String result = null;
-
-    while (itr.hasNext()) {
-      result = itr.next();
+        return factory.getRenderKit(
+            getFacesContext(),
+            RenderKitFactory.HTML_BASIC_RENDER_KIT
+        );
     }
 
-    if (!type.equals(result)) {
-      out.println(JSFTestUtil.FAIL + " Unexpected result returned"
-          + " from getRendererTypes() when requesting a Renderer "
-          + "that was added via addRenderer().");
-      out.println("Expected: " + type);
-      out.println("Received: " + result);
-      return;
+    // ---------------------------------------------------- Test Methods
+
+    public void renderKitAddGetRendererTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        TCKRenderer renderer = new TCKRenderer();
+        RenderKit defaultKit = getRenderKit();
+
+        defaultKit.addRenderer("TCK", "TCK", renderer);
+        Renderer result = defaultKit.getRenderer("TCK", "TCK");
+
+        if (result != renderer) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected result returned"
+                    + " from getRenderer() when requesting a Renderer that"
+                    + " was added via addRenderer()."
+            );
+            out.println("Expected: " + renderer);
+            out.println("Received: " + result);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void renderKitGetRendererTypesTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void renderKitAddGetClientBehaviorRendererTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        TCKRenderer renderer = new TCKRenderer();
+        RenderKit defaultKit = getRenderKit();
+        String type = "TCK";
 
-    ClientBehaviorRenderer renderer = new TCKcbr();
-    RenderKit defaultKit = getRenderKit();
+        defaultKit.addRenderer(type, type, renderer);
+        Iterator<String> itr = defaultKit.getRendererTypes(type);
+        String result = null;
 
-    defaultKit.addClientBehaviorRenderer("TCK", renderer);
-    ClientBehaviorRenderer result = defaultKit.getClientBehaviorRenderer("TCK");
+        while (itr.hasNext()) {
+            result = itr.next();
+        }
 
-    if (result != renderer) {
-      out.println(JSFTestUtil.FAIL + " Unexpected result returned"
-          + " from getRenderer() when requesting a Renderer that"
-          + " was added via addRenderer().");
-      out.println("Expected: " + renderer);
-      out.println("Received: " + result);
-      return;
+        if (!type.equals(result)) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected result returned"
+                    + " from getRendererTypes() when requesting a Renderer "
+                    + "that was added via addRenderer()."
+            );
+            out.println("Expected: " + type);
+            out.println("Received: " + result);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void renderKitAddGetClientBehaviorRendererTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void renderKitAddRendererNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    RenderKit defaultKit = getRenderKit();
+        ClientBehaviorRenderer renderer = new TCKcbr();
+        RenderKit defaultKit = getRenderKit();
 
-    pw.println("Testing: addRenderer(null, 'TCK', new TCKRenderer())");
-    JSFTestUtil.checkForNPE(defaultKit, "addRenderer",
-        new Class<?>[] { String.class, String.class, Renderer.class },
-        new Object[] { null, "TCK", new TCKRenderer() }, pw);
+        defaultKit.addClientBehaviorRenderer("TCK", renderer);
+        ClientBehaviorRenderer result = defaultKit.getClientBehaviorRenderer("TCK");
 
-    pw.println("Testing: addRenderer('TCK', null, new TCKRenderer())");
-    JSFTestUtil.checkForNPE(defaultKit, "addRenderer",
-        new Class<?>[] { String.class, String.class, Renderer.class },
-        new Object[] { "TCK", null, new TCKRenderer() }, pw);
+        if (result != renderer) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected result returned"
+                    + " from getRenderer() when requesting a Renderer that"
+                    + " was added via addRenderer()."
+            );
+            out.println("Expected: " + renderer);
+            out.println("Received: " + result);
+            return;
+        }
 
-    pw.println("Testing: addRenderer('TCK', 'TCK', null)");
-    JSFTestUtil.checkForNPE(defaultKit, "addRenderer",
-        new Class<?>[] { String.class, String.class, Renderer.class },
-        new Object[] { "TCK", "TCK", null }, pw);
-
-  }
-
-  public void renderKitGetRendererNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    RenderKit defaultKit = getRenderKit();
-
-    pw.println("Testing: getRenderer('TCK', null)");
-    JSFTestUtil.checkForNPE(defaultKit, "getRenderer",
-        new Class<?>[] { String.class, String.class },
-        new Object[] { "TCK", null }, pw);
-
-    pw.println("Testing: getRenderer(null, 'TCK')");
-    JSFTestUtil.checkForNPE(defaultKit, "getRenderer",
-        new Class<?>[] { String.class, String.class },
-        new Object[] { null, "TCK" }, pw);
-
-  }
-
-  public void renderKitAddClientBehaviorRendererNPETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    RenderKit defaultKit = getRenderKit();
-
-    pw.println("Testing: addClientBehaviorRenderer('TCK', null)");
-    JSFTestUtil.checkForNPE(defaultKit, "addClientBehaviorRenderer",
-        new Class<?>[] { String.class, ClientBehaviorRenderer.class },
-        new Object[] { "TCK", null }, pw);
-
-    pw.println("Testing: getRenderer(null, 'TCK')");
-    JSFTestUtil.checkForNPE(defaultKit, "addClientBehaviorRenderer",
-        new Class<?>[] { String.class, ClientBehaviorRenderer.class },
-        new Object[] { null, new TCKcbr() }, pw);
-
-  }
-
-  public void renderKitGetClientBehaviorRendererNPETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    RenderKit defaultKit = getRenderKit();
-
-    pw.println("Testing: getClientBehaviorRenderer(null)");
-    JSFTestUtil.checkForNPE(defaultKit, "getClientBehaviorRenderer",
-        new Class<?>[] { String.class }, new Object[] { null }, pw);
-
-  }
-
-  public void renderKitCreateResponseStreamTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-
-    RenderKit defaultKit = getRenderKit();
-
-    ResponseStream stream = defaultKit.createResponseStream(bOut);
-
-    if (stream == null) {
-      out.println(JSFTestUtil.FAIL + " createResponseStream() returned null.");
-      return;
+        out.println(JSFTestUtil.PASS);
     }
 
-    stream.write("string".getBytes());
-    stream.flush();
+    public void renderKitAddRendererNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        RenderKit defaultKit = getRenderKit();
 
-    if (bOut.toString().indexOf("string") < 0) {
-      out.println(JSFTestUtil.FAIL + " Expected an invocation of method on"
-          + " newly created ResponseStream would have written the bytes"
-          + " to the underlying ByteArrayOutputStream().  Unexpected result"
-          + " found.");
-      out.println("Expected to find the term 'string' in the result.");
-      out.println("Result: " + bOut.toString());
+        pw.println("Testing: addRenderer(null, 'TCK', new TCKRenderer())");
+        JSFTestUtil.checkForNPE(
+            defaultKit, "addRenderer",
+            new Class<?>[] { String.class, String.class, Renderer.class },
+            new Object[] { null, "TCK", new TCKRenderer() }, pw
+        );
+
+        pw.println("Testing: addRenderer('TCK', null, new TCKRenderer())");
+        JSFTestUtil.checkForNPE(
+            defaultKit, "addRenderer",
+            new Class<?>[] { String.class, String.class, Renderer.class },
+            new Object[] { "TCK", null, new TCKRenderer() }, pw
+        );
+
+        pw.println("Testing: addRenderer('TCK', 'TCK', null)");
+        JSFTestUtil.checkForNPE(
+            defaultKit, "addRenderer",
+            new Class<?>[] { String.class, String.class, Renderer.class },
+            new Object[] { "TCK", "TCK", null }, pw
+        );
+
     }
 
-    try {
-      stream.close();
-    } catch (IOException ioe) {
-      // ignore
+    public void renderKitGetRendererNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        RenderKit defaultKit = getRenderKit();
+
+        pw.println("Testing: getRenderer('TCK', null)");
+        JSFTestUtil.checkForNPE(
+            defaultKit, "getRenderer",
+            new Class<?>[] { String.class, String.class },
+            new Object[] { "TCK", null }, pw
+        );
+
+        pw.println("Testing: getRenderer(null, 'TCK')");
+        JSFTestUtil.checkForNPE(
+            defaultKit, "getRenderer",
+            new Class<?>[] { String.class, String.class },
+            new Object[] { null, "TCK" }, pw
+        );
+
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void renderKitAddClientBehaviorRendererNPETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        RenderKit defaultKit = getRenderKit();
 
-  public void renderKitCreateResponseWriterTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    ByteArrayOutputStream bOut = new ByteArrayOutputStream();
-    OutputStreamWriter wOut = new OutputStreamWriter(bOut);
+        pw.println("Testing: addClientBehaviorRenderer('TCK', null)");
+        JSFTestUtil.checkForNPE(
+            defaultKit, "addClientBehaviorRenderer",
+            new Class<?>[] { String.class, ClientBehaviorRenderer.class },
+            new Object[] { "TCK", null }, pw
+        );
 
-    RenderKit defaultKit = getRenderKit();
+        pw.println("Testing: getRenderer(null, 'TCK')");
+        JSFTestUtil.checkForNPE(
+            defaultKit, "addClientBehaviorRenderer",
+            new Class<?>[] { String.class, ClientBehaviorRenderer.class },
+            new Object[] { null, new TCKcbr() }, pw
+        );
 
-    ResponseWriter writer = defaultKit.createResponseWriter(wOut, "text/html",
-        "ISO-8859-1");
-
-    if (writer == null) {
-      out.println(JSFTestUtil.FAIL + " createResponseStream() returned null.");
-      return;
     }
 
-    writer.write("string");
-    writer.flush();
-    wOut.flush();
+    public void renderKitGetClientBehaviorRendererNPETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        RenderKit defaultKit = getRenderKit();
 
-    if (bOut.toString().indexOf("string") < 0) {
-      out.println(JSFTestUtil.FAIL + " Expected an invocation of method on"
-          + " newly created ResponseStream would have written the bytes"
-          + " to the underlying ByteArrayOutputStream().  Unexpected result"
-          + " found.");
-      out.println("Expected to find the term 'string' in the result.");
-      out.println("Result: " + bOut.toString());
-      return;
+        pw.println("Testing: getClientBehaviorRenderer(null)");
+        JSFTestUtil.checkForNPE(
+            defaultKit, "getClientBehaviorRenderer",
+            new Class<?>[] { String.class }, new Object[] { null }, pw
+        );
+
     }
 
-    try {
-      writer.close();
-    } catch (IOException ioe) {
-      // ignore
+    public void renderKitCreateResponseStreamTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        ByteArrayOutputStream bOut = new ByteArrayOutputStream();
+
+        RenderKit defaultKit = getRenderKit();
+
+        ResponseStream stream = defaultKit.createResponseStream(bOut);
+
+        if (stream == null) {
+            out.println(JSFTestUtil.FAIL + " createResponseStream() returned null.");
+            return;
+        }
+
+        stream.write("string".getBytes());
+        stream.flush();
+
+        if (bOut.toString().indexOf("string") < 0) {
+            out.println(
+                JSFTestUtil.FAIL + " Expected an invocation of method on"
+                    + " newly created ResponseStream would have written the bytes"
+                    + " to the underlying ByteArrayOutputStream().  Unexpected result"
+                    + " found."
+            );
+            out.println("Expected to find the term 'string' in the result.");
+            out.println("Result: " + bOut.toString());
+        }
+
+        try {
+            stream.close();
+        }
+        catch (IOException ioe) {
+            // ignore
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void renderKitCreateResponseWriterTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        ByteArrayOutputStream bOut = new ByteArrayOutputStream();
+        OutputStreamWriter wOut = new OutputStreamWriter(bOut);
 
-  public void renderKitCreateResponseWriterInvalidContentTypeTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    RenderKit defaultKit = getRenderKit();
+        RenderKit defaultKit = getRenderKit();
 
-    try {
-      defaultKit.createResponseWriter(new StringWriter(),
-          "invalid/content-type", "ISO-8859-1");
-      out.println("No Exception thrown when passing an invalid content"
-          + " type to the createResponseWriter() method.");
-      return;
-    } catch (Exception e) {
-      if (!(e instanceof IllegalArgumentException)) {
-        out.println(JSFTestUtil.FAIL + " Exception thrown when passing an"
-            + " invalid content type to createResponseWriter(), but"
-            + " it wasn't an instance of IllegalArgumentException.");
-        out.println("Exception received: " + e.getClass().getName());
-        return;
-      }
+        ResponseWriter writer = defaultKit.createResponseWriter(
+            wOut, "text/html",
+            "ISO-8859-1"
+        );
+
+        if (writer == null) {
+            out.println(JSFTestUtil.FAIL + " createResponseStream() returned null.");
+            return;
+        }
+
+        writer.write("string");
+        writer.flush();
+        wOut.flush();
+
+        if (bOut.toString().indexOf("string") < 0) {
+            out.println(
+                JSFTestUtil.FAIL + " Expected an invocation of method on"
+                    + " newly created ResponseStream would have written the bytes"
+                    + " to the underlying ByteArrayOutputStream().  Unexpected result"
+                    + " found."
+            );
+            out.println("Expected to find the term 'string' in the result.");
+            out.println("Result: " + bOut.toString());
+            return;
+        }
+
+        try {
+            writer.close();
+        }
+        catch (IOException ioe) {
+            // ignore
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void renderKitCreateResponseWriterInvalidContentTypeTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        RenderKit defaultKit = getRenderKit();
 
-  public void renderKitCreateResponseWriterInvalidEncodingTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    RenderKit defaultKit = getRenderKit();
+        try {
+            defaultKit.createResponseWriter(
+                new StringWriter(),
+                "invalid/content-type", "ISO-8859-1"
+            );
+            out.println(
+                "No Exception thrown when passing an invalid content"
+                    + " type to the createResponseWriter() method."
+            );
+            return;
+        }
+        catch (Exception e) {
+            if (!(e instanceof IllegalArgumentException)) {
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when passing an"
+                        + " invalid content type to createResponseWriter(), but"
+                        + " it wasn't an instance of IllegalArgumentException."
+                );
+                out.println("Exception received: " + e.getClass().getName());
+                return;
+            }
+        }
 
-    try {
-      defaultKit.createResponseWriter(new StringWriter(), "text/html",
-          "noSuchEncoding");
-      out.println("No Exception thrown when passing an invalid encoding"
-          + " to the createResponseWriter() method.");
-      return;
-    } catch (Exception e) {
-      if (!(e instanceof IllegalArgumentException)) {
-        out.println(JSFTestUtil.FAIL + " Exception thrown when passing an"
-            + " invalid encoding to createResponseWriter(), but"
-            + " it wasn't an instance of IllegalArgumentException.");
-        out.println("Exception received: " + e.getClass().getName());
-        return;
-      }
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void renderKitCreateResponseWriterInvalidEncodingTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        RenderKit defaultKit = getRenderKit();
 
-  public void renderKitGetResponseStateManagerTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    RenderKit defaultKit = getRenderKit();
+        try {
+            defaultKit.createResponseWriter(
+                new StringWriter(), "text/html",
+                "noSuchEncoding"
+            );
+            out.println(
+                "No Exception thrown when passing an invalid encoding"
+                    + " to the createResponseWriter() method."
+            );
+            return;
+        }
+        catch (Exception e) {
+            if (!(e instanceof IllegalArgumentException)) {
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when passing an"
+                        + " invalid encoding to createResponseWriter(), but"
+                        + " it wasn't an instance of IllegalArgumentException."
+                );
+                out.println("Exception received: " + e.getClass().getName());
+                return;
+            }
+        }
 
-    ResponseStateManager manager = defaultKit.getResponseStateManager();
-
-    if (manager == null) {
-      out.println(
-          JSFTestUtil.FAIL + " getResponseStateManager() returned null.");
-      return;
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void renderKitGetResponseStateManagerTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        RenderKit defaultKit = getRenderKit();
 
-  public void renderKitGetClientBehaviorRendererTypesTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResponseStateManager manager = defaultKit.getResponseStateManager();
 
-    ClientBehaviorRenderer renderer = new TCKcbr();
-    RenderKit defaultKit = getRenderKit();
-    String type = "TCK";
+        if (manager == null) {
+            out.println(
+                JSFTestUtil.FAIL + " getResponseStateManager() returned null."
+            );
+            return;
+        }
 
-    defaultKit.addClientBehaviorRenderer(type, renderer);
-    Iterator<String> itr = defaultKit.getRendererTypes(type);
-    String result = null;
-
-    while (itr.hasNext()) {
-      result = itr.next();
+        out.println(JSFTestUtil.PASS);
     }
 
-    if (!type.equals(result)) {
-      out.println(
-          JSFTestUtil.FAIL + JSFTestUtil.NL + "Unexpected result returned from "
-              + "getClientBehaviorRendererTypes() when requesting "
-              + "a Renderer that was added via "
-              + "addClientBehaviorRendererRenderer()." + JSFTestUtil.NL
-              + "Expected: " + type + JSFTestUtil.NL + "Received: " + result);
-      return;
+    public void renderKitGetClientBehaviorRendererTypesTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        ClientBehaviorRenderer renderer = new TCKcbr();
+        RenderKit defaultKit = getRenderKit();
+        String type = "TCK";
+
+        defaultKit.addClientBehaviorRenderer(type, renderer);
+        Iterator<String> itr = defaultKit.getRendererTypes(type);
+        String result = null;
+
+        while (itr.hasNext()) {
+            result = itr.next();
+        }
+
+        if (!type.equals(result)) {
+            out.println(
+                JSFTestUtil.FAIL + JSFTestUtil.NL + "Unexpected result returned from "
+                    + "getClientBehaviorRendererTypes() when requesting "
+                    + "a Renderer that was added via "
+                    + "addClientBehaviorRendererRenderer()." + JSFTestUtil.NL
+                    + "Expected: " + type + JSFTestUtil.NL + "Received: " + result
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // ----------------------------------------------------------Private Classes
 
-  // ----------------------------------------------------------Private Classes
+    private static class TCKRenderer extends Renderer {
 
-  private static class TCKRenderer extends Renderer {
-    public String convertClientId(FacesContext context, String clientId) {
-      return super.convertClientId(context, clientId);
+        public String convertClientId(FacesContext context, String clientId) {
+            return super.convertClientId(context, clientId);
+        }
+
+        public void decode(FacesContext context, UIComponent component) {
+            super.decode(context, component);
+        }
+
+        public void encodeBegin(FacesContext context, UIComponent component)
+            throws IOException
+        {
+            super.encodeBegin(context, component);
+        }
+
+        public void encodeChildren(FacesContext context, UIComponent component)
+            throws IOException
+        {
+            super.encodeChildren(context, component);
+        }
+
+        public void encodeEnd(FacesContext context, UIComponent component)
+            throws IOException
+        {
+            super.encodeEnd(context, component);
+        }
+
+        public boolean getRendersChildren() {
+            return super.getRendersChildren();
+        }
+
     }
 
-    public void decode(FacesContext context, UIComponent component) {
-      super.decode(context, component);
+    private class TCKcbr extends ClientBehaviorRenderer {
+        // do nothing needed a ClientBehaviorRenderer type for NPE tests.
     }
-
-    public void encodeBegin(FacesContext context, UIComponent component)
-        throws IOException {
-      super.encodeBegin(context, component);
-    }
-
-    public void encodeChildren(FacesContext context, UIComponent component)
-        throws IOException {
-      super.encodeChildren(context, component);
-    }
-
-    public void encodeEnd(FacesContext context, UIComponent component)
-        throws IOException {
-      super.encodeEnd(context, component);
-    }
-
-    public boolean getRendersChildren() {
-      return super.getRendersChildren();
-    }
-  }
-
-  private class TCKcbr extends ClientBehaviorRenderer {
-    // do nothing needed a ClientBehaviorRenderer type for NPE tests.
-  }
 
 }

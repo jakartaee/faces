@@ -16,7 +16,6 @@
 
 package ee.jakarta.tck.faces.faces40.api;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.UIComponent;
@@ -29,19 +28,18 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.ExtendedTextInput;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 class Issue5032IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior#getExecute()
+    /**
+     * @see AjaxBehavior#getExecute()
      * @see UIComponent#getCompositeComponentParent(UIComponent)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5032
-   */
-  @Test
-  void implicitThis() throws Exception {
+     */
+    @Test
+    void implicitThis() throws Exception {
         WebPage page = getPage("issue5032.xhtml");
 
-        ExtendedTextInput form1input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form1:inputs:input2")));
+        ExtendedTextInput form1input2 = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("form1:inputs:input2")));
 
         page.guardAjax(() -> {
             form1input2.setValue("1");
@@ -51,16 +49,16 @@ class Issue5032IT extends BaseITNG {
         assertEquals("", form1messages, "there are no validation messages coming from required field form1:input1");
     }
 
-  /**
-   * @see AjaxBehavior#getExecute()
+    /**
+     * @see AjaxBehavior#getExecute()
      * @see UIComponent#getCompositeComponentParent(UIComponent)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5032
-   */
-  @Test
-  void explicitThis() throws Exception {
+     */
+    @Test
+    void explicitThis() throws Exception {
         WebPage page = getPage("issue5032.xhtml");
 
-        ExtendedTextInput form2input2 = new ExtendedTextInput( getWebDriver(), page.findElement(By.id("form2:inputs:input2")));
+        ExtendedTextInput form2input2 = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("form2:inputs:input2")));
 
         page.guardAjax(() -> {
             form2input2.setValue("1");

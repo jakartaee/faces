@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1997, 2020 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2020 Contributors to Eclipse Foundation.
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -36,7 +36,6 @@ import jakarta.faces.view.ViewDeclarationLanguage;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-
 @Named
 @RequestScoped
 public class GetViewsBean {
@@ -44,16 +43,20 @@ public class GetViewsBean {
     @Inject
     private FacesContext context;
 
-    @Inject @ManagedProperty("#{param['path']}")
+    @Inject
+    @ManagedProperty("#{param['path']}")
     private String path;
 
-    @Inject @ManagedProperty("#{param['maxDepth']}")
+    @Inject
+    @ManagedProperty("#{param['maxDepth']}")
     private Integer maxDepth;
 
-    @Inject @ManagedProperty("#{param['implicit']}")
+    @Inject
+    @ManagedProperty("#{param['implicit']}")
     private boolean implicit;
 
-    @Inject @ManagedProperty("#{param['fromVDL']}")
+    @Inject
+    @ManagedProperty("#{param['fromVDL']}")
     private boolean fromVDL;
 
     public List<String> getViews() {
@@ -61,7 +64,7 @@ public class GetViewsBean {
         ViewHandler viewHandler = context.getApplication().getViewHandler();
 
         path = path != null && !path.isEmpty() ? path : "/";
-        ViewVisitOption[] options = implicit? new ViewVisitOption[] {RETURN_AS_MINIMAL_IMPLICIT_OUTCOME} : new ViewVisitOption[] {};
+        ViewVisitOption[] options = implicit ? new ViewVisitOption[] { RETURN_AS_MINIMAL_IMPLICIT_OUTCOME } : new ViewVisitOption[] {};
         Stream<String> views;
 
         if (fromVDL) {
@@ -69,13 +72,16 @@ public class GetViewsBean {
             ViewDeclarationLanguage vdl = viewHandler.getViewDeclarationLanguage(context, "/foo.xhtml");
             if (maxDepth != null) {
                 views = vdl.getViews(context, path, maxDepth, options);
-            } else {
+            }
+            else {
                 views = vdl.getViews(context, path, options);
             }
-        } else {
+        }
+        else {
             if (maxDepth != null) {
                 views = viewHandler.getViews(context, path, maxDepth, options);
-            } else {
+            }
+            else {
                 views = viewHandler.getViews(context, path, options);
             }
 
@@ -83,6 +89,5 @@ public class GetViewsBean {
 
         return views.collect(toList());
     }
-
 
 }

@@ -21,8 +21,10 @@ import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UIOutput;
 
 @FacesComponent(Spec1423ComponentAddedProgrammatically.COMPONENT_TYPE)
-@ResourceDependency(library="spec1423", name="addedProgrammatically.js")
-@ResourceDependency(library="spec1423", name="addedProgrammatically.css")
+@ResourceDependency(library = "spec1423", name = "addedProgrammatically.js")
+@ResourceDependency(library = "spec1423", name = "addedProgrammatically.css")
 public class Spec1423ComponentAddedProgrammatically extends UIOutput {
+
     public static final String COMPONENT_TYPE = "Spec1423ComponentAddedProgrammatically";
+
 }

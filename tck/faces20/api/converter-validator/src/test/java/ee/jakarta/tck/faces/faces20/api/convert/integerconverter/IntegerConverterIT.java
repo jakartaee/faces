@@ -28,8 +28,24 @@ class IntegerConverterIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void integerConverterGetAsObjectTest() { runServletTest("converterGetAsObjectTest"); }
-    @Test void integerConverterGetAsObjectNPETest() { runServletTest("converterGetAsObjectNPETest"); }
-    @Test void integerConverterGetAsStringTest() { runServletTest("converterGetAsStringTest"); }
-    @Test void integerConverterGetAsStringNPETest() { runServletTest("converterGetAsStringNPETest"); }
+    @Test
+    void integerConverterGetAsObjectTest() {
+        runServletTest("converterGetAsObjectTest");
+    }
+
+    @Test
+    void integerConverterGetAsObjectNPETest() {
+        runServletTest("converterGetAsObjectNPETest");
+    }
+
+    @Test
+    void integerConverterGetAsStringTest() {
+        runServletTest("converterGetAsStringTest");
+    }
+
+    @Test
+    void integerConverterGetAsStringNPETest() {
+        runServletTest("converterGetAsStringNPETest");
+    }
+
 }

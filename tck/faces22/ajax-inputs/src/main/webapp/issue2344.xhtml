@@ -24,7 +24,7 @@
 <h:head>
 </h:head>
 <h:body>
-	<h:form prependId="false">
+    <h:form prependId="false">
            <h:commandLink id="testLink" value="testlink" actionListener="#{bean.processLink}">
               <f:ajax execute="@form" render="out" />
            </h:commandLink>
@@ -36,6 +36,6 @@
 
            <br/>
            <h:outputText id="out" value="#{bean.status}"/>
-	</h:form>
+    </h:form>
 </h:body>
 </html>

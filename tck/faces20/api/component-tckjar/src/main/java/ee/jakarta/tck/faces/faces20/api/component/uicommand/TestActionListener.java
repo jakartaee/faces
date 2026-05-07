@@ -21,93 +21,93 @@ import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ActionListener;
 
 public final class TestActionListener implements ActionListener {
-  private String id = null;
 
-  private TestActionListener() {
-  }
+    private String id = null;
 
-  // ----------------------------------------------------------- Public Methods
-
-  /**
-   * Create a TestActionListener with with the given ID(id)
-   *
-   * @param id
-   *          - The id of the TestActionListener.
-   * @return TestActionListener
-   */
-  public static TestActionListener withID(String id) {
-    TestActionListener tal = new TestActionListener();
-    tal.setId(id);
-
-    return tal;
-
-  }
-
-  /**
-   * Set the id of this TestActionListener
-   *
-   * @param id
-   *          - The id you want this TestActionListener Object to have.
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  /**
-   * Get the id of this TestActionListener
-   *
-   * @return The id that has been previously set.
-   */
-  public String getId() {
-    return (this.id);
-  }
-
-  @Override
-  public void processAction(ActionEvent event) {
-    trace(getId() + "@" + JSFTestUtil.getPhaseIdAsString(event.getPhaseId()));
-  }
-
-  @Override
-  public boolean equals(Object otherObj) {
-    if (!(otherObj instanceof TestActionListener)) {
-      return false;
-    }
-    TestActionListener other = (TestActionListener) otherObj;
-    if ((null != id && null == other.id) || (null == id && null != other.id)) {
-      return false;
-    }
-    boolean idsAreEqual = true;
-    if (null != id) {
-      idsAreEqual = id.equals(other.id);
+    private TestActionListener() {
     }
 
-    return idsAreEqual;
-  }
+    // ----------------------------------------------------------- Public Methods
 
-  @Override
-  public int hashCode() {
-    assert false : "hashCode not designed";
-    return 42; // any arbitrary constant will do
-  }
+    /**
+     * Create a TestActionListener with with the given ID(id)
+     *
+     * @param id - The id of the TestActionListener.
+     * @return TestActionListener
+     */
+    public static TestActionListener withID(String id) {
+        TestActionListener tal = new TestActionListener();
+        tal.setId(id);
 
-  // ---------------------------------------------------- Static Trace Methods
+        return tal;
 
-  // Accumulated trace log
-  private static StringBuffer trace = new StringBuffer();
-
-  // Append to the current trace log (or clear if null)
-  public static void trace(String text) {
-    if (text == null) {
-      trace.setLength(0);
-    } else {
-      trace.append('/');
-      trace.append(text);
     }
-  }
 
-  // Retrieve the current trace log
-  public static String trace() {
-    return (trace.toString());
-  }
+    /**
+     * Set the id of this TestActionListener
+     *
+     * @param id - The id you want this TestActionListener Object to have.
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Get the id of this TestActionListener
+     *
+     * @return The id that has been previously set.
+     */
+    public String getId() {
+        return (this.id);
+    }
+
+    @Override
+    public void processAction(ActionEvent event) {
+        trace(getId() + "@" + JSFTestUtil.getPhaseIdAsString(event.getPhaseId()));
+    }
+
+    @Override
+    public boolean equals(Object otherObj) {
+        if (!(otherObj instanceof TestActionListener)) {
+            return false;
+        }
+        TestActionListener other = (TestActionListener) otherObj;
+        if ((null != id && null == other.id) || (null == id && null != other.id)) {
+            return false;
+        }
+        boolean idsAreEqual = true;
+        if (null != id) {
+            idsAreEqual = id.equals(other.id);
+        }
+
+        return idsAreEqual;
+    }
+
+    @Override
+    public int hashCode() {
+        assert false : "hashCode not designed";
+        return 42; // any arbitrary constant will do
+    }
+
+    // ---------------------------------------------------- Static Trace Methods
+
+    // Accumulated trace log
+    private static StringBuffer trace = new StringBuffer();
+
+    // Append to the current trace log (or clear if null)
+    public static void trace(String text) {
+        if (text == null) {
+            trace.setLength(0);
+        }
+        else {
+            trace.append('/');
+            trace.append(text);
+        }
+    }
+
+    // Retrieve the current trace log
+    public static String trace() {
+        return (trace.toString());
+    }
 
 }

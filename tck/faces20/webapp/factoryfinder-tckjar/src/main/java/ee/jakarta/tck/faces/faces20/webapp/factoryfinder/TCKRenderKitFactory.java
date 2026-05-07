@@ -33,129 +33,107 @@ import jakarta.faces.render.RenderKitFactory;
  */
 public class TCKRenderKitFactory extends RenderKitFactory {
 
-  /**
-   * <p>
-   * The @{link RenderKitFactory} instance provided by the JSF implementation
-   * under test.
-   * </p>
-   */
-  private RenderKitFactory factory;
+    /**
+     * <p>
+     * The @{link RenderKitFactory} instance provided by the JSF implementation under test.
+     * </p>
+     */
+    private RenderKitFactory factory;
 
-  /**
-   * Default Constructor.
-   */
-  public TCKRenderKitFactory() {
+    /**
+     * Default Constructor.
+     */
+    public TCKRenderKitFactory() {
 
-    System.out.println("[TCKRenderKitFactory] Default CTOR");
+        System.out.println("[TCKRenderKitFactory] Default CTOR");
 
-  }
+    }
 
-  /**
-   * <p>
-   * Constructs a new TCKRenderKitFactory instance that wraps the default
-   * {@link RenderKitFactory} instance of the implementation under test.
-   * </p>
-   * 
-   * @param factory
-   *          the {@link RenderKitFactory} of the implementation under test
-   */
-  public TCKRenderKitFactory(RenderKitFactory factory) {
+    /**
+     * <p>
+     * Constructs a new TCKRenderKitFactory instance that wraps the default {@link RenderKitFactory} instance of the implementation under test.
+     * </p>
+     *
+     * @param factory the {@link RenderKitFactory} of the implementation under test
+     */
+    public TCKRenderKitFactory(RenderKitFactory factory) {
 
-    System.out.println("[TCKRenderKitFactory] Factory CTOR");
-    this.factory = factory;
+        System.out.println("[TCKRenderKitFactory] Factory CTOR");
+        this.factory = factory;
 
-  } // END TCKRenderKitFactory
+    } // END TCKRenderKitFactory
 
-  // ----------------- Methods from jakarta.faces.application.RenderKitFactory
+    // ----------------- Methods from jakarta.faces.application.RenderKitFactory
 
-  /**
-   * <p>
-   * Register the specified {@link jakarta.faces.render.RenderKit} instance,
-   * associated with the specified <code>renderKitId</code>, to be supported by
-   * this {@link jakarta.faces.render.RenderKitFactory}, replacing any previously
-   * registered {@link jakarta.faces.render.RenderKit} for this identifier.
-   * </p>
-   *
-   * @param renderKitId
-   *          Identifier of the {@link jakarta.faces.render.RenderKit} to register
-   * @param renderKit
-   *          {@link jakarta.faces.render.RenderKit} instance that we are
-   *          registering
-   *
-   * @throws NullPointerException
-   *           if <code>renderKitId</code> or <code>renderKit</code> is
-   *           <code>null</code>
-   */
-  public void addRenderKit(String renderKitId, RenderKit renderKit) {
+    /**
+     * <p>
+     * Register the specified {@link jakarta.faces.render.RenderKit} instance, associated with the specified <code>renderKitId</code>, to be supported by this
+     * {@link jakarta.faces.render.RenderKitFactory}, replacing any previously registered {@link jakarta.faces.render.RenderKit} for this identifier.
+     * </p>
+     *
+     * @param renderKitId Identifier of the {@link jakarta.faces.render.RenderKit} to register
+     * @param renderKit {@link jakarta.faces.render.RenderKit} instance that we are registering
+     *
+     * @throws NullPointerException if <code>renderKitId</code> or <code>renderKit</code> is <code>null</code>
+     */
+    public void addRenderKit(String renderKitId, RenderKit renderKit) {
 
-    factory.addRenderKit(renderKitId, renderKit);
+        factory.addRenderKit(renderKitId, renderKit);
 
-  } // END addRenderKit
+    } // END addRenderKit
 
-  /**
-   * <p>
-   * Return a {@link jakarta.faces.render.RenderKit} instance for the specified
-   * render kit identifier, possibly customized based on dynamic characteristics
-   * of the specified {@link jakarta.faces.context.FacesContext}, if
-   * non-<code>null</code>. If there is no registered
-   * {@link jakarta.faces.render.RenderKit} for the specified identifier, return
-   * <code>null</code>. The set of available render kit identifiers is available
-   * via the <code>getRenderKitIds()</code> method.
-   * </p>
-   *
-   * @param context
-   *          FacesContext for the request currently being processed, or
-   *          <code>null</code> if none is available.
-   * @param renderKitId
-   *          Render kit identifier of the requested
-   *          {@link jakarta.faces.render.RenderKit} instance
-   *
-   * @throws IllegalArgumentException
-   *           if no {@link jakarta.faces.render.RenderKit} instance can be
-   *           returned for the specified identifier
-   * @throws NullPointerException
-   *           if <code>renderKitId</code> is <code>null</code>
-   */
-  public RenderKit getRenderKit(FacesContext context, String renderKitId) {
+    /**
+     * <p>
+     * Return a {@link jakarta.faces.render.RenderKit} instance for the specified render kit identifier, possibly customized based on dynamic characteristics of
+     * the specified {@link jakarta.faces.context.FacesContext}, if non-<code>null</code>. If there is no registered {@link jakarta.faces.render.RenderKit} for
+     * the specified identifier, return <code>null</code>. The set of available render kit identifiers is available via the <code>getRenderKitIds()</code>
+     * method.
+     * </p>
+     *
+     * @param context FacesContext for the request currently being processed, or <code>null</code> if none is available.
+     * @param renderKitId Render kit identifier of the requested {@link jakarta.faces.render.RenderKit} instance
+     *
+     * @throws IllegalArgumentException if no {@link jakarta.faces.render.RenderKit} instance can be returned for the specified identifier
+     * @throws NullPointerException if <code>renderKitId</code> is <code>null</code>
+     */
+    public RenderKit getRenderKit(FacesContext context, String renderKitId) {
 
-    return factory.getRenderKit(context, renderKitId);
+        return factory.getRenderKit(context, renderKitId);
 
-  } // END getRenderKit
+    } // END getRenderKit
 
-  /**
-   * <p>
-   * Return an <code>Iterator</code> over the set of render kit identifiers
-   * registered with this factory. This set must include the value specified by
-   * <code>RenderKitFactory.HTML_BASIC_RENDER_KIT</code>.
-   * </p>
-   */
-  public Iterator getRenderKitIds() {
+    /**
+     * <p>
+     * Return an <code>Iterator</code> over the set of render kit identifiers registered with this factory. This set must include the value specified by
+     * <code>RenderKitFactory.HTML_BASIC_RENDER_KIT</code>.
+     * </p>
+     */
+    public Iterator getRenderKitIds() {
 
-    return factory.getRenderKitIds();
+        return factory.getRenderKitIds();
 
-  } // END getRenderKitIds
+    } // END getRenderKitIds
 
-  // ---------------------------------------------------------- Public Methods
+    // ---------------------------------------------------------- Public Methods
 
-  /**
-   * <p>
-   * Returns the wrapped RenderKitFactory instance passed to the constructor by
-   * the JSF implementation under test.
-   * </p>
-   */
-  public RenderKitFactory getWrappedInstance() {
+    /**
+     * <p>
+     * Returns the wrapped RenderKitFactory instance passed to the constructor by the JSF implementation under test.
+     * </p>
+     */
+    public RenderKitFactory getWrappedInstance() {
 
-    return factory;
+        return factory;
 
-  } // END getWrappedInstance
+    } // END getWrappedInstance
 
-  /**
-   * <p>
-   * Returns the 'this' RenderKitFactory instance for testing purposes only..
-   * </p>
-   */
-  public RenderKitFactory getWrapped() {
-    return this;
-  }
+    /**
+     * <p>
+     * Returns the 'this' RenderKitFactory instance for testing purposes only..
+     * </p>
+     */
+    public RenderKitFactory getWrapped() {
+        return this;
+    }
 
 }

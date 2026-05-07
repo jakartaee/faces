@@ -28,8 +28,24 @@ class OffsetTimeConverterIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void LocalTimeConverterGetAsObjectTest() { runServletTest("converterGetAsObjectTest"); }
-    @Test void LocalTimeConverterGetAsObjectNPETest() { runServletTest("converterGetAsObjectNPETest"); }
-    @Test void LocalTimeConverterGetAsStringTest() { runServletTest("converterGetAsStringTest"); }
-    @Test void LocalTimeConverterGetAsStringNPETest() { runServletTest("converterGetAsStringNPETest"); }
+    @Test
+    void LocalTimeConverterGetAsObjectTest() {
+        runServletTest("converterGetAsObjectTest");
+    }
+
+    @Test
+    void LocalTimeConverterGetAsObjectNPETest() {
+        runServletTest("converterGetAsObjectNPETest");
+    }
+
+    @Test
+    void LocalTimeConverterGetAsStringTest() {
+        runServletTest("converterGetAsStringTest");
+    }
+
+    @Test
+    void LocalTimeConverterGetAsStringNPETest() {
+        runServletTest("converterGetAsStringNPETest");
+    }
+
 }

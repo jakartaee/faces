@@ -32,13 +32,18 @@ class SelectItemsIT extends BaseITNG {
         WebPage page = getPage("selectitems/test_facelet.xhtml");
 
         for (String caseId : new String[] { "caseOne", "caseTwo" }) {
-            assertEquals(3, page.findElements(By.cssSelector("select#" + caseId + " option")).size(),
-                    "Expected 3 options rendered for component " + caseId);
+            assertEquals(
+                3, page.findElements(By.cssSelector("select#" + caseId + " option")).size(),
+                "Expected 3 options rendered for component " + caseId
+            );
         }
 
         WebElement option = page.findElement(By.cssSelector("select#caseThree option[value='Escape Characters']"));
         String html = option.getAttribute("outerHTML");
-        assertTrue(html.contains("&gt;&lt;&amp;"),
-                "Unexpected value for Option's label. Expected '&gt;&lt;&amp;' in: " + html);
+        assertTrue(
+            html.contains("&gt;&lt;&amp;"),
+            "Unexpected value for Option's label. Expected '&gt;&lt;&amp;' in: " + html
+        );
     }
+
 }

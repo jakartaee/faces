@@ -23,26 +23,26 @@ import jakarta.faces.convert.ConverterException;
 import jakarta.faces.convert.FacesConverter;
 import jakarta.inject.Inject;
 
-@FacesConverter(forClass=BaseEntity.class)
+@FacesConverter(forClass = BaseEntity.class)
 public class BaseEntityConverter implements Converter<BaseEntity> {
 
-	@Inject
-	private BaseEntityService baseEntityService;
+    @Inject
+    private BaseEntityService baseEntityService;
 
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, BaseEntity entity) {
-		if (baseEntityService == null) {
-			throw new ConverterException();
-		}
-		return entity.getClass().getSimpleName();
-	}
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, BaseEntity entity) {
+        if (baseEntityService == null) {
+            throw new ConverterException();
+        }
+        return entity.getClass().getSimpleName();
+    }
 
-	@Override
-	public BaseEntity getAsObject(FacesContext context, UIComponent component, String value) {
-		if (baseEntityService == null) {
-			throw new ConverterException();
-		}
-		return new ConcreteEntity();
-	}
+    @Override
+    public BaseEntity getAsObject(FacesContext context, UIComponent component, String value) {
+        if (baseEntityService == null) {
+            throw new ConverterException();
+        }
+        return new ConcreteEntity();
+    }
 
 }

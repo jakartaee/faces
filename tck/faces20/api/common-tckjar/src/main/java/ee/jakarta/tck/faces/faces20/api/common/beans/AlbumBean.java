@@ -79,4 +79,5 @@ public class AlbumBean implements Serializable {
     public void eraseComments(ActionEvent ae) {
         comments = "You Pressed ERASE!";
     }
+
 }

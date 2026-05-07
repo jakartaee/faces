@@ -30,28 +30,28 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2483IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2483
-   */
-  @Test
-  void ajaxSelectInsideDataTableRendersCorrectly() throws Exception {
+     */
+    @Test
+    void ajaxSelectInsideDataTableRendersCorrectly() throws Exception {
         WebPage page = getPage("issue2483.xhtml");
         WebElement span1 = page.findElement(By.id("table:0:inCity"));
-      assertEquals("alpha", (span1.getText()));
+        assertEquals("alpha", (span1.getText()));
         WebElement span2 = page.findElement(By.id("table:1:inCity"));
-      assertEquals("alpha", (span2.getText()));
+        assertEquals("alpha", (span2.getText()));
         WebElement span3 = page.findElement(By.id("table:2:inCity"));
-      assertEquals("alpha", (span3.getText()));
+        assertEquals("alpha", (span3.getText()));
         Select select = new Select(page.findElement(By.id("selectMenu")));
         page.guardAjax(() -> select.selectByValue("beta"));
-        //failing
+        // failing
         span1 = page.findElement(By.id("table:0:inCity"));
-      assertEquals("beta", (span1.getText()));
+        assertEquals("beta", (span1.getText()));
         span2 = page.findElement(By.id("table:1:inCity"));
-      assertEquals("beta", (span2.getText()));
+        assertEquals("beta", (span2.getText()));
         span3 = page.findElement(By.id("table:2:inCity"));
-      assertEquals("beta", (span3.getText()));
+        assertEquals("beta", (span3.getText()));
     }
-}
 
+}

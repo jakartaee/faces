@@ -33,57 +33,65 @@ import jakarta.servlet.http.HttpServletResponse;
  * </p>
  */
 public abstract class BasePartialStateHolderTestServlet
-    extends BaseStateHolderTestServlet {
+    extends
+        BaseStateHolderTestServlet {
 
-  // ------------------------------------------- Public Methods
-  /**
-   * <p>
-   * Initialize this <code>Servlet</code>.
-   * </p>
-   *
-   * @param config
-   *          this <code>Servlet</code>'s configuration
-   * @throws ServletException
-   *           if initialization fails
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  // ------------------------------------------ PartialStateHolder Test Methods
-
-  // .markInitialState()
-  // .initialStateMarked()
-  // .clearInitialState()
-  public void partialStateHolderMICStateTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-
-    PrintWriter out = response.getWriter();
-
-    UIComponent comp = createComponent();
-    boolean state;
-
-    // state should be set to 'true' after this call is made.
-    comp.markInitialState();
-    state = comp.initialStateMarked();
-
-    if (!state) {
-      out.println(JSFTestUtil.FAIL
-          + " Expected State to be true after BehaviorBase.Base.markInitialState()"
-          + " Hed been called!");
-    } else {
-      comp.clearInitialState();
-      state = comp.initialStateMarked();
-
-      if (state) {
-        out.println(JSFTestUtil.FAIL
-            + " Expected State to be false after BehaviorBase.Base.clearState()"
-            + " Hed been called!");
-      } else {
-        out.println(JSFTestUtil.PASS);
-      }
+    // ------------------------------------------- Public Methods
+    /**
+     * <p>
+     * Initialize this <code>Servlet</code>.
+     * </p>
+     *
+     * @param config this <code>Servlet</code>'s configuration
+     * @throws ServletException if initialization fails
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-  } // END behaviorMICInitialStateTest
+    // ------------------------------------------ PartialStateHolder Test Methods
+
+    // .markInitialState()
+    // .initialStateMarked()
+    // .clearInitialState()
+    public void partialStateHolderMICStateTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+
+        PrintWriter out = response.getWriter();
+
+        UIComponent comp = createComponent();
+        boolean state;
+
+        // state should be set to 'true' after this call is made.
+        comp.markInitialState();
+        state = comp.initialStateMarked();
+
+        if (!state) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Expected State to be true after BehaviorBase.Base.markInitialState()"
+                    + " Hed been called!"
+            );
+        }
+        else {
+            comp.clearInitialState();
+            state = comp.initialStateMarked();
+
+            if (state) {
+                out.println(
+                    JSFTestUtil.FAIL
+                        + " Expected State to be false after BehaviorBase.Base.clearState()"
+                        + " Hed been called!"
+                );
+            }
+            else {
+                out.println(JSFTestUtil.PASS);
+            }
+        }
+
+    } // END behaviorMICInitialStateTest
 
 }

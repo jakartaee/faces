@@ -37,4 +37,5 @@ public class UIPanelTestServlet extends BaseComponentTestServlet {
     protected UIComponentBase createComponent() {
         return new UIPanel();
     }
+
 }

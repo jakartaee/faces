@@ -32,58 +32,66 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/UIViewActionTestServlet")
 public class UIViewActionTestServlet extends BaseComponentTestServlet {
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType(null);
-  }
 
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UIViewAction();
-  }
-
-  // ------------------------------------------- UIViewAction Tests
-
-  // UIViewAction.broadcast(FacesContext) throws NullPointerException
-  public void uiViewActionBroadcastNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    UIViewAction viewAction = (UIViewAction) createComponent();
-    viewAction.setRendererType(null);
-
-    try {
-      viewAction.broadcast(null);
-      out.println(JSFTestUtil.FAIL
-          + "Expected a NullPointerException to be thrown and it wasn't!");
-
-    } catch (NullPointerException npe) {
-      out.println(JSFTestUtil.PASS);
-
-    } catch (Exception e) {
-      out.println(JSFTestUtil.FAIL + "Wrong Exception Thrown!" + JSFTestUtil.NL
-          + "Expected: NullPointerException" + JSFTestUtil.NL + "Received: "
-          + e.toString());
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType(null);
     }
 
-  } // End uiViewActionBroadcastNPETest
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UIViewAction();
+    }
+
+    // ------------------------------------------- UIViewAction Tests
+
+    // UIViewAction.broadcast(FacesContext) throws NullPointerException
+    public void uiViewActionBroadcastNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        UIViewAction viewAction = (UIViewAction) createComponent();
+        viewAction.setRendererType(null);
+
+        try {
+            viewAction.broadcast(null);
+            out.println(
+                JSFTestUtil.FAIL
+                    + "Expected a NullPointerException to be thrown and it wasn't!"
+            );
+
+        }
+        catch (NullPointerException npe) {
+            out.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + "Wrong Exception Thrown!" + JSFTestUtil.NL
+                    + "Expected: NullPointerException" + JSFTestUtil.NL + "Received: "
+                    + e.toString()
+            );
+        }
+
+    } // End uiViewActionBroadcastNPETest
 
 }

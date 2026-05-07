@@ -24,16 +24,17 @@ import jakarta.inject.Named;
 public class Issue4551Bean implements Serializable {
 
     private Long value;
-    
+
     public Long getValue() {
         return value;
     }
-    
+
     public void setValue(Long value) {
         this.value = value;
     }
-    
+
     public String submit() {
         return "";
     }
+
 }

@@ -37,154 +37,179 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/LifecycleTestServlet")
 public final class LifecycleTestServlet extends HttpTCKServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws jakarta.servlet.ServletException
-   *           if an error occurs
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  private Lifecycle getLifecycle() {
-    LifecycleFactory factory = (LifecycleFactory) FactoryFinder
-        .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-
-    return factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-  }
-
-  // ------------------------------------------------ Test Methods
-
-  public void lifecycleAddGetRemovePhaseListenersTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    TCKPhaseListener listener = new TCKPhaseListener("id", PhaseId.ANY_PHASE);
-
-    Lifecycle lifecycle = getLifecycle();
-
-    // clear the listeners out
-    PhaseListener[] listeners = lifecycle.getPhaseListeners();
-    for (int i = 0; i < listeners.length; i++) {
-      lifecycle.removePhaseListener(listeners[i]);
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws jakarta.servlet.ServletException if an error occurs
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
 
-    lifecycle.addPhaseListener(listener);
+    private Lifecycle getLifecycle() {
+        LifecycleFactory factory = (LifecycleFactory) FactoryFinder
+            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
 
-    listeners = lifecycle.getPhaseListeners();
-    if (listeners.length != 1) {
-      out.println(
-          JSFTestUtil.FAIL + " Expected the number of listeners returned"
-              + " by getPhaseListeners() to be 1.");
-      out.println("Number received: " + listeners.length);
-      return;
+        return factory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
     }
 
-    lifecycle
-        .removePhaseListener(new TCKPhaseListener("id1", PhaseId.ANY_PHASE));
+    // ------------------------------------------------ Test Methods
 
-    listeners = lifecycle.getPhaseListeners();
-    if (listeners.length != 1) {
-      out.println("Test FAILED[2].  Expected the number of listeners returned"
-          + " by getPhaseListeners() to be 1.");
-      out.println("Number received: " + listeners.length);
-      return;
+    public void lifecycleAddGetRemovePhaseListenersTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        TCKPhaseListener listener = new TCKPhaseListener("id", PhaseId.ANY_PHASE);
+
+        Lifecycle lifecycle = getLifecycle();
+
+        // clear the listeners out
+        PhaseListener[] listeners = lifecycle.getPhaseListeners();
+        for (int i = 0; i < listeners.length; i++) {
+            lifecycle.removePhaseListener(listeners[i]);
+        }
+
+        lifecycle.addPhaseListener(listener);
+
+        listeners = lifecycle.getPhaseListeners();
+        if (listeners.length != 1) {
+            out.println(
+                JSFTestUtil.FAIL + " Expected the number of listeners returned"
+                    + " by getPhaseListeners() to be 1."
+            );
+            out.println("Number received: " + listeners.length);
+            return;
+        }
+
+        lifecycle
+            .removePhaseListener(new TCKPhaseListener("id1", PhaseId.ANY_PHASE));
+
+        listeners = lifecycle.getPhaseListeners();
+        if (listeners.length != 1) {
+            out.println(
+                "Test FAILED[2].  Expected the number of listeners returned"
+                    + " by getPhaseListeners() to be 1."
+            );
+            out.println("Number received: " + listeners.length);
+            return;
+        }
+
+        lifecycle.removePhaseListener(listener);
+
+        listeners = lifecycle.getPhaseListeners();
+        if (listeners.length != 0) {
+            out.println(
+                JSFTestUtil.FAIL + " Expected the number of listeners returned"
+                    + " by getPhaseListeners() to be 0."
+            );
+            out.println("Number received: " + listeners.length);
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    lifecycle.removePhaseListener(listener);
+    public void lifecycleAddPhaseListenerNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Lifecycle lifecycle = getLifecycle();
 
-    listeners = lifecycle.getPhaseListeners();
-    if (listeners.length != 0) {
-      out.println(
-          JSFTestUtil.FAIL + " Expected the number of listeners returned"
-              + " by getPhaseListeners() to be 0.");
-      out.println("Number received: " + listeners.length);
-      return;
+        JSFTestUtil.checkForNPE(
+            lifecycle, "addPhaseListener",
+            new Class<?>[] { PhaseListener.class }, new Object[] { null }, pw
+        );
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void lifecycleRemovePhaseListenerNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Lifecycle lifecycle = getLifecycle();
 
-  public void lifecycleAddPhaseListenerNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Lifecycle lifecycle = getLifecycle();
-
-    JSFTestUtil.checkForNPE(lifecycle, "addPhaseListener",
-        new Class<?>[] { PhaseListener.class }, new Object[] { null }, pw);
-  }
-
-  public void lifecycleRemovePhaseListenerNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Lifecycle lifecycle = getLifecycle();
-
-    JSFTestUtil.checkForNPE(lifecycle, "removePhaseListener",
-        new Class<?>[] { PhaseListener.class }, new Object[] { null }, pw);
-  }
-
-  public void lifecycleExecuteNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Lifecycle lifecycle = getLifecycle();
-
-    JSFTestUtil.checkForNPE(lifecycle, "execute",
-        new Class<?>[] { FacesContext.class }, new Object[] { null }, pw);
-  }
-
-  public void lifecycleRenderNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Lifecycle lifecycle = getLifecycle();
-
-    JSFTestUtil.checkForNPE(lifecycle, "render",
-        new Class<?>[] { FacesContext.class }, new Object[] { null }, pw);
-  }
-
-  // ------------------------------------------------ Private Classes
-
-  private static class TCKPhaseListener implements PhaseListener {
-
-    private String id;
-
-    private PhaseId phaseId;
-
-    private StringBuffer log;
-
-    private TCKPhaseListener() {
+        JSFTestUtil.checkForNPE(
+            lifecycle, "removePhaseListener",
+            new Class<?>[] { PhaseListener.class }, new Object[] { null }, pw
+        );
     }
 
-    public TCKPhaseListener(String id, PhaseId phaseId) {
-      this.id = id;
-      this.phaseId = phaseId;
-      log = new StringBuffer();
+    public void lifecycleExecuteNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Lifecycle lifecycle = getLifecycle();
+
+        JSFTestUtil.checkForNPE(
+            lifecycle, "execute",
+            new Class<?>[] { FacesContext.class }, new Object[] { null }, pw
+        );
     }
 
-    public void afterPhase(PhaseEvent event) {
-      log.append("/A" + id + '@' + JSFTestUtil.getPhaseIdAsString(phaseId));
+    public void lifecycleRenderNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Lifecycle lifecycle = getLifecycle();
+
+        JSFTestUtil.checkForNPE(
+            lifecycle, "render",
+            new Class<?>[] { FacesContext.class }, new Object[] { null }, pw
+        );
     }
 
-    public void beforePhase(PhaseEvent event) {
-      log.append("/B" + id + '@' + JSFTestUtil.getPhaseIdAsString(phaseId));
+    // ------------------------------------------------ Private Classes
+
+    private static class TCKPhaseListener implements PhaseListener {
+
+        private String id;
+
+        private PhaseId phaseId;
+
+        private StringBuffer log;
+
+        private TCKPhaseListener() {
+        }
+
+        public TCKPhaseListener(String id, PhaseId phaseId) {
+            this.id = id;
+            this.phaseId = phaseId;
+            log = new StringBuffer();
+        }
+
+        public void afterPhase(PhaseEvent event) {
+            log.append("/A" + id + '@' + JSFTestUtil.getPhaseIdAsString(phaseId));
+        }
+
+        public void beforePhase(PhaseEvent event) {
+            log.append("/B" + id + '@' + JSFTestUtil.getPhaseIdAsString(phaseId));
+        }
+
+        public PhaseId getPhaseId() {
+            return phaseId;
+        }
+
+        public String getTrace() {
+            return log.toString();
+        }
+
+        public void resetTrace() {
+            log = new StringBuffer();
+        }
+
     }
 
-    public PhaseId getPhaseId() {
-      return phaseId;
-    }
-
-    public String getTrace() {
-      return log.toString();
-    }
-
-    public void resetTrace() {
-      log = new StringBuffer();
-    }
-
-  }
 }

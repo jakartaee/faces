@@ -39,198 +39,218 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/AnnotationTestServlet")
 public final class AnnotationTestServlet extends BaseComponentTestServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Text");
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  protected UIComponentBase createComponent() {
-    return new UIOutput();
-  }
-
-  // --------------------------------------------------------- Test Methods
-
-  // Validate ResourceDependecy ResourceType.
-  public void uiOutputRDTypeTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext context = getFacesContext();
-    UIViewRoot root = context.getViewRoot();
-
-    Application application = getApplication();
-    application.addComponent("myOut",
-        "ee.jakarta.tck.faces.faces20.api.component.annotation."
-            + "CustomOutput");
-    application.createComponent("myOut");
-
-    List children = root.getComponentResources(context, "body");
-
-    // Make sure two resources are available.
-    int expectedSize = 2;
-    int resultSize = children.size();
-    if (expectedSize != resultSize) {
-      out.println("Test FAILED wrong number of Resource objects"
-          + JSFTestUtil.NL + "Expected: " + expectedSize + JSFTestUtil.NL
-          + "Received: " + resultSize + JSFTestUtil.NL);
-      return;
-    }
-
-    // Test to make sure the Class type is UIOutput.
-    Iterator childIterator = children.listIterator();
-    while (childIterator.hasNext()) {
-      String resClass = childIterator.next().getClass().getName();
-      String expClass = "jakarta.faces.component.UIOutput";
-      if (!(expClass.equals(resClass))) {
-        out.println("Test FAILED Incorrect Class Instance for "
-            + "Resource reference." + JSFTestUtil.NL + "Expected: " + expClass
-            + JSFTestUtil.NL + "Received: " + resClass + JSFTestUtil.NL);
-        return;
-      }
-    }
-
-    out.println(JSFTestUtil.PASS);
-  }
-
-  // Validate Library & Target Attributes
-  public void uiOutputRDAttributeTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext context = getFacesContext();
-    UIViewRoot root = context.getViewRoot();
-
-    Application application = getApplication();
-    application.addComponent("myOut",
-        "ee.jakarta.tck.faces.faces20.api.component.annotation."
-            + "CustomOutput");
-    application.createComponent("myOut");
-
-    List children = root.getComponentResources(context, "body");
-
-    UIOutput compOne = (UIOutput) children.get(0);
-    UIOutput compTwo = (UIOutput) children.get(1);
-
-    TestValue one = new TestValue("hello.js", "test", "body");
-    TestValue two = new TestValue("black-n-blue.css", "test", "body");
-
-    this.checkAttributes(compOne, one, out);
-    this.checkAttributes(compTwo, two, out);
-
-  }
-
-  // ---------------------------------------------------- private methods
-  private void checkAttributes(UIComponent component, TestValue testvalues,
-      PrintWriter out) {
-
-    Map<String, Object> atts = component.getAttributes();
-
-    String resName = (String) atts.get("name");
-    String resLib = (String) atts.get("library");
-    String resTarget = (String) atts.get("target");
-
-    String expName = testvalues.getExpName();
-    String expLib = testvalues.getExpLib();
-    String expTarget = testvalues.getExpTarget();
-
-    // name
-    if (!(expName.equals(resName))) {
-      out.println("Test FAILED Unexpected value for 'name' " + "Attribute."
-          + JSFTestUtil.NL + "Expected: " + expName + JSFTestUtil.NL
-          + "Received: " + resName + JSFTestUtil.NL);
-      return;
-    }
-    // library
-    if (!(expLib.equals(resLib))) {
-      out.println("Test FAILED Unexpected value for 'library' " + "Attribute."
-          + JSFTestUtil.NL + "Expected: " + expLib + JSFTestUtil.NL
-          + "Received: " + resLib + JSFTestUtil.NL);
-      return;
-    }
-    // target
-    if (!(expTarget.equals(resTarget))) {
-      out.println("Test FAILED Unexpected value for 'target' " + "Attribute."
-          + JSFTestUtil.NL + "Expected: " + expTarget + JSFTestUtil.NL
-          + "Received: " + resTarget + JSFTestUtil.NL);
-      return;
-    }
-
-    out.println(JSFTestUtil.PASS);
-  }
-
-  // ------------------------------------------------------ private classes
-  private static class TestValue {
-
-    private String expName;
-
-    private String expLib;
-
-    private String expTarget;
-
-    public TestValue(String name, String library, String target) {
-      this.expName = name;
-      this.expLib = library;
-      this.expTarget = target;
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Text");
     }
 
     /**
-     * @return the expName
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
      */
-    public String getExpName() {
-      return expName;
+    protected UIComponentBase createComponent() {
+        return new UIOutput();
     }
 
-    /**
-     * @param expName
-     *          the expName to set
-     */
-    public void setExpName(String expName) {
-      this.expName = expName;
+    // --------------------------------------------------------- Test Methods
+
+    // Validate ResourceDependecy ResourceType.
+    public void uiOutputRDTypeTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext context = getFacesContext();
+        UIViewRoot root = context.getViewRoot();
+
+        Application application = getApplication();
+        application.addComponent(
+            "myOut",
+            "ee.jakarta.tck.faces.faces20.api.component.annotation."
+                + "CustomOutput"
+        );
+        application.createComponent("myOut");
+
+        List children = root.getComponentResources(context, "body");
+
+        // Make sure two resources are available.
+        int expectedSize = 2;
+        int resultSize = children.size();
+        if (expectedSize != resultSize) {
+            out.println(
+                "Test FAILED wrong number of Resource objects"
+                    + JSFTestUtil.NL + "Expected: " + expectedSize + JSFTestUtil.NL
+                    + "Received: " + resultSize + JSFTestUtil.NL
+            );
+            return;
+        }
+
+        // Test to make sure the Class type is UIOutput.
+        Iterator childIterator = children.listIterator();
+        while (childIterator.hasNext()) {
+            String resClass = childIterator.next().getClass().getName();
+            String expClass = "jakarta.faces.component.UIOutput";
+            if (!(expClass.equals(resClass))) {
+                out.println(
+                    "Test FAILED Incorrect Class Instance for "
+                        + "Resource reference." + JSFTestUtil.NL + "Expected: " + expClass
+                        + JSFTestUtil.NL + "Received: " + resClass + JSFTestUtil.NL
+                );
+                return;
+            }
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    /**
-     * @return the expLib
-     */
-    public String getExpLib() {
-      return expLib;
+    // Validate Library & Target Attributes
+    public void uiOutputRDAttributeTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext context = getFacesContext();
+        UIViewRoot root = context.getViewRoot();
+
+        Application application = getApplication();
+        application.addComponent(
+            "myOut",
+            "ee.jakarta.tck.faces.faces20.api.component.annotation."
+                + "CustomOutput"
+        );
+        application.createComponent("myOut");
+
+        List children = root.getComponentResources(context, "body");
+
+        UIOutput compOne = (UIOutput) children.get(0);
+        UIOutput compTwo = (UIOutput) children.get(1);
+
+        TestValue one = new TestValue("hello.js", "test", "body");
+        TestValue two = new TestValue("black-n-blue.css", "test", "body");
+
+        this.checkAttributes(compOne, one, out);
+        this.checkAttributes(compTwo, two, out);
+
     }
 
-    /**
-     * @param expLib
-     *          the expLib to set
-     */
-    public void setExpLib(String expLib) {
-      this.expLib = expLib;
+    // ---------------------------------------------------- private methods
+    private void checkAttributes(
+        UIComponent component, TestValue testvalues,
+        PrintWriter out
+    )
+    {
+
+        Map<String, Object> atts = component.getAttributes();
+
+        String resName = (String) atts.get("name");
+        String resLib = (String) atts.get("library");
+        String resTarget = (String) atts.get("target");
+
+        String expName = testvalues.getExpName();
+        String expLib = testvalues.getExpLib();
+        String expTarget = testvalues.getExpTarget();
+
+        // name
+        if (!(expName.equals(resName))) {
+            out.println(
+                "Test FAILED Unexpected value for 'name' " + "Attribute."
+                    + JSFTestUtil.NL + "Expected: " + expName + JSFTestUtil.NL
+                    + "Received: " + resName + JSFTestUtil.NL
+            );
+            return;
+        }
+        // library
+        if (!(expLib.equals(resLib))) {
+            out.println(
+                "Test FAILED Unexpected value for 'library' " + "Attribute."
+                    + JSFTestUtil.NL + "Expected: " + expLib + JSFTestUtil.NL
+                    + "Received: " + resLib + JSFTestUtil.NL
+            );
+            return;
+        }
+        // target
+        if (!(expTarget.equals(resTarget))) {
+            out.println(
+                "Test FAILED Unexpected value for 'target' " + "Attribute."
+                    + JSFTestUtil.NL + "Expected: " + expTarget + JSFTestUtil.NL
+                    + "Received: " + resTarget + JSFTestUtil.NL
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    /**
-     * @return the expTarget
-     */
-    public String getExpTarget() {
-      return expTarget;
+    // ------------------------------------------------------ private classes
+    private static class TestValue {
+
+        private String expName;
+
+        private String expLib;
+
+        private String expTarget;
+
+        public TestValue(String name, String library, String target) {
+            this.expName = name;
+            this.expLib = library;
+            this.expTarget = target;
+        }
+
+        /**
+         * @return the expName
+         */
+        public String getExpName() {
+            return expName;
+        }
+
+        /**
+         * @param expName the expName to set
+         */
+        public void setExpName(String expName) {
+            this.expName = expName;
+        }
+
+        /**
+         * @return the expLib
+         */
+        public String getExpLib() {
+            return expLib;
+        }
+
+        /**
+         * @param expLib the expLib to set
+         */
+        public void setExpLib(String expLib) {
+            this.expLib = expLib;
+        }
+
+        /**
+         * @return the expTarget
+         */
+        public String getExpTarget() {
+            return expTarget;
+        }
+
+        /**
+         * @param expTarget the expTarget to set
+         */
+        public void setExpTarget(String expTarget) {
+            this.expTarget = expTarget;
+        }
+
     }
 
-    /**
-     * @param expTarget
-     *          the expTarget to set
-     */
-    public void setExpTarget(String expTarget) {
-      this.expTarget = expTarget;
-    }
-  }
 }

@@ -33,14 +33,20 @@ class InsertchildrenIT extends BaseITNG {
         WebElement span = findByIdSuffix(page, "result");
         assertEquals("PASSED", span.getText(), "Span value");
 
-        assertEquals(1, page.findElements(By.id("tckCell")).size(),
-            "Expected <td id='tckCell'> enclosing the span");
+        assertEquals(
+            1, page.findElements(By.id("tckCell")).size(),
+            "Expected <td id='tckCell'> enclosing the span"
+        );
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

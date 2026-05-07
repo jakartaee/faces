@@ -26,16 +26,16 @@
     </head>
     <body>
         <h1>Page navigated to upon return from any flow</h1>
-        
+
         <p><span id="message">#{message}</span></p>
-        
+
     <h:form prependId="false">
         <p>return page</p>
-        
+
         <p>Has a flow: #{null != facesContext.application.flowHandler.currentFlow}.</p>
-        
+
         <p>flowScope value, should be empty: #{flowScope.value}.</p>
-                
+
     </h:form>
 </body>
 </html>

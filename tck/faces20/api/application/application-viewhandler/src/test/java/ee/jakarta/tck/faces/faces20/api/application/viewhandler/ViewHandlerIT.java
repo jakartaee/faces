@@ -30,28 +30,89 @@ class ViewHandlerIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void viewHandlerAddGetRemoveProtectedViewsTest() { runServletTest("viewHandlerAddGetRemoveProtectedViewsTest"); }
-    @Test void viewHandlerCalculateCharEncodingEXTTest() { runServletTest("viewHandlerCalculateCharEncodingEXTTest"); }
+    @Test
+    void viewHandlerAddGetRemoveProtectedViewsTest() {
+        runServletTest("viewHandlerAddGetRemoveProtectedViewsTest");
+    }
+
+    @Test
+    void viewHandlerCalculateCharEncodingEXTTest() {
+        runServletTest("viewHandlerCalculateCharEncodingEXTTest");
+    }
 
     @Test
     void viewHandlerCalculateCharEncodingHDRTest() {
         // calculateCharacterEncoding pulls charset from Content-Type when no session encoding is set.
-        String body = getResponseBody("ViewHandlerTestServlet?testname=viewHandlerCalculateCharEncodingHDRTest",
-                Map.of("Content-Type", "text/html; charset=Thomas"));
+        String body = getResponseBody(
+            "ViewHandlerTestServlet?testname=viewHandlerCalculateCharEncodingHDRTest",
+            Map.of("Content-Type", "text/html; charset=Thomas")
+        );
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void viewHandlerCalculateCharEncodingNULLTest() { runServletTest("viewHandlerCalculateCharEncodingNULLTest"); }
-    @Test void viewHandlerCalculateLocaleNPETest() { runServletTest("viewHandlerCalculateLocaleNPETest"); }
-    @Test void viewHandlerCalculateLocaleTest() { runServletTest("viewHandlerCalculateLocaleTest"); }
-    @Test void viewHandlerCalculateRenderKitIdNPETest() { runServletTest("viewHandlerCalculateRenderKitIdNPETest"); }
-    @Test void viewHandlerCalculateRenderKitIdTest() { runServletTest("viewHandlerCalculateRenderKitIdTest"); }
-    @Test void viewHandlerCreateViewNPETest() { runServletTest("viewHandlerCreateViewNPETest"); }
-    @Test void viewHandlerCreateViewTest() { runServletTest("viewHandlerCreateViewTest"); }
-    @Test void viewHandlerDeriveLogicalViewIDTest() { runServletTest("viewHandlerDeriveLogicalViewIDTest"); }
-    @Test void viewHandlerGetActionURLNPETest() { runServletTest("viewHandlerGetActionURLNPETest"); }
-    @Test void viewHandlerGetResourceURLNPETest() { runServletTest("viewHandlerGetResourceURLNPETest"); }
-    @Test void viewHandlerRenderViewNPETest() { runServletTest("viewHandlerRenderViewNPETest"); }
-    @Test void viewHandlerRestoreViewNPETest() { runServletTest("viewHandlerRestoreViewNPETest"); }
-    @Test void viewHandlerWriteStateNPETest() { runServletTest("viewHandlerWriteStateNPETest"); }
+    @Test
+    void viewHandlerCalculateCharEncodingNULLTest() {
+        runServletTest("viewHandlerCalculateCharEncodingNULLTest");
+    }
+
+    @Test
+    void viewHandlerCalculateLocaleNPETest() {
+        runServletTest("viewHandlerCalculateLocaleNPETest");
+    }
+
+    @Test
+    void viewHandlerCalculateLocaleTest() {
+        runServletTest("viewHandlerCalculateLocaleTest");
+    }
+
+    @Test
+    void viewHandlerCalculateRenderKitIdNPETest() {
+        runServletTest("viewHandlerCalculateRenderKitIdNPETest");
+    }
+
+    @Test
+    void viewHandlerCalculateRenderKitIdTest() {
+        runServletTest("viewHandlerCalculateRenderKitIdTest");
+    }
+
+    @Test
+    void viewHandlerCreateViewNPETest() {
+        runServletTest("viewHandlerCreateViewNPETest");
+    }
+
+    @Test
+    void viewHandlerCreateViewTest() {
+        runServletTest("viewHandlerCreateViewTest");
+    }
+
+    @Test
+    void viewHandlerDeriveLogicalViewIDTest() {
+        runServletTest("viewHandlerDeriveLogicalViewIDTest");
+    }
+
+    @Test
+    void viewHandlerGetActionURLNPETest() {
+        runServletTest("viewHandlerGetActionURLNPETest");
+    }
+
+    @Test
+    void viewHandlerGetResourceURLNPETest() {
+        runServletTest("viewHandlerGetResourceURLNPETest");
+    }
+
+    @Test
+    void viewHandlerRenderViewNPETest() {
+        runServletTest("viewHandlerRenderViewNPETest");
+    }
+
+    @Test
+    void viewHandlerRestoreViewNPETest() {
+        runServletTest("viewHandlerRestoreViewNPETest");
+    }
+
+    @Test
+    void viewHandlerWriteStateNPETest() {
+        runServletTest("viewHandlerWriteStateNPETest");
+    }
+
 }

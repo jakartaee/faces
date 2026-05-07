@@ -28,14 +28,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2973IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2973
-   */
-  @Test
-  void ajaxProjectStage() throws Exception {
+     */
+    @Test
+    void ajaxProjectStage() throws Exception {
         WebPage page = getPage("issue2973.xhtml");
         String stage = page.findElement(By.id("stage")).getText();
-        assertTrue(stage.equals("Production") || stage.equals("Development")); 
+        assertTrue(stage.equals("Production") || stage.equals("Development"));
     }
+
 }

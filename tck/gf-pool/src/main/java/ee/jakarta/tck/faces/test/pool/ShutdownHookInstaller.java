@@ -25,19 +25,17 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 
 /**
- * Custom Ant task that installs a JVM shutdown hook on Maven's own JVM so the
- * GlassFish pool stops when the build completes (or is killed via {@code Ctrl+C}).
+ * Custom Ant task that installs a JVM shutdown hook on Maven's own JVM so the GlassFish pool stops when the build completes (or is killed via {@code Ctrl+C}).
  *
- * <p>Loaded by the {@code gf-pool} antrun via {@code <taskdef>}; runs in-process
- * inside the {@code maven-antrun-plugin}'s embedded Ant project, which shares
- * the Maven JVM. The hook persists for the lifetime of that JVM, so it fires
- * at session end after every test module has finished.
+ * <p>
+ * Loaded by the {@code gf-pool} antrun via {@code <taskdef>}; runs in-process inside the {@code maven-antrun-plugin}'s embedded Ant project, which shares the
+ * Maven JVM. The hook persists for the lifetime of that JVM, so it fires at session end after every test module has finished.
  *
- * <p>Avoids {@code <java fork="false">} which on JDK 17+ throws
- * {@code UnsupportedOperationException: The Security Manager is deprecated}.
+ * <p>
+ * Avoids {@code <java fork="false">} which on JDK 17+ throws {@code UnsupportedOperationException: The Security Manager is deprecated}.
  *
- * <p>The actual stop logic delegates to {@code pool-down.sh} so the script
- * remains the single source of truth for teardown.
+ * <p>
+ * The actual stop logic delegates to {@code pool-down.sh} so the script remains the single source of truth for teardown.
  */
 public final class ShutdownHookInstaller extends Task {
 
@@ -74,11 +72,9 @@ public final class ShutdownHookInstaller extends Task {
     }
 
     /**
-     * If Maven was invoked without {@code -T}, log a banner reminding the user
-     * that the pool's parallelism is unused. The {@code -T} value comes from
-     * {@code MavenSession.getRequest().getDegreeOfConcurrency()}, which the
-     * maven-antrun-plugin exposes through its property helper chain — we reach
-     * it reflectively to avoid a hard dependency on maven-core in this jar.
+     * If Maven was invoked without {@code -T}, log a banner reminding the user that the pool's parallelism is unused. The {@code -T} value comes from
+     * {@code MavenSession.getRequest().getDegreeOfConcurrency()}, which the maven-antrun-plugin exposes through its property helper chain — we reach it
+     * reflectively to avoid a hard dependency on maven-core in this jar.
      */
     private void warnIfSequential() {
         Integer threads = readDegreeOfConcurrency();
@@ -89,16 +85,16 @@ public final class ShutdownHookInstaller extends Task {
         // the Maven CLI logger; a single multi-line string only prefixes the
         // first line and the rest are emitted unprefixed by Ant.
         String[] banner = {
-                "",
-                "==========================================================================",
-                "  WARNING: gf-pool is provisioned, but the build is running SEQUENTIALLY.",
-                "  Re-run with -TN to actually exercise the pool, e.g.:",
-                "",
-                "      mvn clean install -T4",
-                "",
-                "  The pool grows on demand to match the running -T value.",
-                "==========================================================================",
-                ""
+            "",
+            "==========================================================================",
+            "  WARNING: gf-pool is provisioned, but the build is running SEQUENTIALLY.",
+            "  Re-run with -TN to actually exercise the pool, e.g.:",
+            "",
+            "      mvn clean install -T4",
+            "",
+            "  The pool grows on demand to match the running -T value.",
+            "==========================================================================",
+            ""
         };
         for (String line : banner) {
             log(line, Project.MSG_WARN);
@@ -148,7 +144,8 @@ public final class ShutdownHookInstaller extends Task {
                 return Integer.MAX_VALUE; // any positive *C multiplier on multi-core = parallel.
             }
             return n <= 1 ? 1 : Integer.MAX_VALUE;
-        } catch (NumberFormatException e) {
+        }
+        catch (NumberFormatException e) {
             return null;
         }
     }
@@ -185,19 +182,22 @@ public final class ShutdownHookInstaller extends Task {
             int slotIdx;
             try {
                 slotIdx = Integer.parseInt(slotDir.getName().substring("slot-".length()));
-            } catch (NumberFormatException e) {
+            }
+            catch (NumberFormatException e) {
                 continue;
             }
             Thread t = new Thread(
                 () -> stopSlotIfIdle(slotDir.toPath(), slotIdx, stopSlotScript, poolDir),
-                "gf-pool-stop-slot-" + slotIdx);
+                "gf-pool-stop-slot-" + slotIdx
+            );
             t.start();
             stoppers.add(t);
         }
         for (Thread t : stoppers) {
             try {
                 t.join();
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 return;
             }
@@ -209,7 +209,8 @@ public final class ShutdownHookInstaller extends Task {
         while (System.currentTimeMillis() < deadline && hasLiveBootstrap(poolDir)) {
             try {
                 Thread.sleep(BOOTSTRAP_POLL_MILLIS);
-            } catch (InterruptedException e) {
+            }
+            catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 return;
             }
@@ -231,7 +232,8 @@ public final class ShutdownHookInstaller extends Task {
                 if (ProcessHandle.of(pid).map(ProcessHandle::isAlive).orElse(false)) {
                     return true;
                 }
-            } catch (NumberFormatException | IOException ignored) {
+            }
+            catch (NumberFormatException | IOException ignored) {
                 // Stale pid file — not live.
             }
         }
@@ -240,10 +242,14 @@ public final class ShutdownHookInstaller extends Task {
 
     private static void stopSlotIfIdle(Path slotDir, int slotIdx, File stopSlotScript, File poolDir) {
         Path lockFile = slotDir.resolve("lock");
-        try (FileChannel fc = FileChannel.open(lockFile,
+        try (
+            FileChannel fc = FileChannel.open(
+                lockFile,
                 StandardOpenOption.CREATE,
                 StandardOpenOption.READ,
-                StandardOpenOption.WRITE)) {
+                StandardOpenOption.WRITE
+            )
+        ) {
             FileLock lock = fc.tryLock();
             if (lock == null) {
                 System.err.println("[gf-pool] slot " + slotIdx + " is still leased by another process; skip stop");
@@ -251,10 +257,12 @@ public final class ShutdownHookInstaller extends Task {
             }
             try {
                 runStopSlot(stopSlotScript, poolDir, slotIdx);
-            } finally {
+            }
+            finally {
                 lock.release();
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.err.println("[gf-pool] couldn't probe slot " + slotIdx + ": " + e);
         }
     }
@@ -279,11 +287,13 @@ public final class ShutdownHookInstaller extends Task {
                 System.out.print(out);
                 System.out.flush();
             }
-        } catch (IOException | InterruptedException e) {
+        }
+        catch (IOException | InterruptedException e) {
             System.err.println("[gf-pool] failed to stop slot " + slotIdx + ": " + e);
             if (e instanceof InterruptedException) {
                 Thread.currentThread().interrupt();
             }
         }
     }
+
 }

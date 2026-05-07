@@ -21,11 +21,13 @@ import jakarta.faces.application.ResourceDependency;
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UIOutput;
 
-@FacesComponent(createTag=true)
-@ResourceDependencies({
-    @ResourceDependency(library="spec1423", name="addedViaInclude.js"),
-    @ResourceDependency(library="spec1423", name="addedViaInclude.css")
-})
+@FacesComponent(createTag = true)
+@ResourceDependencies(
+    {
+        @ResourceDependency(library = "spec1423", name = "addedViaInclude.js"),
+        @ResourceDependency(library = "spec1423", name = "addedViaInclude.css")
+    }
+)
 public class Spec1423ComponentAddedViaInclude extends UIOutput {
     //
 }

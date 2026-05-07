@@ -20,40 +20,42 @@ import java.io.Serializable;
 
 import jakarta.annotation.PostConstruct;
 
-@jakarta.inject.Named("book") @jakarta.enterprise.context.RequestScoped
+@jakarta.inject.Named("book")
+@jakarta.enterprise.context.RequestScoped
 public class BookBean implements Serializable {
 
-  private String authorName;
+    private String authorName;
 
-  private boolean result;
+    private boolean result;
 
-  @PostConstruct
-  public void postConstruct() {
-  }
-
-  public String checkAuthor() {
-    if ("Orsen Scott Card".equals(authorName)) {
-      this.setResult(true);
-      return "Test Passed!";
+    @PostConstruct
+    public void postConstruct() {
     }
 
-    this.setResult(false);
-    return "Test Failed!";
-  }
+    public String checkAuthor() {
+        if ("Orsen Scott Card".equals(authorName)) {
+            this.setResult(true);
+            return "Test Passed!";
+        }
 
-  public String getAuthorName() {
-    return authorName;
-  }
+        this.setResult(false);
+        return "Test Failed!";
+    }
 
-  public void setAuthorName(String authorName) {
-    this.authorName = authorName;
-  }
+    public String getAuthorName() {
+        return authorName;
+    }
 
-  public boolean getResult() {
-    return result;
-  }
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
-  public void setResult(boolean result) {
-    this.result = result;
-  }
+    public boolean getResult() {
+        return result;
+    }
+
+    public void setResult(boolean result) {
+        this.result = result;
+    }
+
 }

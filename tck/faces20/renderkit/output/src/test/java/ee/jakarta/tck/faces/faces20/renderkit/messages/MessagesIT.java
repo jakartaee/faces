@@ -42,73 +42,103 @@ class MessagesIT extends BaseITNG {
         // Cases 1-11 render as ul/li (default layout); Cases 12-16 render as table/tr/td (layout="table").
 
         // Case 1: summary + detail rendered for both messages.
-        assertListTexts(submitListCase(1, "form1:input1", "MESSAGES_INFO"),
+        assertListTexts(
+            submitListCase(1, "form1:input1", "MESSAGES_INFO"),
             SUMMARY_INFO + "_One " + DETAIL_INFO + "_One",
-            SUMMARY_INFO + "_Two " + DETAIL_INFO + "_Two");
+            SUMMARY_INFO + "_Two " + DETAIL_INFO + "_Two"
+        );
 
         // Case 2: styleClass="underline" applied to the <ul>.
-        assertEquals("underline",
+        assertEquals(
+            "underline",
             submitListCase(2, "form2:input2", "MESSAGES_INFO").getDomAttribute("class"),
-            "Case 2 ul class");
+            "Case 2 ul class"
+        );
 
         // Case 3: infoStyle+infoClass applied to each <li>.
-        assertListItemAttributes(submitListCase(3, "form3:input3", "MESSAGES_INFO"),
-            "Color: blue;", "underline");
+        assertListItemAttributes(
+            submitListCase(3, "form3:input3", "MESSAGES_INFO"),
+            "Color: blue;", "underline"
+        );
 
         // Case 4: warnStyle+warnClass applied to each <li>.
-        assertListItemAttributes(submitListCase(4, "form4:input4", "MESSAGES_WARN"),
-            "Color: green;", "underline");
+        assertListItemAttributes(
+            submitListCase(4, "form4:input4", "MESSAGES_WARN"),
+            "Color: green;", "underline"
+        );
 
         // Case 5: errorStyle+errorClass applied to each <li>.
-        assertListItemAttributes(submitListCase(5, "form5:input5", "MESSAGES_ERROR"),
-            "Color: yellow;", "underline");
+        assertListItemAttributes(
+            submitListCase(5, "form5:input5", "MESSAGES_ERROR"),
+            "Color: yellow;", "underline"
+        );
 
         // Case 6: fatalStyle+fatalClass applied to each <li>.
-        assertListItemAttributes(submitListCase(6, "form6:input6", "MESSAGES_FATAL"),
-            "Color: red;", "underline");
+        assertListItemAttributes(
+            submitListCase(6, "form6:input6", "MESSAGES_FATAL"),
+            "Color: red;", "underline"
+        );
 
         // Case 7: matching *Style attribute applied to each <li> per severity.
-        assertListItemStyleBySeverity(7, "form7:severity7", Map.of(
-            "MESSAGES_INFO", "Color: blue;",
-            "MESSAGES_WARN", "Color: green;",
-            "MESSAGES_ERROR", "Color: yellow;",
-            "MESSAGES_FATAL", "Color: red;"));
+        assertListItemStyleBySeverity(
+            7, "form7:severity7", Map.of(
+                "MESSAGES_INFO", "Color: blue;",
+                "MESSAGES_WARN", "Color: green;",
+                "MESSAGES_ERROR", "Color: yellow;",
+                "MESSAGES_FATAL", "Color: red;"
+            )
+        );
 
         // Case 8: matching *Class attribute applied to each <li> per severity.
-        assertListItemClassBySeverity(8, "form8:severity8", Map.of(
-            "MESSAGES_INFO", "class_info",
-            "MESSAGES_WARN", "class_warn",
-            "MESSAGES_ERROR", "class_error",
-            "MESSAGES_FATAL", "class_fatal"));
+        assertListItemClassBySeverity(
+            8, "form8:severity8", Map.of(
+                "MESSAGES_INFO", "class_info",
+                "MESSAGES_WARN", "class_warn",
+                "MESSAGES_ERROR", "class_error",
+                "MESSAGES_FATAL", "class_fatal"
+            )
+        );
 
         // Case 9: showSummary=true, showDetail=false -> only summary lines.
-        assertListTexts(submitListCase(9, "form9:severity9", "MESSAGES_INFO"),
-            SUMMARY_INFO + "_One", SUMMARY_INFO + "_Two");
+        assertListTexts(
+            submitListCase(9, "form9:severity9", "MESSAGES_INFO"),
+            SUMMARY_INFO + "_One", SUMMARY_INFO + "_Two"
+        );
 
         // Case 10: showSummary=false, showDetail=true -> only detail lines.
-        assertListTexts(submitListCase(10, "form10:severity10", "MESSAGES_INFO"),
-            DETAIL_INFO + "_One", DETAIL_INFO + "_Two");
+        assertListTexts(
+            submitListCase(10, "form10:severity10", "MESSAGES_INFO"),
+            DETAIL_INFO + "_One", DETAIL_INFO + "_Two"
+        );
 
         // Case 11: showSummary=false, showDetail=false -> empty li entries.
         assertListTexts(submitListCase(11, "form11:severity11", "MESSAGES_INFO"), "", "");
 
         // Case 12: layout="table" with summary+detail.
-        assertTableTexts(submitTableCase(12, "form12:input12", "MESSAGES_INFO"),
+        assertTableTexts(
+            submitTableCase(12, "form12:input12", "MESSAGES_INFO"),
             SUMMARY_INFO + "_One " + DETAIL_INFO + "_One",
-            SUMMARY_INFO + "_Two " + DETAIL_INFO + "_Two");
+            SUMMARY_INFO + "_Two " + DETAIL_INFO + "_Two"
+        );
 
         // Case 13: styleClass="underline" applied to the <table>.
-        assertEquals("underline",
+        assertEquals(
+            "underline",
             submitTableCase(13, "form13:input13", "MESSAGES_INFO").getDomAttribute("class"),
-            "Case 13 table class");
+            "Case 13 table class"
+        );
 
         // Case 14: layout="table" with summary only.
-        assertTableTexts(submitTableCase(14, "form14:input14", "MESSAGES_INFO"),
-            SUMMARY_INFO + "_One", SUMMARY_INFO + "_Two");
+        assertTableTexts(
+            submitTableCase(14, "form14:input14", "MESSAGES_INFO"),
+            SUMMARY_INFO + "_One", SUMMARY_INFO + "_Two"
+        );
 
         // Case 15: layout="table" with detail only.
-        assertTableTexts(submitTableCase(15, "form15:input15", "MESSAGES_INFO"),
-            DETAIL_INFO + "_One", DETAIL_INFO + "_Two");
+        assertTableTexts(
+            submitTableCase(15, "form15:input15", "MESSAGES_INFO"),
+            DETAIL_INFO + "_One", DETAIL_INFO + "_Two"
+        );
 
         // Case 16: layout="table" with neither -> empty cells.
         assertTableTexts(submitTableCase(16, "form16:input16", "MESSAGES_INFO"), "", "");
@@ -159,8 +189,10 @@ class MessagesIT extends BaseITNG {
         page.guardHttp(button::click);
 
         WebElement messages = findByIdSuffix(page, "message" + caseNumber);
-        assertEquals(expectedTagName, messages.getTagName(),
-            "Case " + caseNumber + " messages tag");
+        assertEquals(
+            expectedTagName, messages.getTagName(),
+            "Case " + caseNumber + " messages tag"
+        );
         return messages;
     }
 
@@ -188,8 +220,10 @@ class MessagesIT extends BaseITNG {
         styleBySeverity.forEach((severity, expectedStyle) -> {
             WebElement ul = submitListCase(caseNumber, severityFieldId, severity);
             for (WebElement li : ul.findElements(By.tagName("li"))) {
-                assertEquals(expectedStyle, li.getDomAttribute("style"),
-                    "Case " + caseNumber + " " + severity + " li style");
+                assertEquals(
+                    expectedStyle, li.getDomAttribute("style"),
+                    "Case " + caseNumber + " " + severity + " li style"
+                );
             }
         });
     }
@@ -198,8 +232,10 @@ class MessagesIT extends BaseITNG {
         classBySeverity.forEach((severity, expectedClass) -> {
             WebElement ul = submitListCase(caseNumber, severityFieldId, severity);
             for (WebElement li : ul.findElements(By.tagName("li"))) {
-                assertEquals(expectedClass, li.getDomAttribute("class"),
-                    "Case " + caseNumber + " " + severity + " li class");
+                assertEquals(
+                    expectedClass, li.getDomAttribute("class"),
+                    "Case " + caseNumber + " " + severity + " li class"
+                );
             }
         });
     }
@@ -219,14 +255,17 @@ class MessagesIT extends BaseITNG {
         WebElement button = findByIdSuffix(page, "button1");
         page.guardHttp(button::click);
         WebElement ul = findByIdSuffix(page, "messages");
-        expected.forEach((name, value) ->
-            assertEquals(value, ul.getDomAttribute(name), "messages attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, ul.getDomAttribute(name), "messages attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

@@ -16,7 +16,6 @@
 
 package ee.jakarta.tck.faces.faces23.search_expression;
 
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -32,13 +31,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue4331IT extends BaseITNG {
 
-
-  /**
-   * @see Application#addSearchKeywordResolver(SearchKeywordResolver)
+    /**
+     * @see Application#addSearchKeywordResolver(SearchKeywordResolver)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4331
-   */
-  @Test
-  void test() throws Exception {
+     */
+    @Test
+    void test() throws Exception {
         testCustomSearchKeywordResolverAddedViaFacesConfig();
     }
 
@@ -52,6 +50,5 @@ public class Issue4331IT extends BaseITNG {
         assertFalse(behaviorScript.contains("@custom"));
         assertTrue(behaviorScript.contains("issue4331ITInput1"));
     }
-
 
 }

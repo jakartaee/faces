@@ -26,16 +26,17 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/PreRenderComponentEventTestServlet")
 public final class PreRenderComponentEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UICommand uic = new UICommand();
+    private static final UICommand uic = new UICommand();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PreRenderComponentEvent(component);
-  }
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PreRenderComponentEvent(component);
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
-  // ------------------------------------------------------------ test methods
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
+
+    // ------------------------------------------------------------ test methods
 }

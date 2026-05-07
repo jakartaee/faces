@@ -28,10 +28,16 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/StateManagerTestServlet")
 public final class StateManagerTestServlet extends HttpTCKServlet {
 
-    public void stateManagerIsSavingStateInClientTest(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    public void stateManagerIsSavingStateInClientTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
-        out.println(getApplication().getStateManager()
-                .isSavingStateInClient(getFacesContext()));
+        out.println(
+            getApplication().getStateManager()
+                .isSavingStateInClient(getFacesContext())
+        );
     }
+
 }

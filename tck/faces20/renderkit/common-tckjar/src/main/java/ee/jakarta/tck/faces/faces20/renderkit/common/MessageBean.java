@@ -57,38 +57,39 @@ public class MessageBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
         switch (severity) {
-            case "INFO":
+            case "INFO" :
                 context.addMessage(id, new FacesMessage(FacesMessage.Severity.INFO, INFO_SUMMARY, INFO_DETAIL));
                 break;
-            case "WARN":
+            case "WARN" :
                 context.addMessage(id, new FacesMessage(FacesMessage.Severity.WARN, WARN_SUMMARY, WARN_DETAIL));
                 break;
-            case "ERROR":
+            case "ERROR" :
                 context.addMessage(id, new FacesMessage(FacesMessage.Severity.ERROR, ERROR_SUMMARY, ERROR_DETAIL));
                 break;
-            case "FATAL":
+            case "FATAL" :
                 context.addMessage(id, new FacesMessage(FacesMessage.Severity.FATAL, FATAL_SUMMARY, FATAL_DETAIL));
                 break;
-            case "MESSAGES_INFO":
+            case "MESSAGES_INFO" :
                 context.addMessage(null, new FacesMessage(FacesMessage.Severity.INFO, INFO_SUMMARY + "_One ", INFO_DETAIL + "_One "));
                 context.addMessage(null, new FacesMessage(FacesMessage.Severity.INFO, INFO_SUMMARY + "_Two ", INFO_DETAIL + "_Two "));
                 break;
-            case "MESSAGES_WARN":
+            case "MESSAGES_WARN" :
                 context.addMessage(null, new FacesMessage(FacesMessage.Severity.WARN, WARN_SUMMARY + "_One ", WARN_DETAIL + "_One "));
                 context.addMessage(null, new FacesMessage(FacesMessage.Severity.WARN, WARN_SUMMARY + "_Two ", WARN_DETAIL + "_Two "));
                 break;
-            case "MESSAGES_ERROR":
+            case "MESSAGES_ERROR" :
                 context.addMessage(null, new FacesMessage(FacesMessage.Severity.ERROR, ERROR_SUMMARY + "_One ", ERROR_DETAIL + "_One "));
                 context.addMessage(null, new FacesMessage(FacesMessage.Severity.ERROR, ERROR_SUMMARY + "_Two ", ERROR_DETAIL + "_Two "));
                 break;
-            case "MESSAGES_FATAL":
+            case "MESSAGES_FATAL" :
                 context.addMessage(null, new FacesMessage(FacesMessage.Severity.FATAL, FATAL_SUMMARY + "_One ", FATAL_DETAIL + "_One "));
                 context.addMessage(null, new FacesMessage(FacesMessage.Severity.FATAL, FATAL_SUMMARY + "_Two ", FATAL_DETAIL + "_Two "));
                 break;
-            default:
+            default :
                 break;
         }
 
         this.severity = severity;
     }
+
 }

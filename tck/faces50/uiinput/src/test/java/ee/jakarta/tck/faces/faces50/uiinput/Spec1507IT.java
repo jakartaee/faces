@@ -197,7 +197,10 @@ class Spec1507IT extends BaseITNG {
 
     private void assertBehaviorScriptRendered(WebPage page, WebElement input, String behaviorEventName) {
         var scripts = page.getBehaviorScripts(input);
-        assertTrue(scripts.stream().anyMatch(script -> script.contains("'" + behaviorEventName + "'") || script.contains("\"" + behaviorEventName + "\"")), scripts.toString());
+        assertTrue(
+            scripts.stream().anyMatch(script -> script.contains("'" + behaviorEventName + "'") || script.contains("\"" + behaviorEventName + "\"")),
+            scripts.toString()
+        );
     }
 
 }

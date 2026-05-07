@@ -65,7 +65,8 @@ public final class TCKBehaviorListener implements AjaxBehaviorListener {
     public static void trace(String text) {
         if (text == null) {
             trace.setLength(0);
-        } else {
+        }
+        else {
             trace.append('/');
             trace.append(text);
         }
@@ -74,4 +75,5 @@ public final class TCKBehaviorListener implements AjaxBehaviorListener {
     public static String trace() {
         return trace.toString();
     }
+
 }

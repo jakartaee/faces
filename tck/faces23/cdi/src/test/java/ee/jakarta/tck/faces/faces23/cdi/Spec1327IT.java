@@ -28,14 +28,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1327IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see ExternalContext#getSession(boolean)
      * @see https://github.com/jakartaee/faces/issues/1327
-   */
-  @Test
-  void spec1327Bean() throws Exception {
+     */
+    @Test
+    void spec1327Bean() throws Exception {
         WebPage page = getPage("spec1327.xhtml");
         assertTrue(page.containsText("Session"));
     }
+
 }

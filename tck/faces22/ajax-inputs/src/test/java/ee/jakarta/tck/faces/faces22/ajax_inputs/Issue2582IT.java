@@ -51,4 +51,5 @@ class Issue2582IT extends BaseITNG {
         assertEquals(-1, page.findElement(By.id("form:input")).getDomProperty("value").indexOf("hello"));
 
     }
+
 }

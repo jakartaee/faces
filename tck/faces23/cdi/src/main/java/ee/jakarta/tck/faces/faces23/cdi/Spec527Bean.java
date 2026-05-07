@@ -21,7 +21,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named(value="spec527Bean")
+@Named(value = "spec527Bean")
 @RequestScoped
 public class Spec527Bean {
 
@@ -31,4 +31,5 @@ public class Spec527Bean {
     public boolean isInjected() {
         return context != null;
     }
+
 }

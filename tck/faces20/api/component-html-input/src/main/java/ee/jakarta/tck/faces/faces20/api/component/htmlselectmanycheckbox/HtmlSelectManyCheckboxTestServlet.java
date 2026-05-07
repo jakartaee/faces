@@ -26,17 +26,20 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlSelectManyCheckboxTestServlet")
 public final class HtmlSelectManyCheckboxTestServlet extends UISelectManyTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "border", "dir", "disabledClass", "enabledClass", "lang", "layout", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "style", "styleClass", "tabindex", "title", "disabled", "readonly", "disabledClass", "enabledClass" };
+    private static final String[] attrNames = { "accesskey", "border", "dir", "disabledClass", "enabledClass", "lang", "layout", "onblur", "onchange",
+        "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup",
+        "onselect", "style", "styleClass", "tabindex", "title", "disabled", "readonly", "disabledClass", "enabledClass" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Checkbox");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Checkbox");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlSelectManyCheckbox();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlSelectManyCheckbox();
+    }
+
 }

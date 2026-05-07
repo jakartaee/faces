@@ -47,4 +47,5 @@ class Issue5584IT extends BaseITNG {
         assertEquals("success", compositeResult.getText());
         assertEquals("Nested Composite Value", nestedCompositeValue.getText());
     }
+
 }

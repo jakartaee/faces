@@ -26,13 +26,16 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-@Constraint(validatedBy = {PasswordValidator.class})
+@Constraint(validatedBy = { PasswordValidator.class })
 @Documented
 @Target(TYPE)
 @Retention(RUNTIME)
 public @interface Password {
 
     String message() default "Password fields must match";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
+
 }

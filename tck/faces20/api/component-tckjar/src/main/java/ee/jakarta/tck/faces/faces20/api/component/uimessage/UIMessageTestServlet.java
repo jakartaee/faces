@@ -33,146 +33,172 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/UIMessageTestServlet")
 public class UIMessageTestServlet extends BaseComponentTestServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Message");
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UIMessage();
-  }
-
-  // ----------------------------------------- UIMessage Specific Test Methods
-  // UIMessage.{get,set}For
-  public void uiMessageGetSetForTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    String myto = "mytestobject";
-    UIMessage message = (UIMessage) createComponent();
-    message.setFor(myto);
-
-    if (!myto.equals(message.getFor())) {
-      out.println(JSFTestUtil.FAIL + " Expected result calling "
-          + "UIMessage.setFor() or UIMessage.getFor()!" + JSFTestUtil.NL
-          + "Expected: " + myto + JSFTestUtil.NL + "Received: "
-          + message.getFor());
-
-    } else {
-      out.println(JSFTestUtil.PASS);
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Message");
     }
 
-  } // end uiMessageGetSetForTest
-
-  public void uiMessageIsSetRedisplayTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIMessage message = (UIMessage) createComponent();
-    boolean tf;
-
-    // Check redisplay for default value.
-    tf = message.isRedisplay();
-    if (!tf) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected Default value returned from .isRedisplay()!"
-          + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: "
-          + tf);
-      return;
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UIMessage();
     }
 
-    // Set value then check it again.
-    message.setRedisplay(false);
-    tf = message.isRedisplay();
-    if (tf) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected value returned from .isRedisplay() after "
-          + "setting it with .setRedisplay()!" + JSFTestUtil.NL
-          + "Expected: false" + JSFTestUtil.NL + "Received: " + tf);
-      return;
-    }
+    // ----------------------------------------- UIMessage Specific Test Methods
+    // UIMessage.{get,set}For
+    public void uiMessageGetSetForTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    out.println(JSFTestUtil.PASS);
+        String myto = "mytestobject";
+        UIMessage message = (UIMessage) createComponent();
+        message.setFor(myto);
 
-  } // end uiMessageIsSetRedisplayTest
+        if (!myto.equals(message.getFor())) {
+            out.println(
+                JSFTestUtil.FAIL + " Expected result calling "
+                    + "UIMessage.setFor() or UIMessage.getFor()!" + JSFTestUtil.NL
+                    + "Expected: " + myto + JSFTestUtil.NL + "Received: "
+                    + message.getFor()
+            );
 
-  public void uiMessageIsSetShowDetailTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIMessage message = (UIMessage) createComponent();
-    boolean tf;
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
 
-    // Check redisplay for default value.
-    tf = message.isShowDetail();
-    if (!tf) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected Default value returned from .isShowDetail()!"
-          + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: "
-          + tf);
-      return;
-    }
+    } // end uiMessageGetSetForTest
 
-    // Set value then check it again.
-    message.setShowDetail(false);
-    tf = message.isShowDetail();
-    if (tf) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected value returned from .isShowDetail() after "
-          + "setting it with .setShowDetail()!" + JSFTestUtil.NL
-          + "Expected: false" + JSFTestUtil.NL + "Received: " + tf);
-      return;
-    }
+    public void uiMessageIsSetRedisplayTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIMessage message = (UIMessage) createComponent();
+        boolean tf;
 
-    out.println(JSFTestUtil.PASS);
+        // Check redisplay for default value.
+        tf = message.isRedisplay();
+        if (!tf) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected Default value returned from .isRedisplay()!"
+                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: "
+                    + tf
+            );
+            return;
+        }
 
-  } // end uiMessageIsSetShowDetailTest
+        // Set value then check it again.
+        message.setRedisplay(false);
+        tf = message.isRedisplay();
+        if (tf) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected value returned from .isRedisplay() after "
+                    + "setting it with .setRedisplay()!" + JSFTestUtil.NL
+                    + "Expected: false" + JSFTestUtil.NL + "Received: " + tf
+            );
+            return;
+        }
 
-  public void uiMessageIsSetShowSummaryTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UIMessage message = (UIMessage) createComponent();
-    boolean tf;
+        out.println(JSFTestUtil.PASS);
 
-    // Check redisplay for default value.
-    tf = message.isShowSummary();
-    if (tf) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected Default value returned from .isShowSummary()!"
-          + JSFTestUtil.NL + "Expected: false" + JSFTestUtil.NL + "Received: "
-          + tf);
-      return;
-    }
+    } // end uiMessageIsSetRedisplayTest
 
-    // Set value then check it again.
-    message.setShowSummary(true);
-    tf = message.isShowSummary();
-    if (!tf) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected value returned from .isShowSummary() after "
-          + "setting it with .setShowSummary()!" + JSFTestUtil.NL
-          + "Expected: true" + JSFTestUtil.NL + "Received: " + tf);
-      return;
-    }
+    public void uiMessageIsSetShowDetailTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIMessage message = (UIMessage) createComponent();
+        boolean tf;
 
-    out.println(JSFTestUtil.PASS);
+        // Check redisplay for default value.
+        tf = message.isShowDetail();
+        if (!tf) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected Default value returned from .isShowDetail()!"
+                    + JSFTestUtil.NL + "Expected: true" + JSFTestUtil.NL + "Received: "
+                    + tf
+            );
+            return;
+        }
 
-  } // end uiMessageIsSetShowSummaryTest
+        // Set value then check it again.
+        message.setShowDetail(false);
+        tf = message.isShowDetail();
+        if (tf) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected value returned from .isShowDetail() after "
+                    + "setting it with .setShowDetail()!" + JSFTestUtil.NL
+                    + "Expected: false" + JSFTestUtil.NL + "Received: " + tf
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
+
+    } // end uiMessageIsSetShowDetailTest
+
+    public void uiMessageIsSetShowSummaryTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UIMessage message = (UIMessage) createComponent();
+        boolean tf;
+
+        // Check redisplay for default value.
+        tf = message.isShowSummary();
+        if (tf) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected Default value returned from .isShowSummary()!"
+                    + JSFTestUtil.NL + "Expected: false" + JSFTestUtil.NL + "Received: "
+                    + tf
+            );
+            return;
+        }
+
+        // Set value then check it again.
+        message.setShowSummary(true);
+        tf = message.isShowSummary();
+        if (!tf) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected value returned from .isShowSummary() after "
+                    + "setting it with .setShowSummary()!" + JSFTestUtil.NL
+                    + "Expected: true" + JSFTestUtil.NL + "Received: " + tf
+            );
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
+
+    } // end uiMessageIsSetShowSummaryTest
+
 }

@@ -27,11 +27,11 @@
     </h:head>
 
     <h:body onload="">
-    
+
        <h:form>
           <h:commandButton  action="#{issue2910Bean.chooseView(1)}" value="Back to 1" />
        </h:form>
-    
+
        <h:form id="productBrowserForm">
           <ui:repeat value="#{issue2910Bean.currentView}" var="entry" varStatus="status">
               <h:commandLink action="#{issue2910Bean.chooseView(entry)}" value="#{entry}" >
@@ -39,7 +39,7 @@
               </h:commandLink>
              &nbsp;
           </ui:repeat>
-       
+
        </h:form>
     </h:body>
 </f:view>

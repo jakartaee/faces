@@ -100,4 +100,5 @@ public class Issue3345Bean implements Serializable {
     public void setServiceLevel(String serviceLevel) {
         this.serviceLevel = serviceLevel;
     }
+
 }

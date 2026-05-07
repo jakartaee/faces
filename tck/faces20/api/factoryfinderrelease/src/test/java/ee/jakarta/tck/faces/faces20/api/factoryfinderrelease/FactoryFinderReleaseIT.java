@@ -28,5 +28,9 @@ class FactoryFinderReleaseIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void getFactoriesISETest() { runServletTest("getFactoriesISETest"); }
+    @Test
+    void getFactoriesISETest() {
+        runServletTest("getFactoriesISETest");
+    }
+
 }

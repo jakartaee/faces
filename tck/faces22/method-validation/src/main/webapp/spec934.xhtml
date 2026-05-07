@@ -19,31 +19,30 @@
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core">
     <head>
         <title></title>
     </head>
     <body>
     <f:event type="preRenderView" listener="#{spec934Bean.preRenderViewListener}"  />
-        
+
         <h:form prependId="false">
             <p>method validation test. A non-foo value here invokes method validation during Render Response without correctly dealing with the exception: <h:inputText id="firstName" value="#{spec934Bean.methodValidationValue}" /> </p>
             <p>value validation test. A non-foo value here invokes value validation during Process Validations: <h:inputText id="lastName" value="#{spec934Bean.valueValidationValue}" /> </p>
             <p>method validation test. A bar value here invokes method validation before Render Response and does correctly handle the exception.
             <h:inputText id="requestValue" value="#{requestScope.value}" />
-            
+
             </p>
-            
+
             <p id="helloValue">#{spec934Bean.helloValue}</p>
-            
+
             <h:commandButton id="button" value="submit" />
-            
+
             <h:messages />
 
-            
-            
+
+
         </h:form>
     </body>
 </html>
-

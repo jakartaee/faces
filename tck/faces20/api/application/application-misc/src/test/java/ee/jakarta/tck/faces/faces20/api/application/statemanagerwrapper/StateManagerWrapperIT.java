@@ -33,7 +33,10 @@ class StateManagerWrapperIT extends BaseITNG {
         // Wrapper servlet prints the boolean returned by StateManagerWrapper.isSavingStateInClient(FacesContext);
         // wrapper delegates to underlying StateManager which, with default state-saving (server), returns "false".
         String body = getResponseBody("StateManagerWrapperTestServlet?testname=stateManagerIsSavingStateInClientTest");
-        assertTrue(body.trim().equals("false"),
-                "Expected 'false' (default server-side state saving) but got:\n" + body);
+        assertTrue(
+            body.trim().equals("false"),
+            "Expected 'false' (default server-side state saving) but got:\n" + body
+        );
     }
+
 }

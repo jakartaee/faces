@@ -28,14 +28,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue3734IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see SessionMap
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3734
-   */
-  @Test
-  void injectSessionMap2() throws Exception {
+     */
+    @Test
+    void injectSessionMap2() throws Exception {
         WebPage page = getPage("issue3734.xhtml");
         assertTrue(page.containsText("key=value"));
     }
+
 }

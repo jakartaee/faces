@@ -28,12 +28,44 @@ class FlowHandlerIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void facesFLowHandlerAddFlowIAETest() { runServletTest("facesFLowHandlerAddFlowIAETest"); }
-    @Test void facesFLowHandlerAddFlowNPETest() { runServletTest("facesFLowHandlerAddFlowNPETest"); }
-    @Test void facesFLowHandlerClientWindowTransitionNPETest() { runServletTest("facesFLowHandlerClientWindowTransitionNPETest"); }
-    @Test void facesFLowHandlerGetCurrentFlowNPETest() { runServletTest("facesFLowHandlerGetCurrentFlowNPETest"); }
-    @Test void facesFLowHandlerGetFlowNPETest() { runServletTest("facesFLowHandlerGetFlowNPETest"); }
-    @Test void facesFLowHandlerGetLastDisplayedViewIdNPETest() { runServletTest("facesFLowHandlerGetLastDisplayedViewIdNPETest"); }
-    @Test void facesFLowHandlerIsActiveNPETest() { runServletTest("facesFLowHandlerIsActiveNPETest"); }
-    @Test void facesFLowHandlerTransitionNPETest() { runServletTest("facesFLowHandlerTransitionNPETest"); }
+    @Test
+    void facesFLowHandlerAddFlowIAETest() {
+        runServletTest("facesFLowHandlerAddFlowIAETest");
+    }
+
+    @Test
+    void facesFLowHandlerAddFlowNPETest() {
+        runServletTest("facesFLowHandlerAddFlowNPETest");
+    }
+
+    @Test
+    void facesFLowHandlerClientWindowTransitionNPETest() {
+        runServletTest("facesFLowHandlerClientWindowTransitionNPETest");
+    }
+
+    @Test
+    void facesFLowHandlerGetCurrentFlowNPETest() {
+        runServletTest("facesFLowHandlerGetCurrentFlowNPETest");
+    }
+
+    @Test
+    void facesFLowHandlerGetFlowNPETest() {
+        runServletTest("facesFLowHandlerGetFlowNPETest");
+    }
+
+    @Test
+    void facesFLowHandlerGetLastDisplayedViewIdNPETest() {
+        runServletTest("facesFLowHandlerGetLastDisplayedViewIdNPETest");
+    }
+
+    @Test
+    void facesFLowHandlerIsActiveNPETest() {
+        runServletTest("facesFLowHandlerIsActiveNPETest");
+    }
+
+    @Test
+    void facesFLowHandlerTransitionNPETest() {
+        runServletTest("facesFLowHandlerTransitionNPETest");
+    }
+
 }

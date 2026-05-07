@@ -47,7 +47,7 @@ class HeadIT extends BaseITNG {
 
     private static void verifyAttributes(WebPage page, Map<String, String> expected) {
         WebElement head = page.findElement(By.id("myHead"));
-        expected.forEach((name, value) ->
-            assertEquals(value, head.getDomAttribute(name), "head attribute " + name));
+        expected.forEach((name, value) -> assertEquals(value, head.getDomAttribute(name), "head attribute " + name));
     }
+
 }

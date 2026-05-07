@@ -28,6 +28,7 @@ import ee.jakarta.tck.faces.faces22.multi_field_validation.PasswordHolder;
 @SessionScoped
 @Password(groups = PasswordValidationGroup.class)
 public class Spec1Bean1 implements PasswordHolder, Cloneable, Serializable {
+
     private static final long serialVersionUID = 3090640848750726353L;
 
     private String password1;

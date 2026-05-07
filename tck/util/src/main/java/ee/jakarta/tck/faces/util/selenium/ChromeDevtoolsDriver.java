@@ -110,12 +110,14 @@ import static org.openqa.selenium.devtools.v139.network.model.ResourceType.XHR;
 public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWebDriver {
 
     private static final Logger LOG = Logger.getLogger(ChromeDevtoolsDriver.class.getName());
-    private static final Comparator<HttpCycleData> RESPONSE_TIME_COMPARATOR = comparing(HttpCycleData::getResponseTime,
-        nullsFirst(naturalOrder()));
+    private static final Comparator<HttpCycleData> RESPONSE_TIME_COMPARATOR = comparing(
+        HttpCycleData::getResponseTime,
+        nullsFirst(naturalOrder())
+    );
 
     /**
-     * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the
-     * selenium webdriver version must match the browser version
+     * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the selenium webdriver version must match the
+     * browser version
      */
     private static AtomicBoolean firstLog = new AtomicBoolean(TRUE);
 
@@ -125,7 +127,6 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     private ReentrantLock cycleDataWriteLock = new ReentrantLock();
     private boolean firstRequest = true;
     private String lastGet;
-
 
     public static ExtendedWebDriver stdInit() {
         Locale.setDefault(Locale.US);
@@ -228,7 +229,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             () -> devTools.send(Network.enable(empty(), empty(), empty(), empty())),
             3,
             Duration.ofMillis(150),
-            2.0);
+            2.0
+        );
     }
 
     private void initNetworkListeners(DevTools devTools) {
@@ -241,7 +243,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
                 LOG.log(INFO, () -> "Recording request: " + reflectionToString(request));
                 HttpCycleData data = findOrCreate(request.getRequestId());
                 data.request = request.getRequest();
-            } finally {
+            }
+            finally {
                 cycleDataWriteLock.unlock();
             }
         });
@@ -253,11 +256,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             cycleDataWriteLock.lock();
             try {
-                LOG.log(INFO, () -> "Recording response: " + reflectionToString(response) + ", code: "
-                    + response.getResponse().getStatus());
+                LOG.log(
+                    INFO, () -> "Recording response: " + reflectionToString(response) + ", code: "
+                        + response.getResponse().getStatus()
+                );
                 HttpCycleData data = findOrCreate(response.getRequestId());
                 data.responseReceived = response;
-            } finally {
+            }
+            finally {
                 cycleDataWriteLock.unlock();
             }
         });
@@ -392,15 +398,15 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         if (firstRequest) {
             firstRequest = false;
             getAndWaitForWindowAndFaces(url, Duration.ofSeconds(60));
-        } else {
+        }
+        else {
             getAndWaitForFaces(url, Duration.ofSeconds(10));
         }
     }
 
     /**
-     * Navigates the current window to the url and waits until the retrieved page is settled down,
-     * which means all additional XHR requests were processed.
-     * If the window was switched somehow, tries to find the right window again.
+     * Navigates the current window to the url and waits until the retrieved page is settled down, which means all additional XHR requests were processed. If
+     * the window was switched somehow, tries to find the right window again.
      *
      * @param url target link
      * @param timeout time to wait.
@@ -411,13 +417,15 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         waitForWindow.until(d -> {
             try {
                 d.get(url);
-            } catch (NoSuchWindowException e) {
+            }
+            catch (NoSuchWindowException e) {
                 switchToWindowWithUrl(lastGet);
                 return false;
             }
             try {
                 waitForJs.until(e -> !cycleData.isEmpty());
-            } catch (TimeoutException e) {
+            }
+            catch (TimeoutException e) {
                 // Will reload the page again
                 return false;
             }
@@ -430,8 +438,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     /**
-     * Navigates the current window to the url and waits until the retrieved page is settled down,
-     * which means all additional XHR requests were processed.
+     * Navigates the current window to the url and waits until the retrieved page is settled down, which means all additional XHR requests were processed.
      *
      * @param url target link
      * @param timeout time to wait.
@@ -450,7 +457,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         // we should allow it to make it to the cycleData.
         try {
             Thread.sleep(pause.toMillis());
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
@@ -587,7 +595,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     public void quit() {
         try {
             delegate.quit();
-        } catch (TimeoutException e) {
+        }
+        catch (TimeoutException e) {
             // DevTools cleanup raced with browser shutdown — ignore
             LOG.log(WARNING, "Ignoring DevTools timeout during quit()", e);
         }
@@ -747,14 +756,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     @Override
     public void printProcessedResponses() {
         cycleData.stream().filter(HttpCycleData::hasResponse).sorted(RESPONSE_TIME_COMPARATOR)
-                // Missing last api
-                .forEachOrdered(item -> {
-                    System.out.println("Url: " + item.request.getUrl());
-                    System.out.println("RequestId: " + item.requestId.toJson());
-                    Optional<TimeSinceEpoch> responseTime = item.responseReceived.getResponse().getResponseTime();
-                    System.out.println("ResponseTime: " + responseTime.orElse(null));
-                    System.out.println("ResponseStatus: " + item.responseReceived.getResponse().getStatus());
-                });
+            // Missing last api
+            .forEachOrdered(item -> {
+                System.out.println("Url: " + item.request.getUrl());
+                System.out.println("RequestId: " + item.requestId.toJson());
+                Optional<TimeSinceEpoch> responseTime = item.responseReceived.getResponse().getResponseTime();
+                System.out.println("ResponseTime: " + responseTime.orElse(null));
+                System.out.println("ResponseStatus: " + item.responseReceived.getResponse().getStatus());
+            });
     }
 
     @Override
@@ -773,6 +782,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     private class ChromeDriverWait extends FluentWait<ChromeDriver> {
+
         ChromeDriverWait(ChromeDriver input, Duration timeout, Duration pause) {
             super(input);
             withTimeout(timeout);
@@ -782,7 +792,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         @Override
         public <V> V until(Function<? super ChromeDriver, V> isTrue) {
             return super.until(d -> {
-                if (isCommunicationInProgress()) return null; // keep waiting
+                if (isCommunicationInProgress())
+                    return null; // keep waiting
                 return isTrue.apply(d);
             });
         }
@@ -806,6 +817,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             return false;
         }
+
     }
 
     private static void runWithRetry(Runnable r, int attempts, Duration initialDelay, double backoff) {
@@ -820,14 +832,16 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             try {
                 r.run();
                 return;
-            } catch (WebDriverException e) {
+            }
+            catch (WebDriverException e) {
                 lastException = e;
 
                 LOG.log(WARNING, "CDP init attempt {0} failed; retrying in {1} ms", new Object[] { i, delay.toMillis() });
 
                 try {
                     Thread.sleep(delay.toMillis());
-                } catch (InterruptedException ie) {
+                }
+                catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                     throw lastException;
                 }
@@ -838,9 +852,11 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
         throw lastException;
     }
+
 }
 
 class HttpCycleData {
+
     public final RequestId requestId;
     public Request request;
     public ResponseReceived responseReceived;
@@ -877,4 +893,5 @@ class HttpCycleData {
     public String toString() {
         return reflectionToString(this);
     }
+
 }

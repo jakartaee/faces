@@ -82,4 +82,5 @@ public class Issue5541Bean {
     public void setZonedDateTime(ZonedDateTime zonedDateTime) {
         this.zonedDateTime = zonedDateTime;
     }
+
 }

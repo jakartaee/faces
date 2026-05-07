@@ -36,7 +36,8 @@ class AttributeIT extends BaseITNG {
         "Cygnus X-1 Book II",
         "Circumstances",
         "The Trees",
-        "La Villa Strangiato");
+        "La Villa Strangiato"
+    );
 
     @Test
     void compositeAttributeTagTest() {
@@ -70,15 +71,19 @@ class AttributeIT extends BaseITNG {
 
         WebElement tracks = findByIdSuffix(page, tracksId);
         List<String> optionTexts = tracks.findElements(By.tagName("option")).stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
+            .map(WebElement::getText)
+            .collect(Collectors.toList());
         assertEquals(SONGS, optionTexts, "tracks select options");
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

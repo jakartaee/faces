@@ -27,14 +27,14 @@
         <param-value>/WEB-INF/config/faces-config.xml</param-value>
     </context-param>
 
-	<servlet>
-		<servlet-name>TestServlet</servlet-name>		
-		<servlet-class>ee.jakarta.tck.faces.faces20.webapp.factoryfinder.TestServlet</servlet-class>
-	</servlet>
+    <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>ee.jakarta.tck.faces.faces20.webapp.factoryfinder.TestServlet</servlet-class>
+    </servlet>
 <servlet-mapping>
-		<servlet-name>TestServlet</servlet-name>
-		<url-pattern>/TestServlet</url-pattern>
-	</servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/TestServlet</url-pattern>
+    </servlet-mapping>
 <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>

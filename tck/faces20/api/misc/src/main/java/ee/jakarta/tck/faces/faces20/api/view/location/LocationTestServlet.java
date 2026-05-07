@@ -31,142 +31,148 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/LocationTestServlet")
 public final class LocationTestServlet extends HttpTCKServlet {
 
-  private static final int LINE = 1;
+    private static final int LINE = 1;
 
-  private static final int COLUMN = 2;
+    private static final int COLUMN = 2;
 
-  private static final String PATH = "testPath";
+    private static final String PATH = "testPath";
 
-  /**
-   * <code>init</code> initializes the servlet.
-   *
-   * @param config
-   *          - <code>ServletConfig</code>
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
-
-  /**
-   * Constructor for Location.
-   *
-   * @param request
-   *          - <code>HttpServletRequest</code>
-   * @param response
-   *          - <code>HttpServletResponse</code>
-   * @throws ServletException
-   *           - if an unexpected container error occurs
-   * @throws IOException
-   *           - if an unexpected I/O error occurs
-   */
-  public void locationCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      new Location(PATH, LINE, COLUMN);
-      pw.println(JSFTestUtil.PASS);
-    } catch (Exception e) {
-      pw.println("The constructor for Location threw an unexpected exception");
-      e.printStackTrace();
+    /**
+     * <code>init</code> initializes the servlet.
+     *
+     * @param config - <code>ServletConfig</code>
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
     }
-  }// End locationCtorTest
 
-  /**
-   * No-arg getColumn() for Location.
-   *
-   * @param request
-   *          - <code>HttpServletRequest</code>
-   * @param response
-   *          - <code>HttpServletResponse</code>
-   * @throws ServletException
-   *           - if an unexpected container error occurs
-   * @throws IOException
-   *           - if an unexpected I/O error occurs
-   */
-  public void locationGetColumnTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      Location loc = new Location(PATH, LINE, COLUMN);
-      int result = loc.getColumn();
+    /**
+     * Constructor for Location.
+     *
+     * @param request - <code>HttpServletRequest</code>
+     * @param response - <code>HttpServletResponse</code>
+     * @throws ServletException - if an unexpected container error occurs
+     * @throws IOException - if an unexpected I/O error occurs
+     */
+    public void locationCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            new Location(PATH, LINE, COLUMN);
+            pw.println(JSFTestUtil.PASS);
+        }
+        catch (Exception e) {
+            pw.println("The constructor for Location threw an unexpected exception");
+            e.printStackTrace();
+        }
+    }// End locationCtorTest
 
-      if (!(result == COLUMN)) {
-        pw.println("Test FAILED" + JSFTestUtil.NL + "Expected: " + COLUMN
-            + JSFTestUtil.NL + "Received: " + result);
-        return;
-      }
+    /**
+     * No-arg getColumn() for Location.
+     *
+     * @param request - <code>HttpServletRequest</code>
+     * @param response - <code>HttpServletResponse</code>
+     * @throws ServletException - if an unexpected container error occurs
+     * @throws IOException - if an unexpected I/O error occurs
+     */
+    public void locationGetColumnTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            Location loc = new Location(PATH, LINE, COLUMN);
+            int result = loc.getColumn();
 
-      pw.println(JSFTestUtil.PASS);
+            if (!(result == COLUMN)) {
+                pw.println(
+                    "Test FAILED" + JSFTestUtil.NL + "Expected: " + COLUMN
+                        + JSFTestUtil.NL + "Received: " + result
+                );
+                return;
+            }
 
-    } catch (Exception e) {
-      pw.println("The constructor for Location threw an unexpected exception.");
-      e.printStackTrace();
-    }
-  }// End locationGetColumnTest
+            pw.println(JSFTestUtil.PASS);
 
-  /**
-   * No-arg getLine() for Location.
-   *
-   * @param request
-   *          - <code>HttpServletRequest</code>
-   * @param response
-   *          - <code>HttpServletResponse</code>
-   * @throws ServletException
-   *           - if an unexpected container error occurs
-   * @throws IOException
-   *           - if an unexpected I/O error occurs
-   */
-  public void locationGetLineTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      Location loc = new Location(PATH, LINE, COLUMN);
-      int result = loc.getLine();
+        }
+        catch (Exception e) {
+            pw.println("The constructor for Location threw an unexpected exception.");
+            e.printStackTrace();
+        }
+    }// End locationGetColumnTest
 
-      if (!(result == LINE)) {
-        pw.println("Test FAILED" + JSFTestUtil.NL + "Expected: " + LINE
-            + JSFTestUtil.NL + "Received: " + result);
-        return;
-      }
+    /**
+     * No-arg getLine() for Location.
+     *
+     * @param request - <code>HttpServletRequest</code>
+     * @param response - <code>HttpServletResponse</code>
+     * @throws ServletException - if an unexpected container error occurs
+     * @throws IOException - if an unexpected I/O error occurs
+     */
+    public void locationGetLineTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            Location loc = new Location(PATH, LINE, COLUMN);
+            int result = loc.getLine();
 
-      pw.println(JSFTestUtil.PASS);
+            if (!(result == LINE)) {
+                pw.println(
+                    "Test FAILED" + JSFTestUtil.NL + "Expected: " + LINE
+                        + JSFTestUtil.NL + "Received: " + result
+                );
+                return;
+            }
 
-    } catch (Exception e) {
-      pw.println("The constructor for Location threw an unexpected exception.");
-      e.printStackTrace();
-    }
-  }// End locationGetLineTest
+            pw.println(JSFTestUtil.PASS);
 
-  /**
-   * No-arg getPath() for Location.
-   *
-   * @param request
-   *          - <code>HttpServletRequest</code>
-   * @param response
-   *          - <code>HttpServletResponse</code>
-   * @throws ServletException
-   *           - if an unexpected container error occurs
-   * @throws IOException
-   *           - if an unexpected I/O error occurs
-   */
-  public void locationGetPathTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      Location loc = new Location(PATH, LINE, COLUMN);
-      String result = loc.getPath();
+        }
+        catch (Exception e) {
+            pw.println("The constructor for Location threw an unexpected exception.");
+            e.printStackTrace();
+        }
+    }// End locationGetLineTest
 
-      if (!(result.equals(PATH))) {
-        pw.println("Test FAILED" + JSFTestUtil.NL + "Expected: " + PATH
-            + JSFTestUtil.NL + "Received: " + result);
-        return;
-      }
+    /**
+     * No-arg getPath() for Location.
+     *
+     * @param request - <code>HttpServletRequest</code>
+     * @param response - <code>HttpServletResponse</code>
+     * @throws ServletException - if an unexpected container error occurs
+     * @throws IOException - if an unexpected I/O error occurs
+     */
+    public void locationGetPathTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            Location loc = new Location(PATH, LINE, COLUMN);
+            String result = loc.getPath();
 
-      pw.println(JSFTestUtil.PASS);
+            if (!(result.equals(PATH))) {
+                pw.println(
+                    "Test FAILED" + JSFTestUtil.NL + "Expected: " + PATH
+                        + JSFTestUtil.NL + "Received: " + result
+                );
+                return;
+            }
 
-    } catch (Exception e) {
-      pw.println("The constructor for Location threw an unexpected exception.");
-      e.printStackTrace();
-    }
-  }// End locationGetPathTest
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            pw.println("The constructor for Location threw an unexpected exception.");
+            e.printStackTrace();
+        }
+    }// End locationGetPathTest
+
 }

@@ -64,4 +64,5 @@ public class Spec1555ITBean {
     public void setMultipleSelection(List<Part> multipleSelection) {
         this.multipleSelection = multipleSelection;
     }
+
 }

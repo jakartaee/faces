@@ -33,22 +33,22 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec1396IT extends BaseITNG {
 
-  /**
-   * @see UIWebsocket
+    /**
+     * @see UIWebsocket
      * @see https://github.com/jakartaee/faces/issues/1396
-   */
-  @Test
-  void enableWebsocketEndpoint() throws Exception {
+     */
+    @Test
+    void enableWebsocketEndpoint() throws Exception {
         WebPage page = getPage("spec1396-1.xhtml");
         assertEquals("true", page.findElement(By.id("param")).getText());
     }
 
-  /**
-   * @see UIWebsocket
+    /**
+     * @see UIWebsocket
      * @see https://github.com/jakartaee/faces/issues/1396
-   */
-  @Test
-  void defaultWebsocket() throws Exception {
+     */
+    @Test
+    void defaultWebsocket() throws Exception {
         WebPage page = getPage("spec1396-2.xhtml");
 
         String pageSource = page.getSource();
@@ -63,12 +63,12 @@ class Spec1396IT extends BaseITNG {
         waitUntilWebsocketIsPushed(getWebDriver(), page);
     }
 
-  /**
-   * @see UIWebsocket#setUser(java.io.Serializable)
+    /**
+     * @see UIWebsocket#setUser(java.io.Serializable)
      * @see https://github.com/jakartaee/faces/issues/1396
-   */
-  @Test
-  void userScopedWebsocket() throws Exception {
+     */
+    @Test
+    void userScopedWebsocket() throws Exception {
         WebPage page = getPage("spec1396-3.xhtml");
 
         String pageSource = page.getSource();
@@ -83,12 +83,12 @@ class Spec1396IT extends BaseITNG {
         waitUntilWebsocketIsPushed(getWebDriver(), page);
     }
 
-  /**
-   * @see UIWebsocket#setScope(String)
+    /**
+     * @see UIWebsocket#setScope(String)
      * @see https://github.com/jakartaee/faces/issues/1396
-   */
-  @Test
-  void viewScopedWebsocket() throws Exception {
+     */
+    @Test
+    void viewScopedWebsocket() throws Exception {
         WebPage page = getPage("spec1396-4.xhtml");
 
         String pageSource = page.getSource();
@@ -103,12 +103,12 @@ class Spec1396IT extends BaseITNG {
         waitUntilWebsocketIsPushed(getWebDriver(), page);
     }
 
-  /**
-   * @see UIWebsocket
+    /**
+     * @see UIWebsocket
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4332
-   */
-  @Test
-  void websocketAfterPostback() throws Exception {
+     */
+    @Test
+    void websocketAfterPostback() throws Exception {
         WebPage page = getPage("spec1396-5.xhtml");
 
         String pageSource = page.getSource();

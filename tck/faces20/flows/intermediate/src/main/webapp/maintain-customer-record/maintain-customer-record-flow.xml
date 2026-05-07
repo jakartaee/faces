@@ -17,22 +17,22 @@
 
 -->
 
-<faces-config version="3.0" 
-			  xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   			  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-        			https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
+<faces-config version="3.0"
+              xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                    https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
 
     <flow-definition id="maintain-customer-record">
         <start-node>router1</start-node>
-        
+
         <flow-return id="success">
             <from-outcome>/complete</from-outcome>
         </flow-return>
         <flow-return id="errorOccurred">
             <from-outcome>error</from-outcome>
         </flow-return>
-        
+
         <!-- If a customerId was specified then we'll edit it, otherwise create a new customer. -->
         <switch id="router1">
           <case>
@@ -41,26 +41,26 @@
           </case>
           <default-outcome>view-customer</default-outcome>
         </switch>
-        
+
         <view id="create-customer">
             <vdl-document>/maintain-customer-record/create-customer.xhtml</vdl-document>
         </view>
-        
+
         <view id="view-customer">
             <vdl-document>/maintain-customer-record/view-customer.xhtml</vdl-document>
         </view>
-        
+
         <view id="maintain-customer-record">
             <vdl-document>/maintain-customer-record/maintain-customer-record.xhtml</vdl-document>
         </view>
-        
+
         <method-call id="upgrade-customer">
             <method>#{maintainCustomerBean.upgradeCustomer}</method>
             <default-outcome>view-customer</default-outcome>
         </method-call>
-        
+
         <initializer>#{maintainCustomerBean.initializeFlow}</initializer>
         <finalizer>#{maintainCustomerBean.cleanUpFlow}</finalizer>
-        
+
     </flow-definition>
 </faces-config>

@@ -31,13 +31,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2166IT extends BaseITNG {
 
-  /**
-   * @see PreRenderViewEvent
+    /**
+     * @see PreRenderViewEvent
      * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2166
-   */
-  @Test
-  void preRenderViewListenerFiresOncePerInit() throws Exception {
+     */
+    @Test
+    void preRenderViewListenerFiresOncePerInit() throws Exception {
         WebPage page = getPage("issue2166.xhtml");
 
         assertTrue(page.containsSource("Init called\n"));
@@ -50,4 +50,5 @@ class Issue2166IT extends BaseITNG {
         assertTrue(page.containsSource("Init called\nInit called\n"));
         assertFalse(page.containsSource("Init called\nInit called\nInit called"));
     }
+
 }

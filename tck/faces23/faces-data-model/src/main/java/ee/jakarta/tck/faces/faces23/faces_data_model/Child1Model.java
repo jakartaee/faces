@@ -22,39 +22,39 @@ import jakarta.faces.model.FacesDataModel;
 @FacesDataModel(forClass = Child1.class)
 public class Child1Model<E> extends DataModel<E> {
 
-	@Override
-	public int getRowCount() {
-		return 0;
-	}
+    @Override
+    public int getRowCount() {
+        return 0;
+    }
 
-	@Override
-	public E getRowData() {
-		return null;
-	}
+    @Override
+    public E getRowData() {
+        return null;
+    }
 
-	@Override
-	public int getRowIndex() {
-		return 0;
-	}
+    @Override
+    public int getRowIndex() {
+        return 0;
+    }
 
-	@Override
-	public Object getWrappedData() {
-		return null;
-	}
+    @Override
+    public Object getWrappedData() {
+        return null;
+    }
 
-	@Override
-	public boolean isRowAvailable() {
-		return false;
-	}
+    @Override
+    public boolean isRowAvailable() {
+        return false;
+    }
 
-	@Override
-	public void setRowIndex(int arg0) {
-		
-	}
+    @Override
+    public void setRowIndex(int arg0) {
 
-	@Override
-	public void setWrappedData(Object arg0) {
-		
-	}
+    }
+
+    @Override
+    public void setWrappedData(Object arg0) {
+
+    }
 
 }

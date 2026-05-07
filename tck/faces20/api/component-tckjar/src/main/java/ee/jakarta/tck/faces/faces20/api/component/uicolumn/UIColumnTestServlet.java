@@ -34,92 +34,114 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/UIColumnTestServlet")
 public class UIColumnTestServlet extends BaseComponentTestServlet {
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType(null);
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link jakarta.faces.component.UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link jakarta.faces.component.UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UIColumn();
-  }
-
-  // ------------------------------------------- UIColumn Methods ----
-
-  // UIColumn.setFooter() throws NullPointerException
-  public void uiColumnSetFooterNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    JSFTestUtil.checkForNPE(this.createComponent().getClass(), "setFooter",
-        new Class<?>[] { UIComponent.class }, new Object[] { null }, out);
-  }
-
-  // UIColumn.{get,set}Footer()
-  public void uiColumnGetSetFooterTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    String golden = "Testing";
-    UIColumn uic = (UIColumn) createComponent();
-    UIOutput footNotes = new UIOutput();
-
-    footNotes.setId(golden);
-    uic.setFooter(footNotes);
-
-    String result = uic.getFooter().getId();
-
-    if (!result.equals(golden)) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected Value returned from UIColumn.getFooter()."
-          + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
-          + "Recieved: " + result);
-    } else {
-      out.println(JSFTestUtil.PASS);
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType(null);
     }
 
-  }// End uiColumnGetSetFooterTest
-
-  // UIColumn.{get,set}Header()
-  public void uiColumnGetSetHeaderTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    String golden = "Testing";
-    UIColumn uic = (UIColumn) createComponent();
-    UIOutput header = new UIOutput();
-
-    header.setId(golden);
-    uic.setHeader(header);
-
-    String result = uic.getHeader().getId();
-
-    if (!result.equals(golden)) {
-      out.println(JSFTestUtil.FAIL
-          + " Unexpected Value returned from UIColumn.getFooter()."
-          + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
-          + "Recieved: " + result);
-    } else {
-      out.println(JSFTestUtil.PASS);
+    /**
+     * <p>
+     * Creates a new {@link jakarta.faces.component.UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link jakarta.faces.component.UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UIColumn();
     }
 
-  }// End uiColumnGetSetFooterTest
+    // ------------------------------------------- UIColumn Methods ----
 
-  // UIColumn.setHeader() throws NullPointerException
-  public void uiColumnSetHeaderNPETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    // UIColumn.setFooter() throws NullPointerException
+    public void uiColumnSetFooterNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    JSFTestUtil.checkForNPE(this.createComponent().getClass(), "setHeader",
-        new Class<?>[] { UIComponent.class }, new Object[] { null }, out);
-  }
+        JSFTestUtil.checkForNPE(
+            this.createComponent().getClass(), "setFooter",
+            new Class<?>[] { UIComponent.class }, new Object[] { null }, out
+        );
+    }
+
+    // UIColumn.{get,set}Footer()
+    public void uiColumnGetSetFooterTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        String golden = "Testing";
+        UIColumn uic = (UIColumn) createComponent();
+        UIOutput footNotes = new UIOutput();
+
+        footNotes.setId(golden);
+        uic.setFooter(footNotes);
+
+        String result = uic.getFooter().getId();
+
+        if (!result.equals(golden)) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected Value returned from UIColumn.getFooter()."
+                    + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
+                    + "Recieved: " + result
+            );
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
+
+    }// End uiColumnGetSetFooterTest
+
+    // UIColumn.{get,set}Header()
+    public void uiColumnGetSetHeaderTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        String golden = "Testing";
+        UIColumn uic = (UIColumn) createComponent();
+        UIOutput header = new UIOutput();
+
+        header.setId(golden);
+        uic.setHeader(header);
+
+        String result = uic.getHeader().getId();
+
+        if (!result.equals(golden)) {
+            out.println(
+                JSFTestUtil.FAIL
+                    + " Unexpected Value returned from UIColumn.getFooter()."
+                    + JSFTestUtil.NL + "Expected: " + golden + JSFTestUtil.NL
+                    + "Recieved: " + result
+            );
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
+
+    }// End uiColumnGetSetFooterTest
+
+    // UIColumn.setHeader() throws NullPointerException
+    public void uiColumnSetHeaderNPETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        JSFTestUtil.checkForNPE(
+            this.createComponent().getClass(), "setHeader",
+            new Class<?>[] { UIComponent.class }, new Object[] { null }, out
+        );
+    }
 
 }

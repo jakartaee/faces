@@ -27,26 +27,28 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlFormTestServlet")
 public final class HtmlFormTestServlet extends UIFormTestServlet {
 
-  private static final String[] attrNames = { "accept", "acceptcharset", "dir", "enctype", "lang", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onreset", "onsubmit", "style", "styleClass", "target", "title" };
+    private static final String[] attrNames = { "accept", "acceptcharset", "dir", "enctype", "lang", "onclick", "ondblclick", "onkeydown", "onkeypress",
+        "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onreset", "onsubmit", "style", "styleClass", "target", "title" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Form");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Form");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    HtmlForm form = new HtmlForm();
-    form.setSubmitted(true);
-    return form;
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        HtmlForm form = new HtmlForm();
+        form.setSubmitted(true);
+        return form;
+    }
 
-  @Override
-  protected UIComponent createForm(boolean submitted) {
-    HtmlForm form = new HtmlForm();
-    form.setSubmitted(submitted);
-    return form;
-  }
+    @Override
+    protected UIComponent createForm(boolean submitted) {
+        HtmlForm form = new HtmlForm();
+        form.setSubmitted(submitted);
+        return form;
+    }
+
 }

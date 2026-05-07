@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3110IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3110
-   */
-  @Test
-  void multiPartAjaxIncrementsCounterAcrossSubmits() throws Exception {
+     */
+    @Test
+    void multiPartAjaxIncrementsCounterAcrossSubmits() throws Exception {
         WebPage page = getPage("issue3110-1.xhtml");
 
         WebElement element = page.findElement(By.id("form:submit"));
@@ -43,9 +43,10 @@ class Issue3110IT extends BaseITNG {
 
         page.guardAjax(page.findElement(By.id("form:submit"))::click);
 
-        //2 requests after that we have to move forward
+        // 2 requests after that we have to move forward
         page = getPage("issue3110-2.xhtml");
 
         assertTrue(page.containsText("Count is 2"));
     }
+
 }

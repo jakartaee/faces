@@ -94,4 +94,5 @@ class Issue5596IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id(formId + ":submit"))::click);
         assertEquals("", page.findElement(By.id(formId + ":messages")).getText());
     }
+
 }

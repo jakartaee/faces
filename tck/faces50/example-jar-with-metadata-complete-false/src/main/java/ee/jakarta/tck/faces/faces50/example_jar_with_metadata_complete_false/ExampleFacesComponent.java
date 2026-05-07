@@ -18,7 +18,9 @@ package ee.jakarta.tck.faces.faces50.example_jar_with_metadata_complete_false;
 import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.html.HtmlOutputText;
 
-@FacesComponent(value = "example_jar_with_metadata_complete_false.ExampleFacesComponent", createTag = true, namespace="example_jar_with_metadata_complete_false")
+@FacesComponent(
+    value = "example_jar_with_metadata_complete_false.ExampleFacesComponent", createTag = true, namespace = "example_jar_with_metadata_complete_false"
+)
 public class ExampleFacesComponent extends HtmlOutputText {
     //
 }

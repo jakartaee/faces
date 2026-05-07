@@ -28,9 +28,29 @@ class PostConstructApplicationEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void postConstructApplicationEventCtorTest() { runServletTest("postConstructApplicationEventCtorTest"); }
-    @Test void postConstructApplicationEventGetAppTest() { runServletTest("postConstructApplicationEventGetAppTest"); }
-    @Test void systemEventIsAppropriateListenerNegativeTest() { runServletTest("systemEventIsAppropriateListenerNegativeTest"); }
-    @Test void systemEventIsAppropriateListenerPostiveTest() { runServletTest("systemEventIsAppropriateListenerPostiveTest"); }
-    @Test void systemEventProcessListenerTest() { runServletTest("systemEventProcessListenerTest"); }
+    @Test
+    void postConstructApplicationEventCtorTest() {
+        runServletTest("postConstructApplicationEventCtorTest");
+    }
+
+    @Test
+    void postConstructApplicationEventGetAppTest() {
+        runServletTest("postConstructApplicationEventGetAppTest");
+    }
+
+    @Test
+    void systemEventIsAppropriateListenerNegativeTest() {
+        runServletTest("systemEventIsAppropriateListenerNegativeTest");
+    }
+
+    @Test
+    void systemEventIsAppropriateListenerPostiveTest() {
+        runServletTest("systemEventIsAppropriateListenerPostiveTest");
+    }
+
+    @Test
+    void systemEventProcessListenerTest() {
+        runServletTest("systemEventProcessListenerTest");
+    }
+
 }

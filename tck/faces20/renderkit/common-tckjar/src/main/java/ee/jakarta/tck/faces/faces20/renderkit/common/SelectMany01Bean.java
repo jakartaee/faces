@@ -302,4 +302,5 @@ public class SelectMany01Bean implements Serializable {
         listBigDecimals = new ArrayList<>();
         listBigDecimals.add(BigDecimal.valueOf(123L));
     }
+
 }

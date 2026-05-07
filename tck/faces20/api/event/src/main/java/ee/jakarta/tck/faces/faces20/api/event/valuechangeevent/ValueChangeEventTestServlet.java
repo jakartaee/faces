@@ -32,94 +32,127 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ValueChangeEventTestServlet")
 public final class ValueChangeEventTestServlet extends HttpTCKServlet {
 
-  public void valueChangeEventCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    if (uic != null) {
-      ValueChangeEvent ae = new ValueChangeEvent(uic, "oldvalue", "newvalue");
-      if (ae == null) {
-        pw.println(JSFTestUtil.FAIL + " ValueChangeEvent(UIComponent, String, "
-            + "String) returned null.");
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
+    public void valueChangeEventCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        if (uic != null) {
+            ValueChangeEvent ae = new ValueChangeEvent(uic, "oldvalue", "newvalue");
+            if (ae == null) {
+                pw.println(
+                    JSFTestUtil.FAIL + " ValueChangeEvent(UIComponent, String, "
+                        + "String) returned null."
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+        }
     }
-  }
 
-  public void valueChangeEventCtorIllegalArgumentExceptionTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    try {
-      new ValueChangeEvent(null, "oldvalue", "newvalue");
-      pw.println("Error:  The constructor of ValueChangeEvent should "
-          + "have thrown an IllegalArgumentException when the "
-          + "provided component was null.  No exception was thrown.");
-    } catch (IllegalArgumentException iae) {
-      pw.println(JSFTestUtil.PASS);
+    public void valueChangeEventCtorIllegalArgumentExceptionTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        try {
+            new ValueChangeEvent(null, "oldvalue", "newvalue");
+            pw.println(
+                "Error:  The constructor of ValueChangeEvent should "
+                    + "have thrown an IllegalArgumentException when the "
+                    + "provided component was null.  No exception was thrown."
+            );
+        }
+        catch (IllegalArgumentException iae) {
+            pw.println(JSFTestUtil.PASS);
 
-    } catch (Exception e) {
-      pw.println("Exception thrown, but was not an instance of "
-          + "IllegalArgumentException.");
-      e.printStackTrace();
+        }
+        catch (Exception e) {
+            pw.println(
+                "Exception thrown, but was not an instance of "
+                    + "IllegalArgumentException."
+            );
+            e.printStackTrace();
+        }
     }
-  }
 
-  public void valueChangeEventGetOldValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    if (uic != null) {
-      String expected = "oldvalue";
-      ValueChangeEvent vce = new ValueChangeEvent(uic, expected, "newvalue");
-      String val = (String) vce.getOldValue();
-      if (!expected.equals(val)) {
-        pw.println(
-            JSFTestUtil.FAIL + ": ValueChangeEvent.getOldValue() did not "
-                + "return the correct result");
-        pw.println("Expected: " + expected);
-        pw.println("actual: " + val);
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unable to obtain UIComponent instance.");
+    public void valueChangeEventGetOldValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        if (uic != null) {
+            String expected = "oldvalue";
+            ValueChangeEvent vce = new ValueChangeEvent(uic, expected, "newvalue");
+            String val = (String) vce.getOldValue();
+            if (!expected.equals(val)) {
+                pw.println(
+                    JSFTestUtil.FAIL + ": ValueChangeEvent.getOldValue() did not "
+                        + "return the correct result"
+                );
+                pw.println("Expected: " + expected);
+                pw.println("actual: " + val);
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+        }
+        else {
+            pw.println(JSFTestUtil.FAIL + " Unable to obtain UIComponent instance.");
+        }
     }
-  }
 
-  public void valueChangeEventGetNewValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    if (uic != null) {
-      String expected = "newvalue";
-      ValueChangeEvent vce = new ValueChangeEvent(uic, "oldvalue", expected);
-      String val = (String) vce.getNewValue();
-      if (!expected.equals(val)) {
-        pw.println(
-            JSFTestUtil.FAIL + ": ValueChangeEvent.getNewValue() did not "
-                + "return the correct result");
-        pw.println("Expected: " + expected);
-        pw.println("actual: " + val);
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unable to obtain UIComponent instance.");
+    public void valueChangeEventGetNewValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        if (uic != null) {
+            String expected = "newvalue";
+            ValueChangeEvent vce = new ValueChangeEvent(uic, "oldvalue", expected);
+            String val = (String) vce.getNewValue();
+            if (!expected.equals(val)) {
+                pw.println(
+                    JSFTestUtil.FAIL + ": ValueChangeEvent.getNewValue() did not "
+                        + "return the correct result"
+                );
+                pw.println("Expected: " + expected);
+                pw.println("actual: " + val);
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+        }
+        else {
+            pw.println(JSFTestUtil.FAIL + " Unable to obtain UIComponent instance.");
+        }
     }
-  }
 
-  public void valueChangeEventGetComponentTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
-    ValueChangeEvent vce = new ValueChangeEvent(uic, "old", "new");
-    if (uic == vce.getComponent()) {
-      pw.println(JSFTestUtil.PASS);
-    } else {
-      pw.println(JSFTestUtil.FAIL + " ValueChangeEvent.getComponent() didn't "
-          + "return the same UIComponent provided to its constructor.");
+    public void valueChangeEventGetComponentTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        UIComponent uic = getApplication().createComponent(UIOutput.COMPONENT_TYPE);
+        ValueChangeEvent vce = new ValueChangeEvent(uic, "old", "new");
+        if (uic == vce.getComponent()) {
+            pw.println(JSFTestUtil.PASS);
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " ValueChangeEvent.getComponent() didn't "
+                    + "return the same UIComponent provided to its constructor."
+            );
+        }
     }
-  }
+
 }

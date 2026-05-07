@@ -31,11 +31,13 @@ import jakarta.servlet.http.HttpServletResponse;
 public class SelectItemTestServlet extends HttpTCKServlet {
 
     public void selectItemCtor0Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         try {
             new SelectItem();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             out.println(JSFTestUtil.FAIL + " Unexpected exception: " + e);
             return;
         }
@@ -44,12 +46,14 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemCtor1Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item;
         try {
             item = new SelectItem("value");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             out.println(JSFTestUtil.FAIL + " Unexpected exception: " + e);
             return;
         }
@@ -93,12 +97,14 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemCtor2Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item;
         try {
             item = new SelectItem("value", "label");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             out.println(JSFTestUtil.FAIL + " Unexpected exception: " + e);
             return;
         }
@@ -142,12 +148,14 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemCtor3Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item;
         try {
             item = new SelectItem("value", "label", "description");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             out.println(JSFTestUtil.FAIL + " Unexpected exception: " + e);
             return;
         }
@@ -191,12 +199,14 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemCtor4Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item;
         try {
             item = new SelectItem("value", "label", "description", true);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             out.println(JSFTestUtil.FAIL + " Unexpected exception: " + e);
             return;
         }
@@ -238,12 +248,14 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemCtor5Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item;
         try {
             item = new SelectItem("value", "label", "description", true, false);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             out.println(JSFTestUtil.FAIL + " Unexpected exception: " + e);
             return;
         }
@@ -283,7 +295,8 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemGetSetValueTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item = new SelectItem();
         item.setValue("value");
@@ -299,7 +312,8 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemGetSetLabelTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item = new SelectItem();
         item.setLabel("label");
@@ -315,7 +329,8 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemGetSetDescriptionTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item = new SelectItem();
         item.setDescription("description");
@@ -331,7 +346,8 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemIsSetDisabledTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item = new SelectItem();
 
@@ -351,7 +367,8 @@ public class SelectItemTestServlet extends HttpTCKServlet {
     }
 
     public void selectItemIsSetEscapeTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         SelectItem item = new SelectItem();
 
@@ -364,4 +381,5 @@ public class SelectItemTestServlet extends HttpTCKServlet {
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

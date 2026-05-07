@@ -81,6 +81,7 @@ class Issue5541IT extends BaseITNG {
             () -> assertEquals("", messages.getText())
         );
     }
+
     /**
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5541
      */
@@ -402,4 +403,5 @@ class Issue5541IT extends BaseITNG {
             () -> assertEquals("form:inputZonedDateTime: '-2024-06-31 12 uur 34 min +0130' could not be understood as a date and time.", messages.getText())
         );
     }
+
 }

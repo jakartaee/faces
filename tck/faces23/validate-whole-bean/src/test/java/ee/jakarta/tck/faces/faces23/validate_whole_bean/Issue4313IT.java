@@ -45,7 +45,10 @@ public class Issue4313IT extends BaseITNG {
         WebElement submit = page.findElement(By.id("form:submit"));
         submit.click();
 
-        assertTrue(page.findElement(By.id("form:err")).findElements(By.tagName("li")).get(0).getText().contains("Password fields must match"),
-                "Validation message not found!");
+        assertTrue(
+            page.findElement(By.id("form:err")).findElements(By.tagName("li")).get(0).getText().contains("Password fields must match"),
+            "Validation message not found!"
+        );
     }
+
 }

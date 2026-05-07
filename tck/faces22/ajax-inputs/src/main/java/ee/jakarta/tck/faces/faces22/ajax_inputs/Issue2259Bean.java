@@ -32,4 +32,5 @@ public class Issue2259Bean {
     public void setTest(Boolean test) {
         this.test = test;
     }
+
 }

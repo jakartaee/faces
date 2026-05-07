@@ -25,7 +25,8 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Issue1821Bean {
-    private List<Issue1821Item> items; 
+
+    private List<Issue1821Item> items;
 
     public Issue1821Bean() {
         items = new ArrayList<Issue1821Item>();
@@ -33,10 +34,9 @@ public class Issue1821Bean {
         items.add(new Issue1821Item("1"));
         items.add(new Issue1821Item("2"));
     }
-	
+
     public List<Issue1821Item> getItems() {
         return items;
     }
+
 }
-
-

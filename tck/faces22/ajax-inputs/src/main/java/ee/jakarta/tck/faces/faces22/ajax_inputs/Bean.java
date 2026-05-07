@@ -36,7 +36,7 @@ import jakarta.inject.Named;
 public class Bean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private final Collection<SelectItem> items;
     private String radioValue = "blue";
     private String status = null;
@@ -64,23 +64,23 @@ public class Bean implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
     public String getStatus() {
         return status;
     }
-    
+
     public void processLink(ActionEvent ae) {
         status = "LINK ACTION";
     }
 
     public void processRadio(ValueChangeEvent vce) {
-        status = "RADIO:"+(String)vce.getNewValue();
+        status = "RADIO:" + (String) vce.getNewValue();
     }
 
     public void processIt(AjaxBehaviorEvent event) {
         setRadioValue("red");
     }
-    
+
     public String getThrowExceptionOnAjax() {
         FacesContext context = FacesContext.getCurrentInstance();
         PartialViewContext partialContext = context.getPartialViewContext();
@@ -89,9 +89,10 @@ public class Bean implements Serializable {
                 throw new RuntimeException("Intentionally throwing exception on ajax request");
             }
         }
-        
+
         String result = "not an ajax request";
-        
+
         return result;
     }
+
 }

@@ -26,17 +26,20 @@ import jakarta.servlet.annotation.WebServlet;
 @WebServlet("/HtmlCommandButtonTestServlet")
 public final class HtmlCommandButtonTestServlet extends UICommandTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "alt", "dir", "image", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "style", "styleClass", "tabindex", "title", "type", "disabled", "readonly" };
+    private static final String[] attrNames = { "accesskey", "alt", "dir", "image", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus",
+        "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "style", "styleClass",
+        "tabindex", "title", "type", "disabled", "readonly" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Button");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Button");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlCommandButton();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlCommandButton();
+    }
+
 }
