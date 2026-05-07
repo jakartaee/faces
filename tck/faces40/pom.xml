@@ -29,14 +29,21 @@
     <artifactId>pom</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.0</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
+    <properties>
+        <test.moduleName>faces40</test.moduleName>
+    </properties>
+
+    <!--
+        Long modules first. See README §"Sizing -T and the pool".
+    -->
     <modules>
-        <module>api</module>
-        <module>doctype</module>
-        <module>extensionless-mapping</module>
         <module>input</module>
+        <module>api</module>
+        <module>extensionless-mapping</module>
         <module>resources</module>
+        <module>doctype</module>
     </modules>
 
     <dependencies>

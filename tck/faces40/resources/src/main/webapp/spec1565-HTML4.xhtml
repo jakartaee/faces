@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
 
-    Copyright (c) 2022 Contributors to Eclipse Foundation.
+    Copyright (c) 2021 Contributors to Eclipse Foundation.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -19,22 +19,15 @@
 <html
     xmlns:f="jakarta.faces.core"
     xmlns:h="jakarta.faces.html"
-    xmlns:cc="jakarta.faces.composite/issue5171"
 >
     <h:head>
-        <title>Issue5171IT</title>
+        <h:outputStylesheet name="spec1565.css" />
+        <h:outputScript name="spec1565.js" />
+
+        <h:outputStylesheet>.inline { background: pink; }</h:outputStylesheet>
+        <h:outputScript>var inline = "pink";</h:outputScript>
     </h:head>
     <h:body>
-        <h:form id="form">
-            <div>
-                <h:inputText id="simpleInput" value="#{issue5171Bean.string1}"/>
-                <h:message id="simpleInputMessage" for="simpleInput"/>
-            </div>
-            <div>
-                <cc:component id="composite" value="#{issue5171Bean.string2}"/>
-                <h:message id="compositeInputMessage" for="composite:input"/>
-            </div>
-            <h:commandButton id="submit" value="Submit"/>
-        </h:form>
+        <h:messages />
     </h:body>
 </html>
