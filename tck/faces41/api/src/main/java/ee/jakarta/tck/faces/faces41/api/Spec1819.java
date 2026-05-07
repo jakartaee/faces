@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package org.eclipse.ee4j.tck.faces.faces41.uuidConverter;
+package ee.jakarta.tck.faces.faces41.api;
 
 import java.util.UUID;
 

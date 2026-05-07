@@ -29,7 +29,11 @@
     <artifactId>pom</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 4.1</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
+
+    <properties>
+        <test.moduleName>faces41</test.moduleName>
+    </properties>
 
     <modules>
         <module>api</module>

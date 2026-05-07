@@ -13,7 +13,7 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-package org.eclipse.ee4j.tck.faces.faces41.headAndBodyRenderer;
+package ee.jakarta.tck.faces.faces41.api;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,8 +23,8 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import ee.jakarta.tck.faces.test.util.selenium.BaseITNG;
-import ee.jakarta.tck.faces.test.util.selenium.WebPage;
+import ee.jakarta.tck.faces.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec1760IT extends BaseITNG {
 
@@ -63,7 +63,7 @@ class Spec1760IT extends BaseITNG {
      */
     @Test
     void xhtmlOutputWithID() {
-        WebPage page = getPage("spec1760withIDxhtml.xhtmlAsXhtml");
+        WebPage page = getPage("Spec1760withIDxhtml.xhtmlAsXhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
         assertEquals(null, head.getDomAttribute("id"));
@@ -77,7 +77,7 @@ class Spec1760IT extends BaseITNG {
      */
     @Test
     void xhtmlOutputWithoutID() {
-        WebPage page = getPage("spec1760withoutIDxhtml.xhtmlAsXhtml");
+        WebPage page = getPage("Spec1760withoutIDxhtml.xhtmlAsXhtml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
         assertEquals(null, head.getDomAttribute("id"));
@@ -91,7 +91,7 @@ class Spec1760IT extends BaseITNG {
      */
     @Test
     void xmlOutputWithID() {
-        WebPage page = getPage("spec1760withIDxml.xhtmlAsXml");
+        WebPage page = getPage("Spec1760withIDxml.xhtmlAsXml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
         assertEquals(null, head.getDomAttribute("id"));
@@ -105,7 +105,7 @@ class Spec1760IT extends BaseITNG {
      */
     @Test
     void xmlOutputWithoutID() {
-        WebPage page = getPage("spec1760withoutIDxml.xhtmlAsXml");
+        WebPage page = getPage("Spec1760withoutIDxml.xhtmlAsXml");
         WebElement head = page.findElement(By.tagName("head"));
         WebElement body = page.findElement(By.tagName("body"));
         assertEquals(null, head.getDomAttribute("id"));
