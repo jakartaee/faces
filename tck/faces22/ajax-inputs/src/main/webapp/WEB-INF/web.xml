@@ -40,4 +40,13 @@
         <param-value>/WEB-INF/behavior-taglib.xml;/WEB-INF/taglib.xml</param-value>
     </context-param>
 
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
 </web-app>

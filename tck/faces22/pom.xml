@@ -30,27 +30,34 @@
     <artifactId>pom</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
+    <properties>
+        <test.moduleName>faces22</test.moduleName>
+    </properties>
+
+    <!--
+        Long modules first. See README §"Sizing -T and the pool".
+    -->
     <modules>
-        <module>ajax-inputs</module>
         <module>ajax-lifecycle</module>
-        <module>cdiBeanValidator</module>
-        <module>cdiInitDestroyEvent</module>
-        <module>cdiMethodValidation</module>
-        <module>cdiMultiTenantSetsTccl</module>
-        <module>cdiNoBeansXml</module>
-        <module>childCountTest</module>
-        <module>compositeComponent</module>
-        <module>expressionLanguageLambda</module>
-        <module>faceletsTemplate</module>
-        <module>multiFieldValidation</module>
-        <module>protectedView</module>
-        <module>viewScope</module>
-        <module>viewActionCdiViewScoped</module>
-        <module>viewExpired</module>
-        <module>viewParamNullValueAjax</module>
-  </modules>
+        <module>ajax-inputs</module>
+        <module>bean-lifecycle-events</module>
+        <module>protected-view</module>
+        <module>view-scope</module>
+        <module>multi-field-validation</module>
+        <module>method-validation</module>
+        <module>el-lambda</module>
+        <module>view-param-null-ajax</module>
+        <module>view-action-viewscoped</module>
+        <module>bean-validation</module>
+        <module>implicit-bean-archive</module>
+        <module>child-count</module>
+        <module>composite-component</module>
+        <module>facelets-template</module>
+        <module>view-expired</module>
+        <module>multi-tenant-tccl</module>
+    </modules>
 
     <dependencies>
         <dependency>

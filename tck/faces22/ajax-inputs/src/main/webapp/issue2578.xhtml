@@ -1,4 +1,3 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!--
 
     Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
@@ -17,29 +16,35 @@
 
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      >
-    <h:head>
-        <title>JAVASERVERFACES-2578</title>
-    </h:head>
-    <h:body>
-        <h:form id="form">
-            <h:panelGrid columns="2">
-                <h:outputText value="Ajax Input:"/>
-                <h:inputText id="input" value="#{issue2578Bean.text2}" />
-                <h:commandButton id="fill" value="Fill" action="#{issue2578Bean.setText2('hello')}">
-                    <f:ajax execute="@this" render="input" />
-                </h:commandButton>    
-            </h:panelGrid>            
-            <h:panelGroup>
-                <h:commandButton id="clear" value="Clear" actionListener="#{issue2578Bean.altClear}"
-                                 immediate="true">
-                    <f:ajax execute="@this" render="input"/>
+      xmlns:h="http://java.sun.com/jsf/html">
+
+      <h:head></h:head>
+      
+      <h:body>
+
+            <h:form id="form">
+            
+                <p id="output"></p>
+
+                <script id="template" type="text/template">
+                    This script must not be eval'ed on ajax response.
+                </script>
+
+                <h:commandButton id="refresh" value="Ajax Refresh">
+                    <f:ajax render="@form" />
                 </h:commandButton>
-            </h:panelGroup>
-        </h:form>
-    </h:body>
+                
+                <script type="text/javascript">
+                    document.getElementById("output").innerHTML = document.getElementById("template").innerHTML;
+                </script>
+
+            </h:form>
+
+        </h:body>
+
 </html>
