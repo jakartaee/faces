@@ -96,7 +96,7 @@ public final class ShutdownHookInstaller extends Task {
                 "",
                 "      mvn clean install -T4",
                 "",
-                "  The pool grows on demand up to max(4, cores/2).",
+                "  The pool grows on demand to match the running -T value.",
                 "==========================================================================",
                 ""
         };

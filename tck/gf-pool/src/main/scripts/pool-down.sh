@@ -32,3 +32,14 @@ for i in "${!pids[@]}"; do
     cat "${outs[$i]}"
     rm -f "${outs[$i]}"
 done
+
+# Belt-and-suspenders: asadmin stop-domain only works when the slot's admin
+# port is still reachable. If a slot's domain JVM is half-dead (admin
+# listener gone but PID still alive) or the launching Maven session was
+# interrupted before the shutdown hook could fire, the JVM survives this
+# loop and keeps its ports — which then collides with the next bootstrap.
+# pkill anything whose --module-path points into this pool dir to make
+# the cleanup unconditional.
+if compgen -G "${POOL_DIR}/slot-*" > /dev/null; then
+    pkill -f -- "module-path .*${POOL_DIR}/slot-" 2>/dev/null || true
+fi

@@ -24,7 +24,7 @@
     <artifactId>gf-pool</artifactId>
     <packaging>jar</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - GlassFish Pool</name>
+    <name>Jakarta Faces TCK ${project.version} - ${project.artifactId}</name>
 
     <dependencies>
         <!--
