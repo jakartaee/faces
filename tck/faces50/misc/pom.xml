@@ -28,18 +28,18 @@
     <artifactId>misc</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0 - ${project.artifactId}</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <dependencies>
         <!-- Required by Issue5511IT. -->
         <dependency>
             <groupId>org.eclipse.ee4j.tck.faces.faces50</groupId>
-            <artifactId>example_jar_with_metadata_complete_false</artifactId>
+            <artifactId>example-jar-with-metadata-complete-false</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.ee4j.tck.faces.faces50</groupId>
-            <artifactId>example_jar_with_metadata_complete_true</artifactId>
+            <artifactId>example-jar-with-metadata-complete-true</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!-- Required by Issue5676IT. -->
@@ -56,6 +56,6 @@
     </dependencies>
 
     <build>
-        <finalName>test-faces50-misc</finalName>
+        <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
     </build>
 </project>

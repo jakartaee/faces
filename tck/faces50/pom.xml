@@ -29,22 +29,25 @@
     <artifactId>pom</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 5.0</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
+
+    <properties>
+        <test.moduleName>faces50</test.moduleName>
+    </properties>
 
     <!--
-        Long modules first (after the example_jar_* prereqs needed by misc).
-        See README §"Sizing -T and the pool".
+        Long modules first. See README §"Sizing -T and the pool".
     -->
     <modules>
-        <module>example_jar_with_metadata_complete_false</module>
-        <module>example_jar_with_metadata_complete_true</module>
+        <module>example-jar-with-metadata-complete-false</module>
+        <module>example-jar-with-metadata-complete-true</module>
         <module>uiinput</module>
         <module>converters</module>
         <module>facelets</module>
         <module>ajax</module>
         <module>csp</module>
         <module>misc</module>
-        <module>viewProtection</module>
+        <module>view-protection</module>
     </modules>
 
     <dependencies>
