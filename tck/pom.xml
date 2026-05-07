@@ -503,7 +503,7 @@
                     reactor produces ONE aggregate SBOM (at the root) instead of
                     re-running makeAggregateBom in every module. The mojo is
                     @aggregator and walks the full reactor dep graph each time,
-                    which serialised every parallel `mvn -T N` build with
+                    which serialised every parallel `mvn -TN` build with
                     "aggregator mojo is already being executed" warnings while
                     other builders parked. Skip the whole thing with -DskipSBOM.
                 -->

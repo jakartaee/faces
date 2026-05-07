@@ -39,8 +39,8 @@ failsafe-forked test JVM. The pool lives entirely under
 - Grow-on-demand: if every existing slot is leased, the agent provisions
   another slot. Concurrent demand naturally caps growth at the running
   `-T` value (each test JVM only ever leases one slot), so a single
-  `mvn -Dit.test=…` boots one server, `mvn -T 4 install` grows to four,
-  `mvn -T 16 install` grows to sixteen.
+  `mvn -Dit.test=…` boots one server, `mvn -T4 install` grows to four,
+  `mvn -T16 install` grows to sixteen.
 - `ShutdownHookInstaller`: a custom Ant task registered by the `gf-pool`
   antrun. Runs in the Maven JVM and installs a JVM shutdown hook that stops
   every running slot at session end — both on normal completion and on
@@ -54,14 +54,14 @@ Full suite, sequentially:
 mvn clean install
 ```
 
-To actually exercise the pool's parallelism, pass `-T N`:
+To actually exercise the pool's parallelism, pass `-TN`:
 
 ```bash
-mvn clean install -T 4
+mvn clean install -T4
 ```
 
 The pool starts with one slot and grows on demand to match concurrent
-demand, so `-T 4` ramps to four slots and `-T 8` to eight. Pick `-T` based
+demand, so `-T4` ramps to four slots and `-T8` to eight. Pick `-T` based
 on host capacity.
 
 A single test module:
@@ -83,7 +83,7 @@ slot is `cp -al`-cloned from it, with `applications/`, `generated/`,
 `logs/` cleared per slot):
 
 ```bash
-mvn clean install -T 4 -Dglassfish.home=/path/to/glassfish9
+mvn clean install -T4 -Dglassfish.home=/path/to/glassfish9
 ```
 
 ## Common overrides
@@ -94,24 +94,25 @@ mvn clean install -T 4 -Dglassfish.home=/path/to/glassfish9
 | `-Dmojarra.noupdate=true` | Skip the Mojarra overlay; test the build that ships with GlassFish. Set `-Dsigtest.api.version=` to match the API GlassFish ships. |
 | `-Dglassfish.home=/path/to/glassfish9` | Skip the GlassFish download; clone slots from an existing install. Each slot still gets a fresh copy of `domains/` with `applications/`, `generated/`, `logs/` cleared. |
 | `-Dgf.pool.size=N` | Pre-provision N slots at build time instead of the default 1. |
-| `-T 8` | Eight Maven threads. Pool grows on demand to match. |
-| `-T 1` | Sequential build, single slot. |
+| `-Dee.jakarta.tck.faces.timeout=N` | Selenium wait timeout in milliseconds (default `10000`). Bump on old, slow, or overloaded systems where the default 10 s isn't enough for HTTP navigations or ajax requests to settle, e.g. `-Dee.jakarta.tck.faces.timeout=30000` for 30 s. |
+| `-T8` | Eight Maven threads. Pool grows on demand to match. |
+| `-T1` | Sequential build, single slot. This is Maven's default when `-T` is omitted. |
 
 ### Sizing `-T` and the pool for the host
 
 Each parallel test module spawns a failsafe-fork JVM, drives a Chrome
 instance, and pushes deploy/HTTP traffic at its leased GlassFish JVM. So
-**every `-T N` slot keeps roughly three hot processes busy** (test JVM +
+**every `-TN` slot keeps roughly three hot processes busy** (test JVM +
 browser + GF), plus the Maven master and OS overhead, and each GF JVM
 holds ~1 GB resident. Pick `-T` to leave both CPU and memory headroom:
 
 | Host | RAM | Recommended `-T` |
 | --- | --- | --- |
-| 4-core / 8-thread laptop | 16 GB | `-T 4` |
-| 10-core / 20-thread workstation | 16 GB | `-T 5`–`-T 6` (memory-bound, see below) |
-| 10-core / 20-thread workstation | 32 GB+ | `-T 8` (`-T 10` saturates and Selenium ajax timeouts start firing) |
-| 16-core / 32-thread CI | 32 GB+ | `-T 12`–`-T 16` |
-| 32-core / 64-thread server | 64 GB+ | `-T 20`–`-T 24` |
+| 4-core / 8-thread laptop | 16 GB | `-T4` |
+| 10-core / 20-thread workstation | 16 GB | `-T5`–`-T6` (memory-bound, see below) |
+| 10-core / 20-thread workstation | 32 GB+ | `-T8` (`-T10` saturates and Selenium ajax timeouts start firing) |
+| 16-core / 32-thread CI | 32 GB+ | `-T12`–`-T16` |
+| 32-core / 64-thread server | 64 GB+ | `-T20`–`-T24` |
 
 Going higher than these guidelines tends to *slow* the build on Selenium-
 heavy modules: per-request latency stretches past the test's 30-second
@@ -121,7 +122,7 @@ set `-Dfailsafe.rerunFailingTestsCount=2` to absorb pure flakes.
 
 Each `-T` slot keeps roughly **1.5 GB resident**: a GlassFish JVM (~1 GB),
 a Chrome process plus its helpers (~300 MB), and the failsafe-fork test JVM
-(~256 MB). At `-T N` the build needs about `N × 1.5 GB` of test infra plus
+(~256 MB). At `-TN` the build needs about `N × 1.5 GB` of test infra plus
 ~2 GB for Maven and the OS. Pick the **lower** of the CPU recommendation
 above and `(RAM_in_GB − 4) / 1.5`. Going over that line pushes Chrome and
 GlassFish into swap, CDP WebSocket round-trips start timing out at 60 s,
@@ -130,13 +131,13 @@ and the failsafe log cascades with
 The pool's per-test recovery absorbs single failures, but back-to-back
 exhaustion will error individual ITs.
 
-The pool grows on demand to match concurrent demand, so `-T N` naturally
+The pool grows on demand to match concurrent demand, so `-TN` naturally
 caps growth at N (each test JVM only ever leases one slot). To skip the
 warm-up cost of growing one slot at a time on cold builds, pre-provision
 the pool with `gf.pool.size`:
 
 ```bash
-mvn clean install -T 8 -Dgf.pool.size=8
+mvn clean install -T8 -Dgf.pool.size=8
 ```
 
 ## Pool lifecycle helpers

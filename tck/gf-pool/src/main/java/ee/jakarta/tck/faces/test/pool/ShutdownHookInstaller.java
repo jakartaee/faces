@@ -92,9 +92,9 @@ public final class ShutdownHookInstaller extends Task {
                 "",
                 "==========================================================================",
                 "  WARNING: gf-pool is provisioned, but the build is running SEQUENTIALLY.",
-                "  Re-run with -T <N> to actually exercise the pool, e.g.:",
+                "  Re-run with -TN to actually exercise the pool, e.g.:",
                 "",
-                "      mvn clean install -T 4",
+                "      mvn clean install -T4",
                 "",
                 "  The pool grows on demand up to max(4, cores/2).",
                 "==========================================================================",
@@ -109,13 +109,13 @@ public final class ShutdownHookInstaller extends Task {
         // maven-antrun-plugin doesn't expose MavenSession to Ant references,
         // so we infer -T from sun.java.command — the system property HotSpot
         // populates with the launcher class + Maven CLI args. Look for any of
-        // the recognised forms ("-T 4", "-T4", "-T 1C", "--threads 4").
+        // the recognised forms ("-T4", "-T 4", "-T 1C", "--threads 4").
         String cmd = System.getProperty("sun.java.command", "");
         if (cmd.isEmpty()) {
             return null;
         }
         // Tokenise on whitespace; reject the matches when the next token starts
-        // with a digit or 'C' (-T 1C means 1 per core).
+        // with a digit or 'C' (-T1C means 1 per core).
         String[] tokens = cmd.split("\\s+");
         for (int i = 0; i < tokens.length; i++) {
             String t = tokens[i];
@@ -134,7 +134,7 @@ public final class ShutdownHookInstaller extends Task {
     }
 
     private static Integer parseThreads(String value) {
-        // The "C" suffix means "per-core" — `-T 1C` on an N-core host = N threads,
+        // The "C" suffix means "per-core" — `-T1C` on an N-core host = N threads,
         // which is always parallel on multi-core hardware. Treat any *C form as
         // parallel regardless of multiplier.
         boolean perCore = value.endsWith("C") || value.endsWith("c");
@@ -142,7 +142,7 @@ public final class ShutdownHookInstaller extends Task {
         try {
             float n = Float.parseFloat(stripped);
             if (n <= 0) {
-                return 1; // -T 0 / -T 0C / -T -1 — sequential by Maven semantics.
+                return 1; // -T0 / -T 0C / -T -1 — sequential by Maven semantics.
             }
             if (perCore) {
                 return Integer.MAX_VALUE; // any positive *C multiplier on multi-core = parallel.
