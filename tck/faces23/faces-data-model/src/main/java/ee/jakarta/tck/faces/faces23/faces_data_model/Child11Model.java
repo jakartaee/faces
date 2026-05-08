@@ -16,9 +16,11 @@
 
 package ee.jakarta.tck.faces.faces23.faces_data_model;
 
+import jakarta.enterprise.context.Dependent;
 import jakarta.faces.model.DataModel;
 import jakarta.faces.model.FacesDataModel;
 
+@Dependent
 @FacesDataModel(forClass = Child11.class)
 public class Child11Model<E> extends DataModel<E> {
 

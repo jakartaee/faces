@@ -17,14 +17,19 @@
 
 -->
 
-<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+<web-app
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd"
+    version="6.1">
     <context-param>
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
     </context-param>
+    <!-- DO NOT PARAMETERIZE PARTIAL_STATE_SAVING, Issue1821IT/Issue2640IT/Issue2910IT exercise ajax+commandLink inside ui:repeat which only works reliably under PSS; this is a known FSS corner case (FSS itself is deprecated in Faces 4.1) -->
     <context-param>
         <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>
-        <param-value>${webapp.partialStateSaving}</param-value>
+        <param-value>true</param-value>
     </context-param>
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>
@@ -43,14 +48,4 @@
         <filter-name>Spec1296Filter</filter-name>
         <url-pattern>/Spec1296</url-pattern>
     </filter-mapping>
-
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
-
 </web-app>

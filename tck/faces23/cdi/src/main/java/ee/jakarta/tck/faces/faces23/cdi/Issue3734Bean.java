@@ -24,7 +24,7 @@ import jakarta.faces.annotation.SessionMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named(value = "issue3734Bean")
+@Named
 @ApplicationScoped
 public class Issue3734Bean implements Serializable {
 

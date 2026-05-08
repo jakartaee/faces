@@ -21,7 +21,7 @@ import jakarta.faces.component.UIViewRoot;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named(value = "spec1333Bean")
+@Named
 @ApplicationScoped
 public class Spec1333Bean {
 

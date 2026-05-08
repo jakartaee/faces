@@ -24,7 +24,7 @@ import jakarta.faces.annotation.ApplicationMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named(value = "issue3726Bean")
+@Named
 @RequestScoped
 public class Issue3726Bean {
 

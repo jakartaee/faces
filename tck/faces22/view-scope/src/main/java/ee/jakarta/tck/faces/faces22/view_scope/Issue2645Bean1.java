@@ -27,7 +27,7 @@ import jakarta.inject.Named;
 /**
  * A ViewScoped bean testing session invalidation functionality.
  */
-@Named(value = "issue2645Bean1")
+@Named
 @ViewScoped
 public class Issue2645Bean1 implements Serializable {
     private static final long serialVersionUID = -4803754563990391919L;

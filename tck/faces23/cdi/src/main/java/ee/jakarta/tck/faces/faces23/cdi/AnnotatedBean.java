@@ -21,7 +21,7 @@ import java.io.Serializable;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
-@Named(value = "annotatedBean")
+@Named
 @RequestScoped
 public class AnnotatedBean implements Serializable {
 

@@ -25,7 +25,7 @@ import jakarta.enterprise.util.TypeLiteral;
 import jakarta.faces.annotation.ViewMap;
 import jakarta.inject.Named;
 
-@Named(value = "spec1582ViewMap2Bean")
+@Named
 @RequestScoped
 public class Spec1582ViewMap2Bean {
 

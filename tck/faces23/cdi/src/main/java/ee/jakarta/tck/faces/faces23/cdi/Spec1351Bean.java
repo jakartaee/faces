@@ -19,7 +19,7 @@ package ee.jakarta.tck.faces.faces23.cdi;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
-@Named(value="spec1351Bean")
+@Named
 @RequestScoped
 public class Spec1351Bean {
     

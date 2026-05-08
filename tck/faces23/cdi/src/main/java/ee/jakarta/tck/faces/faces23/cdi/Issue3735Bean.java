@@ -23,7 +23,7 @@ import jakarta.faces.annotation.ViewMap;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
-@Named(value = "issue3735Bean")
+@Named
 @RequestScoped
 public class Issue3735Bean {
 

@@ -16,20 +16,19 @@
 
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:cc="http://java.sun.com/composite/issue1829">
+<html
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:cc="jakarta.faces.composite/issue1829">
     <f:view contentType="text/html">
         <h:head>
-            <title>Issue 1825</title>
+            <title>Issue #1829</title>
         </h:head>
         <h:body>
             <h:form id="form">
-                <cc:issue1829>
+                <cc:issue1829 id="composite">
                     <h:commandButton id="button" value="Click me twice to fail">
                         <f:ajax/>
                     </h:commandButton>

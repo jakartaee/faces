@@ -16,14 +16,11 @@
 
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3c.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+<!DOCTYPE html>
+<html xmlns:c="jakarta.tags.core" xmlns:h="jakarta.faces.html" xmlns:f="jakarta.faces.core" xmlns:ui="jakarta.faces.facelets">
 <f:view >
     <h:head>
        <meta http-equiv="cache-control" content="no-cache" />
-       <meta http-equiv="pragma" content="no-cache" />
-       <meta http-equiv="expires" content="0" />
-       <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
     </h:head>
 
     <h:body onload="">
@@ -37,7 +34,7 @@
               <h:commandLink action="#{issue2910Bean.chooseView(entry)}" value="#{entry}" >
                  <f:ajax execute="@form" render="@form" />
               </h:commandLink>
-             &nbsp;
+             <br/>
           </ui:repeat>
        
        </h:form>

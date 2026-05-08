@@ -21,7 +21,7 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.servlet.http.HttpSession;
 
-@Named(value = "spec1327Bean")
+@Named
 @RequestScoped
 public class Spec1327Bean {
 
