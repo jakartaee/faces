@@ -28,7 +28,7 @@
     <artifactId>api-component-ui</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - api - component ui</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <dependencies>
         <dependency>
@@ -39,6 +39,6 @@
     </dependencies>
 
     <build>
-        <finalName>test-faces20-api-component-ui</finalName>
+        <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
     </build>
 </project>

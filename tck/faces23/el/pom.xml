@@ -30,9 +30,9 @@
     <artifactId>el</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3 - EL</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <build>
-        <finalName>test-faces23-el</finalName>
+        <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
     </build>
 </project>

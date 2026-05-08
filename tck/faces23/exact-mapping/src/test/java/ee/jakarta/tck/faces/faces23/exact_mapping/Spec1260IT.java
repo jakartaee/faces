@@ -1,0 +1,149 @@
+/*
+ * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+ * Copyright (c) 2020 Contributors to Eclipse Foundation.
+ *
+ * This program and the accompanying materials are made available under the
+ * terms of the Eclipse Public License v. 2.0, which is available at
+ * http://www.eclipse.org/legal/epl-2.0.
+ *
+ * This Source Code may also be made available under the following Secondary
+ * Licenses when the conditions for such availability set forth in the
+ * Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+ * version 2 with the GNU Classpath Exception, which is available at
+ * https://www.gnu.org/software/classpath/license.html.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ */
+
+package ee.jakarta.tck.faces.faces23.exact_mapping;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import jakarta.faces.application.Resource;
+import jakarta.faces.application.ViewHandler;
+
+import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+
+import ee.jakarta.tck.faces.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.util.selenium.WebPage;
+
+
+class Spec1260IT extends BaseITNG {
+
+
+  /**
+   * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+   */
+  @Test
+  void exactMappedViewLoads() throws Exception {
+        WebPage page = getPage("spec1260");
+
+        // Basic test that if the FacesServlet is mapped to /foo, the right view "spec1260.xhtml" is loaded.
+        assertTrue(page.containsText("This is page spec1260"));
+    }
+
+  /**
+   * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+   */
+  @Test
+  void postBackToExactMappedView() throws Exception {
+        WebPage page = getPage("spec1260");
+
+        page.guardHttp(page.findElement(By.id("form:commandButton"))::click);
+        assertTrue(page.containsText("foo method invoked"));
+
+        // If page /foo postbacks to itself, the new URL should be /foo again
+        assertTrue(page.getCurrentUrl().split("\\?")[0].endsWith("/spec1260"));
+    }
+
+  /**
+   * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+   */
+  @Test
+  void linkToNonExactMappedView() throws Exception {
+        WebPage page = getPage("spec1260");
+
+        assertTrue(page.containsText("This is page spec1260"));
+
+        page.guardHttp(page.findElement(By.id("form:button"))::click);
+
+        assertTrue(page.containsText("This is page bar"));
+
+        // view "bar" is not exact mapped, so should be loaded via the suffix
+        // or prefix the FacesServlet is mapped to when coming from /foo
+
+        String path = page.getCurrentUrl().split("\\?")[0];
+
+        assertTrue(path.endsWith("/bar.jsf") || path.endsWith("/faces/bar"));
+    }
+
+  /**
+   * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+   */
+  @Test
+  void postBackOnLinkedNonExactMappedView() throws Exception {
+
+        // Navigate from /foo to /bar.jsf
+        WebPage page = getPage("spec1260");
+        page.guardAjax(page.findElement(By.id("form:button"))::click);
+
+        // After navigating to a non-exact mapped view, a postback should stil work
+        page.guardHttp(page.findElement(By.id("form:commandButton"))::click);
+        assertTrue(page.containsText("foo method invoked"));
+
+        // Check we're indeed on bar.jsf or faces/bar
+        String path = page.getCurrentUrl().split("\\?")[0];
+        assertTrue(path.endsWith("/bar.jsf") || path.endsWith("/faces/bar"));
+    }
+
+  /**
+   * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+   */
+  @Test
+  void resourceReferenceFromExactMappedView() throws Exception {
+
+        WebPage page = getPage("spec1260");
+
+        // Runtime must have found out the mappings of the FacesServlet and used one of the prefix or suffix
+        // mappings to render the reference to "faces.js", which is not exactly mapped.
+        assertTrue(page.containsSource("jakarta.faces.resource/faces.js.jsf")
+                || page.containsSource("jakarta.faces.resource/faces/faces.js"));
+    }
+
+  /**
+   * @see Resource#getRequestPath()
+     * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
+     * @see ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)
+     * @see https://github.com/jakartaee/faces/issues/1260
+   */
+  @Test
+  void ajaxFromExactMappedView() throws Exception {
+        WebPage page = getPage("spec1260");
+
+        page.guardAjax(page.findElement(By.id("form:commandButtonAjax"))::click);
+        // AJAX from an exact-mapped view should work
+        assertTrue(page.containsText("partial request = true"));
+
+      // Part of page not updated via AJAX so should not show
+      assertFalse(page.containsText("should not see this"));
+    }
+
+
+}

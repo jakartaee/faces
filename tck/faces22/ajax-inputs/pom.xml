@@ -29,9 +29,9 @@
     <artifactId>ajax-inputs</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.2 - ${project.artifactId}</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <build>
-        <finalName>test-faces22-ajax-inputs</finalName>
+        <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
     </build>
 </project>

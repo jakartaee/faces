@@ -36,6 +36,14 @@ fi
 
 mkdir -p "${POOL_DIR}"
 
+# Reap any straggler slot JVMs left over from a prior session before we
+# bootstrap new ones. ShutdownHookInstaller only fires when the Maven
+# session that spawned the slots exits cleanly AND has gf-pool in its
+# reactor; running tests from a sub-reactor (cd faces22 && mvn install)
+# or aborting with Ctrl+C leaves the slot JVMs alive, holding the same
+# admin/http ports we are about to ask asadmin start-domain to bind.
+pkill -f -- "module-path .*${POOL_DIR}/slot-" 2>/dev/null || true
+
 # Write the pool config so the agent can read it when growing on demand.
 # Overwrite each build so changes to source/ports flow through.
 cat > "${POOL_DIR}/config.properties" <<EOF

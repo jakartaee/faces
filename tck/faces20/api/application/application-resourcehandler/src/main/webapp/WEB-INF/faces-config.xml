@@ -24,7 +24,7 @@
         <resource-bundle>
             <description>A simple resource bundle</description>
             <display-name>SimpleResourceBundle</display-name>
-            <base-name>ee.jakarta.tck.faces.test.faces20.api.common.resourcebundle.SimpleResourceBundle</base-name>
+            <base-name>ee.jakarta.tck.faces.faces20.api.common.resourcebundle.SimpleResourceBundle</base-name>
             <var>simpleRB</var>
         </resource-bundle>
     </application>

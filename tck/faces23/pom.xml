@@ -30,41 +30,48 @@
     <artifactId>pom</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.3</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
+    <properties>
+        <test.moduleName>faces23</test.moduleName>
+    </properties>
+
+    <!--
+        Long modules first. See README §"Sizing -T and the pool".
+    -->
     <modules>
-        <module>ajax</module>
         <module>cdi</module>
-        <module>commandScript</module>
-        <module>converter</module>
-        <module>disableFaceletToXhtmlMapping</module>
-        <module>el</module>
-        <module>exactMapping</module>
-        <module>faceletCacheFactory</module>
+        <module>ui-input</module>
+        <module>ajax</module>
+        <module>localized-composite</module>
+        <module>datetime-converter</module>
+        <module>get-views</module>
         <module>facelets</module>
-        <module>facesConverter</module>
-        <module>facesDataModel</module>
-        <module>flash</module>
-        <module>getViews</module>
-        <module>importConstants</module>
-        <module>localizedComposite</module>
-        <module>namespacedView</module>
+        <module>exact-mapping</module>
+        <module>websocket</module>
+        <module>namespaced-view</module>
         <module>passthrough</module>
+        <module>validate-whole-bean</module>
+        <module>faces-data-model</module>
+        <module>search-expression</module>
+        <module>flash</module>
+        <module>input-required</module>
+        <module>converter-injection</module>
+        <module>el</module>
+        <module>import-constants</module>
+        <module>command-script</module>
+        <module>xhtml-namespaces</module>
+        <module>xhtml-mapping-default</module>
+        <module>ui-decorate</module>
+        <module>facelet-cache</module>
+        <module>system-event</module>
+        <module>xhtml-mapping-disabled</module>
 <!--
     Below two are deactivated until the value of jakarta.faces.FACELETS_REFRESH_PERIOD is available via public API such as FaceletCache#getRefreshPerid().
     See also https://github.com/jakartaee/faces/issues/1701
-        <module>refreshPeriodExplicit</module>
-        <module>refreshPeriodProduction</module>
+        <module>refresh-period-explicit</module>
+        <module>refresh-period-production</module>
 -->
-        <module>searchExpression</module>
-        <module>systemEvent</module>
-        <module>uidecorate</module>
-        <module>uiinput</module>
-        <module>uiinput-required-true</module>
-        <module>validateWholeBean</module>
-        <module>websocket</module>
-        <module>xhtmlMappingToFaceletByDefault</module>
-        <module>xhtmlNamespaces</module>
     </modules>
 
     <dependencies>

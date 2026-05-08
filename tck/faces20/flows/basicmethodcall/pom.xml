@@ -25,12 +25,12 @@
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>basicmethodcall</artifactId>
+    <artifactId>flows-basicmethodcall</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - flows - basicmethodcall</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <build>
-        <finalName>test-faces20-flows-basicmethodcall</finalName>
+        <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
     </build>
 </project>

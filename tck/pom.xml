@@ -37,7 +37,7 @@
     <name>Jakarta Faces TCK ${project.version}</name>
 
     <!--
-        faces-signaturetest is declared early so the -T scheduler picks it up
+        faces-signature-test is declared early so the -T scheduler picks it up
         in the first wave; it has no dependency on util/gf-pool/test modules
         and can run in parallel with the pool warm-up rather than waiting at
         the tail of the build.
@@ -45,7 +45,7 @@
     <modules>
         <module>util</module>
         <module>gf-pool</module>
-        <module>faces-signaturetest</module>
+        <module>faces-signature-test</module>
         <module>faces20</module>
         <module>faces22</module>
         <module>faces23</module>
@@ -576,7 +576,7 @@
             <!--
                 Activate only on modules that actually deploy a WAR to GlassFish
                 (those with src/main/webapp). Skips util, gf-pool, intermediate
-                aggregator poms, the example_jar_* fixtures, and faces-signaturetest
+                aggregator poms, the example_jar_* fixtures, and faces-signature-test
                 (which runs sigtest-maven-plugin without any GlassFish involvement
                 and would otherwise hang in the agent's premain waiting for a slot
                 the test never leases).
@@ -642,6 +642,31 @@
                                 <goals>
                                     <goal>properties</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <!--
+                            Provision the gf-pool if it isn't up yet. Concurrent test modules
+                            under -TN serialize on .bootstrap.lock so only one bootstrap runs;
+                            if config.properties already exists the lock holder fast-exits.
+                        -->
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>ensure-gf-pool-up</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <exec executable="bash" failonerror="true">
+                                            <arg value="-c"/>
+                                            <arg value="set -e; ROOT='${maven.multiModuleProjectDirectory}'; LOCK=&quot;$ROOT/gf-pool/target/.bootstrap.lock&quot;; mkdir -p &quot;$(dirname &quot;$LOCK&quot;)&quot;; exec 9&gt;&quot;$LOCK&quot;; flock 9; [ -f &quot;$ROOT/gf-pool/target/pool/config.properties&quot; ] || &quot;$ROOT/start-pool.sh&quot;"/>
+                                        </exec>
+                                    </target>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>

@@ -18,25 +18,18 @@
 -->
 
 <web-app version="5.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd">
-    <display-name>jsf_appconfigresources_startupbehavior</display-name>
-
-    <context-param>
+<context-param>
         <param-name>jakarta.faces.CONFIG_FILES</param-name>
         <param-value>
             /META-INF/testCase2-config.xml, /META-INF/testCase2-config_1.xml
         </param-value>
     </context-param>
-
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-
-    <session-config>
-        <session-timeout>54</session-timeout>
-    </session-config>
 </web-app>

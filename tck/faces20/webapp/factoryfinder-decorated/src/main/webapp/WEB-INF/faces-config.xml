@@ -22,9 +22,9 @@
               xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd">
 
     <factory id="FactoryThree">
-        <faces-context-factory>ee.jakarta.tck.faces.test.faces20.webapp.factoryfinderdecorated.TCKContextFactoryThree</faces-context-factory>
+        <faces-context-factory>ee.jakarta.tck.faces.faces20.webapp.factoryfinderdecorated.TCKContextFactoryThree</faces-context-factory>
     </factory>
     <factory id="FactoryFour">
-        <faces-context-factory>ee.jakarta.tck.faces.test.faces20.webapp.factoryfinderdecorated.TCKContextFactoryFour</faces-context-factory>
+        <faces-context-factory>ee.jakarta.tck.faces.faces20.webapp.factoryfinderdecorated.TCKContextFactoryFour</faces-context-factory>
     </factory>
 </faces-config>

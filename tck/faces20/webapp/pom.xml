@@ -28,14 +28,17 @@
     <artifactId>webapp</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - webapp</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
+    <!--
+        Long modules first. See README §"Sizing -T and the pool".
+    -->
     <modules>
         <module>factoryfinder-tckjar</module>
-        <module>factoryfinder</module>
-        <module>factoryfinder-altlast</module>
-        <module>factoryfinder-decorated</module>
         <module>factoryfinder-metainflast-tckjar</module>
+        <module>factoryfinder</module>
         <module>factoryfinder-metainflast</module>
+        <module>factoryfinder-decorated</module>
+        <module>factoryfinder-altlast</module>
     </modules>
 </project>

@@ -41,4 +41,14 @@
         <param-name>jakarta.faces.ENABLE_CSP_NONCE</param-name>
         <param-value>true</param-value>
     </context-param>
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
 </web-app>

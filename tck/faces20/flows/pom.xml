@@ -28,16 +28,19 @@
     <artifactId>flows</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - flows</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
+    <!--
+        Long modules first. See README §"Sizing -T and the pool".
+    -->
     <modules>
+        <module>intermediate</module>
+        <module>basicswitch</module>
         <module>basicflowcall</module>
-        <module>basicimplicit</module>
         <module>basicmethodcall</module>
         <module>basicmultipage</module>
-        <module>basicswitch</module>
-        <module>factory</module>
-        <module>intermediate</module>
         <module>multipagewebinf</module>
+        <module>basicimplicit</module>
+        <module>factory</module>
     </modules>
 </project>

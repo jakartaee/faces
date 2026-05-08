@@ -19,7 +19,7 @@
 <html
     xmlns:f="jakarta.faces.core"
     xmlns:h="jakarta.faces.html"
-    xmlns:my="jakarta.faces.composite/components"
+    xmlns:cc="jakarta.faces.composite/issue5171"
 >
     <h:head>
         <title>Issue5171IT</title>
@@ -31,7 +31,7 @@
                 <h:message id="simpleInputMessage" for="simpleInput"/>
             </div>
             <div>
-                <my:component id="composite" value="#{issue5171Bean.string2}"/>
+                <cc:component id="composite" value="#{issue5171Bean.string2}"/>
                 <h:message id="compositeInputMessage" for="composite:input"/>
             </div>
             <h:commandButton id="submit" value="Submit"/>

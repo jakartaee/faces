@@ -25,13 +25,13 @@
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>startupbehavior</artifactId>
+    <artifactId>appconfigresources-startupbehavior</artifactId>
     <packaging>war</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - appconfigresources - startupbehavior</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <build>
-        <finalName>test-faces20-appconfigresources-startupbehavior</finalName>
+        <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -47,7 +47,7 @@
                                 <mkdir dir="${project.build.directory}/lib-contents"/>
                                 <jar destfile="${project.build.directory}/lib-contents/jsftck-resource.jar">
                                     <fileset dir="${project.build.outputDirectory}">
-                                        <include name="ee/jakarta/tck/faces/test/faces20/appconfigresources/common/beans/**"/>
+                                        <include name="ee/jakarta/tck/faces/faces20/appconfigresources/common/beans/**"/>
                                     </fileset>
                                     <metainf dir="${basedir}/src/main/jar-meta-inf"/>
                                 </jar>
@@ -59,7 +59,7 @@
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
-                    <packagingExcludes>WEB-INF/classes/ee/jakarta/tck/faces/test/faces20/appconfigresources/common/beans/**</packagingExcludes>
+                    <packagingExcludes>WEB-INF/classes/ee/jakarta/tck/faces/faces20/appconfigresources/common/beans/**</packagingExcludes>
                     <webResources>
                         <resource>
                             <directory>${project.build.directory}/lib-contents</directory>

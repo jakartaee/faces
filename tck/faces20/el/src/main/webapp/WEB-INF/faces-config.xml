@@ -31,14 +31,14 @@
                 simple
             </display-name>
             <base-name>
-                ee.jakarta.tck.faces.test.faces20.el.elresolvers.SimpleResourceBundle
+                ee.jakarta.tck.faces.faces20.el.elresolvers.SimpleResourceBundle
             </base-name>
             <var>
                 simplerb
             </var>
         </resource-bundle>
         <el-resolver>
-            ee.jakarta.tck.faces.test.faces20.el.elresolvers.SimpleMethodELResolver
+            ee.jakarta.tck.faces.faces20.el.elresolvers.SimpleMethodELResolver
         </el-resolver>
     </application>
 

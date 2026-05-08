@@ -9,6 +9,7 @@
  */
 package ee.jakarta.tck.faces.test.pool;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.instrument.Instrumentation;
@@ -270,17 +271,27 @@ public final class SlotLeaserAgent {
                 StandardOpenOption.READ,
                 StandardOpenOption.WRITE);
              FileLock ignored = fc.lock()) {
-            // Advance past any existing slot dir (provisioned OR mid-bootstrap),
-            // not only those with ports.properties — otherwise we'd reuse the
-            // index of an in-flight bootstrap and corrupt its slot dir.
-            next = 1;
-            while (Files.exists(poolDir.resolve("slot-" + next))) {
-                next++;
+            // Prefer recycling a dead slot (lock acquirable + admin port closed)
+            // over advancing to a fresh index. Without this, a slot whose GF JVM
+            // exited would keep its dir around and tryGrow would walk past it,
+            // letting the pool exceed the concurrency cap implied by -T.
+            int recycle = findRecyclableSlot(poolDir);
+            if (recycle > 0) {
+                clearSlotDir(poolDir.resolve("slot-" + recycle));
+                next = recycle;
+            } else {
+                // Advance past any existing slot dir (provisioned OR mid-bootstrap),
+                // not only those with ports.properties — otherwise we'd reuse the
+                // index of an in-flight bootstrap and corrupt its slot dir.
+                next = 1;
+                while (Files.exists(poolDir.resolve("slot-" + next))) {
+                    next++;
+                }
+                // Claim the index by creating its (empty) dir while we still hold
+                // grow.lock. The next caller's Files.exists check will see it and
+                // advance to next+1.
+                Files.createDirectory(poolDir.resolve("slot-" + next));
             }
-            // Claim the index by creating its (empty) dir while we still hold
-            // grow.lock. The next caller's Files.exists check will see it and
-            // advance to next+1.
-            Files.createDirectory(poolDir.resolve("slot-" + next));
         }
         ProcessBuilder pb = new ProcessBuilder("bash",
                 config.scriptDir.resolve("provision-slot.sh").toString());
@@ -289,13 +300,97 @@ public final class SlotLeaserAgent {
         pb.environment().put("SOURCE_HOME", config.source.toString());
         pb.environment().put("ADMIN_BASE", String.valueOf(config.adminBase));
         pb.environment().put("PORT_STRIDE", String.valueOf(config.portStride));
-        pb.inheritIO();
+        // Don't inheritIO: failsafe owns the forked JVM's native stdout as a
+        // control channel and warns "Corrupted channel by directly writing to
+        // native stream" on any unrelated bytes. Send provision-slot.sh's
+        // chatter to the per-slot bootstrap log, same destination pool-up.sh
+        // uses for its background provisions.
+        File log = poolDir.resolve("slot-" + next + "-bootstrap.log").toFile();
+        pb.redirectErrorStream(true);
+        pb.redirectOutput(ProcessBuilder.Redirect.appendTo(log));
         int exit = pb.start().waitFor();
         if (exit != 0) {
             throw new IllegalStateException(
                     "provision-slot.sh failed (slot=" + next + ", exit=" + exit + ")");
         }
         return next;
+    }
+
+    /**
+     * Returns the lowest slot index whose GF JVM is dead and whose lock can be
+     * acquired now, or -1 if no such slot exists. Caller must hold grow.lock so
+     * that no other agent leases the slot between the check and the recycle.
+     */
+    private static int findRecyclableSlot(Path poolDir) throws IOException {
+        List<Integer> indices = new ArrayList<>();
+        try (java.util.stream.Stream<Path> entries = Files.list(poolDir)) {
+            for (Path entry : (Iterable<Path>) entries::iterator) {
+                String name = entry.getFileName().toString();
+                if (!name.startsWith("slot-")) {
+                    continue;
+                }
+                if (!Files.exists(entry.resolve("ports.properties"))) {
+                    continue; // mid-bootstrap; provision-slot.sh still owns it
+                }
+                try {
+                    indices.add(Integer.parseInt(name.substring("slot-".length())));
+                } catch (NumberFormatException ignored) {
+                    // not numeric, skip
+                }
+            }
+        }
+        indices.sort(Comparator.naturalOrder());
+        for (int slot : indices) {
+            Path slotDir = poolDir.resolve("slot-" + slot);
+            Path portsFile = slotDir.resolve("ports.properties");
+            Properties properties = new Properties();
+            try (InputStream in = Files.newInputStream(portsFile)) {
+                properties.load(in);
+            } catch (IOException e) {
+                continue;
+            }
+            Integer adminPort = parsePort(properties.getProperty("arquillian.adminPort"));
+            if (adminPort != null && isAdminPortHealthy(adminPort)) {
+                continue; // alive
+            }
+            // Probe lock to confirm no one is mid-lease on this dead slot.
+            try (FileChannel lockChannel = FileChannel.open(slotDir.resolve("lock"),
+                    StandardOpenOption.CREATE,
+                    StandardOpenOption.READ,
+                    StandardOpenOption.WRITE)) {
+                FileLock probe = lockChannel.tryLock();
+                if (probe == null) {
+                    continue; // someone holds it
+                }
+                probe.release();
+                return slot;
+            } catch (IOException e) {
+                continue;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * Empties a slot dir's contents but keeps the dir itself, so a concurrent
+     * caller's Files.exists("slot-N") still returns true and won't claim the
+     * same index. provision-slot.sh handles a pre-existing-but-empty dir.
+     */
+    private static void clearSlotDir(Path slotDir) throws IOException {
+        if (!Files.isDirectory(slotDir)) {
+            return;
+        }
+        try (java.util.stream.Stream<Path> entries = Files.walk(slotDir)) {
+            entries.sorted(Comparator.reverseOrder())
+                    .filter(p -> !p.equals(slotDir))
+                    .forEach(p -> {
+                        try {
+                            Files.deleteIfExists(p);
+                        } catch (IOException ignored) {
+                            // best-effort; provision-slot.sh will overwrite what it needs
+                        }
+                    });
+        }
     }
 
     private static String requiredProperty(String name) {

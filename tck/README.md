@@ -64,17 +64,37 @@ The pool starts with one slot and grows on demand to match concurrent
 demand, so `-T4` ramps to four slots and `-T8` to eight. Pick `-T` based
 on host capacity.
 
-A single test module:
+A single test module — just `cd` into it and run `mvn`. The `.mvn/`
+marker at the tck root pins `${maven.multiModuleProjectDirectory}`
+there, so the gf-pool javaagent path resolves correctly even when
+Maven is invoked from a subdirectory:
 
 ```bash
-mvn -pl faces50/ajax -am verify
+cd faces50/ajax
+mvn clean install -T4
+```
+
+A whole faces version — same idea, descend into the aggregator:
+
+```bash
+cd faces50
+mvn clean install -T4
 ```
 
 A single test class or method:
 
 ```bash
-mvn -pl faces50/ajax -am verify -Dit.test=Issue5594IT
-mvn -pl faces50/ajax -am verify -Dit.test=Issue5594IT#someMethod
+cd faces50/ajax
+mvn clean install -Dit.test=Issue5594IT
+mvn clean install -Dit.test=Issue5594IT#someMethod
+```
+
+If you'd rather stay at the tck root, the `-pl` form still works
+(use `-am` to also pull in upstream `util` / `gf-pool`):
+
+```bash
+mvn -pl faces50/ajax -am clean install -T4
+mvn -pl faces50/ajax -am clean install -Dit.test=Issue5594IT
 ```
 
 Against an existing GlassFish install (skips the zip download and the
@@ -83,7 +103,7 @@ slot is `cp -al`-cloned from it, with `applications/`, `generated/`,
 `logs/` cleared per slot):
 
 ```bash
-mvn clean install -T4 -Dglassfish.home=/path/to/glassfish9
+mvn clean install -T4 -Dglassfish.home=/path/to/glassfish
 ```
 
 ## Common overrides
@@ -151,6 +171,15 @@ pool independently of a build:
 ./start-pool.sh -Dglassfish.home=/path/to/gf    # pass through gf-pool overrides
 ./stop-pool.sh                                  # stop everything
 ```
+
+Both scripts are idempotent: they `pkill` any slot JVMs whose `--module-path`
+points into `gf-pool/target/pool/` before doing their main work. This matters
+because `ShutdownHookInstaller` only fires when the Maven session that spawned
+the slots exits cleanly **and** has `gf-pool` in its reactor. Running from a
+sub-reactor (`cd faces22 && mvn install`) or aborting with Ctrl+C leaves the
+slot JVMs alive holding their ports, which would collide with the next
+bootstrap. Re-running `./start-pool.sh` reaps the stragglers automatically;
+explicit `./stop-pool.sh` is only needed when you want the host released.
 
 To watch how many surefire-forked test JVMs are running concurrently
 during a build (each one leases a slot, so this is also the live slot

@@ -7,11 +7,11 @@
 
     <h:body>
         <h:form id="form">
-            <h:inputText id="inputText" value="#{customBean.value}">
+            <h:inputText id="inputText" value="#{issue4551Bean.value}">
                 <f:validator validatorId="validator.CustomValidator1" />
 				<f:validator validatorId="validator.CustomValidator2" />
             </h:inputText>
-            <h:commandButton id="submit" action="#{customBean.submit}" value="Submit"/>
+            <h:commandButton id="submit" action="#{issue4551Bean.submit}" value="Submit"/>
             <h:messages/>
         </h:form>
     </h:body>

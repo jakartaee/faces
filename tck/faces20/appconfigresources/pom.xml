@@ -28,11 +28,11 @@
     <artifactId>appconfigresources</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - appconfigresources</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <modules>
-        <module>absolute_ordering</module>
-        <module>relative_ordering</module>
         <module>startupbehavior</module>
+        <module>relative-ordering</module>
+        <module>absolute-ordering</module>
     </modules>
 </project>

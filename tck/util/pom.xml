@@ -30,7 +30,7 @@
     <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
     <artifactId>util</artifactId>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Util</name>
+    <name>Jakarta Faces TCK ${project.version} - ${project.artifactId}</name>
 
     <dependencies>
         <dependency>

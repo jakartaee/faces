@@ -35,13 +35,22 @@
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
 
-
     <filter>
-        <filter-name>BeforeFilter</filter-name>
-        <filter-class>ee.jakarta.tck.faces.test.servlet30.ajax.filter.BeforeFilter</filter-class>
+        <filter-name>Spec1296Filter</filter-name>
+        <filter-class>ee.jakarta.tck.faces.faces22.ajax_lifecycle.filter.BeforeFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>BeforeFilter</filter-name>
-        <url-pattern>/BeforeFilter</url-pattern>
+        <filter-name>Spec1296Filter</filter-name>
+        <url-pattern>/Spec1296</url-pattern>
     </filter-mapping>
+
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+
 </web-app>

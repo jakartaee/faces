@@ -28,7 +28,7 @@
     <artifactId>composite</artifactId>
     <packaging>pom</packaging>
 
-    <name>Jakarta Faces TCK ${project.version} - Test - Faces 2.0 - composite</name>
+    <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
     <modules>
         <module>components</module>
