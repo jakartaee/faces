@@ -20,7 +20,7 @@ import jakarta.faces.component.FacesComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
 
-@FacesComponent( value = "org.glassfish.mojarra.test.servlet30.ajax.Issue2183Component2" )
+@FacesComponent( value = "ee.jakarta.tck.faces.faces22.ajax_inputs.Issue2183Component2" )
 public class Issue2183Component2 extends UIInput {
 
     public Issue2183Component2() {
