@@ -38,7 +38,8 @@
         <param-name>jakarta.faces.SERIALIZE_SERVER_STATE</param-name>
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
-<servlet>
+
+	<servlet>
         <servlet-name>facesServlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
     </servlet>
@@ -46,5 +47,4 @@
         <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
-
 </web-app>

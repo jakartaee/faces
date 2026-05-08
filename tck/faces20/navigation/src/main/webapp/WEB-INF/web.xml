@@ -38,11 +38,11 @@
         <param-name>jakarta.faces.SERIALIZE_SERVER_STATE</param-name>
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
-<filter>
+
+	<filter>
         <filter-name>TestFilter</filter-name>
         <filter-class>ee.jakarta.tck.faces.faces20.navigation.TestFilter</filter-class>
     </filter>
-
     <filter-mapping>
         <filter-name>TestFilter</filter-name>
         <servlet-name>TestServlet</servlet-name>
@@ -52,17 +52,8 @@
 		<servlet-name>TestServlet</servlet-name>		
 		<servlet-class>ee.jakarta.tck.faces.faces20.navigation.TestServlet</servlet-class>
 	</servlet>
-<servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>TestServlet</servlet-name>
 		<url-pattern>/TestServlet</url-pattern>
 	</servlet-mapping>
-<servlet>
-        <servlet-name>facesServlet</servlet-name>
-        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>facesServlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
-
 </web-app>

@@ -48,14 +48,4 @@
         <filter-name>Spec1296Filter</filter-name>
         <url-pattern>/Spec1296</url-pattern>
     </filter-mapping>
-
-    <servlet>
-        <servlet-name>facesServlet</servlet-name>
-        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>facesServlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
-
 </web-app>

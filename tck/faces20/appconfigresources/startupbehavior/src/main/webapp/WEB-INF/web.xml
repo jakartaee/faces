@@ -44,12 +44,4 @@
             /META-INF/testCase2-config.xml, /META-INF/testCase2-config_1.xml
         </param-value>
     </context-param>
-    <servlet>
-        <servlet-name>facesServlet</servlet-name>
-        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>facesServlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
 </web-app>
