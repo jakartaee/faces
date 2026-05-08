@@ -30,7 +30,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue4324IT extends BaseITNG {
 
   /**
-   * @see FacesConverter#managed()
+   * @see FacesConverter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4324
    */
   @Test

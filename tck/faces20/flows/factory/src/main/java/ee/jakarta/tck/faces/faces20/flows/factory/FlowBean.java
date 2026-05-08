@@ -20,7 +20,7 @@ import java.io.Serializable;
 import jakarta.faces.flow.FlowScoped;
 import jakarta.inject.Named;
 
-@Named(value = "flowBean")
+@Named
 @FlowScoped(value = "flow")
 public class FlowBean implements Serializable {
 

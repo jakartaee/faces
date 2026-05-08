@@ -31,7 +31,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue4551IT extends BaseITNG {
 
   /**
-   * @see FacesValidator#managed()
+   * @see FacesValidator
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4551
    */
   @Test
@@ -39,7 +39,8 @@ public class Issue4551IT extends BaseITNG {
         WebPage page = getPage("issue4551.xhtml");
         WebElement submit = page.findElement(By.id("form:submit"));
         submit.click();
-        assertTrue(page.containsText("CustomValidator1 was validated"));
-        assertTrue(page.containsText("CustomValidator2 was validated"));
+        System.out.println(page.getSource());
+        assertTrue(page.containsText("CustomValidator1 was validated with inject=true"));
+        assertTrue(page.containsText("CustomValidator2 was validated with inject=true"));
     }
 }

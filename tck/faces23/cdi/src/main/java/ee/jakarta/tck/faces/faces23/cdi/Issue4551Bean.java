@@ -16,20 +16,20 @@
 
 package ee.jakarta.tck.faces.faces23.cdi;
 
-import java.io.Serializable;
-
+import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
-@Named(value = "issue4551Bean")
-public class Issue4551Bean implements Serializable {
+@Named
+@RequestScoped
+public class Issue4551Bean {
 
-    private Long value;
+    private String value;
     
-    public Long getValue() {
+    public String getValue() {
         return value;
     }
     
-    public void setValue(Long value) {
+    public void setValue(String value) {
         this.value = value;
     }
     

@@ -26,7 +26,7 @@ import jakarta.enterprise.util.TypeLiteral;
 import jakarta.faces.annotation.RequestCookieMap;
 import jakarta.inject.Named;
 
-@Named(value = "spec1582RequestCookieMap2Bean")
+@Named
 @SessionScoped
 public class Spec1582RequestCookieMap2Bean implements Serializable {
 

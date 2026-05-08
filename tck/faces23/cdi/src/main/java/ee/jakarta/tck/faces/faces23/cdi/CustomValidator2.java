@@ -32,6 +32,6 @@ public class CustomValidator2 implements Validator<String> {
 
 	@Override
 	public void validate(FacesContext context, UIComponent component, String value) throws ValidatorException {
-		context.addMessage(component.getClientId(context), new FacesMessage("CustomValidator2 was validated with injected " + annotatedBean));
+		context.addMessage(component.getClientId(context), new FacesMessage("CustomValidator2 was validated with inject=" + (annotatedBean != null)));
 	}
 }

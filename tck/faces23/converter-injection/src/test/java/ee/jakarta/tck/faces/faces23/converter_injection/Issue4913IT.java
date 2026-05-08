@@ -33,7 +33,7 @@ public class Issue4913IT extends BaseITNG {
   /**
    * @see Inject
      * @see ResourceDependency
-     * @see FacesConverter#managed()
+     * @see FacesConverter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4913
    */
   @Test

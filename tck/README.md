@@ -232,6 +232,12 @@ cd ~/git/faces/tck
 mvn clean install -am -pl faces50/facelets
 ```
 
+Or a specific test:
+
+```bash
+mvn clean install -am -pl faces23/cdi -Dit.test=Issue4551IT -Dfailsafe.failIfNoSpecifiedTests=false
+```
+
 ## Testing against other servers (WIP)
 
 Other Arquillian-supported servers can be selected via profile:
