@@ -38,10 +38,10 @@ class Issue1829IT extends BaseITNG {
   @Test
   void getCurrentCompositeComponentReturnsCorrectInstanceAcrossAjaxRoundTrips() throws Exception {
         WebPage page = getPage("issue1829.xhtml");
-        WebElement button = page.findElement(By.id("form:button"));
+        WebElement button = page.findElement(By.id("form:composite:button"));
         page.guardAjax(button::click);
         assertEquals(200, page.getResponseStatus());
-        button =  page.findElement(By.id("form:button"));
+        button =  page.findElement(By.id("form:composite:button"));
         page.guardAjax(button::click);
         assertEquals(200, page.getResponseStatus());
     }
