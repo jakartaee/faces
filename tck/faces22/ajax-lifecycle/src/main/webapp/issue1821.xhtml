@@ -16,9 +16,8 @@
 
 -->
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE html>
+<html
 	xmlns:ui="jakarta.faces.facelets"
 	xmlns:h="jakarta.faces.html"
 	xmlns:f="jakarta.faces.core">
@@ -36,13 +35,13 @@
              <f:setPropertyActionListener target="#{requestScope.output}" value="#{item.label}" />
              <f:ajax render="@form" />
           </h:commandLink>
-          &nbsp;
+          &#xA0;
           <ui:repeat var="subItem" value="#{item.subItems}">
               <h:commandLink value="#{subItem.label}">
                  <f:setPropertyActionListener target="#{requestScope.output}" value="#{subItem.label}" />
                  <f:ajax render="@form" />
               </h:commandLink>
-              &nbsp;
+              &#xA0;
           </ui:repeat>
           <br />
       </ui:repeat>
@@ -53,12 +52,12 @@
           <h:commandLink id="force" value="#{item.label}">
              <f:setPropertyActionListener target="#{requestScope.output}" value="#{item.label}" />
           </h:commandLink>
-          &nbsp;
+          &#xA0;
           <ui:repeat var="subItem" value="#{item.subItems}">
               <h:commandLink id="force2" value="#{subItem.label}">
                  <f:setPropertyActionListener target="#{requestScope.output}" value="#{subItem.label}" />
               </h:commandLink>
-              &nbsp;
+              &#xA0;
           </ui:repeat>
           <br />
       </ui:repeat>
@@ -71,14 +70,14 @@
                <f:setPropertyActionListener target="#{requestScope.output}" value="#{item.label}" />
                <f:ajax render="@form" />
             </h:commandLink>
-            &nbsp;
+            &#xA0;
             <h:dataTable var="subItem" value="#{item.subItems}">
                <h:column>
                   <h:commandLink id="force4" value="#{subItem.label}">
                      <f:setPropertyActionListener target="#{requestScope.output}" value="#{subItem.label}" />
                      <f:ajax render="@form" />
                   </h:commandLink>
-                  &nbsp;
+                  &#xA0;
                </h:column>
             </h:dataTable>
             <br />
