@@ -17,9 +17,11 @@
 
 -->
 
-<faces-config version="4.0" xmlns="https://jakarta.ee/xml/ns/jakartaee"
+<faces-config
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_0.xsd">
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+    version="4.1">
 
     <flow-definition id="flow">
         <start-node>start</start-node>
