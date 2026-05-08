@@ -1,0 +1,105 @@
+<p>The Jakarta Faces TCK runs as part of every Mojarra release. During the Faces 4.0 era the full run on Jenkins CI took well over 3 hours, nearly 3 and half hours. Today, on the same hardware, it runs in well under half a hour. This article walks through how we got there.</p>
+
+<h4>The starting point: Ant-driven sequential TCK</h4>
+
+<p>The original Faces TCK was inherited from the JSF 1.x days. It ran via an Ant harness that deployed each test as its own WAR, started GlassFish, ran the test class against the deployed WAR, undeployed, and moved on to the next. With around 1500 test classes and roughly 8 seconds of deploy/undeploy overhead per test, the bulk of those 3 hours was not test execution but Ant orchestration and GlassFish redeploys.</p>
+
+<p>The harness was also opaque to Maven; it ran as a black-box external process. You couldn't <code>mvn -pl :failingTest</code> your way to a single test, you couldn't easily attach a debugger, and you couldn't parallelize without rewriting the harness.</p>
+
+<h4>Migration to the new selenium-based TCK</h4>
+
+<p>Pull requests <a href="https://github.com/jakartaee/faces/pull/2146">#2146</a>, <a href="https://github.com/jakartaee/faces/pull/2147">#2147</a>, <a href="https://github.com/jakartaee/faces/pull/2148">#2148</a>, <a href="https://github.com/jakartaee/faces/pull/2149">#2149</a> and <a href="https://github.com/jakartaee/faces/pull/2150">#2150</a> migrated the entire old TCK, in five batches, to a new structure: every test is a JUnit 5 + Arquillian + Selenium integration test, every group of related tests is a Maven module producing a single WAR, and Arquillian deploys that single WAR once per module instead of once per test.</p>
+
+<p>The migration was almost entirely mechanical. Test logic was with help of Claude Code rewritten from HtmlUnit assertions to Selenium <code>WebElement</code> assertions, with existing helpers like <code>guardHttp(Runnable)</code> and <code>guardAjax(Runnable)</code> wrapping the actions that trigger a non-ajax page load or an ajax response respectively. The xhtml pages were copied verbatim where possible, since the rendered output is what the spec mandates and changing it would change what's tested.</p>
+
+<p>The bulk of the time savings here came not from the assertion technology but from <b>WAR consolidation</b>. Where the old TCK had one WAR per test, the new TCK has one WAR per logical feature group (composite components, ajax behaviors, flows, etc). For a feature group containing 30 tests, that's 30 deploys collapsed into 1.</p>
+
+<h4>Per-version test pruning</h4>
+
+<p>Pull requests <a href="https://github.com/jakartaee/faces/pull/2152">#2152</a> and <a href="https://github.com/jakartaee/faces/pull/2153">#2153</a> added auto-skip support for CSP-related tests on Mojarra 4.0.17+ and 4.1.8+. The CSP feature was backported from Faces 5.0 into the 4.x branches, but a few specific tests required behaviour that wasn't part of the backport. Rather than skipping the entire CSP suite on 4.x, the autoskip looks at the running Mojarra version and disables only the affected tests. Mojarra 5.x runs them all.</p>
+
+<h4>gf-pool: a shared GlassFish pool with slot leasing</h4>
+
+<p>Pull request <a href="https://github.com/jakartaee/faces/pull/2156">#2156</a> introduced the biggest architectural change. The new TCK still deploys one WAR per module, and previously each module's failsafe-forked JVM started its own GlassFish, ran the tests, and stopped GlassFish. With 100+ modules, that's 100+ GlassFish JVM starts, each costing several seconds.</p>
+
+<p>The gf-pool module pre-starts a configurable pool of GlassFish instances, all on different port ranges, in <code>gf-pool/target/pool/slot-N/</code>. A small Java agent (<code>SlotLeaserAgent</code>) is attached to each failsafe-forked test JVM. The agent acquires an exclusive <code>FileLock</code> on <code>slot-N/lock</code>, publishes that slot's port numbers as system properties for the Arquillian remote container, and holds the lock for the JVM's lifetime. When the JVM exits, the lock is released and the slot becomes available to the next module.</p>
+
+<p>The pool grows on demand up to <code>-T<i>n</i></code> slots, so a sequential build uses one GlassFish; <code>mvn -T4 install</code> grows to four. A custom Ant task installs a JVM shutdown hook on Maven's own JVM, so all slots get stopped at session end (or on Ctrl+C), no orphaned processes.</p>
+
+<p>The result on Jenkins CI was a drop from 3h 19m to <b>1h 18m</b> at <code>-T4</code>. The full reactor still runs every test exactly once; it just reuses the GlassFish JVMs across modules instead of throwing them away.</p>
+
+<h4>Framework cleanup: implicit waits and dead CDP sessions</h4>
+
+<p>Pull request <a href="https://github.com/jakartaee/faces/pull/2157">#2157</a> attacks two long-tail Selenium pathologies that the gf-pool work exposed.</p>
+
+<p>The first is Selenium's <i>implicit wait</i>. The TCK had <code>driver.manage().timeouts().implicitlyWait(STD_TIMEOUT)</code> with <code>STD_TIMEOUT = 10s</code>, on top of an explicit <code>WebDriverWait</code>. Mixing the two is documented as unreliable, and on <code>findElements()</code> it has a sharp cost: when the result list is legitimately empty (no matching child element), Selenium polls the DOM for the full 10 seconds before returning the empty list. A handful of TCK tests that walk an element's children and assert "no element children, just text" therefore paid 10 seconds per assertion.</p>
+
+<p>The most extreme example was <code>Spec1553IT</code>, a single test asserting that 24 different XML namespace declarations all render correctly. Each assertion called <code>element.findElements(By.xpath(".//*")).size() == 0</code> on a div whose only "child" was the rendered text "value". 18 such assertions, each taking exactly 10 seconds, made a single test method take <b>207 seconds</b>. Setting implicit wait to <code>Duration.ZERO</code> and dropping the <code>findElements</code> wrap brought it to <b>12 seconds</b>. <code>findElement()</code> still polls via the explicit wait, so "wait for an element to appear" semantics are preserved.</p>
+
+<p>The second pathology is the dead-CDP-session retry storm. Selenium's <code>DevTools.createSession()</code> occasionally times out under heavy parallel load on Jenkins. The original code swallowed that timeout and proceeded to call <code>Network.enable()</code> on the now-dead session, with a 10-attempt exponential backoff. Each attempt waited the ~30 second <code>sendAndWait</code> timeout plus the backoff sleep, totalling around 491 seconds before giving up. We saw 5 separate test classes hang for exactly 491 seconds in the same Jenkins run. The fix propagates the <code>createSession()</code> failure so <code>DriverPool</code> can <code>quit()</code> the broken driver and create a fresh one; cost drops to ~32 seconds.</p>
+
+<h4>Module splits: parallelism over deployment count</h4>
+
+<p>Same PR, two big module splits. <code>faces20/api/api-main</code> was a single WAR with 132 IT classes; that's a lot of work for one parallel slot. Split into 5 sibling modules grouped by top-level package (<code>component</code>, <code>event</code>, <code>converter-validator</code>, <code>misc</code>, <code>app</code>), the slowest piece dropped from 3:50 to 2:53. Each child module has its own <code>WEB-INF</code>; shared resources go into a small <code>common-tckjar</code> served via the Servlet 3+ <code>META-INF/resources</code> overlay so all WARs see them without duplication.</p>
+
+<p>Same trick on <code>faces20/renderkit</code>: one WAR with 27 component renderer tests became <code>renderkit-input</code>, <code>renderkit-output</code>, <code>renderkit-structure</code> plus a shared <code>common-tckjar</code> for the test beans. From 5:30 to 1:00 for the slowest child.</p>
+
+<p>You'd think more modules means more deploys means more cost. The trade-off is real but small: each new module adds roughly 30 seconds of deploy overhead, but those deploys run in parallel on the gf-pool slots. As long as the total slot demand stays below the pool cap, splitting only buys parallelism.</p>
+
+<h4>Negative-path ajax assertions</h4>
+
+<p>Some tests deliberately verify that an action does <i>not</i> trigger an ajax response. The old idiom was:</p>
+
+<pre class="prettyprint"><code class="lang-java">try {
+    page.guardAjax(() -> input.sendKeys("1", Keys.TAB));
+    fail("There should be no ajax behavior");
+}
+catch (TimeoutException e) {
+    assertEquals("", output.getText());
+}</code></pre>
+
+<p>This costs <code>STD_TIMEOUT</code> (10 seconds) per call to prove no ajax fired. <code>Issue2439IT</code> did this three times in a single test method and elapsed 32 seconds.</p>
+
+<p>The new helper <code>WebPage.assertNoAjax(Runnable)</code> registers a <code>faces.ajax.addOnEvent</code> listener that flips a window flag when any ajax callback fires, runs the action, sleeps 500ms, and returns whether the flag stayed unset. <code>Issue2439IT</code> dropped to 9 seconds.</p>
+
+<h4>Polling helper removal</h4>
+
+<p>The TCK had several "is text in the page" helpers (<code>isInPage</code>, <code>isInPageText</code>, <code>isNotInPage</code>, etc.) that wrapped a <code>contains</code> check in a <code>WebDriverWait</code>. These were leftovers from the HtmlUnit-based predecessor of the new TCK, before <code>guardHttp</code> and <code>guardAjax</code> existed. For negative assertions (<code>isNotInPage</code>) the timeout always fires; you pay 10 seconds per call to prove the text is absent, even though the preceding <code>guardHttp</code> already made the page settle.</p>
+
+<p>Three of the helpers (<code>isNotInPage</code>, <code>isNotInPageText</code>, <code>isInPageTextReduced</code>) were removed and their 6 call sites migrated to direct <code>(page.getPageText() + page.getInputValues()).contains(text)</code> checks. The two remaining ones (<code>isInPage</code>, <code>isInPageText</code>) have 130+ call sites between them; they're queued for a follow-up.</p>
+
+<h4>api-component split: hoisting Html*TestServlet up into a shared tckjar</h4>
+
+<p>Pull request <a href="https://github.com/jakartaee/faces/pull/2158">#2158</a> resolved the 2:53 floor. The hoist was straightforward: <code>UiInputTestServlet</code> and friends moved from the api-component WAR into <code>api-component-tckjar</code>, and the original WAR became a parent pom aggregating four sibling WARs grouped by feature area (<code>component-html-input</code>, <code>component-html-output</code>, <code>component-misc</code>, <code>component-ui</code>). Wall on the long child dropped from 2:53 to under 1:30.</p>
+
+<p>Same PR consolidated tiny modules where the per-module overhead exceeded the test work (faces40 from fourteen modules into five, faces41 from four into one), split <code>faces22/Ajax</code> into <code>ajax-inputs</code> and <code>ajax-lifecycle</code>, and split <code>faces20/renderkit</code> further into <code>renderkit-input</code>, <code>renderkit-output</code>, <code>renderkit-structure</code>. Local <code>-T8</code> went from 4:21 to 3:58; <code>-T4</code> from 6:38 to 5:58.</p>
+
+<h4>HttpClient connection reuse</h4>
+
+<p>The Selenium <code>BaseITNG.getResponseBody(String)</code> helper was instantiating a fresh <code>java.net.http.HttpClient</code> on every call. Each <code>HttpClient.newHttpClient()</code> spins up a selector thread and a worker executor; the cost is barely visible on Linux where socket setup is cheap, but on macOS where Mach networking has slower TCP setup it was burning a noticeable share of the api-application and api-component-* wall. A one-line change to cache the client as a static field cut a M1 Pro <code>-T5</code> run from 5:58 to 4:47.</p>
+
+<h4>Per-test progress visibility</h4>
+
+<p>Maven's per-module test output at <code>-T<i>n</i></code> is buffered until the module finishes, which is fine for a green build but unhelpful when something hangs. <code>ProgressListener</code> is a JUnit Platform <code>TestExecutionListener</code> registered via the <code>META-INF/services</code> SPI. It prints one colour-tagged line per test event:</p>
+
+<pre class="prettyprint"><code class="lang-java">[RUNNING][SLOT1][faces20-api-application-misc][1/35] SecretIT#secretRenderPassthroughTest()
+[SKIPPED][SLOT3][faces22-ajax-inputs][4/95] Issue3833IT#test  reason: ignored at the request by myfaces
+[FAILED][SLOT3][faces20-api-component-html-input][5/123] HtmlCommandButtonIT#actionTest  exception: ...</code></pre>
+
+<p>The slot tag identifies which gf-pool slot the failsafe-forked JVM is leasing, read from the <code>gf.pool.slot</code> system property the agent publishes. The module tag reads <code>${project.build.finalName}</code> with the <code>test-</code> prefix stripped. The progress counter reports the per-JVM count out of the total test plan, which with <code>reuseForks=false</code> maps one to one to "test N of M within this IT class". Both tags degrade gracefully to absent if their underlying property is missing, so the listener works unchanged when vendors run the TCK against their own server outside the gf-pool environment. On failure the full stack trace is printed inline, so the build log is sufficient for triage even when <code>target/failsafe-reports</code> is incomplete from an aborted run.</p>
+
+<h4>The numbers</h4>
+
+<ul>
+<li>Faces 4.0 era, sequential Ant-driven TCK, Jenkins: <b>3h 19m</b>; local: <b>2h 57m</b></li>
+<li>After <a href="https://github.com/jakartaee/faces/pull/2146">#2146</a>-<a href="https://github.com/jakartaee/faces/pull/2150">#2150</a> (selenium migration), Jenkins: <b>1h 18m</b>; local: <b>1h 5m</b></li>
+<li>After <a href="https://github.com/jakartaee/faces/pull/2156">#2156</a> (gf-pool), Jenkins at <code>-T4</code>: <b>24:23</b>; local at <code>-T4</code>: <b>10:13</b>; local at <code>-T8</code>: <b>6:49</b></li>
+<li>After <a href="https://github.com/jakartaee/faces/pull/2157">#2157</a> (framework cleanup + first wave of module splits), local at <code>-T4</code>: <b>10:13 → 6:38</b>; local at <code>-T8</code>: <b>6:49 → 4:21</b></li>
+<li>After <a href="https://github.com/jakartaee/faces/pull/2158">#2158</a> (api-component split + further consolidation), local at <code>-T4</code>: <b>6:38 → 5:58</b>; <code>-T8</code>: <b>4:21 → 3:58</b></li>
+</ul>
+
+<p>Wall is now bottlenecked by the natural minimum: pool start, the longest test module, pool stop. Further wall improvements need either a faster individual test (the <code>isInPage</code>/<code>isInPageText</code> migration noted above is one such), more CPU headroom on the build host, or convincing the Eclipse Foundation to raise the <code>cpu=2</code> quota on the Mojarra release pipeline's Jenkins agent.</p>
+
+<p>Info: Jenkins runs Kubernetes, "2CPU", 16GB; local machine runs i9-10900x, 32GB DDR4, U.2 SSD.</p>
+
+<script>prettyPrint()</script>
