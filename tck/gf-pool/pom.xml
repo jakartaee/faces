@@ -89,6 +89,22 @@
             the unpack + mojarra overlay are skipped.
         -->
         <gf.pool.source>${gf.pool.dist}/glassfish9</gf.pool.source>
+
+        <!--
+            Skip gates for the unpack/overlay/start-pool executions. Default false;
+            the profiles below flip this to true under -DskipTests or
+            -Dmaven.test.skip so a no-test build (e.g. just packaging the jar)
+            doesn't pay the GlassFish unpack + Mojarra overlay + slot bootstrap
+            cost. The standalone start-pool.sh / stop-pool.sh helpers are
+            unaffected — they don't run through this lifecycle.
+        -->
+        <gf.pool.skip>false</gf.pool.skip>
+        <!--
+            Composed skip for overlay-mojarra: skip if either gf.pool.skip is true
+            (no test pool wanted at all) or mojarra.noupdate is true (test against
+            the Mojarra that ships with GlassFish). Default false.
+        -->
+        <gf.pool.overlay.skip>${mojarra.noupdate}</gf.pool.overlay.skip>
     </properties>
 
     <build>
@@ -118,6 +134,7 @@
                             <goal>unpack</goal>
                         </goals>
                         <configuration>
+                            <skip>${gf.pool.skip}</skip>
                             <outputDirectory>${gf.pool.dist}</outputDirectory>
                             <markersDirectory>${gf.pool.dist}/markers</markersDirectory>
                             <artifactItems>
@@ -138,7 +155,7 @@
                             <goal>copy</goal>
                         </goals>
                         <configuration>
-                            <skip>${mojarra.noupdate}</skip>
+                            <skip>${gf.pool.overlay.skip}</skip>
                             <outputDirectory>${gf.pool.dist}/glassfish9/glassfish/modules</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
@@ -174,6 +191,7 @@
                             <goal>run</goal>
                         </goals>
                         <configuration>
+                            <skip>${gf.pool.skip}</skip>
                             <target>
                                 <!--
                                     Arm the JVM shutdown hook FIRST, before pool-up.sh
@@ -261,6 +279,41 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+
+        <!--
+            Skip the entire pool lifecycle (unpack + overlay + start-pool) under
+            -DskipTests or -Dmaven.test.skip. The pool only exists to serve the
+            tests, so a no-test build shouldn't pay the GlassFish unpack +
+            Mojarra overlay + slot bootstrap cost. The standalone start-pool.sh
+            / stop-pool.sh helpers are unaffected — they don't go through this
+            lifecycle.
+        -->
+        <profile>
+            <id>gf-pool-skip-on-skipTests</id>
+            <activation>
+                <property>
+                    <name>skipTests</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <gf.pool.skip>true</gf.pool.skip>
+                <gf.pool.overlay.skip>true</gf.pool.overlay.skip>
+            </properties>
+        </profile>
+        <profile>
+            <id>gf-pool-skip-on-maven-test-skip</id>
+            <activation>
+                <property>
+                    <name>maven.test.skip</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <gf.pool.skip>true</gf.pool.skip>
+                <gf.pool.overlay.skip>true</gf.pool.overlay.skip>
+            </properties>
         </profile>
     </profiles>
 </project>

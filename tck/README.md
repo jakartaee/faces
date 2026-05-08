@@ -110,17 +110,18 @@ mvn clean install -T4 -Dglassfish.home=/path/to/glassfish
 
 | Flag | Effect |
 | --- | --- |
+| `-T1` | Sequential build, single slot. This is Maven's default when `-T` is omitted. |
+| `-T8` | Eight Maven threads. Pool grows on demand to match. |
+| `-Dgf.pool.size=N` | Pre-provision N slots at build time instead of the default 1. |
+| `-Dglassfish.home=/path/to/glassfish9` | Skip the GlassFish download; clone slots from an existing install. Each slot still gets a fresh copy of `domains/` with `applications/`, `generated/`, `logs/` cleared. |
+| `-DskipTests` / `-Dmaven.test.skip` | Skip the entire pool lifecycle (GlassFish unpack + Mojarra overlay + slot bootstrap), in addition to skipping tests. Use when you only want a clean compile/package without paying the pool cost. |
 | `-Dmojarra.version=X.Y.Z` | Test against a specific Mojarra release/snapshot. |
 | `-Dmojarra.noupdate=true` | Skip the Mojarra overlay; test the build that ships with GlassFish. Set `-Dsigtest.api.version=` to match the API GlassFish ships. |
-| `-Dglassfish.home=/path/to/glassfish9` | Skip the GlassFish download; clone slots from an existing install. Each slot still gets a fresh copy of `domains/` with `applications/`, `generated/`, `logs/` cleared. |
-| `-Dgf.pool.size=N` | Pre-provision N slots at build time instead of the default 1. |
 | `-Dee.jakarta.tck.faces.timeout=N` | Selenium wait timeout in milliseconds (default `10000`). Bump on old, slow, or overloaded systems where the default 10 s isn't enough for HTTP navigations or ajax requests to settle, e.g. `-Dee.jakarta.tck.faces.timeout=30000` for 30 s. |
 | `-Dwebapp.projectStage=…` | `jakarta.faces.PROJECT_STAGE` for every test webapp (default `Production`). Set to `Development` to exercise dev-stage code paths. |
 | `-Dwebapp.partialStateSaving=…` | `jakarta.faces.PARTIAL_STATE_SAVING` (default `true`). Set to `false` to run the suite under full-state-saving. |
 | `-Dwebapp.stateSavingMethod=…` | `jakarta.faces.STATE_SAVING_METHOD` (default `server`). Set to `client` to run the suite under client-side state saving. |
 | `-Dwebapp.serializeServerState=…` | `jakarta.faces.SERIALIZE_SERVER_STATE` (default `false`). Set to `true` to force server-state serialization. |
-| `-T8` | Eight Maven threads. Pool grows on demand to match. |
-| `-T1` | Sequential build, single slot. This is Maven's default when `-T` is omitted. |
 
 A handful of test modules pin a specific webapp context parameter value and ignore
 the `-Dwebapp.*` flags — those carry a `DO NOT PARAMETERIZE` comment in their `web.xml`
@@ -209,6 +210,26 @@ lease count):
 
 ```bash
 watch -n 1 'pgrep -fa "java.*surefirebooter" | grep -v "/bin/sh" | wc -l'
+```
+
+### Testing local Mojarra changes in a sub-module
+
+The Mojarra overlay is performed **once per slot** during `gf-pool` provisioning.
+TCK runs that don't include `gf-pool` in the reactor (typically sub-module runs
+like `cd faces50/facelets && mvn install`) do **not** re-resolve Mojarra — they
+reuse whatever jar is already in the slot. Editing files under `~/git/mojarra` and
+re-running the TCK sub-module alone will silently test against the stale jar and the
+changes won't take effect.
+
+To exercise local Mojarra changes end-to-end re-run from the tck root with `-am`
+so `gf-pool`'s clean wipes the pool and the next bootstrap re-overlays the fresh
+Mojarra jar from `~/.m2`:
+
+```bash
+cd ~/git/mojarra/impl
+mvn clean install
+cd ~/git/faces/tck
+mvn clean install -am -pl faces50/facelets
 ```
 
 ## Testing against other servers (WIP)
