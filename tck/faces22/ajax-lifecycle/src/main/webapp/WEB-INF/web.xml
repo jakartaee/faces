@@ -26,9 +26,10 @@
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
     </context-param>
+    <!-- DO NOT PARAMETERIZE PARTIAL_STATE_SAVING, Issue1821IT/Issue2640IT/Issue2910IT exercise ajax+commandLink inside ui:repeat which only works reliably under PSS; this is a known FSS corner case (FSS itself is deprecated in Faces 4.1) -->
     <context-param>
         <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>
-        <param-value>${webapp.partialStateSaving}</param-value>
+        <param-value>true</param-value>
     </context-param>
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>
@@ -49,11 +50,11 @@
     </filter-mapping>
 
     <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-name>facesServlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-name>facesServlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
 

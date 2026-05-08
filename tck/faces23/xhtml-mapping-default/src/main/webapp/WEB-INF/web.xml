@@ -37,17 +37,6 @@
         <param-name>jakarta.faces.SERIALIZE_SERVER_STATE</param-name>
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
-<context-param>
-        <param-name>jakarta.faces.CONFIG_FILES</param-name>
-        <param-value>/WEB-INF/alt-faces-config.xml</param-value>
-    </context-param>
-<servlet>
-        <servlet-name>facesServlet</servlet-name>
-        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>facesServlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
 
+	<!-- DO NOT DECLARE FacesServlet OR *.xhtml servlet-mapping, Spec1434IT verifies the spec1434 default auto-mapping that kicks in only when none is declared -->
 </web-app>

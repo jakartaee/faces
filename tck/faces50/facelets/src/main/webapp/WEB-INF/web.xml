@@ -25,9 +25,10 @@
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
     </context-param>
+    <!-- DO NOT PARAMETERIZE PARTIAL_STATE_SAVING, Issue5584IT exercises a composite component re-render which only works reliably under PSS; this is a known FSS corner case (FSS itself is deprecated in Faces 4.1) -->
     <context-param>
         <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>
-        <param-value>${webapp.partialStateSaving}</param-value>
+        <param-value>true</param-value>
     </context-param>
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>

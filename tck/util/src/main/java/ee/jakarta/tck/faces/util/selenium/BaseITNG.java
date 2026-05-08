@@ -82,9 +82,35 @@ public abstract class BaseITNG implements ExecutionCondition {
                 .as(WebArchive.class);
     }
 
+    private boolean warmedUp;
+
     @BeforeEach
     void setUp() {
         webDriver = driverPool.getOrNewInstance();
+        warmUpOnce();
+    }
+
+    /**
+     * One cheap GET to the deployed app's root before the first test runs, to pay
+     * first-request lazy-init tax (resource scan, view-handler init,
+     * dev-mode validators) up front instead of on whichever @Test happens to run
+     * first. Especially relevant under PROJECT_STAGE=Development where the first
+     * ajax round-trip can otherwise exceed Selenium's wait timeout.
+     */
+    private void warmUpOnce() {
+        if (warmedUp) {
+            return;
+        }
+        warmedUp = true;
+        try {
+            HTTP.send(newBuilder(create(webUrl.toString())).build(), ofString());
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } catch (IOException ignore) {
+            // Warm-up is best-effort; a non-200 (404 on welcome file, ConnectException
+            // mid-deploy, etc.) is fine — the side effect of touching the app is what
+            // matters.
+        }
     }
 
     @AfterEach

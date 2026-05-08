@@ -115,8 +115,30 @@ mvn clean install -T4 -Dglassfish.home=/path/to/glassfish
 | `-Dglassfish.home=/path/to/glassfish9` | Skip the GlassFish download; clone slots from an existing install. Each slot still gets a fresh copy of `domains/` with `applications/`, `generated/`, `logs/` cleared. |
 | `-Dgf.pool.size=N` | Pre-provision N slots at build time instead of the default 1. |
 | `-Dee.jakarta.tck.faces.timeout=N` | Selenium wait timeout in milliseconds (default `10000`). Bump on old, slow, or overloaded systems where the default 10 s isn't enough for HTTP navigations or ajax requests to settle, e.g. `-Dee.jakarta.tck.faces.timeout=30000` for 30 s. |
+| `-Dwebapp.projectStage=…` | `jakarta.faces.PROJECT_STAGE` for every test webapp (default `Production`). Set to `Development` to exercise dev-stage code paths. |
+| `-Dwebapp.partialStateSaving=…` | `jakarta.faces.PARTIAL_STATE_SAVING` (default `true`). Set to `false` to run the suite under full-state-saving. |
+| `-Dwebapp.stateSavingMethod=…` | `jakarta.faces.STATE_SAVING_METHOD` (default `server`). Set to `client` to run the suite under client-side state saving. |
+| `-Dwebapp.serializeServerState=…` | `jakarta.faces.SERIALIZE_SERVER_STATE` (default `false`). Set to `true` to force server-state serialization. |
 | `-T8` | Eight Maven threads. Pool grows on demand to match. |
 | `-T1` | Sequential build, single slot. This is Maven's default when `-T` is omitted. |
+
+A handful of test modules pin a specific webapp context parameter value and ignore
+the `-Dwebapp.*` flags — those carry a `DO NOT PARAMETERIZE` comment in their `web.xml`
+along with reason.
+
+The four `webapp.*` flags can be combined; for example, run the whole suite under
+client-side state saving in development stage:
+
+```bash
+mvn clean install -Dwebapp.projectStage=Development -Dwebapp.stateSavingMethod=client
+```
+
+Or sweep one configuration matrix axis for a single module:
+
+```bash
+cd faces50/ajax
+mvn clean install -Dwebapp.partialStateSaving=false
+```
 
 ### Sizing `-T` and the pool for the host
 
