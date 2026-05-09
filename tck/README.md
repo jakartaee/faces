@@ -24,27 +24,40 @@ test transfer is used — all assertions run client-side.
 ## Architecture: the GlassFish pool
 
 The TCK runs every test module against a pre-started GlassFish instance from a
-shared **pool**, leased per-module by a Java agent attached to each
-failsafe-forked test JVM. The pool lives entirely under
-`gf-pool/target/pool/` and is wiped by `mvn clean`.
+shared **pool**, leased per-module by an Arquillian extension running inside
+each failsafe-forked test JVM. The pool lives entirely under `target/pool/` at
+the reactor root and is wiped by `mvn clean`.
 
-- `gf-pool` module: unpacks GlassFish, overlays the Mojarra build under test,
-  clones the install into `slot-N/` directories (hardlinked via `cp -al`),
-  patches each slot's port range, and starts the initial slot's domain.
-- `SlotLeaserAgent` (Java agent, `-javaagent:slot-leaser-agent.jar`):
-  acquires a `FileLock` on `slot-N/lock`, publishes the slot's
-  `arquillian.adminPort` / `httpPort` / `httpsPort` as system properties for
-  the Arquillian remote container, and holds the lock for the JVM lifetime
-  (released automatically on JVM exit).
-- Grow-on-demand: if every existing slot is leased, the agent provisions
-  another slot. Concurrent demand naturally caps growth at the running
-  `-T` value (each test JVM only ever leases one slot), so a single
-  `mvn -Dit.test=…` boots one server, `mvn -T4 install` grows to four,
-  `mvn -T16 install` grows to sixteen.
-- `ShutdownHookInstaller`: a custom Ant task registered by the `gf-pool`
-  antrun. Runs in the Maven JVM and installs a JVM shutdown hook that stops
-  every running slot at session end — both on normal completion and on
-  `Ctrl+C`.
+- `glassfish-pool-maven-plugin` (sibling of OmniFish's other Arquillian
+  GlassFish containers, in
+  [arquillian-container-glassfish](https://github.com/OmniFish-EE/arquillian-container-glassfish)):
+  bound to `initialize` per test module via the parent profile. On the first
+  call it stages the dist (resolves the GlassFish zip from Maven Central,
+  unpacks it under `target/dist/glassfish9`, overlays the Mojarra build
+  under test into its `modules/`), then clones that install into `slot-N/`
+  directories (hardlinked via `Files.createLink`, the `cp -al` equivalent),
+  patches each slot's port range, and starts the initial slot's domain. Its
+  `up()` is JVM-wide synchronized + idempotent and the dist unpack is
+  marker-guarded by GAV, so concurrent test modules under `-TN` converge on
+  one provisioning and the unpack only re-runs when the dist version
+  changes.
+- `arquillian-glassfish-server-pool` (the runtime jar, on every test
+  module's classpath via the `glassfish-ci-managed` profile): an Arquillian
+  `LoadableExtension` whose `DeployableContainer` acquires a `FileLock` on
+  `slot-N/lock` at container start, reads the slot's published
+  `ports.properties`, configures the deploy, and holds the lock for the JVM
+  lifetime (released automatically on JVM exit). Also exposes the slot
+  index as the `gf.pool.slot` system property so the test ProgressListener
+  can tag output with `[SLOTn]`.
+- Grow-on-demand: if every existing slot is leased, the leaser provisions
+  another slot from the test JVM (using the `gf.pool.source` system property
+  the failsafe config forwards). Concurrent demand naturally caps growth
+  at the running `-T` value (each test JVM only ever leases one slot), so a
+  single `mvn -Dit.test=…` boots one server, `mvn -T4 install` grows to
+  four, `mvn -T16 install` grows to sixteen.
+- Shutdown hook: `glassfish-pool:up` arms a JVM shutdown hook in the Maven
+  process that stops every running slot at session end — both on normal
+  completion and on `Ctrl+C`.
 
 ## Running the tests
 
@@ -66,7 +79,7 @@ on host capacity.
 
 A single test module — just `cd` into it and run `mvn`. The `.mvn/`
 marker at the tck root pins `${maven.multiModuleProjectDirectory}`
-there, so the gf-pool javaagent path resolves correctly even when
+there, so the pool dir resolves to the same shared location even when
 Maven is invoked from a subdirectory:
 
 ```bash
@@ -90,17 +103,24 @@ mvn clean install -Dit.test=Issue5594IT#someMethod
 ```
 
 If you'd rather stay at the tck root, the `-pl` form still works
-(use `-am` to also pull in upstream `util` / `gf-pool`):
+(use `-am` to also pull in upstream `util`):
 
 ```bash
-mvn -pl faces50/ajax -am clean install -T4
-mvn -pl faces50/ajax -am clean install -Dit.test=Issue5594IT
+mvn clean install -am -pl faces50/ajax -T4
+mvn clean install -am -pl faces50/ajax -Dit.test=Issue5594IT -Dfailsafe.failIfNoSpecifiedTests=false
 ```
 
-Against an existing GlassFish install (skips the zip download and the
-Mojarra overlay; that install becomes the pool's clone source — every
-slot is `cp -al`-cloned from it, with `applications/`, `generated/`,
-`logs/` cleared per slot):
+Note: `-Dfailsafe.failIfNoSpecifiedTests=false` is required whenever you
+combine `-am` with `-Dit.test=…`, because failsafe fails the build by
+default if the test filter matches nothing in any module — and upstream
+modules like `util` carry no integration tests.
+
+Against an existing GlassFish install (skips the zip download; that
+install becomes the pool's clone source — the Mojarra build under test
+is overlaid into `${glassfish.home}/glassfish/modules/` and every slot
+is `cp -al`-cloned from it, with `applications/`, `generated/`,
+`logs/` cleared per slot). Add `-Dmojarra.noupdate=true` to also skip
+the overlay:
 
 ```bash
 mvn clean install -T4 -Dglassfish.home=/path/to/glassfish
@@ -113,8 +133,8 @@ mvn clean install -T4 -Dglassfish.home=/path/to/glassfish
 | `-T1` | Sequential build, single slot. This is Maven's default when `-T` is omitted. |
 | `-T8` | Eight Maven threads. Pool grows on demand to match. |
 | `-Dgf.pool.size=N` | Pre-provision N slots at build time instead of the default 1. |
-| `-Dglassfish.home=/path/to/glassfish9` | Skip the GlassFish download; clone slots from an existing install. Each slot still gets a fresh copy of `domains/` with `applications/`, `generated/`, `logs/` cleared. |
-| `-DskipTests` / `-Dmaven.test.skip` | Skip the entire pool lifecycle (GlassFish unpack + Mojarra overlay + slot bootstrap), in addition to skipping tests. Use when you only want a clean compile/package without paying the pool cost. |
+| `-Dglassfish.home=/path/to/glassfish9` | Skip the GlassFish download; clone slots from the existing install at the given path. The Mojarra overlay still applies (writes `mojarra.jar` into `${glassfish.home}/glassfish/modules/`); combine with `-Dmojarra.noupdate=true` to skip that too. |
+| `-DskipTests` / `-Dmaven.test.skip` | Skip the entire pool lifecycle (dist unpack + Mojarra overlay + slot bootstrap), in addition to skipping tests. Use when you only want a clean compile/package without paying the pool cost. |
 | `-Dmojarra.version=X.Y.Z` | Test against a specific Mojarra release/snapshot. |
 | `-Dmojarra.noupdate=true` | Skip the Mojarra overlay; test the build that ships with GlassFish. Set `-Dsigtest.api.version=` to match the API GlassFish ships. |
 | `-Dee.jakarta.tck.faces.timeout=N` | Selenium wait timeout in milliseconds (default `10000`). Bump on old, slow, or overloaded systems where the default 10 s isn't enough for HTTP navigations or ajax requests to settle, e.g. `-Dee.jakarta.tck.faces.timeout=30000` for 30 s. |
@@ -185,24 +205,42 @@ mvn clean install -T8 -Dgf.pool.size=8
 
 ## Pool lifecycle helpers
 
-The pool is normally stopped automatically at the end of every Maven session
-by `ShutdownHookInstaller`. Two convenience scripts are provided for running the
-pool independently of a build:
+The pool comes up automatically at the start of any test build and is
+stopped by a JVM shutdown hook at session end. For ad-hoc lifecycle
+control there are direct goals on `glassfish-pool-maven-plugin`:
 
 ```bash
-./start-pool.sh                                 # provision and start the pool
-./start-pool.sh -Dglassfish.home=/path/to/gf    # pass through gf-pool overrides
-./stop-pool.sh                                  # stop everything
+mvn -N glassfish-pool:up        # provision and start the pool
+mvn -N glassfish-pool:status    # live top-style table (idx, port, alive, leased)
+mvn -N glassfish-pool:provision -Dgf.pool.slot=N   # add slot N to a running pool
+mvn -N glassfish-pool:down      # stop every slot's domain
+mvn -N glassfish-pool:nuke      # stop + wipe the pool dir entirely
 ```
 
-Both scripts are idempotent: they `pkill` any slot JVMs whose `--module-path`
-points into `gf-pool/target/pool/` before doing their main work. This matters
-because `ShutdownHookInstaller` only fires when the Maven session that spawned
-the slots exits cleanly **and** has `gf-pool` in its reactor. Running from a
-sub-reactor (`cd faces22 && mvn install`) or aborting with Ctrl+C leaves the
-slot JVMs alive holding their ports, which would collide with the next
-bootstrap. Re-running `./start-pool.sh` reaps the stragglers automatically;
-explicit `./stop-pool.sh` is only needed when you want the host released.
+`-N` (non-recursive) keeps the goal from firing once per module — it only
+needs to run on the reactor root, since the pool dir, source, and port
+layout are all resolved from root-level properties.
+
+`glassfish-pool:up` resolves the GlassFish dist + Mojarra overlay from
+Maven, unpacks them under `target/dist/`, and provisions slots:
+
+```bash
+mvn -N glassfish-pool:up
+
+# Or skip the download entirely with an existing install:
+mvn -N glassfish-pool:up -Dglassfish.home=/path/to/glassfish9
+```
+
+The shutdown hook fires when the Maven session that spawned the slots exits.
+Aborting with Ctrl+C still triggers it; only a `kill -9` of the Maven
+process itself can leave slot JVMs orphaned. If that happens (rare),
+`mvn -N glassfish-pool:nuke` reaps everything and resets the pool dir.
+
+The plugin prefix `glassfish-pool:` resolves out of the box from any
+directory in this repo because the parent pom registers the plugin in
+`<pluginManagement>`. Outside this repo, add `ee.omnifish.arquillian` to
+`<pluginGroups>` in `~/.m2/settings.xml` or use the long form
+`mvn ee.omnifish.arquillian:glassfish-pool-maven-plugin:<goal>`.
 
 To watch how many surefire-forked test JVMs are running concurrently
 during a build (each one leases a slot, so this is also the live slot
@@ -214,16 +252,16 @@ watch -n 1 'pgrep -fa "java.*surefirebooter" | grep -v "/bin/sh" | wc -l'
 
 ### Testing local Mojarra changes in a sub-module
 
-The Mojarra overlay is performed **once per slot** during `gf-pool` provisioning.
-TCK runs that don't include `gf-pool` in the reactor (typically sub-module runs
-like `cd faces50/facelets && mvn install`) do **not** re-resolve Mojarra — they
-reuse whatever jar is already in the slot. Editing files under `~/git/mojarra` and
-re-running the TCK sub-module alone will silently test against the stale jar and the
-changes won't take effect.
+The Mojarra jar is hardlinked into each slot at pool provisioning time. TCK
+runs where the pool is already up reuse whatever jar is already in the slot.
+Editing files under `~/git/mojarra` and re-running a TCK sub-module against a
+still-running pool will silently test against the stale jar.
 
-To exercise local Mojarra changes end-to-end re-run from the tck root with `-am`
-so `gf-pool`'s clean wipes the pool and the next bootstrap re-overlays the fresh
-Mojarra jar from `~/.m2`:
+`mvn clean install` from the TCK **root** picks up the fresh Mojarra
+automatically: the root pom is in the reactor, so `clean` wipes
+`<root>/target/` — including `target/pool` and `target/dist` — and the
+next build re-overlays + re-clones from scratch. The cost is that you
+build and test every module.
 
 ```bash
 cd ~/git/mojarra/impl
@@ -232,9 +270,17 @@ cd ~/git/faces/tck
 mvn clean install -am -pl faces50/facelets
 ```
 
-Or a specific test:
+The fast iteration path is `mvn clean install -am -pl <module>`, which
+restricts the reactor to that module + its upstream deps. The TCK root
+pom is **not** in this reactor (`-am` pulls in dependency modules, not
+the parent), so `clean` doesn't touch `<root>/target` and the existing
+slots — hardlinked to the *old* Mojarra jar — survive. `pool-up`'s
+"is the pool already healthy?" fast-path then skips re-cloning, so the
+sub-reactor build silently uses the stale jar. To force a refresh, run
+`glassfish-pool:nuke` first to wipe `target/pool`:
 
 ```bash
+mvn -N glassfish-pool:nuke
 mvn clean install -am -pl faces23/cdi -Dit.test=Issue4551IT -Dfailsafe.failIfNoSpecifiedTests=false
 ```
 

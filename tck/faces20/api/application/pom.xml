@@ -47,6 +47,11 @@
             <artifactId>api-common-tckjar</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
+            <artifactId>api-component-tckjar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
