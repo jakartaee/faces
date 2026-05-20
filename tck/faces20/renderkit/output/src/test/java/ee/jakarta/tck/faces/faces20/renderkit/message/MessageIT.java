@@ -17,6 +17,7 @@ package ee.jakarta.tck.faces.faces20.renderkit.message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -122,14 +123,17 @@ class MessageIT extends BaseITNG {
 
     private void submitAndAssertAttributes(int caseNumber, String inputId, String severity,
                                            Map<String, String> expectedAttributes) {
-        WebElement messageSpan = submitCase(caseNumber, inputId, severity);
+        WebPage page = getPage("message/encodetest.xhtml");
+        WebElement messageSpan = submitCaseOn(page, caseNumber, inputId, severity);
         expectedAttributes.forEach((name, value) ->
-            assertEquals(value, messageSpan.getDomAttribute(name),
-                "Case " + caseNumber + " message " + name));
+            assertTrue(page.hasAttributeValue(messageSpan, name, value), "Case " + caseNumber + " message " + name));
     }
 
     private WebElement submitCase(int caseNumber, String inputId, String severity) {
-        WebPage page = getPage("message/encodetest.xhtml");
+        return submitCaseOn(getPage("message/encodetest.xhtml"), caseNumber, inputId, severity);
+    }
+
+    private WebElement submitCaseOn(WebPage page, int caseNumber, String inputId, String severity) {
         String idField = "id" + caseNumber;
         String severityField = caseNumber >= 7 ? inputId.substring(inputId.indexOf(':') + 1) : "input" + caseNumber;
 
@@ -156,7 +160,7 @@ class MessageIT extends BaseITNG {
         page.guardHttp(button::click);
         WebElement message = findByIdSuffix(page, "message");
         expected.forEach((name, value) ->
-            assertEquals(value, message.getDomAttribute(name), "message attribute " + name));
+            assertTrue(page.hasAttributeValue(message, name, value), "message attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

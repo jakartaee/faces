@@ -16,6 +16,7 @@
 package ee.jakarta.tck.faces.faces20.renderkit.outputtext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.LinkedHashMap;
@@ -80,7 +81,7 @@ class OutputtextIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement output = findByIdSuffix(page, "output1");
         expected.forEach((name, value) ->
-            assertEquals(value, output.getDomAttribute(name), "output1 attribute " + name));
+            assertTrue(page.hasAttributeValue(output, name, value), "output1 attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

@@ -220,7 +220,7 @@ class MessagesIT extends BaseITNG {
         page.guardHttp(button::click);
         WebElement ul = findByIdSuffix(page, "messages");
         expected.forEach((name, value) ->
-            assertEquals(value, ul.getDomAttribute(name), "messages attribute " + name));
+            assertTrue(page.hasAttributeValue(ul, name, value), "messages attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
