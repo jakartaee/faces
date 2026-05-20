@@ -170,7 +170,7 @@ class OneradioIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement radio = findByIdSuffix(page, "radio1:0");
         expected.forEach((name, value) ->
-            assertEquals(value, radio.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(radio, name, value), "attribute " + name));
     }
 
     private static WebElement findLabelFor(WebPage page, String forId) {

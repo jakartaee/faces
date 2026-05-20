@@ -16,7 +16,6 @@
 package ee.jakarta.tck.faces.faces50.uiinput;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -87,7 +86,9 @@ class Spec1507IT extends BaseITNG {
     void testComponentAttribute() {
         var page = getPage("spec1507.xhtml");
 
-        assertNotNull(input1.getDomAttribute("oninput"));
+        assertTrue(page.hasAttributeValue(input1, "oninput",
+            "document.getElementById('form1:output1').innerHTML = this.value"),
+            "form1:input1 oninput is wired");
 
         assertEquals("", output1.getText());
 
@@ -195,9 +196,9 @@ class Spec1507IT extends BaseITNG {
         assertTrue(page.containsText("500"));
     }
 
-    private void assertBehaviorScriptRendered(WebPage page, WebElement input, String behaviorEventName) {
-        var scripts = page.getBehaviorScripts(input);
-        assertTrue(scripts.stream().anyMatch(script -> script.contains("'" + behaviorEventName + "'") || script.contains("\"" + behaviorEventName + "\"")), scripts.toString());
+    private static void assertBehaviorScriptRendered(WebPage page, WebElement input, String behaviorEventName) {
+        assertTrue(page.isAttributeWired(input, "on" + behaviorEventName),
+            "behavior wired on " + behaviorEventName);
     }
 
 }

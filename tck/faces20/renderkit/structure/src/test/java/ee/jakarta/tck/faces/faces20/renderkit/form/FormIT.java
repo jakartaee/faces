@@ -16,6 +16,7 @@
 package ee.jakarta.tck.faces.faces20.renderkit.form;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.LinkedHashMap;
@@ -120,7 +121,7 @@ class FormIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement form = findByIdSuffix(page, "form1");
         expected.forEach((name, value) ->
-            assertEquals(value, form.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(form, name, value), "attribute " + name));
     }
 
     private static String valueOrEmpty(WebElement element) {

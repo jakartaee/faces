@@ -16,8 +16,8 @@
 package ee.jakarta.tck.faces.faces20.renderkit.commandlink;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -38,23 +38,23 @@ class CommandlinkIT extends BaseITNG {
         WebElement link1 = findByIdSuffix(page, "link1");
         assertEquals("#", link1.getDomAttribute("href"), "link1 href");
         assertEquals("Click Me1", link1.getText(), "link1 text");
-        assertNotNull(page.getBehaviorScript(link1), "link1 onclick script");
+        assertTrue(page.isAttributeWired(link1, "onclick"), "link1 onclick wired");
 
         WebElement link2 = findByIdSuffix(page, "link2");
         assertEquals("#", link2.getDomAttribute("href"), "link2 href");
         assertEquals("Click Me2", link2.getText(), "link2 text");
         assertEquals("sansserif", link2.getDomAttribute("class"), "link2 class");
-        assertNotNull(page.getBehaviorScript(link2), "link2 onclick script");
+        assertTrue(page.isAttributeWired(link2, "onclick"), "link2 onclick wired");
 
         WebElement link3 = findByIdSuffix(page, "link3");
         assertEquals("#", link3.getDomAttribute("href"), "link3 href");
         assertEquals("Click Me3", link3.getText(), "link3 text");
-        assertNotNull(page.getBehaviorScript(link3), "link3 onclick script");
+        assertTrue(page.isAttributeWired(link3, "onclick"), "link3 onclick wired");
 
         WebElement link5 = findByIdSuffix(page, "link5");
         assertEquals("sansserif", link5.getDomAttribute("class"), "link5 class");
         assertEquals("Disabled Link", link5.getText(), "link5 text");
-        assertNull(page.getBehaviorScript(link5), "link5 no onclick (disabled)");
+        assertFalse(page.isAttributeWired(link5, "onclick"), "link5 no onclick (disabled)");
 
         WebElement link6 = findByIdSuffix(page, "link6");
         assertEquals("Disabled Link(Nested)", link6.getText(), "link6 text (nested, disabled)");
@@ -155,7 +155,7 @@ class CommandlinkIT extends BaseITNG {
     private static void verifyAttributes(WebPage page, String id, Map<String, String> expected) {
         WebElement element = findByIdSuffix(page, id);
         expected.forEach((name, value) ->
-            assertEquals(value, element.getDomAttribute(name), id + " attribute " + name));
+            assertTrue(page.hasAttributeValue(element, name, value), id + " attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

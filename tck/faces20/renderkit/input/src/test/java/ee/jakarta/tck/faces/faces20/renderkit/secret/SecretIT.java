@@ -126,7 +126,7 @@ class SecretIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement input = findByIdSuffix(page, "pass1");
         expected.forEach((name, value) ->
-            assertEquals(value, input.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(input, name, value), "attribute " + name));
     }
 
     private static void assertValueNotRendered(WebElement element, String id) {
