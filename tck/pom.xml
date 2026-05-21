@@ -97,6 +97,7 @@
         <gf.pool.portStride>100</gf.pool.portStride>
         <gf.pool.unpack.skip>false</gf.pool.unpack.skip>
         <gf.pool.overlay.skip>${mojarra.noupdate}</gf.pool.overlay.skip>
+        <gf.pool.restartOnRelease>false</gf.pool.restartOnRelease>
 
         <!-- Jakarta EE API versions matching the GlassFish server -->
         <jakarta.faces-api.version>${faces.version}</jakarta.faces-api.version>
@@ -691,6 +692,7 @@
                                 <gf.pool.source>${gf.pool.source}</gf.pool.source>
                                 <gf.pool.adminBase>${gf.pool.adminBase}</gf.pool.adminBase>
                                 <gf.pool.portStride>${gf.pool.portStride}</gf.pool.portStride>
+                                <gf.pool.restartOnRelease>${gf.pool.restartOnRelease}</gf.pool.restartOnRelease>
                                 <test.selenium>${test.selenium}</test.selenium>
                                 <java.util.logging.config.useDefaults>true</java.util.logging.config.useDefaults>
                                 <java.util.logging.config.defaultLevel>${test.logLevel}</java.util.logging.config.defaultLevel>
