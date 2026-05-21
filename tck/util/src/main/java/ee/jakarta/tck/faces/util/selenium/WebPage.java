@@ -18,6 +18,7 @@ package ee.jakarta.tck.faces.util.selenium;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -190,34 +191,9 @@ public class WebPage {
     }
 
     /**
-     * Returns inline (non-{@code src}) {@code <script>} elements whose textContent
-     * mentions the given input's id (single- or double-quoted) — i.e. the JSF
-     * client-behavior scripts wired up to that input.
-     */
-    public List<WebElement> getBehaviorScriptElements(WebElement input) {
-        var id = input.getAttribute("id");
-        var elements = new ArrayList<WebElement>();
-        for (var script : findElements(By.tagName("script"))) {
-            var src = script.getAttribute("src");
-            if (src == null || src.isEmpty()) {
-                var content = script.getDomProperty("textContent");
-                if (content.contains("'" + id + "'") || content.contains("\"" + id + "\"")) {
-                    elements.add(script);
-                }
-            }
-        }
-        return elements;
-    }
-
-    /**
-     * Same as {@link #getBehaviorScriptElements} but returns the script bodies as strings.
-     */
-    public List<String> getBehaviorScripts(WebElement input) {
-        return getBehaviorScriptElements(input).stream().map(script -> script.getDomProperty("textContent")).toList();
-    }
-
-    /**
-     * Returns the first script element wired to {@code input}, or {@code null} if none.
+     * Returns the first inline (non-{@code src}) {@code <script>} element whose textContent
+     * mentions {@code input}'s id (single- or double-quoted) — i.e. the JSF client-behavior
+     * script wired up to that input. Returns {@code null} if none.
      */
     public WebElement getBehaviorScriptElement(WebElement input) {
         var elements = getBehaviorScriptElements(input);
@@ -230,5 +206,104 @@ public class WebPage {
     public String getBehaviorScript(WebElement input) {
         var scripts = getBehaviorScripts(input);
         return scripts.isEmpty() ? null : scripts.get(0);
+    }
+
+    private List<WebElement> getBehaviorScriptElements(WebElement input) {
+        var quotedId = quoted(input.getAttribute("id"));
+        var elements = new ArrayList<WebElement>();
+        for (var script : findElements(By.tagName("script"))) {
+            var src = script.getAttribute("src");
+            if (src != null && !src.isEmpty()) {
+                continue;
+            }
+            var content = script.getDomProperty("textContent");
+            if (content != null && containsAny(content, quotedId)) {
+                elements.add(script);
+            }
+        }
+        return elements;
+    }
+
+    private List<String> getBehaviorScripts(WebElement input) {
+        return getBehaviorScriptElements(input).stream().map(script -> script.getDomProperty("textContent")).toList();
+    }
+
+    /**
+     * Returns true if {@code element} effectively has {@code attrName} set to {@code expectedValue}.
+     * For {@code on*} event-handler attributes this is implementation-agnostic per Faces 5.0
+     * (jakartaee/faces#2167): the value may either be rendered as an inline {@code on*} attribute on
+     * the element, or be wired at runtime via a {@code <script>} block that mentions the element's
+     * id, the event name, and the expected value. For all other attributes only the inline form
+     * is accepted.
+     */
+    public boolean hasAttributeValue(WebElement element, String attrName, String expectedValue) {
+        if (Objects.equals(expectedValue, element.getDomAttribute(attrName))) {
+            return true;
+        }
+        return expectedValue != null && isOnEventScripted(element, attrName, expectedValue);
+    }
+
+    /**
+     * Returns true if {@code element} has {@code attrName} wired in any form. For {@code on*}
+     * event-handler attributes this is implementation-agnostic per Faces 5.0
+     * (jakartaee/faces#2167): either a non-empty inline {@code on*} attribute is present on the
+     * element, or some {@code <script>} block on the page mentions the element's id and the event
+     * name. For all other attributes only a non-empty inline form is accepted. Unlike
+     * {@link #hasAttributeValue} this does not check the handler value.
+     */
+    public boolean isAttributeWired(WebElement element, String attrName) {
+        var inline = element.getDomAttribute(attrName);
+        if (inline != null && !inline.isEmpty()) {
+            return true;
+        }
+        return isOnEventScripted(element, attrName, null);
+    }
+
+    /**
+     * Searches inline {@code <script>} blocks wired to {@code element}'s id for one that mentions
+     * the DOM event derived from {@code attrName} (the substring after {@code "on"}). If
+     * {@code expectedValue} is non-null the script must additionally contain that value as a JS
+     * string literal (raw or backslash-escaped, single- or double-quoted). Returns false for
+     * non-{@code on*} attribute names.
+     */
+    private boolean isOnEventScripted(WebElement element, String attrName, String expectedValue) {
+        if (!attrName.startsWith("on") || attrName.length() <= 2) {
+            return false;
+        }
+        var quotedEvent = quoted(attrName.substring(2));
+        var quotedValue = expectedValue == null ? null : quoted(expectedValue);
+        for (var content : getBehaviorScripts(element)) {
+            if (content == null || !containsAny(content, quotedEvent)) {
+                continue;
+            }
+            if (quotedValue == null || containsAny(content, quotedValue)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns four search candidates for {@code s}: the raw value wrapped in single and double
+     * quotes, and the JS-string-literal-escaped value (backslashes and single quotes escaped)
+     * wrapped in single and double quotes. The escaped variants are necessary because impls that
+     * defer {@code on*} attributes through an {@code addEventListener} chain typically emit the
+     * handler script as a JS string literal whose embedded quotes must be backslash-escaped.
+     */
+    private static String[] quoted(String string) {
+        var jsEscaped = string.replace("\\", "\\\\").replace("'", "\\'");
+        return new String[] {
+            "'" + string + "'", "\"" + string + "\"",
+            "'" + jsEscaped + "'", "\"" + jsEscaped + "\""
+        };
+    }
+
+    private static boolean containsAny(String haystack, String[] needles) {
+        for (var needle : needles) {
+            if (haystack.contains(needle)) {
+            	return true;
+            }
+        }
+        return false;
     }
 }

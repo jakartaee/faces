@@ -112,7 +112,7 @@ class GraphicIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement img = findByIdSuffix(page, "img1");
         expected.forEach((name, value) ->
-            assertEquals(value, img.getDomAttribute(name), "img1 attribute " + name));
+            assertTrue(page.hasAttributeValue(img, name, value), "img1 attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

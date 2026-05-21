@@ -99,7 +99,7 @@ class OutputlabelIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement label = findByIdSuffix(page, "output1");
         expected.forEach((name, value) ->
-            assertEquals(value, label.getDomAttribute(name), "output1 attribute " + name));
+            assertTrue(page.hasAttributeValue(label, name, value), "output1 attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

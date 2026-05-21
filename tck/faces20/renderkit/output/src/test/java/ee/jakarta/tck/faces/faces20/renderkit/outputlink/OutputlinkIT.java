@@ -17,6 +17,7 @@ package ee.jakarta.tck.faces.faces20.renderkit.outputlink;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -91,7 +92,7 @@ class OutputlinkIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement link = findByIdSuffix(page, "output1");
         expected.forEach((name, value) ->
-            assertEquals(value, link.getDomAttribute(name), "output1 attribute " + name));
+            assertTrue(page.hasAttributeValue(link, name, value), "output1 attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

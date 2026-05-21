@@ -16,6 +16,7 @@
 package ee.jakarta.tck.faces.faces20.renderkit.outputformat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.LinkedHashMap;
@@ -90,7 +91,7 @@ class OutputformatIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement formatter = findByIdSuffix(page, "formatter1");
         expected.forEach((name, value) ->
-            assertEquals(value, formatter.getDomAttribute(name), "formatter1 attribute " + name));
+            assertTrue(page.hasAttributeValue(formatter, name, value), "formatter1 attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

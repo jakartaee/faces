@@ -16,6 +16,7 @@
 package ee.jakarta.tck.faces.faces20.renderkit.datatable;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.LinkedHashMap;
@@ -275,7 +276,7 @@ class DatatableIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement data1 = findByIdSuffix(page, "data1");
         expected.forEach((name, value) ->
-            assertEquals(value, data1.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(data1, name, value), "attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
