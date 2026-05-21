@@ -391,9 +391,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         lastGet = questionMark > 0 ? url.substring(0, questionMark) : url;
         if (firstRequest) {
             firstRequest = false;
-            getAndWaitForWindowAndFaces(url, Duration.ofSeconds(60));
+            getAndWaitForWindowAndFaces(url);
         } else {
-            getAndWaitForFaces(url, Duration.ofSeconds(10));
+            getAndWaitForFaces(url);
         }
     }
 
@@ -405,9 +405,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      * @param url target link
      * @param timeout time to wait.
      */
-    protected void getAndWaitForWindowAndFaces(String url, Duration timeout) {
-        WebDriverWait waitForWindow = new WebDriverWait(delegate, timeout, Duration.ofSeconds(5));
-        WebDriverWait waitForJs = new WebDriverWait(delegate, Duration.ofSeconds(10L), Duration.ofMillis(10));
+    private void getAndWaitForWindowAndFaces(String url) {
+        WebDriverWait waitForWindow = new WebDriverWait(delegate, STD_TIMEOUT, Duration.ofSeconds(5));
+        WebDriverWait waitForJs = new WebDriverWait(delegate, STD_TIMEOUT, Duration.ofMillis(10));
         waitForWindow.until(d -> {
             try {
                 d.get(url);
@@ -426,7 +426,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
         LOG.log(FINEST, "Communication with Faces started!");
 
-        waitForFaces(timeout);
+        waitForFaces(STD_TIMEOUT);
     }
 
     /**
@@ -436,9 +436,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
      * @param url target link
      * @param timeout time to wait.
      */
-    protected void getAndWaitForFaces(String url, Duration timeout) {
+    private void getAndWaitForFaces(String url) {
         delegate.get(url);
-        waitForFaces(timeout);
+        waitForFaces(STD_TIMEOUT);
     }
 
     @Override

@@ -41,15 +41,12 @@ public class Spec1556IT extends BaseITNG {
         WebElement inputFileWithAccept = page.findElement(By.id("form:inputFileWithAccept"));
         assertEquals("image/*", inputFileWithAccept.getDomAttribute("accept"), "Specified 'accept' attribute on h:inputFile is rendered");
 
-        // It's for Mojarra also explicitly tested on h:inputText because they share the same renderer.
+        // It's also explicitly tested on h:inputText because they share the same renderer.
         WebElement inputTextWithoutAccept = page.findElement(By.id("form:inputTextWithoutAccept"));
         assertEquals(null, inputTextWithoutAccept.getDomAttribute("accept"), "Unspecified 'accept' attribute on h:inputText is NOT rendered");
 
         WebElement inputTextWithAccept = page.findElement(By.id("form:inputTextWithAccept"));
         assertEquals(null, inputTextWithAccept.getDomAttribute("accept"), "Specified 'accept' attribute on h:inputText is NOT rendered");
-
-        // NOTE: HtmlUnit doesn't support filtering files by accept attribute. So the upload part is not tested to keep it simple (it's nonetheless already
-        // tested in Spec1555IT).
     }
 
 }

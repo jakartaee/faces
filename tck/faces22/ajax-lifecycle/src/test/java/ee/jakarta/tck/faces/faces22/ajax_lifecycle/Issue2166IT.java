@@ -31,23 +31,22 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2166IT extends BaseITNG {
 
-  /**
-   * @see PreRenderViewEvent
-     * @see AjaxBehavior
-     * @see https://github.com/eclipse-ee4j/mojarra/issues/2166
-   */
-  @Test
-  void preRenderViewListenerFiresOncePerInit() throws Exception {
-        WebPage page = getPage("issue2166.xhtml");
+	/**
+	 * @see PreRenderViewEvent
+	 * @see AjaxBehavior
+	 * @see https://github.com/eclipse-ee4j/mojarra/issues/2166
+	 */
+	@Test
+	void preRenderViewListenerFiresOncePerInit() throws Exception {
+		WebPage page = getPage("issue2166.xhtml");
 
-        assertTrue(page.containsSource("Init called\n"));
+		assertTrue(page.containsSource("Init called\n"));
+		assertFalse(page.containsSource("Init called\nInit called\n"));
 
-        WebElement button = page.findElement(By.id("form:submit"));
-        page.guardAjax(button::click);
+		WebElement button = page.findElement(By.id("form:submit"));
+		page.guardAjax(button::click);
 
-        // init called not present probably a mojarra codebase issue
-        // showing up in Chrome - works in htmlunit!
-        assertTrue(page.containsSource("Init called\nInit called\n"));
-        assertFalse(page.containsSource("Init called\nInit called\nInit called"));
-    }
+		assertTrue(page.containsSource("Init called\nInit called\n"));
+		assertFalse(page.containsSource("Init called\nInit called\nInit called"));
+	}
 }
