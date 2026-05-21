@@ -1996,10 +1996,11 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * <code>null</code>.
      * </p>
      *
+     * @param <T> The component class.
      * @param context {@link FacesContext} for the current request
      * @return the renderer, or <code>null</code>.
      */
-    protected abstract Renderer getRenderer(FacesContext context);
+    protected abstract <T extends UIComponent> Renderer<T> getRenderer(FacesContext context);
 
     // --------------------------------------------------------- Package Private
 

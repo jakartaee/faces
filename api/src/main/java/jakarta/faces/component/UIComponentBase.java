@@ -242,7 +242,7 @@ public abstract class UIComponentBase extends UIComponent {
             }
 
             // Allow the renderer to convert the clientId
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 clientId = renderer.convertClientId(context, clientId);
             }
@@ -330,7 +330,7 @@ public abstract class UIComponentBase extends UIComponent {
     @Override
     public boolean getRendersChildren() {
         if (getRendererType() != null) {
-            Renderer renderer = getRenderer(getFacesContext());
+            Renderer<UIComponent> renderer = getRenderer(getFacesContext());
             if (renderer != null) {
                 return renderer.getRendersChildren();
             }
@@ -498,7 +498,7 @@ public abstract class UIComponentBase extends UIComponent {
 
         String rendererType = getRendererType();
         if (rendererType != null) {
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.decode(context, this);
             } else {
@@ -529,7 +529,7 @@ public abstract class UIComponentBase extends UIComponent {
 
         String rendererType = getRendererType();
         if (rendererType != null) {
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.encodeBegin(context, this);
             } else {
@@ -555,7 +555,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (getRendererType() != null) {
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.encodeChildren(context, this);
             }
@@ -584,7 +584,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (getRendererType() != null) {
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.encodeEnd(context, this);
             }
@@ -1038,9 +1038,9 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     @Override
-    protected Renderer getRenderer(FacesContext context) {
+    protected <T extends UIComponent> Renderer<T> getRenderer(FacesContext context) {
 
-        Renderer renderer = null;
+        Renderer<T> renderer = null;
 
         String rendererType = getRendererType();
         if (rendererType != null) {

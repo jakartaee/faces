@@ -927,7 +927,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      * @return the converted value.
      */
     protected Object getConvertedValue(FacesContext context, Object newSubmittedValue) throws ConverterException {
-        Renderer renderer = getRenderer(context);
+        Renderer<UIComponent> renderer = getRenderer(context);
         Object newValue;
 
         if (renderer != null) {

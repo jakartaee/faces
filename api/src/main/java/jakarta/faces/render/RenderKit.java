@@ -72,6 +72,7 @@ public abstract class RenderKit {
      * <code>rendererType</code>, if any; otherwise, return <code>null</code>.
      * </p>
      *
+     * @param <T> The component class.
      * @param family Component family of the requested {@link Renderer} instance
      * @param rendererType Renderer type of the requested {@link Renderer} instance
      *
@@ -79,7 +80,7 @@ public abstract class RenderKit {
      *
      * @return the {@link Renderer} instance
      */
-    public abstract Renderer getRenderer(String family, String rendererType);
+    public abstract <T extends UIComponent> Renderer<T> getRenderer(String family, String rendererType);
 
     /**
      * <p>

@@ -173,6 +173,9 @@ Change: parameterized StateHelper methods
 * Issue ID {issue_tracker_url}2027[2027] +
 Change: parameterized UIData#getDataModel
 
+* Issue ID {issue_tracker_url}2170[2170] +
+Change: parameterized UIComponent#getRenderer and RenderKit#getRenderer
+
 * Issue ID {issue_tracker_url}2012[2012] +
 Change: parameterized UIComponent#getFacesListeners
 
