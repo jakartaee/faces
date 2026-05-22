@@ -12,6 +12,9 @@ pre-Jakarta Faces specification under the JCP.
 
 This release contains the following backwards compatible changes:
 
+* Issue ID {issue_tracker_url}2173[2173] +
+Change: generalize Render Response resource push to allow modern mechanisms such as HTTP 103 Early Hints
+
 * Issue ID {issue_tracker_url}2137[2137] +
 Spec: clarify Jakarta Faces objects valid for _@Inject_ injection
 
