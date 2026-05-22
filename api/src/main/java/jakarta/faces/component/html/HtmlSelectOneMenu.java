@@ -139,7 +139,7 @@ public class HtmlSelectOneMenu extends UISelectOne implements ClientBehaviorHold
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -604,7 +604,7 @@ public class HtmlSelectOneMenu extends UISelectOne implements ClientBehaviorHold
      * attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.readonly, false);
+        return getStateHelper().eval(PropertyKeys.readonly, false);
 
     }
 

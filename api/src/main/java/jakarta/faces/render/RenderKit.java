@@ -64,7 +64,7 @@ public abstract class RenderKit {
      *
      * @throws NullPointerException if <code>family</code> or <code>rendererType</code> or <code>renderer</code> is null
      */
-    public abstract void addRenderer(String family, String rendererType, Renderer renderer);
+    public abstract void addRenderer(String family, String rendererType, Renderer<?> renderer);
 
     /**
      * <p>

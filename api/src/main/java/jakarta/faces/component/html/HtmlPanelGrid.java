@@ -134,7 +134,7 @@ public class HtmlPanelGrid extends UIPanel implements ClientBehaviorHolder {
      * Contents: Width (in pixels) of the border to be drawn around this table.
      */
     public int getBorder() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.border, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.border, Integer.MIN_VALUE);
 
     }
 
@@ -293,7 +293,7 @@ public class HtmlPanelGrid extends UIPanel implements ClientBehaviorHolder {
      * Contents: The number of columns to render before starting a new row.
      */
     public int getColumns() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.columns, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.columns, Integer.MIN_VALUE);
 
     }
 

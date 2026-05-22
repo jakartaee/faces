@@ -105,8 +105,8 @@ public class ArrayDataModel<E> extends DataModel<E> {
      * @throws jakarta.faces.FacesException if an error occurs getting the row data
      * @throws IllegalArgumentException if now row data is available at the currently specified row index
      */
-    @SuppressWarnings({ "unchecked" })
     @Override
+    @SuppressWarnings("unchecked") // wrappedData is held as Object; getRowData adapts it back to the element type.
     public E getRowData() {
 
         if (array == null) {
@@ -151,7 +151,6 @@ public class ArrayDataModel<E> extends DataModel<E> {
                 rowData = getRowData();
             }
             DataModelEvent event = new DataModelEvent(this, index, rowData);
-            int n = listeners.length;
             for (DataModelListener listener : listeners) {
                 if (null != listener) {
                     listener.rowSelected(event);

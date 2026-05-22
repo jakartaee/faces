@@ -437,7 +437,7 @@ public final class JSFTestUtil {
       Class<?>[] argTypes, Object[] params, PrintWriter pw) {
 
     try {
-      JSFTestUtil.checkForNPE(clazz.newInstance(), methName, argTypes, params,
+      JSFTestUtil.checkForNPE(clazz.getDeclaredConstructor().newInstance(), methName, argTypes, params,
           pw);
 
     } catch (Exception e) {

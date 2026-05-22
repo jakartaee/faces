@@ -170,7 +170,7 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      *
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -255,7 +255,7 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      * @since 4.0
      */
     public boolean isMultiple() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.multiple, false);
+        return getStateHelper().eval(PropertyKeys.multiple, false);
 
     }
 

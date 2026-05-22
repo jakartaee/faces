@@ -75,7 +75,7 @@ public class HtmlCommandScript extends UICommand {
      * Defaults to <code>false</code>.
      */
     public boolean isAutorun() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.autorun, false);
+        return getStateHelper().eval(PropertyKeys.autorun, false);
 
     }
 

@@ -139,7 +139,7 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean implements Client
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -580,7 +580,7 @@ public class HtmlSelectBooleanCheckbox extends UISelectBoolean implements Client
      * attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.readonly, false);
+        return getStateHelper().eval(PropertyKeys.readonly, false);
 
     }
 

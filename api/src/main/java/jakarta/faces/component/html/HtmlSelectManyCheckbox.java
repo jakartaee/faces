@@ -110,7 +110,7 @@ public class HtmlSelectManyCheckbox extends UISelectMany implements ClientBehavi
      * Contents: Width (in pixels) of the border to be drawn around the table containing the options list.
      */
     public int getBorder() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.border, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.border, Integer.MIN_VALUE);
 
     }
 
@@ -166,7 +166,7 @@ public class HtmlSelectManyCheckbox extends UISelectMany implements ClientBehavi
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -684,7 +684,7 @@ public class HtmlSelectManyCheckbox extends UISelectMany implements ClientBehavi
      * attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.readonly, false);
+        return getStateHelper().eval(PropertyKeys.readonly, false);
 
     }
 

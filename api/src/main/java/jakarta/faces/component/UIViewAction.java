@@ -188,7 +188,7 @@ public class UIViewAction extends UIComponentBase implements ActionSource {
      */
     @Override
     public boolean isImmediate() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
+        return getStateHelper().eval(PropertyKeys.immediate, false);
     }
 
     /**
@@ -364,7 +364,7 @@ public class UIViewAction extends UIComponentBase implements ActionSource {
      * @since 2.2
      */
     public boolean isOnPostback() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.onPostback, false);
+        return getStateHelper().eval(PropertyKeys.onPostback, false);
     }
 
     /**
@@ -391,7 +391,7 @@ public class UIViewAction extends UIComponentBase implements ActionSource {
      */
     @Override
     public boolean isRendered() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.renderedAttr, true);
+        return getStateHelper().eval(PropertyKeys.renderedAttr, true);
     }
 
     /**
@@ -674,24 +674,6 @@ public class UIViewAction extends UIComponentBase implements ActionSource {
             if (!renderedResponseControlDisabled) {
                 super.renderResponse();
             }
-        }
-
-        /**
-         * Make it look like we have dispatched a request using the include method.
-         */
-        public InstrumentedFacesContext pushViewIntoRequestMap() {
-            getExternalContext().getRequestMap().put("jakarta.servlet.include.servlet_path", super.getViewRoot().getViewId());
-            return this;
-        }
-
-        public InstrumentedFacesContext clearPostback() {
-            postback = false;
-            return this;
-        }
-
-        public InstrumentedFacesContext clearViewRoot() {
-            viewRootCleared = true;
-            return this;
         }
 
         public InstrumentedFacesContext disableRenderResponseControl() {

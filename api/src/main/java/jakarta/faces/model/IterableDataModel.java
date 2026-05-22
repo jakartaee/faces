@@ -198,8 +198,8 @@ public class IterableDataModel<E> extends DataModel<E> {
      * @throws ClassCastException if <code>data</code> is not of the appropriate type for this {@link DataModel}
      * implementation
      */
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked") // the Object data param is cast to the declared element type.
     public void setWrappedData(Object data) {
         if (data == null) {
             iterable = null;

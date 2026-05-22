@@ -41,7 +41,7 @@ public class DataModelEvent extends EventObject {
      * @param data Representation of the data for the row specified by <code>index</code>, or <code>null</code> for no
      * particular row data
      */
-    public DataModelEvent(DataModel model, int index, Object data) {
+    public DataModelEvent(DataModel<?> model, int index, Object data) {
 
         super(model);
         this.index = index;
@@ -64,9 +64,9 @@ public class DataModelEvent extends EventObject {
      *
      * @return the {@link DataModel} that fired this event
      */
-    public DataModel getDataModel() {
+    public DataModel<?> getDataModel() {
 
-        return (DataModel) getSource();
+        return (DataModel<?>) getSource();
 
     }
 

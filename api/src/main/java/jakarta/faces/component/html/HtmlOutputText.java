@@ -109,7 +109,7 @@ public class HtmlOutputText extends UIOutput {
      * to "true" by default.
      */
     public boolean isEscape() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.escape, true);
+        return getStateHelper().eval(PropertyKeys.escape, true);
 
     }
 

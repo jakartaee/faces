@@ -319,18 +319,14 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
             jakarta.validation.Validator beanValidator = getBeanValidator(context);
             Object coercedValue = value == null ? null : context.getApplication().getExpressionFactory().coerceToType(value, valueExpression.getType(context.getELContext()));
 
-            @SuppressWarnings("rawtypes")
-            Set violationsRaw = null;
+            Set<? extends ConstraintViolation<?>> violations = null;
 
             try {
-                violationsRaw = beanValidator.validateValue(valueReference.getBase().getClass(), valueReference.getProperty().toString(), coercedValue, validationGroupsArray);
+                violations = beanValidator.validateValue(valueReference.getBase().getClass(), valueReference.getProperty().toString(), coercedValue, validationGroupsArray);
             } catch (IllegalArgumentException iae) {
                 LOGGER.fine("Unable to validate expression " + valueExpression.getExpressionString()
                         + " using Bean Validation.  Unable to get value of expression. " + " Message from Bean Validation: " + iae.getMessage());
             }
-
-            @SuppressWarnings("unchecked")
-            Set<ConstraintViolation<?>> violations = violationsRaw;
 
             if (violations != null && !violations.isEmpty()) {
                 ValidatorException toThrow;
@@ -458,7 +454,7 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
             }
         }
 
-        cachedValidationGroups = validationGroupsList.toArray(new Class[validationGroupsList.size()]);
+        cachedValidationGroups = validationGroupsList.toArray(new Class<?>[validationGroupsList.size()]);
         return cachedValidationGroups;
     }
 

@@ -317,6 +317,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
     // NOT SERIALIZABLE
     private static class ResultSetMap extends TreeMap<String, Object> {
 
+        private static final long serialVersionUID = 1L;
+
         private ResultSetDataModel model;
 
         public ResultSetMap(ResultSetDataModel model, Comparator<String> comparator) throws SQLException {
@@ -342,8 +344,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
         @Override
         public boolean containsValue(Object value) {
-            for (Iterator i = entrySet().iterator(); i.hasNext();) {
-                Map.Entry entry = (Map.Entry) i.next();
+            for (Iterator<Map.Entry<String, Object>> i = entrySet().iterator(); i.hasNext();) {
+                Map.Entry<String, Object> entry = i.next();
                 Object contained = entry.getValue();
                 if (value == null) {
                     if (contained == null) {
@@ -457,7 +459,7 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
         // Adding entries is not allowed
         @Override
-        public boolean addAll(Collection c) {
+        public boolean addAll(Collection<? extends Map.Entry<String, Object>> c) {
             throw new UnsupportedOperationException();
         }
 
@@ -475,7 +477,7 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
             if (!(o instanceof Map.Entry)) {
                 return false;
             }
-            Map.Entry e = (Map.Entry) o;
+            Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
             Object k = e.getKey();
             Object v = e.getValue();
             if (!map.containsKey(k)) {
@@ -506,13 +508,13 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
         // Removing entries is not allowed
         @Override
-        public boolean removeAll(Collection c) {
+        public boolean removeAll(Collection<?> c) {
             throw new UnsupportedOperationException();
         }
 
         // Removing entries is not allowed
         @Override
-        public boolean retainAll(Collection c) {
+        public boolean retainAll(Collection<?> c) {
             throw new UnsupportedOperationException();
         }
 
@@ -574,7 +576,7 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
             if (!(o instanceof Map.Entry)) {
                 return false;
             }
-            Map.Entry e = (Map.Entry) o;
+            Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
             if (key == null) {
                 if (e.getKey() != null) {
                     return false;
@@ -640,7 +642,7 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
         // Adding keys is not allowed
         @Override
-        public boolean addAll(Collection c) {
+        public boolean addAll(Collection<? extends String> c) {
             throw new UnsupportedOperationException();
         }
 
@@ -673,13 +675,13 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
         // Removing keys is not allowed
         @Override
-        public boolean removeAll(Collection c) {
+        public boolean removeAll(Collection<?> c) {
             throw new UnsupportedOperationException();
         }
 
         // Removing keys is not allowed
         @Override
-        public boolean retainAll(Collection c) {
+        public boolean retainAll(Collection<?> c) {
             throw new UnsupportedOperationException();
         }
 
@@ -734,7 +736,7 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
         }
 
         @Override
-        public boolean addAll(Collection c) {
+        public boolean addAll(Collection<?> c) {
             throw new UnsupportedOperationException();
         }
 
@@ -759,12 +761,12 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
         }
 
         @Override
-        public boolean removeAll(Collection c) {
+        public boolean removeAll(Collection<?> c) {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public boolean retainAll(Collection c) {
+        public boolean retainAll(Collection<?> c) {
             throw new UnsupportedOperationException();
         }
 

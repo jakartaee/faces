@@ -105,6 +105,7 @@ public interface StateHelper extends StateHolder {
      * @throws ClassCastException When {@code T} is of wrong type.
      * @since 5.0
      */
+    @SuppressWarnings("unchecked") // get returns Object; the value is returned as the caller-requested type T.
     default <T> T computeIfAbsent(Serializable key, Supplier<T> defaultValueSupplier) {
         T value = (T) get(key);
         if (value == null) {

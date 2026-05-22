@@ -108,7 +108,7 @@ public class HtmlInputTextarea extends UIInput implements ClientBehaviorHolder {
      * Contents: The number of columns to be displayed.
      */
     public int getCols() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.cols, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.cols, Integer.MIN_VALUE);
 
     }
 
@@ -164,7 +164,7 @@ public class HtmlInputTextarea extends UIInput implements ClientBehaviorHolder {
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -635,7 +635,7 @@ public class HtmlInputTextarea extends UIInput implements ClientBehaviorHolder {
      * attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.readonly, false);
+        return getStateHelper().eval(PropertyKeys.readonly, false);
 
     }
 
@@ -698,7 +698,7 @@ public class HtmlInputTextarea extends UIInput implements ClientBehaviorHolder {
      * Contents: The number of rows to be displayed.
      */
     public int getRows() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.rows, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.rows, Integer.MIN_VALUE);
 
     }
 

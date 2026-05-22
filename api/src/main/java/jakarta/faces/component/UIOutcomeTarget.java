@@ -81,7 +81,7 @@ public class UIOutcomeTarget extends UIOutput {
      * @since 2.0
      */
     public boolean isIncludeViewParams() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.includeViewParams, false);
+        return getStateHelper().eval(PropertyKeys.includeViewParams, false);
     }
 
     /**
@@ -106,7 +106,7 @@ public class UIOutcomeTarget extends UIOutput {
      * @since 2.0
      */
     public boolean isDisableClientWindow() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.disableClientWindow, false);
+        return getStateHelper().eval(PropertyKeys.disableClientWindow, false);
     }
 
     /**

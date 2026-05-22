@@ -183,7 +183,7 @@ class PackageUtils {
         throw new NumberFormatException("there is no numeric segment");
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the mark-id cache is recovered from the Object-typed transient state helper.
     private static Map<String, UIComponent> getDescendantMarkIdCache(UIComponent component) {
         Map<String, UIComponent> descendantMarkIdCache = (Map<String, UIComponent>) component.getTransientStateHelper().getTransient(MARK_ID_CACHE);
 
@@ -205,7 +205,7 @@ class PackageUtils {
     }
 
     private static Map<String, Pattern> getPatternCache(Map<String, Object> appMap) {
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // the pattern cache is recovered from the Object-valued application map.
         Map<String, Pattern> result = (Map<String, Pattern>) appMap.get(PATTERN_CACHE_KEY);
         if (result == null) {
             result = Collections.synchronizedMap(new LRUMap<>(15));
@@ -363,16 +363,16 @@ class PackageUtils {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // adapts an arbitrary Object (Stream/Collection/array/Iterable/Map/...) to the caller-requested Stream<T>.
     public static <T> Stream<T> stream(Object object) {
         if (object == null) {
             return Stream.empty();
         } else if (object instanceof Stream) {
             return (Stream<T>) object;
         } else if (object instanceof Collection) {
-            return ((Collection) object).stream();   // little bonus with sized spliterator...
+            return ((Collection<T>) object).stream();   // little bonus with sized spliterator...
         } else if (object instanceof Enumeration) { // recursive call wrapping in an Iterator (Java 9+)
-            return stream(((Enumeration) object).asIterator());
+            return stream(((Enumeration<T>) object).asIterator());
         } else if (object instanceof Iterable) {
             return (Stream<T>) StreamSupport.stream(((Iterable<?>) object).spliterator(), false);
         } else if (object instanceof Map) {

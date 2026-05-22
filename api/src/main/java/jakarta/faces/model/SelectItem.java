@@ -159,7 +159,6 @@ public class SelectItem implements Serializable {
     private String description = null;
     private boolean disabled = false;
     private String label = null;
-    @SuppressWarnings({ "NonSerializableFieldInSerializableClass" })
     private Object value = null;
 
     // -------------------------------------------------------------- Properties

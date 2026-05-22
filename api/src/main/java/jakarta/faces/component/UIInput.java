@@ -370,7 +370,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      */
     @Override
     public boolean isLocalValueSet() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.localValueSet, false);
+        return getStateHelper().eval(PropertyKeys.localValueSet, false);
     }
 
     /**
@@ -389,7 +389,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
     @Override
     public boolean isRequired() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.required, false);
+        return getStateHelper().eval(PropertyKeys.required, false);
 
     }
 
@@ -490,7 +490,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
     @Override
     public boolean isValid() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.valid, true);
+        return getStateHelper().eval(PropertyKeys.valid, true);
 
     }
 
@@ -518,7 +518,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
     @Override
     public boolean isImmediate() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
+        return getStateHelper().eval(PropertyKeys.immediate, false);
 
     }
 
@@ -749,8 +749,6 @@ public class UIInput extends UIOutput implements EditableValueHolder {
             }
             if (caught != null) {
                 assert message != null;
-                // PENDING(edburns): verify this is in the spec.
-                @SuppressWarnings({ "ThrowableInstanceNeverThrown" })
                 UpdateModelException toQueue = new UpdateModelException(message, caught);
                 ExceptionQueuedEventContext eventContext = new ExceptionQueuedEventContext(context, toQueue, this, PhaseId.UPDATE_MODEL_VALUES);
                 context.getApplication().publishEvent(context, ExceptionQueuedEvent.class, eventContext);
@@ -1096,6 +1094,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
      * @param value new value of this component (if any)
      * @return <code>true</code> if the new value is different from the previous value, <code>false</code> otherwise.
      */
+    @SuppressWarnings("unchecked") // previous and value are both confirmed Comparable above; compared as Comparable<Object>.
     protected boolean compareValues(Object previous, Object value) {
         boolean result = true;
 
@@ -1107,7 +1106,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
             boolean previousEqualsValue = previous.equals(value);
             if (!previousEqualsValue && previous instanceof Comparable && value instanceof Comparable) {
                 try {
-                    result = !(0 == ((Comparable) previous).compareTo(value));
+                    result = !(0 == ((Comparable<Object>) previous).compareTo(value));
                 } catch (ClassCastException cce) {
                     // Comparable throws CCE if the types prevent a comparison
                     result = true;
@@ -1162,14 +1161,14 @@ public class UIInput extends UIOutput implements EditableValueHolder {
                 return true;
             }
         } else if (value instanceof List) {
-            if (((List) value).isEmpty()) {
+            if (((List<?>) value).isEmpty()) {
                 return true;
             }
         } else if (value instanceof Collection) {
-            if (((Collection) value).isEmpty()) {
+            if (((Collection<?>) value).isEmpty()) {
                 return true;
             }
-        } else if (value instanceof Map && ((Map) value).isEmpty()) {
+        } else if (value instanceof Map && ((Map<?, ?>) value).isEmpty()) {
             return true;
         }
         return false;

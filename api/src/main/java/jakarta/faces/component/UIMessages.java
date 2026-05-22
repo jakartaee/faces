@@ -132,7 +132,7 @@ public class UIMessages extends UIComponentBase {
      */
     public boolean isGlobalOnly() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.globalOnly, false);
+        return getStateHelper().eval(PropertyKeys.globalOnly, false);
 
     }
 
@@ -160,7 +160,7 @@ public class UIMessages extends UIComponentBase {
      */
     public boolean isShowDetail() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.showDetail, false);
+        return getStateHelper().eval(PropertyKeys.showDetail, false);
 
     }
 
@@ -186,7 +186,7 @@ public class UIMessages extends UIComponentBase {
      */
     public boolean isShowSummary() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.showSummary, true);
+        return getStateHelper().eval(PropertyKeys.showSummary, true);
 
     }
 
@@ -212,7 +212,7 @@ public class UIMessages extends UIComponentBase {
      */
     public boolean isRedisplay() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.redisplay, true);
+        return getStateHelper().eval(PropertyKeys.redisplay, true);
 
     }
 

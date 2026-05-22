@@ -463,7 +463,7 @@ public class UISelectMany extends UIInput {
         }
 
         if (primitiveArray instanceof Collection) {
-            return ((Collection) primitiveArray).toArray();
+            return ((Collection<?>) primitiveArray).toArray();
         }
 
         Class<?> clazz = primitiveArray.getClass();
@@ -524,7 +524,7 @@ public class UISelectMany extends UIInput {
         // Don't arrays cast to "Object[]", as we may now be using an array
         // of primitives
         Converter converter = getConverter();
-        for (Iterator i = getValuesIterator(value); i.hasNext();) {
+        for (Iterator<?> i = getValuesIterator(value); i.hasNext();) {
             Iterator<SelectItem> items = new SelectItemsIterator(context, this);
             Object currentValue = i.next();
             if (!SelectUtils.matchValue(context, this, currentValue, items, converter)) {
@@ -536,7 +536,7 @@ public class UISelectMany extends UIInput {
         // Ensure that if the value is noSelection and a
         // value is required, a message is queued
         if (isRequired()) {
-            for (Iterator i = getValuesIterator(value); i.hasNext();) {
+            for (Iterator<?> i = getValuesIterator(value); i.hasNext();) {
                 Iterator<SelectItem> items = new SelectItemsIterator(context, this);
                 Object currentValue = i.next();
                 if (SelectUtils.valueIsNoSelectionOption(context, this, currentValue, items, converter)) {
@@ -557,9 +557,9 @@ public class UISelectMany extends UIInput {
 
     // --------------------------------------------------------- Private Methods
 
-    private Iterator getValuesIterator(Object value) {
+    private Iterator<?> getValuesIterator(Object value) {
         if (value instanceof Collection) {
-            return ((Collection) value).iterator();
+            return ((Collection<?>) value).iterator();
         }
 
         return new ArrayIterator(value);
@@ -570,7 +570,7 @@ public class UISelectMany extends UIInput {
     /**
      * Exposes an Array as an Iterator.
      */
-    private static final class ArrayIterator implements Iterator {
+    private static final class ArrayIterator implements Iterator<Object> {
 
         private final int length;
         private final Object value;

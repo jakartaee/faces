@@ -195,7 +195,7 @@ public final class HtmlEvents {
         return collect(Stream.concat(Arrays.stream(enumValues).map(e -> e.name()), eventNames.stream()));
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the event-name cache is stored under an Object-valued application-map entry.
     private static Collection<String> cache(FacesContext context, CacheKey key, Supplier<Collection<String>> supplier) {
         return ((Map<CacheKey, Collection<String>>) context.getExternalContext().getApplicationMap()
                 .computeIfAbsent(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME, $ -> new EnumMap<>(CacheKey.class)))
