@@ -80,7 +80,7 @@ public class UIViewParameter extends UIInput {
 
     // ------------------------------------------------------ Instance Variables
 
-    private Renderer inputTextRenderer = null;
+    private Renderer<UIComponent> inputTextRenderer = null;
 
     private transient Boolean emptyStringIsNull;
 
@@ -433,7 +433,7 @@ public class UIViewParameter extends UIInput {
 
     }
 
-    private Renderer getInputTextRenderer(FacesContext context) {
+    private Renderer<UIComponent> getInputTextRenderer(FacesContext context) {
         if (null == inputTextRenderer) {
             RenderKitFactory rkf = (RenderKitFactory) FactoryFinder.getFactory(FactoryFinder.RENDER_KIT_FACTORY);
             RenderKit standard = rkf.getRenderKit(context, RenderKitFactory.HTML_BASIC_RENDER_KIT);

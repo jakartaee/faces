@@ -2122,7 +2122,7 @@ that listens for _PostAddToViewEvent_ event types:
 ----
 @ListenerFor(facesEventClass=PostAddToViewEvent.class,
         sourceClass=UIOutput.class)
-public class ScriptRenderer extends Renderer
+public class ScriptRenderer extends Renderer<UIOutput>
         implements ComponentSystemEventListener {...
 ----
 

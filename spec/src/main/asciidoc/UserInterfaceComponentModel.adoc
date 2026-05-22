@@ -869,7 +869,7 @@ current request.
 
 [source,java]
 ----
-protected Renderer getRenderer(FacesContext context);
+protected <T extends UIComponent> Renderer<T> getRenderer(FacesContext context);
 ----
 
 Return the _Renderer_ that is associated this

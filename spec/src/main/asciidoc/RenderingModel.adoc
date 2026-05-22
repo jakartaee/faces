@@ -45,7 +45,7 @@ selected.
 
 [source,java]
 ----
-public Renderer getRenderer(String family, String rendererType);
+public <T extends UIComponent> Renderer<T> getRenderer(String family, String rendererType);
 ----
 
 Return the _Renderer_ instance corresponding
