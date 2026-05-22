@@ -167,7 +167,7 @@ public abstract class HttpTCKServlet extends HttpServlet {
     } catch (Exception e) {
       throw new ServletException("Error executing test: " + test, e);
     } finally {
-      if (facesContext != null) {
+      if (FacesContext.getCurrentInstance() != null) {
         facesContext.release();
       }
     }

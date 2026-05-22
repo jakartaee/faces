@@ -71,6 +71,6 @@ public abstract class FaceletCacheFactory implements FacesWrapper<FaceletCacheFa
      *
      * @return the facelet cache
      */
-    public abstract FaceletCache<?> getFaceletCache();
+    public abstract FaceletCache getFaceletCache();
 
 }
