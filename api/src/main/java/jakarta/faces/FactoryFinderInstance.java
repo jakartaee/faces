@@ -22,6 +22,7 @@ import static jakarta.faces.FactoryFinder.EXCEPTION_HANDLER_FACTORY;
 import static jakarta.faces.FactoryFinder.EXTERNAL_CONTEXT_FACTORY;
 import static jakarta.faces.FactoryFinder.FACELET_CACHE_FACTORY;
 import static jakarta.faces.FactoryFinder.FACES_CONTEXT_FACTORY;
+import static jakarta.faces.FactoryFinder.FACES_SERVLET_FACTORY;
 import static jakarta.faces.FactoryFinder.FACTORIES_CACHE;
 import static jakarta.faces.FactoryFinder.FLASH_FACTORY;
 import static jakarta.faces.FactoryFinder.FLOW_HANDLER_FACTORY;
@@ -69,7 +70,6 @@ import jakarta.enterprise.inject.spi.Bean;
 import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.enterprise.inject.spi.InjectionTarget;
-import static jakarta.faces.FactoryFinder.FACES_SERVLET_FACTORY;
 import jakarta.faces.context.FacesContext;
 
 final class FactoryFinderInstance {
