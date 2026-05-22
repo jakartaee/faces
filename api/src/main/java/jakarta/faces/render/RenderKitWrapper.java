@@ -82,7 +82,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
      * @see RenderKit#addRenderer(String, String, Renderer)
      */
     @Override
-    public void addRenderer(String family, String rendererType, Renderer renderer) {
+    public void addRenderer(String family, String rendererType, Renderer<?> renderer) {
         getWrapped().addRenderer(family, rendererType, renderer);
     }
 

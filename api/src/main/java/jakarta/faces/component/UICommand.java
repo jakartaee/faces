@@ -109,7 +109,7 @@ public class UICommand extends UIComponentBase implements ActionSource {
      */
     @Override
     public boolean isImmediate() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
+        return getStateHelper().eval(PropertyKeys.immediate, false);
     }
 
     @Override

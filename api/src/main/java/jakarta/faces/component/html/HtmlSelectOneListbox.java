@@ -139,7 +139,7 @@ public class HtmlSelectOneListbox extends UISelectOne implements ClientBehaviorH
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -604,7 +604,7 @@ public class HtmlSelectOneListbox extends UISelectOne implements ClientBehaviorH
      * attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.readonly, false);
+        return getStateHelper().eval(PropertyKeys.readonly, false);
 
     }
 
@@ -667,7 +667,7 @@ public class HtmlSelectOneListbox extends UISelectOne implements ClientBehaviorH
      * Contents: Number of available options to be shown at all times. If not specified, all available options are shown.
      */
     public int getSize() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.size, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.size, Integer.MIN_VALUE);
 
     }
 

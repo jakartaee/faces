@@ -66,7 +66,7 @@ class TypedCollections {
      * @return the dynamically-type checked list.
      * @throws java.lang.ClassCastException
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // dynamicallyCastCollection verifies every element is an instance of type before this cast.
     static <E> List<E> dynamicallyCastList(List<?> list, Class<E> type) {
         return dynamicallyCastCollection(list, type, List.class);
     }
@@ -80,7 +80,7 @@ class TypedCollections {
      * @return the dynamically-type checked set.
      * @throws java.lang.ClassCastException
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // dynamicallyCastCollection verifies every element is an instance of type before this cast.
     static <E> Set<E> dynamicallyCastSet(Set<?> set, Class<E> type) {
         return dynamicallyCastCollection(set, type, Set.class);
     }
@@ -96,7 +96,7 @@ class TypedCollections {
      * @return the dynamically-type checked map.
      * @throws java.lang.ClassCastException
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // every key and value is verified against keyType/valueType below before this cast.
     static <K, V> Map<K, V> dynamicallyCastMap(Map<?, ?> map, Class<K> keyType, Class<V> valueType) {
         if (map == null) {
             return null;

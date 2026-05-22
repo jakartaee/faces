@@ -166,7 +166,7 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 

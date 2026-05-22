@@ -22,6 +22,7 @@ import static jakarta.faces.FactoryFinder.EXCEPTION_HANDLER_FACTORY;
 import static jakarta.faces.FactoryFinder.EXTERNAL_CONTEXT_FACTORY;
 import static jakarta.faces.FactoryFinder.FACELET_CACHE_FACTORY;
 import static jakarta.faces.FactoryFinder.FACES_CONTEXT_FACTORY;
+import static jakarta.faces.FactoryFinder.FACES_SERVLET_FACTORY;
 import static jakarta.faces.FactoryFinder.FACTORIES_CACHE;
 import static jakarta.faces.FactoryFinder.FLASH_FACTORY;
 import static jakarta.faces.FactoryFinder.FLOW_HANDLER_FACTORY;
@@ -37,7 +38,6 @@ import static jakarta.faces.PackageUtils.getContextClassLoader2;
 import static jakarta.faces.PackageUtils.isAnyNull;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.text.MessageFormat.format;
-import static java.util.Collections.binarySearch;
 import static java.util.Collections.singleton;
 import static java.util.Map.entry;
 import static java.util.logging.Level.SEVERE;
@@ -52,7 +52,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -60,17 +59,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 import jakarta.enterprise.inject.spi.AnnotatedType;
 import jakarta.enterprise.inject.spi.Bean;
 import jakarta.enterprise.inject.spi.BeanManager;
 import jakarta.enterprise.inject.spi.CDI;
 import jakarta.enterprise.inject.spi.InjectionTarget;
-import static jakarta.faces.FactoryFinder.FACES_SERVLET_FACTORY;
 import jakarta.faces.context.FacesContext;
 
 final class FactoryFinderInstance {
@@ -90,8 +89,8 @@ final class FactoryFinderInstance {
      * not just the last part of the literal!
      * </p>
      */
-    private static final List<String> factoryNames = asSortedList(
-            APPLICATION_FACTORY, 
+    private static final SortedSet<String> factoryNames = new TreeSet<>(List.of(
+            APPLICATION_FACTORY,
             VISIT_CONTEXT_FACTORY, 
             EXCEPTION_HANDLER_FACTORY, 
             EXTERNAL_CONTEXT_FACTORY,
@@ -106,7 +105,7 @@ final class FactoryFinderInstance {
             VIEW_DECLARATION_LANGUAGE_FACTORY, 
             FACELET_CACHE_FACTORY, 
             TAG_HANDLER_DELEGATE_FACTORY, 
-            SEARCH_EXPRESSION_CONTEXT_FACTORY);
+            SEARCH_EXPRESSION_CONTEXT_FACTORY));
 
     /**
      * <p>
@@ -119,7 +118,7 @@ final class FactoryFinderInstance {
 
     FactoryFinderInstance(FacesContext facesContext) {
         for (String name : factoryNames) {
-            factories.put(name, new ArrayList<>(4)); // NOPMD
+            factories.put(name, new ArrayList<>(4));
         }
         createdBy = generateCreatedBy(facesContext);
     }
@@ -150,7 +149,7 @@ final class FactoryFinderInstance {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // a not-yet-constructed factory is stored as a List<String> of implementation class names in the Object-valued map.
     Object getFactory(String factoryName) {
         validateFactoryName(factoryName);
 
@@ -432,6 +431,7 @@ final class FactoryFinderInstance {
         }
     }
 
+    @SuppressWarnings("unchecked") // CDI reflection: implementationName resolves to Class<T>, and each target is paired with its own instance.
     private <T> void injectImplementation(ClassLoader classLoader, String implementationName, T implementationInstance) {
         if (implementationInstance != null) {
             Class<T> implementationClass;
@@ -449,7 +449,7 @@ final class FactoryFinderInstance {
                 InjectionTarget<T> injectionTarget = beanManager.getInjectionTargetFactory(type).createInjectionTarget(bean);
                 injectionTarget.inject(implementationInstance, beanManager.createCreationalContext(bean));
                 injectionTarget.postConstruct(implementationInstance);
-                injectedImplementations.add(new AbstractMap.SimpleEntry(injectionTarget, implementationInstance));
+                injectedImplementations.add(new AbstractMap.SimpleEntry<>((InjectionTarget<Object>) injectionTarget, implementationInstance));
             }
         }
     }
@@ -490,7 +490,7 @@ final class FactoryFinderInstance {
             throw new NullPointerException();
         }
 
-        if (binarySearch(factoryNames, factoryName) < 0) {
+        if (!factoryNames.contains(factoryName)) {
             throw new IllegalArgumentException(factoryName);
         }
     }
@@ -514,11 +514,6 @@ final class FactoryFinderInstance {
             entry(FLOW_HANDLER_FACTORY, jakarta.faces.flow.FlowHandlerFactory.class),
             entry(SEARCH_EXPRESSION_CONTEXT_FACTORY, jakarta.faces.component.search.SearchExpressionContextFactory.class)
         );
-    }
-
-    @SafeVarargs // todo: move to CollectionUtil
-    private static <T extends Comparable<T>> List<T> asSortedList(T... elements) {
-        return Arrays.stream(elements).sorted().collect(Collectors.toList());
     }
 
 }

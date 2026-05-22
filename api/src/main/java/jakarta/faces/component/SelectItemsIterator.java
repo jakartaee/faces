@@ -26,7 +26,6 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-import jakarta.el.ValueExpression;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.model.SelectItem;
 
@@ -176,7 +175,7 @@ final class SelectItemsIterator implements Iterator<SelectItem> {
                 } else if (value instanceof Iterable) {
                     items = new IterableItemIterator(ctx, (UISelectItems) kid, (Iterable<?>) value);
                 } else if (value instanceof Map) {
-                    items = new MapIterator((Map) value);
+                    items = new MapIterator((Map<?, ?>) value);
                 } else {
                     throw new IllegalArgumentException();
                 }
@@ -275,11 +274,11 @@ final class SelectItemsIterator implements Iterator<SelectItem> {
     private static final class MapIterator implements Iterator<SelectItem> {
 
         private final SelectItem item = new SelectItem();
-        private final Iterator iterator;
+        private final Iterator<? extends Map.Entry<?, ?>> iterator;
 
         // -------------------------------------------------------- Constructors
 
-        private MapIterator(Map map) {
+        private MapIterator(Map<?, ?> map) {
 
             iterator = map.entrySet().iterator();
 
@@ -297,7 +296,7 @@ final class SelectItemsIterator implements Iterator<SelectItem> {
         @Override
         public SelectItem next() {
 
-            Map.Entry entry = (Map.Entry) iterator.next();
+            Map.Entry<?, ?> entry = iterator.next();
             Object key = entry.getKey();
             Object value = entry.getValue();
             item.setLabel(key != null ? key.toString() : value.toString());
@@ -362,6 +361,8 @@ final class SelectItemsIterator implements Iterator<SelectItem> {
          */
         private static final class GenericObjectSelectItem extends SelectItem {
 
+            private static final long serialVersionUID = 1L;
+
             private static final String VAR = "var";
             private static final String ITEM_VALUE = "itemValue";
             private static final String ITEM_LABEL = "itemLabel";
@@ -369,36 +370,6 @@ final class SelectItemsIterator implements Iterator<SelectItem> {
             private static final String ITEM_ESCAPED = "itemLabelEscaped";
             private static final String ITEM_DISABLED = "itemDisabled";
             private static final String NO_SELECTION_OPTION = "noSelectionOption";
-
-            /**
-             * Resolves to the value of the <code>SelectItem</code>.
-             */
-            private ValueExpression itemValue;
-
-            /**
-             * Resolves to the label of the <code>SelectItem</code>.
-             */
-            private ValueExpression itemLabel;
-
-            /**
-             * Resolves to the description of the <code>SelectItem</code>.
-             */
-            private ValueExpression itemDescription;
-
-            /**
-             * Determines the value for the escaped property of the <code>SelectItem</code>.
-             */
-            private ValueExpression itemEscaped;
-
-            /**
-             * Determines the value for the disabled property of the <code>SelectItem</code>/
-             */
-            private ValueExpression itemDisabled;
-
-            /**
-             * Determines the value for the noSelectionOption property of the <code>SelectItem</code>/
-             */
-            private ValueExpression noSelectionOption;
 
             /**
              * The request-scoped variable under which the current object will be exposed.

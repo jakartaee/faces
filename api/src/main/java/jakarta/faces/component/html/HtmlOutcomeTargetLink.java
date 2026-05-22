@@ -187,7 +187,7 @@ public class HtmlOutcomeTargetLink extends UIOutcomeTarget implements ClientBeha
      * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit.
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 

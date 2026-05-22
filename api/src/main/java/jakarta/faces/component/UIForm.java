@@ -152,7 +152,7 @@ public class UIForm extends UIComponentBase implements NamingContainer, UniqueId
      */
     @Deprecated(since = "5.0", forRemoval = true)
     public boolean isPrependId() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.prependId, true);
+        return getStateHelper().eval(PropertyKeys.prependId, true);
     }
 
     /**

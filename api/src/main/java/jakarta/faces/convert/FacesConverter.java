@@ -97,7 +97,7 @@ public @interface FacesConverter {
      * @return the class
      */
 
-    Class forClass() default Object.class;
+    Class<?> forClass() default Object.class;
 
     /**
      * <p class="changed_added_2_3">
@@ -135,11 +135,11 @@ public @interface FacesConverter {
         private final Class<?> forClass;
         private final boolean managed;
 
-        public static Literal of(String value, Class forClass, boolean managed) {
+        public static Literal of(String value, Class<?> forClass, boolean managed) {
             return new Literal(value, forClass, managed);
         }
 
-        private Literal(String value, Class forClass, boolean managed) {
+        private Literal(String value, Class<?> forClass, boolean managed) {
             this.value = value;
             this.forClass = forClass;
             this.managed = managed;
@@ -151,7 +151,7 @@ public @interface FacesConverter {
         }
 
         @Override
-        public Class forClass() {
+        public Class<?> forClass() {
             return forClass;
         }
 

@@ -134,7 +134,7 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      * Contents: Width (in pixels) of the border to be drawn around this table.
      */
     public int getBorder() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.border, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.border, Integer.MIN_VALUE);
 
     }
 

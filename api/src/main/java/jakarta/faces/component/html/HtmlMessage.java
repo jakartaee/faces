@@ -446,7 +446,7 @@ public class HtmlMessage extends UIMessage {
      * Contents: Flag indicating whether the detail portion of the message should be displayed as a tooltip.
      */
     public boolean isTooltip() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.tooltip, false);
+        return getStateHelper().eval(PropertyKeys.tooltip, false);
 
     }
 

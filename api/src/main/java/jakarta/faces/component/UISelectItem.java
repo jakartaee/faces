@@ -105,7 +105,7 @@ public class UISelectItem extends UIComponentBase {
      * @return <code>true</code> is the item disabled, <code>false</code> otherwise.
      */
     public boolean isItemDisabled() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.itemDisabled, false);
+        return getStateHelper().eval(PropertyKeys.itemDisabled, false);
     }
 
     /**
@@ -127,7 +127,7 @@ public class UISelectItem extends UIComponentBase {
      * @return <code>true</code> if the item is escaped, <code>false</code> otherwise.
      */
     public boolean isItemEscaped() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.itemEscaped, true);
+        return getStateHelper().eval(PropertyKeys.itemEscaped, true);
     }
 
     /**
@@ -218,7 +218,7 @@ public class UISelectItem extends UIComponentBase {
      * @since 2.0
      */
     public boolean isNoSelectionOption() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.noSelectionOption, false);
+        return getStateHelper().eval(PropertyKeys.noSelectionOption, false);
     }
 
     /**

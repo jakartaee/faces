@@ -344,7 +344,7 @@ public class UIWebsocket extends UIComponentBase implements ClientBehaviorHolder
      * @return Whether to (auto)connect the websocket or not.
      */
     public boolean isConnected() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.connected, Boolean.TRUE);
+        return getStateHelper().eval(PropertyKeys.connected, Boolean.TRUE);
     }
 
     /**

@@ -317,7 +317,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             throw new NullPointerException();
         }
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // the value-expression map is recovered from the Object-typed state helper.
         Map<String, ValueExpression> map = (Map<String, ValueExpression>) getStateHelper().get(UIComponentBase.PropertyKeys.valueExpressions);
 
         return map != null ? map.get(name) : null;
@@ -366,7 +366,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
         if (binding != null) {
             if (!binding.isLiteralText()) {
 
-                @SuppressWarnings("unchecked")
+                @SuppressWarnings("unchecked") // the set-attributes list is recovered from the Object-typed state helper.
                 List<String> sProperties = (List<String>) getStateHelper().get(PropertyKeysPrivate.attributesThatAreSet);
 
                 if (sProperties == null) {
@@ -1458,7 +1458,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
         encodeEnd(context);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the EL stack is stored under an Object-valued context attribute.
     private static ArrayDeque<UIComponent> _getComponentELStack(String keyName, Map<Object, Object> contextAttributes) {
         return (ArrayDeque<UIComponent>) contextAttributes.computeIfAbsent(keyName, e -> new ArrayDeque<>());
     }
@@ -2229,7 +2229,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             }
 
             @Override
-            @SuppressWarnings("unchecked")
+            @SuppressWarnings("unchecked") // obj is guarded by instanceof Map; the type arguments are erased at runtime.
             public boolean equals(Object obj) {
                 return !(obj == null || !(obj instanceof Map)) && entrySet().equals(((Map<String, String>) obj).entrySet());
             }

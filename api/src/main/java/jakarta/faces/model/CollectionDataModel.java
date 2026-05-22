@@ -151,7 +151,6 @@ public class CollectionDataModel<E> extends DataModel<E> {
                 rowData = getRowData();
             }
             DataModelEvent event = new DataModelEvent(this, index, rowData);
-            int n = listeners.length;
             for (DataModelListener listener : listeners) {
                 if (null != listener) {
                     listener.rowSelected(event);
@@ -175,6 +174,7 @@ public class CollectionDataModel<E> extends DataModel<E> {
      * @throws ClassCastException if <code>data</code> is non-<code>null</code> and is not a <code>Collection</code>
      */
     @Override
+    @SuppressWarnings("unchecked") // the Object data param is cast to the declared element/collection type.
     public void setWrappedData(Object data) {
         if (data == null) {
             inner = null;

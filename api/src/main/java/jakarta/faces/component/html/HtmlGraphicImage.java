@@ -162,7 +162,7 @@ public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder 
      * attribute to be rendered as ismap="ismap".
      */
     public boolean isIsmap() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.ismap, false);
+        return getStateHelper().eval(PropertyKeys.ismap, false);
 
     }
 

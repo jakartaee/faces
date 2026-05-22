@@ -82,7 +82,7 @@ public abstract class MetaTagHandler extends TagHandler {
      * @param type the type.
      * @return the {@link MetaRuleset}.
      */
-    protected abstract MetaRuleset createMetaRuleset(Class type);
+    protected abstract MetaRuleset createMetaRuleset(Class<?> type);
 
     /**
      * Invoking/extending this method will cause the results of the created MetaRuleset to auto-wire state to the passed

@@ -138,7 +138,7 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -603,7 +603,7 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      * attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.readonly, false);
+        return getStateHelper().eval(PropertyKeys.readonly, false);
 
     }
 

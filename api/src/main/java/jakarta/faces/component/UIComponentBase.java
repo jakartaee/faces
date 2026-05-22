@@ -200,7 +200,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     @Override
     public Map<String, Object> getPassThroughAttributes(boolean create) {
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // the pass-through attributes map is recovered from the Object-typed state helper.
         Map<String, Object> passThroughAttributes = (Map<String, Object>) this.getStateHelper().get(PropertyKeys.passThroughAttributes);
 
         if (passThroughAttributes == null && create) {
@@ -655,7 +655,7 @@ public abstract class UIComponentBase extends UIComponent {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    protected FacesListener[] getFacesListeners(Class clazz) {
+    protected FacesListener[] getFacesListeners(Class<? extends FacesListener> clazz) {
 
         if (clazz == null) {
             throw new NullPointerException();
@@ -675,7 +675,7 @@ public abstract class UIComponentBase extends UIComponent {
 
         List<FacesListener> results = new ArrayList<>(listeners.length);
         for (FacesListener listener : listeners) {
-            if (((Class<?>) clazz).isAssignableFrom(listener.getClass())) {
+            if (clazz.isAssignableFrom(listener.getClass())) {
                 results.add(listener);
             }
         }
@@ -1288,7 +1288,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (newWillSucceed && attachedObject instanceof Collection) {
-            Collection attachedCollection = (Collection) attachedObject;
+            Collection<?> attachedCollection = (Collection<?>) attachedObject;
             List<StateHolderSaver> resultList = new ArrayList<>(attachedCollection.size() + 1);
             resultList.add(new StateHolderSaver(context, mapOrCollectionClass));
             for (Object item : attachedCollection) {
@@ -1301,11 +1301,11 @@ public abstract class UIComponentBase extends UIComponent {
             }
             result = resultList;
         } else if (newWillSucceed && attachedObject instanceof Map) {
-            Map<Object, Object> attachedMap = (Map<Object, Object>) attachedObject;
+            Map<?, ?> attachedMap = (Map<?, ?>) attachedObject;
             List<StateHolderSaver> resultList = new ArrayList<>(attachedMap.size() * 2 + 1);
             resultList.add(new StateHolderSaver(context, mapOrCollectionClass));
             Object key, value;
-            for (Map.Entry<Object, Object> entry : attachedMap.entrySet()) {
+            for (Map.Entry<?, ?> entry : attachedMap.entrySet()) {
                 key = entry.getKey();
                 if (key instanceof StateHolder && ((StateHolder) key).isTransient()) {
                     continue;
@@ -1344,6 +1344,7 @@ public abstract class UIComponentBase extends UIComponent {
      * @throws IllegalStateException if the object is not previously returned by {@link #saveAttachedState}.
      */
 
+    @SuppressWarnings("unchecked") // reflective deserialization: state types are guaranteed by the matching saveAttachedState.
     public static Object restoreAttachedState(FacesContext context, Object stateObj) throws IllegalStateException {
         if (null == context) {
             throw new NullPointerException();
@@ -1436,6 +1437,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     }
 
+    @SuppressWarnings("unchecked") // Reflective deserialization: state types are guaranteed by the matching saveSystemEventListeners.
     private Map<Class<? extends SystemEvent>, List<SystemEventListener>> restoreSystemEventListeners(FacesContext ctx, Object state) {
 
         if (state == null) {
@@ -1836,7 +1838,7 @@ public abstract class UIComponentBase extends UIComponent {
             String key = (String) keyObj;
             PropertyDescriptor pd = getPropertyDescriptor(key);
             if (pd == null) {
-                Map<String, Object> attributes = (Map<String, Object>) component.getStateHelper().get(PropertyKeys.attributes);
+                Map<String, Object> attributes = getAttributes();
                 if (attributes != null) {
                     return attributes.containsKey(key);
                 } else {
@@ -1857,7 +1859,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(key)) {
                 result = component.getStateHelper().get(UIComponent.PropertyKeysPrivate.attributesThatAreSet);
             }
-            Map<String, Object> attributes = (Map<String, Object>) component.getStateHelper().get(PropertyKeys.attributes);
+            Map<String, Object> attributes = getAttributes();
             if (null == result) {
                 PropertyDescriptor pd = getPropertyDescriptor(key);
                 if (pd != null) {
@@ -1970,6 +1972,7 @@ public abstract class UIComponentBase extends UIComponent {
                     throw new NullPointerException();
                 }
 
+                @SuppressWarnings("unchecked") // the set-attributes list is recovered from the Object-typed state helper.
                 List<String> sProperties = (List<String>) component.getStateHelper().get(PropertyKeysPrivate.attributesThatAreSet);
                 if (sProperties == null) {
                     component.getStateHelper().add(PropertyKeysPrivate.attributesThatAreSet, keyValue);
@@ -2074,14 +2077,14 @@ public abstract class UIComponentBase extends UIComponent {
             if (!(o instanceof Map)) {
                 return false;
             }
-            Map t = (Map) o;
+            Map<?, ?> t = (Map<?, ?>) o;
             if (t.size() != size()) {
                 return false;
             }
 
             try {
                 for (Object e : entrySet()) {
-                    Entry entry = (Entry) e;
+                    Entry<?, ?> entry = (Entry<?, ?>) e;
                     Object key = entry.getKey();
                     Object value = entry.getValue();
                     if (value == null) {
@@ -2110,6 +2113,7 @@ public abstract class UIComponentBase extends UIComponent {
             return h;
         }
 
+        @SuppressWarnings("unchecked") // State helper stores the attributes map under PropertyKeys.attributes.
         private Map<String, Object> getAttributes() {
             return (Map<String, Object>) component.getStateHelper().get(PropertyKeys.attributes);
         }
@@ -2143,12 +2147,10 @@ public abstract class UIComponentBase extends UIComponent {
 
         private void writeObject(ObjectOutputStream out) throws IOException {
             out.writeObject(component.getClass());
-            // noinspection NonSerializableObjectPassedToObjectStream
             out.writeObject(component.saveState(FacesContext.getCurrentInstance()));
         }
 
         private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-            // noinspection unchecked
             Class<?> clazz = (Class<?>) in.readObject();
             try {
                 component = (UIComponent) clazz.getDeclaredConstructor().newInstance();
@@ -2528,8 +2530,7 @@ public abstract class UIComponentBase extends UIComponent {
         public UIComponent put(String key, UIComponent value) {
             if (key == null || value == null) {
                 throw new NullPointerException();
-            } else // noinspection ConstantConditions
-            if (!(key instanceof String) || !(value instanceof UIComponent)) {
+            } else if (!(key instanceof String) || !(value instanceof UIComponent)) {
                 throw new ClassCastException();
             }
             UIComponent previous = super.get(key);
@@ -2611,7 +2612,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (!(o instanceof Map.Entry)) {
                 return false;
             }
-            Map.Entry e = (Map.Entry) o;
+            Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
             Object k = e.getKey();
             Object v = e.getValue();
             if (!map.containsKey(k)) {
@@ -2642,7 +2643,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (!(o instanceof Map.Entry)) {
                 return false;
             }
-            Object k = ((Map.Entry) o).getKey();
+            Object k = ((Map.Entry<?, ?>) o).getKey();
             if (map.containsKey(k)) {
                 map.remove(k);
                 return true;
@@ -2652,7 +2653,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean removeAll(Collection c) {
+        public boolean removeAll(Collection<?> c) {
             boolean result = false;
             for (Object element : c) {
                 if (remove(element)) {
@@ -2663,7 +2664,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean retainAll(Collection c) {
+        public boolean retainAll(Collection<?> c) {
             boolean result = false;
             Iterator<Entry<String, UIComponent>> v = iterator();
             while (v.hasNext()) {
@@ -2701,7 +2702,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (!(o instanceof Map.Entry)) {
                 return false;
             }
-            Map.Entry e = (Map.Entry) o;
+            Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
             if (key == null) {
                 if (e.getKey() != null) {
                     return false;
@@ -2777,7 +2778,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (last == null) {
                 throw new IllegalStateException();
             }
-            map.remove(((Map.Entry) last).getKey());
+            map.remove(((Map.Entry<?, ?>) last).getKey());
             last = null;
         }
 
@@ -2813,7 +2814,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean containsAll(Collection c) {
+        public boolean containsAll(Collection<?> c) {
             for (Object item : c) {
                 if (!map.containsKey(item)) {
                     return false;
@@ -2843,7 +2844,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean removeAll(Collection c) {
+        public boolean removeAll(Collection<?> c) {
             boolean result = false;
             for (Object item : c) {
                 if (map.containsKey(item)) {
@@ -2855,7 +2856,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean retainAll(Collection c) {
+        public boolean retainAll(Collection<?> c) {
             boolean result = false;
             Iterator<String> v = iterator();
             while (v.hasNext()) {
@@ -2923,7 +2924,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean addAll(Collection c) {
+        public boolean addAll(Collection<? extends UIComponent> c) {
             throw new UnsupportedOperationException();
         }
 
@@ -3038,7 +3039,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the property-descriptor cache is recovered from the Object-valued application map.
     private void populateDescriptorsMapIfNecessary() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Class<?> clazz = getClass();
@@ -3157,7 +3158,6 @@ public abstract class UIComponentBase extends UIComponent {
 
             while (entries.hasNext()) {
                 Map.Entry<String, UIComponent> entry = entries.next();
-                // noinspection ObjectEquality
                 if (entry.getValue() == component) {
                     entries.remove();
                     return;

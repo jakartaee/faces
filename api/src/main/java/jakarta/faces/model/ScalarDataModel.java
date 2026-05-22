@@ -167,6 +167,7 @@ public class ScalarDataModel<E> extends DataModel<E> {
      * @throws ClassCastException {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked") // the Object data param is cast to the declared element type.
     public void setWrappedData(Object data) {
 
         if (data == null) {

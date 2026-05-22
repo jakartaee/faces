@@ -503,7 +503,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * @return the list of phase listeners.
      * @since 2.0
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the phase-listener list is recovered from the Object-typed state helper.
     public List<PhaseListener> getPhaseListeners() {
         List<PhaseListener> result = (List<PhaseListener>) getStateHelper().get(PropertyKeys.phaseListeners);
 
@@ -902,7 +902,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     // ------------------------------------------------ Lifecycle Phase Handlers
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the phase-listener list is recovered from the Object-typed state helper.
     private void initState() {
         skipPhase = false;
         beforeMethodException = false;
@@ -1632,7 +1632,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * @return the view map, or <code>null</code>.
      * @since 2.0
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the view map is recovered from the Object-typed transient state helper.
     public Map<String, Object> getViewMap(boolean create) {
         Map<String, Object> viewMap = (Map<String, Object>) getTransientStateHelper().getTransient("org.glassfish.mojarra.application.view.viewMap");
 
@@ -1811,7 +1811,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the opaque state Object and session-stored view maps are cast back to their saved types.
     public void restoreState(FacesContext context, Object state) {
         if (context == null) {
             throw new NullPointerException();

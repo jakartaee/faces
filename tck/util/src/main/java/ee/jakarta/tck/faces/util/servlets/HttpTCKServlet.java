@@ -48,6 +48,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public abstract class HttpTCKServlet extends HttpServlet {
 
+  private static final long serialVersionUID = 1L;
+
   private static final String TEXT_PLAIN = "text/plain";
 
   /**
@@ -138,7 +140,6 @@ public abstract class HttpTCKServlet extends HttpServlet {
    * @exception ServletException
    *              if an error occurs
    */
-  @SuppressWarnings("static-access")
   protected void invokeTest(HttpServletRequest req, HttpServletResponse res)
       throws ServletException {
     initFaces(context, req, res);
@@ -166,7 +167,7 @@ public abstract class HttpTCKServlet extends HttpServlet {
     } catch (Exception e) {
       throw new ServletException("Error executing test: " + test, e);
     } finally {
-      if (facesContext.getCurrentInstance() != null) {
+      if (FacesContext.getCurrentInstance() != null) {
         facesContext.release();
       }
     }

@@ -41,7 +41,7 @@ import jakarta.faces.context.FacesContext;
  * This can be used as a base-class for all state-holder implementations in components, converters and validators and
  * other implementations of the StateHolder interface.
  */
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings("unchecked") // the state maps hold heterogeneous values as Object and return them as the caller-requested type.
 class ComponentStateHelper implements StateHelper, TransientStateHelper {
 
     private final UIComponent component;

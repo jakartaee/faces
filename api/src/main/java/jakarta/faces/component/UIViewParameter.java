@@ -82,8 +82,6 @@ public class UIViewParameter extends UIInput {
 
     private Renderer<UIComponent> inputTextRenderer = null;
 
-    private transient Boolean emptyStringIsNull;
-
     // ------------------------------------------------------------ Constructors
 
     /**

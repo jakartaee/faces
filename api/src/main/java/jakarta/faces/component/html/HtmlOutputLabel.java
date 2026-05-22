@@ -135,7 +135,7 @@ public class HtmlOutputLabel extends UIOutput implements ClientBehaviorHolder {
      * flag is assumed to be "true".
      */
     public boolean isEscape() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.escape, true);
+        return getStateHelper().eval(PropertyKeys.escape, true);
 
     }
 

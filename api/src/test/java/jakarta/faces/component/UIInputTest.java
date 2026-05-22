@@ -82,7 +82,6 @@ public class UIInputTest {
 
     @Test
     public void testRestoreState2() {
-        FacesContext context = Mockito.mock(FacesContext.class);
         UIInput input = new UIInput();
         assertThrows(NullPointerException.class, () -> input.restoreState(null, null));
     }
@@ -183,7 +182,7 @@ public class UIInputTest {
         input.restoreState(context, state);
         assertTrue(input.getValidators().length == 3);
 
-        Validator[] validators = input.getValidators();
+        Validator<?>[] validators = input.getValidators();
         for (int i = 0, len = validators.length; i < len; i++) {
             LengthValidator v = (LengthValidator) validators[i];
             assertTrue(v.getMinimum() == i + 1);

@@ -163,7 +163,7 @@ public class HtmlForm extends UIForm implements ClientBehaviorHolder {
      * "application/x-www-form-urlencoded".
      */
     public java.lang.String getEnctype() {
-        return (java.lang.String) getStateHelper().eval(PropertyKeys.enctype, "application/x-www-form-urlencoded");
+        return getStateHelper().eval(PropertyKeys.enctype, "application/x-www-form-urlencoded");
 
     }
 

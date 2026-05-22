@@ -74,7 +74,7 @@ public final class WebsocketEvent implements Serializable {
      * @return The web socket user identifier, if any.
      * @throws ClassCastException When <code>S</code> is of wrong type.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // user is stored as Serializable and returned as the caller-requested subtype.
     public <S extends Serializable> S getUser() {
         return (S) user;
     }

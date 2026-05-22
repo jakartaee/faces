@@ -18,9 +18,11 @@
 package jakarta.faces.webapp;
 
 
-import java.io.IOException;
-import jakarta.faces.FactoryFinder;
 import static jakarta.faces.FactoryFinder.FACES_SERVLET_FACTORY;
+
+import java.io.IOException;
+
+import jakarta.faces.FactoryFinder;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.servlet.Servlet;
