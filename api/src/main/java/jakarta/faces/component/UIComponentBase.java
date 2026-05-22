@@ -2147,12 +2147,10 @@ public abstract class UIComponentBase extends UIComponent {
 
         private void writeObject(ObjectOutputStream out) throws IOException {
             out.writeObject(component.getClass());
-            // noinspection NonSerializableObjectPassedToObjectStream
             out.writeObject(component.saveState(FacesContext.getCurrentInstance()));
         }
 
         private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-            // noinspection unchecked
             Class<?> clazz = (Class<?>) in.readObject();
             try {
                 component = (UIComponent) clazz.getDeclaredConstructor().newInstance();
@@ -2532,8 +2530,7 @@ public abstract class UIComponentBase extends UIComponent {
         public UIComponent put(String key, UIComponent value) {
             if (key == null || value == null) {
                 throw new NullPointerException();
-            } else // noinspection ConstantConditions
-            if (!(key instanceof String) || !(value instanceof UIComponent)) {
+            } else if (!(key instanceof String) || !(value instanceof UIComponent)) {
                 throw new ClassCastException();
             }
             UIComponent previous = super.get(key);
@@ -3161,7 +3158,6 @@ public abstract class UIComponentBase extends UIComponent {
 
             while (entries.hasNext()) {
                 Map.Entry<String, UIComponent> entry = entries.next();
-                // noinspection ObjectEquality
                 if (entry.getValue() == component) {
                     entries.remove();
                     return;

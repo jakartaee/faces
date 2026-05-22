@@ -118,7 +118,7 @@ final class FactoryFinderInstance {
 
     FactoryFinderInstance(FacesContext facesContext) {
         for (String name : factoryNames) {
-            factories.put(name, new ArrayList<>(4)); // NOPMD
+            factories.put(name, new ArrayList<>(4));
         }
         createdBy = generateCreatedBy(facesContext);
     }

@@ -1829,7 +1829,6 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
         setDataModel(null); // Re-evaluate even with server-side state saving
         Map<String, SavedState> saved = (Map<String, SavedState>) getStateHelper().get(PropertyKeys.saved);
         if (null == saved || !keepSaved(context)) {
-            // noinspection CollectionWithoutInitialCapacity
             getStateHelper().remove(PropertyKeys.saved);
         }
     }
@@ -1858,8 +1857,6 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
     private void preEncode(FacesContext context) {
         setDataModel(null); // re-evaluate even with server-side state saving
         if (!keepSaved(context)) {
-            //// noinspection CollectionWithoutInitialCapacity
-            // saved = new HashMap<String, SavedState>();
             getStateHelper().remove(PropertyKeys.saved);
         }
     }
