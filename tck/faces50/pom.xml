@@ -48,6 +48,7 @@
         <module>csp</module>
         <module>misc</module>
         <module>view-protection</module>
+        <module>extensionless-mapping</module>
     </modules>
 
     <dependencies>
