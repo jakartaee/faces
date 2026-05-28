@@ -182,7 +182,7 @@ public abstract class UIComponentBase extends UIComponent {
      * <p>Marked {@code transient} so it is not serialized as part of view state; it rebuilds on
      * the first {@code getRenderer} call after deserialization.
      */
-    private transient Renderer cachedRenderer;
+    private transient Renderer<?> cachedRenderer;
 
     /**
      * The <code>List</code> containing our child components.
@@ -333,7 +333,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     @Override
     public boolean isRendered() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.rendered, TRUE);
+        return getStateHelper().eval(PropertyKeys.rendered, TRUE);
     }
 
     @Override
@@ -1066,7 +1066,7 @@ public abstract class UIComponentBase extends UIComponent {
     @SuppressWarnings("unchecked")
     protected <T extends UIComponent> Renderer<T> getRenderer(FacesContext context) {
 
-        Renderer<T> renderer = cachedRenderer;
+        Renderer<T> renderer = (Renderer<T>) cachedRenderer;
         if (renderer != null) {
             return renderer;
         }
