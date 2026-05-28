@@ -2609,6 +2609,9 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         Iterator<String> keySetIterator() {
+            if (super.isEmpty()) {
+                return Collections.emptyIterator();
+            }
             return new ArrayList<>(super.keySet()).iterator();
         }
 
@@ -3085,9 +3088,8 @@ public abstract class UIComponentBase extends UIComponent {
 
             Map<String, Object> applicationMap = facesContext.getExternalContext().getApplicationMap();
 
-            applicationMap.putIfAbsent(FACES_COMPONENT_DESCRIPTORS_MAP_NAME, new ConcurrentHashMap<>());
-
-            descriptors = (Map<Class<?>, Map<String, PropertyDescriptor>>) applicationMap.get(FACES_COMPONENT_DESCRIPTORS_MAP_NAME);
+            descriptors = (Map<Class<?>, Map<String, PropertyDescriptor>>) applicationMap.computeIfAbsent(
+                    FACES_COMPONENT_DESCRIPTORS_MAP_NAME, k -> new ConcurrentHashMap<>());
             propertyDescriptorMap = descriptors.get(clazz);
         }
 
@@ -3106,8 +3108,8 @@ public abstract class UIComponentBase extends UIComponent {
                     LOGGER.log(FINE, "fine.component.populating_descriptor_map", new Object[] { clazz, currentThread().getName() });
                 }
 
-                if (descriptors != null && !descriptors.containsKey(clazz)) {
-                    descriptors.put(clazz, propertyDescriptorMap);
+                if (descriptors != null) {
+                    descriptors.putIfAbsent(clazz, propertyDescriptorMap);
                 }
             }
         }
