@@ -28,6 +28,7 @@ import java.lang.annotation.Target;
 
 import jakarta.enterprise.inject.Stereotype;
 import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.enterprise.util.Nonbinding;
 import jakarta.inject.Qualifier;
 
 /**
@@ -113,6 +114,7 @@ public @interface FacesConverter {
      * @deprecated Since 5.0. All converters are now CDI managed. This attribute is ignored.
      */
     @Deprecated(since = "5.0", forRemoval = true)
+    @Nonbinding
     boolean managed() default false;
 
     /**
