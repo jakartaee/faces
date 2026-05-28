@@ -27,11 +27,11 @@ import static org.junit.jupiter.api.extension.ConditionEvaluationResult.enabled;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.util.regex.Pattern;
 
-import org.apache.commons.lang3.exception.UncheckedException;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit5.ArquillianExtension;
 import org.jboss.arquillian.test.api.ArquillianResource;
@@ -153,7 +153,7 @@ public abstract class BaseITNG implements ExecutionCondition {
             throw new IllegalStateException(e);
         }
         catch (IOException e) {
-            throw new UncheckedException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -177,7 +177,7 @@ public abstract class BaseITNG implements ExecutionCondition {
             throw new IllegalStateException(e);
         }
         catch (IOException e) {
-            throw new UncheckedException(e);
+            throw new UncheckedIOException(e);
         }
     }
 
@@ -198,7 +198,7 @@ public abstract class BaseITNG implements ExecutionCondition {
             throw new IllegalStateException(e);
         }
         catch (IOException e) {
-            throw new UncheckedException(e);
+            throw new UncheckedIOException(e);
         }
     }
 

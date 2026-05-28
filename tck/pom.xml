@@ -68,7 +68,6 @@
         <junit.version>5.13.4</junit.version>
         <selenium.version>4.35.0</selenium.version>
         <shrinkwrap-resolver.version>3.3.4</shrinkwrap-resolver.version>
-        <webdrivermanager.version>6.2.0</webdrivermanager.version>
 
         <!--
             Set to the actual Faces API the implementation being tested is using.

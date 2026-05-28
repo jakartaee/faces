@@ -90,7 +90,6 @@ import static java.util.logging.Level.FINE;
 import static java.util.logging.Level.FINEST;
 import static java.util.logging.Level.INFO;
 import static java.util.logging.Level.WARNING;
-import static org.apache.commons.lang3.builder.ToStringBuilder.reflectionToString;
 import static org.openqa.selenium.devtools.v139.network.model.ResourceType.DOCUMENT;
 import static org.openqa.selenium.devtools.v139.network.model.ResourceType.FETCH;
 import static org.openqa.selenium.devtools.v139.network.model.ResourceType.XHR;
@@ -238,7 +237,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             cycleDataWriteLock.lock();
             try {
-                LOG.log(INFO, () -> "Recording request: " + reflectionToString(request));
+                LOG.log(INFO, () -> "Recording request: " + request.getRequest().getMethod() + " "
+                    + request.getRequest().getUrl() + " [" + request.getRequestId() + "]");
                 HttpCycleData data = findOrCreate(request.getRequestId());
                 data.request = request.getRequest();
             } finally {
@@ -253,8 +253,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             cycleDataWriteLock.lock();
             try {
-                LOG.log(INFO, () -> "Recording response: " + reflectionToString(response) + ", code: "
-                    + response.getResponse().getStatus());
+                LOG.log(INFO, () -> "Recording response: " + response.getResponse().getUrl() + " ["
+                    + response.getRequestId() + "], code: " + response.getResponse().getStatus());
                 HttpCycleData data = findOrCreate(response.getRequestId());
                 data.responseReceived = response;
             } finally {
@@ -875,6 +875,8 @@ class HttpCycleData {
 
     @Override
     public String toString() {
-        return reflectionToString(this);
+        return getClass().getSimpleName() + "[requestId=" + requestId
+            + ", request=" + (request == null ? null : request.getMethod() + " " + request.getUrl())
+            + ", responseStatus=" + (responseReceived == null ? null : responseReceived.getResponse().getStatus()) + "]";
     }
 }
