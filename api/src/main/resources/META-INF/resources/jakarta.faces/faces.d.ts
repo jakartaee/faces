@@ -915,3 +915,6 @@ declare namespace faces {
         export function chain(source: HTMLElement | string, event?: Event | null, ...scripts: string[]): boolean;
     }
 }
+
+export = faces;
+export as namespace faces;
