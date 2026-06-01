@@ -20,7 +20,7 @@
  * @namespace
  * @since 2.0
  */
-export declare namespace faces {
+declare namespace faces {
 
     /**
      * <p class="changed_added_5_0">Project stage values, mirroring
