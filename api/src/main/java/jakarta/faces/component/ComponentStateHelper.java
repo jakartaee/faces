@@ -18,7 +18,6 @@ package jakarta.faces.component;
 
 import static jakarta.faces.component.PackageUtils.MARK_CREATED;
 import static jakarta.faces.component.PackageUtils.addToDescendantMarkIdCache;
-import static jakarta.faces.component.PackageUtils.coalesce;
 import static jakarta.faces.component.UIComponentBase.restoreAttachedState;
 import static jakarta.faces.component.UIComponentBase.saveAttachedState;
 
@@ -207,7 +206,7 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
 
         }
 
-        return coalesce(retVal, defaultValue);
+        return retVal != null ? retVal : defaultValue;
     }
 
     /**
