@@ -15,8 +15,3 @@
  */
 
 document.getElementById("scriptResult").innerHTML = "addedProgrammatically";
-// Defer the computed-style read to the next layout pass — when this script is appended via a partial
-// response, the matching stylesheet may still be loading, so reading synchronously can miss its rules.
-requestAnimationFrame(() => {
-    document.getElementById("stylesheetResult").innerHTML = window.getComputedStyle(document.body).getPropertyValue("background-color");
-});
