@@ -85,8 +85,19 @@ public abstract class BaseITNG implements ExecutionCondition {
 
     @BeforeEach
     void setUp() {
-        webDriver = driverPool.getOrNewInstance();
         warmUpOnce();
+    }
+
+    /**
+     * Lazily acquires a pooled WebDriver the first time a test actually drives the
+     * browser. HTTP-only tests (those using only {@link #getResponseBody}) never
+     * trigger acquisition, so they skip Chrome/CDP session setup entirely.
+     */
+    private ExtendedWebDriver webDriver() {
+        if (webDriver == null) {
+            webDriver = driverPool.getOrNewInstance();
+        }
+        return webDriver;
     }
 
     /**
@@ -114,7 +125,22 @@ public abstract class BaseITNG implements ExecutionCondition {
 
     @AfterEach
     protected void tearDown() {
-        driverPool.returnInstance(webDriver);
+        if (webDriver != null) {
+            driverPool.returnInstance(webDriver);
+            webDriver = null;
+        }
+    }
+
+    /**
+     * Discards the current test's WebDriver (quit and removed from the pool) instead
+     * of returning it for reuse. For tests whose per-test driver state cannot be
+     * cleared by {@link DriverPool#returnInstance} — e.g. additive request headers.
+     */
+    protected void discardWebDriver() {
+        if (webDriver != null) {
+            driverPool.quitInstance(webDriver);
+            webDriver = null;
+        }
     }
 
     @AfterAll
@@ -123,25 +149,27 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     protected WebPage getPage(String page) {
+        ExtendedWebDriver driver = webDriver();
         String url = webUrl.toString() + page;
         try {
-            webDriver.get(url);
+            driver.get(url);
         } catch (WebDriverException ex) {
-            // CDP session can die between @BeforeEach and the first navigation
+            // CDP session can die between acquisition and the first navigation
             // (Chrome crash, paged-out, dropped WebSocket). DriverPool only retries
             // on postInit failure; here we cover the post-postInit gap.
-            webDriver = driverPool.replace(webDriver, "navigation failed (" + ex.getClass().getSimpleName() + ")");
-            webDriver.postInit();
-            webDriver.get(url);
+            driver = webDriver = driverPool.replace(driver, "navigation failed (" + ex.getClass().getSimpleName() + ")");
+            driver.postInit();
+            driver.get(url);
         }
-        WebPage webPage = new WebPage(webDriver);
-        PageFactory.initElements(webDriver, this);
+        WebPage webPage = new WebPage(driver);
+        PageFactory.initElements(driver, this);
         return webPage;
     }
 
     protected int getStatusCode(String page) {
-        webDriver.get(webUrl.toString() + page);
-        return new WebPage(webDriver).getResponseStatus();
+        ExtendedWebDriver driver = webDriver();
+        driver.get(webUrl.toString() + page);
+        return new WebPage(driver).getResponseStatus();
     }
 
     protected String getResponseBody(String resource) {
@@ -203,7 +231,7 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     public ExtendedWebDriver getWebDriver() {
-        return webDriver;
+        return webDriver();
     }
 
     protected String getHrefURI(WebElement link) {
