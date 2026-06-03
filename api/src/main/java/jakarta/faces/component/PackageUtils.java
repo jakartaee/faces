@@ -43,6 +43,17 @@ class PackageUtils {
     private static final String PATTERN_CACHE_KEY = "org.glassfish.mojarra.patternCache";
     private static final String CLIENT_ID_NESTED_IN_ITERATOR_PATTERN = "CLIENT_ID_NESTED_IN_ITERATOR_PATTERN";
 
+    // Facelets framework markers stored on a component's attribute map during view build and refresh (creation
+    // tag id, deletion, facet name, modified/removed children, dynamic add). UIComponentBase field-backs these
+    // for authoritative AttributesMap reads; the values are the shared attribute keys the implementation also
+    // reads and writes, so they must stay identical on both sides.
+    static final String MARK_CREATED = "facelets.MARK_ID";
+    static final String MARK_DELETED = "facelets.MARK_DELETED";
+    static final String MARK_CHILDREN_MODIFIED = "facelets.MARK_CHILDREN_MODIFIED";
+    static final String REMOVED_CHILDREN = "facelets.REMOVED_CHILDREN";
+    static final String DYNAMIC_COMPONENT = "facelets.DYNAMIC_COMPONENT";
+    static final String FACET_NAME = "facelets.FACET_NAME";
+
     private PackageUtils() {
     }
 
