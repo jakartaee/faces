@@ -1464,7 +1464,16 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     @SuppressWarnings("unchecked") // the EL stack is stored under an Object-valued context attribute.
     private static ArrayDeque<UIComponent> _getComponentELStack(String keyName, Map<Object, Object> contextAttributes) {
-        return (ArrayDeque<UIComponent>) contextAttributes.computeIfAbsent(keyName, e -> new ArrayDeque<>());
+        // Plain get + lazy put rather than computeIfAbsent: the stack is created once per request and present on
+        // every subsequent push/pop/getCurrentComponent, and this method is one of the hottest paths in the
+        // lifecycle (pushed/popped per component per phase). Avoiding the computeIfAbsent lambda keeps the hot
+        // path a single HashMap.get.
+        ArrayDeque<UIComponent> componentELStack = (ArrayDeque<UIComponent>) contextAttributes.get(keyName);
+        if (componentELStack == null) {
+            componentELStack = new ArrayDeque<>();
+            contextAttributes.put(keyName, componentELStack);
+        }
+        return componentELStack;
     }
 
     /**
