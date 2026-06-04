@@ -7,17 +7,15 @@
     </extension>
 
     <!--
-        Remote container pointed at one of the gf-pool slots. The SlotLeaserAgent
-        (-javaagent on the failsafe-forked JVM) leases a slot before tests run and
-        publishes the slot's ports as system properties. Defaults let an IDE talk
-        to a stock GlassFish on 4848/8080/8181 when running tests directly without
-        the agent.
+        Pool container. Leases one of the pre-started GlassFish slots provisioned
+        by the glassfish-pool-maven-plugin. The slot's adminPort/httpPort/etc. are
+        filled in at start() time from the slot's published ports.properties; the
+        only required configuration is poolDir, which defaults to the gf.pool.dir
+        system property surefire/failsafe sets from the glassfish-ci-managed profile.
     -->
-    <container qualifier="glassfish-remote-tck" default="true">
+    <container qualifier="glassfish-pool" default="true">
         <configuration>
-            <property name="adminHost">localhost</property>
-            <property name="adminPort">${arquillian.adminPort:4848}</property>
-            <property name="adminHttps">false</property>
+            <property name="poolDir">${gf.pool.dir}</property>
         </configuration>
     </container>
 

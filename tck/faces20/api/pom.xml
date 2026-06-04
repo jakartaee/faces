@@ -32,11 +32,17 @@
 
     <!--
         Long modules first. See README §"Sizing -T and the pool".
+
+        The `application` sub-aggregator is listed LAST: Maven topo-expands a
+        sub-aggregator's entire subtree before moving on to the next <module>,
+        so any siblings declared after `application` would land in the topo
+        list AFTER all 5 of application's children. Putting `application` last
+        keeps the api-component-* WARs near the head of the ready queue under
+        -TN instead of getting starved at the tail.
     -->
     <modules>
         <module>common-tckjar</module>
         <module>component-tckjar</module>
-        <module>application</module>
         <module>component-ui</module>
         <module>component-html-input</module>
         <module>misc</module>
@@ -49,12 +55,6 @@
         <module>renderkit</module>
         <module>statemanager-client</module>
         <module>factoryfinderrelease</module>
+        <module>application</module>
     </modules>
-
-    <!--
-        application/ is now a packaging=pom that aggregates 5 child WARs
-        (application-core, application-wrapper, application-viewhandler,
-        application-resourcehandler, application-misc). Maven walks the
-        sub-reactor inline; no further changes needed here.
-    -->
 </project>

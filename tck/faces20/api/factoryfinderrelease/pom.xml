@@ -30,6 +30,19 @@
 
     <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
+            <artifactId>api-common-tckjar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
+            <artifactId>api-component-tckjar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
     <build>
         <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
     </build>
