@@ -81,7 +81,7 @@ public abstract class TagAttribute {
      * @param paramTypes parameter type
      * @return a MethodExpression instance
      */
-    public abstract MethodExpression getMethodExpression(FaceletContext ctx, Class type, Class[] paramTypes);
+    public abstract MethodExpression getMethodExpression(FaceletContext ctx, Class<?> type, Class<?>[] paramTypes);
 
     /**
      * The resolved Namespace for this attribute
@@ -133,7 +133,7 @@ public abstract class TagAttribute {
      * @param type expected return type
      * @return Object value of this attribute
      */
-    public abstract Object getObject(FaceletContext ctx, Class type);
+    public abstract Object getObject(FaceletContext ctx, Class<?> type);
 
     /**
      * Create a ValueExpression, using this attribute's literal value and the passed expected type.
@@ -144,7 +144,7 @@ public abstract class TagAttribute {
      * @see ExpressionFactory#createValueExpression(jakarta.el.ELContext, java.lang.String, java.lang.Class)
      * @see ValueExpression
      */
-    public abstract ValueExpression getValueExpression(FaceletContext ctx, Class type);
+    public abstract ValueExpression getValueExpression(FaceletContext ctx, Class<?> type);
 
     /**
      * If this TagAttribute is literal (not #{..} or ${..})

@@ -53,7 +53,7 @@ class FacesWrapperTest {
         if (wrapperClasses == null) {
             loadWrapperClasses();
             methodsToIgnore = new ArrayList<Method>();
-            methodsToIgnore.add(Object.class.getMethod("toString", new Class[0]));
+            methodsToIgnore.add(Object.class.getMethod("toString", new Class<?>[0]));
         }
     }
 

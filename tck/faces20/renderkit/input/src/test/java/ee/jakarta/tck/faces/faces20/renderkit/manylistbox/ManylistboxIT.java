@@ -238,7 +238,7 @@ class ManylistboxIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement listbox = findByIdSuffix(page, "listbox1");
         expected.forEach((name, value) ->
-            assertEquals(value, listbox.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(listbox, name, value), "attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

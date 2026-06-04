@@ -115,7 +115,7 @@ public class ListDataModel<E> extends DataModel<E> {
         } else if (!isRowAvailable()) {
             throw new NoRowAvailableException();
         } else {
-            return (E) list.get(index);
+            return list.get(index);
         }
 
     }
@@ -172,6 +172,7 @@ public class ListDataModel<E> extends DataModel<E> {
      * @throws ClassCastException if <code>data</code> is non-<code>null</code> and is not a <code>List</code>
      */
     @Override
+    @SuppressWarnings("unchecked") // the Object data param is cast to the declared element/list type.
     public void setWrappedData(Object data) {
 
         if (data == null) {

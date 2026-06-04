@@ -169,7 +169,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -245,7 +245,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      * Contents: The maximum number of characters that may be entered in this field.
      */
     public int getMaxlength() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.maxlength, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.maxlength, Integer.MIN_VALUE);
 
     }
 
@@ -636,7 +636,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      * attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.readonly, false);
+        return getStateHelper().eval(PropertyKeys.readonly, false);
 
     }
 
@@ -662,7 +662,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      * this is a potential security risk, password values are not displayed by default.
      */
     public boolean isRedisplay() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.redisplay, false);
+        return getStateHelper().eval(PropertyKeys.redisplay, false);
 
     }
 
@@ -725,7 +725,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      * Contents: The number of characters used to determine the width of this field.
      */
     public int getSize() {
-        return (java.lang.Integer) getStateHelper().eval(PropertyKeys.size, Integer.MIN_VALUE);
+        return getStateHelper().eval(PropertyKeys.size, Integer.MIN_VALUE);
 
     }
 

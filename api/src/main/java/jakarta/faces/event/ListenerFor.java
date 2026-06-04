@@ -160,6 +160,6 @@ public @interface ListenerFor {
      *
      * @return the source class
      */
-    public Class sourceClass() default Void.class;
+    public Class<?> sourceClass() default Void.class;
 
 }

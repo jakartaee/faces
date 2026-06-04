@@ -132,7 +132,7 @@ public class UIParameter extends UIComponentBase {
      * @since 2.0
      */
     public boolean isDisable() {
-        return (Boolean) getStateHelper().eval(PropertyKeys.disable, false);
+        return getStateHelper().eval(PropertyKeys.disable, false);
     }
 
     /**

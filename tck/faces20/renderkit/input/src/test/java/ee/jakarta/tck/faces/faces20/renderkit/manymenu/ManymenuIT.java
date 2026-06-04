@@ -211,7 +211,7 @@ class ManymenuIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement menu = findByIdSuffix(page, "menu1");
         expected.forEach((name, value) ->
-            assertEquals(value, menu.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(menu, name, value), "attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

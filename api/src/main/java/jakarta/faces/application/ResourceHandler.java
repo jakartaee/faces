@@ -772,7 +772,7 @@ public abstract class ResourceHandler {
      * @param libraryName The name of the library in which the resource resides, may be <code>null</code>.
      * @since 2.3
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the rendered-resources structure is recovered from the Object-typed request map.
     public void markResourceRendered(FacesContext context, String resourceName, String libraryName) {
         String resourceIdentifier = libraryName + ':' + resourceName;
         Set<String> resourceIdentifiers = (Set<String>) context.getAttributes().computeIfAbsent(RESOURCE_IDENTIFIER, k -> new HashSet<>());
@@ -792,7 +792,7 @@ public abstract class ResourceHandler {
      * @return Whether the resource as identified by given resource and library name has been rendered.
      * @since 2.3
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the rendered-resources structure is recovered from the Object-typed request map.
     public boolean isResourceRendered(FacesContext context, String resourceName, String libraryName) {
         String resourceIdentifier = libraryName + ':' + resourceName;
         Set<String> resourceIdentifiers = (Set<String>) context.getAttributes().get(RESOURCE_IDENTIFIER);

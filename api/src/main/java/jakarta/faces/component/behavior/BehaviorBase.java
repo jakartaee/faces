@@ -125,8 +125,8 @@ public class BehaviorBase implements Behavior, PartialStateHolder {
      * <p class="changed_added_2_0">
      * Implementation of {@link jakarta.faces.component.StateHolder#restoreState}.
      */
-    @SuppressWarnings("unchecked")
     @Override
+    @SuppressWarnings("unchecked") // the opaque state Object is cast back to the type written by saveState.
     public void restoreState(FacesContext context, Object state) {
 
         if (context == null) {
@@ -210,7 +210,6 @@ public class BehaviorBase implements Behavior, PartialStateHolder {
             throw new NullPointerException();
         }
         if (listeners == null) {
-            // noinspection CollectionWithoutInitialCapacity
             listeners = new ArrayList<>();
         }
         listeners.add(listener);

@@ -21,6 +21,7 @@ import java.io.Writer;
 import java.util.Iterator;
 
 import jakarta.faces.FacesWrapper;
+import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.ResponseStream;
 import jakarta.faces.context.ResponseWriter;
 
@@ -81,7 +82,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
      * @see RenderKit#addRenderer(String, String, Renderer)
      */
     @Override
-    public void addRenderer(String family, String rendererType, Renderer renderer) {
+    public void addRenderer(String family, String rendererType, Renderer<?> renderer) {
         getWrapped().addRenderer(family, rendererType, renderer);
     }
 
@@ -120,7 +121,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
      * @see RenderKit#getRenderer(String, String)
      */
     @Override
-    public Renderer getRenderer(String family, String rendererType) {
+    public <T extends UIComponent> Renderer<T> getRenderer(String family, String rendererType) {
         return getWrapped().getRenderer(family, rendererType);
     }
 

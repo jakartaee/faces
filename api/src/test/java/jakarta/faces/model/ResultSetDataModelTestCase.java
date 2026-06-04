@@ -543,5 +543,10 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
                     && (value == null
                     ? e.getValue() == null : value.equals(e.getValue()));
         }
+
+        @Override
+        public int hashCode() {
+            return (key == null ? 0 : key.hashCode()) ^ (value == null ? 0 : value.hashCode());
+        }
     }
 }

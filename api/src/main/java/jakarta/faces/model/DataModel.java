@@ -185,7 +185,6 @@ public abstract class DataModel<E> implements Iterable<E> {
             throw new NullPointerException();
         }
         if (listeners == null) {
-            // noinspection CollectionWithoutInitialCapacity
             listeners = new ArrayList<>();
         }
         listeners.add(listener);

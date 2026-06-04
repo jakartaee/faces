@@ -201,7 +201,15 @@
        with the same name as a <em>renderer specific attribute</em>, the
        <em>pass through attribute</em> takes precedence.  <em>Pass
        through attributes</em> are rendered as if they were passed to
-       <code>ResponseWriter.writeURIAttribute()</code>.</p>
+       <code>ResponseWriter.writeURIAttribute()</code>.
+       <span class="changed_modified_5_0">As an exception, when the attribute
+       name starts with 'on' and the substring after 'on' names a DOM event,
+       the implementation MAY instead arrange for the attribute's script
+       value to be invoked on that DOM event at runtime, provided the
+       observable behavior &mdash; including any chaining required by
+       <a href="#general_behavior_encoding">&sect;general_behavior_encoding</a>
+       and short-circuit-on-<code>false</code> semantics &mdash; is
+       preserved.</span></p>
 
 
      </ul>
@@ -216,7 +224,15 @@
          and the attribute name starts with 'on'
          and the substring after 'on' is contained in <code>ClientBehaviorHolder#getEventNames()</code>
          and it is not available as a <em>renderer specific attribute</em>,
-         then it must be rendered the same way as a <em>pass through attribute</em>.
+         then the implementation must ensure that the attribute's script value
+         is invoked on the corresponding DOM event, chained with any client
+         behavior scripts and renderer-specific scripts per the order defined
+         in <a href="#general_behavior_encoding">&sect;general_behavior_encoding</a>.
+         The implementation MAY satisfy this requirement either by rendering
+         the attribute the same way as a <em>pass through attribute</em>, or
+         by attaching the script as a DOM event listener at runtime, provided
+         the chaining order and short-circuit-on-<code>false</code> contract
+         are preserved.
        </p>
      </ul>
      </div>

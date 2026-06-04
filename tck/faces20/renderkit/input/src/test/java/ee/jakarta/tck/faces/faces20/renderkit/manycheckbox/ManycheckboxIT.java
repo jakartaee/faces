@@ -273,7 +273,7 @@ class ManycheckboxIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement checkbox = findByIdSuffix(page, "checkbox1:0");
         expected.forEach((name, value) ->
-            assertEquals(value, checkbox.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(checkbox, name, value), "attribute " + name));
         // Spec (standard-html-renderkit: SelectMany/Checkbox): style/styleClass render on the outer <table>.
         WebElement table = findByIdSuffix(page, "checkbox1");
         assertEquals("Color: red;", table.getDomAttribute("style"), "table style");

@@ -22,6 +22,7 @@ import jakarta.faces.context.FacesContext;
 
 class SharedUtils {
 
+    @SuppressWarnings("unchecked") // The model value's getter return type is resolved reflectively as Class<T>.
     static <T> Class<T> getReturnTypeOfGetterMethodAssociatedWithModelValue(FacesContext context, UIComponent component) {
         var valueExpression = component.getValueExpression("value");
 
@@ -36,7 +37,7 @@ class SharedUtils {
 
             if (methodExpressionString != null) {
                 return (Class<T>) context.getApplication().getExpressionFactory()
-                        .createMethodExpression(context.getELContext(), methodExpressionString, Object.class, new Class[0])
+                        .createMethodExpression(context.getELContext(), methodExpressionString, Object.class, new Class<?>[0])
                         .getMethodInfo(context.getELContext()).getReturnType();
             }
         }

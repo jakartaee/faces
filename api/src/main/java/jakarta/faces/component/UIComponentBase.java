@@ -17,12 +17,15 @@
 
 package jakarta.faces.component;
 
-import static jakarta.faces.component.PackageUtils.addToDescendantMarkIdCache;
+import static jakarta.faces.component.PackageUtils.DYNAMIC_COMPONENT;
+import static jakarta.faces.component.PackageUtils.FACET_NAME;
+import static jakarta.faces.component.PackageUtils.MARK_CHILDREN_MODIFIED;
+import static jakarta.faces.component.PackageUtils.MARK_CREATED;
+import static jakarta.faces.component.PackageUtils.MARK_DELETED;
+import static jakarta.faces.component.PackageUtils.REMOVED_CHILDREN;
 import static jakarta.faces.component.PackageUtils.isAllNull;
 import static jakarta.faces.component.PackageUtils.isAnyNull;
 import static jakarta.faces.component.PackageUtils.isEmpty;
-import static jakarta.faces.component.PackageUtils.isNotRenderingResponse;
-import static jakarta.faces.component.PackageUtils.removeFromDescendantMarkIdCache;
 import static java.beans.Introspector.getBeanInfo;
 import static java.lang.Boolean.TRUE;
 import static java.lang.Character.isDigit;
@@ -143,6 +146,17 @@ public abstract class UIComponentBase extends UIComponent {
      */
     private AttributesMap attributes;
 
+    // Facelets framework markers, read per component on every Facelets refresh (findChildByTagId, deletion
+    // marking, facet-name and child-modified checks). Cached on fields so AttributesMap.get/containsKey skip
+    // the per-read state-map lookup; writes still flow through the attributes map (AttributesMap.put/remove),
+    // so saved/restored state is unchanged. See markerGet/markerPut/markerRemove.
+    private String markCreated;            // PackageUtils.MARK_CREATED (tag id)
+    private String facetName;              // PackageUtils.FACET_NAME
+    private Object removedChildren;        // PackageUtils.REMOVED_CHILDREN (Collection)
+    private Object dynamicComponent;       // PackageUtils.DYNAMIC_COMPONENT (Integer index)
+    private boolean markDeleted;           // PackageUtils.MARK_DELETED
+    private boolean markChildrenModified;  // PackageUtils.MARK_CHILDREN_MODIFIED
+
     /**
      * <p>
      * The component identifier for this component.
@@ -157,12 +171,38 @@ public abstract class UIComponentBase extends UIComponent {
      */
     private String clientId;
 
+    // Cached first NamingContainer ancestor, resolved lazily by getNamingContainerAncestor(). Depends only
+    // on the parent chain, so it survives UIData/UIRepeat row iteration (which changes rowIndex and clientIds
+    // but not the tree) and lets the per-row clientId recompute skip the parent-chain walk. Invalidated only
+    // in setParent (the sole place this component's parent chain changes).
+    private UIComponent namingContainerAncestor;
+
     /**
      * <p>
      * The parent component for this component.
      * </p>
      */
     private UIComponent parent;
+
+    /**
+     * Per-component cache of the resolved {@link Renderer} for this component's renderer type.
+     * Populated lazily by {@link #getRenderer(FacesContext)}; invalidated by
+     * {@link #setRendererType(String)}, {@link #setParent(UIComponent)} (parenting can move
+     * the component under a different {@link UIViewRoot} and therefore a different
+     * {@code RenderKit}), and {@link #restoreState(FacesContext, Object)} (defensive: state
+     * restoration may rewrite {@code rendererType} via the {@link StateHelper} without going
+     * through {@link #setRendererType(String)}).
+     *
+     * <p>The cache assumes the public-API contract: {@code rendererType} mutations flow through
+     * {@code setRendererType}. Code that binds {@code rendererType} to a non-literal
+     * {@link jakarta.el.ValueExpression} (rare) or mutates the {@link StateHelper} directly
+     * after the first {@code getRenderer} call will see a stale cached renderer until the next
+     * invalidation point.
+     *
+     * <p>Marked {@code transient} so it is not serialized as part of view state; it rebuilds on
+     * the first {@code getRenderer} call after deserialization.
+     */
+    private transient Renderer<?> cachedRenderer;
 
     /**
      * The <code>List</code> containing our child components.
@@ -200,7 +240,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     @Override
     public Map<String, Object> getPassThroughAttributes(boolean create) {
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // the pass-through attributes map is recovered from the Object-typed state helper.
         Map<String, Object> passThroughAttributes = (Map<String, Object>) this.getStateHelper().get(PropertyKeys.passThroughAttributes);
 
         if (passThroughAttributes == null && create) {
@@ -242,7 +282,7 @@ public abstract class UIComponentBase extends UIComponent {
             }
 
             // Allow the renderer to convert the clientId
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 clientId = renderer.convertClientId(context, clientId);
             }
@@ -272,6 +312,9 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         clientId = null; // Erase any cached value
+        // Note: the cached NamingContainer ancestor is deliberately NOT cleared here. It depends only on
+        // the parent chain, which setId never changes; clearing it would defeat the cache during iteration,
+        // where UIRepeat/UIData call setId(getId()) per row on every descendant to refresh their clientIds.
     }
 
     @Override
@@ -281,6 +324,12 @@ public abstract class UIComponentBase extends UIComponent {
 
     @Override
     public void setParent(UIComponent parent) {
+
+        // Parenting can move this component under a different UIViewRoot (and therefore a
+        // different RenderKit), so invalidate the cached Renderer defensively.
+        cachedRenderer = null;
+        // The parent chain changed, so the cached NamingContainer ancestor is no longer valid.
+        namingContainerAncestor = null;
 
         if (parent == null) {
             if (this.parent != null) {
@@ -309,7 +358,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     @Override
     public boolean isRendered() {
-        return Boolean.parseBoolean(getStateHelper().eval(PropertyKeys.rendered, TRUE).toString());
+        return getStateHelper().eval(PropertyKeys.rendered, TRUE);
     }
 
     @Override
@@ -325,12 +374,13 @@ public abstract class UIComponentBase extends UIComponent {
     @Override
     public void setRendererType(String rendererType) {
         getStateHelper().put(PropertyKeys.rendererType, rendererType);
+        cachedRenderer = null;
     }
 
     @Override
     public boolean getRendersChildren() {
         if (getRendererType() != null) {
-            Renderer renderer = getRenderer(getFacesContext());
+            Renderer<UIComponent> renderer = getRenderer(getFacesContext());
             if (renderer != null) {
                 return renderer.getRendersChildren();
             }
@@ -498,7 +548,7 @@ public abstract class UIComponentBase extends UIComponent {
 
         String rendererType = getRendererType();
         if (rendererType != null) {
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.decode(context, this);
             } else {
@@ -529,7 +579,7 @@ public abstract class UIComponentBase extends UIComponent {
 
         String rendererType = getRendererType();
         if (rendererType != null) {
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.encodeBegin(context, this);
             } else {
@@ -555,7 +605,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (getRendererType() != null) {
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.encodeChildren(context, this);
             }
@@ -584,7 +634,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (getRendererType() != null) {
-            Renderer renderer = getRenderer(context);
+            Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.encodeEnd(context, this);
             }
@@ -655,7 +705,7 @@ public abstract class UIComponentBase extends UIComponent {
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
-    protected FacesListener[] getFacesListeners(Class clazz) {
+    protected FacesListener[] getFacesListeners(Class<? extends FacesListener> clazz) {
 
         if (clazz == null) {
             throw new NullPointerException();
@@ -675,7 +725,7 @@ public abstract class UIComponentBase extends UIComponent {
 
         List<FacesListener> results = new ArrayList<>(listeners.length);
         for (FacesListener listener : listeners) {
-            if (((Class<?>) clazz).isAssignableFrom(listener.getClass())) {
+            if (clazz.isAssignableFrom(listener.getClass())) {
                 results.add(listener);
             }
         }
@@ -860,11 +910,18 @@ public abstract class UIComponentBase extends UIComponent {
         pushComponentToEL(context, null);
 
         try {
-            // Process all facets and children of this component
-            Iterator<UIComponent> kids = getFacetsAndChildren();
-            while (kids.hasNext()) {
-                UIComponent kid = kids.next();
-                kid.processDecodes(context);
+            // Process all facets and children of this component, facets first (matching getFacetsAndChildren()).
+            if (getFacetCount() > 0) {
+                for (UIComponent facet : getFacets().values()) {
+                    facet.processDecodes(context);
+                }
+            }
+            int childCount = getChildCount();
+            if (childCount > 0) {
+                List<UIComponent> children = getChildren();
+                for (int i = 0; i < childCount; i++) {
+                    children.get(i).processDecodes(context);
+                }
             }
 
             // Process this component itself
@@ -900,11 +957,18 @@ public abstract class UIComponentBase extends UIComponent {
             Application application = context.getApplication();
             application.publishEvent(context, PreValidateEvent.class, this);
 
-            // Process all the facets and children of this component
-            Iterator<UIComponent> kids = getFacetsAndChildren();
-            while (kids.hasNext()) {
-                UIComponent kid = kids.next();
-                kid.processValidators(context);
+            // Process all facets and children of this component, facets first (matching getFacetsAndChildren()).
+            if (getFacetCount() > 0) {
+                for (UIComponent facet : getFacets().values()) {
+                    facet.processValidators(context);
+                }
+            }
+            int childCount = getChildCount();
+            if (childCount > 0) {
+                List<UIComponent> children = getChildren();
+                for (int i = 0; i < childCount; i++) {
+                    children.get(i).processValidators(context);
+                }
             }
 
             application.publishEvent(context, PostValidateEvent.class, this);
@@ -931,11 +995,18 @@ public abstract class UIComponentBase extends UIComponent {
         pushComponentToEL(context, null);
 
         try {
-            // Process all facets and children of this component
-            Iterator<UIComponent> kids = getFacetsAndChildren();
-            while (kids.hasNext()) {
-                UIComponent kid = kids.next();
-                kid.processUpdates(context);
+            // Process all facets and children of this component, facets first (matching getFacetsAndChildren()).
+            if (getFacetCount() > 0) {
+                for (UIComponent facet : getFacets().values()) {
+                    facet.processUpdates(context);
+                }
+            }
+            int childCount = getChildCount();
+            if (childCount > 0) {
+                List<UIComponent> children = getChildren();
+                for (int i = 0; i < childCount; i++) {
+                    children.get(i).processUpdates(context);
+                }
             }
         } finally {
             popComponentFromEL(context);
@@ -1038,9 +1109,13 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     @Override
-    protected Renderer getRenderer(FacesContext context) {
+    @SuppressWarnings("unchecked")
+    protected <T extends UIComponent> Renderer<T> getRenderer(FacesContext context) {
 
-        Renderer renderer = null;
+        Renderer<T> renderer = (Renderer<T>) cachedRenderer;
+        if (renderer != null) {
+            return renderer;
+        }
 
         String rendererType = getRendererType();
         if (rendererType != null) {
@@ -1049,6 +1124,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (renderer == null && LOGGER.isLoggable(FINE)) {
                 LOGGER.fine("Can't get Renderer for type " + rendererType);
             }
+            cachedRenderer = renderer;
         } else {
             if (LOGGER.isLoggable(FINE)) {
                 String id = getId();
@@ -1220,8 +1296,15 @@ public abstract class UIComponentBase extends UIComponent {
             if (values[4] != null) {
                 id = (String) values[4];
             }
+            // Full-state restore does not re-run buildView, so sync the field-backed markers from the
+            // restored attributes map (partial-state restore re-establishes them via buildView).
+            restoreMarkersFromState();
         }
 
+        // StateHelper.restoreState may rewrite rendererType without going through
+        // setRendererType, so invalidate the cached Renderer defensively. The next
+        // getRenderer call will recompute against the restored rendererType.
+        cachedRenderer = null;
     }
 
     @Override
@@ -1288,7 +1371,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (newWillSucceed && attachedObject instanceof Collection) {
-            Collection attachedCollection = (Collection) attachedObject;
+            Collection<?> attachedCollection = (Collection<?>) attachedObject;
             List<StateHolderSaver> resultList = new ArrayList<>(attachedCollection.size() + 1);
             resultList.add(new StateHolderSaver(context, mapOrCollectionClass));
             for (Object item : attachedCollection) {
@@ -1301,11 +1384,11 @@ public abstract class UIComponentBase extends UIComponent {
             }
             result = resultList;
         } else if (newWillSucceed && attachedObject instanceof Map) {
-            Map<Object, Object> attachedMap = (Map<Object, Object>) attachedObject;
+            Map<?, ?> attachedMap = (Map<?, ?>) attachedObject;
             List<StateHolderSaver> resultList = new ArrayList<>(attachedMap.size() * 2 + 1);
             resultList.add(new StateHolderSaver(context, mapOrCollectionClass));
             Object key, value;
-            for (Map.Entry<Object, Object> entry : attachedMap.entrySet()) {
+            for (Map.Entry<?, ?> entry : attachedMap.entrySet()) {
                 key = entry.getKey();
                 if (key instanceof StateHolder && ((StateHolder) key).isTransient()) {
                     continue;
@@ -1344,6 +1427,7 @@ public abstract class UIComponentBase extends UIComponent {
      * @throws IllegalStateException if the object is not previously returned by {@link #saveAttachedState}.
      */
 
+    @SuppressWarnings("unchecked") // reflective deserialization: state types are guaranteed by the matching saveAttachedState.
     public static Object restoreAttachedState(FacesContext context, Object stateObj) throws IllegalStateException {
         if (null == context) {
             throw new NullPointerException();
@@ -1436,6 +1520,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     }
 
+    @SuppressWarnings("unchecked") // Reflective deserialization: state types are guaranteed by the matching saveSystemEventListeners.
     private Map<Class<? extends SystemEvent>, List<SystemEventListener>> restoreSystemEventListeners(FacesContext ctx, Object state) {
 
         if (state == null) {
@@ -1454,6 +1539,88 @@ public abstract class UIComponentBase extends UIComponent {
 
     Map<String, PropertyDescriptor> getDescriptorMap() {
         return propertyDescriptorMap;
+    }
+
+    // ---- Field-backed Facelets markers (authoritative cache for AttributesMap) ----
+    // The marker fields are the single source of truth: AttributesMap.put/remove keep them in sync, and
+    // AttributesMap.get/containsKey read them WITHOUT touching the state map -- so the per-component
+    // "is this deleted / a facet / dynamically added?" checks during Facelets refresh (which are almost
+    // always negative on a stable tree) are field reads, not HashMap lookups. Partial-state restore (the
+    // default) is self-correcting: fresh component instances start absent and buildView re-puts the present
+    // markers. Full-state restore deserializes without buildView, so it repopulates the fields from the
+    // restored attributes map (see restoreMarkersFromState). markerGet returns NOT_MARKER for non-marker
+    // keys, telling AttributesMap to fall through to its normal property/attribute resolution.
+
+    private static final Object NOT_MARKER = new Object();
+
+    private Object markerGet(Object key) {
+        if (MARK_CREATED.equals(key)) {
+            return markCreated;
+        }
+        if (FACET_NAME.equals(key)) {
+            return facetName;
+        }
+        if (REMOVED_CHILDREN.equals(key)) {
+            return removedChildren;
+        }
+        if (DYNAMIC_COMPONENT.equals(key)) {
+            return dynamicComponent;
+        }
+        if (MARK_DELETED.equals(key)) {
+            return markDeleted ? Boolean.TRUE : null;
+        }
+        if (MARK_CHILDREN_MODIFIED.equals(key)) {
+            return markChildrenModified ? Boolean.TRUE : null;
+        }
+        return NOT_MARKER;
+    }
+
+    private void markerPut(Object key, Object value) {
+        if (MARK_CREATED.equals(key)) {
+            markCreated = (String) value;
+        } else if (FACET_NAME.equals(key)) {
+            facetName = (String) value;
+        } else if (REMOVED_CHILDREN.equals(key)) {
+            removedChildren = value;
+        } else if (DYNAMIC_COMPONENT.equals(key)) {
+            dynamicComponent = value;
+        } else if (MARK_DELETED.equals(key)) {
+            markDeleted = Boolean.TRUE.equals(value);
+        } else if (MARK_CHILDREN_MODIFIED.equals(key)) {
+            markChildrenModified = Boolean.TRUE.equals(value);
+        }
+    }
+
+    private void markerRemove(Object key) {
+        if (MARK_CREATED.equals(key)) {
+            markCreated = null;
+        } else if (FACET_NAME.equals(key)) {
+            facetName = null;
+        } else if (REMOVED_CHILDREN.equals(key)) {
+            removedChildren = null;
+        } else if (DYNAMIC_COMPONENT.equals(key)) {
+            dynamicComponent = null;
+        } else if (MARK_DELETED.equals(key)) {
+            markDeleted = false;
+        } else if (MARK_CHILDREN_MODIFIED.equals(key)) {
+            markChildrenModified = false;
+        }
+    }
+
+    // Full-state restore deserializes the tree without re-running buildView, so the marker fields are synced
+    // from the restored attributes map here. Partial-state restore re-puts them via buildView instead.
+    @SuppressWarnings("unchecked")
+    private void restoreMarkersFromState() {
+        Map<String, Object> attrs = (Map<String, Object>) getStateHelper().get(PropertyKeys.attributes);
+        if (attrs == null || attrs.isEmpty()) {
+            return;
+        }
+        markCreated = (String) attrs.get(MARK_CREATED);
+        facetName = (String) attrs.get(FACET_NAME);
+        removedChildren = attrs.get(REMOVED_CHILDREN);
+        dynamicComponent = attrs.get(DYNAMIC_COMPONENT);
+        markDeleted = Boolean.TRUE.equals(attrs.get(MARK_DELETED));
+        markChildrenModified = Boolean.TRUE.equals(attrs.get(MARK_CHILDREN_MODIFIED));
     }
 
     private void doPostAddProcessing(FacesContext context, UIComponent added) {
@@ -1817,26 +1984,30 @@ public abstract class UIComponentBase extends UIComponent {
         // private Map<String, Object> attributes;
         private transient Map<String, PropertyDescriptor> pdMap;
         private transient ConcurrentMap<String, Method> readMap;
-        private transient UIComponent component;
+        private transient UIComponentBase component;
         private static final long serialVersionUID = -6773035086539772945L;
 
         // -------------------------------------------------------- Constructors
 
         private AttributesMap(UIComponent component) {
 
-            this.component = component;
-            pdMap = ((UIComponentBase) component).getDescriptorMap();
+            this.component = (UIComponentBase) component;
+            pdMap = this.component.getDescriptorMap();
         }
 
         @Override
         public boolean containsKey(Object keyObj) {
+            Object marker = component.markerGet(keyObj);
+            if (marker != NOT_MARKER) {
+                return marker != null;
+            }
             if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(keyObj)) {
                 return true;
             }
             String key = (String) keyObj;
             PropertyDescriptor pd = getPropertyDescriptor(key);
             if (pd == null) {
-                Map<String, Object> attributes = (Map<String, Object>) component.getStateHelper().get(PropertyKeys.attributes);
+                Map<String, Object> attributes = getAttributes();
                 if (attributes != null) {
                     return attributes.containsKey(key);
                 } else {
@@ -1854,39 +2025,40 @@ public abstract class UIComponentBase extends UIComponent {
             if (key == null) {
                 throw new NullPointerException();
             }
+            Object marker = component.markerGet(key);
+            if (marker != NOT_MARKER) {
+                return marker;
+            }
             if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(key)) {
                 result = component.getStateHelper().get(UIComponent.PropertyKeysPrivate.attributesThatAreSet);
             }
-            Map<String, Object> attributes = (Map<String, Object>) component.getStateHelper().get(PropertyKeys.attributes);
+            // Resolved lazily: the property-backed fast path below never needs it.
+            Map<String, Object> attributes = null;
             if (null == result) {
-                PropertyDescriptor pd = getPropertyDescriptor(key);
-                if (pd != null) {
-                    try {
-                        if (null == readMap) {
-                            readMap = new ConcurrentHashMap<>();
-                        }
-                        Method readMethod = readMap.get(key);
-                        if (null == readMethod) {
-                            readMethod = pd.getReadMethod();
-                            Method putResult = readMap.putIfAbsent(key, readMethod);
-                            if (null != putResult) {
-                                readMethod = putResult;
-                            }
-                        }
-
+                // A previously-resolved property getter is cached by name. Invoke it directly and skip the
+                // per-read PropertyDescriptor lookup -- the descriptor is only needed to discover the getter
+                // once. This is the hot path when the same component is rendered repeatedly (UIData/UIRepeat rows).
+                Method readMethod = readMap == null ? null : readMap.get(key);
+                if (readMethod != null) {
+                    result = invokeReadMethod(readMethod);
+                } else {
+                    PropertyDescriptor pd = getPropertyDescriptor(key);
+                    if (pd != null) {
+                        readMethod = pd.getReadMethod();
                         if (readMethod != null) {
-                            result = readMethod.invoke(component, EMPTY_OBJECT_ARRAY);
+                            if (null == readMap) {
+                                readMap = new ConcurrentHashMap<>();
+                            }
+                            readMap.putIfAbsent(key, readMethod);
+                            result = invokeReadMethod(readMethod);
                         } else {
                             throw new IllegalArgumentException(key);
                         }
-                    } catch (IllegalAccessException e) {
-                        throw new FacesException(e);
-                    } catch (InvocationTargetException e) {
-                        throw new FacesException(e.getTargetException());
-                    }
-                } else if (attributes != null) {
-                    if (attributes.containsKey(key)) {
-                        result = attributes.get(key);
+                    } else {
+                        attributes = getAttributes();
+                        if (attributes != null && attributes.containsKey(key)) {
+                            result = attributes.get(key);
+                        }
                     }
                 }
             }
@@ -1900,8 +2072,13 @@ public abstract class UIComponentBase extends UIComponent {
                     }
                 }
             }
-            if (result == null && attributes != null && isCompositeComponent(component)) {
-                result = getCompositeComponentAttributeDefaultValue(key, attributes);
+            if (result == null && isCompositeComponent(component)) {
+                if (attributes == null) {
+                    attributes = getAttributes();
+                }
+                if (attributes != null) {
+                    result = getCompositeComponentAttributeDefaultValue(key, attributes);
+                }
             }
             return result;
         }
@@ -1934,6 +2111,9 @@ public abstract class UIComponentBase extends UIComponent {
             if (keyValue == null) {
                 throw new NullPointerException();
             }
+
+            // Keep the field cache in sync; the value is still stored in the attributes map below.
+            component.markerPut(keyValue, value);
 
             if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(keyValue)) {
                 if (component.attributesThatAreSet == null) {
@@ -1970,6 +2150,7 @@ public abstract class UIComponentBase extends UIComponent {
                     throw new NullPointerException();
                 }
 
+                @SuppressWarnings("unchecked") // the set-attributes list is recovered from the Object-typed state helper.
                 List<String> sProperties = (List<String>) component.getStateHelper().get(PropertyKeysPrivate.attributesThatAreSet);
                 if (sProperties == null) {
                     component.getStateHelper().add(PropertyKeysPrivate.attributesThatAreSet, keyValue);
@@ -1997,6 +2178,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (key == null) {
                 throw new NullPointerException();
             }
+            component.markerRemove(key);
             if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(key)) {
                 return null;
             }
@@ -2074,14 +2256,14 @@ public abstract class UIComponentBase extends UIComponent {
             if (!(o instanceof Map)) {
                 return false;
             }
-            Map t = (Map) o;
+            Map<?, ?> t = (Map<?, ?>) o;
             if (t.size() != size()) {
                 return false;
             }
 
             try {
                 for (Object e : entrySet()) {
-                    Entry entry = (Entry) e;
+                    Entry<?, ?> entry = (Entry<?, ?>) e;
                     Object key = entry.getKey();
                     Object value = entry.getValue();
                     if (value == null) {
@@ -2110,12 +2292,23 @@ public abstract class UIComponentBase extends UIComponent {
             return h;
         }
 
+        @SuppressWarnings("unchecked") // State helper stores the attributes map under PropertyKeys.attributes.
         private Map<String, Object> getAttributes() {
             return (Map<String, Object>) component.getStateHelper().get(PropertyKeys.attributes);
         }
 
         private Object putAttribute(String key, Object value) {
             return component.getStateHelper().put(PropertyKeys.attributes, key, value);
+        }
+
+        private Object invokeReadMethod(Method readMethod) {
+            try {
+                return readMethod.invoke(component, EMPTY_OBJECT_ARRAY);
+            } catch (IllegalAccessException e) {
+                throw new FacesException(e);
+            } catch (InvocationTargetException e) {
+                throw new FacesException(e.getTargetException());
+            }
         }
 
         /**
@@ -2143,15 +2336,13 @@ public abstract class UIComponentBase extends UIComponent {
 
         private void writeObject(ObjectOutputStream out) throws IOException {
             out.writeObject(component.getClass());
-            // noinspection NonSerializableObjectPassedToObjectStream
             out.writeObject(component.saveState(FacesContext.getCurrentInstance()));
         }
 
         private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
-            // noinspection unchecked
             Class<?> clazz = (Class<?>) in.readObject();
             try {
-                component = (UIComponent) clazz.getDeclaredConstructor().newInstance();
+                component = (UIComponentBase) clazz.getDeclaredConstructor().newInstance();
             } catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
                 throw new RuntimeException(e);
             }
@@ -2168,12 +2359,10 @@ public abstract class UIComponentBase extends UIComponent {
          */
         private static final long serialVersionUID = 8926987612679576963L;
         private UIComponent component;
-        private FacesContext context;
 
         public ChildrenList(UIComponent component) {
             super(6);
             this.component = component;
-            this.context = component.getFacesContext();
         }
 
         @Override
@@ -2183,7 +2372,6 @@ public abstract class UIComponentBase extends UIComponent {
             } else if (index < 0 || index > size()) {
                 throw new IndexOutOfBoundsException();
             } else {
-                addToDescendantMarkIdCache(component, element);
                 eraseParent(element);
                 super.add(index, element);
                 element.setParent(component);
@@ -2196,7 +2384,6 @@ public abstract class UIComponentBase extends UIComponent {
             if (element == null) {
                 throw new NullPointerException();
             } else {
-                addToDescendantMarkIdCache(component, element);
                 eraseParent(element);
                 boolean result = super.add(element);
                 element.setParent(component);
@@ -2244,9 +2431,6 @@ public abstract class UIComponentBase extends UIComponent {
             }
             for (int i = 0; i < n; i++) {
                 UIComponent child = get(i);
-                if (isNotRenderingResponse(context)) {
-                    removeFromDescendantMarkIdCache(component, child);
-                }
                 child.setParent(null);
             }
             super.clear();
@@ -2270,9 +2454,6 @@ public abstract class UIComponentBase extends UIComponent {
         @Override
         public UIComponent remove(int index) {
             UIComponent child = get(index);
-            if (isNotRenderingResponse(context)) {
-                removeFromDescendantMarkIdCache(component, child);
-            }
             child.setParent(null);
             super.remove(index);
             return child;
@@ -2283,9 +2464,6 @@ public abstract class UIComponentBase extends UIComponent {
             UIComponent element = (UIComponent) elementObj;
             if (element == null) {
                 throw new NullPointerException();
-            }
-            if (isNotRenderingResponse(context)) {
-                removeFromDescendantMarkIdCache(component, element);
             }
             if (super.indexOf(element) != -1) {
                 element.setParent(null);
@@ -2328,10 +2506,8 @@ public abstract class UIComponentBase extends UIComponent {
             } else if (index < 0 || index >= size()) {
                 throw new IndexOutOfBoundsException();
             } else {
-                addToDescendantMarkIdCache(component, element);
                 eraseParent(element);
                 UIComponent previous = get(index);
-                removeFromDescendantMarkIdCache(component, previous);
                 super.set(index, element);
                 previous.setParent(null);
                 element.setParent(component);
@@ -2496,12 +2672,10 @@ public abstract class UIComponentBase extends UIComponent {
          */
         private static final long serialVersionUID = -1444791615672259097L;
         private UIComponent component;
-        private FacesContext context;
 
         public FacetsMap(UIComponent component) {
             super(3, 1.0f);
             this.component = component;
-            context = component.getFacesContext();
         }
 
         @Override
@@ -2528,16 +2702,13 @@ public abstract class UIComponentBase extends UIComponent {
         public UIComponent put(String key, UIComponent value) {
             if (key == null || value == null) {
                 throw new NullPointerException();
-            } else // noinspection ConstantConditions
-            if (!(key instanceof String) || !(value instanceof UIComponent)) {
+            } else if (!(key instanceof String) || !(value instanceof UIComponent)) {
                 throw new ClassCastException();
             }
             UIComponent previous = super.get(key);
             if (previous != null) {
-                removeFromDescendantMarkIdCache(component, previous);
                 previous.setParent(null);
             }
-            addToDescendantMarkIdCache(component, value);
             eraseParent(value);
             UIComponent result = super.put(key, value);
             value.setParent(component);
@@ -2559,9 +2730,6 @@ public abstract class UIComponentBase extends UIComponent {
         public UIComponent remove(Object key) {
             UIComponent previous = get(key);
             if (previous != null) {
-                if (isNotRenderingResponse(context)) {
-                    removeFromDescendantMarkIdCache(component, previous);
-                }
                 previous.setParent(null);
             }
             super.remove(key);
@@ -2574,7 +2742,19 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         Iterator<String> keySetIterator() {
+            if (super.isEmpty()) {
+                return Collections.emptyIterator();
+            }
             return new ArrayList<>(super.keySet()).iterator();
+        }
+
+        // Snapshot of the live entries (super.* to bypass this map's wrapping views), so the values
+        // iterator can return each facet directly instead of re-looking it up by key per next().
+        Iterator<Map.Entry<String, UIComponent>> entrySetIterator() {
+            if (super.isEmpty()) {
+                return Collections.emptyIterator();
+            }
+            return new ArrayList<>(super.entrySet()).iterator();
         }
 
     }
@@ -2611,7 +2791,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (!(o instanceof Map.Entry)) {
                 return false;
             }
-            Map.Entry e = (Map.Entry) o;
+            Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
             Object k = e.getKey();
             Object v = e.getValue();
             if (!map.containsKey(k)) {
@@ -2642,7 +2822,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (!(o instanceof Map.Entry)) {
                 return false;
             }
-            Object k = ((Map.Entry) o).getKey();
+            Object k = ((Map.Entry<?, ?>) o).getKey();
             if (map.containsKey(k)) {
                 map.remove(k);
                 return true;
@@ -2652,7 +2832,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean removeAll(Collection c) {
+        public boolean removeAll(Collection<?> c) {
             boolean result = false;
             for (Object element : c) {
                 if (remove(element)) {
@@ -2663,7 +2843,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean retainAll(Collection c) {
+        public boolean retainAll(Collection<?> c) {
             boolean result = false;
             Iterator<Entry<String, UIComponent>> v = iterator();
             while (v.hasNext()) {
@@ -2701,7 +2881,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (!(o instanceof Map.Entry)) {
                 return false;
             }
-            Map.Entry e = (Map.Entry) o;
+            Map.Entry<?, ?> e = (Map.Entry<?, ?>) o;
             if (key == null) {
                 if (e.getKey() != null) {
                     return false;
@@ -2777,7 +2957,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (last == null) {
                 throw new IllegalStateException();
             }
-            map.remove(((Map.Entry) last).getKey());
+            map.remove(((Map.Entry<?, ?>) last).getKey());
             last = null;
         }
 
@@ -2813,7 +2993,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean containsAll(Collection c) {
+        public boolean containsAll(Collection<?> c) {
             for (Object item : c) {
                 if (!map.containsKey(item)) {
                     return false;
@@ -2843,7 +3023,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean removeAll(Collection c) {
+        public boolean removeAll(Collection<?> c) {
             boolean result = false;
             for (Object item : c) {
                 if (map.containsKey(item)) {
@@ -2855,7 +3035,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean retainAll(Collection c) {
+        public boolean retainAll(Collection<?> c) {
             boolean result = false;
             Iterator<String> v = iterator();
             while (v.hasNext()) {
@@ -2923,7 +3103,7 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         @Override
-        public boolean addAll(Collection c) {
+        public boolean addAll(Collection<? extends UIComponent> c) {
             throw new UnsupportedOperationException();
         }
 
@@ -2954,12 +3134,12 @@ public abstract class UIComponentBase extends UIComponent {
 
         public FacetsMapValuesIterator(FacetsMap map) {
             this.map = map;
-            iterator = map.keySetIterator();
+            iterator = map.entrySetIterator();
         }
 
         private FacetsMap map = null;
-        private Iterator<String> iterator = null;
-        private Object last = null;
+        private Iterator<Map.Entry<String, UIComponent>> iterator = null;
+        private Map.Entry<String, UIComponent> last = null;
 
         @Override
         public boolean hasNext() {
@@ -2969,7 +3149,7 @@ public abstract class UIComponentBase extends UIComponent {
         @Override
         public UIComponent next() {
             last = iterator.next();
-            return map.get(last);
+            return last.getValue();
         }
 
         @Override
@@ -2977,7 +3157,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (last == null) {
                 throw new IllegalStateException();
             }
-            map.remove(last);
+            map.remove(last.getKey());
             last = null;
         }
 
@@ -3038,7 +3218,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the property-descriptor cache is recovered from the Object-valued application map.
     private void populateDescriptorsMapIfNecessary() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Class<?> clazz = getClass();
@@ -3050,9 +3230,8 @@ public abstract class UIComponentBase extends UIComponent {
 
             Map<String, Object> applicationMap = facesContext.getExternalContext().getApplicationMap();
 
-            applicationMap.putIfAbsent(FACES_COMPONENT_DESCRIPTORS_MAP_NAME, new ConcurrentHashMap<>());
-
-            descriptors = (Map<Class<?>, Map<String, PropertyDescriptor>>) applicationMap.get(FACES_COMPONENT_DESCRIPTORS_MAP_NAME);
+            descriptors = (Map<Class<?>, Map<String, PropertyDescriptor>>) applicationMap.computeIfAbsent(
+                    FACES_COMPONENT_DESCRIPTORS_MAP_NAME, k -> new ConcurrentHashMap<>());
             propertyDescriptorMap = descriptors.get(clazz);
         }
 
@@ -3064,6 +3243,18 @@ public abstract class UIComponentBase extends UIComponent {
             if (propertyDescriptors != null) {
                 propertyDescriptorMap = new HashMap<>(propertyDescriptors.length, 1.0f);
                 for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+                    // Suppress the per-invoke reflective access check on the (public) property getter.
+                    // It is invoked on every property-backed attribute read, which is hot under render
+                    // and UIData/UIRepeat iteration. Done once per component class (this map is cached
+                    // application-wide below). Guarded: the module system may forbid it for a getter in a
+                    // non-exported user package, in which case the normal access check simply remains.
+                    Method readMethod = propertyDescriptor.getReadMethod();
+                    if (readMethod != null) {
+                        try {
+                            readMethod.setAccessible(true);
+                        } catch (RuntimeException accessNotSuppressed) {
+                        }
+                    }
                     propertyDescriptorMap.put(propertyDescriptor.getName(), propertyDescriptor);
                 }
 
@@ -3071,8 +3262,8 @@ public abstract class UIComponentBase extends UIComponent {
                     LOGGER.log(FINE, "fine.component.populating_descriptor_map", new Object[] { clazz, currentThread().getName() });
                 }
 
-                if (descriptors != null && !descriptors.containsKey(clazz)) {
-                    descriptors.put(clazz, propertyDescriptorMap);
+                if (descriptors != null) {
+                    descriptors.putIfAbsent(clazz, propertyDescriptorMap);
                 }
             }
         }
@@ -3115,13 +3306,40 @@ public abstract class UIComponentBase extends UIComponent {
         return context.getViewRoot().createUniqueId();
     }
 
+    /**
+     * Overridden to reuse the memoized {@link #getNamingContainerAncestor()} cache instead of the default
+     * uncached parent-chain walk, which is hot during view build (assignUniqueId / clientId resolution).
+     * Same result: this component if it is a {@link NamingContainer}, else its first NamingContainer ancestor.
+     */
+    @Override
+    public UIComponent getNamingContainer() {
+        if (this instanceof NamingContainer) {
+            return this;
+        }
+        return getNamingContainerAncestor();
+    }
+
     private UIComponent getNamingContainerAncestor() {
-        UIComponent namingContainer = getParent();
-        while (namingContainer != null) {
-            if (namingContainer instanceof NamingContainer) {
-                return namingContainer;
+        if (namingContainerAncestor != null) {
+            return namingContainerAncestor;
+        }
+
+        // Resolve via the parent's (memoized) ancestor rather than walking the whole chain: each level is
+        // cached, so building/visiting the tree is O(n) instead of an O(depth) walk per component. The value
+        // is identical to the walk, with the same invalidation point (setParent clears the field).
+        UIComponent parent = getParent();
+        if (parent instanceof NamingContainer) {
+            return namingContainerAncestor = parent;
+        }
+        if (parent instanceof UIComponentBase) {
+            return namingContainerAncestor = ((UIComponentBase) parent).getNamingContainerAncestor();
+        }
+
+        // Rare: a non-UIComponentBase parent has no memoized ancestor, so fall back to the chain walk.
+        for (UIComponent ancestor = parent; ancestor != null; ancestor = ancestor.getParent()) {
+            if (ancestor instanceof NamingContainer) {
+                return namingContainerAncestor = ancestor;
             }
-            namingContainer = namingContainer.getParent();
         }
 
         return null;
@@ -3157,7 +3375,6 @@ public abstract class UIComponentBase extends UIComponent {
 
             while (entries.hasNext()) {
                 Map.Entry<String, UIComponent> entry = entries.next();
-                // noinspection ObjectEquality
                 if (entry.getValue() == component) {
                     entries.remove();
                     return;

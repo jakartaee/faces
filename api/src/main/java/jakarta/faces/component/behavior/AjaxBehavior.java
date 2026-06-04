@@ -682,7 +682,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
         return null;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // the EL value is cast to Collection<String> after an instanceof Collection guard; element type is erased.
     private Collection<String> getCollectionValue(String propertyName, Collection<String> collection) {
         if (collection != null) {
             return collection;

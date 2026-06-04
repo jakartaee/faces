@@ -16,6 +16,7 @@
 package ee.jakarta.tck.faces.faces20.renderkit.inputtext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -119,7 +120,7 @@ class InputtextIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement input = findByIdSuffix(page, "input1");
         expected.forEach((name, value) ->
-            assertEquals(value, input.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(input, name, value), "attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

@@ -40,54 +40,21 @@ import jakarta.faces.model.SelectItem;
 
 class PackageUtils {
 
-    final static String MARK_CREATED = "org.glassfish.mojarra.facelets.MARK_ID";
-    private final static String MARK_ID_CACHE = "org.glassfish.mojarra.facelets.MARK_ID_CACHE";
     private static final String PATTERN_CACHE_KEY = "org.glassfish.mojarra.patternCache";
     private static final String CLIENT_ID_NESTED_IN_ITERATOR_PATTERN = "CLIENT_ID_NESTED_IN_ITERATOR_PATTERN";
 
+    // Facelets framework markers stored on a component's attribute map during view build and refresh (creation
+    // tag id, deletion, facet name, modified/removed children, dynamic add). UIComponentBase field-backs these
+    // for authoritative AttributesMap reads; the values are the shared attribute keys the implementation also
+    // reads and writes, so they must stay identical on both sides.
+    static final String MARK_CREATED = "facelets.MARK_ID";
+    static final String MARK_DELETED = "facelets.MARK_DELETED";
+    static final String MARK_CHILDREN_MODIFIED = "facelets.MARK_CHILDREN_MODIFIED";
+    static final String REMOVED_CHILDREN = "facelets.REMOVED_CHILDREN";
+    static final String DYNAMIC_COMPONENT = "facelets.DYNAMIC_COMPONENT";
+    static final String FACET_NAME = "facelets.FACET_NAME";
+
     private PackageUtils() {
-    }
-
-    /**
-     * Adds all specified <code>otherMarkIds</code> to the mark id cache of this
-     * component. Changes are propagated up the component tree.
-     */
-    private static void addAllDescendantMarkIds(UIComponent component, Map<String, UIComponent> otherMarkIds) {
-        getDescendantMarkIdCache(component).putAll(otherMarkIds);
-        UIComponent parent = component.getParent();
-        if (parent != null) {
-            addAllDescendantMarkIds(parent, otherMarkIds);
-        }
-    }
-
-    /**
-     * Adds the specified <code>markId</code> and its corresponding
-     * {@link UIComponent} <code>otherComponent</code> to the mark id cache of
-     * this component. Changes are propagated up the component tree.
-     */
-    private static void addSingleDescendantMarkId(UIComponent component, String markId, UIComponent otherComponent) {
-        getDescendantMarkIdCache(component).put(markId, otherComponent);
-        UIComponent parent = component.getParent();
-        if (parent != null) {
-            addSingleDescendantMarkId(parent, markId, otherComponent);
-        }
-    }
-
-    /**
-     * Adds the mark id of the specified {@link UIComponent}
-     * <code>otherComponent</code> to the mark id cache of this component,
-     * including all its descendant mark ids. Changes are propagated up the
-     * component tree.
-     */
-    public static void addToDescendantMarkIdCache(UIComponent component, UIComponent otherComponent) {
-        String markId = (String) otherComponent.getAttributes().get(MARK_CREATED);
-        if (markId != null) {
-            addSingleDescendantMarkId(component, markId, otherComponent);
-        }
-        Map<String, UIComponent> otherMarkIds = getDescendantMarkIdCache(otherComponent);
-        if (!otherMarkIds.isEmpty()) {
-            addAllDescendantMarkIds(component, otherMarkIds);
-        }
     }
 
     /**
@@ -183,18 +150,6 @@ class PackageUtils {
         throw new NumberFormatException("there is no numeric segment");
     }
 
-    @SuppressWarnings("unchecked")
-    private static Map<String, UIComponent> getDescendantMarkIdCache(UIComponent component) {
-        Map<String, UIComponent> descendantMarkIdCache = (Map<String, UIComponent>) component.getTransientStateHelper().getTransient(MARK_ID_CACHE);
-
-        if (descendantMarkIdCache == null) {
-            descendantMarkIdCache = new HashMap<String, UIComponent>();
-            component.getTransientStateHelper().putTransient(MARK_ID_CACHE, descendantMarkIdCache);
-        }
-
-        return descendantMarkIdCache;
-    }
-
     /**
      * Returns item value attribute, taking into account any value expression
      * which actually evaluates to null.
@@ -205,7 +160,7 @@ class PackageUtils {
     }
 
     private static Map<String, Pattern> getPatternCache(Map<String, Object> appMap) {
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // the pattern cache is recovered from the Object-valued application map.
         Map<String, Pattern> result = (Map<String, Pattern>) appMap.get(PATTERN_CACHE_KEY);
         if (result == null) {
             result = Collections.synchronizedMap(new LRUMap<>(15));
@@ -318,61 +273,16 @@ class PackageUtils {
         return false;
     }
 
-    /**
-     * Removes all specified <code>otherMarkIds</code> from the mark id cache of
-     * this component. Changes are propagated up the component tree.
-     */
-    private static void removeAllDescendantMarkIds(UIComponent component, Map<String, UIComponent> otherMarkIds) {
-        Map<String, UIComponent> descendantMarkIdCache = getDescendantMarkIdCache(component);
-        Iterator<String> iterator = otherMarkIds.keySet().iterator();
-        while (iterator.hasNext()) {
-            descendantMarkIdCache.remove(iterator.next());
-        }
-        UIComponent parent = component.getParent();
-        if (parent != null) {
-            removeAllDescendantMarkIds(parent, otherMarkIds);
-        }
-    }
-
-    /**
-     * Removes the mark id of the specified {@link UIComponent}
-     * <code>otherComponent</code> from the mark id cache of this component,
-     * including all its descendant mark ids. Changes are propagated up the
-     * component tree.
-     */
-    public static void removeFromDescendantMarkIdCache(UIComponent component, UIComponent otherComponent) {
-        String markId = (String) otherComponent.getAttributes().get(MARK_CREATED);
-        if (markId != null) {
-            removeSingleDescendantMarkId(component, markId);
-        }
-        Map<String, UIComponent> otherMarkIds = getDescendantMarkIdCache(otherComponent);
-        if (!otherMarkIds.isEmpty()) {
-            removeAllDescendantMarkIds(component, otherMarkIds);
-        }
-    }
-
-    /**
-     * Removes the specified <code>markId</code> from the mark id cache of this
-     * component. Changes are propagated up the component tree.
-     */
-    private static void removeSingleDescendantMarkId(UIComponent component, String markId) {
-        getDescendantMarkIdCache(component).remove(markId);
-        UIComponent parent = component.getParent();
-        if (parent != null) {
-            removeSingleDescendantMarkId(parent, markId);
-        }
-    }
-
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") // adapts an arbitrary Object (Stream/Collection/array/Iterable/Map/...) to the caller-requested Stream<T>.
     public static <T> Stream<T> stream(Object object) {
         if (object == null) {
             return Stream.empty();
         } else if (object instanceof Stream) {
             return (Stream<T>) object;
         } else if (object instanceof Collection) {
-            return ((Collection) object).stream();   // little bonus with sized spliterator...
+            return ((Collection<T>) object).stream();   // little bonus with sized spliterator...
         } else if (object instanceof Enumeration) { // recursive call wrapping in an Iterator (Java 9+)
-            return stream(((Enumeration) object).asIterator());
+            return stream(((Enumeration<T>) object).asIterator());
         } else if (object instanceof Iterable) {
             return (Stream<T>) StreamSupport.stream(((Iterable<?>) object).spliterator(), false);
         } else if (object instanceof Map) {

@@ -78,7 +78,7 @@ public abstract class MethodCallBuilder implements NodeBuilder {
      *
      * @return the builder instance
      */
-    public abstract MethodCallBuilder expression(String methodExpression, Class[] paramTypes);
+    public abstract MethodCallBuilder expression(String methodExpression, Class<?>[] paramTypes);
 
     /**
      * <p class="changed_added_2_2">

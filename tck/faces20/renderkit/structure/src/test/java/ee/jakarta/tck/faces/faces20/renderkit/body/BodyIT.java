@@ -17,6 +17,7 @@ package ee.jakarta.tck.faces.faces20.renderkit.body;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -67,6 +68,6 @@ class BodyIT extends BaseITNG {
     private static void verifyAttributes(WebPage page, Map<String, String> expected) {
         WebElement body = page.findElement(By.tagName("body"));
         expected.forEach((name, value) ->
-            assertEquals(value, body.getDomAttribute(name), "body attribute " + name));
+            assertTrue(page.hasAttributeValue(body, name, value), "body attribute " + name));
     }
 }

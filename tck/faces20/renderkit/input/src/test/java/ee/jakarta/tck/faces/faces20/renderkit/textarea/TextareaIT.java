@@ -103,7 +103,7 @@ class TextareaIT extends BaseITNG {
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement textarea = findByIdSuffix(page, "textarea1");
         expected.forEach((name, value) ->
-            assertEquals(value, textarea.getDomAttribute(name), "attribute " + name));
+            assertTrue(page.hasAttributeValue(textarea, name, value), "attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {

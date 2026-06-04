@@ -632,13 +632,16 @@ that are unique within the scope of the closest parent _NamingContainer_
 component. The value of the _rendersChildren_ property is handled as
 expected, and may be either _true_ or __false__.
 
-* If running on a container that supports
-Jakarta Servlet 4.0 or later, after any dynamic component manipulations have
+* After any dynamic component manipulations have
 been completed, any resources that have been added to the UIViewRoot,
-such as scripts, images, or stylesheets, and any inline images, must be
-pushed to the client using the Jakarta Servlet Server Push API. All of the
-pushes must be started before any of the HTML of the response is
-rendered to the client.
+such as scripts, images, or stylesheets, and any inline images, should be
+proactively communicated to the client using a server-push or resource-hint
+mechanism provided by the container, such as HTTP 103 Early Hints (RFC 8297).
+Any such hints or pushes must be issued before any of the HTML of the
+response is rendered to the client. The choice of mechanism,
+and whether to perform this optimization at all, is left to the
+implementation and the capabilities of the underlying container and
+connection.
 
 * For partial requests, where partial view
 rendering is required, there must be no content written outside of the
@@ -2119,7 +2122,7 @@ that listens for _PostAddToViewEvent_ event types:
 ----
 @ListenerFor(facesEventClass=PostAddToViewEvent.class,
         sourceClass=UIOutput.class)
-public class ScriptRenderer extends Renderer
+public class ScriptRenderer extends Renderer<UIOutput>
         implements ComponentSystemEventListener {...
 ----
 

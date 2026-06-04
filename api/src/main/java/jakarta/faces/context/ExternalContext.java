@@ -62,7 +62,6 @@ import jakarta.faces.lifecycle.ClientWindow;
 
 public abstract class ExternalContext {
 
-    @SuppressWarnings({ "UnusedDeclaration" })
     private ExternalContext defaultExternalContext;
 
     // ------------------------------------------------------ Manifest Constants

@@ -89,6 +89,7 @@ class MultiFieldValidationUtils {
      *
      * @since 2.3
      */
+    @SuppressWarnings("unchecked") // The candidates map is stored under MULTI_FIELD_VALIDATION_CANDIDATES by this same class.
     static Map<Object, Map<String, Map<String, Object>>> getMultiFieldValidationCandidates(FacesContext context, boolean create) {
         Map<Object, Object> attrs = context.getAttributes();
         Map<Object, Map<String, Map<String, Object>>> result;
@@ -105,11 +106,11 @@ class MultiFieldValidationUtils {
         return result;
     }
 
-    static boolean wholeBeanValidationEnabled(FacesContext context, Class[] validationGroupsArray) {
+    static boolean wholeBeanValidationEnabled(FacesContext context, Class<?>[] validationGroupsArray) {
         boolean result;
 
         Map<Object, Object> attrs = context.getAttributes();
-        if (!(attrs.containsKey(ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME) && (Boolean) attrs.get(ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME))) { // NOPMD
+        if (!(attrs.containsKey(ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME) && (Boolean) attrs.get(ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME))) {
             return false;
         }
 

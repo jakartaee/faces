@@ -119,7 +119,7 @@ public class HtmlColumn extends UIColumn {
      * rendered with "th" instead of "td" and must have the 'scope="row"' attribute.
      */
     public boolean isRowHeader() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.rowHeader, false);
+        return getStateHelper().eval(PropertyKeys.rowHeader, false);
 
     }
 

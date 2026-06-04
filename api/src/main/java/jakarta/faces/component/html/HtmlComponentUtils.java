@@ -15,7 +15,7 @@ class HtmlComponentUtils {
     static void handleAttribute(UIComponent component, String name, Object value) {
         final Map<String, Object> attributes = component.getAttributes();
 
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings("unchecked") // the set-attributes list is recovered from the Object-valued attributes map.
         List<String> setAttributes = (List<String>) attributes.get(ATTRIBUTES_THAT_ARE_SET);
 
         if (setAttributes == null) {

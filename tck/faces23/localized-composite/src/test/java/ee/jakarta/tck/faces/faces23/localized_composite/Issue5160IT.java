@@ -36,7 +36,7 @@ public class Issue5160IT extends BaseITNG {
         // make subsequent tests send all previously-set languages stacked together
         // and the wrong locale would win. Discard the driver so the next test
         // starts with a clean header set.
-        driverPool.quitInstance(getWebDriver());
+        discardWebDriver();
     }
 
     /**

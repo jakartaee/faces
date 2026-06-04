@@ -47,7 +47,7 @@ public abstract class MetadataTarget {
      * @param type the <code>Class</code> to test for the instance of.
      * @return true if the type is a target instance, false otherwise.
      */
-    public abstract boolean isTargetInstanceOf(Class type);
+    public abstract boolean isTargetInstanceOf(Class<?> type);
 
     /**
      * <p class="changed_added_2_0">
@@ -56,7 +56,7 @@ public abstract class MetadataTarget {
      *
      * @return the target Class.
      */
-    public abstract Class getTargetClass();
+    public abstract Class<?> getTargetClass();
 
     /**
      * <p class="changed_added_2_0">
@@ -66,7 +66,7 @@ public abstract class MetadataTarget {
      * @param name the name of the property for which the <code>Class</code> must be returned.
      * @return the Class of the property.
      */
-    public abstract Class getPropertyType(String name);
+    public abstract Class<?> getPropertyType(String name);
 
     /**
      * <p class="changed_added_2_0">

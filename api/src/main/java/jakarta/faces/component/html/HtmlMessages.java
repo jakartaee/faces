@@ -278,7 +278,7 @@ public class HtmlMessages extends UIMessages {
      * and "list" (an HTML list). If not specified, the default value is "list".
      */
     public java.lang.String getLayout() {
-        return (java.lang.String) getStateHelper().eval(PropertyKeys.layout, "list");
+        return getStateHelper().eval(PropertyKeys.layout, "list");
 
     }
 
@@ -471,7 +471,7 @@ public class HtmlMessages extends UIMessages {
      * Contents: Flag indicating whether the detail portion of the message should be displayed as a tooltip.
      */
     public boolean isTooltip() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.tooltip, false);
+        return getStateHelper().eval(PropertyKeys.tooltip, false);
 
     }
 

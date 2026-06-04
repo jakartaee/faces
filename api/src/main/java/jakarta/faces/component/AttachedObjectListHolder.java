@@ -31,7 +31,7 @@ import jakarta.faces.context.FacesContext;
  * <code>Validator</code>s.
  * </p>
  */
-@SuppressWarnings({ "unchecked" })
+@SuppressWarnings("unchecked") // saved attached objects are restored from Object[] state into the holder's erased element type T.
 class AttachedObjectListHolder<T> implements PartialStateHolder {
 
     private boolean initialState;

@@ -166,7 +166,7 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      * disabled="disabled".
      */
     public boolean isDisabled() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.disabled, false);
+        return getStateHelper().eval(PropertyKeys.disabled, false);
 
     }
 
@@ -639,7 +639,7 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      * attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
-        return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.readonly, false);
+        return getStateHelper().eval(PropertyKeys.readonly, false);
 
     }
 
@@ -808,7 +808,7 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      * valid value, the default value is "submit".
      */
     public java.lang.String getType() {
-        return (java.lang.String) getStateHelper().eval(PropertyKeys.type, "submit");
+        return getStateHelper().eval(PropertyKeys.type, "submit");
 
     }
 

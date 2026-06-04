@@ -1022,9 +1022,9 @@ intf jakarta.faces.component.PartialStateHolder
 intf jakarta.faces.component.TransientStateHolder
 intf jakarta.faces.event.ComponentSystemEventListener
 intf jakarta.faces.event.SystemEventListenerHolder
+meth protected abstract <%0 extends jakarta.faces.component.UIComponent> jakarta.faces.render.Renderer<{%%0}> getRenderer(jakarta.faces.context.FacesContext)
 meth protected abstract jakarta.faces.context.FacesContext getFacesContext()
 meth protected abstract jakarta.faces.event.FacesListener[] getFacesListeners(java.lang.Class<? extends jakarta.faces.event.FacesListener>)
-meth protected abstract jakarta.faces.render.Renderer getRenderer(jakarta.faces.context.FacesContext)
 meth protected abstract void addFacesListener(jakarta.faces.event.FacesListener)
 meth protected abstract void removeFacesListener(jakarta.faces.event.FacesListener)
 meth protected boolean isVisitable(jakarta.faces.component.visit.VisitContext)
@@ -1097,9 +1097,9 @@ hcls ComponentSystemEventListenerAdapter,PropertyKeys,PropertyKeysPrivate
 
 CLSS public abstract jakarta.faces.component.UIComponentBase
 cons public init()
+meth protected <%0 extends jakarta.faces.component.UIComponent> jakarta.faces.render.Renderer<{%%0}> getRenderer(jakarta.faces.context.FacesContext)
 meth protected jakarta.faces.context.FacesContext getFacesContext()
-meth protected jakarta.faces.event.FacesListener[] getFacesListeners(java.lang.Class)
-meth protected jakarta.faces.render.Renderer getRenderer(jakarta.faces.context.FacesContext)
+meth protected jakarta.faces.event.FacesListener[] getFacesListeners(java.lang.Class<? extends jakarta.faces.event.FacesListener>)
 meth protected void addFacesListener(jakarta.faces.event.FacesListener)
 meth protected void removeFacesListener(jakarta.faces.event.FacesListener)
 meth public boolean getRendersChildren()
@@ -1552,7 +1552,7 @@ meth public void setName(java.lang.String)
 meth public void setSubmittedValue(java.lang.Object)
 meth public void updateModel(jakarta.faces.context.FacesContext)
 supr jakarta.faces.component.UIInput
-hfds emptyStringIsNull,inputTextRenderer,rawValue
+hfds inputTextRenderer,rawValue
 hcls PropertyKeys
 
 CLSS public static jakarta.faces.component.UIViewParameter$Reference
@@ -5278,7 +5278,7 @@ innr public final static Literal
 intf java.lang.annotation.Annotation
 meth public abstract !hasdefault boolean managed()
  anno 0 java.lang.Deprecated(boolean forRemoval=true, java.lang.String since="5.0")
-meth public abstract !hasdefault java.lang.Class forClass()
+meth public abstract !hasdefault java.lang.Class<?> forClass()
 meth public abstract !hasdefault java.lang.String value()
 
 CLSS public final static jakarta.faces.convert.FacesConverter$Literal
@@ -5286,9 +5286,9 @@ CLSS public final static jakarta.faces.convert.FacesConverter$Literal
 fld public final static jakarta.faces.convert.FacesConverter$Literal INSTANCE
 intf jakarta.faces.convert.FacesConverter
 meth public boolean managed()
-meth public java.lang.Class forClass()
+meth public java.lang.Class<?> forClass()
 meth public java.lang.String value()
-meth public static jakarta.faces.convert.FacesConverter$Literal of(java.lang.String,java.lang.Class,boolean)
+meth public static jakarta.faces.convert.FacesConverter$Literal of(java.lang.String,java.lang.Class<?>,boolean)
 supr jakarta.enterprise.util.AnnotationLiteral<jakarta.faces.convert.FacesConverter>
 hfds forClass,managed,serialVersionUID,value
 
@@ -5545,7 +5545,7 @@ CLSS public abstract interface !annotation jakarta.faces.event.ListenerFor
  anno 0 java.lang.annotation.Retention(java.lang.annotation.RetentionPolicy value=RUNTIME)
  anno 0 java.lang.annotation.Target(java.lang.annotation.ElementType[] value=[TYPE])
 intf java.lang.annotation.Annotation
-meth public abstract !hasdefault java.lang.Class sourceClass()
+meth public abstract !hasdefault java.lang.Class<?> sourceClass()
 meth public abstract java.lang.Class<? extends jakarta.faces.event.SystemEvent> systemEventClass()
 
 CLSS public abstract interface !annotation jakarta.faces.event.ListenersFor
@@ -5992,7 +5992,7 @@ meth public abstract jakarta.faces.flow.builder.MethodCallBuilder defaultOutcome
 meth public abstract jakarta.faces.flow.builder.MethodCallBuilder defaultOutcome(java.lang.String)
 meth public abstract jakarta.faces.flow.builder.MethodCallBuilder expression(jakarta.el.MethodExpression)
 meth public abstract jakarta.faces.flow.builder.MethodCallBuilder expression(java.lang.String)
-meth public abstract jakarta.faces.flow.builder.MethodCallBuilder expression(java.lang.String,java.lang.Class[])
+meth public abstract jakarta.faces.flow.builder.MethodCallBuilder expression(java.lang.String,java.lang.Class<?>[])
 meth public abstract jakarta.faces.flow.builder.MethodCallBuilder markAsStartNode()
 meth public abstract jakarta.faces.flow.builder.MethodCallBuilder parameters(java.util.List<jakarta.faces.flow.Parameter>)
 supr java.lang.Object
@@ -6182,9 +6182,9 @@ hfds EMPTY_DATA_MODEL_LISTENER,listeners
 hcls DataModelIterator
 
 CLSS public jakarta.faces.model.DataModelEvent
-cons public init(jakarta.faces.model.DataModel,int,java.lang.Object)
+cons public init(jakarta.faces.model.DataModel<?>,int,java.lang.Object)
 meth public int getRowIndex()
-meth public jakarta.faces.model.DataModel getDataModel()
+meth public jakarta.faces.model.DataModel<?> getDataModel()
 meth public java.lang.Object getRowData()
 supr java.util.EventObject
 hfds data,index,serialVersionUID
@@ -6352,11 +6352,11 @@ meth public abstract java.lang.String rendererType()
 
 CLSS public abstract jakarta.faces.render.RenderKit
 cons public init()
+meth public abstract <%0 extends jakarta.faces.component.UIComponent> jakarta.faces.render.Renderer<{%%0}> getRenderer(java.lang.String,java.lang.String)
 meth public abstract jakarta.faces.context.ResponseStream createResponseStream(java.io.OutputStream)
 meth public abstract jakarta.faces.context.ResponseWriter createResponseWriter(java.io.Writer,java.lang.String,java.lang.String)
-meth public abstract jakarta.faces.render.Renderer getRenderer(java.lang.String,java.lang.String)
 meth public abstract jakarta.faces.render.ResponseStateManager getResponseStateManager()
-meth public abstract void addRenderer(java.lang.String,java.lang.String,jakarta.faces.render.Renderer)
+meth public abstract void addRenderer(java.lang.String,java.lang.String,jakarta.faces.render.Renderer<?>)
 meth public jakarta.faces.render.ClientBehaviorRenderer getClientBehaviorRenderer(java.lang.String)
 meth public java.util.Iterator<java.lang.String> getClientBehaviorRendererTypes()
 meth public java.util.Iterator<java.lang.String> getComponentFamilies()
@@ -6382,17 +6382,17 @@ cons public init()
  anno 0 java.lang.Deprecated(boolean forRemoval=false, java.lang.String since="")
 cons public init(jakarta.faces.render.RenderKit)
 intf jakarta.faces.FacesWrapper<jakarta.faces.render.RenderKit>
+meth public <%0 extends jakarta.faces.component.UIComponent> jakarta.faces.render.Renderer<{%%0}> getRenderer(java.lang.String,java.lang.String)
 meth public jakarta.faces.context.ResponseStream createResponseStream(java.io.OutputStream)
 meth public jakarta.faces.context.ResponseWriter createResponseWriter(java.io.Writer,java.lang.String,java.lang.String)
 meth public jakarta.faces.render.ClientBehaviorRenderer getClientBehaviorRenderer(java.lang.String)
 meth public jakarta.faces.render.RenderKit getWrapped()
-meth public jakarta.faces.render.Renderer getRenderer(java.lang.String,java.lang.String)
 meth public jakarta.faces.render.ResponseStateManager getResponseStateManager()
 meth public java.util.Iterator<java.lang.String> getClientBehaviorRendererTypes()
 meth public java.util.Iterator<java.lang.String> getComponentFamilies()
 meth public java.util.Iterator<java.lang.String> getRendererTypes(java.lang.String)
 meth public void addClientBehaviorRenderer(java.lang.String,jakarta.faces.render.ClientBehaviorRenderer)
-meth public void addRenderer(java.lang.String,java.lang.String,jakarta.faces.render.Renderer)
+meth public void addRenderer(java.lang.String,java.lang.String,jakarta.faces.render.Renderer<?>)
 supr jakarta.faces.render.RenderKit
 hfds wrapped
 
@@ -6408,20 +6408,20 @@ meth public void encodeChildren(jakarta.faces.context.FacesContext,{jakarta.face
 meth public void encodeEnd(jakarta.faces.context.FacesContext,{jakarta.faces.render.Renderer%0}) throws java.io.IOException
 supr java.lang.Object
 
-CLSS public abstract jakarta.faces.render.RendererWrapper
+CLSS public abstract jakarta.faces.render.RendererWrapper<%0 extends jakarta.faces.component.UIComponent>
 cons public init()
  anno 0 java.lang.Deprecated(boolean forRemoval=false, java.lang.String since="")
-cons public init(jakarta.faces.render.Renderer)
-intf jakarta.faces.FacesWrapper<jakarta.faces.render.Renderer>
+cons public init(jakarta.faces.render.Renderer<{jakarta.faces.render.RendererWrapper%0}>)
+intf jakarta.faces.FacesWrapper<jakarta.faces.render.Renderer<{jakarta.faces.render.RendererWrapper%0}>>
 meth public boolean getRendersChildren()
-meth public jakarta.faces.render.Renderer getWrapped()
-meth public java.lang.Object getConvertedValue(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent,java.lang.Object)
+meth public jakarta.faces.render.Renderer<{jakarta.faces.render.RendererWrapper%0}> getWrapped()
+meth public java.lang.Object getConvertedValue(jakarta.faces.context.FacesContext,{jakarta.faces.render.RendererWrapper%0},java.lang.Object)
 meth public java.lang.String convertClientId(jakarta.faces.context.FacesContext,java.lang.String)
-meth public void decode(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent)
-meth public void encodeBegin(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent) throws java.io.IOException
-meth public void encodeChildren(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent) throws java.io.IOException
-meth public void encodeEnd(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent) throws java.io.IOException
-supr jakarta.faces.render.Renderer
+meth public void decode(jakarta.faces.context.FacesContext,{jakarta.faces.render.RendererWrapper%0})
+meth public void encodeBegin(jakarta.faces.context.FacesContext,{jakarta.faces.render.RendererWrapper%0}) throws java.io.IOException
+meth public void encodeChildren(jakarta.faces.context.FacesContext,{jakarta.faces.render.RendererWrapper%0}) throws java.io.IOException
+meth public void encodeEnd(jakarta.faces.context.FacesContext,{jakarta.faces.render.RendererWrapper%0}) throws java.io.IOException
+supr jakarta.faces.render.Renderer<{jakarta.faces.render.RendererWrapper%0}>
 hfds wrapped
 
 CLSS public abstract jakarta.faces.render.ResponseStateManager
@@ -6816,7 +6816,7 @@ CLSS public abstract jakarta.faces.view.facelets.DelegatingMetaTagHandler
 cons public init(jakarta.faces.view.facelets.TagConfig)
 fld protected jakarta.faces.view.facelets.TagHandlerDelegateFactory delegateFactory
 meth protected abstract jakarta.faces.view.facelets.TagHandlerDelegate getTagHandlerDelegate()
-meth protected jakarta.faces.view.facelets.MetaRuleset createMetaRuleset(java.lang.Class)
+meth protected jakarta.faces.view.facelets.MetaRuleset createMetaRuleset(java.lang.Class<?>)
 meth public boolean isDisabled(jakarta.faces.view.facelets.FaceletContext)
 meth public jakarta.faces.view.facelets.Tag getTag()
 meth public jakarta.faces.view.facelets.TagAttribute getBinding()
@@ -6916,7 +6916,7 @@ supr java.lang.Object
 
 CLSS public abstract jakarta.faces.view.facelets.MetaTagHandler
 cons public init(jakarta.faces.view.facelets.TagConfig)
-meth protected abstract jakarta.faces.view.facelets.MetaRuleset createMetaRuleset(java.lang.Class)
+meth protected abstract jakarta.faces.view.facelets.MetaRuleset createMetaRuleset(java.lang.Class<?>)
 meth protected void setAttributes(jakarta.faces.view.facelets.FaceletContext,java.lang.Object)
 supr jakarta.faces.view.facelets.TagHandler
 hfds lastType,mapper
@@ -6928,10 +6928,10 @@ supr java.lang.Object
 
 CLSS public abstract jakarta.faces.view.facelets.MetadataTarget
 cons public init()
-meth public abstract boolean isTargetInstanceOf(java.lang.Class)
+meth public abstract boolean isTargetInstanceOf(java.lang.Class<?>)
 meth public abstract java.beans.PropertyDescriptor getProperty(java.lang.String)
-meth public abstract java.lang.Class getPropertyType(java.lang.String)
-meth public abstract java.lang.Class getTargetClass()
+meth public abstract java.lang.Class<?> getPropertyType(java.lang.String)
+meth public abstract java.lang.Class<?> getTargetClass()
 meth public abstract java.lang.reflect.Method getReadMethod(java.lang.String)
 meth public abstract java.lang.reflect.Method getWriteMethod(java.lang.String)
 supr java.lang.Object
@@ -6953,11 +6953,11 @@ cons public init()
 meth public abstract boolean getBoolean(jakarta.faces.view.facelets.FaceletContext)
 meth public abstract boolean isLiteral()
 meth public abstract int getInt(jakarta.faces.view.facelets.FaceletContext)
-meth public abstract jakarta.el.MethodExpression getMethodExpression(jakarta.faces.view.facelets.FaceletContext,java.lang.Class,java.lang.Class[])
-meth public abstract jakarta.el.ValueExpression getValueExpression(jakarta.faces.view.facelets.FaceletContext,java.lang.Class)
+meth public abstract jakarta.el.MethodExpression getMethodExpression(jakarta.faces.view.facelets.FaceletContext,java.lang.Class<?>,java.lang.Class<?>[])
+meth public abstract jakarta.el.ValueExpression getValueExpression(jakarta.faces.view.facelets.FaceletContext,java.lang.Class<?>)
 meth public abstract jakarta.faces.view.Location getLocation()
 meth public abstract java.lang.Object getObject(jakarta.faces.view.facelets.FaceletContext)
-meth public abstract java.lang.Object getObject(jakarta.faces.view.facelets.FaceletContext,java.lang.Class)
+meth public abstract java.lang.Object getObject(jakarta.faces.view.facelets.FaceletContext,java.lang.Class<?>)
 meth public abstract java.lang.String getLocalName()
 meth public abstract java.lang.String getNamespace()
 meth public abstract java.lang.String getQName()
@@ -7019,7 +7019,7 @@ supr java.lang.Object
 
 CLSS public abstract jakarta.faces.view.facelets.TagHandlerDelegate
 cons public init()
-meth public abstract jakarta.faces.view.facelets.MetaRuleset createMetaRuleset(java.lang.Class)
+meth public abstract jakarta.faces.view.facelets.MetaRuleset createMetaRuleset(java.lang.Class<?>)
 meth public abstract void apply(jakarta.faces.view.facelets.FaceletContext,jakarta.faces.component.UIComponent) throws java.io.IOException
 supr java.lang.Object
 

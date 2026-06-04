@@ -17,14 +17,6 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
-
-<!--
-
-    Project to create the Jakarta Faces API jar and docs (vdldocs, tsdocs, renderkit docs).
-
-
- -->
-
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -125,6 +117,7 @@
     </mailingLists>
 
     <properties>
+        <maven.compiler.release>17</maven.compiler.release>
         <central.autoPublish>false</central.autoPublish>
     </properties>
 
@@ -132,7 +125,7 @@
         <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
-            <version>6.2.0-M1</version>
+            <version>6.2.0-M2</version>
             <scope>provided</scope>
         </dependency>
 
@@ -254,7 +247,7 @@
         </resources>
         
         <plugins>
-            <!-- Sets minimal Maven version -->
+            <!-- Sets minimal Maven version and Java version -->
             <plugin>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
@@ -268,22 +261,24 @@
                                 <requireMavenVersion>
                                     <version>3.9.0</version>
                                 </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <version>[${maven.compiler.release},)</version>
+                                </requireJavaVersion>
                             </rules>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
-            <!-- Restricts the Java version to 17 - API remains at Java 17 for now. -->
+            <!-- Show all compiler warnings except deprecation/removal (we are aware). -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.15.0</version>
                 <configuration>
-                    <release>17</release>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
+                    <compilerArgument>-Xlint:all,-deprecation,-removal</compilerArgument>
                 </configuration>
             </plugin>
-            
+
             <!-- Generate the OSGi jar Manifest. -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -389,7 +384,6 @@
                         <configuration>
                             <sourcepath>src/main/java</sourcepath>
                             <additionalJOption>-Xdoclint:none</additionalJOption>
-                            <description>Jakarta Faces API documentation</description>
                             <doctitle>Jakarta Faces API documentation</doctitle>
                             <windowtitle>Jakarta Faces API documentation</windowtitle>
                             <header><![CDATA[<br>Jakarta Faces API v${project.version}]]></header>

@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import jakarta.el.PropertyNotFoundException;
 import jakarta.el.ValueExpression;
@@ -116,6 +117,9 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
      */
     public static final String EMPTY_VALIDATION_GROUPS_PATTERN = "^[\\W" + VALIDATION_GROUPS_DELIMITER + "]*$";
 
+    // Precompiled form of EMPTY_VALIDATION_GROUPS_PATTERN; setValidationGroups runs per postback, so avoid recompiling.
+    private static final Pattern EMPTY_VALIDATION_GROUPS = Pattern.compile(EMPTY_VALIDATION_GROUPS_PATTERN);
+
     /**
      * <p class="changed_added_2_0">
      * If this param is defined, and calling <code>toLowerCase().equals(&#8220;true&#8221;)</code> on a <code>String</code>
@@ -159,7 +163,7 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
         String newValidationGroups = validationGroups;
 
         // treat empty list as null
-        if (newValidationGroups != null && newValidationGroups.matches(EMPTY_VALIDATION_GROUPS_PATTERN)) {
+        if (newValidationGroups != null && EMPTY_VALIDATION_GROUPS.matcher(newValidationGroups).matches()) {
             newValidationGroups = null;
         }
 
@@ -319,18 +323,14 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
             jakarta.validation.Validator beanValidator = getBeanValidator(context);
             Object coercedValue = value == null ? null : context.getApplication().getExpressionFactory().coerceToType(value, valueExpression.getType(context.getELContext()));
 
-            @SuppressWarnings("rawtypes")
-            Set violationsRaw = null;
+            Set<? extends ConstraintViolation<?>> violations = null;
 
             try {
-                violationsRaw = beanValidator.validateValue(valueReference.getBase().getClass(), valueReference.getProperty().toString(), coercedValue, validationGroupsArray);
+                violations = beanValidator.validateValue(valueReference.getBase().getClass(), valueReference.getProperty().toString(), coercedValue, validationGroupsArray);
             } catch (IllegalArgumentException iae) {
                 LOGGER.fine("Unable to validate expression " + valueExpression.getExpressionString()
                         + " using Bean Validation.  Unable to get value of expression. " + " Message from Bean Validation: " + iae.getMessage());
             }
-
-            @SuppressWarnings("unchecked")
-            Set<ConstraintViolation<?>> violations = violationsRaw;
 
             if (violations != null && !violations.isEmpty()) {
                 ValidatorException toThrow;
@@ -458,7 +458,7 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
             }
         }
 
-        cachedValidationGroups = validationGroupsList.toArray(new Class[validationGroupsList.size()]);
+        cachedValidationGroups = validationGroupsList.toArray(new Class<?>[validationGroupsList.size()]);
         return cachedValidationGroups;
     }
 

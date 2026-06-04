@@ -33,8 +33,6 @@ class StateHolderSaver implements Serializable {
     private String className = null;
     private Serializable savedState = null;
 
-    private static final String DYNAMIC_COMPONENT = "org.glassfish.mojarra.DynamicComponent";
-
     private enum StateHolderTupleIndices {
         StateHolderSaverInstance, ComponentAddedDynamically, LastMember
     }
@@ -80,7 +78,7 @@ class StateHolderSaver implements Serializable {
 
                 tuple[StateHolderTupleIndices.StateHolderSaverInstance.ordinal()] = (Serializable) ((StateHolder) toSave).saveState(context);
                 if (toSave instanceof UIComponent) {
-                    tuple[StateHolderTupleIndices.ComponentAddedDynamically.ordinal()] = ((UIComponent) toSave).getAttributes().containsKey(DYNAMIC_COMPONENT)
+                    tuple[StateHolderTupleIndices.ComponentAddedDynamically.ordinal()] = ((UIComponent) toSave).getAttributes().containsKey(PackageUtils.DYNAMIC_COMPONENT)
                             ? Boolean.TRUE
                             : Boolean.FALSE;
                 }
