@@ -205,6 +205,27 @@ public abstract class UIComponentBase extends UIComponent {
     private transient Renderer<?> cachedRenderer;
 
     /**
+     * Field-backed {@code rendererType}, replacing the {@link StateHelper} entry that every component
+     * writes from its constructor. Backing it with a field keeps {@code defaultMap} unallocated for the
+     * common value-expression-bound leaf component (whose only would-be StateHelper entry is the
+     * renderer type) and turns every {@link #getRenderer}/{@link #getRendererType} read into a field read
+     * rather than a HashMap lookup.
+     *
+     * <p>State handling honours the partial-state contract: under partial state saving the constructor
+     * sets this <em>before</em> {@code markInitialState}, so {@code buildView} reconstructs it on restore
+     * and it is carried in the delta only when changed afterwards (see {@link #rendererTypeSet}); under
+     * full state saving it is persisted unconditionally, like {@link #id}.
+     */
+    private String rendererType;
+
+    /**
+     * {@code true} once {@code rendererType} is changed after {@code markInitialState}, so the change is
+     * carried in the partial-state delta. Transient: a freshly reconstructed component starts clean and
+     * relies on {@code buildView} (partial state) or the saved full state to re-establish the value.
+     */
+    private transient boolean rendererTypeSet;
+
+    /**
      * The <code>List</code> containing our child components.
      */
     private List<UIComponent> children;
@@ -368,12 +389,19 @@ public abstract class UIComponentBase extends UIComponent {
 
     @Override
     public String getRendererType() {
-        return (String) getStateHelper().eval(PropertyKeys.rendererType);
+        if (rendererType != null) {
+            return rendererType;
+        }
+        ValueExpression ve = getValueExpression(PropertyKeys.rendererType.toString());
+        return ve != null ? (String) ve.getValue(getFacesContext().getELContext()) : null;
     }
 
     @Override
     public void setRendererType(String rendererType) {
-        getStateHelper().put(PropertyKeys.rendererType, rendererType);
+        this.rendererType = rendererType;
+        if (initialStateMarked()) {
+            rendererTypeSet = true;
+        }
         cachedRenderer = null;
     }
 
@@ -1220,11 +1248,15 @@ public abstract class UIComponentBase extends UIComponent {
                 savedHelper = stateHelper.saveState(context);
             }
 
-            if (isAllNull(savedFacesListeners, savedSysEventListeners, savedBehaviors, savedHelper)) {
+            // rendererType is set from the constructor (before markInitialState) and rebuilt by buildView,
+            // so it only needs to ride along in the delta when it was changed after the initial state mark.
+            String savedRendererType = rendererTypeSet ? rendererType : null;
+
+            if (isAllNull(savedFacesListeners, savedSysEventListeners, savedBehaviors, savedHelper, savedRendererType)) {
                 return null;
             }
 
-            values = new Object[4];
+            values = new Object[5];
 
             // Since we're saving partial state, skip id and clientId
             // as this will be reconstructed from the template execution
@@ -1233,11 +1265,12 @@ public abstract class UIComponentBase extends UIComponent {
             values[1] = savedSysEventListeners;
             values[2] = savedBehaviors;
             values[3] = savedHelper;
+            values[4] = savedRendererType;
 
             return values;
 
         } else {
-            values = new Object[5];
+            values = new Object[6];
 
             values[0] = listeners != null ? listeners.saveState(context) : null;
             values[1] = saveSystemEventListeners(context);
@@ -1247,7 +1280,9 @@ public abstract class UIComponentBase extends UIComponent {
                 values[3] = stateHelper.saveState(context);
             }
 
-            values[4] = id;
+            // Full state carries no buildView reconstruction, so persist rendererType unconditionally (like id).
+            values[4] = rendererType;
+            values[5] = id;
 
             return values;
         }
@@ -1290,15 +1325,21 @@ public abstract class UIComponentBase extends UIComponent {
             getStateHelper().restoreState(context, values[3]);
         }
 
-        if (values.length == 5) {
-            // This means we've saved full state and need to do a little more
-            // work to finish the job
-            if (values[4] != null) {
-                id = (String) values[4];
+        if (values.length == 6) {
+            // Full state is authoritative and runs no buildView reconstruction: restore rendererType
+            // exactly (including an explicit null, which must overwrite a constructor-set default) and
+            // the id, then sync the field-backed markers from the restored attributes map.
+            rendererType = (String) values[4];
+            if (values[5] != null) {
+                id = (String) values[5];
             }
-            // Full-state restore does not re-run buildView, so sync the field-backed markers from the
-            // restored attributes map (partial-state restore re-establishes them via buildView).
             restoreMarkersFromState();
+        } else if (values[4] != null) {
+            // Partial-state delta: rendererType changed after markInitialState; apply it and keep it
+            // marked dirty so it stays in the delta across subsequent postbacks. buildView re-established
+            // the pre-mark value, so a null here just means "no rendererType delta".
+            rendererType = (String) values[4];
+            rendererTypeSet = true;
         }
 
         // StateHelper.restoreState may rewrite rendererType without going through
@@ -2049,6 +2090,7 @@ public abstract class UIComponentBase extends UIComponent {
                             if (null == readMap) {
                                 readMap = new ConcurrentHashMap<>();
                             }
+                            suppressAccessCheck(readMethod);
                             readMap.putIfAbsent(key, readMethod);
                             result = invokeReadMethod(readMethod);
                         } else {
@@ -2308,6 +2350,24 @@ public abstract class UIComponentBase extends UIComponent {
                 throw new FacesException(e);
             } catch (InvocationTargetException e) {
                 throw new FacesException(e.getTargetException());
+            }
+        }
+
+        /**
+         * Suppresses the per-invoke reflective access check on the (public) property getter that gets
+         * cached in {@link #readMap} and then invoked on every property-backed attribute read — hot under
+         * render and {@code UIData}/{@code UIRepeat} iteration (a renderer reads each pass-through attribute
+         * through {@code getAttributes().get}). The check is otherwise re-run per invoke because
+         * {@link PropertyDescriptor#getReadMethod()} hands back the method via a soft {@link
+         * java.lang.ref.Reference} that may be regenerated, yielding a fresh {@link Method} whose access
+         * was never suppressed. Suppressing it on the strongly-held cached instance makes the win durable.
+         */
+        private static void suppressAccessCheck(Method readMethod) {
+            try {
+                // The module system may forbid this for a getter in a non-exported user package;
+                // when it does, the normal per-invoke access check simply remains.
+                readMethod.setAccessible(true);
+            } catch (RuntimeException accessNotSuppressed) {
             }
         }
 
@@ -3243,17 +3303,12 @@ public abstract class UIComponentBase extends UIComponent {
             if (propertyDescriptors != null) {
                 propertyDescriptorMap = new HashMap<>(propertyDescriptors.length, 1.0f);
                 for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
-                    // Suppress the per-invoke reflective access check on the (public) property getter.
-                    // It is invoked on every property-backed attribute read, which is hot under render
-                    // and UIData/UIRepeat iteration. Done once per component class (this map is cached
-                    // application-wide below). Guarded: the module system may forbid it for a getter in a
-                    // non-exported user package, in which case the normal access check simply remains.
+                    // Suppress the access check up front (see AttributesMap.suppressAccessCheck); note the
+                    // hot path additionally suppresses it on the readMap-cached instance, since the method
+                    // handed back here may be regenerated before that cache is populated.
                     Method readMethod = propertyDescriptor.getReadMethod();
                     if (readMethod != null) {
-                        try {
-                            readMethod.setAccessible(true);
-                        } catch (RuntimeException accessNotSuppressed) {
-                        }
+                        AttributesMap.suppressAccessCheck(readMethod);
                     }
                     propertyDescriptorMap.put(propertyDescriptor.getName(), propertyDescriptor);
                 }
