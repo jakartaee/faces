@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+<h:head>
+  <title>Spec949</title>
+</h:head>
+<h:body>
+    <script type="text/javascript">
+        //<![CDATA[
+        var clientWindow = "";
+        var callGetClientWindow = function callGetClientWindow() {
+            clientWindow = faces.getClientWindow(document.forms[0]);
+            var echoClientWindow = document.getElementById("echoClientWindow");
+            echoClientWindow.innerHTML = "<b>" + clientWindow + "</b>";
+            return true;
+        }
+        //]]>
+    </script>
+
+  <h:form prependId="false">
+      First name: <h:inputText id="firstName" value="#{spec949Bean.firstName}" /> Last name: #{spec949Bean.lastName}
+      <p><h:commandButton id="submitAjax" value="submitAjax" onclick="callGetClientWindow()">
+              <f:ajax execute="@form" render="echoPanel" />
+          </h:commandButton>
+    </p>
+      <p><h:commandButton id="submitNonAjax" value="submitNonAjax" /></p>
+
+      <p><h:commandLink id="commandLink" value="page2 via commandLink" action="spec949Page2" /></p>
+      <p><h:link id="outcomeTargetLink" value="page2 via link" outcome="spec949Page2" /></p>
+
+      <p><h:button id="outcomeTargetButton" value="page2 via button" outcome="spec949Page2" /></p>
+
+      <p><input type="submit" id="getClientWindow" onclick="callGetClientWindow(); return false;"
+                name="getClientWindow" value="getClientWindow" /></p>
+
+    <h:panelGroup id="echoPanel">
+        |#{spec949Bean.firstName}|
+    </h:panelGroup>
+
+      <p>|ClientWindow: <span id="echoClientWindow" />|</p>
+
+  </h:form>
+</h:body>
+</html>

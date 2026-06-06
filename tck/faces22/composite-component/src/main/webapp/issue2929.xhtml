@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:issue2929="jakarta.faces.composite/issue2929">
+
+    <h:head></h:head>
+    <h:body>
+        <h:form id="commentBoxForm">
+            <issue2929:component id="bindID" binding="#{issue2929Bean.composite}">
+            </issue2929:component>
+
+            <h:commandLink value="Ajax refresh form">
+                <f:ajax execute="@form" render="@form" />
+            </h:commandLink>
+            <br />
+            <br />
+            <br />
+            <h:inputText id="nonBindId" binding="#{issue2929Bean.nonComposite}" />
+
+            <b>After Ajax refresh this id will be invalid. Full id: </b>
+            <p id="compositeId">#{issue2929Bean.composite.clientId}</p>
+            <p id="nonCompositeId">#{issue2929Bean.nonComposite.clientId}</p>
+        </h:form>
+    </h:body>
+</html>

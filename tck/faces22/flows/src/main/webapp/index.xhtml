@@ -1,0 +1,73 @@
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html
+      xmlns:h="jakarta.faces.html">
+    <head>
+        <title>Outside of flow</title>
+    </head>
+    <body>
+        <h1>Outside of flow</h1>
+
+        <h:form prependId="false">
+            <p><h:commandButton id="go_to_start_from_flow_call_node" value="go_to_start_from_flow_call_node"
+                                action="flowcallnavi-start-from-flow-call-node" /></p>
+
+            <p><h:commandButton id="go_to_my_flow_for_issue3134" value="go_to_my_flow_for_issue3134"
+                                action="enterFlow" /></p>
+
+            <p><h:commandButton id="go_to_flow_for_issue4025" value="go_to_flow_for_issue4025"
+                                action="flow_for_issue4025" /></p>
+
+            <p><h:commandButton id="start" value="start flow on valid entry node"
+                                action="bounded-task-flow" /></p>
+
+            <p><h:commandButton id="go_to_issue3479_start_from_flow_call_node" value="go_to_issue3479_start_from_flow_call_node"
+                                action="issue3479-start-from-flow-call-node" /></p>
+
+            <p><h:commandButton id="go_to_issue3480_start_from_flow_call_node" value="go_to_issue3480_start_from_flow_call_node"
+                                action="issue3480-start-from-flow-call-node" /></p>
+
+            <p><h:commandButton id="flow1" value="flow1" action="flow1" /></p>
+
+            <p><h:commandButton id="go_to_issue3597_method_call_start_node" value="go_to_issue3597_method_call_start_node"
+                                action="issue3597-method-call-start-node" /></p>
+
+            <p><h:commandButton id="flow-a-no-inbound-no-outbound" value="enter flow-a-no-inbound-no-outbound"
+                                action="flow-a-no-inbound-no-outbound" /></p>
+
+            <p><h:commandButton id="flow-a-yes-inbound-no-outbound" value="enter flow-a-yes-inbound-no-outbound"
+                                action="flow-a-yes-inbound-no-outbound" /></p>
+
+            <p><h:commandButton id="flow-a-no-inbound-yes-outbound" value="enter flow-a-no-inbound-yes-outbound"
+                                action="flow-a-no-inbound-yes-outbound" /></p>
+
+            <p><h:commandButton id="go_to_view_to_view_flow" value="view_to_view_test"
+                                action="navi-start-from-view-node" /></p>
+
+            <p><h:commandButton id="go_to_start_from_method_call_flow" value="go_to_start_from_method_call_flow"
+                                action="navi-start-from-method-call-node" /></p>
+
+            <p><h:commandButton id="go_to_start_from_switch_flow" value="go_to_start_from_switch_flow"
+                                action="navi-start-from-switch-node" /></p>
+
+            <p><h:commandButton id="go_to_start_from_return_flow" value="go_to_start_from_return_flow"
+                                action="navi-start-from-return-node" /></p>
+        </h:form>
+    </body>
+</html>

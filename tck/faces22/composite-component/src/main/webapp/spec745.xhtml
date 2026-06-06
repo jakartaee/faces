@@ -1,0 +1,49 @@
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:spec745="jakarta.faces.composite/spec745">
+    <f:metadata>
+        <f:viewParam name="test" value="#{spec745Bean.test}" />
+    </f:metadata>
+    <h:head>
+        <title>Spec745</title>
+    </h:head>
+    <h:body>
+        Partial State Saving: <h:outputText value="#{initParam['jakarta.faces.PARTIAL_STATE_SAVING']}"/> <br/>
+        State Saving Method: <h:outputText value="#{initParam['jakarta.faces.STATE_SAVING_METHOD']}"/> <br/>
+        <h:form id="form">
+            <spec745:spec745
+                untypedXliteral="literalValue"
+                untypedXwideEL="#{spec745Bean.animal}"
+                untypedXmediumEL="#{spec745Bean.dog}"
+                untypedXnarrowEL="#{spec745Bean.wienerdoodle}"
+                untypedXnullEL="#{spec745Bean.lostDog}"
+
+                typedXliteral="745"
+                typedXwideEL="#{spec745Bean.animal}"
+                typedXmediumEL="#{spec745Bean.dog}"
+                typedXnarrowEL="#{spec745Bean.wienerdoodle}"
+                typedXnullEL="#{spec745Bean.lostDog}"
+                />
+            <h:commandButton id="submit" value="reload" />
+        </h:form>
+    </h:body>
+</html>

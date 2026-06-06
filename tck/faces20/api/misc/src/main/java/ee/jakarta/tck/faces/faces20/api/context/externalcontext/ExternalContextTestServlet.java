@@ -727,31 +727,27 @@ public final class ExternalContextTestServlet extends HttpTCKServlet {
     ExternalContext econtext = getFacesContext().getExternalContext();
     int result;
 
-    ArrayList<Integer> testValues = new ArrayList<Integer>();
-    {
-      testValues.add(-1);
-      testValues.add(0);
-      testValues.add(1);
-    }
-
-    ListIterator<Integer> litr = testValues.listIterator();
-    while (litr.hasNext()) {
-      Integer tv = (Integer) litr.next();
-
+    // The spec defines getSessionMaxInactiveInterval() in terms of the underlying
+    // HttpSession#getMaxInactiveInterval() (and setSessionMaxInactiveInterval() in terms of
+    // HttpSession#setMaxInactiveInterval()). Verify that delegation rather than a verbatim
+    // round-trip of the set value: the contract permits a value of zero or less ("never timeout"),
+    // which a container is not required to report back unchanged.
+    for (int tv : new int[] { -1, 0, 1 }) {
       try {
         econtext.setSessionMaxInactiveInterval(tv);
       } catch (Exception e) {
         out.println("Test FAILED. Unexpected Exception when setting "
             + "MaxInactiveInterval to " + tv + JSFTestUtil.NL);
         e.printStackTrace();
+        return;
       }
 
       result = econtext.getSessionMaxInactiveInterval();
-      if (result != tv) {
+      int sessionResult = ((HttpSession) econtext.getSession(true)).getMaxInactiveInterval();
+      if (result != sessionResult) {
         out.println("Test FAILED. " + JSFTestUtil.NL
-            + "Unexpected value returned from getSessionMaxInactiveInterval()."
-            + JSFTestUtil.NL + "Expected: " + tv + JSFTestUtil.NL
-            + "Received:  " + result);
+            + "getSessionMaxInactiveInterval() (" + result + ") does not match the wrapped"
+            + " HttpSession.getMaxInactiveInterval() (" + sessionResult + ") after setting " + tv);
         return;
       }
     }

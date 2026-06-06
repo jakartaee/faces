@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<faces-config
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+    version="4.1">
+    <factory>
+        <application-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigApplicationFactory</application-factory>
+        <exception-handler-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigExceptionHandlerFactory</exception-handler-factory>
+        <external-context-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigExternalContextFactory</external-context-factory>
+        <faces-context-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigFacesContextFactory</faces-context-factory>
+        <partial-view-context-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigPartialViewContextFactory</partial-view-context-factory>
+        <client-window-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigClientWindowFactory</client-window-factory>
+        <lifecycle-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigLifecycleFactory</lifecycle-factory>
+        <render-kit-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigRenderKitFactory</render-kit-factory>
+        <view-declaration-language-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigViewDeclarationLanguageFactory</view-declaration-language-factory>
+        <facelet-cache-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigFaceletCacheFactory</facelet-cache-factory>
+        <tag-handler-delegate-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigTagHandlerDelegateFactory</tag-handler-delegate-factory>
+        <visit-context-factory>ee.jakarta.tck.faces.faces22.injection.FacesConfigVisitContextFactory</visit-context-factory>
+    </factory>
+    <application>
+        <action-listener>ee.jakarta.tck.faces.faces22.injection.FacesConfigActionListener</action-listener>
+        <navigation-handler>ee.jakarta.tck.faces.faces22.injection.FacesConfigNavigationHandler</navigation-handler>
+        <view-handler>ee.jakarta.tck.faces.faces22.injection.FacesConfigViewHandler</view-handler>
+        <state-manager>ee.jakarta.tck.faces.faces22.injection.FacesConfigStateManager</state-manager>
+        <el-resolver>ee.jakarta.tck.faces.faces22.injection.FacesConfigELResolver</el-resolver>
+        <resource-handler>ee.jakarta.tck.faces.faces22.injection.FacesConfigResourceHandler</resource-handler>
+        <system-event-listener>
+            <system-event-listener-class>ee.jakarta.tck.faces.faces22.injection.FacesConfigSystemEventListener</system-event-listener-class>
+            <system-event-class>jakarta.faces.event.PreRenderViewEvent</system-event-class>
+        </system-event-listener>
+    </application>
+    <lifecycle>
+        <phase-listener>ee.jakarta.tck.faces.faces22.injection.FacesConfigPhaseListener</phase-listener>
+    </lifecycle>
+</faces-config>

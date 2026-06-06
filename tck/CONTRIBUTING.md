@@ -137,7 +137,18 @@ Use the canonical 4 context-param block, in this exact order, parameterized:
 
 The `${webapp.*}` placeholders default to `Production`/`true`/`server`/`false` (set in the parent pom) and let CI sweep the suite under different state-saving configurations via `-Dwebapp.xxx=…`.
 
-**No need to declare `<servlet>` for `FacesServlet` unless you need a non-default mapping** — Jakarta Faces auto-maps `*.xhtml` since 4.0.
+**No need to declare `<servlet>` for `FacesServlet` unless you need a non-default mapping** — Jakarta Faces auto-maps `*.xhtml` since 4.0. Only add explicit mapping when the test needs it.
+
+```xml
+<servlet>
+    <servlet-name>facesServlet</servlet-name>
+    <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>facesServlet</servlet-name>
+    <url-pattern>*.foo</url-pattern>
+</servlet-mapping>
+```
 
 ### `beans.xml`
 
@@ -146,11 +157,11 @@ The `${webapp.*}` placeholders default to `Production`/`true`/`server`/`false` (
 </beans>
 ```
 
-An empty `beans.xml` (0 bytes) is also valid as a CDI marker.
+An empty `beans.xml` (0 bytes) is also valid as a CDI marker, unless an explicit `bean-discovery-mode` is relevant to the test.
 
 ### `faces-config.xml`
 
-**Always include one**, even if empty. The presence of `WEB-INF/faces-config.xml` is what triggers Jakarta Faces' auto-registration of `FacesServlet`. Add real content (custom factories, navigation rules, `facelets-processing`, etc.) only when the test needs it.
+**Always include one when `web.xml` has no `FacesServlet`**. The presence of `WEB-INF/faces-config.xml` is what triggers Jakarta Faces' auto-registration of `FacesServlet`. Add real content (custom factories, navigation rules, `facelets-processing`, etc.) only when the test needs it.
 
 ```xml
 <faces-config xmlns="https://jakarta.ee/xml/ns/jakartaee" ... version="4.1">
@@ -174,6 +185,7 @@ An empty `beans.xml` (0 bytes) is also valid as a CDI marker.
     <h:body>
         <h:form id="form">
             <h:commandButton id="submit" action="#{spec123Bean.submit}" />
+            <h:outputText id="status" value="#{spec123Bean.status}" />
         </h:form>
     </h:body>
 </html>
@@ -181,8 +193,9 @@ An empty `beans.xml` (0 bytes) is also valid as a CDI marker.
 
 Rules:
 
-- **`<!DOCTYPE html>`** (HTML5). No legacy XHTML 1.0 doctypes — they require a DTD that introduces named entities (`&nbsp;`) and renderer differences that `ScriptStyleBaseRenderer` checks. Three fixtures intentionally keep legacy doctypes (`spec1568-HTML4-public.xhtml`, `spec1568-HTML4-system.xhtml`, `spec1565-HTML4.xhtml`) — they assert exactly that doctype-dependent behavior.
+- **`<!DOCTYPE html>`** (HTML5). No legacy XHTML 1.0 doctypes, unless relevant to the test — they require a DTD that introduces named entities (`&nbsp;`) and renderer differences that `ScriptStyleBaseRenderer` checks.
 - **No `xmlns="http://www.w3.org/1999/xhtml"`** on `<html>` — unnecessary under HTML5 + Faces 4.0.
+- **No `<?xml ... ?>"`** XML prolog, unless relevant to the test.
 - **No `<meta http-equiv="Content-Type">`** — Faces emits the content-type header from `<f:view contentType="…">` or by default.
 - **Use Jakarta namespace URNs**: `jakarta.faces.html`, `jakarta.faces.core`, `jakarta.faces.facelets`, `jakarta.faces.composite`, `jakarta.faces.composite/<lib>`, `jakarta.tags.core`. **Not** `http://java.sun.com/jsf/*` or `http://xmlns.jcp.org/jsf/*` — those are only used in `tck/faces40/...spec1553.xhtml`, which specifically tests legacy-namespace backwards compatibility.
 
@@ -223,9 +236,10 @@ Rules:
   - `@see <issue URL>` — the GitHub issue (spec or mojarra impl).
   - `@see <API artifact>` — `jakarta.faces.*` class/method exercised. Use an impl-class `@see` (`org.glassfish.mojarra.*`) only when no API artifact applies (rare — usually internal Facelets bits).
 - **Always `getPage("Spec123.xhtml")` explicitly**, not `getPage("")`. We don't rely on welcome-files.
-- Use the right `WebPage` helper:
+- **Assert on an explicit result element, not on whole-page text.** Render the outcome the test cares about into a dedicated component with a fixed `id` — typically `<h:outputText id="status" value="#{bean.status}"/>` — then assert `page.findElement(By.id("form:status")).getText()` equals the expected value. This pins the assertion to one known element, so it can't accidentally pass on text that happens to appear elsewhere on the page (a label, another field, a stale value) and it fails with a clear "expected X but was Y" instead of a bare `false`. Put the value the test verifies into the bean and surface it through that element.
+- Fall back to scanning page text **only** when the result genuinely can't be pinned to one element — e.g. a framework-generated `h:messages` entry, the dev-stage error page, or a raw markup/attribute/entity check. Then use the right `WebPage` helper:
   - `containsText(s)` — visible text only (`body.innerText`). Use this for what the user sees.
-  - `containsSource(s)` — full HTML markup. Use this for content inside hidden DOM (e.g. inside the dev-stage error page's collapsed stack trace), HTML attributes, encoded entities, or script bodies.
+  - `containsSource(s)` — full HTML markup. Use this for content inside hidden DOM (e.g. inside the dev-stage error page's collapsed stack trace), HTML attributes, encoded entities, or script bodies. Prefer this over `getSource().contains(s)`; reserve `getSource()` for fetching one snapshot you then run several checks against.
   - `matchesText(regex)` — visible text against a regex.
   - `guardHttp(action)` — runs a non-ajax click and waits for full navigation.
   - `guardAjax(action)` — runs a click and waits for the matching ajax response to finish processing.
@@ -264,3 +278,4 @@ Common reasons we pin:
 3. New `web.xml` has all four canonical context-params; new `pom.xml` has the standard parent + `<name>` + `<finalName>`.
 4. New xhtml fixtures use HTML5 doctype, Jakarta URNs, fixed IDs on NamingContainers, and numeric entity refs.
 5. New test class extends `BaseITNG`, has per-method `@see` javadoc, and uses `getPage("Spec123.xhtml")` explicitly.
+6. Assertions target an explicit result element by id (`findElement(By.id(...)).getText()`), not whole-page `containsText`/`containsSource`, except where the result genuinely can't be pinned to one element.

@@ -48,15 +48,27 @@
         <module>multi-field-validation</module>
         <module>method-validation</module>
         <module>el-lambda</module>
-        <module>view-param-null-ajax</module>
         <module>view-action-viewscoped</module>
         <module>bean-validation</module>
         <module>implicit-bean-archive</module>
         <module>child-count</module>
         <module>composite-component</module>
         <module>facelets-template</module>
-        <module>view-expired</module>
-        <module>multi-tenant-tccl</module>
+        <module>client-window</module>
+        <module>empty-as-null</module>
+        <module>flows</module>
+        <module>injection</module>
+        <module>phase-listener</module>
+        <module>iteration</module>
+        <module>view-param</module>
+        <module>facelets</module>
+        <module>file-upload</module>
+        <module>render-kit</module>
+        <module>resource-dependency</module>
+        <module>process-as-xhtml5</module>
+        <module>component-events</module>
+        <module>default-validator</module>
+        <module>facelet-cache-factory</module>
     </modules>
 
     <dependencies>

@@ -72,6 +72,14 @@
         <module>refresh-period-explicit</module>
         <module>refresh-period-production</module>
 -->
+        <module>config-files-navigation</module>
+        <module>dynamic-components</module>
+        <module>facelet-cache-factory</module>
+        <module>facelets-suffix</module>
+        <module>misc-additive-config</module>
+        <module>namespaced-params</module>
+        <module>resource-api</module>
+        <module>resource-library-contracts</module>
     </modules>
 
     <dependencies>
