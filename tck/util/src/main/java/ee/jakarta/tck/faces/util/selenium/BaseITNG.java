@@ -77,6 +77,9 @@ public abstract class BaseITNG implements ExecutionCondition {
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
+        if (parseBoolean(getProperty("test.selenium"))) {
+            driverPool.prewarm(); // boot Chrome concurrently with the deployment below
+        }
         return create(ZipImporter.class, getProperty("finalName") + ".war").importFrom(new File("target/" + getProperty("finalName") + ".war"))
                 .as(WebArchive.class);
     }

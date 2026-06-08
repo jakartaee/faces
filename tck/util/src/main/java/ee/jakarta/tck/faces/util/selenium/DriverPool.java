@@ -15,7 +15,10 @@
  */
 package ee.jakarta.tck.faces.util.selenium;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 
 import org.openqa.selenium.WebDriverException;
@@ -31,6 +34,44 @@ public class DriverPool {
     ConcurrentLinkedQueue<ExtendedWebDriver> allDrivers = new ConcurrentLinkedQueue<>();
     ConcurrentLinkedQueue<ExtendedWebDriver> availableDrivers = new ConcurrentLinkedQueue<>();
 
+    private volatile Future<ExtendedWebDriver> warming;
+
+    /**
+     * Eagerly boots one Chrome instance on a background thread so the cold start (the
+     * Chrome process launch in {@link ChromeDevtoolsDriver#stdInit}) overlaps the
+     * Arquillian deployment instead of serialising on the first
+     * {@link #getOrNewInstance()} call. No-op if a driver is already available or warming.
+     */
+    public synchronized void prewarm() {
+        if (warming == null && availableDrivers.isEmpty()) {
+            warming = CompletableFuture.supplyAsync(ChromeDevtoolsDriver::stdInit);
+        }
+    }
+
+    /**
+     * Claims the pre-warmed driver, blocking until its background boot completes.
+     * Returns {@code null} (so the caller falls back to a synchronous boot) if no
+     * pre-warm is pending or the boot failed.
+     */
+    private ExtendedWebDriver takeWarming() {
+        Future<ExtendedWebDriver> pending = warming;
+        warming = null;
+        if (pending == null) {
+            return null;
+        }
+        try {
+            ExtendedWebDriver webDriver = pending.get();
+            allDrivers.add(webDriver);
+            return webDriver;
+        } catch (InterruptedException ex) {
+            Thread.currentThread().interrupt();
+            return null;
+        } catch (ExecutionException ex) {
+            LOG.warning(() -> "Driver pre-warm boot failed, falling back to synchronous init: " + ex.getCause());
+            return null;
+        }
+    }
+
     /**
      * creates or activates a new driver instance
      *
@@ -40,6 +81,9 @@ public class DriverPool {
         // synchronized to avoid get race conditions.... there is a non synchonzed part between the check and remove
         // to make this easy we simply synchronize the get to fix it
         ExtendedWebDriver webDriver = availableDrivers.isEmpty() ? null : availableDrivers.remove();
+        if (webDriver == null) {
+            webDriver = takeWarming();
+        }
         if (webDriver == null) {
             webDriver = ChromeDevtoolsDriver.stdInit();
             allDrivers.add(webDriver);
@@ -110,6 +154,7 @@ public class DriverPool {
      * cleans up the pool
      */
     public void quitAll() {
+        takeWarming(); // drain any pending pre-warm into allDrivers so it gets quit too
         allDrivers.stream().forEach(ExtendedWebDriver::quit);
         allDrivers.clear();
         availableDrivers.clear();

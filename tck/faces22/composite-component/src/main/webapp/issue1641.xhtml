@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ez="jakarta.faces.composite/issue1641">
+    <h:head>
+        <title>Issue1641</title>
+    </h:head>
+    <h:body>
+        <h:form id="form" prependId="false">
+            <ez:actionButton id="button">
+                <f:actionListener for="abutton" type="ee.jakarta.tck.faces.faces22.composite_component.Issue1641ActionListener"/>
+            </ez:actionButton>
+            <h:outputText id="result" value="count=#{issue1641Bean.count}"/>
+        </h:form>
+    </h:body>
+</html>

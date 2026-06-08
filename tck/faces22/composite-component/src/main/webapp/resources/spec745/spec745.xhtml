@@ -1,0 +1,57 @@
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html
+      xmlns:cc="jakarta.faces.composite">
+
+    <cc:interface componentType="ee.jakarta.tck.faces.faces22.composite_component.Spec745Component">
+
+        <cc:attribute name="untypedXunset" />
+        <cc:attribute name="untypedXliteral" />
+        <cc:attribute name="untypedXwideEL" />
+        <cc:attribute name="untypedXmediumEL" />
+        <cc:attribute name="untypedXnarrowEL" />
+        <cc:attribute name="untypedXnullEL" />
+        <cc:attribute name="untypedXsetByApi" />
+
+        <cc:attribute name="typedXunset"
+            type="ee.jakarta.tck.faces.faces22.composite_component.Spec745Bean$Dog" />
+
+        <cc:attribute name="typedXliteral" type="java.lang.Integer" />
+
+        <cc:attribute name="typedXwideEL"
+            type="ee.jakarta.tck.faces.faces22.composite_component.Spec745Bean$Dog" />
+
+        <cc:attribute name="typedXmediumEL"
+            type="ee.jakarta.tck.faces.faces22.composite_component.Spec745Bean$Dog" />
+
+        <cc:attribute name="typedXnarrowEL"
+            type="ee.jakarta.tck.faces.faces22.composite_component.Spec745Bean$Dog" />
+
+        <cc:attribute name="typedXnullEL"
+            type="ee.jakarta.tck.faces.faces22.composite_component.Spec745Bean$Dog" />
+
+        <cc:attribute name="typedXsetByApi"
+            type="ee.jakarta.tck.faces.faces22.composite_component.Spec745Bean$Dog" />
+
+    </cc:interface>
+    <cc:implementation>
+        <p>#{spec745Bean.from(cc.attrs)}</p>
+        <p>#{cc.attrs.customProperty}</p>
+    </cc:implementation>
+</html>

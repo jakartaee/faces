@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
@@ -100,8 +99,5 @@ class ExternalContextIT extends BaseITNG {
                 "Expected redirect Location ending in '/target' but was: " + location);
     }
 
-    @Disabled("ExternalContext.setSessionMaxInactiveInterval(0/-1) does not round-trip through"
-            + " HttpSession.getMaxInactiveInterval() on GlassFish/Mojarra — the web.xml <session-timeout>"
-            + " (3240s) is retained. Needs investigation in Mojarra/GlassFish impl, deferred for a future session.")
     @Test void setGetSessionMaxInactiveIntervalTest() { runServletTest("setGetSessionMaxInactiveIntervalTest"); }
 }

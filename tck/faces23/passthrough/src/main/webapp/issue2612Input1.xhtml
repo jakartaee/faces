@@ -1,0 +1,46 @@
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="jakarta.faces.passthrough"
+      xmlns:jsf="jakarta.faces">
+    <form jsf:id="form" jsf:prependId="false">
+        <p>
+            <h:inputText id="input1" type="text" p:placeholder="Enter text here" />
+        </p>
+        <p>
+            <h:inputText id="input2" type="text" p:autocomplete="on" />
+        </p>
+        <p>
+            <h:inputText id="input3" type="text" p:autofocus="autofocus" />
+        </p>
+        <p>
+            <h:inputText id="input4" type="text" p:list="mydatalist" />
+        </p>
+        <p>
+            Country Code: <h:inputText id="input5" type="text" p:pattern="[A-Za-z]{3}" />
+        </p>
+        <p>
+            <h:inputText id="input6" type="text" p:required="required" />
+        </p>
+        <p>
+            <h:inputText id="input7" type="text" p:dirname="input7.dir" />
+        </p>
+    </form>
+</html>

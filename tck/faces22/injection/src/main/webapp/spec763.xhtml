@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html
+      xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Spec763</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p>FacesConfigApplicationFactory: #{facesContext.application.injectedMessage}</p>
+            <p>FacesConfigActionListener: #{facesContext.application.actionListener.injectedMessage}</p>
+            <p>FacesConfigNavigationHandler: #{facesContext.application.navigationHandler.injectedMessage}</p>
+            <p>FacesConfigViewHandler: #{facesContext.application.viewHandler.injectedMessage}</p>
+            <p>FacesConfigStateManager: #{facesContext.application.stateManager.injectedMessage}</p>
+            <p>FacesConfigELResolver: #{FacesConfigELResolverMessage}</p>
+            <p>FacesConfigResourceHandler: #{FacesConfigResourceHandlerMessage}</p>
+            <p>FacesConfigSystemEventListener: #{FacesConfigSystemEventListenerMessage}</p>
+            <p>FacesConfigPhaseListener: #{FacesConfigPhaseListenerBeforeMessage}</p>
+            <p>FacesConfigVisitContextFactory: #{spec763Status.messages.FacesConfigVisitContextFactory}</p>
+            <p>FacesConfigExceptionHandlerFactory: #{spec763Status.messages.FacesConfigExceptionHandlerFactory}</p>
+            <p>FacesConfigExternalContextFactory: #{spec763Status.messages.FacesConfigExternalContextFactory}</p>
+            <p>FacesConfigFacesContextFactory: #{spec763Status.messages.FacesConfigFacesContextFactory}</p>
+            <p>FacesConfigPartialViewContextFactory: #{spec763Status.messages.FacesConfigPartialViewContextFactory}</p>
+            <p>FacesConfigClientWindowFactory: #{spec763Status.messages.FacesConfigClientWindowFactory}</p>
+            <p>FacesConfigLifecycleFactory: #{spec763Status.messages.FacesConfigLifecycleFactory}</p>
+            <p>FacesConfigRenderKitFactory: #{spec763Status.messages.FacesConfigRenderKitFactory}</p>
+            <p>FacesConfigViewDeclarationLanguageFactory: #{spec763Status.messages.FacesConfigViewDeclarationLanguageFactory}</p>
+            <p>FacesConfigFaceletCacheFactory: #{spec763Status.messages.FacesConfigFaceletCacheFactory}</p>
+            <p>FacesConfigTagHandlerDelegateFactory: #{spec763Status.messages.FacesConfigTagHandlerDelegateFactory}</p>
+            <p><h:commandButton value="submit" /></p>
+        </h:form>
+    </h:body>
+</html>
