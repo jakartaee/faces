@@ -42,6 +42,8 @@
     <modules>
         <module>ajax-lifecycle</module>
         <module>ajax-inputs</module>
+        <module>flows</module>
+        <module>composite-component</module>
         <module>bean-lifecycle-events</module>
         <module>protected-view</module>
         <module>view-scope</module>
@@ -52,11 +54,9 @@
         <module>bean-validation</module>
         <module>implicit-bean-archive</module>
         <module>child-count</module>
-        <module>composite-component</module>
         <module>facelets-template</module>
         <module>client-window</module>
         <module>empty-as-null</module>
-        <module>flows</module>
         <module>injection</module>
         <module>phase-listener</module>
         <module>iteration</module>

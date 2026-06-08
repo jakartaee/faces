@@ -21,27 +21,24 @@
 
     <parent>
         <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
-        <artifactId>renderkit</artifactId>
+        <artifactId>renderkit-input</artifactId>
         <version>5.0.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>renderkit-input</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>renderkit-input-text</artifactId>
+    <packaging>war</packaging>
 
     <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
-    <!--
-        Split per renderer family so each war deploys to its own pooled
-        GlassFish and the classes run in parallel rather than sequentially on
-        one server. The three select-many renderers are the heavy ones (each
-        does many guarded form-submit roundtrips), so they get their own module
-        and are declared first to let the -T scheduler dispatch them early.
-    -->
-    <modules>
-        <module>manylistbox</module>
-        <module>manymenu</module>
-        <module>manycheckbox</module>
-        <module>select-one</module>
-        <module>text</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.ee4j.tck.faces.faces20</groupId>
+            <artifactId>renderkit-common-tckjar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
+    </build>
 </project>

@@ -41,12 +41,12 @@
     -->
     <modules>
         <module>cdi</module>
+        <module>facelets</module>
         <module>ui-input</module>
         <module>ajax</module>
         <module>localized-composite</module>
         <module>datetime-converter</module>
         <module>get-views</module>
-        <module>facelets</module>
         <module>exact-mapping</module>
         <module>websocket</module>
         <module>namespaced-view</module>
