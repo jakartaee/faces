@@ -40,7 +40,7 @@ import jakarta.faces.model.SelectItem;
 
 class PackageUtils {
 
-    private static final String PATTERN_CACHE_KEY = "org.glassfish.mojarra.patternCache";
+    private static final String PATTERN_CACHE_KEY = "jakarta.faces.application.PATTERN_CACHE";
     private static final String CLIENT_ID_NESTED_IN_ITERATOR_PATTERN = "CLIENT_ID_NESTED_IN_ITERATOR_PATTERN";
 
     // Facelets framework markers stored on a component's attribute map during view build and refresh (creation

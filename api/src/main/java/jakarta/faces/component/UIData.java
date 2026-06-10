@@ -102,6 +102,19 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
 
     private static final ListDataModel<Object> EMPTY_DATA_MODEL = new ListDataModel<>(Collections.emptyList());
 
+    /**
+     * The CDI bean name under which the implementation registers the map of {@code @FacesDataModel} classes to their
+     * {@code DataModel} implementations.
+     *
+     * The Faces specification defines the {@code @FacesDataModel} lookup <em>behavior</em> but not this mechanism, so
+     * the name is currently an undocumented contract that the API and the implementation each hardcode independently.
+     *
+     * TODO: long term this bean name should be defined by the specification, so the implementation no longer has to
+     * guess/invent it and both sides can reference a single spec-defined definition instead of duplicating the literal.
+     * See https://github.com/jakartaee/faces/issues/2184
+     */
+    private static final String DATA_MODEL_CLASSES_MAP_BEAN_NAME = "jakarta.faces.DATA_MODEL_CLASSES_MAP";
+
     // ------------------------------------------------------------ Constructors
 
     /**
@@ -1788,7 +1801,7 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
         BeanManager beanManager = cdi.getBeanManager();
 
         // Get the Map with classes for which a custom DataModel implementation is available from CDI
-        Bean<?> bean = beanManager.resolve(beanManager.getBeans("comSunFacesDataModelClassesMap"));
+        Bean<?> bean = beanManager.resolve(beanManager.getBeans(DATA_MODEL_CLASSES_MAP_BEAN_NAME));
         Object beanReference = beanManager.getReference(bean, Map.class, beanManager.createCreationalContext(bean));
 
         return (Map<Class<?>, Class<? extends DataModel<?>>>) beanReference;

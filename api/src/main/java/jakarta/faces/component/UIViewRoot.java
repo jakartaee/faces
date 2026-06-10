@@ -233,6 +233,13 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         LOCATION_IDENTIFIER_MAP.put("body", LOCATION_IDENTIFIER_PREFIX + "BODY");
     }
 
+    // TODO: can be dropped after https://github.com/jakartaee/faces/issues/2185
+    private static final String VIEW_MAP_ID_KEY = "org.glassfish.mojarra.application.view.viewMapId";
+    private static final String ACTIVE_VIEW_MAPS_KEY = "org.glassfish.mojarra.application.view.activeViewMaps";
+
+    // TODO: can be dropped after https://github.com/eclipse-ee4j/mojarra/issues/5787 
+    private static final String RESTORE_VIEW_SCOPE_ONLY_KEY = "org.glassfish.mojarra.application.view.restoreViewScopeOnly";
+
     enum PropertyKeys {
         /**
          * <p>
@@ -268,6 +275,10 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * Set during view build time.
      */
     private Doctype doctype;
+
+    // The view-scoped map. Not part of the saved component state (only its id is), so a plain field.
+    // The implementation correlates it to the session via VIEW_MAP_ID_KEY.
+    private Map<String, Object> viewMap;
 
     /**
      * <p>
@@ -1632,13 +1643,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * @return the view map, or <code>null</code>.
      * @since 2.0
      */
-    @SuppressWarnings("unchecked") // the view map is recovered from the Object-typed transient state helper.
     public Map<String, Object> getViewMap(boolean create) {
-        Map<String, Object> viewMap = (Map<String, Object>) getTransientStateHelper().getTransient("org.glassfish.mojarra.application.view.viewMap");
-
         if (create && viewMap == null) {
             viewMap = new ViewMap(getFacesContext().getApplication().getProjectStage());
-            getTransientStateHelper().putTransient("org.glassfish.mojarra.application.view.viewMap", viewMap);
             getFacesContext().getApplication().publishEvent(getFacesContext(), PostConstructViewMapEvent.class, UIViewRoot.class, this);
         }
 
@@ -1800,7 +1807,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             throw new NullPointerException();
         }
 
-        String viewMapId = (String) getTransientStateHelper().getTransient("org.glassfish.mojarra.application.view.viewMapId");
+        String viewMapId = (String) getTransientStateHelper().getTransient(VIEW_MAP_ID_KEY);
         Object superState = super.saveState(context);
 
         if (superState != null || viewMapId != null) {
@@ -1822,19 +1829,18 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
         values = (Object[]) state;
 
-        if (!context.getAttributes().containsKey("org.glassfish.mojarra.application.view.restoreViewScopeOnly")) {
+        if (!context.getAttributes().containsKey(RESTORE_VIEW_SCOPE_ONLY_KEY)) {
             super.restoreState(context, values[0]);
         }
 
         String viewMapId = (String) values[1];
 
-        getTransientStateHelper().putTransient("org.glassfish.mojarra.application.view.viewMapId", viewMapId);
+        getTransientStateHelper().putTransient(VIEW_MAP_ID_KEY, viewMapId);
 
-        Map<String, Object> viewMaps = (Map<String, Object>) context.getExternalContext().getSessionMap().get("org.glassfish.mojarra.application.view.activeViewMaps");
+        Map<String, Object> viewMaps = (Map<String, Object>) context.getExternalContext().getSessionMap().get(ACTIVE_VIEW_MAPS_KEY);
 
         if (viewMaps != null) {
-            Map<String, Object> viewMap = (Map<String, Object>) viewMaps.get(viewMapId);
-            getTransientStateHelper().putTransient("org.glassfish.mojarra.application.view.viewMap", viewMap);
+            viewMap = (Map<String, Object>) viewMaps.get(viewMapId);
         }
     }
 
