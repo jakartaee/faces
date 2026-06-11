@@ -8412,18 +8412,17 @@ this application, and passing the result through the
             </renderer-extension>
         </renderer>
         <renderer>
-            <description>Intended for use in situations when only one
+            <description><![CDATA[Intended for use in situations when only one
       UIComponent child can be nested, such as in the case of facets.
-      If the "style" or "styleClass" attributes are present, and the "layout"
-      attribute is present with a value of "block", render a "div" element,
-      outputting the value of the "style" attribute as the value of the 
-      "style" attribute and the value of the "styleClass" attribute as the
-      value of the "class" attribute.  Otherwise, if the "layout" attribute
-      is not present, or the "layout" attribute contains a value other than
-      "block", render a "span" element, outputting the value of the 
-      "style" attribute as the value of the "style" attribute, and the value 
-      of the "styleClass" attribute as the value of the "class"
-      attribute. </description>
+      <span class="changed_modified_5_0">A wrapper element is rendered only when the component has a renderable
+      client id, or when any renderable attribute is present ("style",
+      "styleClass", any passthrough attribute, or an attached client behavior);
+      otherwise no wrapper element is rendered and only the children are
+      rendered.  When a wrapper element is rendered, a "layout" value of "block"
+      produces a "div" element and any other value (or an absent "layout")
+      produces a "span" element, outputting the value of the "style" attribute
+      as the value of the "style" attribute and the value of the "styleClass"
+      attribute as the value of the "class" attribute.</span>]]></description>
             <component-family>jakarta.faces.Panel</component-family>
             <renderer-type>jakarta.faces.Group</renderer-type>
             <renderer-class />
@@ -8455,12 +8454,13 @@ this application, and passing the result through the
                 </attribute-extension>
             </attribute>
             <attribute>
-                <description>
-          The type of layout markup to use when rendering this group.
-          If the value is "block" the renderer must produce an HTML
-          "div" element.  Otherwise HTML "span" element must
-          be produced.
-                </description>
+                <description><![CDATA[The type of layout markup to use when rendering this group.
+          <span class="changed_modified_5_0">When a wrapper element is rendered, a value of "block" produces an HTML
+          "div" element and any other value produces an HTML "span" element.  A
+          wrapper element is only rendered when the component has a renderable
+          client id or any renderable attribute ("style", "styleClass", any
+          passthrough attribute, or an attached client behavior); when there is
+          nothing renderable to carry, no wrapper element is rendered.</span>]]></description>
                 <display-name>Layout</display-name>
                 <icon />
                 <attribute-name>layout</attribute-name>
