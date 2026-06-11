@@ -113,6 +113,8 @@ public abstract class UIComponentBase extends UIComponent {
 
     private static final String FACES_COMPONENT_DESCRIPTORS_MAP_NAME = "jakarta.faces.application.COMPONENT_DESCRIPTORS_MAP";
 
+    private static final String FACES_COMPONENT_READ_METHODS_MAP_NAME = "jakarta.faces.application.COMPONENT_READ_METHODS_MAP";
+
     /**
      * <p>
      * Each entry is an map of <code>PropertyDescriptor</code>s describing the properties of a concrete {@link UIComponent}
@@ -127,6 +129,15 @@ public abstract class UIComponentBase extends UIComponent {
      * <code>Map<code>.
      */
     private Map<String, PropertyDescriptor> propertyDescriptorMap;
+
+    /**
+     * This class's access-suppressed read methods (keyed by property name), held strongly per class in the
+     * application-scoped read-methods cache alongside the descriptors cache (see
+     * {@link #populateDescriptorsMapIfNecessary}). Holding the suppressed read {@link Method}s strongly keeps the
+     * suppression durable (a {@link PropertyDescriptor}'s read method is handed back via a soft reference that can be
+     * regenerated) and lets the hot attribute-read path skip re-suppressing and re-caching it per component.
+     */
+    private Map<String, Method> readMethodMap;
 
     private Map<Class<? extends SystemEvent>, List<SystemEventListener>> listenersByEventClass;
 
@@ -350,6 +361,8 @@ public abstract class UIComponentBase extends UIComponent {
         cachedRenderer = null;
         // The parent chain changed, so the cached NamingContainer ancestor is no longer valid.
         namingContainerAncestor = null;
+        // The client id is derived from the parent chain, so a reparent invalidates it too.
+        clientId = null;
 
         if (parent == null) {
             if (this.parent != null) {
@@ -1578,6 +1591,10 @@ public abstract class UIComponentBase extends UIComponent {
         return propertyDescriptorMap;
     }
 
+    Map<String, Method> getReadMethodMap() {
+        return readMethodMap;
+    }
+
     // ---- Field-backed Facelets markers (authoritative cache for AttributesMap) ----
     // The marker fields are the single source of truth: AttributesMap.put/remove keep them in sync, and
     // AttributesMap.get/containsKey read them WITHOUT touching the state map -- so the per-component
@@ -2068,9 +2085,8 @@ public abstract class UIComponentBase extends UIComponent {
         // to access the the List containing the attributes that have been set
         private static final String ATTRIBUTES_THAT_ARE_SET_KEY = UIComponentBase.class.getName() + ".attributesThatAreSet";
 
-        // private Map<String, Object> attributes;
         private transient Map<String, PropertyDescriptor> pdMap;
-        private transient ConcurrentMap<String, Method> readMap;
+        private transient Map<String, Method> readMap;
         private transient UIComponentBase component;
         private static final long serialVersionUID = -6773035086539772945L;
 
@@ -2080,6 +2096,7 @@ public abstract class UIComponentBase extends UIComponent {
 
             this.component = (UIComponentBase) component;
             pdMap = this.component.getDescriptorMap();
+            readMap = this.component.getReadMethodMap();
         }
 
         @Override
@@ -2133,11 +2150,7 @@ public abstract class UIComponentBase extends UIComponent {
                     if (pd != null) {
                         readMethod = pd.getReadMethod();
                         if (readMethod != null) {
-                            if (null == readMap) {
-                                readMap = new ConcurrentHashMap<>();
-                            }
                             suppressAccessCheck(readMethod);
-                            readMap.putIfAbsent(key, readMethod);
                             result = invokeReadMethod(readMethod);
                         } else {
                             throw new IllegalArgumentException(key);
@@ -3328,6 +3341,7 @@ public abstract class UIComponentBase extends UIComponent {
     private void populateDescriptorsMapIfNecessary() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         Class<?> clazz = getClass();
+        Map<Class<?>, Map<String, Method>> readMethods = null;
 
         /*
          * If we can find a valid FacesContext we are going to use it to get access to the property descriptor map.
@@ -3339,6 +3353,10 @@ public abstract class UIComponentBase extends UIComponent {
             descriptors = (Map<Class<?>, Map<String, PropertyDescriptor>>) applicationMap.computeIfAbsent(
                     FACES_COMPONENT_DESCRIPTORS_MAP_NAME, k -> new ConcurrentHashMap<>());
             propertyDescriptorMap = descriptors.get(clazz);
+
+            readMethods = (Map<Class<?>, Map<String, Method>>) applicationMap.computeIfAbsent(
+                    FACES_COMPONENT_READ_METHODS_MAP_NAME, k -> new ConcurrentHashMap<>());
+            readMethodMap = readMethods.get(clazz);
         }
 
         if (propertyDescriptorMap == null) {
@@ -3348,13 +3366,15 @@ public abstract class UIComponentBase extends UIComponent {
             PropertyDescriptor[] propertyDescriptors = getPropertyDescriptors();
             if (propertyDescriptors != null) {
                 propertyDescriptorMap = new HashMap<>(propertyDescriptors.length, 1.0f);
+                readMethodMap = new HashMap<>(propertyDescriptors.length, 1.0f);
                 for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
-                    // Suppress the access check up front (see AttributesMap.suppressAccessCheck); note the
-                    // hot path additionally suppresses it on the readMap-cached instance, since the method
-                    // handed back here may be regenerated before that cache is populated.
+                    // Suppress the access check once, here, and strongly cache the read method per class so the
+                    // suppression stays durable (PropertyDescriptor.getReadMethod hands it back via a soft reference
+                    // that can be regenerated) and the hot attribute-read path never re-suppresses or re-caches it.
                     Method readMethod = propertyDescriptor.getReadMethod();
                     if (readMethod != null) {
                         AttributesMap.suppressAccessCheck(readMethod);
+                        readMethodMap.put(propertyDescriptor.getName(), readMethod);
                     }
                     propertyDescriptorMap.put(propertyDescriptor.getName(), propertyDescriptor);
                 }
@@ -3365,6 +3385,9 @@ public abstract class UIComponentBase extends UIComponent {
 
                 if (descriptors != null) {
                     descriptors.putIfAbsent(clazz, propertyDescriptorMap);
+                }
+                if (readMethods != null) {
+                    readMethods.putIfAbsent(clazz, readMethodMap);
                 }
             }
         }
