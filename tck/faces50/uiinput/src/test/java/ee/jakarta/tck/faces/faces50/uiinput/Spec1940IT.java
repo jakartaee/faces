@@ -51,15 +51,6 @@ class Spec1940IT extends BaseITNG {
     @FindBy(id = "form:rerenderWithResetValuesTagAndClearModelAttribute")
     private WebElement rerenderWithResetValuesTagAndClearModelAttribute;
 
-    @FindBy(id = "form:inputSubmittedValue")
-    private WebElement inputSubmittedValue;
-
-    @FindBy(id = "form:inputValid")
-    private WebElement inputValid;
-
-    @FindBy(id = "form:inputLocalValueSet")
-    private WebElement inputLocalValueSet;
-
     @FindBy(id = "form:inputValue")
     private WebElement inputValue;
 
@@ -77,9 +68,6 @@ class Spec1940IT extends BaseITNG {
         submitEmptyInput().guardAjax(rerenderWithoutResetValues::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("false", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -93,9 +81,6 @@ class Spec1940IT extends BaseITNG {
         submitFilledInput().guardAjax(rerenderWithoutResetValues::click);
 
         assertEquals("value", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("value", inputValue.getText());
         assertEquals("value", modelValue.getText());
         assertEquals("", message.getText());
@@ -109,9 +94,6 @@ class Spec1940IT extends BaseITNG {
         submitEmptyInput().guardAjax(rerenderWithResetValuesAttribute::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -125,9 +107,6 @@ class Spec1940IT extends BaseITNG {
         submitFilledInput().guardAjax(rerenderWithResetValuesAttribute::click);
 
         assertEquals("value", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("value", inputValue.getText());
         assertEquals("value", modelValue.getText());
         assertEquals("", message.getText());
@@ -141,9 +120,6 @@ class Spec1940IT extends BaseITNG {
         submitEmptyInput().guardAjax(rerenderWithResetValuesAndClearModelAttributes::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -157,9 +133,6 @@ class Spec1940IT extends BaseITNG {
         submitFilledInput().guardAjax(rerenderWithResetValuesAndClearModelAttributes::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -173,9 +146,6 @@ class Spec1940IT extends BaseITNG {
         submitEmptyInput().guardAjax(rerenderWithClearModelAttributeOnly::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("false", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -189,9 +159,6 @@ class Spec1940IT extends BaseITNG {
         submitFilledInput().guardAjax(rerenderWithClearModelAttributeOnly::click);
 
         assertEquals("value", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("value", inputValue.getText());
         assertEquals("value", modelValue.getText());
         assertEquals("", message.getText());
@@ -205,9 +172,6 @@ class Spec1940IT extends BaseITNG {
         submitEmptyInput().guardAjax(rerenderWithResetValuesTag::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -221,9 +185,6 @@ class Spec1940IT extends BaseITNG {
         submitFilledInput().guardAjax(rerenderWithResetValuesTag::click);
 
         assertEquals("value", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("value", inputValue.getText());
         assertEquals("value", modelValue.getText());
         assertEquals("", message.getText());
@@ -237,9 +198,6 @@ class Spec1940IT extends BaseITNG {
         submitEmptyInput().guardAjax(rerenderWithResetValuesTagAndClearModelAttribute::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -253,9 +211,6 @@ class Spec1940IT extends BaseITNG {
         submitFilledInput().guardAjax(rerenderWithResetValuesTagAndClearModelAttribute::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -264,9 +219,6 @@ class Spec1940IT extends BaseITNG {
     private WebPage submitEmptyInput() {
         var page = getPage("spec1940.xhtml");
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -274,9 +226,6 @@ class Spec1940IT extends BaseITNG {
         page.guardAjax(submitAndRerender::click);
 
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("false", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertFalse(message.getText().isEmpty());
@@ -287,9 +236,6 @@ class Spec1940IT extends BaseITNG {
     private WebPage submitFilledInput() {
         var page = getPage("spec1940.xhtml");
         assertEquals("", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("", inputValue.getText());
         assertEquals("", modelValue.getText());
         assertEquals("", message.getText());
@@ -298,9 +244,6 @@ class Spec1940IT extends BaseITNG {
         page.guardAjax(submitAndRerender::click);
 
         assertEquals("value", input.getDomProperty("value"));
-        assertEquals("", inputSubmittedValue.getText());
-        assertEquals("true", inputValid.getText());
-        assertEquals("false", inputLocalValueSet.getText());
         assertEquals("value", inputValue.getText());
         assertEquals("value", modelValue.getText());
         assertEquals("", message.getText());

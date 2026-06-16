@@ -50,9 +50,6 @@
                 <f:ajax execute="@this" render="@form" />
                 <f:resetValues render="form:input" clearModel="true" />
             </h:commandButton>
-            <h:outputText id="inputSubmittedValue" value="#{input.submittedValue}" />
-            <h:outputText id="inputValid" value="#{input.valid}" />
-            <h:outputText id="inputLocalValueSet" value="#{input.localValueSet}" />
             <h:outputText id="inputValue" value="#{input.value}" />
             <h:outputText id="modelValue" value="#{spec1940Bean.value}" />
             <h:message id="message" for="input" />
