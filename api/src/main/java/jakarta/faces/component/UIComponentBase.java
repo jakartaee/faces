@@ -1645,7 +1645,9 @@ public abstract class UIComponentBase extends UIComponent {
         return NOT_MARKER;
     }
 
-    private void markerPut(Object key, Object value) {
+    // Returns true if the key is a marker (so AttributesMap can skip the getPropertyDescriptor probe:
+    // a framework marker is never a JavaBean property, so the lookup is guaranteed to miss).
+    private boolean markerPut(Object key, Object value) {
         if (MARK_CREATED.equals(key)) {
             markCreated = (String) value;
         } else if (FACET_NAME.equals(key)) {
@@ -1658,10 +1660,13 @@ public abstract class UIComponentBase extends UIComponent {
             markDeleted = Boolean.TRUE.equals(value);
         } else if (MARK_CHILDREN_MODIFIED.equals(key)) {
             markChildrenModified = Boolean.TRUE.equals(value);
+        } else {
+            return false;
         }
+        return true;
     }
 
-    private void markerRemove(Object key) {
+    private boolean markerRemove(Object key) {
         if (MARK_CREATED.equals(key)) {
             markCreated = null;
         } else if (FACET_NAME.equals(key)) {
@@ -1674,7 +1679,10 @@ public abstract class UIComponentBase extends UIComponent {
             markDeleted = false;
         } else if (MARK_CHILDREN_MODIFIED.equals(key)) {
             markChildrenModified = false;
+        } else {
+            return false;
         }
+        return true;
     }
 
     // Full-state restore deserializes the tree without re-running buildView, so the marker fields are synced
@@ -2234,7 +2242,7 @@ public abstract class UIComponentBase extends UIComponent {
             }
 
             // Keep the field cache in sync; the value is still stored in the attributes map below.
-            component.markerPut(keyValue, value);
+            boolean marker = component.markerPut(keyValue, value);
 
             if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(keyValue)) {
                 if (component.attributesThatAreSet == null) {
@@ -2245,7 +2253,8 @@ public abstract class UIComponentBase extends UIComponent {
                 return null;
             }
 
-            PropertyDescriptor pd = getPropertyDescriptor(keyValue);
+            // A marker key is never a JavaBean property; skip the descriptor probe and store it directly.
+            PropertyDescriptor pd = marker ? null : getPropertyDescriptor(keyValue);
             if (pd != null) {
                 try {
                     // Prefer the access-suppressed accessors cached per class (writeMap/readMap); fall back to the
@@ -2312,11 +2321,11 @@ public abstract class UIComponentBase extends UIComponent {
             if (key == null) {
                 throw new NullPointerException();
             }
-            component.markerRemove(key);
+            boolean marker = component.markerRemove(key);
             if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(key)) {
                 return null;
             }
-            PropertyDescriptor pd = getPropertyDescriptor(key);
+            PropertyDescriptor pd = marker ? null : getPropertyDescriptor(key);
             if (pd != null) {
                 throw new IllegalArgumentException(key);
             } else {
