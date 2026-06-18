@@ -28,13 +28,13 @@ import static jakarta.faces.component.PackageUtils.isAllNull;
 import static jakarta.faces.component.PackageUtils.isAnyNull;
 import static jakarta.faces.component.PackageUtils.isEmpty;
 import static java.beans.Introspector.getBeanInfo;
-import static java.lang.Boolean.TRUE;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
 import static java.lang.Thread.currentThread;
 import static java.util.Collections.unmodifiableCollection;
 import static java.util.Collections.unmodifiableList;
 import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.WARNING;
 
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
@@ -69,6 +69,7 @@ import jakarta.el.ELException;
 import jakarta.el.ValueExpression;
 import jakarta.faces.FacesException;
 import jakarta.faces.application.Application;
+import jakarta.faces.application.ProjectStage;
 import jakarta.faces.component.behavior.Behavior;
 import jakarta.faces.component.behavior.ClientBehavior;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
@@ -402,7 +403,32 @@ public abstract class UIComponentBase extends UIComponent {
         if (cachedIsRendered != null) {
             return cachedIsRendered;
         }
-        return getStateHelper().eval(PropertyKeys.rendered, TRUE);
+        // Coerce leniently rather than casting: a "rendered" value expression bound with a non-Boolean expected
+        // type (e.g. via a templating layer) can evaluate to a String, which a direct cast rejects. The single-arg
+        // eval is required to defeat the synthetic checkcast that the generified eval(key, default) would otherwise
+        // insert on a Boolean default. Tolerating a non-Boolean is not spec-required but is kept for backward
+        // compatibility; a future Faces version should remove this leniency.
+        Object value = getStateHelper().eval(PropertyKeys.rendered);
+        if (value instanceof Boolean rendered) {
+            return rendered;
+        }
+        if (value == null) {
+            return true;
+        }
+        warnNonBooleanRendered(value);
+        return Boolean.parseBoolean(value.toString());
+    }
+
+    // Surfaces the underlying user error (a "rendered" expression bound with a non-Boolean expected type) in
+    // Development, where leniency would otherwise silently hide it.
+    private void warnNonBooleanRendered(Object value) {
+        if (LOGGER.isLoggable(WARNING)) {
+            FacesContext context = getFacesContext();
+            if (context != null && ProjectStage.Development.equals(context.getApplication().getProjectStage())) {
+                LOGGER.log(WARNING, "warning.component.uicomponentbase_nonboolean_rendered",
+                        new Object[] { getClientId(context), value.getClass().getName() });
+            }
+        }
     }
 
     @Override
