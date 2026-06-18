@@ -1275,6 +1275,9 @@ public abstract class UIComponentBase extends UIComponent {
             Object savedFacesListeners = listeners != null ? listeners.saveState(context) : null;
             Object savedSysEventListeners = saveSystemEventListeners(context);
             Object savedBehaviors = saveBehaviorsState(context);
+            // buildView re-applies facelet value expressions on restore, so only a change made after
+            // markInitialState needs to ride along in the delta (mirrors rendererType/rendererTypeSet).
+            Object savedValueExpressions = valueExpressionsModified ? saveValueExpressionsState(context) : null;
             Object savedHelper = null;
             if (stateHelper != null) {
                 savedHelper = stateHelper.saveState(context);
@@ -1284,11 +1287,11 @@ public abstract class UIComponentBase extends UIComponent {
             // so it only needs to ride along in the delta when it was changed after the initial state mark.
             String savedRendererType = rendererTypeSet ? rendererType : null;
 
-            if (isAllNull(savedFacesListeners, savedSysEventListeners, savedBehaviors, savedHelper, savedRendererType)) {
+            if (isAllNull(savedFacesListeners, savedSysEventListeners, savedBehaviors, savedValueExpressions, savedHelper, savedRendererType)) {
                 return null;
             }
 
-            values = new Object[5];
+            values = new Object[6];
 
             // Since we're saving partial state, skip id and clientId
             // as this will be reconstructed from the template execution
@@ -1296,25 +1299,30 @@ public abstract class UIComponentBase extends UIComponent {
             values[0] = savedFacesListeners;
             values[1] = savedSysEventListeners;
             values[2] = savedBehaviors;
-            values[3] = savedHelper;
-            values[4] = savedRendererType;
+            values[3] = savedValueExpressions;
+            values[4] = savedHelper;
+            values[5] = savedRendererType;
 
             return values;
 
         } else {
-            values = new Object[6];
+            values = new Object[7];
 
             values[0] = listeners != null ? listeners.saveState(context) : null;
             values[1] = saveSystemEventListeners(context);
             values[2] = saveBehaviorsState(context);
 
+            if (valueExpressions != null) {
+                values[3] = saveValueExpressionsState(context);
+            }
+
             if (stateHelper != null) {
-                values[3] = stateHelper.saveState(context);
+                values[4] = stateHelper.saveState(context);
             }
 
             // Full state carries no buildView reconstruction, so persist rendererType unconditionally (like id).
-            values[4] = rendererType;
-            values[5] = id;
+            values[5] = rendererType;
+            values[6] = id;
 
             return values;
         }
@@ -1354,23 +1362,32 @@ public abstract class UIComponentBase extends UIComponent {
         }
 
         if (values[3] != null) {
-            getStateHelper().restoreState(context, values[3]);
+            valueExpressions = restoreValueExpressionsState(context, values[3]);
+            if (values.length != 7) {
+                // Partial-state delta: a value expression changed after markInitialState; keep it dirty so
+                // the change stays in the delta across subsequent postbacks (mirrors rendererTypeSet below).
+                valueExpressionsModified = true;
+            }
         }
 
-        if (values.length == 6) {
+        if (values[4] != null) {
+            getStateHelper().restoreState(context, values[4]);
+        }
+
+        if (values.length == 7) {
             // Full state is authoritative and runs no buildView reconstruction: restore rendererType
             // exactly (including an explicit null, which must overwrite a constructor-set default) and
             // the id, then sync the field-backed markers from the restored attributes map.
-            rendererType = (String) values[4];
-            if (values[5] != null) {
-                id = (String) values[5];
+            rendererType = (String) values[5];
+            if (values[6] != null) {
+                id = (String) values[6];
             }
             restoreMarkersFromState();
-        } else if (values[4] != null) {
+        } else if (values[5] != null) {
             // Partial-state delta: rendererType changed after markInitialState; apply it and keep it
             // marked dirty so it stays in the delta across subsequent postbacks. buildView re-established
             // the pre-mark value, so a null here just means "no rendererType delta".
-            rendererType = (String) values[4];
+            rendererType = (String) values[5];
             rendererTypeSet = true;
         }
 
@@ -1566,6 +1583,40 @@ public abstract class UIComponentBase extends UIComponent {
             throw new IllegalStateException("Unknown object type");
         }
         return result;
+    }
+
+    private Object saveValueExpressionsState(FacesContext context) {
+
+        if (valueExpressions == null) {
+            return null;
+        }
+
+        Object[] values = new Object[2];
+        values[0] = valueExpressions.keySet().toArray(new String[valueExpressions.size()]);
+
+        Object[] expressionValues = valueExpressions.values().toArray();
+        for (int i = 0; i < expressionValues.length; i++) {
+            expressionValues[i] = saveAttachedState(context, expressionValues[i]);
+        }
+
+        values[1] = expressionValues;
+
+        return values;
+    }
+
+    private static Map<String, ValueExpression> restoreValueExpressionsState(FacesContext context, Object state) {
+
+        if (state == null) {
+            return null;
+        }
+        Object[] values = (Object[]) state;
+        String[] names = (String[]) values[0];
+        Object[] states = (Object[]) values[1];
+        Map<String, ValueExpression> valueExpressions = new HashMap<>(names.length);
+        for (int i = 0; i < names.length; i++) {
+            valueExpressions.put(names[i], (ValueExpression) restoreAttachedState(context, states[i]));
+        }
+        return valueExpressions;
     }
 
     private Object saveSystemEventListeners(FacesContext ctx) {

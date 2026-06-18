@@ -321,10 +321,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             throw new NullPointerException();
         }
 
-        @SuppressWarnings("unchecked") // the value-expression map is recovered from the Object-typed state helper.
-        Map<String, ValueExpression> map = (Map<String, ValueExpression>) getStateHelper().get(UIComponentBase.PropertyKeys.valueExpressions);
-
-        return map != null ? map.get(name) : null;
+        return valueExpressions != null ? valueExpressions.get(name) : null;
     }
 
     /**
@@ -379,7 +376,13 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
                     getStateHelper().add(PropertyKeysPrivate.attributesThatAreSet, name);
                 }
 
-                getStateHelper().put(UIComponentBase.PropertyKeys.valueExpressions, name, binding);
+                if (valueExpressions == null) {
+                    valueExpressions = new HashMap<>(5);
+                }
+                valueExpressions.put(name, binding);
+                if (initialStateMarked()) {
+                    valueExpressionsModified = true;
+                }
 
             } else {
                 ELContext context = FacesContext.getCurrentInstance().getELContext();
@@ -391,7 +394,12 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             }
         } else {
             getStateHelper().remove(PropertyKeysPrivate.attributesThatAreSet, name);
-            getStateHelper().remove(UIComponentBase.PropertyKeys.valueExpressions, name);
+            if (valueExpressions != null) {
+                valueExpressions.remove(name);
+                if (initialStateMarked()) {
+                    valueExpressionsModified = true;
+                }
+            }
         }
     }
 
@@ -2416,4 +2424,21 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
         return resourceBundle != null ? result : null;
     }
+
+    /**
+     * Field-backed value-expression map, keyed by property name, lazily instantiated. Holds the component's
+     * {@link ValueExpression}s directly instead of the {@code PropertyKeys.valueExpressions} StateHelper entry,
+     * so {@link #getValueExpression}/{@link #setValueExpression} skip a per-call StateHelper lookup -- notably
+     * the {@code getValueExpression("binding")} probe fired on every component during Restore View.
+     * {@code buildView} re-applies the facelet expressions on each restore, so they ride in the partial-state
+     * delta only when changed after {@code markInitialState} (see {@link #valueExpressionsModified}); full state
+     * saving persists the whole map.
+     */
+    Map<String, ValueExpression> valueExpressions;
+
+    /**
+     * {@code true} once a {@link ValueExpression} is set or removed after {@code markInitialState}, so the change
+     * rides in the partial-state delta. Transient: re-derived per request as {@code buildView} rebuilds the tree.
+     */
+    transient boolean valueExpressionsModified;
 }
