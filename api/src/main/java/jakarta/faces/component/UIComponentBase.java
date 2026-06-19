@@ -1002,10 +1002,11 @@ public abstract class UIComponentBase extends UIComponent {
                     facet.processDecodes(context);
                 }
             }
-            int childCount = getChildCount();
-            if (childCount > 0) {
+            if (getChildCount() > 0) {
+                // Re-read size() each iteration: a child appended while an earlier child is being processed
+                // must still be processed, matching the live children-list iterator semantics.
                 List<UIComponent> children = getChildren();
-                for (int i = 0; i < childCount; i++) {
+                for (int i = 0; i < children.size(); i++) {
                     children.get(i).processDecodes(context);
                 }
             }
@@ -1049,10 +1050,11 @@ public abstract class UIComponentBase extends UIComponent {
                     facet.processValidators(context);
                 }
             }
-            int childCount = getChildCount();
-            if (childCount > 0) {
+            if (getChildCount() > 0) {
+                // Re-read size() each iteration: a child appended while an earlier child is being processed
+                // must still be processed, matching the live children-list iterator semantics.
                 List<UIComponent> children = getChildren();
-                for (int i = 0; i < childCount; i++) {
+                for (int i = 0; i < children.size(); i++) {
                     children.get(i).processValidators(context);
                 }
             }
@@ -1087,10 +1089,11 @@ public abstract class UIComponentBase extends UIComponent {
                     facet.processUpdates(context);
                 }
             }
-            int childCount = getChildCount();
-            if (childCount > 0) {
+            if (getChildCount() > 0) {
+                // Re-read size() each iteration: a child appended while an earlier child is being processed
+                // must still be processed, matching the live children-list iterator semantics.
                 List<UIComponent> children = getChildren();
-                for (int i = 0; i < childCount; i++) {
+                for (int i = 0; i < children.size(); i++) {
                     children.get(i).processUpdates(context);
                 }
             }
