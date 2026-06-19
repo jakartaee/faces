@@ -53,4 +53,10 @@
             <component-type>ee.jakarta.tck.faces.faces23.dynamic_components.Issue2123AddComponent</component-type>
         </component>
     </tag>
+    <tag>
+        <tag-name>encodeappendcomponent</tag-name>
+        <component>
+            <component-type>ee.jakarta.tck.faces.faces23.dynamic_components.EncodeAppendComponent</component-type>
+        </component>
+    </tag>
 </facelet-taglib>

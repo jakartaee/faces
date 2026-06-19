@@ -133,4 +133,19 @@ public class Issue1830IT extends BaseITNG {
         assertTrue(first >= 0);
         assertTrue(first < next);
     }
+
+    /**
+     * A component that appends a sibling to its parent during its own encode must have that sibling
+     * rendered. The parent is already iterating its children when the sibling is added, so the
+     * child-encode loop must observe children appended mid-iteration rather than stop at a count
+     * frozen before the loop started.
+     *
+     * @see jakarta.faces.component.UIComponent#encodeAll(jakarta.faces.context.FacesContext)
+     */
+    @Test
+    void testEncodeTimeSiblingAppend() throws Exception {
+        WebPage page = getPage("encodeappend1830.xhtml");
+        assertTrue(page.getSource().contains(EncodeAppendComponent.SIBLING_VALUE),
+            "sibling appended to the parent during encode must be rendered");
+    }
 }
