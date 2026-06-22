@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html lang="en"
+    xmlns:f="jakarta.faces.core"
+    xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Issue5809IT - render-after-ajax must not traverse an unrendered subtree</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+
+            <!-- Unrendered subtree placed BEFORE the resolved target, so resolving
+                 @id(wrapper) must traverse past it. Without SKIP_UNRENDERED the visit
+                 iterates this table's rows and invokes its model getter (recorded via
+                 listTouched); with the fix the table is skipped. -->
+            <h:dataTable id="hidden" rendered="false" value="#{issue5809.list}" var="item">
+                <h:column>#{item}</h:column>
+            </h:dataTable>
+
+            <!-- Always-rendered wrapper whose content becomes visible only after the
+                 ajax action. The wrapper provides the client-side markup the partial
+                 response replaces, which is what makes "render after ajax" work. -->
+            <h:panelGroup id="wrapper" layout="block">
+                <h:outputText id="revealed" value="#{issue5809.message}" rendered="#{issue5809.revealed}" />
+            </h:panelGroup>
+
+            <h:commandButton id="button" value="Action" action="#{issue5809.action}">
+                <f:ajax render="@root:@id(wrapper)" />
+            </h:commandButton>
+
+            <h:outputText id="listTouched" value="#{issue5809.listTouched}" />
+
+        </h:form>
+    </h:body>
+</html>

@@ -26,6 +26,8 @@ import jakarta.inject.Named;
 public class Issue5809 {
 
     private boolean listTouched;
+    private boolean revealed;
+    private String message = "";
 
     /**
      * Backs the value of an unrendered {@code h:dataTable}. Reading it forces row
@@ -39,5 +41,22 @@ public class Issue5809 {
 
     public boolean isListTouched() {
         return listTouched;
+    }
+
+    /**
+     * Reveals a component that is unrendered in the initial request but rendered after
+     * the ajax call, and updates the always-rendered target's message.
+     */
+    public void action() {
+        revealed = true;
+        message = "updated";
+    }
+
+    public boolean isRevealed() {
+        return revealed;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }
