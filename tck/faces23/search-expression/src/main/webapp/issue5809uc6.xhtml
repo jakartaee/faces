@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html lang="en"
+    xmlns:f="jakarta.faces.core"
+    xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Issue5809IT - UC6: relative keywords resolve</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+
+            <!-- @form is a passthrough keyword: emitted as-is, resolved client-side. -->
+            <h:inputText id="inForm">
+                <f:ajax render="@form" />
+            </h:inputText>
+
+            <!-- @parent resolves server-side to the enclosing panelGroup (form:wrap). -->
+            <h:panelGroup id="wrap" layout="block">
+                <h:inputText id="inParent">
+                    <f:ajax render="@parent" />
+                </h:inputText>
+            </h:panelGroup>
+
+            <!-- @previous resolves server-side to the preceding sibling (form:inPrevA). -->
+            <h:inputText id="inPrevA" />
+            <h:inputText id="inPrevB">
+                <f:ajax render="@previous" />
+            </h:inputText>
+
+        </h:form>
+    </h:body>
+</html>

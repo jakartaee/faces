@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html lang="en"
+    xmlns:f="jakarta.faces.core"
+    xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Issue5809IT - UC1: unrendered target stays resolvable</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+
+            <!-- The target is currently rendered="false" but exists in the tree. Its
+                 client id must still be resolved into the button's ajax request, so
+                 that toggling its visibility later does not require re-rendering the
+                 button (the "failsafe" coupling search expressions deliberately keep). -->
+            <h:commandButton id="button" value="Action">
+                <f:ajax render="@root:@id(target)" />
+            </h:commandButton>
+
+            <h:panelGroup id="target" layout="block" rendered="false">target</h:panelGroup>
+
+        </h:form>
+    </h:body>
+</html>
