@@ -73,6 +73,9 @@ public final class TestServlet extends HttpTCKServlet {
   private static final TimeZone AMERICA_NEW_YORK = TimeZone
       .getTimeZone("America/New_York");
 
+  private static final TimeZone AMERICA_LOS_ANGELES = TimeZone
+      .getTimeZone("America/Los_Angeles");
+
   private static final Date CURRENT_DATE_TIME = new Date();
 
   public void init(ServletConfig config) throws ServletException {
@@ -155,7 +158,7 @@ public final class TestServlet extends HttpTCKServlet {
       return;
     }
 
-    TimeZone control = TimeZone.getTimeZone("PST");
+    TimeZone control = AMERICA_LOS_ANGELES;
     converter.setTimeZone(control);
     TimeZone tz = converter.getTimeZone();
     if (!control.equals(tz)) {

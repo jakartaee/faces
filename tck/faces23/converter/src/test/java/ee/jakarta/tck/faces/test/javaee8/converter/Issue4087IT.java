@@ -19,11 +19,16 @@ package ee.jakarta.tck.faces.test.javaee8.converter;
 
 import static java.lang.System.getProperty;
 import static org.jboss.shrinkwrap.api.ShrinkWrap.create;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.Temporal;
+import java.util.Locale;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -46,6 +51,18 @@ import jakarta.faces.convert.DateTimeConverter;
 
 @RunWith(Arquillian.class)
 public class Issue4087IT {
+
+    private static final Locale DUTCH_LOCALE = Locale.forLanguageTag("nl-NL");
+    private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2015, 5, 30, 16, 14, 43);
+    private static final LocalTime LOCAL_TIME = LocalTime.of(16, 14, 43);
+    private static final DateTimeFormatter MEDIUM_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter MEDIUM_SHORT_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter MEDIUM_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter SHORT_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(DUTCH_LOCALE);
 
     @ArquillianResource
     private URL webUrl;
@@ -78,35 +95,39 @@ public class Issue4087IT {
     public void testJavaTimeTypes() throws Exception {
         HtmlPage page = webClient.getPage(webUrl + "faces/issue4087.xhtml");
         HtmlPage page1 = null;
+        String localDateTime = MEDIUM_DATE_TIME_FORMATTER.format(LOCAL_DATE_TIME);
+        String localTime = MEDIUM_TIME_FORMATTER.format(LOCAL_TIME);
 
         try {
 
             HtmlTextInput input1 = (HtmlTextInput)page.getHtmlElementById("localDateTime1");
-            input1.setValueAttribute("30 mei 2015 16:14:43");
+            input1.setValueAttribute(localDateTime);
 
             HtmlTextInput input2 = (HtmlTextInput)page.getHtmlElementById("localDateTime2");
-            input2.setValueAttribute("30 mei 2015 16:14:43");
+            input2.setValueAttribute(localDateTime);
 
             HtmlTextInput input3 = (HtmlTextInput)page.getHtmlElementById("localTime1");
-            input3.setValueAttribute("16:14:43");
+            input3.setValueAttribute(localTime);
 
             HtmlTextInput input4 = (HtmlTextInput)page.getHtmlElementById("localTime2");
-            input4.setValueAttribute("16:14:43");
+            input4.setValueAttribute(localTime);
 
             HtmlSubmitInput submit = (HtmlSubmitInput)page.getHtmlElementById("submit");
             page1 = submit.click();
 
             HtmlSpan time1Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue1");
-            assertTrue(time1Output.getTextContent().contains("30 mei 2015 16:14"));
+            assertEquals(MEDIUM_SHORT_DATE_TIME_FORMATTER.format(LOCAL_DATE_TIME),
+                    time1Output.getTextContent());
 
             HtmlSpan time2Output = (HtmlSpan)page1.getHtmlElementById("localDateTimeValue2");
-            assertTrue(time2Output.getTextContent().contains("30 mei 2015 16:14"));
+            assertEquals(MEDIUM_SHORT_DATE_TIME_FORMATTER.format(LOCAL_DATE_TIME),
+                    time2Output.getTextContent());
 
             HtmlSpan time3Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue1");
-            assertTrue(time3Output.getTextContent().contains("16:14:43"));
+            assertEquals(MEDIUM_TIME_FORMATTER.format(LOCAL_TIME), time3Output.getTextContent());
 
             HtmlSpan time4Output = (HtmlSpan)page1.getHtmlElementById("localTimeValue2");
-            assertTrue(time4Output.getTextContent().contains("16:14"));
+            assertEquals(SHORT_TIME_FORMATTER.format(LOCAL_TIME), time4Output.getTextContent());
         } catch (AssertionError w) {
             System.out.println(page.asXml());
             if (page1 != null) {

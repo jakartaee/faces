@@ -23,6 +23,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.Temporal;
 import java.util.Locale;
 
@@ -46,6 +51,17 @@ import jakarta.faces.convert.DateTimeConverter;
 
 @RunWith(Arquillian.class)
 public class Issue4110IT {
+
+    private static final Locale DUTCH_LOCALE = Locale.forLanguageTag("nl-NL");
+    private static final LocalDate LOCAL_DATE = LocalDate.of(2015, 5, 30);
+    private static final LocalTime LOCAL_TIME = LocalTime.of(16, 52, 56);
+    private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2015, 5, 30, 16, 14, 43);
+    private static final DateTimeFormatter LOCAL_DATE_FORMATTER =
+            DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter LOCAL_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter LOCAL_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
 
     @ArquillianResource
     private URL webUrl;
@@ -77,17 +93,20 @@ public class Issue4110IT {
      */
     @Test
     public void testLocalDate() throws Exception {
-        doTestJavaTimeTypes("30 mei 2015", "localDate", "2015-05-30");
+        doTestJavaTimeTypes(LOCAL_DATE_FORMATTER.format(LOCAL_DATE), "localDate",
+                LOCAL_DATE.toString());
     }
 
     @Test
     public void testLocalTime() throws Exception {
-        doTestJavaTimeTypes("16:52:56", "localTime", "16:52:56");
+        doTestJavaTimeTypes(LOCAL_TIME_FORMATTER.format(LOCAL_TIME), "localTime",
+                LOCAL_TIME.toString());
     }
 
     @Test
     public void testLocalDateTime() throws Exception {
-        doTestJavaTimeTypes("30 mei 2015 16:14:43", "localDateTime", "2015-05-30T16:14:43");
+        doTestJavaTimeTypes(LOCAL_DATE_TIME_FORMATTER.format(LOCAL_DATE_TIME), "localDateTime",
+                LOCAL_DATE_TIME.toString());
     }
 
     private void doTestJavaTimeTypes(String value, String type, String expected) throws Exception {
