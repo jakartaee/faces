@@ -520,7 +520,8 @@ public abstract class ViewHandler {
      * @since 5.0
      */
     public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
-        return getActionURL(context, viewId);
+    	// For backwards compatibility until the deprecated method is removed. It in turn already calls get getActionURL(context, viewId).
+        return getRedirectURL(context, viewId, parameters, includeViewParams);
     }
 
     /**
@@ -567,7 +568,8 @@ public abstract class ViewHandler {
      * @since 5.0
      */
     public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
-        return getActionURL(context, viewId);
+    	// For backwards compatibility until the deprecated method is removed. It in turn already calls get getActionURL(context, viewId).
+        return getBookmarkableURL(context, viewId, parameters, includeViewParams);
     }
 
     /**

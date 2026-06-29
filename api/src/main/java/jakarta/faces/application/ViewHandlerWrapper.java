@@ -292,6 +292,11 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
      */
     @Override
     public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
+        if (fragment == null || fragment.isEmpty()) {
+        	// For backwards compatibility until the deprecated method is removed.
+            return getRedirectURL(context, viewId, parameters, includeViewParams);
+        }
+
         return getWrapped().getRedirectURL(context, viewId, parameters, fragment, includeViewParams);
     }
 
@@ -324,6 +329,11 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
      */
     @Override
     public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
+        if (fragment == null || fragment.isEmpty()) {
+        	// For backwards compatibility until the deprecated method is removed.
+            return getBookmarkableURL(context, viewId, parameters, includeViewParams);
+        }
+
         return getWrapped().getBookmarkableURL(context, viewId, parameters, fragment, includeViewParams);
     }
 
