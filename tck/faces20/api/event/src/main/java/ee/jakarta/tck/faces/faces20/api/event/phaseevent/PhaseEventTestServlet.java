@@ -94,4 +94,38 @@ public final class PhaseEventTestServlet extends HttpTCKServlet {
     }
   } // End phaseEventGetFacesContextTest
 
+  public void phaseIdGetOrdinalTest(HttpServletRequest request,
+      HttpServletResponse response) throws ServletException, IOException {
+    PrintWriter out = response.getWriter();
+
+    // The Faces specification defines PhaseId.getOrdinal() in lifecycle phase order,
+    // independent of the declaration order of the (enum) constants.
+    StringBuilder errors = new StringBuilder();
+    assertOrdinal(PhaseId.ANY_PHASE, 0, errors);
+    assertOrdinal(PhaseId.RESTORE_VIEW, 1, errors);
+    assertOrdinal(PhaseId.APPLY_REQUEST_VALUES, 2, errors);
+    assertOrdinal(PhaseId.PROCESS_VALIDATIONS, 3, errors);
+    assertOrdinal(PhaseId.UPDATE_MODEL_VALUES, 4, errors);
+    assertOrdinal(PhaseId.INVOKE_APPLICATION, 5, errors);
+    assertOrdinal(PhaseId.RENDER_RESPONSE, 6, errors);
+
+    if (errors.length() == 0) {
+      out.println(JSFTestUtil.PASS);
+
+    } else {
+      out.println(JSFTestUtil.FAIL
+          + " Unexpected result from PhaseId.getOrdinal!" + JSFTestUtil.NL + errors);
+    }
+
+  } // End phaseIdGetOrdinalTest
+
+  private static void assertOrdinal(PhaseId phaseId, int expected,
+      StringBuilder errors) {
+    int actual = phaseId.getOrdinal();
+    if (actual != expected) {
+      errors.append(phaseId.getName()).append(": expected ").append(expected)
+          .append(" but received ").append(actual).append(JSFTestUtil.NL);
+    }
+  }
+
 } // End TestServlet

@@ -30,4 +30,5 @@ class PhaseEventIT extends BaseITNG {
 
     @Test void phaseEventGetFacesContextTest() { runServletTest("phaseEventGetFacesContextTest"); }
     @Test void phaseEventGetPhaseIdTest() { runServletTest("phaseEventGetPhaseIdTest"); }
+    @Test void phaseIdGetOrdinalTest() { runServletTest("phaseIdGetOrdinalTest"); }
 }
