@@ -126,6 +126,11 @@ class StateHolderSaver implements Serializable {
             throw new IllegalStateException(e);
         }
 
+        // Full state saving recreates the artifact reflectively, bypassing the CDI-managed creation path that the
+        // tag-driven partial-state rebuild uses (e.g. Application.createValidator). Re-apply CDI injection so a restored
+        // @FacesValidator/@FacesConverter/@FacesBehavior keeps its @Inject fields (no-op when there is nothing to inject).
+        PackageUtils.injectAndPostConstruct(result);
+
         if (null != savedState && result instanceof StateHolder) {
             // don't need to check transient, since that was done on
             // the saving side.

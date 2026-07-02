@@ -27,12 +27,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.WeakHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import jakarta.enterprise.context.spi.CreationalContext;
+import jakarta.enterprise.inject.spi.AnnotatedType;
+import jakarta.enterprise.inject.spi.BeanManager;
+import jakarta.enterprise.inject.spi.CDI;
+import jakarta.enterprise.inject.spi.InjectionTarget;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.PhaseId;
 import jakarta.faces.model.SelectItem;
@@ -52,6 +59,10 @@ class PackageUtils {
     static final String REMOVED_CHILDREN = "facelets.REMOVED_CHILDREN";
     static final String DYNAMIC_COMPONENT = "facelets.DYNAMIC_COMPONENT";
     static final String FACET_NAME = "facelets.FACET_NAME";
+
+    // Per-class InjectionTarget cache, keyed weakly by BeanManager so a redeployed application's targets are
+    // released together with its (now unreferenced) bean manager. Can be removed once the deprecated FSS support is removed.
+    private static final Map<BeanManager, Map<Class<?>, InjectionTarget<?>>> INJECTION_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
 
     private PackageUtils() {
     }
@@ -304,6 +315,48 @@ class PackageUtils {
      */
     public static <T> Iterator<T> unmodifiableIterator(Iterator<T> iterator) {
         return new UnmodifiableIterator<>(iterator);
+    }
+
+    /**
+     * Perform CDI resource injection ({@code @Inject}) and invoke {@code @PostConstruct} on a Faces artifact that was
+     * instantiated reflectively rather than obtained from CDI -- notably a {@code @FacesValidator}/{@code @FacesConverter}/
+     * {@code @FacesBehavior} recreated from full state saving, which is otherwise restored with its {@code @Inject} fields
+     * left null. No-op when the class declares no injection points (so a plain artifact's {@code @PostConstruct} is not
+     * fired) or when CDI is unavailable.
+     */
+    static void injectAndPostConstruct(Object instance) {
+        if (instance == null) {
+            return;
+        }
+
+        BeanManager beanManager;
+        try {
+            beanManager = CDI.current().getBeanManager();
+        } catch (IllegalStateException e) {
+            return; // No CDI available in this environment.
+        }
+
+        InjectionTarget<Object> injectionTarget = getInjectionTarget(beanManager, instance.getClass());
+        if (injectionTarget == null || injectionTarget.getInjectionPoints().isEmpty()) {
+            return; // Nothing to inject; leave a plain artifact untouched (including its @PostConstruct).
+        }
+
+        CreationalContext<Object> creationalContext = beanManager.createCreationalContext(null);
+        injectionTarget.inject(instance, creationalContext);
+        injectionTarget.postConstruct(instance);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static InjectionTarget<Object> getInjectionTarget(BeanManager beanManager, Class<?> clazz) {
+        Map<Class<?>, InjectionTarget<?>> cache = INJECTION_TARGETS.computeIfAbsent(beanManager, k -> new ConcurrentHashMap<>());
+        return (InjectionTarget<Object>) cache.computeIfAbsent(clazz, c -> {
+            try {
+                AnnotatedType<?> annotatedType = beanManager.createAnnotatedType(c);
+                return beanManager.getInjectionTargetFactory(annotatedType).createInjectionTarget(null);
+            } catch (RuntimeException e) {
+                return null; // Not a CDI-injectable type; skip injection for it.
+            }
+        });
     }
 
     public static class UnmodifiableIterator<T> implements Iterator<T> {
