@@ -78,8 +78,11 @@ public class HtmlPanelGroup extends UIPanel implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: The type of layout markup to use when rendering this group. If the value is "block" the renderer must
-     * produce an HTML "div" element. Otherwise HTML "span" element must be produced.
+     * Contents: The type of layout markup to use when rendering this group. <span class="changed_modified_5_0">When a
+     * wrapper element is rendered, a value of "block" produces an HTML "div" element and any other value produces an
+     * HTML "span" element. A wrapper element is only rendered when the component has a renderable client id or any
+     * renderable attribute ("style", "styleClass", any passthrough attribute, or an attached client behavior); when
+     * there is nothing renderable to carry, no wrapper element is rendered.</span>
      */
     public java.lang.String getLayout() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.layout);
