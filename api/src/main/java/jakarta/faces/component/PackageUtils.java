@@ -64,6 +64,11 @@ class PackageUtils {
     // released together with its (now unreferenced) bean manager. Can be removed once the deprecated FSS support is removed.
     private static final Map<BeanManager, Map<Class<?>, InjectionTarget<?>>> INJECTION_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
 
+    // Classes found to have no injection points, so a repeat restore can skip the (Weld: thread-stack-walking)
+    // CDI.current().getBeanManager() probe that would only conclude "nothing to inject" again. Injectability is a
+    // structural property of the class, so this is BeanManager-independent; weak keys release it on redeploy.
+    private static final Map<Class<?>, Boolean> NON_INJECTABLE = Collections.synchronizedMap(new WeakHashMap<>());
+
     private PackageUtils() {
     }
 
@@ -329,6 +334,11 @@ class PackageUtils {
             return;
         }
 
+        Class<?> type = instance.getClass();
+        if (NON_INJECTABLE.containsKey(type)) {
+            return; // Known to have no injection points; skip the CDI lookup entirely (already a no-op below).
+        }
+
         BeanManager beanManager;
         try {
             beanManager = CDI.current().getBeanManager();
@@ -336,8 +346,9 @@ class PackageUtils {
             return; // No CDI available in this environment.
         }
 
-        InjectionTarget<Object> injectionTarget = getInjectionTarget(beanManager, instance.getClass());
+        InjectionTarget<Object> injectionTarget = getInjectionTarget(beanManager, type);
         if (injectionTarget == null || injectionTarget.getInjectionPoints().isEmpty()) {
+            NON_INJECTABLE.put(type, Boolean.TRUE);
             return; // Nothing to inject; leave a plain artifact untouched (including its @PostConstruct).
         }
 
