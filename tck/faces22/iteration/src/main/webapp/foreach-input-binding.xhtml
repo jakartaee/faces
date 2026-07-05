@@ -1,0 +1,39 @@
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html"
+      xmlns:c="jakarta.tags.core">
+    <h:head></h:head>
+    <h:body>
+        <h:form id="form">
+            <c:forEach items="#{forEachInputBindingBean.list}" var="row" varStatus="loop">
+                <h:inputText id="list_#{loop.index}" value="#{row.value}"/>
+            </c:forEach>
+            <c:forEach items="#{forEachInputBindingBean.set}" var="row" varStatus="loop">
+                <h:inputText id="set_#{loop.index}" value="#{row.value}"/>
+            </c:forEach>
+            <c:forEach items="#{forEachInputBindingBean.map}" var="entry" varStatus="loop">
+                <h:inputText id="map_#{loop.index}" value="#{entry.value.value}"/>
+            </c:forEach>
+            <h:outputText id="listSummary" value="#{forEachInputBindingBean.listSummary}"/>
+            <h:outputText id="setSummary" value="#{forEachInputBindingBean.setSummary}"/>
+            <h:outputText id="mapSummary" value="#{forEachInputBindingBean.mapSummary}"/>
+            <h:commandButton id="submit" value="Submit" action="#{forEachInputBindingBean.submit}"/>
+        </h:form>
+    </h:body>
+</html>
