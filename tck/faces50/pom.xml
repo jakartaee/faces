@@ -46,6 +46,7 @@
         <module>facelets</module>
         <module>ajax</module>
         <module>csp</module>
+        <module>csp-disabled</module>
         <module>misc</module>
         <module>view-protection</module>
         <module>extensionless-mapping</module>
