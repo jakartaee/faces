@@ -50,6 +50,11 @@
         <module>misc</module>
         <module>view-protection</module>
         <module>extensionless-mapping</module>
+<!--
+    Below one is deactivated until the maximum number of active view maps is configurable via public API such as a jakarta.faces.NUMBER_OF_ACTIVE_VIEW_MAPS context param.
+    See also https://github.com/eclipse-ee4j/mojarra/issues/5844
+        <module>view-scope</module>
+-->
     </modules>
 
     <dependencies>
