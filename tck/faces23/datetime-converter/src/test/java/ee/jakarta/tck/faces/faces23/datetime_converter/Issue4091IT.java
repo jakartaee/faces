@@ -17,9 +17,14 @@
 
 package ee.jakarta.tck.faces.faces23.datetime_converter;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.Temporal;
+import java.util.Locale;
 
 import jakarta.faces.convert.DateTimeConverter;
 
@@ -32,6 +37,18 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue4091IT extends BaseITNG {
 
+    private static final Locale DUTCH_LOCALE = Locale.forLanguageTag("nl-NL");
+    private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2015, 5, 30, 16, 14, 43);
+    private static final LocalTime LOCAL_TIME = LocalTime.of(16, 14, 43);
+    private static final DateTimeFormatter MEDIUM_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter MEDIUM_SHORT_DATE_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter MEDIUM_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter SHORT_TIME_FORMATTER =
+            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(DUTCH_LOCALE);
+
     /**
      * @see DateTimeConverter
      * @see Temporal
@@ -39,33 +56,36 @@ public class Issue4091IT extends BaseITNG {
      */
     @Test
     void javaTimeTypes() throws Exception {
+        String localDateTime = MEDIUM_DATE_TIME_FORMATTER.format(LOCAL_DATE_TIME);
+        String localTime = MEDIUM_TIME_FORMATTER.format(LOCAL_TIME);
+
         WebPage page = getPage("issue4091.xhtml");
         WebElement input1 = page.findElement(By.id("localDateTime1"));
-        input1.sendKeys("30 mei 2015 16:14:43");
+        input1.sendKeys(localDateTime);
 
         WebElement input2 = page.findElement(By.id("localDateTime2"));
-        input2.sendKeys("30 mei 2015 16:14:43");
+        input2.sendKeys(localDateTime);
 
         WebElement input3 = page.findElement(By.id("localTime1"));
-        input3.sendKeys("16:14:43");
+        input3.sendKeys(localTime);
 
         WebElement input4 = page.findElement(By.id("localTime2"));
-        input4.sendKeys("16:14:43");
+        input4.sendKeys(localTime);
 
         WebElement submit = page.findElement(By.id("submit"));
         submit.click();
 
         WebElement time1Output = page.findElement(By.id("localDateTimeValue1"));
-        assertTrue(time1Output.getText().contains("30 mei 2015 16:14"));
+        assertEquals(MEDIUM_SHORT_DATE_TIME_FORMATTER.format(LOCAL_DATE_TIME), time1Output.getText());
 
         WebElement time2Output = page.findElement(By.id("localDateTimeValue2"));
-        assertTrue(time2Output.getText().contains("30 mei 2015 16:14"));
+        assertEquals(MEDIUM_SHORT_DATE_TIME_FORMATTER.format(LOCAL_DATE_TIME), time2Output.getText());
 
         WebElement time3Output = page.findElement(By.id("localTimeValue1"));
-        assertTrue(time3Output.getText().contains("16:14:43"));
+        assertEquals(MEDIUM_TIME_FORMATTER.format(LOCAL_TIME), time3Output.getText());
 
         WebElement time4Output = page.findElement(By.id("localTimeValue2"));
-        assertTrue(time4Output.getText().contains("16:14"));
+        assertEquals(SHORT_TIME_FORMATTER.format(LOCAL_TIME), time4Output.getText());
     }
 
 }
