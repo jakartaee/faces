@@ -2446,4 +2446,12 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * rides in the partial-state delta. Transient: re-derived per request as {@code buildView} rebuilds the tree.
      */
     transient boolean valueExpressionsModified;
+
+    /**
+     * {@code true} once a system-event listener is subscribed or unsubscribed after {@code markInitialState}, so the
+     * change rides in the partial-state delta. Listeners established during the view build ({@code @ListenerFor},
+     * {@code f:event}) are re-established by {@code buildView} on restore, so they stay out of the delta. Transient:
+     * re-derived per request as {@code buildView} rebuilds the tree.
+     */
+    transient boolean systemEventListenersModified;
 }
