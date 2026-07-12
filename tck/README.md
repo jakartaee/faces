@@ -53,8 +53,8 @@ the reactor root and is wiped by `mvn clean`.
   another slot from the test JVM (using the `gf.pool.source` system property
   the failsafe config forwards). Concurrent demand naturally caps growth
   at the running `-T` value (each test JVM only ever leases one slot), so a
-  single `mvn -Dit.test=…` boots one server, `mvn -T4 install` grows to
-  four, `mvn -T16 install` grows to sixteen.
+  single `mvn -Dit.test=…` boots one server, `mvn clean verify -T4` grows to
+  four, `mvn clean verify -T16` grows to sixteen.
 - Shutdown hook: `glassfish-pool:up` arms a JVM shutdown hook in the Maven
   process that stops every running slot at session end — both on normal
   completion and on `Ctrl+C`.
@@ -64,13 +64,13 @@ the reactor root and is wiped by `mvn clean`.
 Full suite, sequentially:
 
 ```bash
-mvn clean install
+mvn clean verify
 ```
 
 To actually exercise the pool's parallelism, pass `-TN`:
 
 ```bash
-mvn clean install -T4
+mvn clean verify -T4
 ```
 
 The pool starts with one slot and grows on demand to match concurrent
@@ -84,30 +84,30 @@ Maven is invoked from a subdirectory:
 
 ```bash
 cd faces50/ajax
-mvn clean install -T4
+mvn clean verify -T4
 ```
 
 A whole faces version — same idea, descend into the aggregator:
 
 ```bash
 cd faces50
-mvn clean install -T4
+mvn clean verify -T4
 ```
 
 A single test class or method:
 
 ```bash
 cd faces50/ajax
-mvn clean install -Dit.test=Issue5594IT
-mvn clean install -Dit.test=Issue5594IT#someMethod
+mvn clean verify -Dit.test=Issue5594IT
+mvn clean verify -Dit.test=Issue5594IT#someMethod
 ```
 
 If you'd rather stay at the tck root, the `-pl` form still works
 (use `-am` to also pull in upstream `util`):
 
 ```bash
-mvn clean install -am -pl faces50/ajax -T4
-mvn clean install -am -pl faces50/ajax -Dit.test=Issue5594IT -Dfailsafe.failIfNoSpecifiedTests=false
+mvn clean verify -am -pl faces50/ajax -T4
+mvn clean verify -am -pl faces50/ajax -Dit.test=Issue5594IT -Dfailsafe.failIfNoSpecifiedTests=false
 ```
 
 Note: `-Dfailsafe.failIfNoSpecifiedTests=false` is required whenever you
@@ -123,7 +123,7 @@ is `cp -al`-cloned from it, with `applications/`, `generated/`,
 the overlay:
 
 ```bash
-mvn clean install -T4 -Dglassfish.home=/path/to/glassfish
+mvn clean verify -T4 -Dglassfish.home=/path/to/glassfish
 ```
 
 ## Common overrides
@@ -151,14 +151,14 @@ The four `webapp.*` flags can be combined; for example, run the whole suite unde
 client-side state saving in development stage:
 
 ```bash
-mvn clean install -Dwebapp.projectStage=Development -Dwebapp.stateSavingMethod=client
+mvn clean verify -Dwebapp.projectStage=Development -Dwebapp.stateSavingMethod=client
 ```
 
 Or sweep one configuration matrix axis for a single module:
 
 ```bash
 cd faces50/ajax
-mvn clean install -Dwebapp.partialStateSaving=false
+mvn clean verify -Dwebapp.partialStateSaving=false
 ```
 
 ### Sizing `-T` and the pool for the host
@@ -200,7 +200,7 @@ warm-up cost of growing one slot at a time on cold builds, pre-provision
 the pool with `gf.pool.size`:
 
 ```bash
-mvn clean install -T8 -Dgf.pool.size=8
+mvn clean verify -T8 -Dgf.pool.size=8
 ```
 
 ## Pool lifecycle helpers
@@ -257,7 +257,7 @@ runs where the pool is already up reuse whatever jar is already in the slot.
 Editing files under `~/git/mojarra` and re-running a TCK sub-module against a
 still-running pool will silently test against the stale jar.
 
-`mvn clean install` from the TCK **root** picks up the fresh Mojarra
+`mvn clean verify` from the TCK **root** picks up the fresh Mojarra
 automatically: the root pom is in the reactor, so `clean` wipes
 `<root>/target/` — including `target/pool` and `target/dist` — and the
 next build re-overlays + re-clones from scratch. The cost is that you
@@ -267,10 +267,10 @@ build and test every module.
 cd ~/git/mojarra/impl
 mvn clean install
 cd ~/git/faces/tck
-mvn clean install -am -pl faces50/facelets
+mvn clean verify -am -pl faces50/facelets
 ```
 
-The fast iteration path is `mvn clean install -am -pl <module>`, which
+The fast iteration path is `mvn clean verify -am -pl <module>`, which
 restricts the reactor to that module + its upstream deps. The TCK root
 pom is **not** in this reactor (`-am` pulls in dependency modules, not
 the parent), so `clean` doesn't touch `<root>/target` and the existing
@@ -281,7 +281,7 @@ sub-reactor build silently uses the stale jar. To force a refresh, run
 
 ```bash
 mvn -N glassfish-pool:nuke
-mvn clean install -am -pl faces23/cdi -Dit.test=Issue4551IT -Dfailsafe.failIfNoSpecifiedTests=false
+mvn clean verify -am -pl faces23/cdi -Dit.test=Issue4551IT -Dfailsafe.failIfNoSpecifiedTests=false
 ```
 
 ## Testing against other servers (WIP)
@@ -289,8 +289,8 @@ mvn clean install -am -pl faces23/cdi -Dit.test=Issue4551IT -Dfailsafe.failIfNoS
 Other Arquillian-supported servers can be selected via profile:
 
 ```bash
-mvn clean install -Ppiranha-embedded-micro
-mvn clean install -Ptomcat-ci-managed
+mvn clean verify -Ppiranha-embedded-micro
+mvn clean verify -Ptomcat-ci-managed
 ```
 
 Coverage and Mojarra-version handling for non-GlassFish servers is still
