@@ -17,6 +17,8 @@ Refer to the `README.md` of the subprojects.
 ## Making Changes
 
 To make changes, fork this repository, make your changes, and submit a pull request.
+Before submitting, please review [CONTRIBUTING.md](CONTRIBUTING.md) for the Eclipse Contributor
+Agreement (ECA), the sign-off requirement, and the AI-assisted contribution policy.
 
 ## Plans for Faces.next
 
