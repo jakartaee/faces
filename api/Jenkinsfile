@@ -69,7 +69,7 @@ pipeline {
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Skip Maven Central deploy and GitHub push.')
         booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the Maven Central deploy (still tags and pushes). For resuming after Central already published.')
         booleanParam(name: 'SKIP_CRED_CHECK', defaultValue: false, description: 'Skip the Prepare-stage credential checks (Sonatype Central token, GitHub SSH push).')
-        booleanParam(name: 'SKIP_TCK_GATE', defaultValue: false, description: 'Skip the Mojarra-TCK validation gate. The api is normally published only after Mojarra ran a full TCK against this exact api version and commit. Emergency use only.')
+        booleanParam(name: 'SKIP_TCK_GATE', defaultValue: false, description: 'EMERGENCY USE ONLY. Skip the Mojarra-TCK validation gate. The api is normally published only after Mojarra ran a full TCK against this exact api version and commit, recorded on eclipse-ee4j/mojarra@tck-status. Setting this lets an UNVALIDATED api reach Maven Central; use it only when the gate infrastructure itself is broken and the TCK is known green by other means.')
     }
 
     options {
