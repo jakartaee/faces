@@ -122,8 +122,13 @@ pipeline {
                                          credentialsId: 'github-bot-ssh']]])
                 script {
                     // Read snapshot version from api/pom.xml; the release version derives from it.
-                    sh "mvn -B ${env.HELP_PLUGIN}:evaluate -f api/pom.xml -Dexpression=project.version -q -Doutput=api-version.txt"
-                    def snapshot = readFile('api-version.txt').trim()
+                    // Run inside api/ so help:evaluate's -Doutput (resolved against the project
+                    // basedir) and readFile (resolved against the same dir) agree on the file path.
+                    def snapshot
+                    dir('api') {
+                        sh "mvn -B ${env.HELP_PLUGIN}:evaluate -Dexpression=project.version -q -Doutput=api-version.txt"
+                        snapshot = readFile('api-version.txt').trim()
+                    }
                     if (!(snapshot ==~ /.*-SNAPSHOT$/)) {
                         error "api/pom.xml version '${snapshot}' is not a -SNAPSHOT; refusing to release."
                     }
