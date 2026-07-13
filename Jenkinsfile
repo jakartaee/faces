@@ -69,6 +69,7 @@ pipeline {
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Skip Maven Central deploy and GitHub push.')
         booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the Maven Central deploy (still tags and pushes). For resuming after Central already published.')
         booleanParam(name: 'SKIP_CRED_CHECK', defaultValue: false, description: 'Skip the Prepare-stage credential checks (Sonatype Central token, GitHub SSH push).')
+        booleanParam(name: 'SKIP_TCK_GATE', defaultValue: false, description: 'Skip the mojarra-TCK validation gate. The api is normally published only after mojarra ran a full TCK against this exact api version and commit. Emergency use only.')
     }
 
     options {
@@ -84,6 +85,7 @@ pipeline {
         VERSIONS_PLUGIN = 'org.codehaus.mojo:versions-maven-plugin:2.18.0'
         HELP_PLUGIN     = 'org.apache.maven.plugins:maven-help-plugin:3.5.1'
         CENTRAL_PLUGIN  = 'org.eclipse.cbi.central:central-staging-plugins:1.4.7'
+        MOJARRA_TCK_STATUS_URL = 'https://raw.githubusercontent.com/eclipse-ee4j/mojarra/tck-status'
     }
 
     stages {
@@ -148,6 +150,44 @@ pipeline {
                     currentBuild.description = "${params.RELEASE_LINE} → jakarta.faces-api ${env.RELEASE_VERSION}" +
                         ((env.IS_MILESTONE == 'true') ? ' (milestone)' : " (GA, next ${env.NEXT_VERSION})") +
                         " (JDK${env.RESOLVED_JDK}${params.DRY_RUN ? ', dry-run' : ''})"
+                }
+                // TCK gate: publish the api only after mojarra's full TCK has passed against THIS
+                // api version + commit. mojarra pushes tck-validation-<version>.json to its own
+                // eclipse-ee4j/mojarra@tck-status branch on a green TCK; we read that public raw URL
+                // directly (no credential, no cross-Jenkins auth). On a real publish a missing/mismatched
+                // record ABORTS; on DRY_RUN it only WARNS and continues, so the job can be rehearsed
+                // before the mojarra record exists. Skippable via SKIP_TCK_GATE. Needs jq (on the agent).
+                // facesSha is HEAD (pre-release-commit, so it matches the submodule tip mojarra built).
+                script {
+                    if (!params.SKIP_TCK_GATE) {
+                        sh '''#!/bin/bash
+                            set -o pipefail
+                            FACES_SHA=$(git rev-parse HEAD)
+                            URL="${MOJARRA_TCK_STATUS_URL}/tck-validation-${RELEASE_VERSION}.json"
+
+                            # On DRY_RUN the gate is advisory (warn + continue); on a real publish it aborts.
+                            fail() {
+                                echo "TCK gate: $1" >&2
+                                if [ "${DRY_RUN}" = "true" ]; then
+                                    echo "[tck-gate] WARNING: continuing anyway because DRY_RUN=true." >&2
+                                    exit 0
+                                fi
+                                echo "Run a mojarra DRY_RUN with RUN_TCK against this commit first, or set SKIP_TCK_GATE." >&2
+                                exit 1
+                            }
+
+                            curl -fsS -o rec.json "${URL}" || fail "no validation record for jakarta.faces-api ${RELEASE_VERSION} (${URL})."
+
+                            if jq -e --arg line "${RELEASE_LINE}" --arg ver "${RELEASE_VERSION}" --arg sha "${FACES_SHA}" \\
+                                '.result=="SUCCESS" and .runTck==true and .line==$line and .apiVersion==$ver and .facesSha==$sha' \\
+                                rec.json >/dev/null; then
+                                echo "[tck-gate] validated by mojarra $(jq -r .buildUrl rec.json) (api ${RELEASE_VERSION} @ ${FACES_SHA})"
+                            else
+                                cat rec.json >&2
+                                fail "mojarra's record for ${RELEASE_VERSION} does not match this commit (${FACES_SHA})."
+                            fi
+                        '''
+                    }
                 }
                 // Validate every credential the publish path needs, even on DRY_RUN, so a
                 // revoked/expired credential fails in minute zero. Skippable via SKIP_CRED_CHECK.
