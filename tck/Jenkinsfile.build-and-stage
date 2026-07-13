@@ -54,7 +54,7 @@ pipeline {
 
     options {
         disableConcurrentBuilds()
-        buildDiscarder(logRotator(daysToKeepStr: '90', numToKeepStr: '20'))
+        buildDiscarder(logRotator(daysToKeepStr: '90', numToKeepStr: '20', artifactDaysToKeepStr: '30', artifactNumToKeepStr: '10'))
         timestamps()
     }
 
@@ -115,8 +115,7 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'secret-subkeys.asc', variable: 'KEYRING')]) {
                     // Align all TCK module versions to the release version, then build the dist.
-                    // A targeted sed (not versions:set) because some tck modules are profile-gated
-                    // and versions:set does not walk them, which would leave a mismatched version.
+                    // sed rather than versions:set: versions:set skips profile-gated modules.
                     sh '#!/bin/bash -ex\n' + GPG_INIT + '''
                         find tck tck-dist -name pom.xml -not -path '*/target/*' \\
                             -exec sed -i "s|<version>${SNAPSHOT_VERSION}</version>|<version>${RELEASE_VERSION}</version>|g" {} +
@@ -128,6 +127,8 @@ pipeline {
                             clean install
                     '''
                 }
+                // Attach the dist to the build so it's downloadable (dry-runs don't stage).
+                archiveArtifacts artifacts: 'tck-dist/target/faces-tck-*-dist.zip', fingerprint: true
             }
         }
 
