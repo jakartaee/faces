@@ -92,6 +92,7 @@ pipeline {
                     userRemoteConfigs: [[url: 'git@github.com:jakartaee/faces.git',
                                          credentialsId: 'github-bot-ssh']]])
                 script {
+                    def cfg = BRANCH_CONFIG[params.RELEASE_LINE]
                     // Infer the release version from tck-dist/pom.xml (run inside tck-dist so
                     // help:evaluate's -Doutput and readFile resolve to the same file).
                     def snapshot
