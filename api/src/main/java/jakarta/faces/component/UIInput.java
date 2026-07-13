@@ -412,7 +412,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
     @Override
     public boolean isRequired() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.required, false);
+        return getStateHelper().eval(PropertyKeys.required, false);
 
     }
 
@@ -540,7 +540,7 @@ public class UIInput extends UIOutput implements EditableValueHolder {
     @Override
     public boolean isImmediate() {
 
-        return (Boolean) getStateHelper().eval(PropertyKeys.immediate, false);
+        return getStateHelper().eval(PropertyKeys.immediate, false);
 
     }
 
