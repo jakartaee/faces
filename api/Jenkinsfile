@@ -69,7 +69,7 @@ pipeline {
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Skip Maven Central deploy and GitHub push.')
         booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the Maven Central deploy (still tags and pushes). For resuming after Central already published.')
         booleanParam(name: 'SKIP_CRED_CHECK', defaultValue: false, description: 'Skip the Prepare-stage credential checks (Sonatype Central token, GitHub SSH push).')
-        booleanParam(name: 'SKIP_TCK_GATE', defaultValue: false, description: 'Skip the mojarra-TCK validation gate. The api is normally published only after mojarra ran a full TCK against this exact api version and commit. Emergency use only.')
+        booleanParam(name: 'SKIP_TCK_GATE', defaultValue: false, description: 'Skip the Mojarra-TCK validation gate. The api is normally published only after Mojarra ran a full TCK against this exact api version and commit. Emergency use only.')
     }
 
     options {
@@ -151,13 +151,13 @@ pipeline {
                         ((env.IS_MILESTONE == 'true') ? ' (milestone)' : " (GA, next ${env.NEXT_VERSION})") +
                         " (JDK${env.RESOLVED_JDK}${params.DRY_RUN ? ', dry-run' : ''})"
                 }
-                // TCK gate: publish the api only after mojarra's full TCK has passed against THIS
-                // api version + commit. mojarra pushes tck-validation-<version>.json to its own
+                // TCK gate: publish the api only after Mojarra's full TCK has passed against THIS
+                // api version + commit. Mojarra pushes tck-validation-<version>.json to its own
                 // eclipse-ee4j/mojarra@tck-status branch on a green TCK; we read that public raw URL
                 // directly (no credential, no cross-Jenkins auth). On a real publish a missing/mismatched
                 // record ABORTS; on DRY_RUN it only WARNS and continues, so the job can be rehearsed
-                // before the mojarra record exists. Skippable via SKIP_TCK_GATE. Needs jq (on the agent).
-                // facesSha is HEAD (pre-release-commit, so it matches the submodule tip mojarra built).
+                // before the Mojarra record exists. Skippable via SKIP_TCK_GATE. Needs jq (on the agent).
+                // facesSha is HEAD (pre-release-commit, so it matches the submodule tip Mojarra built).
                 script {
                     if (!params.SKIP_TCK_GATE) {
                         sh '''#!/bin/bash
@@ -172,7 +172,7 @@ pipeline {
                                     echo "[tck-gate] WARNING: continuing anyway because DRY_RUN=true." >&2
                                     exit 0
                                 fi
-                                echo "[tck-gate] ERROR: Run a mojarra DRY_RUN with RUN_TCK against this commit first, or set SKIP_TCK_GATE." >&2
+                                echo "[tck-gate] ERROR: Run a Mojarra DRY_RUN with RUN_TCK against this commit first, or set SKIP_TCK_GATE." >&2
                                 exit 1
                             }
 
@@ -181,10 +181,10 @@ pipeline {
                             if jq -e --arg line "${RELEASE_LINE}" --arg ver "${RELEASE_VERSION}" --arg sha "${FACES_SHA}" \\
                                 '.result=="SUCCESS" and .runTck==true and .line==$line and .apiVersion==$ver and .facesSha==$sha' \\
                                 rec.json >/dev/null; then
-                                echo "[tck-gate] INFO: validated by mojarra $(jq -r .buildUrl rec.json) (api ${RELEASE_VERSION} @ ${FACES_SHA})"
+                                echo "[tck-gate] INFO: validated by Mojarra $(jq -r .buildUrl rec.json) (api ${RELEASE_VERSION} @ ${FACES_SHA})"
                             else
                                 cat rec.json >&2
-                                fail "[tck-gate] ERROR: mojarra's record for ${RELEASE_VERSION} does not match this commit (${FACES_SHA})."
+                                fail "[tck-gate] ERROR: Mojarra's record for ${RELEASE_VERSION} does not match this commit (${FACES_SHA})."
                             fi
                         '''
                     }
