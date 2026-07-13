@@ -1,0 +1,287 @@
+#!/usr/bin/env groovy
+//
+// Jakarta Faces API release pipeline.
+//
+// Releases the standalone jakarta.faces:jakarta.faces-api artifact from api/.
+//
+// Stages: Prepare -> Build & install -> Deploy to Maven Central -> Bump to next snapshot
+//   -> Publish to GitHub.
+//
+// Maven Central publication (central-publishing-maven-plugin, via api/pom.xml's central-release
+// profile activated by -Dcentral.autoPublish=true) is INSTANTANEOUS and IRREVERSIBLE -- there is
+// no staging-review step. So the build is fully validated in "Build & install" first, and only a
+// clean build ever reaches the "Deploy to Maven Central" stage.
+//
+// Milestone runs (MILESTONE_VERSION set) tag <base>-<suffix> and leave the source branch on its
+// -SNAPSHOT (the branch is never committed to). GA runs tag <version>-RELEASE and advance the
+// source branch to the next -SNAPSHOT.
+//
+
+// JDK install root layout on the faces Jiro: /opt/tools/java/<distro>/jdk-<N>/latest.
+def JDK_DISTRO_BY_VERSION = [
+    '17': 'temurin',
+    '21': 'temurin',
+    '25': 'temurin',
+]
+def JDK_VERSION_CHOICES = [''] + JDK_DISTRO_BY_VERSION.keySet().toList()
+
+// ---- Per-release-line configuration ---------------------------------------
+// Adding a new release line = one entry here. Key = MAJOR.MINOR family (also the required prefix
+// for a GA RELEASE_VERSION). `branch` = the jakartaee/faces branch holding that line's api source.
+def BRANCH_CONFIG = [
+    '5.0': [ branch: '5.0', jdk: '17' ],
+]
+
+// GPG keyring import + trust. Idempotent. Required wherever the build signs artifacts.
+def GPG_INIT = '''
+    gpg --batch --import "${KEYRING}"
+    for fpr in $(gpg --list-keys --with-colons | awk -F: '/fpr:/ {print $10}' | sort -u); do
+        echo -e "5\\ny\\n" | gpg --batch --command-fd 0 --expert --edit-key "${fpr}" trust
+    done
+'''
+
+// Bot git identity. Sets local (per-repo) config; must run inside the working tree.
+def GIT_IDENTITY = '''
+    git config user.email "faces-bot@eclipse.org"
+    git config user.name  "Eclipse Faces Bot"
+'''
+
+// Pre-populate known_hosts so pushes from shell steps inside sshagent don't fail host-key
+// verification. Idempotent.
+def KNOWN_HOSTS_INIT = '''
+    mkdir -p ~/.ssh
+    ssh-keyscan -t rsa,ed25519,ecdsa github.com >> ~/.ssh/known_hosts 2>/dev/null
+    chmod 600 ~/.ssh/known_hosts
+'''
+
+// Refuse to start if origin already carries this version's tag (and, for GA, branch). Runs even on
+// dry-runs so a conflict fails fast. TAG_ONLY=true (milestone) skips the branch check since
+// milestones never push the source branch. Expects BRANCH_NAME and TAG_NAME set by the caller.
+def REMOTE_REF_CONFLICT_CHECK = '''
+    if [ "${TAG_ONLY:-false}" != "true" ] && git ls-remote --heads origin | grep -q "refs/heads/${BRANCH_NAME}$"; then
+        echo "Release branch ${BRANCH_NAME} already exists on origin; bump the version." >&2; exit 1
+    fi
+    if git ls-remote --tags origin | grep -q "refs/tags/${TAG_NAME}$"; then
+        echo "Release tag ${TAG_NAME} already exists on origin; bump the version." >&2; exit 1
+    fi
+    git tag -d "${TAG_NAME}" 2>/dev/null || true
+'''
+
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'RELEASE_LINE', choices: ['5.0'], description: 'Release line to cut.')
+        string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, M3, RC1). When set, the release is tagged <base>-<suffix>, the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
+        choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (17 for 5.0).')
+        booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Skip Maven Central deploy and GitHub push.')
+        booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the Maven Central deploy (still tags and pushes). For resuming after Central already published.')
+        booleanParam(name: 'SKIP_CRED_CHECK', defaultValue: false, description: 'Skip the Prepare-stage credential checks (Sonatype Central token, GitHub SSH push).')
+    }
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(daysToKeepStr: '300', numToKeepStr: '20'))
+        timestamps()
+    }
+
+    environment {
+        TOOLS_PREFIX    = '/opt/tools'
+        MVN_HOME        = "${TOOLS_PREFIX}/apache-maven/latest"
+        MVN_EXTRA       = '--batch-mode --no-transfer-progress'
+        VERSIONS_PLUGIN = 'org.codehaus.mojo:versions-maven-plugin:2.18.0'
+        HELP_PLUGIN     = 'org.apache.maven.plugins:maven-help-plugin:3.5.1'
+        CENTRAL_PLUGIN  = 'org.eclipse.cbi.central:central-staging-plugins:1.4.7'
+    }
+
+    stages {
+
+        stage('Prepare') {
+            steps {
+                cleanWs()
+                script {
+                    def cfg = BRANCH_CONFIG[params.RELEASE_LINE]
+                    if (cfg == null) error "Unknown RELEASE_LINE: ${params.RELEASE_LINE}"
+                    if (params.SKIP_DEPLOY && params.DRY_RUN) error "SKIP_DEPLOY requires DRY_RUN unchecked (DRY_RUN already skips deploy)."
+
+                    env.RELEASE_LINE = params.RELEASE_LINE
+                    env.API_BRANCH   = cfg.branch
+                    env.RESOLVED_JDK = params.JDK?.trim() ?: cfg.jdk
+                    if (!JDK_DISTRO_BY_VERSION.containsKey(env.RESOLVED_JDK)) {
+                        error "No JDK distro configured for JDK ${env.RESOLVED_JDK}. Update JDK_DISTRO_BY_VERSION at the top of Jenkinsfile."
+                    }
+                    env.JAVA_HOME = "${env.TOOLS_PREFIX}/java/${JDK_DISTRO_BY_VERSION[env.RESOLVED_JDK]}/jdk-${env.RESOLVED_JDK}/latest"
+                    env.PATH      = "${env.MVN_HOME}/bin:${env.JAVA_HOME}/bin:${env.PATH}"
+                    sh 'java -version && mvn -v'
+                }
+                // Explicit checkout of the release line's api branch, decoupled from wherever this
+                // Jenkinsfile was fetched from, via the bot SSH credential used for the later push.
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "*/${env.API_BRANCH}"]],
+                    userRemoteConfigs: [[url: 'git@github.com:jakartaee/faces.git',
+                                         credentialsId: 'github-bot-ssh']]])
+                script {
+                    // Read snapshot version from api/pom.xml; the release version derives from it.
+                    sh "mvn -B ${env.HELP_PLUGIN}:evaluate -f api/pom.xml -Dexpression=project.version -q -Doutput=api-version.txt"
+                    def snapshot = readFile('api-version.txt').trim()
+                    if (!(snapshot ==~ /.*-SNAPSHOT$/)) {
+                        error "api/pom.xml version '${snapshot}' is not a -SNAPSHOT; refusing to release."
+                    }
+                    env.SNAPSHOT_VERSION = snapshot
+                    def baseVersion = snapshot.replace('-SNAPSHOT', '')
+
+                    def milestoneSuffix = params.MILESTONE_VERSION?.trim()
+                    if (milestoneSuffix) {
+                        if (!(milestoneSuffix ==~ /^(M|RC)\d+$/)) {
+                            error "MILESTONE_VERSION '${milestoneSuffix}' must match ^(M|RC)[0-9]+\$ (e.g. M1, M3, RC1)."
+                        }
+                        env.IS_MILESTONE    = 'true'
+                        env.RELEASE_VERSION = "${baseVersion}-${milestoneSuffix}"
+                        env.RELEASE_TAG     = env.RELEASE_VERSION
+                        env.RELEASE_BRANCH  = env.RELEASE_VERSION
+                    } else {
+                        env.IS_MILESTONE    = 'false'
+                        env.RELEASE_VERSION = baseVersion
+                        requireGaVersion('RELEASE_VERSION', env.RELEASE_VERSION, params.RELEASE_LINE)
+                        env.NEXT_VERSION    = bumpLastComponent(env.RELEASE_VERSION) + '-SNAPSHOT'
+                        env.RELEASE_TAG     = "${env.RELEASE_VERSION}-RELEASE"
+                        env.RELEASE_BRANCH  = env.RELEASE_VERSION
+                    }
+
+                    currentBuild.description = "${params.RELEASE_LINE} → jakarta.faces-api ${env.RELEASE_VERSION}" +
+                        ((env.IS_MILESTONE == 'true') ? ' (milestone)' : " (GA, next ${env.NEXT_VERSION})") +
+                        " (JDK${env.RESOLVED_JDK}${params.DRY_RUN ? ', dry-run' : ''})"
+                }
+                // Validate every credential the publish path needs, even on DRY_RUN, so a
+                // revoked/expired credential fails in minute zero. Skippable via SKIP_CRED_CHECK.
+                script {
+                    if (!params.SKIP_CRED_CHECK) {
+                        // Sonatype Central Portal token for the jakarta.faces namespace. rc-list reads
+                        // <server id=central> from settings.xml, decrypts through SecDispatcher exactly
+                        // as the real deploy does, and throws on any non-2xx -> a bad/expired token
+                        // aborts here rather than at deploy time.
+                        sh '''#!/bin/bash -e
+                            mvn -B ${MVN_EXTRA} ${CENTRAL_PLUGIN}:rc-list \\
+                                -Dcentral.namespace=jakarta.faces \\
+                                -Dcentral.bearerCreate=true \\
+                                -Dcentral.showAllDeployments=true \\
+                                -Dcentral.showArtifacts=false
+                            echo "[cred-check] Sonatype Central Portal (jakarta.faces): ok"
+                        '''
+                        // GitHub SSH push: --dry-run runs the full receive-pack handshake (incl. the
+                        // write-permission check) but transmits no objects and creates no ref.
+                        sshagent(credentials: ['github-bot-ssh']) {
+                            sh '#!/bin/bash -e\n' + KNOWN_HOSTS_INIT + '''
+                                git push --dry-run git@github.com:jakartaee/faces.git HEAD:refs/heads/__cred_check__
+                                echo "[cred-check] GitHub SSH push (faces): ok"
+                            '''
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build & install') {
+            steps {
+                sshagent(credentials: ['github-bot-ssh']) {
+                    withCredentials([file(credentialsId: 'secret-subkeys.asc', variable: 'KEYRING')]) {
+                        // GPG + identity + tag/branch conflict check + local release branch.
+                        // TAG_ONLY=${IS_MILESTONE}: milestone runs never push the source branch.
+                        sh '#!/bin/bash -ex\nexport BRANCH_NAME="${RELEASE_BRANCH}" TAG_NAME="${RELEASE_TAG}" TAG_ONLY="${IS_MILESTONE}"\n' +
+                           GPG_INIT + GIT_IDENTITY + REMOTE_REF_CONFLICT_CHECK + '''
+                            git branch -D "${RELEASE_BRANCH}" 2>/dev/null || true
+                            git checkout -b "${RELEASE_BRANCH}"
+                        '''
+                        // Set release version and fully build. `install` (not deploy) VALIDATES the
+                        // build without publishing -- Central publication is instant and irreversible,
+                        // so nothing is published until the dedicated Deploy stage, and only after
+                        // this succeeds. Tag locally; the push is deferred to "Publish to GitHub".
+                        sh '''#!/bin/bash -ex
+                            mvn -U -B ${MVN_EXTRA} -f api/pom.xml \\
+                                -DnewVersion="${RELEASE_VERSION}" -DgenerateBackupPoms=false \\
+                                clean ${VERSIONS_PLUGIN}:set
+                            git add -A '*pom.xml'
+                            git commit -m "Prepare release jakarta.faces-api ${RELEASE_VERSION}"
+                            mvn -U -B ${MVN_EXTRA} -f api/pom.xml -DskipTests -Ddoclint=none clean install
+                            git tag "${RELEASE_TAG}" -m "Release jakarta.faces-api ${RELEASE_VERSION}"
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Maven Central') {
+            when { expression { return !params.DRY_RUN && !params.SKIP_DEPLOY } }
+            steps {
+                withCredentials([file(credentialsId: 'secret-subkeys.asc', variable: 'KEYRING')]) {
+                    // -Dcentral.autoPublish=true activates api/pom.xml's central-release profile and
+                    // publishes immediately via central-publishing-maven-plugin (GPG signing,
+                    // sources+javadoc). Instantaneous and irreversible; runs only after Build & install.
+                    sh '#!/bin/bash -ex\n' + GPG_INIT + '''
+                        mvn -U -B ${MVN_EXTRA} -f api/pom.xml \\
+                            -DskipTests -Ddoclint=none \\
+                            -Dcentral.autoPublish=true \\
+                            clean deploy
+                    '''
+                }
+            }
+        }
+
+        stage('Bump to next snapshot') {
+            when { expression { return env.IS_MILESTONE != 'true' } }
+            steps {
+                sh '''#!/bin/bash -ex
+                    mvn -U -B ${MVN_EXTRA} -f api/pom.xml \\
+                        -DnewVersion="${NEXT_VERSION}" -DgenerateBackupPoms=false \\
+                        clean ${VERSIONS_PLUGIN}:set
+                    git add -A '*pom.xml'
+                    git commit -m "Prepare next development cycle for ${NEXT_VERSION}"
+                '''
+            }
+        }
+
+        stage('Publish to GitHub') {
+            when { expression { return !params.DRY_RUN } }
+            steps {
+                sshagent(credentials: ['github-bot-ssh']) {
+                    // Milestone: push the tag only; the source branch stays on its -SNAPSHOT.
+                    // GA: advance the source branch (carrying the next-snapshot bump) and push the tag.
+                    sh '#!/bin/bash -ex\n' + KNOWN_HOSTS_INIT + '''
+                        if [ "${IS_MILESTONE}" != "true" ]; then
+                            git push origin "HEAD:refs/heads/${API_BRANCH}"
+                        fi
+                        git push origin "${RELEASE_TAG}"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            script {
+                def kind = (env.IS_MILESTONE == 'true') ? 'Milestone' : 'Released'
+                echo "${kind} jakarta.faces-api ${env.RELEASE_VERSION} from ${params.RELEASE_LINE}."
+            }
+        }
+        failure { echo "Release of jakarta.faces-api ${env.RELEASE_VERSION} from ${params.RELEASE_LINE} FAILED." }
+    }
+}
+
+// Bump the last numeric component of a dotted version: "5.0.0" -> "5.0.1".
+def bumpLastComponent(String version) {
+    def parts = version.tokenize('.')
+    parts[-1] = (parts[-1].toInteger() + 1).toString()
+    return parts.join('.')
+}
+
+// Validate that `version` is a dotted-numeric GA version with >= 3 components (rejects -M/-RC and
+// two-component values), and matches expectedPrefix when non-null. Aborts on mismatch.
+def requireGaVersion(String paramName, String version, String expectedPrefix) {
+    if (!(version ==~ /\d+\.\d+\.\d+(\.\d+)*/)) {
+        error "${paramName} '${version}' is not a dotted-numeric GA version with at least 3 components (e.g. 5.0.1). Milestone/RC and two-component versions are not supported."
+    }
+    if (expectedPrefix != null && !version.startsWith(expectedPrefix + '.')) {
+        error "${paramName} '${version}' does not match expected prefix '${expectedPrefix}.'."
+    }
+}
