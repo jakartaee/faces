@@ -1,0 +1,122 @@
+#!/usr/bin/env groovy
+//
+// Jakarta Faces TCK — bump development version.
+//
+// Sets the tck-dist + tck (+ profile-gated tck modules) to the next -SNAPSHOT and commits+pushes
+// "Next version of TCK is <base>" to the release line's branch. By default it increments the patch
+// of the current -SNAPSHOT (4.1.3-SNAPSHOT -> 4.1.4-SNAPSHOT); NEW_VERSION overrides (e.g. a minor
+// bump). DRY_RUN shows the change without committing/pushing.
+//
+// Keeps tck-dist and tck in lockstep (the released TCK version comes from tck-dist).
+//
+
+def BRANCH_CONFIG = [
+    '4.0': [ branch: '4.0.x' ],
+    '4.1': [ branch: 'master' ],
+    '5.0': [ branch: '5.0'    ],
+]
+
+def GIT_IDENTITY = '''
+    git config user.email "faces-bot@eclipse.org"
+    git config user.name  "Eclipse Faces Bot"
+'''
+
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Release line to bump (4.0=4.0.x, 4.1=master, 5.0=5.0).')
+        string(name: 'NEW_VERSION', defaultValue: '', description: 'Target -SNAPSHOT version (e.g. 4.1.4-SNAPSHOT). Leave blank to increment the patch of the current version.')
+        booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Show the version change without committing/pushing.')
+    }
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(daysToKeepStr: '90', numToKeepStr: '20'))
+        timestamps()
+    }
+
+    environment {
+        TOOLS_PREFIX = '/opt/tools'
+        MVN_HOME     = "${TOOLS_PREFIX}/apache-maven/latest"
+        JAVA_HOME    = "${TOOLS_PREFIX}/java/temurin/jdk-21/latest"
+        HELP_PLUGIN  = 'org.apache.maven.plugins:maven-help-plugin:3.5.1'
+    }
+
+    stages {
+
+        stage('Prepare') {
+            steps {
+                cleanWs()
+                script {
+                    def cfg = BRANCH_CONFIG[params.RELEASE_LINE]
+                    if (cfg == null) error "Unknown RELEASE_LINE: ${params.RELEASE_LINE}"
+                    env.TCK_BRANCH = cfg.branch
+                    env.PATH = "${env.MVN_HOME}/bin:${env.JAVA_HOME}/bin:${env.PATH}"
+                    sh 'mvn -v'
+                }
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "*/${env.TCK_BRANCH}"]],
+                    userRemoteConfigs: [[url: 'git@github.com:jakartaee/faces.git',
+                                         credentialsId: 'github-bot-ssh']]])
+                script {
+                    // Current -SNAPSHOT comes from tck-dist/pom.xml (the released-version source).
+                    def cur
+                    dir('tck-dist') {
+                        sh "mvn -B ${env.HELP_PLUGIN}:evaluate -Dexpression=project.version -q -Doutput=v.txt"
+                        cur = readFile('v.txt').trim()
+                    }
+                    if (!(cur ==~ /.*-SNAPSHOT$/)) error "tck-dist/pom.xml version '${cur}' is not a -SNAPSHOT."
+                    env.CURRENT_VERSION = cur
+                    env.NEXT_VERSION = params.NEW_VERSION?.trim() ?: nextPatchSnapshot(cur)
+                    if (!(env.NEXT_VERSION ==~ /.*-SNAPSHOT$/)) {
+                        error "NEW_VERSION '${env.NEXT_VERSION}' must end with -SNAPSHOT."
+                    }
+                    if (env.NEXT_VERSION == cur) error "NEW_VERSION equals the current version (${cur})."
+                    currentBuild.description = "${params.RELEASE_LINE}: ${cur} → ${env.NEXT_VERSION}${params.DRY_RUN ? ' (dry-run)' : ''}"
+                    echo "TCK ${params.RELEASE_LINE}: ${cur} -> ${env.NEXT_VERSION}"
+                }
+            }
+        }
+
+        stage('Bump') {
+            steps {
+                sshagent(credentials: ['github-bot-ssh']) {
+                    // Rewrite every tck/tck-dist pom carrying the current version. A targeted sed
+                    // (not versions:set) because some tck modules are profile-gated and versions:set
+                    // does not walk them; sed catches parent refs, own versions, and stragglers alike.
+                    // userguide (independent version, external parent) is untouched.
+                    sh '#!/bin/bash -ex\n' + GIT_IDENTITY + '''
+                        find tck tck-dist -name pom.xml -not -path '*/target/*' \\
+                            -exec sed -i "s|<version>${CURRENT_VERSION}</version>|<version>${NEXT_VERSION}</version>|g" {} +
+                        git add -A '*pom.xml'
+                        echo '-[ changed poms (summary) ]---------------------------------------------'
+                        git --no-pager diff --cached --stat
+                        echo '-[ full diff ]----------------------------------------------------------'
+                        git --no-pager diff --cached
+                        BASE="${NEXT_VERSION%-SNAPSHOT}"
+                        if [ "${DRY_RUN}" = "true" ]; then
+                            echo "[dry-run] would commit \\"Next version of TCK is ${BASE}\\" and push to ${TCK_BRANCH}."
+                            git reset -q --hard
+                        else
+                            git commit -q -m "Next version of TCK is ${BASE}"
+                            git push origin "HEAD:${TCK_BRANCH}"
+                            echo "[bump] pushed ${NEXT_VERSION} to ${TCK_BRANCH}."
+                        fi
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        failure { echo "TCK version bump FAILED for ${params.RELEASE_LINE}." }
+    }
+}
+
+// Increment the patch component and keep -SNAPSHOT: "4.1.3-SNAPSHOT" -> "4.1.4-SNAPSHOT".
+def nextPatchSnapshot(String snapshot) {
+    def parts = snapshot.replace('-SNAPSHOT', '').tokenize('.')
+    parts[-1] = (parts[-1].toInteger() + 1).toString()
+    return parts.join('.') + '-SNAPSHOT'
+}

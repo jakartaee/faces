@@ -1,0 +1,163 @@
+#!/usr/bin/env groovy
+//
+// Jakarta Faces TCK — build & stage.
+//
+// Builds the TCK distribution zip from jakartaee/faces and stages it (scp) to the Eclipse download
+// area for the selected release line:
+//
+//   download.eclipse.org/faces/jakartaee<N>/staged/eftl/jakarta-faces-tck-<version>.zip
+//
+// Promotion from staged/eftl to the final download.eclipse.org/jakartaee/faces/<line>/ location is
+// a MANUAL Jakarta EE release-review step and is NOT done here. This job also does NOT commit or
+// bump the pom version — see Jenkinsfile.bump-version.
+//
+// The release version is inferred from tck-dist/pom.xml (strip -SNAPSHOT); RELEASE_VERSION overrides.
+//
+
+// JDK install layout on the faces Jiro: /opt/tools/java/<distro>/jdk-<N>/latest.
+def JDK_DISTRO_BY_VERSION = [
+    '11': 'temurin',
+    '17': 'temurin',
+    '21': 'temurin',
+    '25': 'temurin',
+]
+def JDK_VERSION_CHOICES = [''] + JDK_DISTRO_BY_VERSION.keySet().toList()
+
+// Per-release-line config. Key = MAJOR.MINOR family.
+//   branch    : jakartaee/faces branch holding this line's TCK source.
+//   jdk       : JDK used to build the TCK dist.
+//   jakartaee : Jakarta EE platform number -> staging path segment (faces/jakartaee<N>/staged/eftl).
+// NB: verify the 5.0 -> jakartaee12 staging path exists before its first use.
+def BRANCH_CONFIG = [
+    '4.0': [ branch: '4.0.x', jdk: '11', jakartaee: '10' ],
+    '4.1': [ branch: 'master', jdk: '21', jakartaee: '11' ],
+    '5.0': [ branch: '5.0',    jdk: '21', jakartaee: '12' ],
+]
+
+// GPG keyring import + trust — required for -Poss-release artifact signing during the build.
+def GPG_INIT = '''
+    gpg --batch --import "${KEYRING}"
+    for fpr in $(gpg --list-keys --with-colons | awk -F: '/fpr:/ {print $10}' | sort -u); do
+        echo -e "5\\ny\\n" | gpg --batch --command-fd 0 --expert --edit-key "${fpr}" trust
+    done
+'''
+
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Release line to build & stage (4.0=4.0.x, 4.1=master, 5.0=5.0).')
+        string(name: 'RELEASE_VERSION', defaultValue: '', description: 'Leave blank to infer from tck-dist/pom.xml (strip -SNAPSHOT).')
+        choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (11 for 4.0, 21 for 4.1/5.0).')
+        booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Build only; do not scp the dist to the staging area.')
+    }
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(daysToKeepStr: '90', numToKeepStr: '20'))
+        timestamps()
+    }
+
+    environment {
+        TOOLS_PREFIX    = '/opt/tools'
+        MVN_HOME        = "${TOOLS_PREFIX}/apache-maven/latest"
+        MVN_EXTRA       = '--batch-mode --no-transfer-progress'
+        VERSIONS_PLUGIN = 'org.codehaus.mojo:versions-maven-plugin:2.18.0'
+        HELP_PLUGIN     = 'org.apache.maven.plugins:maven-help-plugin:3.5.1'
+        SSH_HOST        = 'genie.faces@projects-storage.eclipse.org'
+        SSH_OPTS        = '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+        STAGING_ROOT    = '/home/data/httpd/download.eclipse.org/faces'
+    }
+
+    stages {
+
+        stage('Prepare') {
+            steps {
+                cleanWs()
+                script {
+                    def cfg = BRANCH_CONFIG[params.RELEASE_LINE]
+                    if (cfg == null) error "Unknown RELEASE_LINE: ${params.RELEASE_LINE}"
+                    env.TCK_BRANCH    = cfg.branch
+                    env.RESOLVED_JDK  = params.JDK?.trim() ?: cfg.jdk
+                    if (!JDK_DISTRO_BY_VERSION.containsKey(env.RESOLVED_JDK)) {
+                        error "No JDK distro configured for JDK ${env.RESOLVED_JDK}. Update JDK_DISTRO_BY_VERSION."
+                    }
+                    env.STAGING_PATH  = "${env.STAGING_ROOT}/jakartaee${cfg.jakartaee}/staged/eftl"
+                    env.JAVA_HOME     = "${env.TOOLS_PREFIX}/java/${JDK_DISTRO_BY_VERSION[env.RESOLVED_JDK]}/jdk-${env.RESOLVED_JDK}/latest"
+                    env.PATH          = "${env.MVN_HOME}/bin:${env.JAVA_HOME}/bin:${env.PATH}"
+                    sh 'java -version && mvn -v'
+                }
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "*/${env.TCK_BRANCH}"]],
+                    userRemoteConfigs: [[url: 'git@github.com:jakartaee/faces.git',
+                                         credentialsId: 'github-bot-ssh']]])
+                script {
+                    // Infer the release version from tck-dist/pom.xml (run inside tck-dist so
+                    // help:evaluate's -Doutput and readFile resolve to the same file).
+                    def snapshot
+                    dir('tck-dist') {
+                        sh "mvn -B ${env.HELP_PLUGIN}:evaluate -Dexpression=project.version -q -Doutput=v.txt"
+                        snapshot = readFile('v.txt').trim()
+                    }
+                    if (!(snapshot ==~ /.*-SNAPSHOT$/)) {
+                        error "tck-dist/pom.xml version '${snapshot}' is not a -SNAPSHOT."
+                    }
+                    env.SNAPSHOT_VERSION = snapshot
+                    env.RELEASE_VERSION  = params.RELEASE_VERSION?.trim() ?: snapshot.replace('-SNAPSHOT', '')
+                    currentBuild.description = "${params.RELEASE_LINE} → TCK ${env.RELEASE_VERSION} " +
+                        "(JDK${env.RESOLVED_JDK}, ee${cfg.jakartaee}${params.DRY_RUN ? ', dry-run' : ''})"
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                withCredentials([file(credentialsId: 'secret-subkeys.asc', variable: 'KEYRING')]) {
+                    // Align all TCK module versions to the release version, then build the dist.
+                    // A targeted sed (not versions:set) because some tck modules are profile-gated
+                    // and versions:set does not walk them, which would leave a mismatched version.
+                    sh '#!/bin/bash -ex\n' + GPG_INIT + '''
+                        find tck tck-dist -name pom.xml -not -path '*/target/*' \\
+                            -exec sed -i "s|<version>${SNAPSHOT_VERSION}</version>|<version>${RELEASE_VERSION}</version>|g" {} +
+                    '''
+                    // Build the TCK dist (produces tck-dist/target/faces-tck-<version>-dist.zip).
+                    sh '''#!/bin/bash -ex
+                        mvn -U -B ${MVN_EXTRA} -f tck-dist/pom.xml \\
+                            -DskipTests -Ddoclint=none -Poss-release -Pstaging \\
+                            clean install
+                    '''
+                }
+            }
+        }
+
+        stage('Stage') {
+            when { expression { return !params.DRY_RUN } }
+            steps {
+                // scp the dist zip + a .info (sha256 + size) to the staging area, renamed to the
+                // canonical jakarta-faces-tck-<version>.zip. Uses the genie.faces storage bot key.
+                sshagent(credentials: ['projects-storage.eclipse.org-bot-ssh']) {
+                    sh '''#!/bin/bash -ex
+                        cd tck-dist/target
+                        DIST="faces-tck-${RELEASE_VERSION}-dist.zip"
+                        NAME="jakarta-faces-tck-${RELEASE_VERSION}"
+                        sha256sum "${DIST}" > "${NAME}.info"
+                        ls -l "${DIST}" >> "${NAME}.info"
+                        ssh ${SSH_OPTS} ${SSH_HOST} mkdir -p "${STAGING_PATH}"
+                        ssh ${SSH_OPTS} ${SSH_HOST} rm -f "${STAGING_PATH}/${NAME}.zip" "${STAGING_PATH}/${NAME}.info"
+                        scp ${SSH_OPTS} "${DIST}"      "${SSH_HOST}:${STAGING_PATH}/${NAME}.zip"
+                        scp ${SSH_OPTS} "${NAME}.info" "${SSH_HOST}:${STAGING_PATH}/${NAME}.info"
+                        echo "[staged] ${STAGING_PATH}/${NAME}.zip"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "TCK ${env.RELEASE_VERSION} (${params.RELEASE_LINE}) built" +
+                 (params.DRY_RUN ? " (dry-run, not staged)." : " and staged to ${env.STAGING_PATH}.")
+        }
+        failure { echo "TCK build/stage FAILED for ${params.RELEASE_LINE}." }
+    }
+}
