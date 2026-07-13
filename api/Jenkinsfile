@@ -74,7 +74,7 @@ pipeline {
 
     options {
         disableConcurrentBuilds()
-        buildDiscarder(logRotator(daysToKeepStr: '300', numToKeepStr: '20'))
+        buildDiscarder(logRotator(daysToKeepStr: '300', numToKeepStr: '20', artifactDaysToKeepStr: '30', artifactNumToKeepStr: '10'))
         timestamps()
     }
 
@@ -244,6 +244,8 @@ pipeline {
                         '''
                     }
                 }
+                // Attach the api jar (+ sources/javadoc) to the build; retention capped in options.
+                archiveArtifacts artifacts: 'api/target/jakarta.faces-api-*.jar', fingerprint: true
             }
         }
 
