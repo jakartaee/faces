@@ -81,10 +81,12 @@ pipeline {
                         echo "NEW_VERSION '${NEW_VERSION}' must end with -SNAPSHOT." >&2; exit 1
                     fi
 
-                    # Every distinct literal module/parent SNAPSHOT version currently in the tree.
+                    # Distinct TCK module/parent SNAPSHOT versions, restricted to this release line
+                    # (RELEASE_LINE prefix) so external dependency SNAPSHOT versions are excluded.
                     OLDS=$(find tck tck-dist -name pom.xml -not -path '*/target/*' \\
                         -exec grep -hoE '<version>[0-9]+\\.[0-9]+\\.[0-9]+-SNAPSHOT</version>' {} + \\
-                        | sed -E 's#</?version>##g' | sort -u)
+                        | sed -E 's#</?version>##g' \\
+                        | grep -E "^${RELEASE_LINE//./[.]}[.]" | sort -u)
                     [ -n "${OLDS}" ] || { echo "No tck SNAPSHOT versions found." >&2; exit 1; }
                     echo "Current TCK versions: $(echo ${OLDS} | tr '\\n' ' ')"
 
