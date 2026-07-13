@@ -167,7 +167,7 @@ pipeline {
 
                             # On DRY_RUN the gate is advisory (warn + continue); on a real publish it aborts.
                             fail() {
-                                echo "[tck-gate] INFO: $1" >&2
+                                echo "[tck-gate] ERROR: $1" >&2
                                 if [ "${DRY_RUN}" = "true" ]; then
                                     echo "[tck-gate] WARNING: continuing anyway because DRY_RUN=true." >&2
                                     exit 0
@@ -184,7 +184,7 @@ pipeline {
                                 echo "[tck-gate] INFO: validated by Mojarra $(jq -r .buildUrl rec.json) (api ${RELEASE_VERSION} @ ${FACES_SHA})"
                             else
                                 cat rec.json >&2
-                                fail "[tck-gate] ERROR: Mojarra's record for ${RELEASE_VERSION} does not match this commit (${FACES_SHA})."
+                                fail "Mojarra's record for ${RELEASE_VERSION} does not match this commit (${FACES_SHA})."
                             fi
                         '''
                     }
