@@ -46,14 +46,6 @@ def GIT_IDENTITY = '''
     git config user.name  "Eclipse Faces Bot"
 '''
 
-// Pre-populate known_hosts so pushes from shell steps inside sshagent don't fail host-key
-// verification. Idempotent.
-def KNOWN_HOSTS_INIT = '''
-    mkdir -p ~/.ssh
-    ssh-keyscan -t rsa,ed25519,ecdsa github.com >> ~/.ssh/known_hosts 2>/dev/null
-    chmod 600 ~/.ssh/known_hosts
-'''
-
 // Refuse to start if origin already carries this version's tag (and, for GA, branch). Runs even on
 // dry-runs so a conflict fails fast. TAG_ONLY=true (milestone) skips the branch check since
 // milestones never push the source branch. Expects BRANCH_NAME and TAG_NAME set by the caller.
@@ -176,7 +168,7 @@ pipeline {
                         // GitHub SSH push: --dry-run runs the full receive-pack handshake (incl. the
                         // write-permission check) but transmits no objects and creates no ref.
                         sshagent(credentials: ['github-bot-ssh']) {
-                            sh '#!/bin/bash -e\n' + KNOWN_HOSTS_INIT + '''
+                            sh '''#!/bin/bash -e
                                 git push --dry-run git@github.com:jakartaee/faces.git HEAD:refs/heads/__cred_check__
                                 echo "[cred-check] GitHub SSH push (faces): ok"
                             '''
@@ -251,7 +243,7 @@ pipeline {
                 sshagent(credentials: ['github-bot-ssh']) {
                     // Milestone: push the tag only; the source branch stays on its -SNAPSHOT.
                     // GA: advance the source branch (carrying the next-snapshot bump) and push the tag.
-                    sh '#!/bin/bash -ex\n' + KNOWN_HOSTS_INIT + '''
+                    sh '''#!/bin/bash -ex
                         if [ "${IS_MILESTONE}" != "true" ]; then
                             git push origin "HEAD:refs/heads/${API_BRANCH}"
                         fi
