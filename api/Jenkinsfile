@@ -245,7 +245,7 @@ pipeline {
                     }
                 }
                 // Attach the api jar (+ sources/javadoc) to the build; retention capped in options.
-                archiveArtifacts artifacts: 'api/target/jakarta.faces-api-*.jar', fingerprint: true
+                archiveArtifacts artifacts: 'api/target/*.jar', allowEmptyArchive: true, fingerprint: true
             }
         }
 
