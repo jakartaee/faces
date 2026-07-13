@@ -1,0 +1,26 @@
+name: build api
+on:
+  push:
+    branches: [ '5.0' ]
+    paths: [ 'api/**', '.github/workflows/build.yml' ]
+  pull_request:
+    branches: [ '5.0' ]
+    paths: [ 'api/**', '.github/workflows/build.yml' ]
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        java: [ '17' ]
+        os: [ ubuntu-latest ]
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v5
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          java-version: ${{ matrix.java }}
+          distribution: temurin
+          cache: maven
+      - name: Build API
+        run: mvn -B -ntp -f api/pom.xml clean verify
