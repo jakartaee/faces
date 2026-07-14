@@ -293,7 +293,9 @@ pipeline {
                         if [ "${IS_MILESTONE}" != "true" ]; then
                             git push origin "HEAD:refs/heads/${API_BRANCH}"
                         fi
-                        git push origin "${RELEASE_TAG}"
+                        # Fully-qualified: on a milestone RELEASE_TAG equals the local release
+                        # branch name, so a bare ref would be ambiguous ("matches more than one").
+                        git push origin "refs/tags/${RELEASE_TAG}"
                     '''
                 }
             }
