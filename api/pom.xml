@@ -118,7 +118,6 @@
 
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
-        <central.autoPublish>false</central.autoPublish>
     </properties>
 
     <dependencies>
@@ -358,7 +357,7 @@
                 <artifactId>maven-source-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>generate-api-sources</id>
+                        <id>attach-sources</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -377,7 +376,7 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>attach-api-javadocs</id>
+                        <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -692,37 +691,6 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                         </plugin>
                     </plugins>
                 </pluginManagement>
-            </build>
-        </profile>
-
-        <!-- Maven Central release.
-             Activated EITHER by `-Pcentral-release` (manual, e.g. dev staging) OR automatically by
-             `-Dcentral.autoPublish=true` (used by CI). The autoPublish flag inside the plugin config
-             reads the same property, so:
-               * `mvn deploy -Pcentral-release`           -> stages (autoPublish=false)
-               * `mvn deploy -Dcentral.autoPublish=true`  -> stages AND publishes (CI)
-             A bare `mvn deploy` does not activate the profile and never reaches Maven Central. -->
-        <profile>
-            <id>central-release</id>
-            <activation>
-                <property>
-                    <name>central.autoPublish</name>
-                    <value>true</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.sonatype.central</groupId>
-                        <artifactId>central-publishing-maven-plugin</artifactId>
-                        <version>0.10.0</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <publishingServerId>central</publishingServerId>
-                            <autoPublish>${central.autoPublish}</autoPublish>
-                        </configuration>
-                    </plugin>
-                </plugins>
             </build>
         </profile>
     </profiles>
