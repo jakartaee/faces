@@ -255,13 +255,13 @@ pipeline {
             when { expression { return !params.DRY_RUN && !params.SKIP_DEPLOY } }
             steps {
                 withCredentials([file(credentialsId: 'secret-subkeys.asc', variable: 'KEYRING')]) {
-                    // -Dcentral.autoPublish=true activates api/pom.xml's central-release profile and
-                    // publishes immediately via central-publishing-maven-plugin (GPG signing,
-                    // sources+javadoc). Instantaneous and irreversible; runs only after Build & install.
+                    // -Poss-release activates the EE4J parent's release profile, which wires
+                    // central-publishing-maven-plugin (Sonatype Portal), maven-gpg-plugin signing,
+                    // and the sources/javadoc jars Maven Central requires, and sets autoPublish=true.
+                    // Instantaneous and irreversible; runs only after Build & install.
                     sh '#!/bin/bash -ex\n' + GPG_INIT + '''
-                        mvn -U -B ${MVN_EXTRA} -f api/pom.xml \\
+                        mvn -U -B ${MVN_EXTRA} -f api/pom.xml -Poss-release \\
                             -DskipTests -Ddoclint=none \\
-                            -Dcentral.autoPublish=true \\
                             clean deploy
                     '''
                 }
