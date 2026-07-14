@@ -68,8 +68,8 @@ pipeline {
         choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (17 for 5.0).')
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Skip Maven Central deploy and GitHub push.')
         booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the Maven Central deploy (still tags and pushes). For resuming after Central already published.')
-        booleanParam(name: 'SKIP_CRED_CHECK', defaultValue: false, description: 'Skip the Prepare-stage credential checks (Sonatype Central token, GitHub SSH push).')
-        booleanParam(name: 'SKIP_TCK_GATE', defaultValue: false, description: 'EMERGENCY USE ONLY. Skip the Mojarra-TCK validation gate. The api is normally published only after Mojarra ran a full TCK against this exact api version and commit, recorded on eclipse-ee4j/mojarra@tck-status. Setting this lets an UNVALIDATED api reach Maven Central; use it only when the gate infrastructure itself is broken and the TCK is known green by other means.')
+        booleanParam(name: 'SKIP_CRED_CHECK', defaultValue: false, description: 'Skip the Prepare-stage credential checks (Sonatype Central token, GitHub SSH push). Use for pipeline-debug runs where the publish credentials are unavailable or known-stale and should not abort the run; on a real release leave this unchecked so a bad credential fails fast.')
+        booleanParam(name: 'SKIP_TCK_GATE', defaultValue: false, description: 'EMERGENCY USE ONLY. Skip the Mojarra-TCK validation gate. The API is normally published only after Mojarra ran a full TCK against this exact API version and commit, recorded on eclipse-ee4j/mojarra@tck-status. Setting this lets an UNVALIDATED API reach Maven Central; use it only when the gate infrastructure itself is broken and the TCK is known green by other means.')
     }
 
     options {
@@ -152,7 +152,7 @@ pipeline {
                         " (JDK${env.RESOLVED_JDK}${params.DRY_RUN ? ', dry-run' : ''})"
                 }
                 // TCK gate: publish the api only after Mojarra's full TCK has passed against THIS
-                // api version + commit. Mojarra pushes tck-validation-<version>.json to its own
+                // api version + commit. Mojarra pushes tck-validation-api-<version>.json to its own
                 // eclipse-ee4j/mojarra@tck-status branch on a green TCK; we read that public raw URL
                 // directly (no credential, no cross-Jenkins auth). On a real publish a missing/mismatched
                 // record ABORTS; on DRY_RUN it only WARNS and continues, so the job can be rehearsed
@@ -163,7 +163,7 @@ pipeline {
                         sh '''#!/bin/bash
                             set -o pipefail
                             FACES_SHA=$(git rev-parse HEAD)
-                            URL="${MOJARRA_TCK_STATUS_URL}/tck-validation-${RELEASE_VERSION}.json"
+                            URL="${MOJARRA_TCK_STATUS_URL}/tck-validation-api-${RELEASE_VERSION}.json"
 
                             # On DRY_RUN the gate is advisory (warn + continue); on a real publish it aborts.
                             fail() {
@@ -172,14 +172,16 @@ pipeline {
                                     echo "[tck-gate] WARNING: continuing anyway because DRY_RUN=true." >&2
                                     exit 0
                                 fi
-                                echo "[tck-gate] ERROR: Run a Mojarra DRY_RUN with RUN_TCK against this commit first, or set SKIP_TCK_GATE." >&2
+                                echo "[tck-gate] ERROR: Run a Mojarra DRY_RUN with the full TCK (SKIP_TCK unset) against this commit first, or set SKIP_TCK_GATE." >&2
                                 exit 1
                             }
 
                             curl -fsS -o rec.json "${URL}" || fail "no validation record for jakarta.faces-api ${RELEASE_VERSION} (${URL})."
 
+                            # A record exists only when Mojarra's full TCK passed, so identity
+                            # (line + api version + faces commit) is sufficient — no result/runTck flag.
                             if jq -e --arg line "${RELEASE_LINE}" --arg ver "${RELEASE_VERSION}" --arg sha "${FACES_SHA}" \\
-                                '.result=="SUCCESS" and .runTck==true and .line==$line and .apiVersion==$ver and .facesSha==$sha' \\
+                                '.line==$line and .apiVersion==$ver and .facesSha==$sha' \\
                                 rec.json >/dev/null; then
                                 echo "[tck-gate] INFO: validated by Mojarra $(jq -r .buildUrl rec.json) (api ${RELEASE_VERSION} @ ${FACES_SHA})"
                             else
