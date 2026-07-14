@@ -189,6 +189,8 @@ pipeline {
                                 fail "Mojarra's record for ${RELEASE_VERSION} does not match this commit (${FACES_SHA})."
                             fi
                         '''
+                    } else {
+                        echo "[tck-gate] WARNING: SKIP_TCK_GATE is set — publishing WITHOUT Mojarra-TCK validation for this commit."
                     }
                 }
                 // Validate every credential the publish path needs, even on DRY_RUN, so a
