@@ -237,9 +237,6 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     private static final String VIEW_MAP_ID_KEY = "org.glassfish.mojarra.application.view.viewMapId";
     private static final String ACTIVE_VIEW_MAPS_KEY = "org.glassfish.mojarra.application.view.activeViewMaps";
 
-    // TODO: can be dropped after https://github.com/eclipse-ee4j/mojarra/issues/5787 
-    private static final String RESTORE_VIEW_SCOPE_ONLY_KEY = "org.glassfish.mojarra.application.view.restoreViewScopeOnly";
-
     enum PropertyKeys {
         /**
          * <p>
@@ -1791,15 +1788,14 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             return;
         }
 
-        values = (Object[]) state;
-        super.restoreState(context, values[0]);
+        restoreViewMap(context, (Object[]) state);
+        viewScopeStateRestored = true;
     }
-
-    // END TENATIVE <== ???
 
     // ----------------------------------------------------- StateHolder Methods
 
     private Object[] values;
+    private boolean viewScopeStateRestored;
 
     @Override
     public Object saveState(FacesContext context) {
@@ -1818,7 +1814,6 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     }
 
     @Override
-    @SuppressWarnings("unchecked") // the opaque state Object and session-stored view maps are cast back to their saved types.
     public void restoreState(FacesContext context, Object state) {
         if (context == null) {
             throw new NullPointerException();
@@ -1829,11 +1824,25 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
         values = (Object[]) state;
 
-        if (!context.getAttributes().containsKey(RESTORE_VIEW_SCOPE_ONLY_KEY)) {
-            super.restoreState(context, values[0]);
-        }
+        super.restoreState(context, values[0]);
 
-        String viewMapId = (String) values[1];
+        if (!viewScopeStateRestored) {
+            restoreViewMap(context, values);
+        }
+    }
+
+    // --------------------------------------------------------- Private Methods
+
+    /**
+     * Restores the view map associated with the view map id in the saved state. {@link #restoreViewScopeState} invokes
+     * this up front so that view scoped beans are resolvable in EL while the view is being built; {@link #restoreState}
+     * invokes it only when that did not already happen. Rewiring it a second time would be destructive: when the saved
+     * view map is no longer among the active view maps, building the view mints a replacement whose id is held in the
+     * transient state, and restoring the saved id over it would orphan that replacement.
+     */
+    @SuppressWarnings("unchecked") // the session-stored view maps are cast back to their saved types.
+    private void restoreViewMap(FacesContext context, Object[] state) {
+        String viewMapId = (String) state[1];
 
         getTransientStateHelper().putTransient(VIEW_MAP_ID_KEY, viewMapId);
 
@@ -1843,8 +1852,6 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             viewMap = (Map<String, Object>) viewMaps.get(viewMapId);
         }
     }
-
-    // --------------------------------------------------------- Private Methods
 
     private static String getIdentifier(String target) {
         // check map
