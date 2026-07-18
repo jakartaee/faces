@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<faces-config version="4.1"
+              xmlns="https://jakarta.ee/xml/ns/jakartaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                                  https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd">
+
+    <flow-definition id="issue3684-nested-flow-call-f1">
+        <start-node>switchOnEntryKind</start-node>
+
+        <inbound-parameter>
+            <name>recursiveEntry</name>
+            <value>#{flowScope.recursiveEntry}</value>
+        </inbound-parameter>
+
+        <!-- Without the inbound parameter this is the outer frame, which calls f2 to get called back. -->
+        <switch id="switchOnEntryKind">
+            <case>
+                <if>#{flowScope.recursiveEntry != null}</if>
+                <from-outcome>addCount</from-outcome>
+            </case>
+            <default-outcome>callF2</default-outcome>
+        </switch>
+
+        <method-call id="addCount">
+            <method>#{issue3684Flow1Bean.addCount}</method>
+            <default-outcome>returnToF2</default-outcome>
+        </method-call>
+
+        <flow-call id="callF2">
+            <flow-reference>
+                <flow-id>issue3684-nested-flow-call-f2</flow-id>
+            </flow-reference>
+        </flow-call>
+
+        <flow-return id="returnToF2">
+            <from-outcome>verifyFlow2BeanSurvived</from-outcome>
+        </flow-return>
+
+        <view id="ReturnPage">
+            <vdl-document>/issue3684-nested-flow-call-f1/ReturnPage.xhtml</vdl-document>
+        </view>
+
+    </flow-definition>
+
+</faces-config>

@@ -35,6 +35,14 @@ class ActionsourceIT extends BaseITNG {
         // case 2: only 'name' attribute specified
         WebPage pageTwo = getPage("actionsource/notargets.xhtml");
         testActionSource(pageTwo, "testOne");
+
+        // case 3: the exposed action source is a nested composite reusing the same id
+        WebPage pageThree = getPage("actionsource/nestedsameid.xhtml");
+        testActionSource(pageThree, "testOne");
+
+        // case 4: 'targets' points across a NamingContainer nested in the composite
+        WebPage pageFour = getPage("actionsource/targetsacrossnaming.xhtml");
+        testActionSource(pageFour, "command");
     }
 
     private void testActionSource(WebPage page, String buttonId) {

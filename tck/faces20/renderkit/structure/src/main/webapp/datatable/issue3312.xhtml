@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Issue3312IT</title>
+    </h:head>
+    <h:body>
+        <!-- One single table carrying all four table level facets at once. -->
+        <h:dataTable id="table" border="1" value="#{dList.dataList}" var="data">
+            <f:facet name="caption">
+                <h:outputText id="captionFacet" value="My Caption" />
+            </f:facet>
+
+            <f:facet name="colgroups">
+                <h:panelGroup>
+                    <colgroup>
+                        <col style="background-color:red" />
+                        <col style="background-color:yellow" />
+                    </colgroup>
+                </h:panelGroup>
+            </f:facet>
+
+            <f:facet name="header">
+                <h:outputText id="headerFacet" value="My Header" />
+            </f:facet>
+
+            <f:facet name="footer">
+                <h:outputText id="footerFacet" value="My Footer" />
+            </f:facet>
+
+            <h:column id="nameCol">
+                <h:outputText id="name" value="#{data.name}" />
+            </h:column>
+
+            <h:column id="ageCol">
+                <h:outputText id="age" value="#{data.age}" />
+            </h:column>
+        </h:dataTable>
+
+        <h:form id="form">
+            <h:commandButton id="button" value="submit" />
+        </h:form>
+    </h:body>
+</html>

@@ -80,6 +80,17 @@
         <module>namespaced-params</module>
         <module>resource-api</module>
         <module>resource-library-contracts</module>
+        <!-- The tckjar supplies the JAR-packaged contracts, so it must precede the war which depends on it. -->
+        <module>resource-library-contracts-extended-tckjar</module>
+        <module>resource-library-contracts-extended</module>
+        <module>resource-library-contracts-vdl</module>
+        <module>resource-basic-in-jar-tckjar</module>
+        <module>two-contracts-in-jar-tckjar</module>
+        <module>build-time-component-handler</module>
+        <module>cdi-tccl</module>
+        <module>process-as-xml</module>
+        <module>resource-basic-in-jar</module>
+        <module>two-contracts-in-jar</module>
     </modules>
 
     <dependencies>

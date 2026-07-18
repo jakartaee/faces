@@ -44,6 +44,8 @@
         <module>extensionless-mapping</module>
         <module>resources</module>
         <module>doctype</module>
+        <module>no-web-xml</module>
+        <module>prefix-security</module>
     </modules>
 
     <dependencies>

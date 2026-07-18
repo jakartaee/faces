@@ -30,7 +30,6 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
 import java.net.http.HttpClient;
-import java.util.regex.Pattern;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit5.ArquillianExtension;
@@ -237,16 +236,15 @@ public abstract class BaseITNG implements ExecutionCondition {
         return webDriver();
     }
 
+    /**
+     * Returns the link's href relative to the deployed application, stripped of the
+     * {@code jsessionid} path parameter which the container adds until it knows cookies work. The
+     * query string is left untouched: it carries what the resource request is keyed on, such as
+     * {@code ln} and {@code con}.
+     */
     protected String getHrefURI(WebElement link) {
         String uri = link.getAttribute("href").substring(webUrl.toExternalForm().length());
-        String uriWithoutJsessionId = uri.split(";jsessionid=", 2)[0];
-        String[] uriAndQueryString = uri.split(Pattern.quote("?"), 2);
-
-        if (uriAndQueryString.length == 2) {
-            uriWithoutJsessionId += "?" + uriAndQueryString[1];
-        }
-
-        return uriWithoutJsessionId;
+        return uri.replaceFirst(";jsessionid=[^?]*", "");
     }
 
     protected String getContextPath() {

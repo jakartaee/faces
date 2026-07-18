@@ -735,13 +735,23 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         return Stream.of(splitData).map((String keyVal) -> URLDecoder.decode(keyVal, UTF_8)).toArray(String[]::new);
     }
 
+    /**
+     * Returns the cycle of the last GET, or null when it has not been responded to yet. A GET which
+     * the server answers with a redirect never gets a cycle of its own: the devtools protocol
+     * reports the redirect under the very same request id, overwriting the request with the one for
+     * the redirect target, so the cycle is then found by its target url instead of the requested
+     * one.
+     */
     private HttpCycleData getLastGetData() {
         if (lastGet == null) {
             return null;
         }
 
         return cycleData.stream().filter(item -> item.hasBaseUrl(lastGet)).sorted(RESPONSE_TIME_COMPARATOR.reversed())
-            .findFirst().orElse(null);
+            .findFirst()
+            .or(() -> cycleData.stream().filter(HttpCycleData::hasResponse).sorted(RESPONSE_TIME_COMPARATOR.reversed())
+                .findFirst())
+            .orElse(null);
     }
 
     @Override

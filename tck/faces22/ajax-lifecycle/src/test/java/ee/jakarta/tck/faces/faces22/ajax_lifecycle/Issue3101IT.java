@@ -29,6 +29,14 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3101IT extends BaseITNG {
 
+    /**
+     * The session is expired by shortening its max inactive interval, so the postback must be
+     * preceded by more idle time than that interval; the container only detects the expiry upon the
+     * next access. Without this wait the test passes only as long as the intervening ajax round trip
+     * happens to outlast the interval.
+     */
+    private static final long IDLE_TIME_EXCEEDING_SESSION_INTERVAL = 2000;
+
   /**
    * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3101
@@ -40,6 +48,8 @@ class Issue3101IT extends BaseITNG {
         if (page.containsText("State Saving Method: server")) {
             WebElement expireButton = page.findElement(By.id("form:expireSessionSoon"));
             page.guardAjax(expireButton::click);
+
+            Thread.sleep(IDLE_TIME_EXCEEDING_SESSION_INTERVAL);
 
             WebElement submitButton = page.findElement(By.id("form:submit"));
             page.guardAjax(submitButton::click);

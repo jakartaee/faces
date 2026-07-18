@@ -21,4 +21,30 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd"
     version="3.0">
+
+    <!-- Registered solely because this file is listed in jakarta.faces.CONFIG_FILES. -->
+
+    <component>
+        <component-type>StartupBehaviorConfigComponent</component-type>
+        <component-class>ee.jakarta.tck.faces.faces20.appconfigresources.startupbehavior.StartupBehaviorConfigComponent</component-class>
+    </component>
+
+    <converter>
+        <converter-id>StartupBehaviorConfigConverter</converter-id>
+        <converter-class>ee.jakarta.tck.faces.faces20.appconfigresources.startupbehavior.StartupBehaviorConfigConverter</converter-class>
+    </converter>
+
+    <validator>
+        <validator-id>StartupBehaviorConfigValidator</validator-id>
+        <validator-class>ee.jakarta.tck.faces.faces20.appconfigresources.startupbehavior.StartupBehaviorConfigValidator</validator-class>
+    </validator>
+
+    <render-kit>
+        <renderer>
+            <component-family>StartupBehaviorConfig</component-family>
+            <renderer-type>StartupBehaviorConfigRenderer</renderer-type>
+            <renderer-class>ee.jakarta.tck.faces.faces20.appconfigresources.startupbehavior.StartupBehaviorConfigRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+
 </faces-config>

@@ -42,5 +42,6 @@
         <module>multipagewebinf</module>
         <module>basicimplicit</module>
         <module>factory</module>
+        <module>emptyflowdefinition</module>
     </modules>
 </project>

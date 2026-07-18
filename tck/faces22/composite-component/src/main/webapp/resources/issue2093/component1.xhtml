@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html xmlns:h="jakarta.faces.html"
+      xmlns:cc="jakarta.faces.composite"
+      xmlns:issue2093="jakarta.faces.composite/issue2093">
+    <h:head>
+        <title>Issue2093 component1</title>
+    </h:head>
+    <h:body>
+        <cc:interface componentType="ee.jakarta.tck.faces.faces22.composite_component.Issue2093Component1">
+            <cc:attribute name="item" type="ee.jakarta.tck.faces.faces22.composite_component.Issue2093DataItem"/>
+        </cc:interface>
+        <cc:implementation>
+            <h:panelGroup id="group" layout="block">
+                <h:panelGroup id="controls" layout="block"/>
+                <issue2093:component2 item="#{cc.attrs.item}"/>
+            </h:panelGroup>
+        </cc:implementation>
+    </h:body>
+</html>

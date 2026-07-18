@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
+    <f:view>
+        <h:head>
+            <title>Issue2399</title>
+        </h:head>
+        <h:body>
+            <h:messages />
+            <h:form id="form">
+                <h:panelGroup id="group" binding="#{issue2399Bean.panelGroup}">
+                    <h:inputText id="removeMe" value="Remove Me" />
+                </h:panelGroup>
+                <h:commandButton id="add" value="add" actionListener="#{issue2399Bean.doAdd}" />
+                <h:commandButton id="addRemove" value="addRemove" actionListener="#{issue2399Bean.doAddRemove}" />
+                <h:commandButton id="addRemoveAdd" value="addRemoveAdd" actionListener="#{issue2399Bean.doAddRemoveAdd}" />
+                <h:commandButton id="remove" value="remove" actionListener="#{issue2399Bean.doRemove}" />
+                <h:commandButton id="removeAdd" value="removeAdd" actionListener="#{issue2399Bean.doRemoveAdd}" />
+                <h:commandButton id="removeAddRemove" value="removeAddRemove" actionListener="#{issue2399Bean.doRemoveAddRemove}" />
+            </h:form>
+        </h:body>
+    </f:view>
+</html>

@@ -579,6 +579,22 @@
                                 <phase>initialize</phase>
                                 <goals><goal>up</goal></goals>
                             </execution>
+                            <!--
+                                clean deletes target/pool while the slot JVMs keep running, which
+                                orphans them: the next up() finds no ports.properties, provisions a
+                                fresh slot and start-domain then collides on the admin port. Stop
+                                the domains before their directories go away.
+
+                                Not inherited: pre-clean runs per module, so an inherited binding
+                                would let one module's clean stop slots a parallel module is still
+                                testing against. Only the root aggregator reclaims the pool.
+                            -->
+                            <execution>
+                                <id>pool-down-before-clean</id>
+                                <phase>pre-clean</phase>
+                                <inherited>false</inherited>
+                                <goals><goal>down</goal></goals>
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>

@@ -17,11 +17,13 @@
 
 package ee.jakarta.tck.faces.faces23.el;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import jakarta.el.ResourceBundleELResolver;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
@@ -56,6 +58,6 @@ public class Spec1337IT extends BaseITNG {
     @Test
     void resourceEL3() throws Exception {
         WebPage page = getPage("spec1337-3.xhtml");
-        assertTrue(page.containsSource("jakarta.el.ELException"));
+        assertEquals("jakarta.el.ELException", page.findElement(By.id("exception")).getText());
     }
 }

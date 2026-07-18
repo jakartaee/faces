@@ -54,6 +54,23 @@
         <module>viewhandler</module>
         <module>el</module>
         <module>navigation</module>
+        <module>view-expired-exception</module>
+        <module>bogus-render-kit-id</module>
+        <module>composite-source-validation</module>
+        <module>converter-exception-ajax</module>
+        <module>custom-lifecycle</module>
+        <module>custom-view-handler</module>
+        <module>disable-bean-validator</module>
+        <module>el-context-listener</module>
+        <module>faces-servlet-protected-paths</module>
+        <module>init-view-request-encoding</module>
+        <module>locale-config</module>
+        <module>resource-locale-prefix</module>
+        <module>resource-path-traversal</module>
+        <module>string-converter</module>
+        <module>view-handler-action-url</module>
+        <module>view-param</module>
+        <module>view-param-el-redirect</module>
     </modules>
 
     <dependencies>

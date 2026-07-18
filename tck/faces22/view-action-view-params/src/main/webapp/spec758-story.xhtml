@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <f:metadata>
+        <f:viewParam id="id" name="id" value="#{spec758NewsReader.selectedStoryId}"
+                     required="true"
+                     requiredMessage="You did not specify a headline. (The id parameter is missing)"
+                     converterMessage="Invalid headline. (The id parameter is not a number)"
+                     validatorMessage="Invalid headline. (The id parameter is not a positive number)">
+            <f:validateLongRange minimum="1" />
+        </f:viewParam>
+        <f:viewAction action="#{spec758NewsReader.goToHomeIfValidationFailed}"
+                      phase="PROCESS_VALIDATIONS" onPostback="true" />
+        <f:viewAction action="#{spec758NewsReader.loadStory}" onPostback="true" />
+    </f:metadata>
+    <h:head>
+        <title>Spec758IT</title>
+    </h:head>
+    <h:body>
+        <h:messages id="messages" />
+        <h:outputText id="headline" value="#{spec758NewsReader.selectedStory.headline}" />
+        <h:outputText id="content" value="#{spec758NewsReader.selectedStory.content}" />
+        <h:form id="form">
+            <h:commandButton id="refresh" value="Refresh" />
+            <h:commandButton id="refreshClearParam" value="Refresh (clear param)">
+                <f:param name="id" value="#{null}" />
+            </h:commandButton>
+            <h:commandButton id="refreshWithRedirectParams"
+                             action="/spec758-story.xhtml?faces-redirect=true&amp;includeViewParams=true"
+                             value="Refresh (Redirect After POST w/ params)" />
+            <h:commandButton id="refreshWithRedirect"
+                             action="/spec758-story.xhtml?faces-redirect=true"
+                             value="Refresh (Redirect After POST w/o params)" />
+            <h:commandButton id="home"
+                             action="/spec758-home.xhtml?faces-redirect=true&amp;from=story"
+                             value="Home" />
+            <h:commandButton id="homeRememberSelection"
+                             action="/spec758-home.xhtml?faces-redirect=true&amp;includeViewParams=true&amp;from=story"
+                             value="Home (Keep selection)" />
+            <h:commandButton id="homeRememberSelectionNavCase"
+                             action="homeWithParams"
+                             value="Home (Keep selection nav case)" />
+            <h:commandButton id="story2RememberSelectionNavCase"
+                             action="story2WithParams"
+                             value="Story2 (Keep selection nav case)" />
+        </h:form>
+    </h:body>
+</html>

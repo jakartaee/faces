@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html xmlns:h="jakarta.faces.html"
+      xmlns:composite="jakarta.faces.composite"
+      xmlns:ez="jakarta.faces.composite/composite">
+<h:head><title>nesting6</title></h:head>
+<h:body>
+    <composite:interface>
+        <composite:attribute name="bean" required="true"/>
+    </composite:interface>
+    <composite:implementation>
+        <ez:nesting7 id="nesting7" action="#{cc.attrs.bean.action}"
+                                   actionListener="#{cc.attrs.bean.actionListener}"
+                                   validator="#{cc.attrs.bean.validate}"
+                                   valueChangeListener="#{cc.attrs.bean.valueChange}"
+                                   bean="#{cc.attrs.bean}"/>
+    </composite:implementation>
+</h:body>
+</html>

@@ -15,6 +15,8 @@
  */
 package ee.jakarta.tck.faces.faces20.api.application.resourcehandlerEx;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,8 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 class ResourceHandlerExIT extends BaseITNG {
+
+    private static final String EXCLUDED_RESOURCE = "faces/jakarta.faces.resource/secret.xhtml?ln=showcase";
 
     private void runServletTest(String testName) {
         String body = getResponseBody("ResourceHandlerExTestServlet?testname=" + testName);
@@ -33,4 +37,21 @@ class ResourceHandlerExIT extends BaseITNG {
     @Test void resourceHandlerExcludeJSPXTest() { runServletTest("resourceHandlerExcludeJSPXTest"); }
     @Test void resourceHandlerExcludePropertiesTest() { runServletTest("resourceHandlerExcludePropertiesTest"); }
     @Test void resourceHandlerExcludeXHTMLTest() { runServletTest("resourceHandlerExcludeXHTMLTest"); }
+
+    /**
+     * The sibling tests above only assert that '.xhtml' is listed in the excludes constant. This one
+     * asserts the runtime enforcement: a resource request for a Facelet inside a resource library
+     * must be rejected and must never deliver the Facelet source.
+     *
+     * @see jakarta.faces.application.ResourceHandler#RESOURCE_EXCLUDES_PARAM_NAME
+     * @see https://jakarta.ee/specifications/faces/5.0/apidocs/jakarta.faces/jakarta/faces/application/resourcehandler#RESOURCE_EXCLUDES_PARAM_NAME
+     */
+    @Test
+    void resourceHandlerExcludeXHTMLRuntimeTest() {
+        assertNotEquals(200, getStatusCode(EXCLUDED_RESOURCE), "An excluded resource must not be served");
+
+        String body = getResponseBody(EXCLUDED_RESOURCE);
+        assertFalse(body.contains("<h:form"), "Facelet source leaked:\n" + body);
+        assertFalse(body.contains("<h:body"), "Facelet source leaked:\n" + body);
+    }
 }
