@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
 import ee.jakarta.tck.faces.util.JSFTestUtil;
@@ -594,6 +595,162 @@ public final class FacesContextTestServlet extends HttpTCKServlet {
 
     out.println(JSFTestUtil.PASS);
   }
+
+  // Iterator.remove() on FacesContext.getMessages() removes the queued message
+  // and FacesContext.getMaximumSeverity() is recomputed accordingly.
+  public void facesCtxGetMessagesIteratorRemoveTest(HttpServletRequest request,
+      HttpServletResponse response) throws IOException {
+    PrintWriter out = response.getWriter();
+    FacesContext context = getFacesContext();
+    context.setViewRoot(createViewRoot());
+
+    context.addMessage(null, new TCKMessage(FacesMessage.Severity.WARN,
+        "warn summary", "warn detail", "warn"));
+    context.addMessage(null, new TCKMessage(FacesMessage.Severity.INFO,
+        "info summary", "info detail", "info"));
+    context.addMessage(null, new TCKMessage(FacesMessage.Severity.ERROR,
+        "error summary", "error detail", "error"));
+
+    for (Iterator<FacesMessage> i = context.getMessages(); i.hasNext();) {
+      i.next();
+      i.remove();
+    }
+
+    String failure = validateMaximumSeverity(context, null,
+        "after every message was removed via the FacesContext.getMessages() iterator");
+    if (failure != null) {
+      out.println(failure);
+      return;
+    }
+
+    context.addMessage("id1", new TCKMessage(FacesMessage.Severity.INFO,
+        "info summary", "info detail", "info1"));
+    context.addMessage("id3", new TCKMessage(FacesMessage.Severity.INFO,
+        "info summary", "info detail", "info2"));
+    context.addMessage("id3", new TCKMessage(FacesMessage.Severity.ERROR,
+        "error summary", "error detail", "error"));
+    context.addMessage("id3", new TCKMessage(FacesMessage.Severity.INFO,
+        "info summary", "info detail", "info3"));
+    context.addMessage(null, new TCKMessage(FacesMessage.Severity.FATAL,
+        "fatal summary", "fatal detail", "fatal"));
+
+    FacesMessage.Severity[] removalOrder = { FacesMessage.Severity.FATAL,
+        FacesMessage.Severity.ERROR, FacesMessage.Severity.INFO };
+    FacesMessage.Severity[] expectedMaximums = { FacesMessage.Severity.ERROR,
+        FacesMessage.Severity.INFO, null };
+
+    failure = validateMaximumSeverity(context, FacesMessage.Severity.FATAL,
+        "after INFO, ERROR and FATAL messages were added");
+    if (failure != null) {
+      out.println(failure);
+      return;
+    }
+
+    for (int i = 0; i < removalOrder.length; i++) {
+      removeMessagesWithSeverity(context, removalOrder[i]);
+      failure = validateMaximumSeverity(context, expectedMaximums[i],
+          "after the " + removalOrder[i]
+              + " messages were removed via the FacesContext.getMessages() iterator");
+      if (failure != null) {
+        out.println(failure);
+        return;
+      }
+    }
+
+    out.println(JSFTestUtil.PASS);
+  }
+
+  // Iterator.remove() on FacesContext.getClientIdsWithMessages() removes all
+  // messages queued under that client id.
+  public void facesCtxGetClientIdsWithMessagesIteratorRemoveTest(
+      HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+    PrintWriter out = response.getWriter();
+    FacesContext context = getFacesContext();
+    context.setViewRoot(createViewRoot());
+
+    context.addMessage("id1", new TCKMessage(FacesMessage.Severity.INFO,
+        "info summary", "info detail", "info1"));
+    context.addMessage("id3", new TCKMessage(FacesMessage.Severity.WARN,
+        "warn summary", "warn detail", "warn"));
+    context.addMessage("id3", new TCKMessage(FacesMessage.Severity.ERROR,
+        "error summary", "error detail", "error"));
+    context.addMessage("id3", new TCKMessage(FacesMessage.Severity.FATAL,
+        "fatal summary", "fatal detail", "fatal"));
+    context.addMessage("id2", new TCKMessage(FacesMessage.Severity.INFO,
+        "info summary", "info detail", "info2"));
+
+    for (Iterator<String> i = context.getClientIdsWithMessages(); i.hasNext();) {
+      if ("id3".equals(i.next())) {
+        i.remove();
+      }
+    }
+
+    if (context.getMessages("id3").hasNext()) {
+      out.println(JSFTestUtil.FAIL
+          + " FacesContext.getMessages(\"id3\") still returned messages after"
+          + " 'id3' was removed via the FacesContext.getClientIdsWithMessages()"
+          + " iterator.");
+      return;
+    }
+
+    String failure = validateMaximumSeverity(context, FacesMessage.Severity.INFO,
+        "after 'id3' was removed via the FacesContext.getClientIdsWithMessages() iterator");
+    if (failure != null) {
+      out.println(failure);
+      return;
+    }
+
+    for (Iterator<String> i = context.getClientIdsWithMessages(); i.hasNext();) {
+      i.next();
+      i.remove();
+    }
+
+    failure = validateMaximumSeverity(context, null,
+        "after every client id was removed via the FacesContext.getClientIdsWithMessages() iterator");
+    if (failure != null) {
+      out.println(failure);
+      return;
+    }
+
+    out.println(JSFTestUtil.PASS);
+  }
+
+  // The FacesContext.getMessages() iterator honours the java.util.Iterator
+  // contract for next() past the end and remove() before next().
+  public void facesCtxGetMessagesIteratorExceptionsTest(
+      HttpServletRequest request, HttpServletResponse response)
+      throws IOException {
+    PrintWriter out = response.getWriter();
+    FacesContext context = getFacesContext();
+    context.setViewRoot(createViewRoot());
+
+    context.addMessage(null, new TCKMessage(FacesMessage.Severity.FATAL,
+        "fatal summary", "fatal detail", "fatal"));
+
+    Iterator<FacesMessage> messages = context.getMessages();
+    messages.next();
+    try {
+      messages.next();
+      out.println(JSFTestUtil.FAIL + " Expected the FacesContext.getMessages()"
+          + " iterator to throw a NoSuchElementException when next() is called"
+          + " past the last message.");
+      return;
+    } catch (NoSuchElementException expected) {
+    }
+
+    messages = context.getMessages();
+    try {
+      messages.remove();
+      out.println(JSFTestUtil.FAIL + " Expected the FacesContext.getMessages()"
+          + " iterator to throw an IllegalStateException when remove() is called"
+          + " before next().");
+      return;
+    } catch (IllegalStateException expected) {
+    }
+
+    out.println(JSFTestUtil.PASS);
+  }
   // FacesContext.getResponseComplete()
   // FacesContext.responseComplete()
 
@@ -1135,6 +1292,31 @@ public final class FacesContextTestServlet extends HttpTCKServlet {
     }
 
     return result;
+  }
+
+  private void removeMessagesWithSeverity(FacesContext context,
+      FacesMessage.Severity severity) {
+    for (Iterator<FacesMessage> i = context.getMessages(); i.hasNext();) {
+      if (i.next().getSeverity() == severity) {
+        i.remove();
+      }
+    }
+  }
+
+  /*
+   * Returns null when FacesContext.getMaximumSeverity() equals the expected
+   * severity, otherwise the failure message to be written to the response.
+   */
+  private String validateMaximumSeverity(FacesContext context,
+      FacesMessage.Severity expected, String when) {
+    FacesMessage.Severity received = context.getMaximumSeverity();
+    if (received != expected) {
+      return JSFTestUtil.FAIL
+          + " Unexpected value returned by FacesContext.getMaximumSeverity() "
+          + when + JSFTestUtil.NL + "Expected: " + expected + JSFTestUtil.NL
+          + "Received: " + received;
+    }
+    return null;
   }
 
   private FacesMessage[] getMessagesAsArray(Iterator iterator) {

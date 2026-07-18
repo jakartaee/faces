@@ -40,6 +40,25 @@ class StartupBehaviorIT extends BaseITNG {
         assertEquals("blue", findByIdSuffix(page, "ball").getText());
     }
 
+    /**
+     * A component, converter, validator and renderer declared in an application configuration
+     * resource which is only reachable because it is listed in {@code jakarta.faces.CONFIG_FILES}
+     * are registered in the application and in the render kit, whereas the same kind of declaration
+     * in a resource which is not listed is ignored.
+     *
+     * @see jakarta.faces.webapp.FacesServlet#CONFIG_FILES_ATTR
+     * @see https://jakarta.ee/specifications/faces/5.0/apidocs/jakarta.faces/jakarta/faces/webapp/facesservlet#CONFIG_FILES_ATTR
+     */
+    @Test
+    void applicationConfigurationfilesTest3() {
+        WebPage page = getPage("appconfig_03.xhtml");
+        assertEquals("StartupBehaviorConfigComponent", findByIdSuffix(page, "component").getText());
+        assertEquals("StartupBehaviorConfigConverter", findByIdSuffix(page, "converter").getText());
+        assertEquals("StartupBehaviorConfigValidator", findByIdSuffix(page, "validator").getText());
+        assertEquals("StartupBehaviorConfigRenderer", findByIdSuffix(page, "renderer").getText());
+        assertEquals("NOT-REGISTERED", findByIdSuffix(page, "unlisted").getText());
+    }
+
     private static org.openqa.selenium.WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
         return page.findElement(By.xpath(

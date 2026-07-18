@@ -30,17 +30,29 @@ class EditablevalueholderIT extends BaseITNG {
     void compositeEditableValueHolderTest() {
         // case 1: only 'name' attribute specified
         WebPage pageOne = getPage("editablevalueholder/caseOne.xhtml");
-        testValueListener(pageOne, "firstname", "caseOne");
+        testValueListener(pageOne, "firstname", "caseOne", "testingOne");
 
         // case 2: both 'target' and 'name' attributes specified
         WebPage pageTwo = getPage("editablevalueholder/caseTwo.xhtml");
-        testValueListener(pageTwo, "lastname", "caseTwo");
+        testValueListener(pageTwo, "lastname", "caseTwo", "testingTwo");
+
+        // case 3: the exposed value holder is a nested composite reusing the same id
+        WebPage pageThree = getPage("editablevalueholder/caseThree.xhtml");
+        testValueListener(pageThree, "firstname", "caseThree", "testingThree");
+
+        // case 4: 'targets' points across a NamingContainer nested in the composite
+        WebPage pageFour = getPage("editablevalueholder/caseFour.xhtml");
+        testValueListener(pageFour, "lastname", "caseFour", "testingFour");
     }
 
-    private void testValueListener(WebPage page, String textId, String spanId) {
+    /**
+     * The backing beans are session scoped, so each case must submit a value distinct from the one
+     * the earlier case using the same bean left behind — otherwise no value change fires at all.
+     */
+    private void testValueListener(WebPage page, String textId, String spanId, String value) {
         WebElement input = findByIdSuffix(page, textId);
         input.clear();
-        input.sendKeys("testing");
+        input.sendKeys(value);
 
         WebElement button = findByIdSuffix(page, "button");
         page.guardHttp(button::click);

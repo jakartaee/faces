@@ -38,4 +38,8 @@
         <param-name>jakarta.faces.SERIALIZE_SERVER_STATE</param-name>
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
+    <context-param>
+        <param-name>jakarta.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/issue2217Behavior.taglib.xml</param-value>
+    </context-param>
 </web-app>

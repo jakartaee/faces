@@ -69,6 +69,20 @@
         <module>component-events</module>
         <module>default-validator</module>
         <module>facelet-cache-factory</module>
+        <module>el-decorated-faces-context</module>
+        <module>phase-listener-default</module>
+        <module>view-action-view-params</module>
+        <module>flash-factory</module>
+        <module>flow-return-from-depth</module>
+        <module>flow-with-view-action</module>
+        <module>never-unwrap-exceptions</module>
+        <module>request-char-encoding</module>
+        <module>resource-library-contracts</module>
+        <module>view-param-locale</module>
+        <module>webapp-resources-directory</module>
+        <module>flow-defining-document-id-jar1</module>
+        <module>flow-defining-document-id-jar2</module>
+        <module>flow-defining-document-id</module>
     </modules>
 
     <dependencies>

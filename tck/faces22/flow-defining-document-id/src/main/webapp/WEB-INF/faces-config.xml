@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<faces-config
+    xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
+    version="4.1">
+
+    <!--
+        Both JARs define a flow with the very same id "bounded-task-flow", so the flow id alone
+        cannot identify the target. The to-flow-document-id picks the defining document.
+    -->
+    <navigation-rule>
+        <from-view-id>/issue2584.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{issue2584Bean.flow01}</from-action>
+            <from-outcome>bounded-task-flow</from-outcome>
+            <to-view-id>bounded-task-flow</to-view-id>
+            <to-flow-document-id>flow01</to-flow-document-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{issue2584Bean.flow02}</from-action>
+            <from-outcome>bounded-task-flow</from-outcome>
+            <to-view-id>bounded-task-flow</to-view-id>
+            <to-flow-document-id>flow02</to-flow-document-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

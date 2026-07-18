@@ -1,0 +1,17 @@
+/*
+ * Copyright (c) 2026 Contributors to Eclipse Foundation.
+ *
+ * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+ */
+
+body {
+    background-color: #ffffff;
+    color: #000000;
+    margin: 10px;
+}
+
+h1 {
+    border-bottom: 1px solid #AFAFAF;
+    font-weight: bold;
+    color: #D20005;
+}

@@ -1,0 +1,45 @@
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<!DOCTYPE html>
+<html xmlns:h="jakarta.faces.html">
+    <h:head>
+        <title>Issue4198IT</title>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById("dynamicOnSubmitForm").addEventListener("submit", function() {
+                    document.getElementById("dynamicOnSubmitForm:log").value = "dynamic onSubmit triggered";
+                });
+            });
+        </script>
+    </h:head>
+    <h:body>
+        <h:form id="staticOnSubmitForm" onsubmit="document.getElementById('staticOnSubmitForm:log').value = 'static onSubmit triggered'">
+            <h:inputHidden id="log" value="#{issue4198Bean.log}" />
+            <h:commandLink id="AAA" value="Link" />
+            <h:commandButton id="BBB" value="Button" />
+        </h:form>
+
+        <h:form id="dynamicOnSubmitForm">
+            <h:inputHidden id="log" value="#{issue4198Bean.log}" />
+            <h:commandLink id="AAA" value="Link" />
+            <h:commandButton id="BBB" value="Button" />
+        </h:form>
+
+        <h:outputText id="result" value="#{issue4198Bean.log}" />
+    </h:body>
+</html>

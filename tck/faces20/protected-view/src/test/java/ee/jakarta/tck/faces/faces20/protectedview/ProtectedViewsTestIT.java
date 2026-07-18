@@ -17,7 +17,6 @@
 package ee.jakarta.tck.faces.faces20.protectedview;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -44,7 +43,7 @@ class ProtectedViewsTestIT extends BaseITNG {
 
     assertEquals(0, page.findElements​(By.id("messOne")).size(), "Illegal Access of a Protected View!");
 
-    assertTrue(page.containsText("jakarta.faces.application.ProtectedViewException"), "Expected a ProtectedViewException when accessing a protected view");
+    assertEquals("jakarta.faces.application.ProtectedViewException", page.findElement(By.id("exception")).getText(), "Expected a ProtectedViewException when accessing a protected view");
 
   }
 

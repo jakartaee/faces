@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ez="jakarta.faces.composite/composite">
+<h:head><title>attachedvalidator</title></h:head>
+<h:body>
+    <h:form id="form">
+        <ez:validator1 id="validator1">
+            <f:validator for="input" binding="#{compositeComponentsBean.validator}"/>
+        </ez:validator1>
+        <h:commandButton id="s1" value="Submit"/>
+    </h:form>
+    <h:form id="form2">
+        <ez:validator2 id="validator2">
+            <f:validator for="input" binding="#{compositeComponentsBean.validator}"/>
+        </ez:validator2>
+        <h:commandButton id="s2" value="Submit"/>
+    </h:form>
+    <h:form id="form3">
+        <ez:validator3 id="validator3">
+            <f:validator for="input" binding="#{compositeComponentsBean.validator}"/>
+        </ez:validator3>
+        <h:commandButton id="s3" value="Submit"/>
+    </h:form>
+    <h:form id="form4">
+        <ez:validator4 id="validator4">
+            <f:validator for="input" binding="#{compositeComponentsBean.validator}"/>
+        </ez:validator4>
+        <h:commandButton id="s4" value="Submit"/>
+    </h:form>
+    <h:messages id="messages"/>
+</h:body>
+</html>

@@ -15,17 +15,47 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.uiviewroot;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import jakarta.faces.component.UIViewRoot;
+
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
+import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class UIViewRootIT extends BaseITNG {
 
     private void runServletTest(String testName) {
         String body = getResponseBody("UIViewRootTestServlet?testname=" + testName);
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
+    }
+
+    /**
+     * The method expressions declared as the view's {@code beforePhase} and {@code afterPhase}
+     * listeners must actually be invoked, once per phase, in lifecycle order. Neither log ever
+     * observes the restore view before phase, as the view carrying the listeners does not exist yet
+     * when that phase begins, nor the render response after phase, as both logs are read while
+     * rendering. The initial request skips straight from restore view to render response; a postback
+     * runs the phases in between.
+     *
+     * @see UIViewRoot#setBeforePhaseListener(jakarta.el.MethodExpression)
+     * @see UIViewRoot#setAfterPhaseListener(jakarta.el.MethodExpression)
+     * @see https://jakarta.ee/specifications/faces/5.0/apidocs/jakarta.faces/jakarta/faces/component/uiviewroot
+     */
+    @Test
+    void uiViewRootBeforeAfterPhaseListenerTest() {
+        WebPage page = getPage("uiViewRootPhaseListeners.xhtml");
+        assertEquals("RENDER_RESPONSE 6", page.findElement(By.id("form:beforePhases")).getText(), "initial before phases");
+        assertEquals("RESTORE_VIEW 1", page.findElement(By.id("form:afterPhases")).getText(), "initial after phases");
+
+        page.guardHttp(page.findElement(By.id("form:redisplay"))::click);
+        assertEquals("APPLY_REQUEST_VALUES 2 PROCESS_VALIDATIONS 3 UPDATE_MODEL_VALUES 4 INVOKE_APPLICATION 5 RENDER_RESPONSE 6",
+            page.findElement(By.id("form:beforePhases")).getText(), "postback before phases");
+        assertEquals("RESTORE_VIEW 1 APPLY_REQUEST_VALUES 2 PROCESS_VALIDATIONS 3 UPDATE_MODEL_VALUES 4 INVOKE_APPLICATION 5",
+            page.findElement(By.id("form:afterPhases")).getText(), "postback after phases");
     }
 
     @Test void uiComponentEncodeBeginNotRenderedTest() { runServletTest("uiComponentEncodeBeginNotRenderedTest"); }

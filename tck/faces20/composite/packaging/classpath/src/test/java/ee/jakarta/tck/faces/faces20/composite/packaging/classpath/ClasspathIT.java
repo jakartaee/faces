@@ -34,6 +34,22 @@ class ClasspathIT extends BaseITNG {
         assertEquals("PASSED", span.getText(), "case1 span value");
     }
 
+    /**
+     * A composite packaged in a JAR under META-INF/resources resolves its declared attribute through
+     * #{cc.attrs} and, being a naming container, prepends its own id to that of its child input.
+     *
+     * @see jakarta.faces.component.UINamingContainer
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/1860
+     */
+    @Test
+    void compositeClasspathAttributeValueAndPrependedId() {
+        WebPage page = getPage("pkgTest2.xhtml");
+
+        WebElement input = page.findElement(By.id("form:mycc:input"));
+        assertEquals("attribute value", input.getAttribute("value"), "input value");
+        assertEquals("form:mycc:input", input.getAttribute("name"), "input name");
+    }
+
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
         return page.findElement(By.xpath(
