@@ -1328,7 +1328,9 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      * </p>
      *
      * <p>
-     * Iterate over the rows.
+     * Iterate over the rows. <span class="changed_added_5_0">The rows are only iterated over when
+     * {@link VisitHint#SKIP_ITERATION} is absent from the hints of the given {@link VisitContext}. When it is present,
+     * the children are instead visited once at the current row index, without the row index being manipulated.</span>
      * </p>
      *
      * </div>
