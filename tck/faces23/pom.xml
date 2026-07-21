@@ -58,13 +58,9 @@
         <module>input-required</module>
         <module>converter-injection</module>
         <module>el</module>
-        <module>import-constants</module>
+        <module>misc</module>
         <module>command-script</module>
-        <module>xhtml-namespaces</module>
-        <module>xhtml-mapping-default</module>
-        <module>ui-decorate</module>
         <module>facelet-cache</module>
-        <module>system-event</module>
         <module>xhtml-mapping-disabled</module>
 <!--
     Below two are deactivated until the value of jakarta.faces.FACELETS_REFRESH_PERIOD is available via public API such as FaceletCache#getRefreshPerid().

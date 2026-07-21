@@ -49,12 +49,9 @@
         <module>view-scope</module>
         <module>multi-field-validation</module>
         <module>method-validation</module>
-        <module>el-lambda</module>
+        <module>misc</module>
         <module>view-action-viewscoped</module>
-        <module>bean-validation</module>
         <module>implicit-bean-archive</module>
-        <module>child-count</module>
-        <module>facelets-template</module>
         <module>client-window</module>
         <module>empty-as-null</module>
         <module>injection</module>
@@ -76,7 +73,6 @@
         <module>flow-return-from-depth</module>
         <module>flow-with-view-action</module>
         <module>never-unwrap-exceptions</module>
-        <module>request-char-encoding</module>
         <module>resource-library-contracts</module>
         <module>view-param-locale</module>
         <module>webapp-resources-directory</module>
