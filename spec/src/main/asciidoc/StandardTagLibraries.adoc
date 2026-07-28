@@ -207,8 +207,16 @@ determine if there is a facet of the component associated with
 our parent _UIComponent_ tag, with the specified facet name,
 and proceed as follows:
 
-** If such a facet already exists, take no
-additional action.
+** If such a facet already exists and it is the
+component associated with this tag, take no additional
+action.
+
+** If such a facet already exists and it is another
+component, then, unless that facet is an automatically created
+_UIPanel_ component, create one, make it the facet under the
+specified facet name, and move the previously existing facet into
+it as a child. Add the component associated with this tag as a
+child of that _UIPanel_.
 
 ** If no such facet already exists, create a new
 _UIComponent_ (by calling the _createComponent()_ method on the
@@ -326,13 +334,16 @@ proper listener interface a _AbortProcessingException_ must be thrown.
 
 ==== Using Facets
 
-A _Facet_ is a subordinate UIComponent that
+A _Facet_ is a subordinate _UIComponent_ that
 has a special relationship to its parent _UIComponent_, as described in
 <<UserInterfaceComponentModel.adoc#a968,Facet Management>>. Facets can be defined
-in a page using the _<f:facet>_ tag. Each facet tag
-must have one and only one child UIComponent
-tag <<Footnotes.adoc#a9099,^[10]^>>, unless the facet declares pass through attributes,
-in which case a _UIPanel_ component is automatically created. For example:
+in a page using the _<f:facet>_ tag. When the facet tag has exactly
+one child _UIComponent_ tag, that child becomes the facet. When it has
+more than one child _UIComponent_ tag, a _UIPanel_ component is
+automatically created as the facet and the children are placed in
+it <<Footnotes.adoc#a9099,^[10]^>>. When it has no child _UIComponent_
+tag but does declare pass through attributes, a _UIPanel_ component is
+automatically created as the facet as well. For example:
 
 [source,xml]
 ----

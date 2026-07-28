@@ -43,9 +43,10 @@ totally up to the page author, and has no semantic meaning. However, the
 values shown above are the suggested defaults, which are used
 consistently in tag library examples throughout this specification.
 
-<<Footnotes.adoc#a9099,[10]>> [[a9099]]If you need multiple
-components in a facet, nest them inside a <h:panelGroup> tag
-that is the value of the facet.
+<<Footnotes.adoc#a9099,[10]>> [[a9099]]Nest the multiple
+components inside a _<h:panelGroup>_ tag that is the value of the
+facet if you need control over the component type, the renderer
+type or the client identifier of the container component.
 
 <<Footnotes.adoc#a9101,[11]>> [[a9101]]This component has no
 associated Renderer, so the getRendererType() method must return null
