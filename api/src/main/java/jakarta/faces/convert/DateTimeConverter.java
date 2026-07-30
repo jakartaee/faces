@@ -22,11 +22,15 @@ import static jakarta.faces.convert.MessageFactory.getMessage;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.MonthDay;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
+import java.time.Year;
+import java.time.YearMonth;
 import java.time.ZonedDateTime;
 import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
@@ -190,7 +194,11 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
         "localTime", LocalTime::from,
         "offsetTime", OffsetTime::from,
         "offsetDateTime", OffsetDateTime::from,
-        "zonedDateTime", ZonedDateTime::from
+        "zonedDateTime", ZonedDateTime::from,
+        "instant", Instant::from,
+        "year", Year::from,
+        "yearMonth", YearMonth::from,
+        "monthDay", MonthDay::from
     );
 
     private static final Pattern ESCAPED_DATE_TIME_PATTERN = Pattern.compile("'[^']*+'");
@@ -354,10 +362,28 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
      * <span class="changed_modified_2_3">Set</span> the type of value to be formatted or parsed. Valid values are <code>both</code>,
      * <code>date</code>, <code>time</code> <span class="changed_added_2_3">{@code localDate}, {@code
      * localDateTime}, {@code localTime}, {@code offsetTime}, {@code
-     * offsetDateTime}, or {@code zonedDateTime}. The values starting with "local", "offset" and "zoned" correspond to Java SE 8 Date
+     * offsetDateTime}, {@code zonedDateTime}<span class="changed_added_5_0">, {@code instant}, {@code year},
+     * {@code yearMonth}, or {@code monthDay}</span>. The values starting with "local", "offset" and "zoned" correspond to Java SE 8 Date
      * Time API classes in package <code>java.time</code> with the name derived by upper casing the first letter. For example,
      * <code>java.time.LocalDate</code> for the value <code>"localDate"</code>.</span> An invalid value will cause a
      * {@link ConverterException} when <code>getAsObject()</code> or <code>getAsString()</code> is called.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * The values {@code instant}, {@code year}, {@code yearMonth} and {@code monthDay} correspond in the same way to
+     * {@code java.time.Instant}, {@code java.time.Year}, {@code java.time.YearMonth} and {@code java.time.MonthDay}. None
+     * of these types can be formatted or parsed with a localized date/time style, hence the <code>dateStyle</code> and
+     * <code>timeStyle</code> properties must be ignored for them. When no <code>pattern</code> has been specified, the ISO
+     * 8601 representation of the type must be used: {@code java.time.format.DateTimeFormatter.ISO_INSTANT} for
+     * {@code instant}, the pattern {@code "uuuu"} for {@code year}, {@code "uuuu-MM"} for {@code yearMonth} and
+     * {@code "--MM-dd"} for {@code monthDay}.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * A {@code java.time.Instant} does not carry a time zone, hence for the type {@code instant} the <code>timezone</code>
+     * property must be passed to the underlying {@code DateTimeFormatter}, so that a <code>pattern</code> containing date
+     * or time fields can be resolved. Note that {@code ISO_INSTANT} always renders in UTC, regardless of the
+     * <code>timezone</code> property.
      * </p>
      *
      * @param type The new date style
@@ -407,6 +433,9 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
                 switch (type) {
                 case "date":
                 case "localDate":
+                case "year":
+                case "yearMonth":
+                case "monthDay":
                     throw new ConverterException(
                         getMessage(context, DATE_ID, value, parser.formatNow(), getLabel(context, component)),
                         e);
@@ -420,6 +449,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
                 case "localDateTime":
                 case "offsetDateTime":
                 case "zonedDateTime":
+                case "instant":
                     throw new ConverterException(getMessage(context, DATETIME_ID, value, parser.formatNow(),
                         getLabel(context, component)), e);
                 }
@@ -668,6 +698,15 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
             dtf = DateTimeFormatter.ISO_OFFSET_DATE_TIME.withLocale(locale);
         } else if (type.equals("zonedDateTime")) {
             dtf = DateTimeFormatter.ISO_ZONED_DATE_TIME.withLocale(locale);
+        } else if (type.equals("instant")) {
+            dtf = DateTimeFormatter.ISO_INSTANT.withLocale(locale);
+        } else if (type.equals("year")) {
+            // These three patterns represent the ISO 8601 form of the type, as also used by its own parse() and toString().
+            dtfBuilder = new DateTimeFormatterBuilder().appendPattern("uuuu");
+        } else if (type.equals("yearMonth")) {
+            dtfBuilder = new DateTimeFormatterBuilder().appendPattern("uuuu-MM");
+        } else if (type.equals("monthDay")) {
+            dtfBuilder = new DateTimeFormatterBuilder().appendPattern("--MM-dd");
         } else {
             // PENDING(craigmcc) - i18n
             throw new IllegalArgumentException("Invalid type: " + type);
@@ -686,6 +725,10 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
             }
 
             if (dtf != null) {
+                if (timeZone != null && "instant".equals(type)) {
+                    dtf = dtf.withZone(timeZone.toZoneId());
+                }
+
                 return new FormatWrapper(dtf, fromJavaTime, forParsing);
             }
         }

@@ -19,9 +19,14 @@ package jakarta.faces.convert;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.MonthDay;
+import java.time.Year;
+import java.time.YearMonth;
 import java.time.chrono.IsoChronology;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -29,6 +34,7 @@ import java.time.format.FormatStyle;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import jakarta.faces.application.Application;
 import jakarta.faces.component.UIPanel;
@@ -52,6 +58,7 @@ public class DateTimeConverterTest {
 
     private FacesContext facesContext;
     private MockedStatic<FacesContext> facesContextStatic;
+    private UIPanel component;
 
     @BeforeEach
     public void setUp() {
@@ -70,6 +77,8 @@ public class DateTimeConverterTest {
 
         facesContextStatic = Mockito.mockStatic(FacesContext.class);
         facesContextStatic.when(FacesContext::getCurrentInstance).thenReturn(facesContext);
+
+        component = new UIPanel();
     }
 
     @AfterEach
@@ -94,8 +103,6 @@ public class DateTimeConverterTest {
         DateTimeConverter converter = new DateTimeConverter();
         converter.setType("localTime");
         converter.setLocale(Locale.US);
-
-        UIPanel component = new UIPanel();
 
         // This is what a user would type: regular space (U+0020) before AM.
         String userInput = "10:30:00 AM";
@@ -123,8 +130,6 @@ public class DateTimeConverterTest {
         converter.setType("localTime");
         converter.setLocale(Locale.US);
 
-        UIPanel component = new UIPanel();
-
         // Input with NNBSP — this should always work on JDK 21+.
         String inputWithNnbsp = "10:30:00\u202fAM";
 
@@ -147,8 +152,6 @@ public class DateTimeConverterTest {
         DateTimeConverter converter = new DateTimeConverter();
         converter.setType("localDateTime");
         converter.setLocale(Locale.US);
-
-        UIPanel component = new UIPanel();
 
         // Format a known value to get the expected formatted string, then replace NNBSP with regular space
         // to simulate user input.
@@ -179,8 +182,6 @@ public class DateTimeConverterTest {
         converter.setType("localTime");
         converter.setLocale(Locale.US);
 
-        UIPanel component = new UIPanel();
-
         LocalTime originalTime = LocalTime.of(14, 45, 30);
 
         // getAsString produces formatted output (may contain NNBSP on JDK 21+)
@@ -195,6 +196,140 @@ public class DateTimeConverterTest {
 
         assertNotNull(parsed, "Roundtrip with regular space should succeed");
         assertEquals(originalTime, parsed);
+    }
+
+    /**
+     * Test that type "instant" formats and parses using the ISO 8601 instant representation, which is what
+     * {@link Instant#toString()} and {@link Instant#parse(CharSequence)} use.
+     *
+     * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
+     */
+    @Test
+    public void testInstant() {
+        DateTimeConverter converter = createConverter("instant");
+        Instant instant = Instant.parse("2026-07-30T10:15:30Z");
+
+        assertEquals("2026-07-30T10:15:30Z", converter.getAsString(facesContext, component, instant));
+        assertEquals(instant, converter.getAsObject(facesContext, component, "2026-07-30T10:15:30Z"));
+    }
+
+    /**
+     * Test that type "instant" resolves the date and time fields of an explicit pattern against the configured time zone,
+     * as an {@link Instant} does not carry one by itself.
+     *
+     * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
+     */
+    @Test
+    public void testInstantWithPatternAndTimeZone() {
+        DateTimeConverter converter = createConverter("instant");
+        converter.setPattern("uuuu-MM-dd HH:mm:ss");
+        converter.setTimeZone(TimeZone.getTimeZone("Europe/Amsterdam"));
+        Instant instant = Instant.parse("2026-07-30T10:15:30Z");
+
+        assertEquals("2026-07-30 12:15:30", converter.getAsString(facesContext, component, instant));
+        assertEquals(instant, converter.getAsObject(facesContext, component, "2026-07-30 12:15:30"));
+    }
+
+    /**
+     * Test that type "year" formats and parses using the ISO 8601 year representation, which is what
+     * {@link Year#toString()} and {@link Year#parse(CharSequence)} use.
+     *
+     * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
+     */
+    @Test
+    public void testYear() {
+        DateTimeConverter converter = createConverter("year");
+
+        assertEquals("2026", converter.getAsString(facesContext, component, Year.of(2026)));
+        assertEquals(Year.of(2026), converter.getAsObject(facesContext, component, "2026"));
+    }
+
+    /**
+     * Test that type "yearMonth" formats and parses using the ISO 8601 year-month representation, which is what
+     * {@link YearMonth#toString()} and {@link YearMonth#parse(CharSequence)} use.
+     *
+     * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
+     */
+    @Test
+    public void testYearMonth() {
+        DateTimeConverter converter = createConverter("yearMonth");
+
+        assertEquals("2026-07", converter.getAsString(facesContext, component, YearMonth.of(2026, 7)));
+        assertEquals(YearMonth.of(2026, 7), converter.getAsObject(facesContext, component, "2026-07"));
+    }
+
+    /**
+     * Test that type "monthDay" formats and parses using the ISO 8601 month-day representation, which is what
+     * {@link MonthDay#toString()} and {@link MonthDay#parse(CharSequence)} use.
+     *
+     * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
+     */
+    @Test
+    public void testMonthDay() {
+        DateTimeConverter converter = createConverter("monthDay");
+
+        assertEquals("--07-30", converter.getAsString(facesContext, component, MonthDay.of(7, 30)));
+        assertEquals(MonthDay.of(7, 30), converter.getAsObject(facesContext, component, "--07-30"));
+    }
+
+    /**
+     * Test that type "monthDay" accepts February 29, which is valid without a year.
+     *
+     * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
+     */
+    @Test
+    public void testMonthDayAcceptsLeapDay() {
+        DateTimeConverter converter = createConverter("monthDay");
+
+        assertEquals(MonthDay.of(2, 29), converter.getAsObject(facesContext, component, "--02-29"));
+    }
+
+    /**
+     * Test that the types "year", "yearMonth" and "monthDay" honor an explicit pattern.
+     *
+     * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
+     */
+    @Test
+    public void testPattern() {
+        assertPattern("year", "'FY'uuuu", Year.of(2026), "FY2026");
+        assertPattern("yearMonth", "MM/uuuu", YearMonth.of(2026, 7), "07/2026");
+        assertPattern("monthDay", "dd-MM", MonthDay.of(7, 30), "30-07");
+    }
+
+    private void assertPattern(String type, String pattern, Object value, String formatted) {
+        DateTimeConverter converter = createConverter(type);
+        converter.setPattern(pattern);
+
+        assertEquals(formatted, converter.getAsString(facesContext, component, value));
+        assertEquals(value, converter.getAsObject(facesContext, component, formatted));
+    }
+
+    /**
+     * Test that unparseable input for the new types results in a ConverterException rather than in a silent null, which
+     * is what happens when a type is not covered by the message selection in
+     * {@link DateTimeConverter#getAsObject(FacesContext, jakarta.faces.component.UIComponent, String)}.
+     *
+     * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
+     */
+    @Test
+    public void testUnparseableValueThrowsConverterException() {
+        assertUnparseable("instant", "2026-07-30");
+        assertUnparseable("year", "MMXXVI");
+        assertUnparseable("yearMonth", "2026-13");
+        assertUnparseable("monthDay", "--02-30");
+    }
+
+    private void assertUnparseable(String type, String value) {
+        DateTimeConverter converter = createConverter(type);
+        assertThrows(ConverterException.class, () -> converter.getAsObject(facesContext, component, value),
+                () -> "Type " + type + " must reject '" + value + '\'');
+    }
+
+    private static DateTimeConverter createConverter(String type) {
+        DateTimeConverter converter = new DateTimeConverter();
+        converter.setType(type);
+        converter.setLocale(Locale.US);
+        return converter;
     }
 
     private static void requireNnbspInPattern(FormatStyle dateStyle, FormatStyle timeStyle) {
