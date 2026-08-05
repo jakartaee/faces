@@ -54,6 +54,7 @@
         <module>implicit-bean-archive</module>
         <module>client-window</module>
         <module>empty-as-null</module>
+        <module>init-request-parameter-map</module>
         <module>injection</module>
         <module>phase-listener</module>
         <module>iteration</module>
@@ -78,6 +79,7 @@
         <module>webapp-resources-directory</module>
         <module>flow-defining-document-id-jar1</module>
         <module>flow-defining-document-id-jar2</module>
+        <module>full-state-saving</module>
         <module>flow-defining-document-id</module>
     </modules>
 
