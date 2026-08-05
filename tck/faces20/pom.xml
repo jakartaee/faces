@@ -67,6 +67,9 @@
         <module>locale-config</module>
         <module>resource-locale-prefix</module>
         <module>resource-path-traversal</module>
+        <module>system-event-listener-startup</module>
+        <module>state-serialization-disabled</module>
+        <module>state-serialization-enabled</module>
         <module>string-converter</module>
         <module>view-handler-action-url</module>
         <module>view-param</module>
