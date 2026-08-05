@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package ee.jakarta.tck.faces.faces22.ajax_inputs;
+package ee.jakarta.tck.faces.faces23.facelets;
 
 import java.io.Serializable;
 

@@ -14,7 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-package ee.jakarta.tck.faces.faces22.ajax_inputs;
+package ee.jakarta.tck.faces.faces23.facelets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,12 +57,14 @@ class Issue1581IT extends BaseITNG {
 
 
     private void assertCheckBoxes(List<WebElement> checkboxes, boolean... expectedValues) {
+        assertEquals(expectedValues.length, checkboxes.size(), "number of rendered checkboxes");
+
         for (int cnt = 0; cnt < checkboxes.size(); cnt++) {
             WebElement checkbox = checkboxes.get(cnt);
-            //label assertion, the gettext of the parent returns the label only
-            assert (checkbox.findElement(By.xpath("..")).getText()).equals("JAVASERVERFACES-" + (cnt + 1));
-            boolean assertionValue = expectedValues[cnt];
-            assertEquals(checkbox.isSelected(), assertionValue);
+            // The text of the parent cell is the label only.
+            assertEquals("JAVASERVERFACES-" + (cnt + 1), checkbox.findElement(By.xpath("..")).getText(),
+                    "label of checkbox " + cnt);
+            assertEquals(expectedValues[cnt], checkbox.isSelected(), "state of checkbox " + cnt);
         }
     }
 
