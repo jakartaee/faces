@@ -426,6 +426,7 @@
                         <finalName>${project.build.finalName}</finalName>
                         <test.selenium>${test.selenium}</test.selenium>
                         <chromedriver.version>${chromedriver.version}</chromedriver.version>
+                        <webapp.partialStateSaving>${webapp.partialStateSaving}</webapp.partialStateSaving>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

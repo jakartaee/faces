@@ -27,10 +27,9 @@
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
     </context-param>
-    <!-- DO NOT PARAMETERIZE PARTIAL_STATE_SAVING, this module collects tests which only work under PSS; these are known FSS corner cases (FSS itself is deprecated in Faces 4.1). Issue5078IT exercises a UIRepeat tree-visit during invoke-application, Issue1581IT ajax-rerenders a UIRepeat whose rows are duplicated under FSS, and LateBindingsIT needs the facelet re-applied on each postback so converter/validator binding expressions are re-resolved -->
     <context-param>
         <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>
-        <param-value>true</param-value>
+        <param-value>${webapp.partialStateSaving}</param-value>
     </context-param>
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>

@@ -27,10 +27,9 @@
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
     </context-param>
-    <!-- DO NOT PARAMETERIZE PARTIAL_STATE_SAVING, NestedRepeatRepeatRowStatePreservedIT and NestedTableTableRowStatePreservedIT exercise nested iteration with rowStatePreserved, whose per-row state is not restored under FSS; this is a known FSS corner case (FSS itself is deprecated in Faces 4.1) -->
     <context-param>
         <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>
-        <param-value>true</param-value>
+        <param-value>${webapp.partialStateSaving}</param-value>
     </context-param>
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>

@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
@@ -29,16 +28,20 @@ import org.openqa.selenium.support.ui.Select;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-@Disabled("ignored at the request by the myfaces community -- See https://github.com/jakartaee/faces/issues/1757")
 class Issue3837IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * A repeat must save and restore the per-row state of its {@code EditableValueHolder} descendants, so an
+     * input carrying no value binding keeps the value of its own row across ajax postbacks and its value change
+     * listener reports that row's old value, not another row's.
+     *
+     * @see AjaxBehavior
      * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3837
-   */
-  @Test
-  void uiRepeatPreservesPerRowStateAcrossPostback() throws Exception {
+     * @see https://github.com/jakartaee/faces/issues/2206
+     */
+    @Test
+    void uiRepeatPreservesPerRowStateAcrossPostback() throws Exception {
         WebPage page = getPage("issue3837.xhtml");
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:0:list"))).selectByIndex(0));

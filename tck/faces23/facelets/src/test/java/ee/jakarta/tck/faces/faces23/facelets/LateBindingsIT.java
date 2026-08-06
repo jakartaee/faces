@@ -19,11 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
+@DisabledIfSystemProperty(named = "webapp.partialStateSaving", matches = "false",
+        disabledReason = "A binding expression is only re-resolved when the facelet is re-applied on each postback, which full state saving does not do")
 class LateBindingsIT extends BaseITNG {
 
     /**
