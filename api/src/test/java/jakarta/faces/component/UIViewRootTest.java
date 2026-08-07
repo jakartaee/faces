@@ -19,11 +19,11 @@ package jakarta.faces.component;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Locale;
 
 import jakarta.el.ValueExpression;
+import jakarta.faces.context.CurrentFacesContext;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.FacesContext;
 
@@ -42,7 +42,7 @@ public class UIViewRootTest {
         FacesContext facesContext = Mockito.mock(FacesContext.class);
         ExternalContext externalContext = Mockito.mock(ExternalContext.class);
 
-        setFacesContext(facesContext);
+        CurrentFacesContext.set(facesContext);
         when(facesContext.getExternalContext()).thenReturn(externalContext);
         when(externalContext.getApplicationMap()).thenReturn(null);
 
@@ -57,7 +57,7 @@ public class UIViewRootTest {
             }
         } finally {
             Locale.setDefault(defaultLocale);
-            setFacesContext(null);
+            CurrentFacesContext.set(null);
         }
     }
 
@@ -71,13 +71,4 @@ public class UIViewRootTest {
         return viewRoot.getLocale();
     }
 
-    private void setFacesContext(FacesContext facesContext) {
-        try {
-            Method method = FacesContext.class.getDeclaredMethod("setCurrentInstance", FacesContext.class);
-            method.setAccessible(true);
-            method.invoke(null, facesContext);
-        } catch (Exception exception) {
-            exception.printStackTrace(System.err);
-        }
-    }
 }

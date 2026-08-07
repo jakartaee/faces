@@ -19,10 +19,9 @@ package jakarta.faces.component;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
-import java.lang.reflect.Method;
-
 import jakarta.el.ELContext;
 import jakarta.el.ValueExpression;
+import jakarta.faces.context.CurrentFacesContext;
 import jakarta.faces.context.FacesContext;
 
 import org.junit.jupiter.api.Test;
@@ -34,28 +33,24 @@ public class UIParameterTest {
      * Test isDisable method.
      */
     @Test
-    public void testIsDisable() throws Exception {
+    public void testIsDisable() {
         FacesContext facesContext = Mockito.mock(FacesContext.class);
-        Method method = FacesContext.class.getDeclaredMethod("setCurrentInstance", FacesContext.class);
-        method.setAccessible(true);
-        method.invoke(null, facesContext);
+        CurrentFacesContext.set(facesContext);
         UIParameter parameter = new UIParameter();
         parameter.setDisable(true);
         assertTrue(parameter.isDisable());
-        method.invoke(null, (FacesContext) null);
+        CurrentFacesContext.set(null);
     }
 
     /**
      * Test isDisable method.
      */
     @Test
-    public void testIsDisable2() throws Exception {
+    public void testIsDisable2() {
         ELContext elContext = Mockito.mock(ELContext.class);
         FacesContext facesContext = Mockito.mock(FacesContext.class);
         ValueExpression valueExpression = Mockito.mock(ValueExpression.class);
-        Method method = FacesContext.class.getDeclaredMethod("setCurrentInstance", FacesContext.class);
-        method.setAccessible(true);
-        method.invoke(null, facesContext);
+        CurrentFacesContext.set(facesContext);
         when(facesContext.getExternalContext()).thenReturn(null);
         when(valueExpression.isLiteralText()).thenReturn(false);
         when(facesContext.getELContext()).thenReturn(elContext);
@@ -63,6 +58,6 @@ public class UIParameterTest {
         UIParameter parameter = new UIParameter();
         parameter.setValueExpression("disable", valueExpression);
         assertTrue(parameter.isDisable());
-        method.invoke(null, (FacesContext) null);
+        CurrentFacesContext.set(null);
     }
 }
