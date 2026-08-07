@@ -1204,6 +1204,16 @@
         </attribute>
         <attribute>
             <description>
+                Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit. The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
+        </attribute>
+        <attribute>
+            <description>
                 <![CDATA[Direction indication for text that does not inherit directionality.
               Valid values are "LTR" (left-to-right) and "RTL" (right-to-left).]]>
             </description>
@@ -1305,6 +1315,16 @@
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <description>
+                Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit. The default value for this property is true.
+            </description>
+            <name>rendered</name>
+            <required>false</required>
+            <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
             <description>
@@ -11959,8 +11979,10 @@
             required and must be rendered next.  If the "public" attribute is
             defined, render the literal text <code>PUBLIC</code> then render the
             value of the attribute inside double quotes.  If the "system" attribute
-            is defined, render it next, inside double quotes.  Close the doctype
-            declaration with the literal text <code>&gt;</code>.</p>
+            is defined, <span class="changed_modified_5_0">render the literal text
+            <code>SYSTEM</code> when the "public" attribute is not defined, then render
+            the value of the "system" attribute inside double quotes.</span>  Close the
+            doctype declaration with the literal text <code>&gt;</code>.</p>
             
             <div class="changed_added_2_2">
             
@@ -11990,29 +12012,23 @@
         </component>
         <attribute>
             <description>
-                <![CDATA[Converter instance registered with this component.]]>
-            </description>
-            <name>converter</name>
-            <required>false</required>
-            <type>jakarta.faces.convert.Converter</type>
-        </attribute>
-        <attribute>
-            <description>
                 <![CDATA[The component identifier for this component.  This value must be
                 unique within the closest parent component that is a naming
                 container.]]>
             </description>
             <name>id</name>
             <required>false</required>
-            <type>java.lang.Boolean</type>
+            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description>
-                <![CDATA[The current value of this component.]]>
+                Flag indicating whether or not this component should be rendered
+                (during Render Response Phase), or processed on any subsequent
+                form submit. The default value for this property is true.
             </description>
-            <name>value</name>
+            <name>rendered</name>
             <required>false</required>
-            <type>java.lang.Object</type>
+            <type>java.lang.Boolean</type>
         </attribute>
         <attribute>
             <description>
@@ -12031,7 +12047,7 @@
                 </div>]]>
             </description>
             <name>rootElement</name>
-            <required>false</required>
+            <required>true</required>
             <type>java.lang.String</type>
         </attribute>
         <attribute>
