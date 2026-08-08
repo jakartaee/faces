@@ -18,6 +18,7 @@
 package jakarta.faces.component;
 
 import static jakarta.faces.application.Resource.COMPONENT_RESOURCE_KEY;
+import static jakarta.faces.component.PackageUtils.ATTRIBUTES_THAT_ARE_SET;
 import static jakarta.faces.component.PackageUtils.DYNAMIC_COMPONENT;
 import static jakarta.faces.component.PackageUtils.FACET_NAME;
 import static jakarta.faces.component.PackageUtils.MARK_CHILDREN_MODIFIED;
@@ -2247,10 +2248,6 @@ public abstract class UIComponentBase extends UIComponent {
     // private 'attributes' map directly to the state saving process.
     private static class AttributesMap implements Map<String, Object>, Serializable {
 
-        // this KEY is special to the AttributesMap - this allows the implementation
-        // to access the the List containing the attributes that have been set
-        private static final String ATTRIBUTES_THAT_ARE_SET_KEY = UIComponentBase.class.getName() + ".attributesThatAreSet";
-
         private transient Map<String, PropertyDescriptor> pdMap;
         private transient Map<String, Method> readMap;
         // Write-side counterpart of readMap (see UIComponentBase.writeMethodMap); used by the property-write path in put.
@@ -2270,11 +2267,14 @@ public abstract class UIComponentBase extends UIComponent {
 
         @Override
         public boolean containsKey(Object keyObj) {
+            if (keyObj == ATTRIBUTES_THAT_ARE_SET) {
+                return true;
+            }
             Object marker = component.markerGet(keyObj);
             if (marker != NOT_MARKER) {
                 return marker != null;
             }
-            if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(keyObj)) {
+            if (ATTRIBUTES_THAT_ARE_SET.equals(keyObj)) {
                 return true;
             }
             String key = (String) keyObj;
@@ -2298,11 +2298,18 @@ public abstract class UIComponentBase extends UIComponent {
             if (key == null) {
                 throw new NullPointerException();
             }
-            Object marker = component.markerGet(key);
-            if (marker != NOT_MARKER) {
-                return marker;
+            // Identity, not equals: this is by a wide margin the most frequently read key of this map and every
+            // caller in the implementation passes the interned constant, so it is answered ahead of the marker keys
+            // without adding a comparison to their path. A foreign equal-but-distinct key still resolves below.
+            boolean attributesThatAreSet = key == ATTRIBUTES_THAT_ARE_SET;
+            if (!attributesThatAreSet) {
+                Object marker = component.markerGet(key);
+                if (marker != NOT_MARKER) {
+                    return marker;
+                }
+                attributesThatAreSet = ATTRIBUTES_THAT_ARE_SET.equals(key);
             }
-            if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(key)) {
+            if (attributesThatAreSet) {
                 result = component.getStateHelper().get(UIComponent.PropertyKeysPrivate.attributesThatAreSet);
             }
             // Resolved lazily: the property-backed fast path below never needs it.
@@ -2393,11 +2400,9 @@ public abstract class UIComponentBase extends UIComponent {
                 return null;
             }
 
-            if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(keyValue)) {
-                if (component.attributesThatAreSet == null) {
-                    if (value instanceof List) {
-                        component.getStateHelper().put(UIComponent.PropertyKeysPrivate.attributesThatAreSet, value);
-                    }
+            if (ATTRIBUTES_THAT_ARE_SET.equals(keyValue)) {
+                if (value instanceof List) {
+                    component.getStateHelper().put(UIComponent.PropertyKeysPrivate.attributesThatAreSet, value);
                 }
                 return null;
             }
@@ -2474,7 +2479,7 @@ public abstract class UIComponentBase extends UIComponent {
             if (marker && (MARK_DELETED.equals(key) || FACET_NAME.equals(key))) {
                 return null;
             }
-            if (ATTRIBUTES_THAT_ARE_SET_KEY.equals(key)) {
+            if (ATTRIBUTES_THAT_ARE_SET.equals(key)) {
                 return null;
             }
             PropertyDescriptor pd = marker ? null : getPropertyDescriptor(key);
