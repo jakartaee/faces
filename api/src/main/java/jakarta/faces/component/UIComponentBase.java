@@ -114,6 +114,13 @@ public abstract class UIComponentBase extends UIComponent {
     private static final int CHILD_STATE = 1;
 
     /**
+     * Highest code point {@link #isIdStart(char)} and {@link #isIdPart(char)} answer without consulting
+     * {@link Character}: at or below it, {@code Character.isLetter} matches exactly {@code a-zA-Z} and
+     * {@code Character.isDigit} exactly {@code 0-9}.
+     */
+    private static final char MAX_ASCII = 0x7F;
+
+    /**
      * This class's <code>PropertyDescriptor</code>s (keyed by property name), held per class in the
      * {@link #COMPONENT_METADATA} cache.
      */
@@ -3785,18 +3792,24 @@ public abstract class UIComponentBase extends UIComponent {
             throw new IllegalArgumentException("Empty id attribute is not allowed");
         }
 
-        for (int i = 0; i < idLength; i++) {
-            char c = id.charAt(i);
-            if (i == 0) {
-                if (!isLetter(c) && c != '_') {
-                    throw new IllegalArgumentException(id);
-                }
-            } else {
-                if (!isLetter(c) && !isDigit(c) && c != '-' && c != '_') {
-                    throw new IllegalArgumentException(id);
-                }
+        if (!isIdStart(id.charAt(0))) {
+            throw new IllegalArgumentException(id);
+        }
+
+        for (int i = 1; i < idLength; i++) {
+            if (!isIdPart(id.charAt(i))) {
+                throw new IllegalArgumentException(id);
             }
         }
+    }
+
+    private static boolean isIdStart(char c) {
+        return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c == '_' || c > MAX_ASCII && isLetter(c);
+    }
+
+    private static boolean isIdPart(char c) {
+        return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '-' || c == '_'
+                || c > MAX_ASCII && (isLetter(c) || isDigit(c));
     }
 
     private UIComponent findBaseComponent(String expression, final char sepChar) {
