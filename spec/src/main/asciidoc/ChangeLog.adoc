@@ -15,6 +15,12 @@ This release contains the following backwards compatible changes:
 * Issue ID {issue_tracker_url}2219[2219] +
 Spec: clarify automatic _UIPanel_ for a _<f:facet>_ with multiple children
 
+* Issue ID {issue_tracker_url}2214[2214] +
+Spec: clarify UIData row iteration during tree visits
+
+* Issue ID {issue_tracker_url}2206[2206] +
+Spec: require ui:repeat to save and restore per-row state of EditableValueHolder children, and align the rowStatePreserved attribute of ui:repeat and h:dataTable with UIData
+
 * Issue ID {issue_tracker_url}2173[2173] +
 Change: generalize Render Response resource push to allow modern mechanisms such as HTTP 103 Early Hints
 

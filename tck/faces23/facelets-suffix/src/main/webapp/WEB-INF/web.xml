@@ -41,7 +41,7 @@
     </context-param>
     <context-param>
         <param-name>jakarta.faces.FACELETS_SUFFIX</param-name>
-        <param-value>.bar</param-value>
+        <param-value>.bar .foo</param-value>
     </context-param>
 
     <servlet>

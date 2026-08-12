@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Contributors to Eclipse Foundation.
+ * Copyright (c) 2026 Contributors to the Eclipse Foundation.
  *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
@@ -13,43 +13,61 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
+
 package ee.jakarta.tck.faces.faces41.api;
 
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.faces.event.ActionEvent;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
+/**
+ * Backs the row state preserved scenarios: an outer iteration over rows, each rendering an inner
+ * iteration over that row's cells, with one input and one mark button per cell.
+ *
+ * <p>The per-cell input value is the only thing distinguishing the cells, so a cell rendering
+ * another cell's value means the iterating components confused their per-row state.
+ */
 @Named
 @ViewScoped
 public class Spec1263 implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Cell[][] matrix = new Cell[2][2];
-    private String output;
+    private static final int OUTER_SIZE = 2;
+    private static final int INNER_SIZE = 3;
+
+    private List<List<Cell>> matrix;
 
     @PostConstruct
     public void init() {
-        for (int x = 0; x < matrix.length; x++) {
-            for (int y = 0; y < matrix[x].length; y++) {
-                matrix[x][y] = new Cell();
+        matrix = new ArrayList<>(OUTER_SIZE);
+        for (int outer = 0; outer < OUTER_SIZE; outer++) {
+            List<Cell> row = new ArrayList<>(INNER_SIZE);
+            for (int inner = 0; inner < INNER_SIZE; inner++) {
+                row.add(new Cell());
             }
+            matrix.add(row);
         }
     }
 
-    public void submit() {
-        output = Arrays.deepToString(matrix);
-    }
-
-    public Cell[][] getMatrix() {
+    public List<List<Cell>> getMatrix() {
         return matrix;
     }
 
-    public String getOutput() {
-        return output;
+    /**
+     * Sets a style class on the input of the cell this action was invoked from. The style class is a
+     * property of the single child instance shared by every cell, so it belongs to the invoking cell
+     * only when the iterating component keeps the full component state of its children per row.
+     *
+     * @param event the action event of the cell's mark button.
+     */
+    public void mark(ActionEvent event) {
+        event.getComponent().findComponent("input").getAttributes().put("styleClass", "marked");
     }
 
     public static class Cell implements Serializable {
@@ -59,16 +77,11 @@ public class Spec1263 implements Serializable {
         private String value;
 
         public String getValue() {
-            return this.value;
+            return value;
         }
 
         public void setValue(String value) {
             this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
         }
     }
 }

@@ -21,9 +21,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_1.xsd"
     version="6.1">
+    <!-- DO NOT PARAMETERIZE PROJECT_STAGE, the test needs FacesServlet to throw, which it only does outside Development -->
     <context-param>
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
-        <param-value>${webapp.projectStage}</param-value>
+        <param-value>Production</param-value>
     </context-param>
     <context-param>
         <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>

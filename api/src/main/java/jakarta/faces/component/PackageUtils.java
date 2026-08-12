@@ -60,6 +60,14 @@ class PackageUtils {
     static final String DYNAMIC_COMPONENT = "facelets.DYNAMIC_COMPONENT";
     static final String FACET_NAME = "facelets.FACET_NAME";
 
+    // The attributes map key under which the implementation reads the list of attributes that have been explicitly set
+    // on a component, and the package whose components maintain that list. Shared so that ComponentStateHelper reads
+    // the same constants UIComponentBase writes; the copies in jakarta.faces.component.html.HtmlComponentUtils and in
+    // the implementation's RenderKitUtils are in packages that cannot see these and must be kept in sync by hand.
+    // Literals, so that all of them are the same interned instance.
+    static final String ATTRIBUTES_THAT_ARE_SET = "jakarta.faces.component.UIComponentBase.attributesThatAreSet";
+    static final String STANDARD_COMPONENT_PACKAGE = "jakarta.faces.component.";
+
     // Per-class InjectionTarget cache, keyed weakly by BeanManager so a redeployed application's targets are
     // released together with its (now unreferenced) bean manager. Can be removed once the deprecated FSS support is removed.
     private static final Map<BeanManager, Map<Class<?>, InjectionTarget<?>>> INJECTION_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());

@@ -390,9 +390,9 @@ public boolean visitTree(VisitContext context, VisitCallback callback);
 
 Uses the visit API introduced in version 2 of
 the specification to perform a flexible and customizable visit of the
-tree from this instance and its children. Please see the package
-description for the package _jakarta.faces.component.visit_ for the
-normative specification.
+tree from this instance and its children. Please see the javadocs for
+_UIComponent.visitTree()_ and _jakarta.faces.component.visit.VisitContext_
+for the normative specification.
 
 [[a968]]
 ==== Facet Management

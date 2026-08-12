@@ -3165,15 +3165,17 @@
         <attribute>
             <description>
             <![CDATA[
-                <div class="changed_added_2_1">
+                <div class="changed_added_2_1 changed_modified_5_0">
                     <p>
-                        Boolean flag directing how the per-row component state of <code>EditableValueHolder</code> children should be handled across requests on the same view.
-                        If set to <code>true</code>, then state for <code>EditableValueHolder</code> components in each row will not be discarded before a new row is rendered.
+                        Boolean flag directing whether the full per-row component state of the children of this dataTable component must be preserved on a per-row basis, as specified by <code>UIData.setRowStatePreserved()</code>.
+                        If set to <code>true</code>, then <code>StateHolder.saveState()</code> and <code>TransientStateHolder.saveTransientState()</code> must be called on the children on exiting a row, and <code>StateHolder.restoreState()</code> and <code>TransientStateHolder.restoreTransientState()</code> must be called on re-entering that row, all during the processing of the row index change.
+                        This covers any per-row state of the children, not only the <code>EditableValueHolder</code> properties which are saved and restored on every row change regardless of this attribute, as specified by <code>UIData.setRowIndex()</code>.
                         If not specified, the default value is <code>false</code>.
                     </p>
                     <p>
-                        This attribute should be set only when the current dataTable component contains <code>UIForm</code> children which in turn contains <code>EditableValueHolder</code> children.
-                        This will only work reliably when the data model of the current dataTable component does not change across requests on the same view by e.g. sorting, adding or removing rows.
+                        This attribute should be set when the children of the current dataTable component are modified on a per-row basis, such as setting a different style class for a specific row, as such modifications are not covered by the per-row state which is saved by default.
+                        Preserving the full per-row state does add overhead, hence this attribute should be used judiciously.
+                        Per-row state is keyed on the row index, hence this will only work reliably when the data model of the current dataTable component does not change across requests on the same view by e.g. sorting, adding or removing rows.
                         The alternative is to use <code>c:forEach</code> instead.
                     </p>
                 </div>

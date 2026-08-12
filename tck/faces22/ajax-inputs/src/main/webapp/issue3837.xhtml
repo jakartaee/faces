@@ -30,7 +30,7 @@
         <h:panelGroup id="message" layout="block">
             <h:outputText value="#{issue3837Bean.message}" />
         </h:panelGroup>
-        <ui:repeat value="#{issue3837Bean.list}" var="obj" id="repeat">
+        <ui:repeat value="#{issue3837Bean.list}" var="obj" id="repeat" rowStatePreserved="true">
             <h:selectOneListbox id="list" valueChangeListener="#{issue3837Bean.listener}" size="2">
                 <f:selectItems value="#{obj}" var="o" itemValue="#{o}" />
                 <f:ajax event="change" render="form:message" />
