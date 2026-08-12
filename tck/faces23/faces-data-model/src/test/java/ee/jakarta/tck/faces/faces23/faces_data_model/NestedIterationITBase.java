@@ -20,6 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
@@ -57,6 +58,26 @@ abstract class NestedIterationITBase extends BaseITNG {
      * @return the client ID of the submit button of the form containing the given cell.
      */
     protected abstract String submitId(int outer, int inner);
+
+    /**
+     * Every cell must render under its own client ID. An iterator which does not reset the client IDs of
+     * its descendants when the row index changes renders each row with row 0's IDs, so the page carries
+     * one ID many times over and a lookup by ID can only ever reach the first row.
+     *
+     * @see jakarta.faces.component.UIData#setRowIndex(int)
+     */
+    @Test
+    void cellsRenderUnderTheirOwnClientId() {
+        WebPage page = getPage(pageName());
+
+        for (int outer = 0; outer < OUTER_SIZE; outer++) {
+            for (int inner = 0; inner < INNER_SIZE; inner++) {
+                String inputId = inputId(outer, inner);
+                assertEquals(1, page.findElements(By.id(inputId)).size(),
+                        "number of elements with ID " + inputId);
+            }
+        }
+    }
 
     protected void assertCellsKeepOwnValueAcrossPostbacks() {
         WebPage page = getPage(pageName());

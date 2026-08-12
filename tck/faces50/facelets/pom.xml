@@ -30,6 +30,15 @@
 
     <name>Jakarta Faces TCK ${project.version} - ${test.moduleName} - ${project.artifactId}</name>
 
+    <dependencies>
+        <!-- Required by UiIncludeRceIT, which exercises includes from a Facelet served out of a JAR. -->
+        <dependency>
+            <groupId>org.eclipse.ee4j.tck.faces.faces50</groupId>
+            <artifactId>facelets-jar</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>test-${test.moduleName}-${project.artifactId}</finalName>
     </build>

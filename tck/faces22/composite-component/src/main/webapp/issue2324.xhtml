@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) 2026 Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<html xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ez="jakarta.faces.composite/issue2324">
+    <h:head>
+        <title>Issue2324</title>
+    </h:head>
+    <h:body>
+        <f:phaseListener type="ee.jakarta.tck.faces.faces22.composite_component.Issue2324IdUniquenessListener"/>
+
+        <h:panelGroup id="outer1">
+            <f:facet name="header">
+                <h:outputText value="Hello"/>
+            </f:facet>
+            <h:outputText value="World"/>
+        </h:panelGroup>
+
+        <h:panelGroup id="outer2">
+            <f:facet name="header">
+                <h:outputText value="Hello"/>
+            </f:facet>
+            <h:outputText value="World"/>
+        </h:panelGroup>
+
+        <ez:facets id="composite">
+            <f:facet name="header">
+                <h:outputText value="Hello"/>
+                <h:outputText value="World"/>
+            </f:facet>
+        </ez:facets>
+
+        <h:messages id="messages" globalOnly="true"/>
+    </h:body>
+</html>
