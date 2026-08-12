@@ -18,19 +18,19 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * A {@code ui:repeat} nested in a {@code ui:repeat} with the form wrapping both, and
- * {@code rowStatePreserved="true"} on both repeats. Preserving the full per-row component state
- * instead of only the submitted values must not change which cell a value belongs to.
+ * An {@code h:dataTable} nested in a {@code ui:repeat}, with the form inside the table: one form
+ * per cell. The two iterations keep their per-row state by their own means, so a cell must round-trip
+ * its own value across the postbacks of the other cells.
  */
-class NestedRepeatRepeatRowStatePreservedIT extends NestedIterationITBase {
+class NestedRepeatTableFormInsideIT extends NestedIterationITBase {
 
     @Override
     protected String pageName() {
-        return "nestedRepeatRepeatRowStatePreserved.xhtml";
+        return "nestedRepeatTableFormInside.xhtml";
     }
 
     /**
-     * @see jakarta.faces.component.UIRepeat#isRowStatePreserved()
+     * @see jakarta.faces.component.UIData
      */
     @Test
     void inputsKeepPerRowStateAcrossPostbacks() {
@@ -39,11 +39,11 @@ class NestedRepeatRepeatRowStatePreservedIT extends NestedIterationITBase {
 
     @Override
     protected String inputId(int outer, int inner) {
-        return "form:outer:" + outer + ":inner:" + inner + ":input";
+        return "outer:" + outer + ":inner:" + inner + ":form:input";
     }
 
     @Override
     protected String submitId(int outer, int inner) {
-        return "form:submit";
+        return "outer:" + outer + ":inner:" + inner + ":form:submit";
     }
 }

@@ -18,15 +18,16 @@
 -->
 <html xmlns:h="jakarta.faces.html">
     <h:head>
-        <title>NestedTableTableRowStatePreservedIT</title>
+        <title>spec1263: h:dataTable row state preserved</title>
     </h:head>
     <h:body>
         <h:form id="form">
-            <h:dataTable id="outer" value="#{nestedIterationBean.matrix}" var="row" rowStatePreserved="true">
+            <h:dataTable id="outer" value="#{spec1263.matrix}" var="row" rowStatePreserved="true">
                 <h:column id="outerColumn">
                     <h:dataTable id="inner" value="#{row}" var="cell" rowStatePreserved="true">
                         <h:column id="innerColumn">
                             <h:inputText id="input" value="#{cell.value}"/>
+                            <h:commandButton id="mark" value="mark" actionListener="#{spec1263.mark}"/>
                         </h:column>
                     </h:dataTable>
                 </h:column>

@@ -18,19 +18,19 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * An {@code h:dataTable} nested in an {@code h:dataTable} with the form wrapping both, and
- * {@code rowStatePreserved="true"} on both tables. Preserving the full per-row component state
- * instead of only the submitted values must not change which cell a value belongs to.
+ * A {@code c:forEach} nested in a {@code c:forEach}, with the form wrapping both and one input per
+ * cell. Both iterations run while the view is built, so every cell has its own child instances and
+ * no per-row state is involved at all: the cells must round-trip their own values regardless.
  */
-class NestedTableTableRowStatePreservedIT extends NestedIterationITBase {
+class NestedForEachForEachFormOutsideIT extends NestedIterationITBase {
 
     @Override
     protected String pageName() {
-        return "nestedTableTableRowStatePreserved.xhtml";
+        return "nestedForEachForEachFormOutside.xhtml";
     }
 
     /**
-     * @see jakarta.faces.component.UIData#isRowStatePreserved()
+     * @see jakarta.faces.component.UIInput
      */
     @Test
     void inputsKeepPerRowStateAcrossPostbacks() {
@@ -39,7 +39,7 @@ class NestedTableTableRowStatePreservedIT extends NestedIterationITBase {
 
     @Override
     protected String inputId(int outer, int inner) {
-        return "form:outer:" + outer + ":inner:" + inner + ":input";
+        return "form:input_" + outer + "_" + inner;
     }
 
     @Override

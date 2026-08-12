@@ -19,16 +19,18 @@
 <html xmlns:h="jakarta.faces.html"
       xmlns:ui="jakarta.faces.facelets">
     <h:head>
-        <title>NestedRepeatRepeatRowStatePreservedIT</title>
+        <title>NestedRepeatTableFormInsideIT</title>
     </h:head>
     <h:body>
-        <h:form id="form">
-            <ui:repeat id="outer" value="#{nestedIterationBean.matrix}" var="row" rowStatePreserved="true">
-                <ui:repeat id="inner" value="#{row}" var="cell" rowStatePreserved="true">
-                    <h:inputText id="input" value="#{cell.value}"/>
-                </ui:repeat>
-            </ui:repeat>
-            <h:commandButton id="submit" value="submit"/>
-        </h:form>
+        <ui:repeat id="outer" value="#{nestedIterationBean.matrix}" var="row">
+            <h:dataTable id="inner" value="#{row}" var="cell">
+                <h:column id="innerColumn">
+                    <h:form id="form">
+                        <h:inputText id="input" value="#{cell.value}"/>
+                        <h:commandButton id="submit" value="submit"/>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </ui:repeat>
     </h:body>
 </html>

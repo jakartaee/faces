@@ -16,19 +16,18 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
-<html xmlns:h="jakarta.faces.html"
-      xmlns:ui="jakarta.faces.facelets">
+<html xmlns:c="jakarta.tags.core"
+      xmlns:h="jakarta.faces.html">
     <h:head>
-        <title>spec1263: ui:repeat row state preserved</title>
+        <title>NestedForEachForEachFormOutsideIT</title>
     </h:head>
     <h:body>
         <h:form id="form">
-            <ui:repeat id="outer" value="#{spec1263.matrix}" var="row" rowStatePreserved="true">
-                <ui:repeat id="inner" value="#{row}" var="cell" rowStatePreserved="true">
-                    <h:inputText id="input" value="#{cell.value}"/>
-                    <h:commandButton id="mark" value="mark" actionListener="#{spec1263.mark}"/>
-                </ui:repeat>
-            </ui:repeat>
+            <c:forEach items="#{nestedIterationBean.matrix}" var="row" varStatus="outer">
+                <c:forEach items="#{row}" var="cell" varStatus="inner">
+                    <h:inputText id="input_#{outer.index}_#{inner.index}" value="#{cell.value}"/>
+                </c:forEach>
+            </c:forEach>
             <h:commandButton id="submit" value="submit"/>
         </h:form>
     </h:body>
