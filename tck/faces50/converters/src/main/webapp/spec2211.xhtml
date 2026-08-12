@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html lang="en"
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core">
+
+<f:view locale="en">
+    <h:head>
+        <title>spec2211</title>
+    </h:head>
+    <h:body>
+        <h:form id="formWithDefaultFormat">
+            <h:inputText id="instant" value="#{spec2211Bean.instant}">
+                <f:convertDateTime type="instant" />
+            </h:inputText>
+            <h:inputText id="year" value="#{spec2211Bean.year}">
+                <f:convertDateTime type="year" />
+            </h:inputText>
+            <h:inputText id="yearMonth" value="#{spec2211Bean.yearMonth}">
+                <f:convertDateTime type="yearMonth" />
+            </h:inputText>
+            <h:inputText id="monthDay" value="#{spec2211Bean.monthDay}">
+                <f:convertDateTime type="monthDay" />
+            </h:inputText>
+            <h:commandButton id="submit" value="submit" />
+            <h:messages id="messages" />
+        </h:form>
+        <h:form id="formWithPattern">
+            <h:inputText id="instant" value="#{spec2211Bean.instant}">
+                <f:convertDateTime type="instant" pattern="uuuu-MM-dd HH:mm:ss" timeZone="Europe/Amsterdam" />
+            </h:inputText>
+            <h:inputText id="year" value="#{spec2211Bean.year}">
+                <f:convertDateTime type="year" pattern="'FY'uuuu" />
+            </h:inputText>
+            <h:inputText id="yearMonth" value="#{spec2211Bean.yearMonth}">
+                <f:convertDateTime type="yearMonth" pattern="MM/uuuu" />
+            </h:inputText>
+            <h:inputText id="monthDay" value="#{spec2211Bean.monthDay}">
+                <f:convertDateTime type="monthDay" pattern="dd-MM" />
+            </h:inputText>
+            <h:commandButton id="submit" value="submit" />
+            <h:messages id="messages" />
+        </h:form>
+    </h:body>
+</f:view>
+</html>

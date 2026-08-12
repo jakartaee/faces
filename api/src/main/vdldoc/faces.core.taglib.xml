@@ -447,6 +447,12 @@
                 a java.util.TimeZone instance, or a String that is a timezone ID
                 as described in the javadocs for
                 java.util.TimeZone.getTimeZone().</p>
+
+                <p class="changed_added_5_0">A
+                <code>java.time.Instant</code> does not carry a time
+                zone, hence for the type "instant" this attribute is
+                also used to resolve the date and time fields of an
+                explicit pattern.</p>
             ]]></description>
             <name>timeZone</name>
             <type>java.lang.Object</type>
@@ -459,12 +465,24 @@
             parsed expecting. Valid values are "date", "time",
             "both"<span class="changed_added_2_3">, "localDate",
             "localDateTime", "localTime", "offsetTime",
-            "offsetDateTime", and "zonedDateTime".  The values starting
+            "offsetDateTime", "zonedDateTime"</span><span
+            class="changed_added_5_0">, "instant", "year", "yearMonth",
+            and "monthDay"</span>.  The values starting
             with "local", "offset" and "zoned" correspond to Java SE 8
             Date Time API classes in package <code>java.time</code> with
             the name derived by upper casing the first letter.  For
             example, <code>java.time.LocalDate</code> for the value
             "localDate".</span> Default value is "date".</p>
+
+            <p class="changed_added_5_0">The values "instant", "year",
+            "yearMonth" and "monthDay" correspond in the same way to
+            <code>java.time.Instant</code>, <code>java.time.Year</code>,
+            <code>java.time.YearMonth</code> and
+            <code>java.time.MonthDay</code>. None of these types can be
+            formatted or parsed with a localized date/time style, hence
+            the dateStyle and timeStyle attributes are ignored for them.
+            When no pattern has been specified, the ISO 8601
+            representation of the type is used.</p>
 
             ]]></description>
             <name>type</name>
