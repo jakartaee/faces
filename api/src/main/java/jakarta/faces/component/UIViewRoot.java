@@ -1220,7 +1220,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                     LOGGER.log(SEVERE, "severe.component.unable_to_process_expression",
                             new Object[] { expression.getExpressionString(), isBefore ? "beforePhase" : "afterPhase" });
                 }
-                if (context.getAttributes().containsKey(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)) {
+                if (context.getAttributes().containsKey(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)
+                        && (Boolean) context.getAttributes().get(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)) {
                     ExceptionQueuedEventContext extx = new ExceptionQueuedEventContext(context, e);
                     String booleanKey = isBefore ? ExceptionQueuedEventContext.IN_BEFORE_PHASE_KEY : ExceptionQueuedEventContext.IN_AFTER_PHASE_KEY;
                     extx.getAttributes().put(booleanKey, Boolean.TRUE);
@@ -1509,7 +1510,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             if (2 != localeStr.length()) {
                 throw new IllegalArgumentException("Illegal locale String: " + localeStr);
             }
-            lang = localeStr.toLowerCase();
+            lang = localeStr;
         }
 
         // we have a separator, it must be either '-' or '_'

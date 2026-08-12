@@ -90,6 +90,7 @@
         <gf.pool.adminBase>14848</gf.pool.adminBase>
         <gf.pool.portStride>100</gf.pool.portStride>
         <gf.pool.unpack.skip>false</gf.pool.unpack.skip>
+        <gf.pool.skip>false</gf.pool.skip>
         <gf.pool.overlay.skip>${mojarra.noupdate}</gf.pool.overlay.skip>
         <gf.pool.restartOnRelease>false</gf.pool.restartOnRelease>
 
@@ -425,6 +426,7 @@
                         <finalName>${project.build.finalName}</finalName>
                         <test.selenium>${test.selenium}</test.selenium>
                         <chromedriver.version>${chromedriver.version}</chromedriver.version>
+                        <webapp.partialStateSaving>${webapp.partialStateSaving}</webapp.partialStateSaving>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
@@ -458,6 +460,9 @@
                 -->
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>false</includeSystemScope>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default</id>
@@ -510,6 +515,31 @@
 
         <profile>
             <id>custom</id>
+        </profile>
+
+        <!--
+            Eclipse runs Maven through m2e's embedded runtime, which sets m2e.version. The pool is bound to
+            initialize so that running a single module provisions it (see the pool-up execution), but that also
+            means any build Eclipse starts brings a GlassFish up before it does anything else, and nothing in a
+            build that stops early ever brings it down: only pre-clean on the root aggregator does. Such a domain
+            then sits on the pool's admin ports for as long as the IDE is open.
+
+            It is also unreclaimable, because m2e does not set maven.multiModuleProjectDirectory (the mvn shell
+            script does, which is what tck/.mvn pins), so an Eclipse-started pool lands in a directory literally
+            named ${maven.multiModuleProjectDirectory} instead of the one a later mvn clean reclaims.
+
+            Provision the pool from a shell then, not from the IDE.
+        -->
+        <profile>
+            <id>skip-gf-pool-in-eclipse</id>
+            <activation>
+                <property>
+                    <name>m2e.version</name>
+                </property>
+            </activation>
+            <properties>
+                <gf.pool.skip>true</gf.pool.skip>
+            </properties>
         </profile>
 
 

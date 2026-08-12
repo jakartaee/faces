@@ -44,6 +44,7 @@
         <module>facelets</module>
         <module>ui-input</module>
         <module>ajax</module>
+        <module>ajax-content-type</module>
         <module>localized-composite</module>
         <module>datetime-converter</module>
         <module>get-views</module>

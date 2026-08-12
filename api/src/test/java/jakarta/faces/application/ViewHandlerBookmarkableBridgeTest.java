@@ -24,11 +24,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import org.junit.jupiter.api.Test;
-
 import jakarta.faces.FacesException;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * Verifies that the fragment-aware {@code getBookmarkableURL}/{@code getRedirectURL} overloads added in 5.0 keep

@@ -50,6 +50,13 @@ public enum VisitHint {
      * iterative fashion should instead visit each child only one time.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * Visiting children repeatedly is not transparent to those children: each of them is visited once per row with the
+     * row index set to that row, and may respond to it, for example by loading the data of that row from the backing
+     * data source. This hint is therefore appropriate when the traversal only needs to locate or inspect components,
+     * and inappropriate when the traversal needs to act per row, as decoding, validating, updating and rendering do.
+     * </p>
+     *
      * @since 2.1
      */
     SKIP_ITERATION,

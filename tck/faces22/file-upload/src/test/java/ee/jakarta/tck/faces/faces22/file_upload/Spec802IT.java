@@ -18,6 +18,7 @@ package ee.jakarta.tck.faces.faces22.file_upload;
 
 import static ee.jakarta.tck.faces.faces22.file_upload.Spec802Validator.MARKER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
@@ -101,6 +102,28 @@ class Spec802IT extends BaseITNG {
             assertEquals(content, page.findElement(By.id("form:fileText")).getText(),
                     "Upload " + i + " on the same view must yield its own bytes.");
         }
+    }
+
+    /**
+     * The File renderer must render the client id as the name attribute and must not render a value
+     * attribute at all, neither on an initial render nor after a postback.
+     *
+     * @see HtmlInputFile
+     * @see https://github.com/jakartaee/faces/issues/802
+     */
+    @Test
+    void valueAttributeIsNotRendered() throws IOException {
+        WebPage page = getPage(VIEW);
+
+        assertEquals("form:file", page.findElement(By.id("form:file")).getDomAttribute("name"),
+                "The client id must be rendered as the name attribute.");
+        assertNull(page.findElement(By.id("form:file")).getDomAttribute("value"),
+                "The value attribute must not be rendered on an initial render.");
+
+        submit(page, MARKER + " reaches the model");
+
+        assertNull(page.findElement(By.id("form:file")).getDomAttribute("value"),
+                "The value attribute must not be rendered after a postback.");
     }
 
     /**
