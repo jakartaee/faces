@@ -143,13 +143,6 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
 
         /**
          * <p>
-         * The zero-relative index of the current row number, or -1 for no current row association.
-         * </p>
-         */
-        rowIndex,
-
-        /**
-         * <p>
          * The number of rows to display, or zero for all remaining rows in the table.
          * </p>
          */
@@ -190,6 +183,20 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      */
     @SuppressWarnings("rawtypes") // UIData is not generic, so its cached model is held raw; see getDataModel.
     private DataModel model = null;
+
+    /**
+     * <p>
+     * The zero-relative index of the current row, or -1 for no current row association.
+     * </p>
+     *
+     * <p>
+     * A field rather than a state-helper entry: every component under this table reads it through
+     * {@link #getClientId} while its own client id is being built, so a map lookup here is paid once per component per
+     * traversal. It is not part of the component state -- every phase leaves the row index at -1 before state is
+     * saved, and it is not an attribute a page can set.
+     * </p>
+     */
+    private int rowIndex = -1;
 
     /**
      * <p>
@@ -425,7 +432,7 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      */
     public int getRowIndex() {
 
-        return getStateHelper().eval(PropertyKeys.rowIndex, -1);
+        return rowIndex;
 
     }
 
@@ -525,8 +532,7 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
         saveDescendantState(context);
 
         // Update to the new row index
-        // this.rowIndex = rowIndex;
-        getStateHelper().put(PropertyKeys.rowIndex, rowIndex);
+        this.rowIndex = rowIndex;
         DataModel<?> localModel = getDataModel();
         localModel.setRowIndex(rowIndex);
 
@@ -591,8 +597,7 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
         }
 
         // Update to the new row index
-        // this.rowIndex = rowIndex;
-        getStateHelper().put(PropertyKeys.rowIndex, rowIndex);
+        this.rowIndex = rowIndex;
         DataModel<?> localModel = getDataModel();
         localModel.setRowIndex(rowIndex);
 
@@ -1332,7 +1337,9 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      * </p>
      *
      * <p>
-     * Iterate over the rows.
+     * Iterate over the rows. <span class="changed_added_5_0">The rows are only iterated over when
+     * {@link VisitHint#SKIP_ITERATION} is absent from the hints of the given {@link VisitContext}. When it is present,
+     * the children are instead visited once at the current row index, without the row index being manipulated.</span>
      * </p>
      *
      * </div>

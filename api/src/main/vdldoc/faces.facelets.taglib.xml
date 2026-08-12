@@ -830,7 +830,21 @@ attribute must be an absolute path starting with "/".</span>
         <p><span class="changed_modified_2_2
         changed_modified_2_3 changed_modified_4_0">Use</span> this tag as an alternative to
         <code>h:dataTable</code> or <code>c:forEach</code></p> </div>
-        
+
+        <div class="changed_added_5_0">
+
+        <p>Whenever the current row changes, the per-row state of the descendant
+        <code>EditableValueHolder</code> components must be saved for the row being left and restored for the
+        row being entered, in the same manner as is required of
+        <code>UIData.setRowIndex()</code>, and regardless of the value of the
+        <code>rowStatePreserved</code> attribute. The state to be saved and restored consists of the
+        <code>localValue</code>, <code>localValueSet</code>, <code>valid</code> and
+        <code>submittedValue</code> properties.</p>
+
+        <p>This requirement concerns the state of the descendant components only. The state of the repeat
+        component itself, such as the <code>begin</code>, <code>end</code> and <code>var</code> attributes and
+        the current row index, is a separate concern which this requirement does not cover.</p> </div>
+
         ]]></description>
         <tag-name>repeat</tag-name>
         <handler-class />
@@ -1003,15 +1017,17 @@ attribute must be an absolute path starting with "/".</span>
         <attribute>
             <description>
             <![CDATA[
-                <div class="changed_added_4_1">
+                <div class="changed_added_4_1 changed_modified_5_0">
                     <p>
-                        Boolean flag directing how the per-row component state of <code>EditableValueHolder</code> children should be handled across requests on the same view.
-                        If set to <code>true</code>, then state for <code>EditableValueHolder</code> components in each row will not be discarded before a new row is rendered.
+                        Boolean flag directing whether the full per-row component state of the children of this repeat component must be preserved on a per-row basis, as specified by <code>UIData.setRowStatePreserved()</code>.
+                        If set to <code>true</code>, then <code>StateHolder.saveState()</code> and <code>TransientStateHolder.saveTransientState()</code> must be called on the children on exiting a row, and <code>StateHolder.restoreState()</code> and <code>TransientStateHolder.restoreTransientState()</code> must be called on re-entering that row, all during the processing of the row index change.
+                        This covers any per-row state of the children, not only the <code>EditableValueHolder</code> properties which are saved and restored on every row change regardless of this attribute, as specified by <code>UIData.setRowIndex()</code>.
                         If not specified, the default value is <code>false</code>.
                     </p>
                     <p>
-                        This attribute should be set only when the current repeat component contains <code>UIForm</code> children which in turn contains <code>EditableValueHolder</code> children.
-                        This will only work reliably when the data model of the current repeat component does not change across requests on the same view by e.g. sorting, adding or removing rows.
+                        This attribute should be set when the children of the current repeat component are modified on a per-row basis, such as setting a different style class for a specific row, as such modifications are not covered by the per-row state which is saved by default.
+                        Preserving the full per-row state does add overhead, hence this attribute should be used judiciously.
+                        Per-row state is keyed on the row index, hence this will only work reliably when the data model of the current repeat component does not change across requests on the same view by e.g. sorting, adding or removing rows.
                         The alternative is to use <code>c:forEach</code> instead.
                     </p>
                 </div>

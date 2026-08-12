@@ -31,17 +31,17 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3837IT extends BaseITNG {
 
     /**
-     * A repeat must save and restore the per-row state of its {@code EditableValueHolder} descendants, so an
-     * input carrying no value binding keeps the value of its own row across ajax postbacks and its value change
-     * listener reports that row's old value, not another row's.
+     * A repeat with {@code rowStatePreserved} enabled keeps the full per-row component state of its children,
+     * which is part of the repeat's own saved state and therefore outlives the request. An input carrying no
+     * value binding thus holds the value of its own row across ajax postbacks, and its value change listener
+     * reports that row's old value rather than another row's or none at all.
      *
      * @see AjaxBehavior
-     * @see org.glassfish.mojarra.facelets.component.UIRepeat
+     * @see jakarta.faces.component.UIData#setRowStatePreserved(boolean)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3837
-     * @see https://github.com/jakartaee/faces/issues/2206
      */
     @Test
-    void uiRepeatPreservesPerRowStateAcrossPostback() throws Exception {
+    void rowStatePreservedKeepsPerRowStateAcrossPostback() throws Exception {
         WebPage page = getPage("issue3837.xhtml");
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:0:list"))).selectByIndex(0));

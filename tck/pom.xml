@@ -460,6 +460,9 @@
                 -->
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>false</includeSystemScope>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default</id>
