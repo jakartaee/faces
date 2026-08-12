@@ -12548,8 +12548,10 @@ literal text <code>&lt;!DOCTYPE</code>. The "rootElement" attribute is
 required and must be rendered next.  If the "public" attribute is
 defined, render the literal text <code>PUBLIC</code> then render the
 value of the attribute inside double quotes.  If the "system" attribute
-is defined, render it next, inside double quotes.  Close the doctype
-declaration with the literal text <code>&gt;</code>.</p>
+is defined, <span class="changed_modified_5_0">render the literal text
+<code>SYSTEM</code> when the "public" attribute is not defined, then render
+the value of the "system" attribute inside double quotes.</span>  Close the
+doctype declaration with the literal text <code>&gt;</code>.</p>
 
 <div class="changed_added_2_2">
 
