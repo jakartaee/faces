@@ -1025,7 +1025,7 @@ attribute must be an absolute path starting with "/".</span>
                         If not specified, the default value is <code>false</code>.
                     </p>
                     <p>
-                        This attribute should be set when the current repeat component contains <code>UIForm</code> children which in turn contains <code>EditableValueHolder</code> children, as the submitted flag of the form is itself per-row state which the default does not cover.
+                        This attribute should be set when the children of the current repeat component are modified on a per-row basis, such as setting a different style class for a specific row, as such modifications are not covered by the per-row state which is saved by default.
                         Preserving the full per-row state does add overhead, hence this attribute should be used judiciously.
                         Per-row state is keyed on the row index, hence this will only work reliably when the data model of the current repeat component does not change across requests on the same view by e.g. sorting, adding or removing rows.
                         The alternative is to use <code>c:forEach</code> instead.
