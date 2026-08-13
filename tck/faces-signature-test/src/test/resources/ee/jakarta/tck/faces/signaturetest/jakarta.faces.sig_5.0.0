@@ -753,12 +753,8 @@ hfds wrapped
 
 CLSS public abstract jakarta.faces.application.StateManager
 cons public init()
-fld public final static java.lang.String FULL_STATE_SAVING_VIEW_IDS_PARAM_NAME = "jakarta.faces.FULL_STATE_SAVING_VIEW_IDS"
- anno 0 java.lang.Deprecated(boolean forRemoval=true, java.lang.String since="4.1")
 fld public final static java.lang.String IS_BUILDING_INITIAL_STATE = "jakarta.faces.IS_BUILDING_INITIAL_STATE"
 fld public final static java.lang.String IS_SAVING_STATE = "jakarta.faces.IS_SAVING_STATE"
-fld public final static java.lang.String PARTIAL_STATE_SAVING_PARAM_NAME = "jakarta.faces.PARTIAL_STATE_SAVING"
- anno 0 java.lang.Deprecated(boolean forRemoval=true, java.lang.String since="4.1")
 fld public final static java.lang.String SERIALIZE_SERVER_STATE_PARAM_NAME = "jakarta.faces.SERIALIZE_SERVER_STATE"
 fld public final static java.lang.String STATE_SAVING_METHOD_CLIENT = "client"
  anno 0 java.lang.Deprecated(boolean forRemoval=true, java.lang.String since="5.0")

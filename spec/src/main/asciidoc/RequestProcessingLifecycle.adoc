@@ -1269,17 +1269,15 @@ _StateHolder_ interface. As a consequence the standard components
 provide implementations of _PartialStateHolder_ to suit their needs.
 A custom component that extends
 _UIComponent_ directly, and does not extend any of the standard
-components, must implement _PartialStateHolder_ (or its older
-super-interface, __StateHolder__), manually. The helper class
+components, must implement _PartialStateHolder_ manually. The helper class
 _StateHelper_ exists to simplify this process for the custom component
 author. Please see _<<UserInterfaceComponentModel.adoc#a1159,
-PartialStateHolder>>_ or <<UserInterfaceComponentModel.adoc#a1138,StateHolder>> for
-details.
+PartialStateHolder>>_ for details.
 
 A custom component that does extend from one
 of the standard components and maintains its own state, in addition to
 the state maintained by the superclass must take special care to
-implement _StateHolder_ or _PartialStateHolder_ correctly.
+implement _PartialStateHolder_ correctly.
 Notably, calls to _saveState()_ must not alter the
 state in any way. The subclass is responsible for saving and
 restoring the state of the superclass. Consider this example. My custom

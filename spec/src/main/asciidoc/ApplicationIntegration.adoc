@@ -1552,10 +1552,9 @@ _FacesContext_ instance for the current request (see
 then perform whatever actions are required to cause the view currently
 stored in the _viewRoot_ of the _FacesContext_ instance for the current
 request to be rendered to the corresponding writer or stream. It must
-also interact with the associated _StateManager_ (see
-<<ApplicationIntegration.adoc#a4117,StateManager>>), by calling the
-_getSerializedView()_ and _saveView()_ methods, to ensure that state
-information for current view is saved between requests.
+also interact with the associated _StateManagementStrategy_, by calling
+its _saveView()_ method, to ensure that state information for current
+view is saved between requests.
 
 [source,java]
 ----
@@ -2265,9 +2264,9 @@ _renderView()_ method must fulfill the following responsibilities:
 * Return immediately if calling _isRendered()_
 on the argument _UIViewRoot_ returns _false_.
 
-* Call _saveView()_ on the _StateManager_ for
-this application, saving the result in a thread-safe manner for use in
-the _writeState()_ method of _ViewHandler_.
+* Call _saveView()_ on the
+_StateManagementStrategy_ for this view, saving the result in a
+thread-safe manner for use in the _writeState()_ method of _ViewHandler_.
 
 * Call _startDocument()_ on the
 _ResponseWriter_.
@@ -2297,9 +2296,9 @@ If the result is _false_,
 _null_.
 
 ** Call the _restoreView()_ method of the
-associated _StateManager_, passing the _FacesContext_ instance for the
-current request and the calculated _viewId_, and return the returned
-_UIViewRoot_, which may be _null_.
+associated _StateManagementStrategy_, passing the _FacesContext_ instance
+for the current request and the calculated _viewId_, and return the
+returned _UIViewRoot_, which may be _null_.
 
 * Otherwise, take the following steps and return.
 
@@ -2445,13 +2444,17 @@ _ObjectOutputStream_, a _NotSerializableException_ would not be thrown.
 
 [source,java]
 ----
-public Object saveView(FacesContext context);
+public void writeState(FacesContext context, Object state)
+    throws IOException;
 ----
 
-This method causes the tree structure and component state of the view
-contained in the argument _FacesContext_ to be collected, stored, and
-returned in a _java.lang.Object_ instance that must implement
-_java.io.Serializable_. If _null_ is returned from this method, there
+Save the state represented in the specified
+_Object_ instance, in an implementation dependent manner.
+
+The state itself is collected by
+_StateManagementStrategy.saveView()_, which returns it in a
+_java.lang.Object_ instance that must implement
+_java.io.Serializable_. If _null_ is returned from that method, there
 is no state to save.
 
 The returned object must represent the entire
@@ -2461,33 +2464,14 @@ objects attached to component instances, such as listeners, converters,
 and validators, are also saved. The _StateHolder_ interface is provided
 for this reason.
 
-This method must also enforce the rule that
+That method must also enforce the rule that
 component ids within a _NamingContainer_ must be unique
-
-[source,java]
-----
-public void writeState(FacesContext context, Object state)
-    throws IOException;
-----
-
-Save the state represented in the specified
-_Object_ instance, in an implementation dependent manner.
 
 ==== State Restoring Methods
 
-[source,java]
-----
-public UIViewRoot restoreView(FacesContext context, String viewId);
-----
-
-Restore the tree structure and the component
-state of the view for this _viewId_ to be restored, in an implementation
-dependent manner. If there is no saved state information available for
-this _viewId_, this method returns _null_.
-
-The default implementation of this method
-calls through to _restoreTreeStructure()_ and, if necessary
-_restoreComponentState()_.
+The component state of the view is restored by
+_StateManagementStrategy.restoreView()_, in an implementation dependent
+manner.
 
 ==== Convenience Methods
 

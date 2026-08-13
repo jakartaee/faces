@@ -69,7 +69,7 @@ class PackageUtils {
     static final String STANDARD_COMPONENT_PACKAGE = "jakarta.faces.component.";
 
     // Per-class InjectionTarget cache, keyed weakly by BeanManager so a redeployed application's targets are
-    // released together with its (now unreferenced) bean manager. Can be removed once the deprecated FSS support is removed.
+    // released together with its (now unreferenced) bean manager.
     private static final Map<BeanManager, Map<Class<?>, InjectionTarget<?>>> INJECTION_TARGETS = Collections.synchronizedMap(new WeakHashMap<>());
 
     // Classes found to have no injection points, so a repeat restore can skip the (Weld: thread-stack-walking)
@@ -333,7 +333,7 @@ class PackageUtils {
     /**
      * Perform CDI resource injection ({@code @Inject}) and invoke {@code @PostConstruct} on a Faces artifact that was
      * instantiated reflectively rather than obtained from CDI -- notably a {@code @FacesValidator}/{@code @FacesConverter}/
-     * {@code @FacesBehavior} recreated from full state saving, which is otherwise restored with its {@code @Inject} fields
+     * {@code @FacesBehavior} recreated from its saved state, which is otherwise restored with its {@code @Inject} fields
      * left null. No-op when the class declares no injection points (so a plain artifact's {@code @PostConstruct} is not
      * fired) or when CDI is unavailable.
      */

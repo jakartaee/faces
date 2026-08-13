@@ -162,8 +162,8 @@ public class BehaviorBase implements Behavior, PartialStateHolder {
     }
 
     /**
-     * <p class="changed_added_2_0">
-     * Clears the initial state flag, causing the behavior to revert from partial to full state saving.
+     * <p class="changed_added_2_0 changed_modified_5_0">
+     * Clears the initial state flag, causing the behavior to save its full state instead of only the delta.
      * </p>
      */
     @Override

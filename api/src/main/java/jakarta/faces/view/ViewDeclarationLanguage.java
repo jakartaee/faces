@@ -572,11 +572,9 @@ public abstract class ViewDeclarationLanguage {
     }
 
     /**
-     * <p class="changed_added_2_0">
-     * For implementations that want to control the implementation of state saving and restoring, the
-     * {@link StateManagementStrategy} allows them to do so. Returning <code>null</code> indicates that the implementation
-     * wishes the runtime to handle the state saving and restoring. Implementations that provide the VDL for Facelets for
-     * Jakarta Faces 2.0 and later must return non-<code>null</code> from this method.
+     * <p class="changed_added_2_0 changed_modified_5_0">
+     * Return the {@link StateManagementStrategy} that handles the state saving and restoring of the view. This method must
+     * not return <code>null</code>.
      * </p>
      *
      * @param context the {@code FacesContext} for the current request.
