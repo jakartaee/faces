@@ -3130,7 +3130,7 @@ the package _jakarta.faces.view_.
 
 . ActionSourceAttachedObjectTarget
 
-. ActionSourceAttachedObjectTarget
+. ValueHolderAttachedObjectTarget
 
 . BehaviorHolderAttachedObjectTarget
 

@@ -100,7 +100,6 @@ public interface ActionSource {
      * <p>
      * The default implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of
      * not breaking existing applications that extend {@link ActionSource}.
-     * Historically this method was declared in {@code ActionSource2} for precisely this reason but default methods in interfaces weren't supported. 
      * </p>
      *
      * @return the action expression.
@@ -125,7 +124,6 @@ public interface ActionSource {
      * <p>
      * The default implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of
      * not breaking existing applications that extend {@link ActionSource}.
-     * Historically this method was declared in {@code ActionSource2} for precisely this reason but default methods in interfaces weren't supported. 
      * </p>
      *
      * @param action The new method expression

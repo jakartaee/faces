@@ -17,7 +17,7 @@ package ee.jakarta.tck.faces.faces20.composite.retargeting;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.faces.view.ActionSource2AttachedObjectTarget;
+import jakarta.faces.view.ActionSourceAttachedObjectTarget;
 import jakarta.faces.view.AttachedObjectTarget;
 import jakarta.faces.view.EditableValueHolderAttachedObjectTarget;
 
@@ -127,7 +127,7 @@ class CompositeComponentsIT extends BaseITNG {
      * An action listener attached via {@code f:actionListener} with only a {@code name} must be
      * retargeted to the composite's single action source.
      *
-     * @see ActionSource2AttachedObjectTarget
+     * @see ActionSourceAttachedObjectTarget
      */
     @Test
     void testActionSource1() {
@@ -138,7 +138,7 @@ class CompositeComponentsIT extends BaseITNG {
      * An action listener attached where the action source declares a {@code targets} must be
      * retargeted to that target.
      *
-     * @see ActionSource2AttachedObjectTarget
+     * @see ActionSourceAttachedObjectTarget
      */
     @Test
     void testActionSource2() {
@@ -149,7 +149,7 @@ class CompositeComponentsIT extends BaseITNG {
      * An action listener attached to a composite that nests another composite must be retargeted
      * through the nesting to the innermost action source.
      *
-     * @see ActionSource2AttachedObjectTarget
+     * @see ActionSourceAttachedObjectTarget
      */
     @Test
     void testActionSource3() {
@@ -160,7 +160,7 @@ class CompositeComponentsIT extends BaseITNG {
      * An action listener must be retargeted into an action source that lives inside a nested
      * naming container of the composite.
      *
-     * @see ActionSource2AttachedObjectTarget
+     * @see ActionSourceAttachedObjectTarget
      */
     @Test
     void testActionSource4() {

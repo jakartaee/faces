@@ -22,11 +22,6 @@ package jakarta.faces.view;
  * implementation of Facelets must provide an implemention of this in the handler for the
  * <code>&lt;f:actionListener&gt;</code> tag.
  * </p>
- * 
- * <p>
- * Historical note: this class was previously named {@code ActionSource2AttachedObjectHandler} but since deprecation of {@code ActionSource2}
- * this class has been renamed to drop the {@code 2}.
- * </p>
  *
  * @since 4.1
  */

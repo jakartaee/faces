@@ -21,11 +21,6 @@ package jakarta.faces.view;
  * A marker interface for VDL tags that represent <code>&lt;composite:actionSource/&gt;</code> for use by the
  * <em>composite component page author</em>.
  * </p>
- * 
- * <p>
- * Historical note: this class was previously named {@code ActionSource2AttachedObjectTarget} but since deprecation of {@code ActionSource2}
- * this class has been renamed to drop the {@code 2}.
- * </p>
  *
  * @since 4.1
  */
