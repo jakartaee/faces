@@ -632,6 +632,34 @@ that are unique within the scope of the closest parent _NamingContainer_
 component. The value of the _rendersChildren_ property is handled as
 expected, and may be either _true_ or __false__.
 
+* Manipulating the component tree while the
+view is being built is performed again by every subsequent build of that
+view, and therefore needs nothing in the saved state. This is the case for
+the templating system itself (such as Facelets), for tag handlers, for
+listeners of _PostAddToViewEvent_, and for the relocations the
+implementation performs itself, such as moving component resources to the
+head of the view. Manipulating the tree after the view has been built, for
+example from an action listener or a listener of _PreRenderViewEvent_, is
+not performed again by the build, so the implementation carries every such
+addition, removal and move in the saved state (see the javadocs for
+_StateManagementStrategy.saveView()_), at a cost in both the size of that
+state and the work of every subsequent request. Page authors are therefore
+recommended to express conditional content with the _rendered_ attribute on
+a statically built subtree, and, where the tree genuinely has to be
+manipulated, to do so while the view is being built: with the Jakarta Tags,
+such as _<c:if>_ and _<c:forEach>_, with a custom tag handler, or from a
+listener of _PostAddToViewEvent_, registered for example with
+_<f:event type="postAddToView">_. These two differ in when they decide. A
+build-time conditional or iteration is evaluated again whenever the view is
+built, which includes the build that precedes rendering, so it observes
+whatever the request has done to the model by then; the cost is that such a
+view is built twice per postback. A listener of _PostAddToViewEvent_ runs
+once per request, while the view is restored, so it decides before the
+model is updated and before any action is invoked, and it is not run again
+by a later build of the same view. Binding a component to a bean property
+with the _binding_ attribute and manipulating it from there is the most
+common unintended way of manipulating it afterwards.
+
 * After any dynamic component manipulations have
 been completed, any resources that have been added to the UIViewRoot,
 such as scripts, images, or stylesheets, and any inline images, should be

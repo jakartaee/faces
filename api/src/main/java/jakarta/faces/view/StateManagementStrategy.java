@@ -66,12 +66,27 @@ public abstract class StateManagementStrategy {
      * <p>
      * Visit the tree using {@link jakarta.faces.component.UIComponent#visitTree}. For each node, call
      * {@link jakarta.faces.component.UIComponent#saveState}, saving the returned <code>Object</code> in a way such that it
-     * can be restored given only its client id. Special care must be taken to handle the case of components that were added
-     * or deleted programmatically during this lifecycle traversal, rather than by the VDL.
+     * can be restored given only its client id. <span class="changed_modified_5_0">Record, in addition, every component
+     * that the application added to, removed from or moved within the view after the view was built, so that
+     * {@link #restoreView} can reproduce those manipulations. For a move, record the new parent, the facet name if the
+     * component is a facet, and the index among its siblings.</span>
      * </p>
      * </li>
      *
      * </ol>
+     *
+     * <p class="changed_added_5_0">
+     * The manipulations must be recorded in the order in which the application performed them, and the recorded position
+     * must travel with the manipulation rather than with the component it applies to. The view build recreates the
+     * components it created at their declared position on every build, so information kept on such a component may be
+     * lost before the manipulation is replayed.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * A component whose manipulation the view build performs again on the next request need not be recorded, since the
+     * build reproduces it. This is the case for components added, removed or moved while the view is being built, for
+     * example from a listener for {@link jakarta.faces.event.PostAddToViewEvent}.
+     * </p>
      *
      * <p>
      * The implementation must ensure that the {@link jakarta.faces.component.UIComponent#saveState} method is called for
@@ -116,9 +131,12 @@ public abstract class StateManagementStrategy {
      *
      * <p>
      * Build the view from the markup. For all components in the view that do not have an explicitly assigned id in the
-     * markup, the values of those ids must be the same as on an initial request for this view. This view will not contain
-     * any components programmatically added during the previous lifecycle run, and it <b>will</b> contain components that
-     * were programmatically deleted on the previous lifecycle run. Both of these cases must be handled.
+     * markup, the values of those ids must be the same as on an initial request for this view.
+     * <span class="changed_modified_5_0">This view contains what the view build produces, which includes the components
+     * added, removed or moved while the view was being built. It does not reflect the manipulations the application
+     * performed after the view was built: components added afterwards are absent, components removed afterwards are
+     * present, and components moved afterwards are at their declared position. All of these cases must be
+     * handled.</span>
      * </p>
      *
      *
@@ -141,13 +159,10 @@ public abstract class StateManagementStrategy {
      *
      * <li>
      * <p>
-     * Ensure that any programmatically deleted components are removed.
-     * </p>
-     * </li>
-     *
-     * <li>
-     * <p>
-     * Ensure any programmatically added components are added.
+     * <span class="changed_modified_5_0">Replay the manipulations recorded by {@link #saveView}, in the order in which
+     * the application performed them: ensure that removed components are removed, that added components are added, and
+     * that moved components are at the recorded parent, facet name and index among their siblings. A component that the
+     * view build already produced at its recorded position must not be added a second time.</span>
      * </p>
      * </li>
      *
