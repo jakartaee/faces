@@ -816,6 +816,10 @@ required by the _Restore View_ phase of the request processing lifecycle
 for all facets of this component, all children of this component, and
 this component itself.
 
+*Deprecated since 5.0:*
+Full state saving has been removed.
+The view is restored by _StateManagementStrategy.restoreView()_ instead.
+
 [source,java]
 ----
 public void processDecodes(FacesContext context);
@@ -855,6 +859,10 @@ Perform the component tree processing
 required by the state saving portion of the _Render Response_ phase of
 the request processing lifecycle for all facets of this component, all
 children of this component, and this component itself.
+
+*Deprecated since 5.0:*
+Full state saving has been removed.
+The view is saved by _StateManagementStrategy.saveView()_ instead.
 
 [[a1075]]
 ==== Utility Methods

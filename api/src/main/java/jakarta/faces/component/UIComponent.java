@@ -1865,14 +1865,13 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * {@link UIComponent#popComponentFromEL}</span></li>
      * </ul>
      *
-     * <p>
-     * This method may not be called if the state saving method is set to server.
-     * </p>
-     *
      * @param context {@link FacesContext} for the request we are processing
      * @param state the state.
      * @throws NullPointerException if <code>context</code> is <code>null</code>
+     * @deprecated Full state saving has been removed. Use
+     * {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public abstract void processRestoreState(FacesContext context, Object state);
 
     /**
@@ -2007,14 +2006,13 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * </ul>
      *
-     * <p>
-     * This method may not be called if the state saving method is set to server.
-     * </p>
-     *
      * @param context {@link FacesContext} for the request we are processing
      * @return the saved state.
      * @throws NullPointerException if <code>context</code> is <code>null</code>
+     * @deprecated Full state saving has been removed. Use
+     * {@link jakarta.faces.view.StateManagementStrategy#saveView} instead.
      */
+    @Deprecated(since = "5.0", forRemoval = true)
     public abstract Object processSaveState(FacesContext context);
 
     // ----------------------------------------------------- Convenience Methods
