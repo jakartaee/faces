@@ -32,7 +32,7 @@ public class Issue1641IT extends BaseITNG {
 
     /**
      * Verifies that a composite component and its retargeted action source
-     * survive a postback under partial state saving: the inner command button
+     * survive a postback: the inner command button
      * keeps its value and its action listener fires, incrementing the counter.
      *
      * @see UIComponent

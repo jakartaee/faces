@@ -112,17 +112,13 @@ Don't forget to add `<module>my-feature</module>` to the parent `pom.xml`'s `<mo
 
 ### `web.xml` — every war must have one
 
-Use the canonical 4 context-param block, in this exact order, parameterized:
+Use the canonical 3 context-param block, in this exact order, parameterized:
 
 ```xml
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" ... version="6.1">
     <context-param>
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
-    </context-param>
-    <context-param>
-        <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>
-        <param-value>${webapp.partialStateSaving}</param-value>
     </context-param>
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>
@@ -135,7 +131,7 @@ Use the canonical 4 context-param block, in this exact order, parameterized:
 </web-app>
 ```
 
-The `${webapp.*}` placeholders default to `Production`/`true`/`server`/`false` (set in the parent pom) and let CI sweep the suite under different state-saving configurations via `-Dwebapp.xxx=…`.
+The `${webapp.*}` placeholders default to `Production`/`server`/`false` (set in the parent pom) and let CI sweep the suite under different state-saving configurations via `-Dwebapp.xxx=…`.
 
 **No need to declare `<servlet>` for `FacesServlet` unless you need a non-default mapping** — Jakarta Faces auto-maps `*.xhtml` since 4.0. Only add explicit mapping when the test needs it.
 
@@ -268,14 +264,13 @@ Common reasons we pin:
 
 - `PROJECT_STAGE=Development` — exercises dev-only validators (e.g. `f:validateWholeBean` precondition checks) or asserts the Mojarra dev error page.
 - `PROJECT_STAGE=Production` — asserts the spec default (`Application.getProjectStage()` returning `Production` when no override is configured) or refresh-period production semantics.
-- `PARTIAL_STATE_SAVING=true` — exercises `<ui:repeat>` row-state preservation, ajax+commandLink-in-repeat, or composite-component re-render. These are textbook FSS corner cases (FSS itself is deprecated in Faces 4.1).
 - `STATE_SAVING_METHOD=server`/`client` — the test specifically validates that state-saving mode, **or** the test implicitly depends on the HTTP session existing.
 
 ## 7. Before you push
 
 1. `mvn clean install -am -pl <your-module> -Dit.test=Spec123IT` passes locally.
-2. The module also passes when the user cycles through the four `webapp.*` flags; if it doesn't, either fix the test or pin the param with a `DO NOT PARAMETERIZE` comment per section 6.
-3. New `web.xml` has all four canonical context-params; new `pom.xml` has the standard parent + `<name>` + `<finalName>`.
+2. The module also passes when the user cycles through the three `webapp.*` flags; if it doesn't, either fix the test or pin the param with a `DO NOT PARAMETERIZE` comment per section 6.
+3. New `web.xml` has all three canonical context-params; new `pom.xml` has the standard parent + `<name>` + `<finalName>`.
 4. New xhtml fixtures use HTML5 doctype, Jakarta URNs, fixed IDs on NamingContainers, and numeric entity refs.
 5. New test class extends `BaseITNG`, has per-method `@see` javadoc, and uses `getPage("Spec123.xhtml")` explicitly.
 6. Assertions target an explicit result element by id (`findElement(By.id(...)).getText()`), not whole-page `containsText`/`containsSource`, except where the result genuinely can't be pinned to one element.

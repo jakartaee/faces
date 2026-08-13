@@ -139,7 +139,6 @@ mvn clean verify -T4 -Dglassfish.home=/path/to/glassfish
 | `-Dmojarra.noupdate=true` | Skip the Mojarra overlay; test the build that ships with GlassFish. Set `-Dsigtest.api.version=` to match the API GlassFish ships. |
 | `-Dee.jakarta.tck.faces.timeout=N` | Selenium wait timeout in milliseconds (default `10000`). Bump on old, slow, or overloaded systems where the default 10 s isn't enough for HTTP navigations or ajax requests to settle, e.g. `-Dee.jakarta.tck.faces.timeout=30000` for 30 s. |
 | `-Dwebapp.projectStage=…` | `jakarta.faces.PROJECT_STAGE` for every test webapp (default `Production`). Set to `Development` to exercise dev-stage code paths. |
-| `-Dwebapp.partialStateSaving=…` | `jakarta.faces.PARTIAL_STATE_SAVING` (default `true`). Set to `false` to run the suite under full-state-saving. |
 | `-Dwebapp.stateSavingMethod=…` | `jakarta.faces.STATE_SAVING_METHOD` (default `server`). Set to `client` to run the suite under client-side state saving. |
 | `-Dwebapp.serializeServerState=…` | `jakarta.faces.SERIALIZE_SERVER_STATE` (default `false`). Set to `true` to force server-state serialization. |
 
@@ -147,7 +146,7 @@ A handful of test modules pin a specific webapp context parameter value and igno
 the `-Dwebapp.*` flags — those carry a `DO NOT PARAMETERIZE` comment in their `web.xml`
 along with reason.
 
-The four `webapp.*` flags can be combined; for example, run the whole suite under
+The three `webapp.*` flags can be combined; for example, run the whole suite under
 client-side state saving in development stage:
 
 ```bash
@@ -158,7 +157,7 @@ Or sweep one configuration matrix axis for a single module:
 
 ```bash
 cd faces50/ajax
-mvn clean verify -Dwebapp.partialStateSaving=false
+mvn clean verify -Dwebapp.serializeServerState=true
 ```
 
 ### Sizing `-T` and the pool for the host
