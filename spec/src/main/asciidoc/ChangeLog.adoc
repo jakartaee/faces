@@ -15,6 +15,9 @@ This release contains the following backwards compatible changes:
 * Issue ID {issue_tracker_url}2227[2227] +
 Spec: correct h:doctype tag attributes and clarify rendering of the system identifier
 
+* Issue ID {issue_tracker_url}2226[2226] +
+Deprecation: _UIComponent.processSaveState()_ and _UIComponent.processRestoreState()_
+
 * Issue ID {issue_tracker_url}2219[2219] +
 Spec: clarify automatic _UIPanel_ for a _<f:facet>_ with multiple children
 

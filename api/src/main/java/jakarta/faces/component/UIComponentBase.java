@@ -1148,8 +1148,11 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * @throws NullPointerException {@inheritDoc}
+     * @deprecated Full state saving has been removed. Use
+     * {@link jakarta.faces.view.StateManagementStrategy#saveView} instead.
      */
     @Override
+    @Deprecated(since = "5.0", forRemoval = true)
     public Object processSaveState(FacesContext context) {
 
         if (context == null) {
@@ -1196,8 +1199,11 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * @throws NullPointerException {@inheritDoc}
+     * @deprecated Full state saving has been removed. Use
+     * {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
      */
     @Override
+    @Deprecated(since = "5.0", forRemoval = true)
     public void processRestoreState(FacesContext context, Object state) {
         if (context == null) {
             throw new NullPointerException();
@@ -3911,6 +3917,7 @@ public abstract class UIComponentBase extends UIComponent {
         return findComponent(kid, id, true);
     }
 
+    @Deprecated(since = "5.0", forRemoval = true)
     private List<Object> collectChildState(FacesContext context, List<Object> stateList) {
         if (getChildCount() > 0) {
             Iterator<UIComponent> kids = getChildren().iterator();
@@ -3925,6 +3932,7 @@ public abstract class UIComponentBase extends UIComponent {
         return stateList;
     }
 
+    @Deprecated(since = "5.0", forRemoval = true)
     private List<Object> collectFacetsState(FacesContext context, List<Object> stateList) {
         if (getFacetCount() > 0) {
             Iterator<Entry<String, UIComponent>> myFacets = getFacets().entrySet().iterator();
@@ -3945,6 +3953,7 @@ public abstract class UIComponentBase extends UIComponent {
         return stateList;
     }
 
+    @Deprecated(since = "5.0", forRemoval = true)
     private int restoreChildState(FacesContext context, Object[] childState) {
         int i = 0;
 
@@ -3972,6 +3981,7 @@ public abstract class UIComponentBase extends UIComponent {
         return i;
     }
 
+    @Deprecated(since = "5.0", forRemoval = true)
     private void restoreFacetsState(FacesContext context, Object[] childState, int i) {
         if (getFacetCount() > 0) {
 

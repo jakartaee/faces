@@ -947,8 +947,11 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      *
      * @param context the <code>FacesContext</code> for this requets
      * @param state the opaque state object obtained from the {@link jakarta.faces.application.StateManager}
+     * @deprecated Full state saving has been removed. Use
+     * {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
      */
     @Override
+    @Deprecated(since = "5.0", forRemoval = true)
     public void processRestoreState(FacesContext context, Object state) {
         // hack to work around older state managers that may not set the
         // view root early enough
