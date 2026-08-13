@@ -1827,12 +1827,20 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * @since 2.0
      */
     public UIComponent getNamingContainer() {
-        UIComponent namingContainer = this;
-        while (namingContainer != null) {
-            if (namingContainer instanceof NamingContainer) {
-                return namingContainer;
+        if (this instanceof NamingContainer) {
+            return this;
+        }
+
+        // Only UIComponentBase may answer from its memoized ancestor: it is the sole class whose setParent
+        // invalidates that cache, so any other subtype must resolve by walking the parent chain.
+        if (this instanceof UIComponentBase base) {
+            return base.getNamingContainerAncestor();
+        }
+
+        for (UIComponent ancestor = getParent(); ancestor != null; ancestor = ancestor.getParent()) {
+            if (ancestor instanceof NamingContainer) {
+                return ancestor;
             }
-            namingContainer = namingContainer.getParent();
         }
 
         return null;
