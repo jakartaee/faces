@@ -1086,7 +1086,7 @@ meth public void setValueExpression(java.lang.String,jakarta.el.ValueExpression)
 meth public void subscribeToEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.ComponentSystemEventListener)
 meth public void unsubscribeFromEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.ComponentSystemEventListener)
 supr java.lang.Object
-hfds LOGGER,_CURRENT_COMPONENT_STACK_KEY,_CURRENT_COMPOSITE_COMPONENT_STACK_KEY,_isPushedAsCurrentRefCount,attributesThatAreSet,compositeParent,initialState,isCompositeComponent,isInView,resourceBundleMap,stateHelper
+hfds LOGGER,_CURRENT_COMPONENT_STACK_KEY,_CURRENT_COMPOSITE_COMPONENT_STACK_KEY,_isPushedAsCurrentRefCount,compositeParent,initialState,isCompositeComponent,isInView,resourceBundleMap,stateHelper,systemEventListenersModified,valueExpressions,valueExpressionsModified
 hcls ComponentSystemEventListenerAdapter,PropertyKeys,PropertyKeysPrivate
 
 CLSS public abstract jakarta.faces.component.UIComponentBase
@@ -1143,8 +1143,8 @@ meth public void setTransient(boolean)
 meth public void subscribeToEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.ComponentSystemEventListener)
 meth public void unsubscribeFromEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.ComponentSystemEventListener)
 supr jakarta.faces.component.UIComponent
-hfds ADDED,CHILD_STATE,EMPTY_OBJECT_ARRAY,FACES_COMPONENT_DESCRIPTORS_MAP_NAME,LOGGER,MY_STATE,attributes,behaviors,children,clientId,descriptors,facets,id,listeners,listenersByEventClass,parent,propertyDescriptorMap,transientFlag
-hcls AttributesMap,BehaviorsMap,ChildrenList,ChildrenListIterator,FacetsAndChildrenIterator,FacetsMap,FacetsMapEntrySet,FacetsMapEntrySetEntry,FacetsMapEntrySetIterator,FacetsMapKeySet,FacetsMapKeySetIterator,FacetsMapValues,FacetsMapValuesIterator,PassThroughAttributesMap
+hfds CHILD_STATE,COMPONENT_METADATA,EMPTY_OBJECT_ARRAY,LOGGER,MAX_ASCII,MY_STATE,NOT_MARKER,SHARED_CLIENT_ID_BUILDER_KEY,added,attributes,behaviors,cachedIsRendered,cachedRenderer,children,clientId,dynamicComponent,facetName,facets,id,listeners,listenersByEventClass,markChildrenModified,markCreated,markDeleted,namingContainerAncestor,parent,propertyDescriptorMap,readMethodMap,removedChildren,rendererType,rendererTypeSet,transientFlag,writeMethodMap
+hcls AttributesMap,BehaviorsMap,ChildrenList,ChildrenListIterator,ComponentMetadata,FacetsAndChildrenIterator,FacetsMap,FacetsMapEntrySet,FacetsMapEntrySetEntry,FacetsMapEntrySetIterator,FacetsMapKeySet,FacetsMapKeySetIterator,FacetsMapValues,FacetsMapValuesIterator,PassThroughAttributesMap
 
 CLSS public jakarta.faces.component.UIData
 cons public init()
@@ -1189,7 +1189,7 @@ meth public void setValue(java.lang.Object)
 meth public void setValueExpression(java.lang.String,jakarta.el.ValueExpression)
 meth public void setVar(java.lang.String)
 supr jakarta.faces.component.UIComponentBase
-hfds EMPTY_DATA_MODEL,_initialDescendantFullComponentState,_rowDeltaStates,_rowTransientStates,baseClientId,baseClientIdLength,clientIdBuilder,isNested,model,oldVar
+hfds DATA_MODEL_CLASSES_MAP_BEAN_NAME,EMPTY_DATA_MODEL,_initialDescendantFullComponentState,_rowDeltaStates,_rowTransientStates,baseClientId,baseClientIdLength,childState,clientIdBuilder,isNested,iterationResetList,iterationStatefulList,model,oldVar,rowIndex
 hcls FacesDataModelAnnotationLiteral,PropertyKeys
 
 CLSS public jakarta.faces.component.UIForm
@@ -1295,7 +1295,7 @@ meth public void setValue(java.lang.Object)
 meth public void updateModel(jakarta.faces.context.FacesContext)
 meth public void validate(jakarta.faces.context.FacesContext)
 supr jakarta.faces.component.UIOutput
-hfds BEANS_VALIDATION_AVAILABLE,EMPTY_VALIDATOR,emptyStringIsNull,isSetAlwaysValidateRequired,submittedValue,validateEmptyFields,validators
+hfds BEANS_VALIDATION_AVAILABLE,EMPTY_VALIDATOR,emptyStringIsNull,isSetAlwaysValidateRequired,validateEmptyFields,validators
 hcls PropertyKeys
 
 CLSS public final static !enum jakarta.faces.component.UIInput$ValidateEmptyFields
@@ -1615,7 +1615,7 @@ meth public void setViewId(java.lang.String)
 meth public void subscribeToViewEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.SystemEventListener)
 meth public void unsubscribeFromViewEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.SystemEventListener)
 supr jakarta.faces.component.UIComponentBase
-hfds LOCATION_IDENTIFIER_MAP,LOCATION_IDENTIFIER_PREFIX,LOGGER,beforeMethodException,doctype,events,lifecycle,phaseListenerIterator,skipPhase,values,viewListeners
+hfds ACTIVE_VIEW_MAPS_KEY,LOCATION_IDENTIFIER_MAP,LOCATION_IDENTIFIER_PREFIX,LOGGER,VIEW_MAP_ID_KEY,beforeMethodException,doctype,events,lifecycle,phaseListenerIterator,skipPhase,values,viewListeners,viewMap,viewScopeStateRestored
 hcls DoResetValues,PropertyKeys,ViewMap
 
 CLSS public jakarta.faces.component.UIWebsocket
@@ -1695,7 +1695,7 @@ meth public void setRender(java.util.Collection<java.lang.String>)
 meth public void setResetValues(boolean)
 meth public void setValueExpression(java.lang.String,jakarta.el.ValueExpression)
 supr jakarta.faces.component.behavior.ClientBehaviorBase
-hfds ALL,ALL_LIST,CLEAR_MODEL,DELAY,DISABLED,EXECUTE,FORM,FORM_LIST,HINTS,IMMEDIATE,NONE,NONE_LIST,ONERROR,ONEVENT,RENDER,RESET_VALUES,SPLIT_PATTERN,THIS,THIS_LIST,bindings,clearModel,delay,disabled,execute,immediate,onerror,onevent,render,resetValues
+hfds ALL,ALL_LIST,CLEAR_MODEL,DELAY,DISABLED,EXECUTE,FORM,FORM_LIST,HINTS,IMMEDIATE,NONE,NONE_LIST,ONERROR,ONEVENT,RENDER,RESET_VALUES,THIS,THIS_LIST,bindings,clearModel,delay,disabled,execute,immediate,onerror,onevent,render,resetValues
 
 CLSS public abstract interface jakarta.faces.component.behavior.Behavior
 meth public abstract void broadcast(jakarta.faces.event.BehaviorEvent)
@@ -4840,7 +4840,7 @@ meth public void setProcessingEvents(boolean)
 meth public void setResourceLibraryContracts(java.util.List<java.lang.String>)
 meth public void validationFailed()
 supr java.lang.Object
-hfds attributesForInvalidFactoryConstruction,currentPhaseIdForInvalidFactoryConstruction,defaultFacesContext,instance,isCreatedFromValidFactory,partialViewContextForInvalidFactoryConstruction,processingEvents
+hfds CALLER_EXTRACTOR,CALLER_FRAME,CALLER_WALKER,attributesForInvalidFactoryConstruction,currentPhaseIdForInvalidFactoryConstruction,defaultFacesContext,instance,isCreatedFromValidFactory,partialViewContextForInvalidFactoryConstruction,processingEvents
 
 CLSS public abstract jakarta.faces.context.FacesContextFactory
 cons public init()
@@ -5229,8 +5229,8 @@ meth public void setTimeZone(java.util.TimeZone)
 meth public void setTransient(boolean)
 meth public void setType(java.lang.String)
 supr java.lang.Object
-hfds DEFAULT_TIME_ZONE,ESCAPED_DATE_TIME_PATTERN,FIXED_WIDTH_WHITESPACE,JAVA_TIME_TYPES,ZERO_WIDTH_WHITESPACE,dateStyle,initialState,locale,pattern,timeStyle,timeZone,transientFlag,type
-hcls FormatWrapper
+hfds DEFAULT_TIME_ZONE,ESCAPED_DATE_TIME_PATTERN,FIXED_WIDTH_WHITESPACE,FORMATTER_CACHE_KEY,FORMATTER_CACHE_LIMIT,JAVA_TIME_TYPES,ZERO_WIDTH_WHITESPACE,dateStyle,initialState,locale,pattern,timeStyle,timeZone,transientFlag,type
+hcls FormatWrapper,FormatterCache
 
 CLSS public jakarta.faces.convert.DoubleConverter
 cons public init()
@@ -5358,7 +5358,8 @@ meth public void setPattern(java.lang.String)
 meth public void setTransient(boolean)
 meth public void setType(java.lang.String)
 supr java.lang.Object
-hfds FIXED_WIDTH_WHITESPACE,ZERO_WIDTH_WHITESPACE,currencyCode,currencySymbol,groupingUsed,initialState,integerOnly,locale,maxFractionDigits,maxIntegerDigits,minFractionDigits,minIntegerDigits,pattern,transientFlag,type
+hfds FIXED_WIDTH_WHITESPACE,FORMATTER_CACHE_KEY,FORMATTER_CACHE_LIMIT,PARSER_CACHE_KEY,ZERO_WIDTH_WHITESPACE,currencyCode,currencySymbol,groupingUsed,initialState,integerOnly,locale,maxFractionDigits,maxIntegerDigits,minFractionDigits,minIntegerDigits,pattern,transientFlag,type
+hcls FormatterCache
 
 CLSS public jakarta.faces.convert.ShortConverter
 cons public init()
@@ -6455,8 +6456,8 @@ meth public void setTransient(boolean)
 meth public void setValidationGroups(java.lang.String)
 meth public void validate(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent,java.lang.Object)
 supr java.lang.Object
-hfds LOGGER,cachedValidationGroups,initialState,transientValue,validationGroups
-hcls FacesAwareMessageInterpolator
+hfds BEAN_VALIDATOR_KEY,EMPTY_VALIDATION_GROUPS,LOGGER,cachedValidationGroups,initialState,transientValue,validationGroups
+hcls FacesAwareMessageInterpolator,ResolvedValueReference
 
 CLSS public jakarta.faces.validator.DoubleRangeValidator
 cons public init()
@@ -7124,6 +7125,7 @@ meth public void write(int) throws java.io.IOException
 meth public void write(java.lang.String) throws java.io.IOException
 meth public void write(java.lang.String,int,int) throws java.io.IOException
 supr java.lang.Object
+hfds WRITE_BUFFER_SIZE,writeBuffer
 
 CLSS public abstract interface java.lang.Appendable
 meth public abstract java.lang.Appendable append(char) throws java.io.IOException
@@ -7162,6 +7164,7 @@ meth public final java.util.Optional<java.lang.Enum$EnumDesc<{java.lang.Enum%0}>
 meth public java.lang.String toString()
 meth public static <%0 extends java.lang.Enum<{%%0}>> {%%0} valueOf(java.lang.Class<{%%0}>,java.lang.String)
 supr java.lang.Object
+hfds name,ordinal
 
 CLSS public java.lang.Exception
 cons protected init(java.lang.String,java.lang.Throwable,boolean,boolean)
@@ -7170,6 +7173,7 @@ cons public init(java.lang.String)
 cons public init(java.lang.String,java.lang.Throwable)
 cons public init(java.lang.Throwable)
 supr java.lang.Throwable
+hfds serialVersionUID
 
 CLSS public abstract interface java.lang.Iterable<%0 extends java.lang.Object>
 meth public abstract java.util.Iterator<{java.lang.Iterable%0}> iterator()
@@ -7198,6 +7202,7 @@ cons public init(java.lang.String)
 cons public init(java.lang.String,java.lang.Throwable)
 cons public init(java.lang.Throwable)
 supr java.lang.Exception
+hfds serialVersionUID
 
 CLSS public java.lang.Throwable
 cons protected init(java.lang.String,java.lang.Throwable,boolean,boolean)
@@ -7220,6 +7225,8 @@ meth public void printStackTrace(java.io.PrintStream)
 meth public void printStackTrace(java.io.PrintWriter)
 meth public void setStackTrace(java.lang.StackTraceElement[])
 supr java.lang.Object
+hfds CAUSE_CAPTION,EMPTY_THROWABLE_ARRAY,NULL_CAUSE_MESSAGE,SELF_SUPPRESSION_MESSAGE,SUPPRESSED_CAPTION,SUPPRESSED_SENTINEL,UNASSIGNED_STACK,backtrace,cause,depth,detailMessage,serialVersionUID,stackTrace,suppressedExceptions
+hcls PrintStreamOrWriter,SentinelHolder,WrappedPrintStream,WrappedPrintWriter
 
 CLSS public abstract interface java.lang.annotation.Annotation
 meth public abstract boolean equals(java.lang.Object)
@@ -7272,6 +7279,7 @@ intf java.io.Serializable
 meth public java.lang.Object getSource()
 meth public java.lang.String toString()
 supr java.lang.Object
+hfds serialVersionUID
 
 CLSS public abstract interface java.util.Map<%0 extends java.lang.Object, %1 extends java.lang.Object>
 innr public abstract interface static Entry
