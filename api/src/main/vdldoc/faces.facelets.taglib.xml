@@ -805,7 +805,6 @@ attribute must be an absolute path starting with "/".</span>
             ]]></description>
             <name>name</name>
             <required>true</required>
-            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description><![CDATA[
@@ -965,7 +964,6 @@ attribute must be an absolute path starting with "/".</span>
             </description>
             <name>var</name>
             <required>true</required>
-            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description>
@@ -990,7 +988,6 @@ attribute must be an absolute path starting with "/".</span>
             </description>
             <name>varStatus</name>
             <required>false</required>
-            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description>
