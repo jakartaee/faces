@@ -650,15 +650,28 @@ manipulated, to do so while the view is being built: with the Jakarta Tags,
 such as _<c:if>_ and _<c:forEach>_, with a custom tag handler, or from a
 listener of _PostAddToViewEvent_, registered for example with
 _<f:event type="postAddToView">_. These two differ in when they decide. A
-build-time conditional or iteration is evaluated again whenever the view is
-built, which includes the build that precedes rendering, so it observes
-whatever the request has done to the model by then; the cost is that such a
-view is built twice per postback. A listener of _PostAddToViewEvent_ runs
-once per request, while the view is restored, so it decides before the
-model is updated and before any action is invoked, and it is not run again
-by a later build of the same view. Binding a component to a bean property
-with the _binding_ attribute and manipulating it from there is the most
-common unintended way of manipulating it afterwards.
+build-time conditional or iteration is evaluated by the build that precedes
+rendering, so it observes whatever the request has done to the model by
+then; the cost is that such a view is built twice per postback. A listener
+of _PostAddToViewEvent_ runs once per request, while the view is restored,
+so it decides before the model is updated and before any action is invoked,
+and it is not run again by a later build of the same view. Binding a
+component to a bean property with the _binding_ attribute and manipulating
+it from there is the most common unintended way of manipulating it
+afterwards.
+
+* Whether the build which restores a view
+evaluates its build-time conditions again, or reproduces the values they had
+in the build which rendered that view, is left to the implementation (see the
+javadocs for _StateManagementStrategy.restoreView()_). A page author
+therefore has to ensure that such a condition evaluates over a value which
+survives the postback, by holding it in a _@ViewScoped_ bean or by
+recomputing it from the relevant request parameters in the _@PostConstruct_
+of a _@RequestScoped_ one, and that the items an iteration was rendered over
+still hold its rows. Where that does not hold, the restored view is not the
+view that was submitted: the state saved for a component the build does not
+produce is restored into nothing, and a value submitted for it is decoded by
+nothing.
 
 * After any dynamic component manipulations have
 been completed, any resources that have been added to the UIViewRoot,

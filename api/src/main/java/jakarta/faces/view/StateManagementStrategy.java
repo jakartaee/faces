@@ -139,6 +139,22 @@ public abstract class StateManagementStrategy {
      * handled.</span>
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * What the build produces also follows from the build time conditions it evaluates: the test of a conditional, the
+     * branch of a choice, the range or the items of an iteration, the path of a dynamic inclusion. Whether this build
+     * evaluates such a condition against the current state of the model, or reproduces the value it had in the build
+     * which rendered the view, is implementation dependent, and an application must not depend on either. It is
+     * responsible for a build time condition evaluating over a value which survives the postback.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * A component this build does not produce is therefore not necessarily one the application removed. It may be one
+     * whose build time condition no longer holds, in which case the state saved for it has no node to be restored into
+     * and a value submitted for it is not decoded. Reproducing the view that was rendered is in particular not
+     * required: an iteration over items the model no longer holds cannot be reproduced at all, since the components it
+     * produced read their item from those items.
+     * </p>
+     *
      *
      * </li>
      *
