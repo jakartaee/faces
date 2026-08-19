@@ -125,7 +125,8 @@ for the specification of this feature.
 If this param is set, the runtime must interpret its value as a
 space-separated list of additional HTML event names to be recognized by all
 _ClientBehaviorHolder_ components in addition to the event names defined in
-_HtmlEvents.HtmlDocumentElementEvent_ and _HtmlEvents.HtmlBodyElementEvent_.
+_HtmlEvents.HtmlElementEvent_, _HtmlEvents.HtmlBodyEvent_ and
+_HtmlEvents.HtmlWindowEvent_.
 This allows custom HTML event names to be used with _f:ajax_.
 See the javadocs for the constant
 _jakarta.faces.component.html.HtmlEvents.ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME_

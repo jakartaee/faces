@@ -1406,9 +1406,12 @@ event names supported by HTML elements as per the
 https://html.spec.whatwg.org/multipage/webappapis.html#event-handlers-on-elements,-document-objects,-and-window-objects[current HTML spec].
 The concrete HTML component classes use _HtmlEvents_ to dynamically return
 the supported event names from _getEventNames()_.
-The _HtmlEvents.HtmlDocumentElementEvent_ enum defines the events supported
-by all HTML document elements, and the _HtmlEvents.HtmlBodyElementEvent_ enum
-defines additional events supported by the HTML body element.
+The _HtmlEvents.HtmlElementEvent_ enum defines the events supported by all
+HTML elements which fire on the element itself, the _HtmlEvents.HtmlBodyEvent_
+enum defines the events supported by all HTML elements which are forwarded to
+the _Window_ object when they are declared on the HTML body element, and the
+_HtmlEvents.HtmlWindowEvent_ enum defines the events supported by the HTML body
+element only, which always fire on the _Window_ object.
 The _BehaviorEvent.FacesComponentEvent_ enum defines the additional component-level
 events: _action_ for _ActionSource_ components and _valueChange_ for
 _EditableValueHolder_ components.
@@ -3562,8 +3565,8 @@ The standard HTML component classes use _HtmlEvents_ to return
 the appropriate set of event names. _ActionSource_ components use
 _HtmlEvents.getFacesActionSourceEventNames()_, _EditableValueHolder_ components use
 _HtmlEvents.getFacesEditableValueHolderEventNames()_, and other components use
-_HtmlEvents.getHtmlBodyElementEventNames()_ or _HtmlEvents.getHtmlDocumentElementEventNames()_
-as appropriate for the HTML element they represent.
+_HtmlEvents.getHtmlElementEventNames()_, or _HtmlEvents.getHtmlBodyEventNames()_
+when they represent the HTML body element.
 
 Here’s an example code snippet from one of
 the Html components:
