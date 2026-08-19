@@ -632,46 +632,56 @@ that are unique within the scope of the closest parent _NamingContainer_
 component. The value of the _rendersChildren_ property is handled as
 expected, and may be either _true_ or __false__.
 
+* The build which precedes Render Response,
+the _rendering build_, produces the view that is saved. The build which
+recovers that view on the next request, the _restoring build_, produces it
+again from the same markup.
+
 * Manipulating the component tree while the
-view is being built is performed again by every subsequent build of that
-view, and therefore needs nothing in the saved state. This is the case for
-the templating system itself (such as Facelets), for tag handlers, for
+view is being built is performed again by the restoring build, and
+therefore needs nothing in the saved state. This is the case for the
+templating system itself (such as Facelets), for tag handlers, for
 listeners of _PostAddToViewEvent_, and for the relocations the
 implementation performs itself, such as moving component resources to the
 head of the view. Manipulating the tree after the view has been built, for
 example from an action listener or a listener of _PreRenderViewEvent_, is
-not performed again by the build, so the implementation carries every such
+not performed again by a build, so the implementation carries every such
 addition, removal and move in the saved state (see the javadocs for
 _StateManagementStrategy.saveView()_), at a cost in both the size of that
-state and the work of every subsequent request. Page authors are therefore
-recommended to express conditional content with the _rendered_ attribute on
-a statically built subtree, and, where the tree genuinely has to be
-manipulated, to do so while the view is being built: with the Jakarta Tags,
-such as _<c:if>_ and _<c:forEach>_, with a custom tag handler, or from a
-listener of _PostAddToViewEvent_, registered for example with
-_<f:event type="postAddToView">_. These two differ in when they decide. A
-build-time conditional or iteration is evaluated by the build that precedes
-rendering, so it observes whatever the request has done to the model by
-then; the cost is that such a view is built twice per postback. A listener
-of _PostAddToViewEvent_ runs once per request, while the view is restored,
-so it decides before the model is updated and before any action is invoked,
-and it is not run again by a later build of the same view. Binding a
-component to a bean property with the _binding_ attribute and manipulating
-it from there is the most common unintended way of manipulating it
-afterwards.
+state and the work of every subsequent request.
 
-* Whether the build which restores a view
-evaluates its build-time conditions again, or reproduces the values they had
-in the build which rendered that view, is left to the implementation (see the
-javadocs for _StateManagementStrategy.restoreView()_). A page author
-therefore has to ensure that such a condition evaluates over a value which
-survives the postback, by holding it in a _@ViewScoped_ bean or by
-recomputing it from the relevant request parameters in the _@PostConstruct_
-of a _@RequestScoped_ one, and that the items an iteration was rendered over
-still hold its rows. Where that does not hold, the restored view is not the
-view that was submitted: the state saved for a component the build does not
-produce is restored into nothing, and a value submitted for it is decoded by
-nothing.
+* Page authors are therefore recommended to
+express conditional content with the _rendered_ attribute on a statically
+built subtree, and, where the tree genuinely has to be manipulated, to do
+so while the view is being built: with the Jakarta Tags, such as _<c:if>_
+and _<c:forEach>_, or from a listener of _PostAddToViewEvent_, registered
+for example with _<f:event type="postAddToView">_. Binding a component to a
+bean property with the _binding_ attribute and manipulating it from there
+is the most common unintended way of manipulating it afterwards.
+
+* The two build time options differ in when
+they decide. A build time conditional or iteration is evaluated by the
+rendering build, so it observes whatever the request has done to the model
+by then; the cost is that such a view is built twice per postback. A
+listener of _PostAddToViewEvent_ runs once per request, in the restoring
+build, so it decides before the model is updated and before any action is
+invoked, and no later build of that view runs it again. A tag handler an
+application provides is run by both builds and decides again in each: one
+that decides from the model must reproduce in the restoring build the
+decision it reached in the rendering build, or it builds a different
+subtree from the one that was rendered.
+
+* For the build time conditions the
+implementation provides, the restoring build reproduces the decisions the
+rendering build reached, and the rendering build evaluates them again (see
+the javadocs for _StateManagementStrategy.restoreView()_). A page author
+therefore does not have to keep the value such a condition depends on alive
+across the postback. The items an iteration was rendered over are the
+exception, since its rows read their element from those items rather than
+from the state: where the items no longer hold them, the value submitted for
+such a row reaches nothing that outlives the request. Holding them in a
+_@ViewScoped_ bean, or recomputing them from the relevant request parameters
+in the _@PostConstruct_ of a _@RequestScoped_ one, is what keeps them.
 
 * After any dynamic component manipulations have
 been completed, any resources that have been added to the UIViewRoot,
