@@ -107,14 +107,25 @@ class HtmlEventsTest {
     }
 
     @Test
-    void additionalEventNamesAreMerged() {
-        when(externalContext.getInitParameter(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME)).thenReturn("animationend transitionend");
+    void additionalEventNamesAreMergedAndContributeNoBlankName() {
+        when(externalContext.getInitParameter(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME)).thenReturn("  animationend \t transitionend  ");
 
         Collection<String> eventNames = new HtmlPanelGroup().getEventNames();
 
         assertTrue(eventNames.contains("animationend"));
         assertTrue(eventNames.contains("transitionend"));
+        assertFalse(eventNames.contains(""));
         assertEquals(HtmlEvents.HtmlElementEvent.values().length + HtmlEvents.HtmlBodyEvent.values().length + 2, eventNames.size());
+    }
+
+    @Test
+    void blankAdditionalEventNamesParamContributesNothing() {
+        when(externalContext.getInitParameter(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME)).thenReturn(" ");
+
+        Collection<String> eventNames = new HtmlPanelGroup().getEventNames();
+
+        assertFalse(eventNames.contains(""));
+        assertEquals(HtmlEvents.HtmlElementEvent.values().length + HtmlEvents.HtmlBodyEvent.values().length, eventNames.size());
     }
 
     @Test

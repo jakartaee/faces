@@ -1,14 +1,15 @@
 package jakarta.faces.component.html;
 
-import static java.util.Arrays.asList;
+import static java.util.Arrays.stream;
 import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
+import static java.util.function.Predicate.not;
 import static java.util.stream.Collectors.toUnmodifiableList;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.EnumMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
@@ -173,7 +174,7 @@ public final class HtmlEvents {
     }
 
     private static Collection<String> getContextParam(FacesContext context) {
-        return ofNullable(context.getExternalContext().getInitParameter(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME)).map(param -> asList(param.split("\\s+"))).orElse(emptyList());
+        return ofNullable(context.getExternalContext().getInitParameter(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME)).map(param -> collect(stream(param.split("\\s+")).filter(not(String::isBlank)))).orElse(emptyList());
     }
 
     /**
@@ -235,8 +236,16 @@ public final class HtmlEvents {
 
     @SuppressWarnings("unchecked") // the event-name cache is stored under an Object-valued application-map entry.
     private static Collection<String> cache(FacesContext context, CacheKey key, Supplier<Collection<String>> supplier) {
-        return ((Map<CacheKey, Collection<String>>) context.getExternalContext().getApplicationMap()
-                .computeIfAbsent(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME, $ -> new EnumMap<>(CacheKey.class)))
-                .computeIfAbsent(key, $ -> supplier.get());
+        Map<CacheKey, Collection<String>> cache = (Map<CacheKey, Collection<String>>) context.getExternalContext().getApplicationMap()
+                .computeIfAbsent(ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME, $ -> new ConcurrentHashMap<CacheKey, Collection<String>>());
+        Collection<String> eventNames = cache.get(key);
+
+        if (eventNames == null) {
+            // Deliberately no computeIfAbsent: the suppliers recursively populate this very map, which a ConcurrentHashMap rejects.
+            eventNames = supplier.get();
+            cache.put(key, eventNames);
+        }
+
+        return eventNames;
     }
 }
