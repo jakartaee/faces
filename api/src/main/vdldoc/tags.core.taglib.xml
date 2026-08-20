@@ -42,7 +42,6 @@
             ]]></description>
             <name>var</name>
             <required>false</required>
-            <type>java.lang.String</type>
         </attribute>
     </tag>
     <tag>
@@ -79,15 +78,13 @@
             ]]></description>
             <name>var</name>
             <required>false</required>
-            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description><![CDATA[
-                Scope for var.
+                Scope for var. <span class="changed_added_5_0">This attribute is not used: the variable is always exported into the facelet scope.</span>
             ]]></description>
             <name>scope</name>
             <required>false</required>
-            <type>java.lang.String</type>
         </attribute>
     </tag>
     <tag>
@@ -151,7 +148,6 @@
             ]]></description>
             <name>var</name>
             <required>false</required>
-            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description><![CDATA[
@@ -163,7 +159,6 @@
             ]]></description>
             <name>varStatus</name>
             <required>false</required>
-            <type>java.lang.String</type>
         </attribute>
     </tag>
     <tag>
@@ -212,7 +207,6 @@
             ]]></description>
             <name>var</name>
             <required>false</required>
-            <type>java.lang.String</type>
         </attribute>
         <attribute>
             <description><![CDATA[
@@ -246,7 +240,6 @@
             ]]></description>
             <name>scope</name>
             <required>false</required>
-            <type>java.lang.String</type>
         </attribute>
     </tag>
     <tag>

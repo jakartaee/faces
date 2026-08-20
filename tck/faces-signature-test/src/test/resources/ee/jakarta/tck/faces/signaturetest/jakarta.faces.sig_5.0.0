@@ -2270,99 +2270,125 @@ hfds toString
 
 CLSS public final jakarta.faces.component.html.HtmlEvents
 fld public final static java.lang.String ADDITIONAL_HTML_EVENT_NAMES_PARAM_NAME = "jakarta.faces.ADDITIONAL_HTML_EVENT_NAMES"
-innr public final static !enum HtmlBodyElementEvent
-innr public final static !enum HtmlDocumentElementEvent
+innr public final static !enum HtmlBodyEvent
+innr public final static !enum HtmlElementEvent
+innr public final static !enum HtmlWindowEvent
 meth public static java.util.Collection<java.lang.String> getAdditionalHtmlEventNames(jakarta.faces.context.FacesContext)
 meth public static java.util.Collection<java.lang.String> getFacesActionSourceEventNames(jakarta.faces.context.FacesContext)
 meth public static java.util.Collection<java.lang.String> getFacesEditableValueHolderEventNames(jakarta.faces.context.FacesContext)
-meth public static java.util.Collection<java.lang.String> getHtmlBodyElementEventNames(jakarta.faces.context.FacesContext)
-meth public static java.util.Collection<java.lang.String> getHtmlDocumentElementEventNames(jakarta.faces.context.FacesContext)
+meth public static java.util.Collection<java.lang.String> getHtmlBodyEventNames(jakarta.faces.context.FacesContext)
+meth public static java.util.Collection<java.lang.String> getHtmlElementEventNames(jakarta.faces.context.FacesContext)
+meth public static java.util.Collection<java.lang.String> getHtmlWindowEventNames(jakarta.faces.context.FacesContext)
 supr java.lang.Object
 hcls CacheKey
 
-CLSS public final static !enum jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent
+CLSS public final static !enum jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent
  outer jakarta.faces.component.html.HtmlEvents
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent blur
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent error
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent focus
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent load
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent resize
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent scroll
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent scrollend
-meth public static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent valueOf(java.lang.String)
-meth public static jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent[] values()
-supr java.lang.Enum<jakarta.faces.component.html.HtmlEvents$HtmlBodyElementEvent>
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent blur
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent error
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent focus
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent load
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent resize
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent scroll
+meth public static jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent valueOf(java.lang.String)
+meth public static jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent[] values()
+supr java.lang.Enum<jakarta.faces.component.html.HtmlEvents$HtmlBodyEvent>
 
-CLSS public final static !enum jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent
+CLSS public final static !enum jakarta.faces.component.html.HtmlEvents$HtmlElementEvent
  outer jakarta.faces.component.html.HtmlEvents
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent abort
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent auxclick
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent beforeinput
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent beforematch
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent beforetoggle
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent cancel
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent canplay
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent canplaythrough
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent change
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent click
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent close
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent command
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent contextlost
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent contextmenu
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent contextrestored
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent copy
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent cuechange
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent cut
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent dblclick
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent drag
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent dragend
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent dragenter
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent dragleave
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent dragover
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent dragstart
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent drop
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent durationchange
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent emptied
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent ended
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent formdata
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent input
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent invalid
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent keydown
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent keypress
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent keyup
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent loadeddata
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent loadedmetadata
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent loadstart
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent mousedown
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent mouseenter
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent mouseleave
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent mousemove
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent mouseout
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent mouseover
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent mouseup
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent paste
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent pause
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent play
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent playing
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent progress
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent ratechange
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent reset
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent securitypolicyviolation
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent seeked
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent seeking
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent select
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent slotchange
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent stalled
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent submit
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent suspend
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent timeupdate
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent toggle
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent volumechange
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent waiting
-fld public final static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent wheel
-meth public static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent valueOf(java.lang.String)
-meth public static jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent[] values()
-supr java.lang.Enum<jakarta.faces.component.html.HtmlEvents$HtmlDocumentElementEvent>
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent abort
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent auxclick
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent beforeinput
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent beforematch
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent beforetoggle
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent cancel
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent canplay
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent canplaythrough
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent change
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent click
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent close
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent command
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent contextlost
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent contextmenu
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent contextrestored
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent copy
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent cuechange
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent cut
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent dblclick
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent drag
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent dragend
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent dragenter
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent dragleave
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent dragover
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent dragstart
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent drop
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent durationchange
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent emptied
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent ended
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent formdata
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent input
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent invalid
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent keydown
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent keypress
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent keyup
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent loadeddata
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent loadedmetadata
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent loadstart
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent mousedown
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent mouseenter
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent mouseleave
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent mousemove
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent mouseout
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent mouseover
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent mouseup
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent paste
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent pause
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent play
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent playing
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent progress
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent ratechange
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent reset
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent scrollend
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent securitypolicyviolation
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent seeked
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent seeking
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent select
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent slotchange
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent stalled
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent submit
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent suspend
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent timeupdate
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent toggle
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent volumechange
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent waiting
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent wheel
+meth public static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent valueOf(java.lang.String)
+meth public static jakarta.faces.component.html.HtmlEvents$HtmlElementEvent[] values()
+supr java.lang.Enum<jakarta.faces.component.html.HtmlEvents$HtmlElementEvent>
+
+CLSS public final static !enum jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent
+ outer jakarta.faces.component.html.HtmlEvents
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent afterprint
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent beforeprint
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent beforeunload
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent hashchange
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent languagechange
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent message
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent messageerror
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent offline
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent online
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent pagehide
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent pagereveal
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent pageshow
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent pageswap
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent popstate
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent rejectionhandled
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent storage
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent unhandledrejection
+fld public final static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent unload
+meth public static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent valueOf(java.lang.String)
+meth public static jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent[] values()
+supr java.lang.Enum<jakarta.faces.component.html.HtmlEvents$HtmlWindowEvent>
 
 CLSS public jakarta.faces.component.html.HtmlForm
 cons public init()
