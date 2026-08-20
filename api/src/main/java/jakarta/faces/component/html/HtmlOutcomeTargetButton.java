@@ -18,13 +18,13 @@
 package jakarta.faces.component.html;
 
 import static jakarta.faces.component.html.HtmlComponentUtils.handleAttribute;
-import static jakarta.faces.component.html.HtmlEvents.getHtmlBodyElementEventNames;
+import static jakarta.faces.component.html.HtmlEvents.getHtmlElementEventNames;
 
 import java.util.Collection;
 
 import jakarta.faces.component.UIOutcomeTarget;
 import jakarta.faces.component.behavior.ClientBehaviorHolder;
-import jakarta.faces.component.html.HtmlEvents.HtmlDocumentElementEvent;
+import jakarta.faces.component.html.HtmlEvents.HtmlElementEvent;
 
 /**
  * <p>
@@ -696,12 +696,12 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
 
     @Override
     public Collection<String> getEventNames() {
-        return getHtmlBodyElementEventNames(getFacesContext()); 
+        return getHtmlElementEventNames(getFacesContext()); 
     }
 
     @Override
     public String getDefaultEventName() {
-        return HtmlDocumentElementEvent.click.name();
+        return HtmlElementEvent.click.name();
     }
 
 }
