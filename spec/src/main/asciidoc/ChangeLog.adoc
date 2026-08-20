@@ -182,6 +182,10 @@ This release contains the following backwards incompatible changes:
 * Issue ID {issue_tracker_url}2226[2226] +
 Removal: ActionSource2, ActionSource2AttachedObjectHandler and ActionSource2AttachedObjectTarget deprecated since 4.1
 
+* Issue ID {issue_tracker_url}2226[2226] +
+Removal: full state saving, along with the _jakarta.faces.PARTIAL_STATE_SAVING_ and _jakarta.faces.FULL_STATE_SAVING_VIEW_IDS_ context parameters deprecated since 4.1. +
+_ViewDeclarationLanguage.getStateManagementStrategy()_ must return non-null.
+
 * Issue ID {issue_tracker_url}1584[1584] +
 Change: replace class scanning with CDI bean discovery for annotation discovery. +
 The Faces configuration annotations are now CDI stereotypes, making them bean defining annotations. +

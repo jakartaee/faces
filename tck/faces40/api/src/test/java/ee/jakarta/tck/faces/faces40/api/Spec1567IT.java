@@ -22,15 +22,12 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.AjaxBehavior;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.ExtendedTextInput;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-@DisabledIfSystemProperty(named = "webapp.partialStateSaving", matches = "false",
-        disabledReason = "Repeatedly ajax-re-rendering a composite component only works reliably under partial state saving")
 class Spec1567IT extends BaseITNG {
 
 

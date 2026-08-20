@@ -40,7 +40,7 @@ class Spec1424IT extends BaseITNG {
   void test() throws Exception {
         WebPage page = getPage("spec1424.xhtml");
 
-      assertEquals("jakarta.faces.PARTIAL_STATE_SAVING", page.findElement(By.id("result")).getText());
+      assertEquals("jakarta.faces.STATE_SAVING_METHOD", page.findElement(By.id("result")).getText());
 
       String results = page.findElement(By.id("results")).getText();
       List<String> entries = List.of(results.substring(1, results.length() - 1).split(", "));

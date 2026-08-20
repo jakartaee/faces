@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!--
 
-    Copyright (c) 2017, 2018 Oracle and/or its affiliates. All rights reserved.
     Copyright (c) 2026 Contributors to Eclipse Foundation.
 
     This program and the accompanying materials are made available under the
@@ -18,15 +17,18 @@
 
 -->
 
-<html xmlns:cc="jakarta.faces.composite"
-      xmlns:h="jakarta.faces.html">
-
-    <cc:interface>
-        <cc:actionSource name="abutton"/>
-    </cc:interface>
-
-    <cc:implementation>
-        <h:commandButton id="abutton" value="Click Me"/>
-    </cc:implementation>
-
+<html xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core">
+    <h:head>
+        <title>DynamicChildInContainer</title>
+    </h:head>
+    <h:body>
+        <h:form id="form">
+            <h:panelGroup id="container" layout="block">
+                <f:event type="postAddToView" listener="#{dynamicChildInPostAddToViewBean.addViaContainer}"/>
+            </h:panelGroup>
+            <h:commandButton id="submit" value="Submit"/>
+        </h:form>
+        <h:outputText id="echo" value="#{dynamicChildInPostAddToViewBean.value}"/>
+    </h:body>
 </html>

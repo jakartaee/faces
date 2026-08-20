@@ -225,10 +225,9 @@ public abstract class UIComponentBase extends UIComponent {
      * renderer type) and turns every {@link #getRenderer}/{@link #getRendererType} read into a field read
      * rather than a HashMap lookup.
      *
-     * <p>State handling honours the partial-state contract: under partial state saving the constructor
-     * sets this <em>before</em> {@code markInitialState}, so {@code buildView} reconstructs it on restore
-     * and it is carried in the delta only when changed afterwards (see {@link #rendererTypeSet}); under
-     * full state saving it is persisted unconditionally, like {@link #id}.
+     * <p>State handling honors the partial-state contract: the constructor sets this <em>before</em>
+     * {@code markInitialState}, so {@code buildView} reconstructs it on restore and it is carried in the
+     * delta only when changed afterwards (see {@link #rendererTypeSet}).
      */
     private String rendererType;
 
@@ -2217,8 +2216,8 @@ public abstract class UIComponentBase extends UIComponent {
     /**
      * Recursively maintain the in-view flag of the given subtree <em>without</em> publishing the
      * {@link PostAddToViewEvent}/{@link PreRemoveFromViewEvent} system events. Used when the runtime has event
-     * processing suppressed ({@link FacesContext#isProcessingEvents()} is {@code false}), e.g. while a
-     * partial-state-saving restore rebuilds the tree: {@link Application#publishEvent} is a no-op while suppressed,
+     * processing suppressed ({@link FacesContext#isProcessingEvents()} is {@code false}), e.g. while
+     * the state restore rebuilds the tree: {@link Application#publishEvent} is a no-op while suppressed,
      * so walking the subtree to fire it -- pushing and popping the EL stack at every node -- is wasted work. This
      * reproduces the publishing walks' only non-event side effects: {@link #publishAfterViewEvents} sets in-view
      * true, {@link #disconnectFromView} sets it false and clears {@code compositeParent}.

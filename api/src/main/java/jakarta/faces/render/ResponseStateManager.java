@@ -160,7 +160,7 @@ public abstract class ResponseStateManager {
      *
      * @param context The {@link FacesContext} instance for the current request
      * @param state The serialized state information previously saved
-     * @throws IOException if the state argument is not an array of length 2.
+     * @throws IOException <span class="changed_modified_5_0">if the state cannot be written.</span>
      *
      */
     public void writeState(FacesContext context, Object state) throws IOException {
@@ -201,8 +201,8 @@ public abstract class ResponseStateManager {
 
     /**
      * <p>
-     * <span class="changed_modified_2_2">The</span> implementation must inspect the current request and return an Object
-     * representing the tree structure and component state passed in to a previous invocation of
+     * <span class="changed_modified_2_2">The</span> implementation must inspect the current request and return
+     * <span class="changed_modified_5_0">the Object</span> passed in to a previous invocation of
      * {@link #writeState(jakarta.faces.context.FacesContext,java.lang.Object)}.
      * </p>
      *
@@ -218,8 +218,8 @@ public abstract class ResponseStateManager {
      * @param context The {@link FacesContext} instance for the current request
      * @param viewId View identifier of the view to be restored
      *
-     * @return the tree structure and component state Object passed in to <code>writeState</code>. If this is an initial
-     * request, this method returns <code>null</code>.
+     * @return <span class="changed_modified_5_0">the Object</span> passed in to <code>writeState</code>. If this is an
+     * initial request, this method returns <code>null</code>.
      */
     public Object getState(FacesContext context, String viewId) {
         return null;

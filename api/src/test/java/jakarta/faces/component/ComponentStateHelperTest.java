@@ -71,7 +71,7 @@ class ComponentStateHelperTest {
     /**
      * Rendering emits the tracked attributes in the order of this list, so restoring full state must record them where
      * the setters would have. Otherwise the same component renders its attributes in one order when the view builds it
-     * and another when a postback restores it, under {@code partialStateSaving=false}.
+     * and another when a postback restores it.
      * <p>
      * The saved entries are replayed in the iteration order of the state map, so the tracked list may be rebuilt from
      * the individual properties before the saved copy of the list itself is merged in. This moves that copy last to

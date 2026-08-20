@@ -79,7 +79,6 @@
         <module>webapp-resources-directory</module>
         <module>flow-defining-document-id-jar1</module>
         <module>flow-defining-document-id-jar2</module>
-        <module>full-state-saving</module>
         <module>flow-defining-document-id</module>
     </modules>
 

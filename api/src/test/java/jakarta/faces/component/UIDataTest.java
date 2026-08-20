@@ -46,7 +46,7 @@ public class UIDataTest {
     }
 
     /**
-     * Test full state saving.
+     * A component whose initial state was never marked saves its full state.
      */
     @Test
     public void testSaveState2() {

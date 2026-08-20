@@ -25,10 +25,6 @@
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
     </context-param>
-    <context-param>
-        <param-name>jakarta.faces.PARTIAL_STATE_SAVING</param-name>
-        <param-value>${webapp.partialStateSaving}</param-value>
-    </context-param>
 	<!-- DO NOT PARAMETERIZE STATE_SAVING_METHOD, the test needs it to be client-side; matches old-tck jsf_appl_statemgrc_web config -->
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>

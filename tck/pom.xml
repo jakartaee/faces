@@ -110,7 +110,6 @@
         <!-- web.xml defaults -->
         <webapp.projectStage>Production</webapp.projectStage>
         <webapp.stateSavingMethod>server</webapp.stateSavingMethod>
-        <webapp.partialStateSaving>true</webapp.partialStateSaving>
         <webapp.serializeServerState>false</webapp.serializeServerState>
     </properties>
 
@@ -426,7 +425,6 @@
                         <finalName>${project.build.finalName}</finalName>
                         <test.selenium>${test.selenium}</test.selenium>
                         <chromedriver.version>${chromedriver.version}</chromedriver.version>
-                        <webapp.partialStateSaving>${webapp.partialStateSaving}</webapp.partialStateSaving>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

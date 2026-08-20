@@ -45,7 +45,8 @@ class ComponentHandlerInBuildTimeIfIT extends BaseITNG {
 
         page.findElement(By.id("form:checkbox")).click();
         page.guardHttp(page.findElement(By.id("form:button"))::click);
-        // An extra submit covers partialStateSaving=false, where the view is rebuilt before restore.
+        // The build-time condition is evaluated while the view is rebuilt during Restore View, before the
+        // submitted value reaches the model, so the flip only takes effect on the next request.
         page.guardHttp(page.findElement(By.id("form:button"))::click);
         assertEquals("", page.findElement(By.id("message")).getText(), "handler must not be applied once condition is false");
     }

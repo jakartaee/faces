@@ -16,20 +16,20 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
+
 <html xmlns:h="jakarta.faces.html"
-      xmlns:ui="jakarta.faces.facelets">
-    <h:head>
-        <h:outputStylesheet name="default.css"/>
-        <h:outputStylesheet name="cssLayout.css"/>
-        <title><ui:insert name="title">title</ui:insert></title>
-    </h:head>
-    <h:body>
-        <div id="left">
-            <p>Left Side Navigation Menu</p>
-            <ui:insert name="nav">Nav Content</ui:insert>
-        </div>
-        <div id="content" class="left_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
-    </h:body>
+      xmlns:f="jakarta.faces.core">
+    <f:view>
+        <f:event type="postAddToView" listener="#{dynamicChildInPostAddToViewBean.addViaViewRoot}"/>
+        <h:head>
+            <title>DynamicChildInViewRoot</title>
+        </h:head>
+        <h:body>
+            <h:form id="form">
+                <h:panelGroup id="container" layout="block"/>
+                <h:commandButton id="submit" value="Submit"/>
+            </h:form>
+            <h:outputText id="echo" value="#{dynamicChildInPostAddToViewBean.value}"/>
+        </h:body>
+    </f:view>
 </html>

@@ -196,7 +196,7 @@ public class UIOutput extends UIComponentBase implements ValueHolder {
                  * Check if our parent component has its initial state marked and we know we don't.
                  * That means we are not using the same state saving algorithm.
                  * Can happen when this UIOutput is dynamically created/added.
-                 * So we are going to ALWAYS force to do FSS for the converter.
+                 * So we are going to ALWAYS save the converter's full state.
                  */
                 if (getParent() != null && getParent().initialStateMarked()) {
                     getAttributes().put(PropertyKeys.converterSet.name(), true);
