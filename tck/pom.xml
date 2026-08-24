@@ -77,7 +77,7 @@
         <tomcat.version>9.0.12</tomcat.version>
 
 		<!-- GlassFish server properties -->
-        <glassfish.version>9.0.0-M2</glassfish.version>
+        <glassfish.version>9.0.0-M3</glassfish.version>
         <arquillian.glassfish.version>2.2.0</arquillian.glassfish.version>
         <mojarra.version>5.0.0-SNAPSHOT</mojarra.version>
         <mojarra.noupdate>false</mojarra.noupdate>
