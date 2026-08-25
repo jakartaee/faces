@@ -3782,6 +3782,9 @@
             <description>
                 &lt;div class="changed_added_2_0"&gt;&lt;p&gt;The &lt;em&gt;resourceName&lt;/em&gt;
                 for this resource.&lt;/p&gt;&lt;/div&gt;
+                &lt;p class="changed_added_5_0"&gt;The &lt;em&gt;resourceName&lt;/em&gt; may carry a query
+                string, introduced by a '?' character. It is not part of the resource identifier and is
+                appended to the generated resource URL.&lt;/p&gt;
             </description>
             <name>name</name>
             <required>false</required>
@@ -6983,7 +6986,12 @@
                  <p>
                   This attribute is required if the stylesheet is NOT inline.
                  </p>
-                </div>]]>
+                </div>
+                <p class="changed_added_5_0">
+                 The <em>resourceName</em> may carry a query string, introduced by a '?' character. It is not part of
+                 the resource identifier and is appended to the generated resource URL.
+                </p>
+                ]]>
             </description>
             <name>
                 name
@@ -7409,7 +7417,12 @@
                  <p>
                   This attribute is required if the script is NOT inline.
                  </p>
-                </div>]]>
+                </div>
+                <p class="changed_added_5_0">
+                 The <em>resourceName</em> may carry a query string, introduced by a '?' character. It is not part of
+                 the resource identifier and is appended to the generated resource URL.
+                </p>
+                ]]>
             </description>
             <name>
                 name

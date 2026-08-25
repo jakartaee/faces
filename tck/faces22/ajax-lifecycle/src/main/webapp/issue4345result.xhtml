@@ -20,10 +20,7 @@
 <html
     xmlns:h="jakarta.faces.html">
     <h:head>
-        <!-- h:outputStylesheet does not support params in the URL, so generate a similar link manually. -->
-        <!--<h:outputStylesheet name="issue4345.css?firstParam=1&amp;secondParam=2" />-->
-        <link rel="stylesheet"
-            href="#{facesContext.externalContext.encodeResourceURL(resource['issue4345.css'])}?firstParam=1&amp;secondParam=2" />
+        <h:outputStylesheet name="issue4345.css?firstParam=1&amp;secondParam=2" />
         <h:outputScript name="issue4345.js?firstParam=1&amp;secondParam=2" />
     </h:head>
     <h:body />

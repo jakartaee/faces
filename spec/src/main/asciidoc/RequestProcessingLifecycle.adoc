@@ -1787,6 +1787,20 @@ extension” is used, a “.” character, followed by a “file extension” mu
 be appended to the version number. See the following table for an
 example.
 
+A _resourceName_ may carry a query string, introduced by a ’ _?_ ’
+character. The query string is not part of the _<resourceIdentifier>_. The
+rules above apply to the _resourceName_ without its query string, and it is
+the _resourceName_ without its query string that identifies the resource, both
+when resolving it and when recording that it has been rendered, as specified in
+_ResourceHandler.createResource()_, _ResourceHandler.markResourceRendered()_
+and __ResourceHandler.isResourceRendered()__.
+
+The query string, without its introducing ’ _?_ ’ character, is appended
+to the resource metadata in the value returned by
+__Resource.getRequestPath()__. It must not use any of the parameter names
+that the run-time itself uses there, being ’ _ln_ ’, ’ _loc_ ’
+and ’ _con_ ’.
+
 
 The following examples illustrate the nine
 valid combinations of the above resource identifier segments.

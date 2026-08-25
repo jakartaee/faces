@@ -330,6 +330,13 @@ public abstract class ResourceHandler {
      * form {@code libraryName/resourceName}, even when {@code resourceName} contains '/' characters. </span>
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * If the <em>resourceName</em> carries a query string, as specified in section 2.6.1.3 "Resource Identifiers" of the
+     * Jakarta Faces Specification Document, it must be removed before the algorithm is executed and before the content
+     * type is derived from it, and the created <code>Resource</code> must include it in the value returned by
+     * {@link Resource#getRequestPath}.
+     * </p>
+     *
      * </div>
      *
      * @param resourceName the name of the resource.
@@ -509,6 +516,13 @@ public abstract class ResourceHandler {
      * specification.</span>
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * If the <em>resourceName</em> carries a query string, as specified in section 2.6.1.3 "Resource Identifiers" of the
+     * Jakarta Faces Specification Document, it must be removed before the algorithm is executed and before the content
+     * type is derived from it, and the created <code>Resource</code> must include it in the value returned by
+     * {@link Resource#getRequestPath}.
+     * </p>
+     *
      * </div>
      *
      * @param resourceName the name of the resource.
@@ -538,6 +552,13 @@ public abstract class ResourceHandler {
      * must be executed to create
      * the <code>Resource</code>. <span class="changed_added_2_2">New requirements were introduced in version 2.2 of the
      * specification.</span>
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * If the <em>resourceName</em> carries a query string, as specified in section 2.6.1.3 "Resource Identifiers" of the
+     * Jakarta Faces Specification Document, it must be removed before the algorithm is executed and before the content
+     * type is derived from it, and the created <code>Resource</code> must include it in the value returned by
+     * {@link Resource#getRequestPath}.
      * </p>
      *
      * </div>
@@ -767,6 +788,11 @@ public abstract class ResourceHandler {
      * has already been rendered during the render response phase of the current view.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * If the resource name carries a query string, as specified in section 2.6.1.3 "Resource Identifiers" of the Jakarta
+     * Faces Specification Document, it must be removed before the resource name is used to identify the resource.
+     * </p>
+     *
      * @param context The {@link FacesContext} for this request.
      * @param resourceName The name of the resource.
      * @param libraryName The name of the library in which the resource resides, may be <code>null</code>.
@@ -774,7 +800,7 @@ public abstract class ResourceHandler {
      */
     @SuppressWarnings("unchecked") // the rendered-resources structure is recovered from the Object-typed request map.
     public void markResourceRendered(FacesContext context, String resourceName, String libraryName) {
-        String resourceIdentifier = libraryName + ':' + resourceName;
+        String resourceIdentifier = libraryName + ':' + removeQueryString(resourceName);
         Set<String> resourceIdentifiers = (Set<String>) context.getAttributes().computeIfAbsent(RESOURCE_IDENTIFIER, k -> new HashSet<>());
         resourceIdentifiers.add(resourceIdentifier);
     }
@@ -786,6 +812,11 @@ public abstract class ResourceHandler {
      * has been marked as rendered via {@link #markResourceRendered(FacesContext, String, String)}.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * If the resource name carries a query string, as specified in section 2.6.1.3 "Resource Identifiers" of the Jakarta
+     * Faces Specification Document, it must be removed before the resource name is used to identify the resource.
+     * </p>
+     *
      * @param context The {@link FacesContext} for this request.
      * @param resourceName The name of the resource.
      * @param libraryName The name of the library in which this resource resides, may be <code>null</code>.
@@ -794,9 +825,21 @@ public abstract class ResourceHandler {
      */
     @SuppressWarnings("unchecked") // the rendered-resources structure is recovered from the Object-typed request map.
     public boolean isResourceRendered(FacesContext context, String resourceName, String libraryName) {
-        String resourceIdentifier = libraryName + ':' + resourceName;
+        String resourceIdentifier = libraryName + ':' + removeQueryString(resourceName);
         Set<String> resourceIdentifiers = (Set<String>) context.getAttributes().get(RESOURCE_IDENTIFIER);
         return resourceIdentifiers != null && resourceIdentifiers.contains(resourceIdentifier);
+    }
+
+    /**
+     * Returns the given resource name without the query string it may carry, as specified in section 2.6.1.3 "Resource
+     * Identifiers" of the Jakarta Faces Specification Document.
+     *
+     * @param resourceName The name of the resource, may be <code>null</code>.
+     * @return The given resource name without the query string it may carry.
+     */
+    private static String removeQueryString(String resourceName) {
+        int queryStringIndex = resourceName == null ? -1 : resourceName.indexOf('?');
+        return queryStringIndex == -1 ? resourceName : resourceName.substring(0, queryStringIndex);
     }
 
     /**

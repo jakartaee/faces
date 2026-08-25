@@ -109,6 +109,12 @@ public abstract class Resource extends ViewResource {
      * resourceName.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * If the <em>resourceName</em> passed to {@link ResourceHandler#createResource} carried a query string, as specified
+     * in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document, the returned value does not
+     * include it.
+     * </p>
+     *
      * @return Return the resourceName for this resource. Will never be null.
      */
     public String getResourceName() {
@@ -268,6 +274,14 @@ public abstract class Resource extends ViewResource {
      * <p class="changed_added_2_2">
      * If this resource is contained in a resource library contract, <code>resourceMetaData</code> must include "con=" + the
      * name of the resource library contract.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * If the <em>resourceName</em> passed to {@link ResourceHandler#createResource} carried a query string, as specified
+     * in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document,
+     * <code>resourceMetaData</code> must include that query string, without its introducing "?" character. The query
+     * string must not use any of the parameter names that the run-time itself uses in <code>resourceMetaData</code>,
+     * being "ln", "loc" and "con".
      * </p>
      *
      * </blockquote>
