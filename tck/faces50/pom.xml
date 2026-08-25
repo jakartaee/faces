@@ -65,6 +65,7 @@
             <groupId>org.eclipse.ee4j.tck.faces.test</groupId>
             <artifactId>util</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
