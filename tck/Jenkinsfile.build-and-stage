@@ -29,9 +29,9 @@ def JDK_VERSION_CHOICES = [''] + JDK_DISTRO_BY_VERSION.keySet().toList()
 //   jakartaee : Jakarta EE platform number -> staging path segment (faces/jakartaee<N>/staged/eftl).
 // NB: verify the 5.0 -> jakartaee12 staging path exists before its first use.
 def BRANCH_CONFIG = [
-    '4.0': [ branch: '4.0.x', jdk: '11', jakartaee: '10' ],
+    '4.0': [ branch: '4.0',  jdk: '11', jakartaee: '10' ],
     '4.1': [ branch: 'main', jdk: '21', jakartaee: '11' ],
-    '5.0': [ branch: '5.0',    jdk: '21', jakartaee: '12' ],
+    '5.0': [ branch: '5.0',  jdk: '21', jakartaee: '12' ],
 ]
 
 // GPG keyring import + trust — required for -Poss-release artifact signing during the build.
@@ -46,7 +46,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Release line to build & stage (4.0=4.0.x, 4.1=main, 5.0=5.0).')
+        choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Release line to build & stage (4.0=4.0, 4.1=main, 5.0=5.0).')
         string(name: 'RELEASE_VERSION', defaultValue: '', description: 'Leave blank to infer from tck-dist/pom.xml (strip -SNAPSHOT).')
         choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (11 for 4.0, 21 for 4.1/5.0).')
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Build only; do not scp the dist to the staging area.')
