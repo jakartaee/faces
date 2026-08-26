@@ -28,5 +28,5 @@ Agreement (ECA), the sign-off requirement, and the AI-assisted contribution poli
 
 ## Branches
 
-The `master` branch **must** represent the latest release version, which is currently 4.1.
+The `main` branch **must** represent the latest release version, which is currently 4.1.
 Work for Faces.next **must** go in separate branches matching their version.
