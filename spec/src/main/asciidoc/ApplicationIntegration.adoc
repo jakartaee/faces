@@ -2459,7 +2459,11 @@ is no state to save.
 
 The returned object must represent the entire
 state of the view, such that a request processing lifecycle can be run
-against it on postback. Special care must be taken to guarantee that
+against it on postback. It is the state of the structure that the restoring
+build produces from the markup, not a serialization of the component tree
+(see the javadocs for _StateManagementStrategy.saveView()_ and
+_StateManagementStrategy.restoreView()_).
+Special care must be taken to guarantee that
 objects attached to component instances, such as listeners, converters,
 and validators, are also saved. The _StateHolder_ interface is provided
 for this reason.

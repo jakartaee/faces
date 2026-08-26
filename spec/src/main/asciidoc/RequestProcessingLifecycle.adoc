@@ -632,6 +632,24 @@ that are unique within the scope of the closest parent _NamingContainer_
 component. The value of the _rendersChildren_ property is handled as
 expected, and may be either _true_ or __false__.
 
+* The build which this phase performs before
+publishing _PreRenderViewEvent_, the _rendering build_, produces the view
+that is saved. The build which recovers that view on the next request, the
+_restoring build_, produces it again from the same markup.
+
+* Manipulating the component tree while the
+view is being built is performed again by the restoring build, and
+therefore needs nothing in the saved state. This is the case for the
+templating system itself (such as Facelets), for tag handlers, for
+listeners of _PostAddToViewEvent_, and for the relocations the
+implementation performs itself, such as moving component resources to the
+head of the view. Manipulating the tree after the view has been built, for
+example from an action listener or a listener of _PreRenderViewEvent_, is
+not performed again by a build, so the implementation carries every such
+addition, removal and move in the saved state (see the javadocs for
+_StateManagementStrategy.saveView()_), at a cost in both the size of that
+state and the work of every subsequent request.
+
 * After any dynamic component manipulations have
 been completed, any resources that have been added to the UIViewRoot,
 such as scripts, images, or stylesheets, and any inline images, should be
@@ -664,6 +682,49 @@ _StateManager._ This state information must be made accessible on a
 subsequent request, so that the _Restore View_ can access it.
 For more on __StateManager__, see <<ApplicationIntegration.adoc#a4140,State
 Saving Methods>>.
+
+The following is guidance for page authors.
+It is not a requirement on the implementation.
+
+* Express conditional content with the
+_rendered_ attribute on a statically built subtree, and, where the tree
+genuinely has to be manipulated, do so while the view is being built: with
+the Jakarta Tags, such as _<c:if>_ and _<c:forEach>_, or from a listener
+of _PostAddToViewEvent_, registered for example with
+_<f:event type="postAddToView">_. Binding a component to a bean property
+with the _binding_ attribute and manipulating it from there is the most
+common unintended way of manipulating it afterwards.
+
+* The two build time options differ in when
+they decide. A _build time condition_ is an expression in a tag attribute
+that decides what components a build produces, such as the test of a
+conditional or the items of an iteration. It is evaluated by the rendering
+build, so it observes whatever the request has done to the model by then;
+the cost is that such a view is built twice per postback. A listener of
+_PostAddToViewEvent_ runs when the component it is registered on is added
+to the view, and a build which finds that component already there does not
+run it again. On a postback that is normally the restoring build, so it
+decides before the model is updated and before any action is invoked; on an
+initial request, and for a component a changed build time condition makes
+the rendering build the first to produce, it is the rendering build. A tag
+handler an application provides is run by both builds and decides again in
+each: one that decides from the model must reproduce in the restoring build
+the decision it reached in the rendering build, or it builds a different
+subtree from the one that was rendered.
+
+* For the build time conditions the
+implementation provides, the restoring build reproduces the decisions the
+rendering build reached (see the javadocs for
+_StateManagementStrategy.restoreView()_), so a page author does not have to
+keep the value such a condition depends on alive for the restore. The
+rendering build does evaluate it again, so a value that is gone by then
+changes the view that is rendered. The items an iteration was rendered over
+are a further exception, since its rows read their element from those items
+rather than from the state: where the items no longer hold them, the value
+submitted for such a row reaches nothing that outlives the request. Holding
+them in a _@ViewScoped_ bean, or recomputing them from the relevant request
+parameters in the _@PostConstruct_ of a _@RequestScoped_ one, is what keeps
+them.
 
 [[a480]]
 ===== Render Response Partial Processing

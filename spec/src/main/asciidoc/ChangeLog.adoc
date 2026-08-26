@@ -15,6 +15,9 @@ This release contains the following backwards compatible changes:
 * Issue ID {issue_tracker_url}2238[2238] +
 Spec: correct the VDL type of the tag attributes that name a variable, and document the unused c:if scope attribute
 
+* Issue ID {issue_tracker_url}2234[2234] +
+Spec: specify that Restore View returns the view that was saved, including component tree moves and build time decisions
+
 * Issue ID {issue_tracker_url}2227[2227] +
 Spec: correct h:doctype tag attributes and clarify rendering of the system identifier
 

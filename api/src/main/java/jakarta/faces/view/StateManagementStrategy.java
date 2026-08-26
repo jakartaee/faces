@@ -31,6 +31,22 @@ import jakarta.faces.context.FacesContext;
  * and {@link #restoreView} methods, respectively.
  * </p>
  *
+ * <p class="changed_added_5_0">
+ * The <em>rendering build</em> is the build which Render Response performs before publishing
+ * {@link jakarta.faces.event.PreRenderViewEvent}, and which produces the view that {@link #saveView} saves. The
+ * <em>restoring build</em> is the build which {@link #restoreView} performs to recover that view on the next
+ * request.
+ * </p>
+ *
+ * <p class="changed_added_5_0">
+ * What a build produces follows in part from the <em>build time conditions</em> it evaluates, and the value such a
+ * condition produces is its <em>decision</em>. A build time condition is an expression in a tag attribute which
+ * decides what components the build produces, for example the test of a conditional, the branch of a choice, the
+ * range or the items of an iteration, and the path of a dynamic inclusion. For the build time conditions the
+ * implementation itself provides, the rendering build evaluates the condition and the restoring build reproduces the
+ * decision the rendering build reached.
+ * </p>
+ *
  * @since 2.0
  */
 public abstract class StateManagementStrategy {
@@ -66,12 +82,28 @@ public abstract class StateManagementStrategy {
      * <p>
      * Visit the tree using {@link jakarta.faces.component.UIComponent#visitTree}. For each node, call
      * {@link jakarta.faces.component.UIComponent#saveState}, saving the returned <code>Object</code> in a way such that it
-     * can be restored given only its client id. Special care must be taken to handle the case of components that were added
-     * or deleted programmatically during this lifecycle traversal, rather than by the VDL.
+     * can be restored given only its client id. <span class="changed_modified_5_0">Record, in addition, each addition,
+     * removal and move the application performed after the view was built, so that {@link #restoreView} can reproduce
+     * it. A move records the new parent, the facet name if the component is a facet, and the index among its siblings.
+     * An addition records the type of the added component, so that it can be recreated, along with its state, since
+     * the restoring build does not produce that component and therefore cannot restore state into it.</span>
      * </p>
      * </li>
      *
      * </ol>
+     *
+     * <p class="changed_added_5_0">
+     * The manipulations must be recorded as the application performs them, since the tree afterwards shows neither
+     * the order they came in nor the position each one had. The recorded position must travel with the
+     * manipulation rather than with the component it applies to: each build creates the components it produces anew,
+     * so anything kept on such a component may be lost before the manipulation is replayed.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * A manipulation that the restoring build performs again need not be recorded, since that build reproduces it.
+     * This is the case for the manipulations performed while the view is being built, for example from a listener for
+     * {@link jakarta.faces.event.PostAddToViewEvent}.
+     * </p>
      *
      * <p>
      * The implementation must ensure that the {@link jakarta.faces.component.UIComponent#saveState} method is called for
@@ -99,6 +131,14 @@ public abstract class StateManagementStrategy {
      * implementation must perform the following algorithm or its semantic equivalent.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * This method returns the view that was saved: restoring the <code>Object</code> that {@link #saveView} returned
+     * for a view must produce that view again, holding the same components at the same positions with the same state.
+     * The algorithm below produces it by performing the restoring build and reconciling from the saved state what that
+     * build does not produce. Where the restoring build cannot reproduce a decision of the rendering build, this
+     * method returns the view it could build, as described below.
+     * </p>
+     *
      * <div class="changed_added_2_0">
      *
      * <ol>
@@ -116,9 +156,28 @@ public abstract class StateManagementStrategy {
      *
      * <p>
      * Build the view from the markup. For all components in the view that do not have an explicitly assigned id in the
-     * markup, the values of those ids must be the same as on an initial request for this view. This view will not contain
-     * any components programmatically added during the previous lifecycle run, and it <b>will</b> contain components that
-     * were programmatically deleted on the previous lifecycle run. Both of these cases must be handled.
+     * markup, the values of those ids must be the same as on an initial request for this view.
+     * <span class="changed_modified_5_0">This is the restoring build, and the view it produces holds the components
+     * added, removed or moved while the view was being built. It does not reflect the manipulations the application
+     * performed after the view was built: components added afterwards are absent, components removed afterwards are
+     * present, and components moved afterwards are where this build put them. All of these cases must be
+     * handled.</span>
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * What the restoring build produces also follows from the build time conditions it evaluates. For those the
+     * implementation provides, it must reproduce the decision the rendering build reached, taken from the state
+     * <code>Object</code> returned from {@link jakarta.faces.render.ResponseStateManager#getState}, rather than
+     * evaluate the condition again. The rendering build that follows
+     * evaluates them again, and it is that build which produces the view the current state of the model asks for, and
+     * which is saved in turn.
+     * </p>
+     *
+     * <p class="changed_added_5_0">
+     * Failing to reproduce a decision must not fail the request. An iteration over items which no longer hold the
+     * elements its rows were rendered over is the case which cannot be reproduced from saved state at all: this method
+     * returns the view it could build, and a component of that view which the model no longer backs is answered for by
+     * the phase which reads that model, not by Restore View.
      * </p>
      *
      *
@@ -141,21 +200,20 @@ public abstract class StateManagementStrategy {
      *
      * <li>
      * <p>
-     * Ensure that any programmatically deleted components are removed.
-     * </p>
-     * </li>
-     *
-     * <li>
-     * <p>
-     * Ensure any programmatically added components are added.
+     * <span class="changed_modified_5_0">Replay the manipulations recorded by {@link #saveView}, in the order in which
+     * the application performed them: ensure that removed components are removed, that added components are added with
+     * the state recorded for them, and that moved components are at the recorded parent, facet name and index among
+     * their siblings. A component that the restoring build already produced must not be added a second time; where
+     * that build produced it at another position, move it to the recorded one.</span>
      * </p>
      * </li>
      *
      * </ol>
      *
      * <p>
-     * The implementation must ensure that the {@link jakarta.faces.component.UIComponent#restoreState} method is called for
-     * each node in the tree, except for those that were programmatically deleted on the previous run through the lifecycle.
+     * The implementation must ensure that the {@link jakarta.faces.component.UIComponent#restoreState} method is called
+     * for each node <span class="changed_modified_5_0">the restoring build produced. No state is recorded for a
+     * component the application removed after the view was built.</span>
      * </p>
      *
      * </div>
