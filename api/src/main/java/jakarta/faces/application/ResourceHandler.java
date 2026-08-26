@@ -485,6 +485,12 @@ public abstract class ResourceHandler {
      * introduced in version 2.2 of the specification.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * If the <em>resourceName</em> part of the <code>resourceId</code> carries a query string, as specified in that same
+     * section, it must be removed before the resource is identified and before the content type is derived from it, and
+     * the created <code>Resource</code> must include it in the value returned by {@link Resource#getRequestPath}.
+     * </p>
+     *
      * </div>
      *
      * @param resourceId the resource identifier of the resource.

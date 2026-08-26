@@ -1780,13 +1780,6 @@ segments in a _<resourceIdentifier>_
 present, both must be a ’ ___ ’ separated list of integers, neither
 starting nor ending with ’ ___ ’
 
-If _resourceVersion_ is present, it must be a
-version number in the same format as __libraryVersion__. An optional
-“file extension” may be used with the _resourceVersion._ If “file
-extension” is used, a “.” character, followed by a “file extension” must
-be appended to the version number. See the following table for an
-example.
-
 A _resourceName_ may carry a query string, introduced by a ’ _?_ ’
 character. The query string is not part of the _<resourceIdentifier>_. The
 rules above apply to the _resourceName_ without its query string, and it is
@@ -1796,10 +1789,20 @@ _ResourceHandler.createResource()_, _ResourceHandler.markResourceRendered()_
 and __ResourceHandler.isResourceRendered()__.
 
 The query string, without its introducing ’ _?_ ’ character, is appended
-to the resource metadata in the value returned by
-__Resource.getRequestPath()__. It must not use any of the parameter names
-that the run-time itself uses there, being ’ _ln_ ’, ’ _loc_ ’
-and ’ _con_ ’.
+as one or more further name=value pairs to the resource metadata in the value
+returned by __Resource.getRequestPath()__, separated from any pair preceding it
+by a ’ _&_ ’ character. If there is no such pair, the query string is the
+whole of the resource metadata. It must not use any of the parameter names that
+the run-time itself uses there, namely ’ _ln_ ’, ’ _loc_ ’ and
+’ _con_ ’; the value returned by __Resource.getRequestPath()__ for a
+query string that does is unspecified.
+
+If _resourceVersion_ is present, it must be a
+version number in the same format as __libraryVersion__. An optional
+“file extension” may be used with the _resourceVersion._ If “file
+extension” is used, a “.” character, followed by a “file extension” must
+be appended to the version number. See the following table for an
+example.
 
 
 The following examples illustrate the nine

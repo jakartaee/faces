@@ -12279,8 +12279,6 @@ href="../../javadocs/jakarta/faces/component/UIViewRoot.html#addComponentResourc
       here.  It is removed by <code>createResource()</code> and returned
       as part of <code>Resource.getRequestPath()</code>.</p></li>
 
-      </p></li>
-
           </ul>
 
         </ul>

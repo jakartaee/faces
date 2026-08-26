@@ -701,9 +701,14 @@ expression such as __#{resource['jakarta.faces:faces.js']}__, perform the follow
 the ResourceHandler, see <<ExpressionLanguageFacility.adoc#a2830,
 Implicit Objects for Facelets and Programmatic Access>>)
 
-A query string carried by _property_, introduced by a ’ _?_ ’ character,
-is not considered when counting the colon characters below. It is part of
-the _resourceName_ passed to __ResourceHandler.createResource()__.
+The _resourceName_ may carry a query string, introduced by a ’ _?_ ’
+character, as specified in <<RequestProcessingLifecycle.adoc#a758, Resource
+Identifiers>>. The colon characters counted below are the ones preceding the
+first ’ _?_ ’ character in _property_, so a query string may itself contain a
+colon character. The query string stays with the _resourceName_ that is passed
+to __ResourceHandler.createResource()__, which is what removes it from the
+resource identifier and appends it to the value returned by
+__Resource.getRequestPath()__.
 
 * If _property_ does not contain a colon
 character ‘:’, treat _property_ as the _resourceName_ and pass

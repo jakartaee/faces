@@ -149,6 +149,12 @@ public @interface ResourceDependency {
      * instance of the expected type.
      * </p>
      *
+     * <p class="changed_added_5_0">
+     * The <em>resourceName</em> may carry a query string, as specified in section 2.6.1.3 "Resource Identifiers" of the
+     * Jakarta Faces Specification Document. It is not part of the resource identifier and is appended to the value
+     * returned by {@link Resource#getRequestPath}.
+     * </p>
+     *
      * @return the name.
      */
     public String name();

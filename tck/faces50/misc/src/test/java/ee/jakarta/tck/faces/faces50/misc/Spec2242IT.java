@@ -34,6 +34,9 @@ class Spec2242IT extends BaseITNG {
     @FindBy(id = "el")
     private WebElement el;
 
+    @FindBy(id = "elWithColon")
+    private WebElement elWithColon;
+
     /**
      * Verifies that the query string of the name attribute is removed before the resource is resolved and appended to
      * the resource URL rendered by h:graphicImage.
@@ -59,6 +62,19 @@ class Spec2242IT extends BaseITNG {
     void resourceExpressionCarriesQueryString() {
         getPage("spec2242.xhtml");
         assertEquals(getContextPath() + RESOURCE_URL, el.getText());
+    }
+
+    /**
+     * Verifies that the colon separating the library name of a resource expression is counted over the expression
+     * without its query string, so that the query string may itself contain a colon.
+     *
+     * @see jakarta.faces.application.ResourceHandler#createResource(String, String)
+     * @see https://github.com/jakartaee/faces/issues/2242
+     */
+    @Test
+    void resourceExpressionCarriesQueryStringContainingColon() {
+        getPage("spec2242.xhtml");
+        assertEquals(getContextPath() + RESOURCE_URL + ":2", elWithColon.getText());
     }
 
 }

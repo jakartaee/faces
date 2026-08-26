@@ -278,10 +278,11 @@ public abstract class Resource extends ViewResource {
      *
      * <p class="changed_added_5_0">
      * If the <em>resourceName</em> passed to {@link ResourceHandler#createResource} carried a query string, as specified
-     * in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document,
-     * <code>resourceMetaData</code> must include that query string, without its introducing "?" character. The query
-     * string must not use any of the parameter names that the run-time itself uses in <code>resourceMetaData</code>,
-     * being "ln", "loc" and "con".
+     * in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document, that query string, without
+     * its introducing "?" character, must be appended to <code>resourceMetaData</code> as one or more further
+     * name=value pairs, separated from any pair preceding it by an "&amp;" character. It must not use any of the
+     * parameter names that the run-time itself uses in <code>resourceMetaData</code>, namely "ln", "loc" and "con"; the
+     * value returned for a query string that does is unspecified.
      * </p>
      *
      * </blockquote>
