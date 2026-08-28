@@ -16,8 +16,10 @@
 package ee.jakarta.tck.faces.faces50.csp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.TimeoutException;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,7 +34,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
  * after the element has been parsed, as the fetch starts as the element is parsed and the event can be dispatched
  * before any script following it runs.
  *
- * @see https://github.com/jakartaee/faces/issues/1507
+ * @see <a href="https://github.com/jakartaee/faces/issues/1507">faces#1507</a>
  */
 class Spec1507IT extends BaseITNG {
 
@@ -76,8 +78,15 @@ class Spec1507IT extends BaseITNG {
      * first, as the load of the document does not await it.
      */
     private static String awaitHandler(WebPage page, String property) {
-        String script = "return window." + property;
-        page.waitForCondition($ -> page.executeScript(script) != null);
+        String script = "return window." + property + ";";
+
+        try {
+            page.waitForCondition($ -> page.executeScript(script) != null);
+        }
+        catch (TimeoutException e) {
+            fail("Handler did not set window." + property);
+        }
+
         return (String) page.executeScript(script);
     }
 }

@@ -242,7 +242,7 @@
          by attaching the script as a DOM event listener at runtime, provided
          the chaining order and short-circuit-on-<code>false</code> contract
          are preserved.  Attaching the script as a DOM event listener at
-         runtime is subject to the same restrictions as stated in
+         runtime is subject to the restrictions stated in
          <a href="#pass_through_attributes">&sect;pass_through_attributes</a>.
        </p>
      </ul>
