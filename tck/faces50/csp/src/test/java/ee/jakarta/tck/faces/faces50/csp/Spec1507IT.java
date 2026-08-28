@@ -19,6 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
@@ -32,6 +35,9 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
  * @see https://github.com/jakartaee/faces/issues/1507
  */
 class Spec1507IT extends BaseITNG {
+
+    @FindBy(id = "form:add")
+    private WebElement addButton;
 
     /**
      * The <code>onerror</code> of a script resource which fails to load runs, and runs with the script element as
@@ -51,6 +57,18 @@ class Spec1507IT extends BaseITNG {
     public void testStylesheetResourceOnError() {
         var page = getPage("spec1507.xhtml");
         assertEquals("LINK", awaitHandler(page, "stylesheetError"));
+    }
+
+    /**
+     * The <code>onerror</code> of an image which arrives through an ajax response runs, even though the response
+     * carries a script with a <code>src</code> ahead of that image. The image is live as soon as the response markup
+     * is inserted, so a runtime which wires the handler behind that script never observes the event.
+     */
+    @Test
+    public void testImageResourceOnErrorAfterAjax() {
+        var page = getPage("spec1507ajax.xhtml");
+        page.guardAjax(addButton::click);
+        assertEquals("IMG", awaitHandler(page, "imageError"));
     }
 
     /**
