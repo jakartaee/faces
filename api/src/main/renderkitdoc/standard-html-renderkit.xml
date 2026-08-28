@@ -209,7 +209,16 @@
        observable behavior &mdash; including any chaining required by
        <a href="#general_behavior_encoding">&sect;general_behavior_encoding</a>
        and short-circuit-on-<code>false</code> semantics &mdash; is
-       preserved.</span></p>
+       preserved.  Preserving it requires the runtime to be able to identify
+       the element, and to have the script in place before the event can be
+       dispatched.  A mechanism which takes effect only after the element has
+       been parsed therefore cannot be used for the <code>load</code> and
+       <code>error</code> events of an element whose fetch of an external
+       resource begins when the element is parsed, such as
+       <code>script</code>, <code>link</code>, <code>img</code> and
+       <code>iframe</code>, as those events may already have been dispatched
+       by the time it runs.  Where no mechanism preserves the observable
+       behavior, the implementation must render the attribute.</span></p>
 
 
      </ul>
@@ -232,7 +241,9 @@
          the attribute the same way as a <em>pass through attribute</em>, or
          by attaching the script as a DOM event listener at runtime, provided
          the chaining order and short-circuit-on-<code>false</code> contract
-         are preserved.
+         are preserved.  Attaching the script as a DOM event listener at
+         runtime is subject to the same restrictions as stated in
+         <a href="#pass_through_attributes">&sect;pass_through_attributes</a>.
        </p>
      </ul>
      </div>
