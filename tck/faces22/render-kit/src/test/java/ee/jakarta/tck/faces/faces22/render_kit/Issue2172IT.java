@@ -25,16 +25,17 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 class Issue2172IT extends BaseITNG {
 
     /**
-     * Verifies that an h:outputScript with a library and a versioned name renders a resource URL whose
-     * ampersand between the library (ln) and version (v) query parameters is HTML-escaped (ln=alibrary&amp;v=1).
+     * Verifies that the query string of the name attribute is removed before the resource is resolved and appended to
+     * the resource URL rendered by h:outputScript, with its ampersand escaped for inclusion in markup.
      *
-     * @see jakarta.faces.application.ResourceHandler
+     * @see jakarta.faces.application.ResourceHandler#createResource(String, String)
+     * @see https://github.com/jakartaee/faces/issues/2242
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2172
      */
     @Test
     void testIssue2172() throws Exception {
         String body = getResponseBody("issue2172.xhtml");
-        assertTrue(body.contains("ln=alibrary") && body.contains("v=1") && body.contains("&amp;"),
-                "Script resource URL must join the library and version params with an escaped ampersand");
+        String expected = getContextPath() + "/jakarta.faces.resource/script.js.xhtml?ln=alibrary&amp;v=1";
+        assertTrue(body.contains(expected), "Script resource URL must be " + expected + " but was: " + body);
     }
 }

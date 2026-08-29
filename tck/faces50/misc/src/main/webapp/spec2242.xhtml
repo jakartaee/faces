@@ -1,6 +1,7 @@
+<!DOCTYPE html>
 <!--
 
-    Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
+    Copyright (c) Contributors to Eclipse Foundation.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -15,13 +16,15 @@
     SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
 
 -->
-
-<!DOCTYPE html>
 <html
-    xmlns:h="jakarta.faces.html">
+    xmlns:h="jakarta.faces.html"
+>
     <h:head>
-        <h:outputStylesheet name="issue4345.css?firstParam=1&amp;secondParam=2" />
-        <h:outputScript name="issue4345.js?firstParam=1&amp;secondParam=2" />
+        <title>spec 2242</title>
     </h:head>
-    <h:body />
+    <h:body>
+        <h:graphicImage id="image" library="spec2242" name="spec2242.gif?v=1" />
+        <div id="el">#{resource['spec2242:spec2242.gif?v=1']}</div>
+        <div id="elWithColon">#{resource['spec2242:spec2242.gif?v=1:2']}</div>
+    </h:body>
 </html>

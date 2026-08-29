@@ -701,6 +701,15 @@ expression such as __#{resource['jakarta.faces:faces.js']}__, perform the follow
 the ResourceHandler, see <<ExpressionLanguageFacility.adoc#a2830,
 Implicit Objects for Facelets and Programmatic Access>>)
 
+The _resourceName_ may carry a query string, introduced by a ’ _?_ ’
+character, as specified in <<RequestProcessingLifecycle.adoc#a758, Resource
+Identifiers>>. The colon characters counted below are the ones preceding the
+first ’ _?_ ’ character in _property_, so a query string may itself contain a
+colon character. The query string stays with the _resourceName_ that is passed
+to __ResourceHandler.createResource()__, which is what removes it from the
+resource identifier and appends it to the value returned by
+__Resource.getRequestPath()__.
+
 * If _property_ does not contain a colon
 character ‘:’, treat _property_ as the _resourceName_ and pass
 _property_ to _ResourceHandler.createResource(resourceName)_.
@@ -1029,7 +1038,6 @@ kinds of objects into other objects using _@Inject_.
 
 .Implicit Objects
 
-[.changed_modified_5_0]
 The non-environment-specific implicit objects listed in
 <<a2832,Implicit Objects for Programmatic Access>> must be produced as CDI beans,
 making them available for _@Inject_ injection. This includes:
@@ -1058,7 +1066,6 @@ corresponding _Map_ into a field. Generics may be used.
 
 .Faces Expression Language Values
 
-[.changed_added_5_0]
 The _@jakarta.faces.annotation.ManagedProperty_ qualifier may be combined with
 _@Inject_ on a field to inject the value of a Faces Expression Language expression.
 The expression is evaluated lazily, on every access, against the current
