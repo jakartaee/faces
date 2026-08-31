@@ -18,6 +18,7 @@ package ee.jakarta.tck.faces.util.selenium;
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
 import static java.net.URI.create;
+import static java.net.http.HttpClient.Redirect.NEVER;
 import static java.net.http.HttpClient.newHttpClient;
 import static java.net.http.HttpRequest.newBuilder;
 import static java.net.http.HttpResponse.BodyHandlers.ofString;
@@ -30,6 +31,8 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.net.URL;
 import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
+import java.util.Map;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit5.ArquillianExtension;
@@ -73,6 +76,7 @@ public abstract class BaseITNG implements ExecutionCondition {
     protected static final DriverPool driverPool = new DriverPool();
     
     private static final HttpClient HTTP = newHttpClient();
+    private static final HttpClient HTTP_WITHOUT_REDIRECTS = HttpClient.newBuilder().followRedirects(NEVER).build();
 
     @Deployment(testable = false)
     public static WebArchive createDeployment() {
@@ -192,7 +196,7 @@ public abstract class BaseITNG implements ExecutionCondition {
      * and return the response body as a String. Useful for tests that exercise request headers, cookies, or
      * similar metadata.
      */
-    protected String getResponseBody(String resource, java.util.Map<String, String> headers) {
+    protected String getResponseBody(String resource, Map<String, String> headers) {
         try {
             var builder = newBuilder(create(webUrl + resource));
             if (headers != null) {
@@ -200,7 +204,7 @@ public abstract class BaseITNG implements ExecutionCondition {
                     builder.header(entry.getKey(), entry.getValue());
                 }
             }
-            return newHttpClient().send(builder.build(), ofString()).body();
+            return HTTP.send(builder.build(), ofString()).body();
         }
         catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -217,10 +221,7 @@ public abstract class BaseITNG implements ExecutionCondition {
      */
     protected String getResponseLocation(String resource) {
         try {
-            java.net.http.HttpClient client = java.net.http.HttpClient.newBuilder()
-                    .followRedirects(java.net.http.HttpClient.Redirect.NEVER).build();
-            java.net.http.HttpResponse<String> response = client.send(
-                    newBuilder(create(webUrl + resource)).build(), ofString());
+            HttpResponse<String> response = HTTP_WITHOUT_REDIRECTS.send(newBuilder(create(webUrl + resource)).build(), ofString());
             return response.headers().firstValue("Location").orElse(null);
         }
         catch (InterruptedException e) {
