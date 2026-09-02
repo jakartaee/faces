@@ -1919,7 +1919,7 @@ public abstract class UIComponentBase extends UIComponent {
                     "Attempting to add a Behavior to a component " + "that does not support any event types. " + "getEventTypes() must return a non-null Set.");
         }
 
-        if (eventNames.contains(eventName)) {
+        if (eventName != null && eventNames.contains(eventName)) {
 
             if (initialStateMarked()) {
                 // a Behavior has been added dynamically. Update existing
