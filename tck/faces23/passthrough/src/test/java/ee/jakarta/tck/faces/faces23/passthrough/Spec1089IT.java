@@ -25,15 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies HTML5 pass-through attribute rendering: {@code f:passThroughAttribute},
- * {@code f:passThroughAttributes}, and the {@code p:} pass-through namespace, plus the
- * contrast with plain renderer-specific component attributes via {@code f:attributes}.
+ * Verifies HTML5 pass-through attribute rendering: {@code f:passThroughAttribute}, {@code f:passThroughAttributes}, and the {@code p:} pass-through namespace,
+ * plus the contrast with plain renderer-specific component attributes via {@code f:attributes}.
  */
 class Spec1089IT extends BaseITNG {
 
     /**
-     * A {@code data-*} attribute name and value, whether literal, EL-derived, nested or
-     * deeply hyphenated, must render verbatim on the host element.
+     * A {@code data-*} attribute name and value, whether literal, EL-derived, nested or deeply hyphenated, must render verbatim on the host element.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/jakartaee/faces/issues/1089
@@ -53,8 +51,8 @@ class Spec1089IT extends BaseITNG {
     }
 
     /**
-     * {@code f:passThroughAttributes} renders each map entry as an attribute, and the
-     * {@code p:} namespace renders pass-through attributes without leaking the namespace.
+     * {@code f:passThroughAttributes} renders each map entry as an attribute, and the {@code p:} namespace renders pass-through attributes without leaking the
+     * namespace.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/jakartaee/faces/issues/1089
@@ -69,4 +67,5 @@ class Spec1089IT extends BaseITNG {
         assertTrue(source.contains("foo=\"bar\""), "p: namespaced pass-through attribute");
         assertFalse(source.contains("jakarta.faces.passthrough"), "the p: namespace must not leak into the rendered markup");
     }
+
 }

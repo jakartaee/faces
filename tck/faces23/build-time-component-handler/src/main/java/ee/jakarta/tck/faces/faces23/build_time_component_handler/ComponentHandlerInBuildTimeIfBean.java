@@ -35,4 +35,5 @@ public class ComponentHandlerInBuildTimeIfBean implements Serializable {
     public void setRendered(boolean rendered) {
         this.rendered = rendered;
     }
+
 }

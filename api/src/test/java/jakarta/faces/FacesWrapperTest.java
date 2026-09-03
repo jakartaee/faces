@@ -31,8 +31,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * A unit test to make sure all classes implementing {@link FacesWrapper} are
- * actually wrapping all public and protected methods of the wrapped class. This
+ * A unit test to make sure all classes implementing {@link FacesWrapper} are actually wrapping all public and protected methods of the wrapped class. This
  * should help to keep the wrapper classes in synch with the wrapped classes.
  * </p>
  */
@@ -44,8 +43,8 @@ class FacesWrapperTest {
     private static final String JAVAX_FACES_PKG = "jakarta.faces.";
 
     /**
-     * Perform class-level initialization for test - lookup for classes
-     * implementing FacesWrapper.
+     * Perform class-level initialization for test - lookup for classes implementing FacesWrapper.
+     *
      * @throws java.lang.Exception
      */
     @BeforeAll
@@ -67,20 +66,19 @@ class FacesWrapperTest {
     }
 
     /**
-     * Unit test to assert there are no *Wrapper classes not implementing
-     * FacesWrapper.
+     * Unit test to assert there are no *Wrapper classes not implementing FacesWrapper.
      */
     @Test
     void testWrapperClassesImplementFacesWrapper() {
         assertNotNull(noWrapperClasses);
-        assertTrue(noWrapperClasses.isEmpty(),
-                "Wrapper classes not implementing jakarta.faces.FacesWrapper: " + noWrapperClasses);
+        assertTrue(
+            noWrapperClasses.isEmpty(),
+            "Wrapper classes not implementing jakarta.faces.FacesWrapper: " + noWrapperClasses
+        );
     }
 
     /**
-     * The main goal of this TestSuite: unit test to assert all classes
-     * implementing FacesWrapper do wrap all public and protected methods of the
-     * wrapped class.
+     * The main goal of this TestSuite: unit test to assert all classes implementing FacesWrapper do wrap all public and protected methods of the wrapped class.
      */
     @Test
     void testWrapperClassWrapsPublicAndProtectedMethods() {
@@ -103,8 +101,7 @@ class FacesWrapperTest {
 
     // private methods
     /**
-     * Returns true it the passed method is contained in the also passed list of
-     * methods by also comparing matching parameters.
+     * Returns true it the passed method is contained in the also passed list of methods by also comparing matching parameters.
      *
      * @param m the method (from the wrapped class) to compare against.
      * @param wrapperMethods the list of methods of the wrapper class.
@@ -114,8 +111,10 @@ class FacesWrapperTest {
         Class<?>[] paramTypes = m.getParameterTypes();
         Class<?> returnType = m.getReturnType();
         for (Method wm : wrapperMethods) {
-            if (name.equals(wm.getName()) && Arrays.equals(paramTypes, wm.getParameterTypes())
-                    && returnType == wm.getReturnType()) {
+            if (
+                name.equals(wm.getName()) && Arrays.equals(paramTypes, wm.getParameterTypes())
+                    && returnType == wm.getReturnType()
+            ) {
                 return true;
             }
         }
@@ -155,11 +154,13 @@ class FacesWrapperTest {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         try {
             collectWrapperClasses(
-                classLoader, 
-                JAVAX_FACES_PKG, 
+                classLoader,
+                JAVAX_FACES_PKG,
                 new File(classLoader.getResource("jakarta/faces/Messages.properties").getFile())
-                    .getParentFile());
-        } catch (Exception e) {
+                    .getParentFile()
+            );
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -176,17 +177,16 @@ class FacesWrapperTest {
         for (File file : jakartaFacesFolder.listFiles()) {
             if (file.isDirectory()) {
                 collectWrapperClasses(classLoader, pkg + file.getName() + ".", file);
-            } else {
+            }
+            else {
                 addWrapperClassToWrapperClassesList(classLoader, pkg, file);
             }
         }
     }
 
     /**
-     * Add classes that are assignable to FacesWrapper class to the
-     * wrapperClasses list - and also add classes with a name ending on
-     * "Wrapper" but being not assignable to FacesWrapper to the
-     * noWrapperClasses list.
+     * Add classes that are assignable to FacesWrapper class to the wrapperClasses list - and also add classes with a name ending on "Wrapper" but being not
+     * assignable to FacesWrapper to the noWrapperClasses list.
      *
      * @param cl the ClasslOader used to load the class.
      * @param pkg the name of the package working in.
@@ -194,7 +194,8 @@ class FacesWrapperTest {
      * @throws Exception ClassLoader exceptions.
      */
     private static void addWrapperClassToWrapperClassesList(ClassLoader cl, String pkg, File f)
-            throws Exception {
+        throws Exception
+    {
         String name = f.getName();
         if (!name.endsWith(".class")) {
             return;
@@ -211,8 +212,10 @@ class FacesWrapperTest {
         }
         if (Modifier.isAbstract(c.getModifiers()) && FacesWrapper.class.isAssignableFrom(c)) {
             wrapperClasses.add(c);
-        } else if (c != FacesWrapper.class && c.getName().endsWith("Wrapper")) {
+        }
+        else if (c != FacesWrapper.class && c.getName().endsWith("Wrapper")) {
             noWrapperClasses.add(c);
         }
     }
+
 }

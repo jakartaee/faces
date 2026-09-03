@@ -21,18 +21,18 @@ import static ee.jakarta.tck.faces.faces22.composite_component.Issue2324IdUnique
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import jakarta.faces.component.UIComponent;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.UIComponent;
 
 class Issue2324IT extends BaseITNG {
 
     /**
-     * Facet children of sibling components and of a composite component get distinct generated ids, so the
-     * view contains no two components sharing a client id.
+     * Facet children of sibling components and of a composite component get distinct generated ids, so the view contains no two components sharing a client id.
      *
      * @see UIComponent#getClientId()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2324
@@ -45,4 +45,5 @@ class Issue2324IT extends BaseITNG {
         assertFalse(page.containsText(DUPLICATE), "No two components may share a client id.");
         assertEquals(UNIQUE, page.findElement(By.id("messages")).getText(), "id uniqueness verdict");
     }
+
 }

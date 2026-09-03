@@ -20,19 +20,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import jakarta.faces.component.UIComponent;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.UIComponent;
 
 class Issue3212IT extends BaseITNG {
 
     /**
-     * A pass through attribute on an h:column whose value expression is row scoped is evaluated per row and
-     * written onto that row's cell, also when the column declares facets.
+     * A pass through attribute on an h:column whose value expression is row scoped is evaluated per row and written onto that row's cell, also when the column
+     * declares facets.
      *
      * @see UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3212
@@ -49,8 +50,11 @@ class Issue3212IT extends BaseITNG {
         assertEquals(entities.size(), cells.size(), "One rendered cell per row.");
 
         for (int row = 0; row < entities.size(); row++) {
-            assertEquals(entities.get(row).getModifiedOn().toString(), cells.get(row).getDomAttribute("data-order"),
-                    "Row " + row + " must carry its own pass through attribute value.");
+            assertEquals(
+                entities.get(row).getModifiedOn().toString(), cells.get(row).getDomAttribute("data-order"),
+                "Row " + row + " must carry its own pass through attribute value."
+            );
         }
     }
+
 }

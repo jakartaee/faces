@@ -24,8 +24,7 @@ import jakarta.faces.view.Location;
 
 /**
  * <p class="changed_added_2_0 changed_modified_2_3">
- * <span class="changed_modified_2_2">Representation</span> of an XML attribute name=value pair on an XML element in a
- * Facelet file.
+ * <span class="changed_modified_2_2">Representation</span> of an XML attribute name=value pair on an XML element in a Facelet file.
  * </p>
  *
  * @since 2.0
@@ -34,8 +33,8 @@ public abstract class TagAttribute {
 
     /**
      * <p class="changed_modified_2_3">
-     * If literal,return {@link Boolean#valueOf(java.lang.String) Boolean.valueOf(java.lang.String)} passing our value,
-     * otherwise call {@link #getObject(FaceletContext, Class) getObject(FaceletContext, Class)}.
+     * If literal,return {@link Boolean#valueOf(java.lang.String) Boolean.valueOf(java.lang.String)} passing our value, otherwise call
+     * {@link #getObject(FaceletContext, Class) getObject(FaceletContext, Class)}.
      * </p>
      *
      * @see Boolean#valueOf(java.lang.String)
@@ -46,8 +45,8 @@ public abstract class TagAttribute {
     public abstract boolean getBoolean(FaceletContext ctx);
 
     /**
-     * If literal, call {@link Integer#parseInt(java.lang.String) Integer.parseInt(String)}, otherwise call
-     * {@link #getObject(FaceletContext, Class) getObject(FaceletContext, Class)}.
+     * If literal, call {@link Integer#parseInt(java.lang.String) Integer.parseInt(String)}, otherwise call {@link #getObject(FaceletContext, Class)
+     * getObject(FaceletContext, Class)}.
      *
      * @see Integer#parseInt(java.lang.String)
      * @see #getObject(FaceletContext, Class)
@@ -73,8 +72,7 @@ public abstract class TagAttribute {
     /**
      * Create a MethodExpression, using this attribute's value as the expression String.
      *
-     * @see ExpressionFactory#createMethodExpression(jakarta.el.ELContext, java.lang.String, java.lang.Class,
-     * java.lang.Class[])
+     * @see ExpressionFactory#createMethodExpression(jakarta.el.ELContext, java.lang.String, java.lang.Class, java.lang.Class[])
      * @see MethodExpression
      * @param ctx FaceletContext to use
      * @param type expected return type
@@ -123,8 +121,7 @@ public abstract class TagAttribute {
     public abstract String getValue(FaceletContext ctx);
 
     /**
-     * If literal, simply coerce our String literal value using an ExpressionFactory, otherwise create a ValueExpression and
-     * evaluate it.
+     * If literal, simply coerce our String literal value using an ExpressionFactory, otherwise create a ValueExpression and evaluate it.
      *
      * @see ExpressionFactory#coerceToType(java.lang.Object, java.lang.Class)
      * @see ExpressionFactory#createValueExpression(jakarta.el.ELContext, java.lang.String, java.lang.Class)
@@ -155,8 +152,8 @@ public abstract class TagAttribute {
 
     /**
      * <p class="changed_added_2_2">
-     * A reference to the Tag for which this class represents the attributes. For compatibility with previous
-     * implementations, an implementation is provided that returns {@code null}.
+     * A reference to the Tag for which this class represents the attributes. For compatibility with previous implementations, an implementation is provided
+     * that returns {@code null}.
      * </p>
      *
      * @return the {@link Tag} for which this class represents the attributes.
@@ -168,9 +165,8 @@ public abstract class TagAttribute {
 
     /**
      * <p class="changed_added_2_2">
-     * Set a reference to the Tag for which this class represents the attributes. The VDL runtime must ensure that this
-     * method is called before any {@link FaceletHandler}s for this element are instantiated. For compatibility with
-     * previous implementations, a no-op implementation is provided.
+     * Set a reference to the Tag for which this class represents the attributes. The VDL runtime must ensure that this method is called before any
+     * {@link FaceletHandler}s for this element are instantiated. For compatibility with previous implementations, a no-op implementation is provided.
      * </p>
      *
      * @param tag the tag we represent.
@@ -179,4 +175,5 @@ public abstract class TagAttribute {
     public void setTag(Tag tag) {
 
     }
+
 }

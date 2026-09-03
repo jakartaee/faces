@@ -24,16 +24,17 @@ import jakarta.inject.Named;
 public class Spec1349Bean3 {
 
     private InjectConverter2Item value;
-    
+
     public InjectConverter2Item getValue() {
         return value;
     }
-    
+
     public void setValue(InjectConverter2Item value) {
         this.value = value;
     }
-    
+
     public String submit() {
         return "";
     }
+
 }

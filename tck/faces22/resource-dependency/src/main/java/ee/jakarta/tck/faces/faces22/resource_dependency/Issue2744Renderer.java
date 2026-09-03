@@ -24,8 +24,10 @@ import jakarta.faces.component.UIComponent;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.render.Renderer;
 
-@ResourceDependencies({
-    @ResourceDependency(library = "issue2744", name = "resourceDependency.js")})
+@ResourceDependencies(
+    {
+        @ResourceDependency(library = "issue2744", name = "resourceDependency.js") }
+)
 public class Issue2744Renderer extends Renderer {
 
     @Override
@@ -35,4 +37,5 @@ public class Issue2744Renderer extends Renderer {
         context.getResponseWriter().writeText("Hello, world", null);
         context.getResponseWriter().endElement("button");
     }
+
 }

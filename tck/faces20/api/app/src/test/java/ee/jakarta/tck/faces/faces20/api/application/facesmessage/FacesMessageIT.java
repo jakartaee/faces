@@ -28,14 +28,54 @@ class FacesMessageIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void facesMessageCtor01Test() { runServletTest("facesMessageCtor01Test"); }
-    @Test void facesMessageCtorSumDetTest() { runServletTest("facesMessageCtorSumDetTest"); }
-    @Test void facesMessageCtorSumTest() { runServletTest("facesMessageCtorSumTest"); }
-    @Test void facesMessageGetSetDetailTest() { runServletTest("facesMessageGetSetDetailTest"); }
-    @Test void facesMessageGetSetSeverityTest() { runServletTest("facesMessageGetSetSeverityTest"); }
-    @Test void facesMessageGetSetSummaryTest() { runServletTest("facesMessageGetSetSummaryTest"); }
-    @Test void facesMessageIsRenderedTest() { runServletTest("facesMessageIsRenderedTest"); }
-    @Test void facesMessageNoArgCtorTest() { runServletTest("facesMessageNoArgCtorTest"); }
-    @Test void facesMessageSeverityCompareToTest() { runServletTest("facesMessageSeverityCompareToTest"); }
-    @Test void facesMessageSeverityToStringTest() { runServletTest("facesMessageSeverityToStringTest"); }
+    @Test
+    void facesMessageCtor01Test() {
+        runServletTest("facesMessageCtor01Test");
+    }
+
+    @Test
+    void facesMessageCtorSumDetTest() {
+        runServletTest("facesMessageCtorSumDetTest");
+    }
+
+    @Test
+    void facesMessageCtorSumTest() {
+        runServletTest("facesMessageCtorSumTest");
+    }
+
+    @Test
+    void facesMessageGetSetDetailTest() {
+        runServletTest("facesMessageGetSetDetailTest");
+    }
+
+    @Test
+    void facesMessageGetSetSeverityTest() {
+        runServletTest("facesMessageGetSetSeverityTest");
+    }
+
+    @Test
+    void facesMessageGetSetSummaryTest() {
+        runServletTest("facesMessageGetSetSummaryTest");
+    }
+
+    @Test
+    void facesMessageIsRenderedTest() {
+        runServletTest("facesMessageIsRenderedTest");
+    }
+
+    @Test
+    void facesMessageNoArgCtorTest() {
+        runServletTest("facesMessageNoArgCtorTest");
+    }
+
+    @Test
+    void facesMessageSeverityCompareToTest() {
+        runServletTest("facesMessageSeverityCompareToTest");
+    }
+
+    @Test
+    void facesMessageSeverityToStringTest() {
+        runServletTest("facesMessageSeverityToStringTest");
+    }
+
 }

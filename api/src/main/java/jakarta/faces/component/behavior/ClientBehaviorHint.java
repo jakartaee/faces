@@ -28,8 +28,8 @@ package jakarta.faces.component.behavior;
 public enum ClientBehaviorHint {
 
     /**
-     * Hint that indicates that ClientBehavior implementation posts back to the server. Renderers that normally attach
-     * postback-related scripts may choose to omit such scripts when a submitting ClientBehavior is present.
+     * Hint that indicates that ClientBehavior implementation posts back to the server. Renderers that normally attach postback-related scripts may choose to
+     * omit such scripts when a submitting ClientBehavior is present.
      */
     SUBMITTING
 }

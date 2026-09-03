@@ -92,4 +92,5 @@ class CollectionDataModelIT extends BaseITNG {
     void dataModelAddDataModelListenerNPETest() {
         runServletTest("dataModelAddDataModelListenerNPETest");
     }
+
 }

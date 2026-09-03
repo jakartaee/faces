@@ -34,8 +34,7 @@ import jakarta.inject.Qualifier;
 /**
  * <p class="changed_added_2_3">
  * The presence of this annotation (along with {@code @Inject}) on a field of type <code>Map&lt;String,
- * String&gt;</code> causes the map returned from {@link jakarta.faces.context.ExternalContext#getInitParameterMap} to
- * be injected as the value of that field.
+ * String&gt;</code> causes the map returned from {@link jakarta.faces.context.ExternalContext#getInitParameterMap} to be injected as the value of that field.
  * </p>
  */
 
@@ -50,7 +49,9 @@ public @interface InitParameterMap {
      * </p>
      */
     public static final TypeLiteral<Map<String, String>> TYPE = new TypeLiteral<>() {
+
         private static final long serialVersionUID = 1L;
+
     };
 
     /**
@@ -61,11 +62,14 @@ public @interface InitParameterMap {
      * @since 4.0
      */
     public static final class Literal extends AnnotationLiteral<InitParameterMap> implements InitParameterMap {
+
         private static final long serialVersionUID = 1L;
 
         /**
          * Instance of the {@link InitParameterMap} qualifier.
          */
         public static final Literal INSTANCE = new Literal();
+
     }
+
 }

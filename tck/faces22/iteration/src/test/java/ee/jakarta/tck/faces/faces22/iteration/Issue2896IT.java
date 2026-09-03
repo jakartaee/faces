@@ -25,14 +25,12 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Nested c:forEach generates child components with correctly-IDed clientIds derived from the surrounding loop
- * index expressions.
+ * Nested c:forEach generates child components with correctly-IDed clientIds derived from the surrounding loop index expressions.
  */
 class Issue2896IT extends BaseITNG {
 
     /**
-     * After adding a new nested item, the freshly appended row is rendered with the expected generated component
-     * id (form0:item0_3) and value (item[new3]).
+     * After adding a new nested item, the freshly appended row is rendered with the expected generated component id (form0:item0_3) and value (item[new3]).
      *
      * @see jakarta.faces.component.UIComponent#getClientId()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2896
@@ -44,4 +42,5 @@ class Issue2896IT extends BaseITNG {
         String item = page.findElement(By.id("form0:item0_3")).getText();
         assertTrue(item.contains("item[new3]"), "Newly added nested item is rendered with the expected value");
     }
+
 }

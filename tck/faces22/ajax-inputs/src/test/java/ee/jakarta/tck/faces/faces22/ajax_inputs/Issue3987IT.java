@@ -29,14 +29,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that an ajax multipart form (enctype=multipart/form-data) containing an h:inputFile and a command
- * button with f:ajax execute=@all submits without a server exception and navigates to the next page.
+ * Verifies that an ajax multipart form (enctype=multipart/form-data) containing an h:inputFile and a command button with f:ajax execute=@all submits without a
+ * server exception and navigates to the next page.
  */
 class Issue3987IT extends BaseITNG {
 
     /**
-     * Submits the multipart ajax form with execute=@all and asserts that no server exception is reported back
-     * into the text field (via the registered ajax onError handler) and that navigation to the next page occurs.
+     * Submits the multipart ajax form with execute=@all and asserts that no server exception is reported back into the text field (via the registered ajax
+     * onError handler) and that navigation to the next page occurs.
      *
      * @see HtmlInputFile
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3987
@@ -54,4 +54,5 @@ class Issue3987IT extends BaseITNG {
         assertFalse(page.getSource().contains("Exception"), "Server should not throw an exception");
         assertTrue(page.containsText("This is the next page"), "Should navigate to the next page");
     }
+
 }

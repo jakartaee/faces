@@ -25,30 +25,30 @@ import jakarta.servlet.http.HttpServletResponseWrapper;
 
 public class BufferedResponseWrapper extends HttpServletResponseWrapper {
 
-  // HttpServletResponse response;
-  StringWriter writer;
+    // HttpServletResponse response;
+    StringWriter writer;
 
-  public BufferedResponseWrapper(HttpServletResponse response) {
+    public BufferedResponseWrapper(HttpServletResponse response) {
 
-    super(response);
-    // this.response = response;
+        super(response);
+        // this.response = response;
 
-  }
-
-  public PrintWriter getWriter() throws IOException {
-
-    writer = new StringWriter();
-    return new PrintWriter(writer);
-
-  }
-
-  public StringWriter getBufferedWriter() {
-
-    if (writer == null) {
-      return new StringWriter();
     }
-    return writer;
 
-  }
+    public PrintWriter getWriter() throws IOException {
+
+        writer = new StringWriter();
+        return new PrintWriter(writer);
+
+    }
+
+    public StringWriter getBufferedWriter() {
+
+        if (writer == null) {
+            return new StringWriter();
+        }
+        return writer;
+
+    }
 
 }

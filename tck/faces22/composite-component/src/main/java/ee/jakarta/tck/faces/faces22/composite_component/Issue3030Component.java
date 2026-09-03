@@ -35,4 +35,5 @@ public class Issue3030Component extends UINamingContainer {
     public void setMandatory(Boolean mandatory) {
         getStateHelper().put(PropertyKeys.mandatory, mandatory);
     }
+
 }

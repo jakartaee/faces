@@ -24,9 +24,8 @@ import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.SystemEvent;
 
 /**
- * Moves an existing child out of its current parent and into a sibling panel group. Unlike the other
- * dynamic components in this module it does not create a new component, so the relocation must be
- * recorded and replayed by the dynamic-component state saving on every postback.
+ * Moves an existing child out of its current parent and into a sibling panel group. Unlike the other dynamic components in this module it does not create a new
+ * component, so the relocation must be recorded and replayed by the dynamic-component state saving on every postback.
  */
 @FacesComponent(value = "ee.jakarta.tck.faces.faces23.dynamic_components.Issue2892Component")
 public class Issue2892Component extends DynamicComponentBase {
@@ -42,4 +41,5 @@ public class Issue2892Component extends DynamicComponentBase {
         getChildren().remove(movable);
         panel.getChildren().add(0, movable);
     }
+
 }

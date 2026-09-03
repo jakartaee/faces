@@ -26,24 +26,26 @@ import jakarta.inject.Named;
 public class Issue2166Bean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * Stores init called.
      */
     private StringBuilder initCalled = new StringBuilder();
-    
+
     /**
      * Init.
      */
     public void init() {
         this.initCalled.append("Init called\n");
     }
-    
+
     /**
      * Get init called.
+     *
      * @return init called.
      */
     public String getInitCalled() {
         return initCalled.toString();
     }
+
 }

@@ -46,10 +46,8 @@ public class JavaPageWithMetadata extends Facelet {
         uiViewParameter.setName("id");
         uiViewParameter.setValueExpression("value", expressionFactory.createValueExpression(elContext, "#{bean.id}", String.class));
 
-
         UIPanel metadataFacet = new UIPanel();
         metadataFacet.getChildren().add(uiViewParameter);
-
 
         parent.getFacets().put(METADATA_FACET_NAME, metadataFacet);
     }
@@ -65,15 +63,12 @@ public class JavaPageWithMetadata extends Facelet {
         html.setValue("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
         rootChildren.add(html);
 
-
         HtmlBody body = new HtmlBody();
         rootChildren.add(body);
-
 
         HtmlOutputText message = new HtmlOutputText();
         message.setValueExpression("value", expressionFactory.createValueExpression(elContext, "#{bean.message}", String.class));
         body.getChildren().add(message);
-
 
         html = new UIOutput();
         html.setValue("</html>");

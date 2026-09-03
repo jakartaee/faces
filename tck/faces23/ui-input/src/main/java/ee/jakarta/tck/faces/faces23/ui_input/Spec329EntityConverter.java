@@ -21,7 +21,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 
-@FacesConverter(forClass=Spec329Entity.class)
+@FacesConverter(forClass = Spec329Entity.class)
 public class Spec329EntityConverter implements Converter<Spec329Entity> {
 
     @Override

@@ -35,11 +35,11 @@
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
 
-	<servlet>
+    <servlet>
         <servlet-name>TestServlet</servlet-name>
-	<servlet-class>ee.jakarta.tck.faces.faces20.resource.packaging.classpath.TestServlet</servlet-class>
+    <servlet-class>ee.jakarta.tck.faces.faces20.resource.packaging.classpath.TestServlet</servlet-class>
     </servlet>
-	<servlet-mapping>
+    <servlet-mapping>
         <servlet-name>TestServlet</servlet-name>
         <url-pattern>/TestServlet</url-pattern>
     </servlet-mapping>

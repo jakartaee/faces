@@ -45,4 +45,5 @@ public class EscapeBean implements Serializable {
     public void setBar(String bar) {
         this.bar = bar;
     }
+
 }

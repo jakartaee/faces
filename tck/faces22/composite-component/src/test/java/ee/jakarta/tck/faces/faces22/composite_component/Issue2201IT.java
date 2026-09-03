@@ -179,4 +179,5 @@ class Issue2201IT extends BaseITNG {
         submit(page);
         assertTrue(page.containsText("Regex Pattern not matched"), "f:validateRegex retargeted onto inner input");
     }
+
 }

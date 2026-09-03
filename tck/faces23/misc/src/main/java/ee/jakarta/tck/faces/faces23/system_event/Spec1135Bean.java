@@ -32,7 +32,7 @@ public class Spec1135Bean {
 
     @Inject
     private FacesContext facesContext;
-    
+
     @Inject
     private ExternalContext externalContext;
 
@@ -48,4 +48,5 @@ public class Spec1135Bean {
     public void post(ComponentSystemEvent event) throws IOException {
         facesContext.getResponseWriter().write("<!-- post -->");
     }
+
 }

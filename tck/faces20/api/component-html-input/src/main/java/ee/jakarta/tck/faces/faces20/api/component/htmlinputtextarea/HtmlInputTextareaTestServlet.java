@@ -15,28 +15,31 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlinputtextarea;
 
-import ee.jakarta.tck.faces.faces20.api.component.uiinput.UIInputTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlInputTextarea;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uiinput.UIInputTestServlet;
+
 @WebServlet("/HtmlInputTextareaTestServlet")
 public final class HtmlInputTextareaTestServlet extends UIInputTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "cols", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "rows", "style", "styleClass", "tabindex", "title", "disabled", "readonly" };
+    private static final String[] attrNames = { "accesskey", "cols", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown",
+        "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "rows", "style", "styleClass", "tabindex",
+        "title", "disabled", "readonly" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Textarea");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Textarea");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlInputTextarea();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlInputTextarea();
+    }
+
 }

@@ -18,7 +18,8 @@ package jakarta.faces.model;
 
 /**
  * <p>
- * JavaBean for data model tests.</p>
+ * JavaBean for data model tests.
+ * </p>
  */
 class MockedJavaBean {
 
@@ -174,4 +175,5 @@ class MockedJavaBean {
     public void setWriteOnlyProperty(String writeOnlyProperty) {
         this.writeOnlyProperty = writeOnlyProperty;
     }
+
 }

@@ -23,16 +23,14 @@ import jakarta.faces.view.ViewMetadata;
  * <div class="changed_added_2_3">
  *
  * <p>
- * <strong>UIImportConstants</strong> imports a mapping of all constant field values of the given type in the current
- * view.
+ * <strong>UIImportConstants</strong> imports a mapping of all constant field values of the given type in the current view.
  * </p>
  *
  * <p>
- * The {@link jakarta.faces.view.ViewDeclarationLanguage} implementation must cause an instance of this component to be
- * placed in the view for each occurrence of an <code>&lt;f:importConstants /&gt;</code> element placed inside of an
- * <code>&lt;f:metadata /&gt;</code> element. The user must place <code>&lt;f:metadata /&gt;</code> as a direct child of
- * the <code>UIViewRoot</code>. The {@link ViewMetadata#createMetadataView(jakarta.faces.context.FacesContext)} must
- * take care of actual task of importing the constants.
+ * The {@link jakarta.faces.view.ViewDeclarationLanguage} implementation must cause an instance of this component to be placed in the view for each occurrence
+ * of an <code>&lt;f:importConstants /&gt;</code> element placed inside of an <code>&lt;f:metadata /&gt;</code> element. The user must place
+ * <code>&lt;f:metadata /&gt;</code> as a direct child of the <code>UIViewRoot</code>. The
+ * {@link ViewMetadata#createMetadataView(jakarta.faces.context.FacesContext)} must take care of actual task of importing the constants.
  * </p>
  *
  * <p>
@@ -40,10 +38,9 @@ import jakarta.faces.view.ViewMetadata;
  * </p>
  *
  * <p>
- * The purpose of this component is to provide a mapping of all constant field values of the given type in the current
- * view. Constant field values are all <code>public static final</code> fields of the given type. The map key represents
- * the constant field name as <code>String</code>. The map value represents the actual constant field value. This works
- * for classes, interfaces and enums.
+ * The purpose of this component is to provide a mapping of all constant field values of the given type in the current view. Constant field values are all
+ * <code>public static final</code> fields of the given type. The map key represents the constant field name as <code>String</code>. The map value represents
+ * the actual constant field value. This works for classes, interfaces and enums.
  * </p>
  *
  * <h2 id="usage">Usage</h2>
@@ -56,8 +53,10 @@ import jakarta.faces.view.ViewMetadata;
  * package com.example;
  *
  * public class Foo {
+ *
  *     public static final String FOO1 = "foo1";
  *     public static final String FOO2 = "foo2";
+ *
  * }
  * </pre>
  *
@@ -65,8 +64,10 @@ import jakarta.faces.view.ViewMetadata;
  * package com.example;
  *
  * public interface Bar {
+ *
  *     public static final String BAR1 = "bar1";
  *     public static final String BAR2 = "bar2";
+ *
  * }
  * </pre>
  *
@@ -74,7 +75,8 @@ import jakarta.faces.view.ViewMetadata;
  * package com.example;
  *
  * public enum Baz {
- *     BAZ1, BAZ2;
+ *     BAZ1,
+ *     BAZ2;
  * }
  * </pre>
  *
@@ -130,7 +132,8 @@ public class UIImportConstants extends UIComponentBase {
      * Properties that are tracked by state saving.
      */
     enum PropertyKeys {
-        type, var;
+        type,
+        var;
     }
 
     // ---------------------------------------------------------------------------------------------------- Constructors
@@ -199,12 +202,11 @@ public class UIImportConstants extends UIComponentBase {
 
     /**
      * <p>
-     * Set the {@link ValueExpression} used to calculate the value for the specified attribute or property name, if any. If
-     * a {@link ValueExpression} is set for the <code>var</code> property, throw an illegal argument exception.
+     * Set the {@link ValueExpression} used to calculate the value for the specified attribute or property name, if any. If a {@link ValueExpression} is set for
+     * the <code>var</code> property, throw an illegal argument exception.
      * </p>
      *
-     * @throws IllegalArgumentException If <code>name</code> is one of <code>id</code>, <code>parent</code>, or
-     * <code>var</code>.
+     * @throws IllegalArgumentException If <code>name</code> is one of <code>id</code>, <code>parent</code>, or <code>var</code>.
      * @throws NullPointerException If <code>name</code> is <code>null</code>.
      */
     @Override

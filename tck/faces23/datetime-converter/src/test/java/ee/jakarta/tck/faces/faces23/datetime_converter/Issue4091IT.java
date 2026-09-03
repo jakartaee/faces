@@ -40,14 +40,11 @@ public class Issue4091IT extends BaseITNG {
     private static final Locale DUTCH_LOCALE = Locale.forLanguageTag("nl-NL");
     private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2015, 5, 30, 16, 14, 43);
     private static final LocalTime LOCAL_TIME = LocalTime.of(16, 14, 43);
-    private static final DateTimeFormatter MEDIUM_DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
-    private static final DateTimeFormatter MEDIUM_SHORT_DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).withLocale(DUTCH_LOCALE);
-    private static final DateTimeFormatter MEDIUM_TIME_FORMATTER =
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
-    private static final DateTimeFormatter SHORT_TIME_FORMATTER =
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter MEDIUM_DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter MEDIUM_SHORT_DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT)
+        .withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter MEDIUM_TIME_FORMATTER = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter SHORT_TIME_FORMATTER = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).withLocale(DUTCH_LOCALE);
 
     /**
      * @see DateTimeConverter

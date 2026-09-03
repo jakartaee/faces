@@ -38,4 +38,5 @@ public class Issue2475Bean {
             viewRoot.removeComponentResource(context, componentResource, HEAD);
         }
     }
+
 }

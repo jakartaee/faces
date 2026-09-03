@@ -20,8 +20,7 @@ import java.util.Collection;
 
 /**
  * <p class="changed_added_2_2">
- * <strong>CollectionDataModel</strong> is a convenience implementation of {@link DataModel} that wraps an
- * <code>Collection</code> of Java objects.
+ * <strong>CollectionDataModel</strong> is a convenience implementation of {@link DataModel} that wraps an <code>Collection</code> of Java objects.
  * </p>
  */
 
@@ -66,9 +65,8 @@ public class CollectionDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * Return <code>true</code> if there is <code>wrappedData</code> available, and the current value of
-     * <code>rowIndex</code> is greater than or equal to zero, and less than the size of the list. Otherwise, return
-     * <code>false</code>.
+     * Return <code>true</code> if there is <code>wrappedData</code> available, and the current value of <code>rowIndex</code> is greater than or equal to zero,
+     * and less than the size of the list. Otherwise, return <code>false</code>.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row availability
@@ -81,8 +79,7 @@ public class CollectionDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * If there is <code>wrappedData</code> available, return the length of the list. If no <code>wrappedData</code> is
-     * available, return -1.
+     * If there is <code>wrappedData</code> available, return the length of the list. If no <code>wrappedData</code> is available, return -1.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row count
@@ -99,8 +96,8 @@ public class CollectionDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * If row data is available, return the array element at the index specified by <code>rowIndex</code>. If no wrapped
-     * data is available, return <code>null</code>.
+     * If row data is available, return the array element at the index specified by <code>rowIndex</code>. If no wrapped data is available, return
+     * <code>null</code>.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row data
@@ -111,9 +108,11 @@ public class CollectionDataModel<E> extends DataModel<E> {
 
         if (arrayFromInner == null) {
             return null;
-        } else if (!isRowAvailable()) {
+        }
+        else if (!isRowAvailable()) {
             throw new NoRowAvailableException();
-        } else {
+        }
+        else {
             return arrayFromInner[index];
         }
 
@@ -180,11 +179,13 @@ public class CollectionDataModel<E> extends DataModel<E> {
             inner = null;
             arrayFromInner = null;
             setRowIndex(-1);
-        } else {
+        }
+        else {
             inner = (Collection<E>) data;
             arrayFromInner = (E[]) new Object[inner.size()];
             inner.toArray(arrayFromInner);
             setRowIndex(0);
         }
     }
+
 }

@@ -41,4 +41,5 @@ public class Issue2251Bean implements Serializable {
         String viewId = FacesContext.getCurrentInstance().getViewRoot().getViewId();
         return viewId + "?faces-redirect=true&includeViewParams=true";
     }
+
 }

@@ -37,4 +37,5 @@ public class NaviViewCallOthersBean implements Serializable {
     public boolean isCase2() {
         return false;
     }
+
 }

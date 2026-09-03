@@ -18,21 +18,21 @@ package ee.jakarta.tck.faces.faces22.phase_listener;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import jakarta.faces.event.PhaseListener;
+
 import org.junit.jupiter.api.Test;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.event.PhaseListener;
 
 class Spec762IT extends BaseITNG {
 
-    private static final String PHASES_IN_ORDER =
-            "(?s).*beforePhase\\s+RESTORE_VIEW\\s+1"
-            + "\\s+beforePhase\\s+APPLY_REQUEST_VALUES\\s+2"
-            + "\\s+beforePhase\\s+PROCESS_VALIDATIONS\\s+3"
-            + "\\s+beforePhase\\s+UPDATE_MODEL_VALUES\\s+4"
-            + "\\s+beforePhase\\s+INVOKE_APPLICATION\\s+5"
-            + "\\s+beforePhase\\s+RENDER_RESPONSE\\s+6.*";
+    private static final String PHASES_IN_ORDER = "(?s).*beforePhase\\s+RESTORE_VIEW\\s+1"
+        + "\\s+beforePhase\\s+APPLY_REQUEST_VALUES\\s+2"
+        + "\\s+beforePhase\\s+PROCESS_VALIDATIONS\\s+3"
+        + "\\s+beforePhase\\s+UPDATE_MODEL_VALUES\\s+4"
+        + "\\s+beforePhase\\s+INVOKE_APPLICATION\\s+5"
+        + "\\s+beforePhase\\s+RENDER_RESPONSE\\s+6.*";
 
     /**
      * With the metadata facet present, all six lifecycle phases fire in order even on the initial GET request.
@@ -45,4 +45,5 @@ class Spec762IT extends BaseITNG {
         WebPage page = getPage("spec762.xhtml");
         assertTrue(page.getSource().matches(PHASES_IN_ORDER));
     }
+
 }

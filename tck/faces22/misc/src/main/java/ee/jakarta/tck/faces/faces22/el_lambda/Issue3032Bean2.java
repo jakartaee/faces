@@ -23,9 +23,9 @@ import jakarta.inject.Named;
 @Named
 @SessionScoped
 public class Issue3032Bean2 implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     private String title;
     private String category;
 
@@ -33,6 +33,7 @@ public class Issue3032Bean2 implements Serializable {
         this.title = title;
         this.category = category;
     }
+
     public String getTitle() {
         return title;
     }
@@ -48,6 +49,5 @@ public class Issue3032Bean2 implements Serializable {
     public void setCategory(String category) {
         this.category = category;
     }
-    
-}
 
+}

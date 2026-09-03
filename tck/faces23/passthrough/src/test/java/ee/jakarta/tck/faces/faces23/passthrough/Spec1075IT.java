@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Plain HTML elements that are not otherwise mapped to a Faces component (for example {@code base},
- * {@code command} and {@code meta}) still become passthrough components when decorated with a
- * {@code jsf:id}, keeping their remaining attributes rendered verbatim.
+ * Plain HTML elements that are not otherwise mapped to a Faces component (for example {@code base}, {@code command} and {@code meta}) still become passthrough
+ * components when decorated with a {@code jsf:id}, keeping their remaining attributes rendered verbatim.
  */
 class Spec1075IT extends BaseITNG {
 
@@ -49,8 +48,7 @@ class Spec1075IT extends BaseITNG {
     }
 
     /**
-     * A decorated {@code command} element (a name with no dedicated Faces component) renders its id
-     * and its {@code onclick} attribute.
+     * A decorated {@code command} element (a name with no dedicated Faces component) renders its id and its {@code onclick} attribute.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2611
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
@@ -76,4 +74,5 @@ class Spec1075IT extends BaseITNG {
         assertEquals("meta", meta.getTagName(), "tag name");
         assertEquals("UTF-8", meta.getDomAttribute("charset"), "charset");
     }
+
 }

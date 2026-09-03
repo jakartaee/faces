@@ -22,8 +22,7 @@ import jakarta.faces.flow.FlowScoped;
 import jakarta.inject.Named;
 
 /**
- * Scoped to the "bounded-task-flow" of defining document "flow01", which is a different flow than
- * the identically named one of defining document "flow02".
+ * Scoped to the "bounded-task-flow" of defining document "flow01", which is a different flow than the identically named one of defining document "flow02".
  */
 @Named
 @FlowScoped(value = "bounded-task-flow", definingDocumentId = "flow01")
@@ -38,4 +37,5 @@ public class Issue2584Bean01 implements Serializable {
     public String getReturnValue() {
         return "/issue2584Return";
     }
+
 }

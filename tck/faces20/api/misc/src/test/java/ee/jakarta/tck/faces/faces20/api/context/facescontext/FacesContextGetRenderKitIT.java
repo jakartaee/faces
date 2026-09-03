@@ -28,8 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class FacesContextGetRenderKitIT extends BaseITNG {
 
     /**
-     * Verifies the {@code FacesContext.getRenderKit} contract: a null or unknown render kit id on the view root yields a
-     * null RenderKit, while the HTML_BASIC render kit id yields a non-null RenderKit.
+     * Verifies the {@code FacesContext.getRenderKit} contract: a null or unknown render kit id on the view root yields a null RenderKit, while the HTML_BASIC
+     * render kit id yields a non-null RenderKit.
      *
      * @see FacesContext#getRenderKit()
      * @see jakarta.faces.render.RenderKitFactory#HTML_BASIC_RENDER_KIT
@@ -37,7 +37,10 @@ class FacesContextGetRenderKitIT extends BaseITNG {
     @Test
     void testGetRenderKit() {
         WebPage page = getPage("facesContextRenderKit.xhtml");
-        assertEquals("SUCCESS", page.findElement(By.id("form:result")).getText(),
-                "FacesContext.getRenderKit contract must hold for null, unknown and HTML_BASIC render kit ids");
+        assertEquals(
+            "SUCCESS", page.findElement(By.id("form:result")).getText(),
+            "FacesContext.getRenderKit contract must hold for null, unknown and HTML_BASIC render kit ids"
+        );
     }
+
 }

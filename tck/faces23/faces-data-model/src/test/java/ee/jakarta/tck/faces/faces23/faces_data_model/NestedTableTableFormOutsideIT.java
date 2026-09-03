@@ -18,9 +18,8 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * An {@code h:dataTable} nested in an {@code h:dataTable}, with the form wrapping both and one input
- * per cell. Each table keeps the per-row state of its stateful descendants, so an input must
- * round-trip the value submitted for its own (outer, inner) position, not one from another row.
+ * An {@code h:dataTable} nested in an {@code h:dataTable}, with the form wrapping both and one input per cell. Each table keeps the per-row state of its
+ * stateful descendants, so an input must round-trip the value submitted for its own (outer, inner) position, not one from another row.
  */
 class NestedTableTableFormOutsideIT extends NestedIterationITBase {
 
@@ -46,4 +45,5 @@ class NestedTableTableFormOutsideIT extends NestedIterationITBase {
     protected String submitId(int outer, int inner) {
         return "form:submit";
     }
+
 }

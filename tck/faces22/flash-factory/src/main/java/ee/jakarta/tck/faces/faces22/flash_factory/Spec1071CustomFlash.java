@@ -31,4 +31,5 @@ public class Spec1071CustomFlash extends FlashWrapper implements FacesWrapper<Fl
     public Flash getWrapped() {
         return parent;
     }
+
 }

@@ -60,4 +60,5 @@ public class Issue4128Bean implements Serializable {
     public int getActionCount() {
         return actionCount;
     }
+
 }

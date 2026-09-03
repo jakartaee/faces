@@ -30,4 +30,5 @@ public class AppBean {
     public String getId() {
         return id;
     }
+
 }

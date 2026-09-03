@@ -31,8 +31,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * Context representative of a single request from a Facelet. This instance is passed to nearly every method call in
- * this API.
+ * Context representative of a single request from a Facelet. This instance is passed to nearly every method call in this API.
  * </p>
  *
  * @since 2.0
@@ -48,7 +47,7 @@ public abstract class FaceletContext extends ELContext {
      * <p class="changed_added_5_0">
      * Returns the current {@link FaceletContext} instance from the attributes of {@link FacesContext#getCurrentInstance()}.
      * </p>
-     * 
+     *
      * @return the current {@link FaceletContext} instance from the attributes of {@link FacesContext#getCurrentInstance()}.
      * @since 5.0
      */
@@ -60,7 +59,7 @@ public abstract class FaceletContext extends ELContext {
      * <p class="changed_added_5_0">
      * Returns the current {@link FaceletContext} instance from the attributes of the given {@link FacesContext} instance.
      * </p>
-     * 
+     *
      * @return the current {@link FaceletContext} instance from the attributes of the given {@link FacesContext} instance.
      * @since 5.0
      */
@@ -139,8 +138,7 @@ public abstract class FaceletContext extends ELContext {
 
     /**
      * <p class="changed_added_2_0">
-     * Return an attribute set by a previous call to {@link #setAttribute}. Support method which is backed by the current
-     * VariableMapper
+     * Return an attribute set by a previous call to {@link #setAttribute}. Support method which is backed by the current VariableMapper
      * </p>
      *
      * @param name the name of the attribute to return.
@@ -153,8 +151,8 @@ public abstract class FaceletContext extends ELContext {
 
     /**
      * <p class="changed_added_2_0">
-     * Include another Facelet defined at some path, relative to the executing context, not the current Facelet (same as
-     * include directive in Jakarta Server Pages)
+     * Include another Facelet defined at some path, relative to the executing context, not the current Facelet (same as include directive in Jakarta Server
+     * Pages)
      * </p>
      *
      * @param parent the <code>UIComponent</code> that will be the parent of any components in the included facelet.

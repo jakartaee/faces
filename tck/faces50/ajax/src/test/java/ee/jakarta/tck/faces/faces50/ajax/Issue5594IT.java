@@ -45,4 +45,5 @@ class Issue5594IT extends BaseITNG {
         page.guardAjax(submit::click);
         assertEquals("submit3 preRenderView", messages.getText().replaceAll("\\s+", " "));
     }
+
 }

@@ -26,16 +26,20 @@ import jakarta.inject.Named;
 public class Issue3101Bean {
 
     public String getStateSavingMethod() {
-        return FacesContext.getCurrentInstance().getApplication().
-                getStateManager().isSavingStateInClient(FacesContext.getCurrentInstance()) ? "client" : "server";
+        return FacesContext.getCurrentInstance().getApplication().getStateManager().isSavingStateInClient(FacesContext.getCurrentInstance())
+            ? "client"
+            : "server";
     }
-    
+
     public void expireSessionSoon() {
         FacesContext.getCurrentInstance().getExternalContext().setSessionMaxInactiveInterval(1);
     }
-    
+
     public void verifySession() {
-        FacesContext.getCurrentInstance().addMessage(null, 
-                new FacesMessage(FacesMessage.SEVERITY_FATAL, "Should not see this!", "Should not see this!"));
+        FacesContext.getCurrentInstance().addMessage(
+            null,
+            new FacesMessage(FacesMessage.SEVERITY_FATAL, "Should not see this!", "Should not see this!")
+        );
     }
+
 }

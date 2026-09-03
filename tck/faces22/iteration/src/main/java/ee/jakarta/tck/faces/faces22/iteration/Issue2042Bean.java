@@ -41,4 +41,5 @@ public class Issue2042Bean implements Serializable {
     public List<Issue2042Item> getItems() {
         return items;
     }
+
 }

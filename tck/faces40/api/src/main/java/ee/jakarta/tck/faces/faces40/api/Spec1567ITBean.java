@@ -12,7 +12,7 @@ public class Spec1567ITBean {
     private String form1input1;
     private String form1input2;
     private String form1input3;
-    
+
     private String form2input1;
     private String form2input2;
     private String form2input3;

@@ -36,4 +36,5 @@ public class Issue2330Request extends HttpServletRequestWrapper {
     public Collection<Part> getParts() throws IOException {
         throw new IOException("Negative test, intentional failure");
     }
+
 }

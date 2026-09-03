@@ -92,20 +92,20 @@
         <code>UIComponent.findComponent()</code>.  For example, consider
         the following Facelets code.</p>
 
-<div class="xml" style="font-family:monospace;"><ol><li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:form</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;form_1&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li> 
-<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:panelGrid</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;panel_1&quot;</span> <span style="color: #000000;">rows</span>=<span style="color: #000000;">&quot;2&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li> 
-<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; &nbsp; <span style="color: #808080; font-style: italic;">&lt;!-- content irrelevant --&gt;</span></div></li> 
-<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:panelGrid<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li> 
-<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:form<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li> 
-<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp;</div></li> 
-<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:form</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;form_2&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li> 
-<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:commandButton</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;button&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li> 
-<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; &nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;f:ajax</span> <span style="color: #000000;">render</span>=<span style="color: #000000;">&quot;:form1:panel_1 panel_2&quot;</span> <span style="color: #000000; font-weight: bold;">/&gt;</span></span></div></li> 
-<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:commandButton<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li> 
-<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:panelGrid</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;panel_2&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li> 
-<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; &nbsp; <span style="color: #808080; font-style: italic;">&lt;!-- content irrelevant --&gt;</span></div></li> 
-<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:panelGrid<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li> 
-<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:form<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li> 
+<div class="xml" style="font-family:monospace;"><ol><li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:form</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;form_1&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li>
+<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:panelGrid</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;panel_1&quot;</span> <span style="color: #000000;">rows</span>=<span style="color: #000000;">&quot;2&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li>
+<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; &nbsp; <span style="color: #808080; font-style: italic;">&lt;!-- content irrelevant --&gt;</span></div></li>
+<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:panelGrid<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li>
+<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:form<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li>
+<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp;</div></li>
+<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:form</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;form_2&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li>
+<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:commandButton</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;button&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li>
+<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; &nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;f:ajax</span> <span style="color: #000000;">render</span>=<span style="color: #000000;">&quot;:form1:panel_1 panel_2&quot;</span> <span style="color: #000000; font-weight: bold;">/&gt;</span></span></div></li>
+<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:commandButton<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li>
+<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;h:panelGrid</span> <span style="color: #000000;">id</span>=<span style="color: #000000;">&quot;panel_2&quot;</span><span style="color: #000000; font-weight: bold;">&gt;</span></span></div></li>
+<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; &nbsp; <span style="color: #808080; font-style: italic;">&lt;!-- content irrelevant --&gt;</span></div></li>
+<li style="background: #fcfcfc;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;">&nbsp; <span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:panelGrid<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li>
+<li style="background: #f0f0f0;"><div style="font: normal normal 1em/1.2em monospace; margin:0; padding:0; background:none; vertical-align:top;"><span style="color: #000000;"><span style="color: #000000; font-weight: bold;">&lt;/h:form<span style="color: #000000; font-weight: bold;">&gt;</span></span></span></div></li>
 </ol></div>
 
         <p class="changed_added_2_0">When the button is pressed,
@@ -122,7 +122,7 @@
       requests are discarded. If this option is not specified, or if the
       value of <em>delay</em> is the literal string <code>'none'</code>
       without the quotes, no delay is used. </p>
-          
+
           ]]></description>
           <name>delay</name>
           <required>false</required>
@@ -146,12 +146,12 @@
             <description><![CDATA[
 
              <p class="changed_added_2_0">A String <span class="changed_modified_2_2">or
-             ValueExpression (that evalulates to a String)</span> identifying the type of event 
-             the Ajax action will apply to. If specified, it must be one of the 
-             events supported by the component the Ajax behavior is being applied to <span class="changed_added_5_0">as per <code>ClientBehaviorHolder#getEventNames()</code></span>. 
+             ValueExpression (that evalulates to a String)</span> identifying the type of event
+             the Ajax action will apply to. If specified, it must be one of the
+             events supported by the component the Ajax behavior is being applied to <span class="changed_added_5_0">as per <code>ClientBehaviorHolder#getEventNames()</code></span>.
              For HTML components this would be the set of supported DOM events for the
              component, plus "action" for Faces ActionSource components and "valueChange"
-             for Faces EditableValueHolder components.  If not specified, the default 
+             for Faces EditableValueHolder components.  If not specified, the default
              event is determined for the component <span class="changed_added_5_0">via <code>ClientBehaviorHolder#getDefaultEventName()</code></span>. The DOM event name is the actual DOM
              event name (for example: "click") as opposed to (for example: "onclick").</p>
 
@@ -163,7 +163,7 @@
         </attribute>
         <attribute>
           <description><![CDATA[
-          
+
          <p class="changed_added_2_0"><span
          class="changed_modified_2_0_rev_a">Evaluates</span> to
          Collection&lt;String&gt;. This is a space separated list of
@@ -236,7 +236,7 @@
         </attribute>
         <attribute>
           <description><![CDATA[
-          
+
          <p class="changed_added_2_0"><span
          class="changed_modified_2_0_rev_a">Evaluates</span> to
          Collection&lt;String&gt;. The <span
@@ -250,7 +250,7 @@
          class="changed_modified_2_0_rev_a">If not specified, the
          default value of "@none" is assumed.  For example, <code>@this
          clientIdOne clientIdTwo</code>.</span></p>
-         
+
         <p class="changed_modified_4_0">When nested within a composite component,
         and the value contains or implies the keyword <code>@this</code>,
         then the keyword must be remapped to the client ID of the associated <code>&lt;composite:implementation&gt;</code>,
@@ -263,7 +263,7 @@
             <type>java.util.Collection</type>
         </attribute>
         <attribute>
-          <description><![CDATA[ 
+          <description><![CDATA[
 
             <p class="changed_added_2_2">Reset specific input values.
             Interpret the value of the <code>render</code> attribute as
@@ -274,7 +274,7 @@
             in which this tag is nested that calls
             <code>UIViewRoot.resetValues()</code> passing the value of
             the <code>render</code> attribute as the argument.</p>
-          
+
           ]]></description>
           <name>resetValues</name>
           <required>false</required>
@@ -282,7 +282,7 @@
         </attribute>
 
         <attribute>
-          <description><![CDATA[ 
+          <description><![CDATA[
             <p class="changed_added_5_0">
                 Clear the model values as well when <code>resetValues</code> is <code>true</code>.
                 The implementation must cause <code>EditableValueHolder.setValue()</code> to be invoked with value of <code>null</code>, followed by <code>UIInput.updateModel()</code>.
@@ -322,12 +322,12 @@
     <tag>
         <description><![CDATA[<p class="changed_added_2_2">
             Add attributes to the UIComponent associated with the closest
-            parent UIComponent <span class="changed_modified_4_0">tag</span>.  
+            parent UIComponent <span class="changed_modified_4_0">tag</span>.
             For each <code>Map.Entry</code> in the <code>Map&lt;String, Object&gt;</code>
             referenced by the value attribute of this tag, take the following action.
-            If <code>parent.getAttributes().containsKey(entry.getKey())</code> returns 
-            <code>true</code>, take no action for this entry.  Otherwise, if 
-            <code>entry.getValue()</code> is a <code>ValueExpression</code> call 
+            If <code>parent.getAttributes().containsKey(entry.getKey())</code> returns
+            <code>true</code>, take no action for this entry.  Otherwise, if
+            <code>entry.getValue()</code> is a <code>ValueExpression</code> call
             <code>parent.setValueExpression(entry.getKey(), entry.getValue())</code>.
             Otherwise, call <code>parent.getAttributes.put(entry.getKey(), entry.getValue()).</code>
             </p>
@@ -376,8 +376,8 @@
                 "localDateTime", or "zonedDateTime"</span>. Valid values
                 are "default", "short", "medium", "long", and "full".
                 Default value is "default".  <span
-                class="changed_added_2_3">If a <code>java.time</code> 
-                formatter is being used, yet the dateStyle is set to "default", 
+                class="changed_added_2_3">If a <code>java.time</code>
+                formatter is being used, yet the dateStyle is set to "default",
                 the value "medium" is assumed.</span></p>
 
             ]]></description>
@@ -424,16 +424,16 @@
         <attribute>
             <description><![CDATA[
 
-                <p><span class="changed_modified_2_3">Predefined</span> 
-                formatting style which determines how the time component of a 
+                <p><span class="changed_modified_2_3">Predefined</span>
+                formatting style which determines how the time component of a
                 date string is to be formatted and
                 parsed. Applied only if type is "time", "both",
-                <span class="changed_modified_2_3">"localTime" or 
+                <span class="changed_modified_2_3">"localTime" or
                 "offsetTime"</span>.
                 Valid values are "default", "short", "medium", "long",
                 and "full". Default value is "default".  <span
-                class="changed_added_2_3">If a <code>java.time</code> 
-                formatter is being used, yet the timeStyle is set to "default", 
+                class="changed_added_2_3">If a <code>java.time</code>
+                formatter is being used, yet the timeStyle is set to "default",
                 the value "medium" is assumed.</span></p>
 
             ]]></description>
@@ -458,7 +458,7 @@
             <type>java.lang.Object</type>
         </attribute>
         <attribute>
-            <description><![CDATA[ 
+            <description><![CDATA[
 
             <p><span class="changed_modified_2_3">Specifies</span> what
             contents the string value will be formatted to include, or
@@ -904,8 +904,8 @@ for <code>@NamedEvent</code>.</p>
 
             <p class="changed_added_2_0">Declare the metadata
             facet for this view. This must be a <span class="changed_added_4_1">direct</span> child of the
-			<span class="changed_modified_5_0"><code>UIViewRoot</code> for the given viewId.
-			It is not permitted to place the metadata facet inside other components, or within templates,
+            <span class="changed_modified_5_0"><code>UIViewRoot</code> for the given viewId.
+            It is not permitted to place the metadata facet inside other components, or within templates,
             template clients, includes, tag files, or composite components. If this requirement is violated,
             the implementation must throw a <code>TagException</code>.</span>The
             implementation must insure that the direct child of the
@@ -1094,8 +1094,8 @@ for <code>@NamedEvent</code>.</p>
     <tag>
         <description><![CDATA[
 
-        <p class="changed_added_2_2">Add an attribute to the 
-            <code>passThroughAttributes Map</code> of the <code>UIComponent</code> 
+        <p class="changed_added_2_2">Add an attribute to the
+            <code>passThroughAttributes Map</code> of the <code>UIComponent</code>
             associated with the closest parent <code>UIComponent</code> tag.</p>
 
         ]]></description>
@@ -1126,8 +1126,8 @@ for <code>@NamedEvent</code>.</p>
     </tag>
     <tag>
         <description>
-            <![CDATA[<p class="changed_added_2_2">Add attributes to the 
-            <code>passThroughAttributes Map</code> of the <code>UIComponent</code> 
+            <![CDATA[<p class="changed_added_2_2">Add attributes to the
+            <code>passThroughAttributes Map</code> of the <code>UIComponent</code>
             associated with the closest parent <code>UIComponent</code> tag.
             For each <code>Map.Entry</code> in the <code>Map&lt;String, Object&gt;</code>
             referenced by the value attribute of this tag, take the following action.
@@ -1305,7 +1305,7 @@ for <code>@NamedEvent</code>.</p>
             <name>id</name>
             <required>false</required>
             <type>java.lang.String</type>
-        </attribute> 
+        </attribute>
          <attribute>
             <description><![CDATA[
 
@@ -1464,7 +1464,7 @@ just as well point to a <code>Collection</code>, array, or
             ]]></description>
             <name>id</name>
             <type>java.lang.String</type>
-        </attribute> 
+        </attribute>
         <attribute>
             <description><![CDATA[
                 Value binding expression to a backing bean property bound to the component instance for the <code>UIComponent</code> created by this <span class="changed_modified_4_0">tag</span>.
@@ -1500,7 +1500,7 @@ just as well point to a <code>Collection</code>, array, or
             ]]></description>
             <name>id</name>
             <type>java.lang.String</type>
-        </attribute> 
+        </attribute>
         <attribute>
             <description><![CDATA[
                 Value binding expression to a backing bean property bound to the component instance for the <code>UIComponent</code> created by this <span class="changed_modified_4_0">tag</span>.
@@ -1643,7 +1643,7 @@ just as well point to a <code>Collection</code>, array, or
             &lt;ui:include&gt; or any tag that dynamically includes another
             page is included more than once, potentially causing duplicate component IDs.
             Each of those nested sections can then be wrapped in its own &lt;f:subview&gt;
-            with each an unique id.</p>        
+            with each an unique id.</p>
         ]]></description>
         <tag-name>subview</tag-name>
         <component>
@@ -1695,8 +1695,8 @@ just as well point to a <code>Collection</code>, array, or
             validation provided the preconditions mentioned in
             <code>&lt;f:validateWholeBean /&gt;</code> are met.  Please
             see the documentation for <code>&lt;f:validateWholeBean
-            /&gt;</code> and 
-            <code>jakarta.faces.validator.BeanValidator.validate()</code> for 
+            /&gt;</code> and
+            <code>jakarta.faces.validator.BeanValidator.validate()</code> for
             the specification and usage example.</span></p>
 
         ]]></description>
@@ -2083,16 +2083,16 @@ just as well point to a <code>Collection</code>, array, or
             following actions.</p>
 
           <ul>
-                
+
             <li><p>If the feature is not enabled, return
             immediately.</p></li>
 
             <li><p>If the <em>wholeBeanValidator</em> has not yet
-            been installed, instantiate and pass it to 
+            been installed, instantiate and pass it to
                 <code>this.addValidator()</code>.</p></li>
 
             <li><p>Call <code>super.validate()</code>.</p></li>
-                
+
           </ul>
 
             </li>
@@ -2104,7 +2104,7 @@ just as well point to a <code>Collection</code>, array, or
             actions.  Due to the above specification, this method will
             only ever be passed the special <code>UIInput</code>
             component.</p>
-            
+
             <ul>
 
             <p>Resolve the <code>value</code> of the component to
@@ -2137,7 +2137,7 @@ just as well point to a <code>Collection</code>, array, or
             The copying must proceed in the following order.</p>
 
             <ol>
-            
+
         <li><p>Invoke the <code>newInstance()</code> method on the
             bean's <code>Class</code>.  If this throws
             any <code>Exception</code>, swallow it and
@@ -2223,7 +2223,7 @@ public class PasswordValidator implements ConstraintValidator&lt;Password, Passw
   @Override
   public boolean isValid(PasswordHolder value, ConstraintValidatorContext context) {
     boolean result;
-    
+
     result = value.getPassword1().equals(value.getPassword2());
 
     return result;
@@ -2263,9 +2263,9 @@ public class PasswordValidator implements ConstraintValidator&lt;Password, Passw
 @RequestScoped
 @Password(groups = PasswordValidationGroup.class)
 public class BackingBean implements PasswordHolder, Cloneable {
-    
+
     private String password1;
-    
+
     private String password2;
 
     public BackingBean() {
@@ -2280,7 +2280,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
         other.setPassword2(this.getPassword2());
         return other;
     }
-    
+
     @NotNull(groups=PasswordValidationGroup.class)
     @Size(max=16, min=8, message="Password must be between 8 and 16 characters long",
             groups = PasswordValidationGroup.class)
@@ -2304,7 +2304,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
-    
+
 }
 </code></pre>
 
@@ -2312,19 +2312,19 @@ public class BackingBean implements PasswordHolder, Cloneable {
 <pre><code>
 &lt;h:panelGrid columns="2"&gt;
 
-    &lt;h:outputText value="Password" /&gt;  
+    &lt;h:outputText value="Password" /&gt;
     &lt;h:inputSecret id="password1" value='#{backingBean.password1}'&gt;
         &lt;f:validateBean validationGroups="PasswordValidationGroup" /&gt;
     &lt;/h:inputSecret&gt;
-    
-    &lt;h:outputText value="Password again" /&gt; 
+
+    &lt;h:outputText value="Password again" /&gt;
     &lt;h:inputSecret id="password2" value='#{backingBean.password2}'&gt;
         &lt;f:validateBean validationGroups="PasswordValidationGroup" /&gt;
     &lt;/h:inputSecret&gt;
-    
+
 &lt;/h:panelGrid&gt;
 
-&lt;f:validateWholeBean value='#{backingBean}' 
+&lt;f:validateWholeBean value='#{backingBean}'
    validationGroups="PasswordValidationGroup" /&gt;
 </code></pre>
 
@@ -2541,7 +2541,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
         </attribute>
         <attribute>
           <description><![CDATA[
-          
+
           <p class="changed_added_2_2 changed_modified_2_3">A comma separated list of
           resource library contracts that may be used from within
           the Facelets chain.  If this attribute is present, it
@@ -2549,14 +2549,14 @@ public class BackingBean implements PasswordHolder, Cloneable {
           files that started ultimately with a call to
           <code>ViewDeclarationLanguage.createView()</code>.  Any
           use of this attribute on a non-outer-most file is undefined.</p>
-          
+
           <p class="changed_added_2_2">If this attribute exists on the tag,
           empty or not, the tag handler must create a
           <code>List&lt;String&gt;</code> for the value of the attribute and
           unconditionally call
           <code>FacesContext.setRresourceLibraryContracts()</code> passing
           that list value.</p>
-          
+
           ]]></description>
           <name>contracts</name>
           <required>false</required>
@@ -2634,7 +2634,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
             ]]></description>
             <name>action</name>
             <required>true</required>
-            <method-signature>public 
+            <method-signature>public
                 java.lang.Object action()
             </method-signature>
 
@@ -2642,7 +2642,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
         <attribute>
             <description><![CDATA[
             <p>
-                
+
                 MethodExpression representing an action listener method that
                 will be notified when this component is activated by the user.
                 The expression must evaluate to a public method that takes an
@@ -2652,7 +2652,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
                 method has no way of easily knowing where the event came from,
                 but this can be useful in cases where a notification is needed
                 that "some action happened".</span>
-                
+
                 </p>
             ]]></description>
             <name>actionListener</name>
@@ -2898,17 +2898,17 @@ public class BackingBean implements PasswordHolder, Cloneable {
         <code>jakarta.faces.push.Push</code> API documentation for an
         elaborate instruction on how to use
         <code>&lt;f:websocket&gt;</code>.  </p>
-                
+
         ]]></description>
         <tag-name>websocket</tag-name>
         <component>
-        	<component-type>jakarta.faces.Websocket</component-type>
+            <component-type>jakarta.faces.Websocket</component-type>
         </component>
 
         <attribute>
             <description><![CDATA[
                 <p class="changed_added_2_3">
-                	Value binding expression to a backing bean property bound to the component instance for the <code>UIComponent</code> created by this tag.
+                    Value binding expression to a backing bean property bound to the component instance for the <code>UIComponent</code> created by this tag.
                 </p>
             ]]></description>
             <name>binding</name>
@@ -2919,7 +2919,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
         <attribute>
             <description><![CDATA[
                 <p class="changed_added_2_3">
-                	Component identifier of the <code>UIWebsocket</code> component to be created.
+                    Component identifier of the <code>UIWebsocket</code> component to be created.
                 </p>
             ]]></description>
             <name>id</name>
@@ -2999,8 +2999,8 @@ public class BackingBean implements PasswordHolder, Cloneable {
                     The JavaScript event handler function that is invoked when a connection error has occurred and the websocket will attempt to reconnect.
                     The function will be invoked with three arguments: the error reason code, the channel name and the raw <code>CloseEvent</code> itself.
                     Note that this will not be invoked on final close of the websocket, even when the final close is caused by an error.
-                    See also 
-                    <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a> 
+                    See also
+                    <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a>
                     and
                     <a href="https://jakarta.ee/specifications/websocket/2.0/apidocs/jakarta/websocket/CloseReason.CloseCodes.html">CloseCodes</a>
                     API for an elaborate list of all close codes.
@@ -3017,8 +3017,8 @@ public class BackingBean implements PasswordHolder, Cloneable {
                     The JavaScript event handler function that is invoked when the websocket is closed <span class="changed_modified_4_0">and will not anymore attempt to reconnect</span>.
                     The function will be invoked with three arguments: the close reason code, the channel name and the raw <code>CloseEvent</code> itself.
                     <span class="changed_modified_4_0">Note that this will also be invoked when the close is caused by an error and that you can inspect the close reason code if an actual connection error occurred and which one (i.e. when the code is not 1000 or 1008)</span>.
-                    See also 
-                    <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a> 
+                    See also
+                    <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a>
                     and
                     <a href="https://jakarta.ee/specifications/websocket/2.0/apidocs/jakarta/websocket/CloseReason.CloseCodes.html">CloseCodes</a>
                     API for an elaborate list of all close codes.
@@ -3086,7 +3086,7 @@ public class BackingBean implements PasswordHolder, Cloneable {
             <type>java.util.Collection</type>
         </attribute>
         <attribute>
-          <description><![CDATA[ 
+          <description><![CDATA[
             <p class="changed_added_5_0">
                 Clear the model values as well.
                 The implementation must cause <code>EditableValueHolder.setValue()</code> to be invoked with value of <code>null</code>, followed by <code>UIInput.updateModel()</code>.

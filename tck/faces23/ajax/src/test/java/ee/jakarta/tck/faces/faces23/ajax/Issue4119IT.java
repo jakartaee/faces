@@ -32,20 +32,21 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue4119IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior#getExecute()
+    /**
+     * @see AjaxBehavior#getExecute()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4119
-   */
-  @Test
-  void spec1412() throws Exception {
+     */
+    @Test
+    void spec1412() throws Exception {
 
         WebPage page = getPage("issue4119.xhtml");
         assertTrue(page.findElement(By.id("form:output")).getText().isEmpty());
 
         ExtendedTextInput input = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("form:input")));
         input.setValue("execute");
-        WebElement link =  page.findElement(By.id("form:link"));
+        WebElement link = page.findElement(By.id("form:link"));
         page.guardAjax(link::click);
-      assertEquals("executeParamValue", page.findElement(By.id("form:output")).getText().trim());
+        assertEquals("executeParamValue", page.findElement(By.id("form:output")).getText().trim());
     }
+
 }

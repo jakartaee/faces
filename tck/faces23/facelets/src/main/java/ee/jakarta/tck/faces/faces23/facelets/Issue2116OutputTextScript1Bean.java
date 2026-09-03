@@ -34,4 +34,5 @@ public class Issue2116OutputTextScript1Bean implements Serializable {
     public void setXmlparam(String xmlparam) {
         this.xmlparam = xmlparam;
     }
+
 }

@@ -35,10 +35,13 @@ public class Issue2330Validator implements Validator<Object> {
         Part file = (Part) value;
         String text;
 
-        try (InputStream is = file.getInputStream();
-             Scanner scanner = new Scanner(is).useDelimiter("\\A")) {
+        try (
+            InputStream is = file.getInputStream();
+            Scanner scanner = new Scanner(is).useDelimiter("\\A")
+        ) {
             text = scanner.next();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             throw new ValidatorException(new FacesMessage("Invalid file"), ex);
         }
 
@@ -46,4 +49,5 @@ public class Issue2330Validator implements Validator<Object> {
             throw new ValidatorException(new FacesMessage("Invalid file.  File must contain special string"));
         }
     }
+
 }

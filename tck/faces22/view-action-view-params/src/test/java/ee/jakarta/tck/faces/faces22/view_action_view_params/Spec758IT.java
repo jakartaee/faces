@@ -43,9 +43,8 @@ class Spec758IT extends BaseITNG {
     // ------------------------------------------------------------------ view action outcomes
 
     /**
-     * A view action whose outcome resolves to another view must navigate to it by redirecting, since
-     * the request which triggered it is a plain GET and its URL would otherwise no longer match the
-     * view being rendered.
+     * A view action whose outcome resolves to another view must navigate to it by redirecting, since the request which triggered it is a plain GET and its URL
+     * would otherwise no longer match the view being rendered.
      *
      * @see UIViewAction#broadcast(jakarta.faces.event.FacesEvent)
      * @see https://github.com/jakartaee/faces/issues/758
@@ -59,8 +58,7 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * The empty outcome must not navigate, so the requested view renders itself and no redirect is
-     * sent.
+     * The empty outcome must not navigate, so the requested view renders itself and no redirect is sent.
      *
      * @see UIViewAction#broadcast(jakarta.faces.event.FacesEvent)
      * @see https://github.com/jakartaee/faces/issues/758
@@ -72,8 +70,7 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * The null outcome must not navigate, so the requested view renders itself and no redirect is
-     * sent.
+     * The null outcome must not navigate, so the requested view renders itself and no redirect is sent.
      *
      * @see UIViewAction#broadcast(jakarta.faces.event.FacesEvent)
      * @see https://github.com/jakartaee/faces/issues/758
@@ -85,9 +82,8 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * A view action navigating through a case which itself declares a redirect must redirect, even
-     * where that target is the very view being requested. The view therefore never renders, hence
-     * this only ever requests it without following the redirect.
+     * A view action navigating through a case which itself declares a redirect must redirect, even where that target is the very view being requested. The view
+     * therefore never renders, hence this only ever requests it without following the redirect.
      *
      * @see UIViewAction#broadcast(jakarta.faces.event.FacesEvent)
      * @see https://github.com/jakartaee/faces/issues/758
@@ -100,8 +96,7 @@ class Spec758IT extends BaseITNG {
     // ------------------------------------------------------------------ view action broadcasting
 
     /**
-     * A view action must broadcast to every nested action listener, in declaration order, before it
-     * navigates away.
+     * A view action must broadcast to every nested action listener, in declaration order, before it navigates away.
      *
      * @see UIViewAction#addActionListener(jakarta.faces.event.ActionListener)
      * @see https://github.com/jakartaee/faces/issues/758
@@ -114,8 +109,7 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * A view action must broadcast to the action listener named by its {@code actionListener}
-     * attribute as well, before it navigates away.
+     * A view action must broadcast to the action listener named by its {@code actionListener} attribute as well, before it navigates away.
      *
      * @see UIViewAction#setActionExpression(jakarta.el.MethodExpression)
      * @see https://github.com/jakartaee/faces/issues/758
@@ -130,15 +124,14 @@ class Spec758IT extends BaseITNG {
     // ------------------------------------------------------------------ view action + view param flow
 
     /**
-     * A postback which resubmits the story view must retain its view parameter, so the very same
-     * story is loaded and rendered again.
+     * A postback which resubmits the story view must retain its view parameter, so the very same story is loaded and rendered again.
      *
      * @see UIViewParameter
      * @see UIViewAction#isOnPostback()
      * @see https://github.com/jakartaee/faces/issues/758
      */
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = { 1, 2 })
     void refreshKeepsViewParams(int storyId) {
         WebPage page = openStory(storyId);
 
@@ -147,16 +140,15 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * A postback which clears the required view parameter must fail validation, so the view action
-     * scheduled for process validations navigates back to the home view, carrying the view
-     * parameter's required message along.
+     * A postback which clears the required view parameter must fail validation, so the view action scheduled for process validations navigates back to the home
+     * view, carrying the view parameter's required message along.
      *
      * @see UIViewParameter#setRequiredMessage(String)
      * @see UIViewAction#setPhase(String)
      * @see https://github.com/jakartaee/faces/issues/758
      */
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = { 1, 2 })
     void refreshClearingParamShowsRequiredMessage(int storyId) {
         WebPage page = openStory(storyId);
 
@@ -166,14 +158,13 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * A redirect after post back to the story view which includes the view parameters must retain
-     * the story.
+     * A redirect after post back to the story view which includes the view parameters must retain the story.
      *
      * @see UIViewParameter
      * @see https://github.com/jakartaee/faces/issues/758
      */
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = { 1, 2 })
     void redirectWithIncludeViewParamsKeepsStory(int storyId) {
         WebPage page = openStory(storyId);
 
@@ -182,15 +173,14 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * A redirect after post back to the story view which does not include the view parameters must
-     * lose the story, so the required view parameter fails validation and the view action navigates
-     * back to the home view.
+     * A redirect after post back to the story view which does not include the view parameters must lose the story, so the required view parameter fails
+     * validation and the view action navigates back to the home view.
      *
      * @see UIViewParameter
      * @see https://github.com/jakartaee/faces/issues/758
      */
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = { 1, 2 })
     void redirectWithoutIncludeViewParamsLosesStory(int storyId) {
         WebPage page = openStory(storyId);
 
@@ -200,14 +190,13 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * Navigating home without including the view parameters must land on a home view without any
-     * message and without a selection.
+     * Navigating home without including the view parameters must land on a home view without any message and without a selection.
      *
      * @see UIViewParameter
      * @see https://github.com/jakartaee/faces/issues/758
      */
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = { 1, 2 })
     void homeButtonShowsNoMessages(int storyId) {
         WebPage page = openStory(storyId);
 
@@ -218,14 +207,13 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * Navigating home through an implicit outcome which includes the view parameters must carry the
-     * selection over to the home view.
+     * Navigating home through an implicit outcome which includes the view parameters must carry the selection over to the home view.
      *
      * @see UIViewParameter#getStringValueFromModel(jakarta.faces.context.FacesContext)
      * @see https://github.com/jakartaee/faces/issues/758
      */
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = { 1, 2 })
     void rememberedSelectionViaIncludeViewParams(int storyId) {
         WebPage page = openStory(storyId);
 
@@ -235,14 +223,13 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * Navigating home through a navigation case which redirects including the view parameters must
-     * carry the selection over to the home view.
+     * Navigating home through a navigation case which redirects including the view parameters must carry the selection over to the home view.
      *
      * @see UIViewParameter#getStringValueFromModel(jakarta.faces.context.FacesContext)
      * @see https://github.com/jakartaee/faces/issues/758
      */
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = { 1, 2 })
     void rememberedSelectionViaNavCase(int storyId) {
         WebPage page = openStory(storyId);
 
@@ -252,14 +239,13 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * Navigating to a third view through a navigation case which redirects including the view
-     * parameters must carry the selection over to that view as well.
+     * Navigating to a third view through a navigation case which redirects including the view parameters must carry the selection over to that view as well.
      *
      * @see UIViewParameter#getStringValueFromModel(jakarta.faces.context.FacesContext)
      * @see https://github.com/jakartaee/faces/issues/758
      */
     @ParameterizedTest
-    @ValueSource(ints = {1, 2})
+    @ValueSource(ints = { 1, 2 })
     void story2ViaNavCaseKeepsSelection(int storyId) {
         WebPage page = openStory(storyId);
 
@@ -269,8 +255,8 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * A view parameter rejected by its validator must yield that view parameter's validator message,
-     * upon which the view action scheduled for process validations navigates back to the home view.
+     * A view parameter rejected by its validator must yield that view parameter's validator message, upon which the view action scheduled for process
+     * validations navigates back to the home view.
      *
      * @see UIViewParameter#setValidatorMessage(String)
      * @see https://github.com/jakartaee/faces/issues/758
@@ -285,8 +271,7 @@ class Spec758IT extends BaseITNG {
     // ------------------------------------------------------------------ helpers
 
     /**
-     * Opens the home view and clicks the link of the given story, which is how the story view is
-     * reached with its view parameter set.
+     * Opens the home view and clicks the link of the given story, which is how the story view is reached with its view parameter set.
      */
     private WebPage openStory(int storyId) {
         WebPage page = getPage("spec758-home.xhtml");
@@ -309,9 +294,8 @@ class Spec758IT extends BaseITNG {
     }
 
     /**
-     * The messages of a view are framework generated, so they cannot be pinned to an element of a
-     * known value; they are however pinned to the id of the {@code h:messages} of the template, which
-     * renders nothing at all when there are no messages.
+     * The messages of a view are framework generated, so they cannot be pinned to an element of a known value; they are however pinned to the id of the
+     * {@code h:messages} of the template, which renders nothing at all when there are no messages.
      */
     private static String messages(WebPage page) {
         List<WebElement> messages = page.findElements(By.id("messages"));
@@ -320,11 +304,14 @@ class Spec758IT extends BaseITNG {
 
     private void assertRedirectsTo(String expectedView, String page) {
         String location = getResponseLocation(page);
-        assertTrue(location != null && location.endsWith(expectedView),
-            page + " expected to redirect to " + expectedView + " but Location was " + location);
+        assertTrue(
+            location != null && location.endsWith(expectedView),
+            page + " expected to redirect to " + expectedView + " but Location was " + location
+        );
     }
 
     private void assertDoesNotRedirect(String page) {
         assertNull(getResponseLocation(page), page + " expected not to redirect");
     }
+
 }

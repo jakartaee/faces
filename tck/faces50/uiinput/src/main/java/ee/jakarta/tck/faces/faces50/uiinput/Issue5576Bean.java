@@ -73,12 +73,13 @@ public class Issue5576Bean implements Serializable {
     public void setSubgroup2Item1(String subgroup2Item1) {
         this.subgroup2Item1 = subgroup2Item1;
     }
-    
+
     public String getString1() {
         return this.string1;
     }
-    
+
     public void setString1(String string1) {
         this.string1 = string1;
     }
+
 }

@@ -25,9 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A child added from a <code>postAddToView</code> listener is reproduced by the view build of every request, so it must
- * appear exactly once per request and take part in the lifecycle like a child declared in the view. This holds whether
- * the listener is attached to the view root or to the container it adds to.
+ * A child added from a <code>postAddToView</code> listener is reproduced by the view build of every request, so it must appear exactly once per request and
+ * take part in the lifecycle like a child declared in the view. This holds whether the listener is attached to the view root or to the container it adds to.
  */
 public class DynamicChildInPostAddToViewIT extends BaseITNG {
 
@@ -64,4 +63,5 @@ public class DynamicChildInPostAddToViewIT extends BaseITNG {
         assertEquals(1, page.findElements(CHILD).size(), "one added child after postback");
         assertEquals(SUBMITTED_VALUE, page.findElement(By.id("echo")).getText(), "value decoded from the added child");
     }
+
 }

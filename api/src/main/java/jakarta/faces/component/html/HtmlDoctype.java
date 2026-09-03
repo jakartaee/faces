@@ -25,8 +25,8 @@ import jakarta.faces.component.UIOutput;
 /**
  * NONE
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Doctype</code>". This value
- * can be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Doctype</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlDoctype extends UIOutput implements Doctype {
@@ -47,7 +47,10 @@ public class HtmlDoctype extends UIOutput implements Doctype {
      * The property keys.
      */
     protected enum PropertyKeys {
-        publicVal("public"), rootElement, system,;
+
+        publicVal("public"),
+        rootElement,
+        system,;
 
         String toString;
 
@@ -62,6 +65,7 @@ public class HtmlDoctype extends UIOutput implements Doctype {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**

@@ -20,9 +20,9 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * <strong>UniqueIdVendor</strong> is an interface implemented by <code>UIComponents</code> that also implement
- * {@link NamingContainer} so that they can provide unique ids based on their own clientId. This will reduce the amount
- * of id generation variance between different renderings of the same view and is helpful for improved state saving.
+ * <strong>UniqueIdVendor</strong> is an interface implemented by <code>UIComponents</code> that also implement {@link NamingContainer} so that they can provide
+ * unique ids based on their own clientId. This will reduce the amount of id generation variance between different renderings of the same view and is helpful
+ * for improved state saving.
  * </p>
  *
  * @since 2.0
@@ -31,9 +31,8 @@ public interface UniqueIdVendor {
 
     /**
      * <p>
-     * Generate an identifier for a component. The identifier will be prefixed with UNIQUE_ID_PREFIX, and will be unique
-     * within this component-container. Optionally, a unique seed value can be supplied by component creators which should
-     * be included in the generated unique id.
+     * Generate an identifier for a component. The identifier will be prefixed with UNIQUE_ID_PREFIX, and will be unique within this component-container.
+     * Optionally, a unique seed value can be supplied by component creators which should be included in the generated unique id.
      * </p>
      *
      * @param context FacesContext

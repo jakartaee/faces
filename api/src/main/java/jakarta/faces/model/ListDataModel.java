@@ -20,8 +20,7 @@ import java.util.List;
 
 /**
  * <p>
- * <strong>ListDataModel</strong> is a convenience implementation of {@link DataModel} that wraps an <code>List</code>
- * of Java objects.
+ * <strong>ListDataModel</strong> is a convenience implementation of {@link DataModel} that wraps an <code>List</code> of Java objects.
  * </p>
  */
 
@@ -66,9 +65,8 @@ public class ListDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * Return <code>true</code> if there is <code>wrappedData</code> available, and the current value of
-     * <code>rowIndex</code> is greater than or equal to zero, and less than the size of the list. Otherwise, return
-     * <code>false</code>.
+     * Return <code>true</code> if there is <code>wrappedData</code> available, and the current value of <code>rowIndex</code> is greater than or equal to zero,
+     * and less than the size of the list. Otherwise, return <code>false</code>.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row availability
@@ -82,8 +80,7 @@ public class ListDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * If there is <code>wrappedData</code> available, return the length of the list. If no <code>wrappedData</code> is
-     * available, return -1.
+     * If there is <code>wrappedData</code> available, return the length of the list. If no <code>wrappedData</code> is available, return -1.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row count
@@ -100,8 +97,8 @@ public class ListDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * If row data is available, return the array element at the index specified by <code>rowIndex</code>. If no wrapped
-     * data is available, return <code>null</code>.
+     * If row data is available, return the array element at the index specified by <code>rowIndex</code>. If no wrapped data is available, return
+     * <code>null</code>.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row data
@@ -112,9 +109,11 @@ public class ListDataModel<E> extends DataModel<E> {
 
         if (list == null) {
             return null;
-        } else if (!isRowAvailable()) {
+        }
+        else if (!isRowAvailable()) {
             throw new NoRowAvailableException();
-        } else {
+        }
+        else {
             return list.get(index);
         }
 
@@ -178,7 +177,8 @@ public class ListDataModel<E> extends DataModel<E> {
         if (data == null) {
             list = null;
             setRowIndex(-1);
-        } else {
+        }
+        else {
             list = (List<E>) data;
             index = -1;
             setRowIndex(0);

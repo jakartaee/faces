@@ -29,4 +29,5 @@ public class FlowCallNaviChildFlowMethodCallStartingBean implements Serializable
     public String toLastPage() {
         return "DestinationView";
     }
+
 }

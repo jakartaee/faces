@@ -67,4 +67,5 @@ class NavigationIT extends BaseITNG {
     void navHandlerNoNavCaseGoToNextRuleTest() {
         runServletTest("navHandlerNoNavCaseGoToNextRuleTest");
     }
+
 }

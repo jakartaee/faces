@@ -53,8 +53,6 @@ public class Issue2582Bean implements Serializable {
     public void setDate2(Date date2) {
         this.date2 = date2;
     }
-    
-    
 
     public String getText() {
         return text;
@@ -63,8 +61,6 @@ public class Issue2582Bean implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
-    
-    
 
     public Date getDate() {
         return date;
@@ -73,8 +69,8 @@ public class Issue2582Bean implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
-    
-    public void altClear(ActionEvent event){
+
+    public void altClear(ActionEvent event) {
         this.date = null;
         this.date2 = null;
         this.text = null;
@@ -110,4 +106,5 @@ public class Issue2582Bean implements Serializable {
             resetChildren(kid);
         }
     }
+
 }

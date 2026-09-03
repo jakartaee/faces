@@ -31,7 +31,9 @@ import jakarta.faces.event.PreRenderComponentEvent;
 
 @FacesComponent("ee.jakarta.tck.faces.faces22.composite_component.Issue2093Component1")
 public class Issue2093Component1 extends Issue2093ComponentBase
-        implements NamingContainer, ComponentSystemEventListener {
+    implements
+        NamingContainer,
+        ComponentSystemEventListener {
 
     public static final String COMPONENT_FAMILY = "jakarta.faces.NamingContainer";
 
@@ -63,4 +65,5 @@ public class Issue2093Component1 extends Issue2093ComponentBase
         parent.getChildren().add(txt);
         parent.getChildren().add(itemCheck);
     }
+
 }

@@ -30,16 +30,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2425IT extends BaseITNG {
 
-  /**
-   * This test verifies that an attribute named 'disabled' can be successfully updated
-   * from a partial response (over Ajax). 
-   * 
-   * @see AjaxBehavior
+    /**
+     * This test verifies that an attribute named 'disabled' can be successfully updated from a partial response (over Ajax).
+     *
+     * @see AjaxBehavior
      * @see HtmlCommandButton#isDisabled()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2426
-   */
-  @Test
-  void updateAttributeNamedDisabled() throws Exception {
+     */
+    @Test
+    void updateAttributeNamedDisabled() throws Exception {
         WebPage page = getPage("issue2425.xhtml");
         WebElement input = page.findElement(By.id("form1:foo"));
         assertTrue(input.isEnabled());
@@ -49,4 +48,5 @@ class Issue2425IT extends BaseITNG {
         input = page.findElement(By.id("form1:foo"));
         assertTrue(input.isEnabled());
     }
+
 }

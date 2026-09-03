@@ -26,14 +26,14 @@
     <h:body>
         <h:form id="form">
             <h:messages id="messages" />
-        
+
             <h:selectOneMenu id="group" value="#{issue5576Bean.group}" required="true" label="Group">
                 <f:selectItem itemValue="" itemLabel="- Select group -" />
                 <f:selectItem itemValue="Group1" itemLabel="Group1" />
                 <f:selectItem itemValue="Group2" itemLabel="Group2" />
                 <f:ajax render="groups" />
             </h:selectOneMenu>
-            
+
             <h:panelGroup id="groups" layout="block">
                 <ui:fragment rendered="#{issue5576Bean.group eq 'Group1'}">
                     <h3>Group1</h3>

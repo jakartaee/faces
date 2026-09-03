@@ -47,4 +47,5 @@ public class Spec594IT extends BaseITNG {
 
         assertTrue(page.containsSource("jakarta.faces.ViewState"), "view contains the Faces view state");
     }
+
 }

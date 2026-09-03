@@ -21,9 +21,8 @@ import jakarta.faces.event.PhaseId;
 import jakarta.inject.Named;
 
 /**
- * Target of the {@code beforePhase} and {@code afterPhase} method expressions of the view, logging
- * each phase it is invoked for. Request scoped on purpose: each log covers exactly one lifecycle
- * run, so a postback's log is not polluted by the initial request's.
+ * Target of the {@code beforePhase} and {@code afterPhase} method expressions of the view, logging each phase it is invoked for. Request scoped on purpose:
+ * each log covers exactly one lifecycle run, so a postback's log is not polluted by the initial request's.
  */
 // The name is explicit because CDI derives it by lowercasing only the first character, which would
 // yield the easily mistyped "uIViewRootPhaseListenerBean".
@@ -59,4 +58,5 @@ public class UIViewRootPhaseListenerBean {
     public String getAfterPhases() {
         return afterPhases.toString();
     }
+
 }

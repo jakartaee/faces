@@ -37,4 +37,5 @@ public class HiddenUIBean implements Serializable {
         seeMe.setValue("Invisible");
         this.seeMe = seeMe;
     }
+
 }

@@ -24,8 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A multibyte character typed into an input must survive the request round-trip: the submitted value
- * is decoded with the correct request character encoding and rendered back unchanged.
+ * A multibyte character typed into an input must survive the request round-trip: the submitted value is decoded with the correct request character encoding and
+ * rendered back unchanged.
  */
 class Issue2221IT extends BaseITNG {
 
@@ -58,7 +58,10 @@ class Issue2221IT extends BaseITNG {
         page.findElement(By.id("form:username")).sendKeys(character);
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
 
-        assertTrue(page.findElement(By.id("form:echo")).getText().contains(character),
-                "submitted character " + character + " must round-trip");
+        assertTrue(
+            page.findElement(By.id("form:echo")).getText().contains(character),
+            "submitted character " + character + " must round-trip"
+        );
     }
+
 }

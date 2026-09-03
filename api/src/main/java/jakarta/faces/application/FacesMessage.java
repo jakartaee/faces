@@ -30,39 +30,33 @@ import java.util.Objects;
 
 /**
  * <p>
- * <strong>FacesMessage</strong> represents a single validation (or other) message, which is typically associated with a
- * particular component in the view. A {@link jakarta.faces.application.FacesMessage} instance may be created based on a
- * specific <code>messageId</code>. The specification defines the set of <code>messageId</code>s for which there must be
- * {@link jakarta.faces.application.FacesMessage} instances.
+ * <strong>FacesMessage</strong> represents a single validation (or other) message, which is typically associated with a particular component in the view. A
+ * {@link jakarta.faces.application.FacesMessage} instance may be created based on a specific <code>messageId</code>. The specification defines the set of
+ * <code>messageId</code>s for which there must be {@link jakarta.faces.application.FacesMessage} instances.
  * </p>
  *
  * <p>
- * The implementation must take the following steps when creating <code>FacesMessage</code> instances given a
- * <code>messageId</code>:
+ * The implementation must take the following steps when creating <code>FacesMessage</code> instances given a <code>messageId</code>:
  * </p>
  *
  * <blockquote>
  *
  * <p>
- * Call {@link Application#getMessageBundle}. If non-<code>null</code>, locate the named <code>ResourceBundle</code>,
- * using the <code>Locale</code> from the current {@link jakarta.faces.component.UIViewRoot} and see if it has a value
- * for the argument <code>messageId</code>. If it does, treat the value as the <code>summary</code> of the
- * <code>FacesMessage</code>. If it does not, or if {@link Application#getMessageBundle} returned <code>null</code>,
- * look in the <code>ResourceBundle</code> named by the value of the constant {@link #FACES_MESSAGES} and see if it has
- * a value for the argument <code>messageId</code>. If it does, treat the value as the <code>summary</code> of the
- * <code>FacesMessage</code>. If it does not, there is no initialization information for the <code>FacesMessage</code>
- * instance.
+ * Call {@link Application#getMessageBundle}. If non-<code>null</code>, locate the named <code>ResourceBundle</code>, using the <code>Locale</code> from the
+ * current {@link jakarta.faces.component.UIViewRoot} and see if it has a value for the argument <code>messageId</code>. If it does, treat the value as the
+ * <code>summary</code> of the <code>FacesMessage</code>. If it does not, or if {@link Application#getMessageBundle} returned <code>null</code>, look in the
+ * <code>ResourceBundle</code> named by the value of the constant {@link #FACES_MESSAGES} and see if it has a value for the argument <code>messageId</code>. If
+ * it does, treat the value as the <code>summary</code> of the <code>FacesMessage</code>. If it does not, there is no initialization information for the
+ * <code>FacesMessage</code> instance.
  * </p>
  *
  * <p>
- * In all cases, if a <code>ResourceBundle</code> hit is found for the <code>{messageId}</code>, look for further hits
- * under the key <code>{messageId}_detail</code>. Use this value, if present, as the <code>detail</code> for the
- * returned <code>FacesMessage</code>.
+ * In all cases, if a <code>ResourceBundle</code> hit is found for the <code>{messageId}</code>, look for further hits under the key
+ * <code>{messageId}_detail</code>. Use this value, if present, as the <code>detail</code> for the returned <code>FacesMessage</code>.
  * </p>
  *
  * <p>
- * Make sure to perform any parameter substitution required for the <code>summary</code> and <code>detail</code> of the
- * <code>FacesMessage</code>.
+ * Make sure to perform any parameter substitution required for the <code>summary</code> and <code>detail</code> of the <code>FacesMessage</code>.
  * </p>
  *
  * </blockquote>
@@ -76,8 +70,7 @@ public class FacesMessage implements Serializable {
 
     /**
      * <p>
-     * <code>ResourceBundle</code> identifier for messages whose message identifiers are defined in the Jakarta Faces
-     * specification.
+     * <code>ResourceBundle</code> identifier for messages whose message identifiers are defined in the Jakarta Faces specification.
      * </p>
      */
     public static final String FACES_MESSAGES = "jakarta.faces.Messages";
@@ -88,6 +81,7 @@ public class FacesMessage implements Serializable {
      * <p>
      * Message severity level indicating an informational message rather than an error.
      * </p>
+     *
      * @deprecated Use {@link Severity#INFO} instead because it has been converted to enum since 5.0.
      */
     @Deprecated(since = "5.0", forRemoval = true)
@@ -97,6 +91,7 @@ public class FacesMessage implements Serializable {
      * <p>
      * Message severity level indicating that an error might have occurred.
      * </p>
+     *
      * @deprecated Use {@link Severity#WARN} instead because it has been converted to enum since 5.0.
      */
     @Deprecated(since = "5.0", forRemoval = true)
@@ -106,6 +101,7 @@ public class FacesMessage implements Serializable {
      * <p>
      * Message severity level indicating that an error has occurred.
      * </p>
+     *
      * @deprecated Use {@link Severity#ERROR} instead because it has been converted to enum since 5.0.
      */
     @Deprecated(since = "5.0", forRemoval = true)
@@ -115,6 +111,7 @@ public class FacesMessage implements Serializable {
      * <p>
      * Message severity level indicating that a serious error has occurred.
      * </p>
+     *
      * @deprecated Use {@link Severity#FATAL} instead because it has been converted to enum since 5.0.
      */
     @Deprecated(since = "5.0", forRemoval = true)
@@ -122,8 +119,7 @@ public class FacesMessage implements Serializable {
 
     /**
      * <p>
-     * Immutable <code>List</code> of valid {@link jakarta.faces.application.FacesMessage.Severity} instances, in ascending
-     * order of their ordinal value.
+     * Immutable <code>List</code> of valid {@link jakarta.faces.application.FacesMessage.Severity} instances, in ascending order of their ordinal value.
      * </p>
      */
     public static final List<Severity> VALUES = List.of(Severity.values());
@@ -146,8 +142,7 @@ public class FacesMessage implements Serializable {
 
     /**
      * <p>
-     * Construct a new {@link jakarta.faces.application.FacesMessage} with no initial values. The severity is set to
-     * Severity.INFO.
+     * Construct a new {@link jakarta.faces.application.FacesMessage} with no initial values. The severity is set to Severity.INFO.
      * </p>
      */
     public FacesMessage() {
@@ -156,8 +151,8 @@ public class FacesMessage implements Serializable {
 
     /**
      * <p>
-     * Construct a new {@link jakarta.faces.application.FacesMessage} with just a summary. The detail is <code>null</code>,
-     * the severity is set to <code>Severity.INFO</code>.
+     * Construct a new {@link jakarta.faces.application.FacesMessage} with just a summary. The detail is <code>null</code>, the severity is set to
+     * <code>Severity.INFO</code>.
      * </p>
      *
      * @param summary the summary.
@@ -169,8 +164,7 @@ public class FacesMessage implements Serializable {
 
     /**
      * <p>
-     * Construct a new {@link jakarta.faces.application.FacesMessage} with the specified initial values. The severity is set
-     * to Severity.INFO.
+     * Construct a new {@link jakarta.faces.application.FacesMessage} with the specified initial values. The severity is set to Severity.INFO.
      * </p>
      *
      * @param summary Localized summary message text
@@ -206,8 +200,7 @@ public class FacesMessage implements Serializable {
 
     /**
      * <p>
-     * Return the localized detail text. If no localized detail text has been defined for this message, return the localized
-     * summary text instead.
+     * Return the localized detail text. If no localized detail text has been defined for this message, return the localized summary text instead.
      * </p>
      *
      * @return the localized detail text.
@@ -323,14 +316,12 @@ public class FacesMessage implements Serializable {
         return getClass().getSimpleName() + "["
             + "severity='" + severity + "', "
             + "summary='" + summary + "', "
-            + "detail='" + detail + "']"
-        ;
+            + "detail='" + detail + "']";
     }
 
     /**
      * <p>
-     * Persist {@link jakarta.faces.application.FacesMessage} artifacts, including the non serializable
-     * <code>Severity</code>.
+     * Persist {@link jakarta.faces.application.FacesMessage} artifacts, including the non serializable <code>Severity</code>.
      * </p>
      *
      * @param out The target stream to which the object will be written.
@@ -373,7 +364,7 @@ public class FacesMessage implements Serializable {
      * </p>
      */
     public enum Severity {
-        
+
         /**
          * <p class="changed_added_5_0">
          * Message severity level indicating an informational message rather than an error.
@@ -381,6 +372,7 @@ public class FacesMessage implements Serializable {
          * <p>
          * Historically, this was a constant class known as FacesMessage.SEVERITY_INFO.
          * </p>
+         *
          * @since 5.0
          */
         INFO,
@@ -389,6 +381,7 @@ public class FacesMessage implements Serializable {
          * <p class="changed_added_5_0">
          * Message severity level indicating a success message rather than an error.
          * </p>
+         *
          * @since 5.0
          */
         SUCCESS,
@@ -400,6 +393,7 @@ public class FacesMessage implements Serializable {
          * <p>
          * Historically, this was a constant class known as FacesMessage.SEVERITY_WARN.
          * </p>
+         *
          * @since 5.0
          */
         WARN,
@@ -411,6 +405,7 @@ public class FacesMessage implements Serializable {
          * <p>
          * Historically, this was a constant class known as FacesMessage.SEVERITY_ERROR.
          * </p>
+         *
          * @since 5.0
          */
         ERROR,
@@ -422,6 +417,7 @@ public class FacesMessage implements Serializable {
          * <p>
          * Historically, this was a constant class known as FacesMessage.SEVERITY_FATAL.
          * </p>
+         *
          * @since 5.0
          */
         FATAL;
@@ -446,6 +442,7 @@ public class FacesMessage implements Serializable {
         public String toString() {
             return name() + ' ' + getOrdinal();
         }
+
     }
 
 }

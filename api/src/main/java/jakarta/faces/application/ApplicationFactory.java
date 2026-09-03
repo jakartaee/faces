@@ -20,23 +20,22 @@ import jakarta.faces.FacesWrapper;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0 changed_modified_2_3">ApplicationFactory</strong> is a factory object that
- * creates (if needed) and returns {@link Application} instances. Implementations of Jakarta Faces must provide
- * at least a default implementation of {@link Application}.
+ * <strong class="changed_modified_2_0 changed_modified_2_3">ApplicationFactory</strong> is a factory object that creates (if needed) and returns
+ * {@link Application} instances. Implementations of Jakarta Faces must provide at least a default implementation of {@link Application}.
  * </p>
  *
  * <p>
- * There must be one {@link ApplicationFactory} instance per web application that is utilizing Jakarta Faces.
- * This instance can be acquired, in a portable manner, by calling:
+ * There must be one {@link ApplicationFactory} instance per web application that is utilizing Jakarta Faces. This instance can be acquired, in a portable
+ * manner, by calling:
  * </p>
  *
  * <pre>
+ *
  * ApplicationFactory factory = (ApplicationFactory) FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
  * </pre>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  */
 
@@ -54,8 +53,8 @@ public abstract class ApplicationFactory implements FacesWrapper<ApplicationFact
 
     /**
      * <p class="changed_added_2_3">
-     * If this factory has been decorated, the implementation doing the decorating should push the implementation being
-     * wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this factory has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -66,8 +65,8 @@ public abstract class ApplicationFactory implements FacesWrapper<ApplicationFact
 
     /**
      * <p class="changed_modified_2_3">
-     * If this factory has been decorated, the implementation doing the decorating may override this method to provide
-     * access to the implementation being wrapped.
+     * If this factory has been decorated, the implementation doing the decorating may override this method to provide access to the implementation being
+     * wrapped.
      * </p>
      *
      * @since 2.0

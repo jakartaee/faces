@@ -38,10 +38,11 @@ public class Issue3314Bean {
 
     public String add() {
         HtmlOutputText dynamicComp = (HtmlOutputText) FacesContext.getCurrentInstance()
-                .getApplication().createComponent(HtmlOutputText.COMPONENT_TYPE);
+            .getApplication().createComponent(HtmlOutputText.COMPONENT_TYPE);
         dynamicComp.setValue("dynamically added; now perform a reload");
         dynamicComp.setStyle("background-color: yellow");
         parent.getChildren().add(dynamicComp);
         return null;
     }
+
 }

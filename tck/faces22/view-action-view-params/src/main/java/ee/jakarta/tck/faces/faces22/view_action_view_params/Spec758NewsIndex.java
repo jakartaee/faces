@@ -23,8 +23,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 
 /**
- * The fixed set of stories the news reader navigates between. The list order is the order in which
- * the home view lists them, so it must be stable.
+ * The fixed set of stories the news reader navigates between. The list order is the order in which the home view lists them, so it must be stable.
  */
 @Named
 @ApplicationScoped
@@ -34,7 +33,8 @@ public class Spec758NewsIndex implements Serializable {
 
     private final List<Spec758NewsStory> stories = List.of(
         new Spec758NewsStory(1L, "Story 1 Headline", "Story 1 Content"),
-        new Spec758NewsStory(2L, "Story 2 Headline", "Story 2 Content"));
+        new Spec758NewsStory(2L, "Story 2 Headline", "Story 2 Content")
+    );
 
     public List<Spec758NewsStory> getStories() {
         return stories;
@@ -43,4 +43,5 @@ public class Spec758NewsIndex implements Serializable {
     public Spec758NewsStory getStory(Long id) {
         return stories.stream().filter(story -> story.getId().equals(id)).findFirst().orElse(null);
     }
+
 }

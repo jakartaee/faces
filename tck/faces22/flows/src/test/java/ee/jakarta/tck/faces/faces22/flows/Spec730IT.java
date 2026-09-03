@@ -25,9 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A bounded task flow can be entered from its valid start node, its flow-scoped bean is
- * visible on every page, a value put into the flow scope persists across the flow's pages,
- * and that value is gone after the flow returns.
+ * A bounded task flow can be entered from its valid start node, its flow-scoped bean is visible on every page, a value put into the flow scope persists across
+ * the flow's pages, and that value is gone after the flow returns.
  */
 class Spec730IT extends BaseITNG {
 
@@ -68,4 +67,5 @@ class Spec730IT extends BaseITNG {
         assertTrue(page.containsText("return page"), "returned out of flow");
         assertFalse(page.containsText(flowScopeValue), "flow scope value revoked after return");
     }
+
 }

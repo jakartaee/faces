@@ -41,10 +41,9 @@ class StartupBehaviorIT extends BaseITNG {
     }
 
     /**
-     * A component, converter, validator and renderer declared in an application configuration
-     * resource which is only reachable because it is listed in {@code jakarta.faces.CONFIG_FILES}
-     * are registered in the application and in the render kit, whereas the same kind of declaration
-     * in a resource which is not listed is ignored.
+     * A component, converter, validator and renderer declared in an application configuration resource which is only reachable because it is listed in
+     * {@code jakarta.faces.CONFIG_FILES} are registered in the application and in the render kit, whereas the same kind of declaration in a resource which is
+     * not listed is ignored.
      *
      * @see jakarta.faces.webapp.FacesServlet#CONFIG_FILES_ATTR
      * @see https://jakarta.ee/specifications/faces/5.0/apidocs/jakarta.faces/jakarta/faces/webapp/facesservlet#CONFIG_FILES_ATTR
@@ -61,8 +60,12 @@ class StartupBehaviorIT extends BaseITNG {
 
     private static org.openqa.selenium.WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

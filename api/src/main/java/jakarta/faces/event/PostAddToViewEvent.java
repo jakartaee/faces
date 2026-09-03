@@ -22,23 +22,21 @@ import jakarta.faces.context.FacesContext;
 /**
  *
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_2">When</span> an instance of this event is passed to
- * {@link SystemEventListener#processEvent} or {@link ComponentSystemEventListener#processEvent}, the listener
- * implementation may assume that the <code>source</code> of this event instance is a {@link UIComponent} instance and
- * that either that instance or an ancestor of that instance was just added to the view. Therefore, the implementation
- * may assume it is safe to call {@link UIComponent#getParent}, {@link UIComponent#getClientId}, and other methods that
- * depend upon the component instance being added into the view.
+ * <span class="changed_modified_2_2">When</span> an instance of this event is passed to {@link SystemEventListener#processEvent} or
+ * {@link ComponentSystemEventListener#processEvent}, the listener implementation may assume that the <code>source</code> of this event instance is a
+ * {@link UIComponent} instance and that either that instance or an ancestor of that instance was just added to the view. Therefore, the implementation may
+ * assume it is safe to call {@link UIComponent#getParent}, {@link UIComponent#getClientId}, and other methods that depend upon the component instance being
+ * added into the view.
  * </p>
  *
  * <div class="changed_added_2_0 changed_deleted_2_2">
  *
  * <p>
- * The implementation must guarantee that {@link jakarta.faces.application.Application#publishEvent} is called,
- * immediately after any <code>UIComponent</code> instance is added to the view hierarchy <strong>except</strong> in the
- * case where {@link jakarta.faces.render.ResponseStateManager#isPostback} returns <code>true</code> <strong>at the same
- * time as</strong> {@link jakarta.faces.context.FacesContext#getCurrentPhaseId} returns
- * {@link jakarta.faces.event.PhaseId#RESTORE_VIEW}. When both of those conditions are met,
- * {@link jakarta.faces.application.Application#publishEvent} must not be called.
+ * The implementation must guarantee that {@link jakarta.faces.application.Application#publishEvent} is called, immediately after any <code>UIComponent</code>
+ * instance is added to the view hierarchy <strong>except</strong> in the case where {@link jakarta.faces.render.ResponseStateManager#isPostback} returns
+ * <code>true</code> <strong>at the same time as</strong> {@link jakarta.faces.context.FacesContext#getCurrentPhaseId} returns
+ * {@link jakarta.faces.event.PhaseId#RESTORE_VIEW}. When both of those conditions are met, {@link jakarta.faces.application.Application#publishEvent} must not
+ * be called.
  * </p>
  *
  * </div>
@@ -46,8 +44,7 @@ import jakarta.faces.context.FacesContext;
  * <div class="changed_added_2_2">
  *
  * <p>
- * The implementation must guarantee that {@link jakarta.faces.application.Application#publishEvent} is called in the
- * following cases.
+ * The implementation must guarantee that {@link jakarta.faces.application.Application#publishEvent} is called in the following cases.
  * </p>
  *
  * <ul>
@@ -60,26 +57,24 @@ import jakarta.faces.context.FacesContext;
  *
  * <li>
  * <p>
- * On a non-initial rendering of the view, if a component is added to the view by the View Declaration Language
- * implementation as a result of changes in evaluation result of Jakarta Expression Language expressions referenced by
- * VDL tags such as <code>c:if</code>, <code>ui:include</code>, and other tags that dynamically influence the assembly
- * of the view.
+ * On a non-initial rendering of the view, if a component is added to the view by the View Declaration Language implementation as a result of changes in
+ * evaluation result of Jakarta Expression Language expressions referenced by VDL tags such as <code>c:if</code>, <code>ui:include</code>, and other tags that
+ * dynamically influence the assembly of the view.
  * </p>
  * </li>
  *
  * <li>
  * <p>
- * If a component is programmatically added to the view using the Java API directly. For example, user code manually
- * adds children using <code>comp.getChildren().add()</code>, where <code>comp</code> is a <code>UIComponent</code>.
+ * If a component is programmatically added to the view using the Java API directly. For example, user code manually adds children using
+ * <code>comp.getChildren().add()</code>, where <code>comp</code> is a <code>UIComponent</code>.
  * </p>
  * </li>
  *
  * </ul>
  *
  * <p class="changed_added_5_0">
- * <strong>Special consideration for <code>UIViewRoot</code> on postback requests:</strong> for postback requests where
- * the view is being restored from state, the event must be published. This ensures that event listeners are notified
- * when a restored view root is placed into the view.
+ * <strong>Special consideration for <code>UIViewRoot</code> on postback requests:</strong> for postback requests where the view is being restored from state,
+ * the event must be published. This ensures that event listeners are notified when a restored view root is placed into the view.
  * </p>
  *
  * </div>
@@ -94,8 +89,7 @@ public class PostAddToViewEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>PostAddToViewEvent</code> that indicates the argument <code>component</code> was just added
-     * to the view.
+     * Instantiate a new <code>PostAddToViewEvent</code> that indicates the argument <code>component</code> was just added to the view.
      * </p>
      *
      * @param component the <code>UIComponent</code> that has just been added to the view.
@@ -110,8 +104,7 @@ public class PostAddToViewEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_3">
-     * Instantiate a new <code>PostAddToViewEvent</code> that indicates the argument <code>component</code> was just added
-     * to the view.
+     * Instantiate a new <code>PostAddToViewEvent</code> that indicates the argument <code>component</code> was just added to the view.
      * </p>
      *
      * @param facesContext the Faces context.
@@ -126,8 +119,7 @@ public class PostAddToViewEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_0">
-     * Returns <code>true</code> if and only if the argument <code>listener</code> is an instance of
-     * {@link SystemEventListener}.
+     * Returns <code>true</code> if and only if the argument <code>listener</code> is an instance of {@link SystemEventListener}.
      * </p>
      *
      * @param listener the faces listener.

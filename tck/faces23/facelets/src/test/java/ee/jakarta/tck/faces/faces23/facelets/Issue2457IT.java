@@ -25,8 +25,7 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 public class Issue2457IT extends BaseITNG {
 
     /**
-     * The DOCTYPE declared on a page that uses {@code ui:include} must be
-     * preserved verbatim in the response, including its original casing.
+     * The DOCTYPE declared on a page that uses {@code ui:include} must be preserved verbatim in the response, including its original casing.
      *
      * @see jakarta.faces.component.UIViewRoot#getDoctype()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2457
@@ -38,8 +37,7 @@ public class Issue2457IT extends BaseITNG {
     }
 
     /**
-     * The DOCTYPE declared on a template client that uses {@code ui:composition}
-     * must be preserved verbatim in the response, including its original casing.
+     * The DOCTYPE declared on a template client that uses {@code ui:composition} must be preserved verbatim in the response, including its original casing.
      *
      * @see jakarta.faces.component.UIViewRoot#getDoctype()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2457
@@ -51,8 +49,7 @@ public class Issue2457IT extends BaseITNG {
     }
 
     /**
-     * The lowercase HTML5 DOCTYPE declared on a template must be preserved
-     * verbatim in the response, including its original casing.
+     * The lowercase HTML5 DOCTYPE declared on a template must be preserved verbatim in the response, including its original casing.
      *
      * @see jakarta.faces.component.UIViewRoot#getDoctype()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2457
@@ -62,4 +59,5 @@ public class Issue2457IT extends BaseITNG {
         String response = getResponseBody("issue2457-doctype-composition1b.xhtml");
         assertTrue(response.contains("<!DOCTYPE html>"));
     }
+
 }

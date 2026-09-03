@@ -29,8 +29,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3259IT extends BaseITNG {
 
     /**
-     * Verifies that a custom {@link FaceletCacheFactory} registered via {@code facelet-cache-factory} is invoked through
-     * its decorating constructor.
+     * Verifies that a custom {@link FaceletCacheFactory} registered via {@code facelet-cache-factory} is invoked through its decorating constructor.
      *
      * @see FaceletCacheFactory
      * @see jakarta.faces.view.facelets.FaceletCacheFactory#FaceletCacheFactory(jakarta.faces.view.facelets.FaceletCacheFactory)
@@ -41,4 +40,5 @@ class Issue3259IT extends BaseITNG {
         WebPage page = getPage("issue3259.xhtml");
         assertEquals("SUCCESS", page.findElement(By.id("result")).getText());
     }
+
 }

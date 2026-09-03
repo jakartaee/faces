@@ -25,14 +25,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A flash value put during a chunked response (large enough to be written in multiple chunks) survives the
- * ajax re-render or the action-method navigation and is rendered via {@code flash.keep} on the target.
+ * A flash value put during a chunked response (large enough to be written in multiple chunks) survives the ajax re-render or the action-method navigation and
+ * is rendered via {@code flash.keep} on the target.
  */
 class Issue2336IT extends BaseITNG {
 
     /**
-     * Adds a value to the flash in an ajax actionListener whose response is large enough to be chunked, then
-     * verifies the value is rendered via {@code flash.keep} in the re-rendered region.
+     * Adds a value to the flash in an ajax actionListener whose response is large enough to be chunked, then verifies the value is rendered via
+     * {@code flash.keep} in the re-rendered region.
      *
      * @see jakarta.faces.context.Flash
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2336
@@ -45,8 +45,8 @@ class Issue2336IT extends BaseITNG {
     }
 
     /**
-     * Adds a value to the flash in an action-method navigation whose target page is large enough to be chunked,
-     * then verifies the value is rendered via {@code flash.keep} on the target.
+     * Adds a value to the flash in an action-method navigation whose target page is large enough to be chunked, then verifies the value is rendered via
+     * {@code flash.keep} on the target.
      *
      * @see jakarta.faces.context.Flash
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2336
@@ -57,4 +57,5 @@ class Issue2336IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("form:link2")).click());
         assertTrue(page.containsText("== Flash value LINK2 =="), "Flash value LINK2 must survive the chunked navigation response");
     }
+
 }

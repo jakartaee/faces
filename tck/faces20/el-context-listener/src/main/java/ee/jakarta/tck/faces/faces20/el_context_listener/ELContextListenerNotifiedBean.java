@@ -26,4 +26,5 @@ public class ELContextListenerNotifiedBean {
     public String getStatus() {
         return ELContextListenerNotifiedRegistrar.isNotified() ? "PASSED" : "FAILED";
     }
+
 }

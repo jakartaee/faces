@@ -20,12 +20,13 @@ import jakarta.faces.event.ValueChangeListener;
 
 public class TestValueChangeListener implements ValueChangeListener {
 
-  public TestValueChangeListener() {
-    super();
-  }
+    public TestValueChangeListener() {
+        super();
+    }
 
-  @Override
-  public void processValueChange(ValueChangeEvent event) {
-    System.out.println("Processed Value Change");
-  }
+    @Override
+    public void processValueChange(ValueChangeEvent event) {
+        System.out.println("Processed Value Change");
+    }
+
 }

@@ -28,8 +28,24 @@ class LocationIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void locationCtorTest() { runServletTest("locationCtorTest"); }
-    @Test void locationGetColumnTest() { runServletTest("locationGetColumnTest"); }
-    @Test void locationGetLineTest() { runServletTest("locationGetLineTest"); }
-    @Test void locationGetPathTest() { runServletTest("locationGetPathTest"); }
+    @Test
+    void locationCtorTest() {
+        runServletTest("locationCtorTest");
+    }
+
+    @Test
+    void locationGetColumnTest() {
+        runServletTest("locationGetColumnTest");
+    }
+
+    @Test
+    void locationGetLineTest() {
+        runServletTest("locationGetLineTest");
+    }
+
+    @Test
+    void locationGetPathTest() {
+        runServletTest("locationGetPathTest");
+    }
+
 }

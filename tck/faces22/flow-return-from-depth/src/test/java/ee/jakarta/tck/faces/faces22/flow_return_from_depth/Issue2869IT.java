@@ -25,14 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A flow-return whose outcome resolves to a flow-return in the calling flow must unwind the whole
- * flow stack, returning past several nested flows in a single navigation.
+ * A flow-return whose outcome resolves to a flow-return in the calling flow must unwind the whole flow stack, returning past several nested flows in a single
+ * navigation.
  */
 class Issue2869IT extends BaseITNG {
 
     /**
-     * Entering flow1, calling flow2 from it and then taking flow2's return returns all the way out
-     * to the original page (past both flows).
+     * Entering flow1, calling flow2 from it and then taking flow2's return returns all the way out to the original page (past both flows).
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2869
      * @see jakarta.faces.flow.FlowHandler
@@ -48,4 +47,5 @@ class Issue2869IT extends BaseITNG {
 
         assertEquals("Return From Depth Test", page.findElement(By.id("status")).getText(), "returned to start page");
     }
+
 }

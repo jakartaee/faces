@@ -29,14 +29,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that submitting a required h:inputText with a custom converter while leaving it empty fires required
- * validation and does not apply the converted (empty) value to the model.
+ * Verifies that submitting a required h:inputText with a custom converter while leaving it empty fires required validation and does not apply the converted
+ * (empty) value to the model.
  */
 class Issue3271IT extends BaseITNG {
 
     /**
-     * Submits the form with the required, converter-backed h:inputText left empty and asserts that the model retains
-     * its seed value (required validation failed, so the converted empty value was not applied).
+     * Submits the form with the required, converter-backed h:inputText left empty and asserts that the model retains its seed value (required validation
+     * failed, so the converted empty value was not applied).
      *
      * @see HtmlInputText
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3271
@@ -55,4 +55,5 @@ class Issue3271IT extends BaseITNG {
         assertFalse(result.contains("No tags"), "Converted empty value must not be applied to the model");
         assertEquals("'seed'", result, "Model must retain its seed value after failed required validation");
     }
+
 }

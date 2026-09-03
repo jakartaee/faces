@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2755IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2755
-   */
-  @Test
-  void updateAttributeNamedClass() throws Exception {
+     */
+    @Test
+    void updateAttributeNamedClass() throws Exception {
         WebPage page = getPage("issue2755.xhtml");
         WebElement input = page.findElement(By.id("form1:foo"));
         assertTrue(page.containsSource("foo"));
@@ -43,4 +43,5 @@ class Issue2755IT extends BaseITNG {
         input = page.findElement(By.id("form1:foo"));
         assertTrue(page.containsSource("myclass"));
     }
+
 }

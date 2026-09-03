@@ -21,10 +21,8 @@ import jakarta.faces.application.FacesMessage;
 
 /**
  * <p class="changed_added_2_0">
- * This exception indicates a failure to update the model and is created to wrap any exception that occurs during
- * {@link UIInput#updateModel}. The exception is then passed to
- * {@link jakarta.faces.context.ExceptionHandler#processEvent}, where the <code>ExceptionHandler</code> has an
- * opportunity to handle it.
+ * This exception indicates a failure to update the model and is created to wrap any exception that occurs during {@link UIInput#updateModel}. The exception is
+ * then passed to {@link jakarta.faces.context.ExceptionHandler#processEvent}, where the <code>ExceptionHandler</code> has an opportunity to handle it.
  * </p>
  *
  * @since 2.0
@@ -39,8 +37,8 @@ public class UpdateModelException extends FacesException {
 
     /**
      * <p class="changed_added_2_0">
-     * Store the argument <code>facesMessage</code> so it may be returned from {@link #getFacesMessage} and pass the
-     * argument <code>cause</code> to the super constructor.
+     * Store the argument <code>facesMessage</code> so it may be returned from {@link #getFacesMessage} and pass the argument <code>cause</code> to the super
+     * constructor.
      * </p>
      *
      * @param facesMessage the message for the exception

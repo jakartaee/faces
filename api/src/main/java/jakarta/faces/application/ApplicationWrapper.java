@@ -43,14 +43,13 @@ import jakarta.faces.validator.Validator;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_2">Provides</span> a simple implementation of {@link Application} that can be
- * subclassed by developers wishing to provide specialized behavior to an existing {@link Application} instance. The
- * default implementation of all methods is to call through to the wrapped {@link Application}.
+ * <span class="changed_modified_2_2">Provides</span> a simple implementation of {@link Application} that can be subclassed by developers wishing to provide
+ * specialized behavior to an existing {@link Application} instance. The default implementation of all methods is to call through to the wrapped
+ * {@link Application}.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.0
@@ -69,8 +68,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_3">
-     * If this application has been decorated, the implementation doing the decorating should push the implementation being
-     * wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this application has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -87,8 +86,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getActionListener} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getActionListener} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -98,8 +96,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#setActionListener(jakarta.faces.event.ActionListener)} on the wrapped {@link Application} object.
+     * The default behavior of this method is to call {@link Application#setActionListener(jakarta.faces.event.ActionListener)} on the wrapped
+     * {@link Application} object.
      * </p>
      */
     @Override
@@ -109,8 +107,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getDefaultLocale} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getDefaultLocale} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -120,8 +117,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#setDefaultLocale(java.util.Locale)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#setDefaultLocale(java.util.Locale)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -131,8 +127,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getDefaultRenderKitId} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getDefaultRenderKitId} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -142,8 +137,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#addDefaultValidatorId(String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#addDefaultValidatorId(String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -153,8 +147,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getDefaultValidatorInfo} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getDefaultValidatorInfo} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -164,8 +157,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#setDefaultRenderKitId(String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#setDefaultRenderKitId(String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -175,8 +167,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getMessageBundle} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getMessageBundle} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -186,8 +177,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#setMessageBundle(String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#setMessageBundle(String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -197,8 +187,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getNavigationHandler} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getNavigationHandler} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -208,8 +197,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#setNavigationHandler(NavigationHandler)} on the
-     * wrapped {@link Application} object.
+     * The default behavior of this method is to call {@link Application#setNavigationHandler(NavigationHandler)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -219,8 +207,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getViewHandler} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#getViewHandler} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -230,12 +217,12 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2">The</span> default behavior of this method is to call
-     * {@link Application#setViewHandler(ViewHandler)} on the wrapped {@link Application} object.
+     * <span class="changed_modified_2_2">The</span> default behavior of this method is to call {@link Application#setViewHandler(ViewHandler)} on the wrapped
+     * {@link Application} object.
      * </p>
      *
-     * @throws IllegalStateException if this method is called after at least one request
-     * has been processed by the <code>Lifecycle</code> instance for this application.
+     * @throws IllegalStateException if this method is called after at least one request has been processed by the <code>Lifecycle</code> instance for this
+     * application.
      * @throws NullPointerException if <code>manager</code> is <code>null</code>
      */
     @Override
@@ -245,8 +232,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getStateManager} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#getStateManager} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -256,12 +242,12 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2">The</span> default behavior of this method is to call
-     * {@link Application#setStateManager(StateManager)} on the wrapped {@link Application} object.
+     * <span class="changed_modified_2_2">The</span> default behavior of this method is to call {@link Application#setStateManager(StateManager)} on the wrapped
+     * {@link Application} object.
      * </p>
      *
-     * @throws IllegalStateException if this method is called after at least one request has
-     * been processed by the <code>Lifecycle</code> instance for this application.
+     * @throws IllegalStateException if this method is called after at least one request has been processed by the <code>Lifecycle</code> instance for this
+     * application.
      * @throws NullPointerException if <code>manager</code> is <code>null</code>
      */
     @Override
@@ -271,8 +257,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#addComponent(String, String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#addComponent(String, String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -282,8 +267,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#createComponent(String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#createComponent(String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -293,8 +277,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getComponentTypes} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getComponentTypes} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -304,8 +287,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#addConverter(String, String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#addConverter(String, String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -315,8 +297,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#addConverter(Class, String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#addConverter(Class, String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -326,8 +307,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#createConverter(String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#createConverter(String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -337,8 +317,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#createConverter(Class)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#createConverter(Class)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -348,8 +327,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getConverterIds} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#getConverterIds} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -359,8 +337,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getConverterTypes} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getConverterTypes} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -370,8 +347,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getSupportedLocales} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getSupportedLocales} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -381,8 +357,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#setSupportedLocales(java.util.Collection)} on the
-     * wrapped {@link Application} object.
+     * The default behavior of this method is to call {@link Application#setSupportedLocales(java.util.Collection)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -392,8 +367,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#addBehavior(String, String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#addBehavior(String, String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -403,8 +377,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#createBehavior(String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#createBehavior(String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -414,8 +387,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getBehaviorIds} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#getBehaviorIds} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -425,8 +397,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#addValidator(String, String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#addValidator(String, String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -436,8 +407,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#createValidator(String)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#createValidator(String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -447,8 +417,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getValidatorIds} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#getValidatorIds} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -458,8 +427,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getResourceHandler} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getResourceHandler} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -469,16 +437,14 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2">The</span> default behavior of this method is to call
-     * {@link Application#setResourceHandler(ResourceHandler)} on the wrapped {@link Application} object.
+     * <span class="changed_modified_2_2">The</span> default behavior of this method is to call {@link Application#setResourceHandler(ResourceHandler)} on the
+     * wrapped {@link Application} object.
      * </p>
      *
-     * <span class="changed_added_2_2">
-     * This method can throw <code>IllegalStateException</code> and <code>NullPointerException</code>.
-     * </span>
+     * <span class="changed_added_2_2"> This method can throw <code>IllegalStateException</code> and <code>NullPointerException</code>. </span>
      *
-     * @throws IllegalStateException if this method is called after at least one request has
-     * been processed by the <code>Lifecycle</code> instance for this application.
+     * @throws IllegalStateException if this method is called after at least one request has been processed by the <code>Lifecycle</code> instance for this
+     * application.
      * @throws NullPointerException if <code>resourceHandler</code> is <code>null</code>
      */
     @Override
@@ -488,9 +454,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#getResourceBundle(jakarta.faces.context.FacesContext, String)} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#getResourceBundle(jakarta.faces.context.FacesContext, String)} on the wrapped
+     * {@link Application} object.
      * </p>
      */
     @Override
@@ -500,8 +465,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getProjectStage} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#getProjectStage} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -511,12 +475,12 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2">The</span> default behavior of this method is to call
-     * {@link Application#addELResolver(jakarta.el.ELResolver)} on the wrapped {@link Application} object.
+     * <span class="changed_modified_2_2">The</span> default behavior of this method is to call {@link Application#addELResolver(jakarta.el.ELResolver)} on the
+     * wrapped {@link Application} object.
      * </p>
      *
-     * @throws IllegalStateException <span class="changed_added_2_2">if called after the first request to the
-     * {@link jakarta.faces.webapp.FacesServlet} has been serviced.</span>
+     * @throws IllegalStateException <span class="changed_added_2_2">if called after the first request to the {@link jakarta.faces.webapp.FacesServlet} has been
+     * serviced.</span>
      */
     @Override
     public void addELResolver(ELResolver resolver) {
@@ -525,8 +489,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getELResolver} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#getELResolver} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -537,8 +500,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
     /**
      * <p class="changed_added_2_0">
      * The default behavior of this method is to call
-     * {@link Application#createComponent(jakarta.el.ValueExpression, jakarta.faces.context.FacesContext, String)} on the
-     * wrapped {@link Application} object.
+     * {@link Application#createComponent(jakarta.el.ValueExpression, jakarta.faces.context.FacesContext, String)} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -549,8 +511,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
     /**
      * <p class="changed_added_2_0">
      * The default behavior of this method is to call
-     * {@link Application#createComponent(jakarta.el.ValueExpression, jakarta.faces.context.FacesContext, String, String)}
-     * on the wrapped {@link Application} object.
+     * {@link Application#createComponent(jakarta.el.ValueExpression, jakarta.faces.context.FacesContext, String, String)} on the wrapped {@link Application}
+     * object.
      * </p>
      */
     @Override
@@ -560,8 +522,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#createComponent(jakarta.faces.context.FacesContext, String, String)} on the wrapped
+     * The default behavior of this method is to call {@link Application#createComponent(jakarta.faces.context.FacesContext, String, String)} on the wrapped
      * {@link Application} object.
      * </p>
      */
@@ -572,9 +533,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#createComponent(jakarta.faces.context.FacesContext, Resource)} on the wrapped {@link Application}
-     * object.
+     * The default behavior of this method is to call {@link Application#createComponent(jakarta.faces.context.FacesContext, Resource)} on the wrapped
+     * {@link Application} object.
      * </p>
      */
     @Override
@@ -584,8 +544,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getExpressionFactory} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getExpressionFactory} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -605,9 +564,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#evaluateExpressionGet(jakarta.faces.context.FacesContext, String, Class)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#evaluateExpressionGet(jakarta.faces.context.FacesContext, String, Class)} on the
+     * wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -617,8 +575,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#addELContextListener(jakarta.el.ELContextListener)}
-     * on the wrapped {@link Application} object.
+     * The default behavior of this method is to call {@link Application#addELContextListener(jakarta.el.ELContextListener)} on the wrapped {@link Application}
+     * object.
      * </p>
      */
     @Override
@@ -628,8 +586,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#removeELContextListener(jakarta.el.ELContextListener)} on the wrapped {@link Application} object.
+     * The default behavior of this method is to call {@link Application#removeELContextListener(jakarta.el.ELContextListener)} on the wrapped
+     * {@link Application} object.
      * </p>
      */
     @Override
@@ -639,8 +597,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link Application#getELContextListeners} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#getELContextListeners} on the wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -650,8 +607,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#publishEvent(jakarta.faces.context.FacesContext, Class, Object)} on the wrapped
+     * The default behavior of this method is to call {@link Application#publishEvent(jakarta.faces.context.FacesContext, Class, Object)} on the wrapped
      * {@link Application} object.
      * </p>
      */
@@ -662,8 +618,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#publishEvent(jakarta.faces.context.FacesContext, Class, Class, Object)} on the wrapped
+     * The default behavior of this method is to call {@link Application#publishEvent(jakarta.faces.context.FacesContext, Class, Class, Object)} on the wrapped
      * {@link Application} object.
      * </p>
      */
@@ -674,8 +629,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#subscribeToEvent(Class, Class, jakarta.faces.event.SystemEventListener)} on the wrapped
+     * The default behavior of this method is to call {@link Application#subscribeToEvent(Class, Class, jakarta.faces.event.SystemEventListener)} on the wrapped
      * {@link Application} object.
      * </p>
      */
@@ -686,8 +640,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#subscribeToEvent(Class, jakarta.faces.event.SystemEventListener)} on the wrapped
+     * The default behavior of this method is to call {@link Application#subscribeToEvent(Class, jakarta.faces.event.SystemEventListener)} on the wrapped
      * {@link Application} object.
      * </p>
      */
@@ -698,9 +651,8 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#unsubscribeFromEvent(Class, Class, jakarta.faces.event.SystemEventListener)} on the wrapped
-     * {@link Application} object.
+     * The default behavior of this method is to call {@link Application#unsubscribeFromEvent(Class, Class, jakarta.faces.event.SystemEventListener)} on the
+     * wrapped {@link Application} object.
      * </p>
      */
     @Override
@@ -710,8 +662,7 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call
-     * {@link Application#unsubscribeFromEvent(Class, jakarta.faces.event.SystemEventListener)} on the wrapped
+     * The default behavior of this method is to call {@link Application#unsubscribeFromEvent(Class, jakarta.faces.event.SystemEventListener)} on the wrapped
      * {@link Application} object.
      * </p>
      */
@@ -739,4 +690,5 @@ public abstract class ApplicationWrapper extends Application implements FacesWra
     public SearchKeywordResolver getSearchKeywordResolver() {
         return getWrapped().getSearchKeywordResolver();
     }
+
 }

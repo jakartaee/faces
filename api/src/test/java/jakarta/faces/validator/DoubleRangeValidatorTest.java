@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * Unit tests for {@link DoubleRangeValidator}.</p>
+ * Unit tests for {@link DoubleRangeValidator}.
+ * </p>
  */
 class DoubleRangeValidatorTest extends ValidatorTestBase {
 
@@ -46,13 +47,16 @@ class DoubleRangeValidatorTest extends ValidatorTestBase {
         try {
             validator.validate(facesContext, component, "5.1");
             fail("Exception not thrown");
-        } catch (ValidatorException e) {
+        }
+        catch (ValidatorException e) {
             exceptionThrown = true;
             message = e.getMessage();
             assertTrue(
-                    -1 != message.indexOf("10.1"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("10.1"), "message: \"" + message + "\" missing localized chars."
+            );
             assertTrue(
-                    -1 != message.indexOf("20.1"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("20.1"), "message: \"" + message + "\" missing localized chars."
+            );
         }
         assertTrue(exceptionThrown);
 
@@ -62,13 +66,16 @@ class DoubleRangeValidatorTest extends ValidatorTestBase {
         try {
             validator.validate(facesContext, component, "5");
             fail("Exception not thrown");
-        } catch (ValidatorException e) {
+        }
+        catch (ValidatorException e) {
             exceptionThrown = true;
             message = e.getMessage();
             assertTrue(
-                    -1 != message.indexOf("10,1"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("10,1"), "message: \"" + message + "\" missing localized chars."
+            );
             assertTrue(
-                    -1 != message.indexOf("20,1"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("20,1"), "message: \"" + message + "\" missing localized chars."
+            );
         }
         assertTrue(exceptionThrown);
     }
@@ -108,4 +115,5 @@ class DoubleRangeValidatorTest extends ValidatorTestBase {
 
         assertTrue(validator1.hashCode() != validator2.hashCode());
     }
+
 }

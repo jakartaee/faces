@@ -57,5 +57,7 @@ public class Issue1811Bean {
         public String toString() {
             return String.valueOf(value);
         }
+
     }
+
 }

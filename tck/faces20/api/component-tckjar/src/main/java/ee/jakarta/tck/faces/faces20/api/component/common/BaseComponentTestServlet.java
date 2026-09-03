@@ -21,23 +21,23 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 
 public abstract class BaseComponentTestServlet
-    extends BaseActionExpressionTestServlet {
+    extends
+        BaseActionExpressionTestServlet {
 
-  protected ServletContext servletContext;
+    protected ServletContext servletContext;
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    servletContext = config.getServletContext();
-  }
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        servletContext = config.getServletContext();
+    }
+
 }

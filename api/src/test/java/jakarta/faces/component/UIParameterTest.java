@@ -60,4 +60,5 @@ public class UIParameterTest {
         assertTrue(parameter.isDisable());
         CurrentFacesContext.set(null);
     }
+
 }

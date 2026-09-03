@@ -23,8 +23,8 @@ import jakarta.faces.event.ValueChangeEvent;
 import jakarta.inject.Named;
 
 /**
- * Target of the composite:attribute method-signature bindings under test. Each listener records
- * that it ran into the status property, which the pages render into an id'd output.
+ * Target of the composite:attribute method-signature bindings under test. Each listener records that it ran into the status property, which the pages render
+ * into an id'd output.
  */
 @Named
 @RequestScoped
@@ -47,4 +47,5 @@ public class Issue2199Bean {
     public String getStatus() {
         return status;
     }
+
 }

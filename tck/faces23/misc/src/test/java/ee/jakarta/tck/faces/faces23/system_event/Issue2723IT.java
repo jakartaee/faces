@@ -26,8 +26,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2723IT extends BaseITNG {
 
     /**
-     * A preRenderView listener declared in the metadata facet must be invoked
-     * exactly once per render, not registered multiple times.
+     * A preRenderView listener declared in the metadata facet must be invoked exactly once per render, not registered multiple times.
      *
      * @see jakarta.faces.event.PreRenderViewEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2723
@@ -37,4 +36,5 @@ class Issue2723IT extends BaseITNG {
         WebPage page = getPage("issue2723.xhtml");
         assertEquals("1", page.findElement(By.id("count")).getText(), "preRenderView invocation count");
     }
+
 }

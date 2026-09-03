@@ -26,10 +26,8 @@ public class Issue5809 {
     private boolean listTouched;
 
     /**
-     * Backs the value of an {@code h:dataTable}. Reading it forces row iteration,
-     * which happens whenever a tree visit descends into the table - including the
-     * search expression resolution visit, which by design does not skip unrendered
-     * subtrees.
+     * Backs the value of an {@code h:dataTable}. Reading it forces row iteration, which happens whenever a tree visit descends into the table - including the
+     * search expression resolution visit, which by design does not skip unrendered subtrees.
      */
     public List<String> getList() {
         listTouched = true;
@@ -39,4 +37,5 @@ public class Issue5809 {
     public boolean isListTouched() {
         return listTouched;
     }
+
 }

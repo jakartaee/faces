@@ -26,17 +26,17 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 class Spec1351IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see FacesBehavior
      * @see https://github.com/jakartaee/faces/issues/1351
-   */
-  @Test
-  void injectValidator() throws Exception {
+     */
+    @Test
+    void injectValidator() throws Exception {
         WebPage page = getPage("spec1351.xhtml");
         assertTrue(page.containsSource("injectBehavior"));
     }
+
 }

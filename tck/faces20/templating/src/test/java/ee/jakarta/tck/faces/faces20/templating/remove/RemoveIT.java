@@ -29,9 +29,14 @@ class RemoveIT extends BaseITNG {
     void templateUIRemoveTagTest() {
         WebPage page = getPage("remove/removeOne.xhtml");
 
-        assertEquals(1, page.findElements(By.id("Rendered")).size(),
-            "Expected <label id='Rendered'> to be rendered");
-        assertEquals(0, page.findElements(By.id("Not-Rendered")).size(),
-            "Expected <label id='Not-Rendered'> to be removed");
+        assertEquals(
+            1, page.findElements(By.id("Rendered")).size(),
+            "Expected <label id='Rendered'> to be rendered"
+        );
+        assertEquals(
+            0, page.findElements(By.id("Not-Rendered")).size(),
+            "Expected <label id='Not-Rendered'> to be removed"
+        );
     }
+
 }

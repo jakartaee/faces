@@ -24,8 +24,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 /**
- * Echoes the names of the request parameters of the current request, so that a test can assert exactly which form
- * controls {@code faces.getViewState} collected and encoded.
+ * Echoes the names of the request parameters of the current request, so that a test can assert exactly which form controls {@code faces.getViewState} collected
+ * and encoded.
  */
 @Named
 @RequestScoped
@@ -33,6 +33,7 @@ public class Issue2617Bean {
 
     public String getParameterNames() {
         return new TreeSet<>(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().keySet())
-                .stream().collect(Collectors.joining(", "));
+            .stream().collect(Collectors.joining(", "));
     }
+
 }

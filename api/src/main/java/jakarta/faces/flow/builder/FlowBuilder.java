@@ -22,8 +22,8 @@ import jakarta.faces.flow.Flow;
 
 /**
  * <p class="changed_added_2_2">
- * A Java language API for building {@link Flow}s. This API is semantically identical to the
- * <code>&lt;flow-definition&gt;</code> element in the Application Configuration Resources XML Schema Definition.
+ * A Java language API for building {@link Flow}s. This API is semantically identical to the <code>&lt;flow-definition&gt;</code> element in the Application
+ * Configuration Resources XML Schema Definition.
  * </p>
  *
  * <div class="changed_added_2_2">
@@ -54,9 +54,8 @@ import jakarta.faces.flow.Flow;
  * </pre>
  *
  * <p>
- * The runtime must discover all such methods at startup time and ensure that the returned flows are added to the
- * {@link jakarta.faces.flow.FlowHandler} using the
- * {@link jakarta.faces.flow.FlowHandler#addFlow(jakarta.faces.context.FacesContext, jakarta.faces.flow.Flow)} method.
+ * The runtime must discover all such methods at startup time and ensure that the returned flows are added to the {@link jakarta.faces.flow.FlowHandler} using
+ * the {@link jakarta.faces.flow.FlowHandler#addFlow(jakarta.faces.context.FacesContext, jakarta.faces.flow.Flow)} method.
  * </p>
  *
  * </div>
@@ -71,8 +70,7 @@ public abstract class FlowBuilder {
      * Set the defining document id and flow id of this flow.
      * </p>
      *
-     * @param definingDocumentId The defining document id of this flow, or the empty string if this flow does not need a
-     * defining document id.
+     * @param definingDocumentId The defining document id of this flow, or the empty string if this flow does not need a defining document id.
      * @param id the id of the flow
      * @throws NullPointerException if any of the parameters are {@code null}
      * @since 2.2
@@ -109,8 +107,8 @@ public abstract class FlowBuilder {
 
     /**
      * <p class="changed_added_2_2">
-     * Define a particular combination of conditions that must match for this case to be executed, and the view id of the
-     * component tree that should be selected next.
+     * Define a particular combination of conditions that must match for this case to be executed, and the view id of the component tree that should be selected
+     * next.
      * </p>
      *
      * @since 2.2
@@ -121,12 +119,11 @@ public abstract class FlowBuilder {
 
     /**
      * <p class="changed_added_2_2">
-     * Define a particular list of cases that will be inspected in the order they are defined to determine where to go next
-     * in the flow graph. If none of the cases match, the outcome from the default case is chosen.
+     * Define a particular list of cases that will be inspected in the order they are defined to determine where to go next in the flow graph. If none of the
+     * cases match, the outcome from the default case is chosen.
      * </p>
      *
-     * @param switchNodeId Within the flow graph, the id of this switch node. Must be unique among all nodes in this flow
-     * graph.
+     * @param switchNodeId Within the flow graph, the id of this switch node. Must be unique among all nodes in this flow graph.
      *
      * @throws NullPointerException if any of the parameters are {@code null}
      *
@@ -141,8 +138,7 @@ public abstract class FlowBuilder {
      * Define a return node. This node will cause the specified outcome to be returned to the calling flow.
      * </p>
      *
-     * @param returnNodeId Within the flow graph, the id of this return node. Must be unique among all nodes in this flow
-     * graph.
+     * @param returnNodeId Within the flow graph, the id of this return node. Must be unique among all nodes in this flow graph.
      *
      * @throws NullPointerException if any of the parameters are {@code null}
      *
@@ -154,13 +150,11 @@ public abstract class FlowBuilder {
 
     /**
      * <p class="changed_added_2_2">
-     * Define a method call node. This node will cause the specified method to be invoked, passing parameters if necessary.
-     * The return from the method is used as the outcome for where to go next in the flow. If the method is a void method,
-     * the default outcome is used.
+     * Define a method call node. This node will cause the specified method to be invoked, passing parameters if necessary. The return from the method is used
+     * as the outcome for where to go next in the flow. If the method is a void method, the default outcome is used.
      * </p>
      *
-     * @param methodCallNodeId Within the flow graph, the id of this method call node. Must be unique among all nodes in
-     * this flow graph.
+     * @param methodCallNodeId Within the flow graph, the id of this method call node. Must be unique among all nodes in this flow graph.
      *
      * @throws NullPointerException if any of the parameters are {@code null}
      *
@@ -175,8 +169,7 @@ public abstract class FlowBuilder {
      * Define a flow call node. This node will cause the specified flow to be called, passing parameters if necessary.
      * </p>
      *
-     * @param flowCallNodeId Within the flow graph, the id of this return node. Must be unique among all nodes in this flow
-     * graph.
+     * @param flowCallNodeId Within the flow graph, the id of this return node. Must be unique among all nodes in this flow graph.
      *
      * @throws NullPointerException if any of the parameters are {@code null}
      *
@@ -246,8 +239,8 @@ public abstract class FlowBuilder {
 
     /**
      * <p class="changed_added_2_2">
-     * A parameter that will be populated with the value from a correspondingly named outbound parameter from another flow
-     * when this flow is entered from that flow.
+     * A parameter that will be populated with the value from a correspondingly named outbound parameter from another flow when this flow is entered from that
+     * flow.
      * </p>
      *
      * @param name the parameter name
@@ -264,8 +257,8 @@ public abstract class FlowBuilder {
 
     /**
      * <p class="changed_added_2_2">
-     * A parameter that will be populated with the value from a correspondingly named outbound parameter from another flow
-     * when this flow is entered from that flow.
+     * A parameter that will be populated with the value from a correspondingly named outbound parameter from another flow when this flow is entered from that
+     * flow.
      * </p>
      *
      * @param name the parameter name
@@ -282,9 +275,8 @@ public abstract class FlowBuilder {
 
     /**
      * <p class="changed_added_2_2">
-     * Called as the last step in flow definition, this method must perform any implementation specific initialization and
-     * return the built {@link Flow}. If called more than one time during a given flow building process, the second and
-     * subsequent invocations must take no action and return the built flow.
+     * Called as the last step in flow definition, this method must perform any implementation specific initialization and return the built {@link Flow}. If
+     * called more than one time during a given flow building process, the second and subsequent invocations must take no action and return the built flow.
      * </p>
      *
      * @throws IllegalStateException if the {@link #id} method had not been called prior to this method being called.

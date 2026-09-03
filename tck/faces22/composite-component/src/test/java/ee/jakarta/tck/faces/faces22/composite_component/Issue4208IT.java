@@ -29,15 +29,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Composite components conditionally included by {@code c:if} must be added to and removed from the
- * component tree on every postback that flips the condition, both when the {@code c:if} sits
- * directly in the form and when it is wrapped in a {@code ui:fragment}.
+ * Composite components conditionally included by {@code c:if} must be added to and removed from the component tree on every postback that flips the condition,
+ * both when the {@code c:if} sits directly in the form and when it is wrapped in a {@code ui:fragment}.
  */
 public class Issue4208IT extends BaseITNG {
 
     /**
-     * Each of three independently toggled composite components appears when shown and disappears
-     * when hidden again.
+     * Each of three independently toggled composite components appears when shown and disappears when hidden again.
      *
      * @see UINamingContainer
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4208
@@ -59,8 +57,7 @@ public class Issue4208IT extends BaseITNG {
     }
 
     /**
-     * Shows composites 3, 2 and 1 in turn, asserting each one appears without disturbing the others,
-     * then hides them again in the same order.
+     * Shows composites 3, 2 and 1 in turn, asserting each one appears without disturbing the others, then hides them again in the same order.
      */
     private void assertToggling(String view) {
         WebPage page = getPage(view);
@@ -83,12 +80,17 @@ public class Issue4208IT extends BaseITNG {
     }
 
     private void assertPresent(WebPage page, int idx) {
-        assertEquals("OutputText " + idx, page.findElement(By.id("form:included_" + idx + ":outputText")).getText(),
-                "composite " + idx + " is rendered while shown");
+        assertEquals(
+            "OutputText " + idx, page.findElement(By.id("form:included_" + idx + ":outputText")).getText(),
+            "composite " + idx + " is rendered while shown"
+        );
     }
 
     private void assertAbsent(WebPage page, int idx) {
-        assertTrue(page.findElements(By.id("form:included_" + idx)).isEmpty(),
-                "composite " + idx + " is absent from the tree while hidden");
+        assertTrue(
+            page.findElements(By.id("form:included_" + idx)).isEmpty(),
+            "composite " + idx + " is absent from the tree while hidden"
+        );
     }
+
 }

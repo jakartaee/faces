@@ -16,7 +16,6 @@
 
 package ee.jakarta.tck.faces.faces23.search_expression;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -31,12 +30,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1238IT extends BaseITNG {
 
-  /**
-   * @see SearchKeywordResolver
+    /**
+     * @see SearchKeywordResolver
      * @see https://github.com/jakartaee/faces/issues/1238
-   */
-  @Test
-  void test() throws Exception {
+     */
+    @Test
+    void test() throws Exception {
         testSearchExpression();
     }
 
@@ -57,4 +56,5 @@ public class Spec1238IT extends BaseITNG {
             assertTrue(behaviorScript.contains("spec1238ITinput1 spec1238ITinput2"));
         }
     }
+
 }

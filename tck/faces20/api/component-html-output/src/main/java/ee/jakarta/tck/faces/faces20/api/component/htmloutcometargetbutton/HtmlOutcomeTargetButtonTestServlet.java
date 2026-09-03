@@ -15,28 +15,30 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmloutcometargetbutton;
 
-import ee.jakarta.tck.faces.faces20.api.component.uioutcometarget.UIOutcomeTargetTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlOutcomeTargetButton;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uioutcometarget.UIOutcomeTargetTestServlet;
+
 @WebServlet("/HtmlOutcomeTargetButtonTestServlet")
 public final class HtmlOutcomeTargetButtonTestServlet extends UIOutcomeTargetTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "alt", "dir", "image", "lang", "onblur", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title" };
+    private static final String[] attrNames = { "accesskey", "alt", "dir", "image", "lang", "onblur", "onclick", "ondblclick", "onfocus", "onkeydown",
+        "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Button");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Button");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlOutcomeTargetButton();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlOutcomeTargetButton();
+    }
+
 }

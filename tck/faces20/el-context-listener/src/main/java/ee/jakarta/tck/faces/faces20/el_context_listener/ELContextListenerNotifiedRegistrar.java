@@ -27,11 +27,9 @@ import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 
 /**
- * Registers itself as an {@link ELContextListener} on the {@link Application} at startup (on
- * {@code PostConstructApplicationEvent}), then records whether it is notified when a new
- * {@code ELContext} is created for a subsequent request. This exercises the public contract of
- * {@link Application#addELContextListener(ELContextListener)} without touching implementation
- * internals.
+ * Registers itself as an {@link ELContextListener} on the {@link Application} at startup (on {@code PostConstructApplicationEvent}), then records whether it is
+ * notified when a new {@code ELContext} is created for a subsequent request. This exercises the public contract of
+ * {@link Application#addELContextListener(ELContextListener)} without touching implementation internals.
  */
 public class ELContextListenerNotifiedRegistrar implements SystemEventListener, ELContextListener {
 
@@ -55,4 +53,5 @@ public class ELContextListenerNotifiedRegistrar implements SystemEventListener, 
     public void contextCreated(ELContextEvent event) {
         NOTIFIED.set(true);
     }
+
 }

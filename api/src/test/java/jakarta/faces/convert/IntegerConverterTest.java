@@ -108,4 +108,5 @@ class IntegerConverterTest {
         FacesContext facesContext = Mockito.mock(FacesContext.class);
         assertEquals("123", converter.getAsString(facesContext, new UIPanel(), Integer.valueOf("123")));
     }
+
 }

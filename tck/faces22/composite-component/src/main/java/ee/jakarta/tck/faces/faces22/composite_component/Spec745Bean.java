@@ -71,8 +71,16 @@ public class Spec745Bean {
         return null;
     }
 
-    public void setAnimal(Animal animal) { /* no-op: only the declared property type matters (jakartaee/faces#745) */ }
-    public void setDog(Dog dog) { /* no-op */ }
-    public void setWienerdoodle(Wienerdoodle wienerdoodle) { /* no-op */ }
-    public void setLostDog(Dog lostDog) { /* no-op */ }
+    public void setAnimal(Animal animal) {
+        /* no-op: only the declared property type matters (jakartaee/faces#745) */ }
+
+    public void setDog(Dog dog) {
+        /* no-op */ }
+
+    public void setWienerdoodle(Wienerdoodle wienerdoodle) {
+        /* no-op */ }
+
+    public void setLostDog(Dog lostDog) {
+        /* no-op */ }
+
 }

@@ -25,15 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The {@code LifecycleFactory} can be replaced with an implementation that registers a custom
- * lifecycle selected through the {@code jakarta.faces.LIFECYCLE_ID} context parameter, and a
- * configured phase listener still runs under that replaced lifecycle.
+ * The {@code LifecycleFactory} can be replaced with an implementation that registers a custom lifecycle selected through the {@code jakarta.faces.LIFECYCLE_ID}
+ * context parameter, and a configured phase listener still runs under that replaced lifecycle.
  */
 class ReplaceLifecycleIT extends BaseITNG {
 
     /**
-     * A phase listener registered in {@code faces-config.xml} fires exactly once while the request
-     * is processed by the replaced lifecycle.
+     * A phase listener registered in {@code faces-config.xml} fires exactly once while the request is processed by the replaced lifecycle.
      *
      * @see jakarta.faces.lifecycle.LifecycleFactory
      * @see jakarta.faces.event.PhaseListener
@@ -44,4 +42,5 @@ class ReplaceLifecycleIT extends BaseITNG {
         assertEquals("beforePhase", page.findElement(By.id("form:status")).getText(), "phase listener ran");
         assertEquals("1", page.findElement(By.id("form:count")).getText(), "phase listener ran exactly once");
     }
+
 }

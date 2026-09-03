@@ -27,8 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3139IT extends BaseITNG {
 
     /**
-     * Curly braces inside a string literal of an inline expression, written either literally or as character
-     * entities, belong to the literal and must not be taken for expression delimiters.
+     * Curly braces inside a string literal of an inline expression, written either literally or as character entities, belong to the literal and must not be
+     * taken for expression delimiters.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3139
      */
@@ -41,7 +41,10 @@ class Issue3139IT extends BaseITNG {
         assertEquals("{", page.findElement(By.id("openingEntity")).getText(), "opening brace entity");
         assertEquals("}", page.findElement(By.id("closingEntity")).getText(), "closing brace entity");
         assertEquals("{0}", page.findElement(By.id("bothEntities")).getText(), "both brace entities");
-        assertEquals("Answer: Expression Language", page.findElement(By.id("formatted")).getText(),
-                "A pattern containing braces must survive being passed as a method argument.");
+        assertEquals(
+            "Answer: Expression Language", page.findElement(By.id("formatted")).getText(),
+            "A pattern containing braces must survive being passed as a method argument."
+        );
     }
+
 }

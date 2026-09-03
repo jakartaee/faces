@@ -28,10 +28,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A JAR that carries exactly two resource library contracts under {@code META-INF/contracts}
- * ({@code siteLayout} supplying the template and its stylesheets, {@code resourcesInContractInJar}
- * supplying image resources) is honoured by the runtime: the template resolves and every resource
- * request is keyed on the contract that owns it ({@code con=...}).
+ * A JAR that carries exactly two resource library contracts under {@code META-INF/contracts} ({@code siteLayout} supplying the template and its stylesheets,
+ * {@code resourcesInContractInJar} supplying image resources) is honoured by the runtime: the template resolves and every resource request is keyed on the
+ * contract that owns it ({@code con=...}).
  *
  * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/3718">mojarra#3718</a>
  */
@@ -53,8 +52,8 @@ class Issue3718IT extends BaseITNG {
     }
 
     /**
-     * Stylesheets resolve from the {@code siteLayout} contract and images from the
-     * {@code resourcesInContractInJar} contract, each request carrying its owning contract.
+     * Stylesheets resolve from the {@code siteLayout} contract and images from the {@code resourcesInContractInJar} contract, each request carrying its owning
+     * contract.
      *
      * @see jakarta.faces.application.Resource#getRequestPath()
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/3718">mojarra#3718</a>
@@ -72,14 +71,18 @@ class Issue3718IT extends BaseITNG {
     private void examineCss(List<WebElement> cssLinks) {
         for (WebElement link : cssLinks) {
             String href = getHrefURI(link);
-            assertTrue(href.contains("con=siteLayout"),
-                    "stylesheet must request contract siteLayout but requested " + href);
+            assertTrue(
+                href.contains("con=siteLayout"),
+                "stylesheet must request contract siteLayout but requested " + href
+            );
             String content = getResponseBody(href);
             if (href.contains("default.css")) {
                 assertTrue(content.contains("#AFAFAF"), "default.css served from siteLayout");
-            } else if (href.contains("cssLayout.css")) {
+            }
+            else if (href.contains("cssLayout.css")) {
                 assertTrue(content.contains("#036fab"), "cssLayout.css served from siteLayout");
-            } else {
+            }
+            else {
                 fail("unexpected stylesheet: " + href);
             }
         }
@@ -87,9 +90,14 @@ class Issue3718IT extends BaseITNG {
 
     private void assertImage(WebPage page, String name) {
         String src = page.findElement(By.id("form:" + name)).getAttribute("src");
-        assertTrue(src.contains("/jakarta.faces.resource/" + name + ".gif"),
-                name + " must be a Faces resource but was " + src);
-        assertTrue(src.contains("con=resourcesInContractInJar"),
-                name + " must request contract resourcesInContractInJar but was " + src);
+        assertTrue(
+            src.contains("/jakarta.faces.resource/" + name + ".gif"),
+            name + " must be a Faces resource but was " + src
+        );
+        assertTrue(
+            src.contains("con=resourcesInContractInJar"),
+            name + " must request contract resourcesInContractInJar but was " + src
+        );
     }
+
 }

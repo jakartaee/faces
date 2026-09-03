@@ -22,8 +22,9 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Spec1351Bean {
-    
+
     public String submit() {
         return "";
     }
+
 }

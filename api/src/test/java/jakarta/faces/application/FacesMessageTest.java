@@ -56,8 +56,10 @@ public class FacesMessageTest {
     @Test
     public void testSerializeableSummaryDetailSeverity() throws Exception {
         FacesMessage message = null;
-        message = new FacesMessage(FacesMessage.Severity.FATAL, "This is a bad error.",
-                "This is a really bad error.");
+        message = new FacesMessage(
+            FacesMessage.Severity.FATAL, "This is a bad error.",
+            "This is a really bad error."
+        );
         persistAndCheck(message);
     }
 
@@ -80,32 +82,34 @@ public class FacesMessageTest {
             byte[] bytes = bos.toByteArray();
             InputStream in = new ByteArrayInputStream(bytes);
             ObjectInputStream ois = new ObjectInputStream(in);
-            message1 = (FacesMessage)ois.readObject();
+            message1 = (FacesMessage) ois.readObject();
             ois.close();
             mSummary1 = message1.getSummary();
             mDetail1 = message1.getDetail();
             severity1 = message1.getSeverity().toString();
             if (null != mSummary1) {
                 assertTrue(mSummary1.equals(mSummary));
-            } else {
+            }
+            else {
                 assertTrue(mSummary == null);
             }
             if (null != mDetail1) {
                 assertTrue(mDetail1.equals(mDetail));
-            } else {
+            }
+            else {
                 assertTrue(mDetail == null);
             }
             if (null != severity1) {
                 assertTrue(severity1.equals(severity));
-            } else {
+            }
+            else {
                 assertTrue(severity == null);
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);
         }
     }
-
-
 
 }

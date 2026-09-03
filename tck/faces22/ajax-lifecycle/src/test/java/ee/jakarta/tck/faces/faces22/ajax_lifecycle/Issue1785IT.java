@@ -28,18 +28,18 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue1785IT extends BaseITNG {
 
-  /**
-   * Test attaching a ClientBehaviorHolder to h:body. Note the current 2.1
-   * spec does not allow using f:ajax outside of a form so this will throw
-   * a script error which we are going to ignore.
-   * 
-   * @see ClientBehaviorHolder
+    /**
+     * Test attaching a ClientBehaviorHolder to h:body. Note the current 2.1 spec does not allow using f:ajax outside of a form so this will throw a script
+     * error which we are going to ignore.
+     *
+     * @see ClientBehaviorHolder
      * @see HtmlBody
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1785
-   */
-  @Test
-  void ajaxToOnBody() throws Exception {
+     */
+    @Test
+    void ajaxToOnBody() throws Exception {
         WebPage page = getPage("issue1785.xhtml");
         assertEquals(200, page.getResponseStatus());
     }
+
 }

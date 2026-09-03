@@ -23,8 +23,8 @@ import jakarta.faces.application.FacesMessage;
 
 /**
  * <p>
- * A <strong class="changed_modified_2_0">ValidatorException</strong> is an exception thrown by the
- * <code>validate()</code> method of a {@link Validator} to indicate that validation failed.
+ * A <strong class="changed_modified_2_0">ValidatorException</strong> is an exception thrown by the <code>validate()</code> method of a {@link Validator} to
+ * indicate that validation failed.
  */
 public class ValidatorException extends FacesException {
     // ----------------------------------------------------------- Constructors
@@ -90,9 +90,8 @@ public class ValidatorException extends FacesException {
 
     /**
      * <p class="changed_modified_2_0">
-     * Returns the <code>FacesMessage</code> associated with the exception. If this instance was created with a constructor
-     * that takes <code>Collection&lt;FacesMessage&gt;</code>, this method returns the first message in the
-     * <code>Collection</code>
+     * Returns the <code>FacesMessage</code> associated with the exception. If this instance was created with a constructor that takes
+     * <code>Collection&lt;FacesMessage&gt;</code>, this method returns the first message in the <code>Collection</code>
      * </p>
      *
      * @return the message
@@ -107,8 +106,8 @@ public class ValidatorException extends FacesException {
 
     /**
      * <p class="changed_modified_2_0">
-     * If this instance was created with a constructor that takes <code>Collection&lt;FacesMessage&gt;</code>, this method
-     * returns the passed collection, otherwise this method returns <code>null</code>.
+     * If this instance was created with a constructor that takes <code>Collection&lt;FacesMessage&gt;</code>, this method returns the passed collection,
+     * otherwise this method returns <code>null</code>.
      * </p>
      *
      * @since 2.0
@@ -122,4 +121,5 @@ public class ValidatorException extends FacesException {
 
     private FacesMessage message;
     private Collection<FacesMessage> messages;
+
 }

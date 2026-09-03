@@ -74,4 +74,5 @@ class FacesServletProtectedPathsIT extends BaseITNG {
     void testMetaInfProtectedView() {
         assertEquals(404, getStatusCode("faces/META-INF/youcantgetme.xhtml"), "/META-INF view must not be served");
     }
+
 }

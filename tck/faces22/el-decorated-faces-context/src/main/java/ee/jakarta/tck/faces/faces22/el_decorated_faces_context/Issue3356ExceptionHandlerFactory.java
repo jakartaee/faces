@@ -29,4 +29,5 @@ public class Issue3356ExceptionHandlerFactory extends ExceptionHandlerFactory {
     public ExceptionHandler getExceptionHandler() {
         return new Issue3356ExceptionHandler(getWrapped().getExceptionHandler());
     }
+
 }

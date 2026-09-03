@@ -29,8 +29,12 @@ public class InjectValidator implements Validator {
     }
 
     @Override
-    public void validate(FacesContext context, UIComponent component, 
-            Object value) throws ValidatorException {
+    public void validate(
+        FacesContext context, UIComponent component,
+        Object value
+    ) throws ValidatorException
+    {
         throw new UnsupportedOperationException("InjectValidator was called");
     }
+
 }

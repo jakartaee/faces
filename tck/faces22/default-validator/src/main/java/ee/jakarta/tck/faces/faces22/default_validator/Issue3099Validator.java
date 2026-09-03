@@ -32,4 +32,5 @@ public class Issue3099Validator implements Validator<Object> {
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         throw new ValidatorException(new FacesMessage(component.getClientId(context) + ": Validation failed."));
     }
+
 }

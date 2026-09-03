@@ -35,4 +35,5 @@ public class Issue2221Bean {
     public String submit() {
         return null;
     }
+
 }

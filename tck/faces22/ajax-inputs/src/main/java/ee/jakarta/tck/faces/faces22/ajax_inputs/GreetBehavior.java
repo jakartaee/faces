@@ -16,21 +16,21 @@
 
 package ee.jakarta.tck.faces.faces22.ajax_inputs;
 
-
 import jakarta.faces.component.behavior.ClientBehaviorBase;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.behavior.FacesBehavior;
 import jakarta.faces.context.FacesContext;
 
-
 /**
- * <p>A trivial Behavior implementation that shows a greeting to the
- * user when invoked.</p>
+ * <p>
+ * A trivial Behavior implementation that shows a greeting to the user when invoked.
+ * </p>
  */
-@FacesBehavior(value="custom.behavior.Greet")
+@FacesBehavior(value = "custom.behavior.Greet")
 public class GreetBehavior extends ClientBehaviorBase {
 
-    public GreetBehavior() {}
+    public GreetBehavior() {
+    }
 
     public String getName() {
         return name;
@@ -62,12 +62,14 @@ public class GreetBehavior extends ClientBehaviorBase {
             Object superState = super.saveState(context);
             if (superState == null) {
                 return null;
-            } else {
+            }
+            else {
                 return new Object[] { superState };
             }
-        } else {
+        }
+        else {
             Object[] values = new Object[2];
-      
+
             values[0] = super.saveState(context);
             values[1] = name;
 
@@ -75,7 +77,6 @@ public class GreetBehavior extends ClientBehaviorBase {
         }
 
     }
-
 
     @Override
     public void restoreState(FacesContext context, Object state) {
@@ -90,10 +91,11 @@ public class GreetBehavior extends ClientBehaviorBase {
         Object[] values = (Object[]) state;
         super.restoreState(context, values[0]);
         if (values.length == 2) {
-            name = (String)values[1];
+            name = (String) values[1];
         }
 
     }
 
     private String name;
+
 }

@@ -24,8 +24,8 @@ import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 
 /**
- * A single inner-table cell. Because the inner model is shared across the outer rows, its value is
- * stored in the shared bean's flat value list, keyed on the combined (outer, inner) row index.
+ * A single inner-table cell. Because the inner model is shared across the outer rows, its value is stored in the shared bean's flat value list, keyed on the
+ * combined (outer, inner) row index.
  */
 public class NestedDatatablesInputBean implements Serializable {
 
@@ -79,4 +79,5 @@ public class NestedDatatablesInputBean implements Serializable {
     private UIViewRoot getViewRoot() {
         return FacesContext.getCurrentInstance().getViewRoot();
     }
+
 }

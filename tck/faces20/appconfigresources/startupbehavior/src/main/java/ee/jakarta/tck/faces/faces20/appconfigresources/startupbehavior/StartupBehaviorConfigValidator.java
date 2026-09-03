@@ -18,8 +18,7 @@ package ee.jakarta.tck.faces.faces20.appconfigresources.startupbehavior;
 import jakarta.faces.validator.LengthValidator;
 
 /**
- * Validator registered by an application configuration resource which is only reachable via
- * {@code jakarta.faces.CONFIG_FILES}.
+ * Validator registered by an application configuration resource which is only reachable via {@code jakarta.faces.CONFIG_FILES}.
  */
 public class StartupBehaviorConfigValidator extends LengthValidator {
     // Behaviour is irrelevant, the test only asserts that it got registered.

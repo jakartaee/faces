@@ -28,14 +28,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that a flash value set during a non-ajax form submit survives a faces-redirect to a page located in a
- * different directory, exercising the chunked flash cookie path.
+ * Verifies that a flash value set during a non-ajax form submit survives a faces-redirect to a page located in a different directory, exercising the chunked
+ * flash cookie path.
  */
 class Issue2140IT extends BaseITNG {
 
     /**
-     * Submits a value on a form that stores it into the {@link Flash} during the update-model phase, then navigates
-     * via a faces-redirect to a page in a different directory and asserts the flash value is still present there.
+     * Submits a value on a form that stores it into the {@link Flash} during the update-model phase, then navigates via a faces-redirect to a page in a
+     * different directory and asserts the flash value is still present there.
      *
      * @see Flash
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2140
@@ -53,4 +53,5 @@ class Issue2140IT extends BaseITNG {
 
         assertTrue(page.containsText("12345"), "Flash value must survive the faces-redirect to a different directory");
     }
+
 }

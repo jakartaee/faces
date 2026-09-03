@@ -32,17 +32,15 @@ class MultiFieldValidationUtils {
 
     /**
      * <p class="changed_added_2_3">
-     * Special value to indicate the proposed value for a property failed field-level validation. This prevents any attempt
-     * to perform class level validation.
+     * Special value to indicate the proposed value for a property failed field-level validation. This prevents any attempt to perform class level validation.
      * </p>
      */
     static final String FAILED_FIELD_LEVEL_VALIDATION = VALIDATOR_ID + ".FAILED_FIELD_LEVEL_VALIDATION";
 
     /*
-     * <p class="changed_added_2_3">Returns a data structure that stores the information necessary to perform class-level
-     * validation by <code>&lt;f:validateWholeBean &gt;</code> components elsewhere in the tree. The lifetime of this data
-     * structure does not extend beyond the current {@code FacesContext}. The data structure must conform to the following
-     * specification.</p>
+     * <p class="changed_added_2_3">Returns a data structure that stores the information necessary to perform class-level validation by
+     * <code>&lt;f:validateWholeBean &gt;</code> components elsewhere in the tree. The lifetime of this data structure does not extend beyond the current {@code
+     * FacesContext}. The data structure must conform to the following specification.</p>
      *
      * <div class="changed_added_2_3">
      *
@@ -50,13 +48,12 @@ class MultiFieldValidationUtils {
      *
      * <li><p>It is a non-thread-safe {@code Map}.</p></li>
      *
-     * <li><p>Keys are CDI bean instances that are referenced by the {@code value} attribute of
-     * <code>&lt;f:validateWholeBean &gt;</code> components.</p></li>
+     * <li><p>Keys are CDI bean instances that are referenced by the {@code value} attribute of <code>&lt;f:validateWholeBean &gt;</code> components.</p></li>
      *
      * <li>
      *
-     * <p>Values are {@code Map}s that represent the properties to be stored on the CDI bean instance that is the current
-     * key. The inner {@code Map} must conform to the following specification.</p>
+     * <p>Values are {@code Map}s that represent the properties to be stored on the CDI bean instance that is the current key. The inner {@code Map} must
+     * conform to the following specification.</p>
      *
      * <ul>
      *
@@ -82,8 +79,8 @@ class MultiFieldValidationUtils {
      *
      * @param context the {@link FacesContext} for this request
      *
-     * @param create if {@code true}, the data structure must be created if not present. If {@code false} the data structure
-     * must not be created and {@code Collections.emptyMap()} must be returned.
+     * @param create if {@code true}, the data structure must be created if not present. If {@code false} the data structure must not be created and {@code
+     * Collections.emptyMap()} must be returned.
      *
      * @return the data structure representing the multi-field validation candidates
      *
@@ -98,7 +95,8 @@ class MultiFieldValidationUtils {
             if (create) {
                 result = new HashMap<>();
                 attrs.put(MULTI_FIELD_VALIDATION_CANDIDATES, result);
-            } else {
+            }
+            else {
                 result = Collections.emptyMap();
             }
         }

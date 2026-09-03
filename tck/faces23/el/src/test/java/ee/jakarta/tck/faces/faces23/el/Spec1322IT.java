@@ -25,15 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The {@code externalContext} EL implicit object resolves to the current
- * {@link jakarta.faces.context.ExternalContext}, i.e. the same instance as
+ * The {@code externalContext} EL implicit object resolves to the current {@link jakarta.faces.context.ExternalContext}, i.e. the same instance as
  * {@code facesContext.externalContext}.
  */
 public class Spec1322IT extends BaseITNG {
 
     /**
-     * {@code #{externalContext}} is the current request's ExternalContext and exposes its public
-     * contract (here {@code requestContextPath}).
+     * {@code #{externalContext}} is the current request's ExternalContext and exposes its public contract (here {@code requestContextPath}).
      *
      * @see jakarta.faces.context.ExternalContext
      * @see https://github.com/jakartaee/faces/issues/1322
@@ -44,4 +42,5 @@ public class Spec1322IT extends BaseITNG {
         assertEquals("true", page.findElement(By.id("isExternalContext")).getText());
         assertEquals(getContextPath(), page.findElement(By.id("contextPath")).getText());
     }
+
 }

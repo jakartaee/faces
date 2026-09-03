@@ -18,7 +18,8 @@ package jakarta.faces.model;
 
 /**
  * <p>
- * Test implementation of DataModelListener.</p>
+ * Test implementation of DataModelListener.
+ * </p>
  */
 class ListenerTestImpl implements DataModelListener {
 
@@ -29,12 +30,18 @@ class ListenerTestImpl implements DataModelListener {
         int rowIndex = event.getRowIndex();
         trace(String.valueOf(rowIndex));
         if ((rowIndex >= 0) && (rowData == null)) {
-            throw new IllegalArgumentException("rowIndex=" + rowIndex
-                    + " but rowData is null");
-        } else if ((rowIndex == -1) && (rowData != null)) {
-            throw new IllegalArgumentException("rowIndex=" + rowIndex
-                    + " but rowData is not null");
-        } else if (rowIndex < -1) {
+            throw new IllegalArgumentException(
+                "rowIndex=" + rowIndex
+                    + " but rowData is null"
+            );
+        }
+        else if ((rowIndex == -1) && (rowData != null)) {
+            throw new IllegalArgumentException(
+                "rowIndex=" + rowIndex
+                    + " but rowData is not null"
+            );
+        }
+        else if (rowIndex < -1) {
             throw new IllegalArgumentException("rowIndex=" + rowIndex);
         }
 
@@ -50,9 +57,11 @@ class ListenerTestImpl implements DataModelListener {
     public static void trace(String value) {
         if (value == null) {
             trace = new StringBuffer();
-        } else {
+        }
+        else {
             trace.append('/');
             trace.append(value);
         }
     }
+
 }

@@ -25,14 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * f:setPropertyActionListener nested in a command link inside a ui:repeat resolves the current row's
- * varStatus.first when the link is invoked.
+ * f:setPropertyActionListener nested in a command link inside a ui:repeat resolves the current row's varStatus.first when the link is invoked.
  */
 class Issue2042IT extends BaseITNG {
 
     /**
-     * Invoking the command link of the first repeat row sets the target to varStatus.first == true, and invoking
-     * the command link of the second row sets it to false.
+     * Invoking the command link of the first repeat row sets the target to varStatus.first == true, and invoking the command link of the second row sets it to
+     * false.
      *
      * @see jakarta.faces.event.ActionListener
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2042
@@ -45,4 +44,5 @@ class Issue2042IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("form:repeat:1:link")).click());
         assertTrue(page.containsText("Triggered first: false"), "Second row resolves varStatus.first to false");
     }
+
 }

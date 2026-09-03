@@ -56,7 +56,7 @@ public class Issue2627Bean implements Serializable {
     public HtmlDataTable creatTable(FacesContext fc) {
         HtmlDataTable table = new HtmlDataTable();
         ValueExpression ve = fc.getApplication().getExpressionFactory()
-                .createValueExpression(fc.getELContext(), "#{issue2627Bean.testStrings}", Object.class);
+            .createValueExpression(fc.getELContext(), "#{issue2627Bean.testStrings}", Object.class);
         table.setId("table");
         table.setValueExpression("value", ve);
         table.setVar("str");
@@ -70,7 +70,7 @@ public class Issue2627Bean implements Serializable {
         HtmlOutputText text = new HtmlOutputText();
         text.setId("strv");
         ValueExpression textve = fc.getApplication().getExpressionFactory()
-                .createValueExpression(fc.getELContext(), "#{str}", Object.class);
+            .createValueExpression(fc.getELContext(), "#{str}", Object.class);
         text.setValueExpression("value", textve);
         ncPanel.getChildren().add(text);
 
@@ -86,7 +86,8 @@ public class Issue2627Bean implements Serializable {
     }
 
     public List<String> getTestStrings() {
-        String vs[] = {"one", "two", "three", "four"};
+        String vs[] = { "one", "two", "three", "four" };
         return Arrays.asList(vs);
     }
+
 }

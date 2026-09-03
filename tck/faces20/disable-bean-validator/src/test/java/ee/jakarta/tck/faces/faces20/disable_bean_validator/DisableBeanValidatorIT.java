@@ -26,10 +26,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * With the {@code jakarta.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR} context-param set to
- * {@code true}, the default bean validator is not auto-attached to an input, so its validator list
- * does not contain the {@code BeanValidator}. An explicit {@code f:validateBean} still attaches it,
- * proving the context-param disables only the automatic default, not explicit opt-in.
+ * With the {@code jakarta.faces.validator.DISABLE_DEFAULT_BEAN_VALIDATOR} context-param set to {@code true}, the default bean validator is not auto-attached to
+ * an input, so its validator list does not contain the {@code BeanValidator}. An explicit {@code f:validateBean} still attaches it, proving the context-param
+ * disables only the automatic default, not explicit opt-in.
  */
 public class DisableBeanValidatorIT extends BaseITNG {
 
@@ -44,8 +43,10 @@ public class DisableBeanValidatorIT extends BaseITNG {
     @Test
     void testDefaultBeanValidatorDisabled() {
         WebPage page = getPage("disableBeanValidator.xhtml");
-        assertFalse(page.findElement(By.id("form:validators")).getText().contains(BEAN_VALIDATOR),
-                "Default bean validator must not be attached when disabled");
+        assertFalse(
+            page.findElement(By.id("form:validators")).getText().contains(BEAN_VALIDATOR),
+            "Default bean validator must not be attached when disabled"
+        );
     }
 
     /**
@@ -57,7 +58,10 @@ public class DisableBeanValidatorIT extends BaseITNG {
     @Test
     void testExplicitBeanValidatorEnabled() {
         WebPage page = getPage("enableBeanValidator.xhtml");
-        assertTrue(page.findElement(By.id("form:validators")).getText().contains(BEAN_VALIDATOR),
-                "Explicit f:validateBean must attach the bean validator");
+        assertTrue(
+            page.findElement(By.id("form:validators")).getText().contains(BEAN_VALIDATOR),
+            "Explicit f:validateBean must attach the bean validator"
+        );
     }
+
 }

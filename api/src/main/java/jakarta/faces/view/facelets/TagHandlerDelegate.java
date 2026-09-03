@@ -22,9 +22,8 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_2">Abstract</span> class that defines methods relating to helping tag handler
- * instances. This abstraction enables implementation details to be hidden by the Jakarta Faces implementation
- * while still allowing concrete classes to be defined for extension by users.
+ * <span class="changed_modified_2_2">Abstract</span> class that defines methods relating to helping tag handler instances. This abstraction enables
+ * implementation details to be hidden by the Jakarta Faces implementation while still allowing concrete classes to be defined for extension by users.
  * </p>
  *
  * @since 2.0
@@ -33,8 +32,7 @@ public abstract class TagHandlerDelegate {
 
     /**
      * <p class="changed_added_2_0">
-     * Return a {@link MetaRuleset} particular to this kind of tag handler. Called from classes that implement
-     * {@link MetaTagHandler}.
+     * Return a {@link MetaRuleset} particular to this kind of tag handler. Called from classes that implement {@link MetaTagHandler}.
      * </p>
      *
      * @param type the <code>Class</code> for which the <code>MetaRuleset</code> must be created.
@@ -47,16 +45,15 @@ public abstract class TagHandlerDelegate {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2">Called</span> by classes that implement
-     * {@link jakarta.faces.view.facelets.FaceletHandler} in their implementation of <code>apply()</code>.
+     * <span class="changed_modified_2_2">Called</span> by classes that implement {@link jakarta.faces.view.facelets.FaceletHandler} in their implementation of
+     * <code>apply()</code>.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * If the argument {@code comp} is new to the view, for each tag attribute declared to be in the pass through attribute
-     * namespace, set the name and value of the attribute into the pass through attributes map of the component. See
-     * {@link UIComponent#getPassThroughAttributes(boolean) }. See the VDLDocs for the namespace URI of the pass through
-     * attribute namespace. Attributes whose value is a {@code ValueExpression} must remain un-evaluated and stored in the
-     * map as {@code ValueExpression} instances.
+     * If the argument {@code comp} is new to the view, for each tag attribute declared to be in the pass through attribute namespace, set the name and value of
+     * the attribute into the pass through attributes map of the component. See {@link UIComponent#getPassThroughAttributes(boolean) }. See the VDLDocs for the
+     * namespace URI of the pass through attribute namespace. Attributes whose value is a {@code ValueExpression} must remain un-evaluated and stored in the map
+     * as {@code ValueExpression} instances.
      * </p>
      *
      * @param ctx the <code>FaceletContext</code> for this request

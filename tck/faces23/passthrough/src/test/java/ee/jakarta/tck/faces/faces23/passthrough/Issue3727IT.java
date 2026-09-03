@@ -19,18 +19,19 @@ package ee.jakarta.tck.faces.faces23.passthrough;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import jakarta.faces.view.facelets.TagDecorator;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.view.facelets.TagDecorator;
 
 class Issue3727IT extends BaseITNG {
 
     /**
-     * A plain select/option block in a view that also decorates elements with jsf:id is emitted with its
-     * tags correctly nested: the closing select tag follows the last closing option tag.
+     * A plain select/option block in a view that also decorates elements with jsf:id is emitted with its tags correctly nested: the closing select tag follows
+     * the last closing option tag.
      *
      * @see TagDecorator
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3727
@@ -41,9 +42,14 @@ class Issue3727IT extends BaseITNG {
         String source = page.getSource();
 
         assertEquals(200, page.getResponseStatus(), "The view must render.");
-        assertTrue(source.indexOf("</select>") > source.lastIndexOf("</option>"),
-                "The closing select tag must follow the last closing option tag.");
-        assertEquals(3, page.findElements(By.cssSelector("#plain option")).size(),
-                "All options must remain children of the select.");
+        assertTrue(
+            source.indexOf("</select>") > source.lastIndexOf("</option>"),
+            "The closing select tag must follow the last closing option tag."
+        );
+        assertEquals(
+            3, page.findElements(By.cssSelector("#plain option")).size(),
+            "All options must remain children of the select."
+        );
     }
+
 }

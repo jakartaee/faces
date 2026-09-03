@@ -28,27 +28,28 @@ import jakarta.faces.component.UIOutput;
 @jakarta.enterprise.context.RequestScoped
 public class NameBean implements Serializable {
 
-  private UIOutput name;
+    private UIOutput name;
 
-  public void setName(UIOutput n) {
-    this.name = n;
-  }
+    public void setName(UIOutput n) {
+        this.name = n;
+    }
 
-  public UIOutput getName() {
-    return name;
-  }
+    public UIOutput getName() {
+        return name;
+    }
 
-  public NameBean() {
-    this.initialSetup();
-  }
+    public NameBean() {
+        this.initialSetup();
+    }
 
-  // ----------------------------------------------- private methods
+    // ----------------------------------------------- private methods
 
-  private final void initialSetup() {
-    UIOutput myComp = new UIOutput();
-    myComp.setId("name");
-    myComp.setValue("Vidtily Chernobyl");
+    private final void initialSetup() {
+        UIOutput myComp = new UIOutput();
+        myComp.setId("name");
+        myComp.setValue("Vidtily Chernobyl");
 
-    this.setName(myComp);
-  }
+        this.setName(myComp);
+    }
+
 }

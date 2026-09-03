@@ -21,7 +21,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 
-@FacesConverter(forClass=Issue4734Entity.class)
+@FacesConverter(forClass = Issue4734Entity.class)
 public class Issue4734EntityConverter implements Converter<Issue4734Entity> {
 
     @Override

@@ -15,29 +15,29 @@
  */
 package ee.jakarta.tck.faces.faces20.api.event.postvalidateevent;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
-
 import jakarta.faces.component.UICommand;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PostValidateEvent;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
+
 @WebServlet("/PostValidateEventTestServlet")
 public final class PostValidateEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UICommand uic = new UICommand();
+    private static final UICommand uic = new UICommand();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PostValidateEvent(component);
-  }
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PostValidateEvent(component);
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
 
-  // ------------------------------------------------------------ test methods
+    // ------------------------------------------------------------ test methods
 
 }

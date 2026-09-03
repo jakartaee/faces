@@ -26,10 +26,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Two JARs each define a flow with the same flow id "bounded-task-flow", each under its own
- * defining document id ("flow01" respectively "flow02"). A flow is identified by the pair of both,
- * so the runtime must enter the flow of the defining document named by the navigation case's
- * to-flow-document-id, and keep the flow scopes of the two apart.
+ * Two JARs each define a flow with the same flow id "bounded-task-flow", each under its own defining document id ("flow01" respectively "flow02"). A flow is
+ * identified by the pair of both, so the runtime must enter the flow of the defining document named by the navigation case's to-flow-document-id, and keep the
+ * flow scopes of the two apart.
  */
 class Issue2584IT extends BaseITNG {
 
@@ -52,9 +51,8 @@ class Issue2584IT extends BaseITNG {
     }
 
     /**
-     * Enters the flow of the given defining document from the entry page and walks it to its return
-     * node, asserting on every view that the flow-scoped bean of that very defining document backs
-     * it, and that the value put in flow scope survives the walk but not the return.
+     * Enters the flow of the given defining document from the entry page and walks it to its return node, asserting on every view that the flow-scoped bean of
+     * that very defining document backs it, and that the value put in flow scope survives the walk but not the return.
      */
     private void assertFlow(String definingDocumentId) {
         WebPage page = getPage("issue2584.xhtml");
@@ -78,7 +76,10 @@ class Issue2584IT extends BaseITNG {
     }
 
     private void assertName(WebPage page, String definingDocumentId) {
-        assertEquals(definingDocumentId + " name", page.findElement(By.id("form:name")).getText(),
-                "Flow scoped bean of defining document " + definingDocumentId);
+        assertEquals(
+            definingDocumentId + " name", page.findElement(By.id("form:name")).getText(),
+            "Flow scoped bean of defining document " + definingDocumentId
+        );
     }
+
 }

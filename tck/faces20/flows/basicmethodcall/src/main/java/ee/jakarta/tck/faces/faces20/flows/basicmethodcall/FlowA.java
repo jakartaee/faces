@@ -36,16 +36,17 @@ public class FlowA implements Serializable {
         String flowId = "flow-a";
         flowBuilder.id("", flowId);
         flowBuilder.viewNode(flowId, "/" + flowId + "/" + flowId + ".xhtml")
-                .markAsStartNode();
+            .markAsStartNode();
         flowBuilder.returnNode("taskFlowReturn1")
-                .fromOutcome("#{flow_a_Bean.returnValue}");
+            .fromOutcome("#{flow_a_Bean.returnValue}");
         flowBuilder.methodCallNode("outcome-from-method")
-                .expression("#{flow_a_Bean.methodWithOutcome}")
-                .defaultOutcome("taskFlowReturn1");
+            .expression("#{flow_a_Bean.methodWithOutcome}")
+            .defaultOutcome("taskFlowReturn1");
         flowBuilder.methodCallNode("outcome-from-markup")
-                .expression("#{flow_a_Bean.voidMethod}")
-                .defaultOutcome("taskFlowReturn1");
+            .expression("#{flow_a_Bean.voidMethod}")
+            .defaultOutcome("taskFlowReturn1");
 
         return flowBuilder.getFlow();
     }
+
 }

@@ -26,12 +26,13 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Spec1388Bean {
-    
-    @Inject @HeaderValuesMap
+
+    @Inject
+    @HeaderValuesMap
     private Map<String, String[]> headerValuesMap;
 
     public String getHeaderValue() {
         return (String) headerValuesMap.get("foo")[0];
     }
-    
+
 }

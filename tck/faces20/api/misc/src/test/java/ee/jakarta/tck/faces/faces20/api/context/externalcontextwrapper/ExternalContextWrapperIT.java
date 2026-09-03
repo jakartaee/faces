@@ -37,14 +37,18 @@ class ExternalContextWrapperIT extends BaseITNG {
     }
 
     private void runServletTestWithHeader(String testName, String headerName, String headerValue) {
-        String body = getResponseBody(SERVLET + "?testname=" + testName,
-                Map.of(headerName, headerValue));
+        String body = getResponseBody(
+            SERVLET + "?testname=" + testName,
+            Map.of(headerName, headerValue)
+        );
         assertTestPassed(body);
     }
 
     private void runServletTestWithCookie(String testName, String cookieName, String cookieValue) {
-        String body = getResponseBody(SERVLET + "?testname=" + testName,
-                Map.of("Cookie", cookieName + "=" + cookieValue));
+        String body = getResponseBody(
+            SERVLET + "?testname=" + testName,
+            Map.of("Cookie", cookieName + "=" + cookieValue)
+        );
         assertTestPassed(body);
     }
 
@@ -52,21 +56,80 @@ class ExternalContextWrapperIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void extContextWrapperDispatchTest() { runServletTest("extContextWrapperDispatchTest"); }
-    @Test void extContextWrapperGetApplicationMapTest() { runServletTest("extContextWrapperGetApplicationMapTest"); }
-    @Test void extContextWrapperGetContextTest() { runServletTest("extContextWrapperGetContextTest"); }
-    @Test void extContextWrapperGetInitParameterMapTest() { runServletTest("extContextWrapperGetInitParameterMapTest"); }
-    @Test void extContextWrapperGetInitParameterTest() { runServletTest("extContextWrapperGetInitParameterTest"); }
-    @Test void extContextWrapperGetMimeTypeTest() { runServletTest("extContextWrapperGetMimeTypeTest"); }
-    @Test void extContextWrapperGetRemoteUserTest() { runServletTest("extContextWrapperGetRemoteUserTest"); }
-    @Test void extContextWrapperGetRequestContextPathTest() { runServletTest("extContextWrapperGetRequestContextPathTest"); }
-    @Test void extContextWrapperGetRequestCookieMapTest() { runServletTestWithCookie("extContextWrapperGetRequestCookieMapTest", "tckattribute", "tckValue"); }
-    @Test void extContextWrapperGetRequestHeaderMapTest() { runServletTestWithHeader("extContextWrapperGetRequestHeaderMapTest", "tckattribute", "tckValue"); }
-    @Test void extContextWrapperGetRequestLocaleTest() { runServletTest("extContextWrapperGetRequestLocaleTest"); }
-    @Test void extContextWrapperGetRequestMapTest() { runServletTest("extContextWrapperGetRequestMapTest"); }
-    @Test void extContextWrapperGetRequestParameterMapTest() { runServletTest("extContextWrapperGetRequestParameterMapTest", "&tckattribute=tckValue"); }
-    @Test void extContextWrapperGetRequestParameterNamesTest() { runServletTest("extContextWrapperGetRequestParameterNamesTest"); }
-    @Test void extContextWrapperGetRequestParameterValuesMapTest() { runServletTest("extContextWrapperGetRequestParameterValuesMapTest", "&tckattribute=tckValue"); }
+    @Test
+    void extContextWrapperDispatchTest() {
+        runServletTest("extContextWrapperDispatchTest");
+    }
+
+    @Test
+    void extContextWrapperGetApplicationMapTest() {
+        runServletTest("extContextWrapperGetApplicationMapTest");
+    }
+
+    @Test
+    void extContextWrapperGetContextTest() {
+        runServletTest("extContextWrapperGetContextTest");
+    }
+
+    @Test
+    void extContextWrapperGetInitParameterMapTest() {
+        runServletTest("extContextWrapperGetInitParameterMapTest");
+    }
+
+    @Test
+    void extContextWrapperGetInitParameterTest() {
+        runServletTest("extContextWrapperGetInitParameterTest");
+    }
+
+    @Test
+    void extContextWrapperGetMimeTypeTest() {
+        runServletTest("extContextWrapperGetMimeTypeTest");
+    }
+
+    @Test
+    void extContextWrapperGetRemoteUserTest() {
+        runServletTest("extContextWrapperGetRemoteUserTest");
+    }
+
+    @Test
+    void extContextWrapperGetRequestContextPathTest() {
+        runServletTest("extContextWrapperGetRequestContextPathTest");
+    }
+
+    @Test
+    void extContextWrapperGetRequestCookieMapTest() {
+        runServletTestWithCookie("extContextWrapperGetRequestCookieMapTest", "tckattribute", "tckValue");
+    }
+
+    @Test
+    void extContextWrapperGetRequestHeaderMapTest() {
+        runServletTestWithHeader("extContextWrapperGetRequestHeaderMapTest", "tckattribute", "tckValue");
+    }
+
+    @Test
+    void extContextWrapperGetRequestLocaleTest() {
+        runServletTest("extContextWrapperGetRequestLocaleTest");
+    }
+
+    @Test
+    void extContextWrapperGetRequestMapTest() {
+        runServletTest("extContextWrapperGetRequestMapTest");
+    }
+
+    @Test
+    void extContextWrapperGetRequestParameterMapTest() {
+        runServletTest("extContextWrapperGetRequestParameterMapTest", "&tckattribute=tckValue");
+    }
+
+    @Test
+    void extContextWrapperGetRequestParameterNamesTest() {
+        runServletTest("extContextWrapperGetRequestParameterNamesTest");
+    }
+
+    @Test
+    void extContextWrapperGetRequestParameterValuesMapTest() {
+        runServletTest("extContextWrapperGetRequestParameterValuesMapTest", "&tckattribute=tckValue");
+    }
 
     @Test
     void extContextWrapperGetRequestPathInfoTest() {
@@ -74,19 +137,48 @@ class ExternalContextWrapperIT extends BaseITNG {
         assertTestPassed(body);
     }
 
-    @Test void extContextWrapperGetRequestTest() { runServletTest("extContextWrapperGetRequestTest"); }
-    @Test void extContextWrapperGetResourceAsStreamTest() { runServletTest("extContextWrapperGetResourceAsStreamTest"); }
-    @Test void extContextWrapperGetResourcePathsTest() { runServletTest("extContextWrapperGetResourcePathsTest"); }
-    @Test void extContextWrapperGetResponseTest() { runServletTest("extContextWrapperGetResponseTest"); }
-    @Test void extContextWrapperGetSessionMapTest() { runServletTest("extContextWrapperGetSessionMapTest"); }
-    @Test void extContextWrapperGetSessionTest() { runServletTest("extContextWrapperGetSessionTest"); }
+    @Test
+    void extContextWrapperGetRequestTest() {
+        runServletTest("extContextWrapperGetRequestTest");
+    }
+
+    @Test
+    void extContextWrapperGetResourceAsStreamTest() {
+        runServletTest("extContextWrapperGetResourceAsStreamTest");
+    }
+
+    @Test
+    void extContextWrapperGetResourcePathsTest() {
+        runServletTest("extContextWrapperGetResourcePathsTest");
+    }
+
+    @Test
+    void extContextWrapperGetResponseTest() {
+        runServletTest("extContextWrapperGetResponseTest");
+    }
+
+    @Test
+    void extContextWrapperGetSessionMapTest() {
+        runServletTest("extContextWrapperGetSessionMapTest");
+    }
+
+    @Test
+    void extContextWrapperGetSessionTest() {
+        runServletTest("extContextWrapperGetSessionTest");
+    }
 
     @Test
     void extContextWrapperRedirectTest() {
         String location = getResponseLocation(SERVLET + "?testname=extContextWrapperRedirectTest");
-        assertTrue(location != null && location.endsWith("/target"),
-                "Expected redirect Location ending in '/target' but was: " + location);
+        assertTrue(
+            location != null && location.endsWith("/target"),
+            "Expected redirect Location ending in '/target' but was: " + location
+        );
     }
 
-    @Test void extContextWrapperSetGetSessionMaxInactiveIntervalTest() { runServletTest("extContextWrapperSetGetSessionMaxInactiveIntervalTest"); }
+    @Test
+    void extContextWrapperSetGetSessionMaxInactiveIntervalTest() {
+        runServletTest("extContextWrapperSetGetSessionMaxInactiveIntervalTest");
+    }
+
 }

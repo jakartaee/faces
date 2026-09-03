@@ -26,7 +26,7 @@ import jakarta.inject.Named;
 @Named
 @SessionScoped
 public class Issue2910Bean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     private int currentView = 1;
@@ -35,19 +35,20 @@ public class Issue2910Bean implements Serializable {
         currentView = newView;
         return null;
     }
-    
+
     public List<Integer> getCurrentView() {
-       Vector<Integer> v = new Vector<Integer>();
-       
-       int counter = 10 - currentView;
-       if(counter <= 0) {
-           counter = 1;
-       }
-       
-       for(int index = 0; index <= counter; index++) {
-           v.add(currentView+1);
-       }
-       
-       return v;
+        Vector<Integer> v = new Vector<Integer>();
+
+        int counter = 10 - currentView;
+        if (counter <= 0) {
+            counter = 1;
+        }
+
+        for (int index = 0; index <= counter; index++) {
+            v.add(currentView + 1);
+        }
+
+        return v;
     }
+
 }

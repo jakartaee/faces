@@ -22,8 +22,8 @@ import jakarta.faces.context.FacesContext;
 /**
  *
  * <p class="changed_added_2_0">
- * This event must be published by a call to {@link jakarta.faces.application.Application#publishEvent} when the
- * <code>clear</code> method is called on the map returned from {@link UIViewRoot#getViewMap}.
+ * This event must be published by a call to {@link jakarta.faces.application.Application#publishEvent} when the <code>clear</code> method is called on the map
+ * returned from {@link UIViewRoot#getViewMap}.
  *
  * @since 2.0
  */
@@ -35,8 +35,7 @@ public class PreDestroyViewMapEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>ViewMapDestroydEvent</code> that indicates the argument <code>root</code> just had its
-     * associated view map destroyed.
+     * Instantiate a new <code>ViewMapDestroydEvent</code> that indicates the argument <code>root</code> just had its associated view map destroyed.
      * </p>
      *
      * @param root the <code>UIViewRoot</code> for which the view map has just been destroyed.
@@ -49,8 +48,7 @@ public class PreDestroyViewMapEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_3">
-     * Instantiate a new <code>ViewMapDestroydEvent</code> that indicates the argument <code>root</code> just had its
-     * associated view map destroyed.
+     * Instantiate a new <code>ViewMapDestroydEvent</code> that indicates the argument <code>root</code> just had its associated view map destroyed.
      * </p>
      *
      * @param facesContext the Faces context.

@@ -31,16 +31,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Plain HTML elements decorated with the {@code jsf:} namespace become full Faces components: their
- * {@code jsf:value} participates in a postback round-trip, their {@code jsf:action} invokes a bean
- * method and their {@code jsf:outcome} navigates, while their non-Faces attributes keep rendering
- * verbatim.
+ * Plain HTML elements decorated with the {@code jsf:} namespace become full Faces components: their {@code jsf:value} participates in a postback round-trip,
+ * their {@code jsf:action} invokes a bean method and their {@code jsf:outcome} navigates, while their non-Faces attributes keep rendering verbatim.
  */
 class Spec1111IT extends BaseITNG {
 
     /**
-     * A decorated {@code input} renders its declared type and its non-Faces attributes, and its
-     * {@code jsf:value} survives a postback, including the checked state of a checkbox.
+     * A decorated {@code input} renders its declared type and its non-Faces attributes, and its {@code jsf:value} survives a postback, including the checked
+     * state of a checkbox.
      *
      * @see jakarta.faces.view.facelets.TagDecorator
      * @see https://github.com/jakartaee/faces/issues/1111
@@ -68,8 +66,8 @@ class Spec1111IT extends BaseITNG {
     }
 
     /**
-     * A decorated {@code select} renders its size and multiple attributes and its default selection,
-     * and its {@code jsf:value} survives a postback for single and multiple selections alike.
+     * A decorated {@code select} renders its size and multiple attributes and its default selection, and its {@code jsf:value} survives a postback for single
+     * and multiple selections alike.
      *
      * @see jakarta.faces.view.facelets.TagDecorator
      * @see https://github.com/jakartaee/faces/issues/1111
@@ -92,8 +90,7 @@ class Spec1111IT extends BaseITNG {
     }
 
     /**
-     * A decorated {@code textarea} renders its non-Faces attributes and the text of its
-     * {@code jsf:value}, which survives a postback.
+     * A decorated {@code textarea} renders its non-Faces attributes and the text of its {@code jsf:value}, which survives a postback.
      *
      * @see jakarta.faces.view.facelets.TagDecorator
      * @see https://github.com/jakartaee/faces/issues/1111
@@ -112,8 +109,7 @@ class Spec1111IT extends BaseITNG {
     }
 
     /**
-     * A decorated {@code button} invokes the bean method of its {@code jsf:action}, and navigates to
-     * the view of its {@code jsf:outcome}.
+     * A decorated {@code button} invokes the bean method of its {@code jsf:action}, and navigates to the view of its {@code jsf:outcome}.
      *
      * @see jakarta.faces.view.facelets.TagDecorator
      * @see https://github.com/jakartaee/faces/issues/1111
@@ -125,8 +121,7 @@ class Spec1111IT extends BaseITNG {
     }
 
     /**
-     * A decorated {@code a} invokes the bean method of its {@code jsf:action}, and navigates to the
-     * view of its {@code jsf:outcome}.
+     * A decorated {@code a} invokes the bean method of its {@code jsf:action}, and navigates to the view of its {@code jsf:outcome}.
      *
      * @see jakarta.faces.view.facelets.TagDecorator
      * @see https://github.com/jakartaee/faces/issues/1111
@@ -191,7 +186,7 @@ class Spec1111IT extends BaseITNG {
 
     private void assertSelection(WebPage page, String id, String... values) {
         List<String> selected = new Select(page.findElement(By.id(id))).getAllSelectedOptions().stream()
-                .map(option -> option.getAttribute("value")).toList();
+            .map(option -> option.getAttribute("value")).toList();
         assertEquals(List.of(values), selected, id + " selection");
     }
 
@@ -216,4 +211,5 @@ class Spec1111IT extends BaseITNG {
     private String getAttribute(WebPage page, String id, String name) {
         return page.findElement(By.id(id)).getAttribute(name);
     }
+
 }

@@ -30,11 +30,10 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Same CSP-disabled contract as {@link Issue5606IT}, but exercised through an exact servlet mapping
- * (the extensionless {@code /issue5741} url-pattern) rather than the standard {@code *.xhtml} suffix
- * mapping. Under exact mapping the wrong event handler used to be rendered for command components,
- * breaking the click; this verifies that with CSP disabled (the default) each command component keeps
- * its {@code onclick} handler wired and functioning and no CSP nonce is emitted.
+ * Same CSP-disabled contract as {@link Issue5606IT}, but exercised through an exact servlet mapping (the extensionless {@code /issue5741} url-pattern) rather
+ * than the standard {@code *.xhtml} suffix mapping. Under exact mapping the wrong event handler used to be rendered for command components, breaking the click;
+ * this verifies that with CSP disabled (the default) each command component keeps its {@code onclick} handler wired and functioning and no CSP nonce is
+ * emitted.
  *
  * @see ResourceHandler#ENABLE_CSP_NONCE
  * @see https://github.com/eclipse-ee4j/mojarra/issues/5741
@@ -122,4 +121,5 @@ class Issue5741IT extends BaseITNG {
         var scripts = page.findElements(By.cssSelector("script[src*='jakarta.faces.resource/faces.js']"));
         return scripts.isEmpty() ? null : scripts.get(0).getDomAttribute("nonce");
     }
+
 }

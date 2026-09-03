@@ -18,8 +18,7 @@ package jakarta.faces.view;
 
 /**
  * <p class="changed_added_4_1">
- * A marker interface for VDL tags that represent <code>&lt;composite:actionSource/&gt;</code> for use by the
- * <em>composite component page author</em>.
+ * A marker interface for VDL tags that represent <code>&lt;composite:actionSource/&gt;</code> for use by the <em>composite component page author</em>.
  * </p>
  *
  * @since 4.1

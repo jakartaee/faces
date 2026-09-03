@@ -48,11 +48,14 @@ public class Flow_b_Bean implements Serializable {
 
     public void voidMethod() {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().getRequestMap().put("message",
-                "voidMethod called in flow-b");
+        context.getExternalContext().getRequestMap().put(
+            "message",
+            "voidMethod called in flow-b"
+        );
     }
 
     public Integer getInteger() {
         return Integer.valueOf(Integer.MAX_VALUE);
     }
+
 }

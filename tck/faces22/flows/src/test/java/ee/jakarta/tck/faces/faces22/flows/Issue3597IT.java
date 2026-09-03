@@ -25,15 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Navigation originating from a method-call node: from a method-call node the flow must be able to navigate to
- * another method-call node (chaining), to a flow-call node, and to a switch node. Each path must reach its
- * destination view.
+ * Navigation originating from a method-call node: from a method-call node the flow must be able to navigate to another method-call node (chaining), to a
+ * flow-call node, and to a switch node. Each path must reach its destination view.
  */
 class Issue3597IT extends BaseITNG {
 
     /**
-     * Method-call node chains into two further method-call nodes, the last of which resolves to the view at the
-     * end of the method calls.
+     * Method-call node chains into two further method-call nodes, the last of which resolves to the view at the end of the method calls.
      *
      * @see jakarta.faces.flow.Flow
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3597
@@ -71,4 +69,5 @@ class Issue3597IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id(inFlowButtonId)).click());
         assertTrue(page.containsText(expected), expected);
     }
+
 }

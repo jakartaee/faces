@@ -25,10 +25,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An f:convertNumber inside a c:forEach whose {@code pattern} is bound to a per-row value must format each row with its
- * own pattern - i.e. the tag converter is configured per cell, never shared across cells. Every row holds the same
- * value ({@code 1234}) with a different pattern, so the three renderings must differ. Also asserted after a postback, so
- * the per-cell converter configuration survives the restore/re-apply. Guards converter-instance reuse/caching from
+ * An f:convertNumber inside a c:forEach whose {@code pattern} is bound to a per-row value must format each row with its own pattern - i.e. the tag converter is
+ * configured per cell, never shared across cells. Every row holds the same value ({@code 1234}) with a different pattern, so the three renderings must differ.
+ * Also asserted after a postback, so the per-cell converter configuration survives the restore/re-apply. Guards converter-instance reuse/caching from
  * collapsing per-row attributes.
  */
 class ForEachConverterAttributeIT extends BaseITNG {
@@ -53,4 +52,5 @@ class ForEachConverterAttributeIT extends BaseITNG {
         assertEquals("0001234", page.findElement(By.id("form:out_1")).getText(), "row 1 pattern 0000000");
         assertEquals("1234", page.findElement(By.id("form:out_2")).getText(), "row 2 pattern #");
     }
+
 }

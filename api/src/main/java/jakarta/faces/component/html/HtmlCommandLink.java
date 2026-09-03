@@ -28,12 +28,12 @@ import jakarta.faces.event.BehaviorEvent.FacesComponentEvent;
 
 /**
  * <p>
- * Represents an HTML <code>a</code> element for a hyperlink that acts like a submit button. This component must be
- * placed inside a form, and requires JavaScript to be enabled in the client.
+ * Represents an HTML <code>a</code> element for a hyperlink that acts like a submit button. This component must be placed inside a form, and requires
+ * JavaScript to be enabled in the client.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Link</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Link</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
@@ -55,8 +55,36 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
      *
      */
     protected enum PropertyKeys {
-        accesskey, charset, coords, dir, disabled, hreflang, lang, onblur, onclick, ondblclick, onfocus, onkeydown, onkeypress, onkeyup, onmousedown,
-        onmousemove, onmouseout, onmouseover, onmouseup, rel, rev, role, shape, style, styleClass, tabindex, target, title, type,;
+
+        accesskey,
+        charset,
+        coords,
+        dir,
+        disabled,
+        hreflang,
+        lang,
+        onblur,
+        onclick,
+        ondblclick,
+        onfocus,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        rel,
+        rev,
+        role,
+        shape,
+        style,
+        styleClass,
+        tabindex,
+        target,
+        title,
+        type,;
 
         String toString;
 
@@ -71,6 +99,7 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -158,9 +187,8 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);
@@ -574,8 +602,8 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: The relationship from the current document to the anchor specified by this hyperlink. The value of this
-     * attribute is a space-separated list of link types.
+     * Contents: The relationship from the current document to the anchor specified by this hyperlink. The value of this attribute is a space-separated list of
+     * link types.
      */
     public java.lang.String getRel() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.rel);
@@ -601,8 +629,8 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: A reverse link from the anchor specified by this hyperlink to the current document. The value of this
-     * attribute is a space-separated list of link types.
+     * Contents: A reverse link from the anchor specified by this hyperlink to the current document. The value of this attribute is a space-separated list of
+     * link types.
      */
     public java.lang.String getRev() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.rev);
@@ -630,16 +658,14 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -666,8 +692,8 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: The shape of the hot spot on the screen (for use in client-side image maps). Valid values are: default
-     * (entire region); rect (rectangular region); circle (circular region); and poly (polygonal region).
+     * Contents: The shape of the hot spot on the screen (for use in client-side image maps). Valid values are: default (entire region); rect (rectangular
+     * region); circle (circular region); and poly (polygonal region).
      */
     public java.lang.String getShape() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.shape);
@@ -719,8 +745,8 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -746,8 +772,7 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer
-     * between 0 and 32767.
+     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer between 0 and 32767.
      */
     public java.lang.String getTabindex() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.tabindex);
@@ -845,7 +870,7 @@ public class HtmlCommandLink extends UICommand implements ClientBehaviorHolder {
 
     @Override
     public Collection<String> getEventNames() {
-        return getFacesActionSourceEventNames(getFacesContext()); 
+        return getFacesActionSourceEventNames(getFacesContext());
     }
 
     @Override

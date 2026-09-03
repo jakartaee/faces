@@ -37,4 +37,5 @@ public class Issue2351Bean {
     public boolean isInvoked() {
         return invoked;
     }
+
 }

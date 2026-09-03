@@ -19,35 +19,45 @@ package ee.jakarta.tck.faces.faces20.api.factoryfinderrelease;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.FactoryFinder;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
+
 @WebServlet("/FactoryFinderReleaseTestServlet")
 public final class FactoryFinderReleaseTestServlet extends HttpTCKServlet {
-  public void getFactoriesISETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    // release the factory instances allocated in the getFactoryTest
-    PrintWriter pw = response.getWriter();
-    try {
-      FactoryFinder.releaseFactories();
-      FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
-      pw.println("Test FAILED" + JSFTestUtil.NL + "Expected an "
-          + "IllegalStateException to be thrown, no Exception thrown "
-          + "at all!.");
-    } catch (IllegalStateException ise) {
-      pw.println(JSFTestUtil.PASS);
 
-    } catch (Exception e) {
-      pw.println("Test FAILED" + JSFTestUtil.NL + "Unexpected Exception thrown!"
-          + JSFTestUtil.NL + "Expected: IllegalStateException" + JSFTestUtil.NL
-          + "Received: " + JSFTestUtil.NL + e.toString());
+    public void getFactoriesISETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        // release the factory instances allocated in the getFactoryTest
+        PrintWriter pw = response.getWriter();
+        try {
+            FactoryFinder.releaseFactories();
+            FactoryFinder.getFactory(FactoryFinder.APPLICATION_FACTORY);
+            pw.println(
+                "Test FAILED" + JSFTestUtil.NL + "Expected an "
+                    + "IllegalStateException to be thrown, no Exception thrown "
+                    + "at all!."
+            );
+        }
+        catch (IllegalStateException ise) {
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        catch (Exception e) {
+            pw.println(
+                "Test FAILED" + JSFTestUtil.NL + "Unexpected Exception thrown!"
+                    + JSFTestUtil.NL + "Expected: IllegalStateException" + JSFTestUtil.NL
+                    + "Received: " + JSFTestUtil.NL + e.toString()
+            );
+        }
     }
-  }
 
 }

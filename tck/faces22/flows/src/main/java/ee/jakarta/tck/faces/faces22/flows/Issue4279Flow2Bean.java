@@ -42,4 +42,5 @@ public class Issue4279Flow2Bean implements Serializable {
 
         return "returnFromFlow2";
     }
+
 }

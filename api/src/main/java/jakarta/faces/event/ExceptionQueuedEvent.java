@@ -20,12 +20,10 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * The system event facility will create an instance of this class whenever
- * {@link jakarta.faces.application.Application#publishEvent} is called with <code>ExceptionQueuedEvent.class</code> as
- * <code>systemEventClass</code> argument. In this case, an instance of {@link ExceptionQueuedEventContext} must be
- * passed as the <code>source</code> argument. The specification for <code>publishEvent()</code>, requires the
- * instantiation of the <code>systemEventClass</code> argument, passing the <code>source</code> argument to the
- * constructor.
+ * The system event facility will create an instance of this class whenever {@link jakarta.faces.application.Application#publishEvent} is called with
+ * <code>ExceptionQueuedEvent.class</code> as <code>systemEventClass</code> argument. In this case, an instance of {@link ExceptionQueuedEventContext} must be
+ * passed as the <code>source</code> argument. The specification for <code>publishEvent()</code>, requires the instantiation of the
+ * <code>systemEventClass</code> argument, passing the <code>source</code> argument to the constructor.
  * </p>
  *
  * @since 2.0
@@ -36,12 +34,10 @@ public class ExceptionQueuedEvent extends SystemEvent {
 
     /**
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>ExceptionQueuedEvent</code> that indicates the argument
-     * <code>ExceptionQueuedEventContext</code> occurred.
+     * Instantiate a new <code>ExceptionQueuedEvent</code> that indicates the argument <code>ExceptionQueuedEventContext</code> occurred.
      * </p>
      *
-     * @param eventContext the <code>ExceptionQueuedEventContext</code> that contextualizes this
-     * <code>ExceptionQueuedEvent</code>.
+     * @param eventContext the <code>ExceptionQueuedEventContext</code> that contextualizes this <code>ExceptionQueuedEvent</code>.
      *
      * @since 2.0
      */
@@ -52,13 +48,11 @@ public class ExceptionQueuedEvent extends SystemEvent {
 
     /**
      * <p class="changed_added_2_3">
-     * Instantiate a new <code>ExceptionQueuedEvent</code> that indicates the argument
-     * <code>ExceptionQueuedEventContext</code> occurred.
+     * Instantiate a new <code>ExceptionQueuedEvent</code> that indicates the argument <code>ExceptionQueuedEventContext</code> occurred.
      * </p>
      *
      * @param facesContext the Faces context.
-     * @param eventContext the <code>ExceptionQueuedEventContext</code> that contextualizes this
-     * <code>ExceptionQueuedEvent</code>.
+     * @param eventContext the <code>ExceptionQueuedEventContext</code> that contextualizes this <code>ExceptionQueuedEvent</code>.
      *
      * @since 2.0
      */

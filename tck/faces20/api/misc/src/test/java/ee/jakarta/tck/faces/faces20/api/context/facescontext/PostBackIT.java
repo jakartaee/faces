@@ -50,4 +50,5 @@ class PostBackIT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
         assertEquals("PASSED", page.findElement(By.id("form:result")).getText(), "form submit must be a postback");
     }
+
 }

@@ -15,8 +15,6 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlinputfile;
 
-import ee.jakarta.tck.faces.faces20.api.component.uiinput.UIInputTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlInputFile;
 import jakarta.servlet.ServletConfig;
@@ -24,18 +22,21 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uiinput.UIInputTestServlet;
+
 @MultipartConfig
 @WebServlet("/HtmlInputFileTestServlet")
 public final class HtmlInputFileTestServlet extends UIInputTestServlet {
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.File");
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.File");
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlInputFile();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlInputFile();
+    }
+
 }

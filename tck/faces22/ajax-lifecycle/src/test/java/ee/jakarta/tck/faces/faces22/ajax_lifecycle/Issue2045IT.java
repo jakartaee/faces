@@ -29,27 +29,28 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2045IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2045
-   */
-  @Test
-  void commandLinkNavigatesBetweenPages() throws Exception {
+     */
+    @Test
+    void commandLinkNavigatesBetweenPages() throws Exception {
         WebPage page = getPage("issue2045.xhtml");
 
         assertTrue(page.containsText("PAGE 1 BEGIN"));
         assertTrue(page.containsText("PAGE 1 END"));
 
-        WebElement anchor =  page.findElement(By.id("commandLink"));
+        WebElement anchor = page.findElement(By.id("commandLink"));
         page.guardAjax(anchor::click);
 
         assertTrue(page.containsText("PAGE 2 BEGIN"));
         assertTrue(page.containsText("PAGE 2 END"));
 
-        anchor =  page.findElement(By.id("commandLink"));
+        anchor = page.findElement(By.id("commandLink"));
         page.guardAjax(anchor::click);
 
         assertTrue(page.containsText("PAGE 1 BEGIN"));
         assertTrue(page.containsText("PAGE 1 END"));
     }
+
 }

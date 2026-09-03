@@ -29,9 +29,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3245IT extends BaseITNG {
 
     /**
-     * A validator added programmatically to an input component must survive in the component
-     * state across postbacks: once added it fires its required message on every subsequent
-     * submit, not just the first.
+     * A validator added programmatically to an input component must survive in the component state across postbacks: once added it fires its required message
+     * on every subsequent submit, not just the first.
      *
      * @see UIInput#addValidator(jakarta.faces.validator.Validator)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3245
@@ -48,4 +47,5 @@ class Issue3245IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
         assertTrue(page.containsText("Validation Error: Value is required."));
     }
+
 }

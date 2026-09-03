@@ -17,17 +17,17 @@
 
 -->
 
-<faces-config version="3.0" 
-			  xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   			  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-        			https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
+<faces-config version="3.0"
+              xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                    https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
 
   <flow-definition id="flow-b">
     <flow-return id="taskFlowReturn1">
       <from-outcome>#{flow_b_Bean.returnValue}</from-outcome>
-    </flow-return>            
-    
+    </flow-return>
+
     <switch id="switchA">
       <case>
         <if>#{flow_b_Bean.switchA_Case01}</if>
@@ -43,7 +43,7 @@
       </case>
       <default-outcome>defaultPage</default-outcome>
     </switch>
-    
+
     <switch id="switchB">
       <case>
         <if>#{flow_b_Bean.switchB_Case01}</if>
@@ -59,7 +59,7 @@
       </case>
       <default-outcome>defaultPage</default-outcome>
     </switch>
-    
+
     <switch id="switchC">
       <case>
         <if>#{flow_b_Bean.switchC_Case01}</if>
@@ -76,5 +76,5 @@
       <default-outcome>#{flow_b_Bean.defaultOutcome}</default-outcome>
     </switch>
   </flow-definition>
-  
+
 </faces-config>

@@ -21,33 +21,34 @@ package ee.jakarta.tck.faces.faces20.appconfigresources.common.beans;
 
 import java.io.Serializable;
 
-@jakarta.inject.Named("Color") @jakarta.enterprise.context.SessionScoped
+@jakarta.inject.Named("Color")
+@jakarta.enterprise.context.SessionScoped
 public class ColorRedBean implements Serializable {
 
-  private static final long serialVersionUID = -2564031884483638087L;
+    private static final long serialVersionUID = -2564031884483638087L;
 
-  private String color;
+    private String color;
 
-  public ColorRedBean() {
-    this.initialSetup();
-  }
+    public ColorRedBean() {
+        this.initialSetup();
+    }
 
-  /**
-   * @return the color
-   */
-  public String getColor() {
-    return color;
-  }
+    /**
+     * @return the color
+     */
+    public String getColor() {
+        return color;
+    }
 
-  /**
-   * @param color
-   *          the color to set
-   */
-  public void setColor(String color) {
-    this.color = color;
-  }
+    /**
+     * @param color the color to set
+     */
+    public void setColor(String color) {
+        this.color = color;
+    }
 
-  private void initialSetup() {
-    color = "red";
-  }
+    private void initialSetup() {
+        color = "red";
+    }
+
 }

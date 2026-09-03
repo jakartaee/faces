@@ -28,8 +28,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class ViewHandlerUnitIT extends BaseITNG {
 
     /**
-     * When the current request came in through a prefix mapping, {@code ViewHandler.getActionURL} must prepend the
-     * mapping prefix to the view id.
+     * When the current request came in through a prefix mapping, {@code ViewHandler.getActionURL} must prepend the mapping prefix to the view id.
      *
      * @see ViewHandler#getActionURL(jakarta.faces.context.FacesContext, String)
      */
@@ -37,13 +36,15 @@ class ViewHandlerUnitIT extends BaseITNG {
     void testGetActionURLPrefixMapping() {
         WebPage page = getPage("faces/viewHandlerActionUrl.xhtml");
         String actionUrl = page.findElement(By.id("form:actionUrl")).getText();
-        assertTrue(actionUrl.endsWith("/faces/foo.xhtml"),
-                "Prefix mapping must prepend the mapping prefix; got " + actionUrl);
+        assertTrue(
+            actionUrl.endsWith("/faces/foo.xhtml"),
+            "Prefix mapping must prepend the mapping prefix; got " + actionUrl
+        );
     }
 
     /**
-     * When the current request came in through an extension mapping, {@code ViewHandler.getActionURL} must replace the
-     * view id extension with the mapping extension.
+     * When the current request came in through an extension mapping, {@code ViewHandler.getActionURL} must replace the view id extension with the mapping
+     * extension.
      *
      * @see ViewHandler#getActionURL(jakarta.faces.context.FacesContext, String)
      */
@@ -51,7 +52,10 @@ class ViewHandlerUnitIT extends BaseITNG {
     void testGetActionURLExtensionMapping() {
         WebPage page = getPage("viewHandlerActionUrl.jsf");
         String actionUrl = page.findElement(By.id("form:actionUrl")).getText();
-        assertTrue(actionUrl.endsWith("/foo.jsf"),
-                "Extension mapping must replace the view id extension; got " + actionUrl);
+        assertTrue(
+            actionUrl.endsWith("/foo.jsf"),
+            "Extension mapping must replace the view id extension; got " + actionUrl
+        );
     }
+
 }

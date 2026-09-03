@@ -67,4 +67,5 @@ class BeanValidatorIT extends BaseITNG {
     void validatorPartialStateTest() {
         runServletTest("validatorPartialStateTest");
     }
+
 }

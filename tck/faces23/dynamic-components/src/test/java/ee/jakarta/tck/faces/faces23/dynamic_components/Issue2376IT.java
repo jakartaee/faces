@@ -25,16 +25,15 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A child inserted at an explicit index must land in between the pre-existing static children
- * instead of being appended, both on the initial render and after a postback.
+ * A child inserted at an explicit index must land in between the pre-existing static children instead of being appended, both on the initial render and after a
+ * postback.
  */
 public class Issue2376IT extends BaseITNG {
 
     private static final String EXPECTED_ORDER = "Static Text Dynamic Text Static Text";
 
     /**
-     * The dynamic child added at index 1 renders in between both static children, and the index is
-     * honored again after a postback.
+     * The dynamic child added at index 1 renders in between both static children, and the index is honored again after a postback.
      *
      * @see jakarta.faces.component.UIComponent#getChildren()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2376
@@ -47,4 +46,5 @@ public class Issue2376IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:button"))::click);
         assertEquals(EXPECTED_ORDER, page.findElement(By.id("form:children")).getText(), "after postback");
     }
+
 }

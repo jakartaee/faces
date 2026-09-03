@@ -37,8 +37,8 @@ class SharedUtils {
 
             if (methodExpressionString != null) {
                 return (Class<T>) context.getApplication().getExpressionFactory()
-                        .createMethodExpression(context.getELContext(), methodExpressionString, Object.class, new Class<?>[0])
-                        .getMethodInfo(context.getELContext()).getReturnType();
+                    .createMethodExpression(context.getELContext(), methodExpressionString, Object.class, new Class<?>[0])
+                    .getMethodInfo(context.getELContext()).getReturnType();
             }
         }
 
@@ -56,4 +56,5 @@ class SharedUtils {
         parts[parts.length - 1] = "get" + Character.toUpperCase(lastPart.charAt(0)) + lastPart.substring(1, lastPart.length() - 1) + "()}";
         return String.join(".", parts);
     }
+
 }

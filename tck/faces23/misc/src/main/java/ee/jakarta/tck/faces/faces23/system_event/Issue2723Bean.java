@@ -31,4 +31,5 @@ public class Issue2723Bean {
     public int getCount() {
         return count;
     }
+
 }

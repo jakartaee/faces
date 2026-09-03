@@ -28,6 +28,14 @@ class MethodExpressionValueChangeListenerIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void mevChangeListenerCtorTest() { runServletTest("mevChangeListenerCtorTest"); }
-    @Test void mevChangeListenerProcessValueChgNPETest() { runServletTest("mevChangeListenerProcessValueChgNPETest"); }
+    @Test
+    void mevChangeListenerCtorTest() {
+        runServletTest("mevChangeListenerCtorTest");
+    }
+
+    @Test
+    void mevChangeListenerProcessValueChgNPETest() {
+        runServletTest("mevChangeListenerProcessValueChgNPETest");
+    }
+
 }

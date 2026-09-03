@@ -29,10 +29,9 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue4128IT extends BaseITNG {
 
     /**
-     * A command button bound into a dataTable via component binding must have its action invoked
-     * exactly once per click. A Facelets-refresh regression recreated the bound subtree during the
-     * postback build instead of reusing it, registering the action listener twice so it fired twice
-     * per click. Each click must advance the counter by exactly one.
+     * A command button bound into a dataTable via component binding must have its action invoked exactly once per click. A Facelets-refresh regression
+     * recreated the bound subtree during the postback build instead of reusing it, registering the action listener twice so it fired twice per click. Each
+     * click must advance the counter by exactly one.
      *
      * @see HtmlDataTable
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4128
@@ -51,4 +50,5 @@ class Issue4128IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:table:add"))::click);
         assertEquals("3", page.findElement(By.id("form:count")).getText());
     }
+
 }

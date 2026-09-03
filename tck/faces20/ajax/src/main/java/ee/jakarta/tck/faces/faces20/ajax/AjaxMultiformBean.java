@@ -30,11 +30,11 @@ public class AjaxMultiformBean implements Serializable {
     private int count;
 
     /**
-     * Deliberately counts up on every single read, so that every rendered occurrence of it is
-     * unique. This is what makes it observable which occurrences an ajax response has re-rendered
-     * and which ones it has left alone.
+     * Deliberately counts up on every single read, so that every rendered occurrence of it is unique. This is what makes it observable which occurrences an
+     * ajax response has re-rendered and which ones it has left alone.
      */
     public int getCount() {
         return count++;
     }
+
 }

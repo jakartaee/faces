@@ -29,15 +29,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that clearing a ui:repeat input field to empty submits an empty (null-or-empty) value into the
- * backing list, so the bean reports null-or-empty = true after the non-ajax submit.
+ * Verifies that clearing a ui:repeat input field to empty submits an empty (null-or-empty) value into the backing list, so the bean reports null-or-empty =
+ * true after the non-ajax submit.
  */
 class Issue2721IT extends BaseITNG {
 
     /**
-     * Loads a view with a single-element ui:repeat bound to an h:inputText pre-populated with "myString",
-     * confirms the bean initially reports null-or-empty = false, clears the input, submits, and confirms the
-     * empty value reached the backing list (null-or-empty = true).
+     * Loads a view with a single-element ui:repeat bound to an h:inputText pre-populated with "myString", confirms the bean initially reports null-or-empty =
+     * false, clears the input, submits, and confirms the empty value reached the backing list (null-or-empty = true).
      *
      * @see UIData
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2721
@@ -45,17 +44,22 @@ class Issue2721IT extends BaseITNG {
     @Test
     void testIssue2721() throws Exception {
         WebPage page = getPage("issue2721.xhtml");
-        assertTrue(page.findElement(By.id("repeat:0:input1")).getAttribute("value").contains("myString"),
-                "Input is pre-populated with myString");
+        assertTrue(
+            page.findElement(By.id("repeat:0:input1")).getAttribute("value").contains("myString"),
+            "Input is pre-populated with myString"
+        );
         assertTrue(page.containsText("isnull Or Empty ? false"), "Backing value is initially neither null nor empty");
 
         WebElement input = page.findElement(By.id("repeat:0:input1"));
         input.clear();
-        assertFalse(page.findElement(By.id("repeat:0:input1")).getAttribute("value").contains("myString"),
-                "Input value is cleared");
+        assertFalse(
+            page.findElement(By.id("repeat:0:input1")).getAttribute("value").contains("myString"),
+            "Input value is cleared"
+        );
 
         WebElement submit = page.findElement(By.id("submit"));
         page.guardHttp(submit::click);
         assertTrue(page.containsText("isnull Or Empty ? true"), "Cleared value submits null or empty into the backing list");
     }
+
 }

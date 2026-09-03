@@ -28,8 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Spec1071IT extends BaseITNG {
 
     /**
-     * A custom {@link FlashFactory} registered via {@code faces-config.xml} must be used, so the
-     * runtime hands out the wrapping custom {@link jakarta.faces.context.Flash} implementation.
+     * A custom {@link FlashFactory} registered via {@code faces-config.xml} must be used, so the runtime hands out the wrapping custom
+     * {@link jakarta.faces.context.Flash} implementation.
      *
      * @see FlashFactory#getFlash
      * @see https://github.com/jakartaee/faces/issues/1071
@@ -38,7 +38,10 @@ class Spec1071IT extends BaseITNG {
     void customFlashFactoryIsUsed() {
         WebPage page = getPage("spec1071.xhtml");
         String flashClassName = page.findElement(By.id("form:flashClassName")).getText();
-        assertTrue(flashClassName.endsWith("Spec1071CustomFlash"),
-                "Expected custom flash class, but was: " + flashClassName);
+        assertTrue(
+            flashClassName.endsWith("Spec1071CustomFlash"),
+            "Expected custom flash class, but was: " + flashClassName
+        );
     }
+
 }

@@ -32,7 +32,8 @@ public class Issue4734 implements Serializable {
 
     @PostConstruct
     public void init() {
-        entity = new Issue4734Entity(); // WARNING: unnatural approach, you'd expect that the converter would be used on f:viewParam, but it is part of the actual issue.
+        entity = new Issue4734Entity(); // WARNING: unnatural approach, you'd expect that the converter would be used on f:viewParam, but it is part of the
+                                        // actual issue.
     }
 
     public Issue4734Entity getEntity() {
@@ -42,4 +43,5 @@ public class Issue4734 implements Serializable {
     public void setEntity(Issue4734Entity entity) {
         this.entity = entity;
     }
+
 }

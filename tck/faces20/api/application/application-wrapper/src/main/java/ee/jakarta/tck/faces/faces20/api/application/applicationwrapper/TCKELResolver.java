@@ -22,28 +22,35 @@ import jakarta.el.ELResolver;
 
 public class TCKELResolver extends ELResolver {
 
-  public Object getValue(ELContext elContext, Object object, Object object1) {
-    return null;
-  }
+    public Object getValue(ELContext elContext, Object object, Object object1) {
+        return null;
+    }
 
-  public Class getType(ELContext elContext, Object object, Object object1) {
-    return null;
-  }
+    public Class getType(ELContext elContext, Object object, Object object1) {
+        return null;
+    }
 
-  public void setValue(ELContext elContext, Object object, Object object1,
-      Object object2) {
-  }
+    public void setValue(
+        ELContext elContext, Object object, Object object1,
+        Object object2
+    )
+    {
+    }
 
-  public boolean isReadOnly(ELContext elContext, Object object,
-      Object object1) {
-    return false;
-  }
+    public boolean isReadOnly(
+        ELContext elContext, Object object,
+        Object object1
+    )
+    {
+        return false;
+    }
 
-  public Iterator getFeatureDescriptors(ELContext elContext, Object object) {
-    return null;
-  }
+    public Iterator getFeatureDescriptors(ELContext elContext, Object object) {
+        return null;
+    }
 
-  public Class getCommonPropertyType(ELContext elContext, Object object) {
-    return null;
-  }
+    public Class getCommonPropertyType(ELContext elContext, Object object) {
+        return null;
+    }
+
 }

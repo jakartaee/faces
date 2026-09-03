@@ -76,7 +76,7 @@ public final class TestServlet extends HttpServlet {
      * <p>
      * Initializes this {@link jakarta.servlet.Servlet}.
      * </p>
-     * 
+     *
      * @param config this Servlet's configuration
      * @throws ServletException if an error occurs
      */
@@ -92,11 +92,13 @@ public final class TestServlet extends HttpServlet {
 
         try {
             uiComponentGetChildCountTest(request, response);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             response.getWriter().write("Error executing test: " + "uiComponentGetChildCountTest\n\n");
-            
+
             e.printStackTrace(response.getWriter());
-        } finally {
+        }
+        finally {
             if (FacesContext.getCurrentInstance() != null) {
                 facesContext.release();
             }
@@ -106,7 +108,7 @@ public final class TestServlet extends HttpServlet {
 
     // ------------------------------------------- Test Methods ----
 
-    //UIComponent.getChildCount()
+    // UIComponent.getChildCount()
     public void uiComponentGetChildCountTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PrintWriter out = response.getWriter();
         UIComponent component = createComponent();
@@ -168,7 +170,7 @@ public final class TestServlet extends HttpServlet {
      * <p>
      * Creates a new {@link UIComponent} instance.
      * </p>
-     * 
+     *
      * @return a new {@link UIComponent} instance.
      */
     protected UIComponentBase createComponent() {
@@ -189,7 +191,8 @@ public final class TestServlet extends HttpServlet {
             // Set up references to the application and facesContext objects
             application = facesContext.getApplication();
             facesContext.setViewRoot(createViewRoot());
-        } else {
+        }
+        else {
             throw new IllegalStateException("Unable to obtain FacesContextFactory instance.");
         }
     }
@@ -201,4 +204,5 @@ public final class TestServlet extends HttpServlet {
     protected UIViewRoot createViewRoot() {
         return createViewRoot("foo.xhtml");
     }
+
 }

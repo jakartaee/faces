@@ -24,8 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An outbound parameter passed by a flow-call node must arrive as the inbound parameter of a
- * called flow whose start node is a method-call node, and be readable from the flow scope.
+ * An outbound parameter passed by a flow-call node must arrive as the inbound parameter of a called flow whose start node is a method-call node, and be
+ * readable from the flow scope.
  */
 class Issue3480IT extends BaseITNG {
 
@@ -38,7 +38,10 @@ class Issue3480IT extends BaseITNG {
         WebPage page = getPage("index.xhtml");
         page.guardHttp(() -> page.findElement(By.id("go_to_issue3480_start_from_flow_call_node")).click());
         page.guardHttp(() -> page.findElement(By.id("navigate_to_method_call_node")).click());
-        assertTrue(page.containsText("The inbound parameter should be ExpectedString"),
-                "inbound parameter delivered to the method-call started child flow");
+        assertTrue(
+            page.containsText("The inbound parameter should be ExpectedString"),
+            "inbound parameter delivered to the method-call started child flow"
+        );
     }
+
 }

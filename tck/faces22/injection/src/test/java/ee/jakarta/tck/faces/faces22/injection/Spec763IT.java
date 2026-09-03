@@ -55,14 +55,11 @@ class Spec763IT extends BaseITNG {
     };
 
     /**
-     * Verifies that resource injection (@Resource) and @PostConstruct are honored on every
-     * faces-config-declared artifact type eligible for injection per the spec: the application and
-     * lifecycle artifacts (ApplicationFactory, ActionListener, NavigationHandler, StateManager,
-     * ResourceHandler, SystemEventListener, PhaseListener) and the factories (FacesContextFactory,
-     * ExternalContextFactory, PartialViewContextFactory, ExceptionHandlerFactory, VisitContextFactory,
-     * ClientWindowFactory, LifecycleFactory, RenderKitFactory, ViewDeclarationLanguageFactory,
-     * FaceletCacheFactory, TagHandlerDelegateFactory). ViewHandler and ELResolver are also covered
-     * pending jakartaee/faces#2180 (they are injectable in the impl but missing from the spec table).
+     * Verifies that resource injection (@Resource) and @PostConstruct are honored on every faces-config-declared artifact type eligible for injection per the
+     * spec: the application and lifecycle artifacts (ApplicationFactory, ActionListener, NavigationHandler, StateManager, ResourceHandler, SystemEventListener,
+     * PhaseListener) and the factories (FacesContextFactory, ExternalContextFactory, PartialViewContextFactory, ExceptionHandlerFactory, VisitContextFactory,
+     * ClientWindowFactory, LifecycleFactory, RenderKitFactory, ViewDeclarationLanguageFactory, FaceletCacheFactory, TagHandlerDelegateFactory). ViewHandler and
+     * ELResolver are also covered pending jakartaee/faces#2180 (they are injectable in the impl but missing from the spec table).
      *
      * @see jakarta.faces.application.ApplicationFactory
      * @see https://github.com/jakartaee/faces/issues/763
@@ -71,8 +68,14 @@ class Spec763IT extends BaseITNG {
     void testInjectArtifacts() throws Exception {
         WebPage page = getPage("spec763.xhtml");
 
-        assertAll(Arrays.stream(ARTIFACTS).map(artifact -> (Executable) () ->
-                assertTrue(page.containsText(artifact + ": " + INJECTED),
-                        "Expected injected message for " + artifact)));
+        assertAll(
+            Arrays.stream(ARTIFACTS).map(
+                artifact -> (Executable) () -> assertTrue(
+                    page.containsText(artifact + ": " + INJECTED),
+                    "Expected injected message for " + artifact
+                )
+            )
+        );
     }
+
 }

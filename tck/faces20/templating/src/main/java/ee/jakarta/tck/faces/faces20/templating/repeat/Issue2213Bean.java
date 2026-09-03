@@ -19,8 +19,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 /**
- * Supplies the {@code ui:repeat} offset as a deferred value rather than a literal, so that the
- * attribute is resolved through a ValueExpression.
+ * Supplies the {@code ui:repeat} offset as a deferred value rather than a literal, so that the attribute is resolved through a ValueExpression.
  */
 @Named
 @RequestScoped
@@ -35,4 +34,5 @@ public class Issue2213Bean {
     public void setOffset(int offset) {
         this.offset = offset;
     }
+
 }

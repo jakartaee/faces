@@ -47,4 +47,5 @@ class Issue3062IT extends BaseITNG {
         WebPage page = getPage("issue3062.xhtml");
         assertTrue(page.containsText("INPUT1 HAS NO VALUE!"));
     }
+
 }

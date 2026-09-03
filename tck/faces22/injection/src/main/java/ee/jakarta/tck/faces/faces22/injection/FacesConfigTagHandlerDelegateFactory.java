@@ -65,4 +65,5 @@ public class FacesConfigTagHandlerDelegateFactory extends TagHandlerDelegateFact
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

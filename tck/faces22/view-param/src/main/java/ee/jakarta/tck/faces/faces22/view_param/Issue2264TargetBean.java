@@ -36,4 +36,5 @@ public class Issue2264TargetBean implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
+
 }

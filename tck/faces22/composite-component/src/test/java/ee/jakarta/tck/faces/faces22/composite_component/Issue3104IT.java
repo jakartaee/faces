@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3104IT extends BaseITNG {
 
     /**
-     * A listener MethodExpression forwarded through two levels of composite component into f:ajax must not
-     * fail silently: when the listener throws, the client-side error handler registered with
-     * faces.ajax.addOnError is invoked and receives the error name.
+     * A listener MethodExpression forwarded through two levels of composite component into f:ajax must not fail silently: when the listener throws, the
+     * client-side error handler registered with faces.ajax.addOnError is invoked and receives the error name.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3104
      */
@@ -41,7 +40,10 @@ class Issue3104IT extends BaseITNG {
         page.executeScript("document.getElementById('form:nesting0:nesting1:inputText').blur();");
         page.waitForCondition(driver -> !driver.findElement(By.id("errorName")).getText().isEmpty());
 
-        assertFalse(page.findElement(By.id("errorName")).getText().isEmpty(),
-                "The failing ajax listener must surface an error to the registered onerror handler.");
+        assertFalse(
+            page.findElement(By.id("errorName")).getText().isEmpty(),
+            "The failing ajax listener must surface an error to the registered onerror handler."
+        );
     }
+
 }

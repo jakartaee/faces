@@ -39,4 +39,5 @@ public class Spec599Bean {
 
         return "jakarta.faces.Text".equals(inputText.getRendererType()) ? "SUCCESS" : "FAILED";
     }
+
 }

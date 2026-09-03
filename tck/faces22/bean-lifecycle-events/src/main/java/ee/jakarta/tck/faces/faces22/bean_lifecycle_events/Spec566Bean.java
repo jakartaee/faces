@@ -41,4 +41,5 @@ public class Spec566Bean {
     public void setInput2(Integer input2) {
         this.input2 = input2;
     }
+
 }

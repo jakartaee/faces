@@ -19,7 +19,7 @@
 
 <faces-config
     xmlns="https://jakarta.ee/xml/ns/jakartaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee ../xsd/web-facesconfig_5_0.xsd"
     version="5.0"
 >
@@ -142,12 +142,12 @@
        their user agents.</p>
 
        <p>Compliant implementations must only generate JavaScript in the
-       <a href="jakarta.faces.commandjakarta.faces.Link.html"><code>jakarta.faces.Link</code></a> and 
+       <a href="jakarta.faces.commandjakarta.faces.Link.html"><code>jakarta.faces.Link</code></a> and
        <a href="jakarta.faces.commandjakarta.faces.Button.html"><code>jakarta.faces.Button</code></a>
        Renderers for the <code>jakarta.faces.Command</code></a> component.
        The generation of JavaScript in any other Renderer in the
        HTML_BASIC renderkit is not permitted.  However, any JavaScript
-       code provided by the user as the value of an <code>ignored-by-renderer</code> 
+       code provided by the user as the value of an <code>ignored-by-renderer</code>
        attribute, such as "onmouseover", is excluded from this restriction.</p>
 
      </ul>
@@ -160,7 +160,7 @@
        <p>Components that implement the <code>jakarta.faces.component.behavior.ClientBehaviorHolder</code>
        interface are eligable to have <code>ClientBehavior</code> instances attached to them. The standard
        renderers are responsible for inserting the scripts produced by client behaviors into the component's
-       rendered content.  Components may obtain script from multiple sources.  Event handler scripts may be specified 
+       rendered content.  Components may obtain script from multiple sources.  Event handler scripts may be specified
        by page authors, scripts may be produced by client behaviors and renderers may produce ther own scripts.
        When multiple scripts are present, the scripts must be chained together in this order:
        </p>
@@ -173,8 +173,8 @@
        If any of the scripts in the chain returns <code>false</code>, subsequent script must not be executed.
        The specification provides a utility function <code>faces.util.chain</code> to handle this capability.  If there
        are <code>UIParameter</code> children the parameter names and values must be passed into the client behavior
-       getScript method via the <code>ClientBehaviorContext</code>.</p> 
-         
+       getScript method via the <code>ClientBehaviorContext</code>.</p>
+
      </ul>
      </div>
 
@@ -507,7 +507,7 @@
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -880,12 +880,12 @@
       <p><code>var a=function(){#USER_FUNCTION#};
       var b=function(){#FACES_FUNCTION#};
       return (a()==false) ? false : b();</code></p>
-      
+
       <p>where #USER_FUNCTION# is the user's JavaScript and
       #FACES_FUNCTION# is the JavaScript rendered by Jakarta Faces.  The choice
       function should operate such that if the user's JavaScript returns
       true, then the rendered JavaScript will also execute.</p>
- 
+
       <p>If the "styleClass" attribute is specified, render its value as
       the value of the "class" attribute.  Render any non-UIParameter
       output children as normal inside of the "a" element.  These will
@@ -1372,15 +1372,15 @@
                     <p>
                         Render a JavaScript function that invokes <code>faces.ajax.request()</code> function.
                     </p>
-    
+
                     <h3>Encode Behavior</h3>
                     <p>
                         Render an HTML <code>script</code> element. If the value of the "name" attribute does not contain a
                         period <code>.</code> indicating a namespaced function name, then render JavaScript <code>var</code>
-                        keyword, followed by a space character. Render the value of the "name" attribute, followed by 
+                        keyword, followed by a space character. Render the value of the "name" attribute, followed by
                         JavaScript assignment operator. Render JavaScript function which invokes <code>faces.ajax.request()</code>
                         with data provided by <code>execute</code>, <code>render</code>, <code>onbegin</code>,
-                        <code>oncomplete</code>, <code>onsuccess</code> and <code>onerror</code> arguments, if any. 
+                        <code>oncomplete</code>, <code>onsuccess</code> and <code>onerror</code> arguments, if any.
                     </p>
                     <p>
                         If the component being rendered has any <code>UIParameter</code> children, each one of them must be
@@ -1392,7 +1392,7 @@
                         encoded into <code>params</code> object of the <code>options</code> object of the <code>faces.ajax.request()</code>
                         function. This will override any property with the same key.
                     </p>
-    
+
                     <h3>Decode Behavior</h3>
                     <p>
                         Obtain the <code>Map</code> from the "requestParameterMap" property of the <code>ExternalContext</code>.
@@ -1400,7 +1400,7 @@
                         create a <code>jakarta.faces.event.ActionEvent</code> around the component, and pass it to the <code>queueEvent()</code> method of the component,
                         which must be an instance of <code>UICommand</code>.
                         </p>
-</div>                        
+</div>
                 ]]></description>
             <component-family>jakarta.faces.Command</component-family>
             <renderer-type>jakarta.faces.Script</renderer-type>
@@ -1430,7 +1430,7 @@
             that will participate in the "execute" portion of the Request Processing Lifecycle.
             If a literal is specified the identifiers must be space delimited.
             Any of the keywords "@this", "@form", "@all", "@none" may be specified in the identifier list.
-            If not specified, the default value of "@this" is assumed. 
+            If not specified, the default value of "@this" is assumed.
             For example, <code>@this clientIdOne clientIdTwo</code>.
         ]]></description>
                 <icon />
@@ -1537,11 +1537,11 @@
       "header" facet render a "tr" element.  For each
       <code>UIColumn</code> that actually has a "header" facet, render
       it inside of a "th" element.  Columns that don't have a "header"
-      facet cause an empty "th" element to be rendered.  Output the 
+      facet cause an empty "th" element to be rendered.  Output the
       value of the "headerClass" attribute of the <code>UIColumn</code>
       component, if present, as the value of the "class" attribute on
       the "th".  If the "headerClass" attribute of the <code>UIColumn</code>
-      component is not present, output the value of the "headerClass" 
+      component is not present, output the value of the "headerClass"
       attribute of the <code>UIData</code> component, if present, as
       the value of the "class" attribute on the "th".  Output "col" as
       the value of the "scope" attribute on the "th" element.
@@ -1563,7 +1563,7 @@
       element. </p>
 
       <p>If any of the child <code>UIColumn</code> components has a
-      "footer" facet render a "td" element.  For each 
+      "footer" facet render a "td" element.  For each
       <code>UIColumn</code> that actually has a "footer" facet, render
       it inside of a "td" element.  Columns that don't have a "footer"
       facet cause an empty "td" element to be rendered.  Output the
@@ -1576,10 +1576,10 @@
 
       <p>If the <code>UIData</code> component has a "footer" facet,
       encode its contents inside of "tr" and "td" elements, respectively.
-      Output the value of the "footerClass" attribute of the 
-      <code>UIData</code> component, if present, as the value of the 
-      "class" attribute on the "td".  Output the number of child 
-      <code>UIColumn</code> components of the <code>UIData</code> 
+      Output the value of the "footerClass" attribute of the
+      <code>UIData</code> component, if present, as the value of the
+      "class" attribute on the "td".  Output the number of child
+      <code>UIColumn</code> components of the <code>UIData</code>
       component as the value of the "colspan" attribute on the "td". </p>
 
       <p>Close out the "tfoot" element.</p>
@@ -2143,34 +2143,34 @@
       passing that String to the <code>encodeActionURL()</code> method
       on the <code>ExternalContext</code>.  The value of the acceptcharset
       attribute must be rendered as the value of "accept-charset".
-      If the "styleClass" attribute is specified, render its value as the 
+      If the "styleClass" attribute is specified, render its value as the
       value of the "class" attribute.  Render a "name"
       attribute with a value the same as the "id" attribute as described
       in "<a href="renderkit-summary.html#general_encoding">General Notes on
       Encoding</a>" regarding the "id" attribute for UIInput
       components.  <p class="changed_added_2_0">Obtain the <code>UIViewRoot view identifier</code> and
       use it to obtain an <code>action URL</code> by calling <code>ViewHandler.getActionURL</code>.
-      Use the <code>action URL</code> to obtain an <code>encoded action URL</code> by calling 
-      <code>ExternalContext.encodeActionURL</code>.  Obtain an 
+      Use the <code>action URL</code> to obtain an <code>encoded action URL</code> by calling
+      <code>ExternalContext.encodeActionURL</code>.  Obtain an
       <code>encoded partial action URL</code> by calling
       <code>ExternalContext.encodePartialActionURL</code> using <code>action URL</code> as the argument.
       Compare the result from <code>ExternalContext.encodePartialActionURL</code> with the
-      value from <code>ExternalContext.encodeActionURL()</code>.  If they are different, 
+      value from <code>ExternalContext.encodeActionURL()</code>.  If they are different,
       render a hidden field with the name <code>jakarta.faces.encodedURL</code> and the value
       of this hidden field as the value from <code>ExternalContext.encodePartialActionURL</code>.</p>
       Call <code>ViewHandler.writeState()</code>
-      before the the close of the "form" element. 
-      Render all the necessary hidden fields 
-      for all commandLink instances in the page just before the close of the "form" element.  
+      before the the close of the "form" element.
+      Render all the necessary hidden fields
+      for all commandLink instances in the page just before the close of the "form" element.
       <div class="changed_modified_2_0">
-      Just before rendering the closing <code>&lt;/form&gt;</code> element tag, render 
+      Just before rendering the closing <code>&lt;/form&gt;</code> element tag, render
       any resources that have been targeted for this form:
       <ul>
       <li>Obtain a <code>UIViewRoot</code> instance.</li>
       <li>Obtain a <code>List</code> of component resources targeted for
       this form with a call to <code>UIViewRoot.getComponentResources()</code>
       with the <code>String "form"</code> as the argument.</li>
-      <li>Iterate over the returned <code>List</code> of <code>UIComponent</code> instances         
+      <li>Iterate over the returned <code>List</code> of <code>UIComponent</code> instances
       and call <code>encodeAll</code> on each <code>UIComponent</code> instance.
       </ul>
       </div>
@@ -2513,9 +2513,9 @@
 
   <ul>
 
-    <p>If the "name" attribute is present, execute algorithm 
-    <a href="jakarta.faces.Outputjakarta.faces.resource.Script.html#ResourceCommonGetResource">Common Algorithm for Obtaining A Resource to Render</a> 
-    to obtain a <code>Resource</code> instance.  
+    <p>If the "name" attribute is present, execute algorithm
+    <a href="jakarta.faces.Outputjakarta.faces.resource.Script.html#ResourceCommonGetResource">Common Algorithm for Obtaining A Resource to Render</a>
+    to obtain a <code>Resource</code> instance.
     Call <code>Resource.getRequestPath()</code> and output the result as the
     value of the "src" attribute on the rendered markup.</p>
 
@@ -2807,7 +2807,7 @@
                 <description>
         Flag indicating that this image is to be used as a server side
         image map.  Such an image must be enclosed within a hyperlink
-        ("a").  A value of false causes no attribute to be rendered, 
+        ("a").  A value of false causes no attribute to be rendered,
         while a value of true causes the attribute to be rendered as
         ismap="ismap".
                 </description>
@@ -2872,7 +2872,7 @@
             </attribute>
 
             <attribute>
-                <description><![CDATA[<div class="changed_added_2_0"><p>The 
+                <description><![CDATA[<div class="changed_added_2_0"><p>The
                 <em>resourceName</em> for this resource.</p></div>
                 <p class="changed_added_5_0">
                  The <em>resourceName</em> may carry a query string, introduced by a '?' character. It is not part of
@@ -3071,9 +3071,9 @@
         <renderer>
             <description><![CDATA[<p class="changed_added_2_2"><span>Renders</span>
             an HTML "input" element of "type" "file". The standard HTML_BASIC
-            RenderKit specifies behavior that assumes Servlet 3.0 or later.  
-            Portlet implementations must override this implementation with a 
-            semantically equivalent one that functions under the constraints 
+            RenderKit specifies behavior that assumes Servlet 3.0 or later.
+            Portlet implementations must override this implementation with a
+            semantically equivalent one that functions under the constraints
             of the Portlet specification.</p>
 
       <div class="changed_added_2_2">
@@ -3098,7 +3098,7 @@
       exception is thrown during the iteration, log the exception and
       continue.</p>
 
-      <p>The standard implementation must override the 
+      <p>The standard implementation must override the
       <code>getConvertedValue()</code> so that it simply returns the
       <code>submittedValue</code> argument.</p>
 
@@ -3432,7 +3432,7 @@
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -3521,7 +3521,7 @@
         of the attribute. This indicates that the  browser should
         disable its autocomplete feature for this component.  This is
         useful for components that perform autocompletion and do not
-        want the browser interfering.  If this attribute is not set or the value 
+        want the browser interfering.  If this attribute is not set or the value
         is "on", render nothing.
                 </description>
                 <display-name>Enable or disable browser autocompletion.</display-name>
@@ -3909,7 +3909,7 @@
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -3998,7 +3998,7 @@
         of the attribute. This indicates that the  browser should
         disable its autocomplete feature for this component.  This is
         useful for components that perform autocompletion and do not
-        want the browser interfering.  If this attribute is not set or the value 
+        want the browser interfering.  If this attribute is not set or the value
         is "on", render nothing.
                 </description>
                 <display-name>Enable or disable browser autocompletion.</display-name>
@@ -4387,7 +4387,7 @@
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -4476,7 +4476,7 @@
         of the attribute. This indicates that the  browser should
         disable its autocomplete feature for this component.  This is
         useful for components that perform autocompletion and do not
-        want the browser interfering.  If this attribute is not set or the value 
+        want the browser interfering.  If this attribute is not set or the value
         is "on", render nothing.
                 </description>
                 <display-name>Enable or disable browser autocompletion.</display-name>
@@ -4837,7 +4837,7 @@
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -4948,7 +4948,7 @@
         <code>UIMessage</code> component.  If not present, keep the
         empty string as the value, respectively.  Obtain the first
         <code>FacesMessage</code> to render from the component, using
-        the "for" property of the <code>UIMessage</code>.  
+        the "for" property of the <code>UIMessage</code>.
         <p class="changed_added_2_3">If the "for" property is set and
         not empty, the <code>SearchExpressionHandler</code> must be used to
         resolve the associated component.</p>  This will be
@@ -4989,9 +4989,9 @@
       "lang" attributes as well, if they are present.  <span class="changed_modified_2_2">If the
       <code>UIMessage</code> has a "tooltip" attribute with the value of
       "true",  and we haven't already written out the "span" and the "title" attribute for
-      the "span", output the "detail" as the value of the "title" attribute on the 
-      "span".  If we haven't already written out a "title" attribute, and there is 
-      no detail, output the "summary" as the value of the "title" attribute.</span>  
+      the "span", output the "detail" as the value of the "title" attribute on the
+      "span".  If we haven't already written out a "title" attribute, and there is
+      no detail, output the "summary" as the value of the "title" attribute.</span>
       Close out the span if necessary.</p>
 
       <p><span class="changed_added_5_0">If there are no messages to render
@@ -7227,7 +7227,7 @@ attributes on the "span".</p>
 cause an HTTP POST.</span></p>
 
 <div class="changed_added_2_0"><div class="changed_modified_2_1">
- 
+
       <p>Encode Behavior</p>
 
 <p>Render an HTML "input" element of type "button".  The value of the
@@ -7317,14 +7317,14 @@ this application, and passing the result through the
                <td>value of the <code>toFlowDocumentId</code> property
                of the navigation case</td>
             </tr>
-            
+
             <tr>
                <td>value of <code>FlowHandler.FLOW_ID_REQUEST_PARAM_NAME</code></td>
 
                <td>value of the <code>fromOutcome</code> property
                of the navigation case</td>
             </tr>
-            
+
           </table>
 
 
@@ -7353,7 +7353,7 @@ this application, and passing the result through the
   the <code>UIParameter</code> on the right hand side.  The name and the
   value must be URLEncoded.  Each <code>UIParameter</code> instance is
   separeted by an ampersand, as dictated in the URL spec.  <span class="changed_modified_5_0">The final
-  encoded result will be used to register a click event listener on the button via 
+  encoded result will be used to register a click event listener on the button via
   <code>Element.addEventListener</code>, which will execute <code>window.location.href = '&lt;encoded HREF value&gt;'</code>.</span>  If the
   developer has specified a custom onclick the window.location.href
   name/value pair will be appended at the end of the developer specified
@@ -7765,7 +7765,7 @@ this application, and passing the result through the
             Flag indicating that this element must never receive focus or
             be included in a subsequent submit.  A value of false causes
             no attribute to be rendered, while a value of true causes the
-            attribute to be rendered as disabled="disabled".            
+            attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -7920,13 +7920,13 @@ this application, and passing the result through the
         </renderer>
         <renderer>
             <description><![CDATA[Renders an HTML "table" element, conforming to the
-      rules in the HTML 401 specification.  Render the "caption" facet, 
-      if present, inside a "caption" element immediately below the "table" element.  
-      If the "captionClass" attribute is specified, render its value as the value 
+      rules in the HTML 401 specification.  Render the "caption" facet,
+      if present, inside a "caption" element immediately below the "table" element.
+      If the "captionClass" attribute is specified, render its value as the value
       of the "class" attribute on the "caption" element.  If the "captionStyle" attribute
       is specified, render its value as the value of the "style" attribute
-      on the "caption" element.  If the "styleClass" attribute is specified, render 
-      its value as the value of the "class" attribute.  Render the ignored-by-renderer 
+      on the "caption" element.  If the "styleClass" attribute is specified, render
+      its value as the value of the "class" attribute.  Render the ignored-by-renderer
       attributes in the table below.  Render the "header" facet, if present, inside of
       "thead", "tr", and "th" elements, nested in that order.  If the
       "headerClass" attribute is specifed, render its value as the value
@@ -7941,11 +7941,11 @@ this application, and passing the result through the
       the "columns" attribute, creating a new row each time a "columns"
       worth of children have been rendered.  For the start of each row,
       render a "tr" element.  Output the value of the "rowClasses" per
-      the attribute description below.  For each child, output a "td" 
+      the attribute description below.  For each child, output a "td"
       element, attaching the value of the "columnClasses" attribute per
       the attribute description below.  Recursively encode each child.
-      Close out the "td" element.  When done with the row, close out the 
-      "tr" element.  If a child has "rendered==false" it is not rendered, 
+      Close out the "td" element.  When done with the row, close out the
+      "tr" element.  If a child has "rendered==false" it is not rendered,
       and the column counter must not be incremented.]]></description>
             <component-family>jakarta.faces.Panel</component-family>
             <renderer-type>jakarta.faces.Grid</renderer-type>
@@ -8655,8 +8655,8 @@ this application, and passing the result through the
       <p>
       Render the clientId of the component as the value of the "name"
       attribute.  If the current value of the component is "true",
-      output the "checked" attribute (must be rendered as checked="checked").  
-      If the "styleClass" attribute is specified, render its value as the value 
+      output the "checked" attribute (must be rendered as checked="checked").
+      If the "styleClass" attribute is specified, render its value as the value
       of the "class" attribute.</p> </ul>]]></description>
             <component-family>jakarta.faces.SelectBoolean</component-family>
             <renderer-type>jakarta.faces.Checkbox</renderer-type>
@@ -8959,7 +8959,7 @@ this application, and passing the result through the
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -9069,7 +9069,7 @@ this application, and passing the result through the
       "disabled" as the value of the "disabled" attribute.  Close out
       the "input" element.  Render a "label" element.  Render the "for"
       attribute of the "label" element whose value is the corresponding
-      "input" element's "id" value.  
+      "input" element's "id" value.
       <span
       class="changed_added_2_0">If the current checkbox would be
       rendered as being checked, and there is a "selectedClass"
@@ -9083,20 +9083,20 @@ this application, and passing the result through the
       attribute to any existing "class" attribute value on the label
       element.  Otherwise, render the value of the "unselectedClass"
       attribute as the value of the "class" attribute on the label
-      element.</span>  <span class="changed_modified_2_0_rev_a">If the 
-      current checkbox would be rendered as being disabled, and there is a 
-      "disabledClass" attribute, append a space, followed by the value 
-      of the "disabledClass" attribute to any existing "class" attribute 
-      value on the label element.  Otherwise, render the value of the 
-      "disabledClass" attribute as the value of the "class" attribute on 
-      the label element.  If the current checkbox would be rendered as 
-      being enabled, and there is an "enabledClass" attribute, append a 
-      space, followed by the value of the "enabledClass" attribute to any 
-      existing "class" attribute value on the label element.  Otherwise, 
-      render the value of the "enabledClass" attribute as the value of 
-      the "class" attribute on the label element.</span> Close out the starting 
-      "label" element and render the label value from SelectItem.getLabel().  
-      Close out the "label" element.  As an exception to the general rules about 
+      element.</span>  <span class="changed_modified_2_0_rev_a">If the
+      current checkbox would be rendered as being disabled, and there is a
+      "disabledClass" attribute, append a space, followed by the value
+      of the "disabledClass" attribute to any existing "class" attribute
+      value on the label element.  Otherwise, render the value of the
+      "disabledClass" attribute as the value of the "class" attribute on
+      the label element.  If the current checkbox would be rendered as
+      being enabled, and there is an "enabledClass" attribute, append a
+      space, followed by the value of the "enabledClass" attribute to any
+      existing "class" attribute value on the label element.  Otherwise,
+      render the value of the "enabledClass" attribute as the value of
+      the "class" attribute on the label element.</span> Close out the starting
+      "label" element and render the label value from SelectItem.getLabel().
+      Close out the "label" element.  As an exception to the general rules about
       how to handle the "id" attribute, render it as an attribute on the outer "table"
       element, the value of which is the <code>clientId</code> of the
       component per the rules at the beginning of this specification.
@@ -9417,7 +9417,7 @@ this application, and passing the result through the
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -9608,7 +9608,7 @@ this application, and passing the result through the
       JSP or Facelet pages.</p>
 
       </div>
-      
+
 
       <ul>
 
@@ -10052,7 +10052,7 @@ this application, and passing the result through the
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -10519,7 +10519,7 @@ this application, and passing the result through the
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -10974,7 +10974,7 @@ this application, and passing the result through the
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -11424,7 +11424,7 @@ this application, and passing the result through the
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -11598,7 +11598,7 @@ this application, and passing the result through the
                         </ul>
                     </li>
                     <li>Render the input value from <code>SelectItem.getValue()</code>.</li>
-                    <li>Coerce the select item value to the type of the parent <code>UISelectOne</code> value using the Expression Language coercion rules before comparing the values. 
+                    <li>Coerce the select item value to the type of the parent <code>UISelectOne</code> value using the Expression Language coercion rules before comparing the values.
                         If the select item value is equal to the value of the parent <code>UISelectOne</code>, render an appropriate HTML boolean value indicating "checked" for the enclosing "input".</li>
                     <li>If the current <code>SelectItem.isDisabled()</code> returns true, render "disabled" as the value of the "disabled" attribute.</li>
                     <li>Close out the "input" element.</li>
@@ -11918,7 +11918,7 @@ this application, and passing the result through the
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -11993,7 +11993,7 @@ this application, and passing the result through the
           Flag indicating that this element must never receive focus or
           be included in a subsequent submit.  A value of false causes
           no attribute to be rendered, while a value of true causes the
-          attribute to be rendered as disabled="disabled".            
+          attribute to be rendered as disabled="disabled".
                 </description>
                 <display-name>Disabled Flag</display-name>
                 <icon />
@@ -12222,7 +12222,7 @@ Otherwise, get the facet whose name is "facetName".  If found call
             </renderer-extension>
         </renderer>
         <renderer>
-            <description><![CDATA[ 
+            <description><![CDATA[
 
             <p class="changed_modified_2_0"><span
             class="changed_modified_2_0_rev_a
@@ -12492,7 +12492,7 @@ from the argument event pass it to <a target="_"
 href="../../javadocs/jakarta/faces/component/UIViewRoot.html#addComponentResource(jakarta.faces.context.FacesContext,%20jakarta.faces.component.UIComponent,%20java.lang.String)"><code>UIViewRoot.addComponentResource()</code></a>, specifying
 the literal string "<code>head</code>" as the last argument.</p>
 
-<p>The stylsheet renderer must ensure that any stylesheets are included in the &lt;head&gt; of the document. 
+<p>The stylsheet renderer must ensure that any stylesheets are included in the &lt;head&gt; of the document.
 </p>
 
 </ul>
@@ -12683,7 +12683,7 @@ element:
       this "head" element with a call to <code>UIViewRoot.getComponentResources()</code>
       with the <code>String "head"</code> as the argument.</li>
       <li>Iterate over the returned <code>List</code> of <code>UIComponent</code> instances
-      and call <code>encodeAll</code> on each <code>UIComponent</code> instance. 
+      and call <code>encodeAll</code> on each <code>UIComponent</code> instance.
 
 <p>Any attributes declared on the element must be conveyed
 unmodified to the rendered output.</p>
@@ -13092,8 +13092,8 @@ unmodified to the rendered output.</p>
             </attribute>
             <attribute>
                 <description>
-                   Javascript code executed when the user agent removes 
-                   a document from a window or frame. 
+                   Javascript code executed when the user agent removes
+                   a document from a window or frame.
                 </description>
                 <display-name>Body Onunload Script</display-name>
                 <icon />
@@ -13111,7 +13111,7 @@ unmodified to the rendered output.</p>
 
         <renderer>
             <description><![CDATA[
-<div class="changed_added_2_3">                       
+<div class="changed_added_2_3">
     <p>
         Render a JavaScript function that invokes <code>faces.push.init()</code> function.
     </p>
@@ -13121,9 +13121,9 @@ unmodified to the rendered output.</p>
         Render an HTML <code>script</code> element with an "id" attribute.
         Render JavaScript function which invokes <code>faces.push.init()</code> function with data provided by
         <code>onopen</code>, <code>onmessage</code>, <code class="changed_added_4_0">onerror</code>, <code>onclose</code> and <code>connected</code>
-        arguments, if any. 
+        arguments, if any.
     </p>
-</div>                    
+</div>
                 ]]></description>
             <component-family>jakarta.faces.Script</component-family>
             <renderer-type>jakarta.faces.Websocket</renderer-type>

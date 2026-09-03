@@ -29,14 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Resource library contracts resolve per artifact against the whole contract list, in order. A
- * contract may live in a JAR ({@code META-INF/contracts}) just as well as in the WAR
- * ({@code /contracts}), and a contract that only carries part of a layout falls through to the next
- * contract in the list for everything else - templates as well as resources.
+ * Resource library contracts resolve per artifact against the whole contract list, in order. A contract may live in a JAR ({@code META-INF/contracts}) just as
+ * well as in the WAR ({@code /contracts}), and a contract that only carries part of a layout falls through to the next contract in the list for everything else
+ * - templates as well as resources.
  * <p>
- * The {@code red} contract carries only {@code template.xhtml} and {@code css/contract.css}; both
- * {@code warbase} (WAR) and {@code jarbase} (JAR) carry the full set, so {@code red} can be layered
- * on either.
+ * The {@code red} contract carries only {@code template.xhtml} and {@code css/contract.css}; both {@code warbase} (WAR) and {@code jarbase} (JAR) carry the
+ * full set, so {@code red} can be layered on either.
  */
 class Issue3141IT extends BaseITNG {
 
@@ -63,8 +61,7 @@ class Issue3141IT extends BaseITNG {
     }
 
     /**
-     * Layered on a WAR contract, {@code red} supplies the template and its own stylesheet while
-     * everything it lacks falls back to {@code warbase}.
+     * Layered on a WAR contract, {@code red} supplies the template and its own stylesheet while everything it lacks falls back to {@code warbase}.
      *
      * @see jakarta.faces.context.FacesContext#getResourceLibraryContracts()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3141
@@ -75,8 +72,7 @@ class Issue3141IT extends BaseITNG {
     }
 
     /**
-     * Layered on a JAR contract, {@code red} supplies the template and its own stylesheet while
-     * everything it lacks falls back to {@code jarbase}.
+     * Layered on a JAR contract, {@code red} supplies the template and its own stylesheet while everything it lacks falls back to {@code jarbase}.
      *
      * @see jakarta.faces.context.FacesContext#getResourceLibraryContracts()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3141
@@ -87,39 +83,51 @@ class Issue3141IT extends BaseITNG {
     }
 
     /**
-     * Requests the page under the given contract list and asserts, per artifact, which contract
-     * resolved it: the template (through its header), the subtemplate, and each of the two
-     * stylesheets. Also asserts the contract list the runtime reports back on the view.
+     * Requests the page under the given contract list and asserts, per artifact, which contract resolved it: the template (through its header), the
+     * subtemplate, and each of the two stylesheets. Also asserts the contract list the runtime reports back on the view.
      */
-    private void assertContracts(String contracts, String expectedTemplate, String expectedSubtemplate,
-            String expectedContractCss, String expectedLayoutCss) {
+    private void assertContracts(
+        String contracts, String expectedTemplate, String expectedSubtemplate,
+        String expectedContractCss, String expectedLayoutCss
+    )
+    {
         WebPage page = getPage("issue3141.xhtml?contracts=" + contracts);
 
-        assertEquals("\"" + expectedTemplate + "\" template header",
-                page.findElement(By.id("header")).getText(), "Template contract");
-        assertEquals("from \"" + expectedSubtemplate + "\" subtemplate.xhtml",
-                page.findElement(By.id("subtemplateOrigin")).getText(), "Subtemplate contract");
-        assertEquals("[" + contracts.replace(",", ", ") + "]",
-                page.findElement(By.id("resolvedContracts")).getText(), "Resolved contracts");
+        assertEquals(
+            "\"" + expectedTemplate + "\" template header",
+            page.findElement(By.id("header")).getText(), "Template contract"
+        );
+        assertEquals(
+            "from \"" + expectedSubtemplate + "\" subtemplate.xhtml",
+            page.findElement(By.id("subtemplateOrigin")).getText(), "Subtemplate contract"
+        );
+        assertEquals(
+            "[" + contracts.replace(",", ", ") + "]",
+            page.findElement(By.id("resolvedContracts")).getText(), "Resolved contracts"
+        );
 
         assertStylesheetContract(page, "contract.css", expectedContractCss);
         assertStylesheetContract(page, "cssLayout.css", expectedLayoutCss);
     }
 
     /**
-     * Asserts which contract a stylesheet resolved to, on both counts the spec makes observable: the
-     * request path must carry the contract name, as {@link Resource#getRequestPath()} requires it to
-     * include "con=" + the contract for a resource contained in one, and fetching that path must
-     * serve that contract's own content rather than another's.
+     * Asserts which contract a stylesheet resolved to, on both counts the spec makes observable: the request path must carry the contract name, as
+     * {@link Resource#getRequestPath()} requires it to include "con=" + the contract for a resource contained in one, and fetching that path must serve that
+     * contract's own content rather than another's.
      *
      * @see Resource#getRequestPath()
      */
     private void assertStylesheetContract(WebPage page, String resourceName, String expectedContract) {
         WebElement link = page.findElement(By.cssSelector("link[href*='" + resourceName + "']"));
         String uri = getHrefURI(link);
-        assertTrue(uri.contains("con=" + expectedContract),
-                resourceName + " must request contract " + expectedContract + " but requested " + uri);
-        assertTrue(getResponseBody(uri).contains("/* contract: " + expectedContract + ", resource: " + resourceName + " */"),
-                resourceName + " must be served from contract " + expectedContract);
+        assertTrue(
+            uri.contains("con=" + expectedContract),
+            resourceName + " must request contract " + expectedContract + " but requested " + uri
+        );
+        assertTrue(
+            getResponseBody(uri).contains("/* contract: " + expectedContract + ", resource: " + resourceName + " */"),
+            resourceName + " must be served from contract " + expectedContract
+        );
     }
+
 }

@@ -38,4 +38,5 @@ public class Spec1329Bean implements Serializable {
     public void setParam(String param) {
         this.param = param;
     }
+
 }

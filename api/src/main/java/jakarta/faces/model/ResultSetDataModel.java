@@ -36,10 +36,9 @@ import jakarta.faces.FacesException;
 
 /**
  * <p>
- * <strong>ResultSetDataModel</strong> is a convenience implementation of {@link DataModel} that wraps a
- * <code>ResultSet</code> of Java objects. Note that the specified <code>ResultSet</code> <strong>MUST</strong> be
- * scrollable. In addition, if input components (that will be updating model values) reference this object in value
- * binding expressions, the specified <code>ResultSet</code> <strong>MUST</strong> be updatable.
+ * <strong>ResultSetDataModel</strong> is a convenience implementation of {@link DataModel} that wraps a <code>ResultSet</code> of Java objects. Note that the
+ * specified <code>ResultSet</code> <strong>MUST</strong> be scrollable. In addition, if input components (that will be updating model values) reference this
+ * object in value binding expressions, the specified <code>ResultSet</code> <strong>MUST</strong> be updatable.
  * </p>
  */
 
@@ -90,10 +89,9 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
     /**
      * <p>
-     * Return <code>true</code> if there is <code>wrappedData</code> available, and the result of calling
-     * <code>absolute()</code> on the underlying <code>ResultSet</code>, passing the current value of <code>rowIndex</code>
-     * plus one (to account for the fact that <code>ResultSet</code> uses one-relative indexing), returns <code>true</code>.
-     * Otherwise, return <code>false</code>.
+     * Return <code>true</code> if there is <code>wrappedData</code> available, and the result of calling <code>absolute()</code> on the underlying
+     * <code>ResultSet</code>, passing the current value of <code>rowIndex</code> plus one (to account for the fact that <code>ResultSet</code> uses
+     * one-relative indexing), returns <code>true</code>. Otherwise, return <code>false</code>.
      * </p>
      *
      * @throws FacesException if an error occurs getting the row availability
@@ -103,16 +101,19 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
         if (resultSet == null) {
             return false;
-        } else if (index < 0) {
+        }
+        else if (index < 0) {
             return false;
         }
         try {
             if (resultSet.absolute(index + 1)) {
                 return true;
-            } else {
+            }
+            else {
                 return false;
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new FacesException(e);
         }
 
@@ -120,9 +121,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
     /**
      * <p>
-     * Return -1, since <code>ResultSet</code> does not provide a standard way to determine the number of available rows
-     * without scrolling through the entire <code>ResultSet</code>, and this can be very expensive if the number of rows is
-     * large.
+     * Return -1, since <code>ResultSet</code> does not provide a standard way to determine the number of available rows without scrolling through the entire
+     * <code>ResultSet</code>, and this can be very expensive if the number of rows is large.
      * </p>
      *
      * @throws FacesException if an error occurs getting the row count
@@ -136,43 +136,35 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
     /**
      * <p>
-     * If row data is available, return a <code>Map</code> representing the values of the columns for the row specified by
-     * <code>rowIndex</code>, keyed by the corresponding column names. If no wrapped data is available, return
-     * <code>null</code>.
+     * If row data is available, return a <code>Map</code> representing the values of the columns for the row specified by <code>rowIndex</code>, keyed by the
+     * corresponding column names. If no wrapped data is available, return <code>null</code>.
      * </p>
      *
      * <p>
-     * If a non-<code>null</code> <code>Map</code> is returned, its behavior must correspond to the contract for a mutable
-     * <code>Map</code> as described in the JavaDocs for <code>AbstractMap</code>, with the following exceptions and
-     * specialized behavior:
+     * If a non-<code>null</code> <code>Map</code> is returned, its behavior must correspond to the contract for a mutable <code>Map</code> as described in the
+     * JavaDocs for <code>AbstractMap</code>, with the following exceptions and specialized behavior:
      * </p>
      * <ul>
      *
-     * <li>The <code>Map</code>, and any supporting objects it returns, must perform all column name comparisons in a
-     * case-insensitive manner. This case-insensitivity must be implemented using a case-insensitive
-     * <code>Comparator</code>, such as <code>String.CASE_INSENSITIVE_ORDER</code>.</li>
+     * <li>The <code>Map</code>, and any supporting objects it returns, must perform all column name comparisons in a case-insensitive manner. This
+     * case-insensitivity must be implemented using a case-insensitive <code>Comparator</code>, such as <code>String.CASE_INSENSITIVE_ORDER</code>.</li>
      *
-     * <li>The following methods must throw <code>UnsupportedOperationException</code>: <code>clear()</code>,
-     * <code>remove()</code>.</li>
+     * <li>The following methods must throw <code>UnsupportedOperationException</code>: <code>clear()</code>, <code>remove()</code>.</li>
      * <li>The <code>entrySet()</code> method must return a <code>Set</code> that has the following behavior:
      * <ul>
-     * <li>Throw <code>UnsupportedOperationException</code> for any attempt to add or remove entries from the
-     * <code>Set</code>, either directly or indirectly through an <code>Iterator</code> returned by the
-     * <code>Set</code>.</li>
-     * <li>Updates to the <code>value</code> of an entry in this <code>set</code> must write through to the corresponding
-     * column value in the underlying <code>ResultSet</code>.</li>
+     * <li>Throw <code>UnsupportedOperationException</code> for any attempt to add or remove entries from the <code>Set</code>, either directly or indirectly
+     * through an <code>Iterator</code> returned by the <code>Set</code>.</li>
+     * <li>Updates to the <code>value</code> of an entry in this <code>set</code> must write through to the corresponding column value in the underlying
+     * <code>ResultSet</code>.</li>
      * </ul>
      * </li>
-     * <li>The <code>keySet()</code> method must return a <code>Set</code> that throws
-     * <code>UnsupportedOperationException</code> on any attempt to add or remove keys, either directly or through an
-     * <code>Iterator</code> returned by the <code>Set</code>.</li>
-     * <li>The <code>put()</code> method must throw <code>IllegalArgumentException</code> if a key value for which
-     * <code>containsKey()</code> returns <code>false</code> is specified. However, if a key already present in the
-     * <code>Map</code> is specified, the specified value must write through to the corresponding column value in the
-     * underlying <code>ResultSet</code>.</li>
-     * <li>The <code>values()</code> method must return a <code>Collection</code> that throws
-     * <code>UnsupportedOperationException</code> on any attempt to add or remove values, either directly or through an
-     * <code>Iterator</code> returned by the <code>Collection</code>.</li>
+     * <li>The <code>keySet()</code> method must return a <code>Set</code> that throws <code>UnsupportedOperationException</code> on any attempt to add or
+     * remove keys, either directly or through an <code>Iterator</code> returned by the <code>Set</code>.</li>
+     * <li>The <code>put()</code> method must throw <code>IllegalArgumentException</code> if a key value for which <code>containsKey()</code> returns
+     * <code>false</code> is specified. However, if a key already present in the <code>Map</code> is specified, the specified value must write through to the
+     * corresponding column value in the underlying <code>ResultSet</code>.</li>
+     * <li>The <code>values()</code> method must return a <code>Collection</code> that throws <code>UnsupportedOperationException</code> on any attempt to add
+     * or remove values, either directly or through an <code>Iterator</code> returned by the <code>Collection</code>.</li>
      * </ul>
      *
      * @throws FacesException if an error occurs getting the row data
@@ -183,13 +175,15 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
         if (resultSet == null) {
             return null;
-        } else if (!isRowAvailable()) {
+        }
+        else if (!isRowAvailable()) {
             throw new NoRowAvailableException();
         }
         try {
             getMetaData();
             return new ResultSetMap(this, String.CASE_INSENSITIVE_ORDER);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             throw new FacesException(e);
         }
 
@@ -223,7 +217,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
                     resultSet.updateRow();
                 }
                 updated = false;
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 throw new FacesException(e);
             }
         }
@@ -267,7 +262,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
             metadata = null;
             resultSet = null;
             setRowIndex(-1);
-        } else {
+        }
+        else {
             metadata = null;
             resultSet = (ResultSet) data;
             index = -1;
@@ -279,8 +275,7 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
 
     /**
      * <p>
-     * Return the <code>ResultSetMetaData</code> for the <code>ResultSet</code> we are wrapping, caching it the first time
-     * it is returned.
+     * Return the <code>ResultSetMetaData</code> for the <code>ResultSet</code> we are wrapping, caching it the first time it is returned.
      * </p>
      *
      * @throws FacesException if the <code>ResultSetMetaData</code> cannot be acquired
@@ -290,7 +285,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
         if (metadata == null) {
             try {
                 metadata = resultSet.getMetaData();
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 throw new FacesException(e);
             }
         }
@@ -351,7 +347,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
                     if (contained == null) {
                         return true;
                     }
-                } else {
+                }
+                else {
                     if (value.equals(contained)) {
                         return true;
                     }
@@ -373,7 +370,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
             try {
                 model.resultSet.absolute(index + 1);
                 return model.resultSet.getObject((String) realKey(key));
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 throw new FacesException(e);
             }
         }
@@ -394,13 +392,15 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
                 Object previous = model.resultSet.getObject((String) realKey(key));
                 if (previous == null && value == null) {
                     return previous;
-                } else if (previous != null && value != null && previous.equals(value)) {
+                }
+                else if (previous != null && value != null && previous.equals(value)) {
                     return previous;
                 }
                 model.resultSet.updateObject((String) realKey(key), value);
                 model.updated();
                 return previous;
-            } catch (SQLException e) {
+            }
+            catch (SQLException e) {
                 throw new FacesException(e);
             }
         }
@@ -485,7 +485,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
             }
             if (v == null) {
                 return map.get(k) == null;
-            } else {
+            }
+            else {
                 return v.equals(map.get(k));
             }
         }
@@ -581,7 +582,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
                 if (e.getKey() != null) {
                     return false;
                 }
-            } else {
+            }
+            else {
                 if (!key.equals(e.getKey())) {
                     return false;
                 }
@@ -591,7 +593,8 @@ public class ResultSetDataModel extends DataModel<Map<String, Object>> {
                 if (e.getValue() != null) {
                     return false;
                 }
-            } else {
+            }
+            else {
                 if (!v.equals(e.getValue())) {
                     return false;
                 }

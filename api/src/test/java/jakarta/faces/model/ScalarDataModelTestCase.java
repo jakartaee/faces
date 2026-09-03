@@ -20,7 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * <p>
- * Unit tests for {@link ScalarDataModel}.</p>
+ * Unit tests for {@link ScalarDataModel}.
+ * </p>
  */
 class ScalarDataModelTestCase extends DataModelTestCaseBase {
 

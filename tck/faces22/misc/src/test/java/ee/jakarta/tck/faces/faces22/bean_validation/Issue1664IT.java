@@ -32,8 +32,7 @@ public class Issue1664IT extends BaseITNG {
     private static final String SIMPLE_VALUE_REGEX = "(?s).*Simple\\s+value\\s+is\\s+VALUE1.*";
 
     /**
-     * A by-type converter installed for an enum value must keep being applied to
-     * that value after a non-ajax postback, so the rendered value remains correct.
+     * A by-type converter installed for an enum value must keep being applied to that value after a non-ajax postback, so the rendered value remains correct.
      *
      * @see EnumConverter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1664
@@ -48,4 +47,5 @@ public class Issue1664IT extends BaseITNG {
 
         assertTrue(page.getSource().matches(SIMPLE_VALUE_REGEX));
     }
+
 }

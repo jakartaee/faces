@@ -25,9 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Two nested {@code h:dataTable}s that share a single inner model must each preserve their own
- * per-cell input value across a postback. With an outer table of two rows and an inner table of
- * three rows, the six inputs keep distinct values keyed on the combined (outer, inner) row index.
+ * Two nested {@code h:dataTable}s that share a single inner model must each preserve their own per-cell input value across a postback. With an outer table of
+ * two rows and an inner table of three rows, the six inputs keep distinct values keyed on the combined (outer, inner) row index.
  */
 class NestedDatatablesIT extends BaseITNG {
 
@@ -63,9 +62,11 @@ class NestedDatatablesIT extends BaseITNG {
     private void assertValues(WebPage page, String[][] values) {
         for (int outer = 0; outer < values.length; outer++) {
             for (int inner = 0; inner < values[outer].length; inner++) {
-                assertEquals(values[outer][inner],
-                        page.findElement(By.id(inputId(outer, inner))).getAttribute("value"),
-                        "cell (" + outer + ", " + inner + ")");
+                assertEquals(
+                    values[outer][inner],
+                    page.findElement(By.id(inputId(outer, inner))).getAttribute("value"),
+                    "cell (" + outer + ", " + inner + ")"
+                );
             }
         }
     }
@@ -73,4 +74,5 @@ class NestedDatatablesIT extends BaseITNG {
     private static String inputId(int outer, int inner) {
         return "form:outerData:" + outer + ":innerData:" + inner + ":inputText";
     }
+
 }

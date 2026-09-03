@@ -49,4 +49,5 @@ public class Issue4077Bean implements Serializable {
     public String getText() {
         return "Hello World";
     }
+
 }

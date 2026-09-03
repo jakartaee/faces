@@ -28,15 +28,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Submitting the source view redirects via a navigation-case with a redirect-param, and the target view's
- * f:viewParam receives the redirected parameter and renders it.
+ * Submitting the source view redirects via a navigation-case with a redirect-param, and the target view's f:viewParam receives the redirected parameter and
+ * renders it.
  */
 class Issue3403IT extends BaseITNG {
 
     /**
-     * Verifies that a non-ajax command submit follows a redirect navigation-case carrying a redirect-param
-     * (info=Welcome), and that the target view's {@link UIViewParameter} ("info") makes the value available so
-     * the page renders "Welcome".
+     * Verifies that a non-ajax command submit follows a redirect navigation-case carrying a redirect-param (info=Welcome), and that the target view's
+     * {@link UIViewParameter} ("info") makes the value available so the page renders "Welcome".
      *
      * @see UIViewParameter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3403
@@ -50,4 +49,5 @@ class Issue3403IT extends BaseITNG {
 
         assertTrue(page.containsText("Welcome"), "Target view renders the redirected view parameter value");
     }
+
 }

@@ -18,10 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.event.postaddtoviewevent;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
-import ee.jakarta.tck.faces.faces20.api.event.common.TestSystemEventListener;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.component.UICommand;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.ComponentSystemEvent;
@@ -32,44 +28,53 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
+import ee.jakarta.tck.faces.faces20.api.event.common.TestSystemEventListener;
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+
 @WebServlet("/PostAddToViewEventTestServlet")
 public final class PostAddToViewEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UICommand uic = new UICommand();
+    private static final UICommand uic = new UICommand();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PostAddToViewEvent(component);
-  }
-
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
-
-  // ------------------------------------------------------------
-  // PostAddToViewEvent Tests
-
-  public void postAddToViewEventIsApproiateListenerPostiveTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-
-    SystemEventListener testListener = new TestSystemEventListener();
-    ComponentSystemEvent cse = createEvent(getTestComponent());
-    String eventName = cse.getClass().getName();
-
-    // make sure the return value is true if SystemEventListener is
-    // passed as a parameter to isAppropriateListener.
-
-    if (cse.isAppropriateListener(testListener)) {
-      pw.println(JSFTestUtil.PASS);
-
-    } else {
-      pw.println("Test FAILED. " + eventName + ".isAppropriateListener "
-          + "did not return true when SystemEventListener was passed in "
-          + "as a parameter");
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PostAddToViewEvent(component);
     }
-  }
+
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
+
+    // ------------------------------------------------------------
+    // PostAddToViewEvent Tests
+
+    public void postAddToViewEventIsApproiateListenerPostiveTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+
+        SystemEventListener testListener = new TestSystemEventListener();
+        ComponentSystemEvent cse = createEvent(getTestComponent());
+        String eventName = cse.getClass().getName();
+
+        // make sure the return value is true if SystemEventListener is
+        // passed as a parameter to isAppropriateListener.
+
+        if (cse.isAppropriateListener(testListener)) {
+            pw.println(JSFTestUtil.PASS);
+
+        }
+        else {
+            pw.println(
+                "Test FAILED. " + eventName + ".isAppropriateListener "
+                    + "did not return true when SystemEventListener was passed in "
+                    + "as a parameter"
+            );
+        }
+    }
 
 }

@@ -27,14 +27,14 @@
         </h:head>
         <h:body>
             <h:form id="form">
-            	<h:selectOneRadio id="one" value="#{issue4330.selectedValue}">
-            		<f:selectItem itemValue="enabled" />
-            		<f:selectItem itemValue="disabled" itemDisabled="true" />
-            	</h:selectOneRadio>
-            	<h:selectManyCheckbox id="many" value="#{issue4330.selectedValues}">
-            		<f:selectItem itemValue="enabled" />
-            		<f:selectItem itemValue="disabled" itemDisabled="true" />
-            	</h:selectManyCheckbox>
+                <h:selectOneRadio id="one" value="#{issue4330.selectedValue}">
+                    <f:selectItem itemValue="enabled" />
+                    <f:selectItem itemValue="disabled" itemDisabled="true" />
+                </h:selectOneRadio>
+                <h:selectManyCheckbox id="many" value="#{issue4330.selectedValues}">
+                    <f:selectItem itemValue="enabled" />
+                    <f:selectItem itemValue="disabled" itemDisabled="true" />
+                </h:selectManyCheckbox>
                 <h:button id="hack" value="hack" onclick="document.getElementById('form:one:1').disabled=false;document.getElementById('form:many:1').disabled=false;return false" />
                 <h:commandButton id="submit" value="submit" />
                 <h:outputText id="result" value="#{issue4330.selectedValue}#{issue4330.selectedValues}" />

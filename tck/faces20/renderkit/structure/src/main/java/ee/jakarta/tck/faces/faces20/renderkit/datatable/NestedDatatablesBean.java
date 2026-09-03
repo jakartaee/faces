@@ -25,10 +25,8 @@ import jakarta.faces.model.ListDataModel;
 import jakarta.inject.Named;
 
 /**
- * Drives two nested {@code h:dataTable}s that share a single inner model. The outer table iterates
- * two rows and every outer row renders the same inner {@link ListDataModel} of three rows, so a
- * per-cell input value must be keyed on the combined (outer, inner) row index rather than on the
- * inner row alone.
+ * Drives two nested {@code h:dataTable}s that share a single inner model. The outer table iterates two rows and every outer row renders the same inner
+ * {@link ListDataModel} of three rows, so a per-cell input value must be keyed on the combined (outer, inner) row index rather than on the inner row alone.
  */
 @Named
 @SessionScoped
@@ -70,4 +68,5 @@ public class NestedDatatablesBean implements Serializable {
     List<Object> getInputValues() {
         return inputValues;
     }
+
 }

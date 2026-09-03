@@ -20,7 +20,9 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 /**
- * <p>Unit tests for {@link BeanValidator}.</p>
+ * <p>
+ * Unit tests for {@link BeanValidator}.
+ * </p>
  *
  * @author rmartinc
  */
@@ -42,49 +44,53 @@ class BeanValidatorTest {
         void setMessage(String message) {
             this.message = message;
         }
+
     }
 
     // ------------------------------------------------- Individual Test Methods
-//    @Test
-//    void testMessageOK() {
-//        BeanValidator validator = new BeanValidator();
-//        Locale.setDefault(Locale.US);
-//        FacesContext facesContext = Mockito.mock(FacesContext.class);
-//        facesContext.getViewRoot().setLocale(Locale.US);
-//        UIInput component = new UIInput();
-//        request.setAttribute("test", new TestBean());
-//        component.setValueExpression("value", application.getExpressionFactory().createValueExpression(facesContext.getELContext(), "#{test.message}", String.class));
-//
-//        validator.validate(facesContext, component, "something");
-//    }
-//
-//    @Test
-//    void testMessageKO() {
-//        BeanValidator validator = new BeanValidator();
-//        Locale.setDefault(Locale.US);
-//        FacesContext facesContext = Mockito.mock(FacesContext.class);
-//        facesContext.getViewRoot().setLocale(Locale.US);
-//        UIInput component = new UIInput();
-//        request.setAttribute("test", new TestBean());
-//        component.setValueExpression("value", application.getExpressionFactory().createValueExpression(facesContext.getELContext(), "#{test.message}", String.class));
-//
-//        try {
-//            validator.validate(facesContext, component, "");
-//            Assertions.fail("ValidatorException expected");
-//        } catch (ValidatorException e) {
-//            Assertions.assertEquals("size must be between 1 and 64", e.getMessage());
-//        }
-//    }
-//
-//    @Test
-//    void testNoBase() {
-//        BeanValidator validator = new BeanValidator();
-//        Locale.setDefault(Locale.US);
-//        FacesContext facesContext = Mockito.mock(FacesContext.class);
-//        facesContext.getViewRoot().setLocale(Locale.US);
-//        UIInput component = new UIInput();
-//        component.setValueExpression("value", application.getExpressionFactory().createValueExpression(facesContext.getELContext(), "#{something}", String.class));
-//
-//        validator.validate(facesContext, component, "something");
-//    }
+    // @Test
+    // void testMessageOK() {
+    // BeanValidator validator = new BeanValidator();
+    // Locale.setDefault(Locale.US);
+    // FacesContext facesContext = Mockito.mock(FacesContext.class);
+    // facesContext.getViewRoot().setLocale(Locale.US);
+    // UIInput component = new UIInput();
+    // request.setAttribute("test", new TestBean());
+    // component.setValueExpression("value", application.getExpressionFactory().createValueExpression(facesContext.getELContext(), "#{test.message}",
+    // String.class));
+    //
+    // validator.validate(facesContext, component, "something");
+    // }
+    //
+    // @Test
+    // void testMessageKO() {
+    // BeanValidator validator = new BeanValidator();
+    // Locale.setDefault(Locale.US);
+    // FacesContext facesContext = Mockito.mock(FacesContext.class);
+    // facesContext.getViewRoot().setLocale(Locale.US);
+    // UIInput component = new UIInput();
+    // request.setAttribute("test", new TestBean());
+    // component.setValueExpression("value", application.getExpressionFactory().createValueExpression(facesContext.getELContext(), "#{test.message}",
+    // String.class));
+    //
+    // try {
+    // validator.validate(facesContext, component, "");
+    // Assertions.fail("ValidatorException expected");
+    // } catch (ValidatorException e) {
+    // Assertions.assertEquals("size must be between 1 and 64", e.getMessage());
+    // }
+    // }
+    //
+    // @Test
+    // void testNoBase() {
+    // BeanValidator validator = new BeanValidator();
+    // Locale.setDefault(Locale.US);
+    // FacesContext facesContext = Mockito.mock(FacesContext.class);
+    // facesContext.getViewRoot().setLocale(Locale.US);
+    // UIInput component = new UIInput();
+    // component.setValueExpression("value", application.getExpressionFactory().createValueExpression(facesContext.getELContext(), "#{something}",
+    // String.class));
+    //
+    // validator.validate(facesContext, component, "something");
+    // }
 }

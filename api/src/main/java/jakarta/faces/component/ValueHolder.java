@@ -21,9 +21,9 @@ import jakarta.faces.convert.Converter;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0">ValueHolder</strong> is an interface that may be implemented by any concrete
- * {@link UIComponent} that wishes to support a local value, as well as access data in the model tier via a <em>value
- * expression</em>, and support conversion between String and the model tier data's native data type.
+ * <strong class="changed_modified_2_0">ValueHolder</strong> is an interface that may be implemented by any concrete {@link UIComponent} that wishes to support
+ * a local value, as well as access data in the model tier via a <em>value expression</em>, and support conversion between String and the model tier data's
+ * native data type.
  */
 public interface ValueHolder {
 
@@ -31,8 +31,7 @@ public interface ValueHolder {
 
     /**
      * <p>
-     * Return the local value of this {@link UIComponent} (if any), without evaluating any associated
-     * {@link ValueExpression}.
+     * Return the local value of this {@link UIComponent} (if any), without evaluating any associated {@link ValueExpression}.
      * </p>
      *
      * @return the local value.
@@ -41,11 +40,10 @@ public interface ValueHolder {
 
     /**
      * <p>
-     * Gets the value of this {@link UIComponent}. If validation failed, as indicated by
-     * {@link jakarta.faces.context.FacesContext#isValidationFailed} returning <code>true</code>, always return the local
-     * value. Otherwise, first, consult the local value property of this component. If non-<code>null</code> return it. If
-     * <code>null</code>, see if we have a {@link ValueExpression} for the <code>value</code> property. If so, return the
-     * result of evaluating the property, otherwise return <code>null</code>.
+     * Gets the value of this {@link UIComponent}. If validation failed, as indicated by {@link jakarta.faces.context.FacesContext#isValidationFailed} returning
+     * <code>true</code>, always return the local value. Otherwise, first, consult the local value property of this component. If non-<code>null</code> return
+     * it. If <code>null</code>, see if we have a {@link ValueExpression} for the <code>value</code> property. If so, return the result of evaluating the
+     * property, otherwise return <code>null</code>.
      * </p>
      *
      * @return the value.
@@ -78,4 +76,5 @@ public interface ValueHolder {
      * @param converter New {@link Converter} (or <code>null</code>)
      */
     void setConverter(Converter converter);
+
 }

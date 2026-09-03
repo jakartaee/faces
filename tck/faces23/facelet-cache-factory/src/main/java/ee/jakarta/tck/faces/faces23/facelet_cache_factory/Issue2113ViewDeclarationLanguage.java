@@ -29,7 +29,8 @@ import jakarta.faces.view.ViewDeclarationLanguage;
 import jakarta.faces.view.ViewMetadata;
 
 public class Issue2113ViewDeclarationLanguage extends ViewDeclarationLanguage
-        implements FacesWrapper<ViewDeclarationLanguage> {
+    implements
+        FacesWrapper<ViewDeclarationLanguage> {
 
     private final ViewDeclarationLanguage toWrap;
 
@@ -105,4 +106,5 @@ public class Issue2113ViewDeclarationLanguage extends ViewDeclarationLanguage
         this.logMethodInvocation("restoreView");
         return this.getWrapped().restoreView(fc, string);
     }
+
 }

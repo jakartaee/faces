@@ -28,14 +28,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that a style set programmatically on a bound h:inputText persists across an unrelated subsequent
- * postback.
+ * Verifies that a style set programmatically on a bound h:inputText persists across an unrelated subsequent postback.
  */
 class Issue3879IT extends BaseITNG {
 
     /**
-     * Clicks Step 1 to set background-color:blue on the bound h:inputText, asserts the style is rendered, then
-     * clicks Step 2 (an unrelated no-op action) and asserts the style is still rendered.
+     * Clicks Step 1 to set background-color:blue on the bound h:inputText, asserts the style is rendered, then clicks Step 2 (an unrelated no-op action) and
+     * asserts the style is still rendered.
      *
      * @see HtmlInputText#setStyle(String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3879
@@ -52,4 +51,5 @@ class Issue3879IT extends BaseITNG {
         page.guardHttp(dummy::click);
         assertTrue(page.containsSource("blue"), "Style must persist after the unrelated Step 2 postback");
     }
+
 }

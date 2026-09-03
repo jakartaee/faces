@@ -32,4 +32,5 @@ public class Issue3148Bean {
     public void setInput(String input) {
         this.input = input;
     }
+
 }

@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue1810IT extends BaseITNG {
 
     /**
-     * A RuntimeException thrown by the action method bound to a composite component's declared action
-     * attribute must reach the ExceptionHandler rather than being swallowed by the retargeting, so the
-     * postback yields a 500.
+     * A RuntimeException thrown by the action method bound to a composite component's declared action attribute must reach the ExceptionHandler rather than
+     * being swallowed by the retargeting, so the postback yields a 500.
      *
      * @see jakarta.faces.view.facelets.FaceletContext
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1810
@@ -40,7 +39,10 @@ class Issue1810IT extends BaseITNG {
 
         page.findElement(By.id("action:form1:submit")).click();
 
-        assertEquals(500, page.getResponseStatus(),
-                "An exception from the retargeted action method must not be swallowed.");
+        assertEquals(
+            500, page.getResponseStatus(),
+            "An exception from the retargeted action method must not be swallowed."
+        );
     }
+
 }

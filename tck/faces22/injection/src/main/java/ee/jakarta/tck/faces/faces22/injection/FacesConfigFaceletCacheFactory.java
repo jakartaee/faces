@@ -47,4 +47,5 @@ public class FacesConfigFaceletCacheFactory extends FaceletCacheFactory implemen
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

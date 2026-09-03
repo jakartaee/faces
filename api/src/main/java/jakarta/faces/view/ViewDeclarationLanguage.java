@@ -32,9 +32,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_0_rev_a changed_modified_2_1 changed_modified_2_2">The</span> contract that a view
- * declaration language must implement to interact with the Jakarta Faces runtime. An implementation of this
- * class must be thread-safe.
+ * <span class="changed_modified_2_0_rev_a changed_modified_2_1 changed_modified_2_2">The</span> contract that a view declaration language must implement to
+ * interact with the Jakarta Faces runtime. An implementation of this class must be thread-safe.
  * </p>
  *
  * <div class="changed_added_2_0">
@@ -60,9 +59,8 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * Restore a <code>UIViewRoot</code> from a previously created view. 
-     * See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document
-     * for the specification of the default implementation.
+     * Restore a <code>UIViewRoot</code> from a previously created view. See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces
+     * Specification Document for the specification of the default implementation.
      * </p>
      *
      * @param context the <code>FacesContext</code> for this request.
@@ -76,11 +74,9 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * Return a reference to the view metadata for the view represented by the argument <code>viewId</code>, or
-     * <code>null</code> if the metadata cannot be found. 
-     * See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document
-     * for the specification of the default
-     * implementation. Facelets implementation must return non-<code>null</code>.
+     * Return a reference to the view metadata for the view represented by the argument <code>viewId</code>, or <code>null</code> if the metadata cannot be
+     * found. See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document for the specification of the
+     * default implementation. Facelets implementation must return non-<code>null</code>.
      * </p>
      *
      * @param context The <code>FacesContext</code> for this request.
@@ -97,10 +93,9 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2">Create</span> a <code>UIViewRoot</code> from the VDL contained in the artifact
-     * referenced by the argument <code>viewId</code>. <span class="changed_modified_2_2">
-     * See section 7.7.2"Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document
-     * for the specification of the default implementation.</span>
+     * <span class="changed_modified_2_2">Create</span> a <code>UIViewRoot</code> from the VDL contained in the artifact referenced by the argument
+     * <code>viewId</code>. <span class="changed_modified_2_2"> See section 7.7.2"Default ViewDeclarationLanguage Implementation" of the Jakarta Faces
+     * Specification Document for the specification of the default implementation.</span>
      * </p>
      *
      * @param context the <code>FacesContext</code> for this request.
@@ -116,47 +111,42 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_1">Take</span> any actions specific to this VDL implementation to cause the argument
-     * <code>UIViewRoot</code> which must have been created via a call to {@link #createView}, to be populated with
-     * children.
+     * <span class="changed_modified_1">Take</span> any actions specific to this VDL implementation to cause the argument <code>UIViewRoot</code> which must
+     * have been created via a call to {@link #createView}, to be populated with children.
      * </p>
      *
      * <div class="changed_added_2_0">
      *
      * <p>
-     * The Facelets implementation must insure that markup comprising the view must be executed, with the
-     * {@link jakarta.faces.component.UIComponent} instances in the view being encountered in the same depth-first order as
-     * in other lifecycle methods defined on <code>UIComponent</code>, and added to the view (but not rendered) during the
-     * traversal. The runtime must guarantee that the view must be fully populated before any of the following happen.
+     * The Facelets implementation must insure that markup comprising the view must be executed, with the {@link jakarta.faces.component.UIComponent} instances
+     * in the view being encountered in the same depth-first order as in other lifecycle methods defined on <code>UIComponent</code>, and added to the view (but
+     * not rendered) during the traversal. The runtime must guarantee that the view must be fully populated before any of the following happen.
      * </p>
      * <ul>
      *
      * <li>
      * <p>
-     * The {@link jakarta.faces.event.PhaseListener#afterPhase} method of any <code>PhaseListener</code>s attached to the
-     * application is called
+     * The {@link jakarta.faces.event.PhaseListener#afterPhase} method of any <code>PhaseListener</code>s attached to the application is called
      * </p>
      * </li>
      * <li>
      * <p>
-     * The {@link jakarta.faces.component.UIViewRoot} phase listener installed via
-     * {@link jakarta.faces.component.UIViewRoot#setAfterPhaseListener} or
+     * The {@link jakarta.faces.component.UIViewRoot} phase listener installed via {@link jakarta.faces.component.UIViewRoot#setAfterPhaseListener} or
      * {@link jakarta.faces.component.UIViewRoot#addPhaseListener} are called.
      * </p>
      * </li>
      *
      * </ul>
      * <p class="changed_modified_2_1">
-     * If the <code>root</code> is already populated with children, the view must still be re-built, but care must be taken
-     * to ensure that the existing components are correctly paired up with their VDL counterparts in the VDL page. Also, any
-     * system events that would normally be generated during the adding or removing of components from the view must be
-     * temporarily disabled during the creation of the view and then re-enabled when the view has been built.
+     * If the <code>root</code> is already populated with children, the view must still be re-built, but care must be taken to ensure that the existing
+     * components are correctly paired up with their VDL counterparts in the VDL page. Also, any system events that would normally be generated during the
+     * adding or removing of components from the view must be temporarily disabled during the creation of the view and then re-enabled when the view has been
+     * built.
      * </p>
      * </div>
      *
      * @param context the <code>FacesContext</code> for this request
-     * @param root the <code>UIViewRoot</code> to populate with children using techniques specific to this VDL
-     * implementation.
+     * @param root the <code>UIViewRoot</code> to populate with children using techniques specific to this VDL implementation.
      *
      * @throws IOException if view cannot be built for any reason
      */
@@ -164,9 +154,8 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * Render a view rooted at argument<code>view</code>. 
-     * See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document
-     * for the specification of the default implementation.
+     * Render a view rooted at argument<code>view</code>. See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification
+     * Document for the specification of the default implementation.
      * </p>
      *
      * @param context the <code>FacesContext</code> for this request.
@@ -180,11 +169,9 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * Return a reference to the component metadata for the composite component represented by the argument
-     * <code>componentResource</code>, or <code>null</code> if the metadata cannot be found. 
-     * See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document
-     * for the specification of the default implementation. Jakarta Server Pages implementations must throw
-     * <code>UnsupportedOperationException</code>.
+     * Return a reference to the component metadata for the composite component represented by the argument <code>componentResource</code>, or <code>null</code>
+     * if the metadata cannot be found. See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document for the
+     * specification of the default implementation. Jakarta Server Pages implementations must throw <code>UnsupportedOperationException</code>.
      * </p>
      *
      * @param context The <code>FacesContext</code> for this request.
@@ -203,11 +190,9 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * Take implementation specific action to discover a <code>Resource</code> given the argument
-     * <code>componentResource</code>. 
-     * See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document
-     * for the specification of the default implementation. Jakarta
-     * Server Pages implementations must throw <code>UnsupportedOperationException</code>.
+     * Take implementation specific action to discover a <code>Resource</code> given the argument <code>componentResource</code>. See section 7.7.2 "Default
+     * ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document for the specification of the default implementation. Jakarta Server
+     * Pages implementations must throw <code>UnsupportedOperationException</code>.
      * </p>
      *
      * @param context The <code>FacesContext</code> for this request.
@@ -226,19 +211,18 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_2">
-     * Create a component given a {@link ViewDeclarationLanguage} specific tag library URI and tag name. The runtime must
-     * support this method operating for the Facelets VDL. Other kinds of {@code ViewDeclarationLanguage} may be supported
-     * but are not required to be supported. For backward compatibility with decorated {@code ViewDeclrationLanguage}
-     * implementations that do not override this method, a default implementation is provided that returns {@code null}.
-     * However, any implementation that is compliant with the version of the specification in which this method was
-     * introduced must implement this method.
+     * Create a component given a {@link ViewDeclarationLanguage} specific tag library URI and tag name. The runtime must support this method operating for the
+     * Facelets VDL. Other kinds of {@code ViewDeclarationLanguage} may be supported but are not required to be supported. For backward compatibility with
+     * decorated {@code ViewDeclrationLanguage} implementations that do not override this method, a default implementation is provided that returns
+     * {@code null}. However, any implementation that is compliant with the version of the specification in which this method was introduced must implement this
+     * method.
      * </p>
      *
      * @param context the {@link FacesContext} for this request
      * @param taglibURI the fully qualified tag library URI that contains the component
      * @param tagName the name of the tag within that library that exposes the component
-     * @param attributes any name=value pairs that would otherwise have been given on the markup that would cause the
-     * creation of this component or {@code null} if no attributes need be given.
+     * @param attributes any name=value pairs that would otherwise have been given on the markup that would cause the creation of this component or {@code null}
+     * if no attributes need be given.
      *
      * @throws NullPointerException if {@code context}, {@code taglibURI}, or {@code tagName} are {@code null}
      *
@@ -252,12 +236,11 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_0_rev_a">Assuming</span> the component metadata for argument
-     * <code>topLevelComponent</code> has been made available by an earlier call to
-     * {@link ViewDeclarationLanguage#getComponentMetadata}, leverage the component metadata for the purpose of re-targeting
-     * attached objects from the top level composite component to the individual {@link AttachedObjectTarget} instances
-     * inside the composite component. This method must be called by the {@link ViewDeclarationLanguage} implementation when
-     * creating the <code>UIComponent</code> tree when a composite component usage is encountered.
+     * <span class="changed_modified_2_0_rev_a">Assuming</span> the component metadata for argument <code>topLevelComponent</code> has been made available by an
+     * earlier call to {@link ViewDeclarationLanguage#getComponentMetadata}, leverage the component metadata for the purpose of re-targeting attached objects
+     * from the top level composite component to the individual {@link AttachedObjectTarget} instances inside the composite component. This method must be
+     * called by the {@link ViewDeclarationLanguage} implementation when creating the <code>UIComponent</code> tree when a composite component usage is
+     * encountered.
      * </p>
      *
      * <div class="changed_added_2_0">
@@ -270,9 +253,8 @@ public abstract class ViewDeclarationLanguage {
      *
      * <li>
      * <p>
-     * Obtain the metadata for the composite component. Currently this entails getting the value of the
-     * {@link UIComponent#BEANINFO_KEY} component attribute, which will be an instance of <code>BeanInfo</code>. If the
-     * metadata cannot be found, log an error message and return.
+     * Obtain the metadata for the composite component. Currently this entails getting the value of the {@link UIComponent#BEANINFO_KEY} component attribute,
+     * which will be an instance of <code>BeanInfo</code>. If the metadata cannot be found, log an error message and return.
      * </p>
      * </li>
      *
@@ -284,8 +266,8 @@ public abstract class ViewDeclarationLanguage {
      *
      * <li>
      * <p>
-     * Get the value of the {@link AttachedObjectTarget#ATTACHED_OBJECT_TARGETS_KEY} from the <code>BeanDescriptor</code>'s
-     * <code>getValue()</code> method. This will be a <code>List&lt;{@link
+     * Get the value of the {@link AttachedObjectTarget#ATTACHED_OBJECT_TARGETS_KEY} from the <code>BeanDescriptor</code>'s <code>getValue()</code> method. This
+     * will be a <code>List&lt;{@link
      *AttachedObjectTarget}&gt;</code>. Let this be <em>targetList</em>.
      * </p>
      * </li>
@@ -305,14 +287,13 @@ public abstract class ViewDeclarationLanguage {
      *
      * <li>
      * <p>
-     * For each <em>curTarget</em> entry in <em>targetList</em>, the first of the following items that causes a match will
-     * take this action:
+     * For each <em>curTarget</em> entry in <em>targetList</em>, the first of the following items that causes a match will take this action:
      * </p>
      *
      * <p style="margin-left: 3em;">
      * For each <code>UIComponent</code> in the list returned from <em>curTarget.getTargets()</em>, call
-     * <em>curHandler.<a href="AttachedObjectHandler.html#applyAttachedObject">applyAttachedObject()</a></em>, passing the
-     * <code>FacesContext</code> and the <code>UIComponent</code>.
+     * <em>curHandler.<a href="AttachedObjectHandler.html#applyAttachedObject">applyAttachedObject()</a></em>, passing the <code>FacesContext</code> and the
+     * <code>UIComponent</code>.
      * </p>
      *
      * <p>
@@ -323,40 +304,37 @@ public abstract class ViewDeclarationLanguage {
      *
      * <li>
      * <p>
-     * If <em>curHandler</em> is an instance of {@link ActionSourceAttachedObjectHandler} and <em>curTarget</em> is an
-     * instance of {@link ActionSourceAttachedObjectTarget}, and <em>curTarget.getName()</em> is equal to
-     * <em>curTargetName</em>, consider it a match.
+     * If <em>curHandler</em> is an instance of {@link ActionSourceAttachedObjectHandler} and <em>curTarget</em> is an instance of
+     * {@link ActionSourceAttachedObjectTarget}, and <em>curTarget.getName()</em> is equal to <em>curTargetName</em>, consider it a match.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * If <em>curHandler</em> is an instance of {@link EditableValueHolderAttachedObjectHandler} and <em>curTarget</em> is
-     * an instance of {@link EditableValueHolderAttachedObjectTarget}, <span class="changed_modified_2_0_rev_a">and
-     * <em>curTarget.getName()</em> is equal to <em>curTargetName</em>, consider it a match.</span>
+     * If <em>curHandler</em> is an instance of {@link EditableValueHolderAttachedObjectHandler} and <em>curTarget</em> is an instance of
+     * {@link EditableValueHolderAttachedObjectTarget}, <span class="changed_modified_2_0_rev_a">and <em>curTarget.getName()</em> is equal to
+     * <em>curTargetName</em>, consider it a match.</span>
      * </p>
      * </li>
      *
      * <li class="changed_modified_2_0_rev_a">
      * <p>
-     * If <em>curHandler</em> is an instance of {@link ValueHolderAttachedObjectHandler} and <em>curTarget</em> is an
-     * instance of {@link ValueHolderAttachedObjectTarget}, and <em>curTarget.getName()</em> is equal to
-     * <em>curTargetName</em>, consider it a match.
+     * If <em>curHandler</em> is an instance of {@link ValueHolderAttachedObjectHandler} and <em>curTarget</em> is an instance of
+     * {@link ValueHolderAttachedObjectTarget}, and <em>curTarget.getName()</em> is equal to <em>curTargetName</em>, consider it a match.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * If <em>curHandler</em> is an instance of {@link BehaviorHolderAttachedObjectHandler} and <em>curTarget</em> is an
-     * instance of {@link BehaviorHolderAttachedObjectTarget}, and either of the following conditions are true,
+     * If <em>curHandler</em> is an instance of {@link BehaviorHolderAttachedObjectHandler} and <em>curTarget</em> is an instance of
+     * {@link BehaviorHolderAttachedObjectTarget}, and either of the following conditions are true,
      * </p>
      *
      * <ul>
      *
      * <li><em>curHandler.getEventName()</em> is not <code>null</code> and is equal to <em>curTargetName</em>.</li>
      *
-     * <li><em>curHandler.getEventName()</em> is <code>null</code> and <em>curTarget.isDefaultEvent()</em> is
-     * <code>true</code>.</li>
+     * <li><em>curHandler.getEventName()</em> is <code>null</code> and <em>curTarget.isDefaultEvent()</em> is <code>true</code>.</li>
      *
      * </ul>
      *
@@ -372,21 +350,21 @@ public abstract class ViewDeclarationLanguage {
      * </ul>
      *
      * <p class="changed_modified_2_0_rev_a">
-     * The implementation must support retargeting attached objects from the top level compsite component to targets that
-     * are composite and non-composite components.
+     * The implementation must support retargeting attached objects from the top level compsite component to targets that are composite and non-composite
+     * components.
      * </p>
      *
      * <p>
-     * An implementation is provided that will throw <code>UnsupportedOperationException</code>. A Faces implementation
-     * compliant with version 2.0 and beyond of the specification must override this method.
+     * An implementation is provided that will throw <code>UnsupportedOperationException</code>. A Faces implementation compliant with version 2.0 and beyond of
+     * the specification must override this method.
      * </p>
      *
      * </div>
      *
      * @param context the FacesContext for this request.
      *
-     * @param topLevelComponent The UIComponent in the view to which the attached objects must be attached. This UIComponent
-     * must have its component metadata already associated and available from via the JavaBeans API.
+     * @param topLevelComponent The UIComponent in the view to which the attached objects must be attached. This UIComponent must have its component metadata
+     * already associated and available from via the JavaBeans API.
      *
      * @param handlers the tag handlers for the attached objects
      *
@@ -400,11 +378,10 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0">
-     * Assuming the component metadata for argument <code>topLevelComponent</code> has been made available by an earlier
-     * call to {@link ViewDeclarationLanguage#getComponentMetadata}, leverage the component metadata for the purpose of
-     * re-targeting any method expressions from the top level component to the appropriate inner component. For each
-     * attribute that is a <code>MethodExpression</code> (as indicated by the presence of a "<code>method-signature</code>"
-     * attribute and the absence of a "<code>type</code>" attribute), the following action must be taken:
+     * Assuming the component metadata for argument <code>topLevelComponent</code> has been made available by an earlier call to
+     * {@link ViewDeclarationLanguage#getComponentMetadata}, leverage the component metadata for the purpose of re-targeting any method expressions from the top
+     * level component to the appropriate inner component. For each attribute that is a <code>MethodExpression</code> (as indicated by the presence of a
+     * "<code>method-signature</code>" attribute and the absence of a "<code>type</code>" attribute), the following action must be taken:
      * </p>
      *
      * <div class="changed_added_2_0">
@@ -413,9 +390,8 @@ public abstract class ViewDeclarationLanguage {
      *
      * <li>
      * <p>
-     * Get the value of the <em>targets</em> attribute. If the value is a <code>ValueExpression</code> evaluate it. If there
-     * is no <em>targets</em> attribute, let the name of the metadata element be the evaluated value of the <em>targets
-     * attribute.</em>
+     * Get the value of the <em>targets</em> attribute. If the value is a <code>ValueExpression</code> evaluate it. If there is no <em>targets</em> attribute,
+     * let the name of the metadata element be the evaluated value of the <em>targets attribute.</em>
      * </p>
      * </li>
      *
@@ -428,8 +404,8 @@ public abstract class ViewDeclarationLanguage {
      *
      * <li>
      * <p>
-     * Find the inner component of the <em>topLevelComponent</em> with the id equal to the current list entry. For
-     * discussion, this component is called <em>target</em>. If not found, log and error and continue to the next attribute.
+     * Find the inner component of the <em>topLevelComponent</em> with the id equal to the current list entry. For discussion, this component is called
+     * <em>target</em>. If not found, log and error and continue to the next attribute.
      * </p>
      * </li>
      *
@@ -441,39 +417,37 @@ public abstract class ViewDeclarationLanguage {
      *
      * <li>
      * <p>
-     * In the attributes map of the <em>topLevelComponent</em>, look up the entry under the key <em>name</em>. Assume the
-     * result is a <code>ValueExpression</code>. For discussion, this is <em>attributeValueExpression</em>. If not found,
-     * log an error and continue to the next attribute.
+     * In the attributes map of the <em>topLevelComponent</em>, look up the entry under the key <em>name</em>. Assume the result is a
+     * <code>ValueExpression</code>. For discussion, this is <em>attributeValueExpression</em>. If not found, log an error and continue to the next attribute.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * If <em>name</em> is equal to the string "action", or "actionListener" without the quotes, assume <em>target</em> is
-     * an {@link jakarta.faces.component.ActionSource}.
+     * If <em>name</em> is equal to the string "action", or "actionListener" without the quotes, assume <em>target</em> is an
+     * {@link jakarta.faces.component.ActionSource}.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * If <em>name</em> is equal to the string "validator", or "valueChangeListener" without the quotes, assume
-     * <em>target</em> is an {@link jakarta.faces.component.EditableValueHolder}.
+     * If <em>name</em> is equal to the string "validator", or "valueChangeListener" without the quotes, assume <em>target</em> is an
+     * {@link jakarta.faces.component.EditableValueHolder}.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * Call <code>getExpressionString()</code> on the <em>attributeValueExpression</em> and use that string to create a
-     * <code>MethodExpression</code> of the appropriate signature for <em>name</em>.
+     * Call <code>getExpressionString()</code> on the <em>attributeValueExpression</em> and use that string to create a <code>MethodExpression</code> of the
+     * appropriate signature for <em>name</em>.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * If <em>name</em> is not equal to any of the previously listed strings, call <code>getExpressionString()</code> on the
-     * <em>attributeValueExpression</em> and use that string to create a <code>MethodExpression</code> where the signature
-     * is created based on the value of the "<code>method-signature</code>" attribute of the
-     * <code>&lt;composite:attribute /&gt;</code> tag.
+     * If <em>name</em> is not equal to any of the previously listed strings, call <code>getExpressionString()</code> on the <em>attributeValueExpression</em>
+     * and use that string to create a <code>MethodExpression</code> where the signature is created based on the value of the "<code>method-signature</code>"
+     * attribute of the <code>&lt;composite:attribute /&gt;</code> tag.
      * </p>
      * </li>
      *
@@ -485,41 +459,37 @@ public abstract class ViewDeclarationLanguage {
      *
      * <li>
      * <p>
-     * If <em>name</em> is equal to the string "action" without the quotes, call
-     * {@link jakarta.faces.component.ActionSource#setActionExpression} on <em>target</em>, passing
-     * <em>attributeMethodExpression</em>.
+     * If <em>name</em> is equal to the string "action" without the quotes, call {@link jakarta.faces.component.ActionSource#setActionExpression} on
+     * <em>target</em>, passing <em>attributeMethodExpression</em>.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * If <em>name</em> is equal to the string "actionListener" without the quotes, call
-     * {@link jakarta.faces.component.ActionSource#addActionListener} on <em>target</em>, passing
-     * <em>attributeMethodExpression</em> wrapped in a {@link jakarta.faces.event.MethodExpressionActionListener}.
+     * If <em>name</em> is equal to the string "actionListener" without the quotes, call {@link jakarta.faces.component.ActionSource#addActionListener} on
+     * <em>target</em>, passing <em>attributeMethodExpression</em> wrapped in a {@link jakarta.faces.event.MethodExpressionActionListener}.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * If <em>name</em> is equal to the string "validator" without the quotes, call
-     * {@link jakarta.faces.component.EditableValueHolder#addValidator} on <em>target</em>, passing
-     * <em>attributeMethodExpression</em> wrapped in a {@link jakarta.faces.validator.MethodExpressionValidator}.
+     * If <em>name</em> is equal to the string "validator" without the quotes, call {@link jakarta.faces.component.EditableValueHolder#addValidator} on
+     * <em>target</em>, passing <em>attributeMethodExpression</em> wrapped in a {@link jakarta.faces.validator.MethodExpressionValidator}.
      * </p>
      * </li>
      *
      * <li>
      * <p>
      * If <em>name</em> is equal to the string "valueChangeListener" without the quotes, call
-     * {@link jakarta.faces.component.EditableValueHolder#addValueChangeListener} on <em>target</em>, passing
-     * <em>attributeMethodExpression</em> wrapped in a {@link jakarta.faces.event.MethodExpressionValueChangeListener}.
+     * {@link jakarta.faces.component.EditableValueHolder#addValueChangeListener} on <em>target</em>, passing <em>attributeMethodExpression</em> wrapped in a
+     * {@link jakarta.faces.event.MethodExpressionValueChangeListener}.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * Otherwise, assume that the <code>MethodExpression</code> should be placed in the components attribute set. The runtme
-     * must create the <code>MethodExpression</code> instance based on the value of the "<code>method-signature</code>"
-     * attribute.
+     * Otherwise, assume that the <code>MethodExpression</code> should be placed in the components attribute set. The runtme must create the
+     * <code>MethodExpression</code> instance based on the value of the "<code>method-signature</code>" attribute.
      * </p>
      * </li>
      * </ul>
@@ -529,16 +499,16 @@ public abstract class ViewDeclarationLanguage {
      * </ul>
      *
      * <p>
-     * An implementation is provided that will throw <code>UnsupportedOperationException</code>. A Faces implementation
-     * compliant with version 2.0 and beyond of the specification must override this method.
+     * An implementation is provided that will throw <code>UnsupportedOperationException</code>. A Faces implementation compliant with version 2.0 and beyond of
+     * the specification must override this method.
      * </p>
      *
      * </div>
      *
      * @param context the FacesContext for this request.
      *
-     * @param topLevelComponent The UIComponent in the view to which the attached objects must be attached. This UIComponent
-     * must have its component metadata already associated and available from via the JavaBeans API.
+     * @param topLevelComponent The UIComponent in the view to which the attached objects must be attached. This UIComponent must have its component metadata
+     * already associated and available from via the JavaBeans API.
      *
      * @throws NullPointerException if <code>context</code> or <code>topLevelComponent</code> is <code>null</code>.
      *
@@ -550,13 +520,11 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_2">
-     * Return the list of resource library contracts that will be made available for use in the view specified by the
-     * argument {@code viewId}. If no match is found, return an empty list. 
-     * See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document for the specification of
-     * the default implementation. For backward compatibility with prior implementations, an implementation is provided that
-     * returns {@code null}, but any implementation compliant with the version of the specification in which this method was
-     * introduced must implement it as specified in 
-     * section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document.
+     * Return the list of resource library contracts that will be made available for use in the view specified by the argument {@code viewId}. If no match is
+     * found, return an empty list. See section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document for the
+     * specification of the default implementation. For backward compatibility with prior implementations, an implementation is provided that returns
+     * {@code null}, but any implementation compliant with the version of the specification in which this method was introduced must implement it as specified
+     * in section 7.7.2 "Default ViewDeclarationLanguage Implementation" of the Jakarta Faces Specification Document.
      * </p>
      *
      * @param context the {@code FacesContext} for this request
@@ -573,8 +541,7 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_0 changed_modified_5_0">
-     * Return the {@link StateManagementStrategy} that handles the state saving and restoring of the view. This method must
-     * not return <code>null</code>.
+     * Return the {@link StateManagementStrategy} that handles the state saving and restoring of the view. This method must not return <code>null</code>.
      * </p>
      *
      * @param context the {@code FacesContext} for the current request.
@@ -589,13 +556,11 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_1">
-     * <span class="changed_modified_2_2">Tests</span> whether a physical resource corresponding to the specified viewId
-     * exists.
+     * <span class="changed_modified_2_2">Tests</span> whether a physical resource corresponding to the specified viewId exists.
      * </p>
      *
      * <p class="changed_modified_2_2">
-     * The default implementation uses {@link jakarta.faces.application.ResourceHandler#createViewResource} to locate the
-     * physical resource.
+     * The default implementation uses {@link jakarta.faces.application.ResourceHandler#createViewResource} to locate the physical resource.
      * </p>
      *
      * @param context The <code>FacesContext</code> for this request.
@@ -611,8 +576,8 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_3">
-     * Return a {@code Stream} possibly lazily populated by walking the view tree rooted at a given initial path. The view
-     * tree is traversed <em>breadth-first</em>, the elements in the stream are <em>logical</em> view ids.
+     * Return a {@code Stream} possibly lazily populated by walking the view tree rooted at a given initial path. The view tree is traversed
+     * <em>breadth-first</em>, the elements in the stream are <em>logical</em> view ids.
      * </p>
      *
      * <p>
@@ -638,17 +603,16 @@ public abstract class ViewDeclarationLanguage {
 
     /**
      * <p class="changed_added_2_3">
-     * Return a {@code Stream} possibly lazily populated by walking the view tree rooted at a given initial path. The view
-     * tree is traversed <em>breadth-first</em>, the elements in the stream are <em>logical</em> view ids.
+     * Return a {@code Stream} possibly lazily populated by walking the view tree rooted at a given initial path. The view tree is traversed
+     * <em>breadth-first</em>, the elements in the stream are <em>logical</em> view ids.
      * </p>
      *
      * <p>
-     * The {@code maxDepth} parameter is the maximum depth of directory levels to visit <em>beyond the initial path</em>,
-     * which is always visited. The value is relative to the root ({@code /}), not to the given initial path. E.g. given
-     * {@code maxDepth} = {@code 3} and initial path {@code /foo/}, visiting will proceed up to {@code /foo/bar/}, where
-     * {@code /} counts as depth {@code 1}, {@code /foo/} as depth {@code 2} and {@code /foo/bar/} as depth {@code 3}. A
-     * value lower or equal to the depth of the initial path means that only the initial path is visited. A value of
-     * {@link Integer#MAX_VALUE MAX_VALUE} may be used to indicate that all levels should be visited.
+     * The {@code maxDepth} parameter is the maximum depth of directory levels to visit <em>beyond the initial path</em>, which is always visited. The value is
+     * relative to the root ({@code /}), not to the given initial path. E.g. given {@code maxDepth} = {@code 3} and initial path {@code /foo/}, visiting will
+     * proceed up to {@code /foo/bar/}, where {@code /} counts as depth {@code 1}, {@code /foo/} as depth {@code 2} and {@code /foo/bar/} as depth {@code 3}. A
+     * value lower or equal to the depth of the initial path means that only the initial path is visited. A value of {@link Integer#MAX_VALUE MAX_VALUE} may be
+     * used to indicate that all levels should be visited.
      *
      * @param facesContext The {@link FacesContext} for this request.
      * @param path The initial path from which to start looking for views
@@ -669,8 +633,8 @@ public abstract class ViewDeclarationLanguage {
      * </p>
      *
      * <p>
-     * The default implementation returns the fully qualified class name of the view declaration language implementation.
-     * Subclasses may override to provide a more meaningful id.
+     * The default implementation returns the fully qualified class name of the view declaration language implementation. Subclasses may override to provide a
+     * more meaningful id.
      * </p>
      *
      * @return the id of this view declaration language

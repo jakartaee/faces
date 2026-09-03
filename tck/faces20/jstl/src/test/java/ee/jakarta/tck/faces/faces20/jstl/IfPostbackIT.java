@@ -26,14 +26,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The subtree a {@code c:if} builds follows its test on every postback: it stays in place with its state intact for
- * as long as the test holds, and appears and disappears as the test changes.
+ * The subtree a {@code c:if} builds follows its test on every postback: it stays in place with its state intact for as long as the test holds, and appears and
+ * disappears as the test changes.
  */
 class IfPostbackIT extends BaseITNG {
 
     /**
-     * A postback that leaves the test true must leave the subtree it built in place, with each component keeping its
-     * client id and the value submitted to it.
+     * A postback that leaves the test true must leave the subtree it built in place, with each component keeping its client id and the value submitted to it.
      *
      * @see jakarta.faces.component.UIComponent#getClientId()
      */
@@ -51,8 +50,7 @@ class IfPostbackIT extends BaseITNG {
     }
 
     /**
-     * A postback whose action makes the test false must remove the subtree, and one that makes it true again must
-     * build it back exactly once.
+     * A postback whose action makes the test false must remove the subtree, and one that makes it true again must build it back exactly once.
      */
     @Test
     void changedTestRebuildsSubtree() {
@@ -68,8 +66,8 @@ class IfPostbackIT extends BaseITNG {
     }
 
     /**
-     * The page under a true test, reached by an action rather than by the initial value, so the outcome does not
-     * depend on what an earlier test left in the session.
+     * The page under a true test, reached by an action rather than by the initial value, so the outcome does not depend on what an earlier test left in the
+     * session.
      */
     private WebPage shown() {
         WebPage page = getPage("iftag/if-postback.xhtml");
@@ -81,4 +79,5 @@ class IfPostbackIT extends BaseITNG {
     private static int postbacks(WebPage page) {
         return Integer.parseInt(page.findElement(By.id("form:count")).getText().replace("postbacks=", ""));
     }
+
 }

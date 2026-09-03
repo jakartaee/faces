@@ -18,24 +18,24 @@ package ee.jakarta.tck.faces.faces22.init_request_parameter_map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.context.ExternalContext;
+import jakarta.faces.context.ExternalContextFactory;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.context.ExternalContext;
-import jakarta.faces.context.ExternalContextFactory;
 
 /**
- * The module decorates both the faces context factory and the external context factory, and the latter reads the
- * request parameter map while it is still creating the external context. Factories apply to every view of their
- * webapp, hence the dedicated module.
+ * The module decorates both the faces context factory and the external context factory, and the latter reads the request parameter map while it is still
+ * creating the external context. Factories apply to every view of their webapp, hence the dedicated module.
  */
 class Issue3436IT extends BaseITNG {
 
     /**
-     * An ExternalContextFactory may consult the request parameter map of the ExternalContext it is creating, before
-     * the FacesContext that will own it exists. The application starts and serves views regardless.
+     * An ExternalContextFactory may consult the request parameter map of the ExternalContext it is creating, before the FacesContext that will own it exists.
+     * The application starts and serves views regardless.
      *
      * @see ExternalContextFactory#getExternalContext(Object, Object, Object)
      * @see ExternalContext#getRequestParameterMap()
@@ -47,12 +47,15 @@ class Issue3436IT extends BaseITNG {
 
         assertEquals(200, page.getResponseStatus(), "initial render");
         assertEquals("served", page.findElement(By.id("form:result")).getText(), "The view must be served.");
-        assertEquals("[value]", page.findElement(By.id("form:parameter")).getText(),
-                "The request parameter must still be readable from the view.");
+        assertEquals(
+            "[value]", page.findElement(By.id("form:parameter")).getText(),
+            "The request parameter must still be readable from the view."
+        );
 
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
 
         assertEquals(200, page.getResponseStatus(), "postback");
         assertEquals("served", page.findElement(By.id("form:result")).getText(), "The view must survive a postback.");
     }
+
 }

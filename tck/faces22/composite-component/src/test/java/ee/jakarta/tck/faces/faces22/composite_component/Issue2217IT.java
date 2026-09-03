@@ -27,8 +27,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2217IT extends BaseITNG {
 
     /**
-     * A custom ClientBehavior attached to the composite tag must be retargeted onto the inner
-     * command button named by cc:clientBehavior targets.
+     * A custom ClientBehavior attached to the composite tag must be retargeted onto the inner command button named by cc:clientBehavior targets.
      *
      * @see jakarta.faces.component.behavior.ClientBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2217
@@ -39,8 +38,7 @@ class Issue2217IT extends BaseITNG {
     }
 
     /**
-     * A custom ClientBehavior attached to the composite tag must be retargeted onto an inner command
-     * button that sits inside a nested naming container.
+     * A custom ClientBehavior attached to the composite tag must be retargeted onto an inner command button that sits inside a nested naming container.
      *
      * @see jakarta.faces.component.behavior.ClientBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2217
@@ -51,8 +49,8 @@ class Issue2217IT extends BaseITNG {
     }
 
     /**
-     * A cc:clientBehavior whose name, event and targets all come from EL must retarget the custom
-     * ClientBehavior onto the inner command button just as the literal declaration does.
+     * A cc:clientBehavior whose name, event and targets all come from EL must retarget the custom ClientBehavior onto the inner command button just as the
+     * literal declaration does.
      *
      * @see jakarta.faces.component.behavior.ClientBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2217
@@ -63,8 +61,7 @@ class Issue2217IT extends BaseITNG {
     }
 
     /**
-     * An EL-declared cc:clientBehavior must retarget the custom ClientBehavior onto an inner command
-     * button inside a nested naming container.
+     * An EL-declared cc:clientBehavior must retarget the custom ClientBehavior onto an inner command button inside a nested naming container.
      *
      * @see jakarta.faces.component.behavior.ClientBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2217
@@ -75,14 +72,16 @@ class Issue2217IT extends BaseITNG {
     }
 
     /**
-     * Clicks the button with the given client id. The behavior's script records the client id of the
-     * component it was retargeted onto into the marker input, which the submit round-trips into the
-     * bean, so the resulting status pins which component actually carried the behavior.
+     * Clicks the button with the given client id. The behavior's script records the client id of the component it was retargeted onto into the marker input,
+     * which the submit round-trips into the bean, so the resulting status pins which component actually carried the behavior.
      */
     private void assertRetargetedOnto(String clientId) {
         WebPage page = getPage("issue2217.xhtml");
         page.guardHttp(page.findElement(By.id(clientId))::click);
-        assertEquals(clientId, page.findElement(By.id("form:status")).getText(),
-                "custom behavior ran on " + clientId);
+        assertEquals(
+            clientId, page.findElement(By.id("form:status")).getText(),
+            "custom behavior ran on " + clientId
+        );
     }
+
 }

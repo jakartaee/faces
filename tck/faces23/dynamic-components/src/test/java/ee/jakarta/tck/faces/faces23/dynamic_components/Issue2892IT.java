@@ -25,16 +25,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A component that MOVES an existing child into a sibling panel group must render the child in its
- * new parent, and the relocation must survive a postback.
+ * A component that MOVES an existing child into a sibling panel group must render the child in its new parent, and the relocation must survive a postback.
  */
 public class Issue2892IT extends BaseITNG {
 
     private static final String MOVED_INTO_PANEL = "FooBar";
 
     /**
-     * The moved output text renders inside the panel group on the initial render and stays there
-     * after a postback.
+     * The moved output text renders inside the panel group on the initial render and stays there after a postback.
      *
      * @see jakarta.faces.component.UIComponent#getChildren()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2892
@@ -47,4 +45,5 @@ public class Issue2892IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:button"))::click);
         assertEquals(MOVED_INTO_PANEL, page.findElement(By.id("form:panel")).getText(), "after postback");
     }
+
 }

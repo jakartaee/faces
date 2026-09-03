@@ -15,25 +15,26 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlinputhidden;
 
-import ee.jakarta.tck.faces.faces20.api.component.uiinput.UIInputTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlInputHidden;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uiinput.UIInputTestServlet;
+
 @WebServlet("/HtmlInputHiddenTestServlet")
 public final class HtmlInputHiddenTestServlet extends UIInputTestServlet {
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Hidden");
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Hidden");
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlInputHidden();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlInputHidden();
+    }
+
 }

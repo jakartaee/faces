@@ -33,4 +33,5 @@ public class InjectBehavior extends ClientBehaviorBase {
     public String getScript(ClientBehaviorContext behaviorContext) {
         return "<!--injectBehavior-->";
     }
+
 }

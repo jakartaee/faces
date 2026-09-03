@@ -39,4 +39,5 @@ class Issue4163IT extends BaseITNG {
         assertTrue(page.containsText("value expression base: ee.jakarta.tck.faces.faces23.el.Issue4163Bean"));
         assertTrue(page.containsText("value expression property: hello"));
     }
+
 }

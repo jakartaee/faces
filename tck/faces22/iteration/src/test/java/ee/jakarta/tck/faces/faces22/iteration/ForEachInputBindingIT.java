@@ -26,20 +26,19 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An h:inputText bound to a per-item property inside a c:forEach must, on postback, push each submitted value to the
- * matching model element - so the loop var has to resolve to the correct element during Update Model Values, not only on
- * render. Covers every source kind whose var addresses a mutable element: a List (IndexedValueExpression), an
- * insertion-ordered Set of mutable rows (IteratedValueExpression) and a Map (MappedValueExpression). Complements
+ * An h:inputText bound to a per-item property inside a c:forEach must, on postback, push each submitted value to the matching model element - so the loop var
+ * has to resolve to the correct element during Update Model Values, not only on render. Covers every source kind whose var addresses a mutable element: a List
+ * (IndexedValueExpression), an insertion-ordered Set of mutable rows (IteratedValueExpression) and a Map (MappedValueExpression). Complements
  * ForEachUnchangedPostbackIT, which only reads the var while rendering.
  */
 class ForEachInputBindingIT extends BaseITNG {
 
     private static final String[] IDS = { "form:list_0", "form:list_1", "form:list_2", "form:set_0", "form:set_1",
-            "form:set_2", "form:map_0", "form:map_1", "form:map_2" };
+        "form:set_2", "form:map_0", "form:map_1", "form:map_2" };
 
     /**
-     * Type a distinct value into every per-item input and submit; each value must land on the matching model element for
-     * every source kind, and each input must redisplay its element's updated value.
+     * Type a distinct value into every per-item input and submit; each value must land on the matching model element for every source kind, and each input must
+     * redisplay its element's updated value.
      */
     @Test
     void perItemInputUpdatesMatchingModelElementOnPostback() {
@@ -75,4 +74,5 @@ class ForEachInputBindingIT extends BaseITNG {
         input.clear();
         input.sendKeys(value);
     }
+
 }

@@ -38,10 +38,12 @@ public class Issue1418Bean implements Serializable {
             UIComponent moveme = moveto.getChildren().get(0);
             moveto.getChildren().remove(moveme);
             movefrom.getChildren().add(moveme);
-        } else {
+        }
+        else {
             UIComponent moveme = movefrom.getChildren().get(0);
             movefrom.getChildren().remove(moveme);
             moveto.getChildren().add(moveme);
         }
     }
+
 }

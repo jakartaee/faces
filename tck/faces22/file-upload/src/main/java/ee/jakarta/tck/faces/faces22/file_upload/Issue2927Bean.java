@@ -42,4 +42,5 @@ public class Issue2927Bean {
     public void setText(String text) {
         this.text = text;
     }
+
 }

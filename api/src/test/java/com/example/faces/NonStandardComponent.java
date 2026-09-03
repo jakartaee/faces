@@ -19,9 +19,8 @@ package com.example.faces;
 import jakarta.faces.component.UIComponentBase;
 
 /**
- * A component from outside {@code jakarta.faces.component}, i.e. one whose setters do not record into the
- * attributes-that-are-set list. It lives in this package precisely because the behaviour under test is decided by the
- * component's package name.
+ * A component from outside {@code jakarta.faces.component}, i.e. one whose setters do not record into the attributes-that-are-set list. It lives in this
+ * package precisely because the behaviour under test is decided by the component's package name.
  */
 public class NonStandardComponent extends UIComponentBase {
 
@@ -29,4 +28,5 @@ public class NonStandardComponent extends UIComponentBase {
     public String getFamily() {
         return "com.example.faces.NonStandard";
     }
+
 }

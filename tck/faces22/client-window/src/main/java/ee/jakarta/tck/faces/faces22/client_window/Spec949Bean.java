@@ -45,4 +45,5 @@ public class Spec949Bean implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 }

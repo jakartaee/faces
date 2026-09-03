@@ -25,9 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An {@code ELContextListener} registered on the {@code Application} via
- * {@code Application.addELContextListener} must be notified when a new {@code ELContext} is created,
- * which happens once per request. The registrar records the notification and the page surfaces it.
+ * An {@code ELContextListener} registered on the {@code Application} via {@code Application.addELContextListener} must be notified when a new {@code ELContext}
+ * is created, which happens once per request. The registrar records the notification and the page surfaces it.
  */
 public class ELContextListenerNotifiedIT extends BaseITNG {
 
@@ -40,7 +39,10 @@ public class ELContextListenerNotifiedIT extends BaseITNG {
     @Test
     void testELContextListenerNotified() {
         WebPage page = getPage("elContextListenerNotified.xhtml");
-        assertEquals("PASSED", page.findElement(By.id("status")).getText(),
-                "Registered ELContextListener must be notified on ELContext creation");
+        assertEquals(
+            "PASSED", page.findElement(By.id("status")).getText(),
+            "Registered ELContextListener must be notified on ELContext creation"
+        );
     }
+
 }

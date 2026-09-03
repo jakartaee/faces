@@ -29,8 +29,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2612IT extends BaseITNG {
 
     /**
-     * A {@code p:placeholder} pass-through attribute on {@code h:inputText} renders as a verbatim
-     * placeholder attribute on the host input element.
+     * A {@code p:placeholder} pass-through attribute on {@code h:inputText} renders as a verbatim placeholder attribute on the host input element.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2612
@@ -46,8 +45,7 @@ class Issue2612IT extends BaseITNG {
     }
 
     /**
-     * A {@code p:autocomplete} pass-through attribute on {@code h:inputText} renders as a verbatim
-     * autocomplete attribute on the host input element.
+     * A {@code p:autocomplete} pass-through attribute on {@code h:inputText} renders as a verbatim autocomplete attribute on the host input element.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2612
@@ -63,8 +61,7 @@ class Issue2612IT extends BaseITNG {
     }
 
     /**
-     * A {@code p:autofocus} pass-through attribute on {@code h:inputText} renders as a verbatim
-     * autofocus attribute on the host input element.
+     * A {@code p:autofocus} pass-through attribute on {@code h:inputText} renders as a verbatim autofocus attribute on the host input element.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2612
@@ -80,8 +77,7 @@ class Issue2612IT extends BaseITNG {
     }
 
     /**
-     * A {@code p:list} pass-through attribute on {@code h:inputText} renders as a verbatim
-     * list attribute on the host input element.
+     * A {@code p:list} pass-through attribute on {@code h:inputText} renders as a verbatim list attribute on the host input element.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2612
@@ -97,8 +93,7 @@ class Issue2612IT extends BaseITNG {
     }
 
     /**
-     * A {@code p:pattern} pass-through attribute on {@code h:inputText} renders as a verbatim
-     * pattern attribute on the host input element.
+     * A {@code p:pattern} pass-through attribute on {@code h:inputText} renders as a verbatim pattern attribute on the host input element.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2612
@@ -114,8 +109,7 @@ class Issue2612IT extends BaseITNG {
     }
 
     /**
-     * A {@code p:required} pass-through attribute on {@code h:inputText} renders as a verbatim
-     * required attribute on the host input element.
+     * A {@code p:required} pass-through attribute on {@code h:inputText} renders as a verbatim required attribute on the host input element.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2612
@@ -131,8 +125,7 @@ class Issue2612IT extends BaseITNG {
     }
 
     /**
-     * A {@code p:dirname} pass-through attribute on {@code h:inputText} renders as a verbatim
-     * dirname attribute on the host input element.
+     * A {@code p:dirname} pass-through attribute on {@code h:inputText} renders as a verbatim dirname attribute on the host input element.
      *
      * @see jakarta.faces.component.UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2612
@@ -146,4 +139,5 @@ class Issue2612IT extends BaseITNG {
         assertEquals("input7", input.getAttribute("name"), "name");
         assertEquals("input7.dir", input.getAttribute("dirname"), "dirname pass-through attribute");
     }
+
 }

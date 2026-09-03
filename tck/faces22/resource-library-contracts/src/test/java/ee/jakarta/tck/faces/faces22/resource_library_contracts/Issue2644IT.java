@@ -26,10 +26,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A resource library contract mapped to every view ({@code url-pattern *} to contract
- * {@code siteLayout}) supplies both the Facelet templates the views compose and the stylesheets the
- * templates reference. Each contract-scoped stylesheet URL carries the contract in its {@code con}
- * request parameter and is served that contract's own content.
+ * A resource library contract mapped to every view ({@code url-pattern *} to contract {@code siteLayout}) supplies both the Facelet templates the views compose
+ * and the stylesheets the templates reference. Each contract-scoped stylesheet URL carries the contract in its {@code con} request parameter and is served that
+ * contract's own content.
  */
 class Issue2644IT extends BaseITNG {
 
@@ -40,12 +39,16 @@ class Issue2644IT extends BaseITNG {
     @Test
     void testTemplatesAreUsed() {
         WebPage page = getPage("issue2644.xhtml");
-        assertTrue(page.containsText("Top Navigation Menu"),
-                "the contract's topNav_Template.xhtml must be used for the first view");
+        assertTrue(
+            page.containsText("Top Navigation Menu"),
+            "the contract's topNav_Template.xhtml must be used for the first view"
+        );
 
         page.guardHttp(page.findElement(By.id("form:button"))::click);
-        assertTrue(page.containsText("Left Side Navigation Menu"),
-                "the contract's leftNav_foo.xhtml must be used for the second view");
+        assertTrue(
+            page.containsText("Left Side Navigation Menu"),
+            "the contract's leftNav_foo.xhtml must be used for the second view"
+        );
     }
 
     /**
@@ -62,9 +65,14 @@ class Issue2644IT extends BaseITNG {
     private void assertStylesheetFromContract(WebPage page, String resourceName, String expectedContent) {
         WebElement link = page.findElement(By.cssSelector("link[href*='" + resourceName + "']"));
         String uri = getHrefURI(link);
-        assertTrue(uri.contains("con=siteLayout"),
-                resourceName + " must request contract siteLayout but requested " + uri);
-        assertTrue(getResponseBody(uri).contains(expectedContent),
-                resourceName + " must be served from the siteLayout contract");
+        assertTrue(
+            uri.contains("con=siteLayout"),
+            resourceName + " must request contract siteLayout but requested " + uri
+        );
+        assertTrue(
+            getResponseBody(uri).contains(expectedContent),
+            resourceName + " must be served from the siteLayout contract"
+        );
     }
+
 }

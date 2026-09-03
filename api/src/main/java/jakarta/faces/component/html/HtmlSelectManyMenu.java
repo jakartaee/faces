@@ -28,12 +28,11 @@ import jakarta.faces.event.BehaviorEvent.FacesComponentEvent;
 
 /**
  * <p>
- * Represents a multiple-selection component that is rendered as an HTML <code>select</code> element, showing a single
- * available option at a time.
+ * Represents a multiple-selection component that is rendered as an HTML <code>select</code> element, showing a single available option at a time.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Menu</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Menu</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHolder {
@@ -54,8 +53,33 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      * The property keys.
      */
     protected enum PropertyKeys {
-        accesskey, dir, disabled, disabledClass, enabledClass, label, lang, onblur, onchange, onclick, ondblclick, onfocus, onkeydown, onkeypress, onkeyup,
-        onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, readonly, role, style, styleClass, tabindex, title,;
+
+        accesskey,
+        dir,
+        disabled,
+        disabledClass,
+        enabledClass,
+        label,
+        lang,
+        onblur,
+        onchange,
+        onclick,
+        ondblclick,
+        onfocus,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        readonly,
+        role,
+        style,
+        styleClass,
+        tabindex,
+        title,;
 
         String toString;
 
@@ -70,6 +94,7 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -105,9 +130,8 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);
@@ -133,9 +157,8 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value
-     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as
-     * disabled="disabled".
+     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value of false causes no attribute to be
+     * rendered, while a value of true causes the attribute to be rendered as disabled="disabled".
      */
     public boolean isDisabled() {
         return getStateHelper().eval(PropertyKeys.disabled, false);
@@ -598,9 +621,8 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this component will prohibit changes by the user. The element may receive focus unless
-     * it has also been disabled. A value of false causes no attribute to be rendered, while a value of true causes the
-     * attribute to be rendered as readonly="readonly".
+     * Contents: Flag indicating that this component will prohibit changes by the user. The element may receive focus unless it has also been disabled. A value
+     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
         return getStateHelper().eval(PropertyKeys.readonly, false);
@@ -627,16 +649,14 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -689,8 +709,8 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -716,8 +736,7 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
      *
      * @return the property value
      * <p>
-     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer
-     * between 0 and 32767.
+     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer between 0 and 32767.
      */
     public java.lang.String getTabindex() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.tabindex);
@@ -764,7 +783,7 @@ public class HtmlSelectManyMenu extends UISelectMany implements ClientBehaviorHo
 
     @Override
     public Collection<String> getEventNames() {
-        return getFacesEditableValueHolderEventNames(getFacesContext()); 
+        return getFacesEditableValueHolderEventNames(getFacesContext());
     }
 
     @Override

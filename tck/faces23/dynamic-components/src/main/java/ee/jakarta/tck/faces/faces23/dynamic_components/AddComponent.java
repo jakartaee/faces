@@ -33,4 +33,5 @@ public class AddComponent extends DynamicComponentBase {
             getChildren().add(component);
         }
     }
+
 }

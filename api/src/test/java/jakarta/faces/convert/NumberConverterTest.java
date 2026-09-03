@@ -76,11 +76,10 @@ public class NumberConverterTest {
     }
 
     /**
-     * Test that currency parsing accepts user input with regular space (U+0020) when the
-     * formatter uses NBSP (U+00A0) in the currency prefix.
+     * Test that currency parsing accepts user input with regular space (U+0020) when the formatter uses NBSP (U+00A0) in the currency prefix.
      *
-     * On JDK 17+, NumberFormat.getCurrencyInstance for pt-BR produces "R$\u00A0" as the
-     * positive prefix. Users naturally type "R$ " with a regular space, causing a parse failure.
+     * On JDK 17+, NumberFormat.getCurrencyInstance for pt-BR produces "R$\u00A0" as the positive prefix. Users naturally type "R$ " with a regular space,
+     * causing a parse failure.
      *
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/5399">GitHub issue #5399</a>
      */
@@ -108,8 +107,8 @@ public class NumberConverterTest {
     }
 
     /**
-     * Test that currency parsing works with NBSP (the character the formatter expects).
-     * This verifies the formatter itself works — the input uses the "right" character.
+     * Test that currency parsing works with NBSP (the character the formatter expects). This verifies the formatter itself works — the input uses the "right"
+     * character.
      *
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/5399">GitHub issue #5399</a>
      */
@@ -135,8 +134,7 @@ public class NumberConverterTest {
     }
 
     /**
-     * Test that getAsString/getAsObject roundtrip works when the formatted output
-     * is manually typed by a user (i.e., NBSP replaced with regular space).
+     * Test that getAsString/getAsObject roundtrip works when the formatted output is manually typed by a user (i.e., NBSP replaced with regular space).
      *
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/5399">GitHub issue #5399</a>
      */
@@ -169,9 +167,8 @@ public class NumberConverterTest {
     }
 
     /**
-     * Test that currency parsing with NBSP in grouping separator still works.
-     * Some locales use NBSP as the grouping separator (e.g., fr-FR).
-     * This tests the existing HACK 4510618 path.
+     * Test that currency parsing with NBSP in grouping separator still works. Some locales use NBSP as the grouping separator (e.g., fr-FR). This tests the
+     * existing HACK 4510618 path.
      *
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/5399">GitHub issue #5399</a>
      */
@@ -202,4 +199,5 @@ public class NumberConverterTest {
         assertNotNull(result, "Parsing French currency with regular spaces should succeed");
         assertEquals(1234.56, ((Number) result).doubleValue(), 0.001);
     }
+
 }

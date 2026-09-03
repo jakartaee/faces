@@ -29,8 +29,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that both a statically declared onsubmit handler and a dynamically registered submit listener actually fire
- * when a form is submitted by a command link or a command button.
+ * Verifies that both a statically declared onsubmit handler and a dynamically registered submit listener actually fire when a form is submitted by a command
+ * link or a command button.
  */
 class Issue4198IT extends BaseITNG {
 
@@ -80,7 +80,10 @@ class Issue4198IT extends BaseITNG {
     private void assertOnSubmitTriggered(String clientId, String expectedMessage) throws Exception {
         WebPage page = getPage("issue4198.xhtml");
         page.guardHttp(page.findElement(By.id(clientId))::click);
-        assertEquals(expectedMessage, page.findElement(By.id("result")).getText(),
-            "The onsubmit script must have run and its message must have round-tripped through the submit");
+        assertEquals(
+            expectedMessage, page.findElement(By.id("result")).getText(),
+            "The onsubmit script must have run and its message must have round-tripped through the submit"
+        );
     }
+
 }

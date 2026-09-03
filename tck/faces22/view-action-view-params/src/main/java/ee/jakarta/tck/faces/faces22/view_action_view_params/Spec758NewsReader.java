@@ -25,9 +25,8 @@ import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
 /**
- * Reads the story addressed by the {@code id} view parameter. Request scoped on purpose: the
- * selected story is derived from the view parameter of the request at hand, so it is exactly what a
- * redirect does or does not carry over which decides whether a story is still selected afterwards.
+ * Reads the story addressed by the {@code id} view parameter. Request scoped on purpose: the selected story is derived from the view parameter of the request
+ * at hand, so it is exactly what a redirect does or does not carry over which decides whether a story is still selected afterwards.
  */
 @Named
 @RequestScoped
@@ -65,8 +64,8 @@ public class Spec758NewsReader {
     }
 
     /**
-     * Invoked by the view action of the story view during process validations, so that a rejected
-     * view parameter navigates back to the home view carrying the validation message along.
+     * Invoked by the view action of the story view during process validations, so that a rejected view parameter navigates back to the home view carrying the
+     * validation message along.
      */
     public String goToHomeIfValidationFailed() {
         return FacesContext.getCurrentInstance().isValidationFailed() ? "/spec758-home" : null;
@@ -91,4 +90,5 @@ public class Spec758NewsReader {
     public boolean isMissingStoryId() {
         return selectedStoryId == null;
     }
+
 }

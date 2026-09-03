@@ -29,15 +29,16 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3477IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3477
-   */
-  @Test
-  void buttonOnlySubmitsOne() throws Exception {
+     */
+    @Test
+    void buttonOnlySubmitsOne() throws Exception {
         WebPage page = getPage("issue3477.xhtml");
         WebElement button = page.findElement(By.id("form:commandButton"));
         page.guardAjax(button::click);
         assertTrue(page.containsText("Error from form:commandButton"));
     }
+
 }

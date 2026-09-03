@@ -27,8 +27,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2199IT extends BaseITNG {
 
     /**
-     * A composite:attribute declaring a method-signature must be usable as the listener of an f:ajax
-     * nested in the composite's implementation.
+     * A composite:attribute declaring a method-signature must be usable as the listener of an f:ajax nested in the composite's implementation.
      *
      * @see jakarta.faces.event.AjaxBehaviorEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2199
@@ -41,9 +40,8 @@ class Issue2199IT extends BaseITNG {
     }
 
     /**
-     * A composite:attribute declaring a method-signature must be usable as the listener of an
-     * f:event in the composite's implementation, with the event type itself also coming from
-     * cc.attrs.
+     * A composite:attribute declaring a method-signature must be usable as the listener of an f:event in the composite's implementation, with the event type
+     * itself also coming from cc.attrs.
      *
      * @see jakarta.faces.event.ComponentSystemEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2199
@@ -56,8 +54,7 @@ class Issue2199IT extends BaseITNG {
     }
 
     /**
-     * A composite:attribute declaring a method-signature must be usable as the valueChangeListener
-     * of an h:inputText in the composite's implementation.
+     * A composite:attribute declaring a method-signature must be usable as the valueChangeListener of an h:inputText in the composite's implementation.
      *
      * @see jakarta.faces.event.ValueChangeEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2199
@@ -69,4 +66,5 @@ class Issue2199IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:button"))::click);
         assertEquals("valueChange called", page.findElement(By.id("form:status")).getText());
     }
+
 }

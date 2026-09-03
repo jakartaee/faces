@@ -42,8 +42,7 @@ import java.lang.annotation.Target;
  * <div class="changed_added_2_0">
  *
  * <p>
- * The action described in {@link ListenerFor} must be taken for each <code>&#0064;ListenerFor</code> present in the
- * container annotation.
+ * The action described in {@link ListenerFor} must be taken for each <code>&#0064;ListenerFor</code> present in the container annotation.
  * </p>
  *
  * </div>

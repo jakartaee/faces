@@ -25,15 +25,15 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * This module pins {@code jakarta.faces.SERIALIZE_SERVER_STATE} to {@code false}, which the reactor otherwise never
- * exercises. Its counterpart pinning it to {@code true} lives in {@code faces20/state-serialization-enabled}; the two
- * assert opposite outcomes of the same spec issue and therefore cannot share a module.
+ * This module pins {@code jakarta.faces.SERIALIZE_SERVER_STATE} to {@code false}, which the reactor otherwise never exercises. Its counterpart pinning it to
+ * {@code true} lives in {@code faces20/state-serialization-enabled}; the two assert opposite outcomes of the same spec issue and therefore cannot share a
+ * module.
  */
 class Spec1127IT extends BaseITNG {
 
     /**
-     * With server side state saving and serialization switched off, the state is held as a live object graph, so a
-     * component attribute which refuses to serialize is never asked to and the postback succeeds.
+     * With server side state saving and serialization switched off, the state is held as a live object graph, so a component attribute which refuses to
+     * serialize is never asked to and the postback succeeds.
      *
      * @see https://github.com/jakartaee/faces/issues/1127
      */
@@ -43,8 +43,11 @@ class Spec1127IT extends BaseITNG {
 
         page.guardHttp(page.findElement(By.id("button"))::click);
 
-        assertEquals(200, page.getResponseStatus(),
-                "Without state serialization a non serializable attribute must not fail the postback.");
+        assertEquals(
+            200, page.getResponseStatus(),
+            "Without state serialization a non serializable attribute must not fail the postback."
+        );
         assertEquals("reloaded", page.findElement(By.id("result")).getText(), "The view must still render.");
     }
+
 }

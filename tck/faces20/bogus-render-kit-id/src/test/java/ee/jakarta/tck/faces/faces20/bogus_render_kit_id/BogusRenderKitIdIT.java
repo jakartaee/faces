@@ -25,11 +25,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The application's configured {@code default-render-kit-id} is a bogus, non-existent render kit.
- * A view that overrides its render kit per-view via {@code f:view renderKitId} renders fine and its
- * {@code UIViewRoot} reports the override, while {@code ViewHandler.calculateRenderKitId} still
- * reports the configured default. A view that does NOT override falls back to the bogus configured
- * render kit and fails to render, yielding an HTTP 500.
+ * The application's configured {@code default-render-kit-id} is a bogus, non-existent render kit. A view that overrides its render kit per-view via
+ * {@code f:view renderKitId} renders fine and its {@code UIViewRoot} reports the override, while {@code ViewHandler.calculateRenderKitId} still reports the
+ * configured default. A view that does NOT override falls back to the bogus configured render kit and fails to render, yielding an HTTP 500.
  */
 class BogusRenderKitIdIT extends BaseITNG {
 
@@ -42,10 +40,14 @@ class BogusRenderKitIdIT extends BaseITNG {
     @Test
     void testPerViewRenderKitIdOverride() {
         WebPage page = getPage("bogusRenderKitIdBasic.xhtml");
-        assertEquals(CONFIGURED_RENDER_KIT_ID, page.findElement(By.id("form:configured")).getText(),
-                "calculateRenderKitId must report the configured default render-kit-id");
-        assertEquals("HTML_BASIC", page.findElement(By.id("form:viewRoot")).getText(),
-                "the per-view f:view renderKitId override must win for the view root");
+        assertEquals(
+            CONFIGURED_RENDER_KIT_ID, page.findElement(By.id("form:configured")).getText(),
+            "calculateRenderKitId must report the configured default render-kit-id"
+        );
+        assertEquals(
+            "HTML_BASIC", page.findElement(By.id("form:viewRoot")).getText(),
+            "the per-view f:view renderKitId override must win for the view root"
+        );
     }
 
     /**
@@ -54,7 +56,10 @@ class BogusRenderKitIdIT extends BaseITNG {
      */
     @Test
     void testConfiguredRenderKitIdFailsToRender() {
-        assertEquals(500, getPage("bogusRenderKitIdConfigured.xhtml").getResponseStatus(),
-                "a view rendered with the bogus configured render kit must fail to render");
+        assertEquals(
+            500, getPage("bogusRenderKitIdConfigured.xhtml").getResponseStatus(),
+            "a view rendered with the bogus configured render kit must fail to render"
+        );
     }
+
 }

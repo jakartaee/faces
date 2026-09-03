@@ -46,4 +46,5 @@ public class Spec1385IT extends BaseITNG {
         page = getPage("spec1385.xhtml?getFlash=true");
         assertFalse(page.containsText("foo:bar"));
     }
+
 }

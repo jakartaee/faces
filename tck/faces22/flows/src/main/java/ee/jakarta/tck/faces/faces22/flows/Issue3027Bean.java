@@ -50,9 +50,9 @@ public class Issue3027Bean implements Serializable {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         String contextPath = externalContext.getRequestContextPath();
         String redirectTarget = contextPath
-                + "/outcomeParameterResults.xhtml?query="
-                + URLEncoder.encode(searchTermC, StandardCharsets.UTF_8)
-                + "&otherParameter=someValue";
+            + "/outcomeParameterResults.xhtml?query="
+            + URLEncoder.encode(searchTermC, StandardCharsets.UTF_8)
+            + "&otherParameter=someValue";
         externalContext.redirect(redirectTarget);
     }
 
@@ -95,4 +95,5 @@ public class Issue3027Bean implements Serializable {
     public void setSearchTermE(String searchTermE) {
         this.searchTermE = searchTermE;
     }
+
 }

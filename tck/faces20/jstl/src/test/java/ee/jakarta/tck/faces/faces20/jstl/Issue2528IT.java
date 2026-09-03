@@ -27,8 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2528IT extends BaseITNG {
 
     /**
-     * A c:set whose value is the empty string is a valid assignment, so the view compiles and the variable
-     * resolves to the empty string rather than the tag failing at build time.
+     * A c:set whose value is the empty string is a valid assignment, so the view compiles and the variable resolves to the empty string rather than the tag
+     * failing at build time.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2528
      */
@@ -37,7 +37,10 @@ class Issue2528IT extends BaseITNG {
         WebPage page = getPage("issue2528.xhtml");
 
         assertEquals(200, page.getResponseStatus(), "The view must render.");
-        assertEquals("[]", page.findElement(By.id("rendered")).getText(),
-                "The variable set to an empty value must resolve to the empty string.");
+        assertEquals(
+            "[]", page.findElement(By.id("rendered")).getText(),
+            "The variable set to an empty value must resolve to the empty string."
+        );
     }
+
 }

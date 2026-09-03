@@ -25,9 +25,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_modified_2_3">
- * <strong>FacesEvent</strong> is the base class for user interface and application events that can be fired by
- * {@link UIComponent}s. Concrete event classes must subclass {@link FacesEvent} in order to be supported by the request
- * processing lifecycle.
+ * <strong>FacesEvent</strong> is the base class for user interface and application events that can be fired by {@link UIComponent}s. Concrete event classes
+ * must subclass {@link FacesEvent} in order to be supported by the request processing lifecycle.
  * </p>
  */
 public abstract class FacesEvent extends EventObject {
@@ -88,8 +87,7 @@ public abstract class FacesEvent extends EventObject {
      * </p>
      *
      * <p>
-     * If the constructor was passed a FacesContext we return it, otherwise we call FacesContext.getCurrentInstance() and
-     * return it.
+     * If the constructor was passed a FacesContext we return it, otherwise we call FacesContext.getCurrentInstance() and return it.
      * </p>
      *
      * @return the Faces context.
@@ -97,8 +95,8 @@ public abstract class FacesEvent extends EventObject {
      */
     public FacesContext getFacesContext() {
         /*
-         * Note because UIViewAction is decorating the FacesContext during the execution of a request we cannot rely on the
-         * saved FacesContext as it would be the original FacesContext (which is what we should be able to rely on).
+         * Note because UIViewAction is decorating the FacesContext during the execution of a request we cannot rely on the saved FacesContext as it would be
+         * the original FacesContext (which is what we should be able to rely on).
          *
          * TODO - remove UIViewAction dependency on decorating the FacesContext.
          */
@@ -112,9 +110,8 @@ public abstract class FacesEvent extends EventObject {
 
     /**
      * <p>
-     * Return the identifier of the request processing phase during which this event should be delivered. Legal values are
-     * the singleton instances defined by the {@link PhaseId} class, including <code>PhaseId.ANY_PHASE</code>, which is the
-     * default value.
+     * Return the identifier of the request processing phase during which this event should be delivered. Legal values are the singleton instances defined by
+     * the {@link PhaseId} class, including <code>PhaseId.ANY_PHASE</code>, which is the default value.
      * </p>
      *
      * @return the phase id.
@@ -155,8 +152,8 @@ public abstract class FacesEvent extends EventObject {
 
     /**
      * <p>
-     * Return <code>true</code> if this {@link FacesListener} is an instance of a listener class that this event supports.
-     * Typically, this will be accomplished by an "instanceof" check on the listener class.
+     * Return <code>true</code> if this {@link FacesListener} is an instance of a listener class that this event supports. Typically, this will be accomplished
+     * by an "instanceof" check on the listener class.
      * </p>
      *
      * @param listener {@link FacesListener} to evaluate
@@ -166,15 +163,13 @@ public abstract class FacesEvent extends EventObject {
 
     /**
      * <p>
-     * Broadcast this {@link FacesEvent} to the specified {@link FacesListener}, by whatever mechanism is appropriate.
-     * Typically, this will be accomplished by calling an event processing method, and passing this {@link FacesEvent} as a
-     * paramter.
+     * Broadcast this {@link FacesEvent} to the specified {@link FacesListener}, by whatever mechanism is appropriate. Typically, this will be accomplished by
+     * calling an event processing method, and passing this {@link FacesEvent} as a paramter.
      * </p>
      *
      * @param listener {@link FacesListener} to send this {@link FacesEvent} to
      *
-     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the
-     * current event should be performed
+     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the current event should be performed
      */
     public abstract void processListener(FacesListener listener);
 

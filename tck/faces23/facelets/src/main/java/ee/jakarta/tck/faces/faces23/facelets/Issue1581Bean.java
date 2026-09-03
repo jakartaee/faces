@@ -31,22 +31,23 @@ public class Issue1581Bean implements Serializable {
 
     private List<Issue1581Bug> bugs = new ArrayList<Issue1581Bug>();
 
-    public Issue1581Bean() { 
-        bugs.add(new Issue1581Bug(false, "JAVASERVERFACES-1")); 
-        bugs.add(new Issue1581Bug(false, "JAVASERVERFACES-2")); 
-        bugs.add(new Issue1581Bug(false, "JAVASERVERFACES-3")); 
-        bugs.add(new Issue1581Bug(false, "JAVASERVERFACES-4")); 
+    public Issue1581Bean() {
+        bugs.add(new Issue1581Bug(false, "JAVASERVERFACES-1"));
+        bugs.add(new Issue1581Bug(false, "JAVASERVERFACES-2"));
+        bugs.add(new Issue1581Bug(false, "JAVASERVERFACES-3"));
+        bugs.add(new Issue1581Bug(false, "JAVASERVERFACES-4"));
     }
 
-    public void selectionChanged() { 
-        System.out.println("Selection: "+bugs); 
+    public void selectionChanged() {
+        System.out.println("Selection: " + bugs);
     }
 
-    public List<Issue1581Bug> getBugs() { 
-        return bugs; 
+    public List<Issue1581Bug> getBugs() {
+        return bugs;
     }
 
-    public void setBugs(List<Issue1581Bug> bugs) { 
-        this.bugs = bugs; 
+    public void setBugs(List<Issue1581Bug> bugs) {
+        this.bugs = bugs;
     }
+
 }

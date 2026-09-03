@@ -18,18 +18,19 @@ package ee.jakarta.tck.faces.faces20.el;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.el.ValueExpression;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.el.ValueExpression;
 
 class Issue2835IT extends BaseITNG {
 
     /**
-     * ValueExpression#setValue writes through to the target property, including writing null and including a
-     * nested bean property, and raises PropertyNotWritableException for a read only property.
+     * ValueExpression#setValue writes through to the target property, including writing null and including a nested bean property, and raises
+     * PropertyNotWritableException for a read only property.
      *
      * @see ValueExpression#setValue(jakarta.el.ELContext, Object)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2835
@@ -38,13 +39,22 @@ class Issue2835IT extends BaseITNG {
     void setValueWritesThroughAndRejectsReadOnlyProperties() {
         WebPage page = getPage("issue2835.xhtml");
 
-        assertEquals("SUCCESS", page.findElement(By.id("setNullOnProperty")).getText(),
-                "Setting null must null a plain property.");
-        assertEquals("SUCCESS", page.findElement(By.id("setValueOnNestedProperty")).getText(),
-                "Setting a value must reach a nested bean property.");
-        assertEquals("SUCCESS", page.findElement(By.id("setNullOnNestedProperty")).getText(),
-                "Setting null must null a nested bean property.");
-        assertEquals("SUCCESS", page.findElement(By.id("setValueOnReadOnlyProperty")).getText(),
-                "Setting a read only property must raise PropertyNotWritableException.");
+        assertEquals(
+            "SUCCESS", page.findElement(By.id("setNullOnProperty")).getText(),
+            "Setting null must null a plain property."
+        );
+        assertEquals(
+            "SUCCESS", page.findElement(By.id("setValueOnNestedProperty")).getText(),
+            "Setting a value must reach a nested bean property."
+        );
+        assertEquals(
+            "SUCCESS", page.findElement(By.id("setNullOnNestedProperty")).getText(),
+            "Setting null must null a nested bean property."
+        );
+        assertEquals(
+            "SUCCESS", page.findElement(By.id("setValueOnReadOnlyProperty")).getText(),
+            "Setting a read only property must raise PropertyNotWritableException."
+        );
     }
+
 }

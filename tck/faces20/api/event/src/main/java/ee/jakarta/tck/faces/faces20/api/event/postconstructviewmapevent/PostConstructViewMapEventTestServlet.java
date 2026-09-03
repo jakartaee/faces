@@ -15,29 +15,29 @@
  */
 package ee.jakarta.tck.faces.faces20.api.event.postconstructviewmapevent;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PostConstructViewMapEvent;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
+
 @WebServlet("/PostConstructViewMapEventTestServlet")
 public final class PostConstructViewMapEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UIViewRoot UIVR = new UIViewRoot();
+    private static final UIViewRoot UIVR = new UIViewRoot();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
 
-    return new PostConstructViewMapEvent((UIViewRoot) component);
-  }
+        return new PostConstructViewMapEvent((UIViewRoot) component);
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return UIVR;
-  }
+    @Override
+    protected UIComponent getTestComponent() {
+        return UIVR;
+    }
 
-  // ------------------------------------------------------------ test methods
+    // ------------------------------------------------------------ test methods
 }

@@ -38,18 +38,19 @@ public class Issue4163Bean {
 
     public String getValueExpressionBase() {
         return view.findComponent(":output")
-                .getValueExpression("value")
-                .getValueReference(context.getELContext())
-                .getBase()
-                .getClass()
-                .getName();
+            .getValueExpression("value")
+            .getValueReference(context.getELContext())
+            .getBase()
+            .getClass()
+            .getName();
     }
 
     public String getValueExpressionProperty() {
         return view.findComponent(":output")
-                .getValueExpression("value")
-                .getValueReference(context.getELContext())
-                .getProperty()
-                .toString();
+            .getValueExpression("value")
+            .getValueReference(context.getELContext())
+            .getProperty()
+            .toString();
     }
+
 }

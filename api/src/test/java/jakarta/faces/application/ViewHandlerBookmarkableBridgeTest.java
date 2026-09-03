@@ -31,11 +31,10 @@ import jakarta.faces.context.FacesContext;
 import org.junit.jupiter.api.Test;
 
 /**
- * Verifies that the fragment-aware {@code getBookmarkableURL}/{@code getRedirectURL} overloads added in 5.0 keep
- * honoring an implementation that overrides only the deprecated fragment-less overload. Deprecation does not remove a
- * method, so a {@link ViewHandler} or {@link ViewHandlerWrapper} that customizes the deprecated overload must continue
- * to take effect even though the framework now invokes the new overload. When a fragment is actually requested the call
- * still routes to the new overload so the fragment is preserved.
+ * Verifies that the fragment-aware {@code getBookmarkableURL}/{@code getRedirectURL} overloads added in 5.0 keep honoring an implementation that overrides only
+ * the deprecated fragment-less overload. Deprecation does not remove a method, so a {@link ViewHandler} or {@link ViewHandlerWrapper} that customizes the
+ * deprecated overload must continue to take effect even though the framework now invokes the new overload. When a fragment is actually requested the call still
+ * routes to the new overload so the fragment is preserved.
  */
 class ViewHandlerBookmarkableBridgeTest {
 
@@ -116,6 +115,7 @@ class ViewHandlerBookmarkableBridgeTest {
         public void writeState(FacesContext context) throws IOException {
             // NOOP
         }
+
     }
 
     private static class LegacyViewHandler extends StubViewHandler {
@@ -131,12 +131,16 @@ class ViewHandlerBookmarkableBridgeTest {
         public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
             return "legacy-redirect:" + viewId;
         }
+
     }
 
     private static class NewViewHandler extends StubViewHandler {
 
         @Override
-        public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
+        public String getBookmarkableURL(
+            FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams
+        )
+        {
             return "new-bookmark:" + viewId + "#" + fragment;
         }
 
@@ -144,6 +148,7 @@ class ViewHandlerBookmarkableBridgeTest {
         public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
             return "new-redirect:" + viewId + "#" + fragment;
         }
+
     }
 
     private static class LegacyViewHandlerWrapper extends ViewHandlerWrapper {
@@ -163,5 +168,7 @@ class ViewHandlerBookmarkableBridgeTest {
         public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, boolean includeViewParams) {
             return "wrapper-legacy-redirect:" + viewId;
         }
+
     }
+
 }

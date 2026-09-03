@@ -31,40 +31,35 @@ import jakarta.inject.Qualifier;
 /**
  * <div class="changed_added_2_3">
  * <p>
- * The presence of this annotation on a class automatically registers the class with the runtime as a {@link DataModel}
- * that is capable of wrapping a type indicated by the {@link FacesDataModel#forClass()} attribute.
+ * The presence of this annotation on a class automatically registers the class with the runtime as a {@link DataModel} that is capable of wrapping a type
+ * indicated by the {@link FacesDataModel#forClass()} attribute.
  *
  * <p>
- * The runtime must maintain a collection of these {@link DataModel}s such that {@link UIData} and other components
- * defined by the Jakarta Faces Specification can query the runtime for a suitable {@link DataModel} wrapper
- * (adapter) for the type of their <code>value</code>. This has to be done after all wrappers for specific types such as
- * {@link Set} are tried, but before the {@link ScalarDataModel} is selected as the wrapper. See
- * {@link UIData#getValue()}.
+ * The runtime must maintain a collection of these {@link DataModel}s such that {@link UIData} and other components defined by the Jakarta Faces Specification
+ * can query the runtime for a suitable {@link DataModel} wrapper (adapter) for the type of their <code>value</code>. This has to be done after all wrappers for
+ * specific types such as {@link Set} are tried, but before the {@link ScalarDataModel} is selected as the wrapper. See {@link UIData#getValue()}.
  *
  * <p>
  * This query must work as follows:
  *
  * <p>
- * For an instance of type <code>Z</code> that is being bound to a <code>UIData</code> component or other component
- * defined by the Jakarta Faces Specification that utilizes <code>DataModel</code>, the query for that type must
- * return the <em>most specific</em> DataModel that can wrap <code>Z</code>.
+ * For an instance of type <code>Z</code> that is being bound to a <code>UIData</code> component or other component defined by the Jakarta Faces Specification
+ * that utilizes <code>DataModel</code>, the query for that type must return the <em>most specific</em> DataModel that can wrap <code>Z</code>.
  *
  * <p>
- * This <em>most specific</em> DataModel is defined as the DataModel that is obtained by first sorting the collection in
- * which the registered <code>DataModels</code> are stored <i>(for details on this sorting see below)</i> and then
- * iterating through the sorted collection from beginning to end and stopping this iteration at the first match where
- * for the class <code>ZZ</code> wrapped by the DataModel (as indicated by the {@link FacesDataModel#forClass()}
- * attribute) it holds that <code>ZZ.isAssignableFrom(Z)</code>. This match is then taken as the <em>most specific</em>
+ * This <em>most specific</em> DataModel is defined as the DataModel that is obtained by first sorting the collection in which the registered
+ * <code>DataModels</code> are stored <i>(for details on this sorting see below)</i> and then iterating through the sorted collection from beginning to end and
+ * stopping this iteration at the first match where for the class <code>ZZ</code> wrapped by the DataModel (as indicated by the
+ * {@link FacesDataModel#forClass()} attribute) it holds that <code>ZZ.isAssignableFrom(Z)</code>. This match is then taken as the <em>most specific</em>
  * DataModel.
  *
  * <p>
  * The sorting must be done as follows:
  *
  * <p>
- * Sort on the class wrapped by a DataModel that is stored in the above mentioned collection such that for any 2 classes
- * <code>X</code> and <code>Y</code> from this collection, if an object of <code>X</code> is an <code>instanceof</code>
- * an object of <code>Y</code>, <code>X</code> appears in the collection <em>before</em> <code>Y</code>. The
- * collection's sorting is otherwise arbitrary. In other words, subclasses come before their superclasses.
+ * Sort on the class wrapped by a DataModel that is stored in the above mentioned collection such that for any 2 classes <code>X</code> and <code>Y</code> from
+ * this collection, if an object of <code>X</code> is an <code>instanceof</code> an object of <code>Y</code>, <code>X</code> appears in the collection
+ * <em>before</em> <code>Y</code>. The collection's sorting is otherwise arbitrary. In other words, subclasses come before their superclasses.
  *
  * <p>
  * For example:
@@ -77,12 +72,11 @@ import jakarta.inject.Qualifier;
  * </ol>
  *
  * <p>
- * The only requirement here is that <code>A</code> appears before <code>B</code>, since <code>A</code> is a subclass of
- * <code>B</code>.
+ * The only requirement here is that <code>A</code> appears before <code>B</code>, since <code>A</code> is a subclass of <code>B</code>.
  *
  * <p>
- * The specification does not define a public method to obtain an instance of the "most specific DataModel for a given
- * type". Such an instance can be obtained using code similar to the following.
+ * The specification does not define a public method to obtain an instance of the "most specific DataModel for a given type". Such an instance can be obtained
+ * using code similar to the following.
  * </p>
  *
  * <pre>
@@ -190,8 +184,7 @@ public @interface FacesDataModel {
 
     /**
      * <p class="changed_added_2_3">
-     * The value of this annotation attribute is taken to be the type that the DataModel that is annotated with this
-     * annotation is able to wrap.
+     * The value of this annotation attribute is taken to be the type that the DataModel that is annotated with this annotation is able to wrap.
      * </p>
      *
      * @return the type that the DataModel that is annotated with this annotation is able to wrap
@@ -228,5 +221,7 @@ public @interface FacesDataModel {
         public Class<?> forClass() {
             return forClass;
         }
+
     }
+
 }

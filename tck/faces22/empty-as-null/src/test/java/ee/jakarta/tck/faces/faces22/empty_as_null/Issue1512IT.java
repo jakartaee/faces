@@ -26,8 +26,7 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * When {@code jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL} is
- * {@code true}, an empty submitted value is interpreted as {@code null} but the
+ * When {@code jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL} is {@code true}, an empty submitted value is interpreted as {@code null} but the
  * registered validator is still invoked.
  */
 class Issue1512IT extends BaseITNG {
@@ -45,4 +44,5 @@ class Issue1512IT extends BaseITNG {
 
         assertTrue(page.containsText("We got called!"));
     }
+
 }

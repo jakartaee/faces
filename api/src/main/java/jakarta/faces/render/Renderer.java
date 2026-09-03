@@ -25,44 +25,39 @@ import jakarta.faces.convert.ConverterException;
 
 /**
  * <p>
- * A <strong class="changed_modified_2_0 changed_modified_2_2">Renderer</strong> converts the internal representation of
- * {@link UIComponent}s into the output stream (or writer) associated with the response we are creating for a particular
- * request. Each <code>Renderer</code> knows how to render one or more {@link UIComponent} types (or classes), and
- * advertises a set of render-dependent attributes that it recognizes for each supported {@link UIComponent}.
+ * A <strong class="changed_modified_2_0 changed_modified_2_2">Renderer</strong> converts the internal representation of {@link UIComponent}s into the output
+ * stream (or writer) associated with the response we are creating for a particular request. Each <code>Renderer</code> knows how to render one or more
+ * {@link UIComponent} types (or classes), and advertises a set of render-dependent attributes that it recognizes for each supported {@link UIComponent}.
  * </p>
  *
  * <p>
- * Families of {@link Renderer}s are packaged as a {@link RenderKit}, and together support the rendering of all of the
- * {@link UIComponent}s in a view associated with a {@link FacesContext}. Within the set of {@link Renderer}s for a
- * particular {@link RenderKit}, each must be uniquely identified by the <code>rendererType</code> property.
+ * Families of {@link Renderer}s are packaged as a {@link RenderKit}, and together support the rendering of all of the {@link UIComponent}s in a view associated
+ * with a {@link FacesContext}. Within the set of {@link Renderer}s for a particular {@link RenderKit}, each must be uniquely identified by the
+ * <code>rendererType</code> property.
  * </p>
  *
  * <p>
- * Individual {@link Renderer} instances will be instantiated as requested during the rendering process, and will remain
- * in existence for the remainder of the lifetime of a web application. Because each instance may be invoked from more
- * than one request processing thread simultaneously, they MUST be programmed in a thread-safe manner.
+ * Individual {@link Renderer} instances will be instantiated as requested during the rendering process, and will remain in existence for the remainder of the
+ * lifetime of a web application. Because each instance may be invoked from more than one request processing thread simultaneously, they MUST be programmed in a
+ * thread-safe manner.
  * </p>
  *
  * <div class="changed_added_2_0">
  *
  * <p>
- * If the {@link jakarta.faces.event.ListenerFor} annotation is attached to the class definition of a
- * <code>Renderer</code>, that class must also implement {@link jakarta.faces.event.ComponentSystemEventListener}, and
- * the action pertaining to the processing of <code>ResourceDependency</code> on a <code>Renderer</code> described in
- * {@link jakarta.faces.event.ListenerFor} must be taken.
+ * If the {@link jakarta.faces.event.ListenerFor} annotation is attached to the class definition of a <code>Renderer</code>, that class must also implement
+ * {@link jakarta.faces.event.ComponentSystemEventListener}, and the action pertaining to the processing of <code>ResourceDependency</code> on a
+ * <code>Renderer</code> described in {@link jakarta.faces.event.ListenerFor} must be taken.
  * </p>
  *
  * <p>
- * If the {@link jakarta.faces.application.ResourceDependency} annotation is attached to the class definition of a
- * <code>Renderer</code>, the action pertaining to the processing of <code>ResourceDependency</code> on a
- * <code>Renderer</code> described in {@link UIComponent#getChildren} must be taken.
+ * If the {@link jakarta.faces.application.ResourceDependency} annotation is attached to the class definition of a <code>Renderer</code>, the action pertaining
+ * to the processing of <code>ResourceDependency</code> on a <code>Renderer</code> described in {@link UIComponent#getChildren} must be taken.
  * </p>
  *
  * </div>
  *
- * <div class="changed_modified_4_0">
- * The generic parameter T represents the component class.
- * </div>
+ * <div class="changed_modified_4_0"> The generic parameter T represents the component class. </div>
  *
  * @param <T> The component class.
  */
@@ -70,8 +65,7 @@ public abstract class Renderer<T extends UIComponent> {
 
     /**
      * <p class="changed_added_2_2">
-     * The key in the component passthrough attributes {@code Map} for the localName of the element corresponding to the
-     * component.
+     * The key in the component passthrough attributes {@code Map} for the localName of the element corresponding to the component.
      * </p>
      *
      * @since 2.2
@@ -82,13 +76,13 @@ public abstract class Renderer<T extends UIComponent> {
 
     /**
      * <p>
-     * Decode any new state of the specified {@link UIComponent} from the request contained in the specified
-     * {@link FacesContext}, and store that state on the {@link UIComponent}.
+     * Decode any new state of the specified {@link UIComponent} from the request contained in the specified {@link FacesContext}, and store that state on the
+     * {@link UIComponent}.
      * </p>
      *
      * <p>
-     * During decoding, events may be enqueued for later processing (by event listeners that have registered an interest),
-     * by calling <code>queueEvent()</code> on the associated {@link UIComponent}.
+     * During decoding, events may be enqueued for later processing (by event listeners that have registered an interest), by calling <code>queueEvent()</code>
+     * on the associated {@link UIComponent}.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -104,10 +98,9 @@ public abstract class Renderer<T extends UIComponent> {
 
     /**
      * <p>
-     * Render the beginning specified {@link UIComponent} to the output stream or writer associated with the response we are
-     * creating. If the conversion attempted in a previous call to <code>getConvertedValue()</code> for this component
-     * failed, the state information saved during execution of <code>decode()</code> should be used to reproduce the
-     * incorrect input.
+     * Render the beginning specified {@link UIComponent} to the output stream or writer associated with the response we are creating. If the conversion
+     * attempted in a previous call to <code>getConvertedValue()</code> for this component failed, the state information saved during execution of
+     * <code>decode()</code> should be used to reproduce the incorrect input.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -124,9 +117,8 @@ public abstract class Renderer<T extends UIComponent> {
 
     /**
      * <p>
-     * Render the child components of this {@link UIComponent}, following the rules described for <code>encodeBegin()</code>
-     * to acquire the appropriate value to be rendered. This method will only be called if the <code>rendersChildren</code>
-     * property of this component is <code>true</code>.
+     * Render the child components of this {@link UIComponent}, following the rules described for <code>encodeBegin()</code> to acquire the appropriate value to
+     * be rendered. This method will only be called if the <code>rendersChildren</code> property of this component is <code>true</code>.
      * </p>
      *
      * @param context {@link FacesContext} for the response we are creating
@@ -150,8 +142,8 @@ public abstract class Renderer<T extends UIComponent> {
 
     /**
      * <p>
-     * Render the ending of the current state of the specified {@link UIComponent}, following the rules described for
-     * <code>encodeBegin()</code> to acquire the appropriate value to be rendered.
+     * Render the ending of the current state of the specified {@link UIComponent}, following the rules described for <code>encodeBegin()</code> to acquire the
+     * appropriate value to be rendered.
      * </p>
      *
      * @param context {@link FacesContext} for the response we are creating
@@ -193,8 +185,8 @@ public abstract class Renderer<T extends UIComponent> {
 
     /**
      * <p>
-     * Return a flag indicating whether this {@link Renderer} is responsible for rendering the children the component it is
-     * asked to render. The default implementation returns <code>false</code>.
+     * Return a flag indicating whether this {@link Renderer} is responsible for rendering the children the component it is asked to render. The default
+     * implementation returns <code>false</code>.
      * </p>
      *
      * @return the current value of the flag
@@ -206,10 +198,9 @@ public abstract class Renderer<T extends UIComponent> {
 
     /**
      * <p>
-     * Attempt to convert previously stored state information into an object of the type required for this component
-     * (optionally using the registered {@link jakarta.faces.convert.Converter} for this component, if there is one). If
-     * conversion is successful, the new value should be returned from this method; if not, a {@link ConverterException}
-     * should be thrown.
+     * Attempt to convert previously stored state information into an object of the type required for this component (optionally using the registered
+     * {@link jakarta.faces.convert.Converter} for this component, if there is one). If conversion is successful, the new value should be returned from this
+     * method; if not, a {@link ConverterException} should be thrown.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -227,4 +218,5 @@ public abstract class Renderer<T extends UIComponent> {
         }
         return submittedValue;
     }
+
 }

@@ -40,4 +40,5 @@ public class DataListBean {
     public void setDataList(List<DataBean> dataList) {
         this.dataList = dataList;
     }
+
 }

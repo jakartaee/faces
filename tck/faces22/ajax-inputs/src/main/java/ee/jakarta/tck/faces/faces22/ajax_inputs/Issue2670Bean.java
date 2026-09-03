@@ -46,17 +46,19 @@ public class Issue2670Bean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         Iterator iter = context.getExternalContext().getRequestParameterNames();
         while (iter.hasNext()) {
-            String name = (String)iter.next();
+            String name = (String) iter.next();
             if (name.equals("button")) {
                 buttonParamExists = true;
                 break;
             }
             if (buttonParamExists) {
                 msg = "Request parameter name 'button' exists";
-            } else {
+            }
+            else {
                 msg = "Request parameter name 'button' does not exist";
             }
         }
-        
-    } 
+
+    }
+
 }

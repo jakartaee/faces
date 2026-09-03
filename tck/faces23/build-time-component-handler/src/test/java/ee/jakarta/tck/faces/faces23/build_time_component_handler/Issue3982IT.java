@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3982IT extends BaseITNG {
 
     /**
-     * A composite component which a build time c:if adds to the view on a postback takes its place beside an
-     * unconditional sibling composite without colliding with it: both keep their own ids and the tree stays
-     * intact.
+     * A composite component which a build time c:if adds to the view on a postback takes its place beside an unconditional sibling composite without colliding
+     * with it: both keep their own ids and the tree stays intact.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3982
      */
@@ -47,4 +46,5 @@ class Issue3982IT extends BaseITNG {
         assertEquals(1, page.findElements(By.id("form:panel1:grid")).size(), "the conditional composite appeared");
         assertEquals(1, page.findElements(By.id("form:panel2:grid")).size(), "the unconditional composite survived");
     }
+
 }

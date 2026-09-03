@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2022 Contributors to Eclipse Foundation.
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -35,7 +35,7 @@ import jakarta.inject.Named;
 public class CollectionBean {
 
     private Integer value;
-    
+
     public void performVisitTree() {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getViewRoot().visitTree(createVisitContext(context, null, emptySet()), (visitContext, target) -> ACCEPT);
@@ -44,11 +44,11 @@ public class CollectionBean {
     public Collection<Integer> getCollection() {
         return new TestCollection<>(asList(1, 2, 3));
     }
-    
+
     public Integer getValue() {
         return value;
     }
-    
+
     public void setValue(Integer value) {
         this.value = value;
     }
@@ -70,6 +70,7 @@ public class CollectionBean {
         public int size() {
             return collection.size();
         }
+
     }
 
 }

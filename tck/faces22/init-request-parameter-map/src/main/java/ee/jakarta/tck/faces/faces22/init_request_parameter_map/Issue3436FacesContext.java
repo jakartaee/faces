@@ -32,4 +32,5 @@ public class Issue3436FacesContext extends FacesContextWrapper {
     public FacesContext getWrapped() {
         return wrapped;
     }
+
 }

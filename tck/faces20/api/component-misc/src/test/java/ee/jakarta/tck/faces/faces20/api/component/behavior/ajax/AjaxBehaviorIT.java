@@ -117,4 +117,5 @@ class AjaxBehaviorIT extends BaseITNG {
     void ajaxBehaviorIsSetResetValuesTest() {
         runServletTest("ajaxBehaviorIsSetResetValuesTest");
     }
+
 }

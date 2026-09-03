@@ -55,4 +55,5 @@ public class Issue4734Entity implements Serializable {
     public String toString() {
         return getClass().getSimpleName() + "[" + id + "]";
     }
+
 }

@@ -23,8 +23,8 @@ import jakarta.faces.lifecycle.Lifecycle;
 
 /**
  * <p>
- * <strong>PhaseEvent</strong> represents the beginning or ending of processing for a particular phase of the request
- * processing lifecycle, for the request encapsulated by the specified {@link FacesContext}.
+ * <strong>PhaseEvent</strong> represents the beginning or ending of processing for a particular phase of the request processing lifecycle, for the request
+ * encapsulated by the specified {@link FacesContext}.
  * </p>
  */
 
@@ -36,16 +36,14 @@ public class PhaseEvent extends EventObject {
 
     /**
      * <p>
-     * Construct a new event object from the specified parameters. The specified {@link Lifecycle} will be the source of
-     * this event.
+     * Construct a new event object from the specified parameters. The specified {@link Lifecycle} will be the source of this event.
      * </p>
      *
      * @param context {@link FacesContext} for the current request
      * @param phaseId Identifier of the current request processing lifecycle phase
      * @param lifecycle Lifecycle instance
      *
-     * @throws NullPointerException if <code>context</code> or <code>phaseId</code> or <code>Lifecycle</code>is
-     * <code>null</code>
+     * @throws NullPointerException if <code>context</code> or <code>phaseId</code> or <code>Lifecycle</code>is <code>null</code>
      */
     public PhaseEvent(FacesContext context, PhaseId phaseId, Lifecycle lifecycle) {
 

@@ -20,8 +20,8 @@ import java.util.EventListener;
 
 /**
  * <p>
- * <strong>DataModelListener</strong> represents an event listener that wishes to be notified of {@link DataModelEvent}s
- * occurring on a particular {@link DataModel} instance.
+ * <strong>DataModelListener</strong> represents an event listener that wishes to be notified of {@link DataModelEvent}s occurring on a particular
+ * {@link DataModel} instance.
  * </p>
  */
 

@@ -39,4 +39,5 @@ public class Issue2834Holder implements Serializable {
     public void setOne(Object one) {
         this.one = one;
     }
+
 }

@@ -28,9 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue1947IT extends BaseITNG {
 
     /**
-     * A valueChangeListener written directly on an inner component of a composite, bound through a
-     * plain object-valued composite:attribute rather than retargeted via cc:editableValueHolder,
-     * must fire when the value changes.
+     * A valueChangeListener written directly on an inner component of a composite, bound through a plain object-valued composite:attribute rather than
+     * retargeted via cc:editableValueHolder, must fire when the value changes.
      *
      * @see jakarta.faces.event.ValueChangeEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1947
@@ -44,9 +43,8 @@ class Issue1947IT extends BaseITNG {
     }
 
     /**
-     * An action bound through a plain object-valued composite:attribute and passed into a nested
-     * composite via cc:insertChildren must be invoked exactly once when its command is clicked, and
-     * not at all when an unrelated command submits the same form.
+     * An action bound through a plain object-valued composite:attribute and passed into a nested composite via cc:insertChildren must be invoked exactly once
+     * when its command is clicked, and not at all when an unrelated command submits the same form.
      *
      * @see jakarta.faces.component.UICommand#getAction()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1947
@@ -56,11 +54,16 @@ class Issue1947IT extends BaseITNG {
         WebPage page = getPage("issue1947-action.xhtml");
 
         page.guardHttp(page.findElement(By.id("form:cc:inner:remove"))::click);
-        assertEquals("removeGroup called (1)", page.findElement(By.id("form:status")).getText(),
-                "action invoked exactly once");
+        assertEquals(
+            "removeGroup called (1)", page.findElement(By.id("form:status")).getText(),
+            "action invoked exactly once"
+        );
 
         page.guardHttp(page.findElement(By.id("form:refresh"))::click);
-        assertEquals("", page.findElement(By.id("form:status")).getText(),
-                "action not invoked by an unrelated submit");
+        assertEquals(
+            "", page.findElement(By.id("form:status")).getText(),
+            "action not invoked by an unrelated submit"
+        );
     }
+
 }

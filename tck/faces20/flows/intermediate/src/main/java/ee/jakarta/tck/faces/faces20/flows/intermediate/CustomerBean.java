@@ -16,6 +16,7 @@
 package ee.jakarta.tck.faces.faces20.flows.intermediate;
 
 public class CustomerBean {
+
     private static int lastId = 0;
 
     private int myId;
@@ -42,4 +43,5 @@ public class CustomerBean {
     private synchronized int incrementId() {
         return ++lastId;
     }
+
 }

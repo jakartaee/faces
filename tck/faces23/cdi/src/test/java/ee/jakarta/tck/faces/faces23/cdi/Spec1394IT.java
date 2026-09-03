@@ -28,13 +28,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1394IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see ResourceHandler
      * @see https://github.com/jakartaee/faces/issues/1394
-   */
-  @Test
-  void resourceHandler() throws Exception {
+     */
+    @Test
+    void resourceHandler() throws Exception {
         WebPage page = getPage("spec1394.xhtml");
 
         assertTrue(page.containsText("jsfLibraryExists:true"));

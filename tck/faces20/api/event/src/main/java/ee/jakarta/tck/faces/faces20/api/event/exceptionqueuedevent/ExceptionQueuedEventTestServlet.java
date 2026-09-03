@@ -15,31 +15,33 @@
  */
 package ee.jakarta.tck.faces.faces20.api.event.exceptionqueuedevent;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseExceptionQueuedEventTestServlet;
-
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ExceptionQueuedEvent;
 import jakarta.faces.event.ExceptionQueuedEventContext;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseExceptionQueuedEventTestServlet;
+
 @WebServlet("/ExceptionQueuedEventTestServlet")
 public final class ExceptionQueuedEventTestServlet extends BaseExceptionQueuedEventTestServlet {
 
-  private FacesContext fcontext;
+    private FacesContext fcontext;
 
-  @Override
-  protected ExceptionQueuedEvent createEvent(ExceptionQueuedEventContext eqec) {
-    return new ExceptionQueuedEvent(eqec);
-  }
+    @Override
+    protected ExceptionQueuedEvent createEvent(ExceptionQueuedEventContext eqec) {
+        return new ExceptionQueuedEvent(eqec);
+    }
 
-  @Override
-  protected ExceptionQueuedEventContext getExceptionQueuedEventContext() {
-    fcontext = getFacesContext();
-    ExceptionQueuedEventContext eqec = new ExceptionQueuedEventContext(fcontext,
-        new IllegalArgumentException());
+    @Override
+    protected ExceptionQueuedEventContext getExceptionQueuedEventContext() {
+        fcontext = getFacesContext();
+        ExceptionQueuedEventContext eqec = new ExceptionQueuedEventContext(
+            fcontext,
+            new IllegalArgumentException()
+        );
 
-    return eqec;
-  }
+        return eqec;
+    }
 
-  // ------------------------------------------------------------- test methods
+    // ------------------------------------------------------------- test methods
 }

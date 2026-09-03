@@ -22,14 +22,16 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * Unit tests for JLS casting rules</p>
+ * Unit tests for JLS casting rules
+ * </p>
  */
 class CastingValidatorTest {
 
     @Test
     @SuppressWarnings("rawtypes")
     void testWithGenericCanCastToRaw() {
-        Validator<?> validatorWithGeneric = (context, component, value) -> {};
+        Validator<?> validatorWithGeneric = (context, component, value) -> {
+        };
         Validator validatorRaw = validatorWithGeneric;
         assertNotNull(validatorRaw);
     }

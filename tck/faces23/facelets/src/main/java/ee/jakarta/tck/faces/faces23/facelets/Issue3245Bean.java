@@ -54,4 +54,5 @@ public class Issue3245Bean {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

@@ -30,9 +30,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3978IT extends BaseITNG {
 
     /**
-     * An ajax submit with {@code execute="@form"} of a multipart form containing an
-     * {@code h:inputFile} must succeed without a server-side exception and navigate to
-     * the action's target page.
+     * An ajax submit with {@code execute="@form"} of a multipart form containing an {@code h:inputFile} must succeed without a server-side exception and
+     * navigate to the action's target page.
      *
      * @see HtmlInputFile
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3978
@@ -45,8 +44,10 @@ class Issue3978IT extends BaseITNG {
 
         page.guardAjax(page.findElement(By.id("mybutton"))::click);
 
-        assertFalse(page.containsText("Exception"),
-            "Server should not throw an exception");
+        assertFalse(
+            page.containsText("Exception"),
+            "Server should not throw an exception"
+        );
         assertTrue(page.containsText("This is the next page"));
     }
 

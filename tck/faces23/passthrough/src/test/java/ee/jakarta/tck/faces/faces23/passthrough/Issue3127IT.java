@@ -18,18 +18,19 @@ package ee.jakarta.tck.faces.faces23.passthrough;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.component.UIComponent;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.UIComponent;
 
 class Issue3127IT extends BaseITNG {
 
     /**
-     * A pass through attribute whose expression resolves to something other than a String is rendered by
-     * calling toString() on the value, rather than failing the request.
+     * A pass through attribute whose expression resolves to something other than a String is rendered by calling toString() on the value, rather than failing
+     * the request.
      *
      * @see UIComponent#getPassThroughAttributes()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3127
@@ -39,8 +40,11 @@ class Issue3127IT extends BaseITNG {
         WebPage page = getPage("issue3127.xhtml");
 
         assertEquals(200, page.getResponseStatus(), "The view must render.");
-        assertEquals(Issue3127Bean.DATE.toString(),
-                page.findElement(By.id("form:input")).getDomAttribute("placeholder"),
-                "A non-String pass through attribute value must be rendered via toString().");
+        assertEquals(
+            Issue3127Bean.DATE.toString(),
+            page.findElement(By.id("form:input")).getDomAttribute("placeholder"),
+            "A non-String pass through attribute value must be rendered via toString()."
+        );
     }
+
 }

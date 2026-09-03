@@ -48,4 +48,5 @@ public class Issue2113ViewDeclarationLanguageFactory extends ViewDeclarationLang
 
         return result;
     }
+
 }

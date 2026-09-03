@@ -28,8 +28,8 @@ public abstract class ViewNode extends FlowNode {
 
     /**
      * <p class="changed_added_2_2">
-     * Return the immutable VDL document id for this view node. This is normally the path to the VDL page that defines this
-     * view node. This must be unique within the flow.
+     * Return the immutable VDL document id for this view node. This is normally the path to the VDL page that defines this view node. This must be unique
+     * within the flow.
      * </p>
      *
      * @since 2.2

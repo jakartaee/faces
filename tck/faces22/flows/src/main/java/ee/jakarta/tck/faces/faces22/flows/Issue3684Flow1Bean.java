@@ -21,9 +21,8 @@ import jakarta.faces.flow.FlowScoped;
 import jakarta.inject.Named;
 
 /**
- * Flow scoped bean of the flow that calls itself recursively. Each stack frame of the flow gets its
- * own instance, so the count incremented by the recursively entered frame must not be visible to the
- * frame that started the recursion.
+ * Flow scoped bean of the flow that calls itself recursively. Each stack frame of the flow gets its own instance, so the count incremented by the recursively
+ * entered frame must not be visible to the frame that started the recursion.
  */
 @Named
 @FlowScoped("issue3684-nested-flow-call-f1")
@@ -40,4 +39,5 @@ public class Issue3684Flow1Bean implements Serializable {
     public int getCount() {
         return count;
     }
+
 }

@@ -19,8 +19,6 @@ package ee.jakarta.tck.faces.faces22.iteration;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import jakarta.faces.component.UIData;
-
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -31,9 +29,9 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2707IT extends BaseITNG {
 
     /**
-     * Verifies that a NumberConverter installed dynamically per ui:repeat item (via a preRenderView listener on
-     * the initial, non-postback request) is honored when each row's value is rendered, so the formatted values
-     * (1.00, 2.00, ...) accumulate and persist correctly across non-ajax postbacks as items are added.
+     * Verifies that a NumberConverter installed dynamically per ui:repeat item (via a preRenderView listener on the initial, non-postback request) is honored
+     * when each row's value is rendered, so the formatted values (1.00, 2.00, ...) accumulate and persist correctly across non-ajax postbacks as items are
+     * added.
      *
      * @see jakarta.faces.component.UIData
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2707
@@ -59,4 +57,5 @@ class Issue2707IT extends BaseITNG {
         page.guardHttp(button::click);
         assertTrue(page.containsSource("value=\"4.00\""), "Fourth item rendered with dynamic converter");
     }
+
 }

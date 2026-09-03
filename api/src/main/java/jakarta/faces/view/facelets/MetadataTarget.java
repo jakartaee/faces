@@ -87,4 +87,5 @@ public abstract class MetadataTarget {
      * @return the read {@link Method}.
      */
     public abstract Method getReadMethod(String name);
+
 }

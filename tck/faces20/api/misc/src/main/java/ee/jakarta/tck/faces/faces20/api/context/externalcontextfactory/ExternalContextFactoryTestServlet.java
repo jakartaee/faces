@@ -18,9 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.context.externalcontextfactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.FactoryFinder;
 import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.ExternalContextFactory;
@@ -33,86 +30,108 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
+
 @WebServlet("/ExternalContextFactoryTestServlet")
 public final class ExternalContextFactoryTestServlet extends HttpTCKServlet {
 
-  ServletContext servletContext;
+    ServletContext servletContext;
 
-  Lifecycle lifecycle;
+    Lifecycle lifecycle;
 
-  public void init(ServletConfig config) throws ServletException {
-    servletContext = config.getServletContext();
-    LifecycleFactory lifeFactory = (LifecycleFactory) FactoryFinder
-        .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
-    lifecycle = lifeFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
-    super.init(config);
-  }
-
-  // ------------------------------------------- Test Methods ----
-
-  public void externalContextFactoryGetExternalContextTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-
-    ExternalContextFactory contextFactory = (ExternalContextFactory) FactoryFinder
-        .getFactory(FactoryFinder.EXTERNAL_CONTEXT_FACTORY);
-
-    ExternalContext context = contextFactory.getExternalContext(servletContext,
-        request, response);
-
-    if (context == null) {
-      out.println(
-          JSFTestUtil.FAIL + " Unable to obtain a FacesContext instance from"
-              + " the FacesContextFactory.");
-    } else {
-      out.println(JSFTestUtil.PASS);
+    public void init(ServletConfig config) throws ServletException {
+        servletContext = config.getServletContext();
+        LifecycleFactory lifeFactory = (LifecycleFactory) FactoryFinder
+            .getFactory(FactoryFinder.LIFECYCLE_FACTORY);
+        lifecycle = lifeFactory.getLifecycle(LifecycleFactory.DEFAULT_LIFECYCLE);
+        super.init(config);
     }
 
-  } // End externalContextFactoryGetExternalContextTest
+    // ------------------------------------------- Test Methods ----
 
-  public void externalCtxFactoryGetExternalContextNPETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void externalContextFactoryGetExternalContextTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    ExternalContextFactory contextFactory = (ExternalContextFactory) FactoryFinder
-        .getFactory(FactoryFinder.EXTERNAL_CONTEXT_FACTORY);
+        ExternalContextFactory contextFactory = (ExternalContextFactory) FactoryFinder
+            .getFactory(FactoryFinder.EXTERNAL_CONTEXT_FACTORY);
 
-    // null context
-    JSFTestUtil.checkForNPE(contextFactory, "getExternalContext",
-        new Class<?>[] { Object.class, Object.class, Object.class },
-        new Object[] { null, request, response }, out);
+        ExternalContext context = contextFactory.getExternalContext(
+            servletContext,
+            request, response
+        );
 
-    // null request
-    JSFTestUtil.checkForNPE(contextFactory, "getExternalContext",
-        new Class<?>[] { Object.class, Object.class, Object.class },
-        new Object[] { servletContext, null, response }, out);
+        if (context == null) {
+            out.println(
+                JSFTestUtil.FAIL + " Unable to obtain a FacesContext instance from"
+                    + " the FacesContextFactory."
+            );
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
 
-    // null response
-    JSFTestUtil.checkForNPE(contextFactory, "getExternalContext",
-        new Class<?>[] { Object.class, Object.class, Object.class },
-        new Object[] { servletContext, request, null }, out);
+    } // End externalContextFactoryGetExternalContextTest
 
-  }// End externalCtxFactoryGetExternalContextNPETest
+    public void externalCtxFactoryGetExternalContextNPETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void externalContextFactoryGetWrappedTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ExternalContextFactory contextFactory = (ExternalContextFactory) FactoryFinder
+            .getFactory(FactoryFinder.EXTERNAL_CONTEXT_FACTORY);
 
-    ExternalContextFactory contextFactory = (ExternalContextFactory) FactoryFinder
-        .getFactory(FactoryFinder.EXTERNAL_CONTEXT_FACTORY);
+        // null context
+        JSFTestUtil.checkForNPE(
+            contextFactory, "getExternalContext",
+            new Class<?>[] { Object.class, Object.class, Object.class },
+            new Object[] { null, request, response }, out
+        );
 
-    ExternalContextFactory context = contextFactory.getWrapped();
+        // null request
+        JSFTestUtil.checkForNPE(
+            contextFactory, "getExternalContext",
+            new Class<?>[] { Object.class, Object.class, Object.class },
+            new Object[] { servletContext, null, response }, out
+        );
 
-    if (context != null) {
-      out.println(
-          JSFTestUtil.FAIL + " Unable to obtain a FacesContext instance from"
-              + " the FacesContextFactory.");
-    } else {
-      out.println(JSFTestUtil.PASS);
-    }
+        // null response
+        JSFTestUtil.checkForNPE(
+            contextFactory, "getExternalContext",
+            new Class<?>[] { Object.class, Object.class, Object.class },
+            new Object[] { servletContext, request, null }, out
+        );
 
-  } // End externalContextFactoryGetWrappedTest
+    }// End externalCtxFactoryGetExternalContextNPETest
+
+    public void externalContextFactoryGetWrappedTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+
+        ExternalContextFactory contextFactory = (ExternalContextFactory) FactoryFinder
+            .getFactory(FactoryFinder.EXTERNAL_CONTEXT_FACTORY);
+
+        ExternalContextFactory context = contextFactory.getWrapped();
+
+        if (context != null) {
+            out.println(
+                JSFTestUtil.FAIL + " Unable to obtain a FacesContext instance from"
+                    + " the FacesContextFactory."
+            );
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
+
+    } // End externalContextFactoryGetWrappedTest
 
 }

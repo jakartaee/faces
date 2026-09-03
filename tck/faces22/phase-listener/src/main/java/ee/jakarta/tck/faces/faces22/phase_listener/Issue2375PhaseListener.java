@@ -72,4 +72,5 @@ public class Issue2375PhaseListener implements PhaseListener {
         UIPanel panel = (UIPanel) form.findComponent("addto");
         return panel != null && !panel.getChildren().isEmpty();
     }
+
 }

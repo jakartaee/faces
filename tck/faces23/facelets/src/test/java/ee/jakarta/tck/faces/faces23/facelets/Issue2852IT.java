@@ -29,9 +29,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2852IT extends BaseITNG {
 
     /**
-     * A phase listener registered via an {@code f:phaseListener} binding must result in exactly
-     * one registered listener on the view root, and that must remain true across repeated
-     * postbacks rather than accumulating duplicate registrations.
+     * A phase listener registered via an {@code f:phaseListener} binding must result in exactly one registered listener on the view root, and that must remain
+     * true across repeated postbacks rather than accumulating duplicate registrations.
      *
      * @see PhaseListener
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2852
@@ -45,4 +44,5 @@ class Issue2852IT extends BaseITNG {
             assertFalse(page.containsText("ERROR"));
         }
     }
+
 }

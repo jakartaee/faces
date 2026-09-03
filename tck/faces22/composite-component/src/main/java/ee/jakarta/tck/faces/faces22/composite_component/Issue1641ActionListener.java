@@ -27,7 +27,8 @@ public class Issue1641ActionListener implements ActionListener {
     public void processAction(ActionEvent ae) throws AbortProcessingException {
         FacesContext context = FacesContext.getCurrentInstance();
         Issue1641Bean bean = context.getApplication()
-                .evaluateExpressionGet(context, "#{issue1641Bean}", Issue1641Bean.class);
+            .evaluateExpressionGet(context, "#{issue1641Bean}", Issue1641Bean.class);
         bean.increment();
     }
+
 }

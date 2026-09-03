@@ -26,10 +26,9 @@ import jakarta.faces.context.FacesContext;
 import org.junit.jupiter.api.Test;
 
 /**
- * Every component construction resolves the reflective property metadata of its class, so that lookup is keyed on the
- * class alone: it is shared by all instances of a class, kept apart between classes, and available without a current
- * {@link FacesContext} - a component may be constructed outside a request, and its property attributes have to read and
- * write through to the bean properties there too.
+ * Every component construction resolves the reflective property metadata of its class, so that lookup is keyed on the class alone: it is shared by all
+ * instances of a class, kept apart between classes, and available without a current {@link FacesContext} - a component may be constructed outside a request,
+ * and its property attributes have to read and write through to the bean properties there too.
  */
 class UIComponentBaseComponentMetadataTest {
 
@@ -55,4 +54,5 @@ class UIComponentBaseComponentMetadataTest {
         assertEquals(false, output.getAttributes().get("rendered"));
         assertEquals(false, output.isRendered());
     }
+
 }

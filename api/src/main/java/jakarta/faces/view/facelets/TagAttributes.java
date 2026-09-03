@@ -68,8 +68,8 @@ public abstract class TagAttributes {
 
     /**
      * <p class="changed_added_2_2">
-     * A reference to the Tag for which this class represents the attributes. For compatibility with previous
-     * implementations, an implementation is provided that returns {@code null}.
+     * A reference to the Tag for which this class represents the attributes. For compatibility with previous implementations, an implementation is provided
+     * that returns {@code null}.
      * </p>
      *
      * @since 2.2
@@ -82,9 +82,8 @@ public abstract class TagAttributes {
 
     /**
      * <p class="changed_added_2_2">
-     * Set a reference to the Tag for which this class represents the attributes. The VDL runtime must ensure that this
-     * method is called before any {@link FaceletHandler}s for this element are instantiated. For compatibility with
-     * previous implementations, a no-op implementation is provided.
+     * Set a reference to the Tag for which this class represents the attributes. The VDL runtime must ensure that this method is called before any
+     * {@link FaceletHandler}s for this element are instantiated. For compatibility with previous implementations, a no-op implementation is provided.
      * </p>
      *
      * @param tag the parent tag.
@@ -93,4 +92,5 @@ public abstract class TagAttributes {
      */
     public void setTag(Tag tag) {
     }
+
 }

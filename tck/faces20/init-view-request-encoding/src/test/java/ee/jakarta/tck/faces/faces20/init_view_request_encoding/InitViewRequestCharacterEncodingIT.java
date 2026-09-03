@@ -26,8 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class InitViewRequestCharacterEncodingIT extends BaseITNG {
 
     /**
-     * A request character encoding set before the view is initialized (here, via a before-phase
-     * listener) must be reported back by ExternalContext.getRequestCharacterEncoding at render time.
+     * A request character encoding set before the view is initialized (here, via a before-phase listener) must be reported back by
+     * ExternalContext.getRequestCharacterEncoding at render time.
      *
      * @see jakarta.faces.context.ExternalContext#setRequestCharacterEncoding(String)
      * @see jakarta.faces.context.ExternalContext#getRequestCharacterEncoding()
@@ -37,4 +37,5 @@ class InitViewRequestCharacterEncodingIT extends BaseITNG {
         WebPage page = getPage("initViewRequestCharacterEncoding.xhtml");
         assertEquals("ISO-8859-1", page.findElement(By.id("form:encoding")).getText(), "request character encoding");
     }
+
 }

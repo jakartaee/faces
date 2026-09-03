@@ -30,4 +30,5 @@ public class Issue2530Foo {
     public void setName(final String name) {
         this.name = name;
     }
+
 }

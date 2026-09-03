@@ -20,8 +20,8 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 /**
- * Both actions return the same flow id. Which of the two identically named flows is actually
- * entered is decided by the to-flow-document-id of the matching navigation case.
+ * Both actions return the same flow id. Which of the two identically named flows is actually entered is decided by the to-flow-document-id of the matching
+ * navigation case.
  */
 @Named
 @RequestScoped
@@ -36,4 +36,5 @@ public class Issue2584Bean {
     public String flow02() {
         return FLOW_ID;
     }
+
 }

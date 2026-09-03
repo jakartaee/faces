@@ -35,4 +35,5 @@ public class Spec1071CustomFlashFactory extends FlashFactory {
     public FlashFactory getWrapped() {
         return parent;
     }
+
 }

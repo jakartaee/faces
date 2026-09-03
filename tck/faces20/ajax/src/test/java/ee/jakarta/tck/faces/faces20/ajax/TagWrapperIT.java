@@ -60,4 +60,5 @@ class TagWrapperIT extends BaseITNG {
         span2 = page.findElement(By.id("checkedvalue"));
         assertEquals("true", span2.getText());
     }
+
 }

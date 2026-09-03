@@ -24,10 +24,9 @@ import jakarta.faces.component.html.HtmlDataTable;
 import jakarta.inject.Named;
 
 /**
- * Backs a data table bound via {@code binding} on a page that is requested more than once within one
- * session. Session scope is essential: on the second GET the binding property still holds the
- * component instance of the previous view, so building the fresh view must overwrite that instance
- * rather than reuse it. The row data is fixed so both renders are expected to be identical.
+ * Backs a data table bound via {@code binding} on a page that is requested more than once within one session. Session scope is essential: on the second GET the
+ * binding property still holds the component instance of the previous view, so building the fresh view must overwrite that instance rather than reuse it. The
+ * row data is fixed so both renders are expected to be identical.
  */
 @Named
 @SessionScoped
@@ -41,7 +40,8 @@ public class Issue4146Bean implements Serializable {
         new Issue4146Car("c3d4e5f6", 2007, "Volvo", "Green"),
         new Issue4146Car("d4e5f6a7", 2011, "Audi", "Red"),
         new Issue4146Car("e5f6a7b8", 2015, "Renault", "Blue"),
-        new Issue4146Car("f6a7b8c9", 2019, "Fiat", "Orange"));
+        new Issue4146Car("f6a7b8c9", 2019, "Fiat", "Orange")
+    );
 
     // The component instance of the previously rendered view survives here in between two GETs of
     // the same view -- the condition the test exercises.
@@ -58,4 +58,5 @@ public class Issue4146Bean implements Serializable {
     public void setCarsDataTable(HtmlDataTable carsDataTable) {
         this.carsDataTable = carsDataTable;
     }
+
 }

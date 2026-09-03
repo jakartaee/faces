@@ -31,4 +31,5 @@ class RequiredValidatorTest {
         RequiredValidator validator = new RequiredValidator();
         validator.validate(null, null, "notempty");
     }
+
 }

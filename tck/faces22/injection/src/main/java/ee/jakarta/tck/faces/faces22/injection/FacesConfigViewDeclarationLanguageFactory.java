@@ -46,4 +46,5 @@ public class FacesConfigViewDeclarationLanguageFactory extends ViewDeclarationLa
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

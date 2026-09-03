@@ -15,28 +15,30 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlgraphicimage;
 
-import ee.jakarta.tck.faces.faces20.api.component.uigraphic.UIGraphicTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlGraphicImage;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uigraphic.UIGraphicTestServlet;
+
 @WebServlet("/HtmlGraphicImageTestServlet")
 public final class HtmlGraphicImageTestServlet extends UIGraphicTestServlet {
 
-  private static final String[] attrNames = { "alt", "dir", "height", "lang", "longdesc", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "title", "usemap", "width", "ismap" };
+    private static final String[] attrNames = { "alt", "dir", "height", "lang", "longdesc", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup",
+        "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "title", "usemap", "width", "ismap" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Image");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Image");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlGraphicImage();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlGraphicImage();
+    }
+
 }

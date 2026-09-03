@@ -32,8 +32,7 @@ class Issue2444IT extends BaseITNG {
     private static final String ENCODED_PARAM = "%E6%97%A5%D7%90";
 
     /**
-     * A commandButton navigation outcome whose query string carries a multibyte value must end up
-     * UTF-8 percent-encoded in the redirect URL.
+     * A commandButton navigation outcome whose query string carries a multibyte value must end up UTF-8 percent-encoded in the redirect URL.
      *
      * @see jakarta.faces.context.ExternalContext#encodeRedirectURL(String, java.util.Map)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2444
@@ -49,8 +48,7 @@ class Issue2444IT extends BaseITNG {
     }
 
     /**
-     * An h:button (outcome target) whose f:param value is a multibyte string must render that value
-     * UTF-8 percent-encoded in the bookmarkable URL.
+     * An h:button (outcome target) whose f:param value is a multibyte string must render that value UTF-8 percent-encoded in the bookmarkable URL.
      *
      * @see jakarta.faces.context.ExternalContext#encodeBookmarkableURL(String, java.util.Map)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2444
@@ -61,7 +59,10 @@ class Issue2444IT extends BaseITNG {
 
         // The h:button renders its bookmarkable URL either as an inline onclick or a wired script
         // (implementation-agnostic per jakartaee/faces#2167); either way the encoded param is in the markup.
-        assertTrue(page.containsSource(ENCODED_PARAM),
-                "bookmarkable h:button URL should contain the UTF-8 encoded param " + ENCODED_PARAM);
+        assertTrue(
+            page.containsSource(ENCODED_PARAM),
+            "bookmarkable h:button URL should contain the UTF-8 encoded param " + ENCODED_PARAM
+        );
     }
+
 }

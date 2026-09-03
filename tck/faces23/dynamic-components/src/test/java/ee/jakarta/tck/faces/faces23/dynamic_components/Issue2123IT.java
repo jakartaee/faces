@@ -26,16 +26,16 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A custom component that adds a dynamic panel grid child pre-render and a nested output text
- * grandchild on postback must render the grandchild inside the parent across repeated postbacks.
+ * A custom component that adds a dynamic panel grid child pre-render and a nested output text grandchild on postback must render the grandchild inside the
+ * parent across repeated postbacks.
  */
 public class Issue2123IT extends BaseITNG {
 
     private static final String NEW_OUTPUT = "NEW-OUTPUT";
 
     /**
-     * Initially only the dynamic panel grid is present (no grandchild yet); each postback keeps the
-     * added output text component nested between the parent's encodeBegin and encodeEnd markers.
+     * Initially only the dynamic panel grid is present (no grandchild yet); each postback keeps the added output text component nested between the parent's
+     * encodeBegin and encodeEnd markers.
      *
      * @see jakarta.faces.event.PostRestoreStateEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2123
@@ -59,4 +59,5 @@ public class Issue2123IT extends BaseITNG {
         assertTrue(source.indexOf("Component::encodeBegin") < source.indexOf(NEW_OUTPUT));
         assertTrue(source.indexOf(NEW_OUTPUT) < source.indexOf("Component::encodeEnd"));
     }
+
 }

@@ -30,8 +30,8 @@ import jakarta.inject.Named;
  * Adds a child to a panel group which sits inside a data table row.
  *
  * <p>
- * The command button invoking this also sits inside a row, so the row index is set by the time the action runs.
- * The panel group is a single component instance reused for every row, so the added child belongs to all of them.
+ * The command button invoking this also sits inside a row, so the row index is set by the time the action runs. The panel group is a single component instance
+ * reused for every row, so the added child belongs to all of them.
  * </p>
  */
 @Named
@@ -61,4 +61,5 @@ public class Issue5865Bean implements Serializable {
     public void postback() {
         // Just a way to post back.
     }
+
 }

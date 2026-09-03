@@ -47,4 +47,5 @@ public class LocaleConfigBean {
         Collections.sort(locales);
         return String.join(",", locales);
     }
+
 }

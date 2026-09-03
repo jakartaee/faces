@@ -22,9 +22,8 @@ import jakarta.faces.event.ActionListener;
 
 /**
  * <p>
- * <strong>ActionSource</strong> is an interface that may be implemented by any concrete {@link UIComponent} that wishes
- * to be a source of {@link ActionEvent}s, including the ability to invoke application actions via the default
- * {@link ActionListener} mechanism.
+ * <strong>ActionSource</strong> is an interface that may be implemented by any concrete {@link UIComponent} that wishes to be a source of {@link ActionEvent}s,
+ * including the ability to invoke application actions via the default {@link ActionListener} mechanism.
  * </p>
  */
 public interface ActionSource {
@@ -33,10 +32,9 @@ public interface ActionSource {
 
     /**
      * <p>
-     * Return a flag indicating that the default {@link ActionListener} provided by the Jakarta Faces implementation
-     * should be executed immediately (that is, during <em>Apply Request Values</em> phase of the request processing
-     * lifecycle), rather than waiting until the <em>Invoke Application</em> phase. The default value for this property must
-     * be <code>false</code>.
+     * Return a flag indicating that the default {@link ActionListener} provided by the Jakarta Faces implementation should be executed immediately (that is,
+     * during <em>Apply Request Values</em> phase of the request processing lifecycle), rather than waiting until the <em>Invoke Application</em> phase. The
+     * default value for this property must be <code>false</code>.
      * </p>
      *
      * @return <code>true</code> if immediate, <code>false</code> otherwise.
@@ -56,8 +54,7 @@ public interface ActionSource {
 
     /**
      * <p>
-     * Add a new {@link ActionListener} to the set of listeners interested in being notified when {@link ActionEvent}s
-     * occur.
+     * Add a new {@link ActionListener} to the set of listeners interested in being notified when {@link ActionEvent}s occur.
      * </p>
      *
      * @param listener The {@link ActionListener} to be added
@@ -68,8 +65,8 @@ public interface ActionSource {
 
     /**
      * <p>
-     * Return the set of registered {@link ActionListener}s for this {@link ActionSource} instance. If there are no
-     * registered listeners, a zero-length array is returned.
+     * Return the set of registered {@link ActionListener}s for this {@link ActionSource} instance. If there are no registered listeners, a zero-length array is
+     * returned.
      * </p>
      *
      * @return the action listeners, or a zero-length array.
@@ -78,8 +75,7 @@ public interface ActionSource {
 
     /**
      * <p>
-     * Remove an existing {@link ActionListener} (if any) from the set of listeners interested in being notified when
-     * {@link ActionEvent}s occur.
+     * Remove an existing {@link ActionListener} (if any) from the set of listeners interested in being notified when {@link ActionEvent}s occur.
      * </p>
      *
      * @param listener The {@link ActionListener} to be removed
@@ -92,14 +88,14 @@ public interface ActionSource {
 
     /**
      * <p>
-     * Return the {@link MethodExpression} pointing at the application action to be invoked, if this {@link UIComponent} is
-     * activated by the user, during the <em>Apply Request Values</em> or <em>Invoke Application</em> phase of the request
-     * processing lifecycle, depending on the value of the <code>immediate</code> property.
+     * Return the {@link MethodExpression} pointing at the application action to be invoked, if this {@link UIComponent} is activated by the user, during the
+     * <em>Apply Request Values</em> or <em>Invoke Application</em> phase of the request processing lifecycle, depending on the value of the
+     * <code>immediate</code> property.
      * </p>
      *
      * <p>
-     * The default implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of
-     * not breaking existing applications that extend {@link ActionSource}.
+     * The default implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of not breaking existing applications
+     * that extend {@link ActionSource}.
      * </p>
      *
      * @return the action expression.
@@ -111,19 +107,18 @@ public interface ActionSource {
 
     /**
      * <p>
-     * Set the {@link MethodExpression} pointing at the appication action to be invoked, if this {@link UIComponent} is
-     * activated by the user, during the <em>Apply Request Values</em> or <em>Invoke Application</em> phase of the request
-     * processing lifecycle, depending on the value of the <code>immediate</code> property.
+     * Set the {@link MethodExpression} pointing at the appication action to be invoked, if this {@link UIComponent} is activated by the user, during the
+     * <em>Apply Request Values</em> or <em>Invoke Application</em> phase of the request processing lifecycle, depending on the value of the
+     * <code>immediate</code> property.
      * </p>
      *
      * <p>
-     * Any method referenced by such an expression must be public, with a return type of <code>String</code>, and accept no
-     * parameters.
+     * Any method referenced by such an expression must be public, with a return type of <code>String</code>, and accept no parameters.
      * </p>
      *
      * <p>
-     * The default implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of
-     * not breaking existing applications that extend {@link ActionSource}.
+     * The default implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of not breaking existing applications
+     * that extend {@link ActionSource}.
      * </p>
      *
      * @param action The new method expression

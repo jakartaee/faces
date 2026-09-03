@@ -28,11 +28,39 @@ class LifecycleFactoryIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void lifecycleFactoryAddLifecycleNPETest() { runServletTest("lifecycleFactoryAddLifecycleNPETest"); }
-    @Test void lifecycleFactoryAddLifecycleTest() { runServletTest("lifecycleFactoryAddLifecycleTest"); }
-    @Test void lifecycleFactoryGetLifecycleIAETest() { runServletTest("lifecycleFactoryGetLifecycleIAETest"); }
-    @Test void lifecycleFactoryGetLifecycleIdsTest() { runServletTest("lifecycleFactoryGetLifecycleIdsTest"); }
-    @Test void lifecycleFactoryGetLifecycleNPETest() { runServletTest("lifecycleFactoryGetLifecycleNPETest"); }
-    @Test void lifecycleFactoryGetLifecycleTest() { runServletTest("lifecycleFactoryGetLifecycleTest"); }
-    @Test void lifecycleFactoryGetWrappedNullTest() { runServletTest("lifecycleFactoryGetWrappedNullTest"); }
+    @Test
+    void lifecycleFactoryAddLifecycleNPETest() {
+        runServletTest("lifecycleFactoryAddLifecycleNPETest");
+    }
+
+    @Test
+    void lifecycleFactoryAddLifecycleTest() {
+        runServletTest("lifecycleFactoryAddLifecycleTest");
+    }
+
+    @Test
+    void lifecycleFactoryGetLifecycleIAETest() {
+        runServletTest("lifecycleFactoryGetLifecycleIAETest");
+    }
+
+    @Test
+    void lifecycleFactoryGetLifecycleIdsTest() {
+        runServletTest("lifecycleFactoryGetLifecycleIdsTest");
+    }
+
+    @Test
+    void lifecycleFactoryGetLifecycleNPETest() {
+        runServletTest("lifecycleFactoryGetLifecycleNPETest");
+    }
+
+    @Test
+    void lifecycleFactoryGetLifecycleTest() {
+        runServletTest("lifecycleFactoryGetLifecycleTest");
+    }
+
+    @Test
+    void lifecycleFactoryGetWrappedNullTest() {
+        runServletTest("lifecycleFactoryGetWrappedNullTest");
+    }
+
 }

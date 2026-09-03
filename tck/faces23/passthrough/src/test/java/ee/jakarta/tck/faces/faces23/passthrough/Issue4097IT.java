@@ -92,7 +92,7 @@ public class Issue4097IT extends BaseITNG {
 
     /**
      * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
-     * 
+     *
      * @see UIInput#isRequired()
      * @see org.glassfish.mojarra.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
@@ -112,7 +112,7 @@ public class Issue4097IT extends BaseITNG {
 
     /**
      * This test should yield no JSF message response, as the inputText component is using passthrough to HTML.
-     * 
+     *
      * @see UIInput#isRequired()
      * @see org.glassfish.mojarra.facelets.tag.faces.PassThroughAttributeLibrary
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4097
@@ -129,4 +129,5 @@ public class Issue4097IT extends BaseITNG {
 
         assertFalse(output.contains("Please fill out this field"));
     }
+
 }

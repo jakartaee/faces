@@ -25,8 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The {@code binding} attribute of {@code f:converter} uses the bean-provided converter instance,
- * both a standard converter for output formatting and a custom converter for input conversion.
+ * The {@code binding} attribute of {@code f:converter} uses the bean-provided converter instance, both a standard converter for output formatting and a custom
+ * converter for input conversion.
  */
 class ConverterBindingIT extends BaseITNG {
 
@@ -55,4 +55,5 @@ class ConverterBindingIT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
         assertEquals("ABC", page.findElement(By.id("form:echo")).getText(), "bound custom converter input");
     }
+
 }

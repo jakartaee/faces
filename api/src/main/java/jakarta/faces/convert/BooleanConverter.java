@@ -38,26 +38,22 @@ public class BooleanConverter implements Converter<Boolean> {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Boolean</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Boolean</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String BOOLEAN_ID = "jakarta.faces.converter.BooleanConverter.BOOLEAN";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the
-     * <code>Boolean</code> value to <code>String</code> fails. The message format string for this message may optionally
-     * include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the <code>Boolean</code> value to
+     * <code>String</code> fails. The message format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> relaced by the unconverted value.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String STRING_ID = "jakarta.faces.converter.STRING";
@@ -88,7 +84,8 @@ public class BooleanConverter implements Converter<Boolean> {
         // "true" or "false".
         try {
             return Boolean.valueOf(value);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, BOOLEAN_ID, value, MessageFactory.getLabel(context, component)), e);
         }
     }
@@ -111,8 +108,10 @@ public class BooleanConverter implements Converter<Boolean> {
 
         try {
             return value.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
         }
     }
+
 }

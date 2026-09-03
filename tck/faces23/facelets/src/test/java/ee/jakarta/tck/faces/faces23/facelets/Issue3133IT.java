@@ -29,8 +29,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3133IT extends BaseITNG {
 
     /**
-     * A multipart form whose submit button is wrapped in an enclosing {@code f:ajax}
-     * must submit the {@code h:inputFile} and navigate to the action's target page.
+     * A multipart form whose submit button is wrapped in an enclosing {@code f:ajax} must submit the {@code h:inputFile} and navigate to the action's target
+     * page.
      *
      * @see HtmlInputFile
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3133
@@ -47,9 +47,8 @@ class Issue3133IT extends BaseITNG {
     }
 
     /**
-     * A multipart form with a non-ajax submit button (only the {@code h:inputText} has an
-     * {@code f:ajax}) must submit the {@code h:inputFile} and navigate to the action's
-     * target page.
+     * A multipart form with a non-ajax submit button (only the {@code h:inputText} has an {@code f:ajax}) must submit the {@code h:inputFile} and navigate to
+     * the action's target page.
      *
      * @see HtmlInputFile
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3133

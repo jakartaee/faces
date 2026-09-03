@@ -26,19 +26,17 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A global {@link jakarta.faces.application.FacesMessage} added before a redirect survives that redirect when
- * {@code flash.keepMessages} is set to {@code true}, but only for a single hop: it is gone after the next
- * request to a view that does not keep messages. The survival also holds across validation errors before the
- * final navigation.
+ * A global {@link jakarta.faces.application.FacesMessage} added before a redirect survives that redirect when {@code flash.keepMessages} is set to
+ * {@code true}, but only for a single hop: it is gone after the next request to a view that does not keep messages. The survival also holds across validation
+ * errors before the final navigation.
  */
 class Issue1112IT extends BaseITNG {
 
     private static final String GLOBAL_MESSAGE = "This is a global message";
 
     /**
-     * Submits a form whose action adds a global message and redirects. Asserts the message survives the redirect
-     * (keepMessages), then submits again on the target view (which does not keep messages) and asserts the message
-     * is no longer displayed, confirming the single-hop lifetime.
+     * Submits a form whose action adds a global message and redirects. Asserts the message survives the redirect (keepMessages), then submits again on the
+     * target view (which does not keep messages) and asserts the message is no longer displayed, confirming the single-hop lifetime.
      *
      * @see jakarta.faces.context.Flash#setKeepMessages(boolean)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1112
@@ -54,9 +52,8 @@ class Issue1112IT extends BaseITNG {
     }
 
     /**
-     * Submits the required-input form twice while the input is empty (two consecutive validation errors), then
-     * fills it and submits a final time to navigate. Asserts the global message added during the final action
-     * survives the redirect, confirming keepMessages also holds across preceding validation errors.
+     * Submits the required-input form twice while the input is empty (two consecutive validation errors), then fills it and submits a final time to navigate.
+     * Asserts the global message added during the final action survives the redirect, confirming keepMessages also holds across preceding validation errors.
      *
      * @see jakarta.faces.context.Flash#setKeepMessages(boolean)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1112
@@ -77,4 +74,5 @@ class Issue1112IT extends BaseITNG {
 
         assertTrue(page.containsText(GLOBAL_MESSAGE), "FacesMessage must survive the redirect after preceding validation errors");
     }
+
 }

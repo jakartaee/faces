@@ -31,4 +31,5 @@ public class Issue2093DataItem implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
+
 }

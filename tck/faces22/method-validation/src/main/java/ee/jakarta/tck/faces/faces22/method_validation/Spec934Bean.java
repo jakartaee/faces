@@ -28,16 +28,17 @@ import jakarta.validation.ConstraintViolationException;
 @Named
 @RequestScoped
 public class Spec934Bean implements Serializable {
-    
+
     private static final long serialVersionUID = 1368241916496764731L;
 
     @Inject
     HelloService hello;
-    
+
     protected String methodValidationValue = "foo";
     protected String valueValidationValue = "foo";
-    
-    public Spec934Bean() {}
+
+    public Spec934Bean() {
+    }
 
     @FooConstraint
     public String getValueValidationValue() {
@@ -55,24 +56,24 @@ public class Spec934Bean implements Serializable {
     public void setMethodValidationValue(String firstName) {
         this.methodValidationValue = firstName;
     }
-    
+
     public String getHelloValue() {
         return hello.sayHello(getMethodValidationValue());
     }
-    
+
     public void preRenderViewListener() {
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
         String value = (String) context.getExternalContext().getRequestMap().get("value");
         if (value != null && value.equals("bar")) {
             try {
                 hello.sayHello(value);
-            } catch (ConstraintViolationException e) {
+            }
+            catch (ConstraintViolationException e) {
                 context.addMessage(null, new FacesMessage(e.getMessage()));
             }
         }
-        
-    }
-    
-}
 
+    }
+
+}

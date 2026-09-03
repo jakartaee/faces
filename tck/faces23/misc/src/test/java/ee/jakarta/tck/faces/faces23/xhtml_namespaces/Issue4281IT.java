@@ -28,11 +28,11 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue4281IT extends BaseITNG {
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/4281
-   */
-  @Test
-  void test() throws Exception {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/4281
+     */
+    @Test
+    void test() throws Exception {
         WebPage page = getPage("issue4281.xhtml");
         WebElement panelGroup = page.findElement(By.id("panelGroup"));
         WebElement outputText = page.findElement(By.id("outputText"));

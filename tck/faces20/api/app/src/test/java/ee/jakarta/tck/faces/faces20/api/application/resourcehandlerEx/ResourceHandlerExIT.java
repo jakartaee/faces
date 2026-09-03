@@ -32,16 +32,34 @@ class ResourceHandlerExIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void resourceHandlerExcludeClassTest() { runServletTest("resourceHandlerExcludeClassTest"); }
-    @Test void resourceHandlerExcludeJSPTest() { runServletTest("resourceHandlerExcludeJSPTest"); }
-    @Test void resourceHandlerExcludeJSPXTest() { runServletTest("resourceHandlerExcludeJSPXTest"); }
-    @Test void resourceHandlerExcludePropertiesTest() { runServletTest("resourceHandlerExcludePropertiesTest"); }
-    @Test void resourceHandlerExcludeXHTMLTest() { runServletTest("resourceHandlerExcludeXHTMLTest"); }
+    @Test
+    void resourceHandlerExcludeClassTest() {
+        runServletTest("resourceHandlerExcludeClassTest");
+    }
+
+    @Test
+    void resourceHandlerExcludeJSPTest() {
+        runServletTest("resourceHandlerExcludeJSPTest");
+    }
+
+    @Test
+    void resourceHandlerExcludeJSPXTest() {
+        runServletTest("resourceHandlerExcludeJSPXTest");
+    }
+
+    @Test
+    void resourceHandlerExcludePropertiesTest() {
+        runServletTest("resourceHandlerExcludePropertiesTest");
+    }
+
+    @Test
+    void resourceHandlerExcludeXHTMLTest() {
+        runServletTest("resourceHandlerExcludeXHTMLTest");
+    }
 
     /**
-     * The sibling tests above only assert that '.xhtml' is listed in the excludes constant. This one
-     * asserts the runtime enforcement: a resource request for a Facelet inside a resource library
-     * must be rejected and must never deliver the Facelet source.
+     * The sibling tests above only assert that '.xhtml' is listed in the excludes constant. This one asserts the runtime enforcement: a resource request for a
+     * Facelet inside a resource library must be rejected and must never deliver the Facelet source.
      *
      * @see jakarta.faces.application.ResourceHandler#RESOURCE_EXCLUDES_PARAM_NAME
      * @see https://jakarta.ee/specifications/faces/5.0/apidocs/jakarta.faces/jakarta/faces/application/resourcehandler#RESOURCE_EXCLUDES_PARAM_NAME
@@ -54,4 +72,5 @@ class ResourceHandlerExIT extends BaseITNG {
         assertFalse(body.contains("<h:form"), "Facelet source leaked:\n" + body);
         assertFalse(body.contains("<h:body"), "Facelet source leaked:\n" + body);
     }
+
 }

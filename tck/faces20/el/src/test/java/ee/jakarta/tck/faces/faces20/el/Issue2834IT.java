@@ -66,4 +66,5 @@ class Issue2834IT extends BaseITNG {
         WebPage page = getPage("issue2834-8.xhtml");
         assertEquals("SUCCESS", page.findElement(By.id("result")).getText());
     }
+
 }

@@ -28,9 +28,29 @@ class LifecycleIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void lifecycleAddGetRemovePhaseListenersTest() { runServletTest("lifecycleAddGetRemovePhaseListenersTest"); }
-    @Test void lifecycleAddPhaseListenerNPETest() { runServletTest("lifecycleAddPhaseListenerNPETest"); }
-    @Test void lifecycleExecuteNPETest() { runServletTest("lifecycleExecuteNPETest"); }
-    @Test void lifecycleRemovePhaseListenerNPETest() { runServletTest("lifecycleRemovePhaseListenerNPETest"); }
-    @Test void lifecycleRenderNPETest() { runServletTest("lifecycleRenderNPETest"); }
+    @Test
+    void lifecycleAddGetRemovePhaseListenersTest() {
+        runServletTest("lifecycleAddGetRemovePhaseListenersTest");
+    }
+
+    @Test
+    void lifecycleAddPhaseListenerNPETest() {
+        runServletTest("lifecycleAddPhaseListenerNPETest");
+    }
+
+    @Test
+    void lifecycleExecuteNPETest() {
+        runServletTest("lifecycleExecuteNPETest");
+    }
+
+    @Test
+    void lifecycleRemovePhaseListenerNPETest() {
+        runServletTest("lifecycleRemovePhaseListenerNPETest");
+    }
+
+    @Test
+    void lifecycleRenderNPETest() {
+        runServletTest("lifecycleRenderNPETest");
+    }
+
 }

@@ -25,8 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A UIData component (here {@code h:dataTable}) whose value is an arbitrary {@link java.util.Collection}
- * that is not a {@link java.util.List} must iterate and render every element in encounter order.
+ * A UIData component (here {@code h:dataTable}) whose value is an arbitrary {@link java.util.Collection} that is not a {@link java.util.List} must iterate and
+ * render every element in encounter order.
  */
 public class Spec479IT extends BaseITNG {
 
@@ -40,7 +40,10 @@ public class Spec479IT extends BaseITNG {
     void testDataTableCollection() {
         WebPage page = getPage("spec479.xhtml");
         String table = page.findElement(By.id("form:table")).getText();
-        assertTrue(table.matches("(?s).*First0.*Last0.*First1.*Last1.*First2.*Last2.*"),
-                "dataTable did not render all Collection rows in order, got: " + table);
+        assertTrue(
+            table.matches("(?s).*First0.*Last0.*First1.*Last1.*First2.*Last2.*"),
+            "dataTable did not render all Collection rows in order, got: " + table
+        );
     }
+
 }

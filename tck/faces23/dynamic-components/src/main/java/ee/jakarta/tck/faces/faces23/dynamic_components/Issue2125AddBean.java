@@ -33,9 +33,11 @@ public class Issue2125AddBean {
     public void addComponent() {
         FacesContext context = FacesContext.getCurrentInstance();
         UIComponent group = context.getViewRoot().findComponent(
-            "form" + UINamingContainer.getSeparatorChar(context) + "group");
+            "form" + UINamingContainer.getSeparatorChar(context) + "group"
+        );
         HtmlOutputText output = new HtmlOutputText();
         output.setValue("OUTPUT");
         group.getChildren().add(output);
     }
+
 }

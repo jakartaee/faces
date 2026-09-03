@@ -28,13 +28,12 @@ import jakarta.faces.component.html.HtmlEvents.HtmlElementEvent;
 
 /**
  * <p>
- * Represents an HTML <code>input</code> element of type "button" or image that may be used to link to a URL handled by
- * the Faces Servlet resolved preemptively using the logical outcome defined by the <code>outcome</code> property. The
- * button behaves like a link, so the current form is not submitted when it is activated (the transitive of how the
- * UICommandLink behaves like a submit button).
+ * Represents an HTML <code>input</code> element of type "button" or image that may be used to link to a URL handled by the Faces Servlet resolved preemptively
+ * using the logical outcome defined by the <code>outcome</code> property. The button behaves like a link, so the current form is not submitted when it is
+ * activated (the transitive of how the UICommandLink behaves like a submit button).
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Button</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Button</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBehaviorHolder {
@@ -55,8 +54,30 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
      * The property keys.
      */
     protected enum PropertyKeys {
-        accesskey, alt, dir, disabled, image, lang, onblur, onclick, ondblclick, onfocus, onkeydown, onkeypress, onkeyup, onmousedown, onmousemove, onmouseout,
-        onmouseover, onmouseup, role, style, styleClass, tabindex, title,;
+
+        accesskey,
+        alt,
+        dir,
+        disabled,
+        image,
+        lang,
+        onblur,
+        onclick,
+        ondblclick,
+        onfocus,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        role,
+        style,
+        styleClass,
+        tabindex,
+        title,;
 
         String toString;
 
@@ -71,6 +92,7 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -101,8 +123,8 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
 
     /**
      * <p>
-     * Return the value of the <code>alt</code> property.
-     * <span class="changed_modified_4_0">This attribute is ignored when the <code>image</code> attribute is not specified.</span>
+     * Return the value of the <code>alt</code> property. <span class="changed_modified_4_0">This attribute is ignored when the <code>image</code> attribute is
+     * not specified.</span>
      * </p>
      *
      * @return the property value
@@ -133,9 +155,8 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);
@@ -161,9 +182,8 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value
-     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as
-     * disabled="disabled".
+     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value of false causes no attribute to be
+     * rendered, while a value of true causes the attribute to be rendered as disabled="disabled".
      */
     public boolean isDisabled() {
         return getStateHelper().eval(PropertyKeys.disabled, false);
@@ -190,10 +210,9 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
      * <p>
      * Contents:
      * <p>
-     * Absolute or relative URL of the image to be displayed for this button. If specified, this "input" element will be of
-     * type "image". Otherwise, it will be of the type specified by the "type" property with a label specified by the
-     * "value" property. <span class="changed_added_2_0">Note that if the value of this attribute starts with "/", the
-     * rendered value for this attribute will be prefixed with the context-root for this application.</span>
+     * Absolute or relative URL of the image to be displayed for this button. If specified, this "input" element will be of type "image". Otherwise, it will be
+     * of the type specified by the "type" property with a label specified by the "value" property. <span class="changed_added_2_0">Note that if the value of
+     * this attribute starts with "/", the rendered value for this attribute will be prefixed with the context-root for this application.</span>
      * </p>
      */
     public java.lang.String getImage() {
@@ -559,16 +578,14 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -621,8 +638,8 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -648,8 +665,7 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
      *
      * @return the property value
      * <p>
-     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer
-     * between 0 and 32767.
+     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer between 0 and 32767.
      */
     public java.lang.String getTabindex() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.tabindex);
@@ -696,7 +712,7 @@ public class HtmlOutcomeTargetButton extends UIOutcomeTarget implements ClientBe
 
     @Override
     public Collection<String> getEventNames() {
-        return getHtmlElementEventNames(getFacesContext()); 
+        return getHtmlElementEventNames(getFacesContext());
     }
 
     @Override

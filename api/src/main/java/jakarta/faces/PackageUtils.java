@@ -26,7 +26,8 @@ class PackageUtils {
         String applicationContextPath = "unitTest";
         try {
             applicationContextPath = facesContext.getExternalContext().getApplicationContextPath();
-        } catch (Throwable e) {
+        }
+        catch (Throwable e) {
             // ignore
         }
         return applicationContextPath + " " + Thread.currentThread().toString() + " " + System.currentTimeMillis();
@@ -34,12 +35,10 @@ class PackageUtils {
 
     /**
      * <p>
-     * Identify and return the class loader that is associated with the calling
-     * web application.
+     * Identify and return the class loader that is associated with the calling web application.
      * </p>
      *
-     * @throws FacesException if the web application class loader cannot be
-     * identified
+     * @throws FacesException if the web application class loader cannot be identified
      */
     public static ClassLoader getContextClassLoader2() throws FacesException {
         // J2EE 1.3 (and later) containers are required to make the
@@ -63,15 +62,12 @@ class PackageUtils {
     }
 
     /**
-     * Returns <code>true</code> if the given object equals one of the given
-     * objects.
+     * Returns <code>true</code> if the given object equals one of the given objects.
      *
      * @param <T> The generic object type.
-     * @param object The object to be checked if it equals one of the given
-     * objects.
+     * @param object The object to be checked if it equals one of the given objects.
      * @param objects The argument list of objects to be tested for equality.
-     * @return <code>true</code> if the given object equals one of the given
-     * objects.
+     * @return <code>true</code> if the given object equals one of the given objects.
      */
     @SafeVarargs
     public static <T> boolean isOneOf(T object, T... objects) {
@@ -82,4 +78,5 @@ class PackageUtils {
         }
         return false;
     }
+
 }

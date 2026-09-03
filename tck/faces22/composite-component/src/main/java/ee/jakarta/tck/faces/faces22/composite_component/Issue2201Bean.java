@@ -46,4 +46,5 @@ public class Issue2201Bean implements Serializable {
     public String getProperty() {
         return property;
     }
+
 }

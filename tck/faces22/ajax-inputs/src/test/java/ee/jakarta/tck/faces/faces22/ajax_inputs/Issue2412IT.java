@@ -33,17 +33,16 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2412IT extends BaseITNG {
 
-  /**
-   * This test verifies correct function of SelectManyCheckbox in a Composite
-   * Component over Ajax.
-   *
-   * @see AjaxBehavior
+    /**
+     * This test verifies correct function of SelectManyCheckbox in a Composite Component over Ajax.
+     *
+     * @see AjaxBehavior
      * @see HtmlSelectManyCheckbox
      * @see UIComponent#getCurrentCompositeComponent(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2412
-   */
-  @Test
-  void selectManyCheckboxInComposite() throws Exception {
+     */
+    @Test
+    void selectManyCheckboxInComposite() throws Exception {
         WebPage page = getPage("issue2412-1.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -59,12 +58,11 @@ class Issue2412IT extends BaseITNG {
         assertTrue(page.containsText("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
-  /**
-   * This test verifies correct function of SelectManyCheckbox in a Composite
-   * Component over Ajax. The components in the page have ids.
-   */
-  @Test
-  void selectManyCheckboxIdsInComposite() throws Exception {
+    /**
+     * This test verifies correct function of SelectManyCheckbox in a Composite Component over Ajax. The components in the page have ids.
+     */
+    @Test
+    void selectManyCheckboxIdsInComposite() throws Exception {
         WebPage page = getPage("issue2412-2.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -83,11 +81,11 @@ class Issue2412IT extends BaseITNG {
         assertTrue(page.containsText("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
-  /**
-   * This test verifies correct function of SelectManyCheckbox Component over Ajax.
-   */
-  @Test
-  void selectManyCheckboxNoComposite() throws Exception {
+    /**
+     * This test verifies correct function of SelectManyCheckbox Component over Ajax.
+     */
+    @Test
+    void selectManyCheckboxNoComposite() throws Exception {
         WebPage page = getPage("issue2412-3.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -103,12 +101,11 @@ class Issue2412IT extends BaseITNG {
         assertTrue(page.containsText("Status: mcheck-1 mcheck-2 mcheck-3"));
     }
 
-  /**
-   * This test verifies correct function of SelectOneRadio in a Composite
-   * Component over Ajax.
-   */
-  @Test
-  void selectOneRadioInComposite() throws Exception {
+    /**
+     * This test verifies correct function of SelectOneRadio in a Composite Component over Ajax.
+     */
+    @Test
+    void selectOneRadioInComposite() throws Exception {
         WebPage page = getPage("issue2412-4.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -124,12 +121,11 @@ class Issue2412IT extends BaseITNG {
         assertTrue(page.containsText("Status: radio-3"));
     }
 
-  /**
-   * This test verifies correct function of SelectOneRadio in a Composite
-   * Component over Ajax. The components in the page have ids.
-   */
-  @Test
-  void selectOneRadioIdsInComposite() throws Exception {
+    /**
+     * This test verifies correct function of SelectOneRadio in a Composite Component over Ajax. The components in the page have ids.
+     */
+    @Test
+    void selectOneRadioIdsInComposite() throws Exception {
         WebPage page = getPage("issue2412-5.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.
@@ -148,11 +144,11 @@ class Issue2412IT extends BaseITNG {
         assertTrue(page.containsText("Status: radio-3"));
     }
 
-  /**
-   * This test verifies correct function of SelectOneRadio Component over Ajax.
-   */
-  @Test
-  void selectOneRadioNoComposite() throws Exception {
+    /**
+     * This test verifies correct function of SelectOneRadio Component over Ajax.
+     */
+    @Test
+    void selectOneRadioNoComposite() throws Exception {
         WebPage page = getPage("issue2412-6.xhtml");
 
         // This will ensure JavaScript finishes before evaluating the page.

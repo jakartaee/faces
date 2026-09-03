@@ -33,67 +33,56 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <span class="changed_modified_2_0_rev_a">{@link Converter}</span> implementation for <code>java.lang.Number</code>
- * values.
+ * <span class="changed_modified_2_0_rev_a">{@link Converter}</span> implementation for <code>java.lang.Number</code> values.
  * </p>
  *
  * <p>
- * The <code>getAsObject()</code> method parses a String into an <code>java.lang.Double</code> or
- * <code>java.lang.Long</code>, according to the following algorithm:
+ * The <code>getAsObject()</code> method parses a String into an <code>java.lang.Double</code> or <code>java.lang.Long</code>, according to the following
+ * algorithm:
  * </p>
  * <ul>
- * <li>If the specified String is null, return a <code>null</code>. Otherwise, trim leading and trailing whitespace
- * before proceeding.</li>
+ * <li>If the specified String is null, return a <code>null</code>. Otherwise, trim leading and trailing whitespace before proceeding.</li>
  * <li>If the specified String - after trimming - has a zero length, return <code>null</code>.</li>
- * <li>If the <code>locale</code> property is not null, use that <code>Locale</code> for managing parsing. Otherwise,
- * use the <code>Locale</code> from the <code>UIViewRoot</code>.</li>
- * <li>If a <code>pattern</code> has been specified, its syntax must conform the rules specified by
- * <code>java.text.DecimalFormat</code>. Such a pattern will be used to parse, and the <code>type</code> property will
- * be ignored.</li>
- * <li>If a <code>pattern</code> has not been specified, parsing will be based on the <code>type</code> property, which
- * expects a currency, a number, or a percent. The parse pattern for currencies, numbers, and percentages is determined
- * by calling the <code>getCurrencyInstance()</code>, <code>getNumberInstance()</code>, or
- * <code>getPercentInstance()</code> method of the <code>java.text.NumberFormat</code> class, passing in the selected
+ * <li>If the <code>locale</code> property is not null, use that <code>Locale</code> for managing parsing. Otherwise, use the <code>Locale</code> from the
+ * <code>UIViewRoot</code>.</li>
+ * <li>If a <code>pattern</code> has been specified, its syntax must conform the rules specified by <code>java.text.DecimalFormat</code>. Such a pattern will be
+ * used to parse, and the <code>type</code> property will be ignored.</li>
+ * <li>If a <code>pattern</code> has not been specified, parsing will be based on the <code>type</code> property, which expects a currency, a number, or a
+ * percent. The parse pattern for currencies, numbers, and percentages is determined by calling the <code>getCurrencyInstance()</code>,
+ * <code>getNumberInstance()</code>, or <code>getPercentInstance()</code> method of the <code>java.text.NumberFormat</code> class, passing in the selected
  * <code>Locale</code>.</li>
- * <li>If the <code>integerOnly</code> property has been set to true, only the integer portion of the String will be
- * parsed. See the JavaDocs for the <code>setParseIntegerOnly()</code> method of the <code>java.text.NumberFormat</code>
- * class for more information.</li>
- * <li><span class="changed_added_5_0">Before parsing, if the {@code NumberFormat} is a {@code DecimalFormat} and its
- * grouping separator, monetary grouping separator, positive/negative prefix, or positive/negative suffix contains
- * Unicode fixed-width whitespace characters such as NBSP (U+00A0) or NNBSP (U+202F), those characters in both the input
- * string and the formatter's symbols must be normalized to regular spaces (U+0020), and any zero-width characters must
- * be stripped. This ensures that user input containing regular spaces is accepted even when the locale data uses
- * non-breaking spaces. This normalization must only be applied during parsing, not during formatting.</span></li>
+ * <li>If the <code>integerOnly</code> property has been set to true, only the integer portion of the String will be parsed. See the JavaDocs for the
+ * <code>setParseIntegerOnly()</code> method of the <code>java.text.NumberFormat</code> class for more information.</li>
+ * <li><span class="changed_added_5_0">Before parsing, if the {@code NumberFormat} is a {@code DecimalFormat} and its grouping separator, monetary grouping
+ * separator, positive/negative prefix, or positive/negative suffix contains Unicode fixed-width whitespace characters such as NBSP (U+00A0) or NNBSP (U+202F),
+ * those characters in both the input string and the formatter's symbols must be normalized to regular spaces (U+0020), and any zero-width characters must be
+ * stripped. This ensures that user input containing regular spaces is accepted even when the locale data uses non-breaking spaces. This normalization must only
+ * be applied during parsing, not during formatting.</span></li>
  * </ul>
  *
  * <p>
- * The <code>getAsString()</code> method expects a value of type <code>java.lang.Number</code> (or a subclass), and
- * creates a formatted String according to the following algorithm:
+ * The <code>getAsString()</code> method expects a value of type <code>java.lang.Number</code> (or a subclass), and creates a formatted String according to the
+ * following algorithm:
  * </p>
  * <ul>
  * <li>If the specified value is null, return a zero-length String.</li>
  * <li>If the specified value is a String, return it unmodified.</li>
- * <li>If the <code>locale</code> property is not null, use that <code>Locale</code> for managing formatting. Otherwise,
- * use the <code>Locale</code> from the <code>FacesContext</code>.</li>
- * <li>If a <code>pattern</code> has been specified, its syntax must conform the rules specified by
- * <code>java.text.DecimalFormat</code>. Such a pattern will be used to format, and the <code>type</code> property
- * (along with related formatting options described in the next paragraph) will be ignored.</li>
- * <li>If a <code>pattern</code> has not been specified, formatting will be based on the <code>type</code> property,
- * which formats the value as a currency, a number, or a percent. The format pattern for currencies, numbers, and
- * percentages is determined by calling the percentages is determined by calling the <code>getCurrencyInstance()</code>,
- * <code>getNumberInstance()</code>, or <code>getPercentInstance()</code> method of the
- * <code>java.text.NumberFormat</code> class, passing in the selected <code>Locale</code>. In addition, the following
- * properties will be applied to the format pattern, if specified:
+ * <li>If the <code>locale</code> property is not null, use that <code>Locale</code> for managing formatting. Otherwise, use the <code>Locale</code> from the
+ * <code>FacesContext</code>.</li>
+ * <li>If a <code>pattern</code> has been specified, its syntax must conform the rules specified by <code>java.text.DecimalFormat</code>. Such a pattern will be
+ * used to format, and the <code>type</code> property (along with related formatting options described in the next paragraph) will be ignored.</li>
+ * <li>If a <code>pattern</code> has not been specified, formatting will be based on the <code>type</code> property, which formats the value as a currency, a
+ * number, or a percent. The format pattern for currencies, numbers, and percentages is determined by calling the percentages is determined by calling the
+ * <code>getCurrencyInstance()</code>, <code>getNumberInstance()</code>, or <code>getPercentInstance()</code> method of the <code>java.text.NumberFormat</code>
+ * class, passing in the selected <code>Locale</code>. In addition, the following properties will be applied to the format pattern, if specified:
  * <ul>
- * <li>If the <code>groupingUsed</code> property is <code>true</code>, the <code>setGroupingUsed(true)</code> method on
- * the corresponding <code>NumberFormat</code> instance will be called.</li>
- * <li>The minimum and maximum number of digits in the integer and fractional portions of the result will be configured
- * based on any values set for the <code>maxFractionDigits</code>, <code>maxIntegerDigits</code>,
- * <code>minFractionDigits</code>, and <code>minIntegerDigits</code> properties.</li>
- * <li>If the type is set to <code>currency</code>, it is also possible to configure the currency symbol to be used,
- * using either the <code>currencyCode</code> or <code>currencySymbol</code> properties. If both are set, the value for
- * <code>currencyCode</code> takes precedence on a JDK 1.4 (or later) JVM; otherwise, the value for
- * <code>currencySymbol</code> takes precedence.</li>
+ * <li>If the <code>groupingUsed</code> property is <code>true</code>, the <code>setGroupingUsed(true)</code> method on the corresponding
+ * <code>NumberFormat</code> instance will be called.</li>
+ * <li>The minimum and maximum number of digits in the integer and fractional portions of the result will be configured based on any values set for the
+ * <code>maxFractionDigits</code>, <code>maxIntegerDigits</code>, <code>minFractionDigits</code>, and <code>minIntegerDigits</code> properties.</li>
+ * <li>If the type is set to <code>currency</code>, it is also possible to configure the currency symbol to be used, using either the <code>currencyCode</code>
+ * or <code>currencySymbol</code> properties. If both are set, the value for <code>currencyCode</code> takes precedence on a JDK 1.4 (or later) JVM; otherwise,
+ * the value for <code>currencySymbol</code> takes precedence.</li>
  * </ul>
  * </li>
  * </ul>
@@ -112,69 +101,59 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Number</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Number</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by an example value.</li>
-     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String CURRENCY_ID = "jakarta.faces.converter.NumberConverter.CURRENCY";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Number</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Number</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by an example value.</li>
-     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String NUMBER_ID = "jakarta.faces.converter.NumberConverter.NUMBER";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Number</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Number</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by an example value.</li>
-     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String PATTERN_ID = "jakarta.faces.converter.NumberConverter.PATTERN";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Number</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Number</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by an example value.</li>
-     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String PERCENT_ID = "jakarta.faces.converter.NumberConverter.PERCENT";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the
-     * <code>Number</code> value to <code>String</code> fails. The message format string for this message may optionally
-     * include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the <code>Number</code> value to
+     * <code>String</code> fails. The message format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> relaced by the unconverted value.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String STRING_ID = "jakarta.faces.converter.STRING";
@@ -200,8 +179,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Return the ISO 4217 currency code used by <code>getAsString()</code> with a <code>type</code> of
-     * <code>currency</code>. If not set, the value used will be based on the formatting <code>Locale</code>.
+     * Return the ISO 4217 currency code used by <code>getAsString()</code> with a <code>type</code> of <code>currency</code>. If not set, the value used will
+     * be based on the formatting <code>Locale</code>.
      * </p>
      *
      * @return the currency code
@@ -228,8 +207,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Return the currency symbol used by <code>getAsString()</code> with a <code>type</code> of <code>currency</code>. If
-     * not set, the value used will be based on the formatting <code>Locale</code>.
+     * Return the currency symbol used by <code>getAsString()</code> with a <code>type</code> of <code>currency</code>. If not set, the value used will be based
+     * on the formatting <code>Locale</code>.
      * </p>
      *
      * @return the currency symbol
@@ -256,8 +235,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Return <code>true</code> if <code>getAsString</code> should include grouping separators if necessary. If not
-     * modified, the default value is <code>true</code>.
+     * Return <code>true</code> if <code>getAsString</code> should include grouping separators if necessary. If not modified, the default value is
+     * <code>true</code>.
      * </p>
      *
      * @return whether or not grouping is used
@@ -284,8 +263,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Return <code>true</code> if only the integer portion of the given value should be returned from
-     * <code>getAsObject()</code>. If not modified, the default value is <code>false</code>.
+     * Return <code>true</code> if only the integer portion of the given value should be returned from <code>getAsObject()</code>. If not modified, the default
+     * value is <code>false</code>.
      * </p>
      *
      * @return whether or not this is integer only
@@ -298,8 +277,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Set to <code>true</code> if only the integer portion of the given value should be returned from
-     * <code>getAsObject()</code>.
+     * Set to <code>true</code> if only the integer portion of the given value should be returned from <code>getAsObject()</code>.
      * </p>
      *
      * @param integerOnly The new integer-only flag
@@ -326,8 +304,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Set the maximum number of digits <code>getAsString()</code> should render in the fraction portion of the result. If
-     * not set, the number of digits depends on the value being converted.
+     * Set the maximum number of digits <code>getAsString()</code> should render in the fraction portion of the result. If not set, the number of digits depends
+     * on the value being converted.
      * </p>
      *
      * @param maxFractionDigits The new limit
@@ -354,8 +332,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Set the maximum number of digits <code>getAsString()</code> should render in the integer portion of the result. If
-     * not set, the number of digits depends on the value being converted.
+     * Set the maximum number of digits <code>getAsString()</code> should render in the integer portion of the result. If not set, the number of digits depends
+     * on the value being converted.
      * </p>
      *
      * @param maxIntegerDigits The new limit
@@ -382,8 +360,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Set the minimum number of digits <code>getAsString()</code> should render in the fraction portion of the result. If
-     * not set, the number of digits depends on the value being converted.
+     * Set the minimum number of digits <code>getAsString()</code> should render in the fraction portion of the result. If not set, the number of digits depends
+     * on the value being converted.
      * </p>
      *
      * @param minFractionDigits The new limit
@@ -410,8 +388,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Set the minimum number of digits <code>getAsString()</code> should render in the integer portion of the result. If
-     * not set, the number of digits depends on the value being converted.
+     * Set the minimum number of digits <code>getAsString()</code> should render in the integer portion of the result. If not set, the number of digits depends
+     * on the value being converted.
      * </p>
      *
      * @param minIntegerDigits The new limit
@@ -425,9 +403,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Return the <code>Locale</code> to be used when parsing numbers. If this value is <code>null</code>, the
-     * <code>Locale</code> stored in the {@link jakarta.faces.component.UIViewRoot} for the current request will be
-     * utilized.
+     * Return the <code>Locale</code> to be used when parsing numbers. If this value is <code>null</code>, the <code>Locale</code> stored in the
+     * {@link jakarta.faces.component.UIViewRoot} for the current request will be utilized.
      * </p>
      *
      * @return the {@code Locale} for this converter
@@ -443,8 +420,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Set the <code>Locale</code> to be used when parsing numbers. If set to <code>null</code>, the <code>Locale</code>
-     * stored in the {@link jakarta.faces.component.UIViewRoot} for the current request will be utilized.
+     * Set the <code>Locale</code> to be used when parsing numbers. If set to <code>null</code>, the <code>Locale</code> stored in the
+     * {@link jakarta.faces.component.UIViewRoot} for the current request will be utilized.
      * </p>
      *
      * @param locale The new <code>Locale</code> (or <code>null</code>)
@@ -471,9 +448,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Set the format pattern to be used when formatting and parsing numbers. Valid values are those supported by
-     * <code>java.text.DecimalFormat</code>. An invalid value will cause a {@link ConverterException} when
-     * <code>getAsObject()</code> or <code>getAsString()</code> is called.
+     * Set the format pattern to be used when formatting and parsing numbers. Valid values are those supported by <code>java.text.DecimalFormat</code>. An
+     * invalid value will cause a {@link ConverterException} when <code>getAsObject()</code> or <code>getAsString()</code> is called.
      * </p>
      *
      * @param pattern The new format pattern
@@ -487,8 +463,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Return the number type to be used when formatting and parsing numbers. If not modified, the default type is
-     * <code>number</code>.
+     * Return the number type to be used when formatting and parsing numbers. If not modified, the default type is <code>number</code>.
      * </p>
      *
      * @return the type
@@ -501,9 +476,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      * <p>
-     * Set the number type to be used when formatting and parsing numbers. Valid values are <code>currency</code>,
-     * <code>number</code>, or <code>percent</code>. An invalid value will cause a {@link ConverterException} when
-     * <code>getAsObject()</code> or <code>getAsString()</code> is called.
+     * Set the number type to be used when formatting and parsing numbers. Valid values are <code>currency</code>, <code>number</code>, or <code>percent</code>.
+     * An invalid value will cause a {@link ConverterException} when <code>getAsObject()</code> or <code>getAsString()</code> is called.
      * </p>
      *
      * @param type The new number style
@@ -578,13 +552,12 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
                 var origNegPrefix = dParser.getNegativePrefix();
                 var origNegSuffix = dParser.getNegativeSuffix();
 
-                boolean hasFixedWidthWhitespace =
-                        FIXED_WIDTH_WHITESPACE.matcher(String.valueOf(origGroupingSep)).matches() ||
-                        FIXED_WIDTH_WHITESPACE.matcher(String.valueOf(origMonetaryGroupingSep)).matches() ||
-                        FIXED_WIDTH_WHITESPACE.matcher(origPrefix).find() ||
-                        FIXED_WIDTH_WHITESPACE.matcher(origSuffix).find() ||
-                        FIXED_WIDTH_WHITESPACE.matcher(origNegPrefix).find() ||
-                        FIXED_WIDTH_WHITESPACE.matcher(origNegSuffix).find();
+                boolean hasFixedWidthWhitespace = FIXED_WIDTH_WHITESPACE.matcher(String.valueOf(origGroupingSep)).matches() ||
+                    FIXED_WIDTH_WHITESPACE.matcher(String.valueOf(origMonetaryGroupingSep)).matches() ||
+                    FIXED_WIDTH_WHITESPACE.matcher(origPrefix).find() ||
+                    FIXED_WIDTH_WHITESPACE.matcher(origSuffix).find() ||
+                    FIXED_WIDTH_WHITESPACE.matcher(origNegPrefix).find() ||
+                    FIXED_WIDTH_WHITESPACE.matcher(origNegSuffix).find();
 
                 if (hasFixedWidthWhitespace) {
                     var normalizedValue = normalizeWhitespace(value);
@@ -621,20 +594,28 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
             // Perform the requested parsing
             returnValue = parser.parse(value);
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
             if (pattern != null) {
                 throw new ConverterException(MessageFactory.getMessage(context, PATTERN_ID, value, "#,##0.0#", MessageFactory.getLabel(context, component)), e);
-            } else if (type.equals("currency")) {
-                throw new ConverterException(
-                        MessageFactory.getMessage(context, CURRENCY_ID, value, parser.format(99.99), MessageFactory.getLabel(context, component)), e);
-            } else if (type.equals("number")) {
-                throw new ConverterException(
-                        MessageFactory.getMessage(context, NUMBER_ID, value, parser.format(99), MessageFactory.getLabel(context, component)), e);
-            } else if (type.equals("percent")) {
-                throw new ConverterException(
-                        MessageFactory.getMessage(context, PERCENT_ID, value, parser.format(.75), MessageFactory.getLabel(context, component)), e);
             }
-        } catch (Exception e) {
+            else if (type.equals("currency")) {
+                throw new ConverterException(
+                    MessageFactory.getMessage(context, CURRENCY_ID, value, parser.format(99.99), MessageFactory.getLabel(context, component)), e
+                );
+            }
+            else if (type.equals("number")) {
+                throw new ConverterException(
+                    MessageFactory.getMessage(context, NUMBER_ID, value, parser.format(99), MessageFactory.getLabel(context, component)), e
+                );
+            }
+            else if (type.equals("percent")) {
+                throw new ConverterException(
+                    MessageFactory.getMessage(context, PERCENT_ID, value, parser.format(.75), MessageFactory.getLabel(context, component)), e
+                );
+            }
+        }
+        catch (Exception e) {
             throw new ConverterException(e);
         }
         return returnValue;
@@ -667,9 +648,11 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
             // Perform the requested formatting
             return formatter.format(value);
 
-        } catch (ConverterException e) {
+        }
+        catch (ConverterException e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
         }
     }
@@ -678,8 +661,8 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     /**
      *
-     * Override the formatting locale's default currency symbol with the specified currency code (specified via the
-     * "currencyCode" attribute) or currency symbol (specified via the "currencySymbol" attribute).
+     * Override the formatting locale's default currency symbol with the specified currency code (specified via the "currencyCode" attribute) or currency symbol
+     * (specified via the "currencySymbol" attribute).
      * </p>
      *
      * <p>
@@ -717,16 +700,19 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         if (currencyCode != null && currencySymbol != null) {
             code = currencyCode;
-        } else if (currencyCode == null) {
+        }
+        else if (currencyCode == null) {
             symbol = currencySymbol;
-        } else {
+        }
+        else {
             code = currencyCode;
         }
 
         if (code != null) {
             Currency currency = Currency.getInstance(code);
             formatter.setCurrency(currency);
-        } else {
+        }
+        else {
             // Let potential ClassCastException propagate up (will almost never happen)
             DecimalFormat df = (DecimalFormat) formatter;
             DecimalFormatSymbols dfs = df.getDecimalFormatSymbols();
@@ -815,9 +801,9 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
     private static final String PARSER_CACHE_KEY = "jakarta.faces.convert.NumberConverter.parsers";
 
     /**
-     * Upper bound on the per-FacesContext formatter cache, kept as an LRU so a view whose converters are all
-     * differently configured (e.g. a per-row {@code pattern}) cannot retain an unbounded number of formatters for the
-     * request, while a recurring working set stays cached. Normal views use only a handful of configurations.
+     * Upper bound on the per-FacesContext formatter cache, kept as an LRU so a view whose converters are all differently configured (e.g. a per-row
+     * {@code pattern}) cannot retain an unbounded number of formatters for the request, while a recurring working set stays cached. Normal views use only a
+     * handful of configurations.
      */
     private static final int FORMATTER_CACHE_LIMIT = 64;
 
@@ -834,13 +820,13 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
         protected boolean removeEldestEntry(Map.Entry<String, NumberFormat> eldest) {
             return size() > FORMATTER_CACHE_LIMIT;
         }
+
     }
 
     /**
-     * Return the fully configured formatter for {@link #getAsString}, cached in the FacesContext attributes keyed by
-     * this converter's format-determining configuration. The formatter is a function of that configuration only, so two
-     * converters with equal configuration share one instance within a FacesContext - single-threaded, so sequential
-     * {@code format} calls are safe - turning a per-value {@code DecimalFormat} + locale-data
+     * Return the fully configured formatter for {@link #getAsString}, cached in the FacesContext attributes keyed by this converter's format-determining
+     * configuration. The formatter is a function of that configuration only, so two converters with equal configuration share one instance within a
+     * FacesContext - single-threaded, so sequential {@code format} calls are safe - turning a per-value {@code DecimalFormat} + locale-data
      * {@code DecimalFormatSymbols} rebuild into a single build per configuration.
      */
     private NumberFormat getCachedFormatter(FacesContext context) throws Exception {
@@ -860,13 +846,11 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
     }
 
     /**
-     * Return the base (unconfigured) parser for {@link #getAsObject}, cached in the FacesContext attributes keyed by the
-     * inputs to {@link #getNumberFormat} ({@code pattern}, {@code type}, {@code locale}). Building that base drags in
-     * locale data (a fresh {@link DecimalFormatSymbols}), so a per-row {@code f:convertNumber} multiplied by a table's
-     * rows otherwise rebuilds it for every parsed cell. The caller {@link Object#clone() clones} the shared base before
-     * applying its per-value, per-component configuration ({@code parseIntegerOnly}, {@code parseBigDecimal}, fixed-width
-     * whitespace normalization), so the cached instance itself is never mutated and stays safe to share within the
-     * (single-threaded) request.
+     * Return the base (unconfigured) parser for {@link #getAsObject}, cached in the FacesContext attributes keyed by the inputs to {@link #getNumberFormat}
+     * ({@code pattern}, {@code type}, {@code locale}). Building that base drags in locale data (a fresh {@link DecimalFormatSymbols}), so a per-row
+     * {@code f:convertNumber} multiplied by a table's rows otherwise rebuilds it for every parsed cell. The caller {@link Object#clone() clones} the shared
+     * base before applying its per-value, per-component configuration ({@code parseIntegerOnly}, {@code parseBigDecimal}, fixed-width whitespace
+     * normalization), so the cached instance itself is never mutated and stays safe to share within the (single-threaded) request.
      */
     private NumberFormat getCachedBaseParser(FacesContext context, Locale locale) {
         Map<String, NumberFormat> cache = formatterCache(context, PARSER_CACHE_KEY);
@@ -899,9 +883,9 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
     /** Key over every property {@link #getCachedFormatter} reads to build the formatter. */
     private String formatterKey(Locale locale) {
         return new StringBuilder(64).append(pattern).append('|').append(type).append('|').append(locale).append('|')
-                .append(currencyCode).append('|').append(currencySymbol).append('|').append(groupingUsed).append('|')
-                .append(minIntegerDigits).append('|').append(maxIntegerDigits).append('|').append(minFractionDigits)
-                .append('|').append(maxFractionDigits).toString();
+            .append(currencyCode).append('|').append(currencySymbol).append('|').append(groupingUsed).append('|')
+            .append(minIntegerDigits).append('|').append(maxIntegerDigits).append('|').append(minFractionDigits)
+            .append('|').append(maxFractionDigits).toString();
     }
 
     private NumberFormat getNumberFormat(Locale locale) {
@@ -919,11 +903,14 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
         // Create an instance based on the specified type
         else if (type.equals("currency")) {
             return NumberFormat.getCurrencyInstance(locale);
-        } else if (type.equals("number")) {
+        }
+        else if (type.equals("number")) {
             return NumberFormat.getNumberInstance(locale);
-        } else if (type.equals("percent")) {
+        }
+        else if (type.equals("percent")) {
             return NumberFormat.getPercentInstance(locale);
-        } else {
+        }
+        else {
             // PENDING(craigmcc) - i18n
             throw new ConverterException(new IllegalArgumentException(type));
         }
@@ -1013,4 +1000,5 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
     public void clearInitialState() {
         initialState = false;
     }
+
 }

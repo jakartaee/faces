@@ -51,4 +51,5 @@ public class Issue2140Bean implements Serializable {
         this.value = value;
         FacesContext.getCurrentInstance().getExternalContext().getFlash().put("flashValue", value);
     }
+
 }

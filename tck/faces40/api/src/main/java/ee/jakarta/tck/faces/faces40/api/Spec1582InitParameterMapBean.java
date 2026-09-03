@@ -30,7 +30,8 @@ import jakarta.inject.Named;
 public class Spec1582InitParameterMapBean {
 
     public String getInitParameterValue() {
-        Map<String, String> initParameterMap = CDI.current().select(new TypeLiteral<Map<String, String>>() {}, InitParameterMap.Literal.INSTANCE).get();
+        Map<String, String> initParameterMap = CDI.current().select(new TypeLiteral<Map<String, String>>() {
+        }, InitParameterMap.Literal.INSTANCE).get();
 
         // MY_TEST_PARAMETER set in web.xml, should be available
         return initParameterMap.get("MY_TEST_PARAMETER");

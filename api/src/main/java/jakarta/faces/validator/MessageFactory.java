@@ -92,7 +92,8 @@ class MessageFactory {
             if (locale == null) {
                 locale = Locale.getDefault();
             }
-        } else {
+        }
+        else {
             locale = Locale.getDefault();
         }
 
@@ -125,7 +126,8 @@ class MessageFactory {
                 try {
                     summary = bundle.getString(messageId);
                     detail = bundle.getString(messageId + "_detail");
-                } catch (MissingResourceException e) {
+                }
+                catch (MissingResourceException e) {
                     // ignore
                 }
             }
@@ -142,7 +144,8 @@ class MessageFactory {
             try {
                 summary = bundle.getString(messageId);
                 detail = bundle.getString(messageId + "_detail");
-            } catch (MissingResourceException e) {
+            }
+            catch (MissingResourceException e) {
                 // ignore
             }
         }
@@ -176,7 +179,8 @@ class MessageFactory {
         // viewRoot may not have been initialized at this point.
         if (context.getViewRoot() != null) {
             locale = context.getViewRoot().getLocale();
-        } else {
+        }
+        else {
             locale = Locale.getDefault();
         }
 
@@ -233,20 +237,24 @@ class MessageFactory {
     }
 
     /**
-     * This class overrides FacesMessage to provide the evaluation of binding expressions in addition to Strings. It is
-     * often the case, that a binding expression may reference a localized property value that would be used as a
-     * substitution parameter in the message. For example: <code>#{bundle.userLabel}</code> "bundle" may not be available
-     * until the page is rendered. The "late" binding evaluation in <code>getSummary</code> and <code>getDetail</code> allow
-     * the expression to be evaluated when that property is available.
+     * This class overrides FacesMessage to provide the evaluation of binding expressions in addition to Strings. It is often the case, that a binding
+     * expression may reference a localized property value that would be used as a substitution parameter in the message. For example:
+     * <code>#{bundle.userLabel}</code> "bundle" may not be available until the page is rendered. The "late" binding evaluation in <code>getSummary</code> and
+     * <code>getDetail</code> allow the expression to be evaluated when that property is available.
      */
     static class BindingFacesMessage extends FacesMessage {
+
         /**
          *
          */
         private static final long serialVersionUID = 4366606527898951802L;
-        BindingFacesMessage(Locale locale, String messageFormat, String detailMessageFormat,
-                // array of parameters, both Strings and ValueBindings
-                Object[] parameters) {
+
+        BindingFacesMessage(
+            Locale locale, String messageFormat, String detailMessageFormat,
+            // array of parameters, both Strings and ValueBindings
+            Object[] parameters
+        )
+        {
 
             super(messageFormat, detailMessageFormat);
             this.locale = locale;
@@ -322,6 +330,7 @@ class MessageFactory {
                 && Objects.equals(parameters, ((BindingFacesMessage) object).parameters)
                 && Objects.equals(resolvedParameters, ((BindingFacesMessage) object).resolvedParameters);
         }
+
     }
 
 } // end of class MessageFactory

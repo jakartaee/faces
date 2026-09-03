@@ -22,17 +22,15 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * The webapp declares {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} as {@code /faces/*;*.tpl}, a prefix entry and an
- * extension entry, neither of which names the default Facelets suffix, and does not declare
- * {@code jakarta.faces.FACELETS_SUFFIX} at all.
+ * The webapp declares {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} as {@code /faces/*;*.tpl}, a prefix entry and an extension entry, neither of which names the
+ * default Facelets suffix, and does not declare {@code jakarta.faces.FACELETS_SUFFIX} at all.
  */
 class Issue5920IT extends BaseITNG {
 
     /**
-     * {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} declares additional views as Facelets, it does not withdraw the ones
-     * which are already recognized by their suffix, so a view carrying the default suffix must still resolve. The whole
-     * application fails to deploy when it does not, because the runtime resolves a view id carrying that suffix during
-     * startup to instantiate the Facelets view declaration language.
+     * {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} declares additional views as Facelets, it does not withdraw the ones which are already recognized by their
+     * suffix, so a view carrying the default suffix must still resolve. The whole application fails to deploy when it does not, because the runtime resolves a
+     * view id carrying that suffix during startup to instantiate the Facelets view declaration language.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5920
      */
@@ -52,8 +50,8 @@ class Issue5920IT extends BaseITNG {
     }
 
     /**
-     * An extension entry of {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} declares that extension to be a Facelet, so an
-     * include of a fragment carrying it must resolve.
+     * An extension entry of {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} declares that extension to be a Facelet, so an include of a fragment carrying it must
+     * resolve.
      */
     @Test
     void testMappedSuffixInclude() {
@@ -62,14 +60,14 @@ class Issue5920IT extends BaseITNG {
     }
 
     /**
-     * A view carrying an extension entry of {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} must be handled by Facelets,
-     * even though that extension is not a suffix a view ID may be derived with. Requesting it through the prefix mapped
-     * {@code FacesServlet} is what makes it reachable, as a suffix mapped request derives its view ID from
-     * {@code jakarta.faces.FACELETS_SUFFIX} instead.
+     * A view carrying an extension entry of {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} must be handled by Facelets, even though that extension is not a
+     * suffix a view ID may be derived with. Requesting it through the prefix mapped {@code FacesServlet} is what makes it reachable, as a suffix mapped request
+     * derives its view ID from {@code jakarta.faces.FACELETS_SUFFIX} instead.
      */
     @Test
     void testMappedSuffixView() {
         var page = getPage("views/mappedSuffix.tpl");
         assertTrue(page.containsText("mapped suffix view"));
     }
+
 }

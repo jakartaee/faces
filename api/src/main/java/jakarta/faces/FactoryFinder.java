@@ -18,42 +18,39 @@ package jakarta.faces;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0 changed_modified_2_1 changed_modified_2_2
- * changed_modified_2_3">FactoryFinder</strong> implements the standard discovery algorithm for all factory objects
- * specified in the Jakarta Faces APIs. For a given factory class name, a corresponding implementation class is
- * searched for based on the following algorithm. Items are listed in order of decreasing search precedence:
+ * <strong class="changed_modified_2_0 changed_modified_2_1 changed_modified_2_2 changed_modified_2_3">FactoryFinder</strong> implements the standard discovery
+ * algorithm for all factory objects specified in the Jakarta Faces APIs. For a given factory class name, a corresponding implementation class is searched for
+ * based on the following algorithm. Items are listed in order of decreasing search precedence:
  * </p>
  *
  * <ul>
  *
  * <li>
  * <p>
- * If the Jakarta Faces configuration file bundled into the <code>WEB-INF</code> directory of the webapp contains
- * a <code>factory</code> entry of the given factory class name, that factory is used.
+ * If the Jakarta Faces configuration file bundled into the <code>WEB-INF</code> directory of the webapp contains a <code>factory</code> entry of the given
+ * factory class name, that factory is used.
  * </p>
  * </li>
  *
  * <li>
  * <p>
- * If the Jakarta Faces configuration files named by the <code>jakarta.faces.CONFIG_FILES</code>
- * <code>ServletContext</code> init parameter contain any <code>factory</code> entries of the given factory class name,
- * those injectionProvider are used, with the last one taking precedence.
+ * If the Jakarta Faces configuration files named by the <code>jakarta.faces.CONFIG_FILES</code> <code>ServletContext</code> init parameter contain any
+ * <code>factory</code> entries of the given factory class name, those injectionProvider are used, with the last one taking precedence.
  * </p>
  * </li>
  *
  * <li>
  * <p>
- * If there are any Jakarta Faces configuration files bundled into the <code>META-INF</code> directory of any
- * jars on the <code>ServletContext</code>'s resource paths, the <code>factory</code> entries of the given factory class
- * name in those files are used, with the last one taking precedence.
+ * If there are any Jakarta Faces configuration files bundled into the <code>META-INF</code> directory of any jars on the <code>ServletContext</code>'s resource
+ * paths, the <code>factory</code> entries of the given factory class name in those files are used, with the last one taking precedence.
  * </p>
  * </li>
  *
  * <li>
  * <p>
- * If a <code>META-INF/services/{factory-class-name}</code> resource is visible to the web application class loader for
- * the calling application (typically as a injectionProvider of being present in the manifest of a JAR file), its first
- * line is read and assumed to be the name of the factory implementation class to use.
+ * If a <code>META-INF/services/{factory-class-name}</code> resource is visible to the web application class loader for the calling application (typically as a
+ * injectionProvider of being present in the manifest of a JAR file), its first line is read and assumed to be the name of the factory implementation class to
+ * use.
  * </p>
  * </li>
  *
@@ -66,28 +63,24 @@ package jakarta.faces;
  * </ul>
  *
  * <p>
- * If any of the injectionProvider found on any of the steps above happen to have a one-argument constructor, with
- * argument the type being the abstract factory class, that constructor is invoked, and the previous match is passed to
- * the constructor. For example, say the container vendor provided an implementation of
- * {@link jakarta.faces.context.FacesContextFactory}, and identified it in
- * <code>META-INF/services/jakarta.faces.context.FacesContextFactory</code> in a jar on the webapp ClassLoader. Also say
- * this implementation provided by the container vendor had a one argument constructor that took a
- * <code>FacesContextFactory</code> instance. The <code>FactoryFinder</code> system would call that one-argument
- * constructor, passing the implementation of <code>FacesContextFactory</code> provided by the Jakarta Faces
- * implementation.
+ * If any of the injectionProvider found on any of the steps above happen to have a one-argument constructor, with argument the type being the abstract factory
+ * class, that constructor is invoked, and the previous match is passed to the constructor. For example, say the container vendor provided an implementation of
+ * {@link jakarta.faces.context.FacesContextFactory}, and identified it in <code>META-INF/services/jakarta.faces.context.FacesContextFactory</code> in a jar on
+ * the webapp ClassLoader. Also say this implementation provided by the container vendor had a one argument constructor that took a
+ * <code>FacesContextFactory</code> instance. The <code>FactoryFinder</code> system would call that one-argument constructor, passing the implementation of
+ * <code>FacesContextFactory</code> provided by the Jakarta Faces implementation.
  * </p>
  *
  * <p>
- * If a Factory implementation does not provide a proper one-argument constructor, it must provide a zero-arguments
- * constructor in order to be successfully instantiated.
+ * If a Factory implementation does not provide a proper one-argument constructor, it must provide a zero-arguments constructor in order to be successfully
+ * instantiated.
  * </p>
  *
  * <p>
- * Once the name of the factory implementation class is located, the web application class loader for the calling
- * application is requested to load this class, and a corresponding instance of the class will be created. A side effect
- * of this rule is that each web application will receive its own instance of each factory class, whether the Jakarta
- * Server Faces implementation is included within the web application or is made visible through the container's
- * facilities for shared libraries.
+ * Once the name of the factory implementation class is located, the web application class loader for the calling application is requested to load this class,
+ * and a corresponding instance of the class will be created. A side effect of this rule is that each web application will receive its own instance of each
+ * factory class, whether the Jakarta Server Faces implementation is included within the web application or is made visible through the container's facilities
+ * for shared libraries.
  * </p>
  */
 public final class FactoryFinder {
@@ -230,24 +223,21 @@ public final class FactoryFinder {
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Create</span> (if necessary) and return a per-web-application instance of the
-     * appropriate implementation class for the specified Jakarta Faces factory class, based on the discovery
-     * algorithm described in the class description.
+     * <span class="changed_modified_2_0">Create</span> (if necessary) and return a per-web-application instance of the appropriate implementation class for the
+     * specified Jakarta Faces factory class, based on the discovery algorithm described in the class description.
      * </p>
      *
      * <p class="changed_added_2_0">
-     * The standard injectionProvider and wrappers in Jakarta Faces all implement the interface {@link FacesWrapper}.
-     * If the returned <code>Object</code> is an implementation of one of the standard injectionProvider, it must be legal
-     * to cast it to an instance of <code>FacesWrapper</code> and call {@link FacesWrapper#getWrapped} on the instance.
+     * The standard injectionProvider and wrappers in Jakarta Faces all implement the interface {@link FacesWrapper}. If the returned <code>Object</code> is an
+     * implementation of one of the standard injectionProvider, it must be legal to cast it to an instance of <code>FacesWrapper</code> and call
+     * {@link FacesWrapper#getWrapped} on the instance.
      * </p>
      *
-     * @param factoryName Fully qualified name of the Jakarta Faces factory for which an implementation instance is
-     * requested
+     * @param factoryName Fully qualified name of the Jakarta Faces factory for which an implementation instance is requested
      * @throws FacesException if the web application class loader cannot be identified
      * @throws FacesException if an instance of the configured factory implementation class cannot be loaded
      * @throws FacesException if an instance of the configured factory implementation class cannot be instantiated
-     * @throws IllegalArgumentException if <code>factoryName</code> does not identify a standard Jakarta Faces
-     * factory name
+     * @throws IllegalArgumentException if <code>factoryName</code> does not identify a standard Jakarta Faces factory name
      * @throws IllegalStateException if there is no configured factory implementation class for the specified factory name
      * @throws NullPointerException if <code>factoryname</code> is null
      *
@@ -255,20 +245,19 @@ public final class FactoryFinder {
      */
     public static Object getFactory(String factoryName) throws FacesException {
 
-        final FactoryFinderInstance factoryFinder = FACTORIES_CACHE.getFactoryFinder( true );
+        final FactoryFinderInstance factoryFinder = FACTORIES_CACHE.getFactoryFinder(true);
 
         return factoryFinder != null ? factoryFinder.getFactory(factoryName) : null;
     }
 
     /**
      * <p>
-     * This method will store the argument <code>factoryName/implName</code> mapping in such a way that {@link #getFactory}
-     * will find this mapping when searching for a match.
+     * This method will store the argument <code>factoryName/implName</code> mapping in such a way that {@link #getFactory} will find this mapping when
+     * searching for a match.
      * </p>
      *
      * <p>
-     * This method has no effect if <code>getFactory()</code> has already been called looking for a factory for this
-     * <code>factoryName</code>.
+     * This method has no effect if <code>getFactory()</code> has already been called looking for a factory for this <code>factoryName</code>.
      * </p>
      *
      * <p>
@@ -279,8 +268,7 @@ public final class FactoryFinder {
      *
      * @param implName the fully qualified class name of the factory corresponding to {@code factoryName}.
      *
-     * @throws IllegalArgumentException if <code>factoryName</code> does not identify a standard Jakarta Faces
-     * factory name
+     * @throws IllegalArgumentException if <code>factoryName</code> does not identify a standard Jakarta Faces factory name
      * @throws NullPointerException if <code>factoryname</code> is null
      */
     public static void setFactory(String factoryName, String implName) {
@@ -289,9 +277,8 @@ public final class FactoryFinder {
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Release</span> any references to factory instances associated with the class
-     * loader for the calling web application. <span class="changed_modified_2_0">This method must be called during of web
-     * application shutdown.</span>
+     * <span class="changed_modified_2_0">Release</span> any references to factory instances associated with the class loader for the calling web application.
+     * <span class="changed_modified_2_0">This method must be called during of web application shutdown.</span>
      * </p>
      *
      * @throws FacesException if the web application class loader cannot be identified

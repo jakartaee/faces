@@ -22,29 +22,30 @@ package ee.jakarta.tck.faces.faces20.appconfigresources.common.beans;
 
 import java.io.Serializable;
 
-@jakarta.inject.Named("Question") @jakarta.enterprise.context.SessionScoped
+@jakarta.inject.Named("Question")
+@jakarta.enterprise.context.SessionScoped
 public class AnswerNoBean implements Serializable {
 
-  private static final long serialVersionUID = -2564031884483456327L;
+    private static final long serialVersionUID = -2564031884483456327L;
 
-  private String answer;
+    private String answer;
 
-  public AnswerNoBean() {
-    this.answer = "NO";
-  }
+    public AnswerNoBean() {
+        this.answer = "NO";
+    }
 
-  /**
-   * @return the yes
-   */
-  public String getAnswer() {
-    return answer;
-  }
+    /**
+     * @return the yes
+     */
+    public String getAnswer() {
+        return answer;
+    }
 
-  /**
-   * @param yes
-   *          the yes to set
-   */
-  public void setAnswer(String ans) {
-    this.answer = ans;
-  }
+    /**
+     * @param yes the yes to set
+     */
+    public void setAnswer(String ans) {
+        this.answer = ans;
+    }
+
 }

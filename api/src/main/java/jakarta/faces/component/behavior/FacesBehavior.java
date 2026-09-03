@@ -34,9 +34,8 @@ import jakarta.inject.Qualifier;
 
 /**
  * <p class="changed_added_2_0 changed_modified_2_3">
- * The presence of this annotation on a class automatically registers the class with the runtime as a {@link Behavior}.
- * The value of this annotation attribute is taken to be the <em>behavior-id</em> with which instances of this class of
- * behavior can be instantiated by calling
+ * The presence of this annotation on a class automatically registers the class with the runtime as a {@link Behavior}. The value of this annotation attribute
+ * is taken to be the <em>behavior-id</em> with which instances of this class of behavior can be instantiated by calling
  * {@link jakarta.faces.application.Application#createBehavior(java.lang.String)}
  * </p>
  *
@@ -48,18 +47,17 @@ import jakarta.inject.Qualifier;
 @Qualifier
 @Stereotype
 public @interface FacesBehavior {
-    
+
     /**
-     * The value of this annotation attribute is taken to be the <em>behavior-id</em> with which instances of this class of
-     * behavior can be instantiated. 
+     * The value of this annotation attribute is taken to be the <em>behavior-id</em> with which instances of this class of behavior can be instantiated.
+     *
      * @return the <em>behavior-id</em>
      */
     String value();
 
     /**
      * <p class="changed_added_2_3">
-     * The value of this annotation attribute is taken to be an indicator that flags whether or not the given behavior is a
-     * CDI managed behavior.
+     * The value of this annotation attribute is taken to be an indicator that flags whether or not the given behavior is a CDI managed behavior.
      * </p>
      *
      * <p class="changed_modified_5_0">
@@ -105,10 +103,12 @@ public @interface FacesBehavior {
         public String value() {
             return value;
         }
-        
+
         @Override
         public boolean managed() {
             return managed;
         }
+
     }
+
 }

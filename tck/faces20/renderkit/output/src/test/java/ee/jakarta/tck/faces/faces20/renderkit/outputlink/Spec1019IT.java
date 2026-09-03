@@ -26,8 +26,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Spec1019IT extends BaseITNG {
 
     /**
-     * The h:outputLink renderer must URL-encode spaces in the link value as %20,
-     * both before and after the query-string separator.
+     * The h:outputLink renderer must URL-encode spaces in the link value as %20, both before and after the query-string separator.
      *
      * @see jakarta.faces.component.html.HtmlOutputLink
      * @see https://github.com/jakartaee/faces/issues/1019
@@ -35,7 +34,10 @@ class Spec1019IT extends BaseITNG {
     @Test
     void outputLinkEncodesSpaces() {
         WebPage page = getPage("outputlink/spec1019.xhtml");
-        assertEquals("outputlink/text%20before%20query%20string?text%20after=query%20string",
-                getHrefURI(page.findElement(By.id("form:link"))), "encoded href");
+        assertEquals(
+            "outputlink/text%20before%20query%20string?text%20after=query%20string",
+            getHrefURI(page.findElement(By.id("form:link"))), "encoded href"
+        );
     }
+
 }

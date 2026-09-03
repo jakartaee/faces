@@ -20,11 +20,10 @@ import jakarta.faces.view.BehaviorHolderAttachedObjectHandler;
 
 /**
  * <p class="changed_added_2_0">
- * The {@link FaceletHandler} that corresponds to attached objects that represent an instance of
- * {@link jakarta.faces.component.behavior.ClientBehavior} that must be added to the parent component, which must
- * implement {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, with a call to
- * {@link jakarta.faces.component.behavior.ClientBehaviorHolder#addClientBehavior}. The current specification defines
- * one Facelet element for this sort of attached object, <code>&lt;f:ajax&gt;</code>.
+ * The {@link FaceletHandler} that corresponds to attached objects that represent an instance of {@link jakarta.faces.component.behavior.ClientBehavior} that
+ * must be added to the parent component, which must implement {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, with a call to
+ * {@link jakarta.faces.component.behavior.ClientBehaviorHolder#addClientBehavior}. The current specification defines one Facelet element for this sort of
+ * attached object, <code>&lt;f:ajax&gt;</code>.
  * </p>
  */
 public class BehaviorHandler extends FaceletsAttachedObjectHandler implements BehaviorHolderAttachedObjectHandler {
@@ -67,6 +66,7 @@ public class BehaviorHandler extends FaceletsAttachedObjectHandler implements Be
 
     /**
      * Returns the behavior Id obtained from the passed-in config.
+     *
      * @return the behavior Id
      */
     public String getBehaviorId() {

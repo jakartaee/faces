@@ -25,15 +25,15 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * This module pins {@code jakarta.faces.SERIALIZE_SERVER_STATE} to {@code true}, which the reactor otherwise never
- * exercises. Its counterpart pinning it to {@code false} lives in {@code faces20/state-serialization-disabled}; the two
- * assert opposite outcomes of the same spec issue and therefore cannot share a module.
+ * This module pins {@code jakarta.faces.SERIALIZE_SERVER_STATE} to {@code true}, which the reactor otherwise never exercises. Its counterpart pinning it to
+ * {@code false} lives in {@code faces20/state-serialization-disabled}; the two assert opposite outcomes of the same spec issue and therefore cannot share a
+ * module.
  */
 class Spec1127IT extends BaseITNG {
 
     /**
-     * With server side state saving and serialization switched on, the state really is serialized, so a component
-     * attribute which refuses to serialize fails the request rather than silently succeeding.
+     * With server side state saving and serialization switched on, the state really is serialized, so a component attribute which refuses to serialize fails
+     * the request rather than silently succeeding.
      *
      * @see https://github.com/jakartaee/faces/issues/1127
      */
@@ -43,7 +43,10 @@ class Spec1127IT extends BaseITNG {
 
         page.findElement(By.id("button")).click();
 
-        assertEquals(500, page.getResponseStatus(),
-                "With state serialization a non serializable attribute must fail the request.");
+        assertEquals(
+            500, page.getResponseStatus(),
+            "With state serialization a non serializable attribute must fail the request."
+        );
     }
+
 }

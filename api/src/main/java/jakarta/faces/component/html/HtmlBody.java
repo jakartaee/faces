@@ -28,8 +28,8 @@ import jakarta.faces.component.behavior.ClientBehaviorHolder;
 /**
  * NONE
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Body</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Body</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlBody extends UIOutput implements ClientBehaviorHolder {
@@ -53,8 +53,26 @@ public class HtmlBody extends UIOutput implements ClientBehaviorHolder {
      * The property keys.
      */
     protected enum PropertyKeys {
-        dir, lang, onclick, ondblclick, onkeydown, onkeypress, onkeyup, onload, onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onunload, role,
-        style, styleClass, title, xmlns,;
+
+        dir,
+        lang,
+        onclick,
+        ondblclick,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onload,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        onunload,
+        role,
+        style,
+        styleClass,
+        title,
+        xmlns,;
 
         String toString;
 
@@ -69,6 +87,7 @@ public class HtmlBody extends UIOutput implements ClientBehaviorHolder {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -78,9 +97,8 @@ public class HtmlBody extends UIOutput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);
@@ -442,16 +460,14 @@ public class HtmlBody extends UIOutput implements ClientBehaviorHolder {
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -504,8 +520,8 @@ public class HtmlBody extends UIOutput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);

@@ -18,9 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.application.applicationISE;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.el.ELResolver;
 import jakarta.faces.application.Application;
 import jakarta.faces.application.ResourceHandler;
@@ -32,62 +29,84 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
+
 @WebServlet("/ApplicationISETestServlet")
 public final class ApplicationISETestServlet extends HttpTCKServlet {
 
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    config.getServletContext();
-  }
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        config.getServletContext();
+    }
 
-  public void applicationAddELResolverISETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    public void applicationAddELResolverISETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    Application application = getApplication();
+        Application application = getApplication();
 
-    JSFTestUtil.checkForISE(application, "addELResolver",
-        new Class<?>[] { ELResolver.class },
-        new Object[] { new TCKELResolver() }, out);
+        JSFTestUtil.checkForISE(
+            application, "addELResolver",
+            new Class<?>[] { ELResolver.class },
+            new Object[] { new TCKELResolver() }, out
+        );
 
-  }
+    }
 
-  // Test for Application.setResourceHandler() throws IllegalStateException
-  public void applicationSetResourceHandlerISETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    // Test for Application.setResourceHandler() throws IllegalStateException
+    public void applicationSetResourceHandlerISETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    Application application = getApplication();
+        Application application = getApplication();
 
-    JSFTestUtil.checkForISE(application, "setResourceHandler",
-        new Class<?>[] { ResourceHandler.class },
-        new Object[] { application.getResourceHandler() }, out);
+        JSFTestUtil.checkForISE(
+            application, "setResourceHandler",
+            new Class<?>[] { ResourceHandler.class },
+            new Object[] { application.getResourceHandler() }, out
+        );
 
-  }
+    }
 
-  // Test for Application.setStateManager() throws IllegalStateException
-  public void applicationSetStateManagerISETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    // Test for Application.setStateManager() throws IllegalStateException
+    public void applicationSetStateManagerISETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-    Application application = getApplication();
+        Application application = getApplication();
 
+        JSFTestUtil.checkForISE(
+            application, "setStateManager",
+            new Class<?>[] { StateManager.class },
+            new Object[] { new TCKStateManager(application.getStateManager()) }, out
+        );
+    }
 
-    JSFTestUtil.checkForISE(application, "setStateManager",
-        new Class<?>[] { StateManager.class },
-        new Object[] { new TCKStateManager(application.getStateManager()) }, out);
-  }
+    // Test for Application.setViewHandler() throws IllegalStateException
+    public void applicationSetViewHandlerISETest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Application application = getApplication();
 
-  // Test for Application.setViewHandler() throws IllegalStateException
-  public void applicationSetViewHandlerISETest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Application application = getApplication();
+        JSFTestUtil.checkForISE(
+            application, "setViewHandler",
+            new Class<?>[] { ViewHandler.class },
+            new Object[] { new TCKViewHandler() }, out
+        );
 
-    JSFTestUtil.checkForISE(application, "setViewHandler",
-        new Class<?>[] { ViewHandler.class },
-        new Object[] { new TCKViewHandler() }, out);
-
-  }
+    }
 
 }

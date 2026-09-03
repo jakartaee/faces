@@ -10,22 +10,23 @@ package jakarta.faces.component;
 public interface Doctype {
 
     /**
-     * Returns the name of the first element in the document, never <code>null</code>.
-     * For example, <code>"html"</code>.
+     * Returns the name of the first element in the document, never <code>null</code>. For example, <code>"html"</code>.
+     *
      * @return The name of the first element in the document, never <code>null</code>.
      */
     String getRootElement();
 
     /**
-     * Returns the public identifier of the document, or <code>null</code> if there is none.
-     * For example, <code>"-//W3C//DTD XHTML 1.1//EN"</code>.
+     * Returns the public identifier of the document, or <code>null</code> if there is none. For example, <code>"-//W3C//DTD XHTML 1.1//EN"</code>.
+     *
      * @return The public identifier of the document, or <code>null</code> if there is none.
      */
     String getPublic();
 
     /**
-     * Returns the system identifier of the document, or <code>null</code> if there is none.
-     * For example, <code>"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</code>.
+     * Returns the system identifier of the document, or <code>null</code> if there is none. For example,
+     * <code>"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</code>.
+     *
      * @return The system identifier of the document, or <code>null</code> if there is none.
      */
     String getSystem();

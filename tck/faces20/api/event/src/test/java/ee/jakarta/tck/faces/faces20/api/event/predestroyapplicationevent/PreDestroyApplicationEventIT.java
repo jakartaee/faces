@@ -28,9 +28,29 @@ class PreDestroyApplicationEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void preDestroyApplicationEventCtorTest() { runServletTest("preDestroyApplicationEventCtorTest"); }
-    @Test void preDestroyApplicationEventGetAppTest() { runServletTest("preDestroyApplicationEventGetAppTest"); }
-    @Test void systemEventIsAppropriateListenerNegativeTest() { runServletTest("systemEventIsAppropriateListenerNegativeTest"); }
-    @Test void systemEventIsAppropriateListenerPostiveTest() { runServletTest("systemEventIsAppropriateListenerPostiveTest"); }
-    @Test void systemEventProcessListenerTest() { runServletTest("systemEventProcessListenerTest"); }
+    @Test
+    void preDestroyApplicationEventCtorTest() {
+        runServletTest("preDestroyApplicationEventCtorTest");
+    }
+
+    @Test
+    void preDestroyApplicationEventGetAppTest() {
+        runServletTest("preDestroyApplicationEventGetAppTest");
+    }
+
+    @Test
+    void systemEventIsAppropriateListenerNegativeTest() {
+        runServletTest("systemEventIsAppropriateListenerNegativeTest");
+    }
+
+    @Test
+    void systemEventIsAppropriateListenerPostiveTest() {
+        runServletTest("systemEventIsAppropriateListenerPostiveTest");
+    }
+
+    @Test
+    void systemEventProcessListenerTest() {
+        runServletTest("systemEventProcessListenerTest");
+    }
+
 }

@@ -22,7 +22,7 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class UserPasswordValidator implements ConstraintValidator<UserPassword, User> {
-    
+
     @Override
     public void initialize(UserPassword constraintAnnotation) {
         // NOOP

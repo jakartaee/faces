@@ -30,4 +30,5 @@ public class Issue4279Flow1Bean implements Serializable {
     public String getTitle() {
         return TITLE;
     }
+
 }

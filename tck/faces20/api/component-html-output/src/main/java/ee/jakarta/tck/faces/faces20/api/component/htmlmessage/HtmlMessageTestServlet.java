@@ -15,28 +15,30 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlmessage;
 
-import ee.jakarta.tck.faces.faces20.api.component.uimessage.UIMessageTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlMessage;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uimessage.UIMessageTestServlet;
+
 @WebServlet("/HtmlMessageTestServlet")
 public final class HtmlMessageTestServlet extends UIMessageTestServlet {
 
-  private static final String[] attrNames = { "errorClass", "errorStyle", "fatalClass", "fatalStyle", "infoClass", "infoStyle", "style", "styleClass", "title", "warnClass", "warnStyle", "tooltip", "dir", "lang" };
+    private static final String[] attrNames = { "errorClass", "errorStyle", "fatalClass", "fatalStyle", "infoClass", "infoStyle", "style", "styleClass",
+        "title", "warnClass", "warnStyle", "tooltip", "dir", "lang" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Message");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Message");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlMessage();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlMessage();
+    }
+
 }

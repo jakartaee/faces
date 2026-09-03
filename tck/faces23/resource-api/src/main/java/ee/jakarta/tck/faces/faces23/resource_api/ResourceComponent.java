@@ -28,4 +28,5 @@ public class ResourceComponent extends UIComponentBase {
     public String getFamily() {
         return "ee.jakarta.tck.faces.faces23.resource_api";
     }
+
 }

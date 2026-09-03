@@ -35,4 +35,5 @@ public class Issue3479FlowCallNaviToOthersBean implements Serializable {
     public void setInBoundPara1(String inBoundPara1) {
         this.inBoundPara1 = inBoundPara1;
     }
+
 }

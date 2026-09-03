@@ -37,4 +37,5 @@ public class Issue2236IT extends BaseITNG {
         WebPage page = getPage("issue2236.xhtml");
         assertTrue(page.containsText("[Issue2236Component constructor called]"));
     }
+
 }

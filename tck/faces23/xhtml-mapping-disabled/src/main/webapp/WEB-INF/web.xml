@@ -41,5 +41,5 @@
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
 
-	<!-- DO NOT DECLARE FacesServlet servlet-mapping, Spec1434DisabledIT verifies the spec1434 default auto-mapping that should not kick in when jakarta.faces.DISABLE_FACESSERVLET_TO_XHTML is set -->
+    <!-- DO NOT DECLARE FacesServlet servlet-mapping, Spec1434DisabledIT verifies the spec1434 default auto-mapping that should not kick in when jakarta.faces.DISABLE_FACESSERVLET_TO_XHTML is set -->
 </web-app>

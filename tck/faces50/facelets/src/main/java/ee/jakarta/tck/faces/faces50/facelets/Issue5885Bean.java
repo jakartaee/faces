@@ -31,8 +31,8 @@ public class Issue5885Bean {
     private String multiChildFacetValue = MODEL_VALUE;
 
     /**
-     * Programmatically adds a component to the view, so that the view holds a dynamic action and the Facelets
-     * refresh is therefore re-applied during Render Response.
+     * Programmatically adds a component to the view, so that the view holds a dynamic action and the Facelets refresh is therefore re-applied during Render
+     * Response.
      */
     public void addComponentResource(ComponentSystemEvent event) {
         FacesContext context = event.getFacesContext();
@@ -58,4 +58,5 @@ public class Issue5885Bean {
     public void setMultiChildFacetValue(String multiChildFacetValue) {
         this.multiChildFacetValue = multiChildFacetValue;
     }
+
 }

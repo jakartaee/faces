@@ -37,4 +37,5 @@ public class NaviReturnNaviToOthersBean implements Serializable {
     public String toLastPage() {
         return "DestinationView";
     }
+
 }

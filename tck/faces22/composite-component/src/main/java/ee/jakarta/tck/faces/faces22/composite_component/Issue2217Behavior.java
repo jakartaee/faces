@@ -21,8 +21,8 @@ import jakarta.faces.component.behavior.ClientBehaviorContext;
 import jakarta.faces.component.behavior.FacesBehavior;
 
 /**
- * Records the client id of the component it was ultimately retargeted onto into the marker input,
- * so that the retargeting is observable server side after the enclosing form is submitted.
+ * Records the client id of the component it was ultimately retargeted onto into the marker input, so that the retargeting is observable server side after the
+ * enclosing form is submitted.
  */
 @FacesBehavior(Issue2217Behavior.BEHAVIOR_ID)
 public class Issue2217Behavior extends ClientBehaviorBase {
@@ -41,4 +41,5 @@ public class Issue2217Behavior extends ClientBehaviorBase {
         String clientId = clientBehaviorContext.getComponent().getClientId(clientBehaviorContext.getFacesContext());
         return "document.getElementById('" + MARKER_CLIENT_ID + "').value='" + clientId + "';";
     }
+
 }

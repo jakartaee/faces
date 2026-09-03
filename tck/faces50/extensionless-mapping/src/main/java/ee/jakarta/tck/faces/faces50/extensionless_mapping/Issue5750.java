@@ -19,8 +19,8 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 /**
- * A plain CDI bean. It is intentionally NOT a Faces type (such as a UIComponent
- * or @FacesConverter), so it does not count as "Faces content" for FacesInitializer.
+ * A plain CDI bean. It is intentionally NOT a Faces type (such as a UIComponent or @FacesConverter), so it does not count as "Faces content" for
+ * FacesInitializer.
  */
 @Named
 @RequestScoped
@@ -29,4 +29,5 @@ public class Issue5750 {
     public String getMessage() {
         return "Hello from issue5750";
     }
+
 }

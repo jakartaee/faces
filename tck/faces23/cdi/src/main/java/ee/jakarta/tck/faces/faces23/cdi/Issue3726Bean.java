@@ -35,4 +35,5 @@ public class Issue3726Bean {
     public String getValue() {
         return Boolean.toString(applicationMap.containsKey("barAttribute"));
     }
+
 }

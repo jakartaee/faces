@@ -26,9 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3025IT extends BaseITNG {
 
     /**
-     * A converter attached to an {@code f:viewParam} that fails conversion produces a message
-     * resolved against the active view locale: with the view forced to Italian, the Italian variant
-     * of the {@code messages} bundle is used, not the default.
+     * A converter attached to an {@code f:viewParam} that fails conversion produces a message resolved against the active view locale: with the view forced to
+     * Italian, the Italian variant of the {@code messages} bundle is used, not the default.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3025
      * @see jakarta.faces.component.UIViewParameter
@@ -39,4 +38,5 @@ class Issue3025IT extends BaseITNG {
         assertTrue(page.containsText("This ought to be Italian"), "Italian bundle message");
         assertFalse(page.containsText("Definitely not Italian"), "default bundle message");
     }
+
 }

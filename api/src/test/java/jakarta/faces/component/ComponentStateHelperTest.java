@@ -33,10 +33,9 @@ import org.junit.jupiter.api.Test;
 import com.example.faces.NonStandardComponent;
 
 /**
- * Restoring full state runs no setters, so the helper re-records the attributes a standard component's generated
- * setters would have tracked. Which components those are is decided by the component's own package, the same test
- * {@code HtmlComponentUtils.handleAttribute} and {@code RenderKitUtils.getAttributeIfSet} apply on the write and read
- * sides.
+ * Restoring full state runs no setters, so the helper re-records the attributes a standard component's generated setters would have tracked. Which components
+ * those are is decided by the component's own package, the same test {@code HtmlComponentUtils.handleAttribute} and {@code RenderKitUtils.getAttributeIfSet}
+ * apply on the write and read sides.
  */
 class ComponentStateHelperTest {
 
@@ -69,13 +68,12 @@ class ComponentStateHelperTest {
     }
 
     /**
-     * Rendering emits the tracked attributes in the order of this list, so restoring full state must record them where
-     * the setters would have. Otherwise the same component renders its attributes in one order when the view builds it
-     * and another when a postback restores it.
+     * Rendering emits the tracked attributes in the order of this list, so restoring full state must record them where the setters would have. Otherwise the
+     * same component renders its attributes in one order when the view builds it and another when a postback restores it.
      * <p>
-     * The saved entries are replayed in the iteration order of the state map, so the tracked list may be rebuilt from
-     * the individual properties before the saved copy of the list itself is merged in. This moves that copy last to
-     * exercise that path, which is otherwise reached or not depending on where the key happens to hash.
+     * The saved entries are replayed in the iteration order of the state map, so the tracked list may be rebuilt from the individual properties before the
+     * saved copy of the list itself is merged in. This moves that copy last to exercise that path, which is otherwise reached or not depending on where the key
+     * happens to hash.
      */
     @Test
     void restoringFullStateRecordsTheAttributesInTheOrderTheSettersWouldHave() {
@@ -94,8 +92,7 @@ class ComponentStateHelperTest {
     }
 
     /**
-     * Returns the saved state with the {@code attributesThatAreSet} entry moved to the end, so restoring replays every
-     * property before it.
+     * Returns the saved state with the {@code attributesThatAreSet} entry moved to the end, so restoring replays every property before it.
      */
     private static Object[] trackedListLast(Object state) {
         Object[] saved = (Object[]) state;
@@ -124,4 +121,5 @@ class ComponentStateHelperTest {
     private static List<String> trackedAttributes(UIComponent component) {
         return (List<String>) component.getAttributes().get(PackageUtils.ATTRIBUTES_THAT_ARE_SET);
     }
+
 }

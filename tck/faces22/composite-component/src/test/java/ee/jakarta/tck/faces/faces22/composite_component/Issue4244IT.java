@@ -29,15 +29,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A composite component conditionally included by {@code c:if} must be added to and removed from the
- * component tree by an ajax postback that flips the condition and re-renders the enclosing form. The
- * unconditional sibling composite must be unaffected throughout.
+ * A composite component conditionally included by {@code c:if} must be added to and removed from the component tree by an ajax postback that flips the
+ * condition and re-renders the enclosing form. The unconditional sibling composite must be unaffected throughout.
  */
 public class Issue4244IT extends BaseITNG {
 
     /**
-     * The conditional composite is absent initially, present after the ajax show, and absent again
-     * after the ajax hide.
+     * The conditional composite is absent initially, present after the ajax show, and absent again after the ajax hide.
      *
      * @see UINamingContainer
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4244
@@ -49,8 +47,10 @@ public class Issue4244IT extends BaseITNG {
         assertStaticPresent(page);
 
         page.guardAjax(page.findElement(By.id("form:show"))::click);
-        assertEquals("text", page.findElement(By.id("form:test1:text")).getText(),
-                "the conditional composite is added to the tree by the ajax show");
+        assertEquals(
+            "text", page.findElement(By.id("form:test1:text")).getText(),
+            "the conditional composite is added to the tree by the ajax show"
+        );
         assertStaticPresent(page);
 
         page.guardAjax(page.findElement(By.id("form:hide"))::click);
@@ -63,7 +63,10 @@ public class Issue4244IT extends BaseITNG {
     }
 
     private void assertStaticPresent(WebPage page) {
-        assertEquals("text", page.findElement(By.id("form:test2:text")).getText(),
-                "the unconditional sibling composite stays rendered");
+        assertEquals(
+            "text", page.findElement(By.id("form:test2:text")).getText(),
+            "the unconditional sibling composite stays rendered"
+        );
     }
+
 }

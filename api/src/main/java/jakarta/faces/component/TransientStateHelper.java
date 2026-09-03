@@ -18,16 +18,14 @@ package jakarta.faces.component;
 
 /**
  * <p class="changed_added_2_1">
- * Define a <code>Map</code>-like contract that makes it easier for components to implement
- * {@link TransientStateHolder}. Each {@link UIComponent} in the view will return an implementation of this interface
- * from its {@link UIComponent#getTransientStateHelper} method.
+ * Define a <code>Map</code>-like contract that makes it easier for components to implement {@link TransientStateHolder}. Each {@link UIComponent} in the view
+ * will return an implementation of this interface from its {@link UIComponent#getTransientStateHelper} method.
  * </p>
  *
  * <div class="changed_added_2_1">
  *
  * <p>
- * The values retrieved or saved through {@link #getTransient} or {@link #putTransient} will not be preserved between
- * requests.
+ * The values retrieved or saved through {@link #getTransient} or {@link #putTransient} will not be preserved between requests.
  * </p>
  *
  * </div>
@@ -36,6 +34,7 @@ package jakarta.faces.component;
  *
  */
 public interface TransientStateHelper extends TransientStateHolder {
+
     /**
      * <p class="changed_added_2_1">
      * Return the value currently associated with the specified <code>key</code> if any.
@@ -49,8 +48,7 @@ public interface TransientStateHelper extends TransientStateHolder {
 
     /**
      * <p class="changed_added_2_1">
-     * Performs the same logic as {@link #getTransient} } but if no value is found, this will return the specified
-     * <code>defaultValue</code>
+     * Performs the same logic as {@link #getTransient} } but if no value is found, this will return the specified <code>defaultValue</code>
      * </p>
      *
      * @param key the key for which the value should be returned.
@@ -62,8 +60,8 @@ public interface TransientStateHelper extends TransientStateHolder {
 
     /**
      * <p class="changed_added_2_1">
-     * Return the previously stored value and store the specified key/value pair. This is intended to store data that would
-     * otherwise reside in an instance variable on the component.
+     * Return the previously stored value and store the specified key/value pair. This is intended to store data that would otherwise reside in an instance
+     * variable on the component.
      * </p>
      *
      * @param key the key for the value
@@ -72,4 +70,5 @@ public interface TransientStateHelper extends TransientStateHolder {
      * @since 2.1
      */
     Object putTransient(Object key, Object value);
+
 }

@@ -81,4 +81,5 @@ class Issue5576IT extends BaseITNG {
         assertEquals("- Select value -", selectSubgroup11.getFirstSelectedOption().getText());
         assertEquals("- Select value -", selectSubgroup12.getFirstSelectedOption().getText());
     }
+
 }

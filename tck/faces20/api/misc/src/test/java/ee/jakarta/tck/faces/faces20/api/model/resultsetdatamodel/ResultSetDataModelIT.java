@@ -92,4 +92,5 @@ class ResultSetDataModelIT extends BaseITNG {
     void dataModelAddDataModelListenerNPETest() {
         runServletTest("dataModelAddDataModelListenerNPETest");
     }
+
 }

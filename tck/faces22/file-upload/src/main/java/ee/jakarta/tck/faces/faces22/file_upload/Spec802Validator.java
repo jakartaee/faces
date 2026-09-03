@@ -29,8 +29,7 @@ import jakarta.faces.validator.ValidatorException;
 import jakarta.servlet.http.Part;
 
 /**
- * Rejects an uploaded file whose bytes do not carry the expected marker, so that the model update of the sibling
- * inputs in the same form is suppressed.
+ * Rejects an uploaded file whose bytes do not carry the expected marker, so that the model update of the sibling inputs in the same form is suppressed.
  */
 @FacesValidator("Spec802Validator")
 public class Spec802Validator implements Validator<Part> {
@@ -45,7 +44,8 @@ public class Spec802Validator implements Validator<Part> {
 
         try (InputStream input = value.getInputStream()) {
             text = new String(input.readAllBytes(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new ValidatorException(new FacesMessage(INVALID_FILE_MESSAGE), e);
         }
 
@@ -53,4 +53,5 @@ public class Spec802Validator implements Validator<Part> {
             throw new ValidatorException(new FacesMessage(INVALID_FILE_MESSAGE));
         }
     }
+
 }

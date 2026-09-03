@@ -18,13 +18,12 @@ package jakarta.faces;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_3">Any</span> wrapper class in Jakarta Faces that must provide access to the
- * object it wraps must implement this interface.
+ * <span class="changed_modified_2_3">Any</span> wrapper class in Jakarta Faces that must provide access to the object it wraps must implement this interface.
  * </p>
  *
  * <p class="changed_added_2_3">
- * The expected usage of all subclasses is to provide a constructor that takes an instance of type <code>T</code>, which
- * sets the instance variable that is returned from the {@link #getWrapped} method.
+ * The expected usage of all subclasses is to provide a constructor that takes an instance of type <code>T</code>, which sets the instance variable that is
+ * returned from the {@link #getWrapped} method.
  * </p>
  *
  * @param <T> the wrapped type.

@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * Unit tests for {@link RegexValidator}.</p>
+ * Unit tests for {@link RegexValidator}.
+ * </p>
  */
 class RegexValidatorTest extends ValidatorTestBase {
 
@@ -44,7 +45,8 @@ class RegexValidatorTest extends ValidatorTestBase {
         try {
             validator.validate(facesContext, component, checkme);
             assertTrue(true);
-        } catch (ValidatorException ve) {
+        }
+        catch (ValidatorException ve) {
             fail("Exception thrown " + ve.getMessage());
         }
     }
@@ -60,9 +62,11 @@ class RegexValidatorTest extends ValidatorTestBase {
         try {
             validator.validate(facesContext, component, checkme);
             fail("Exception not thrown when tested " + checkme + " against " + patternStr);
-        } catch (ValidatorException ve) {
+        }
+        catch (ValidatorException ve) {
             String detail = ve.getFacesMessage().getDetail();
             assertTrue(detail.equalsIgnoreCase("Regex pattern of 't.*' not matched"));
         }
     }
+
 }

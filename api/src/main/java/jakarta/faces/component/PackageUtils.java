@@ -88,14 +88,11 @@ class PackageUtils {
     }
 
     /**
-     * Returns the first non-<code>null</code> object of the argument list, or
-     * <code>null</code> if there is no such element.
+     * Returns the first non-<code>null</code> object of the argument list, or <code>null</code> if there is no such element.
      *
      * @param <T> The generic object type.
-     * @param objects The argument list of objects to be tested for
-     * non-<code>null</code>.
-     * @return The first non-<code>null</code> object of the argument list, or
-     * <code>null</code> if there is no such element.
+     * @param objects The argument list of objects to be tested for non-<code>null</code>.
+     * @return The first non-<code>null</code> object of the argument list, or <code>null</code> if there is no such element.
      */
     @SafeVarargs
     public static <T> T coalesce(T... objects) {
@@ -114,24 +111,32 @@ class PackageUtils {
         for (UIComponent child : component.getChildren()) {
             if (child instanceof UISelectItems) {
                 createSelectItems(context, child, ((UISelectItems) child).getValue(), SelectItem::new, items::add);
-            } else if (child instanceof UISelectItem) {
+            }
+            else if (child instanceof UISelectItem) {
                 items.add(createSelectItem(child, null, SelectItem::new));
             }
         }
         return items;
     }
 
-    public static <S extends SelectItem> void createSelectItems(FacesContext context, UIComponent component, Object values, Supplier<S> supplier, Consumer<S> callback) {
+    public static <S extends SelectItem> void createSelectItems(
+        FacesContext context, UIComponent component, Object values, Supplier<S> supplier, Consumer<S> callback
+    )
+    {
         Map<String, Object> attributes = component.getAttributes();
         String var = coalesce((String) attributes.get("var"), "item");
-        stream(values).forEach(value -> new ScopedRunner(context).with(var, value).invoke(() -> callback.accept(createSelectItem(component, getItemValue(attributes, value), supplier))));
+        stream(values).forEach(
+            value -> new ScopedRunner(context).with(var, value)
+                .invoke(() -> callback.accept(createSelectItem(component, getItemValue(attributes, value), supplier)))
+        );
     }
 
     public static <S extends SelectItem> S createSelectItem(UIComponent component, Object value, Supplier<S> supplier) {
         Map<String, Object> attributes = component.getAttributes();
         Object itemValue = getItemValue(attributes, value);
         Object itemLabel = attributes.get("itemLabel");
-        Object itemEscaped = coalesce(attributes.get("itemEscaped"), attributes.get("itemLabelEscaped")); // f:selectItem || f:selectItems -- TODO: this should be aligned in their APIs.
+        Object itemEscaped = coalesce(attributes.get("itemEscaped"), attributes.get("itemLabelEscaped")); // f:selectItem || f:selectItems -- TODO: this should
+                                                                                                          // be aligned in their APIs.
         Object itemDisabled = attributes.get("itemDisabled");
 
         S selectItem = supplier.get();
@@ -154,8 +159,7 @@ class PackageUtils {
      * @param clientId the client ID
      * @param separatorChar the separator character
      * @return first numeric segment from given client ID.
-     * @throws NumberFormatException when given client ID doesn't have any
-     * numeric segment at all.
+     * @throws NumberFormatException when given client ID doesn't have any numeric segment at all.
      */
     public static int extractFirstNumericSegment(String clientId, char separatorChar) {
         int nextSeparatorChar = clientId.indexOf(separatorChar);
@@ -174,8 +178,7 @@ class PackageUtils {
     }
 
     /**
-     * Returns item value attribute, taking into account any value expression
-     * which actually evaluates to null.
+     * Returns item value attribute, taking into account any value expression which actually evaluates to null.
      */
     private static Object getItemValue(Map<String, Object> attributes, Object defaultValue) {
         Object itemValue = attributes.get("itemValue");
@@ -214,10 +217,8 @@ class PackageUtils {
     }
 
     /**
-     * Returns <code>true</code> if the given value is null or is empty. Types
-     * of String, Collection, Map, Optional and Array are recognized. If none is
-     * recognized, then examine the emptiness of the toString() representation
-     * instead.
+     * Returns <code>true</code> if the given value is null or is empty. Types of String, Collection, Map, Optional and Array are recognized. If none is
+     * recognized, then examine the emptiness of the toString() representation instead.
      *
      * @param value The value to be checked on emptiness.
      * @return <code>true</code> if the given value is null or is empty.
@@ -225,17 +226,23 @@ class PackageUtils {
     public static boolean isEmpty(Object value) {
         if (value == null) {
             return true;
-        } else if (value instanceof String) {
+        }
+        else if (value instanceof String) {
             return ((String) value).isEmpty();
-        } else if (value instanceof Collection<?>) {
+        }
+        else if (value instanceof Collection<?>) {
             return ((Collection<?>) value).isEmpty();
-        } else if (value instanceof Map<?, ?>) {
+        }
+        else if (value instanceof Map<?, ?>) {
             return ((Map<?, ?>) value).isEmpty();
-        } else if (value instanceof Optional<?>) {
+        }
+        else if (value instanceof Optional<?>) {
             return ((Optional<?>) value).isEmpty();
-        } else if (value.getClass().isArray()) {
+        }
+        else if (value.getClass().isArray()) {
             return Array.getLength(value) == 0;
-        } else {
+        }
+        else {
             return value.toString() == null || value.toString().isEmpty();
         }
     }
@@ -257,33 +264,30 @@ class PackageUtils {
         // We should in long term probably introduce a common interface like UIIterable.
         // But this is solid for now as all known implementing components already follow this pattern.
         // We could theoretically even remove the above instanceof checks.
-        Pattern clientIdNestedInIteratorPattern = getPatternCache(context.getExternalContext().getApplicationMap()).computeIfAbsent(CLIENT_ID_NESTED_IN_ITERATOR_PATTERN, k -> {
-            String separatorChar = Pattern.quote(String.valueOf(UINamingContainer.getSeparatorChar(context)));
-            return Pattern.compile(".+" + separatorChar + "[0-9]+" + separatorChar + ".+");
-        });
+        Pattern clientIdNestedInIteratorPattern = getPatternCache(context.getExternalContext().getApplicationMap())
+            .computeIfAbsent(CLIENT_ID_NESTED_IN_ITERATOR_PATTERN, k -> {
+                String separatorChar = Pattern.quote(String.valueOf(UINamingContainer.getSeparatorChar(context)));
+                return Pattern.compile(".+" + separatorChar + "[0-9]+" + separatorChar + ".+");
+            });
 
         return clientIdNestedInIteratorPattern.matcher(parent.getClientId(context)).matches();
     }
 
     /**
-     * Returns <code>true</code> if the given faces context is
-     * <strong>not</strong> {@link FacesContext#isReleased()}, and its current
-     * phase ID is <strong>not</strong> {@link PhaseId#RENDER_RESPONSE}.
+     * Returns <code>true</code> if the given faces context is <strong>not</strong> {@link FacesContext#isReleased()}, and its current phase ID is
+     * <strong>not</strong> {@link PhaseId#RENDER_RESPONSE}.
      */
     public static boolean isNotRenderingResponse(FacesContext context) {
         return !context.isReleased() && context.getCurrentPhaseId() != PhaseId.RENDER_RESPONSE;
     }
 
     /**
-     * Returns <code>true</code> if the given object equals one of the given
-     * objects.
+     * Returns <code>true</code> if the given object equals one of the given objects.
      *
      * @param <T> The generic object type.
-     * @param object The object to be checked if it equals one of the given
-     * objects.
+     * @param object The object to be checked if it equals one of the given objects.
      * @param objects The argument list of objects to be tested for equality.
-     * @return <code>true</code> if the given object equals one of the given
-     * objects.
+     * @return <code>true</code> if the given object equals one of the given objects.
      */
     @SafeVarargs
     public static <T> boolean isOneOf(T object, T... objects) {
@@ -300,25 +304,35 @@ class PackageUtils {
     public static <T> Stream<T> stream(Object object) {
         if (object == null) {
             return Stream.empty();
-        } else if (object instanceof Stream) {
+        }
+        else if (object instanceof Stream) {
             return (Stream<T>) object;
-        } else if (object instanceof Collection) {
-            return ((Collection<T>) object).stream();   // little bonus with sized spliterator...
-        } else if (object instanceof Enumeration) { // recursive call wrapping in an Iterator (Java 9+)
+        }
+        else if (object instanceof Collection) {
+            return ((Collection<T>) object).stream(); // little bonus with sized spliterator...
+        }
+        else if (object instanceof Enumeration) { // recursive call wrapping in an Iterator (Java 9+)
             return stream(((Enumeration<T>) object).asIterator());
-        } else if (object instanceof Iterable) {
+        }
+        else if (object instanceof Iterable) {
             return (Stream<T>) StreamSupport.stream(((Iterable<?>) object).spliterator(), false);
-        } else if (object instanceof Map) {
+        }
+        else if (object instanceof Map) {
             return (Stream<T>) ((Map<?, ?>) object).entrySet().stream();
-        } else if (object instanceof int[]) {
+        }
+        else if (object instanceof int[]) {
             return (Stream<T>) Arrays.stream((int[]) object).boxed();
-        } else if (object instanceof long[]) {
+        }
+        else if (object instanceof long[]) {
             return (Stream<T>) Arrays.stream((long[]) object).boxed();
-        } else if (object instanceof double[]) {
+        }
+        else if (object instanceof double[]) {
             return (Stream<T>) Arrays.stream((double[]) object).boxed();
-        } else if (object instanceof Object[]) {
+        }
+        else if (object instanceof Object[]) {
             return (Stream<T>) Arrays.stream((Object[]) object);
-        } else {
+        }
+        else {
             return (Stream<T>) Stream.of(object);
         }
     }
@@ -331,11 +345,10 @@ class PackageUtils {
     }
 
     /**
-     * Perform CDI resource injection ({@code @Inject}) and invoke {@code @PostConstruct} on a Faces artifact that was
-     * instantiated reflectively rather than obtained from CDI -- notably a {@code @FacesValidator}/{@code @FacesConverter}/
-     * {@code @FacesBehavior} recreated from its saved state, which is otherwise restored with its {@code @Inject} fields
-     * left null. No-op when the class declares no injection points (so a plain artifact's {@code @PostConstruct} is not
-     * fired) or when CDI is unavailable.
+     * Perform CDI resource injection ({@code @Inject}) and invoke {@code @PostConstruct} on a Faces artifact that was instantiated reflectively rather than
+     * obtained from CDI -- notably a {@code @FacesValidator}/{@code @FacesConverter}/ {@code @FacesBehavior} recreated from its saved state, which is otherwise
+     * restored with its {@code @Inject} fields left null. No-op when the class declares no injection points (so a plain artifact's {@code @PostConstruct} is
+     * not fired) or when CDI is unavailable.
      */
     static void injectAndPostConstruct(Object instance) {
         if (instance == null) {
@@ -350,7 +363,8 @@ class PackageUtils {
         BeanManager beanManager;
         try {
             beanManager = CDI.current().getBeanManager();
-        } catch (IllegalStateException e) {
+        }
+        catch (IllegalStateException e) {
             return; // No CDI available in this environment.
         }
 
@@ -372,7 +386,8 @@ class PackageUtils {
             try {
                 AnnotatedType<?> annotatedType = beanManager.createAnnotatedType(c);
                 return beanManager.getInjectionTargetFactory(annotatedType).createInjectionTarget(null);
-            } catch (RuntimeException e) {
+            }
+            catch (RuntimeException e) {
                 return null; // Not a CDI-injectable type; skip injection for it.
             }
         });
@@ -400,5 +415,7 @@ class PackageUtils {
         public void remove() {
             throw new UnsupportedOperationException();
         }
+
     }
+
 }

@@ -159,4 +159,5 @@ class Spec745IT extends BaseITNG {
     void typedSetByApi() throws Exception {
         assertTypeBeforeAndAfterPostback("typedXsetByApi", "Dog");
     }
+
 }

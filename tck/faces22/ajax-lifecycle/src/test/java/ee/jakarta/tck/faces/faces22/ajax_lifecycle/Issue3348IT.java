@@ -29,17 +29,18 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3348IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3348
-   */
-  @Test
-  void xmlPreambleOnRedirect() throws Exception {
+     */
+    @Test
+    void xmlPreambleOnRedirect() throws Exception {
         WebPage page = getPage("issue3348.xhtml");
-        
+
         WebElement button = page.findElement(By.id("button"));
         page.guardAjax(button::click);
-        
+
         assertTrue(page.containsSource("&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?&gt;"));
     }
+
 }

@@ -23,11 +23,11 @@
       xmlns:h="jakarta.faces.html">
 
       <h:head></h:head>
-      
+
       <h:body>
 
             <h:form id="form">
-            
+
                 <p id="output"></p>
 
                 <script id="template" type="text/template">
@@ -37,7 +37,7 @@
                 <h:commandButton id="refresh" value="Ajax Refresh">
                     <f:ajax render="@form" />
                 </h:commandButton>
-                
+
                 <script>
                     document.getElementById("output").innerHTML = document.getElementById("template").innerHTML;
                 </script>

@@ -32,6 +32,7 @@ import jakarta.inject.Named;
 public class Issue2852Bean {
 
     private final PhaseListener listener = new PhaseListener() {
+
         private static final long serialVersionUID = 1L;
 
         @Override
@@ -46,6 +47,7 @@ public class Issue2852Bean {
         public PhaseId getPhaseId() {
             return PhaseId.ANY_PHASE;
         }
+
     };
 
     public void submit() {
@@ -66,4 +68,5 @@ public class Issue2852Bean {
     public PhaseListener getListener() {
         return listener;
     }
+
 }

@@ -25,33 +25,32 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    
+
     <h:body>
         <h:form prependId="false" id="form">
-    
+
             <p>medium localDate value: [30.09.2015]</p>
-    
+
             <h:panelGrid border="1" columns="3">
-    
+
                 <h:outputText value="localDateLabel" />
-    
+
                 <h:inputText id="localDate" value="#{backingBean.localDate}">
                     <f:convertDateTime type="localDate" pattern="dd.MM.uuuu" />
                 </h:inputText>
-    
+
                 <h:outputText id="localDateValue" value="#{backingBean.localDate}">
                     <f:convertDateTime type="localDate" pattern="dd.MM.uu" />
                 </h:outputText>
-    
+
             </h:panelGrid>
-    
+
             <p>
                 <h:messages id="messages" showDetail="true" showSummary="false" />
             </p>
-    
+
             <h:commandButton id="submit" value="submit" />
-    
+
         </h:form>
     </h:body>
 </html>
-

@@ -28,11 +28,9 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3717IT extends BaseITNG {
 
     /**
-     * The Faces Servlet is mapped to {@code *.foo} and {@code jakarta.faces.FACELETS_SUFFIX}
-     * is set to {@code .bar .foo}, so requesting {@code Issue3717.foo} must resolve and render
-     * the {@code Issue3717.bar} facelet, which is the only one physically present. Since 4.0
-     * the parameter takes a space separated list, so an implementation which matches against
-     * the value as written resolves neither extension.
+     * The Faces Servlet is mapped to {@code *.foo} and {@code jakarta.faces.FACELETS_SUFFIX} is set to {@code .bar .foo}, so requesting {@code Issue3717.foo}
+     * must resolve and render the {@code Issue3717.bar} facelet, which is the only one physically present. Since 4.0 the parameter takes a space separated
+     * list, so an implementation which matches against the value as written resolves neither extension.
      *
      * @see FacesServlet
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3717
@@ -42,4 +40,5 @@ class Issue3717IT extends BaseITNG {
         WebPage page = getPage("Issue3717.foo");
         assertTrue(page.containsText("Hello from Facelets"));
     }
+
 }

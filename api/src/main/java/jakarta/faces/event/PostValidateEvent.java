@@ -22,15 +22,13 @@ import jakarta.faces.context.FacesContext;
 /**
  *
  * <p class="changed_added_2_0 changed_added_2_1">
- * When an instance of this event is passed to {@link SystemEventListener#processEvent} or
- * {@link ComponentSystemEventListener#processEvent}, the listener implementation may assume that the
- * <code>source</code> of this event instance is the {@link UIComponent} instance that is that has just been validated.
+ * When an instance of this event is passed to {@link SystemEventListener#processEvent} or {@link ComponentSystemEventListener#processEvent}, the listener
+ * implementation may assume that the <code>source</code> of this event instance is the {@link UIComponent} instance that is that has just been validated.
  * </p>
  *
  * <p class="changed_added_2_1">
- * Components with children must publish this event after processing their child nodes in
- * {@link UIComponent#processValidators}. This is especially important for iterating components such as
- * <code>UIData</code>, and form components, such as <code>UIForm</code>.
+ * Components with children must publish this event after processing their child nodes in {@link UIComponent#processValidators}. This is especially important
+ * for iterating components such as <code>UIData</code>, and form components, such as <code>UIForm</code>.
  * </p>
  *
  * @since 2.0
@@ -68,4 +66,5 @@ public class PostValidateEvent extends ComponentSystemEvent {
     public PostValidateEvent(FacesContext facesContext, UIComponent component) {
         super(facesContext, component);
     }
+
 }

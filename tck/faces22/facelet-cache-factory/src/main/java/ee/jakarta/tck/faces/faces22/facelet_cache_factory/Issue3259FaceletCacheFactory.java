@@ -20,8 +20,8 @@ import jakarta.faces.view.facelets.FaceletCache;
 import jakarta.faces.view.facelets.FaceletCacheFactory;
 
 /**
- * Custom {@link FaceletCacheFactory} decorating the default one. The decorating constructor sets a detectable marker
- * proving the factory was invoked via the {@code facelet-cache-factory} registration.
+ * Custom {@link FaceletCacheFactory} decorating the default one. The decorating constructor sets a detectable marker proving the factory was invoked via the
+ * {@code facelet-cache-factory} registration.
  */
 public class Issue3259FaceletCacheFactory extends FaceletCacheFactory {
 
@@ -45,4 +45,5 @@ public class Issue3259FaceletCacheFactory extends FaceletCacheFactory {
     public FaceletCache getFaceletCache() {
         return getWrapped().getFaceletCache();
     }
+
 }

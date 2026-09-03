@@ -25,8 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Add and remove permutations applied to a bound panel group within a single action listener must
- * render the net effect of the permutation, not any intermediate state.
+ * Add and remove permutations applied to a bound panel group within a single action listener must render the net effect of the permutation, not any
+ * intermediate state.
  */
 public class Issue2399IT extends BaseITNG {
 
@@ -45,8 +45,7 @@ public class Issue2399IT extends BaseITNG {
     }
 
     /**
-     * Adding then removing the same child within one listener yields neither an added child nor a
-     * disturbed static child.
+     * Adding then removing the same child within one listener yields neither an added child nor a disturbed static child.
      *
      * @see jakarta.faces.component.UIComponent#getChildren()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2399
@@ -101,18 +100,22 @@ public class Issue2399IT extends BaseITNG {
     }
 
     /**
-     * Clicks the button of the given permutation and asserts the resulting children of the bound
-     * panel group. The static input's value only survives as a rendered attribute, so the assertion
-     * reads the panel group's markup rather than its text.
+     * Clicks the button of the given permutation and asserts the resulting children of the bound panel group. The static input's value only survives as a
+     * rendered attribute, so the assertion reads the panel group's markup rather than its text.
      */
     private void assertPermutation(String permutation, boolean expectAdded, boolean expectRemoveMe) {
         WebPage page = getPage("issue2399.xhtml");
         page.guardHttp(page.findElement(By.id("form:" + permutation))::click);
 
         String group = page.findElement(By.id("form:group")).getAttribute("outerHTML");
-        assertEquals(expectAdded, group.contains(ADDED_VALUE),
-                permutation + " added child expected=" + expectAdded);
-        assertEquals(expectRemoveMe, group.contains(REMOVE_ME_VALUE),
-                permutation + " static child expected=" + expectRemoveMe);
+        assertEquals(
+            expectAdded, group.contains(ADDED_VALUE),
+            permutation + " added child expected=" + expectAdded
+        );
+        assertEquals(
+            expectRemoveMe, group.contains(REMOVE_ME_VALUE),
+            permutation + " static child expected=" + expectRemoveMe
+        );
     }
+
 }

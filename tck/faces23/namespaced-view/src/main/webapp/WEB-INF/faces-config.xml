@@ -22,7 +22,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
     version="4.1">
-              
+
     <component>
         <component-type>jakarta.faces.ViewRoot</component-type>
         <component-class>ee.jakarta.tck.faces.faces23.namespaced_view.Spec790NamespacedViewBean</component-class>

@@ -31,24 +31,24 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1364IT extends BaseITNG {
 
-  /**
-   * @see UIData
+    /**
+     * @see UIData
      * @see Map
      * @see https://github.com/jakartaee/faces/issues/1364
-   */
-  @Test
-  void dataTableMap() throws Exception {
+     */
+    @Test
+    void dataTableMap() throws Exception {
         WebPage page = getPage("spec1364-1.xhtml");
         assertTrue(Pattern.matches("(?s).*START.*Amsterdam.*821702.*Rotterdam.*624799.*Den Haag.*514782.*END.*", page.getSource()));
     }
 
-  /**
-   * @see org.glassfish.mojarra.facelets.component.UIRepeat
+    /**
+     * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see Map
      * @see https://github.com/jakartaee/faces/issues/1364
-   */
-  @Test
-  void uIRepeatMap() throws Exception {
+     */
+    @Test
+    void uIRepeatMap() throws Exception {
         WebPage page = getPage("spec1364-2.xhtml");
         assertTrue(Pattern.matches("(?s).*START.*Amsterdam-821702.*Rotterdam-624799.*Den Haag-514782.*END.*", page.getSource()));
     }

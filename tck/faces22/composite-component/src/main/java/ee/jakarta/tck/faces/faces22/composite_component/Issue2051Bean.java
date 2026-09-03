@@ -29,8 +29,8 @@ public class Issue2051Bean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final List<Issue2051Line> availableLines =
-        List.of(new Issue2051Line("1", "First"), new Issue2051Line("2", "Second"), new Issue2051Line("3", "Third"));
+    private final List<Issue2051Line> availableLines = List
+        .of(new Issue2051Line("1", "First"), new Issue2051Line("2", "Second"), new Issue2051Line("3", "Third"));
 
     private List<Issue2051Line> selectedLines = new ArrayList<>();
 
@@ -53,4 +53,5 @@ public class Issue2051Bean implements Serializable {
     public Issue2051Line findLine(String id) {
         return availableLines.stream().filter(line -> line.getId().equals(id)).findFirst().orElse(null);
     }
+
 }

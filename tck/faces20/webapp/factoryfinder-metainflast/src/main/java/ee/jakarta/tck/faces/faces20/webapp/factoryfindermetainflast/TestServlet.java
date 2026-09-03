@@ -31,24 +31,28 @@ public class TestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         response.setContentType("text/plain");
         PrintWriter pw = response.getWriter();
         try {
             FacesContextFactory fcf = (FacesContextFactory) FactoryFinder
-                    .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
+                .getFactory(FactoryFinder.FACES_CONTEXT_FACTORY);
             String factName = fcf.getWrapped().getClass().getCanonicalName();
 
             if (factName.contains("TCKContextFactoryTwo")) {
                 pw.println("Test PASSED");
-            } else {
+            }
+            else {
                 pw.println("Test FAILED. Wrong FacesContextFactory Being Used");
                 pw.println("Found: " + factName);
                 pw.println("Expected: TCKContextFactoryTwo");
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             pw.println("Test FAILED.");
             pw.println(e.toString());
         }
     }
+
 }

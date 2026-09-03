@@ -24,8 +24,8 @@ import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
 
 /**
- * Simulates a custom view handler setting the request encoding before ViewHandler.initView,
- * by setting it in a before-phase listener. Asserts the value survives to render time.
+ * Simulates a custom view handler setting the request encoding before ViewHandler.initView, by setting it in a before-phase listener. Asserts the value
+ * survives to render time.
  */
 public class InitViewRequestCharacterEncodingPhaseListener implements PhaseListener {
 
@@ -44,7 +44,8 @@ public class InitViewRequestCharacterEncodingPhaseListener implements PhaseListe
         if (servletPath != null && servletPath.contains("initViewRequestCharacterEncoding")) {
             try {
                 externalContext.setRequestCharacterEncoding("ISO-8859-1");
-            } catch (UnsupportedEncodingException e) {
+            }
+            catch (UnsupportedEncodingException e) {
                 throw new IllegalStateException(e);
             }
         }
@@ -54,4 +55,5 @@ public class InitViewRequestCharacterEncodingPhaseListener implements PhaseListe
     public PhaseId getPhaseId() {
         return PhaseId.ANY_PHASE;
     }
+
 }

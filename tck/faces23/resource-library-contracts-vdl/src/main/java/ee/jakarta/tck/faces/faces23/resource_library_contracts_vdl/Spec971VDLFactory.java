@@ -24,8 +24,7 @@ import jakarta.faces.view.ViewDeclarationLanguageFactory;
 import jakarta.faces.view.ViewDeclarationLanguageWrapper;
 
 /**
- * Computes the resource library contracts of every single request, the way an application serving
- * several tenants from one war would do.
+ * Computes the resource library contracts of every single request, the way an application serving several tenants from one war would do.
  */
 public class Spec971VDLFactory extends ViewDeclarationLanguageFactory {
 
@@ -63,5 +62,7 @@ public class Spec971VDLFactory extends ViewDeclarationLanguageFactory {
 
             return null;
         }
+
     }
+
 }

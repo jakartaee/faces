@@ -28,4 +28,5 @@ public class Issue3139Bean {
     public String format(String pattern, Object argument) {
         return MessageFormat.format(pattern, argument);
     }
+
 }

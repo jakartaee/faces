@@ -27,13 +27,11 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Tests that {@code #{cc.clientId}} and {@code #{cc.attrs}} resolve to the correct
- * composite component context through nested composites.
+ * Tests that {@code #{cc.clientId}} and {@code #{cc.attrs}} resolve to the correct composite component context through nested composites.
  *
- * The outer composite (composite1) nests an inner composite (composite2). Within
- * composite1, {@code cc} must refer to composite1; within composite2 it must change to
- * composite2; and after composite2 it must change back to composite1. The using page
- * instantiates composite1 twice to verify the same behaviour at the top level.
+ * The outer composite (composite1) nests an inner composite (composite2). Within composite1, {@code cc} must refer to composite1; within composite2 it must
+ * change to composite2; and after composite2 it must change back to composite1. The using page instantiates composite1 twice to verify the same behaviour at
+ * the top level.
  */
 class Spec1383IT extends BaseITNG {
 
@@ -46,16 +44,18 @@ class Spec1383IT extends BaseITNG {
         WebPage page = getPage("spec1383.xhtml");
 
         assertTrue(
-            matches("(?s)" +
-                ".*clientID1:component1.*Parameter1:test1" +
+            matches(
+                "(?s)" +
+                    ".*clientID1:component1.*Parameter1:test1" +
                     ".*clientID2:component1:componentA.*Parameter2:testA" +
-                ".*clientID1:component1.*Parameter1:test1.*" +
+                    ".*clientID1:component1.*Parameter1:test1.*" +
 
-                ".*clientID1:component2.*Parameter1:test2" +
+                    ".*clientID1:component2.*Parameter1:test2" +
                     ".*clientID2:component2:componentA.*Parameter2:testA" +
-                ".*clientID1:component2.*Parameter1:test2.*"
-                ,
-            page.getSource()));
+                    ".*clientID1:component2.*Parameter1:test2.*",
+                page.getSource()
+            )
+        );
     }
 
 }

@@ -35,4 +35,5 @@ public class NaviInitialReturnNodeFlowBean implements Serializable {
     public void setParentNodeToBeReturned(String node) {
         parentNodeToBeReturned = node;
     }
+
 }

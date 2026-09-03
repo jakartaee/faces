@@ -24,10 +24,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Flow node-to-node navigation matrix. Each source flow is entered from index.xhtml starting respectively
- * from a view node, a method-call node, a switch node and a return node, then navigates to each
- * destination node type (view, method-call, switch, return, flow-call). A successful traversal lands on
- * the destination view; a flow-return lands outside any flow with an empty flow scope.
+ * Flow node-to-node navigation matrix. Each source flow is entered from index.xhtml starting respectively from a view node, a method-call node, a switch node
+ * and a return node, then navigates to each destination node type (view, method-call, switch, return, flow-call). A successful traversal lands on the
+ * destination view; a flow-return lands outside any flow with an empty flow scope.
  */
 class FlowNodeNavigationIT extends BaseITNG {
 
@@ -262,4 +261,5 @@ class FlowNodeNavigationIT extends BaseITNG {
         assertTrue(page.containsText(RETURNED_NO_FLOW), RETURNED_NO_FLOW);
         assertTrue(page.containsText(RETURNED_EMPTY_FLOW_SCOPE), RETURNED_EMPTY_FLOW_SCOPE);
     }
+
 }

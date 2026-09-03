@@ -25,8 +25,8 @@ import jakarta.faces.model.SelectItemGroup;
 /**
  * <p class="changed_added_4_0">
  * <strong>UISelectItemGroup</strong> is a component that may be nested inside a {@link UISelectMany} or {@link UISelectOne} component, and causes the addition
- * of one {@link SelectItemGroup} of one or more {@link SelectItem} instances to the list of available options in the parent component. This component
- * accepts only children of type {@link UISelectItems} or {@link UISelectItem}.
+ * of one {@link SelectItemGroup} of one or more {@link SelectItem} instances to the list of available options in the parent component. This component accepts
+ * only children of type {@link UISelectItems} or {@link UISelectItem}.
  * </p>
  *
  * @since 4.0

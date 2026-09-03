@@ -24,9 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * When a view renders several {@code h:form}s, each rendered {@code jakarta.faces.ViewState} hidden
- * field must carry a unique {@code id}. The id is suffixed with a per-view counter that increments
- * for every form, so three forms yield the suffixes {@code :0}, {@code :1} and {@code :2}.
+ * When a view renders several {@code h:form}s, each rendered {@code jakarta.faces.ViewState} hidden field must carry a unique {@code id}. The id is suffixed
+ * with a per-view counter that increments for every form, so three forms yield the suffixes {@code :0}, {@code :1} and {@code :2}.
  */
 class Issue3148IT extends BaseITNG {
 
@@ -41,4 +40,5 @@ class Issue3148IT extends BaseITNG {
         assertTrue(page.containsSource("jakarta.faces.ViewState:1"), "second form's ViewState id");
         assertTrue(page.containsSource("jakarta.faces.ViewState:2"), "third form's ViewState id");
     }
+
 }

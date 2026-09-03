@@ -25,10 +25,9 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_0_rev_a">Enable</span> the Jakarta Faces implementation to provide the
- * appropriate behavior for the kind of {@link MetaTagHandler} subclass for each kind of element in the view, while
- * providing a base-class from which those wanting to make a Java language custom tag handler can inherit. The Jakarta
- * Server Faces runtime provides the implementation of {@link #getTagHandlerDelegate} for the appropriate subclass.
+ * <span class="changed_modified_2_0_rev_a">Enable</span> the Jakarta Faces implementation to provide the appropriate behavior for the kind of
+ * {@link MetaTagHandler} subclass for each kind of element in the view, while providing a base-class from which those wanting to make a Java language custom
+ * tag handler can inherit. The Jakarta Server Faces runtime provides the implementation of {@link #getTagHandlerDelegate} for the appropriate subclass.
  * </p>
  */
 
@@ -60,15 +59,13 @@ public abstract class DelegatingMetaTagHandler extends MetaTagHandler {
      * </p>
      *
      * <p class="changed_added_2_3">
-     * Code that extends from DelegatingMetaTagHandler (directly or indirectly, as through extending ComponentHandler) must
-     * take care to decorate, not replace, the TagHandlerDelegate instance returned by this method. Failure to do so may
-     * produce unexpected results.
+     * Code that extends from DelegatingMetaTagHandler (directly or indirectly, as through extending ComponentHandler) must take care to decorate, not replace,
+     * the TagHandlerDelegate instance returned by this method. Failure to do so may produce unexpected results.
      * </p>
      *
      * @return the tag handler delegate.
      */
     protected abstract TagHandlerDelegate getTagHandlerDelegate();
-
 
     // Properties ----------------------------------------
 
@@ -84,6 +81,7 @@ public abstract class DelegatingMetaTagHandler extends MetaTagHandler {
 
     /**
      * Return the "binding" attribute.
+     *
      * @return the "binding" attribute.
      */
     public TagAttribute getBinding() {
@@ -92,6 +90,7 @@ public abstract class DelegatingMetaTagHandler extends MetaTagHandler {
 
     /**
      * Return a reference to the <code>Tag</code> instance corresponding to this <code>TagHandler</code> instance.
+     *
      * @return a reference to the <code>Tag</code> instance.
      */
     public Tag getTag() {
@@ -100,6 +99,7 @@ public abstract class DelegatingMetaTagHandler extends MetaTagHandler {
 
     /**
      * Return the tag id from the <code>TagConfig</code> used to instantiate this handler.
+     *
      * @return the tag id from the <code>TagConfig</code>.
      */
     public String getTagId() {
@@ -108,6 +108,7 @@ public abstract class DelegatingMetaTagHandler extends MetaTagHandler {
 
     /**
      * Return the named attribute from the tag attributes.
+     *
      * @param localName the name of the attribute.
      * @return the named attribute from the tag attributes.
      */
@@ -119,7 +120,6 @@ public abstract class DelegatingMetaTagHandler extends MetaTagHandler {
     public void setAttributes(FaceletContext ctx, Object instance) {
         super.setAttributes(ctx, instance);
     }
-
 
     // Methods ----------------------------------------
 
@@ -165,8 +165,7 @@ public abstract class DelegatingMetaTagHandler extends MetaTagHandler {
 
     /**
      * <p class="changed_added_2_0">
-     * The default implementation simply calls through to {@link TagHandlerDelegate#createMetaRuleset} and returns the
-     * result.
+     * The default implementation simply calls through to {@link TagHandlerDelegate#createMetaRuleset} and returns the result.
      * </p>
      *
      * @param type the <code>Class</code> for which the <code>MetaRuleset</code> must be created.

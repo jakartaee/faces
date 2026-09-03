@@ -86,9 +86,13 @@ class Spec1507IT extends BaseITNG {
     void testComponentAttribute() {
         var page = getPage("spec1507.xhtml");
 
-        assertTrue(page.hasAttributeValue(input1, "oninput",
-            "document.getElementById('form1:output1').innerHTML = this.value"),
-            "form1:input1 oninput is wired");
+        assertTrue(
+            page.hasAttributeValue(
+                input1, "oninput",
+                "document.getElementById('form1:output1').innerHTML = this.value"
+            ),
+            "form1:input1 oninput is wired"
+        );
 
         assertEquals("", output1.getText());
 
@@ -197,8 +201,10 @@ class Spec1507IT extends BaseITNG {
     }
 
     private static void assertBehaviorScriptRendered(WebPage page, WebElement input, String behaviorEventName) {
-        assertTrue(page.isAttributeWired(input, "on" + behaviorEventName),
-            "behavior wired on " + behaviorEventName);
+        assertTrue(
+            page.isAttributeWired(input, "on" + behaviorEventName),
+            "behavior wired on " + behaviorEventName
+        );
     }
 
 }

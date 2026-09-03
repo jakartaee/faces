@@ -15,29 +15,29 @@
  */
 package ee.jakarta.tck.faces.faces20.api.event.prevalidateevent;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
-
 import jakarta.faces.component.UICommand;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PreValidateEvent;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
+
 @WebServlet("/PreValidateEventTestServlet")
 public final class PreValidateEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UICommand uic = new UICommand();
+    private static final UICommand uic = new UICommand();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PreValidateEvent(component);
-  }
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PreValidateEvent(component);
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
 
-  // ------------------------------------------------------------ test methods
+    // ------------------------------------------------------------ test methods
 
 }

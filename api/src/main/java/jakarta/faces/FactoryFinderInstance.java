@@ -84,28 +84,30 @@ final class FactoryFinderInstance {
 
     /**
      * <p>
-     * The set of Jakarta Faces factory classes for which the factory discovery mechanism is supported. The entries
-     * in this list must be alphabetically ordered according to the entire string of the *value* of each of the literals,
-     * not just the last part of the literal!
+     * The set of Jakarta Faces factory classes for which the factory discovery mechanism is supported. The entries in this list must be alphabetically ordered
+     * according to the entire string of the *value* of each of the literals, not just the last part of the literal!
      * </p>
      */
-    private static final SortedSet<String> factoryNames = new TreeSet<>(List.of(
+    private static final SortedSet<String> factoryNames = new TreeSet<>(
+        List.of(
             APPLICATION_FACTORY,
-            VISIT_CONTEXT_FACTORY, 
-            EXCEPTION_HANDLER_FACTORY, 
+            VISIT_CONTEXT_FACTORY,
+            EXCEPTION_HANDLER_FACTORY,
             EXTERNAL_CONTEXT_FACTORY,
-            FACES_CONTEXT_FACTORY, 
+            FACES_CONTEXT_FACTORY,
             FACES_SERVLET_FACTORY,
-            FLASH_FACTORY, 
-            FLOW_HANDLER_FACTORY, 
-            PARTIAL_VIEW_CONTEXT_FACTORY, 
-            CLIENT_WINDOW_FACTORY, 
+            FLASH_FACTORY,
+            FLOW_HANDLER_FACTORY,
+            PARTIAL_VIEW_CONTEXT_FACTORY,
+            CLIENT_WINDOW_FACTORY,
             LIFECYCLE_FACTORY,
-            RENDER_KIT_FACTORY, 
-            VIEW_DECLARATION_LANGUAGE_FACTORY, 
-            FACELET_CACHE_FACTORY, 
-            TAG_HANDLER_DELEGATE_FACTORY, 
-            SEARCH_EXPRESSION_CONTEXT_FACTORY));
+            RENDER_KIT_FACTORY,
+            VIEW_DECLARATION_LANGUAGE_FACTORY,
+            FACELET_CACHE_FACTORY,
+            TAG_HANDLER_DELEGATE_FACTORY,
+            SEARCH_EXPRESSION_CONTEXT_FACTORY
+        )
+    );
 
     /**
      * <p>
@@ -144,7 +146,8 @@ final class FactoryFinderInstance {
             if (result instanceof List) {
                 TypedCollections.dynamicallyCastList((List<?>) result, String.class).add(0, implementationClassName);
             }
-        } finally {
+        }
+        finally {
             lock.writeLock().unlock();
         }
     }
@@ -160,7 +163,8 @@ final class FactoryFinderInstance {
             if (!(factoryOrList instanceof List)) {
                 return factoryOrList;
             }
-        } finally {
+        }
+        finally {
             lock.readLock().unlock();
         }
 
@@ -192,7 +196,8 @@ final class FactoryFinderInstance {
             factories.put(factoryName, factory);
 
             return factory;
-        } finally {
+        }
+        finally {
             lock.writeLock().unlock();
         }
     }
@@ -208,11 +213,13 @@ final class FactoryFinderInstance {
                 try {
                     injectionTarget.preDestroy(instance);
                     injectionTarget.dispose(instance);
-                } catch (Exception ex) {
+                }
+                catch (Exception ex) {
                     logPreDestroyFail(injectedImplementation, ex);
                 }
             }
-        } finally {
+        }
+        finally {
             injectedImplementations.clear();
             factories.clear();
             lock.writeLock().unlock();
@@ -234,31 +241,27 @@ final class FactoryFinderInstance {
      *
      * <li>
      * <p>
-     * If the argument <code>implementations</code> list has more than one element, or exactly one element, interpret the
-     * last element in the list to be the fully qualified class name of a class implementing <code>factoryName</code>.
-     * Instantiate that class and save it for return. If the <code>implementations</code> list has only one element, skip
-     * this step.
+     * If the argument <code>implementations</code> list has more than one element, or exactly one element, interpret the last element in the list to be the
+     * fully qualified class name of a class implementing <code>factoryName</code>. Instantiate that class and save it for return. If the
+     * <code>implementations</code> list has only one element, skip this step.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * Look for a resource called <code>/META-INF/services/&lt;factoryName&gt;</code>. If found, interpret it as a
-     * properties file, and read out the first entry. Interpret the first entry as a fully qualify class name of a class
-     * that implements <code>factoryName</code>. If we have an instantiated factory from the previous step <em>and</em> the
-     * implementing class has a one arg constructor of the type for <code>factoryName</code>, instantiate it, passing the
-     * instantiated factory from the previous step. If there is no one arg constructor, just instantiate the zero arg
-     * constructor. Save the newly instantiated factory for return, replacing the instantiated factory from the previous
-     * step.
+     * Look for a resource called <code>/META-INF/services/&lt;factoryName&gt;</code>. If found, interpret it as a properties file, and read out the first
+     * entry. Interpret the first entry as a fully qualify class name of a class that implements <code>factoryName</code>. If we have an instantiated factory
+     * from the previous step <em>and</em> the implementing class has a one arg constructor of the type for <code>factoryName</code>, instantiate it, passing
+     * the instantiated factory from the previous step. If there is no one arg constructor, just instantiate the zero arg constructor. Save the newly
+     * instantiated factory for return, replacing the instantiated factory from the previous step.
      * </p>
      * </li>
      *
      * <li>
      * <p>
-     * Treat each remaining element in the <code>implementations</code> list as a fully qualified class name of a class
-     * implementing <code>factoryName</code>. If the currentKeyrent element has a one arg constructor of the type for
-     * <code>factoryName</code>, instantiate it, passing the instantiated factory from the previous or step iteration. If
-     * there is no one arg constructor, just instantiate the zero arg constructor, replacing the instantiated factory from
+     * Treat each remaining element in the <code>implementations</code> list as a fully qualified class name of a class implementing <code>factoryName</code>.
+     * If the currentKeyrent element has a one arg constructor of the type for <code>factoryName</code>, instantiate it, passing the instantiated factory from
+     * the previous or step iteration. If there is no one arg constructor, just instantiate the zero arg constructor, replacing the instantiated factory from
      * the previous step or iteration.
      * </p>
      * </li>
@@ -335,7 +338,8 @@ final class FactoryFinderInstance {
                     }
                 }
             }
-        } catch (IOException | SecurityException e) {
+        }
+        catch (IOException | SecurityException e) {
             if (LOGGER.isLoggable(SEVERE)) {
                 LOGGER.log(SEVERE, e.toString(), e);
             }
@@ -350,8 +354,8 @@ final class FactoryFinderInstance {
      * </p>
      *
      * <p>
-     * If <code>previousImpl</code> is non-<code>null</code> and the class named by the argument <code>implName</code> has a
-     * one arg contstructor of type <code>factoryName</code>, instantiate it, passing previousImpl to the constructor.
+     * If <code>previousImpl</code> is non-<code>null</code> and the class named by the argument <code>implName</code> has a one arg contstructor of type
+     * <code>factoryName</code>, instantiate it, passing previousImpl to the constructor.
      * </p>
      *
      * <p>
@@ -361,8 +365,7 @@ final class FactoryFinderInstance {
      * @param classLoader the ClassLoader from which to load the class
      * @param factoryName the fully qualified class name of the factory.
      * @param factoryImplClassName the fully qualified class name of a class that implements the factory.
-     * @param previousFactoryImplementation if non-<code>null</code>, the factory instance to be passed to the constructor
-     * of the new factory.
+     * @param previousFactoryImplementation if non-<code>null</code>, the factory instance to be passed to the constructor of the new factory.
      */
     private Object getImplGivenPreviousImpl(ClassLoader classLoader, String factoryName, String factoryImplClassName, Object previousFactoryImplementation) {
 
@@ -376,13 +379,17 @@ final class FactoryFinderInstance {
 
             try {
                 factoryImplementation = Class.forName(factoryImplClassName, false, classLoader).getConstructor(factoryClass)
-                        .newInstance(previousFactoryImplementation);
+                    .newInstance(previousFactoryImplementation);
 
-            } catch (NoSuchMethodException nsme) {
+            }
+            catch (NoSuchMethodException nsme) {
                 // fall through to "zero-arg-ctor" case
                 factoryClass = null;
-            } catch (ClassNotFoundException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException e) {
+            }
+            catch (
+                ClassNotFoundException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException
+                | InvocationTargetException e
+            ) {
                 throw new FacesException(factoryImplClassName, e);
             }
         }
@@ -397,9 +404,10 @@ final class FactoryFinderInstance {
                 // so don't bother with a non-zero-argument ctor.
 
                 factoryImplementation = Class.forName(factoryImplClassName, false, classLoader).getDeclaredConstructor()
-                        .newInstance();
+                    .newInstance();
 
-            } catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
+            }
+            catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
                 throw new FacesException(factoryImplClassName, e);
             }
         }
@@ -421,7 +429,8 @@ final class FactoryFinderInstance {
         // different from the way that the services entry was created
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(stream, UTF_8))) {
             return reader.readLine();
-        } catch (UnsupportedEncodingException uee) {
+        }
+        catch (UnsupportedEncodingException uee) {
             // The DM_DEFAULT_ENCODING warning is acceptable here
             // because we explicitly *want* to use the Java runtime's
             // default encoding.
@@ -437,7 +446,8 @@ final class FactoryFinderInstance {
             Class<T> implementationClass;
             try {
                 implementationClass = (Class<T>) Class.forName(implementationName, false, classLoader);
-            } catch (ClassNotFoundException e) {
+            }
+            catch (ClassNotFoundException e) {
                 throw new FacesException(e);
             }
 

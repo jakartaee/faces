@@ -27,9 +27,8 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 /**
- * Adds the same child to the same container from two different <code>postAddToView</code> listeners: one attached to
- * the view root, one attached to the container itself. Both listeners run on every view build, so neither adds
- * conditionally.
+ * Adds the same child to the same container from two different <code>postAddToView</code> listeners: one attached to the view root, one attached to the
+ * container itself. Both listeners run on every view build, so neither adds conditionally.
  */
 @Named
 @ViewScoped
@@ -58,8 +57,10 @@ public class DynamicChildInPostAddToViewBean implements Serializable {
         HtmlInputText input = (HtmlInputText) application.createComponent(HtmlInputText.COMPONENT_TYPE);
         input.setId(CHILD_ID);
         input.setStyleClass(CHILD_STYLE_CLASS);
-        input.setValueExpression("value", application.getExpressionFactory()
-                .createValueExpression(context.getELContext(), "#{dynamicChildInPostAddToViewBean.value}", String.class));
+        input.setValueExpression(
+            "value", application.getExpressionFactory()
+                .createValueExpression(context.getELContext(), "#{dynamicChildInPostAddToViewBean.value}", String.class)
+        );
 
         container.getChildren().add(input);
     }
@@ -71,4 +72,5 @@ public class DynamicChildInPostAddToViewBean implements Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

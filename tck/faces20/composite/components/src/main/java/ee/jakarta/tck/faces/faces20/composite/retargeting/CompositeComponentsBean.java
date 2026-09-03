@@ -27,9 +27,8 @@ import jakarta.faces.validator.Validator;
 import jakarta.inject.Named;
 
 /**
- * Backing bean shared by the composite-component retargeting fixtures. Every hook adds a
- * distinctive {@link FacesMessage} so the test can assert that the method expression, attached
- * validator/converter, or action listener was actually retargeted to the intended inner component.
+ * Backing bean shared by the composite-component retargeting fixtures. Every hook adds a distinctive {@link FacesMessage} so the test can assert that the
+ * method expression, attached validator/converter, or action listener was actually retargeted to the intended inner component.
  */
 @Named
 @RequestScoped
@@ -37,13 +36,19 @@ public class CompositeComponentsBean {
 
     public ActionListener getActionListener() {
         return new ActionListener() {
+
             @Override
             public void processAction(ActionEvent event) {
                 FacesContext context = FacesContext.getCurrentInstance();
                 String cid = ((UIComponent) event.getSource()).getClientId(context);
-                context.addMessage(cid, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                        "Action Invoked : " + cid, "Action Invoked : " + cid));
+                context.addMessage(
+                    cid, new FacesMessage(
+                        FacesMessage.SEVERITY_INFO,
+                        "Action Invoked : " + cid, "Action Invoked : " + cid
+                    )
+                );
             }
+
         };
     }
 
@@ -91,15 +96,22 @@ public class CompositeComponentsBean {
     }
 
     public static class TestValidator implements Validator<Object> {
+
         @Override
         public void validate(FacesContext context, UIComponent component, Object value) {
             String cid = component.getClientId(context);
-            context.addMessage(cid, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Validator Invoked : " + cid, "Validator Invoked : " + cid));
+            context.addMessage(
+                cid, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO,
+                    "Validator Invoked : " + cid, "Validator Invoked : " + cid
+                )
+            );
         }
+
     }
 
     public static class TestConverter implements Converter<Object> {
+
         @Override
         public Object getAsObject(FacesContext context, UIComponent component, String value) {
             return value;
@@ -108,9 +120,15 @@ public class CompositeComponentsBean {
         @Override
         public String getAsString(FacesContext context, UIComponent component, Object value) {
             String cid = component.getClientId(context);
-            context.addMessage(cid, new FacesMessage(FacesMessage.SEVERITY_INFO,
-                    "Converter Invoked : " + cid, "Converter Invoked : " + cid));
+            context.addMessage(
+                cid, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO,
+                    "Converter Invoked : " + cid, "Converter Invoked : " + cid
+                )
+            );
             return String.valueOf(value);
         }
+
     }
+
 }

@@ -29,4 +29,5 @@ public class FlowCallNaviChildFlowSwitchStartingBean implements Serializable {
     public boolean isCase1() {
         return true;
     }
+
 }

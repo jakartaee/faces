@@ -18,9 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.application.navigationhandler;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.application.Application;
 import jakarta.faces.application.NavigationHandler;
 import jakarta.faces.context.FacesContext;
@@ -29,28 +26,35 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
+
 @WebServlet("/NavigationHandlerTestServlet")
 public final class NavigationHandlerTestServlet extends HttpTCKServlet {
 
-  // Test for HandleNavigationCase(FacesContext, String, String) throws
-  // NullPointerException
-  public void navigationHandlerHandleNavigationCaseNPETest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    Application application = getApplication();
+    // Test for HandleNavigationCase(FacesContext, String, String) throws
+    // NullPointerException
+    public void navigationHandlerHandleNavigationCaseNPETest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        Application application = getApplication();
 
-    if (application == null) {
-      out.println(JSFTestUtil.APP_NULL_MSG);
-      return;
-    }
+        if (application == null) {
+            out.println(JSFTestUtil.APP_NULL_MSG);
+            return;
+        }
 
-    NavigationHandler nh = application.getNavigationHandler();
+        NavigationHandler nh = application.getNavigationHandler();
 
-    JSFTestUtil.checkForNPE(nh, "handleNavigation",
-        new Class<?>[] { FacesContext.class, String.class, String.class },
-        new Object[] { null, "#{bogus.postOne}", "" }, out);
+        JSFTestUtil.checkForNPE(
+            nh, "handleNavigation",
+            new Class<?>[] { FacesContext.class, String.class, String.class },
+            new Object[] { null, "#{bogus.postOne}", "" }, out
+        );
 
-  }// End navigationHandlerHandleNavigationCaseNPETest
+    }// End navigationHandlerHandleNavigationCaseNPETest
 
 }

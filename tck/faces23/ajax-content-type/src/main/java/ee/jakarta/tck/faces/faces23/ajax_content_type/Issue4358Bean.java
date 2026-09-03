@@ -37,8 +37,8 @@ public class Issue4358Bean {
     }
 
     /**
-     * Reports SUCCESS when the content type set most recently before the response output was first obtained is the one
-     * required for this kind of request: text/xml for a partial response, text/html otherwise.
+     * Reports SUCCESS when the content type set most recently before the response output was first obtained is the one required for this kind of request:
+     * text/xml for a partial response, text/html otherwise.
      */
     public String getResult() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -72,4 +72,5 @@ public class Issue4358Bean {
     private static List<String> calls(FacesContext context) {
         return ((RecordingExternalContext) context.getExternalContext()).getCalls();
     }
+
 }

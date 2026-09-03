@@ -30,9 +30,8 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 /**
- * The map behind {@link UIComponent#getPassThroughAttributes(boolean)} carries the guarantees its javadoc states -
- * serializable, no null key or value, no non-String key - and iterates in the order the attributes were declared, so a
- * view renders its pass-through attributes byte-identically across requests.
+ * The map behind {@link UIComponent#getPassThroughAttributes(boolean)} carries the guarantees its javadoc states - serializable, no null key or value, no
+ * non-String key - and iterates in the order the attributes were declared, so a view renders its pass-through attributes byte-identically across requests.
  */
 class UIComponentBasePassThroughAttributesTest {
 
@@ -62,8 +61,7 @@ class UIComponentBasePassThroughAttributesTest {
     }
 
     /**
-     * Reading the attributes of a component that has none must not give it a state helper, since every rendered element
-     * asks for them.
+     * Reading the attributes of a component that has none must not give it a state helper, since every rendered element asks for them.
      */
     @Test
     void readingWithoutCreatingLeavesTheComponentStateless() {
@@ -72,4 +70,5 @@ class UIComponentBasePassThroughAttributesTest {
         assertNull(component.getPassThroughAttributes(false));
         assertNull(component.getStateHelper(false));
     }
+
 }

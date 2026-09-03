@@ -27,9 +27,9 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 /**
- * The rows an iteration is rendered over, as a list, a map keyed by string, a map keyed by the very type an index has,
- * and a set, and the empty list it iterates instead once the build time condition which selects between the two no
- * longer holds, so that the rows the response was rendered from outlive the items the restore iterates.
+ * The rows an iteration is rendered over, as a list, a map keyed by string, a map keyed by the very type an index has, and a set, and the empty list it
+ * iterates instead once the build time condition which selects between the two no longer holds, so that the rows the response was rendered from outlive the
+ * items the restore iterates.
  */
 @Named
 @SessionScoped
@@ -59,6 +59,7 @@ public class Issue5961Rows implements Serializable {
         public String toString() {
             return name;
         }
+
     }
 
     private final List<Row> items = new ArrayList<>(List.of(new Row("a"), new Row("b")));
@@ -126,4 +127,5 @@ public class Issue5961Rows implements Serializable {
     public String getSetNames() {
         return set.stream().map(Row::getName).reduce((first, second) -> first + "," + second).orElse("");
     }
+
 }

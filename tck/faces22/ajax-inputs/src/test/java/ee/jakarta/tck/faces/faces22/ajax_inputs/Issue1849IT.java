@@ -27,16 +27,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that the state of an f:ajax behavior on a selectBooleanCheckbox, which conditionally renders a
- * command button, survives ajax updates and a full non-ajax postback reload while the bean is held in a CDI
- * conversation.
+ * Verifies that the state of an f:ajax behavior on a selectBooleanCheckbox, which conditionally renders a command button, survives ajax updates and a full
+ * non-ajax postback reload while the bean is held in a CDI conversation.
  */
 class Issue1849IT extends BaseITNG {
 
     /**
-     * Toggling the checkbox via f:ajax renders the conditional command button into the panelGroup, and that
-     * rendered state is preserved across a non-ajax reload because showButton lives in a CDI conversation;
-     * toggling it back removes the button, again surviving a reload.
+     * Toggling the checkbox via f:ajax renders the conditional command button into the panelGroup, and that rendered state is preserved across a non-ajax
+     * reload because showButton lives in a CDI conversation; toggling it back removes the button, again surviving a reload.
      *
      * @see jakarta.faces.component.behavior.AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1849
@@ -60,4 +58,5 @@ class Issue1849IT extends BaseITNG {
         page.guardHttp(reload::click);
         assertFalse(page.containsSource("Click Me"), "Button is removed and absence survives non-ajax reload");
     }
+
 }

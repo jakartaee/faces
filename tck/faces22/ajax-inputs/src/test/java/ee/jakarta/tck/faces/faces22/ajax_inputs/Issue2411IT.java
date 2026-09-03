@@ -32,7 +32,7 @@ class Issue2411IT extends BaseITNG {
 
     /**
      * This test verifies that an attribute named 'value' can be successfully updated from a partial response (over Ajax).
-     * 
+     *
      * @see AjaxBehavior
      * @see HtmlCommandButton#getValue()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2411
@@ -45,4 +45,5 @@ class Issue2411IT extends BaseITNG {
         page.guardAjax(page.findElement(By.id("form1:button"))::click);
         assertEquals("bar", foo.getDomProperty("value"));
     }
+
 }

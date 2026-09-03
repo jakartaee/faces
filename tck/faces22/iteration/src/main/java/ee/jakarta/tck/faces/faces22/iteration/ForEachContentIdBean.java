@@ -24,9 +24,8 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs a page whose c:forEach derives each component's id from the item value. Replacing the list with a same-size
- * list of different values must regenerate the ids, so it exercises the case where the iteration count is unchanged
- * but the per-element build-time attributes are not.
+ * Backs a page whose c:forEach derives each component's id from the item value. Replacing the list with a same-size list of different values must regenerate
+ * the ids, so it exercises the case where the iteration count is unchanged but the per-element build-time attributes are not.
  */
 @Named
 @ViewScoped
@@ -47,4 +46,5 @@ public class ForEachContentIdBean implements Serializable {
         items = new ArrayList<>(List.of("x", "y", "z"));
         return null;
     }
+
 }

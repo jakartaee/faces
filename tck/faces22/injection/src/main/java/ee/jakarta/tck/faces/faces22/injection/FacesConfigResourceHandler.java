@@ -52,4 +52,5 @@ public class FacesConfigResourceHandler extends ResourceHandlerWrapper {
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

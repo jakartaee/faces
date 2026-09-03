@@ -28,33 +28,149 @@ class NumberConverterIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void numConverterGetSetCurrencyCodeTest() { runServletTest("numConverterGetSetCurrencyCodeTest"); }
-    @Test void numConverterGetSetCurrencySymbolTest() { runServletTest("numConverterGetSetCurrencySymbolTest"); }
-    @Test void numConverterGetSetLocaleTest() { runServletTest("numConverterGetSetLocaleTest"); }
-    @Test void numConverterGetSetMaxFractionDigitsTest() { runServletTest("numConverterGetSetMaxFractionDigitsTest"); }
-    @Test void numConverterGetSetMaxIntegerDigitsTest() { runServletTest("numConverterGetSetMaxIntegerDigitsTest"); }
-    @Test void numConverterGetSetMinFractionDigitsTest() { runServletTest("numConverterGetSetMinFractionDigitsTest"); }
-    @Test void numConverterGetSetMinIntegerDigitsTest() { runServletTest("numConverterGetSetMinIntegerDigitsTest"); }
-    @Test void numConverterGetSetPatternTest() { runServletTest("numConverterGetSetPatternTest"); }
-    @Test void numConverterGetSetTypeTest() { runServletTest("numConverterGetSetTypeTest"); }
-    @Test void numConverterIsSetGroupingUsedTest() { runServletTest("numConverterIsSetGroupingUsedTest"); }
-    @Test void numConverterIsSetIntegerOnlyTest() { runServletTest("numConverterIsSetIntegerOnlyTest"); }
-    @Test void numConverterIsSetTransientTest() { runServletTest("numConverterIsSetTransientTest"); }
-    @Test void numConverterGetAsObjectNullZeroLengthTest() { runServletTest("numConverterGetAsObjectNullZeroLengthTest"); }
-    @Test void numConverterGetAsObjectLocaleTest() { runServletTest("numConverterGetAsObjectLocaleTest"); }
-    @Test void numConverterGetAsObjectPatternTest() { runServletTest("numConverterGetAsObjectPatternTest"); }
-    @Test void numConverterGetAsObjectTypeTest() { runServletTest("numConverterGetAsObjectTypeTest"); }
-    @Test void numConverterGetAsObjectParseIntOnlyTest() { runServletTest("numConverterGetAsObjectParseIntOnlyTest"); }
-    @Test void numConverterGetAsStringNullZeroLengthTest() { runServletTest("numConverterGetAsStringNullZeroLengthTest"); }
-    @Test void numConverterGetAsStringLocaleTest() { runServletTest("numConverterGetAsStringLocaleTest"); }
-    @Test void numConverterGetAsStringPatternTest() { runServletTest("numConverterGetAsStringPatternTest"); }
-    @Test void numConverterGetAsStringTypeTest() { runServletTest("numConverterGetAsStringTypeTest"); }
-    @Test void numConverterGetAsStringGroupingTest() { runServletTest("numConverterGetAsStringGroupingTest"); }
-    @Test void numConverterGetAsStringMinMaxIntegerTest() { runServletTest("numConverterGetAsStringMinMaxIntegerTest"); }
-    @Test void numConverterGetAsStringMinMaxFractionTest() { runServletTest("numConverterGetAsStringMinMaxFractionTest"); }
-    @Test void numConverterGetAsStringCurrencySymbolTest() { runServletTest("numConverterGetAsStringCurrencySymbolTest"); }
-    @Test void numConverterGetAsStringCurrencyCodeTest() { runServletTest("numConverterGetAsStringCurrencyCodeTest"); }
-    @Test void numConverterGetAsStringCurrencyCodeSymbolTest() { runServletTest("numConverterGetAsStringCurrencyCodeSymbolTest"); }
-    @Test void numConverterGetAsObjectNPETest() { runServletTest("numConverterGetAsObjectNPETest"); }
-    @Test void numConverterGetAsStringNPETest() { runServletTest("numConverterGetAsStringNPETest"); }
+    @Test
+    void numConverterGetSetCurrencyCodeTest() {
+        runServletTest("numConverterGetSetCurrencyCodeTest");
+    }
+
+    @Test
+    void numConverterGetSetCurrencySymbolTest() {
+        runServletTest("numConverterGetSetCurrencySymbolTest");
+    }
+
+    @Test
+    void numConverterGetSetLocaleTest() {
+        runServletTest("numConverterGetSetLocaleTest");
+    }
+
+    @Test
+    void numConverterGetSetMaxFractionDigitsTest() {
+        runServletTest("numConverterGetSetMaxFractionDigitsTest");
+    }
+
+    @Test
+    void numConverterGetSetMaxIntegerDigitsTest() {
+        runServletTest("numConverterGetSetMaxIntegerDigitsTest");
+    }
+
+    @Test
+    void numConverterGetSetMinFractionDigitsTest() {
+        runServletTest("numConverterGetSetMinFractionDigitsTest");
+    }
+
+    @Test
+    void numConverterGetSetMinIntegerDigitsTest() {
+        runServletTest("numConverterGetSetMinIntegerDigitsTest");
+    }
+
+    @Test
+    void numConverterGetSetPatternTest() {
+        runServletTest("numConverterGetSetPatternTest");
+    }
+
+    @Test
+    void numConverterGetSetTypeTest() {
+        runServletTest("numConverterGetSetTypeTest");
+    }
+
+    @Test
+    void numConverterIsSetGroupingUsedTest() {
+        runServletTest("numConverterIsSetGroupingUsedTest");
+    }
+
+    @Test
+    void numConverterIsSetIntegerOnlyTest() {
+        runServletTest("numConverterIsSetIntegerOnlyTest");
+    }
+
+    @Test
+    void numConverterIsSetTransientTest() {
+        runServletTest("numConverterIsSetTransientTest");
+    }
+
+    @Test
+    void numConverterGetAsObjectNullZeroLengthTest() {
+        runServletTest("numConverterGetAsObjectNullZeroLengthTest");
+    }
+
+    @Test
+    void numConverterGetAsObjectLocaleTest() {
+        runServletTest("numConverterGetAsObjectLocaleTest");
+    }
+
+    @Test
+    void numConverterGetAsObjectPatternTest() {
+        runServletTest("numConverterGetAsObjectPatternTest");
+    }
+
+    @Test
+    void numConverterGetAsObjectTypeTest() {
+        runServletTest("numConverterGetAsObjectTypeTest");
+    }
+
+    @Test
+    void numConverterGetAsObjectParseIntOnlyTest() {
+        runServletTest("numConverterGetAsObjectParseIntOnlyTest");
+    }
+
+    @Test
+    void numConverterGetAsStringNullZeroLengthTest() {
+        runServletTest("numConverterGetAsStringNullZeroLengthTest");
+    }
+
+    @Test
+    void numConverterGetAsStringLocaleTest() {
+        runServletTest("numConverterGetAsStringLocaleTest");
+    }
+
+    @Test
+    void numConverterGetAsStringPatternTest() {
+        runServletTest("numConverterGetAsStringPatternTest");
+    }
+
+    @Test
+    void numConverterGetAsStringTypeTest() {
+        runServletTest("numConverterGetAsStringTypeTest");
+    }
+
+    @Test
+    void numConverterGetAsStringGroupingTest() {
+        runServletTest("numConverterGetAsStringGroupingTest");
+    }
+
+    @Test
+    void numConverterGetAsStringMinMaxIntegerTest() {
+        runServletTest("numConverterGetAsStringMinMaxIntegerTest");
+    }
+
+    @Test
+    void numConverterGetAsStringMinMaxFractionTest() {
+        runServletTest("numConverterGetAsStringMinMaxFractionTest");
+    }
+
+    @Test
+    void numConverterGetAsStringCurrencySymbolTest() {
+        runServletTest("numConverterGetAsStringCurrencySymbolTest");
+    }
+
+    @Test
+    void numConverterGetAsStringCurrencyCodeTest() {
+        runServletTest("numConverterGetAsStringCurrencyCodeTest");
+    }
+
+    @Test
+    void numConverterGetAsStringCurrencyCodeSymbolTest() {
+        runServletTest("numConverterGetAsStringCurrencyCodeSymbolTest");
+    }
+
+    @Test
+    void numConverterGetAsObjectNPETest() {
+        runServletTest("numConverterGetAsObjectNPETest");
+    }
+
+    @Test
+    void numConverterGetAsStringNPETest() {
+        runServletTest("numConverterGetAsStringNPETest");
+    }
+
 }

@@ -38,26 +38,22 @@ public class CharacterConverter implements Converter<Character> {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Character</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Character</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String CHARACTER_ID = "jakarta.faces.converter.CharacterConverter.CHARACTER";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the
-     * <code>Character</code> value to <code>String</code> fails. The message format string for this message may optionally
-     * include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the <code>Character</code> value to
+     * <code>String</code> fails. The message format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> relaced by the unconverted value.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String STRING_ID = "jakarta.faces.converter.STRING";
@@ -86,7 +82,8 @@ public class CharacterConverter implements Converter<Character> {
 
         try {
             return value.charAt(0);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, CHARACTER_ID, value, MessageFactory.getLabel(context, component)), e);
         }
     }
@@ -109,8 +106,10 @@ public class CharacterConverter implements Converter<Character> {
 
         try {
             return value.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(e);
         }
     }
+
 }

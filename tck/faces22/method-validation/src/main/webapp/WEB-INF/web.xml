@@ -35,7 +35,7 @@
         <param-name>jakarta.faces.SERIALIZE_SERVER_STATE</param-name>
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
-    
+
     <!-- As requested by https://github.com/jakartaee/faces/issues/1716 -->
     <context-param>
         <param-name>jakarta.faces.FACELETS_BUFFER_SIZE</param-name>

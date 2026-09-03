@@ -47,4 +47,5 @@ class Spec1466IT extends BaseITNG {
             () -> assertEquals("{ONE2=ONE2, TWO2=TWO2, THREE2=THREE2}", spec1466Constants2b.getText())
         );
     }
+
 }

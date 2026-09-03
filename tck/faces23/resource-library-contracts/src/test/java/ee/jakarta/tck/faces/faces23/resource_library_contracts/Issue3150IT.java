@@ -24,9 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 class Issue3150IT extends BaseITNG {
 
     /**
-     * A ui:composition template referencing an absolute path under /contracts that
-     * does not resolve to an active resource library contract must fail to build the
-     * view, resulting in a server error rather than a rendered page.
+     * A ui:composition template referencing an absolute path under /contracts that does not resolve to an active resource library contract must fail to build
+     * the view, resulting in a server error rather than a rendered page.
      *
      * @see jakarta.faces.application.ResourceHandler
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3150
@@ -35,4 +34,5 @@ class Issue3150IT extends BaseITNG {
     void unresolvableContractTemplateFails() {
         assertEquals(500, getStatusCode("issue3150.xhtml"), "unresolvable contract template must fail");
     }
+
 }

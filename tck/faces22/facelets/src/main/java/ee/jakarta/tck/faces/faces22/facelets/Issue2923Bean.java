@@ -52,4 +52,5 @@ public class Issue2923Bean {
     public Map<String, Issue2923Enum> getChoices() {
         return choices;
     }
+
 }

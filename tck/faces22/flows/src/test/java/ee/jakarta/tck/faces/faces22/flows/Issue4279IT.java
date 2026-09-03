@@ -24,9 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Returning from a nested flow (flow1 calls flow2) must behave identically whether or not
- * {@code ConfigurableNavigationHandler.getNavigationCase} was invoked first: that lookup must
- * not have a side effect on the flow stack. Both return paths must end back on the flow1 start page.
+ * Returning from a nested flow (flow1 calls flow2) must behave identically whether or not {@code ConfigurableNavigationHandler.getNavigationCase} was invoked
+ * first: that lookup must not have a side effect on the flow stack. Both return paths must end back on the flow1 start page.
  */
 class Issue4279IT extends BaseITNG {
 
@@ -50,7 +49,10 @@ class Issue4279IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("returnFromFlow1")).click());
 
         // Out of all flows, back on the index page that offers the flow1 entry button.
-        assertFalse(page.findElements(By.id("flow1")).isEmpty(),
-                "returned to flow1 entry page after exiting nested flows via " + returnFromFlow2ButtonId);
+        assertFalse(
+            page.findElements(By.id("flow1")).isEmpty(),
+            "returned to flow1 entry page after exiting nested flows via " + returnFromFlow2ButtonId
+        );
     }
+
 }

@@ -25,18 +25,16 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A {@code ViewExpiredException} raised by a plain HTTP postback must be dispatched to the
- * {@code error-page} which web.xml declares for it, rather than surfacing as a raw stack trace.
- * The postback deliberately is not an ajax one: Faces handles ajax errors itself by returning an
- * {@code error} partial response, which bypasses the container's error-page entirely.
+ * A {@code ViewExpiredException} raised by a plain HTTP postback must be dispatched to the {@code error-page} which web.xml declares for it, rather than
+ * surfacing as a raw stack trace. The postback deliberately is not an ajax one: Faces handles ajax errors itself by returning an {@code error} partial
+ * response, which bypasses the container's error-page entirely.
  */
 class ViewExpiredExceptionErrorPageIT extends BaseITNG {
 
     /**
-     * The session is expired by shortening its max inactive interval, so the postback must be
-     * preceded by more idle time than that interval; the container only detects the expiry upon the
-     * next access. Waiting longer than strictly necessary cannot break this: idle time exceeding the
-     * interval is exactly the condition being set up.
+     * The session is expired by shortening its max inactive interval, so the postback must be preceded by more idle time than that interval; the container only
+     * detects the expiry upon the next access. Waiting longer than strictly necessary cannot break this: idle time exceeding the interval is exactly the
+     * condition being set up.
      */
     private static final long IDLE_TIME_EXCEEDING_SESSION_INTERVAL = 2000;
 
@@ -56,4 +54,5 @@ class ViewExpiredExceptionErrorPageIT extends BaseITNG {
             assertEquals("Error page invoked", page.findElement(By.id("errorPage")).getText(), "error page invoked");
         }
     }
+
 }

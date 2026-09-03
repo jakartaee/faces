@@ -18,49 +18,55 @@ package ee.jakarta.tck.faces.faces20.api.facesexception;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.FacesException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
 
 @WebServlet("/FacesExceptionTestServlet")
 public class FacesExceptionTestServlet extends HttpTCKServlet {
 
     public void facesExceptionCtor1Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         FacesException fe = new FacesException();
         if (fe == null) {
             pw.println("Test FAILED: FacesException() returned null.");
-        } else {
+        }
+        else {
             pw.println(JSFTestUtil.PASS);
         }
     }
 
     public void facesExceptionCtor2Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         String msg = "This is a test message";
         FacesException fe = new FacesException(msg);
         if (fe != null) {
             if (msg.equals(fe.getMessage().trim())) {
                 pw.println(JSFTestUtil.PASS);
-            } else {
+            }
+            else {
                 pw.println(JSFTestUtil.FAIL + " Exception message was not set properly.");
                 pw.println("Expected: " + msg);
                 pw.println("Received: " + fe.getMessage());
             }
-        } else {
+        }
+        else {
             pw.println("Test FAILED: FacesException(String) returned null.");
         }
     }
 
     public void facesExceptionCtor3Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         ServletException se = new ServletException();
         FacesException fe = new FacesException(se);
@@ -69,21 +75,25 @@ public class FacesExceptionTestServlet extends HttpTCKServlet {
             if (t != null) {
                 if (t instanceof ServletException) {
                     pw.println(JSFTestUtil.PASS);
-                } else {
+                }
+                else {
                     pw.println(JSFTestUtil.FAIL + " FacesException.getCause() returned unexpected exception type.");
                     pw.println("Excpected: jakarta.servlet.ServletException");
                     pw.println("Received: " + t.getClass().getName());
                 }
-            } else {
+            }
+            else {
                 pw.println(JSFTestUtil.FAIL + " FacesException.getCause() return null.");
             }
-        } else {
+        }
+        else {
             pw.println(JSFTestUtil.FAIL + " FacesException(Throwable) return null.");
         }
     }
 
     public void facesExceptionCtor4Test(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         String msg = "This is a test message";
         ServletException se = new ServletException();
@@ -94,26 +104,31 @@ public class FacesExceptionTestServlet extends HttpTCKServlet {
                 if (t instanceof ServletException) {
                     if (msg.equals(fe.getMessage().trim())) {
                         pw.println(JSFTestUtil.PASS);
-                    } else {
+                    }
+                    else {
                         pw.println(JSFTestUtil.FAIL + " Exception message was not set properly.");
                         pw.println("Expected: " + msg);
                         pw.println("Received: " + fe.getMessage());
                     }
-                } else {
+                }
+                else {
                     pw.println(JSFTestUtil.FAIL + " FacesException.getCause() returned unexpected exception type.");
                     pw.println("Excpected: jakarta.servlet.ServletException");
                     pw.println("Received: " + t.getClass().getName());
                 }
-            } else {
+            }
+            else {
                 pw.println(JSFTestUtil.FAIL + " FacesException.getCause() return null.");
             }
-        } else {
+        }
+        else {
             pw.println(JSFTestUtil.FAIL + " FacesException(Throwable) return null.");
         }
     }
 
     public void facesExceptionGetCauseTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter pw = response.getWriter();
         FacesException fe = new FacesException(new ServletException());
         if (fe != null) {
@@ -121,16 +136,20 @@ public class FacesExceptionTestServlet extends HttpTCKServlet {
             if (t != null) {
                 if (t instanceof ServletException) {
                     pw.println(JSFTestUtil.PASS);
-                } else {
+                }
+                else {
                     pw.println(JSFTestUtil.FAIL + " FacesException.getCause() returned unexepected Exception type.");
                     pw.println("Expected: jakarta.servlet.ServletException");
                     pw.println("Received: " + t.getClass().getName());
                 }
-            } else {
+            }
+            else {
                 pw.println(JSFTestUtil.FAIL + " FacesException.getCause() returned null.");
             }
-        } else {
+        }
+        else {
             pw.println(JSFTestUtil.FAIL + " FacesException(Throwable) return null.");
         }
     }
+
 }

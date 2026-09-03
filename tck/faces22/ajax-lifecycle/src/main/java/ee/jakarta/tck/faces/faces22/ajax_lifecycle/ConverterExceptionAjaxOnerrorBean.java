@@ -32,4 +32,5 @@ public class ConverterExceptionAjaxOnerrorBean {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

@@ -28,5 +28,9 @@ class ProtectedViewExIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void protectViewExceptionTest() { runServletTest("protectViewExceptionTest"); }
+    @Test
+    void protectViewExceptionTest() {
+        runServletTest("protectViewExceptionTest");
+    }
+
 }

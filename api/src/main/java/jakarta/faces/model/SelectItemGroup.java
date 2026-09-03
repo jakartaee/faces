@@ -23,19 +23,16 @@ import jakarta.faces.component.UISelectOne;
 
 /**
  * <p>
- * <strong>SelectItemGroup</strong> is a subclass of {@link SelectItem} that identifies a set of options that will be
- * made available as a subordinate "submenu" or "options list", depending upon the requirements of the
- * {@link UISelectMany} or {@link UISelectOne} renderer that is actually used. In general, the <code>value</code>
- * property of this instance will be ignored, and the <code>label</code> property of this instance will be used to label
- * the submenu.
+ * <strong>SelectItemGroup</strong> is a subclass of {@link SelectItem} that identifies a set of options that will be made available as a subordinate "submenu"
+ * or "options list", depending upon the requirements of the {@link UISelectMany} or {@link UISelectOne} renderer that is actually used. In general, the
+ * <code>value</code> property of this instance will be ignored, and the <code>label</code> property of this instance will be used to label the submenu.
  * </p>
  *
  * <p>
- * Although it is feasible to incorporate {@link SelectItemGroup} instances in he <code>selectItems</code> property of
- * this instance (thereby creating a data structure suitable for cascading submenus), some renderers may place
- * restrictions on the level of nesting they support. For example, HTML based renderers that create an
- * <code>&lt;select&gt;</code> element will typically render this instance as an <code>&lt;optgroup&gt;</code> element,
- * but the HTML 4.01 Specification disallows nested option groups.
+ * Although it is feasible to incorporate {@link SelectItemGroup} instances in he <code>selectItems</code> property of this instance (thereby creating a data
+ * structure suitable for cascading submenus), some renderers may place restrictions on the level of nesting they support. For example, HTML based renderers
+ * that create an <code>&lt;select&gt;</code> element will typically render this instance as an <code>&lt;optgroup&gt;</code> element, but the HTML 4.01
+ * Specification disallows nested option groups.
  * </p>
  */
 
@@ -58,9 +55,9 @@ public class SelectItemGroup extends SelectItem {
 
     /**
      * <p>
-     * Construct a <code>SelectItemGroup</code> with the specified label and no associated <code>selectItem</code>s. The
-     * <code>value</code> property will be set to a zero-length String, the <code>description</code> property will be set to
-     * <code>null</code>, and the <code>disabled</code> property will be set to false.
+     * Construct a <code>SelectItemGroup</code> with the specified label and no associated <code>selectItem</code>s. The <code>value</code> property will be set
+     * to a zero-length String, the <code>description</code> property will be set to <code>null</code>, and the <code>disabled</code> property will be set to
+     * false.
      * </p>
      *
      * @param label Label to be rendered for this group in the response
@@ -75,8 +72,7 @@ public class SelectItemGroup extends SelectItem {
 
     /**
      * <p>
-     * Construct a <code>SelectItemGroup</code> with the specified properties. The <code>value</code> property will be set
-     * to a zero-length String.
+     * Construct a <code>SelectItemGroup</code> with the specified properties. The <code>value</code> property will be set to a zero-length String.
      * </p>
      *
      * @param label Label to be rendered for this group in the response
@@ -95,8 +91,7 @@ public class SelectItemGroup extends SelectItem {
 
     /**
      * <p class="changed_added_4_0">
-     * Construct a <code>SelectItemGroup</code> with the specified properties. The <code>value</code> property will be set
-     * to a zero-length String.
+     * Construct a <code>SelectItemGroup</code> with the specified properties. The <code>value</code> property will be set to a zero-length String.
      * </p>
      *
      * @param label Label to be rendered for this group in the response
@@ -105,7 +100,7 @@ public class SelectItemGroup extends SelectItem {
      * @param selectItems Collection of {@link SelectItem} describing the items available in this group
      *
      * @throws NullPointerException if <code>label</code> or <code>selectItems</code> is <code>false</code>
-     * 
+     *
      * @since 4.0
      */
     public SelectItemGroup(String label, String description, boolean disabled, Collection<? extends SelectItem> selectItems) {
@@ -160,7 +155,7 @@ public class SelectItemGroup extends SelectItem {
      * @param selectItems The new set of subordinate items as a collection.
      *
      * @throws NullPointerException if <code>selectItems</code> is <code>null</code>
-     * 
+     *
      * @since 4.0
      */
     public void setSelectItems(Collection<? extends SelectItem> selectItems) {

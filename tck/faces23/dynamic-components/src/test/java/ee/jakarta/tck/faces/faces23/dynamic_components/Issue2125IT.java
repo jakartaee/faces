@@ -26,8 +26,7 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Each postback programmatically appends another HtmlOutputText child to a panel group, so the
- * rendered text accumulates one "OUTPUT" per AddComponent click.
+ * Each postback programmatically appends another HtmlOutputText child to a panel group, so the rendered text accumulates one "OUTPUT" per AddComponent click.
  */
 public class Issue2125IT extends BaseITNG {
 
@@ -61,4 +60,5 @@ public class Issue2125IT extends BaseITNG {
         page.guardHttp(button::click);
         assertEquals(2, outputChildCount(page));
     }
+
 }

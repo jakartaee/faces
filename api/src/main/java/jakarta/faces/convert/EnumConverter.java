@@ -22,8 +22,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <span class="changed_modified_2_0 changed_modified_2_0_rev_a">{@link Converter}</span> implementation for
- * <code>java.lang.Enum</code> (and enum primitive) values.
+ * <span class="changed_modified_2_0 changed_modified_2_0_rev_a">{@link Converter}</span> implementation for <code>java.lang.Enum</code> (and enum primitive)
+ * values.
  * </p>
  *
  * @since 1.2
@@ -41,27 +41,23 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Enum</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Enum</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by one of the enum constants or the empty string if none can be found.</li>
-     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String ENUM_ID = "jakarta.faces.converter.EnumConverter.ENUM";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Enum</code> fails and no target class has been provided. The message format string for this message may
-     * optionally include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Enum</code> fails and no target
+     * class has been provided. The message format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String ENUM_NO_CLASS_ID = "jakarta.faces.converter.EnumConverter.ENUM_NO_CLASS";
@@ -70,12 +66,12 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
     private boolean isTransient;
     private boolean initialState;
 
-   /**
-    * <p class="changed_modified_5_0">
-    * Instantiates an enum converter whereby the target class is automatically inferred from the model value in
-    * {@link #getAsString(FacesContext, UIComponent, Enum)} or the return type of the getter method associated with the model value.
-    * </p>
-    */
+    /**
+     * <p class="changed_modified_5_0">
+     * Instantiates an enum converter whereby the target class is automatically inferred from the model value in
+     * {@link #getAsString(FacesContext, UIComponent, Enum)} or the return type of the getter method associated with the model value.
+     * </p>
+     */
     public EnumConverter() {
 
     }
@@ -91,20 +87,17 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
         this.targetClass = targetClass;
     }
 
-
     // ----------------------------------------------------- Converter Methods
 
     /**
      * <p>
-     * Convert the <code>value</code> argument to one of the enum constants of the class provided in our constructor. If no
-     * target class argument has been provided to the constructor of this instance <span class="changed_modified_5_0">or
-     * inferred in the {@link #getAsString(FacesContext, UIComponent, Enum)} method, then use the return type of the getter
-     * method associated with the model value. If it cannot be inferred, then</span> throw a <code>ConverterException</code>
-     * containing the {@link #ENUM_NO_CLASS_ID} message with proper parameters. If the <code>value</code> argument is
-     * <code>null</code> or it has a length of zero, return <code>null</code>. Otherwise, perform the equivalent of
-     * <code>Enum.valueOf</code> using target class and <code>value</code> and return the <code>Object</code>. If the
-     * conversion fails, throw a <code>ConverterException</code> containing the {@link #ENUM_ID} message with proper
-     * parameters.
+     * Convert the <code>value</code> argument to one of the enum constants of the class provided in our constructor. If no target class argument has been
+     * provided to the constructor of this instance <span class="changed_modified_5_0">or inferred in the {@link #getAsString(FacesContext, UIComponent, Enum)}
+     * method, then use the return type of the getter method associated with the model value. If it cannot be inferred, then</span> throw a
+     * <code>ConverterException</code> containing the {@link #ENUM_NO_CLASS_ID} message with proper parameters. If the <code>value</code> argument is
+     * <code>null</code> or it has a length of zero, return <code>null</code>. Otherwise, perform the equivalent of <code>Enum.valueOf</code> using target class
+     * and <code>value</code> and return the <code>Object</code>. If the conversion fails, throw a <code>ConverterException</code> containing the
+     * {@link #ENUM_ID} message with proper parameters.
      * </p>
      *
      * @param context the <code>FacesContext</code> for this request.
@@ -139,22 +132,21 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
 
         try {
             return Enum.valueOf(targetClass, value);
-        } catch (IllegalArgumentException iae) {
+        }
+        catch (IllegalArgumentException iae) {
             throw new ConverterException(MessageFactory.getMessage(context, ENUM_ID, value, value, MessageFactory.getLabel(context, component)), iae);
         }
     }
 
     /**
      * <p class="changed_modified_2_3">
-     * Convert the enum constant given by the <code>value</code> argument into a String. If no target class argument has
-     * been provided to the constructor of this instance, <span class="changed_modified_5_0">then use {@link Class#getDeclaringClass()} of the
-     * <code>value</code> argument as target class, or if the <code>value</code> argument is <code>null</code>, then use the return type of the
-     * getter method associated with the model value. If it cannot be inferred, then</span> throw a <code>ConverterException</code> containing the
-     * {@link #ENUM_NO_CLASS_ID} message with proper parameters. If the <code>value</code> argument is <code>null</code>,
-     * return the empty String. If the value is an instance of the provided target class, return its string value by
-     * <span class="changed_added_2_0">casting it to a <code>java.lang.Enum</code> and returning the result of calling the
-     * <code>name()</code> method.</span> Otherwise, throw a {@link ConverterException} containing the {@link #ENUM_ID}
-     * message with proper parameters.
+     * Convert the enum constant given by the <code>value</code> argument into a String. If no target class argument has been provided to the constructor of
+     * this instance, <span class="changed_modified_5_0">then use {@link Class#getDeclaringClass()} of the <code>value</code> argument as target class, or if
+     * the <code>value</code> argument is <code>null</code>, then use the return type of the getter method associated with the model value. If it cannot be
+     * inferred, then</span> throw a <code>ConverterException</code> containing the {@link #ENUM_NO_CLASS_ID} message with proper parameters. If the
+     * <code>value</code> argument is <code>null</code>, return the empty String. If the value is an instance of the provided target class, return its string
+     * value by <span class="changed_added_2_0">casting it to a <code>java.lang.Enum</code> and returning the result of calling the <code>name()</code>
+     * method.</span> Otherwise, throw a {@link ConverterException} containing the {@link #ENUM_ID} message with proper parameters.
      * </p>
      *
      * @throws ConverterException {@inheritDoc}
@@ -234,4 +226,5 @@ public class EnumConverter implements Converter<Enum>, PartialStateHolder {
     public void clearInitialState() {
         initialState = false;
     }
+
 }

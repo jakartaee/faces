@@ -26,8 +26,7 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A component added programmatically to a container inside a data table row must render in the proper place, and
- * must stay there across postbacks.
+ * A component added programmatically to a container inside a data table row must render in the proper place, and must stay there across postbacks.
  */
 public class Issue5865IT extends BaseITNG {
 
@@ -36,16 +35,15 @@ public class Issue5865IT extends BaseITNG {
     private static int addedCount(WebPage page) {
         String source = page.getSource();
         int count = 0;
-        for (int i = source.indexOf(Issue5865Bean.ADDED); i >= 0;
-                i = source.indexOf(Issue5865Bean.ADDED, i + Issue5865Bean.ADDED.length())) {
+        for (int i = source.indexOf(Issue5865Bean.ADDED); i >= 0; i = source.indexOf(Issue5865Bean.ADDED, i + Issue5865Bean.ADDED.length())) {
             count++;
         }
         return count;
     }
 
     /**
-     * The add is performed by a command button inside a row, so the row index is set while it runs. The panel group
-     * it targets is a single component instance reused for every row, so one add renders once per row.
+     * The add is performed by a command button inside a row, so the row index is set while it runs. The panel group it targets is a single component instance
+     * reused for every row, so one add renders once per row.
      *
      * @see jakarta.faces.component.UIComponent#getChildren()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5865
@@ -63,4 +61,5 @@ public class Issue5865IT extends BaseITNG {
         page.guardHttp(postback::click);
         assertEquals(ROWS, addedCount(page), "the added child must survive a postback");
     }
+
 }

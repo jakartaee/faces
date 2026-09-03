@@ -17,13 +17,13 @@
 package jakarta.faces.context;
 
 /**
- * Gives a test access to the protected {@link FacesContext#setCurrentInstance}, which is otherwise unreachable from
- * another package. A subclass may reach a protected <em>static</em> member of its superclass from anywhere, so the
- * access is resolved by the compiler and needs no reflection.
+ * Gives a test access to the protected {@link FacesContext#setCurrentInstance}, which is otherwise unreachable from another package. A subclass may reach a
+ * protected <em>static</em> member of its superclass from anywhere, so the access is resolved by the compiler and needs no reflection.
  */
 public abstract class CurrentFacesContext extends FacesContext {
 
     public static void set(FacesContext facesContext) {
         setCurrentInstance(facesContext);
     }
+
 }

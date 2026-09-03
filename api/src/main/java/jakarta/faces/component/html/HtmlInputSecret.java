@@ -28,13 +28,12 @@ import jakarta.faces.event.BehaviorEvent.FacesComponentEvent;
 
 /**
  * <p>
- * Represents an HTML <code>input</code> element of type <code>password</code>. On a redisplay, any previously entered
- * value will <em>not</em> be rendered (for security reasons) unless the <code>redisplay</code> property is set to
- * <code>true</code>.
+ * Represents an HTML <code>input</code> element of type <code>password</code>. On a redisplay, any previously entered value will <em>not</em> be rendered (for
+ * security reasons) unless the <code>redisplay</code> property is set to <code>true</code>.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Secret</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Secret</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
@@ -56,8 +55,36 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      *
      */
     protected enum PropertyKeys {
-        accesskey, autocomplete, dir, disabled, label, lang, maxlength, onblur, onchange, onclick, ondblclick, onfocus, onkeydown, onkeypress, onkeyup,
-        onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onselect, readonly, redisplay, role, size, style, styleClass, tabindex, title,
+
+        accesskey,
+        autocomplete,
+        dir,
+        disabled,
+        label,
+        lang,
+        maxlength,
+        onblur,
+        onchange,
+        onclick,
+        ondblclick,
+        onfocus,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        onselect,
+        readonly,
+        redisplay,
+        role,
+        size,
+        style,
+        styleClass,
+        tabindex,
+        title,
         ;
 
         String toString;
@@ -73,6 +100,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -108,10 +136,9 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: If the value of this attribute is "off", render "off" as the value of the attribute. This indicates that
-     * the browser should disable its autocomplete feature for this component. This is useful for components that perform
-     * autocompletion and do not want the browser interfering. If this attribute is not set or the value is "on", render
-     * nothing.
+     * Contents: If the value of this attribute is "off", render "off" as the value of the attribute. This indicates that the browser should disable its
+     * autocomplete feature for this component. This is useful for components that perform autocompletion and do not want the browser interfering. If this
+     * attribute is not set or the value is "on", render nothing.
      */
     public java.lang.String getAutocomplete() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.autocomplete);
@@ -136,9 +163,8 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);
@@ -164,9 +190,8 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value
-     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as
-     * disabled="disabled".
+     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value of false causes no attribute to be
+     * rendered, while a value of true causes the attribute to be rendered as disabled="disabled".
      */
     public boolean isDisabled() {
         return getStateHelper().eval(PropertyKeys.disabled, false);
@@ -631,9 +656,8 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this component will prohibit changes by the user. The element may receive focus unless
-     * it has also been disabled. A value of false causes no attribute to be rendered, while a value of true causes the
-     * attribute to be rendered as readonly="readonly".
+     * Contents: Flag indicating that this component will prohibit changes by the user. The element may receive focus unless it has also been disabled. A value
+     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
         return getStateHelper().eval(PropertyKeys.readonly, false);
@@ -658,8 +682,8 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that any existing value in this field should be rendered when the form is created. Because
-     * this is a potential security risk, password values are not displayed by default.
+     * Contents: Flag indicating that any existing value in this field should be rendered when the form is created. Because this is a potential security risk,
+     * password values are not displayed by default.
      */
     public boolean isRedisplay() {
         return getStateHelper().eval(PropertyKeys.redisplay, false);
@@ -686,16 +710,14 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -774,8 +796,8 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -801,8 +823,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer
-     * between 0 and 32767.
+     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer between 0 and 32767.
      */
     public java.lang.String getTabindex() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.tabindex);
@@ -849,7 +870,7 @@ public class HtmlInputSecret extends UIInput implements ClientBehaviorHolder {
 
     @Override
     public Collection<String> getEventNames() {
-        return getFacesEditableValueHolderEventNames(getFacesContext()); 
+        return getFacesEditableValueHolderEventNames(getFacesContext());
     }
 
     @Override

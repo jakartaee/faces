@@ -95,4 +95,5 @@ public class Issue2707Bean implements Serializable {
             }
         }
     }
+
 }

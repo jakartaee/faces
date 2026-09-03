@@ -24,9 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Path-based resource library contract mapping: the /issue2713user subtree
- * resolves to the 'user' contract while everything else resolves to the
- * 'default' contract, as declared in WEB-INF/faces-config.xml.
+ * Path-based resource library contract mapping: the /issue2713user subtree resolves to the 'user' contract while everything else resolves to the 'default'
+ * contract, as declared in WEB-INF/faces-config.xml.
  */
 class Issue2713IT extends BaseITNG {
 
@@ -59,4 +58,5 @@ class Issue2713IT extends BaseITNG {
         WebPage page = getPage("issue2713user/issue2713.xhtml");
         assertEquals("User area contract", page.getTitle());
     }
+
 }

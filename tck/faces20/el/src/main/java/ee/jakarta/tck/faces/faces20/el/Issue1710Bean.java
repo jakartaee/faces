@@ -38,4 +38,5 @@ public class Issue1710Bean implements Serializable {
     public String getBeanHash() {
         return Integer.toHexString(System.identityHashCode(this));
     }
+
 }

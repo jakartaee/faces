@@ -23,8 +23,7 @@ import jakarta.faces.event.PreRenderViewEvent;
 import jakarta.faces.event.SystemEventListener;
 
 /**
- * Shared base for the dynamic test components. Each subclass subscribes to
- * {@link PreRenderViewEvent} and mutates its own children when the view renders.
+ * Shared base for the dynamic test components. Each subclass subscribes to {@link PreRenderViewEvent} and mutates its own children when the view renders.
  */
 public abstract class DynamicComponentBase extends UIComponentBase implements SystemEventListener {
 
@@ -47,4 +46,5 @@ public abstract class DynamicComponentBase extends UIComponentBase implements Sy
     public boolean isListenerForSource(Object source) {
         return source instanceof UIViewRoot;
     }
+
 }

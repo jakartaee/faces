@@ -17,6 +17,7 @@
 package ee.jakarta.tck.faces.faces20.protectedview;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -26,50 +27,50 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class ProtectedViewsTestIT extends BaseITNG {
 
-  /**
-   * @testName: viewProtectedViewNonAccessPointTest
-   * 
-   * @assertion_ids: PENDING
-   * 
-   * @test_Strategy: Validate that a that we can not gain access to a Protected
-   *                 View from out side that views web-app.
-   * 
-   * @since 2.2
-   */
-  @Test
-  void viewProtectedViewNonAccessPointTest() throws Exception {
+    /**
+     * @testName: viewProtectedViewNonAccessPointTest
+     *
+     * @assertion_ids: PENDING
+     *
+     * @test_Strategy: Validate that a that we can not gain access to a Protected View from out side that views web-app.
+     *
+     * @since 2.2
+     */
+    @Test
+    void viewProtectedViewNonAccessPointTest() throws Exception {
 
-    WebPage page = getPage("views/protected.xhtml");
+        WebPage page = getPage("views/protected.xhtml");
 
-    assertEquals(0, page.findElements​(By.id("messOne")).size(), "Illegal Access of a Protected View!");
+        assertEquals(0, page.findElements​(By.id("messOne")).size(), "Illegal Access of a Protected View!");
 
-    assertEquals("jakarta.faces.application.ProtectedViewException", page.findElement(By.id("exception")).getText(), "Expected a ProtectedViewException when accessing a protected view");
+        assertEquals(
+            "jakarta.faces.application.ProtectedViewException", page.findElement(By.id("exception")).getText(),
+            "Expected a ProtectedViewException when accessing a protected view"
+        );
 
-  }
+    }
 
-  /**
-   * @testName: viewProtectedViewSameWebAppAccessTest
-   * 
-   * @assertion_ids: PENDING
-   * 
-   * @test_Strategy: Validate that we are able to gain access to a protected
-   *                 view from inside the same web-app through a non-protected
-   *                 view.
-   * 
-   * @since 2.2
-   */
-  @Test
-  void viewProtectedViewSameWebAppAccessTest() throws Exception {
+    /**
+     * @testName: viewProtectedViewSameWebAppAccessTest
+     *
+     * @assertion_ids: PENDING
+     *
+     * @test_Strategy: Validate that we are able to gain access to a protected view from inside the same web-app through a non-protected view.
+     *
+     * @since 2.2
+     */
+    @Test
+    void viewProtectedViewSameWebAppAccessTest() throws Exception {
 
-    String expected = "This is a Protected View!";
+        String expected = "This is a Protected View!";
 
-    WebPage page = getPage("views/public.xhtml");
+        WebPage page = getPage("views/public.xhtml");
 
-    WebElement anchor = page.findElement(By.id("form1:linkOne"));
-    page.guardAjax(anchor::click);
+        WebElement anchor = page.findElement(By.id("form1:linkOne"));
+        page.guardAjax(anchor::click);
 
-    assertEquals(expected, page.findElement(By.id("messOne")).getText());
+        assertEquals(expected, page.findElement(By.id("messOne")).getText());
 
-  } 
+    }
 
 }

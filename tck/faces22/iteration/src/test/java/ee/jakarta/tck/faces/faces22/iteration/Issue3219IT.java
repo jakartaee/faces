@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3219IT extends BaseITNG {
 
     /**
-     * When the inputs of a ui:repeat row sit in mutually exclusive rendered panels, only the panel belonging
-     * to that row's kind contributes an input, and saving the state of the repeat must not carry a value
-     * from one row over into another.
+     * When the inputs of a ui:repeat row sit in mutually exclusive rendered panels, only the panel belonging to that row's kind contributes an input, and
+     * saving the state of the repeat must not carry a value from one row over into another.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3219
      */
@@ -51,7 +50,10 @@ class Issue3219IT extends BaseITNG {
         assertEquals("b1", page.findElement(By.id("form:repeat:1:b")).getDomProperty("value"), "row 1");
         assertEquals("a2", page.findElement(By.id("form:repeat:2:a")).getDomProperty("value"), "row 2");
         assertEquals("b3", page.findElement(By.id("form:repeat:3:b")).getDomProperty("value"), "row 3");
-        assertEquals(4, page.findElements(By.cssSelector("#form input[type=text]")).size(),
-                "Only the panel matching each row's kind may contribute an input.");
+        assertEquals(
+            4, page.findElements(By.cssSelector("#form input[type=text]")).size(),
+            "Only the panel matching each row's kind may contribute an input."
+        );
     }
+
 }

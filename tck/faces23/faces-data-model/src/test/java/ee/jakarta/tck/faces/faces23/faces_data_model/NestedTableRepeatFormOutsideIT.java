@@ -18,9 +18,8 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * A {@code ui:repeat} nested in an {@code h:dataTable}, with the form wrapping both. The two
- * iterating components are of different types, so each keeps per-row state through its own
- * implementation while the enclosing one must still keep those states apart per row.
+ * A {@code ui:repeat} nested in an {@code h:dataTable}, with the form wrapping both. The two iterating components are of different types, so each keeps per-row
+ * state through its own implementation while the enclosing one must still keep those states apart per row.
  */
 class NestedTableRepeatFormOutsideIT extends NestedIterationITBase {
 
@@ -46,4 +45,5 @@ class NestedTableRepeatFormOutsideIT extends NestedIterationITBase {
     protected String submitId(int outer, int inner) {
         return "form:submit";
     }
+
 }

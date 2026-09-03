@@ -37,4 +37,5 @@ public class Spec1216ViewPhaseListener implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.RENDER_RESPONSE;
     }
+
 }

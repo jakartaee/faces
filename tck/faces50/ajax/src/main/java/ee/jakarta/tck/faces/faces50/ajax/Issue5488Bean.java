@@ -38,4 +38,5 @@ public class Issue5488Bean {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(methodName + " invoked on " + getCurrentComponent(context).getClientId(context)));
     }
+
 }

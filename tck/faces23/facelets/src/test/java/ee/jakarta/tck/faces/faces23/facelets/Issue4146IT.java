@@ -32,18 +32,17 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue4146IT extends BaseITNG {
 
     private static final String[][] EXPECTED_ROWS = {
-        {"a1b2c3d4", "1998", "BMW", "Black"},
-        {"b2c3d4e5", "2003", "Mercedes", "White"},
-        {"c3d4e5f6", "2007", "Volvo", "Green"},
-        {"d4e5f6a7", "2011", "Audi", "Red"},
-        {"e5f6a7b8", "2015", "Renault", "Blue"}
+        { "a1b2c3d4", "1998", "BMW", "Black" },
+        { "b2c3d4e5", "2003", "Mercedes", "White" },
+        { "c3d4e5f6", "2007", "Volvo", "Green" },
+        { "d4e5f6a7", "2011", "Audi", "Red" },
+        { "e5f6a7b8", "2015", "Renault", "Blue" }
     };
 
     /**
-     * A data table bound via {@code binding} to a session scoped property must render identically
-     * when the very same view is requested again within that session. On the second GET the binding
-     * property still holds the component instance of the first view, and building the fresh view
-     * must overwrite it rather than reuse the stale, already detached instance.
+     * A data table bound via {@code binding} to a session scoped property must render identically when the very same view is requested again within that
+     * session. On the second GET the binding property still holds the component instance of the first view, and building the fresh view must overwrite it
+     * rather than reuse the stale, already detached instance.
      *
      * @see HtmlDataTable
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4146
@@ -66,9 +65,12 @@ class Issue4146IT extends BaseITNG {
             assertEquals(EXPECTED_ROWS[r].length, cells.size(), request + " row[" + r + "] cell count");
 
             for (int c = 0; c < EXPECTED_ROWS[r].length; c++) {
-                assertEquals(EXPECTED_ROWS[r][c], cells.get(c).getText().trim(),
-                    request + " cell[" + r + "][" + c + "] text");
+                assertEquals(
+                    EXPECTED_ROWS[r][c], cells.get(c).getText().trim(),
+                    request + " cell[" + r + "][" + c + "] text"
+                );
             }
         }
     }
+
 }

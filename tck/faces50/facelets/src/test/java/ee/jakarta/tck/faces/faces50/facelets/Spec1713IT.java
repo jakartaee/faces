@@ -70,4 +70,5 @@ class Spec1713IT extends BaseITNG {
     private void assertFacesException(String clientId) throws Exception {
         assertEquals(500, getPage("spec1713.xhtml?clientId=" + clientId).getResponseStatus());
     }
+
 }

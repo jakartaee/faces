@@ -25,18 +25,15 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * When a composite component subscribes to {@code PreRenderComponentEvent} and adds children in the
- * listener, its {@code cc.attrs.item} attribute must be resolvable (non-null) during that event -
- * both in the outer composite component and in a nested composite component it forwards the
- * attribute to.
+ * When a composite component subscribes to {@code PreRenderComponentEvent} and adds children in the listener, its {@code cc.attrs.item} attribute must be
+ * resolvable (non-null) during that event - both in the outer composite component and in a nested composite component it forwards the attribute to.
  */
 public class Issue2093IT extends BaseITNG {
 
     private static final String ITEM_NOT_NULL = "Item Attribute is null: false";
 
     /**
-     * The composite attribute resolves to a non-null value during PreRenderComponentEvent, in both
-     * the outer and the nested composite component.
+     * The composite attribute resolves to a non-null value during PreRenderComponentEvent, in both the outer and the nested composite component.
      *
      * @see jakarta.faces.event.PreRenderComponentEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2093
@@ -44,9 +41,14 @@ public class Issue2093IT extends BaseITNG {
     @Test
     void testPreRenderView() {
         WebPage page = getPage("issue2093.xhtml");
-        assertEquals(ITEM_NOT_NULL, page.findElement(By.cssSelector("span[id$='check1']")).getText(),
-                "Outer composite component attribute must be non-null");
-        assertEquals(ITEM_NOT_NULL, page.findElement(By.cssSelector("span[id$='check2']")).getText(),
-                "Nested composite component attribute must be non-null");
+        assertEquals(
+            ITEM_NOT_NULL, page.findElement(By.cssSelector("span[id$='check1']")).getText(),
+            "Outer composite component attribute must be non-null"
+        );
+        assertEquals(
+            ITEM_NOT_NULL, page.findElement(By.cssSelector("span[id$='check2']")).getText(),
+            "Nested composite component attribute must be non-null"
+        );
     }
+
 }

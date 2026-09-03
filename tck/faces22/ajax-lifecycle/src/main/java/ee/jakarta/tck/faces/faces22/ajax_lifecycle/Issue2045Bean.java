@@ -24,15 +24,16 @@ import jakarta.inject.Named;
 @Named
 @SessionScoped
 public class Issue2045Bean implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
-    
+
     String currentPage = "issue2045-page1.xhtml";
 
     public String changePage() {
         if ("issue2045-page1.xhtml".equals(currentPage)) {
             currentPage = "issue2045-page2.xhtml";
-        } else {
+        }
+        else {
             currentPage = "issue2045-page1.xhtml";
         }
         return "success";
@@ -41,4 +42,5 @@ public class Issue2045Bean implements Serializable {
     public String getCurrentPage() {
         return currentPage;
     }
+
 }

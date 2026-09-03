@@ -15,29 +15,32 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlpanelgrid;
 
-import ee.jakarta.tck.faces.faces20.api.component.uipanel.UIPanelTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlPanelGrid;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uipanel.UIPanelTestServlet;
+
 @WebServlet("/HtmlPanelGridTestServlet")
 public final class HtmlPanelGridTestServlet extends UIPanelTestServlet {
 
-  private static final String[] attrNames = { "bgcolor", "border", "cellpadding", "cellspacing", "columnClasses", "columns", "dir", "footerClass", "frame", "headerClass", "lang", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "rowClasses", "rules", "style", "styleClass", "summary", "title", "width" };
+    private static final String[] attrNames = { "bgcolor", "border", "cellpadding", "cellspacing", "columnClasses", "columns", "dir", "footerClass", "frame",
+        "headerClass", "lang", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover",
+        "onmouseup", "rowClasses", "rules", "style", "styleClass", "summary", "title", "width" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Grid");
-    setRendersChildren(null);
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Grid");
+        setRendersChildren(null);
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlPanelGrid();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlPanelGrid();
+    }
+
 }

@@ -28,14 +28,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue3733IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see RequestCookieMap
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3733
-   */
-  @Test
-  void injectRequestCookieMap2() throws Exception {
+     */
+    @Test
+    void injectRequestCookieMap2() throws Exception {
         WebPage page = getPage("issue3733.xhtml");
         assertTrue(page.containsText("{}"));
     }
+
 }

@@ -22,9 +22,8 @@ import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.faces.lifecycle.LifecycleFactory;
 
 /**
- * Replaces the {@link LifecycleFactory}, registering an additional {@link ReplaceLifecycle} under
- * {@link ReplaceLifecycle#LIFECYCLE_ID} that the application selects via the
- * {@code jakarta.faces.LIFECYCLE_ID} context parameter.
+ * Replaces the {@link LifecycleFactory}, registering an additional {@link ReplaceLifecycle} under {@link ReplaceLifecycle#LIFECYCLE_ID} that the application
+ * selects via the {@code jakarta.faces.LIFECYCLE_ID} context parameter.
  */
 public class ReplaceLifecycleFactory extends LifecycleFactory {
 
@@ -47,4 +46,5 @@ public class ReplaceLifecycleFactory extends LifecycleFactory {
     public Iterator<String> getLifecycleIds() {
         return getWrapped().getLifecycleIds();
     }
+
 }

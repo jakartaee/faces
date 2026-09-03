@@ -32,11 +32,10 @@ import jakarta.faces.view.ViewDeclarationLanguage;
 public enum ViewVisitOption {
 
     /**
-     * Return the logical views in the most minimal form form such that they can still be used for an implicit match by the
-     * navigation handler as described in the Jakarta Faces Specification Document section 7.4.2 "Default NavigationHandler Algorithm".
+     * Return the logical views in the most minimal form form such that they can still be used for an implicit match by the navigation handler as described in
+     * the Jakarta Faces Specification Document section 7.4.2 "Default NavigationHandler Algorithm".
      * <p>
-     * For example, for the Facelets VDL a view such as <code>/foo/bar.xhtml</code> would be returned as
-     * <code>/foo/bar</code>.
+     * For example, for the Facelets VDL a view such as <code>/foo/bar.xhtml</code> would be returned as <code>/foo/bar</code>.
      *
      */
     RETURN_AS_MINIMAL_IMPLICIT_OUTCOME

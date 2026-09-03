@@ -89,4 +89,5 @@ public class Issue3001IT extends BaseITNG {
         assertTrue(pageText.contains("flow-with-templates"));
         assertTrue(pageText.contains("Issue3001Bean"));
     }
+
 }

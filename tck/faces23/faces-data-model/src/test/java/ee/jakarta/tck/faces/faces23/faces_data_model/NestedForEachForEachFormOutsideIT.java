@@ -18,9 +18,8 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * A {@code c:forEach} nested in a {@code c:forEach}, with the form wrapping both and one input per
- * cell. Both iterations run while the view is built, so every cell has its own child instances and
- * no per-row state is involved at all: the cells must round-trip their own values regardless.
+ * A {@code c:forEach} nested in a {@code c:forEach}, with the form wrapping both and one input per cell. Both iterations run while the view is built, so every
+ * cell has its own child instances and no per-row state is involved at all: the cells must round-trip their own values regardless.
  */
 class NestedForEachForEachFormOutsideIT extends NestedIterationITBase {
 
@@ -46,4 +45,5 @@ class NestedForEachForEachFormOutsideIT extends NestedIterationITBase {
     protected String submitId(int outer, int inner) {
         return "form:submit";
     }
+
 }

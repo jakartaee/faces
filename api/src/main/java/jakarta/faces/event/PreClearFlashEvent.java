@@ -23,8 +23,7 @@ import jakarta.faces.context.FacesContext;
 /**
  *
  * <p class="changed_added_2_2">
- * This event must be published by a call to {@link jakarta.faces.application.Application#publishEvent} before the flash
- * is cleared.
+ * This event must be published by a call to {@link jakarta.faces.application.Application#publishEvent} before the flash is cleared.
  * </p>
  *
  * @since 2.2
@@ -37,12 +36,10 @@ public class PreClearFlashEvent extends SystemEvent {
 
     /**
      * <p class="changed_added_2_2">
-     * Instantiate a new <code>PreClearFlashEvent</code> that indicates the argument <code>key</code> was just put to the
-     * flash.
+     * Instantiate a new <code>PreClearFlashEvent</code> that indicates the argument <code>key</code> was just put to the flash.
      * </p>
      *
-     * @param source Map containing the values about to be cleared This need not be the actual
-     * {@link jakarta.faces.context.Flash} instance.
+     * @param source Map containing the values about to be cleared This need not be the actual {@link jakarta.faces.context.Flash} instance.
      *
      * @throws IllegalArgumentException if the argument is <code>null</code>.
      */
@@ -52,16 +49,15 @@ public class PreClearFlashEvent extends SystemEvent {
 
     /**
      * <p class="changed_added_2_3">
-     * Instantiate a new <code>PreClearFlashEvent</code> that indicates the argument <code>key</code> was just put to the
-     * flash.
+     * Instantiate a new <code>PreClearFlashEvent</code> that indicates the argument <code>key</code> was just put to the flash.
      * </p>
      *
      * @param facesContext the Faces context.
-     * @param source Map containing the values about to be cleared This need not be the actual
-     * {@link jakarta.faces.context.Flash} instance.
+     * @param source Map containing the values about to be cleared This need not be the actual {@link jakarta.faces.context.Flash} instance.
      * @throws IllegalArgumentException if the argument is <code>null</code>.
      */
     public PreClearFlashEvent(FacesContext facesContext, Map<String, Object> source) {
         super(facesContext, source);
     }
+
 }

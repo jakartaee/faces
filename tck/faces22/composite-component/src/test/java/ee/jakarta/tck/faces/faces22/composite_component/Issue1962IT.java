@@ -32,9 +32,8 @@ class Issue1962IT extends BaseITNG {
     private static final int USAGES = 8;
 
     /**
-     * The same cc:renderFacet-bearing composite used repeatedly within one form must render every
-     * usage's facets, in order. Each usage is a distinct NamingContainer, so the facet children may
-     * reuse component ids without colliding.
+     * The same cc:renderFacet-bearing composite used repeatedly within one form must render every usage's facets, in order. Each usage is a distinct
+     * NamingContainer, so the facet children may reuse component ids without colliding.
      *
      * @see jakarta.faces.component.UINamingContainer
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1962
@@ -48,4 +47,5 @@ class Issue1962IT extends BaseITNG {
 
         assertEquals(expected, actual, "every usage renders both facets in order");
     }
+
 }

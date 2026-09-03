@@ -39,4 +39,5 @@ public class Issue2051LineConverter implements Converter<Issue2051Line> {
     public String getAsString(FacesContext context, UIComponent component, Issue2051Line value) {
         return value == null ? "" : value.getId();
     }
+
 }

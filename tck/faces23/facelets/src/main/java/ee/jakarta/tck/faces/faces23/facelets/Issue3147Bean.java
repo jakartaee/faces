@@ -41,4 +41,5 @@ public class Issue3147Bean {
     public void setValue(Issue3147Item value) {
         this.value = value;
     }
+
 }

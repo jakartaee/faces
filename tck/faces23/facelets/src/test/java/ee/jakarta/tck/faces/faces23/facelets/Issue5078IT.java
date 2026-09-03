@@ -16,6 +16,7 @@
  */
 
 package ee.jakarta.tck.faces.faces23.facelets;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.UIComponent;
@@ -30,14 +31,14 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue5078IT extends BaseITNG {
 
-  /**
-   * @see org.glassfish.mojarra.facelets.component.UIRepeat
+    /**
+     * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see UIComponent#visitTree(jakarta.faces.component.visit.VisitContext, jakarta.faces.component.visit.VisitCallback)
      * @see UIViewRoot#processApplication(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5078
-   */
-  @Test
-  void uIRepeatVisitTreeDuringInvokeApplication() throws Exception {
+     */
+    @Test
+    void uIRepeatVisitTreeDuringInvokeApplication() throws Exception {
         WebPage page = getPage("issue5078.xhtml");
         WebElement button = page.findElement(By.id("form:repeat:1:button"));
         page.guardAjax(button::click);

@@ -62,4 +62,5 @@ class Issue5543IT extends BaseITNG {
         assertEquals("ä", input.getDomProperty("value"));
         assertEquals("ä", output.getText());
     }
+
 }

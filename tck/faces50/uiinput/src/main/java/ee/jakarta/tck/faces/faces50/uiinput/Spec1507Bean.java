@@ -71,4 +71,5 @@ public class Spec1507Bean implements Serializable {
     public void setInput5(String input5) {
         this.input5 = input5;
     }
+
 }

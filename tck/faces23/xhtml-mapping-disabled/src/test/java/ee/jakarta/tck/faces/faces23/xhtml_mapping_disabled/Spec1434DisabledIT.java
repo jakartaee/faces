@@ -26,13 +26,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec1434DisabledIT extends BaseITNG {
 
-  /**
-   * @see https://github.com/jakartaee/faces/issues/1434
-   */
-  @Test
-  void doTest() throws Exception {
+    /**
+     * @see https://github.com/jakartaee/faces/issues/1434
+     */
+    @Test
+    void doTest() throws Exception {
         WebPage page = getPage("spec1434.xhtml");
-      assertEquals(-1, page.getSource().indexOf("ViewState"));
+        assertEquals(-1, page.getSource().indexOf("ViewState"));
     }
 
 }

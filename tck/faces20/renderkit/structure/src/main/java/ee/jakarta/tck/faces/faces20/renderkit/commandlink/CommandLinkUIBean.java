@@ -36,4 +36,5 @@ public class CommandLinkUIBean {
         gothere.setShape("rectangle");
         this.gothere = gothere;
     }
+
 }

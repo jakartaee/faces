@@ -23,14 +23,13 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p class="changed_added_5_0">
- * Provides a simple implementation of {@link PartialResponseWriter} that can be subclassed by developers wishing to
- * provide specialized behavior to an existing {@link PartialResponseWriter} instance. The default implementation of
- * all methods is to call through to the wrapped {@link PartialResponseWriter} obtained via {@link #getWrapped()}.
+ * Provides a simple implementation of {@link PartialResponseWriter} that can be subclassed by developers wishing to provide specialized behavior to an existing
+ * {@link PartialResponseWriter} instance. The default implementation of all methods is to call through to the wrapped {@link PartialResponseWriter} obtained
+ * via {@link #getWrapped()}.
  * </p>
  *
  * <p>
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being getWrapped().
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being getWrapped().
  * </p>
  *
  * @since 5.0
@@ -41,8 +40,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * If this response writer has been decorated, the implementation doing the decorating should push the implementation
-     * being wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this response writer has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being getWrapped().
@@ -61,8 +60,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#getContentType()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#getContentType()} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#getContentType()
@@ -74,8 +73,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startDocument()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startDocument()} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startDocument()
@@ -87,8 +86,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#getCharacterEncoding()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#getCharacterEncoding()} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#getCharacterEncoding()
@@ -100,8 +99,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#flush()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#flush()} on the wrapped {@link PartialResponseWriter} object obtained via
+     * {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#flush()
@@ -113,8 +112,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#endDocument()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#endDocument()} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#endDocument()
@@ -139,8 +138,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startInsertBefore(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startInsertBefore(String)} on the wrapped {@link PartialResponseWriter}
+     * object obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startInsertBefore(String)
@@ -152,8 +151,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startCDATA()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startCDATA()} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startCDATA()
@@ -165,8 +164,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#endCDATA()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#endCDATA()} on the wrapped {@link PartialResponseWriter} object obtained via
+     * {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#endCDATA()
@@ -178,8 +177,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startInsertAfter(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startInsertAfter(String)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startInsertAfter(String)
@@ -191,8 +190,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#endElement(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#endElement(String)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#endElement(String)
@@ -204,8 +203,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startDocument()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startDocument()} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startDocument()
@@ -217,8 +216,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#endInsert()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#endInsert()} on the wrapped {@link PartialResponseWriter} object obtained via
+     * {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#endInsert()
@@ -256,8 +255,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startUpdate(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startUpdate(String)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startUpdate(String)
@@ -269,8 +268,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#write(char[])} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#write(char[])} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#write(char[])
@@ -282,8 +281,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#writeComment(Object)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#writeComment(Object)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#writeComment(Object)
@@ -295,8 +294,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#endUpdate()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#endUpdate()} on the wrapped {@link PartialResponseWriter} object obtained via
+     * {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#endUpdate()
@@ -308,8 +307,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#writeDoctype(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#writeDoctype(String)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#writeDoctype(String)
@@ -321,8 +320,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#updateAttributes(String, Map)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#updateAttributes(String, Map)} on the wrapped {@link PartialResponseWriter}
+     * object obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#updateAttributes(String, Map)
@@ -334,8 +333,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#write(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#write(String)} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#write(String)
@@ -347,8 +346,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#writePreamble(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#writePreamble(String)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#writePreamble(String)
@@ -360,8 +359,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#write(String, int, int)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#write(String, int, int)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#write(String, int, int)
@@ -373,8 +372,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#writeText(Object, String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#writeText(Object, String)} on the wrapped {@link PartialResponseWriter}
+     * object obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#writeText(Object, String)
@@ -386,8 +385,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#delete(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#delete(String)} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#delete(String)
@@ -412,8 +411,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#redirect(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#redirect(String)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#redirect(String)
@@ -425,8 +424,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#writeText(char[], int, int)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#writeText(char[], int, int)} on the wrapped {@link PartialResponseWriter}
+     * object obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#writeText(char[], int, int)
@@ -438,8 +437,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#append(CharSequence)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#append(CharSequence)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#append(CharSequence)
@@ -451,8 +450,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#cloneWithWriter(Writer)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#cloneWithWriter(Writer)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#cloneWithWriter(Writer)
@@ -464,8 +463,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startEval()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startEval()} on the wrapped {@link PartialResponseWriter} object obtained via
+     * {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startEval()
@@ -477,8 +476,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#close()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#close()} on the wrapped {@link PartialResponseWriter} object obtained via
+     * {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#close()
@@ -490,8 +489,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#endEval()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#endEval()} on the wrapped {@link PartialResponseWriter} object obtained via
+     * {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#endEval()
@@ -503,8 +502,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startExtension(Map)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startExtension(Map)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startExtension(Map)
@@ -516,8 +515,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#write(char[], int, int)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#write(char[], int, int)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#write(char[], int, int)
@@ -529,8 +528,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#append(CharSequence, int, int)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#append(CharSequence, int, int)} on the wrapped {@link PartialResponseWriter}
+     * object obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#append(CharSequence, int, int)
@@ -542,8 +541,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#endExtension()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#endExtension()} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#endExtension()
@@ -555,8 +554,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#startError(String)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#startError(String)} on the wrapped {@link PartialResponseWriter} object
+     * obtained via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#startError(String)
@@ -568,8 +567,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#append(char)} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#append(char)} on the wrapped {@link PartialResponseWriter} object obtained
+     * via {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#append(char)
@@ -581,8 +580,8 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialResponseWriter#endError()} on the wrapped
-     * {@link PartialResponseWriter} object obtained via {@link #getWrapped()}.
+     * The default behavior of this method is to call {@link PartialResponseWriter#endError()} on the wrapped {@link PartialResponseWriter} object obtained via
+     * {@link #getWrapped()}.
      * </p>
      *
      * @see PartialResponseWriter#endError()
@@ -591,4 +590,5 @@ public abstract class PartialResponseWriterWrapper extends PartialResponseWriter
     public void endError() throws IOException {
         getWrapped().endError();
     }
+
 }

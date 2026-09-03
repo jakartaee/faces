@@ -29,4 +29,5 @@ public class Issue3134Bean implements Serializable {
     public boolean isCase1() {
         return true;
     }
+
 }

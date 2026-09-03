@@ -25,8 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A {@code @ViewScoped} bean must retain the same instance across a postback of the same view, so
- * EL that resolves to it is not re-evaluated against a freshly created bean.
+ * A {@code @ViewScoped} bean must retain the same instance across a postback of the same view, so EL that resolves to it is not re-evaluated against a freshly
+ * created bean.
  */
 class Issue1710IT extends BaseITNG {
 
@@ -46,4 +46,5 @@ class Issue1710IT extends BaseITNG {
 
         assertEquals(before, after, "view scoped bean identity across postback");
     }
+
 }

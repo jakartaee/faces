@@ -32,4 +32,5 @@ class DataModelEventIT extends BaseITNG {
     void dataModelEventTest() {
         runServletTest("dataModelEventTest");
     }
+
 }

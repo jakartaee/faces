@@ -34,12 +34,10 @@ class Issue4086IT extends BaseITNG {
     private static final String AU = "I won Australian Open ...(resources/au/1_0/css/js/rafa.js/1_0.js)";
 
     /**
-     * When {@code f:view locale} selects a locale that has a matching locale-prefixed resource
-     * directory, the resource handler must resolve {@code h:outputScript} to the highest-versioned
-     * resource under that locale's library path. Switching the active locale via a postback must
-     * re-resolve the script to the new locale's variant. Each locale's script writes a distinctive
-     * marker (carrying its own resource path) into {@code document.title}, so the resolved variant
-     * is observable.
+     * When {@code f:view locale} selects a locale that has a matching locale-prefixed resource directory, the resource handler must resolve
+     * {@code h:outputScript} to the highest-versioned resource under that locale's library path. Switching the active locale via a postback must re-resolve the
+     * script to the new locale's variant. Each locale's script writes a distinctive marker (carrying its own resource path) into {@code document.title}, so the
+     * resolved variant is observable.
      *
      * @see ResourceHandler
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4086
@@ -66,4 +64,5 @@ class Issue4086IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("atp:wo"))::click);
         assertEquals(EN, page.getTitle(), "locale en resolves rafa.js to en/1_1 after postback");
     }
+
 }

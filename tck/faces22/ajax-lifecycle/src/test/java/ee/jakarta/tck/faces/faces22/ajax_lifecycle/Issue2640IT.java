@@ -30,12 +30,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2640IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2640
-   */
-  @Test
-  void commandLinksInRepeat() throws Exception {
+     */
+    @Test
+    void commandLinksInRepeat() throws Exception {
         WebPage page = getPage("issue2640.xhtml");
         List<WebElement> anchors = page.getAnchors();
 
@@ -57,4 +57,5 @@ class Issue2640IT extends BaseITNG {
 
         assertTrue(page.containsText("linkAction1"));
     }
+
 }

@@ -36,4 +36,5 @@ public class Issue3982Bean implements Serializable {
     public void click() {
         clicked = true;
     }
+
 }

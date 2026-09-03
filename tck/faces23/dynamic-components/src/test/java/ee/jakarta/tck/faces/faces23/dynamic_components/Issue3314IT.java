@@ -25,9 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A component dynamically added by an ajax action to a bound panel group whose first child is a
- * transient plain-HTML node must keep its position after a subsequent full postback reload: the
- * transient first child still renders before the dynamically added component.
+ * A component dynamically added by an ajax action to a bound panel group whose first child is a transient plain-HTML node must keep its position after a
+ * subsequent full postback reload: the transient first child still renders before the dynamically added component.
  */
 public class Issue3314IT extends BaseITNG {
 
@@ -49,8 +48,11 @@ public class Issue3314IT extends BaseITNG {
         String source = page.getSource();
         int transientChild = source.indexOf(TRANSIENT_CHILD);
         int addedChild = source.indexOf(ADDED_CHILD);
-        assertTrue(transientChild >= 0 && addedChild >= 0 && transientChild < addedChild,
-                "Transient first child must render before the dynamically added component, but got transient="
-                        + transientChild + " added=" + addedChild);
+        assertTrue(
+            transientChild >= 0 && addedChild >= 0 && transientChild < addedChild,
+            "Transient first child must render before the dynamically added component, but got transient="
+                + transientChild + " added=" + addedChild
+        );
     }
+
 }

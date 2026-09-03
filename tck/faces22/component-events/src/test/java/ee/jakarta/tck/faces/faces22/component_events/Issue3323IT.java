@@ -26,14 +26,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that {@code @ListenerFor}/{@code @ListenersFor} system event listeners declared on custom
- * UIComponent subclasses fire at the correct lifecycle phases.
+ * Verifies that {@code @ListenerFor}/{@code @ListenersFor} system event listeners declared on custom UIComponent subclasses fire at the correct lifecycle
+ * phases.
  */
 class Issue3323IT extends BaseITNG {
 
     /**
-     * On initial render the PreRenderComponentEvent listener fires, and on postback the PreValidateEvent and
-     * PostValidateEvent listeners fire during the validation phase.
+     * On initial render the PreRenderComponentEvent listener fires, and on postback the PreValidateEvent and PostValidateEvent listeners fire during the
+     * validation phase.
      *
      * @see jakarta.faces.event.ListenerFor
      * @see jakarta.faces.event.ListenersFor
@@ -42,15 +42,22 @@ class Issue3323IT extends BaseITNG {
     @Test
     void testEventListener() {
         WebPage page = getPage("issue3323.xhtml");
-        assertTrue(page.containsText("preRenderComponentEvent"),
-                "PreRenderComponentEvent listener fires during initial render");
+        assertTrue(
+            page.containsText("preRenderComponentEvent"),
+            "PreRenderComponentEvent listener fires during initial render"
+        );
 
         WebElement button = page.findElement(By.id("button"));
         page.guardHttp(button::click);
 
-        assertTrue(page.containsText("preValidateEvent"),
-                "PreValidateEvent listener fires during validation phase on postback");
-        assertTrue(page.containsText("postValidateEvent"),
-                "PostValidateEvent listener fires during validation phase on postback");
+        assertTrue(
+            page.containsText("preValidateEvent"),
+            "PreValidateEvent listener fires during validation phase on postback"
+        );
+        assertTrue(
+            page.containsText("postValidateEvent"),
+            "PostValidateEvent listener fires during validation phase on postback"
+        );
     }
+
 }

@@ -18,14 +18,14 @@ package ee.jakarta.tck.faces.faces23.validate_whole_bean;
 
 import java.io.Serializable;
 
-@UserPassword(groups = {UserPasswordValidatorGroup.class})
+@UserPassword(groups = { UserPasswordValidatorGroup.class })
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private String password1;
+    private String password1;
     private String password2;
-    
+
     public String getPassword1() {
         return password1;
     }
@@ -41,4 +41,5 @@ public class User implements Serializable {
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
+
 }

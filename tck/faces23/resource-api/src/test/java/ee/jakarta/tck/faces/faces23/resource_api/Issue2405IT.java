@@ -28,9 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue2405IT extends BaseITNG {
 
     /**
-     * {@link jakarta.faces.application.ResourceHandler#createResource} must encode the library
-     * name as a {@code ?ln=} query parameter when a library is given, and embed it in the
-     * resource path segment when the resource id already includes the library directory.
+     * {@link jakarta.faces.application.ResourceHandler#createResource} must encode the library name as a {@code ?ln=} query parameter when a library is given,
+     * and embed it in the resource path segment when the resource id already includes the library directory.
      *
      * @see jakarta.faces.application.ResourceHandler
      * @see https://github.com/javaserverfaces/mojarra/issues/2405
@@ -38,18 +37,21 @@ public class Issue2405IT extends BaseITNG {
     @Test
     void testResourceWithAndWithoutLibrary() throws Exception {
         WebPage page = getPage("faces/start.xhtml");
-        assertTrue(page.containsText("Resource created with library: ")
+        assertTrue(
+            page.containsText("Resource created with library: ")
                 && page.containsText("jakarta.faces.resource/images/background.png?ln=css"),
-                "Resource created with a library carries a ?ln=css query parameter");
-        assertTrue(page.containsText("Resource created without library: ")
+            "Resource created with a library carries a ?ln=css query parameter"
+        );
+        assertTrue(
+            page.containsText("Resource created without library: ")
                 && page.containsText("jakarta.faces.resource/css/images/background.png"),
-                "Resource created without a library embeds the directory in the path");
+            "Resource created without a library embeds the directory in the path"
+        );
     }
 
     /**
-     * {@link jakarta.faces.application.ResourceHandler#createResource} must select the correct
-     * versioned resource regardless of trailing/leading underscores or an invalid version
-     * directory name when scanning a versioned resource library.
+     * {@link jakarta.faces.application.ResourceHandler#createResource} must select the correct versioned resource regardless of trailing/leading underscores or
+     * an invalid version directory name when scanning a versioned resource library.
      *
      * @see jakarta.faces.application.ResourceHandler
      * @see https://github.com/javaserverfaces/mojarra/issues/2405
@@ -62,4 +64,5 @@ public class Issue2405IT extends BaseITNG {
         assertEquals("SUCCESS", page.findElement(By.id("leadingUnderscore")).getText());
         assertEquals("SUCCESS", page.findElement(By.id("validVersion")).getText());
     }
+
 }

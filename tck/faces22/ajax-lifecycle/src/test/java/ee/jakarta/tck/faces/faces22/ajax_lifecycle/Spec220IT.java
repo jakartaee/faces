@@ -31,17 +31,17 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec220IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see ResponseStateManager#VIEW_STATE_PARAM
      * @see https://github.com/jakartaee/faces/issues/220
-   */
-  @Test
-  void viewStatePersistsAcrossAjaxAndNonAjaxSubmits() throws Exception {
+     */
+    @Test
+    void viewStatePersistsAcrossAjaxAndNonAjaxSubmits() throws Exception {
         WebPage page = getPage("spec220.xhtml");
         ExtendedTextInput textField = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("firstName")));
         textField.setValue("ajaxFirstName");
-        
+
         WebElement button = page.findElement(By.id("submitAjax"));
         page.guardAjax(button::click);
         String pageText = page.getSource();
@@ -49,10 +49,11 @@ class Spec220IT extends BaseITNG {
 
         textField = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("firstName")));
         textField.setValue("nonAjaxFirstName");
-        
+
         button = new ExtendedTextInput(getWebDriver(), page.findElement(By.id("submitNonAjax")));
         page.guardAjax(button::click);
         pageText = page.getSource();
         assertTrue(pageText.contains("|nonAjaxFirstName|"));
     }
+
 }

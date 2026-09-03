@@ -38,27 +38,23 @@ public class DoubleConverter implements Converter<Double> {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>Double</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>Double</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by an example value.</li>
-     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String DOUBLE_ID = "jakarta.faces.converter.DoubleConverter.DOUBLE";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the
-     * <code>Double</code> value to <code>String</code> fails. The message format string for this message may optionally
-     * include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the <code>Double</code> value to
+     * <code>String</code> fails. The message format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> relaced by the unconverted value.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String STRING_ID = "jakarta.faces.converter.STRING";
@@ -87,9 +83,11 @@ public class DoubleConverter implements Converter<Double> {
 
         try {
             return Double.valueOf(value);
-        } catch (NumberFormatException nfe) {
+        }
+        catch (NumberFormatException nfe) {
             throw new ConverterException(MessageFactory.getMessage(context, DOUBLE_ID, value, "1999999", MessageFactory.getLabel(context, component)), nfe);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(e);
         }
     }
@@ -112,8 +110,10 @@ public class DoubleConverter implements Converter<Double> {
 
         try {
             return value.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
         }
     }
+
 }

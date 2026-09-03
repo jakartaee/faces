@@ -18,8 +18,8 @@ package jakarta.faces.component;
 
 /**
  * <p class="changed_added_2_0">
- * Components that want to leverage the partial state saving feature must implement this interface instead of
- * implementing {@link StateHolder}, from which this interface inherits.
+ * Components that want to leverage the partial state saving feature must implement this interface instead of implementing {@link StateHolder}, from which this
+ * interface inherits.
  * </p>
  *
  * @since 2.0
@@ -28,13 +28,11 @@ public interface PartialStateHolder extends StateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * The runtime must ensure that the {@link #markInitialState} method is called on each instance of this interface in the
-     * view at the appropriate time to indicate the component is in its initial state. The implementor of the interface must
-     * ensure that {@link #initialStateMarked} returns <code>true</code> from the time <code>markInitialState()</code> is
-     * called until {@link #clearInitialState} is called, after which time <code>initialStateMarked()</code> must return
-     * <code>false</code>. Also, during the time that the instance returns <code>true</code> from
-     * <code>initialStateMarked()</code>, the implementation must return only the state that has changed in its
-     * implementation of {@link StateHolder#saveState}.
+     * The runtime must ensure that the {@link #markInitialState} method is called on each instance of this interface in the view at the appropriate time to
+     * indicate the component is in its initial state. The implementor of the interface must ensure that {@link #initialStateMarked} returns <code>true</code>
+     * from the time <code>markInitialState()</code> is called until {@link #clearInitialState} is called, after which time <code>initialStateMarked()</code>
+     * must return <code>false</code>. Also, during the time that the instance returns <code>true</code> from <code>initialStateMarked()</code>, the
+     * implementation must return only the state that has changed in its implementation of {@link StateHolder#saveState}.
      * </p>
      *
      * @since 2.0

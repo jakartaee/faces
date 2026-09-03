@@ -29,24 +29,25 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue2994IT extends BaseITNG {
 
-  /**
-   * @see FlowScoped
+    /**
+     * @see FlowScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2994
-   */
-  @Test
-  void flowWithNoBeansXml() throws Exception {
+     */
+    @Test
+    void flowWithNoBeansXml() throws Exception {
         WebPage page = getPage("issue2994.xhtml");
         WebElement button = page.findElement(By.id("enterFlow"));
         button.click();
-        
+
         WebElement input = page.findElement(By.id("input"));
         String message = "" + System.currentTimeMillis();
         input.sendKeys(message);
         button = page.findElement(By.id("a"));
         button.click();
-        
+
         WebElement e = page.findElement(By.id("value"));
-        
+
         assertEquals(e.getText(), message);
-    }    
+    }
+
 }

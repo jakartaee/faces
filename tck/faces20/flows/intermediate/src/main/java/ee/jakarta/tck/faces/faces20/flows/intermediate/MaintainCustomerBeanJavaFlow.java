@@ -23,4 +23,5 @@ import jakarta.inject.Named;
 public class MaintainCustomerBeanJavaFlow extends MaintainCustomerBean {
 
     private static final long serialVersionUID = 1L;
+
 }

@@ -46,4 +46,5 @@ public class FacesConfigExceptionHandlerFactory extends ExceptionHandlerFactory 
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

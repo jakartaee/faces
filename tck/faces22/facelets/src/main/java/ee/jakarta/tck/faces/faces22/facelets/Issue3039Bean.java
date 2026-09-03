@@ -50,4 +50,5 @@ public class Issue3039Bean implements Serializable {
     public void toggle() {
         hide = !hide;
     }
+
 }

@@ -47,4 +47,5 @@ public class Issue3479ChildFlowWithParaAndInitializerBean implements Serializabl
         ValueExpression valueExpression = expressionFactory.createValueExpression(elContext, expression, String.class);
         return (String) valueExpression.getValue(elContext);
     }
+
 }

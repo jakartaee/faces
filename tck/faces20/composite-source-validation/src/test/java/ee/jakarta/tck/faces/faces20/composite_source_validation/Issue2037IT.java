@@ -25,9 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A composite component wired through a facelet-taglib {@code resource-id} (rather than the default
- * {@code resources/<library>/<tag>.xhtml} convention) is resolved and rendered like any other
- * composite component.
+ * A composite component wired through a facelet-taglib {@code resource-id} (rather than the default {@code resources/<library>/<tag>.xhtml} convention) is
+ * resolved and rendered like any other composite component.
  */
 public class Issue2037IT extends BaseITNG {
 
@@ -42,4 +41,5 @@ public class Issue2037IT extends BaseITNG {
         WebPage page = getPage("issue2037.xhtml");
         assertEquals("Test", page.findElement(By.id("myLayout")).getText());
     }
+
 }

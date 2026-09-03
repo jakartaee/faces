@@ -28,12 +28,12 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Drives the {@code rowStatePreserved} scenarios over a 2x3 matrix rendered by an iterating component
- * nested in another one of the same kind, with the form wrapping both and one input per cell.
+ * Drives the {@code rowStatePreserved} scenarios over a 2x3 matrix rendered by an iterating component nested in another one of the same kind, with the form
+ * wrapping both and one input per cell.
  *
- * <p>Every case runs against both kinds, as the attribute is specified to behave identically on
- * {@code ui:repeat} and on {@code h:dataTable}, and both render their cells under the same client
- * IDs.
+ * <p>
+ * Every case runs against both kinds, as the attribute is specified to behave identically on {@code ui:repeat} and on {@code h:dataTable}, and both render
+ * their cells under the same client IDs.
  */
 class Spec1263IT extends BaseITNG {
 
@@ -52,9 +52,8 @@ class Spec1263IT extends BaseITNG {
     private static final int MARKED_INNER = 1;
 
     /**
-     * Every cell must render under its own client ID. An iterating component which does not reset the
-     * client IDs of its descendants when the row index changes renders each row with row 0's IDs, so
-     * the page carries one ID many times over and a lookup by ID can only ever reach the first row.
+     * Every cell must render under its own client ID. An iterating component which does not reset the client IDs of its descendants when the row index changes
+     * renders each row with row 0's IDs, so the page carries one ID many times over and a lookup by ID can only ever reach the first row.
      *
      * @see UIData#setRowStatePreserved(boolean)
      * @see https://github.com/jakartaee/faces/issues/1263
@@ -73,9 +72,8 @@ class Spec1263IT extends BaseITNG {
     }
 
     /**
-     * Preserving the full per-row component state instead of only the submitted values must not change
-     * which cell a value belongs to, so every cell must round-trip the value submitted for its own
-     * position across repeated postbacks.
+     * Preserving the full per-row component state instead of only the submitted values must not change which cell a value belongs to, so every cell must
+     * round-trip the value submitted for its own position across repeated postbacks.
      *
      * @see UIData#setRowStatePreserved(boolean)
      * @see https://github.com/jakartaee/faces/issues/1263
@@ -100,9 +98,8 @@ class Spec1263IT extends BaseITNG {
     }
 
     /**
-     * Marking one cell sets a style class on that cell's input, which is a property of the single child
-     * instance the cells share. Only the full per-row component state covers it, so without this
-     * attribute the modification would appear on every cell instead of the marked one.
+     * Marking one cell sets a style class on that cell's input, which is a property of the single child instance the cells share. Only the full per-row
+     * component state covers it, so without this attribute the modification would appear on every cell instead of the marked one.
      *
      * @see UIData#setRowStatePreserved(boolean)
      * @see https://github.com/jakartaee/faces/issues/1263
@@ -125,9 +122,11 @@ class Spec1263IT extends BaseITNG {
     private void assertValues(WebPage page, String[][] expected) {
         for (int outer = 0; outer < OUTER_SIZE; outer++) {
             for (int inner = 0; inner < INNER_SIZE; inner++) {
-                assertEquals(expected[outer][inner],
-                        page.findElement(By.id(inputId(outer, inner))).getAttribute("value"),
-                        "cell (" + outer + ", " + inner + ")");
+                assertEquals(
+                    expected[outer][inner],
+                    page.findElement(By.id(inputId(outer, inner))).getAttribute("value"),
+                    "cell (" + outer + ", " + inner + ")"
+                );
             }
         }
     }
@@ -139,4 +138,5 @@ class Spec1263IT extends BaseITNG {
     private static String markId(int outer, int inner) {
         return "form:outer:" + outer + ":inner:" + inner + ":mark";
     }
+
 }

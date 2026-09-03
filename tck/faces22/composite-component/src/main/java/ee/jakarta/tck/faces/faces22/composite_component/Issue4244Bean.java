@@ -24,8 +24,8 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 /**
- * Holds the visibility of the conditionally included composite component. View scoped, so the c:if
- * build-time condition sees the value set by the previous ajax postback.
+ * Holds the visibility of the conditionally included composite component. View scoped, so the c:if build-time condition sees the value set by the previous ajax
+ * postback.
  */
 @Named
 @ViewScoped
@@ -46,4 +46,5 @@ public class Issue4244Bean implements Serializable {
     public boolean isItemVisible() {
         return itemVisible;
     }
+
 }

@@ -25,6 +25,7 @@ import jakarta.faces.context.FacesContext;
  * <p>
  * {@link Converter} implementation for <code>java.util.UUID</code> values.
  * </p>
+ *
  * @since 4.1
  */
 public class UUIDConverter implements Converter<UUID> {
@@ -40,8 +41,8 @@ public class UUIDConverter implements Converter<UUID> {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>UUID</code> fails.
-     * The message format string for this message may optionally include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>UUID</code> fails. The message
+     * format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by an example value.</li>
@@ -52,8 +53,8 @@ public class UUIDConverter implements Converter<UUID> {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the <code>UUID</code> value to <code>String</code> fails.
-     * The message format string for this message may optionally include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the <code>UUID</code> value to
+     * <code>String</code> fails. The message format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> relaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
@@ -80,9 +81,13 @@ public class UUIDConverter implements Converter<UUID> {
 
         try {
             return UUID.fromString(value);
-        } catch (IllegalArgumentException e) {
-            throw new ConverterException(MessageFactory.getMessage(context, UUID_ID, value, "29573f55-4254-4afa-9ca6-6b5ae6c7ab6e", MessageFactory.getLabel(context, component)), e);
-        } catch (Exception e) {
+        }
+        catch (IllegalArgumentException e) {
+            throw new ConverterException(
+                MessageFactory.getMessage(context, UUID_ID, value, "29573f55-4254-4afa-9ca6-6b5ae6c7ab6e", MessageFactory.getLabel(context, component)), e
+            );
+        }
+        catch (Exception e) {
             throw new ConverterException(e);
         }
     }
@@ -104,8 +109,10 @@ public class UUIDConverter implements Converter<UUID> {
 
         try {
             return value.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
         }
     }
+
 }

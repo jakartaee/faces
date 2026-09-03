@@ -29,4 +29,5 @@ public abstract class TCKDecoratedContextFactory extends FacesContextFactory {
     public FacesContextFactory getWrapped() {
         return this;
     }
+
 }

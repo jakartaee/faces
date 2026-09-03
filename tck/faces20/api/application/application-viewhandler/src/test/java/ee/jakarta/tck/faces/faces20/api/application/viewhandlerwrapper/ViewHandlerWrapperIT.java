@@ -28,9 +28,29 @@ class ViewHandlerWrapperIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void viewHandlerCalculateLocaleNPETest() { runServletTest("viewHandlerCalculateLocaleNPETest"); }
-    @Test void viewHandlerCalculateLocaleTest() { runServletTest("viewHandlerCalculateLocaleTest"); }
-    @Test void viewHandlerCreateViewNPETest() { runServletTest("viewHandlerCreateViewNPETest"); }
-    @Test void viewHandlerCreateViewTest() { runServletTest("viewHandlerCreateViewTest"); }
-    @Test void viewHandlerRenderViewNPETest() { runServletTest("viewHandlerRenderViewNPETest"); }
+    @Test
+    void viewHandlerCalculateLocaleNPETest() {
+        runServletTest("viewHandlerCalculateLocaleNPETest");
+    }
+
+    @Test
+    void viewHandlerCalculateLocaleTest() {
+        runServletTest("viewHandlerCalculateLocaleTest");
+    }
+
+    @Test
+    void viewHandlerCreateViewNPETest() {
+        runServletTest("viewHandlerCreateViewNPETest");
+    }
+
+    @Test
+    void viewHandlerCreateViewTest() {
+        runServletTest("viewHandlerCreateViewTest");
+    }
+
+    @Test
+    void viewHandlerRenderViewNPETest() {
+        runServletTest("viewHandlerRenderViewNPETest");
+    }
+
 }

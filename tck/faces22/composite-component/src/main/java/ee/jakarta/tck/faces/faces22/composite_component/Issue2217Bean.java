@@ -20,8 +20,8 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 /**
- * Supplies the cc:clientBehavior name, event and targets, both as literals and through EL, and
- * receives the client id the behavior script recorded into the marker input.
+ * Supplies the cc:clientBehavior name, event and targets, both as literals and through EL, and receives the client id the behavior script recorded into the
+ * marker input.
  */
 @Named
 @RequestScoped
@@ -56,4 +56,5 @@ public class Issue2217Bean {
     public void setMarker(String marker) {
         this.marker = marker;
     }
+
 }

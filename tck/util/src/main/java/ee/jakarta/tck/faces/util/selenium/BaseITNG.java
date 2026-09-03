@@ -74,7 +74,7 @@ public abstract class BaseITNG implements ExecutionCondition {
     private ExtendedWebDriver webDriver;
 
     protected static final DriverPool driverPool = new DriverPool();
-    
+
     private static final HttpClient HTTP = newHttpClient();
     private static final HttpClient HTTP_WITHOUT_REDIRECTS = HttpClient.newBuilder().followRedirects(NEVER).build();
 
@@ -84,7 +84,7 @@ public abstract class BaseITNG implements ExecutionCondition {
             driverPool.prewarm(); // boot Chrome concurrently with the deployment below
         }
         return create(ZipImporter.class, getProperty("finalName") + ".war").importFrom(new File("target/" + getProperty("finalName") + ".war"))
-                .as(WebArchive.class);
+            .as(WebArchive.class);
     }
 
     private boolean warmedUp;
@@ -95,8 +95,7 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * Lazily acquires a pooled WebDriver the first time a test actually drives the
-     * browser. HTTP-only tests (those using only {@link #getResponseBody}) never
+     * Lazily acquires a pooled WebDriver the first time a test actually drives the browser. HTTP-only tests (those using only {@link #getResponseBody}) never
      * trigger acquisition, so they skip Chrome/CDP session setup entirely.
      */
     private ExtendedWebDriver webDriver() {
@@ -107,11 +106,9 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * One cheap GET to the deployed app's root before the first test runs, to pay
-     * first-request lazy-init tax (resource scan, view-handler init,
-     * dev-mode validators) up front instead of on whichever @Test happens to run
-     * first. Especially relevant under PROJECT_STAGE=Development where the first
-     * ajax round-trip can otherwise exceed Selenium's wait timeout.
+     * One cheap GET to the deployed app's root before the first test runs, to pay first-request lazy-init tax (resource scan, view-handler init, dev-mode
+     * validators) up front instead of on whichever @Test happens to run first. Especially relevant under PROJECT_STAGE=Development where the first ajax
+     * round-trip can otherwise exceed Selenium's wait timeout.
      */
     private void warmUpOnce() {
         if (warmedUp) {
@@ -120,9 +117,11 @@ public abstract class BaseITNG implements ExecutionCondition {
         warmedUp = true;
         try {
             HTTP.send(newBuilder(create(webUrl.toString())).build(), ofString());
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-        } catch (IOException ignore) {
+        }
+        catch (IOException ignore) {
             // Warm-up is best-effort; a non-200 (404 on welcome file, ConnectException
             // mid-deploy, etc.) is fine — the side effect of touching the app is what
             // matters.
@@ -138,8 +137,7 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * Discards the current test's WebDriver (quit and removed from the pool) instead
-     * of returning it for reuse. For tests whose per-test driver state cannot be
+     * Discards the current test's WebDriver (quit and removed from the pool) instead of returning it for reuse. For tests whose per-test driver state cannot be
      * cleared by {@link DriverPool#returnInstance} — e.g. additive request headers.
      */
     protected void discardWebDriver() {
@@ -159,7 +157,8 @@ public abstract class BaseITNG implements ExecutionCondition {
         String url = webUrl.toString() + page;
         try {
             driver.get(url);
-        } catch (WebDriverException ex) {
+        }
+        catch (WebDriverException ex) {
             // CDP session can die between acquisition and the first navigation
             // (Chrome crash, paged-out, dropped WebSocket). DriverPool only retries
             // on postInit failure; here we cover the post-postInit gap.
@@ -192,9 +191,8 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * Send a GET to {@code resource} with the given request headers (including, if desired, a Cookie header)
-     * and return the response body as a String. Useful for tests that exercise request headers, cookies, or
-     * similar metadata.
+     * Send a GET to {@code resource} with the given request headers (including, if desired, a Cookie header) and return the response body as a String. Useful
+     * for tests that exercise request headers, cookies, or similar metadata.
      */
     protected String getResponseBody(String resource, Map<String, String> headers) {
         try {
@@ -216,8 +214,8 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * Send a GET to {@code resource} WITHOUT following redirects and return the 'Location' header (null if absent).
-     * Useful for tests that verify a 3xx redirect target.
+     * Send a GET to {@code resource} WITHOUT following redirects and return the 'Location' header (null if absent). Useful for tests that verify a 3xx redirect
+     * target.
      */
     protected String getResponseLocation(String resource) {
         try {
@@ -238,10 +236,8 @@ public abstract class BaseITNG implements ExecutionCondition {
     }
 
     /**
-     * Returns the link's href relative to the deployed application, stripped of the
-     * {@code jsessionid} path parameter which the container adds until it knows cookies work. The
-     * query string is left untouched: it carries what the resource request is keyed on, such as
-     * {@code ln} and {@code con}.
+     * Returns the link's href relative to the deployed application, stripped of the {@code jsessionid} path parameter which the container adds until it knows
+     * cookies work. The query string is left untouched: it carries what the resource request is keyed on, such as {@code ln} and {@code con}.
      */
     protected String getHrefURI(WebElement link) {
         String uri = link.getAttribute("href").substring(webUrl.toExternalForm().length());

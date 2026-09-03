@@ -48,4 +48,5 @@ public class FacesConfigNavigationHandler extends NavigationHandlerWrapper {
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

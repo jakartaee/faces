@@ -15,7 +15,7 @@
  */
 
 package ee.jakarta.tck.faces.faces22.ajax_lifecycle;
-    
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +26,7 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Issue3024Bean {
-    
+
     private String product;
     private List<String> products;
 
@@ -58,6 +58,6 @@ public class Issue3024Bean {
 
     public void setProduct(String product) {
         this.product = product;
-    }    
-    
+    }
+
 }

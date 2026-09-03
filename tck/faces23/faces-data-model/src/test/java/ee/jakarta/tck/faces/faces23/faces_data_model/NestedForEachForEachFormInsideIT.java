@@ -18,9 +18,8 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * A {@code c:forEach} nested in a {@code c:forEach}, with the form inside the inner one: one form
- * per cell, so each postback carries a single cell. This is the shape the {@code rowStatePreserved}
- * documentation offers as the alternative to a runtime iteration, so it must hold without it.
+ * A {@code c:forEach} nested in a {@code c:forEach}, with the form inside the inner one: one form per cell, so each postback carries a single cell. This is the
+ * shape the {@code rowStatePreserved} documentation offers as the alternative to a runtime iteration, so it must hold without it.
  */
 class NestedForEachForEachFormInsideIT extends NestedIterationITBase {
 
@@ -46,4 +45,5 @@ class NestedForEachForEachFormInsideIT extends NestedIterationITBase {
     protected String submitId(int outer, int inner) {
         return "form_" + outer + "_" + inner + ":submit";
     }
+
 }

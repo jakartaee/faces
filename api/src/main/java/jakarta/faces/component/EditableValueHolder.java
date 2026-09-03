@@ -23,19 +23,17 @@ import jakarta.faces.validator.Validator;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0 changed_modified_2_0_rev_a">EditableValueHolder</strong> is an extension of
- * ValueHolder that describes additional features supported by editable components, including {@link ValueChangeEvent}s
- * and {@link Validator}s.
+ * <strong class="changed_modified_2_0 changed_modified_2_0_rev_a">EditableValueHolder</strong> is an extension of ValueHolder that describes additional
+ * features supported by editable components, including {@link ValueChangeEvent}s and {@link Validator}s.
  */
 
 public interface EditableValueHolder extends ValueHolder {
 
     /**
      * <p>
-     * Return the submittedValue value of this component. This method should only be used by the <code>encodeBegin()</code>
-     * and/or <code>encodeEnd()</code> methods of this component, or its corresponding {@link Renderer}.
-     * <span class="changed_modified_2_0_rev_a">The action taken based on whether the value is <code>null</code>, empty, or
-     * non-<code>null</code> is determined based on the value of the
+     * Return the submittedValue value of this component. This method should only be used by the <code>encodeBegin()</code> and/or <code>encodeEnd()</code>
+     * methods of this component, or its corresponding {@link Renderer}. <span class="changed_modified_2_0_rev_a">The action taken based on whether the value is
+     * <code>null</code>, empty, or non-<code>null</code> is determined based on the value of the
      * <code>jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</code>context-param.</span>
      * </p>
      *
@@ -54,10 +52,9 @@ public interface EditableValueHolder extends ValueHolder {
 
     /**
      * <p>
-     * Set the submittedValue value of this component. This method should only be used by the <code>decode()</code> and
-     * <code>validate()</code> method of this component, or its corresponding {@link Renderer}.
-     * <span class="changed_modified_2_0_rev_a">The action taken based on whether the value is <code>null</code>, empty, or
-     * non-<code>null</code> is determined based on the value of the
+     * Set the submittedValue value of this component. This method should only be used by the <code>decode()</code> and <code>validate()</code> method of this
+     * component, or its corresponding {@link Renderer}. <span class="changed_modified_2_0_rev_a">The action taken based on whether the value is
+     * <code>null</code>, empty, or non-<code>null</code> is determined based on the value of the
      * <code>jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</code>context-param.</span>
      * </p>
      *
@@ -66,8 +63,7 @@ public interface EditableValueHolder extends ValueHolder {
     void setSubmittedValue(Object submittedValue);
 
     /**
-     * Return the "local value set" state for this component. Calls to <code>setValue()</code> automatically reset this
-     * property to <code>true</code>.
+     * Return the "local value set" state for this component. Calls to <code>setValue()</code> automatically reset this property to <code>true</code>.
      *
      * @return <code>true</code> if the local value is set, <code>false</code> otherwise.
      */
@@ -127,9 +123,9 @@ public interface EditableValueHolder extends ValueHolder {
 
     /**
      * <p>
-     * Set the "immediate" state for this component. When set to true, the component's value will be converted and validated
-     * immediately in the <em>Apply Request Values</em> phase, and {@link ValueChangeEvent}s will be delivered in that phase
-     * as well. The default value for this property must be <code>false</code>.
+     * Set the "immediate" state for this component. When set to true, the component's value will be converted and validated immediately in the <em>Apply
+     * Request Values</em> phase, and {@link ValueChangeEvent}s will be delivered in that phase as well. The default value for this property must be
+     * <code>false</code>.
      * </p>
      *
      * @param immediate The new "immediate" state
@@ -149,8 +145,7 @@ public interface EditableValueHolder extends ValueHolder {
 
     /**
      * <p>
-     * Return the set of registered {@link Validator}s for this component instance. If there are no registered validators, a
-     * zero-length array is returned.
+     * Return the set of registered {@link Validator}s for this component instance. If there are no registered validators, a zero-length array is returned.
      * </p>
      *
      * @return the validators, or a zero-length array.
@@ -159,8 +154,7 @@ public interface EditableValueHolder extends ValueHolder {
 
     /**
      * <p>
-     * Remove a {@link Validator} instance from the set associated with this component, if it was previously associated.
-     * Otherwise, do nothing.
+     * Remove a {@link Validator} instance from the set associated with this component, if it was previously associated. Otherwise, do nothing.
      * </p>
      *
      * @param validator The {@link Validator} to remove
@@ -169,8 +163,7 @@ public interface EditableValueHolder extends ValueHolder {
 
     /**
      * <p>
-     * Add a new {@link ValueChangeListener} to the set of listeners interested in being notified when
-     * {@link ValueChangeEvent}s occur.
+     * Add a new {@link ValueChangeListener} to the set of listeners interested in being notified when {@link ValueChangeEvent}s occur.
      * </p>
      *
      * @param listener The {@link ValueChangeListener} to be added
@@ -181,8 +174,8 @@ public interface EditableValueHolder extends ValueHolder {
 
     /**
      * <p>
-     * Return the set of registered {@link ValueChangeListener}s for this component instance. If there are no registered
-     * listeners, a zero-length array is returned.
+     * Return the set of registered {@link ValueChangeListener}s for this component instance. If there are no registered listeners, a zero-length array is
+     * returned.
      * </p>
      *
      * @return the value change listeners, or a zero-length array.
@@ -191,8 +184,7 @@ public interface EditableValueHolder extends ValueHolder {
 
     /**
      * <p>
-     * Remove an existing {@link ValueChangeListener} (if any) from the set of listeners interested in being notified when
-     * {@link ValueChangeEvent}s occur.
+     * Remove an existing {@link ValueChangeListener} (if any) from the set of listeners interested in being notified when {@link ValueChangeEvent}s occur.
      * </p>
      *
      * @param listener The {@link ValueChangeListener} to be removed

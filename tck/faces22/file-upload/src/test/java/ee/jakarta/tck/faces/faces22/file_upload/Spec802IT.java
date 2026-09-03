@@ -25,24 +25,23 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import jakarta.faces.component.html.HtmlInputFile;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.html.HtmlInputFile;
 
 /**
- * The bytes of a file uploaded through {@code h:inputFile} must reach the model as a {@code Part} and survive a
- * validator rejecting the file.
+ * The bytes of a file uploaded through {@code h:inputFile} must reach the model as a {@code Part} and survive a validator rejecting the file.
  */
 class Spec802IT extends BaseITNG {
 
     private static final String VIEW = "spec802.xhtml";
 
     /**
-     * The bytes of the uploaded file reach the bean and can be rendered back, and a sibling input of the same
-     * multipart form is submitted along with it.
+     * The bytes of the uploaded file reach the bean and can be rendered back, and a sibling input of the same multipart form is submitted along with it.
      *
      * @see HtmlInputFile
      * @see https://github.com/jakartaee/faces/issues/802
@@ -56,15 +55,19 @@ class Spec802IT extends BaseITNG {
         page.findElement(By.id("form:text")).sendKeys(text);
         submit(page, content);
 
-        assertEquals(content, page.findElement(By.id("form:fileText")).getText(),
-                "The bytes of the uploaded file must reach the bean and be rendered back.");
-        assertEquals(text, page.findElement(By.id("form:textOutput")).getText(),
-                "The sibling input of the multipart form must have been submitted along with the file.");
+        assertEquals(
+            content, page.findElement(By.id("form:fileText")).getText(),
+            "The bytes of the uploaded file must reach the bean and be rendered back."
+        );
+        assertEquals(
+            text, page.findElement(By.id("form:textOutput")).getText(),
+            "The sibling input of the multipart form must have been submitted along with the file."
+        );
     }
 
     /**
-     * A validator rejecting the uploaded file shows its validation message and suppresses the model update of both the
-     * file itself and the sibling inputs of the same form.
+     * A validator rejecting the uploaded file shows its validation message and suppresses the model update of both the file itself and the sibling inputs of
+     * the same form.
      *
      * @see HtmlInputFile
      * @see jakarta.faces.validator.Validator
@@ -78,12 +81,18 @@ class Spec802IT extends BaseITNG {
         page.findElement(By.id("form:text")).sendKeys(text);
         submit(page, "This file lacks the marker");
 
-        assertTrue(page.containsText(Spec802Validator.INVALID_FILE_MESSAGE),
-                "The validation message of the rejected file must be shown.");
-        assertEquals("", page.findElement(By.id("form:fileText")).getText(),
-                "A rejected file must not reach the model.");
-        assertEquals("", page.findElement(By.id("form:textOutput")).getText(),
-                "A failed validation must suppress the model update of the sibling inputs.");
+        assertTrue(
+            page.containsText(Spec802Validator.INVALID_FILE_MESSAGE),
+            "The validation message of the rejected file must be shown."
+        );
+        assertEquals(
+            "", page.findElement(By.id("form:fileText")).getText(),
+            "A rejected file must not reach the model."
+        );
+        assertEquals(
+            "", page.findElement(By.id("form:textOutput")).getText(),
+            "A failed validation must suppress the model update of the sibling inputs."
+        );
     }
 
     /**
@@ -99,14 +108,16 @@ class Spec802IT extends BaseITNG {
         for (int i = 1; i <= 3; i++) {
             String content = MARKER + " upload " + i;
             submit(page, content);
-            assertEquals(content, page.findElement(By.id("form:fileText")).getText(),
-                    "Upload " + i + " on the same view must yield its own bytes.");
+            assertEquals(
+                content, page.findElement(By.id("form:fileText")).getText(),
+                "Upload " + i + " on the same view must yield its own bytes."
+            );
         }
     }
 
     /**
-     * The File renderer must render the client id as the name attribute and must not render a value
-     * attribute at all, neither on an initial render nor after a postback.
+     * The File renderer must render the client id as the name attribute and must not render a value attribute at all, neither on an initial render nor after a
+     * postback.
      *
      * @see HtmlInputFile
      * @see https://github.com/jakartaee/faces/issues/802
@@ -115,15 +126,21 @@ class Spec802IT extends BaseITNG {
     void valueAttributeIsNotRendered() throws IOException {
         WebPage page = getPage(VIEW);
 
-        assertEquals("form:file", page.findElement(By.id("form:file")).getDomAttribute("name"),
-                "The client id must be rendered as the name attribute.");
-        assertNull(page.findElement(By.id("form:file")).getDomAttribute("value"),
-                "The value attribute must not be rendered on an initial render.");
+        assertEquals(
+            "form:file", page.findElement(By.id("form:file")).getDomAttribute("name"),
+            "The client id must be rendered as the name attribute."
+        );
+        assertNull(
+            page.findElement(By.id("form:file")).getDomAttribute("value"),
+            "The value attribute must not be rendered on an initial render."
+        );
 
         submit(page, MARKER + " reaches the model");
 
-        assertNull(page.findElement(By.id("form:file")).getDomAttribute("value"),
-                "The value attribute must not be rendered after a postback.");
+        assertNull(
+            page.findElement(By.id("form:file")).getDomAttribute("value"),
+            "The value attribute must not be rendered after a postback."
+        );
     }
 
     /**
@@ -135,4 +152,5 @@ class Spec802IT extends BaseITNG {
         page.findElement(By.id("form:file")).sendKeys(file.toAbsolutePath().toString());
         page.guardHttp(page.findElement(By.id("form:button"))::click);
     }
+
 }

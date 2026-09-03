@@ -26,16 +26,15 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A c:forEach whose backing source is <em>not</em> mutated on postback must re-render every row unchanged, for each
- * source kind - List, array, begin/end integer range and Map. This complements Issue2631 (collection swapped on
- * postback) and Issue2896 (item added on postback), which both mutate; here the no-op postback must preserve each
- * iteration's generated id and value.
+ * A c:forEach whose backing source is <em>not</em> mutated on postback must re-render every row unchanged, for each source kind - List, array, begin/end
+ * integer range and Map. This complements Issue2631 (collection swapped on postback) and Issue2896 (item added on postback), which both mutate; here the no-op
+ * postback must preserve each iteration's generated id and value.
  */
 class ForEachUnchangedPostbackIT extends BaseITNG {
 
     /**
-     * After a postback that only bumps a counter and leaves every source untouched, each iteration of every source kind
-     * must still be present with its original generated id and value.
+     * After a postback that only bumps a counter and leaves every source untouched, each iteration of every source kind must still be present with its original
+     * generated id and value.
      *
      * @see jakarta.faces.component.UIComponent#getClientId()
      */
@@ -63,4 +62,5 @@ class ForEachUnchangedPostbackIT extends BaseITNG {
             assertEquals("map-" + (char) ('A' + i), page.findElement(By.id("form:map_" + i)).getText(), "map row " + i);
         }
     }
+
 }

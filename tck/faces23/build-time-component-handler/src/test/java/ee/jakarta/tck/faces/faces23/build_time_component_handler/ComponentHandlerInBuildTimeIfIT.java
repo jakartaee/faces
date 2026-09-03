@@ -26,9 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class ComponentHandlerInBuildTimeIfIT extends BaseITNG {
 
     /**
-     * A custom ComponentHandler nested inside a build-time c:if must only have its apply()
-     * invoked while the condition evaluates to true, and must stop being applied once the
-     * condition flips back to false.
+     * A custom ComponentHandler nested inside a build-time c:if must only have its apply() invoked while the condition evaluates to true, and must stop being
+     * applied once the condition flips back to false.
      *
      * @see jakarta.faces.view.facelets.ComponentHandler
      * @see jakarta.faces.view.facelets.FaceletContext
@@ -40,8 +39,10 @@ class ComponentHandlerInBuildTimeIfIT extends BaseITNG {
 
         page.findElement(By.id("form:checkbox")).click();
         page.guardHttp(page.findElement(By.id("form:button"))::click);
-        assertEquals(ComponentHandlerInBuildTimeIfHandler.MESSAGE,
-                page.findElement(By.id("message")).getText(), "handler must be applied when condition is true");
+        assertEquals(
+            ComponentHandlerInBuildTimeIfHandler.MESSAGE,
+            page.findElement(By.id("message")).getText(), "handler must be applied when condition is true"
+        );
 
         page.findElement(By.id("form:checkbox")).click();
         page.guardHttp(page.findElement(By.id("form:button"))::click);
@@ -50,4 +51,5 @@ class ComponentHandlerInBuildTimeIfIT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:button"))::click);
         assertEquals("", page.findElement(By.id("message")).getText(), "handler must not be applied once condition is false");
     }
+
 }

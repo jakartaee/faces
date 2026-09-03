@@ -20,17 +20,14 @@ import java.util.List;
 
 /**
  * <p class="changed_added_2_0">
- * Classes that implement this interface agree to maintain a list of {@link SystemEventListener} instances for each kind
- * of {@link SystemEvent} they can generate. This interface enables arbitrary Objects to act as the source for
- * {@link SystemEvent} instances.
+ * Classes that implement this interface agree to maintain a list of {@link SystemEventListener} instances for each kind of {@link SystemEvent} they can
+ * generate. This interface enables arbitrary Objects to act as the source for {@link SystemEvent} instances.
  * </p>
  *
  * <p>
- * If the implementing class is a {@link jakarta.faces.component.UIComponent} or is referenced by a
- * <code>UIComponent</code>, care must be taken to ensure that the implementing class, and all the members of the list
- * returned by {@link #getListenersForEventClass} work correctly with the state management system. One way to ensure
- * this is to have the class and the list members implement {@link jakarta.faces.component.StateHolder} or
- * {@link java.io.Serializable}.
+ * If the implementing class is a {@link jakarta.faces.component.UIComponent} or is referenced by a <code>UIComponent</code>, care must be taken to ensure that
+ * the implementing class, and all the members of the list returned by {@link #getListenersForEventClass} work correctly with the state management system. One
+ * way to ensure this is to have the class and the list members implement {@link jakarta.faces.component.StateHolder} or {@link java.io.Serializable}.
  * </p>
  *
  * @since 2.0
@@ -41,8 +38,7 @@ public interface SystemEventListenerHolder {
     /**
      * <div class="changed_added_2_0">
      * <p>
-     * Return a <code>List</code> of {@link SystemEventListener} instances that have been installed into the class
-     * implementing this interface.
+     * Return a <code>List</code> of {@link SystemEventListener} instances that have been installed into the class implementing this interface.
      * </p>
      * </div>
      *

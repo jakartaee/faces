@@ -24,9 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Resource-library-contract resources are private and must not be reachable by a direct path
- * reference. A component referencing {@code /contracts/...} directly renders the {@code RES_NOT_FOUND}
- * marker instead of a served resource URL.
+ * Resource-library-contract resources are private and must not be reachable by a direct path reference. A component referencing {@code /contracts/...} directly
+ * renders the {@code RES_NOT_FOUND} marker instead of a served resource URL.
  */
 public class Issue3172IT extends BaseITNG {
 
@@ -79,4 +78,5 @@ public class Issue3172IT extends BaseITNG {
         WebPage page = getPage("issue3172OutputScript.xhtml");
         assertTrue(page.containsSource(RES_NOT_FOUND));
     }
+
 }

@@ -111,4 +111,5 @@ class Spec1760IT extends BaseITNG {
         assertEquals(null, head.getDomAttribute("id"));
         assertEquals(null, body.getDomAttribute("id"));
     }
+
 }

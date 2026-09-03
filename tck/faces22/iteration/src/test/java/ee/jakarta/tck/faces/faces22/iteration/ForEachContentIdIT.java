@@ -26,10 +26,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * When a c:forEach list is replaced on postback with a same-size list of different values, the per-element build-time
- * attributes must be regenerated. Here each row's component id is derived from the item value, so an unchanged count
- * must not be mistaken for an unchanged iteration: the old content-derived ids must be gone and the new ones present.
- * This complements Issue2631 (which asserts changed <em>values</em>) by asserting changed <em>generated ids</em>.
+ * When a c:forEach list is replaced on postback with a same-size list of different values, the per-element build-time attributes must be regenerated. Here each
+ * row's component id is derived from the item value, so an unchanged count must not be mistaken for an unchanged iteration: the old content-derived ids must be
+ * gone and the new ones present. This complements Issue2631 (which asserts changed <em>values</em>) by asserting changed <em>generated ids</em>.
  */
 class ForEachContentIdIT extends BaseITNG {
 
@@ -58,4 +57,5 @@ class ForEachContentIdIT extends BaseITNG {
         assertFalse(page.containsSource("form:item_b"), "stale id item_b gone after replace");
         assertFalse(page.containsSource("form:item_c"), "stale id item_c gone after replace");
     }
+
 }

@@ -26,14 +26,13 @@ import org.openqa.selenium.support.FindBy;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * The build which restores a postback reproduces the view that was submitted rather than the one the current state of
- * the model asks for. Every view here guards its input with a build time condition over a request scoped flag which
- * the action of the previous request set, so the condition holds while the response is rendered and no longer holds
- * while the postback is restored.
+ * The build which restores a postback reproduces the view that was submitted rather than the one the current state of the model asks for. Every view here
+ * guards its input with a build time condition over a request scoped flag which the action of the previous request set, so the condition holds while the
+ * response is rendered and no longer holds while the postback is restored.
  *
  * <p>
- * The value submitted for the guarded component must therefore reach the model, and the re-apply of the facelet which
- * precedes rendering must evaluate the condition again, so that the response no longer holds the component.
+ * The value submitted for the guarded component must therefore reach the model, and the re-apply of the facelet which precedes rendering must evaluate the
+ * condition again, so that the response no longer holds the component.
  *
  * @see https://github.com/eclipse-ee4j/mojarra/issues/5961
  */
@@ -85,8 +84,8 @@ class Issue5961IT extends BaseITNG {
     private WebElement firstRow;
 
     /**
-     * A value submitted for an input the response held inside a <code>c:if</code> reaches the model, even though the
-     * test no longer holds while the postback is restored.
+     * A value submitted for an input the response held inside a <code>c:if</code> reaches the model, even though the test no longer holds while the postback is
+     * restored.
      */
     @Test
     void testConditional() {
@@ -99,8 +98,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * An ajax postback restores its view the same way, so a value submitted for an input the response held inside a
-     * <code>c:if</code> reaches the model there as well.
+     * An ajax postback restores its view the same way, so a value submitted for an input the response held inside a <code>c:if</code> reaches the model there
+     * as well.
      */
     @Test
     void testConditionalAjax() {
@@ -112,9 +111,9 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * A value submitted for an input the response held inside one <code>c:when</code> reaches the property that branch
-     * binds, rather than the property of the branch the restore would otherwise have taken. Both branches carry the
-     * same component id, which is what makes this the quietest variant: nothing but the tag tells them apart.
+     * A value submitted for an input the response held inside one <code>c:when</code> reaches the property that branch binds, rather than the property of the
+     * branch the restore would otherwise have taken. Both branches carry the same component id, which is what makes this the quietest variant: nothing but the
+     * tag tells them apart.
      */
     @Test
     void testChoose() {
@@ -127,8 +126,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * The values submitted for the rows a <code>c:forEach</code> over a build time range rendered reach the model,
-     * even though the range no longer covers them while the postback is restored.
+     * The values submitted for the rows a <code>c:forEach</code> over a build time range rendered reach the model, even though the range no longer covers them
+     * while the postback is restored.
      */
     @Test
     void testIteration() {
@@ -141,9 +140,9 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * The values submitted for the rows a <code>c:forEach</code> over a map rendered reach the entries they were
-     * rendered for, since the key of each of those rows is saved beside the range: an entry is reached by key rather
-     * than by position, so neither the range nor the row count names the one a row belongs to.
+     * The values submitted for the rows a <code>c:forEach</code> over a map rendered reach the entries they were rendered for, since the key of each of those
+     * rows is saved beside the range: an entry is reached by key rather than by position, so neither the range nor the row count names the one a row belongs
+     * to.
      */
     @Test
     void testIterationOverMap() {
@@ -158,8 +157,7 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * A map may be keyed by the very type an index has, so the rows of an iteration over one reach their entries by
-     * key rather than by position there as well.
+     * A map may be keyed by the very type an index has, so the rows of an iteration over one reach their entries by key rather than by position there as well.
      */
     @Test
     void testIterationOverMapKeyedByInteger() {
@@ -174,10 +172,9 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * The values submitted for the rows a <code>c:forEach</code> over a set rendered reach the model as well, each row
-     * reading its own element live by position, which is the only thing a set offers to reach an element by. The rows
-     * a range skipped are read past rather than counted twice, so the last row of the iteration reads its own element
-     * rather than none at all.
+     * The values submitted for the rows a <code>c:forEach</code> over a set rendered reach the model as well, each row reading its own element live by
+     * position, which is the only thing a set offers to reach an element by. The rows a range skipped are read past rather than counted twice, so the last row
+     * of the iteration reads its own element rather than none at all.
      */
     @Test
     void testIterationOverSet() {
@@ -192,9 +189,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * A value submitted for an input whose id an expression decided reaches the model, even though that expression
-     * yields another id while the postback is restored, and the response which follows holds the id the model asks
-     * for now.
+     * A value submitted for an input whose id an expression decided reaches the model, even though that expression yields another id while the postback is
+     * restored, and the response which follows holds the id the model asks for now.
      */
     @Test
     void testDynamicId() {
@@ -207,8 +203,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * Keys which cannot be saved with the state leave the rows they were rendered for unreproducible, which is
-     * reported rather than failing the build the response is rendered by.
+     * Keys which cannot be saved with the state leave the rows they were rendered for unreproducible, which is reported rather than failing the build the
+     * response is rendered by.
      */
     @Test
     void testIterationOverUnsavableKeys() {
@@ -220,8 +216,7 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * A step which does not advance walks the items one element at a time, which the restore of a postback counts the
-     * same way rather than dividing by it.
+     * A step which does not advance walks the items one element at a time, which the restore of a postback counts the same way rather than dividing by it.
      */
     @Test
     void testIterationOverNonAdvancingStep() {
@@ -233,8 +228,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * A row of a map still names the entry it was rendered for once that entry is gone, so what the rest of the row
-     * reads the model by is the key it was rendered for rather than no key at all.
+     * A row of a map still names the entry it was rendered for once that entry is gone, so what the rest of the row reads the model by is the key it was
+     * rendered for rather than no key at all.
      */
     @Test
     void testIterationOverVanishedEntry() {
@@ -248,9 +243,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * Items which are gone are not items which hand out their elements another way: the rows a map iteration rendered
-     * are reproduced over them all the same, so a value submitted for one of them still reaches the model, and each
-     * row reads the stand-in for the entry it no longer reaches.
+     * Items which are gone are not items which hand out their elements another way: the rows a map iteration rendered are reproduced over them all the same, so
+     * a value submitted for one of them still reaches the model, and each row reads the stand-in for the entry it no longer reaches.
      */
     @Test
     void testIterationOverVanishedEntries() {
@@ -263,8 +257,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * Items which hand out their elements by key where the rows of this view were rendered over them by position
-     * supply none of those rows, so the re-apply which precedes rendering builds the iteration the items now ask for.
+     * Items which hand out their elements by key where the rows of this view were rendered over them by position supply none of those rows, so the re-apply
+     * which precedes rendering builds the iteration the items now ask for.
      */
     @Test
     void testIterationOverItemsSwitchedBack() {
@@ -275,9 +269,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * Items which are no longer the map whose keys an iteration reproduces its rows from supply none of those rows,
-     * so the re-apply which precedes rendering builds the iteration the items now ask for, and the postback after
-     * that one reproduces what that re-apply rendered rather than the keys again.
+     * Items which are no longer the map whose keys an iteration reproduces its rows from supply none of those rows, so the re-apply which precedes rendering
+     * builds the iteration the items now ask for, and the postback after that one reproduces what that re-apply rendered rather than the keys again.
      */
     @Test
     void testIterationOverSwitchedItems() {
@@ -292,11 +285,10 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * The elements of an iteration are not saved, only the range, the row count and, over a map, the keys, since each
-     * row reads its own element live. An iteration whose items no longer hold the elements its rows were rendered for
-     * reproduces those rows all the same, each reading a stand-in for the element that is gone: the postback
-     * completes rather than failing on a row whose var resolves to nothing, a warning reports the rows it happened
-     * to, and the values submitted for them reach that stand-in rather than the model.
+     * The elements of an iteration are not saved, only the range, the row count and, over a map, the keys, since each row reads its own element live. An
+     * iteration whose items no longer hold the elements its rows were rendered for reproduces those rows all the same, each reading a stand-in for the element
+     * that is gone: the postback completes rather than failing on a row whose var resolves to nothing, a warning reports the rows it happened to, and the
+     * values submitted for them reach that stand-in rather than the model.
      */
     @Test
     void testIterationOverVanishedItems() {
@@ -310,8 +302,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * A decision is keyed by the id its tag generates for the build, which an iteration generates anew per round, so a
-     * <code>c:if</code> nested in a <code>c:forEach</code> replays the value it had in its own round.
+     * A decision is keyed by the id its tag generates for the build, which an iteration generates anew per round, so a <code>c:if</code> nested in a
+     * <code>c:forEach</code> replays the value it had in its own round.
      */
     @Test
     void testNestedInIteration() {
@@ -324,8 +316,8 @@ class Issue5961IT extends BaseITNG {
     }
 
     /**
-     * A value submitted for an input the response held in a <code>ui:include</code> reaches the model, even though the
-     * path resolves to another facelet while the postback is restored.
+     * A value submitted for an input the response held in a <code>ui:include</code> reaches the model, even though the path resolves to another facelet while
+     * the postback is restored.
      */
     @Test
     void testInclude() {
@@ -336,4 +328,5 @@ class Issue5961IT extends BaseITNG {
         page.guardHttp(submit::click);
         assertEquals("test", value.getText());
     }
+
 }

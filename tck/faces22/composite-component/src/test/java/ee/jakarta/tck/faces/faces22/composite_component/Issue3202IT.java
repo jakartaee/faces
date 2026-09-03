@@ -46,4 +46,5 @@ public class Issue3202IT extends BaseITNG {
 
         assertTrue(page.containsText("Validator method called"));
     }
+
 }

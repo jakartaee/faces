@@ -18,19 +18,19 @@ package ee.jakarta.tck.faces.faces22.composite_component;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.component.UIComponent;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.UIComponent;
 
 class Issue2180IT extends BaseITNG {
 
     /**
-     * The attribute names a composite component declares a default value for are a property of its view
-     * declaration, so the collection under ATTRS_WITH_DECLARED_DEFAULT_VALUES must not accumulate entries
-     * across postbacks of composites nested through cc:insertChildren.
+     * The attribute names a composite component declares a default value for are a property of its view declaration, so the collection under
+     * ATTRS_WITH_DECLARED_DEFAULT_VALUES must not accumulate entries across postbacks of composites nested through cc:insertChildren.
      *
      * @see UIComponent#ATTRS_WITH_DECLARED_DEFAULT_VALUES
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2180
@@ -46,4 +46,5 @@ class Issue2180IT extends BaseITNG {
             assertEquals("SUCCESS", page.findElement(By.id("form:status")).getText(), "postback " + postback);
         }
     }
+
 }

@@ -46,4 +46,5 @@ public class Issue2744Bean implements Serializable {
     public int getCounter() {
         return counter;
     }
+
 }

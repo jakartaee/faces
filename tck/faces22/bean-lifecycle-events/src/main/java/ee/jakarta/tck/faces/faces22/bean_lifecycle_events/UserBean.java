@@ -134,8 +134,6 @@ public class UserBean implements Serializable {
         this.flowId = flowId;
     }
 
-
-
     public String getInitFlowMessage() {
         return initFlowMessage;
     }

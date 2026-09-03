@@ -19,34 +19,36 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ActionEvent;
 import jakarta.faces.event.ActionListener;
 
-@jakarta.inject.Named("beanOne") @jakarta.enterprise.context.RequestScoped
+@jakarta.inject.Named("beanOne")
+@jakarta.enterprise.context.RequestScoped
 public class BeanOne implements ActionListener {
 
-  public ActionListener getTestOneEventListener() {
-    ActionListener result = new BeanOne();
-    return result;
-  }
+    public ActionListener getTestOneEventListener() {
+        ActionListener result = new BeanOne();
+        return result;
+    }
 
-  @Override
-  public void processAction(ActionEvent e) {
-    FacesContext context = FacesContext.getCurrentInstance();
-    context.getExternalContext().getRequestMap().put("actionCalled", "PASSED");
-  }
+    @Override
+    public void processAction(ActionEvent e) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.getExternalContext().getRequestMap().put("actionCalled", "PASSED");
+    }
 
-  private boolean isTransient;
+    private boolean isTransient;
 
-  public boolean isTransient() {
-    return isTransient;
-  }
+    public boolean isTransient() {
+        return isTransient;
+    }
 
-  public void setTransient(boolean isTransient) {
-    this.isTransient = isTransient;
-  }
+    public void setTransient(boolean isTransient) {
+        this.isTransient = isTransient;
+    }
 
-  public Object saveState(FacesContext context) {
-    return null;
-  }
+    public Object saveState(FacesContext context) {
+        return null;
+    }
 
-  public void restoreState(FacesContext context, Object stateObj) {
-  }
+    public void restoreState(FacesContext context, Object stateObj) {
+    }
+
 }

@@ -18,8 +18,7 @@ package jakarta.faces.model;
 
 /**
  * <p>
- * <strong>ScalarDataModel</strong> is a convenience implementation of {@link DataModel} that wraps an individual Java
- * object.
+ * <strong>ScalarDataModel</strong> is a convenience implementation of {@link DataModel} that wraps an individual Java object.
  * </p>
  */
 
@@ -64,8 +63,8 @@ public class ScalarDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * Return <code>true</code> if there is <code>wrappedData</code> available, and the current value of
-     * <code>rowIndex</code> is zero. Otherwise, return <code>false</code>.
+     * Return <code>true</code> if there is <code>wrappedData</code> available, and the current value of <code>rowIndex</code> is zero. Otherwise, return
+     * <code>false</code>.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row availability
@@ -107,9 +106,11 @@ public class ScalarDataModel<E> extends DataModel<E> {
 
         if (scalar == null) {
             return null;
-        } else if (!isRowAvailable()) {
+        }
+        else if (!isRowAvailable()) {
             throw new NoRowAvailableException();
-        } else {
+        }
+        else {
             return scalar;
         }
 
@@ -173,7 +174,8 @@ public class ScalarDataModel<E> extends DataModel<E> {
         if (data == null) {
             scalar = null;
             setRowIndex(-1);
-        } else {
+        }
+        else {
             scalar = (E) data;
             index = -1;
             setRowIndex(0);

@@ -45,4 +45,5 @@ public class Spec762Bean implements Serializable {
         Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
         return requestMap.containsKey(BUILDER_KEY) ? requestMap.get(BUILDER_KEY).toString() : "no message";
     }
+
 }

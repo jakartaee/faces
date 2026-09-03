@@ -18,20 +18,21 @@ package ee.jakarta.tck.faces.faces22.render_kit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.component.html.HtmlPanelGroup;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.html.HtmlPanelGroup;
 
 class Issue3274IT extends BaseITNG {
 
     private static final String STYLE = "width: 100px; height: 60px";
 
     /**
-     * The Group renderer writes styleClass out as the class attribute and style as the style attribute, each
-     * exactly once, also when both are given on a block layout.
+     * The Group renderer writes styleClass out as the class attribute and style as the style attribute, each exactly once, also when both are given on a block
+     * layout.
      *
      * @see HtmlPanelGroup#getStyle()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3274
@@ -54,4 +55,5 @@ class Issue3274IT extends BaseITNG {
 
         return count;
     }
+
 }

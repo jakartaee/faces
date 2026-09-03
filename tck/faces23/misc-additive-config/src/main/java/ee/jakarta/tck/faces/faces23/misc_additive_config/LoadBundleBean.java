@@ -48,4 +48,5 @@ public class LoadBundleBean {
     public void useB() {
         basename = BUNDLE_PREFIX + "GreetingB";
     }
+
 }

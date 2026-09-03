@@ -22,10 +22,9 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 
 /**
- * A converter that throws an unchecked {@link NullPointerException} (not a
- * {@link jakarta.faces.convert.ConverterException}) while decoding, to exercise how the runtime
- * surfaces an unexpected exception raised inside conversion. Encoding must not throw: it runs on
- * every render, including the one which produces the form that the test submits.
+ * A converter that throws an unchecked {@link NullPointerException} (not a {@link jakarta.faces.convert.ConverterException}) while decoding, to exercise how
+ * the runtime surfaces an unexpected exception raised inside conversion. Encoding must not throw: it runs on every render, including the one which produces the
+ * form that the test submits.
  */
 @FacesConverter("throwNPE")
 public class ConverterExceptionAjaxOnerrorConverter implements Converter<Object> {
@@ -39,4 +38,5 @@ public class ConverterExceptionAjaxOnerrorConverter implements Converter<Object>
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         return value == null ? "" : value.toString();
     }
+
 }

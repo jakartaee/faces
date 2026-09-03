@@ -24,8 +24,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 /**
- * Adds a message on update so that the target view renders one without ever reading the flash. The
- * flash cookie must be dropped all the same.
+ * Adds a message on update so that the target view renders one without ever reading the flash. The flash cookie must be dropped all the same.
  */
 @Named
 @RequestScoped
@@ -39,7 +38,10 @@ public class Issue2866Bean {
 
     public void setValue(String value) {
         this.value = value;
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage(SEVERITY_INFO, "Message 1", "Shown without accessing the flash"));
+        FacesContext.getCurrentInstance().addMessage(
+            null,
+            new FacesMessage(SEVERITY_INFO, "Message 1", "Shown without accessing the flash")
+        );
     }
+
 }

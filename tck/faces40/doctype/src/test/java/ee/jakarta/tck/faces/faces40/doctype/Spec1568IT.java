@@ -46,8 +46,10 @@ public class Spec1568IT extends BaseITNG {
     void html4Public() throws Exception {
         WebPage page = getPage("spec1568-HTML4-public.xhtml");
 
-        assertEquals("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">",
-                getDoctype(page), "Page is using XHTML4 transitional public doctype");
+        assertEquals(
+            "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">",
+            getDoctype(page), "Page is using XHTML4 transitional public doctype"
+        );
     }
 
     /**
@@ -58,8 +60,10 @@ public class Spec1568IT extends BaseITNG {
     void html4System() throws Exception {
         WebPage page = getPage("spec1568-HTML4-system.xhtml");
 
-        assertEquals("<!DOCTYPE html SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">", getDoctype(page),
-                "Page is using XHTML4 strict system doctype");
+        assertEquals(
+            "<!DOCTYPE html SYSTEM \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">", getDoctype(page),
+            "Page is using XHTML4 strict system doctype"
+        );
     }
 
     private static String getDoctype(WebPage page) {

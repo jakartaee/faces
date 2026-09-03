@@ -36,4 +36,5 @@ public class Issue2444Bean implements Serializable {
     public String getStringWithSpecialCharacters() {
         return STRING_WITH_SPECIAL_CHARACTERS;
     }
+
 }

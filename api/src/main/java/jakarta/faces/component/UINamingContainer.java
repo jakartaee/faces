@@ -29,8 +29,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0">UINamingContainer</strong> is a convenience base class for components that wish
- * to implement {@link NamingContainer} functionality.
+ * <strong class="changed_modified_2_0">UINamingContainer</strong> is a convenience base class for components that wish to implement {@link NamingContainer}
+ * functionality.
  * </p>
  */
 
@@ -88,11 +88,9 @@ public class UINamingContainer extends UIComponentBase implements NamingContaine
 
     /**
      * <p class="changed_added_2_0">
-     * Return the character used to separate segments of a clientId. The implementation must determine if there is a
-     * &lt;<code>context-param</code>&gt; with the value given by the value of the symbolic constant
-     * {@link #SEPARATOR_CHAR_PARAM_NAME}. If there is a value for this param, the first character of the value must be
-     * returned from this method. Otherwise, the value of the symbolic constant {@link NamingContainer#SEPARATOR_CHAR} must
-     * be returned.
+     * Return the character used to separate segments of a clientId. The implementation must determine if there is a &lt;<code>context-param</code>&gt; with the
+     * value given by the value of the symbolic constant {@link #SEPARATOR_CHAR_PARAM_NAME}. If there is a value for this param, the first character of the
+     * value must be returned from this method. Otherwise, the value of the symbolic constant {@link NamingContainer#SEPARATOR_CHAR} must be returned.
      * </p>
      *
      * @param context the {@link FacesContext} for the current request
@@ -103,8 +101,10 @@ public class UINamingContainer extends UIComponentBase implements NamingContaine
 
         if (context == null) {
             if (LOGGER.isLoggable(SEVERE)) {
-                LOGGER.log(SEVERE, "UINamingContainer.getSeparatorChar() called with null FacesContext. This indicates a SEVERE error. Returning {0}",
-                        SEPARATOR_CHAR);
+                LOGGER.log(
+                    SEVERE, "UINamingContainer.getSeparatorChar() called with null FacesContext. This indicates a SEVERE error. Returning {0}",
+                    SEPARATOR_CHAR
+                );
             }
 
             return SEPARATOR_CHAR;
@@ -154,7 +154,8 @@ public class UINamingContainer extends UIComponentBase implements NamingContaine
 
             try {
                 return context.invokeVisitCallback(this, callback) == COMPLETE;
-            } finally {
+            }
+            finally {
                 popComponentFromEL(facesContext);
             }
         }

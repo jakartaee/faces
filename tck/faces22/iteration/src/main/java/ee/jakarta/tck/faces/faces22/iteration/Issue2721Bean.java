@@ -45,4 +45,5 @@ public class Issue2721Bean implements Serializable {
 
     public void action() {
     }
+
 }

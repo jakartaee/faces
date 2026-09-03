@@ -45,4 +45,5 @@ public class Issue2707Item implements Serializable {
     public void setNumber(int number) {
         this.number = number;
     }
+
 }

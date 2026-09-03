@@ -36,4 +36,5 @@ public class RecursiveComponent extends DynamicComponentBase {
             }
         }
     }
+
 }

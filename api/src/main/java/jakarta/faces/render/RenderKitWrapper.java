@@ -27,9 +27,9 @@ import jakarta.faces.context.ResponseWriter;
 
 /**
  * <p class="changed_modified_2_0">
- * <span class="changed_modified_2_3">Provides</span> a simple implementation of {@link RenderKit} that can be
- * subclassed by developers wishing to provide specialized behavior to an existing {@link RenderKit} instance. The
- * default implementation of all methods is to call through to the wrapped {@link RenderKit}.
+ * <span class="changed_modified_2_3">Provides</span> a simple implementation of {@link RenderKit} that can be subclassed by developers wishing to provide
+ * specialized behavior to an existing {@link RenderKit} instance. The default implementation of all methods is to call through to the wrapped
+ * {@link RenderKit}.
  * </p>
  *
  * <p class="changed_added_2_0">
@@ -37,8 +37,7 @@ import jakarta.faces.context.ResponseWriter;
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.0
@@ -57,8 +56,8 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p class="changed_added_2_3">
-     * If this render kit has been decorated, the implementation doing the decorating should push the implementation being
-     * wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this render kit has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -75,8 +74,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link RenderKit#addRenderer(String, String, Renderer)} on the wrapped
-     * {@link RenderKit} object.
+     * The default behavior of this method is to call {@link RenderKit#addRenderer(String, String, Renderer)} on the wrapped {@link RenderKit} object.
      * </p>
      *
      * @see RenderKit#addRenderer(String, String, Renderer)
@@ -88,8 +86,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link RenderKit#createResponseStream(java.io.OutputStream)} on the
-     * wrapped {@link RenderKit} object.
+     * The default behavior of this method is to call {@link RenderKit#createResponseStream(java.io.OutputStream)} on the wrapped {@link RenderKit} object.
      * </p>
      *
      * @see RenderKit#createResponseStream(java.io.OutputStream)
@@ -101,8 +98,8 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link RenderKit#createResponseWriter(java.io.Writer, String, String)}
-     * on the wrapped {@link RenderKit} object.
+     * The default behavior of this method is to call {@link RenderKit#createResponseWriter(java.io.Writer, String, String)} on the wrapped {@link RenderKit}
+     * object.
      * </p>
      *
      * @see RenderKit#createResponseWriter(java.io.Writer, String, String)
@@ -114,8 +111,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link RenderKit#getRenderer(String, String)} on the wrapped
-     * {@link RenderKit} object.
+     * The default behavior of this method is to call {@link RenderKit#getRenderer(String, String)} on the wrapped {@link RenderKit} object.
      * </p>
      *
      * @see RenderKit#getRenderer(String, String)
@@ -127,8 +123,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.render.RenderKit#getResponseStateManager()} on
-     * the wrapped {@link RenderKit} object.
+     * The default behavior of this method is to call {@link jakarta.faces.render.RenderKit#getResponseStateManager()} on the wrapped {@link RenderKit} object.
      * </p>
      *
      * @see jakarta.faces.render.RenderKit#getResponseStateManager()
@@ -140,8 +135,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.render.RenderKit#getComponentFamilies()} on the
-     * wrapped {@link RenderKit} object.
+     * The default behavior of this method is to call {@link jakarta.faces.render.RenderKit#getComponentFamilies()} on the wrapped {@link RenderKit} object.
      * </p>
      *
      * @see jakarta.faces.render.RenderKit#getComponentFamilies()
@@ -153,8 +147,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link RenderKit#getRendererTypes(String)} on the wrapped
-     * {@link RenderKit} object.
+     * The default behavior of this method is to call {@link RenderKit#getRendererTypes(String)} on the wrapped {@link RenderKit} object.
      * </p>
      *
      * @see RenderKit#getRendererTypes(String)
@@ -166,8 +159,8 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link RenderKit#addClientBehaviorRenderer(String, ClientBehaviorRenderer)} on the wrapped {@link RenderKit} object.
+     * The default behavior of this method is to call {@link RenderKit#addClientBehaviorRenderer(String, ClientBehaviorRenderer)} on the wrapped
+     * {@link RenderKit} object.
      * </p>
      *
      * @see RenderKit#addClientBehaviorRenderer(String, ClientBehaviorRenderer)
@@ -179,8 +172,7 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link RenderKit#getClientBehaviorRenderer(String)} on the wrapped
-     * {@link RenderKit} object.
+     * The default behavior of this method is to call {@link RenderKit#getClientBehaviorRenderer(String)} on the wrapped {@link RenderKit} object.
      * </p>
      *
      * @see RenderKit#getClientBehaviorRenderer(String)
@@ -192,8 +184,8 @@ public abstract class RenderKitWrapper extends RenderKit implements FacesWrapper
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link jakarta.faces.render.RenderKit#getClientBehaviorRendererTypes()} on the wrapped {@link RenderKit} object.
+     * The default behavior of this method is to call {@link jakarta.faces.render.RenderKit#getClientBehaviorRendererTypes()} on the wrapped {@link RenderKit}
+     * object.
      * </p>
      *
      * @see jakarta.faces.render.RenderKit#getClientBehaviorRendererTypes()

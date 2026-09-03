@@ -26,19 +26,21 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An f:ajax behavior attached to a passthrough (jsf:) fieldset or label element fires the full Ajax event
- * lifecycle (begin, complete, success) when the configured event is triggered.
+ * An f:ajax behavior attached to a passthrough (jsf:) fieldset or label element fires the full Ajax event lifecycle (begin, complete, success) when the
+ * configured event is triggered.
  */
 class Issue2633IT extends BaseITNG {
 
     private void fireMouseOver(WebPage page, String id) {
-        page.guardAjax(() -> page.executeScript(
-                "document.getElementById(arguments[0]).dispatchEvent(new MouseEvent('mouseover', {bubbles: true}))", id));
+        page.guardAjax(
+            () -> page.executeScript(
+                "document.getElementById(arguments[0]).dispatchEvent(new MouseEvent('mouseover', {bubbles: true}))", id
+            )
+        );
     }
 
     /**
-     * An f:ajax behavior on a passthrough fieldset element fires the full Ajax event lifecycle
-     * (begin, complete, success) on click.
+     * An f:ajax behavior on a passthrough fieldset element fires the full Ajax event lifecycle (begin, complete, success) on click.
      *
      * @see jakarta.faces.component.behavior.AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2633
@@ -57,8 +59,7 @@ class Issue2633IT extends BaseITNG {
     }
 
     /**
-     * An f:ajax behavior with event="mouseover" on a passthrough label element fires the full Ajax event
-     * lifecycle (begin, complete, success) on mouseover.
+     * An f:ajax behavior with event="mouseover" on a passthrough label element fires the full Ajax event lifecycle (begin, complete, success) on mouseover.
      *
      * @see jakarta.faces.component.behavior.AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2633
@@ -74,4 +75,5 @@ class Issue2633IT extends BaseITNG {
         assertTrue(status.contains("label2 Event: complete"), "Ajax complete event fired");
         assertTrue(status.contains("label2 Event: success"), "Ajax success event fired");
     }
+
 }

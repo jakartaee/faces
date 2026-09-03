@@ -28,8 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class LocaleConfigIT extends BaseITNG {
 
     /**
-     * Verifies that the {@code locale-config} declared in faces-config is reflected by
-     * {@code Application.getDefaultLocale} and {@code Application.getSupportedLocales}.
+     * Verifies that the {@code locale-config} declared in faces-config is reflected by {@code Application.getDefaultLocale} and
+     * {@code Application.getSupportedLocales}.
      *
      * @see Application#getDefaultLocale()
      * @see Application#getSupportedLocales()
@@ -38,9 +38,14 @@ class LocaleConfigIT extends BaseITNG {
     void testLocaleConfig() {
         WebPage page = getPage("localeConfig.xhtml");
 
-        assertEquals("en_US", page.findElement(By.id("form:defaultLocale")).getText(),
-                "Default locale must come from faces-config locale-config");
-        assertEquals("de_DE,en_US,fr_FR,ps_PS", page.findElement(By.id("form:supportedLocales")).getText(),
-                "Supported locales must come from faces-config locale-config");
+        assertEquals(
+            "en_US", page.findElement(By.id("form:defaultLocale")).getText(),
+            "Default locale must come from faces-config locale-config"
+        );
+        assertEquals(
+            "de_DE,en_US,fr_FR,ps_PS", page.findElement(By.id("form:supportedLocales")).getText(),
+            "Supported locales must come from faces-config locale-config"
+        );
     }
+
 }

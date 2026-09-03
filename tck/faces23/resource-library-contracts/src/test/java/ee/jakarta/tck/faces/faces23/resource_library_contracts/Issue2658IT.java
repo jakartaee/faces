@@ -25,8 +25,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
  * Dynamic, EL-based resource library contract selection via the {@code f:view
- * contracts} attribute. The selected contract supplies a template (layout2) or
- * an included header (layout1); an unknown value (layout3) falls back to the
+ * contracts} attribute. The selected contract supplies a template (layout2) or an included header (layout1); an unknown value (layout3) falls back to the
  * webapp's own template and header.
  */
 class Issue2658IT extends BaseITNG {
@@ -60,4 +59,5 @@ class Issue2658IT extends BaseITNG {
         WebPage page = getPage("Issue2658.xhtml?style=layout3");
         assertEquals("layout3", page.getTitle());
     }
+
 }

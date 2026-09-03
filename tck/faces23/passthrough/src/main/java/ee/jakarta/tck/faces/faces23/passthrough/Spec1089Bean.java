@@ -28,8 +28,7 @@ import jakarta.inject.Named;
 public class Spec1089Bean {
 
     /**
-     * Backs {@code f:passThroughAttributes} on the passthrough page: one EL-derived
-     * (the current view id) and one literal pass-through attribute.
+     * Backs {@code f:passThroughAttributes} on the passthrough page: one EL-derived (the current view id) and one literal pass-through attribute.
      */
     public Map<String, Object> getPassThroughAttrs() {
         Map<String, Object> attrs = new LinkedHashMap<>();

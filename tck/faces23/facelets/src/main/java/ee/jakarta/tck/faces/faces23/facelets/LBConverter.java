@@ -32,4 +32,5 @@ public class LBConverter implements Converter<Object> {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         return value != null ? value.toString() : "";
     }
+
 }

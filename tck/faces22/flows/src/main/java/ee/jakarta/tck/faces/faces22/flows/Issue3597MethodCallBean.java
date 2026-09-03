@@ -62,4 +62,5 @@ public class Issue3597MethodCallBean implements Serializable {
     public boolean isSwitchA_Case03() {
         return true;
     }
+
 }

@@ -31,8 +31,8 @@ import jakarta.inject.Qualifier;
 
 /**
  * <p class="changed_added_2_2">
- * The presence of this annotation on a CDI producer method for the {@link FlowDefinition} annotation causes the
- * {@link FlowBuilder} to be passed to that method. See {@link FlowBuilder} for a usage example.
+ * The presence of this annotation on a CDI producer method for the {@link FlowDefinition} annotation causes the {@link FlowBuilder} to be passed to that
+ * method. See {@link FlowBuilder} for a usage example.
  * </p>
  *
  * @since 2.2
@@ -59,5 +59,7 @@ public @interface FlowBuilderParameter {
          * Instance of the {@link FlowBuilderParameter} qualifier.
          */
         public static final Literal INSTANCE = new Literal();
+
     }
+
 }

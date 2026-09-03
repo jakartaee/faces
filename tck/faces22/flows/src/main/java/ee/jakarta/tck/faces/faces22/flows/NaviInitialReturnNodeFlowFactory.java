@@ -40,8 +40,9 @@ public class NaviInitialReturnNodeFlowFactory implements Serializable {
         flowBuilder.viewNode(flowId, "/" + flowId + "/first_page.xhtml").markAsStartNode();
 
         flowBuilder.returnNode("ReturnToParentFlow")
-                   .fromOutcome("#{naviInitialReturnNodeFlowBean.parentNodeToBeReturned}");
+            .fromOutcome("#{naviInitialReturnNodeFlowBean.parentNodeToBeReturned}");
 
         return flowBuilder.getFlow();
     }
+
 }

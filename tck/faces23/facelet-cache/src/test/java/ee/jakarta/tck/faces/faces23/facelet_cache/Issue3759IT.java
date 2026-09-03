@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 1997, 2018 Oracle and/or its affiliates. All rights reserved.
  * Copyright (c) 2020 Contributors to Eclipse Foundation.
- * 
+ *
  * This program and the accompanying materials are made available under the
  * terms of the Eclipse Public License v. 2.0, which is available at
  * http://www.eclipse.org/legal/epl-2.0.
@@ -30,12 +30,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue3759IT extends BaseITNG {
 
-  /**
-   * @see FaceletCacheFactory
+    /**
+     * @see FaceletCacheFactory
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3759
-   */
-  @Test
-  void customFactory() throws Exception {
+     */
+    @Test
+    void customFactory() throws Exception {
         WebPage page = getPage("issue3759.xhtml");
         WebElement input = page.findElement(By.id("input"));
         String inputText = "" + System.currentTimeMillis();
@@ -47,4 +47,5 @@ public class Issue3759IT extends BaseITNG {
         assertTrue(pageText.contains("output: " + inputText));
         assertTrue(pageText.matches("(?s).*message.\\d+.*"));
     }
+
 }

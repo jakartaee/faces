@@ -30,4 +30,5 @@ public class Issue4025NestedFlowBean {
     public String getFoo() {
         return (String) FacesContext.getCurrentInstance().getApplication().getFlowHandler().getCurrentFlowScope().get("foo");
     }
+
 }

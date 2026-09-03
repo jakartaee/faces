@@ -21,22 +21,19 @@ import jakarta.faces.model.SelectItem;
 
 /**
  * <p>
- * <strong>UISelectItems</strong> is a component that may be nested inside a {@link UISelectMany} or {@link UISelectOne}
- * component, and causes the addition of one or more {@link SelectItem} instances to the list of available options in
- * the parent component. The <code>value</code> of this component (set either directly, or acquired indirectly a
- * {@link jakarta.el.ValueExpression}, can be of any of the following types:
+ * <strong>UISelectItems</strong> is a component that may be nested inside a {@link UISelectMany} or {@link UISelectOne} component, and causes the addition of
+ * one or more {@link SelectItem} instances to the list of available options in the parent component. The <code>value</code> of this component (set either
+ * directly, or acquired indirectly a {@link jakarta.el.ValueExpression}, can be of any of the following types:
  * </p>
  * <ul>
- * <li><em>Single instance of {@link SelectItem}</em> - This instance is added to the set of available options for the
- * parent tag.</li>
- * <li><em>Array of {@link SelectItem}</em> - This set of instances is added to the set of available options for the
- * parent component, in ascending subscript order.</li>
- * <li><em>Collection of {@link SelectItem}</em> - This set of instances is added to the set of available options for
- * the parent component, in the order provided by an iterator over them.</li>
- * <li><em>Map</em> - The keys of this object (once converted to Strings) are assumed to be labels, and the values of
- * this object (once converted to Strings) are assumed to be values, of {@link SelectItem} instances that will be
- * constructed dynamically and added to the set of available options for the parent component, in the order provided by
- * an iterator over the keys.</li>
+ * <li><em>Single instance of {@link SelectItem}</em> - This instance is added to the set of available options for the parent tag.</li>
+ * <li><em>Array of {@link SelectItem}</em> - This set of instances is added to the set of available options for the parent component, in ascending subscript
+ * order.</li>
+ * <li><em>Collection of {@link SelectItem}</em> - This set of instances is added to the set of available options for the parent component, in the order
+ * provided by an iterator over them.</li>
+ * <li><em>Map</em> - The keys of this object (once converted to Strings) are assumed to be labels, and the values of this object (once converted to Strings)
+ * are assumed to be values, of {@link SelectItem} instances that will be constructed dynamically and added to the set of available options for the parent
+ * component, in the order provided by an iterator over the keys.</li>
  * </ul>
  */
 
@@ -59,7 +56,8 @@ public class UISelectItems extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "jakarta.faces.SelectItems";
 
     enum PropertyKeys {
-        value, var
+        value,
+        var
     }
 
     // ------------------------------------------------------------ Constructors
@@ -80,8 +78,8 @@ public class UISelectItems extends UIComponentBase {
 
     /**
      * <p class="changed_modified_4_0">
-     * Set the {@link ValueExpression} used to calculate the value for the specified attribute or property name, if any.
-     * In addition, if a {@link ValueExpression} is set for the <code>var</code> property, regardless of the value, throw an illegal argument exception.
+     * Set the {@link ValueExpression} used to calculate the value for the specified attribute or property name, if any. In addition, if a
+     * {@link ValueExpression} is set for the <code>var</code> property, regardless of the value, throw an illegal argument exception.
      * </p>
      *
      * @throws IllegalArgumentException If <code>name</code> is one of <code>id</code>, <code>parent</code>, or <code>var</code>.
@@ -136,8 +134,8 @@ public class UISelectItems extends UIComponentBase {
 
     /**
      * <p>
-     * Return the request-scope attribute name under which the object for the current item will be exposed when iterating.
-     * This property is <strong>not</strong> enabled for value binding expressions.
+     * Return the request-scope attribute name under which the object for the current item will be exposed when iterating. This property is <strong>not</strong>
+     * enabled for value binding expressions.
      * </p>
      *
      * @return the request-scope attribute name.

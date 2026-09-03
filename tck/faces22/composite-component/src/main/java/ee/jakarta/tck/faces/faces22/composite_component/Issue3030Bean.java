@@ -37,4 +37,5 @@ public class Issue3030Bean implements Serializable {
     public void setMandatory(Boolean mandatory) {
         this.mandatory = mandatory;
     }
+
 }

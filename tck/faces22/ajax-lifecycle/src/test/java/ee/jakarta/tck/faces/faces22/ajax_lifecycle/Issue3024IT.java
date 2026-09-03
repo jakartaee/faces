@@ -29,12 +29,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3024IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3024
-   */
-  @Test
-  void delayPositive() throws Exception {
+     */
+    @Test
+    void delayPositive() throws Exception {
         WebPage page = getPage("issue3024Positive.xhtml");
 
         WebElement in1 = page.findElement(By.id("input"));
@@ -46,12 +46,12 @@ class Issue3024IT extends BaseITNG {
         assertTrue(page.findElement(By.id("result")).getText().contains("aaaaaaaaaa"));
     }
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3024
-   */
-  @Test
-  void delayNegative() throws Exception {
+     */
+    @Test
+    void delayNegative() throws Exception {
         WebPage page = getPage("issue3024Negative.xhtml");
 
         WebElement in1 = page.findElement(By.id("input"));
@@ -63,6 +63,5 @@ class Issue3024IT extends BaseITNG {
         WebElement errorHolder = page.findElement(By.id("windowError"));
         assertTrue(errorHolder.getText().contains("NaN"));
     }
-    
 
 }

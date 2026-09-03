@@ -18,8 +18,8 @@ package jakarta.faces.event;
 
 /**
  * <p class="changed_added_2_0">
- * Marker interface for {@link SystemEvent}s that indicate the view map has been created
- * ({@link PostConstructViewMapEvent}, or destroyed ({@link PreDestroyViewMapEvent}).
+ * Marker interface for {@link SystemEvent}s that indicate the view map has been created ({@link PostConstructViewMapEvent}, or destroyed
+ * ({@link PreDestroyViewMapEvent}).
  * </p>
  *
  * @since 2.0

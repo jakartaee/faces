@@ -26,4 +26,5 @@ public class Spec745Component extends UINamingContainer {
         getAttributes().put("untypedXsetByApi", new Spec745Bean.Wienerdoodle());
         getAttributes().put("typedXsetByApi", new Spec745Bean.Wienerdoodle());
     }
+
 }

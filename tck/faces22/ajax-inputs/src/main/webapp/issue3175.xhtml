@@ -30,7 +30,7 @@
     <p><span id="exceptionDuringRender"/></p>
 
     <script>
-        
+
 
     var handleError = function handleError(data) {
         var errorMessageString = "Error from " + data.source.id;
@@ -40,17 +40,17 @@
 
     faces.ajax.addOnError(handleError);
 
-        
-        
+
+
     </script>
-    
+
     <h:form prependId="false">
-        
+
         <h:outputText id="willThrowException" value="#{bean.throwExceptionOnAjax}" />
         <h:commandButton id="submit" value="submit">
             <f:ajax execute="@form" render="willThrowException" />
         </h:commandButton>
-        
+
     </h:form>
 
 </h:body>

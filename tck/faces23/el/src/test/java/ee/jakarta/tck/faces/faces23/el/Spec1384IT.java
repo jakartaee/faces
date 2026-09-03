@@ -26,16 +26,12 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Tests both build time and render time availability of the correct
- * {@code #{component}} value.
+ * Tests both build time and render time availability of the correct {@code #{component}} value.
  *
- * component1 wraps componentA, so this tests that inside component1 but before
- * componentA, {@code #{component}} refers to component1. Inside componentA,
- * {@code #{component}} needs to change to componentA, and directly outside
- * componentA but still inside component1 it needs to change back to component1.
+ * component1 wraps componentA, so this tests that inside component1 but before componentA, {@code #{component}} refers to component1. Inside componentA,
+ * {@code #{component}} needs to change to componentA, and directly outside componentA but still inside component1 it needs to change back to component1.
  *
- * This therefore tests that {@code #{component}} is able to change to deeper
- * stacked components and able to move back when that stack unwinds. The test is
+ * This therefore tests that {@code #{component}} is able to change to deeper stacked components and able to move back when that stack unwinds. The test is
  * repeated to verify that the same changes are possible at the top level.
  */
 class Spec1384IT extends BaseITNG {
@@ -59,11 +55,11 @@ class Spec1384IT extends BaseITNG {
 
         assertTrue(
             id11 > -1 &&
-            id21 > id11 &&
-            id12 > id21 &&
-            id13 > id12 &&
-            id22 > id13 &&
-            id14 > id22
+                id21 > id11 &&
+                id12 > id21 &&
+                id13 > id12 &&
+                id22 > id13 &&
+                id14 > id22
         );
     }
 

@@ -46,8 +46,10 @@ public class FacesContextGetRenderKitBean {
             }
 
             return "SUCCESS";
-        } finally {
+        }
+        finally {
             root.setRenderKitId(original);
         }
     }
+
 }

@@ -35,4 +35,5 @@ public class Issue2721Holder implements Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

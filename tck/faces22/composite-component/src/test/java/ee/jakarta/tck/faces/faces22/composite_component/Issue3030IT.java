@@ -31,8 +31,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue3030IT extends BaseITNG {
 
     /**
-     * A composite component attribute whose value is an EL expression referencing a backing bean must not interfere with
-     * the rendering of a sibling literal-valued attribute on the same composite component.
+     * A composite component attribute whose value is an EL expression referencing a backing bean must not interfere with the rendering of a sibling
+     * literal-valued attribute on the same composite component.
      *
      * @see FaceletContext
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3030
@@ -44,4 +44,5 @@ public class Issue3030IT extends BaseITNG {
         WebElement input = page.findElement(By.id("mainForm:myId:myId_value"));
         assertEquals("bbbb", input.getAttribute("value"));
     }
+
 }

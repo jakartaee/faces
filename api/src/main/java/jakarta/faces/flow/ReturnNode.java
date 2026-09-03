@@ -20,8 +20,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_2">
- * Represents a return node in the flow graph. When control passes to a return node, its {@link #getFromOutcome} is
- * called to determine the next node in the flow graph.
+ * Represents a return node in the flow graph. When control passes to a return node, its {@link #getFromOutcome} is called to determine the next node in the
+ * flow graph.
  * </p>
  *
  * @since 2.2

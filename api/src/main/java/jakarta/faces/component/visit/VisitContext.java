@@ -34,8 +34,8 @@ import jakarta.faces.context.FacesContext;
  * <div class="changed_added_2_0">
  *
  * <p>
- * Component tree visits are initiated by calling {@link UIComponent#visitTree}, at which point both a
- * {@link VisitContext} and a {@link VisitCallback} must be provided.
+ * Component tree visits are initiated by calling {@link UIComponent#visitTree}, at which point both a {@link VisitContext} and a {@link VisitCallback} must be
+ * provided.
  * </p>
  * </div>
  *
@@ -61,13 +61,13 @@ abstract public class VisitContext {
 
     /**
      * <p class="changed_added_2_0">
-     * This unmodifiable Collection is returned by <code>getIdsToVisit()</code> and <code>getSubtreeIdsToVisit()</code> in
-     * cases where all ids should be visited.
+     * This unmodifiable Collection is returned by <code>getIdsToVisit()</code> and <code>getSubtreeIdsToVisit()</code> in cases where all ids should be
+     * visited.
      * </p>
      *
      * <p class="changed_added_2_0">
-     * To simplify logic for <code>visitTree()</code> implementations, this Collection always returns <code>false</code> for
-     * <code>isEmpty</code>. All other methods throw <code>UnsupportedOperationException</code>.
+     * To simplify logic for <code>visitTree()</code> implementations, this Collection always returns <code>false</code> for <code>isEmpty</code>. All other
+     * methods throw <code>UnsupportedOperationException</code>.
      * </p>
      *
      * @since 2.0
@@ -91,6 +91,7 @@ abstract public class VisitContext {
         public boolean isEmpty() {
             return false;
         }
+
     };
 
     /**
@@ -110,8 +111,8 @@ abstract public class VisitContext {
      * </p>
      *
      * <p class="changed_added_2_0">
-     * In the case of a full tree visit, this method returns the ALL_IDS collection. Otherwise, if a partial visit is beign
-     * performed, returns a modifiable collection containing the client ids of the components that should be visited.
+     * In the case of a full tree visit, this method returns the ALL_IDS collection. Otherwise, if a partial visit is beign performed, returns a modifiable
+     * collection containing the client ids of the components that should be visited.
      * </p>
      *
      * @return the ids of the components to visit
@@ -121,30 +122,28 @@ abstract public class VisitContext {
 
     /**
      * <p class="changed_added_2_0">
-     * Given a {@link jakarta.faces.component.NamingContainer} component, returns the client ids of any components
-     * underneath the NamingContainer that should be visited.
+     * Given a {@link jakarta.faces.component.NamingContainer} component, returns the client ids of any components underneath the NamingContainer that should be
+     * visited.
      * </p>
      *
      * <div class="changed_added_2_0">
      *
      * <p>
-     * This method is called by NamingContainer visitTree() implementations to determine whether the NamingContainer
-     * contains components to be visited. In the case where no such components exist, the NamingContainer can short-circuit
-     * the tree visit and avoid descending into child subtrees.
+     * This method is called by NamingContainer visitTree() implementations to determine whether the NamingContainer contains components to be visited. In the
+     * case where no such components exist, the NamingContainer can short-circuit the tree visit and avoid descending into child subtrees.
      * </p>
      *
      * <p>
-     * In addition, iterating components such as UIData may be able to use the returned ids to determine which iterated
-     * states (ie. rows) need to be visited. This allows the visit traversal to be contstrained such only those rows that
-     * contain visit targets need to be traversed.
+     * In addition, iterating components such as UIData may be able to use the returned ids to determine which iterated states (ie. rows) need to be visited.
+     * This allows the visit traversal to be contstrained such only those rows that contain visit targets need to be traversed.
      * </p>
      *
      * </div>
      *
      * @param component a NamingContainer component
-     * @return an unmodifiable Collection containing the client ids of any components underneath the NamingContainer that
-     * are known to be targets of the tree visit. If no such components exist, returns an empty Collection. If all
-     * components underneath the NamingContainer should be visited, returns the {@code VisitContext.ALL_IDS} collection.
+     * @return an unmodifiable Collection containing the client ids of any components underneath the NamingContainer that are known to be targets of the tree
+     * visit. If no such components exist, returns an empty Collection. If all components underneath the NamingContainer should be visited, returns the
+     * {@code VisitContext.ALL_IDS} collection.
      * @throws IllegalArgumentException if {@code component} is not an instance of NamingContainer
      */
     abstract public Collection<String> getSubtreeIdsToVisit(UIComponent component);
@@ -156,8 +155,8 @@ abstract public class VisitContext {
      *
      * @param component the component to visit
      * @param callback the VisitCallback to call
-     * @return a VisitResult value that indicates whether to continue visiting the component's subtree, skip visiting the
-     * component's subtree or abort the visit altogether.
+     * @return a VisitResult value that indicates whether to continue visiting the component's subtree, skip visiting the component's subtree or abort the visit
+     * altogether.
      */
     abstract public VisitResult invokeVisitCallback(UIComponent component, VisitCallback callback);
 
@@ -167,9 +166,8 @@ abstract public class VisitContext {
      * </p>
      *
      * <p>
-     * Interested parties, such as {@link UIComponent#visitTree UIComponent.visitTree()} implementations, may check to see
-     * whether a particular hint is present by calling {@code VisitContext.getHints().contains()}, passing in one of the
-     * hints defined by {@link VisitHint}.
+     * Interested parties, such as {@link UIComponent#visitTree UIComponent.visitTree()} implementations, may check to see whether a particular hint is present
+     * by calling {@code VisitContext.getHints().contains()}, passing in one of the hints defined by {@link VisitHint}.
      *
      * @return a non-empty, unmodifiable collection of VisitHints
      */
@@ -177,8 +175,7 @@ abstract public class VisitContext {
 
     /**
      * <p>
-     * Returns a VisitContext instance that is initialized with the specified ids and hintsfor use with
-     * {@link UIComponent#visitTree}.
+     * Returns a VisitContext instance that is initialized with the specified ids and hintsfor use with {@link UIComponent#visitTree}.
      * </p>
      *
      * @param context the FacesContext for the current request
@@ -196,8 +193,8 @@ abstract public class VisitContext {
 
     /**
      * <p>
-     * Creates a VisitContext instance for use with {@link UIComponent#visitTree UIComponent.visitTree()}. This method can
-     * be used to obtain a VisitContext instance when all components should be visited with the default visit hints.
+     * Creates a VisitContext instance for use with {@link UIComponent#visitTree UIComponent.visitTree()}. This method can be used to obtain a VisitContext
+     * instance when all components should be visited with the default visit hints.
      * </p>
      *
      * @param context the FacesContext for the current request

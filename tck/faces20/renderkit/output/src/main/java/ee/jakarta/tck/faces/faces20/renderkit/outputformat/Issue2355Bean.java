@@ -25,4 +25,5 @@ public class Issue2355Bean {
     public String getNullValue() {
         return null;
     }
+
 }

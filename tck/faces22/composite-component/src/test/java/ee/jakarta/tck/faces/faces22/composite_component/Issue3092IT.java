@@ -28,8 +28,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3092IT extends BaseITNG {
 
     /**
-     * When the facet passed to a composite holds more than one child, cc:renderFacet must render all
-     * of them, not only the last one.
+     * When the facet passed to a composite holds more than one child, cc:renderFacet must render all of them, not only the last one.
      *
      * @see jakarta.faces.component.UIComponent#getFacet(String)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3092
@@ -39,7 +38,10 @@ class Issue3092IT extends BaseITNG {
         WebPage page = getPage("issue3092.xhtml");
 
         assertNotNull(page.findElement(By.id("renderFacet:notfound")), "first child of the facet is rendered");
-        assertEquals("Faces Component", page.findElement(By.id("renderFacet:sibling")).getText(),
-                "sibling child of the facet is rendered");
+        assertEquals(
+            "Faces Component", page.findElement(By.id("renderFacet:sibling")).getText(),
+            "sibling child of the facet is rendered"
+        );
     }
+
 }

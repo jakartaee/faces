@@ -43,6 +43,7 @@ public class Spec1501Bean implements Serializable {
 
     @ApplicationScoped
     public static class Spec1501ApplicationScopedBean {
+
         public void observePostConstructApplicationEvent(@Observes PostConstructApplicationEvent event) {
             observedEvents.add("PostConstructApplicationEvent: " + (event.getSource() instanceof Application));
         }
@@ -50,18 +51,22 @@ public class Spec1501Bean implements Serializable {
         public void observePreDestroyApplicationEvent(@Observes PreDestroyApplicationEvent event) {
             observedEvents.add("PreDestroyApplicationEvent: " + (event.getSource() instanceof Application));
         }
+
     }
 
     public void observePostConstructViewMapEvent(@Observes @Default PostConstructViewMapEvent event) {
-        if (isCurrentView(event.getSource())) observedEvents.add("PostConstructViewMapEvent: " + (event.getSource() instanceof UIViewRoot));
+        if (isCurrentView(event.getSource()))
+            observedEvents.add("PostConstructViewMapEvent: " + (event.getSource() instanceof UIViewRoot));
     }
 
     public void observePreRenderViewEvent(@Observes @Default PreRenderViewEvent event) {
-        if (isCurrentView(event.getSource())) observedEvents.add("PreRenderViewEvent: " + (event.getSource() instanceof UIViewRoot));
+        if (isCurrentView(event.getSource()))
+            observedEvents.add("PreRenderViewEvent: " + (event.getSource() instanceof UIViewRoot));
     }
 
     public void observePreDestroyViewMapEvent(@Observes @Default PreDestroyViewMapEvent event) {
-        if (isCurrentView(event.getSource())) observedEvents.add("PreDestroyViewMapEvent: " + (event.getSource() instanceof UIViewRoot));
+        if (isCurrentView(event.getSource()))
+            observedEvents.add("PreDestroyViewMapEvent: " + (event.getSource() instanceof UIViewRoot));
     }
 
     public void observeMyPostConstructViewMapEvent(@Observes @View("/spec1501.xhtml") PostConstructViewMapEvent event) {
@@ -79,8 +84,9 @@ public class Spec1501Bean implements Serializable {
     public List<String> getObservedEvents() {
         return observedEvents;
     }
-    
+
     private static boolean isCurrentView(Object source) {
         return source instanceof UIViewRoot view && view.getViewId().equals("/spec1501.xhtml");
     }
+
 }

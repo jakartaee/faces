@@ -108,4 +108,5 @@ class FloatConverterTest {
         FacesContext facesContext = Mockito.mock(FacesContext.class);
         assertEquals("12.3", converter.getAsString(facesContext, new UIPanel(), Float.valueOf("12.3")));
     }
+
 }

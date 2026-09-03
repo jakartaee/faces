@@ -27,4 +27,5 @@ public class Issue1455CustomBehavior2 extends ClientBehaviorBase {
     public String getScript(ClientBehaviorContext clientBehaviorContext) {
         return "document.getElementById('textForBehavior2').innerHTML='CustomBehavior2 called';";
     }
+
 }

@@ -36,4 +36,5 @@ public class InjectConverter2 implements Converter {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         throw new UnsupportedOperationException("InjectConverter2 was called");
     }
+
 }

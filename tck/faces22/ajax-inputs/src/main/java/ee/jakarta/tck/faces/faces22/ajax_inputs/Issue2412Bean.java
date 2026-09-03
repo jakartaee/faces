@@ -26,11 +26,11 @@ import jakarta.inject.Named;
 public class Issue2412Bean implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private String string = "Pending";
     private String[] sarray;
 
-        public String getString() {
+    public String getString() {
         return string;
     }
 
@@ -46,7 +46,8 @@ public class Issue2412Bean implements Serializable {
         this.sarray = sarray;
         if (sarray.length == 0) {
             string = "Pending";
-        } else {
+        }
+        else {
             string = "";
         }
         for (String str : sarray) {
@@ -56,4 +57,5 @@ public class Issue2412Bean implements Serializable {
             string = string + str;
         }
     }
+
 }

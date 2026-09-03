@@ -28,8 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3156IT extends BaseITNG {
 
     /**
-     * When an ajax request renders only a subset of the view, a {@code ui:repeat} that is not
-     * among the render targets must not have its {@code value} expression re-evaluated.
+     * When an ajax request renders only a subset of the view, a {@code ui:repeat} that is not among the render targets must not have its {@code value}
+     * expression re-evaluated.
      *
      * @see PartialViewContext#getRenderIds
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3156
@@ -40,4 +40,5 @@ class Issue3156IT extends BaseITNG {
         page.guardAjax(page.findElement(By.id("form:submit"))::click);
         assertFalse(page.containsText("Evaluated 1"));
     }
+
 }

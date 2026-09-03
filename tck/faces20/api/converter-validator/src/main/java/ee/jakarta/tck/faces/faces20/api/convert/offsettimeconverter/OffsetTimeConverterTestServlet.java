@@ -15,9 +15,9 @@
  */
 package ee.jakarta.tck.faces.faces20.api.convert.offsettimeconverter;
 
-import ee.jakarta.tck.faces.faces20.api.convert.common.BaseConverterTestServlet;
-
 import jakarta.servlet.annotation.WebServlet;
+
+import ee.jakarta.tck.faces.faces20.api.convert.common.BaseConverterTestServlet;
 
 @WebServlet("/OffsetTimeConverterTestServlet")
 public final class OffsetTimeConverterTestServlet extends BaseConverterTestServlet {

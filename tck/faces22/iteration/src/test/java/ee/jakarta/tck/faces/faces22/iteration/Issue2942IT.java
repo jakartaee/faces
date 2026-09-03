@@ -26,14 +26,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Submitting a ui:repeat row's commandButton whose actionListener removes that row from the backing list removes
- * that row's rendered input component from the re-rendered page.
+ * Submitting a ui:repeat row's commandButton whose actionListener removes that row from the backing list removes that row's rendered input component from the
+ * re-rendered page.
  */
 class Issue2942IT extends BaseITNG {
 
     /**
-     * The single repeated row renders its input; clicking its remove button drops the row from the backing list so
-     * the re-rendered page no longer contains that row's input.
+     * The single repeated row renders its input; clicking its remove button drops the row from the backing list so the re-rendered page no longer contains that
+     * row's input.
      *
      * @see jakarta.faces.component.UIData
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2942
@@ -45,4 +45,5 @@ class Issue2942IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("f:r:0:b")).click());
         assertFalse(page.containsSource("id=\"f:r:0:i\""), "row input is gone after removal");
     }
+
 }

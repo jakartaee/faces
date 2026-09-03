@@ -44,17 +44,17 @@ import java.util.Map;
 
 /**
  * <p>
- * Mock object that implements enough of <code>java.sql.ResultSet</code> to
- * exercise the <code>ResultSetDataModel</code> functionality. It wraps an array
- * of JavaBeans objects that are passed to the constructor.</p>
+ * Mock object that implements enough of <code>java.sql.ResultSet</code> to exercise the <code>ResultSetDataModel</code> functionality. It wraps an array of
+ * JavaBeans objects that are passed to the constructor.
+ * </p>
  */
 public class MockedResultSet implements ResultSet {
 
     // ------------------------------------------------------------ Constructors
     /**
      * <p>
-     * Construct a new <code>MockResultSet</code> instance wrapping the
-     * specified array of beans.</p>
+     * Construct a new <code>MockResultSet</code> instance wrapping the specified array of beans.
+     * </p>
      *
      * @param beans Array of beans representing the content of the result set
      */
@@ -85,20 +85,24 @@ public class MockedResultSet implements ResultSet {
         if (row == 0) {
             this.row = 0;
             return (false);
-        } else if (row > 0) {
+        }
+        else if (row > 0) {
             if (row > beans.length) {
                 this.row = beans.length + 1;
                 return (false);
-            } else {
+            }
+            else {
                 this.row = row;
                 return (true);
             }
-        } else {
+        }
+        else {
             this.row = (beans.length + 1) - row;
             if (row < 1) {
                 row = 0;
                 return (false);
-            } else {
+            }
+            else {
                 return (true);
             }
         }
@@ -138,29 +142,36 @@ public class MockedResultSet implements ResultSet {
             throw new SQLException("Invalid row number " + row);
         }
         try {
-            if (columnName.equals("writeOnlyProperty")
-                    && (beans[row - 1] instanceof MockedJavaBean)) {
+            if (
+                columnName.equals("writeOnlyProperty")
+                    && (beans[row - 1] instanceof MockedJavaBean)
+            ) {
                 return (((MockedJavaBean) beans[row - 1]).getWriteOnlyPropertyValue());
-            } else if("class".equals(columnName)) {
+            }
+            else if ("class".equals(columnName)) {
                 return null;
-            } else {
+            }
+            else {
                 try {
                     return getPropertyDescriptor(beans[row - 1], columnName).getReadMethod().invoke(beans[row - 1]);
-                } catch (Exception e) {
+                }
+                catch (Exception e) {
                     throw new IllegalStateException(e);
                 }
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new SQLException(e.getMessage(), e);
         }
     }
-    
+
     private static PropertyDescriptor getPropertyDescriptor(Object beanInstance, String propertyName) {
         try {
             return Arrays.stream(Introspector.getBeanInfo(beanInstance.getClass()).getPropertyDescriptors())
                 .filter(propertyDescriptor -> propertyName.equals(propertyDescriptor.getName()))
                 .findFirst().orElseThrow();
-        } catch (IntrospectionException e) {
+        }
+        catch (IntrospectionException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -182,19 +193,22 @@ public class MockedResultSet implements ResultSet {
 
     @Override
     public void updateObject(int columnIndex, Object value)
-            throws SQLException {
+        throws SQLException
+    {
         updateObject(getMetaData().getColumnName(columnIndex), value);
     }
 
     @Override
     public void updateObject(String columnName, Object value)
-            throws SQLException {
+        throws SQLException
+    {
         if ((row <= 0) || (row > beans.length)) {
             throw new SQLException("Invalid row number " + row);
         }
         try {
             getPropertyDescriptor(beans[row - 1], columnName).getWriteMethod().invoke(beans[row - 1], value);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new IllegalStateException(e);
         }
     }
@@ -261,7 +275,8 @@ public class MockedResultSet implements ResultSet {
     @Deprecated
     @Override
     public BigDecimal getBigDecimal(int columnIndex, int scale)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
@@ -277,7 +292,8 @@ public class MockedResultSet implements ResultSet {
     @Deprecated
     @Override
     public BigDecimal getBigDecimal(String columnName, int scale)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
@@ -333,7 +349,8 @@ public class MockedResultSet implements ResultSet {
 
     @Override
     public Reader getCharacterStream(int columnIndex)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
@@ -499,7 +516,8 @@ public class MockedResultSet implements ResultSet {
 
     @Override
     public Timestamp getTimestamp(int columnIndex, Calendar cal)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
@@ -510,7 +528,8 @@ public class MockedResultSet implements ResultSet {
 
     @Override
     public Timestamp getTimestamp(String columnName, Calendar cal)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
@@ -630,217 +649,253 @@ public class MockedResultSet implements ResultSet {
 
     @Override
     public void updateArray(int columnPosition, Array x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateArray(String columnName, Array x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateAsciiStream(int columnPosition, InputStream x, int len)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateAsciiStream(String columnName, InputStream x, int len)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBigDecimal(int columnPosition, BigDecimal x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBigDecimal(String columnName, BigDecimal x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBinaryStream(int columnPosition, InputStream x, int len)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBinaryStream(String columnName, InputStream x, int len)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBlob(int columnPosition, Blob x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBlob(String columnName, Blob x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBoolean(int columnPosition, boolean x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBoolean(String columnName, boolean x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateByte(int columnPosition, byte x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateByte(String columnName, byte x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBytes(int columnPosition, byte x[])
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateBytes(String columnName, byte x[])
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateCharacterStream(int columnPosition, Reader x, int len)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateCharacterStream(String columnName, Reader x, int len)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateClob(int columnPosition, Clob x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateClob(String columnName, Clob x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateDate(int columnPosition, Date x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateDate(String columnName, Date x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateDouble(int columnPosition, double x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateDouble(String columnName, double x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateFloat(int columnPosition, float x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateFloat(String columnName, float x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateInt(int columnPosition, int x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateInt(String columnName, int x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateLong(int columnPosition, long x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateLong(String columnName, long x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateNull(int columnPosition)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateNull(String columnName)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateObject(int columnPosition, Object x, int scale)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateObject(String columnName, Object x, int scale)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateRef(int columnPosition, Ref x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateRef(String columnName, Ref x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
@@ -851,49 +906,57 @@ public class MockedResultSet implements ResultSet {
 
     @Override
     public void updateShort(int columnPosition, short x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateShort(String columnName, short x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateString(int columnPosition, String x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateString(String columnName, String x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateTime(int columnPosition, Time x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateTime(String columnName, Time x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateTimestamp(int columnPosition, Timestamp x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public void updateTimestamp(String columnName, Timestamp x)
-            throws SQLException {
+        throws SQLException
+    {
         throw new UnsupportedOperationException();
     }
 
@@ -1161,4 +1224,5 @@ public class MockedResultSet implements ResultSet {
     public <T> T getObject(String columnLabel, Class<T> type) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+
 }

@@ -30,4 +30,5 @@ public class Issue3403Bean implements Serializable {
     public String submit() {
         return "success";
     }
+
 }

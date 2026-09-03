@@ -24,9 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A navigation case fired from within a flow's start view (outcome {@code testcase})
- * must resolve to the flow-local switch node, which in turn routes to the correct
- * destination view id.
+ * A navigation case fired from within a flow's start view (outcome {@code testcase}) must resolve to the flow-local switch node, which in turn routes to the
+ * correct destination view id.
  */
 class Issue3134IT extends BaseITNG {
 
@@ -39,7 +38,10 @@ class Issue3134IT extends BaseITNG {
         WebPage page = getPage("index.xhtml");
         page.guardHttp(() -> page.findElement(By.id("go_to_my_flow_for_issue3134")).click());
         page.guardHttp(() -> page.findElement(By.id("start_view_of_3134")).click());
-        assertTrue(page.containsText("Great! You are now in the correct destination view."),
-                "switch routed to the correct destination view");
+        assertTrue(
+            page.containsText("Great! You are now in the correct destination view."),
+            "switch routed to the correct destination view"
+        );
     }
+
 }

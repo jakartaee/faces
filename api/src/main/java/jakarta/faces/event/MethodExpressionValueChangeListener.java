@@ -24,9 +24,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <strong><span class="changed_modified_2_0 changed_modified_2_0_rev_a
- * changed_modified_2_2">MethodExpressionValueChangeListener</span></strong> is a {@link ValueChangeListener} that wraps
- * a {@link MethodExpression}. When it receives a {@link ValueChangeEvent}, it executes a method on an object identified
+ * <strong><span class="changed_modified_2_0 changed_modified_2_0_rev_a changed_modified_2_2">MethodExpressionValueChangeListener</span></strong> is a
+ * {@link ValueChangeListener} that wraps a {@link MethodExpression}. When it receives a {@link ValueChangeEvent}, it executes a method on an object identified
  * by the {@link MethodExpression}.
  * </p>
  */
@@ -46,15 +45,14 @@ public class MethodExpressionValueChangeListener implements ValueChangeListener,
     /**
      * <p>
      * <span class="changed_modified_2_0">Construct</span> a {@link ValueChangeListener} that contains a
-     * {@link MethodExpression}.<span class="changed_added_2_0">To accommodate method expression targets that take no
-     * arguments instead of taking a {@link ValueChangeEvent} argument</span>, the implementation of this class must take
-     * the argument <code>methodExpressionOneArg</code>, extract its expression string, and create another
-     * <code>MethodExpression</code> whose expected param types match those of a zero argument method. The usage
+     * {@link MethodExpression}.<span class="changed_added_2_0">To accommodate method expression targets that take no arguments instead of taking a
+     * {@link ValueChangeEvent} argument</span>, the implementation of this class must take the argument <code>methodExpressionOneArg</code>, extract its
+     * expression string, and create another <code>MethodExpression</code> whose expected param types match those of a zero argument method. The usage
      * requirements for both of these <code>MethodExpression</code> instances are described in {@link #processValueChange}.
      * </p>
      *
-     * @param methodExpressionOneArg a <code>MethodExpression</code> that points to a method that returns <code>void</code>
-     * and takes a single argument of type {@link ValueChangeEvent}.
+     * @param methodExpressionOneArg a <code>MethodExpression</code> that points to a method that returns <code>void</code> and takes a single argument of type
+     * {@link ValueChangeEvent}.
      */
     public MethodExpressionValueChangeListener(MethodExpression methodExpressionOneArg) {
 
@@ -62,8 +60,10 @@ public class MethodExpressionValueChangeListener implements ValueChangeListener,
         this.methodExpressionOneArg = methodExpressionOneArg;
         FacesContext context = FacesContext.getCurrentInstance();
         ELContext elContext = context.getELContext();
-        methodExpressionZeroArg = context.getApplication().getExpressionFactory().createMethodExpression(elContext,
-                methodExpressionOneArg.getExpressionString(), Void.class, VALUECHANGE_LISTENER_ZEROARG_SIG);
+        methodExpressionZeroArg = context.getApplication().getExpressionFactory().createMethodExpression(
+            elContext,
+            methodExpressionOneArg.getExpressionString(), Void.class, VALUECHANGE_LISTENER_ZEROARG_SIG
+        );
     }
 
     /**
@@ -86,12 +86,11 @@ public class MethodExpressionValueChangeListener implements ValueChangeListener,
 
     /**
      * <p>
-     * <span class="changed_modified_2_0 changed_modified_2_2">Call</span> through to the {@link MethodExpression} passed in
-     * our constructor. <span class="changed_added_2_0">First, try to invoke the <code>MethodExpression</code> passed to the
-     * constructor of this instance, passing the argument {@link ValueChangeEvent} as the argument. If a
-     * {@link MethodNotFoundException} is thrown, call to the zero argument <code>MethodExpression</code> derived from the
-     * <code>MethodExpression</code> passed to the constructor of this instance. <span class="changed_deleted_2_2">If that
-     * fails for any reason, throw an {@link AbortProcessingException}, including the cause of the failure.</span></span>
+     * <span class="changed_modified_2_0 changed_modified_2_2">Call</span> through to the {@link MethodExpression} passed in our constructor.
+     * <span class="changed_added_2_0">First, try to invoke the <code>MethodExpression</code> passed to the constructor of this instance, passing the argument
+     * {@link ValueChangeEvent} as the argument. If a {@link MethodNotFoundException} is thrown, call to the zero argument <code>MethodExpression</code> derived
+     * from the <code>MethodExpression</code> passed to the constructor of this instance. <span class="changed_deleted_2_2">If that fails for any reason, throw
+     * an {@link AbortProcessingException}, including the cause of the failure.</span></span>
      * </p>
      *
      * @throws NullPointerException if the argument valueChangeEvent is null.
@@ -110,7 +109,8 @@ public class MethodExpressionValueChangeListener implements ValueChangeListener,
         // Why not here?
         try {
             methodExpressionOneArg.invoke(elContext, new Object[] { valueChangeEvent });
-        } catch (MethodNotFoundException mnf) {
+        }
+        catch (MethodNotFoundException mnf) {
             if (null != methodExpressionZeroArg) {
 
                 // try to invoke a no-arg version
@@ -168,4 +168,5 @@ public class MethodExpressionValueChangeListener implements ValueChangeListener,
         isTransient = newTransientValue;
 
     }
+
 }

@@ -31,12 +31,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue2952IT extends BaseITNG {
 
-  /**
-   * @see FlowScoped
+    /**
+     * @see FlowScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
-   */
-  @Test
-  void sessionLogging() throws Exception {
+     */
+    @Test
+    void sessionLogging() throws Exception {
         WebPage page = getPage("cdiInitDestroyEvent.xhtml");
         WebElement e = page.findElement(By.id("initMessage"));
         long sessionInitTime = Long.valueOf(e.getText());
@@ -48,12 +48,12 @@ public class Issue2952IT extends BaseITNG {
         assertTrue(sessionInitTime < sessionDestroyTime);
     }
 
-  /**
-   * @see FlowScoped
+    /**
+     * @see FlowScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
-   */
-  @Test
-  void flowLogging() throws Exception {
+     */
+    @Test
+    void flowLogging() throws Exception {
         // CdiInitDestroyEvent.xhtml
         WebPage page = getPage("cdiInitDestroyEvent.xhtml");
 
@@ -74,20 +74,19 @@ public class Issue2952IT extends BaseITNG {
         // 01_simplest/a.xhtml
         returnButton.click();
 
-
         // Should work, but doesn't: the action
 
-//        e = page.findElement(By.id("destroyMessage"));
-//        long flowDestroyTime = Long.valueOf(e.getText());
-//        assertTrue(flowInitTime < flowDestroyTime);
+        // e = page.findElement(By.id("destroyMessage"));
+        // long flowDestroyTime = Long.valueOf(e.getText());
+        // assertTrue(flowInitTime < flowDestroyTime);
     }
 
-  /**
-   * @see ViewScoped
+    /**
+     * @see ViewScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2952
-   */
-  @Test
-  void viewScopedLogging() throws Exception {
+     */
+    @Test
+    void viewScopedLogging() throws Exception {
         WebPage page = getPage("issue2952.xhtml");
         WebElement e = page.findElement(By.id("initMessage"));
         long flowInitTime = Long.valueOf(e.getText());
@@ -98,4 +97,5 @@ public class Issue2952IT extends BaseITNG {
         long flowDestroyTime = Long.valueOf(e.getText());
         assertTrue(flowInitTime < flowDestroyTime);
     }
+
 }

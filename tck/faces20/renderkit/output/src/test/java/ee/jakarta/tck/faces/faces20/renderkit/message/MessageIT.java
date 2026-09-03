@@ -16,8 +16,8 @@
 package ee.jakarta.tck.faces.faces20.renderkit.message;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -35,27 +35,37 @@ class MessageIT extends BaseITNG {
         // Each case lives in its own h:form; open a fresh page per case to avoid form state bleed-through.
 
         // Case 1: showSummary=true, showDetail=true -> both summary and detail are rendered.
-        submitAndAssertText(1, "form1:input1", "INFO",
-            "INFO: Summary Message INFO: Detailed Message");
+        submitAndAssertText(
+            1, "form1:input1", "INFO",
+            "INFO: Summary Message INFO: Detailed Message"
+        );
 
         // Case 2: styleClass="underline" is rendered as class attribute.
         submitAndAssertAttribute(2, "form2:input2", "INFO", "class", "underline");
 
         // Case 3: infoStyle+infoClass apply for INFO severity.
-        submitAndAssertAttributes(3, "form3:input3", "INFO",
-            Map.of("style", "Color: blue;", "class", "underline"));
+        submitAndAssertAttributes(
+            3, "form3:input3", "INFO",
+            Map.of("style", "Color: blue;", "class", "underline")
+        );
 
         // Case 4: warnStyle+warnClass apply for WARN severity.
-        submitAndAssertAttributes(4, "form4:input4", "WARN",
-            Map.of("style", "Color: green;", "class", "underline"));
+        submitAndAssertAttributes(
+            4, "form4:input4", "WARN",
+            Map.of("style", "Color: green;", "class", "underline")
+        );
 
         // Case 5: errorStyle+errorClass apply for ERROR severity.
-        submitAndAssertAttributes(5, "form5:input5", "ERROR",
-            Map.of("style", "Color: yellow;", "class", "underline"));
+        submitAndAssertAttributes(
+            5, "form5:input5", "ERROR",
+            Map.of("style", "Color: yellow;", "class", "underline")
+        );
 
         // Case 6: fatalStyle+fatalClass apply for FATAL severity.
-        submitAndAssertAttributes(6, "form6:input6", "FATAL",
-            Map.of("style", "Color: red;", "class", "underline"));
+        submitAndAssertAttributes(
+            6, "form6:input6", "FATAL",
+            Map.of("style", "Color: red;", "class", "underline")
+        );
 
         // Case 7: each severity picks the matching *Style attribute.
         Map<String, String> severityStyles = new LinkedHashMap<>();
@@ -63,8 +73,7 @@ class MessageIT extends BaseITNG {
         severityStyles.put("WARN", "Color: green;");
         severityStyles.put("ERROR", "Color: yellow;");
         severityStyles.put("FATAL", "Color: red;");
-        severityStyles.forEach((severity, expectedStyle) ->
-            submitAndAssertAttribute(7, "form7:severity7", severity, "style", expectedStyle));
+        severityStyles.forEach((severity, expectedStyle) -> submitAndAssertAttribute(7, "form7:severity7", severity, "style", expectedStyle));
 
         // Case 8: each severity picks the matching *Class attribute.
         Map<String, String> severityClasses = new LinkedHashMap<>();
@@ -72,12 +81,13 @@ class MessageIT extends BaseITNG {
         severityClasses.put("WARN", "class_warn");
         severityClasses.put("ERROR", "class_error");
         severityClasses.put("FATAL", "class_fatal");
-        severityClasses.forEach((severity, expectedClass) ->
-            submitAndAssertAttribute(8, "form8:severity8", severity, "class", expectedClass));
+        severityClasses.forEach((severity, expectedClass) -> submitAndAssertAttribute(8, "form8:severity8", severity, "class", expectedClass));
 
         // Case 9: showSummary=true, showDetail=true -> both rendered.
-        submitAndAssertText(9, "form9:severity9", "INFO",
-            "INFO: Summary Message INFO: Detailed Message");
+        submitAndAssertText(
+            9, "form9:severity9", "INFO",
+            "INFO: Summary Message INFO: Detailed Message"
+        );
 
         // Case 10: showSummary=true, showDetail=false -> only summary.
         submitAndAssertText(10, "form10:severity10", "INFO", "INFO: Summary Message");
@@ -110,23 +120,32 @@ class MessageIT extends BaseITNG {
 
     private void submitAndAssertText(int caseNumber, String inputId, String severity, String expectedText) {
         WebElement messageSpan = submitCase(caseNumber, inputId, severity);
-        assertEquals(expectedText, messageSpan.getText().trim(),
-            "Case " + caseNumber + " message text");
+        assertEquals(
+            expectedText, messageSpan.getText().trim(),
+            "Case " + caseNumber + " message text"
+        );
     }
 
-    private void submitAndAssertAttribute(int caseNumber, String inputId, String severity,
-                                          String attribute, String expectedValue) {
+    private void submitAndAssertAttribute(
+        int caseNumber, String inputId, String severity,
+        String attribute, String expectedValue
+    )
+    {
         WebElement messageSpan = submitCase(caseNumber, inputId, severity);
-        assertEquals(expectedValue, messageSpan.getDomAttribute(attribute),
-            "Case " + caseNumber + " message " + attribute);
+        assertEquals(
+            expectedValue, messageSpan.getDomAttribute(attribute),
+            "Case " + caseNumber + " message " + attribute
+        );
     }
 
-    private void submitAndAssertAttributes(int caseNumber, String inputId, String severity,
-                                           Map<String, String> expectedAttributes) {
+    private void submitAndAssertAttributes(
+        int caseNumber, String inputId, String severity,
+        Map<String, String> expectedAttributes
+    )
+    {
         WebPage page = getPage("message/encodetest.xhtml");
         WebElement messageSpan = submitCaseOn(page, caseNumber, inputId, severity);
-        expectedAttributes.forEach((name, value) ->
-            assertTrue(page.hasAttributeValue(messageSpan, name, value), "Case " + caseNumber + " message " + name));
+        expectedAttributes.forEach((name, value) -> assertTrue(page.hasAttributeValue(messageSpan, name, value), "Case " + caseNumber + " message " + name));
     }
 
     private WebElement submitCase(int caseNumber, String inputId, String severity) {
@@ -141,8 +160,11 @@ class MessageIT extends BaseITNG {
         return findByIdSuffix(page, "message" + caseNumber);
     }
 
-    private static void fillAndSubmit(WebPage page, String idField, String forValue,
-                                      String severityField, String severityValue, String buttonId) {
+    private static void fillAndSubmit(
+        WebPage page, String idField, String forValue,
+        String severityField, String severityValue, String buttonId
+    )
+    {
         WebElement idInput = findByIdSuffix(page, idField);
         idInput.clear();
         idInput.sendKeys(forValue);
@@ -159,14 +181,17 @@ class MessageIT extends BaseITNG {
         WebElement button = findByIdSuffix(page, "button1");
         page.guardHttp(button::click);
         WebElement message = findByIdSuffix(page, "message");
-        expected.forEach((name, value) ->
-            assertTrue(page.hasAttributeValue(message, name, value), "message attribute " + name));
+        expected.forEach((name, value) -> assertTrue(page.hasAttributeValue(message, name, value), "message attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

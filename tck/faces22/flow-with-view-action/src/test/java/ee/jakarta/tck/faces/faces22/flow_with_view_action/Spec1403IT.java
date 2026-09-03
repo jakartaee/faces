@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Spec1403IT extends BaseITNG {
 
     /**
-     * A flow entered via {@code f:viewAction} and exited via a {@code f:viewAction} that returns from
-     * the flow leaves the flow scope inactive; a page rendered after the exit that still references a
-     * flow-scoped bean must be handled gracefully (error page) rather than leaking a raw exception.
+     * A flow entered via {@code f:viewAction} and exited via a {@code f:viewAction} that returns from the flow leaves the flow scope inactive; a page rendered
+     * after the exit that still references a flow-scoped bean must be handled gracefully (error page) rather than leaking a raw exception.
      *
      * @see https://github.com/jakartaee/faces/issues/1403
      * @see jakarta.faces.flow.FlowScoped
@@ -46,8 +45,7 @@ class Spec1403IT extends BaseITNG {
     }
 
     /**
-     * Entering a nested flow (flowB) from flowA and returning must restore flowA; exiting flowA
-     * afterwards again yields the graceful ContextNotActive handling.
+     * Entering a nested flow (flowB) from flowA and returning must restore flowA; exiting flowA afterwards again yields the graceful ContextNotActive handling.
      *
      * @see https://github.com/jakartaee/faces/issues/1403
      * @see jakarta.faces.flow.FlowScoped

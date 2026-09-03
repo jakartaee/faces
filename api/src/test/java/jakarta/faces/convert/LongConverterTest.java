@@ -108,4 +108,5 @@ class LongConverterTest {
         FacesContext facesContext = Mockito.mock(FacesContext.class);
         assertEquals("123", converter.getAsString(facesContext, new UIPanel(), Long.valueOf("123")));
     }
+
 }

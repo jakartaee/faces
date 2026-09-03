@@ -18,8 +18,8 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import java.io.Serializable;
 
 /**
- * One cell of {@link NestedIterationBean}'s matrix. Every (outer, inner) position has its own
- * instance, so a value landing in the wrong cell identifies which positions got confused.
+ * One cell of {@link NestedIterationBean}'s matrix. Every (outer, inner) position has its own instance, so a value landing in the wrong cell identifies which
+ * positions got confused.
  */
 public class NestedIterationCell implements Serializable {
 
@@ -34,4 +34,5 @@ public class NestedIterationCell implements Serializable {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

@@ -32,8 +32,7 @@ import org.openqa.selenium.support.FindBy;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * The webapp enables <code>jakarta.faces.ENABLE_CSP_NONCE</code> and the view is declared
- * <code>&lt;f:view transient="true"&gt;</code>.
+ * The webapp enables <code>jakarta.faces.ENABLE_CSP_NONCE</code> and the view is declared <code>&lt;f:view transient="true"&gt;</code>.
  */
 class Issue5952IT extends BaseITNG {
 
@@ -44,9 +43,9 @@ class Issue5952IT extends BaseITNG {
     private WebElement commandLinkExecuted;
 
     /**
-     * A stateless view has no view map to carry the nonce across requests, so obtaining the nonce must not create
-     * one. Creating it would publish a {@link jakarta.faces.event.PostConstructViewMapEvent}, which acquires a
-     * session and registers an unreachable view map in it, defeating the statelessness of the view.
+     * A stateless view has no view map to carry the nonce across requests, so obtaining the nonce must not create one. Creating it would publish a
+     * {@link jakarta.faces.event.PostConstructViewMapEvent}, which acquires a session and registers an unreachable view map in it, defeating the statelessness
+     * of the view.
      *
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/5952">https://github.com/eclipse-ee4j/mojarra/issues/5952</a>
      */
@@ -59,8 +58,10 @@ class Issue5952IT extends BaseITNG {
         assertTrue(cspHeader.isPresent(), "Content-Security-Policy response header must be present");
         assertTrue(cspHeader.get().contains("'nonce-"), "Content-Security-Policy response header must contain nonce");
 
-        assertFalse(response.headers().allValues("Set-Cookie").stream().anyMatch(cookie -> cookie.contains("JSESSIONID")),
-                "Stateless view must not acquire a session");
+        assertFalse(
+            response.headers().allValues("Set-Cookie").stream().anyMatch(cookie -> cookie.contains("JSESSIONID")),
+            "Stateless view must not acquire a session"
+        );
     }
 
     /**

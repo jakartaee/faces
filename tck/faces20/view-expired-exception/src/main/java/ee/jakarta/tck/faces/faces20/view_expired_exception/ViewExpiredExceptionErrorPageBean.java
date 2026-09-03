@@ -27,8 +27,7 @@ public class ViewExpiredExceptionErrorPageBean {
     private static final int EXPIRE_SESSION_SECONDS = 1;
 
     /**
-     * The test can only expire server side state, so it must know which state saving method is
-     * currently configured; client side state never expires.
+     * The test can only expire server side state, so it must know which state saving method is currently configured; client side state never expires.
      */
     public String getStateSavingMethod() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -38,4 +37,5 @@ public class ViewExpiredExceptionErrorPageBean {
     public void expireSession() {
         FacesContext.getCurrentInstance().getExternalContext().setSessionMaxInactiveInterval(EXPIRE_SESSION_SECONDS);
     }
+
 }

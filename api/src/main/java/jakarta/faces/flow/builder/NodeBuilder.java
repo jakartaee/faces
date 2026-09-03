@@ -28,8 +28,7 @@ public interface NodeBuilder {
 
     /**
      * <p class="changed_added_2_2">
-     * Mark this node as the start node in the flow. Any other node that had been marked as the start node will no longer be
-     * the start node.
+     * Mark this node as the start node in the flow. Any other node that had been marked as the start node will no longer be the start node.
      * </p>
      *
      * @since 2.2

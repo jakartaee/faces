@@ -18,9 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.event.postkeepflashvalueevent;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseSystemEventTestServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.application.Application;
 import jakarta.faces.event.PostKeepFlashValueEvent;
 import jakarta.faces.event.SystemEvent;
@@ -29,38 +26,52 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseSystemEventTestServlet;
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+
 @WebServlet("/PostKeepFlashValueEventTestServlet")
 public final class PostKeepFlashValueEventTestServlet extends BaseSystemEventTestServlet {
-  private static final String POST_KEY = "postkey";
 
-  @Override
-  protected SystemEvent createEvent(Object src) {
-    return new PostKeepFlashValueEvent(POST_KEY);
-  }
+    private static final String POST_KEY = "postkey";
 
-  // ------------------------------------------- PostKeepFlashValueEvent
-
-  public void postKeepFlashValueEventGetKeyTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Application app = getFacesContext().getApplication();
-
-    if (app != null) {
-      PostKeepFlashValueEvent pKeep = (PostKeepFlashValueEvent) createEvent(
-          app);
-      String result = pKeep.getKey();
-
-      if (!POST_KEY.equals(result)) {
-        pw.println(JSFTestUtil.FAIL + " Wrong key value!" + JSFTestUtil.NL
-            + "Expected: " + POST_KEY + JSFTestUtil.NL + "Received: " + result);
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unexpected problem obtaining "
-          + "Application instance.");
+    @Override
+    protected SystemEvent createEvent(Object src) {
+        return new PostKeepFlashValueEvent(POST_KEY);
     }
-  }
+
+    // ------------------------------------------- PostKeepFlashValueEvent
+
+    public void postKeepFlashValueEventGetKeyTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Application app = getFacesContext().getApplication();
+
+        if (app != null) {
+            PostKeepFlashValueEvent pKeep = (PostKeepFlashValueEvent) createEvent(
+                app
+            );
+            String result = pKeep.getKey();
+
+            if (!POST_KEY.equals(result)) {
+                pw.println(
+                    JSFTestUtil.FAIL + " Wrong key value!" + JSFTestUtil.NL
+                        + "Expected: " + POST_KEY + JSFTestUtil.NL + "Received: " + result
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " Unexpected problem obtaining "
+                    + "Application instance."
+            );
+        }
+    }
 
 } // TestServlet

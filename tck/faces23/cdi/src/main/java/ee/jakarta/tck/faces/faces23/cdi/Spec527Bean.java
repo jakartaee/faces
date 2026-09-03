@@ -31,4 +31,5 @@ public class Spec527Bean {
     public boolean isInjected() {
         return context != null;
     }
+
 }

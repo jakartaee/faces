@@ -19,7 +19,6 @@ package ee.jakarta.tck.faces.faces23.ajax;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -30,9 +29,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue4340IT extends BaseITNG {
 
     /**
-     * An ajax submit with {@code render="@all"} that navigates to a page declaring an
-     * {@code h:outputScript} targeted at the body must relocate that script so the
-     * client-side JS actually runs after the ajax update.
+     * An ajax submit with {@code render="@all"} that navigates to a page declaring an {@code h:outputScript} targeted at the body must relocate that script so
+     * the client-side JS actually runs after the ajax update.
      *
      * @see jakarta.faces.component.html.HtmlBody
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4340

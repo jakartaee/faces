@@ -21,9 +21,8 @@ import jakarta.faces.event.ValueChangeEvent;
 import jakarta.inject.Named;
 
 /**
- * Passed into the composites as a plain object-valued attribute. The bean is request scoped so that
- * the status reflects only the invocations made by the request under test: an unrelated submit must
- * render an empty status. removeGroup counts its invocations to pin that it runs exactly once.
+ * Passed into the composites as a plain object-valued attribute. The bean is request scoped so that the status reflects only the invocations made by the
+ * request under test: an unrelated submit must render an empty status. removeGroup counts its invocations to pin that it runs exactly once.
  */
 @Named
 @RequestScoped
@@ -53,4 +52,5 @@ public class Issue1947Bean {
     public void setGroupToAdd(String groupToAdd) {
         this.groupToAdd = groupToAdd;
     }
+
 }

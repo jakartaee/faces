@@ -25,8 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Variables placed in the flow scope must be revoked when the flow is exited, and an
- * inner (nested) flow's flow scope must be isolated from its outer flow's flow scope.
+ * Variables placed in the flow scope must be revoked when the flow is exited, and an inner (nested) flow's flow scope must be isolated from its outer flow's
+ * flow scope.
  */
 class Issue4025IT extends BaseITNG {
 
@@ -67,4 +67,5 @@ class Issue4025IT extends BaseITNG {
         assertTrue(page.containsText("foo:bar"), "outer flow value restored after inner flow exit");
         assertFalse(page.containsText("foo:barx"), "inner flow value gone after inner flow exit");
     }
+
 }

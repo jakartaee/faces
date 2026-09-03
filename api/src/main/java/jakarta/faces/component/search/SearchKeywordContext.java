@@ -21,8 +21,7 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p class="changed_added_2_3">
- * <strong>SearchKeywordContext</strong> provides context information that may be useful to
- * {@link SearchKeywordResolver#resolve} implementations.
+ * <strong>SearchKeywordContext</strong> provides context information that may be useful to {@link SearchKeywordResolver#resolve} implementations.
  * </p>
  *
  * @since 2.3
@@ -52,8 +51,7 @@ public class SearchKeywordContext {
 
     /**
      * <p class="changed_added_2_3">
-     * This method will be called by an implementation of {@link SearchKeywordResolver#resolve} with the resolved component
-     * for the keyword.
+     * This method will be called by an implementation of {@link SearchKeywordResolver#resolve} with the resolved component for the keyword.
      * </p>
      *
      * @param target the resolved {@link UIComponent}.
@@ -129,4 +127,5 @@ public class SearchKeywordContext {
     public void setKeywordResolved(boolean keywordResolved) {
         this.keywordResolved = keywordResolved;
     }
+
 }

@@ -37,4 +37,5 @@ public class Spec1332IT extends BaseITNG {
         WebPage page = getPage("spec1332.xhtml");
         assertTrue(page.containsText("UIViewRoot"));
     }
+
 }

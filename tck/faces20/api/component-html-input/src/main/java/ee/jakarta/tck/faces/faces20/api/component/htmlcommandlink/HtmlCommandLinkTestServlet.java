@@ -15,28 +15,31 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlcommandlink;
 
-import ee.jakarta.tck.faces.faces20.api.component.uicommand.UICommandTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlCommandLink;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uicommand.UICommandTestServlet;
+
 @WebServlet("/HtmlCommandLinkTestServlet")
 public final class HtmlCommandLinkTestServlet extends UICommandTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "charset", "coords", "dir", "hreflang", "lang", "onblur", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "rel", "rev", "shape", "style", "styleClass", "tabindex", "target", "title", "type" };
+    private static final String[] attrNames = { "accesskey", "charset", "coords", "dir", "hreflang", "lang", "onblur", "onclick", "ondblclick", "onfocus",
+        "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "rel", "rev", "shape", "style",
+        "styleClass", "tabindex", "target", "title", "type" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Link");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Link");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlCommandLink();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlCommandLink();
+    }
+
 }

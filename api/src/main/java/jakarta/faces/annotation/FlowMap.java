@@ -34,8 +34,7 @@ import jakarta.inject.Qualifier;
 /**
  * <p class="changed_added_2_3">
  * The presence of this annotation (along with {@code @Inject}) on a field of type <code>Map&lt;Object,
- * Object&gt;</code> causes the map returned from {@link jakarta.faces.flow.FlowHandler#getCurrentFlowScope} to be
- * injected as the value of that field.
+ * Object&gt;</code> causes the map returned from {@link jakarta.faces.flow.FlowHandler#getCurrentFlowScope} to be injected as the value of that field.
  * </p>
  */
 
@@ -50,7 +49,9 @@ public @interface FlowMap {
      * </p>
      */
     public static final TypeLiteral<Map<Object, Object>> TYPE = new TypeLiteral<>() {
+
         private static final long serialVersionUID = 1L;
+
     };
 
     /**
@@ -61,11 +62,14 @@ public @interface FlowMap {
      * @since 4.0
      */
     public static final class Literal extends AnnotationLiteral<FlowMap> implements FlowMap {
+
         private static final long serialVersionUID = 1L;
 
         /**
          * Instance of the {@link FlowMap} qualifier.
          */
         public static final Literal INSTANCE = new Literal();
+
     }
+
 }

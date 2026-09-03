@@ -26,10 +26,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 /**
- * An id is valid when it starts with a letter or an underscore and continues with letters, digits, hyphens or
- * underscores, where letter and digit mean what {@link Character#isLetter(char)} and {@link Character#isDigit(char)}
- * mean. Almost every id a build validates is ASCII, which the check answers without consulting {@link Character}, so
- * these pin the two down to the same verdicts on both sides of that boundary.
+ * An id is valid when it starts with a letter or an underscore and continues with letters, digits, hyphens or underscores, where letter and digit mean what
+ * {@link Character#isLetter(char)} and {@link Character#isDigit(char)} mean. Almost every id a build validates is ASCII, which the check answers without
+ * consulting {@link Character}, so these pin the two down to the same verdicts on both sides of that boundary.
  */
 class UIComponentIdValidationTest {
 
@@ -71,4 +70,5 @@ class UIComponentIdValidationTest {
         assertThrows(IllegalArgumentException.class, () -> component.setId(String.valueOf(EURO_SIGN)));
         assertThrows(IllegalArgumentException.class, () -> component.setId("a" + EURO_SIGN));
     }
+
 }

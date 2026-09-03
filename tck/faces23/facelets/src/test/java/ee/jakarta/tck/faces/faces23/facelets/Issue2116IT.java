@@ -29,9 +29,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2116IT extends BaseITNG {
 
     /**
-     * Script markup submitted into an inputTextarea must be echoed back HTML-escaped, not executed,
-     * when the value is re-rendered. The leading {@code "?>} sequence must not break out of the
-     * surrounding markup.
+     * Script markup submitted into an inputTextarea must be echoed back HTML-escaped, not executed, when the value is re-rendered. The leading {@code "?>}
+     * sequence must not break out of the surrounding markup.
      *
      * @see jakarta.faces.component.html.HtmlInputTextarea
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2116
@@ -52,9 +51,8 @@ class Issue2116IT extends BaseITNG {
     }
 
     /**
-     * Script markup submitted into an inputTextarea must be echoed back HTML-escaped, not executed,
-     * when the value is re-rendered. The leading {@code -->} sequence must not break out of a
-     * surrounding comment.
+     * Script markup submitted into an inputTextarea must be echoed back HTML-escaped, not executed, when the value is re-rendered. The leading {@code -->}
+     * sequence must not break out of a surrounding comment.
      *
      * @see jakarta.faces.component.html.HtmlInputTextarea
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2116
@@ -73,4 +71,5 @@ class Issue2116IT extends BaseITNG {
         assertTrue(page.containsText("Put the following input and JavaScript will be executed."), "static instruction text is rendered");
         assertEquals(inputValue, page.findElement(By.id("testForm:textarea")).getAttribute("value"), "submitted script is echoed back verbatim, not executed");
     }
+
 }

@@ -27,4 +27,5 @@ public class LBValidator implements Validator<Object> {
     public void validate(FacesContext context, UIComponent component, Object value) {
         // no-op
     }
+
 }

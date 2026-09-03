@@ -37,17 +37,15 @@ import jakarta.faces.event.AjaxBehaviorListener;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_0_rev_a changed_modified_2_2">An</span> instance of this class is added as a
- * {@link ClientBehavior} to a component using the
- * {@link jakarta.faces.component.behavior.ClientBehaviorHolder#addClientBehavior} contract that components implement.
- * The presence of this {@link ClientBehavior} will cause the rendering of JavaScript that produces an <code>Ajax</code>
- * request using the specification public JavaScript API when the component is rendered.
+ * <span class="changed_modified_2_0_rev_a changed_modified_2_2">An</span> instance of this class is added as a {@link ClientBehavior} to a component using the
+ * {@link jakarta.faces.component.behavior.ClientBehaviorHolder#addClientBehavior} contract that components implement. The presence of this
+ * {@link ClientBehavior} will cause the rendering of JavaScript that produces an <code>Ajax</code> request using the specification public JavaScript API when
+ * the component is rendered.
  * </p>
  *
  * <p class="changed_modified_2_0_rev_a">
- * If the component is an instance of {@link jakarta.faces.component.EditableValueHolder}, Where at all possible, the
- * component must have the UI register the ajax event when the initial value is changed, not when focus is lost on the
- * component.
+ * If the component is an instance of {@link jakarta.faces.component.EditableValueHolder}, Where at all possible, the component must have the UI register the
+ * ajax event when the initial value is changed, not when focus is lost on the component.
  * </p>
  *
  * <!-- https://javaserverfaces.dev.java.net/issues/show_bug.cgi?id=1219 -->
@@ -94,8 +92,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * This method returns an unmodifiable <code>Set</code> containing the {@link ClientBehaviorHint}
-     * <code>SUBMITTING</code>.
+     * This method returns an unmodifiable <code>Set</code> containing the {@link ClientBehaviorHint} <code>SUBMITTING</code>.
      * </p>
      *
      * @return unmodifiable set containing the hint {@link ClientBehaviorHint} <code>SUBMITTING</code>.
@@ -109,8 +106,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the <code>String</code> of JavaScript function name that will be used to identify the client callback function
-     * that should be run in the event of an error.
+     * Return the <code>String</code> of JavaScript function name that will be used to identify the client callback function that should be run in the event of
+     * an error.
      *
      * @return the JavaScript function name of <code>ONERROR</code>.
      *
@@ -122,8 +119,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Sets the JavaScript function name that will be used to identify the client callback function that should be run in
-     * the event of an error.
+     * Sets the JavaScript function name that will be used to identify the client callback function that should be run in the event of an error.
      *
      * @param onerror the error handling function name
      *
@@ -137,8 +133,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the <code>String</code> of JavaScript function name that will be used to identify the client callback function
-     * that should be run on the occurance of a client-side event.
+     * Return the <code>String</code> of JavaScript function name that will be used to identify the client callback function that should be run on the occurance
+     * of a client-side event.
      *
      * @return the JavaScript function name of <code>ONEVENT</code>.
      *
@@ -150,8 +146,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Sets the JavaScript function name that will be used to identify the client callback function that should be run in
-     * response to event activity.
+     * Sets the JavaScript function name that will be used to identify the client callback function that should be run in response to event activity.
      *
      * @param onevent the event handling function name
      *
@@ -165,12 +160,11 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Return a non-empty <code>Collection&lt;String&gt;</code> of component identifiers that will be used to identify
-     * components that should be processed during the <code>execute</code> phase of the request processing lifecycle.
+     * Return a non-empty <code>Collection&lt;String&gt;</code> of component identifiers that will be used to identify components that should be processed
+     * during the <code>execute</code> phase of the request processing lifecycle.
      * </p>
      * <p>
-     * Note that the returned collection may be unmodifiable. Modifications should be performed by calling
-     * {@link #setExecute}.
+     * Note that the returned collection may be unmodifiable. Modifications should be performed by calling {@link #setExecute}.
      * </p>
      *
      * @return the JavaScript function name of <code>EXECUTE</code>.
@@ -183,8 +177,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Sets the component identifiers that will be used to identify components that should be processed during the
-     * <code>execute</code> phase of the request processing lifecycle.
+     * Sets the component identifiers that will be used to identify components that should be processed during the <code>execute</code> phase of the request
+     * processing lifecycle.
      * </p>
      *
      * @param execute the ids of components to execute
@@ -212,9 +206,9 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_2">
-     * If less than <em>delay</em> milliseconds elapses between calls to <em>request()</em> only the most recent one is sent
-     * and all other requests are discarded. The default value of this option is 300. If the value of <em>delay</em> is the
-     * literal string <code>'none'</code> without the quotes, no delay is used.
+     * If less than <em>delay</em> milliseconds elapses between calls to <em>request()</em> only the most recent one is sent and all other requests are
+     * discarded. The default value of this option is 300. If the value of <em>delay</em> is the literal string <code>'none'</code> without the quotes, no delay
+     * is used.
      * </p>
      *
      * @param delay the ajax delay value
@@ -229,12 +223,11 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Return a non-empty <code>Collection&lt;String&gt;</code> of component identifiers that will be used to identify
-     * components that should be processed during the <code>render</code> phase of the request processing lifecycle.
+     * Return a non-empty <code>Collection&lt;String&gt;</code> of component identifiers that will be used to identify components that should be processed
+     * during the <code>render</code> phase of the request processing lifecycle.
      * </p>
      * <p>
-     * Note that the returned collection may be unmodifiable. Modifications should be performed by calling
-     * {@link #setRender}.
+     * Note that the returned collection may be unmodifiable. Modifications should be performed by calling {@link #setRender}.
      * </p>
      *
      * @return the ids of components to render.
@@ -247,8 +240,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Sets the component identifiers that will be used to identify components that should be processed during the
-     * <code>render</code> phase of the request processing lifecycle.
+     * Sets the component identifiers that will be used to identify components that should be processed during the <code>render</code> phase of the request
+     * processing lifecycle.
      * </p>
      *
      * @param render the ids of components to render
@@ -383,10 +376,9 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Tests whether the immediate attribute is specified. Returns true if the immediate attribute is specified, either as a
-     * locally set property or as a value expression. This information allows an associated client behavior renderer to fall
-     * back on the parent component's immediate status when immediate is not explicitly specified on the
-     * <code>AjaxBehavior</code>.
+     * Tests whether the immediate attribute is specified. Returns true if the immediate attribute is specified, either as a locally set property or as a value
+     * expression. This information allows an associated client behavior renderer to fall back on the parent component's immediate status when immediate is not
+     * explicitly specified on the <code>AjaxBehavior</code>.
      * </p>
      *
      * @return the flag whether the immediate attribute is specified.
@@ -399,8 +391,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_2">
-     * Tests whether the resetValues attribute is specified. Returns true if the resetValues attribute is specified, either
-     * as a locally set property or as a value expression.
+     * Tests whether the resetValues attribute is specified. Returns true if the resetValues attribute is specified, either as a locally set property or as a
+     * value expression.
      * </p>
      *
      * @return the flag whether the resetValues attribute is specified.
@@ -413,8 +405,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_5_0">
-     * Tests whether the clearModel attribute is specified. Returns true if the clearModel attribute is specified, either
-     * as a locally set property or as a value expression.
+     * Tests whether the clearModel attribute is specified. Returns true if the clearModel attribute is specified, either as a locally set property or as a
+     * value expression.
      * </p>
      *
      * @return the flag whether the clearModel attribute is specified.
@@ -450,8 +442,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
      * </p>
      *
      * @param name Name of the property for which to set a {@link ValueExpression}
-     * @param binding The {@link ValueExpression} to set, or <code>null</code> to remove any currently set
-     * {@link ValueExpression}
+     * @param binding The {@link ValueExpression} to set, or <code>null</code> to remove any currently set {@link ValueExpression}
      *
      * @throws NullPointerException if <code>name</code> is <code>null</code>
      */
@@ -464,7 +455,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
             if (binding.isLiteralText()) {
                 setLiteralValue(name, binding);
-            } else {
+            }
+            else {
                 if (bindings == null) {
 
                     // We use a very small initial capacity on this HashMap.
@@ -478,7 +470,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
                 bindings.put(name, binding);
             }
-        } else {
+        }
+        else {
             if (bindings != null) {
                 bindings.remove(name);
                 if (bindings.isEmpty()) {
@@ -492,8 +485,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Add the specified {@link AjaxBehaviorListener} to the set of listeners registered to receive event notifications from
-     * this {@link AjaxBehavior}.
+     * Add the specified {@link AjaxBehaviorListener} to the set of listeners registered to receive event notifications from this {@link AjaxBehavior}.
      * </p>
      *
      * @param listener The {@link AjaxBehaviorListener} to be registered
@@ -508,8 +500,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
     /**
      * <p class="changed_added_2_0">
-     * Remove the specified {@link AjaxBehaviorListener} from the set of listeners registered to receive event notifications
-     * from this {@link AjaxBehavior}.
+     * Remove the specified {@link AjaxBehaviorListener} from the set of listeners registered to receive event notifications from this {@link AjaxBehavior}.
      * </p>
      *
      * @param listener The {@link AjaxBehaviorListener} to be removed
@@ -527,7 +518,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
         if (context == null) {
             throw new NullPointerException();
         }
-        
+
         Object[] values;
 
         Object superState = super.saveState(context);
@@ -535,10 +526,12 @@ public class AjaxBehavior extends ClientBehaviorBase {
         if (initialStateMarked()) {
             if (superState == null) {
                 values = null;
-            } else {
+            }
+            else {
                 values = new Object[] { superState };
             }
-        } else {
+        }
+        else {
             values = new Object[11];
 
             values[0] = superState;
@@ -562,7 +555,7 @@ public class AjaxBehavior extends ClientBehaviorBase {
         if (context == null) {
             throw new NullPointerException();
         }
-        
+
         if (state != null) {
 
             Object[] values = (Object[]) state;
@@ -659,7 +652,8 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
         if (state instanceof String) {
             list = toSingletonList(propertyName, (String) state);
-        } else if (state instanceof String[]) {
+        }
+        else if (state instanceof String[]) {
             list = List.of((String[]) state);
         }
 
@@ -718,39 +712,40 @@ public class AjaxBehavior extends ClientBehaviorBase {
 
         try {
             value = expression.getValue(context);
-        } catch (ELException ele) {
+        }
+        catch (ELException ele) {
             throw new FacesException(ele);
         }
 
         if (null != propertyName) {
             switch (propertyName) {
-            case ONEVENT:
-                onevent = (String) value;
-                break;
-            case DELAY:
-                delay = (String) value;
-                break;
-            case ONERROR:
-                onerror = (String) value;
-                break;
-            case IMMEDIATE:
-                immediate = (Boolean) value;
-                break;
-            case RESET_VALUES:
-                resetValues = (Boolean) value;
-                break;
-            case CLEAR_MODEL:
-                clearModel = (Boolean) value;
-                break;
-            case DISABLED:
-                disabled = (Boolean) value;
-                break;
-            case EXECUTE:
-                execute = toList(propertyName, expression, value);
-                break;
-            case RENDER:
-                render = toList(propertyName, expression, value);
-                break;
+                case ONEVENT :
+                    onevent = (String) value;
+                    break;
+                case DELAY :
+                    delay = (String) value;
+                    break;
+                case ONERROR :
+                    onerror = (String) value;
+                    break;
+                case IMMEDIATE :
+                    immediate = (Boolean) value;
+                    break;
+                case RESET_VALUES :
+                    resetValues = (Boolean) value;
+                    break;
+                case CLEAR_MODEL :
+                    clearModel = (Boolean) value;
+                    break;
+                case DISABLED :
+                    disabled = (Boolean) value;
+                    break;
+                case EXECUTE :
+                    execute = toList(propertyName, expression, value);
+                    break;
+                case RENDER :
+                    render = toList(propertyName, expression, value);
+                    break;
             }
         }
     }
@@ -796,10 +791,14 @@ public class AjaxBehavior extends ClientBehaviorBase {
             // These are very common, so we use shared copies
             // of these collections instead of re-creating.
             switch (value) {
-                case ALL:  return ALL_LIST;
-                case FORM: return FORM_LIST;
-                case THIS: return THIS_LIST;
-                case NONE: return NONE_LIST;
+                case ALL :
+                    return ALL_LIST;
+                case FORM :
+                    return FORM_LIST;
+                case THIS :
+                    return THIS_LIST;
+                case NONE :
+                    return NONE_LIST;
             }
         }
 
@@ -838,6 +837,5 @@ public class AjaxBehavior extends ClientBehaviorBase {
     private static final List<String> FORM_LIST = List.of(FORM);
     private static final List<String> THIS_LIST = List.of(THIS);
     private static final List<String> NONE_LIST = List.of(NONE);
-
 
 }

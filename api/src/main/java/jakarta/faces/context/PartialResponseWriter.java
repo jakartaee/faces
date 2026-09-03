@@ -27,15 +27,15 @@ import jakarta.faces.render.ResponseStateManager;
 
 /**
  * <p class="changed_added_2_0">
- * <strong>PartialResponseWriter</strong> decorates an existing <code>ResponseWriter</code> to support the generation of
- * a partial response suitable for Ajax operations. In addition to the markup generation methods inherited from
- * <code>jakarta.faces.context.ResponseWriter</code>, this class provides methods for constructing the standard partial
- * response elements.
+ * <strong>PartialResponseWriter</strong> decorates an existing <code>ResponseWriter</code> to support the generation of a partial response suitable for Ajax
+ * operations. In addition to the markup generation methods inherited from <code>jakarta.faces.context.ResponseWriter</code>, this class provides methods for
+ * constructing the standard partial response elements.
  * </p>
  *
  * @since 2.0
  */
 public class PartialResponseWriter extends ResponseWriterWrapper {
+
     // True when we need to close a changes tag
     //
     private boolean inChanges = false;
@@ -87,8 +87,8 @@ public class PartialResponseWriter extends ResponseWriterWrapper {
      * Write the start of a partial response.
      * </p>
      * <p class="changed_added_2_3">
-     * If {@link UIViewRoot} is an instance of {@link NamingContainer}, then write
-     * {@link UIViewRoot#getContainerClientId(FacesContext)} as value of the <code>id</code> attribute of the root element.
+     * If {@link UIViewRoot} is an instance of {@link NamingContainer}, then write {@link UIViewRoot#getContainerClientId(FacesContext)} as value of the
+     * <code>id</code> attribute of the root element.
      * </p>
      *
      * @throws IOException if an input/output error occurs
@@ -123,9 +123,8 @@ public class PartialResponseWriter extends ResponseWriterWrapper {
         endChangesIfNecessary();
         ResponseWriter writer = getWrapped();
         /*
-         * Because during a <script> writing an exception can occur we need to make sure the wrapped response only writes one
-         * partial-response, but also calls to end the document (so we can properly cleanup in the wrapped HtmlResponseWriter).
-         * See issue #3473.
+         * Because during a <script> writing an exception can occur we need to make sure the wrapped response only writes one partial-response, but also calls
+         * to end the document (so we can properly cleanup in the wrapped HtmlResponseWriter). See issue #3473.
          */
         if (!(writer instanceof PartialResponseWriter)) {
             writer.endElement("partial-response");
@@ -185,7 +184,8 @@ public class PartialResponseWriter extends ResponseWriterWrapper {
         if (inInsertBefore) {
             writer.endElement("before");
             inInsertBefore = false;
-        } else if (inInsertAfter) {
+        }
+        else if (inInsertAfter) {
             writer.endElement("after");
             inInsertAfter = false;
         }

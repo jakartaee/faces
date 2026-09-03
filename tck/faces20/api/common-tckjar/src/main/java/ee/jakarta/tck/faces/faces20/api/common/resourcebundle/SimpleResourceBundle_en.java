@@ -23,4 +23,5 @@ public class SimpleResourceBundle_en extends ListResourceBundle {
     protected Object[][] getContents() {
         return new Object[][] { { "key", "value" } };
     }
+
 }

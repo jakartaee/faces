@@ -29,8 +29,24 @@ class ApplicationISEIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void applicationAddELResolverISETest() { runServletTest("applicationAddELResolverISETest"); }
-    @Test void applicationSetResourceHandlerISETest() { runServletTest("applicationSetResourceHandlerISETest"); }
-    @Test void applicationSetStateManagerISETest() { runServletTest("applicationSetStateManagerISETest"); }
-    @Test void applicationSetViewHandlerISETest() { runServletTest("applicationSetViewHandlerISETest"); }
+    @Test
+    void applicationAddELResolverISETest() {
+        runServletTest("applicationAddELResolverISETest");
+    }
+
+    @Test
+    void applicationSetResourceHandlerISETest() {
+        runServletTest("applicationSetResourceHandlerISETest");
+    }
+
+    @Test
+    void applicationSetStateManagerISETest() {
+        runServletTest("applicationSetStateManagerISETest");
+    }
+
+    @Test
+    void applicationSetViewHandlerISETest() {
+        runServletTest("applicationSetViewHandlerISETest");
+    }
+
 }

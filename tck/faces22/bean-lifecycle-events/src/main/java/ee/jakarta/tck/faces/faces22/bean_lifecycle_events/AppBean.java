@@ -43,4 +43,5 @@ public class AppBean implements Serializable {
         HttpSession mySession = (HttpSession) context.getExternalContext().getSession(true);
         mySession.invalidate();
     }
+
 }

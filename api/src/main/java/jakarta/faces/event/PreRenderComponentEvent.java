@@ -22,11 +22,9 @@ import jakarta.faces.context.FacesContext;
 /**
  *
  * <p class="changed_added_2_0">
- * When an instance of this event is passed to {@link SystemEventListener#processEvent} or
- * {@link ComponentSystemEventListener#processEvent}, the listener implementation may assume that the
- * <code>source</code> of this event instance is the {@link UIComponent} instance that is about to be rendered and that
- * it is safe to call {@link UIComponent#getParent}, {@link UIComponent#getClientId}, and other methods that depend upon
- * the component instance being in the view.
+ * When an instance of this event is passed to {@link SystemEventListener#processEvent} or {@link ComponentSystemEventListener#processEvent}, the listener
+ * implementation may assume that the <code>source</code> of this event instance is the {@link UIComponent} instance that is about to be rendered and that it is
+ * safe to call {@link UIComponent#getParent}, {@link UIComponent#getClientId}, and other methods that depend upon the component instance being in the view.
  * </p>
  *
  * @since 2.0
@@ -40,8 +38,7 @@ public class PreRenderComponentEvent extends ComponentSystemEvent {
     /**
      *
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>PreRenderComponentEvent</code> that indicates the argument <code>component</code> is about to
-     * be rendered.
+     * Instantiate a new <code>PreRenderComponentEvent</code> that indicates the argument <code>component</code> is about to be rendered.
      * </p>
      *
      * @param component the <code>UIComponent</code> that is about to be rendered.
@@ -54,8 +51,7 @@ public class PreRenderComponentEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_3">
-     * Instantiate a new <code>PreRenderComponentEvent</code> that indicates the argument <code>component</code> is about to
-     * be rendered.
+     * Instantiate a new <code>PreRenderComponentEvent</code> that indicates the argument <code>component</code> is about to be rendered.
      * </p>
      *
      * @param facesContext the Faces context.
@@ -65,4 +61,5 @@ public class PreRenderComponentEvent extends ComponentSystemEvent {
     public PreRenderComponentEvent(FacesContext facesContext, UIComponent component) {
         super(facesContext, component);
     }
+
 }

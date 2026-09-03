@@ -25,8 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The begin/end/step index arithmetic of {@code c:forEach} must apply to a non-indexed
- * {@link java.util.Set} exactly as it does to an indexed {@link java.util.List}.
+ * The begin/end/step index arithmetic of {@code c:forEach} must apply to a non-indexed {@link java.util.Set} exactly as it does to an indexed
+ * {@link java.util.List}.
  */
 class Issue3088IT extends BaseITNG {
 
@@ -48,8 +48,7 @@ class Issue3088IT extends BaseITNG {
     }
 
     /**
-     * {@code begin="1" end="3" step="2"} over the same Set must yield exactly the elements at index 1
-     * and 3, i.e. bar and qux.
+     * {@code begin="1" end="3" step="2"} over the same Set must yield exactly the elements at index 1 and 3, i.e. bar and qux.
      *
      * @see jakarta.faces.view.facelets.FaceletContext
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3088
@@ -62,8 +61,11 @@ class Issue3088IT extends BaseITNG {
         assertEquals("qux", page.findElement(By.id("slice_qux")).getText());
 
         for (String skipped : new String[] { "foo", "baz", "quux" }) {
-            assertTrue(page.findElements(By.id("slice_" + skipped)).isEmpty(),
-                    skipped + " is outside the begin/end/step slice and must not render");
+            assertTrue(
+                page.findElements(By.id("slice_" + skipped)).isEmpty(),
+                skipped + " is outside the begin/end/step slice and must not render"
+            );
         }
     }
+
 }

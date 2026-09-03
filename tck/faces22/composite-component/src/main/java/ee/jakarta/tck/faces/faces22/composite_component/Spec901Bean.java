@@ -68,7 +68,8 @@ public class Spec901Bean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, Object> requestMap = context.getExternalContext().getRequestMap();
         return requestMap.containsKey("builder")
-                ? ((StringBuilder) requestMap.get("builder")).toString() : "no message";
+            ? ((StringBuilder) requestMap.get("builder")).toString()
+            : "no message";
     }
 
     private class ActionListenerImpl implements ActionListener {
@@ -83,5 +84,7 @@ public class Spec901Bean implements Serializable {
         public void processAction(ActionEvent event) throws AbortProcessingException {
             Spec901Bean.this.appendMessage(message);
         }
+
     }
+
 }

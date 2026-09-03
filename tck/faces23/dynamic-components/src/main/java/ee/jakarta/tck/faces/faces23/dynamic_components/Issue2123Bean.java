@@ -33,4 +33,5 @@ public class Issue2123Bean implements Serializable {
     public void save() {
         // Do nothing - just a way to postback.
     }
+
 }

@@ -28,4 +28,5 @@ class FactoryFinderDecoratedIT extends BaseITNG {
         String body = getResponseBody("TestServlet");
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
+
 }

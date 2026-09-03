@@ -15,27 +15,28 @@
  */
 package ee.jakarta.tck.faces.faces20.api.event.prerendercomponentevent;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
-
 import jakarta.faces.component.UICommand;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.PreRenderComponentEvent;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseComponentSystemEventTestServlet;
+
 @WebServlet("/PreRenderComponentEventTestServlet")
 public final class PreRenderComponentEventTestServlet extends BaseComponentSystemEventTestServlet {
 
-  private static final UICommand uic = new UICommand();
+    private static final UICommand uic = new UICommand();
 
-  @Override
-  protected ComponentSystemEvent createEvent(UIComponent component) {
-    return new PreRenderComponentEvent(component);
-  }
+    @Override
+    protected ComponentSystemEvent createEvent(UIComponent component) {
+        return new PreRenderComponentEvent(component);
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
-  // ------------------------------------------------------------ test methods
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
+
+    // ------------------------------------------------------------ test methods
 }

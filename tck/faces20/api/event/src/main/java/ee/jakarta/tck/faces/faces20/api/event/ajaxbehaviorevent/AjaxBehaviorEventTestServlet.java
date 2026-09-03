@@ -15,8 +15,6 @@
  */
 package ee.jakarta.tck.faces.faces20.api.event.ajaxbehaviorevent;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseBehaviorEventTestServlet;
-
 import jakarta.faces.component.UICommand;
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.behavior.AjaxBehavior;
@@ -25,28 +23,33 @@ import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.event.BehaviorEvent;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseBehaviorEventTestServlet;
+
 @WebServlet("/AjaxBehaviorEventTestServlet")
 public final class AjaxBehaviorEventTestServlet extends BaseBehaviorEventTestServlet {
 
-  private static final UICommand uic = new UICommand();
+    private static final UICommand uic = new UICommand();
 
-  private static final Behavior behavior = new AjaxBehavior();
+    private static final Behavior behavior = new AjaxBehavior();
 
-  @Override
-  protected BehaviorEvent createEvent(UIComponent component,
-      Behavior behavior) {
-    return new AjaxBehaviorEvent(component, behavior);
-  }
+    @Override
+    protected BehaviorEvent createEvent(
+        UIComponent component,
+        Behavior behavior
+    )
+    {
+        return new AjaxBehaviorEvent(component, behavior);
+    }
 
-  @Override
-  protected Behavior getTestBehavior() {
-    return behavior;
-  }
+    @Override
+    protected Behavior getTestBehavior() {
+        return behavior;
+    }
 
-  @Override
-  protected UIComponent getTestComponent() {
-    return uic;
-  }
+    @Override
+    protected UIComponent getTestComponent() {
+        return uic;
+    }
 
-  // ------------------------------------------------------------- test methods
+    // ------------------------------------------------------------- test methods
 }

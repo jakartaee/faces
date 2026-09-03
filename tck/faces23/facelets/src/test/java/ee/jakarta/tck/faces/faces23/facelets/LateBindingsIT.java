@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class LateBindingsIT extends BaseITNG {
 
     /**
-     * A converter or validator supplied through the {@code binding} attribute is re-resolved on each
-     * postback, so the instance that runs can change between requests. Two successive submits invoke
-     * the alternating implementations the backing bean hands out.
+     * A converter or validator supplied through the {@code binding} attribute is re-resolved on each postback, so the instance that runs can change between
+     * requests. Two successive submits invoke the alternating implementations the backing bean hands out.
      *
      * @see jakarta.faces.view.facelets.ConverterHandler
      * @see jakarta.faces.view.facelets.ValidatorHandler
@@ -37,8 +36,10 @@ class LateBindingsIT extends BaseITNG {
     @Test
     void testLateBindings() {
         WebPage page = getPage("latebindings.xhtml");
-        assertFalse(page.containsText("Custom Converter") && page.containsText("Custom Validator"),
-                "no converter/validator invoked yet");
+        assertFalse(
+            page.containsText("Custom Converter") && page.containsText("Custom Validator"),
+            "no converter/validator invoked yet"
+        );
 
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
         assertTrue(page.containsText("CustomConverter1 invoked"), "CustomConverter1 invoked");
@@ -52,4 +53,5 @@ class LateBindingsIT extends BaseITNG {
         assertFalse(page.containsText("CustomConverter1 invoked"), "CustomConverter1 not invoked");
         assertFalse(page.containsText("CustomValidator1 invoked"), "CustomValidator1 not invoked");
     }
+
 }

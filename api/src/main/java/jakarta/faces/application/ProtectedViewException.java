@@ -36,7 +36,7 @@ public class ProtectedViewException extends FacesException {
      */
     public ProtectedViewException() {
     }
-    
+
     /**
      * <p>
      * Construct a new exception with the specified detail message and no root cause.
@@ -47,11 +47,10 @@ public class ProtectedViewException extends FacesException {
     public ProtectedViewException(String message) {
         super(message);
     }
-    
+
     /**
      * <p>
-     * Construct a new exception with the specified root cause. The detail message will be set to
-     * <code>(cause == null ? null :
+     * Construct a new exception with the specified root cause. The detail message will be set to <code>(cause == null ? null :
      * cause.toString()</code>
      *
      * @param cause The root cause for this exception

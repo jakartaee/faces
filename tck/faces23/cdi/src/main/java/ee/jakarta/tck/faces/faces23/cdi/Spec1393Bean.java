@@ -26,12 +26,13 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Spec1393Bean {
-    
-    @Inject @RequestMap
+
+    @Inject
+    @RequestMap
     private Map<String, Object> requestMap;
 
     public String getRequestValue() {
         return (String) requestMap.get("fooAttribute");
     }
-    
+
 }

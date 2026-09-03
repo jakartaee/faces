@@ -33,4 +33,5 @@ public class Spec1819 {
     public void setUuid(UUID uuid) {
         this.uuid = uuid;
     }
+
 }

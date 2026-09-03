@@ -27,14 +27,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that a selectBooleanCheckbox nested inside two ui:repeat components retains correct per-row checked
- * state keyed by row index after a postback that sets only cell [0][0] true.
+ * Verifies that a selectBooleanCheckbox nested inside two ui:repeat components retains correct per-row checked state keyed by row index after a postback that
+ * sets only cell [0][0] true.
  */
 class Issue1811IT extends BaseITNG {
 
     /**
-     * Submits the form so the action sets only matrix[0][0] to true, then asserts each checkbox in the 2x2
-     * nested ui:repeat reflects its own per-row state: only cell [0][0] is checked, all others remain unchecked.
+     * Submits the form so the action sets only matrix[0][0] to true, then asserts each checkbox in the 2x2 nested ui:repeat reflects its own per-row state:
+     * only cell [0][0] is checked, all others remain unchecked.
      *
      * @see jakarta.faces.component.UIData
      * @see jakarta.faces.component.html.HtmlSelectBooleanCheckbox
@@ -59,4 +59,5 @@ class Issue1811IT extends BaseITNG {
         WebElement cell1_1 = page.findElement(By.id("form:level1:1:level2:1:_"));
         assertFalse(cell1_1.isSelected(), "Cell [1][1] must remain unchecked after refresh");
     }
+
 }

@@ -18,19 +18,19 @@ package ee.jakarta.tck.faces.faces20.view_param;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.event.PreRenderViewEvent;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.event.PreRenderViewEvent;
 
 class Issue3209IT extends BaseITNG {
 
     /**
-     * PreRenderViewEvent is published for the view being rendered. Building an h:link with
-     * includeViewParams reads the target view's metadata, but that must not run the target view's
-     * preRenderView listener: a postback on the source view leaves it uninvoked.
+     * PreRenderViewEvent is published for the view being rendered. Building an h:link with includeViewParams reads the target view's metadata, but that must
+     * not run the target view's preRenderView listener: a postback on the source view leaves it uninvoked.
      *
      * @see PreRenderViewEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3209
@@ -42,16 +42,21 @@ class Issue3209IT extends BaseITNG {
 
         page.guardHttp(page.findElement(By.id("postbackButton"))::click);
 
-        assertEquals(before, count(page),
-                "A postback on the source view must not run the target view's preRenderView listener.");
+        assertEquals(
+            before, count(page),
+            "A postback on the source view must not run the target view's preRenderView listener."
+        );
 
         page = getPage("issue3209-second.xhtml?id=22222");
 
-        assertEquals(before + 1, count(page),
-                "Rendering the target view itself must run its preRenderView listener exactly once.");
+        assertEquals(
+            before + 1, count(page),
+            "Rendering the target view itself must run its preRenderView listener exactly once."
+        );
     }
 
     private static int count(WebPage page) {
         return Integer.parseInt(page.findElement(By.id("targetListenerCount")).getText());
     }
+
 }

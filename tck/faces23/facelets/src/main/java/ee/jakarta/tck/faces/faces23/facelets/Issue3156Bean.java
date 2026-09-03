@@ -50,4 +50,5 @@ public class Issue3156Bean implements Serializable {
     public String getCurrentDate() {
         return new Date().toString();
     }
+
 }

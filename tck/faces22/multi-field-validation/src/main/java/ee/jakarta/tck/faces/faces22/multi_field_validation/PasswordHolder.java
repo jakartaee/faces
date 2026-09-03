@@ -16,7 +16,9 @@
 package ee.jakarta.tck.faces.faces22.multi_field_validation;
 
 public interface PasswordHolder {
+
     String getPassword1();
 
     String getPassword2();
+
 }

@@ -26,14 +26,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A validator method declared on the outer composite component fires for an EditableValueHolder nested two
- * composite-component levels deep, producing the expected validation message.
+ * A validator method declared on the outer composite component fires for an EditableValueHolder nested two composite-component levels deep, producing the
+ * expected validation message.
  */
 class Issue3089IT extends BaseITNG {
 
     /**
-     * The validator method passed to the outermost composite component is resolved against the deeply nested
-     * h:inputText and throws its ValidatorException, so the resulting message is rendered on submit.
+     * The validator method passed to the outermost composite component is resolved against the deeply nested h:inputText and throws its ValidatorException, so
+     * the resulting message is rendered on submit.
      *
      * @see jakarta.faces.validator.ValidatorException
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3089
@@ -45,4 +45,5 @@ class Issue3089IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("form:submit")).click());
         assertTrue(page.getSource().contains("Oops"), "Validation message should be rendered");
     }
+
 }

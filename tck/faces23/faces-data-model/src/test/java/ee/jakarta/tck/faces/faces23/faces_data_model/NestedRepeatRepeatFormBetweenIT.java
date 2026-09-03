@@ -18,9 +18,8 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * A {@code ui:repeat} nested in a {@code ui:repeat}, with the form between them: one form per outer
- * row, wrapping that row's inner repeat. Each postback therefore carries only one outer row, and the
- * inputs of the other row must still render their own previously submitted value.
+ * A {@code ui:repeat} nested in a {@code ui:repeat}, with the form between them: one form per outer row, wrapping that row's inner repeat. Each postback
+ * therefore carries only one outer row, and the inputs of the other row must still render their own previously submitted value.
  */
 class NestedRepeatRepeatFormBetweenIT extends NestedIterationITBase {
 
@@ -46,4 +45,5 @@ class NestedRepeatRepeatFormBetweenIT extends NestedIterationITBase {
     protected String submitId(int outer, int inner) {
         return "outer:" + outer + ":form:submit";
     }
+
 }

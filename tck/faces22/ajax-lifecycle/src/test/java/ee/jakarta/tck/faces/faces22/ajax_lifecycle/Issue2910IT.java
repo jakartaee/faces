@@ -31,14 +31,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2910IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2910
-   */
-  @Test
-  void commandLinksInRepeat() throws Exception {
+     */
+    @Test
+    void commandLinksInRepeat() throws Exception {
         WebPage page = getPage("issue2910.xhtml");
-
 
         assertTrue(page.matchesText(".*(2\\s+){9}2.*"));
 
@@ -47,34 +46,35 @@ class Issue2910IT extends BaseITNG {
         page.guardAjax(anchor::click);
         anchors = page.getAnchors();
         assertTrue(page.matchesText(".*(3\\s+){8}3.*"));
-      assertEquals(9, anchors.size());
+        assertEquals(9, anchors.size());
 
         anchor = anchors.get(8);
         page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesText(".*(4\\s+){7}4.*"));
-      assertEquals(8, anchors.size());
+        assertEquals(8, anchors.size());
 
         anchor = anchors.get(7);
         page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesText(".*(5\\s+){6}5.*"));
-      assertEquals(7, anchors.size());
+        assertEquals(7, anchors.size());
 
         anchor = anchors.get(0);
         page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesText(".*(6\\s+){5}6.*"));
-      assertEquals(6, anchors.size());
+        assertEquals(6, anchors.size());
 
         anchor = anchors.get(2);
         page.guardAjax(anchor::click);
 
         anchors = page.getAnchors();
         assertTrue(page.matchesText(".*(7\\s+){4}7.*"));
-      assertEquals(5, anchors.size());
+        assertEquals(5, anchors.size());
     }
+
 }

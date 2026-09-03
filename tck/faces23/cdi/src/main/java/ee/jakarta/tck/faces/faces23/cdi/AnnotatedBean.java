@@ -25,10 +25,11 @@ import jakarta.inject.Named;
 @RequestScoped
 public class AnnotatedBean implements Serializable {
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("AnnotatedBean");
-		return builder.toString();
-	}
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("AnnotatedBean");
+        return builder.toString();
+    }
+
 }

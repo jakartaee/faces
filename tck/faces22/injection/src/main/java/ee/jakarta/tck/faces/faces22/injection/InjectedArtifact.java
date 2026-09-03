@@ -17,11 +17,11 @@
 package ee.jakarta.tck.faces.faces22.injection;
 
 /**
- * Implemented by every faces-config-declared factory wrapper in this module so that {@link Spec763FactoryStatus} can
- * locate the injected wrapper within a factory chain and read back the value injected via {@code @Resource} and
- * {@code @PostConstruct}.
+ * Implemented by every faces-config-declared factory wrapper in this module so that {@link Spec763FactoryStatus} can locate the injected wrapper within a
+ * factory chain and read back the value injected via {@code @Resource} and {@code @PostConstruct}.
  */
 public interface InjectedArtifact {
 
     String getInjectedMessage();
+
 }

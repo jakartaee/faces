@@ -25,10 +25,9 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * Localized resources are resolved through a locale prefix that is derived from the request's
- * {@code Accept-Language} intersected with the configured supported locales, falling back to the
- * default locale. The prefix surfaces on the resource URL as its {@code loc} query parameter, and
- * unsupported languages fall back to the default ({@code en}).
+ * Localized resources are resolved through a locale prefix that is derived from the request's {@code Accept-Language} intersected with the configured supported
+ * locales, falling back to the default locale. The prefix surfaces on the resource URL as its {@code loc} query parameter, and unsupported languages fall back
+ * to the default ({@code en}).
  */
 public class ResourceLocalePrefixIT extends BaseITNG {
 
@@ -95,4 +94,5 @@ public class ResourceLocalePrefixIT extends BaseITNG {
             assertContains(body("resourceLocalePrefix4.xhtml", language), "jakarta.faces.resource/resource4.gif", "ln=resource4");
         }
     }
+
 }

@@ -36,4 +36,5 @@ public class Issue3477Bean {
     public String getThrower() {
         throw new RuntimeException("exception");
     }
+
 }
