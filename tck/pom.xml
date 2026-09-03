@@ -51,6 +51,7 @@
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
+        <spotless.config.dir>${maven.multiModuleProjectDirectory}/../build</spotless.config.dir> <!-- Overridden in a module that is also built from another reactor, which resolves the property to its own root. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
@@ -457,10 +458,10 @@
                         <configuration>
                             <java>
                                 <eclipse>
-                                    <file>${maven.multiModuleProjectDirectory}/../build/eclipse-formatter.xml</file>
+                                    <file>${spotless.config.dir}/eclipse-formatter.xml</file>
                                 </eclipse>
                                 <importOrder>
-                                    <file>${maven.multiModuleProjectDirectory}/../build/eclipse-importorder.txt</file>
+                                    <file>${spotless.config.dir}/eclipse-importorder.txt</file>
                                 </importOrder>
                                 <removeUnusedImports />
                                 <trimTrailingWhitespace />
@@ -471,7 +472,7 @@
                                 </includes>
                                 <biome>
                                     <version>2.5.0</version> <!-- Spotless defaults to 1.2.0, which has no CSS formatter. -->
-                                    <configPath>${maven.multiModuleProjectDirectory}/../build</configPath>
+                                    <configPath>${spotless.config.dir}</configPath>
                                 </biome>
                             </css>
                             <javascript>
@@ -480,7 +481,7 @@
                                 </includes>
                                 <biome>
                                     <version>2.5.0</version>
-                                    <configPath>${maven.multiModuleProjectDirectory}/../build</configPath>
+                                    <configPath>${spotless.config.dir}</configPath>
                                 </biome>
                             </javascript>
                             <formats>
