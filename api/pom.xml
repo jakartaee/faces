@@ -118,6 +118,7 @@
 
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
+        <lint.thisEscape />
     </properties>
 
     <dependencies>
@@ -321,7 +322,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.15.0</version>
                 <configuration>
-                    <compilerArgument>-Xlint:all,-deprecation,-removal</compilerArgument>
+                    <compilerArgument>-Xlint:all,-deprecation,-removal,-serial${lint.thisEscape}</compilerArgument>
                 </configuration>
             </plugin>
 
@@ -482,6 +483,17 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
     </build>
 
     <profiles>
+        <profile>
+            <id>jdk21</id>
+            <activation>
+                <jdk>[21,)</jdk>
+            </activation>
+            <properties>
+                <!-- javac 17 rejects an unknown -Xlint key as an invalid flag, so this-escape can only be disabled from JDK 21 on. -->
+                <lint.thisEscape>,-this-escape</lint.thisEscape>
+            </properties>
+        </profile>
+
         <profile>
             <id>docs</id>
             <build>
