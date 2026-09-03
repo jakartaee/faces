@@ -20,6 +20,7 @@
 package ee.jakarta.tck.faces.faces20.resource.packaging.webapproot;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 
 import jakarta.faces.application.ResourceHandler;
@@ -44,8 +45,8 @@ public class TestServlet extends HttpTCKServlet {
     // When testing Resource using image.
     private static final int IMAGE_SIZE = 2947;
 
-    // When testing Resource using stylesheet.
-    private static final int CSS_SIZE = 947;
+    // A negative test expects no resource at all, so it has no expected size.
+    private static final int NO_SIZE = -1;
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -54,6 +55,16 @@ public class TestServlet extends HttpTCKServlet {
 
     public void destroy() {
         super.destroy();
+    }
+
+    /**
+     * Returns the byte size of the stylesheet the resource handler is expected to resolve to, so that the check discriminates between the versions of a
+     * resource without restating their content as a constant.
+     */
+    private int sizeOf(String path) throws IOException {
+        try (InputStream input = servletContext.getResourceAsStream(path)) {
+            return input.readAllBytes().length;
+        }
     }
 
     // ------------------------------------------------------------------- Tests
@@ -105,8 +116,8 @@ public class TestServlet extends HttpTCKServlet {
         PrintWriter out = response.getWriter();
 
         ResourceChecker.checkIndentifier(
-            this.getTCKHandler(), "time.css", CSS_SIZE,
-            out
+            this.getTCKHandler(), "time.css",
+            sizeOf("/resources/time.css/3_2_1.css"), out
         );
     }
 
@@ -119,7 +130,7 @@ public class TestServlet extends HttpTCKServlet {
 
         ResourceChecker.checkIndentifier(
             this.getTCKHandler(), "foreground.css",
-            CSS_SIZE, "styles", out
+            sizeOf("/resources/styles/2_0/foreground.css/3_2_1.css"), "styles", out
         );
     }
 
@@ -185,7 +196,7 @@ public class TestServlet extends HttpTCKServlet {
 
         ResourceChecker.checkIndentifier(
             this.getTCKHandler(), "background.css",
-            CSS_SIZE, "styles", true, out
+            NO_SIZE, "styles", true, out
         );
     }
 

@@ -15,6 +15,7 @@
  */
 package ee.jakarta.tck.faces.faces23.two_contracts_in_jar;
 
+import static java.util.Locale.ROOT;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -68,6 +69,10 @@ class Issue3718IT extends BaseITNG {
         assertImage(page, "img02");
     }
 
+    /**
+     * Asserts that every stylesheet is requested from the contract and served that contract's own content, recognized by a color unique to it. Hex colors are
+     * case insensitive in CSS, so the color is matched against a lowercased body.
+     */
     private void examineCss(List<WebElement> cssLinks) {
         for (WebElement link : cssLinks) {
             String href = getHrefURI(link);
@@ -75,9 +80,9 @@ class Issue3718IT extends BaseITNG {
                 href.contains("con=siteLayout"),
                 "stylesheet must request contract siteLayout but requested " + href
             );
-            String content = getResponseBody(href);
+            String content = getResponseBody(href).toLowerCase(ROOT);
             if (href.contains("default.css")) {
-                assertTrue(content.contains("#AFAFAF"), "default.css served from siteLayout");
+                assertTrue(content.contains("#afafaf"), "default.css served from siteLayout");
             }
             else if (href.contains("cssLayout.css")) {
                 assertTrue(content.contains("#036fab"), "cssLayout.css served from siteLayout");
