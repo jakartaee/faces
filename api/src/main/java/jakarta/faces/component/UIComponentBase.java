@@ -338,7 +338,6 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * @throws IllegalArgumentException {@inheritDoc}
-     * @throws IllegalStateException {@inheritDoc}
      */
     @Override
     public void setId(String id) {
@@ -586,7 +585,6 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * @throws AbortProcessingException {@inheritDoc}
-     * @throws IllegalStateException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
     @Override

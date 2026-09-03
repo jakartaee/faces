@@ -87,7 +87,7 @@ public class MethodExpressionActionListener implements ActionListener, StateHold
      * {@link AbortProcessingException}, including the cause of the failure.</span></span>
      * </p>
      *
-     * @throws NullPointerException {@inheritDoc}
+     * @throws NullPointerException if <code>actionEvent</code> is <code>null</code>
      * @throws AbortProcessingException {@inheritDoc}
      */
     @Override
