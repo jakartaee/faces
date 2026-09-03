@@ -300,7 +300,8 @@
                                         <include>**/src/**/*.xhtml</include>
                                     </includes>
                                     <excludes>
-                                        <exclude>**/src/**/node_modules/**</exclude>
+                                        <exclude>**/target/**</exclude>
+                                        <exclude>**/node_modules/**</exclude>
                                     </excludes>
                                     <trimTrailingWhitespace />
                                     <endWithNewline />

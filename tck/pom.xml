@@ -470,6 +470,10 @@
                                 <includes>
                                     <include>**/src/**/*.css</include>
                                 </includes>
+                                <excludes>
+                                    <exclude>**/target/**</exclude>
+                                    <exclude>**/node_modules/**</exclude>
+                                </excludes>
                                 <biome>
                                     <version>2.5.0</version> <!-- Spotless defaults to 1.2.0, which has no CSS formatter. -->
                                     <configPath>${spotless.config.dir}</configPath>
@@ -479,6 +483,10 @@
                                 <includes>
                                     <include>**/src/**/*.js</include>
                                 </includes>
+                                <excludes>
+                                    <exclude>**/target/**</exclude>
+                                    <exclude>**/node_modules/**</exclude>
+                                </excludes>
                                 <biome>
                                     <version>2.5.0</version>
                                     <configPath>${spotless.config.dir}</configPath>
@@ -492,7 +500,8 @@
                                         <include>**/src/**/*.xhtml</include>
                                     </includes>
                                     <excludes>
-                                        <exclude>**/src/**/node_modules/**</exclude>
+                                        <exclude>**/target/**</exclude>
+                                        <exclude>**/node_modules/**</exclude>
                                     </excludes>
                                     <trimTrailingWhitespace />
                                     <endWithNewline />
