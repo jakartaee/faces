@@ -442,7 +442,7 @@
                 </configuration>
             </plugin>
 
-             <!-- Apply code formatting (Java via Eclipse JDT, XML/XHTML whitespace). -->
+             <!-- Apply code formatting (Java via Eclipse JDT, CSS/JS via Biome, XML/XHTML whitespace). -->
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
@@ -465,6 +465,24 @@
                                 <removeUnusedImports />
                                 <trimTrailingWhitespace />
                             </java>
+                            <css>
+                                <includes>
+                                    <include>**/src/**/*.css</include>
+                                </includes>
+                                <biome>
+                                    <version>2.5.0</version> <!-- Spotless defaults to 1.2.0, which has no CSS formatter. -->
+                                    <configPath>${maven.multiModuleProjectDirectory}/../build</configPath>
+                                </biome>
+                            </css>
+                            <javascript>
+                                <includes>
+                                    <include>**/src/**/*.js</include>
+                                </includes>
+                                <biome>
+                                    <version>2.5.0</version>
+                                    <configPath>${maven.multiModuleProjectDirectory}/../build</configPath>
+                                </biome>
+                            </javascript>
                             <formats>
                                 <format>
                                     <includes>
