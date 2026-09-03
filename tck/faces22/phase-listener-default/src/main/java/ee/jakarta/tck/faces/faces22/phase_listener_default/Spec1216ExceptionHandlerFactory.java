@@ -29,4 +29,5 @@ public class Spec1216ExceptionHandlerFactory extends ExceptionHandlerFactory {
     public ExceptionHandler getExceptionHandler() {
         return new Spec1216ExceptionHandler(getWrapped().getExceptionHandler());
     }
+
 }

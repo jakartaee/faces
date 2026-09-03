@@ -15,28 +15,31 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlselectoneradio;
 
-import ee.jakarta.tck.faces.faces20.api.component.uiselectone.UISelectOneTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlSelectOneRadio;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uiselectone.UISelectOneTestServlet;
+
 @WebServlet("/HtmlSelectOneRadioTestServlet")
 public final class HtmlSelectOneRadioTestServlet extends UISelectOneTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "border", "dir", "disabledClass", "enabledClass", "lang", "layout", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onselect", "style", "styleClass", "tabindex", "title", "disabled", "readonly", "disabledClass", "enabledClass" };
+    private static final String[] attrNames = { "accesskey", "border", "dir", "disabledClass", "enabledClass", "lang", "layout", "onblur", "onchange",
+        "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onselect",
+        "style", "styleClass", "tabindex", "title", "disabled", "readonly", "disabledClass", "enabledClass" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Radio");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Radio");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlSelectOneRadio();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlSelectOneRadio();
+    }
+
 }

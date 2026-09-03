@@ -24,15 +24,13 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p>
- * <span class="changed_modified_2_0 changed_modified_2_3">Provides</span> a simple implementation of
- * {@link ResponseWriter} that can be subclassed by developers wishing to provide specialized behavior to an existing
- * {@link ResponseWriter} instance. The default implementation of all methods is to call through to the wrapped
- * {@link ResponseWriter}.
+ * <span class="changed_modified_2_0 changed_modified_2_3">Provides</span> a simple implementation of {@link ResponseWriter} that can be subclassed by
+ * developers wishing to provide specialized behavior to an existing {@link ResponseWriter} instance. The default implementation of all methods is to call
+ * through to the wrapped {@link ResponseWriter}.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 1.2
@@ -51,8 +49,8 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p class="changed_added_2_3">
-     * If this response writer has been decorated, the implementation doing the decorating should push the implementation
-     * being wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this response writer has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -71,8 +69,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#getContentType()} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#getContentType()} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#getContentType()
@@ -87,8 +84,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#getCharacterEncoding()} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#getCharacterEncoding()} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#getCharacterEncoding()
@@ -103,8 +99,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#flush()} on the wrapped {@link ResponseWriter}
-     * object.
+     * The default behavior of this method is to call {@link ResponseWriter#flush()} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#flush()
@@ -119,8 +114,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#startDocument()} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#startDocument()} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#startDocument()
@@ -135,8 +129,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#endDocument()} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#endDocument()} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#endDocument()
@@ -151,8 +144,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ResponseWriter#startElement(String, jakarta.faces.component.UIComponent)} on the wrapped
+     * The default behavior of this method is to call {@link ResponseWriter#startElement(String, jakarta.faces.component.UIComponent)} on the wrapped
      * {@link ResponseWriter} object.
      * </p>
      *
@@ -168,8 +160,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link ResponseWriter#startCDATA} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#startCDATA} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @since 2.0
@@ -182,8 +173,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p class="changed_added_2_0">
-     * The default behavior of this method is to call {@link ResponseWriter#endCDATA} on the wrapped {@link ResponseWriter}
-     * object.
+     * The default behavior of this method is to call {@link ResponseWriter#endCDATA} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @since 2.0
@@ -196,8 +186,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#endElement(String)} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#endElement(String)} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#endElement(String)
@@ -213,8 +202,8 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#writeAttribute(String, Object, String)} on the
-     * wrapped {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#writeAttribute(String, Object, String)} on the wrapped {@link ResponseWriter}
+     * object.
      * </p>
      *
      * @see ResponseWriter#writeAttribute(String, Object, String)
@@ -229,8 +218,8 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#writeURIAttribute(String, Object, String)} on
-     * the wrapped {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#writeURIAttribute(String, Object, String)} on the wrapped {@link ResponseWriter}
+     * object.
      * </p>
      *
      * @see ResponseWriter#writeURIAttribute(String, Object, String)
@@ -245,8 +234,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#writeComment(Object)} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#writeComment(Object)} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#writeComment(Object)
@@ -261,8 +249,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#writeDoctype} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#writeDoctype} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#writeDoctype
@@ -275,8 +262,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#writePreamble} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#writePreamble} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#writePreamble
@@ -289,8 +275,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#writeText(Object, String)} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#writeText(Object, String)} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#writeText(Object, String)
@@ -305,8 +290,8 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#writeText(Object, UIComponent, String)} on the
-     * wrapped {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#writeText(Object, UIComponent, String)} on the wrapped {@link ResponseWriter}
+     * object.
      * </p>
      *
      * @see ResponseWriter#writeText(Object, String)
@@ -320,8 +305,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#writeText(char[], int, int)} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#writeText(char[], int, int)} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#writeText(char[], int, int)
@@ -336,8 +320,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#cloneWithWriter(java.io.Writer)} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#cloneWithWriter(java.io.Writer)} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#cloneWithWriter(java.io.Writer)
@@ -354,8 +337,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#close()} on the wrapped {@link ResponseWriter}
-     * object.
+     * The default behavior of this method is to call {@link ResponseWriter#close()} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#close()
@@ -370,8 +352,7 @@ public abstract class ResponseWriterWrapper extends ResponseWriter implements Fa
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ResponseWriter#write(char[], int, int)} on the wrapped
-     * {@link ResponseWriter} object.
+     * The default behavior of this method is to call {@link ResponseWriter#write(char[], int, int)} on the wrapped {@link ResponseWriter} object.
      * </p>
      *
      * @see ResponseWriter#write(char[], int, int)

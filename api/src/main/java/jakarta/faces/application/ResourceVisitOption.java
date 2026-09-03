@@ -29,8 +29,7 @@ package jakarta.faces.application;
 public enum ResourceVisitOption {
 
     /**
-     * Only visit resources that are top level views, i.e. views that can be used to serve a request as opposed to those
-     * that can only be used for includes.
+     * Only visit resources that are top level views, i.e. views that can be used to serve a request as opposed to those that can only be used for includes.
      */
     TOP_LEVEL_VIEWS_ONLY
 

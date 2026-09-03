@@ -36,4 +36,5 @@ public class Issue3104Bean {
     public void ajaxMe() {
         throw new IllegalStateException("Ajax listener of the nested composite component failed.");
     }
+
 }

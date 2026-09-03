@@ -102,4 +102,5 @@ class DoubleRangeValidatorIT extends BaseITNG {
     void validatorPartialStateTest() {
         runServletTest("validatorPartialStateTest");
     }
+
 }

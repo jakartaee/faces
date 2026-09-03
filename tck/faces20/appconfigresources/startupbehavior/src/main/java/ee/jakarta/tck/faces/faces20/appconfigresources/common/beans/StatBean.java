@@ -22,34 +22,35 @@ package ee.jakarta.tck.faces.faces20.appconfigresources.common.beans;
 
 import java.io.Serializable;
 
-@jakarta.inject.Named("Status") @jakarta.enterprise.context.SessionScoped
+@jakarta.inject.Named("Status")
+@jakarta.enterprise.context.SessionScoped
 public class StatBean implements Serializable {
 
-  private static final long serialVersionUID = -2538081884483638087L;
+    private static final long serialVersionUID = -2538081884483638087L;
 
-  private String testString;
+    private String testString;
 
-  /** Creates a new instance of StatBean */
-  public StatBean() {
-    this.initialSetup();
-  }
+    /** Creates a new instance of StatBean */
+    public StatBean() {
+        this.initialSetup();
+    }
 
-  /**
-   * @return the testString
-   */
-  public String getTestString() {
-    return testString;
-  }
+    /**
+     * @return the testString
+     */
+    public String getTestString() {
+        return testString;
+    }
 
-  /**
-   * @param testString
-   *          the testString to set
-   */
-  public void setTestString(String st) {
-    this.testString = st;
-  }
+    /**
+     * @param testString the testString to set
+     */
+    public void setTestString(String st) {
+        this.testString = st;
+    }
 
-  private void initialSetup() {
-    this.testString = "Ready!";
-  }
+    private void initialSetup() {
+        this.testString = "Ready!";
+    }
+
 }

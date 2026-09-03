@@ -19,8 +19,8 @@ package ee.jakarta.tck.faces.faces22.facelets;
 import jakarta.enterprise.inject.Model;
 
 /**
- * Carries the message recorded by the onsubmit script through the form submit, so the test can assert on the
- * re-rendered value instead of on a JavaScript alert.
+ * Carries the message recorded by the onsubmit script through the form submit, so the test can assert on the re-rendered value instead of on a JavaScript
+ * alert.
  */
 @Model
 public class Issue4198Bean {
@@ -34,4 +34,5 @@ public class Issue4198Bean {
     public void setLog(String log) {
         this.log = log;
     }
+
 }

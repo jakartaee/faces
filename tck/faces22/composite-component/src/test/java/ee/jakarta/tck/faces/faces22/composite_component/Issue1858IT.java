@@ -19,21 +19,21 @@ package ee.jakarta.tck.faces.faces22.composite_component;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import jakarta.faces.component.html.HtmlOutcomeTargetLink;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.html.HtmlOutcomeTargetLink;
 
 class Issue1858IT extends BaseITNG {
 
     private static final String MARKER = "markOneClick()";
 
     /**
-     * An onclick supplied as a composite component attribute and forwarded to a nested h:link is wired to
-     * the anchor, and its handler appears in the response exactly once. Whether the handler is rendered as
-     * an inline attribute or wired from a script block is left to the implementation by jakartaee/faces#2167.
+     * An onclick supplied as a composite component attribute and forwarded to a nested h:link is wired to the anchor, and its handler appears in the response
+     * exactly once. Whether the handler is rendered as an inline attribute or wired from a script block is left to the implementation by jakartaee/faces#2167.
      *
      * @see HtmlOutcomeTargetLink#getOnclick()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1858
@@ -42,10 +42,14 @@ class Issue1858IT extends BaseITNG {
     void onclickForwardedThroughCompositeIsRenderedOnce() {
         WebPage page = getPage("issue1858.xhtml");
 
-        assertTrue(page.isAttributeWired(page.findElement(By.id("composite:link")), "onclick"),
-                "The forwarded onclick must be wired to the anchor.");
-        assertEquals(1, countOccurrences(page.getSource(), MARKER),
-                "The forwarded onclick handler must appear exactly once.");
+        assertTrue(
+            page.isAttributeWired(page.findElement(By.id("composite:link")), "onclick"),
+            "The forwarded onclick must be wired to the anchor."
+        );
+        assertEquals(
+            1, countOccurrences(page.getSource(), MARKER),
+            "The forwarded onclick handler must appear exactly once."
+        );
     }
 
     private static int countOccurrences(String source, String token) {
@@ -57,4 +61,5 @@ class Issue1858IT extends BaseITNG {
 
         return count;
     }
+
 }

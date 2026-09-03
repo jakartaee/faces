@@ -81,4 +81,5 @@ public class Spec1563IT extends BaseITNG {
         WebElement option5 = select.getOptions().get(4);
         assertEquals("Audi", option5.getText(), "5th option is 'Audi'");
     }
+
 }

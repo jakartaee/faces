@@ -28,13 +28,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue5415IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior#getExecute()
+    /**
+     * @see AjaxBehavior#getExecute()
      * @see UIComponent#getCompositeComponentParent(UIComponent)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5415
-   */
-  @Test
-  void executeCcClientId() throws Exception {
+     */
+    @Test
+    void executeCcClientId() throws Exception {
         WebPage page = getPage("issue5415.xhtml");
         assertEquals(200, page.getResponseStatus());
         assertEquals("Issue5415IT", page.getTitle());

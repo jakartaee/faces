@@ -24,15 +24,15 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.ConverterException;
 
 /**
- * Always fails conversion, carrying a message resolved from the {@code messages} resource bundle so
- * that the language of the rendered {@link FacesMessage} reflects the active view locale.
+ * Always fails conversion, carrying a message resolved from the {@code messages} resource bundle so that the language of the rendered {@link FacesMessage}
+ * reflects the active view locale.
  */
 public class ViewParamLocaleConverter implements Converter<Object> {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
         ResourceBundle bundle = context.getApplication()
-                .evaluateExpressionGet(context, "#{messages}", ResourceBundle.class);
+            .evaluateExpressionGet(context, "#{messages}", ResourceBundle.class);
         String message = bundle.getString("viewParamLocaleMessage");
         throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, message, null));
     }
@@ -41,4 +41,5 @@ public class ViewParamLocaleConverter implements Converter<Object> {
     public String getAsString(FacesContext context, UIComponent component, Object value) {
         throw new UnsupportedOperationException();
     }
+
 }

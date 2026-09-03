@@ -42,14 +42,18 @@ public class Issue2330Bean {
         String text = "";
 
         if (uploadedFile != null) {
-            try (InputStream is = uploadedFile.getInputStream();
-                 Scanner scanner = new Scanner(is).useDelimiter("\\A")) {
+            try (
+                InputStream is = uploadedFile.getInputStream();
+                Scanner scanner = new Scanner(is).useDelimiter("\\A")
+            ) {
                 text = scanner.next();
-            } catch (IOException ignored) {
+            }
+            catch (IOException ignored) {
                 // No readable content; leave text empty.
             }
         }
 
         return text;
     }
+
 }

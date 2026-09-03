@@ -25,4 +25,5 @@ public class Issue5837Bean {
     public String getFoo() {
         return "bar";
     }
+
 }

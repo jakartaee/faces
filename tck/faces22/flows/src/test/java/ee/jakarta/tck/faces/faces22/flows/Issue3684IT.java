@@ -29,10 +29,9 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3684IT extends BaseITNG {
 
     /**
-     * Entering f1 pushes a frame whose flow scoped bean has count 0, then f1 calls f2 which calls f1
-     * again. The recursively entered f1 frame increments the count of its own bean and returns all
-     * the way back to the frame which started the recursion. That frame's bean is a distinct
-     * instance and hence must still have count 0.
+     * Entering f1 pushes a frame whose flow scoped bean has count 0, then f1 calls f2 which calls f1 again. The recursively entered f1 frame increments the
+     * count of its own bean and returns all the way back to the frame which started the recursion. That frame's bean is a distinct instance and hence must
+     * still have count 0.
      *
      * @see jakarta.faces.flow.FlowScoped
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3684
@@ -44,4 +43,5 @@ class Issue3684IT extends BaseITNG {
 
         assertEquals("0", page.findElement(By.id("count")).getText());
     }
+
 }

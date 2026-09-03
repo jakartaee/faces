@@ -27,8 +27,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2740IT extends BaseITNG {
 
     /**
-     * A contracts attribute on f:view whose expression evaluates to null leaves the eligible contracts as
-     * they were, so the templated view still renders.
+     * A contracts attribute on f:view whose expression evaluates to null leaves the eligible contracts as they were, so the templated view still renders.
      *
      * @see jakarta.faces.context.FacesContext#setResourceLibraryContracts(java.util.List)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2740
@@ -40,4 +39,5 @@ class Issue2740IT extends BaseITNG {
         assertEquals(200, page.getResponseStatus(), "The view must render.");
         assertTrue(page.containsText("main content"), "The templated content must be rendered.");
     }
+
 }

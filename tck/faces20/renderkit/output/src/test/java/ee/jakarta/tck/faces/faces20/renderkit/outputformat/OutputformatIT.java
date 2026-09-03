@@ -16,8 +16,8 @@
 package ee.jakarta.tck.faces.faces20.renderkit.outputformat;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -39,8 +39,10 @@ class OutputformatIT extends BaseITNG {
         assertEquals("text", findByIdSuffix(page, "formatter1").getDomAttribute("class"), "formatter1 class");
 
         // case 2: value uses f:param children
-        assertEquals("Technology: JSF, Tag: h:outputFormat",
-            findByIdSuffix(page, "formatter2").getText(), "formatter2 text");
+        assertEquals(
+            "Technology: JSF, Tag: h:outputFormat",
+            findByIdSuffix(page, "formatter2").getText(), "formatter2 text"
+        );
 
         // case 3: default escape=true -> literal "<default>"
         assertEquals("<default>", findByIdSuffix(page, "formatter3").getText(), "formatter3 text");
@@ -52,8 +54,10 @@ class OutputformatIT extends BaseITNG {
         assertNotEquals("<false>", findByIdSuffix(page, "formatter5").getText(), "formatter5 text (escape=false)");
 
         // case 6: f:param child binding values
-        assertEquals("Technology: JSF, Tag: f:param",
-            findByIdSuffix(page, "formatter6").getText(), "formatter6 text");
+        assertEquals(
+            "Technology: JSF, Tag: f:param",
+            findByIdSuffix(page, "formatter6").getText(), "formatter6 text"
+        );
 
         // case 7: binding sets title, styleClass, value via bean
         WebElement formatter7 = page.findElement(By.xpath("//*[@title='formatter7']"));
@@ -90,14 +94,17 @@ class OutputformatIT extends BaseITNG {
 
     private static void verifyPassthroughAttributes(WebPage page, Map<String, String> expected) {
         WebElement formatter = findByIdSuffix(page, "formatter1");
-        expected.forEach((name, value) ->
-            assertTrue(page.hasAttributeValue(formatter, name, value), "formatter1 attribute " + name));
+        expected.forEach((name, value) -> assertTrue(page.hasAttributeValue(formatter, name, value), "formatter1 attribute " + name));
     }
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

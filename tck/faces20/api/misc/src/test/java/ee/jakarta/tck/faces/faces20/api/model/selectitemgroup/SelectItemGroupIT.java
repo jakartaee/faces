@@ -72,4 +72,5 @@ class SelectItemGroupIT extends BaseITNG {
     void selectItemIsSetDisabledTest() {
         runServletTest("selectItemIsSetDisabledTest");
     }
+
 }

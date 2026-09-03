@@ -31,9 +31,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue1641IT extends BaseITNG {
 
     /**
-     * Verifies that a composite component and its retargeted action source
-     * survive a postback: the inner command button
-     * keeps its value and its action listener fires, incrementing the counter.
+     * Verifies that a composite component and its retargeted action source survive a postback: the inner command button keeps its value and its action listener
+     * fires, incrementing the counter.
      *
      * @see UIComponent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1641
@@ -51,4 +50,5 @@ public class Issue1641IT extends BaseITNG {
         assertTrue(page.containsText("count=1"));
         assertTrue(page.containsSource("Click Me"));
     }
+
 }

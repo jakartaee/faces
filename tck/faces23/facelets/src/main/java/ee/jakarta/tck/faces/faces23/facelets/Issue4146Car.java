@@ -52,4 +52,5 @@ public class Issue4146Car implements Serializable {
     public String getColor() {
         return color;
     }
+
 }

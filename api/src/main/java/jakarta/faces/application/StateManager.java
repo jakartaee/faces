@@ -30,14 +30,13 @@ import jakarta.faces.view.ViewDeclarationLanguage;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0 changed_modified_2_1 changed_modified_2_2
- * changed_modified_2_3">StateManager</strong> directs the process of saving and restoring the view between requests.
- * <span class="changed_added_2_0">An implementation of this class must be thread-safe.</span> The {@link StateManager}
- * instance for an application is retrieved from the {@link Application} instance, and thus cannot know any details of
- * the markup language created by the {@link RenderKit} being used to render a view.
+ * <strong class="changed_modified_2_0 changed_modified_2_1 changed_modified_2_2 changed_modified_2_3">StateManager</strong> directs the process of saving and
+ * restoring the view between requests. <span class="changed_added_2_0">An implementation of this class must be thread-safe.</span> The {@link StateManager}
+ * instance for an application is retrieved from the {@link Application} instance, and thus cannot know any details of the markup language created by the
+ * {@link RenderKit} being used to render a view.
  *
- * The {@link StateManager} utilizes a helper object ({@link ResponseStateManager}), that is provided by the
- * {@link RenderKit} implementation and is therefore aware of the markup language details.
+ * The {@link StateManager} utilizes a helper object ({@link ResponseStateManager}), that is provided by the {@link RenderKit} implementation and is therefore
+ * aware of the markup language details.
  * </p>
  */
 public abstract class StateManager {
@@ -46,9 +45,8 @@ public abstract class StateManager {
 
     /**
      * <p>
-     * The <code>ServletContext</code> init parameter consulted by the <code>StateManager</code> to tell where the state
-     * should be saved. Valid values are given as the values of the <span class="changed_modified_5_0">enum constants
-     * {@link StateSavingMethod}, case insensitive</span>.
+     * The <code>ServletContext</code> init parameter consulted by the <code>StateManager</code> to tell where the state should be saved. Valid values are given
+     * as the values of the <span class="changed_modified_5_0">enum constants {@link StateSavingMethod}, case insensitive</span>.
      * </p>
      *
      * <p>
@@ -59,18 +57,16 @@ public abstract class StateManager {
 
     /**
      * <p class="changed_added_2_1">
-     * Marker within the <code>FacesContext</code> attributes map to indicate we are saving state. The implementation must
-     * set this marker into the map <b>before</b> starting the state saving traversal and the marker must be cleared, in a
-     * finally block, <b>after</b> the traversal is complete.
+     * Marker within the <code>FacesContext</code> attributes map to indicate we are saving state. The implementation must set this marker into the map
+     * <b>before</b> starting the state saving traversal and the marker must be cleared, in a finally block, <b>after</b> the traversal is complete.
      * </p>
      */
     public static final String IS_SAVING_STATE = "jakarta.faces.IS_SAVING_STATE";
 
     /**
      * <p class="changed_added_2_1">
-     * Marker within the <code>FacesContext</code> attributes map to indicate we are marking initial state, so the
-     * <code>markInitialState()</code> method of iterating components such as {@link jakarta.faces.component.UIData} could
-     * recognize this fact and save the initial state of descendents.
+     * Marker within the <code>FacesContext</code> attributes map to indicate we are marking initial state, so the <code>markInitialState()</code> method of
+     * iterating components such as {@link jakarta.faces.component.UIData} could recognize this fact and save the initial state of descendents.
      * </p>
      *
      * @since 2.1
@@ -80,11 +76,10 @@ public abstract class StateManager {
 
     /**
      * <p class="changed_added_2_2">
-     * If this param is set, and calling toLowerCase().equals("true") on a String representation of its value returns true,
-     * and the jakarta.faces.STATE_SAVING_METHOD is set to "server" (as indicated below), the server state must be
-     * guaranteed to be Serializable such that the aggregate state implements java.io.Serializable. The intent of this
-     * parameter is to ensure that the act of writing out the state to an ObjectOutputStream would not throw a
-     * NotSerializableException, but the runtime is not required verify this before saving the state.
+     * If this param is set, and calling toLowerCase().equals("true") on a String representation of its value returns true, and the
+     * jakarta.faces.STATE_SAVING_METHOD is set to "server" (as indicated below), the server state must be guaranteed to be Serializable such that the aggregate
+     * state implements java.io.Serializable. The intent of this parameter is to ensure that the act of writing out the state to an ObjectOutputStream would not
+     * throw a NotSerializableException, but the runtime is not required verify this before saving the state.
      * </p>
      *
      * @since 2.2
@@ -93,10 +88,10 @@ public abstract class StateManager {
 
     /**
      * <p>
-     * Constant value for the initialization parameter named by the <code>STATE_SAVING_METHOD_PARAM_NAME</code> that
-     * indicates state saving should take place on the client.
+     * Constant value for the initialization parameter named by the <code>STATE_SAVING_METHOD_PARAM_NAME</code> that indicates state saving should take place on
+     * the client.
      * </p>
-     * 
+     *
      * @deprecated Use {@link StateSavingMethod#CLIENT} instead.
      */
     @Deprecated(since = "5.0", forRemoval = true)
@@ -104,10 +99,10 @@ public abstract class StateManager {
 
     /**
      * <p>
-     * Constant value for the initialization parameter named by the <code>STATE_SAVING_METHOD_PARAM_NAME</code> that
-     * indicates state saving should take place on the server.
+     * Constant value for the initialization parameter named by the <code>STATE_SAVING_METHOD_PARAM_NAME</code> that indicates state saving should take place on
+     * the server.
      * </p>
-     * 
+     *
      * @deprecated Use {@link StateSavingMethod#SERVER} instead.
      */
     @Deprecated(since = "5.0", forRemoval = true)
@@ -117,18 +112,18 @@ public abstract class StateManager {
      * <p class="changed_added_5_0">
      * Allowed values for the initialization parameter named by the {@value StateManager#STATE_SAVING_METHOD_PARAM_NAME}.
      * </p>
-     * 
+     *
      * @since 5.0
      */
     public enum StateSavingMethod {
-        
+
         /**
          * <p>
          * Indicates that state saving should take place on the client.
          * </p>
          */
         CLIENT,
-        
+
         /**
          * <p>
          * Indicates that state saving should take place on the server.
@@ -136,24 +131,20 @@ public abstract class StateManager {
          */
         SERVER;
     }
-    
 
     private Boolean savingStateInClient;
 
     // ---------------------------------------------------- State Saving Methods
 
-
     /**
      * <p>
-     * Save the state represented in the specified state <code>Object</code> instance, in an implementation dependent
-     * manner.
+     * Save the state represented in the specified state <code>Object</code> instance, in an implementation dependent manner.
      * </p>
      *
      * <p>
-     * This method will typically simply delegate the actual writing to the <code>writeState()</code> method of the
-     * {@link ResponseStateManager} instance provided by the {@link RenderKit} being used to render this view. This method
-     * assumes that the caller has positioned the {@link ResponseWriter} at the correct position for the saved state to be
-     * written.
+     * This method will typically simply delegate the actual writing to the <code>writeState()</code> method of the {@link ResponseStateManager} instance
+     * provided by the {@link RenderKit} being used to render this view. This method assumes that the caller has positioned the {@link ResponseWriter} at the
+     * correct position for the saved state to be written.
      * </p>
      *
      * @param context {@link FacesContext} for the current request
@@ -164,9 +155,7 @@ public abstract class StateManager {
     public void writeState(FacesContext context, Object state) throws IOException {
     }
 
-
     // ------------------------------------------------- State Restoring Methods
-
 
     /**
      * <p>
@@ -174,9 +163,9 @@ public abstract class StateManager {
      * </p>
      *
      * @param context the Faces context.
-     * @return <code>true</code> if and only if the value of the <code>ServletContext</code> init parameter named by the
-     * value of the constant {@link #STATE_SAVING_METHOD_PARAM_NAME} is equal <span class="changed_modified_2_3">(ignoring
-     * case)</span> to the value of the constant <span class="changed_modified_5_0">{@link StateSavingMethod#CLIENT}</span>. <code>false</code> otherwise.
+     * @return <code>true</code> if and only if the value of the <code>ServletContext</code> init parameter named by the value of the constant
+     * {@link #STATE_SAVING_METHOD_PARAM_NAME} is equal <span class="changed_modified_2_3">(ignoring case)</span> to the value of the constant
+     * <span class="changed_modified_5_0">{@link StateSavingMethod#CLIENT}</span>. <code>false</code> otherwise.
      *
      * @throws NullPointerException if <code>context</code> is <code>null</code>.
      */
@@ -198,9 +187,8 @@ public abstract class StateManager {
      * <p class="changed_added_2_0">
      * Convenience method to return the view state as a <code>String</code> with no <code>RenderKit</code> specific markup.
      *
-     * This default implementation of this method will call {@link StateManagementStrategy#saveView(FacesContext)} and
-     * passing the result to and returning the resulting value from
-     * {@link ResponseStateManager#getViewState(jakarta.faces.context.FacesContext, Object)}.
+     * This default implementation of this method will call {@link StateManagementStrategy#saveView(FacesContext)} and passing the result to and returning the
+     * resulting value from {@link ResponseStateManager#getViewState(jakarta.faces.context.FacesContext, Object)}.
      * </p>
      *
      * @param context {@link FacesContext} for the current request
@@ -220,8 +208,9 @@ public abstract class StateManager {
                     contextAttributes.put(IS_SAVING_STATE, TRUE);
 
                     savedView = vdl.getStateManagementStrategy(context, viewId)
-                                      .saveView(context);
-                } finally {
+                        .saveView(context);
+                }
+                finally {
                     contextAttributes.remove(IS_SAVING_STATE);
                 }
             }
@@ -229,4 +218,5 @@ public abstract class StateManager {
 
         return context.getRenderKit().getResponseStateManager().getViewState(context, savedView);
     }
+
 }

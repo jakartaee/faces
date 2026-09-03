@@ -55,4 +55,5 @@ public class DataBean {
     public void setAge(short age) {
         this.age = age;
     }
+
 }

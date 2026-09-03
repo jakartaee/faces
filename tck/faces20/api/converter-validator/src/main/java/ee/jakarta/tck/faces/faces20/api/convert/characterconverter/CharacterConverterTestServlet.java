@@ -15,9 +15,9 @@
  */
 package ee.jakarta.tck.faces.faces20.api.convert.characterconverter;
 
-import ee.jakarta.tck.faces.faces20.api.convert.common.BaseConverterTestServlet;
-
 import jakarta.servlet.annotation.WebServlet;
+
+import ee.jakarta.tck.faces.faces20.api.convert.common.BaseConverterTestServlet;
 
 @WebServlet("/CharacterConverterTestServlet")
 public final class CharacterConverterTestServlet extends BaseConverterTestServlet {

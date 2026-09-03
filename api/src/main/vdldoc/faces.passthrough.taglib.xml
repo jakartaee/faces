@@ -26,13 +26,13 @@
     <description><![CDATA[
         <p><strong>Jakarta Faces Passthrough Attributes Tag Library</strong></p>
 
-        <p class="changed_added_2_2">Facelet tag attributes in 
+        <p class="changed_added_2_2">Facelet tag attributes in
         this namespace must be added to the pass through attribute map
-        on the <code>UIComponent</code> corresponding to the facelet 
+        on the <code>UIComponent</code> corresponding to the facelet
         tag.  There are no tags in this tag library.</p>
 
          <div class="changed_added_2_2">
- 
+
         <p>Usage example</p>
 
         <code><pre>&lt;h:outputText value="Namespaced Attributes" pt:foo="bar" /&gt;</pre></code>
@@ -41,7 +41,7 @@
 
 
         </div>
-    
+
     ]]></description>
     <namespace>jakarta.faces.passthrough</namespace>
 </facelet-taglib>

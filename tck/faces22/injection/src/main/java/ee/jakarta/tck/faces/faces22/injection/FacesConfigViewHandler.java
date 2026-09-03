@@ -47,4 +47,5 @@ public class FacesConfigViewHandler extends ViewHandlerWrapper {
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

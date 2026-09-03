@@ -38,11 +38,15 @@ class Spec1501IT extends BaseITNG {
     void observedPhases() {
         WebPage page = getPage("spec1501.xhtml");
         WebElement observedEventsOnInitialRequest = page.findElement(By.id("observedEvents"));
-        assertEquals(List.of(
+        assertEquals(
+            List.of(
                 "PostConstructApplicationEvent: true",
                 "PostConstructViewMapEvent: true",
                 "MyPostConstructViewMapEvent: true",
                 "PreRenderViewEvent: true",
-                "MyPreRenderViewEvent: true").toString(), observedEventsOnInitialRequest.getText());
+                "MyPreRenderViewEvent: true"
+            ).toString(), observedEventsOnInitialRequest.getText()
+        );
     }
+
 }

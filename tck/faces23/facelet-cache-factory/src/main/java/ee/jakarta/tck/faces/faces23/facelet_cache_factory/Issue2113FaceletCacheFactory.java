@@ -52,4 +52,5 @@ public class Issue2113FaceletCacheFactory extends FaceletCacheFactory {
 
         return cache;
     }
+
 }

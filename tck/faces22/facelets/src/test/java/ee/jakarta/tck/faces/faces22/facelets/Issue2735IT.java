@@ -26,9 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A view marked {@code transient="true"} is stateless: its state is not saved, so the
- * {@code jakarta.faces.ViewState} hidden field carries the marker value {@code "stateless"} on the
- * initial render and on every postback.
+ * A view marked {@code transient="true"} is stateless: its state is not saved, so the {@code jakarta.faces.ViewState} hidden field carries the marker value
+ * {@code "stateless"} on the initial render and on every postback.
  */
 public class Issue2735IT extends BaseITNG {
 
@@ -84,4 +83,5 @@ public class Issue2735IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:button"))::click);
         assertFalse(page.containsSource(STATELESS), "postback stays stateful");
     }
+
 }

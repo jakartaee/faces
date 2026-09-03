@@ -29,10 +29,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 /**
- * High-level facade over {@link ExtendedWebDriver} for integration tests.
- * Adds settle/poll primitives ({@link #guardHttp}, {@link #guardAjax},
- * {@link #waitForCondition}) and assertion-friendly content checks
- * ({@link #containsText}, {@link #containsSource}, {@link #matchesText}).
+ * High-level facade over {@link ExtendedWebDriver} for integration tests. Adds settle/poll primitives ({@link #guardHttp}, {@link #guardAjax},
+ * {@link #waitForCondition}) and assertion-friendly content checks ({@link #containsText}, {@link #containsSource}, {@link #matchesText}).
  */
 public class WebPage {
 
@@ -45,25 +43,23 @@ public class WebPage {
     }
 
     /**
-     * Polls until {@code isTrue} returns truthy or {@link #STD_TIMEOUT} elapses.
-     * Throws {@link org.openqa.selenium.TimeoutException} on timeout. Tests
-     * that need a non-default timeout should construct {@link WebDriverWait}
-     * directly off the inherited {@code getWebDriver()}.
+     * Polls until {@code isTrue} returns truthy or {@link #STD_TIMEOUT} elapses. Throws {@link org.openqa.selenium.TimeoutException} on timeout. Tests that
+     * need a non-default timeout should construct {@link WebDriverWait} directly off the inherited {@code getWebDriver()}.
      */
     public <V> void waitForCondition(Function<? super WebDriver, V> isTrue) {
         new WebDriverWait(webDriver, STD_TIMEOUT).until(isTrue);
     }
 
     /**
-     * Run {@code action} and block until the resulting non-Ajax navigation has
-     * completed (i.e. the new page's {@code document.readyState} is {@code complete}).
+     * Run {@code action} and block until the resulting non-Ajax navigation has completed (i.e. the new page's {@code document.readyState} is {@code complete}).
      *
      * @param action the non-ajax action to execute, usually {@code WebElement::click}
      */
     public void guardHttp(Runnable action) {
         action.run();
         new WebDriverWait(webDriver, STD_TIMEOUT).until(
-                $ -> "complete".equals(executeScript("return document.readyState")));
+            $ -> "complete".equals(executeScript("return document.readyState"))
+        );
     }
 
     /**
@@ -73,9 +69,11 @@ public class WebPage {
      */
     public void guardAjax(Runnable action) {
         var uuid = UUID.randomUUID().toString();
-        executeScript("window.$ajax=true;"
+        executeScript(
+            "window.$ajax=true;"
                 + "faces.ajax.addOnEvent(data=>{if(data.status=='success')window.$ajax='" + uuid + "'});"
-                + "faces.ajax.addOnError(()=>window.$ajax='" + uuid + "')");
+                + "faces.ajax.addOnError(()=>window.$ajax='" + uuid + "')"
+        );
         action.run();
         webDriver.waitForFaces(STD_TIMEOUT);
         waitForCondition($ -> executeScript("return window.$ajax=='" + uuid + "' || (!window.$ajax && document.readyState=='complete')"));
@@ -84,44 +82,38 @@ public class WebPage {
     /**
      * Run {@code action} and verify that it does NOT trigger an Ajax request within a short window.
      *
-     * @return {@code true} if no Ajax fired (the expected case for negative-path assertions),
-     *         {@code false} if an Ajax response did complete.
+     * @return {@code true} if no Ajax fired (the expected case for negative-path assertions), {@code false} if an Ajax response did complete.
      */
     public boolean assertNoAjax(Runnable action) {
         executeScript("window.$ajaxFired=false;faces.ajax.addOnEvent(()=>window.$ajaxFired=true)");
         action.run();
         try {
             Thread.sleep(500);
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
         return Boolean.FALSE.equals(executeScript("return window.$ajaxFired"));
     }
 
     /**
-     * Returns true if the page's visible text (whitespace-collapsed) contains
-     * the given text. Synchronous: assumes the caller already settled the page
-     * via guardHttp, guardAjax, or getPage. If you need to wait for the text
-     * to appear, use {@link #waitForCondition} explicitly.
+     * Returns true if the page's visible text (whitespace-collapsed) contains the given text. Synchronous: assumes the caller already settled the page via
+     * guardHttp, guardAjax, or getPage. If you need to wait for the text to appear, use {@link #waitForCondition} explicitly.
      */
     public boolean containsText(String text) {
         return getText().contains(text);
     }
 
     /**
-     * Returns true if the page's full HTML markup contains the given text.
-     * Synchronous; same precondition as {@link #containsText}. Use this only
-     * when the asserted text lives in markup-only context (HTML attributes,
-     * encoded entities, script content) — for visible page content prefer
-     * {@link #containsText}.
+     * Returns true if the page's full HTML markup contains the given text. Synchronous; same precondition as {@link #containsText}. Use this only when the
+     * asserted text lives in markup-only context (HTML attributes, encoded entities, script content) — for visible page content prefer {@link #containsText}.
      */
     public boolean containsSource(String text) {
         return getSource().contains(text);
     }
 
     /**
-     * Returns true if the page's visible text (whitespace-collapsed) matches
-     * the given regex. Synchronous; same precondition as {@link #containsText}.
+     * Returns true if the page's visible text (whitespace-collapsed) matches the given regex. Synchronous; same precondition as {@link #containsText}.
      */
     public boolean matchesText(String regex) {
         return getText().matches(regex);
@@ -163,19 +155,16 @@ public class WebPage {
     }
 
     /**
-     * Returns the full HTML markup of the current page. Escape hatch for
-     * tests that need to fetch the page once and run multiple operations
-     * (regex, substring, repeated lookups) on the same snapshot. For simple
-     * "does X appear?" checks use {@link #containsSource}.
+     * Returns the full HTML markup of the current page. Escape hatch for tests that need to fetch the page once and run multiple operations (regex, substring,
+     * repeated lookups) on the same snapshot. For simple "does X appear?" checks use {@link #containsSource}.
      */
     public String getSource() {
         return webDriver.getPageSource();
     }
 
     /**
-     * Returns the page's visible text with all whitespace collapsed to single
-     * spaces (head + body innerText, runs of whitespace and non-breaking
-     * spaces normalised). Callers should prefer {@link #containsText} and {@link #matchesText}.
+     * Returns the page's visible text with all whitespace collapsed to single spaces (head + body innerText, runs of whitespace and non-breaking spaces
+     * normalised). Callers should prefer {@link #containsText} and {@link #matchesText}.
      */
     private String getText() {
         return webDriver.getPageTextReduced();
@@ -191,9 +180,8 @@ public class WebPage {
     }
 
     /**
-     * Returns the first inline (non-{@code src}) {@code <script>} element whose textContent
-     * mentions {@code input}'s id (single- or double-quoted) — i.e. the JSF client-behavior
-     * script wired up to that input. Returns {@code null} if none.
+     * Returns the first inline (non-{@code src}) {@code <script>} element whose textContent mentions {@code input}'s id (single- or double-quoted) — i.e. the
+     * JSF client-behavior script wired up to that input. Returns {@code null} if none.
      */
     public WebElement getBehaviorScriptElement(WebElement input) {
         var elements = getBehaviorScriptElements(input);
@@ -229,12 +217,10 @@ public class WebPage {
     }
 
     /**
-     * Returns true if {@code element} effectively has {@code attrName} set to {@code expectedValue}.
-     * For {@code on*} event-handler attributes this is implementation-agnostic per Faces 5.0
-     * (jakartaee/faces#2167): the value may either be rendered as an inline {@code on*} attribute on
-     * the element, or be wired at runtime via a {@code <script>} block that mentions the element's
-     * id, the event name, and the expected value. For all other attributes only the inline form
-     * is accepted.
+     * Returns true if {@code element} effectively has {@code attrName} set to {@code expectedValue}. For {@code on*} event-handler attributes this is
+     * implementation-agnostic per Faces 5.0 (jakartaee/faces#2167): the value may either be rendered as an inline {@code on*} attribute on the element, or be
+     * wired at runtime via a {@code <script>} block that mentions the element's id, the event name, and the expected value. For all other attributes only the
+     * inline form is accepted.
      */
     public boolean hasAttributeValue(WebElement element, String attrName, String expectedValue) {
         if (Objects.equals(expectedValue, element.getDomAttribute(attrName))) {
@@ -244,12 +230,10 @@ public class WebPage {
     }
 
     /**
-     * Returns true if {@code element} has {@code attrName} wired in any form. For {@code on*}
-     * event-handler attributes this is implementation-agnostic per Faces 5.0
-     * (jakartaee/faces#2167): either a non-empty inline {@code on*} attribute is present on the
-     * element, or some {@code <script>} block on the page mentions the element's id and the event
-     * name. For all other attributes only a non-empty inline form is accepted. Unlike
-     * {@link #hasAttributeValue} this does not check the handler value.
+     * Returns true if {@code element} has {@code attrName} wired in any form. For {@code on*} event-handler attributes this is implementation-agnostic per
+     * Faces 5.0 (jakartaee/faces#2167): either a non-empty inline {@code on*} attribute is present on the element, or some {@code <script>} block on the page
+     * mentions the element's id and the event name. For all other attributes only a non-empty inline form is accepted. Unlike {@link #hasAttributeValue} this
+     * does not check the handler value.
      */
     public boolean isAttributeWired(WebElement element, String attrName) {
         var inline = element.getDomAttribute(attrName);
@@ -260,11 +244,9 @@ public class WebPage {
     }
 
     /**
-     * Searches inline {@code <script>} blocks wired to {@code element}'s id for one that mentions
-     * the DOM event derived from {@code attrName} (the substring after {@code "on"}). If
-     * {@code expectedValue} is non-null the script must additionally contain that value as a JS
-     * string literal (raw or backslash-escaped, single- or double-quoted). Returns false for
-     * non-{@code on*} attribute names.
+     * Searches inline {@code <script>} blocks wired to {@code element}'s id for one that mentions the DOM event derived from {@code attrName} (the substring
+     * after {@code "on"}). If {@code expectedValue} is non-null the script must additionally contain that value as a JS string literal (raw or
+     * backslash-escaped, single- or double-quoted). Returns false for non-{@code on*} attribute names.
      */
     private boolean isOnEventScripted(WebElement element, String attrName, String expectedValue) {
         if (!attrName.startsWith("on") || attrName.length() <= 2) {
@@ -284,11 +266,9 @@ public class WebPage {
     }
 
     /**
-     * Returns four search candidates for {@code s}: the raw value wrapped in single and double
-     * quotes, and the JS-string-literal-escaped value (backslashes and single quotes escaped)
-     * wrapped in single and double quotes. The escaped variants are necessary because impls that
-     * defer {@code on*} attributes through an {@code addEventListener} chain typically emit the
-     * handler script as a JS string literal whose embedded quotes must be backslash-escaped.
+     * Returns four search candidates for {@code s}: the raw value wrapped in single and double quotes, and the JS-string-literal-escaped value (backslashes and
+     * single quotes escaped) wrapped in single and double quotes. The escaped variants are necessary because impls that defer {@code on*} attributes through an
+     * {@code addEventListener} chain typically emit the handler script as a JS string literal whose embedded quotes must be backslash-escaped.
      */
     private static String[] quoted(String string) {
         var jsEscaped = string.replace("\\", "\\\\").replace("'", "\\'");
@@ -301,9 +281,10 @@ public class WebPage {
     private static boolean containsAny(String haystack, String[] needles) {
         for (var needle : needles) {
             if (haystack.contains(needle)) {
-            	return true;
+                return true;
             }
         }
         return false;
     }
+
 }

@@ -154,7 +154,7 @@
             <version>5.0.0.Alpha3</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>jakarta.cdi</groupId>
             <artifactId>jakarta.cdi-el-api</artifactId>
@@ -169,10 +169,10 @@
             <scope>provided</scope>
         </dependency>
 
-        
+
 
         <!-- Optional -->
-        
+
         <dependency>
             <groupId>jakarta.transaction</groupId>
             <artifactId>jakarta.transaction-api</artifactId>
@@ -219,8 +219,8 @@
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-        
-        
+
+
         <!-- Test -->
 
         <dependency>
@@ -229,7 +229,7 @@
             <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
@@ -244,7 +244,7 @@
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
-        
+
         <plugins>
             <!-- Sets minimal Maven version and Java version -->
             <plugin>
@@ -264,6 +264,53 @@
                                     <version>[${maven.compiler.release},)</version>
                                 </requireJavaVersion>
                             </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Apply code formatting (Java via Eclipse JDT, XML/XHTML whitespace). -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>format source code</id>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                        <configuration>
+                            <java>
+                                <eclipse>
+                                    <file>${project.basedir}/../build/eclipse-formatter.xml</file>
+                                </eclipse>
+                                <importOrder>
+                                    <file>${project.basedir}/../build/eclipse-importorder.txt</file>
+                                </importOrder>
+                                <removeUnusedImports />
+                                <trimTrailingWhitespace />
+                            </java>
+                            <formats>
+                                <format>
+                                    <includes>
+                                        <include>pom.xml</include>
+                                        <include>**/src/**/*.xml</include>
+                                        <include>**/src/**/*.xhtml</include>
+                                    </includes>
+                                    <excludes>
+                                        <exclude>**/target/**</exclude>
+                                        <exclude>**/node_modules/**</exclude>
+                                    </excludes>
+                                    <trimTrailingWhitespace />
+                                    <endWithNewline />
+                                    <indent>
+                                        <spaces>true</spaces>
+                                        <spacesPerTab>4</spacesPerTab>
+                                    </indent>
+                                </format>
+                            </formats>
                         </configuration>
                     </execution>
                 </executions>
@@ -326,9 +373,9 @@
                                 <resource>
                                     <directory>${project.basedir}/..</directory>
                                     <includes>
-				                        <include>LICENSE.md</include>
-				                        <include>NOTICE.md</include>
-								    </includes>
+                                        <include>LICENSE.md</include>
+                                        <include>NOTICE.md</include>
+                                    </includes>
                                 </resource>
                             </resources>
                             <outputDirectory>${project.build.outputDirectory}/META-INF</outputDirectory>
@@ -404,7 +451,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
                     </execution>
                 </executions>
             </plugin>
-            
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
@@ -630,26 +677,26 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             </build>
         </profile>
 
-		<profile>
-			<id>not-eclipse</id>
-			<activation>
-				<property>
-					<name>!m2e.version</name>
-				</property>
-			</activation>
-			<build>
-				<resources>
-					<resource>
-						<directory>${project.basedir}/..</directory>
-						<includes>
-							<include>LICENSE.md</include>
-							<include>NOTICE.md</include>
-						</includes>
-						<targetPath>META-INF</targetPath>
-					</resource>
-				</resources>
-			</build>
-		</profile>
+        <profile>
+            <id>not-eclipse</id>
+            <activation>
+                <property>
+                    <name>!m2e.version</name>
+                </property>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>${project.basedir}/..</directory>
+                        <includes>
+                            <include>LICENSE.md</include>
+                            <include>NOTICE.md</include>
+                        </includes>
+                        <targetPath>META-INF</targetPath>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
 
         <profile>
             <id>only-eclipse</id>
@@ -661,7 +708,7 @@ Use is subject to <a href="{@docRoot}/doc-files/speclicense.html" target="_top">
             <build>
                 <pluginManagement>
                     <plugins>
-						<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on 
+                        <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on
                             the Maven build itself. -->
                         <plugin>
                             <groupId>org.eclipse.m2e</groupId>

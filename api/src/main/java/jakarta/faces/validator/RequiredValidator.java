@@ -24,8 +24,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * A Validator that checks for an empty value in the same way that UIInput checks for a value. In fact, this validator
- * is equivalent to setting the required attribute on the input component to true.
+ * A Validator that checks for an empty value in the same way that UIInput checks for a value. In fact, this validator is equivalent to setting the required
+ * attribute on the input component to true.
  * </p>
  *
  * @since 2.0
@@ -65,7 +65,8 @@ public class RequiredValidator implements Validator<Object> {
             // respect the message string override on the component to emulate required="true" behavior
             if (requiredMessageStr != null) {
                 msg = new FacesMessage(Severity.ERROR, requiredMessageStr, requiredMessageStr);
-            } else {
+            }
+            else {
                 msg = MessageFactory.getMessage(context, UIInput.REQUIRED_MESSAGE_ID, MessageFactory.getLabel(context, component));
             }
 

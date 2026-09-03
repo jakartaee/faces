@@ -48,4 +48,5 @@ public class FacesConfigStateManager extends StateManagerWrapper {
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

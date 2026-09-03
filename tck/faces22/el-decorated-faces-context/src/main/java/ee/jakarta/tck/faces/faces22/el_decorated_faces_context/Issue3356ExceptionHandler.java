@@ -24,4 +24,5 @@ public class Issue3356ExceptionHandler extends ExceptionHandlerWrapper {
     public Issue3356ExceptionHandler(ExceptionHandler wrapped) {
         super(wrapped);
     }
+
 }

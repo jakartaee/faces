@@ -27,8 +27,13 @@ public class Issue2201ActionListener implements ActionListener {
     @Override
     public void processAction(ActionEvent ae) throws AbortProcessingException {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(ae.getComponent().getClientId(context),
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        ae.getComponent().getId() + " was pressed", null));
+        context.addMessage(
+            ae.getComponent().getClientId(context),
+            new FacesMessage(
+                FacesMessage.SEVERITY_ERROR,
+                ae.getComponent().getId() + " was pressed", null
+            )
+        );
     }
+
 }

@@ -23,12 +23,10 @@ import jakarta.faces.component.html.HtmlPanelGrid;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.PostRestoreStateEvent;
-import jakarta.faces.event.PreRenderViewEvent;
 import jakarta.faces.event.SystemEvent;
 
 /**
- * Pre-render adds a dynamic {@link HtmlPanelGrid} child; on postback nests an {@link HtmlOutputText}
- * grandchild inside it, exactly once.
+ * Pre-render adds a dynamic {@link HtmlPanelGrid} child; on postback nests an {@link HtmlOutputText} grandchild inside it, exactly once.
  */
 @FacesComponent(value = "ee.jakarta.tck.faces.faces23.dynamic_components.Issue2123AddComponent")
 public class Issue2123AddComponent extends DynamicComponentBase {
@@ -48,7 +46,8 @@ public class Issue2123AddComponent extends DynamicComponentBase {
             panel.setId("PANEL");
             panel.setStyle("border: 1px dashed blue; padding: 5px; margin: 5px");
             getChildren().add(panel);
-        } else {
+        }
+        else {
             HtmlPanelGrid panel = (HtmlPanelGrid) getChildren().get(0);
             if (panel.getAttributes().get(CHILD_ADDED) == null) {
                 HtmlOutputText output = new HtmlOutputText();
@@ -59,4 +58,5 @@ public class Issue2123AddComponent extends DynamicComponentBase {
             }
         }
     }
+
 }

@@ -25,9 +25,9 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /**
- * A component's facets are walked while the view is being built, and a listener reached from that walk may add a facet
- * to the very component being walked: relocating a component resource creates a facet on the view root from a
- * PostAddToViewEvent listener. The iterators therefore have to keep working across such a change.
+ * A component's facets are walked while the view is being built, and a listener reached from that walk may add a facet to the very component being walked:
+ * relocating a component resource creates a facet on the view root from a PostAddToViewEvent listener. The iterators therefore have to keep working across such
+ * a change.
  */
 class UIComponentBaseFacetsMapTest {
 
@@ -87,4 +87,5 @@ class UIComponentBaseFacetsMapTest {
         }
         return n;
     }
+
 }

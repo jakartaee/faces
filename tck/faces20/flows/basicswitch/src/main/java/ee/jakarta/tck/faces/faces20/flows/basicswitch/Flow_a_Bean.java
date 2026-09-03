@@ -73,4 +73,5 @@ public class Flow_a_Bean implements Serializable {
     public String getDefaultOutcome() {
         return "switchC_result";
     }
+
 }

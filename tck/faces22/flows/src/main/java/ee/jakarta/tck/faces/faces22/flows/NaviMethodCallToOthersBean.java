@@ -57,4 +57,5 @@ public class NaviMethodCallToOthersBean implements Serializable {
     public boolean isCase2() {
         return false;
     }
+
 }

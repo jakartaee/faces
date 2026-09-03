@@ -35,4 +35,5 @@ public class ColorBean {
     public String getResult() {
         return color;
     }
+
 }

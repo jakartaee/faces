@@ -38,9 +38,14 @@ public class FlashRedirectBean {
 
         if ("addMessage".equals(stringVal)) {
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, PERSISTENT_MESSAGE,
-                    "This message must persist across the redirect"));
+            context.addMessage(
+                null, new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, PERSISTENT_MESSAGE,
+                    "This message must persist across the redirect"
+                )
+            );
             context.getExternalContext().getFlash().setKeepMessages(true);
         }
     }
+
 }

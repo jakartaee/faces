@@ -24,9 +24,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 /**
- * Reports the character encoding state of the current request. The state is snapshotted before the
- * {@code makeSession}/{@code invalidateSession} request parameters are honoured, so that a request which creates the
- * session still reports the state as it was on arrival.
+ * Reports the character encoding state of the current request. The state is snapshotted before the {@code makeSession}/{@code invalidateSession} request
+ * parameters are honoured, so that a request which creates the session still reports the state as it was on arrival.
  */
 @Named
 @RequestScoped
@@ -51,8 +50,8 @@ public class ViewHandlerCharEncBean {
         responseCharacterEncoding = externalContext.getResponseCharacterEncoding();
         hasSession = externalContext.getSession(false) != null;
         sessionCharacterEncoding = hasSession
-                ? (String) externalContext.getSessionMap().get(ViewHandler.CHARACTER_ENCODING_KEY)
-                : null;
+            ? (String) externalContext.getSessionMap().get(ViewHandler.CHARACTER_ENCODING_KEY)
+            : null;
 
         if (externalContext.getRequestParameterMap().containsKey(MAKE_SESSION_PARAM)) {
             externalContext.getSession(true);
@@ -78,4 +77,5 @@ public class ViewHandlerCharEncBean {
     public String getSessionCharacterEncoding() {
         return sessionCharacterEncoding;
     }
+
 }

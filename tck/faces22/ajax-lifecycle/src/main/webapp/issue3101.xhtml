@@ -26,7 +26,7 @@
     <h:head>
         <title>View Expiration 1</title>
     </h:head>
-    <h:body>    
+    <h:body>
         <h:form id="form">
             State Saving Method: <h:outputText value="#{issue3101Bean.stateSavingMethod}"/>
             <h:commandButton id="expireSessionSoon" value="Expire Session Soon" actionListener="#{issue3101Bean.expireSessionSoon}">
@@ -43,7 +43,7 @@
         </script>
         <script>faces.ajax.addOnError(errorFunc);</script>
         <div id="errorDiv">
-            
-        </div>        
+
+        </div>
     </h:body>
 </html>

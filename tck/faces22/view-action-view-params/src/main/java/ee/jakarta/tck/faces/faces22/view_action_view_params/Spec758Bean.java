@@ -83,4 +83,5 @@ public class Spec758Bean {
     public String getMessage() {
         return message;
     }
+
 }

@@ -24,9 +24,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <span class="changed_modified_2_2">The</span> parent or root object in a FaceletHandler composition. The Facelet will
- * take care of populating the passed UIComponent parent in relation to the create/restore lifecycle of Jakarta Server
- * Faces.
+ * <span class="changed_modified_2_2">The</span> parent or root object in a FaceletHandler composition. The Facelet will take care of populating the passed
+ * UIComponent parent in relation to the create/restore lifecycle of Jakarta Server Faces.
  * </p>
  *
  */
@@ -34,15 +33,13 @@ public abstract class Facelet {
 
     /**
      * <p>
-     * <span class="changed_added_4_0">The</span> passed UIComponent parent will be populated/restored in accordance with
-     * the 
-     * section 10.2.1 "Specification of the ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces" in the Jakarta Faces Specification Document 
-     * with only the meta data as per the <code>f:metadata</code> tag.
+     * <span class="changed_added_4_0">The</span> passed UIComponent parent will be populated/restored in accordance with the section 10.2.1 "Specification of
+     * the ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces" in the Jakarta Faces Specification Document with only the meta data as per the
+     * <code>f:metadata</code> tag.
      * </p>
      *
      * @param facesContext The current FacesContext (Should be the same as FacesContext.getInstance())
-     * @param parent The UIComponent to populate in a compositional fashion. In most cases a Facelet will be base a
-     * UIViewRoot.
+     * @param parent The UIComponent to populate in a compositional fashion. In most cases a Facelet will be base a UIViewRoot.
      *
      * @throws IOException if unable to load a file necessary to apply this {@code Facelet}
      * @throws FaceletException if unable to parse the markup loaded in applying this {@code Facelet}
@@ -56,13 +53,12 @@ public abstract class Facelet {
 
     /**
      * <p>
-     * <span class="changed_modified_2_2">The</span> passed UIComponent parent will be populated/restored in accordance with
-     * the section 10.2.1 "Specification of the ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces" in the Jakarta Faces Specification Document.
+     * <span class="changed_modified_2_2">The</span> passed UIComponent parent will be populated/restored in accordance with the section 10.2.1 "Specification
+     * of the ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces" in the Jakarta Faces Specification Document.
      * </p>
      *
      * @param facesContext The current FacesContext (Should be the same as FacesContext.getInstance())
-     * @param parent The UIComponent to populate in a compositional fashion. In most cases a Facelet will be base a
-     * UIViewRoot.
+     * @param parent The UIComponent to populate in a compositional fashion. In most cases a Facelet will be base a UIViewRoot.
      *
      * @throws IOException if unable to load a file necessary to apply this {@code Facelet}
      * @throws FaceletException if unable to parse the markup loaded in applying this {@code Facelet}
@@ -71,4 +67,5 @@ public abstract class Facelet {
      *
      */
     public abstract void apply(FacesContext facesContext, UIComponent parent) throws IOException;
+
 }

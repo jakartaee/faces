@@ -18,9 +18,8 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * A {@code ui:repeat} nested in a {@code ui:repeat}, with the form wrapping both and one input per
- * cell. Each repeat keeps the per-row state of its stateful descendants, so an input must round-trip
- * the value submitted for its own (outer, inner) position, not one from another row.
+ * A {@code ui:repeat} nested in a {@code ui:repeat}, with the form wrapping both and one input per cell. Each repeat keeps the per-row state of its stateful
+ * descendants, so an input must round-trip the value submitted for its own (outer, inner) position, not one from another row.
  */
 class NestedRepeatRepeatFormOutsideIT extends NestedIterationITBase {
 
@@ -46,4 +45,5 @@ class NestedRepeatRepeatFormOutsideIT extends NestedIterationITBase {
     protected String submitId(int outer, int inner) {
         return "form:submit";
     }
+
 }

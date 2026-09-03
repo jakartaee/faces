@@ -27,7 +27,10 @@ class StateManagerClientIT extends BaseITNG {
     void stateManagerIsSavingStateInClientTest() {
         // WAR declares STATE_SAVING_METHOD=client, so isSavingStateInClient(ctx) must return "true".
         String body = getResponseBody("StateManagerTestServlet?testname=stateManagerIsSavingStateInClientTest");
-        assertTrue(body.trim().equals("true"),
-                "Expected 'true' (client-side state saving) but got:\n" + body);
+        assertTrue(
+            body.trim().equals("true"),
+            "Expected 'true' (client-side state saving) but got:\n" + body
+        );
     }
+
 }

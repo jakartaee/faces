@@ -37,4 +37,5 @@ public class RecordingExternalContextFactory extends ExternalContextFactory {
     public ExternalContextFactory getWrapped() {
         return wrapped;
     }
+
 }

@@ -36,4 +36,5 @@ public class PostBackBean {
     public String getPostBackResult2() {
         return FacesContext.getCurrentInstance().isPostback() ? "PASSED" : "";
     }
+
 }

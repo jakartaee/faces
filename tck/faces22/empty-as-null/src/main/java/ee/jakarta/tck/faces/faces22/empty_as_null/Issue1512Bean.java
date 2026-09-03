@@ -39,4 +39,5 @@ public class Issue1512Bean {
     public void validate(FacesContext facesContext, UIComponent component, Object value) {
         facesContext.addMessage(null, new FacesMessage("We got called!"));
     }
+
 }

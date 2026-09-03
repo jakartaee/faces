@@ -27,10 +27,10 @@ public class Issue2483Bean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Info[] list = new Info[]{
-            new Info(101, "Bob", ""),
-            new Info(102, "Joe", ""),
-            new Info(103, "Ron", ""),
+    private Info[] list = new Info[] {
+        new Info(101, "Bob", ""),
+        new Info(102, "Joe", ""),
+        new Info(103, "Ron", ""),
     };
 
     private String selectedCity = "alpha";
@@ -40,6 +40,7 @@ public class Issue2483Bean implements Serializable {
     }
 
     public class Info {
+
         int id;
         String name;
         String city;
@@ -58,7 +59,6 @@ public class Issue2483Bean implements Serializable {
             return name;
         }
 
-
         public String getCity() {
             return selectedCity;
         }
@@ -72,7 +72,9 @@ public class Issue2483Bean implements Serializable {
     public void setSelectedCity(String selectedCity) {
         this.selectedCity = selectedCity;
     }
+
     public String getSelectedCity() {
         return selectedCity;
     }
+
 }

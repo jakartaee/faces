@@ -22,8 +22,7 @@ import jakarta.faces.context.Flash;
 /**
  *
  * <p class="changed_added_2_2">
- * This event must be published by a call to {@link jakarta.faces.application.Application#publishEvent} when a value is
- * stored in the flash.
+ * This event must be published by a call to {@link jakarta.faces.application.Application#publishEvent} when a value is stored in the flash.
  * </p>
  *
  * @since 2.2
@@ -36,9 +35,8 @@ public class PostPutFlashValueEvent extends SystemEvent {
 
     /**
      * <p class="changed_added_2_2">
-     * Instantiate a new <code>PostPutFlashValueEvent</code> that indicates the argument <code>key</code> was just put to
-     * the flash. If the argument is <code>null</code>, the literal {@link Flash#NULL_VALUE} must be passed to the
-     * superclass constructor.
+     * Instantiate a new <code>PostPutFlashValueEvent</code> that indicates the argument <code>key</code> was just put to the flash. If the argument is
+     * <code>null</code>, the literal {@link Flash#NULL_VALUE} must be passed to the superclass constructor.
      * </p>
      *
      * @param key the key in the flash that was just added.
@@ -50,9 +48,8 @@ public class PostPutFlashValueEvent extends SystemEvent {
 
     /**
      * <p class="changed_added_2_2">
-     * Instantiate a new <code>PostPutFlashValueEvent</code> that indicates the argument <code>key</code> was just put to
-     * the flash. If the argument is <code>null</code>, the literal {@link Flash#NULL_VALUE} must be passed to the
-     * superclass constructor.
+     * Instantiate a new <code>PostPutFlashValueEvent</code> that indicates the argument <code>key</code> was just put to the flash. If the argument is
+     * <code>null</code>, the literal {@link Flash#NULL_VALUE} must be passed to the superclass constructor.
      * </p>
      *
      * @param facesContext the Faces context.

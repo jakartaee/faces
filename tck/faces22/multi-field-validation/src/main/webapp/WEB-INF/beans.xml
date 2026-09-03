@@ -18,7 +18,7 @@
 -->
 
 <!-- This file can be an empty text file (0 bytes) -->
-<!-- We're declaring the schema to save you time if you do have to configure 
+<!-- We're declaring the schema to save you time if you do have to configure
    this in the future -->
 <beans
     xmlns="https://jakarta.ee/xml/ns/jakartaee"

@@ -32,4 +32,5 @@ public class Issue3173Bean {
     public void submit() {
         // NOOP, the test only asserts the rendered markup.
     }
+
 }

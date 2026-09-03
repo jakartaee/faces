@@ -25,10 +25,9 @@ import java.lang.annotation.Target;
 import jakarta.enterprise.context.NormalScope;
 
 /**
- * ClientWindowScoped is a CDI scope that causes the runtime to consider classes
- * with this annotation to be in the scope of the current {@link ClientWindow}. The implementation must provide an
- * implementation of {@code jakarta.enterprise.inject.spi.Extension} that implements the semantics such that beans with
- * this annotation are created lazily, when referenced and accessed.
+ * ClientWindowScoped is a CDI scope that causes the runtime to consider classes with this annotation to be in the scope of the current {@link ClientWindow}.
+ * The implementation must provide an implementation of {@code jakarta.enterprise.inject.spi.Extension} that implements the semantics such that beans with this
+ * annotation are created lazily, when referenced and accessed.
  *
  * @since 4.0
  */
@@ -37,7 +36,6 @@ import jakarta.enterprise.context.NormalScope;
 @Documented
 @Target({ ElementType.TYPE, ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ClientWindowScoped
-{
+public @interface ClientWindowScoped {
 
 }

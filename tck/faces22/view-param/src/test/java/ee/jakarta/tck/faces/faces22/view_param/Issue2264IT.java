@@ -26,15 +26,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Navigating via an action with faces-redirect=true and includeViewParams=true carries the f:viewParam value to
- * the redirected target view.
+ * Navigating via an action with faces-redirect=true and includeViewParams=true carries the f:viewParam value to the redirected target view.
  */
 class Issue2264IT extends BaseITNG {
 
     /**
-     * Submits a form whose value is bound to the same property as an f:viewParam, then navigates by an action
-     * outcome carrying faces-redirect=true and includeViewParams=true. The view parameter must be appended to
-     * the redirect URL so the target view, declaring a matching f:viewParam, renders the submitted value.
+     * Submits a form whose value is bound to the same property as an f:viewParam, then navigates by an action outcome carrying faces-redirect=true and
+     * includeViewParams=true. The view parameter must be appended to the redirect URL so the target view, declaring a matching f:viewParam, renders the
+     * submitted value.
      *
      * @see jakarta.faces.component.UIViewParameter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2264
@@ -52,4 +51,5 @@ class Issue2264IT extends BaseITNG {
 
         assertTrue(page.containsText("testing"), "View parameter value is carried to the redirected target view");
     }
+
 }

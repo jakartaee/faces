@@ -18,9 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.component.uinamingcontainer;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.faces20.api.component.common.BaseComponentTestServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.UINamingContainer;
 import jakarta.faces.context.FacesContext;
@@ -30,48 +27,57 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.faces20.api.component.common.BaseComponentTestServlet;
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+
 @WebServlet("/UINamingContainerTestServlet")
 public class UINamingContainerTestServlet extends BaseComponentTestServlet {
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType(null);
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link jakarta.faces.component.UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link jakarta.faces.component.UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UINamingContainer();
-  }
-
-  // ------------------------------------------- Test Methods ----
-
-  // -------------------------------------------------------------
-  // UINamingContainer Specific
-
-  public void uiNamingContainerGetSeparatorCharTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    FacesContext context = getFacesContext();
-
-    char golden = ':';
-    char result = UINamingContainer.getSeparatorChar(context);
-
-    if (!(golden == result)) {
-      out.println(JSFTestUtil.FAIL + " Unexpected result calling "
-          + "UINamingContainer.getSeparatorChar()!" + JSFTestUtil.NL
-          + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result);
-
-    } else {
-      out.println(JSFTestUtil.PASS);
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType(null);
     }
-  }
+
+    /**
+     * <p>
+     * Creates a new {@link jakarta.faces.component.UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link jakarta.faces.component.UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UINamingContainer();
+    }
+
+    // ------------------------------------------- Test Methods ----
+
+    // -------------------------------------------------------------
+    // UINamingContainer Specific
+
+    public void uiNamingContainerGetSeparatorCharTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        FacesContext context = getFacesContext();
+
+        char golden = ':';
+        char result = UINamingContainer.getSeparatorChar(context);
+
+        if (!(golden == result)) {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected result calling "
+                    + "UINamingContainer.getSeparatorChar()!" + JSFTestUtil.NL
+                    + "Expected: " + golden + JSFTestUtil.NL + "Received: " + result
+            );
+
+        }
+        else {
+            out.println(JSFTestUtil.PASS);
+        }
+    }
 
 }

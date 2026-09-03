@@ -22,9 +22,8 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 /**
- * A request scoped bean whose {@code shown} flag a build time condition evaluates over. The flag is therefore true
- * during the render which puts the guarded input in the response, and false again during the restore of the postback
- * which submits it.
+ * A request scoped bean whose {@code shown} flag a build time condition evaluates over. The flag is therefore true during the render which puts the guarded
+ * input in the response, and false again during the restore of the postback which submits it.
  */
 @Named
 @RequestScoped
@@ -45,6 +44,7 @@ public class Issue5961Bean {
         public String toString() {
             return name;
         }
+
     }
 
     private boolean shown;
@@ -92,4 +92,5 @@ public class Issue5961Bean {
     public Map<UnsavableKey, String> getUnsavable() {
         return unsavable;
     }
+
 }

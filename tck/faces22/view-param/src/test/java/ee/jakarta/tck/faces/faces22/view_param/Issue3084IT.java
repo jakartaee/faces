@@ -25,15 +25,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * When multiple f:viewParam values are stored in view scope, an h:link with includeViewParams="true" renders
- * all of them as request query parameters in the generated URL.
+ * When multiple f:viewParam values are stored in view scope, an h:link with includeViewParams="true" renders all of them as request query parameters in the
+ * generated URL.
  */
 class Issue3084IT extends BaseITNG {
 
     /**
-     * Sets two view parameters into view scope (via ajax command links), performs a postback to retain them, then
-     * verifies the h:link with includeViewParams="true" renders both as query parameters, as mandated by
-     * {@link jakarta.faces.component.UIViewParameter}.
+     * Sets two view parameters into view scope (via ajax command links), performs a postback to retain them, then verifies the h:link with
+     * includeViewParams="true" renders both as query parameters, as mandated by {@link jakarta.faces.component.UIViewParameter}.
      *
      * @see jakarta.faces.component.UIViewParameter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3084
@@ -47,7 +46,10 @@ class Issue3084IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("form:postback")).click());
 
         String linkUrl = page.findElement(By.id("form:link")).getAttribute("href");
-        assertTrue(linkUrl.contains("param1=value") && linkUrl.contains("param2=value"),
-                "h:link with includeViewParams renders both view parameters as query parameters: " + linkUrl);
+        assertTrue(
+            linkUrl.contains("param1=value") && linkUrl.contains("param2=value"),
+            "h:link with includeViewParams renders both view parameters as query parameters: " + linkUrl
+        );
     }
+
 }

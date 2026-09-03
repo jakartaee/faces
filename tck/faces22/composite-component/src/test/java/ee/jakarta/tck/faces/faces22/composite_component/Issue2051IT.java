@@ -28,9 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2051IT extends BaseITNG {
 
     /**
-     * A converterId supplied as a composite component attribute, evaluated by both the converterId and the
-     * rendered attribute of a nested f:converter, is applied to the enclosing h:selectManyListbox: the view
-     * renders and the selection converts back to the model on postback.
+     * A converterId supplied as a composite component attribute, evaluated by both the converterId and the rendered attribute of a nested f:converter, is
+     * applied to the enclosing h:selectManyListbox: the view renders and the selection converts back to the model on postback.
      *
      * @see jakarta.faces.convert.Converter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2051
@@ -45,7 +44,10 @@ class Issue2051IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
 
         assertEquals(200, page.getResponseStatus(), "postback");
-        assertEquals("Second", page.findElement(By.id("form:selected")).getText(),
-                "The selection must have been converted back into the model.");
+        assertEquals(
+            "Second", page.findElement(By.id("form:selected")).getText(),
+            "The selection must have been converted back into the model."
+        );
     }
+
 }

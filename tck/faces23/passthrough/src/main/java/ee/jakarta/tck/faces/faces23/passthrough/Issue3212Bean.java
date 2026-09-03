@@ -43,14 +43,17 @@ public class Issue3212Bean {
         public LocalDate getModifiedOn() {
             return modifiedOn;
         }
+
     }
 
     private final List<Entity> entities = List.of(
         new Entity("first", LocalDate.of(2026, 1, 1)),
         new Entity("second", LocalDate.of(2026, 2, 2)),
-        new Entity("third", LocalDate.of(2026, 3, 3)));
+        new Entity("third", LocalDate.of(2026, 3, 3))
+    );
 
     public List<Entity> getEntities() {
         return entities;
     }
+
 }

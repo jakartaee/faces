@@ -36,4 +36,5 @@ public interface AttributeHandler {
      * @return the literal string value of the attribute name after evaluating EL
      */
     String getAttributeName(FaceletContext ctx);
+
 }

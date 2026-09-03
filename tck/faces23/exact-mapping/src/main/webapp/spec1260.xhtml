@@ -22,29 +22,28 @@
       xmlns:h="jakarta.faces.html"
       xmlns:ui="jakarta.faces.facelets"
       xmlns:f="jakarta.faces.core">
-      
+
   <h:head>
     <title>Spec1260</title>
   </h:head>
-  
+
   <h:body>
     This is page spec1260 <br/>
-    
+
     #{spec1260Bean.message} <br/>
-    
+
     <h:form id="form">
-    
-    	#{spec1260Bean.message2} <br/>
-    
+
+        #{spec1260Bean.message2} <br/>
+
         <h:commandButton id="commandButton" action="#{spec1260Bean.foo}" value="invoke foo"/> <br/>
-        
+
         <h:button id="button" outcome="bar">Go to view bar</h:button> <br/>
-        
+
         <h:commandButton id="commandButtonAjax" action="#{spec1260Bean.ajax}" value="invoke ajax">
-        	<f:ajax render="@form" />
+            <f:ajax render="@form" />
         </h:commandButton>
-    </h:form> 
-    
+    </h:form>
+
   </h:body>
 </html>
-

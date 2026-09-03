@@ -37,7 +37,9 @@ public class Issue3476Bean implements Serializable {
     @PostConstruct
     public void init() {
         SelectItemGroup g1 = new SelectItemGroup("German Cars");
-        g1.setSelectItems(new SelectItem[] { new SelectItem("BMW", "BMW"), new SelectItem("Mercedes", "Mercedes"), new SelectItem("Volkswagen", "Volkswagen") });
+        g1.setSelectItems(
+            new SelectItem[] { new SelectItem("BMW", "BMW"), new SelectItem("Mercedes", "Mercedes"), new SelectItem("Volkswagen", "Volkswagen") }
+        );
 
         SelectItemGroup g2 = new SelectItemGroup("American Cars");
         g2.setSelectItems(new SelectItem[] { new SelectItem("Chrysler", "Chrysler"), new SelectItem("GM", "GM"), new SelectItem("Ford", "Ford") });
@@ -56,4 +58,5 @@ public class Issue3476Bean implements Serializable {
     public void setSelected(List<String> selected) {
         this.selected = selected;
     }
+
 }

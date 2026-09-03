@@ -22,16 +22,17 @@ import jakarta.faces.event.SystemEvent;
 
 public class TCKSystemEvent extends SystemEvent {
 
-  public TCKSystemEvent(UIComponent component) {
-    super(component);
-  }
+    public TCKSystemEvent(UIComponent component) {
+        super(component);
+    }
 
-  @Override
-  public boolean isAppropriateListener(FacesListener listener) {
-    return false;
-  }
+    @Override
+    public boolean isAppropriateListener(FacesListener listener) {
+        return false;
+    }
 
-  @Override
-  public void processListener(FacesListener listener) {
-  }
+    @Override
+    public void processListener(FacesListener listener) {
+    }
+
 }

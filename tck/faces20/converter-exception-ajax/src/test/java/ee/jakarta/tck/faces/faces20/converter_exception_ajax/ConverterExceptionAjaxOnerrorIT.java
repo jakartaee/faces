@@ -25,15 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An unchecked exception thrown from within a converter is surfaced to the client: through the ajax
- * {@code onerror} callback's {@code errorName} for an ajax submit, and through the (Development-stage)
- * error page for a non-ajax submit.
+ * An unchecked exception thrown from within a converter is surfaced to the client: through the ajax {@code onerror} callback's {@code errorName} for an ajax
+ * submit, and through the (Development-stage) error page for a non-ajax submit.
  */
 public class ConverterExceptionAjaxOnerrorIT extends BaseITNG {
 
     /**
-     * A converter throwing on an ajax submit reaches the {@code faces.ajax} onerror handler, whose
-     * {@code errorName} names the thrown exception.
+     * A converter throwing on an ajax submit reaches the {@code faces.ajax} onerror handler, whose {@code errorName} names the thrown exception.
      *
      * @see jakarta.faces.convert.Converter#getAsObject(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, String)
      * @see jakarta.faces.context.ExceptionHandler
@@ -57,4 +55,5 @@ public class ConverterExceptionAjaxOnerrorIT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("nonAjaxForm:button2"))::click);
         assertTrue(page.containsSource("NullPointerException"));
     }
+
 }

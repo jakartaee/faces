@@ -24,8 +24,8 @@ import jakarta.faces.component.UIInput;
  * Represents an HTML <code>input</code> element of type <code>hidden</code>.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Hidden</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Hidden</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlInputHidden extends UIInput {
@@ -48,6 +48,7 @@ public class HtmlInputHidden extends UIInput {
      */
     protected enum PropertyKeys {
         ;
+
         String toString;
 
         PropertyKeys(String toString) {
@@ -61,6 +62,7 @@ public class HtmlInputHidden extends UIInput {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
 }

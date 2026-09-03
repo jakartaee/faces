@@ -31,4 +31,5 @@ public class ViewHandlerUnitBean {
         ViewHandler viewHandler = context.getApplication().getViewHandler();
         return viewHandler.getActionURL(context, VIEW_ID);
     }
+
 }

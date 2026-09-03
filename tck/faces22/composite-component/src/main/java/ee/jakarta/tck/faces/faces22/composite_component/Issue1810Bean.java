@@ -26,4 +26,5 @@ public class Issue1810Bean {
     public String submit() {
         throw new IllegalStateException("Action method of the composite component failed.");
     }
+
 }

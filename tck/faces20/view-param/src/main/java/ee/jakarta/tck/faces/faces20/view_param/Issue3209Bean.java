@@ -22,8 +22,7 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 /**
- * Counts how often the preRenderView listener of the target view has run, so that a postback on the source view can be
- * shown not to have triggered it.
+ * Counts how often the preRenderView listener of the target view has run, so that a postback on the source view can be shown not to have triggered it.
  */
 @Named
 @SessionScoped
@@ -62,4 +61,5 @@ public class Issue3209Bean implements Serializable {
     public int getTargetListenerCount() {
         return targetListenerCount;
     }
+
 }

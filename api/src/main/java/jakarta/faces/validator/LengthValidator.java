@@ -23,26 +23,22 @@ import jakarta.faces.convert.Converter;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0_rev_a">LengthValidator</strong> is a {@link Validator} that checks the number of
- * characters in the String representation of the value of the associated component. The following algorithm is
- * implemented:
+ * <strong class="changed_modified_2_0_rev_a">LengthValidator</strong> is a {@link Validator} that checks the number of characters in the String representation
+ * of the value of the associated component. The following algorithm is implemented:
  * </p>
  *
  * <ul>
  * <li>Convert the passed value to a String, if necessary, by calling its <code>toString()</code> method.</li>
- * <li>If a <code>maximum</code> property has been configured on this {@link Validator}, check the length of the
- * converted String against this limit. If the String length is larger than the specified maximum, throw a
- * {@link ValidatorException} containing a a MAXIMUM_MESSAGE_ID message.</li>
- * <li>If a <code>minimum</code> property has been configured on this {@link Validator}, check the length of the
- * converted String against this limit. If the String length is less than the specified minimum, throw a
- * {@link ValidatorException} containing a a MINIMUM_MESSAGE_ID message.</li>
+ * <li>If a <code>maximum</code> property has been configured on this {@link Validator}, check the length of the converted String against this limit. If the
+ * String length is larger than the specified maximum, throw a {@link ValidatorException} containing a a MAXIMUM_MESSAGE_ID message.</li>
+ * <li>If a <code>minimum</code> property has been configured on this {@link Validator}, check the length of the converted String against this limit. If the
+ * String length is less than the specified minimum, throw a {@link ValidatorException} containing a a MINIMUM_MESSAGE_ID message.</li>
  * </ul>
  *
  * <p>
- * For all of the above cases that cause a {@link ValidatorException} to be thrown, if there are parameters to the
- * message that match up with validator parameters, the values of these parameters must be converted using the
- * {@link Converter} registered in the application under the converter id <code>jakarta.faces.Number</code>. This allows
- * the values to be localized according to the current <code>Locale</code>.
+ * For all of the above cases that cause a {@link ValidatorException} to be thrown, if there are parameters to the message that match up with validator
+ * parameters, the values of these parameters must be converted using the {@link Converter} registered in the application under the converter id
+ * <code>jakarta.faces.Number</code>. This allows the values to be localized according to the current <code>Locale</code>.
  * </p>
  */
 
@@ -59,24 +55,22 @@ public class LengthValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the maximum length
-     * check fails. The message format string for this message may optionally include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the maximum length check fails. The message format string
+     * for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the configured maximum length.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String MAXIMUM_MESSAGE_ID = "jakarta.faces.validator.LengthValidator.MAXIMUM";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the minimum length
-     * check fails. The message format string for this message may optionally include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the minimum length check fails. The message format string
+     * for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the configured minimum length.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String MINIMUM_MESSAGE_ID = "jakarta.faces.validator.LengthValidator.MINIMUM";
@@ -130,8 +124,7 @@ public class LengthValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p>
-     * Return the maximum length to be enforced by this {@link Validator}, or <code>0</code> if the maximum has not been
-     * set.
+     * Return the maximum length to be enforced by this {@link Validator}, or <code>0</code> if the maximum has not been set.
      * </p>
      *
      * @return the maximum
@@ -160,8 +153,7 @@ public class LengthValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p>
-     * Return the minimum length to be enforced by this {@link Validator}, or <code>0</code> if the minimum has not been
-     * set.
+     * Return the minimum length to be enforced by this {@link Validator}, or <code>0</code> if the minimum has not been set.
      * </p>
      *
      * @return the minimum
@@ -201,12 +193,20 @@ public class LengthValidator implements Validator<Object>, PartialStateHolder {
         if (value != null) {
             String converted = stringValue(value);
             if (isMaximumSet() && converted.length() > maximum) {
-                throw new ValidatorException(MessageFactory.getMessage(context, MAXIMUM_MESSAGE_ID, integerToString(component, maximum, context),
-                        MessageFactory.getLabel(context, component)));
+                throw new ValidatorException(
+                    MessageFactory.getMessage(
+                        context, MAXIMUM_MESSAGE_ID, integerToString(component, maximum, context),
+                        MessageFactory.getLabel(context, component)
+                    )
+                );
             }
             if (isMinimumSet() && converted.length() < minimum) {
-                throw new ValidatorException(MessageFactory.getMessage(context, MINIMUM_MESSAGE_ID, integerToString(component, minimum, context),
-                        MessageFactory.getLabel(context, component)));
+                throw new ValidatorException(
+                    MessageFactory.getMessage(
+                        context, MINIMUM_MESSAGE_ID, integerToString(component, minimum, context),
+                        MessageFactory.getLabel(context, component)
+                    )
+                );
             }
         }
 
@@ -220,7 +220,7 @@ public class LengthValidator implements Validator<Object>, PartialStateHolder {
         }
         LengthValidator other = (LengthValidator) otherObj;
         return getMaximum() == other.getMaximum() && getMinimum() == other.getMinimum() && isMinimumSet() == other.isMinimumSet()
-                && isMaximumSet() == other.isMaximumSet();
+            && isMaximumSet() == other.isMaximumSet();
 
     }
 
@@ -228,7 +228,7 @@ public class LengthValidator implements Validator<Object>, PartialStateHolder {
     public int hashCode() {
 
         int hashCode = Integer.valueOf(getMinimum()).hashCode() + Integer.valueOf(getMaximum()).hashCode() + Boolean.valueOf(isMaximumSet()).hashCode()
-                + Boolean.valueOf(isMinimumSet()).hashCode();
+            + Boolean.valueOf(isMinimumSet()).hashCode();
         return hashCode;
 
     }
@@ -246,9 +246,11 @@ public class LengthValidator implements Validator<Object>, PartialStateHolder {
 
         if (attributeValue == null) {
             return null;
-        } else if (attributeValue instanceof String) {
+        }
+        else if (attributeValue instanceof String) {
             return (String) attributeValue;
-        } else {
+        }
+        else {
             return attributeValue.toString();
         }
 
@@ -337,4 +339,5 @@ public class LengthValidator implements Validator<Object>, PartialStateHolder {
     public void clearInitialState() {
         initialState = false;
     }
+
 }

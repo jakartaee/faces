@@ -27,8 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue2893IT extends BaseITNG {
 
     /**
-     * A resource loaded via a component's {@link jakarta.faces.application.ResourceDependency}
-     * annotation must still be present in the rendered head after a postback re-render.
+     * A resource loaded via a component's {@link jakarta.faces.application.ResourceDependency} annotation must still be present in the rendered head after a
+     * postback re-render.
      *
      * @see jakarta.faces.application.ResourceDependency
      * @see https://github.com/javaserverfaces/mojarra/issues/2893
@@ -41,4 +41,5 @@ public class Issue2893IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("form:link")).click());
         assertTrue(page.containsSource("foo.js"), "@ResourceDependency resource is still present after postback");
     }
+
 }

@@ -23,10 +23,10 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs a page whose c:forEach attaches an f:convertNumber to each row and binds the converter's {@code pattern} to a
- * per-row value ({@code pattern="#{row.pattern}"}). Every row holds the same numeric value but a different pattern, so
- * each unrolled converter must format with its own row's pattern - guarding that a converter is per-cell configured and
- * never shared/cached across cells (the tag-converter path is distinct from the attribute-less by-type path).
+ * Backs a page whose c:forEach attaches an f:convertNumber to each row and binds the converter's {@code pattern} to a per-row value
+ * ({@code pattern="#{row.pattern}"}). Every row holds the same numeric value but a different pattern, so each unrolled converter must format with its own row's
+ * pattern - guarding that a converter is per-cell configured and never shared/cached across cells (the tag-converter path is distinct from the attribute-less
+ * by-type path).
  */
 @Named
 @ViewScoped
@@ -53,6 +53,7 @@ public class ForEachConverterAttributeBean implements Serializable {
         public String getPattern() {
             return pattern;
         }
+
     }
 
     private final List<Row> rows = List.of(new Row(1234, "#,##0"), new Row(1234, "0000000"), new Row(1234, "#"));
@@ -64,4 +65,5 @@ public class ForEachConverterAttributeBean implements Serializable {
     public String submit() {
         return null;
     }
+
 }

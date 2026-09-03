@@ -18,9 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.event.postconstructapplicationevent;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseSystemEventTestServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.application.Application;
 import jakarta.faces.event.PostConstructApplicationEvent;
 import jakarta.faces.event.SystemEvent;
@@ -29,59 +26,81 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseSystemEventTestServlet;
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+
 @WebServlet("/PostConstructApplicationEventTestServlet")
 public final class PostConstructApplicationEventTestServlet extends BaseSystemEventTestServlet {
 
-  @Override
-  protected SystemEvent createEvent(Object src) {
-    Application app = getFacesContext().getApplication();
+    @Override
+    protected SystemEvent createEvent(Object src) {
+        Application app = getFacesContext().getApplication();
 
-    return new PostConstructApplicationEvent(app);
-  }
-
-  // ----------------------------------------------
-  // PostConstructApplicationEvent Tests
-
-  public void postConstructApplicationEventCtorTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Application app = getFacesContext().getApplication();
-
-    if (app != null) {
-      PostConstructApplicationEvent pca = (PostConstructApplicationEvent) createEvent(
-          app);
-      if (pca == null) {
-        pw.println(JSFTestUtil.FAIL
-            + " Unable to create PostConstructApplicationEvent");
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unexpected problem obtaining "
-          + "Application instance.");
+        return new PostConstructApplicationEvent(app);
     }
-  }
 
-  public void postConstructApplicationEventGetAppTest(
-      HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Application app = getFacesContext().getApplication();
-    PostConstructApplicationEvent pca = (PostConstructApplicationEvent) createEvent(
-        app);
+    // ----------------------------------------------
+    // PostConstructApplicationEvent Tests
 
-    if (app != null) {
-      if (app != pca.getApplication()) {
-        pw.println(
-            JSFTestUtil.FAIL + "PostConstructApplicationEvent.getApplication() "
-                + "returned unexpected result.");
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
+    public void postConstructApplicationEventCtorTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Application app = getFacesContext().getApplication();
 
-    } else {
-      pw.println("Test FAILED. Unexpected problem obtaining "
-          + "Application instance.");
+        if (app != null) {
+            PostConstructApplicationEvent pca = (PostConstructApplicationEvent) createEvent(
+                app
+            );
+            if (pca == null) {
+                pw.println(
+                    JSFTestUtil.FAIL
+                        + " Unable to create PostConstructApplicationEvent"
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " Unexpected problem obtaining "
+                    + "Application instance."
+            );
+        }
     }
-  }
+
+    public void postConstructApplicationEventGetAppTest(
+        HttpServletRequest request, HttpServletResponse response
+    )
+        throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Application app = getFacesContext().getApplication();
+        PostConstructApplicationEvent pca = (PostConstructApplicationEvent) createEvent(
+            app
+        );
+
+        if (app != null) {
+            if (app != pca.getApplication()) {
+                pw.println(
+                    JSFTestUtil.FAIL + "PostConstructApplicationEvent.getApplication() "
+                        + "returned unexpected result."
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+
+        }
+        else {
+            pw.println(
+                "Test FAILED. Unexpected problem obtaining "
+                    + "Application instance."
+            );
+        }
+    }
+
 }

@@ -27,8 +27,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2566IT extends BaseITNG {
 
     /**
-     * VDL#createComponent must also resolve a composite taglib URI, and must accept a populated
-     * attributes map, returning the composite component instance.
+     * VDL#createComponent must also resolve a composite taglib URI, and must accept a populated attributes map, returning the composite component instance.
      *
      * @see jakarta.faces.view.ViewDeclarationLanguage#createComponent(jakarta.faces.context.FacesContext, String, String, java.util.Map)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2566
@@ -38,4 +37,5 @@ class Issue2566IT extends BaseITNG {
         WebPage page = getPage("issue2566.xhtml");
         assertEquals("SUCCESS", page.findElement(By.id("result")).getText());
     }
+
 }

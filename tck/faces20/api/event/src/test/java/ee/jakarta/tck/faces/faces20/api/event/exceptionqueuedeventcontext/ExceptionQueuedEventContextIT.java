@@ -28,14 +28,54 @@ class ExceptionQueuedEventContextIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void exceptionQueuedEventContextCtorOneTest() { runServletTest("exceptionQueuedEventContextCtorOneTest"); }
-    @Test void exceptionQueuedEventContextCtorTest() { runServletTest("exceptionQueuedEventContextCtorTest"); }
-    @Test void exceptionQueuedEventContextCtorTwoTest() { runServletTest("exceptionQueuedEventContextCtorTwoTest"); }
-    @Test void exceptionQueuedEventContextgetAttributesTest() { runServletTest("exceptionQueuedEventContextgetAttributesTest"); }
-    @Test void exceptionQueuedEventContextgetComponentNullTest() { runServletTest("exceptionQueuedEventContextgetComponentNullTest"); }
-    @Test void exceptionQueuedEventContextgetComponentTest() { runServletTest("exceptionQueuedEventContextgetComponentTest"); }
-    @Test void exceptionQueuedEventContextgetContextTest() { runServletTest("exceptionQueuedEventContextgetContextTest"); }
-    @Test void exceptionQueuedEventContextgetExceptionTest() { runServletTest("exceptionQueuedEventContextgetExceptionTest"); }
-    @Test void exceptionQueuedEventContextgetPhaseIdNullTest() { runServletTest("exceptionQueuedEventContextgetPhaseIdNullTest"); }
-    @Test void exceptionQueuedEventContextgetPhaseIdTest() { runServletTest("exceptionQueuedEventContextgetPhaseIdTest"); }
+    @Test
+    void exceptionQueuedEventContextCtorOneTest() {
+        runServletTest("exceptionQueuedEventContextCtorOneTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextCtorTest() {
+        runServletTest("exceptionQueuedEventContextCtorTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextCtorTwoTest() {
+        runServletTest("exceptionQueuedEventContextCtorTwoTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextgetAttributesTest() {
+        runServletTest("exceptionQueuedEventContextgetAttributesTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextgetComponentNullTest() {
+        runServletTest("exceptionQueuedEventContextgetComponentNullTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextgetComponentTest() {
+        runServletTest("exceptionQueuedEventContextgetComponentTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextgetContextTest() {
+        runServletTest("exceptionQueuedEventContextgetContextTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextgetExceptionTest() {
+        runServletTest("exceptionQueuedEventContextgetExceptionTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextgetPhaseIdNullTest() {
+        runServletTest("exceptionQueuedEventContextgetPhaseIdNullTest");
+    }
+
+    @Test
+    void exceptionQueuedEventContextgetPhaseIdTest() {
+        runServletTest("exceptionQueuedEventContextgetPhaseIdTest");
+    }
+
 }

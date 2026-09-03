@@ -31,36 +31,37 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1103IT extends BaseITNG {
 
-  /**
-   * @see UIData
+    /**
+     * @see UIData
      * @see Iterable
      * @see https://github.com/jakartaee/faces/issues/1103
-   */
-  @Test
-  void dataTableIterable() throws Exception {
+     */
+    @Test
+    void dataTableIterable() throws Exception {
         WebPage page = getPage("spec1103-1.xhtml");
         assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getSource()));
     }
 
-  /**
-   * @see org.glassfish.mojarra.facelets.component.UIRepeat
+    /**
+     * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see Iterable
      * @see https://github.com/jakartaee/faces/issues/1103
-   */
-  @Test
-  void uIRepeatIterable() throws Exception {
+     */
+    @Test
+    void uIRepeatIterable() throws Exception {
         WebPage page = getPage("spec1103-2.xhtml");
         assertTrue(Pattern.matches("(?s).*START.*0.*1.*2.*END.*", page.getSource()));
     }
 
-  /**
-   * @see org.glassfish.mojarra.facelets.component.UIRepeat
+    /**
+     * @see org.glassfish.mojarra.facelets.component.UIRepeat
      * @see Collection
      * @see https://github.com/jakartaee/faces/issues/1103
-   */
-  @Test
-  void uIRepeatCollection() throws Exception {
+     */
+    @Test
+    void uIRepeatCollection() throws Exception {
         WebPage page = getPage("spec1103-3.xhtml");
         assertTrue(Pattern.matches("(?s).*START.*1.*2.*3.*END.*", page.getSource()));
     }
+
 }

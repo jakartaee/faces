@@ -27,24 +27,24 @@ import org.openqa.selenium.WebElement;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 class Issue1537IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see WebElementOneRadio
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1537
-   */
-  @Test
-  void selectOneRadioFiresAjaxListenerOnEachClick() throws Exception {
+     */
+    @Test
+    void selectOneRadioFiresAjaxListenerOnEachClick() throws Exception {
         WebPage page = getPage("issue1537.xhtml");
         WebElement input = page.findElement(By.id("form:vip:0"));
         page.guardAjax(input::click);
-        
+
         assertTrue(page.containsText("form:vip-true"));
-        input =  page.findElement(By.id("form:vip:1"));
+        input = page.findElement(By.id("form:vip:1"));
         page.guardAjax(input::click);
 
         assertTrue(page.containsText("form:vip-false"));
     }
+
 }

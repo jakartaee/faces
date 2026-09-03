@@ -26,10 +26,9 @@ import jakarta.servlet.ServletRegistration;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_1 changed_modified_2_2 changed_modified_2_3">An</span> instance of
- * <code>Resource</code> is a Java object representation of the artifact that is served up in response to a <i>resource
- * request</i> from the client. Instances of <code>Resource</code> are normally created and initialized via calls to
- * {@link ResourceHandler#createResource}. See the documentation for {@link ResourceHandler} for more information.
+ * <span class="changed_modified_2_1 changed_modified_2_2 changed_modified_2_3">An</span> instance of <code>Resource</code> is a Java object representation of
+ * the artifact that is served up in response to a <i>resource request</i> from the client. Instances of <code>Resource</code> are normally created and
+ * initialized via calls to {@link ResourceHandler#createResource}. See the documentation for {@link ResourceHandler} for more information.
  * </p>
  *
  * <div class="changed_added_2_0"> </div>
@@ -40,8 +39,8 @@ public abstract class Resource extends ViewResource {
 
     /**
      * <p class="changed_added_2_0">
-     * This constant is used as the key in the component attribute map of a composite component to associate the component
-     * with its <code>Resource</code> instance. The value for this key is the actual <code>Resource</code> instance.
+     * This constant is used as the key in the component attribute map of a composite component to associate the component with its <code>Resource</code>
+     * instance. The value for this key is the actual <code>Resource</code> instance.
      * </p>
      *
      */
@@ -70,8 +69,7 @@ public abstract class Resource extends ViewResource {
      * Set the MIME content-type for this resource. The default implementation performs no validation on the argument.
      * </p>
      *
-     * @param contentType the MIME content-type for this resource. The default implementation must accept <code>null</code>
-     * as a parameter.
+     * @param contentType the MIME content-type for this resource. The default implementation must accept <code>null</code> as a parameter.
      */
     public void setContentType(String contentType) {
         this.contentType = contentType;
@@ -79,10 +77,9 @@ public abstract class Resource extends ViewResource {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the libraryName for this resource. May be <code>null</code>. The libraryName for a resource is an optional
-     * String that indicates membership in a "resource library". All resources with the same libraryName belong to the same
-     * "resource library". The "resource library" concept allows disambiguating resources that have the same resourceName.
-     * See {@link ResourceHandler} for more information.
+     * Return the libraryName for this resource. May be <code>null</code>. The libraryName for a resource is an optional String that indicates membership in a
+     * "resource library". All resources with the same libraryName belong to the same "resource library". The "resource library" concept allows disambiguating
+     * resources that have the same resourceName. See {@link ResourceHandler} for more information.
      * </p>
      *
      * @return Return the libraryName for this resource. May be <code>null</code>.
@@ -96,8 +93,7 @@ public abstract class Resource extends ViewResource {
      * Set the libraryName for this resource.
      * </p>
      *
-     * @param libraryName the libraryName for this resource. The default implementation must accept <code>null</code> for
-     * the <em>libraryName</em>.
+     * @param libraryName the libraryName for this resource. The default implementation must accept <code>null</code> for the <em>libraryName</em>.
      */
     public void setLibraryName(String libraryName) {
         this.libraryName = libraryName;
@@ -105,14 +101,12 @@ public abstract class Resource extends ViewResource {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the resourceName for this resource. Will never be null. All <code>Resource</code> instances must have a
-     * resourceName.
+     * Return the resourceName for this resource. Will never be null. All <code>Resource</code> instances must have a resourceName.
      * </p>
      *
      * <p class="changed_added_5_0">
-     * If the <em>resourceName</em> passed to {@link ResourceHandler#createResource} carried a query string, as specified
-     * in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document, the returned value does not
-     * include it.
+     * If the <em>resourceName</em> passed to {@link ResourceHandler#createResource} carried a query string, as specified in section 2.6.1.3 "Resource
+     * Identifiers" of the Jakarta Faces Specification Document, the returned value does not include it.
      * </p>
      *
      * @return Return the resourceName for this resource. Will never be null.
@@ -141,18 +135,16 @@ public abstract class Resource extends ViewResource {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_1">If</span> the current request is a resource request, (that is,
-     * {@link ResourceHandler#isResourceRequest} returns <code>true</code>), return an <code>InputStream</code> containing
-     * the bytes of the resource. Otherwise, throw an <code>IOException</code>.
+     * <span class="changed_modified_2_1">If</span> the current request is a resource request, (that is, {@link ResourceHandler#isResourceRequest} returns
+     * <code>true</code>), return an <code>InputStream</code> containing the bytes of the resource. Otherwise, throw an <code>IOException</code>.
      * </p>
      *
      * @return an <code>InputStream</code> containing the bytes of the resource.
      *
      * <p class="changed_modified_2_1">
-     * Any Jakarta Expression Language expressions present in the resource must be evaluated before serving the bytes of the
-     * resource. Note that due to browser and server caching, Jakarta Expression Language expressions in a resource file
-     * will generally only be evaluated once, when the resource is first served up. Therefore, using Jakarta Expression
-     * Language expressions that refer to per-request data is not advisable since this data can become stale.
+     * Any Jakarta Expression Language expressions present in the resource must be evaluated before serving the bytes of the resource. Note that due to browser
+     * and server caching, Jakarta Expression Language expressions in a resource file will generally only be evaluated once, when the resource is first served
+     * up. Therefore, using Jakarta Expression Language expressions that refer to per-request data is not advisable since this data can become stale.
      * </p>
      *
      * @throws IOException if the current request is not a resource request.
@@ -162,8 +154,8 @@ public abstract class Resource extends ViewResource {
     /**
      * <p class="changed_added_2_0">
      * Returns a mutable <code>Map&lt;String, String&gt;</code> whose entries will be sent as response headers during
-     * {@link ResourceHandler#handleResourceRequest}. The entries in this map must not persist beyond the scope of a single
-     * request. Any modifications made to the map after the resource has been served will be ignored by the run-time.
+     * {@link ResourceHandler#handleResourceRequest}. The entries in this map must not persist beyond the scope of a single request. Any modifications made to
+     * the map after the resource has been served will be ignored by the run-time.
      * </p>
      *
      * @return a mutable <code>Map&lt;String, String&gt;</code> of headers that will be included with the response.
@@ -172,38 +164,35 @@ public abstract class Resource extends ViewResource {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2 changed_modified_2_3">Return</span> a path to this resource such that, when the
-     * browser resolves it against the base URI for the view that includes the resource, and issues a GET request to the
-     * resultant fully qualified URL, the bytes of the resource are returned in response.
+     * <span class="changed_modified_2_2 changed_modified_2_3">Return</span> a path to this resource such that, when the browser resolves it against the base
+     * URI for the view that includes the resource, and issues a GET request to the resultant fully qualified URL, the bytes of the resource are returned in
+     * response.
      * </p>
      *
      * <div class="changed_added_2_0">
      *
      * <p>
-     * The default implementation must implement the following algorithm. For discussion, the return result from this method
-     * will be called <em>result</em>.
+     * The default implementation must implement the following algorithm. For discussion, the return result from this method will be called <em>result</em>.
      * </p>
      *
      * <ul>
      *
      * <li>
      * <p>
-     * Get the context-root for this web application, not ending in slash. For discussion this will be called
-     * <em>contextRoot</em>.
+     * Get the context-root for this web application, not ending in slash. For discussion this will be called <em>contextRoot</em>.
      * </p>
      * </li>
      *
      * <li>
      * <p class="changed_modified_2_3">
-     * Discover if the <code>FacesServlet</code> is prefix (path) mapped, extension mapped, or exact mapped (as defined by
-     * Servlet.12.2.) and the value of the mapping (including the leading '.' in the case of extension mapping). For
-     * discussion, this will be <em>facesServletMapping</em>.
+     * Discover if the <code>FacesServlet</code> is prefix (path) mapped, extension mapped, or exact mapped (as defined by Servlet.12.2.) and the value of the
+     * mapping (including the leading '.' in the case of extension mapping). For discussion, this will be <em>facesServletMapping</em>.
      * </p>
      *
      * <div class="changed_added_2_3">
      * <p>
-     * If exact mapped, <em>result</em> must be the following if and only if the FacesServlet is mapped to the exact URL
-     * pattern {@link ResourceHandler#RESOURCE_IDENTIFIER} + {@link #getResourceName}
+     * If exact mapped, <em>result</em> must be the following if and only if the FacesServlet is mapped to the exact URL pattern
+     * {@link ResourceHandler#RESOURCE_IDENTIFIER} + {@link #getResourceName}
      * </p>
      *
      * <blockquote>
@@ -214,16 +203,15 @@ public abstract class Resource extends ViewResource {
      * </blockquote>
      *
      * <p>
-     * If exact mapped, and the FacesServlet is <em>not</em> mapped to the exact URL pattern
-     * {@link ResourceHandler#RESOURCE_IDENTIFIER} + {@link #getResourceName} do the following:
+     * If exact mapped, and the FacesServlet is <em>not</em> mapped to the exact URL pattern {@link ResourceHandler#RESOURCE_IDENTIFIER} +
+     * {@link #getResourceName} do the following:
      * </p>
      *
      * <p>
-     * Retrieve the existing mappings of the FacesServlet, e.g. using {@link ServletRegistration#getMappings()}, and from
-     * those pick any prefix mapping or extension mapping. If no such mapping is found, throw an
-     * {@link IllegalStateException}. If such mapping is found remove the <code>*</code> character from that mapping, take
-     * that as the new <em>facesServletMapping</em> and continue with evaluating this mapping as specified below for <em>if
-     * prefix mapped</em> and for <em>if extension mapped</em> </div>
+     * Retrieve the existing mappings of the FacesServlet, e.g. using {@link ServletRegistration#getMappings()}, and from those pick any prefix mapping or
+     * extension mapping. If no such mapping is found, throw an {@link IllegalStateException}. If such mapping is found remove the <code>*</code> character from
+     * that mapping, take that as the new <em>facesServletMapping</em> and continue with evaluating this mapping as specified below for <em>if prefix
+     * mapped</em> and for <em>if extension mapped</em> </div>
      *
      * <p>
      * If prefix mapped, <em>result</em> must be
@@ -254,35 +242,32 @@ public abstract class Resource extends ViewResource {
      *
      * <li class="changed_modified_2_2">
      * <p>
-     * Build up a string, called <em>resourceMetaData</em> which is an &amp; separated string of name=value pairs suitable
-     * for inclusion in a URL query string.
+     * Build up a string, called <em>resourceMetaData</em> which is an &amp; separated string of name=value pairs suitable for inclusion in a URL query string.
      * </p>
      *
      * <blockquote>
      *
      * <p>
-     * If {@link #getLibraryName} returns non-<code>null</code>, <code>resourceMetaData</code> must include "ln=" + the
-     * return from {@link #getLibraryName}
+     * If {@link #getLibraryName} returns non-<code>null</code>, <code>resourceMetaData</code> must include "ln=" + the return from {@link #getLibraryName}
      * </p>
      *
      * <p class="changed_added_2_2">
-     * If there is a <code>localePrefix</code> for this application, as defined in {@link ResourceHandler#LOCALE_PREFIX},
-     * <code>resourceMetaData</code> must include "loc=" + the <code>localePrefix</code>.
+     * If there is a <code>localePrefix</code> for this application, as defined in {@link ResourceHandler#LOCALE_PREFIX}, <code>resourceMetaData</code> must
+     * include "loc=" + the <code>localePrefix</code>.
      * </p>
      *
      *
      * <p class="changed_added_2_2">
-     * If this resource is contained in a resource library contract, <code>resourceMetaData</code> must include "con=" + the
-     * name of the resource library contract.
+     * If this resource is contained in a resource library contract, <code>resourceMetaData</code> must include "con=" + the name of the resource library
+     * contract.
      * </p>
      *
      * <p class="changed_added_5_0">
-     * If the <em>resourceName</em> passed to {@link ResourceHandler#createResource} carried a query string, as specified
-     * in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document, that query string, without
-     * its introducing "?" character, must be appended to <code>resourceMetaData</code> as one or more further
-     * name=value pairs, separated from any pair preceding it by an "&amp;" character. It must not use any of the
-     * parameter names that the run-time itself uses in <code>resourceMetaData</code>, namely "ln", "loc" and "con"; the
-     * value returned for a query string that does is unspecified.
+     * If the <em>resourceName</em> passed to {@link ResourceHandler#createResource} carried a query string, as specified in section 2.6.1.3 "Resource
+     * Identifiers" of the Jakarta Faces Specification Document, that query string, without its introducing "?" character, must be appended to
+     * <code>resourceMetaData</code> as one or more further name=value pairs, separated from any pair preceding it by an "&amp;" character. It must not use any
+     * of the parameter names that the run-time itself uses in <code>resourceMetaData</code>, namely "ln", "loc" and "con"; the value returned for a query
+     * string that does is unspecified.
      * </p>
      *
      * </blockquote>
@@ -303,8 +288,7 @@ public abstract class Resource extends ViewResource {
      *
      * </div>
      *
-     * @return the path to this resource, intended to be included in the encoded view that is sent to the browser when
-     * sending a faces response.
+     * @return the path to this resource, intended to be included in the encoded view that is sent to the browser when sending a faces response.
      */
     public abstract String getRequestPath();
 
@@ -332,15 +316,13 @@ public abstract class Resource extends ViewResource {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2">Return</span> <code>true</code> if the user-agent requesting this resource needs
-     * an update. <span class="changed_added_2_2">If the {@code If-Modified-Since} HTTP header is available for this
-     * request, its value must be consulted, as specified in Section 14.25 of IETF RFC 2616, to determine the result.</span>
-     * Returns <code>false</code> if the user-agent does not need an update for this resource.
+     * <span class="changed_modified_2_2">Return</span> <code>true</code> if the user-agent requesting this resource needs an update.
+     * <span class="changed_added_2_2">If the {@code If-Modified-Since} HTTP header is available for this request, its value must be consulted, as specified in
+     * Section 14.25 of IETF RFC 2616, to determine the result.</span> Returns <code>false</code> if the user-agent does not need an update for this resource.
      * </p>
      *
      * @param context the Faces context.
-     * @return <code>true</code> or <code>false</code> depending on whether or not the user-agent needs an update of this
-     * resource.
+     * @return <code>true</code> or <code>false</code> depending on whether or not the user-agent needs an update of this resource.
      */
     public abstract boolean userAgentNeedsUpdate(FacesContext context);
 

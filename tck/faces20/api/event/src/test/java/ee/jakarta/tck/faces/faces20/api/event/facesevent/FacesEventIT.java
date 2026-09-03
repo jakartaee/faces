@@ -28,10 +28,34 @@ class FacesEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void facesEventCtorIllegalArgumentExceptionTest() { runServletTest("facesEventCtorIllegalArgumentExceptionTest"); }
-    @Test void facesEventCtorTest() { runServletTest("facesEventCtorTest"); }
-    @Test void facesEventGetComponentTest() { runServletTest("facesEventGetComponentTest"); }
-    @Test void facesEventGetSetPhaseIdTest() { runServletTest("facesEventGetSetPhaseIdTest"); }
-    @Test void facesEventQueueISETest() { runServletTest("facesEventQueueISETest"); }
-    @Test void facesEventSetPhaseIdIAETest() { runServletTest("facesEventSetPhaseIdIAETest"); }
+    @Test
+    void facesEventCtorIllegalArgumentExceptionTest() {
+        runServletTest("facesEventCtorIllegalArgumentExceptionTest");
+    }
+
+    @Test
+    void facesEventCtorTest() {
+        runServletTest("facesEventCtorTest");
+    }
+
+    @Test
+    void facesEventGetComponentTest() {
+        runServletTest("facesEventGetComponentTest");
+    }
+
+    @Test
+    void facesEventGetSetPhaseIdTest() {
+        runServletTest("facesEventGetSetPhaseIdTest");
+    }
+
+    @Test
+    void facesEventQueueISETest() {
+        runServletTest("facesEventQueueISETest");
+    }
+
+    @Test
+    void facesEventSetPhaseIdIAETest() {
+        runServletTest("facesEventSetPhaseIdIAETest");
+    }
+
 }

@@ -15,28 +15,29 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmloutputtext;
 
-import ee.jakarta.tck.faces.faces20.api.component.uioutput.UIOutputTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlOutputText;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uioutput.UIOutputTestServlet;
+
 @WebServlet("/HtmlOutputTextTestServlet")
 public final class HtmlOutputTextTestServlet extends UIOutputTestServlet {
 
-  private static final String[] attrNames = { "style", "styleClass", "title", "escape", "dir", "lang" };
+    private static final String[] attrNames = { "style", "styleClass", "title", "escape", "dir", "lang" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Text");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Text");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlOutputText();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlOutputText();
+    }
+
 }

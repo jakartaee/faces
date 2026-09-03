@@ -38,4 +38,5 @@ public class Issue3243IT extends BaseITNG {
         assertTrue(pageXml.matches("(?s).*<li>\\s*b\\s*</li>.*"));
         assertTrue(pageXml.matches("(?s).*<li>\\s*c\\s*</li>.*"));
     }
+
 }

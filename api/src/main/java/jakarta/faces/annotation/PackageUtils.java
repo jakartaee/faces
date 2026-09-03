@@ -34,10 +34,8 @@ class PackageUtils {
     /**
      * This does unfortunately not exist in cdi spec: https://stackoverflow.com/a/63653513
      *
-     * This basically sorts descending by priority with fallback to FQN.
-     * Highest priority first.
-     * Priotityless bean last.
-     * Same priorities ordered by FQN (for now?)
+     * This basically sorts descending by priority with fallback to FQN. Highest priority first. Priotityless bean last. Same priorities ordered by FQN (for
+     * now?)
      */
     public static final Comparator<Object> BEAN_PRIORITY_COMPARATOR = (left, right) -> {
         Class<?> leftClass = left.getClass();
@@ -45,10 +43,13 @@ class PackageUtils {
         Priority leftPriority = leftClass.getAnnotation(Priority.class);
         Priority rightPriority = rightClass.getAnnotation(Priority.class);
 
-        int compare = leftPriority != null && rightPriority != null ? Integer.compare(leftPriority.value(), rightPriority.value())
-                : leftPriority != null ? -1
-                : rightPriority != null ? 1
-                : 0;
+        int compare = leftPriority != null && rightPriority != null
+            ? Integer.compare(leftPriority.value(), rightPriority.value())
+            : leftPriority != null
+                ? -1
+                : rightPriority != null
+                    ? 1
+                    : 0;
 
         if (compare == 0) {
             return leftClass.getName().compareTo(rightClass.getName());

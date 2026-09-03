@@ -17,22 +17,21 @@
 var ajaxEvent = function ajaxEvent(data) {
     if (data.status == "complete") {
         var responseText = data.responseText;
-        var re = new RegExp('<', 'g');
+        var re = new RegExp("<", "g");
         responseText = responseText.replace(re, "&lt;");
-        re = new RegExp('>', 'g');
+        re = new RegExp(">", "g");
         responseText = responseText.replace(re, "&gt;");
-        re = new RegExp('\'', 'g');
+        re = new RegExp("'", "g");
         responseText = responseText.replace(re, "&quot;");
-        
-        var partialResponseElement = data.responseXML.getElementsByTagName('partial-response')[0];
-        var redirectElement = partialResponseElement.getElementsByTagName('redirect')[0];
+
+        var partialResponseElement = data.responseXML.getElementsByTagName("partial-response")[0];
+        var redirectElement = partialResponseElement.getElementsByTagName("redirect")[0];
         partialResponseElement.removeChild(redirectElement);
-        
-        var changesElement = document.createElement('changes');
+
+        var changesElement = document.createElement("changes");
         partialResponseElement.appendChild(changesElement);
-        
-        var responseTextElementDiv = document.getElementById('responseText');
+
+        var responseTextElementDiv = document.getElementById("responseText");
         responseTextElementDiv.innerHTML = responseText;
-        
     }
 };

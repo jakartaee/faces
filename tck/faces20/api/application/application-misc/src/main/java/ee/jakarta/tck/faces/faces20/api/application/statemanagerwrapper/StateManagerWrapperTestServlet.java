@@ -18,86 +18,76 @@ package ee.jakarta.tck.faces.faces20.api.application.statemanagerwrapper;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Locale;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
-import jakarta.faces.FactoryFinder;
 import jakarta.faces.application.StateManager;
 import jakarta.faces.application.StateManagerWrapper;
-import jakarta.faces.component.UIInput;
-import jakarta.faces.component.UIOutput;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.context.FacesContext;
-import jakarta.faces.context.ResponseWriter;
-import jakarta.faces.render.RenderKit;
-import jakarta.faces.render.RenderKitFactory;
-import jakarta.faces.validator.LengthValidator;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
+
 @WebServlet("/StateManagerWrapperTestServlet")
 public final class StateManagerWrapperTestServlet extends HttpTCKServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws jakarta.servlet.ServletException
-   *           if an error occurs
-   */
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-  }
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws jakarta.servlet.ServletException if an error occurs
+     */
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+    }
 
-  // ---------------------------------------------------------------- Test
-  // Methods
+    // ---------------------------------------------------------------- Test
+    // Methods
 
-  // Validation of return value will be performed on the client side.
-  public void stateManagerIsSavingStateInClientTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    StateManager manager = new SimpleStateManagerWrapper(
-        getApplication().getStateManager());
-    out.println(manager.isSavingStateInClient(getFacesContext()));
-  }
+    // Validation of return value will be performed on the client side.
+    public void stateManagerIsSavingStateInClientTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        StateManager manager = new SimpleStateManagerWrapper(
+            getApplication().getStateManager()
+        );
+        out.println(manager.isSavingStateInClient(getFacesContext()));
+    }
 
+    // ----------------------------------------------------------- Inner Classes
 
-  // ----------------------------------------------------------- Inner Classes
+    private static class SimpleStateManagerWrapper extends StateManagerWrapper {
 
-  private static class SimpleStateManagerWrapper extends StateManagerWrapper {
+        StateManager manager;
 
-    StateManager manager;
+        // -------------------------------------------------------- Constructors
 
-    // -------------------------------------------------------- Constructors
+        SimpleStateManagerWrapper(StateManager manager) {
 
-    SimpleStateManagerWrapper(StateManager manager) {
+            super(manager);
+            if (manager == null) {
+                throw new IllegalArgumentException(
+                    "StateManager argument cannot be null."
+                );
+            }
+            this.manager = manager;
 
-      super(manager);
-      if (manager == null) {
-        throw new IllegalArgumentException(
-            "StateManager argument cannot be null.");
-      }
-      this.manager = manager;
+        } // END SimpleStateManagerWrapper
+
+        // ------------------------------------ Methods from StateManagerWrapper
+
+        public StateManager getWrapped() {
+
+            return manager;
+
+        } // END getWrapped
 
     } // END SimpleStateManagerWrapper
-
-    // ------------------------------------ Methods from StateManagerWrapper
-
-    public StateManager getWrapped() {
-
-      return manager;
-
-    } // END getWrapped
-
-  } // END SimpleStateManagerWrapper
 
 }

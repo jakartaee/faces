@@ -26,16 +26,17 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Spec1391Bean {
-    
-    @Inject @RequestParameterValuesMap
+
+    @Inject
+    @RequestParameterValuesMap
     private Map<String, String[]> requestParameterValuesMap;
 
     public String getRequestParameterValue0() {
         return requestParameterValuesMap.get("foo")[0];
     }
-    
+
     public String getRequestParameterValue1() {
         return requestParameterValuesMap.get("foo")[1];
     }
-    
+
 }

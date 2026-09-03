@@ -26,8 +26,7 @@ import jakarta.faces.view.ViewDeclarationLanguage;
 import jakarta.inject.Named;
 
 /**
- * Creates a composite component programmatically through the VDL, addressing it by its composite
- * taglib URI and passing a populated attributes map.
+ * Creates a composite component programmatically through the VDL, addressing it by its composite taglib URI and passing a populated attributes map.
  */
 @Named
 @RequestScoped
@@ -43,10 +42,11 @@ public class Issue2566Bean {
 
         FacesContext context = FacesContext.getCurrentInstance();
         ViewDeclarationLanguage vdl = context.getApplication().getViewHandler()
-                .getViewDeclarationLanguage(context, context.getViewRoot().getViewId());
+            .getViewDeclarationLanguage(context, context.getViewRoot().getViewId());
 
         UIComponent component = vdl.createComponent(context, TAGLIB_URI, TAG_NAME, attributes);
 
         return component != null ? "SUCCESS" : "FAILED";
     }
+
 }

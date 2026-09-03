@@ -51,4 +51,5 @@ public class FacesConfigVisitContextFactory extends VisitContextFactory implemen
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

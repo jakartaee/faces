@@ -30,9 +30,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue2113IT extends BaseITNG {
 
     /**
-     * Verifies that a custom {@link ViewDeclarationLanguageFactory} wrapping the default VDL
-     * is consulted: its {@code buildView} is invoked on a normal request, and is skippable
-     * via the {@code skipBuildView} request parameter.
+     * Verifies that a custom {@link ViewDeclarationLanguageFactory} wrapping the default VDL is consulted: its {@code buildView} is invoked on a normal
+     * request, and is skippable via the {@code skipBuildView} request parameter.
      *
      * @see ViewDeclarationLanguageFactory
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2113
@@ -48,4 +47,5 @@ public class Issue2113IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("buttonSkipBuildView")).click());
         assertFalse(page.containsText("buildView"));
     }
+
 }

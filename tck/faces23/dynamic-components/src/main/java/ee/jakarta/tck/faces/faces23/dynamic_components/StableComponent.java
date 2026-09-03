@@ -44,4 +44,5 @@ public class StableComponent extends DynamicComponentBase {
         inputText3.setRequired(true);
         getChildren().add(inputText3);
     }
+
 }

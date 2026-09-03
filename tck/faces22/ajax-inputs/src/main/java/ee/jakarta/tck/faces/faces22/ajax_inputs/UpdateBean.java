@@ -38,16 +38,15 @@ public class UpdateBean {
             try {
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
                 writer.startUpdate("jakarta.faces.ViewBody");
-                writer.startElement("body",null);
-                writer.writeAttribute("class","foo","class");
-                writer.writeAttribute("title","fooTitle","title");
-                writer.writeAttribute("lang","fooLang","lang");
+                writer.startElement("body", null);
+                writer.writeAttribute("class", "foo", "class");
+                writer.writeAttribute("title", "fooTitle", "title");
+                writer.writeAttribute("lang", "fooLang", "lang");
                 writer.startElement("span", null);
-                writer.writeAttribute("id","status","id");
+                writer.writeAttribute("id", "status", "id");
                 writer.endElement("span");
                 writer.endElement("body");
                 writer.endUpdate();
@@ -58,7 +57,8 @@ public class UpdateBean {
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
@@ -74,17 +74,17 @@ public class UpdateBean {
                 attrs.put("value", "");
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
-                writer.updateAttributes("form1:foo", attrs); 
+                writer.updateAttributes("form1:foo", attrs);
                 writer.startEval();
                 writer.write("document.getElementById('form1:foo').value = 'bar';");
                 writer.endEval();
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
@@ -100,8 +100,7 @@ public class UpdateBean {
                 attrs.put("disabled", "true");
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
                 writer.updateAttributes("form1:foo", attrs);
                 writer.startEval();
@@ -110,7 +109,8 @@ public class UpdateBean {
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
@@ -126,8 +126,7 @@ public class UpdateBean {
                 attrs.put("class", "myclass");
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
                 writer.updateAttributes("form1:foo", attrs);
                 writer.startEval();
@@ -136,7 +135,8 @@ public class UpdateBean {
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
@@ -152,14 +152,14 @@ public class UpdateBean {
                 attrs.put("checked", "true");
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
                 writer.updateAttributes("form1:foo", attrs);
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
@@ -175,14 +175,14 @@ public class UpdateBean {
                 attrs.put("readonly", "true");
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
                 writer.updateAttributes("form1:foo", attrs);
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
@@ -198,17 +198,18 @@ public class UpdateBean {
                 attrs.put("onclick", "document.getElementById('form1:out').innerHTML='ONCLICK CALLED';return;");
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
                 writer.updateAttributes("form1:button1", attrs);
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
         return null;
     }
+
 }

@@ -25,48 +25,50 @@ import jakarta.faces.context.FacesContext;
 
 public class TCKViewHandler extends ViewHandler {
 
-  @Override
-  public Locale calculateLocale(FacesContext context) {
-    return null;
-  }
+    @Override
+    public Locale calculateLocale(FacesContext context) {
+        return null;
+    }
 
-  @Override
-  public String calculateRenderKitId(FacesContext context) {
-    return null;
-  }
+    @Override
+    public String calculateRenderKitId(FacesContext context) {
+        return null;
+    }
 
-  @Override
-  public UIViewRoot createView(FacesContext context, String viewId) {
-    return null;
-  }
+    @Override
+    public UIViewRoot createView(FacesContext context, String viewId) {
+        return null;
+    }
 
-  @Override
-  public String getActionURL(FacesContext context, String viewId) {
-    return null;
-  }
+    @Override
+    public String getActionURL(FacesContext context, String viewId) {
+        return null;
+    }
 
-  @Override
-  public String getResourceURL(FacesContext context, String path) {
-    return null;
-  }
+    @Override
+    public String getResourceURL(FacesContext context, String path) {
+        return null;
+    }
 
-  @Override
-  public void renderView(FacesContext context, UIViewRoot viewToRender)
-      throws IOException, FacesException {
-    return;
-  }
+    @Override
+    public void renderView(FacesContext context, UIViewRoot viewToRender)
+        throws IOException, FacesException
+    {
+        return;
+    }
 
-  @Override
-  public UIViewRoot restoreView(FacesContext context, String viewId) {
-    return null;
-  }
+    @Override
+    public UIViewRoot restoreView(FacesContext context, String viewId) {
+        return null;
+    }
 
-  @Override
-  public void writeState(FacesContext context) throws IOException {
-    return;
-  }
+    @Override
+    public void writeState(FacesContext context) throws IOException {
+        return;
+    }
 
-  public String getWebsocketURL(FacesContext context, String channel) {
-    return null;
-  }
+    public String getWebsocketURL(FacesContext context, String channel) {
+        return null;
+    }
+
 }

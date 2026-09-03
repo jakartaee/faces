@@ -29,14 +29,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that checking an immediate h:selectBooleanCheckbox whose valueChangeListener calls renderResponse and
- * which auto-submits onclick preserves the submitted value of a sibling non-immediate h:selectBooleanCheckbox.
+ * Verifies that checking an immediate h:selectBooleanCheckbox whose valueChangeListener calls renderResponse and which auto-submits onclick preserves the
+ * submitted value of a sibling non-immediate h:selectBooleanCheckbox.
  */
 class Issue908IT extends BaseITNG {
 
     /**
-     * Checks box1 (non-immediate), then box2 (immediate, valueChangeListener calls renderResponse, auto-submits
-     * onclick) and asserts both checkboxes remain checked after the roundtrip.
+     * Checks box1 (non-immediate), then box2 (immediate, valueChangeListener calls renderResponse, auto-submits onclick) and asserts both checkboxes remain
+     * checked after the roundtrip.
      *
      * @see HtmlSelectBooleanCheckbox
      * @see https://github.com/eclipse-ee4j/mojarra/issues/908
@@ -56,4 +56,5 @@ class Issue908IT extends BaseITNG {
         assertTrue(page.findElement(By.id("box1")).isSelected(), "box1 must remain checked after the roundtrip");
         assertTrue(page.findElement(By.id("box2")).isSelected(), "box2 must remain checked after the roundtrip");
     }
+
 }

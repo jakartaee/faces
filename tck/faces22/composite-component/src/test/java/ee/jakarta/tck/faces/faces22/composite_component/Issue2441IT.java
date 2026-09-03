@@ -26,8 +26,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2441IT extends BaseITNG {
 
     /**
-     * A facet passed into a composite component must be rendered where the implementation
-     * calls cc:renderFacet for that facet name.
+     * A facet passed into a composite component must be rendered where the implementation calls cc:renderFacet for that facet name.
      *
      * @see jakarta.faces.view.facelets.FaceletContext
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2441
@@ -39,8 +38,8 @@ class Issue2441IT extends BaseITNG {
     }
 
     /**
-     * A facet passed into a composite component must remain renderable when forwarded into a
-     * nested composite component via cc:insertFacet and rendered there with cc:renderFacet.
+     * A facet passed into a composite component must remain renderable when forwarded into a nested composite component via cc:insertFacet and rendered there
+     * with cc:renderFacet.
      *
      * @see jakarta.faces.view.facelets.FaceletContext
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2441
@@ -50,4 +49,5 @@ class Issue2441IT extends BaseITNG {
         WebPage page = getPage("issue2441b.xhtml");
         assertTrue(page.containsText("myFacet Text"), "facet content is rendered through nested cc:insertFacet and cc:renderFacet");
     }
+
 }

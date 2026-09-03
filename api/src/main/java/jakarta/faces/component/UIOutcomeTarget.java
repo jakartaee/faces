@@ -18,9 +18,8 @@ package jakarta.faces.component;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_2">This</span> component is paired with the <code>jakarta.faces.Button</code> or
- * <code>jakarta.faces.Link</code> renderers and encapsulates properties relating to the rendering of outcomes directly
- * to the response. This enables bookmarkability in Jakarta Faces applications.
+ * <span class="changed_modified_2_2">This</span> component is paired with the <code>jakarta.faces.Button</code> or <code>jakarta.faces.Link</code> renderers
+ * and encapsulates properties relating to the rendering of outcomes directly to the response. This enables bookmarkability in Jakarta Faces applications.
  * </p>
  *
  * @since 2.0
@@ -44,7 +43,9 @@ public class UIOutcomeTarget extends UIOutput {
     public static final String COMPONENT_FAMILY = "jakarta.faces.OutcomeTarget";
 
     enum PropertyKeys {
-        includeViewParams, outcome, disableClientWindow
+        includeViewParams,
+        outcome,
+        disableClientWindow
     }
 
     // ------------------------------------------------------------ Constructors
@@ -72,9 +73,9 @@ public class UIOutcomeTarget extends UIOutput {
      * </p>
      *
      * <p class="changed_added_5_0">
-     * When <code>true</code>, view parameter values are obtained from the source view (the view being navigated away from)
-     * and encoded into the target URL. See the Jakarta Faces Specification Document section on ViewHandler.getBookmarkableURL()
-     * for the complete algorithm and clarifications on view parameter value resolution.
+     * When <code>true</code>, view parameter values are obtained from the source view (the view being navigated away from) and encoded into the target URL. See
+     * the Jakarta Faces Specification Document section on ViewHandler.getBookmarkableURL() for the complete algorithm and clarifications on view parameter
+     * value resolution.
      * </p>
      *
      * @return <code>true</code> if the view parameters should be encoded in the url, <code>false</code> otherwise.
@@ -137,8 +138,8 @@ public class UIOutcomeTarget extends UIOutput {
 
     /**
      * <p class="changed_added_2_0">
-     * Sets the <code>outcome</code> property of the <code>UIOutcomeTarget</code>. This value is passed to the
-     * NavigationHandler when resolving the target url of this component.
+     * Sets the <code>outcome</code> property of the <code>UIOutcomeTarget</code>. This value is passed to the NavigationHandler when resolving the target url
+     * of this component.
      * </p>
      *
      * @since 2.0

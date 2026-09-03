@@ -21,12 +21,12 @@ import jakarta.faces.component.UICommand;
 
 /**
  * <p>
- * Represents an HTML <code>script</code> element for a function that acts like an ajax form submit. This component must
- * be placed inside a form, and requires JavaScript to be enabled in the client.
+ * Represents an HTML <code>script</code> element for a function that acts like an ajax form submit. This component must be placed inside a form, and requires
+ * JavaScript to be enabled in the client.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Script</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Script</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlCommandScript extends UICommand {
@@ -47,7 +47,14 @@ public class HtmlCommandScript extends UICommand {
      * The property keys.
      */
     protected enum PropertyKeys {
-        autorun, execute, name, onerror, onevent, render, resetValues,;
+
+        autorun,
+        execute,
+        name,
+        onerror,
+        onevent,
+        render,
+        resetValues,;
 
         String toString;
 
@@ -62,6 +69,7 @@ public class HtmlCommandScript extends UICommand {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -71,8 +79,7 @@ public class HtmlCommandScript extends UICommand {
      *
      * @return the property value
      * <p>
-     * Contents: Whether to execute declared JavaScript function during <code>load</code> event of the <code>window</code>.
-     * Defaults to <code>false</code>.
+     * Contents: Whether to execute declared JavaScript function during <code>load</code> event of the <code>window</code>. Defaults to <code>false</code>.
      */
     public boolean isAutorun() {
         return getStateHelper().eval(PropertyKeys.autorun, false);
@@ -97,10 +104,9 @@ public class HtmlCommandScript extends UICommand {
      *
      * @return the property value
      * <p>
-     * Contents: This is a space separated list of client identifiers of components that will participate in the "execute"
-     * portion of the Request Processing Lifecycle. If a literal is specified the identifiers must be space delimited. Any
-     * of the keywords "@this", "@form", "@all", "@none" may be specified in the identifier list. If not specified, the
-     * default value of "@this" is assumed. For example, <code>@this clientIdOne clientIdTwo</code>.
+     * Contents: This is a space separated list of client identifiers of components that will participate in the "execute" portion of the Request Processing
+     * Lifecycle. If a literal is specified the identifiers must be space delimited. Any of the keywords "@this", "@form", "@all", "@none" may be specified in
+     * the identifier list. If not specified, the default value of "@this" is assumed. For example, <code>@this clientIdOne clientIdTwo</code>.
      */
     public java.lang.String getExecute() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.execute);
@@ -125,8 +131,8 @@ public class HtmlCommandScript extends UICommand {
      *
      * @return the property value
      * <p>
-     * Contents: Name of JavaScript function to be declared, e.g. <code>name="functionName"</code>. This can be a namespaced
-     * function name, e.g. <code>name="ez.functionName"</code>.
+     * Contents: Name of JavaScript function to be declared, e.g. <code>name="functionName"</code>. This can be a namespaced function name, e.g.
+     * <code>name="ez.functionName"</code>.
      */
     public java.lang.String getName() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.name);
@@ -201,10 +207,9 @@ public class HtmlCommandScript extends UICommand {
      *
      * @return the property value
      * <p>
-     * Contents: This is a space separated list of client identifiers of components that will participate in the "render"
-     * portion of the Request Processing Lifecycle. If a literal is specified the identifiers must be space delimited. Any
-     * of the keywords "@this", "@form", "@all", "@none" may be specified in the identifier list. If not specified, the
-     * default value of "@none" is assumed. For example, <code>@this clientIdOne clientIdTwo</code>.
+     * Contents: This is a space separated list of client identifiers of components that will participate in the "render" portion of the Request Processing
+     * Lifecycle. If a literal is specified the identifiers must be space delimited. Any of the keywords "@this", "@form", "@all", "@none" may be specified in
+     * the identifier list. If not specified, the default value of "@none" is assumed. For example, <code>@this clientIdOne clientIdTwo</code>.
      */
     public java.lang.String getRender() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.render);
@@ -229,11 +234,10 @@ public class HtmlCommandScript extends UICommand {
      *
      * @return the property value
      * <p>
-     * Contents: Reset specific input values. Interpret the value of the <code>render</code> attribute as a space separated
-     * list of client identifiers suitable for passing directly to <code>UIViewRoot.resetValues()</code>. The implementation
-     * must cause an <code>ActionListener</code> to be attached to the <code>ActionSource</code> component in which this tag
-     * is nested that calls <code>UIViewRoot.resetValues()</code> passing the value of the <code>render</code> attribute as
-     * the argument.
+     * Contents: Reset specific input values. Interpret the value of the <code>render</code> attribute as a space separated list of client identifiers suitable
+     * for passing directly to <code>UIViewRoot.resetValues()</code>. The implementation must cause an <code>ActionListener</code> to be attached to the
+     * <code>ActionSource</code> component in which this tag is nested that calls <code>UIViewRoot.resetValues()</code> passing the value of the
+     * <code>render</code> attribute as the argument.
      */
     public java.lang.Boolean getResetValues() {
         return (java.lang.Boolean) getStateHelper().eval(PropertyKeys.resetValues);

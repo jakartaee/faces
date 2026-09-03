@@ -25,12 +25,10 @@ import jakarta.faces.component.html.HtmlOutputText;
 import jakarta.faces.context.FacesContext;
 
 /**
- * During its own encode this component appends a sibling to its parent. The append therefore happens
- * while the parent is already iterating its children to encode them, so the parent's child-encode
- * loop must observe the newly added sibling and render it. The parent here is the {@code <h:body>},
- * whose renderer does not render its own children, so the children are walked by
- * {@link UIComponent#encodeAll}. Models the lazy-loading pattern where a component lazily adds a
- * sibling (e.g. a hidden form needed for an ajax request) to the body during its own render.
+ * During its own encode this component appends a sibling to its parent. The append therefore happens while the parent is already iterating its children to
+ * encode them, so the parent's child-encode loop must observe the newly added sibling and render it. The parent here is the {@code <h:body>}, whose renderer
+ * does not render its own children, so the children are walked by {@link UIComponent#encodeAll}. Models the lazy-loading pattern where a component lazily adds
+ * a sibling (e.g. a hidden form needed for an ajax request) to the body during its own render.
  */
 @FacesComponent(value = "ee.jakarta.tck.faces.faces23.dynamic_components.EncodeAppendComponent")
 public class EncodeAppendComponent extends UIComponentBase {
@@ -54,4 +52,5 @@ public class EncodeAppendComponent extends UIComponentBase {
             parent.getChildren().add(sibling);
         }
     }
+
 }

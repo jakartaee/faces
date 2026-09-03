@@ -73,6 +73,7 @@ public class Issue3271Bean implements Serializable {
             }
             return builder.toString().trim();
         }
+
     }
 
     public String printTags() {
@@ -91,4 +92,5 @@ public class Issue3271Bean implements Serializable {
     public Converter<Set<String>> getTagsConverter() {
         return new StringToSetConverter();
     }
+
 }

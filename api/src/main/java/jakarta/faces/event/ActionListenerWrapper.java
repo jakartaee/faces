@@ -20,9 +20,8 @@ import jakarta.faces.FacesWrapper;
 
 /**
  * <p class="changed_added_2_2">
- * Provides a simple implementation of {@link ActionListener} that can be subclassed by developers wishing to provide
- * specialized behavior to an existing {@link ActionListener} instance. The default implementation of all methods is to
- * call through to the wrapped {@link ActionListener}.
+ * Provides a simple implementation of {@link ActionListener} that can be subclassed by developers wishing to provide specialized behavior to an existing
+ * {@link ActionListener} instance. The default implementation of all methods is to call through to the wrapped {@link ActionListener}.
  * </p>
  *
  * <div class="changed_added_2_2">

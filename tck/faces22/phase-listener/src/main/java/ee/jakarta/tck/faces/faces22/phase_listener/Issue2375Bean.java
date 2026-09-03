@@ -42,4 +42,5 @@ public class Issue2375Bean implements Serializable {
         transientRoot.getChildren().add(text);
         addto.getChildren().add(transientRoot);
     }
+
 }

@@ -39,5 +39,4 @@ public @interface FooConstraint {
 
     Class<? extends Payload>[] payload() default {};
 
-
 }

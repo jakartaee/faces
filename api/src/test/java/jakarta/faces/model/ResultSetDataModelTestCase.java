@@ -35,7 +35,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * Unit tests for {@link ArrayDataModel}.</p>
+ * Unit tests for {@link ArrayDataModel}.
+ * </p>
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 class ResultSetDataModelTestCase extends DataModelTestCaseBase {
@@ -171,15 +172,23 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
                 entry.setValue("This is string 1 modified");
             }
         }
-        assertEquals("This is string 1 modified",
-                beans[1].getStringProperty());
-        assertEquals("This is string 1 modified",
-                map.get("stringProperty"));
-        assertEquals("This is string 1 modified",
-                map.get("stringPROPERTY"));
+        assertEquals(
+            "This is string 1 modified",
+            beans[1].getStringProperty()
+        );
+        assertEquals(
+            "This is string 1 modified",
+            map.get("stringProperty")
+        );
+        assertEquals(
+            "This is string 1 modified",
+            map.get("stringPROPERTY")
+        );
         result.absolute(2); // ResultSet indexing is one-relative
-        assertEquals("This is string 1 modified",
-                result.getObject("stringProperty"));
+        assertEquals(
+            "This is string 1 modified",
+            result.getObject("stringProperty")
+        );
     }
 
     // Test ((Map) getRowData()).get()
@@ -288,7 +297,8 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
         try {
             map.clear();
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
 
@@ -297,7 +307,8 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
         try {
             entrySet.add(new TestEntry("foo", "bar"));
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         List mapEntries = new ArrayList();
@@ -306,13 +317,15 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
         try {
             entrySet.addAll(mapEntries);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             entrySet.clear();
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
@@ -320,25 +333,29 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
             iterator.next();
             iterator.remove();
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             entrySet.remove(new TestEntry("foo", "bar"));
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             entrySet.removeAll(mapEntries);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             entrySet.retainAll(mapEntries);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
 
@@ -347,7 +364,8 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
         try {
             keySet.add("foo");
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         List mapKeys = new ArrayList();
@@ -356,13 +374,15 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
         try {
             keySet.addAll(mapKeys);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             keySet.clear();
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
@@ -370,25 +390,29 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
             iterator.next();
             iterator.remove();
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             keySet.remove(new TestEntry("foo", "bar"));
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             keySet.removeAll(mapKeys);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             keySet.retainAll(mapKeys);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
 
@@ -396,7 +420,8 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
         try {
             map.remove("foo");
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
 
@@ -405,7 +430,8 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
         try {
             values.add("foo");
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         List list = new ArrayList();
@@ -414,13 +440,15 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
         try {
             values.addAll(list);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             values.clear();
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
@@ -428,25 +456,29 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
             iterator.next();
             iterator.remove();
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             values.remove("foo");
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             values.removeAll(list);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
         try {
             values.retainAll(list);
             fail("Should have thrown UnsupportedOperationException");
-        } catch (UnsupportedOperationException e) {
+        }
+        catch (UnsupportedOperationException e) {
             // Expected result
         }
 
@@ -539,14 +571,18 @@ class ResultSetDataModelTestCase extends DataModelTestCaseBase {
             }
             Map.Entry e = (Map.Entry) o;
             return (key == null
-                    ? e.getKey() == null : key.equals(e.getKey()))
-                    && (value == null
-                    ? e.getValue() == null : value.equals(e.getValue()));
+                ? e.getKey() == null
+                : key.equals(e.getKey()))
+                && (value == null
+                    ? e.getValue() == null
+                    : value.equals(e.getValue()));
         }
 
         @Override
         public int hashCode() {
             return (key == null ? 0 : key.hashCode()) ^ (value == null ? 0 : value.hashCode());
         }
+
     }
+
 }

@@ -54,6 +54,7 @@ public class Issue2960Bean {
     public void visitChildren() {
         FacesContext context = FacesContext.getCurrentInstance();
         context.getViewRoot().visitTree(VisitContext.createVisitContext(context), new VisitCallback() {
+
             @Override
             public VisitResult visit(VisitContext visitContext, UIComponent target) {
                 if (target instanceof ValueHolder && "out".equals(target.getId())) {
@@ -64,6 +65,8 @@ public class Issue2960Bean {
                 }
                 return VisitResult.ACCEPT;
             }
+
         });
     }
+
 }

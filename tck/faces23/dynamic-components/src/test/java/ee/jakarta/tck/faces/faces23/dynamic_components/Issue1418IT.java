@@ -27,8 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A child component moved programmatically between panel groups during an action listener must
- * persist across postbacks, toggling back and forth on each submit.
+ * A child component moved programmatically between panel groups during an action listener must persist across postbacks, toggling back and forth on each
+ * submit.
  */
 public class Issue1418IT extends BaseITNG {
 
@@ -67,4 +67,5 @@ public class Issue1418IT extends BaseITNG {
         assertTrue(childCount(page, "form:movefrom") > 0);
         assertEquals(0, childCount(page, "form:moveto"));
     }
+
 }

@@ -33,12 +33,10 @@ import jakarta.faces.context.FacesContext;
 import org.junit.jupiter.api.Test;
 
 /**
- * Facelets marks every component it creates with the tag id it came from, scopes a facet by putting its name on the
- * parent component's attributes for the duration of the facet body, and flags components for deletion the same way.
- * Those markers are answered from a field rather than from the state map, so the attributes map has to keep reading
- * like a map while the marker stays out of the component's state - except that the creation marker, which is live on
- * every component, still has to survive a full-state save, since restoring full state runs no view build to
- * re-establish it.
+ * Facelets marks every component it creates with the tag id it came from, scopes a facet by putting its name on the parent component's attributes for the
+ * duration of the facet body, and flags components for deletion the same way. Those markers are answered from a field rather than from the state map, so the
+ * attributes map has to keep reading like a map while the marker stays out of the component's state - except that the creation marker, which is live on every
+ * component, still has to survive a full-state save, since restoring full state runs no view build to re-establish it.
  */
 class UIComponentBaseMarkerAttributesTest {
 
@@ -70,8 +68,10 @@ class UIComponentBaseMarkerAttributesTest {
         attributes.put(MARK_DELETED, Boolean.TRUE);
         attributes.put("data-role", "banner");
 
-        assertEquals(Set.of("data-role"), attributes.keySet(),
-                "only the plain attribute is state-backed, so only it can be saved");
+        assertEquals(
+            Set.of("data-role"), attributes.keySet(),
+            "only the plain attribute is state-backed, so only it can be saved"
+        );
     }
 
     @Test
@@ -83,7 +83,10 @@ class UIComponentBaseMarkerAttributesTest {
         UIPanel restored = new UIPanel();
         restored.restoreState(context, saved.saveState(context));
 
-        assertEquals("j_id1", restored.getAttributes().get(MARK_CREATED),
-                "full state carries no view build to re-establish the marker");
+        assertEquals(
+            "j_id1", restored.getAttributes().get(MARK_CREATED),
+            "full state carries no view build to re-establish the marker"
+        );
     }
+
 }

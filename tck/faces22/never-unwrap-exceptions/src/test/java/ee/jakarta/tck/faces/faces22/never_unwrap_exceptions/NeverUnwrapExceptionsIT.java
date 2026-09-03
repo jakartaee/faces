@@ -26,8 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 class NeverUnwrapExceptionsIT extends BaseITNG {
 
     /**
-     * When a bean getter throws during rendering, FacesServlet must rethrow it as a ServletException whose cause is the
-     * original exception (not unwrapped) and whose message is that cause's message.
+     * When a bean getter throws during rendering, FacesServlet must rethrow it as a ServletException whose cause is the original exception (not unwrapped) and
+     * whose message is that cause's message.
      *
      * @see FacesServlet#service(jakarta.servlet.ServletRequest, jakarta.servlet.ServletResponse)
      */
@@ -35,11 +35,18 @@ class NeverUnwrapExceptionsIT extends BaseITNG {
     void testNeverUnwrapExceptions() {
         String body = getResponseBody("faces/neverUnwrapExceptions.xhtml");
 
-        assertTrue(body.contains("Exception class: jakarta.servlet.ServletException"),
-                "FacesServlet must rethrow as ServletException; got: " + body);
-        assertTrue(body.contains("Root cause: java.lang.IllegalStateException"),
-                "The original exception must be the ServletException cause; got: " + body);
-        assertTrue(body.contains("Exception message: java.lang.IllegalArgumentException: java.lang.UnsupportedOperationException"),
-                "The ServletException message must be the cause's message; got: " + body);
+        assertTrue(
+            body.contains("Exception class: jakarta.servlet.ServletException"),
+            "FacesServlet must rethrow as ServletException; got: " + body
+        );
+        assertTrue(
+            body.contains("Root cause: java.lang.IllegalStateException"),
+            "The original exception must be the ServletException cause; got: " + body
+        );
+        assertTrue(
+            body.contains("Exception message: java.lang.IllegalArgumentException: java.lang.UnsupportedOperationException"),
+            "The ServletException message must be the cause's message; got: " + body
+        );
     }
+
 }

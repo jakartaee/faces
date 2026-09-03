@@ -40,7 +40,9 @@ public class Spec915IT extends BaseITNG {
     @Test
     void optionsRequest() throws Exception {
         HttpResponse<String> response = newHttpClient().send(
-                newBuilder(create(webUrl + "spec915.xhtml")).method("OPTIONS", noBody()).build(), ofString());
+            newBuilder(create(webUrl + "spec915.xhtml")).method("OPTIONS", noBody()).build(), ofString()
+        );
         assertEquals(200, response.statusCode());
     }
+
 }

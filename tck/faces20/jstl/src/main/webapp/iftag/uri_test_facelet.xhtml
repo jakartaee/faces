@@ -19,19 +19,19 @@
 
 <!DOCTYPE html>
 <html xml:lang="en" lang="en"
-	xmlns:h="jakarta.faces.html"
-	xmlns:f="jakarta.faces.core"
-	xmlns:c="jakarta.tags.core"
-	xmlns:cc="http://java.sun.com/jstl/core">
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:c="jakarta.tags.core"
+    xmlns:cc="http://java.sun.com/jstl/core">
 <h:head>
-	<title>JSTL URI TEST</title>
+    <title>JSTL URI TEST</title>
 </h:head>
 <h:body>
-	<cc:if test="#{true == true}" var="oldway" />
-	<c:if test="#{true == true}" var="newway" />
+    <cc:if test="#{true == true}" var="oldway" />
+    <c:if test="#{true == true}" var="newway" />
 
-	<h:outputText id="old_way" value="#{oldway}" />
-	<h:outputText id="new_way" value="#{newway}" />
+    <h:outputText id="old_way" value="#{oldway}" />
+    <h:outputText id="new_way" value="#{newway}" />
 
 </h:body>
 </html>

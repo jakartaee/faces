@@ -35,7 +35,7 @@
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
 
-	<servlet>
+    <servlet>
         <servlet-name>facesServlet</servlet-name>
         <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
     </servlet>

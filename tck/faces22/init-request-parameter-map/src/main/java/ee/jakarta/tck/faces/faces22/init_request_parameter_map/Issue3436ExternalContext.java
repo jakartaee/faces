@@ -31,4 +31,5 @@ public class Issue3436ExternalContext extends ExternalContextWrapper {
     public ExternalContext getWrapped() {
         return wrapped;
     }
+
 }

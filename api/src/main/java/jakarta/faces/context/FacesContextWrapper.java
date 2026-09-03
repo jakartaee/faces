@@ -32,15 +32,13 @@ import jakarta.faces.render.RenderKit;
 
 /**
  * <p>
- * <span class="changed_modified_2_1 changed_modified_2_2 changed_modified_2_3">Provides</span> a simple implementation
- * of {@link FacesContext} that can be subclassed by developers wishing to provide specialized behavior to an existing
- * {@link FacesContext} instance. The default implementation of all methods is to call through to the wrapped
- * {@link FacesContext} instance.
+ * <span class="changed_modified_2_1 changed_modified_2_2 changed_modified_2_3">Provides</span> a simple implementation of {@link FacesContext} that can be
+ * subclassed by developers wishing to provide specialized behavior to an existing {@link FacesContext} instance. The default implementation of all methods is
+ * to call through to the wrapped {@link FacesContext} instance.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.0
@@ -59,8 +57,8 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p class="changed_added_2_3">
-     * If this faces context has been decorated, the implementation doing the decorating should push the implementation
-     * being wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this faces context has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -79,8 +77,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p class="changed_added_4_0">
-     * The default behavior of this method is to call {@link FacesContext#getLifecycle()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getLifecycle()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getLifecycle()
@@ -92,8 +89,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getApplication()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getApplication()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getApplication()
@@ -105,8 +101,8 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#getClientIdsWithMessages()}
-     * on the wrapped {@link FacesContext} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#getClientIdsWithMessages()} on the wrapped {@link FacesContext}
+     * object.
      * </p>
      *
      * @see FacesContext#getClientIdsWithMessages()
@@ -118,8 +114,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getExternalContext()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getExternalContext()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getExternalContext()
@@ -131,8 +126,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getMaximumSeverity()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getMaximumSeverity()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getMaximumSeverity()
@@ -144,8 +138,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getMessages()} on the wrapped {@link FacesContext}
-     * object.
+     * The default behavior of this method is to call {@link FacesContext#getMessages()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getMessages()
@@ -157,8 +150,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getMessages(String)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getMessages(String)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getMessages(String)
@@ -170,8 +162,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getRenderKit()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getRenderKit()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getRenderKit()
@@ -183,8 +174,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getRenderResponse()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getRenderResponse()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getRenderResponse()
@@ -196,8 +186,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getResourceLibraryContracts} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getResourceLibraryContracts} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getResourceLibraryContracts
@@ -209,8 +198,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#setResourceLibraryContracts} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#setResourceLibraryContracts} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#setResourceLibraryContracts
@@ -222,8 +210,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getResponseComplete()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getResponseComplete()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getResponseComplete()
@@ -235,8 +222,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getResponseStream()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getResponseStream()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getResponseStream()
@@ -248,8 +234,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#setResponseStream(ResponseStream)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#setResponseStream(ResponseStream)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#setResponseStream(ResponseStream)
@@ -261,8 +246,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getResponseWriter()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getResponseWriter()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getResponseWriter()
@@ -274,8 +258,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#setResponseWriter(ResponseWriter)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#setResponseWriter(ResponseWriter)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#setResponseWriter(ResponseWriter)
@@ -287,8 +270,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getViewRoot()} on the wrapped {@link FacesContext}
-     * object.
+     * The default behavior of this method is to call {@link FacesContext#getViewRoot()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getViewRoot()
@@ -300,8 +282,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#setViewRoot(UIViewRoot)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#setViewRoot(UIViewRoot)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#setViewRoot(UIViewRoot)
@@ -313,8 +294,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#addMessage(String, FacesMessage)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#addMessage(String, FacesMessage)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#addMessage(String, FacesMessage)
@@ -326,8 +306,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p class="changed_added_2_1">
-     * The default behavior of this method is to call {@link FacesContext#isReleased} on the wrapped {@link FacesContext}
-     * object.
+     * The default behavior of this method is to call {@link FacesContext#isReleased} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#isReleased
@@ -341,8 +320,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#release()} on the wrapped {@link FacesContext}
-     * object.
+     * The default behavior of this method is to call {@link FacesContext#release()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#release()
@@ -354,8 +332,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#renderResponse()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#renderResponse()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#renderResponse()
@@ -367,8 +344,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#responseComplete()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#responseComplete()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#responseComplete()
@@ -380,8 +356,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getAttributes()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getAttributes()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getAttributes()
@@ -393,8 +368,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link FacesContext#getNamingContainerSeparatorChar()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getNamingContainerSeparatorChar()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getNamingContainerSeparatorChar()
@@ -406,8 +380,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getPartialViewContext()} ()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getPartialViewContext()} ()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getPartialViewContext()
@@ -419,8 +392,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getELContext()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getELContext()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getELContext()
@@ -432,8 +404,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getExceptionHandler()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getExceptionHandler()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getExceptionHandler()
@@ -445,8 +416,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#setExceptionHandler(ExceptionHandler)} on the
-     * wrapped {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#setExceptionHandler(ExceptionHandler)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#setExceptionHandler(ExceptionHandler)
@@ -458,8 +428,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getMessageList()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getMessageList()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getMessageList()
@@ -471,8 +440,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getMessageList(String)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getMessageList(String)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getMessageList(String)
@@ -484,8 +452,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#isPostback()} on the wrapped {@link FacesContext}
-     * object.
+     * The default behavior of this method is to call {@link FacesContext#isPostback()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#isPostback()
@@ -497,8 +464,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#getCurrentPhaseId()} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#getCurrentPhaseId()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#getCurrentPhaseId()
@@ -510,8 +476,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#setCurrentPhaseId(PhaseId)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#setCurrentPhaseId(PhaseId)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#setCurrentPhaseId(PhaseId)
@@ -523,8 +488,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#isValidationFailed} on the
-     * wrapped {@link FacesContext} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#isValidationFailed} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see FacesContext#isValidationFailed
@@ -538,8 +502,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#validationFailed()} on the
-     * wrapped {@link FacesContext} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#validationFailed()} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see FacesContext#validationFailed()
@@ -553,8 +516,7 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link FacesContext#setProcessingEvents(boolean)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link FacesContext#setProcessingEvents(boolean)} on the wrapped {@link FacesContext} object.
      * </p>
      *
      * @see jakarta.faces.context.FacesContext#setProcessingEvents(boolean)
@@ -566,8 +528,8 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#isProcessingEvents()} on the
-     * wrapped {@link FacesContext} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#isProcessingEvents()} on the wrapped {@link FacesContext}
+     * object.
      * </p>
      *
      * @see FacesContext#isProcessingEvents()
@@ -579,9 +541,8 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link jakarta.faces.context.FacesContext#isProjectStage(jakarta.faces.application.ProjectStage)} on the wrapped
-     * {@link FacesContext} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.FacesContext#isProjectStage(jakarta.faces.application.ProjectStage)} on the
+     * wrapped {@link FacesContext} object.
      * </p>
      *
      * @see FacesContext#isProjectStage(jakarta.faces.application.ProjectStage)
@@ -590,4 +551,5 @@ public abstract class FacesContextWrapper extends FacesContext implements FacesW
     public boolean isProjectStage(ProjectStage stage) {
         return getWrapped().isProjectStage(stage);
     }
+
 }

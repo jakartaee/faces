@@ -41,8 +41,8 @@ public abstract class Parameter {
 
     /**
      * <p class="changed_added_2_2">
-     * Return a {@code ValueExpression} for the value of the parameter. Depending on the context, this expression may only
-     * ever be evaluated in a "get" operation.
+     * Return a {@code ValueExpression} for the value of the parameter. Depending on the context, this expression may only ever be evaluated in a "get"
+     * operation.
      * </p>
      *
      * @since 2.2

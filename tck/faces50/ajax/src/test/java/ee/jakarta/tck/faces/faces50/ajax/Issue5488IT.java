@@ -14,6 +14,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0 or Apache-2.0
  */
 package ee.jakarta.tck.faces.faces50.ajax;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -52,11 +53,11 @@ class Issue5488IT extends BaseITNG {
     @FindBy(id = "form3:messages")
     private WebElement form3messages;
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/5488
-   */
-  @Test
-  void commandButtonBlurred() {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5488
+     */
+    @Test
+    void commandButtonBlurred() {
         var page = getPage("issue5488.xhtml");
         form1input.sendKeys(Keys.TAB);
         page.guardAjax(() -> form1button.sendKeys(Keys.TAB));
@@ -65,54 +66,55 @@ class Issue5488IT extends BaseITNG {
         assertEquals("listener invoked on form1:button", messages); // and thus not action invoked as well
     }
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/5488
-   */
-  @Test
-  void commandButtonClicked() {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5488
+     */
+    @Test
+    void commandButtonClicked() {
         var page = getPage("issue5488.xhtml");
         page.guardAjax(form1button::click);
         assertEquals("action invoked on form1:button", form1messages.getText()); // and thus not listener invoked as well
     }
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/5488
-   */
-  @Test
-  void commandLinkBlurred() {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5488
+     */
+    @Test
+    void commandLinkBlurred() {
         var page = getPage("issue5488.xhtml");
         form2input.sendKeys(Keys.TAB);
         page.guardAjax(() -> form2link.sendKeys(Keys.TAB));
         assertEquals("listener invoked on form2:link", form2messages.getText()); // and thus not action invoked as well
     }
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/5488
-   */
-  @Test
-  void commandLinkClicked() {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/5488
+     */
+    @Test
+    void commandLinkClicked() {
         var page = getPage("issue5488.xhtml");
         page.guardAjax(form2link::click);
         assertEquals("action invoked on form2:link", form2messages.getText()); // and thus not listener invoked as well
     }
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/3355
-   */
-  @Test
-  void plainButton1() {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3355
+     */
+    @Test
+    void plainButton1() {
         var page = getPage("issue5488.xhtml");
         page.guardAjax(form3button1::click);
         assertEquals("listener invoked on form3:button1", form3messages.getText()); // and thus not on form3:button2 as well
     }
 
-  /**
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/3355
-   */
-  @Test
-  void plainButton2() {
+    /**
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/3355
+     */
+    @Test
+    void plainButton2() {
         var page = getPage("issue5488.xhtml");
         page.guardAjax(form3button2::click);
         assertEquals("listener invoked on form3:button2", form3messages.getText()); // and thus not on form3:button1 as well
     }
+
 }

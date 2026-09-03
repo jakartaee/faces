@@ -27,8 +27,13 @@ public class Issue2201ValueChangeListener implements ValueChangeListener {
     @Override
     public void processValueChange(ValueChangeEvent vce) throws AbortProcessingException {
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(vce.getComponent().getClientId(context),
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        vce.getComponent().getId() + " value was changed", null));
+        context.addMessage(
+            vce.getComponent().getClientId(context),
+            new FacesMessage(
+                FacesMessage.SEVERITY_ERROR,
+                vce.getComponent().getId() + " value was changed", null
+            )
+        );
     }
+
 }

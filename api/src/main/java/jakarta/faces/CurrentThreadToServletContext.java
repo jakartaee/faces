@@ -34,9 +34,9 @@ import jakarta.faces.context.FacesContext;
 final class CurrentThreadToServletContext {
 
     /**
-     * Application map key under which a web app's resolved {@link FactoryFinderInstance} is memoized. Every
-     * {@code FactoryFinder.getFactory} call otherwise rebuilds a {@link FactoryFinderCacheKey}, which reads the
-     * marker and the init-time ClassLoader out of that same application map before it can even be hashed.
+     * Application map key under which a web app's resolved {@link FactoryFinderInstance} is memoized. Every {@code FactoryFinder.getFactory} call otherwise
+     * rebuilds a {@link FactoryFinderCacheKey}, which reads the marker and the init-time ClassLoader out of that same application map before it can even be
+     * hashed.
      */
     private static final String FACTORY_FINDER_KEY = FactoryFinder.class.getName() + ".FactoryFinderInstance";
 
@@ -94,7 +94,8 @@ final class CurrentThreadToServletContext {
                         if (!isAnyNull(key.getContext(), curKey.getContext()) && !key.getContext().equals(curKey.getContext())) {
                             classLoadersMatchButContextsDoNotMatch = true;
                             toCopy = cur.getValue();
-                        } else {
+                        }
+                        else {
                             // Otherwise, use this FactoryFinderInstance instance.
                             factoryFinder = cur.getValue();
                         }
@@ -107,7 +108,8 @@ final class CurrentThreadToServletContext {
                 // at all found in the applicationMap, or a matchingKey was found
                 // and the matchingKey is safe to use in this web app
                 createNewFactoryFinderInstance = foundNoMatchInApplicationMap || factoryFinder == null && classLoadersMatchButContextsDoNotMatch;
-            } else {
+            }
+            else {
                 createNewFactoryFinderInstance = true;
             }
 
@@ -115,10 +117,11 @@ final class CurrentThreadToServletContext {
                 final FactoryFinderInstance newResult;
                 if (toCopy != null) {
                     newResult = new FactoryFinderInstance(facesContext, toCopy);
-                } else {
+                }
+                else {
                     newResult = new FactoryFinderInstance(facesContext);
                 }
-                factoryFinder = factoryFinderMap.computeIfAbsent( key , k -> newResult );
+                factoryFinder = factoryFinderMap.computeIfAbsent(key, k -> newResult);
             }
         }
 
@@ -130,9 +133,8 @@ final class CurrentThreadToServletContext {
     }
 
     /**
-     * The application map of the given context, or null when there is none to answer from -- which is the same
-     * condition {@link FactoryFinderCacheKey} treats as "no web app to key on", so a context without one keeps
-     * resolving through the ClassLoader-and-marker key alone.
+     * The application map of the given context, or null when there is none to answer from -- which is the same condition {@link FactoryFinderCacheKey} treats
+     * as "no web app to key on", so a context without one keeps resolving through the ClassLoader-and-marker key alone.
      */
     private static Map<String, Object> applicationMapOf(FacesContext facesContext) {
         ExternalContext extContext = facesContext != null ? facesContext.getExternalContext() : null;
@@ -167,9 +169,9 @@ final class CurrentThreadToServletContext {
     }
 
     /**
-     * This method is used to detect the following special initialization case. IF no FactoryFinderInstance can be found for
-     * key, AND this call to getApplicationFactoryFinderInstance() *does* have a currentKeyrent FacesContext BUT a previous
-     * call to getApplicationFactoryFinderInstance *did not* have a currentKeyrent FacesContext
+     * This method is used to detect the following special initialization case. IF no FactoryFinderInstance can be found for key, AND this call to
+     * getApplicationFactoryFinderInstance() *does* have a currentKeyrent FacesContext BUT a previous call to getApplicationFactoryFinderInstance *did not* have
+     * a currentKeyrent FacesContext
      *
      * @param facesContext the currentKeyrent FacesContext for this request
      * @return true if the currentKeyrent execution falls into the special initialization case.
@@ -177,7 +179,8 @@ final class CurrentThreadToServletContext {
     private boolean detectSpecialInitializationCase(FacesContext facesContext) {
         if (facesContext == null) {
             logNullFacesContext.compareAndSet(false, true);
-        } else {
+        }
+        else {
             logNonNullFacesContext.compareAndSet(false, true);
         }
 
@@ -209,14 +212,12 @@ final class CurrentThreadToServletContext {
     private static final class FactoryFinderCacheKey {
 
         /**
-         * The ClassLoader that is active the first time this key is created. At startup time, this is assumed to be the web app
-         * ClassLoader
+         * The ClassLoader that is active the first time this key is created. At startup time, this is assumed to be the web app ClassLoader
          */
         private ClassLoader classLoader;
 
         /**
-         * A marker that disambiguates the case when multiple web apps have the same web app ClassLoader but different
-         * ServletContext instances.
+         * A marker that disambiguates the case when multiple web apps have the same web app ClassLoader but different ServletContext instances.
          */
         private Long marker;
 
@@ -234,7 +235,8 @@ final class CurrentThreadToServletContext {
 
             if (isAnyNull(facesContext, extContext, servletContext)) {
                 initFromFactoryMap(classLoaderIn, factoryMap);
-            } else {
+            }
+            else {
                 initFromApplicationMap(extContext, classLoaderIn);
             }
         }
@@ -252,7 +254,8 @@ final class CurrentThreadToServletContext {
             if (keys.isEmpty()) {
                 classLoader = classLoaderIn;
                 marker = currentTimeMillis();
-            } else {
+            }
+            else {
 
                 // For each entry in the factoryMap's keySet...
                 for (FactoryFinderCacheKey currentKey : keys) {
@@ -287,7 +290,8 @@ final class CurrentThreadToServletContext {
                 // consider it a matchingKey.
                 if (currentClassLoader.equals(currentKeyCL)) {
                     return currentClassLoader;
-                } else {
+                }
+                else {
                     // If it's not a matchingKey, try the parent in the ClassLoader hierarchy.
                     currentClassLoader = currentClassLoader.getParent();
                 }
@@ -312,7 +316,8 @@ final class CurrentThreadToServletContext {
 
                 applicationMap.put(INIT_TIME_CL_KEY, identityHashCode(classLoaderIn));
 
-            } else {
+            }
+            else {
                 marker = val;
             }
 
@@ -321,8 +326,8 @@ final class CurrentThreadToServletContext {
         }
 
         /**
-         * Resolve the argument ClassLoader to be the ClassLoader that was passed in to the ctor the first time a
-         * FactoryManagerCacheKey was created for this web app.
+         * Resolve the argument ClassLoader to be the ClassLoader that was passed in to the ctor the first time a FactoryManagerCacheKey was created for this
+         * web app.
          */
         private ClassLoader resolveToFirstTimeUsedClassLoader(ClassLoader classLoaderToResolve, ExternalContext extContext) {
             ClassLoader currentClassLoader = classLoaderToResolve;

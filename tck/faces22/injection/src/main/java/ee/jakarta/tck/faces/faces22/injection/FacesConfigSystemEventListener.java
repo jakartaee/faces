@@ -48,4 +48,5 @@ public class FacesConfigSystemEventListener implements SystemEventListener {
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

@@ -28,7 +28,19 @@ class PhaseEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void phaseEventGetFacesContextTest() { runServletTest("phaseEventGetFacesContextTest"); }
-    @Test void phaseEventGetPhaseIdTest() { runServletTest("phaseEventGetPhaseIdTest"); }
-    @Test void phaseIdGetOrdinalTest() { runServletTest("phaseIdGetOrdinalTest"); }
+    @Test
+    void phaseEventGetFacesContextTest() {
+        runServletTest("phaseEventGetFacesContextTest");
+    }
+
+    @Test
+    void phaseEventGetPhaseIdTest() {
+        runServletTest("phaseEventGetPhaseIdTest");
+    }
+
+    @Test
+    void phaseIdGetOrdinalTest() {
+        runServletTest("phaseIdGetOrdinalTest");
+    }
+
 }

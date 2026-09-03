@@ -20,26 +20,26 @@ import jakarta.faces.FacesWrapper;
 
 /**
  * <p class="changed_modified_2_0">
- * <span class="changed_modified_2_3">PartialViewContextFactory</span> is a factory object that creates (if needed) and
- * returns new {@link PartialViewContext} instances.
+ * <span class="changed_modified_2_3">PartialViewContextFactory</span> is a factory object that creates (if needed) and returns new {@link PartialViewContext}
+ * instances.
  * </p>
  *
  * <div class="changed_added_2_0">
  *
  * <p>
- * There must be one <code>PartialViewContextFactory</code> instance per web application that is utilizing Jakarta
- * Server Faces. This instance can be acquired, in a portable manner, by calling:
+ * There must be one <code>PartialViewContextFactory</code> instance per web application that is utilizing Jakarta Server Faces. This instance can be acquired,
+ * in a portable manner, by calling:
  * </p>
  *
  * <pre>
+ *
  * PartialViewContextFactory factory = (PartialViewContextFactory) FactoryFinder.getFactory(FactoryFinder.PARTIAL_VIEW_CONTEXT_FACTORY);
  * </pre>
  *
  * </div>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.0
@@ -58,8 +58,8 @@ public abstract class PartialViewContextFactory implements FacesWrapper<PartialV
 
     /**
      * <p class="changed_added_2_3">
-     * If this factory has been decorated, the implementation doing the decorating should push the implementation being
-     * wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this factory has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -70,8 +70,8 @@ public abstract class PartialViewContextFactory implements FacesWrapper<PartialV
 
     /**
      * <p class="changed_modified_2_3">
-     * If this factory has been decorated, the implementation doing the decorating may override this method to provide
-     * access to the implementation being wrapped.
+     * If this factory has been decorated, the implementation doing the decorating may override this method to provide access to the implementation being
+     * wrapped.
      * </p>
      */
     @Override
@@ -83,8 +83,8 @@ public abstract class PartialViewContextFactory implements FacesWrapper<PartialV
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Create</span> (if needed) and return a {@link PartialViewContext} instance that is
-     * initialized using the current {@link FacesContext} instance.
+     * <span class="changed_modified_2_0">Create</span> (if needed) and return a {@link PartialViewContext} instance that is initialized using the current
+     * {@link FacesContext} instance.
      * </p>
      *
      * @param context the {@link FacesContext} for the current request.

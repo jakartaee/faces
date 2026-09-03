@@ -25,23 +25,24 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1434IT extends BaseITNG {
 
-  /**
-   * @see https://github.com/jakartaee/faces/issues/1434
-   */
-  @Test
-  void verifyFacesMappingtoXhtmlByDefault() throws Exception {
+    /**
+     * @see https://github.com/jakartaee/faces/issues/1434
+     */
+    @Test
+    void verifyFacesMappingtoXhtmlByDefault() throws Exception {
         WebPage page = getPage("spec1434.xhtml");
 
         assertTrue(page.containsSource("ViewState"));
     }
 
-  /**
-   * @see https://github.com/jakartaee/faces/issues/1434
-   */
-  @Test
-  void verifyMinimalXhtmlWithoutXmlProlog() throws Exception {
+    /**
+     * @see https://github.com/jakartaee/faces/issues/1434
+     */
+    @Test
+    void verifyMinimalXhtmlWithoutXmlProlog() throws Exception {
         WebPage page = getPage("spec1434-2.xhtml");
 
         assertTrue(page.containsSource("This is a minimal"));
     }
+
 }

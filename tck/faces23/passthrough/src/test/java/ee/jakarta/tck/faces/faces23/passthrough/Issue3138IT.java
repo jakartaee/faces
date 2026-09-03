@@ -27,8 +27,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue3138IT extends BaseITNG {
 
     /**
-     * An HTML5 pass-through {@code select} with {@code f:selectItems} over a Map
-     * must render the Map values as the option values.
+     * An HTML5 pass-through {@code select} with {@code f:selectItems} over a Map must render the Map values as the option values.
      *
      * @see jakarta.faces.component.html.HtmlSelectOneListbox
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3138
@@ -42,4 +41,5 @@ public class Issue3138IT extends BaseITNG {
         assertNotNull(page.findElement(By.cssSelector("#ko option[value='cccccccccc']")));
         assertNotNull(page.findElement(By.cssSelector("#ko option[value='dddddddddd']")));
     }
+
 }

@@ -27,8 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3484IT extends BaseITNG {
 
     /**
-     * Removing a Facelets created child and adding it straight back at the same index is a no-op: the child
-     * keeps its identity and its position, and the view still restores on the next postback.
+     * Removing a Facelets created child and adding it straight back at the same index is a no-op: the child keeps its identity and its position, and the view
+     * still restores on the next postback.
      *
      * @see jakarta.faces.component.UIComponent#getChildren()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3484
@@ -38,19 +38,26 @@ class Issue3484IT extends BaseITNG {
         WebPage page = getPage("issue3484.xhtml");
 
         assertEquals("0", page.findElement(By.id("index")).getText(), "index on initial render");
-        assertEquals("facelets created child", page.findElement(By.id("form:outputText")).getText(),
-                "child on initial render");
+        assertEquals(
+            "facelets created child", page.findElement(By.id("form:outputText")).getText(),
+            "child on initial render"
+        );
 
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
 
         assertEquals("0", page.findElement(By.id("index")).getText(), "index after remove and re-add");
-        assertEquals("facelets created child", page.findElement(By.id("form:outputText")).getText(),
-                "child after remove and re-add");
+        assertEquals(
+            "facelets created child", page.findElement(By.id("form:outputText")).getText(),
+            "child after remove and re-add"
+        );
 
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
 
         assertEquals("0", page.findElement(By.id("index")).getText(), "index after a second postback");
-        assertEquals("facelets created child", page.findElement(By.id("form:outputText")).getText(),
-                "child after a second postback");
+        assertEquals(
+            "facelets created child", page.findElement(By.id("form:outputText")).getText(),
+            "child after a second postback"
+        );
     }
+
 }

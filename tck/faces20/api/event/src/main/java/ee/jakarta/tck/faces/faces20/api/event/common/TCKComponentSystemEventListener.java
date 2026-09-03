@@ -21,20 +21,22 @@ import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.event.ComponentSystemEventListener;
 
 public class TCKComponentSystemEventListener
-    implements ComponentSystemEventListener {
+    implements
+        ComponentSystemEventListener {
 
-  private String action = null;
+    private String action = null;
 
-  @Override
-  public void processEvent(ComponentSystemEvent event)
-      throws AbortProcessingException {
-    action = "success";
-    System.out.println("Processed Action");
+    @Override
+    public void processEvent(ComponentSystemEvent event)
+        throws AbortProcessingException
+    {
+        action = "success";
+        System.out.println("Processed Action");
 
-  }
+    }
 
-  public String getActionString() {
-    return action;
-  }
+    public String getActionString() {
+        return action;
+    }
 
 }

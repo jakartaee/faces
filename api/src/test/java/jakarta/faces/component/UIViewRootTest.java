@@ -33,9 +33,8 @@ import org.mockito.Mockito;
 public class UIViewRootTest {
 
     /**
-     * A locale string must resolve to the same locale on every server. Under a Turkish or Azeri default locale
-     * {@code I} lowercases to dotless {@code i} (U+0131), which would turn a language such as {@code IT} into
-     * {@code ıt}.
+     * A locale string must resolve to the same locale on every server. Under a Turkish or Azeri default locale {@code I} lowercases to dotless {@code i}
+     * (U+0131), which would turn a language such as {@code IT} into {@code ıt}.
      */
     @Test
     public void testGetLocaleFromStringIsIndependentOfDefaultLocale() {
@@ -55,7 +54,8 @@ public class UIViewRootTest {
                 assertEquals("fi", localeOf(facesContext, "FI").getLanguage(), locale.toString());
                 assertEquals("it", localeOf(facesContext, "it").getLanguage(), locale.toString());
             }
-        } finally {
+        }
+        finally {
             Locale.setDefault(defaultLocale);
             CurrentFacesContext.set(null);
         }

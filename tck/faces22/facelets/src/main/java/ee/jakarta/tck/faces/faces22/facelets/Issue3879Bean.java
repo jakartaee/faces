@@ -44,4 +44,5 @@ public class Issue3879Bean {
     public void dummy() {
         // No-op action triggering an unrelated postback.
     }
+
 }

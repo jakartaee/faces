@@ -29,13 +29,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1385IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see Flash
      * @see https://github.com/jakartaee/faces/issues/1385
-   */
-  @Test
-  void injectFlash() throws Exception {
+     */
+    @Test
+    void injectFlash() throws Exception {
 
         // Renders nothing of interest, should cause cookie to be set
         getPage("spec1385.xhtml?setFlash=true");

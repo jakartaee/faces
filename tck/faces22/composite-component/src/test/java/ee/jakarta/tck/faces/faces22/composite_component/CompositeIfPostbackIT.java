@@ -26,15 +26,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A {@code c:if} inside a composite component follows a test over that component's own attributes on every postback,
- * as one over any other expression does. The subtree it builds must appear on the very postback whose action made the
- * test hold, and disappear on the one that made it stop holding.
+ * A {@code c:if} inside a composite component follows a test over that component's own attributes on every postback, as one over any other expression does. The
+ * subtree it builds must appear on the very postback whose action made the test hold, and disappear on the one that made it stop holding.
  */
 class CompositeIfPostbackIT extends BaseITNG {
 
     /**
-     * The action fills the list the composite component attribute resolves to, so the subtree the {@code c:if} guards
-     * must be built into the response of that same postback.
+     * The action fills the list the composite component attribute resolves to, so the subtree the {@code c:if} guards must be built into the response of that
+     * same postback.
      *
      * @see jakarta.faces.component.UIComponent#getCurrentCompositeComponent(jakarta.faces.context.FacesContext)
      */
@@ -48,8 +47,8 @@ class CompositeIfPostbackIT extends BaseITNG {
     }
 
     /**
-     * Building the view from scratch with the list already filled must build that same subtree, which is what tells a
-     * failure of the postback tests apart from a composite component that does not render at all.
+     * Building the view from scratch with the list already filled must build that same subtree, which is what tells a failure of the postback tests apart from
+     * a composite component that does not render at all.
      */
     @Test
     void conditionalOnCompositeAttributeIsBuiltOnAGetWithAFilledList() {
@@ -76,8 +75,7 @@ class CompositeIfPostbackIT extends BaseITNG {
     }
 
     /**
-     * The page with the list emptied by an action rather than by its initial value, so the outcome does not depend on
-     * what an earlier test left in the session.
+     * The page with the list emptied by an action rather than by its initial value, so the outcome does not depend on what an earlier test left in the session.
      */
     private WebPage emptied() {
         WebPage page = getPage("composite-if-postback.xhtml");
@@ -85,4 +83,5 @@ class CompositeIfPostbackIT extends BaseITNG {
         assertTrue(page.findElements(By.id("form:panel:conditional")).isEmpty(), "nothing is built for an empty list");
         return page;
     }
+
 }

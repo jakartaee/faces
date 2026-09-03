@@ -108,4 +108,5 @@ class ShortConverterTest {
         FacesContext facesContext = Mockito.mock(FacesContext.class);
         assertEquals("123", converter.getAsString(facesContext, new UIPanel(), Short.valueOf("123")));
     }
+
 }

@@ -27,13 +27,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Drives the nested-iteration per-row-state scenarios over {@code NestedIterationBean}'s 2x3 matrix:
- * every cell is filled with a distinct value and must round-trip its own value across postbacks.
+ * Drives the nested-iteration per-row-state scenarios over {@code NestedIterationBean}'s 2x3 matrix: every cell is filled with a distinct value and must
+ * round-trip its own value across postbacks.
  *
- * <p>The form placement determines how many cells one postback carries, so cells are submitted in
- * groups keyed by {@link #submitId(int, int)}. After each submit the entire matrix is asserted
- * against the values submitted so far, which catches both cross-row leakage and state that survives
- * only a single postback. A second round with different values repeats the exercise.
+ * <p>
+ * The form placement determines how many cells one postback carries, so cells are submitted in groups keyed by {@link #submitId(int, int)}. After each submit
+ * the entire matrix is asserted against the values submitted so far, which catches both cross-row leakage and state that survives only a single postback. A
+ * second round with different values repeats the exercise.
  */
 abstract class NestedIterationITBase extends BaseITNG {
 
@@ -60,9 +60,8 @@ abstract class NestedIterationITBase extends BaseITNG {
     protected abstract String submitId(int outer, int inner);
 
     /**
-     * Every cell must render under its own client ID. An iterator which does not reset the client IDs of
-     * its descendants when the row index changes renders each row with row 0's IDs, so the page carries
-     * one ID many times over and a lookup by ID can only ever reach the first row.
+     * Every cell must render under its own client ID. An iterator which does not reset the client IDs of its descendants when the row index changes renders
+     * each row with row 0's IDs, so the page carries one ID many times over and a lookup by ID can only ever reach the first row.
      *
      * @see jakarta.faces.component.UIData#setRowIndex(int)
      */
@@ -73,8 +72,10 @@ abstract class NestedIterationITBase extends BaseITNG {
         for (int outer = 0; outer < OUTER_SIZE; outer++) {
             for (int inner = 0; inner < INNER_SIZE; inner++) {
                 String inputId = inputId(outer, inner);
-                assertEquals(1, page.findElements(By.id(inputId)).size(),
-                        "number of elements with ID " + inputId);
+                assertEquals(
+                    1, page.findElements(By.id(inputId)).size(),
+                    "number of elements with ID " + inputId
+                );
             }
         }
     }
@@ -123,10 +124,13 @@ abstract class NestedIterationITBase extends BaseITNG {
         for (int outer = 0; outer < OUTER_SIZE; outer++) {
             for (int inner = 0; inner < INNER_SIZE; inner++) {
                 String value = expected[outer][inner] == null ? "" : expected[outer][inner];
-                assertEquals(value,
-                        page.findElement(By.id(inputId(outer, inner))).getAttribute("value"),
-                        "cell (" + outer + ", " + inner + ")");
+                assertEquals(
+                    value,
+                    page.findElement(By.id(inputId(outer, inner))).getAttribute("value"),
+                    "cell (" + outer + ", " + inner + ")"
+                );
             }
         }
     }
+
 }

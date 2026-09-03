@@ -42,7 +42,7 @@
 
         </div>
 
-    
+
     ]]></description>
     <namespace>jakarta.faces</namespace>
     <tag>
@@ -62,7 +62,7 @@
      <code>getEventNames()</code> method must include the "on*"
      attributes below, ommitting the leading "on".</p>
 
-        
+
         ]]></description>
         <tag-name>element</tag-name>
         <component>
@@ -77,7 +77,7 @@
          attributes map under the key given by the value of the symbolic
          constant
          <code>jakarta.faces.render.Renderer.PASSTHROUGH_RENDERER_LOCALNAME_KEY</code>.</p>
-          
+
             ]]></description>
             <name>elementName</name>
             <required>true</required>
@@ -89,12 +89,12 @@
           Javascript code executed when a pointer button is
           clicked over this element.
         ]]></description>
-        
-        
+
+
         <name>onclick</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -102,12 +102,12 @@
           Javascript code executed when a pointer button is
           double clicked over this element.
         ]]></description>
-        
-        
+
+
         <name>ondblclick</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -115,12 +115,12 @@
           Javascript code executed when a pointer button is
           pressed down over this element.
         ]]></description>
-        
-        
+
+
         <name>onmousedown</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -128,12 +128,12 @@
           Javascript code executed when a pointer button is
           released over this element.
         ]]></description>
-        
-        
+
+
         <name>onmouseup</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -141,12 +141,12 @@
           Javascript code executed when a pointer button is
           moved onto this element.
         ]]></description>
-        
-        
+
+
         <name>onmouseover</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -154,12 +154,12 @@
           Javascript code executed when a pointer button is
           moved within this element.
         ]]></description>
-        
-        
+
+
         <name>onmousemove</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -167,12 +167,12 @@
           Javascript code executed when a pointer button is
           moved away from this element.
         ]]></description>
-        
-        
+
+
         <name>onmouseout</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -180,12 +180,12 @@
           Javascript code executed when a key is
           pressed and released over this element.
         ]]></description>
-        
-        
+
+
         <name>onkeypress</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -193,12 +193,12 @@
           Javascript code executed when a key is
           pressed down over this element.
         ]]></description>
-        
-        
+
+
         <name>onkeydown</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
     <attribute>
@@ -206,15 +206,15 @@
           Javascript code executed when a key is
           released over this element.
         ]]></description>
-        
-        
+
+
         <name>onkeyup</name>
         <required>false</required>
         <type>java.lang.String</type>
-        
+
     </attribute>
 
-        
+
     </tag>
 
 

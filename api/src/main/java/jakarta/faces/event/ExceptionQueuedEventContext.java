@@ -25,9 +25,9 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * This helper class provides context to the {@link ExceptionQueuedEvent} regarding the state of the system at the point
- * in time when the <code>ExceptionQueuedEvent</code> occurs and links the <code>ExceptionQueuedEvent</code> to the
- * {@link jakarta.faces.context.ExceptionHandler} by virtue of implementing {@link SystemEventListener}.
+ * This helper class provides context to the {@link ExceptionQueuedEvent} regarding the state of the system at the point in time when the
+ * <code>ExceptionQueuedEvent</code> occurs and links the <code>ExceptionQueuedEvent</code> to the {@link jakarta.faces.context.ExceptionHandler} by virtue of
+ * implementing {@link SystemEventListener}.
  * </p>
  *
  * @since 2.0
@@ -37,16 +37,16 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * The presence of an entry under this key in the <code>Map</code> returned from {@link #getAttributes} indicates the
-     * event occurred during the &#8220;before phase&#8221; part of the current lifecycle phase.
+     * The presence of an entry under this key in the <code>Map</code> returned from {@link #getAttributes} indicates the event occurred during the
+     * &#8220;before phase&#8221; part of the current lifecycle phase.
      * </p>
      */
     public static final String IN_BEFORE_PHASE_KEY = ExceptionQueuedEventContext.class.getName() + ".IN_BEFORE_PHASE";
 
     /**
      * <p class="changed_added_2_0">
-     * The presence of an entry under this key in the <code>Map</code> returned from {@link #getAttributes} indicates the
-     * event occurred during the &#8220;after phase&#8221; part of the current lifecycle phase.
+     * The presence of an entry under this key in the <code>Map</code> returned from {@link #getAttributes} indicates the event occurred during the &#8220;after
+     * phase&#8221; part of the current lifecycle phase.
      * </p>
      */
     public static final String IN_AFTER_PHASE_KEY = ExceptionQueuedEventContext.class.getName() + ".IN_AFTER_PHASE";
@@ -62,13 +62,11 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>ExceptionQueuedEventContext</code> that indicates the argument <code>Throwable</code> just
-     * occurred.
+     * Instantiate a new <code>ExceptionQueuedEventContext</code> that indicates the argument <code>Throwable</code> just occurred.
      * </p>
      *
      * @param context {@link FacesContext} for the current request
-     * @param thrown the <code>Throwable</code> that is the context for this <code>ExceptionQueuedEventContext</code>
-     * instance.
+     * @param thrown the <code>Throwable</code> that is the context for this <code>ExceptionQueuedEventContext</code> instance.
      */
     public ExceptionQueuedEventContext(FacesContext context, Throwable thrown) {
 
@@ -78,12 +76,11 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>ExceptionQueuedEventContext</code> that indicates the argument <code>Throwable</code> just
-     * occurred, relevant to the argument <code>component</code>.
+     * Instantiate a new <code>ExceptionQueuedEventContext</code> that indicates the argument <code>Throwable</code> just occurred, relevant to the argument
+     * <code>component</code>.
      *
      * @param context {@link FacesContext} for the current request
-     * @param thrown the <code>Throwable</code> that is the context for this <code>ExceptionQueuedEventContext</code>
-     * instance.
+     * @param thrown the <code>Throwable</code> that is the context for this <code>ExceptionQueuedEventContext</code> instance.
      * @param component the {@link UIComponent} instance to which this <code>ExceptionQueuedEventContext</code> pertains
      *
      */
@@ -95,14 +92,13 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>ExceptionQueuedEventContext</code> that indicates the argument <code>Throwable</code> just
-     * occurred, relevant to the argument <code>component</code>, during the lifecycle phase <code>phaseId</code>.
+     * Instantiate a new <code>ExceptionQueuedEventContext</code> that indicates the argument <code>Throwable</code> just occurred, relevant to the argument
+     * <code>component</code>, during the lifecycle phase <code>phaseId</code>.
      * </p>
      *
      * @param context {@link FacesContext} for the current request
      *
-     * @param thrown the <code>Throwable</code> that is the context for this <code>ExceptionQueuedEventContext</code>
-     * instance.
+     * @param thrown the <code>Throwable</code> that is the context for this <code>ExceptionQueuedEventContext</code> instance.
      *
      * @param component the <code>UIComponent</code> that is relevant to the context.
      *
@@ -147,8 +143,7 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the <code>UIComponent</code> which was being processed when the exception was thrown. If none or not
-     * available, this will be <code>null</code>.
+     * Return the <code>UIComponent</code> which was being processed when the exception was thrown. If none or not available, this will be <code>null</code>.
      * </p>
      *
      * @return the component
@@ -161,8 +156,7 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the <code>PhaseId</code> which was being processed when the exception was thrown. If none or not available,
-     * this will be <code>null</code>.
+     * Return the <code>PhaseId</code> which was being processed when the exception was thrown. If none or not available, this will be <code>null</code>.
      * </p>
      *
      * @return the phase id
@@ -174,8 +168,7 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
     }
 
     /**
-     * @return <code>true</code> if the exception occurred during the <code>before phase</code> processing for a particular
-     * lifecycle phase
+     * @return <code>true</code> if the exception occurred during the <code>before phase</code> processing for a particular lifecycle phase
      */
     public boolean inBeforePhase() {
 
@@ -184,8 +177,7 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
     }
 
     /**
-     * @return <code>true</code> if the exception occurred during the <code>after phase</code> processing for a particular
-     * lifecycle phase
+     * @return <code>true</code> if the exception occurred during the <code>after phase</code> processing for a particular lifecycle phase
      */
     public boolean inAfterPhase() {
 
@@ -211,8 +203,7 @@ public class ExceptionQueuedEventContext implements SystemEventListenerHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Return a <code>List</code> that contains a single entry, the {@link jakarta.faces.context.ExceptionHandler} for the
-     * current request.
+     * Return a <code>List</code> that contains a single entry, the {@link jakarta.faces.context.ExceptionHandler} for the current request.
      * </p>
      */
     @Override

@@ -78,8 +78,7 @@ public class ViewExpiredException extends FacesException {
 
     /**
      * <p>
-     * Construct a new exception with the specified root cause. The detail message will be set to
-     * <code>(cause == null ? null :
+     * Construct a new exception with the specified root cause. The detail message will be set to <code>(cause == null ? null :
      * cause.toString()</code>
      *
      * @param cause The root cause for this exception
@@ -119,8 +118,7 @@ public class ViewExpiredException extends FacesException {
 
     /**
      * <p>
-     * Return the message for this exception prepended with the view identifier if the view identifier is not
-     * <code>null</code>, otherwise, return the message.
+     * Return the message for this exception prepended with the view identifier if the view identifier is not <code>null</code>, otherwise, return the message.
      * </p>
      *
      * @return the message.

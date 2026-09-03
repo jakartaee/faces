@@ -33,4 +33,5 @@ public class DisableBeanValidatorBean {
     public void setInput(UIInput input) {
         this.input = input;
     }
+
 }

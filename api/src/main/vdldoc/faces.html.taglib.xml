@@ -45,7 +45,7 @@
             method of the <code>ExternalContext</code>.  The name of the <code>UIParameter</code> goes on the
             left hand side, and the value of the <code>UIParameter</code> on the right hand side.  The name
             and the value must be URLEncoded.  Each <code>UIParameter</code> instance is separeted by an
-            ampersand, as dictated in the URL spec.  <span class="changed_modified_5_0">The final encoded result will be used to register a click event listener on the button via 
+            ampersand, as dictated in the URL spec.  <span class="changed_modified_5_0">The final encoded result will be used to register a click event listener on the button via
             <code>Element.addEventListener</code>, which will execute <code>window.location.href = '&lt;encoded HREF value&gt;'</code>.</span>
             If the developer has specified a custom onclick the window.location.href name/value
             pair will be appended at the end of the developer specified script.
@@ -90,7 +90,7 @@
                 space-separated tokens representing the various WAI-ARIA roles
                 that the element belongs to.
                 </p>
-                
+
                 <p class="changed_added_2_2">It is the page author's
                 responsibility to ensure that the user agent is capable of
                 correctly interpreting the value of this attribute.</p>]]>
@@ -591,7 +591,7 @@
                 space-separated tokens representing the various WAI-ARIA roles
                 that the element belongs to.
                 </p>
-                
+
                 <p class="changed_added_2_2">It is the page author's
                 responsibility to ensure that the user agent is capable of
                 correctly interpreting the value of this attribute.</p>]]>
@@ -1720,7 +1720,7 @@
                 space-separated tokens representing the various WAI-ARIA roles
                 that the element belongs to.
                 </p>
-                
+
                 <p class="changed_added_2_2">It is the page author's
                 responsibility to ensure that the user agent is capable of
                 correctly interpreting the value of this attribute.</p>]]>
@@ -2214,7 +2214,7 @@
                 space-separated tokens representing the various WAI-ARIA roles
                 that the element belongs to.
                 </p>
-                
+
                 <p class="changed_added_2_2">It is the page author's
                 responsibility to ensure that the user agent is capable of
                 correctly interpreting the value of this attribute.</p>]]>
@@ -2580,10 +2580,10 @@
                 <p>
                     Render an HTML <code>script</code> element. If the value of the "name" attribute does not contain a
                     period <code>.</code> indicating a namespaced function name, then render JavaScript <code>var</code>
-                    keyword, followed by a space character. Render the value of the "name" attribute, followed by 
+                    keyword, followed by a space character. Render the value of the "name" attribute, followed by
                     JavaScript assignment operator. Render JavaScript function which invokes <code>faces.ajax.request()</code>
                     with data provided by <code>execute</code>, <code>render</code>, <code>onbegin</code>,
-                    <code>oncomplete</code>, <code>onsuccess</code> and <code>onerror</code> arguments, if any. 
+                    <code>oncomplete</code>, <code>onsuccess</code> and <code>onerror</code> arguments, if any.
                 </p>
                 <p>
                     If the component being rendered has any <code>UIParameter</code> children, each one of them must be
@@ -2670,7 +2670,7 @@
                 that will participate in the "execute" portion of the Request Processing Lifecycle.
                 If a literal is specified the identifiers must be space delimited.
                 Any of the keywords "@this", "@form", "@all", "@none" may be specified in the identifier list.
-                If not specified, the default value of "@this" is assumed. 
+                If not specified, the default value of "@this" is assumed.
                 For example, <code>@this clientIdOne clientIdTwo</code>.
             ]]></description>
             <name>execute</name>
@@ -6847,32 +6847,32 @@
     <tag>
         <description>
             <![CDATA[<div class="changed_added_2_0">
-            
+
             <p>Render the markup for a <code>&lt;link&gt;</code> element that
             renders the style <code>Resource</code> specified by the optional
             <code>name</code> and <code>library</code> attributes.</p>
-            
+
             <p>Decode Behavior</p>
-            
+
             <ul>
-            
+
             <p>No action is required during decode for this renderer.</p>
-            
+
             </ul>
-            
+
             <p>Encode Behavior</p>
-            
+
             <ul>
-            
+
             <p>Use the algorithm <em>Common Encode Behavior</em> for
             <code>encodeBegin()</code>, <code>encodeChildren()</code> and
             <code>getRendersChildren()</code>.</p>
-            
+
             <p>For <code>encodeEnd()</code>, use the algorithm <a
             href="jakarta.faces.Outputjakarta.faces.resource.Script.html#ResourceCommonGetResource">Common
             Algorithm for Obtaining A Resource to Render</a> to obtain a
             reference to the <code>Resource</code> to be encoded.</p>
-            
+
             <p>Output a <code>&lt;link&gt;</code> element.  Use the result from
             calling <code>resource.getRequestPath()</code> as the value of the
             "href" attribute. Use the result from calling
@@ -6881,7 +6881,7 @@
             Use the literal string "stylesheet" as the value of the "rel"
             attribute, and the literal string "screen" as the value of the "media"
             attribute.</p>
-            
+
             <p>The implementation of this renderer must have a <a target="_"
             href="../../javadocs/jakarta/faces/event/ListenerFor.html"><code>@ListenerFor</code></a>
             annotation attached to it, at the class level, declaring <a target="_"
@@ -6894,10 +6894,10 @@
             from the argument event pass it to <a target="_"
             href="../../javadocs/jakarta/faces/component/UIViewRoot.html#addComponentResource(jakarta.faces.context.FacesContext,%20jakarta.faces.component.UIComponent,%20java.lang.String)"><code>UIViewRoot.addComponentResource()</code></a>, specifying
             the literal string "<code>head</code>" as the last argument.</p>
-            
+
             <p>The stylsheet renderer must ensure that any stylesheets are included in the &lt;head&gt; of the document.
             </p>
-            
+
             </div>]]>
         </description>
         <tag-name>outputStylesheet</tag-name>
@@ -7193,11 +7193,11 @@
     <tag>
         <description>
             <![CDATA[<div class="changed_added_2_0">
-            
+
             <p>Render the markup for a <code>&lt;script&gt;</code> element that
             renders the script <code>Resource</code> specified by the optional
             <code>name</code> attribute and <code>library</code> attributes.</p>
-            
+
             <p>The implementation of this renderer must have a <a target="_"
             href="../../javadocs/jakarta/faces/event/ListenerFor.html"><code>@ListenerFor</code></a>
             annotation attached to it, at the class level, declaring <a target="_"
@@ -7213,63 +7213,63 @@
             and only if such a key is present, the implementation of
             <code>processEvent()</code> must pass the component to <a target="_"
             href="../../javadocs/jakarta/faces/component/UIViewRoot.html#addComponentResource(jakarta.faces.context.FacesContext,%20jakarta.faces.component.UIComponent)"><code>UIViewRoot.addComponentResource()</code></a>.</p>
-            
+
             <p>Decode Behavior</p>
-            
+
             <ul>
-            
+
             <p>No action is required during decode for this renderer.</p>
-            
+
             </ul>
-            
+
             <p>Encode Behavior</p>
-            
+
             <ul>
-            
+
             <p><a name="ResourceCommonGetResource">Common Algorithm for Obtaining A Resource to Render</a></p>
-            
+
             <ul>
-            
+
             <p>This algorithm is used by all resource renderers to obtain
             a <code>Resource</code> instance which is then rendered in a
             specific way depending on what kind of renderer is doing the
             encoding.</p>
-            
+
             <ul>
-            
+
             <li><p>Look in the component attribute <code>Map</code> for a
             value under the key <em>name</em>.</p></li>
-            
+
             <li><p>Look in the component attribute <code>Map</code> for a
             value under the key <em>library</em>.  This attribute is
             optional, therefore, <em>library</em> may be
             <code>null</code>.</p></li>
-            
+
             <li><p>Create the resource by calling
             <code>Application.getResourceHandler.createResource(<em>name</em>,
             <em>library</em>);</code>.</p></li>
-            
+
             </p></li>
-            
+
             </ul>
-            
+
             </ul>
-            
+
             <p><a name="ResourceCommonEncode">Common Encode Behavior</a></p>
-            
+
             <ul>
-            
+
             <p>This algorithm is used by all resource renderers to render the
             resource.</p>
-            
+
             <p><code>encodeBegin()</code> must take no action.</p>
-            
+
             <p>Because this renderer returns <code>true</code> from
             <code>getRendersChildren()</code>, the <code>encodeChildren()
             method must take the following action.</code></p>
-            
+
             <ul>
-            
+
             <li><p>If there is no <em>name</em> attribute, and the
             argument <code>component</code> has no children, and
             <code>ProjectStage</code> is not
@@ -7280,55 +7280,55 @@
             should take action to correct this problem.  In this case,
             <code>encodeChildren()</code> must take no further
             action.</p></li>
-            
+
             <li><p>If there is no <em>name</em> attribute and the argument
             <code>component</code> <b>does</b> have children, the renderer
             must ensure that those children are encoded as usual.</p></li>
-            
+
             <li><p>If there <b>is</b> a <em>name</em> attribute and the
             argument <code>component</code> <b>does</b> have children, the
             renderer must log a descriptive localized message stating that
             the child content will be ignored.  The resource referenced by
             the <em>name</em> attribute will be rendered in
             <code>encodeEnd()</code>.</p></li>
-            
+
             <li><p>If there <b>is</b> a <em>name attribute</em> and the
             argument <code>component</code> <b>does not</b> have children,
             <code>encodeChildren()</code> must take no action.</p></li>
-            
+
             </ul>
-            
+
             <p><code>encodeEnd()</code> must take specific action based on
             the specific kind of resource being rendered.</p>
-            
+
             </ul>
-            
+
             <p>Use the algorithm <em>Common Encode Behavior</em> for
             <code>encodeBegin()</code>, <code>encodeChildren()</code> and
             <code>getRendersChildren()</code>.</p>
-            
+
             <p>For <code>encodeEnd()</code>, use the algorithm <em>Common
             Algorithm for Obtaining A Resource to Render</em> above to
             obtain a reference to the <code>Resource</code> to be
             encoded.</p>
-            
+
             <p>If this is NOT the first time this <code>Resource</code> has
             been referenced on this request take no action and return.</p>
-            
+
             <p>Render a script element.  Use the result from calling
             <code>resource.getRequestPath()</code> as the value of the "src"
             attribue. Use the result from calling
             <code>resource.getContentType()</code> as the value of the "type"
             attribute<span class="changed_modified_4_0">, unless the value equals <code>text/javascript</code> and the current doctype is a HTML5 doctype</span>.</p>
-            
+
             </p>
-            
-            
-            
+
+
+
             </ul>
-            
-            
-            
+
+
+
             </div>]]>
         </description>
         <tag-name>outputScript</tag-name>
@@ -8698,7 +8698,7 @@
             <description>
                 Width (in pixels) of the border to be drawn
                 around the table containing the options list.
-                &lt;p class="changed_added_4_0"&gt;This attribute is ignored when the "layout" attribute equals to "list".&lt;span&gt; 
+                &lt;p class="changed_added_4_0"&gt;This attribute is ignored when the "layout" attribute equals to "list".&lt;span&gt;
             </description>
             <name>border</name>
             <required>false</required>
@@ -10979,7 +10979,7 @@
                             </ul>
                         </li>
                         <li>Render the input value from <code>SelectItem.getValue()</code>.</li>
-                        <li>Coerce the select item value to the type of the parent <code>UISelectOne</code> value using the Expression Language coercion rules before comparing the values. 
+                        <li>Coerce the select item value to the type of the parent <code>UISelectOne</code> value using the Expression Language coercion rules before comparing the values.
                             If the select item value is equal to the value of the parent <code>UISelectOne</code>, render an appropriate HTML boolean value indicating "checked" for the enclosing "input".</li>
                         <li>If the current <code>SelectItem.isDisabled()</code> returns true, render "disabled" as the value of the "disabled" attribute.</li>
                         <li>Close out the "input" element.</li>
@@ -11531,13 +11531,13 @@
             Portlet implementations must override this implementation with a
             semantically equivalent one that functions under the constraints
             of the Portlet specification.</p>
-            
+
             <div class="changed_added_2_2">
-            
+
             <p><a name="decode">Decode Behavior</a></p>
-            
+
             <ul>
-            
+
             <p>Obtain the <code>Map</code> from the "requestParameterMap"
             property of the <code>ExternalContext</code>.  If the
             <code>Map</code> contains an entry for the "clientId" of the
@@ -11556,7 +11556,7 @@
             <code>setSubmittedValue()</code> method of the component.  If an
             exception is thrown during the iteration, log the exception and
             continue.</p>
-            
+
             <p>The standard implementation must override the
             <code>getConvertedValue()</code> so that it <span class="changed_modified_4_0">filters out from the
             <code>submittedValue</code> any parts which return
@@ -11566,18 +11566,18 @@
             <p>Any exception thrown when interacting with the underlying
             multi-part API must be wrapped in a <code>FacesException</code>
             and allowed to reach the <code>ExceptionHandler</code>.</p>
-            
+
             </ul>
-            
+
             <p>Encode Behavior</p>
-            
+
             <ul>
-            
+
             <p> Render the clientId of the component as the value of the
             "name" attribute.  Do not render the "value" attribute.  If the
             "styleClass" attribute is specified, render its value as the value
             of the "class" attribute.  </p>
-            
+
             <p>If <code>ProjectStage</code> is not
             <code>ProjectStage.Production</code>, verify that the enclosing
             form has an <code>enctype</code> attribute whose value is
@@ -11588,9 +11588,9 @@
             <code>multipart/form-data</code>.  If <code>ProjectStage</code>
             <strong>is</strong> <code>ProjectStage.Production</code>, do not
             do this verification.</p>
-            
+
             </ul>
-            
+
             </div>]]>
         </description>
         <tag-name>inputFile</tag-name>
@@ -11693,7 +11693,7 @@
         <attribute>
             <description>
                 <![CDATA[<p>
-                
+
                 MethodExpression representing a value change listener method
                 that will be notified when a new value has been set for this
                 input component.  The expression must evaluate to a public
@@ -11704,7 +11704,7 @@
                 knowing what the new value is, but this can be useful in cases
                 where a notification is needed that "this value
                 changed".</span>
-                
+
                 </p>]]>
             </description>
             <name>valueChangeListener</name>
@@ -11916,7 +11916,7 @@
                 space-separated tokens representing the various WAI-ARIA roles
                 that the element belongs to.
                 </p>
-                
+
                 <p class="changed_added_2_2">It is the page author's
                 responsibility to ensure that the user agent is capable of
                 correctly interpreting the value of this attribute.</p>]]>
@@ -11975,20 +11975,20 @@
     <tag>
         <description>
             <![CDATA[<div class="changed_added_2_1">
-            
+
             <p><span class="changed_added_2_1 changed_modified_2_2">Render</span> the markup for
             a <code>&lt;!DOCTYPE&gt;</code> declaration.</p>
-            
+
             <p>Decode Behavior</p>
-            
+
             <ul>
-            
+
             <p>No action is required during decode for this renderer.</p>
-            
+
             </ul>
-            
+
             <p>Encode Behavior</p>
-            
+
             <p>Output an XML Doctype using the provided attributes.  Output the
             literal text <code>&lt;!DOCTYPE</code>. The "rootElement" attribute is
             required and must be rendered next.  If the "public" attribute is
@@ -11998,9 +11998,9 @@
             <code>SYSTEM</code> when the "public" attribute is not defined, then render
             the value of the "system" attribute inside double quotes.</span>  Close the
             doctype declaration with the literal text <code>&gt;</code>.</p>
-            
+
             <div class="changed_added_2_2">
-            
+
             <p>No relocation occurs with the output of this component. It is
             rendered at whatever position in the view hierarchy it happens to be
             encountered when traversing the view to render. Therefore, this
@@ -12010,14 +12010,14 @@
             this means in front of the &lt;html&gt; or &lt;h:html&gt; element.
             Furthermore, if multiple &lt;h:doctype&gt; components exist,
             <strong>all</strong> of them will be rendered.</p>
-            
+
             <p>If this component is present in a view, any DOCTYPE that would
             otherwise have been rendered by virtue of being present in the VDL page
             must be ignored.</p>
-            
+
             </div>
-            
-            
+
+
             </div>]]>
         </description>
         <tag-name>doctype</tag-name>

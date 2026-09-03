@@ -15,28 +15,31 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlselectonemenu;
 
-import ee.jakarta.tck.faces.faces20.api.component.uiselectone.UISelectOneTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlSelectOneMenu;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uiselectone.UISelectOneTestServlet;
+
 @WebServlet("/HtmlSelectOneMenuTestServlet")
 public final class HtmlSelectOneMenuTestServlet extends UISelectOneTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title", "disabled", "readonly", "enabledClass", "disabledClass" };
+    private static final String[] attrNames = { "accesskey", "dir", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress",
+        "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "style", "styleClass", "tabindex", "title", "disabled", "readonly",
+        "enabledClass", "disabledClass" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Menu");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Menu");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlSelectOneMenu();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlSelectOneMenu();
+    }
+
 }

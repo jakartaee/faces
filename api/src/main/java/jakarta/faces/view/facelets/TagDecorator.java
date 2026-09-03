@@ -19,15 +19,14 @@ package jakarta.faces.view.facelets;
 
 /**
  * <p>
- * <span class="changed_modified_2_2 changed_modified_2_3">Provides</span> the ability to completely change the Tag
- * before it's processed for compiling with the associated {@link TagHandler}.
+ * <span class="changed_modified_2_2 changed_modified_2_3">Provides</span> the ability to completely change the Tag before it's processed for compiling with the
+ * associated {@link TagHandler}.
  * </p>
  *
  * <div class="changed_added_2_2">
  *
  * <p>
- * The runtime must provide a default implementation of this interface that performs the following actions in its
- * {@link #decorate} method.
+ * The runtime must provide a default implementation of this interface that performs the following actions in its {@link #decorate} method.
  * </p>
  *
  * <ul>
@@ -35,35 +34,32 @@ package jakarta.faces.view.facelets;
  * <li>
  * <p>
  * Inspect the attributes of the {@code tag} argument. If none of the attributes are declared to be in the {@code
- * jakarta.faces} namespace, iterate through the list of {@code TagDecorator} instances created from the
- * values in the {@link jakarta.faces.application.ViewHandler#FACELETS_DECORATORS_PARAM_NAME} {@code context-param}, if
- * any. For each entry, call its {@link #decorate} method, passing the argument {@code tag}. The first such entry that
- * returns non-{@code null} from its {@link #decorate} method must cause the iteration to stop.
+ * jakarta.faces} namespace, iterate through the list of {@code TagDecorator} instances created from the values in the
+ * {@link jakarta.faces.application.ViewHandler#FACELETS_DECORATORS_PARAM_NAME} {@code context-param}, if any. For each entry, call its {@link #decorate}
+ * method, passing the argument {@code tag}. The first such entry that returns non-{@code null} from its {@link #decorate} method must cause the iteration to
+ * stop.
  * </p>
  * </li>
  *
  * <li>
  * <p>
- * If one or more of the attributes of the {@code tag} argument are in the {@code jakarta.faces} namespace,
- * obtain a reference to <strong>decoratedTag</strong> as described in the following steps and iterate through the list
- * of {@link TagDecorator} instances as described in the preceding step, but pass <strong>decoratedTag</strong> to each
- * call to {@link #decorate}.
+ * If one or more of the attributes of the {@code tag} argument are in the {@code jakarta.faces} namespace, obtain a reference to <strong>decoratedTag</strong>
+ * as described in the following steps and iterate through the list of {@link TagDecorator} instances as described in the preceding step, but pass
+ * <strong>decoratedTag</strong> to each call to {@link #decorate}.
  * </p>
  *
  * <ul>
  *
  * <li>
  * <p>
- * If the namespace of the tag is any namespace other than the empty string or {@code http://www.w3.org/1999/xhtml},
- * throw a {@link FaceletException}.
+ * If the namespace of the tag is any namespace other than the empty string or {@code http://www.w3.org/1999/xhtml}, throw a {@link FaceletException}.
  * </p>
  * </li>
  *
  * <li>
  * <p>
- * Let <strong>localName</strong> be the return from {@link Tag#getLocalName}. Use <strong>localName</strong> to
- * identify an entry in a data structure based on the following table. Once an entry has been identified, let
- * <strong>targetTag</strong> be the value of the "target tag" column for that entry.
+ * Let <strong>localName</strong> be the return from {@link Tag#getLocalName}. Use <strong>localName</strong> to identify an entry in a data structure based on
+ * the following table. Once an entry has been identified, let <strong>targetTag</strong> be the value of the "target tag" column for that entry.
  * </p>
  *
  * <table border="1">
@@ -418,10 +414,9 @@ package jakarta.faces.view.facelets;
  * </table>
  *
  * <p>
- * In the case where there are multiple rows with the same <strong>localName</strong>, find a matching entry by using
- * the argument {@code tag}'s attributes and the value from the "selector attribute" column in the table in the given
- * order. A selector attribute value of <strong>*</strong> indicates any value. In the table, a selector attribute name
- * prefixed with <strong>faces:</strong> means the tag is treated as if it were in the {@code
+ * In the case where there are multiple rows with the same <strong>localName</strong>, find a matching entry by using the argument {@code tag}'s attributes and
+ * the value from the "selector attribute" column in the table in the given order. A selector attribute value of <strong>*</strong> indicates any value. In the
+ * table, a selector attribute name prefixed with <strong>faces:</strong> means the tag is treated as if it were in the {@code
  * jakarta.faces} namespace. In actual Facelet pages, the namespace is what matters, not the prefix.
  * </p>
  *
@@ -434,18 +429,16 @@ package jakarta.faces.view.facelets;
  *
  * <li>
  * <p>
- * Convert all the attributes of the argument {@code tag} as follows. First, create a new instance of
- * {@link TagAttribute} with the following characteristics: location: from the argument {@code
+ * Convert all the attributes of the argument {@code tag} as follows. First, create a new instance of {@link TagAttribute} with the following characteristics:
+ * location: from the argument {@code
  * tag}'s location, namespace: {@code
- * jakarta.faces.passthrough}, local name: value of
- * {@link jakarta.faces.render.Renderer#PASSTHROUGH_RENDERER_LOCALNAME_KEY}, qualified name: same as local name with the
- * "p:" prefix, value: from the argument {@code tag}'s local name. Let this {@code TagAttribute} be
- * <strong>elementNameTagAttribute</strong>.
+ * jakarta.faces.passthrough}, local name: value of {@link jakarta.faces.render.Renderer#PASSTHROUGH_RENDERER_LOCALNAME_KEY}, qualified name: same as local name
+ * with the "p:" prefix, value: from the argument {@code tag}'s local name. Let this {@code TagAttribute} be <strong>elementNameTagAttribute</strong>.
  * </p>
  *
  * <p>
- * For each of argument {@code tag}'s attributes obtain a reference to a {@link TagAttribute} with the following
- * characteristics. For discussion let such an attribute be <strong>convertedTagAttribute</strong>.
+ * For each of argument {@code tag}'s attributes obtain a reference to a {@link TagAttribute} with the following characteristics. For discussion let such an
+ * attribute be <strong>convertedTagAttribute</strong>.
  * </p>
  *
  * <ul>
@@ -459,23 +452,22 @@ package jakarta.faces.view.facelets;
  * <li>
  * <p>
  * If the current attribute's namespace is {@code
- * jakarta.faces}, <strong>convertedTagAttribute</strong>'s qualified name must be the current attribute's
- * local name and <strong>convertedTagAttribute</strong>'s namespace must be the empty string. This will have the effect
- * of setting the current attribute as a proper property on the {@code UIComponent} instance represented by this
- * markup.</li>
+ * jakarta.faces}, <strong>convertedTagAttribute</strong>'s qualified name must be the current attribute's local name and
+ * <strong>convertedTagAttribute</strong>'s namespace must be the empty string. This will have the effect of setting the current attribute as a proper property
+ * on the {@code UIComponent} instance represented by this markup.</li>
  *
  * <li>
  * <p class="changed_modified_2_3">
- * If the current attribute's namespace is non-empty and different from the argument {@code tag}'s namespace, let the
- * current attribute be <strong>convertedTagAttribute</strong>.
+ * If the current attribute's namespace is non-empty and different from the argument {@code tag}'s namespace, let the current attribute be
+ * <strong>convertedTagAttribute</strong>.
  * </p>
  * </li>
  *
  * <li>
  * <p>
  * Otherwise, assume the current attribute's namespace is {@code
- * jakarta.faces.passthrough}. <strong>ConvertedTagAttribute</strong>'s qualified name is the current
- * attribute's local name prefixed by "p:". <strong>convertedTagAttribute</strong>'s namespace must be {@code
+ * jakarta.faces.passthrough}. <strong>ConvertedTagAttribute</strong>'s qualified name is the current attribute's local name prefixed by "p:".
+ * <strong>convertedTagAttribute</strong>'s namespace must be {@code
  * jakarta.faces.passthrough}.
  * </p>
  * </li>
@@ -483,8 +475,7 @@ package jakarta.faces.view.facelets;
  * </ul>
  *
  * <p>
- * Create a {@link TagAttributes} instance containing <strong>elementNameTagAttribute</strong> and all the
- * <strong>convertedTagAttribute</strong>s.
+ * Create a {@link TagAttributes} instance containing <strong>elementNameTagAttribute</strong> and all the <strong>convertedTagAttribute</strong>s.
  * </p>
  *
  * </li>
@@ -522,9 +513,8 @@ package jakarta.faces.view.facelets;
  * </ul>
  *
  * <p>
- * The {@link Tag} instance returned from this decoration process must ultimately be passed to a {@link FaceletHandler}
- * instance as described in 
- * the Jakarta Faces Specification Document section 10.2.1 "Specification of the ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces".
+ * The {@link Tag} instance returned from this decoration process must ultimately be passed to a {@link FaceletHandler} instance as described in the Jakarta
+ * Faces Specification Document section 10.2.1 "Specification of the ViewDeclarationLanguage Implementation for Facelets for Jakarta Faces".
  * </p>
  *
  * </div>
@@ -539,4 +529,5 @@ public interface TagDecorator {
      * @return a decorated tag, otherwise null
      */
     Tag decorate(Tag tag);
+
 }

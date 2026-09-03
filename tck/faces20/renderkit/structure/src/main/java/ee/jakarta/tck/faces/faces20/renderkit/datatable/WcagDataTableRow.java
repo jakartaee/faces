@@ -25,8 +25,11 @@ public class WcagDataTableRow {
     private final boolean winNT351;
     private final boolean win95;
 
-    public WcagDataTableRow(String codePageId, String name, boolean acp, boolean oemcp,
-            boolean winNT31, boolean winNT351, boolean win95) {
+    public WcagDataTableRow(
+        String codePageId, String name, boolean acp, boolean oemcp,
+        boolean winNT31, boolean winNT351, boolean win95
+    )
+    {
         this.codePageId = codePageId;
         this.name = name;
         this.ACP = acp;
@@ -63,4 +66,5 @@ public class WcagDataTableRow {
     public boolean isWin95() {
         return win95;
     }
+
 }

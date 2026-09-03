@@ -36,9 +36,8 @@ class CompositeComponentsIT extends BaseITNG {
     private static final String ACTIONSOURCE = "retargeting/compositecomponents-actionsource.xhtml";
 
     /**
-     * Method-expression attributes on a composite component nested one level deep must be
-     * retargeted to the intended inner action, action listener, custom action, validator and
-     * value-change listener.
+     * Method-expression attributes on a composite component nested one level deep must be retargeted to the intended inner action, action listener, custom
+     * action, validator and value-change listener.
      *
      * @see AttachedObjectTarget
      */
@@ -48,8 +47,7 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * Same retargeting as {@link #testNesting05()} but through an additional composite nesting
-     * level (nesting10 wrapping nesting6 wrapping nesting7).
+     * Same retargeting as {@link #testNesting05()} but through an additional composite nesting level (nesting10 wrapping nesting6 wrapping nesting7).
      *
      * @see AttachedObjectTarget
      */
@@ -80,8 +78,8 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * A validator attached on the using page via {@code f:validator} with only a {@code name} must
-     * be retargeted to the composite's single editable value holder.
+     * A validator attached on the using page via {@code f:validator} with only a {@code name} must be retargeted to the composite's single editable value
+     * holder.
      *
      * @see EditableValueHolderAttachedObjectTarget
      */
@@ -91,8 +89,7 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * A validator attached via {@code f:validator} where the editable value holder declares a
-     * {@code targets} must be retargeted to that target.
+     * A validator attached via {@code f:validator} where the editable value holder declares a {@code targets} must be retargeted to that target.
      *
      * @see EditableValueHolderAttachedObjectTarget
      */
@@ -102,8 +99,7 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * A validator attached to a composite that nests another composite must be retargeted through
-     * the nesting to the innermost editable value holder.
+     * A validator attached to a composite that nests another composite must be retargeted through the nesting to the innermost editable value holder.
      *
      * @see EditableValueHolderAttachedObjectTarget
      */
@@ -113,8 +109,7 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * A validator must be retargeted into an editable value holder that lives inside a nested
-     * naming container of the composite.
+     * A validator must be retargeted into an editable value holder that lives inside a nested naming container of the composite.
      *
      * @see EditableValueHolderAttachedObjectTarget
      */
@@ -124,8 +119,7 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * An action listener attached via {@code f:actionListener} with only a {@code name} must be
-     * retargeted to the composite's single action source.
+     * An action listener attached via {@code f:actionListener} with only a {@code name} must be retargeted to the composite's single action source.
      *
      * @see ActionSourceAttachedObjectTarget
      */
@@ -135,8 +129,7 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * An action listener attached where the action source declares a {@code targets} must be
-     * retargeted to that target.
+     * An action listener attached where the action source declares a {@code targets} must be retargeted to that target.
      *
      * @see ActionSourceAttachedObjectTarget
      */
@@ -146,8 +139,7 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * An action listener attached to a composite that nests another composite must be retargeted
-     * through the nesting to the innermost action source.
+     * An action listener attached to a composite that nests another composite must be retargeted through the nesting to the innermost action source.
      *
      * @see ActionSourceAttachedObjectTarget
      */
@@ -157,8 +149,7 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * An action listener must be retargeted into an action source that lives inside a nested
-     * naming container of the composite.
+     * An action listener must be retargeted into an action source that lives inside a nested naming container of the composite.
      *
      * @see ActionSourceAttachedObjectTarget
      */
@@ -168,9 +159,8 @@ class CompositeComponentsIT extends BaseITNG {
     }
 
     /**
-     * Converters attached via {@code f:converter} must be retargeted to the composite's editable
-     * value holders across all four variants (name-only, targets, nesting, nested naming
-     * container); each retargeted converter runs on render and reports its client id.
+     * Converters attached via {@code f:converter} must be retargeted to the composite's editable value holders across all four variants (name-only, targets,
+     * nesting, nested naming container); each retargeted converter runs on render and reports its client id.
      *
      * @see EditableValueHolderAttachedObjectTarget
      */
@@ -186,7 +176,10 @@ class CompositeComponentsIT extends BaseITNG {
     private void clickAndExpect(String view, String buttonId, String expectedMessage) {
         WebPage page = getPage(view);
         page.guardHttp(page.findElement(By.id(buttonId))::click);
-        assertTrue(page.containsText(expectedMessage),
-                "Expected '" + expectedMessage + "' after clicking " + buttonId);
+        assertTrue(
+            page.containsText(expectedMessage),
+            "Expected '" + expectedMessage + "' after clicking " + buttonId
+        );
     }
+
 }

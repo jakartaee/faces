@@ -47,8 +47,7 @@ public abstract class SearchExpressionContext {
 
     /**
      * <p class="changed_added_2_3">
-     * Returns hints that influence the behavior of the tree visit, if it's used by an {@link SearchKeywordResolver}
-     * implementation.
+     * Returns hints that influence the behavior of the tree visit, if it's used by an {@link SearchKeywordResolver} implementation.
      * </p>
      *
      * @return a non-empty, unmodifiable collection of {@link VisitHint}s
@@ -82,8 +81,8 @@ public abstract class SearchExpressionContext {
 
     /**
      * <p class="changed_added_2_3">
-     * Creates a {@link SearchExpressionContext} instance for use with the {@link SearchExpressionHandler}. This method can
-     * be used to obtain a SearchExpressionContext instance without any {@link VisitHint} or {@link SearchExpressionHint}.
+     * Creates a {@link SearchExpressionContext} instance for use with the {@link SearchExpressionHandler}. This method can be used to obtain a
+     * SearchExpressionContext instance without any {@link VisitHint} or {@link SearchExpressionHint}.
      * </p>
      *
      * @param context the FacesContext for the current request
@@ -105,17 +104,20 @@ public abstract class SearchExpressionContext {
      * @param context the FacesContext for the current request
      * @param source the source / base component from which we will start to perform our search.
      * @param expressionHints the SearchExpressionHint to apply to the search. If <code>null</code>, no hints are applied.
-     * @param visitHints the VisitHints to apply to the visit, if used by a {@link SearchKeywordResolver}. If
-     * <code>null</code>, no hints are applied.
+     * @param visitHints the VisitHints to apply to the visit, if used by a {@link SearchKeywordResolver}. If <code>null</code>, no hints are applied.
      *
      * @return a {@link SearchExpressionContext} instance
      *
      * @since 2.3
      */
-    public static SearchExpressionContext createSearchExpressionContext(FacesContext context, UIComponent source, Set<SearchExpressionHint> expressionHints,
-            Set<VisitHint> visitHints) {
+    public static SearchExpressionContext createSearchExpressionContext(
+        FacesContext context, UIComponent source, Set<SearchExpressionHint> expressionHints,
+        Set<VisitHint> visitHints
+    )
+    {
 
         SearchExpressionContextFactory factory = (SearchExpressionContextFactory) FactoryFinder.getFactory(FactoryFinder.SEARCH_EXPRESSION_CONTEXT_FACTORY);
         return factory.getSearchExpressionContext(context, source, expressionHints, visitHints);
     }
+
 }

@@ -17,10 +17,11 @@ package ee.jakarta.tck.faces.faces20.api.context.facescontext;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import jakarta.faces.context.FacesContext;
+
 import org.junit.jupiter.api.Test;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
-import jakarta.faces.context.FacesContext;
 
 class FacesContextIT extends BaseITNG {
 
@@ -29,63 +30,200 @@ class FacesContextIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void facesCtxAddGetMessagesTest() { runServletTest("facesCtxAddGetMessagesTest"); }
-    @Test void facesCtxAddMessageNPETest() { runServletTest("facesCtxAddMessageNPETest"); }
-    @Test void facesCtxGetApplicationTest() { runServletTest("facesCtxGetApplicationTest"); }
-    @Test void facesCtxGetAttributesEmptyTest() { runServletTest("facesCtxGetAttributesEmptyTest"); }
-    @Test void facesCtxGetAttributesTest() { runServletTest("facesCtxGetAttributesTest"); }
-    @Test void facesCtxGetClientIdsWithMessagesEmptyTest() { runServletTest("facesCtxGetClientIdsWithMessagesEmptyTest"); }
-    @Test void facesCtxGetClientIdsWithMessagesTest() { runServletTest("facesCtxGetClientIdsWithMessagesTest"); }
+    @Test
+    void facesCtxAddGetMessagesTest() {
+        runServletTest("facesCtxAddGetMessagesTest");
+    }
+
+    @Test
+    void facesCtxAddMessageNPETest() {
+        runServletTest("facesCtxAddMessageNPETest");
+    }
+
+    @Test
+    void facesCtxGetApplicationTest() {
+        runServletTest("facesCtxGetApplicationTest");
+    }
+
+    @Test
+    void facesCtxGetAttributesEmptyTest() {
+        runServletTest("facesCtxGetAttributesEmptyTest");
+    }
+
+    @Test
+    void facesCtxGetAttributesTest() {
+        runServletTest("facesCtxGetAttributesTest");
+    }
+
+    @Test
+    void facesCtxGetClientIdsWithMessagesEmptyTest() {
+        runServletTest("facesCtxGetClientIdsWithMessagesEmptyTest");
+    }
+
+    @Test
+    void facesCtxGetClientIdsWithMessagesTest() {
+        runServletTest("facesCtxGetClientIdsWithMessagesTest");
+    }
 
     /**
-     * Removing a client id through the iterator returned by getClientIdsWithMessages() removes the messages queued
-     * under it, and getMaximumSeverity() is recomputed from the messages that remain.
+     * Removing a client id through the iterator returned by getClientIdsWithMessages() removes the messages queued under it, and getMaximumSeverity() is
+     * recomputed from the messages that remain.
      *
      * @see FacesContext#getClientIdsWithMessages()
      * @see https://jakarta.ee/specifications/faces/5.0/apidocs/jakarta.faces/jakarta/faces/context/facescontext#addMessage(java.lang.String,jakarta.faces.application.FacesMessage)
      */
-    @Test void facesCtxGetClientIdsWithMessagesIteratorRemoveTest() { runServletTest("facesCtxGetClientIdsWithMessagesIteratorRemoveTest"); }
-    @Test void facesCtxGetELContextTest() { runServletTest("facesCtxGetELContextTest"); }
-    @Test void facesCtxGetExternalContextTest() { runServletTest("facesCtxGetExternalContextTest"); }
-    @Test void facesCtxGetMaximumSeverityTest() { runServletTest("facesCtxGetMaximumSeverityTest"); }
-    @Test void facesCtxGetMessageListByIdTest() { runServletTest("facesCtxGetMessageListByIdTest"); }
-    @Test void facesCtxGetMessageListTest() { runServletTest("facesCtxGetMessageListTest"); }
-    @Test void facesCtxGetMessagesEmptyTest() { runServletTest("facesCtxGetMessagesEmptyTest"); }
+    @Test
+    void facesCtxGetClientIdsWithMessagesIteratorRemoveTest() {
+        runServletTest("facesCtxGetClientIdsWithMessagesIteratorRemoveTest");
+    }
+
+    @Test
+    void facesCtxGetELContextTest() {
+        runServletTest("facesCtxGetELContextTest");
+    }
+
+    @Test
+    void facesCtxGetExternalContextTest() {
+        runServletTest("facesCtxGetExternalContextTest");
+    }
+
+    @Test
+    void facesCtxGetMaximumSeverityTest() {
+        runServletTest("facesCtxGetMaximumSeverityTest");
+    }
+
+    @Test
+    void facesCtxGetMessageListByIdTest() {
+        runServletTest("facesCtxGetMessageListByIdTest");
+    }
+
+    @Test
+    void facesCtxGetMessageListTest() {
+        runServletTest("facesCtxGetMessageListTest");
+    }
+
+    @Test
+    void facesCtxGetMessagesEmptyTest() {
+        runServletTest("facesCtxGetMessagesEmptyTest");
+    }
 
     /**
-     * Removing messages through the iterator returned by getMessages() actually dequeues them, and getMaximumSeverity()
-     * walks back down from FATAL to ERROR to INFO to null as each severity is removed.
+     * Removing messages through the iterator returned by getMessages() actually dequeues them, and getMaximumSeverity() walks back down from FATAL to ERROR to
+     * INFO to null as each severity is removed.
      *
      * @see FacesContext#getMessages()
      * @see https://jakarta.ee/specifications/faces/5.0/apidocs/jakarta.faces/jakarta/faces/context/facescontext#addMessage(java.lang.String,jakarta.faces.application.FacesMessage)
      */
-    @Test void facesCtxGetMessagesIteratorRemoveTest() { runServletTest("facesCtxGetMessagesIteratorRemoveTest"); }
+    @Test
+    void facesCtxGetMessagesIteratorRemoveTest() {
+        runServletTest("facesCtxGetMessagesIteratorRemoveTest");
+    }
 
     /**
-     * The iterator returned by getMessages() honours the java.util.Iterator contract: next() past the last message
-     * throws NoSuchElementException and remove() before next() throws IllegalStateException.
+     * The iterator returned by getMessages() honours the java.util.Iterator contract: next() past the last message throws NoSuchElementException and remove()
+     * before next() throws IllegalStateException.
      *
      * @see FacesContext#getMessages()
      * @see https://jakarta.ee/specifications/faces/5.0/apidocs/jakarta.faces/jakarta/faces/context/facescontext#addMessage(java.lang.String,jakarta.faces.application.FacesMessage)
      */
-    @Test void facesCtxGetMessagesIteratorExceptionsTest() { runServletTest("facesCtxGetMessagesIteratorExceptionsTest"); }
-    @Test void facesCtxGetPartialViewContextTest() { runServletTest("facesCtxGetPartialViewContextTest"); }
-    @Test void facesCtxGetRenderKitTest() { runServletTest("facesCtxGetRenderKitTest"); }
-    @Test void facesCtxISEAfterReleaseTest() { runServletTest("facesCtxISEAfterReleaseTest"); }
-    @Test void facesCtxIsGetProcessingEventTest() { runServletTest("facesCtxIsGetProcessingEventTest"); }
-    @Test void facesCtxIsProjectStageNPETest() { runServletTest("facesCtxIsProjectStageNPETest"); }
-    @Test void facesCtxResponseCompleteTest() { runServletTest("facesCtxResponseCompleteTest"); }
-    @Test void facesCtxSetGetCurrentInstanceTest() { runServletTest("facesCtxSetGetCurrentInstanceTest"); }
-    @Test void facesCtxSetGetCurrentPhaseIdTest() { runServletTest("facesCtxSetGetCurrentPhaseIdTest"); }
-    @Test void facesCtxSetGetExceptionHandlerTest() { runServletTest("facesCtxSetGetExceptionHandlerTest"); }
-    @Test void facesCtxSetGetResponseStreamTest() { runServletTest("facesCtxSetGetResponseStreamTest"); }
-    @Test void facesCtxSetGetResponseWriterTest() { runServletTest("facesCtxSetGetResponseWriterTest"); }
-    @Test void facesCtxSetGetViewRootTest() { runServletTest("facesCtxSetGetViewRootTest"); }
-    @Test void facesCtxSetResponseStreamNPETest() { runServletTest("facesCtxSetResponseStreamNPETest"); }
-    @Test void facesCtxSetResponseWriterNPETest() { runServletTest("facesCtxSetResponseWriterNPETest"); }
-    @Test void facesCtxSetViewRootNPETest() { runServletTest("facesCtxSetViewRootNPETest"); }
-    @Test void facesCtxisPostbackTest() { runServletTest("facesCtxisPostbackTest"); }
-    @Test void facesCtxisReleasedTest() { runServletTest("facesCtxisReleasedTest"); }
-    @Test void facesCtxisValidationFailedTest() { runServletTest("facesCtxisValidationFailedTest"); }
-    @Test void facexCtxRenderResponseTest() { runServletTest("facexCtxRenderResponseTest"); }
+    @Test
+    void facesCtxGetMessagesIteratorExceptionsTest() {
+        runServletTest("facesCtxGetMessagesIteratorExceptionsTest");
+    }
+
+    @Test
+    void facesCtxGetPartialViewContextTest() {
+        runServletTest("facesCtxGetPartialViewContextTest");
+    }
+
+    @Test
+    void facesCtxGetRenderKitTest() {
+        runServletTest("facesCtxGetRenderKitTest");
+    }
+
+    @Test
+    void facesCtxISEAfterReleaseTest() {
+        runServletTest("facesCtxISEAfterReleaseTest");
+    }
+
+    @Test
+    void facesCtxIsGetProcessingEventTest() {
+        runServletTest("facesCtxIsGetProcessingEventTest");
+    }
+
+    @Test
+    void facesCtxIsProjectStageNPETest() {
+        runServletTest("facesCtxIsProjectStageNPETest");
+    }
+
+    @Test
+    void facesCtxResponseCompleteTest() {
+        runServletTest("facesCtxResponseCompleteTest");
+    }
+
+    @Test
+    void facesCtxSetGetCurrentInstanceTest() {
+        runServletTest("facesCtxSetGetCurrentInstanceTest");
+    }
+
+    @Test
+    void facesCtxSetGetCurrentPhaseIdTest() {
+        runServletTest("facesCtxSetGetCurrentPhaseIdTest");
+    }
+
+    @Test
+    void facesCtxSetGetExceptionHandlerTest() {
+        runServletTest("facesCtxSetGetExceptionHandlerTest");
+    }
+
+    @Test
+    void facesCtxSetGetResponseStreamTest() {
+        runServletTest("facesCtxSetGetResponseStreamTest");
+    }
+
+    @Test
+    void facesCtxSetGetResponseWriterTest() {
+        runServletTest("facesCtxSetGetResponseWriterTest");
+    }
+
+    @Test
+    void facesCtxSetGetViewRootTest() {
+        runServletTest("facesCtxSetGetViewRootTest");
+    }
+
+    @Test
+    void facesCtxSetResponseStreamNPETest() {
+        runServletTest("facesCtxSetResponseStreamNPETest");
+    }
+
+    @Test
+    void facesCtxSetResponseWriterNPETest() {
+        runServletTest("facesCtxSetResponseWriterNPETest");
+    }
+
+    @Test
+    void facesCtxSetViewRootNPETest() {
+        runServletTest("facesCtxSetViewRootNPETest");
+    }
+
+    @Test
+    void facesCtxisPostbackTest() {
+        runServletTest("facesCtxisPostbackTest");
+    }
+
+    @Test
+    void facesCtxisReleasedTest() {
+        runServletTest("facesCtxisReleasedTest");
+    }
+
+    @Test
+    void facesCtxisValidationFailedTest() {
+        runServletTest("facesCtxisValidationFailedTest");
+    }
+
+    @Test
+    void facexCtxRenderResponseTest() {
+        runServletTest("facexCtxRenderResponseTest");
+    }
+
 }

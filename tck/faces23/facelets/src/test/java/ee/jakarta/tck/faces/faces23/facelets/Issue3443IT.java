@@ -30,8 +30,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3443IT extends BaseITNG {
 
     /**
-     * Verifies that {@code UIComponent.getCurrentComponent} during Update Model Values returns the input component whose
-     * value is being applied, so the bean setter observes the {@code HtmlInputText} as the current component.
+     * Verifies that {@code UIComponent.getCurrentComponent} during Update Model Values returns the input component whose value is being applied, so the bean
+     * setter observes the {@code HtmlInputText} as the current component.
      *
      * @see UIComponent#getCurrentComponent(jakarta.faces.context.FacesContext)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3443
@@ -44,8 +44,11 @@ class Issue3443IT extends BaseITNG {
         input.sendKeys("x");
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
 
-        assertEquals(HtmlInputText.class.getName(),
-                page.findElement(By.id("form:inputText")).getAttribute("value"),
-                "Current component seen by the setter must be the HtmlInputText being updated");
+        assertEquals(
+            HtmlInputText.class.getName(),
+            page.findElement(By.id("form:inputText")).getAttribute("value"),
+            "Current component seen by the setter must be the HtmlInputText being updated"
+        );
     }
+
 }

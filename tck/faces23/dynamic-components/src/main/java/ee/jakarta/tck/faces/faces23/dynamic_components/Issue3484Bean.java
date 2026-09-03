@@ -25,8 +25,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 /**
- * Removes a Facelets created child from its parent and adds it straight back at the very index it came from,
- * which must leave the view exactly as it was.
+ * Removes a Facelets created child from its parent and adds it straight back at the very index it came from, which must leave the view exactly as it was.
  */
 @Named
 @RequestScoped
@@ -49,4 +48,5 @@ public class Issue3484Bean implements Serializable {
         UIComponent target = FacesContext.getCurrentInstance().getViewRoot().findComponent(TARGET);
         return target == null ? -1 : target.getParent().getChildren().indexOf(target);
     }
+
 }

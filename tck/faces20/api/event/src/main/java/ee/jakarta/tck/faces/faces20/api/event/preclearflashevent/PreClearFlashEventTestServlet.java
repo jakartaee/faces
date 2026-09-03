@@ -18,20 +18,21 @@ package ee.jakarta.tck.faces.faces20.api.event.preclearflashevent;
 import java.util.HashMap;
 import java.util.Map;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseSystemEventTestServlet;
-
 import jakarta.faces.event.PreClearFlashEvent;
 import jakarta.faces.event.SystemEvent;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseSystemEventTestServlet;
+
 @WebServlet("/PreClearFlashEventTestServlet")
 public final class PreClearFlashEventTestServlet extends BaseSystemEventTestServlet {
-  private Map<String, Object> keys = new HashMap<String, Object>();
 
-  @Override
-  protected SystemEvent createEvent(Object src) {
-    keys.put("test", "test");
-    return new PreClearFlashEvent(keys);
-  }
+    private Map<String, Object> keys = new HashMap<String, Object>();
+
+    @Override
+    protected SystemEvent createEvent(Object src) {
+        keys.put("test", "test");
+        return new PreClearFlashEvent(keys);
+    }
 
 } // End TestServlet

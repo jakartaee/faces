@@ -71,27 +71,25 @@ import jakarta.faces.render.Renderer;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0 changed_modified_2_0_rev_a changed_modified_2_1 changed_modified_2_2
- * changed_modified_2_3">UIComponent</strong> is the base class for all user interface components in Jakarta Server
- * Faces. The set of {@link UIComponent} instances associated with a particular request and response are organized into
- * a component tree under a {@link UIViewRoot} that represents the entire content of the request or response.
+ * <strong class="changed_modified_2_0 changed_modified_2_0_rev_a changed_modified_2_1 changed_modified_2_2 changed_modified_2_3">UIComponent</strong> is the
+ * base class for all user interface components in Jakarta Server Faces. The set of {@link UIComponent} instances associated with a particular request and
+ * response are organized into a component tree under a {@link UIViewRoot} that represents the entire content of the request or response.
  * </p>
  *
  * <p>
- * For the convenience of component developers, {@link UIComponentBase} provides the default behavior that is specified
- * for a {@link UIComponent}, and is the base class for all of the concrete {@link UIComponent} "base" implementations.
- * Component writers are encouraged to subclass {@link UIComponentBase}, instead of directly implementing this abstract
- * class, to reduce the impact of any future changes to the method signatures.
+ * For the convenience of component developers, {@link UIComponentBase} provides the default behavior that is specified for a {@link UIComponent}, and is the
+ * base class for all of the concrete {@link UIComponent} "base" implementations. Component writers are encouraged to subclass {@link UIComponentBase}, instead
+ * of directly implementing this abstract class, to reduce the impact of any future changes to the method signatures.
  * </p>
  *
  * <p class="changed_added_2_0">
- * If the {@link jakarta.faces.event.ListenerFor} annotation is attached to the class definition of a
- * <code>Component</code>, that class must also implement {@link jakarta.faces.event.ComponentSystemEventListener}.
+ * If the {@link jakarta.faces.event.ListenerFor} annotation is attached to the class definition of a <code>Component</code>, that class must also implement
+ * {@link jakarta.faces.event.ComponentSystemEventListener}.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Dynamically modifying the component tree can happen at any time, during and after restoring the view, but not during
- * state saving and needs to function properly with respect to rendering and state saving
+ * Dynamically modifying the component tree can happen at any time, during and after restoring the view, but not during state saving and needs to function
+ * properly with respect to rendering and state saving
  * </p>
  */
 public abstract class UIComponent implements PartialStateHolder, TransientStateHolder, SystemEventListenerHolder, ComponentSystemEventListener {
@@ -100,9 +98,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * The value of this constant is used as the key in the component attribute map, the value for which is a
-     * <code>java.beans.BeanInfo</code> implementation describing the composite component. This <code>BeanInfo</code> is
-     * known as the <em>composite component BeanInfo</em>.
+     * The value of this constant is used as the key in the component attribute map, the value for which is a <code>java.beans.BeanInfo</code> implementation
+     * describing the composite component. This <code>BeanInfo</code> is known as the <em>composite component BeanInfo</em>.
      * </p>
      *
      * @since 2.0
@@ -111,10 +108,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * The value of this constant is used as the key in the <em>composite component BeanDescriptor</em> for the
-     * <code>Map&lt;PropertyDescriptor&gt;</code> that contains meta-information for the declared facets for this composite
-     * component. This map must contain an entry under the key {@link #COMPOSITE_FACET_NAME}, even if no facets were
-     * explicitly declared. See {@link #COMPOSITE_FACET_NAME}.
+     * The value of this constant is used as the key in the <em>composite component BeanDescriptor</em> for the <code>Map&lt;PropertyDescriptor&gt;</code> that
+     * contains meta-information for the declared facets for this composite component. This map must contain an entry under the key
+     * {@link #COMPOSITE_FACET_NAME}, even if no facets were explicitly declared. See {@link #COMPOSITE_FACET_NAME}.
      * </p>
      *
      * @since 2.0
@@ -123,8 +119,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * The value of this constant is used as the key in the component attributes <code>Map</code> for the
-     * {@link jakarta.faces.view.Location} in the view at which this component instance resides.
+     * The value of this constant is used as the key in the component attributes <code>Map</code> for the {@link jakarta.faces.view.Location} in the view at
+     * which this component instance resides.
      * </p>
      *
      * @since 2.0
@@ -133,10 +129,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * The value of this constant is used as the key in the <em>composite component BeanDescriptor</em> for a
-     * <code>ValueExpression</code> that evaluates to the <code>component-type</code> of the <em>composite component
-     * root</em> <code>UIComponent</code> for this composite component, if one was declared by the composite component
-     * author.
+     * The value of this constant is used as the key in the <em>composite component BeanDescriptor</em> for a <code>ValueExpression</code> that evaluates to the
+     * <code>component-type</code> of the <em>composite component root</em> <code>UIComponent</code> for this composite component, if one was declared by the
+     * composite component author.
      * </p>
      *
      * @since 2.0
@@ -145,11 +140,10 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * The value of this constant is used as the key in the <code>Map</code> returned as described in {@link #FACETS_KEY}
-     * for the <code>PropertyDescriptor</code> describing the composite component facet. The value of this constant is also
-     * used as the key in the <code>Map</code> returned from {@link #getFacets}. In this case, it refers to the actual facet
-     * that is the {@link jakarta.faces.component.UIPanel} that is the parent of the all of the components in the
-     * <code>&lt;composite:implementation&gt;</code> section of the <em>composite component VDL file</em>.
+     * The value of this constant is used as the key in the <code>Map</code> returned as described in {@link #FACETS_KEY} for the
+     * <code>PropertyDescriptor</code> describing the composite component facet. The value of this constant is also used as the key in the <code>Map</code>
+     * returned from {@link #getFacets}. In this case, it refers to the actual facet that is the {@link jakarta.faces.component.UIPanel} that is the parent of
+     * the all of the components in the <code>&lt;composite:implementation&gt;</code> section of the <em>composite component VDL file</em>.
      * </p>
      *
      * @since 2.0
@@ -158,10 +152,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_1">
-     * This constant enables one to quickly discover the names of the declared composite component attributes that have been
-     * given default values by the composite component author. The information is exposed as a
-     * <code>Collection&lt;String&gt;</code> returned from the <code>getValue()</code> method on the <em>composite component
-     * BeanDescriptor</em>, when this constant is passed as the argument.
+     * This constant enables one to quickly discover the names of the declared composite component attributes that have been given default values by the
+     * composite component author. The information is exposed as a <code>Collection&lt;String&gt;</code> returned from the <code>getValue()</code> method on the
+     * <em>composite component BeanDescriptor</em>, when this constant is passed as the argument.
      * </p>
      *
      * @since 2.1
@@ -186,7 +179,13 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * Properties that are tracked by state saving.
      */
     enum PropertyKeys {
-        rendered, attributes, valueExpressions, rendererType, systemEventListeners, behaviors, passThroughAttributes
+        rendered,
+        attributes,
+        valueExpressions,
+        rendererType,
+        systemEventListeners,
+        behaviors,
+        passThroughAttributes
     }
 
     ComponentStateHelper stateHelper;
@@ -204,8 +203,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
     private transient boolean isCompositeComponent;
 
     /**
-     * Track whether we have been pushed as current in order to handle mismatched pushes and pops of Jakarta Expression
-     * Language context stack. We use a counter to handle cases where the same component is pushed on multiple times
+     * Track whether we have been pushed as current in order to handle mismatched pushes and pops of Jakarta Expression Language context stack. We use a counter
+     * to handle cases where the same component is pushed on multiple times
      */
     private int _isPushedAsCurrentRefCount = 0;
 
@@ -213,23 +212,23 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Return a mutable <code>Map</code> representing the attributes (and properties, see below) associated wth this
-     * {@link UIComponent}, keyed by attribute name (which must be a String). The returned implementation must support all
-     * of the standard and optional <code>Map</code> methods, plus support the following additional requirements:
+     * Return a mutable <code>Map</code> representing the attributes (and properties, see below) associated wth this {@link UIComponent}, keyed by attribute
+     * name (which must be a String). The returned implementation must support all of the standard and optional <code>Map</code> methods, plus support the
+     * following additional requirements:
      * </p>
      * <ul>
      * <li>The <code>Map</code> implementation must implement the <code>java.io.Serializable</code> interface.</li>
      * <li>Any attempt to add a <code>null</code> key or value must throw a <code>NullPointerException</code>.</li>
      * <li>Any attempt to add a key that is not a String must throw a <code>ClassCastException</code>.</li>
-     * <li>If the attribute name specified as a key matches a property of this {@link UIComponent}'s implementation class,
-     * the following methods will have special behavior:
+     * <li>If the attribute name specified as a key matches a property of this {@link UIComponent}'s implementation class, the following methods will have
+     * special behavior:
      * <ul>
      * <li><code>containsKey</code> - Return <code>false</code>.</li>
-     * <li><code>get()</code> - If the property is readable, call the getter method and return the returned value (wrapping
-     * primitive values in their corresponding wrapper classes); otherwise throw <code>IllegalArgumentException</code>.</li>
-     * <li><code>put()</code> - If the property is writeable, call the setter method to set the corresponding value
-     * (unwrapping primitive values in their corresponding wrapper classes). If the property is not writeable, or an attempt
-     * is made to set a property of primitive type to <code>null</code>, throw <code>IllegalArgumentException</code>.</li>
+     * <li><code>get()</code> - If the property is readable, call the getter method and return the returned value (wrapping primitive values in their
+     * corresponding wrapper classes); otherwise throw <code>IllegalArgumentException</code>.</li>
+     * <li><code>put()</code> - If the property is writeable, call the setter method to set the corresponding value (unwrapping primitive values in their
+     * corresponding wrapper classes). If the property is not writeable, or an attempt is made to set a property of primitive type to <code>null</code>, throw
+     * <code>IllegalArgumentException</code>.</li>
      * <li><code>remove</code> - Throw <code>IllegalArgumentException</code>.</li>
      * </ul>
      * </li>
@@ -241,8 +240,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_2">
-     * This is a convenience method that simply calls {@link #getPassThroughAttributes(boolean)}, passing {@code true} as
-     * the argument. This method must never return {@code null}.
+     * This is a convenience method that simply calls {@link #getPassThroughAttributes(boolean)}, passing {@code true} as the argument. This method must never
+     * return {@code null}.
      * </p>
      *
      * @return the pass-through attribute map.
@@ -254,10 +253,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_2">
-     * This method has the same specification as {@link #getPassThroughAttributes() } except that it is allowed to return
-     * {@code null} if and only if the argument {@code create} is {@code false} and no pass through attribute data structure
-     * exists for this instance. The returned {@code Map} implementation must support all of the standard and optional
-     * {@code Map} methods, plus support the following additional requirements. The map must be stored in using
+     * This method has the same specification as {@link #getPassThroughAttributes() } except that it is allowed to return {@code null} if and only if the
+     * argument {@code create} is {@code false} and no pass through attribute data structure exists for this instance. The returned {@code Map} implementation
+     * must support all of the standard and optional {@code Map} methods, plus support the following additional requirements. The map must be stored in using
      * {@link #getStateHelper}.
      * </p>
      *
@@ -276,15 +274,13 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * </p>
      *
      * <p>
-     * For backward compatibility with components that extend directly from this class, a default implementation is provided
-     * that returns the empty map.
+     * For backward compatibility with components that extend directly from this class, a default implementation is provided that returns the empty map.
      * </p>
      *
      * </div>
      *
-     * @param create if <code>true</code>, a new {@code Map} instance will be created if it does not exist already. If
-     * <code>false</code>, and there is no existing <code>Map</code> instance, one will not be created and <code>null</code>
-     * will be returned.
+     * @param create if <code>true</code>, a new {@code Map} instance will be created if it does not exist already. If <code>false</code>, and there is no
+     * existing <code>Map</code> instance, one will not be created and <code>null</code> will be returned.
      * @return A {@code Map} instance, or {@code null}.
      *
      * @since 2.2
@@ -325,14 +321,13 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * </p>
      *
      * <p>
-     * The implementation must call {@link ValueExpression#isLiteralText} on the argument <code>expression</code>. If
-     * <code>isLiteralText()</code> returns <code>true</code>, invoke {@link ValueExpression#getValue} on the argument
-     * expression and pass the result as the <code>value</code> parameter in a call to <code>this.{@link
-     * #getAttributes()}.put(name, value)</code> where <code>name</code> is the argument <code>name</code>. If an exception
-     * is thrown as a result of calling {@link ValueExpression#getValue}, wrap it in a {@link jakarta.faces.FacesException}
-     * and re-throw it. If <code>isLiteralText()</code> returns <code>false</code>, simply store the un-evaluated
-     * <code>expression</code> argument in the collection of <code>ValueExpression</code>s under the key given by the
-     * argument <code>name</code>.
+     * The implementation must call {@link ValueExpression#isLiteralText} on the argument <code>expression</code>. If <code>isLiteralText()</code> returns
+     * <code>true</code>, invoke {@link ValueExpression#getValue} on the argument expression and pass the result as the <code>value</code> parameter in a call
+     * to <code>this.{@link
+     * #getAttributes()}.put(name, value)</code> where <code>name</code> is the argument <code>name</code>. If an exception is thrown as a result of calling
+     * {@link ValueExpression#getValue}, wrap it in a {@link jakarta.faces.FacesException} and re-throw it. If <code>isLiteralText()</code> returns
+     * <code>false</code>, simply store the un-evaluated <code>expression</code> argument in the collection of <code>ValueExpression</code>s under the key given
+     * by the argument <code>name</code>.
      * </p>
      *
      * <p>
@@ -342,8 +337,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * @since 1.2
      *
      * @param name Name of the attribute or property for which to set a {@link ValueExpression}
-     * @param binding The {@link ValueExpression} to set, or <code>null</code> to remove any currently set
-     * {@link ValueExpression}
+     * @param binding The {@link ValueExpression} to set, or <code>null</code> to remove any currently set {@link ValueExpression}
      *
      * @throws IllegalArgumentException if <code>name</code> is one of <code>id</code> or <code>parent</code>
      * @throws NullPointerException if <code>name</code> is <code>null</code>
@@ -367,7 +361,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
                 if (sProperties == null) {
                     getStateHelper().add(PropertyKeysPrivate.attributesThatAreSet, name);
-                } else if (!sProperties.contains(name)) {
+                }
+                else if (!sProperties.contains(name)) {
                     getStateHelper().add(PropertyKeysPrivate.attributesThatAreSet, name);
                 }
 
@@ -379,15 +374,18 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
                     valueExpressionsModified = true;
                 }
 
-            } else {
+            }
+            else {
                 ELContext context = FacesContext.getCurrentInstance().getELContext();
                 try {
                     getAttributes().put(name, binding.getValue(context));
-                } catch (ELException ele) {
+                }
+                catch (ELException ele) {
                     throw new FacesException(ele);
                 }
             }
-        } else {
+        }
+        else {
             getStateHelper().remove(PropertyKeysPrivate.attributesThatAreSet, name);
             if (valueExpressions != null) {
                 valueExpressions.remove(name);
@@ -404,8 +402,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * An implementation of {@link PartialStateHolder#markInitialState}, this method is called by the runtime to indicate
-     * that the instance should start tracking changes to its state.
+     * An implementation of {@link PartialStateHolder#markInitialState}, this method is called by the runtime to indicate that the instance should start
+     * tracking changes to its state.
      * </p>
      *
      * @since 2.0
@@ -417,8 +415,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * An implementation of {@link PartialStateHolder#initialStateMarked}, this method is called by the runtime to test if
-     * the {@link PartialStateHolder#markInitialState} method was called.
+     * An implementation of {@link PartialStateHolder#initialStateMarked}, this method is called by the runtime to test if the
+     * {@link PartialStateHolder#markInitialState} method was called.
      * </p>
      *
      * @since 2.0
@@ -430,8 +428,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * An implementation of {@link PartialStateHolder#clearInitialState}, this method is called by the runtime to tell the
-     * instance to stop tracking state changes.
+     * An implementation of {@link PartialStateHolder#clearInitialState}, this method is called by the runtime to tell the instance to stop tracking state
+     * changes.
      * </p>
      *
      * @since 2.0
@@ -455,13 +453,11 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Like {@link #getStateHelper()}, but only create a state helper instance if the argument <code>creat</code> is
-     * <code>true</code>.
+     * Like {@link #getStateHelper()}, but only create a state helper instance if the argument <code>creat</code> is <code>true</code>.
      * </p>
      *
-     * @param create if <code>true</code>, a new {@link StateHelper} instance will be created if it does not exist already.
-     * If <code>false</code>, and there is no existing <code>StateHelper</code> instance, one will not be created and
-     * <code>null</code> will be returned.
+     * @param create if <code>true</code>, a new {@link StateHelper} instance will be created if it does not exist already. If <code>false</code>, and there is
+     * no existing <code>StateHelper</code> instance, one will not be created and <code>null</code> will be returned.
      *
      * @return the state helper.
      * @since 2.0
@@ -477,9 +473,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_1">
-     * Return the {@link TransientStateHelper} instance for this <code>UIComponent</code> instance. The default
-     * implementation simply calls through to {@link #getTransientStateHelper(boolean)} passing <code>true</code> as the
-     * argument.
+     * Return the {@link TransientStateHelper} instance for this <code>UIComponent</code> instance. The default implementation simply calls through to
+     * {@link #getTransientStateHelper(boolean)} passing <code>true</code> as the argument.
      * </p>
      *
      * @return the transient state helper.
@@ -494,8 +489,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * Return the {@link TransientStateHelper} instance for this <code>UIComponent</code> instance.
      * </p>
      *
-     * @param create if <code>true</code> create, if necessary, any internal data structures. If <code>false</code>, do not
-     * create any instances. In this case, it is possible for this method to return <code>null</code>.
+     * @param create if <code>true</code> create, if necessary, any internal data structures. If <code>false</code>, do not create any instances. In this case,
+     * it is possible for this method to return <code>null</code>.
      * @return the transient state helper.
      * @since 2.1
      */
@@ -511,8 +506,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_1">
-     * For components that need to support the concept of transient state, this method will restore any state saved on a
-     * prior call to {@link #saveTransientState}.
+     * For components that need to support the concept of transient state, this method will restore any state saved on a prior call to
+     * {@link #saveTransientState}.
      * </p>
      *
      * @since 2.1
@@ -529,8 +524,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_1">
-     * For components that need to support the concept of transient state, this method will save any state that is known to
-     * be transient in nature.
+     * For components that need to support the concept of transient state, this method will save any state that is known to be transient in nature.
      * </p>
      *
      * @since 2.1
@@ -555,9 +549,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Updates the status as to whether or not this component is currently within the view hierarchy. <strong>This method
-     * must never be called by developers; a {@link UIComponent}'s internal implementation will call it as components are
-     * added to or removed from a parent's child <code>List</code> or facet <code>Map</code></strong>.
+     * Updates the status as to whether or not this component is currently within the view hierarchy. <strong>This method must never be called by developers; a
+     * {@link UIComponent}'s internal implementation will call it as components are added to or removed from a parent's child <code>List</code> or facet
+     * <code>Map</code></strong>.
      * </p>
      *
      * @param isInView flag indicating whether or not this component is within the view hierachy
@@ -570,10 +564,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Enable Jakarta Expression Language to access the <code>clientId</code> of a component. This is particularly useful in
-     * combination with the <code>component</code> and <code>cc</code> implicit objects. A default implementation is
-     * provided that simply calls {@link FacesContext#getCurrentInstance} and then calls through to
-     * {@link #getClientId(FacesContext)}.
+     * Enable Jakarta Expression Language to access the <code>clientId</code> of a component. This is particularly useful in combination with the
+     * <code>component</code> and <code>cc</code> implicit objects. A default implementation is provided that simply calls
+     * {@link FacesContext#getCurrentInstance} and then calls through to {@link #getClientId(FacesContext)}.
      * </p>
      *
      * @return the client id.
@@ -585,26 +578,23 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Return a client-side identifier for this component, generating one if necessary. The associated {@link Renderer}, if
-     * any, will be asked to convert the clientId to a form suitable for transmission to the client.
+     * Return a client-side identifier for this component, generating one if necessary. The associated {@link Renderer}, if any, will be asked to convert the
+     * clientId to a form suitable for transmission to the client.
      * </p>
      *
      * <p>
-     * The return from this method must be the same value throughout the lifetime of the instance, unless the
-     * <code>id</code> property of the component is changed, or the component is placed in a {@link NamingContainer} whose
-     * client ID changes (for example, {@link UIData}). However, even in these cases, consecutive calls to this method must
-     * always return the same value. The implementation must follow these steps in determining the clientId:
+     * The return from this method must be the same value throughout the lifetime of the instance, unless the <code>id</code> property of the component is
+     * changed, or the component is placed in a {@link NamingContainer} whose client ID changes (for example, {@link UIData}). However, even in these cases,
+     * consecutive calls to this method must always return the same value. The implementation must follow these steps in determining the clientId:
      * </p>
      *
      * <p>
-     * Find the closest ancestor to <b>this</b> component in the view hierarchy that implements
-     * <code>NamingContainer</code>. Call <code>getContainerClientId()</code> on it and save the result as the
-     * <code>parentId</code> local variable. Call {@link #getId} on <b>this</b> component and save the result as the
-     * <code>myId</code> local variable. If <code>myId</code> is <code>null</code>, call
-     * <code>context.getViewRoot().createUniqueId()</code> and assign the result to myId. If <code>parentId</code> is
-     * non-<code>null</code>, let <code>myId</code> equal <code>parentId
-     * + {@link UINamingContainer#getSeparatorChar} + myId</code>. Call {@link Renderer#convertClientId}, passing
-     * <code>myId</code>, and return the result.
+     * Find the closest ancestor to <b>this</b> component in the view hierarchy that implements <code>NamingContainer</code>. Call
+     * <code>getContainerClientId()</code> on it and save the result as the <code>parentId</code> local variable. Call {@link #getId} on <b>this</b> component
+     * and save the result as the <code>myId</code> local variable. If <code>myId</code> is <code>null</code>, call
+     * <code>context.getViewRoot().createUniqueId()</code> and assign the result to myId. If <code>parentId</code> is non-<code>null</code>, let
+     * <code>myId</code> equal <code>parentId
+     * + {@link UINamingContainer#getSeparatorChar} + myId</code>. Call {@link Renderer#convertClientId}, passing <code>myId</code>, and return the result.
      * </p>
      *
      * @param context The {@link FacesContext} for the current request
@@ -616,9 +606,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Allow components that implement {@link NamingContainer} to selectively disable prepending their clientId to their
-     * descendent's clientIds by breaking the prepending logic into a separately callable method. See {@link #getClientId}
-     * for usage.
+     * Allow components that implement {@link NamingContainer} to selectively disable prepending their clientId to their descendent's clientIds by breaking the
+     * prepending logic into a separately callable method. See {@link #getClientId} for usage.
      * </p>
      *
      * <p>
@@ -640,9 +629,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_modified_2_3">
-     * Return the identifier of the component family to which this component belongs. This identifier, in conjunction with
-     * the value of the <code>rendererType</code> property, may be used to select the appropriate {@link Renderer} for this
-     * component instance. Note this method should NOT return <code>null</code>
+     * Return the identifier of the component family to which this component belongs. This identifier, in conjunction with the value of the
+     * <code>rendererType</code> property, may be used to select the appropriate {@link Renderer} for this component instance. Note this method should NOT
+     * return <code>null</code>
      * </p>
      *
      * @return the component family (not null).
@@ -660,8 +649,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Set the component identifier of this {@link UIComponent} (if any). Component identifiers must obey the following
-     * syntax restrictions:
+     * Set the component identifier of this {@link UIComponent} (if any). Component identifiers must obey the following syntax restrictions:
      * </p>
      * <ul>
      * <li>Must not be a zero-length String.</li>
@@ -671,17 +659,15 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * </ul>
      *
      * <p>
-     * Component identifiers must also obey the following semantic restrictions (note that this restriction is
-     * <strong>NOT</strong> enforced by the <code>setId()</code> implementation):
+     * Component identifiers must also obey the following semantic restrictions (note that this restriction is <strong>NOT</strong> enforced by the
+     * <code>setId()</code> implementation):
      * </p>
      * <ul>
-     * <li>The specified identifier must be unique among all the components (including facets) that are descendents of the
-     * nearest ancestor {@link UIComponent} that is a {@link NamingContainer}, or within the scope of the entire component
-     * tree if there is no such ancestor that is a {@link NamingContainer}.</li>
+     * <li>The specified identifier must be unique among all the components (including facets) that are descendents of the nearest ancestor {@link UIComponent}
+     * that is a {@link NamingContainer}, or within the scope of the entire component tree if there is no such ancestor that is a {@link NamingContainer}.</li>
      * </ul>
      *
-     * @param id The new component identifier, or <code>null</code> to indicate that this {@link UIComponent} does not have
-     * a component identifier
+     * @param id The new component identifier, or <code>null</code> to indicate that this {@link UIComponent} does not have a component identifier
      *
      * @throws IllegalArgumentException if <code>id</code> is not syntactically valid
      */
@@ -689,9 +675,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Return the parent {@link UIComponent} of this <code>UIComponent</code>, if any. A component must allow child
-     * components to be added to and removed from the list of children of this component, even though the child component
-     * returns null from <code>getParent( )</code>.
+     * Return the parent {@link UIComponent} of this <code>UIComponent</code>, if any. A component must allow child components to be added to and removed from
+     * the list of children of this component, even though the child component returns null from <code>getParent( )</code>.
      * </p>
      *
      * @return the parent component.
@@ -700,13 +685,11 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_modified_2_0">
-     * <span class="changed_modified_2_0_rev_a">Set</span> the parent <code>UIComponent</code> of this
-     * <code>UIComponent</code>. <span class="changed_added_2_0 changed_modified_2_0_rev_a">If
-     * <code>parent.isInView()</code> returns <code>true</code>, calling this method will first cause a
-     * {@link jakarta.faces.event.PreRemoveFromViewEvent} to be published, for this node, and then the children of this
-     * node. Then, once the re-parenting has occurred, a {@link jakarta.faces.event.PostAddToViewEvent} will be published as
-     * well, first for this node, and then for the node's children, <span class="changed_modified_2_0_rev_a">but only if any
-     * of the following conditions are true.</span></span>
+     * <span class="changed_modified_2_0_rev_a">Set</span> the parent <code>UIComponent</code> of this <code>UIComponent</code>.
+     * <span class="changed_added_2_0 changed_modified_2_0_rev_a">If <code>parent.isInView()</code> returns <code>true</code>, calling this method will first
+     * cause a {@link jakarta.faces.event.PreRemoveFromViewEvent} to be published, for this node, and then the children of this node. Then, once the
+     * re-parenting has occurred, a {@link jakarta.faces.event.PostAddToViewEvent} will be published as well, first for this node, and then for the node's
+     * children, <span class="changed_modified_2_0_rev_a">but only if any of the following conditions are true.</span></span>
      * </p>
      *
      * <div class="changed_modified_2_0_rev_a">
@@ -720,9 +703,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * <li>
      * <p>
-     * {@link jakarta.faces.context.FacesContext#isPostback} returns <code>false</code> and
-     * {@link jakarta.faces.context.FacesContext#getCurrentPhaseId} returns something other than
-     * {@link jakarta.faces.event.PhaseId#RESTORE_VIEW}
+     * {@link jakarta.faces.context.FacesContext#isPostback} returns <code>false</code> and {@link jakarta.faces.context.FacesContext#getCurrentPhaseId} returns
+     * something other than {@link jakarta.faces.event.PhaseId#RESTORE_VIEW}
      * </p>
      * </li>
      * </ul>
@@ -731,8 +713,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      *
      * <p class="changed_modified_2_0">
-     * <strong>This method must never be called by developers; a {@link UIComponent}'s internal implementation will call it
-     * as components are added to or removed from a parent's child <code>List</code> or facet <code>Map</code></strong>.
+     * <strong>This method must never be called by developers; a {@link UIComponent}'s internal implementation will call it as components are added to or
+     * removed from a parent's child <code>List</code> or facet <code>Map</code></strong>.
      * </p>
      *
      * @param parent The new parent, or <code>null</code> for the root node of a component tree
@@ -741,8 +723,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Return <code>true</code> if this component (and its children) should be rendered during the <em>Render Response</em>
-     * phase of the request processing lifecycle.
+     * Return <code>true</code> if this component (and its children) should be rendered during the <em>Render Response</em> phase of the request processing
+     * lifecycle.
      * </p>
      *
      * @return <code>true</code> if the component should be rendered, <code>false</code> otherwise.
@@ -769,22 +751,19 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Set the {@link Renderer} type for this {@link UIComponent}, or <code>null</code> for components that render
-     * themselves.
+     * Set the {@link Renderer} type for this {@link UIComponent}, or <code>null</code> for components that render themselves.
      * </p>
      *
-     * @param rendererType Logical identifier of the type of {@link Renderer} to use, or <code>null</code> for components
-     * that render themselves
+     * @param rendererType Logical identifier of the type of {@link Renderer} to use, or <code>null</code> for components that render themselves
      */
     public abstract void setRendererType(String rendererType);
 
     /**
      * <p>
-     * Return a flag indicating whether this component is responsible for rendering its child components. The default
-     * implementation in {@link UIComponentBase#getRendersChildren} tries to find the renderer for this component. If it
-     * does, it calls {@link Renderer#getRendersChildren} and returns the result. If it doesn't, it returns false. As of
-     * version 1.2 of the Jakarta Faces Specification, component authors are encouraged to return <code>true</code>
-     * from this method and rely on {@link UIComponentBase#encodeChildren}.
+     * Return a flag indicating whether this component is responsible for rendering its child components. The default implementation in
+     * {@link UIComponentBase#getRendersChildren} tries to find the renderer for this component. If it does, it calls {@link Renderer#getRendersChildren} and
+     * returns the result. If it doesn't, it returns false. As of version 1.2 of the Jakarta Faces Specification, component authors are encouraged to return
+     * <code>true</code> from this method and rely on {@link UIComponentBase#encodeChildren}.
      * </p>
      *
      * @return <code>true</code> if the component renders its children, <code>false</code> otherwise.
@@ -793,23 +772,18 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Return a <code>Map&lt;String,String&gt;</code> of the <code>ResourceBundle</code> for this component. A component may
-     * have a <code>ResourceBundle</code> associated with it. This bundle may contain localized properties relating to
-     * instances of this component. The default implementation first looks for a <code>ResourceBundle</code> with a base
-     * name equal to the fully qualified class name of the current <code>UIComponent this</code> and <code>Locale</code>
-     * equal to the <code>Locale</code> of the current <code>UIViewRoot</code>. If no such bundle is found, and the
-     * component is a composite component, let <em>resourceName</em> be the <em>resourceName</em> of the {@link Resource}
-     * for this composite component, replacing the file extension with ".properties". Let <em>libraryName</em> be the
-     * <em>libraryName</em> of the the {@link Resource} for this composite component. Call
-     * {@link jakarta.faces.application.ResourceHandler#createResource(java.lang.String,java.lang.String)}, passing the
-     * derived <em>resourceName</em> and <em>libraryName</em>. Note that this will automatically allow for the localization
-     * of the <code>ResourceBundle</code> due to the localization facility implemented in <code>createResource</code>, which
-     * is specified in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document.
-     * If the resultant {@link Resource} exists and can be
-     * found, the <code>InputStream</code> for the resource is used to create a <code>ResourceBundle</code>. If either of
-     * the two previous steps for obtaining the <code>ResourceBundle</code> for this component is successful, the
-     * <code>ResourceBundle</code> is wrapped in a <code>Map&lt;String,String&gt;</code> and returned. Otherwise
-     * <code>Collections.EMPTY_MAP</code> is returned.
+     * Return a <code>Map&lt;String,String&gt;</code> of the <code>ResourceBundle</code> for this component. A component may have a <code>ResourceBundle</code>
+     * associated with it. This bundle may contain localized properties relating to instances of this component. The default implementation first looks for a
+     * <code>ResourceBundle</code> with a base name equal to the fully qualified class name of the current <code>UIComponent this</code> and <code>Locale</code>
+     * equal to the <code>Locale</code> of the current <code>UIViewRoot</code>. If no such bundle is found, and the component is a composite component, let
+     * <em>resourceName</em> be the <em>resourceName</em> of the {@link Resource} for this composite component, replacing the file extension with ".properties".
+     * Let <em>libraryName</em> be the <em>libraryName</em> of the the {@link Resource} for this composite component. Call
+     * {@link jakarta.faces.application.ResourceHandler#createResource(java.lang.String,java.lang.String)}, passing the derived <em>resourceName</em> and
+     * <em>libraryName</em>. Note that this will automatically allow for the localization of the <code>ResourceBundle</code> due to the localization facility
+     * implemented in <code>createResource</code>, which is specified in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document. If
+     * the resultant {@link Resource} exists and can be found, the <code>InputStream</code> for the resource is used to create a <code>ResourceBundle</code>. If
+     * either of the two previous steps for obtaining the <code>ResourceBundle</code> for this component is successful, the <code>ResourceBundle</code> is
+     * wrapped in a <code>Map&lt;String,String&gt;</code> and returned. Otherwise <code>Collections.EMPTY_MAP</code> is returned.
      * </p>
      *
      * @return the resource bundle map.
@@ -865,25 +839,23 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Return</span> a mutable <code>List</code> representing the child
-     * {@link UIComponent}s associated with this component. The returned implementation must support all of the standard and
-     * optional <code>List</code> methods, plus support the following additional requirements:
+     * <span class="changed_modified_2_0">Return</span> a mutable <code>List</code> representing the child {@link UIComponent}s associated with this component.
+     * The returned implementation must support all of the standard and optional <code>List</code> methods, plus support the following additional requirements:
      * </p>
      * <ul>
      * <li>The <code>List</code> implementation must implement the <code>java.io.Serializable</code> interface.</li>
      * <li>Any attempt to add a <code>null</code> must throw a NullPointerException</li>
      * <li>Any attempt to add an object that does not implement {@link UIComponent} must throw a ClassCastException.</li>
-     * <li>Whenever a new child component is added, the <code>parent</code> property of the child must be set to this
-     * component instance. If the <code>parent</code> property of the child was already non-null, the child must first be
-     * removed from its previous parent (where it may have been either a child or a facet).</li>
-     * <li>Whenever an existing child component is removed, the <code>parent</code> property of the child must be set to
-     * <code>null</code>.</li>
+     * <li>Whenever a new child component is added, the <code>parent</code> property of the child must be set to this component instance. If the
+     * <code>parent</code> property of the child was already non-null, the child must first be removed from its previous parent (where it may have been either a
+     * child or a facet).</li>
+     * <li>Whenever an existing child component is removed, the <code>parent</code> property of the child must be set to <code>null</code>.</li>
      *
      * <li class="changed_modified_2_1">
      * <p>
-     * After the child component has been added to the view, {@link jakarta.faces.application.Application#publishEvent} must
-     * be called, passing {@link jakarta.faces.event.PostAddToViewEvent}<code>.class</code> as the first argument and the
-     * newly added component as the second argument if any the following cases are true.
+     * After the child component has been added to the view, {@link jakarta.faces.application.Application#publishEvent} must be called, passing
+     * {@link jakarta.faces.event.PostAddToViewEvent}<code>.class</code> as the first argument and the newly added component as the second argument if any the
+     * following cases are true.
      * </p>
      *
      * <ul>
@@ -896,9 +868,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * <li>
      * <p>
-     * {@link jakarta.faces.context.FacesContext#isPostback} returns <code>false</code> and
-     * {@link jakarta.faces.context.FacesContext#getCurrentPhaseId} returns something other than
-     * {@link jakarta.faces.event.PhaseId#RESTORE_VIEW}
+     * {@link jakarta.faces.context.FacesContext#isPostback} returns <code>false</code> and {@link jakarta.faces.context.FacesContext#getCurrentPhaseId} returns
+     * something other than {@link jakarta.faces.event.PhaseId#RESTORE_VIEW}
      * </p>
      * </li>
      *
@@ -914,8 +885,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Return the number of child {@link UIComponent}s that are associated with this {@link UIComponent}. If there are no
-     * children, this method must return 0. The method must not cause the creation of a child component list.
+     * Return the number of child {@link UIComponent}s that are associated with this {@link UIComponent}. If there are no children, this method must return 0.
+     * The method must not cause the creation of a child component list.
      * </p>
      *
      * @return the number of child components.
@@ -924,59 +895,50 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * <span class="changed_modified_2_2">Search</span> for and return the {@link UIComponent} with an <code>id</code> that
-     * matches the specified search expression (if any), according to the algorithm described below.
+     * <span class="changed_modified_2_2">Search</span> for and return the {@link UIComponent} with an <code>id</code> that matches the specified search
+     * expression (if any), according to the algorithm described below.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * WARNING: The found <code>UIComponent</code> instance, if any, is returned <strong>without</strong> regard for its
-     * tree traversal context. Retrieving an Jakarta Expression Language-bound attribute from the component is not safe.
-     * Jakarta Expression Language expressions can contain implicit objects, such as <code>#{component}</code>, which assume
-     * they are being evaluated within the scope of a tree traversal context. Evaluating expressions with these kinds of
-     * implicit objects outside of a tree traversal context produces undefined results. See {@link #invokeOnComponent} for a
-     * method that <strong>does</strong> correctly account for the tree traversal context when operating on the found
-     * <code>UIComponent</code> instance. {@link #invokeOnComponent} is also useful to find components given a simple
-     * <code>clientId</code>.
+     * WARNING: The found <code>UIComponent</code> instance, if any, is returned <strong>without</strong> regard for its tree traversal context. Retrieving an
+     * Jakarta Expression Language-bound attribute from the component is not safe. Jakarta Expression Language expressions can contain implicit objects, such as
+     * <code>#{component}</code>, which assume they are being evaluated within the scope of a tree traversal context. Evaluating expressions with these kinds of
+     * implicit objects outside of a tree traversal context produces undefined results. See {@link #invokeOnComponent} for a method that <strong>does</strong>
+     * correctly account for the tree traversal context when operating on the found <code>UIComponent</code> instance. {@link #invokeOnComponent} is also useful
+     * to find components given a simple <code>clientId</code>.
      *
      * <p>
-     * Component identifiers are required to be unique within the scope of the closest ancestor {@link NamingContainer} that
-     * encloses this component (which might be this component itself). If there are no {@link NamingContainer} components in
-     * the ancestry of this component, the root component in the tree is treated as if it were a {@link NamingContainer},
-     * whether or not its class actually implements the {@link NamingContainer} interface.
+     * Component identifiers are required to be unique within the scope of the closest ancestor {@link NamingContainer} that encloses this component (which
+     * might be this component itself). If there are no {@link NamingContainer} components in the ancestry of this component, the root component in the tree is
+     * treated as if it were a {@link NamingContainer}, whether or not its class actually implements the {@link NamingContainer} interface.
      * </p>
      *
      * <p>
-     * A <em>search expression</em> consists of either an identifier (which is matched exactly against the <code>id</code>
-     * property of a {@link UIComponent}, or a series of such identifiers linked by the
-     * {@link UINamingContainer#getSeparatorChar} character value. The search algorithm should operates as follows, though
-     * alternate alogrithms may be used as long as the end result is the same:
+     * A <em>search expression</em> consists of either an identifier (which is matched exactly against the <code>id</code> property of a {@link UIComponent}, or
+     * a series of such identifiers linked by the {@link UINamingContainer#getSeparatorChar} character value. The search algorithm should operates as follows,
+     * though alternate alogrithms may be used as long as the end result is the same:
      * </p>
      *
      * <ul>
-     * <li>Identify the {@link UIComponent} that will be the base for searching, by stopping as soon as one of the following
-     * conditions is met:
+     * <li>Identify the {@link UIComponent} that will be the base for searching, by stopping as soon as one of the following conditions is met:
      * <ul>
-     * <li>If the search expression begins with the the separator character (called an "absolute" search expression), the
-     * base will be the root {@link UIComponent} of the component tree. The leading separator character will be stripped
-     * off, and the remainder of the search expression will be treated as a "relative" search expression as described
-     * below.</li>
+     * <li>If the search expression begins with the the separator character (called an "absolute" search expression), the base will be the root
+     * {@link UIComponent} of the component tree. The leading separator character will be stripped off, and the remainder of the search expression will be
+     * treated as a "relative" search expression as described below.</li>
      * <li>Otherwise, if this {@link UIComponent} is a {@link NamingContainer} it will serve as the basis.</li>
-     * <li>Otherwise, search up the parents of this component. If a {@link NamingContainer} is encountered, it will be the
-     * base.</li>
+     * <li>Otherwise, search up the parents of this component. If a {@link NamingContainer} is encountered, it will be the base.</li>
      * <li>Otherwise (if no {@link NamingContainer} is encountered) the root {@link UIComponent} will be the base.</li>
      * </ul>
      * </li>
-     * <li>The search expression (possibly modified in the previous step) is now a "relative" search expression that will be
-     * used to locate the component (if any) that has an <code>id</code> that matches, within the scope of the base
-     * component. The match is performed as follows:
+     * <li>The search expression (possibly modified in the previous step) is now a "relative" search expression that will be used to locate the component (if
+     * any) that has an <code>id</code> that matches, within the scope of the base component. The match is performed as follows:
      * <ul>
-     * <li>If the search expression is a simple identifier, this value is compared to the <code>id</code> property, and then
-     * recursively through the facets and children of the base {@link UIComponent} (except that if a descendant
-     * {@link NamingContainer} is found, its own facets and children are not searched).</li>
-     * <li>If the search expression includes more than one identifier separated by the separator character, the first
-     * identifier is used to locate a {@link NamingContainer} by the rules in the previous bullet point. Then, the
-     * <code>findComponent()</code> method of this {@link NamingContainer} will be called, passing the remainder of the
-     * search expression.</li>
+     * <li>If the search expression is a simple identifier, this value is compared to the <code>id</code> property, and then recursively through the facets and
+     * children of the base {@link UIComponent} (except that if a descendant {@link NamingContainer} is found, its own facets and children are not
+     * searched).</li>
+     * <li>If the search expression includes more than one identifier separated by the separator character, the first identifier is used to locate a
+     * {@link NamingContainer} by the rules in the previous bullet point. Then, the <code>findComponent()</code> method of this {@link NamingContainer} will be
+     * called, passing the remainder of the search expression.</li>
      * </ul>
      * </li>
      * </ul>
@@ -985,50 +947,43 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * @return the found {@link UIComponent}, or <code>null</code> if the component was not found.
      *
-     * @throws IllegalArgumentException if an intermediate identifier in a search expression identifies a
-     * {@link UIComponent} that is not a {@link NamingContainer}
+     * @throws IllegalArgumentException if an intermediate identifier in a search expression identifies a {@link UIComponent} that is not a
+     * {@link NamingContainer}
      * @throws NullPointerException if <code>expr</code> is <code>null</code>
      */
     public abstract UIComponent findComponent(String expr);
 
     /**
      * <p>
-     * <span class="changed_modified_2_1">Starting</span> at this component in the View hierarchy, search for a component
-     * with a <code>clientId</code> equal to the argument <code>clientId</code> and, if found, call the
-     * {@link ContextCallback#invokeContextCallback} method on the argument <code>callback</code>, passing the current
-     * {@link FacesContext} and the found component as arguments. This method is similar to {@link #findComponent} but it
-     * does not support the leading {@link UINamingContainer#getSeparatorChar} syntax for searching from the root of the
-     * View.
+     * <span class="changed_modified_2_1">Starting</span> at this component in the View hierarchy, search for a component with a <code>clientId</code> equal to
+     * the argument <code>clientId</code> and, if found, call the {@link ContextCallback#invokeContextCallback} method on the argument <code>callback</code>,
+     * passing the current {@link FacesContext} and the found component as arguments. This method is similar to {@link #findComponent} but it does not support
+     * the leading {@link UINamingContainer#getSeparatorChar} syntax for searching from the root of the View.
      * </p>
      *
      * <p>
-     * The default implementation will first check if <code>this.getClientId()</code> is equal to the argument
-     * <code>clientId</code>. If so, <span class="changed_added_2_1">first call {@link #pushComponentToEL}, then</span> call
-     * the {@link ContextCallback#invokeContextCallback} method on the argument callback, passing through the
-     * <code>FacesContext</code> argument and passing this as the component argument. <span class="changed_added_2_1">Then
-     * call {@link #popComponentFromEL}</span>. If an <code>Exception</code> is thrown by the callback, wrap it in a
+     * The default implementation will first check if <code>this.getClientId()</code> is equal to the argument <code>clientId</code>. If so,
+     * <span class="changed_added_2_1">first call {@link #pushComponentToEL}, then</span> call the {@link ContextCallback#invokeContextCallback} method on the
+     * argument callback, passing through the <code>FacesContext</code> argument and passing this as the component argument.
+     * <span class="changed_added_2_1">Then call {@link #popComponentFromEL}</span>. If an <code>Exception</code> is thrown by the callback, wrap it in a
      * {@link FacesException} and re-throw it. Otherwise, return <code>true</code>.
      * </p>
      *
      * <p>
-     * Otherwise, for each component returned by {@link #getFacetsAndChildren}, call <code>invokeOnComponent()</code>
-     * passing the arguments to this method, in order. The first time <code>invokeOnComponent()</code> returns true, abort
-     * traversing the rest of the <code>Iterator</code> and return <code>true</code>.
+     * Otherwise, for each component returned by {@link #getFacetsAndChildren}, call <code>invokeOnComponent()</code> passing the arguments to this method, in
+     * order. The first time <code>invokeOnComponent()</code> returns true, abort traversing the rest of the <code>Iterator</code> and return <code>true</code>.
      * </p>
      *
      * <p>
-     * When calling {@link ContextCallback#invokeContextCallback} the implementation of this method must guarantee that the
-     * state of the component passed to the callback correctly reflects the component's position in the View hierarchy with
-     * respect to any state found in the argument <code>clientId</code>. For example, an iterating component such as
-     * {@link UIData} will need to set its row index to correctly reflect the argument <code>clientId</code> before finding
-     * the appropriate child component backed by the correct row. When the callback returns, either normally or by throwing
-     * an <code>Exception</code> the implementation of this method must restore the state of the view to the way it was
-     * before invoking the callback.
+     * When calling {@link ContextCallback#invokeContextCallback} the implementation of this method must guarantee that the state of the component passed to the
+     * callback correctly reflects the component's position in the View hierarchy with respect to any state found in the argument <code>clientId</code>. For
+     * example, an iterating component such as {@link UIData} will need to set its row index to correctly reflect the argument <code>clientId</code> before
+     * finding the appropriate child component backed by the correct row. When the callback returns, either normally or by throwing an <code>Exception</code>
+     * the implementation of this method must restore the state of the view to the way it was before invoking the callback.
      * </p>
      *
      * <p>
-     * If none of the elements from {@link #getFacetsAndChildren} returned <code>true</code> from
-     * <code>invokeOnComponent()</code>, return <code>false</code>.
+     * If none of the elements from {@link #getFacetsAndChildren} returned <code>true</code> from <code>invokeOnComponent()</code>, return <code>false</code>.
      * </p>
      *
      * <p>
@@ -1063,12 +1018,10 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * @throws NullPointerException if any of the arguments are null
      *
-     * @throws FacesException if the argument Callback throws an Exception, it is wrapped in a <code>FacesException</code>
-     * and re-thrown.
+     * @throws FacesException if the argument Callback throws an Exception, it is wrapped in a <code>FacesException</code> and re-thrown.
      *
-     * @return <code>true</code> if the a component with the given <code>clientId</code> is found, the callback method was
-     * successfully invoked passing that component as an argument, and no Exception was thrown. Returns <code>false</code>
-     * if no component with the given <code>clientId</code> is found.
+     * @return <code>true</code> if the a component with the given <code>clientId</code> is found, the callback method was successfully invoked passing that
+     * component as an argument, and no Exception was thrown. Returns <code>false</code> if no component with the given <code>clientId</code> is found.
      *
      */
     public boolean invokeOnComponent(FacesContext context, String clientId, ContextCallback callback) throws FacesException {
@@ -1084,12 +1037,15 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
                 callback.invokeContextCallback(context, this);
 
                 return true;
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
-            } finally {
+            }
+            finally {
                 popComponentFromEL(context);
             }
-        } else {
+        }
+        else {
             Iterator<UIComponent> facetsAndChildrenIterator = getFacetsAndChildren();
 
             while (facetsAndChildrenIterator.hasNext() && !found) {
@@ -1100,14 +1056,13 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
         return found;
     }
 
-
     // ------------------------------------------------ Facet Management Methods
 
     /**
      * <p>
-     * Return a mutable <code>Map</code> representing the facet {@link UIComponent}s associated with this
-     * {@link UIComponent}, keyed by facet name (which must be a String). The returned implementation must support all of
-     * the standard and optional <code>Map</code> methods, plus support the following additional requirements:
+     * Return a mutable <code>Map</code> representing the facet {@link UIComponent}s associated with this {@link UIComponent}, keyed by facet name (which must
+     * be a String). The returned implementation must support all of the standard and optional <code>Map</code> methods, plus support the following additional
+     * requirements:
      * </p>
      *
      * <ul>
@@ -1118,8 +1073,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * <li>Whenever a new facet {@link UIComponent} is added:
      * <ul>
      * <li>The <code>parent</code> property of the component must be set to this component instance.</li>
-     * <li>If the <code>parent</code> property of the component was already non-null, the component must first be removed
-     * from its previous parent (where it may have been either a child or a facet).</li>
+     * <li>If the <code>parent</code> property of the component was already non-null, the component must first be removed from its previous parent (where it may
+     * have been either a child or a facet).</li>
      * </ul>
      * </li>
      *
@@ -1136,14 +1091,14 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Return the number of facet {@link UIComponent}s that are associated with this {@link UIComponent}. If there are no
-     * facets, this method must return 0. The method must not cause the creation of a facet component map.
+     * Return the number of facet {@link UIComponent}s that are associated with this {@link UIComponent}. If there are no facets, this method must return 0. The
+     * method must not cause the creation of a facet component map.
      * </p>
      *
      * <p>
-     * For backwards compatability with classes that extend UIComponent directly, a default implementation is provided that
-     * simply calls {@link #getFacets} and then calls the <code>size()</code> method on the returned <code>Map</code>. A
-     * more optimized version of this method is provided in {@link UIComponentBase#getFacetCount}.
+     * For backwards compatability with classes that extend UIComponent directly, a default implementation is provided that simply calls {@link #getFacets} and
+     * then calls the <code>size()</code> method on the returned <code>Map</code>. A more optimized version of this method is provided in
+     * {@link UIComponentBase#getFacetCount}.
      *
      * @return the number of facets.
      * @since 1.2
@@ -1154,8 +1109,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Convenience method to return the named facet, if it exists, or <code>null</code> otherwise. If the requested facet
-     * does not exist, the facets Map must not be created.
+     * Convenience method to return the named facet, if it exists, or <code>null</code> otherwise. If the requested facet does not exist, the facets Map must
+     * not be created.
      * </p>
      *
      * @param name Name of the desired facet
@@ -1165,9 +1120,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Convenience method to return the named facet using an enum identifier, if it exists, or <code>null</code>
-     * otherwise. This method delegates to {@link #getFacet(String)} using the result of calling
-     * <code>identifier.toString()</code>. If the requested facet does not exist, the facets Map must not be created.
+     * Convenience method to return the named facet using an enum identifier, if it exists, or <code>null</code> otherwise. This method delegates to
+     * {@link #getFacet(String)} using the result of calling <code>identifier.toString()</code>. If the requested facet does not exist, the facets Map must not
+     * be created.
      * </p>
      *
      * @param identifier Enum identifier of the desired facet
@@ -1180,9 +1135,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Return an <code>Iterator</code> over the facet followed by child {@link UIComponent}s of this {@link UIComponent}.
-     * Facets are returned in an undefined order, followed by all the children in the order they are stored in the child
-     * list. If this component has no facets or children, an empty <code>Iterator</code> is returned.
+     * Return an <code>Iterator</code> over the facet followed by child {@link UIComponent}s of this {@link UIComponent}. Facets are returned in an undefined
+     * order, followed by all the children in the order they are stored in the child list. If this component has no facets or children, an empty
+     * <code>Iterator</code> is returned.
      * </p>
      *
      * <p>
@@ -1197,38 +1152,31 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Broadcast the specified {@link FacesEvent} to all registered event listeners who have expressed an interest in events
-     * of this type. Listeners are called in the order in which they were added.
+     * Broadcast the specified {@link FacesEvent} to all registered event listeners who have expressed an interest in events of this type. Listeners are called
+     * in the order in which they were added.
      * </p>
      * <p class="changed_added_2_0">
-     * If the <code>event</code> is an instance of {@link jakarta.faces.event.BehaviorEvent} and the current
-     * <code>component</code> is the source of the <code>event</code> call
-     * {@link jakarta.faces.event.BehaviorEvent#getBehavior} to get the {@link jakarta.faces.component.behavior.Behavior}
-     * for the event.
+     * If the <code>event</code> is an instance of {@link jakarta.faces.event.BehaviorEvent} and the current <code>component</code> is the source of the
+     * <code>event</code> call {@link jakarta.faces.event.BehaviorEvent#getBehavior} to get the {@link jakarta.faces.component.behavior.Behavior} for the event.
      *
-     * <span class="changed_modified_2_0_rev_a">Call
-     * {@link jakarta.faces.component.behavior.Behavior#broadcast(jakarta.faces.event.BehaviorEvent)} on the
+     * <span class="changed_modified_2_0_rev_a">Call {@link jakarta.faces.component.behavior.Behavior#broadcast(jakarta.faces.event.BehaviorEvent)} on the
      * <code>Behavior</code> instance</span>.
      * </p>
      *
      * @param event The {@link FacesEvent} to be broadcast
      *
-     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the
-     * current event should be performed
-     * @throws IllegalArgumentException if the implementation class of this {@link FacesEvent} is not supported by this
-     * component
+     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the current event should be performed
+     * @throws IllegalArgumentException if the implementation class of this {@link FacesEvent} is not supported by this component
      * @throws NullPointerException if <code>event</code> is <code>null</code>
      */
     public abstract void broadcast(FacesEvent event) throws AbortProcessingException;
 
     /**
      * <p>
-     * Decode any new state of this {@link UIComponent} from the request contained in the specified {@link FacesContext},
-     * and store this state as needed.
+     * Decode any new state of this {@link UIComponent} from the request contained in the specified {@link FacesContext}, and store this state as needed.
      * </p>
      * <p>
-     * During decoding, events may be enqueued for later processing (by event listeners who have registered an interest), by
-     * calling <code>queueEvent()</code>.
+     * During decoding, events may be enqueued for later processing (by event listeners who have registered an interest), by calling <code>queueEvent()</code>.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -1245,24 +1193,21 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * <div class="changed_added_2_0">
      *
      * <p>
-     * UIComponent.visitTree() implementations do not invoke the {@link VisitCallback} directly, but instead call
-     * {@link VisitContext#invokeVisitCallback} to invoke the callback. This allows {@code VisitContext} implementations to
-     * provide optimized tree traversals, for example by only calling the {@code
+     * UIComponent.visitTree() implementations do not invoke the {@link VisitCallback} directly, but instead call {@link VisitContext#invokeVisitCallback} to
+     * invoke the callback. This allows {@code VisitContext} implementations to provide optimized tree traversals, for example by only calling the {@code
      * VisitCallback} for a subset of components.
      * </p>
      *
      * <p>
-     * UIComponent.visitTree() implementations must call UIComponent.pushComponentToEL() before performing the visit and
-     * UIComponent.popComponentFromEL() after the visit.
+     * UIComponent.visitTree() implementations must call UIComponent.pushComponentToEL() before performing the visit and UIComponent.popComponentFromEL() after
+     * the visit.
      * </p>
      * </div>
      *
      * @param visitContext the <code>VisitContext</code> for this visit
-     * @param callback the <code>VisitCallback</code> instance whose <code>visit</code> method will be called for each node
-     * visited.
-     * @return component implementations may return <code>true</code> to indicate that the tree visit is complete (eg. all
-     * components that need to be visited have been visited). This results in the tree visit being short-circuited such that
-     * no more components are visited.
+     * @param callback the <code>VisitCallback</code> instance whose <code>visit</code> method will be called for each node visited.
+     * @return component implementations may return <code>true</code> to indicate that the tree visit is complete (eg. all components that need to be visited
+     * have been visited). This results in the tree visit being short-circuited such that no more components are visited.
      *
      * @see VisitContext#invokeVisitCallback VisitContext.invokeVisitCallback()
      *
@@ -1304,7 +1249,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
                     }
                 }
             }
-        } finally {
+        }
+        finally {
             // Pop ourselves off the Jakarta Expression Language stack
             popComponentFromEL(facesContext);
         }
@@ -1315,21 +1261,19 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Return <code>true</code> if this component should be visited, <code>false</code> otherwise. Called by
-     * {@link UIComponent#visitTree UIComponent.visitTree()} to determine whether this component satisfies the hints
-     * returned by {@link jakarta.faces.component.visit.VisitContext#getHints}.
+     * Return <code>true</code> if this component should be visited, <code>false</code> otherwise. Called by {@link UIComponent#visitTree
+     * UIComponent.visitTree()} to determine whether this component satisfies the hints returned by {@link jakarta.faces.component.visit.VisitContext#getHints}.
      * </p>
      *
      * <div class="changed_added_2_0">
      *
      * <p>
-     * If this method returns false, the tree visited is short-circuited such that neither the component nor any of its
-     * descendents will be visited
+     * If this method returns false, the tree visited is short-circuited such that neither the component nor any of its descendents will be visited
      * </p>
      *
      * <p>
-     * Custom {@code visitTree()} implementations may call this method to determine whether the component is visitable
-     * before performing any visit-related processing.
+     * Custom {@code visitTree()} implementations may call this method to determine whether the component is visitable before performing any visit-related
+     * processing.
      * </p>
      *
      * </div>
@@ -1354,13 +1298,11 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">If</span> our <code>rendered</code> property is <code>true</code>, render the
-     * beginning of the current state of this {@link UIComponent} to the response contained in the specified
-     * {@link FacesContext}. Call
+     * <span class="changed_modified_2_0">If</span> our <code>rendered</code> property is <code>true</code>, render the beginning of the current state of this
+     * {@link UIComponent} to the response contained in the specified {@link FacesContext}. Call
      * {@link #pushComponentToEL(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent)}. Call
-     * {@link jakarta.faces.application.Application#publishEvent}, passing
-     * {@link jakarta.faces.event.PreRenderComponentEvent}<code>.class</code> as the first argument and the component
-     * instance to be rendered as the second argument.
+     * {@link jakarta.faces.application.Application#publishEvent}, passing {@link jakarta.faces.event.PreRenderComponentEvent}<code>.class</code> as the first
+     * argument and the component instance to be rendered as the second argument.
      * </p>
      *
      * <p>
@@ -1370,8 +1312,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * <p class="changed_added_2_0">
      * If our <code>rendered</code> property is <code>false</code>, call
-     * {@link #pushComponentToEL(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent)} and return
-     * immediately.
+     * {@link #pushComponentToEL(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent)} and return immediately.
      * </p>
      *
      * @param context {@link FacesContext} for the response we are creating
@@ -1383,16 +1324,14 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * If our <code>rendered</code> property is <code>true</code>, render the child {@link UIComponent}s of this
-     * {@link UIComponent}. This method will only be called if the <code>rendersChildren</code> property is
-     * <code>true</code>.
+     * If our <code>rendered</code> property is <code>true</code>, render the child {@link UIComponent}s of this {@link UIComponent}. This method will only be
+     * called if the <code>rendersChildren</code> property is <code>true</code>.
      * </p>
      *
      * <p>
      * If a {@link Renderer} is associated with this {@link UIComponent}, the actual encoding will be delegated to
-     * {@link Renderer#encodeChildren(FacesContext, UIComponent)}. <span class="changed_modified_2_0">If no {@link Renderer}
-     * is associated with this {@link UIComponent}, iterate over each of the children of this component and call
-     * {@link #encodeAll(jakarta.faces.context.FacesContext)}.</span>
+     * {@link Renderer#encodeChildren(FacesContext, UIComponent)}. <span class="changed_modified_2_0">If no {@link Renderer} is associated with this
+     * {@link UIComponent}, iterate over each of the children of this component and call {@link #encodeAll(jakarta.faces.context.FacesContext)}.</span>
      * </p>
      *
      * @param context {@link FacesContext} for the response we are creating
@@ -1404,8 +1343,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">If</span> our <code>rendered</code> property is <code>true</code>, render the
-     * ending of the current state of this {@link UIComponent}.
+     * <span class="changed_modified_2_0">If</span> our <code>rendered</code> property is <code>true</code>, render the ending of the current state of this
+     * {@link UIComponent}.
      * </p>
      *
      * <p>
@@ -1414,8 +1353,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * </p>
      *
      * <p class="changed_added_2_0">
-     * Call {@link UIComponent#popComponentFromEL}. before returning regardless of the value of the <code>rendered</code>
-     * property.
+     * Call {@link UIComponent#popComponentFromEL}. before returning regardless of the value of the <code>rendered</code> property.
      * </p>
      *
      * @param context {@link FacesContext} for the response we are creating
@@ -1431,8 +1369,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * </p>
      *
      * <p>
-     * Render this component and all its children that return <code>true</code> from <code>isRendered()</code>, regardless
-     * of the value of the {@link #getRendersChildren} flag.
+     * Render this component and all its children that return <code>true</code> from <code>isRendered()</code>, regardless of the value of the
+     * {@link #getRendersChildren} flag.
      * </p>
      *
      * @param context the Faces context.
@@ -1454,7 +1392,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
         if (getRendersChildren()) {
             encodeChildren(context);
-        } else if (getChildCount() > 0) {
+        }
+        else if (getChildCount() > 0) {
             // Re-read size() each iteration rather than freezing the count: a child may be appended to this
             // component while one of its own children is being encoded (e.g. a component that programmatically
             // adds a sibling during its render), and it must still be encoded. This matches the live semantics
@@ -1484,27 +1423,25 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Push the current <code>UIComponent</code> <code>this</code> to the {@link FacesContext} attribute map
-     * saving the previous <code>UIComponent</code>
-     * for a subsequent call to {@link #popComponentFromEL}.
+     * Push the current <code>UIComponent</code> <code>this</code> to the {@link FacesContext} attribute map saving the previous <code>UIComponent</code> for a
+     * subsequent call to {@link #popComponentFromEL}.
      * </p>
      *
      * <p class="changed_added_2_0">
-     * This method and <code>popComponentFromEL()</code> form the basis for the contract that enables the Jakarta Expression
-     * Language Expression "<code>#{component}</code>" to resolve to the "current" component that is being processed in the
-     * lifecycle. The requirements for when <code>pushComponentToEL()</code> and <code>popComponentFromEL()</code> must be
-     * called are specified as needed in the javadoc for this class.
+     * This method and <code>popComponentFromEL()</code> form the basis for the contract that enables the Jakarta Expression Language Expression
+     * "<code>#{component}</code>" to resolve to the "current" component that is being processed in the lifecycle. The requirements for when
+     * <code>pushComponentToEL()</code> and <code>popComponentFromEL()</code> must be called are specified as needed in the javadoc for this class.
      * </p>
      *
      * <p class="changed_added_2_0">
-     * After <code>pushComponentToEL()</code> returns, a call to {@link #getCurrentComponent} must return <code>this</code>
-     * <code>UIComponent</code> instance until <code>popComponentFromEL()</code> is called, after which point the previous
-     * <code>UIComponent</code> instance will be returned from <code>getCurrentComponent()</code>
+     * After <code>pushComponentToEL()</code> returns, a call to {@link #getCurrentComponent} must return <code>this</code> <code>UIComponent</code> instance
+     * until <code>popComponentFromEL()</code> is called, after which point the previous <code>UIComponent</code> instance will be returned from
+     * <code>getCurrentComponent()</code>
      * </p>
      *
      * @param context the {@link FacesContext} for the current request
-     * @param component the <code>component</code> to push to the EL. If <code>component</code> is <code>null</code> the
-     * <code>UIComponent</code> instance that this call was invoked upon will be pushed to the EL.
+     * @param component the <code>component</code> to push to the EL. If <code>component</code> is <code>null</code> the <code>UIComponent</code> instance that
+     * this call was invoked upon will be pushed to the EL.
      *
      * @throws NullPointerException if <code>context</code> is <code>null</code>
      *
@@ -1535,8 +1472,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Pop the current <code>UIComponent</code> from the {@link FacesContext} attributes map so that the previous
-     * <code>UIComponent</code>, if any, becomes the current component.
+     * Pop the current <code>UIComponent</code> from the {@link FacesContext} attributes map so that the previous <code>UIComponent</code>, if any, becomes the
+     * current component.
      * </p>
      *
      * @param context the {@link FacesContext} for the current request
@@ -1611,9 +1548,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
     }
 
     /**
-     * Primes the cached composite-component flag without probing the attributes map. Called by
-     * {@code UIComponentBase.AttributesMap} when {@code COMPONENT_RESOURCE_KEY} is put (which is what makes a
-     * component composite) and by {@code restoreMarkersFromState} on full-state restore. See the field declaration.
+     * Primes the cached composite-component flag without probing the attributes map. Called by {@code UIComponentBase.AttributesMap} when
+     * {@code COMPONENT_RESOURCE_KEY} is put (which is what makes a component composite) and by {@code restoreMarkersFromState} on full-state restore. See the
+     * field declaration.
      */
     void setCompositeComponentFlag(boolean composite) {
         isCompositeComponent = composite;
@@ -1626,9 +1563,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * @param component the component from which to start the search from
      *
-     * @return if <code>component</code> is <code>null</code>, return <code>null</code>, otherwise search the component's
-     * parent hierachy for the nearest parent composite component. If no parent composite component is found, return
-     * <code>null</code>
+     * @return if <code>component</code> is <code>null</code>, return <code>null</code>, otherwise search the component's parent hierachy for the nearest parent
+     * composite component. If no parent composite component is found, return <code>null</code>
      *
      * @since 2.0
      */
@@ -1636,7 +1572,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
         if (component == null) {
             return null;
-        } else {
+        }
+        else {
             if (component.compositeParent != null) {
                 return component.compositeParent;
             }
@@ -1657,9 +1594,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Return the <code>UIComponent</code> instance that is currently processing. This is equivalent to evaluating the
-     * Jakarta Expression Language expression "<code>#{component}</code>" and doing a <code>getValue</code> operation on the
-     * resultant <code>ValueExpression</code>.
+     * Return the <code>UIComponent</code> instance that is currently processing. This is equivalent to evaluating the Jakarta Expression Language expression
+     * "<code>#{component}</code>" and doing a <code>getValue</code> operation on the resultant <code>ValueExpression</code>.
      * </p>
      *
      * <p class="changed_added_2_0">
@@ -1681,8 +1617,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Return the closest ancestor component, relative to the component returned from {@link #getCurrentComponent}, that is
-     * a composite component, or <code>null</code> if no such component exists.
+     * Return the closest ancestor component, relative to the component returned from {@link #getCurrentComponent}, that is a composite component, or
+     * <code>null</code> if no such component exists.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -1699,10 +1635,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Add the specified {@link FacesListener} to the set of listeners registered to receive event notifications from this
-     * {@link UIComponent}. It is expected that {@link UIComponent} classes acting as event sources will have corresponding
-     * typesafe APIs for registering listeners of the required type, and the implementation of those registration methods
-     * will delegate to this method. For example:
+     * Add the specified {@link FacesListener} to the set of listeners registered to receive event notifications from this {@link UIComponent}. It is expected
+     * that {@link UIComponent} classes acting as event sources will have corresponding typesafe APIs for registering listeners of the required type, and the
+     * implementation of those registration methods will delegate to this method. For example:
      * </p>
      *
      * <pre>
@@ -1732,9 +1667,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Return an array of registered {@link FacesListener}s that are instances of the specified class. If there are no such
-     * registered listeners, a zero-length array is returned. The returned array can be safely be cast to an array strongly
-     * typed to an element type of <code>clazz</code>.
+     * Return an array of registered {@link FacesListener}s that are instances of the specified class. If there are no such registered listeners, a zero-length
+     * array is returned. The returned array can be safely be cast to an array strongly typed to an element type of <code>clazz</code>.
      * </p>
      *
      * @param clazz Class that must be implemented by a {@link FacesListener} for it to be returned
@@ -1746,8 +1680,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Remove the specified {@link FacesListener} from the set of listeners registered to receive event notifications from
-     * this {@link UIComponent}.
+     * Remove the specified {@link FacesListener} from the set of listeners registered to receive event notifications from this {@link UIComponent}.
      *
      * @param listener The {@link FacesListener} to be deregistered
      *
@@ -1757,9 +1690,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Queue an event for broadcast at the end of the current request processing lifecycle phase. The default implementation
-     * in {@link UIComponentBase} must delegate this call to the <code>queueEvent()</code> method of the parent
-     * {@link UIComponent}.
+     * Queue an event for broadcast at the end of the current request processing lifecycle phase. The default implementation in {@link UIComponentBase} must
+     * delegate this call to the <code>queueEvent()</code> method of the parent {@link UIComponent}.
      * </p>
      *
      * @param event {@link FacesEvent} to be queued
@@ -1771,9 +1703,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_modified_2_1">
-     * This implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of not
-     * breaking existing applications that extend this class. {@link UIComponentBase} provides the implementation of this
-     * method.
+     * This implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of not breaking existing applications that
+     * extend this class. {@link UIComponentBase} provides the implementation of this method.
      * </p>
      *
      * @param eventClass the event class.
@@ -1786,9 +1717,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_modified_2_1">
-     * This implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of not
-     * breaking existing applications that extend this class. {@link UIComponentBase} provides the implementation of this
-     * method.
+     * This implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of not breaking existing applications that
+     * extend this class. {@link UIComponentBase} provides the implementation of this method.
      * </p>
      *
      * @param eventClass the event class.
@@ -1801,9 +1731,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_modified_2_1">
-     * This implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of not
-     * breaking existing applications that extend this class. {@link UIComponentBase} provides the implementation of this
-     * method.
+     * This implementation throws <code>UnsupportedOperationException</code> and is provided for the sole purpose of not breaking existing applications that
+     * extend this class. {@link UIComponentBase} provides the implementation of this method.
      * </p>
      *
      * @param eventClass the event class.
@@ -1817,8 +1746,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * Starting with "this", return the closest component in the ancestry that is a <code>NamingContainer</code> or
-     * <code>null</code> if none can be found.
+     * Starting with "this", return the closest component in the ancestry that is a <code>NamingContainer</code> or <code>null</code> if none can be found.
      * </p>
      *
      * @return the naming container, or <code>null</code>.
@@ -1848,51 +1776,45 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Perform</span> the component tree processing required by the <em>Restore View</em>
-     * phase of the request processing lifecycle for all facets of this component, all children of this component, and this
-     * component itself, as follows.
+     * <span class="changed_modified_2_0">Perform</span> the component tree processing required by the <em>Restore View</em> phase of the request processing
+     * lifecycle for all facets of this component, all children of this component, and this component itself, as follows.
      * </p>
      * <ul>
      * <li class="changed_modified_2_0">Call the <code>restoreState()</code> method of this component.</li>
      *
      * <li class="changed_added_2_0">Call {@link UIComponent#pushComponentToEL}.</li>
      *
-     * <li>Call the <code>processRestoreState()</code> method of all facets and children of this {@link UIComponent} in the
-     * order determined by a call to <code>getFacetsAndChildren()</code>. <span class="changed_added_2_0">After returning
-     * from the <code>processRestoreState()</code> method on a child or facet, call
-     * {@link UIComponent#popComponentFromEL}</span></li>
+     * <li>Call the <code>processRestoreState()</code> method of all facets and children of this {@link UIComponent} in the order determined by a call to
+     * <code>getFacetsAndChildren()</code>. <span class="changed_added_2_0">After returning from the <code>processRestoreState()</code> method on a child or
+     * facet, call {@link UIComponent#popComponentFromEL}</span></li>
      * </ul>
      *
      * @param context {@link FacesContext} for the request we are processing
      * @param state the state.
      * @throws NullPointerException if <code>context</code> is <code>null</code>
-     * @deprecated Full state saving has been removed. Use
-     * {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
+     * @deprecated Full state saving has been removed. Use {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
      */
     @Deprecated(since = "5.0", forRemoval = true)
     public abstract void processRestoreState(FacesContext context, Object state);
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Perform</span> the component tree processing required by the <em>Apply Request
-     * Values</em> phase of the request processing lifecycle for all facets of this component, all children of this
-     * component, and this component itself, as follows.
+     * <span class="changed_modified_2_0">Perform</span> the component tree processing required by the <em>Apply Request Values</em> phase of the request
+     * processing lifecycle for all facets of this component, all children of this component, and this component itself, as follows.
      * </p>
      *
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further
-     * processing.</li>
+     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
      * <li class="changed_added_2_0">Call {@link #pushComponentToEL}.</li>
      *
-     * <li>Call the <code>processDecodes()</code> method of all facets and children of this {@link UIComponent}, in the
-     * order determined by a call to <code>getFacetsAndChildren()</code>.</li>
+     * <li>Call the <code>processDecodes()</code> method of all facets and children of this {@link UIComponent}, in the order determined by a call to
+     * <code>getFacetsAndChildren()</code>.</li>
      *
      * <li>Call the <code>decode()</code> method of this component.</li>
      *
      * <li>Call {@link #popComponentFromEL} from inside of a <code>finally block, just before returning.</code></li>
      *
-     * <li>If a <code>RuntimeException</code> is thrown during decode processing, call {@link FacesContext#renderResponse}
-     * and re-throw the exception.</li>
+     * <li>If a <code>RuntimeException</code> is thrown during decode processing, call {@link FacesContext#renderResponse} and re-throw the exception.</li>
      * </ul>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -1903,10 +1825,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p class="changed_added_2_0">
-     * The default implementation performs the following action. If the argument <code>event</code> is an instance of
-     * {@link PostRestoreStateEvent}, call <code>this.</code>{@link #getValueExpression} passing the literal string
-     * &#8220;binding&#8221;, without the quotes, as the argument. If the result is non-<code>null</code>, set the value of
-     * the <code>ValueExpression</code> to be <code>this</code>.
+     * The default implementation performs the following action. If the argument <code>event</code> is an instance of {@link PostRestoreStateEvent}, call
+     * <code>this.</code>{@link #getValueExpression} passing the literal string &#8220;binding&#8221;, without the quotes, as the argument. If the result is
+     * non-<code>null</code>, set the value of the <code>ValueExpression</code> to be <code>this</code>.
      * </p>
      */
     @Override
@@ -1931,18 +1852,16 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * <span class="changed_modified_2_0 changed_modified_2_3"><span class=
-     * "changed_modified_2_0_rev_a">Perform</span></span> the component tree processing required by the <em>Process
-     * Validations</em> phase of the request processing lifecycle for all facets of this component, all children of this
-     * component, and this component itself, as follows.
+     * <span class="changed_modified_2_0 changed_modified_2_3"><span class= "changed_modified_2_0_rev_a">Perform</span></span> the component tree processing
+     * required by the <em>Process Validations</em> phase of the request processing lifecycle for all facets of this component, all children of this component,
+     * and this component itself, as follows.
      * </p>
      *
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further
-     * processing.</li>
+     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
      * <li class="changed_added_2_0">Call {@link #pushComponentToEL}.</li>
-     * <li>Call the <code>processValidators()</code> method of all facets and children of this {@link UIComponent}, in the
-     * order determined by a call to <code>getFacetsAndChildren()</code>.</li>
+     * <li>Call the <code>processValidators()</code> method of all facets and children of this {@link UIComponent}, in the order determined by a call to
+     * <code>getFacetsAndChildren()</code>.</li>
      * <li><span class="changed_modified_2_0_rev_a">After returning from calling <code>getFacetsAndChildren()</code> call
      * {@link UIComponent#popComponentFromEL}.</span></li>
      * </ul>
@@ -1957,21 +1876,18 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Perform</span> the component tree processing required by the <em>Update Model
-     * Values</em> phase of the request processing lifecycle for all facets of this component, all children of this
-     * component, and this component itself, as follows.
+     * <span class="changed_modified_2_0">Perform</span> the component tree processing required by the <em>Update Model Values</em> phase of the request
+     * processing lifecycle for all facets of this component, all children of this component, and this component itself, as follows.
      * </p>
      *
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further
-     * processing.</li>
+     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
      *
      * <li class="changed_added_2_0">Call {@link #pushComponentToEL}.</li>
      *
-     * <li>Call the <code>processUpdates()</code> method of all facets and children of this {@link UIComponent}, in the
-     * order determined by a call to <code>getFacetsAndChildren()</code>. <span class="changed_added_2_0">After returning
-     * from the <code>processUpdates()</code> method on a child or facet, call
-     * {@link UIComponent#popComponentFromEL}</span></li>
+     * <li>Call the <code>processUpdates()</code> method of all facets and children of this {@link UIComponent}, in the order determined by a call to
+     * <code>getFacetsAndChildren()</code>. <span class="changed_added_2_0">After returning from the <code>processUpdates()</code> method on a child or facet,
+     * call {@link UIComponent#popComponentFromEL}</span></li>
      * </ul>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -1982,9 +1898,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Perform</span> the component tree processing required by the state saving portion
-     * of the <em>Render Response</em> phase of the request processing lifecycle for all facets of this component, all
-     * children of this component, and this component itself, as follows.
+     * <span class="changed_modified_2_0">Perform</span> the component tree processing required by the state saving portion of the <em>Render Response</em>
+     * phase of the request processing lifecycle for all facets of this component, all children of this component, and this component itself, as follows.
      * </p>
      *
      * <ul>
@@ -1993,9 +1908,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * <li class="changed_added_2_0">Call {@link #pushComponentToEL}.</li>
      *
-     * <li>Call the <code>processSaveState()</code> method of all facets and children of this {@link UIComponent} in the
-     * order determined by a call to <code>getFacetsAndChildren()</code>, skipping children and facets that are transient.
-     * Ensure that {@link #popComponentFromEL} is called correctly after each child or facet.</li>
+     * <li>Call the <code>processSaveState()</code> method of all facets and children of this {@link UIComponent} in the order determined by a call to
+     * <code>getFacetsAndChildren()</code>, skipping children and facets that are transient. Ensure that {@link #popComponentFromEL} is called correctly after
+     * each child or facet.</li>
      *
      * <li>Call the <code>saveState()</code> method of this component.</li>
      *
@@ -2006,8 +1921,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * @param context {@link FacesContext} for the request we are processing
      * @return the saved state.
      * @throws NullPointerException if <code>context</code> is <code>null</code>
-     * @deprecated Full state saving has been removed. Use
-     * {@link jakarta.faces.view.StateManagementStrategy#saveView} instead.
+     * @deprecated Full state saving has been removed. Use {@link jakarta.faces.view.StateManagementStrategy#saveView} instead.
      */
     @Deprecated(since = "5.0", forRemoval = true)
     public abstract Object processSaveState(FacesContext context);
@@ -2025,8 +1939,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * Convenience method to return the {@link Renderer} instance associated with this component, if any; otherwise, return
-     * <code>null</code>.
+     * Convenience method to return the {@link Renderer} instance associated with this component, if any; otherwise, return <code>null</code>.
      * </p>
      *
      * @param <T> The component class.
@@ -2038,7 +1951,11 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
     // --------------------------------------------------------- Package Private
 
     static final class ComponentSystemEventListenerAdapter
-            implements ComponentSystemEventListener, SystemEventListener, StateHolder, FacesWrapper<ComponentSystemEventListener> {
+        implements
+            ComponentSystemEventListener,
+            SystemEventListener,
+            StateHolder,
+            FacesWrapper<ComponentSystemEventListener> {
 
         ComponentSystemEventListener wrapped;
         Class<?> instanceClass;
@@ -2133,8 +2050,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
             Object[] s = (Object[]) state;
             Object listener = s[0];
-            wrapped = (ComponentSystemEventListener) (listener == null ? UIComponent.getCurrentComponent(context)
-                    : ((StateHolderSaver) listener).restore(context));
+            wrapped = (ComponentSystemEventListener) (listener == null
+                ? UIComponent.getCurrentComponent(context)
+                : ((StateHolderSaver) listener).restore(context));
             instanceClass = (Class<?>) s[1];
         }
 
@@ -2198,6 +2116,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             return wrapped.equals(in.wrapped) && instanceClass.equals(in.instanceClass);
 
         }
+
     } // END ComponentSystemEventListenerAdapter
 
     // --------------------------------------------------------- Private methods
@@ -2275,7 +2194,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
                 try {
                     return bundle.getString(key.toString());
-                } catch (MissingResourceException e) {
+                }
+                catch (MissingResourceException e) {
                     return "???" + key + "???";
                 }
             }
@@ -2343,6 +2263,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
                 return result;
             }
+
         };
     }
 
@@ -2365,7 +2286,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
         try {
             resourceBundle = ResourceBundle.getBundle(className, currentLocale);
-        } catch (MissingResourceException e) {
+        }
+        catch (MissingResourceException e) {
             // It is not an error if there is no ResourceBundle
         }
 
@@ -2384,7 +2306,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
                 if (ccResource != null) {
                     try (InputStream propertiesInputStream = ccResource.getInputStream()) {
                         return new PropertyResourceBundle(propertiesInputStream);
-                    } catch (IOException ex) {
+                    }
+                    catch (IOException ex) {
                         Logger.getLogger(UIComponent.class.getName()).log(SEVERE, null, ex);
                     }
                 }
@@ -2408,13 +2331,16 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
                 try {
                     propertiesInputStream = result.getInputStream();
                     resourceBundle = new PropertyResourceBundle(propertiesInputStream);
-                } catch (IOException ex) {
+                }
+                catch (IOException ex) {
                     Logger.getLogger(UIComponent.class.getName()).log(SEVERE, null, ex);
-                } finally {
+                }
+                finally {
                     if (propertiesInputStream != null) {
                         try {
                             propertiesInputStream.close();
-                        } catch (IOException ioe) {
+                        }
+                        catch (IOException ioe) {
                             if (LOGGER.isLoggable(SEVERE)) {
                                 LOGGER.log(SEVERE, null, ioe);
                             }
@@ -2428,27 +2354,25 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
     }
 
     /**
-     * Field-backed value-expression map, keyed by property name, lazily instantiated. Holds the component's
-     * {@link ValueExpression}s directly instead of the {@code PropertyKeys.valueExpressions} StateHelper entry,
-     * so {@link #getValueExpression}/{@link #setValueExpression} skip a per-call StateHelper lookup -- notably
-     * the {@code getValueExpression("binding")} probe fired on every component during Restore View.
-     * {@code buildView} re-applies the facelet expressions on each restore, so they ride in the partial-state
-     * delta only when changed after {@code markInitialState} (see {@link #valueExpressionsModified}); full state
-     * saving persists the whole map.
+     * Field-backed value-expression map, keyed by property name, lazily instantiated. Holds the component's {@link ValueExpression}s directly instead of the
+     * {@code PropertyKeys.valueExpressions} StateHelper entry, so {@link #getValueExpression}/{@link #setValueExpression} skip a per-call StateHelper lookup --
+     * notably the {@code getValueExpression("binding")} probe fired on every component during Restore View. {@code buildView} re-applies the facelet
+     * expressions on each restore, so they ride in the partial-state delta only when changed after {@code markInitialState} (see
+     * {@link #valueExpressionsModified}); full state saving persists the whole map.
      */
     Map<String, ValueExpression> valueExpressions;
 
     /**
-     * {@code true} once a {@link ValueExpression} is set or removed after {@code markInitialState}, so the change
-     * rides in the partial-state delta. Transient: re-derived per request as {@code buildView} rebuilds the tree.
+     * {@code true} once a {@link ValueExpression} is set or removed after {@code markInitialState}, so the change rides in the partial-state delta. Transient:
+     * re-derived per request as {@code buildView} rebuilds the tree.
      */
     transient boolean valueExpressionsModified;
 
     /**
-     * {@code true} once a system-event listener is subscribed or unsubscribed after {@code markInitialState}, so the
-     * change rides in the partial-state delta. Listeners established during the view build ({@code @ListenerFor},
-     * {@code f:event}) are re-established by {@code buildView} on restore, so they stay out of the delta. Transient:
-     * re-derived per request as {@code buildView} rebuilds the tree.
+     * {@code true} once a system-event listener is subscribed or unsubscribed after {@code markInitialState}, so the change rides in the partial-state delta.
+     * Listeners established during the view build ({@code @ListenerFor}, {@code f:event}) are re-established by {@code buildView} on restore, so they stay out
+     * of the delta. Transient: re-derived per request as {@code buildView} rebuilds the tree.
      */
     transient boolean systemEventListenersModified;
+
 }

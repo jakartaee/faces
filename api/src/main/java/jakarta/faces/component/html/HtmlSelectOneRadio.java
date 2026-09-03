@@ -28,12 +28,12 @@ import jakarta.faces.event.BehaviorEvent.FacesComponentEvent;
 
 /**
  * <p>
- * <span class="changed_modified_2_0_rev_a">Represents</span> a single-selection component that is rendered as a set of
- * HTML <code>input</code> elements of type <code>radio</code>.
+ * <span class="changed_modified_2_0_rev_a">Represents</span> a single-selection component that is rendered as a set of HTML <code>input</code> elements of type
+ * <code>radio</code>.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Radio</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Radio</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHolder {
@@ -54,8 +54,37 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      * The property keys.
      */
     protected enum PropertyKeys {
-        accesskey, border, dir, disabled, disabledClass, enabledClass, group, label, lang, layout, onblur, onchange, onclick, ondblclick, onfocus, onkeydown,
-        onkeypress, onkeyup, onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onselect, readonly, role, style, styleClass, tabindex, title,;
+
+        accesskey,
+        border,
+        dir,
+        disabled,
+        disabledClass,
+        enabledClass,
+        group,
+        label,
+        lang,
+        layout,
+        onblur,
+        onchange,
+        onclick,
+        ondblclick,
+        onfocus,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        onselect,
+        readonly,
+        role,
+        style,
+        styleClass,
+        tabindex,
+        title,;
 
         String toString;
 
@@ -70,6 +99,7 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -105,8 +135,8 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: Width (in pixels) of the border to be drawn around the table containing the options list. This attribute is
-     * ignored when "group" attribute is specified.
+     * Contents: Width (in pixels) of the border to be drawn around the table containing the options list. This attribute is ignored when "group" attribute is
+     * specified.
      */
     public int getBorder() {
         return getStateHelper().eval(PropertyKeys.border, Integer.MIN_VALUE);
@@ -132,9 +162,8 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);
@@ -160,9 +189,8 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value
-     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as
-     * disabled="disabled".
+     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value of false causes no attribute to be
+     * rendered, while a value of true causes the attribute to be rendered as disabled="disabled".
      */
     public boolean isDisabled() {
         return getStateHelper().eval(PropertyKeys.disabled, false);
@@ -187,8 +215,7 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: CSS style class to apply to the rendered label on disabled options. This attribute is ignored when "group"
-     * attribute is specified.
+     * Contents: CSS style class to apply to the rendered label on disabled options. This attribute is ignored when "group" attribute is specified.
      */
     public java.lang.String getDisabledClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.disabledClass);
@@ -213,8 +240,7 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: CSS style class to apply to the rendered label on enabled options. This attribute is ignored when "group"
-     * attribute is specified.
+     * Contents: CSS style class to apply to the rendered label on enabled options. This attribute is ignored when "group" attribute is specified.
      */
     public java.lang.String getEnabledClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.enabledClass);
@@ -239,12 +265,10 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: Specifies the name of the radio button group. Radio button components having the same group within a
-     * <code>UIForm</code> parent will uncheck all others when being checked. If the <code>value</code> attribute is absent
-     * then the one from first component of the group will be used. If the <code>UISelectItem</code> child is absent then
-     * the one from first component of the group will be used. When specified, the <code>group</code> attribute disables the
-     * default rendering of the "table" element and any attribute related to the rendering of the "table" element, such as
-     * "border", is ignored.
+     * Contents: Specifies the name of the radio button group. Radio button components having the same group within a <code>UIForm</code> parent will uncheck
+     * all others when being checked. If the <code>value</code> attribute is absent then the one from first component of the group will be used. If the
+     * <code>UISelectItem</code> child is absent then the one from first component of the group will be used. When specified, the <code>group</code> attribute
+     * disables the default rendering of the "table" element and any attribute related to the rendering of the "table" element, such as "border", is ignored.
      */
     @Override
     public java.lang.String getGroup() {
@@ -322,9 +346,9 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: Orientation of the options list to be created. Valid values are "pageDirection" (list is laid out
-     * vertically), or "lineDirection" (list is laid out horizontally)<span class="changed_added_4_0">, or "list" (list is laid out in list format)</span>.
-     * If not specified, the default value is "lineDirection". This attribute is ignored when "group" attribute is specified.
+     * Contents: Orientation of the options list to be created. Valid values are "pageDirection" (list is laid out vertically), or "lineDirection" (list is laid
+     * out horizontally)<span class="changed_added_4_0">, or "list" (list is laid out in list format)</span>. If not specified, the default value is
+     * "lineDirection". This attribute is ignored when "group" attribute is specified.
      */
     public java.lang.String getLayout() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.layout);
@@ -712,9 +736,8 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this component will prohibit changes by the user. The element may receive focus unless
-     * it has also been disabled. A value of false causes no attribute to be rendered, while a value of true causes the
-     * attribute to be rendered as readonly="readonly".
+     * Contents: Flag indicating that this component will prohibit changes by the user. The element may receive focus unless it has also been disabled. A value
+     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
         return getStateHelper().eval(PropertyKeys.readonly, false);
@@ -741,16 +764,14 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -803,8 +824,8 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -830,8 +851,7 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
      *
      * @return the property value
      * <p>
-     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer
-     * between 0 and 32767.
+     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer between 0 and 32767.
      */
     public java.lang.String getTabindex() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.tabindex);
@@ -878,7 +898,7 @@ public class HtmlSelectOneRadio extends UISelectOne implements ClientBehaviorHol
 
     @Override
     public Collection<String> getEventNames() {
-        return getFacesEditableValueHolderEventNames(getFacesContext()); 
+        return getFacesEditableValueHolderEventNames(getFacesContext());
     }
 
     @Override

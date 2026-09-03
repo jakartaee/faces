@@ -23,8 +23,8 @@ import jakarta.faces.validator.Validator;
 import jakarta.faces.validator.ValidatorException;
 
 /**
- * A {@code @FacesValidator} with no explicit {@code value}. Its validator-id is derived from the
- * simple class name with the first character lower-cased, i.e. {@code annotatedValidatorNoValue}.
+ * A {@code @FacesValidator} with no explicit {@code value}. Its validator-id is derived from the simple class name with the first character lower-cased, i.e.
+ * {@code annotatedValidatorNoValue}.
  */
 @FacesValidator
 public class AnnotatedValidatorNoValue implements Validator<Object> {
@@ -39,4 +39,5 @@ public class AnnotatedValidatorNoValue implements Validator<Object> {
     public String getWelcomeMessage() {
         return welcomeMessage;
     }
+
 }

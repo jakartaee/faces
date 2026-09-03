@@ -50,4 +50,5 @@ public class Issue1849Bean implements Serializable {
     public void setShowButton(boolean showButton) {
         this.showButton = showButton;
     }
+
 }

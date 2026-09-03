@@ -47,4 +47,5 @@ public class FacesConfigActionListener extends ActionListenerWrapper implements 
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

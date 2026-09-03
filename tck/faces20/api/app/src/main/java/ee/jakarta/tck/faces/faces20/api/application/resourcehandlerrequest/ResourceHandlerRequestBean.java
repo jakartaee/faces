@@ -23,8 +23,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 /**
- * Exercises the public {@link ResourceHandler} contract for creating resources and probing library
- * existence, rendering {@code true} only if every assertion held.
+ * Exercises the public {@link ResourceHandler} contract for creating resources and probing library existence, rendering {@code true} only if every assertion
+ * held.
  */
 @Named
 @RequestScoped
@@ -38,16 +38,16 @@ public class ResourceHandlerRequestBean {
         // A resource without a library.
         Resource resource = handler.createResource("duke-nv.gif");
         result &= resource != null
-                && resource.getLibraryName() == null
-                && "duke-nv.gif".equals(resource.getResourceName())
-                && "image/gif".equals(resource.getContentType());
+            && resource.getLibraryName() == null
+            && "duke-nv.gif".equals(resource.getResourceName())
+            && "image/gif".equals(resource.getContentType());
 
         // The same resource in a library.
         resource = handler.createResource("duke-nv.gif", "nvLibrary");
         result &= resource != null
-                && "nvLibrary".equals(resource.getLibraryName())
-                && "duke-nv.gif".equals(resource.getResourceName())
-                && "image/gif".equals(resource.getContentType());
+            && "nvLibrary".equals(resource.getLibraryName())
+            && "duke-nv.gif".equals(resource.getResourceName())
+            && "image/gif".equals(resource.getContentType());
 
         // An explicit content type overrides the derived one.
         resource = handler.createResource("duke-nv.gif", "nvLibrary", "text/xml");
@@ -63,9 +63,12 @@ public class ResourceHandlerRequestBean {
         result &= !handler.libraryExists("oeunhtnhtnhhnhh");
 
         // The built-in Faces script resource is always available.
-        result &= handler.createResource(ResourceHandler.FACES_SCRIPT_RESOURCE_NAME,
-                ResourceHandler.FACES_SCRIPT_LIBRARY_NAME) != null;
+        result &= handler.createResource(
+            ResourceHandler.FACES_SCRIPT_RESOURCE_NAME,
+            ResourceHandler.FACES_SCRIPT_LIBRARY_NAME
+        ) != null;
 
         return Boolean.toString(result);
     }
+
 }

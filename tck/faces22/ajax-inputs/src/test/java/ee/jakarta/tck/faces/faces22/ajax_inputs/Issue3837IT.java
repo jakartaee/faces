@@ -16,7 +16,6 @@
 
 package ee.jakarta.tck.faces.faces22.ajax_inputs;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import jakarta.faces.component.behavior.AjaxBehavior;
@@ -31,10 +30,9 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3837IT extends BaseITNG {
 
     /**
-     * A repeat with {@code rowStatePreserved} enabled keeps the full per-row component state of its children,
-     * which is part of the repeat's own saved state and therefore outlives the request. An input carrying no
-     * value binding thus holds the value of its own row across ajax postbacks, and its value change listener
-     * reports that row's old value rather than another row's or none at all.
+     * A repeat with {@code rowStatePreserved} enabled keeps the full per-row component state of its children, which is part of the repeat's own saved state and
+     * therefore outlives the request. An input carrying no value binding thus holds the value of its own row across ajax postbacks, and its value change
+     * listener reports that row's old value rather than another row's or none at all.
      *
      * @see AjaxBehavior
      * @see jakarta.faces.component.UIData#setRowStatePreserved(boolean)
@@ -45,15 +43,16 @@ class Issue3837IT extends BaseITNG {
         WebPage page = getPage("issue3837.xhtml");
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:0:list"))).selectByIndex(0));
-      assertEquals("null -> 1", page.findElement(By.id("form:message")).getText());
+        assertEquals("null -> 1", page.findElement(By.id("form:message")).getText());
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:1:list"))).selectByIndex(0));
-      assertEquals("null -> 3", page.findElement(By.id("form:message")).getText());
+        assertEquals("null -> 3", page.findElement(By.id("form:message")).getText());
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:0:list"))).selectByIndex(1));
-      assertEquals("1 -> 2", page.findElement(By.id("form:message")).getText());
+        assertEquals("1 -> 2", page.findElement(By.id("form:message")).getText());
 
         page.guardAjax(() -> new Select(page.findElement(By.id("form:repeat:1:list"))).selectByIndex(1));
-      assertEquals("3 -> 4", page.findElement(By.id("form:message")).getText());
+        assertEquals("3 -> 4", page.findElement(By.id("form:message")).getText());
     }
+
 }

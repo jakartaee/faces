@@ -24,13 +24,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 class Issue5837IT extends BaseITNG {
 
     /**
-     * A DOM event handler set via a (non-literal) expression must be rendered exactly once, even when the renderer
-     * handles that event specially (chained submit/behavior script). Regression from #5723: the handler ended up in
-     * getAttributesThatAreSet, so the optimized pass-thru emitted it raw in addition to the special rendering.
+     * A DOM event handler set via a (non-literal) expression must be rendered exactly once, even when the renderer handles that event specially (chained
+     * submit/behavior script). Regression from #5723: the handler ended up in getAttributesThatAreSet, so the optimized pass-thru emitted it raw in addition to
+     * the special rendering.
      * <p>
-     * On Faces 5.0 with CSP disabled the special rendering is a {@code mojarra.ael(...)} script rather than an inline
-     * {@code on*} attribute, so this asserts on the handler function call itself (rendering-model-agnostic): each must
-     * occur exactly once in the response body. Without the fix the expression-set handlers occur twice.
+     * On Faces 5.0 with CSP disabled the special rendering is a {@code mojarra.ael(...)} script rather than an inline {@code on*} attribute, so this asserts on
+     * the handler function call itself (rendering-model-agnostic): each must occur exactly once in the response body. Without the fix the expression-set
+     * handlers occur twice.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5837
      */
@@ -55,4 +55,5 @@ class Issue5837IT extends BaseITNG {
         }
         return count;
     }
+
 }

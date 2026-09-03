@@ -28,8 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Spec1392IT extends BaseITNG {
 
     /**
-     * The {@code #{request}} implicit object must resolve to the current {@code HttpServletRequest},
-     * so {@code request.getParameter('foo')} returns the value of the {@code foo} request parameter.
+     * The {@code #{request}} implicit object must resolve to the current {@code HttpServletRequest}, so {@code request.getParameter('foo')} returns the value
+     * of the {@code foo} request parameter.
      *
      * @see Application#getELResolver()
      * @see https://github.com/jakartaee/faces/issues/1392
@@ -39,4 +39,5 @@ class Spec1392IT extends BaseITNG {
         WebPage page = getPage("spec1392.xhtml?foo=bar");
         assertTrue(page.containsSource("foo:bar"));
     }
+
 }

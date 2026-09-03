@@ -20,10 +20,9 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p>
- * <span class="changed_modified_2_0 changed_modified_2_2">A</span> listener interface for receiving
- * {@link ActionEvent}s. <span class="changed_added_2_0">An implementation of this interface must be thread-safe.</span>
- * A class that is interested in receiving such events implements this interface, and then registers itself with the
- * source {@link UIComponent} of interest, by calling <code>addActionListener()</code>.
+ * <span class="changed_modified_2_0 changed_modified_2_2">A</span> listener interface for receiving {@link ActionEvent}s. <span class="changed_added_2_0">An
+ * implementation of this interface must be thread-safe.</span> A class that is interested in receiving such events implements this interface, and then
+ * registers itself with the source {@link UIComponent} of interest, by calling <code>addActionListener()</code>.
  * </p>
  */
 
@@ -31,9 +30,8 @@ public interface ActionListener extends FacesListener {
 
     /**
      * <p class="changed_added_2_2">
-     * The presence of this component attribute on an {@link jakarta.faces.component.ActionSource} component will cause the
-     * default {@code ActionListener} to interpret the value of the attribute as the <em>toFlowDocumentId</em> value to pass
-     * to
+     * The presence of this component attribute on an {@link jakarta.faces.component.ActionSource} component will cause the default {@code ActionListener} to
+     * interpret the value of the attribute as the <em>toFlowDocumentId</em> value to pass to
      * {@link jakarta.faces.application.NavigationHandler#handleNavigation(jakarta.faces.context.FacesContext, java.lang.String, java.lang.String, java.lang.String)}.
      * </p>
      *
@@ -47,8 +45,7 @@ public interface ActionListener extends FacesListener {
      *
      * @param event The {@link ActionEvent} that has occurred
      *
-     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the
-     * current event should be performed
+     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the current event should be performed
      */
     void processAction(ActionEvent event) throws AbortProcessingException;
 

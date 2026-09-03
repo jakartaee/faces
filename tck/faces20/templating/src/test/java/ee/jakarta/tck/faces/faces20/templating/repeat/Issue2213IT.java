@@ -25,14 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The {@code offset} attribute of {@code ui:repeat} must behave identically whether it is supplied as
- * a literal or as a ValueExpression.
+ * The {@code offset} attribute of {@code ui:repeat} must behave identically whether it is supplied as a literal or as a ValueExpression.
  */
 class Issue2213IT extends BaseITNG {
 
     /**
-     * A deferred-value offset must skip the same leading rows as the equivalent literal offset. The
-     * bean offset is 3, so of Red/Green/Blue/Violet/Pink only rows 3 and 4 may render.
+     * A deferred-value offset must skip the same leading rows as the equivalent literal offset. The bean offset is 3, so of Red/Green/Blue/Violet/Pink only
+     * rows 3 and 4 may render.
      *
      * @see jakarta.faces.component.UIData#setFirst(int)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2213
@@ -41,15 +40,16 @@ class Issue2213IT extends BaseITNG {
     void repeatOffsetAsValueExpression() {
         WebPage page = getPage("repeat/issue2213.xhtml");
 
-        assertTrue(page.findElements(By.id("deferred:2:label")).isEmpty(),
-                "Row 2 is before the offset and must not render");
+        assertTrue(
+            page.findElements(By.id("deferred:2:label")).isEmpty(),
+            "Row 2 is before the offset and must not render"
+        );
         assertEquals("Color: Violet", page.findElement(By.id("deferred:3:label")).getText());
         assertEquals("Color: Pink", page.findElement(By.id("deferred:4:label")).getText());
     }
 
     /**
-     * The deferred-value offset must yield exactly the same slice as the literal offset on the same
-     * list, i.e. both must take the same code path.
+     * The deferred-value offset must yield exactly the same slice as the literal offset on the same list, i.e. both must take the same code path.
      *
      * @see jakarta.faces.component.UIData#setFirst(int)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2213
@@ -59,9 +59,12 @@ class Issue2213IT extends BaseITNG {
         WebPage page = getPage("repeat/issue2213.xhtml");
 
         for (int row = 3; row <= 4; row++) {
-            assertEquals(page.findElement(By.id("literal:" + row + ":label")).getText(),
-                    page.findElement(By.id("deferred:" + row + ":label")).getText(),
-                    "Row " + row + " must be identical for a literal and a deferred offset");
+            assertEquals(
+                page.findElement(By.id("literal:" + row + ":label")).getText(),
+                page.findElement(By.id("deferred:" + row + ":label")).getText(),
+                "Row " + row + " must be identical for a literal and a deferred offset"
+            );
         }
     }
+
 }

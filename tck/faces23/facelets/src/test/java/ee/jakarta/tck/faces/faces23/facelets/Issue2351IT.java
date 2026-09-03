@@ -27,8 +27,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue2351IT extends BaseITNG {
 
     /**
-     * Test the action listener with a param. This uses the EL expression that
-     * is defined on the included Facelet directly.
+     * Test the action listener with a param. This uses the EL expression that is defined on the included Facelet directly.
      *
      * @see jakarta.faces.event.ActionListener
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2351
@@ -41,8 +40,7 @@ public class Issue2351IT extends BaseITNG {
     }
 
     /**
-     * Test the action listener without a param. This depends on the new method
-     * expression that is being created based on the one defined on the included
+     * Test the action listener without a param. This depends on the new method expression that is being created based on the one defined on the included
      * Facelet.
      *
      * @see jakarta.faces.event.ActionListener
@@ -54,4 +52,5 @@ public class Issue2351IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:buttonNoParam"))::click);
         assertTrue(page.containsText("Listener invoked: true"));
     }
+
 }

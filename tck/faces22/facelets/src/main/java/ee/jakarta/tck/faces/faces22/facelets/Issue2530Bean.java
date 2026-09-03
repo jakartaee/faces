@@ -32,7 +32,10 @@ public class Issue2530Bean {
     }
 
     public void submit() {
-        FacesContext.getCurrentInstance().addMessage(null,
-                new FacesMessage("SUCCESS! Name set to '" + this.foo.getName() + "'"));
+        FacesContext.getCurrentInstance().addMessage(
+            null,
+            new FacesMessage("SUCCESS! Name set to '" + this.foo.getName() + "'")
+        );
     }
+
 }

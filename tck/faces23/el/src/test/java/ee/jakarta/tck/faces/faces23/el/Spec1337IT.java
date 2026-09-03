@@ -60,4 +60,5 @@ public class Spec1337IT extends BaseITNG {
         WebPage page = getPage("spec1337-3.xhtml");
         assertEquals("jakarta.el.ELException", page.findElement(By.id("exception")).getText());
     }
+
 }

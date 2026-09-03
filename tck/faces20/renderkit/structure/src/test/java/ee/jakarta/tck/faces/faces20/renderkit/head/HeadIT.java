@@ -15,9 +15,8 @@
  */
 package ee.jakarta.tck.faces.faces20.renderkit.head;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -48,7 +47,7 @@ class HeadIT extends BaseITNG {
 
     private static void verifyAttributes(WebPage page, Map<String, String> expected) {
         WebElement head = page.findElement(By.id("myHead"));
-        expected.forEach((name, value) ->
-            assertTrue(page.hasAttributeValue(head, name, value), "head attribute " + name));
+        expected.forEach((name, value) -> assertTrue(page.hasAttributeValue(head, name, value), "head attribute " + name));
     }
+
 }

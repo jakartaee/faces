@@ -25,8 +25,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * <strong class="changed_modified_2_3">ClientBehaviorContext</strong> provides context information that may be useful
- * to {@link jakarta.faces.component.behavior.ClientBehavior#getScript} implementations.
+ * <strong class="changed_modified_2_3">ClientBehaviorContext</strong> provides context information that may be useful to
+ * {@link jakarta.faces.component.behavior.ClientBehavior#getScript} implementations.
  * </p>
  *
  * @since 2.0
@@ -62,13 +62,15 @@ public abstract class ClientBehaviorContext {
      * @param sourceId the id to use as the ClientBehavior's "source".
      * @param parameters the collection of parameters for submitting ClientBehaviors to include in the request.
      * @return a <code>ClientBehaviorContext</code> instance configured with the provided values.
-     * @throws NullPointerException if <code>context</code>, <code>component</code> or <code>eventName</code> is
-     * <code>null</code>
+     * @throws NullPointerException if <code>context</code>, <code>component</code> or <code>eventName</code> is <code>null</code>
      *
      * @since 2.0
      */
-    public static ClientBehaviorContext createClientBehaviorContext(FacesContext context, UIComponent component, String eventName, String sourceId,
-            Collection<ClientBehaviorContext.Parameter> parameters) {
+    public static ClientBehaviorContext createClientBehaviorContext(
+        FacesContext context, UIComponent component, String eventName, String sourceId,
+        Collection<ClientBehaviorContext.Parameter> parameters
+    )
+    {
 
         return new ClientBehaviorContextImpl(context, component, eventName, sourceId, parameters);
     }
@@ -108,17 +110,15 @@ public abstract class ClientBehaviorContext {
 
     /**
      * <p class="changed_added_2_0">
-     * Returns an id for use as the {@link ClientBehavior} source. ClientBehavior implementations that submit back to the
-     * Faces lifecycle are required to identify which component triggered the ClientBehavior-initiated request via the
-     * <code>jakarta.faces.source</code> request parameter. In most cases, th source id can be trivially derived from the
-     * element to which the behavior's client-side script is attached - ie. the source id is typically the id of this
-     * element. However, in components which produce more complex content, the behavior script may not be able to determine
-     * the correct id to use for the jakarta.faces.source value. The {@link ClientBehaviorContext#getSourceId} method allows
-     * the component to pass this information into the {@link ClientBehavior#getScript} implementation.
+     * Returns an id for use as the {@link ClientBehavior} source. ClientBehavior implementations that submit back to the Faces lifecycle are required to
+     * identify which component triggered the ClientBehavior-initiated request via the <code>jakarta.faces.source</code> request parameter. In most cases, th
+     * source id can be trivially derived from the element to which the behavior's client-side script is attached - ie. the source id is typically the id of
+     * this element. However, in components which produce more complex content, the behavior script may not be able to determine the correct id to use for the
+     * jakarta.faces.source value. The {@link ClientBehaviorContext#getSourceId} method allows the component to pass this information into the
+     * {@link ClientBehavior#getScript} implementation.
      * </p>
      *
-     * @return the id for the behavior's script to use as the "source", or null if the Behavior's script can identify the
-     * source from the DOM.
+     * @return the id for the behavior's script to use as the "source", or null if the Behavior's script can identify the source from the DOM.
      *
      * @since 2.0
      */
@@ -126,8 +126,8 @@ public abstract class ClientBehaviorContext {
 
     /**
      * <p class="changed_added_2_0">
-     * Returns parameters that "submitting" {@link ClientBehavior} implementations should include when posting back data
-     * into the Faces lifecycle. If no parameters are specified, this method returns an empty (non-null) collection.
+     * Returns parameters that "submitting" {@link ClientBehavior} implementations should include when posting back data into the Faces lifecycle. If no
+     * parameters are specified, this method returns an empty (non-null) collection.
      * </p>
      *
      * @return the parameters.
@@ -138,14 +138,18 @@ public abstract class ClientBehaviorContext {
 
     // Little static member class that provides a default implementation
     private static final class ClientBehaviorContextImpl extends ClientBehaviorContext {
+
         private final FacesContext context;
         private final UIComponent component;
         private final String eventName;
         private final String sourceId;
         private final Collection<ClientBehaviorContext.Parameter> parameters;
 
-        private ClientBehaviorContextImpl(FacesContext context, UIComponent component, String eventName, String sourceId,
-                Collection<ClientBehaviorContext.Parameter> parameters) {
+        private ClientBehaviorContextImpl(
+            FacesContext context, UIComponent component, String eventName, String sourceId,
+            Collection<ClientBehaviorContext.Parameter> parameters
+        )
+        {
 
             Objects.requireNonNull(context);
             Objects.requireNonNull(component);
@@ -182,13 +186,13 @@ public abstract class ClientBehaviorContext {
         public Collection<ClientBehaviorContext.Parameter> getParameters() {
             return parameters;
         }
+
     }
 
     /**
      * <p class="changed_added_2_0">
-     * <strong>Parameter</strong> instances represent name/value pairs that "submitting" ClientBehavior implementations
-     * should include when posting back into the Faces lifecycle. ClientBehavior implementations can determine which
-     * Parameters to include by calling ClientBehaviorContext.getParameters().
+     * <strong>Parameter</strong> instances represent name/value pairs that "submitting" ClientBehavior implementations should include when posting back into
+     * the Faces lifecycle. ClientBehavior implementations can determine which Parameters to include by calling ClientBehaviorContext.getParameters().
      * </p>
      *
      * @since 2.0
@@ -244,5 +248,7 @@ public abstract class ClientBehaviorContext {
         public Object getValue() {
             return value;
         }
+
     }
+
 }

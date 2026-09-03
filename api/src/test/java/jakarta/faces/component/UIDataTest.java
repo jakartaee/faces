@@ -56,8 +56,7 @@ public class UIDataTest {
     }
 
     /**
-     * Partial state saving returns null only when nothing changed, so a property that did change still has to come
-     * back as state.
+     * Partial state saving returns null only when nothing changed, so a property that did change still has to come back as state.
      */
     @Test
     public void testSaveState3() {
@@ -69,9 +68,8 @@ public class UIDataTest {
     }
 
     /**
-     * The row index is not component state. Every phase leaves it at -1 before state is saved and no page can set it,
-     * so holding it on a field rather than in the state helper is what lets each {@code getClientId} under this table
-     * read it without a map lookup.
+     * The row index is not component state. Every phase leaves it at -1 before state is saved and no page can set it, so holding it on a field rather than in
+     * the state helper is what lets each {@code getClientId} under this table read it without a map lookup.
      */
     @Test
     public void theRowIndexIsNotSavedState() {
@@ -92,10 +90,12 @@ public class UIDataTest {
         context.getAttributes().put(SEPARATOR_CHAR_PARAM_NAME, SEPARATOR_CHAR);
 
         UIData data = new UIData() {
+
             @Override
             public void setRowIndex(int rowIndex) {
                 context.getAttributes().put("setRowIndexCalled", true);
             }
+
         };
 
         data.setId("data");
@@ -105,4 +105,5 @@ public class UIDataTest {
 
         assertNull(context.getAttributes().get("setRowIndexCalled"));
     }
+
 }

@@ -29,4 +29,5 @@ public class Issue3480ChildFlowMethodCallStartingBean implements Serializable {
     public String toLastPage() {
         return "DestinationView";
     }
+
 }

@@ -25,10 +25,9 @@ import jakarta.faces.FactoryFinder;
 import jakarta.inject.Named;
 
 /**
- * Exposes the injected message of every faces-config-declared factory wrapper to the view, keyed by simple class name
- * (e.g. {@code #{spec763Status.messages.FacesConfigFacesContextFactory}}). Factories are not reachable through a single
- * EL property like the application artifacts are, so they are resolved through {@link FactoryFinder} and the
- * {@link FacesWrapper} chain is walked until the {@link InjectedArtifact} wrapper is found.
+ * Exposes the injected message of every faces-config-declared factory wrapper to the view, keyed by simple class name (e.g.
+ * {@code #{spec763Status.messages.FacesConfigFacesContextFactory}}). Factories are not reachable through a single EL property like the application artifacts
+ * are, so they are resolved through {@link FactoryFinder} and the {@link FacesWrapper} chain is walked until the {@link InjectedArtifact} wrapper is found.
  */
 @Named("spec763Status")
 @ApplicationScoped
@@ -52,8 +51,9 @@ public class Spec763FactoryStatus {
         Map<String, String> messages = new LinkedHashMap<>();
 
         for (String factoryType : FACTORY_TYPES) {
-            for (Object factory = FactoryFinder.getFactory(factoryType); factory != null;
-                    factory = factory instanceof FacesWrapper<?> wrapper ? wrapper.getWrapped() : null) {
+            for (Object factory = FactoryFinder.getFactory(factoryType); factory != null; factory = factory instanceof FacesWrapper<?> wrapper
+                ? wrapper.getWrapped()
+                : null) {
                 if (factory instanceof InjectedArtifact injectedArtifact) {
                     messages.put(factory.getClass().getSimpleName(), injectedArtifact.getInjectedMessage());
                     break;
@@ -63,4 +63,5 @@ public class Spec763FactoryStatus {
 
         return messages;
     }
+
 }

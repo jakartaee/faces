@@ -28,6 +28,14 @@ class AnnotationIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void uiOutputRDAttributeTest() { runServletTest("uiOutputRDAttributeTest"); }
-    @Test void uiOutputRDTypeTest() { runServletTest("uiOutputRDTypeTest"); }
+    @Test
+    void uiOutputRDAttributeTest() {
+        runServletTest("uiOutputRDAttributeTest");
+    }
+
+    @Test
+    void uiOutputRDTypeTest() {
+        runServletTest("uiOutputRDTypeTest");
+    }
+
 }

@@ -36,4 +36,5 @@ public class Issue3434Bean implements Serializable {
     public String getText() {
         return text;
     }
+
 }

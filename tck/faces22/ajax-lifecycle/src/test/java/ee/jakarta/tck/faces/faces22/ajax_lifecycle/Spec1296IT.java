@@ -27,12 +27,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Spec1296IT extends BaseITNG {
 
-  /**
-   * @see PartialResponseWriter
+    /**
+     * @see PartialResponseWriter
      * @see https://github.com/jakartaee/faces/issues/1296
-   */
-  @Test
-  void partialResponseWriterOutsideFacesServlet() throws Exception {
+     */
+    @Test
+    void partialResponseWriterOutsideFacesServlet() throws Exception {
         WebPage page = getPage("Spec1296");
         String pageXml = page.getResponseBody();
 
@@ -40,4 +40,5 @@ class Spec1296IT extends BaseITNG {
             fail();
         }
     }
+
 }

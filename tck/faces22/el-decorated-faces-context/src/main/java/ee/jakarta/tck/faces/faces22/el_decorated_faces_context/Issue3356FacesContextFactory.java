@@ -33,4 +33,5 @@ public class Issue3356FacesContextFactory extends FacesContextFactory {
         facesContext.install();
         return facesContext;
     }
+
 }

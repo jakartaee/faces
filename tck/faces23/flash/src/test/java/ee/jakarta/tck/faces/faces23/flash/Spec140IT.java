@@ -25,18 +25,17 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A value put in {@code flash.now} is visible for the remainder of the current request only: it is
- * readable through {@code flash.now} but not through {@code flash} (which exposes the previous
- * request's values), and it does not survive a redirect. Promoting it with {@code flash.keep} makes
- * it survive exactly that one redirect.
+ * A value put in {@code flash.now} is visible for the remainder of the current request only: it is readable through {@code flash.now} but not through
+ * {@code flash} (which exposes the previous request's values), and it does not survive a redirect. Promoting it with {@code flash.keep} makes it survive
+ * exactly that one redirect.
  */
 class Spec140IT extends BaseITNG {
 
     private static final String EXPECTED_VALUE = "banzai";
 
     /**
-     * A value put in {@code flash.now} renders through {@code flash.now} on the same request, does not
-     * leak into the next request's map, and is gone after the redirect.
+     * A value put in {@code flash.now} renders through {@code flash.now} on the same request, does not leak into the next request's map, and is gone after the
+     * redirect.
      *
      * @see jakarta.faces.context.Flash#putNow(String, Object)
      * @see https://github.com/jakartaee/faces/issues/140
@@ -44,14 +43,20 @@ class Spec140IT extends BaseITNG {
     @Test
     void testFlashNowIsRequestScopedOnly() {
         WebPage page = getPage("spec140.xhtml");
-        assertEquals(EXPECTED_VALUE, page.findElement(By.id("nowValue")).getText(),
-                "flash.now value must be readable on the request that put it");
-        assertEquals("", page.findElement(By.id("nextValue")).getText(),
-                "flash.now value must not populate the next request's flash map");
+        assertEquals(
+            EXPECTED_VALUE, page.findElement(By.id("nowValue")).getText(),
+            "flash.now value must be readable on the request that put it"
+        );
+        assertEquals(
+            "", page.findElement(By.id("nextValue")).getText(),
+            "flash.now value must not populate the next request's flash map"
+        );
 
         page.guardHttp(page.findElement(By.id("form:next"))::click);
-        assertEquals("", page.findElement(By.id("result")).getText(),
-                "flash.now value must not survive the redirect");
+        assertEquals(
+            "", page.findElement(By.id("result")).getText(),
+            "flash.now value must not survive the redirect"
+        );
     }
 
     /**
@@ -63,11 +68,16 @@ class Spec140IT extends BaseITNG {
     @Test
     void testFlashNowPromotedByKeep() {
         WebPage page = getPage("spec140-keep.xhtml");
-        assertEquals(EXPECTED_VALUE, page.findElement(By.id("nowValue")).getText(),
-                "flash.now value must be readable on the request that put it");
+        assertEquals(
+            EXPECTED_VALUE, page.findElement(By.id("nowValue")).getText(),
+            "flash.now value must be readable on the request that put it"
+        );
 
         page.guardHttp(page.findElement(By.id("form:next"))::click);
-        assertEquals(EXPECTED_VALUE, page.findElement(By.id("result")).getText(),
-                "flash.keep must promote the flash.now value to the next request");
+        assertEquals(
+            EXPECTED_VALUE, page.findElement(By.id("result")).getText(),
+            "flash.keep must promote the flash.now value to the next request"
+        );
     }
+
 }

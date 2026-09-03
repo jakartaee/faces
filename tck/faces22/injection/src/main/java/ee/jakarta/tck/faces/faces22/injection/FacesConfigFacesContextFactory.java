@@ -48,4 +48,5 @@ public class FacesConfigFacesContextFactory extends FacesContextFactory implemen
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

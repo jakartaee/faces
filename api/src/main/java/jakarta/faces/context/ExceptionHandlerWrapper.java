@@ -24,14 +24,13 @@ import jakarta.faces.event.SystemEvent;
 
 /**
  * <p>
- * <span class="changed_modified_2_3">Provides</span> a simple implementation of {@link ExceptionHandler} that can be
- * subclassed by developers wishing to provide specialized behavior to an existing {@link ExceptionHandler} instance.
- * The default implementation of all methods is to call through to the wrapped {@link ExceptionHandler} instance.
+ * <span class="changed_modified_2_3">Provides</span> a simple implementation of {@link ExceptionHandler} that can be subclassed by developers wishing to
+ * provide specialized behavior to an existing {@link ExceptionHandler} instance. The default implementation of all methods is to call through to the wrapped
+ * {@link ExceptionHandler} instance.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.0
@@ -50,8 +49,8 @@ public abstract class ExceptionHandlerWrapper extends ExceptionHandler implement
 
     /**
      * <p class="changed_added_2_3">
-     * If this exception handler has been decorated, the implementation doing the decorating should push the implementation
-     * being wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this exception handler has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor.
+     * The {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -70,8 +69,7 @@ public abstract class ExceptionHandlerWrapper extends ExceptionHandler implement
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExceptionHandler#getHandledExceptionQueuedEvent()} on the
-     * wrapped {@link ExceptionHandler} object.
+     * The default behavior of this method is to call {@link ExceptionHandler#getHandledExceptionQueuedEvent()} on the wrapped {@link ExceptionHandler} object.
      * </p>
      *
      * @see ExceptionHandler#getHandledExceptionQueuedEvent()
@@ -83,8 +81,7 @@ public abstract class ExceptionHandlerWrapper extends ExceptionHandler implement
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.context.ExceptionHandler#handle()} on the wrapped
-     * {@link ExceptionHandler} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExceptionHandler#handle()} on the wrapped {@link ExceptionHandler} object.
      * </p>
      *
      * @see jakarta.faces.context.ExceptionHandler#handle()
@@ -96,9 +93,8 @@ public abstract class ExceptionHandlerWrapper extends ExceptionHandler implement
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link jakarta.faces.context.ExceptionHandler#isListenerForSource(Object)} on the wrapped {@link ExceptionHandler}
-     * object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExceptionHandler#isListenerForSource(Object)} on the wrapped
+     * {@link ExceptionHandler} object.
      * </p>
      *
      * @see jakarta.faces.context.ExceptionHandler#isListenerForSource(Object) ()
@@ -110,9 +106,8 @@ public abstract class ExceptionHandlerWrapper extends ExceptionHandler implement
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link jakarta.faces.context.ExceptionHandler#processEvent(jakarta.faces.event.SystemEvent)} on the wrapped
-     * {@link ExceptionHandler} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExceptionHandler#processEvent(jakarta.faces.event.SystemEvent)} on the
+     * wrapped {@link ExceptionHandler} object.
      * </p>
      *
      * @see jakarta.faces.context.ExceptionHandler#processEvent(jakarta.faces.event.SystemEvent)
@@ -124,8 +119,8 @@ public abstract class ExceptionHandlerWrapper extends ExceptionHandler implement
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.context.ExceptionHandler#getRootCause(Throwable)}
-     * on the wrapped {@link ExceptionHandler} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExceptionHandler#getRootCause(Throwable)} on the wrapped
+     * {@link ExceptionHandler} object.
      * </p>
      *
      * @see jakarta.faces.context.ExceptionHandler#getRootCause(Throwable)
@@ -137,8 +132,7 @@ public abstract class ExceptionHandlerWrapper extends ExceptionHandler implement
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExceptionHandler#getHandledExceptionQueuedEvents()} on the
-     * wrapped {@link ExceptionHandler} object.
+     * The default behavior of this method is to call {@link ExceptionHandler#getHandledExceptionQueuedEvents()} on the wrapped {@link ExceptionHandler} object.
      * </p>
      *
      * @see ExceptionHandler#getHandledExceptionQueuedEvents()
@@ -150,8 +144,8 @@ public abstract class ExceptionHandlerWrapper extends ExceptionHandler implement
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExceptionHandler#getUnhandledExceptionQueuedEvents()} on the
-     * wrapped {@link ExceptionHandler} object.
+     * The default behavior of this method is to call {@link ExceptionHandler#getUnhandledExceptionQueuedEvents()} on the wrapped {@link ExceptionHandler}
+     * object.
      * </p>
      *
      * @see ExceptionHandler#getUnhandledExceptionQueuedEvents()

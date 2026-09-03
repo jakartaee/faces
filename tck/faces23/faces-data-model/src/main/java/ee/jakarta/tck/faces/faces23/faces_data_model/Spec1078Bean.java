@@ -21,15 +21,15 @@ import jakarta.enterprise.inject.Model;
 @Model
 public class Spec1078Bean {
 
-	private Child11 child11 = new Child11("11-member 1", "11-member 2");
-	private Child11 child111 = new Child111("111-member 1", "111-member 2");
-	
-	public Child11 getData11() {
-		return child11;
-	}
-	
-	public Child11 getData111() {
-		return child111;
-	}
-	
+    private Child11 child11 = new Child11("11-member 1", "11-member 2");
+    private Child11 child111 = new Child111("111-member 1", "111-member 2");
+
+    public Child11 getData11() {
+        return child11;
+    }
+
+    public Child11 getData111() {
+        return child111;
+    }
+
 }

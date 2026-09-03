@@ -23,8 +23,8 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 /**
- * A ui:repeat over items of two different kinds, each rendered by a mutually exclusive h:panelGroup, so that only one
- * of the two inputs of a row is ever rendered.
+ * A ui:repeat over items of two different kinds, each rendered by a mutually exclusive h:panelGroup, so that only one of the two inputs of a row is ever
+ * rendered.
  */
 @Named
 @SessionScoped
@@ -65,15 +65,18 @@ public class Issue3219Bean implements Serializable {
         public void setB(String b) {
             this.b = b;
         }
+
     }
 
     private final List<Item> items = List.of(
         new Item("A", "a0", null),
         new Item("B", null, "b1"),
         new Item("A", "a2", null),
-        new Item("B", null, "b3"));
+        new Item("B", null, "b3")
+    );
 
     public List<Item> getItems() {
         return items;
     }
+
 }

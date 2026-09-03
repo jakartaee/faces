@@ -26,10 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An {@link jakarta.faces.convert.EnumConverter} bound to a selectOneMenu that offers a
- * {@code noSelectionOption} with a {@code null} value must accept the empty submission: submitting
- * "No selection" leaves the value null without raising a "must be convertible to an enum" conversion
- * error.
+ * An {@link jakarta.faces.convert.EnumConverter} bound to a selectOneMenu that offers a {@code noSelectionOption} with a {@code null} value must accept the
+ * empty submission: submitting "No selection" leaves the value null without raising a "must be convertible to an enum" conversion error.
  */
 public class Issue2923IT extends BaseITNG {
 
@@ -50,4 +48,5 @@ public class Issue2923IT extends BaseITNG {
         assertFalse(page.containsText(CONVERSION_ERROR), "Unexpected conversion error after submit");
         assertEquals("Selected value = NULL", page.findElement(By.id("form:status")).getText());
     }
+
 }

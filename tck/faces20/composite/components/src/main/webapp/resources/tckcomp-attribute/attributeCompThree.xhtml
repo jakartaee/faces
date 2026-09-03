@@ -33,18 +33,18 @@
 
         <composite:interface>
             <composite:attribute name="model">
-                <composite:attribute name="artist" 
+                <composite:attribute name="artist"
                                      displayName="Artist"
                                      targets="artist"
                                      required="true"
                                      preferred="true"
                                      expert="false"/>
-                <composite:attribute name="album" 
+                <composite:attribute name="album"
                                      targets="album"
                                      required="true"
                                      preferred="true"
                                      shortDescription="Name of the CD"/>
-                <composite:attribute name="comments" 
+                <composite:attribute name="comments"
                                      targets="comments"
                                      required="true"
                                      preferred="true"/>
@@ -70,7 +70,7 @@
                 </h:selectManyListbox>
 
                 <br/>
-           
+
                 <h:outputText value="Comments:"/><br/>
                 <h:inputTextarea id="comments"
                                  size="100"

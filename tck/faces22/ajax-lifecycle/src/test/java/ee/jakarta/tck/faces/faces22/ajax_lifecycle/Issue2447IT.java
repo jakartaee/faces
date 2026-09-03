@@ -27,15 +27,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2447IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2447
-   */
-  @Test
-  void quotesInScript() throws Exception {
+     */
+    @Test
+    void quotesInScript() throws Exception {
         String expectedText = '"' + "<div></div>" + '"' + ";";
         WebPage page = getPage("issue2447.xhtml");
         assertTrue(page.containsSource(expectedText));
     }
-}
 
+}

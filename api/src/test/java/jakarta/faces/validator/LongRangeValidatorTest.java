@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * Unit tests for {@link LongRangeValidator}.</p>
+ * Unit tests for {@link LongRangeValidator}.
+ * </p>
  */
 class LongRangeValidatorTest extends ValidatorTestBase {
 
@@ -46,13 +47,16 @@ class LongRangeValidatorTest extends ValidatorTestBase {
         try {
             validator.validate(facesContext, component, "5100");
             fail("Exception not thrown");
-        } catch (ValidatorException e) {
+        }
+        catch (ValidatorException e) {
             exceptionThrown = true;
             message = e.getMessage();
             assertTrue(
-                    -1 != message.indexOf("10,100"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("10,100"), "message: \"" + message + "\" missing localized chars."
+            );
             assertTrue(
-                    -1 != message.indexOf("20,100"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("20,100"), "message: \"" + message + "\" missing localized chars."
+            );
         }
         assertTrue(exceptionThrown);
 
@@ -62,13 +66,16 @@ class LongRangeValidatorTest extends ValidatorTestBase {
         try {
             validator.validate(facesContext, component, "5100");
             fail("Exception not thrown");
-        } catch (ValidatorException e) {
+        }
+        catch (ValidatorException e) {
             exceptionThrown = true;
             message = e.getMessage();
             assertTrue(
-                    -1 != message.indexOf("10.100"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("10.100"), "message: \"" + message + "\" missing localized chars."
+            );
             assertTrue(
-                    -1 != message.indexOf("20.100"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("20.100"), "message: \"" + message + "\" missing localized chars."
+            );
         }
         assertTrue(exceptionThrown);
     }
@@ -108,4 +115,5 @@ class LongRangeValidatorTest extends ValidatorTestBase {
 
         assertTrue(validator1.hashCode() != validator2.hashCode());
     }
+
 }

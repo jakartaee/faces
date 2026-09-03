@@ -43,7 +43,11 @@ public class HtmlColumn extends UIColumn {
      * The property keys.
      */
     protected enum PropertyKeys {
-        footerClass, headerClass, rowHeader, styleClass,;
+
+        footerClass,
+        headerClass,
+        rowHeader,
+        styleClass,;
 
         String toString;
 
@@ -58,6 +62,7 @@ public class HtmlColumn extends UIColumn {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -117,8 +122,8 @@ public class HtmlColumn extends UIColumn {
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this column is a row header column and therefore cells in this column should be
-     * rendered with "th" instead of "td" and must have the 'scope="row"' attribute.
+     * Contents: Flag indicating that this column is a row header column and therefore cells in this column should be rendered with "th" instead of "td" and
+     * must have the 'scope="row"' attribute.
      */
     public boolean isRowHeader() {
         return getStateHelper().eval(PropertyKeys.rowHeader, false);

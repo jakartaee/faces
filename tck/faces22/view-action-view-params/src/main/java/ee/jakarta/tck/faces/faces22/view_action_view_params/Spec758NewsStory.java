@@ -42,4 +42,5 @@ public class Spec758NewsStory {
     public String getContent() {
         return content;
     }
+
 }

@@ -29,8 +29,9 @@ public class Issue3259Bean {
         FaceletCacheFactory factory = (FaceletCacheFactory) FactoryFinder.getFactory(FactoryFinder.FACELET_CACHE_FACTORY);
 
         boolean invoked = factory instanceof Issue3259FaceletCacheFactory
-                && ((Issue3259FaceletCacheFactory) factory).isDecoratingConstructorCalled();
+            && ((Issue3259FaceletCacheFactory) factory).isDecoratingConstructorCalled();
 
         return invoked ? "SUCCESS" : "FAILURE";
     }
+
 }

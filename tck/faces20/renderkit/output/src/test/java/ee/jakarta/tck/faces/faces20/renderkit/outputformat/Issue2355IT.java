@@ -28,8 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2355IT extends BaseITNG {
 
     /**
-     * Verifies that an {@code h:outputFormat} whose value is absent, a null literal, or an
-     * expression evaluating to null renders as empty markup instead of throwing.
+     * Verifies that an {@code h:outputFormat} whose value is absent, a null literal, or an expression evaluating to null renders as empty markup instead of
+     * throwing.
      *
      * @see HtmlOutputFormat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2355
@@ -43,4 +43,5 @@ class Issue2355IT extends BaseITNG {
         assertEquals("", page.findElement(By.id("form:nullLiteral")).getText(), "outputFormat with null literal value");
         assertEquals("", page.findElement(By.id("form:nullBean")).getText(), "outputFormat with expression evaluating to null");
     }
+
 }

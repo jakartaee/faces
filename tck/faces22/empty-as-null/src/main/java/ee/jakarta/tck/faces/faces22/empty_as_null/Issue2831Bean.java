@@ -84,4 +84,5 @@ public class Issue2831Bean implements Serializable {
     public void valueChange2(ValueChangeEvent event) {
         vce2Fired = true;
     }
+
 }

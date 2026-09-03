@@ -39,7 +39,8 @@ public class Spec802Bean {
 
         try (InputStream input = uploadedFile.getInputStream()) {
             return new String(input.readAllBytes(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             throw new IllegalStateException(e);
         }
     }
@@ -59,4 +60,5 @@ public class Spec802Bean {
     public void setText(String text) {
         this.text = text;
     }
+
 }

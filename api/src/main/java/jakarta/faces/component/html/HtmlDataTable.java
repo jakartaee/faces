@@ -27,12 +27,11 @@ import jakarta.faces.component.behavior.ClientBehaviorHolder;
 
 /**
  * <p>
- * Represents a set of repeating data (segregated into columns by child UIColumn components) that will be rendered in an
- * HTML <code>table</code> element.
+ * Represents a set of repeating data (segregated into columns by child UIColumn components) that will be rendered in an HTML <code>table</code> element.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Table</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Table</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
@@ -53,9 +52,39 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      * The property keys.
      */
     protected enum PropertyKeys {
-        bgcolor, bodyrows, border, captionClass, captionStyle, cellpadding, cellspacing, columnClasses, dir, footerClass, frame, headerClass, lang, onclick,
-        ondblclick, onkeydown, onkeypress, onkeyup, onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, role, rowClass, rowClasses, rules, style,
-        styleClass, summary, title, width,;
+
+        bgcolor,
+        bodyrows,
+        border,
+        captionClass,
+        captionStyle,
+        cellpadding,
+        cellspacing,
+        columnClasses,
+        dir,
+        footerClass,
+        frame,
+        headerClass,
+        lang,
+        onclick,
+        ondblclick,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        role,
+        rowClass,
+        rowClasses,
+        rules,
+        style,
+        styleClass,
+        summary,
+        title,
+        width,;
 
         String toString;
 
@@ -70,6 +99,7 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -105,8 +135,7 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Comma separated list of row indices for which a new "tbody" element should be started (and any previously
-     * opened one should be ended).
+     * Contents: Comma separated list of row indices for which a new "tbody" element should be started (and any previously opened one should be ended).
      */
     public java.lang.String getBodyrows() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.bodyrows);
@@ -233,9 +262,9 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Definition of how much space the user agent should leave between the left side of the table and the
-     * leftmost column, the top of the table and the top of the top side of the topmost row, and so on for the right and
-     * bottom of the table. It also specifies the amount of space to leave between cells.
+     * Contents: Definition of how much space the user agent should leave between the left side of the table and the leftmost column, the top of the table and
+     * the top of the top side of the topmost row, and so on for the right and bottom of the table. It also specifies the amount of space to leave between
+     * cells.
      */
     public java.lang.String getCellspacing() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.cellspacing);
@@ -261,11 +290,10 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Comma-delimited list of CSS style classes that will be applied to the columns of this table. A space
-     * separated list of classes may also be specified for any individual column. If the number of elements in this list is
-     * less than the number of actual column children of the UIData, no "class" attribute is output for each column greater
-     * than the number of elements in the list. If the number of elements in the list is greater than the number of actual
-     * column children of the UIData, the elements at the posisiton in the list after the last column are ignored.
+     * Contents: Comma-delimited list of CSS style classes that will be applied to the columns of this table. A space separated list of classes may also be
+     * specified for any individual column. If the number of elements in this list is less than the number of actual column children of the UIData, no "class"
+     * attribute is output for each column greater than the number of elements in the list. If the number of elements in the list is greater than the number of
+     * actual column children of the UIData, the elements at the posisiton in the list after the last column are ignored.
      */
     public java.lang.String getColumnClasses() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.columnClasses);
@@ -290,9 +318,8 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);
@@ -343,10 +370,9 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Code specifying which sides of the frame surrounding this table will be visible. Valid values are: none (no
-     * sides, default value); above (top side only); below (bottom side only); hsides (top and bottom sides only); vsides
-     * (right and left sides only); lhs (left hand side only); rhs (right hand side only); box (all four sides); and border
-     * (all four sides).
+     * Contents: Code specifying which sides of the frame surrounding this table will be visible. Valid values are: none (no sides, default value); above (top
+     * side only); below (bottom side only); hsides (top and bottom sides only); vsides (right and left sides only); lhs (left hand side only); rhs (right hand
+     * side only); box (all four sides); and border (all four sides).
      */
     public java.lang.String getFrame() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.frame);
@@ -685,16 +711,14 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -752,11 +776,10 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Comma-delimited list of CSS style classes that will be applied to the rows of this table. A space separated
-     * list of classes may also be specified for any individual row. Thes styles are applied, in turn, to each row in the
-     * table. For example, if the list has two elements, the first style class in the list is applied to the first row, the
-     * second to the second row, the first to the third row, the second to the fourth row, etc. In other words, we keep
-     * iterating through the list until we reach the end, and then we start at the beginning again.
+     * Contents: Comma-delimited list of CSS style classes that will be applied to the rows of this table. A space separated list of classes may also be
+     * specified for any individual row. Thes styles are applied, in turn, to each row in the table. For example, if the list has two elements, the first style
+     * class in the list is applied to the first row, the second to the second row, the first to the third row, the second to the fourth row, etc. In other
+     * words, we keep iterating through the list until we reach the end, and then we start at the beginning again.
      */
     public java.lang.String getRowClasses() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.rowClasses);
@@ -781,9 +804,8 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Code specifying which rules will appear between cells within this table. Valid values are: none (no rules,
-     * default value); groups (between row groups); rows (between rows only); cols (between columns only); and all (between
-     * all rows and columns).
+     * Contents: Code specifying which rules will appear between cells within this table. Valid values are: none (no rules, default value); groups (between row
+     * groups); rows (between rows only); cols (between columns only); and all (between all rows and columns).
      */
     public java.lang.String getRules() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.rules);
@@ -835,8 +857,8 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -862,8 +884,7 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Summary of this table's purpose and structure, for user agents rendering to non-visual media such as speech
-     * and Braille.
+     * Contents: Summary of this table's purpose and structure, for user agents rendering to non-visual media such as speech and Braille.
      */
     public java.lang.String getSummary() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.summary);
@@ -936,7 +957,7 @@ public class HtmlDataTable extends UIData implements ClientBehaviorHolder {
 
     @Override
     public Collection<String> getEventNames() {
-        return getHtmlElementEventNames(getFacesContext()); 
+        return getHtmlElementEventNames(getFacesContext());
     }
 
     @Override

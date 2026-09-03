@@ -27,8 +27,8 @@ import jakarta.faces.FacesException;
 
 /**
  * <p>
- * <span class="changed_modified_2_2 changed_modified_5_0">Enum</span> of the legal values that may be returned by the
- * <code>getPhaseId()</code> method of the {@link FacesEvent} interface.
+ * <span class="changed_modified_2_2 changed_modified_5_0">Enum</span> of the legal values that may be returned by the <code>getPhaseId()</code> method of the
+ * {@link FacesEvent} interface.
  * </p>
  */
 
@@ -43,44 +43,39 @@ public enum PhaseId {
 
     /**
      * <p>
-     * Identifier that indicates an interest in events queued for the <em>Restore View</em> phase of the request processing
-     * lifecycle.
+     * Identifier that indicates an interest in events queued for the <em>Restore View</em> phase of the request processing lifecycle.
      * </p>
      */
     RESTORE_VIEW,
-    
+
     /**
      * <p>
-     * Identifier that indicates an interest in events queued for the <em>Apply Request Values</em> phase of the request
-     * processing lifecycle.
+     * Identifier that indicates an interest in events queued for the <em>Apply Request Values</em> phase of the request processing lifecycle.
      * </p>
      */
     APPLY_REQUEST_VALUES,
-    
+
     /**
      * <p>
-     * Identifier that indicates an interest in events queued for the <em>Process Validations</em> phase of the request
-     * processing lifecycle.
+     * Identifier that indicates an interest in events queued for the <em>Process Validations</em> phase of the request processing lifecycle.
      * </p>
      */
     PROCESS_VALIDATIONS,
-    
+
     /**
      * <p>
-     * Identifier that indicates an interest in events queued for the <em>Update Model Values</em> phase of the request
-     * processing lifecycle.
+     * Identifier that indicates an interest in events queued for the <em>Update Model Values</em> phase of the request processing lifecycle.
      * </p>
      */
     UPDATE_MODEL_VALUES,
-    
+
     /**
      * <p>
-     * Identifier that indicates an interest in events queued for the <em>Invoke Application</em> phase of the request
-     * processing lifecycle.
+     * Identifier that indicates an interest in events queued for the <em>Invoke Application</em> phase of the request processing lifecycle.
      * </p>
      */
     INVOKE_APPLICATION,
-    
+
     /**
      * <p>
      * Identifier for the <em>Render Response</em> phase of the request processing lifecycle.
@@ -142,9 +137,9 @@ public enum PhaseId {
     public static PhaseId phaseIdValueOf(String phase) {
         Objects.requireNonNull(phase);
 
-        final PhaseId result = VALUES_BY_NAME.get( phase.toUpperCase() );
+        final PhaseId result = VALUES_BY_NAME.get(phase.toUpperCase());
 
-        if ( result == null) {
+        if (result == null) {
             throw new FacesException("Not a valid phase [" + phase + "]");
         }
 
@@ -165,6 +160,6 @@ public enum PhaseId {
      * Valid {@link PhaseId} instances, mapped by their uppercase name
      * </p>
      */
-    private static final Map<String,PhaseId> VALUES_BY_NAME = VALUES.stream().collect(toUnmodifiableMap(PhaseId::name, identity()));
+    private static final Map<String, PhaseId> VALUES_BY_NAME = VALUES.stream().collect(toUnmodifiableMap(PhaseId::name, identity()));
 
 }

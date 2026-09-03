@@ -37,11 +37,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The HTML spec supports three sets of event handler content attributes: those which every element supports and which
- * fire on the element itself, those which every element supports but which are forwarded to the window object when
- * they are declared on the body element, and those which only the body element supports and which always fire on the
- * window object. A component representing the body element therefore exposes all three of them as behavior events,
- * while every other component exposes the first two.
+ * The HTML spec supports three sets of event handler content attributes: those which every element supports and which fire on the element itself, those which
+ * every element supports but which are forwarded to the window object when they are declared on the body element, and those which only the body element
+ * supports and which always fire on the window object. A component representing the body element therefore exposes all three of them as behavior events, while
+ * every other component exposes the first two.
  */
 class HtmlEventsTest {
 
@@ -67,7 +66,10 @@ class HtmlEventsTest {
         assertTrue(eventNames.contains("load"));
         assertTrue(eventNames.contains("unload"));
         assertTrue(eventNames.contains("pagehide"));
-        assertEquals(HtmlEvents.HtmlElementEvent.values().length + HtmlEvents.HtmlBodyEvent.values().length + HtmlEvents.HtmlWindowEvent.values().length, eventNames.size());
+        assertEquals(
+            HtmlEvents.HtmlElementEvent.values().length + HtmlEvents.HtmlBodyEvent.values().length + HtmlEvents.HtmlWindowEvent.values().length,
+            eventNames.size()
+        );
     }
 
     @Test
@@ -135,4 +137,5 @@ class HtmlEventsTest {
 
         assertEquals(sortedAndDistinct, eventNames);
     }
+
 }

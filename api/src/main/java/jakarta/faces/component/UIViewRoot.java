@@ -16,7 +16,6 @@
 
 package jakarta.faces.component;
 
-
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableList;
 import static java.util.logging.Level.SEVERE;
@@ -71,13 +70,11 @@ import jakarta.faces.view.ViewDeclarationLanguage;
 import jakarta.faces.view.ViewMetadata;
 import jakarta.faces.webapp.FacesServlet;
 
-
 /**
  * <p>
- * <strong class="changed_modified_2_0"><span class="changed_modified_2_0_rev_a changed_modified_2_1
- * changed_modified_2_2 changed_modified_2_3">UIViewRoot</span></strong> is the UIComponent that represents the root of
- * the UIComponent tree. This component renders markup as the response to Ajax requests. It also serves as the root of
- * the component tree, and as a place to hang per-view {@link PhaseListener}s.
+ * <strong class="changed_modified_2_0"><span class="changed_modified_2_0_rev_a changed_modified_2_1 changed_modified_2_2
+ * changed_modified_2_3">UIViewRoot</span></strong> is the UIComponent that represents the root of the UIComponent tree. This component renders markup as the
+ * response to Ajax requests. It also serves as the root of the component tree, and as a place to hang per-view {@link PhaseListener}s.
  * </p>
  *
  * <p>
@@ -129,26 +126,22 @@ import jakarta.faces.webapp.FacesServlet;
  * </p>
  *
  * <p>
- * If {@link #getBeforePhaseListener} returns non-<code>null</code>, invoke the listener, passing in the correct
- * corresponding {@link PhaseId} for this phase.
+ * If {@link #getBeforePhaseListener} returns non-<code>null</code>, invoke the listener, passing in the correct corresponding {@link PhaseId} for this phase.
  * </p>
  *
  * <p>
- * Upon return from the listener, call {@link FacesContext#getResponseComplete} and
- * {@link FacesContext#getRenderResponse}. If either return <code>true</code> set the internal state flag to
- * <code>true</code>.
+ * Upon return from the listener, call {@link FacesContext#getResponseComplete} and {@link FacesContext#getRenderResponse}. If either return <code>true</code>
+ * set the internal state flag to <code>true</code>.
  * </p>
  *
  * <p>
- * If or one or more listeners have been added by a call to {@link #addPhaseListener}, invoke the
- * <code>beforePhase</code> method on each one whose {@link PhaseListener#getPhaseId} matches the current phaseId,
- * passing in the same <code>PhaseId</code> as in the previous step.
+ * If or one or more listeners have been added by a call to {@link #addPhaseListener}, invoke the <code>beforePhase</code> method on each one whose
+ * {@link PhaseListener#getPhaseId} matches the current phaseId, passing in the same <code>PhaseId</code> as in the previous step.
  * </p>
  *
  * <p>
- * Upon return from each listener, call {@link FacesContext#getResponseComplete} and
- * {@link FacesContext#getRenderResponse}. If either return <code>true</code> set the internal state flag to
- * <code>true</code>.
+ * Upon return from each listener, call {@link FacesContext#getResponseComplete} and {@link FacesContext#getRenderResponse}. If either return <code>true</code>
+ * set the internal state flag to <code>true</code>.
  * </p>
  *
  *
@@ -157,14 +150,12 @@ import jakarta.faces.webapp.FacesServlet;
  * </p>
  *
  * <p>
- * If {@link #getAfterPhaseListener} returns non-<code>null</code>, invoke the listener, passing in the correct
- * corresponding {@link PhaseId} for this phase.
+ * If {@link #getAfterPhaseListener} returns non-<code>null</code>, invoke the listener, passing in the correct corresponding {@link PhaseId} for this phase.
  * </p>
  *
  * <p>
- * If or one or more listeners have been added by a call to {@link #addPhaseListener}, invoke the
- * <code>afterPhase</code> method on each one whose {@link PhaseListener#getPhaseId} matches the current phaseId,
- * passing in the same <code>PhaseId</code> as in the previous step.
+ * If or one or more listeners have been added by a call to {@link #addPhaseListener}, invoke the <code>afterPhase</code> method on each one whose
+ * {@link PhaseListener#getPhaseId} matches the current phaseId, passing in the same <code>PhaseId</code> as in the previous step.
  * </p>
  *
  * </blockquote>
@@ -175,8 +166,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     // ------------------------------------------------------ Manifest Constants
 
     /**
-     * The key in the facet collection that contains the meta data of the view root.
-     * For example, the <code>UIViewParameter</code>s are stored here.
+     * The key in the facet collection that contains the meta data of the view root. For example, the <code>UIViewParameter</code>s are stored here.
      */
     public static final String METADATA_FACET_NAME = "jakarta_faces_metadata";
 
@@ -206,9 +196,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_3">
-     * If this param is set, and calling toLowerCase().equals("true") on a String representation of its value returns true,
-     * exceptions thrown by {@link PhaseListener}s installed on the {@code UIViewRoot} are queued to the
-     * {@link jakarta.faces.context.ExceptionHandler} instead of being logged and swallowed.
+     * If this param is set, and calling toLowerCase().equals("true") on a String representation of its value returns true, exceptions thrown by
+     * {@link PhaseListener}s installed on the {@code UIViewRoot} are queued to the {@link jakarta.faces.context.ExceptionHandler} instead of being logged and
+     * swallowed.
      * </p>
      *
      * @since 2.3
@@ -249,7 +239,13 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
          * The view identifier of this view.
          * </p>
          */
-        viewId, locale, lastId, beforePhase, afterPhase, phaseListeners, resourceLibraryContracts
+        viewId,
+        locale,
+        lastId,
+        beforePhase,
+        afterPhase,
+        phaseListeners,
+        resourceLibraryContracts
     }
 
     // ------------------------------------------------------------ Constructors
@@ -279,17 +275,16 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * Set and cleared during the lifetime of a lifecycle phase. Has no meaning between phases. If <code>true</code>, the
-     * lifecycle processing for the current phase must not take place.
+     * Set and cleared during the lifetime of a lifecycle phase. Has no meaning between phases. If <code>true</code>, the lifecycle processing for the current
+     * phase must not take place.
      * </p>
      */
     private boolean skipPhase;
 
     /**
      * <p>
-     * Set and cleared during the lifetime of a lifecycle phase. Has no meaning between phases. If <code>true</code>, the
-     * <code>MethodExpression</code> associated with <code>afterPhase</code> will not be invoked nor will any PhaseListeners
-     * associated with this UIViewRoot.
+     * Set and cleared during the lifetime of a lifecycle phase. Has no meaning between phases. If <code>true</code>, the <code>MethodExpression</code>
+     * associated with <code>afterPhase</code> will not be invoked nor will any PhaseListeners associated with this UIViewRoot.
      */
     private boolean beforeMethodException;
 
@@ -303,8 +298,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Override superclass method to always return {@code true} because a {@code UIViewRoot} is defined to always be in a
-     * view.
+     * Override superclass method to always return {@code true} because a {@code UIViewRoot} is defined to always be in a view.
      * </p>
      *
      * @since 2.0
@@ -337,9 +331,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * Return the render kit identifier of the {@link jakarta.faces.render.RenderKit} associated with this view. Unless
-     * explicitly set, as in {@link jakarta.faces.application.ViewHandler#createView}, the returned value will be
-     * <code>null.</code>
+     * Return the render kit identifier of the {@link jakarta.faces.render.RenderKit} associated with this view. Unless explicitly set, as in
+     * {@link jakarta.faces.application.ViewHandler#createView}, the returned value will be <code>null.</code>
      * </p>
      *
      * @return the render kit id, or <code>null</code>.
@@ -350,13 +343,13 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * Set the render kit identifier of the {@link jakarta.faces.render.RenderKit} associated with this view. This method
-     * may be called at any time between the end of <em>Apply Request Values</em> phase of the request processing lifecycle
-     * (i.e. when events are being broadcast) and the beginning of the <em>Render Response</em> phase.
+     * Set the render kit identifier of the {@link jakarta.faces.render.RenderKit} associated with this view. This method may be called at any time between the
+     * end of <em>Apply Request Values</em> phase of the request processing lifecycle (i.e. when events are being broadcast) and the beginning of the <em>Render
+     * Response</em> phase.
      * </p>
      *
-     * @param renderKitId The new {@link jakarta.faces.render.RenderKit} identifier, or <code>null</code> to disassociate
-     * this view with any specific {@link jakarta.faces.render.RenderKit} instance
+     * @param renderKitId The new {@link jakarta.faces.render.RenderKit} identifier, or <code>null</code> to disassociate this view with any specific
+     * {@link jakarta.faces.render.RenderKit} instance
      */
     public void setRenderKitId(String renderKitId) {
         getStateHelper().put(PropertyKeys.renderKitId, renderKitId);
@@ -426,10 +419,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * <span class="changed_modified_2_0 changed_modified_2_0_rev_a">Allow</span> an arbitrary method to be called for the
-     * "beforePhase" event as the UIViewRoot runs through its lifecycle. This method will be called for all phases
-     * <span class="changed_modified_2_0_rev_a">except {@link PhaseId#RESTORE_VIEW}. Unlike a true {@link PhaseListener},
-     * this approach doesn't allow for only receiving {@link PhaseEvent}s for a given phase.</span>
+     * <span class="changed_modified_2_0 changed_modified_2_0_rev_a">Allow</span> an arbitrary method to be called for the "beforePhase" event as the UIViewRoot
+     * runs through its lifecycle. This method will be called for all phases <span class="changed_modified_2_0_rev_a">except {@link PhaseId#RESTORE_VIEW}.
+     * Unlike a true {@link PhaseListener}, this approach doesn't allow for only receiving {@link PhaseEvent}s for a given phase.</span>
      * </p>
      *
      * <p>
@@ -458,9 +450,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * <span class="changed_modified_2_0">Allow</span> an arbitrary method to be called for the "afterPhase" event as the
-     * UIViewRoot runs through its lifecycle. This method will be called for all phases
-     * <span class="changed_modified_2_0">including {@link PhaseId#RESTORE_VIEW}</span>. Unlike a true
+     * <span class="changed_modified_2_0">Allow</span> an arbitrary method to be called for the "afterPhase" event as the UIViewRoot runs through its lifecycle.
+     * This method will be called for all phases <span class="changed_modified_2_0">including {@link PhaseId#RESTORE_VIEW}</span>. Unlike a true
      * {@link PhaseListener}, this approach doesn't allow for only receiving {@link PhaseEvent}s for a given phase.
      * </p>
      * <p>
@@ -504,8 +495,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     /**
      *
      * <p class="changed_added_2_0">
-     * Return an unmodifiable list of the <code>PhaseListener</code> instances attached to this <code>UIViewRoot</code>
-     * instance.
+     * Return an unmodifiable list of the <code>PhaseListener</code> instances attached to this <code>UIViewRoot</code> instance.
      * </p>
      *
      * @return the list of phase listeners.
@@ -520,9 +510,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Add argument <code>component</code>, which is assumed to represent a resource instance, as a resource to this view. A
-     * resource instance is rendered by a resource <code>Renderer</code>, as described in the Standard HTML RenderKit. The
-     * default implementation must call through to
+     * Add argument <code>component</code>, which is assumed to represent a resource instance, as a resource to this view. A resource instance is rendered by a
+     * resource <code>Renderer</code>, as described in the Standard HTML RenderKit. The default implementation must call through to
      * {@link #addComponentResource(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, java.lang.String)}.
      * </p>
      *
@@ -537,8 +526,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Add argument <code>component</code>, which is assumed to represent a resource instance, as a resource to this view. A
-     * resource instance is rendered by a resource <code>Renderer</code>, as described in the Standard HTML RenderKit.
+     * Add argument <code>component</code>, which is assumed to represent a resource instance, as a resource to this view. A resource instance is rendered by a
+     * resource <code>Renderer</code>, as described in the Standard HTML RenderKit.
      * </p>
      *
      * <div class="changed_added_2_0">
@@ -551,9 +540,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      *
      * <li>
      * <p>
-     * If the <code>target</code> argument is <code>null</code>, look for a <code>target</code> attribute on the
-     * <code>component</code>. If there is no <code>target</code> attribute, set <code>target</code> to be the default value
-     * <code>head</code>
+     * If the <code>target</code> argument is <code>null</code>, look for a <code>target</code> attribute on the <code>component</code>. If there is no
+     * <code>target</code> attribute, set <code>target</code> to be the default value <code>head</code>
      * </p>
      * </li>
      *
@@ -565,8 +553,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      *
      * <li>
      * <p>
-     * If the component ID of <code>componentResource</code> matches the the ID of a resource that has allready been added,
-     * remove the old resource.
+     * If the component ID of <code>componentResource</code> matches the the ID of a resource that has allready been added, remove the old resource.
      * </p>
      * </li>
      *
@@ -584,8 +571,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * <p>
      * The resource <code>Renderer</code> must ensure of the following:
      * <ul>
-     * <li>Do not render when {@link ResourceHandler#isResourceRendered(FacesContext, String, String)} returns
-     * <code>true</code>.</li>
+     * <li>Do not render when {@link ResourceHandler#isResourceRendered(FacesContext, String, String)} returns <code>true</code>.</li>
      * <li>After rendering, call {@link ResourceHandler#markResourceRendered(FacesContext, String, String)}.</li>
      * </ul>
      * </div>
@@ -626,9 +612,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_deleted_2_0_rev_a changed_modified_2_1">Return</span> an unmodifiable <code>List</code> of
-     * {@link UIComponent}s for the provided <code>target</code> agrument. Each <code>component</code> in the
-     * <code>List</code> is assumed to represent a resource instance.
+     * <span class="changed_deleted_2_0_rev_a changed_modified_2_1">Return</span> an unmodifiable <code>List</code> of {@link UIComponent}s for the provided
+     * <code>target</code> agrument. Each <code>component</code> in the <code>List</code> is assumed to represent a resource instance.
      * </p>
      *
      * <div class="changed_added_2_0">
@@ -636,19 +621,16 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * The default implementation must use an algorithm equivalent to the the following.
      * </p>
      * <ul>
-     * <li>Locate the facet for the <code>component</code> by calling <code>getFacet()</code> using <code>target</code> as
-     * the argument.</li>
+     * <li>Locate the facet for the <code>component</code> by calling <code>getFacet()</code> using <code>target</code> as the argument.</li>
      *
      * <li>If the facet is not found, create the facet by calling <code>context.getApplication().createComponent().</code>
-     * <span class="changed_modified_2_0_rev_a">The argument to this method must refer to a component that extends
-     * {@link UIPanel} and overrides the <code>encodeAll()</code> method to take no action. This is necessary to prevent
-     * component resources from being inadvertently rendered.</span>
+     * <span class="changed_modified_2_0_rev_a">The argument to this method must refer to a component that extends {@link UIPanel} and overrides the
+     * <code>encodeAll()</code> method to take no action. This is necessary to prevent component resources from being inadvertently rendered.</span>
      *
      * <ul>
      *
-     * <li class="changed_modified_2_1">Set the <code>id</code> of the facet to be a string created by prepending the
-     * literal string &#8220;<code>jakarta_faces_location_</code>&#8221; (without the quotes) to the value of the
-     * <code>target</code> argument</li>
+     * <li class="changed_modified_2_1">Set the <code>id</code> of the facet to be a string created by prepending the literal string
+     * &#8220;<code>jakarta_faces_location_</code>&#8221; (without the quotes) to the value of the <code>target</code> argument</li>
      *
      * <li>Add the facet to the facets <code>Map</code> using <code>target</code> as the key</li>
      * </ul>
@@ -660,8 +642,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * @param context the Faces context.
      * @param target The name of the facet for which the components will be returned.
      *
-     * @return A <code>List</code> of {@link UIComponent} children of the facet with the name <code>target</code>. If no
-     * children are found for the facet, return <code>Collections.emptyList()</code>.
+     * @return A <code>List</code> of {@link UIComponent} children of the facet with the name <code>target</code>. If no children are found for the facet,
+     * return <code>Collections.emptyList()</code>.
      *
      * @throws NullPointerException if <code>target</code> or <code>context</code> is <code>null</code>
      *
@@ -679,15 +661,13 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_3">
-     * Return an unmodifiable ordered <code>List</code> of all {@link UIComponent} resources of all supported targets. Each
-     * <code>component</code> in the <code>List</code> is assumed to represent a resource instance. The ordering is the same
-     * as the resources would appear in the component tree.
+     * Return an unmodifiable ordered <code>List</code> of all {@link UIComponent} resources of all supported targets. Each <code>component</code> in the
+     * <code>List</code> is assumed to represent a resource instance. The ordering is the same as the resources would appear in the component tree.
      * </p>
      *
      * @param context The Faces context.
      *
-     * @return A <code>List</code> of all {@link UIComponent} resources of all supported targets. If no resources are found,
-     * return an empty <code>List</code>.
+     * @return A <code>List</code> of all {@link UIComponent} resources of all supported targets. If no resources are found, return an empty <code>List</code>.
      *
      * @throws NullPointerException If <code>context</code> is <code>null</code>.
      *
@@ -705,8 +685,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Remove argument <code>component</code>, which is assumed to represent a resource instance, as a resource to this
-     * view.
+     * Remove argument <code>component</code>, which is assumed to represent a resource instance, as a resource to this view.
      * </p>
      *
      * @param context {@link FacesContext} for the current request
@@ -720,17 +699,15 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Remove argument <code>component</code>, which is assumed to represent a resource instance, as a resource to this
-     * view. A resource instance is rendered by a resource <code>Renderer</code>, as described in the Standard HTML
-     * RenderKit.
+     * Remove argument <code>component</code>, which is assumed to represent a resource instance, as a resource to this view. A resource instance is rendered by
+     * a resource <code>Renderer</code>, as described in the Standard HTML RenderKit.
      * </p>
      *
      * <div class="changed_added_2_0">
      * <p>
      * The <code>component</code> must be removed using the following algorithm:
      * <ul>
-     * <li>If the <code>target</code> argument is <code>null</code>, look for a <code>target</code> attribute on the
-     * <code>component</code>.<br>
+     * <li>If the <code>target</code> argument is <code>null</code>, look for a <code>target</code> attribute on the <code>component</code>.<br>
      * If there is no <code>target</code> attribute, set <code>target</code> to be the default value <code>head</code></li>
      * <li>Call {@link #getComponentResources} to obtain the child list for the given target.</li>
      * <li>Remove the <code>component</code> resource from the child list.</li>
@@ -761,17 +738,15 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * An map of Lists of events by PhaseId that have been queued for later broadcast, with one List for each lifecycle phase.
-     * This instance is lazily instantiated. This list is
-     * <strong>NOT</strong> part of the state that is saved and restored for this component.
+     * An map of Lists of events by PhaseId that have been queued for later broadcast, with one List for each lifecycle phase. This instance is lazily
+     * instantiated. This list is <strong>NOT</strong> part of the state that is saved and restored for this component.
      * </p>
      */
     private Map<PhaseId, List<FacesEvent>> events;
 
     /**
      * <p>
-     * Override the default {@link UIComponentBase#queueEvent} behavior to accumulate the queued events for later
-     * broadcasting.
+     * Override the default {@link UIComponentBase#queueEvent} behavior to accumulate the queued events for later broadcasting.
      * </p>
      *
      * @param event {@link FacesEvent} to be queued
@@ -797,6 +772,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * <p class="changed_added_5_0">
      * Returns an unmodifiable map of unmodifiable lists of faces events that have been queued so far.
      * </p>
+     *
      * @return an unmodifiable map of unmodifiable lists of faces events that have been queued so far.
      * @since 5.0
      */
@@ -810,11 +786,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Broadcast any events that have been queued. First broadcast events that have been queued for
-     * {@link PhaseId#ANY_PHASE}. Then broadcast ane events that have been queued for the current phase. In both cases,
-     * {@link UIComponent#pushComponentToEL} must be called before the event is broadcast, and
-     * {@link UIComponent#popComponentFromEL} must be called after the return from the broadcast, even in the case of an
-     * exception.
+     * Broadcast any events that have been queued. First broadcast events that have been queued for {@link PhaseId#ANY_PHASE}. Then broadcast ane events that
+     * have been queued for the current phase. In both cases, {@link UIComponent#pushComponentToEL} must be called before the event is broadcast, and
+     * {@link UIComponent#popComponentFromEL} must be called after the return from the broadcast, even in the case of an exception.
      * </p>
      *
      * @param context {@link FacesContext} for the current request
@@ -855,10 +829,14 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                         }
                         source.pushComponentToEL(context, null);
                         source.broadcast(event);
-                    } catch (AbortProcessingException e) {
-                        context.getApplication().publishEvent(context, ExceptionQueuedEvent.class,
-                                new ExceptionQueuedEventContext(context, e, source, phaseId));
-                    } finally {
+                    }
+                    catch (AbortProcessingException e) {
+                        context.getApplication().publishEvent(
+                            context, ExceptionQueuedEvent.class,
+                            new ExceptionQueuedEventContext(context, e, source, phaseId)
+                        );
+                    }
+                    finally {
                         source.popComponentFromEL(context);
                         if (compositeParent != null) {
                             compositeParent.popComponentFromEL(context);
@@ -885,11 +863,15 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                         }
                         source.pushComponentToEL(context, null);
                         source.broadcast(event);
-                    } catch (AbortProcessingException ape) {
+                    }
+                    catch (AbortProcessingException ape) {
                         // A "return" here would abort remaining events too
-                        context.getApplication().publishEvent(context, ExceptionQueuedEvent.class,
-                                new ExceptionQueuedEventContext(context, ape, source, phaseId));
-                    } finally {
+                        context.getApplication().publishEvent(
+                            context, ExceptionQueuedEvent.class,
+                            new ExceptionQueuedEventContext(context, ape, source, phaseId)
+                        );
+                    }
+                    finally {
                         source.popComponentFromEL(context);
                         if (compositeParent != null) {
                             compositeParent.popComponentFromEL(context);
@@ -904,9 +886,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             // true if we have any more events for the argument phaseId
             hasMoreCurrentPhaseEvents = null != events.get(phaseId) && !events.get(phaseId).isEmpty();
 
-        } while (hasMoreAnyPhaseEvents || hasMoreCurrentPhaseEvents);
+        }
+        while (hasMoreAnyPhaseEvents || hasMoreCurrentPhaseEvents);
     }
-
 
     // ------------------------------------------------ Lifecycle Phase Handlers
 
@@ -936,19 +918,16 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_deleted_2_0_rev_a">The</span> default implementation must call
-     * {@link UIComponentBase#processRestoreState} from within a <code>try</code> block. The <code>try</code> block must
-     * have a <code>finally</code> block that ensures that no {@link FacesEvent}s remain in the event queue.
-     * <a class="changed_deleted_2_0_rev_a"> <!-- text removed in 2.0 Rev a: and that the this.visitTree is called, passing
-     * a ContextCallback that takes the following action: call the processEvent method of the current component. The
-     * argument event must be an instance of PostRestoreStateEvent whose component property is the current component in the
-     * traversal. --></a>
+     * <span class="changed_deleted_2_0_rev_a">The</span> default implementation must call {@link UIComponentBase#processRestoreState} from within a
+     * <code>try</code> block. The <code>try</code> block must have a <code>finally</code> block that ensures that no {@link FacesEvent}s remain in the event
+     * queue. <a class="changed_deleted_2_0_rev_a"> <!-- text removed in 2.0 Rev a: and that the this.visitTree is called, passing a ContextCallback that takes
+     * the following action: call the processEvent method of the current component. The argument event must be an instance of PostRestoreStateEvent whose
+     * component property is the current component in the traversal. --></a>
      * </p>
      *
      * @param context the <code>FacesContext</code> for this requets
      * @param state the opaque state object obtained from the {@link jakarta.faces.application.StateManager}
-     * @deprecated Full state saving has been removed. Use
-     * {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
+     * @deprecated Full state saving has been removed. Use {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
      */
     @Override
     @Deprecated(since = "5.0", forRemoval = true)
@@ -964,10 +943,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_3">
-     * If the argument <code>event</code> is an instance of {@link PostRestoreStateEvent} and
-     * {@link PartialViewContext#isPartialRequest()} returns <code>true</code>, then loop over all component resources and
-     * call {@link ResourceHandler#markResourceRendered(FacesContext, String, String)} for each of them. Finally, delegate
-     * to super.
+     * If the argument <code>event</code> is an instance of {@link PostRestoreStateEvent} and {@link PartialViewContext#isPartialRequest()} returns
+     * <code>true</code>, then loop over all component resources and call {@link ResourceHandler#markResourceRendered(FacesContext, String, String)} for each of
+     * them. Finally, delegate to super.
      * </p>
      */
     @Override
@@ -990,26 +968,22 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     /**
      * <div class="changed_added_2_0">
      * <p>
-     * Perform partial processing by calling {@link jakarta.faces.context.PartialViewContext#processPartial} with
-     * {@link PhaseId#APPLY_REQUEST_VALUES} if:
+     * Perform partial processing by calling {@link jakarta.faces.context.PartialViewContext#processPartial} with {@link PhaseId#APPLY_REQUEST_VALUES} if:
      * <ul>
-     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we don't have a
-     * request to process all components in the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns
-     * <code>false</code>)</li>
+     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we don't have a request to process all components in
+     * the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns <code>false</code>)</li>
      * </ul>
      * Perform full processing by calling {@link UIComponentBase#processDecodes} if one of the following conditions are met:
      * <ul>
-     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we have a request
-     * to process all components in the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns
-     * <code>true</code>)</li>
+     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we have a request to process all components in the
+     * view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns <code>true</code>)</li>
      * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>false</code></li>
      * </ul>
      * </div>
      * <p class="changed_modified_2_0">
-     * Override the default {@link UIComponentBase#processDecodes} behavior to broadcast any queued events after the default
-     * processing or partial processing has been completed and to clear out any events for later phases if the event
-     * processing for this phase caused {@link FacesContext#renderResponse} or {@link FacesContext#responseComplete} to be
-     * called.
+     * Override the default {@link UIComponentBase#processDecodes} behavior to broadcast any queued events after the default processing or partial processing
+     * has been completed and to clear out any events for later phases if the event processing for this phase caused {@link FacesContext#renderResponse} or
+     * {@link FacesContext#responseComplete} to be called.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -1025,12 +999,14 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             if (!skipPhase) {
                 if (context.getPartialViewContext().isPartialRequest() && !context.getPartialViewContext().isExecuteAll()) {
                     context.getPartialViewContext().processPartial(PhaseId.APPLY_REQUEST_VALUES);
-                } else {
+                }
+                else {
                     super.processDecodes(context);
                 }
                 broadcastEvents(context, PhaseId.APPLY_REQUEST_VALUES);
             }
-        } finally {
+        }
+        finally {
             clearFacesEvents(context);
             notifyAfter(context, PhaseId.APPLY_REQUEST_VALUES);
         }
@@ -1038,7 +1014,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_2">
-     * <span class="changed_modified_5_0">Use {@link #visitTree} to visit the clientIds</span> <span class="changed_added_5_0">with the given visit hints, if any,</span> and, if the <span class="changed_modified_5_0">node</span> is an instance of {@link EditableValueHolder}, call its
+     * <span class="changed_modified_5_0">Use {@link #visitTree} to visit the clientIds</span> <span class="changed_added_5_0">with the given visit hints, if
+     * any,</span> and, if the <span class="changed_modified_5_0">node</span> is an instance of {@link EditableValueHolder}, call its
      * {@link EditableValueHolder#resetValue} method.
      * </p>
      *
@@ -1054,9 +1031,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_5_0">
-     * Use {@link #visitTree} to visit the clientIds with the given visit hints, if any, and, if the node is an instance of {@link EditableValueHolder}, call its
-     * {@link EditableValueHolder#resetValue} method, and, if {@code clearModel} is true, then invoke {@link EditableValueHolder#setValue(Object)} with value of {@code null},
-     * followed by {@link UIInput#updateModel(FacesContext)}.
+     * Use {@link #visitTree} to visit the clientIds with the given visit hints, if any, and, if the node is an instance of {@link EditableValueHolder}, call
+     * its {@link EditableValueHolder#resetValue} method, and, if {@code clearModel} is true, then invoke {@link EditableValueHolder#setValue(Object)} with
+     * value of {@code null}, followed by {@link UIInput#updateModel(FacesContext)}.
      * </p>
      *
      * @since 5.0
@@ -1071,6 +1048,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     }
 
     private static class DoResetValues implements VisitCallback {
+
         private final boolean clearModel;
 
         private DoResetValues(boolean clearModel) {
@@ -1087,24 +1065,25 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                         input.updateModel(context.getFacesContext());
                     }
                 }
-            } else if (!VisitContext.ALL_IDS.equals(context.getIdsToVisit())) {
+            }
+            else if (!VisitContext.ALL_IDS.equals(context.getIdsToVisit())) {
                 // Render ID didn't specifically point to an EditableValueHolder. Visit all children as well.
                 target.visitTree(VisitContext.createVisitContext(context.getFacesContext(), null, context.getHints()), this);
             }
             return VisitResult.ACCEPT;
         }
+
     }
 
     /**
      * <p>
-     * <span class="changed_added_2_0 changed_modified_2_3"> Override</span> the default {@link UIComponentBase#encodeBegin}
-     * behavior. If {@link #getBeforePhaseListener} returns non-<code>null</code>, invoke it, passing a {@link PhaseEvent}
-     * for the {@link PhaseId#RENDER_RESPONSE} phase. If the internal list populated by calls to {@link #addPhaseListener}
-     * is non-empty, any listeners in that list must have their {@link PhaseListener#beforePhase} method called, passing the
-     * <code>PhaseEvent</code>. Any {@code Exception}s that occur during invocation of any of the beforePhase listeners must
-     * be logged and swallowed, <span class="changed_added_2_3"> unless the
-     * {@link #VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME} parameter is set. In that case, the {@code Exception}
-     * must be passed to the {@link jakarta.faces.context.ExceptionHandler} as well.</span>
+     * <span class="changed_added_2_0 changed_modified_2_3"> Override</span> the default {@link UIComponentBase#encodeBegin} behavior. If
+     * {@link #getBeforePhaseListener} returns non-<code>null</code>, invoke it, passing a {@link PhaseEvent} for the {@link PhaseId#RENDER_RESPONSE} phase. If
+     * the internal list populated by calls to {@link #addPhaseListener} is non-empty, any listeners in that list must have their
+     * {@link PhaseListener#beforePhase} method called, passing the <code>PhaseEvent</code>. Any {@code Exception}s that occur during invocation of any of the
+     * beforePhase listeners must be logged and swallowed, <span class="changed_added_2_3"> unless the
+     * {@link #VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME} parameter is set. In that case, the {@code Exception} must be passed to the
+     * {@link jakarta.faces.context.ExceptionHandler} as well.</span>
      * </p>
      */
     @Override
@@ -1119,16 +1098,15 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * If {@link jakarta.faces.context.PartialViewContext#isAjaxRequest} returns <code>true</code>, perform partial
-     * rendering by calling {@link jakarta.faces.context.PartialViewContext#processPartial} with
-     * {@link PhaseId#RENDER_RESPONSE}. If {@link jakarta.faces.context.PartialViewContext#isAjaxRequest} returns
-     * <code>false</code>, delegate to the parent {@link jakarta.faces.component.UIComponentBase#encodeChildren} method.
+     * If {@link jakarta.faces.context.PartialViewContext#isAjaxRequest} returns <code>true</code>, perform partial rendering by calling
+     * {@link jakarta.faces.context.PartialViewContext#processPartial} with {@link PhaseId#RENDER_RESPONSE}. If
+     * {@link jakarta.faces.context.PartialViewContext#isAjaxRequest} returns <code>false</code>, delegate to the parent
+     * {@link jakarta.faces.component.UIComponentBase#encodeChildren} method.
      * </p>
      *
      * <p class="changed_added_2_3">
-     * If this {@link UIViewRoot} is an instance of {@link NamingContainer}, then the Jakarta Faces implementation
-     * must ensure that all encoded POST request parameter names are prefixed with
-     * {@link UIViewRoot#getContainerClientId(FacesContext)} as per rules of {@link UIComponent#getClientId(FacesContext)}.
+     * If this {@link UIViewRoot} is an instance of {@link NamingContainer}, then the Jakarta Faces implementation must ensure that all encoded POST request
+     * parameter names are prefixed with {@link UIViewRoot#getContainerClientId(FacesContext)} as per rules of {@link UIComponent#getClientId(FacesContext)}.
      * This also covers all predefined POST request parameters which are listed below:
      * </p>
      * <ul class="changed_added_2_3">
@@ -1149,22 +1127,22 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     public void encodeChildren(FacesContext context) throws IOException {
         if (context.getPartialViewContext().isAjaxRequest()) {
             context.getPartialViewContext().processPartial(PhaseId.RENDER_RESPONSE);
-        } else {
+        }
+        else {
             super.encodeChildren(context);
         }
     }
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_3">If</span> {@link #getAfterPhaseListener} returns non-<code>null</code>, invoke it,
-     * passing a {@link PhaseEvent} for the {@link PhaseId#RENDER_RESPONSE} phase. Any {@code Exception}s that occur during
-     * invocation of the afterPhase listener must be logged and swallowed, <span class="changed_added_2_3"> unless the
-     * {@link #VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME} parameter is set. In that case, the {@code Exception}
-     * must be passed to the {@link jakarta.faces.context.ExceptionHandler} as well.</span>. If the current view has view
-     * parameters, as indicated by a non-empty and non-<code>UnsupportedOperationException</code> throwing return from
-     * {@link jakarta.faces.view.ViewDeclarationLanguage#getViewMetadata(jakarta.faces.context.FacesContext, String)}, call
-     * {@link UIViewParameter#encodeAll} on each parameter. If calling <code>getViewParameters()</code> causes
-     * <code>UnsupportedOperationException</code> to be thrown, the exception must be silently swallowed.
+     * <span class="changed_modified_2_3">If</span> {@link #getAfterPhaseListener} returns non-<code>null</code>, invoke it, passing a {@link PhaseEvent} for
+     * the {@link PhaseId#RENDER_RESPONSE} phase. Any {@code Exception}s that occur during invocation of the afterPhase listener must be logged and swallowed,
+     * <span class="changed_added_2_3"> unless the {@link #VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME} parameter is set. In that case, the
+     * {@code Exception} must be passed to the {@link jakarta.faces.context.ExceptionHandler} as well.</span>. If the current view has view parameters, as
+     * indicated by a non-empty and non-<code>UnsupportedOperationException</code> throwing return from
+     * {@link jakarta.faces.view.ViewDeclarationLanguage#getViewMetadata(jakarta.faces.context.FacesContext, String)}, call {@link UIViewParameter#encodeAll} on
+     * each parameter. If calling <code>getViewParameters()</code> causes <code>UnsupportedOperationException</code> to be thrown, the exception must be
+     * silently swallowed.
      * </p>
      */
     @Override
@@ -1176,8 +1154,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Call {@link UIComponentBase#getRendersChildren} If {@link jakarta.faces.context.PartialViewContext#isAjaxRequest}
-     * returns <code>true</code> this method must return <code>true</code>.
+     * Call {@link UIComponentBase#getRendersChildren} If {@link jakarta.faces.context.PartialViewContext#isAjaxRequest} returns <code>true</code> this method
+     * must return <code>true</code>.
      * </p>
      *
      * @since 2.0
@@ -1195,8 +1173,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * Utility method that notifies phaseListeners for the given phaseId. Assumes that either or both the MethodExpression
-     * or phaseListeners data structure are non-null.
+     * Utility method that notifies phaseListeners for the given phaseId. Assumes that either or both the MethodExpression or phaseListeners data structure are
+     * non-null.
      * </p>
      *
      * @param context the context for this request
@@ -1215,16 +1193,21 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             try {
                 expression.invoke(context.getELContext(), new Object[] { event });
                 skipPhase = context.getResponseComplete() || context.getRenderResponse();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 if (isBefore) {
                     beforeMethodException = true;
                 }
                 if (LOGGER.isLoggable(SEVERE)) {
-                    LOGGER.log(SEVERE, "severe.component.unable_to_process_expression",
-                            new Object[] { expression.getExpressionString(), isBefore ? "beforePhase" : "afterPhase" });
+                    LOGGER.log(
+                        SEVERE, "severe.component.unable_to_process_expression",
+                        new Object[] { expression.getExpressionString(), isBefore ? "beforePhase" : "afterPhase" }
+                    );
                 }
-                if (context.getAttributes().containsKey(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)
-                        && (Boolean) context.getAttributes().get(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)) {
+                if (
+                    context.getAttributes().containsKey(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)
+                        && (Boolean) context.getAttributes().get(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)
+                ) {
                     ExceptionQueuedEventContext extx = new ExceptionQueuedEventContext(context, e);
                     String booleanKey = isBefore ? ExceptionQueuedEventContext.IN_BEFORE_PHASE_KEY : ExceptionQueuedEventContext.IN_AFTER_PHASE_KEY;
                     extx.getAttributes().put(booleanKey, Boolean.TRUE);
@@ -1241,19 +1224,23 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                     try {
                         if (isBefore) {
                             curListener.beforePhase(event);
-                        } else {
+                        }
+                        else {
                             curListener.afterPhase(event);
                         }
                         skipPhase = context.getResponseComplete() || context.getRenderResponse();
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                         if (isBefore && phaseListenerIterator.hasPrevious()) {
                             phaseListenerIterator.previous();
                         }
                         if (LOGGER.isLoggable(SEVERE)) {
                             LOGGER.log(SEVERE, "severe.component.uiviewroot_error_invoking_phaselistener", curListener.getClass().getName());
                         }
-                        if (context.getAttributes().containsKey(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)
-                                && (Boolean) context.getAttributes().get(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)) {
+                        if (
+                            context.getAttributes().containsKey(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)
+                                && (Boolean) context.getAttributes().get(VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME)
+                        ) {
                             ExceptionQueuedEventContext extx = new ExceptionQueuedEventContext(context, e);
                             String booleanKey = isBefore ? ExceptionQueuedEventContext.IN_BEFORE_PHASE_KEY : ExceptionQueuedEventContext.IN_AFTER_PHASE_KEY;
                             extx.getAttributes().put(booleanKey, Boolean.TRUE);
@@ -1283,27 +1270,22 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     /**
      * <div class="changed_added_2_0">
      * <p>
-     * Perform partial processing by calling {@link jakarta.faces.context.PartialViewContext#processPartial} with
-     * {@link PhaseId#PROCESS_VALIDATIONS} if:
+     * Perform partial processing by calling {@link jakarta.faces.context.PartialViewContext#processPartial} with {@link PhaseId#PROCESS_VALIDATIONS} if:
      * <ul>
-     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we don't have a
-     * request to process all components in the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns
-     * <code>false</code>)</li>
+     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we don't have a request to process all components in
+     * the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns <code>false</code>)</li>
      * </ul>
-     * Perform full processing by calling {@link UIComponentBase#processValidators} if one of the following conditions are
-     * met:
+     * Perform full processing by calling {@link UIComponentBase#processValidators} if one of the following conditions are met:
      * <ul>
-     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we have a request
-     * to process all components in the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns
-     * <code>true</code>)</li>
+     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we have a request to process all components in the
+     * view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns <code>true</code>)</li>
      * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>false</code></li>
      * </ul>
      * </div>
      * <p class="changed_modified_2_0">
-     * Override the default {@link UIComponentBase#processValidators} behavior to broadcast any queued events after the
-     * default processing or partial processing has been completed and to clear out any events for later phases if the event
-     * processing for this phase caused {@link FacesContext#renderResponse} or {@link FacesContext#responseComplete} to be
-     * called.
+     * Override the default {@link UIComponentBase#processValidators} behavior to broadcast any queued events after the default processing or partial processing
+     * has been completed and to clear out any events for later phases if the event processing for this phase caused {@link FacesContext#renderResponse} or
+     * {@link FacesContext#responseComplete} to be called.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -1319,12 +1301,14 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             if (!skipPhase) {
                 if (context.getPartialViewContext().isPartialRequest() && !context.getPartialViewContext().isExecuteAll()) {
                     context.getPartialViewContext().processPartial(PhaseId.PROCESS_VALIDATIONS);
-                } else {
+                }
+                else {
                     super.processValidators(context);
                 }
                 broadcastEvents(context, PhaseId.PROCESS_VALIDATIONS);
             }
-        } finally {
+        }
+        finally {
             clearFacesEvents(context);
             notifyAfter(context, PhaseId.PROCESS_VALIDATIONS);
         }
@@ -1333,25 +1317,22 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     /**
      * <div class="changed_added_2_0">
      * <p>
-     * Perform partial processing by calling {@link jakarta.faces.context.PartialViewContext#processPartial} with
-     * {@link PhaseId#UPDATE_MODEL_VALUES} if:
+     * Perform partial processing by calling {@link jakarta.faces.context.PartialViewContext#processPartial} with {@link PhaseId#UPDATE_MODEL_VALUES} if:
      * <ul>
-     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we don't have a
-     * request to process all components in the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns
-     * <code>false</code>)</li>
+     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we don't have a request to process all components in
+     * the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns <code>false</code>)</li>
      * </ul>
      * Perform full processing by calling {@link UIComponentBase#processUpdates} if one of the following conditions are met:
      * <ul>
-     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we have a request
-     * to process all components in the view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns
-     * <code>true</code>)</li>
+     * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>true</code> and we have a request to process all components in the
+     * view ({@link jakarta.faces.context.PartialViewContext#isExecuteAll} returns <code>true</code>)</li>
      * <li>{@link jakarta.faces.context.PartialViewContext#isPartialRequest} returns <code>false</code></li>
      * </ul>
      * </div>
      * <p class="changed_modified_2_0">
-     * Override the default {@link UIComponentBase} behavior to broadcast any queued events after the default processing or
-     * partial processing has been completed and to clear out any events for later phases if the event processing for this
-     * phase caused {@link FacesContext#renderResponse} or {@link FacesContext#responseComplete} to be called.
+     * Override the default {@link UIComponentBase} behavior to broadcast any queued events after the default processing or partial processing has been
+     * completed and to clear out any events for later phases if the event processing for this phase caused {@link FacesContext#renderResponse} or
+     * {@link FacesContext#responseComplete} to be called.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -1367,12 +1348,14 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             if (!skipPhase) {
                 if (context.getPartialViewContext().isPartialRequest() && !context.getPartialViewContext().isExecuteAll()) {
                     context.getPartialViewContext().processPartial(PhaseId.UPDATE_MODEL_VALUES);
-                } else {
+                }
+                else {
                     super.processUpdates(context);
                 }
                 broadcastEvents(context, PhaseId.UPDATE_MODEL_VALUES);
             }
-        } finally {
+        }
+        finally {
             clearFacesEvents(context);
             notifyAfter(context, PhaseId.UPDATE_MODEL_VALUES);
         }
@@ -1380,9 +1363,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * Broadcast any events that have been queued for the <em>Invoke Application</em> phase of the request processing
-     * lifecycle and to clear out any events for later phases if the event processing for this phase caused
-     * {@link FacesContext#renderResponse} or {@link FacesContext#responseComplete} to be called.
+     * Broadcast any events that have been queued for the <em>Invoke Application</em> phase of the request processing lifecycle and to clear out any events for
+     * later phases if the event processing for this phase caused {@link FacesContext#renderResponse} or {@link FacesContext#responseComplete} to be called.
      * </p>
      *
      * @param context {@link FacesContext} for the request we are processing
@@ -1397,7 +1379,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                 // NOTE - no tree walk is performed; this is a UIViewRoot-only operation
                 broadcastEvents(context, PhaseId.INVOKE_APPLICATION);
             }
-        } finally {
+        }
+        finally {
             clearFacesEvents(context);
             notifyAfter(context, PhaseId.INVOKE_APPLICATION);
         }
@@ -1416,9 +1399,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * <span class="changed_modified_2_2">Generate</span> an identifier for a component. The identifier will be prefixed
-     * with UNIQUE_ID_PREFIX, and will be unique within <span class="changed_added_2_2">the non-{@link NamingContainer}
-     * child sub-trees of</span> this UIViewRoot.
+     * <span class="changed_modified_2_2">Generate</span> an identifier for a component. The identifier will be prefixed with UNIQUE_ID_PREFIX, and will be
+     * unique within <span class="changed_added_2_2">the non-{@link NamingContainer} child sub-trees of</span> this UIViewRoot.
      * </p>
      *
      * @return the identifier.
@@ -1429,9 +1411,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p>
-     * Generate an identifier for a component. The identifier will be prefixed with UNIQUE_ID_PREFIX, and will be unique
-     * within this UIViewRoot. Optionally, a unique seed value can be supplied by component creators which should be
-     * included in the generated unique id.
+     * Generate an identifier for a component. The identifier will be prefixed with UNIQUE_ID_PREFIX, and will be unique within this UIViewRoot. Optionally, a
+     * unique seed value can be supplied by component creators which should be included in the generated unique id.
      * </p>
      *
      * @param context FacesContext
@@ -1459,12 +1440,10 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * Algorithm:
      * </p>
      * <p>
-     * If we have a <code>locale</code> ivar, return it. If we have a value expression for "locale", get its value. If the
-     * value is <code>null</code>, return the result of calling
-     * {@link jakarta.faces.application.ViewHandler#calculateLocale}. If the value is an instance of
-     * <code>java.util.Locale</code> return it. If the value is a String, convert it to a <code>java.util.Locale</code> and
-     * return it. If there is no value expression for "locale", return the result of calling
-     * {@link jakarta.faces.application.ViewHandler#calculateLocale}.
+     * If we have a <code>locale</code> ivar, return it. If we have a value expression for "locale", get its value. If the value is <code>null</code>, return
+     * the result of calling {@link jakarta.faces.application.ViewHandler#calculateLocale}. If the value is an instance of <code>java.util.Locale</code> return
+     * it. If the value is a String, convert it to a <code>java.util.Locale</code> and return it. If there is no value expression for "locale", return the
+     * result of calling {@link jakarta.faces.application.ViewHandler#calculateLocale}.
      * </p>
      *
      * @return The current <code>Locale</code> obtained by executing the above algorithm.
@@ -1476,7 +1455,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
             Locale locale = null;
             if (result instanceof Locale) {
                 locale = (Locale) result;
-            } else if (result instanceof String) {
+            }
+            else if (result instanceof String) {
                 locale = getLocaleFromString((String) result);
             }
 
@@ -1508,7 +1488,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         int j = 0;
 
         // to have a language, the length must be >= 2
-        if ( (i = indexOfSet(localeStr, seps, 0)) == -1 ) {
+        if ((i = indexOfSet(localeStr, seps, 0)) == -1) {
             // we have only Language, no country or variant
             if (2 != localeStr.length()) {
                 throw new IllegalArgumentException("Illegal locale String: " + localeStr);
@@ -1534,16 +1514,19 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                 // and variant, the length must be >= 8.
                 if (inputLength >= 8) {
                     variant = localeStr.substring(j + 1);
-                } else {
+                }
+                else {
                     throw new IllegalArgumentException("Illegal locale String: " + localeStr);
                 }
             }
         }
         if (variant != null) {
             result = new Locale(lang, country, variant);
-        } else if (country != null) {
+        }
+        else if (country != null) {
             result = new Locale(lang, country);
-        } else {
+        }
+        else {
             result = new Locale(lang, "");
         }
 
@@ -1554,8 +1537,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * @param str local string
      * @param set the substring
      * @param fromIndex starting index
-     * @return starting at <code>fromIndex</code>, the index of the first occurrence of any substring from <code>set</code>
-     * in <code>toSearch</code>, or -1 if no such match is found
+     * @return starting at <code>fromIndex</code>, the index of the first occurrence of any substring from <code>set</code> in <code>toSearch</code>, or -1 if
+     * no such match is found
      */
     private static int indexOfSet(String str, char[] set, int fromIndex) {
         int result = -1;
@@ -1589,8 +1572,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * This implementation simply calls through to {@link #getViewMap(boolean)}, passing <code>true</code> as the argument,
-     * and returns the result.
+     * This implementation simply calls through to {@link #getViewMap(boolean)}, passing <code>true</code> as the argument, and returns the result.
      * </p>
      * <div class="changed_added_2_0"></div>
      *
@@ -1603,35 +1585,30 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2 changed_modified_2_3">Returns</span> a <code>Map</code> that acts as the interface
-     * to the data store that is the "view scope", or, if this instance does not have such a <code>Map</code> and the
-     * <code>create</code> argument is <code>true</code>, creates one and returns it. This map must be instantiated lazily
-     * and cached for return from subsequent calls to this method on this <code>UIViewRoot</code> instance.
-     * {@link jakarta.faces.application.Application#publishEvent} must be called, passing
-     * <span class="changed_added_2_3">the current <code>FacesContext</code> as the first argument</span>,
-     * {@link PostConstructViewMapEvent}<code>.class</code> as the second argument,
-     * <span class="changed_added_2_3"><code>UIViewRoot.class</code> as the third argument</span> and this
-     * <code>UIViewRoot</code> instance as the fourth argument. <span class="changed_added_2_3">It is necessary to pass the
-     * <code>UIViewRoot.class</code> argument to account for cases when the <code>UIViewRoot</code> has been extended with a
-     * custom class.</span>
+     * <span class="changed_modified_2_2 changed_modified_2_3">Returns</span> a <code>Map</code> that acts as the interface to the data store that is the "view
+     * scope", or, if this instance does not have such a <code>Map</code> and the <code>create</code> argument is <code>true</code>, creates one and returns it.
+     * This map must be instantiated lazily and cached for return from subsequent calls to this method on this <code>UIViewRoot</code> instance.
+     * {@link jakarta.faces.application.Application#publishEvent} must be called, passing <span class="changed_added_2_3">the current <code>FacesContext</code>
+     * as the first argument</span>, {@link PostConstructViewMapEvent}<code>.class</code> as the second argument,
+     * <span class="changed_added_2_3"><code>UIViewRoot.class</code> as the third argument</span> and this <code>UIViewRoot</code> instance as the fourth
+     * argument. <span class="changed_added_2_3">It is necessary to pass the <code>UIViewRoot.class</code> argument to account for cases when the
+     * <code>UIViewRoot</code> has been extended with a custom class.</span>
      * </p>
      *
      * <p>
-     * The returned <code>Map</code> must be implemented such that calling <code>clear()</code> on the <code>Map</code>
-     * causes {@link jakarta.faces.application.Application#publishEvent} to be called, passing
-     * {@link PreDestroyViewMapEvent}<code>.class</code> as the first argument and this <code>UIViewRoot</code> instance as
-     * the second argument.
+     * The returned <code>Map</code> must be implemented such that calling <code>clear()</code> on the <code>Map</code> causes
+     * {@link jakarta.faces.application.Application#publishEvent} to be called, passing {@link PreDestroyViewMapEvent}<code>.class</code> as the first argument
+     * and this <code>UIViewRoot</code> instance as the second argument.
      * </p>
      *
      * <p class="changed_modified_2_0_rev_a">
-     * Depending upon application configuration, objects stored in the view map may need to be <code>Serializable</code>. In
-     * general, it is a good idea to ensure that any objects stored in the view map are <code>Serializable</code>.
+     * Depending upon application configuration, objects stored in the view map may need to be <code>Serializable</code>. In general, it is a good idea to
+     * ensure that any objects stored in the view map are <code>Serializable</code>.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * For reasons made clear in {@link jakarta.faces.view.ViewScoped}, this map must ultimately be stored in the session.
-     * For this reason, a {@code true} value for the {@code create} argument will force the session to be created with a
-     * call to {@link jakarta.faces.context.ExternalContext#getSession(boolean)}.
+     * For reasons made clear in {@link jakarta.faces.view.ViewScoped}, this map must ultimately be stored in the session. For this reason, a {@code true} value
+     * for the {@code create} argument will force the session to be created with a call to {@link jakarta.faces.context.ExternalContext#getSession(boolean)}.
      *
      * </p>
      *
@@ -1639,8 +1616,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      * See {@link FacesContext#setViewRoot} for the specification of when the <code>clear()</code> method must be called.
      * </p>
      *
-     * @param create <code>true</code> to create a new <code>Map</code> for this instance if necessary; <code>false</code>
-     * to return <code>null</code> if there's no current <code>Map</code>.
+     * @param create <code>true</code> to create a new <code>Map</code> for this instance if necessary; <code>false</code> to return <code>null</code> if
+     * there's no current <code>Map</code>.
      * @return the view map, or <code>null</code>.
      * @since 2.0
      */
@@ -1657,8 +1634,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Install the listener instance referenced by argument <code>listener</code> into the <code>UIViewRoot</code> as a
-     * listener for events of type <code>systemEventClass</code>.
+     * Install the listener instance referenced by argument <code>listener</code> into the <code>UIViewRoot</code> as a listener for events of type
+     * <code>systemEventClass</code>.
      * </p>
      *
      * <p>
@@ -1667,9 +1644,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
      *
      * @param systemEvent the <code>Class</code> of event for which <code>listener</code> must be fired.
      *
-     * @param listener the implementation of {@link jakarta.faces.event.SystemEventListener} whose
-     * {@link jakarta.faces.event.SystemEventListener#processEvent} method must be called when events of type
-     * <code>systemEventClass</code> are fired.
+     * @param listener the implementation of {@link jakarta.faces.event.SystemEventListener} whose {@link jakarta.faces.event.SystemEventListener#processEvent}
+     * method must be called when events of type <code>systemEventClass</code> are fired.
      *
      * @throws NullPointerException if <code>systemEventClass</code> or <code>listener</code> are <code>null</code>.
      *
@@ -1688,19 +1664,18 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         }
 
         viewListeners.computeIfAbsent(systemEvent, k -> new CopyOnWriteArrayList<>())
-                     .add(listener);
+            .add(listener);
 
     }
 
     /**
      * <p class="changed_added_2_0">
-     * Remove the listener instance referenced by argument <code>listener</code> from the <code>UIViewRoot</code> as a
-     * listener for events of type <code>systemEventClass</code>.
+     * Remove the listener instance referenced by argument <code>listener</code> from the <code>UIViewRoot</code> as a listener for events of type
+     * <code>systemEventClass</code>.
      *
      * @param systemEvent the <code>Class</code> of event for which <code>listener</code> must be fired.
-     * @param listener the implementation of {@link jakarta.faces.event.SystemEventListener} whose
-     * {@link jakarta.faces.event.SystemEventListener#processEvent} method must be called when events of type
-     * <code>systemEventClass</code> are fired.
+     * @param listener the implementation of {@link jakarta.faces.event.SystemEventListener} whose {@link jakarta.faces.event.SystemEventListener#processEvent}
+     * method must be called when events of type <code>systemEventClass</code> are fired.
      *
      * @throws NullPointerException if <code>systemEventClass</code> or <code>listener</code> are <code>null</code>.
      *
@@ -1724,8 +1699,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the <code>SystemEventListener</code> instances registered on this <code>UIComponent</code> instance that are
-     * interested in events of type <code>eventClass</code>.
+     * Return the <code>SystemEventListener</code> instances registered on this <code>UIComponent</code> instance that are interested in events of type
+     * <code>eventClass</code>.
      * </p>
      *
      * @param systemEvent the <code>Class</code> of event for which the listeners must be returned.
@@ -1765,7 +1740,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
                 for (UIViewParameter param : params) {
                     param.encodeAll(context);
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 // IOException is forced by contract and is not expected to be thrown in this case
                 throw new RuntimeException("Unexpected IOException", e);
             }
@@ -1775,8 +1751,8 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     /**
      *
      * <p class="changed_added_2_2">
-     * Restore ViewScope state. This is needed to allow the use of view scoped beans for EL-expressions in the template from
-     * which the component tree is built. For example: <code>&lt;ui:include
+     * Restore ViewScope state. This is needed to allow the use of view scoped beans for EL-expressions in the template from which the component tree is built.
+     * For example: <code>&lt;ui:include
      * src="#{viewScopedBean.includeFileName}"/&gt;</code>.
      * </p>
      *
@@ -1838,10 +1814,9 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
     // --------------------------------------------------------- Private Methods
 
     /**
-     * Restores the view map associated with the view map id in the saved state. {@link #restoreViewScopeState} invokes
-     * this up front so that view scoped beans are resolvable in EL while the view is being built; {@link #restoreState}
-     * invokes it only when that did not already happen. Rewiring it a second time would be destructive: when the saved
-     * view map is no longer among the active view maps, building the view mints a replacement whose id is held in the
+     * Restores the view map associated with the view map id in the saved state. {@link #restoreViewScopeState} invokes this up front so that view scoped beans
+     * are resolvable in EL while the view is being built; {@link #restoreState} invokes it only when that did not already happen. Rewiring it a second time
+     * would be destructive: when the saved view map is no longer among the active view maps, building the view mints a replacement whose id is held in the
      * transient state, and restoring the saved id over it would orphan that replacement.
      */
     @SuppressWarnings("unchecked") // the session-stored view maps are cast back to their saved types.
@@ -1879,7 +1854,7 @@ public class UIViewRoot extends UIComponentBase implements UniqueIdVendor {
         return facet != null ? facet.getChildren() : null;
     }
 
-    private static final class ViewMap extends HashMap<String,Object> {
+    private static final class ViewMap extends HashMap<String, Object> {
 
         private static final long serialVersionUID = -1L;
 

@@ -49,4 +49,5 @@ public class Issue2401Bean implements Serializable {
     public void throwException(ValueChangeEvent event) {
         throw new NullPointerException();
     }
+
 }

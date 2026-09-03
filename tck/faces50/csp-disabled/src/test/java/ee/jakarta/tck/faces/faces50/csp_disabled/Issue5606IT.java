@@ -30,12 +30,10 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * With CSP nonce injection disabled (the default, i.e. {@link ResourceHandler#ENABLE_CSP_NONCE} not set),
- * command components must render their {@code onclick} handler and keep working, and no CSP nonce may be
- * emitted onto the {@code faces.js} script element. Whether the handler is rendered as an inline
- * {@code onclick} attribute or wired via a {@code <script>} block is implementation-specific per
- * jakartaee/faces#2167, so this asserts the observable contract (handler present, click still works,
- * no nonce) rather than the rendering strategy.
+ * With CSP nonce injection disabled (the default, i.e. {@link ResourceHandler#ENABLE_CSP_NONCE} not set), command components must render their {@code onclick}
+ * handler and keep working, and no CSP nonce may be emitted onto the {@code faces.js} script element. Whether the handler is rendered as an inline
+ * {@code onclick} attribute or wired via a {@code <script>} block is implementation-specific per jakartaee/faces#2167, so this asserts the observable contract
+ * (handler present, click still works, no nonce) rather than the rendering strategy.
  *
  * @see ResourceHandler#ENABLE_CSP_NONCE
  * @see https://github.com/eclipse-ee4j/mojarra/issues/5606
@@ -78,4 +76,5 @@ class Issue5606IT extends BaseITNG {
         var scripts = page.findElements(By.cssSelector("script[src*='jakarta.faces.resource/faces.js']"));
         return scripts.isEmpty() ? null : scripts.get(0).getDomAttribute("nonce");
     }
+
 }

@@ -28,9 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue4077IT extends BaseITNG {
 
     /**
-     * A ui:param declared in the metadata facet and chained through a ui:decorate ui:param must
-     * resolve correctly, so that invoking the composite command button with the resolved value as
-     * a method argument stores and renders it through the template after the postback.
+     * A ui:param declared in the metadata facet and chained through a ui:decorate ui:param must resolve correctly, so that invoking the composite command
+     * button with the resolved value as a method argument stores and renders it through the template after the postback.
      *
      * @see jakarta.faces.view.facelets.FaceletContext
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4077
@@ -43,4 +42,5 @@ class Issue4077IT extends BaseITNG {
 
         assertEquals("Hello World", page.findElement(By.id("result")).getText());
     }
+
 }

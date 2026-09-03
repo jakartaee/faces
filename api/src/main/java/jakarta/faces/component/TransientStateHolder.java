@@ -20,17 +20,15 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_1">
- * This interface is implemented by classes that need to save state that is expected to be available only within the
- * scope of the current request.
+ * This interface is implemented by classes that need to save state that is expected to be available only within the scope of the current request.
  * </p>
  *
  * <div class="changed_added_2_1">
  *
  * <p>
- * An implementor <strong>must</strong> implement both {@link #saveTransientState} and {@link #restoreTransientState}
- * methods in this class, since these two methods have a tightly coupled contract between themselves. In other words, if
- * there is an inheritance hierarchy, it is not permissible to have the {@link #saveTransientState} and
- * {@link #restoreTransientState} methods reside at different levels of the hierarchy.
+ * An implementor <strong>must</strong> implement both {@link #saveTransientState} and {@link #restoreTransientState} methods in this class, since these two
+ * methods have a tightly coupled contract between themselves. In other words, if there is an inheritance hierarchy, it is not permissible to have the
+ * {@link #saveTransientState} and {@link #restoreTransientState} methods reside at different levels of the hierarchy.
  * </p>
  *
  * <p>
@@ -68,4 +66,5 @@ public interface TransientStateHolder {
      * @since 2.1
      */
     void restoreTransientState(FacesContext context, Object state);
+
 }

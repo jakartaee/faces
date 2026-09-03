@@ -30,10 +30,8 @@ class WcagDataTableIT extends BaseITNG {
     private static final String COLGROUP_END = "(?:</colgroup>)?\\s*";
 
     /**
-     * The HtmlDataTable renderer must emit the WCAG accessibility structure: the frame, rules
-     * and summary table attributes, a caption facet, the colgroups facet, a thead with
-     * scope=col header cells, a rowHeader column rendered as th scope=row, and multiple tbody
-     * groups driven by the bodyrows attribute.
+     * The HtmlDataTable renderer must emit the WCAG accessibility structure: the frame, rules and summary table attributes, a caption facet, the colgroups
+     * facet, a thead with scope=col header cells, a rowHeader column rendered as th scope=row, and multiple tbody groups driven by the bodyrows attribute.
      *
      * @see jakarta.faces.component.html.HtmlDataTable
      * @see jakarta.faces.component.html.HtmlColumn
@@ -45,20 +43,35 @@ class WcagDataTableIT extends BaseITNG {
 
         assertTrue(source.matches("(?s).*<table.*frame=.hsides.*>.*"), "table frame=hsides");
         assertTrue(source.matches("(?s).*<table.*rules..groups.*>.*"), "table rules=groups");
-        assertTrue(source.matches("(?s).*<table.*summary..Code page support in different versions of MS Windows.*>.*"),
-                "table summary");
-        assertTrue(source.matches("(?sm).*<table.*>\\s*<caption>.*CODE-PAGE SUPPORT IN MICROSOFT WINDOWS.*</caption>.*"),
-                "caption immediately after table");
-        assertTrue(source.matches("(?sm).*</caption>\\s*"
-                + "<colgroup align=.center.>" + COLGROUP_END
-                + "<colgroup align=.left.>" + COLGROUP_END
-                + "<colgroup align=.center. span=.2.>" + COLGROUP_END
-                + "<colgroup align=.center. span=.3.>" + COLGROUP_END + ".*"), "colgroups after caption");
-        assertTrue(source.matches("(?sm).*<table.*>.*<thead>\\s*<tr>\\s*<th\\s*scope=.col.*"),
-                "thead with th scope=col");
-        assertTrue(source.matches("(?sm).*<table.*>.*<tbody>.*<th\\s*scope=.row.*"),
-                "tbody with th scope=row");
-        assertTrue(source.matches("(?sm).*<table.*>.*<tbody>.*</tbody>.*<tbody>.*</tbody>.*</table>.*"),
-                "multiple tbody groups");
+        assertTrue(
+            source.matches("(?s).*<table.*summary..Code page support in different versions of MS Windows.*>.*"),
+            "table summary"
+        );
+        assertTrue(
+            source.matches("(?sm).*<table.*>\\s*<caption>.*CODE-PAGE SUPPORT IN MICROSOFT WINDOWS.*</caption>.*"),
+            "caption immediately after table"
+        );
+        assertTrue(
+            source.matches(
+                "(?sm).*</caption>\\s*"
+                    + "<colgroup align=.center.>" + COLGROUP_END
+                    + "<colgroup align=.left.>" + COLGROUP_END
+                    + "<colgroup align=.center. span=.2.>" + COLGROUP_END
+                    + "<colgroup align=.center. span=.3.>" + COLGROUP_END + ".*"
+            ), "colgroups after caption"
+        );
+        assertTrue(
+            source.matches("(?sm).*<table.*>.*<thead>\\s*<tr>\\s*<th\\s*scope=.col.*"),
+            "thead with th scope=col"
+        );
+        assertTrue(
+            source.matches("(?sm).*<table.*>.*<tbody>.*<th\\s*scope=.row.*"),
+            "tbody with th scope=row"
+        );
+        assertTrue(
+            source.matches("(?sm).*<table.*>.*<tbody>.*</tbody>.*<tbody>.*</tbody>.*</table>.*"),
+            "multiple tbody groups"
+        );
     }
+
 }

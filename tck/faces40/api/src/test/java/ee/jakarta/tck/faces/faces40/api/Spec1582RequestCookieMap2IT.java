@@ -28,14 +28,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1582RequestCookieMap2IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see jakarta.faces.annotation.RequestCookieMap.Literal
      * @see https://github.com/jakartaee/faces/issues/1582
-   */
-  @Test
-  void injectRequestCookieMap2() throws Exception {
+     */
+    @Test
+    void injectRequestCookieMap2() throws Exception {
         WebPage page = getPage("spec1582RequestCookieMap2.xhtml");
         assertTrue(page.containsText("{}"));
     }
+
 }

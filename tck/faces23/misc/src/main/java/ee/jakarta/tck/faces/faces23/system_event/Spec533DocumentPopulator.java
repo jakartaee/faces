@@ -43,4 +43,5 @@ public class Spec533DocumentPopulator extends ApplicationConfigurationPopulator 
         lifecycleElement.appendChild(phaseListenerElement);
         documentElement.appendChild(lifecycleElement);
     }
+
 }

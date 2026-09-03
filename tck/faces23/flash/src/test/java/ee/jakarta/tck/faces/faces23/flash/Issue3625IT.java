@@ -28,8 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3625IT extends BaseITNG {
 
     /**
-     * A flash value set on a transient view must remain readable on the next transient view even
-     * when that view invalidates the session, without throwing a NullPointerException.
+     * A flash value set on a transient view must remain readable on the next transient view even when that view invalidates the session, without throwing a
+     * NullPointerException.
      *
      * @see Flash
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3625
@@ -40,4 +40,5 @@ class Issue3625IT extends BaseITNG {
         WebPage page = getPage("issue3625-getvar.xhtml");
         assertEquals("hello", page.findElement(By.id("result")).getText());
     }
+
 }

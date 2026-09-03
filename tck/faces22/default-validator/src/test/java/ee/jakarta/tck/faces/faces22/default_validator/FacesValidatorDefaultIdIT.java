@@ -25,10 +25,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A {@code @FacesValidator} annotated class without an explicit value gets a validator-id derived
- * from its simple class name with the first character lower-cased. So {@code AnnotatedValidatorNoValue}
- * is resolvable through {@code Application.createValidator("annotatedValidatorNoValue")} but not
- * through its exact simple class name, and it is not registered as a default validator.
+ * A {@code @FacesValidator} annotated class without an explicit value gets a validator-id derived from its simple class name with the first character
+ * lower-cased. So {@code AnnotatedValidatorNoValue} is resolvable through {@code Application.createValidator("annotatedValidatorNoValue")} but not through its
+ * exact simple class name, and it is not registered as a default validator.
  */
 class FacesValidatorDefaultIdIT extends BaseITNG {
 
@@ -40,7 +39,10 @@ class FacesValidatorDefaultIdIT extends BaseITNG {
     @Test
     void testDefaultValidatorId() {
         WebPage page = getPage("facesValidatorDefaultId.xhtml");
-        assertEquals("true", page.findElement(By.id("result")).getText(),
-                "the @FacesValidator default id must be derived from the simple class name, first char lower-cased");
+        assertEquals(
+            "true", page.findElement(By.id("result")).getText(),
+            "the @FacesValidator default id must be derived from the simple class name, first char lower-cased"
+        );
     }
+
 }

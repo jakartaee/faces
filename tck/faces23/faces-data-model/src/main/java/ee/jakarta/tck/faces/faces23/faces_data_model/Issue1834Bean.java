@@ -40,4 +40,5 @@ public class Issue1834Bean implements Serializable {
         }
         return result;
     }
+
 }

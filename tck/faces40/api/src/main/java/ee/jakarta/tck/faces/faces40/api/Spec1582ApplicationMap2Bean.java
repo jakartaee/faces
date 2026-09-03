@@ -30,8 +30,10 @@ import jakarta.inject.Named;
 public class Spec1582ApplicationMap2Bean {
 
     public String getValue() {
-        Map<String, Object> applicationMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {}, ApplicationMap.Literal.INSTANCE).get();
+        Map<String, Object> applicationMap = CDI.current().select(new TypeLiteral<Map<String, Object>>() {
+        }, ApplicationMap.Literal.INSTANCE).get();
 
         return Boolean.toString(applicationMap.containsKey("barAttribute"));
     }
+
 }

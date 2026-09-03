@@ -56,4 +56,5 @@ public class Spec1216ExceptionHandler extends ExceptionHandlerWrapper {
         HttpServletResponse response = (HttpServletResponse) context.getExternalContext().getResponse();
         response.addHeader(HEADER, t.getMessage());
     }
+
 }

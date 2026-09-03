@@ -21,9 +21,8 @@ import jakarta.faces.flow.FlowScoped;
 import jakarta.inject.Named;
 
 /**
- * Flow scoped bean of the intermediate flow which calls back into the flow that called it. Its
- * {@code called} flag doubles as the outbound parameter of that call and is verified again once the
- * recursively entered frame has returned.
+ * Flow scoped bean of the intermediate flow which calls back into the flow that called it. Its {@code called} flag doubles as the outbound parameter of that
+ * call and is verified again once the recursively entered frame has returned.
  */
 @Named
 @FlowScoped("issue3684-nested-flow-call-f2")
@@ -40,4 +39,5 @@ public class Issue3684Flow2Bean implements Serializable {
     public boolean isCalled() {
         return called;
     }
+
 }

@@ -23,15 +23,13 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * A resource request whose library name attempts to traverse out of the resources directory (for
- * example {@code ln=.\..} to reach {@code /WEB-INF/faces-config.xml}) must not be served: the
- * resource handler rejects the path and the container returns 404 rather than leaking a file from
+ * A resource request whose library name attempts to traverse out of the resources directory (for example {@code ln=.\..} to reach
+ * {@code /WEB-INF/faces-config.xml}) must not be served: the resource handler rejects the path and the container returns 404 rather than leaking a file from
  * outside the resource tree.
  */
 public class Issue3208IT extends BaseITNG {
 
-    private static final String TRAVERSAL_RESOURCE =
-            "jakarta.faces.resource/WEB-INF/faces-config.xml.xhtml?ln=.\\..";
+    private static final String TRAVERSAL_RESOURCE = "jakarta.faces.resource/WEB-INF/faces-config.xml.xhtml?ln=.\\..";
 
     /**
      * A path-traversal resource request is rejected with 404, not served.
@@ -41,7 +39,10 @@ public class Issue3208IT extends BaseITNG {
      */
     @Test
     void testResourceTraversalIsRejected() {
-        assertEquals(404, getStatusCode(TRAVERSAL_RESOURCE),
-                "A path-traversal resource request must return 404");
+        assertEquals(
+            404, getStatusCode(TRAVERSAL_RESOURCE),
+            "A path-traversal resource request must return 404"
+        );
     }
+
 }

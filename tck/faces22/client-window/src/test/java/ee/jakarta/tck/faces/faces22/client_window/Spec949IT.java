@@ -32,11 +32,10 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Spec949IT extends BaseITNG {
 
     /**
-     * Verifies that two independent windows of the same session get distinct ClientWindow tokens, as required by
-     * {@link ClientWindow#getId()} ("uniquely identifies this ClientWindow within the scope of the current
-     * session"), that the token stays stable when navigating to a second view via h:commandLink (ajax-able
-     * command) and h:link (outcome target), and that it survives an ajax submit and a non-ajax submit on the
-     * originating view. The token's internal format is left unspecified by the spec and is not asserted here.
+     * Verifies that two independent windows of the same session get distinct ClientWindow tokens, as required by {@link ClientWindow#getId()} ("uniquely
+     * identifies this ClientWindow within the scope of the current session"), that the token stays stable when navigating to a second view via h:commandLink
+     * (ajax-able command) and h:link (outcome target), and that it survives an ajax submit and a non-ajax submit on the originating view. The token's internal
+     * format is left unspecified by the spec and is not asserted here.
      *
      * @see ClientWindow
      * @see https://github.com/jakartaee/faces/issues/949
@@ -50,8 +49,8 @@ class Spec949IT extends BaseITNG {
     }
 
     /**
-     * Verifies that disableClientWindow (set via EL and via literal, on both h:link and h:button) causes the
-     * target view to receive a different ClientWindow token, i.e. the source view's token is not propagated.
+     * Verifies that disableClientWindow (set via EL and via literal, on both h:link and h:button) causes the target view to receive a different ClientWindow
+     * token, i.e. the source view's token is not propagated.
      *
      * @see ClientWindow
      * @see https://github.com/jakartaee/faces/issues/949
@@ -76,8 +75,10 @@ class Spec949IT extends BaseITNG {
         clientWindowHiddenField = page.findElement(By.name("jakarta.faces.ClientWindow"));
         String clientWindowAfterClick = clientWindowHiddenField.getAttribute("value");
 
-        assertNotEquals(clientWindowBeforeClick, clientWindowAfterClick,
-                "ClientWindow should not be the same on second page when disableClientWindow is set via " + id);
+        assertNotEquals(
+            clientWindowBeforeClick, clientWindowAfterClick,
+            "ClientWindow should not be the same on second page when disableClientWindow is set via " + id
+        );
     }
 
     private String doTestAndReturnClientWindow() {
@@ -121,8 +122,8 @@ class Spec949IT extends BaseITNG {
     }
 
     /**
-     * Clicks the getClientWindow button, whose inline handler writes the value returned by
-     * {@code faces.getClientWindow(form)} into the echoClientWindow span, then reads it back.
+     * Clicks the getClientWindow button, whose inline handler writes the value returned by {@code faces.getClientWindow(form)} into the echoClientWindow span,
+     * then reads it back.
      */
     private String readClientWindowToken(WebPage page) {
         WebElement getClientWindow = page.findElement(By.id("getClientWindow"));
@@ -130,4 +131,5 @@ class Spec949IT extends BaseITNG {
         page.waitForCondition($ -> !page.findElement(By.id("echoClientWindow")).getText().isEmpty());
         return page.findElement(By.id("echoClientWindow")).getText();
     }
+
 }

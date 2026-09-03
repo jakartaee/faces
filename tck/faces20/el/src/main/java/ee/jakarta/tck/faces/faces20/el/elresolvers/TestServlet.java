@@ -20,24 +20,18 @@
  */
 package ee.jakarta.tck.faces.faces20.el.elresolvers;
 
-import java.beans.FeatureDescriptor;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.el.ELContext;
-import jakarta.el.ELManager;
 import jakarta.el.ELResolver;
 import jakarta.el.PropertyNotWritableException;
 import jakarta.faces.component.UIViewRoot;
@@ -47,6 +41,9 @@ import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
 
 public final class TestServlet extends HttpTCKServlet {
 
@@ -110,7 +107,8 @@ public final class TestServlet extends HttpTCKServlet {
                     if (aImplicitInfo.getPhase() == JSP_PHASE) {
                         result = validateImplicitObjectValue(elContexts[i], resolvers[i], aImplicitInfo);
                     }
-                } else {
+                }
+                else {
                     result = validateImplicitObjectValue(elContexts[i], resolvers[i], aImplicitInfo);
                 }
 
@@ -147,7 +145,8 @@ public final class TestServlet extends HttpTCKServlet {
                     if (aImplicitInfo.getPhase() == JSP_PHASE) {
                         result = validateImplicitObjectType(elContexts[i], resolvers[i], aImplicitInfo);
                     }
-                } else {
+                }
+                else {
                     result = validateImplicitObjectType(elContexts[i], resolvers[i], aImplicitInfo);
                 }
 
@@ -184,7 +183,8 @@ public final class TestServlet extends HttpTCKServlet {
                     if (aImplicitInfo.getPhase() == JSP_PHASE) {
                         result = validateImplicitObjectSetValue(elContexts[i], resolvers[i], aImplicitInfo);
                     }
-                } else {
+                }
+                else {
                     result = validateImplicitObjectSetValue(elContexts[i], resolvers[i], aImplicitInfo);
                 }
 
@@ -219,7 +219,8 @@ public final class TestServlet extends HttpTCKServlet {
                     if (aImplicitInfo.getPhase() == JSP_PHASE) {
                         result = validateImplicitObjectReadOnly(elContexts[i], resolvers[i], aImplicitInfo);
                     }
-                } else {
+                }
+                else {
                     result = validateImplicitObjectReadOnly(elContexts[i], resolvers[i], aImplicitInfo);
                 }
 
@@ -248,8 +249,7 @@ public final class TestServlet extends HttpTCKServlet {
             out.println("Testing phase: " + getTestPhase(i));
 
             /*
-             * If an object is associated with the name "description" in either request, session, or application return that object
-             * (searching in that order)
+             * If an object is associated with the name "description" in either request, session, or application return that object (searching in that order)
              */
             ExternalContext extContext = getFacesContext().getExternalContext();
             extContext.getRequestMap().put(attributeName, "request");
@@ -260,15 +260,20 @@ public final class TestServlet extends HttpTCKServlet {
             try {
                 result = (String) resolvers[i].getValue(elContexts[i], null, attributeName);
 
-            } catch (ClassCastException cce) {
-                out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "Should be getting a 'String' back from Request "
-                        + "Scope! Instead of 'Date' from Managedbean!");
+            }
+            catch (ClassCastException cce) {
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL + "Should be getting a 'String' back from Request "
+                        + "Scope! Instead of 'Date' from Managedbean!"
+                );
                 return;
             }
 
             if (!"request".equals(result)) {
-                out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "Expected managed bean resolver to search request "
-                        + "scope first, but instead it searched " + result);
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL + "Expected managed bean resolver to search request "
+                        + "scope first, but instead it searched " + result
+                );
                 return;
             }
 
@@ -278,15 +283,20 @@ public final class TestServlet extends HttpTCKServlet {
             try {
                 result = (String) resolvers[i].getValue(elContexts[i], null, attributeName);
 
-            } catch (ClassCastException cce) {
-                out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "Should be getting a 'String' back from Session "
-                        + "Scope! Instead of 'Date' from Managedbean!");
+            }
+            catch (ClassCastException cce) {
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL + "Should be getting a 'String' back from Session "
+                        + "Scope! Instead of 'Date' from Managedbean!"
+                );
                 return;
             }
 
             if (!"session".equals(result)) {
-                out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "Expected managed bean resolver to search "
-                        + "session scope first, but instead it searched " + result);
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL + "Expected managed bean resolver to search "
+                        + "session scope first, but instead it searched " + result
+                );
                 return;
             }
 
@@ -296,15 +306,20 @@ public final class TestServlet extends HttpTCKServlet {
             try {
                 result = (String) resolvers[i].getValue(elContexts[i], null, attributeName);
 
-            } catch (ClassCastException e) {
-                out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "Should be getting a 'String' back from Application "
-                        + "Scope! Instead of 'Date' from Managedbean!");
+            }
+            catch (ClassCastException e) {
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL + "Should be getting a 'String' back from Application "
+                        + "Scope! Instead of 'Date' from Managedbean!"
+                );
                 return;
             }
 
             if (!"application".equals(result)) {
-                out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "Expected managed bean resolver to search "
-                        + "application scope first, but instead it searched " + result);
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL + "Expected managed bean resolver to search "
+                        + "application scope first, but instead it searched " + result
+                );
                 return;
             }
 
@@ -314,15 +329,19 @@ public final class TestServlet extends HttpTCKServlet {
             Date date = (Date) resolvers[i].getValue(elContexts[i], null, attributeName);
 
             if (date == null) {
-                out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "ELResolver.getValue() with a null "
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL + "ELResolver.getValue() with a null "
                         + "base and a property matching the name of a managed " + "bean did not result in the bean being instantiated "
-                        + "and returned.");
+                        + "and returned."
+                );
                 return;
             }
 
             if (!elContexts[i].isPropertyResolved()) {
-                out.println(JSFTestUtil.FAIL + JSFTestUtil.NL + "A new managed bean was created, "
-                        + "but isPropertyResolved() returned false.");
+                out.println(
+                    JSFTestUtil.FAIL + JSFTestUtil.NL + "A new managed bean was created, "
+                        + "but isPropertyResolved() returned false."
+                );
                 return;
             }
         }
@@ -361,8 +380,10 @@ public final class TestServlet extends HttpTCKServlet {
         Object result = resolver.getValue(elContext, list, "0");
         if (!"val1".equals(result)) {
             passed = false;
-            out.println(JSFTestUtil.FAIL + " ELResolver failed to handle a List properly"
-                    + " which indicates that either the ListELResolver isn't present" + " or it is present and not implemented correctly.");
+            out.println(
+                JSFTestUtil.FAIL + " ELResolver failed to handle a List properly"
+                    + " which indicates that either the ListELResolver isn't present" + " or it is present and not implemented correctly."
+            );
             out.println("Expected resolver to return 'val1', recevied: " + result);
         }
 
@@ -371,8 +392,10 @@ public final class TestServlet extends HttpTCKServlet {
         result = resolver.getValue(elContext, map, "key1");
         if (!"value1".equals(result)) {
             passed = false;
-            out.println(JSFTestUtil.FAIL + " ELResolver failed to handle a Map properly"
-                    + " which indicates that either the MapELResolver isn't present" + " or it is present and not implemented correctly.");
+            out.println(
+                JSFTestUtil.FAIL + " ELResolver failed to handle a Map properly"
+                    + " which indicates that either the MapELResolver isn't present" + " or it is present and not implemented correctly."
+            );
             out.println("Expected resolver to return 'value1', recevied: " + result);
         }
 
@@ -381,8 +404,10 @@ public final class TestServlet extends HttpTCKServlet {
         result = resolver.getValue(elContext, date, "time");
         if (!longResult.equals(result)) {
             passed = false;
-            out.println(JSFTestUtil.FAIL + " ELResolver failed to handle a Bean properly"
-                    + " which indicates that either the BeanELResolver isn't present" + " or it is present and not implemented correctly.");
+            out.println(
+                JSFTestUtil.FAIL + " ELResolver failed to handle a Bean properly"
+                    + " which indicates that either the BeanELResolver isn't present" + " or it is present and not implemented correctly."
+            );
             out.println("Expected resolver to return '" + longResult.toString() + "', recevied: '" + result.toString() + '\'');
         }
 
@@ -391,9 +416,11 @@ public final class TestServlet extends HttpTCKServlet {
         result = resolver.getValue(elContext, array, "0");
         if (!"str1".equals(result)) {
             passed = false;
-            out.println(JSFTestUtil.FAIL + " ELResolver failed to handle an Array properly"
+            out.println(
+                JSFTestUtil.FAIL + " ELResolver failed to handle an Array properly"
                     + " which indicates that either the ArrayELResolver isn't present"
-                    + " or it is present and not implemented correctly.");
+                    + " or it is present and not implemented correctly."
+            );
             out.println("Expected resolver to return 'str1', recevied: " + result);
         }
 
@@ -456,21 +483,28 @@ public final class TestServlet extends HttpTCKServlet {
             passed = false;
             out.println("ELResolver.setValue() failed to replace existing" + " request scoped attribute.");
             out.println("Expected value to be: 'replaced', received: '" + reqMap.get("desc") + '\'');
-        } else {
+        }
+        else {
             if (!"session".equals(sesMap.get("desc"))) {
                 passed = false;
-                out.println("Test FAILED. ELResolver incorrectly replaced " + "session scoped attribute when only the "
-                        + "request scoped attribute should have been replaced");
+                out.println(
+                    "Test FAILED. ELResolver incorrectly replaced " + "session scoped attribute when only the "
+                        + "request scoped attribute should have been replaced"
+                );
             }
             if (!"application".equals(appMap.get("desc"))) {
                 passed = false;
-                out.println("Test FAILED. ELResolver incorrectly replaced " + "application scoped attribute when only the "
-                        + "request scoped attribute should have been replaced");
+                out.println(
+                    "Test FAILED. ELResolver incorrectly replaced " + "application scoped attribute when only the "
+                        + "request scoped attribute should have been replaced"
+                );
             }
             if (!elContext.isPropertyResolved()) {
                 passed = false;
-                out.println(JSFTestUtil.FAIL + " Request scoped attribute properly replaced, "
-                        + "but the propertyResolved property on the ELContext was" + " not set to true");
+                out.println(
+                    JSFTestUtil.FAIL + " Request scoped attribute properly replaced, "
+                        + "but the propertyResolved property on the ELContext was" + " not set to true"
+                );
             }
         }
 
@@ -482,21 +516,28 @@ public final class TestServlet extends HttpTCKServlet {
             passed = false;
             out.println("ELResolver.setValue() failed to replace existing" + " session scoped attribute.");
             out.println("Expected value to be: 'replaced', received: '" + reqMap.get("desc") + '\'');
-        } else {
+        }
+        else {
             if (reqMap.get("desc") != null) {
                 passed = false;
-                out.println("Test FAILED. ELResolver incorrectly added a " + "request scoped attribute when only the "
-                        + "session scoped attribute should have been replaced");
+                out.println(
+                    "Test FAILED. ELResolver incorrectly added a " + "request scoped attribute when only the "
+                        + "session scoped attribute should have been replaced"
+                );
             }
             if (!"application".equals(appMap.get("desc"))) {
                 passed = false;
-                out.println("Test FAILED. ELResolver incorrectly replaced " + "application scoped attribute when only the "
-                        + "session scoped attribute should have been replaced");
+                out.println(
+                    "Test FAILED. ELResolver incorrectly replaced " + "application scoped attribute when only the "
+                        + "session scoped attribute should have been replaced"
+                );
             }
             if (!elContext.isPropertyResolved()) {
                 passed = false;
-                out.println(JSFTestUtil.FAIL + " session scoped attribute properly replaced, "
-                        + "but the propertyResolved property on the ELContext was" + " not set to true");
+                out.println(
+                    JSFTestUtil.FAIL + " session scoped attribute properly replaced, "
+                        + "but the propertyResolved property on the ELContext was" + " not set to true"
+                );
             }
         }
 
@@ -508,21 +549,28 @@ public final class TestServlet extends HttpTCKServlet {
             passed = false;
             out.println("ELResolver.setValue() failed to replace existing" + " application scoped attribute.");
             out.println("Expected value to be: 'replaced', received: '" + reqMap.get("desc") + '\'');
-        } else {
+        }
+        else {
             if (reqMap.get("desc") != null) {
                 passed = false;
-                out.println("Test FAILED. ELResolver incorrectly added a " + "request scoped attribute when only the "
-                        + "application scoped attribute should have been replaced");
+                out.println(
+                    "Test FAILED. ELResolver incorrectly added a " + "request scoped attribute when only the "
+                        + "application scoped attribute should have been replaced"
+                );
             }
             if (sesMap.get("desc") != null) {
                 passed = false;
-                out.println("Test FAILED. ELResolver incorrectly added a " + "session scoped attribute when only the "
-                        + "application scoped attribute should have been replaced");
+                out.println(
+                    "Test FAILED. ELResolver incorrectly added a " + "session scoped attribute when only the "
+                        + "application scoped attribute should have been replaced"
+                );
             }
             if (!elContext.isPropertyResolved()) {
                 passed = false;
-                out.println(JSFTestUtil.FAIL + " application scoped attribute properly replaced, "
-                        + "but the propertyResolved property on the ELContext was" + " not set to true");
+                out.println(
+                    JSFTestUtil.FAIL + " application scoped attribute properly replaced, "
+                        + "but the propertyResolved property on the ELContext was" + " not set to true"
+                );
             }
         }
 
@@ -533,21 +581,28 @@ public final class TestServlet extends HttpTCKServlet {
             passed = false;
             out.println("ELResolver.setValue() failed to add a new" + " request scoped attribute.");
             out.println("Expected value to be: 'newValue', received: '" + reqMap.get("desc") + '\'');
-        } else {
+        }
+        else {
             if (sesMap.get("desc") != null) {
                 passed = false;
-                out.println("Test FAILED. ELResolver incorrectly added a " + "session scoped attribute when only the "
-                        + "request scoped attribute should have been added");
+                out.println(
+                    "Test FAILED. ELResolver incorrectly added a " + "session scoped attribute when only the "
+                        + "request scoped attribute should have been added"
+                );
             }
             if (appMap.get("desc") != null) {
                 passed = false;
-                out.println("Test FAILED. ELResolver incorrectly added an " + "application scoped attribute when only the "
-                        + "request scoped attribute should have been added");
+                out.println(
+                    "Test FAILED. ELResolver incorrectly added an " + "application scoped attribute when only the "
+                        + "request scoped attribute should have been added"
+                );
             }
             if (!elContext.isPropertyResolved()) {
                 passed = false;
-                out.println(JSFTestUtil.FAIL + " request scoped attribute properly added, "
-                        + "but the propertyResolved property on the ELContext was" + " not set to true");
+                out.println(
+                    JSFTestUtil.FAIL + " request scoped attribute properly added, "
+                        + "but the propertyResolved property on the ELContext was" + " not set to true"
+                );
             }
         }
 
@@ -571,11 +626,14 @@ public final class TestServlet extends HttpTCKServlet {
         if (result == null) {
             passed = false;
             out.println(JSFTestUtil.FAIL + " Unable to resolve defined " + "ResourceBundle 'simplerb'");
-        } else {
+        }
+        else {
             if (!elContext.isPropertyResolved()) {
                 passed = false;
-                out.println(JSFTestUtil.FAIL + " ResourceBundle resolved, but" + " the propertyResolved property of the "
-                        + " ELContext was not set to true.");
+                out.println(
+                    JSFTestUtil.FAIL + " ResourceBundle resolved, but" + " the propertyResolved property of the "
+                        + " ELContext was not set to true."
+                );
             }
         }
 
@@ -586,11 +644,14 @@ public final class TestServlet extends HttpTCKServlet {
         if (result2 == null) {
             passed = false;
             out.println(JSFTestUtil.FAIL + " Unable to resolve defined " + "ResourceBundle(DE) 'simplerb'");
-        } else {
+        }
+        else {
             if (!elContext.isPropertyResolved()) {
                 passed = false;
-                out.println(JSFTestUtil.FAIL + " ResourceBundle(DE) resolved, but" + " the propertyResolved property of the "
-                        + " ELContext was not set to true.");
+                out.println(
+                    JSFTestUtil.FAIL + " ResourceBundle(DE) resolved, but" + " the propertyResolved property of the "
+                        + " ELContext was not set to true."
+                );
             }
         }
 
@@ -610,13 +671,18 @@ public final class TestServlet extends HttpTCKServlet {
 
         if (type != ResourceBundle.class) {
             passed = false;
-            out.println(JSFTestUtil.FAIL + " Unexpected type '" + type + "' returned by getType().  Expected "
-                    + "java.util.ResourceBundle.class");
-        } else {
+            out.println(
+                JSFTestUtil.FAIL + " Unexpected type '" + type + "' returned by getType().  Expected "
+                    + "java.util.ResourceBundle.class"
+            );
+        }
+        else {
             if (!elContext.isPropertyResolved()) {
                 passed = false;
-                out.println(JSFTestUtil.FAIL + " Correct type returned, but" + " the propertyResolved property of the "
-                        + " ELContext was not set to true.");
+                out.println(
+                    JSFTestUtil.FAIL + " Correct type returned, but" + " the propertyResolved property of the "
+                        + " ELContext was not set to true."
+                );
             }
         }
 
@@ -636,13 +702,18 @@ public final class TestServlet extends HttpTCKServlet {
         try {
             resolver.setValue(elContext, null, "simplerb", "someValue");
             passed = false;
-            out.println(JSFTestUtil.FAIL + " No Exception thrown when" + " attemtping to call setValue() in the case where"
-                    + " the resolved property is a ResourceBundle.");
-        } catch (Exception e) {
+            out.println(
+                JSFTestUtil.FAIL + " No Exception thrown when" + " attemtping to call setValue() in the case where"
+                    + " the resolved property is a ResourceBundle."
+            );
+        }
+        catch (Exception e) {
             if (!(e instanceof PropertyNotWritableException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when attempting" + " to call setValue() in the case where"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when attempting" + " to call setValue() in the case where"
                         + " the resolved property is a ResourceBundle, but" + " it wasn't an instance of"
-                        + " PropertyNotWriteableException.");
+                        + " PropertyNotWriteableException."
+                );
                 passed = false;
             }
         }
@@ -662,12 +733,16 @@ public final class TestServlet extends HttpTCKServlet {
 
         if (!resolver.isReadOnly(elContext, null, "simplerb")) {
             out.println(
-                    JSFTestUtil.FAIL + " Expected isReadOnly() to return" + " true when the resolved property is a " + " ResourceBundle.");
+                JSFTestUtil.FAIL + " Expected isReadOnly() to return" + " true when the resolved property is a " + " ResourceBundle."
+            );
             passed = false;
-        } else {
+        }
+        else {
             if (!elContext.isPropertyResolved()) {
-                out.println(JSFTestUtil.FAIL + " isReadOnly() returned the correct" + " value, but the propertyResolved property of the"
-                        + " ELContext was not set to true.");
+                out.println(
+                    JSFTestUtil.FAIL + " isReadOnly() returned the correct" + " value, but the propertyResolved property of the"
+                        + " ELContext was not set to true."
+                );
                 passed = false;
             }
         }
@@ -701,7 +776,8 @@ public final class TestServlet extends HttpTCKServlet {
                 out.println(JSFTestUtil.FAIL + " Unexpected result returned;" + " custom resolver not called.");
                 return;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             out.println("Test FAILED Unexpected exception thrown " + "during test: " + e);
             return;
         }
@@ -719,13 +795,18 @@ public final class TestServlet extends HttpTCKServlet {
 
         if (!scope.equals(result)) {
             passed = false;
-            out.println(JSFTestUtil.FAIL + " Expected managed bean resolver to " + "search " + scope + " scope first, but instead it "
-                    + "searched " + result);
-        } else {
+            out.println(
+                JSFTestUtil.FAIL + " Expected managed bean resolver to " + "search " + scope + " scope first, but instead it "
+                    + "searched " + result
+            );
+        }
+        else {
             if (!context.isPropertyResolved()) {
                 passed = false;
-                out.println(JSFTestUtil.FAIL + " ELResolver failed to set " + "propertyResolved to true after resolving a " + scope
-                        + "scoped attribute.");
+                out.println(
+                    JSFTestUtil.FAIL + " ELResolver failed to set " + "propertyResolved to true after resolving a " + scope
+                        + "scoped attribute."
+                );
             }
         }
 
@@ -733,8 +814,7 @@ public final class TestServlet extends HttpTCKServlet {
     }
 
     /**
-     * @return return a two element array with the Faces ELResolver as the first element, and the JSP ELResolver as the
-     * second
+     * @return return a two element array with the Faces ELResolver as the first element, and the JSP ELResolver as the second
      */
     private ELResolver[] getELResolvers(ELContext[] contexts) {
 
@@ -767,7 +847,8 @@ public final class TestServlet extends HttpTCKServlet {
         }
         if (phase == FACES_PHASE) {
             return "[FACES]";
-        } else {
+        }
+        else {
             return "[JSP]";
         }
 
@@ -785,7 +866,8 @@ public final class TestServlet extends HttpTCKServlet {
             sb.append(" didn't result getValue() returning an instance of ");
             sb.append(info.getValueType().getName());
             sb.append("\nObject received: ").append(result.getClass().getName());
-        } else {
+        }
+        else {
             if (!context.isPropertyResolved()) {
                 sb.append(JSFTestUtil.FAIL + " ELResolver.getValue() ");
                 sb.append("property resolved the '").append(name);
@@ -807,9 +889,11 @@ public final class TestServlet extends HttpTCKServlet {
             sb.append(" with the base parameter set to null, and the property");
             sb.append(" parameter set to '").append(info.getName());
             sb.append("'.");
-        } catch (PropertyNotWritableException pnwe) {
+        }
+        catch (PropertyNotWritableException pnwe) {
             // we're good to go
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             sb.append(JSFTestUtil.FAIL + " Expected a PropertyNotWritableException to");
             sb.append(" be thrown when calling setValue() with a null base parameter");
             sb.append(" and a property parameter set to '");
@@ -856,7 +940,8 @@ public final class TestServlet extends HttpTCKServlet {
                 sb.append(" the base parameter was null and the property parameter ");
                 sb.append("was '").append(name).append('\'');
                 sb.append("\nReceived: ").append(result);
-            } else {
+            }
+            else {
                 if (!context.isPropertyResolved()) {
 
                     sb.append(JSFTestUtil.FAIL + " ELResolver.getType() returned the");
@@ -865,14 +950,16 @@ public final class TestServlet extends HttpTCKServlet {
                     sb.append(" ELContext.setPropertyResolved(true).");
                 }
             }
-        } else {
+        }
+        else {
             if (!info.getType().equals(result)) {
                 sb.append(JSFTestUtil.FAIL + " Expected getType() to return '");
                 sb.append(info.getType().getName()).append("' when");
                 sb.append(" the base parameter was null and the property");
                 sb.append(" parameter was '").append(name).append('\'');
                 sb.append("\nReceived: ").append(result);
-            } else {
+            }
+            else {
                 if (!context.isPropertyResolved()) {
 
                     sb.append(JSFTestUtil.FAIL + " ELResolver.getType() returned the");
@@ -939,5 +1026,7 @@ public final class TestServlet extends HttpTCKServlet {
             return valueType;
 
         } // END getValueType
+
     } // END ImplicitObjectInfo
+
 }

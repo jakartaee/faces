@@ -29,10 +29,12 @@ import jakarta.faces.event.PostValidateEvent;
 import jakarta.faces.event.PreValidateEvent;
 
 @FacesComponent(value = "ee.jakarta.tck.faces.faces22.component_events.Issue3323ListenersComponent")
-@ListenersFor({
-    @ListenerFor(systemEventClass = PreValidateEvent.class),
-    @ListenerFor(systemEventClass = PostValidateEvent.class)
-})
+@ListenersFor(
+    {
+        @ListenerFor(systemEventClass = PreValidateEvent.class),
+        @ListenerFor(systemEventClass = PostValidateEvent.class)
+    }
+)
 public class Issue3323ListenersComponent extends HtmlInputText {
 
     @Override
@@ -40,10 +42,13 @@ public class Issue3323ListenersComponent extends HtmlInputText {
         Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
         if (event instanceof PreValidateEvent) {
             requestMap.put("preValidateEvent", "preValidateEvent");
-        } else if (event instanceof PostValidateEvent) {
+        }
+        else if (event instanceof PostValidateEvent) {
             requestMap.put("postValidateEvent", "postValidateEvent");
-        } else {
+        }
+        else {
             super.processEvent(event);
         }
     }
+
 }

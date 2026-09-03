@@ -41,4 +41,5 @@ public class NewApplication extends ApplicationWrapper {
     public void setInjectedMessage(String injectedMessage) {
         this.injectedMessage = injectedMessage;
     }
+
 }

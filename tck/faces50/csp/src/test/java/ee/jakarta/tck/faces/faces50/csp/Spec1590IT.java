@@ -194,4 +194,5 @@ class Spec1590IT extends BaseITNG {
     private String getNonce(WebPage page) {
         return page.findElement(By.cssSelector("script[src*='jakarta.faces.resource/faces.js']")).getAttribute("nonce");
     }
+
 }

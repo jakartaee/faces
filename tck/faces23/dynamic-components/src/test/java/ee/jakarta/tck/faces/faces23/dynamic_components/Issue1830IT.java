@@ -26,14 +26,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Children added programmatically to a dynamic component during the pre-render-view event must
- * render in the order they were added and survive a postback (state persistence in the view).
+ * Children added programmatically to a dynamic component during the pre-render-view event must render in the order they were added and survive a postback
+ * (state persistence in the view).
  */
 public class Issue1830IT extends BaseITNG {
 
     /**
-     * The dynamically added child must render between the renderer's encodeBegin and encodeEnd
-     * markers, both initially and after a postback.
+     * The dynamically added child must render between the renderer's encodeBegin and encodeEnd markers, both initially and after a postback.
      *
      * @see jakarta.faces.event.PreRenderViewEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1830
@@ -55,8 +54,8 @@ public class Issue1830IT extends BaseITNG {
     }
 
     /**
-     * Three dynamically added input components must keep their order; the third is required, so a
-     * postback yields a validation error and the order remains stable.
+     * Three dynamically added input components must keep their order; the third is required, so a postback yields a validation error and the order remains
+     * stable.
      *
      * @see jakarta.faces.event.PreRenderViewEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1830
@@ -85,8 +84,7 @@ public class Issue1830IT extends BaseITNG {
     }
 
     /**
-     * A dynamically created data table must render its values in order, both initially and after a
-     * postback.
+     * A dynamically created data table must render its values in order, both initially and after a postback.
      *
      * @see jakarta.faces.component.html.HtmlDataTable
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1830
@@ -110,8 +108,7 @@ public class Issue1830IT extends BaseITNG {
     }
 
     /**
-     * A dynamic component that nests another dynamic component must render both, in order, before
-     * and after a postback.
+     * A dynamic component that nests another dynamic component must render both, in order, before and after a postback.
      *
      * @see jakarta.faces.event.PreRenderViewEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1830
@@ -135,17 +132,18 @@ public class Issue1830IT extends BaseITNG {
     }
 
     /**
-     * A component that appends a sibling to its parent during its own encode must have that sibling
-     * rendered. The parent is already iterating its children when the sibling is added, so the
-     * child-encode loop must observe children appended mid-iteration rather than stop at a count
-     * frozen before the loop started.
+     * A component that appends a sibling to its parent during its own encode must have that sibling rendered. The parent is already iterating its children when
+     * the sibling is added, so the child-encode loop must observe children appended mid-iteration rather than stop at a count frozen before the loop started.
      *
      * @see jakarta.faces.component.UIComponent#encodeAll(jakarta.faces.context.FacesContext)
      */
     @Test
     void testEncodeTimeSiblingAppend() throws Exception {
         WebPage page = getPage("encodeappend1830.xhtml");
-        assertTrue(page.getSource().contains(EncodeAppendComponent.SIBLING_VALUE),
-            "sibling appended to the parent during encode must be rendered");
+        assertTrue(
+            page.getSource().contains(EncodeAppendComponent.SIBLING_VALUE),
+            "sibling appended to the parent during encode must be rendered"
+        );
     }
+
 }

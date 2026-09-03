@@ -22,16 +22,17 @@ import jakarta.servlet.ServletConfig;
 
 /**
  * The Faces Servlet factory.
- * 
+ *
  * @author Manfred Riem
  */
 public abstract class FacesServletFactory implements FacesWrapper<FacesServletFactory> {
-    
+
     /**
      * Get the Faces Servlet.
-     * 
+     *
      * @param config the servlet configuration.
      * @return the Faces Servlet.
      */
     public abstract Servlet getFacesServlet(ServletConfig config);
+
 }

@@ -31,14 +31,13 @@ import jakarta.faces.view.ViewDeclarationLanguage;
 
 /**
  * <p class="changed_modified_2_2">
- * <span class="changed_modified_2_3">Provides</span> a simple implementation of {@link ViewHandler} that can be
- * subclassed by developers wishing to provide specialized behavior to an existing {@link ViewHandler} instance. The
- * default implementation of all methods is to call through to the wrapped {@link ViewHandler}.
+ * <span class="changed_modified_2_3">Provides</span> a simple implementation of {@link ViewHandler} that can be subclassed by developers wishing to provide
+ * specialized behavior to an existing {@link ViewHandler} instance. The default implementation of all methods is to call through to the wrapped
+ * {@link ViewHandler}.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 1.2
@@ -49,8 +48,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p class="changed_added_2_3">
-     * If this view handler has been decorated, the implementation doing the decorating should push the implementation being
-     * wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this view handler has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -69,8 +68,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ViewHandler#initView} on the wrapped {@link ViewHandler}
-     * object.
+     * The default behavior of this method is to call {@link ViewHandler#initView} on the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#initView
@@ -83,9 +81,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)} on the wrapped {@link ViewHandler}
-     * object.
+     * The default behavior of this method is to call {@link ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)} on the wrapped
+     * {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#restoreView(jakarta.faces.context.FacesContext, String)
@@ -98,8 +95,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#createView(jakarta.faces.context.FacesContext, String)} on the wrapped {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#createView(jakarta.faces.context.FacesContext, String)} on the wrapped
+     * {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#createView(jakarta.faces.context.FacesContext, String)
@@ -112,9 +109,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#renderView(jakarta.faces.context.FacesContext, jakarta.faces.component.UIViewRoot)} on the wrapped
-     * {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#renderView(jakarta.faces.context.FacesContext, jakarta.faces.component.UIViewRoot)} on
+     * the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#renderView(jakarta.faces.context.FacesContext, jakarta.faces.component.UIViewRoot)
@@ -128,9 +124,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      *
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#calculateCharacterEncoding(jakarta.faces.context.FacesContext)} on the wrapped {@link ViewHandler}
-     * object.
+     * The default behavior of this method is to call {@link ViewHandler#calculateCharacterEncoding(jakarta.faces.context.FacesContext)} on the wrapped
+     * {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#calculateCharacterEncoding(jakarta.faces.context.FacesContext)
@@ -144,8 +139,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      *
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#calculateLocale(jakarta.faces.context.FacesContext)} on the wrapped {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#calculateLocale(jakarta.faces.context.FacesContext)} on the wrapped {@link ViewHandler}
+     * object.
      * </p>
      *
      * @see ViewHandler#calculateLocale(jakarta.faces.context.FacesContext)
@@ -159,9 +154,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      *
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)} on the wrapped {@link ViewHandler}
-     * object.
+     * The default behavior of this method is to call {@link ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)} on the wrapped
+     * {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#deriveViewId(jakarta.faces.context.FacesContext, String)
@@ -175,8 +169,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      *
      * <p class="changed_added_2_1">
-     * The default behavior of this method is to call
-     * {@link ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)} on the wrapped
+     * The default behavior of this method is to call {@link ViewHandler#deriveLogicalViewId(jakarta.faces.context.FacesContext, String)} on the wrapped
      * {@link ViewHandler} object.
      * </p>
      *
@@ -190,9 +183,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#calculateRenderKitId(jakarta.faces.context.FacesContext)} on the wrapped {@link ViewHandler}
-     * object.
+     * The default behavior of this method is to call {@link ViewHandler#calculateRenderKitId(jakarta.faces.context.FacesContext)} on the wrapped
+     * {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#calculateRenderKitId(jakarta.faces.context.FacesContext)
@@ -205,9 +197,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#getActionURL(jakarta.faces.context.FacesContext, String)} on the wrapped {@link ViewHandler}
-     * object.
+     * The default behavior of this method is to call {@link ViewHandler#getActionURL(jakarta.faces.context.FacesContext, String)} on the wrapped
+     * {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#getActionURL(jakarta.faces.context.FacesContext, String)
@@ -221,8 +212,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      *
      * <p>
-     * The default behavior of this method is to call {@link ViewHandler#getProtectedViewsUnmodifiable} on the wrapped
-     * {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#getProtectedViewsUnmodifiable} on the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#getProtectedViewsUnmodifiable
@@ -236,8 +226,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      *
      * <p>
-     * The default behavior of this method is to call {@link ViewHandler#addProtectedView} on the wrapped
-     * {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#addProtectedView} on the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#addProtectedView
@@ -251,8 +240,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      *
      * <p>
-     * The default behavior of this method is to call {@link ViewHandler#removeProtectedView} on the wrapped
-     * {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#removeProtectedView} on the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#removeProtectedView
@@ -265,9 +253,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)} on the wrapped
-     * {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)} on
+     * the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)
@@ -283,8 +270,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      * <p>
      * The default behavior of this method is to call
-     * {@link ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)} on the wrapped
-     * {@link ViewHandler} object.
+     * {@link ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)} on the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#getRedirectURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)
@@ -293,7 +279,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     @Override
     public String getRedirectURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
         if (fragment == null || fragment.isEmpty()) {
-        	// For backwards compatibility until the deprecated method is removed.
+            // For backwards compatibility until the deprecated method is removed.
             return getRedirectURL(context, viewId, parameters, includeViewParams);
         }
 
@@ -302,9 +288,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)} on the
-     * wrapped {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)}
+     * on the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, boolean)
@@ -320,8 +305,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     /**
      * <p>
      * The default behavior of this method is to call
-     * {@link ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)} on the
-     * wrapped {@link ViewHandler} object.
+     * {@link ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)} on the wrapped {@link ViewHandler}
+     * object.
      * </p>
      *
      * @see ViewHandler#getBookmarkableURL(jakarta.faces.context.FacesContext, String, java.util.Map, String, boolean)
@@ -330,7 +315,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
     @Override
     public String getBookmarkableURL(FacesContext context, String viewId, Map<String, List<String>> parameters, String fragment, boolean includeViewParams) {
         if (fragment == null || fragment.isEmpty()) {
-        	// For backwards compatibility until the deprecated method is removed.
+            // For backwards compatibility until the deprecated method is removed.
             return getBookmarkableURL(context, viewId, parameters, includeViewParams);
         }
 
@@ -339,9 +324,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#getResourceURL(jakarta.faces.context.FacesContext, String)} on the wrapped {@link ViewHandler}
-     * object.
+     * The default behavior of this method is to call {@link ViewHandler#getResourceURL(jakarta.faces.context.FacesContext, String)} on the wrapped
+     * {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#getResourceURL(jakarta.faces.context.FacesContext, String)
@@ -354,8 +338,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ViewHandler#getWebsocketURL(FacesContext, String)} on the
-     * wrapped {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#getWebsocketURL(FacesContext, String)} on the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @see ViewHandler#getWebsocketURL(FacesContext, String)
@@ -368,8 +351,7 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ViewHandler#getViewDeclarationLanguage} on the wrapped
-     * {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#getViewDeclarationLanguage} on the wrapped {@link ViewHandler} object.
      * </p>
      *
      * @since 2.0
@@ -381,8 +363,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ViewHandler#getViews(FacesContext, String, ViewVisitOption...)}
-     * on the wrapped {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#getViews(FacesContext, String, ViewVisitOption...)} on the wrapped {@link ViewHandler}
+     * object.
      * </p>
      *
      * @since 2.3
@@ -394,9 +376,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link ViewHandler#getViews(FacesContext, String, int, ViewVisitOption...)} on the wrapped {@link ViewHandler}
-     * object.
+     * The default behavior of this method is to call {@link ViewHandler#getViews(FacesContext, String, int, ViewVisitOption...)} on the wrapped
+     * {@link ViewHandler} object.
      * </p>
      *
      * @since 2.3
@@ -408,8 +389,8 @@ public abstract class ViewHandlerWrapper extends ViewHandler implements FacesWra
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ViewHandler#writeState(jakarta.faces.context.FacesContext)} on
-     * the wrapped {@link ViewHandler} object.
+     * The default behavior of this method is to call {@link ViewHandler#writeState(jakarta.faces.context.FacesContext)} on the wrapped {@link ViewHandler}
+     * object.
      * </p>
      *
      * @see ViewHandler#writeState(jakarta.faces.context.FacesContext)

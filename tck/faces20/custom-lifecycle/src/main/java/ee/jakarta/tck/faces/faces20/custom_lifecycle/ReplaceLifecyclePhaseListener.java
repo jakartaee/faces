@@ -23,8 +23,8 @@ import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
 
 /**
- * Records, in the request map, that its {@code beforePhase} ran and how many times, so a test can
- * assert the listener still fires exactly once under the replaced lifecycle.
+ * Records, in the request map, that its {@code beforePhase} ran and how many times, so a test can assert the listener still fires exactly once under the
+ * replaced lifecycle.
  */
 public class ReplaceLifecyclePhaseListener implements PhaseListener {
 
@@ -49,4 +49,5 @@ public class ReplaceLifecyclePhaseListener implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.RENDER_RESPONSE;
     }
+
 }

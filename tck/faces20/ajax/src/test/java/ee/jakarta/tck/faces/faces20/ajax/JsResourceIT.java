@@ -17,7 +17,6 @@ package ee.jakarta.tck.faces.faces20.ajax;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -35,4 +34,5 @@ class JsResourceIT extends BaseITNG {
         assertTrue(script.getDomAttribute("src").contains("faces.js"));
         assertTrue(script.getDomAttribute("src").contains("jakarta.faces"));
     }
+
 }

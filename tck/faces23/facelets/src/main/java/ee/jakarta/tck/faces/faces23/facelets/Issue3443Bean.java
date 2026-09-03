@@ -34,4 +34,5 @@ public class Issue3443Bean {
         UIComponent current = UIComponent.getCurrentComponent(FacesContext.getCurrentInstance());
         this.text = current.getClass().getName();
     }
+
 }

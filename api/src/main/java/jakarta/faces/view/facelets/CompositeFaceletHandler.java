@@ -23,9 +23,9 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p class="changed_added_2_0">
- * A FaceletHandler that is derived of 1 or more, inner FaceletHandlers. This class would be found if the next
- * FaceletHandler is structurally, a body with multiple child elements as defined in XML. This class enables the Facelet
- * runtime to traverse the tree of {@link FaceletHandler} instances built by the Facelets compiler.
+ * A FaceletHandler that is derived of 1 or more, inner FaceletHandlers. This class would be found if the next FaceletHandler is structurally, a body with
+ * multiple child elements as defined in XML. This class enables the Facelet runtime to traverse the tree of {@link FaceletHandler} instances built by the
+ * Facelets compiler.
  * </p>
  *
  */
@@ -35,6 +35,7 @@ public final class CompositeFaceletHandler implements FaceletHandler {
 
     /**
      * Creates a new FaceletHandler out of the given inner FaceletHandlers.
+     *
      * @param handlers the inner FaceletHandlers.
      */
     public CompositeFaceletHandler(FaceletHandler[] handlers) {
@@ -68,4 +69,5 @@ public final class CompositeFaceletHandler implements FaceletHandler {
     public FaceletHandler[] getHandlers() {
         return handlers;
     }
+
 }

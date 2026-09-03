@@ -59,6 +59,7 @@ public class ComponentHandlerInBuildTimeIfHandler extends ComponentHandler {
             public String getTagId() {
                 return config.getTagId();
             }
+
         });
     }
 
@@ -67,4 +68,5 @@ public class ComponentHandlerInBuildTimeIfHandler extends ComponentHandler {
         ctx.getFacesContext().getAttributes().put(MESSAGE_KEY, MESSAGE);
         super.apply(ctx, parent);
     }
+
 }

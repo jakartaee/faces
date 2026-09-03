@@ -28,10 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2115IT extends BaseITNG {
 
     /**
-     * The {@code converter} attribute of {@code h:outputFormat} must be applied to the formatted
-     * value (after {@code f:param} substitution), not bypassed. The converted output of cases with a
-     * converter must carry the converter's prefix, while cases without a converter render the plain
-     * formatted value.
+     * The {@code converter} attribute of {@code h:outputFormat} must be applied to the formatted value (after {@code f:param} substitution), not bypassed. The
+     * converted output of cases with a converter must carry the converter's prefix, while cases without a converter render the plain formatted value.
      *
      * @see HtmlOutputFormat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2115
@@ -39,8 +37,10 @@ class Issue2115IT extends BaseITNG {
     @Test
     void testOutputFormatMessages() {
         WebPage page = getPage("Issue2115.xhtml");
-        assertTrue(page.containsText("MyConverter.getAsString Called: MESSAGE 1 MyConverter.getAsString Called: MESSAGE 2 MYPARAM MESSAGE 3 MESSAGE 4 MYPARAM"),
-                "all four outputFormat cases render in order with converter applied to cases 1 and 2");
+        assertTrue(
+            page.containsText("MyConverter.getAsString Called: MESSAGE 1 MyConverter.getAsString Called: MESSAGE 2 MYPARAM MESSAGE 3 MESSAGE 4 MYPARAM"),
+            "all four outputFormat cases render in order with converter applied to cases 1 and 2"
+        );
     }
 
     /**
@@ -56,8 +56,7 @@ class Issue2115IT extends BaseITNG {
     }
 
     /**
-     * Case 2: a message with an {@code f:param} substitution and a converter renders the substituted
-     * value (the converter prefix from case 1 precedes it).
+     * Case 2: a message with an {@code f:param} substitution and a converter renders the substituted value (the converter prefix from case 1 precedes it).
      *
      * @see HtmlOutputFormat
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2115
@@ -91,4 +90,5 @@ class Issue2115IT extends BaseITNG {
         WebPage page = getPage("Issue2115.xhtml");
         assertTrue(page.containsText("MESSAGE 4 MYPARAM"), "case 4 substitutes the param without a converter");
     }
+
 }

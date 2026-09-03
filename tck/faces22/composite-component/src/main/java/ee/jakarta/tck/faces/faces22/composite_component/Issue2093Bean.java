@@ -39,4 +39,5 @@ public class Issue2093Bean {
         }
         return data;
     }
+
 }

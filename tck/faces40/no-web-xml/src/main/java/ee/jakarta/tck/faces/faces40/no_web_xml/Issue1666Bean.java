@@ -35,4 +35,5 @@ public class Issue1666Bean {
     public void setFname(String fname) {
         this.fname = fname;
     }
+
 }

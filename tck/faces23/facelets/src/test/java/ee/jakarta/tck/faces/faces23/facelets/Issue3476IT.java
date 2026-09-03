@@ -27,10 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue3476IT extends BaseITNG {
 
     /**
-     * An {@code h:selectManyCheckbox} fed by {@code SelectItemGroup}s must assign
-     * indexed client-ids only to the actual options, skipping the group-label
-     * index. With two groups of three items, the options occupy indices
-     * 0,1,2 and 4,5,6 (index 3 is the second group label).
+     * An {@code h:selectManyCheckbox} fed by {@code SelectItemGroup}s must assign indexed client-ids only to the actual options, skipping the group-label
+     * index. With two groups of three items, the options occupy indices 0,1,2 and 4,5,6 (index 3 is the second group label).
      *
      * @see jakarta.faces.component.html.HtmlSelectManyCheckbox
      * @see jakarta.faces.model.SelectItemGroup
@@ -47,4 +45,5 @@ public class Issue3476IT extends BaseITNG {
         assertNotNull(page.findElement(By.id("form:selectManyCheckbox:5")));
         assertNotNull(page.findElement(By.id("form:selectManyCheckbox:6")));
     }
+
 }

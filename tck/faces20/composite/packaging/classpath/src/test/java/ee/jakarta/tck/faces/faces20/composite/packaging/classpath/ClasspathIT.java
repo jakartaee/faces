@@ -35,8 +35,8 @@ class ClasspathIT extends BaseITNG {
     }
 
     /**
-     * A composite packaged in a JAR under META-INF/resources resolves its declared attribute through
-     * #{cc.attrs} and, being a naming container, prepends its own id to that of its child input.
+     * A composite packaged in a JAR under META-INF/resources resolves its declared attribute through #{cc.attrs} and, being a naming container, prepends its
+     * own id to that of its child input.
      *
      * @see jakarta.faces.component.UINamingContainer
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1860
@@ -52,8 +52,12 @@ class ClasspathIT extends BaseITNG {
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

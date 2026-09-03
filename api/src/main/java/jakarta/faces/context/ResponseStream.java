@@ -20,8 +20,7 @@ import java.io.OutputStream;
 
 /**
  * <p>
- * <strong>ResponseStream</strong> is an interface describing an adapter to an underlying output mechanism for binary
- * output.
+ * <strong>ResponseStream</strong> is an interface describing an adapter to an underlying output mechanism for binary output.
  * </p>
  */
 

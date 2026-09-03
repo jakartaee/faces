@@ -31,15 +31,13 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_2">
- * <span class="changed_modified_2_3">Provides</span> a simple implementation of {@link ViewDeclarationLanguage} that
- * can be subclassed by developers wishing to provide specialized behavior to an existing
- * {@link ViewDeclarationLanguage} instance. The default implementation of all methods is to call through to the wrapped
- * {@link ViewDeclarationLanguage} instance.
+ * <span class="changed_modified_2_3">Provides</span> a simple implementation of {@link ViewDeclarationLanguage} that can be subclassed by developers wishing to
+ * provide specialized behavior to an existing {@link ViewDeclarationLanguage} instance. The default implementation of all methods is to call through to the
+ * wrapped {@link ViewDeclarationLanguage} instance.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.2
@@ -58,9 +56,8 @@ public abstract class ViewDeclarationLanguageWrapper extends ViewDeclarationLang
 
     /**
      * <p class="changed_added_2_3">
-     * If this view declaration language has been decorated, the implementation doing the decorating should push the
-     * implementation being wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being
-     * wrapped.
+     * If this view declaration language has been decorated, the implementation doing the decorating should push the implementation being wrapped to this
+     * constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.

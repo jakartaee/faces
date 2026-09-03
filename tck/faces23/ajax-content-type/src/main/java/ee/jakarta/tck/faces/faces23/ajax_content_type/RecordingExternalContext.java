@@ -26,8 +26,8 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.ExternalContextWrapper;
 
 /**
- * Records the order in which the response content type is set and the response output is first obtained, so that a test
- * can assert the content type was already set by the time the runtime asked for the writer or stream.
+ * Records the order in which the response content type is set and the response output is first obtained, so that a test can assert the content type was already
+ * set by the time the runtime asked for the writer or stream.
  */
 public class RecordingExternalContext extends ExternalContextWrapper {
 
@@ -68,4 +68,5 @@ public class RecordingExternalContext extends ExternalContextWrapper {
     public ExternalContext getWrapped() {
         return wrapped;
     }
+
 }

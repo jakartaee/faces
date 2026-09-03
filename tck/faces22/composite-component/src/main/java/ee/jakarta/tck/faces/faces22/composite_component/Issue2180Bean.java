@@ -28,8 +28,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 /**
- * Counts, across the whole view, how many attribute names the composite components declare a default value for. The
- * count is a property of the view declaration and must therefore be identical on every postback.
+ * Counts, across the whole view, how many attribute names the composite components declare a default value for. The count is a property of the view declaration
+ * and must therefore be identical on every postback.
  */
 @Named
 @SessionScoped
@@ -59,8 +59,7 @@ public class Issue2180Bean implements Serializable {
                 BeanInfo beanInfo = (BeanInfo) target.getAttributes().get(UIComponent.BEANINFO_KEY);
 
                 @SuppressWarnings("unchecked")
-                Collection<String> names =
-                    (Collection<String>) beanInfo.getBeanDescriptor().getValue(UIComponent.ATTRS_WITH_DECLARED_DEFAULT_VALUES);
+                Collection<String> names = (Collection<String>) beanInfo.getBeanDescriptor().getValue(UIComponent.ATTRS_WITH_DECLARED_DEFAULT_VALUES);
 
                 if (names != null) {
                     count[0] += names.size();
@@ -72,4 +71,5 @@ public class Issue2180Bean implements Serializable {
 
         return count[0];
     }
+
 }

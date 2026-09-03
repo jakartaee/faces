@@ -22,9 +22,8 @@ import jakarta.faces.convert.Converter;
 import jakarta.faces.convert.FacesConverter;
 
 /**
- * Throws an exception which is deliberately <em>not</em> a {@link jakarta.faces.convert.ConverterException}, so that it
- * must not be absorbed into a {@link jakarta.faces.application.FacesMessage} but instead reach the
- * {@link jakarta.faces.context.ExceptionHandler}.
+ * Throws an exception which is deliberately <em>not</em> a {@link jakarta.faces.convert.ConverterException}, so that it must not be absorbed into a
+ * {@link jakarta.faces.application.FacesMessage} but instead reach the {@link jakarta.faces.context.ExceptionHandler}.
  */
 @FacesConverter(ConverterExceptionAjaxOnerrorConverter.CONVERTER_ID)
 public class ConverterExceptionAjaxOnerrorConverter implements Converter<String> {
@@ -40,4 +39,5 @@ public class ConverterExceptionAjaxOnerrorConverter implements Converter<String>
     public String getAsString(FacesContext context, UIComponent component, String value) {
         return value == null ? "" : value;
     }
+
 }

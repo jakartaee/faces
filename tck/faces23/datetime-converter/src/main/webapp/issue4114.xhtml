@@ -23,32 +23,32 @@
     <h:head>
         <title>Issue4114</title>
     </h:head>
-    
+
     <h:body>
         <f:view locale="nl_NL">
             <h:form id="form">
-                
+
                 30 sep 2015 (30-sep-2015)
                 <h:inputText id="localDateInput" value="#{backingBean.localDate}">
                     <f:convertDateTime type="localDate" />
                 </h:inputText>
                 <h:outputText id="localDateOutput" value="#{backingBean.localDate}" />
                 <br />
-                
+
                 16:52:56
                 <h:inputText id="localTimeInput" value="#{backingBean.localTime}">
                     <f:convertDateTime type="localTime" />
                 </h:inputText>
                 <h:outputText id="localTimeOutput" value="#{backingBean.localTime}" />
                 <br />
-    
+
                 30 sep 2015 16:14:43 (30-sep-2015 16:52:56)
                 <h:inputText id="localDateTimeInput" value="#{backingBean.localDateTime}">
                     <f:convertDateTime type="localDateTime" />
                 </h:inputText>
                 <h:outputText id="localDateTimeOutput" value="#{backingBean.localDateTime}" />
                 <br />
-                
+
                 <h:commandButton id="submit" />
                 <p>
                     <h:messages id="messages" showDetail="true" showSummary="false" />

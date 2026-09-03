@@ -25,8 +25,8 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 /**
- * Tracks which of the toggleable composite components are currently visible. View scoped, so the
- * c:if build-time conditions see the accumulated state across postbacks.
+ * Tracks which of the toggleable composite components are currently visible. View scoped, so the c:if build-time conditions see the accumulated state across
+ * postbacks.
  */
 @Named
 @ViewScoped
@@ -47,4 +47,5 @@ public class Issue4208Bean implements Serializable {
     public boolean isVisible(int index) {
         return visible.contains(index);
     }
+
 }

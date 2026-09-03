@@ -18,8 +18,7 @@ package jakarta.faces.model;
 
 /**
  * <p>
- * <strong>ArrayDataModel</strong> is a convenience implementation of {@link DataModel} that wraps an array of Java
- * objects.
+ * <strong>ArrayDataModel</strong> is a convenience implementation of {@link DataModel} that wraps an array of Java objects.
  * </p>
  */
 
@@ -64,9 +63,8 @@ public class ArrayDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * Return <code>true</code> if there is <code>wrappedData</code> available, and the current value of
-     * <code>rowIndex</code> is greater than or equal to zero, and less than the length of the array. Otherwise, return
-     * <code>false</code>.
+     * Return <code>true</code> if there is <code>wrappedData</code> available, and the current value of <code>rowIndex</code> is greater than or equal to zero,
+     * and less than the length of the array. Otherwise, return <code>false</code>.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row availability
@@ -80,8 +78,7 @@ public class ArrayDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * If there is <code>wrappedData</code> available, return the length of the array. If no <code>wrappedData</code> is
-     * available, return -1.
+     * If there is <code>wrappedData</code> available, return the length of the array. If no <code>wrappedData</code> is available, return -1.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row count
@@ -98,8 +95,8 @@ public class ArrayDataModel<E> extends DataModel<E> {
 
     /**
      * <p>
-     * If row data is available, return the array element at the index specified by <code>rowIndex</code>. If no wrapped
-     * data is available, return <code>null</code>.
+     * If row data is available, return the array element at the index specified by <code>rowIndex</code>. If no wrapped data is available, return
+     * <code>null</code>.
      * </p>
      *
      * @throws jakarta.faces.FacesException if an error occurs getting the row data
@@ -111,9 +108,11 @@ public class ArrayDataModel<E> extends DataModel<E> {
 
         if (array == null) {
             return null;
-        } else if (!isRowAvailable()) {
+        }
+        else if (!isRowAvailable()) {
             throw new NoRowAvailableException();
-        } else {
+        }
+        else {
             return (E) array[index];
         }
 
@@ -176,7 +175,8 @@ public class ArrayDataModel<E> extends DataModel<E> {
         if (data == null) {
             array = null;
             setRowIndex(-1);
-        } else {
+        }
+        else {
             array = (Object[]) data;
             index = -1;
             setRowIndex(0);

@@ -40,4 +40,5 @@ public class Issue2896Item implements Serializable {
     public String toString() {
         return "item[" + value + "]";
     }
+
 }

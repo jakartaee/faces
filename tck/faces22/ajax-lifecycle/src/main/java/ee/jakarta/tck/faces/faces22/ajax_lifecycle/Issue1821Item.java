@@ -21,28 +21,28 @@ import java.util.List;
 
 public class Issue1821Item {
 
-	private String label;
+    private String label;
 
-	public Issue1821Item(String label) {
-		super();
-		this.label = label;
-	}
+    public Issue1821Item(String label) {
+        super();
+        this.label = label;
+    }
 
-	public String getLabel() {
-		return label;
-	}
+    public String getLabel() {
+        return label;
+    }
 
-	public void setLabel(String label) {
-		this.label = label;
-	}
-	
-	public List<Issue1821Item> getSubItems() {
-		List<Issue1821Item> subItems = new ArrayList<Issue1821Item>();
-		subItems.add(new Issue1821Item(label + ".0"));
-		subItems.add(new Issue1821Item(label + ".1"));
-		subItems.add(new Issue1821Item(label + ".2"));
-		
-		return subItems;
-	}
-		
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+    public List<Issue1821Item> getSubItems() {
+        List<Issue1821Item> subItems = new ArrayList<Issue1821Item>();
+        subItems.add(new Issue1821Item(label + ".0"));
+        subItems.add(new Issue1821Item(label + ".1"));
+        subItems.add(new Issue1821Item(label + ".2"));
+
+        return subItems;
+    }
+
 }

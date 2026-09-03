@@ -25,17 +25,15 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An f:loadBundle whose result depends on per-request state must be re-resolved on a postback that changes
- * that state, even when the view structure is otherwise static. This exercises both the view-locale and the
- * basename inputs of f:loadBundle across a full postback.
+ * An f:loadBundle whose result depends on per-request state must be re-resolved on a postback that changes that state, even when the view structure is
+ * otherwise static. This exercises both the view-locale and the basename inputs of f:loadBundle across a full postback.
  *
  * @see jakarta.faces.view.facelets.FaceletContext
  */
 class LoadBundleIT extends BaseITNG {
 
     /**
-     * The bundle is loaded under the active view locale; switching f:view locale via a postback must re-resolve
-     * it to the new locale's variant.
+     * The bundle is loaded under the active view locale; switching f:view locale via a postback must re-resolve it to the new locale's variant.
      */
     @Test
     void testLocaleSwitchReResolvesBundle() {
@@ -70,4 +68,5 @@ class LoadBundleIT extends BaseITNG {
     private static String greeting(WebPage page) {
         return page.findElement(By.id("greeting")).getText();
     }
+
 }

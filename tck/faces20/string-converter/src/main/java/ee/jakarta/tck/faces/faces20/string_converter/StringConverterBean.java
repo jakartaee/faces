@@ -16,10 +16,10 @@
 
 package ee.jakarta.tck.faces.faces20.string_converter;
 
+import java.io.Serializable;
+
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
-
-import java.io.Serializable;
 
 @Named
 @SessionScoped
@@ -36,4 +36,5 @@ public class StringConverterBean implements Serializable {
     public void setStringProperty(String stringProperty) {
         this.stringProperty = stringProperty;
     }
+
 }

@@ -29,17 +29,17 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2460IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2460
-   */
-  @Test
-  void scriptInsideAjaxRenderedFragmentExecutes() throws Exception {
+     */
+    @Test
+    void scriptInsideAjaxRenderedFragmentExecutes() throws Exception {
         WebPage page = getPage("issue2460.xhtml");
         assertTrue(page.containsText("SCRIPT EXECUTED!"));
         WebElement button = page.findElement(By.id("form1:button1"));
         page.guardAjax(button::click);
         assertTrue(page.containsText("SCRIPT EXECUTED!"));
     }
-}
 
+}

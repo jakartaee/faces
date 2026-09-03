@@ -27,8 +27,13 @@ public class Issue2201Validator implements Validator<Object> {
 
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) {
-        context.addMessage(component.getClientId(context),
-                new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                        component.getId() + " was validated", null));
+        context.addMessage(
+            component.getClientId(context),
+            new FacesMessage(
+                FacesMessage.SEVERITY_ERROR,
+                component.getId() + " was validated", null
+            )
+        );
     }
+
 }

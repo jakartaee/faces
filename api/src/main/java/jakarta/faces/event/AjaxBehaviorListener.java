@@ -18,8 +18,7 @@ package jakarta.faces.event;
 
 /**
  * <p class="changed_added_2_0">
- * By implementing this class, an object indicates that it is a listener for one or more kinds of
- * {@link BehaviorEvent}s.
+ * By implementing this class, an object indicates that it is a listener for one or more kinds of {@link BehaviorEvent}s.
  * </p>
  *
  * @since 2.0
@@ -38,4 +37,5 @@ public interface AjaxBehaviorListener extends BehaviorListener {
      * @since 2.0
      */
     void processAjaxBehavior(AjaxBehaviorEvent event) throws AbortProcessingException;
+
 }

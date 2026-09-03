@@ -24,8 +24,8 @@ import jakarta.faces.component.UIOutput;
 /**
  * NONE
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Head</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Head</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlHead extends UIOutput {
@@ -46,7 +46,10 @@ public class HtmlHead extends UIOutput {
      * The property keys.
      */
     protected enum PropertyKeys {
-        dir, lang, xmlns,;
+
+        dir,
+        lang,
+        xmlns,;
 
         String toString;
 
@@ -61,6 +64,7 @@ public class HtmlHead extends UIOutput {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -70,9 +74,8 @@ public class HtmlHead extends UIOutput {
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);

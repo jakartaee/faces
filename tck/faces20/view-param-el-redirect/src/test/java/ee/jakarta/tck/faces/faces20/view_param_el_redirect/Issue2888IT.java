@@ -25,14 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A value expression in a faces-config redirect {@code redirect-param} is evaluated when a bookmarkable
- * link ({@code h:link}) computes its target URL, so the parameter appears with its evaluated value.
+ * A value expression in a faces-config redirect {@code redirect-param} is evaluated when a bookmarkable link ({@code h:link}) computes its target URL, so the
+ * parameter appears with its evaluated value.
  */
 public class Issue2888IT extends BaseITNG {
 
     /**
-     * The bookmarkable link's URL carries the evaluated redirect parameter {@code viewparam=5}
-     * (from {@code #{2 + 3}} in the navigation case).
+     * The bookmarkable link's URL carries the evaluated redirect parameter {@code viewparam=5} (from {@code #{2 + 3}} in the navigation case).
      *
      * @see jakarta.faces.component.html.HtmlOutcomeTargetLink
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2888
@@ -43,4 +42,5 @@ public class Issue2888IT extends BaseITNG {
         String href = page.findElement(By.id("link")).getAttribute("href");
         assertTrue(href.contains("viewparam=5"), () -> "expected viewparam=5 in href but was: " + href);
     }
+
 }

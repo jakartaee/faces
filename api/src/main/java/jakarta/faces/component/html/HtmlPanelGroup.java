@@ -27,12 +27,12 @@ import jakarta.faces.component.behavior.ClientBehaviorHolder;
 
 /**
  * <p>
- * Causes all child components of this component to be rendered. This is useful in scenarios where a parent component is
- * expecting a single component to be present, but the application wishes to render more than one.
+ * Causes all child components of this component to be rendered. This is useful in scenarios where a parent component is expecting a single component to be
+ * present, but the application wishes to render more than one.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Group</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Group</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlPanelGroup extends UIPanel implements ClientBehaviorHolder {
@@ -54,7 +54,20 @@ public class HtmlPanelGroup extends UIPanel implements ClientBehaviorHolder {
      *
      */
     protected enum PropertyKeys {
-        layout, onclick, ondblclick, onkeydown, onkeypress, onkeyup, onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, style, styleClass,;
+
+        layout,
+        onclick,
+        ondblclick,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        style,
+        styleClass,;
 
         String toString;
 
@@ -69,6 +82,7 @@ public class HtmlPanelGroup extends UIPanel implements ClientBehaviorHolder {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -78,11 +92,10 @@ public class HtmlPanelGroup extends UIPanel implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: The type of layout markup to use when rendering this group. <span class="changed_modified_5_0">When a
-     * wrapper element is rendered, a value of "block" produces an HTML "div" element and any other value produces an
-     * HTML "span" element. A wrapper element is only rendered when the component has a renderable client id or any
-     * renderable attribute ("style", "styleClass", any passthrough attribute, or an attached client behavior); when
-     * there is nothing renderable to carry, no wrapper element is rendered.</span>
+     * Contents: The type of layout markup to use when rendering this group. <span class="changed_modified_5_0">When a wrapper element is rendered, a value of
+     * "block" produces an HTML "div" element and any other value produces an HTML "span" element. A wrapper element is only rendered when the component has a
+     * renderable client id or any renderable attribute ("style", "styleClass", any passthrough attribute, or an attached client behavior); when there is
+     * nothing renderable to carry, no wrapper element is rendered.</span>
      */
     public java.lang.String getLayout() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.layout);
@@ -393,8 +406,8 @@ public class HtmlPanelGroup extends UIPanel implements ClientBehaviorHolder {
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" property on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * property on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -415,7 +428,7 @@ public class HtmlPanelGroup extends UIPanel implements ClientBehaviorHolder {
 
     @Override
     public Collection<String> getEventNames() {
-        return getHtmlElementEventNames(getFacesContext()); 
+        return getHtmlElementEventNames(getFacesContext());
     }
 
     @Override

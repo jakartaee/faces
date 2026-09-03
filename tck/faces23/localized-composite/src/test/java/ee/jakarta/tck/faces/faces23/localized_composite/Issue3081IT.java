@@ -27,11 +27,9 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue3081IT extends BaseITNG {
 
     /**
-     * Verify #{cc} resolves identically inside the composite component implementation and inside a
-     * ui:included file: the clientId and attribute both evaluate to the same value in both contexts,
-     * using both bracket and dot notation. The composite is used as <external/> nesting <internal/>,
-     * so #{cc.clientId} is "external:internal" in both contexts; the include sits in an f:subview
-     * "included", which only prefixes the output element ids, not the #{cc} value.
+     * Verify #{cc} resolves identically inside the composite component implementation and inside a ui:included file: the clientId and attribute both evaluate
+     * to the same value in both contexts, using both bracket and dot notation. The composite is used as <external/> nesting <internal/>, so #{cc.clientId} is
+     * "external:internal" in both contexts; the include sits in an f:subview "included", which only prefixes the output element ids, not the #{cc} value.
      *
      * @see jakarta.faces.component.UINamingContainer
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3081
@@ -53,4 +51,5 @@ public class Issue3081IT extends BaseITNG {
         assertEquals("Test string", page.findElement(By.id(idPrefix + ":ccAttrsBracket")).getText(), "#{cc['attrs'].param}");
         assertEquals("Test string", page.findElement(By.id(idPrefix + ":ccAttrsDot")).getText(), "#{cc.attrs.param}");
     }
+
 }

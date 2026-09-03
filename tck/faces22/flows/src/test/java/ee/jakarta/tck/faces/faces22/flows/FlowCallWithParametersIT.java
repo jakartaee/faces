@@ -25,9 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A flow-call from one flow into another must resolve regardless of whether the calling and called flows declare
- * inbound or outbound parameters. Each case enters a flow-a variant from outside any flow and then performs a
- * flow-call into flow-b, which declares neither inbound nor outbound parameters.
+ * A flow-call from one flow into another must resolve regardless of whether the calling and called flows declare inbound or outbound parameters. Each case
+ * enters a flow-a variant from outside any flow and then performs a flow-call into flow-b, which declares neither inbound nor outbound parameters.
  */
 class FlowCallWithParametersIT extends BaseITNG {
 
@@ -71,4 +70,5 @@ class FlowCallWithParametersIT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("callB")).click());
         assertTrue(page.containsText(CALLEE_FLOW), CALLEE_FLOW);
     }
+
 }

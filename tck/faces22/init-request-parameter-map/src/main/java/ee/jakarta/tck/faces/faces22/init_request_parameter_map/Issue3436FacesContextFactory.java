@@ -40,4 +40,5 @@ public class Issue3436FacesContextFactory extends FacesContextFactory {
     public FacesContextFactory getWrapped() {
         return wrapped;
     }
+
 }

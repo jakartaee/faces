@@ -63,8 +63,7 @@ public class FaceletException extends FacesException {
 
     /**
      * <p class="changed_added_2_0">
-     * Wrap argument <code>cause</code> in a <code>FaceletException</code> instance, with a message given by the argument
-     * <code>message</code>.
+     * Wrap argument <code>cause</code> in a <code>FaceletException</code> instance, with a message given by the argument <code>message</code>.
      * </p>
      *
      * @param message the message for the <code>FacesException</code>

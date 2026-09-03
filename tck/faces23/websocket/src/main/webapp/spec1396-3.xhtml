@@ -34,7 +34,7 @@
         <div id="opened" />
         <div id="message" />
 
-        <f:websocket channel="user" user="user" 
+        <f:websocket channel="user" user="user"
             onopen="function(){document.getElementById('opened').innerHTML='yes';}"
             onmessage="function(message){document.getElementById('message').innerHTML=message;}" />
     </h:body>

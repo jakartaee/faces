@@ -20,8 +20,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * The renderer for this component is responsible for obtaining the messages from the {@link FacesContext} and
- * displaying them to the user.
+ * The renderer for this component is responsible for obtaining the messages from the {@link FacesContext} and displaying them to the user.
  * </p>
  *
  * <p>
@@ -29,8 +28,8 @@ import jakarta.faces.context.FacesContext;
  * </p>
  *
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Messages</code>". This value
- * can be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Messages</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  *
  *
@@ -55,7 +54,12 @@ public class UIMessages extends UIComponentBase {
     public static final String COMPONENT_FAMILY = "jakarta.faces.Messages";
 
     enum PropertyKeys {
-        forValue("for"), globalOnly, showDetail, showSummary, redisplay;
+
+        forValue("for"),
+        globalOnly,
+        showDetail,
+        showSummary,
+        redisplay;
 
         String toString;
 
@@ -70,6 +74,7 @@ public class UIMessages extends UIComponentBase {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     // ------------------------------------------------------------ Constructors
@@ -110,8 +115,8 @@ public class UIMessages extends UIComponentBase {
 
     /**
      * <p>
-     * Set the client identifier of the component for which this component represents associated message(s) (if any). This
-     * property must be set before the message is displayed.
+     * Set the client identifier of the component for which this component represents associated message(s) (if any). This property must be set before the
+     * message is displayed.
      * </p>
      *
      * @param newFor The new client id
@@ -124,8 +129,8 @@ public class UIMessages extends UIComponentBase {
 
     /**
      * <p>
-     * Return the flag indicating whether only global messages (that is, messages with no associated client identifier)
-     * should be rendered. Mutually exclusive with the "for" property which takes precedence. Defaults to false.
+     * Return the flag indicating whether only global messages (that is, messages with no associated client identifier) should be rendered. Mutually exclusive
+     * with the "for" property which takes precedence. Defaults to false.
      * </p>
      *
      * @return <code>true</code> if only global messages are to be shown, <code>false</code> otherwise.
@@ -138,8 +143,7 @@ public class UIMessages extends UIComponentBase {
 
     /**
      * <p>
-     * Set the flag indicating whether only global messages (that is, messages with no associated client identifier) should
-     * be rendered.
+     * Set the flag indicating whether only global messages (that is, messages with no associated client identifier) should be rendered.
      * </p>
      *
      * @param globalOnly The new flag value
@@ -152,8 +156,7 @@ public class UIMessages extends UIComponentBase {
 
     /**
      * <p>
-     * Return the flag indicating whether the <code>detail</code> property of the associated message(s) should be displayed.
-     * Defaults to false.
+     * Return the flag indicating whether the <code>detail</code> property of the associated message(s) should be displayed. Defaults to false.
      * </p>
      *
      * @return <code>true</code> if detail is to be shown, <code>false</code> otherwise.
@@ -178,8 +181,7 @@ public class UIMessages extends UIComponentBase {
 
     /**
      * <p>
-     * Return the flag indicating whether the <code>summary</code> property of the associated message(s) should be
-     * displayed. Defaults to true.
+     * Return the flag indicating whether the <code>summary</code> property of the associated message(s) should be displayed. Defaults to true.
      * </p>
      *
      * @return <code>true</code> if the summary is to be shown, <code>false</code> otherwise.
@@ -204,9 +206,9 @@ public class UIMessages extends UIComponentBase {
     }
 
     /**
-     * @return <code>true</code> if this <code>UIMessage</code> instance should redisplay
-     * {@link jakarta.faces.application.FacesMessage}s that have already been handled, otherwise returns <code>false</code>.
-     * By default this method will always return <code>true</code> if {@link #setRedisplay(boolean)} has not been called.
+     * @return <code>true</code> if this <code>UIMessage</code> instance should redisplay {@link jakarta.faces.application.FacesMessage}s that have already been
+     * handled, otherwise returns <code>false</code>. By default this method will always return <code>true</code> if {@link #setRedisplay(boolean)} has not been
+     * called.
      *
      * @since 2.0
      */

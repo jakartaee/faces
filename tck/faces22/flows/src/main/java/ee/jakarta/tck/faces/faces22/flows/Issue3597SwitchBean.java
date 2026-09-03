@@ -30,4 +30,5 @@ public class Issue3597SwitchBean implements Serializable {
     public boolean isFirstPage() {
         return true;
     }
+
 }

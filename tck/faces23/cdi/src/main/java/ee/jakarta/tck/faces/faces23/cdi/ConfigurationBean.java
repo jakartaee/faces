@@ -19,7 +19,7 @@ package ee.jakarta.tck.faces.faces23.cdi;
 import jakarta.faces.annotation.FacesConfig;
 
 @FacesConfig(
-	// Activates CDI build-in beans that provide the injection this project tests for.
+    // Activates CDI build-in beans that provide the injection this project tests for.
     // Note that this project has explicitly no FacesServlet mapping in web.xml as well as no faces-config.xml file.
     // In other words, this test also assures that FacesInitializer is able to rely on solely this @FacesConfig annotated bean.
 )

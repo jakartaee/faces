@@ -29,8 +29,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3039IT extends BaseITNG {
 
     /**
-     * Toggles two conditionally-rendered {@code ui:repeat} blocks via an ajax command link and verifies that each ajax
-     * re-render swaps which block is shown, i.e. the repeat row state does not leak across the toggle.
+     * Toggles two conditionally-rendered {@code ui:repeat} blocks via an ajax command link and verifies that each ajax re-render swaps which block is shown,
+     * i.e. the repeat row state does not leak across the toggle.
      *
      * @see jakarta.faces.component.UIRepeat
      * @see UIData
@@ -48,4 +48,5 @@ class Issue3039IT extends BaseITNG {
         assertFalse(page.containsText("- even"), "After second toggle the 'even' repeat must be hidden");
         assertTrue(page.containsText("- odd"), "After second toggle the 'odd' repeat must be shown");
     }
+
 }

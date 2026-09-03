@@ -26,4 +26,5 @@ public class Spec1071Bean {
     public String getFlashClassName() {
         return FacesContext.getCurrentInstance().getExternalContext().getFlash().getClass().getName();
     }
+
 }

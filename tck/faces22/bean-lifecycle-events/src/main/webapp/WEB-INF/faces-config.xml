@@ -24,7 +24,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
     version="4.1">
-    
+
         <navigation-rule>
             <from-view-id>*</from-view-id>
             <navigation-case>
@@ -32,6 +32,6 @@
                 <to-view-id>/issue3001PageInFacesConfig.xhtml</to-view-id>
             </navigation-case>
         </navigation-rule>
-            
+
 
 </faces-config>

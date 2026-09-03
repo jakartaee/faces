@@ -23,10 +23,9 @@ import jakarta.faces.render.Renderer;
 import jakarta.inject.Named;
 
 /**
- * Looks the artifacts declared in {@code /META-INF/testCase2-config.xml} up in the application and
- * in the render kit. That file is only reachable because it is listed in
- * {@code jakarta.faces.CONFIG_FILES}, while {@code /WEB-INF/appconfig-unlisted-config.xml} is not
- * listed and its artifacts must therefore not be registered.
+ * Looks the artifacts declared in {@code /META-INF/testCase2-config.xml} up in the application and in the render kit. That file is only reachable because it is
+ * listed in {@code jakarta.faces.CONFIG_FILES}, while {@code /WEB-INF/appconfig-unlisted-config.xml} is not listed and its artifacts must therefore not be
+ * registered.
  */
 @Named
 @RequestScoped
@@ -54,14 +53,15 @@ public class StartupBehaviorConfigBean {
 
     public String getRenderer() {
         Renderer renderer = FacesContext.getCurrentInstance().getRenderKit()
-                .getRenderer(StartupBehaviorConfigComponent.COMPONENT_FAMILY, RENDERER_TYPE);
+            .getRenderer(StartupBehaviorConfigComponent.COMPONENT_FAMILY, RENDERER_TYPE);
         return simpleName(renderer);
     }
 
     public String getUnlisted() {
         try {
             return simpleName(application().createComponent(UNLISTED_COMPONENT_TYPE));
-        } catch (FacesException e) {
+        }
+        catch (FacesException e) {
             return NOT_REGISTERED;
         }
     }
@@ -73,4 +73,5 @@ public class StartupBehaviorConfigBean {
     private static String simpleName(Object artifact) {
         return artifact == null ? NOT_REGISTERED : artifact.getClass().getSimpleName();
     }
+
 }

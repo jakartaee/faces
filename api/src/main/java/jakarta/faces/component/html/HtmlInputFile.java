@@ -48,9 +48,35 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      *
      */
     protected enum PropertyKeys {
-        accept, accesskey, dir, disabled, label, lang, multiple, onblur, onchange, onclick, ondblclick, onfocus, onkeydown, onkeypress, onkeyup,
-        onmousedown, onmousemove, onmouseout, onmouseover, onmouseup, onselect, role, style, styleClass, tabindex, title,
+
+        accept,
+        accesskey,
+        dir,
+        disabled,
+        label,
+        lang,
+        multiple,
+        onblur,
+        onchange,
+        onclick,
+        ondblclick,
+        onfocus,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        onselect,
+        role,
+        style,
+        styleClass,
+        tabindex,
+        title,
         ;
+
         String toString;
 
         PropertyKeys(String toString) {
@@ -64,6 +90,7 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -132,9 +159,8 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      * Return the value of the <code>dir</code> property.
      * </p>
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      *
      * @return the value of the property
      *
@@ -162,9 +188,8 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      * Return the value of the <code>disabled</code> property.
      * </p>
      * <p>
-     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value
-     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as
-     * disabled="disabled".
+     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value of false causes no attribute to be
+     * rendered, while a value of true causes the attribute to be rendered as disabled="disabled".
      *
      * @return the value of the property
      *
@@ -246,9 +271,8 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      * Return the value of the <code>multiple</code> property.
      * </p>
      * <p>
-     * Contents: Flag indicating that this element must allow multiple file selection. A value
-     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as
-     * multiple="multiple".
+     * Contents: Flag indicating that this element must allow multiple file selection. A value of false causes no attribute to be rendered, while a value of
+     * true causes the attribute to be rendered as multiple="multiple".
      *
      * @return the value of the property
      *
@@ -671,16 +695,14 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or a Jakarta
-     * Expression Language Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA
-     * roles that the element belongs to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or a Jakarta Expression Language Expression that evaluates to, a set of space-separated tokens representing the various
+     * WAI-ARIA roles that the element belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      *
      * @return the value of the property
@@ -737,8 +759,8 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      * Return the value of the <code>styleClass</code> property.
      * </p>
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      *
      * @return the value of the property
      *
@@ -766,8 +788,7 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
      * Return the value of the <code>tabindex</code> property.
      * </p>
      * <p>
-     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer
-     * between 0 and 32767.
+     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer between 0 and 32767.
      *
      * @return the value of the property
      *
@@ -820,7 +841,7 @@ public class HtmlInputFile extends UIInput implements ClientBehaviorHolder {
 
     @Override
     public Collection<String> getEventNames() {
-        return getFacesEditableValueHolderEventNames(getFacesContext()); 
+        return getFacesEditableValueHolderEventNames(getFacesContext());
     }
 
     @Override

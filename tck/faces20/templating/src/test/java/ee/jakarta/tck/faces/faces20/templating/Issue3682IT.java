@@ -27,8 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3682IT extends BaseITNG {
 
     /**
-     * A ui:composition nested inside a plain body element still yields a well formed document: the template
-     * supplies the whole page, so the body opens after the html element rather than the other way round.
+     * A ui:composition nested inside a plain body element still yields a well formed document: the template supplies the whole page, so the body opens after
+     * the html element rather than the other way round.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3682
      */
@@ -39,7 +39,10 @@ class Issue3682IT extends BaseITNG {
 
         assertEquals(200, page.getResponseStatus(), "The view must render.");
         assertTrue(page.containsText("Hello from Facelets"), "The template must have supplied the content.");
-        assertTrue(source.indexOf("<body") > source.indexOf("<html"),
-                "The body element must open after the html element.");
+        assertTrue(
+            source.indexOf("<body") > source.indexOf("<html"),
+            "The body element must open after the html element."
+        );
     }
+
 }

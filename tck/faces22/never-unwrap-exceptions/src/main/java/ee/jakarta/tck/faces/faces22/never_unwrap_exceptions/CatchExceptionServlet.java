@@ -26,8 +26,8 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 
 /**
- * Wraps {@link FacesServlet} to capture the {@link ServletException} it throws when a bean getter fails during
- * rendering, so the test can assert that Faces did not unwrap the original exception chain.
+ * Wraps {@link FacesServlet} to capture the {@link ServletException} it throws when a bean getter fails during rendering, so the test can assert that Faces did
+ * not unwrap the original exception chain.
  */
 public class CatchExceptionServlet implements Servlet {
 
@@ -42,7 +42,8 @@ public class CatchExceptionServlet implements Servlet {
     public void service(ServletRequest request, ServletResponse response) throws ServletException, IOException {
         try {
             wrapped.service(request, response);
-        } catch (ServletException e) {
+        }
+        catch (ServletException e) {
             if (!response.isCommitted()) {
                 response.reset();
             }
@@ -68,4 +69,5 @@ public class CatchExceptionServlet implements Servlet {
     public void destroy() {
         wrapped.destroy();
     }
+
 }

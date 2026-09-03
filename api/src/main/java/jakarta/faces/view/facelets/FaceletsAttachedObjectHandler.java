@@ -52,8 +52,8 @@ public abstract class FaceletsAttachedObjectHandler extends DelegatingMetaTagHan
 
     /**
      * <p class="changed_added_2_0">
-     * Take the necessary actions to apply the attached object represented by the tag for the concrete subclass of this
-     * class to the argument <code>parent</code>.
+     * Take the necessary actions to apply the attached object represented by the tag for the concrete subclass of this class to the argument
+     * <code>parent</code>.
      * </p>
      *
      * @param ctx the <code>FacesContext</code> for this request
@@ -66,8 +66,7 @@ public abstract class FaceletsAttachedObjectHandler extends DelegatingMetaTagHan
 
     /**
      * <p class="changed_added_2_0">
-     * Return the value of the "for" attribute. This enables the runtime to know to which inner component this attached
-     * object should be retargeted.
+     * Return the value of the "for" attribute. This enables the runtime to know to which inner component this attached object should be retargeted.
      * </p>
      */
     @Override

@@ -28,14 +28,20 @@ class StateManagerIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void stateManagerIsSavingStateInClientNPETest() { runServletTest("stateManagerIsSavingStateInClientNPETest"); }
+    @Test
+    void stateManagerIsSavingStateInClientNPETest() {
+        runServletTest("stateManagerIsSavingStateInClientNPETest");
+    }
 
     @Test
     void stateManagerIsSavingStateInClientTest() {
         // Servlet prints the boolean returned by StateManager.isSavingStateInClient(FacesContext);
         // with default state-saving (server) the value is "false".
         String body = getResponseBody("StateManagerTestServlet?testname=stateManagerIsSavingStateInClientTest");
-        assertTrue(body.trim().equals("false"),
-                "Expected 'false' (default server-side state saving) but got:\n" + body);
+        assertTrue(
+            body.trim().equals("false"),
+            "Expected 'false' (default server-side state saving) but got:\n" + body
+        );
     }
+
 }

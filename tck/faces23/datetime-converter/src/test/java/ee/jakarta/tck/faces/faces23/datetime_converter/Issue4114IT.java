@@ -42,12 +42,9 @@ public class Issue4114IT extends BaseITNG {
     private static final LocalDate LOCAL_DATE = LocalDate.of(2015, 5, 30);
     private static final LocalTime LOCAL_TIME = LocalTime.of(16, 52, 56);
     private static final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2015, 5, 30, 16, 14, 43);
-    private static final DateTimeFormatter LOCAL_DATE_FORMATTER =
-            DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
-    private static final DateTimeFormatter LOCAL_TIME_FORMATTER =
-            DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
-    private static final DateTimeFormatter LOCAL_DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter LOCAL_DATE_FORMATTER = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter LOCAL_TIME_FORMATTER = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
+    private static final DateTimeFormatter LOCAL_DATE_TIME_FORMATTER = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM).withLocale(DUTCH_LOCALE);
 
     /**
      * @see DateTimeConverter

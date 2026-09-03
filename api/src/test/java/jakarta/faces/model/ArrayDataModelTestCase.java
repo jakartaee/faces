@@ -20,7 +20,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * <p>
- * Unit tests for {@link ArrayDataModel}.</p>
+ * Unit tests for {@link ArrayDataModel}.
+ * </p>
  */
 class ArrayDataModelTestCase extends DataModelTestCaseBase {
 

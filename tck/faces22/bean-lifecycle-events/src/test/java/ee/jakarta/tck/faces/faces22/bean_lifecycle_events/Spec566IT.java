@@ -70,4 +70,5 @@ class Spec566IT extends BaseITNG {
         input2 = page.findElement(By.id("input2"));
         assertEquals("abcd", input2.getAttribute("value"));
     }
+
 }

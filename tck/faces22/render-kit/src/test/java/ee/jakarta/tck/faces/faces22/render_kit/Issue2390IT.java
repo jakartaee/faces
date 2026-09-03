@@ -30,8 +30,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 class Issue2390IT extends BaseITNG {
 
     /**
-     * A disabled {@link HtmlOutcomeTargetLink} must render as a span element carrying neither an href nor a
-     * disabled attribute, so the rendered output contains no "disabled" token at all.
+     * A disabled {@link HtmlOutcomeTargetLink} must render as a span element carrying neither an href nor a disabled attribute, so the rendered output contains
+     * no "disabled" token at all.
      *
      * @see HtmlOutcomeTargetLink
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2390
@@ -41,4 +41,5 @@ class Issue2390IT extends BaseITNG {
         String body = getResponseBody("issue2390.xhtml");
         assertFalse(body.contains("disabled"), "Disabled h:link must not render a disabled attribute");
     }
+
 }

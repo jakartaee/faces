@@ -28,10 +28,9 @@ import jakarta.faces.validator.ValidatorException;
 import jakarta.inject.Named;
 
 /**
- * Backs converters and validators bound through the {@code binding} attribute, re-resolved on every
- * request. Decoding flips the converter and validating flips the validator, each independently, so
- * the instance returned by either getter alternates across successive postbacks. Encoding must not
- * flip anything: it runs on every render and would otherwise desynchronise the two.
+ * Backs converters and validators bound through the {@code binding} attribute, re-resolved on every request. Decoding flips the converter and validating flips
+ * the validator, each independently, so the instance returned by either getter alternates across successive postbacks. Encoding must not flip anything: it runs
+ * on every render and would otherwise desynchronise the two.
  */
 @Named
 @SessionScoped
@@ -127,48 +126,73 @@ public class LateBindingsBean implements Serializable {
     }
 
     private class CustomValidator1 implements Validator<Object> {
+
         @Override
         public void validate(FacesContext context, UIComponent component, Object value) {
             switchValidator = true;
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "CustomValidator1 invoked", "CustomValidator1 invoked"));
+            throw new ValidatorException(
+                new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "CustomValidator1 invoked", "CustomValidator1 invoked"
+                )
+            );
         }
+
     }
 
     private class CustomValidator2 implements Validator<Object> {
+
         @Override
         public void validate(FacesContext context, UIComponent component, Object value) {
             switchValidator = true;
-            throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "CustomValidator2 invoked", "CustomValidator2 invoked"));
+            throw new ValidatorException(
+                new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "CustomValidator2 invoked", "CustomValidator2 invoked"
+                )
+            );
         }
+
     }
 
     private class CustomConverter1 implements Converter<Object> {
+
         @Override
         public Object getAsObject(FacesContext context, UIComponent component, String value) {
             switchConverter = true;
-            throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "CustomConverter1 invoked", "CustomConverter1 invoked"));
+            throw new ConverterException(
+                new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "CustomConverter1 invoked", "CustomConverter1 invoked"
+                )
+            );
         }
 
         @Override
         public String getAsString(FacesContext context, UIComponent component, Object value) {
             return value == null ? "" : value.toString();
         }
+
     }
 
     private class CustomConverter2 implements Converter<Object> {
+
         @Override
         public Object getAsObject(FacesContext context, UIComponent component, String value) {
             switchConverter = true;
-            throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "CustomConverter2 invoked", "CustomConverter2 invoked"));
+            throw new ConverterException(
+                new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR,
+                    "CustomConverter2 invoked", "CustomConverter2 invoked"
+                )
+            );
         }
 
         @Override
         public String getAsString(FacesContext context, UIComponent component, Object value) {
             return value == null ? "" : value.toString();
         }
+
     }
+
 }

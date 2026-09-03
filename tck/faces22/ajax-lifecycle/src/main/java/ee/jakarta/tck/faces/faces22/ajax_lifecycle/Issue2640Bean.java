@@ -25,7 +25,7 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Issue2640Bean {
-	
+
     public List<String> getValues() {
         List<String> values = new ArrayList<String>();
         values.add("test");
@@ -49,4 +49,5 @@ public class Issue2640Bean {
     public void setActionText(String actionText) {
         this.actionText = actionText;
     }
+
 }

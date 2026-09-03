@@ -30,9 +30,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * The rendered resource marker identifies the file, not the URL it is requested by, so that one file included twice
- * under two spellings of its name is still included once. A resource library shipping
- * <code>&#64;ResourceDependency(name = "jquery.js")</code> and an application writing
+ * The rendered resource marker identifies the file, not the URL it is requested by, so that one file included twice under two spellings of its name is still
+ * included once. A resource library shipping <code>&#64;ResourceDependency(name = "jquery.js")</code> and an application writing
  * <code>name = "jquery.js?v=3"</code> name the same file, and a query string is what separates them.
  */
 class ResourceHandlerRenderedMarkerTest {

@@ -20,17 +20,18 @@ import jakarta.faces.event.BehaviorEvent;
 
 public class TCKBehavior implements Behavior {
 
-  private String name = "default_name";
+    private String name = "default_name";
 
-  public String getName() {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void broadcast(BehaviorEvent arg0) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    public void broadcast(BehaviorEvent arg0) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

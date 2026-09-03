@@ -46,4 +46,5 @@ public class Spec901IT extends BaseITNG {
         page.guardHttp(button2::click);
         assertTrue(page.containsSource("c called"));
     }
+
 }

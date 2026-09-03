@@ -22,9 +22,8 @@ import jakarta.faces.context.FacesContext;
 /**
  *
  * <p class="changed_added_2_0">
- * When an instance of this event is passed to {@link SystemEventListener#processEvent} or
- * {@link ComponentSystemEventListener#processEvent}, the listener implementation may assume that the
- * <code>source</code> of this event instance is in a tree that has just had its state restored.
+ * When an instance of this event is passed to {@link SystemEventListener#processEvent} or {@link ComponentSystemEventListener#processEvent}, the listener
+ * implementation may assume that the <code>source</code> of this event instance is in a tree that has just had its state restored.
  * </p>
  *
  * @since 2.0
@@ -38,8 +37,7 @@ public class PostRestoreStateEvent extends ComponentSystemEvent {
     /**
      *
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>PostRestoreStateEvent</code> that indicates the argument <code>component</code> just had its
-     * state restored.
+     * Instantiate a new <code>PostRestoreStateEvent</code> that indicates the argument <code>component</code> just had its state restored.
      * </p>
      *
      * @param component the <code>UIComponent</code> whose state was just restored.
@@ -52,8 +50,7 @@ public class PostRestoreStateEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_3">
-     * Instantiate a new <code>PostRestoreStateEvent</code> that indicates the argument <code>component</code> just had its
-     * state restored.
+     * Instantiate a new <code>PostRestoreStateEvent</code> that indicates the argument <code>component</code> just had its state restored.
      * </p>
      *
      * @param facesContext the Faces context.

@@ -26,9 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Spec599IT extends BaseITNG {
 
     /**
-     * ViewDeclarationLanguage#createComponent(context, taglibURI, tagName, rendererType) must return a
-     * component with the renderer type associated with the given tag. Creating the "inputText" tag from
-     * the jakarta.faces.html taglib must yield a component whose renderer type is "jakarta.faces.Text".
+     * ViewDeclarationLanguage#createComponent(context, taglibURI, tagName, rendererType) must return a component with the renderer type associated with the
+     * given tag. Creating the "inputText" tag from the jakarta.faces.html taglib must yield a component whose renderer type is "jakarta.faces.Text".
      *
      * @see jakarta.faces.view.ViewDeclarationLanguage#createComponent(jakarta.faces.context.FacesContext, String, String, java.util.Map)
      * @see https://github.com/jakartaee/faces/issues/599
@@ -38,4 +37,5 @@ class Spec599IT extends BaseITNG {
         WebPage page = getPage("spec599.xhtml");
         assertTrue(page.containsText("SUCCESS"));
     }
+
 }

@@ -26,19 +26,19 @@ import jakarta.faces.event.PhaseListener;
 
 public class PhaseListenerB implements PhaseListener {
 
-  @Override
-  public void afterPhase(PhaseEvent event) {
-    // no-op
-  }
+    @Override
+    public void afterPhase(PhaseEvent event) {
+        // no-op
+    }
 
-  @Override
-  public void beforePhase(PhaseEvent event) {
-    // no-op
-  }
+    @Override
+    public void beforePhase(PhaseEvent event) {
+        // no-op
+    }
 
-  @Override
-  public PhaseId getPhaseId() {
-    return PhaseId.ANY_PHASE;
-  }
+    @Override
+    public PhaseId getPhaseId() {
+        return PhaseId.ANY_PHASE;
+    }
 
 }

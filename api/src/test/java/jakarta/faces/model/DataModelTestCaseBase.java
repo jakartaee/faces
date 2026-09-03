@@ -31,7 +31,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * Abstract base class for {@link DataModel} tests.</p>
+ * Abstract base class for {@link DataModel} tests.
+ * </p>
  */
 abstract class DataModelTestCaseBase {
 
@@ -66,14 +67,16 @@ abstract class DataModelTestCaseBase {
         try {
             model.addDataModelListener(null);
             fail("Should have thrown NullPointerException");
-        } catch (NullPointerException e) {
+        }
+        catch (NullPointerException e) {
             // Expected result
         }
 
         try {
             model.removeDataModelListener(null);
             fail("Should have thrown NullPointerException");
-        } catch (NullPointerException e) {
+        }
+        catch (NullPointerException e) {
             // Expected result
         }
     }
@@ -120,9 +123,12 @@ abstract class DataModelTestCaseBase {
         // Correct row count
         if (model instanceof ResultSetDataModel) {
             assertEquals(-1, model.getRowCount());
-        } else {
-            assertEquals(beans.length,
-                    model.getRowCount());
+        }
+        else {
+            assertEquals(
+                beans.length,
+                model.getRowCount()
+            );
         }
 
         // Correct row index
@@ -185,47 +191,73 @@ abstract class DataModelTestCaseBase {
         MockedJavaBean bean = beans[0];
         bean.setBooleanProperty(!bean.getBooleanProperty());
         if (data instanceof Map) {
-            ((Map<String, Boolean>) data).put("booleanProperty",
-                    bean.getBooleanProperty()
-                    ? Boolean.TRUE : Boolean.FALSE);
-        } else {
+            ((Map<String, Boolean>) data).put(
+                "booleanProperty",
+                bean.getBooleanProperty()
+                    ? Boolean.TRUE
+                    : Boolean.FALSE
+            );
+        }
+        else {
             Method m = data.getClass().getMethod("setBooleanProperty", Boolean.TYPE);
             m.invoke(data, bean.getBooleanProperty() ? Boolean.TRUE : Boolean.FALSE);
         }
         bean.setIntProperty(bean.getIntProperty() + 5);
         if (data instanceof Map) {
-            ((Map<String, Integer>) data).put("intProperty",
-                    bean.getIntProperty());
-        } else {
+            ((Map<String, Integer>) data).put(
+                "intProperty",
+                bean.getIntProperty()
+            );
+        }
+        else {
             Method m = data.getClass().getMethod("setIntProperty", Integer.TYPE);
             m.invoke(data, bean.getIntProperty());
         }
         bean.setStringProperty(bean.getStringProperty() + "XYZ");
         if (data instanceof Map) {
-            ((Map<String, String>) data).put("stringProperty",
-                    bean.getStringProperty() + "XYZ");
-        } else {
+            ((Map<String, String>) data).put(
+                "stringProperty",
+                bean.getStringProperty() + "XYZ"
+            );
+        }
+        else {
             Method m = data.getClass().getMethod("setStringProperty", String.class);
             m.invoke(data, bean.getStringProperty());
         }
 
         // Ensure that all the modifications flowed through to beans[0]
-        assertEquals(bean.getBooleanProperty(),
-                beans[0].getBooleanProperty());
-        assertEquals(bean.isBooleanSecond(),
-                beans[0].isBooleanSecond());
-        assertEquals(bean.getByteProperty(),
-                beans[0].getByteProperty());
-        assertEquals(bean.getDoubleProperty(),
-                beans[0].getDoubleProperty(), 0.005);
-        assertEquals(bean.getFloatProperty(),
-                beans[0].getFloatProperty(), (float) 0.005);
-        assertEquals(bean.getIntProperty(),
-                beans[0].getIntProperty());
-        assertEquals(bean.getLongProperty(),
-                beans[0].getLongProperty());
-        assertEquals(bean.getStringProperty(),
-                beans[0].getStringProperty());
+        assertEquals(
+            bean.getBooleanProperty(),
+            beans[0].getBooleanProperty()
+        );
+        assertEquals(
+            bean.isBooleanSecond(),
+            beans[0].isBooleanSecond()
+        );
+        assertEquals(
+            bean.getByteProperty(),
+            beans[0].getByteProperty()
+        );
+        assertEquals(
+            bean.getDoubleProperty(),
+            beans[0].getDoubleProperty(), 0.005
+        );
+        assertEquals(
+            bean.getFloatProperty(),
+            beans[0].getFloatProperty(), (float) 0.005
+        );
+        assertEquals(
+            bean.getIntProperty(),
+            beans[0].getIntProperty()
+        );
+        assertEquals(
+            bean.getLongProperty(),
+            beans[0].getLongProperty()
+        );
+        assertEquals(
+            bean.getStringProperty(),
+            beans[0].getStringProperty()
+        );
     }
 
     // Test row index manipulations
@@ -241,7 +273,8 @@ abstract class DataModelTestCaseBase {
         try {
             model.setRowIndex(-2);
             fail("Should have thrown IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e) {
             // Expected result
         }
     }
@@ -254,7 +287,8 @@ abstract class DataModelTestCaseBase {
                 assertTrue(iterator.hasNext());
                 assertNotNull(iterator.next());
             }
-        } else {
+        }
+        else {
             assertTrue(iterator.hasNext());
             assertNotNull(iterator.next());
         }
@@ -263,7 +297,8 @@ abstract class DataModelTestCaseBase {
         try {
             iterator.next();
             assertTrue(false);
-        } catch (NoSuchElementException nsee) {
+        }
+        catch (NoSuchElementException nsee) {
             // expected
         }
     }
@@ -293,40 +328,53 @@ abstract class DataModelTestCaseBase {
         MockedJavaBean bean = data();
         assertNotNull(bean, "Row " + i + " data");
         assertEquals(
-                beans[i].getBooleanProperty(),
-                bean.getBooleanProperty(), prompt + "booleanProperty");
+            beans[i].getBooleanProperty(),
+            bean.getBooleanProperty(), prompt + "booleanProperty"
+        );
         assertEquals(
-                beans[i].isBooleanSecond(),
-                bean.isBooleanSecond(), prompt + "booleanSecond");
+            beans[i].isBooleanSecond(),
+            bean.isBooleanSecond(), prompt + "booleanSecond"
+        );
         assertEquals(
-                beans[i].getByteProperty(),
-                bean.getByteProperty(), prompt + "byteProperty");
+            beans[i].getByteProperty(),
+            bean.getByteProperty(), prompt + "byteProperty"
+        );
         assertEquals(
-                "" + beans[i].getDoubleProperty(),
-                "" + bean.getDoubleProperty(), prompt + "doubleProperty");
+            "" + beans[i].getDoubleProperty(),
+            "" + bean.getDoubleProperty(), prompt + "doubleProperty"
+        );
         assertEquals(
-                "" + beans[i].getFloatProperty(),
-                "" + bean.getFloatProperty(), prompt + "floatProperty");
+            "" + beans[i].getFloatProperty(),
+            "" + bean.getFloatProperty(), prompt + "floatProperty"
+        );
         assertEquals(
-                beans[i].getIntProperty(),
-                bean.getIntProperty(), prompt + "intProperty");
+            beans[i].getIntProperty(),
+            bean.getIntProperty(), prompt + "intProperty"
+        );
         assertEquals(
-                beans[i].getLongProperty(),
-                bean.getLongProperty(), prompt + "longProperty");
+            beans[i].getLongProperty(),
+            bean.getLongProperty(), prompt + "longProperty"
+        );
         assertEquals(
-                beans[i].getNullProperty(),
-                bean.getNullProperty(), prompt + "nullProperty");
+            beans[i].getNullProperty(),
+            bean.getNullProperty(), prompt + "nullProperty"
+        );
         assertEquals(
-                beans[i].getReadOnlyProperty(),
-                bean.getReadOnlyProperty(), prompt + "readOnlyProperty");
+            beans[i].getReadOnlyProperty(),
+            bean.getReadOnlyProperty(), prompt + "readOnlyProperty"
+        );
         assertEquals(
-                beans[i].getShortProperty(),
-                bean.getShortProperty(), prompt + "shortProperty");
+            beans[i].getShortProperty(),
+            bean.getShortProperty(), prompt + "shortProperty"
+        );
         assertEquals(
-                beans[i].getStringProperty(),
-                bean.getStringProperty(), prompt + "stringProperty");
+            beans[i].getStringProperty(),
+            bean.getStringProperty(), prompt + "stringProperty"
+        );
         assertEquals(
-                beans[i].getWriteOnlyPropertyValue(),
-                bean.getWriteOnlyPropertyValue(), prompt + "writeOnlyProperty");
+            beans[i].getWriteOnlyPropertyValue(),
+            bean.getWriteOnlyPropertyValue(), prompt + "writeOnlyProperty"
+        );
     }
+
 }

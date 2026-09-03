@@ -65,4 +65,5 @@ public class FacesConfigELResolver extends ELResolver {
     private void doPostConstruct() {
         postConstructCalled = "@PostConstruct called";
     }
+
 }

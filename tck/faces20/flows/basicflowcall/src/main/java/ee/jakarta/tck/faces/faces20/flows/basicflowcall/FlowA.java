@@ -36,15 +36,16 @@ public class FlowA implements Serializable {
         String flowId = "flow-a";
         flowBuilder.id("", flowId);
         flowBuilder.viewNode(flowId, "/" + flowId + "/" + flowId + ".xhtml")
-                .markAsStartNode();
+            .markAsStartNode();
         flowBuilder.returnNode("taskFlowReturn1")
-                .fromOutcome("#{flow_a_Bean.returnValue}");
+            .fromOutcome("#{flow_a_Bean.returnValue}");
         flowBuilder.inboundParameter("param1FromFlowB", "#{flowScope.param1Value}");
         flowBuilder.inboundParameter("param2FromFlowB", "#{flowScope.param2Value}");
         flowBuilder.flowCallNode("callB").flowReference("", "flow-b")
-                .outboundParameter("param1FromFlowA", "param1Value")
-                .outboundParameter("param2FromFlowA", "param2Value");
+            .outboundParameter("param1FromFlowA", "param1Value")
+            .outboundParameter("param2FromFlowA", "param2Value");
 
         return flowBuilder.getFlow();
     }
+
 }

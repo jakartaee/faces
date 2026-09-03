@@ -29,4 +29,5 @@ public class FlowBBean implements Serializable {
     public String getName() {
         return "flowB";
     }
+
 }

@@ -24,8 +24,8 @@ package jakarta.faces.view;
 public interface BehaviorHolderAttachedObjectTarget extends AttachedObjectTarget {
 
     /**
-     * Returns whether the event set on this target is the default event, e.g. as set by a tag via the
-     * "default" attribute.
+     * Returns whether the event set on this target is the default event, e.g. as set by a tag via the "default" attribute.
+     *
      * @return whether this target has the default event
      */
     boolean isDefaultEvent();

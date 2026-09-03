@@ -26,14 +26,12 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An h:dataTable built programmatically and added to a panelGroup by a commandButton's actionListener must render
- * its dynamic rows after submit.
+ * An h:dataTable built programmatically and added to a panelGroup by a commandButton's actionListener must render its dynamic rows after submit.
  */
 class Issue2627IT extends BaseITNG {
 
     /**
-     * Initially the page has no table rows; after clicking the button the dynamically created h:dataTable renders
-     * its values (one, two, three, four).
+     * Initially the page has no table rows; after clicking the button the dynamically created h:dataTable renders its values (one, two, three, four).
      *
      * @see jakarta.faces.component.html.HtmlDataTable
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2627
@@ -53,4 +51,5 @@ class Issue2627IT extends BaseITNG {
         assertTrue(page.containsText("three"), "three");
         assertTrue(page.containsText("four"), "four");
     }
+
 }

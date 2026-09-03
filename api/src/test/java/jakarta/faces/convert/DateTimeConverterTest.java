@@ -89,9 +89,8 @@ public class DateTimeConverterTest {
     /**
      * Test that localTime parsing accepts user input with regular space before AM/PM.
      *
-     * On JDK 21+, DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM) with Locale.US
-     * produces a pattern that uses NNBSP (U+202F) between time and AM/PM marker.
-     * Users naturally type regular spaces (U+0020), causing a parse failure.
+     * On JDK 21+, DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM) with Locale.US produces a pattern that uses NNBSP (U+202F) between time and AM/PM
+     * marker. Users naturally type regular spaces (U+0020), causing a parse failure.
      *
      * @see <a href="https://bugs.openjdk.org/browse/JDK-8324308">JDK-8324308</a>
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/5399">GitHub issue #5399</a>
@@ -117,8 +116,8 @@ public class DateTimeConverterTest {
     }
 
     /**
-     * Test that localTime parsing works with NNBSP (the JDK 21+ character).
-     * This verifies the formatter itself works — the input just uses the "right" character.
+     * Test that localTime parsing works with NNBSP (the JDK 21+ character). This verifies the formatter itself works — the input just uses the "right"
+     * character.
      *
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/5399">GitHub issue #5399</a>
      */
@@ -156,7 +155,7 @@ public class DateTimeConverterTest {
         // Format a known value to get the expected formatted string, then replace NNBSP with regular space
         // to simulate user input.
         DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                .withLocale(Locale.US);
+            .withLocale(Locale.US);
         LocalDateTime testDateTime = LocalDateTime.of(2024, 3, 15, 10, 30, 0);
         String formatted = formatter.format(testDateTime);
         String userInput = formatted.replace('\u202f', ' ');
@@ -169,8 +168,8 @@ public class DateTimeConverterTest {
     }
 
     /**
-     * Test that getAsString and then getAsObject roundtrip works when the formatted output
-     * is manually typed by a user (i.e., NNBSP replaced with regular space).
+     * Test that getAsString and then getAsObject roundtrip works when the formatted output is manually typed by a user (i.e., NNBSP replaced with regular
+     * space).
      *
      * @see <a href="https://github.com/eclipse-ee4j/mojarra/issues/5399">GitHub issue #5399</a>
      */
@@ -199,8 +198,8 @@ public class DateTimeConverterTest {
     }
 
     /**
-     * Test that type "instant" formats and parses using the ISO 8601 instant representation, which is what
-     * {@link Instant#toString()} and {@link Instant#parse(CharSequence)} use.
+     * Test that type "instant" formats and parses using the ISO 8601 instant representation, which is what {@link Instant#toString()} and
+     * {@link Instant#parse(CharSequence)} use.
      *
      * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
      */
@@ -214,8 +213,8 @@ public class DateTimeConverterTest {
     }
 
     /**
-     * Test that type "instant" resolves the date and time fields of an explicit pattern against the configured time zone,
-     * as an {@link Instant} does not carry one by itself.
+     * Test that type "instant" resolves the date and time fields of an explicit pattern against the configured time zone, as an {@link Instant} does not carry
+     * one by itself.
      *
      * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
      */
@@ -231,8 +230,8 @@ public class DateTimeConverterTest {
     }
 
     /**
-     * Test that type "year" formats and parses using the ISO 8601 year representation, which is what
-     * {@link Year#toString()} and {@link Year#parse(CharSequence)} use.
+     * Test that type "year" formats and parses using the ISO 8601 year representation, which is what {@link Year#toString()} and
+     * {@link Year#parse(CharSequence)} use.
      *
      * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
      */
@@ -245,8 +244,8 @@ public class DateTimeConverterTest {
     }
 
     /**
-     * Test that type "yearMonth" formats and parses using the ISO 8601 year-month representation, which is what
-     * {@link YearMonth#toString()} and {@link YearMonth#parse(CharSequence)} use.
+     * Test that type "yearMonth" formats and parses using the ISO 8601 year-month representation, which is what {@link YearMonth#toString()} and
+     * {@link YearMonth#parse(CharSequence)} use.
      *
      * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
      */
@@ -259,8 +258,8 @@ public class DateTimeConverterTest {
     }
 
     /**
-     * Test that type "monthDay" formats and parses using the ISO 8601 month-day representation, which is what
-     * {@link MonthDay#toString()} and {@link MonthDay#parse(CharSequence)} use.
+     * Test that type "monthDay" formats and parses using the ISO 8601 month-day representation, which is what {@link MonthDay#toString()} and
+     * {@link MonthDay#parse(CharSequence)} use.
      *
      * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
      */
@@ -305,9 +304,8 @@ public class DateTimeConverterTest {
     }
 
     /**
-     * Test that unparseable input for the new types results in a ConverterException rather than in a silent null, which
-     * is what happens when a type is not covered by the message selection in
-     * {@link DateTimeConverter#getAsObject(FacesContext, jakarta.faces.component.UIComponent, String)}.
+     * Test that unparseable input for the new types results in a ConverterException rather than in a silent null, which is what happens when a type is not
+     * covered by the message selection in {@link DateTimeConverter#getAsObject(FacesContext, jakarta.faces.component.UIComponent, String)}.
      *
      * @see <a href="https://github.com/jakartaee/faces/issues/2211">GitHub issue #2211</a>
      */
@@ -321,8 +319,10 @@ public class DateTimeConverterTest {
 
     private void assertUnparseable(String type, String value) {
         DateTimeConverter converter = createConverter(type);
-        assertThrows(ConverterException.class, () -> converter.getAsObject(facesContext, component, value),
-                () -> "Type " + type + " must reject '" + value + '\'');
+        assertThrows(
+            ConverterException.class, () -> converter.getAsObject(facesContext, component, value),
+            () -> "Type " + type + " must reject '" + value + '\''
+        );
     }
 
     private static DateTimeConverter createConverter(String type) {
@@ -334,9 +334,11 @@ public class DateTimeConverterTest {
 
     private static void requireNnbspInPattern(FormatStyle dateStyle, FormatStyle timeStyle) {
         String localizedPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(
-                dateStyle, timeStyle, IsoChronology.INSTANCE, Locale.US);
+            dateStyle, timeStyle, IsoChronology.INSTANCE, Locale.US
+        );
         if (!localizedPattern.contains("\u202f")) {
             throw new TestAbortedException("JDK 21+ required: localized pattern does not contain NNBSP");
         }
     }
+
 }

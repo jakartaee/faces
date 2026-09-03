@@ -17,5 +17,5 @@
 package ee.jakarta.tck.faces.faces23.validate_whole_bean;
 
 public interface PasswordValidationGroup {
- // NOPE   
+    // NOPE
 }

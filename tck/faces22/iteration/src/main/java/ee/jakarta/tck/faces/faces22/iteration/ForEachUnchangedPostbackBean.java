@@ -25,8 +25,8 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs a page that iterates the same three logical rows through a c:forEach over each supported source kind - a List,
- * an array, a begin/end integer range and a Map - so a no-op postback can assert every kind re-renders unchanged.
+ * Backs a page that iterates the same three logical rows through a c:forEach over each supported source kind - a List, an array, a begin/end integer range and
+ * a Map - so a no-op postback can assert every kind re-renders unchanged.
  */
 @Named
 @ViewScoped
@@ -68,4 +68,5 @@ public class ForEachUnchangedPostbackBean implements Serializable {
         postbacks++;
         return null;
     }
+
 }

@@ -25,15 +25,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Once the flash has been consumed, the cookie that carried it must be dropped again instead of
- * lingering in the browser. The cookie's name is implementation-specific, so the drop is observed as
- * a strict decrease of the browser's cookie count over the two hops that consume the flash.
+ * Once the flash has been consumed, the cookie that carried it must be dropped again instead of lingering in the browser. The cookie's name is
+ * implementation-specific, so the drop is observed as a strict decrease of the browser's cookie count over the two hops that consume the flash.
  */
 class Issue2866IT extends BaseITNG {
 
     /**
-     * The first view writes the flash and renders a message; neither the second nor the third view
-     * reads the flash, and by the third view the flash cookie is gone.
+     * The first view writes the flash and renders a message; neither the second nor the third view reads the flash, and by the third view the flash cookie is
+     * gone.
      *
      * @see jakarta.faces.context.Flash
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2866
@@ -48,7 +47,10 @@ class Issue2866IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
         page.guardHttp(page.findElement(By.id("link"))::click);
 
-        assertTrue(getWebDriver().manage().getCookies().size() < cookiesWhileFlashIsSet,
-                "The flash cookie must be dropped once the flash has been consumed");
+        assertTrue(
+            getWebDriver().manage().getCookies().size() < cookiesWhileFlashIsSet,
+            "The flash cookie must be dropped once the flash has been consumed"
+        );
     }
+
 }

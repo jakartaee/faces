@@ -37,8 +37,10 @@ class Issue2725IT extends BaseITNG {
     void quoteInScriptSurvivesInitialRender() {
         WebPage page = getPage("issue2725.xhtml");
 
-        assertTrue(page.getSource().contains(SCRIPT_BODY),
-                "The quote inside the script must be written through unescaped.");
+        assertTrue(
+            page.getSource().contains(SCRIPT_BODY),
+            "The quote inside the script must be written through unescaped."
+        );
     }
 
 }

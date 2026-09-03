@@ -23,8 +23,8 @@ import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.SystemEvent;
 
 /**
- * Inserts a child at index 1, i.e. in between two pre-existing static children, rather than
- * appending it. The insertion index must be honored on the initial render and replayed on postback.
+ * Inserts a child at index 1, i.e. in between two pre-existing static children, rather than appending it. The insertion index must be honored on the initial
+ * render and replayed on postback.
  */
 @FacesComponent(value = "ee.jakarta.tck.faces.faces23.dynamic_components.Issue2376Component")
 public class Issue2376Component extends DynamicComponentBase {
@@ -32,8 +32,7 @@ public class Issue2376Component extends DynamicComponentBase {
     public static final String DYNAMIC_VALUE = "Dynamic Text";
 
     /**
-     * Renders its children only. The marker output of {@link ComponentRenderer} would end up in
-     * between the children whose relative order this test asserts.
+     * Renders its children only. The marker output of {@link ComponentRenderer} would end up in between the children whose relative order this test asserts.
      */
     public Issue2376Component() {
         setRendererType(null);
@@ -49,4 +48,5 @@ public class Issue2376Component extends DynamicComponentBase {
         dynamic.setValue(DYNAMIC_VALUE);
         getChildren().add(1, dynamic);
     }
+
 }

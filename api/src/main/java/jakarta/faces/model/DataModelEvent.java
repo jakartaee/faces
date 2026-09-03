@@ -20,8 +20,7 @@ import java.util.EventObject;
 
 /**
  * <p>
- * <strong>DataModelEvent</strong> represents an event of interest to registered listeners that occurred on the
- * specified {@link DataModel}.
+ * <strong>DataModelEvent</strong> represents an event of interest to registered listeners that occurred on the specified {@link DataModel}.
  * </p>
  */
 
@@ -38,8 +37,7 @@ public class DataModelEvent extends EventObject {
      *
      * @param model The {@link DataModel} on which this event occurred
      * @param index The zero relative row index for which this event occurred, or -1 for no specific row association
-     * @param data Representation of the data for the row specified by <code>index</code>, or <code>null</code> for no
-     * particular row data
+     * @param data Representation of the data for the row specified by <code>index</code>, or <code>null</code> for no particular row data
      */
     public DataModelEvent(DataModel<?> model, int index, Object data) {
 

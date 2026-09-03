@@ -16,6 +16,7 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 package jakarta.faces.component.html;
+
 import static jakarta.faces.component.html.HtmlComponentUtils.handleAttribute;
 import static jakarta.faces.component.html.HtmlEvents.getHtmlElementEventNames;
 
@@ -29,8 +30,8 @@ import jakarta.faces.component.behavior.ClientBehaviorHolder;
  * Represents an HTML <code>img</code> element, used to retrieve and render a graphical image.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Image</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Image</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder {
@@ -52,8 +53,29 @@ public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder 
      *
      */
     protected enum PropertyKeys {
-        alt, dir, height, ismap, lang, longdesc, onclick, ondblclick, onkeydown, onkeypress, onkeyup, onmousedown, onmousemove, onmouseout, onmouseover,
-        onmouseup, role, style, styleClass, title, usemap, width,;
+
+        alt,
+        dir,
+        height,
+        ismap,
+        lang,
+        longdesc,
+        onclick,
+        ondblclick,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        role,
+        style,
+        styleClass,
+        title,
+        usemap,
+        width,;
 
         String toString;
 
@@ -68,6 +90,7 @@ public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder 
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -103,9 +126,8 @@ public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder 
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public java.lang.String getDir() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.dir);
@@ -157,9 +179,8 @@ public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder 
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this image is to be used as a server side image map. Such an image must be enclosed
-     * within a hyperlink ("a"). A value of false causes no attribute to be rendered, while a value of true causes the
-     * attribute to be rendered as ismap="ismap".
+     * Contents: Flag indicating that this image is to be used as a server side image map. Such an image must be enclosed within a hyperlink ("a"). A value of
+     * false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as ismap="ismap".
      */
     public boolean isIsmap() {
         return getStateHelper().eval(PropertyKeys.ismap, false);
@@ -498,16 +519,14 @@ public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder 
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -560,8 +579,8 @@ public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder 
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -660,7 +679,7 @@ public class HtmlGraphicImage extends UIGraphic implements ClientBehaviorHolder 
 
     @Override
     public Collection<String> getEventNames() {
-        return getHtmlElementEventNames(getFacesContext()); 
+        return getHtmlElementEventNames(getFacesContext());
     }
 
     @Override

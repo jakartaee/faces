@@ -37,8 +37,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Issue2899IT extends BaseITNG {
 
     /**
-     * The {@link ResourceHandler} must honor a conditional request: a resource
-     * request carrying an {@code If-Modified-Since} matching the resource's
+     * The {@link ResourceHandler} must honor a conditional request: a resource request carrying an {@code If-Modified-Since} matching the resource's
      * {@code Last-Modified} must yield a 304 Not Modified.
      *
      * @see ResourceHandler
@@ -54,15 +53,17 @@ public class Issue2899IT extends BaseITNG {
         assertEquals(200, initial.statusCode());
 
         String lastModified = initial.headers().firstValue("Last-Modified")
-                .orElseGet(() -> initial.headers().firstValue("Date").orElse(null));
+            .orElseGet(() -> initial.headers().firstValue("Date").orElse(null));
         assertNotNull(lastModified, "Resource response must carry a Last-Modified (or Date) header");
 
         HttpResponse<String> conditional = newHttpClient().send(
-                newBuilder(create(cssUrl))
-                        .header("If-Modified-Since", lastModified)
-                        .header("Cache-Control", "max-age=0")
-                        .build(),
-                ofString());
+            newBuilder(create(cssUrl))
+                .header("If-Modified-Since", lastModified)
+                .header("Cache-Control", "max-age=0")
+                .build(),
+            ofString()
+        );
         assertEquals(304, conditional.statusCode());
     }
+
 }

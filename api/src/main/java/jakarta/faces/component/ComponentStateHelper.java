@@ -33,8 +33,8 @@ import jakarta.faces.context.FacesContext;
 /**
  * A base implementation for maps which implement the PartialStateHolder and TransientStateHolder interfaces.
  *
- * This can be used as a base-class for all state-holder implementations in components, converters and validators and
- * other implementations of the StateHolder interface.
+ * This can be used as a base-class for all state-holder implementations in components, converters and validators and other implementations of the StateHolder
+ * interface.
  */
 @SuppressWarnings("unchecked") // the state maps hold heterogeneous values as Object and return them as the caller-requested type.
 class ComponentStateHelper implements StateHelper, TransientStateHelper {
@@ -42,15 +42,13 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
     private final UIComponent component;
     private boolean isTransient;
     /**
-     * Tracks state mutations after {@code component.initialStateMarked()} flips true.
-     * Lazily allocated on the first write through {@link #deltaMap()}; reads treat
-     * {@code null} as an empty map.
+     * Tracks state mutations after {@code component.initialStateMarked()} flips true. Lazily allocated on the first write through {@link #deltaMap()}; reads
+     * treat {@code null} as an empty map.
      */
     private Map<Serializable, Object> deltaMap;
     /**
-     * Component state written before {@code initialStateMarked()} (the bulk of buildView state).
-     * Lazily allocated on the first write through {@link #defaultMap()}; reads treat {@code null}
-     * as an empty map, so a component that never stores state pays no HashMap allocation.
+     * Component state written before {@code initialStateMarked()} (the bulk of buildView state). Lazily allocated on the first write through
+     * {@link #defaultMap()}; reads treat {@code null} as an empty map, so a component that never stores state pays no HashMap allocation.
      */
     private Map<Serializable, Object> defaultMap;
     private Map<Object, Object> transientState;
@@ -63,9 +61,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
     }
 
     /**
-     * Returns the delta map, allocating it on first access. All write sites must route
-     * through this accessor; read-only sites should treat {@code deltaMap == null} as
-     * an empty map to avoid spurious allocation.
+     * Returns the delta map, allocating it on first access. All write sites must route through this accessor; read-only sites should treat
+     * {@code deltaMap == null} as an empty map to avoid spurious allocation.
      */
     private Map<Serializable, Object> deltaMap() {
         if (deltaMap == null) {
@@ -75,8 +72,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
     }
 
     /**
-     * Returns the default map, allocating it on first access. All write sites must route through
-     * this accessor; read-only sites treat {@code defaultMap == null} as an empty map.
+     * Returns the default map, allocating it on first access. All write sites must route through this accessor; read-only sites treat
+     * {@code defaultMap == null} as an empty map.
      */
     private Map<Serializable, Object> defaultMap() {
         if (defaultMap == null) {
@@ -177,8 +174,7 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
     }
 
     /**
-     * Get the object from the main-map. As everything is written through from the delta-map to the main-map, this should be
-     * enough.
+     * Get the object from the main-map. As everything is written through from the delta-map to the main-map, this should be enough.
      *
      * @param key
      */
@@ -342,9 +338,11 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
             if (value != null) {
                 if (value instanceof Collection) {
                     value = restoreAttachedState(context, value);
-                } else if (value instanceof StateHolderSaver) {
+                }
+                else if (value instanceof StateHolderSaver) {
                     value = ((StateHolderSaver) value).restore(context);
-                } else {
+                }
+                else {
                     value = value instanceof Serializable ? value : restoreAttachedState(context, value);
                 }
             }
@@ -353,7 +351,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
                 for (Map.Entry<String, Object> entry : ((Map<String, Object>) value).entrySet()) {
                     put(serializable, entry.getKey(), entry.getValue());
                 }
-            } else if (value instanceof List) {
+            }
+            else if (value instanceof List) {
                 List<Object> current = (List<Object>) get(serializable);
                 for (Object item : (List<?>) value) {
                     if (current == null || !current.contains(item)) {
@@ -363,7 +362,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
                         }
                     }
                 }
-            } else {
+            }
+            else {
                 put(serializable, value);
                 handleAttribute(serializable.toString(), value);
             }
@@ -371,8 +371,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
     }
 
     /*
-     * Because our renderers optimize we need to make sure that upon restore we mimic the handleAttribute of our standard
-     * generated HTML components setter methods -- including where in the list it records a name, not only that it does.
+     * Because our renderers optimize we need to make sure that upon restore we mimic the handleAttribute of our standard generated HTML components setter
+     * methods -- including where in the list it records a name, not only that it does.
      */
     private void handleAttribute(String name, Object value) {
         List<String> setAttributes = (List<String>) component.getAttributes().get(PackageUtils.ATTRIBUTES_THAT_ARE_SET);
@@ -390,7 +390,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
                 if (valueExpression == null) {
                     setAttributes.remove(name);
                 }
-            } else {
+            }
+            else {
                 int index = insertionPoint(setAttributes, name);
                 if (index >= 0) {
                     setAttributes.add(index, name);
@@ -400,13 +401,11 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
     }
 
     /**
-     * Returns the index at which {@code name} belongs for the recorded attributes to stay in natural order, or -1 when
-     * it is recorded already.
+     * Returns the index at which {@code name} belongs for the recorded attributes to stay in natural order, or -1 when it is recorded already.
      * <p>
-     * Mirrors {@code jakarta.faces.component.html.HtmlComponentUtils.insertionPoint}, which is package-private to a
-     * package this one cannot see. The two must agree: a name recorded here in a different position than the setter
-     * would have put it makes a component restored from full state render its attributes in a different order than the
-     * same component built from the view.
+     * Mirrors {@code jakarta.faces.component.html.HtmlComponentUtils.insertionPoint}, which is package-private to a package this one cannot see. The two must
+     * agree: a name recorded here in a different position than the setter would have put it makes a component restored from full state render its attributes in
+     * a different order than the same component built from the view.
      */
     private static int insertionPoint(List<String> setAttributes, String name) {
         int index = setAttributes.size();
@@ -494,7 +493,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
         if (list != null) {
             if (ret == null) {
                 ret = list.remove(value);
-            } else {
+            }
+            else {
                 list.remove(value);
             }
 
@@ -521,7 +521,8 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
         if (map != null) {
             if (ret == null) {
                 ret = map.remove(mapKey);
-            } else {
+            }
+            else {
                 map.remove(mapKey);
 
             }
@@ -586,4 +587,5 @@ class ComponentStateHelper implements StateHelper, TransientStateHelper {
     public Object saveTransientState(FacesContext context) {
         return transientState;
     }
+
 }

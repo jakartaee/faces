@@ -27,7 +27,7 @@
     </h:head>
     <h:body>
         <c:set var="yearPattern" value="#{param.acceptBce ? 'uuuu' : 'yyyy'}" />
-        
+
         <h:form id="form">
             <h:inputText id="inputDate" value="#{issue5541Bean.date}">
                 <f:convertDateTime pattern="yyyy-MM-dd" />

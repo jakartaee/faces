@@ -25,17 +25,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.http.HttpResponse;
 import java.util.List;
 
+import jakarta.faces.context.ExceptionHandler;
+import jakarta.faces.event.PhaseListener;
+
 import org.junit.jupiter.api.Test;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
-import jakarta.faces.context.ExceptionHandler;
-import jakarta.faces.event.PhaseListener;
 
 class Spec1216IT extends BaseITNG {
 
     /**
-     * Exceptions thrown by a faces-config.xml lifecycle PhaseListener and by an f:phaseListener registered on the
-     * UIViewRoot must both reach the custom ExceptionHandler (which records each message in a custom response header).
+     * Exceptions thrown by a faces-config.xml lifecycle PhaseListener and by an f:phaseListener registered on the UIViewRoot must both reach the custom
+     * ExceptionHandler (which records each message in a custom response header).
      *
      * @see ExceptionHandler
      * @see PhaseListener
@@ -44,13 +45,18 @@ class Spec1216IT extends BaseITNG {
     @Test
     void testViewRootPhaseListener() throws Exception {
         HttpResponse<String> response = newHttpClient().send(
-                newBuilder(create(webUrl + "spec1216ViewPhaseListener.xhtml")).build(), ofString());
+            newBuilder(create(webUrl + "spec1216ViewPhaseListener.xhtml")).build(), ofString()
+        );
 
         List<String> headers = response.headers().allValues(Spec1216ExceptionHandler.HEADER);
         assertEquals(
-                List.of("Thrown from faces-config.xml PhaseListener",
-                        "Thrown from faces-config.xml PhaseListener",
-                        "Thrown from UIViewRoot PhaseListener"),
-                headers);
+            List.of(
+                "Thrown from faces-config.xml PhaseListener",
+                "Thrown from faces-config.xml PhaseListener",
+                "Thrown from UIViewRoot PhaseListener"
+            ),
+            headers
+        );
     }
+
 }

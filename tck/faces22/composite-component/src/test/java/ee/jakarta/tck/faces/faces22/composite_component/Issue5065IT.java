@@ -54,4 +54,5 @@ class Issue5065IT extends BaseITNG {
         assertEquals(componentWrapperInvokeApplication, componentWrapperRenderResponse, "same componentWrapper component is reused during render response");
 
     }
+
 }

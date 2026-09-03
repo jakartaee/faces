@@ -15,13 +15,12 @@
  */
 package ee.jakarta.tck.faces.faces22.view_param_locale;
 
+import java.io.Serializable;
 import java.util.Locale;
 
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.convert.Converter;
 import jakarta.inject.Named;
-
-import java.io.Serializable;
 
 @Named
 @SessionScoped
@@ -42,4 +41,5 @@ public class ViewParamLocaleBean implements Serializable {
     public Locale getLocale() {
         return locale;
     }
+
 }

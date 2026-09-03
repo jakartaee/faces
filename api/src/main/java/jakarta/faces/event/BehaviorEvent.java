@@ -24,8 +24,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <strong class="changed_added_2_0 changed_modified_2_3">BehaviorEvent</strong> is the event that can be generated from
- * component {@link jakarta.faces.component.behavior.Behavior}.
+ * <strong class="changed_added_2_0 changed_modified_2_3">BehaviorEvent</strong> is the event that can be generated from component
+ * {@link jakarta.faces.component.behavior.Behavior}.
  * </p>
  *
  * @since 2.0
@@ -109,4 +109,5 @@ public abstract class BehaviorEvent extends FacesEvent {
     public Behavior getBehavior() {
         return behavior;
     }
+
 }

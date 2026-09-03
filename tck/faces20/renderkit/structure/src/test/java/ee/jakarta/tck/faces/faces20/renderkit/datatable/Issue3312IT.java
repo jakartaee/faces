@@ -43,9 +43,8 @@ class Issue3312IT extends BaseITNG {
     };
 
     /**
-     * A single data table carrying the caption, colgroups, header and footer facets simultaneously
-     * must render every one of them, in the prescribed structural order, and must reproduce that
-     * exact structure after a postback rebuilds the view.
+     * A single data table carrying the caption, colgroups, header and footer facets simultaneously must render every one of them, in the prescribed structural
+     * order, and must reproduce that exact structure after a postback rebuilds the view.
      *
      * @see UIData#getFacet(String)
      * @see HtmlDataTable
@@ -67,9 +66,11 @@ class Issue3312IT extends BaseITNG {
         int previous = -1;
         for (String region : REGIONS_IN_ORDER) {
             int index = markup.indexOf(region);
-            assertTrue(index > previous,
+            assertTrue(
+                index > previous,
                 request + ": expected '" + region + "' after the preceding region, but found it at " + index
-                    + " in:\n" + markup);
+                    + " in:\n" + markup
+            );
             previous = index;
         }
 
@@ -77,4 +78,5 @@ class Issue3312IT extends BaseITNG {
         assertEquals("My Header", table.findElement(By.tagName("thead")).getText().trim(), request + " header text");
         assertEquals("My Footer", table.findElement(By.tagName("tfoot")).getText().trim(), request + " footer text");
     }
+
 }

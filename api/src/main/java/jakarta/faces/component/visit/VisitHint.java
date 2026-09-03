@@ -18,8 +18,7 @@ package jakarta.faces.component.visit;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_1">An</span> enum that specifies hints that impact the behavior of a component tree
- * visit.
+ * <span class="changed_modified_2_1">An</span> enum that specifies hints that impact the behavior of a component tree visit.
  * </p>
  *
  * @since 2.0
@@ -46,15 +45,14 @@ public enum VisitHint {
 
     /**
      * <p class="changed_added_2_1">
-     * Hint that indicates that components that normally visit children multiple times (eg. <code>UIData</code>) in an
-     * iterative fashion should instead visit each child only one time.
+     * Hint that indicates that components that normally visit children multiple times (eg. <code>UIData</code>) in an iterative fashion should instead visit
+     * each child only one time.
      * </p>
      *
      * <p class="changed_added_5_0">
-     * Visiting children repeatedly is not transparent to those children: each of them is visited once per row with the
-     * row index set to that row, and may respond to it, for example by loading the data of that row from the backing
-     * data source. This hint is therefore appropriate when the traversal only needs to locate or inspect components,
-     * and inappropriate when the traversal needs to act per row, as decoding, validating, updating and rendering do.
+     * Visiting children repeatedly is not transparent to those children: each of them is visited once per row with the row index set to that row, and may
+     * respond to it, for example by loading the data of that row from the backing data source. This hint is therefore appropriate when the traversal only needs
+     * to locate or inspect components, and inappropriate when the traversal needs to act per row, as decoding, validating, updating and rendering do.
      * </p>
      *
      * @since 2.1

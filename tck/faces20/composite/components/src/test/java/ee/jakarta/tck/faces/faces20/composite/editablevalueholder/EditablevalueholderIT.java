@@ -46,8 +46,8 @@ class EditablevalueholderIT extends BaseITNG {
     }
 
     /**
-     * The backing beans are session scoped, so each case must submit a value distinct from the one
-     * the earlier case using the same bean left behind — otherwise no value change fires at all.
+     * The backing beans are session scoped, so each case must submit a value distinct from the one the earlier case using the same bean left behind — otherwise
+     * no value change fires at all.
      */
     private void testValueListener(WebPage page, String textId, String spanId, String value) {
         WebElement input = findByIdSuffix(page, textId);
@@ -70,8 +70,12 @@ class EditablevalueholderIT extends BaseITNG {
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

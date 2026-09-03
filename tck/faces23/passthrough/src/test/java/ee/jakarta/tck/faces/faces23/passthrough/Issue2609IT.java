@@ -25,14 +25,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The {@code jsf:} namespace on HTML5 elements (fieldset, meter, label, datalist, output, keygen)
- * renders the corresponding real HTML element with its id and pass-through attributes preserved.
+ * The {@code jsf:} namespace on HTML5 elements (fieldset, meter, label, datalist, output, keygen) renders the corresponding real HTML element with its id and
+ * pass-through attributes preserved.
  */
 class Issue2609IT extends BaseITNG {
 
     /**
-     * The {@code jsf:} namespace on HTML5 {@code fieldset} elements renders real fieldset elements
-     * keeping their id and pass-through attributes (disabled, form, name).
+     * The {@code jsf:} namespace on HTML5 {@code fieldset} elements renders real fieldset elements keeping their id and pass-through attributes (disabled,
+     * form, name).
      *
      * @see jakarta.faces.component.html.HtmlOutputText
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2609
@@ -58,8 +58,8 @@ class Issue2609IT extends BaseITNG {
     }
 
     /**
-     * The {@code jsf:} namespace on HTML5 {@code meter} elements renders real meter elements
-     * keeping their id and pass-through attributes (min, max, value), with EL-bound min/max resolved.
+     * The {@code jsf:} namespace on HTML5 {@code meter} elements renders real meter elements keeping their id and pass-through attributes (min, max, value),
+     * with EL-bound min/max resolved.
      *
      * @see jakarta.faces.component.html.HtmlOutputText
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2609
@@ -84,8 +84,7 @@ class Issue2609IT extends BaseITNG {
     }
 
     /**
-     * The {@code jsf:} namespace on an HTML5 {@code label} element renders a real label element
-     * keeping its id and pass-through attributes (form, for).
+     * The {@code jsf:} namespace on an HTML5 {@code label} element renders a real label element keeping its id and pass-through attributes (form, for).
      *
      * @see jakarta.faces.component.html.HtmlOutputText
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2609
@@ -102,8 +101,8 @@ class Issue2609IT extends BaseITNG {
     }
 
     /**
-     * The {@code jsf:} namespace on an HTML5 {@code datalist} element renders a real datalist element
-     * keeping its id, and its {@code jsf:}-marked options render as real option elements with id and value.
+     * The {@code jsf:} namespace on an HTML5 {@code datalist} element renders a real datalist element keeping its id, and its {@code jsf:}-marked options
+     * render as real option elements with id and value.
      *
      * @see jakarta.faces.component.html.HtmlOutputText
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2609
@@ -123,8 +122,7 @@ class Issue2609IT extends BaseITNG {
     }
 
     /**
-     * The {@code jsf:} namespace on an HTML5 {@code output} element renders a real output element
-     * keeping its id.
+     * The {@code jsf:} namespace on an HTML5 {@code output} element renders a real output element keeping its id.
      *
      * @see jakarta.faces.component.html.HtmlOutputText
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2609
@@ -139,8 +137,7 @@ class Issue2609IT extends BaseITNG {
     }
 
     /**
-     * The {@code jsf:} namespace on an HTML5 {@code keygen} element renders a real keygen element
-     * keeping its id.
+     * The {@code jsf:} namespace on an HTML5 {@code keygen} element renders a real keygen element keeping its id.
      *
      * @see jakarta.faces.component.html.HtmlOutputText
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2609
@@ -153,4 +150,5 @@ class Issue2609IT extends BaseITNG {
         assertTrue(keygen1.contains("<keygen"), "keygen1 is rendered as a keygen element");
         assertTrue(keygen1.contains("id=\"keygen1\""), "keygen1 keeps its id");
     }
+
 }

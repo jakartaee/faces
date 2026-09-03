@@ -26,9 +26,8 @@ import jakarta.faces.lifecycle.ClientWindow;
 
 /**
  * <p class="changed_added_2_2">
- * <strong>Flow</strong> is the runtime representation of a Faces Flow. Once placed into service by the runtime, an
- * instance of this class is immutable. The implementation must be thread-safe because instances will be shared across
- * all usages of the flow within the application.
+ * <strong>Flow</strong> is the runtime representation of a Faces Flow. Once placed into service by the runtime, an instance of this class is immutable. The
+ * implementation must be thread-safe because instances will be shared across all usages of the flow within the application.
  * </p>
  *
  * <p class="changed_added_4_1">
@@ -44,8 +43,8 @@ public abstract class Flow {
 
     /**
      * <p class="changed_added_2_2">
-     * Return the immutable id for this Flow. This must be unique within the defining document (such as an Application
-     * Configuration Resources file), but need not be unique within the entire application.
+     * Return the immutable id for this Flow. This must be unique within the defining document (such as an Application Configuration Resources file), but need
+     * not be unique within the entire application.
      * </p>
      *
      * @return the id.
@@ -81,9 +80,8 @@ public abstract class Flow {
 
     /**
      * <p class="changed_added_2_2">
-     * Return the {@code MethodExpression} that must be called by the runtime as the last thing that happens before exiting
-     * this flow. Any {@link FlowScoped} beans declared for this flow must remain in scope until after control returns from
-     * the method referenced by this {@code MethodExpression}.
+     * Return the {@code MethodExpression} that must be called by the runtime as the last thing that happens before exiting this flow. Any {@link FlowScoped}
+     * beans declared for this flow must remain in scope until after control returns from the method referenced by this {@code MethodExpression}.
      * </p>
      *
      * @return the {@code MethodExpresion} for the finalizer.
@@ -95,8 +93,7 @@ public abstract class Flow {
 
     /**
      * <p class="changed_added_2_2">
-     * Return the {@code MethodExpression} that must be called by the runtime immediately after activating any
-     * {@link FlowScoped} beans declared for this flow.
+     * Return the {@code MethodExpression} that must be called by the runtime immediately after activating any {@link FlowScoped} beans declared for this flow.
      * </p>
      *
      * @return the {@code MethodExpresion} for the initializer.
@@ -111,10 +108,9 @@ public abstract class Flow {
 
     /**
      * <p class="changed_added_2_2">
-     * Return an immutable data structure containing the inbound parameters that have been declared for this flow. See
-     * {@link FlowHandler#transition} for the specification of how these parameters are used. Inbound parameters are
-     * associated with a specific flow instance, while outbound parameters are associated with a {@link FlowCallNode} that
-     * causes the transition to a new flow.
+     * Return an immutable data structure containing the inbound parameters that have been declared for this flow. See {@link FlowHandler#transition} for the
+     * specification of how these parameters are used. Inbound parameters are associated with a specific flow instance, while outbound parameters are associated
+     * with a {@link FlowCallNode} that causes the transition to a new flow.
      * </p>
      *
      * @return the inbound parameters
@@ -169,8 +165,8 @@ public abstract class Flow {
 
     /**
      * <p class="changed_added_2_2">
-     * Return the {@link FlowCallNode} that represents calling the {@code targetFlow} from this flow, or {@code null} if
-     * {@code targetFlow} cannot be reached from this flow.
+     * Return the {@link FlowCallNode} that represents calling the {@code targetFlow} from this flow, or {@code null} if {@code targetFlow} cannot be reached
+     * from this flow.
      * </p>
      *
      * @param targetFlow the flow for which the {@link FlowCallNode} is to be returned

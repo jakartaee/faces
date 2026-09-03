@@ -36,4 +36,5 @@ class Spec1329IT extends BaseITNG {
         WebPage page = getPage("spec1329.xhtml");
         assertTrue(page.containsText("param may not be null"));
     }
+
 }

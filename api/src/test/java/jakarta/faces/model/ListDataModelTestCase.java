@@ -23,7 +23,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 /**
  * <p>
- * Unit tests for {@link ListDataModel}.</p>
+ * Unit tests for {@link ListDataModel}.
+ * </p>
  */
 class ListDataModelTestCase extends DataModelTestCaseBase {
 

@@ -15,28 +15,31 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmlcommandbutton;
 
-import ee.jakarta.tck.faces.faces20.api.component.uicommand.UICommandTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlCommandButton;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uicommand.UICommandTestServlet;
+
 @WebServlet("/HtmlCommandButtonTestServlet")
 public final class HtmlCommandButtonTestServlet extends UICommandTestServlet {
 
-  private static final String[] attrNames = { "accesskey", "alt", "dir", "image", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "style", "styleClass", "tabindex", "title", "type", "disabled", "readonly" };
+    private static final String[] attrNames = { "accesskey", "alt", "dir", "image", "lang", "onblur", "onchange", "onclick", "ondblclick", "onfocus",
+        "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "onselect", "style", "styleClass",
+        "tabindex", "title", "type", "disabled", "readonly" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Button");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Button");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlCommandButton();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlCommandButton();
+    }
+
 }

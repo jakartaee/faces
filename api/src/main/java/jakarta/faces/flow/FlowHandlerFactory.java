@@ -20,8 +20,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_2">
- * <strong>FlowHandlerFactory</strong> is used by the {@link jakarta.faces.application.Application} to create the
- * singleton instance of {@link FlowHandler}.
+ * <strong>FlowHandlerFactory</strong> is used by the {@link jakarta.faces.application.Application} to create the singleton instance of {@link FlowHandler}.
  * </p>
  *
  * @since 2.2

@@ -23,9 +23,8 @@ import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 
 /**
- * Reaches for the view map of the current view root from its own constructor. The runtime instantiates a listener
- * declared in faces-config while the application is still starting up, at which point there is no request and hence no
- * view root, so this must degrade rather than fail the deployment.
+ * Reaches for the view map of the current view root from its own constructor. The runtime instantiates a listener declared in faces-config while the
+ * application is still starting up, at which point there is no request and hence no view root, so this must degrade rather than fail the deployment.
  */
 public class Issue2648Listener implements SystemEventListener {
 
@@ -56,4 +55,5 @@ public class Issue2648Listener implements SystemEventListener {
     public boolean isListenerForSource(Object source) {
         return source instanceof UIViewRoot;
     }
+
 }

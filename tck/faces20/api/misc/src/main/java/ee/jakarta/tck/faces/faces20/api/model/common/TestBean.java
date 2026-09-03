@@ -270,6 +270,7 @@ public class TestBean {
         public Inner2Bean getInner2() {
             return inner2;
         }
+
     }
 
     public static class Inner2Bean {
@@ -295,9 +296,11 @@ public class TestBean {
         public void setNicknames(Map newNicknames) {
             nicknames = newNicknames;
         }
+
     }
 
     public String getReadOnly() {
         return "readOnly";
     }
+
 }

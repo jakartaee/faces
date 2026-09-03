@@ -20,10 +20,8 @@
 package ee.jakarta.tck.faces.faces20.resource.packaging.webapproot;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
-
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.faces20.resource.common.util.ResourceChecker;
 
 import jakarta.faces.application.ResourceHandler;
 import jakarta.servlet.ServletConfig;
@@ -32,158 +30,247 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.faces20.resource.common.util.ResourceChecker;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
+
 public class TestServlet extends HttpTCKServlet {
 
-  // private indicators that a test has previously passed.
-  // this is necessary if a test is run multiple times
-  // without reloading the application
-  private boolean setGetLocaleTestPassed = false;
+    // private indicators that a test has previously passed.
+    // this is necessary if a test is run multiple times
+    // without reloading the application
+    private boolean setGetLocaleTestPassed = false;
 
-  private ServletContext servletContext;
+    private ServletContext servletContext;
 
-  // When testing Resource using image.
-  private static final int IMAGE_SIZE = 2947;
+    // When testing Resource using image.
+    private static final int IMAGE_SIZE = 2947;
 
-  // When testing Resource using stylesheet.
-  private static final int CSS_SIZE = 947;
+    // A negative test expects no resource at all, so it has no expected size.
+    private static final int NO_SIZE = -1;
 
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    servletContext = config.getServletContext();
-  }
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        servletContext = config.getServletContext();
+    }
 
-  public void destroy() {
-    super.destroy();
-  }
+    public void destroy() {
+        super.destroy();
+    }
 
-  // ------------------------------------------------------------------- Tests
-  public void resourceResPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    /**
+     * Returns the byte size of the stylesheet the resource handler is expected to resolve to, so that the check discriminates between the versions of a
+     * resource without restating their content as a constant.
+     */
+    private int sizeOf(String path) throws IOException {
+        try (InputStream input = servletContext.getResourceAsStream(path)) {
+            return input.readAllBytes().length;
+        }
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-boxer.gif",
-        IMAGE_SIZE, out);
+    // ------------------------------------------------------------------- Tests
+    public void resourceResPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  }
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-boxer.gif",
+            IMAGE_SIZE, out
+        );
 
-  public void resourceLibResPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-boxer-1.gif",
-        IMAGE_SIZE, "images", out);
-  }
+    public void resourceLibResPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceLibVerResPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-boxer-1.gif",
+            IMAGE_SIZE, "images", out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "gun.sm.gif",
-        IMAGE_SIZE, "lib", out);
-  }
+    public void resourceLibVerResPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceResVerPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "gun.sm.gif",
+            IMAGE_SIZE, "lib", out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "time.css", CSS_SIZE,
-        out);
-  }
+    public void resourceResVerPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceLibVerResVerPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "time.css",
+            sizeOf("/resources/time.css/3_2_1.css"), out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "foreground.css",
-        CSS_SIZE, "styles", out);
-  }
+    public void resourceLibVerResVerPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void reourceNoFileExtPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "foreground.css",
+            sizeOf("/resources/styles/2_0/foreground.css/3_2_1.css"), "styles", out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(),
-        "negative_test_image", IMAGE_SIZE, null, out);
-  }
+    public void reourceNoFileExtPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceLocaleDEPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(),
+            "negative_test_image", IMAGE_SIZE, null, out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-de.gif",
-        IMAGE_SIZE, out);
-  }
+    public void resourceLocaleDEPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceLocaleENPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-de.gif",
+            IMAGE_SIZE, out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-en.gif",
-        IMAGE_SIZE, "locLib", out);
-  }
+    public void resourceLocaleENPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void resourceLocaleFRPkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-en.gif",
+            IMAGE_SIZE, "locLib", out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "duke-fr.gif",
-        IMAGE_SIZE, out);
-  }
+    public void resourceLocaleFRPkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  // ------------------------------------------------------ negative test cases
-  public void resourceLibVerResVerNegativePkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "duke-fr.gif",
+            IMAGE_SIZE, out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "background.css",
-        CSS_SIZE, "styles", true, out);
-  }
+    // ------------------------------------------------------ negative test cases
+    public void resourceLibVerResVerNegativePkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void reourceLibVerResNegativePkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "background.css",
+            NO_SIZE, "styles", true, out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "never-found.css", 0,
-        "styles", true, out);
-  }
+    public void reourceLibVerResNegativePkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void reourceTrailingUSNegativePkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "never-found.css", 0,
+            "styles", true, out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "trailing.css", 0,
-        "styles", true, out);
-  }
+    public void reourceTrailingUSNegativePkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void reourceLeadingUSNegativePkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "trailing.css", 0,
+            "styles", true, out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "leading.css", 0,
-        "styles", true, out);
-  }
+    public void reourceLeadingUSNegativePkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void reourceNoUSNegetivePkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "leading.css", 0,
+            "styles", true, out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "noUnderscore.css",
-        0, "styles", true, out);
-  }
+    public void reourceNoUSNegetivePkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  public void reourceNoFileExtVerNegetivePkgTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "noUnderscore.css",
+            0, "styles", true, out
+        );
+    }
 
-    ResourceChecker.checkIndentifier(this.getTCKHandler(), "doug.css", 0,
-        "styles", true, out);
-  }
+    public void reourceNoFileExtVerNegetivePkgTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
 
-  // ---------------------------------------------------------- private methods
-  private ResourceHandler getTCKHandler() {
-    ResourceHandler handler = getFacesContext().getApplication()
-        .getResourceHandler();
+        ResourceChecker.checkIndentifier(
+            this.getTCKHandler(), "doug.css", 0,
+            "styles", true, out
+        );
+    }
 
-    return handler;
-  }
+    // ---------------------------------------------------------- private methods
+    private ResourceHandler getTCKHandler() {
+        ResourceHandler handler = getFacesContext().getApplication()
+            .getResourceHandler();
+
+        return handler;
+    }
+
 }

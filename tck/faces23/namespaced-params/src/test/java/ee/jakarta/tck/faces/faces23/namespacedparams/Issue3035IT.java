@@ -30,9 +30,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that ajax and non-ajax submits (including {@code f:param}) resolve
- * request parameters correctly when the view root is a {@link NamingContainer}
- * that prefixes every client id, with {@code prependId=false} forms.
+ * Verifies that ajax and non-ajax submits (including {@code f:param}) resolve request parameters correctly when the view root is a {@link NamingContainer} that
+ * prefixes every client id, with {@code prependId=false} forms.
  *
  * @see ExternalContext#getRequestParameterMap()
  * @see NamingContainer
@@ -115,11 +114,11 @@ class Issue3035IT extends BaseITNG {
     }
 
     /**
-     * The view root prefixes every client id, so element ids are
-     * {@code MyNamingContainer<viewId>:<fieldId>}. Match on the trailing
-     * {@code :<fieldId>} segment rather than hard-coding the generated view id.
+     * The view root prefixes every client id, so element ids are {@code MyNamingContainer<viewId>:<fieldId>}. Match on the trailing {@code :<fieldId>} segment
+     * rather than hard-coding the generated view id.
      */
     private static WebElement findBySuffix(WebPage page, String fieldId) {
         return page.findElement(By.xpath("//*[substring(@id, string-length(@id) - " + fieldId.length() + ") = ':" + fieldId + "']"));
     }
+
 }

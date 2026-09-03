@@ -15,6 +15,22 @@
  */
 package ee.jakarta.tck.faces.util.selenium;
 
+import static ee.jakarta.tck.faces.util.selenium.WebPage.STD_TIMEOUT;
+import static java.lang.Boolean.TRUE;
+import static java.nio.charset.StandardCharsets.UTF_8;
+import static java.util.Comparator.comparing;
+import static java.util.Comparator.naturalOrder;
+import static java.util.Comparator.nullsFirst;
+import static java.util.Optional.empty;
+import static java.util.function.Predicate.not;
+import static java.util.logging.Level.FINE;
+import static java.util.logging.Level.FINEST;
+import static java.util.logging.Level.INFO;
+import static java.util.logging.Level.WARNING;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.DOCUMENT;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.FETCH;
+import static org.openqa.selenium.devtools.v139.network.model.ResourceType.XHR;
+
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URLDecoder;
@@ -78,22 +94,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticator;
 import org.openqa.selenium.virtualauthenticator.VirtualAuthenticatorOptions;
 
-import static ee.jakarta.tck.faces.util.selenium.WebPage.STD_TIMEOUT;
-import static java.lang.Boolean.TRUE;
-import static java.nio.charset.StandardCharsets.UTF_8;
-import static java.util.Comparator.comparing;
-import static java.util.Comparator.naturalOrder;
-import static java.util.Comparator.nullsFirst;
-import static java.util.Optional.empty;
-import static java.util.function.Predicate.not;
-import static java.util.logging.Level.FINE;
-import static java.util.logging.Level.FINEST;
-import static java.util.logging.Level.INFO;
-import static java.util.logging.Level.WARNING;
-import static org.openqa.selenium.devtools.v139.network.model.ResourceType.DOCUMENT;
-import static org.openqa.selenium.devtools.v139.network.model.ResourceType.FETCH;
-import static org.openqa.selenium.devtools.v139.network.model.ResourceType.XHR;
-
 /**
  * Extended driver which we need for getting the http response code and the http response without having to revert to proxy solutions
  *
@@ -109,12 +109,14 @@ import static org.openqa.selenium.devtools.v139.network.model.ResourceType.XHR;
 public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWebDriver {
 
     private static final Logger LOG = Logger.getLogger(ChromeDevtoolsDriver.class.getName());
-    private static final Comparator<HttpCycleData> RESPONSE_TIME_COMPARATOR = comparing(HttpCycleData::getResponseTime,
-        nullsFirst(naturalOrder()));
+    private static final Comparator<HttpCycleData> RESPONSE_TIME_COMPARATOR = comparing(
+        HttpCycleData::getResponseTime,
+        nullsFirst(naturalOrder())
+    );
 
     /**
-     * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the
-     * selenium webdriver version must match the browser version
+     * We only want the cdp version warning once, now matter how often the driver is called if not wanted at all the selenium webdriver version must match the
+     * browser version
      */
     private static AtomicBoolean firstLog = new AtomicBoolean(TRUE);
 
@@ -124,7 +126,6 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     private ReentrantLock cycleDataWriteLock = new ReentrantLock();
     private boolean firstRequest = true;
     private String lastGet;
-
 
     public static ExtendedWebDriver stdInit() {
         Locale.setDefault(Locale.US);
@@ -227,7 +228,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             () -> devTools.send(Network.enable(empty(), empty(), empty(), empty())),
             3,
             Duration.ofMillis(150),
-            2.0);
+            2.0
+        );
     }
 
     private void initNetworkListeners(DevTools devTools) {
@@ -237,11 +239,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             cycleDataWriteLock.lock();
             try {
-                LOG.log(INFO, () -> "Recording request: " + request.getRequest().getMethod() + " "
-                    + request.getRequest().getUrl() + " [" + request.getRequestId() + "]");
+                LOG.log(
+                    INFO, () -> "Recording request: " + request.getRequest().getMethod() + " "
+                        + request.getRequest().getUrl() + " [" + request.getRequestId() + "]"
+                );
                 HttpCycleData data = findOrCreate(request.getRequestId());
                 data.request = request.getRequest();
-            } finally {
+            }
+            finally {
                 cycleDataWriteLock.unlock();
             }
         });
@@ -253,11 +258,14 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             cycleDataWriteLock.lock();
             try {
-                LOG.log(INFO, () -> "Recording response: " + response.getResponse().getUrl() + " ["
-                    + response.getRequestId() + "], code: " + response.getResponse().getStatus());
+                LOG.log(
+                    INFO, () -> "Recording response: " + response.getResponse().getUrl() + " ["
+                        + response.getRequestId() + "], code: " + response.getResponse().getStatus()
+                );
                 HttpCycleData data = findOrCreate(response.getRequestId());
                 data.responseReceived = response;
-            } finally {
+            }
+            finally {
                 cycleDataWriteLock.unlock();
             }
         });
@@ -392,15 +400,15 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         if (firstRequest) {
             firstRequest = false;
             getAndWaitForWindowAndFaces(url);
-        } else {
+        }
+        else {
             getAndWaitForFaces(url);
         }
     }
 
     /**
-     * Navigates the current window to the url and waits until the retrieved page is settled down,
-     * which means all additional XHR requests were processed.
-     * If the window was switched somehow, tries to find the right window again.
+     * Navigates the current window to the url and waits until the retrieved page is settled down, which means all additional XHR requests were processed. If
+     * the window was switched somehow, tries to find the right window again.
      *
      * @param url target link
      * @param timeout time to wait.
@@ -411,13 +419,15 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         waitForWindow.until(d -> {
             try {
                 d.get(url);
-            } catch (NoSuchWindowException e) {
+            }
+            catch (NoSuchWindowException e) {
                 switchToWindowWithUrl(lastGet);
                 return false;
             }
             try {
                 waitForJs.until(e -> !cycleData.isEmpty());
-            } catch (TimeoutException e) {
+            }
+            catch (TimeoutException e) {
                 // Will reload the page again
                 return false;
             }
@@ -430,8 +440,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     /**
-     * Navigates the current window to the url and waits until the retrieved page is settled down,
-     * which means all additional XHR requests were processed.
+     * Navigates the current window to the url and waits until the retrieved page is settled down, which means all additional XHR requests were processed.
      *
      * @param url target link
      * @param timeout time to wait.
@@ -450,7 +459,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         // we should allow it to make it to the cycleData.
         try {
             Thread.sleep(pause.toMillis());
-        } catch (InterruptedException e) {
+        }
+        catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
@@ -587,7 +597,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     public void quit() {
         try {
             delegate.quit();
-        } catch (TimeoutException e) {
+        }
+        catch (TimeoutException e) {
             // DevTools cleanup raced with browser shutdown — ignore
             LOG.log(WARNING, "Ignoring DevTools timeout during quit()", e);
         }
@@ -736,11 +747,9 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     /**
-     * Returns the cycle of the last GET, or null when it has not been responded to yet. A GET which
-     * the server answers with a redirect never gets a cycle of its own: the devtools protocol
-     * reports the redirect under the very same request id, overwriting the request with the one for
-     * the redirect target, so the cycle is then found by its target url instead of the requested
-     * one.
+     * Returns the cycle of the last GET, or null when it has not been responded to yet. A GET which the server answers with a redirect never gets a cycle of
+     * its own: the devtools protocol reports the redirect under the very same request id, overwriting the request with the one for the redirect target, so the
+     * cycle is then found by its target url instead of the requested one.
      */
     private HttpCycleData getLastGetData() {
         if (lastGet == null) {
@@ -749,22 +758,24 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
         return cycleData.stream().filter(item -> item.hasBaseUrl(lastGet)).sorted(RESPONSE_TIME_COMPARATOR.reversed())
             .findFirst()
-            .or(() -> cycleData.stream().filter(HttpCycleData::hasResponse).sorted(RESPONSE_TIME_COMPARATOR.reversed())
-                .findFirst())
+            .or(
+                () -> cycleData.stream().filter(HttpCycleData::hasResponse).sorted(RESPONSE_TIME_COMPARATOR.reversed())
+                    .findFirst()
+            )
             .orElse(null);
     }
 
     @Override
     public void printProcessedResponses() {
         cycleData.stream().filter(HttpCycleData::hasResponse).sorted(RESPONSE_TIME_COMPARATOR)
-                // Missing last api
-                .forEachOrdered(item -> {
-                    System.out.println("Url: " + item.request.getUrl());
-                    System.out.println("RequestId: " + item.requestId.toJson());
-                    Optional<TimeSinceEpoch> responseTime = item.responseReceived.getResponse().getResponseTime();
-                    System.out.println("ResponseTime: " + responseTime.orElse(null));
-                    System.out.println("ResponseStatus: " + item.responseReceived.getResponse().getStatus());
-                });
+            // Missing last api
+            .forEachOrdered(item -> {
+                System.out.println("Url: " + item.request.getUrl());
+                System.out.println("RequestId: " + item.requestId.toJson());
+                Optional<TimeSinceEpoch> responseTime = item.responseReceived.getResponse().getResponseTime();
+                System.out.println("ResponseTime: " + responseTime.orElse(null));
+                System.out.println("ResponseStatus: " + item.responseReceived.getResponse().getStatus());
+            });
     }
 
     @Override
@@ -783,6 +794,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
     }
 
     private class ChromeDriverWait extends FluentWait<ChromeDriver> {
+
         ChromeDriverWait(ChromeDriver input, Duration timeout, Duration pause) {
             super(input);
             withTimeout(timeout);
@@ -792,7 +804,8 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
         @Override
         public <V> V until(Function<? super ChromeDriver, V> isTrue) {
             return super.until(d -> {
-                if (isCommunicationInProgress()) return null; // keep waiting
+                if (isCommunicationInProgress())
+                    return null; // keep waiting
                 return isTrue.apply(d);
             });
         }
@@ -816,6 +829,7 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             }
             return false;
         }
+
     }
 
     private static void runWithRetry(Runnable r, int attempts, Duration initialDelay, double backoff) {
@@ -830,14 +844,16 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
             try {
                 r.run();
                 return;
-            } catch (WebDriverException e) {
+            }
+            catch (WebDriverException e) {
                 lastException = e;
 
                 LOG.log(WARNING, "CDP init attempt {0} failed; retrying in {1} ms", new Object[] { i, delay.toMillis() });
 
                 try {
                     Thread.sleep(delay.toMillis());
-                } catch (InterruptedException ie) {
+                }
+                catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                     throw lastException;
                 }
@@ -848,9 +864,11 @@ public class ChromeDevtoolsDriver extends RemoteWebDriver implements ExtendedWeb
 
         throw lastException;
     }
+
 }
 
 class HttpCycleData {
+
     public final RequestId requestId;
     public Request request;
     public ResponseReceived responseReceived;
@@ -889,4 +907,5 @@ class HttpCycleData {
             + ", request=" + (request == null ? null : request.getMethod() + " " + request.getUrl())
             + ", responseStatus=" + (responseReceived == null ? null : responseReceived.getResponse().getStatus()) + "]";
     }
+
 }

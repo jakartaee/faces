@@ -8,16 +8,16 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Issue5065Bean {
-    
+
     private int inlineHashCode;
     private int htmlWrapperHashCode;
     private int componentWrapperHashCode;
 
     public void submit() {
         UIViewRoot view = FacesContext.getCurrentInstance().getViewRoot();
-        inlineHashCode = view.findComponent("form:renderResponse").hashCode(); 
-        htmlWrapperHashCode = view.findComponent("form:htmlWrapper:renderResponse").hashCode(); 
-        componentWrapperHashCode = view.findComponent("form:componentWrapper:renderResponse").hashCode(); 
+        inlineHashCode = view.findComponent("form:renderResponse").hashCode();
+        htmlWrapperHashCode = view.findComponent("form:htmlWrapper:renderResponse").hashCode();
+        componentWrapperHashCode = view.findComponent("form:componentWrapper:renderResponse").hashCode();
     }
 
     public int getInlineHashCode() {
@@ -31,4 +31,5 @@ public class Issue5065Bean {
     public int getComponentWrapperHashCode() {
         return componentWrapperHashCode;
     }
+
 }

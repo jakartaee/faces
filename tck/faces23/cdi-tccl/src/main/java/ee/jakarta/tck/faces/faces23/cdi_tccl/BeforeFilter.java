@@ -28,22 +28,23 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletResponse;
 
 /**
- * Wraps every request in a thread context class loader that is a fresh child of the original. The
- * request must still complete normally: if CDI resolution is not resilient to a replaced TCCL, the
- * downstream Faces render throws and this filter renders a FAILURE marker instead.
+ * Wraps every request in a thread context class loader that is a fresh child of the original. The request must still complete normally: if CDI resolution is
+ * not resilient to a replaced TCCL, the downstream Faces render throws and this filter renders a FAILURE marker instead.
  */
 public class BeforeFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+        throws IOException, ServletException
+    {
         Thread thread = Thread.currentThread();
         ClassLoader tccl = thread.getContextClassLoader();
         thread.setContextClassLoader(new URLClassLoader(new URL[0], tccl));
 
         try {
             chain.doFilter(request, response);
-        } catch (Exception t) {
+        }
+        catch (Exception t) {
             HttpServletResponse resp = (HttpServletResponse) response;
             PrintWriter pw = resp.getWriter();
             pw.print("<html><body><p id=\"result\">FAILURE</p>");
@@ -51,12 +52,15 @@ public class BeforeFilter implements Filter {
             do {
                 pw.print("<p>Exception: " + cause.getClass().getName() + "</p>");
                 pw.print("<p>Exception Message: " + cause.getLocalizedMessage() + "</p>");
-            } while ((cause = cause.getCause()) != null);
+            }
+            while ((cause = cause.getCause()) != null);
             pw.print("</body></html>");
             resp.setStatus(200);
             pw.close();
-        } finally {
+        }
+        finally {
             thread.setContextClassLoader(tccl);
         }
     }
+
 }

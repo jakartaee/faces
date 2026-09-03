@@ -25,22 +25,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-import org.junit.jupiter.api.Test;
-
-import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import jakarta.faces.context.ExceptionHandler;
 import jakarta.faces.event.PhaseListener;
 
+import org.junit.jupiter.api.Test;
+
+import ee.jakarta.tck.faces.util.selenium.BaseITNG;
+
 /**
- * This module declares no jakarta.faces.VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS context-param, so it exercises the
- * spec default. The sibling faces22/phase-listener module pins the param to true and asserts the opposite outcome.
+ * This module declares no jakarta.faces.VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS context-param, so it exercises the spec default. The sibling
+ * faces22/phase-listener module pins the param to true and asserts the opposite outcome.
  */
 class Spec1216IT extends BaseITNG {
 
     /**
-     * By default an exception thrown by an f:phaseListener registered on the UIViewRoot must not be queued to the
-     * ExceptionHandler, whereas an exception thrown by a faces-config.xml lifecycle PhaseListener still must be. The
-     * custom ExceptionHandler records each exception it receives in a custom response header.
+     * By default an exception thrown by an f:phaseListener registered on the UIViewRoot must not be queued to the ExceptionHandler, whereas an exception thrown
+     * by a faces-config.xml lifecycle PhaseListener still must be. The custom ExceptionHandler records each exception it receives in a custom response header.
      *
      * @see ExceptionHandler
      * @see PhaseListener
@@ -50,12 +50,17 @@ class Spec1216IT extends BaseITNG {
     @Test
     void testViewRootPhaseListenerExceptionsNotQueuedByDefault() throws Exception {
         HttpResponse<String> response = newHttpClient().send(
-                newBuilder(create(webUrl + "spec1216ViewPhaseListener.xhtml")).build(), ofString());
+            newBuilder(create(webUrl + "spec1216ViewPhaseListener.xhtml")).build(), ofString()
+        );
 
         List<String> headers = response.headers().allValues(Spec1216ExceptionHandler.HEADER);
         assertEquals(
-                List.of("Thrown from faces-config.xml PhaseListener",
-                        "Thrown from faces-config.xml PhaseListener"),
-                headers);
+            List.of(
+                "Thrown from faces-config.xml PhaseListener",
+                "Thrown from faces-config.xml PhaseListener"
+            ),
+            headers
+        );
     }
+
 }

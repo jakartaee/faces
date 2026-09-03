@@ -30,4 +30,5 @@ public class Issue3625Bean {
     public String getVariable() {
         return (String) FacesContext.getCurrentInstance().getExternalContext().getFlash().get("var");
     }
+
 }

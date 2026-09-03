@@ -22,9 +22,8 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs the {@code c:if} test of {@code iftag/if-postback.xhtml}. Session scoped so the condition an action set
- * outlives the postback that set it, and every action counts itself so a postback is observable in the response
- * even when it changes nothing else.
+ * Backs the {@code c:if} test of {@code iftag/if-postback.xhtml}. Session scoped so the condition an action set outlives the postback that set it, and every
+ * action counts itself so a postback is observable in the response even when it changes nothing else.
  */
 @Named
 @SessionScoped
@@ -51,4 +50,5 @@ public class IfPostbackBean implements Serializable {
     public int getPostbacks() {
         return postbacks;
     }
+
 }

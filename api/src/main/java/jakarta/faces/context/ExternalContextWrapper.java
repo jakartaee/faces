@@ -35,15 +35,13 @@ import jakarta.faces.lifecycle.ClientWindow;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_2 changed_modified_2_3">Provides</span> a simple implementation of
- * {@link ExternalContext} that can be subclassed by developers wishing to provide specialized behavior to an existing
- * {@link ExternalContext} instance. The default implementation of all methods is to call through to the wrapped
- * {@link ExternalContext} instance.
+ * <span class="changed_modified_2_2 changed_modified_2_3">Provides</span> a simple implementation of {@link ExternalContext} that can be subclassed by
+ * developers wishing to provide specialized behavior to an existing {@link ExternalContext} instance. The default implementation of all methods is to call
+ * through to the wrapped {@link ExternalContext} instance.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.0
@@ -62,8 +60,8 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_2_3">
-     * If this external context has been decorated, the implementation doing the decorating should push the implementation
-     * being wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this external context has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor.
+     * The {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -82,8 +80,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#dispatch(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#dispatch(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#dispatch(String)
@@ -95,8 +92,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#encodeActionURL(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#encodeActionURL(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#encodeActionURL(String)
@@ -108,8 +104,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#encodeNamespace(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#encodeNamespace(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#encodeNamespace(String)
@@ -121,8 +116,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#encodePartialActionURL(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#encodePartialActionURL(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#encodePartialActionURL(String)
@@ -134,8 +128,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#encodeResourceURL(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#encodeResourceURL(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#encodeResourceURL(String)
@@ -147,8 +140,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#encodeWebsocketURL(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#encodeWebsocketURL(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#encodeWebsocketURL(String)
@@ -160,8 +152,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getApplicationMap} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getApplicationMap} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getApplicationMap()
@@ -173,8 +164,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link ExternalContext#getApplicationContextPath} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getApplicationContextPath} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getApplicationContextPath()
@@ -186,8 +176,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getAuthType} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getAuthType} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getAuthType()
@@ -199,8 +188,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getContext} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getContext} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getContext()
@@ -212,8 +200,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getInitParameter(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getInitParameter(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getInitParameter(String)
@@ -225,8 +212,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getInitParameterMap} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getInitParameterMap} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getInitParameterMap()
@@ -238,8 +224,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRemoteUser} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRemoteUser} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRemoteUser()
@@ -251,8 +236,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequest} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequest} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequest()
@@ -264,8 +248,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestContextPath} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestContextPath} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestContextPath()
@@ -277,8 +260,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestCookieMap} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestCookieMap} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestCookieMap()
@@ -290,8 +272,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestHeaderMap} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestHeaderMap} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestHeaderMap()
@@ -303,8 +284,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestHeaderValuesMap} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestHeaderValuesMap} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestHeaderValuesMap()
@@ -316,8 +296,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestLocale} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestLocale} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestLocale()
@@ -329,8 +308,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestLocales} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestLocales} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestLocales()
@@ -342,8 +320,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestMap} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestMap} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestMap()
@@ -355,8 +332,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestParameterMap} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestParameterMap} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestParameterMap()
@@ -368,8 +344,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestParameterNames} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestParameterNames} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestParameterNames()
@@ -381,8 +356,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestParameterValuesMap} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestParameterValuesMap} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestParameterValuesMap()
@@ -394,8 +368,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestPathInfo} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestPathInfo} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestPathInfo()
@@ -407,8 +380,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestServletPath} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestServletPath} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestServletPath()
@@ -420,8 +392,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResource(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResource(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResource(String)
@@ -433,8 +404,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResourceAsStream(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResourceAsStream(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResourceAsStream(String)
@@ -446,8 +416,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResourcePaths(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResourcePaths(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResourcePaths(String)
@@ -459,8 +428,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResponse} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResponse} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResponse()
@@ -472,8 +440,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getSession(boolean)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getSession(boolean)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getSession(boolean)
@@ -485,8 +452,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link ExternalContext#getSessionId(boolean)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getSessionId(boolean)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @since 2.2
@@ -500,8 +466,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getSessionMap()} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getSessionMap()} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getSessionMap()
@@ -513,8 +478,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link ExternalContext#getSessionMaxInactiveInterval()} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getSessionMaxInactiveInterval()} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getSessionMaxInactiveInterval()
@@ -526,8 +490,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link ExternalContext#setSessionMaxInactiveInterval(int)} on the
-     * wrapped {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setSessionMaxInactiveInterval(int)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setSessionMaxInactiveInterval(int)
@@ -539,8 +502,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link ExternalContext#setClientWindow} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setClientWindow} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @since 2.2
@@ -555,8 +517,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getUserPrincipal} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getUserPrincipal} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getUserPrincipal()
@@ -568,8 +529,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link ExternalContext#getClientWindow} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getClientWindow} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @since 2.2
@@ -583,8 +543,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#isUserInRole(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#isUserInRole(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#isUserInRole(String)
@@ -596,8 +555,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#log(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#log(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#log(String)
@@ -609,8 +567,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#log(String, Throwable)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#log(String, Throwable)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#log(String, Throwable)
@@ -622,8 +579,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#redirect(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#redirect(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#redirect(String)
@@ -635,8 +591,8 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#addResponseCookie(String, String, Map)} on the
-     * wrapped {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#addResponseCookie(String, String, Map)} on the wrapped {@link ExternalContext}
+     * object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#addResponseCookie(String, String, Map)
@@ -648,8 +604,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getMimeType(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getMimeType(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getMimeType(String)
@@ -661,8 +616,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getContextName} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getContextName} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getContextName()
@@ -674,8 +628,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#setRequest(Object)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setRequest(Object)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setRequest(Object)
@@ -687,8 +640,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestScheme} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestScheme} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestScheme()
@@ -700,8 +652,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestServerName} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestServerName} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestServerName()
@@ -713,8 +664,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestServerPort} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestServerPort} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestServerPort()
@@ -726,8 +676,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#setRequestCharacterEncoding(String)} on the
-     * wrapped {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setRequestCharacterEncoding(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setRequestCharacterEncoding(String)
@@ -739,8 +688,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRealPath(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRealPath(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRealPath(String)
@@ -752,8 +700,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestCharacterEncoding} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestCharacterEncoding} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestCharacterEncoding()
@@ -765,8 +712,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestContentType} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestContentType} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestContentType()
@@ -778,8 +724,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getRequestContentLength} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getRequestContentLength} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getRequestContentLength()
@@ -791,8 +736,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResponseCharacterEncoding} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResponseCharacterEncoding} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResponseCharacterEncoding()
@@ -804,8 +748,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResponseContentType} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResponseContentType} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResponseContentType()
@@ -817,8 +760,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#setResponse(Object)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setResponse(Object)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setResponse(Object)
@@ -830,8 +772,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResponseOutputStream} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResponseOutputStream} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResponseOutputStream()
@@ -843,8 +784,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResponseOutputWriter} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResponseOutputWriter} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResponseOutputWriter()
@@ -856,8 +796,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResponseCharacterEncoding} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResponseCharacterEncoding} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResponseCharacterEncoding()
@@ -869,8 +808,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#setResponseContentType(String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setResponseContentType(String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setResponseContentType(String)
@@ -882,8 +820,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#invalidateSession} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#invalidateSession} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#invalidateSession()
@@ -895,8 +832,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#setResponseHeader(String,String)} on the
-     * wrapped {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setResponseHeader(String,String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setResponseHeader(String,String)
@@ -908,8 +844,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#addResponseHeader(String,String)} on the
-     * wrapped {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#addResponseHeader(String,String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#addResponseHeader(String,String)
@@ -921,8 +856,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#setResponseBufferSize(int)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setResponseBufferSize(int)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setResponseBufferSize(int)
@@ -934,8 +868,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getResponseBufferSize()} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getResponseBufferSize()} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getResponseBufferSize()
@@ -947,8 +880,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#isResponseCommitted()} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#isResponseCommitted()} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#isResponseCommitted()
@@ -960,8 +892,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link ExternalContext#isSecure} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#isSecure} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      */
@@ -972,8 +903,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#responseReset()} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#responseReset()} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#responseReset()
@@ -985,8 +915,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#responseSendError(int,String)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#responseSendError(int,String)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#responseSendError(int,String)
@@ -998,8 +927,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#setResponseStatus(int)} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#setResponseStatus(int)} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setResponseStatus(int)
@@ -1011,8 +939,8 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link jakarta.faces.context.ExternalContext#responseFlushBuffer()} on
-     * the wrapped {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExternalContext#responseFlushBuffer()} on the wrapped {@link ExternalContext}
+     * object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#responseFlushBuffer()
@@ -1024,9 +952,8 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link jakarta.faces.context.ExternalContext#setResponseContentLength(int)} on the wrapped {@link ExternalContext}
-     * object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExternalContext#setResponseContentLength(int)} on the wrapped
+     * {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setResponseContentLength(int)
@@ -1038,9 +965,8 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p class="changed_added_4_1">
-     * The default behavior of this method is to call
-     * {@link jakarta.faces.context.ExternalContext#setResponseContentLengthLong(long)} on the wrapped {@link ExternalContext}
-     * object.
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExternalContext#setResponseContentLengthLong(long)} on the wrapped
+     * {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#setResponseContentLengthLong(long)
@@ -1052,8 +978,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link jakarta.faces.context.ExternalContext#encodeBookmarkableURL(String, java.util.Map)} on the wrapped
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExternalContext#encodeBookmarkableURL(String, java.util.Map)} on the wrapped
      * {@link ExternalContext} object.
      * </p>
      *
@@ -1066,8 +991,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call
-     * {@link jakarta.faces.context.ExternalContext#encodeRedirectURL(String, java.util.Map)} on the wrapped
+     * The default behavior of this method is to call {@link jakarta.faces.context.ExternalContext#encodeRedirectURL(String, java.util.Map)} on the wrapped
      * {@link ExternalContext} object.
      * </p>
      *
@@ -1080,8 +1004,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#getFlash()} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#getFlash()} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#getFlash()
@@ -1093,8 +1016,7 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link ExternalContext#release()} on the wrapped
-     * {@link ExternalContext} object.
+     * The default behavior of this method is to call {@link ExternalContext#release()} on the wrapped {@link ExternalContext} object.
      * </p>
      *
      * @see jakarta.faces.context.ExternalContext#release()
@@ -1103,4 +1025,5 @@ public abstract class ExternalContextWrapper extends ExternalContext implements 
     public void release() {
         getWrapped().release();
     }
+
 }

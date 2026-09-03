@@ -19,8 +19,7 @@ package jakarta.faces.view.facelets;
 
 /**
  * <p class="changed_added_2_0">
- * Passed to the constructor of {@link TagHandler} subclass, it defines the document definition of the handler we are
- * instantiating.
+ * Passed to the constructor of {@link TagHandler} subclass, it defines the document definition of the handler we are instantiating.
  * </p>
  *
  * @since 2.0
@@ -53,4 +52,5 @@ public interface TagConfig {
      * @return the id of this tag, unique within the current document.
      */
     String getTagId();
+
 }

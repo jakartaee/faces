@@ -15,28 +15,31 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.htmldatatable;
 
-import ee.jakarta.tck.faces.faces20.api.component.uidata.UIDataTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.html.HtmlDataTable;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
+import ee.jakarta.tck.faces.faces20.api.component.uidata.UIDataTestServlet;
+
 @WebServlet("/HtmlDataTableTestServlet")
 public final class HtmlDataTableTestServlet extends UIDataTestServlet {
 
-  private static final String[] attrNames = { "bgcolor", "border", "cellpadding", "cellspacing", "columnClasses", "dir", "footerClass", "frame", "headerClass", "lang", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover", "onmouseup", "rowClasses", "rules", "style", "styleClass", "summary", "title", "width" };
+    private static final String[] attrNames = { "bgcolor", "border", "cellpadding", "cellspacing", "columnClasses", "dir", "footerClass", "frame",
+        "headerClass", "lang", "onclick", "ondblclick", "onkeydown", "onkeypress", "onkeyup", "onmousedown", "onmousemove", "onmouseout", "onmouseover",
+        "onmouseup", "rowClasses", "rules", "style", "styleClass", "summary", "title", "width" };
 
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType("jakarta.faces.Table");
-    setAttributeNames(attrNames);
-  }
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType("jakarta.faces.Table");
+        setAttributeNames(attrNames);
+    }
 
-  @Override
-  protected UIComponentBase createComponent() {
-    return new HtmlDataTable();
-  }
+    @Override
+    protected UIComponentBase createComponent() {
+        return new HtmlDataTable();
+    }
+
 }

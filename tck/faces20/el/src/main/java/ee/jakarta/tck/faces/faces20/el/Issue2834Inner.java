@@ -24,4 +24,5 @@ public class Issue2834Inner implements Serializable {
     public String getTest4() {
         return "You should not see me!";
     }
+
 }

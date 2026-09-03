@@ -35,8 +35,10 @@ public class Issue3323ListenerComponent extends HtmlInputText {
         Map<String, Object> requestMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
         if (event instanceof PreRenderComponentEvent) {
             requestMap.put("preRenderComponentEvent", "preRenderComponentEvent");
-        } else {
+        }
+        else {
             super.processEvent(event);
         }
     }
+
 }

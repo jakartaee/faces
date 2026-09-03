@@ -41,8 +41,8 @@ class SelectUtils {
 
     /**
      * <p>
-     * Return <code>true</code> if the specified value matches one of the available options, performing a recursive search
-     * if if a {@link jakarta.faces.model.SelectItemGroup} instance is detected.
+     * Return <code>true</code> if the specified value matches one of the available options, performing a recursive search if if a
+     * {@link jakarta.faces.model.SelectItemGroup} instance is detected.
      * </p>
      *
      * @param ctx {@link FacesContext} for the current request
@@ -61,12 +61,14 @@ class SelectUtils {
                         return true;
                     }
                 }
-            } else {
+            }
+            else {
                 Object compareValue = null;
 
                 try {
                     compareValue = doConversion(ctx, component, item, value, converter);
-                } catch (IllegalStateException ise) {
+                }
+                catch (IllegalStateException ise) {
                     continue;
                 }
 
@@ -106,19 +108,22 @@ class SelectUtils {
                         break;
                     }
                 }
-            } else {
+            }
+            else {
                 Object compareValue = null;
 
                 try {
                     compareValue = doConversion(ctx, component, item, value, converter);
-                } catch (IllegalStateException ise) {
+                }
+                catch (IllegalStateException ise) {
                     continue;
                 }
 
                 if (null == compareValue && null == value && item.isNoSelectionOption()) {
                     result = true;
                     break;
-                } else if (value.equals(compareValue) && item.isNoSelectionOption()) {
+                }
+                else if (value.equals(compareValue) && item.isNoSelectionOption()) {
                     result = true;
                     break;
                 }
@@ -130,7 +135,8 @@ class SelectUtils {
     }
 
     private static Object doConversion(FacesContext ctx, UIComponent component, SelectItem item, Object value, Converter converter)
-            throws IllegalStateException {
+        throws IllegalStateException
+    {
         Object itemValue = item.getValue();
         if (itemValue == null && value == null) {
             return null;
@@ -141,7 +147,8 @@ class SelectUtils {
         Object compareValue;
         if (converter == null) {
             compareValue = coerceToModelType(ctx, itemValue, value.getClass());
-        } else {
+        }
+        else {
             compareValue = itemValue;
             if (compareValue instanceof String && !(value instanceof String)) {
                 // type mismatch between the time and the value we're
@@ -170,7 +177,8 @@ class SelectUtils {
         try {
             ExpressionFactory ef = ctx.getApplication().getExpressionFactory();
             newValue = ef.coerceToType(value, toType);
-        } catch (ELException | IllegalArgumentException ele) {
+        }
+        catch (ELException | IllegalArgumentException ele) {
             // If coerceToType fails, per the docs it should throw
             // an ELException, however, GF 9.0 and 9.0u1 will throw
             // an IllegalArgumentException instead (see GF issue 1527).

@@ -26,14 +26,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A resource declared via {@link jakarta.faces.application.ResourceDependency} on a custom renderer remains rendered
- * after a postback when the hosting component is bound to a view-scoped bean.
+ * A resource declared via {@link jakarta.faces.application.ResourceDependency} on a custom renderer remains rendered after a postback when the hosting
+ * component is bound to a view-scoped bean.
  */
 class Issue2744IT extends BaseITNG {
 
     /**
-     * The @ResourceDependency JS declared on the custom renderer is present on initial render and still present after
-     * a non-ajax commandButton postback.
+     * The @ResourceDependency JS declared on the custom renderer is present on initial render and still present after a non-ajax commandButton postback.
      *
      * @see jakarta.faces.application.ResourceDependency
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2744
@@ -47,4 +46,5 @@ class Issue2744IT extends BaseITNG {
         page.guardHttp(button::click);
         assertTrue(page.getSource().contains("resourceDependency.js"), "Resource still present after postback");
     }
+
 }

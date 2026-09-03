@@ -30,18 +30,19 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue3355IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3355
-   */
-  @Test
-  void buttonOnlySubmitsOne() throws Exception {
+     */
+    @Test
+    void buttonOnlySubmitsOne() throws Exception {
         WebPage page = getPage("issue3355.xhtml");
         assertTrue(page.containsText("value1,value2,"));
-        
+
         WebElement button = page.findElement(By.id("form:button1"));
         page.guardAjax(button::click);
         assertTrue(page.containsText("value2,"));
         assertFalse(page.containsText("value1,value2,"));
     }
+
 }

@@ -21,8 +21,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 /**
- * Supplies the value passed into the composite component whose implementation relocates an inline
- * script to the head.
+ * Supplies the value passed into the composite component whose implementation relocates an inline script to the head.
  */
 @Named
 @RequestScoped
@@ -31,4 +30,5 @@ public class Issue3489Bean {
     public String getValue() {
         return "ok";
     }
+
 }

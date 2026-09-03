@@ -43,4 +43,5 @@ class CollectionDataModelTest {
         model.setWrappedData(null);
         assertNull(model.getWrappedData());
     }
+
 }

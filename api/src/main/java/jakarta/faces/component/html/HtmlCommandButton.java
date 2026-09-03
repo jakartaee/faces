@@ -28,12 +28,12 @@ import jakarta.faces.event.BehaviorEvent.FacesComponentEvent;
 
 /**
  * <p>
- * Represents an HTML <code>input</code> element for a button of type <code>submit</code> or <code>reset</code>. The
- * label text is specified by the component value.
+ * Represents an HTML <code>input</code> element for a button of type <code>submit</code> or <code>reset</code>. The label text is specified by the component
+ * value.
  * </p>
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Button</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Button</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder {
@@ -55,8 +55,35 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      *
      */
     protected enum PropertyKeys {
-        accesskey, alt, dir, disabled, image, label, lang, onblur, onchange, onclick, ondblclick, onfocus, onkeydown, onkeypress, onkeyup, onmousedown,
-        onmousemove, onmouseout, onmouseover, onmouseup, onselect, readonly, role, style, styleClass, tabindex, title, type,;
+
+        accesskey,
+        alt,
+        dir,
+        disabled,
+        image,
+        label,
+        lang,
+        onblur,
+        onchange,
+        onclick,
+        ondblclick,
+        onfocus,
+        onkeydown,
+        onkeypress,
+        onkeyup,
+        onmousedown,
+        onmousemove,
+        onmouseout,
+        onmouseover,
+        onmouseup,
+        onselect,
+        readonly,
+        role,
+        style,
+        styleClass,
+        tabindex,
+        title,
+        type,;
 
         String toString;
 
@@ -71,6 +98,7 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
         public String toString() {
             return toString != null ? toString : super.toString();
         }
+
     }
 
     /**
@@ -101,8 +129,8 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
 
     /**
      * <p>
-     * Return the value of the <code>alt</code> property.
-     * <span class="changed_modified_4_0">This attribute is ignored when the <code>image</code> attribute is not specified.</span>
+     * Return the value of the <code>alt</code> property. <span class="changed_modified_4_0">This attribute is ignored when the <code>image</code> attribute is
+     * not specified.</span>
      * </p>
      *
      * @return the property value
@@ -133,9 +161,8 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      *
      * @return the property value
      * <p>
-     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right)
-     * and "RTL" (right-to-left). These attributes are case sensitive when rendering to XHTML, so care must be taken to have
-     * the correct case.
+     * Contents: Direction indication for text that does not inherit directionality. Valid values are "LTR" (left-to-right) and "RTL" (right-to-left). These
+     * attributes are case sensitive when rendering to XHTML, so care must be taken to have the correct case.
      */
     public String getDir() {
         return (String) getStateHelper().eval(PropertyKeys.dir);
@@ -161,9 +188,8 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value
-     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as
-     * disabled="disabled".
+     * Contents: Flag indicating that this element must never receive focus or be included in a subsequent submit. A value of false causes no attribute to be
+     * rendered, while a value of true causes the attribute to be rendered as disabled="disabled".
      */
     public boolean isDisabled() {
         return getStateHelper().eval(PropertyKeys.disabled, false);
@@ -190,10 +216,9 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      * <p>
      * Contents:
      * <p>
-     * Absolute or relative URL of the image to be displayed for this button. If specified, this "input" element will be of
-     * type "image". Otherwise, it will be of the type specified by the "type" property with a label specified by the
-     * "value" property. <span class="changed_added_2_0">Note that if the value of this attribute starts with "/", the
-     * rendered value for this attribute will be prefixed with the context-root for this application.</span>
+     * Absolute or relative URL of the image to be displayed for this button. If specified, this "input" element will be of type "image". Otherwise, it will be
+     * of the type specified by the "type" property with a label specified by the "value" property. <span class="changed_added_2_0">Note that if the value of
+     * this attribute starts with "/", the rendered value for this attribute will be prefixed with the context-root for this application.</span>
      * </p>
      */
     public java.lang.String getImage() {
@@ -634,9 +659,8 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      *
      * @return the property value
      * <p>
-     * Contents: Flag indicating that this component will prohibit changes by the user. The element may receive focus unless
-     * it has also been disabled. A value of false causes no attribute to be rendered, while a value of true causes the
-     * attribute to be rendered as readonly="readonly".
+     * Contents: Flag indicating that this component will prohibit changes by the user. The element may receive focus unless it has also been disabled. A value
+     * of false causes no attribute to be rendered, while a value of true causes the attribute to be rendered as readonly="readonly".
      */
     public boolean isReadonly() {
         return getStateHelper().eval(PropertyKeys.readonly, false);
@@ -663,16 +687,14 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      * <p>
      * Contents:
      * <p class="changed_added_2_2">
-     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have
-     * a "role" attribute whose value must be passed through unmodified on the element on which it is declared in the final
-     * rendered markup. The attribute, if specified, must have a value that is a string literal that is, or an EL Expression
-     * that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element belongs
-     * to.
+     * Per the WAI-ARIA spec and its relationship to HTML5 (Section title ARIA Role Attriubute), every HTML element may have a "role" attribute whose value must
+     * be passed through unmodified on the element on which it is declared in the final rendered markup. The attribute, if specified, must have a value that is
+     * a string literal that is, or an EL Expression that evaluates to, a set of space-separated tokens representing the various WAI-ARIA roles that the element
+     * belongs to.
      * </p>
      *
      * <p class="changed_added_2_2">
-     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value
-     * of this attribute.
+     * It is the page author's responsibility to ensure that the user agent is capable of correctly interpreting the value of this attribute.
      * </p>
      */
     public java.lang.String getRole() {
@@ -725,8 +747,8 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      *
      * @return the property value
      * <p>
-     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be
-     * passed through as the "class" attribute on generated markup.
+     * Contents: Space-separated list of CSS style class(es) to be applied when this element is rendered. This value must be passed through as the "class"
+     * attribute on generated markup.
      */
     public java.lang.String getStyleClass() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.styleClass);
@@ -752,8 +774,7 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      *
      * @return the property value
      * <p>
-     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer
-     * between 0 and 32767.
+     * Contents: Position of this element in the tabbing order for the current document. This value must be an integer between 0 and 32767.
      */
     public java.lang.String getTabindex() {
         return (java.lang.String) getStateHelper().eval(PropertyKeys.tabindex);
@@ -805,8 +826,8 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
      *
      * @return the property value
      * <p>
-     * Contents: Type of button to create. Valid values are "submit", "button", and "reset". If not specified, or not a
-     * valid value, the default value is "submit".
+     * Contents: Type of button to create. Valid values are "submit", "button", and "reset". If not specified, or not a valid value, the default value is
+     * "submit".
      */
     public java.lang.String getType() {
         return getStateHelper().eval(PropertyKeys.type, "submit");
@@ -826,7 +847,7 @@ public class HtmlCommandButton extends UICommand implements ClientBehaviorHolder
 
     @Override
     public Collection<String> getEventNames() {
-        return getFacesActionSourceEventNames(getFacesContext()); 
+        return getFacesActionSourceEventNames(getFacesContext());
     }
 
     @Override

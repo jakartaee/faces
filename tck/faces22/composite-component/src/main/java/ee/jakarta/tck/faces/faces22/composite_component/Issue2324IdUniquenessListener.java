@@ -29,9 +29,8 @@ import jakarta.faces.event.PhaseId;
 import jakarta.faces.event.PhaseListener;
 
 /**
- * Asserts, over the fully built view, that no two components share a client id. Client id uniqueness across the view is
- * equivalent to component id uniqueness within each naming container, so this expresses the specification requirement
- * using only public API.
+ * Asserts, over the fully built view, that no two components share a client id. Client id uniqueness across the view is equivalent to component id uniqueness
+ * within each naming container, so this expresses the specification requirement using only public API.
  */
 public class Issue2324IdUniquenessListener implements PhaseListener {
 
@@ -73,4 +72,5 @@ public class Issue2324IdUniquenessListener implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.RENDER_RESPONSE;
     }
+
 }

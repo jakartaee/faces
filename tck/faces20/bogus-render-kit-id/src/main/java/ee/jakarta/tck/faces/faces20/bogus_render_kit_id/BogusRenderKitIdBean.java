@@ -32,4 +32,5 @@ public class BogusRenderKitIdBean {
     public String getViewRootRenderKitId() {
         return FacesContext.getCurrentInstance().getViewRoot().getRenderKitId();
     }
+
 }

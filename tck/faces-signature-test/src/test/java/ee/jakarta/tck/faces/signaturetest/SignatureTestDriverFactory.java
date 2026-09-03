@@ -14,7 +14,6 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-
 package ee.jakarta.tck.faces.signaturetest;
 
 /**
@@ -24,42 +23,40 @@ package ee.jakarta.tck.faces.signaturetest;
  */
 public class SignatureTestDriverFactory {
 
-  /**
-   * <p>
-   * Identifier for the driver that uses the Signature Test framwork for
-   * signature validation.
-   * </p>
-   */
-  public static final String SIG_TEST = "sigtest";
+    /**
+     * <p>
+     * Identifier for the driver that uses the Signature Test framwork for signature validation.
+     * </p>
+     */
+    public static final String SIG_TEST = "sigtest";
 
-  // ------------------------------------------------------------ Constructors
+    // ------------------------------------------------------------ Constructors
 
-  // Access via factory method
-  private SignatureTestDriverFactory() {
-  } // END SignatureTestDriverFactory
+    // Access via factory method
+    private SignatureTestDriverFactory() {
+    } // END SignatureTestDriverFactory
 
-  // ---------------------------------------------------------- Public Methods
+    // ---------------------------------------------------------- Public Methods
 
-  /**
-   * <p>
-   * Obtain a {@link SignatureTestDriver} instance based on the
-   * <code>type</code> argument.
-   *
-   * @param type
-   *          the driver type to create
-   * @return a {@link SignatureTestDriver} implementation
-   */
-  public static SignatureTestDriver getInstance(String type) {
+    /**
+     * <p>
+     * Obtain a {@link SignatureTestDriver} instance based on the <code>type</code> argument.
+     *
+     * @param type the driver type to create
+     * @return a {@link SignatureTestDriver} implementation
+     */
+    public static SignatureTestDriver getInstance(String type) {
 
-    if (type == null || type.length() == 0) {
-      throw new IllegalArgumentException("Type was null or empty");
-    }
-    if (SIG_TEST.equals(type)) {
-      return new SigTestDriver();
-    } else {
-      throw new IllegalArgumentException("Unknown Type: '" + type + '\'');
-    }
+        if (type == null || type.length() == 0) {
+            throw new IllegalArgumentException("Type was null or empty");
+        }
+        if (SIG_TEST.equals(type)) {
+            return new SigTestDriver();
+        }
+        else {
+            throw new IllegalArgumentException("Unknown Type: '" + type + '\'');
+        }
 
-  } // END getInstance
+    } // END getInstance
 
 } // END SignatureTestDriverFactory

@@ -47,4 +47,5 @@ public class FacesConfigExternalContextFactory extends ExternalContextFactory im
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

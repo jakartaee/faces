@@ -36,9 +36,12 @@ public class TableComponent extends DynamicComponentBase {
 
             HtmlDataTable dataTable = new HtmlDataTable();
             dataTable.setVar("_internal");
-            dataTable.setValueExpression("value",
+            dataTable.setValueExpression(
+                "value",
                 application.getExpressionFactory().createValueExpression(
-                    context.getELContext(), "#{issue1830Bean.list}", Object.class));
+                    context.getELContext(), "#{issue1830Bean.list}", Object.class
+                )
+            );
             getChildren().add(dataTable);
 
             UIColumn column = new UIColumn();
@@ -47,10 +50,14 @@ public class TableComponent extends DynamicComponentBase {
 
             HtmlOutputText outputText = new HtmlOutputText();
             outputText.setId(context.getViewRoot().createUniqueId());
-            outputText.setValueExpression("value",
+            outputText.setValueExpression(
+                "value",
                 application.getExpressionFactory().createValueExpression(
-                    context.getELContext(), "#{_internal}", Object.class));
+                    context.getELContext(), "#{_internal}", Object.class
+                )
+            );
             column.getChildren().add(outputText);
         }
     }
+
 }

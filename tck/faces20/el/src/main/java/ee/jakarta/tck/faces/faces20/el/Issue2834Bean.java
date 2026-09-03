@@ -25,8 +25,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 /**
- * Exercises {@link ValueExpression#setValue} against a bean stored in the session map, including
- * setting a property to {@code null} and setting a read-only property (which must throw).
+ * Exercises {@link ValueExpression#setValue} against a bean stored in the session map, including setting a property to {@code null} and setting a read-only
+ * property (which must throw).
  */
 @Named
 @RequestScoped
@@ -46,7 +46,7 @@ public class Issue2834Bean implements Serializable {
     private ValueExpression valueExpression(String expression) {
         FacesContext context = FacesContext.getCurrentInstance();
         return context.getApplication().getExpressionFactory()
-                .createValueExpression(context.getELContext(), expression, Object.class);
+            .createValueExpression(context.getELContext(), expression, Object.class);
     }
 
     private ELContext elContext() {
@@ -83,9 +83,11 @@ public class Issue2834Bean implements Serializable {
         boolean exceptionThrown = false;
         try {
             valueExpression("#{sessionScope." + KEY + ".inner.test4}").setValue(elContext(), null);
-        } catch (ELException expected) {
+        }
+        catch (ELException expected) {
             exceptionThrown = true;
         }
         return exceptionThrown ? "SUCCESS" : "FAILED";
     }
+
 }

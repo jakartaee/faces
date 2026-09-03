@@ -20,14 +20,13 @@ import java.util.EventListener;
 
 /**
  * <p>
- * A generic base interface for event listeners for various types of {@link FacesEvent}s. All listener interfaces for
- * specific {@link FacesEvent} event types must extend this interface.
+ * A generic base interface for event listeners for various types of {@link FacesEvent}s. All listener interfaces for specific {@link FacesEvent} event types
+ * must extend this interface.
  * </p>
  *
  * <p>
- * Implementations of this interface must have a zero-args public constructor. If the class that implements this
- * interface has state that needs to be saved and restored between requests, the class must also implement
- * {@link jakarta.faces.component.StateHolder}.
+ * Implementations of this interface must have a zero-args public constructor. If the class that implements this interface has state that needs to be saved and
+ * restored between requests, the class must also implement {@link jakarta.faces.component.StateHolder}.
  * </p>
  */
 

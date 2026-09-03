@@ -300,9 +300,11 @@ public class TestBean {
         public Inner2Bean getInner2() {
             return inner2;
         }
+
     }
 
     public static class Inner2Bean {
+
         protected Map nicknames = new HashMap();
         protected String three = null;
 
@@ -324,9 +326,11 @@ public class TestBean {
         public void setNicknames(Map newNicknames) {
             nicknames = newNicknames;
         }
+
     }
 
     private static class TckException extends Exception {
+
         String mistake;
 
         public TckException() {
@@ -337,5 +341,7 @@ public class TestBean {
         public String getError() {
             return mistake;
         }
+
     }
+
 }

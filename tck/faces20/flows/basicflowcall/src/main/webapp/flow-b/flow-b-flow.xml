@@ -16,14 +16,14 @@
 
 -->
 
-<faces-config version="3.0" 
-			  xmlns="https://jakarta.ee/xml/ns/jakartaee"
-   			  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   			  xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
-        			https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
+<faces-config version="3.0"
+              xmlns="https://jakarta.ee/xml/ns/jakartaee"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+                    https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_3_0.xsd">
 
     <flow-definition id="flow-b">
-        
+
             <flow-return id="taskFlowReturn1">
                 <from-outcome>#{flow_b_Bean.returnValue}</from-outcome>
             </flow-return>
@@ -36,7 +36,7 @@
                 <name>param2FromFlowA</name>
                 <value>#{flowScope.param2Value}</value>
             </inbound-parameter>
-            
+
             <flow-call id="callA">
                 <flow-reference>
                     <flow-id>flow-a</flow-id>
@@ -50,8 +50,7 @@
                     <value>param2Value</value>
                 </outbound-parameter>
             </flow-call>
-                        
+
         </flow-definition>
 
 </faces-config>
-

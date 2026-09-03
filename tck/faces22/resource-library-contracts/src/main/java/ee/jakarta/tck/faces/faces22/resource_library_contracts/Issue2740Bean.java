@@ -26,4 +26,5 @@ public class Issue2740Bean {
     public String getContracts() {
         return null;
     }
+
 }

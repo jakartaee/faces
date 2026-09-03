@@ -18,17 +18,17 @@
 
 <!DOCTYPE html>
 <html
-	xmlns:h="jakarta.faces.html"
-	xmlns:f="jakarta.faces.core"
-	xmlns:ui="jakarta.faces.facelets"
-	xmlns:cc="jakarta.faces.composite/issue2412">
+    xmlns:h="jakarta.faces.html"
+    xmlns:f="jakarta.faces.core"
+    xmlns:ui="jakarta.faces.facelets"
+    xmlns:cc="jakarta.faces.composite/issue2412">
 
 <f:view>
    <h:head>
    </h:head>
    <h:body>
        <h:form>
-	          Before
+              Before
                   <h:selectOneRadio value="#{issue2412Bean.string}">
                       <f:selectItem itemValue="radio-1" itemLabel="1"/>
                       <f:selectItem itemValue="radio-2" itemLabel="2"/>
@@ -37,7 +37,7 @@
                   </h:selectOneRadio>
                   After
                   <br/>
-                  <h:outputText id="out" value="Status: #{issue2412Bean.string}"/>                  
+                  <h:outputText id="out" value="Status: #{issue2412Bean.string}"/>
        </h:form>
    </h:body>
 </f:view>

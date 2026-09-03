@@ -26,9 +26,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3147IT extends BaseITNG {
 
     /**
-     * An h:selectOneMenu must HTML-escape the labels of its select items so that markup supplied as a
-     * label value cannot inject script into the rendered page. A label of "<script>alert('mytest');</script>"
-     * must therefore appear escaped as "&lt;script&gt;alert('mytest');&lt;/script&gt;" in the response.
+     * An h:selectOneMenu must HTML-escape the labels of its select items so that markup supplied as a label value cannot inject script into the rendered page.
+     * A label of "<script>alert('mytest');</script>" must therefore appear escaped as "&lt;script&gt;alert('mytest');&lt;/script&gt;" in the response.
      *
      * @see jakarta.faces.component.html.HtmlSelectOneMenu
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3147
@@ -38,4 +37,5 @@ class Issue3147IT extends BaseITNG {
         WebPage page = getPage("issue3147.xhtml");
         assertTrue(page.containsSource("&lt;script&gt;alert('mytest');&lt;/script&gt;"));
     }
+
 }

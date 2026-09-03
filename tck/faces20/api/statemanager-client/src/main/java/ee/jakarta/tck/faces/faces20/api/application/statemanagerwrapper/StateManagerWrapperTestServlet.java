@@ -18,8 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.application.statemanagerwrapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-
 import jakarta.faces.application.StateManager;
 import jakarta.faces.application.StateManagerWrapper;
 import jakarta.servlet.ServletException;
@@ -27,14 +25,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
+
 @WebServlet("/StateManagerWrapperTestServlet")
 public final class StateManagerWrapperTestServlet extends HttpTCKServlet {
 
-    public void stateManagerIsSavingStateInClientTest(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    public void stateManagerIsSavingStateInClientTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         StateManager manager = new SimpleStateManagerWrapper(
-                getApplication().getStateManager());
+            getApplication().getStateManager()
+        );
         out.println(manager.isSavingStateInClient(getFacesContext()));
     }
 
@@ -54,5 +58,7 @@ public final class StateManagerWrapperTestServlet extends HttpTCKServlet {
         public StateManager getWrapped() {
             return manager;
         }
+
     }
+
 }

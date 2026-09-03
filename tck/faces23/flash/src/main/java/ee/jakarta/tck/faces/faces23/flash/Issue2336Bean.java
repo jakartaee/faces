@@ -38,4 +38,5 @@ public class Issue2336Bean {
         getFlash().put("flashContent", "== Flash value LINK2 ==");
         return "issue2336-page2.xhtml";
     }
+
 }

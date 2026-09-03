@@ -20,8 +20,7 @@ import jakarta.faces.lifecycle.Lifecycle;
 import jakarta.faces.lifecycle.LifecycleWrapper;
 
 /**
- * A custom {@link Lifecycle} registered under {@link #LIFECYCLE_ID} that wraps the default
- * lifecycle, so its configured phase listeners still run.
+ * A custom {@link Lifecycle} registered under {@link #LIFECYCLE_ID} that wraps the default lifecycle, so its configured phase listeners still run.
  */
 public class ReplaceLifecycle extends LifecycleWrapper {
 
@@ -30,4 +29,5 @@ public class ReplaceLifecycle extends LifecycleWrapper {
     public ReplaceLifecycle(Lifecycle wrapped) {
         super(wrapped);
     }
+
 }

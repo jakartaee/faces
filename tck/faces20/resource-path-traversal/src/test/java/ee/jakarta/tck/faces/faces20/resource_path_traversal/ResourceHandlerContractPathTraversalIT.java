@@ -24,17 +24,15 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * The resource handler must not let a crafted resource request traverse out of the resource base
- * (here via a {@code con} contract parameter of {@code ..}) to serve a protected file such as
- * {@code /WEB-INF/web.xml}.
+ * The resource handler must not let a crafted resource request traverse out of the resource base (here via a {@code con} contract parameter of {@code ..}) to
+ * serve a protected file such as {@code /WEB-INF/web.xml}.
  */
 public class ResourceHandlerContractPathTraversalIT extends BaseITNG {
 
     private static final String TRAVERSAL = "jakarta.faces.resource/WEB-INF/web.xml.xhtml?con=..";
 
     /**
-     * A path-traversal resource request must not disclose the deployment descriptor and must not
-     * return 200.
+     * A path-traversal resource request must not disclose the deployment descriptor and must not return 200.
      *
      * @see jakarta.faces.application.ResourceHandler#handleResourceRequest(jakarta.faces.context.FacesContext)
      * @see jakarta.faces.application.ResourceHandler#isResourceRequest(jakarta.faces.context.FacesContext)
@@ -47,4 +45,5 @@ public class ResourceHandlerContractPathTraversalIT extends BaseITNG {
 
         assertNotEquals(200, getStatusCode(TRAVERSAL), "traversal request must not return 200");
     }
+
 }

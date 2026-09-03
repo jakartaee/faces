@@ -20,9 +20,8 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p>
- * A listener interface for receiving {@link ValueChangeEvent}s. A class that is interested in receiving such events
- * implements this interface, and then registers itself with the source {@link UIComponent} of interest, by calling
- * <code>addValueChangeListener()</code>.
+ * A listener interface for receiving {@link ValueChangeEvent}s. A class that is interested in receiving such events implements this interface, and then
+ * registers itself with the source {@link UIComponent} of interest, by calling <code>addValueChangeListener()</code>.
  * </p>
  *
  * @param <T> The generic type of changed value.
@@ -37,8 +36,7 @@ public interface ValueChangeListener<T> extends FacesListener {
      *
      * @param event The {@link ValueChangeEvent} that has occurred
      *
-     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the
-     * current event should be performed
+     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the current event should be performed
      */
     void processValueChange(ValueChangeEvent<T> event) throws AbortProcessingException;
 

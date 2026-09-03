@@ -14,37 +14,36 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-
 package ee.jakarta.tck.faces.signaturetest;
 
 import java.util.Properties;
 
 /**
- * This class holds the data passed to a signature test invocation during the
- * setup phase. This allows us to keep the passed data separate and reuse the
- * data between the signature test framework base classes.
+ * This class holds the data passed to a signature test invocation during the setup phase. This allows us to keep the passed data separate and reuse the data
+ * between the signature test framework base classes.
  */
 public class SigTestData {
 
-  private Properties props;
+    private Properties props;
 
-  public SigTestData() {
-    this.props = System.getProperties();;
-  }
+    public SigTestData() {
+        this.props = System.getProperties();;
+    }
 
-  public String getTestClasspath() {
-    return props.getProperty("signature.sigTestClasspath", "");
-  }
+    public String getTestClasspath() {
+        return props.getProperty("signature.sigTestClasspath", "");
+    }
 
-  public String getProperty(String prop) {
-    return props.getProperty(prop);
-  }
+    public String getProperty(String prop) {
+        return props.getProperty(prop);
+    }
 
-  public String getOptionalTechPackagesToIgnore() {
-    return props.getProperty("optional.tech.packages.to.ignore", "jakarta.xml.bind");
-  }
+    public String getOptionalTechPackagesToIgnore() {
+        return props.getProperty("optional.tech.packages.to.ignore", "jakarta.xml.bind");
+    }
 
-  public String getJImageDir() {
-    return props.getProperty("jimage.dir", "");
-  }
+    public String getJImageDir() {
+        return props.getProperty("jimage.dir", "");
+    }
+
 }

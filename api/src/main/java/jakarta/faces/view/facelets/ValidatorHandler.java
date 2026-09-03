@@ -21,15 +21,12 @@ import jakarta.faces.view.EditableValueHolderAttachedObjectHandler;
 
 /**
  * <p class="changed_added_2_0">
- * Handles setting a {@link jakarta.faces.validator.Validator} instance on an
- * {@link jakarta.faces.component.EditableValueHolder} parent. Will wire all attributes set to the
- * <code>Validator</code> instance created/fetched. Uses the "binding" attribute for grabbing instances to apply
- * attributes to.
+ * Handles setting a {@link jakarta.faces.validator.Validator} instance on an {@link jakarta.faces.component.EditableValueHolder} parent. Will wire all
+ * attributes set to the <code>Validator</code> instance created/fetched. Uses the "binding" attribute for grabbing instances to apply attributes to.
  * </p>
  *
  * <p>
- * Will only set/create Validator is the passed UIComponent's parent is null, signifying that it wasn't restored from an
- * existing tree.
+ * Will only set/create Validator is the passed UIComponent's parent is null, signifying that it wasn't restored from an existing tree.
  * </p>
  *
  */
@@ -71,11 +68,10 @@ public class ValidatorHandler extends FaceletsAttachedObjectHandler implements E
 
     /**
      * <p>
-     * Retrieve the id of the validator that is to be created and added to the parent <code>EditableValueHolder</code>. All
-     * subclasses should override this method because it is important for Facelets to have a unique way of identifying the
-     * validators that are added to this <code>EditableValueHolder</code> and allows exclusions to work properly. An
-     * exclusion is a validator declaration that has the attribute "disabled" which resolves to false, instructing Facelets
-     * not to register a default validator with the same id.
+     * Retrieve the id of the validator that is to be created and added to the parent <code>EditableValueHolder</code>. All subclasses should override this
+     * method because it is important for Facelets to have a unique way of identifying the validators that are added to this <code>EditableValueHolder</code>
+     * and allows exclusions to work properly. An exclusion is a validator declaration that has the attribute "disabled" which resolves to false, instructing
+     * Facelets not to register a default validator with the same id.
      * </p>
      *
      * @param ctx the FaceletContext for this {@code Facelet}
@@ -87,7 +83,8 @@ public class ValidatorHandler extends FaceletsAttachedObjectHandler implements E
             TagAttribute idAttr = getAttribute("validatorId");
             if (idAttr == null) {
                 return null;
-            } else {
+            }
+            else {
                 return idAttr.getValue(ctx);
             }
         }

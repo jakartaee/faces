@@ -15,7 +15,7 @@
  */
 
 package ee.jakarta.tck.faces.faces22.ajax_inputs;
- 
+
 import jakarta.annotation.PostConstruct;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.faces.component.behavior.AjaxBehavior;
@@ -25,41 +25,43 @@ import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.event.AjaxBehaviorListener;
 import jakarta.inject.Named;
- 
+
 @Named
 @RequestScoped
 public class Issue2678Bean implements AjaxBehaviorListener {
- 
-  private HtmlInputText text;
- 
-	public HtmlInputText getText() {
-		return text;
-	}
- 
-	public void setText(HtmlInputText text) {
-		this.text = text;
-	}
- 
-	@Override
-	public void processAjaxBehavior(AjaxBehaviorEvent event)
-			throws AbortProcessingException {
-		System.out.println("Ajax call");
- 
-	}
- 
-	@PostConstruct
-	private void setup() {
-		HtmlInputText inputText = (HtmlInputText) FacesContext
-				.getCurrentInstance().getApplication()
-				.createComponent(HtmlInputText.COMPONENT_TYPE);
-		AjaxBehavior ajaxBehavior = (AjaxBehavior) FacesContext
-				.getCurrentInstance().getApplication()
-				.createBehavior(AjaxBehavior.BEHAVIOR_ID);
-		inputText.setId("input");
-		ajaxBehavior.addAjaxBehaviorListener(this);
-		ajaxBehavior.setTransient(true);
-		ajaxBehavior.setDisabled(false);
-		inputText.addClientBehavior("focus", ajaxBehavior);
-		text = inputText;
-	}
+
+    private HtmlInputText text;
+
+    public HtmlInputText getText() {
+        return text;
+    }
+
+    public void setText(HtmlInputText text) {
+        this.text = text;
+    }
+
+    @Override
+    public void processAjaxBehavior(AjaxBehaviorEvent event)
+        throws AbortProcessingException
+    {
+        System.out.println("Ajax call");
+
+    }
+
+    @PostConstruct
+    private void setup() {
+        HtmlInputText inputText = (HtmlInputText) FacesContext
+            .getCurrentInstance().getApplication()
+            .createComponent(HtmlInputText.COMPONENT_TYPE);
+        AjaxBehavior ajaxBehavior = (AjaxBehavior) FacesContext
+            .getCurrentInstance().getApplication()
+            .createBehavior(AjaxBehavior.BEHAVIOR_ID);
+        inputText.setId("input");
+        ajaxBehavior.addAjaxBehaviorListener(this);
+        ajaxBehavior.setTransient(true);
+        ajaxBehavior.setDisabled(false);
+        inputText.addClientBehavior("focus", ajaxBehavior);
+        text = inputText;
+    }
+
 }

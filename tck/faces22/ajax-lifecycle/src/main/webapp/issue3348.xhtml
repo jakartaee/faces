@@ -31,17 +31,17 @@
         <script>
             faces.ajax.addOnEvent(ajaxEvent);
         </script>
-        
-        
+
+
         <h:form prependId="false" id="form">
-            
+
             <div id="responseText"></div>
-            
+
             <h:commandButton id="button" value="submit" actionListener="#{issue3348Bean.causeRedirect}">
                 <f:ajax />
             </h:commandButton>
-            
+
         </h:form>
-        
+
     </h:body>
 </html>

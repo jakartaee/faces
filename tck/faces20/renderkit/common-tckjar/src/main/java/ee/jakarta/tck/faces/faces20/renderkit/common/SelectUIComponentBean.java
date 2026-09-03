@@ -58,4 +58,5 @@ public class SelectUIComponentBean implements Serializable {
 
         this.yesNo = answer;
     }
+
 }

@@ -22,8 +22,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <strong class="changed_added_2_0 changed_modified_2_2">SystemEvent</strong> is the base class for non-application
- * specific events that can be fired by arbitrary objects.
+ * <strong class="changed_added_2_0 changed_modified_2_2">SystemEvent</strong> is the base class for non-application specific events that can be fired by
+ * arbitrary objects.
  * </p>
  *
  * @since 2.0
@@ -77,8 +77,7 @@ public abstract class SystemEvent extends EventObject {
      * </p>
      *
      * <p>
-     * If the constructor was passed a FacesContext we return it, otherwise we call FacesContext.getCurrentInstance() and
-     * return it.
+     * If the constructor was passed a FacesContext we return it, otherwise we call FacesContext.getCurrentInstance() and return it.
      * </p>
      *
      * @return the Faces context.
@@ -93,9 +92,9 @@ public abstract class SystemEvent extends EventObject {
 
     /**
      * <p>
-     * <span class="changed_modified_2_2">Return</span> <code>true</code> if this {@link FacesListener} is an instance of a
-     * the appropriate listener class that this event supports. <span class="changed_added_2_2">The default implementation
-     * returns true if the listener is a {@link ComponentSystemEventListener}.</span>
+     * <span class="changed_modified_2_2">Return</span> <code>true</code> if this {@link FacesListener} is an instance of a the appropriate listener class that
+     * this event supports. <span class="changed_added_2_2">The default implementation returns true if the listener is a
+     * {@link ComponentSystemEventListener}.</span>
      * </p>
      *
      * @param listener {@link FacesListener} to evaluate
@@ -110,18 +109,18 @@ public abstract class SystemEvent extends EventObject {
 
     /**
      * <p>
-     * Broadcast this event instance to the specified {@link FacesListener}, by whatever mechanism is appropriate.
-     * Typically, this will be accomplished by calling an event processing method, and passing this instance as a parameter.
+     * Broadcast this event instance to the specified {@link FacesListener}, by whatever mechanism is appropriate. Typically, this will be accomplished by
+     * calling an event processing method, and passing this instance as a parameter.
      * </p>
      *
      * @param listener {@link FacesListener} to send this {@link FacesEvent} to
      *
-     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the
-     * current event should be performed
+     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the current event should be performed
      */
     public void processListener(FacesListener listener) {
 
         ((SystemEventListener) listener).processEvent(this);
 
     }
+
 }

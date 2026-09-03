@@ -15,13 +15,13 @@
  */
 package ee.jakarta.tck.faces.faces20.api.component.uipanel;
 
-import ee.jakarta.tck.faces.faces20.api.component.common.BaseComponentTestServlet;
-
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.UIPanel;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+
+import ee.jakarta.tck.faces.faces20.api.component.common.BaseComponentTestServlet;
 
 @WebServlet("/UIPanelTestServlet")
 public class UIPanelTestServlet extends BaseComponentTestServlet {
@@ -37,4 +37,5 @@ public class UIPanelTestServlet extends BaseComponentTestServlet {
     protected UIComponentBase createComponent() {
         return new UIPanel();
     }
+
 }

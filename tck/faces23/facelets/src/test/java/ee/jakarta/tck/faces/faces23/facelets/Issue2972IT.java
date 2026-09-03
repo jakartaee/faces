@@ -28,9 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2972IT extends BaseITNG {
 
     /**
-     * Facelets is an XML view declaration language and must honour XML namespace scoping: an element which
-     * redeclares the default namespace for its own subtree does not end the document, and the markup which
-     * follows it is compiled and rendered as usual.
+     * Facelets is an XML view declaration language and must honour XML namespace scoping: an element which redeclares the default namespace for its own subtree
+     * does not end the document, and the markup which follows it is compiled and rendered as usual.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2972
      */
@@ -40,7 +39,10 @@ class Issue2972IT extends BaseITNG {
 
         assertEquals(200, page.getResponseStatus(), "The view must render.");
         assertTrue(page.containsSource("</html>"), "The document must be complete.");
-        assertEquals("after the nested namespace", page.findElement(By.id("after")).getText(),
-                "Markup after the nested namespace declaration must still be rendered.");
+        assertEquals(
+            "after the nested namespace", page.findElement(By.id("after")).getText(),
+            "Markup after the nested namespace declaration must still be rendered."
+        );
     }
+
 }

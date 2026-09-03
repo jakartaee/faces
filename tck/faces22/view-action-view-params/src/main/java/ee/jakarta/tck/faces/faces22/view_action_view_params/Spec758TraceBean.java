@@ -22,9 +22,8 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 /**
- * Records which action listeners a view action broadcast to, and in which order. Session scoped
- * because a view action which navigates on a GET does so by redirecting, so the trace has to survive
- * into the request which renders the result page.
+ * Records which action listeners a view action broadcast to, and in which order. Session scoped because a view action which navigates on a GET does so by
+ * redirecting, so the trace has to survive into the request which renders the result page.
  */
 @Named
 @SessionScoped
@@ -45,4 +44,5 @@ public class Spec758TraceBean implements Serializable {
     public String getTrace() {
         return trace.toString();
     }
+
 }

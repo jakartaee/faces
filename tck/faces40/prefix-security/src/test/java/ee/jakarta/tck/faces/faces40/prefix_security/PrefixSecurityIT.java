@@ -26,8 +26,7 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 class PrefixSecurityIT extends BaseITNG {
 
     /**
-     * A prefix-mapped ({@code /faces/*}) FacesServlet must never expose {@code WEB-INF} content,
-     * regardless of case: every such request returns 404.
+     * A prefix-mapped ({@code /faces/*}) FacesServlet must never expose {@code WEB-INF} content, regardless of case: every such request returns 404.
      *
      * @see FacesServlet
      */
@@ -40,8 +39,7 @@ class PrefixSecurityIT extends BaseITNG {
     }
 
     /**
-     * A prefix-mapped ({@code /faces/*}) FacesServlet must never expose {@code META-INF} content,
-     * regardless of case: every such request returns 404.
+     * A prefix-mapped ({@code /faces/*}) FacesServlet must never expose {@code META-INF} content, regardless of case: every such request returns 404.
      *
      * @see FacesServlet
      */
@@ -56,4 +54,5 @@ class PrefixSecurityIT extends BaseITNG {
     private void assertNotFound(String path) {
         assertEquals(404, getStatusCode(path), "Expected 404 for " + path);
     }
+
 }

@@ -59,4 +59,5 @@ public class FacesConfigRenderKitFactory extends RenderKitFactory implements Inj
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

@@ -40,7 +40,8 @@ class RepeatIT extends BaseITNG {
             "Color: Green",
             "Color: Blue",
             "Color: Violet",
-            "Color: Pink");
+            "Color: Pink"
+        );
 
         assertLabelsStartingWith(page, "Color:", expected);
     }
@@ -51,7 +52,8 @@ class RepeatIT extends BaseITNG {
 
         List<String> expected = List.of(
             "Color: Violet",
-            "Color: Pink");
+            "Color: Pink"
+        );
 
         assertLabelsStartingWith(page, "Color:", expected);
     }
@@ -60,23 +62,35 @@ class RepeatIT extends BaseITNG {
     void templateUIRepeatVarStatusTest() {
         WebPage page = getPage("repeat/repeatVarStat.xhtml");
 
-        assertLabelsStartingWith(page, "VSIndex",
-            List.of("VSIndex: 0", "VSIndex: 1", "VSIndex: 2", "VSIndex: 3", "VSIndex: 4"));
+        assertLabelsStartingWith(
+            page, "VSIndex",
+            List.of("VSIndex: 0", "VSIndex: 1", "VSIndex: 2", "VSIndex: 3", "VSIndex: 4")
+        );
 
-        assertLabelsStartingWith(page, "VSFirst",
-            List.of("VSFirst: true", "VSFirst: false", "VSFirst: false", "VSFirst: false", "VSFirst: false"));
+        assertLabelsStartingWith(
+            page, "VSFirst",
+            List.of("VSFirst: true", "VSFirst: false", "VSFirst: false", "VSFirst: false", "VSFirst: false")
+        );
 
-        assertLabelsStartingWith(page, "VSLast",
-            List.of("VSLast: false", "VSLast: false", "VSLast: false", "VSLast: false", "VSLast: true"));
+        assertLabelsStartingWith(
+            page, "VSLast",
+            List.of("VSLast: false", "VSLast: false", "VSLast: false", "VSLast: false", "VSLast: true")
+        );
 
-        assertLabelsStartingWith(page, "VSStep",
-            List.of("VSStep: 2", "VSStep: 2", "VSStep: 2"));
+        assertLabelsStartingWith(
+            page, "VSStep",
+            List.of("VSStep: 2", "VSStep: 2", "VSStep: 2")
+        );
 
-        assertLabelsStartingWith(page, "VSOdd",
-            List.of("VSOdd: false", "VSOdd: true", "VSOdd: false", "VSOdd: true", "VSOdd: false"));
+        assertLabelsStartingWith(
+            page, "VSOdd",
+            List.of("VSOdd: false", "VSOdd: true", "VSOdd: false", "VSOdd: true", "VSOdd: false")
+        );
 
-        assertLabelsStartingWith(page, "VSEven",
-            List.of("VSEven: true", "VSEven: false", "VSEven: true", "VSEven: false", "VSEven: true"));
+        assertLabelsStartingWith(
+            page, "VSEven",
+            List.of("VSEven: true", "VSEven: false", "VSEven: true", "VSEven: false", "VSEven: true")
+        );
     }
 
     private void assertLabelsStartingWith(WebPage page, String prefix, List<String> expected) {
@@ -86,11 +100,16 @@ class RepeatIT extends BaseITNG {
             .filter(text -> text.startsWith(prefix))
             .collect(Collectors.toCollection(ArrayList::new));
 
-        assertEquals(expected.size(), actual.size(),
-            "Unexpected number of <label> elements starting with '" + prefix + "'");
+        assertEquals(
+            expected.size(), actual.size(),
+            "Unexpected number of <label> elements starting with '" + prefix + "'"
+        );
         for (int i = 0; i < expected.size(); i++) {
-            assertTrue(actual.get(i).replaceAll("\\s+", " ").equals(expected.get(i)),
-                "Expected '" + expected.get(i) + "' at index " + i + " but found '" + actual.get(i) + "'");
+            assertTrue(
+                actual.get(i).replaceAll("\\s+", " ").equals(expected.get(i)),
+                "Expected '" + expected.get(i) + "' at index " + i + " but found '" + actual.get(i) + "'"
+            );
         }
     }
+
 }

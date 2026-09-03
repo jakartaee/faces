@@ -25,15 +25,13 @@ import jakarta.faces.flow.Flow;
 
 /**
  * <p class="changed_added_2_2">
- * <strong class="changed_modified_2_3">NavigationHandlerWrapper</strong> provides a simple implementation of
- * {@link NavigationHandler} that can be subclassed by developers wishing to provide specialized behavior to an existing
- * {@link NavigationHandler} instance. The default implementation of all methods is to call through to the wrapped
- * {@link NavigationHandler} instance.
+ * <strong class="changed_modified_2_3">NavigationHandlerWrapper</strong> provides a simple implementation of {@link NavigationHandler} that can be subclassed
+ * by developers wishing to provide specialized behavior to an existing {@link NavigationHandler} instance. The default implementation of all methods is to call
+ * through to the wrapped {@link NavigationHandler} instance.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.2
@@ -52,8 +50,8 @@ public abstract class NavigationHandlerWrapper extends NavigationHandler impleme
 
     /**
      * <p class="changed_added_2_3">
-     * If this navigation handler has been decorated, the implementation doing the decorating should push the implementation
-     * being wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this navigation handler has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor.
+     * The {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -102,4 +100,5 @@ public abstract class NavigationHandlerWrapper extends NavigationHandler impleme
     public void inspectFlow(FacesContext context, Flow flow) {
         getWrapped().inspectFlow(context, flow);
     }
+
 }

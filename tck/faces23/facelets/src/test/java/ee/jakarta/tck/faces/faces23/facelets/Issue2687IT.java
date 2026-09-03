@@ -39,10 +39,14 @@ class Issue2687IT extends BaseITNG {
         WebPage page = getPage("issue2687.xhtml");
         WebElement button = page.findElement(By.id("form:button"));
         page.guardHttp(button::click);
-        assertTrue(page.findElements(By.id("form:table:inputText")).isEmpty(),
-                "non-row-indexed per-row child clientId may not exist");
-        assertFalse(page.findElements(By.id("form:table:0:inputText")).isEmpty(),
-                "row-indexed per-row child clientId must exist");
+        assertTrue(
+            page.findElements(By.id("form:table:inputText")).isEmpty(),
+            "non-row-indexed per-row child clientId may not exist"
+        );
+        assertFalse(
+            page.findElements(By.id("form:table:0:inputText")).isEmpty(),
+            "row-indexed per-row child clientId must exist"
+        );
     }
 
 }

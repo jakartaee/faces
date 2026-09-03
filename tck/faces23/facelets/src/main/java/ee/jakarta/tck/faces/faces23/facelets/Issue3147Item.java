@@ -31,4 +31,5 @@ public class Issue3147Item {
     public void setName(String name) {
         this.name = name;
     }
+
 }

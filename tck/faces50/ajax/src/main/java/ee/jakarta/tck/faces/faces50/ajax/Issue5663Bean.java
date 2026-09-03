@@ -21,4 +21,5 @@ public class Issue5663Bean {
     public String getResult() {
         return result;
     }
+
 }

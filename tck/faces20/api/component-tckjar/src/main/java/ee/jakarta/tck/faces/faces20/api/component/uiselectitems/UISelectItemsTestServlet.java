@@ -21,9 +21,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 
-import ee.jakarta.tck.faces.faces20.api.component.common.BaseComponentTestServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIComponentBase;
 import jakarta.faces.component.UISelectItems;
@@ -33,148 +30,179 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.faces20.api.component.common.BaseComponentTestServlet;
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+
 @WebServlet("/UISelectItemsTestServlet")
 public class UISelectItemsTestServlet extends BaseComponentTestServlet {
 
-  /**
-   * <p>
-   * Initializes this {@link jakarta.servlet.Servlet}.
-   * </p>
-   *
-   * @param config
-   *          this Servlet's configuration
-   * @throws ServletException
-   *           if an error occurs
-   */
-  @Override
-  public void init(ServletConfig config) throws ServletException {
-    super.init(config);
-    setRendererType(null);
-  }
-
-  /**
-   * <p>
-   * Creates a new {@link UIComponent} instance.
-   * </p>
-   *
-   * @return a new {@link UIComponent} instance.
-   */
-  @Override
-  protected UIComponentBase createComponent() {
-    return new UISelectItems();
-  }
-
-  // ------------------------------------------- Test Methods ----
-  public void uiSelectItemsGetSetValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItems command = (UISelectItems) createComponent();
-
-    command.setValue("value");
-
-    if (!"value".equals(command.getValue())) {
-      out.println(JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
-          + " the value as set by UISelectItem.setValue().");
-      out.println("Expected: value");
-      out.println("Received: " + command.getValue());
-      return;
+    /**
+     * <p>
+     * Initializes this {@link jakarta.servlet.Servlet}.
+     * </p>
+     *
+     * @param config this Servlet's configuration
+     * @throws ServletException if an error occurs
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        setRendererType(null);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
-
-  public void uiSelectItemsGetArrayValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItems command = (UISelectItems) createComponent();
-
-    String[] colors = { "red", "green", "black", "tan" };
-
-    command.setValue(colors);
-
-    if (!Arrays.equals(colors, (String[]) command.getValue())) {
-      out.println(JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
-          + " the value as set by UISelectItem.setValue().");
-      out.println("Arrays objects were not equal!");
-      return;
+    /**
+     * <p>
+     * Creates a new {@link UIComponent} instance.
+     * </p>
+     *
+     * @return a new {@link UIComponent} instance.
+     */
+    @Override
+    protected UIComponentBase createComponent() {
+        return new UISelectItems();
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    // ------------------------------------------- Test Methods ----
+    public void uiSelectItemsGetSetValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItems command = (UISelectItems) createComponent();
 
-  public void uiSelectItemsGetCollectionValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItems command = (UISelectItems) createComponent();
+        command.setValue("value");
 
-    Vector<Car> cars = new Vector<Car>();
-    cars.add(new Car("passenger", "green"));
-    cars.add(new Car("sport", "red"));
-    cars.add(new Car("sedan", "red"));
+        if (!"value".equals(command.getValue())) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
+                    + " the value as set by UISelectItem.setValue()."
+            );
+            out.println("Expected: value");
+            out.println("Received: " + command.getValue());
+            return;
+        }
 
-    command.setValue(cars);
-
-    if (!Arrays.equals(cars.toArray(),
-        ((Vector<?>) command.getValue()).toArray())) {
-      out.println(JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
-          + " the value as set by UISelectItem.setValue().");
-      out.println("Vector objects were not equal!");
-      return;
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void uiSelectItemsGetArrayValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItems command = (UISelectItems) createComponent();
 
-  public void uiSelectItemsMapGetValueTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter out = response.getWriter();
-    UISelectItems command = (UISelectItems) createComponent();
+        String[] colors = { "red", "green", "black", "tan" };
 
-    HashMap<String, String> employeeLvl = new HashMap<String, String>();
-    employeeLvl.put("MGR", "4");
-    employeeLvl.put("VP", "6");
-    employeeLvl.put("DIR", "5");
-    employeeLvl.put("WB", "0");
+        command.setValue(colors);
 
-    command.setValue(employeeLvl);
+        if (!Arrays.equals(colors, (String[]) command.getValue())) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
+                    + " the value as set by UISelectItem.setValue()."
+            );
+            out.println("Arrays objects were not equal!");
+            return;
+        }
 
-    if (!Arrays.equals(employeeLvl.entrySet().toArray(),
-        ((HashMap<?, ?>) command.getValue()).entrySet().toArray())) {
-      out.println(JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
-          + " the value as set by UISelectItem.setValue().");
-      out.println("HashMap objects were not equal!");
-      return;
+        out.println(JSFTestUtil.PASS);
     }
 
-    out.println(JSFTestUtil.PASS);
-  }
+    public void uiSelectItemsGetCollectionValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItems command = (UISelectItems) createComponent();
 
-  // --------------------------------------------------------- private classes
-  private static class Car {
+        Vector<Car> cars = new Vector<Car>();
+        cars.add(new Car("passenger", "green"));
+        cars.add(new Car("sport", "red"));
+        cars.add(new Car("sedan", "red"));
 
-    private String style;
+        command.setValue(cars);
 
-    private String color;
+        if (
+            !Arrays.equals(
+                cars.toArray(),
+                ((Vector<?>) command.getValue()).toArray()
+            )
+        ) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
+                    + " the value as set by UISelectItem.setValue()."
+            );
+            out.println("Vector objects were not equal!");
+            return;
+        }
 
-    public Car(String style, String color) {
-      this.style = style;
-      this.color = color;
+        out.println(JSFTestUtil.PASS);
     }
 
-    public String getColor() {
-      return color;
+    public void uiSelectItemsMapGetValueTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter out = response.getWriter();
+        UISelectItems command = (UISelectItems) createComponent();
+
+        HashMap<String, String> employeeLvl = new HashMap<String, String>();
+        employeeLvl.put("MGR", "4");
+        employeeLvl.put("VP", "6");
+        employeeLvl.put("DIR", "5");
+        employeeLvl.put("WB", "0");
+
+        command.setValue(employeeLvl);
+
+        if (
+            !Arrays.equals(
+                employeeLvl.entrySet().toArray(),
+                ((HashMap<?, ?>) command.getValue()).entrySet().toArray()
+            )
+        ) {
+            out.println(
+                JSFTestUtil.FAIL + " UISelectItem.getValue() didn't return"
+                    + " the value as set by UISelectItem.setValue()."
+            );
+            out.println("HashMap objects were not equal!");
+            return;
+        }
+
+        out.println(JSFTestUtil.PASS);
     }
 
-    public void setColor(String color) {
-      this.color = color;
+    // --------------------------------------------------------- private classes
+    private static class Car {
+
+        private String style;
+
+        private String color;
+
+        public Car(String style, String color) {
+            this.style = style;
+            this.color = color;
+        }
+
+        public String getColor() {
+            return color;
+        }
+
+        public void setColor(String color) {
+            this.color = color;
+        }
+
+        public String getStyle() {
+            return style;
+        }
+
+        public void setStyle(String style) {
+            this.style = style;
+        }
+
     }
 
-    public String getStyle() {
-      return style;
-    }
-
-    public void setStyle(String style) {
-      this.style = style;
-    }
-  }
 }

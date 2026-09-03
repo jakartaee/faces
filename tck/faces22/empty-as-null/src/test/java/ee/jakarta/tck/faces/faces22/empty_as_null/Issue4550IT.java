@@ -33,12 +33,12 @@ class Issue4550IT extends BaseITNG {
 
     private static String TEST_STRING = "Test Rhuan";
 
-  /**
-   * @see UIViewParameter
+    /**
+     * @see UIViewParameter
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4550
-   */
-  @Test
-  void nullViewParamSurvivesAjaxRoundtrip() throws Exception {
+     */
+    @Test
+    void nullViewParamSurvivesAjaxRoundtrip() throws Exception {
         WebPage page = getPage("issue4550.xhtml");
 
         // Ajax submit click
@@ -48,13 +48,13 @@ class Issue4550IT extends BaseITNG {
         assertTrue(page.containsText(TEST_STRING));
 
         // Ajax submit click
-        submit =  page.findElement(By.id("form:ajaxCommandButton"));
+        submit = page.findElement(By.id("form:ajaxCommandButton"));
         assertNotNull(submit);
         page.guardAjax(submit::click);
         assertTrue(page.containsText(TEST_STRING));
 
         // Non Ajax submit click
-        submit =  page.findElement(By.id("form:commandButton"));
+        submit = page.findElement(By.id("form:commandButton"));
         assertNotNull(submit);
         page.guardAjax(submit::click);
         assertTrue(page.containsText(TEST_STRING));

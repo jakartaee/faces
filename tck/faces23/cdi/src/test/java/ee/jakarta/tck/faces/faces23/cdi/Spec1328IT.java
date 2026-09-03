@@ -28,8 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Spec1328IT extends BaseITNG {
 
     /**
-     * The session implicit object resolves through the CDI resolver chain to the HttpSession of the current
-     * request, so it can be dereferenced like any other bean.
+     * The session implicit object resolves through the CDI resolver chain to the HttpSession of the current request, so it can be dereferenced like any other
+     * bean.
      *
      * @see https://github.com/jakartaee/faces/issues/1328
      */
@@ -38,9 +38,14 @@ class Spec1328IT extends BaseITNG {
         WebPage page = getPage("spec1328.xhtml");
 
         assertEquals(200, page.getResponseStatus(), "The view must render.");
-        assertFalse(page.findElement(By.id("session")).getText().isEmpty(),
-                "The session implicit object must resolve.");
-        assertFalse(page.findElement(By.id("sessionId")).getText().isEmpty(),
-                "The resolved session must be an HttpSession, so its id is readable.");
+        assertFalse(
+            page.findElement(By.id("session")).getText().isEmpty(),
+            "The session implicit object must resolve."
+        );
+        assertFalse(
+            page.findElement(By.id("sessionId")).getText().isEmpty(),
+            "The resolved session must be an HttpSession, so its id is readable."
+        );
     }
+
 }

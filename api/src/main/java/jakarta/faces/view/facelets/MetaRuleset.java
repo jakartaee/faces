@@ -19,8 +19,8 @@ package jakarta.faces.view.facelets;
 
 /**
  * <p class="changed_added_2_0">
- * A mutable set of rules to be used in auto-wiring state to a particular object instance. Rules assigned to this object
- * will be composed into a single Metadata instance which will encapsulate the ruleset.
+ * A mutable set of rules to be used in auto-wiring state to a particular object instance. Rules assigned to this object will be composed into a single Metadata
+ * instance which will encapsulate the ruleset.
  * </p>
  *
  * @since 2.0
@@ -29,8 +29,8 @@ public abstract class MetaRuleset {
 
     /**
      * <p class="changed_added_2_0">
-     * Customize this <code>MetaRuleset</code> instance to advise it to ignore the attribute named by the
-     * <code>attribute</code> argument, returning <code>this</code>.
+     * Customize this <code>MetaRuleset</code> instance to advise it to ignore the attribute named by the <code>attribute</code> argument, returning
+     * <code>this</code>.
      * </p>
      *
      * @param attribute the name of the attribute to ignore.
@@ -51,8 +51,8 @@ public abstract class MetaRuleset {
 
     /**
      * <p class="changed_added_2_0">
-     * Customize this <code>MetaRuleset</code> by removing the attribute named by argument <code>attribute</code> and
-     * re-adding it under the name given by the argument <code>property</code>, returning <code>this</code>.
+     * Customize this <code>MetaRuleset</code> by removing the attribute named by argument <code>attribute</code> and re-adding it under the name given by the
+     * argument <code>property</code>, returning <code>this</code>.
      * </p>
      *
      * @param attribute the attribute to remove.
@@ -92,4 +92,5 @@ public abstract class MetaRuleset {
      * @return the Metadata with the MetaRuleSet applied.
      */
     public abstract Metadata finish();
+
 }

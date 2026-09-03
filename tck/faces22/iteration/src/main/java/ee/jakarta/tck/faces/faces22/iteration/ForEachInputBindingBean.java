@@ -29,10 +29,9 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs a page that binds an h:inputText to a per-item property inside a c:forEach, for each source kind whose loop var
- * addresses a mutable element: a List and an insertion-ordered Set of mutable rows, and a Map. Submitting a distinct
- * value into every input must update the matching model element, which requires resolving the loop var during Update
- * Model Values (not just on render) - exercising IndexedValueExpression (List), IteratedValueExpression (Set) and
+ * Backs a page that binds an h:inputText to a per-item property inside a c:forEach, for each source kind whose loop var addresses a mutable element: a List and
+ * an insertion-ordered Set of mutable rows, and a Map. Submitting a distinct value into every input must update the matching model element, which requires
+ * resolving the loop var during Update Model Values (not just on render) - exercising IndexedValueExpression (List), IteratedValueExpression (Set) and
  * MappedValueExpression (Map). The summaries read the model back so a test can assert each value reached its element.
  */
 @Named
@@ -59,6 +58,7 @@ public class ForEachInputBindingBean implements Serializable {
         public void setValue(String value) {
             this.value = value;
         }
+
     }
 
     private final List<Row> list = new ArrayList<>(List.of(new Row("L0"), new Row("L1"), new Row("L2")));
@@ -98,4 +98,5 @@ public class ForEachInputBindingBean implements Serializable {
     public String submit() {
         return null;
     }
+
 }

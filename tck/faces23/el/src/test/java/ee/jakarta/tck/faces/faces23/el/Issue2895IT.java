@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2895IT extends BaseITNG {
 
     /**
-     * Facelets delegates expression parsing to the Jakarta Expression Language implementation, so an
-     * assignment expression with a set literal in inline template text is parsed and evaluated rather than
-     * mistaken for template text delimiters.
+     * Facelets delegates expression parsing to the Jakarta Expression Language implementation, so an assignment expression with a set literal in inline
+     * template text is parsed and evaluated rather than mistaken for template text delimiters.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2895
      */
@@ -38,7 +37,10 @@ class Issue2895IT extends BaseITNG {
         WebPage page = getPage("issue2895.xhtml");
 
         assertEquals(200, page.getResponseStatus(), "The view must render.");
-        assertEquals("[1, 2]", page.findElement(By.id("assignment")).getText(),
-                "The assignment expression must evaluate to the assigned set.");
+        assertEquals(
+            "[1, 2]", page.findElement(By.id("assignment")).getText(),
+            "The assignment expression must evaluate to the assigned set."
+        );
     }
+
 }

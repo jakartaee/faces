@@ -64,4 +64,5 @@ public class Issue2609Bean implements Serializable {
     public void setMax(String max) {
         this.max = max;
     }
+
 }

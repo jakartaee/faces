@@ -24,7 +24,7 @@
     version="5.0"
 >
     <description><![CDATA[
-        <p><strong>Jakarta Faces Composite Components Tag Library</strong></p> 
+        <p><strong>Jakarta Faces Composite Components Tag Library</strong></p>
 
 <div class="changed_added_2_0">
 
@@ -237,7 +237,7 @@ example.</p>
   nested within a composite component.   If the "targets" attribute is not specified,
   this value also represents the component ID of the target component within the
   that the <code>&lt;cc:implementation&gt;</code>
-  ActionListener should be mapped to. 
+  ActionListener should be mapped to.
 </p>
 </div>]]>
 
@@ -270,7 +270,7 @@ data types from the XML Schema.</p></div>]]>
 <p> The "hidden" flag is used to identify features that are intended only for tool use, and which should not be exposed to humans.</p>
 
 </div>]]>
-                
+
             </description>
             <name>hidden</name>
             <required>false</required>
@@ -301,15 +301,15 @@ page</a> for a usage example.</p>
             attributes to be set.  The following properties must not be
             exposed using this element.</p>
 
-  	<ul>
-  	  <li>binding</li>
-  	  <li>id</li>
-  	  <li>inView</li>
-  	  <li>parent</li>
-  	  <li>rendered</li>
-  	  <li>rendererType</li>
-  	  <li>transient</li>
- 	</ul>
+      <ul>
+        <li>binding</li>
+        <li>id</li>
+        <li>inView</li>
+        <li>parent</li>
+        <li>rendered</li>
+        <li>rendererType</li>
+        <li>transient</li>
+     </ul>
 
 </div>]]>
         </description>
@@ -384,44 +384,44 @@ whose method signature is described by the value of this attribute.  The
 signature must be described using fully qualified class names wherever a
 type is required.  This attribute is mutually exclusive with the "type"
 attribute.  If both attributes are present, the "method-signature"
-attribute is ignored.</p> 
+attribute is ignored.</p>
 
-	    <p>Provides the signature of the Java method.  The syntax of
-	    the method-signature element is as follows (taken from
-	    function-signature in web-jsptaglibrary_2_1.xsd):</p>
+        <p>Provides the signature of the Java method.  The syntax of
+        the method-signature element is as follows (taken from
+        function-signature in web-jsptaglibrary_2_1.xsd):</p>
 
-		<p>MethodSignature ::= ReturnType S MethodName S?
-				      '(' S? Parameters? S? ')'</p>
+        <p>MethodSignature ::= ReturnType S MethodName S?
+                      '(' S? Parameters? S? ')'</p>
 
                 <p>ReturnType        ::= Type</p>
 
-		<p>MethodName        ::= Identifier</p>
+        <p>MethodName        ::= Identifier</p>
 
-		<p>Parameters        ::=   Parameter
-				      | ( Parameter S? ',' S? Parameters )</p>
+        <p>Parameters        ::=   Parameter
+                      | ( Parameter S? ',' S? Parameters )</p>
 
                 <p>Parameter         ::= Type</p>
 
-		<p>Where:</p>
+        <p>Where:</p>
 
 <ul>
 
- 		    <li><p>Type is a basic type or a fully qualified
-		      Java class name (including package name),
-		      as per the 'Type' production in the Java
-		      Language Specification, Second Edition,
-		      Chapter 18.</p></li>
+             <li><p>Type is a basic type or a fully qualified
+              Java class name (including package name),
+              as per the 'Type' production in the Java
+              Language Specification, Second Edition,
+              Chapter 18.</p></li>
 
                     <li><p>Identifier is a Java identifier, as per
-		      the 'Identifier' production in the Java
-		      Language Specification, Second
-		      Edition, Chapter 18.</p></li>
+              the 'Identifier' production in the Java
+              Language Specification, Second
+              Edition, Chapter 18.</p></li>
 
 </ul>
 
-	    <p>Example:</p>
+        <p>Example:</p>
 
-	    <p><code>java.lang.String nickName( java.lang.String, int )</code></p>
+        <p><code>java.lang.String nickName( java.lang.String, int )</code></p>
 </div>]]>
 
             </description>
@@ -507,7 +507,7 @@ to declare two composite component attributes to allow these buttons to
 be customized, for example, "submitAction" and "cancelAction".  For both
 of these buttons, the method expression should be retargeted to the
 inner button's "action" attribute.  This scenario would be expressed as
-follows.</p> 
+follows.</p>
 
 <code>
 &lt;cc:interface&gt;<br />
@@ -572,7 +572,7 @@ correspond to the id of an inner component.</p>
                 whose expected type is given by the value of this attribute. If
                 not
                 specified, and no "method-signature" attribute is present,
-                <span class="changed_modified_5_0">the type must be determined by calling 
+                <span class="changed_modified_5_0">the type must be determined by calling
                 <code>getType()</code> on the Composite Component Attributes ELResolver.</span> This
                 attribute is mutually
                 exclusive with the "method-signature" attribute. If both attributes are
@@ -624,7 +624,7 @@ the case of a using page with no event attribute.  </div>
 <div class="changed_added_2_1">
 <p>The evaluated value of this attribute will be passed as the first
 argument to the <code>addClientBehavior()</code> method on
-<code>ClientBehaviorHolder</code>.</p>              
+<code>ClientBehaviorHolder</code>.</p>
 
             ]]></description>
             <name>event</name>
@@ -639,7 +639,7 @@ argument to the <code>addClientBehavior()</code> method on
   nested within a composite component.   If the "targets" attribute is not specified,
   this value also represents the component ID of the target component within the
   that the <code>&lt;cc:implementation&gt;</code>
-  to which the ActionListener should be mapped. 
+  to which the ActionListener should be mapped.
 </p>
 </div>
             ]]></description>
@@ -782,7 +782,7 @@ example.</p>
         </attribute>
         <attribute>
             <description><![CDATA[
-                <p> The "hidden" flag is used to identify features that are intended only 
+                <p> The "hidden" flag is used to identify features that are intended only
                 for tool use, and which should not be exposed to humans.</p>
 
             ]]></description>
@@ -790,7 +790,7 @@ example.</p>
             <required>false</required>
             <type>boolean</type>
         </attribute>
-        
+
         <attribute>
             <description><![CDATA[
 
@@ -862,7 +862,7 @@ example.</p>
             <code>&lt;cc:interface&gt;</code> element appears,
             the <code>&lt;composite-implementation&gt;</code> element is
             optional.  </p> </div>
-            
+
         ]]></description>
         <tag-name>implementation</tag-name>
         <handler-class />
@@ -974,7 +974,7 @@ section.</span></p>
 
             <ul>
 
-	  <li><p>Be able to listen for the <code>ActionEvent</code>
+      <li><p>Be able to listen for the <code>ActionEvent</code>
             on the button.</p>
 
            <p>In this case, a
@@ -985,8 +985,8 @@ section.</span></p>
 
           </li>
 
-	  <li><p>Provide an "action" to invoke when the button is pressed.
-	  </p>
+      <li><p>Provide an "action" to invoke when the button is pressed.
+      </p>
 
            <p>In this case, a
             <code>&lt;cc:attribute&gt;</code> element is included
@@ -996,9 +996,9 @@ section.</span></p>
 
 </li>
 
-	  <li><p>Provide parameters to the composite component for
-	  labels and other rendering specific aspects of the composite
-	  component.</p>
+      <li><p>Provide parameters to the composite component for
+      labels and other rendering specific aspects of the composite
+      component.</p>
 
           <p>In this case, one or more
           <code>&lt;cc:attribute&gt;</code> elements are included
@@ -1013,10 +1013,10 @@ section.</span></p>
           </li>
 
 
-	  <li><p>Add <code>ValueChangeListener</code>s,
-	  <code>Converter</code>s, or <code>Validator</code>s to either
-	  or both text fields.
-	  </p>
+      <li><p>Add <code>ValueChangeListener</code>s,
+      <code>Converter</code>s, or <code>Validator</code>s to either
+      or both text fields.
+      </p>
 
            <p>In this case, a
            <code>&lt;cc:editableValueHolder&gt;</code> element is
@@ -1030,7 +1030,7 @@ section.</span></p>
 
             </li>
 
-	  <li><p>Add facet children to the login panel.</p>
+      <li><p>Add facet children to the login panel.</p>
 
           <p>In this case, a <code>&lt;cc:facet&gt;</code>
           element is included in the usage contract that refers to the
@@ -1215,7 +1215,7 @@ clientId is required due to the semantics of
         <attribute>
             <description><![CDATA[
                <div class="changed_added_2_0_rev_a">
-                 <p> The "hidden" flag is used to identify features that are 
+                 <p> The "hidden" flag is used to identify features that are
                  intended only for tool use, and which should not be exposed to humans.</p>
                </div>
             ]]></description>
@@ -1391,7 +1391,7 @@ example.</p>
         <attribute>
             <description><![CDATA[
                <div class="changed_added_2_0_rev_a">
-                 <p> The "hidden" flag is used to identify features that are 
+                 <p> The "hidden" flag is used to identify features that are
                  intended only for tool use, and which should not be exposed to humans.</p>
                </div>
             ]]></description>
@@ -1407,7 +1407,7 @@ example.</p>
   nested within a composite component.   If the "targets" attribute is not specified,
   this value also represents the component ID of the target component within the
   that the <code>&lt;cc:implementation&gt;</code>
-  ActionListener should be mapped to.  
+  ActionListener should be mapped to.
 </p>
 </div>            ]]></description>
             <name>name</name>

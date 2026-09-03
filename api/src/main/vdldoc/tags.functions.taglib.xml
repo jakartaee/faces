@@ -27,7 +27,7 @@
         <p><strong>Jakarta Tags Functions Tag Library</strong></p>
     ]]></description>
     <namespace>jakarta.tags.functions</namespace>
-    
+
     <function>
         <description>
             Tests if an input string contains the specified substring.

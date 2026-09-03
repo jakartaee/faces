@@ -18,24 +18,24 @@ package ee.jakarta.tck.faces.faces20.system_event_listener_startup;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.component.UIViewRoot;
+import jakarta.faces.event.SystemEventListener;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.UIViewRoot;
-import jakarta.faces.event.SystemEventListener;
 
 /**
- * The module registers a SystemEventListener in faces-config whose constructor reaches for the view map of the current
- * view root. A listener declared this way is instantiated for the whole application, hence the dedicated module.
+ * The module registers a SystemEventListener in faces-config whose constructor reaches for the view map of the current view root. A listener declared this way
+ * is instantiated for the whole application, hence the dedicated module.
  */
 class Issue2648IT extends BaseITNG {
 
     /**
-     * A SystemEventListener declared in faces-config is constructed while the application is still starting, when
-     * there is no request and hence no view root to take a view map from. The application must nevertheless deploy and
-     * serve its views.
+     * A SystemEventListener declared in faces-config is constructed while the application is still starting, when there is no request and hence no view root to
+     * take a view map from. The application must nevertheless deploy and serve its views.
      *
      * @see SystemEventListener
      * @see UIViewRoot#getViewMap()
@@ -53,4 +53,5 @@ class Issue2648IT extends BaseITNG {
         assertEquals(200, page.getResponseStatus(), "postback");
         assertEquals("served", page.findElement(By.id("form:result")).getText(), "The view must survive a postback.");
     }
+
 }

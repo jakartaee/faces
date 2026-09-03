@@ -25,9 +25,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A {@code src} of {@code ui:include} which is under the control of the request must resolve to a Facelet
- * inside the application. It may not name an absolute URL whose scheme discards the application base, escape
- * the deployment through path traversal, or point at a non-Facelet resource such as a deployment descriptor.
+ * A {@code src} of {@code ui:include} which is under the control of the request must resolve to a Facelet inside the application. It may not name an absolute
+ * URL whose scheme discards the application base, escape the deployment through path traversal, or point at a non-Facelet resource such as a deployment
+ * descriptor.
  */
 class UiIncludeRceIT extends BaseITNG {
 
@@ -51,8 +51,7 @@ class UiIncludeRceIT extends BaseITNG {
     }
 
     /**
-     * WEB-INF is protected by the container against direct requests, but remains a legitimate location for a
-     * Facelet which is pulled in by an include.
+     * WEB-INF is protected by the container against direct requests, but remains a legitimate location for a Facelet which is pulled in by an include.
      */
     @Test
     void testAbsolutePathToFaceletInWebInf() {
@@ -119,10 +118,9 @@ class UiIncludeRceIT extends BaseITNG {
     }
 
     /**
-     * A container which serves a JAR hosted Facelet under the {@code jar} scheme gives it a null authority, which must
-     * not let a remote archive pass as the archive the including Facelet itself lives in. Asserted on the guard's own
-     * message rather than through {@link #assertBlocked(WebPage, String...)}, because a rejected include and a failed
-     * attempt to fetch the remote archive both end up as an error page.
+     * A container which serves a JAR hosted Facelet under the {@code jar} scheme gives it a null authority, which must not let a remote archive pass as the
+     * archive the including Facelet itself lives in. Asserted on the guard's own message rather than through {@link #assertBlocked(WebPage, String...)},
+     * because a rejected include and a failed attempt to fetch the remote archive both end up as an error page.
      */
     @Test
     void testJarHostedRemoteArchive() {
@@ -211,10 +209,12 @@ class UiIncludeRceIT extends BaseITNG {
     private void assertRejectedAsForeignOrigin(WebPage page) {
         assertTrue(
             page.getSource().contains("must be a relative path within the application"),
-            () -> "Include should have been rejected before the archive was opened, but page source was: " + page.getSource());
+            () -> "Include should have been rejected before the archive was opened, but page source was: " + page.getSource()
+        );
     }
 
     private void assertNoStackTrace(WebPage page) {
         assertFalse(page.getSource().contains("NullPointerException"), "Must not fail with an unhandled NPE");
     }
+
 }

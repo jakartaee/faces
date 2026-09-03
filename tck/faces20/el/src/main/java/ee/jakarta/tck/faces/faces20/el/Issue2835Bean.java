@@ -26,8 +26,8 @@ import jakarta.faces.context.FacesContext;
 import jakarta.inject.Named;
 
 /**
- * Exercises {@link ValueExpression#setValue} against a session scoped target, for a plain property, a nested bean
- * property and a read only property. Each getter reports SUCCESS or FAILED so the outcome is observable in the view.
+ * Exercises {@link ValueExpression#setValue} against a session scoped target, for a plain property, a nested bean property and a read only property. Each
+ * getter reports SUCCESS or FAILED so the outcome is observable in the view.
  */
 @Named
 @RequestScoped
@@ -65,11 +65,13 @@ public class Issue2835Bean implements Serializable {
         public String getReadOnly() {
             return "read only";
         }
+
     }
 
     public static class Inner implements Serializable {
 
         private static final long serialVersionUID = 1L;
+
     }
 
     /**
@@ -132,8 +134,9 @@ public class Issue2835Bean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ELContext elContext = context.getELContext();
         ValueExpression valueExpression = context.getApplication().getExpressionFactory()
-                .createValueExpression(elContext, expression, Object.class);
+            .createValueExpression(elContext, expression, Object.class);
 
         valueExpression.setValue(elContext, value);
     }
+
 }

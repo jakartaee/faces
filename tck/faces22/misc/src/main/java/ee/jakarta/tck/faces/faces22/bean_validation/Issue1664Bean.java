@@ -64,4 +64,5 @@ public class Issue1664Bean implements Serializable {
         }
         return result;
     }
+
 }

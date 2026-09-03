@@ -34,20 +34,16 @@ public class JavaPage extends Facelet {
         output.setValue("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
         rootChildren.add(output);
 
-
         HtmlBody body = components.create(HtmlBody.COMPONENT_TYPE);
         rootChildren.add(body);
-
 
         HtmlForm form = components.create(HtmlForm.COMPONENT_TYPE);
         form.setId("form");
         body.getChildren().add(form);
 
-
         HtmlOutputText message = components.create(HtmlOutputText.COMPONENT_TYPE);
         message.setId("message");
         form.getChildren().add(message);
-
 
         HtmlCommandButton actionButton = components.create(HtmlCommandButton.COMPONENT_TYPE);
         actionButton.setId("button");
@@ -55,23 +51,24 @@ public class JavaPage extends Facelet {
         actionButton.setValue("Do action");
         form.getChildren().add(actionButton);
 
-
         output = new UIOutput();
         output.setValue("</html>");
         rootChildren.add(output);
     }
 
     private static class ComponentBuilder {
+
         FacesContext facesContext;
 
         ComponentBuilder(FacesContext facesContext) {
             this.facesContext = facesContext;
         }
 
-       @SuppressWarnings("unchecked")
-       <T> T create(String componentType) {
-           return (T) facesContext.getApplication().createComponent(facesContext, componentType, null);
-       }
+        @SuppressWarnings("unchecked")
+        <T> T create(String componentType) {
+            return (T) facesContext.getApplication().createComponent(facesContext, componentType, null);
+        }
+
     }
 
 }

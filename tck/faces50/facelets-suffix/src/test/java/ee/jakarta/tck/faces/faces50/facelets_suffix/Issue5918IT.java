@@ -23,8 +23,8 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * The webapp declares {@code jakarta.faces.FACELETS_SUFFIX} as {@code .page  .html}, with a redundant space between
- * the two entries, and {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} as {@code *.page}.
+ * The webapp declares {@code jakarta.faces.FACELETS_SUFFIX} as {@code .page  .html}, with a redundant space between the two entries, and
+ * {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} as {@code *.page}.
  */
 class Issue5918IT extends BaseITNG {
 
@@ -38,9 +38,9 @@ class Issue5918IT extends BaseITNG {
     }
 
     /**
-     * {@code jakarta.faces.FACELETS_SUFFIX} is a list of which the first suffix whose physical resource exists wins,
-     * so a view which exists only under the second configured suffix must resolve as well. This must also hold when
-     * {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} is declared and does not name that suffix.
+     * {@code jakarta.faces.FACELETS_SUFFIX} is a list of which the first suffix whose physical resource exists wins, so a view which exists only under the
+     * second configured suffix must resolve as well. This must also hold when {@code jakarta.faces.FACELETS_VIEW_MAPPINGS} is declared and does not name that
+     * suffix.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5918
      */
@@ -51,8 +51,8 @@ class Issue5918IT extends BaseITNG {
     }
 
     /**
-     * The default Facelets suffix identifies a Facelet regardless of which view suffixes the webapp configures, so an
-     * include of an {@code .xhtml} fragment must resolve even when the configured list does not name it.
+     * The default Facelets suffix identifies a Facelet regardless of which view suffixes the webapp configures, so an include of an {@code .xhtml} fragment
+     * must resolve even when the configured list does not name it.
      */
     @Test
     void testIncludeDefaultSuffixFragment() {
@@ -61,8 +61,8 @@ class Issue5918IT extends BaseITNG {
     }
 
     /**
-     * Redundant whitespace in {@code jakarta.faces.FACELETS_SUFFIX} must not yield an empty suffix, which would match
-     * every resource and so let an include disclose a deployment descriptor.
+     * Redundant whitespace in {@code jakarta.faces.FACELETS_SUFFIX} must not yield an empty suffix, which would match every resource and so let an include
+     * disclose a deployment descriptor.
      */
     @Test
     void testIncludeDescriptorBlocked() {
@@ -70,4 +70,5 @@ class Issue5918IT extends BaseITNG {
         assertFalse(source.contains("<web-app"), "web.xml content must not leak");
         assertFalse(source.contains("FACELETS_SUFFIX"), "web.xml content must not leak");
     }
+
 }

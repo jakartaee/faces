@@ -22,38 +22,33 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0 changed_modified_2_2 changed_modified_2_3">Converter</strong> is an interface
- * describing a Java class that can perform Object-to-String and String-to-Object conversions between model data objects
- * and a String representation of those objects that is suitable for rendering.
+ * <strong class="changed_modified_2_0 changed_modified_2_2 changed_modified_2_3">Converter</strong> is an interface describing a Java class that can perform
+ * Object-to-String and String-to-Object conversions between model data objects and a String representation of those objects that is suitable for rendering.
  * </p>
  *
  * <p>
- * {@link Converter} implementations must have a zero-arguments public constructor. In addition, if the
- * {@link Converter} class wishes to have configuration property values saved and restored with the component tree, the
- * implementation must also implement {@link StateHolder}.
+ * {@link Converter} implementations must have a zero-arguments public constructor. In addition, if the {@link Converter} class wishes to have configuration
+ * property values saved and restored with the component tree, the implementation must also implement {@link StateHolder}.
  * </p>
  *
  * <p>
- * Starting with version 1.2 of the specification, an exception to the above zero-arguments constructor requirement has
- * been introduced. If a converter has a single argument constructor that takes a <code>Class</code> instance and the
- * <code>Class</code> of the data to be converted is known at converter instantiation time, this constructor must be
- * used to instantiate the converter instead of the zero-argument version. This enables the per-class conversion of Java
- * enumerated types.
+ * Starting with version 1.2 of the specification, an exception to the above zero-arguments constructor requirement has been introduced. If a converter has a
+ * single argument constructor that takes a <code>Class</code> instance and the <code>Class</code> of the data to be converted is known at converter
+ * instantiation time, this constructor must be used to instantiate the converter instead of the zero-argument version. This enables the per-class conversion of
+ * Java enumerated types.
  * </p>
  *
  * <p>
- * If any <code>Converter</code> implementation requires a <code>java.util.Locale</code> to perform its job, it must
- * obtain that <code>Locale</code> from the {@link jakarta.faces.component.UIViewRoot} of the current
- * {@link FacesContext}, unless the <code>Converter</code> maintains its own <code>Locale</code> as part of its state.
+ * If any <code>Converter</code> implementation requires a <code>java.util.Locale</code> to perform its job, it must obtain that <code>Locale</code> from the
+ * {@link jakarta.faces.component.UIViewRoot} of the current {@link FacesContext}, unless the <code>Converter</code> maintains its own <code>Locale</code> as
+ * part of its state.
  * </p>
  *
  * <p class="changed_added_2_0">
- * If the class implementing <code>Converter</code> has a {@link jakarta.faces.application.ResourceDependency}
- * annotation, the action described in <code>ResourceDependency</code> must be taken when
- * {@link jakarta.faces.component.ValueHolder#setConverter} is called. If the class implementing <code>Converter</code>
- * has a {@link jakarta.faces.application.ResourceDependencies} annotation, the action described in
- * <code>ResourceDependencies</code> must be taken when {@link jakarta.faces.component.ValueHolder#setConverter} is
- * called.
+ * If the class implementing <code>Converter</code> has a {@link jakarta.faces.application.ResourceDependency} annotation, the action described in
+ * <code>ResourceDependency</code> must be taken when {@link jakarta.faces.component.ValueHolder#setConverter} is called. If the class implementing
+ * <code>Converter</code> has a {@link jakarta.faces.application.ResourceDependencies} annotation, the action described in <code>ResourceDependencies</code>
+ * must be taken when {@link jakarta.faces.component.ValueHolder#setConverter} is called.
  * </p>
  *
  * @param <T> The generic type of object value to convert.
@@ -63,9 +58,9 @@ public interface Converter<T> {
 
     /**
      * <p>
-     * <span class="changed_modified_2_3">Convert</span> the specified string value, which is associated with the specified
-     * {@link UIComponent}, into a model data object that is appropriate for being stored during the
-     * <em class="changed_modified_2_3">Process Validations</em> phase of the request processing lifecycle.
+     * <span class="changed_modified_2_3">Convert</span> the specified string value, which is associated with the specified {@link UIComponent}, into a model
+     * data object that is appropriate for being stored during the <em class="changed_modified_2_3">Process Validations</em> phase of the request processing
+     * lifecycle.
      * </p>
      *
      * @param context {@link FacesContext} for the request being processed
@@ -79,9 +74,8 @@ public interface Converter<T> {
 
     /**
      * <p>
-     * Convert the specified model object value, which is associated with the specified {@link UIComponent}, into a String
-     * that is suitable for being included in the response generated during the <em>Render Response</em> phase of the
-     * request processing lifeycle.
+     * Convert the specified model object value, which is associated with the specified {@link UIComponent}, into a String that is suitable for being included
+     * in the response generated during the <em>Render Response</em> phase of the request processing lifeycle.
      * </p>
      *
      * @param context {@link FacesContext} for the request being processed
@@ -95,9 +89,9 @@ public interface Converter<T> {
 
     /**
      * <p class="changed_added_2_2">
-     * If this param is set, and calling toLowerCase().equals("true") on a String representation of its value returns true,
-     * Application.createConverter() must guarantee that the default for the timezone of all
-     * jakarta.faces.convert.DateTimeConverter instances must be equal to TimeZone.getDefault() instead of "GMT".
+     * If this param is set, and calling toLowerCase().equals("true") on a String representation of its value returns true, Application.createConverter() must
+     * guarantee that the default for the timezone of all jakarta.faces.convert.DateTimeConverter instances must be equal to TimeZone.getDefault() instead of
+     * "GMT".
      * </p>
      *
      * @since 2.0

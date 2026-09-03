@@ -29,14 +29,14 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1581JavaPageWithMetadataIT extends BaseITNG {
 
-  /**
-   * @see Facelet
+    /**
+     * @see Facelet
      * @see View
      * @see ViewDeclarationLanguage#getViewMetadata(jakarta.faces.context.FacesContext, String)
      * @see https://github.com/jakartaee/faces/issues/1581
-   */
-  @Test
-  void test() throws Exception {
+     */
+    @Test
+    void test() throws Exception {
         WebPage page = getPage("javapagewithmetadata.xhtml?id=foo");
 
         assertTrue(page.containsText("Id is:foo"));

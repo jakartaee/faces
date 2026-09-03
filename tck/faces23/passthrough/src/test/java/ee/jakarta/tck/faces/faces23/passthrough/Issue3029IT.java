@@ -18,18 +18,19 @@ package ee.jakarta.tck.faces.faces23.passthrough;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.view.facelets.TagDecorator;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.view.facelets.TagDecorator;
 
 class Issue3029IT extends BaseITNG {
 
     /**
-     * A plain HTML element decorated with jsf:id keeps a class attribute of its own: promoting the element
-     * to a component must not let class collide with the styleClass the renderer writes out.
+     * A plain HTML element decorated with jsf:id keeps a class attribute of its own: promoting the element to a component must not let class collide with the
+     * styleClass the renderer writes out.
      *
      * @see TagDecorator
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3029
@@ -39,7 +40,10 @@ class Issue3029IT extends BaseITNG {
         WebPage page = getPage("issue3029.xhtml");
 
         assertEquals(200, page.getResponseStatus(), "The view must render.");
-        assertEquals("myclass", page.findElement(By.id("bar")).getDomAttribute("class"),
-                "The class attribute must be rendered verbatim on the promoted element.");
+        assertEquals(
+            "myclass", page.findElement(By.id("bar")).getDomAttribute("class"),
+            "The class attribute must be rendered verbatim on the promoted element."
+        );
     }
+
 }

@@ -108,4 +108,5 @@ class DoubleConverterTest {
         FacesContext facesContext = Mockito.mock(FacesContext.class);
         assertEquals("12.3", converter.getAsString(facesContext, new UIPanel(), Double.valueOf("12.3")));
     }
+
 }

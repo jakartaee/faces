@@ -82,4 +82,5 @@ class SelectItemIT extends BaseITNG {
     void selectItemIsSetEscapeTest() {
         runServletTest("selectItemIsSetEscapeTest");
     }
+
 }

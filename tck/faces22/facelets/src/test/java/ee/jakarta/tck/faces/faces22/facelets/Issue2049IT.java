@@ -24,15 +24,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that an empty HTML attribute on a plain (non-component) element is preserved in the rendered output
- * rather than being dropped by the Facelets compiler.
+ * Verifies that an empty HTML attribute on a plain (non-component) element is preserved in the rendered output rather than being dropped by the Facelets
+ * compiler.
  */
 class Issue2049IT extends BaseITNG {
 
     /**
-     * Verifies that an empty {@code alt=""} attribute on a plain {@code img} element is rendered verbatim as
-     * {@code alt=""} in the response, i.e. the Facelets view handler does not strip attributes whose value is the
-     * empty string.
+     * Verifies that an empty {@code alt=""} attribute on a plain {@code img} element is rendered verbatim as {@code alt=""} in the response, i.e. the Facelets
+     * view handler does not strip attributes whose value is the empty string.
      *
      * @see jakarta.faces.view.facelets.Facelet
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2049
@@ -42,4 +41,5 @@ class Issue2049IT extends BaseITNG {
         WebPage page = getPage("issue2049.xhtml");
         assertTrue(page.getSource().contains("alt=\"\""), "Empty alt attribute must be preserved in the output");
     }
+
 }

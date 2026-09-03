@@ -25,9 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * The ampersand in an {@code f:param} (or programmatically built redirect URL) must be correctly
- * URL-encoded so that a single multi-word search term arrives intact as one query parameter on the
- * redirect target, rather than being split into several parameters by an unencoded ampersand.
+ * The ampersand in an {@code f:param} (or programmatically built redirect URL) must be correctly URL-encoded so that a single multi-word search term arrives
+ * intact as one query parameter on the redirect target, rather than being split into several parameters by an unencoded ampersand.
  */
 class Issue3027IT extends BaseITNG {
 
@@ -47,8 +46,8 @@ class Issue3027IT extends BaseITNG {
     }
 
     /**
-     * Redirect built without URL encoding: the unencoded ampersand splits the value, so the full
-     * term is lost but the leading word still appears as the query parameter.
+     * Redirect built without URL encoding: the unencoded ampersand splits the value, so the full term is lost but the leading word still appears as the query
+     * parameter.
      *
      * @see jakarta.faces.application.NavigationHandler
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3027
@@ -99,4 +98,5 @@ class Issue3027IT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id("form:submit5")).click());
         assertTrue(page.containsText(FULL), "h:link f:param encodes the value");
     }
+
 }

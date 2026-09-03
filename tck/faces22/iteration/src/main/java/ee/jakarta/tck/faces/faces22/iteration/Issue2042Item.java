@@ -35,4 +35,5 @@ public class Issue2042Item implements Serializable {
     public void setLabel(String label) {
         this.label = label;
     }
+
 }

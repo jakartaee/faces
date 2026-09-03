@@ -21,8 +21,8 @@ import jakarta.faces.application.ViewHandlerWrapper;
 import jakarta.faces.context.FacesContext;
 
 /**
- * A custom {@link ViewHandler} whose {@code deriveViewId} appends the {@code .xhtml} suffix, so an
- * extensionless request such as {@code /faces/issue3488} resolves to {@code /issue3488.xhtml}.
+ * A custom {@link ViewHandler} whose {@code deriveViewId} appends the {@code .xhtml} suffix, so an extensionless request such as {@code /faces/issue3488}
+ * resolves to {@code /issue3488.xhtml}.
  */
 public class CustomViewHandler extends ViewHandlerWrapper {
 
@@ -39,4 +39,5 @@ public class CustomViewHandler extends ViewHandlerWrapper {
     public String deriveLogicalViewId(FacesContext context, String requestViewId) {
         return deriveViewId(context, requestViewId);
     }
+
 }

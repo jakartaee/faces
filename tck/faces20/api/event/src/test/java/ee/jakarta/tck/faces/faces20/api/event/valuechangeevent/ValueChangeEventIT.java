@@ -28,9 +28,29 @@ class ValueChangeEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void valueChangeEventCtorIllegalArgumentExceptionTest() { runServletTest("valueChangeEventCtorIllegalArgumentExceptionTest"); }
-    @Test void valueChangeEventCtorTest() { runServletTest("valueChangeEventCtorTest"); }
-    @Test void valueChangeEventGetComponentTest() { runServletTest("valueChangeEventGetComponentTest"); }
-    @Test void valueChangeEventGetNewValueTest() { runServletTest("valueChangeEventGetNewValueTest"); }
-    @Test void valueChangeEventGetOldValueTest() { runServletTest("valueChangeEventGetOldValueTest"); }
+    @Test
+    void valueChangeEventCtorIllegalArgumentExceptionTest() {
+        runServletTest("valueChangeEventCtorIllegalArgumentExceptionTest");
+    }
+
+    @Test
+    void valueChangeEventCtorTest() {
+        runServletTest("valueChangeEventCtorTest");
+    }
+
+    @Test
+    void valueChangeEventGetComponentTest() {
+        runServletTest("valueChangeEventGetComponentTest");
+    }
+
+    @Test
+    void valueChangeEventGetNewValueTest() {
+        runServletTest("valueChangeEventGetNewValueTest");
+    }
+
+    @Test
+    void valueChangeEventGetOldValueTest() {
+        runServletTest("valueChangeEventGetOldValueTest");
+    }
+
 }

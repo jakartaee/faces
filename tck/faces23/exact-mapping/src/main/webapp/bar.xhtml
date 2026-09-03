@@ -23,21 +23,20 @@
       xmlns:ui="jakarta.faces.facelets"
       xmlns:f="jakarta.faces.core">
 
-  
+
   <h:head>
     <title>bar</title>
   </h:head>
-  
+
   <h:body>
 
     This is page bar <br/>
-    
+
     #{spec1260Bean.message}
-    
+
     <h:form id="form">
         <h:commandButton id="commandButton" action="#{spec1260Bean.foo()}" value="invoke method foo"/>
-    </h:form> 
-    
+    </h:form>
+
   </h:body>
 </html>
-

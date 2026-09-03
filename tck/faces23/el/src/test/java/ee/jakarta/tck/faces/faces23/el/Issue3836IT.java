@@ -28,9 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3836IT extends BaseITNG {
 
     /**
-     * A user-supplied value that happens to be an EL expression and is reflected into an h:link
-     * outcome query parameter must not be re-evaluated as EL. Submitting #{issue3836Bean.forbidden}
-     * must therefore not leak the bean's "Forbidden value." into the rendered link href.
+     * A user-supplied value that happens to be an EL expression and is reflected into an h:link outcome query parameter must not be re-evaluated as EL.
+     * Submitting #{issue3836Bean.forbidden} must therefore not leak the bean's "Forbidden value." into the rendered link href.
      *
      * @see jakarta.faces.component.html.HtmlOutcomeTargetLink
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3836
@@ -47,4 +46,5 @@ class Issue3836IT extends BaseITNG {
         WebElement link = page.findElement(By.id("link"));
         assertFalse(link.getDomAttribute("href").contains("Forbidden value."));
     }
+
 }

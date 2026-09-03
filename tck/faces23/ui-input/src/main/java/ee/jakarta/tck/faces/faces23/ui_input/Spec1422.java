@@ -27,7 +27,9 @@ import jakarta.enterprise.inject.Model;
 public class Spec1422 {
 
     public enum Item {
-        ONE, TWO, THREE;
+        ONE,
+        TWO,
+        THREE;
     }
 
     private List<Item> selectedItems;

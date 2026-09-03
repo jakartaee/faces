@@ -28,30 +28,134 @@ class FacesContextWrapperIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void facesCtxWrapperAddGetMessagesTest() { runServletTest("facesCtxWrapperAddGetMessagesTest"); }
-    @Test void facesCtxWrapperGetApplicationTest() { runServletTest("facesCtxWrapperGetApplicationTest"); }
-    @Test void facesCtxWrapperGetAttributesEmptyTest() { runServletTest("facesCtxWrapperGetAttributesEmptyTest"); }
-    @Test void facesCtxWrapperGetAttributesTest() { runServletTest("facesCtxWrapperGetAttributesTest"); }
-    @Test void facesCtxWrapperGetClientIdsWithMessagesEmptyTest() { runServletTest("facesCtxWrapperGetClientIdsWithMessagesEmptyTest"); }
-    @Test void facesCtxWrapperGetClientIdsWithMessagesTest() { runServletTest("facesCtxWrapperGetClientIdsWithMessagesTest"); }
-    @Test void facesCtxWrapperGetELContextTest() { runServletTest("facesCtxWrapperGetELContextTest"); }
-    @Test void facesCtxWrapperGetExceptionHandlerTest() { runServletTest("facesCtxWrapperGetExceptionHandlerTest"); }
-    @Test void facesCtxWrapperGetExternalContextTest() { runServletTest("facesCtxWrapperGetExternalContextTest"); }
-    @Test void facesCtxWrapperGetMaximumSeverityTest() { runServletTest("facesCtxWrapperGetMaximumSeverityTest"); }
-    @Test void facesCtxWrapperGetMessageListByIdTest() { runServletTest("facesCtxWrapperGetMessageListByIdTest"); }
-    @Test void facesCtxWrapperGetMessageListTest() { runServletTest("facesCtxWrapperGetMessageListTest"); }
-    @Test void facesCtxWrapperGetMessagesEmptyTest() { runServletTest("facesCtxWrapperGetMessagesEmptyTest"); }
-    @Test void facesCtxWrapperGetPartialViewContextTest() { runServletTest("facesCtxWrapperGetPartialViewContextTest"); }
-    @Test void facesCtxWrapperGetRenderKitTest() { runServletTest("facesCtxWrapperGetRenderKitTest"); }
-    @Test void facesCtxWrapperGetResponseCompleteTest() { runServletTest("facesCtxWrapperGetResponseCompleteTest"); }
-    @Test void facesCtxWrapperGetViewRootTest() { runServletTest("facesCtxWrapperGetViewRootTest"); }
-    @Test void facesCtxWrapperIsGetProcessingEventTest() { runServletTest("facesCtxWrapperIsGetProcessingEventTest"); }
-    @Test void facesCtxWrapperIsPostbackTest() { runServletTest("facesCtxWrapperIsPostbackTest"); }
-    @Test void facesCtxWrapperIsReleasedTest() { runServletTest("facesCtxWrapperIsReleasedTest"); }
-    @Test void facesCtxWrapperIsValidationFailedTest() { runServletTest("facesCtxWrapperIsValidationFailedTest"); }
-    @Test void facesCtxWrapperRenderResponseTest() { runServletTest("facesCtxWrapperRenderResponseTest"); }
-    @Test void facesCtxWrapperSetExceptionHandlerTest() { runServletTest("facesCtxWrapperSetExceptionHandlerTest"); }
-    @Test void facesCtxWrapperSetGetCurrentPhaseIdTest() { runServletTest("facesCtxWrapperSetGetCurrentPhaseIdTest"); }
-    @Test void facesCtxWrapperSetGetResponseStreamTest() { runServletTest("facesCtxWrapperSetGetResponseStreamTest"); }
-    @Test void facesCtxWrapperSetGetResponseWriterTest() { runServletTest("facesCtxWrapperSetGetResponseWriterTest"); }
+    @Test
+    void facesCtxWrapperAddGetMessagesTest() {
+        runServletTest("facesCtxWrapperAddGetMessagesTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetApplicationTest() {
+        runServletTest("facesCtxWrapperGetApplicationTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetAttributesEmptyTest() {
+        runServletTest("facesCtxWrapperGetAttributesEmptyTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetAttributesTest() {
+        runServletTest("facesCtxWrapperGetAttributesTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetClientIdsWithMessagesEmptyTest() {
+        runServletTest("facesCtxWrapperGetClientIdsWithMessagesEmptyTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetClientIdsWithMessagesTest() {
+        runServletTest("facesCtxWrapperGetClientIdsWithMessagesTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetELContextTest() {
+        runServletTest("facesCtxWrapperGetELContextTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetExceptionHandlerTest() {
+        runServletTest("facesCtxWrapperGetExceptionHandlerTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetExternalContextTest() {
+        runServletTest("facesCtxWrapperGetExternalContextTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetMaximumSeverityTest() {
+        runServletTest("facesCtxWrapperGetMaximumSeverityTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetMessageListByIdTest() {
+        runServletTest("facesCtxWrapperGetMessageListByIdTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetMessageListTest() {
+        runServletTest("facesCtxWrapperGetMessageListTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetMessagesEmptyTest() {
+        runServletTest("facesCtxWrapperGetMessagesEmptyTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetPartialViewContextTest() {
+        runServletTest("facesCtxWrapperGetPartialViewContextTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetRenderKitTest() {
+        runServletTest("facesCtxWrapperGetRenderKitTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetResponseCompleteTest() {
+        runServletTest("facesCtxWrapperGetResponseCompleteTest");
+    }
+
+    @Test
+    void facesCtxWrapperGetViewRootTest() {
+        runServletTest("facesCtxWrapperGetViewRootTest");
+    }
+
+    @Test
+    void facesCtxWrapperIsGetProcessingEventTest() {
+        runServletTest("facesCtxWrapperIsGetProcessingEventTest");
+    }
+
+    @Test
+    void facesCtxWrapperIsPostbackTest() {
+        runServletTest("facesCtxWrapperIsPostbackTest");
+    }
+
+    @Test
+    void facesCtxWrapperIsReleasedTest() {
+        runServletTest("facesCtxWrapperIsReleasedTest");
+    }
+
+    @Test
+    void facesCtxWrapperIsValidationFailedTest() {
+        runServletTest("facesCtxWrapperIsValidationFailedTest");
+    }
+
+    @Test
+    void facesCtxWrapperRenderResponseTest() {
+        runServletTest("facesCtxWrapperRenderResponseTest");
+    }
+
+    @Test
+    void facesCtxWrapperSetExceptionHandlerTest() {
+        runServletTest("facesCtxWrapperSetExceptionHandlerTest");
+    }
+
+    @Test
+    void facesCtxWrapperSetGetCurrentPhaseIdTest() {
+        runServletTest("facesCtxWrapperSetGetCurrentPhaseIdTest");
+    }
+
+    @Test
+    void facesCtxWrapperSetGetResponseStreamTest() {
+        runServletTest("facesCtxWrapperSetGetResponseStreamTest");
+    }
+
+    @Test
+    void facesCtxWrapperSetGetResponseWriterTest() {
+        runServletTest("facesCtxWrapperSetGetResponseWriterTest");
+    }
+
 }

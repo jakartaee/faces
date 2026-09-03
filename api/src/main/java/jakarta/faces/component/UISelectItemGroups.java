@@ -54,8 +54,8 @@ public class UISelectItemGroups extends UISelectItems {
     /**
      * <p>
      * Iterate over the <code>value</code> attribute and wrap each item in a new {@link SelectItemGroup} instance whereby the item is exposed as a request
-     * attribute under the key specified by the <code>var</code> property. This must allow any nested {@link UISelectItems} or {@link UISelectItem} component
-     * to access the item via their attributes. Finally return these {@link SelectItemGroup} instances as an ordered collection.
+     * attribute under the key specified by the <code>var</code> property. This must allow any nested {@link UISelectItems} or {@link UISelectItem} component to
+     * access the item via their attributes. Finally return these {@link SelectItemGroup} instances as an ordered collection.
      * </p>
      */
     @Override

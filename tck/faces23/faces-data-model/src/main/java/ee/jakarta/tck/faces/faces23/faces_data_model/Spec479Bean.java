@@ -46,8 +46,7 @@ public class Spec479Bean {
     }
 
     /**
-     * A plain {@link Collection} that is deliberately not a {@link List}, to prove a UIData value
-     * backed by an arbitrary Collection is supported.
+     * A plain {@link Collection} that is deliberately not a {@link List}, to prove a UIData value backed by an arbitrary Collection is supported.
      */
     private static final class ItemCollection extends AbstractCollection<Spec479Item> {
 
@@ -67,5 +66,7 @@ public class Spec479Bean {
         public int size() {
             return inner.size();
         }
+
     }
+
 }

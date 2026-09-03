@@ -59,9 +59,11 @@ class GridIT extends BaseITNG {
         WebElement grid5 = findByIdSuffix(page, "grid5");
         assertNull(findOptionalChild(grid5, "caption"), "grid5 caption");
         assertNull(findOptionalChild(grid5, "thead"), "grid5 thead");
-        validateBody(grid5, "grid5", 2, 3,
+        validateBody(
+            grid5, "grid5", 2, 3,
             new String[] { "odd", "even" },
-            new String[] { "even", "odd", "even" });
+            new String[] { "even", "odd", "even" }
+        );
 
         // grid6 is bound to GridUIBean which injects 2 columns containing 3 and 7.
         WebElement grid6 = findByIdSuffix(page, "grid6");
@@ -138,8 +140,11 @@ class GridIT extends BaseITNG {
         assertEquals(expectedClass, cell.getDomAttribute("class"), id + " footer td class");
     }
 
-    private static void validateBody(WebElement grid, String id, int expectedRows, int columns,
-                                     String[] rowClasses, String[] columnClasses) {
+    private static void validateBody(
+        WebElement grid, String id, int expectedRows, int columns,
+        String[] rowClasses, String[] columnClasses
+    )
+    {
         WebElement tbody = grid.findElement(By.tagName("tbody"));
         List<WebElement> rows = tbody.findElements(By.tagName("tr"));
         assertEquals(expectedRows, rows.size(), id + " tbody row count");
@@ -150,17 +155,23 @@ class GridIT extends BaseITNG {
 
         for (int i = 0; i < rows.size(); i++) {
             WebElement row = rows.get(i);
-            assertEquals(rowClasses == null ? null : rowClasses[i],
-                row.getDomAttribute("class"), id + " row " + (i + 1) + " class");
+            assertEquals(
+                rowClasses == null ? null : rowClasses[i],
+                row.getDomAttribute("class"), id + " row " + (i + 1) + " class"
+            );
 
             List<WebElement> cells = row.findElements(By.tagName("td"));
             for (int j = 0; j < rowLength; j++) {
                 int cellNo = i * rowLength + j;
                 WebElement cell = cells.get(j);
-                assertEquals(EXPECTED_VALUES[cellNo], cell.getText(),
-                    id + " cell(" + (i + 1) + "," + (j + 1) + ") text");
-                assertEquals(columnClasses == null ? null : columnClasses[j],
-                    cell.getDomAttribute("class"), id + " cell(" + (i + 1) + "," + (j + 1) + ") class");
+                assertEquals(
+                    EXPECTED_VALUES[cellNo], cell.getText(),
+                    id + " cell(" + (i + 1) + "," + (j + 1) + ") text"
+                );
+                assertEquals(
+                    columnClasses == null ? null : columnClasses[j],
+                    cell.getDomAttribute("class"), id + " cell(" + (i + 1) + "," + (j + 1) + ") class"
+                );
             }
         }
     }
@@ -172,8 +183,12 @@ class GridIT extends BaseITNG {
 
     private static WebElement findByIdSuffix(WebPage page, String id) {
         String suffix = ":" + id;
-        return page.findElement(By.xpath(
-            "//*[@id='" + id + "'"
-            + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"));
+        return page.findElement(
+            By.xpath(
+                "//*[@id='" + id + "'"
+                    + " or substring(@id, string-length(@id) - " + (suffix.length() - 1) + ") = '" + suffix + "']"
+            )
+        );
     }
+
 }

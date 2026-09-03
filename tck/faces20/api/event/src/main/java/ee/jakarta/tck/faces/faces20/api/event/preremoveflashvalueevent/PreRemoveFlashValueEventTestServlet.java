@@ -18,9 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.event.preremoveflashvalueevent;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.faces20.api.event.common.BaseSystemEventTestServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.application.Application;
 import jakarta.faces.event.PreRemoveFlashValueEvent;
 import jakarta.faces.event.SystemEvent;
@@ -29,39 +26,53 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.faces20.api.event.common.BaseSystemEventTestServlet;
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+
 @WebServlet("/PreRemoveFlashValueEventTestServlet")
 public final class PreRemoveFlashValueEventTestServlet extends BaseSystemEventTestServlet {
-  private static final String FLASH_KEY = "key";
 
-  @Override
-  protected SystemEvent createEvent(Object src) {
-    return new PreRemoveFlashValueEvent(FLASH_KEY);
-  }
+    private static final String FLASH_KEY = "key";
 
-  // ------------------------------------------- PostKeepFlashValueEvent
-
-  public void preRemoveFlashValueEventGetKeyTest(HttpServletRequest request,
-      HttpServletResponse response) throws ServletException, IOException {
-    PrintWriter pw = response.getWriter();
-    Application app = getFacesContext().getApplication();
-
-    if (app != null) {
-      PreRemoveFlashValueEvent pKeep = (PreRemoveFlashValueEvent) createEvent(
-          app);
-      String result = pKeep.getKey();
-
-      if (!FLASH_KEY.equals(result)) {
-        pw.println(JSFTestUtil.FAIL + " Wrong key value!" + JSFTestUtil.NL
-            + "Expected: " + FLASH_KEY + JSFTestUtil.NL + "Received: "
-            + result);
-      } else {
-        pw.println(JSFTestUtil.PASS);
-      }
-
-    } else {
-      pw.println(JSFTestUtil.FAIL + " Unexpected problem obtaining "
-          + "Application instance.");
+    @Override
+    protected SystemEvent createEvent(Object src) {
+        return new PreRemoveFlashValueEvent(FLASH_KEY);
     }
-  } // End preRemoveFlashValueEventGetKeyTest
+
+    // ------------------------------------------- PostKeepFlashValueEvent
+
+    public void preRemoveFlashValueEventGetKeyTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
+        PrintWriter pw = response.getWriter();
+        Application app = getFacesContext().getApplication();
+
+        if (app != null) {
+            PreRemoveFlashValueEvent pKeep = (PreRemoveFlashValueEvent) createEvent(
+                app
+            );
+            String result = pKeep.getKey();
+
+            if (!FLASH_KEY.equals(result)) {
+                pw.println(
+                    JSFTestUtil.FAIL + " Wrong key value!" + JSFTestUtil.NL
+                        + "Expected: " + FLASH_KEY + JSFTestUtil.NL + "Received: "
+                        + result
+                );
+            }
+            else {
+                pw.println(JSFTestUtil.PASS);
+            }
+
+        }
+        else {
+            pw.println(
+                JSFTestUtil.FAIL + " Unexpected problem obtaining "
+                    + "Application instance."
+            );
+        }
+    } // End preRemoveFlashValueEventGetKeyTest
 
 } // End TestServlet

@@ -20,7 +20,7 @@
 <html
       xmlns:h="jakarta.faces.html"
       xmlns:f="jakarta.faces.core">
-    
+
     <head>
         <title>First page in the flow</title>
     </head>
@@ -29,9 +29,9 @@
         <p>First page in the flow</p>
 
         <p>Value: <h:inputText id="input" value="#{simplestFlowBean.name}" /></p>
- 
+
         <p><h:commandButton id="a" value="next" action="a" /></p>
-        
+
         <p id="initMessage">#{userBean.initFlowMessage}</p>
     </h:form>
     </body>

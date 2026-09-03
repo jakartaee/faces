@@ -27,8 +27,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * Utility class to enable partial state saving of Lists of attached objects such as <code>FacesListener</code>s or
- * <code>Validator</code>s.
+ * Utility class to enable partial state saving of Lists of attached objects such as <code>FacesListener</code>s or <code>Validator</code>s.
  * </p>
  */
 @SuppressWarnings("unchecked") // saved attached objects are restored from Object[] state into the holder's erased element type T.
@@ -129,7 +128,8 @@ class AttachedObjectListHolder<T> implements PartialStateHolder {
             // in the full state.
             if (this.attachedObjects != null) {
                 this.attachedObjects.clear();
-            } else {
+            }
+            else {
                 this.attachedObjects = new ArrayList<>(2);
             }
 
@@ -139,7 +139,8 @@ class AttachedObjectListHolder<T> implements PartialStateHolder {
                     add(restored);
                 }
             }
-        } else if (this.attachedObjects != null && this.attachedObjects.size() == attachedObjects.length) {
+        }
+        else if (this.attachedObjects != null && this.attachedObjects.size() == attachedObjects.length) {
             // Assume 1:1 relation between existing attachedObjects and state
             for (int i = 0, len = attachedObjects.length; i < len; i++) {
                 T attachedObject = this.attachedObjects.get(i);

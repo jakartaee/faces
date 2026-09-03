@@ -32,4 +32,5 @@ public class Issue4086Bean {
     public void changeMyLocale(String mylocale) {
         this.mylocale = mylocale;
     }
+
 }

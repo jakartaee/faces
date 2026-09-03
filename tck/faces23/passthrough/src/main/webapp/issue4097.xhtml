@@ -18,62 +18,62 @@
 -->
 
 <html xmlns:f="jakarta.faces.core"
-	xmlns:h="jakarta.faces.html"
-	xmlns:p="jakarta.faces.passthrough">
+    xmlns:h="jakarta.faces.html"
+    xmlns:p="jakarta.faces.passthrough">
 
-	<h:head id="head">
-		<title><h:outputText value="JSF 2.2 Validation + HTML5" /></title>
-	</h:head>
-	
-	<h:body>
-		<h1>
-			<h:outputText value="required=&quot;true&quot;" />
-		</h1>
-		
-		<h:form id="requiredwithoutpassthrough">
-			<h:inputText id="value" required="true" />
-			<h:commandButton id="submit" value="Without passthrough" />
-			<h:message id="message" for="value" />
-		</h:form>
-		
-		<h:form id="requiredwithpassthrough">
-			<h:inputText id="value" p:required="required" />
-			<h:commandButton id="submit" value="With passthrough" />
-			<h:message id="message" for="value" />
-		</h:form>
+    <h:head id="head">
+        <title><h:outputText value="JSF 2.2 Validation + HTML5" /></title>
+    </h:head>
 
-		<form>
-			<input type="text" required="true" id="htmltext" />
-	
-			<button type="submit" value="Without passthrough">Test HTML</button>
-		</form>
-		
-		<h:commandButton id="removerequired"
-			onclick="document.getElementById('requiredwithpassthrough:value').removeAttribute('required');"
-			value="Remove required-attribute" />
-	
-		<h1>
-			<h:outputText value="f:validateRequired" />
-		</h1>
-		
-		<h:form id="validatewithoutpassthrough">
-			<h:inputText id="value">
-				<f:validateRequired />
-			</h:inputText>
-			<h:commandButton id="submit" value="Without passthrough" />
-			<h:message for="value" />
-		</h:form>
-		
-		<h:form id="validatewithpassthrough">
-			<h:inputText id="value" p:required="true">
-				<f:validateRequired />
-			</h:inputText>
-			<h:commandButton id="submit" value="With passthrough" />
-			<h:message for="value" />
-		</h:form>
-	
-		<h:commandButton id="removevalidate"
-			onclick="document.getElementById('validatewithpassthrough:value').removeAttribute('required');"
-			value="Remove required-attribute" />
-	</h:body>
+    <h:body>
+        <h1>
+            <h:outputText value="required=&quot;true&quot;" />
+        </h1>
+
+        <h:form id="requiredwithoutpassthrough">
+            <h:inputText id="value" required="true" />
+            <h:commandButton id="submit" value="Without passthrough" />
+            <h:message id="message" for="value" />
+        </h:form>
+
+        <h:form id="requiredwithpassthrough">
+            <h:inputText id="value" p:required="required" />
+            <h:commandButton id="submit" value="With passthrough" />
+            <h:message id="message" for="value" />
+        </h:form>
+
+        <form>
+            <input type="text" required="true" id="htmltext" />
+
+            <button type="submit" value="Without passthrough">Test HTML</button>
+        </form>
+
+        <h:commandButton id="removerequired"
+            onclick="document.getElementById('requiredwithpassthrough:value').removeAttribute('required');"
+            value="Remove required-attribute" />
+
+        <h1>
+            <h:outputText value="f:validateRequired" />
+        </h1>
+
+        <h:form id="validatewithoutpassthrough">
+            <h:inputText id="value">
+                <f:validateRequired />
+            </h:inputText>
+            <h:commandButton id="submit" value="Without passthrough" />
+            <h:message for="value" />
+        </h:form>
+
+        <h:form id="validatewithpassthrough">
+            <h:inputText id="value" p:required="true">
+                <f:validateRequired />
+            </h:inputText>
+            <h:commandButton id="submit" value="With passthrough" />
+            <h:message for="value" />
+        </h:form>
+
+        <h:commandButton id="removevalidate"
+            onclick="document.getElementById('validatewithpassthrough:value').removeAttribute('required');"
+            value="Remove required-attribute" />
+    </h:body>
 </html>

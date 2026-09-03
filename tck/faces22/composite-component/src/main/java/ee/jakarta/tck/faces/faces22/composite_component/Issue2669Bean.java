@@ -45,4 +45,5 @@ public class Issue2669Bean implements Serializable {
     public void validateName(FacesContext context, UIComponent component, Object object) throws ValidatorException {
         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_WARN, "Validation failed", "Component validation failed."));
     }
+
 }

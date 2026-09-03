@@ -18,15 +18,15 @@ package ee.jakarta.tck.faces.faces20.templating;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.view.facelets.TagAttributeException;
+
 import org.junit.jupiter.api.Test;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
-import jakarta.faces.view.facelets.TagAttributeException;
 
 /**
- * The VDL documentation of the {@code template} attribute of {@code ui:composition} and {@code ui:decorate}
- * requires a {@link TagAttributeException} when the URI cannot be resolved. The request must therefore fail
- * rather than silently render an empty page. The exception message is not asserted: these run in the
+ * The VDL documentation of the {@code template} attribute of {@code ui:composition} and {@code ui:decorate} requires a {@link TagAttributeException} when the
+ * URI cannot be resolved. The request must therefore fail rather than silently render an empty page. The exception message is not asserted: these run in the
  * Production project stage, which does not surface it.
  */
 class Issue2029IT extends BaseITNG {
@@ -62,4 +62,5 @@ class Issue2029IT extends BaseITNG {
     void decorateWithBlankTemplateFails() {
         assertEquals(500, getPage("template/decorateEmptyPath.xhtml").getResponseStatus());
     }
+
 }

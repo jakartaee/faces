@@ -30,12 +30,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Issue4551IT extends BaseITNG {
 
-  /**
-   * @see FacesValidator
+    /**
+     * @see FacesValidator
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4551
-   */
-  @Test
-  void twoAnnotatedJSFValidatorsInvoked() throws Exception {
+     */
+    @Test
+    void twoAnnotatedJSFValidatorsInvoked() throws Exception {
         WebPage page = getPage("issue4551.xhtml");
         WebElement submit = page.findElement(By.id("form:submit"));
         submit.click();
@@ -43,4 +43,5 @@ public class Issue4551IT extends BaseITNG {
         assertTrue(page.containsText("CustomValidator1 was validated with inject=true"));
         assertTrue(page.containsText("CustomValidator2 was validated with inject=true"));
     }
+
 }

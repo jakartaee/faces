@@ -23,10 +23,8 @@ import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.context.FacesContext;
 
 /**
- * View root that is itself a {@link NamingContainer}, prefixing every contained
- * client id with {@value #PREFIX}. This reproduces the namespacing scenario 
- * where request parameters (including those produced by
- * {@code f:param}) must still be resolved after the prefix is applied.
+ * View root that is itself a {@link NamingContainer}, prefixing every contained client id with {@value #PREFIX}. This reproduces the namespacing scenario where
+ * request parameters (including those produced by {@code f:param}) must still be resolved after the prefix is applied.
  */
 public class NamingContainerViewRoot extends UIViewRoot implements NamingContainer, Serializable {
 
@@ -38,4 +36,5 @@ public class NamingContainerViewRoot extends UIViewRoot implements NamingContain
     public String getContainerClientId(FacesContext context) {
         return PREFIX + super.getContainerClientId(context);
     }
+
 }

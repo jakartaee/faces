@@ -28,8 +28,8 @@ import jakarta.faces.event.BehaviorListener;
 
 /**
  * <p class="changed_added_2_0">
- * <strong>BehaviorBase</strong> is a convenience base class that provides a default implementation of the
- * {@link Behavior} contract. It also provides behavior listener registration and state saving support.
+ * <strong>BehaviorBase</strong> is a convenience base class that provides a default implementation of the {@link Behavior} contract. It also provides behavior
+ * listener registration and state saving support.
  * </p>
  *
  * @since 2.0
@@ -51,17 +51,14 @@ public class BehaviorBase implements Behavior, PartialStateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Default implementation of {@link Behavior#broadcast}. Delivers the specified {@link BehaviorEvent} to all registered
-     * {@link BehaviorListener} event listeners who have expressed an interest in events of this type. Listeners are called
-     * in the order in which they were registered (added).
+     * Default implementation of {@link Behavior#broadcast}. Delivers the specified {@link BehaviorEvent} to all registered {@link BehaviorListener} event
+     * listeners who have expressed an interest in events of this type. Listeners are called in the order in which they were registered (added).
      * </p>
      *
      * @param event The {@link BehaviorEvent} to be broadcast
      *
-     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the
-     * current event should be performed
-     * @throws IllegalArgumentException if the implementation class of this {@link BehaviorEvent} is not supported by this
-     * component
+     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the current event should be performed
+     * @throws IllegalArgumentException if the implementation class of this {@link BehaviorEvent} is not supported by this component
      * @throws NullPointerException if <code>event</code> is <code>null</code>
      *
      * @since 2.0
@@ -173,10 +170,9 @@ public class BehaviorBase implements Behavior, PartialStateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Add the specified {@link BehaviorListener} to the set of listeners registered to receive event notifications from
-     * this {@link Behavior}. It is expected that {@link Behavior} classes acting as event sources will have corresponding
-     * typesafe APIs for registering listeners of the required type, and the implementation of those registration methods
-     * will delegate to this method. For example:
+     * Add the specified {@link BehaviorListener} to the set of listeners registered to receive event notifications from this {@link Behavior}. It is expected
+     * that {@link Behavior} classes acting as event sources will have corresponding typesafe APIs for registering listeners of the required type, and the
+     * implementation of those registration methods will delegate to this method. For example:
      * </p>
      *
      * <pre>
@@ -219,8 +215,7 @@ public class BehaviorBase implements Behavior, PartialStateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Remove the specified {@link BehaviorListener} from the set of listeners registered to receive event notifications
-     * from this {@link Behavior}.
+     * Remove the specified {@link BehaviorListener} from the set of listeners registered to receive event notifications from this {@link Behavior}.
      *
      * @param listener The {@link BehaviorListener} to be deregistered
      * @throws NullPointerException if <code>listener</code> is <code>null</code>
@@ -239,4 +234,5 @@ public class BehaviorBase implements Behavior, PartialStateHolder {
 
         clearInitialState();
     }
+
 }

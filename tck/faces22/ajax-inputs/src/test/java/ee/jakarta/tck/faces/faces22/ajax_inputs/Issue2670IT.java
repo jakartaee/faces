@@ -29,18 +29,19 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue2670IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2670
-   */
-  @Test
-  void requestParamWithNoNameDoesNotExist() throws Exception {
+     */
+    @Test
+    void requestParamWithNoNameDoesNotExist() throws Exception {
         WebPage page = getPage("issue2670.xhtml");
         WebElement button = page.findElement(By.id("form:submit"));
         page.guardAjax(button::click);
 
-        // Assert the page does not display the request parameter name 'button' that 
+        // Assert the page does not display the request parameter name 'button' that
         // is in the page without a 'name' attribute.
         assertTrue(page.containsText("Request parameter name 'button' does not exist"));
     }
+
 }

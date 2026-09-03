@@ -21,8 +21,7 @@ import jakarta.faces.context.ExternalContext;
 import jakarta.faces.context.ExternalContextFactory;
 
 /**
- * Reads the request parameter map while creating the external context, which is before the faces context it belongs to
- * has been established.
+ * Reads the request parameter map while creating the external context, which is before the faces context it belongs to has been established.
  */
 public class Issue3436ExternalContextFactory extends ExternalContextFactory {
 
@@ -43,4 +42,5 @@ public class Issue3436ExternalContextFactory extends ExternalContextFactory {
     public ExternalContextFactory getWrapped() {
         return wrapped;
     }
+
 }

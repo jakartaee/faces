@@ -18,8 +18,7 @@ package ee.jakarta.tck.faces.faces20.appconfigresources.startupbehavior;
 import jakarta.faces.render.Renderer;
 
 /**
- * Renderer registered into the render kit by an application configuration resource which is only
- * reachable via {@code jakarta.faces.CONFIG_FILES}.
+ * Renderer registered into the render kit by an application configuration resource which is only reachable via {@code jakarta.faces.CONFIG_FILES}.
  */
 public class StartupBehaviorConfigRenderer extends Renderer {
     // Behaviour is irrelevant, the test only asserts that it got registered.

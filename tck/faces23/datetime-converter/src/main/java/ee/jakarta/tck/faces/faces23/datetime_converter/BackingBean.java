@@ -31,12 +31,13 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class BackingBean implements Serializable {
+
     private static final long serialVersionUID = 1544275452223321526L;
 
     private Locale locale = new Locale("en", "US");
 
     public Locale getLocale() {
-       return locale;
+        return locale;
     }
 
     private LocalDateTime localDateTime;

@@ -18,8 +18,7 @@ package ee.jakarta.tck.faces.faces20.appconfigresources.startupbehavior;
 import jakarta.faces.component.UIOutput;
 
 /**
- * Component registered by an application configuration resource which is only reachable via
- * {@code jakarta.faces.CONFIG_FILES}.
+ * Component registered by an application configuration resource which is only reachable via {@code jakarta.faces.CONFIG_FILES}.
  */
 public class StartupBehaviorConfigComponent extends UIOutput {
 
@@ -29,4 +28,5 @@ public class StartupBehaviorConfigComponent extends UIOutput {
     public String getFamily() {
         return COMPONENT_FAMILY;
     }
+
 }

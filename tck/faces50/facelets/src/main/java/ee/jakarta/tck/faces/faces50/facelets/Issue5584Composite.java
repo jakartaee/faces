@@ -32,12 +32,13 @@ public class Issue5584Composite extends UINamingContainer {
     public UIComponent getNested() {
         return nested;
     }
-    
+
     public void setNested(UIComponent nested) {
         this.nested = nested;
     }
-    
+
     public String getResult() {
         return result;
     }
+
 }

@@ -28,9 +28,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0_rev_a">MethodExpressionValidator</strong> is a {@link Validator} that wraps a
- * {@link MethodExpression}, and it performs validation by executing a method on an object identified by the
- * {@link MethodExpression}.
+ * <strong class="changed_modified_2_0_rev_a">MethodExpressionValidator</strong> is a {@link Validator} that wraps a {@link MethodExpression}, and it performs
+ * validation by executing a method on an object identified by the {@link MethodExpression}.
  * </p>
  */
 
@@ -82,11 +81,13 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
             try {
                 ELContext elContext = context.getELContext();
                 methodExpression.invoke(elContext, new Object[] { context, component, value });
-            } catch (ELException ee) {
+            }
+            catch (ELException ee) {
                 Throwable e = ee.getCause();
                 if (e instanceof ValidatorException) {
                     throw (ValidatorException) e;
-                } else {
+                }
+                else {
                     throw ee;
                 }
             }
@@ -145,7 +146,8 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
             }
             if (val == null || "auto".equals(val)) {
                 validateEmptyFields = isBeansValidationAvailable(ctx);
-            } else {
+            }
+            else {
                 validateEmptyFields = Boolean.valueOf(val);
             }
         }
@@ -161,16 +163,19 @@ public class MethodExpressionValidator implements Validator<Object>, StateHolder
 
         if (appMap.containsKey(BEANS_VALIDATION_AVAILABLE)) {
             result = (Boolean) appMap.get(BEANS_VALIDATION_AVAILABLE);
-        } else {
+        }
+        else {
             try {
                 new BeanValidator();
                 appMap.put(BEANS_VALIDATION_AVAILABLE, Boolean.TRUE);
                 result = true;
-            } catch (Throwable t) {
+            }
+            catch (Throwable t) {
                 appMap.put(BEANS_VALIDATION_AVAILABLE, Boolean.FALSE);
             }
         }
 
         return result;
     }
+
 }

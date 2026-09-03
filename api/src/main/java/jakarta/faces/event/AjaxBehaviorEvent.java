@@ -22,8 +22,7 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <strong class="changed_added_2_0 changed_modified_2_3">AjaxBehaviorEvent</strong> represents the component behavior
- * specific to <code>Ajax</code>).
+ * <strong class="changed_added_2_0 changed_modified_2_3">AjaxBehaviorEvent</strong> represents the component behavior specific to <code>Ajax</code>).
  * </p>
  *
  * @since 2.0
@@ -65,8 +64,7 @@ public class AjaxBehaviorEvent extends BehaviorEvent {
 
     /**
      * <p class="changed_added_2_0">
-     * Return <code>true</code> if this {@link FacesListener} is an instance of a the appropriate listener class that this
-     * event supports.
+     * Return <code>true</code> if this {@link FacesListener} is an instance of a the appropriate listener class that this event supports.
      * </p>
      *
      * @param listener {@link FacesListener} to evaluate
@@ -82,14 +80,13 @@ public class AjaxBehaviorEvent extends BehaviorEvent {
 
     /**
      * <p class="changed_added_2_0">
-     * Broadcast this event instance to the specified {@link FacesListener}, by whatever mechanism is appropriate.
-     * Typically, this will be accomplished by calling an event processing method, and passing this instance as a parameter.
+     * Broadcast this event instance to the specified {@link FacesListener}, by whatever mechanism is appropriate. Typically, this will be accomplished by
+     * calling an event processing method, and passing this instance as a parameter.
      * </p>
      *
      * @param listener {@link FacesListener} to invoke
      *
-     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the
-     * current event should be performed
+     * @throws AbortProcessingException Signal the Jakarta Faces implementation that no further processing on the current event should be performed
      *
      * @since 2.0
      */

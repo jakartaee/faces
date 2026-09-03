@@ -27,14 +27,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Verifies that f:validateBean disabled='true' stays effective across multiple consecutive postbacks, so an empty
- * {@code @Size}-constrained field keeps validating successfully on each submit.
+ * Verifies that f:validateBean disabled='true' stays effective across multiple consecutive postbacks, so an empty {@code @Size}-constrained field keeps
+ * validating successfully on each submit.
  */
 class Issue2530IT extends BaseITNG {
 
     /**
-     * Submits the form repeatedly without entering a value; with bean validation disabled on the component, the
-     * empty value must pass through every time, so the success message appears after each postback.
+     * Submits the form repeatedly without entering a value; with bean validation disabled on the component, the empty value must pass through every time, so
+     * the success message appears after each postback.
      *
      * @see BeanValidator
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2530
@@ -45,8 +45,11 @@ class Issue2530IT extends BaseITNG {
 
         for (int i = 0; i < 4; i++) {
             page.guardHttp(page.findElement(By.id("form:submit"))::click);
-            assertTrue(page.containsSource("SUCCESS! Name set to ''"),
-                    "Empty value must pass validation on submit number " + (i + 1));
+            assertTrue(
+                page.containsSource("SUCCESS! Name set to ''"),
+                "Empty value must pass validation on submit number " + (i + 1)
+            );
         }
     }
+
 }

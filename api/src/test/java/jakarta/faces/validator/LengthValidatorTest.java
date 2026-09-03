@@ -28,7 +28,8 @@ import org.junit.jupiter.api.Test;
 
 /**
  * <p>
- * Unit tests for {@link LengthValidator}.</p>
+ * Unit tests for {@link LengthValidator}.
+ * </p>
  */
 class LengthValidatorTest extends ValidatorTestBase {
 
@@ -44,14 +45,18 @@ class LengthValidatorTest extends ValidatorTestBase {
         FacesContext facesContext = mockFacesContextWithLocale(Locale.US);
 
         try {
-            validator.validate(facesContext, component,
-                    "Not at all long enough");
+            validator.validate(
+                facesContext, component,
+                "Not at all long enough"
+            );
             fail("Exception not thrown");
-        } catch (ValidatorException e) {
+        }
+        catch (ValidatorException e) {
             exceptionThrown = true;
             message = e.getMessage();
             assertTrue(
-                    -1 != message.indexOf("1,000"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("1,000"), "message: \"" + message + "\" missing localized chars."
+            );
         }
         assertTrue(exceptionThrown);
 
@@ -59,14 +64,18 @@ class LengthValidatorTest extends ValidatorTestBase {
         facesContext = mockFacesContextWithLocale(Locale.GERMAN);
 
         try {
-            validator.validate(facesContext, component,
-                    "Still not long enough");
+            validator.validate(
+                facesContext, component,
+                "Still not long enough"
+            );
             fail("Exception not thrown");
-        } catch (ValidatorException e) {
+        }
+        catch (ValidatorException e) {
             exceptionThrown = true;
             message = e.getMessage();
             assertTrue(
-                    -1 != message.indexOf("1.000"), "message: \"" + message + "\" missing localized chars.");
+                -1 != message.indexOf("1.000"), "message: \"" + message + "\" missing localized chars."
+            );
         }
         assertTrue(exceptionThrown);
     }
@@ -106,4 +115,5 @@ class LengthValidatorTest extends ValidatorTestBase {
 
         assertTrue(validator1.hashCode() != validator2.hashCode());
     }
+
 }

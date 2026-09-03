@@ -72,4 +72,5 @@ class ElResolversIT extends BaseITNG {
     void facesConfigELResolverRegistrationTest() {
         runServletTest("facesConfigELResolverRegistrationTest");
     }
+
 }

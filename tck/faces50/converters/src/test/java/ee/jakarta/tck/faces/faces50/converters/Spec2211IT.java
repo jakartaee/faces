@@ -31,8 +31,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Spec2211IT extends BaseITNG {
 
     /**
-     * Test that the types instant, year, yearMonth and monthDay roundtrip through their ISO 8601 representation when no
-     * pattern has been specified.
+     * Test that the types instant, year, yearMonth and monthDay roundtrip through their ISO 8601 representation when no pattern has been specified.
      *
      * @see https://github.com/jakartaee/faces/issues/2211
      */
@@ -48,8 +47,8 @@ class Spec2211IT extends BaseITNG {
     }
 
     /**
-     * Test that the types instant, year, yearMonth and monthDay honor an explicit pattern, whereby the instant resolves
-     * its date and time fields against the specified time zone.
+     * Test that the types instant, year, yearMonth and monthDay honor an explicit pattern, whereby the instant resolves its date and time fields against the
+     * specified time zone.
      *
      * @see https://github.com/jakartaee/faces/issues/2211
      */
@@ -85,8 +84,10 @@ class Spec2211IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id(formId + ":submit"))::click);
 
         assertEquals("", page.findElement(By.id(formId + ":messages")).getText());
-        assertAll(values.entrySet().stream().map(entry ->
-            () -> assertEquals(entry.getValue(), page.findElement(By.id(formId + ":" + entry.getKey())).getDomProperty("value"))));
+        assertAll(
+            values.entrySet().stream()
+                .map(entry -> () -> assertEquals(entry.getValue(), page.findElement(By.id(formId + ":" + entry.getKey())).getDomProperty("value")))
+        );
     }
 
     private void assertUnparseable(String id, String value) {
@@ -95,7 +96,10 @@ class Spec2211IT extends BaseITNG {
         page.findElement(By.id(formId + ":" + id)).sendKeys(value);
         page.guardHttp(page.findElement(By.id(formId + ":submit"))::click);
 
-        assertNotEquals("", page.findElement(By.id(formId + ":messages")).getText(),
-            "Type " + id + " must reject '" + value + "'");
+        assertNotEquals(
+            "", page.findElement(By.id(formId + ":messages")).getText(),
+            "Type " + id + " must reject '" + value + "'"
+        );
     }
+
 }

@@ -23,9 +23,8 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Named;
 
 /**
- * Exposes a non-indexed {@link Set} for the {@code c:forEach} begin/end/step tests. A
- * {@link LinkedHashSet} is used rather than a plain {@code HashSet} so that iteration order is
- * deterministic and the index arithmetic can be asserted at all.
+ * Exposes a non-indexed {@link Set} for the {@code c:forEach} begin/end/step tests. A {@link LinkedHashSet} is used rather than a plain {@code HashSet} so that
+ * iteration order is deterministic and the index arithmetic can be asserted at all.
  */
 @Named
 @RequestScoped
@@ -34,4 +33,5 @@ public class Issue3088Bean {
     public Set<String> getSet() {
         return new LinkedHashSet<>(List.of("foo", "bar", "baz", "qux", "quux"));
     }
+
 }

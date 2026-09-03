@@ -51,4 +51,5 @@ class Issue5515IT extends BaseITNG {
             () -> assertEquals("attr=\"true\"", innerComponent2.getText())
         );
     }
+
 }

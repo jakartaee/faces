@@ -28,8 +28,7 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * When {@code jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL} is
- * {@code true}, an empty submitted value sets the model to {@code null} and a
+ * When {@code jakarta.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL} is {@code true}, an empty submitted value sets the model to {@code null} and a
  * value change event fires only on a real change.
  */
 class Issue2831IT extends BaseITNG {
@@ -102,4 +101,5 @@ class Issue2831IT extends BaseITNG {
         assertTrue(page.containsText("String model set with null: true"));
         assertTrue(page.containsText("Integer model set with null: true"));
     }
+
 }

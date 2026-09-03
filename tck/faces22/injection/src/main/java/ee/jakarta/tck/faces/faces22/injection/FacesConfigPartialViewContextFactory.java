@@ -47,4 +47,5 @@ public class FacesConfigPartialViewContextFactory extends PartialViewContextFact
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

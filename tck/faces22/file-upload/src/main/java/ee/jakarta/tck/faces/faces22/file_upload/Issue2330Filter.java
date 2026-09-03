@@ -27,19 +27,21 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 
-@WebFilter(filterName = "issue2330Filter",
-        urlPatterns = { "/issue2330.xhtml" },
-        dispatcherTypes = {
-            DispatcherType.REQUEST,
-            DispatcherType.FORWARD,
-            DispatcherType.ERROR,
-            DispatcherType.INCLUDE
-        })
+@WebFilter(
+    filterName = "issue2330Filter", urlPatterns = { "/issue2330.xhtml" }, dispatcherTypes = {
+        DispatcherType.REQUEST,
+        DispatcherType.FORWARD,
+        DispatcherType.ERROR,
+        DispatcherType.INCLUDE
+    }
+)
 public class Issue2330Filter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+        throws IOException, ServletException
+    {
         chain.doFilter(new Issue2330Request((HttpServletRequest) request), response);
     }
+
 }

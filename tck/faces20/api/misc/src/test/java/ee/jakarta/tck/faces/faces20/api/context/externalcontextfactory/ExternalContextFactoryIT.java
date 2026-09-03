@@ -28,7 +28,19 @@ class ExternalContextFactoryIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void externalContextFactoryGetExternalContextTest() { runServletTest("externalContextFactoryGetExternalContextTest"); }
-    @Test void externalContextFactoryGetWrappedTest() { runServletTest("externalContextFactoryGetWrappedTest"); }
-    @Test void externalCtxFactoryGetExternalContextNPETest() { runServletTest("externalCtxFactoryGetExternalContextNPETest"); }
+    @Test
+    void externalContextFactoryGetExternalContextTest() {
+        runServletTest("externalContextFactoryGetExternalContextTest");
+    }
+
+    @Test
+    void externalContextFactoryGetWrappedTest() {
+        runServletTest("externalContextFactoryGetWrappedTest");
+    }
+
+    @Test
+    void externalCtxFactoryGetExternalContextNPETest() {
+        runServletTest("externalCtxFactoryGetExternalContextNPETest");
+    }
+
 }

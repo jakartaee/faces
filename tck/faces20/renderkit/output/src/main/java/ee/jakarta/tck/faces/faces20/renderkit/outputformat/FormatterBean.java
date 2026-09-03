@@ -45,4 +45,5 @@ public class FormatterBean implements Serializable {
     public void setComponent(String component) {
         this.component = component;
     }
+
 }

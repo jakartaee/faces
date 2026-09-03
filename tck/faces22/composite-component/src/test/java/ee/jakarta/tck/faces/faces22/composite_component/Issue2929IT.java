@@ -44,4 +44,5 @@ public class Issue2929IT extends BaseITNG {
         assertEquals("commentBoxForm:bindID", page.findElement(By.id("compositeId")).getText());
         assertEquals("commentBoxForm:nonBindId", page.findElement(By.id("nonCompositeId")).getText());
     }
+
 }

@@ -28,24 +28,23 @@ import org.openqa.selenium.WebElement;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 class Issue2426IT extends BaseITNG {
 
-  /**
-   * This test verifies correct function of SelectBooleanCheckbox in a Composite
-   * Component over Ajax.
-   *
-   * @see AjaxBehavior
-   * @see https://github.com/eclipse-ee4j/mojarra/issues/2426
-   */
-  @Test
-  void selectBooleanCheckbox() throws Exception {
+    /**
+     * This test verifies correct function of SelectBooleanCheckbox in a Composite Component over Ajax.
+     *
+     * @see AjaxBehavior
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/2426
+     */
+    @Test
+    void selectBooleanCheckbox() throws Exception {
         WebPage page = getPage("issue2426.xhtml");
         WebElement cbox = page.findElement(By.id("checkbox"));
-      assertFalse(cbox.isSelected());
+        assertFalse(cbox.isSelected());
 
         page.guardAjax(cbox::click);
         assertTrue(cbox.isSelected());
 
     }
+
 }

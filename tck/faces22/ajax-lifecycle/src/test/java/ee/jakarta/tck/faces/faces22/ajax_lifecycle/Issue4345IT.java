@@ -30,12 +30,12 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 class Issue4345IT extends BaseITNG {
 
-  /**
-   * @see AjaxBehavior
+    /**
+     * @see AjaxBehavior
      * @see https://github.com/eclipse-ee4j/mojarra/issues/4345
-   */
-  @Test
-  void ajaxResourceNotDoubleHTMLEscaped() throws Exception {
+     */
+    @Test
+    void ajaxResourceNotDoubleHTMLEscaped() throws Exception {
         WebPage page = getPage("issue4345start.xhtml");
 
         WebElement issue4340Button = page.findElement(By.id("form:issue4345Button"));
@@ -45,4 +45,5 @@ class Issue4345IT extends BaseITNG {
         assertNotNull(result);
         assertEquals("SUCCESS", result.getText());
     }
+
 }

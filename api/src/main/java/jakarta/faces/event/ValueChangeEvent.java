@@ -21,8 +21,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_modified_2_3">
- * A {@link ValueChangeEvent} is a notification that the local value of the source component has been change as a result
- * of user interface activity. It is not fired unless validation of the new value was completed successfully.
+ * A {@link ValueChangeEvent} is a notification that the local value of the source component has been change as a result of user interface activity. It is not
+ * fired unless validation of the new value was completed successfully.
  * </p>
  *
  * @param <T> The generic type of changed value.

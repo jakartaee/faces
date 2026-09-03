@@ -40,27 +40,23 @@ public class BigIntegerConverter implements Converter<BigInteger> {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to
-     * <code>BigInteger</code> fails. The message format string for this message may optionally include the following
-     * placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion to <code>BigInteger</code> fails. The
+     * message format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the unconverted value.</li>
      * <li><code>{1}</code> replaced by an example value.</li>
-     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{2}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String BIGINTEGER_ID = "jakarta.faces.converter.BigIntegerConverter.BIGINTEGER";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the
-     * <code>BigInteger</code> value to <code>String</code> fails. The message format string for this message may optionally
-     * include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the conversion of the <code>BigInteger</code> value to
+     * <code>String</code> fails. The message format string for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> relaced by the unconverted value.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      */
     public static final String STRING_ID = "jakarta.faces.converter.STRING";
@@ -89,9 +85,11 @@ public class BigIntegerConverter implements Converter<BigInteger> {
 
         try {
             return new BigInteger(value);
-        } catch (NumberFormatException nfe) {
+        }
+        catch (NumberFormatException nfe) {
             throw new ConverterException(MessageFactory.getMessage(context, BIGINTEGER_ID, value, "9876", MessageFactory.getLabel(context, component)), nfe);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(e);
         }
     }
@@ -114,8 +112,10 @@ public class BigIntegerConverter implements Converter<BigInteger> {
 
         try {
             return value.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(MessageFactory.getMessage(context, STRING_ID, value, MessageFactory.getLabel(context, component)), e);
         }
     }
+
 }

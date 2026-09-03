@@ -26,15 +26,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A ui:repeat must not double-iterate its children when its child value-holders are visited via visitTree, so each
- * per-row value is appended exactly once.
+ * A ui:repeat must not double-iterate its children when its child value-holders are visited via visitTree, so each per-row value is appended exactly once.
  */
 class Issue2960IT extends BaseITNG {
 
     /**
-     * Clicking the visitChildren button walks the component tree with UIComponent#visitTree, appending each visited
-     * per-row "out" value. The accumulated result must be the single sequence 12345678910 and never the
-     * double-iterated 1234567891010.
+     * Clicking the visitChildren button walks the component tree with UIComponent#visitTree, appending each visited per-row "out" value. The accumulated result
+     * must be the single sequence 12345678910 and never the double-iterated 1234567891010.
      *
      * @see jakarta.faces.component.UIComponent#visitTree
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2960
@@ -47,4 +45,5 @@ class Issue2960IT extends BaseITNG {
         assertFalse(page.containsText("Iterations: 1234567891010"), "ui:repeat must not double-iterate its children");
         assertTrue(page.containsText("Iterations: 12345678910"), "Each per-row value is visited exactly once");
     }
+
 }

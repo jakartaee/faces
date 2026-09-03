@@ -17,8 +17,8 @@
 package jakarta.faces.component.search;
 
 /**
- * <div class="changed_added_2_3">Components implementing this interface are ignored by the algorithm - especially in
- * the implementation of <code>@child(n)</code>, <code>@next</code> and <code>@previous</code>.
+ * <div class="changed_added_2_3">Components implementing this interface are ignored by the algorithm - especially in the implementation of
+ * <code>@child(n)</code>, <code>@next</code> and <code>@previous</code>.
  *
  * If you suppose this case, markup/literal components must implement {@link UntargetableComponent}:
  *

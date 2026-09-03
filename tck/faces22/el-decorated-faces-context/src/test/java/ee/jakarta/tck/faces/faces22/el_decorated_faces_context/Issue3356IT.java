@@ -25,14 +25,13 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * When a faces-config-declared factory decorates the faces context and the exception handler, the
- * EL implicit object must expose the decorators, not the objects they wrap.
+ * When a faces-config-declared factory decorates the faces context and the exception handler, the EL implicit object must expose the decorators, not the
+ * objects they wrap.
  */
 public class Issue3356IT extends BaseITNG {
 
     /**
-     * #{facesContext} resolves to the decorated faces context and #{facesContext.exceptionHandler}
-     * to the decorated exception handler.
+     * #{facesContext} resolves to the decorated faces context and #{facesContext.exceptionHandler} to the decorated exception handler.
      *
      * @see jakarta.faces.context.FacesContextWrapper
      * @see jakarta.faces.context.ExceptionHandlerWrapper
@@ -45,4 +44,5 @@ public class Issue3356IT extends BaseITNG {
         assertEquals(Issue3356FacesContext.class.getSimpleName(), page.findElement(By.id("facesContext")).getText());
         assertEquals(Issue3356ExceptionHandler.class.getSimpleName(), page.findElement(By.id("exceptionHandler")).getText());
     }
+
 }

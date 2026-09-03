@@ -17,9 +17,9 @@
 package ee.jakarta.tck.faces.faces23.faces_data_model;
 
 public class Child111 extends Child11 {
-	
-	public Child111(String test, String test2) {
-		super(test, test2);
-	}
+
+    public Child111(String test, String test2) {
+        super(test, test2);
+    }
 
 }

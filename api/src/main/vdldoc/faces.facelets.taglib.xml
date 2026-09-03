@@ -300,7 +300,7 @@
 
   <p><span class="changed_modified_2_0_rev_a
   changed_added_2_0 changed_modified_2_2">This</span> <span
-  class="changed_added_2_0">tag is the same as 
+  class="changed_added_2_0">tag is the same as
   <code>ui:composition</code>, except for two things: Faces creates a
   component and adds it directly to the tree, and there's no associated
   template.</span>
@@ -339,14 +339,14 @@
 <div class="changed_added_2_0">
   <p>
 
-	Binds the component to a backing bean property, as specified in
-	section 3.1.5 "Component Bindings" of the Jakarta Faces Specification Document.
+    Binds the component to a backing bean property, as specified in
+    section 3.1.5 "Component Bindings" of the Jakarta Faces Specification Document.
     <span class="changed_modified_2_2">The
-	Java language type of this property must be a class that extends
-	<code>jakarta.faces.component.UIComponent</code>.  The scope of
-	the bean on which this property resides must be no wider than
-	request scope.  If either of these conditions are not met, the
-	results are undefined.</span>
+    Java language type of this property must be a class that extends
+    <code>jakarta.faces.component.UIComponent</code>.  The scope of
+    the bean on which this property resides must be no wider than
+    request scope.  If either of these conditions are not met, the
+    results are undefined.</span>
 
   </p>
 </div>
@@ -369,7 +369,7 @@
             <required>false</required>
             <type>boolean</type>
         </attribute>
-        
+
     </tag>
     <tag>
       <description><![CDATA[
@@ -387,7 +387,7 @@ or a browser, without including extraneous elements such as
 <code>head</code> and <code>body</code>.
 
   </p>
-	<div class="syntax"><div class="html4strict" style="font-family: monospace;"><ol><li class="li1"><div class="de1"><span class="sc0">&lt;!DOCTYPE html&gt;</span></div></li>
+    <div class="syntax"><div class="html4strict" style="font-family: monospace;"><ol><li class="li1"><div class="de1"><span class="sc0">&lt;!DOCTYPE html&gt;</span></div></li>
 <li class="li2"><div class="de2"><span class="sc3"><span class="re1">&lt;html</span> xmlns:<span class="re0">ui</span>=<span class="st0">&quot;jakarta.faces.facelets&quot;</span><span class="re2">&gt;</span></span></div></li>
 <li class="li1"><div class="de1">&nbsp; <span class="sc3"><span class="re1">&lt;body<span class="re2">&gt;</span></span></span></div></li>
 <li class="li2"><div class="de2">&nbsp;</div></li>
@@ -412,7 +412,7 @@ or a browser, without including extraneous elements such as
 <li class="li1"><div class="de1"><span class="sc3"><span class="re1">&lt;/html<span class="re2">&gt;</span></span></span> </div></li></ol></div></div>
 
 </div>
-      
+
 
         ]]></description>
         <tag-name>composition</tag-name>
@@ -475,7 +475,7 @@ starting with "/".</span>
             debug output is enabled for multiple views based on a single bean
             property.
             </p>
-            
+
             <p class="changed_added_2_3">
               Note ui:debug only works when the ProjectStage is set to Development.
             </p>
@@ -576,9 +576,9 @@ is identical to the <code>composition</code> tag, except that
 disregard all content outside of the tag. The <code>decorate</code> is
 useful when you want to decorate some content in a page, for example,
 you might want to decorate a list of items, like this:
-	
+
 <div class="syntax"><div class="html4strict" style="font-family: monospace;"><ol><li class="li1"><div class="de1">
-	
+
 <span class="sc2">&lt;ui:decorate template=<span class="st0">&quot;/layout.xhtml&quot;</span> xmlns:<span class="re0">ui</span>=<span class="st0">&quot;jakarta.faces.facelets&quot;</span><span class="kw2">&gt;</span></span></div></li>
 <li class="li2"><div class="de2">&nbsp; <span class="sc2">&lt;ui:define <span class="kw3">name</span>=<span class="st0">&quot;listHeading&quot;</span><span class="kw2">&gt;</span></span></div></li>
 
@@ -664,11 +664,11 @@ starting with "/".</span>
         <p>Binds the component to a backing bean property, as specified
         in section 3.1.5 "Component Bindings" of the Jakarta Faces Specification Document.
         <span class="changed_added_2_2">The
-	Java language type of this property must be a class that extends
-	<code>jakarta.faces.component.UIComponent</code>.  The scope of
-	the bean on which this property resides must be no wider than
-	request scope.  If either of these conditions are not met, the
-	results are undefined.</span></p>
+    Java language type of this property must be a class that extends
+    <code>jakarta.faces.component.UIComponent</code>.  The scope of
+    the bean on which this property resides must be no wider than
+    request scope.  If either of these conditions are not met, the
+    results are undefined.</span></p>
 
 </div>
             ]]></description>
@@ -681,14 +681,14 @@ starting with "/".</span>
             <![CDATA[
                 <div class="changed_added_2_3">
                     <p>
-                        Controls whether the fragment component is rendered. 
-                        Valid values for this attribute are either the strings 
+                        Controls whether the fragment component is rendered.
+                        Valid values for this attribute are either the strings
                         "true" or "false" or an EL expression that evaluates to
                          either "true" or "false".
                     </p>
                     <p>
                         If this attribute's value is "false" or the value is an
-                        EL expression that evaluates to "false", the fragment 
+                        EL expression that evaluates to "false", the fragment
                         is not rendered in the page.
                     </p>
                 </div>
@@ -825,7 +825,7 @@ attribute must be an absolute path starting with "/".</span>
         <description><![CDATA[
 
         <div class="changed_added_2_0">
-	
+
         <p><span class="changed_modified_2_2
         changed_modified_2_3 changed_modified_4_0">Use</span> this tag as an alternative to
         <code>h:dataTable</code> or <code>c:forEach</code></p> </div>
@@ -940,7 +940,7 @@ attribute must be an absolute path starting with "/".</span>
                 <p>The name of a collection of items that this tag
                 iterates over. The
                 collection may be a <code>List</code>, <code>array</code>,
-                <code>java.sql.ResultSet</code>, <code>java.lang.Iterable</code>, 
+                <code>java.sql.ResultSet</code>, <code>java.lang.Iterable</code>,
                 <code>java.util.Map</code> or an individual java Object. If the
                 collection is null, this tag does nothing.</p>
 
@@ -956,7 +956,7 @@ attribute must be an absolute path starting with "/".</span>
                 <![CDATA[
                 <div class="changed_added_2_0 changed_modified_2_3">
                  <p>
-                  Name of the exported scoped variable for the current item of 
+                  Name of the exported scoped variable for the current item of
                   the iteration. This scoped variable has nested visibility.
                  </p>
                 </div>
@@ -967,12 +967,12 @@ attribute must be an absolute path starting with "/".</span>
         </attribute>
         <attribute>
             <description>
-                <![CDATA[ 
+                <![CDATA[
                  <div class="changed_added_2_0">
                   <p>
-                   Name of the exported request scoped variable for the status 
-                   of the iteration. The object the name points to is a POJO 
-                   with the following read-only JavaBeans properties. This 
+                   Name of the exported request scoped variable for the status
+                   of the iteration. The object the name points to is a POJO
+                   with the following read-only JavaBeans properties. This
                    scoped variable has nested visibility.
                   </p>
                   <p><code>begin</code> of type Integer</p>
@@ -994,14 +994,14 @@ attribute must be an absolute path starting with "/".</span>
             <![CDATA[
                 <div class="changed_added_2_3">
                     <p>
-                        Controls whether the repeat component is rendered. 
-                        Valid values for this attribute are either the strings 
+                        Controls whether the repeat component is rendered.
+                        Valid values for this attribute are either the strings
                         "true" or "false" or an EL expression that evaluates to
                          either "true" or "false".
                     </p>
                     <p>
                         If this attribute's value is "false" or the value is an
-                        EL expression that evaluates to "false", the repeat 
+                        EL expression that evaluates to "false", the repeat
                         is not rendered in the page.
                     </p>
                 </div>

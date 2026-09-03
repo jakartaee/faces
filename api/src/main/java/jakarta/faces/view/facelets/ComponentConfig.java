@@ -26,6 +26,7 @@ package jakarta.faces.view.facelets;
  *
  */
 public interface ComponentConfig extends TagConfig {
+
     /**
      * <p class="changed_added_2_0">
      * ComponentType to pass to the <code>Application</code>. Cannot be <code>null</code>.
@@ -45,4 +46,5 @@ public interface ComponentConfig extends TagConfig {
      * @since 2.0
      */
     String getRendererType();
+
 }

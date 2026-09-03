@@ -126,8 +126,10 @@ public class Spec1574IT extends BaseITNG {
             assertEquals(1, element.findElements(By.xpath("./*")).size(), "table has 1 child");
             assertEquals("tbody", element.findElements(By.xpath("./*")).get(0).getTagName(), "table child is tbody");
             int tbodyChildCount = vertical ? 4 : 1;
-            assertEquals(tbodyChildCount, element.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).size(),
-                    "tbody has " + tbodyChildCount + " rows");
+            assertEquals(
+                tbodyChildCount, element.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).size(),
+                "tbody has " + tbodyChildCount + " rows"
+            );
             int i = 1;
 
             for (WebElement row : element.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*"))) {
@@ -144,9 +146,11 @@ public class Spec1574IT extends BaseITNG {
                         assertEquals(1, cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).size(), "child table has 1 child");
                         assertEquals("tbody", cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).get(0).getTagName(), "group is tbody");
                         int groupChildCount = vertical ? 3 : 1;
-                        assertEquals(groupChildCount,
-                                cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).size(),
-                                "group has " + groupChildCount + " rows");
+                        assertEquals(
+                            groupChildCount,
+                            cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).size(),
+                            "group has " + groupChildCount + " rows"
+                        );
 
                         for (WebElement group : cell.findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*")).get(0).findElements(By.xpath("./*"))) {
                             assertEquals("tr", group.getTagName(), "group is tr");
@@ -159,14 +163,16 @@ public class Spec1574IT extends BaseITNG {
                                 inputFields++;
                             }
                         }
-                    } else {
+                    }
+                    else {
                         assertEquals(0, cell.findElements(By.xpath("./*")).size(), "cell has no children");
                     }
 
                     i++;
                 }
             }
-        } else {
+        }
+        else {
             assertEquals("ul", element.getTagName(), "element is ul");
             assertEquals(2, element.findElements(By.xpath("./*")).size(), "ul has 2 children");
 
@@ -187,4 +193,5 @@ public class Spec1574IT extends BaseITNG {
 
         assertEquals(6, inputFields, "there were 6 input fields");
     }
+
 }

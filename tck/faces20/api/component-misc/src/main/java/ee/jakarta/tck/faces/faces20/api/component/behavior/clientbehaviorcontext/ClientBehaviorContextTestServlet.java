@@ -20,10 +20,6 @@ import java.io.PrintWriter;
 import java.util.Collection;
 import java.util.HashSet;
 
-import ee.jakarta.tck.faces.faces20.api.component.behavior.common.TCKClientBehaviorContext;
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.behavior.ClientBehaviorContext;
@@ -34,6 +30,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import ee.jakarta.tck.faces.faces20.api.component.behavior.common.TCKClientBehaviorContext;
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
 
 @WebServlet("/ClientBehaviorContextTestServlet")
 public class ClientBehaviorContextTestServlet extends HttpTCKServlet {
@@ -47,28 +47,36 @@ public class ClientBehaviorContextTestServlet extends HttpTCKServlet {
     }
 
     public void createClientBehaviorContextNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         ClientBehaviorContext cbc = new TCKClientBehaviorContext();
 
         HashSet<ClientBehaviorContext.Parameter> params = new HashSet<>();
         params.add(new ClientBehaviorContext.Parameter("one", "alpha"));
 
-        JSFTestUtil.checkForNPE(cbc, "createClientBehaviorContext",
-                new Class<?>[] { FacesContext.class, UIComponent.class, String.class, String.class, Collection.class },
-                new Object[] { null, new UIInput(), "abc", "xyz", params }, out);
+        JSFTestUtil.checkForNPE(
+            cbc, "createClientBehaviorContext",
+            new Class<?>[] { FacesContext.class, UIComponent.class, String.class, String.class, Collection.class },
+            new Object[] { null, new UIInput(), "abc", "xyz", params }, out
+        );
 
-        JSFTestUtil.checkForNPE(cbc, "createClientBehaviorContext",
-                new Class<?>[] { FacesContext.class, UIComponent.class, String.class, String.class, Collection.class },
-                new Object[] { getFacesContext(), null, "abc", "xyz", params }, out);
+        JSFTestUtil.checkForNPE(
+            cbc, "createClientBehaviorContext",
+            new Class<?>[] { FacesContext.class, UIComponent.class, String.class, String.class, Collection.class },
+            new Object[] { getFacesContext(), null, "abc", "xyz", params }, out
+        );
 
-        JSFTestUtil.checkForNPE(cbc, "createClientBehaviorContext",
-                new Class<?>[] { FacesContext.class, UIComponent.class, String.class, String.class, Collection.class },
-                new Object[] { getFacesContext(), new UIInput(), null, "xyz", params }, out);
+        JSFTestUtil.checkForNPE(
+            cbc, "createClientBehaviorContext",
+            new Class<?>[] { FacesContext.class, UIComponent.class, String.class, String.class, Collection.class },
+            new Object[] { getFacesContext(), new UIInput(), null, "xyz", params }, out
+        );
     }
 
     public void createClientBehaviorContextParamaterTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
         String expectedName = "one";
@@ -80,17 +88,22 @@ public class ClientBehaviorContextTestServlet extends HttpTCKServlet {
         String resultVal = (String) paramOne.getValue();
 
         if (!expectedName.equals(resultName)) {
-            out.append(JSFTestUtil.FAIL + JSFTestUtil.NL + "Unexpected value for Name!"
-                    + JSFTestUtil.NL + "Expected: " + expectedName + JSFTestUtil.NL + "Received: " + resultName);
+            out.append(
+                JSFTestUtil.FAIL + JSFTestUtil.NL + "Unexpected value for Name!"
+                    + JSFTestUtil.NL + "Expected: " + expectedName + JSFTestUtil.NL + "Received: " + resultName
+            );
             return;
         }
 
         if (!expectedVal.equals(resultVal)) {
-            out.append(JSFTestUtil.FAIL + JSFTestUtil.NL + "Unexpected value for Value!"
-                    + JSFTestUtil.NL + "Expected: " + expectedVal + JSFTestUtil.NL + "Received: " + resultVal);
+            out.append(
+                JSFTestUtil.FAIL + JSFTestUtil.NL + "Unexpected value for Value!"
+                    + JSFTestUtil.NL + "Expected: " + expectedVal + JSFTestUtil.NL + "Received: " + resultVal
+            );
             return;
         }
 
         out.append(JSFTestUtil.PASS);
     }
+
 }

@@ -22,9 +22,8 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs the {@code c:when} tests of {@code cwo/choose-postback.xhtml}. Session scoped so the branch an action
- * selected outlives the postback that selected it; a branch no {@code c:when} matches selects the
- * {@code c:otherwise}.
+ * Backs the {@code c:when} tests of {@code cwo/choose-postback.xhtml}. Session scoped so the branch an action selected outlives the postback that selected it;
+ * a branch no {@code c:when} matches selects the {@code c:otherwise}.
  */
 @Named
 @SessionScoped
@@ -51,4 +50,5 @@ public class ChoosePostbackBean implements Serializable {
     public int getPostbacks() {
         return postbacks;
     }
+
 }

@@ -33,4 +33,5 @@ public class FlowBean implements Serializable {
     public String getReturnValue() {
         return "/return1";
     }
+
 }

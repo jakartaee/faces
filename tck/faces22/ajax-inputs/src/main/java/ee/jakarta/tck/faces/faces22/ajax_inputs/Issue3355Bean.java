@@ -27,20 +27,20 @@ import jakarta.inject.Named;
 @Named
 @RequestScoped
 public class Issue3355Bean {
-    
+
     private List<String> strings;
-    
+
     @PostConstruct
     public void init() {
         strings = new ArrayList();
         strings.add("value1");
         strings.add("value2");
     }
-    
+
     public void listener(ActionEvent event) {
         strings.remove(0);
     }
-    
+
     public String getValue() {
         StringBuilder result = new StringBuilder();
         for (String string : strings) {
@@ -49,4 +49,5 @@ public class Issue3355Bean {
         }
         return result.toString();
     }
+
 }

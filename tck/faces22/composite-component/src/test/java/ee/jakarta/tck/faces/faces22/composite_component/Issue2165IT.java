@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2165IT extends BaseITNG {
 
     /**
-     * When a composite's implementation is a ui:decorate on an external template, #{cc} inside that
-     * template must still resolve to the enclosing composite, so its attributes evaluate rather than
-     * yielding the parent composite's or an empty value.
+     * When a composite's implementation is a ui:decorate on an external template, #{cc} inside that template must still resolve to the enclosing composite, so
+     * its attributes evaluate rather than yielding the parent composite's or an empty value.
      *
      * @see jakarta.faces.component.UIComponent#getCompositeComponentParent(jakarta.faces.component.UIComponent)
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2165
@@ -39,4 +38,5 @@ class Issue2165IT extends BaseITNG {
         WebPage page = getPage("issue2165.xhtml");
         assertEquals("Do you see me?", page.findElement(By.id("outer:inner:result")).getText());
     }
+
 }

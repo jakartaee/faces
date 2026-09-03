@@ -26,11 +26,12 @@ import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs the row state preserved scenarios: an outer iteration over rows, each rendering an inner
- * iteration over that row's cells, with one input and one mark button per cell.
+ * Backs the row state preserved scenarios: an outer iteration over rows, each rendering an inner iteration over that row's cells, with one input and one mark
+ * button per cell.
  *
- * <p>The per-cell input value is the only thing distinguishing the cells, so a cell rendering
- * another cell's value means the iterating components confused their per-row state.
+ * <p>
+ * The per-cell input value is the only thing distinguishing the cells, so a cell rendering another cell's value means the iterating components confused their
+ * per-row state.
  */
 @Named
 @ViewScoped
@@ -60,9 +61,8 @@ public class Spec1263 implements Serializable {
     }
 
     /**
-     * Sets a style class on the input of the cell this action was invoked from. The style class is a
-     * property of the single child instance shared by every cell, so it belongs to the invoking cell
-     * only when the iterating component keeps the full component state of its children per row.
+     * Sets a style class on the input of the cell this action was invoked from. The style class is a property of the single child instance shared by every
+     * cell, so it belongs to the invoking cell only when the iterating component keeps the full component state of its children per row.
      *
      * @param event the action event of the cell's mark button.
      */
@@ -83,5 +83,7 @@ public class Spec1263 implements Serializable {
         public void setValue(String value) {
             this.value = value;
         }
+
     }
+
 }

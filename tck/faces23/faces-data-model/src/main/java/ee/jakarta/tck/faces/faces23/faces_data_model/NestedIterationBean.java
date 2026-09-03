@@ -24,11 +24,11 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs the nested-iteration state scenarios: an outer iteration over rows, each rendering an inner
- * iteration over that row's cells, with one input per cell.
+ * Backs the nested-iteration state scenarios: an outer iteration over rows, each rendering an inner iteration over that row's cells, with one input per cell.
  *
- * <p>The per-cell input value is the only thing distinguishing the cells, so a cell rendering
- * another cell's value means the iteration components confused their per-row state.
+ * <p>
+ * The per-cell input value is the only thing distinguishing the cells, so a cell rendering another cell's value means the iteration components confused their
+ * per-row state.
  */
 @Named
 @SessionScoped
@@ -56,4 +56,5 @@ public class NestedIterationBean implements Serializable {
     public List<List<NestedIterationCell>> getMatrix() {
         return matrix;
     }
+
 }

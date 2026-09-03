@@ -35,4 +35,5 @@ public class Issue2236Component extends UINamingContainer {
         }
         message.append("Issue2236Component constructor called");
     }
+
 }

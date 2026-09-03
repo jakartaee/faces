@@ -33,9 +33,9 @@ class Issue5772IT extends BaseITNG {
     private WebElement echo;
 
     /**
-     * An h:inputText that combines a pass through attribute with an f:ajax behavior must render correctly and its
-     * ajax behavior must keep working: the pass through attribute is rendered verbatim and the change event triggers
-     * an ajax request that executes and re-renders the form, so the submitted value round-trips back to the view.
+     * An h:inputText that combines a pass through attribute with an f:ajax behavior must render correctly and its ajax behavior must keep working: the pass
+     * through attribute is rendered verbatim and the change event triggers an ajax request that executes and re-renders the form, so the submitted value
+     * round-trips back to the view.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5772
      */
@@ -53,4 +53,5 @@ class Issue5772IT extends BaseITNG {
         });
         assertEquals("John", echo.getText());
     }
+
 }

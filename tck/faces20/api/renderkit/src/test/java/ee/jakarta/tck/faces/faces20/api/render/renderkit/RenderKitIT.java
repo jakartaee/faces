@@ -28,17 +28,69 @@ class RenderKitIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void renderKitAddClientBehaviorRendererNPETest() { runServletTest("renderKitAddClientBehaviorRendererNPETest"); }
-    @Test void renderKitAddGetClientBehaviorRendererTest() { runServletTest("renderKitAddGetClientBehaviorRendererTest"); }
-    @Test void renderKitAddGetRendererTest() { runServletTest("renderKitAddGetRendererTest"); }
-    @Test void renderKitAddRendererNPETest() { runServletTest("renderKitAddRendererNPETest"); }
-    @Test void renderKitCreateResponseStreamTest() { runServletTest("renderKitCreateResponseStreamTest"); }
-    @Test void renderKitCreateResponseWriterInvalidContentTypeTest() { runServletTest("renderKitCreateResponseWriterInvalidContentTypeTest"); }
-    @Test void renderKitCreateResponseWriterInvalidEncodingTest() { runServletTest("renderKitCreateResponseWriterInvalidEncodingTest"); }
-    @Test void renderKitCreateResponseWriterTest() { runServletTest("renderKitCreateResponseWriterTest"); }
-    @Test void renderKitGetClientBehaviorRendererNPETest() { runServletTest("renderKitGetClientBehaviorRendererNPETest"); }
-    @Test void renderKitGetClientBehaviorRendererTypesTest() { runServletTest("renderKitGetClientBehaviorRendererTypesTest"); }
-    @Test void renderKitGetRendererNPETest() { runServletTest("renderKitGetRendererNPETest"); }
-    @Test void renderKitGetRendererTypesTest() { runServletTest("renderKitGetRendererTypesTest"); }
-    @Test void renderKitGetResponseStateManagerTest() { runServletTest("renderKitGetResponseStateManagerTest"); }
+    @Test
+    void renderKitAddClientBehaviorRendererNPETest() {
+        runServletTest("renderKitAddClientBehaviorRendererNPETest");
+    }
+
+    @Test
+    void renderKitAddGetClientBehaviorRendererTest() {
+        runServletTest("renderKitAddGetClientBehaviorRendererTest");
+    }
+
+    @Test
+    void renderKitAddGetRendererTest() {
+        runServletTest("renderKitAddGetRendererTest");
+    }
+
+    @Test
+    void renderKitAddRendererNPETest() {
+        runServletTest("renderKitAddRendererNPETest");
+    }
+
+    @Test
+    void renderKitCreateResponseStreamTest() {
+        runServletTest("renderKitCreateResponseStreamTest");
+    }
+
+    @Test
+    void renderKitCreateResponseWriterInvalidContentTypeTest() {
+        runServletTest("renderKitCreateResponseWriterInvalidContentTypeTest");
+    }
+
+    @Test
+    void renderKitCreateResponseWriterInvalidEncodingTest() {
+        runServletTest("renderKitCreateResponseWriterInvalidEncodingTest");
+    }
+
+    @Test
+    void renderKitCreateResponseWriterTest() {
+        runServletTest("renderKitCreateResponseWriterTest");
+    }
+
+    @Test
+    void renderKitGetClientBehaviorRendererNPETest() {
+        runServletTest("renderKitGetClientBehaviorRendererNPETest");
+    }
+
+    @Test
+    void renderKitGetClientBehaviorRendererTypesTest() {
+        runServletTest("renderKitGetClientBehaviorRendererTypesTest");
+    }
+
+    @Test
+    void renderKitGetRendererNPETest() {
+        runServletTest("renderKitGetRendererNPETest");
+    }
+
+    @Test
+    void renderKitGetRendererTypesTest() {
+        runServletTest("renderKitGetRendererTypesTest");
+    }
+
+    @Test
+    void renderKitGetResponseStateManagerTest() {
+        runServletTest("renderKitGetResponseStateManagerTest");
+    }
+
 }

@@ -26,15 +26,14 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * c:forEach over a session-scoped collection that is mutated on postback reflects the current collection contents
- * in both plain EL output and inside an h:outputText component.
+ * c:forEach over a session-scoped collection that is mutated on postback reflects the current collection contents in both plain EL output and inside an
+ * h:outputText component.
  */
 class Issue2631IT extends BaseITNG {
 
     /**
-     * Toggling the bean swaps the backing set; after the postback both the plain EL column and the h:outputText
-     * column must show the newly selected set and none of the previous set's entries, and toggling back restores
-     * the original set in both columns.
+     * Toggling the bean swaps the backing set; after the postback both the plain EL column and the h:outputText column must show the newly selected set and
+     * none of the previous set's entries, and toggling back restores the original set in both columns.
      *
      * @see jakarta.faces.component.UIComponent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2631
@@ -59,4 +58,5 @@ class Issue2631IT extends BaseITNG {
         assertTrue(page.containsSource("1-SET1"), "First column reflects SET1 after toggling back");
         assertTrue(page.containsSource("0-SET1"), "First column reflects SET1 after toggling back");
     }
+
 }

@@ -27,15 +27,14 @@ import org.openqa.selenium.By;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
-
 public class Spec613IT extends BaseITNG {
 
-  /**
-   * @see HtmlCommandScript
+    /**
+     * @see HtmlCommandScript
      * @see https://github.com/jakartaee/faces/issues/613
-   */
-  @Test
-  void test() throws Exception {
+     */
+    @Test
+    void test() throws Exception {
         testCommandScript();
     }
 
@@ -50,4 +49,5 @@ public class Spec613IT extends BaseITNG {
         page.guardAjax(() -> page.executeScript("bar()"));
         assertEquals("bar", page.findElement(By.id("result")).getText());
     }
+
 }

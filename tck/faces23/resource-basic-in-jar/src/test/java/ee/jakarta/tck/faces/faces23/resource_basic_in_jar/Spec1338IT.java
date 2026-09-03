@@ -25,10 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Resources packaged inside a resource library contract in a JAR
- * ({@code META-INF/contracts/<contract>/...}) must resolve: an {@code h:graphicImage} referencing
- * the contract renders a request path pointing at the resource and carrying the contract
- * ({@code con=<contract>}) parameter.
+ * Resources packaged inside a resource library contract in a JAR ({@code META-INF/contracts/<contract>/...}) must resolve: an {@code h:graphicImage}
+ * referencing the contract renders a request path pointing at the resource and carrying the contract ({@code con=<contract>}) parameter.
  */
 public class Spec1338IT extends BaseITNG {
 
@@ -49,9 +47,14 @@ public class Spec1338IT extends BaseITNG {
 
     private void assertImageFromContract(WebPage page, String id, String resourceName) {
         String src = page.findElement(By.id(id)).getAttribute("src");
-        assertTrue(src.contains("jakarta.faces.resource/" + resourceName),
-                id + " must point at the contract resource but was " + src);
-        assertTrue(src.contains("con=" + CONTRACT),
-                id + " must carry the contract parameter but was " + src);
+        assertTrue(
+            src.contains("jakarta.faces.resource/" + resourceName),
+            id + " must point at the contract resource but was " + src
+        );
+        assertTrue(
+            src.contains("con=" + CONTRACT),
+            id + " must carry the contract parameter but was " + src
+        );
     }
+
 }

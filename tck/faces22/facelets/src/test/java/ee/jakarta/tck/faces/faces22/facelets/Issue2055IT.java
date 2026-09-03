@@ -28,15 +28,17 @@ class Issue2055IT extends BaseITNG {
     private static final String DEBUG_MARKER = "faceletsDebug";
 
     /**
-     * The VDL documentation of ui:debug states that the debug component is not rendered in the page when
-     * the rendered attribute evaluates to false, and rendered otherwise.
+     * The VDL documentation of ui:debug states that the debug component is not rendered in the page when the rendered attribute evaluates to false, and
+     * rendered otherwise.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2055
      */
     @Test
     void debugIsEmittedByDefault() {
-        assertTrue(getPage("issue2055-rendered.xhtml").containsSource(DEBUG_MARKER),
-                "ui:debug must emit its debug output by default.");
+        assertTrue(
+            getPage("issue2055-rendered.xhtml").containsSource(DEBUG_MARKER),
+            "ui:debug must emit its debug output by default."
+        );
     }
 
     /**
@@ -44,7 +46,10 @@ class Issue2055IT extends BaseITNG {
      */
     @Test
     void debugIsSuppressedWhenNotRendered() {
-        assertFalse(getPage("issue2055-not-rendered.xhtml").containsSource(DEBUG_MARKER),
-                "ui:debug must emit nothing when rendered is false.");
+        assertFalse(
+            getPage("issue2055-not-rendered.xhtml").containsSource(DEBUG_MARKER),
+            "ui:debug must emit nothing when rendered is false."
+        );
     }
+
 }

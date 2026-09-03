@@ -63,7 +63,8 @@ public class Spec1560IT extends BaseITNG {
             assertEquals("", emailMessage, "There is no faces message for type 'email'");
             assertNotEquals("", buttonMessage, "There is a faces message for type 'button'");
             assertEquals(globalMessage, buttonMessage, "The message for type 'button' is the only message set");
-        } else {
+        }
+        else {
             assertEquals("", emailMessage, "There is no faces message for type 'email'");
             assertEquals("", buttonMessage, "There is no faces message for type 'button'");
             assertEquals("", globalMessage, "There is no faces message set at all");

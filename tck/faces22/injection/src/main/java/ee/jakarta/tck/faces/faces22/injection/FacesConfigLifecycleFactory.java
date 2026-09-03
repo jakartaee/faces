@@ -58,4 +58,5 @@ public class FacesConfigLifecycleFactory extends LifecycleFactory implements Inj
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

@@ -45,4 +45,5 @@ public class Issue3089Bean implements Serializable {
     public void validate(FacesContext context, UIComponent component, Object object) throws ValidatorException {
         throw new ValidatorException(new FacesMessage(FacesMessage.SEVERITY_FATAL, "Oops", "Oops"));
     }
+
 }

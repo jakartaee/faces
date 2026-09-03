@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ee.jakarta.tck.faces.faces20.api.common.beans.TestBean;
-import ee.jakarta.tck.faces.faces20.api.model.common.BaseModelTestServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.model.ArrayDataModel;
 import jakarta.faces.model.DataModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import ee.jakarta.tck.faces.faces20.api.common.beans.TestBean;
+import ee.jakarta.tck.faces.faces20.api.model.common.BaseModelTestServlet;
+import ee.jakarta.tck.faces.util.JSFTestUtil;
 
 @WebServlet("/ArrayDataModelTestServlet")
 public class ArrayDataModelTestServlet extends BaseModelTestServlet {
@@ -51,24 +51,29 @@ public class ArrayDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void arrayDataModelCtorTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = new ArrayDataModel(new String[] { "string1", "string2" });
 
         int curRow = model.getRowIndex();
 
         if (curRow != 0) {
-            out.println(JSFTestUtil.FAIL + " Expected getRowIndex() to return 0"
+            out.println(
+                JSFTestUtil.FAIL + " Expected getRowIndex() to return 0"
                     + " when called against DataModel instance created by"
-                    + " passing data to wrap to constructor.");
+                    + " passing data to wrap to constructor."
+            );
             out.println("Row index returned: " + curRow);
             return;
         }
 
         if (!model.isRowAvailable()) {
-            out.println(JSFTestUtil.FAIL + " Expected isRowAvailable() to return"
+            out.println(
+                JSFTestUtil.FAIL + " Expected isRowAvailable() to return"
                     + " true when called against DataModel instance created"
-                    + " by passing data to wrap to constructor.");
+                    + " by passing data to wrap to constructor."
+            );
             return;
         }
 
@@ -76,7 +81,8 @@ public class ArrayDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelGetSetWrappedDataTest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
@@ -87,8 +93,10 @@ public class ArrayDataModelTestServlet extends BaseModelTestServlet {
         Object[] ret = (Object[]) model.getWrappedData();
 
         if (!Arrays.equals(strArray, ret)) {
-            out.println(JSFTestUtil.FAIL + " The value returned from getWrappedData()"
-                    + " was not the same as what was set via setWrappedData().");
+            out.println(
+                JSFTestUtil.FAIL + " The value returned from getWrappedData()"
+                    + " was not the same as what was set via setWrappedData()."
+            );
             out.println("Expected: " + Arrays.toString(strArray));
             out.println("Received: " + Arrays.toString(ret));
             return;
@@ -98,20 +106,26 @@ public class ArrayDataModelTestServlet extends BaseModelTestServlet {
     }
 
     public void dataModelSetWrappedDataCCETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
         DataModel model = createDataModel();
 
         try {
             model.setWrappedData("invalid");
-            out.println(JSFTestUtil.FAIL + " No exception thrown when attempting"
-                    + " to call setWrappedData() with an invalid type.");
+            out.println(
+                JSFTestUtil.FAIL + " No exception thrown when attempting"
+                    + " to call setWrappedData() with an invalid type."
+            );
             return;
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             if (!(e instanceof ClassCastException)) {
-                out.println(JSFTestUtil.FAIL + " Exception thrown when calling"
+                out.println(
+                    JSFTestUtil.FAIL + " Exception thrown when calling"
                         + " setWrappedData() with an invalid type, but it wasn't"
-                        + " an instance of ClassCastException.");
+                        + " an instance of ClassCastException."
+                );
                 out.println("Exception received: " + e.getClass().getName());
                 return;
             }
@@ -119,4 +133,5 @@ public class ArrayDataModelTestServlet extends BaseModelTestServlet {
 
         out.println(JSFTestUtil.PASS);
     }
+
 }

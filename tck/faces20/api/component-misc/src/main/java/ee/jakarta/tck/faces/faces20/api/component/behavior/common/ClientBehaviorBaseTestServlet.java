@@ -18,9 +18,6 @@ package ee.jakarta.tck.faces.faces20.api.component.behavior.common;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.component.UIComponent;
 import jakarta.faces.component.UIInput;
 import jakarta.faces.component.behavior.ClientBehaviorBase;
@@ -31,6 +28,9 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import ee.jakarta.tck.faces.util.JSFTestUtil;
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
 
 public abstract class ClientBehaviorBaseTestServlet extends HttpTCKServlet {
 
@@ -45,23 +45,32 @@ public abstract class ClientBehaviorBaseTestServlet extends HttpTCKServlet {
     protected abstract ClientBehaviorBase createBehavior();
 
     public void clientBehaviorDecodeNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "decode",
-                new Class<?>[] { FacesContext.class, UIComponent.class },
-                new Object[] { null, new UIInput() }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "decode",
+            new Class<?>[] { FacesContext.class, UIComponent.class },
+            new Object[] { null, new UIInput() }, out
+        );
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "decode",
-                new Class<?>[] { FacesContext.class, UIComponent.class },
-                new Object[] { getFacesContext(), null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "decode",
+            new Class<?>[] { FacesContext.class, UIComponent.class },
+            new Object[] { getFacesContext(), null }, out
+        );
     }
 
     public void clientBehaviorGetScriptNPETest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+        throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
 
-        JSFTestUtil.checkForNPE(createBehavior().getClass(), "getScript",
-                new Class<?>[] { ClientBehaviorContext.class }, new Object[] { null }, out);
+        JSFTestUtil.checkForNPE(
+            createBehavior().getClass(), "getScript",
+            new Class<?>[] { ClientBehaviorContext.class }, new Object[] { null }, out
+        );
     }
+
 }

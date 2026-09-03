@@ -25,16 +25,16 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Re-entering a flow which was returned out of earlier in the same session starts with a fresh flow
- * scope, it does not carry over the state of the previous run.
+ * Re-entering a flow which was returned out of earlier in the same session starts with a fresh flow scope, it does not carry over the state of the previous
+ * run.
  */
 class Issue3867IT extends BaseITNG {
 
     private static final String FLOW_SCOPE_VALUE = "Value in faces flow scope";
 
     /**
-     * Runs the bounded task flow to completion with a value put into the flow scope, returns out of
-     * it and enters it again. The flow scope of the second run must not see the value of the first.
+     * Runs the bounded task flow to completion with a value put into the flow scope, returns out of it and enters it again. The flow scope of the second run
+     * must not see the value of the first.
      *
      * @see jakarta.faces.flow.FlowHandler#getCurrentFlowScope()
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3867
@@ -50,16 +50,21 @@ class Issue3867IT extends BaseITNG {
 
         page = getPage("index.xhtml");
         enterFlowAndOpenInputPage(page);
-        assertEquals("", page.findElement(By.id("input")).getAttribute("value"),
-                "flow scope value of the previous run of the flow is gone on re-entry");
+        assertEquals(
+            "", page.findElement(By.id("input")).getAttribute("value"),
+            "flow scope value of the previous run of the flow is gone on re-entry"
+        );
 
         page.guardHttp(page.findElement(By.id("next"))::click);
-        assertFalse(page.containsText(FLOW_SCOPE_VALUE),
-                "flow scope value of the previous run of the flow is gone on the next page as well");
+        assertFalse(
+            page.containsText(FLOW_SCOPE_VALUE),
+            "flow scope value of the previous run of the flow is gone on the next page as well"
+        );
     }
 
     private static void enterFlowAndOpenInputPage(WebPage page) {
         page.guardHttp(page.findElement(By.id("start"))::click);
         page.guardHttp(page.findElement(By.id("next_a"))::click);
     }
+
 }

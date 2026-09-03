@@ -25,8 +25,7 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 class Spec490IT extends BaseITNG {
 
     /**
-     * A view processed as {@code xhtml} passes non-component markup — XML declaration, comments and
-     * CDATA sections — straight through to the response.
+     * A view processed as {@code xhtml} passes non-component markup — XML declaration, comments and CDATA sections — straight through to the response.
      *
      * @see jakarta.faces.view.ViewDeclarationLanguage
      * @see https://github.com/jakartaee/faces/issues/490
@@ -40,9 +39,8 @@ class Spec490IT extends BaseITNG {
     }
 
     /**
-     * A view processed as raw {@code xml} consumes non-component markup: the XML declaration and
-     * comments do not appear in the response, and CDATA sections lose their delimiters, their
-     * content being emitted as ordinary text.
+     * A view processed as raw {@code xml} consumes non-component markup: the XML declaration and comments do not appear in the response, and CDATA sections
+     * lose their delimiters, their content being emitted as ordinary text.
      *
      * @see jakarta.faces.view.ViewDeclarationLanguage
      * @see https://github.com/jakartaee/faces/issues/490
@@ -55,4 +53,5 @@ class Spec490IT extends BaseITNG {
         assertFalse(body.contains("<![CDATA["), "CDATA delimiters consumed");
         assertFalse(body.contains("<?xml"), "XML declaration consumed");
     }
+
 }

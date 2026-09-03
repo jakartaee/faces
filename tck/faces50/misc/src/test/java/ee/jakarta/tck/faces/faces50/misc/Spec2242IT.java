@@ -38,8 +38,8 @@ class Spec2242IT extends BaseITNG {
     private WebElement elWithColon;
 
     /**
-     * Verifies that the query string of the name attribute is removed before the resource is resolved and appended to
-     * the resource URL rendered by h:graphicImage.
+     * Verifies that the query string of the name attribute is removed before the resource is resolved and appended to the resource URL rendered by
+     * h:graphicImage.
      *
      * @see jakarta.faces.application.ResourceHandler#createResource(String, String)
      * @see https://github.com/jakartaee/faces/issues/2242
@@ -52,8 +52,7 @@ class Spec2242IT extends BaseITNG {
     }
 
     /**
-     * Verifies that the query string of a resource expression is removed before the resource is resolved and appended
-     * to the resource URL it evaluates to.
+     * Verifies that the query string of a resource expression is removed before the resource is resolved and appended to the resource URL it evaluates to.
      *
      * @see jakarta.faces.application.ResourceHandler#createResource(String, String)
      * @see https://github.com/jakartaee/faces/issues/2242
@@ -65,8 +64,8 @@ class Spec2242IT extends BaseITNG {
     }
 
     /**
-     * Verifies that the colon separating the library name of a resource expression is counted over the expression
-     * without its query string, so that the query string may itself contain a colon.
+     * Verifies that the colon separating the library name of a resource expression is counted over the expression without its query string, so that the query
+     * string may itself contain a colon.
      *
      * @see jakarta.faces.application.ResourceHandler#createResource(String, String)
      * @see https://github.com/jakartaee/faces/issues/2242

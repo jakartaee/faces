@@ -26,4 +26,5 @@ public class InitViewRequestCharacterEncodingBean {
     public String getEncoding() {
         return FacesContext.getCurrentInstance().getExternalContext().getRequestCharacterEncoding();
     }
+
 }

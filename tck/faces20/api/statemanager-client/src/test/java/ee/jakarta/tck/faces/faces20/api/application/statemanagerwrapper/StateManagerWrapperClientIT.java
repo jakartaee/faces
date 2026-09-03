@@ -27,7 +27,10 @@ class StateManagerWrapperClientIT extends BaseITNG {
     void stateManagerIsSavingStateInClientTest() {
         // WAR declares STATE_SAVING_METHOD=client; wrapper delegates to underlying manager, so "true".
         String body = getResponseBody("StateManagerWrapperTestServlet?testname=stateManagerIsSavingStateInClientTest");
-        assertTrue(body.trim().equals("true"),
-                "Expected 'true' (client-side state saving) but got:\n" + body);
+        assertTrue(
+            body.trim().equals("true"),
+            "Expected 'true' (client-side state saving) but got:\n" + body
+        );
     }
+
 }

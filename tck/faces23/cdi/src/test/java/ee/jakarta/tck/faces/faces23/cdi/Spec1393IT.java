@@ -28,13 +28,13 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1393IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see RequestMap
      * @see https://github.com/jakartaee/faces/issues/1393
-   */
-  @Test
-  void requestMap() throws Exception {
+     */
+    @Test
+    void requestMap() throws Exception {
 
         WebPage page = getPage("spec1393.xhtml");
 

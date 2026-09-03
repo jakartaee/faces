@@ -19,9 +19,9 @@ package ee.jakarta.tck.faces.faces22.phase_listener;
 import jakarta.faces.context.FacesContext;
 
 /**
- * The three globally registered lifecycle phase listeners in this module each belong to a distinct test view. They
- * must act only on their own view so they don't perturb the other tests' lifecycle. RESTORE_VIEW beforePhase runs
- * before the view root exists, so the requested view is derived from the request path instead.
+ * The three globally registered lifecycle phase listeners in this module each belong to a distinct test view. They must act only on their own view so they
+ * don't perturb the other tests' lifecycle. RESTORE_VIEW beforePhase runs before the view root exists, so the requested view is derived from the request path
+ * instead.
  */
 final class ViewIds {
 
@@ -34,4 +34,5 @@ final class ViewIds {
         String requested = pathInfo != null ? pathInfo : path;
         return requested != null && requested.endsWith("/" + simpleName);
     }
+
 }

@@ -48,4 +48,5 @@ class Issue2039IT extends BaseITNG {
         WebPage page = getPage("issue2039b.xhtml");
         assertTrue(page.containsSource("No Description"), "declared default value is used when attribute is omitted");
     }
+
 }

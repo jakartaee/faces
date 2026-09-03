@@ -21,13 +21,12 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * This event must be published by the runtime <em>before</em> the factories associated with this {@link Application}
- * are released.
+ * This event must be published by the runtime <em>before</em> the factories associated with this {@link Application} are released.
  * </p>
  *
  * <p class="changed_added_2_0">
- * This event is useful for listeners that need to perform custom shutdown processing without having to rely on
- * <code>ServletContextListener</code>s which will be invoked after all of the application artifacts have been removed.
+ * This event is useful for listeners that need to perform custom shutdown processing without having to rely on <code>ServletContextListener</code>s which will
+ * be invoked after all of the application artifacts have been removed.
  * </p>
  *
  * @since 2.0

@@ -22,10 +22,9 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_2">
- * Represents a switch node in the flow graph. When control passes to a switch node, for each of the {@link SwitchCase}s
- * returned from {@link #getCases}, call {@link SwitchCase#getCondition}. If the return is {@code true}, let the return
- * from {@link SwitchCase#getFromOutcome} be used to determine where to go next in the flow graph and terminate the
- * traversal. If none of the cases returned {@code true} let {@link #getDefaultOutcome} be used to determine where to go
+ * Represents a switch node in the flow graph. When control passes to a switch node, for each of the {@link SwitchCase}s returned from {@link #getCases}, call
+ * {@link SwitchCase#getCondition}. If the return is {@code true}, let the return from {@link SwitchCase#getFromOutcome} be used to determine where to go next
+ * in the flow graph and terminate the traversal. If none of the cases returned {@code true} let {@link #getDefaultOutcome} be used to determine where to go
  * next in the flow graph.
  * </p>
  *

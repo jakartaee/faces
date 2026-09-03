@@ -91,17 +91,16 @@ import jakarta.faces.render.Renderer;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0 changed_modified_2_0_rev_a changed_added_2_1">UIComponentBase</strong> is a
- * convenience base class that implements the default concrete behavior of all methods defined by {@link UIComponent}.
+ * <strong class="changed_modified_2_0 changed_modified_2_0_rev_a changed_added_2_1">UIComponentBase</strong> is a convenience base class that implements the
+ * default concrete behavior of all methods defined by {@link UIComponent}.
  * </p>
  *
  * <p>
- * By default, this class defines <code>getRendersChildren()</code> to find the renderer for this component and call its
- * <code>getRendersChildren()</code> method. The default implementation on the <code>Renderer</code> returns
- * <code>false</code>. As of version 1.2 of the Jakarta Faces Specification, component authors are encouraged to
- * return <code>true</code> from this method and rely on the implementation of {@link #encodeChildren} in this class and
- * in the Renderer ({@link Renderer#encodeChildren}). Subclasses that wish to manage the rendering of their children
- * should override this method to return <code>true</code> instead.
+ * By default, this class defines <code>getRendersChildren()</code> to find the renderer for this component and call its <code>getRendersChildren()</code>
+ * method. The default implementation on the <code>Renderer</code> returns <code>false</code>. As of version 1.2 of the Jakarta Faces Specification, component
+ * authors are encouraged to return <code>true</code> from this method and rely on the implementation of {@link #encodeChildren} in this class and in the
+ * Renderer ({@link Renderer#encodeChildren}). Subclasses that wish to manage the rendering of their children should override this method to return
+ * <code>true</code> instead.
  * </p>
  */
 public abstract class UIComponentBase extends UIComponent {
@@ -114,31 +113,27 @@ public abstract class UIComponentBase extends UIComponent {
     private static final int CHILD_STATE = 1;
 
     /**
-     * Highest code point {@link #isIdStart(char)} and {@link #isIdPart(char)} answer without consulting
-     * {@link Character}: at or below it, {@code Character.isLetter} matches exactly {@code a-zA-Z} and
-     * {@code Character.isDigit} exactly {@code 0-9}.
+     * Highest code point {@link #isIdStart(char)} and {@link #isIdPart(char)} answer without consulting {@link Character}: at or below it,
+     * {@code Character.isLetter} matches exactly {@code a-zA-Z} and {@code Character.isDigit} exactly {@code 0-9}.
      */
     private static final char MAX_ASCII = 0x7F;
 
     /**
-     * This class's <code>PropertyDescriptor</code>s (keyed by property name), held per class in the
-     * {@link #COMPONENT_METADATA} cache.
+     * This class's <code>PropertyDescriptor</code>s (keyed by property name), held per class in the {@link #COMPONENT_METADATA} cache.
      */
     private Map<String, PropertyDescriptor> propertyDescriptorMap;
 
     /**
-     * This class's access-suppressed read methods (keyed by property name), held strongly per class in the
-     * {@link #COMPONENT_METADATA} cache. Holding the suppressed read {@link Method}s strongly keeps the suppression
-     * durable (a {@link PropertyDescriptor}'s read method is handed back via a soft reference that can be regenerated)
-     * and lets the hot attribute-read path skip re-suppressing and re-caching it per component.
+     * This class's access-suppressed read methods (keyed by property name), held strongly per class in the {@link #COMPONENT_METADATA} cache. Holding the
+     * suppressed read {@link Method}s strongly keeps the suppression durable (a {@link PropertyDescriptor}'s read method is handed back via a soft reference
+     * that can be regenerated) and lets the hot attribute-read path skip re-suppressing and re-caching it per component.
      */
     private Map<String, Method> readMethodMap;
 
     /**
-     * This class's write methods (keyed by property name), the write-side counterpart of {@link #readMethodMap} kept in
-     * the same {@link #COMPONENT_METADATA} cache. Holds the access-suppressed setter {@link Method}s strongly so the
-     * {@code getAttributes().put} property-write path (Facelets applying a literal-text {@code ValueExpression} or a
-     * non-property literal during buildView) skips the per-put access check and the soft-reference setter
+     * This class's write methods (keyed by property name), the write-side counterpart of {@link #readMethodMap} kept in the same {@link #COMPONENT_METADATA}
+     * cache. Holds the access-suppressed setter {@link Method}s strongly so the {@code getAttributes().put} property-write path (Facelets applying a
+     * literal-text {@code ValueExpression} or a non-property literal during buildView) skips the per-put access check and the soft-reference setter
      * rediscovery.
      */
     private Map<String, Method> writeMethodMap;
@@ -163,13 +158,13 @@ public abstract class UIComponentBase extends UIComponent {
     // marking, facet-name and child-modified checks). Cached on fields so AttributesMap.get/containsKey skip
     // the per-read state-map lookup; writes still flow through the attributes map (AttributesMap.put/remove),
     // so saved/restored state is unchanged. See markerGet/markerPut/markerRemove.
-    private String markCreated;            // PackageUtils.MARK_CREATED (tag id)
-    private String facetName;              // PackageUtils.FACET_NAME
-    private Object removedChildren;        // PackageUtils.REMOVED_CHILDREN (Collection)
-    private Object dynamicComponent;       // PackageUtils.DYNAMIC_COMPONENT (Integer index)
-    private boolean markDeleted;           // PackageUtils.MARK_DELETED
-    private boolean markChildrenModified;  // PackageUtils.MARK_CHILDREN_MODIFIED
-    private boolean added;                 // setParent re-entrancy guard
+    private String markCreated; // PackageUtils.MARK_CREATED (tag id)
+    private String facetName; // PackageUtils.FACET_NAME
+    private Object removedChildren; // PackageUtils.REMOVED_CHILDREN (Collection)
+    private Object dynamicComponent; // PackageUtils.DYNAMIC_COMPONENT (Integer index)
+    private boolean markDeleted; // PackageUtils.MARK_DELETED
+    private boolean markChildrenModified; // PackageUtils.MARK_CHILDREN_MODIFIED
+    private boolean added; // setParent re-entrancy guard
 
     /**
      * <p>
@@ -199,55 +194,45 @@ public abstract class UIComponentBase extends UIComponent {
     private UIComponent parent;
 
     /**
-     * Per-component cache of the resolved {@link Renderer} for this component's renderer type.
-     * Populated lazily by {@link #getRenderer(FacesContext)}; invalidated by
-     * {@link #setRendererType(String)}, {@link #setParent(UIComponent)} (parenting can move
-     * the component under a different {@link UIViewRoot} and therefore a different
-     * {@code RenderKit}), and {@link #restoreState(FacesContext, Object)} (defensive: state
-     * restoration may rewrite {@code rendererType} via the {@link StateHelper} without going
-     * through {@link #setRendererType(String)}).
+     * Per-component cache of the resolved {@link Renderer} for this component's renderer type. Populated lazily by {@link #getRenderer(FacesContext)};
+     * invalidated by {@link #setRendererType(String)}, {@link #setParent(UIComponent)} (parenting can move the component under a different {@link UIViewRoot}
+     * and therefore a different {@code RenderKit}), and {@link #restoreState(FacesContext, Object)} (defensive: state restoration may rewrite
+     * {@code rendererType} via the {@link StateHelper} without going through {@link #setRendererType(String)}).
      *
-     * <p>The cache assumes the public-API contract: {@code rendererType} mutations flow through
-     * {@code setRendererType}. Code that binds {@code rendererType} to a non-literal
-     * {@link jakarta.el.ValueExpression} (rare) or mutates the {@link StateHelper} directly
-     * after the first {@code getRenderer} call will see a stale cached renderer until the next
-     * invalidation point.
+     * <p>
+     * The cache assumes the public-API contract: {@code rendererType} mutations flow through {@code setRendererType}. Code that binds {@code rendererType} to a
+     * non-literal {@link jakarta.el.ValueExpression} (rare) or mutates the {@link StateHelper} directly after the first {@code getRenderer} call will see a
+     * stale cached renderer until the next invalidation point.
      *
-     * <p>Marked {@code transient} so it is not serialized as part of view state; it rebuilds on
-     * the first {@code getRenderer} call after deserialization.
+     * <p>
+     * Marked {@code transient} so it is not serialized as part of view state; it rebuilds on the first {@code getRenderer} call after deserialization.
      */
     private transient Renderer<?> cachedRenderer;
 
     /**
-     * Field-backed {@code rendererType}, replacing the {@link StateHelper} entry that every component
-     * writes from its constructor. Backing it with a field keeps {@code defaultMap} unallocated for the
-     * common value-expression-bound leaf component (whose only would-be StateHelper entry is the
-     * renderer type) and turns every {@link #getRenderer}/{@link #getRendererType} read into a field read
-     * rather than a HashMap lookup.
+     * Field-backed {@code rendererType}, replacing the {@link StateHelper} entry that every component writes from its constructor. Backing it with a field
+     * keeps {@code defaultMap} unallocated for the common value-expression-bound leaf component (whose only would-be StateHelper entry is the renderer type)
+     * and turns every {@link #getRenderer}/{@link #getRendererType} read into a field read rather than a HashMap lookup.
      *
-     * <p>State handling honors the partial-state contract: the constructor sets this <em>before</em>
-     * {@code markInitialState}, so {@code buildView} reconstructs it on restore and it is carried in the
-     * delta only when changed afterwards (see {@link #rendererTypeSet}).
+     * <p>
+     * State handling honors the partial-state contract: the constructor sets this <em>before</em> {@code markInitialState}, so {@code buildView} reconstructs
+     * it on restore and it is carried in the delta only when changed afterwards (see {@link #rendererTypeSet}).
      */
     private String rendererType;
 
     /**
-     * {@code true} once {@code rendererType} is changed after {@code markInitialState}, so the change is
-     * carried in the partial-state delta. Transient: a freshly reconstructed component starts clean and
-     * relies on {@code buildView} (partial state) or the saved full state to re-establish the value.
+     * {@code true} once {@code rendererType} is changed after {@code markInitialState}, so the change is carried in the partial-state delta. Transient: a
+     * freshly reconstructed component starts clean and relies on {@code buildView} (partial state) or the saved full state to re-establish the value.
      */
     private transient boolean rendererTypeSet;
 
     /**
-     * Encode-scoped cache of {@link #isRendered()}. Within a single component encode the renderer's
-     * {@code shouldEncode}, {@code encodeChildren} and {@code encodeEnd} all re-consult {@code isRendered()},
-     * each otherwise re-reading {@code rendered} from the StateHelper. {@link #encodeBegin} computes it once and
-     * holds it here for the {@code encodeBegin}..{@code encodeEnd} window (covering both the {@code encodeAll} and
-     * renderer {@code encodeRecursive} paths, which both flow through those methods); {@link #encodeEnd} clears it.
-     * {@code rendered} cannot change mid-encode, so the cached value is authoritative for that window. It is
-     * recomputed fresh on every {@code encodeBegin}, so an encode that aborts before {@code encodeEnd} cannot leave
-     * a stale value in effect. {@code null} means "not currently encoding" — reads fall through to the StateHelper.
-     * Transient: never part of view state.
+     * Encode-scoped cache of {@link #isRendered()}. Within a single component encode the renderer's {@code shouldEncode}, {@code encodeChildren} and
+     * {@code encodeEnd} all re-consult {@code isRendered()}, each otherwise re-reading {@code rendered} from the StateHelper. {@link #encodeBegin} computes it
+     * once and holds it here for the {@code encodeBegin}..{@code encodeEnd} window (covering both the {@code encodeAll} and renderer {@code encodeRecursive}
+     * paths, which both flow through those methods); {@link #encodeEnd} clears it. {@code rendered} cannot change mid-encode, so the cached value is
+     * authoritative for that window. It is recomputed fresh on every {@code encodeBegin}, so an encode that aborts before {@code encodeEnd} cannot leave a
+     * stale value in effect. {@code null} means "not currently encoding" — reads fall through to the StateHelper. Transient: never part of view state.
      */
     private transient Boolean cachedIsRendered;
 
@@ -394,7 +379,8 @@ public abstract class UIComponentBase extends UIComponent {
                 this.parent = parent;
             }
             compositeParent = null;
-        } else {
+        }
+        else {
             this.parent = parent;
             if (!added) {
 
@@ -437,8 +423,10 @@ public abstract class UIComponentBase extends UIComponent {
         if (LOGGER.isLoggable(WARNING)) {
             FacesContext context = getFacesContext();
             if (context != null && ProjectStage.Development.equals(context.getApplication().getProjectStage())) {
-                LOGGER.log(WARNING, "warning.component.uicomponentbase_nonboolean_rendered",
-                        new Object[] { getClientId(context), value.getClass().getName() });
+                LOGGER.log(
+                    WARNING, "warning.component.uicomponentbase_nonboolean_rendered",
+                    new Object[] { getClientId(context), value.getClass().getName() }
+                );
             }
         }
     }
@@ -640,7 +628,8 @@ public abstract class UIComponentBase extends UIComponent {
             Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.decode(context, this);
-            } else {
+            }
+            else {
                 if (LOGGER.isLoggable(FINE)) {
                     LOGGER.fine("Can't get Renderer for type " + rendererType);
                 }
@@ -675,7 +664,8 @@ public abstract class UIComponentBase extends UIComponent {
             Renderer<UIComponent> renderer = getRenderer(context);
             if (renderer != null) {
                 renderer.encodeBegin(context, this);
-            } else {
+            }
+            else {
                 if (LOGGER.isLoggable(FINE)) {
                     LOGGER.fine("Can't get Renderer for type " + rendererType);
                 }
@@ -703,7 +693,8 @@ public abstract class UIComponentBase extends UIComponent {
                 renderer.encodeChildren(context, this);
             }
             // We've already logged for this component
-        } else if (getChildCount() > 0) {
+        }
+        else if (getChildCount() > 0) {
             for (UIComponent child : getChildren()) {
                 child.encodeAll(context);
             }
@@ -737,7 +728,8 @@ public abstract class UIComponentBase extends UIComponent {
             }
 
             popComponentFromEL(context);
-        } finally {
+        }
+        finally {
             // End of the encode pass opened by encodeBegin: drop the memoized rendered value.
             cachedIsRendered = null;
         }
@@ -747,10 +739,9 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p>
-     * Add the specified {@link FacesListener} to the set of listeners registered to receive event notifications from this
-     * {@link UIComponent}. It is expected that {@link UIComponent} classes acting as event sources will have corresponding
-     * typesafe APIs for registering listeners of the required type, and the implementation of those registration methods
-     * will delegate to this method. For example:
+     * Add the specified {@link FacesListener} to the set of listeners registered to receive event notifications from this {@link UIComponent}. It is expected
+     * that {@link UIComponent} classes acting as event sources will have corresponding typesafe APIs for registering listeners of the required type, and the
+     * implementation of those registration methods will delegate to this method. For example:
      * </p>
      *
      * <pre>
@@ -799,8 +790,8 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     /**
-     * Whether at least one listener of the given type would receive an event broadcast by this component. Reads the
-     * same list {@link #broadcast} does, without building the arrays {@link #getFacesListeners} has to allocate.
+     * Whether at least one listener of the given type would receive an event broadcast by this component. Reads the same list {@link #broadcast} does, without
+     * building the arrays {@link #getFacesListeners} has to allocate.
      *
      * @param clazz the listener type to look for
      * @return true if such a listener is attached
@@ -855,8 +846,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p>
-     * Remove the specified {@link FacesListener} from the set of listeners registered to receive event notifications from
-     * this {@link UIComponent}.
+     * Remove the specified {@link FacesListener} from the set of listeners registered to receive event notifications from this {@link UIComponent}.
      *
      * @param listener The {@link FacesListener} to be deregistered
      * @throws NullPointerException if <code>listener</code> is <code>null</code>
@@ -895,26 +885,23 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_1">
-     * Install the listener instance referenced by argument <code>componentListener</code> as a listener for events of type
-     * <code>eventClass</code> originating from this specific instance of <code>UIComponent</code>. The default
-     * implementation creates an inner {@link SystemEventListener} instance that wraps argument
-     * <code>componentListener</code> as the <code>listener</code> argument. This inner class must call through to the
-     * argument <code>componentListener</code> in its implementation of {@link SystemEventListener#processEvent} and its
-     * implementation of {@link SystemEventListener#isListenerForSource} must return true if the instance class of this
-     * <code>UIComponent</code> is assignable from the argument to <code>isListenerForSource</code>.
+     * Install the listener instance referenced by argument <code>componentListener</code> as a listener for events of type <code>eventClass</code> originating
+     * from this specific instance of <code>UIComponent</code>. The default implementation creates an inner {@link SystemEventListener} instance that wraps
+     * argument <code>componentListener</code> as the <code>listener</code> argument. This inner class must call through to the argument
+     * <code>componentListener</code> in its implementation of {@link SystemEventListener#processEvent} and its implementation of
+     * {@link SystemEventListener#isListenerForSource} must return true if the instance class of this <code>UIComponent</code> is assignable from the argument
+     * to <code>isListenerForSource</code>.
      * </p>
      * <p class="changed_modified_4_0">
      * The listener instance referenced by argument <code>componentListener</code> may not already be installed as a listener for events of type
-     * <code>eventClass</code> originating from this specific instance of <code>UIComponent</code>. When doing the
-     * comparison to determine if an existing listener is equal to the argument <code>componentListener</code>,
-     * the <code>equals()</code> method on the <em>existing listener</em> must be invoked, passing the
-     * argument <code>componentListener</code>, rather than the other way around.
+     * <code>eventClass</code> originating from this specific instance of <code>UIComponent</code>. When doing the comparison to determine if an existing
+     * listener is equal to the argument <code>componentListener</code>, the <code>equals()</code> method on the <em>existing listener</em> must be invoked,
+     * passing the argument <code>componentListener</code>, rather than the other way around.
      * </p>
      *
      * @param eventClass the <code>Class</code> of event for which <code>listener</code> must be fired.
      * @param componentListener the implementation of {@link jakarta.faces.event.ComponentSystemEventListener} whose
-     * {@link jakarta.faces.event.ComponentSystemEventListener#processEvent} method must be called when events of type
-     * <code>facesEventClass</code> are fired.
+     * {@link jakarta.faces.event.ComponentSystemEventListener#processEvent} method must be called when events of type <code>facesEventClass</code> are fired.
      *
      * @throws NullPointerException if any of the arguments are <code>null</code>.
      *
@@ -952,17 +939,15 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_1">
-     * Remove the listener instance referenced by argument <code>componentListener</code> as a listener for events of type
-     * <code>eventClass</code> originating from this specific instance of <code>UIComponent</code>. When doing the
-     * comparison to determine if an existing listener is equal to the argument <code>componentListener</code> (and thus
-     * must be removed), the <code>equals()</code> method on the <em>existing listener</em> must be invoked, passing the
-     * argument <code>componentListener</code>, rather than the other way around.
+     * Remove the listener instance referenced by argument <code>componentListener</code> as a listener for events of type <code>eventClass</code> originating
+     * from this specific instance of <code>UIComponent</code>. When doing the comparison to determine if an existing listener is equal to the argument
+     * <code>componentListener</code> (and thus must be removed), the <code>equals()</code> method on the <em>existing listener</em> must be invoked, passing
+     * the argument <code>componentListener</code>, rather than the other way around.
      * </p>
      *
      * @param eventClass the <code>Class</code> of event for which <code>listener</code> must be removed.
-     * @param componentListener the implementation of {@link ComponentSystemEventListener} whose
-     * {@link ComponentSystemEventListener#processEvent} method must no longer be called when events of type
-     * <code>eventClass</code> are fired.
+     * @param componentListener the implementation of {@link ComponentSystemEventListener} whose {@link ComponentSystemEventListener#processEvent} method must
+     * no longer be called when events of type <code>eventClass</code> are fired.
      *
      * @throws NullPointerException if any of the arguments are <code>null</code>.
      *
@@ -995,8 +980,8 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_1">
-     * Return the <code>SystemEventListener</code> instances registered on this <code>UIComponent</code> instance that are
-     * interested in events of type <code>eventClass</code>.
+     * Return the <code>SystemEventListener</code> instances registered on this <code>UIComponent</code> instance that are interested in events of type
+     * <code>eventClass</code>.
      * </p>
      *
      * @param eventClass the <code>Class</code> of event for which the listeners must be returned.
@@ -1057,11 +1042,13 @@ public abstract class UIComponentBase extends UIComponent {
             // Process this component itself
             try {
                 decode(context);
-            } catch (RuntimeException e) {
+            }
+            catch (RuntimeException e) {
                 context.renderResponse();
                 throw e;
             }
-        } finally {
+        }
+        finally {
             popComponentFromEL(context);
         }
     }
@@ -1103,7 +1090,8 @@ public abstract class UIComponentBase extends UIComponent {
             }
 
             application.publishEvent(context, PostValidateEvent.class, this);
-        } finally {
+        }
+        finally {
             popComponentFromEL(context);
         }
     }
@@ -1140,15 +1128,15 @@ public abstract class UIComponentBase extends UIComponent {
                     children.get(i).processUpdates(context);
                 }
             }
-        } finally {
+        }
+        finally {
             popComponentFromEL(context);
         }
     }
 
     /**
      * @throws NullPointerException {@inheritDoc}
-     * @deprecated Full state saving has been removed. Use
-     * {@link jakarta.faces.view.StateManagementStrategy#saveView} instead.
+     * @deprecated Full state saving has been removed. Use {@link jakarta.faces.view.StateManagementStrategy#saveView} instead.
      */
     @Override
     @Deprecated(since = "5.0", forRemoval = true)
@@ -1188,7 +1176,8 @@ public abstract class UIComponentBase extends UIComponent {
                 // EMPTY_OBJECT_ARRAY Object array
                 childState = stateList.toArray();
             }
-        } finally {
+        }
+        finally {
             popComponentFromEL(context);
         }
 
@@ -1198,8 +1187,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * @throws NullPointerException {@inheritDoc}
-     * @deprecated Full state saving has been removed. Use
-     * {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
+     * @deprecated Full state saving has been removed. Use {@link jakarta.faces.view.StateManagementStrategy#restoreView} instead.
      */
     @Override
     @Deprecated(since = "5.0", forRemoval = true)
@@ -1223,7 +1211,8 @@ public abstract class UIComponentBase extends UIComponent {
             // Process all the facets of this component
             restoreFacetsState(context, childState, i);
 
-        } finally {
+        }
+        finally {
             popComponentFromEL(context);
         }
     }
@@ -1263,7 +1252,8 @@ public abstract class UIComponentBase extends UIComponent {
                 LOGGER.fine("Can't get Renderer for type " + rendererType);
             }
             cachedRenderer = renderer;
-        } else {
+        }
+        else {
             if (LOGGER.isLoggable(FINE)) {
                 String id = getId();
                 LOGGER.fine("No renderer-type for component " + id != null ? id : getClass().getName());
@@ -1277,8 +1267,8 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_0">
-     * For each of the attached objects on this instance that implement {@link PartialStateHolder}, call
-     * {@link PartialStateHolder#markInitialState} on the attached object.
+     * For each of the attached objects on this instance that implement {@link PartialStateHolder}, call {@link PartialStateHolder#markInitialState} on the
+     * attached object.
      * </p>
      *
      * @since 2.0
@@ -1310,8 +1300,8 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_0">
-     * For each of the attached objects on this instance that implement {@link PartialStateHolder}, call
-     * {@link PartialStateHolder#clearInitialState} on the attached object.
+     * For each of the attached objects on this instance that implement {@link PartialStateHolder}, call {@link PartialStateHolder#clearInitialState} on the
+     * attached object.
      * </p>
      *
      * @since 2.0
@@ -1385,7 +1375,8 @@ public abstract class UIComponentBase extends UIComponent {
 
             return values;
 
-        } else {
+        }
+        else {
             values = new Object[7];
 
             values[0] = listeners != null ? listeners.saveState(context) : null;
@@ -1439,7 +1430,8 @@ public abstract class UIComponentBase extends UIComponent {
             Map<Class<? extends SystemEvent>, List<SystemEventListener>> restoredListeners = restoreSystemEventListeners(context, values[1]);
             if (listenersByEventClass != null) {
                 listenersByEventClass.putAll(restoredListeners);
-            } else {
+            }
+            else {
                 listenersByEventClass = restoredListeners;
             }
             if (values.length != 7) {
@@ -1475,7 +1467,8 @@ public abstract class UIComponentBase extends UIComponent {
                 id = (String) values[6];
             }
             restoreMarkersFromState();
-        } else if (values[5] != null) {
+        }
+        else if (values[5] != null) {
             // Partial-state delta: rendererType changed after markInitialState; apply it and keep it
             // marked dirty so it stays in the delta across subsequent postbacks. buildView re-established
             // the pre-mark value, so a null here just means "no rendererType delta".
@@ -1505,25 +1498,21 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_modified_2_0">
-     * This method is called by {@link UIComponent} subclasses that want to save one or more attached objects. It is a
-     * convenience method that does the work of saving attached objects that may or may not implement the
-     * {@link StateHolder} interface. Using this method implies the use of {@link #restoreAttachedState} to restore the
-     * attached objects.
+     * This method is called by {@link UIComponent} subclasses that want to save one or more attached objects. It is a convenience method that does the work of
+     * saving attached objects that may or may not implement the {@link StateHolder} interface. Using this method implies the use of
+     * {@link #restoreAttachedState} to restore the attached objects.
      * </p>
      *
      * <p>
-     * This method supports saving attached objects of the following type: <code>Object</code>s, <code>null</code> values,
-     * and <code
+     * This method supports saving attached objects of the following type: <code>Object</code>s, <code>null</code> values, and <code
      * class="changed_modified_2_0">Collection</code>s of these objects. If any contained objects are not <code
-     * class="changed_modified_2_0">Collection</code>s and do not implement {@link StateHolder}, they must have
-     * zero-argument public constructors. The exact structure of the returned object is undefined and opaque, but will be
-     * serializable.
+     * class="changed_modified_2_0">Collection</code>s and do not implement {@link StateHolder}, they must have zero-argument public constructors. The exact
+     * structure of the returned object is undefined and opaque, but will be serializable.
      * </p>
      *
      * @param context the {@link FacesContext} for this request.
-     * @param attachedObject the object, which may be a <code>List</code> instance, or an Object. The
-     * <code>attachedObject</code> (or the elements that comprise <code>attachedObject</code> may implement)
-     * {@link StateHolder}.
+     * @param attachedObject the object, which may be a <code>List</code> instance, or an Object. The <code>attachedObject</code> (or the elements that comprise
+     * <code>attachedObject</code> may implement) {@link StateHolder}.
      *
      * @return The state object to be saved.
      * @throws NullPointerException if the context argument is null.
@@ -1548,7 +1537,8 @@ public abstract class UIComponentBase extends UIComponent {
             if (newWillSucceed) {
                 newWillSucceed = null != mapOrCollectionClass.getConstructor();
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             newWillSucceed = false;
         }
 
@@ -1565,7 +1555,8 @@ public abstract class UIComponentBase extends UIComponent {
                 }
             }
             result = resultList;
-        } else if (newWillSucceed && attachedObject instanceof Map) {
+        }
+        else if (newWillSucceed && attachedObject instanceof Map) {
             Map<?, ?> attachedMap = (Map<?, ?>) attachedObject;
             List<StateHolderSaver> resultList = new ArrayList<>(attachedMap.size() * 2 + 1);
             resultList.add(new StateHolderSaver(context, mapOrCollectionClass));
@@ -1583,7 +1574,8 @@ public abstract class UIComponentBase extends UIComponent {
                 resultList.add(new StateHolderSaver(context, value));
             }
             result = resultList;
-        } else {
+        }
+        else {
             result = new StateHolderSaver(context, attachedObject);
         }
 
@@ -1592,8 +1584,8 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p>
-     * This method is called by {@link UIComponent} subclasses that need to restore the objects they saved using
-     * {@link #saveAttachedState}. This method is tightly coupled with {@link #saveAttachedState}.
+     * This method is called by {@link UIComponent} subclasses that need to restore the objects they saved using {@link #saveAttachedState}. This method is
+     * tightly coupled with {@link #saveAttachedState}.
      * </p>
      *
      * <p>
@@ -1627,7 +1619,8 @@ public abstract class UIComponentBase extends UIComponent {
                 Collection<Object> retCollection = null;
                 try {
                     retCollection = (Collection<Object>) mapOrCollection.getDeclaredConstructor().newInstance();
-                } catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
+                }
+                catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
                     if (LOGGER.isLoggable(Level.SEVERE)) {
                         LOGGER.log(Level.SEVERE, e.toString(), e);
                     }
@@ -1636,7 +1629,8 @@ public abstract class UIComponentBase extends UIComponent {
                 for (int i = 1, len = stateList.size(); i < len; i++) {
                     try {
                         retCollection.add(stateList.get(i).restore(context));
-                    } catch (ClassCastException cce) {
+                    }
+                    catch (ClassCastException cce) {
                         if (LOGGER.isLoggable(Level.SEVERE)) {
                             LOGGER.log(Level.SEVERE, cce.toString(), cce);
                         }
@@ -1644,12 +1638,14 @@ public abstract class UIComponentBase extends UIComponent {
                     }
                 }
                 result = retCollection;
-            } else {
+            }
+            else {
                 // If we were doing assertions: assert(mapOrList.isAssignableFrom(Map.class));
                 Map<Object, Object> retMap = null;
                 try {
                     retMap = (Map<Object, Object>) mapOrCollection.getDeclaredConstructor().newInstance();
-                } catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
+                }
+                catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
                     if (LOGGER.isLoggable(Level.SEVERE)) {
                         LOGGER.log(Level.SEVERE, e.toString(), e);
                     }
@@ -1658,7 +1654,8 @@ public abstract class UIComponentBase extends UIComponent {
                 for (int i = 1, len = stateList.size(); i < len; i += 2) {
                     try {
                         retMap.put(stateList.get(i).restore(context), stateList.get(i + 1).restore(context));
-                    } catch (ClassCastException cce) {
+                    }
+                    catch (ClassCastException cce) {
                         if (LOGGER.isLoggable(Level.SEVERE)) {
                             LOGGER.log(Level.SEVERE, cce.toString(), cce);
                         }
@@ -1668,10 +1665,12 @@ public abstract class UIComponentBase extends UIComponent {
                 result = retMap;
 
             }
-        } else if (stateObj instanceof StateHolderSaver) {
+        }
+        else if (stateObj instanceof StateHolderSaver) {
             StateHolderSaver saver = (StateHolderSaver) stateObj;
             result = saver.restore(context);
-        } else {
+        }
+        else {
             throw new IllegalStateException("Unknown object type");
         }
         return result;
@@ -1727,7 +1726,8 @@ public abstract class UIComponentBase extends UIComponent {
             target[1] = saveAttachedState(ctx, e.getValue());
             if (target[1] == null) {
                 target[0] = null;
-            } else {
+            }
+            else {
                 savedState = true;
             }
         }
@@ -1804,17 +1804,23 @@ public abstract class UIComponentBase extends UIComponent {
     private boolean markerPut(Object key, Object value) {
         if (MARK_CREATED.equals(key)) {
             markCreated = (String) value;
-        } else if (FACET_NAME.equals(key)) {
+        }
+        else if (FACET_NAME.equals(key)) {
             facetName = (String) value;
-        } else if (REMOVED_CHILDREN.equals(key)) {
+        }
+        else if (REMOVED_CHILDREN.equals(key)) {
             removedChildren = value;
-        } else if (DYNAMIC_COMPONENT.equals(key)) {
+        }
+        else if (DYNAMIC_COMPONENT.equals(key)) {
             dynamicComponent = value;
-        } else if (MARK_DELETED.equals(key)) {
+        }
+        else if (MARK_DELETED.equals(key)) {
             markDeleted = Boolean.TRUE.equals(value);
-        } else if (MARK_CHILDREN_MODIFIED.equals(key)) {
+        }
+        else if (MARK_CHILDREN_MODIFIED.equals(key)) {
             markChildrenModified = Boolean.TRUE.equals(value);
-        } else {
+        }
+        else {
             return false;
         }
         return true;
@@ -1823,17 +1829,23 @@ public abstract class UIComponentBase extends UIComponent {
     private boolean markerRemove(Object key) {
         if (MARK_CREATED.equals(key)) {
             markCreated = null;
-        } else if (FACET_NAME.equals(key)) {
+        }
+        else if (FACET_NAME.equals(key)) {
             facetName = null;
-        } else if (REMOVED_CHILDREN.equals(key)) {
+        }
+        else if (REMOVED_CHILDREN.equals(key)) {
             removedChildren = null;
-        } else if (DYNAMIC_COMPONENT.equals(key)) {
+        }
+        else if (DYNAMIC_COMPONENT.equals(key)) {
             dynamicComponent = null;
-        } else if (MARK_DELETED.equals(key)) {
+        }
+        else if (MARK_DELETED.equals(key)) {
             markDeleted = false;
-        } else if (MARK_CHILDREN_MODIFIED.equals(key)) {
+        }
+        else if (MARK_CHILDREN_MODIFIED.equals(key)) {
             markChildrenModified = false;
-        } else {
+        }
+        else {
             return false;
         }
         return true;
@@ -1861,7 +1873,8 @@ public abstract class UIComponentBase extends UIComponent {
         if (parent.isInView()) {
             if (context.isProcessingEvents()) {
                 publishAfterViewEvents(context, context.getApplication(), added);
-            } else {
+            }
+            else {
                 updateInView(added, true);
             }
         }
@@ -1873,7 +1886,8 @@ public abstract class UIComponentBase extends UIComponent {
         if (parent.isInView()) {
             if (context.isProcessingEvents()) {
                 disconnectFromView(context, context.getApplication(), toRemove);
-            } else {
+            }
+            else {
                 updateInView(toRemove, false);
             }
         }
@@ -1889,18 +1903,16 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_0">
-     * This is a default implementation of {@link jakarta.faces.component.behavior.ClientBehaviorHolder#addClientBehavior}.
-     * <code>UIComponent</code> does not implement the {@link jakarta.faces.component.behavior.ClientBehaviorHolder}
-     * interface, but provides default implementations for the methods defined by
-     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} to simplify subclass implementations. Subclasses that
-     * wish to support the {@link jakarta.faces.component.behavior.ClientBehaviorHolder} contract must declare that the
-     * subclass implements {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, and must provide an implementation
-     * of {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getEventNames}.
+     * This is a default implementation of {@link jakarta.faces.component.behavior.ClientBehaviorHolder#addClientBehavior}. <code>UIComponent</code> does not
+     * implement the {@link jakarta.faces.component.behavior.ClientBehaviorHolder} interface, but provides default implementations for the methods defined by
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} to simplify subclass implementations. Subclasses that wish to support the
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} contract must declare that the subclass implements
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, and must provide an implementation of
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getEventNames}.
      * </p>
      *
      * @param eventName the logical name of the client-side event to attach the behavior to.
-     * @param behavior the {@link jakarta.faces.component.behavior.Behavior} instance to attach for the specified event
-     * name.
+     * @param behavior the {@link jakarta.faces.component.behavior.Behavior} instance to attach for the specified event name.
      *
      * @since 2.0
      */
@@ -1916,7 +1928,8 @@ public abstract class UIComponentBase extends UIComponent {
         // to indicate that the API in not being used properly.
         if (eventNames == null) {
             throw new IllegalStateException(
-                    "Attempting to add a Behavior to a component " + "that does not support any event types. " + "getEventTypes() must return a non-null Set.");
+                "Attempting to add a Behavior to a component " + "that does not support any event types. " + "getEventTypes() must return a non-null Set."
+            );
         }
 
         if (eventName != null && eventNames.contains(eventName)) {
@@ -1960,13 +1973,12 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_0">
-     * This is a default implementation of {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getEventNames}.
-     * <code>UIComponent</code> does not implement the {@link jakarta.faces.component.behavior.ClientBehaviorHolder}
-     * interface, but provides default implementations for the methods defined by
-     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} to simplify subclass implementations. Subclasses that
-     * wish to support the {@link jakarta.faces.component.behavior.ClientBehaviorHolder} contract must declare that the
-     * subclass implements {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, and must override this method to
-     * return a non-Empty <code>Collection</code> of the client event names that the component supports.
+     * This is a default implementation of {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getEventNames}. <code>UIComponent</code> does not
+     * implement the {@link jakarta.faces.component.behavior.ClientBehaviorHolder} interface, but provides default implementations for the methods defined by
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} to simplify subclass implementations. Subclasses that wish to support the
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} contract must declare that the subclass implements
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, and must override this method to return a non-Empty <code>Collection</code> of the client
+     * event names that the component supports.
      * </p>
      *
      * @return the collection of event names.
@@ -1984,12 +1996,11 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_0">
-     * This is a default implementation of {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getClientBehaviors}.
-     * <code>UIComponent</code> does not implement the {@link jakarta.faces.component.behavior.ClientBehaviorHolder}
-     * interface, but provides default implementations for the methods defined by
-     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} to simplify subclass implementations. Subclasses that
-     * wish to support the {@link jakarta.faces.component.behavior.ClientBehaviorHolder} contract must declare that the
-     * subclass implements {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, and must add an implementation of
+     * This is a default implementation of {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getClientBehaviors}. <code>UIComponent</code> does not
+     * implement the {@link jakarta.faces.component.behavior.ClientBehaviorHolder} interface, but provides default implementations for the methods defined by
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} to simplify subclass implementations. Subclasses that wish to support the
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} contract must declare that the subclass implements
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, and must add an implementation of
      * {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getEventNames}.
      * </p>
      *
@@ -2006,11 +2017,9 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p class="changed_added_2_0">
-     * This is a default implementation of
-     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getDefaultEventName}. <code>UIComponent</code> does not
-     * implement the {@link jakarta.faces.component.behavior.ClientBehaviorHolder} interface, but provides default
-     * implementations for the methods defined by {@link jakarta.faces.component.behavior.ClientBehaviorHolder} to simplify
-     * subclass implementations. Subclasses that wish to support the
+     * This is a default implementation of {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getDefaultEventName}. <code>UIComponent</code> does not
+     * implement the {@link jakarta.faces.component.behavior.ClientBehaviorHolder} interface, but provides default implementations for the methods defined by
+     * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} to simplify subclass implementations. Subclasses that wish to support the
      * {@link jakarta.faces.component.behavior.ClientBehaviorHolder} contract must declare that the subclass implements
      * {@link jakarta.faces.component.behavior.ClientBehaviorHolder}, and must provide an implementation of
      * {@link jakarta.faces.component.behavior.ClientBehaviorHolder#getEventNames}.
@@ -2026,16 +2035,17 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     /**
-     * {@link UIComponentBase} has stub methods from the {@link ClientBehaviorHolder} interface, but these method should be
-     * used only with components that really implement holder interface. For an any other classes this method throws
-     * {@link IllegalStateException}
+     * {@link UIComponentBase} has stub methods from the {@link ClientBehaviorHolder} interface, but these method should be used only with components that
+     * really implement holder interface. For an any other classes this method throws {@link IllegalStateException}
      *
      * @throws IllegalStateException
      */
     private void assertClientBehaviorHolder() {
         if (!isClientBehaviorHolder()) {
-            throw new IllegalStateException("Attempting to use a Behavior feature with a component " + "that does not support any event types. "
-                    + "Component must implement BehaviourHolder interface.");
+            throw new IllegalStateException(
+                "Attempting to use a Behavior feature with a component " + "that does not support any event types. "
+                    + "Component must implement BehaviourHolder interface."
+            );
         }
     }
 
@@ -2066,8 +2076,9 @@ public abstract class UIComponentBase extends UIComponent {
                 // behaviors directly.
                 Object[] attachedEventBehaviors = new Object[eventBehaviors.size()];
                 for (int j = 0; j < attachedEventBehaviors.length; j++) {
-                    attachedEventBehaviors[j] = initialStateMarked() ? saveBehavior(context, eventBehaviors.get(j))
-                            : saveAttachedState(context, eventBehaviors.get(j));
+                    attachedEventBehaviors[j] = initialStateMarked()
+                        ? saveBehavior(context, eventBehaviors.get(j))
+                        : saveAttachedState(context, eventBehaviors.get(j));
                     if (!stateWritten) {
                         stateWritten = attachedEventBehaviors[j] != null;
                     }
@@ -2110,7 +2121,8 @@ public abstract class UIComponentBase extends UIComponent {
                 }
 
                 return new BehaviorsMap(modifiableMap);
-            } else {
+            }
+            else {
                 for (int i = 0, len = names.length; i < len; i++) {
                     // assume the behaviors have already been populated by
                     // execution of the template. Process the state in the
@@ -2150,7 +2162,8 @@ public abstract class UIComponentBase extends UIComponent {
             if (behavior instanceof StateHolder) {
                 if (state[i] instanceof StateHolderSaver) {
                     ((StateHolderSaver) state[i]).restore(ctx);
-                } else {
+                }
+                else {
                     ((StateHolder) behavior).restoreState(ctx, state[i]);
                 }
             }
@@ -2188,7 +2201,8 @@ public abstract class UIComponentBase extends UIComponent {
                     publishAfterViewEvents(context, application, facet);
                 }
             }
-        } finally {
+        }
+        finally {
             component.popComponentFromEL(context);
         }
 
@@ -2214,12 +2228,10 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     /**
-     * Recursively maintain the in-view flag of the given subtree <em>without</em> publishing the
-     * {@link PostAddToViewEvent}/{@link PreRemoveFromViewEvent} system events. Used when the runtime has event
-     * processing suppressed ({@link FacesContext#isProcessingEvents()} is {@code false}), e.g. while
-     * the state restore rebuilds the tree: {@link Application#publishEvent} is a no-op while suppressed,
-     * so walking the subtree to fire it -- pushing and popping the EL stack at every node -- is wasted work. This
-     * reproduces the publishing walks' only non-event side effects: {@link #publishAfterViewEvents} sets in-view
+     * Recursively maintain the in-view flag of the given subtree <em>without</em> publishing the {@link PostAddToViewEvent}/{@link PreRemoveFromViewEvent}
+     * system events. Used when the runtime has event processing suppressed ({@link FacesContext#isProcessingEvents()} is {@code false}), e.g. while the state
+     * restore rebuilds the tree: {@link Application#publishEvent} is a no-op while suppressed, so walking the subtree to fire it -- pushing and popping the EL
+     * stack at every node -- is wasted work. This reproduces the publishing walks' only non-event side effects: {@link #publishAfterViewEvents} sets in-view
      * true, {@link #disconnectFromView} sets it false and clears {@code compositeParent}.
      */
     private static void updateInView(UIComponent component, boolean isInView) {
@@ -2295,10 +2307,12 @@ public abstract class UIComponentBase extends UIComponent {
                 Map<String, Object> attributes = getAttributes();
                 if (attributes != null) {
                     return attributes.containsKey(key);
-                } else {
+                }
+                else {
                     return false;
                 }
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -2333,17 +2347,20 @@ public abstract class UIComponentBase extends UIComponent {
                 Method readMethod = readMap == null ? null : readMap.get(key);
                 if (readMethod != null) {
                     result = invokeReadMethod(readMethod);
-                } else {
+                }
+                else {
                     PropertyDescriptor pd = getPropertyDescriptor(key);
                     if (pd != null) {
                         readMethod = pd.getReadMethod();
                         if (readMethod != null) {
                             suppressAccessCheck(readMethod);
                             result = invokeReadMethod(readMethod);
-                        } else {
+                        }
+                        else {
                             throw new IllegalArgumentException(key);
                         }
-                    } else {
+                    }
+                    else {
                         attributes = getAttributes();
                         if (attributes != null && attributes.containsKey(key)) {
                             result = attributes.get(key);
@@ -2356,7 +2373,8 @@ public abstract class UIComponentBase extends UIComponent {
                 if (ve != null) {
                     try {
                         result = ve.getValue(component.getFacesContext().getELContext());
-                    } catch (ELException e) {
+                    }
+                    catch (ELException e) {
                         throw new FacesException(e);
                     }
                 }
@@ -2384,14 +2402,14 @@ public abstract class UIComponentBase extends UIComponent {
                             if (defaultValue instanceof ValueExpression) {
                                 defaultValue = ((ValueExpression) defaultValue).getValue(component.getFacesContext().getELContext());
                             }
-                            
+
                             var expressionFactory = component.getFacesContext().getApplication().getExpressionFactory();
                             return expressionFactory.coerceToType(defaultValue, propertyDescriptor.getPropertyType());
                         }
                     }
                 }
             }
-            
+
             return null;
         }
 
@@ -2444,17 +2462,21 @@ public abstract class UIComponentBase extends UIComponent {
                     }
                     if (writeMethod != null) {
                         writeMethod.invoke(component, value);
-                    } else {
+                    }
+                    else {
                         // TODO: i18n
                         throw new IllegalArgumentException("Setter not found for property " + keyValue);
                     }
                     return result;
-                } catch (IllegalAccessException e) {
+                }
+                catch (IllegalAccessException e) {
                     throw new FacesException(e);
-                } catch (InvocationTargetException e) {
+                }
+                catch (InvocationTargetException e) {
                     throw new FacesException(e.getTargetException());
                 }
-            } else {
+            }
+            else {
                 if (value == null) {
                     throw new NullPointerException();
                 }
@@ -2463,7 +2485,8 @@ public abstract class UIComponentBase extends UIComponent {
                 List<String> sProperties = (List<String>) component.getStateHelper().get(PropertyKeysPrivate.attributesThatAreSet);
                 if (sProperties == null) {
                     component.getStateHelper().add(PropertyKeysPrivate.attributesThatAreSet, keyValue);
-                } else if (!sProperties.contains(keyValue)) {
+                }
+                else if (!sProperties.contains(keyValue)) {
                     component.getStateHelper().add(PropertyKeysPrivate.attributesThatAreSet, keyValue);
                 }
                 return putAttribute(keyValue, value);
@@ -2497,12 +2520,14 @@ public abstract class UIComponentBase extends UIComponent {
             PropertyDescriptor pd = marker ? null : getPropertyDescriptor(key);
             if (pd != null) {
                 throw new IllegalArgumentException(key);
-            } else {
+            }
+            else {
                 Map<String, Object> attributes = getAttributes();
                 if (attributes != null) {
                     component.getStateHelper().remove(UIComponent.PropertyKeysPrivate.attributesThatAreSet, key);
                     return component.getStateHelper().remove(PropertyKeys.attributes, key);
-                } else {
+                }
+                else {
                     return null;
                 }
             }
@@ -2582,13 +2607,15 @@ public abstract class UIComponentBase extends UIComponent {
                         if (!(t.get(key) == null && t.containsKey(key))) {
                             return false;
                         }
-                    } else {
+                    }
+                    else {
                         if (!value.equals(t.get(key))) {
                             return false;
                         }
                     }
                 }
-            } catch (ClassCastException | NullPointerException unused) {
+            }
+            catch (ClassCastException | NullPointerException unused) {
                 return false;
             }
 
@@ -2622,36 +2649,37 @@ public abstract class UIComponentBase extends UIComponent {
         private Object invokeReadMethod(Method readMethod) {
             try {
                 return readMethod.invoke(component, EMPTY_OBJECT_ARRAY);
-            } catch (IllegalAccessException e) {
+            }
+            catch (IllegalAccessException e) {
                 throw new FacesException(e);
-            } catch (InvocationTargetException e) {
+            }
+            catch (InvocationTargetException e) {
                 throw new FacesException(e.getTargetException());
             }
         }
 
         /**
-         * Suppresses the per-invoke reflective access check on the (public) property accessor (getter cached in
-         * {@link #readMap}, setter in {@link #writeMap}) that is then invoked on every property-backed attribute read
-         * or write — hot under render and {@code UIData}/{@code UIRepeat} iteration (a renderer reads each pass-through
-         * attribute through {@code getAttributes().get}) and under buildView (Facelets writes through
-         * {@code getAttributes().put}). The check is otherwise re-run per invoke because
-         * {@link PropertyDescriptor#getReadMethod()}/{@link PropertyDescriptor#getWriteMethod()} hand back the method via
-         * a soft {@link java.lang.ref.Reference} that may be regenerated, yielding a fresh {@link Method} whose access
-         * was never suppressed. Suppressing it on the strongly-held cached instance makes the win durable.
+         * Suppresses the per-invoke reflective access check on the (public) property accessor (getter cached in {@link #readMap}, setter in {@link #writeMap})
+         * that is then invoked on every property-backed attribute read or write — hot under render and {@code UIData}/{@code UIRepeat} iteration (a renderer
+         * reads each pass-through attribute through {@code getAttributes().get}) and under buildView (Facelets writes through {@code getAttributes().put}). The
+         * check is otherwise re-run per invoke because {@link PropertyDescriptor#getReadMethod()}/{@link PropertyDescriptor#getWriteMethod()} hand back the
+         * method via a soft {@link java.lang.ref.Reference} that may be regenerated, yielding a fresh {@link Method} whose access was never suppressed.
+         * Suppressing it on the strongly-held cached instance makes the win durable.
          */
         private static void suppressAccessCheck(Method accessor) {
             try {
                 // The module system may forbid this for an accessor in a non-exported user package;
                 // when it does, the normal per-invoke access check simply remains.
                 accessor.setAccessible(true);
-            } catch (RuntimeException accessNotSuppressed) {
+            }
+            catch (RuntimeException accessNotSuppressed) {
             }
         }
 
         /**
          * <p>
-         * Return the <code>PropertyDescriptor</code> for the specified property name for this {@link UIComponent}'s
-         * implementation class, if any; otherwise, return <code>null</code>.
+         * Return the <code>PropertyDescriptor</code> for the specified property name for this {@link UIComponent}'s implementation class, if any; otherwise,
+         * return <code>null</code>.
          * </p>
          *
          * @param name Name of the property to return a descriptor for
@@ -2680,11 +2708,13 @@ public abstract class UIComponentBase extends UIComponent {
             Class<?> clazz = (Class<?>) in.readObject();
             try {
                 component = (UIComponentBase) clazz.getDeclaredConstructor().newInstance();
-            } catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
+            }
+            catch (IllegalArgumentException | ReflectiveOperationException | SecurityException e) {
                 throw new RuntimeException(e);
             }
             component.restoreState(FacesContext.getCurrentInstance(), in.readObject());
         }
+
     }
 
     // Private implementation of List that supports the functionality
@@ -2706,9 +2736,11 @@ public abstract class UIComponentBase extends UIComponent {
         public void add(int index, UIComponent element) {
             if (element == null) {
                 throw new NullPointerException();
-            } else if (index < 0 || index > size()) {
+            }
+            else if (index < 0 || index > size()) {
                 throw new IndexOutOfBoundsException();
-            } else {
+            }
+            else {
                 eraseParent(element);
                 super.add(index, element);
                 element.setParent(component);
@@ -2720,7 +2752,8 @@ public abstract class UIComponentBase extends UIComponent {
         public boolean add(UIComponent element) {
             if (element == null) {
                 throw new NullPointerException();
-            } else {
+            }
+            else {
                 eraseParent(element);
                 boolean result = super.add(element);
                 element.setParent(component);
@@ -2736,7 +2769,8 @@ public abstract class UIComponentBase extends UIComponent {
                 UIComponent element = elements.next();
                 if (element == null) {
                     throw new NullPointerException();
-                } else {
+                }
+                else {
                     add(element);
                     changed = true;
                 }
@@ -2752,7 +2786,8 @@ public abstract class UIComponentBase extends UIComponent {
                 UIComponent element = elements.next();
                 if (element == null) {
                     throw new NullPointerException();
-                } else {
+                }
+                else {
                     add(index++, element);
                     changed = true;
                 }
@@ -2807,7 +2842,8 @@ public abstract class UIComponentBase extends UIComponent {
             }
             if (super.remove(element)) {
                 return true;
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -2840,9 +2876,11 @@ public abstract class UIComponentBase extends UIComponent {
         public UIComponent set(int index, UIComponent element) {
             if (element == null) {
                 throw new NullPointerException();
-            } else if (index < 0 || index >= size()) {
+            }
+            else if (index < 0 || index >= size()) {
                 throw new IndexOutOfBoundsException();
-            } else {
+            }
+            else {
                 eraseParent(element);
                 UIComponent previous = get(index);
                 super.set(index, element);
@@ -2851,6 +2889,7 @@ public abstract class UIComponentBase extends UIComponent {
                 return previous;
             }
         }
+
     }
 
     // Private implementation of ListIterator for ChildrenList
@@ -2865,7 +2904,8 @@ public abstract class UIComponentBase extends UIComponent {
             this.list = list;
             if (index < 0 || index > list.size()) {
                 throw new IndexOutOfBoundsException(String.valueOf(index));
-            } else {
+            }
+            else {
                 this.index = index;
             }
         }
@@ -2887,7 +2927,8 @@ public abstract class UIComponentBase extends UIComponent {
                 UIComponent o = list.get(index);
                 last = index++;
                 return o;
-            } catch (IndexOutOfBoundsException e) {
+            }
+            catch (IndexOutOfBoundsException e) {
                 throw new NoSuchElementException(String.valueOf(index));
             }
         }
@@ -2930,7 +2971,8 @@ public abstract class UIComponentBase extends UIComponent {
                 last = current;
                 index = current;
                 return o;
-            } catch (IndexOutOfBoundsException e) {
+            }
+            catch (IndexOutOfBoundsException e) {
                 throw new NoSuchElementException();
             }
         }
@@ -2968,14 +3010,17 @@ public abstract class UIComponentBase extends UIComponent {
                 if (c.getFacetCount() != 0) {
                     iterator = c.getFacets().values().iterator();
                     childMode = false;
-                } else if (c.getChildCount() != 0) {
+                }
+                else if (c.getChildCount() != 0) {
                     iterator = c.getChildren().iterator();
                     childMode = true;
-                } else {
+                }
+                else {
                     iterator = Collections.emptyIterator();
                     childMode = true;
                 }
-            } else if (!childMode && !iterator.hasNext() && c.getChildCount() != 0) {
+            }
+            else if (!childMode && !iterator.hasNext() && c.getChildCount() != 0) {
                 iterator = c.getChildren().iterator();
                 childMode = true;
             }
@@ -3039,7 +3084,8 @@ public abstract class UIComponentBase extends UIComponent {
         public UIComponent put(String key, UIComponent value) {
             if (key == null || value == null) {
                 throw new NullPointerException();
-            } else if (!(key instanceof String) || !(value instanceof UIComponent)) {
+            }
+            else if (!(key instanceof String) || !(value instanceof UIComponent)) {
                 throw new ClassCastException();
             }
             UIComponent previous = super.get(key);
@@ -3136,7 +3182,8 @@ public abstract class UIComponentBase extends UIComponent {
             }
             if (v == null) {
                 return map.get(k) == null;
-            } else {
+            }
+            else {
                 return v.equals(map.get(k));
             }
         }
@@ -3163,7 +3210,8 @@ public abstract class UIComponentBase extends UIComponent {
             if (map.containsKey(k)) {
                 map.remove(k);
                 return true;
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -3223,7 +3271,8 @@ public abstract class UIComponentBase extends UIComponent {
                 if (e.getKey() != null) {
                     return false;
                 }
-            } else {
+            }
+            else {
                 if (!key.equals(e.getKey())) {
                     return false;
                 }
@@ -3233,7 +3282,8 @@ public abstract class UIComponentBase extends UIComponent {
                 if (e.getValue() != null) {
                     return false;
                 }
-            } else {
+            }
+            else {
                 if (!v.equals(e.getValue())) {
                     return false;
                 }
@@ -3354,7 +3404,8 @@ public abstract class UIComponentBase extends UIComponent {
             if (map.containsKey(o)) {
                 map.remove(o);
                 return true;
-            } else {
+            }
+            else {
                 return false;
             }
         }
@@ -3507,6 +3558,7 @@ public abstract class UIComponentBase extends UIComponent {
     // Map inside of a unmodifiable map and providing private access to
     // the underlying (modifiable) Map
     private static class BehaviorsMap extends AbstractMap<String, List<ClientBehavior>> {
+
         private Map<String, List<ClientBehavior>> unmodifiableMap;
         private Map<String, List<ClientBehavior>> modifiableMap;
 
@@ -3523,12 +3575,12 @@ public abstract class UIComponentBase extends UIComponent {
         private Map<String, List<ClientBehavior>> getModifiableMap() {
             return modifiableMap;
         }
+
     }
 
     /**
-     * The map behind {@link UIComponentBase#getPassThroughAttributes(boolean)}. Insertion-ordered, so a component
-     * renders its pass-through attributes in the order the view declared them; the renderer writes them straight from
-     * this map, so the iteration order is the wire order.
+     * The map behind {@link UIComponentBase#getPassThroughAttributes(boolean)}. Insertion-ordered, so a component renders its pass-through attributes in the
+     * order the view declared them; the renderer writes them straight from this map, so the iteration order is the wire order.
      */
     private static class PassThroughAttributesMap<K, V> extends LinkedHashMap<String, Object> implements Serializable {
 
@@ -3566,11 +3618,11 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     /**
-     * Per-class reflective metadata, composed into a single value so the per-construction
-     * {@link #populateDescriptorsMapIfNecessary} resolves all three maps in one lookup rather than three. The three
-     * maps are always produced and cached together, so bundling them is behaviour-equivalent.
+     * Per-class reflective metadata, composed into a single value so the per-construction {@link #populateDescriptorsMapIfNecessary} resolves all three maps in
+     * one lookup rather than three. The three maps are always produced and cached together, so bundling them is behaviour-equivalent.
      */
     private static final class ComponentMetadata {
+
         private final Map<String, PropertyDescriptor> propertyDescriptors;
         private final Map<String, Method> readMethods;
         private final Map<String, Method> writeMethods;
@@ -3580,19 +3632,21 @@ public abstract class UIComponentBase extends UIComponent {
             this.readMethods = readMethods;
             this.writeMethods = writeMethods;
         }
+
     }
 
     /**
-     * The reflective metadata of every component class constructed so far. A {@link ClassValue} attaches each entry to
-     * the {@link Class} it describes, so an entry -- which strongly holds that class's accessor {@link Method}s -- stays
-     * reachable exactly as long as the class does, and resolving one costs neither a {@link FacesContext} nor a lookup
-     * in a map keyed by class. Every component construction resolves it, so nothing here may depend on request state.
+     * The reflective metadata of every component class constructed so far. A {@link ClassValue} attaches each entry to the {@link Class} it describes, so an
+     * entry -- which strongly holds that class's accessor {@link Method}s -- stays reachable exactly as long as the class does, and resolving one costs neither
+     * a {@link FacesContext} nor a lookup in a map keyed by class. Every component construction resolves it, so nothing here may depend on request state.
      */
     private static final ClassValue<ComponentMetadata> COMPONENT_METADATA = new ClassValue<>() {
+
         @Override
         protected ComponentMetadata computeValue(Class<?> componentClass) {
             return createComponentMetadata(componentClass);
         }
+
     };
 
     private void populateDescriptorsMapIfNecessary() {
@@ -3605,8 +3659,7 @@ public abstract class UIComponentBase extends UIComponent {
     }
 
     /**
-     * Introspects {@code componentClass} into its {@link ComponentMetadata}, or {@code null} when it exposes no
-     * property descriptors at all.
+     * Introspects {@code componentClass} into its {@link ComponentMetadata}, or {@code null} when it exposes no property descriptors at all.
      */
     private static ComponentMetadata createComponentMetadata(Class<?> componentClass) {
         PropertyDescriptor[] propertyDescriptors = getPropertyDescriptors(componentClass);
@@ -3644,8 +3697,8 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p>
-     * Return an array of <code>PropertyDescriptors</code> for the given {@link UIComponent} implementation class. If no
-     * descriptors can be identified, a zero-length array will be returned.
+     * Return an array of <code>PropertyDescriptors</code> for the given {@link UIComponent} implementation class. If no descriptors can be identified, a
+     * zero-length array will be returned.
      * </p>
      *
      * @throws FacesException if an introspection exception occurs
@@ -3653,7 +3706,8 @@ public abstract class UIComponentBase extends UIComponent {
     private static PropertyDescriptor[] getPropertyDescriptors(Class<?> componentClass) {
         try {
             return getBeanInfo(componentClass).getPropertyDescriptors();
-        } catch (IntrospectionException e) {
+        }
+        catch (IntrospectionException e) {
             throw new FacesException(e);
         }
     }
@@ -3665,7 +3719,7 @@ public abstract class UIComponentBase extends UIComponent {
         // and the builder is used and toString()'d in a single uninterrupted step, so the shared instance is
         // never re-entered mid-build.
         return sharedClientIdBuilder(context).append(parentId).append(UINamingContainer.getSeparatorChar(context)).append(childId)
-                .toString();
+            .toString();
     }
 
     private static final String SHARED_CLIENT_ID_BUILDER_KEY = "jakarta.faces.component.UIComponentBase.SHARED_CLIENT_ID_BUILDER";
@@ -3676,7 +3730,8 @@ public abstract class UIComponentBase extends UIComponent {
         if (builder == null) {
             builder = new StringBuilder();
             contextAttributes.put(SHARED_CLIENT_ID_BUILDER_KEY, builder);
-        } else {
+        }
+        else {
             builder.setLength(0);
         }
         return builder;
@@ -3726,8 +3781,8 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p>
-     * If the specified {@link UIComponent} has a non-null parent, remove it as a child or facet (as appropriate) of that
-     * parent. As a result, the <code>parent</code> property will always be <code>null</code> when this method returns.
+     * If the specified {@link UIComponent} has a non-null parent, remove it as a child or facet (as appropriate) of that parent. As a result, the
+     * <code>parent</code> property will always be <code>null</code> when this method returns.
      * </p>
      *
      * @param component {@link UIComponent} to have any parent erased
@@ -3767,8 +3822,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p>
-     * Throw <code>IllegalArgumentException</code> if the specified component identifier is non-<code>null</code> and not
-     * syntactically valid.
+     * Throw <code>IllegalArgumentException</code> if the specified component identifier is non-<code>null</code> and not syntactically valid.
      * </p>
      *
      * @param id The component identifier to test
@@ -3801,7 +3855,7 @@ public abstract class UIComponentBase extends UIComponent {
 
     private static boolean isIdPart(char c) {
         return c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z' || c >= '0' && c <= '9' || c == '-' || c == '_'
-                || c > MAX_ASCII && (isLetter(c) || isDigit(c));
+            || c > MAX_ASCII && (isLetter(c) || isDigit(c));
     }
 
     private UIComponent findBaseComponent(String expression, final char sepChar) {
@@ -3817,7 +3871,8 @@ public abstract class UIComponentBase extends UIComponent {
 
             // Treat remainder of the expression as relative
             expression = expression.substring(1);
-        } else if (!(base instanceof NamingContainer)) {
+        }
+        else if (!(base instanceof NamingContainer)) {
 
             // Relative expressions start at the closest NamingContainer or root
             while (base.getParent() != null) {
@@ -3860,10 +3915,9 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p>
-     * Return the {@link UIComponent} (if any) with the specified <code>id</code>, searching recursively starting at the
-     * specified <code>base</code>, and examining the base component itself, followed by examining all the base component's
-     * facets and children (unless the base component is a {@link NamingContainer}, in which case the recursive scan is
-     * skipped.
+     * Return the {@link UIComponent} (if any) with the specified <code>id</code>, searching recursively starting at the specified <code>base</code>, and
+     * examining the base component itself, followed by examining all the base component's facets and children (unless the base component is a
+     * {@link NamingContainer}, in which case the recursive scan is skipped.
      * </p>
      *
      * @param base Base {@link UIComponent} from which to search
@@ -3902,9 +3956,8 @@ public abstract class UIComponentBase extends UIComponent {
 
     /**
      * <p>
-     * Match <code>id</code> against a single facet or child of the component being searched: a
-     * {@link NamingContainer} matches only on its own id and is never descended into, any other kid is matched
-     * by a recursive scan which checks its own id first.
+     * Match <code>id</code> against a single facet or child of the component being searched: a {@link NamingContainer} matches only on its own id and is never
+     * descended into, any other kid is matched by a recursive scan which checks its own id first.
      * </p>
      */
     private static UIComponent findComponentInKid(UIComponent kid, String id) {

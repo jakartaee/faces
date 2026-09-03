@@ -24,8 +24,8 @@ import jakarta.faces.convert.NumberConverter;
 import jakarta.inject.Named;
 
 /**
- * Exposes converter instances for the {@code binding} attribute of {@code f:converter}: a
- * standard {@link NumberConverter} configured as currency, and a custom upper-casing converter.
+ * Exposes converter instances for the {@code binding} attribute of {@code f:converter}: a standard {@link NumberConverter} configured as currency, and a custom
+ * upper-casing converter.
  */
 @Named
 @RequestScoped
@@ -62,4 +62,5 @@ public class ConverterBindingBean {
     public void setValue(String value) {
         this.value = value;
     }
+
 }

@@ -69,4 +69,5 @@ public class Spec1349IT extends BaseITNG {
         submit.click();
         assertTrue(page.containsText("InjectConverter3 was called"));
     }
+
 }

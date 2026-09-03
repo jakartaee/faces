@@ -24,8 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An outbound parameter passed by a flow-call node must be available to the called flow's
- * initializer, which reads it from the flow scope before the start node renders.
+ * An outbound parameter passed by a flow-call node must be available to the called flow's initializer, which reads it from the flow scope before the start node
+ * renders.
  */
 class Issue3479IT extends BaseITNG {
 
@@ -38,7 +38,10 @@ class Issue3479IT extends BaseITNG {
         WebPage page = getPage("index.xhtml");
         page.guardHttp(() -> page.findElement(By.id("go_to_issue3479_start_from_flow_call_node")).click());
         page.guardHttp(() -> page.findElement(By.id("to_child_with_parameter_and_initializer")).click());
-        assertTrue(page.containsText("the parameter value should be CorrectString"),
-                "initializer consumed the inbound parameter");
+        assertTrue(
+            page.containsText("the parameter value should be CorrectString"),
+            "initializer consumed the inbound parameter"
+        );
     }
+
 }

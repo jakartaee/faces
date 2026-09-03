@@ -23,9 +23,8 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * A resource-library-contract template lives under {@code /contracts} and is private to the
- * contract mechanism: referencing it directly from {@code ui:decorate} or {@code ui:include} is
- * denied rather than served.
+ * A resource-library-contract template lives under {@code /contracts} and is private to the contract mechanism: referencing it directly from
+ * {@code ui:decorate} or {@code ui:include} is denied rather than served.
  */
 class Issue3171IT extends BaseITNG {
 
@@ -50,4 +49,5 @@ class Issue3171IT extends BaseITNG {
     void includeDirectContract() {
         assertTrue(getStatusCode("issue3171include.xhtml") >= 400, "direct contract include is denied");
     }
+
 }

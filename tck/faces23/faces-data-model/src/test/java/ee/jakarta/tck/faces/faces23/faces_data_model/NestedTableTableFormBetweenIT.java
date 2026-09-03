@@ -18,10 +18,8 @@ package ee.jakarta.tck.faces.faces23.faces_data_model;
 import org.junit.jupiter.api.Test;
 
 /**
- * An {@code h:dataTable} nested in an {@code h:dataTable}, with the form between them in the outer
- * column: one form per outer row, wrapping that row's inner table. Each postback therefore carries
- * only one outer row, and the inputs of the other row must still render their own previously
- * submitted value.
+ * An {@code h:dataTable} nested in an {@code h:dataTable}, with the form between them in the outer column: one form per outer row, wrapping that row's inner
+ * table. Each postback therefore carries only one outer row, and the inputs of the other row must still render their own previously submitted value.
  */
 class NestedTableTableFormBetweenIT extends NestedIterationITBase {
 
@@ -47,4 +45,5 @@ class NestedTableTableFormBetweenIT extends NestedIterationITBase {
     protected String submitId(int outer, int inner) {
         return "outer:" + outer + ":form:submit";
     }
+
 }

@@ -42,11 +42,8 @@ class ViewHandlerIT extends BaseITNG {
      *
      * @assertion_ids: JSF:SPEC:97; JSF:SPEC:97.1; JSF:SPEC:97.2; JSF:SPEC:97.3
      *
-     * @test_Strategy: Verify on an initial request that the ViewId has not been
-     *                 manipulated. By Setting the suffix as ".jsf" and then
-     *                 looking for the correct suffix in the
-     *                 ViewHandler.createView() method. The default suffix
-     *                 ".xhtml" must be preserved.
+     * @test_Strategy: Verify on an initial request that the ViewId has not been manipulated. By Setting the suffix as ".jsf" and then looking for the correct
+     * suffix in the ViewHandler.createView() method. The default suffix ".xhtml" must be preserved.
      *
      * @since 1.2
      */
@@ -54,10 +51,14 @@ class ViewHandlerIT extends BaseITNG {
     void viewHandlerCreateViewTest() throws Exception {
         WebPage page = getPage("greetings.jsf");
 
-        assertEquals(200, page.getResponseStatus(),
-                "Initial GET of greetings.jsf must not fail; ViewHandler.createView received an invalid viewId.");
-        assertTrue(page.containsText(EXPECTED_TEXT),
-                "Expected greetings page to render; instead got: " + page.getSource());
+        assertEquals(
+            200, page.getResponseStatus(),
+            "Initial GET of greetings.jsf must not fail; ViewHandler.createView received an invalid viewId."
+        );
+        assertTrue(
+            page.containsText(EXPECTED_TEXT),
+            "Expected greetings page to render; instead got: " + page.getSource()
+        );
     }
 
     /**
@@ -65,11 +66,8 @@ class ViewHandlerIT extends BaseITNG {
      *
      * @assertion_ids: JSF:SPEC:1; JSF:SPEC:102; JSF:SPEC:1.2.2
      *
-     * @test_Strategy: Verify on postback that the ViewId has not been
-     *                 manipulated. By Setting the suffix as ".jsf" and then
-     *                 looking for the correct suffix in the
-     *                 ViewHandler.restoreView() method. The default suffix
-     *                 ".xhtml" must be preserved.
+     * @test_Strategy: Verify on postback that the ViewId has not been manipulated. By Setting the suffix as ".jsf" and then looking for the correct suffix in
+     * the ViewHandler.restoreView() method. The default suffix ".xhtml" must be preserved.
      *
      * @since 1.2
      */
@@ -80,15 +78,19 @@ class ViewHandlerIT extends BaseITNG {
         WebElement submit = page.findElement(By.id("helloForm:submit"));
         page.guardHttp(submit::click);
 
-        assertEquals(200, page.getResponseStatus(),
-                "Postback to greetings.jsf must not fail; ViewHandler.restoreView received an invalid viewId.");
-        assertTrue(page.containsText(EXPECTED_TEXT),
-                "Expected greetings page after postback; instead got: " + page.getSource());
+        assertEquals(
+            200, page.getResponseStatus(),
+            "Postback to greetings.jsf must not fail; ViewHandler.restoreView received an invalid viewId."
+        );
+        assertTrue(
+            page.containsText(EXPECTED_TEXT),
+            "Expected greetings page after postback; instead got: " + page.getSource()
+        );
     }
 
     /**
-     * A view rendered without an available session still gets the default response character encoding, and rendering it
-     * must not force a session into existence.
+     * A view rendered without an available session still gets the default response character encoding, and rendering it must not force a session into
+     * existence.
      *
      * @see jakarta.faces.application.ViewHandler#initView(jakarta.faces.context.FacesContext)
      * @see jakarta.faces.context.ExternalContext#getResponseCharacterEncoding()
@@ -100,17 +102,20 @@ class ViewHandlerIT extends BaseITNG {
 
         WebPage page = getPage(CHAR_ENC_VIEW);
 
-        assertEquals("false", getCharEnc(page, "hasSession"),
-                "Rendering a view without a form must not create a session.");
-        assertEquals(UTF_8, getCharEnc(page, "responseCharEnc"),
-                "Response character encoding must fall back to the default when no session encoding is known.");
+        assertEquals(
+            "false", getCharEnc(page, "hasSession"),
+            "Rendering a view without a form must not create a session."
+        );
+        assertEquals(
+            UTF_8, getCharEnc(page, "responseCharEnc"),
+            "Response character encoding must fall back to the default when no session encoding is known."
+        );
     }
 
     /**
-     * Faces stores the character encoding it rendered the view with under {@code ViewHandler.CHARACTER_ENCODING_KEY} in
-     * the session map, and reads it back on the next request through {@code calculateCharacterEncoding}, which
-     * {@code initView} feeds into {@code ExternalContext.setRequestCharacterEncoding}. The stored encoding follows the
-     * view: a view declaring {@code US-ASCII} replaces the previously stored {@code UTF-8}.
+     * Faces stores the character encoding it rendered the view with under {@code ViewHandler.CHARACTER_ENCODING_KEY} in the session map, and reads it back on
+     * the next request through {@code calculateCharacterEncoding}, which {@code initView} feeds into {@code ExternalContext.setRequestCharacterEncoding}. The
+     * stored encoding follows the view: a view declaring {@code US-ASCII} replaces the previously stored {@code UTF-8}.
      *
      * @see jakarta.faces.application.ViewHandler#CHARACTER_ENCODING_KEY
      * @see jakarta.faces.context.ExternalContext#setRequestCharacterEncoding(String)
@@ -125,18 +130,24 @@ class ViewHandlerIT extends BaseITNG {
         assertEquals("true", getCharEnc(page, "hasSession"), "Session created on the previous request must be present.");
         assertEquals(UTF_8, getCharEnc(page, "sessionCharEnc"), "Faces must store the rendered encoding in the session.");
         assertEquals(UTF_8, getCharEnc(page, "responseCharEnc"), "Unexpected response character encoding.");
-        assertEquals(UTF_8, getCharEnc(page, "requestCharEnc"),
-                "initView must set the encoding calculated from the session as the request character encoding.");
+        assertEquals(
+            UTF_8, getCharEnc(page, "requestCharEnc"),
+            "initView must set the encoding calculated from the session as the request character encoding."
+        );
 
         // The stored encoding is written after the view is rendered, so the US-ASCII view must be requested twice
         // before the bean can observe the new value in the session.
         getPage(ASCII_CHAR_ENC_VIEW);
         page = getPage(ASCII_CHAR_ENC_VIEW);
-        assertEquals(US_ASCII, getCharEnc(page, "sessionCharEnc"),
-                "The encoding stored in the session must follow the encoding the view declares.");
+        assertEquals(
+            US_ASCII, getCharEnc(page, "sessionCharEnc"),
+            "The encoding stored in the session must follow the encoding the view declares."
+        );
         assertEquals(US_ASCII, getCharEnc(page, "responseCharEnc"), "Unexpected response character encoding.");
-        assertEquals(US_ASCII, getCharEnc(page, "requestCharEnc"),
-                "initView must set the encoding calculated from the session as the request character encoding.");
+        assertEquals(
+            US_ASCII, getCharEnc(page, "requestCharEnc"),
+            "initView must set the encoding calculated from the session as the request character encoding."
+        );
 
         getPage(CHAR_ENC_VIEW + "?invalidateSession=true");
     }

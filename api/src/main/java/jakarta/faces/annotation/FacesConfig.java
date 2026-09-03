@@ -28,16 +28,15 @@ import jakarta.inject.Qualifier;
 
 /**
  * <p class="changed_added_2_3">
- * The presence of this annotation on <span class="changed_modified_4_0">a class</span> deployed within an application 
- * <span class="changed_modified_4_0">guarantees activation of Jakarta Faces and its CDI specific features, even when 
- * <code>/WEB-INF/faces-config.xml</code> is absent and <code>FacesServlet</code> is not explicitly registered</span>.
+ * The presence of this annotation on <span class="changed_modified_4_0">a class</span> deployed within an application
+ * <span class="changed_modified_4_0">guarantees activation of Jakarta Faces and its CDI specific features, even when <code>/WEB-INF/faces-config.xml</code> is
+ * absent and <code>FacesServlet</code> is not explicitly registered</span>.
  * </p>
  */
 @Qualifier
 @Target(TYPE)
 @Retention(RUNTIME)
 public @interface FacesConfig {
-
 
     /**
      * <p class="changed_added_4_0">
@@ -47,12 +46,14 @@ public @interface FacesConfig {
      * @since 4.0
      */
     public static final class Literal extends AnnotationLiteral<FacesConfig> implements FacesConfig {
+
         private static final long serialVersionUID = 1L;
 
         /**
          * Instance of the {@link FacesConfig} qualifier.
          */
         public static final Literal INSTANCE = new Literal();
+
     }
 
 }

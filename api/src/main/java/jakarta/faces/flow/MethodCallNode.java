@@ -23,12 +23,11 @@ import jakarta.el.ValueExpression;
 
 /**
  * <p class="changed_added_2_2">
- * Represents a method call node in the flow graph. When control passes to a method call node, its
- * {@code MethodExpression} is invoked, passing any parameters. Let <em>outcome</em> be the value determined by the
- * following algorithm. If there is a {@code null} return from the invocation, {@link #getOutcome} is called. If the
- * result is non-{@code null}, its {@code getValue()} method is called and the value is considered to be
- * <em>outcome</em>. If there is a non-{@code null} return, let it be <em>outcome</em>. Convert <em>outcome</em> to a
- * String by calling its {@code toString} method. Use <em>outcome</em> to determine the next node in the flow graph.
+ * Represents a method call node in the flow graph. When control passes to a method call node, its {@code MethodExpression} is invoked, passing any parameters.
+ * Let <em>outcome</em> be the value determined by the following algorithm. If there is a {@code null} return from the invocation, {@link #getOutcome} is
+ * called. If the result is non-{@code null}, its {@code getValue()} method is called and the value is considered to be <em>outcome</em>. If there is a
+ * non-{@code null} return, let it be <em>outcome</em>. Convert <em>outcome</em> to a String by calling its {@code toString} method. Use <em>outcome</em> to
+ * determine the next node in the flow graph.
  * </p>
  *
  * @since 2.2

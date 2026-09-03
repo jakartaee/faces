@@ -26,10 +26,10 @@ import jakarta.inject.Named;
 @Named
 @ViewScoped
 public class ViewScopedBean implements Serializable {
-    
+
     private static final long serialVersionUID = -6301337067401894253L;
     private static int counter = 0;
-    
+
     private String value = "My View Scoped Value";
 
     public String getValue() {
@@ -49,4 +49,5 @@ public class ViewScopedBean implements Serializable {
     public void preDestroy() {
         counter--;
     }
+
 }

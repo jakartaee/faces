@@ -21,9 +21,8 @@ import java.util.function.Supplier;
 
 /**
  * <p class="changed_added_2_0">
- * Define a <code>Map</code>-like contract that makes it easier for components to implement {@link PartialStateHolder}.
- * Each {@link UIComponent} in the view will return an implementation of this interface from its
- * {@link UIComponent#getStateHelper} method.
+ * Define a <code>Map</code>-like contract that makes it easier for components to implement {@link PartialStateHolder}. Each {@link UIComponent} in the view
+ * will return an implementation of this interface from its {@link UIComponent#getStateHelper} method.
  * </p>
  *
  * @since 2.0
@@ -32,8 +31,8 @@ public interface StateHelper extends StateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the previously stored value and store the specified key/value pair. This is intended to store data that would
-     * otherwise reside in an instance variable on the component.
+     * Return the previously stored value and store the specified key/value pair. This is intended to store data that would otherwise reside in an instance
+     * variable on the component.
      * </p>
      *
      * @param <T> The generic type of the value.
@@ -58,15 +57,15 @@ public interface StateHelper extends StateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Store the specified <code>mapKey</code>/<code>value</code> in a <code>Map</code> that is internal to the helper, and
-     * return the previously stored value. The <code>Map</code> will then be associated with <code>key</code>.
+     * Store the specified <code>mapKey</code>/<code>value</code> in a <code>Map</code> that is internal to the helper, and return the previously stored value.
+     * The <code>Map</code> will then be associated with <code>key</code>.
      * </p>
      *
      * <div class="changed_added_2_0">
      *
      * <p>
-     * It's important to note for delta tracking that any modifications to the internal <code>Map</code> be made through
-     * this method or {@link StateHelper#remove(java.io.Serializable, Object)}.
+     * It's important to note for delta tracking that any modifications to the internal <code>Map</code> be made through this method or
+     * {@link StateHelper#remove(java.io.Serializable, Object)}.
      * </p>
      *
      * </div>
@@ -94,8 +93,8 @@ public interface StateHelper extends StateHolder {
 
     /**
      * <p class="changed_added_5_0">
-     * Performs the same logic as {@link #get(java.io.Serializable)} } but if no value is found, this will put and return the
-     * return-value of the {@code defaultValueSupplier}.
+     * Performs the same logic as {@link #get(java.io.Serializable)} } but if no value is found, this will put and return the return-value of the
+     * {@code defaultValueSupplier}.
      * </p>
      *
      * @param <T> The generic type of the value.
@@ -117,13 +116,11 @@ public interface StateHelper extends StateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Attempts to find a value associated with the specified key, using the value expression collection from the component
-     * if no such value is found.
+     * Attempts to find a value associated with the specified key, using the value expression collection from the component if no such value is found.
      * </p>
      *
      * @param <T> The generic type of the evaluated value.
-     * @param key the name of the value in the internal map, or the name of a value expression in the components value
-     * expression collection.
+     * @param key the name of the value in the internal map, or the name of a value expression in the components value expression collection.
      * @return the evaluated value.
      * @since 2.0
      */
@@ -131,8 +128,7 @@ public interface StateHelper extends StateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Performs the same logic as {@link #eval(java.io.Serializable)} } but if no value is found, this will return the
-     * specified <code>defaultValue</code>
+     * Performs the same logic as {@link #eval(java.io.Serializable)} } but if no value is found, this will return the specified <code>defaultValue</code>
      * </p>
      *
      * @param <T> The generic type of the evaluated value.
@@ -145,8 +141,8 @@ public interface StateHelper extends StateHolder {
 
     /**
      * <p class="changed_added_4_0">
-     * Performs the same logic as {@link #eval(java.io.Serializable)} } but if no value is found, this will return the
-     * return-value of the <code>defaultValueSupplier</code>
+     * Performs the same logic as {@link #eval(java.io.Serializable)} } but if no value is found, this will return the return-value of the
+     * <code>defaultValueSupplier</code>
      * </p>
      *
      * @param <T> The generic type of the evaluated value.
@@ -163,8 +159,8 @@ public interface StateHelper extends StateHolder {
      * </p>
      *
      * <p class="changed_added_2_0">
-     * It's important to note for delta tracking that any modifications to the internal <code>List</code> be made through
-     * this method or {@link StateHelper#remove(java.io.Serializable, Object)}.
+     * It's important to note for delta tracking that any modifications to the internal <code>List</code> be made through this method or
+     * {@link StateHelper#remove(java.io.Serializable, Object)}.
      * </p>
      *
      * @param key the key for which the value should be returned.
@@ -175,10 +171,9 @@ public interface StateHelper extends StateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Remove a value from the inner data structure. Look in the inner data structure for the value at the given
-     * <code>key</code>. If the value is a <code>Map</code>, remove and return the value under the key given by the
-     * <code>valueOrKey</code> argument. If the value is a <code>Collection</code>, simply remove the value given by the
-     * argument <code>valueOrKey</code> and return null.
+     * Remove a value from the inner data structure. Look in the inner data structure for the value at the given <code>key</code>. If the value is a
+     * <code>Map</code>, remove and return the value under the key given by the <code>valueOrKey</code> argument. If the value is a <code>Collection</code>,
+     * simply remove the value given by the argument <code>valueOrKey</code> and return null.
      * </p>
      *
      * @param <T> The generic type of the removed value.

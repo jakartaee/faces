@@ -48,4 +48,5 @@ public class Issue2929Bean implements Serializable {
     public void setComposite(UIComponent composite) {
         this.composite = composite;
     }
+
 }

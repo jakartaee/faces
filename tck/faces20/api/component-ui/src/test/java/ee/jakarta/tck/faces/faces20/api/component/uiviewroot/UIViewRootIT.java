@@ -34,11 +34,9 @@ class UIViewRootIT extends BaseITNG {
     }
 
     /**
-     * The method expressions declared as the view's {@code beforePhase} and {@code afterPhase}
-     * listeners must actually be invoked, once per phase, in lifecycle order. Neither log ever
-     * observes the restore view before phase, as the view carrying the listeners does not exist yet
-     * when that phase begins, nor the render response after phase, as both logs are read while
-     * rendering. The initial request skips straight from restore view to render response; a postback
+     * The method expressions declared as the view's {@code beforePhase} and {@code afterPhase} listeners must actually be invoked, once per phase, in lifecycle
+     * order. Neither log ever observes the restore view before phase, as the view carrying the listeners does not exist yet when that phase begins, nor the
+     * render response after phase, as both logs are read while rendering. The initial request skips straight from restore view to render response; a postback
      * runs the phases in between.
      *
      * @see UIViewRoot#setBeforePhaseListener(jakarta.el.MethodExpression)
@@ -52,110 +50,514 @@ class UIViewRootIT extends BaseITNG {
         assertEquals("RESTORE_VIEW 1", page.findElement(By.id("form:afterPhases")).getText(), "initial after phases");
 
         page.guardHttp(page.findElement(By.id("form:redisplay"))::click);
-        assertEquals("APPLY_REQUEST_VALUES 2 PROCESS_VALIDATIONS 3 UPDATE_MODEL_VALUES 4 INVOKE_APPLICATION 5 RENDER_RESPONSE 6",
-            page.findElement(By.id("form:beforePhases")).getText(), "postback before phases");
-        assertEquals("RESTORE_VIEW 1 APPLY_REQUEST_VALUES 2 PROCESS_VALIDATIONS 3 UPDATE_MODEL_VALUES 4 INVOKE_APPLICATION 5",
-            page.findElement(By.id("form:afterPhases")).getText(), "postback after phases");
+        assertEquals(
+            "APPLY_REQUEST_VALUES 2 PROCESS_VALIDATIONS 3 UPDATE_MODEL_VALUES 4 INVOKE_APPLICATION 5 RENDER_RESPONSE 6",
+            page.findElement(By.id("form:beforePhases")).getText(), "postback before phases"
+        );
+        assertEquals(
+            "RESTORE_VIEW 1 APPLY_REQUEST_VALUES 2 PROCESS_VALIDATIONS 3 UPDATE_MODEL_VALUES 4 INVOKE_APPLICATION 5",
+            page.findElement(By.id("form:afterPhases")).getText(), "postback after phases"
+        );
     }
 
-    @Test void uiComponentEncodeBeginNotRenderedTest() { runServletTest("uiComponentEncodeBeginNotRenderedTest"); }
-    @Test void uiComponentEncodeBeginTest() { runServletTest("uiComponentEncodeBeginTest"); }
-    @Test void uiComponentEncodeChildrenNotRenderedTest() { runServletTest("uiComponentEncodeChildrenNotRenderedTest"); }
-    @Test void uiComponentEncodeChildrenTest() { runServletTest("uiComponentEncodeChildrenTest"); }
-    @Test void uiComponentEncodeEndNotRenderedTest() { runServletTest("uiComponentEncodeEndNotRenderedTest"); }
-    @Test void uiComponentEncodeEndTest() { runServletTest("uiComponentEncodeEndTest"); }
-    @Test void uiComponentEncodeAllNPETest() { runServletTest("uiComponentEncodeAllNPETest"); }
-    @Test void uiComponentEncodeBeginNPETest() { runServletTest("uiComponentEncodeBeginNPETest"); }
-    @Test void uiComponentEncodeChildrenNPETest() { runServletTest("uiComponentEncodeChildrenNPETest"); }
-    @Test void uiComponentEncodeEndNPETest() { runServletTest("uiComponentEncodeEndNPETest"); }
-    @Test void uiComponentFindComponentIAETest() { runServletTest("uiComponentFindComponentIAETest"); }
-    @Test void uiComponentFindComponentNPETest() { runServletTest("uiComponentFindComponentNPETest"); }
-    @Test void uiComponentFindComponentTest() { runServletTest("uiComponentFindComponentTest"); }
-    @Test void uiComponentGetAttributesTest() { runServletTest("uiComponentGetAttributesTest"); }
-    @Test void uiComponentGetChildCountTest() { runServletTest("uiComponentGetChildCountTest"); }
-    @Test void uiComponentGetChildrenTest() { runServletTest("uiComponentGetChildrenTest"); }
-    @Test void uiComponentGetClientIdNPETest() { runServletTest("uiComponentGetClientIdNPETest"); }
-    @Test void uiComponentGetClientIdTest() { runServletTest("uiComponentGetClientIdTest"); }
-    @Test void uiComponentGetClientIdContextTest() { runServletTest("uiComponentGetClientIdContextTest"); }
-    @Test void uiComponentGetCurrentComponentTest() { runServletTest("uiComponentGetCurrentComponentTest"); }
-    @Test void uiComponentGetCurrentComponentNPETest() { runServletTest("uiComponentGetCurrentComponentNPETest"); }
-    @Test void uiComponentGetCurrentComponentNullTest() { runServletTest("uiComponentGetCurrentComponentNullTest"); }
-    @Test void uiComponentGetCurrentCompositeComponentNPETest() { runServletTest("uiComponentGetCurrentCompositeComponentNPETest"); }
-    @Test void uiComponentGetCurrentCompositeComponentNullTest() { runServletTest("uiComponentGetCurrentCompositeComponentNullTest"); }
-    @Test void uiComponentIsCompositeComponentNPETest() { runServletTest("uiComponentIsCompositeComponentNPETest"); }
-    @Test void uiComponentIsCompositeComponentNegTest() { runServletTest("uiComponentIsCompositeComponentNegTest"); }
-    @Test void uiComponentGetFacetsAndChildrenTest() { runServletTest("uiComponentGetFacetsAndChildrenTest"); }
-    @Test void uiComponentGetFacetsTest() { runServletTest("uiComponentGetFacetsTest"); }
-    @Test void uiComponentGetFacetTest() { runServletTest("uiComponentGetFacetTest"); }
-    @Test void uiComponentGetFacetCountTest() { runServletTest("uiComponentGetFacetCountTest"); }
-    @Test void uiComponentGetFamilyTest() { runServletTest("uiComponentGetFamilyTest"); }
-    @Test void uiComponentGetRendersChildrenTest() { runServletTest("uiComponentGetRendersChildrenTest"); }
-    @Test void uiComponentGetSetIdTest() { runServletTest("uiComponentGetSetIdTest"); }
-    @Test void uiComponentGetSetParentTest() { runServletTest("uiComponentGetSetParentTest"); }
-    @Test void uiComponentQueueEventNPETest() { runServletTest("uiComponentQueueEventNPETest"); }
-    @Test void uiComponentRestoreAttachedStateNPETest() { runServletTest("uiComponentRestoreAttachedStateNPETest"); }
-    @Test void uiComponentSaveAttachedStateNPETest() { runServletTest("uiComponentSaveAttachedStateNPETest"); }
-    @Test void uiComponentGetSetRendererTypeTest() { runServletTest("uiComponentGetSetRendererTypeTest"); }
-    @Test void uiComponentInvokeOnComponentTest() { runServletTest("uiComponentInvokeOnComponentTest"); }
-    @Test void uiComponentInvokeOnComponentNegativeTest() { runServletTest("uiComponentInvokeOnComponentNegativeTest"); }
-    @Test void uiComponentIsSetRenderedTest() { runServletTest("uiComponentIsSetRenderedTest"); }
-    @Test void uiComponentProcessDecodesNotRenderedTest() { runServletTest("uiComponentProcessDecodesNotRenderedTest"); }
-    @Test void uiComponentProcessDecodesRenderResponseTest() { runServletTest("uiComponentProcessDecodesRenderResponseTest"); }
-    @Test void uiComponentProcessDecodesTest() { runServletTest("uiComponentProcessDecodesTest"); }
-    @Test void uiComponentProcessDecodesNPETest() { runServletTest("uiComponentProcessDecodesNPETest"); }
-    @Test void uiComponentProcessSaveRestoreStateTest() { runServletTest("uiComponentProcessSaveRestoreStateTest"); }
-    @Test void uiComponentProcessSaveStateNPETest() { runServletTest("uiComponentProcessSaveStateNPETest"); }
-    @Test void uiComponentProcessRestoreStateNPETest() { runServletTest("uiComponentProcessRestoreStateNPETest"); }
-    @Test void uiComponentProcessSaveStateTransientTest() { runServletTest("uiComponentProcessSaveStateTransientTest"); }
-    @Test void uiComponentProcessUpdatesNotRenderedTest() { runServletTest("uiComponentProcessUpdatesNotRenderedTest"); }
-    @Test void uiComponentProcessUpdatesRenderResponseTest() { runServletTest("uiComponentProcessUpdatesRenderResponseTest"); }
-    @Test void uiComponentProcessUpdatesTest() { runServletTest("uiComponentProcessUpdatesTest"); }
-    @Test void uiComponentProcessUpdatesNPETest() { runServletTest("uiComponentProcessUpdatesNPETest"); }
-    @Test void uiComponentProcessValidatorsIsValidRenderResponseTest() { runServletTest("uiComponentProcessValidatorsIsValidRenderResponseTest"); }
-    @Test void uiComponentProcessValidatorsNotRenderedTest() { runServletTest("uiComponentProcessValidatorsNotRenderedTest"); }
-    @Test void uiComponentProcessValidatorsRenderResponseTest() { runServletTest("uiComponentProcessValidatorsRenderResponseTest"); }
-    @Test void uiComponentProcessValidatorsTest() { runServletTest("uiComponentProcessValidatorsTest"); }
-    @Test void uiComponentProcessValidatorsNPETest() { runServletTest("uiComponentProcessValidatorsNPETest"); }
-    @Test void uiComponentPushComponentToELTest() { runServletTest("uiComponentPushComponentToELTest"); }
-    @Test void uiComponentPushComponentToELNPETest() { runServletTest("uiComponentPushComponentToELNPETest"); }
-    @Test void uiComponentPopComponentFromELTest() { runServletTest("uiComponentPopComponentFromELTest"); }
-    @Test void uiComponentPopComponentFromELNPETest() { runServletTest("uiComponentPopComponentFromELNPETest"); }
-    @Test void uiComponentSetIdRestrictionsTest() { runServletTest("uiComponentSetIdRestrictionsTest"); }
-    @Test void uiComponentGetSetValueExpressionTest() { runServletTest("uiComponentGetSetValueExpressionTest"); }
-    @Test void uiComponentGetSetValueExpressionNPETest() { runServletTest("uiComponentGetSetValueExpressionNPETest"); }
-    @Test void uiComponentSetValueExpressionNPETest() { runServletTest("uiComponentSetValueExpressionNPETest"); }
-    @Test void uiComponentSetValueExpressionIAETest() { runServletTest("uiComponentSetValueExpressionIAETest"); }
-    @Test void uiComponentSubscribeToEventTest() { runServletTest("uiComponentSubscribeToEventTest"); }
-    @Test void uiComponentSubscribeToEventNPETest() { runServletTest("uiComponentSubscribeToEventNPETest"); }
-    @Test void uiComponentVisitTreeTest() { runServletTest("uiComponentVisitTreeTest"); }
-    @Test void uiComponentVisitTreeNegTest() { runServletTest("uiComponentVisitTreeNegTest"); }
-    @Test void uiViewRootaddComponentResourceFCTest() { runServletTest("uiViewRootaddComponentResourceFCTest"); }
-    @Test void uiViewRootaddComponentResourceFCTTest() { runServletTest("uiViewRootaddComponentResourceFCTTest"); }
-    @Test void uiViewRootaddComponentResourceComponentTargetTest() { runServletTest("uiViewRootaddComponentResourceComponentTargetTest"); }
-    @Test void uiViewRootgetComponentResourcesNPETest() { runServletTest("uiViewRootgetComponentResourcesNPETest"); }
-    @Test void uiViewRootaddComponentResourceComponentNegTargetTest() { runServletTest("uiViewRootaddComponentResourceComponentNegTargetTest"); }
-    @Test void uiViewRootremoveComponentResourceTest() { runServletTest("uiViewRootremoveComponentResourceTest"); }
-    @Test void uiViewRootremoveComponentResourceNPETest() { runServletTest("uiViewRootremoveComponentResourceNPETest"); }
-    @Test void uiViewRootIsInViewTest() { runServletTest("uiViewRootIsInViewTest"); }
-    @Test void uiViewRootAddGetPhaseListenersTest() { runServletTest("uiViewRootAddGetPhaseListenersTest"); }
-    @Test void uiViewRootIsInViewNegTest() { runServletTest("uiViewRootIsInViewNegTest"); }
-    @Test void uiViewRootSetGetViewIdTest() { runServletTest("uiViewRootSetGetViewIdTest"); }
-    @Test void uiViewRootUnsubscribeFromViewEventNPETest() { runServletTest("uiViewRootUnsubscribeFromViewEventNPETest"); }
-    @Test void uiViewRootSubscribeToViewEventNPETest() { runServletTest("uiViewRootSubscribeToViewEventNPETest"); }
-    @Test void uiViewRootSubscribeToViewEventTest() { runServletTest("uiViewRootSubscribeToViewEventTest"); }
-    @Test void uiViewRootCreateUniqueIDTest() { runServletTest("uiViewRootCreateUniqueIDTest"); }
-    @Test void uiViewRootSetGetLocaleTest() { runServletTest("uiViewRootSetGetLocaleTest"); }
-    @Test void uiViewRootSetGetRenderKitIdTest() { runServletTest("uiViewRootSetGetRenderKitIdTest"); }
-    @Test void uiViewRootGetViewListenersForEventClassNPETest() { runServletTest("uiViewRootGetViewListenersForEventClassNPETest"); }
-    @Test void uiViewRootProcessApplicationNPETest() { runServletTest("uiViewRootProcessApplicationNPETest"); }
-    @Test void uiViewRootProcessDecodesNPETest() { runServletTest("uiViewRootProcessDecodesNPETest"); }
-    @Test void uiViewRootProcessUpdatesNPETest() { runServletTest("uiViewRootProcessUpdatesNPETest"); }
-    @Test void uiViewRootQueueEventNPETest() { runServletTest("uiViewRootQueueEventNPETest"); }
-    @Test void uiViewRootGetSetBeforePhaseListenerTest() { runServletTest("uiViewRootGetSetBeforePhaseListenerTest"); }
-    @Test void uiViewRootGetSetAfterPhaseListenerTest() { runServletTest("uiViewRootGetSetAfterPhaseListenerTest"); }
-    @Test void stateHolderSaveRestoreStateTest() { runServletTest("stateHolderSaveRestoreStateTest"); }
-    @Test void stateHolderIsSetTransientTest() { runServletTest("stateHolderIsSetTransientTest"); }
-    @Test void stateHolderRestoreStateNPETest() { runServletTest("stateHolderRestoreStateNPETest"); }
-    @Test void stateHolderSaveStateNPETest() { runServletTest("stateHolderSaveStateNPETest"); }
-    @Test void partialStateHolderMICStateTest() { runServletTest("partialStateHolderMICStateTest"); }
+    @Test
+    void uiComponentEncodeBeginNotRenderedTest() {
+        runServletTest("uiComponentEncodeBeginNotRenderedTest");
+    }
+
+    @Test
+    void uiComponentEncodeBeginTest() {
+        runServletTest("uiComponentEncodeBeginTest");
+    }
+
+    @Test
+    void uiComponentEncodeChildrenNotRenderedTest() {
+        runServletTest("uiComponentEncodeChildrenNotRenderedTest");
+    }
+
+    @Test
+    void uiComponentEncodeChildrenTest() {
+        runServletTest("uiComponentEncodeChildrenTest");
+    }
+
+    @Test
+    void uiComponentEncodeEndNotRenderedTest() {
+        runServletTest("uiComponentEncodeEndNotRenderedTest");
+    }
+
+    @Test
+    void uiComponentEncodeEndTest() {
+        runServletTest("uiComponentEncodeEndTest");
+    }
+
+    @Test
+    void uiComponentEncodeAllNPETest() {
+        runServletTest("uiComponentEncodeAllNPETest");
+    }
+
+    @Test
+    void uiComponentEncodeBeginNPETest() {
+        runServletTest("uiComponentEncodeBeginNPETest");
+    }
+
+    @Test
+    void uiComponentEncodeChildrenNPETest() {
+        runServletTest("uiComponentEncodeChildrenNPETest");
+    }
+
+    @Test
+    void uiComponentEncodeEndNPETest() {
+        runServletTest("uiComponentEncodeEndNPETest");
+    }
+
+    @Test
+    void uiComponentFindComponentIAETest() {
+        runServletTest("uiComponentFindComponentIAETest");
+    }
+
+    @Test
+    void uiComponentFindComponentNPETest() {
+        runServletTest("uiComponentFindComponentNPETest");
+    }
+
+    @Test
+    void uiComponentFindComponentTest() {
+        runServletTest("uiComponentFindComponentTest");
+    }
+
+    @Test
+    void uiComponentGetAttributesTest() {
+        runServletTest("uiComponentGetAttributesTest");
+    }
+
+    @Test
+    void uiComponentGetChildCountTest() {
+        runServletTest("uiComponentGetChildCountTest");
+    }
+
+    @Test
+    void uiComponentGetChildrenTest() {
+        runServletTest("uiComponentGetChildrenTest");
+    }
+
+    @Test
+    void uiComponentGetClientIdNPETest() {
+        runServletTest("uiComponentGetClientIdNPETest");
+    }
+
+    @Test
+    void uiComponentGetClientIdTest() {
+        runServletTest("uiComponentGetClientIdTest");
+    }
+
+    @Test
+    void uiComponentGetClientIdContextTest() {
+        runServletTest("uiComponentGetClientIdContextTest");
+    }
+
+    @Test
+    void uiComponentGetCurrentComponentTest() {
+        runServletTest("uiComponentGetCurrentComponentTest");
+    }
+
+    @Test
+    void uiComponentGetCurrentComponentNPETest() {
+        runServletTest("uiComponentGetCurrentComponentNPETest");
+    }
+
+    @Test
+    void uiComponentGetCurrentComponentNullTest() {
+        runServletTest("uiComponentGetCurrentComponentNullTest");
+    }
+
+    @Test
+    void uiComponentGetCurrentCompositeComponentNPETest() {
+        runServletTest("uiComponentGetCurrentCompositeComponentNPETest");
+    }
+
+    @Test
+    void uiComponentGetCurrentCompositeComponentNullTest() {
+        runServletTest("uiComponentGetCurrentCompositeComponentNullTest");
+    }
+
+    @Test
+    void uiComponentIsCompositeComponentNPETest() {
+        runServletTest("uiComponentIsCompositeComponentNPETest");
+    }
+
+    @Test
+    void uiComponentIsCompositeComponentNegTest() {
+        runServletTest("uiComponentIsCompositeComponentNegTest");
+    }
+
+    @Test
+    void uiComponentGetFacetsAndChildrenTest() {
+        runServletTest("uiComponentGetFacetsAndChildrenTest");
+    }
+
+    @Test
+    void uiComponentGetFacetsTest() {
+        runServletTest("uiComponentGetFacetsTest");
+    }
+
+    @Test
+    void uiComponentGetFacetTest() {
+        runServletTest("uiComponentGetFacetTest");
+    }
+
+    @Test
+    void uiComponentGetFacetCountTest() {
+        runServletTest("uiComponentGetFacetCountTest");
+    }
+
+    @Test
+    void uiComponentGetFamilyTest() {
+        runServletTest("uiComponentGetFamilyTest");
+    }
+
+    @Test
+    void uiComponentGetRendersChildrenTest() {
+        runServletTest("uiComponentGetRendersChildrenTest");
+    }
+
+    @Test
+    void uiComponentGetSetIdTest() {
+        runServletTest("uiComponentGetSetIdTest");
+    }
+
+    @Test
+    void uiComponentGetSetParentTest() {
+        runServletTest("uiComponentGetSetParentTest");
+    }
+
+    @Test
+    void uiComponentQueueEventNPETest() {
+        runServletTest("uiComponentQueueEventNPETest");
+    }
+
+    @Test
+    void uiComponentRestoreAttachedStateNPETest() {
+        runServletTest("uiComponentRestoreAttachedStateNPETest");
+    }
+
+    @Test
+    void uiComponentSaveAttachedStateNPETest() {
+        runServletTest("uiComponentSaveAttachedStateNPETest");
+    }
+
+    @Test
+    void uiComponentGetSetRendererTypeTest() {
+        runServletTest("uiComponentGetSetRendererTypeTest");
+    }
+
+    @Test
+    void uiComponentInvokeOnComponentTest() {
+        runServletTest("uiComponentInvokeOnComponentTest");
+    }
+
+    @Test
+    void uiComponentInvokeOnComponentNegativeTest() {
+        runServletTest("uiComponentInvokeOnComponentNegativeTest");
+    }
+
+    @Test
+    void uiComponentIsSetRenderedTest() {
+        runServletTest("uiComponentIsSetRenderedTest");
+    }
+
+    @Test
+    void uiComponentProcessDecodesNotRenderedTest() {
+        runServletTest("uiComponentProcessDecodesNotRenderedTest");
+    }
+
+    @Test
+    void uiComponentProcessDecodesRenderResponseTest() {
+        runServletTest("uiComponentProcessDecodesRenderResponseTest");
+    }
+
+    @Test
+    void uiComponentProcessDecodesTest() {
+        runServletTest("uiComponentProcessDecodesTest");
+    }
+
+    @Test
+    void uiComponentProcessDecodesNPETest() {
+        runServletTest("uiComponentProcessDecodesNPETest");
+    }
+
+    @Test
+    void uiComponentProcessSaveRestoreStateTest() {
+        runServletTest("uiComponentProcessSaveRestoreStateTest");
+    }
+
+    @Test
+    void uiComponentProcessSaveStateNPETest() {
+        runServletTest("uiComponentProcessSaveStateNPETest");
+    }
+
+    @Test
+    void uiComponentProcessRestoreStateNPETest() {
+        runServletTest("uiComponentProcessRestoreStateNPETest");
+    }
+
+    @Test
+    void uiComponentProcessSaveStateTransientTest() {
+        runServletTest("uiComponentProcessSaveStateTransientTest");
+    }
+
+    @Test
+    void uiComponentProcessUpdatesNotRenderedTest() {
+        runServletTest("uiComponentProcessUpdatesNotRenderedTest");
+    }
+
+    @Test
+    void uiComponentProcessUpdatesRenderResponseTest() {
+        runServletTest("uiComponentProcessUpdatesRenderResponseTest");
+    }
+
+    @Test
+    void uiComponentProcessUpdatesTest() {
+        runServletTest("uiComponentProcessUpdatesTest");
+    }
+
+    @Test
+    void uiComponentProcessUpdatesNPETest() {
+        runServletTest("uiComponentProcessUpdatesNPETest");
+    }
+
+    @Test
+    void uiComponentProcessValidatorsIsValidRenderResponseTest() {
+        runServletTest("uiComponentProcessValidatorsIsValidRenderResponseTest");
+    }
+
+    @Test
+    void uiComponentProcessValidatorsNotRenderedTest() {
+        runServletTest("uiComponentProcessValidatorsNotRenderedTest");
+    }
+
+    @Test
+    void uiComponentProcessValidatorsRenderResponseTest() {
+        runServletTest("uiComponentProcessValidatorsRenderResponseTest");
+    }
+
+    @Test
+    void uiComponentProcessValidatorsTest() {
+        runServletTest("uiComponentProcessValidatorsTest");
+    }
+
+    @Test
+    void uiComponentProcessValidatorsNPETest() {
+        runServletTest("uiComponentProcessValidatorsNPETest");
+    }
+
+    @Test
+    void uiComponentPushComponentToELTest() {
+        runServletTest("uiComponentPushComponentToELTest");
+    }
+
+    @Test
+    void uiComponentPushComponentToELNPETest() {
+        runServletTest("uiComponentPushComponentToELNPETest");
+    }
+
+    @Test
+    void uiComponentPopComponentFromELTest() {
+        runServletTest("uiComponentPopComponentFromELTest");
+    }
+
+    @Test
+    void uiComponentPopComponentFromELNPETest() {
+        runServletTest("uiComponentPopComponentFromELNPETest");
+    }
+
+    @Test
+    void uiComponentSetIdRestrictionsTest() {
+        runServletTest("uiComponentSetIdRestrictionsTest");
+    }
+
+    @Test
+    void uiComponentGetSetValueExpressionTest() {
+        runServletTest("uiComponentGetSetValueExpressionTest");
+    }
+
+    @Test
+    void uiComponentGetSetValueExpressionNPETest() {
+        runServletTest("uiComponentGetSetValueExpressionNPETest");
+    }
+
+    @Test
+    void uiComponentSetValueExpressionNPETest() {
+        runServletTest("uiComponentSetValueExpressionNPETest");
+    }
+
+    @Test
+    void uiComponentSetValueExpressionIAETest() {
+        runServletTest("uiComponentSetValueExpressionIAETest");
+    }
+
+    @Test
+    void uiComponentSubscribeToEventTest() {
+        runServletTest("uiComponentSubscribeToEventTest");
+    }
+
+    @Test
+    void uiComponentSubscribeToEventNPETest() {
+        runServletTest("uiComponentSubscribeToEventNPETest");
+    }
+
+    @Test
+    void uiComponentVisitTreeTest() {
+        runServletTest("uiComponentVisitTreeTest");
+    }
+
+    @Test
+    void uiComponentVisitTreeNegTest() {
+        runServletTest("uiComponentVisitTreeNegTest");
+    }
+
+    @Test
+    void uiViewRootaddComponentResourceFCTest() {
+        runServletTest("uiViewRootaddComponentResourceFCTest");
+    }
+
+    @Test
+    void uiViewRootaddComponentResourceFCTTest() {
+        runServletTest("uiViewRootaddComponentResourceFCTTest");
+    }
+
+    @Test
+    void uiViewRootaddComponentResourceComponentTargetTest() {
+        runServletTest("uiViewRootaddComponentResourceComponentTargetTest");
+    }
+
+    @Test
+    void uiViewRootgetComponentResourcesNPETest() {
+        runServletTest("uiViewRootgetComponentResourcesNPETest");
+    }
+
+    @Test
+    void uiViewRootaddComponentResourceComponentNegTargetTest() {
+        runServletTest("uiViewRootaddComponentResourceComponentNegTargetTest");
+    }
+
+    @Test
+    void uiViewRootremoveComponentResourceTest() {
+        runServletTest("uiViewRootremoveComponentResourceTest");
+    }
+
+    @Test
+    void uiViewRootremoveComponentResourceNPETest() {
+        runServletTest("uiViewRootremoveComponentResourceNPETest");
+    }
+
+    @Test
+    void uiViewRootIsInViewTest() {
+        runServletTest("uiViewRootIsInViewTest");
+    }
+
+    @Test
+    void uiViewRootAddGetPhaseListenersTest() {
+        runServletTest("uiViewRootAddGetPhaseListenersTest");
+    }
+
+    @Test
+    void uiViewRootIsInViewNegTest() {
+        runServletTest("uiViewRootIsInViewNegTest");
+    }
+
+    @Test
+    void uiViewRootSetGetViewIdTest() {
+        runServletTest("uiViewRootSetGetViewIdTest");
+    }
+
+    @Test
+    void uiViewRootUnsubscribeFromViewEventNPETest() {
+        runServletTest("uiViewRootUnsubscribeFromViewEventNPETest");
+    }
+
+    @Test
+    void uiViewRootSubscribeToViewEventNPETest() {
+        runServletTest("uiViewRootSubscribeToViewEventNPETest");
+    }
+
+    @Test
+    void uiViewRootSubscribeToViewEventTest() {
+        runServletTest("uiViewRootSubscribeToViewEventTest");
+    }
+
+    @Test
+    void uiViewRootCreateUniqueIDTest() {
+        runServletTest("uiViewRootCreateUniqueIDTest");
+    }
+
+    @Test
+    void uiViewRootSetGetLocaleTest() {
+        runServletTest("uiViewRootSetGetLocaleTest");
+    }
+
+    @Test
+    void uiViewRootSetGetRenderKitIdTest() {
+        runServletTest("uiViewRootSetGetRenderKitIdTest");
+    }
+
+    @Test
+    void uiViewRootGetViewListenersForEventClassNPETest() {
+        runServletTest("uiViewRootGetViewListenersForEventClassNPETest");
+    }
+
+    @Test
+    void uiViewRootProcessApplicationNPETest() {
+        runServletTest("uiViewRootProcessApplicationNPETest");
+    }
+
+    @Test
+    void uiViewRootProcessDecodesNPETest() {
+        runServletTest("uiViewRootProcessDecodesNPETest");
+    }
+
+    @Test
+    void uiViewRootProcessUpdatesNPETest() {
+        runServletTest("uiViewRootProcessUpdatesNPETest");
+    }
+
+    @Test
+    void uiViewRootQueueEventNPETest() {
+        runServletTest("uiViewRootQueueEventNPETest");
+    }
+
+    @Test
+    void uiViewRootGetSetBeforePhaseListenerTest() {
+        runServletTest("uiViewRootGetSetBeforePhaseListenerTest");
+    }
+
+    @Test
+    void uiViewRootGetSetAfterPhaseListenerTest() {
+        runServletTest("uiViewRootGetSetAfterPhaseListenerTest");
+    }
+
+    @Test
+    void stateHolderSaveRestoreStateTest() {
+        runServletTest("stateHolderSaveRestoreStateTest");
+    }
+
+    @Test
+    void stateHolderIsSetTransientTest() {
+        runServletTest("stateHolderIsSetTransientTest");
+    }
+
+    @Test
+    void stateHolderRestoreStateNPETest() {
+        runServletTest("stateHolderRestoreStateNPETest");
+    }
+
+    @Test
+    void stateHolderSaveStateNPETest() {
+        runServletTest("stateHolderSaveStateNPETest");
+    }
+
+    @Test
+    void partialStateHolderMICStateTest() {
+        runServletTest("partialStateHolderMICStateTest");
+    }
+
 }

@@ -16,6 +16,7 @@
 
 package ee.jakarta.tck.faces.faces22.resource_library_contracts;
 
+import static java.util.Locale.ROOT;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -26,10 +27,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A resource library contract mapped to every view ({@code url-pattern *} to contract
- * {@code siteLayout}) supplies both the Facelet templates the views compose and the stylesheets the
- * templates reference. Each contract-scoped stylesheet URL carries the contract in its {@code con}
- * request parameter and is served that contract's own content.
+ * A resource library contract mapped to every view ({@code url-pattern *} to contract {@code siteLayout}) supplies both the Facelet templates the views compose
+ * and the stylesheets the templates reference. Each contract-scoped stylesheet URL carries the contract in its {@code con} request parameter and is served that
+ * contract's own content.
  */
 class Issue2644IT extends BaseITNG {
 
@@ -40,12 +40,16 @@ class Issue2644IT extends BaseITNG {
     @Test
     void testTemplatesAreUsed() {
         WebPage page = getPage("issue2644.xhtml");
-        assertTrue(page.containsText("Top Navigation Menu"),
-                "the contract's topNav_Template.xhtml must be used for the first view");
+        assertTrue(
+            page.containsText("Top Navigation Menu"),
+            "the contract's topNav_Template.xhtml must be used for the first view"
+        );
 
         page.guardHttp(page.findElement(By.id("form:button"))::click);
-        assertTrue(page.containsText("Left Side Navigation Menu"),
-                "the contract's leftNav_foo.xhtml must be used for the second view");
+        assertTrue(
+            page.containsText("Left Side Navigation Menu"),
+            "the contract's leftNav_foo.xhtml must be used for the second view"
+        );
     }
 
     /**
@@ -56,15 +60,24 @@ class Issue2644IT extends BaseITNG {
     void testResourcesAreRendered() {
         WebPage page = getPage("issue2644.xhtml");
         assertStylesheetFromContract(page, "default.css", "#AFAFAF");
-        assertStylesheetFromContract(page, "cssLayout.css", "#036fab");
+        assertStylesheetFromContract(page, "cssLayout.css", "#036FAB");
     }
 
-    private void assertStylesheetFromContract(WebPage page, String resourceName, String expectedContent) {
+    /**
+     * Asserts that the stylesheet is requested from the contract and served that contract's own content, recognized by a color unique to it. Hex colors are
+     * case insensitive in CSS, so the color is matched case insensitively.
+     */
+    private void assertStylesheetFromContract(WebPage page, String resourceName, String expectedColor) {
         WebElement link = page.findElement(By.cssSelector("link[href*='" + resourceName + "']"));
         String uri = getHrefURI(link);
-        assertTrue(uri.contains("con=siteLayout"),
-                resourceName + " must request contract siteLayout but requested " + uri);
-        assertTrue(getResponseBody(uri).contains(expectedContent),
-                resourceName + " must be served from the siteLayout contract");
+        assertTrue(
+            uri.contains("con=siteLayout"),
+            resourceName + " must request contract siteLayout but requested " + uri
+        );
+        assertTrue(
+            getResponseBody(uri).toLowerCase(ROOT).contains(expectedColor.toLowerCase(ROOT)),
+            resourceName + " must be served from the siteLayout contract"
+        );
     }
+
 }

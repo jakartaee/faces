@@ -18,20 +18,26 @@ package ee.jakarta.tck.faces.faces20.api.application.statemanager;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import ee.jakarta.tck.faces.util.servlets.HttpTCKServlet;
+
 @WebServlet("/StateManagerTestServlet")
 public final class StateManagerTestServlet extends HttpTCKServlet {
 
-    public void stateManagerIsSavingStateInClientTest(HttpServletRequest request,
-            HttpServletResponse response) throws ServletException, IOException {
+    public void stateManagerIsSavingStateInClientTest(
+        HttpServletRequest request,
+        HttpServletResponse response
+    ) throws ServletException, IOException
+    {
         PrintWriter out = response.getWriter();
-        out.println(getApplication().getStateManager()
-                .isSavingStateInClient(getFacesContext()));
+        out.println(
+            getApplication().getStateManager()
+                .isSavingStateInClient(getFacesContext())
+        );
     }
+
 }

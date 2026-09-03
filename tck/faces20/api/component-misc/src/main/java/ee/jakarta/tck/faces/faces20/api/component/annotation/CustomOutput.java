@@ -29,28 +29,31 @@ import jakarta.faces.event.PostAddToViewEvent;
 @ResourceDependency(name = "black-n-blue.css", library = "#{'test'}", target = "body")
 @ResourceDependency(name = "black-n-red.css", library = "", target = "")
 public class CustomOutput extends UIOutput
-    implements ComponentSystemEventListener {
+    implements
+        ComponentSystemEventListener {
 
-  private boolean processEventInvoked;
+    private boolean processEventInvoked;
 
-  private ComponentSystemEvent event;
+    private ComponentSystemEvent event;
 
-  public void processEvent(ComponentSystemEvent event)
-      throws AbortProcessingException {
-    processEventInvoked = true;
-    this.event = event;
-  }
+    public void processEvent(ComponentSystemEvent event)
+        throws AbortProcessingException
+    {
+        processEventInvoked = true;
+        this.event = event;
+    }
 
-  public void reset() {
-    processEventInvoked = false;
-    event = null;
-  }
+    public void reset() {
+        processEventInvoked = false;
+        event = null;
+    }
 
-  public boolean isProcessEventInvoked() {
-    return processEventInvoked;
-  }
+    public boolean isProcessEventInvoked() {
+        return processEventInvoked;
+    }
 
-  public ComponentSystemEvent getEvent() {
-    return event;
-  }
+    public ComponentSystemEvent getEvent() {
+        return event;
+    }
+
 }

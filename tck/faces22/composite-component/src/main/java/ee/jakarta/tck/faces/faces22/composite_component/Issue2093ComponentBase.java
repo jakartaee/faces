@@ -23,9 +23,8 @@ import java.util.Set;
 import jakarta.faces.component.UINamingContainer;
 
 /**
- * Wraps {@link #getAttributes()} in a pass-through map. Reproduces the reported condition where a
- * composite component overrides the attributes map yet {@code cc.attrs} must still resolve during
- * {@code PreRenderComponentEvent}.
+ * Wraps {@link #getAttributes()} in a pass-through map. Reproduces the reported condition where a composite component overrides the attributes map yet
+ * {@code cc.attrs} must still resolve during {@code PreRenderComponentEvent}.
  */
 public abstract class Issue2093ComponentBase extends UINamingContainer {
 
@@ -106,5 +105,7 @@ public abstract class Issue2093ComponentBase extends UINamingContainer {
         public Collection<Object> values() {
             return parent.values();
         }
+
     }
+
 }

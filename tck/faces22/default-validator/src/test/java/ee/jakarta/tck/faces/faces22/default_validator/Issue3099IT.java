@@ -25,16 +25,16 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Adding a validator to an editableValueHolder inside a composite component (via f:validator/f:validateLength
- * with for=) must register it exactly once, so a failed validation yields a single message for the composite's input.
+ * Adding a validator to an editableValueHolder inside a composite component (via f:validator/f:validateLength with for=) must register it exactly once, so a
+ * failed validation yields a single message for the composite's input.
  */
 class Issue3099IT extends BaseITNG {
 
     private static final String EXPECTED_MESSAGE = "form:myCompositeInput:input: Validation failed.";
 
     /**
-     * Submits short text so the custom validator fails, then verifies the composite's input produces exactly one
-     * validation message (i.e. the validator was not registered twice on the retargeted editableValueHolder).
+     * Submits short text so the custom validator fails, then verifies the composite's input produces exactly one validation message (i.e. the validator was not
+     * registered twice on the retargeted editableValueHolder).
      *
      * @see jakarta.faces.view.facelets.FaceletContext
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3099
@@ -50,4 +50,5 @@ class Issue3099IT extends BaseITNG {
 
         assertEquals(-1, second, "Composite input validation must produce exactly one message, not a duplicate");
     }
+
 }

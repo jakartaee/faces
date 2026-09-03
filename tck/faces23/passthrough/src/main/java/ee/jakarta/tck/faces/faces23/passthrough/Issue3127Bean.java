@@ -30,4 +30,5 @@ public class Issue3127Bean {
     public LocalDate getDate() {
         return DATE;
     }
+
 }

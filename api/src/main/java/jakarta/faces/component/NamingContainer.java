@@ -18,10 +18,9 @@ package jakarta.faces.component;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0">NamingContainer</strong> is an interface that must be implemented by any
- * {@link UIComponent} that wants to be a naming container. Naming containers affect the behavior of the
- * {@link UIComponent#findComponent} and {@link UIComponent#getClientId} methods; see those methods for further
- * information.
+ * <strong class="changed_modified_2_0">NamingContainer</strong> is an interface that must be implemented by any {@link UIComponent} that wants to be a naming
+ * container. Naming containers affect the behavior of the {@link UIComponent#findComponent} and {@link UIComponent#getClientId} methods; see those methods for
+ * further information.
  * </p>
  */
 
@@ -31,9 +30,10 @@ public interface NamingContainer {
 
     /**
      * <p class="changed_modified_2_0">
-     * The <span class="changed_modified_4_0">default</span> separator character used in component identifiers to demarcate navigation to a child naming container,
-     * <span class="changed_added_4_0">in case {@link UINamingContainer#getSeparatorChar(jakarta.faces.context.FacesContext)} does not resolve to a valid value.
-     * It is not recommended to use this value directly, the {@link UINamingContainer#getSeparatorChar(jakarta.faces.context.FacesContext)} must be used instead</span>.
+     * The <span class="changed_modified_4_0">default</span> separator character used in component identifiers to demarcate navigation to a child naming
+     * container, <span class="changed_added_4_0">in case {@link UINamingContainer#getSeparatorChar(jakarta.faces.context.FacesContext)} does not resolve to a
+     * valid value. It is not recommended to use this value directly, the {@link UINamingContainer#getSeparatorChar(jakarta.faces.context.FacesContext)} must be
+     * used instead</span>.
      * </p>
      */
     char SEPARATOR_CHAR = ':';

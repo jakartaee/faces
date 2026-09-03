@@ -22,11 +22,10 @@ import jakarta.faces.context.FacesContext;
 /**
  *
  * <p class="changed_added_2_0">
- * When an instance of this event is passed to {@link SystemEventListener#processEvent} or
- * {@link ComponentSystemEventListener#processEvent}, the listener implementation may assume that the
- * <code>source</code> of this event instance is a {@link UIComponent} instance that is about to be removed from the
- * view. Therefore, the implementation may assume it is safe to call {@link UIComponent#getParent},
- * {@link UIComponent#getClientId}, and other methods that depend upon the component instance being added into the view.
+ * When an instance of this event is passed to {@link SystemEventListener#processEvent} or {@link ComponentSystemEventListener#processEvent}, the listener
+ * implementation may assume that the <code>source</code> of this event instance is a {@link UIComponent} instance that is about to be removed from the view.
+ * Therefore, the implementation may assume it is safe to call {@link UIComponent#getParent}, {@link UIComponent#getClientId}, and other methods that depend
+ * upon the component instance being added into the view.
  * </p>
  *
  * @since 2.0
@@ -39,8 +38,7 @@ public class PreRemoveFromViewEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_0">
-     * Instantiate a new <code>BeforeRemoveFromView</code> that indicates the argument <code>component</code> is about to be
-     * removed from the view.
+     * Instantiate a new <code>BeforeRemoveFromView</code> that indicates the argument <code>component</code> is about to be removed from the view.
      * </p>
      *
      * @param component the <code>UIComponent</code> that is about to be removed from the view.
@@ -55,8 +53,7 @@ public class PreRemoveFromViewEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_3">
-     * Instantiate a new <code>BeforeRemoveFromView</code> that indicates the argument <code>component</code> is about to be
-     * removed from the view.
+     * Instantiate a new <code>BeforeRemoveFromView</code> that indicates the argument <code>component</code> is about to be removed from the view.
      * </p>
      *
      * @param facesContext the Faces context.
@@ -71,8 +68,7 @@ public class PreRemoveFromViewEvent extends ComponentSystemEvent {
 
     /**
      * <p class="changed_added_2_0">
-     * Returns <code>true</code> if and only if the argument <code>listener</code> is an instance of
-     * {@link SystemEventListener}.
+     * Returns <code>true</code> if and only if the argument <code>listener</code> is an instance of {@link SystemEventListener}.
      * </p>
      *
      * @param listener the faces listener.

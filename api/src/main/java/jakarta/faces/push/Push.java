@@ -37,10 +37,11 @@ import jakarta.websocket.CloseReason.CloseCodes;
 
 /**
  * <p class="changed_added_2_3">
- * The CDI annotation <code>&#64;</code>{@link Push} allows you to inject a {@link PushContext} associated with a given
- * <code>&lt;f:websocket&gt;</code> channel in any container managed artifact in WAR.
+ * The CDI annotation <code>&#64;</code>{@link Push} allows you to inject a {@link PushContext} associated with a given <code>&lt;f:websocket&gt;</code> channel
+ * in any container managed artifact in WAR.
  *
  * <pre>
+ *
  * &#64;Inject
  * &#64;Push
  * private PushContext channelName;
@@ -61,10 +62,9 @@ import jakarta.websocket.CloseReason.CloseCodes;
  *
  * <h2 id="usage-client"><a href="#usage-client">Usage (client)</a></h2>
  * <p>
- * Declare <strong><code>&lt;f:websocket&gt;</code></strong> tag in the Jakarta Faces view with at least a
- * <strong><code>channel</code></strong> name and an <strong><code>onmessage</code></strong> JavaScript listener
- * function. The channel name may not be a Jakarta Expression Language expression and it may only contain alphanumeric
- * characters, hyphens, underscores and periods.
+ * Declare <strong><code>&lt;f:websocket&gt;</code></strong> tag in the Jakarta Faces view with at least a <strong><code>channel</code></strong> name and an
+ * <strong><code>onmessage</code></strong> JavaScript listener function. The channel name may not be a Jakarta Expression Language expression and it may only
+ * contain alphanumeric characters, hyphens, underscores and periods.
  * <p>
  * Here's an example which refers an existing JavaScript listener function.
  *
@@ -92,9 +92,8 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * MessageEvent</code></a> instance.</li>
  * </ul>
  * <p>
- * In case your server is configured to run WS container on a different TCP port than the HTTP container, then you can
- * use the optional <strong><code>jakarta.faces.WEBSOCKET_ENDPOINT_PORT</code></strong> integer context parameter in
- * <code>web.xml</code> to explicitly specify the port.
+ * In case your server is configured to run WS container on a different TCP port than the HTTP container, then you can use the optional
+ * <strong><code>jakarta.faces.WEBSOCKET_ENDPOINT_PORT</code></strong> integer context parameter in <code>web.xml</code> to explicitly specify the port.
  *
  * <pre>
  * &lt;context-param&gt;
@@ -103,20 +102,19 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * &lt;/context-param&gt;
  * </pre>
  * <p>
- * When successfully connected, the websocket is by default open as long as the document is open, and it will
- * auto-reconnect at increasing intervals when the connection is closed/aborted as result of e.g. a network error or
- * server restart. It will not auto-reconnect when the very first connection attempt already fails. The websocket will
- * be implicitly closed once the document is unloaded.
+ * When successfully connected, the websocket is by default open as long as the document is open, and it will auto-reconnect at increasing intervals when the
+ * connection is closed/aborted as result of e.g. a network error or server restart. It will not auto-reconnect when the very first connection attempt already
+ * fails. The websocket will be implicitly closed once the document is unloaded.
  *
  *
  * <h2 id="usage-server"><a href="#usage-server">Usage (server)</a></h2>
  * <p>
- * In WAR side, you can inject <strong>{@link PushContext}</strong> via <strong><code>&#64;</code>{@link Push}</strong>
- * annotation on the given channel name in any CDI/container managed artifact such as <code>@Named</code>,
- * <code>@WebServlet</code>, etc wherever you'd like to send a push message and then invoke
+ * In WAR side, you can inject <strong>{@link PushContext}</strong> via <strong><code>&#64;</code>{@link Push}</strong> annotation on the given channel name in
+ * any CDI/container managed artifact such as <code>@Named</code>, <code>@WebServlet</code>, etc wherever you'd like to send a push message and then invoke
  * <strong>{@link PushContext#send(Object)}</strong> with any Java object representing the push message.
  *
  * <pre>
+ *
  * &#64;Inject
  * &#64;Push
  * private PushContext someChannel;
@@ -126,56 +124,49 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * }
  * </pre>
  * <p>
- * By default the name of the channel is taken from the name of the variable into which injection takes place. The
- * channel name can be optionally specified via the <code>channel</code> attribute. The example below injects the push
- * context for channel name <code>foo</code> into a variable named <code>bar</code>.
+ * By default the name of the channel is taken from the name of the variable into which injection takes place. The channel name can be optionally specified via
+ * the <code>channel</code> attribute. The example below injects the push context for channel name <code>foo</code> into a variable named <code>bar</code>.
  *
  * <pre>
+ *
  * &#64;Inject
  * &#64;Push(channel = "foo")
  * private PushContext bar;
  * </pre>
  * <p>
- * The message object will be encoded as JSON and be delivered as <code>message</code> argument of the
- * <code>onmessage</code> JavaScript listener function associated with the <code>channel</code> name. It can be a plain
- * vanilla <code>String</code>, but it can also be a collection, map and even a javabean.
+ * The message object will be encoded as JSON and be delivered as <code>message</code> argument of the <code>onmessage</code> JavaScript listener function
+ * associated with the <code>channel</code> name. It can be a plain vanilla <code>String</code>, but it can also be a collection, map and even a javabean.
  * <p>
- * Although websockets support two-way communication, the <code>&lt;f:websocket&gt;</code> push is designed for one-way
- * communication, from server to client. In case you intend to send some data from client to server, continue using
- * Jakarta Faces ajax the usual way. This has among others the advantage of maintaining the Jakarta Faces
- * view state, the HTTP session and, importantly, all security constraints on business service methods.
+ * Although websockets support two-way communication, the <code>&lt;f:websocket&gt;</code> push is designed for one-way communication, from server to client. In
+ * case you intend to send some data from client to server, continue using Jakarta Faces ajax the usual way. This has among others the advantage of maintaining
+ * the Jakarta Faces view state, the HTTP session and, importantly, all security constraints on business service methods.
  *
  *
  * <h2 id="scopes-and-users"><a href="#scopes-and-users">Scopes and users</a></h2>
  * <p>
- * By default the websocket is <code>application</code> scoped, i.e. any view/session throughout the web application
- * having the same websocket channel open will receive the same push message. The push message can be sent by all users
- * and the application itself.
+ * By default the websocket is <code>application</code> scoped, i.e. any view/session throughout the web application having the same websocket channel open will
+ * receive the same push message. The push message can be sent by all users and the application itself.
  * <p>
- * The optional <strong><code>scope</code></strong> attribute can be set to <code>session</code> to restrict the push
- * messages to all views in the current user session only. The push message can only be sent by the user itself and not
- * by the application.
+ * The optional <strong><code>scope</code></strong> attribute can be set to <code>session</code> to restrict the push messages to all views in the current user
+ * session only. The push message can only be sent by the user itself and not by the application.
  *
  * <pre>
  * &lt;f:websocket channel="someChannel" scope="session" ... /&gt;
  * </pre>
  * <p>
- * The <code>scope</code> attribute can also be set to <code>view</code> to restrict the push messages to the current
- * view only. The push message will not show up in other views in the same session even if it's the same URL. The push
- * message can only be sent by the user itself and not by the application.
+ * The <code>scope</code> attribute can also be set to <code>view</code> to restrict the push messages to the current view only. The push message will not show
+ * up in other views in the same session even if it's the same URL. The push message can only be sent by the user itself and not by the application.
  *
  * <pre>
  * &lt;f:websocket channel="someChannel" scope="view" ... /&gt;
  * </pre>
  * <p>
- * The <code>scope</code> attribute may not be a Jakarta Expression Language expression and allowed values are
- * <code>application</code>, <code>session</code> and <code>view</code>, case insensitive.
+ * The <code>scope</code> attribute may not be a Jakarta Expression Language expression and allowed values are <code>application</code>, <code>session</code>
+ * and <code>view</code>, case insensitive.
  * <p>
- * Additionally, the optional <strong><code>user</code></strong> attribute can be set to the unique identifier of the
- * logged-in user, usually the login name or the user ID. This way the push message can be targeted to a specific user
- * and can also be sent by other users and the application itself. The value of the <code>user</code> attribute must at
- * least implement {@link Serializable} and have a low memory footprint, so putting entire user entity is not
- * recommended.
+ * Additionally, the optional <strong><code>user</code></strong> attribute can be set to the unique identifier of the logged-in user, usually the login name or
+ * the user ID. This way the push message can be targeted to a specific user and can also be sent by other users and the application itself. The value of the
+ * <code>user</code> attribute must at least implement {@link Serializable} and have a low memory footprint, so putting entire user entity is not recommended.
  * <p>
  * E.g. when you're using container managed authentication or a related framework/library:
  *
@@ -183,21 +174,21 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * &lt;f:websocket channel="someChannel" user="#{request.remoteUser}" ... /&gt;
  * </pre>
  * <p>
- * Or when you have a custom user entity around in Jakarta Expression Language as <code>#{someLoggedInUser}</code> which
- * has an <code>id</code> property representing its identifier:
+ * Or when you have a custom user entity around in Jakarta Expression Language as <code>#{someLoggedInUser}</code> which has an <code>id</code> property
+ * representing its identifier:
  *
  * <pre>
  * &lt;f:websocket channel="someChannel" user="#{someLoggedInUser.id}" ... /&gt;
  * </pre>
  * <p>
- * When the <code>user</code> attribute is specified, then the <code>scope</code> defaults to <code>session</code> and
- * cannot be set to <code>application</code>.
+ * When the <code>user</code> attribute is specified, then the <code>scope</code> defaults to <code>session</code> and cannot be set to
+ * <code>application</code>.
  * <p>
  * In the server side, the push message can be targeted to the user specified in the <code>user</code> attribute via
- * <strong>{@link PushContext#send(Object, Serializable)}</strong>. The push message can be sent by all users and the
- * application itself.
+ * <strong>{@link PushContext#send(Object, Serializable)}</strong>. The push message can be sent by all users and the application itself.
  *
  * <pre>
+ *
  * &#64;Inject
  * &#64;Push
  * private PushContext someChannel;
@@ -208,10 +199,10 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * }
  * </pre>
  * <p>
- * Multiple users can be targeted by passing a {@link Collection} holding user identifiers to
- * <strong>{@link PushContext#send(Object, Collection)}</strong>.
+ * Multiple users can be targeted by passing a {@link Collection} holding user identifiers to <strong>{@link PushContext#send(Object, Collection)}</strong>.
  *
  * <pre>
+ *
  * public void sendMessage(Object message, Group recipientGroup) {
  *     Collection&lt;Long&gt; recipientUserIds = recipientGroup.getUserIds();
  *     someChannel.send(message, recipientUserIds);
@@ -221,17 +212,15 @@ import jakarta.websocket.CloseReason.CloseCodes;
  *
  * <h2 id="connecting"><a href="#connecting">Conditionally connecting</a></h2>
  * <p>
- * You can use the optional <strong><code>connected</code></strong> attribute to control whether to auto-connect the
- * websocket or not.
+ * You can use the optional <strong><code>connected</code></strong> attribute to control whether to auto-connect the websocket or not.
  *
  * <pre>
  * &lt;f:websocket ... connected="#{bean.pushable}" /&gt;
  * </pre>
  * <p>
- * It defaults to <code>true</code> and it's under the covers interpreted as a JavaScript instruction whether to open or
- * close the websocket push connection. If the value is a Jakarta Expression Language expression and it becomes
- * <code>false</code> during an ajax request, then the push connection will explicitly be closed during oncomplete of
- * that ajax request.
+ * It defaults to <code>true</code> and it's under the covers interpreted as a JavaScript instruction whether to open or close the websocket push connection. If
+ * the value is a Jakarta Expression Language expression and it becomes <code>false</code> during an ajax request, then the push connection will explicitly be
+ * closed during oncomplete of that ajax request.
  * <p>
  * You can also explicitly set it to <code>false</code> and manually open the push connection in client side by invoking
  * <strong><code>faces.push.open(clientId)</code></strong>, passing the component's client ID.
@@ -243,9 +232,9 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * &lt;f:websocket id="foo" channel="bar" scope="view" ... connected="false" /&gt;
  * </pre>
  * <p>
- * In case you intend to have an one-time push and don't expect more messages, you can optionally explicitly close the
- * push connection from client side by invoking <strong><code>faces.push.close(clientId)</code></strong>, passing the
- * component's client ID. For example, in the <code>onmessage</code> JavaScript listener function as below:
+ * In case you intend to have an one-time push and don't expect more messages, you can optionally explicitly close the push connection from client side by
+ * invoking <strong><code>faces.push.close(clientId)</code></strong>, passing the component's client ID. For example, in the <code>onmessage</code> JavaScript
+ * listener function as below:
  *
  * <pre>
  * function someWebsocketListener(message) {
@@ -257,10 +246,9 @@ import jakarta.websocket.CloseReason.CloseCodes;
  *
  * <h2 id="events-client"><a href="#events-client">Events (client)</a></h2>
  * <p>
- * The optional <strong><code>onopen</code></strong> JavaScript listener function can be used to listen on open of a
- * websocket in client side. This will be invoked on the very first connection attempt, regardless of whether it will be
- * successful or not. This will not be invoked when the websocket auto-reconnects a broken connection after the first
- * successful connection.
+ * The optional <strong><code>onopen</code></strong> JavaScript listener function can be used to listen on open of a websocket in client side. This will be
+ * invoked on the very first connection attempt, regardless of whether it will be successful or not. This will not be invoked when the websocket auto-reconnects
+ * a broken connection after the first successful connection.
  *
  * <pre>
  * &lt;f:websocket ... onopen="websocketOpenListener" /&gt;
@@ -277,15 +265,15 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * <li><code>channel</code>: the channel name, useful in case you intend to have a global listener.</li>
  * </ul>
  * <p class="changed_added_4_0">
- * The optional <strong><code>onerror</code></strong> JavaScript listener function can be used to listen on a connection
- * error whereby the websocket will attempt to reconnect. This will be invoked when the websocket can make an
- * auto-reconnect attempt on a broken connection after the first successful connection. This will be <em>not</em>
- * invoked when the very first connection attempt fails, or the server has returned close reason code <code>1000</code>
- * (normal closure) or <code>1008</code> (policy violated), or the maximum reconnect attempts has exceeded. Instead,
- * the <code>onclose</code> will be invoked.
+ * The optional <strong><code>onerror</code></strong> JavaScript listener function can be used to listen on a connection error whereby the websocket will
+ * attempt to reconnect. This will be invoked when the websocket can make an auto-reconnect attempt on a broken connection after the first successful
+ * connection. This will be <em>not</em> invoked when the very first connection attempt fails, or the server has returned close reason code <code>1000</code>
+ * (normal closure) or <code>1008</code> (policy violated), or the maximum reconnect attempts has exceeded. Instead, the <code>onclose</code> will be invoked.
+ *
  * <pre>
  * &lt;o:socket ... onerror="websocketErrorListener" /&gt;
  * </pre>
+ *
  * <pre>
  * function websocketErrorListener(code, channel, event) {
  *     if (code == 1001) {
@@ -303,19 +291,17 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * <p>
  * The <code>onerror</code> JavaScript listener function will be invoked with three arguments:
  * <ul>
- * <li><code>code</code>: the close reason code as integer. See also
- * <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a> and {@link CloseCodes} API for
- * an elaborate list of all close codes.</li>
+ * <li><code>code</code>: the close reason code as integer. See also <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a> and
+ * {@link CloseCodes} API for an elaborate list of all close codes.</li>
  * <li><code>channel</code>: the channel name, useful in case you intend to have a global listener.</li>
  * <li><code>event</code>: the raw <a href="https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent"><code>
  * CloseEvent</code></a> instance, useful in case you intend to inspect it.</li>
  * </ul>
  * <p class="changed_modified_4_0">
- * The optional <strong><code>onclose</code></strong> JavaScript listener function can be used to listen on (ab)normal
- * close of a websocket. This will be invoked when the very first connection attempt fails, or the server has returned
- * close reason code <code>1000</code> (normal closure) or <code>1008</code> (policy violated), or the maximum reconnect
- * attempts has exceeded. This will <em>not</em> be invoked when the websocket can make an auto-reconnect attempt on a
- * broken connection after the first successful connection. Instead, the <code>onerror</code> will be invoked.
+ * The optional <strong><code>onclose</code></strong> JavaScript listener function can be used to listen on (ab)normal close of a websocket. This will be
+ * invoked when the very first connection attempt fails, or the server has returned close reason code <code>1000</code> (normal closure) or <code>1008</code>
+ * (policy violated), or the maximum reconnect attempts has exceeded. This will <em>not</em> be invoked when the websocket can make an auto-reconnect attempt on
+ * a broken connection after the first successful connection. Instead, the <code>onerror</code> will be invoked.
  *
  * <pre>
  * &lt;f:websocket ... onclose="websocketCloseListener" /&gt;
@@ -335,27 +321,24 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * <p>
  * The <code>onclose</code> JavaScript listener function will be invoked with three arguments:
  * <ul>
- * <li><code>code</code>: the close reason code as integer. If this is <code>-1</code>, then the websocket is simply
- * not <a href="http://caniuse.com/websockets">supported</a> by the client. If this is <code>1000</code>, then it was
- * normally closed due to an expired session or view. Else if this is not <code>1000</code>, then there may be an error.
- * See also <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section 7.4.1</a> and {@link CloseCodes}
- * API for an elaborate list of all close codes.</li>
+ * <li><code>code</code>: the close reason code as integer. If this is <code>-1</code>, then the websocket is simply not
+ * <a href="http://caniuse.com/websockets">supported</a> by the client. If this is <code>1000</code>, then it was normally closed due to an expired session or
+ * view. Else if this is not <code>1000</code>, then there may be an error. See also <a href="http://tools.ietf.org/html/rfc6455#section-7.4.1">RFC 6455 section
+ * 7.4.1</a> and {@link CloseCodes} API for an elaborate list of all close codes.</li>
  * <li><code>channel</code>: the channel name.</li>
  * <li><code>event</code>: the raw <a href="https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent"><code>
  * CloseEvent</code></a> instance.</li>
  * </ul>
  * <p>
- * When a session or view scoped websocket is automatically closed with close reason code <code>1000</code> by the server
- * (and thus not manually by the client via <code>faces.push.close(clientId)</code>), then it means that the session or
- * view has expired.
+ * When a session or view scoped websocket is automatically closed with close reason code <code>1000</code> by the server (and thus not manually by the client
+ * via <code>faces.push.close(clientId)</code>), then it means that the session or view has expired.
  *
  *
  * <h2 id="events-server"><a href="#events-server">Events (server)</a></h2>
  * <p>
- * When a websocket has been opened, a new CDI <strong>{@link WebsocketEvent}</strong> will be fired with
- * <strong><code>&#64;</code>{@link Opened}</strong> qualifier. When a websocket has been closed, a new CDI
- * {@link WebsocketEvent} will be fired with <strong><code>&#64;</code>{@link Closed}</strong> qualifier. They can only
- * be observed and collected in an application scoped CDI bean as below.
+ * When a websocket has been opened, a new CDI <strong>{@link WebsocketEvent}</strong> will be fired with <strong><code>&#64;</code>{@link Opened}</strong>
+ * qualifier. When a websocket has been closed, a new CDI {@link WebsocketEvent} will be fired with <strong><code>&#64;</code>{@link Closed}</strong> qualifier.
+ * They can only be observed and collected in an application scoped CDI bean as below.
  *
  * <pre>
  * &#64;ApplicationScoped
@@ -380,13 +363,12 @@ import jakarta.websocket.CloseReason.CloseCodes;
  *
  * <h2 id="security"><a href="#security">Security considerations</a></h2>
  * <p>
- * If the websocket is declared in a page which is only restricted to logged-in users with a specific role, then you may
- * want to add the URL of the push handshake request URL to the set of restricted URLs.
+ * If the websocket is declared in a page which is only restricted to logged-in users with a specific role, then you may want to add the URL of the push
+ * handshake request URL to the set of restricted URLs.
  * <p>
- * The push handshake request URL is composed of the URI prefix <strong><code>/jakarta.faces.push/</code></strong>,
- * followed by channel name. So, in case of for example container managed security which has already restricted an
- * example page <code>/user/foo.xhtml</code> to logged-in users with the example role <code>USER</code> on the example
- * URL pattern <code>/user/*</code> in <code>web.xml</code> like below,
+ * The push handshake request URL is composed of the URI prefix <strong><code>/jakarta.faces.push/</code></strong>, followed by channel name. So, in case of for
+ * example container managed security which has already restricted an example page <code>/user/foo.xhtml</code> to logged-in users with the example role
+ * <code>USER</code> on the example URL pattern <code>/user/*</code> in <code>web.xml</code> like below,
  *
  * <pre>
  * &lt;security-constraint&gt;
@@ -400,9 +382,8 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * &lt;/security-constraint&gt;
  * </pre>
  * <p>
- * .. and the page <code>/user/foo.xhtml</code> in turn contains a <code>&lt;f:websocket channel="foo"&gt;</code>, then
- * you need to add a restriction on push handshake request URL pattern of <code>/jakarta.faces.push/foo</code> like
- * below.
+ * .. and the page <code>/user/foo.xhtml</code> in turn contains a <code>&lt;f:websocket channel="foo"&gt;</code>, then you need to add a restriction on push
+ * handshake request URL pattern of <code>/jakarta.faces.push/foo</code> like below.
  *
  * <pre>
  * &lt;security-constraint&gt;
@@ -417,21 +398,19 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * &lt;/security-constraint&gt;
  * </pre>
  * <p>
- * As extra security, particularly for those public channels which can't be restricted by security constraints, the
- * <code>&lt;f:websocket&gt;</code> will register all so far declared channels in the current HTTP session, and any
- * incoming websocket open request will be checked whether they match the so far registered channels in the current
- * HTTP session. In case the channel is unknown (e.g. randomly guessed or spoofed by endusers or manually reconnected
- * after the session is expired), then the websocket will immediately be closed with close reason code
- * {@link CloseCodes#VIOLATED_POLICY} (<code>1008</code>). Also, when the HTTP session gets destroyed, all session and
- * view scoped channels which are still open will explicitly be closed from server side with close reason code
- * {@link CloseCodes#NORMAL_CLOSURE} (<code>1000</code>). Only application scoped websockets remain open and are still
- * reachable from server end even when the session or view associated with the page in client side is expired.
+ * As extra security, particularly for those public channels which can't be restricted by security constraints, the <code>&lt;f:websocket&gt;</code> will
+ * register all so far declared channels in the current HTTP session, and any incoming websocket open request will be checked whether they match the so far
+ * registered channels in the current HTTP session. In case the channel is unknown (e.g. randomly guessed or spoofed by endusers or manually reconnected after
+ * the session is expired), then the websocket will immediately be closed with close reason code {@link CloseCodes#VIOLATED_POLICY} (<code>1008</code>). Also,
+ * when the HTTP session gets destroyed, all session and view scoped channels which are still open will explicitly be closed from server side with close reason
+ * code {@link CloseCodes#NORMAL_CLOSURE} (<code>1000</code>). Only application scoped websockets remain open and are still reachable from server end even when
+ * the session or view associated with the page in client side is expired.
  *
  *
  * <h2 id="ui"><a href="#ui">Ajax support</a></h2>
  * <p>
- * In case you'd like to perform complex UI updates depending on the received push message, then you can nest
- * <code>&lt;f:ajax&gt;</code> inside <code>&lt;f:websocket&gt;</code>. Here's an example:
+ * In case you'd like to perform complex UI updates depending on the received push message, then you can nest <code>&lt;f:ajax&gt;</code> inside
+ * <code>&lt;f:websocket&gt;</code>. Here's an example:
  *
  * <pre>
  * &lt;h:panelGroup id="foo"&gt;
@@ -464,8 +443,8 @@ import jakarta.websocket.CloseReason.CloseCodes;
  * &lt;/h:form&gt;
  * </pre>
  * <p>
- * If you pass a <code>Map&lt;String,V&gt;</code> or a JavaBean as push message object, then all entries/properties will
- * transparently be available as request parameters in the command script method <code>#{bean.pushed}</code>.
+ * If you pass a <code>Map&lt;String,V&gt;</code> or a JavaBean as push message object, then all entries/properties will transparently be available as request
+ * parameters in the command script method <code>#{bean.pushed}</code>.
  *
  *
  * @see PushContext
@@ -516,5 +495,7 @@ public @interface Push {
         public String channel() {
             return channel;
         }
+
     }
+
 }

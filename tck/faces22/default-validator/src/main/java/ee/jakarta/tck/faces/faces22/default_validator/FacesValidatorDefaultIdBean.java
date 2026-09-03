@@ -51,8 +51,10 @@ public class FacesValidatorDefaultIdBean {
         try {
             application.createValidator(CLASS_SIMPLE_NAME);
             return Boolean.FALSE.toString();
-        } catch (FacesException expected) {
+        }
+        catch (FacesException expected) {
             return Boolean.TRUE.toString();
         }
     }
+
 }

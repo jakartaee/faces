@@ -42,4 +42,5 @@ public class Issue4550Bean implements Serializable {
     public void setTestString(String testString) {
         this.testString = testString;
     }
+
 }

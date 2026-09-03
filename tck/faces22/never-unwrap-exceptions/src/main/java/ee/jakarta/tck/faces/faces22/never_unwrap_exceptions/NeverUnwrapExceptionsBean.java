@@ -25,4 +25,5 @@ public class NeverUnwrapExceptionsBean {
     public String getStringProperty() {
         throw new IllegalStateException(new IllegalArgumentException(new UnsupportedOperationException()));
     }
+
 }

@@ -23,8 +23,8 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * A composed Facelet whose template declares a DOCTYPE still renders that DOCTYPE on a second reload of the
- * same view, i.e. the DOCTYPE persists across reloads.
+ * A composed Facelet whose template declares a DOCTYPE still renders that DOCTYPE on a second reload of the same view, i.e. the DOCTYPE persists across
+ * reloads.
  */
 class Issue2579IT extends BaseITNG {
 
@@ -32,8 +32,8 @@ class Issue2579IT extends BaseITNG {
     private static final String DOCTYPE = "<!DOCTYPE html>";
 
     /**
-     * Requests a view that composes a template declaring a DOCTYPE, then re-requests the same view, and verifies
-     * the DOCTYPE is present in the rendered response on both requests.
+     * Requests a view that composes a template declaring a DOCTYPE, then re-requests the same view, and verifies the DOCTYPE is present in the rendered
+     * response on both requests.
      *
      * @see jakarta.faces.view.facelets.Facelet
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2579
@@ -43,4 +43,5 @@ class Issue2579IT extends BaseITNG {
         assertTrue(getResponseBody(PAGE).contains(DOCTYPE), "DOCTYPE is rendered on first request");
         assertTrue(getResponseBody(PAGE).contains(DOCTYPE), "DOCTYPE is still rendered on reload");
     }
+
 }

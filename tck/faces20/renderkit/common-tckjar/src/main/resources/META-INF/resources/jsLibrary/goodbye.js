@@ -15,5 +15,3 @@
  */
 
 document.write("Goodbye");
-
-

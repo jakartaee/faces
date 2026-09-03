@@ -57,4 +57,5 @@ public class Issue3035AjaxNamespaceBean implements Serializable {
             this.lastName = this.lastName + " " + paramValue;
         }
     }
+
 }

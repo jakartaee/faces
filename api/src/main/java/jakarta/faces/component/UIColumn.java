@@ -18,8 +18,7 @@ package jakarta.faces.component;
 
 /**
  * <p>
- * <strong>UIColumn</strong> is a {@link UIComponent} that represents a single column of data within a parent
- * {@link UIData} component.
+ * <strong>UIColumn</strong> is a {@link UIComponent} that represents a single column of data within a parent {@link UIData} component.
  * </p>
  */
 public class UIColumn extends UIComponentBase {

@@ -18,21 +18,21 @@ package ee.jakarta.tck.faces.faces23.ajax_content_type;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.context.ExternalContext;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.context.ExternalContext;
 
 /**
- * The module registers an ExternalContextFactory so that the view can report the content type the response actually
- * carries, per kind of request. A factory applies to every view of its webapp, hence the dedicated module.
+ * The module registers an ExternalContextFactory so that the view can report the content type the response actually carries, per kind of request. A factory
+ * applies to every view of its webapp, hence the dedicated module.
  *
  * <p>
- * The recorded call list the view also renders is diagnostic only. It is deliberately not asserted on: a wrapper does
- * not observe every path by which the runtime sets the content type, so the order of calls through the wrapper says
- * nothing about the response the client receives.
+ * The recorded call list the view also renders is diagnostic only. It is deliberately not asserted on: a wrapper does not observe every path by which the
+ * runtime sets the content type, so the order of calls through the wrapper says nothing about the response the client receives.
  */
 class Issue4358IT extends BaseITNG {
 
@@ -76,8 +76,10 @@ class Issue4358IT extends BaseITNG {
 
         page.guardAjax(page.findElement(By.id("form:ajaxExecuteAllButton"))::click);
 
-        assertEquals("SUCCESS", page.findElement(By.id("result")).getText(),
-                "recorded calls: " + page.findElement(By.id("calls")).getText());
+        assertEquals(
+            "SUCCESS", page.findElement(By.id("result")).getText(),
+            "recorded calls: " + page.findElement(By.id("calls")).getText()
+        );
     }
 
     /**
@@ -94,4 +96,5 @@ class Issue4358IT extends BaseITNG {
 
         assertEquals("SUCCESS", page.findElement(By.id("result")).getText());
     }
+
 }

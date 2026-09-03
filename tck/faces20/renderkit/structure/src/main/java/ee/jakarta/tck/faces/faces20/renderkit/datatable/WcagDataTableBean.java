@@ -48,4 +48,5 @@ public class WcagDataTableBean {
     public List<WcagDataTableRow> getCodePageData() {
         return codePageData;
     }
+
 }

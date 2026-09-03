@@ -25,7 +25,7 @@
         <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>${webapp.projectStage}</param-value>
     </context-param>
-	<!-- DO NOT PARAMETERIZE STATE_SAVING_METHOD, the test needs it to be server-side; matches old-tck jsf_appl_statemgrs_web config -->
+    <!-- DO NOT PARAMETERIZE STATE_SAVING_METHOD, the test needs it to be server-side; matches old-tck jsf_appl_statemgrs_web config -->
     <context-param>
         <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>
         <param-value>server</param-value>

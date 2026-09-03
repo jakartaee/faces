@@ -25,14 +25,12 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A required h:inputFile that is submitted with no file chosen fails validation with the standard
- * "Value is required." message.
+ * A required h:inputFile that is submitted with no file chosen fails validation with the standard "Value is required." message.
  */
 class Issue2927IT extends BaseITNG {
 
     /**
-     * Submitting the form without choosing a file for the required h:inputFile produces the standard
-     * required-validation message for that component.
+     * Submitting the form without choosing a file for the required h:inputFile produces the standard required-validation message for that component.
      *
      * @see jakarta.faces.component.html.HtmlInputFile
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2927
@@ -41,7 +39,10 @@ class Issue2927IT extends BaseITNG {
     void testInputFileRequired() {
         WebPage page = getPage("issue2927.xhtml");
         page.guardHttp(() -> page.findElement(By.id("form:button")).click());
-        assertTrue(page.containsText("form:file: Validation Error: Value is required."),
-                "Required h:inputFile must report 'Value is required.' when no file is chosen");
+        assertTrue(
+            page.containsText("form:file: Validation Error: Value is required."),
+            "Required h:inputFile must report 'Value is required.' when no file is chosen"
+        );
     }
+
 }

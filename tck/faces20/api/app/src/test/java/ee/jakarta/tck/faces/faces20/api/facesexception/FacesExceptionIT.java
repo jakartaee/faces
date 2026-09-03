@@ -52,4 +52,5 @@ class FacesExceptionIT extends BaseITNG {
     void facesExceptionGetCauseTest() {
         runServletTest("facesExceptionGetCauseTest");
     }
+
 }

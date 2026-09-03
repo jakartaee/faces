@@ -31,4 +31,5 @@ public class Issue1112Bean {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(GLOBAL_MESSAGE));
         return "issue1112-page2.xhtml?faces-redirect=true";
     }
+
 }

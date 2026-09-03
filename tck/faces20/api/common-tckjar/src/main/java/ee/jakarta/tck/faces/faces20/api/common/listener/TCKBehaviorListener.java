@@ -15,11 +15,11 @@
  */
 package ee.jakarta.tck.faces.faces20.api.common.listener;
 
-import ee.jakarta.tck.faces.util.JSFTestUtil;
-
 import jakarta.faces.event.AbortProcessingException;
 import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.event.AjaxBehaviorListener;
+
+import ee.jakarta.tck.faces.util.JSFTestUtil;
 
 public final class TCKBehaviorListener implements AjaxBehaviorListener {
 
@@ -65,7 +65,8 @@ public final class TCKBehaviorListener implements AjaxBehaviorListener {
     public static void trace(String text) {
         if (text == null) {
             trace.setLength(0);
-        } else {
+        }
+        else {
             trace.append('/');
             trace.append(text);
         }
@@ -74,4 +75,5 @@ public final class TCKBehaviorListener implements AjaxBehaviorListener {
     public static String trace() {
         return trace.toString();
     }
+
 }

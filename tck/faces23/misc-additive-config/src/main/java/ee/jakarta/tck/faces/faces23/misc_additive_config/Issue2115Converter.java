@@ -27,7 +27,8 @@ public class Issue2115Converter implements Converter<Object> {
     public Object getAsObject(FacesContext context, UIComponent component, String param) {
         try {
             return " ";
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(e);
         }
     }
@@ -39,8 +40,10 @@ public class Issue2115Converter implements Converter<Object> {
                 return "MyConverter.getAsString Called: " + obj.toString();
             }
             return " ";
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             throw new ConverterException(e);
         }
     }
+
 }

@@ -21,30 +21,30 @@ package ee.jakarta.tck.faces.faces20.appconfigresources.common.beans;
 
 import java.io.Serializable;
 
-@jakarta.inject.Named("Answer") @jakarta.enterprise.context.SessionScoped
+@jakarta.inject.Named("Answer")
+@jakarta.enterprise.context.SessionScoped
 public class AnswerYesBean implements Serializable {
 
-  private static final long serialVersionUID = -2564071088038088087L;
+    private static final long serialVersionUID = -2564071088038088087L;
 
-  private String answer;
+    private String answer;
 
-  public AnswerYesBean() {
-    this.answer = "YES";
-  }
+    public AnswerYesBean() {
+        this.answer = "YES";
+    }
 
-  /**
-   * @return the yes
-   */
-  public String getAnswer() {
-    return answer;
-  }
+    /**
+     * @return the yes
+     */
+    public String getAnswer() {
+        return answer;
+    }
 
-  /**
-   * @param yes
-   *          the yes to set
-   */
-  public void setAnswer(String ans) {
-    this.answer = ans;
-  }
+    /**
+     * @param yes the yes to set
+     */
+    public void setAnswer(String ans) {
+        this.answer = ans;
+    }
 
 }

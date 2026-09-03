@@ -28,9 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue1666IT extends BaseITNG {
 
     /**
-     * With no {@code web.xml}, Jakarta Faces auto-registers the FacesServlet under
-     * {@code *.xhtml}, {@code *.jsf} and {@code *.faces}. Each mapping must serve the view,
-     * process the postback, and render a {@code jakarta.faces.ViewState} field.
+     * With no {@code web.xml}, Jakarta Faces auto-registers the FacesServlet under {@code *.xhtml}, {@code *.jsf} and {@code *.faces}. Each mapping must serve
+     * the view, process the postback, and render a {@code jakarta.faces.ViewState} field.
      *
      * @see FacesServlet
      * @see https://github.com/eclipse-ee4j/mojarra/issues/1666
@@ -48,4 +47,5 @@ class Issue1666IT extends BaseITNG {
         assertTrue(page.containsText("Good Morning"), "Expected 'Good Morning' via " + view);
         assertTrue(page.containsSource("jakarta.faces.ViewState"), "Expected ViewState field via " + view);
     }
+
 }

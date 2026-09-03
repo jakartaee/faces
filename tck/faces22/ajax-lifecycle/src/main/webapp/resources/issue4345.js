@@ -14,4 +14,4 @@
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
 
-console.log('issue4345.js loaded.');
+console.log("issue4345.js loaded.");

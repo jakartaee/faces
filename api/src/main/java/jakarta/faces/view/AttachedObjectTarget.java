@@ -22,11 +22,9 @@ import jakarta.faces.component.UIComponent;
 
 /**
  * <p class="changed_added_2_0">
- * Within the declaration of a <em>composite component</em>, an <code>AttachedObjectTarget</code> allows the
- * <em>composite component author</em> to expose the semantics of an inner component to the <em>page author</em> without
- * exposing the rendering or implementation details of the <em>inner component</em>. See
- * {@link ViewDeclarationLanguage#getComponentMetadata} for the context in which implementations of this interface are
- * used.
+ * Within the declaration of a <em>composite component</em>, an <code>AttachedObjectTarget</code> allows the <em>composite component author</em> to expose the
+ * semantics of an inner component to the <em>page author</em> without exposing the rendering or implementation details of the <em>inner component</em>. See
+ * {@link ViewDeclarationLanguage#getComponentMetadata} for the context in which implementations of this interface are used.
  * </p>
  *
  * <p class="changed_added_2_0">
@@ -37,9 +35,8 @@ import jakarta.faces.component.UIComponent;
  *
  * <p>
  * Subinterfaces are provided for the common behavioral interfaces: {@link jakarta.faces.component.behavior.Behavior},
- * {@link jakarta.faces.component.ValueHolder}, {@link jakarta.faces.component.EditableValueHolder} and
- * {@link jakarta.faces.component.ActionSource}. The default VDL implementation must provide a corresponding Facelets
- * tag handler for each of the subinterfaces of this interface.
+ * {@link jakarta.faces.component.ValueHolder}, {@link jakarta.faces.component.EditableValueHolder} and {@link jakarta.faces.component.ActionSource}. The
+ * default VDL implementation must provide a corresponding Facelets tag handler for each of the subinterfaces of this interface.
  * </p>
  *
  * </div>
@@ -58,11 +55,9 @@ public interface AttachedObjectTarget {
 
     /**
      * <p class="changed_added_2_0">
-     * Returns the <code>List&lt;UIComponent&gt;</code> that this <code>AttachedObjectTarget</code> exposes. Each
-     * <em>attached object</em> exposed by the <em>composite component author</em> may point at multiple
-     * <code>UIComponent</code> instances within the composite component. This method is used by the
-     * {@link jakarta.faces.view.ViewDeclarationLanguage#retargetAttachedObjects} method to take the appropriate action on
-     * the attached object.
+     * Returns the <code>List&lt;UIComponent&gt;</code> that this <code>AttachedObjectTarget</code> exposes. Each <em>attached object</em> exposed by the
+     * <em>composite component author</em> may point at multiple <code>UIComponent</code> instances within the composite component. This method is used by the
+     * {@link jakarta.faces.view.ViewDeclarationLanguage#retargetAttachedObjects} method to take the appropriate action on the attached object.
      * </p>
      *
      * @param topLevelComponent the top level component for this composite component.

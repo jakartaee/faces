@@ -28,10 +28,34 @@ class ActionEventIT extends BaseITNG {
         assertTrue(body.contains("Test PASSED"), "Expected 'Test PASSED' in response but got:\n" + body);
     }
 
-    @Test void actionEventCtorIllegalArgumentExceptionTest() { runServletTest("actionEventCtorIllegalArgumentExceptionTest"); }
-    @Test void actionEventCtorTest() { runServletTest("actionEventCtorTest"); }
-    @Test void actionEventGetComponentTest() { runServletTest("actionEventGetComponentTest"); }
-    @Test void actionEventIsApproiateListenerNegativeTest() { runServletTest("actionEventIsApproiateListenerNegativeTest"); }
-    @Test void actionEventIsApproiateListenerPostiveTest() { runServletTest("actionEventIsApproiateListenerPostiveTest"); }
-    @Test void actionEventProcessListenerTest() { runServletTest("actionEventProcessListenerTest"); }
+    @Test
+    void actionEventCtorIllegalArgumentExceptionTest() {
+        runServletTest("actionEventCtorIllegalArgumentExceptionTest");
+    }
+
+    @Test
+    void actionEventCtorTest() {
+        runServletTest("actionEventCtorTest");
+    }
+
+    @Test
+    void actionEventGetComponentTest() {
+        runServletTest("actionEventGetComponentTest");
+    }
+
+    @Test
+    void actionEventIsApproiateListenerNegativeTest() {
+        runServletTest("actionEventIsApproiateListenerNegativeTest");
+    }
+
+    @Test
+    void actionEventIsApproiateListenerPostiveTest() {
+        runServletTest("actionEventIsApproiateListenerPostiveTest");
+    }
+
+    @Test
+    void actionEventProcessListenerTest() {
+        runServletTest("actionEventProcessListenerTest");
+    }
+
 }

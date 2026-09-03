@@ -21,15 +21,13 @@ import jakarta.faces.context.FacesContext;
 /**
  *
  * <p>
- * <span class="changed_modified_2_0_rev_a">This</span> interface is implemented by classes that need to save their
- * state between requests.
+ * <span class="changed_modified_2_0_rev_a">This</span> interface is implemented by classes that need to save their state between requests.
  * </p>
  *
  * <p>
- * An implementor <strong>must</strong> implement both {@link #saveState} and {@link #restoreState} methods in this
- * class, since these two methods have a tightly coupled contract between themselves. In other words, if there is an
- * ineritance hierarchy, it is not permissable to have the {@link #saveState} and {@link #restoreState} methods reside
- * at different levels of the hierarchy.
+ * An implementor <strong>must</strong> implement both {@link #saveState} and {@link #restoreState} methods in this class, since these two methods have a
+ * tightly coupled contract between themselves. In other words, if there is an ineritance hierarchy, it is not permissable to have the {@link #saveState} and
+ * {@link #restoreState} methods reside at different levels of the hierarchy.
  * </p>
  *
  * <p>
@@ -46,10 +44,9 @@ public interface StateHolder {
      * </p>
      *
      * <p>
-     * If the class that implements this interface has references to instances that implement StateHolder (such as a
-     * <code>UIComponent</code> with event handlers, validators, etc.) this method must call the {@link #saveState} method
-     * on all those instances as well. <strong>This method must not save the state of children and facets.</strong> That is
-     * done via the {@link jakarta.faces.application.StateManager}
+     * If the class that implements this interface has references to instances that implement StateHolder (such as a <code>UIComponent</code> with event
+     * handlers, validators, etc.) this method must call the {@link #saveState} method on all those instances as well. <strong>This method must not save the
+     * state of children and facets.</strong> That is done via the {@link jakarta.faces.application.StateManager}
      * </p>
      *
      * <p>
@@ -80,14 +77,12 @@ public interface StateHolder {
     /**
      *
      * <p>
-     * <span class="changed_modified_2_0_rev_a">Perform</span> any processing required to restore the state from the entries
-     * in the state Object.
+     * <span class="changed_modified_2_0_rev_a">Perform</span> any processing required to restore the state from the entries in the state Object.
      * </p>
      *
      * <p>
-     * If the class that implements this interface has references to instances that also implement StateHolder (such as a
-     * <code>UIComponent</code> with event handlers, validators, etc.) this method must call the {@link #restoreState}
-     * method on all those instances as well.
+     * If the class that implements this interface has references to instances that also implement StateHolder (such as a <code>UIComponent</code> with event
+     * handlers, validators, etc.) this method must call the {@link #restoreState} method on all those instances as well.
      * </p>
      *
      * <p class="changed_modified_2_0_rev_a">
@@ -114,12 +109,12 @@ public interface StateHolder {
 
     /**
      * <p>
-     * <span class="changed_modified_2_0_rev_a">Denotes</span> whether or not the Object implementing this interface must or
-     * must not participate in state saving or restoring.
+     * <span class="changed_modified_2_0_rev_a">Denotes</span> whether or not the Object implementing this interface must or must not participate in state
+     * saving or restoring.
      * </p>
      *
-     * @param newTransientValue boolean pass <code>true</code> if this Object <span class="changed_modified_2_0_rev_a">will
-     * not participate</span> in state saving or restoring, otherwise pass <code>false</code>.
+     * @param newTransientValue boolean pass <code>true</code> if this Object <span class="changed_modified_2_0_rev_a">will not participate</span> in state
+     * saving or restoring, otherwise pass <code>false</code>.
      */
     void setTransient(boolean newTransientValue);
 

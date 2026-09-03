@@ -32,9 +32,8 @@ import jakarta.faces.context.FacesContext;
 /**
  * <p class="changed_added_2_0">
  * <code>ViewMetadata</code> is reponsible for extracting and providing view parameter metadata from VDL views. Because
- * {@link ViewDeclarationLanguage#getViewMetadata} is required to return <code>null</code> for Jakarta Server Pages
- * views and non-<code>null</code> for views authored in Facelets for Jakarta Faces 2, this specification only
- * applies to Facelets for Jakarta Faces 2.
+ * {@link ViewDeclarationLanguage#getViewMetadata} is required to return <code>null</code> for Jakarta Server Pages views and non-<code>null</code> for views
+ * authored in Facelets for Jakarta Faces 2, this specification only applies to Facelets for Jakarta Faces 2.
  * </p>
  *
  * @since 2.0
@@ -52,21 +51,19 @@ public abstract class ViewMetadata {
 
     /**
      * <p class="changed_added_2_0">
-     * Creates a new {@link UIViewRoot} containing only view parameter metadata. The processing of building this
-     * <code>UIViewRoot</code> with metadata should not cause any events to be published to the application. The
-     * implementation must call {@link FacesContext#setProcessingEvents} passing <code>false</code> as the argument, at the
-     * beginning of the method, and pass <code>true</code> to the same method at the end. The implementation must ensure
-     * that this happens regardless of ant exceptions that may be thrown.
+     * Creates a new {@link UIViewRoot} containing only view parameter metadata. The processing of building this <code>UIViewRoot</code> with metadata should
+     * not cause any events to be published to the application. The implementation must call {@link FacesContext#setProcessingEvents} passing <code>false</code>
+     * as the argument, at the beginning of the method, and pass <code>true</code> to the same method at the end. The implementation must ensure that this
+     * happens regardless of ant exceptions that may be thrown.
      * </p>
      *
      * <p class="changed_modified_2_3">
      * Take note a compliant implementation has to ensure that:
      * </p>
      * <ul>
-     * <li>the new UIViewRoot must be set as the FacesContext's viewRoot before applying the tag handlers, restoring the old
-     * FacesContext in a finally block.</li>
-     * <li>The contents of the current UIViewRoot's ViewMap must be copied to the ViewMap of the new UIViewRoot before
-     * applying the tag handlers.</li>
+     * <li>the new UIViewRoot must be set as the FacesContext's viewRoot before applying the tag handlers, restoring the old FacesContext in a finally
+     * block.</li>
+     * <li>The contents of the current UIViewRoot's ViewMap must be copied to the ViewMap of the new UIViewRoot before applying the tag handlers.</li>
      * <li class="changed_added_2_3">The {@link UIImportConstants} must be processed after applying the tag handlers.</li>
      * </ul>
      *
@@ -82,8 +79,7 @@ public abstract class ViewMetadata {
      *
      * @param root the {@link UIViewRoot} from which the metadata will be extracted.
      *
-     * @return a <code>Collection</code> of {@link UIViewParameter} instances. If the view has no metadata, the collection
-     * will be empty.
+     * @return a <code>Collection</code> of {@link UIViewParameter} instances. If the view has no metadata, the collection will be empty.
      */
     public static Collection<UIViewParameter> getViewParameters(UIViewRoot root) {
         return getMetadataChildren(root, UIViewParameter.class);
@@ -96,8 +92,7 @@ public abstract class ViewMetadata {
      *
      * @param root the {@link UIViewRoot} from which the metadata will be extracted.
      *
-     * @return a <code>Collection</code> of {@link UIViewAction} instances. If the view has no metadata, the collection will
-     * be empty.
+     * @return a <code>Collection</code> of {@link UIViewAction} instances. If the view has no metadata, the collection will be empty.
      */
     public static Collection<UIViewAction> getViewActions(UIViewRoot root) {
         return getMetadataChildren(root, UIViewAction.class);
@@ -116,7 +111,8 @@ public abstract class ViewMetadata {
      * @param root The {@link UIViewRoot} from which the metadata will be extracted.
      *
      * @return A <code>Collection</code> of {@link UIImportConstants} instances <span class="changed_modified_5_0">declared inside the metadata facet of the
-     * provided {@link UIViewRoot}. If the view has no metadata or no import constants are declared inside the metadata facet</span>, the collection will be empty.
+     * provided {@link UIViewRoot}. If the view has no metadata or no import constants are declared inside the metadata facet</span>, the collection will be
+     * empty.
      */
     public static Collection<UIImportConstants> getImportConstants(UIViewRoot root) {
         return getMetadataChildren(root, UIImportConstants.class);
@@ -124,9 +120,8 @@ public abstract class ViewMetadata {
 
     /**
      * <p class="changed_added_2_2">
-     * Utility method to determine if the the provided {@link UIViewRoot} has metadata. The default implementation will
-     * return true if the provided {@code UIViewRoot} has a facet named {@link UIViewRoot#METADATA_FACET_NAME} and that
-     * facet has children. It will return false otherwise.
+     * Utility method to determine if the the provided {@link UIViewRoot} has metadata. The default implementation will return true if the provided
+     * {@code UIViewRoot} has a facet named {@link UIViewRoot#METADATA_FACET_NAME} and that facet has children. It will return false otherwise.
      * </p>
      *
      * @param root the {@link UIViewRoot} from which the metadata will be extracted from
@@ -139,11 +134,11 @@ public abstract class ViewMetadata {
 
     private static <C extends UIComponent> List<C> getMetadataChildren(UIViewRoot root, Class<C> type) {
         return getMetadataFacet(root).map(UIComponent::getChildren)
-                                     .orElseGet(Collections::emptyList)
-                                     .stream()
-                                     .filter(type::isInstance)
-                                     .map(type::cast)
-                                     .collect(Collectors.toList());
+            .orElseGet(Collections::emptyList)
+            .stream()
+            .filter(type::isInstance)
+            .map(type::cast)
+            .collect(Collectors.toList());
     }
 
     private static Optional<UIComponent> getMetadataFacet(UIViewRoot root) {

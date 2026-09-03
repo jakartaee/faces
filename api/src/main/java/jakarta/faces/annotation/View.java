@@ -31,8 +31,8 @@ import jakarta.inject.Qualifier;
 
 /**
  * <p class="changed_added_4_0">
- * The presence of this annotation on a target (type, method, parameter or field) within an application is used to indicate that
- * this target is somehow handling a Faces View Id or Ids.
+ * The presence of this annotation on a target (type, method, parameter or field) within an application is used to indicate that this target is somehow handling
+ * a Faces View Id or Ids.
  * </p>
  *
  * <p>
@@ -53,11 +53,9 @@ public @interface View {
      * Set the Faces View Id pattern.
      * </p>
      *
-     * The Faces View Id pattern can represent a single view, such as "/index.xhtml",
-     * or a pattern like "/foo/bar/*". Though the exact interpretation of the Faces View Id
-     * for a single view is ultimately defined by the annotated element, in general it should
-     * align with the return value from an action expression
-     * (see {@link ActionSource#setActionExpression(jakarta.el.MethodExpression)}
+     * The Faces View Id pattern can represent a single view, such as "/index.xhtml", or a pattern like "/foo/bar/*". Though the exact interpretation of the
+     * Faces View Id for a single view is ultimately defined by the annotated element, in general it should align with the return value from an action
+     * expression (see {@link ActionSource#setActionExpression(jakarta.el.MethodExpression)}
      *
      * @return the Faces View Id pattern
      */
@@ -90,6 +88,7 @@ public @interface View {
         public String value() {
             return value;
         }
+
     }
 
 }

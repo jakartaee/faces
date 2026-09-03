@@ -35,7 +35,7 @@
         <param-value>${webapp.serializeServerState}</param-value>
     </context-param>
 
-	<filter>
+    <filter>
         <filter-name>TestFilter</filter-name>
         <filter-class>ee.jakarta.tck.faces.faces20.navigation.TestFilter</filter-class>
     </filter>
@@ -44,12 +44,12 @@
         <servlet-name>TestServlet</servlet-name>
     </filter-mapping>
 
-	<servlet>
-		<servlet-name>TestServlet</servlet-name>		
-		<servlet-class>ee.jakarta.tck.faces.faces20.navigation.TestServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>TestServlet</servlet-name>
-		<url-pattern>/TestServlet</url-pattern>
-	</servlet-mapping>
+    <servlet>
+        <servlet-name>TestServlet</servlet-name>
+        <servlet-class>ee.jakarta.tck.faces.faces20.navigation.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TestServlet</servlet-name>
+        <url-pattern>/TestServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

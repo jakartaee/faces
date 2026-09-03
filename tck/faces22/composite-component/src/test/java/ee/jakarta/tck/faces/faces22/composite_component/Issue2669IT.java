@@ -46,4 +46,5 @@ public class Issue2669IT extends BaseITNG {
 
         assertTrue(page.containsText("Name is invalid"));
     }
+
 }

@@ -23,8 +23,8 @@ import jakarta.faces.component.UISelectOne;
 
 /**
  * <p>
- * <strong class="changed_modified_2_0 changed_modified_2_0_rev_a">SelectItem</strong> represents a single <em>item</em>
- * in the list of supported <em>items</em> associated with a {@link UISelectMany} or {@link UISelectOne} component.
+ * <strong class="changed_modified_2_0 changed_modified_2_0_rev_a">SelectItem</strong> represents a single <em>item</em> in the list of supported <em>items</em>
+ * associated with a {@link UISelectMany} or {@link UISelectOne} component.
  * </p>
  */
 
@@ -47,10 +47,9 @@ public class SelectItem implements Serializable {
 
     /**
      * <p>
-     * Construct a <code>SelectItem</code> with the specified value. The <code>label</code> property will be set to the
-     * value (converted to a String, if necessary), the <code>description</code> property will be set to <code>null</code>,
-     * the <code>disabled</code> property will be set to <code>false</code>, and the <code>escape</code> property will be
-     * set to ( <code>true</code>.
+     * Construct a <code>SelectItem</code> with the specified value. The <code>label</code> property will be set to the value (converted to a String, if
+     * necessary), the <code>description</code> property will be set to <code>null</code>, the <code>disabled</code> property will be set to <code>false</code>,
+     * and the <code>escape</code> property will be set to ( <code>true</code>.
      * </p>
      *
      * @param value Value to be delivered to the model if this item is selected by the user
@@ -63,9 +62,8 @@ public class SelectItem implements Serializable {
 
     /**
      * <p>
-     * Construct a <code>SelectItem</code> with the specified value and label. The <code>description</code> property will be
-     * set to <code>null</code>, the <code>disabled</code> property will be set to <code>false</code>, and the
-     * <code>escape</code> property will be set to <code>true</code>.
+     * Construct a <code>SelectItem</code> with the specified value and label. The <code>description</code> property will be set to <code>null</code>, the
+     * <code>disabled</code> property will be set to <code>false</code>, and the <code>escape</code> property will be set to <code>true</code>.
      * </p>
      *
      * @param value Value to be delivered to the model if this item is selected by the user
@@ -79,9 +77,8 @@ public class SelectItem implements Serializable {
 
     /**
      * <p>
-     * Construct a <code>SelectItem</code> instance with the specified value, label and description. This
-     * <code>disabled</code> property will be set to <code>false</code>, and the <code>escape</code> property will be set to
-     * <code>true</code>.
+     * Construct a <code>SelectItem</code> instance with the specified value, label and description. This <code>disabled</code> property will be set to
+     * <code>false</code>, and the <code>escape</code> property will be set to <code>true</code>.
      * </p>
      *
      * @param value Value to be delivered to the model if this item is selected by the user
@@ -96,8 +93,7 @@ public class SelectItem implements Serializable {
 
     /**
      * <p>
-     * Construct a <code>SelectItem</code> instance with the specified property values. The <code>escape</code> property
-     * will be set to <code>true</code>.
+     * Construct a <code>SelectItem</code> instance with the specified property values. The <code>escape</code> property will be set to <code>true</code>.
      * </p>
      *
      * @param value Value to be delivered to the model if this item is selected by the user
@@ -190,8 +186,8 @@ public class SelectItem implements Serializable {
 
     /**
      * <p>
-     * Return the disabled flag for this item, which should modify the rendered output to make this item unavailable for
-     * selection by the user if set to <code>true</code>.
+     * Return the disabled flag for this item, which should modify the rendered output to make this item unavailable for selection by the user if set to
+     * <code>true</code>.
      * </p>
      *
      * @return the disabled flag for this item
@@ -204,8 +200,8 @@ public class SelectItem implements Serializable {
 
     /**
      * <p>
-     * Set the disabled flag for this item, which should modify the rendered output to make this item unavailable for
-     * selection by the user if set to <code>true</code>.
+     * Set the disabled flag for this item, which should modify the rendered output to make this item unavailable for selection by the user if set to
+     * <code>true</code>.
      * </p>
      *
      * @param disabled The new disabled flag
@@ -269,8 +265,8 @@ public class SelectItem implements Serializable {
 
     /**
      * <p class="changed_added_2_0_rev_a">
-     * If and only if this returns <code>true</code>, the code that renders this select item must escape the label using
-     * escaping syntax appropriate to the content type being rendered.
+     * If and only if this returns <code>true</code>, the code that renders this select item must escape the label using escaping syntax appropriate to the
+     * content type being rendered.
      * </p>
      *
      * @return the escape value.
@@ -297,9 +293,9 @@ public class SelectItem implements Serializable {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the value of the <code>noSelectionOption</code> property. If the value of this property is <code>true</code>,
-     * the system interprets the option represented by this <code>SelectItem</code> instance as representing a "no
-     * selection" option. See {@link UISelectOne#validateValue} and {@link UISelectMany#validateValue} for usage.
+     * Return the value of the <code>noSelectionOption</code> property. If the value of this property is <code>true</code>, the system interprets the option
+     * represented by this <code>SelectItem</code> instance as representing a "no selection" option. See {@link UISelectOne#validateValue} and
+     * {@link UISelectMany#validateValue} for usage.
      * </p>
      *
      * @return the value of the <code>noSelectionOption</code> property

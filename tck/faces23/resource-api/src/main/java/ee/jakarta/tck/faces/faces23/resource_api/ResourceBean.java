@@ -40,7 +40,8 @@ public class ResourceBean {
         Resource resource = handler.createResource(RESOURCE_NAME, LIBRARY_NAME, RESOURCE_TYPE);
         try {
             return resource.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return "** could not create resource " + RESOURCE_NAME + " in library " + LIBRARY_NAME + " **";
         }
     }
@@ -54,7 +55,8 @@ public class ResourceBean {
         Resource resource = handler.createResource(COMBINED_NAME);
         try {
             return resource.toString();
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             return "** could not create resource " + COMBINED_NAME + " **";
         }
     }
@@ -84,7 +86,8 @@ public class ResourceBean {
                 if (is.read() == -1) {
                     return "FAILURE";
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 return "FAILURE";
             }
         }
@@ -101,11 +104,13 @@ public class ResourceBean {
                 while (is.read() != -1) {
                     // Consume the resource to confirm it is readable.
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 return "FAILURE";
             }
         }
 
         return "SUCCESS";
     }
+
 }

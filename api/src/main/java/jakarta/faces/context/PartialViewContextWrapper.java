@@ -24,15 +24,13 @@ import jakarta.faces.event.PhaseId;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_2 changed_modified_2_3">Provides</span> a simple implementation of
- * {@link PartialViewContext} that can be subclassed by developers wishing to provide specialized behavior to an
- * existing {@link PartialViewContext} instance. The default implementation of all methods is to call through to the
- * wrapped {@link ExternalContext} instance.
+ * <span class="changed_modified_2_2 changed_modified_2_3">Provides</span> a simple implementation of {@link PartialViewContext} that can be subclassed by
+ * developers wishing to provide specialized behavior to an existing {@link PartialViewContext} instance. The default implementation of all methods is to call
+ * through to the wrapped {@link ExternalContext} instance.
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.0
@@ -51,9 +49,8 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p class="changed_added_2_3">
-     * If this partial view context has been decorated, the implementation doing the decorating should push the
-     * implementation being wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being
-     * wrapped.
+     * If this partial view context has been decorated, the implementation doing the decorating should push the implementation being wrapped to this
+     * constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -72,8 +69,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#getExecuteIds()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#getExecuteIds()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#getExecuteIds()
@@ -85,8 +81,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#getRenderIds()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#getRenderIds()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#getRenderIds()
@@ -98,8 +93,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p class="changed_added_2_3">
-     * The default behavior of this method is to call {@link PartialViewContext#getRenderIds()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#getRenderIds()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#getEvalScripts()
@@ -111,8 +105,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#getPartialResponseWriter()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#getPartialResponseWriter()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#getPartialResponseWriter()
@@ -124,8 +117,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p class="changed_added_2_2">
-     * The default behavior of this method is to call {@link PartialViewContext#setPartialRequest(boolean)} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#setPartialRequest(boolean)} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#setPartialRequest(boolean)
@@ -137,8 +129,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#isAjaxRequest()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#isAjaxRequest()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see jakarta.faces.context.PartialViewContext#isAjaxRequest()
@@ -150,8 +141,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#isPartialRequest()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#isPartialRequest()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#isPartialRequest()
@@ -163,8 +153,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#isExecuteAll()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#isExecuteAll()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#isExecuteAll()
@@ -176,8 +165,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#isRenderAll()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#isRenderAll()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#isRenderAll()
@@ -189,8 +177,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#isResetValues()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#isResetValues()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#isResetValues()
@@ -202,8 +189,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#setRenderAll(boolean)} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#setRenderAll(boolean)} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#setRenderAll(boolean)
@@ -215,8 +201,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#release()} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#release()} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#release()
@@ -228,8 +213,7 @@ public abstract class PartialViewContextWrapper extends PartialViewContext imple
 
     /**
      * <p>
-     * The default behavior of this method is to call {@link PartialViewContext#processPartial(PhaseId)} on the wrapped
-     * {@link PartialViewContext} object.
+     * The default behavior of this method is to call {@link PartialViewContext#processPartial(PhaseId)} on the wrapped {@link PartialViewContext} object.
      * </p>
      *
      * @see PartialViewContext#processPartial(PhaseId)

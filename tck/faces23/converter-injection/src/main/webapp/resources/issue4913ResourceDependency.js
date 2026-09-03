@@ -13,6 +13,6 @@
  *
  * SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
  */
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
     document.getElementById("issue4913ResourceDependency").innerHTML = "resource dependency is successfully injected via a managed converter";
-}); 
+});

@@ -26,19 +26,17 @@ import java.lang.annotation.Target;
 
 /**
  * <p class="changed_added_2_0">
- * Instances of {@link jakarta.faces.component.UIComponent} or {@link jakarta.faces.render.Renderer} that have this
- * annotation (or {@link ResourceDependencies} attached at the class level will automatically have a resource dependency
- * added so that the named resource will be present in user agent's view of the <code>UIViewRoot</code> in which this
- * component or renderer is used.
+ * Instances of {@link jakarta.faces.component.UIComponent} or {@link jakarta.faces.render.Renderer} that have this annotation (or {@link ResourceDependencies}
+ * attached at the class level will automatically have a resource dependency added so that the named resource will be present in user agent's view of the
+ * <code>UIViewRoot</code> in which this component or renderer is used.
  * </p>
  *
  * <div class="changed_added_2_0">
  *
  * <p>
- * The default implementation must support attaching this annotation to {@link jakarta.faces.component.UIComponent} or
- * {@link jakarta.faces.render.Renderer} classes. In both cases, the event that precipitates the processing of this
- * annotation is the insertion of a <code>UIComponent</code> instance into the view hierarchy on an initial request for
- * a view. When that event happens, the following action must be taken.
+ * The default implementation must support attaching this annotation to {@link jakarta.faces.component.UIComponent} or {@link jakarta.faces.render.Renderer}
+ * classes. In both cases, the event that precipitates the processing of this annotation is the insertion of a <code>UIComponent</code> instance into the view
+ * hierarchy on an initial request for a view. When that event happens, the following action must be taken.
  * </p>
  *
  * <ol>
@@ -57,8 +55,7 @@ import java.lang.annotation.Target;
  *
  * <li>
  * <p>
- * Get the annotation instance from the class and obtain the values of the <em>name</em>, <em>library</em>, and
- * <em>target</em> attributes.
+ * Get the annotation instance from the class and obtain the values of the <em>name</em>, <em>library</em>, and <em>target</em> attributes.
  * </p>
  * </li>
  *
@@ -76,8 +73,7 @@ import java.lang.annotation.Target;
  *
  * <li>
  * <p>
- * Obtain the <em>renderer-type</em> for the resource <em>name</em> by passing <em>name</em> to
- * {@link ResourceHandler#getRendererTypeForResourceName}.
+ * Obtain the <em>renderer-type</em> for the resource <em>name</em> by passing <em>name</em> to {@link ResourceHandler#getRendererTypeForResourceName}.
  * </p>
  * </li>
  *
@@ -89,8 +85,7 @@ import java.lang.annotation.Target;
  *
  * <li>
  * <p>
- * Obtain the <code>Map</code> of attributes from the <code>UIOutput</code> component by calling
- * {@link jakarta.faces.component.UIComponent#getAttributes}.
+ * Obtain the <code>Map</code> of attributes from the <code>UIOutput</code> component by calling {@link jakarta.faces.component.UIComponent#getAttributes}.
  * </p>
  * </li>
  *
@@ -115,8 +110,8 @@ import java.lang.annotation.Target;
  * <li>
  * <p>
  * Otherwise, if <em>target</em> is <code>null</code>, call
- * {@link jakarta.faces.component.UIViewRoot#addComponentResource(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)},
- * passing the <code>UIOutput</code> instance as the second argument.
+ * {@link jakarta.faces.component.UIViewRoot#addComponentResource(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent)}, passing the
+ * <code>UIOutput</code> instance as the second argument.
  * </p>
  * </li>
  * </ol>
@@ -144,15 +139,13 @@ public @interface ResourceDependency {
 
     /**
      * <p class="changed_added_2_0">
-     * The <em>resourceName</em> of the resource pointed to by this <code>ResourceDependency</code>. It is valid to have
-     * Jakarta Expression Language Expressions in the value of this attribute, as long as the expression resolves to an
-     * instance of the expected type.
+     * The <em>resourceName</em> of the resource pointed to by this <code>ResourceDependency</code>. It is valid to have Jakarta Expression Language Expressions
+     * in the value of this attribute, as long as the expression resolves to an instance of the expected type.
      * </p>
      *
      * <p class="changed_added_5_0">
-     * The <em>resourceName</em> may carry a query string, as specified in section 2.6.1.3 "Resource Identifiers" of the
-     * Jakarta Faces Specification Document. It is not part of the resource identifier and is appended to the value
-     * returned by {@link Resource#getRequestPath}.
+     * The <em>resourceName</em> may carry a query string, as specified in section 2.6.1.3 "Resource Identifiers" of the Jakarta Faces Specification Document.
+     * It is not part of the resource identifier and is appended to the value returned by {@link Resource#getRequestPath}.
      * </p>
      *
      * @return the name.
@@ -161,9 +154,9 @@ public @interface ResourceDependency {
 
     /**
      * <p class="changed_added_2_0">
-     * The <em>libraryName</em> in which the resource pointed to by this <code>ResourceDependency</code> resides. If not
-     * specified, defaults to the empty string. It is valid to have Jakarta Expression Language Expressions in the value of
-     * this attribute, as long as the expression resolves to an instance of the expected type.
+     * The <em>libraryName</em> in which the resource pointed to by this <code>ResourceDependency</code> resides. If not specified, defaults to the empty
+     * string. It is valid to have Jakarta Expression Language Expressions in the value of this attribute, as long as the expression resolves to an instance of
+     * the expected type.
      * </p>
      *
      * @return the library.
@@ -175,9 +168,9 @@ public @interface ResourceDependency {
      * The value given for this attribute will be passed as the "target" argument to
      * {@link jakarta.faces.component.UIViewRoot#addComponentResource(jakarta.faces.context.FacesContext, jakarta.faces.component.UIComponent, java.lang.String)}.
      * If this attribute is specified,
-     * {@link jakarta.faces.component.UIViewRoot#addComponentResource(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent)}
-     * must be called instead, as described above. It is valid to have Jakarta Expression Language Expressions in the value
-     * of this attribute, as long as the expression resolves to an instance of the expected type.
+     * {@link jakarta.faces.component.UIViewRoot#addComponentResource(jakarta.faces.context.FacesContext,jakarta.faces.component.UIComponent)} must be called
+     * instead, as described above. It is valid to have Jakarta Expression Language Expressions in the value of this attribute, as long as the expression
+     * resolves to an instance of the expected type.
      * </p>
      *
      * @return the target.

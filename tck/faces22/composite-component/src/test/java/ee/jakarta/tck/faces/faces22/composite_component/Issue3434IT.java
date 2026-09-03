@@ -27,9 +27,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue3434IT extends BaseITNG {
 
     /**
-     * A cc:clientBehavior declared as default must retarget the f:ajax behavior attached to the
-     * composite tag onto the inner command button, so that clicking it fires the ajax request and
-     * the re-rendered form reflects the bean action.
+     * A cc:clientBehavior declared as default must retarget the f:ajax behavior attached to the composite tag onto the inner command button, so that clicking
+     * it fires the ajax request and the re-rendered form reflects the bean action.
      *
      * @see jakarta.faces.view.facelets.FaceletContext
      * @see https://github.com/eclipse-ee4j/mojarra/issues/3434
@@ -40,4 +39,5 @@ class Issue3434IT extends BaseITNG {
         page.guardAjax(() -> page.findElement(By.id("exampleForm:customButton:button")).click());
         assertTrue(page.containsText("after click"), "ajax retargeted onto inner button updated the bean text");
     }
+
 }

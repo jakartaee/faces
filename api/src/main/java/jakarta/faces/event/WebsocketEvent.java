@@ -33,9 +33,8 @@ import jakarta.websocket.CloseReason.CloseCode;
 
 /**
  * <p class="changed_added_2_3">
- * This web socket event will be fired when a new <code>&lt;f:websocket&gt;</code> has been
- * <code>&#64;</code>{@link Opened} or <code>&#64;</code>{@link Closed}. An application scoped CDI bean can
- * <code>&#64;</code>{@link Observes} them.
+ * This web socket event will be fired when a new <code>&lt;f:websocket&gt;</code> has been <code>&#64;</code>{@link Opened} or
+ * <code>&#64;</code>{@link Closed}. An application scoped CDI bean can <code>&#64;</code>{@link Observes} them.
  * <p>
  * For detailed usage instructions, see <code>&#64;</code>{@link Push} javadoc.
  *
@@ -80,8 +79,7 @@ public final class WebsocketEvent implements Serializable {
     }
 
     /**
-     * Returns the close code. If this returns <code>null</code>, then it was {@link Opened}. If this returns
-     * non-<code>null</code>, then it was {@link Closed}.
+     * Returns the close code. If this returns <code>null</code>, then it was {@link Opened}. If this returns non-<code>null</code>, then it was {@link Closed}.
      *
      * @return The close code.
      */
@@ -97,7 +95,7 @@ public final class WebsocketEvent implements Serializable {
     @Override
     public boolean equals(Object other) {
         return other != null && getClass() == other.getClass() && Objects.equals(channel, ((WebsocketEvent) other).channel)
-                && Objects.equals(user, ((WebsocketEvent) other).user) && Objects.equals(code, ((WebsocketEvent) other).code);
+            && Objects.equals(user, ((WebsocketEvent) other).user) && Objects.equals(code, ((WebsocketEvent) other).code);
     }
 
     @Override
@@ -135,7 +133,9 @@ public final class WebsocketEvent implements Serializable {
              * Instance of the {@link Opened} qualifier.
              */
             public static final Literal INSTANCE = new Literal();
+
         }
+
     }
 
     /**
@@ -168,7 +168,9 @@ public final class WebsocketEvent implements Serializable {
              * Instance of the {@link Closed} qualifier.
              */
             public static final Literal INSTANCE = new Literal();
+
         }
+
     }
 
 }

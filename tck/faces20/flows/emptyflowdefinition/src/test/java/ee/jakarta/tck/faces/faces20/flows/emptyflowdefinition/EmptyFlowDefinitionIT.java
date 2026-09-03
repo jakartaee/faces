@@ -25,17 +25,15 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An empty (0-byte) {@code <flowname>-flow.xml} still defines a bounded task flow by convention:
- * the runtime must not choke on the empty definition file and must derive the flow and its start
- * node from the directory name.
+ * An empty (0-byte) {@code <flowname>-flow.xml} still defines a bounded task flow by convention: the runtime must not choke on the empty definition file and
+ * must derive the flow and its start node from the directory name.
  *
  * @see <a href="https://github.com/eclipse-ee4j/glassfish/issues">GLASSFISH-19937</a>
  */
 class EmptyFlowDefinitionIT extends BaseITNG {
 
     /**
-     * Entering the flow via its entry node reaches the flow's start node, and re-entering works the
-     * same way a second time.
+     * Entering the flow via its entry node reaches the flow's start node, and re-entering works the same way a second time.
      *
      * @see jakarta.faces.flow.FlowHandler
      * @see jakarta.faces.flow.FlowScoped

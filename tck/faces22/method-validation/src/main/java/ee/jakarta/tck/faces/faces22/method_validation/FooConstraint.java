@@ -33,12 +33,11 @@ import jakarta.validation.Payload;
 @Target({ METHOD, FIELD, PARAMETER })
 @Retention(RUNTIME)
 public @interface FooConstraint {
-    
+
     String message() default "my message";
 
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-    
 
 }

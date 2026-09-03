@@ -60,6 +60,7 @@ public class Issue2942Bean implements Serializable {
         public void setValue(int value) {
             ints.set(index, value);
         }
+
     }
 
     public class ValueHolderList extends AbstractList<ValueHolder> {
@@ -73,5 +74,7 @@ public class Issue2942Bean implements Serializable {
         public int size() {
             return ints.size();
         }
+
     }
+
 }

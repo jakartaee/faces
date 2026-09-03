@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.TimeoutException;
-
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -28,11 +27,10 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A behavior event attribute must have its script invoked on the corresponding DOM event. Whether the runtime renders
- * it inline or arranges for it at runtime is left to the implementation, so these assert the event itself rather than
- * the markup. The <code>error</code> of a resource element is the case which admits no runtime mechanism taking effect
- * after the element has been parsed, as the fetch starts as the element is parsed and the event can be dispatched
- * before any script following it runs.
+ * A behavior event attribute must have its script invoked on the corresponding DOM event. Whether the runtime renders it inline or arranges for it at runtime
+ * is left to the implementation, so these assert the event itself rather than the markup. The <code>error</code> of a resource element is the case which admits
+ * no runtime mechanism taking effect after the element has been parsed, as the fetch starts as the element is parsed and the event can be dispatched before any
+ * script following it runs.
  *
  * @see <a href="https://github.com/jakartaee/faces/issues/1507">faces#1507</a>
  */
@@ -42,8 +40,7 @@ class Spec1507IT extends BaseITNG {
     private WebElement addButton;
 
     /**
-     * The <code>onerror</code> of a script resource which fails to load runs, and runs with the script element as
-     * <code>this</code>.
+     * The <code>onerror</code> of a script resource which fails to load runs, and runs with the script element as <code>this</code>.
      */
     @Test
     public void testScriptResourceOnError() {
@@ -52,8 +49,7 @@ class Spec1507IT extends BaseITNG {
     }
 
     /**
-     * The <code>onerror</code> of a stylesheet resource which fails to load runs, and runs with the link element as
-     * <code>this</code>.
+     * The <code>onerror</code> of a stylesheet resource which fails to load runs, and runs with the link element as <code>this</code>.
      */
     @Test
     public void testStylesheetResourceOnError() {
@@ -62,9 +58,9 @@ class Spec1507IT extends BaseITNG {
     }
 
     /**
-     * The <code>onerror</code> of an image which arrives through an ajax response runs, even though the response
-     * carries a script with a <code>src</code> ahead of that image. The image is live as soon as the response markup
-     * is inserted, so a runtime which wires the handler behind that script never observes the event.
+     * The <code>onerror</code> of an image which arrives through an ajax response runs, even though the response carries a script with a <code>src</code> ahead
+     * of that image. The image is live as soon as the response markup is inserted, so a runtime which wires the handler behind that script never observes the
+     * event.
      */
     @Test
     public void testImageResourceOnErrorAfterAjax() {
@@ -74,8 +70,8 @@ class Spec1507IT extends BaseITNG {
     }
 
     /**
-     * Returns the value the handler recorded in the given window property, waiting for the resource fetch to fail
-     * first, as the load of the document does not await it.
+     * Returns the value the handler recorded in the given window property, waiting for the resource fetch to fail first, as the load of the document does not
+     * await it.
      */
     private static String awaitHandler(WebPage page, String property) {
         String script = "return window." + property + ";";
@@ -89,4 +85,5 @@ class Spec1507IT extends BaseITNG {
 
         return (String) page.executeScript(script);
     }
+
 }

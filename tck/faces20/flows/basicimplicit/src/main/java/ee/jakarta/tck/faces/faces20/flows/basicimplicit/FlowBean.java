@@ -32,4 +32,5 @@ public class FlowBean implements Serializable {
     public String getName() {
         return "basicFlow";
     }
+
 }

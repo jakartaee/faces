@@ -45,8 +45,7 @@ public class Issue1537Bean implements Serializable {
      * Fired through Ajax.
      *
      * @param event the event.
-     * @throws AbortProcessingException when further processing needs to be
-     * aborted.
+     * @throws AbortProcessingException when further processing needs to be aborted.
      */
     public void ajaxFired(AjaxBehaviorEvent event) throws AbortProcessingException {
         setFireState(event.getComponent().getClientId() + "-" + vip);
@@ -87,4 +86,5 @@ public class Issue1537Bean implements Serializable {
     public void setFireState(String fireState) {
         this.fireState = fireState;
     }
+
 }

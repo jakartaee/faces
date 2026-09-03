@@ -24,8 +24,8 @@ import jakarta.faces.event.ActionEvent;
 import jakarta.inject.Named;
 
 /**
- * Applies every add/remove permutation to the bound panel group within a single action listener.
- * The final child set must reflect the net effect of the permutation, not the intermediate states.
+ * Applies every add/remove permutation to the bound panel group within a single action listener. The final child set must reflect the net effect of the
+ * permutation, not the intermediate states.
  */
 @Named
 @RequestScoped
@@ -90,4 +90,5 @@ public class Issue2399Bean {
     public void setPanelGroup(HtmlPanelGroup panelGroup) {
         this.panelGroup = panelGroup;
     }
+
 }

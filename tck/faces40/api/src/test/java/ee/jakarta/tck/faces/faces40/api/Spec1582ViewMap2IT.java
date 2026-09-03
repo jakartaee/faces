@@ -28,14 +28,15 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 public class Spec1582ViewMap2IT extends BaseITNG {
 
-  /**
-   * @see Inject
+    /**
+     * @see Inject
      * @see jakarta.faces.annotation.ViewMap.Literal
      * @see https://github.com/jakartaee/faces/issues/1582
-   */
-  @Test
-  void injectViewMap2() throws Exception {
+     */
+    @Test
+    void injectViewMap2() throws Exception {
         WebPage page = getPage("spec1582ViewMap2.xhtml");
         assertTrue(page.containsText("{}"));
     }
+
 }

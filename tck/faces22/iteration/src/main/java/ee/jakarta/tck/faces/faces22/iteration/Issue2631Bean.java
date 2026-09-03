@@ -58,7 +58,8 @@ public class Issue2631Bean implements Serializable {
             setToShow = "SET1";
             set.clear();
             set.addAll(set1);
-        } else {
+        }
+        else {
             setToShow = "SET2";
             set.clear();
             set.addAll(set2);
@@ -76,4 +77,5 @@ public class Issue2631Bean implements Serializable {
 
         return newSet;
     }
+
 }

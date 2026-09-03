@@ -37,4 +37,5 @@ public class Spec1334IT extends BaseITNG {
         WebPage page = getPage("spec1334.xhtml");
         assertTrue(page.containsText("{}"));
     }
+
 }

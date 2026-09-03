@@ -47,8 +47,7 @@ import java.lang.annotation.Target;
  * <div class="changed_added_2_0">
  *
  * <p>
- * The action described in {@link ResourceDependency} must be taken for each <code>&#0064;ResourceDependency</code>
- * present in the container annotation.
+ * The action described in {@link ResourceDependency} must be taken for each <code>&#0064;ResourceDependency</code> present in the container annotation.
  * </p>
  *
  * </div>
@@ -60,7 +59,9 @@ public @interface ResourceDependencies {
 
     /**
      * The individual resource dependencies
+     *
      * @return The individual resource dependencies
      */
     ResourceDependency[] value();
+
 }

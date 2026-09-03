@@ -37,4 +37,5 @@ public class Spec1216FacesConfigPhaseListener implements PhaseListener {
     public PhaseId getPhaseId() {
         return PhaseId.ANY_PHASE;
     }
+
 }

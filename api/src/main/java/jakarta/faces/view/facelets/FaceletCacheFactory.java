@@ -24,8 +24,7 @@ import jakarta.faces.FacesWrapper;
  * </p>
  *
  * <p class="changed_added_2_3">
- * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to
- * access the instance being wrapped.
+ * Usage: extend this class and push the implementation being wrapped to the constructor and use {@link #getWrapped} to access the instance being wrapped.
  * </p>
  *
  * @since 2.1
@@ -44,8 +43,8 @@ public abstract class FaceletCacheFactory implements FacesWrapper<FaceletCacheFa
 
     /**
      * <p class="changed_added_2_3">
-     * If this factory has been decorated, the implementation doing the decorating should push the implementation being
-     * wrapped to this constructor. The {@link #getWrapped()} will then return the implementation being wrapped.
+     * If this factory has been decorated, the implementation doing the decorating should push the implementation being wrapped to this constructor. The
+     * {@link #getWrapped()} will then return the implementation being wrapped.
      * </p>
      *
      * @param wrapped The implementation being wrapped.
@@ -56,8 +55,8 @@ public abstract class FaceletCacheFactory implements FacesWrapper<FaceletCacheFa
 
     /**
      * <p class="changed_modified_2_3">
-     * If this factory has been decorated, the implementation doing the decorating may override this method to provide
-     * access to the implementation being wrapped.
+     * If this factory has been decorated, the implementation doing the decorating may override this method to provide access to the implementation being
+     * wrapped.
      * </p>
      */
     @Override
@@ -66,8 +65,7 @@ public abstract class FaceletCacheFactory implements FacesWrapper<FaceletCacheFa
     }
 
     /**
-     * Returns the facility by which the Facelets {@link jakarta.faces.view.ViewDeclarationLanguage} creates and
-     * caches instances of Facelets.
+     * Returns the facility by which the Facelets {@link jakarta.faces.view.ViewDeclarationLanguage} creates and caches instances of Facelets.
      *
      * @return the facelet cache
      */

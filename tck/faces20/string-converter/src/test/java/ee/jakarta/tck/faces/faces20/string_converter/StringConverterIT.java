@@ -25,10 +25,9 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A {@code Converter} registered by-class for {@code java.lang.String} is applied automatically to
- * every String-valued component. Each round-trip prepends {@code String_} exactly once, through
- * {@code getAsObject} on submit; rendering does not apply it again, as the renderer deliberately
- * skips by-type converter lookup for values which are already a String.
+ * A {@code Converter} registered by-class for {@code java.lang.String} is applied automatically to every String-valued component. Each round-trip prepends
+ * {@code String_} exactly once, through {@code getAsObject} on submit; rendering does not apply it again, as the renderer deliberately skips by-type converter
+ * lookup for values which are already a String.
  */
 class StringConverterIT extends BaseITNG {
 
@@ -43,11 +42,16 @@ class StringConverterIT extends BaseITNG {
         page.findElement(By.id("form:inputText")).clear();
         page.findElement(By.id("form:inputText")).sendKeys("newString");
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
-        assertEquals("String_newString", page.findElement(By.id("form:outputText")).getText(),
-                "the by-class String converter must apply once per submit, through getAsObject");
+        assertEquals(
+            "String_newString", page.findElement(By.id("form:outputText")).getText(),
+            "the by-class String converter must apply once per submit, through getAsObject"
+        );
 
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
-        assertEquals("String_String_newString", page.findElement(By.id("form:outputText")).getText(),
-                "resubmitting the converted value must prepend String_ once more");
+        assertEquals(
+            "String_String_newString", page.findElement(By.id("form:outputText")).getText(),
+            "resubmitting the converted value must prepend String_ once more"
+        );
     }
+
 }

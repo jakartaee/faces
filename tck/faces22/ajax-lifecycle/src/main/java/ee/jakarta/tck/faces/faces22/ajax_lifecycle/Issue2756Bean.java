@@ -35,8 +35,7 @@ public class Issue2756Bean {
             try {
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
                 writer.startInsertBefore("alpha");
                 writer.write("This is before text");
@@ -44,7 +43,8 @@ public class Issue2756Bean {
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
@@ -58,8 +58,7 @@ public class Issue2756Bean {
             try {
                 extContext.setResponseContentType("text/xml");
                 extContext.addResponseHeader("Cache-Control", "no-cache");
-                PartialResponseWriter writer =
-                    ctx.getPartialViewContext().getPartialResponseWriter();
+                PartialResponseWriter writer = ctx.getPartialViewContext().getPartialResponseWriter();
                 writer.startDocument();
                 writer.startInsertAfter("alpha");
                 writer.write("This is after text");
@@ -67,10 +66,12 @@ public class Issue2756Bean {
                 writer.endDocument();
                 writer.flush();
                 ctx.responseComplete();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 throw new FacesException(e);
             }
         }
         return null;
     }
+
 }

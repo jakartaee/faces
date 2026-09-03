@@ -25,28 +25,17 @@ import jakarta.faces.context.FacesContext;
 public class Spec1423 {
 
     /*
-    @PostConstruct
-    public void init() {
-        FacesContext.getCurrentInstance().getViewRoot().subscribeToViewEvent(PreRenderViewEvent.class, new SystemEventListener() {
-            @Override
-            public boolean isListenerForSource(Object source) {
-                return source instanceof UIViewRoot;
-            }
-
-            @Override
-            public void processEvent(SystemEvent event) throws AbortProcessingException {
-                UIViewRoot view = (UIViewRoot) event.getSource();
-
-                for (String target : new String[] { "head", "body" }) {
-                    for (UIComponent resource : view.getComponentResources(event.getFacesContext(), target)) {
-                        Map<String, Object> attributes = resource.getAttributes();
-                        System.out.println(target + " " + attributes.get("library") + ":" + attributes.get("name"));
-                    }
-                }
-            }
-        });
-    }
-    */
+     * @PostConstruct public void init() { FacesContext.getCurrentInstance().getViewRoot().subscribeToViewEvent(PreRenderViewEvent.class, new
+     * SystemEventListener() {
+     *
+     * @Override public boolean isListenerForSource(Object source) { return source instanceof UIViewRoot; }
+     *
+     * @Override public void processEvent(SystemEvent event) throws AbortProcessingException { UIViewRoot view = (UIViewRoot) event.getSource();
+     *
+     * for (String target : new String[] { "head", "body" }) { for (UIComponent resource : view.getComponentResources(event.getFacesContext(), target)) {
+     * Map<String, Object> attributes = resource.getAttributes(); System.out.println(target + " " + attributes.get("library") + ":" + attributes.get("name")); }
+     * } } }); }
+     */
 
     public void addComponentResourceToHead() {
         UIOutput script = new UIOutput();

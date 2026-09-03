@@ -53,4 +53,5 @@ public class FacesConfigPhaseListener implements PhaseListener {
     private void doPostConstruct() {
         postConstructCalled = "@PostConstruct called";
     }
+
 }

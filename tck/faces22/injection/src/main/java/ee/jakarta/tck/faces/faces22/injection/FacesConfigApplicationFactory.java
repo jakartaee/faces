@@ -66,4 +66,5 @@ public class FacesConfigApplicationFactory extends ApplicationFactory {
     private void doPostConstruct() {
         postConstructCalled = "@PostConstruct called";
     }
+
 }

@@ -29,8 +29,7 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2401IT extends BaseITNG {
 
     /**
-     * A RuntimeException thrown from a ValueChangeListener must not be swallowed:
-     * it propagates and results in a 500 response.
+     * A RuntimeException thrown from a ValueChangeListener must not be swallowed: it propagates and results in a 500 response.
      *
      * @see ValueChangeEvent
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2401
@@ -44,8 +43,7 @@ class Issue2401IT extends BaseITNG {
     }
 
     /**
-     * A RuntimeException thrown from an ActionListener method expression must not be
-     * swallowed: it propagates and results in a 500 response.
+     * A RuntimeException thrown from an ActionListener method expression must not be swallowed: it propagates and results in a 500 response.
      *
      * @see jakarta.faces.event.ActionListener
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2401
@@ -58,8 +56,7 @@ class Issue2401IT extends BaseITNG {
     }
 
     /**
-     * An AbortProcessingException thrown from an ActionListener method expression must be
-     * swallowed: processing continues and results in a normal 200 response.
+     * An AbortProcessingException thrown from an ActionListener method expression must be swallowed: processing continues and results in a normal 200 response.
      *
      * @see AbortProcessingException
      * @see https://github.com/eclipse-ee4j/mojarra/issues/2401
@@ -70,4 +67,5 @@ class Issue2401IT extends BaseITNG {
         page.guardHttp(page.findElement(By.id("form:submit"))::click);
         assertEquals(200, page.getResponseStatus());
     }
+
 }

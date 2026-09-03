@@ -22,8 +22,8 @@ import org.junit.jupiter.api.Test;
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 
 /**
- * A Facelets tag that references a non-existent template or include must fail the request rather
- * than silently rendering nothing; the runtime surfaces the missing resource as an HTTP 500.
+ * A Facelets tag that references a non-existent template or include must fail the request rather than silently rendering nothing; the runtime surfaces the
+ * missing resource as an HTTP 500.
  */
 class FaceletNotFoundIT extends BaseITNG {
 
@@ -59,4 +59,5 @@ class FaceletNotFoundIT extends BaseITNG {
     void testIncludeNotFound() {
         assertEquals(500, getStatusCode("faceletNotFoundInclude.xhtml"));
     }
+
 }

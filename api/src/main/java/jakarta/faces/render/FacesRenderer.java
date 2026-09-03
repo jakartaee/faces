@@ -26,15 +26,13 @@ import jakarta.enterprise.inject.Stereotype;
 
 /**
  * <p class="changed_added_2_0">
- * The presence of this annotation on a class automatically registers the class with the runtime as a {@link Renderer}.
- * The value of the {@link #renderKitId} attribute is taken to be the <em>render-kit-id</em> to which an instance of
- * this <code>Renderer</code> is to be added. There must be a public zero-argument constructor on any class where this
- * annotation appears. The implementation must indicate a fatal error if such a constructor does not exist and the
- * application must not be placed in service. Within that {@link RenderKit}, The value of the {@link #rendererType}
- * attribute is taken to be the <em>renderer-type</em>, and the value of the {@link #componentFamily} attribute is to be
- * taken as the <em>component-family</em>. The implementation must guarantee that for each class annotated with
- * <code>FacesRenderer</code>, <span class="changed_modified_5_0">discovered during CDI bean discovery</span>,
- * the following actions are taken.
+ * The presence of this annotation on a class automatically registers the class with the runtime as a {@link Renderer}. The value of the {@link #renderKitId}
+ * attribute is taken to be the <em>render-kit-id</em> to which an instance of this <code>Renderer</code> is to be added. There must be a public zero-argument
+ * constructor on any class where this annotation appears. The implementation must indicate a fatal error if such a constructor does not exist and the
+ * application must not be placed in service. Within that {@link RenderKit}, The value of the {@link #rendererType} attribute is taken to be the
+ * <em>renderer-type</em>, and the value of the {@link #componentFamily} attribute is to be taken as the <em>component-family</em>. The implementation must
+ * guarantee that for each class annotated with <code>FacesRenderer</code>, <span class="changed_modified_5_0">discovered during CDI bean discovery</span>, the
+ * following actions are taken.
  * </p>
  *
  * <div class="changed_added_2_0">
@@ -49,9 +47,8 @@ import jakarta.enterprise.inject.Stereotype;
  *
  * <li>
  * <p>
- * See if a <code>RenderKit</code> exists for <em>render-kit-id</em>. If so, let that instance be <em>renderKit</em> for
- * discussion. If not, the implementation must indicate a fatal error if such a <code>RenderKit</code> does not exist
- * and the application must not be placed in service.
+ * See if a <code>RenderKit</code> exists for <em>render-kit-id</em>. If so, let that instance be <em>renderKit</em> for discussion. If not, the implementation
+ * must indicate a fatal error if such a <code>RenderKit</code> does not exist and the application must not be placed in service.
  * </p>
  * </li>
  *
@@ -63,9 +60,8 @@ import jakarta.enterprise.inject.Stereotype;
  *
  * <li>
  * <p>
- * Call {@link RenderKit#addRenderer} on <em>renderKit</em>, passing <em>component-family</em> as the first argument,
- * <em>renderer-type</em> as the second, and the newly instantiated <code>RenderKit</code> instance as the third
- * argument.
+ * Call {@link RenderKit#addRenderer} on <em>renderKit</em>, passing <em>component-family</em> as the first argument, <em>renderer-type</em> as the second, and
+ * the newly instantiated <code>RenderKit</code> instance as the third argument.
  * </p>
  * </li>
  *
@@ -83,8 +79,8 @@ public @interface FacesRenderer {
 
     /**
      * <p class="changed_added_2_0">
-     * The value of this annotation attribute is taken to be the <em>render-kit-id</em> in which an instance of this class
-     * of <code>Renderer</code> must be installed.
+     * The value of this annotation attribute is taken to be the <em>render-kit-id</em> in which an instance of this class of <code>Renderer</code> must be
+     * installed.
      * </p>
      *
      * @return the <em>render-kit-id</em>
@@ -94,8 +90,8 @@ public @interface FacesRenderer {
 
     /**
      * <p class="changed_added_2_0">
-     * The value of this annotation attribute is taken to be the <em>renderer-type</em> which, in combination with
-     * {@link #componentFamily} can be used to obtain a reference to an instance of this {@link Renderer} by calling
+     * The value of this annotation attribute is taken to be the <em>renderer-type</em> which, in combination with {@link #componentFamily} can be used to
+     * obtain a reference to an instance of this {@link Renderer} by calling
      * {@link jakarta.faces.render.RenderKit#getRenderer(java.lang.String, java.lang.String)}.
      * </p>
      *
@@ -106,8 +102,8 @@ public @interface FacesRenderer {
 
     /**
      * <p class="changed_added_2_0">
-     * The value of this annotation attribute is taken to be the <em>component-family</em> which, in combination with
-     * {@link #rendererType} can be used to obtain a reference to an instance of this {@link Renderer} by calling
+     * The value of this annotation attribute is taken to be the <em>component-family</em> which, in combination with {@link #rendererType} can be used to
+     * obtain a reference to an instance of this {@link Renderer} by calling
      * {@link jakarta.faces.render.RenderKit#getRenderer(java.lang.String, java.lang.String)}.
      * </p>
      *

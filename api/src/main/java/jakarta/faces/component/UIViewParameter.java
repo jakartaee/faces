@@ -34,22 +34,21 @@ import jakarta.faces.validator.Validator;
 
 /**
  * <p class="changed_added_2_0">
- * <strong class="changed_modified_2_2 changed_modified_2_3">UIViewParameter</strong> represents a binding between a
- * request parameter and a model property or {@link UIViewRoot} property. This is a bi-directional binding.
+ * <strong class="changed_modified_2_2 changed_modified_2_3">UIViewParameter</strong> represents a binding between a request parameter and a model property or
+ * {@link UIViewRoot} property. This is a bi-directional binding.
  * </p>
  *
  * <div class="changed_added_2_0">
  *
  * <p>
- * The {@link jakarta.faces.view.ViewDeclarationLanguage} implementation must cause an instance of this component to
- * appear in the view for each occurrence of an <code>&lt;f:viewParam /&gt;</code> element placed inside of an
- * <code>&lt;f:metadata /&gt;</code> element. The user must place this facet within the <code>UIViewRoot</code>.
+ * The {@link jakarta.faces.view.ViewDeclarationLanguage} implementation must cause an instance of this component to appear in the view for each occurrence of
+ * an <code>&lt;f:viewParam /&gt;</code> element placed inside of an <code>&lt;f:metadata /&gt;</code> element. The user must place this facet within the
+ * <code>UIViewRoot</code>.
  * </p>
  *
  * <p>
- * Because this class extends <code>UIInput</code> any actions that one would normally take on a <code>UIInput</code>
- * instance are valid for instances of this class. Instances of this class participate in the regular Jakarta Server
- * Faces lifecycle, including on Ajax requests.
+ * Because this class extends <code>UIInput</code> any actions that one would normally take on a <code>UIInput</code> instance are valid for instances of this
+ * class. Instances of this class participate in the regular Jakarta Server Faces lifecycle, including on Ajax requests.
  * </p>
  *
  * </div>
@@ -75,7 +74,8 @@ public class UIViewParameter extends UIInput {
     public static final String COMPONENT_FAMILY = "jakarta.faces.ViewParameter";
 
     enum PropertyKeys {
-        name, submittedValue
+        name,
+        submittedValue
     }
 
     // ------------------------------------------------------ Instance Variables
@@ -100,10 +100,9 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p>
-     * The raw value is the "implicit" binding for this view parameter. This property maintains the submitted value of the
-     * view parameter for the duration of the request. If the view parameter does not explicitly specify a value expression,
-     * then when the request ends, this value is stored with the state of this component to use as the submitted value on an
-     * ensuing postback.
+     * The raw value is the "implicit" binding for this view parameter. This property maintains the submitted value of the view parameter for the duration of
+     * the request. If the view parameter does not explicitly specify a value expression, then when the request ends, this value is stored with the state of
+     * this component to use as the submitted value on an ensuing postback.
      * </p>
      */
     private String rawValue;
@@ -147,8 +146,7 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p class="changed_added_2_0">
-     * Return <code>false</code>. The immediate setting is not relevant for view parameters and must be assumed to be
-     * <code>false</code>.
+     * Return <code>false</code>. The immediate setting is not relevant for view parameters and must be assumed to be <code>false</code>.
      * </p>
      *
      * @return <code>true</code> if immediate, <code>false</code> otherwise.
@@ -161,8 +159,8 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_2">Assume</span> that the submitted value is always a string,
-     * <span class="changed_added_2_2">but the return type from this method is <code>Object</code>.</span>.
+     * <span class="changed_modified_2_2">Assume</span> that the submitted value is always a string, <span class="changed_added_2_2">but the return type from
+     * this method is <code>Object</code>.</span>.
      * </p>
      *
      * @return the submitted value.
@@ -192,8 +190,8 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p class="changed_added_2_0">
-     * Override behavior from superclass to pull a value from the incoming request parameter map under the name given by
-     * {@link #getName} and store it with a call to {@link UIInput#setSubmittedValue}.
+     * Override behavior from superclass to pull a value from the incoming request parameter map under the name given by {@link #getName} and store it with a
+     * call to {@link UIInput#setSubmittedValue}.
      * </p>
      *
      * @since 2.0
@@ -221,11 +219,10 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_3">Specialize</span> superclass behavior to treat <code>null</code> differently. In
-     * this class, a <code>null</code> value along with the "required" flag being set to <code>true</code> will cause a
-     * validation failure. <span class="changed_added_2_3">Otherwise, If the {@link UIInput#EMPTY_STRING_AS_NULL_PARAM_NAME}
-     * context parameter is true and the value is {@code null}, call {@link UIInput#setSubmittedValue} passing the empty
-     * string as the argument. This will cause the normal validation processing to happen, including bean validation.</span>
+     * <span class="changed_modified_2_3">Specialize</span> superclass behavior to treat <code>null</code> differently. In this class, a <code>null</code> value
+     * along with the "required" flag being set to <code>true</code> will cause a validation failure. <span class="changed_added_2_3">Otherwise, If the
+     * {@link UIInput#EMPTY_STRING_AS_NULL_PARAM_NAME} context parameter is true and the value is {@code null}, call {@link UIInput#setSubmittedValue} passing
+     * the empty string as the argument. This will cause the normal validation processing to happen, including bean validation.</span>
      * </p>
      *
      * @param context the Faces context.
@@ -251,14 +248,16 @@ public class UIViewParameter extends UIInput {
             FacesMessage message;
             if (null != requiredMessageStr) {
                 message = new FacesMessage(Severity.ERROR, requiredMessageStr, requiredMessageStr);
-            } else {
+            }
+            else {
                 message = MessageFactory.getMessage(context, REQUIRED_MESSAGE_ID, MessageFactory.getLabel(context, this));
             }
             context.addMessage(getClientId(context), message);
             setValid(false);
             context.validationFailed();
             context.renderResponse();
-        } else {
+        }
+        else {
             super.processValidators(context);
         }
     }
@@ -302,9 +301,8 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p class="changed_added_2_0">
-     * Call through to superclass {@link UIInput#updateModel} then take the additional action of pushing the value into
-     * request scope if and only if the value is not a value expression, is valid, and the local value was set on this
-     * lifecycle execution.
+     * Call through to superclass {@link UIInput#updateModel} then take the additional action of pushing the value into request scope if and only if the value
+     * is not a value expression, is valid, and the local value was set on this lifecycle execution.
      * </p>
      *
      * @since 2.0
@@ -324,8 +322,7 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p class="changed_added_2_0">
-     * Called specially by {@link UIViewRoot#encodeEnd}, this method simply sets the submitted value to be the return from
-     * {@link #getStringValue}.
+     * Called specially by {@link UIViewRoot#encodeEnd}, this method simply sets the submitted value to be the return from {@link #getStringValue}.
      * </p>
      *
      * @throws IOException when an I/O error occurs.
@@ -345,8 +342,7 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p class="changed_added_2_0">
-     * If the value of this parameter comes from a <code>ValueExpression</code> return the value of the expression,
-     * otherwise, return the local value.
+     * If the value of this parameter comes from a <code>ValueExpression</code> return the value of the expression, otherwise, return the local value.
      * </p>
      *
      * @param context the Faces context.
@@ -358,7 +354,8 @@ public class UIViewParameter extends UIInput {
         String result = null;
         if (hasValueExpression()) {
             result = getStringValueFromModel(context);
-        } else {
+        }
+        else {
             result = null != rawValue ? rawValue : (String) getValue();
         }
         return result;
@@ -416,8 +413,8 @@ public class UIViewParameter extends UIInput {
     /**
      * <p class="changed_added_2_0">
      * Because this class has no {@link Renderer}, leverage the one from the standard HTML_BASIC {@link RenderKit} with
-     * <code>component-family: jakarta.faces.Input</code> and <code>renderer-type: jakarta.faces.Text</code> and call its
-     * {@link Renderer#getConvertedValue} method.
+     * <code>component-family: jakarta.faces.Input</code> and <code>renderer-type: jakarta.faces.Text</code> and call its {@link Renderer#getConvertedValue}
+     * method.
      * </p>
      *
      * @param submittedValue the submitted value.
@@ -449,8 +446,8 @@ public class UIViewParameter extends UIInput {
 
     /**
      * <p class="changed_added_2_0">
-     * Inner class to encapsulate a <code>UIViewParameter</code> instance so that it may be safely referenced regardless of
-     * whether or not the current view is the same as the view in which this <code>UIViewParameter</code> resides.
+     * Inner class to encapsulate a <code>UIViewParameter</code> instance so that it may be safely referenced regardless of whether or not the current view is
+     * the same as the view in which this <code>UIViewParameter</code> resides.
      * </p>
      *
      * @since 2.0
@@ -464,15 +461,15 @@ public class UIViewParameter extends UIInput {
 
         /**
          * <p class="changed_added_2_0">
-         * Construct a reference to a <code>UIViewParameter</code>. This constructor cause the {@link StateHolder#saveState}
-         * method to be called on argument <code>UIViewParameter</code>.
+         * Construct a reference to a <code>UIViewParameter</code>. This constructor cause the {@link StateHolder#saveState} method to be called on argument
+         * <code>UIViewParameter</code>.
          * </p>
          *
          * @param context the <code>FacesContext</code>for this request
          * @param param the UIViewParameter.
          * @param indexInParent the index of the <code>UIViewParameter</code> in its parent <code>UIPanel</code>.
-         * @param viewIdAtTimeOfConstruction the viewId of the view in which the <code>UIViewParameter</code> is included. This
-         * may not be the same as the viewId from the <code>context</code> argument.
+         * @param viewIdAtTimeOfConstruction the viewId of the view in which the <code>UIViewParameter</code> is included. This may not be the same as the
+         * viewId from the <code>context</code> argument.
          *
          * @since 2.0
          */
@@ -484,10 +481,9 @@ public class UIViewParameter extends UIInput {
 
         /**
          * <p class="changed_added_2_0">
-         * Return the <code>UIViewParameter</code> to which this instance refers. If the current viewId is the same as the
-         * viewId passed to our constructor, use the index passed to the constructor to find the actual
-         * <code>UIViewParameter</code> instance and return it. Otherwise, call {@link StateHolder#restoreState} on the saved
-         * state and return the result.
+         * Return the <code>UIViewParameter</code> to which this instance refers. If the current viewId is the same as the viewId passed to our constructor, use
+         * the index passed to the constructor to find the actual <code>UIViewParameter</code> instance and return it. Otherwise, call
+         * {@link StateHolder#restoreState} on the saved state and return the result.
          * </p>
          *
          * @param context the <code>FacesContext</code>for this request
@@ -502,7 +498,8 @@ public class UIViewParameter extends UIInput {
                 // get the actual view parameter from the tree...
                 UIComponent metadataFacet = root.getFacet(UIViewRoot.METADATA_FACET_NAME);
                 result = (UIViewParameter) metadataFacet.getChildren().get(indexInParent);
-            } else {
+            }
+            else {
                 // otherwise, use the saved one
                 result = (UIViewParameter) saver.restore(context);
             }

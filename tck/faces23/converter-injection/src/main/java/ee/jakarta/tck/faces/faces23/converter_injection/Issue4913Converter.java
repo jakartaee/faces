@@ -29,15 +29,15 @@ public class Issue4913Converter implements Converter<Object> {
 
     @Inject
     private BeanManager cdi;
-    
-	@Override
-	public String getAsString(FacesContext context, UIComponent component, Object value) {
-		return cdi == null ? "" : (value + " is successfully converted in a managed converter");
-	}
 
-	@Override
-	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		return value;
-	}
+    @Override
+    public String getAsString(FacesContext context, UIComponent component, Object value) {
+        return cdi == null ? "" : (value + " is successfully converted in a managed converter");
+    }
+
+    @Override
+    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+        return value;
+    }
 
 }

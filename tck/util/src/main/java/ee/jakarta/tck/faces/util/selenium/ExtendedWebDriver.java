@@ -84,7 +84,6 @@ public interface ExtendedWebDriver extends WebDriver {
      */
     void printProcessedResponses();
 
-
     /**
      * Waits for until the communication with Faces server is completed.
      *
@@ -93,8 +92,7 @@ public interface ExtendedWebDriver extends WebDriver {
     void waitForFaces(Duration timeout);
 
     /**
-     * Takes current windows handles and switches the driver to the one with the given url.
-     * If such window was not found, result is undefined.
+     * Takes current windows handles and switches the driver to the one with the given url. If such window was not found, result is undefined.
      *
      * @param url
      */
@@ -121,4 +119,5 @@ public interface ExtendedWebDriver extends WebDriver {
      * add header to all upcoming requests until {@link #quit()} is invoked
      */
     void addRequestHeader(String name, String value);
+
 }

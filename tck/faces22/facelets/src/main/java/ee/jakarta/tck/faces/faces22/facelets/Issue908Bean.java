@@ -51,4 +51,5 @@ public class Issue908Bean implements Serializable {
     public void valueChange(ValueChangeEvent event) {
         FacesContext.getCurrentInstance().renderResponse();
     }
+
 }

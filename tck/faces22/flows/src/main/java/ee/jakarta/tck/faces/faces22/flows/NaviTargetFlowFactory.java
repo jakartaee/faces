@@ -39,8 +39,9 @@ public class NaviTargetFlowFactory implements Serializable {
         flowBuilder.viewNode(flowId, "/" + flowId + "/" + flowId + ".xhtml").markAsStartNode();
 
         flowBuilder.returnNode("ParentDestinationView")
-                   .fromOutcome("DestinationView");
+            .fromOutcome("DestinationView");
 
         return flowBuilder.getFlow();
     }
+
 }

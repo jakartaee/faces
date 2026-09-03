@@ -28,8 +28,8 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_0_rev_a">A Validator</span> that checks against a Regular Expression (which is the
- * pattern property). The pattern must resolve to a String that follows the java.util.regex standards.
+ * <span class="changed_modified_2_0_rev_a">A Validator</span> that checks against a Regular Expression (which is the pattern property). The pattern must
+ * resolve to a String that follows the java.util.regex standards.
  * </p>
  *
  * @since 2.0
@@ -47,24 +47,24 @@ public class RegexValidator implements Validator<String>, PartialStateHolder {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the value returned from
-     * {@link #getPattern} is <code>null</code> or the empty String.
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the value returned from {@link #getPattern} is
+     * <code>null</code> or the empty String.
      * </p>
      */
     public static final String PATTERN_NOT_SET_MESSAGE_ID = "jakarta.faces.validator.RegexValidator.PATTERN_NOT_SET";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the act of matching the
-     * value against the pattern returned from {@link #getPattern} fails because the value does not match the pattern.
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the act of matching the value against the pattern returned
+     * from {@link #getPattern} fails because the value does not match the pattern.
      * </p>
      */
     public static final String NOT_MATCHED_MESSAGE_ID = "jakarta.faces.validator.RegexValidator.NOT_MATCHED";
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the act of matching the
-     * value against the pattern returned from {@link #getPattern} fails because of a <code>PatternSyntaxException</code>.
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if the act of matching the value against the pattern returned
+     * from {@link #getPattern} fails because of a <code>PatternSyntaxException</code>.
      * </p>
      */
     public static final String MATCH_EXCEPTION_MESSAGE_ID = "jakarta.faces.validator.RegexValidator.MATCH_EXCEPTION";
@@ -96,8 +96,7 @@ public class RegexValidator implements Validator<String>, PartialStateHolder {
     /**
      *
      * <p>
-     * Validate a String against a regular expression pattern. The full regex pattern must be matched in order to pass the
-     * validation.
+     * Validate a String against a regular expression pattern. The full regex pattern must be matched in order to pass the validation.
      * </p>
      *
      * @param context {@inheritDoc}
@@ -139,7 +138,8 @@ public class RegexValidator implements Validator<String>, PartialStateHolder {
                 fmsg = MessageFactory.getMessage(locale, NOT_MATCHED_MESSAGE_ID, params);
                 throw new ValidatorException(fmsg);
             }
-        } catch (PatternSyntaxException pse) {
+        }
+        catch (PatternSyntaxException pse) {
             fmsg = MessageFactory.getMessage(locale, MATCH_EXCEPTION_MESSAGE_ID, (Object) null);
             throw new ValidatorException(fmsg, pse);
         }
@@ -208,4 +208,5 @@ public class RegexValidator implements Validator<String>, PartialStateHolder {
     public void clearInitialState() {
         initialState = false;
     }
+
 }

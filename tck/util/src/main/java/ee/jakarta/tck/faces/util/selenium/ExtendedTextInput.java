@@ -27,10 +27,11 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 /**
- * Helper to provide a set value and get value functionality on top of Selenium functionality. Something Selenium has
- * omitted functionality wise (similar to what Select as Utils class does)
+ * Helper to provide a set value and get value functionality on top of Selenium functionality. Something Selenium has omitted functionality wise (similar to
+ * what Select as Utils class does)
  */
 public class ExtendedTextInput implements WebElement {
+
     WebElement delegate;
     ExtendedWebDriver webDriver;
 
@@ -45,7 +46,8 @@ public class ExtendedTextInput implements WebElement {
 
     public void fireEvent(String eventName) {
         webDriver.getJSExecutor().executeScript(
-            "var __evt__ =  new Event('" + eventName + "', {bubbles: true});" + "arguments[0].dispatchEvent(__evt__)", delegate);
+            "var __evt__ =  new Event('" + eventName + "', {bubbles: true});" + "arguments[0].dispatchEvent(__evt__)", delegate
+        );
     }
 
     public String getValue() {
@@ -161,4 +163,5 @@ public class ExtendedTextInput implements WebElement {
     public <X> X getScreenshotAs(OutputType<X> target) throws WebDriverException {
         return delegate.getScreenshotAs(target);
     }
+
 }

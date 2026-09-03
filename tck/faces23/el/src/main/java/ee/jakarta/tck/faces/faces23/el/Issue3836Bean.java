@@ -38,4 +38,5 @@ public class Issue3836Bean {
     public String getForbidden() {
         return forbidden;
     }
+
 }

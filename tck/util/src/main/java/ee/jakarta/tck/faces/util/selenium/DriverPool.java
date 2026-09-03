@@ -24,8 +24,7 @@ import java.util.logging.Logger;
 import org.openqa.selenium.WebDriverException;
 
 /**
- * a helper class providing pool management for our drivers Note, the pool itself is thread safe (and must be), the
- * drivers are not!
+ * a helper class providing pool management for our drivers Note, the pool itself is thread safe (and must be), the drivers are not!
  */
 public class DriverPool {
 
@@ -37,10 +36,8 @@ public class DriverPool {
     private volatile Future<ExtendedWebDriver> warming;
 
     /**
-     * Eagerly boots one Chrome instance on a background thread so the cold start (the
-     * Chrome process launch in {@link ChromeDevtoolsDriver#stdInit}) overlaps the
-     * Arquillian deployment instead of serialising on the first
-     * {@link #getOrNewInstance()} call. No-op if a driver is already available or warming.
+     * Eagerly boots one Chrome instance on a background thread so the cold start (the Chrome process launch in {@link ChromeDevtoolsDriver#stdInit}) overlaps
+     * the Arquillian deployment instead of serialising on the first {@link #getOrNewInstance()} call. No-op if a driver is already available or warming.
      */
     public synchronized void prewarm() {
         if (warming == null && availableDrivers.isEmpty()) {
@@ -49,8 +46,7 @@ public class DriverPool {
     }
 
     /**
-     * Claims the pre-warmed driver, blocking until its background boot completes.
-     * Returns {@code null} (so the caller falls back to a synchronous boot) if no
+     * Claims the pre-warmed driver, blocking until its background boot completes. Returns {@code null} (so the caller falls back to a synchronous boot) if no
      * pre-warm is pending or the boot failed.
      */
     private ExtendedWebDriver takeWarming() {
@@ -63,10 +59,12 @@ public class DriverPool {
             ExtendedWebDriver webDriver = pending.get();
             allDrivers.add(webDriver);
             return webDriver;
-        } catch (InterruptedException ex) {
+        }
+        catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
             return null;
-        } catch (ExecutionException ex) {
+        }
+        catch (ExecutionException ex) {
             LOG.warning(() -> "Driver pre-warm boot failed, falling back to synchronous init: " + ex.getCause());
             return null;
         }
@@ -91,7 +89,8 @@ public class DriverPool {
 
         try {
             webDriver.postInit();
-        } catch (WebDriverException ex) {
+        }
+        catch (WebDriverException ex) {
             webDriver = replace(webDriver, "postInit failed (" + ex.getClass().getSimpleName() + ")");
             webDriver.postInit();
         }
@@ -99,15 +98,15 @@ public class DriverPool {
     }
 
     /**
-     * Discards a driver whose CDP session has gone unresponsive (TimeoutException
-     * on send / postInit / get / etc.) and returns a fresh one. Retains pool size
+     * Discards a driver whose CDP session has gone unresponsive (TimeoutException on send / postInit / get / etc.) and returns a fresh one. Retains pool size
      * by removing the old from {@code allDrivers} before adding the replacement.
      */
     public ExtendedWebDriver replace(ExtendedWebDriver bad, String reason) {
         LOG.warning(() -> "Replacing driver: " + reason);
         try {
             bad.quit();
-        } catch (RuntimeException ignored) {
+        }
+        catch (RuntimeException ignored) {
             // best-effort cleanup
         }
         allDrivers.remove(bad);
@@ -159,4 +158,5 @@ public class DriverPool {
         allDrivers.clear();
         availableDrivers.clear();
     }
+
 }

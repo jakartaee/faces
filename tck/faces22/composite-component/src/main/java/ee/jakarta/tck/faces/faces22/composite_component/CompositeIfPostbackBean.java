@@ -24,8 +24,8 @@ import jakarta.enterprise.context.SessionScoped;
 import jakarta.inject.Named;
 
 /**
- * Backs the composite component of {@code composite-if-postback.xhtml}, whose {@code c:if} tests the list this passes
- * as a composite component attribute. Session scoped so the list an action filled outlives the postback that filled it.
+ * Backs the composite component of {@code composite-if-postback.xhtml}, whose {@code c:if} tests the list this passes as a composite component attribute.
+ * Session scoped so the list an action filled outlives the postback that filled it.
  */
 @Named
 @SessionScoped
@@ -46,4 +46,5 @@ public class CompositeIfPostbackBean implements Serializable {
     public void clear() {
         items = new ArrayList<>();
     }
+
 }

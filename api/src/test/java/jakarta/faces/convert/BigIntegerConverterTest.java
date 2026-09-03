@@ -110,4 +110,5 @@ class BigIntegerConverterTest {
         FacesContext facesContext = Mockito.mock(FacesContext.class);
         assertEquals("123", converter.getAsString(facesContext, new UIPanel(), BigInteger.valueOf(123)));
     }
+
 }

@@ -46,8 +46,8 @@ class Issue5885IT extends BaseITNG {
     private WebElement multiChildFacetSubmit;
 
     /**
-     * An input which is the sole child of a facet must, after a failed validation on an ajax postback, re-render
-     * the submitted value instead of the model value.
+     * An input which is the sole child of a facet must, after a failed validation on an ajax postback, re-render the submitted value instead of the model
+     * value.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5885
      */
@@ -64,10 +64,9 @@ class Issue5885IT extends BaseITNG {
     }
 
     /**
-     * An input in a facet with more than one child, which Facelets wraps in an implicit panel, must behave the
-     * same as one in a single child facet: after a failed validation on an ajax postback it must re-render the
-     * submitted value instead of the model value, also when the view holds a programmatically added component
-     * and the Facelets refresh is therefore re-applied during Render Response.
+     * An input in a facet with more than one child, which Facelets wraps in an implicit panel, must behave the same as one in a single child facet: after a
+     * failed validation on an ajax postback it must re-render the submitted value instead of the model value, also when the view holds a programmatically added
+     * component and the Facelets refresh is therefore re-applied during Render Response.
      *
      * @see https://github.com/eclipse-ee4j/mojarra/issues/5885
      */
@@ -82,4 +81,5 @@ class Issue5885IT extends BaseITNG {
         assertFalse(multiChildFacetMessage.getText().isBlank());
         assertEquals("", multiChildFacetInput.getDomProperty("value"));
     }
+
 }

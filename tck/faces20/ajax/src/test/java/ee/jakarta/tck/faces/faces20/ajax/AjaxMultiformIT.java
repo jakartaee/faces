@@ -25,8 +25,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * An ajax request submitted from one of several sibling forms must re-render only the region it
- * renders, and leave the sibling forms and the page content outside of them untouched.
+ * An ajax request submitted from one of several sibling forms must re-render only the region it renders, and leave the sibling forms and the page content
+ * outside of them untouched.
  */
 class AjaxMultiformIT extends BaseITNG {
 
@@ -57,4 +57,5 @@ class AjaxMultiformIT extends BaseITNG {
     private void assertCount(WebPage page, String clientId, String expected) {
         assertEquals(expected, page.findElement(By.id(clientId)).getText(), clientId);
     }
+
 }

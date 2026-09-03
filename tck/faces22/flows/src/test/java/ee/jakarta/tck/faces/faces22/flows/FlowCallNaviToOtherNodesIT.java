@@ -24,9 +24,8 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * Flow node-to-node navigation matrix: a flow-call node navigates into child flows
- * that start respectively from a view node, a method-call node, a switch node, a
- * return node, and another flow-call node. Each path must end on the destination view.
+ * Flow node-to-node navigation matrix: a flow-call node navigates into child flows that start respectively from a view node, a method-call node, a switch node,
+ * a return node, and another flow-call node. Each path must end on the destination view.
  */
 class FlowCallNaviToOtherNodesIT extends BaseITNG {
 
@@ -78,4 +77,5 @@ class FlowCallNaviToOtherNodesIT extends BaseITNG {
         page.guardHttp(() -> page.findElement(By.id(childNavigationButtonId)).click());
         assertTrue(page.containsText(DESTINATION), DESTINATION);
     }
+
 }

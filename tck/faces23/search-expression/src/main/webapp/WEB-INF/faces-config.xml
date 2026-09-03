@@ -22,7 +22,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-facesconfig_4_1.xsd"
     version="4.1">
-	<application>
-		<search-keyword-resolver>ee.jakarta.tck.faces.faces23.search_expression.CustomSearchKeywordResolver</search-keyword-resolver>
-	</application>
+    <application>
+        <search-keyword-resolver>ee.jakarta.tck.faces.faces23.search_expression.CustomSearchKeywordResolver</search-keyword-resolver>
+    </application>
 </faces-config>

@@ -47,4 +47,5 @@ public class FacesConfigClientWindowFactory extends ClientWindowFactory implemen
     public String getInjectedMessage() {
         return injectedMessage + " " + postConstructCalled;
     }
+
 }

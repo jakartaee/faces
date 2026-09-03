@@ -20,15 +20,14 @@ import jakarta.faces.context.FacesContext;
 
 /**
  * <p>
- * <span class="changed_modified_2_0_rev_a">This</span> component is responsible for displaying messages for a specific
- * {@link UIComponent}, identified by a <code>clientId</code> <span class="changed_modified_2_0_rev_a"> or component id
- * relative to the closest ancestor <code>NamingContainer</code></span>. The component obtains the messages from the
- * {@link FacesContext}.
+ * <span class="changed_modified_2_0_rev_a">This</span> component is responsible for displaying messages for a specific {@link UIComponent}, identified by a
+ * <code>clientId</code> <span class="changed_modified_2_0_rev_a"> or component id relative to the closest ancestor <code>NamingContainer</code></span>. The
+ * component obtains the messages from the {@link FacesContext}.
  * </p>
  *
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Message</code>". This value
- * can be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Message</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  *
  *
@@ -54,7 +53,10 @@ public class UIMessage extends UIComponentBase {
 
     enum PropertyKeys {
 
-        forValue("for"), showDetail, showSummary, redisplay;
+        forValue("for"),
+        showDetail,
+        showSummary,
+        redisplay;
 
         String toString;
 
@@ -97,10 +99,9 @@ public class UIMessage extends UIComponentBase {
 
     /**
      * <p>
-     * <span class="changed_modified_2_0_rev_a">Return the Identifier of the component for which to render error messages.
-     * If this component is within the same NamingContainer as the target component, this must be the component identifier.
-     * Otherwise, it must be an absolute component identifier (starting with ":"). See the {@link UIComponent#findComponent}
-     * for more information.</span>
+     * <span class="changed_modified_2_0_rev_a">Return the Identifier of the component for which to render error messages. If this component is within the same
+     * NamingContainer as the target component, this must be the component identifier. Otherwise, it must be an absolute component identifier (starting with
+     * ":"). See the {@link UIComponent#findComponent} for more information.</span>
      * </p>
      *
      * @return the for client identifier.
@@ -113,8 +114,8 @@ public class UIMessage extends UIComponentBase {
 
     /**
      * <p>
-     * Set <span class="changed_modified_2_0_rev_a">the identifier</span> of the component for which this component
-     * represents associated message(s) (if any). This property must be set before the message is displayed.
+     * Set <span class="changed_modified_2_0_rev_a">the identifier</span> of the component for which this component represents associated message(s) (if any).
+     * This property must be set before the message is displayed.
      * </p>
      *
      * @param newFor The new client id
@@ -127,8 +128,7 @@ public class UIMessage extends UIComponentBase {
 
     /**
      * <p>
-     * Return the flag indicating whether the <code>detail</code> property of the associated message(s) should be displayed.
-     * Defaults to <code>true</code>.
+     * Return the flag indicating whether the <code>detail</code> property of the associated message(s) should be displayed. Defaults to <code>true</code>.
      * </p>
      *
      * @return <code>true</code> if detail is to be shown, <code>false</code> otherwise.
@@ -154,8 +154,7 @@ public class UIMessage extends UIComponentBase {
 
     /**
      * <p>
-     * Return the flag indicating whether the <code>summary</code> property of the associated message(s) should be
-     * displayed. Defaults to <code>false</code>.
+     * Return the flag indicating whether the <code>summary</code> property of the associated message(s) should be displayed. Defaults to <code>false</code>.
      * </p>
      *
      * @return <code>true</code> if the summary is to be shown, <code>false</code> otherwise.
@@ -180,9 +179,9 @@ public class UIMessage extends UIComponentBase {
     }
 
     /**
-     * @return <code>true</code> if this <code>UIMessage</code> instance should redisplay
-     * {@link jakarta.faces.application.FacesMessage}s that have already been handled, otherwise returns <code>false</code>.
-     * By default this method will always return <code>true</code> if {@link #setRedisplay(boolean)} has not been called.
+     * @return <code>true</code> if this <code>UIMessage</code> instance should redisplay {@link jakarta.faces.application.FacesMessage}s that have already been
+     * handled, otherwise returns <code>false</code>. By default this method will always return <code>true</code> if {@link #setRedisplay(boolean)} has not been
+     * called.
      *
      * @since 2.0
      */

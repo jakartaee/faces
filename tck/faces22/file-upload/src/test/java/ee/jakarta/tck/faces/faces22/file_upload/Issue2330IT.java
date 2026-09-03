@@ -32,9 +32,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 class Issue2330IT extends BaseITNG {
 
     /**
-     * When the container fails to read the multipart parts during decoding of an {@code h:inputFile}
-     * (here a servlet {@code Filter} wraps the request so {@code HttpServletRequest.getParts()} throws an
-     * {@code IOException}), the file renderer must surface the failure as a faces message rather than
+     * When the container fails to read the multipart parts during decoding of an {@code h:inputFile} (here a servlet {@code Filter} wraps the request so
+     * {@code HttpServletRequest.getParts()} throws an {@code IOException}), the file renderer must surface the failure as a faces message rather than
      * propagating the exception, so it is rendered via {@code h:messages}.
      *
      * @see HtmlInputFile
@@ -51,7 +50,10 @@ class Issue2330IT extends BaseITNG {
 
         page.guardHttp(page.findElement(By.id("button"))::click);
 
-        assertTrue(page.containsText("Negative test, intentional failure"),
-            "File renderer must surface the multipart read failure as a faces message");
+        assertTrue(
+            page.containsText("Negative test, intentional failure"),
+            "File renderer must surface the multipart read failure as a faces message"
+        );
     }
+
 }

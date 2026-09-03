@@ -18,12 +18,13 @@ package ee.jakarta.tck.faces.faces22.render_kit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import jakarta.faces.component.html.HtmlPanelGrid;
+
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 
 import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
-import jakarta.faces.component.html.HtmlPanelGrid;
 
 class Spec1134IT extends BaseITNG {
 
@@ -40,4 +41,5 @@ class Spec1134IT extends BaseITNG {
         assertEquals("table", page.findElement(By.id("grid")).getTagName(), "h:panelGrid renders a table");
         assertEquals("presentation", page.findElement(By.id("grid")).getDomAttribute("role"), "role attribute");
     }
+
 }

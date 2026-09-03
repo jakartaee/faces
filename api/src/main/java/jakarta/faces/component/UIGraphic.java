@@ -20,13 +20,13 @@ import jakarta.el.ValueExpression;
 
 /**
  * <p>
- * <strong>UIGraphic</strong> is a {@link UIComponent} that displays a graphical image to the user. The user cannot
- * manipulate this component; it is for display purposes only.
+ * <strong>UIGraphic</strong> is a {@link UIComponent} that displays a graphical image to the user. The user cannot manipulate this component; it is for display
+ * purposes only.
  * </p>
  *
  * <p>
- * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Image</code>". This value can
- * be changed by calling the <code>setRendererType()</code> method.
+ * By default, the <code>rendererType</code> property must be set to "<code>jakarta.faces.Image</code>". This value can be changed by calling the
+ * <code>setRendererType()</code> method.
  * </p>
  */
 public class UIGraphic extends UIComponentBase {
@@ -129,11 +129,10 @@ public class UIGraphic extends UIComponentBase {
 
     // ---------------------------------------------------------------- Bindings
 
-
     /**
      * <p>
-     * Return any {@link ValueExpression} set for <code>value</code> if a {@link ValueExpression} for <code>url</code> is
-     * requested; otherwise, perform the default superclass processing for this method.
+     * Return any {@link ValueExpression} set for <code>value</code> if a {@link ValueExpression} for <code>url</code> is requested; otherwise, perform the
+     * default superclass processing for this method.
      * </p>
      *
      * @param name Name of the attribute or property for which to retrieve a {@link ValueExpression}
@@ -145,20 +144,20 @@ public class UIGraphic extends UIComponentBase {
     public ValueExpression getValueExpression(String name) {
         if ("url".equals(name)) {
             return super.getValueExpression("value");
-        } else {
+        }
+        else {
             return super.getValueExpression(name);
         }
     }
 
     /**
      * <p>
-     * Store any {@link ValueExpression} specified for <code>url</code> under <code>value</code> instead; otherwise, perform
-     * the default superclass processing for this method.
+     * Store any {@link ValueExpression} specified for <code>url</code> under <code>value</code> instead; otherwise, perform the default superclass processing
+     * for this method.
      * </p>
      *
      * @param name Name of the attribute or property for which to set a {@link ValueExpression}
-     * @param binding The {@link ValueExpression} to set, or <code>null</code> to remove any currently set
-     * {@link ValueExpression}
+     * @param binding The {@link ValueExpression} to set, or <code>null</code> to remove any currently set {@link ValueExpression}
      *
      * @throws NullPointerException if <code>name</code> is <code>null</code>
      * @since 1.2
@@ -167,7 +166,8 @@ public class UIGraphic extends UIComponentBase {
     public void setValueExpression(String name, ValueExpression binding) {
         if ("url".equals(name)) {
             super.setValueExpression("value", binding);
-        } else {
+        }
+        else {
             super.setValueExpression(name, binding);
         }
     }

@@ -35,8 +35,8 @@ public class Spec1127Bean {
     }
 
     /**
-     * Declares Serializable so that it may be put into the component attribute map, but refuses to serialize, which is
-     * what distinguishes a runtime which serializes the server side state from one which does not.
+     * Declares Serializable so that it may be put into the component attribute map, but refuses to serialize, which is what distinguishes a runtime which
+     * serializes the server side state from one which does not.
      */
     private static class NotReallySerializable implements Serializable {
 
@@ -49,5 +49,7 @@ public class Spec1127Bean {
         private void readObject(ObjectInputStream in) throws IOException {
             throw new NotSerializableException("This class is not really serializable.");
         }
+
     }
+
 }

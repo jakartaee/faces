@@ -26,10 +26,11 @@ public class Issue3356FacesContext extends FacesContextWrapper {
     }
 
     /**
-     * {@link FacesContext#setCurrentInstance} is protected, so only a {@link FacesContext} subclass
-     * can install the decorator as the current instance on behalf of the factory.
+     * {@link FacesContext#setCurrentInstance} is protected, so only a {@link FacesContext} subclass can install the decorator as the current instance on behalf
+     * of the factory.
      */
     void install() {
         setCurrentInstance(this);
     }
+
 }

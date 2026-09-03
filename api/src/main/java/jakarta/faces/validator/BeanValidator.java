@@ -57,8 +57,7 @@ import jakarta.validation.groups.Default;
 
 /**
  * <p class="changed_added_2_0">
- * <span class="changed_modified_2_0_rev_a changed_modified_2_3">A Validator</span> that delegates validation of the
- * bean property to the Bean Validation API.
+ * <span class="changed_modified_2_0_rev_a changed_modified_2_3">A Validator</span> that delegates validation of the bean property to the Bean Validation API.
  * </p>
  *
  * @since 2.0
@@ -80,34 +79,32 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p>
-     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if a constraint failure is
-     * found. The message format string for this message may optionally include the following placeholders:
+     * The message identifier of the {@link jakarta.faces.application.FacesMessage} to be created if a constraint failure is found. The message format string
+     * for this message may optionally include the following placeholders:
      * <ul>
      * <li><code>{0}</code> replaced by the interpolated message from Bean Validation.</li>
-     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced
-     * this message.</li>
+     * <li><code>{1}</code> replaced by a <code>String</code> whose value is the label of the input component that produced this message.</li>
      * </ul>
      * <p>
-     * The message format string provided by the default implementation should be a the placeholder {0}, thus fully
-     * delegating the message handling to Bean Validation. A developer can override this message format string to make it
-     * conform to other Jakarta Server Face validator messages (i.e., by including the component label)
+     * The message format string provided by the default implementation should be a the placeholder {0}, thus fully delegating the message handling to Bean
+     * Validation. A developer can override this message format string to make it conform to other Jakarta Server Face validator messages (i.e., by including
+     * the component label)
      * </p>
      */
     public static final String MESSAGE_ID = "jakarta.faces.validator.BeanValidator.MESSAGE";
 
     /**
      * <p class="changed_added_2_0">
-     * The name of the Jakarta Servlet context attribute which holds the object used by Jakarta Faces to obtain
-     * Validator instances. If the Jakarta Servlet context attribute is missing or contains a null value, Jakarta Server
-     * Faces is free to use this Jakarta Servlet context attribute to store the ValidatorFactory bootstrapped by this
-     * validator.
+     * The name of the Jakarta Servlet context attribute which holds the object used by Jakarta Faces to obtain Validator instances. If the Jakarta Servlet
+     * context attribute is missing or contains a null value, Jakarta Server Faces is free to use this Jakarta Servlet context attribute to store the
+     * ValidatorFactory bootstrapped by this validator.
      * </p>
      */
     public static final String VALIDATOR_FACTORY_KEY = "jakarta.faces.validator.beanValidator.ValidatorFactory";
 
     /**
-     * Application-map key under which the shared {@link jakarta.validation.Validator} is cached. It is thread-safe and its
-     * message interpolator resolves the request locale lazily, so one instance serves the whole application.
+     * Application-map key under which the shared {@link jakarta.validation.Validator} is cached. It is thread-safe and its message interpolator resolves the
+     * request locale lazily, so one instance serves the whole application.
      */
     private static final String BEAN_VALIDATOR_KEY = "jakarta.faces.validator.beanValidator.Validator";
 
@@ -130,11 +127,10 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * If this param is defined, and calling <code>toLowerCase().equals(&#8220;true&#8221;)</code> on a <code>String</code>
-     * representation of its value returns <code>true</code>, the runtime must not automatically add the validator with
-     * validator-id equal to the value of the symbolic constant {@link #VALIDATOR_ID} to the list of default validators.
-     * Setting this parameter to <code>true</code> will have the effect of disabling the automatic installation of Bean
-     * Validation to every input component in every view in the application, though manual installation is still possible.
+     * If this param is defined, and calling <code>toLowerCase().equals(&#8220;true&#8221;)</code> on a <code>String</code> representation of its value returns
+     * <code>true</code>, the runtime must not automatically add the validator with validator-id equal to the value of the symbolic constant
+     * {@link #VALIDATOR_ID} to the list of default validators. Setting this parameter to <code>true</code> will have the effect of disabling the automatic
+     * installation of Bean Validation to every input component in every view in the application, though manual installation is still possible.
      * </p>
      *
      */
@@ -142,9 +138,8 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p class="changed_added_2_3">
-     * If this param is set, and calling toLowerCase().equals("true") on a String representation of its value returns
-     * {@code true} take the additional actions relating to <code>&lt;validateWholeBean /&gt;</code> specified in
-     * {@link #validate}.
+     * If this param is set, and calling toLowerCase().equals("true") on a String representation of its value returns {@code true} take the additional actions
+     * relating to <code>&lt;validateWholeBean /&gt;</code> specified in {@link #validate}.
      * </p>
      *
      * @since 2.3
@@ -155,14 +150,12 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * A comma-separated list of validation groups which are used to filter which validations get checked by this validator.
-     * If the validationGroupsArray attribute is omitted or is empty, the validation groups will be inherited from the
-     * branch defaults or, if there are no branch defaults, the {@link jakarta.validation.groups.Default} group will be
-     * used.
+     * A comma-separated list of validation groups which are used to filter which validations get checked by this validator. If the validationGroupsArray
+     * attribute is omitted or is empty, the validation groups will be inherited from the branch defaults or, if there are no branch defaults, the
+     * {@link jakarta.validation.groups.Default} group will be used.
      * </p>
      *
-     * @param validationGroups comma-separated list of validation groups (string with only spaces and commas treated as
-     * null)
+     * @param validationGroups comma-separated list of validation groups (string with only spaces and commas treated as null)
      */
 
     public void setValidationGroups(String validationGroups) {
@@ -193,9 +186,9 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * Return the validation groups passed to the Validation API when checking constraints. If the validationGroupsArray
-     * attribute is omitted or empty, the validation groups will be inherited from the branch defaults, or if there are no
-     * branch defaults, the {@link jakarta.validation.groups.Default} group will be used.
+     * Return the validation groups passed to the Validation API when checking constraints. If the validationGroupsArray attribute is omitted or empty, the
+     * validation groups will be inherited from the branch defaults, or if there are no branch defaults, the {@link jakarta.validation.groups.Default} group
+     * will be used.
      * </p>
      *
      * @return the value of the {@code validatinGroups} attribute.
@@ -206,33 +199,28 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
     /**
      * <p class="changed_added_2_0">
-     * <span class="changed_modified_2_3">Verify</span> that the value is valid according to the Bean Validation
-     * constraints.
+     * <span class="changed_modified_2_3">Verify</span> that the value is valid according to the Bean Validation constraints.
      * </p>
      *
      * <div class="changed_added_2_0">
      *
      * <p>
-     * Obtain a {@link ValidatorFactory} instance by calling
-     * {@link jakarta.validation.Validation#buildDefaultValidatorFactory}.
+     * Obtain a {@link ValidatorFactory} instance by calling {@link jakarta.validation.Validation#buildDefaultValidatorFactory}.
      * </p>
      *
      * <p>
-     * Let <em>validationGroupsArray</em> be a <code>Class []</code> representing validator groups set on the component by
-     * the tag handler for this validator. The first search component terminates the search for the validation groups value.
-     * If no such value is found use the class name of {@link jakarta.validation.groups.Default} as the value of the
-     * validation groups.
+     * Let <em>validationGroupsArray</em> be a <code>Class []</code> representing validator groups set on the component by the tag handler for this validator.
+     * The first search component terminates the search for the validation groups value. If no such value is found use the class name of
+     * {@link jakarta.validation.groups.Default} as the value of the validation groups.
      * </p>
      *
      * <p>
-     * Let <em>valueExpression</em> be the return from calling {@link UIComponent#getValueExpression} on the argument
-     * <em>component</em>, passing the literal string &#8220;value&#8221; (without the quotes) as an argument. If this
-     * application is running in an environment with Jakarta Expression Language, obtain the
-     * <code>ValueReference</code> from <em>valueExpression</em> and let <em>valueBaseClase</em> be the return from calling
-     * <code>ValueReference.getBase()</code> and <em>valueProperty</em> be the return from calling
-     * <code>ValueReference.getProperty()</code>. If an earlier version of Jakarta Expression Language is present, use the
-     * appropriate methods to inspect <em>valueExpression</em> and derive values for <em>valueBaseClass</em> and
-     * <em>valueProperty</em>.
+     * Let <em>valueExpression</em> be the return from calling {@link UIComponent#getValueExpression} on the argument <em>component</em>, passing the literal
+     * string &#8220;value&#8221; (without the quotes) as an argument. If this application is running in an environment with Jakarta Expression Language, obtain
+     * the <code>ValueReference</code> from <em>valueExpression</em> and let <em>valueBaseClase</em> be the return from calling
+     * <code>ValueReference.getBase()</code> and <em>valueProperty</em> be the return from calling <code>ValueReference.getProperty()</code>. If an earlier
+     * version of Jakarta Expression Language is present, use the appropriate methods to inspect <em>valueExpression</em> and derive values for
+     * <em>valueBaseClass</em> and <em>valueProperty</em>.
      * </p>
      *
      * <p>
@@ -248,9 +236,9 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
      * </p>
      *
      * <p>
-     * Decorate the {@link MessageInterpolator} returned from {@link ValidatorFactory#getMessageInterpolator} with one that
-     * leverages the <code>Locale</code> returned from {@link jakarta.faces.component.UIViewRoot#getLocale}, and store it in
-     * the <code>ValidatorContext</code> using {@link ValidatorContext#messageInterpolator}.
+     * Decorate the {@link MessageInterpolator} returned from {@link ValidatorFactory#getMessageInterpolator} with one that leverages the <code>Locale</code>
+     * returned from {@link jakarta.faces.component.UIViewRoot#getLocale}, and store it in the <code>ValidatorContext</code> using
+     * {@link ValidatorContext#messageInterpolator}.
      * </p>
      *
      * <p>
@@ -258,40 +246,36 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
      * </p>
      *
      * <p>
-     * Obtain a <code>jakarta.validation.BeanDescriptor</code> from the <code>jakarta.validation.Validator</code>. If
-     * <code>hasConstraints()</code> on the <code>BeanDescriptor</code> returns false, take no action and return. Otherwise
-     * proceed.
+     * Obtain a <code>jakarta.validation.BeanDescriptor</code> from the <code>jakarta.validation.Validator</code>. If <code>hasConstraints()</code> on the
+     * <code>BeanDescriptor</code> returns false, take no action and return. Otherwise proceed.
      * </p>
      *
      * <p class="changed_added_5_0">
-     * If the <em>value</em> argument is non-<code>null</code>, obtain a <code>jakarta.el.ExpressionFactory</code> and use
-     * <code>coerceToType()</code> to coerce the <em>value</em> argument to the type returned by <code>ValueExpression.getType()</code>.
+     * If the <em>value</em> argument is non-<code>null</code>, obtain a <code>jakarta.el.ExpressionFactory</code> and use <code>coerceToType()</code> to coerce
+     * the <em>value</em> argument to the type returned by <code>ValueExpression.getType()</code>.
      * </p>
      *
      * <p>
-     * Call {@link jakarta.validation.Validator#validateValue}, passing <em>valueBaseClass</em>, <em>valueProperty</em>, the
-     * <em>value</em> argument, and <em>validatorGroupsArray</em> as arguments.
+     * Call {@link jakarta.validation.Validator#validateValue}, passing <em>valueBaseClass</em>, <em>valueProperty</em>, the <em>value</em> argument, and
+     * <em>validatorGroupsArray</em> as arguments.
      * </p>
      *
      * <p>
      * If the returned <code>Set&lt;{@link
-     * ConstraintViolation}&gt;</code> is non-empty, for each element in the <code>Set</code>, create a {@link FacesMessage}
-     * where the summary and detail are the return from calling {@link ConstraintViolation#getMessage}. Capture all such
-     * <code>FacesMessage</code> instances into a <code>Collection</code> and pass them to
-     * {@link ValidatorException#ValidatorException(java.util.Collection)}. <span class="changed_added_2_3">If the
-     * {@link #ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME} application parameter is enabled and this {@code Validator} instance
-     * has validation groups other than or in addition to the {@code Default} group, record the fact that this field failed
-     * validation so that any <code>&lt;f:validateWholeBean /&gt;</code> component later in the tree is able to skip
-     * class-level validation for the bean for which this particular field is a property. Regardless of whether or not
-     * {@link #ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME} is set, throw the new exception.</span>
+     * ConstraintViolation}&gt;</code> is non-empty, for each element in the <code>Set</code>, create a {@link FacesMessage} where the summary and detail are
+     * the return from calling {@link ConstraintViolation#getMessage}. Capture all such <code>FacesMessage</code> instances into a <code>Collection</code> and
+     * pass them to {@link ValidatorException#ValidatorException(java.util.Collection)}. <span class="changed_added_2_3">If the
+     * {@link #ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME} application parameter is enabled and this {@code Validator} instance has validation groups other than or
+     * in addition to the {@code Default} group, record the fact that this field failed validation so that any <code>&lt;f:validateWholeBean /&gt;</code>
+     * component later in the tree is able to skip class-level validation for the bean for which this particular field is a property. Regardless of whether or
+     * not {@link #ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME} is set, throw the new exception.</span>
      * </p>
      *
      * <p class="changed_added_2_3">
-     * If the returned {@code Set} is empty, the {@link #ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME} application parameter is
-     * enabled and this {@code Validator} instance has validation groups other than or in addition to the {@code Default}
-     * group, record the fact that this field passed validation so that any <code>&lt;f:validateWholeBean /&gt;</code>
-     * component later in the tree is able to allow class-level validation for the bean for which this particular field is a
-     * property.
+     * If the returned {@code Set} is empty, the {@link #ENABLE_VALIDATE_WHOLE_BEAN_PARAM_NAME} application parameter is enabled and this {@code Validator}
+     * instance has validation groups other than or in addition to the {@code Default} group, record the fact that this field passed validation so that any
+     * <code>&lt;f:validateWholeBean /&gt;</code> component later in the tree is able to allow class-level validation for the bean for which this particular
+     * field is a property.
      * </p>
      *
      * </div>
@@ -330,16 +314,21 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
         if (isResolvable(valueReference, valueExpression)) {
             jakarta.validation.Validator beanValidator = getBeanValidator(context);
-            Object coercedValue = value == null ? null
-                    : context.getApplication().getExpressionFactory().coerceToType(value, getPropertyType(context, valueExpression, resolvedValueReference));
+            Object coercedValue = value == null
+                ? null
+                : context.getApplication().getExpressionFactory().coerceToType(value, getPropertyType(context, valueExpression, resolvedValueReference));
 
             Set<? extends ConstraintViolation<?>> violations = null;
 
             try {
-                violations = beanValidator.validateValue(valueReference.getBase().getClass(), valueReference.getProperty().toString(), coercedValue, validationGroupsArray);
-            } catch (IllegalArgumentException iae) {
-                LOGGER.fine("Unable to validate expression " + valueExpression.getExpressionString()
-                        + " using Bean Validation.  Unable to get value of expression. " + " Message from Bean Validation: " + iae.getMessage());
+                violations = beanValidator
+                    .validateValue(valueReference.getBase().getClass(), valueReference.getProperty().toString(), coercedValue, validationGroupsArray);
+            }
+            catch (IllegalArgumentException iae) {
+                LOGGER.fine(
+                    "Unable to validate expression " + valueExpression.getExpressionString()
+                        + " using Bean Validation.  Unable to get value of expression. " + " Message from Bean Validation: " + iae.getMessage()
+                );
             }
 
             if (violations != null && !violations.isEmpty()) {
@@ -347,7 +336,8 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
                 if (violations.size() == 1) {
                     ConstraintViolation<?> violation = violations.iterator().next();
                     toThrow = new ValidatorException(getMessage(context, MESSAGE_ID, violation.getMessage(), getLabel(context, component)));
-                } else {
+                }
+                else {
                     Set<FacesMessage> messages = new LinkedHashSet<>(violations.size());
                     for (ConstraintViolation<?> violation : violations) {
                         messages.add(getMessage(context, MESSAGE_ID, violation.getMessage(), getLabel(context, component)));
@@ -358,7 +348,9 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
                 // Record the fact that this field failed validation, so that multi-field
                 // validation is not attempted.
                 if (wholeBeanValidationEnabled(context, validationGroupsArray)) {
-                    recordValidationResult(context, component, valueReference.getBase(), valueReference.getProperty().toString(), FAILED_FIELD_LEVEL_VALIDATION);
+                    recordValidationResult(
+                        context, component, valueReference.getBase(), valueReference.getProperty().toString(), FAILED_FIELD_LEVEL_VALIDATION
+                    );
                 }
 
                 throw toThrow;
@@ -373,9 +365,8 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
     }
 
     /**
-     * A {@link ValueReference}, plus whether it had to be unwrapped out of a composite component's
-     * <code>#{cc.attrs.x}</code> indirection. Once unwrapped it points at the backing bean property rather than at
-     * what the original expression's own {@link ValueExpression#getType} would report, which
+     * A {@link ValueReference}, plus whether it had to be unwrapped out of a composite component's <code>#{cc.attrs.x}</code> indirection. Once unwrapped it
+     * points at the backing bean property rather than at what the original expression's own {@link ValueExpression#getType} would report, which
      * {@link #getPropertyType} has to account for.
      */
     private static final class ResolvedValueReference {
@@ -395,6 +386,7 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
         boolean isUnwrappedFromCompositeComponent() {
             return unwrappedFromCompositeComponent;
         }
+
     }
 
     private static ResolvedValueReference resolveValueReference(FacesContext context, UIComponent component, ValueExpression valueExpression) {
@@ -414,14 +406,20 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
         catch (PropertyNotFoundException e) {
             if (component instanceof UIInput && ((UIInput) component).getSubmittedValue() == null) {
                 if (LOGGER.isLoggable(Level.FINE)) {
-                    LOGGER.log(Level.FINE,
-                               "Property of value expression {0} of component {1} could not be found, but submitted value is null in first place, so not attempting to validate", // See Mojarra issue 4734
-                               new Object[]{
-                                       valueExpression.getExpressionString(),
-                                       component.getId() });
+                    LOGGER.log(
+                        Level.FINE,
+                        "Property of value expression {0} of component {1} could not be found, but submitted value is null in first place, so not attempting to validate", // See
+                                                                                                                                                                           // Mojarra
+                                                                                                                                                                           // issue
+                                                                                                                                                                           // 4734
+                        new Object[] {
+                            valueExpression.getExpressionString(),
+                            component.getId() }
+                    );
                 }
                 return new ResolvedValueReference(null, false);
-            } else {
+            }
+            else {
                 throw e;
             }
         }
@@ -430,13 +428,11 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
     /**
      * The type of the property the value expression points at.
      * <p>
-     * {@link ValueExpression#getType} re-resolves the expression from its root and then asks the resolver about the
-     * base and property it arrives at. That base and property are exactly what the {@link ValueReference} already
-     * holds, so the resolver can be asked directly and the walk skipped -- which matters because with CDI in the
-     * resolver chain the root resolution is a bean lookup, once per input per request.
+     * {@link ValueExpression#getType} re-resolves the expression from its root and then asks the resolver about the base and property it arrives at. That base
+     * and property are exactly what the {@link ValueReference} already holds, so the resolver can be asked directly and the walk skipped -- which matters
+     * because with CDI in the resolver chain the root resolution is a bean lookup, once per input per request.
      * <p>
-     * A reference unwrapped out of a composite component no longer describes the original expression's own target, so
-     * that case keeps the full walk.
+     * A reference unwrapped out of a composite component no longer describes the original expression's own target, so that case keeps the full walk.
      */
     private static Class<?> getPropertyType(FacesContext context, ValueExpression valueExpression, ResolvedValueReference resolvedValueReference) {
         ELContext elContext = context.getELContext();
@@ -463,18 +459,20 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
         if (valueExpression == null) {
             failureMessage = "Unable to validate expression using Bean " + "Validation.  Expression must not be null.";
             resolvable = false;
-        } else if (valueReference == null) {
+        }
+        else if (valueReference == null) {
             failureMessage = "Unable to validate expression " + valueExpression.getExpressionString()
-                    + " using Bean Validation.  Unable to get value of expression.";
+                + " using Bean Validation.  Unable to get value of expression.";
             resolvable = false;
-        } else {
+        }
+        else {
             Class<?> baseClass = valueReference.getBase() == null ? null : valueReference.getBase().getClass();
 
             // case 1, base classes of Map, List, or Array are not resolvable
             if (baseClass != null) {
                 if (Map.class.isAssignableFrom(baseClass) || Collection.class.isAssignableFrom(baseClass) || Array.class.isAssignableFrom(baseClass)) {
                     failureMessage = "Unable to validate expression " + valueExpression.getExpressionString()
-                            + " using Bean Validation.  Expression evaluates to a Map, List or array.";
+                        + " using Bean Validation.  Expression evaluates to a Map, List or array.";
                     resolvable = false;
                 }
             }
@@ -509,13 +507,16 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
             if (className.equals(Default.class.getName())) {
                 validationGroupsList.add(Default.class);
-            } else {
+            }
+            else {
                 try {
                     validationGroupsList.add(Class.forName(className, false, Thread.currentThread().getContextClassLoader()));
-                } catch (ClassNotFoundException e1) {
+                }
+                catch (ClassNotFoundException e1) {
                     try {
                         validationGroupsList.add(Class.forName(className));
-                    } catch (ClassNotFoundException e2) {
+                    }
+                    catch (ClassNotFoundException e2) {
                         throw new FacesException("Validation group not found: " + className);
                     }
                 }
@@ -611,10 +612,12 @@ public class BeanValidator implements Validator<Object>, PartialStateHolder {
 
         if (cachedObject instanceof ValidatorFactory) {
             validatorFactory = (ValidatorFactory) cachedObject;
-        } else {
+        }
+        else {
             try {
                 validatorFactory = Validation.buildDefaultValidatorFactory();
-            } catch (ValidationException e) {
+            }
+            catch (ValidationException e) {
                 throw new FacesException("Could not build a default Bean Validator factory", e);
             }
 

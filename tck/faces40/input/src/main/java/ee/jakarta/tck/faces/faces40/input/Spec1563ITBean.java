@@ -47,4 +47,5 @@ public class Spec1563ITBean {
     public void setSelectedProductId(Long selectedProductId) {
         this.selectedProductId = selectedProductId;
     }
+
 }

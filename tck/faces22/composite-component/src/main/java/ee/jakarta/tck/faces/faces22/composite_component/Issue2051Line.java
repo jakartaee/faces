@@ -48,4 +48,5 @@ public class Issue2051Line implements Serializable {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+
 }

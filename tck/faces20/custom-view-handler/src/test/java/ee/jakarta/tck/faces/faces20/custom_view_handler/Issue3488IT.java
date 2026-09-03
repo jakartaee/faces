@@ -25,8 +25,7 @@ import ee.jakarta.tck.faces.util.selenium.BaseITNG;
 import ee.jakarta.tck.faces.util.selenium.WebPage;
 
 /**
- * A custom {@code ViewHandler} whose {@code deriveViewId} appends the {@code .xhtml} suffix lets an
- * extensionless request resolve to the corresponding Facelet.
+ * A custom {@code ViewHandler} whose {@code deriveViewId} appends the {@code .xhtml} suffix lets an extensionless request resolve to the corresponding Facelet.
  */
 class Issue3488IT extends BaseITNG {
 
@@ -37,7 +36,10 @@ class Issue3488IT extends BaseITNG {
     @Test
     void testViewId() {
         WebPage page = getPage("faces/issue3488");
-        assertEquals("This text should be displayed", page.findElement(By.id("message")).getText(),
-                "the extensionless request must resolve to issue3488.xhtml via the custom ViewHandler");
+        assertEquals(
+            "This text should be displayed", page.findElement(By.id("message")).getText(),
+            "the extensionless request must resolve to issue3488.xhtml via the custom ViewHandler"
+        );
     }
+
 }

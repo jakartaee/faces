@@ -40,4 +40,5 @@ public class Spec479Item implements Serializable {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
 }

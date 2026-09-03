@@ -28,9 +28,8 @@ import ee.jakarta.tck.faces.util.selenium.WebPage;
 public class Spec533IT extends BaseITNG {
 
     /**
-     * A {@link PhaseListener} programmatically registered into the application
-     * configuration by an {@link ApplicationConfigurationPopulator} must fire
-     * during the lifecycle.
+     * A {@link PhaseListener} programmatically registered into the application configuration by an {@link ApplicationConfigurationPopulator} must fire during
+     * the lifecycle.
      *
      * @see ApplicationConfigurationPopulator
      * @see https://github.com/jakartaee/faces/issues/533
@@ -40,4 +39,5 @@ public class Spec533IT extends BaseITNG {
         WebPage page = getPage("spec533.xhtml");
         assertTrue(page.containsText("MyPhaseListener called"));
     }
+
 }
