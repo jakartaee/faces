@@ -64,7 +64,7 @@ pipeline {
 
     parameters {
         choice(name: 'RELEASE_LINE', choices: ['5.0'], description: 'Release line to cut.')
-        string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, M3, RC1). When set, the release is tagged <base>-<suffix>, the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
+        string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, M3, RC1). When set, the release is tagged with the suffix appended (e.g. 5.0.0-M1 instead of 5.0.0-RELEASE), the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
         choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (17 for 5.0).')
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Skip Maven Central deploy and GitHub push.')
         booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the Maven Central deploy (still tags and pushes). For resuming after Central already published.')

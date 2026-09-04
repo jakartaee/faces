@@ -7,16 +7,17 @@
 // Stages: Prepare -> Build -> Stage -> Bump to next snapshot -> Publish to GitHub.
 //
 // The TCK versions its own stream, independent of jakarta.faces-api, so its tags carry a -TCK
-// suffix (5.0.0-TCK, 5.0.0-M1-TCK). A tag without it is an API release; see api/Jenkinsfile.
+// qualifier directly after the base version (5.0.0-TCK, 5.0.0-TCK-M1), which keeps every tag for a
+// version together. A tag without it is an API release; see api/Jenkinsfile.
 //
 // "Stage" drops the zip at download.eclipse.org/faces/jakartaee<N>/staged/eftl/. Promotion from
 // there to download.eclipse.org/jakartaee/faces/<line>/ is a MANUAL Jakarta EE release-review step
 // and is NOT done here, so staging is reversible: re-running with the same version overwrites the
 // staged pair.
 //
-// Milestone runs (MILESTONE_VERSION set) stage and tag <base>-<suffix>-TCK and leave the source
-// branch on its -SNAPSHOT (the branch is never pushed). GA runs tag <version>-TCK and advance the
-// source branch to the next -SNAPSHOT.
+// Milestone runs (MILESTONE_VERSION set) stage <base>-<suffix>, tag <base>-TCK-<suffix>, and leave
+// the source branch on its -SNAPSHOT (the branch is never pushed). GA runs tag <version>-TCK and
+// advance the source branch to the next -SNAPSHOT.
 //
 // The base version is tck-dist/pom.xml minus its -SNAPSHOT and the next one is that with the patch
 // component bumped, so neither is a build parameter. Every tck + tck-dist module must already sit
@@ -32,9 +33,10 @@ def JDK_DISTRO_BY_VERSION = [
 ]
 def JDK_VERSION_CHOICES = [''] + JDK_DISTRO_BY_VERSION.keySet().toList()
 
-// Suffix for every tag this job creates. Keeps the TCK's version stream out of the API's tag
-// namespace, which the two share only by coincidence and no longer share at all on 4.0.
-def TAG_SUFFIX = '-TCK'
+// Qualifier every tag this job creates carries, directly after the base version. Keeps the TCK's
+// version stream out of the API's tag namespace, which the two share only by coincidence and no
+// longer share at all on 4.0.
+def TAG_QUALIFIER = '-TCK'
 
 // ---- Per-release-line configuration ---------------------------------------
 // Adding a new release line = one entry here. Key = MAJOR.MINOR family (also the required prefix
@@ -113,7 +115,7 @@ pipeline {
 
     parameters {
         choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Release line to release (4.0=4.0, 4.1=main, 5.0=5.0).')
-        string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, RC1). When set, the release is staged and tagged as <base>-<suffix>-TCK, the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
+        string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, RC1). When set, the release is staged and tagged with the suffix appended (e.g. 5.0.0-TCK-M1, instead of 5.0.0-TCK), the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
         choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (11 for 4.0, 21 for 4.1/5.0).')
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Build only; skip the staging upload and the GitHub push.')
         booleanParam(name: 'SKIP_STAGE', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the staging upload (still tags, bumps and pushes). For resuming after the zip was already staged.')
@@ -197,7 +199,9 @@ pipeline {
                         env.RELEASE_VERSION = baseVersion
                         env.NEXT_VERSION    = bumpLastComponent(baseVersion) + '-SNAPSHOT'
                     }
-                    env.RELEASE_TAG    = "${env.RELEASE_VERSION}${TAG_SUFFIX}"
+                    // Qualifier ahead of the milestone suffix, so a version's TCK tags sort together
+                    // instead of straddling the API's tags for the same version.
+                    env.RELEASE_TAG    = "${baseVersion}${TAG_QUALIFIER}" + (milestoneSuffix ? "-${milestoneSuffix}" : '')
                     // Local-only, and namespaced away from both the tag and the source branch so no
                     // git ref ever resolves ambiguously.
                     env.RELEASE_BRANCH = "release-${env.RELEASE_VERSION}"
@@ -205,7 +209,7 @@ pipeline {
 
                     currentBuild.description = "${params.RELEASE_LINE} → TCK ${env.RELEASE_VERSION}" +
                         ((env.IS_MILESTONE == 'true') ? ' (milestone)' : " (GA, next ${env.NEXT_VERSION})") +
-                        " (JDK${env.RESOLVED_JDK}, ee${cfg.jakartaee}${params.DRY_RUN ? ', dry-run' : ''})"
+                        " (JDK${env.RESOLVED_JDK}, EE${cfg.jakartaee}${params.DRY_RUN ? ', dry-run' : ''})"
                 }
                 // Validate every credential the publish path needs, even on DRY_RUN, so a
                 // revoked/expired credential fails in minute zero rather than after a full build.
