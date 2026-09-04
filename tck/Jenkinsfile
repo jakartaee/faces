@@ -18,6 +18,10 @@
 // branch on its -SNAPSHOT (the branch is never pushed). GA runs tag <version>-TCK and advance the
 // source branch to the next -SNAPSHOT.
 //
+// The base version is tck-dist/pom.xml minus its -SNAPSHOT and the next one is that with the patch
+// component bumped, so neither is a build parameter. Every tck + tck-dist module must already sit
+// on that same -SNAPSHOT; a drifted tree aborts the run rather than being force-aligned mid-release.
+//
 
 // JDK install root layout on the faces Jiro: /opt/tools/java/<distro>/jdk-<N>/latest.
 def JDK_DISTRO_BY_VERSION = [
@@ -119,9 +123,7 @@ pipeline {
 
     parameters {
         choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Release line to release (4.0=4.0, 4.1=main, 5.0=5.0).')
-        string(name: 'RELEASE_VERSION', defaultValue: '', description: 'GA/base version. Leave blank to infer from tck-dist/pom.xml (strip -SNAPSHOT), which requires every tck + tck-dist module to sit on the same -SNAPSHOT. Setting it force-aligns every module to it, which is how a drifted tree is repaired.')
         string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, RC1). When set, the release is staged and tagged as <base>-<suffix>-TCK, the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
-        string(name: 'NEXT_VERSION', defaultValue: '', description: 'GA only. Next development version, must end with -SNAPSHOT. Leave blank to infer (patch+1 of the release version).')
         choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (11 for 4.0, 21 for 4.1/5.0).')
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Build only; skip the staging upload and the GitHub push.')
         booleanParam(name: 'SKIP_STAGE', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the staging upload (still tags, bumps and pushes). For resuming after the zip was already staged.')
@@ -187,13 +189,8 @@ pipeline {
                     }
                     env.SNAPSHOT_VERSION = snapshot
 
-                    // An explicit RELEASE_VERSION doubles as the drift override: it names the target
-                    // unambiguously, so the Build stage may align a tree carrying more than one
-                    // -SNAPSHOT version instead of aborting on it.
-                    def override   = params.RELEASE_VERSION?.trim()
-                    def baseVersion = override ?: snapshot.replace('-SNAPSHOT', '')
-                    env.ALLOW_DRIFT = override ? 'true' : 'false'
-                    requireGaVersion('RELEASE_VERSION', baseVersion, params.RELEASE_LINE)
+                    def baseVersion = snapshot.replace('-SNAPSHOT', '')
+                    requireGaVersion('tck-dist/pom.xml version', baseVersion, params.RELEASE_LINE)
                     // HEAD before the release commit, so the bump can rewrite from the same
                     // -SNAPSHOT sources rather than from the release version's bare literals.
                     env.BASE_SHA = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
@@ -203,20 +200,12 @@ pipeline {
                         if (!(milestoneSuffix ==~ /^(M|RC)\d+$/)) {
                             error "MILESTONE_VERSION '${milestoneSuffix}' must match ^(M|RC)[0-9]+\$ (e.g. M1, RC1)."
                         }
-                        if (params.NEXT_VERSION?.trim()) {
-                            error "NEXT_VERSION is GA-only; a milestone run leaves the source branch on its -SNAPSHOT."
-                        }
                         env.IS_MILESTONE    = 'true'
                         env.RELEASE_VERSION = "${baseVersion}-${milestoneSuffix}"
                     } else {
                         env.IS_MILESTONE    = 'false'
                         env.RELEASE_VERSION = baseVersion
-                        def next = params.NEXT_VERSION?.trim() ?: bumpLastComponent(baseVersion) + '-SNAPSHOT'
-                        if (!(next ==~ /.*-SNAPSHOT$/)) {
-                            error "NEXT_VERSION '${next}' must end with -SNAPSHOT."
-                        }
-                        requireGaVersion('NEXT_VERSION', next.replace('-SNAPSHOT', ''), params.RELEASE_LINE)
-                        env.NEXT_VERSION = next
+                        env.NEXT_VERSION    = bumpLastComponent(baseVersion) + '-SNAPSHOT'
                     }
                     env.RELEASE_TAG    = "${env.RELEASE_VERSION}${TAG_SUFFIX}"
                     // Local-only, and namespaced away from both the tag and the source branch so no
@@ -270,9 +259,8 @@ pipeline {
                                 echo "No ${RELEASE_LINE}.x -SNAPSHOT versions found in tck/tck-dist poms." >&2; exit 1
                             fi
                             echo "Current TCK versions: $(tr '\\n' ' ' < snapshot-versions.txt)"
-                            if [ "$(wc -l < snapshot-versions.txt)" -ne 1 ] && [ "${ALLOW_DRIFT}" != "true" ]; then
-                                echo "Inconsistent versions across tck/tck-dist. Align them first, or pass an" >&2
-                                echo "explicit RELEASE_VERSION to force-align every module to it." >&2
+                            if [ "$(wc -l < snapshot-versions.txt)" -ne 1 ]; then
+                                echo "Inconsistent versions across tck/tck-dist; align them first." >&2
                                 exit 1
                             fi
 
