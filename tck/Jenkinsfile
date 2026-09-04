@@ -172,6 +172,8 @@ pipeline {
                     userRemoteConfigs: [[url: 'git@github.com:jakartaee/faces.git',
                                          credentialsId: 'github-bot-ssh']]])
                 script {
+                    // Re-resolved: `cfg` from the script block above is out of scope here.
+                    def cfg = BRANCH_CONFIG[params.RELEASE_LINE]
                     // Read the snapshot version from tck-dist/pom.xml; the release version derives
                     // from it. Run inside tck-dist so help:evaluate's -Doutput (resolved against the
                     // project basedir) and readFile (resolved against the same dir) agree.
