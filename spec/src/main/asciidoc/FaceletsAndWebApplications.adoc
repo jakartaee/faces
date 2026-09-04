@@ -687,6 +687,46 @@ instance in the component tree. This behavior must happen
 regardless of whether or not the _jakarta.faces.html_
 namespace has been declared in the page.
 
+[[a5633]]
+===== Template text and whitespace
+
+Template text is the character data in a
+Facelet VDL file which is not part of a tag from a Facelet tag library.
+Within the body of an element, the template text between two consecutive
+tags from a Facelet tag library, between such a tag and the start or the
+end of that body, or, if that body contains no such tag, the whole of
+that body, forms a single _text run_. Literal markup which is not a tag
+from a Facelet tag library is part of the text run in which it appears.
+
+A text run which contains at least one
+character that is not whitespace must be rendered. Where a text run
+which must be rendered begins or ends with whitespace, at least one
+whitespace character must be rendered at that boundary.
+
+Subject to that boundary requirement, the
+runtime may replace any sequence of whitespace characters in a text run
+which must be rendered by a single whitespace character, or remove it
+entirely.
+
+A text run which consists solely of
+whitespace characters must not be rendered.
+
+The following is the rationale for these
+requirements. It is not itself a requirement on the implementation.
+
+The boundary requirement follows the way a
+user agent treats character data in HTML: a run of whitespace collapses
+to a single space, but it does not disappear. So the word _before_
+followed by _<h:outputText value="component"/>_ renders as two words,
+never as one.
+
+The last requirement exists because a text
+run becomes a child of the enclosing component, and renderers which lay
+out their children positionally would otherwise receive the indentation
+of the page as a child of its own. An _<h:panelGrid>_ with _columns="2"_
+holding two children, written over separate indented lines, renders one
+row of two cells rather than gaining cells for that indentation.
+
 [[a5635]]
 ===== DOCTYPE and XML Declaration
 
