@@ -1,0 +1,382 @@
+#!/usr/bin/env groovy
+//
+// Jakarta Faces TCK release pipeline.
+//
+// Releases the TCK distribution zip built from tck/ + tck-dist/.
+//
+// Stages: Prepare -> Build -> Stage -> Bump to next snapshot -> Publish to GitHub.
+//
+// The TCK versions its own stream, independent of jakarta.faces-api, so its tags carry a -TCK
+// suffix (5.0.0-TCK, 5.0.0-M1-TCK). A tag without it is an API release; see api/Jenkinsfile.
+//
+// "Stage" drops the zip at download.eclipse.org/faces/jakartaee<N>/staged/eftl/. Promotion from
+// there to download.eclipse.org/jakartaee/faces/<line>/ is a MANUAL Jakarta EE release-review step
+// and is NOT done here, so staging is reversible: re-running with the same version overwrites the
+// staged pair.
+//
+// Milestone runs (MILESTONE_VERSION set) stage and tag <base>-<suffix>-TCK and leave the source
+// branch on its -SNAPSHOT (the branch is never pushed). GA runs tag <version>-TCK and advance the
+// source branch to the next -SNAPSHOT.
+//
+
+// JDK install root layout on the faces Jiro: /opt/tools/java/<distro>/jdk-<N>/latest.
+def JDK_DISTRO_BY_VERSION = [
+    '11': 'temurin',
+    '17': 'temurin',
+    '21': 'temurin',
+    '25': 'temurin',
+]
+def JDK_VERSION_CHOICES = [''] + JDK_DISTRO_BY_VERSION.keySet().toList()
+
+// Suffix for every tag this job creates. Keeps the TCK's version stream out of the API's tag
+// namespace, which the two share only by coincidence and no longer share at all on 4.0.
+def TAG_SUFFIX = '-TCK'
+
+// ---- Per-release-line configuration ---------------------------------------
+// Adding a new release line = one entry here. Key = MAJOR.MINOR family (also the required prefix
+// for a GA release version).
+//   branch    : jakartaee/faces branch holding this line's TCK source.
+//   jdk       : JDK used to build the TCK dist.
+//   jakartaee : Jakarta EE platform number -> staging path segment (faces/jakartaee<N>/staged/eftl).
+// NB: verify the 5.0 -> jakartaee12 staging path exists before its first use.
+def BRANCH_CONFIG = [
+    '4.0': [ branch: '4.0',  jdk: '11', jakartaee: '10' ],
+    '4.1': [ branch: 'main', jdk: '21', jakartaee: '11' ],
+    '5.0': [ branch: '5.0',  jdk: '21', jakartaee: '12' ],
+]
+
+// GPG keyring import + trust. Idempotent. Required for -Poss-release artifact signing.
+def GPG_INIT = '''
+    gpg --batch --import "${KEYRING}"
+    for fpr in $(gpg --list-keys --with-colons | awk -F: '/fpr:/ {print $10}' | sort -u); do
+        echo -e "5\\ny\\n" | gpg --batch --command-fd 0 --expert --edit-key "${fpr}" trust
+    done
+'''
+
+// Bot git identity. Sets local (per-repo) config; must run inside the working tree.
+def GIT_IDENTITY = '''
+    git config user.email "faces-bot@eclipse.org"
+    git config user.name  "Eclipse Faces Bot"
+'''
+
+// Pre-populate known_hosts so a `git push` from a shell step inside sshagent doesn't fail with
+// "Host key verification failed". Jenkins' GitSCM step handles this internally for the checkout,
+// but shell-driven pushes need it explicitly. Idempotent.
+def KNOWN_HOSTS_INIT = '''
+    mkdir -p ~/.ssh
+    ssh-keyscan -t rsa,ed25519,ecdsa github.com >> ~/.ssh/known_hosts 2>/dev/null
+    chmod 600 ~/.ssh/known_hosts
+'''
+
+// Pom version rewriting.
+//
+// sed rather than versions:set, which skips profile-gated modules and would leave the zipped TCK
+// sources on a stale version. Only -SNAPSHOT literals within the release line are ever matched:
+// the tck poms also pin third-party deps at bare versions shaped exactly like a TCK release
+// version (jakarta.ejb-api 4.0.1, org.glassfish:tck_faces 4.0.0), and rewriting one of those would
+// silently corrupt the dist. Inter-module deps use ${project.version} and the userguide is
+// deliberately not a -SNAPSHOT, so neither is touched.
+def VERSION_HELPERS = '''
+    tck_poms() {
+        find tck tck-dist -name pom.xml -not -path '*/target/*' "$@"
+    }
+
+    # Distinct literal module/parent -SNAPSHOT versions in this release line, one per line. The
+    # RELEASE_LINE prefix filter excludes -SNAPSHOT versions of external dependencies.
+    collect_snapshots() {
+        tck_poms -exec grep -hoE '<version>[0-9]+\\.[0-9]+\\.[0-9]+-SNAPSHOT</version>' {} + \\
+            | sed -E 's#</?version>##g' \\
+            | grep -E "^${RELEASE_LINE//./[.]}[.]" | sort -u
+    }
+
+    # rewrite_versions <target> <current>... -- rewrite each <current> to <target> across all poms.
+    # Callers stage the result with `git add -u tck tck-dist`: tracked files only, so a generated
+    # pom the build leaves behind (a flattened pom, say) is never swept into a release commit.
+    rewrite_versions() {
+        local target="$1"; shift
+        local old
+        for old in "$@"; do
+            if [ "${old}" != "${target}" ]; then
+                tck_poms -exec sed -i "s|<version>${old}</version>|<version>${target}</version>|g" {} +
+            fi
+        done
+    }
+'''
+
+// Refuse to start if origin already carries this version's tag. Runs even on dry-runs so a conflict
+// fails fast. Reaches origin over SSH, so the caller must seed known_hosts first. No branch check:
+// the release branch is local-only and its name is namespaced away from both the tag and the source
+// branch. Expects TAG_NAME set by the caller.
+def REMOTE_TAG_CONFLICT_CHECK = '''
+    if git ls-remote --tags origin | grep -q "refs/tags/${TAG_NAME}$"; then
+        echo "Release tag ${TAG_NAME} already exists on origin; bump the version." >&2; exit 1
+    fi
+    git tag -d "${TAG_NAME}" 2>/dev/null || true
+'''
+
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Release line to release (4.0=4.0, 4.1=main, 5.0=5.0).')
+        string(name: 'RELEASE_VERSION', defaultValue: '', description: 'GA/base version. Leave blank to infer from tck-dist/pom.xml (strip -SNAPSHOT), which requires every tck + tck-dist module to sit on the same -SNAPSHOT. Setting it force-aligns every module to it, which is how a drifted tree is repaired.')
+        string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, RC1). When set, the release is staged and tagged as <base>-<suffix>-TCK, the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
+        string(name: 'NEXT_VERSION', defaultValue: '', description: 'GA only. Next development version, must end with -SNAPSHOT. Leave blank to infer (patch+1 of the release version).')
+        choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (11 for 4.0, 21 for 4.1/5.0).')
+        booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Build only; skip the staging upload and the GitHub push.')
+        booleanParam(name: 'SKIP_STAGE', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the staging upload (still tags, bumps and pushes). For resuming after the zip was already staged.')
+        booleanParam(name: 'SKIP_CRED_CHECK', defaultValue: false, description: 'Skip the Prepare-stage credential checks (Eclipse storage SSH, GitHub SSH push). Use for pipeline-debug runs where the publish credentials are unavailable or known-stale; on a real release leave this unchecked so a bad credential fails fast.')
+    }
+
+    options {
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(daysToKeepStr: '300', numToKeepStr: '20', artifactDaysToKeepStr: '30', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+
+    environment {
+        TOOLS_PREFIX = '/opt/tools'
+        MVN_HOME     = "${TOOLS_PREFIX}/apache-maven/latest"
+        MVN_EXTRA    = '--batch-mode --no-transfer-progress'
+        HELP_PLUGIN  = 'org.apache.maven.plugins:maven-help-plugin:3.5.1'
+        SSH_HOST     = 'genie.faces@projects-storage.eclipse.org'
+        SSH_OPTS     = '-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
+        STAGING_ROOT = '/home/data/httpd/download.eclipse.org/faces'
+    }
+
+    stages {
+
+        stage('Prepare') {
+            steps {
+                cleanWs()
+                script {
+                    def cfg = BRANCH_CONFIG[params.RELEASE_LINE]
+                    if (cfg == null) error "Unknown RELEASE_LINE: ${params.RELEASE_LINE}"
+                    if (params.SKIP_STAGE && params.DRY_RUN) error "SKIP_STAGE requires DRY_RUN unchecked (DRY_RUN already skips staging)."
+
+                    env.RELEASE_LINE = params.RELEASE_LINE
+                    env.TCK_BRANCH   = cfg.branch
+                    env.RESOLVED_JDK = params.JDK?.trim() ?: cfg.jdk
+                    if (!JDK_DISTRO_BY_VERSION.containsKey(env.RESOLVED_JDK)) {
+                        error "No JDK distro configured for JDK ${env.RESOLVED_JDK}. Update JDK_DISTRO_BY_VERSION at the top of Jenkinsfile."
+                    }
+                    env.STAGING_PATH = "${env.STAGING_ROOT}/jakartaee${cfg.jakartaee}/staged/eftl"
+                    env.JAVA_HOME    = "${env.TOOLS_PREFIX}/java/${JDK_DISTRO_BY_VERSION[env.RESOLVED_JDK]}/jdk-${env.RESOLVED_JDK}/latest"
+                    env.PATH         = "${env.MVN_HOME}/bin:${env.JAVA_HOME}/bin:${env.PATH}"
+                    sh 'java -version && mvn -v'
+                }
+                // Explicit checkout of the release line's TCK branch, decoupled from wherever this
+                // Jenkinsfile was fetched from, via the bot SSH credential used for the later push.
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "*/${env.TCK_BRANCH}"]],
+                    userRemoteConfigs: [[url: 'git@github.com:jakartaee/faces.git',
+                                         credentialsId: 'github-bot-ssh']]])
+                script {
+                    // Read the snapshot version from tck-dist/pom.xml; the release version derives
+                    // from it. Run inside tck-dist so help:evaluate's -Doutput (resolved against the
+                    // project basedir) and readFile (resolved against the same dir) agree.
+                    def snapshot
+                    dir('tck-dist') {
+                        sh "mvn -B ${env.HELP_PLUGIN}:evaluate -Dexpression=project.version -q -Doutput=v.txt"
+                        snapshot = readFile('v.txt').trim()
+                    }
+                    if (!(snapshot ==~ /.*-SNAPSHOT$/)) {
+                        error "tck-dist/pom.xml version '${snapshot}' is not a -SNAPSHOT; refusing to release."
+                    }
+                    env.SNAPSHOT_VERSION = snapshot
+
+                    // An explicit RELEASE_VERSION doubles as the drift override: it names the target
+                    // unambiguously, so the Build stage may align a tree carrying more than one
+                    // -SNAPSHOT version instead of aborting on it.
+                    def override   = params.RELEASE_VERSION?.trim()
+                    def baseVersion = override ?: snapshot.replace('-SNAPSHOT', '')
+                    env.ALLOW_DRIFT = override ? 'true' : 'false'
+                    requireGaVersion('RELEASE_VERSION', baseVersion, params.RELEASE_LINE)
+                    // HEAD before the release commit, so the bump can rewrite from the same
+                    // -SNAPSHOT sources rather than from the release version's bare literals.
+                    env.BASE_SHA = sh(script: 'git rev-parse HEAD', returnStdout: true).trim()
+
+                    def milestoneSuffix = params.MILESTONE_VERSION?.trim()
+                    if (milestoneSuffix) {
+                        if (!(milestoneSuffix ==~ /^(M|RC)\d+$/)) {
+                            error "MILESTONE_VERSION '${milestoneSuffix}' must match ^(M|RC)[0-9]+\$ (e.g. M1, RC1)."
+                        }
+                        if (params.NEXT_VERSION?.trim()) {
+                            error "NEXT_VERSION is GA-only; a milestone run leaves the source branch on its -SNAPSHOT."
+                        }
+                        env.IS_MILESTONE    = 'true'
+                        env.RELEASE_VERSION = "${baseVersion}-${milestoneSuffix}"
+                    } else {
+                        env.IS_MILESTONE    = 'false'
+                        env.RELEASE_VERSION = baseVersion
+                        def next = params.NEXT_VERSION?.trim() ?: bumpLastComponent(baseVersion) + '-SNAPSHOT'
+                        if (!(next ==~ /.*-SNAPSHOT$/)) {
+                            error "NEXT_VERSION '${next}' must end with -SNAPSHOT."
+                        }
+                        requireGaVersion('NEXT_VERSION', next.replace('-SNAPSHOT', ''), params.RELEASE_LINE)
+                        env.NEXT_VERSION = next
+                    }
+                    env.RELEASE_TAG    = "${env.RELEASE_VERSION}${TAG_SUFFIX}"
+                    // Local-only, and namespaced away from both the tag and the source branch so no
+                    // git ref ever resolves ambiguously.
+                    env.RELEASE_BRANCH = "release-${env.RELEASE_VERSION}"
+                    env.DIST_NAME      = "jakarta-faces-tck-${env.RELEASE_VERSION}"
+
+                    currentBuild.description = "${params.RELEASE_LINE} → TCK ${env.RELEASE_VERSION}" +
+                        ((env.IS_MILESTONE == 'true') ? ' (milestone)' : " (GA, next ${env.NEXT_VERSION})") +
+                        " (JDK${env.RESOLVED_JDK}, ee${cfg.jakartaee}${params.DRY_RUN ? ', dry-run' : ''})"
+                }
+                // Validate every credential the publish path needs, even on DRY_RUN, so a
+                // revoked/expired credential fails in minute zero rather than after a full build.
+                script {
+                    if (!params.SKIP_CRED_CHECK) {
+                        sshagent(credentials: ['projects-storage.eclipse.org-bot-ssh']) {
+                            sh '''#!/bin/bash -e
+                                ssh ${SSH_OPTS} ${SSH_HOST} "test -d '${STAGING_ROOT}'"
+                                echo "[cred-check] Eclipse storage SSH (${SSH_HOST}): ok"
+                            '''
+                        }
+                        // --dry-run runs the full receive-pack handshake (incl. the write-permission
+                        // check) but transmits no objects and creates no ref.
+                        sshagent(credentials: ['github-bot-ssh']) {
+                            sh '#!/bin/bash -e\n' + KNOWN_HOSTS_INIT + '''
+                                git push --dry-run git@github.com:jakartaee/faces.git HEAD:refs/heads/__cred_check__
+                                echo "[cred-check] GitHub SSH push (faces): ok"
+                            '''
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // sshagent: the tag conflict check reaches origin over SSH before anything is built.
+                sshagent(credentials: ['github-bot-ssh']) {
+                    withCredentials([file(credentialsId: 'secret-subkeys.asc', variable: 'KEYRING')]) {
+                        // Align every tck + tck-dist module to the release version on a local release
+                        // branch, then commit. The set of rewritten -SNAPSHOT versions is kept for the
+                        // Bump stage, which rewrites the same set from the same sources.
+                        sh '#!/bin/bash -ex\nexport TAG_NAME="${RELEASE_TAG}"\n' +
+                           KNOWN_HOSTS_INIT + GPG_INIT + GIT_IDENTITY +
+                           REMOTE_TAG_CONFLICT_CHECK + VERSION_HELPERS + '''
+                            git branch -D "${RELEASE_BRANCH}" 2>/dev/null || true
+                            git checkout -b "${RELEASE_BRANCH}"
+
+                            collect_snapshots > snapshot-versions.txt
+                            if [ ! -s snapshot-versions.txt ]; then
+                                echo "No ${RELEASE_LINE}.x -SNAPSHOT versions found in tck/tck-dist poms." >&2; exit 1
+                            fi
+                            echo "Current TCK versions: $(tr '\\n' ' ' < snapshot-versions.txt)"
+                            if [ "$(wc -l < snapshot-versions.txt)" -ne 1 ] && [ "${ALLOW_DRIFT}" != "true" ]; then
+                                echo "Inconsistent versions across tck/tck-dist. Align them first, or pass an" >&2
+                                echo "explicit RELEASE_VERSION to force-align every module to it." >&2
+                                exit 1
+                            fi
+
+                            rewrite_versions "${RELEASE_VERSION}" $(cat snapshot-versions.txt)
+                            git add -u tck tck-dist
+                            git --no-pager diff --cached --stat
+                            git commit -m "Prepare release Faces TCK ${RELEASE_VERSION}"
+                        '''
+                        // Build the dist (produces tck-dist/target/faces-tck-<version>-dist.zip). Tag
+                        // locally; the push is deferred to "Publish to GitHub", so a failed build
+                        // leaves no ref on origin.
+                        sh '''#!/bin/bash -ex
+                            mvn -U -B ${MVN_EXTRA} -f tck-dist/pom.xml \\
+                                -DskipTests -Ddoclint=none -Poss-release -Pstaging \\
+                                clean install
+                            git tag "${RELEASE_TAG}" -m "Release Faces TCK ${RELEASE_VERSION}"
+                        '''
+                    }
+                }
+                // Attach the dist to the build so it's downloadable; dry-runs don't stage.
+                archiveArtifacts artifacts: 'tck-dist/target/faces-tck-*-dist.zip', fingerprint: true
+            }
+        }
+
+        stage('Stage') {
+            when { expression { return !params.DRY_RUN && !params.SKIP_STAGE } }
+            steps {
+                // scp the dist zip + a .info (sha256 + size) to the staging area, renamed to the
+                // canonical jakarta-faces-tck-<version>.zip the release review expects. Reversible:
+                // promotion out of staged/eftl is manual, so re-running overwrites the pair.
+                sshagent(credentials: ['projects-storage.eclipse.org-bot-ssh']) {
+                    sh '''#!/bin/bash -ex
+                        cd tck-dist/target
+                        DIST="faces-tck-${RELEASE_VERSION}-dist.zip"
+                        sha256sum "${DIST}" > "${DIST_NAME}.info"
+                        ls -l "${DIST}" >> "${DIST_NAME}.info"
+                        ssh ${SSH_OPTS} ${SSH_HOST} mkdir -p "${STAGING_PATH}"
+                        ssh ${SSH_OPTS} ${SSH_HOST} rm -f "${STAGING_PATH}/${DIST_NAME}.zip" "${STAGING_PATH}/${DIST_NAME}.info"
+                        scp ${SSH_OPTS} "${DIST}"             "${SSH_HOST}:${STAGING_PATH}/${DIST_NAME}.zip"
+                        scp ${SSH_OPTS} "${DIST_NAME}.info"   "${SSH_HOST}:${STAGING_PATH}/${DIST_NAME}.info"
+                        echo "[staged] ${STAGING_PATH}/${DIST_NAME}.zip"
+                    '''
+                }
+            }
+        }
+
+        stage('Bump to next snapshot') {
+            when { expression { return env.IS_MILESTONE != 'true' } }
+            steps {
+                // Restore the poms as they were before the release commit and rewrite that same
+                // -SNAPSHOT set to the next one. Rewriting the release version's bare literals
+                // instead would also match the third-party deps pinned at look-alike versions.
+                sh '#!/bin/bash -ex\n' + VERSION_HELPERS + '''
+                    git checkout "${BASE_SHA}" -- tck tck-dist
+                    rewrite_versions "${NEXT_VERSION}" $(cat snapshot-versions.txt)
+                    git add -u tck tck-dist
+                    git --no-pager diff --cached --stat
+                    git commit -m "Next version of TCK is ${NEXT_VERSION%-SNAPSHOT}"
+                '''
+            }
+        }
+
+        stage('Publish to GitHub') {
+            when { expression { return !params.DRY_RUN } }
+            steps {
+                sshagent(credentials: ['github-bot-ssh']) {
+                    // Milestone: push the tag only; the source branch stays on its -SNAPSHOT.
+                    // GA: advance the source branch (carrying the next-snapshot bump) and push the tag.
+                    sh '#!/bin/bash -ex\n' + KNOWN_HOSTS_INIT + '''
+                        if [ "${IS_MILESTONE}" != "true" ]; then
+                            git push origin "HEAD:refs/heads/${TCK_BRANCH}"
+                        fi
+                        git push origin "refs/tags/${RELEASE_TAG}"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            script {
+                def kind = (env.IS_MILESTONE == 'true') ? 'Milestone' : 'Released'
+                echo "${kind} Faces TCK ${env.RELEASE_VERSION} from ${params.RELEASE_LINE}" +
+                    (params.DRY_RUN ? ' (dry-run, nothing staged or pushed).'
+                                    : " and staged to ${env.STAGING_PATH}. Promotion to the public download area is a manual release-review step.")
+            }
+        }
+        failure { echo "Release of Faces TCK ${env.RELEASE_VERSION} from ${params.RELEASE_LINE} FAILED." }
+    }
+}
+
+// Bump the last numeric component of a dotted version: "5.0.0" -> "5.0.1".
+def bumpLastComponent(String version) {
+    def parts = version.tokenize('.')
+    parts[-1] = (parts[-1].toInteger() + 1).toString()
+    return parts.join('.')
+}
+
+// Validate that `version` is a dotted-numeric GA version with >= 3 components (rejects -M/-RC and
+// two-component values), and matches expectedPrefix when non-null. Aborts on mismatch.
+def requireGaVersion(String paramName, String version, String expectedPrefix) {
+    if (!(version ==~ /\d+\.\d+\.\d+(\.\d+)*/)) {
+        error "${paramName} '${version}' is not a dotted-numeric GA version with at least 3 components (e.g. 5.0.1). Milestone/RC and two-component versions are not supported."
+    }
+    if (expectedPrefix != null && !version.startsWith(expectedPrefix + '.')) {
+        error "${paramName} '${version}' does not match expected prefix '${expectedPrefix}.'."
+    }
+}
