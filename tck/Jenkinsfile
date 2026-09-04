@@ -63,15 +63,6 @@ def GIT_IDENTITY = '''
     git config user.name  "Eclipse Faces Bot"
 '''
 
-// Pre-populate known_hosts so a `git push` from a shell step inside sshagent doesn't fail with
-// "Host key verification failed". Jenkins' GitSCM step handles this internally for the checkout,
-// but shell-driven pushes need it explicitly. Idempotent.
-def KNOWN_HOSTS_INIT = '''
-    mkdir -p ~/.ssh
-    ssh-keyscan -t rsa,ed25519,ecdsa github.com >> ~/.ssh/known_hosts 2>/dev/null
-    chmod 600 ~/.ssh/known_hosts
-'''
-
 // Pom version rewriting.
 //
 // sed rather than versions:set, which skips profile-gated modules and would leave the zipped TCK
@@ -108,9 +99,8 @@ def VERSION_HELPERS = '''
 '''
 
 // Refuse to start if origin already carries this version's tag. Runs even on dry-runs so a conflict
-// fails fast. Reaches origin over SSH, so the caller must seed known_hosts first. No branch check:
-// the release branch is local-only and its name is namespaced away from both the tag and the source
-// branch. Expects TAG_NAME set by the caller.
+// fails fast. No branch check: the release branch is local-only and its name is namespaced away
+// from both the tag and the source branch. Expects TAG_NAME set by the caller.
 def REMOTE_TAG_CONFLICT_CHECK = '''
     if git ls-remote --tags origin | grep -q "refs/tags/${TAG_NAME}$"; then
         echo "Release tag ${TAG_NAME} already exists on origin; bump the version." >&2; exit 1
@@ -230,7 +220,7 @@ pipeline {
                         // --dry-run runs the full receive-pack handshake (incl. the write-permission
                         // check) but transmits no objects and creates no ref.
                         sshagent(credentials: ['github-bot-ssh']) {
-                            sh '#!/bin/bash -e\n' + KNOWN_HOSTS_INIT + '''
+                            sh '''#!/bin/bash -e
                                 git push --dry-run git@github.com:jakartaee/faces.git HEAD:refs/heads/__cred_check__
                                 echo "[cred-check] GitHub SSH push (faces): ok"
                             '''
@@ -249,8 +239,7 @@ pipeline {
                         // branch, then commit. The set of rewritten -SNAPSHOT versions is kept for the
                         // Bump stage, which rewrites the same set from the same sources.
                         sh '#!/bin/bash -ex\nexport TAG_NAME="${RELEASE_TAG}"\n' +
-                           KNOWN_HOSTS_INIT + GPG_INIT + GIT_IDENTITY +
-                           REMOTE_TAG_CONFLICT_CHECK + VERSION_HELPERS + '''
+                           GPG_INIT + GIT_IDENTITY + REMOTE_TAG_CONFLICT_CHECK + VERSION_HELPERS + '''
                             git branch -D "${RELEASE_BRANCH}" 2>/dev/null || true
                             git checkout -b "${RELEASE_BRANCH}"
 
@@ -329,7 +318,7 @@ pipeline {
                 sshagent(credentials: ['github-bot-ssh']) {
                     // Milestone: push the tag only; the source branch stays on its -SNAPSHOT.
                     // GA: advance the source branch (carrying the next-snapshot bump) and push the tag.
-                    sh '#!/bin/bash -ex\n' + KNOWN_HOSTS_INIT + '''
+                    sh '''#!/bin/bash -ex
                         if [ "${IS_MILESTONE}" != "true" ]; then
                             git push origin "HEAD:refs/heads/${TCK_BRANCH}"
                         fi
