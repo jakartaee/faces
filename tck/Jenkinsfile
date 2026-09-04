@@ -114,7 +114,7 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Release line to release (4.0=4.0, 4.1=main, 5.0=5.0).')
+        choice(name: 'RELEASE_LINE', choices: ['4.0', '4.1', '5.0'], description: 'Faces TCK release line to cut.')
         string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, RC1). When set, the release is staged and tagged with the suffix appended (e.g. 5.0.0-TCK-M1, instead of 5.0.0-TCK), the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
         choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (11 for 4.0, 21 for 4.1/5.0).')
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Build only; skip the staging upload and the GitHub push.')
