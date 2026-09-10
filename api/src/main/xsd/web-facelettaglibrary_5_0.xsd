@@ -246,7 +246,37 @@
         <xsd:element name="validator"
                      type="jakartaee:facelet-taglib-tag-validatorType"/>
         <xsd:element name="source"
-                     type="jakartaee:string"/>
+                     type="jakartaee:string">
+          <xsd:annotation>
+            <xsd:documentation>
+              <![CDATA[
+              <div class="changed_added_5_0">
+              
+              <p>Within a tag element, the source element gives the path of a Facelet file which implements the tag,
+              resolved against the tag library descriptor which declares it. A tag declared this way is known as a
+              <em>tag file</em>, and using it in a page applies the contents of that Facelet file at the point of
+              use.</p>
+              
+              <p>The attributes supplied where the tag is used are the parameters of that invocation. Each is visible
+              within the applied Facelet file under the name it was given. A tag file invoked from within it does not
+              inherit them: a name which an enclosing invocation supplied, and the inner one did not, must not resolve
+              to the enclosing value.</p>
+              
+              <p>A variable which the applied Facelet file sets itself must not be visible to the page once the tag has
+              been applied. This covers <code>&lt;c:set&gt;</code> without a scope, <code>&lt;ui:param&gt;</code>, and
+              any other means of writing to the variable mapper in effect. A <code>&lt;c:set&gt;</code> carrying an
+              explicit <code>scope</code> writes to that scope rather than to the variable mapper and is unaffected, as
+              are the request, view, session and application maps generally.</p>
+              
+              <p>Whether a variable in scope where the tag is used is visible within the applied Facelet file is not
+              defined by this specification.</p>
+              
+              </div>
+              
+              ]]>
+            </xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
       </xsd:choice>
       <xsd:element name="attribute"
                    type="jakartaee:facelet-taglib-tag-attributeType"
