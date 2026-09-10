@@ -790,6 +790,10 @@ attribute must be an absolute path starting with "/".</span>
             tags in either <code>ui:include</code>,
             <code>ui:composition</code>, or <code>ui:decorate</code>
             to pass the parameters.
+            <p class="changed_added_5_0">Written anywhere other than the three elements above, this tag binds the
+            name in whatever scope is in effect where it appears, and is bounded by that scope. It cannot pass
+            parameters into a tag file or a composite component, whose parameters are the attributes supplied
+            where the tag is used; use those instead.</p>
             </div>
 
         ]]></description>
