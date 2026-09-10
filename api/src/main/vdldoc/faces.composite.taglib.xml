@@ -472,7 +472,12 @@ its value is derived as described in
                 <![CDATA[
 <div class="changed_added_2_0">
 <p>True if the page author must supply a value
-                for this attribute.  The default value is false.</p></div>]]>
+                for this attribute.  The default value is false.</p>
+
+<p class="changed_added_5_0">If true and the page author does not supply
+                a value, the implementation must throw a TagException
+                identifying the composite component and the missing
+                attribute.</p></div>]]>
 
             </description>
             <name>required</name>
