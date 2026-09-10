@@ -339,6 +339,11 @@
             <p>If not present then the default is "false", i.e
             the attribute is optional.</p>
             
+            <p class="changed_added_5_0">If "true" and the page author
+            does not supply the attribute where the tag is used, the
+            implementation must throw a TagException identifying the
+            tag and the missing attribute.</p>
+            
             ]]>
           </xsd:documentation>
         </xsd:annotation>
