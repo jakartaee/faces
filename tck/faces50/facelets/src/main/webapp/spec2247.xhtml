@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+
+    Copyright (c) Contributors to Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="jakarta.tags.core"
+      xmlns:h="jakarta.faces.html"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:t="spec2247"
+      xmlns:my="jakarta.faces.composite/components">
+    <h:head>
+        <title>spec2247</title>
+    </h:head>
+    <h:body>
+        <h:panelGroup id="nestedInvocation"><t:parameterized attribute="A"><t:parameterized/></t:parameterized></h:panelGroup>
+        <h:panelGroup id="variableEscape"><t:setter/>[#{setInsideTagFile}]</h:panelGroup>
+        <h:panelGroup id="parameterEscape"><t:inserting><ui:param name="parameterInsideInvocation" value="P"/></t:inserting>[#{parameterInsideInvocation}]</h:panelGroup>
+        <h:panelGroup id="compositeParameterEscape"><my:spec2247Probe attribute="A"><ui:param name="parameterInsideComposite" value="P"/>[body]</my:spec2247Probe>[#{parameterInsideComposite}]</h:panelGroup>
+
+        <c:set var="applicationVariable" value="APP" scope="application"/>
+        <c:set var="sessionVariable" value="SES" scope="session"/>
+        <c:set var="viewVariable" value="VIEW" scope="view"/>
+        <c:set var="requestVariable" value="REQ" scope="request"/>
+        <h:panelGroup id="scopedVariables"><t:scoped/></h:panelGroup>
+    </h:body>
+</html>
