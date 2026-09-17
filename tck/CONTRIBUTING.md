@@ -169,7 +169,7 @@ An empty `beans.xml` (0 bytes) is also valid as a CDI marker, unless an explicit
 ```xhtml
 <!DOCTYPE html>
 <!--
-    Copyright (c) Contributors to Eclipse Foundation.
+    Copyright (c) Contributors to the Eclipse Foundation.
     ... license header ...
 -->
 <html xmlns:h="jakarta.faces.html"
