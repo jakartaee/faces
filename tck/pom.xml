@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    Copyright (c) 2020, 2024 Contributors to Eclipse Foundation.
+
+    Copyright (c) 2020, 2024 Contributors to the Eclipse Foundation.
 
     This program and the accompanying materials are made available under the
     terms of the Eclipse Public License v. 2.0, which is available at
@@ -51,6 +52,7 @@
 
     <properties>
         <maven.compiler.release>21</maven.compiler.release>
+        <maven.build.timestamp.format>yyyy</maven.build.timestamp.format>
         <spotless.config.dir>${maven.multiModuleProjectDirectory}/../build</spotless.config.dir> <!-- Overridden in a module that is also built from another reactor, which resolves the property to its own root. -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -598,6 +600,83 @@
     </reporting>
 
     <profiles>
+
+        <!--
+            License header checking, active only in a source checkout. The distributed TCK ships
+            tck/ without the repository root, so the header file is absent there and vendors never
+            resolve the plugin. One aggregated execution in this pom covers every module: without
+            aggregate a parent skips its own module directories.
+        -->
+        <profile>
+            <id>repo-hygiene</id>
+            <activation>
+                <file>
+                    <exists>${basedir}/../build/license-header.txt</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <version>5.1.2</version>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <skipExistingHeaders>true</skipExistingHeaders>
+                            <aggregate>true</aggregate>
+                            <!-- Facelets pages and a property file that a test addresses by an unusual suffix. -->
+                            <mapping>
+                                <bar>XML_STYLE</bar>
+                                <page>XML_STYLE</page>
+                                <tpl>XML_STYLE</tpl>
+                                <xhtmlAsXhtml>XML_STYLE</xhtmlAsXhtml>
+                                <xhtmlAsXml>XML_STYLE</xhtmlAsXml>
+                                <map>SCRIPT_STYLE</map>
+                            </mapping>
+                            <properties>
+                                <year>${maven.build.timestamp}</year>
+                            </properties>
+                            <licenseSets>
+                                <licenseSet>
+                                    <header>${basedir}/../build/license-header.txt</header>
+                                    <excludes>
+                                        <exclude>**/*.txt</exclude>
+                                        <exclude>Jenkinsfile</exclude> <!-- release infrastructure, like the workflows -->
+                                        <exclude>docs/assertions/**</exclude> <!-- generated assertion documents -->
+
+                                        <!-- Generated or binary fixtures, compared byte for byte by the test that reads them. -->
+                                        <exclude>**/*.sig_*</exclude>
+                                        <exclude>**/negative_test_image</exclude>
+                                        <exclude>**/dougd.css/**</exclude>
+                                        <exclude>**/README</exclude>
+
+                                        <!-- Markers whose emptiness is the contract under test; a comment would leave them without a root element. -->
+                                        <exclude>faces20/flows/emptyflowdefinition/src/main/webapp/bounded-task-flow/bounded-task-flow-flow.xml</exclude>
+                                        <exclude>faces22/bean-lifecycle-events/src/main/webapp/01_simplest/01_simplest-flow.xml</exclude>
+                                        <exclude>faces22/bean-lifecycle-events/src/main/webapp/flow-with-templates/flow-with-templates-flow.xml</exclude>
+                                        <exclude>faces22/flow-with-view-action/src/main/webapp/flowB/flowB-flow.xml</exclude>
+                                        <exclude>faces22/implicit-bean-archive/src/main/webapp/01_simplest/01_simplest-flow.xml</exclude>
+                                        <exclude>faces23/two-contracts-in-jar-tckjar/src/main/resources/META-INF/contracts/resourcesInContractInJar/jakarta.faces.contract.xml</exclude>
+                                        <exclude>faces23/two-contracts-in-jar-tckjar/src/main/resources/META-INF/contracts/siteLayout/jakarta.faces.contract.xml</exclude>
+                                    </excludes>
+                                </licenseSet>
+                            </licenseSets>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>add missing license headers</id>
+                                <!-- Ahead of the formatter: profile plugins are appended after the base ones, so sharing its phase would leave a new header unformatted. -->
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>format</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
 
         <profile>
             <id>build-epl-tck</id>
