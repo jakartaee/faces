@@ -44,6 +44,42 @@ class Spec2247IT extends BaseITNG {
     }
 
     /**
+     * The body of an invocation is markup of the page which wrote it, not of the tag file inserting it, so it keeps resolving names against the scope that page
+     * is in: a name the enclosing invocation supplied holds its value in the body where the tag file inserting it resolves the same name to nothing. This holds
+     * for a nameless insertion and for a named one, and for markup evaluated while the view is built as much as for a value expression evaluated when it
+     * renders.
+     *
+     * @see https://github.com/jakartaee/faces/issues/2247
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/6027
+     */
+    @Test
+    void testInsertedBodyResolvesTheParametersOfTheInvocationItWasWrittenIn() {
+        WebPage page = getPage("spec2247.xhtml");
+
+        assertEquals(
+            "[A|(I::BA/CA:NA)]", page.findElement(By.id("insertedBody")).getText(),
+            "the body written at the nested invocation resolves #{attribute} to the value the enclosing invocation was given"
+        );
+    }
+
+    /**
+     * A ui:param written in the body of an invocation reaches the markup it is written among, wherever the tag file inserts it, as it does on a ui:include or a
+     * ui:decorate.
+     *
+     * @see https://github.com/jakartaee/faces/issues/2247
+     * @see https://github.com/eclipse-ee4j/mojarra/issues/6027
+     */
+    @Test
+    void testParameterWrittenInAnInsertedBodyReachesThatBody() {
+        WebPage page = getPage("spec2247.xhtml");
+
+        assertEquals(
+            "(I::BP:)", page.findElement(By.id("parameterInInsertedBody")).getText(),
+            "the body resolves the ui:param it carries"
+        );
+    }
+
+    /**
      * A variable a tag file sets itself does not outlive the invocation, whether it is set by a scopeless c:set or by a ui:param written in the body of the
      * invocation, and the same holds for a composite component usage.
      *

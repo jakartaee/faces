@@ -28,6 +28,8 @@
     </h:head>
     <h:body>
         <h:panelGroup id="nestedInvocation"><t:parameterized attribute="A"><t:parameterized/></t:parameterized></h:panelGroup>
+        <h:panelGroup id="insertedBody"><t:enclosing attribute="A"/></h:panelGroup>
+        <h:panelGroup id="parameterInInsertedBody"><t:body nestedAttribute="I"><ui:param name="parameterInBody" value="P"/>B#{parameterInBody}</t:body></h:panelGroup>
         <h:panelGroup id="variableEscape"><t:setter/>[#{setInsideTagFile}]</h:panelGroup>
         <h:panelGroup id="parameterEscape"><t:inserting><ui:param name="parameterInsideInvocation" value="P"/></t:inserting>[#{parameterInsideInvocation}]</h:panelGroup>
         <h:panelGroup id="compositeParameterEscape"><my:spec2247Probe attribute="A"><ui:param name="parameterInsideComposite" value="P"/>[body]</my:spec2247Probe>[#{parameterInsideComposite}]</h:panelGroup>

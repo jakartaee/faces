@@ -32,6 +32,20 @@
         </attribute>
     </tag>
     <tag>
+        <tag-name>enclosing</tag-name>
+        <source>tags/spec2247Enclosing.xhtml</source>
+        <attribute>
+            <name>attribute</name>
+        </attribute>
+    </tag>
+    <tag>
+        <tag-name>body</tag-name>
+        <source>tags/spec2247Body.xhtml</source>
+        <attribute>
+            <name>nestedAttribute</name>
+        </attribute>
+    </tag>
+    <tag>
         <tag-name>setter</tag-name>
         <source>tags/spec2247Setter.xhtml</source>
     </tag>
