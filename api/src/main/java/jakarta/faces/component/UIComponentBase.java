@@ -24,7 +24,6 @@ import static jakarta.faces.component.PackageUtils.FACET_NAME;
 import static jakarta.faces.component.PackageUtils.MARK_CHILDREN_MODIFIED;
 import static jakarta.faces.component.PackageUtils.MARK_CREATED;
 import static jakarta.faces.component.PackageUtils.MARK_DELETED;
-import static jakarta.faces.component.PackageUtils.REMOVED_CHILDREN;
 import static jakarta.faces.component.PackageUtils.isAllNull;
 import static jakarta.faces.component.PackageUtils.isAnyNull;
 import static jakarta.faces.component.PackageUtils.isEmpty;
@@ -160,7 +159,6 @@ public abstract class UIComponentBase extends UIComponent {
     // so saved/restored state is unchanged. See markerGet/markerPut/markerRemove.
     private String markCreated; // PackageUtils.MARK_CREATED (tag id)
     private String facetName; // PackageUtils.FACET_NAME
-    private Object removedChildren; // PackageUtils.REMOVED_CHILDREN (Collection)
     private Object dynamicComponent; // PackageUtils.DYNAMIC_COMPONENT (Integer index)
     private boolean markDeleted; // PackageUtils.MARK_DELETED
     private boolean markChildrenModified; // PackageUtils.MARK_CHILDREN_MODIFIED
@@ -1782,9 +1780,6 @@ public abstract class UIComponentBase extends UIComponent {
         if (FACET_NAME.equals(key)) {
             return facetName;
         }
-        if (REMOVED_CHILDREN.equals(key)) {
-            return removedChildren;
-        }
         if (DYNAMIC_COMPONENT.equals(key)) {
             return dynamicComponent;
         }
@@ -1805,9 +1800,6 @@ public abstract class UIComponentBase extends UIComponent {
         }
         else if (FACET_NAME.equals(key)) {
             facetName = (String) value;
-        }
-        else if (REMOVED_CHILDREN.equals(key)) {
-            removedChildren = value;
         }
         else if (DYNAMIC_COMPONENT.equals(key)) {
             dynamicComponent = value;
@@ -1830,9 +1822,6 @@ public abstract class UIComponentBase extends UIComponent {
         }
         else if (FACET_NAME.equals(key)) {
             facetName = null;
-        }
-        else if (REMOVED_CHILDREN.equals(key)) {
-            removedChildren = null;
         }
         else if (DYNAMIC_COMPONENT.equals(key)) {
             dynamicComponent = null;
@@ -1859,7 +1848,6 @@ public abstract class UIComponentBase extends UIComponent {
         }
         markCreated = (String) attrs.get(MARK_CREATED);
         facetName = (String) attrs.get(FACET_NAME);
-        removedChildren = attrs.get(REMOVED_CHILDREN);
         dynamicComponent = attrs.get(DYNAMIC_COMPONENT);
         markDeleted = Boolean.TRUE.equals(attrs.get(MARK_DELETED));
         markChildrenModified = Boolean.TRUE.equals(attrs.get(MARK_CHILDREN_MODIFIED));
