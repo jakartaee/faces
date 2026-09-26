@@ -21,7 +21,6 @@ import static jakarta.faces.application.Resource.COMPONENT_RESOURCE_KEY;
 import static jakarta.faces.component.PackageUtils.ATTRIBUTES_THAT_ARE_SET;
 import static jakarta.faces.component.PackageUtils.DYNAMIC_COMPONENT;
 import static jakarta.faces.component.PackageUtils.FACET_NAME;
-import static jakarta.faces.component.PackageUtils.MARK_CHILDREN_MODIFIED;
 import static jakarta.faces.component.PackageUtils.MARK_CREATED;
 import static jakarta.faces.component.PackageUtils.MARK_DELETED;
 import static jakarta.faces.component.PackageUtils.isAllNull;
@@ -154,14 +153,13 @@ public abstract class UIComponentBase extends UIComponent {
     private AttributesMap attributes;
 
     // Facelets framework markers, read per component on every Facelets refresh (findChildByTagId, deletion
-    // marking, facet-name and child-modified checks). Cached on fields so AttributesMap.get/containsKey skip
+    // marking and facet-name checks). Cached on fields so AttributesMap.get/containsKey skip
     // the per-read state-map lookup; writes still flow through the attributes map (AttributesMap.put/remove),
     // so saved/restored state is unchanged. See markerGet/markerPut/markerRemove.
     private String markCreated; // PackageUtils.MARK_CREATED (tag id)
     private String facetName; // PackageUtils.FACET_NAME
     private Object dynamicComponent; // PackageUtils.DYNAMIC_COMPONENT (Integer index)
     private boolean markDeleted; // PackageUtils.MARK_DELETED
-    private boolean markChildrenModified; // PackageUtils.MARK_CHILDREN_MODIFIED
     private boolean added; // setParent re-entrancy guard
 
     /**
@@ -1786,9 +1784,6 @@ public abstract class UIComponentBase extends UIComponent {
         if (MARK_DELETED.equals(key)) {
             return markDeleted ? Boolean.TRUE : null;
         }
-        if (MARK_CHILDREN_MODIFIED.equals(key)) {
-            return markChildrenModified ? Boolean.TRUE : null;
-        }
         return NOT_MARKER;
     }
 
@@ -1806,9 +1801,6 @@ public abstract class UIComponentBase extends UIComponent {
         }
         else if (MARK_DELETED.equals(key)) {
             markDeleted = Boolean.TRUE.equals(value);
-        }
-        else if (MARK_CHILDREN_MODIFIED.equals(key)) {
-            markChildrenModified = Boolean.TRUE.equals(value);
         }
         else {
             return false;
@@ -1829,9 +1821,6 @@ public abstract class UIComponentBase extends UIComponent {
         else if (MARK_DELETED.equals(key)) {
             markDeleted = false;
         }
-        else if (MARK_CHILDREN_MODIFIED.equals(key)) {
-            markChildrenModified = false;
-        }
         else {
             return false;
         }
@@ -1850,7 +1839,6 @@ public abstract class UIComponentBase extends UIComponent {
         facetName = (String) attrs.get(FACET_NAME);
         dynamicComponent = attrs.get(DYNAMIC_COMPONENT);
         markDeleted = Boolean.TRUE.equals(attrs.get(MARK_DELETED));
-        markChildrenModified = Boolean.TRUE.equals(attrs.get(MARK_CHILDREN_MODIFIED));
         setCompositeComponentFlag(attrs.containsKey(COMPONENT_RESOURCE_KEY));
     }
 
