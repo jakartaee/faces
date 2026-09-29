@@ -1,4 +1,4 @@
-# Jakarta Faces logo
+# Jakarta® Faces logo
 
 The mark is a solid with three visible faces.
 It takes the name literally, and shows parts composed into one whole, like a component tree rendered into a page.
@@ -21,6 +21,13 @@ The gaps between the faces are transparent, so they show the background.
 
 The wordmark is set in [Plus Jakarta Sans](https://github.com/tokotype/PlusJakartaSans) (SIL Open Font License): "JAKARTA" in Bold, "Faces" in ExtraBold.
 It is converted to outlines, so the SVG files do not need the font.
+
+## Trademarks
+
+The Eclipse Foundation claims the names and logos of its projects and specifications as trademarks, and this logo is one of them.
+Use it as the [Eclipse Foundation Trademark Usage Policy](https://www.eclipse.org/legal/logo-guidelines/) describes.
+
+Jakarta and the Jakarta Faces logo are trademarks of Eclipse Foundation AISBL.
 
 ## History
 
