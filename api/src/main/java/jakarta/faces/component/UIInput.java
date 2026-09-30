@@ -591,15 +591,22 @@ public class UIInput extends UIOutput implements EditableValueHolder {
             throw new NullPointerException();
         }
 
-        // Skip processing if our rendered flag is false
-        if (!isRendered()) {
-            return;
+        pushComponentToEL(context, this);
+
+        try {
+            // Skip processing if our rendered flag is false
+            if (!isRendered()) {
+                return;
+            }
+
+            processDecodesOfFacetsChildrenAndSelf(context);
+
+            if (isImmediate()) {
+                executeValidate(context);
+            }
         }
-
-        super.processDecodes(context);
-
-        if (isImmediate()) {
-            executeValidate(context);
+        finally {
+            popComponentFromEL(context);
         }
     }
 
@@ -620,13 +627,26 @@ public class UIInput extends UIOutput implements EditableValueHolder {
             throw new NullPointerException();
         }
 
-        // Skip processing if our rendered flag is false
-        if (!isRendered()) {
-            return;
-        }
-
         pushComponentToEL(context, this);
 
+        try {
+            // Skip processing if our rendered flag is false
+            if (!isRendered()) {
+                return;
+            }
+
+            processValidatorsOfSelfFacetsAndChildren(context);
+        }
+        finally {
+            popComponentFromEL(context);
+        }
+    }
+
+    /**
+     * Validates this component unless it is immediate and then calls <code>processValidators()</code> on all facets and children, without pushing this
+     * component to the EL. For overrides of {@link #processValidators} which push this component only once for the whole phase.
+     */
+    void processValidatorsOfSelfFacetsAndChildren(FacesContext context) {
         if (!isImmediate()) {
             Application application = context.getApplication();
             application.publishEvent(context, PreValidateEvent.class, this);
@@ -636,8 +656,6 @@ public class UIInput extends UIOutput implements EditableValueHolder {
         for (Iterator<UIComponent> i = getFacetsAndChildren(); i.hasNext();) {
             i.next().processValidators(context);
         }
-
-        popComponentFromEL(context);
     }
 
     /**
@@ -655,28 +673,30 @@ public class UIInput extends UIOutput implements EditableValueHolder {
             throw new NullPointerException();
         }
 
-        // Skip processing if our rendered flag is false
-        if (!isRendered()) {
-            return;
-        }
-
-        super.processUpdates(context);
-
         pushComponentToEL(context, this);
 
         try {
-            updateModel(context);
-        }
-        catch (RuntimeException e) {
-            context.renderResponse();
-            throw e;
+            // Skip processing if our rendered flag is false
+            if (!isRendered()) {
+                return;
+            }
+
+            processUpdatesOfFacetsAndChildren(context);
+
+            try {
+                updateModel(context);
+            }
+            catch (RuntimeException e) {
+                context.renderResponse();
+                throw e;
+            }
+
+            if (!isValid()) {
+                context.renderResponse();
+            }
         }
         finally {
             popComponentFromEL(context);
-        }
-
-        if (!isValid()) {
-            context.renderResponse();
         }
     }
 

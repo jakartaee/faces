@@ -805,6 +805,7 @@ _pushComponentToEL()_ and
 _popComponentFromEL()_ must be called inside each of the lifecycle
 management methods in this section as specified in the javadoc for that
 method.
+_pushComponentToEL()_ must be called before the _rendered_ property of the component is evaluated, so that an expression referring to _#{component}_ in that property resolves to the component itself.
 
 [source,java]
 ----

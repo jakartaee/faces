@@ -1010,40 +1010,48 @@ public abstract class UIComponentBase extends UIComponent {
             throw new NullPointerException();
         }
 
-        // Skip processing if our rendered flag is false
-        if (!isRendered()) {
-            return;
-        }
-
         pushComponentToEL(context, null);
 
         try {
-            // Process all facets and children of this component, facets first (matching getFacetsAndChildren()).
-            if (getFacetCount() > 0) {
-                for (UIComponent facet : getFacets().values()) {
-                    facet.processDecodes(context);
-                }
-            }
-            if (getChildCount() > 0) {
-                // Re-read size() each iteration: a child appended while an earlier child is being processed
-                // must still be processed, matching the live children-list iterator semantics.
-                List<UIComponent> children = getChildren();
-                for (int i = 0; i < children.size(); i++) {
-                    children.get(i).processDecodes(context);
-                }
+            // Skip processing if our rendered flag is false
+            if (!isRendered()) {
+                return;
             }
 
-            // Process this component itself
-            try {
-                decode(context);
-            }
-            catch (RuntimeException e) {
-                context.renderResponse();
-                throw e;
-            }
+            processDecodesOfFacetsChildrenAndSelf(context);
         }
         finally {
             popComponentFromEL(context);
+        }
+    }
+
+    /**
+     * Calls <code>processDecodes()</code> on all facets and children and then <code>decode()</code> on this component, without pushing this component to the
+     * EL. For overrides of {@link #processDecodes} which push this component only once for the whole phase.
+     */
+    void processDecodesOfFacetsChildrenAndSelf(FacesContext context) {
+        // Process all facets and children of this component, facets first (matching getFacetsAndChildren()).
+        if (getFacetCount() > 0) {
+            for (UIComponent facet : getFacets().values()) {
+                facet.processDecodes(context);
+            }
+        }
+        if (getChildCount() > 0) {
+            // Re-read size() each iteration: a child appended while an earlier child is being processed
+            // must still be processed, matching the live children-list iterator semantics.
+            List<UIComponent> children = getChildren();
+            for (int i = 0; i < children.size(); i++) {
+                children.get(i).processDecodes(context);
+            }
+        }
+
+        // Process this component itself
+        try {
+            decode(context);
+        }
+        catch (RuntimeException e) {
+            context.renderResponse();
+            throw e;
         }
     }
 
@@ -1057,14 +1065,14 @@ public abstract class UIComponentBase extends UIComponent {
             throw new NullPointerException();
         }
 
-        // Skip processing if our rendered flag is false
-        if (!isRendered()) {
-            return;
-        }
-
         pushComponentToEL(context, null);
 
         try {
+            // Skip processing if our rendered flag is false
+            if (!isRendered()) {
+                return;
+            }
+
             Application application = context.getApplication();
             application.publishEvent(context, PreValidateEvent.class, this);
 
@@ -1100,31 +1108,39 @@ public abstract class UIComponentBase extends UIComponent {
             throw new NullPointerException();
         }
 
-        // Skip processing if our rendered flag is false
-        if (!isRendered()) {
-            return;
-        }
-
         pushComponentToEL(context, null);
 
         try {
-            // Process all facets and children of this component, facets first (matching getFacetsAndChildren()).
-            if (getFacetCount() > 0) {
-                for (UIComponent facet : getFacets().values()) {
-                    facet.processUpdates(context);
-                }
+            // Skip processing if our rendered flag is false
+            if (!isRendered()) {
+                return;
             }
-            if (getChildCount() > 0) {
-                // Re-read size() each iteration: a child appended while an earlier child is being processed
-                // must still be processed, matching the live children-list iterator semantics.
-                List<UIComponent> children = getChildren();
-                for (int i = 0; i < children.size(); i++) {
-                    children.get(i).processUpdates(context);
-                }
-            }
+
+            processUpdatesOfFacetsAndChildren(context);
         }
         finally {
             popComponentFromEL(context);
+        }
+    }
+
+    /**
+     * Calls <code>processUpdates()</code> on all facets and children, without pushing this component to the EL. For overrides of {@link #processUpdates} which
+     * push this component only once for the whole phase.
+     */
+    void processUpdatesOfFacetsAndChildren(FacesContext context) {
+        // Process all facets and children of this component, facets first (matching getFacetsAndChildren()).
+        if (getFacetCount() > 0) {
+            for (UIComponent facet : getFacets().values()) {
+                facet.processUpdates(context);
+            }
+        }
+        if (getChildCount() > 0) {
+            // Re-read size() each iteration: a child appended while an earlier child is being processed
+            // must still be processed, matching the live children-list iterator semantics.
+            List<UIComponent> children = getChildren();
+            for (int i = 0; i < children.size(); i++) {
+                children.get(i).processUpdates(context);
+            }
         }
     }
 

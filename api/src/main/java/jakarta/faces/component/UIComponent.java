@@ -1200,7 +1200,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * <p>
      * UIComponent.visitTree() implementations must call UIComponent.pushComponentToEL() before performing the visit and UIComponent.popComponentFromEL() after
-     * the visit.
+     * the visit. <span class="changed_added_5_0">The call to UIComponent.pushComponentToEL() must also precede the call to {@link #isVisitable}, and
+     * UIComponent.popComponentFromEL() must also be called when that returns <code>false</code>.</span>
      * </p>
      * </div>
      *
@@ -1215,18 +1216,18 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      */
     public boolean visitTree(VisitContext visitContext, VisitCallback callback) {
 
-        // First check to see whether we are visitable. If not
-        // short-circuit out of this subtree, though allow the
-        // visit to proceed through to other subtrees.
-        if (!isVisitable(visitContext)) {
-            return false;
-        }
-
         // Push ourselves to Jakarta Expression Language before visiting
         FacesContext facesContext = visitContext.getFacesContext();
         pushComponentToEL(facesContext, null);
 
         try {
+            // First check to see whether we are visitable. If not
+            // short-circuit out of this subtree, though allow the
+            // visit to proceed through to other subtrees.
+            if (!isVisitable(visitContext)) {
+                return false;
+            }
+
             // Visit ourselves. Note that we delegate to the
             // VisitContext to actually perform the visit.
             VisitResult result = visitContext.invokeVisitCallback(this, callback);
@@ -1273,7 +1274,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      *
      * <p>
      * Custom {@code visitTree()} implementations may call this method to determine whether the component is visitable before performing any visit-related
-     * processing.
+     * processing. <span class="changed_added_5_0">They must call {@link #pushComponentToEL} on this component beforehand, so that a <code>rendered</code>
+     * expression referring to <code>#{component}</code> resolves to this component.</span>
      * </p>
      *
      * </div>
@@ -1365,7 +1367,8 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
 
     /**
      * <p>
-     * If this component returns <code>true</code> from {@link #isRendered}, take the following action.
+     * If this component returns <code>true</code> from {@link #isRendered}<span class="changed_modified_5_0">, as evaluated between a call to
+     * {@link #pushComponentToEL} and a call to {@link #popComponentFromEL}</span>, take the following action.
      * </p>
      *
      * <p>
@@ -1384,7 +1387,7 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             throw new NullPointerException();
         }
 
-        if (!isRendered()) {
+        if (!isRenderedAsCurrentComponent(context)) {
             return;
         }
 
@@ -1525,6 +1528,22 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
             if (!compositeELStack.isEmpty()) {
                 compositeELStack.pop();
             }
+        }
+    }
+
+    /**
+     * Returns {@link #isRendered()} as evaluated with this component pushed as the current component, so that a <code>rendered</code> expression referring to
+     * <code>#{component}</code> resolves to this component. For callers which must consult the <code>rendered</code> property before delegating to a method
+     * which pushes this component itself.
+     */
+    boolean isRenderedAsCurrentComponent(FacesContext context) {
+        pushComponentToEL(context, null);
+
+        try {
+            return isRendered();
+        }
+        finally {
+            popComponentFromEL(context);
         }
     }
 
@@ -1807,8 +1826,10 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * </p>
      *
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
      * <li class="changed_added_2_0">Call {@link #pushComponentToEL}.</li>
+     *
+     * <li class="changed_modified_5_0">If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, call
+     * {@link #popComponentFromEL} and skip further processing.</li>
      *
      * <li>Call the <code>processDecodes()</code> method of all facets and children of this {@link UIComponent}, in the order determined by a call to
      * <code>getFacetsAndChildren()</code>.</li>
@@ -1861,8 +1882,9 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * </p>
      *
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
      * <li class="changed_added_2_0">Call {@link #pushComponentToEL}.</li>
+     * <li class="changed_modified_5_0">If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, call
+     * {@link #popComponentFromEL} and skip further processing.</li>
      * <li>Call the <code>processValidators()</code> method of all facets and children of this {@link UIComponent}, in the order determined by a call to
      * <code>getFacetsAndChildren()</code>.</li>
      * <li><span class="changed_modified_2_0_rev_a">After returning from calling <code>getFacetsAndChildren()</code> call
@@ -1884,9 +1906,10 @@ public abstract class UIComponent implements PartialStateHolder, TransientStateH
      * </p>
      *
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
-     *
      * <li class="changed_added_2_0">Call {@link #pushComponentToEL}.</li>
+     *
+     * <li class="changed_modified_5_0">If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, call
+     * {@link #popComponentFromEL} and skip further processing.</li>
      *
      * <li>Call the <code>processUpdates()</code> method of all facets and children of this {@link UIComponent}, in the order determined by a call to
      * <code>getFacetsAndChildren()</code>. <span class="changed_added_2_0">After returning from the <code>processUpdates()</code> method on a child or facet,
