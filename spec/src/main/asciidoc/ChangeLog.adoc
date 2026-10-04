@@ -234,6 +234,9 @@ Change: parameterized standard converters
 * Issue ID {issue_tracker_url}1725[1725] +
 Removal: UIComponent.bindings field deprecated since 2.3
 
+* Issue ID {issue_tracker_url}1002[1002] +
+Change: a component is pushed as the current component before its _rendered_ property is evaluated, and while an input component is validated, so that _#{component}_ resolves to the component itself instead of its parent
+
 
 === Changes between 4.1 and 4.0
 

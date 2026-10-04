@@ -357,16 +357,16 @@ public class UIForm extends UIComponentBase implements NamingContainer, UniqueId
 
         // If we have no child ids to visit, just visit ourselves, if
         // we are visitable.
-        if (isVisitable(context)) {
-            FacesContext facesContext = context.getFacesContext();
-            pushComponentToEL(facesContext, null);
+        FacesContext facesContext = context.getFacesContext();
+        pushComponentToEL(facesContext, null);
 
-            try {
+        try {
+            if (isVisitable(context)) {
                 return context.invokeVisitCallback(this, callback) == COMPLETE;
             }
-            finally {
-                popComponentFromEL(facesContext);
-            }
+        }
+        finally {
+            popComponentFromEL(facesContext);
         }
 
         // Done visiting this subtree. Return false to allow

@@ -1102,7 +1102,8 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      * Override the default {@link UIComponentBase#processDecodes} processing to perform the following steps.
      * </p>
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
+     * <li class="changed_modified_5_0">Call {@link UIComponent#pushComponentToEL}. If the <code>rendered</code> property of this {@link UIComponent} is
+     * <code>false</code>, call {@link UIComponent#popComponentFromEL} and skip further processing.</li>
      * <li>Set the current <code>rowIndex</code> to -1.</li>
      * <li>Call the <code>processDecodes()</code> method of all facets of this {@link UIData}, in the order determined by a call to
      * <code>getFacets().keySet().iterator()</code>.</li>
@@ -1130,11 +1131,12 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
         if (context == null) {
             throw new NullPointerException();
         }
+        pushComponentToEL(context, this);
         if (!isRendered()) {
+            popComponentFromEL(context);
             return;
         }
 
-        pushComponentToEL(context, this);
         preDecode(context);
         iterate(context, PhaseId.APPLY_REQUEST_VALUES);
         decode(context);
@@ -1147,7 +1149,8 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      * Override the default {@link UIComponentBase#processValidators} processing to perform the following steps.
      * </p>
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
+     * <li class="changed_modified_5_0">Call {@link UIComponent#pushComponentToEL}. If the <code>rendered</code> property of this {@link UIComponent} is
+     * <code>false</code>, call {@link UIComponent#popComponentFromEL} and skip further processing.</li>
      * <li>Set the current <code>rowIndex</code> to -1.</li>
      * <li>Call the <code>processValidators()</code> method of all facets of this {@link UIData}, in the order determined by a call to
      * <code>getFacets().keySet().iterator()</code>.</li>
@@ -1174,10 +1177,11 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
         if (context == null) {
             throw new NullPointerException();
         }
+        pushComponentToEL(context, this);
         if (!isRendered()) {
+            popComponentFromEL(context);
             return;
         }
-        pushComponentToEL(context, this);
         Application app = context.getApplication();
         app.publishEvent(context, PreValidateEvent.class, this);
         preValidate(context);
@@ -1192,7 +1196,8 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      * Override the default {@link UIComponentBase#processUpdates} processing to perform the following steps.
      * </p>
      * <ul>
-     * <li>If the <code>rendered</code> property of this {@link UIComponent} is <code>false</code>, skip further processing.</li>
+     * <li class="changed_modified_5_0">Call {@link UIComponent#pushComponentToEL}. If the <code>rendered</code> property of this {@link UIComponent} is
+     * <code>false</code>, call {@link UIComponent#popComponentFromEL} and skip further processing.</li>
      * <li>Set the current <code>rowIndex</code> to -1.</li>
      * <li>Call the <code>processUpdates()</code> method of all facets of this {@link UIData}, in the order determined by a call to
      * <code>getFacets().keySet().iterator()</code>.</li>
@@ -1218,11 +1223,12 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
         if (context == null) {
             throw new NullPointerException();
         }
+        pushComponentToEL(context, this);
         if (!isRendered()) {
+            popComponentFromEL(context);
             return;
         }
 
-        pushComponentToEL(context, this);
         preUpdate(context);
         iterate(context, PhaseId.UPDATE_MODEL_VALUES);
         popComponentFromEL(context);
@@ -1251,17 +1257,17 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
      *
      * <div class="changed_added_2_0">
      *
-     * <p>
-     * If the {@link UIComponent#isVisitable} method of this instance returns <code>false</code>, take no action and return.
+     * <p class="changed_modified_5_0">
+     * Call {@link UIComponent#pushComponentToEL}. If the {@link UIComponent#isVisitable} method of this instance returns <code>false</code>, call
+     * {@link UIComponent#popComponentFromEL}, take no further action and return.
      * </p>
      *
      * <p>
-     * Call {@link UIComponent#pushComponentToEL} and invoke the visit callback on this <code>UIData</code> instance as described in
-     * {@link UIComponent#visitTree}. Let the result of the invoctaion be <em>visitResult</em>. If <em>visitResult</em> is {@link VisitResult#COMPLETE}, take no
-     * further action and return <code>true</code>. Otherwise, determine if we need to visit our children. The default implementation calls
-     * {@link VisitContext#getSubtreeIdsToVisit} passing <code>this</code> as the argument. If the result of that call is non-empty, let
-     * <em>doVisitChildren</em> be <code>true</code>. If <em>doVisitChildren</em> is <code>true</code> and <em>visitResult</em> is {@link VisitResult#ACCEPT},
-     * take the following action.
+     * <span class="changed_modified_5_0">Invoke</span> the visit callback on this <code>UIData</code> instance as described in {@link UIComponent#visitTree}.
+     * Let the result of the invocation be <em>visitResult</em>. If <em>visitResult</em> is {@link VisitResult#COMPLETE}, take no further action and return
+     * <code>true</code>. Otherwise, determine if we need to visit our children. The default implementation calls {@link VisitContext#getSubtreeIdsToVisit}
+     * passing <code>this</code> as the argument. If the result of that call is non-empty, let <em>doVisitChildren</em> be <code>true</code>. If
+     * <em>doVisitChildren</em> is <code>true</code> and <em>visitResult</em> is {@link VisitResult#ACCEPT}, take the following action.
      * </p>
      *
      * <ul>
@@ -1376,30 +1382,33 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
     @Override
     public boolean visitTree(VisitContext context, VisitCallback callback) {
 
-        // First check to see whether we are visitable. If not
-        // short-circuit out of this subtree, though allow the
-        // visit to proceed through to other subtrees.
-        if (!isVisitable(context)) {
-            return false;
-        }
-
         FacesContext facesContext = context.getFacesContext();
-        // NOTE: that the visitRows local will be obsolete once the
-        // appropriate visit hints have been added to the API
-        boolean visitRows = requiresRowIteration(context);
-
-        // Clear out the row index is one is set so that
-        // we start from a clean slate.
-        int oldRowIndex = -1;
-        if (visitRows) {
-            oldRowIndex = getRowIndex();
-            setRowIndex(-1);
-        }
 
         // Push ourselves to EL
         pushComponentToEL(facesContext, null);
 
+        boolean visitRows = false;
+        int oldRowIndex = -1;
+
         try {
+
+            // First check to see whether we are visitable. If not
+            // short-circuit out of this subtree, though allow the
+            // visit to proceed through to other subtrees.
+            if (!isVisitable(context)) {
+                return false;
+            }
+
+            // NOTE: that the visitRows local will be obsolete once the
+            // appropriate visit hints have been added to the API
+            visitRows = requiresRowIteration(context);
+
+            // Clear out the row index is one is set so that
+            // we start from a clean slate.
+            if (visitRows) {
+                oldRowIndex = getRowIndex();
+                setRowIndex(-1);
+            }
 
             // Visit ourselves. Note that we delegate to the
             // VisitContext to actually perform the visit.
@@ -1951,7 +1960,7 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
         List<UIColumn> renderedColumns = new ArrayList<>(getChildCount());
         if (getChildCount() > 0) {
             for (UIComponent child : getChildren()) {
-                if (child instanceof UIColumn && child.isRendered()) {
+                if (child instanceof UIColumn && child.isRenderedAsCurrentComponent(context)) {
                     renderedColumns.add((UIColumn) child);
                 }
             }
@@ -2002,7 +2011,7 @@ public class UIData extends UIComponentBase implements NamingContainer, UniqueId
             for (UIColumn kid : renderedColumns) {
                 if (kid.getChildCount() > 0) {
                     for (UIComponent grandkid : kid.getChildren()) {
-                        if (!grandkid.isRendered()) {
+                        if (!grandkid.isRenderedAsCurrentComponent(context)) {
                             continue;
                         }
                         if (phaseId == PhaseId.APPLY_REQUEST_VALUES) {

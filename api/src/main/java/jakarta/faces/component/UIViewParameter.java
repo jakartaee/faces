@@ -236,30 +236,37 @@ public class UIViewParameter extends UIInput {
             throw new NullPointerException();
         }
 
-        // Skip processing if our rendered flag is false
-        if (!isRendered()) {
-            return;
-        }
+        pushComponentToEL(context, this);
 
-        Object submittedValue = getSubmittedValue();
+        try {
+            // Skip processing if our rendered flag is false
+            if (!isRendered()) {
+                return;
+            }
 
-        // we have to override since UIInput assumes that a null value means don't check
-        if (submittedValue == null && myIsRequired()) {
-            String requiredMessageStr = getRequiredMessage();
-            FacesMessage message;
-            if (null != requiredMessageStr) {
-                message = new FacesMessage(Severity.ERROR, requiredMessageStr, requiredMessageStr);
+            Object submittedValue = getSubmittedValue();
+
+            // we have to override since UIInput assumes that a null value means don't check
+            if (submittedValue == null && myIsRequired()) {
+                String requiredMessageStr = getRequiredMessage();
+                FacesMessage message;
+                if (null != requiredMessageStr) {
+                    message = new FacesMessage(Severity.ERROR, requiredMessageStr, requiredMessageStr);
+                }
+                else {
+                    message = MessageFactory.getMessage(context, REQUIRED_MESSAGE_ID, MessageFactory.getLabel(context, this));
+                }
+                context.addMessage(getClientId(context), message);
+                setValid(false);
+                context.validationFailed();
+                context.renderResponse();
             }
             else {
-                message = MessageFactory.getMessage(context, REQUIRED_MESSAGE_ID, MessageFactory.getLabel(context, this));
+                processValidatorsOfSelfFacetsAndChildren(context);
             }
-            context.addMessage(getClientId(context), message);
-            setValid(false);
-            context.validationFailed();
-            context.renderResponse();
         }
-        else {
-            super.processValidators(context);
+        finally {
+            popComponentFromEL(context);
         }
     }
 
