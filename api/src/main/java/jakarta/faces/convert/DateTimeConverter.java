@@ -844,16 +844,8 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
      * spaces is accepted.
      */
     private static DateTimeFormatterBuilder createLocalizedBuilder(FormatStyle dateStyle, FormatStyle timeStyle, Locale locale, boolean forParsing) {
-        if (forParsing) {
-            String localizedPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(dateStyle, timeStyle, IsoChronology.INSTANCE, locale);
-            String normalizedPattern = normalizeWhitespace(localizedPattern);
-            return new DateTimeFormatterBuilder().appendPattern(normalizedPattern);
-        }
-
-        // The formatter has the ISO chronology and this locale, so this is the localized pattern
-        // appendLocalized(dateStyle, timeStyle) resolves when formatting.
-        return new DateTimeFormatterBuilder()
-            .appendPattern(DateTimeFormatterBuilder.getLocalizedDateTimePattern(dateStyle, timeStyle, IsoChronology.INSTANCE, locale));
+        String localizedPattern = DateTimeFormatterBuilder.getLocalizedDateTimePattern(dateStyle, timeStyle, IsoChronology.INSTANCE, locale);
+        return new DateTimeFormatterBuilder().appendPattern(forParsing ? normalizeWhitespace(localizedPattern) : localizedPattern);
     }
 
     private static String normalizeWhitespace(CharSequence text) {
