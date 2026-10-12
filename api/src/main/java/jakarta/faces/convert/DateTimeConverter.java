@@ -47,6 +47,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
@@ -227,6 +228,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
     public void setDateStyle(String dateStyle) {
         clearInitialState();
         this.dateStyle = dateStyle;
+        clearCacheKeys();
     }
 
     /**
@@ -256,6 +258,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
     public void setLocale(Locale locale) {
         clearInitialState();
         this.locale = locale;
+        clearCacheKeys();
 
     }
 
@@ -282,6 +285,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
     public void setPattern(String pattern) {
         clearInitialState();
         this.pattern = pattern;
+        clearCacheKeys();
 
     }
 
@@ -307,6 +311,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
     public void setTimeStyle(String timeStyle) {
         clearInitialState();
         this.timeStyle = timeStyle;
+        clearCacheKeys();
     }
 
     /**
@@ -330,6 +335,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
     public void setTimeZone(TimeZone timeZone) {
         clearInitialState();
         this.timeZone = timeZone;
+        clearCacheKeys();
     }
 
     /**
@@ -373,6 +379,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
     public void setType(String type) {
         clearInitialState();
         this.type = type;
+        clearCacheKeys();
     }
 
     // ------------------------------------------------------- Converter Methods
@@ -615,7 +622,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
             cache = Collections.synchronizedMap(new FormatterCache());
             applicationMap.put(FORMATTER_CACHE_KEY, cache);
         }
-        String key = formatterKey(locale, forParsing);
+        String key = cacheKeys(locale).get(forParsing);
         FormatWrapper formatter = cache.get(key);
         if (formatter == null) {
             formatter = getDateFormat(locale, forParsing);
@@ -638,7 +645,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
             cache = new FormatterCache();
             attributes.put(FORMATTER_CACHE_KEY, cache);
         }
-        String key = formatterKey(locale, forParsing);
+        String key = cacheKeys(locale).get(forParsing);
         FormatWrapper formatter = cache.get(key);
         if (formatter == null) {
             formatter = getDateFormat(locale, forParsing);
@@ -648,6 +655,44 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
             cache.put(key, formatter);
         }
         return formatter;
+    }
+
+    /**
+     * The cache keys of this converter's configuration for one locale. Immutable, and held in a single field, so that a converter instance shared between
+     * threads always reads the keys of one locale together.
+     */
+    private static final class CacheKeys {
+
+        final Locale locale;
+        final String formatting;
+        final String parsing;
+
+        CacheKeys(Locale locale, String formatting, String parsing) {
+            this.locale = locale;
+            this.formatting = formatting;
+            this.parsing = parsing;
+        }
+
+        String get(boolean forParsing) {
+            return forParsing ? parsing : formatting;
+        }
+
+    }
+
+    /** The keys of the current configuration and its last locale. Every property setter and restoreState clears it. */
+    private transient CacheKeys cacheKeys;
+
+    private void clearCacheKeys() {
+        cacheKeys = null;
+    }
+
+    private CacheKeys cacheKeys(Locale locale) {
+        CacheKeys keys = cacheKeys;
+        if (keys == null || !Objects.equals(keys.locale, locale)) {
+            keys = new CacheKeys(locale, formatterKey(locale, false), formatterKey(locale, true));
+            cacheKeys = keys;
+        }
+        return keys;
     }
 
     /** Key over every property {@link #getCachedFormatter} reads to build the formatter. */
@@ -805,7 +850,10 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
             return new DateTimeFormatterBuilder().appendPattern(normalizedPattern);
         }
 
-        return new DateTimeFormatterBuilder().appendLocalized(dateStyle, timeStyle);
+        // The formatter has the ISO chronology and this locale, so this is the localized pattern
+        // appendLocalized(dateStyle, timeStyle) resolves when formatting.
+        return new DateTimeFormatterBuilder()
+            .appendPattern(DateTimeFormatterBuilder.getLocalizedDateTimePattern(dateStyle, timeStyle, IsoChronology.INSTANCE, locale));
     }
 
     private static String normalizeWhitespace(CharSequence text) {
@@ -886,6 +934,7 @@ public class DateTimeConverter implements Converter<Object>, PartialStateHolder 
             timeStyle = (String) values[3];
             timeZone = (TimeZone) values[4];
             type = (String) values[5];
+            clearCacheKeys();
         }
 
     }

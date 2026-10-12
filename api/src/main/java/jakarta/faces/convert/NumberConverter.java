@@ -23,9 +23,12 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Currency;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 
 import jakarta.faces.component.PartialStateHolder;
@@ -203,6 +206,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.currencyCode = currencyCode;
+        clearCacheKeys();
 
     }
 
@@ -231,6 +235,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.currencySymbol = currencySymbol;
+        clearCacheKeys();
 
     }
 
@@ -259,6 +264,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.groupingUsed = groupingUsed;
+        clearCacheKeys();
 
     }
 
@@ -287,6 +293,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.integerOnly = integerOnly;
+        clearCacheKeys();
 
     }
 
@@ -315,6 +322,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.maxFractionDigits = maxFractionDigits;
+        clearCacheKeys();
 
     }
 
@@ -343,6 +351,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.maxIntegerDigits = maxIntegerDigits;
+        clearCacheKeys();
 
     }
 
@@ -371,6 +380,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.minFractionDigits = minFractionDigits;
+        clearCacheKeys();
 
     }
 
@@ -399,6 +409,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.minIntegerDigits = minIntegerDigits;
+        clearCacheKeys();
 
     }
 
@@ -431,6 +442,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.locale = locale;
+        clearCacheKeys();
 
     }
 
@@ -459,6 +471,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.pattern = pattern;
+        clearCacheKeys();
 
     }
 
@@ -487,6 +500,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
         clearInitialState();
         this.type = type;
+        clearCacheKeys();
 
     }
 
@@ -553,12 +567,24 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
                 var origNegPrefix = dParser.getNegativePrefix();
                 var origNegSuffix = dParser.getNegativeSuffix();
 
-                boolean hasFixedWidthWhitespace = FIXED_WIDTH_WHITESPACE.matcher(String.valueOf(origGroupingSep)).matches() ||
-                    FIXED_WIDTH_WHITESPACE.matcher(String.valueOf(origMonetaryGroupingSep)).matches() ||
-                    FIXED_WIDTH_WHITESPACE.matcher(origPrefix).find() ||
-                    FIXED_WIDTH_WHITESPACE.matcher(origSuffix).find() ||
-                    FIXED_WIDTH_WHITESPACE.matcher(origNegPrefix).find() ||
-                    FIXED_WIDTH_WHITESPACE.matcher(origNegSuffix).find();
+                // A function of the symbols and affixes of the parser, which only depend on the pattern, the type, the
+                // locale and the currency: cached per such configuration.
+                Map<String, Boolean> whitespaceCache = whitespaceCache(context);
+                String whitespaceKey = cacheKeys(locale).parserSymbols;
+                Boolean cachedHasFixedWidthWhitespace = whitespaceCache.get(whitespaceKey);
+                boolean hasFixedWidthWhitespace;
+                if (cachedHasFixedWidthWhitespace != null) {
+                    hasFixedWidthWhitespace = cachedHasFixedWidthWhitespace;
+                }
+                else {
+                    hasFixedWidthWhitespace = FIXED_WIDTH_WHITESPACE.matcher(String.valueOf(origGroupingSep)).matches() ||
+                        FIXED_WIDTH_WHITESPACE.matcher(String.valueOf(origMonetaryGroupingSep)).matches() ||
+                        FIXED_WIDTH_WHITESPACE.matcher(origPrefix).find() ||
+                        FIXED_WIDTH_WHITESPACE.matcher(origSuffix).find() ||
+                        FIXED_WIDTH_WHITESPACE.matcher(origNegPrefix).find() ||
+                        FIXED_WIDTH_WHITESPACE.matcher(origNegSuffix).find();
+                    whitespaceCache.put(whitespaceKey, hasFixedWidthWhitespace);
+                }
 
                 if (hasFixedWidthWhitespace) {
                     var normalizedValue = normalizeWhitespace(value);
@@ -645,6 +671,16 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
             // it per value - a DecimalFormat plus a locale-data DecimalFormatSymbols - dominated allocation on
             // conversion-heavy views (e.g. a per-row f:convertNumber unrolled by c:forEach).
             NumberFormat formatter = getCachedFormatter(context);
+
+            // Integers and BigDecimals covered by FastNumberFormat are printed by it, exactly as the formatter prints
+            // them.
+            FastNumberFormat fast = getFastFormatter(context, formatter);
+            if (fast != null) {
+                String text = fast.format(value);
+                if (text != null) {
+                    return text;
+                }
+            }
 
             // Perform the requested formatting
             return formatter.format(value);
@@ -801,12 +837,43 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
 
     private static final String PARSER_CACHE_KEY = "jakarta.faces.convert.NumberConverter.parsers";
 
+    private static final String WHITESPACE_CACHE_KEY = "jakarta.faces.convert.NumberConverter.fixedWidthWhitespace";
+
     /**
      * Upper bound on the per-FacesContext formatter cache, kept as an LRU so a view whose converters are all differently configured (e.g. a per-row
      * {@code pattern}) cannot retain an unbounded number of formatters for the request, while a recurring working set stays cached. Normal views use only a
      * handful of configurations.
      */
     private static final int FORMATTER_CACHE_LIMIT = 64;
+
+    /**
+     * The {@link FastNumberFormat} of each configuration seen, or {@link #NO_FAST_FORMATTER} for a configuration it does not cover. Shared by all applications:
+     * a fast formatter is immutable, holds JDK classes only, and is a function of the configuration only, which the formatter key covers entirely. When full,
+     * an arbitrary entry is evicted.
+     */
+    private static final Map<String, Object> FAST_FORMATTERS = new ConcurrentHashMap<>();
+    private static final Object NO_FAST_FORMATTER = new Object();
+    private static final int FAST_FORMATTERS_LIMIT = 1024;
+
+    private FastNumberFormat getFastFormatter(FacesContext context, NumberFormat formatter) {
+        String key = cacheKeys(getLocale(context)).formatter;
+        Object fast = FAST_FORMATTERS.get(key);
+        if (fast == null) {
+            fast = FastNumberFormat.of(formatter);
+            if (fast == null) {
+                fast = NO_FAST_FORMATTER;
+            }
+            if (FAST_FORMATTERS.size() >= FAST_FORMATTERS_LIMIT) {
+                Iterator<String> keys = FAST_FORMATTERS.keySet().iterator();
+                if (keys.hasNext()) {
+                    keys.next();
+                    keys.remove();
+                }
+            }
+            FAST_FORMATTERS.put(key, fast);
+        }
+        return fast == NO_FAST_FORMATTER ? null : (FastNumberFormat) fast;
+    }
 
     /** Bounded, access-ordered (LRU) formatter cache stored per {@link FacesContext}. */
     private static final class FormatterCache extends LinkedHashMap<String, NumberFormat> {
@@ -833,7 +900,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
     private NumberFormat getCachedFormatter(FacesContext context) throws Exception {
         Locale locale = getLocale(context);
         Map<String, NumberFormat> cache = formatterCache(context, FORMATTER_CACHE_KEY);
-        String key = formatterKey(locale);
+        String key = cacheKeys(locale).formatter;
         NumberFormat formatter = cache.get(key);
         if (formatter == null) {
             formatter = getNumberFormat(locale);
@@ -855,13 +922,40 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
      */
     private NumberFormat getCachedBaseParser(FacesContext context, Locale locale) {
         Map<String, NumberFormat> cache = formatterCache(context, PARSER_CACHE_KEY);
-        String key = parserKey(locale);
+        String key = cacheKeys(locale).parser;
         NumberFormat parser = cache.get(key);
         if (parser == null) {
             parser = getNumberFormat(locale);
             cache.put(key, parser);
         }
         return parser;
+    }
+
+    /** Bounded, access-ordered (LRU) cache of whether a configuration's parser has fixed-width whitespace. */
+    private static final class WhitespaceCache extends LinkedHashMap<String, Boolean> {
+
+        private static final long serialVersionUID = 1L;
+
+        WhitespaceCache() {
+            super(16, 0.75f, true);
+        }
+
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<String, Boolean> eldest) {
+            return size() > FORMATTER_CACHE_LIMIT;
+        }
+
+    }
+
+    private static Map<String, Boolean> whitespaceCache(FacesContext context) {
+        Map<Object, Object> attributes = context.getAttributes();
+        @SuppressWarnings("unchecked")
+        Map<String, Boolean> cache = (Map<String, Boolean>) attributes.get(WHITESPACE_CACHE_KEY);
+        if (cache == null) {
+            cache = new WhitespaceCache();
+            attributes.put(WHITESPACE_CACHE_KEY, cache);
+        }
+        return cache;
     }
 
     /** The bounded per-{@link FacesContext} formatter/parser cache stored under {@code cacheKey}, created on first use. */
@@ -876,17 +970,49 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
         return cache;
     }
 
-    /** Key over every property {@link #getNumberFormat} reads to build the base parser. */
-    private String parserKey(Locale locale) {
-        return new StringBuilder(32).append(pattern).append('|').append(type).append('|').append(locale).toString();
+    /**
+     * The cache keys of this converter's configuration for one locale. Immutable, and held in a single field, so that a converter instance shared between
+     * threads always reads the keys of one locale together.
+     */
+    private static final class CacheKeys {
+
+        final Locale locale;
+        /** Key over every property {@link #getNumberFormat} reads to build the base parser. */
+        final String parser;
+        /** Key over every property the symbols and affixes of the configured parser depend on. */
+        final String parserSymbols;
+        /** Key over every property {@link #getCachedFormatter} reads to build the formatter. */
+        final String formatter;
+
+        CacheKeys(Locale locale, String parser, String parserSymbols, String formatter) {
+            this.locale = locale;
+            this.parser = parser;
+            this.parserSymbols = parserSymbols;
+            this.formatter = formatter;
+        }
+
     }
 
-    /** Key over every property {@link #getCachedFormatter} reads to build the formatter. */
-    private String formatterKey(Locale locale) {
-        return new StringBuilder(64).append(pattern).append('|').append(type).append('|').append(locale).append('|')
-            .append(currencyCode).append('|').append(currencySymbol).append('|').append(groupingUsed).append('|')
-            .append(minIntegerDigits).append('|').append(maxIntegerDigits).append('|').append(minFractionDigits)
-            .append('|').append(maxFractionDigits).toString();
+    /** The keys of the current configuration and its last locale. Every property setter and restoreState clears it. */
+    private transient CacheKeys cacheKeys;
+
+    private void clearCacheKeys() {
+        cacheKeys = null;
+    }
+
+    private CacheKeys cacheKeys(Locale locale) {
+        CacheKeys keys = cacheKeys;
+        if (keys == null || !Objects.equals(keys.locale, locale)) {
+            String parser = new StringBuilder(32).append(pattern).append('|').append(type).append('|').append(locale).toString();
+            String parserSymbols = new StringBuilder(parser.length() + 16).append(parser).append('|').append(currencyCode).append('|')
+                .append(currencySymbol).toString();
+            String formatter = new StringBuilder(64).append(parserSymbols).append('|').append(groupingUsed).append('|')
+                .append(minIntegerDigits).append('|').append(maxIntegerDigits).append('|').append(minFractionDigits)
+                .append('|').append(maxFractionDigits).toString();
+            keys = new CacheKeys(locale, parser, parserSymbols, formatter);
+            cacheKeys = keys;
+        }
+        return keys;
     }
 
     private NumberFormat getNumberFormat(Locale locale) {
@@ -969,6 +1095,7 @@ public class NumberConverter implements Converter<Number>, PartialStateHolder {
             locale = (Locale) values[8];
             pattern = (String) values[9];
             type = (String) values[10];
+            clearCacheKeys();
         }
 
     }
