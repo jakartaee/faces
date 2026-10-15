@@ -148,22 +148,17 @@ class FacesWrapperTest {
     /**
      * Collect the wrapper classes.
      */
-    private static void loadWrapperClasses() {
+    private static void loadWrapperClasses() throws Exception {
         wrapperClasses = new ArrayList<>();
         noWrapperClasses = new ArrayList<>();
 
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        try {
-            collectWrapperClasses(
-                classLoader,
-                JAVAX_FACES_PKG,
-                new File(classLoader.getResource("jakarta/faces/Messages.properties").getFile())
-                    .getParentFile()
-            );
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        collectWrapperClasses(
+            classLoader,
+            JAVAX_FACES_PKG,
+            new File(classLoader.getResource("jakarta/faces/Messages.properties").getFile())
+                .getParentFile()
+        );
     }
 
     /**
