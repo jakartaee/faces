@@ -12,9 +12,9 @@
 // no staging-review step. So the build is fully validated in "Build & install" first, and only a
 // clean build ever reaches the "Deploy to Maven Central" stage.
 //
-// Milestone runs (MILESTONE_VERSION set) tag <base>-<suffix> and leave the source branch on its
-// -SNAPSHOT (the branch is never committed to). GA runs tag <version>-RELEASE and advance the
-// source branch to the next -SNAPSHOT.
+// Milestone runs (MILESTONE_TYPE set) tag <base>-<type><next free number> and leave the source
+// branch on its -SNAPSHOT (the branch is never committed to). GA runs tag <version>-RELEASE and
+// advance the source branch to the next -SNAPSHOT.
 //
 
 // JDK install root layout on the faces Jiro: /opt/tools/java/<distro>/jdk-<N>/latest.
@@ -31,6 +31,9 @@ def JDK_VERSION_CHOICES = [''] + JDK_DISTRO_BY_VERSION.keySet().toList()
 def BRANCH_CONFIG = [
     '5.0': [ branch: '5.0', jdk: '17' ],
 ]
+
+// Anonymous HTTPS remote, read for its milestone/RC tags in Prepare (before any SSH agent).
+def FACES_REPO_URL = 'https://github.com/jakartaee/faces.git'
 
 // GPG keyring import + trust. Idempotent. Required wherever the build signs artifacts.
 def GPG_INIT = '''
@@ -64,7 +67,7 @@ pipeline {
 
     parameters {
         choice(name: 'RELEASE_LINE', choices: ['5.0'], description: 'Faces API release line to cut.')
-        string(name: 'MILESTONE_VERSION', defaultValue: '', description: 'Blank for a GA release; otherwise a milestone/RC suffix matching ^(M|RC)[0-9]+$ (e.g. M1, M3, RC1). When set, the release is tagged with the suffix appended (e.g. 5.0.0-M1 instead of 5.0.0-RELEASE), the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
+        choice(name: 'MILESTONE_TYPE', choices: ['', 'M', 'RC'], description: 'Blank for a GA release; otherwise M for a milestone or RC for a release candidate. The number is picked automatically: one above the highest existing <base>-<type>N tag on origin (e.g. M11 when 5.0.0-M10 exists). M is refused once an RC of the same base exists. When set, the release is tagged with that suffix appended (e.g. 5.0.0-M11 instead of 5.0.0-RELEASE), the source branch is left on its -SNAPSHOT, and the next-snapshot bump is skipped.')
         choice(name: 'JDK', choices: JDK_VERSION_CHOICES, description: 'Leave blank to auto-infer from RELEASE_LINE (17 for 5.0).')
         booleanParam(name: 'DRY_RUN', defaultValue: true, description: 'Skip Maven Central deploy and GitHub push.')
         booleanParam(name: 'SKIP_DEPLOY', defaultValue: false, description: 'Requires DRY_RUN unchecked. Skip only the Maven Central deploy (still tags and pushes). For resuming after Central already published.')
@@ -129,13 +132,9 @@ pipeline {
                     env.SNAPSHOT_VERSION = snapshot
                     def baseVersion = snapshot.replace('-SNAPSHOT', '')
 
-                    def milestoneSuffix = params.MILESTONE_VERSION?.trim()
-                    if (milestoneSuffix) {
-                        if (!(milestoneSuffix ==~ /^(M|RC)\d+$/)) {
-                            error "MILESTONE_VERSION '${milestoneSuffix}' must match ^(M|RC)[0-9]+\$ (e.g. M1, M3, RC1)."
-                        }
+                    if (params.MILESTONE_TYPE) {
                         env.IS_MILESTONE    = 'true'
-                        env.RELEASE_VERSION = "${baseVersion}-${milestoneSuffix}"
+                        env.RELEASE_VERSION = "${baseVersion}-" + nextMilestoneSuffix(FACES_REPO_URL, "${baseVersion}-", params.MILESTONE_TYPE)
                         env.RELEASE_TAG     = env.RELEASE_VERSION
                         env.RELEASE_BRANCH  = env.RELEASE_VERSION
                     } else {
@@ -318,6 +317,25 @@ def bumpLastComponent(String version) {
     def parts = version.tokenize('.')
     parts[-1] = (parts[-1].toInteger() + 1).toString()
     return parts.join('.')
+}
+
+// Highest N among the tags on repoUrl named exactly <tagPrefix>N, or 0 when there is none.
+def highestTagNumber(String repoUrl, String tagPrefix) {
+    return sh(returnStdout: true, script: """#!/bin/bash -e
+        set -o pipefail
+        git ls-remote --tags --refs '${repoUrl}' | awk -v p='refs/tags/${tagPrefix}' '
+            index(\$2, p) == 1 { n = substr(\$2, length(p) + 1); if (n ~ /^[0-9]+\$/ && n + 0 > max) max = n + 0 }
+            END { print max + 0 }'
+    """).trim().toInteger()
+}
+
+// Next free suffix of the given type (M or RC) for tagPrefix on repoUrl, e.g. M11 when
+// <tagPrefix>M10 is the highest existing tag. Refuses M once an RC exists for the same prefix.
+def nextMilestoneSuffix(String repoUrl, String tagPrefix, String type) {
+    if (type == 'M' && highestTagNumber(repoUrl, "${tagPrefix}RC") > 0) {
+        error "${tagPrefix}RC* already exists on ${repoUrl}; a milestone cannot follow a release candidate. Use MILESTONE_TYPE=RC."
+    }
+    return type + (highestTagNumber(repoUrl, tagPrefix + type) + 1)
 }
 
 // Validate that `version` is a dotted-numeric GA version with >= 3 components (rejects -M/-RC and
