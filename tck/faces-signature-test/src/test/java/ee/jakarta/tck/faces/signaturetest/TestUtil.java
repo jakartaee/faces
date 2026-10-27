@@ -17,10 +17,12 @@
 
 package ee.jakarta.tck.faces.signaturetest;
 
-import java.io.*;
-import java.net.*;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.Properties;
 
 /**
  * TestUtil is a final utility class responsible for implementing logging across multiple VMs. It also contains many convenience methods for logging property
