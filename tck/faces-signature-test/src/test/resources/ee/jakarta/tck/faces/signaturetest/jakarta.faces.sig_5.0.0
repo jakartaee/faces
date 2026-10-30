@@ -1563,6 +1563,7 @@ fld public final static java.lang.String COMPONENT_TYPE = "jakarta.faces.ViewRoo
 fld public final static java.lang.String METADATA_FACET_NAME = "jakarta_faces_metadata"
 fld public final static java.lang.String UNIQUE_ID_PREFIX = "j_id"
 fld public final static java.lang.String VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS_PARAM_NAME = "jakarta.faces.VIEWROOT_PHASE_LISTENER_QUEUES_EXCEPTIONS"
+fld public final static java.lang.String VIEW_MAP_NAME = "jakarta.faces.VIEW_MAP"
 fld public final static java.lang.String VIEW_PARAMETERS_KEY = "jakarta.faces.component.VIEW_PARAMETERS_KEY"
 intf jakarta.faces.component.UniqueIdVendor
 meth public !varargs void resetValues(jakarta.faces.context.FacesContext,java.util.Collection<java.lang.String>,boolean,jakarta.faces.component.visit.VisitHint[])
@@ -1616,8 +1617,8 @@ meth public void setViewId(java.lang.String)
 meth public void subscribeToViewEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.SystemEventListener)
 meth public void unsubscribeFromViewEvent(java.lang.Class<? extends jakarta.faces.event.SystemEvent>,jakarta.faces.event.SystemEventListener)
 supr jakarta.faces.component.UIComponentBase
-hfds ACTIVE_VIEW_MAPS_KEY,LOCATION_IDENTIFIER_MAP,LOCATION_IDENTIFIER_PREFIX,LOGGER,VIEW_MAP_ID_KEY,beforeMethodException,doctype,events,lifecycle,phaseListenerIterator,skipPhase,values,viewListeners,viewMap,viewScopeStateRestored
-hcls DoResetValues,PropertyKeys,ViewMap
+hfds LOCATION_IDENTIFIER_MAP,LOCATION_IDENTIFIER_PREFIX,LOGGER,beforeMethodException,doctype,events,lifecycle,phaseListenerIterator,skipPhase,values,viewListeners,viewMap,viewScopeStateRestored
+hcls DoResetValues,PropertyKeys
 
 CLSS public jakarta.faces.component.UIWebsocket
 cons public init()
