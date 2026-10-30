@@ -39,6 +39,9 @@ New: DateTimeConverter support for java.time Instant, Year, YearMonth and MonthD
 * Issue ID {issue_tracker_url}2206[2206] +
 Spec: require ui:repeat to save and restore per-row state of EditableValueHolder children, and align the rowStatePreserved attribute of ui:repeat and h:dataTable with UIData
 
+* Issue ID {issue_tracker_url}2184[2184] +
+Spec: specify the CDI bean through which components obtain the collection of _@FacesDataModel_ DataModels: _FacesDataModel.DATA_MODEL_CLASSES_MAP_NAME_
+
 * Issue ID {issue_tracker_url}2173[2173] +
 Change: generalize Render Response resource push to allow modern mechanisms such as HTTP 103 Early Hints
 
