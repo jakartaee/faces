@@ -276,8 +276,9 @@ supports _javax.sql.RowSet_)
 - java.util.Map (uses the wrapper for
 java.lang.Iterable by providing access to java.util.Map#entrySet())
 
-- Any other Java object is wrapped by a
-_DataModel_ instance with a single row.
+- Any other Java object is wrapped by the
+_DataModel_ returned by _Application.createDataModel()_, if that is not
+_null_, or else by a _DataModel_ instance with a single row.
 
 Convenience implementations of _DataModel_
 are provided in the _jakarta.faces.model_ package for each of the above

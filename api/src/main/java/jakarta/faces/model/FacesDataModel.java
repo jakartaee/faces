@@ -25,7 +25,9 @@ import java.lang.annotation.Target;
 import java.util.Set;
 
 import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.faces.application.Application;
 import jakarta.faces.component.UIData;
+import jakarta.faces.context.FacesContext;
 import jakarta.inject.Qualifier;
 
 /**
@@ -38,6 +40,7 @@ import jakarta.inject.Qualifier;
  * The runtime must maintain a collection of these {@link DataModel}s such that {@link UIData} and other components defined by the Jakarta Faces Specification
  * can query the runtime for a suitable {@link DataModel} wrapper (adapter) for the type of their <code>value</code>. This has to be done after all wrappers for
  * specific types such as {@link Set} are tried, but before the {@link ScalarDataModel} is selected as the wrapper. See {@link UIData#getValue()}.
+ * <span class="changed_added_5_0">This query is {@link Application#createDataModel(FacesContext, Object)}.</span>
  *
  * <p>
  * This query must work as follows:
@@ -74,28 +77,13 @@ import jakarta.inject.Qualifier;
  * <p>
  * The only requirement here is that <code>A</code> appears before <code>B</code>, since <code>A</code> is a subclass of <code>B</code>.
  *
- * <p>
- * The specification does not define a public method to obtain an instance of the "most specific DataModel for a given type". Such an instance can be obtained
- * using code similar to the following.
+ * <p class="changed_added_5_0">
+ * The runtime does not have to store the collection in this order. It may use any other mechanism, provided that the query returns a DataModel which the
+ * procedure above returns for some permitted order.
+ *
+ * <p class="changed_modified_5_0">
+ * An instance of the "most specific DataModel for a given type" can be obtained using {@link Application#createDataModel(FacesContext, Object)}.
  * </p>
- *
- * <pre>
- * <code>
- *   &#64;SuppressWarnings("unchecked")
- *   public &lt;T&gt; DataModel&lt;T&gt; createDataModel(Class&lt;T&gt; forClass, Object value) {
- *       class LocalUIData extends UIData {
- *           &#64;Override
- *           public DataModel&lt;?&gt; getDataModel() {
- *               return super.getDataModel();
- *           }
- *       }
- *       LocalUIData localUIData = new LocalUIData();
- *       localUIData.setValue(value);
- *
- *       return (DataModel&lt;T&gt;) localUIData.getDataModel();
- *   }
- * </code>
- * </pre>
  *
  * <p>
  * For example:
@@ -162,7 +150,8 @@ import jakarta.inject.Qualifier;
  *
  * <pre>
  * <code>
- * DataModel&lt;Child1&gt; myModel = createDataModel(Child1.class, new Child1());
+ * FacesContext context = FacesContext.getCurrentInstance();
+ * DataModel&lt;Child1&gt; myModel = context.getApplication().createDataModel(context, new Child1());
  * assert myModel instanceof Child1Model;
  * System.out.println(myModel.getClass());
  * </code>

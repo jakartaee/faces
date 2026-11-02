@@ -32,6 +32,7 @@ import jakarta.el.ValueExpression;
 import jakarta.faces.FacesException;
 import jakarta.faces.annotation.View;
 import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIData;
 import jakarta.faces.component.UIViewRoot;
 import jakarta.faces.component.behavior.Behavior;
 import jakarta.faces.component.search.SearchExpressionHandler;
@@ -42,6 +43,8 @@ import jakarta.faces.event.ActionListener;
 import jakarta.faces.event.SystemEvent;
 import jakarta.faces.event.SystemEventListener;
 import jakarta.faces.flow.FlowHandler;
+import jakarta.faces.model.DataModel;
+import jakarta.faces.model.FacesDataModel;
 import jakarta.faces.validator.Validator;
 import jakarta.faces.view.ViewDeclarationLanguage;
 
@@ -570,6 +573,34 @@ public abstract class Application {
         }
 
         return Collections.<String>emptyList().iterator();
+    }
+
+    /**
+     * <p class="changed_added_5_0">
+     * Return an instance of the most specific {@link DataModel} that is registered with {@link FacesDataModel} and can wrap the given value, with the given
+     * value set as its wrapped data. Return <code>null</code> when no registered {@link DataModel} can wrap the given value. The most specific
+     * {@link DataModel} is defined in {@link FacesDataModel}. {@link UIData} and the other components defined by the Jakarta Faces Specification that adapt
+     * their value into a {@link DataModel} must obtain the registered {@link DataModel} from this method.
+     * </p>
+     *
+     * <p>
+     * A default implementation is provided that throws <code>UnsupportedOperationException</code> so that users that decorate <code>Application</code> can
+     * continue to function.
+     * </p>
+     *
+     * @param <T> the type of the row data of the returned {@link DataModel}
+     * @param context the {@link FacesContext} for the current request
+     * @param value the value to wrap
+     * @return the most specific registered {@link DataModel} wrapping the given value, or <code>null</code> when none can wrap it
+     * @throws NullPointerException if <code>context</code> or <code>value</code> is <code>null</code>
+     * @since 5.0
+     */
+    public <T> DataModel<T> createDataModel(FacesContext context, Object value) {
+        if (defaultApplication != null) {
+            return defaultApplication.createDataModel(context, value);
+        }
+
+        throw new UnsupportedOperationException();
     }
 
     /**

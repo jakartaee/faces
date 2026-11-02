@@ -314,6 +314,7 @@ hfds serialVersionUID
 
 CLSS public abstract jakarta.faces.application.Application
 cons public init()
+meth public <%0 extends java.lang.Object> jakarta.faces.model.DataModel<{%%0}> createDataModel(jakarta.faces.context.FacesContext,java.lang.Object)
 meth public <%0 extends java.lang.Object> {%%0} evaluateExpressionGet(jakarta.faces.context.FacesContext,java.lang.String,java.lang.Class<? extends {%%0}>)
 meth public abstract <%0 extends java.lang.Object> jakarta.faces.convert.Converter<{%%0}> createConverter(java.lang.Class<{%%0}>)
 meth public abstract <%0 extends java.lang.Object> jakarta.faces.convert.Converter<{%%0}> createConverter(java.lang.String)
@@ -400,6 +401,7 @@ cons public init(jakarta.faces.application.Application)
 intf jakarta.faces.FacesWrapper<jakarta.faces.application.Application>
 meth public <%0 extends java.lang.Object> jakarta.faces.convert.Converter<{%%0}> createConverter(java.lang.Class<{%%0}>)
 meth public <%0 extends java.lang.Object> jakarta.faces.convert.Converter<{%%0}> createConverter(java.lang.String)
+meth public <%0 extends java.lang.Object> jakarta.faces.model.DataModel<{%%0}> createDataModel(jakarta.faces.context.FacesContext,java.lang.Object)
 meth public <%0 extends java.lang.Object> jakarta.faces.validator.Validator<{%%0}> createValidator(java.lang.String)
 meth public <%0 extends java.lang.Object> {%%0} evaluateExpressionGet(jakarta.faces.context.FacesContext,java.lang.String,java.lang.Class<? extends {%%0}>)
 meth public jakarta.el.ELContextListener[] getELContextListeners()
@@ -1189,8 +1191,8 @@ meth public void setValue(java.lang.Object)
 meth public void setValueExpression(java.lang.String,jakarta.el.ValueExpression)
 meth public void setVar(java.lang.String)
 supr jakarta.faces.component.UIComponentBase
-hfds DATA_MODEL_CLASSES_MAP_BEAN_NAME,EMPTY_DATA_MODEL,_initialDescendantFullComponentState,_rowDeltaStates,_rowTransientStates,baseClientId,baseClientIdLength,childState,clientIdBuilder,isNested,iterationResetList,iterationStatefulList,model,oldVar,rowIndex
-hcls FacesDataModelAnnotationLiteral,PropertyKeys
+hfds EMPTY_DATA_MODEL,_initialDescendantFullComponentState,_rowDeltaStates,_rowTransientStates,baseClientId,baseClientIdLength,childState,clientIdBuilder,isNested,iterationResetList,iterationStatefulList,model,oldVar,rowIndex
+hcls PropertyKeys
 
 CLSS public jakarta.faces.component.UIForm
 cons public init()
