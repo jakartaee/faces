@@ -1,0 +1,57 @@
+<!--
+
+    Copyright (c) 2026 Contributors to the Eclipse Foundation.
+
+    This program and the accompanying materials are made available under the
+    terms of the Eclipse Public License v. 2.0, which is available at
+    http://www.eclipse.org/legal/epl-2.0.
+
+    This Source Code may also be made available under the following Secondary
+    Licenses when the conditions for such availability set forth in the
+    Eclipse Public License v. 2.0 are satisfied: GNU General Public License,
+    version 2 with the GNU Classpath Exception, which is available at
+    https://www.gnu.org/software/classpath/license.html.
+
+    SPDX-License-Identifier: EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0
+
+-->
+
+<!DOCTYPE html>
+<html xmlns:c="jakarta.tags.core"
+      xmlns:f="jakarta.faces.core"
+      xmlns:h="jakarta.faces.html">
+
+    <h:head>
+        <title>Spec2243</title>
+    </h:head>
+
+    <h:body>
+        <h:outputScript name="spec2243-body.js" target="body" />
+        <h:outputScript target="head">window.spec2243PageCount = (window.spec2243PageCount || 0) + 1;</h:outputScript>
+
+        <h:form id="form">
+            <h:commandButton id="show" value="show" action="#{spec2243Bean.show}">
+                <f:ajax render="@form" />
+            </h:commandButton>
+            <h:commandButton id="refresh" value="refresh">
+                <f:ajax render="@form" />
+            </h:commandButton>
+            <h:commandButton id="navigate" value="navigate" action="spec2243">
+                <f:ajax render="@form" />
+            </h:commandButton>
+            <h:commandButton id="showWithBookmarkableURL" value="showWithBookmarkableURL" action="#{spec2243Bean.showWithBookmarkableURL}">
+                <f:ajax render="@form" />
+            </h:commandButton>
+
+            <c:if test="#{spec2243Bean.shown}">
+                <h:outputScript target="head">window.spec2243InlineCount = (window.spec2243InlineCount || 0) + 1;</h:outputScript>
+                <h:outputScript name="spec2243-named.js" target="head" />
+                <h:outputStylesheet name="spec2243.css?v=1" />
+                <h:outputStylesheet>#inlineStyled { color: rgb(0, 128, 0); }</h:outputStylesheet>
+            </c:if>
+
+            <span id="styled">styled</span>
+            <span id="inlineStyled">inlineStyled</span>
+        </h:form>
+    </h:body>
+</html>
