@@ -598,6 +598,9 @@ declare namespace faces {
          * &lt;/update&gt;</code></pre>
          * append any element found in the <code>CDATA</code> contents which is absent in the document to the
          * document's <code>head</code> section.
+         * <span class="changed_added_5_0">An element without a <code>src</code> or <code>href</code>
+         * attribute, such as an inline <code>script</code> or <code>style</code> element, is always
+         * considered absent, and is therefore always appended.</span>
          * </li>
          * <li>If an <code>update</code> element is found in the response with the identifier
          * <code>jakarta.faces.ViewHead</code>:

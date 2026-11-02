@@ -269,10 +269,19 @@ public abstract class PartialViewContext {
      * <ol>
      * <li>If {@link #isResetValues()} returns <code>true</code>, then call
      * {@link UIViewRoot#resetValues(FacesContext, Collection, jakarta.faces.component.visit.VisitHint...)}, passing {@link #getRenderIds()}.</li>
-     * <li>If {@link #isRenderAll()} returns <code>false</code>, then render any component resource of {@link UIViewRoot} whose
-     * {@link ResourceHandler#getRendererTypeForResourceName(String)} does not return <code>null</code>, and whose {@link UIComponent#getChildCount()} is zero,
-     * and whose {@link ResourceHandler#isResourceRendered(FacesContext, String, String)} returns <code>false</code>, in an <code>update</code> element with an
-     * identifier of <code>jakarta.faces.Resource</code>.</li>
+     * <li><span class="changed_modified_5_0">If {@link #isRenderAll()} returns <code>false</code>, then render the following component resources of
+     * {@link UIViewRoot} in an <code>update</code> element with an identifier of <code>jakarta.faces.Resource</code>:</span>
+     * <ul class="changed_added_5_0">
+     * <li>any component resource whose <code>name</code> entry in {@link UIComponent#getAttributes()} is not <code>null</code>, whose
+     * {@link UIComponent#getRendererType()} is not <code>null</code>, whose {@link UIComponent#getChildCount()} is zero, and whose
+     * {@link ResourceHandler#isResourceRendered(FacesContext, String, String)} returns <code>false</code>;</li>
+     * <li>any component resource whose <code>name</code> entry in {@link UIComponent#getAttributes()} is <code>null</code>, and which was added to the view
+     * during the current request. A component resource was added during the current request when it was not among the component resources of any target of
+     * {@link UIViewRoot} at the end of the <em>Restore View</em> phase. {@link ResourceHandler#isResourceRendered(FacesContext, String, String)} does not apply
+     * to it, because it has no name. When {@link FacesContext#isPostback()} returns <code>false</code>, the <em>Restore View</em> phase did not restore a view,
+     * and no such component resource is rendered.</li>
+     * </ul>
+     * </li>
      * <li>Process the components.</li>
      * <li>Obtain the state by calling {@link StateManager#getViewState} and write it out as an <code>update</code> element with an identifier of
      * <code>&lt;VIEW_ROOT_CONTAINER_CLIENT_ID&gt;&lt;SEP&gt;jakarta.faces.ViewState</code> where <code>&lt;VIEW_ROOT_CONTAINER_CLIENT_ID&gt;</code> is the
