@@ -12,6 +12,9 @@ pre-Jakarta Faces specification under the JCP.
 
 This release contains the following backwards compatible changes:
 
+* Issue ID {issue_tracker_url}2243[2243] +
+Spec: render into _jakarta.faces.Resource_ only the component resources added during the current request, select the named ones by their component renderer type instead of the renderer type derived from their resource name, and also render the nameless ones
+
 * Issue ID {issue_tracker_url}2242[2242] +
 Spec: allow a resource name to carry a query string, and specify how it is removed from the resource identifier and appended to the resource URL
 
@@ -184,10 +187,6 @@ Spec: clarify h:message(s) rendering when no messages
 ==== Backward Compatibility with Previous Versions
 
 This release contains the following backwards incompatible changes:
-
-* Issue ID {issue_tracker_url}2243[2243] +
-Change: render into _jakarta.faces.Resource_ only the component resources added during the current request, select the named ones by their component renderer type instead of the renderer type derived from their resource name, and also render the nameless ones. +
-A named component resource which is in the view since an earlier request, but was not rendered then, for example because its _rendered_ attribute was _false_, is no longer delivered by a later ajax request.
 
 * Issue ID {issue_tracker_url}2226[2226] +
 Removal: ActionSource2, ActionSource2AttachedObjectHandler and ActionSource2AttachedObjectTarget deprecated since 4.1
