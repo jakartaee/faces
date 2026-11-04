@@ -18,6 +18,7 @@ package ee.jakarta.tck.faces.faces50.ajax;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
@@ -36,8 +37,14 @@ class Spec2243IT extends BaseITNG {
     private static final String NAMED_COUNT = "return window.spec2243NamedCount";
     private static final String BODY_COUNT = "return window.spec2243BodyCount";
     private static final String PAGE_COUNT = "return window.spec2243PageCount";
+    private static final String PENDING_SCRIPT_LOADS = "return window.spec2243PendingScriptLoads || 0";
     private static final String RECORD_RESOURCE_UPDATES = "faces.ajax.addOnEvent(function(data) { if (data.status === 'success') {"
         + " window.spec2243ResourceUpdate = !!data.responseXML.querySelector('update[id=\"jakarta.faces.Resource\"]'); } });";
+    private static final String TRACK_PENDING_SCRIPT_LOADS = "window.spec2243PendingScriptLoads = 0;"
+        + " new MutationObserver(function(records) { records.forEach(function(record) { record.addedNodes.forEach(function(node) {"
+        + " if (node.tagName === 'SCRIPT' && node.src.indexOf('spec2243') >= 0) { window.spec2243PendingScriptLoads++;"
+        + " var done = function() { window.spec2243PendingScriptLoads--; }; node.addEventListener('load', done); node.addEventListener('error', done); }"
+        + " }); }); }).observe(document, { childList: true, subtree: true });";
 
     @FindBy(id = "form:show")
     private WebElement show;
@@ -50,6 +57,9 @@ class Spec2243IT extends BaseITNG {
 
     @FindBy(id = "form:showWithBookmarkableURL")
     private WebElement showWithBookmarkableURL;
+
+    @FindBy(id = "form:bookmarkableURL")
+    private WebElement bookmarkableURL;
 
     /**
      * An inline script which is added during an ajax request runs once, and not again on the next ajax request.
@@ -118,6 +128,7 @@ class Spec2243IT extends BaseITNG {
         assertNull(page.executeScript(INLINE_COUNT));
 
         page.guardAjax(showWithBookmarkableURL::click);
+        assertTrue(bookmarkableURL.getText().contains("param=spec2243"), bookmarkableURL.getText());
         assertCount(page, INLINE_COUNT, 1);
     }
 
@@ -138,41 +149,49 @@ class Spec2243IT extends BaseITNG {
     }
 
     /**
-     * A named stylesheet whose name carries a query string, which is added during an ajax request, applies.
+     * A named stylesheet whose name carries a query string, which is added during an ajax request, applies, and is not rendered again on the next ajax
+     * request.
      *
      * @see jakarta.faces.context.PartialViewContext#processPartial(jakarta.faces.event.PhaseId)
      * @see https://github.com/jakartaee/faces/issues/2243
      * @see https://github.com/jakartaee/faces/issues/2242
      */
     @Test
-    void namedStylesheetWithQueryStringAddedDuringAjaxApplies() {
-        WebPage page = getPage("spec2243.xhtml");
+    void namedStylesheetWithQueryStringAddedDuringAjaxAppliesOnce() {
+        WebPage page = getPageRecordingResourceUpdates();
 
         page.guardAjax(show::click);
         page.waitForCondition(driver -> "rgb(0, 0, 255)".equals(color(page, "styled")));
+
+        page.guardAjax(refresh::click);
+        assertNoResourceUpdate(page);
     }
 
     /**
-     * An inline stylesheet which is added during an ajax request applies.
+     * An inline stylesheet which is added during an ajax request applies, and is not rendered again on the next ajax request.
      *
      * @see jakarta.faces.context.PartialViewContext#processPartial(jakarta.faces.event.PhaseId)
      * @see https://github.com/jakartaee/faces/issues/2243
      */
     @Test
-    void inlineStylesheetAddedDuringAjaxApplies() {
-        WebPage page = getPage("spec2243.xhtml");
+    void inlineStylesheetAddedDuringAjaxAppliesOnce() {
+        WebPage page = getPageRecordingResourceUpdates();
 
         page.guardAjax(show::click);
         page.waitForCondition(driver -> "rgb(0, 128, 0)".equals(color(page, "inlineStyled")));
+
+        page.guardAjax(refresh::click);
+        assertNoResourceUpdate(page);
     }
 
     /**
-     * Opens the page, and records for each successful ajax response whether it has an <code>update</code> element with an identifier of
-     * <code>jakarta.faces.Resource</code>.
+     * Opens the page, records for each successful ajax response whether it has an <code>update</code> element with an identifier of
+     * <code>jakarta.faces.Resource</code>, and tracks the number of external scripts which are added to the document and not loaded yet.
      */
     private WebPage getPageRecordingResourceUpdates() {
         WebPage page = getPage("spec2243.xhtml");
         page.executeScript(RECORD_RESOURCE_UPDATES);
+        page.executeScript(TRACK_PENDING_SCRIPT_LOADS);
         return page;
     }
 
@@ -180,8 +199,11 @@ class Spec2243IT extends BaseITNG {
         assertEquals(Boolean.FALSE, page.executeScript("return window.spec2243ResourceUpdate"));
     }
 
+    /**
+     * Asserts the count once every external script which was added to the document has loaded, so that a script which is loaded twice is counted twice.
+     */
     private static void assertCount(WebPage page, String script, long expected) {
-        page.waitForCondition(driver -> page.executeScript(script) != null);
+        page.waitForCondition(driver -> page.executeScript(script) != null && ((Number) page.executeScript(PENDING_SCRIPT_LOADS)).longValue() == 0);
         assertEquals(expected, ((Number) page.executeScript(script)).longValue());
     }
 

@@ -37,16 +37,24 @@ public class Spec2243Bean implements Serializable {
 
     private String param;
 
+    private String bookmarkableURL;
+
     public void show() {
         shown = true;
     }
 
     /**
-     * Shows, and obtains a bookmarkable URL with the view parameters of another view, which makes the implementation inspect the metadata of that view.
+     * Shows, and obtains a bookmarkable URL with the view parameters of another view. The view parameter value can only end up in the URL when the
+     * implementation inspects the metadata of that view.
      */
     public void showWithBookmarkableURL() {
         shown = true;
-        context.getApplication().getViewHandler().getBookmarkableURL(context, "/spec2243-metadata.xhtml", Map.of(), true);
+        param = "spec2243";
+        bookmarkableURL = context.getApplication().getViewHandler().getBookmarkableURL(context, "/spec2243-metadata.xhtml", Map.of(), true);
+    }
+
+    public String getBookmarkableURL() {
+        return bookmarkableURL;
     }
 
     public String getParam() {
